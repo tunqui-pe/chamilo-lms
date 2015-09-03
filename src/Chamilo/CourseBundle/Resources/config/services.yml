@@ -61,6 +61,7 @@ services:
             - @chamilo_course.repository.parameter
             - @doctrine_cache.providers.chamilo_settings
             - @validator
+            - @event_dispatcher
 
     # Course tool container
     chamilo_course.tool_chain:
