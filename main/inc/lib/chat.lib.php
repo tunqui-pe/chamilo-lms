@@ -244,6 +244,26 @@ class Chat extends Model
         $text = str_replace("\n", "<br>", $text);
         return $text;
     }
+    
+    public static function  set_disable_chat($status)
+    {
+            $_SESSION['disable_chat'] = $status;
+    }
+    
+    public function disable_chat()
+    {
+         if (isset($_SESSION['disable_chat'])) {
+             if (!empty($_SESSION['disable_chat'])){
+                 $status = $_SESSION['disable_chat'];
+                 if ($status == true){
+                     $_SESSION['disable_chat'] = null;
+                     return true;
+                 }
+             }
+         }
+         
+         return false;
+    }
 
     public function is_chat_blocked_by_exercises()
     {
