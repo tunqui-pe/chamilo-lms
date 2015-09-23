@@ -1123,7 +1123,8 @@ class SocialManager extends UserManager
 
         //Just in case we replace the and \n and \n\r while saving in the DB
         $messageContent = str_replace(array("\n", "\n\r"), '<br />', $messageContent);
-        $cleanMessageContent = Database::escape_string($messageContent);
+        //commenting this line avoid the scape_string to insert correctly HTML content in Database
+        //$cleanMessageContent = Database::escape_string($messageContent);
 
         $attributes = array(
             'user_sender_id' => $userId,
@@ -1131,7 +1132,7 @@ class SocialManager extends UserManager
             'msg_status' => $messageStatus,
             'send_date' => api_get_utc_datetime(),
             'title' => '',
-            'content' => $cleanMessageContent,
+            'content' => $messageContent,
             'parent_id' => $messageId
         );
         return Database::insert($tblMessage, $attributes);
@@ -1429,7 +1430,7 @@ class SocialManager extends UserManager
         $html .= '<div class="img-post">';
         $html .= $wallImage;
         $html .= '</div>';
-        $html .= '<p>'. Security::remove_XSS(self::readContentWithOpenGraph($message['content'])).'</p>';
+        $html .= '<p>'. Security::remove_XSS($message['content']).'</p>';
         $html .= '</div>';
         $html .= '</div>'; // end mediaPost
 
@@ -1438,23 +1439,20 @@ class SocialManager extends UserManager
 
     /**
      * Get schedule html (with data openGrap)
-     * @param   string  $text       Content text
-     * @return  string  $newText    Content text with OpenGraph
+     * @param   string  $text           Content text
+     * @return  string  $newText        Content text with OpenGraph
+     * 
      */
     public static function readContentWithOpenGraph($text)
     {
         // search link in first line
         $regExUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
         $newText = '';
-        $count = 0;
         if(preg_match($regExUrl, $text, $url)) {
             // make the urls hyper links
             $newText .= preg_replace($regExUrl, "<a target=\"_blank\" href=" . $url[0] . ">".$url[0]."</a> ", $text);
-            if ($count == 0) {
                 // Comment this line to disable OpenGraph
-                //$newText .= self::getHtmlByLink($url[0]);
-            }
-            $count++;
+                $newText .= self::getHtmlByLink($url[0]);
         } else {
             $newText .= $text;
         }
@@ -1470,14 +1468,52 @@ class SocialManager extends UserManager
     public static function getHtmlByLink($link)
     {
         $graph = OpenGraph::fetch($link);
+        $url = $graph->url;
+        $image = $graph->image;
+        $domain = empty($url) ? parse_url($link) : parse_url($url);
+        $domain = $domain['scheme'].'://'.$domain['host'];
+        // Trick to verify if the Image Url Exist because of some bad metatag dev
+        if (self::verifyUrl($image) == false){
+            if (!($image[0] == '/')){
+                    $domain = $domain . '/';
+                }
+                $image = $domain . $image;
+        }
         $title = $graph->title;
-        $html = '<div>';
+        $html = '<div class="thumbnail">';
         $html .= '<a target="_blank" href="'.$link.'"><h3>'.$title.'</h3>';
-        $html .= empty($graph->image) ? '' : '<img alt="" src="'.$graph->image.'" height="160" ></a>';
+        $html .= empty($image) ? '' : '<img alt="" src="'.$image.'" height="160" ></a>';
         $html .= empty($graph->description) ? '' : '<div>'.$graph->description.'</div>';
         $html .= "</div>";
 
         return $html;
+    }
+    
+    /**
+     * verify if Url Exist - Using Curl
+     * @param $URI url
+     * @return boolean
+     */
+    public static function verifyUrl($URI) {
+        $curl = curl_init($URI);
+
+        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        if (!empty($response)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -1714,9 +1750,17 @@ class SocialManager extends UserManager
             null,
             array('enctype' => 'multipart/form-data')
         );
-
-        $form->addTextarea('social_wall_new_msg_main', null, array('placeholder' => get_lang('SocialWallWhatAreYouThinkingAbout')));
+        $form->addTextarea(
+            'social_wall_new_msg_main',
+            null,
+            [
+                'placeholder' => get_lang('SocialWallWhatAreYouThinkingAbout'),
+                'style' => 'width : 100%'
+            ]
+            );
+        $form->addHtml('<div class="form-group "><div class="url_preview col-md-9 panel-body"></div></div>');
         $form->addButtonSend(get_lang('Post'));
+        $form->addHidden('url_content','');
         $html = Display::panel($form->returnForm(), get_lang('SocialWall'));
 
         return $html;
