@@ -3,6 +3,7 @@
 
 require_once '../../global.inc.php';
 
-Chat::set_disable_chat(true);
+Chat::setDisableChat();
+var_dump($_SESSION['disable_chat']);
 $template = new Template();
 $template->display('default/javascript/editor/ckeditor/elfinder.tpl');

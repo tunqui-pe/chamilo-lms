@@ -245,22 +245,29 @@ class Chat extends Model
         return $text;
     }
     
-    public static function  set_disable_chat($status)
+    /**
+     * SET Disable Chat
+     * @param boolean status to disable chat
+     * @return void
+     */
+    public static function setDisableChat($status = true)
     {
-            $_SESSION['disable_chat'] = $status;
+        $_SESSION['disable_chat'] = $status;
     }
     
-    public function disable_chat()
+    /**
+     * Disable Chat - disable the chat
+     * @return boolean - return true if setDisableChat status is true
+     */
+    public static function disableChat()
     {
-         if (isset($_SESSION['disable_chat'])) {
-             if (!empty($_SESSION['disable_chat'])){
-                 $status = $_SESSION['disable_chat'];
-                 if ($status == true){
-                     $_SESSION['disable_chat'] = null;
-                     return true;
-                 }
-             }
-         }
+        if (!empty($_SESSION['disable_chat'])){
+            $status = $_SESSION['disable_chat'];
+            if ($status == true){
+                $_SESSION['disable_chat'] = null;
+                return true;
+            }
+        }
          
          return false;
     }

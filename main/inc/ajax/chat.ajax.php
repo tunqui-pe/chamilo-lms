@@ -47,7 +47,7 @@ if (!isset($_SESSION['openChatBoxes'])) {
 
 $chat = new Chat();
 
-if ($chat->disable_chat()){
+if (chat::disableChat()){
     exit;
 }
 
