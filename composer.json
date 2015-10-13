@@ -161,7 +161,6 @@
         "egeloen/ckeditor-bundle": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "~1.5",
         "alchemy/zippy": "^0.2.1"
-
     },
     "require-dev": {
         "akeneo/crowdin-api": "1.0.*@dev",
@@ -170,7 +169,7 @@
         "jns/xhprof-bundle": "1.0.*@dev",
         "facebook/xhprof": "dev-master@dev",
         "behat/behat": "~3.0",
-        "behat/symfony2-extension": "2.0.x-dev",
+        "behat/symfony2-extension": "~2.0",
         "behat/mink-extension": "~2.0",
         "behat/mink-browserkit-driver": "~1.2",
         "behat/mink-selenium2-driver": "~1.2",
