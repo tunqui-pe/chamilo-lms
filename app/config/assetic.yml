@@ -154,9 +154,9 @@ assetic:
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
                 - bundles/chamilotheme/components/select2/dist/js/select2.js
-                - %kernel.root_dir%/../web/bundles/sonataadmin/jquery/jquery.form.js
+#                - %kernel.root_dir%/../web/bundles/sonataadmin/jquery/jquery.form.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/jquery/jquery.confirmExit.js
-                - %kernel.root_dir%/../web/bundles/sonataadmin/App.js
+#                - %kernel.root_dir%/../web/bundles/sonataadmin/App.js
 #                - %kernel.root_dir%/../web/bundles/sonataadmin/treeview.js
 #                - %kernel.root_dir%/../web/bundles/sonatapage/sonata-page.back.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/Admin.js
@@ -168,7 +168,7 @@ assetic:
                 - bundles/chamilotheme/components/bootstrap/dist/css/bootstrap.css
                 - bundles/chamilotheme/components/fontawesome/css/font-awesome.min.css
                 - bundles/chamilotheme/components/ionicons/css/ionicons.css
-                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/AdminLTE/css/AdminLTE.css
+                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.css
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/jqueryui/themes/flick/jquery-ui.min.css
                 - bundles/chamilotheme/components/select2/dist/css/select2.css
 #                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/select2/select2-bootstrap.css
