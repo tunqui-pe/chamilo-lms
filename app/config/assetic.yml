@@ -37,7 +37,7 @@ assetic:
                 - bundles/chamilotheme/components/jquery-ui/themes/cupertino/jquery-ui.min.css
                 - bundles/chamilotheme/components/bootflat/css/bootflat.css
                 - bundles/chamilotheme/components/jqgrid/css/ui.jqgrid.css
-                - bundles/chamilotheme/components/select2/select2.css
+                - bundles/chamilotheme/components/select2/dist/css/select2.css
 #                - bundles/chamilotheme/components/select2/select2-bootstrap.css
                 - bundles/chamilotheme/components/adminlte/css/jvectormap/*
                 - bundles/chamilotheme/components/adminlte/css/morris/*
@@ -62,7 +62,7 @@ assetic:
                 - @moment_js
                 - bundles/chamilotheme/components/fullcalendar/dist/fullcalendar.min.js
                 - bundles/chamilotheme/components/jqgrid/js/jquery.jqGrid.js
-                - bundles/chamilotheme/components/select2/select2.js
+                - bundles/chamilotheme/components/select2/dist/js/select2.js
                 - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
                 - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
 
@@ -153,7 +153,7 @@ assetic:
                 - bundles/chamilotheme/components/bootstrap/dist/js/bootstrap.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
-                - bundles/chamilotheme/components/select2/select2.js
+                - bundles/chamilotheme/components/select2/dist/js/select2.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/jquery/jquery.form.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/jquery/jquery.confirmExit.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/App.js
@@ -170,7 +170,7 @@ assetic:
                 - bundles/chamilotheme/components/ionicons/css/ionicons.css
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/AdminLTE/css/AdminLTE.css
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/jqueryui/themes/flick/jquery-ui.min.css
-                - bundles/chamilotheme/components/select2/select2.css
+                - bundles/chamilotheme/components/select2/dist/css/select2.css
 #                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/select2/select2-bootstrap.css
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css
@@ -186,14 +186,14 @@ assetic:
                 - bundles/chamilotheme/components/jquery/dist/jquery.js
                 - @bootstrap_js
                 - %kernel.root_dir%/../web/bundles/sonatacore/js/base.js
-                - bundles/chamilotheme/components/select2/select2.js
+                - bundles/chamilotheme/components/select2/dist/js/select2.js
             filters:
                 - yui_js
 
         sonata_front_css:
             inputs:
                 - @chamilo_bootstrap_css
-                - bundles/chamilotheme/components/select2/select2.css
+                - bundles/chamilotheme/components/select2/dist/css/select2.css
 #                - %kernel.root_dir%/../web/bundles/mopabootstrap/css/datepicker.css
 
             filters:
