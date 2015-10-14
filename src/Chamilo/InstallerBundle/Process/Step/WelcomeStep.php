@@ -4,13 +4,13 @@
 namespace Chamilo\InstallerBundle\Process\Step;
 
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
-use Sylius\Bundle\FlowBundle\Process\Step\ControllerStep;
+use Sylius\Bundle\FlowBundle\Process\Step\AbstractControllerStep;
 
 /**
  * Class WelcomeStep
  * @package Chamilo\InstallerBundle\Process\Step
  */
-class WelcomeStep extends ControllerStep
+class WelcomeStep extends AbstractControllerStep
 {
     /**
      * {@inheritdoc}

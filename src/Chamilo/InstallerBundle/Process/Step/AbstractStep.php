@@ -8,13 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Console\Output\StreamOutput;
 
-use Sylius\Bundle\FlowBundle\Process\Step\ControllerStep;
+use Sylius\Bundle\FlowBundle\Process\Step\AbstractControllerStep;
 
 /**
  * Class AbstractStep
  * @package Chamilo\InstallerBundle\Process\Step
  */
-abstract class AbstractStep extends ControllerStep
+abstract class AbstractStep extends AbstractControllerStep
 {
     /**
      * @var Application
