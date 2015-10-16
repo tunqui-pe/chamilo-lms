@@ -39,6 +39,7 @@ class ExerciseLib
         $exercise_feedback = null,
         $show_answers = false
     ) {
+        $course_id = api_get_course_int_id();
         // Change false to true in the following line to enable answer hinting
         $debug_mark_answer = $show_answers;
 
@@ -86,9 +87,8 @@ class ExerciseLib
 
             // construction of the Answer object (also gets all answers details)
             $objAnswerTmp = new Answer($questionId);
-
             $nbrAnswers = $objAnswerTmp->selectNbrAnswers();
-            $course_id = api_get_course_int_id();
+
             $quiz_question_options = Question::readQuestionOption(
                 $questionId,
                 $course_id
@@ -124,8 +124,6 @@ HTML;
                 for ($answerId = 1; $answerId <= $nbrAnswers; $answerId++) {
                     $answerCorrect = $objAnswerTmp->isCorrect($answerId);
                     $numAnswer = $objAnswerTmp->selectAutoId($answerId);
-
-                    $answer = $objAnswerTmp->selectAnswer($answerId);
                     if ($answerCorrect == 0) {
                         // options (A, B, C, ...) that will be put into the list-box
                         // have the "correct" field set to 0 because they are answer
@@ -324,7 +322,6 @@ HTML;
 
                     if ($answerType == UNIQUE_ANSWER_IMAGE) {
                         $attributes['style'] = 'display: none;';
-
                         $answer = '<div class="thumbnail">' . $answer . '</div>';
                     }
 
@@ -506,7 +503,9 @@ HTML;
                     if (!empty($user_choice_array)) {
                         foreach ($user_choice_array as $item) {
                             $item = explode(':', $item);
-                            $my_choice[$item[0]] = $item[1];
+                            if (isset($item[1]) && isset($item[0])) {
+                                $my_choice[$item[0]] = $item[1];
+                            }
                         }
                     }
                     $answer = Security::remove_XSS($answer, STUDENT);
@@ -630,7 +629,8 @@ HTML;
                         $trackAttempts = Database::get_main_table(
                             TABLE_STATISTIC_TRACK_E_ATTEMPT
                         );
-                        $sqlTrackAttempt = 'SELECT answer FROM ' . $trackAttempts . ' WHERE exe_id=' . $exe_id . ' AND question_id=' . $questionId;
+                        $sqlTrackAttempt = 'SELECT answer FROM ' . $trackAttempts . '
+                                            WHERE exe_id=' . $exe_id . ' AND question_id=' . $questionId;
                         $rsLastAttempt = Database::query($sqlTrackAttempt);
                         $rowLastAttempt = Database::fetch_array($rsLastAttempt);
                         $answer = $rowLastAttempt['answer'];
@@ -788,9 +788,6 @@ HTML;
                             if (isset($user_choice_array_position[$numAnswer]) && $val['id'] == $user_choice_array_position[$numAnswer]) {
                                 $selected = 'selected="selected"';
                             }
-                            /*if (isset($user_choice_array[$matching_correct_answer]) && $val['id'] == $user_choice_array[$matching_correct_answer]['answer']) {
-                                $selected = 'selected="selected"';
-                            }*/
                             $s .= '<option value="' . $val['id'] . '" ' . $selected . '>' . $val['letter'] . '</option>';
 
                         }  // end foreach()
@@ -824,6 +821,11 @@ HTML;
                 } elseif ($answerType == DRAGGABLE) {
                     if ($answerCorrect != 0) {
                         $parsed_answer = $answer;
+                        /*$lines_count = '';
+                        $data = $objAnswerTmp->getAnswerByAutoId($numAnswer);
+                        $data = $objAnswerTmp->getAnswerByAutoId($data['correct']);
+                        $lines_count = $data['answer'];*/
+
                         $windowId = $questionId . '_' . $lines_count;
 
                         $s .= '<li class="touch-items" id="' . $windowId . '">';
@@ -900,7 +902,6 @@ JAVASCRIPT;
                             while (isset($select_items[$lines_count])) {
                                 $s .= Display::tag('b', $select_items[$lines_count]['letter']);
                                 $s .= $select_items[$lines_count]['answer'];
-
                                 $lines_count++;
                             }
                         }
@@ -980,7 +981,6 @@ HTML;
                                 </script>
 JAVASCRIPT;
                             }
-
                         }
 
                         $s .= <<<HTML
@@ -1009,7 +1009,7 @@ HTML;
                                         <td colspan="2"></td>
                                         <td>
                                             <strong>{$select_items[$lines_count]['letter']}</strong>
-                                            $select_items[$lines_count]['answer']
+                                            {$select_items[$lines_count]['answer']}
                                         </td>
                                     </tr>
 HTML;
@@ -3276,11 +3276,6 @@ HTML;
             if (($pos = api_strpos($temp, '[')) === false) {
                 // adds the end of the text
                 $answer = $temp;
-                /* // Deprecated code
-             // TeX parsing - replacement of texcode tags
-            $texstring = api_parse_tex($texstring);
-            $answer = str_replace("{texcode}", $texstring, $answer);
-            */
                 $real_text[] = $answer;
                 break; //no more "blanks", quit the loop
             }
@@ -3479,7 +3474,6 @@ HTML;
 
         $counter = 1;
         $total_score = $total_weight = 0;
-
         $exercise_content = null;
 
         // Hide results
@@ -3585,6 +3579,12 @@ HTML;
                 $category_was_added_for_this_test = false;
 
                 if (isset($objQuestionTmp->category) && !empty($objQuestionTmp->category)) {
+                    if (!isset($category_list[$objQuestionTmp->category]['score'])) {
+                        $category_list[$objQuestionTmp->category]['score'] = 0;
+                    }
+                    if (!isset($category_list[$objQuestionTmp->category]['total'])) {
+                        $category_list[$objQuestionTmp->category]['total'] = 0;
+                    }
                     $category_list[$objQuestionTmp->category]['score'] += $my_total_score;
                     $category_list[$objQuestionTmp->category]['total'] += $my_total_weight;
                     $category_was_added_for_this_test = true;

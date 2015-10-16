@@ -66,6 +66,8 @@ class UserGroup extends Model
     }
 
     /**
+     * @param int $type
+     *
      * @return int
      */
     public function get_count($type = -1)
@@ -389,7 +391,14 @@ class UserGroup extends Model
     {
         if ($this->useMultipleUrl) {
             $urlId = api_get_current_access_url_id();
-            $options = array('where' => array('c.course_id = ? AND access_url_id = ?' => array($course_id, $urlId)));
+            $options = array(
+                'where' => array(
+                    'c.course_id = ? AND access_url_id = ?' => array(
+                        $course_id,
+                        $urlId,
+                    ),
+                ),
+            );
             $from = $this->usergroup_rel_course_table." as c INNER JOIN ".$this->access_url_rel_usergroup." a
                     ON c.usergroup_id = a.usergroup_id";
         } else {
@@ -463,7 +472,12 @@ class UserGroup extends Model
         } else {
             $conditions = array('where' => array('usergroup_id = ?' => $id));
         }
-        $results = Database::select('user_id', $this->usergroup_rel_user_table, $conditions, true);
+        $results = Database::select(
+            'user_id',
+            $this->usergroup_rel_user_table,
+            $conditions,
+            true
+        );
         $array = array();
         if (!empty($results)) {
             foreach ($results as $row) {
@@ -482,7 +496,12 @@ class UserGroup extends Model
     public function getUsersByUsergroupAndRelation($id, $relation = '')
     {
         $conditions = array('where' => array('usergroup_id = ? AND relation_type = ?' => [$id, $relation]));
-        $results = Database::select('user_id', $this->usergroup_rel_user_table, $conditions, true);
+        $results = Database::select(
+            'user_id',
+            $this->usergroup_rel_user_table,
+            $conditions,
+            true
+        );
         $array = array();
         if (!empty($results)) {
             foreach ($results as $row) {
@@ -1300,7 +1319,7 @@ class UserGroup extends Model
         }
 
         // url
-        $form->addElement('text', 'url', get_lang('URL'));
+        $form->addElement('text', 'url', get_lang('Url'));
         $form->applyFilter('url', 'html_filter');
         $form->applyFilter('url', 'trim');
 
@@ -2001,7 +2020,7 @@ class UserGroup extends Model
                 break;
             case GROUP_USER_PERMISSION_HRM:
                 $relation_group_title = get_lang('IAmAHRM');
-                $links .= '<li><a href="'.api_get_path(WEB_CODE_PATH).'social/message_for_group_form.inc.php?view_panel=1&height=400&width=610&&user_friend='.api_get_user_id().'&group_id='.$group_id.'&action=add_message_group" class="ajax" title="'.get_lang('ComposeMessage').'" data-title="'.get_lang('ComposeMessage').'">'.
+                $links .= '<li><a href="'.api_get_path(WEB_CODE_PATH).'social/message_for_group_form.inc.php?view_panel=1&height=400&width=610&&user_friend='.api_get_user_id().'&group_id='.$group_id.'&action=add_message_group" class="ajax" title="'.get_lang('ComposeMessage').'" data-size="lg" data-title="'.get_lang('ComposeMessage').'">'.
                             Display::return_icon('compose_message.png', get_lang('NewTopic'), array('hspace'=>'6')).'<span class="social-menu-text4" >'.get_lang('NewTopic').'</span></a></li>';
                 $links .=  '<li><a href="group_view.php?id='.$group_id.'">'.
                             Display::return_icon('message_list.png', get_lang('MessageList'), array('hspace'=>'6')).'<span class="'.($show=='messages_list'?'social-menu-text-active':'social-menu-text4').'" >'.get_lang('MessageList').'</span></a></li>';
@@ -2199,14 +2218,14 @@ class UserGroup extends Model
      * @param boolean $includeSubgroupsUsers Optional. Whether include the users from subgroups
      * @return array
      */
-    public static function getGroupUsersByUser(
+    public function getGroupUsersByUser(
         $userId,
         $relationType = GROUP_USER_PERMISSION_ADMIN,
         $includeSubgroupsUsers = true
     ) {
         $userId = intval($userId);
 
-        $groups = self::get_groups_by_user($userId, $relationType);
+        $groups = $this->get_groups_by_user($userId, $relationType);
 
         $groupsId = array_keys($groups);
         $subgroupsId = [];

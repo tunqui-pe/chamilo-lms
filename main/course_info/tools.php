@@ -6,6 +6,12 @@ require_once '../inc/global.inc.php';
 // The section for the tabs
 $this_section = SECTION_COURSES;
 
+$sessionId = api_get_session_id();
+
+if (!empty($sessionId)) {
+    api_not_allowed();
+}
+
 api_protect_course_script(true);
 
 if (!api_is_allowed_to_edit()) {
@@ -14,6 +20,8 @@ if (!api_is_allowed_to_edit()) {
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $id = isset($_GET['id']) ? intval($_GET['id']) : '';
+
+$toolName = get_lang('CustomizeIcons');
 
 switch ($action) {
     case 'delete_icon':
@@ -48,15 +56,33 @@ switch ($action) {
         $allowed_picture_types = array ('jpg', 'jpeg', 'png');
         $form->addElement('file', 'icon', get_lang('CustomIcon'));
         $form->addRule('icon', get_lang('OnlyImagesAllowed').' ('.implode(',', $allowed_picture_types).')', 'filetype', $allowed_picture_types);
-        $form->addElement('select', 'target', get_lang('Target'), array('_self' => '_self', '_blank' => '_blank'));
-        $form->addElement('select', 'visibility', get_lang('Visibility'), array(1 => get_lang('Visible'), 0 => get_lang('Invisible')));
-        $form->addElement('textarea', 'description', get_lang('Description'),array ('rows' => '3', 'cols' => '40'));
+        $form->addElement(
+            'select',
+            'target',
+            get_lang('LinkTarget'),
+            [
+                '_self' => get_lang('LinkOpenSelf'),
+                '_blank' => get_lang('LinkOpenBlank')
+            ]
+        );
+        $form->addElement(
+            'select',
+            'visibility',
+            get_lang('Visibility'),
+            array(1 => get_lang('Visible'), 0 => get_lang('Invisible'))
+        );
+        $form->addElement(
+            'textarea',
+            'description',
+            get_lang('Description'),
+            array('rows' => '3', 'cols' => '40')
+        );
         $form->addButtonUpdate(get_lang('Update'));
         $form->addHtml('</div>');
         $form->addHtml('<div class="col-md-5">');
         if (isset($tool['custom_icon']) && !empty($tool['custom_icon'])) {
             $form->addLabel(
-                get_lang('Icon'),
+                get_lang('CurrentIcon'),
                 Display::img(
                     CourseHome::getCustomWebIconPath().$tool['custom_icon']
                 )
@@ -89,14 +115,14 @@ switch ($action) {
             api_get_session_id()
         );
         $iconsTools = '<div id="custom-icons">';
-        $iconsTools .= Display::page_header( get_lang('CustomizeIcons'),null,'h4');
+        $iconsTools .= Display::page_header(get_lang('CustomizeIcons'), null, 'h4');
         $iconsTools .= '<div class="row">';
         foreach ($toolList as $tool) {
 
             if ($tool['id']>20) {
-                $toolName = $tool['name'];
+                $toolIconName = $tool['name'];
             } else {
-                $toolName = get_lang('Tool'.api_underscore_to_camel_case($tool['name']));
+                $toolIconName = get_lang('Tool'.api_underscore_to_camel_case($tool['name']));
             }
 
             $iconsTools .= '<div class="col-md-2">';
@@ -104,12 +130,12 @@ switch ($action) {
 
             if (!empty($tool['custom_icon'])) {
                 $image = getCustomWebIconPath().$tool['custom_icon'];
-                $icon = Display::img($image, $toolName);
+                $icon = Display::img($image, $toolIconName);
             } else {
                 $image = (substr($tool['image'], 0, strpos($tool['image'], '.'))).'.png';
                 $icon = Display::return_icon(
                     $image,
-                    $toolName,
+                    $toolIconName,
                     array('id' => 'tool_'.$tool['id']),
                     ICON_SIZE_BIG,
                     false
@@ -119,11 +145,11 @@ switch ($action) {
             $delete = (!empty($tool['custom_icon'])) ? "<a class=\"btn btn-default\" onclick=\"javascript:
                 if(!confirm('".addslashes(api_htmlentities(get_lang('ConfirmYourChoice'), ENT_QUOTES, $charset)).
                 "')) return false;\" href=\"". api_get_self() . '?action=delete_icon&id=' . $tool['iid'] . '&'.api_get_cidreq()."\">
-            <i class=\"fa fa-trash-o\"></i></a>" : "";
-            $edit = '<a class="btn btn-default" href="' . api_get_self() . '?action=edit_icon&id=' . $tool['iid'] . '&'.api_get_cidreq().'"><i class="fa fa-pencil"></i></a>';
+            <em class=\"fa fa-trash-o\"></em></a>" : "";
+            $edit = '<a class="btn btn-default" href="' . api_get_self() . '?action=edit_icon&id=' . $tool['iid'] . '&'.api_get_cidreq().'"><em class="fa fa-pencil"></em></a>';
 
             $iconsTools .= '<div class="icon-tools">'. $icon . '</div>';
-            $iconsTools .= '<div class="name-tools">' . $toolName . '</div>';
+            $iconsTools .= '<div class="name-tools">' . $toolIconName . '</div>';
             $iconsTools .= '<div class="toolbar">' . $edit . $delete . '</div>';
             $iconsTools .= '</div>';
             $iconsTools .= '</div>';
@@ -143,6 +169,7 @@ function getCustomWebIconPath()
 {
     // Check if directory exists or create it if it doesn't
     $dir = api_get_path(WEB_COURSE_PATH).api_get_course_path().'/upload/course_home_icons/';
+
     return $dir;
 }
 $tpl = new Template($toolName);

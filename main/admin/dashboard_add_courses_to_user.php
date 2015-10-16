@@ -90,7 +90,7 @@ function search_courses($needle, $type)
 
 		$rs	= Database::query($sql);
 
-		$return .= '<select id="origin" name="NoAssignedCoursesList[]" multiple="multiple" size="20" style="width:340px;">';
+		$return .= '<select id="origin" name="NoAssignedCoursesList[]" multiple="multiple" size="20" >';
 		while($course = Database :: fetch_array($rs)) {
 			$return .= '<option value="'.$course['code'].'" title="'.htmlspecialchars($course['title'],ENT_QUOTES).'">'.$course['title'].' ('.$course['code'].')</option>';
 		}
@@ -272,11 +272,11 @@ if(!empty($msg)) {
 
   <td width="10%" valign="middle" align="center">
   	<button class="btn-default" type="button" onclick="moveItem(document.getElementById('origin'), document.getElementById('destination'))" onclick="moveItem(document.getElementById('origin'), document.getElementById('destination'))">
-        <i class="fa fa-arrow-right"></i>
+        <em class="fa fa-arrow-right"></em>
   	</button>
 	<br /><br />
 	<button class="btn-default" type="button" onclick="moveItem(document.getElementById('destination'), document.getElementById('origin'))" onclick="moveItem(document.getElementById('destination'), document.getElementById('origin'))">
-        <i class="fa fa-arrow-left"></i>
+        <em class="fa fa-arrow-left"></em>
 	</button>
 	<br /><br /><br /><br /><br /><br />
 	<?php

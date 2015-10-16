@@ -33,7 +33,10 @@ if ($debug) {
 if (empty($origin)) {
     $origin = Security::remove_XSS($_REQUEST['origin']);
 }
+
+/** @var Exercise $objExercise */
 if (empty($objExercise)) {
+
     $objExercise = $_SESSION['objExercise'];
 }
 if (empty($remind_list)) {
@@ -59,17 +62,28 @@ if (isset($_SESSION['gradebook'])) {
 	$gradebook=	$_SESSION['gradebook'];
 }
 if (!empty($gradebook) && $gradebook=='view') {
-	$interbreadcrumb[]= array ('url' => '../gradebook/'.$_SESSION['gradebook_dest'], 'name' => get_lang('ToolGradebook'));
+    $interbreadcrumb[] = array(
+        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'name' => get_lang('ToolGradebook'),
+    );
 }
 
 $nameTools = get_lang('Exercises');
 
-$interbreadcrumb[]= array("url" => "exercise.php?gradebook=$gradebook","name" => get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    "name" => get_lang('Exercises'),
+);
 
 if ($origin != 'learnpath') {
 	// So we are not in learnpath tool
-	Display::display_header($nameTools,get_lang('Exercise'));
+	Display::display_header($nameTools, get_lang('Exercise'));
 } else {
+    $htmlHeadXtra[] = "
+    <style>
+    body { background: none;}
+    </style>
+    ";
     Display::display_reduced_header();
 }
 
@@ -78,8 +92,10 @@ if ($origin != 'learnpath') {
 // I'm in a preview mode as course admin. Display the action menu.
 if (api_is_course_admin() && $origin != 'learnpath') {
 	echo '<div class="actions">';
-	echo '<a href="admin.php?'.api_get_cidreq().'&exerciseId='.$objExercise->id.'">'.Display::return_icon('back.png', get_lang('GoBackToQuestionList'), array(), 32).'</a>';
-	echo '<a href="exercise_admin.php?'.api_get_cidreq().'&modifyExercise=yes&exerciseId='.$objExercise->id.'">'.Display::return_icon('edit.png', get_lang('ModifyExercise'), array(), 32).'</a>';
+	echo '<a href="admin.php?'.api_get_cidreq().'&exerciseId='.$objExercise->id.'">'.
+        Display::return_icon('back.png', get_lang('GoBackToQuestionList'), array(), 32).'</a>';
+	echo '<a href="exercise_admin.php?'.api_get_cidreq().'&modifyExercise=yes&exerciseId='.$objExercise->id.'">'.
+        Display::return_icon('edit.png', get_lang('ModifyExercise'), array(), 32).'</a>';
 	echo '</div>';
 }
 
@@ -97,8 +113,8 @@ $learnpath_item_view_id = $exercise_stat_info['orig_lp_item_view_id'];
 if ($origin == 'learnpath') {
 ?>
 	<form method="GET" action="exercise.php?<?php echo api_get_cidreq() ?>">
-	<input type="hidden" name="origin" 					value="<?php echo $origin; ?>" />
-    <input type="hidden" name="learnpath_id" 			value="<?php echo $learnpath_id; ?>" />
+	<input type="hidden" name="origin" value="<?php echo $origin; ?>" />
+    <input type="hidden" name="learnpath_id" value="<?php echo $learnpath_id; ?>" />
     <input type="hidden" name="learnpath_item_id" 		value="<?php echo $learnpath_item_id; ?>" />
     <input type="hidden" name="learnpath_item_view_id"  value="<?php echo $learnpath_item_view_id; ?>" />
 <?php
@@ -127,7 +143,12 @@ if ($objExercise->selectAttempts() > 0) {
         exit;
     }
 }
-$total_score = $objExercise->get_stat_track_exercise_info_by_exe_id($objExercise->id)['exe_result'];
+
+$total_score = 0;
+if (!empty($exercise_stat_info)) {
+    $total_score = $exercise_stat_info['exe_result'];
+}
+
 $max_score = $objExercise->get_max_score();
 
 Display :: display_normal_message(get_lang('Saved').'<br />',false);
@@ -136,12 +157,20 @@ Display :: display_normal_message(get_lang('Saved').'<br />',false);
 ExerciseLib::display_question_list_by_attempt($objExercise, $exe_id, true);
 
 //Unset session for clock time
-ExerciseLib::exercise_time_control_delete($objExercise->id, $learnpath_id, $learnpath_item_id);
+ExerciseLib::exercise_time_control_delete(
+    $objExercise->id,
+    $learnpath_id,
+    $learnpath_item_id
+);
 ExerciseLib::delete_chat_exercise_session($exe_id);
 
 if ($origin != 'learnpath') {
     echo '<hr>';
-    echo Display::url(get_lang('ReturnToCourseHomepage'), api_get_course_url(), array('class' => 'btn btn-primary'));
+    echo Display::url(
+        get_lang('ReturnToCourseHomepage'),
+        api_get_course_url(),
+        array('class' => 'btn btn-primary')
+    );
 
     if (api_is_allowed_to_session_edit()) {
         Session::erase('objExercise');

@@ -33,8 +33,11 @@ if (empty($sessionId)) {
     );
 
     $lastCourseAccess = $trackCourseAccessRepository->getLastAccessByUser($user);
+    if ($lastCourseAccess) {
+        $lastSessionId = $lastCourseAccess->getSessionId();
+    }
 
-    if (!empty($lastCourseAccess)) {
+    if (!empty($lastSessionId)) {
         $urlWithSession = api_get_self() . '?' . http_build_query([
             'session_id' => $lastCourseAccess->getSessionId()
         ]);
@@ -90,7 +93,6 @@ $template->assign('current_session', $currentSession);
 
 if ($currentSession) {
     $sessionData = [];
-
     $sessionCourses = $currentSession->getCourses();
 
     foreach ($sessionCourses as $sessionCourse) {
@@ -101,7 +103,11 @@ if ($currentSession) {
             'stats' => []
         ];
 
-        $learningPathList = new LearnpathList($user->getId(), $course->getCode(), $currentSession->getId());
+        $learningPathList = new LearnpathList(
+            $user->getId(),
+            $course->getCode(),
+            $currentSession->getId()
+        );
 
         foreach ($learningPathList->list as $learningPathId => $learningPath) {
             $courseData['stats'][] = [

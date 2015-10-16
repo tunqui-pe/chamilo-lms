@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Skill
  *
  * @ORM\Table(name="skill")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Chamilo\CoreBundle\Entity\Repository\SkillRepository")
  */
 class Skill
 {
@@ -192,6 +192,19 @@ class Skill
     public function getIcon()
     {
         return $this->icon;
+    }
+
+    /**
+     * Get the icon URL
+     * @return string
+     */
+    public function getWebIconPath()
+    {
+        if ($this->getIcon()) {
+            return api_get_path(WEB_UPLOAD_PATH) . "badges/{$this->getIcon()}";
+        }
+
+        return \Display::return_icon('badges-default.png', null, null, ICON_SIZE_HUGE, null, true);
     }
 
     /**

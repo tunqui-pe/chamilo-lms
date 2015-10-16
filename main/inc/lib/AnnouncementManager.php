@@ -9,8 +9,12 @@
  */
 class AnnouncementManager
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
+
     }
 
     /**
@@ -71,8 +75,8 @@ class AnnouncementManager
 
     /**
      * Gets all announcements from a course
-     * @param	string course db
-     * @param	int session id
+     * @param	array $course_info
+     * @param	int $session_id
      * @return	array html with the content and count of announcements or false otherwise
      */
     public static function get_all_annoucement_by_course($course_info, $session_id = 0)
@@ -85,11 +89,12 @@ class AnnouncementManager
 
         $sql = "SELECT DISTINCT announcement.id, announcement.title, announcement.content
 				FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-				WHERE   announcement.id = toolitemproperties.ref AND
-				        toolitemproperties.tool='announcement' AND
-				        announcement.session_id  = '$session_id' AND
-				        announcement.c_id = $course_id AND
-				        toolitemproperties.c_id = $course_id
+				WHERE
+				    announcement.id = toolitemproperties.ref AND
+                    toolitemproperties.tool='announcement' AND
+                    announcement.session_id  = '$session_id' AND
+                    announcement.c_id = $course_id AND
+                    toolitemproperties.c_id = $course_id
 				ORDER BY display_order DESC";
         $rs = Database::query($sql);
         $num_rows = Database::num_rows($rs);
@@ -98,8 +103,10 @@ class AnnouncementManager
             while ($row = Database::fetch_array($rs)) {
                 $list[] = $row;
             }
+
             return $list;
         }
+
         return false;
     }
 
@@ -113,11 +120,28 @@ class AnnouncementManager
     public static function change_visibility_announcement($_course, $id)
     {
         $session_id = api_get_session_id();
-        $item_visibility = api_get_item_visibility($_course, TOOL_ANNOUNCEMENT, $id, $session_id);
+        $item_visibility = api_get_item_visibility(
+            $_course,
+            TOOL_ANNOUNCEMENT,
+            $id,
+            $session_id
+        );
         if ($item_visibility == '1') {
-            api_item_property_update($_course, TOOL_ANNOUNCEMENT, $id, 'invisible', api_get_user_id());
+            api_item_property_update(
+                $_course,
+                TOOL_ANNOUNCEMENT,
+                $id,
+                'invisible',
+                api_get_user_id()
+            );
         } else {
-            api_item_property_update($_course, TOOL_ANNOUNCEMENT, $id, 'visible', api_get_user_id());
+            api_item_property_update(
+                $_course,
+                TOOL_ANNOUNCEMENT,
+                $id,
+                'visible',
+                api_get_user_id()
+            );
         }
 
         return true;
@@ -142,7 +166,13 @@ class AnnouncementManager
         $announcements = self::get_all_annoucement_by_course($_course, api_get_session_id());
         if (!empty($announcements)) {
             foreach ($announcements as $annon) {
-                api_item_property_update($_course, TOOL_ANNOUNCEMENT, $annon['id'], 'delete', api_get_user_id());
+                api_item_property_update(
+                    $_course,
+                    TOOL_ANNOUNCEMENT,
+                    $annon['id'],
+                    'delete',
+                    api_get_user_id()
+                );
             }
         }
     }
@@ -164,52 +194,52 @@ class AnnouncementManager
         $course_id = api_get_course_int_id();
 
         if (api_is_allowed_to_edit(false, true) || (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) {
-            $sql_query = "  SELECT announcement.*, toolitemproperties.*
-                            FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-                            WHERE
-                                announcement.id = toolitemproperties.ref AND
-                                announcement.id = '$announcement_id' AND
-                                toolitemproperties.tool='announcement' AND
-                                announcement.c_id = $course_id AND
-                                toolitemproperties.c_id = $course_id
-                            ORDER BY display_order DESC";
+            $sql = "SELECT announcement.*, toolitemproperties.*
+                    FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
+                    WHERE
+                        announcement.id = toolitemproperties.ref AND
+                        announcement.id = '$announcement_id' AND
+                        toolitemproperties.tool='announcement' AND
+                        announcement.c_id = $course_id AND
+                        toolitemproperties.c_id = $course_id
+                    ORDER BY display_order DESC";
         } else {
             $group_list = GroupManager::get_group_ids($course_id, api_get_user_id());
             if (empty($group_list)) {
                 $group_list[] = 0;
             }
             if (api_get_user_id() != 0) {
-                $sql_query = "	SELECT announcement.*, toolitemproperties.*
-    							FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-    							WHERE
-    							    announcement.id = toolitemproperties.ref AND
-    							    announcement.id = '$announcement_id' AND
-    							    toolitemproperties.tool='announcement' AND
-    							    (
-    							        toolitemproperties.to_user_id='" . api_get_user_id() . "' OR
-    							        toolitemproperties.to_group_id IN ('0', '" . implode("', '", $group_list) . "') OR
-    							        toolitemproperties.to_group_id IS NULL
-                                    ) AND
-    							    toolitemproperties.visibility='1' AND
-    							    announcement.c_id = $course_id AND
-    							    toolitemproperties.c_id = $course_id
-    							ORDER BY display_order DESC";
+                $sql = "SELECT announcement.*, toolitemproperties.*
+                        FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
+                        WHERE
+                            announcement.id = toolitemproperties.ref AND
+                            announcement.id = '$announcement_id' AND
+                            toolitemproperties.tool='announcement' AND
+                            (
+                                toolitemproperties.to_user_id='" . api_get_user_id() . "' OR
+                                toolitemproperties.to_group_id IN ('0', '" . implode("', '", $group_list) . "') OR
+                                toolitemproperties.to_group_id IS NULL
+                            ) AND
+                            toolitemproperties.visibility='1' AND
+                            announcement.c_id = $course_id AND
+                            toolitemproperties.c_id = $course_id
+                        ORDER BY display_order DESC";
             } else {
-                $sql_query = "	SELECT announcement.*, toolitemproperties.*
-    							FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-    							WHERE
-    							    announcement.id = toolitemproperties.ref AND
-    							    announcement.id = '$announcement_id' AND
-    							    toolitemproperties.tool='announcement' AND
-    							    (toolitemproperties.to_group_id='0' OR toolitemproperties.to_group_id IS NULL) AND
-    							    toolitemproperties.visibility='1' AND
-    							    announcement.c_id = $course_id AND
-    							    toolitemproperties.c_id = $course_id
-    							";
+                $sql = "SELECT announcement.*, toolitemproperties.*
+                        FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
+                        WHERE
+                            announcement.id = toolitemproperties.ref AND
+                            announcement.id = '$announcement_id' AND
+                            toolitemproperties.tool='announcement' AND
+                            (toolitemproperties.to_group_id='0' OR toolitemproperties.to_group_id IS NULL) AND
+                            toolitemproperties.visibility='1' AND
+                            announcement.c_id = $course_id AND
+                            toolitemproperties.c_id = $course_id
+                        ";
             }
         }
 
-        $sql_result = Database::query($sql_query);
+        $sql_result = Database::query($sql);
         $html = null;
         if (Database::num_rows($sql_result) > 0) {
             $result = Database::fetch_array($sql_result, 'ASSOC');
@@ -282,6 +312,7 @@ class AnnouncementManager
                 $html .= '</td></tr>';
             }
             $html .= "</table>";
+
             return $html;
         }
 
@@ -295,14 +326,17 @@ class AnnouncementManager
     {
         $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
         $course_id = api_get_course_int_id();
-        $sql_max = "SELECT MAX(display_order) FROM $tbl_announcement WHERE c_id = $course_id ";
-        $res_max = Database::query($sql_max);
+        $sql = "SELECT MAX(display_order)
+                FROM $tbl_announcement
+                WHERE c_id = $course_id ";
+        $res_max = Database::query($sql);
 
         $order = 0;
         if (Database::num_rows($res_max)) {
             $row_max = Database::fetch_array($res_max);
-            $order   = intval($row_max[0])+1;
+            $order = intval($row_max[0])+1;
         }
+
         return $order;
     }
 
@@ -331,14 +365,8 @@ class AnnouncementManager
 
         $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
 
-        // filter data
-        $emailTitle = Database::escape_string($emailTitle);
-        $newContent = Database::escape_string($newContent);
-
         if (empty($end_date)) {
             $end_date = api_get_utc_datetime();
-        } else {
-            $end_date = Database::escape_string($end_date);
         }
 
         $order = self::get_last_announcement_order();
@@ -447,16 +475,12 @@ class AnnouncementManager
 
         // Database definitions
         $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
-
-        $emailTitle = Database::escape_string($emailTitle);
-        $newContent = Database::escape_string($newContent);
         $order = self::get_last_announcement_order();
 
         $now = api_get_utc_datetime();
         $course_id = api_get_course_int_id();
 
         // store in the table announcement
-
         $params = [
             'c_id' => $course_id,
             'content' => $newContent,
@@ -549,16 +573,18 @@ class AnnouncementManager
         $tbl_item_property = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
 
-        $emailTitle = Database::escape_string($emailTitle);
-        $newContent = Database::escape_string($newContent);
         $id = intval($id);
 
-        // store the modifications in the table announcement
-        $sql = "UPDATE $tbl_announcement SET
-                    content = '$newContent',
-                    title = '$emailTitle'
-                WHERE c_id = $course_id AND id='$id'";
-        Database::query($sql);
+        $params = [
+            'title' => $emailTitle,
+            'content' => $newContent
+        ];
+
+        Database::update(
+            $tbl_announcement,
+            $params,
+            ['c_id = ? AND id = ?' => [$course_id, $id]]
+        );
 
         // save attachment file
         $row_attach = self::get_attachment($id);
@@ -684,7 +710,8 @@ class AnnouncementManager
         $insert_id = intval($insert_id);
         $course_id = api_get_course_int_id();
         // store the modifications in the table tbl_annoucement
-        $sql = "UPDATE $tbl_announcement SET email_sent='1' WHERE c_id = $course_id AND id = $insert_id";
+        $sql = "UPDATE $tbl_announcement SET email_sent='1'
+                WHERE c_id = $course_id AND id = $insert_id";
         Database::query($sql);
     }
 
@@ -733,10 +760,13 @@ class AnnouncementManager
                 }
                 $result['content'] = $content;
                 $result['count'] = $i;
+
                 return $result;
             }
+
             return false;
         }
+
         return false;
     }
 
@@ -771,9 +801,9 @@ class AnnouncementManager
 
         // the buttons for adding or removing groups/users
         echo '<td valign="middle">';
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[1], this.form.elements[4])" onClick="javascript: move(this.form.elements[1], this.form.elements[4])"><i class="fa fa-arrow-right"></i></button>';
+        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[1], this.form.elements[4])" onClick="javascript: move(this.form.elements[1], this.form.elements[4])"><em class="fa fa-arrow-right"></em></button>';
         echo '<br /> <br />';
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[4], this.form.elements[1])" onClick="javascript: move(this.form.elements[4], this.form.elements[1])"><i class="fa fa-arrow-left"></i></button>';
+        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[4], this.form.elements[1])" onClick="javascript: move(this.form.elements[4], this.form.elements[1])"><em class="fa fa-arrow-left"></em></button>';
         echo "</td>";
 
         echo "<td>";
@@ -806,9 +836,9 @@ class AnnouncementManager
 
         // the buttons for adding or removing groups/users
         echo "<td valign=\"middle\">";
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[1], this.form.elements[4])" onClick="javascript: move(this.form.elements[1], this.form.elements[4])"><i class="fa fa-arrow-right"></i></button>';
+        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[1], this.form.elements[4])" onClick="javascript: move(this.form.elements[1], this.form.elements[4])"><em class="fa fa-arrow-right"></em></button>';
         echo '<br /> <br />';
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[4], this.form.elements[1])" onClick="javascript: move(this.form.elements[4], this.form.elements[1])"><i class="fa fa-arrow-left"></i></button>';
+        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[4], this.form.elements[1])" onClick="javascript: move(this.form.elements[4], this.form.elements[1])"><em class="fa fa-arrow-left"></em></button>';
         echo "</td>";
         echo "<td>";
 
@@ -831,7 +861,7 @@ class AnnouncementManager
         $userList = array(),
         $to_already_selected = array()
     ) {
-        echo '<select id="not_selected_form" name="not_selected_form[]" size="7" class="span4" multiple>';
+        echo '<select id="not_selected_form" name="not_selected_form[]" size="7" class="form-control" multiple>';
         // adding the groups to the select form
         if (!empty($groupList)) {
             foreach ($groupList as $this_group) {
@@ -890,7 +920,7 @@ class AnnouncementManager
         $ref_array_users = self::get_course_users();
 
         // we construct the form of the already selected groups / users
-        echo '<select id="selectedform" name="selectedform[]" size="7" multiple class="span4">';
+        echo '<select id="selectedform" name="selectedform[]" size="7" multiple class="form-control">';
         if (is_array($to_already_selected)) {
             foreach ($to_already_selected as $groupuser) {
                 list($type, $id) = explode(":", $groupuser);
@@ -1008,9 +1038,17 @@ class AnnouncementManager
     {
         $session_id = api_get_session_id();
         if ($session_id != 0) {
-            $new_group_list = CourseManager::get_group_list_of_course(api_get_course_id(), $session_id, 1);
+            $new_group_list = CourseManager::get_group_list_of_course(
+                api_get_course_id(),
+                $session_id,
+                1
+            );
         } else {
-            $new_group_list = CourseManager::get_group_list_of_course(api_get_course_id(), 0, 1);
+            $new_group_list = CourseManager::get_group_list_of_course(
+                api_get_course_id(),
+                0,
+                1
+            );
         }
         return $new_group_list;
     }
@@ -1225,7 +1263,8 @@ class AnnouncementManager
         $course_id = api_get_course_int_id();
 
         if (is_array($file) && $file['error'] == 0) {
-            $courseDir = $_course['path'] . '/upload/announcements'; // TODO: This path is obsolete. The new document repository scheme should be kept in mind here.
+            // TODO: This path is obsolete. The new document repository scheme should be kept in mind here.
+            $courseDir = $_course['path'] . '/upload/announcements';
             $sys_course_path = api_get_path(SYS_COURSE_PATH);
             $updir = $sys_course_path . $courseDir;
 
@@ -1279,7 +1318,8 @@ class AnnouncementManager
         $course_id = api_get_course_int_id();
 
         if (is_array($file) && $file['error'] == 0) {
-            $courseDir = $_course['path'] . '/upload/announcements'; // TODO: This path is obsolete. The new document repository scheme should be kept in mind here.
+            // TODO: This path is obsolete. The new document repository scheme should be kept in mind here.
+            $courseDir = $_course['path'] . '/upload/announcements';
             $sys_course_path = api_get_path(SYS_COURSE_PATH);
             $updir = $sys_course_path . $courseDir;
 
@@ -1294,7 +1334,7 @@ class AnnouncementManager
             } else {
                 $new_file_name = uniqid('');
                 $new_path = $updir . '/' . $new_file_name;
-                $result = @move_uploaded_file($file['tmp_name'], $new_path);
+                @move_uploaded_file($file['tmp_name'], $new_path);
                 $safe_file_comment = Database::escape_string($file_comment);
                 $safe_file_name = Database::escape_string($file_name);
                 $safe_new_file_name = Database::escape_string($new_file_name);
@@ -1323,7 +1363,9 @@ class AnnouncementManager
         $tbl_announcement_attachment = Database::get_course_table(TABLE_ANNOUNCEMENT_ATTACHMENT);
         $id = intval($id);
         $course_id = api_get_course_int_id();
-        $sql = "DELETE FROM $tbl_announcement_attachment WHERE c_id = $course_id AND id = $id";
+        $sql = "DELETE FROM $tbl_announcement_attachment
+                WHERE c_id = $course_id AND id = $id";
+
         Database::query($sql);
     }
 
@@ -1574,7 +1616,7 @@ class AnnouncementManager
         $ths .= Display::tag('th', get_lang('By') );
         $ths .= Display::tag('th', get_lang('LastUpdateDate') );
         if (api_is_allowed_to_edit(false,true) OR (api_is_course_coach() &&
-            api_is_element_in_the_session(TOOL_ANNOUNCEMENT,$myrow['id']))
+            api_is_element_in_the_session(TOOL_ANNOUNCEMENT, $myrow['id']))
             OR (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) {
             $ths .= Display::tag('th', get_lang('Modify'));
         }
@@ -1811,7 +1853,7 @@ class AnnouncementManager
                                     $condition_session
                                 GROUP BY ip.ref
                                 ORDER BY display_order DESC
-                                LIMIT 0,$maximum";
+                                LIMIT 0, $maximum";
                     }
                 }
             }

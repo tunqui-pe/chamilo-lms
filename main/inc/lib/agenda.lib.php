@@ -145,7 +145,7 @@ class Agenda
         $end = api_get_utc_datetime($end);
         $allDay = isset($allDay) && $allDay == 'true' ? 1 : 0;
         $id = null;
-        $content = nl2br($content);
+        $content = Security::remove_XSS($content);
         $eventComment = nl2br($eventComment);
 
         switch ($this->type) {
@@ -522,7 +522,8 @@ class Agenda
 
         // Get the agenda item.
         $item_id = intval($item_id);
-        $sql = "SELECT * FROM $table_agenda WHERE c_id = $course_id AND id = ".$item_id;
+        $sql = "SELECT * FROM $table_agenda
+                WHERE c_id = $course_id AND id = ".$item_id;
         $res = Database::query($sql);
 
         if (Database::num_rows($res) > 0) {
@@ -538,9 +539,11 @@ class Agenda
                     $row['end_date']
                 );
                 AnnouncementManager::send_email($id);
+
+                return $id;
             }
-            return $id;
         }
+
         return -1;
     }
 
@@ -972,7 +975,7 @@ class Agenda
                     );
                     $my_course_list = CourseManager::get_courses_list_by_user_id(
                         api_get_user_id(),
-                        true
+                        false
                     );
                 }
 
@@ -1032,7 +1035,7 @@ class Agenda
                             $start,
                             $end,
                             $my_session_id,
-                            api_get_user_id(),
+                            $user_id,
                             $this->eventOtherSessionColor
                         );
                     }
@@ -1088,17 +1091,20 @@ class Agenda
         if (!empty($event)) {
             switch ($this->type) {
                 case 'personal':
-                    $sql = "UPDATE $this->tbl_personal_agenda SET all_day = 0, enddate = DATE_ADD(enddate, INTERVAL $delta MINUTE)
+                    $sql = "UPDATE $this->tbl_personal_agenda SET
+                            all_day = 0, enddate = DATE_ADD(enddate, INTERVAL $delta MINUTE)
 							WHERE id=".intval($id);
                     Database::query($sql);
                     break;
                 case 'course':
-                    $sql = "UPDATE $this->tbl_course_agenda SET all_day = 0,  end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
+                    $sql = "UPDATE $this->tbl_course_agenda SET
+                            all_day = 0,  end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
 							WHERE c_id = ".$this->course['real_id']." AND id=".intval($id);
                     Database::query($sql);
                     break;
                 case 'admin':
-                    $sql = "UPDATE $this->tbl_global_agenda SET all_day = 0, end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
+                    $sql = "UPDATE $this->tbl_global_agenda SET
+                            all_day = 0, end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
 							WHERE id=".intval($id);
                     Database::query($sql);
                     break;
@@ -1129,19 +1135,26 @@ class Agenda
         if (!empty($event)) {
             switch ($this->type) {
                 case 'personal':
-                    $sql = "UPDATE $this->tbl_personal_agenda SET all_day = $allDay, date = DATE_ADD(date, INTERVAL $delta MINUTE), enddate = DATE_ADD(enddate, INTERVAL $delta MINUTE)
+                    $sql = "UPDATE $this->tbl_personal_agenda SET
+                            all_day = $allDay, date = DATE_ADD(date, INTERVAL $delta MINUTE),
+                            enddate = DATE_ADD(enddate, INTERVAL $delta MINUTE)
 							WHERE id=".intval($id);
-                    $result = Database::query($sql);
+                    Database::query($sql);
                     break;
                 case 'course':
-                    $sql = "UPDATE $this->tbl_course_agenda SET all_day = $allDay, start_date = DATE_ADD(start_date,INTERVAL $delta MINUTE), end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
+                    $sql = "UPDATE $this->tbl_course_agenda SET
+                            all_day = $allDay, start_date = DATE_ADD(start_date,INTERVAL $delta MINUTE),
+                            end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
 							WHERE c_id = ".$this->course['real_id']." AND id=".intval($id);
-                    $result = Database::query($sql);
+                    Database::query($sql);
                     break;
                 case 'admin':
-                    $sql = "UPDATE $this->tbl_global_agenda SET all_day = $allDay, start_date = DATE_ADD(start_date,INTERVAL $delta MINUTE), end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
+                    $sql = "UPDATE $this->tbl_global_agenda SET
+                            all_day = $allDay,
+                            start_date = DATE_ADD(start_date,INTERVAL $delta MINUTE),
+                            end_date = DATE_ADD(end_date, INTERVAL $delta MINUTE)
 							WHERE id=".intval($id);
-                    $result = Database::query($sql);
+                    Database::query($sql);
                     break;
             }
         }
@@ -1420,12 +1433,30 @@ class Agenda
 
         if (!empty($groupId)) {
             if (!api_is_allowed_to_edit()) {
+                $user_id = api_get_user_id();
                 $group_memberships = GroupManager::get_group_ids(
                     $course_id,
-                    api_get_user_id()
+                    $user_id
                 );
-                $user_id = api_get_user_id();
             } else {
+                $group_memberships = GroupManager::get_group_ids(
+                    $course_id,
+                    $user_id
+                );
+            }
+        } else {
+            // if no group was defined but I am a student reviewing his agenda,
+            // group events should show, so we should fetch those groups to which
+            // I belong
+            if (!api_is_allowed_to_edit()) {
+                $user_id = api_get_user_id();
+                $group_memberships = GroupManager::get_group_ids(
+                    $course_id,
+                    $user_id
+                );
+            } else {
+                // If no group was defined and I am a teacher/admin reviewing
+                // someone else's agenda, we should fetch this person's groups
                 $group_memberships = GroupManager::get_group_ids(
                     $course_id,
                     $user_id
@@ -1446,13 +1477,28 @@ class Agenda
                     $where_condition = "( ip.to_group_id IN (".implode(", ", $group_memberships).") ) ";
                 } else {
                     if (!empty($user_id)) {
-                        $where_condition = "( ip.to_user_id = $user_id OR (ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".implode(", ", $group_memberships).")) ) ";
+                        $where_condition = "( ip.to_user_id = $user_id OR ip.to_user_id IS NULL OR (ip.to_group_id IN (0, ".implode(", ", $group_memberships).")) ) ";
                     } else {
-                        $where_condition = "( ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".implode(", ", $group_memberships).") ) ";
+                        $where_condition = "( ip.to_group_id IN (0, ".implode(", ", $group_memberships).") ) ";
                     }
                 }
             } else {
-                $where_condition = "( ip.to_user_id = $user_id OR (ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".implode(", ", $group_memberships).")) ) ";
+                $where_condition = "( ip.to_user_id = $user_id OR ip.to_user_id IS NULL OR (ip.to_group_id IN (0, ".implode(", ", $group_memberships).")) ) ";
+            }
+
+            $sessionCondition = '';
+            if (empty($session_id)) {
+                $sessionCondition =  "
+                (
+                    agenda.session_id = 0 AND
+                    ip.session_id IS NULL
+                ) ";
+            } else {
+                $sessionCondition =  "
+                (
+                    agenda.session_id = $session_id AND
+                    ip.session_id = $session_id
+                ) ";                
             }
 
             $sql = "SELECT DISTINCT
@@ -1470,31 +1516,36 @@ class Agenda
                         $where_condition AND
                         ip.visibility = '1' AND
                         agenda.c_id = $course_id AND
-                        ip.c_id = $course_id
+                        ip.c_id = agenda.c_id AND
+                        $sessionCondition
                     ";
         } else {
-            $visibilityCondition = " ip.visibility='1' AND";
+            $visibilityCondition = " ip.visibility='1' AND ";
+            $sessionCondition = '';
 
             if (api_is_allowed_to_edit()) {
                 if ($user_id == 0) {
                     $where_condition = "";
                 } else {
-                    $where_condition = " (ip.to_user_id = ".$user_id.") OR ";
+                    $where_condition = " (ip.to_user_id = ".$user_id." OR ip.to_user_id IS NULL) AND ip.to_group_id IS NULL AND ";
                 }
                 $visibilityCondition = " (ip.visibility IN ('1', '0')) AND ";
             } else {
-                $where_condition = " ( ip.to_user_id = ".api_get_user_id()." AND (ip.to_group_id='0' OR ip.to_group_id IS NULL)) OR ";
+                $where_condition = " ( (ip.to_user_id = ".api_get_user_id()." OR ip.to_user_id IS NULL) AND ip.to_group_id IS NULL) AND ";
             }
-
-            $sessionCondition =  " agenda.session_id = $session_id AND
-                                   ip.session_id = $session_id ";
 
             if (empty($session_id)) {
                 $sessionCondition =  "
                 (
-                    (agenda.session_id = 0 OR agenda.session_id IS NULL) AND
-                    (ip.session_id = 0 OR ip.session_id IS NULL)
+                    agenda.session_id = 0 AND
+                    ip.session_id IS NULL
                 ) ";
+            } else {
+                $sessionCondition =  "
+                (
+                    agenda.session_id = $session_id AND
+                    ip.session_id = $session_id
+                ) ";                
             }
 
             $sql = "SELECT DISTINCT
@@ -1512,7 +1563,6 @@ class Agenda
                         $where_condition
                         $visibilityCondition
                         agenda.c_id = $course_id AND
-                        ip.c_id = $course_id AND
                         $sessionCondition
                     ";
         }
@@ -1532,7 +1582,6 @@ class Agenda
         }
 
         $sql .= $dateCondition;
-
         $result = Database::query($sql);
 
         $coachCanEdit = false;
@@ -2462,23 +2511,37 @@ class Agenda
     {
         $courseInfo = api_get_course_info();
 
-        $actions = "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_js.php?type={$this->type}'>".
+        $actionsLeft = '';
+        $actionsLeft .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_js.php?type={$this->type}'>".
             Display::return_icon('calendar.png', get_lang('Calendar'), '', ICON_SIZE_MEDIUM)."</a>";
 
         $courseCondition = '';
         if (!empty($courseInfo)) {
             $courseCondition = api_get_cidreq();
         }
-        $actions .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_list.php?type={$this->type}&".$courseCondition."'>".
+
+        $actionsLeft .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_list.php?type={$this->type}&".$courseCondition."'>".
             Display::return_icon('week.png', get_lang('AgendaList'), '', ICON_SIZE_MEDIUM)."</a>";
+
+        $form = '';
 
         if (api_is_allowed_to_edit(false, true) ||
             (api_get_course_setting('allow_user_edit_agenda') && !api_is_anonymous()) && api_is_allowed_to_session_edit(false, true) ||
             GroupManager::user_has_access(api_get_user_id(), api_get_group_id(), GroupManager::GROUP_TOOL_CALENDAR) &&
             GroupManager::is_tutor_of_group(api_get_user_id(), api_get_group_id())
         ) {
+            $actionsLeft .= Display::url(
+                Display::return_icon('new_event.png', get_lang('AgendaAdd'), '', ICON_SIZE_MEDIUM),
+                api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=add&type=".$this->type
+            );
+
+            $actionsLeft .= Display::url(
+                Display::return_icon('import_calendar.png', get_lang('ICalFileImport'), '', ICON_SIZE_MEDIUM),
+                api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=importical&type=".$this->type
+            );
+
             if ($this->type == 'course') {
-                $form = null;
+
                 if (!isset($_GET['action'])) {
 
                     $form = new FormValidator(
@@ -2496,13 +2559,6 @@ class Agenda
                     $selectedValues = $this->parseAgendaFilter($filter);
                     $this->showToForm($form, $selectedValues, $attributes);
                     $form = $form->returnForm();
-                }
-                $actions .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=add&type=course'>".
-                    Display::return_icon('new_event.png', get_lang('AgendaAdd'), '', ICON_SIZE_MEDIUM)."</a>";
-                $actions .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=importical&type=course'>".
-                    Display::return_icon('import_calendar.png', get_lang('ICalFileImport'), '', ICON_SIZE_MEDIUM)."</a>";
-                if ($view == 'calendar') {
-                    $actions .= $form;
                 }
             }
         }
@@ -2536,20 +2592,30 @@ class Agenda
                         'session_id',
                         get_lang('Session'),
                         $sessions,
-                        ['id' => 'session_id']
+                        ['id' => 'session_id', 'onchange' => 'submit();']
                     );
-                    $form->addButtonFilter(get_lang('Filter'));
+                    //$form->addButtonFilter(get_lang('Filter'));
+                    //$renderer = $form->defaultRenderer();
+                    //$renderer->setCustomElementTemplate('<div class="col-md-6">{element}</div>');
+
                     $form->addButtonReset(get_lang('Reset'));
                     $form = $form->returnForm();
-                }
-
-                if ($view == 'calendar') {
-                    $actions .= $form;
                 }
             }
         }
 
-        return $actions;
+        $actionsRight = '';
+        if ($view == 'calendar') {
+            $actionsRight .= $form;
+        }
+
+        $toolbar = Display::toolbarAction(
+            'toolbar-agenda',
+            array(0 => $actionsLeft, 1 => $actionsRight),
+            2,
+            false
+        );
+        return $toolbar;
     }
 
     /**
@@ -2566,7 +2632,7 @@ class Agenda
         $form->addElement('header', get_lang('ICalFileImport'));
         $form->addElement('file', 'ical_import', get_lang('ICalFileImport'));
         $form->addRule('ical_import', get_lang('ThisFieldIsRequired'), 'required');
-        $form->addElement('button', 'ical_submit', get_lang('Import'));
+        $form->addButtonImport(get_lang('Import'), 'ical_submit');
 
         return $form;
     }
@@ -3363,6 +3429,4 @@ class Agenda
     {
         $this->isAllowedToEdit = $isAllowedToEdit;
     }
-
-
 }

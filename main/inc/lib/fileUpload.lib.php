@@ -141,6 +141,7 @@ function process_uploaded_file($uploaded_file, $show_output = true)
             if ($show_output) {
                 Display::display_error_message(get_lang('UplUploadFailedSizeIsZero'));
             }
+
             return false;
         }
     }
@@ -155,6 +156,7 @@ function process_uploaded_file($uploaded_file, $show_output = true)
             if ($show_output) {
                 Display::display_error_message(get_lang('UplNotEnoughSpace'));
             }
+
             return false;
         }
     }
@@ -709,6 +711,7 @@ function enough_size($file_size, $dir, $max_dir_space)
             return false;
         }
     }
+
     return true;
 }
 
@@ -750,7 +753,6 @@ function dir_total_space($dir_path)
 
     return $sumSize;
 }
-
 
 /**
  * Tries to add an extension to files without extension
@@ -1160,7 +1162,7 @@ function filter_extension(&$filename)
             return 1;
         }
     } else {
-        $extensions = split(';', strtolower(api_get_setting('upload_extensions_whitelist')));
+        $extensions = explode(';', strtolower(api_get_setting('upload_extensions_whitelist')));
         $skip = api_get_setting('upload_extensions_skip');
         $ext = strrchr($filename, '.');
         $ext = substr($ext, 1);
@@ -1334,7 +1336,7 @@ function item_property_update_on_folder($_course, $path, $user_id)
  * @return	The directory depth
  */
 function get_levels($filename) {
-    $levels=explode('/', $filename);
+    $levels = explode('/', $filename);
     if (empty($levels[count($levels) - 1])) {
         unset($levels[count($levels) - 1]);
     }
@@ -1351,7 +1353,7 @@ function get_levels($filename) {
  */
 function set_default_settings($upload_path, $filename, $filetype = 'file')
 {
-    global $dbTable,$_configuration;
+    $dbTable = Database::get_course_table(TABLE_DOCUMENT);
     global $default_visibility;
 
     if (!$default_visibility) {

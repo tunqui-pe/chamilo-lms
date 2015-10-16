@@ -12,8 +12,6 @@
  *
  */
 
-// name of the language file that needs to be included
-
 use ChamiloSession as Session;
 
 require_once '../inc/global.inc.php';
@@ -125,6 +123,11 @@ $this_section = SECTION_COURSES;
 if ($origin != 'learnpath') {
 	Display::display_header('');
 } else {
+    $htmlHeadXtra[] = "
+    <style>
+    body { background: none;}
+    </style>
+    ";
 	Display::display_reduced_header();
 }
 ?>
@@ -166,8 +169,8 @@ function getFCK(vals,marksid) {
 }
 </script>
 <?php
-$show_results           = true;
-$show_only_total_score  = false;
+$show_results = true;
+$show_only_total_score = false;
 
 // Avoiding the "Score 0/0" message  when the exe_id is not set
 if (!empty($track_exercise_info)) {
@@ -232,10 +235,10 @@ $arrans  = array();
 
 $user_restriction = $is_allowedToEdit ? '' :  "AND user_id=".intval($student_id)." ";
 $sql = "SELECT attempts.question_id, answer
-        FROM ".$TBL_TRACK_ATTEMPT." as attempts
+        FROM $TBL_TRACK_ATTEMPT as attempts
         INNER JOIN ".$TBL_TRACK_EXERCISES." AS stats_exercises
         ON stats_exercises.exe_id=attempts.exe_id
-        INNER JOIN ".$TBL_EXERCISE_QUESTION." AS quizz_rel_questions
+        INNER JOIN $TBL_EXERCISE_QUESTION AS quizz_rel_questions
         ON
             quizz_rel_questions.exercice_id=stats_exercises.exe_exo_id AND
             quizz_rel_questions.question_id = attempts.question_id AND
@@ -244,7 +247,8 @@ $sql = "SELECT attempts.question_id, answer
         ON
             questions.id=quizz_rel_questions.question_id AND
             questions.c_id = ".api_get_course_int_id()."
-        WHERE attempts.exe_id = ".intval($id)." $user_restriction
+        WHERE
+            attempts.exe_id = ".intval($id)." $user_restriction
 		GROUP BY quizz_rel_questions.question_order, attempts.question_id";
 
 $result = Database::query($sql);
@@ -284,7 +288,7 @@ if (!empty($end_of_message) && ($origin == 'learnpath')) {
 $total_weighting = 0;
 foreach ($questionList as $questionId) {
     $objQuestionTmp = Question::read($questionId);
-    $total_weighting  +=$objQuestionTmp->selectWeighting();
+    $total_weighting +=$objQuestionTmp->selectWeighting();
 }
 
 $counter = 1;
@@ -777,8 +781,7 @@ if ($origin != 'learnpath') {
 		$url = '../newscorm/lp_controller.php?'.api_get_cidreq().'&action=view&lp_id='.$learnpath_id.'&lp_item_id='.$learnpath_item_id.'&exeId='.$exeId.'&fb_type='.$feedback_type;
 		$href = ($lp_mode == 'fullscreen')?' window.opener.location.href="'.$url.'" ':' top.location.href="'.$url.'" ';
 		echo '<script type="text/javascript">'.$href.'</script>';
-
-		//Record the results in the learning path, using the SCORM interface (API)
+		// Record the results in the learning path, using the SCORM interface (API)
 		echo "<script>window.parent.API.void_save_asset('$totalScore', '$totalWeighting', 0, 'completed'); </script>";
 		echo '</body></html>';
 	} else {

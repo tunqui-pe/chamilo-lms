@@ -34,7 +34,7 @@ class SkillProfile extends Model
 
     /**
     * This function is for editing profile info from profile_id.
-    * @param int $profileId
+    * @param int    $profileId
     * @param string $name
     * @param string $description
     */
@@ -71,6 +71,7 @@ class SkillProfile extends Model
                 return $profile_id;
             }
         }
+
         return false;
     }
 
@@ -115,7 +116,7 @@ class SkillRelProfile extends Model
     public function get_skills_by_profile($profileId)
     {
         $profileId = intval($profileId);
-        $skills       = $this->get_all(array('where' => array('profile_id = ? ' => $profileId)));
+        $skills = $this->get_all(array('where' => array('profile_id = ? ' => $profileId)));
         $return = array();
         if (!empty($skills)) {
             foreach ($skills as $skill_data) {
@@ -139,6 +140,7 @@ class SkillRelProfile extends Model
                 WHERE p.profile_id = ".intval($profileId);
         $result = Database::query($sql);
         $profileData = Database::fetch_array($result, 'ASSOC');
+
         return $profileData;
     }
 }
@@ -270,6 +272,7 @@ class SkillRelSkill extends Model
         if ($result) {
             return true;
         }
+
         return false;
     }
 
@@ -284,6 +287,7 @@ class SkillRelSkill extends Model
             'all',
             array('where' => array('skill_id = ? AND parent_id = ?' => array($skill_id, $parent_id)))
         );
+
         if (!empty($result)) {
             return true;
         }
@@ -578,6 +582,15 @@ class Skill extends Model
 
         $result = Database::query($sql);
         $users  = Database::store_result($result, 'ASSOC');
+
+        foreach ($users as &$user) {
+            if (!$user['icon']) {
+                continue;
+            }
+
+            $user['icon_small'] = sprintf("badges/%s-small.png", sha1($user['name']));
+        }
+
         return $users;
     }
 
@@ -1372,6 +1385,7 @@ class Skill extends Model
     /**
      * Get the users list who achieved a skill
      * @param int $skillId The skill id
+     *
      * @return array The users list
      */
     public function listUsersWhoAchieved($skillId)

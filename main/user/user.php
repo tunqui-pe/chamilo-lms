@@ -34,6 +34,7 @@ $is_western_name_order = api_is_western_name_order();
 $sort_by_first_name = api_sort_by_first_name();
 $course_info = api_get_course_info();
 $user_id = api_get_user_id();
+$_user = api_get_user_info();
 $courseCode = $course_info['code'];
 $courseId = $course_info['real_id'];
 
@@ -52,7 +53,9 @@ if (api_is_allowed_to_edit(null, true)) {
                     $user_ids = array_diff($_POST['user'], array($user_id));
                     if (count($user_ids) > 0) {
                         CourseManager::unsubscribe_user($user_ids, $courseCode);
-                        Display::addFlash(Display::return_message(get_lang('UsersUnsubscribed')));
+                        Display::addFlash(
+                            Display::return_message(get_lang('UsersUnsubscribed'))
+                        );
                     }
                 }
         }
@@ -202,14 +205,15 @@ if (api_is_allowed_to_edit(null, true)) {
                 if (api_get_session_id()) {
                     $table_session_course_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
                     $sql = "SELECT DISTINCT
-                                    user.user_id, ".($is_western_name_order ? "user.firstname, user.lastname" : "user.lastname, user.firstname").",
-                                    user.username,
-                                    $select_email_condition
-                                    phone,
-                                    user.official_code,
-                                    active
-                                    $legal
-                                  FROM $table_session_course_user as session_course_user, $table_users as user ";
+                                user.user_id, ".($is_western_name_order ? "user.firstname, user.lastname" : "user.lastname, user.firstname").",
+                                user.username,
+                                $select_email_condition
+                                phone,
+                                user.official_code,
+                                active
+                                $legal
+                            FROM $table_session_course_user as session_course_user,
+                            $table_users as user ";
                     if (api_is_multiple_url_enabled()) {
                         $sql .= ' , '.Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER).' au ';
                     }
@@ -250,7 +254,11 @@ if (api_is_allowed_to_edit(null, true)) {
                         $data[] = $user;
                         if ($_GET['type'] == 'pdf') {
                             $user_info = api_get_user_info($user['user_id']);
-                            $user_image = Display::img($user_info['avatar'], null, array('width' => $user_image_pdf_size.'px'));
+                            $user_image = Display::img(
+                                $user_info['avatar'],
+                                null,
+                                array('width' => $user_image_pdf_size.'px')
+                            );
                             if ($is_western_name_order) {
                                 $user_pdf = array(
                                     $counter,
@@ -280,7 +288,6 @@ if (api_is_allowed_to_edit(null, true)) {
                 }
 
                 if ($sessionId == 0) {
-
                     // users directly subscribed to the course
                     $table_course_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
                     $sql = "SELECT DISTINCT
@@ -446,7 +453,6 @@ if (!$is_allowed_in_course) {
 // Statistics
 Event::event_access_tool(TOOL_USER);
 
-
 /**
  * Get the users to display on the current page.
  */
@@ -540,6 +546,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
     $sessionId = api_get_session_id();
     $course_code = $course_info['code'];
     $a_users = array();
+    $limit = null;
 
     // limit
     if (!isset($_GET['keyword']) || empty($_GET['keyword'])) {
@@ -609,13 +616,13 @@ function get_user_data($from, $number_of_items, $column, $direction)
 
     foreach ($a_course_users as $user_id => $o_course_user) {
         if ((
-                isset($_GET['keyword']) &&
-                searchUserKeyword(
-                    $o_course_user['firstname'],
-                    $o_course_user['lastname'],
-                    $o_course_user['username'],
-                    $o_course_user['official_code'],
-                    $_GET['keyword'])
+            isset($_GET['keyword']) &&
+            searchUserKeyword(
+                $o_course_user['firstname'],
+                $o_course_user['lastname'],
+                $o_course_user['username'],
+                $o_course_user['official_code'],
+                $_GET['keyword'])
             ) || !isset($_GET['keyword']) || empty($_GET['keyword'])
         ) {
 
@@ -739,8 +746,8 @@ function active_filter($active, $urlParams, $row)
 
     /* you cannot lock yourself out otherwise you could disable all the accounts including your own => everybody is
         locked out and nobody can change it anymore.*/
-    if ($row[count($row)-1] <> $userId) {
-        $result = '<center><img src="../img/icons/16/'.$image.'.png" border="0" style="vertical-align: middle;" alt="'.get_lang(ucfirst($action)).'" title="'.get_lang(ucfirst($action)).'"/></center>';
+    if ($row[0] <> $userId) {
+        $result = '<center><img src="../img/icons/16/'.$image.'.png" border="0" alt="'.get_lang(ucfirst($action)).'" title="'.get_lang(ucfirst($action)).'"/></center>';
     }
 
     return $result;
@@ -878,9 +885,9 @@ if (api_is_allowed_to_edit(null, true)) {
     $table->set_header($header_nr++, get_lang('Status'), false);
     $table->set_header($header_nr++, get_lang('Active'), false);
     if (api_get_setting('allow_user_course_subscription_by_course_admin') == 'true') {
-        $table->set_column_filter(9, 'active_filter');
+        $table->set_column_filter(8, 'active_filter');
     } else {
-        $table->set_column_filter(9, 'active_filter');
+        $table->set_column_filter(8, 'active_filter');
     }
 
     foreach ($extraFields as $extraField) {
@@ -943,17 +950,12 @@ if (api_is_allowed_to_edit(null, true)) {
             break;
     }
 
+    echo '<div class="row">';
+    echo '<div class="col-md-6">';
     echo Display::url(
         Display::return_icon('add.png', get_lang('Add'), '', ICON_SIZE_MEDIUM),
         $url
     );
-
-    // Build search-form
-    $form = new FormValidator('search_user', 'get', '', '', null, FormValidator::LAYOUT_INLINE);
-    $form->addText('keyword', '', false);
-    $form->addButtonSearch(get_lang('SearchButton'));
-    $form->display();
-
     $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&type=csv">'.
         Display::return_icon('export_csv.png', get_lang('ExportAsCSV'),'',ICON_SIZE_MEDIUM).'</a> ';
     $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&type=xls">'.
@@ -968,6 +970,19 @@ if (api_is_allowed_to_edit(null, true)) {
 
     $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&type=pdf">'.
         Display::return_icon('pdf.png', get_lang('ExportToPDF'),'',ICON_SIZE_MEDIUM).'</a> ';
+    echo $actions;
+
+    echo '</div>';
+    echo '<div class="col-md-6">';
+    echo '<div class="pull-right">';
+        // Build search-form
+        $form = new FormValidator('search_user', 'get', '', '', null, FormValidator::LAYOUT_INLINE);
+        $form->addText('keyword', '', false);
+        $form->addButtonSearch(get_lang('SearchButton'));
+        $form->display();
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
 
     $allowTutors = api_get_setting('allow_tutors_to_assign_students_to_session');
     if (api_is_allowed_to_edit() && $allowTutors == 'true') {
@@ -975,7 +990,7 @@ if (api_is_allowed_to_edit(null, true)) {
             get_lang('Sessions').'</a>';
     }
 
-    echo $actions;
+
 
     echo '</div>';
 }
@@ -989,6 +1004,6 @@ if (!empty($_GET['keyword']) && !empty($_GET['submit'])) {
     echo '<br/>'.get_lang('SearchResultsFor').' <span style="font-style: italic ;"> '.$keyword_name.' </span><br>';
 }
 
-if ($origin != 'learnpath') {
+if (!isset($origin) || $origin != 'learnpath') {
     Display::display_footer();
 }

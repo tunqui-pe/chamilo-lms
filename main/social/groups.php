@@ -20,7 +20,7 @@ $this_section = SECTION_SOCIAL;
 $allowed_views = array('mygroups','newest','pop');
 $content = null;
 
-if (isset($_GET['view']) && in_array($_GET['view'],$allowed_views)) {
+if (isset($_GET['view']) && in_array($_GET['view'], $allowed_views)) {
     if ($_GET['view'] == 'mygroups') {
         $interbreadcrumb[]= array ('url' =>'groups.php','name' => get_lang('Groups'));
         $interbreadcrumb[]= array ('url' =>'#','name' => get_lang('MyGroups'));
@@ -64,15 +64,15 @@ if (is_array($results) && count($results) > 0) {
         $result['name'] = Security::remove_XSS($result['name'], STUDENT, true);
         $result['description'] = Security::remove_XSS($result['description'], STUDENT, true);
         $my_group_list[] = $id;
-        $url_open  = '<a href="group_view.php?id='.$id.'">';
-        $url_close = '</a>';
-
         $name = cut($result['name'], GROUP_TITLE_LENGTH, true);
+        
         if ($result['relation_type'] == GROUP_USER_PERMISSION_ADMIN) {
             $name .= ' '.Display::return_icon('social_group_admin.png', get_lang('Admin'), array('style'=>'vertical-align:middle'));
         } elseif ($result['relation_type'] == GROUP_USER_PERMISSION_MODERATOR) {
             $name .= ' '.Display::return_icon('social_group_moderator.png', get_lang('Moderator'), array('style'=>'vertical-align:middle'));
         }
+        $url  = '<a href="group_view.php?id='.$id.'">' . $name . '</a>';
+        
         $count_users_group = count($usergroup->get_users_by_group($id, false, array(GROUP_USER_PERMISSION_ADMIN, GROUP_USER_PERMISSION_READER, GROUP_USER_PERMISSION_MODERATOR), 0 , 1000));
         if ($count_users_group == 1 ) {
             $count_users_group = $count_users_group.' '.get_lang('Member');
@@ -82,19 +82,26 @@ if (is_array($results) && count($results) > 0) {
 
         $picture = $usergroup->get_picture_group($result['id'], $result['picture'],80);
         $result['picture'] = '<img class="social-groups-image" src="'.$picture['file'].'" />';
-        $item_0  = Display::div($result['picture'], array('class'=>'box_description_group_image'));
-        $members = Display::span($count_users_group, array('class'=>'box_description_group_member'));
-        $item_1  = Display::div(Display::tag('h4', $url_open.$name.$url_close).$members, array('class'=>'box_description_group_title'));
-
-        $item_2 = '';
-        $item_3 = '';
+        
+        $members = Display::returnFontAwesomeIcon('user').$count_users_group;
+        $html = '<div class="row">';
+        $html .= '<div class="col-md-2">';
+        $html .= $result['picture'];
+        $html .= '</div>';
+        $html .= '<div class="col-md-10">';
+        $html .= '<div class="title-groups">';
+        $html .= Display::tag('h5', $url);
+        $html .= '</div>';
+        $html .= '<div class="members-groups">' . $members . '</div>';
         if ($result['description'] != '') {
-            $item_3 = '<div class="box_description_group_content" >'.cut($result['description'],100,true).'</div>';
+            $html .= '<div class="description-groups">' . cut($result['description'],100,true) . '</div>';
         } else {
-            $item_2 = '<div class="box_description_group_title" ><span class="social-groups-text2"></span></div>';
-            $item_3 = '<div class="box_description_group_content" ></div>';
+            $html .= '';
         }
-        $grid_item_2 = $item_0.$item_1.$item_2.$item_3;
+        $html .= '</div>';
+        $html .= '</div>';
+        
+        $grid_item_2 = $html;
         $grid_my_groups[]= array($grid_item_2);
     }
 }
@@ -107,8 +114,8 @@ foreach ($results as $result) {
     $result['name'] = Security::remove_XSS($result['name'], STUDENT, true);
     $result['description'] = Security::remove_XSS($result['description'], STUDENT, true);
     $id = $result['id'];
-    $url_open  = '<a href="group_view.php?id='.$id.'">';
-    $url_close = '</a>';
+    $name = cut($result['name'], GROUP_TITLE_LENGTH, true);
+    
     $count_users_group = count($usergroup->get_users_by_group($id, false, array(GROUP_USER_PERMISSION_ADMIN, GROUP_USER_PERMISSION_READER, GROUP_USER_PERMISSION_MODERATOR), 0 , 1000));
     if ($count_users_group == 1 ) {
         $count_users_group = $count_users_group.' '.get_lang('Member');
@@ -116,28 +123,38 @@ foreach ($results as $result) {
         $count_users_group = $count_users_group.' '.get_lang('Members');
     }
 
-    $name = cut($result['name'],GROUP_TITLE_LENGTH,true);
+    $url  = '<a href="group_view.php?id='.$id.'">' . $name . '</a>';
+    
     $picture = $usergroup->get_picture_group($result['id'], $result['picture'],80);
     $result['picture'] = '<img class="social-groups-image" src="'.$picture['file'].'" />';
-
-    $item_0 = Display::div($result['picture'], array('class'=>'box_description_group_image'));
-    $members = Display::span($count_users_group, array('class'=>'box_description_group_member'));
-    $item_1  = Display::div(Display::tag('h4', $url_open.$name.$url_close).$members, array('class'=>'box_description_group_title'));
-
+    $members = Display::returnFontAwesomeIcon('user').$count_users_group;
+    
+    $html = '<div class="row">';
+    $html .= '<div class="col-md-2">';
+    $html .= $result['picture'];
+    $html .= '</div>';
+    $html .= '<div class="col-md-10">';
+    $html .= '<div class="title-groups">';
+    $html .= Display::tag('h5', $url);
+    $html .= '</div>';
+    $html .= '<div class="members-groups">' . $members . '</div>';
     if ($result['description'] != '') {
-        $item_3 = '<div class="box_description_group_content" >'.cut($result['description'],100,true).'</div>';
+        $html .= '<div class="description-groups">' . cut($result['description'],100,true) . '</div>';
     } else {
-        $item_2 = '<div class="box_description_group_title" ><span class="social-groups-text2"></span></div>';
-        $item_3 = '<div class="box_description_group_content" ></div>';
+        $html .= '';
     }
     //Avoiding my groups
-    $join_url = '';
-    if (!in_array($id,$my_group_list)) {
-        $join_url = '<a class="btn" href="group_view.php?id='.$id.'&action=join&u='.api_get_user_id().'">'.get_lang('JoinGroup').'</a> ';
-    }
 
-    $item_4 = '<div class="box_description_group_actions" >'.$join_url.'</div>';
-    $grid_item_2 = $item_0.$item_1.$item_2.$item_3.$item_4;
+    if (!in_array($id,$my_group_list)) {
+        $html .= '<a class="btn" href="group_view.php?id='.$id.'&action=join&u='.api_get_user_id().'">'.get_lang('JoinGroup').'</a> ';
+    }
+    
+    $html .= '<div class="group-actions" >'.$join_url.'</div>';
+    $html .= '</div>';
+    $html .= '</div>';
+    
+    
+    $grid_item_2 = $html;
 
     $grid_newest_groups[]= array($grid_item_2);
 }
@@ -151,8 +168,7 @@ if (is_array($results) && count($results) > 0) {
         $result['name'] = Security::remove_XSS($result['name'], STUDENT, true);
         $result['description'] = Security::remove_XSS($result['description'], STUDENT, true);
         $id = $result['id'];
-        $url_open  = '<a href="group_view.php?id='.$id.'">';
-        $url_close = '</a>';
+        $name = cut($result['name'],GROUP_TITLE_LENGTH,true);
 
         $count_users_group = count($usergroup->get_users_by_group($id, false, array(GROUP_USER_PERMISSION_ADMIN, GROUP_USER_PERMISSION_READER, GROUP_USER_PERMISSION_MODERATOR), 0 , 1000));
         if ($count_users_group == 1 ) {
@@ -161,28 +177,36 @@ if (is_array($results) && count($results) > 0) {
             $count_users_group = $count_users_group.' '.get_lang('Members');
         }
 
-        $name = cut($result['name'],GROUP_TITLE_LENGTH,true);
+        $url  = '<a href="group_view.php?id='.$id.'">' . $name . '</a>';
+        
         $picture = $usergroup->get_picture_group($result['id'], $result['picture'],80);
         $result['picture'] = '<img class="social-groups-image" src="'.$picture['file'].'" />';
 
-        $item_0 = Display::div($result['picture'], array('class'=>'box_description_group_image'));
-        $members = Display::span($count_users_group, array('class'=>'box_description_group_member'));
-        $item_1  = Display::div(Display::tag('h4', $url_open.$name.$url_close).$members, array('class'=>'box_description_group_title'));
-
+        $html = '<div class="row">';
+        $html .= '<div class="col-md-2">';
+        $html .= $result['picture'];
+        $html .= '</div>';
+        $html .= '<div class="col-md-10">';
+        $html .= '<div class="title-groups">';
+        $html .= Display::tag('h5', $url);
+        $html .= '</div>';
+        $html .= '<div class="members-groups">' . $members . '</div>';
         if ($result['description'] != '') {
-            $item_3 = '<div class="box_description_group_content" >'.cut($result['description'],100,true).'</div>';
+            $html .= '<div class="description-groups">' . cut($result['description'],100,true) . '</div>';
         } else {
-            $item_2 = '<div class="box_description_group_title" ><span class="social-groups-text2"></span></div>';
-            $item_3 = '<div class="box_description_group_content" ></div>';
+            $html .= '';
         }
+        //Avoiding my groups
 
-        $join_url = '';
         if (!in_array($id,$my_group_list)) {
-            $join_url = '<a class="btn" href="group_view.php?id='.$id.'&action=join&u='.api_get_user_id().'">'.get_lang('JoinGroup').'</a> ';
+            $html .= '<a class="btn" href="group_view.php?id='.$id.'&action=join&u='.api_get_user_id().'">'.get_lang('JoinGroup').'</a> ';
         }
-        $item_4 = '<div class="box_description_group_actions" >'.$join_url.'</div>';
 
-        $grid_item_2 = $item_0.$item_1.$item_2.$item_3.$item_4;
+        $html .= '<div class="group-actions" >'.$join_url.'</div>';
+        $html .= '</div>';
+        $html .= '</div>';
+
+        $grid_item_2 = $html;
         $grid_pop_groups[]= array($grid_item_2);
     }
 }
@@ -224,6 +248,8 @@ if (isset($_GET['view']) && in_array($_GET['view'], $allowed_views)) {
     $my_group_content = null;
     if (count($grid_my_groups) > 0) {
         $my_group_content = Display::return_sortable_grid('mygroups', array(), $grid_my_groups, array('hide_navigation'=>true, 'per_page' => 2), $query_vars, false, array(true, true, true,false));
+    } else {
+        $my_group_content = '<span class="muted">'.get_lang('GroupNone').'</span>';
     }
     if (api_get_setting('allow_students_to_create_groups_in_social') == 'true') {
         $create_group_item =  '<a class="btn btn-default" href="'.api_get_path(WEB_PATH).'main/social/group_add.php">'.
@@ -235,9 +261,13 @@ if (isset($_GET['view']) && in_array($_GET['view'], $allowed_views)) {
     }
     if (count($grid_newest_groups) > 0) {
         $newest_content = Display::return_sortable_grid('mygroups', array(), $grid_newest_groups, array('hide_navigation'=>true, 'per_page' => 100), $query_vars, false, array(true, true, true,false));
+    } else {
+        $newest_content = '<span class="muted">'.get_lang('GroupNone').'</span>';
     }
     if (count($grid_pop_groups) > 0) {
         $popular_content = Display::return_sortable_grid('mygroups', array(), $grid_pop_groups, array('hide_navigation'=>true, 'per_page' => 100), $query_vars, false, array(true, true, true,true,true));
+    } else {
+        $popular_content = '<span class="muted">'.get_lang('GroupNone').'</span>';
     }
 }
 

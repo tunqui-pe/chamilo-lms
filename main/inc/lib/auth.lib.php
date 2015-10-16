@@ -102,7 +102,9 @@ class Auth
     {
         $user_id = api_get_user_id();
         $table_category = Database::get_main_table(TABLE_USER_COURSE_CATEGORY);
-        $sql = "SELECT * FROM " . $table_category . " WHERE user_id=$user_id ORDER BY sort ASC";
+        $sql = "SELECT * FROM " . $table_category . "
+                WHERE user_id=$user_id
+                ORDER BY sort ASC";
         $result = Database::query($sql);
         $output = array();
         while ($row = Database::fetch_array($result)) {
@@ -612,9 +614,9 @@ class Auth
             if (CourseManager::add_user_to_course($user_id, $course_code, $status_user_in_new_course)) {
                 $send = api_get_course_setting('email_alert_to_teacher_on_new_user_in_course', $course_code);
                 if ($send == 1) {
-                    CourseManager::email_to_tutor($user_id, $course_code, $send_to_tutor_also = false);
+                    CourseManager::email_to_tutor($user_id, $all_course_information['real_id'], $send_to_tutor_also = false);
                 } else if ($send == 2) {
-                    CourseManager::email_to_tutor($user_id, $course_code, $send_to_tutor_also = true);
+                    CourseManager::email_to_tutor($user_id, $all_course_information['real_id'], $send_to_tutor_also = true);
                 }
                 $url = Display::url($all_course_information['title'], api_get_course_url($course_code));
                 $message = sprintf(get_lang('EnrollToCourseXSuccessful'), $url);
@@ -636,6 +638,7 @@ class Auth
             $form->addElement('text', 'course_registration_code');
             $form->addButton(get_lang('SubmitRegistrationCode'));
             $content = $form->returnForm();
+
             return array('message' => $message, 'content' => $content);
         }
     }
@@ -652,12 +655,16 @@ class Auth
         $qb = $em->createQueryBuilder();
 
         $_sessions = $qb->select('s')
-            ->from('ChamiloCoreBundle:Session', 's')
-            ->setFirstResult($limit['start'])
-            ->setMaxResults($limit['length'])
-            ->where(
-                $qb->expr()->gt('s.nbrCourses', 0)
-            );
+            ->from('ChamiloCoreBundle:Session', 's');
+
+        if (!empty($limit)) {
+            $_sessions->setFirstResult($limit['start'])
+                ->setMaxResults($limit['length']);
+        }
+
+        $_sessions->where(
+            $qb->expr()->gt('s.nbrCourses', 0)
+        );
 
         if (!is_null($date)) {
             $_sessions
@@ -769,4 +776,35 @@ SQL;
         return $sessionsToBrowse;
     }
 
+    /**
+     * Search sessions by searched term by session name
+     * @param string $queryTerm Term for search
+     * @param array $limit Limit info
+     * @return array The sessions
+     */
+    public function browseSessionsBySearch($queryTerm, array $limit)
+    {
+        $sessionsToBrowse = [];
+
+        $criteria = Doctrine\Common\Collections\Criteria::create()
+            ->where(
+                Doctrine\Common\Collections\Criteria::expr()->contains('name', $queryTerm)
+            )
+            ->setFirstResult($limit['start'])
+            ->setMaxResults($limit['length']);
+
+        $sessions = Database::getManager()
+                ->getRepository('ChamiloCoreBundle:Session')
+                ->matching($criteria);
+
+        foreach ($sessions as $session) {
+            if ($session->getNbrCourses() === 0) {
+                continue;
+            }
+
+            $sessionsToBrowse[] = $session;
+        }
+
+        return $sessionsToBrowse;
+    }
 }

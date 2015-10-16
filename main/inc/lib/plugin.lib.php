@@ -387,7 +387,7 @@ class AppPlugin
                             if (!empty($plugin_tpl)) {
                                 //$template_plugin_file = api_get_path(SYS_PLUGIN_PATH)."$plugin_name/$plugin_tpl"; //for smarty
                                 $template_plugin_file = "$plugin_name/$plugin_tpl"; // for twig
-                                $template->display($template_plugin_file);
+                                $template->display($template_plugin_file, false);
                             }
                         }
                     }
@@ -396,17 +396,6 @@ class AppPlugin
         }
 
         return true;
-    }
-
-    /**
-     * @param string    $plugin_name
-     * @param bool      $forced
-     *
-     * @deprecated
-     */
-    public function get_plugin_info($plugin_name, $forced = false)
-    {
-        return $this->getPluginInfo($plugin_name, $forced);
     }
 
     /**
@@ -453,6 +442,7 @@ class AppPlugin
     /**
      * Get the template list
      * @param  string $pluginName
+     *
      * @return bool
      */
     public function get_templates_list($pluginName)

@@ -259,7 +259,9 @@ class UserManager
             $num = self::get_number_of_users();
             if ($num >= $_configuration[$access_url_id]['hosting_limit_users']) {
                 api_warn_hosting_contact('hosting_limit_users');
-                return api_set_failure('portal users limit reached');
+                Display::addFlash(Display::return_message(get_lang('PortalUsersLimitReached'), 'warning'));
+
+                return false;
             }
         }
 
@@ -270,13 +272,17 @@ class UserManager
         ) {
             $num = self::get_number_of_users(1);
             if ($num >= $_configuration[$access_url_id]['hosting_limit_teachers']) {
+                Display::addFlash(Display::return_message(get_lang('PortalTeachersLimitReached'), 'warning'));
                 api_warn_hosting_contact('hosting_limit_teachers');
-                return api_set_failure('portal teachers limit reached');
+
+                return false;
             }
         }
 
         if (empty($password)) {
-            return api_set_failure('ThisFieldIsRequired');
+            Display::addFlash(Display::return_message(get_lang('ThisFieldIsRequired').': '.get_lang('Password') , 'warning'));
+
+            return false;
         }
 
         // database table definition
@@ -362,13 +368,23 @@ class UserManager
             }
 
             if (!empty($email) && $send_mail) {
-                $recipient_name = api_get_person_name($firstName, $lastName, null, PERSON_NAME_EMAIL_ADDRESS);
+                $recipient_name = api_get_person_name(
+                    $firstName,
+                    $lastName,
+                    null,
+                    PERSON_NAME_EMAIL_ADDRESS
+                );
                 $tplSubject = new Template(null, false, false, false, false, false);
                 $layoutSubject = $tplSubject->get_template(
                     'mail/subject_registration_platform.tpl'
                 );
                 $emailSubject = $tplSubject->fetch($layoutSubject);
-                $sender_name = api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
+                $sender_name = api_get_person_name(
+                    api_get_setting('administratorName'),
+                    api_get_setting('administratorSurname'),
+                    null,
+                    PERSON_NAME_EMAIL_ADDRESS
+                );
                 $email_admin = api_get_setting('emailAdministrator');
 
                 if (api_is_multiple_url_enabled()) {
@@ -565,7 +581,7 @@ class UserManager
         a user has 4 different sized photos to be deleted. */
         $user_info = api_get_user_info($user_id);
         if (strlen($user_info['picture_uri']) > 0) {
-            $path = self::getUserPathById($user_id);
+            $path = self::getUserPathById($user_id, 'system');
             $img_path = $path.$user_info['picture_uri'];
             if (file_exists($img_path))
                 unlink($img_path);
@@ -667,6 +683,7 @@ class UserManager
             $deleted = self::delete_user($id);
             $result = $deleted || $result;
         }
+
         return $result;
     }
 
@@ -955,6 +972,7 @@ class UserManager
         if ($r !== false) {
             Event::addEvent($ev, LOG_USER_ID, $user_id);
         }
+
         return $r;
     }
 
@@ -1313,24 +1331,6 @@ class UserManager
     }
 
     /**
-     * Get user information
-     * @param     string     The username
-     * @deprecated use api_get_user_info
-     * @return array All user information as an associative array
-     */
-    public static function get_user_info($username)
-    {
-        $user_table = Database :: get_main_table(TABLE_MAIN_USER);
-        $username = Database::escape_string($username);
-        $sql = "SELECT * FROM $user_table WHERE username='".$username."'";
-        $res = Database::query($sql);
-        if (Database::num_rows($res) > 0) {
-            return Database::fetch_array($res);
-        }
-        return false;
-    }
-
-    /**
      * Get user picture URL or path from user ID (returns an array).
      * The return format is a complete path, enabling recovery of the directory
      * with dirname() or the file with basename(). This also works for the
@@ -1437,7 +1437,6 @@ class UserManager
                 $userPath = api_get_path(REL_UPLOAD_PATH).$userPath;
                 break;
             case 'last': // Only the last part starting with users/
-                $userPath = $userPath;
                 break;
         }
 
@@ -1493,23 +1492,24 @@ class UserManager
 
         $gravatarEnabled = api_get_setting('gravatar_enabled');
 
-        if ($gravatarEnabled === 'true') {
-            $file = self::getGravatar(
-                $imageWebPath['email'],
-                $gravatarSize,
-                api_get_setting('gravatar_type')
-            );
-
-            if ($addRandomId) {
-                $file .= '&rand='.uniqid();
-            }
-            return $file;
-        }
-
         $anonymousPath = api_get_path(WEB_CODE_PATH).'img/'.$pictureAnonymous;
 
         if ($pictureWebFile == 'unknown.jpg' || empty($pictureWebFile)) {
-
+            
+            if ($gravatarEnabled === 'true') {
+                $file = self::getGravatar(
+                    $imageWebPath['email'],
+                    $gravatarSize,
+                    api_get_setting('gravatar_type')
+                );
+                
+                if ($addRandomId) {
+                    $file .= '&rand='.uniqid();
+                }
+                
+                return $file;
+            }
+            
             return $anonymousPath;
         }
 
@@ -1702,6 +1702,7 @@ class UserManager
      *
      * @param    int $user_id    User id
      * @param    $force    Optional parameter to force building after a removal request
+     *
      * @return    A string containing the XHTML code to dipslay the production list, or FALSE
      */
     public static function build_production_list($user_id, $force = false, $showdelete = false)
@@ -1773,8 +1774,8 @@ class UserManager
     /**
      * Remove a user production.
      *
-     * @param    $user_id        User id
-     * @param    $production    The production to remove
+     * @param   int $user_id        User id
+     * @param   string $production    The production to remove
      */
     public static function remove_user_production($user_id, $production)
     {
@@ -1963,6 +1964,7 @@ class UserManager
                 $files[] = $path.$extra_files;
             }
         }
+
         return $files; // can be an empty array
     }
 
@@ -2114,6 +2116,7 @@ class UserManager
                 }
             }
         }
+
         return $extra_data;
     }
 
@@ -2141,7 +2144,8 @@ class UserManager
         $t_ufv = Database::get_main_table(TABLE_EXTRA_FIELD_VALUES);
         $user_id = intval($user_id);
 
-        $sql = "SELECT f.id as id, f.variable as fvar, f.field_type as type FROM $t_uf f
+        $sql = "SELECT f.id as id, f.variable as fvar, f.field_type as type
+                FROM $t_uf f
                 WHERE f.variable = '$field_variable' ";
 
         if (!$all_visibility) {
@@ -2967,7 +2971,7 @@ class UserManager
         if (empty($api_service))
             return false;
         $t_api = Database::get_main_table(TABLE_MAIN_USER_API_KEY);
-        $service_name = Database::escape_string($api_service);
+        $api_service = Database::escape_string($api_service);
         $sql = "SELECT id FROM $t_api WHERE user_id=".$user_id." AND api_service='".$api_service."'";
         $res = Database::query($sql);
         if (Database::num_rows($res) < 1) {
@@ -3615,10 +3619,10 @@ class UserManager
             api_get_path(WEB_PATH).'main/social/search.php',
             '',
             array(),
-            FormValidator::LAYOUT_INLINE
+            FormValidator::LAYOUT_HORIZONTAL
         );
 
-        $form->addText('q', get_lang('UsersGroups'));
+        $form->addText('q', get_lang('UsersGroups'), false);
         $options = array(
             0 => get_lang('Select'),
             1 => get_lang('User'),
@@ -3970,7 +3974,7 @@ class UserManager
         $drhConditions = null;
         $teacherSelect = null;
 
-        switch($status) {
+        switch ($status) {
             case DRH:
                 $drhConditions .= " AND
                     friend_user_id = '$userId' AND
@@ -4053,7 +4057,6 @@ class UserManager
         if ($getSql) {
             return $sql;
         }
-
         if ($getCount) {
             $result = Database::query($sql);
             $row = Database::fetch_array($result);
@@ -4075,7 +4078,6 @@ class UserManager
 
         $sql .= $orderBy;
         $sql .= $limitCondition;
-
         $result = Database::query($sql);
         $users = array();
         if (Database::num_rows($result) > 0) {
@@ -4126,7 +4128,6 @@ class UserManager
                 . "WHERE friend_user_id = $userId "
                 . "AND relation_type = $relationType";
         }
-
         $result = Database::query($sql);
 
         if (Database::num_rows($result) > 0) {
@@ -4529,7 +4530,7 @@ class UserManager
                         'extra_'.$field_details[1],
                         $field_details[3],
                         $options,
-                        array('class' => 'chzn-select', 'id' => 'extra_'.$field_details[1])
+                        array('id' => 'extra_' . $field_details[1])
                     );
 
                     if (!$admin_permissions) {
