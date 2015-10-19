@@ -48,11 +48,11 @@
                         </a>
 
                         {% if skill.status == 0 %}
-                            <a href="{{ _p.web_self ~ '?' ~ {"action": "enable", "id": skill.id}|url_encode() }}" class="btn btn-success btn-sm" title="{{ 'Enable' }}">
+                            <a href="{{ _p.web_self ~ '?' ~ {"action": "enable", "id": skill.id, "view": "list"}|url_encode() }}" class="btn btn-success btn-sm" title="{{ 'Enable' }}">
                                 <em class="fa fa-check-circle-o fa-fw"></em>
                             </a>
                         {% else %}
-                            <a href="{{ _p.web_self ~ '?' ~ {"action": "disable", "id": skill.id}|url_encode() }}" class="btn btn-danger btn-sm" title="{{ 'Disable' }}">
+                            <a href="{{ _p.web_self ~ '?' ~ {"action": "disable", "id": skill.id, "view": "list"}|url_encode() }}" class="btn btn-danger btn-sm" title="{{ 'Disable' }}">
                                 <em class="fa fa-ban fa-fw"></em>
                             </a>
                         {% endif %}
