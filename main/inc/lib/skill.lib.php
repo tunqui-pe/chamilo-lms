@@ -683,7 +683,8 @@ class Skill extends Model
                 $nested[] = $skill;
             }
         }
-    return $nested;
+        
+        return $nested;
     }
 
     /**
