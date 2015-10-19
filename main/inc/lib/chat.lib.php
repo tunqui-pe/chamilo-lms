@@ -299,7 +299,7 @@ class Chat extends Model
          
          return false;
     }
-
+    
     public function is_chat_blocked_by_exercises()
     {
         if (isset($_SESSION['current_exercises'])) {

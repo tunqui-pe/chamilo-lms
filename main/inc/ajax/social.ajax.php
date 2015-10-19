@@ -219,7 +219,7 @@ switch ($action) {
             echo $html;
         }
         break;
-    // Read the Url using OpenGraph and returns the hyperlinks content
+        // Read the Url using OpenGraph and returns the hyperlinks content
     case 'readUrlWithOpenGraph':
         $url = isset($_POST['social_wall_new_msg_main']) ? $_POST['social_wall_new_msg_main'] : '';
         $html = '';

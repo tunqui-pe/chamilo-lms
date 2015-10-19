@@ -1228,6 +1228,8 @@ class SocialManager extends UserManager
 
         //Just in case we replace the and \n and \n\r while saving in the DB
         $messageContent = str_replace(array("\n", "\n\r"), '<br />', $messageContent);
+        //commenting this line avoid the escape_string to insert correctly HTML content in Database
+        //$cleanMessageContent = Database::escape_string($messageContent);
 
         $attributes = array(
             'user_sender_id' => $userId,
@@ -1534,7 +1536,7 @@ class SocialManager extends UserManager
     }
 
     /**
-     * get html data with OpenGrap passing the Url
+     * Get html data with OpenGrap passing the Url
      * @param $link url
      * @return string data html
      */
@@ -1565,16 +1567,15 @@ class SocialManager extends UserManager
         $html .= '</div>';
         return $html;
     }
-
+    
     /**
      * verify if Url Exist - Using Curl
-     * @param $uri url
-     *
+     * @param $URI url
      * @return boolean
      */
-    public static function verifyUrl($uri)
-    {
-        $curl = curl_init($uri);
+    public static function verifyUrl($URI) {
+        $curl = curl_init($URI);
+
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -1582,14 +1583,18 @@ class SocialManager extends UserManager
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+
         $response = curl_exec($curl);
+
         curl_close($curl);
+
         if (!empty($response)) {
             return true;
         } else {
             return false;
         }
     }
+
 
     /**
      * Get full image path from a path and a size
@@ -1894,5 +1899,4 @@ class SocialManager extends UserManager
 
         return $template->fetch($skillBlock);
     }
-
 }
