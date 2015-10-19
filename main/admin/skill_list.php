@@ -19,8 +19,9 @@ if (api_get_setting('allow_skills_tool') != 'true') {
     api_not_allowed();
 }
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'list';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
 $skillId = isset($_GET['id']) ? intval($_GET['id']): 0;
+$view = isset($_GET['view']) ? $_GET['view'] : 'list';
 
 $entityManager = Database::getManager();
 
@@ -55,7 +56,7 @@ switch ($action) {
             );
         }
 
-        header('Location: ' . api_get_self());
+        header('Location: ' . api_get_self() . '?' .  http_build_query(['view' => $view]));
         exit;
         break;
     case 'disable':
@@ -108,8 +109,70 @@ switch ($action) {
             );
         }
 
-        header('Location: ' . api_get_self());
+        header('Location: ' . api_get_self() . '?' .  http_build_query(['view' => $view]));
         exit;
+        break;
+}
+
+switch ($view) {
+    case 'nested':
+        $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+        $message = Session::has('message') ? Session::read('message') : null;
+        $toolbar = Display::toolbarButton(
+            get_lang('CreateSkill'),
+            api_get_path(WEB_CODE_PATH) . 'admin/skill_create.php',
+            'plus',
+            'success',
+            ['title' => get_lang('CreateSkill')]
+        );
+        $toolbar .= Display::toolbarButton(
+            get_lang('SkillsWheel'),
+            api_get_path(WEB_CODE_PATH) . 'admin/skills_wheel.php',
+            'bullseye',
+            'primary',
+            ['title' => get_lang('CreateSkill')]
+        );
+        $toolbar .= Display::toolbarButton(
+            get_lang('BadgesManagement'),
+            api_get_path(WEB_CODE_PATH) . 'admin/skill_badge_list.php',
+            'shield',
+            'warning',
+            ['title' => get_lang('BadgesManagement')]
+        );
+        $toolbar .= Display::toolbarButton(
+            get_lang('FlatView'),
+            api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php?view=list',
+            'eye',
+            'info pull-right',
+            ['title' => get_lang('FlatView')]
+        );
+        
+        /* Nested View */
+        //extra JS lib for the collapsible table
+        $htmlHeadXtra[] = '<script src="'. api_get_path(WEB_PATH) .'web/assets/aCollapTable/jquery.aCollapTable.js"></script>';
+        $htmlHeadXtra[] = '<script>
+                            $(document).ready(function(){
+                              $(".collaptable").aCollapTable({ 
+                                startCollapsed: true,
+                                addColumn: false, 
+                                plusButton: "<em class=\"fa fa-plus-circle \"></em>  ", 
+                                minusButton: "<em class=\"fa fa-minus-circle\"></em>  " 
+                              });
+                            });
+                           </script>';
+        $skill = new Skill();
+        //obtain all skills
+        $allSkills = $skill->get_all();
+        //order the skill list by a nested view array
+        $skillList = $skill->get_nested_skill_view($allSkills);
+        $tpl = new Template(get_lang('ManageSkills'));
+        $tpl->assign('message', $message);
+        $tpl->assign('skills', $skillList);
+        $content = $tpl->fetch('default/skill/nested.tpl');
+        $tpl->assign('actions', $toolbar);
+        $tpl->assign('content', $content);
+        $tpl->display_one_col_template();
+        Session::erase('message');
         break;
     case 'list':
         //no break
@@ -139,8 +202,16 @@ switch ($action) {
             'warning',
             ['title' => get_lang('BadgesManagement')]
         );
+        
+        $toolbar .= Display::toolbarButton(
+            get_lang('NestedView'),
+            api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php?view=nested',
+            'eye',
+            'info pull-right',
+            ['title' => get_lang('NestedView')]
+        );
 
-        /* View */
+        /* List View */
         $skill = new Skill();
         $skillList = $skill->get_all();
 

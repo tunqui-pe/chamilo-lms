@@ -667,6 +667,34 @@ class Skill extends Model
         }
         return $skills;
     }
+    
+    /**
+     * Get nested skills order by parents and childrens correctly (recursive Function)
+     *
+     * @param array $skills - The complete list of skills
+     * @param int $parent_id (optional but mandatory for the recursive iteration) 
+     */
+    public function get_nested_skill_view(array $skills, $parent_id = 0)
+    {
+        //create an empty array to the nested skill list
+        $nested = array();
+        //make all the iterations for the skills
+        foreach ($skills as $skill) {
+            //find if the current skill got the parent_id
+            if ($skill['parent_id'] == $parent_id) {
+                //Do the recursive iteration
+                $children = $this->get_nested_skill_view($skills, $skill['id']);
+                //insert the children in the current parent
+                if ($children) {
+                    $skill['children'] = $children;
+                }
+                //Fills the nested array
+                $nested[] = $skill;
+            }
+        }
+        
+        return $nested;
+    }
 
     /**
      * @param int $skill_id
