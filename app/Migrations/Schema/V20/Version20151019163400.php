@@ -10,7 +10,7 @@ use Doctrine\DBAL\Schema\Schema;
  *
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  */
-class Version19102015163400 extends AbstractMigrationChamilo
+class Version20151019163400 extends AbstractMigrationChamilo
 {
     /**
      * @param Schema $schema
