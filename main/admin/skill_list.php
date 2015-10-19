@@ -114,7 +114,7 @@ switch ($action) {
         break;
 }
 
-switch($view) {
+switch ($view) {
     case 'nested':
         $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
         $message = Session::has('message') ? Session::read('message') : null;
