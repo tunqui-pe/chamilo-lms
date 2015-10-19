@@ -54,7 +54,7 @@
                                     $('#parents').append(arguments[i][0]);
 
                                     if (i !== arguments.length - 1) {
-                                        $('#parents').append('<i class="fa fa-plus fa-3x sequence-plus-icon"></i>');
+                                        $('#parents').append('<em class="fa fa-plus fa-3x sequence-plus-icon"></em>');
                                     }
                                 }
                             });
@@ -158,6 +158,7 @@
             $('button[name="use_as_reference"]').click(function() {
                 $('button[name="set_requirement"]').prop('disabled', false);
                 $('#requirements').prop('disabled', false);
+                $('#requirements').selectpicker('refresh');
                 $('button[name="save_resource"]').prop('disabled', false);
 
                 useAsReference(type, sequenceId);

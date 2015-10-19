@@ -316,25 +316,25 @@ switch ($action) {
     case 'list':
         /*	Display list of student publications */
         if (!empty($my_folder_data['description'])) {
-            $content = '<p><div><strong>'.
-                get_lang('Description').':</strong><p>'.Security::remove_XSS($my_folder_data['description'], STUDENT).
-                '</p></div></p>';
+            $content = '<div>'.
+                get_lang('Description').':'.Security::remove_XSS($my_folder_data['description'], STUDENT).
+                '</div>';
         }
         if (api_is_allowed_to_edit() || api_is_coach()) {
             // Work list
-            $content .= '<div class="toolbar-works"><a id="open-view-list" class="btn btn-primary" href="#"><i class="fa fa-users"></i> Ver Estudiantes</a></div>';
+            
             $content .= '<div class="row">';
             $content .= '<div class="col-md-12">';
-            $content .= '<div id="work-list" class="table-responsive">';
-            $content .= showTeacherWorkGrid();
+            $content .= '<div class="table-responsive">';
+            $content .= Display::panel(showTeacherWorkGrid());
             $content .= '</div>';
             $content .= '</div>';
             $content .= '<div id="student-list-work" style="display: none" class="table-responsive">';
-            $content .= '<div class="toolbar"><a id="closed-view-list" href="#"><i class="fa fa-times-circle"></i> ' .get_lang('Close'). '</a></div>';
+            $content .= '<div class="toolbar"><a id="closed-view-list" href="#"><em class="fa fa-times-circle"></em> ' .get_lang('Close'). '</a></div>';
             $content .= showStudentList($work_id);
             $content .= '</div>';
         } else {
-            $content .= showStudentWorkGrid();
+            $content .= Display::panel(showStudentWorkGrid());
         }
         break;
 }

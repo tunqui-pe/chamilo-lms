@@ -741,10 +741,10 @@ $form->addElement(
 
 $actions  = '';
 if (api_is_platform_admin()) {
-	$actions .= '<span style="float:right;">'.
+	$actions .= '<div style="float:right;">'.
 		 '<a href="'.api_get_path(WEB_CODE_PATH).'admin/user_add.php">'.
          Display::return_icon('new_user.png',get_lang('AddUsers'),'',ICON_SIZE_MEDIUM).'</a>'.
-		 '</span>';
+		 '</div>';
 }
 $actions .= $form->return_form();
 
@@ -846,7 +846,7 @@ $table->set_column_filter(8, 'active_filter');
 $table->set_column_filter(10, 'modify_filter');
 
 // Only show empty actions bar if delete users has been blocked
-if (api_is_platform_admin() && !($deleteUserAvailable)) {
+if (api_is_platform_admin() && !(api_get_configuration_value('deny_delete_users'))) {
     $table->set_form_actions(array('delete' => get_lang('DeleteFromPlatform')));
 } else {
     $table->set_form_actions(array('none' => get_lang('NoActionAvailable')));

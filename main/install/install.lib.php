@@ -140,6 +140,8 @@ function remove_memory_and_time_limits()
     if (function_exists('ini_set')) {
         ini_set('memory_limit', -1);
         ini_set('max_execution_time', 0);
+        error_log('Update-db script: memory_limit set to -1', 0);
+        error_log('Update-db script: max_execution_time 0', 0);
     } else {
         error_log('Update-db script: could not change memory and time limits', 0);
     }
@@ -325,6 +327,7 @@ function set_file_folder_permissions()
 function write_system_config_file($path)
 {
     global $dbHostForm;
+    global $dbPortForm;
     global $dbUsernameForm;
     global $dbPassForm;
     global $dbNameForm;
@@ -342,6 +345,7 @@ function write_system_config_file($path)
 
     $config['{DATE_GENERATED}'] = date('r');
     $config['{DATABASE_HOST}'] = $dbHostForm;
+    $config['{DATABASE_PORT}'] = $dbPortForm;
     $config['{DATABASE_USER}'] = $dbUsernameForm;
     $config['{DATABASE_PASSWORD}'] = $dbPassForm;
     $config['{DATABASE_MAIN}'] = $dbNameForm;
@@ -523,14 +527,16 @@ function get_config_param_from_db($param = '')
  * @param string  $dbUsernameForm DB username
  * @param string  $dbPassForm DB password
  * @param string  $dbNameForm DB name
+ * @param int     $dbPortForm DB port
  *
  * @return EntityManager
  */
-function connectToDatabase($dbHostForm, $dbUsernameForm, $dbPassForm, $dbNameForm)
+function connectToDatabase($dbHostForm, $dbUsernameForm, $dbPassForm, $dbNameForm, $dbPortForm = 3306)
 {
     $dbParams = array(
         'driver' => 'pdo_mysql',
         'host' => $dbHostForm,
+        'port' => $dbPortForm,
         'user' => $dbUsernameForm,
         'password' => $dbPassForm,
         'dbname' => $dbNameForm
@@ -606,7 +612,7 @@ function display_language_selection_box($name = 'language_list', $default_langua
 
     // Displaying the box.
     $html = '';
-    $html .= "\t\t<select class='form-control' name=\"$name\">\n";
+    $html .= "\t\t<select class='selectpicker show-tick' name=\"$name\">\n";
     foreach ($language_list as $key => $value) {
         if ($key == $default_language) {
             $option_end = ' selected="selected">';
@@ -640,7 +646,7 @@ function display_language_selection()
             </div>
             <div class="col-sm-6">
                 <button type="submit" name="step1" class="btn btn-success" value="<?php echo get_lang('Next'); ?>">
-                    <i class="fa fa-forward"> </i>
+                    <em class="fa fa-forward"> </em>
                     <?php echo get_lang('Next'); ?></button>
             </div>
         </div>
@@ -982,11 +988,11 @@ function display_requirements(
                     </p>
                     <p>
                         <button type="submit" class="btn btn-default" name="step1" value="<?php echo get_lang('Back'); ?>" >
-                            <i class="fa fa-backward"> <?php echo get_lang('Back'); ?></i>
+                            <em class="fa fa-backward"> <?php echo get_lang('Back'); ?></em>
                         </button>
                         <input type="hidden" name="is_executable" id="is_executable" value="-" />
                         <button type="submit" class="btn btn-success" name="<?php echo (isset($_POST['step2_update_6']) ? 'step2_update_6' : 'step2_update_8'); ?>" value="<?php echo get_lang('Next'); ?> &gt;" >
-                            <i class="fa fa-forward"> </i> <?php echo get_lang('Next'); ?>
+                            <em class="fa fa-forward"> </em> <?php echo get_lang('Next'); ?>
                         </button>
                     </p>
                 </div>
@@ -1055,17 +1061,17 @@ function display_requirements(
         ?>
         <p align="center" style="padding-top:15px">
         <button type="submit" name="step1" class="btn btn-default" onclick="javascript: window.location='index.php'; return false;" value="<?php echo get_lang('Previous'); ?>" >
-            <i class="fa fa-backward"> </i> <?php echo get_lang('Previous'); ?>
+            <em class="fa fa-backward"> </em> <?php echo get_lang('Previous'); ?>
         </button>
         <button type="submit" name="step2_install" class="btn btn-success" value="<?php echo get_lang("NewInstallation"); ?>" <?php if ($error) echo 'disabled="disabled"'; ?> >
-            <i class="fa fa-forward"> </i> <?php echo get_lang('NewInstallation'); ?>
+            <em class="fa fa-forward"> </em> <?php echo get_lang('NewInstallation'); ?>
         </button>
         <input type="hidden" name="is_executable" id="is_executable" value="-" />
         <?php
         // Real code
         echo '<button type="submit" class="btn btn-default" name="step2_update_8" value="Upgrade from Chamilo 1.9.x"';
         if ($error) echo ' disabled="disabled"';
-        echo ' ><i class="fa fa-forward"> </i> '.get_lang('UpgradeFromLMS19x').'</button>';
+        echo ' ><em class="fa fa-forward"> </em> '.get_lang('UpgradeFromLMS19x').'</button>';
 
         echo '</p>';
     }
@@ -1095,18 +1101,19 @@ function display_license_agreement()
                     <?php echo get_lang('IAccept'); ?>
                 </label>
             </div>
+            <button type="submit" class="btn btn-default" name="step1" value="&lt; <?php echo get_lang('Previous'); ?>" >
+                <em class="fa fa-backward"> </em> <?php echo get_lang('Previous'); ?>
+            </button>
+            <input type="hidden" name="is_executable" id="is_executable" value="-" />
+            <button type="submit" class="btn btn-success" name="step3" onclick="javascript: if(!document.getElementById('accept_licence').checked) { alert('<?php echo get_lang('YouMustAcceptLicence')?>');return false;}" value="<?php echo get_lang('Next'); ?> &gt;" >
+                <em class="fa fa-forward"> </em> <?php echo get_lang('Next'); ?>
+            </button>
+
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <p class="alert alert-info"><?php echo get_lang('LMSMediaLicense'); ?></p>
-            <button type="submit" class="btn btn-default" name="step1" value="&lt; <?php echo get_lang('Previous'); ?>" >
-                <i class="fa fa-backward"> </i> <?php echo get_lang('Previous'); ?>
-            </button>
-            <input type="hidden" name="is_executable" id="is_executable" value="-" />
-            <button type="submit" class="btn btn-success" name="step3" onclick="javascript: if(!document.getElementById('accept_licence').checked) { alert('<?php echo get_lang('YouMustAcceptLicence')?>');return false;}" value="<?php echo get_lang('Next'); ?> &gt;" >
-                <i class="fa fa-forward"> </i> <?php echo get_lang('Next'); ?>
-            </button>
         </div>
     </div>
 
@@ -1140,20 +1147,20 @@ function get_contact_registration_form()
     <div id="div_sent_information"></div>
     <div class="form-group">
             <label class="col-sm-3"><span class="form_required">*</span>'.get_lang('Name').'</label>
-            <div class="col-sm-9"><input id="person_name" type="text" name="person_name" size="30" /></div>
+            <div class="col-sm-9"><input id="person_name" class="form-control" type="text" name="person_name" size="30" /></div>
     </div>
     <div class="form-group">
             <label class="col-sm-3"><span class="form_required">*</span>'.get_lang('Email').'</label>
-            <div class="col-sm-9"><input id="person_email" type="text" name="person_email" size="30" /></div>
+            <div class="col-sm-9"><input id="person_email" class="form-control" type="text" name="person_email" size="30" /></div>
     </div>
     <div class="form-group">
             <label class="col-sm-3"><span class="form_required">*</span>'.get_lang('CompanyName').'</label>
-            <div class="col-sm-9"><input id="company_name" type="text" name="company_name" size="30" /></div>
+            <div class="col-sm-9"><input id="company_name" class="form-control" type="text" name="company_name" size="30" /></div>
     </div>
     <div class="form-group">
             <label class="col-sm-3"><span class="form_required">*</span>'.get_lang('CompanyActivity').'</label>
             <div class="col-sm-9">
-                    <select name="company_activity" id="company_activity" >
+                    <select class="selectpicker show-tick" name="company_activity" id="company_activity" >
                             <option value="">--- '.get_lang('SelectOne').' ---</option>
                             <Option value="Advertising/Marketing/PR">Advertising/Marketing/PR</Option><Option value="Agriculture/Forestry">Agriculture/Forestry</Option>
                             <Option value="Architecture">Architecture</Option><Option value="Banking/Finance">Banking/Finance</Option>
@@ -1177,7 +1184,7 @@ function get_contact_registration_form()
     <div class="form-group">
             <label class="col-sm-3"><span class="form_required">*</span>'.get_lang('PersonRole').'</label>
             <div class="col-sm-9">
-                    <select name="person_role" id="person_role" >
+                    <select class="selectpicker show-tick" name="person_role" id="person_role" >
                             <option value="">--- '.get_lang('SelectOne').' ---</option>
                             <Option value="Administration">Administration</Option><Option value="CEO/President/ Owner">CEO/President/ Owner</Option>
                             <Option value="CFO">CFO</Option><Option value="CIO/CTO">CIO/CTO</Option>
@@ -1201,13 +1208,13 @@ function get_contact_registration_form()
     <div class="form-group">
             <label class="col-sm-3">'.get_lang('CompanyCity').'</label>
             <div class="col-sm-9">
-                    <input type="text" id="company_city" name="company_city" size="30" />
+                    <input type="text" class="form-control" id="company_city" name="company_city" size="30" />
             </div>
     </div>
     <div class="form-group">
             <label class="col-sm-3">'.get_lang('WhichLanguageWouldYouLikeToUseWhenContactingYou').'</label>
             <div class="col-sm-9">
-                    <select id="language" name="language">
+                    <select class="selectpicker show-tick" id="language" name="language">
                             <option value="bulgarian">Bulgarian</option>
                             <option value="indonesian">Bahasa Indonesia</option>
                             <option value="bosnian">Bosanski</option>
@@ -1228,14 +1235,22 @@ function get_contact_registration_form()
     <div class="form-group">
             <label class="col-sm-3">'.get_lang('HaveYouThePowerToTakeFinancialDecisions').'</label>
             <div class="col-sm-9">
-                    <input type="radio" name="financial_decision" id="financial_decision1" value="1" checked />'.get_lang('Yes').'
-                    <input type="radio" name="financial_decision" id="financial_decision2" value="0" />'.get_lang('No').'
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="financial_decision" id="financial_decision1" value="1" checked /> ' . get_lang('Yes') . '
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="financial_decision" id="financial_decision2" value="0" /> '.get_lang('No').'
+                    </label>
+                </div>
             </div>
     </div>
     <div class="clear"></div>
     <div class="form-group">
             <div class="col-sm-3">&nbsp;</div>
-            <div class="col-sm-9"><button type="button" class="btn btn-default" onclick="javascript:send_contact_information();" value="'.get_lang('SendInformation').'" ><i class="fa fa-floppy-o"> </i> '.get_lang('SendInformation').'</button></div>
+            <div class="col-sm-9"><button type="button" class="btn btn-default" onclick="javascript:send_contact_information();" value="'.get_lang('SendInformation').'" ><em class="fa fa-floppy-o"></em> '.get_lang('SendInformation').'</button></div>
     </div>
     <div class="form-group">
             <div class="col-sm-3">&nbsp;</div>
@@ -1281,7 +1296,7 @@ function displayDatabaseParameter(
             echo '<input type="hidden" name="'.$formFieldName.'" id="'.$formFieldName.'" value="'.api_htmlentities($parameterValue).'" />';
             echo api_htmlentities($parameterValue);
         } else {
-            echo '<div class="col-sm-5"><input type="'.$inputType.'" size="'.DATABASE_FORM_FIELD_DISPLAY_LENGTH.'" maxlength="'.$maxLength.'" name="'.$formFieldName.'" id="'.$formFieldName.'" value="'.api_htmlentities($parameterValue).'" />'."</div>";
+            echo '<div class="col-sm-5"><input type="' . $inputType . '" class="form-control" size="' . DATABASE_FORM_FIELD_DISPLAY_LENGTH . '" maxlength="' . $maxLength . '" name="' . $formFieldName . '" id="' . $formFieldName . '" value="' . api_htmlentities($parameterValue) . '" />' . "</div>";
             echo '<div class="col-sm-3">' . $extra_notice . '</div>';
         }
 
@@ -1298,6 +1313,7 @@ function displayDatabaseParameter(
  * @param string $dbUsernameForm
  * @param string $dbPassForm
  * @param string $dbNameForm
+ * @param int    $dbPortForm
  * @param string $installationProfile
  */
 function display_database_settings_form(
@@ -1306,14 +1322,16 @@ function display_database_settings_form(
     $dbUsernameForm,
     $dbPassForm,
     $dbNameForm,
+    $dbPortForm = 3306,
     $installationProfile = ''
 ) {
     if ($installType == 'update') {
         global $_configuration;
-        $dbHostForm         = $_configuration['db_host'];
-        $dbUsernameForm     = $_configuration['db_user'];
-        $dbPassForm         = $_configuration['db_password'];
-        $dbNameForm         = $_configuration['main_database'];
+        $dbHostForm = $_configuration['db_host'];
+        $dbUsernameForm = $_configuration['db_user'];
+        $dbPassForm = $_configuration['db_password'];
+        $dbNameForm = $_configuration['main_database'];
+        $dbPortForm = isset($_configuration['db_port']) ? $_configuration['db_port'] : '';
 
         echo '<div class="RequirementHeading"><h2>' . display_step_sequence() .get_lang('DBSetting') . '</h2></div>';
         echo '<div class="RequirementContent">';
@@ -1337,9 +1355,23 @@ function display_database_settings_form(
             <div class="col-sm-3"></div>
             <?php }else{ ?>
             <div class="col-sm-5">
-                <input type="text" size="25" maxlength="50" name="dbHostForm" value="<?php echo htmlentities($dbHostForm); ?>" />
+                <input type="text" class="form-control" size="25" maxlength="50" name="dbHostForm" value="<?php echo htmlentities($dbHostForm); ?>" />
             </div>
             <div class="col-sm-3"><?php echo get_lang('EG').' localhost'; ?></div>
+            <?php } ?>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4"><?php echo get_lang('DBPort'); ?> </label>
+            <?php if ($installType == 'update'){ ?>
+            <div class="col-sm-5">
+                <input type="hidden" name="dbPortForm" value="<?php echo htmlentities($dbPortForm); ?>" /><?php echo $dbPortForm; ?>
+            </div>
+            <div class="col-sm-3"></div>
+            <?php }else{ ?>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" size="25" maxlength="50" name="dbPortForm" value="<?php echo htmlentities($dbPortForm); ?>" />
+            </div>
+            <div class="col-sm-3"><?php echo get_lang('EG').' 3306'; ?></div>
             <?php } ?>
         </div>
         <div class="form-group">
@@ -1381,7 +1413,7 @@ function display_database_settings_form(
             <div class="col-sm-3"></div>
             <div class="col-sm-9">
             <button type="submit" class="btn btn-primary" name="step3" value="step3">
-                <i class="fa fa-refresh"> </i>
+                <em class="fa fa-refresh"> </em>
                 <?php echo get_lang('CheckDatabaseConnection'); ?>
             </button>
             </div>
@@ -1400,7 +1432,8 @@ function display_database_settings_form(
                 $dbHostForm,
                 $dbUsernameForm,
                 $dbPassForm,
-                null
+                null,
+                $dbPortForm
             );
             $databases = $manager->getConnection()->getSchemaManager()->listDatabases();
             if (in_array($dbNameForm, $databases)) {
@@ -1415,6 +1448,7 @@ function display_database_settings_form(
             <?php echo $database_exists_text ?>
             <div id="db_status" class="alert alert-success">
                 Database host: <strong><?php echo $manager->getConnection()->getHost(); ?></strong><br />
+                Database port: <strong><?php echo $manager->getConnection()->getPort(); ?></strong><br />
                 Database driver: <strong><?php echo $manager->getConnection()->getDriver()->getName(); ?></strong><br />
 
             </div>
@@ -1432,18 +1466,18 @@ function display_database_settings_form(
    <div class="form-group">
        <div class="col-sm-6">
            <button type="submit" name="step2" class="btn btn-default pull-right" value="&lt; <?php echo get_lang('Previous'); ?>" >
-               <i class="fa fa-backward"> </i> <?php echo get_lang('Previous'); ?>
+               <em class="fa fa-backward"> </em> <?php echo get_lang('Previous'); ?>
            </button>
        </div>
       <div class="col-sm-6">
        <input type="hidden" name="is_executable" id="is_executable" value="-" />
        <?php if ($manager) { ?>
            <button type="submit"  class="btn btn-success" name="step4" value="<?php echo get_lang('Next'); ?> &gt;" >
-               <i class="fa fa-forward"> </i> <?php echo get_lang('Next'); ?>
+               <em class="fa fa-forward"> </em> <?php echo get_lang('Next'); ?>
            </button>
        <?php } else { ?>
            <button disabled="disabled" type="submit" class="btn btn-success disabled" name="step4" value="<?php echo get_lang('Next'); ?> &gt;" >
-               <i class="fa fa-forward"> </i> <?php echo get_lang('Next'); ?>
+               <em class="fa fa-forward"> </em> <?php echo get_lang('Next'); ?>
            </button>
        <?php } ?>
       </div>
@@ -1536,10 +1570,10 @@ function display_configuration_settings_form(
     echo "<h2>" . display_step_sequence() . get_lang("CfgSetting") . "</h2>";
     echo '</div>';
 
-    echo '<p>'.get_lang('ConfigSettingsInfo').' <strong>main/inc/conf/configuration.php</strong></p>';
+    echo '<p>'.get_lang('ConfigSettingsInfo').' <strong>app/config/configuration.php</strong></p>';
 
     // Parameter 1: administrator's login
-    
+
     $html = '';
 
     $html .= display_configuration_parameter($installType, get_lang('AdminLogin'), 'loginForm', $loginForm, $installType == 'update');
@@ -1560,10 +1594,10 @@ function display_configuration_settings_form(
     //Parameter 6: administrator's telephone
     $html .=  display_configuration_parameter($installType, get_lang('AdminPhone'), 'adminPhoneForm', $adminPhoneForm);
 
-        
+
     echo panel($html, get_lang('Administrator'), 'administrator');
 
-   
+
     //echo '<table class="table">';
 
     //First parameter: language
@@ -1579,12 +1613,12 @@ function display_configuration_settings_form(
     }
     $html.= "</div>";
 
-    
+
     //Second parameter: Chamilo URL
     $html .= '<div class="form-group">';
     $html .= '<label class="col-sm-6 control-label">'.get_lang('ChamiloURL') .get_lang('ThisFieldIsRequired').'</label>';
-    
-    
+
+
 
     if ($installType == 'update') {
         $html .= api_htmlentities($urlForm, ENT_QUOTES)."\n";
@@ -1594,7 +1628,7 @@ function display_configuration_settings_form(
         $html .= '</div>';
     }
     $html .= '</div>';
-    
+
     //Parameter 9: campus name
     $html .= display_configuration_parameter($installType, get_lang('CampusName'), 'campusForm', $campusForm);
 
@@ -1603,20 +1637,20 @@ function display_configuration_settings_form(
 
     //Parameter 11: institute (short) name
     $html .= display_configuration_parameter($installType, get_lang('InstituteURL'), 'institutionUrlForm', $institutionUrlForm);
-    
-    
+
+
     $html .= '<div class="form-group">
             <label class="col-sm-6 control-label">' . get_lang("EncryptMethodUserPass") . '</label>
         <div class="col-sm-6">';
-    if ($installType == 'update') { 
+    if ($installType == 'update') {
         $html .= '<input type="hidden" name="encryptPassForm" value="'. $encryptPassForm .'" />'. $encryptPassForm;
     } else {
-            
+
         $html .= '<div class="checkbox">
                     <label>
                         <input  type="radio" name="encryptPassForm" value="bcrypt" id="encryptPass1" '. ($encryptPassForm == 'bcrypt' ? 'checked="checked" ':'') .'/> bcrypt
-                    </label>';       
-            
+                    </label>';
+
         $html .= '<label>
                         <input  type="radio" name="encryptPassForm" value="sha1" id="encryptPass1" '. ($encryptPassForm == 'sha1' ? 'checked="checked" ':'') .'/> sha1
                     </label>';
@@ -1627,36 +1661,50 @@ function display_configuration_settings_form(
 
         $html .= '<label>
                         <input type="radio" name="encryptPassForm" value="none" id="encryptPass2" '. ($encryptPassForm == 'none' ? 'checked="checked" ':'') .'/>'. get_lang('None').'
-                    </label>'; 
+                    </label>';
         $html .= '</div>';
     }
     $html .= '</div></div>';
-  
-   
+
     $html .= '<div class="form-group">
             <label class="col-sm-6 control-label">' . get_lang('AllowSelfReg') . '</label>
             <div class="col-sm-6">';
-    if ($installType == 'update') { 
-        $html .= '<input type="hidden" name="allowSelfReg" value="'. $allowSelfReg .'" />'. $allowSelfReg ? get_lang('Yes') : get_lang('No');
+    if ($installType == 'update') {
+        if ($allowSelfReg == 'true') {
+            $label = get_lang('Yes');
+        } elseif ($allowSelfReg == 'false') {
+            $label = get_lang('No');
+        } else {
+            $label = get_lang('AfterApproval');
+        }
+        $html .= '<input type="hidden" name="allowSelfReg" value="'. $allowSelfReg .'" />'. $label;
     } else {
         $html .= '<div class="control-group">';
         $html .= '<label class="checkbox-inline">
-                        <input type="radio" name="allowSelfReg" value="1" id="allowSelfReg1" '. ($allowSelfReg ? 'checked="checked" ' : '') . ' /> '. get_lang('Yes') .'
+                        <input type="radio" name="allowSelfReg" value="1" id="allowSelfReg1" '. ($allowSelfReg == 'true' ? 'checked="checked" ' : '') . ' /> '. get_lang('Yes') .'
                     </label>';
         $html .= '<label class="checkbox-inline">
-                        <input type="radio" name="allowSelfReg" value="0" id="allowSelfReg0" '. ($allowSelfReg ? '' : 'checked="checked" ') .' /> '. get_lang('No') .'
+                        <input type="radio" name="allowSelfReg" value="0" id="allowSelfReg0" '. ($allowSelfReg == 'false' ? '' : 'checked="checked" ') .' /> '. get_lang('No') .'
                     </label>';
+         $html .= '<label class="checkbox-inline">
+                    <input type="radio" name="allowSelfReg" value="0" id="allowSelfReg0" '. ($allowSelfReg == 'approval' ? '' : 'checked="checked" ') .' /> '. get_lang('AfterApproval') .'
+                </label>';
         $html .= '</div>';
     }
     $html .= '</div>';
-    $html .= '</div>';    
-    
+    $html .= '</div>';
+
     $html .= '<div class="form-group">';
     $html .= '<label class="col-sm-6 control-label">'. get_lang('AllowSelfRegProf') .'</label>
         <div class="col-sm-6">';
-    if ($installType == 'update'){
-        $html .= '<input type="hidden" name="allowSelfRegProf" value="'. $allowSelfRegProf.'" />'. $allowSelfRegProf? get_lang('Yes') : get_lang('No');
-    } else { 
+    if ($installType == 'update') {
+        if ($allowSelfRegProf == 'true') {
+            $label = get_lang('Yes');
+        } else {
+            $label = get_lang('No');
+        }
+        $html .= '<input type="hidden" name="allowSelfRegProf" value="'. $allowSelfRegProf.'" />'. $label;
+    } else {
         $html .= '<div class="control-group">
                 <label class="checkbox-inline">
                     <input type="radio" name="allowSelfRegProf" value="1" id="allowSelfRegProf1" '. ($allowSelfRegProf ? 'checked="checked" ' : '') .'/>
@@ -1667,22 +1715,22 @@ function display_configuration_settings_form(
                    '. get_lang('No') .'
                 </label>';
         $html .= '</div>';
-    }    
+    }
     $html .= '</div>
-    </div>';    
-      
-    echo panel($html, get_lang('Platform'), 'platform'); 
- ?> 
+    </div>';
+
+    echo panel($html, get_lang('Platform'), 'platform');
+ ?>
     <div class='form-group'>
         <div class="col-sm-6">
-            <button type="submit" class="btn btn-default pull-right" name="step3" value="&lt; <?php echo get_lang('Previous'); ?>" ><i class="fa fa-backward"> </i> <?php echo get_lang('Previous'); ?></button>
+            <button type="submit" class="btn btn-default pull-right" name="step3" value="&lt; <?php echo get_lang('Previous'); ?>" ><em class="fa fa-backward"> </em> <?php echo get_lang('Previous'); ?></button>
             <input type="hidden" name="is_executable" id="is_executable" value="-" />
         </div>
         <div class="col-sm-6">
-            <button class="btn btn-success" type="submit" name="step5" value="<?php echo get_lang('Next'); ?> &gt;" ><i class="fa fa-forward"> </i> <?php echo get_lang('Next'); ?></button>
-        </div>   
+            <button class="btn btn-success" type="submit" name="step5" value="<?php echo get_lang('Next'); ?> &gt;" ><em class="fa fa-forward"> </em> <?php echo get_lang('Next'); ?></button>
+        </div>
     </div>
-    
+
     <?php
 }
 
@@ -1696,7 +1744,7 @@ function display_after_install_message($installType)
     echo '<div class="alert alert-warning">';
     echo '<strong>'.get_lang('SecurityAdvice').'</strong>';
     echo ': ';
-    printf(get_lang('ToProtectYourSiteMakeXReadOnlyAndDeleteY'), 'main/inc/conf/', 'main/install/');
+    printf(get_lang('ToProtectYourSiteMakeXReadOnlyAndDeleteY'), 'app/config/', 'main/install/');
     echo '</div>';
     ?></form>
     <br />
@@ -1742,7 +1790,7 @@ function get_countries_list_from_array($combo = false)
 
     $country_select = '';
     if ($combo) {
-        $country_select = '<select id="country" name="country">';
+        $country_select = '<select class="selectpicker show-tick" id="country" name="country">';
         $country_select .= '<option value="">--- '.get_lang('SelectOne').' ---</option>';
         foreach ($a_countries as $country) {
             $country_select .= '<option value="'.$country.'">'.$country.'</option>';
@@ -1937,7 +1985,7 @@ function installSettings(
                 WHERE variable = '$variable'";
         Database::query($sql);
     }
-    $res = installProfileSettings($installationProfile);
+    installProfileSettings($installationProfile);
 }
 
 /**
@@ -1996,11 +2044,15 @@ function migrate($chamiloVersion, EntityManager $manager)
         if ($debug) {
             echo 'DONE'.$nl;
         }
+        return true;
     } catch (Exception $ex) {
         if ($debug) {
             echo 'ERROR: '.$ex->getMessage().$nl;
+            return false;
         }
     }
+
+    return false;
 }
 
 /**
@@ -2010,14 +2062,20 @@ function migrate($chamiloVersion, EntityManager $manager)
  */
 function fixIds(EntityManager $em)
 {
+    $debug = true;
     $connection = $em->getConnection();
+
+    if ($debug) {
+        error_log('fixIds');
+        error_log('Update tools');
+    }
 
     $sql = "SELECT * FROM c_lp_item";
     $result = $connection->fetchAll($sql);
     foreach ($result as $item) {
         $courseId = $item['c_id'];
-        $iid = isset($item['iid']) ? $item['iid'] : 0;
-        $ref = isset($item['ref']) ? $item['ref'] : 0;
+        $iid = isset($item['iid']) ? intval($item['iid']) : 0;
+        $ref = isset($item['ref']) ? intval($item['ref']) : 0;
         $sql = null;
 
         $newId = '';
@@ -2052,14 +2110,14 @@ function fixIds(EntityManager $em)
                 }
                 break;
             case TOOL_FORUM:
-                $sql = "SELECT * FROM c_forum_forum WHERE c_id = $courseId AND id = $ref";
+                $sql = "SELECT * FROM c_forum_forum WHERE c_id = $courseId AND forum_id = $ref";
                 $data = $connection->fetchAssoc($sql);
                 if ($data) {
                     $newId = $data['iid'];
                 }
                 break;
             case 'thread':
-                $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND id = $ref";
+                $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND thread_id = $ref";
                 $data = $connection->fetchAssoc($sql);
                 if ($data) {
                     $newId = $data['iid'];
@@ -2069,6 +2127,7 @@ function fixIds(EntityManager $em)
 
         if (!empty($sql) && !empty($newId) && !empty($iid)) {
             $sql = "UPDATE c_lp_item SET ref = $newId WHERE iid = $iid";
+
             $connection->executeQuery($sql);
         }
     }
@@ -2096,6 +2155,10 @@ function fixIds(EntityManager $em)
     $connection->executeQuery($sql);
 
     // This updates the group_id with c_group_info.iid instead of c_group_info.id
+
+    if ($debug) {
+        error_log('update iids');
+    }
 
     $groupTableToFix = [
         'c_group_rel_user',
@@ -2135,9 +2198,14 @@ function fixIds(EntityManager $em)
     }
 
     // Fix c_item_property
-
+    if ($debug) {
+        error_log('update c_item_property');
+    }
     $sql = "SELECT * FROM c_item_property";
     $result = $connection->fetchAll($sql);
+    $counter = 0;
+    error_log("Items to process: ".count($result));
+
     foreach ($result as $item) {
         $courseId = $item['c_id'];
         $sessionId = intval($item['session_id']);
@@ -2192,8 +2260,15 @@ function fixIds(EntityManager $em)
                 $newId = $data['iid'];
             }
             $sql = "UPDATE c_item_property SET ref = $newId WHERE iid = $iid";
+            error_log($sql);
             $connection->executeQuery($sql);
         }
+        error_log("Process item #$counter");
+        $counter++;
+    }
+
+    if ($debug) {
+        error_log('update gradebook_link');
     }
 
     // Fix gradebook_link
@@ -2238,6 +2313,10 @@ function fixIds(EntityManager $em)
                 $connection->executeQuery($sql);
             }
         }
+    }
+
+    if ($debug) {
+        error_log('update groups');
     }
 
     $sql = "SELECT * FROM groups";
@@ -2313,11 +2392,11 @@ function fixIds(EntityManager $em)
         if (!empty($dataList)) {
             foreach ($dataList as $data) {
                 if (isset($oldGroups[$data['group_id']])) {
-                    //Deleting relation
+                    // Deleting relation
                     $sql = "DELETE FROM announcement_rel_group WHERE id = {$data['id']}";
                     $connection->executeQuery($sql);
 
-                    //Add new relation
+                    // Add new relation
                     $data['group_id'] = $oldGroups[$data['group_id']];
                     $sql = "INSERT INTO announcement_rel_group(group_id, announcement_id)
                             VALUES ('{$data['group_id']}', '{$data['announcement_id']}')";
@@ -2341,6 +2420,9 @@ function fixIds(EntityManager $em)
         }
     }
 
+    if ($debug) {
+        error_log('update extra fields');
+    }
 
     // Extra fields
     $extraFieldTables = [
@@ -2494,6 +2576,7 @@ function finishInstallation(
 
     UserManager::setPasswordEncryption($encryptPassForm);
 
+    // Create admin user.
     UserManager::create_user(
         $adminFirstName,
         $adminLastName,
@@ -2515,6 +2598,7 @@ function finishInstallation(
         true //$isAdmin = false
     );
 
+    // Create anonymous user.
     UserManager::create_user(
         'Joe',
         'Anonymous',
@@ -2561,11 +2645,11 @@ function finishInstallation(
 /**
  * Update settings based on installation profile defined in a JSON file
  * @param string $installationProfile The name of the JSON file in main/install/profiles/ folder
+ *
  * @return bool false on failure (no bad consequences anyway, just ignoring profile)
  */
-function installProfileSettings(
-    $installationProfile = ''
-) {
+function installProfileSettings($installationProfile = '')
+{
     if (empty($installationProfile)) {
         return false;
     }
@@ -2591,7 +2675,7 @@ function installProfileSettings(
     }
     $settings = $params->params;
     if (!empty($params->parent)) {
-        $res = installProfileSettings($params->parent);
+        installProfileSettings($params->parent);
     }
     foreach ($settings as $id => $param) {
         $sql = "UPDATE settings_current
@@ -2602,5 +2686,6 @@ function installProfileSettings(
         }
         Database::query($sql);
     }
+
     return true;
 }

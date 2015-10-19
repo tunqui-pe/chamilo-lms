@@ -50,6 +50,7 @@ class Template
      * @param bool $show_learnpath
      * @param bool $hide_global_chat
      * @param bool $load_plugins
+     * @param bool $sendHeaders send http headers or not
      */
     public function __construct(
         $title = '',
@@ -57,7 +58,8 @@ class Template
         $show_footer = true,
         $show_learnpath = false,
         $hide_global_chat = false,
-        $load_plugins = true
+        $load_plugins = true,
+        $sendHeaders = true
     ) {
         // Page title
         $this->title = $title;
@@ -147,7 +149,7 @@ class Template
         $this->set_footer($show_footer);
         $this->set_header($show_header);
 
-        $this->set_header_parameters();
+        $this->set_header_parameters($sendHeaders);
         $this->set_footer_parameters();
 
         $defaultStyle = api_get_configuration_value('default_template');
@@ -231,15 +233,6 @@ class Template
             }
         }
         return $result;
-    }
-
-    /**
-     * @deprecated
-     * @param null $helpInput
-     */
-    public function set_help($helpInput = null)
-    {
-        $this->setHelp($helpInput);
     }
 
     /**
@@ -531,7 +524,8 @@ class Template
         foreach ($bowerCSSFiles as $file) {
             $css[] = api_get_path(WEB_PATH).'web/assets/'.$file;
         }
-
+        $css[] = api_get_path(WEB_LIBRARY_PATH) . 'javascript/bootstrap-select/css/bootstrap-select.min.css';
+        $css[] = api_get_path(WEB_LIBRARY_PATH) . 'javascript/jquery-scrollbar/jquery.scrollbar.css';
         $css[] = api_get_path(WEB_LIBRARY_PATH) . 'javascript/chosen/chosen.css';
         $css[] = api_get_path(WEB_LIBRARY_PATH) . 'javascript/tag/style.css';
 
@@ -622,9 +616,19 @@ class Template
     {
         global $disable_js_and_css_files, $htmlHeadXtra;
 
-        //JS files
+        $isoCode = api_get_language_isocode();
+
+        $selectLink = 'bootstrap-select/js/i18n/defaults-' . $isoCode . '_' . strtoupper($isoCode) . '.min.js';
+
+        if ($isoCode == 'en') {
+            $selectLink = 'bootstrap-select/js/i18n/defaults-' . $isoCode . '_US.min.js';
+        }
+        // JS files
         $js_files = array(
             'chosen/chosen.jquery.min.js',
+            'jquery-scrollbar/jquery.scrollbar.min.js',
+            'bootstrap-select/js/bootstrap-select.min.js',
+            $selectLink
         );
 
         $viewBySession = api_get_setting('my_courses_view_by_session') === 'true';
@@ -643,10 +647,10 @@ class Template
             $js_files[] = 'fontresize.js';
         }
 
-        $js_files[] = 'tag/jquery.fcbkcomplete.min.js';
+        // Do not use minified version - generates errors (at least in the skills wheel)
+        $js_files[] = 'tag/jquery.fcbkcomplete.js';
 
         $js_file_to_string = null;
-        $isoCode = api_get_language_isocode();
 
         $bowerJsFiles = [
             'modernizr/modernizr.js',
@@ -729,10 +733,12 @@ class Template
 
     /**
      * Set header parameters
+     * @param bool $sendHeaders send headers
      */
-    private function set_header_parameters()
+    private function set_header_parameters($sendHeaders)
     {
-        global $httpHeadXtra, $_course, $interbreadcrumb, $language_file, $noPHP_SELF, $_configuration, $this_section;
+        global $httpHeadXtra, $interbreadcrumb, $language_file, $_configuration, $this_section;
+        $_course = api_get_course_info();
         $help = $this->help;
         $nameTools             = $this->title;
         $navigation            = return_navigation_array();
@@ -746,8 +752,8 @@ class Template
             }
         }
 
-        $this->assign('online_button', Display::return_icon('statusonline.png'));
-        $this->assign('offline_button',Display::return_icon('statusoffline.png'));
+        $this->assign('online_button', Display::return_icon('statusonline.png', null, null, ICON_SIZE_ATOM));
+        $this->assign('offline_button',Display::return_icon('statusoffline.png', null, null, ICON_SIZE_ATOM));
 
         // Get language iso-code for this page - ignore errors
         $this->assign('document_language', api_get_language_isocode());
@@ -805,7 +811,17 @@ class Template
         $this->assign('text_direction', api_get_text_direction());
         $this->assign('section_name', 'section-'.$this_section);
 
-        $favico = '<link rel="shortcut icon" href="'.api_get_path(WEB_PATH).'favicon.ico" type="image/x-icon" />';
+        //Defaul root chamilo favicon
+        $favico = '<link rel="shortcut icon" href="' . api_get_path(WEB_PATH) . 'favicon.ico" type="image/x-icon" />';
+
+        //Added to verify if in the current Chamilo Theme exist a favicon
+        $favicoThemeUrl = api_get_path(SYS_CSS_PATH) . 'themes/' . $this->theme . '/images/';
+
+        //If exist pick the current chamilo theme favicon
+        if (is_file($favicoThemeUrl . 'favicon.ico')) {
+            $favico = '<link rel="shortcut icon" href="' . api_get_path(WEB_CSS_PATH)
+                . 'themes/' . $this->theme . '/images/favicon.ico" type="image/x-icon" />';
+        }
 
         if (api_is_multiple_url_enabled()) {
             $access_url_id = api_get_current_access_url_id();
@@ -826,17 +842,14 @@ class Template
         }
 
         $this->assign('favico', $favico);
-
-        $this->set_help();
+        $this->setHelp();
 
         //@todo move this in the template
         $bug_notification_link = '';
         if (api_get_setting('show_link_bug_notification') == 'true' && $this->user_is_logged_in) {
             $bug_notification_link = '<li class="report">
 		        						<a href="http://support.chamilo.org/projects/chamilo-18/wiki/How_to_report_bugs" target="_blank">
-		        						<img src="'.api_get_path(WEB_IMG_PATH).'bug.large.png" style="vertical-align: middle;" alt="'.get_lang('ReportABug').'" title="'.get_lang(
-                    'ReportABug'
-                ).'"/></a>
+		        						<img src="'.api_get_path(WEB_IMG_PATH).'bug.large.png" style="vertical-align: middle;" alt="'.get_lang('ReportABug').'" title="'.get_lang('ReportABug').'"/></a>
 		    						  </li>';
         }
 
@@ -844,10 +857,22 @@ class Template
 
         $notification = return_notification_menu();
         $this->assign('notification_menu', $notification);
+        
+        $resize = '';
+        if (api_get_setting('accessibility_font_resize') == 'true') {
+            $resize .= '<div class="resize_font">';
+            $resize .= '<div class="btn-group">';
+            $resize .= '<a title="'.get_lang('DecreaseFontSize').'" href="#" class="decrease_font btn btn-default"><em class="fa fa-font"></em></a>';
+            $resize .= '<a title="'.get_lang('ResetFontSize').'" href="#" class="reset_font btn btn-default"><em class="fa fa-font"></em></a>';
+            $resize .= '<a title="'.get_lang('IncreaseFontSize').'" href="#" class="increase_font btn btn-default"><em class="fa fa-font"></em></a>';
+            $resize .= '</div>';
+            $resize .= '</div>';
+        }
+        $this->assign('accessibility', $resize);
+        
+        // Preparing values for the menu
 
-        //Preparing values for the menu
-
-        //Logout link
+        // Logout link
         $hideLogout = api_get_setting('hide_logout_button');
         if ($hideLogout === 'true') {
             $this->assign('logout_link', null);
@@ -885,9 +910,7 @@ class Template
         $menu = return_menu();
         $this->assign('menu', $menu);
 
-        //Setting notifications
-
-
+        // Setting notifications
         $count_unread_message = 0;
         if (api_get_setting('allow_message_tool') == 'true') {
             // get count unread message and total invitations
@@ -905,9 +928,10 @@ class Template
                 GROUP_USER_PERMISSION_PENDING_INVITATION,
                 false
             );
-            $group_pending_invitations = 0;
             if (!empty($group_pending_invitations)) {
                 $group_pending_invitations = count($group_pending_invitations);
+            } else {
+                $group_pending_invitations = 0;
             }
             $total_invitations = intval($number_of_new_messages_of_friend) + $group_pending_invitations + intval($count_unread_message);
         }
@@ -926,12 +950,12 @@ class Template
         }
         $this->assign('header_extra_content', $extra_header);
 
-        //if ($this->show_header == 1) {
+        if ($sendHeaders) {
             header('Content-Type: text/html; charset='.api_get_system_encoding());
             header(
                 'X-Powered-By: '.$_configuration['software_name'].' '.substr($_configuration['system_version'], 0, 1)
             );
-        //}
+        }
 
         $socialMeta = '';
         $metaTitle = api_get_setting('meta_title');
@@ -968,13 +992,8 @@ class Template
      */
     private function set_footer_parameters()
     {
-        global $_configuration;
-
-        //Show admin data
-        //$this->assign('show_administrator_data', api_get_setting('show_administrator_data'));
-
         if (api_get_setting('show_administrator_data') == 'true') {
-            //Administrator name
+            // Administrator name
             $administrator_data = get_lang('Manager').' : '.Display::encrypted_mailto_link(
                     api_get_setting('emailAdministrator'),
                     api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))
@@ -982,7 +1001,7 @@ class Template
             $this->assign('administrator_name', $administrator_data);
         }
 
-        //Loading footer extra content
+        // Loading footer extra content
         if (!api_is_platform_admin()) {
             $extra_footer = trim(api_get_setting('footer_extra_content'));
             if (!empty($extra_footer)) {
@@ -990,7 +1009,7 @@ class Template
             }
         }
 
-        //Tutor name
+        // Tutor name
         if (api_get_setting('show_tutor_data') == 'true') {
             // Course manager
             $courseId  = api_get_course_int_id();
@@ -998,7 +1017,10 @@ class Template
             if (!empty($courseId)) {
                 $tutor_data = '';
                 if ($id_session != 0) {
-                    $coachs_email = CourseManager::get_email_of_tutor_to_session($id_session, $courseId);
+                    $coachs_email = CourseManager::get_email_of_tutor_to_session(
+                        $id_session,
+                        $courseId
+                    );
                     $email_link = array();
                     foreach ($coachs_email as $coach) {
                         $email_link[] = Display::encrypted_mailto_link($coach['email'], $coach['complete_name']);
@@ -1039,8 +1061,6 @@ class Template
                 $this->assign('teachers', $teacher_data);
             }
         }
-        /* $stats = '';
-          $this->assign('execution_stats', $stats); */
     }
 
     /**
@@ -1091,21 +1111,27 @@ class Template
     }
 
     /**
-     * @param $tpl_var
-     * @param null $value
+     * @param string $variable
+     * @param mixed $value
      */
-    public function assign($tpl_var, $value = null)
+    public function assign($variable, $value = '')
     {
-        $this->params[$tpl_var] = $value;
+        $this->params[$variable] = $value;
     }
 
     /**
-     * @param string $template
+     * Render the template
+     * @param string $template The template path
+     * @param boolean $clearFlashMessages Clear the $_SESSION variables for flash messages
      */
-    public function display($template)
+    public function display($template, $clearFlashMessages = true)
     {
         $this->assign('flash_messages', Display::getFlashToString());
-        Display::cleanFlashMessages();
+
+        if ($clearFlashMessages) {
+            Display::cleanFlashMessages();
+        }
+
         echo $this->twig->render($template, $this->params);
     }
 
@@ -1219,14 +1245,13 @@ class Template
             'login',
             get_lang('UserName'),
             true,
-            array('id' => 'login', 'autofocus' => 'autofocus', 'icon' => 'user')
-        );
+            array('id' => 'login', 'autofocus' => 'autofocus', 'icon' => 'user fa-fw', 'placeholder' => get_lang('UserName')));
 
         $form->addElement(
             'password',
             'password',
             get_lang('Pass'),
-            array('id' => 'password', 'icon' => 'lock')
+            array('id' => 'password', 'icon' => 'lock fa-fw', 'placeholder' => get_lang('Pass'))
         );
 
         // Captcha
@@ -1265,12 +1290,6 @@ class Template
         $form->addButton('submitAuth', get_lang('LoginEnter'), null, 'primary', null, 'btn-block');
 
         $html = $form->returnForm();
-        // The validation is located in the local.inc
-        /*if ($form->validate()) {
-            // Prevent re-use of the same CAPTCHA phrase
-            $captcha_question->destroy();
-        }*/
-
         if (api_get_setting('openid_authentication') == 'true') {
             include_once 'main/auth/openid/login.php';
             $html .= '<div>'.openid_form().'</div>';
@@ -1293,5 +1312,4 @@ class Template
 
         $this->assign('_admin', $_admin);
     }
-
 }

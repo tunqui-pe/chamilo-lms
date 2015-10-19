@@ -200,18 +200,6 @@ function updateUsers($users)
                         $course_info = CourseManager::get_course_information($course);
                         $inserted_in_course[$course] = $course_info['title'];
                     }
-                    if (CourseManager :: course_exists($course, true)) {
-                        // Also subscribe to virtual courses through check on visual code.
-                        $list = CourseManager :: get_courses_info_from_visual_code($course);
-                        foreach ($list as $vcourse) {
-                            if ($vcourse['code'] == $course) {
-                                // Ignore, this has already been inserted.
-                            } else {
-                                CourseManager :: subscribe_user($user_id, $vcourse['code'], $user['Status']);
-                                $inserted_in_course[$vcourse['code']] = $vcourse['title'];
-                            }
-                        }
-                    }
                 }
             }
             if (!empty($user['ClassId'])) {
@@ -397,8 +385,6 @@ if (isset($_POST['formSent']) && $_POST['formSent'] AND $_FILES['import_file']['
     $inserted_in_course = array();
     if (strcmp($file_type, 'csv') === 0) {
         updateUsers($users_to_insert);
-    } else {
-        $error_message = get_lang('YouMustImportAFileAccordingToSelectedOption1');
     }
 
     if (count($errors) > 0) {

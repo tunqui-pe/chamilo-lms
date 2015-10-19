@@ -7,9 +7,6 @@
  */
 
 require_once '../inc/global.inc.php';
-
-// Including additional libraries.
-require_once api_get_path(LIBRARY_PATH).'pclzip/pclzip.lib.php';
 require_once 'hotpotatoes.lib.php';
 
 // Section (for the tabs).
@@ -42,9 +39,9 @@ $course_id = api_get_course_int_id();
 // Setting some variables.
 $document_sys_path = api_get_path(SYS_COURSE_PATH).$_course['path'].'/document';
 $uploadPath = '/HotPotatoes_files';
-$finish         = (!empty($_POST['finish']) ? $_POST['finish'] : 0);
-$imgcount       = (!empty($_POST['imgcount']) ? $_POST['imgcount'] : null);
-$fld            = (!empty($_POST['fld']) ? $_POST['fld'] : null);
+$finish = (!empty($_POST['finish']) ? $_POST['finish'] : 0);
+$imgcount = (!empty($_POST['imgcount']) ? $_POST['imgcount'] : null);
+$fld = (!empty($_POST['fld']) ? $_POST['fld'] : null);
 $imgparams = [];
 $dialogBox = '';
 
@@ -56,18 +53,42 @@ if ($finish == 2 && isset($_POST['imgparams'])) {
 if (api_is_allowed_to_edit(null, true)) {
     if (hotpotatoes_init($document_sys_path.$uploadPath)) {
         // If the directory doesn't exist, create the "HotPotatoes" directory.
-        $doc_id = add_document($_course, '/HotPotatoes_files', 'folder', 0, get_lang('HotPotatoesFiles'));
+        $doc_id = add_document(
+            $_course,
+            '/HotPotatoes_files',
+            'folder',
+            0,
+            get_lang('HotPotatoesFiles')
+        );
         // Update properties in dbase (in any case).
-        api_item_property_update($_course, TOOL_DOCUMENT, $doc_id, 'FolderCreated', api_get_user_id());
+        api_item_property_update(
+            $_course,
+            TOOL_DOCUMENT,
+            $doc_id,
+            'FolderCreated',
+            api_get_user_id()
+        );
         // Make invisible (in any case) - why?
-        api_item_property_update($_course, TOOL_DOCUMENT, $doc_id, 'invisible', api_get_user_id());
+        api_item_property_update(
+            $_course,
+            TOOL_DOCUMENT,
+            $doc_id,
+            'invisible',
+            api_get_user_id()
+        );
     }
 }
 
 /** Display */
 $nameTools = get_lang('HotPotatoesTests');
 
-$form = new FormValidator('hotpotatoes', 'post', api_get_self()."?".api_get_cidreq(), null, array('enctype' => 'multipart/form-data'));
+$form = new FormValidator(
+    'hotpotatoes',
+    'post',
+    api_get_self()."?".api_get_cidreq(),
+    null,
+    array('enctype' => 'multipart/form-data')
+);
 $form->addElement('header', $nameTools);
 $form->addElement('hidden', 'uploadPath');
 $form->addElement('hidden', 'fld', $fld);
@@ -108,18 +129,20 @@ if ((api_is_allowed_to_edit(null, true)) && (($finish == 0) || ($finish == 2))) 
                 // Generate new test folder if on first step of file upload.
                 $filename = api_replace_dangerous_char(trim($_FILES['userFile']['name']));
                 $fld = GenerateHpFolder($document_sys_path.$uploadPath.'/');
-
-                //$doc_id = add_document($_course, '/HotPotatoes_files/'.$fld, 'folder', 0, $fld);
-                //api_item_property_update($_course, TOOL_DOCUMENT, $doc_id, 'FolderCreated', api_get_user_id());
                 @mkdir($document_sys_path.$uploadPath.'/'.$fld, api_get_permissions_for_new_directories());
                 $doc_id = add_document($_course, '/HotPotatoes_files/'.$fld, 'folder', 0, $fld);
-                api_item_property_update($_course, TOOL_DOCUMENT, $doc_id, 'FolderCreated', api_get_user_id());
+                api_item_property_update(
+                    $_course,
+                    TOOL_DOCUMENT,
+                    $doc_id,
+                    'FolderCreated',
+                    api_get_user_id()
+                );
             } else {
                 // It is not the first step... get the filename directly from the system params.
                 $filename = $_FILES['userFile']['name'];
             }
 
-            /*if (treat_uploaded_file($_FILES['userFile'], $document_sys_path, $uploadPath."/".$fld, $max_filled_space, $unzip))*/
             $allow_output_on_success = false;
             if (handle_uploaded_document(
                 $_course,
@@ -162,11 +185,25 @@ if ((api_is_allowed_to_edit(null, true)) && (($finish == 0) || ($finish == 2))) 
                     }
                 }
 
-                $title = @htmlspecialchars(GetQuizName($filename, $document_sys_path.$uploadPath.'/'.$fld.'/'), ENT_COMPAT, api_get_system_encoding());
-                $query = "UPDATE $dbTable SET comment='".Database::escape_string($title)."'
-                         WHERE c_id = $course_id AND path=\"".$uploadPath."/".$fld."/".$filename."\"";
+                $title = @htmlspecialchars(
+                    GetQuizName(
+                        $filename,
+                        $document_sys_path.$uploadPath.'/'.$fld.'/'
+                    ),
+                    ENT_COMPAT,
+                    api_get_system_encoding()
+                );
+                $query = "UPDATE $dbTable
+                          SET comment='".Database::escape_string($title)."'
+                          WHERE c_id = $course_id AND path=\"".$uploadPath."/".$fld."/".$filename."\"";
                 Database::query($query);
-                api_item_property_update($_course, TOOL_QUIZ, $id, 'QuizAdded', api_get_user_id());
+                api_item_property_update(
+                    $_course,
+                    TOOL_QUIZ,
+                    $id,
+                    'QuizAdded',
+                    api_get_user_id()
+                );
 
             } else {
                 if ($finish == 2) {
@@ -183,7 +220,9 @@ if ((api_is_allowed_to_edit(null, true)) && (($finish == 0) || ($finish == 2))) 
             }
         }
     }
-    if ($finish == 1) { /** ok -> send to main exercises page */
+
+    if ($finish == 1) {
+        /** ok -> send to main exercises page */
         header('Location: exercise.php?'.api_get_cidreq());
         exit;
     }
@@ -196,7 +235,8 @@ if ((api_is_allowed_to_edit(null, true)) && (($finish == 0) || ($finish == 2))) 
         '</a>';
     echo '</div>';
 
-    if ($finish == 2) { // If we are in the img upload process.
+    if ($finish == 2) {
+        // If we are in the img upload process.
         $dialogBox .= get_lang('ImgNote_st').$imgcount.get_lang('ImgNote_en').'<br />';
         while (list($key, $string) = each($imgparams)) {
             $dialogBox .= $string.'; ';

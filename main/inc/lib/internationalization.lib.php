@@ -72,6 +72,7 @@ define('LANGUAGE_DETECT_MAX_DELTA', 140000);
  * @param string $variable				This is the identificator (name) of the translated string to be retrieved.
  * @param string $reserved				This parameter has been reserved for future use.
  * @param string $language (optional)	Language indentificator. If it is omited, the current interface language is assumed.
+ *
  * @return string						Returns the requested string in the correspondent language.
  *
  * @author Roan Embrechts
@@ -741,22 +742,26 @@ function date_to_str_ago($date)
         $time %= $seconds;
     }
 
-    if ($key_result[0] == $min_day && $key_result[1]== $min_minute) {
-        $key_result[1] = ' 0 '.$min_hours;
-        $str_result[0] = $time_result[0].' '.$key_result[0];
-        $str_result[1] = $key_result[1];
+    if (!empty($key_result)) {
+        if ($key_result[0] == $min_day && $key_result[1]== $min_minute) {
+            $key_result[1] = ' 0 '.$min_hours;
+            $str_result[0] = $time_result[0].' '.$key_result[0];
+            $str_result[1] = $key_result[1];
+        }
+
+        if ($key_result[0] == $min_year && ($key_result[1] == $min_day || $key_result[1] == $min_week)) {
+            $key_result[1] = ' 0 '.$min_months;
+            $str_result[0] = $time_result[0].' '.$key_result[0];
+            $str_result[1] = $key_result[1];
+        }
     }
 
-    if ($key_result[0] == $min_year && ($key_result[1] == $min_day || $key_result[1] == $min_week)) {
-        $key_result[1] = ' 0 '.$min_months;
-        $str_result[0] = $time_result[0].' '.$key_result[0];
-        $str_result[1] = $key_result[1];
-    }
-
-    if (!empty($str_result[1])) {
-        $str = $str_result[0].', '.$str_result[1];
-    } else {
-        $str = $str_result[0];
+    if (!empty($str_result)) {
+        if (!empty($str_result[1])) {
+            $str = $str_result[0].', '.$str_result[1];
+        } else {
+            $str = $str_result[0];
+        }
     }
 
     date_default_timezone_set($system_timezone);
@@ -995,7 +1000,7 @@ function api_sort_by_first_name($language = null) {
  * This function is aimed at replacing the function mb_convert_encoding() for human-language strings.
  * @link http://php.net/manual/en/function.mb-convert-encoding
  */
-function api_convert_encoding($string, $to_encoding, $from_encoding = null)
+function api_convert_encoding($string, $to_encoding, $from_encoding = 'UTF-8')
 {
     return mb_convert_encoding($string, $to_encoding, $from_encoding);
 }

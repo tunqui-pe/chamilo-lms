@@ -99,7 +99,7 @@ $form->addElement('header', get_lang('Course') . '  #' . $courseInfo['real_id'] 
 $form->addElement('hidden', 'code', $course_code);
 
 //title
-$form->addText('title', get_lang('Title'), true, array('class' => 'span6'));
+$form->addText('title', get_lang('Title'), true);
 $form->applyFilter('title', 'html_filter');
 $form->applyFilter('title', 'trim');
 
@@ -168,29 +168,25 @@ if (!empty($coursesInSession)) {
             $allTeachers
         );
         $courseInfo[$groupName] = $sessionTeachers;
-
     }
 }
 
 // Category code
 $url = api_get_path(WEB_AJAX_PATH) . 'course.ajax.php?a=search_category';
-$categoryList = array();
 
-if (!empty($courseInfo['categoryCode'])) {
-    $data = getCategory($courseInfo['categoryCode']);
-    $categoryList[$data['code']] = $data['name'];
-}
-
-$form->addElement(
+$categorySelect = $form->addElement(
     'select_ajax',
     'category_code',
     get_lang('CourseFaculty'),
     null,
-    array(
-        'url' => $url,
-        'defaults' => $categoryList
-    )
+    array('url' => $url)
 );
+
+if (!empty($courseInfo['categoryCode'])) {
+    $data = getCategory($courseInfo['categoryCode']);
+
+    $categorySelect->addOption($data['name'], $data['code']);
+}
 
 $form->addText('department_name', get_lang('CourseDepartment'), false, array('size' => '60'));
 $form->applyFilter('department_name', 'html_filter');
@@ -264,7 +260,7 @@ $(function() {
 });
 </script>';
 
-$form->addButton('submit', get_lang('ModifyCourseInfo'), 'pencil', 'primary');
+$form->addButtonUpdate(get_lang('ModifyCourseInfo'));
 
 // Set some default values
 $courseInfo['disk_quota'] = round(DocumentManager::get_course_quota($courseInfo['code']) / 1024 / 1024, 1);
@@ -360,17 +356,21 @@ if ($form->validate()) {
     // Updating teachers
 
     if ($addTeacherToSessionCourses) {
-
         // Updating session coaches
         $sessionCoaches = $course['session_coaches'];
         if (!empty($sessionCoaches)) {
             foreach ($sessionCoaches as $sessionId => $teacherInfo) {
                 $coachesToSubscribe = $teacherInfo['coaches_by_session'];
-                SessionManager::updateCoaches($sessionId, $courseId, $coachesToSubscribe, true);
+                SessionManager::updateCoaches(
+                    $sessionId,
+                    $courseId,
+                    $coachesToSubscribe,
+                    true
+                );
             }
         }
 
-        CourseManager::updateTeachers($courseId, $teachers, false, true, false);
+        CourseManager::updateTeachers($courseId, $teachers, true, true, false);
     } else {
         // Normal behaviour
         CourseManager::updateTeachers($courseId, $teachers, true, false);
@@ -379,7 +379,6 @@ if ($form->validate()) {
         $sessionCoaches = $course['session_coaches'];
         if (!empty($sessionCoaches)) {
             foreach ($sessionCoaches as $sessionId => $coachesToSubscribe) {
-                //$coachesToSubscribe = isset($teacherInfo['coaches_by_session']) ? $teacherInfo['coaches_by_session'] : null;
                 if (!empty($coachesToSubscribe)) {
                     SessionManager::updateCoaches(
                         $sessionId,

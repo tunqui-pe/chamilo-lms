@@ -58,10 +58,6 @@ class ExtraFieldValue extends Model
      */
     public function get_count()
     {
-        /*$row = Database::select('count(*) as count', $this->table, array(), 'first');
-
-        return $row['count'];*/
-
         $query = Database::getManager()->getRepository('ChamiloCoreBundle:ExtraFieldValues')->createQueryBuilder('e');
         $query->select('count(e.id)');
         $query->where('e.extraFieldType = :type');
@@ -83,11 +79,14 @@ class ExtraFieldValue extends Model
     {
         foreach ($params as $key => $value) {
             $found = strpos($key, '__persist__');
-            if ($found) {
-                $tempKey = str_replace('__persist__', '', $key);
-                if (!isset($params[$tempKey])) {
-                    $params[$tempKey] = array();
-                }
+
+            if ($found === FALSE) {
+                continue;
+            }
+
+            $tempKey = str_replace('__persist__', '', $key);
+            if (!isset($params[$tempKey])) {
+                $params[$tempKey] = array();
             }
         }
 
@@ -98,171 +97,186 @@ class ExtraFieldValue extends Model
         $type = $this->getExtraField()->getExtraFieldType();
         // Parse params.
         foreach ($params as $key => $value) {
-            if (substr($key, 0, 6) == 'extra_' ||
-                substr($key, 0, 7) == '_extra_'
+            if (
+                substr($key, 0, 6) != 'extra_' &&
+                substr($key, 0, 7) != '_extra_'
             ) {
-                // An extra field.
-                $field_variable = substr($key, 6);
-                $extraFieldInfo = $this->getExtraField()->get_handler_field_info_by_field_variable($field_variable);
+                continue;
+            }
 
-                if ($extraFieldInfo) {
-                    $commentVariable = 'extra_'.$field_variable.'_comment';
-                    $comment = isset($params[$commentVariable]) ? $params[$commentVariable] : null;
+            // An extra field.
+            $field_variable = substr($key, 6);
+            $extraFieldInfo = $this->getExtraField()->get_handler_field_info_by_field_variable($field_variable);
 
-                    switch ($extraFieldInfo['field_type']) {
+            if (!$extraFieldInfo) {
+                continue;
+            }
 
-                        case ExtraField::FIELD_TYPE_TAG:
-                            if ($type == EntityExtraField::USER_FIELD_TYPE) {
+            $commentVariable = 'extra_'.$field_variable.'_comment';
+            $comment = isset($params[$commentVariable]) ? $params[$commentVariable] : null;
 
-                                UserManager::delete_user_tags(
-                                    $params['item_id'],
-                                    $extraFieldInfo['id']
-                                );
+            switch ($extraFieldInfo['field_type']) {
+                case ExtraField::FIELD_TYPE_TAG:
+                    if ($type == EntityExtraField::USER_FIELD_TYPE) {
+                        UserManager::delete_user_tags(
+                            $params['item_id'],
+                            $extraFieldInfo['id']
+                        );
 
-                                UserManager::process_tags(
-                                    $value,
-                                    $params['item_id'],
-                                    $extraFieldInfo['id']
-                                );
-                            } else {
-                                $em = Database::getManager();
-                                $tagValues = is_array($value) ? $value : [$value];
-                                $tags = [];
-
-                                foreach ($tagValues as $tagValue) {
-                                    $tagsResult = $em->getRepository('ChamiloCoreBundle:Tag')->findBy([
-                                        'tag' => $tagValue,
-                                        'fieldId' => $extraFieldInfo['id']
-                                    ]);
-
-                                    if (empty($tagsResult)) {
-                                        $tag = new \Chamilo\CoreBundle\Entity\Tag();
-                                        $tag->setCount(0);
-                                        $tag->setFieldId($extraFieldInfo['id']);
-                                        $tag->setTag($tagValue);
-
-                                        $tags[] = $tag;
-                                    } else {
-                                        $tags = array_merge($tags, $tagsResult);
-                                    }
-                                }
-
-                                foreach ($tags as $tag) {
-                                    $fieldTags = $em->getRepository('ChamiloCoreBundle:ExtraFieldRelTag')->findBy([
-                                        'fieldId' => $extraFieldInfo['id'],
-                                        'itemId' => $params['item_id'],
-                                        'tagId' => $tag->getId()
-                                    ]);
-
-                                    foreach ($fieldTags as $fieldTag) {
-                                        $em->remove($fieldTag);
-
-                                        $tag->setCount($tag->getCount() - 1);
-                                        $em->persist($tag);
-                                        $em->flush();
-                                    }
-
-                                    $tag->setCount($tag->getCount() + 1);
-                                    $em->persist($tag);
-                                    $em->flush();
-
-                                    $fieldRelTag = new Chamilo\CoreBundle\Entity\ExtraFieldRelTag();
-                                    $fieldRelTag->setFieldId($extraFieldInfo['id']);
-                                    $fieldRelTag->setItemId($params['item_id']);
-                                    $fieldRelTag->setTagId($tag->getId());
-
-                                    $em->persist($fieldRelTag);
-                                    $em->flush();
-                                }
-                            }
-                            break;
-                        case ExtraField::FIELD_TYPE_FILE_IMAGE:
-                            $dirPermissions = api_get_permissions_for_new_directories();
-                            switch ($this->type) {
-                                case 'course':
-                                    $fileDir = api_get_path(SYS_UPLOAD_PATH)."courses/";
-                                    $fileDirStored = "courses/";
-                                    break;
-                                case 'session':
-                                    $fileDir = api_get_path(SYS_UPLOAD_PATH)."sessions/";
-                                    $fileDirStored = "sessions/";
-                                    break;
-                                case 'user':
-                                    $fileDir = UserManager::getUserPathById($params['item_id'], 'system');
-                                    $fileDirStored = UserManager::getUserPathById($params['item_id'], 'last');
-                                    break;
-                            }
-
-                            $fileName = ExtraField::FIELD_TYPE_FILE_IMAGE . "_{$params['item_id']}.png";
-
-                            if (!file_exists($fileDir)) {
-                                mkdir($fileDir, $dirPermissions, true);
-                            }
-
-                            if ($value['error'] == 0) {
-                                $imageExtraField = new Image($value['tmp_name']);
-                                $imageExtraField->send_image($fileDir . $fileName, -1, 'png');
-                                $newParams = array(
-                                    'item_id' => $params['item_id'],
-                                    'field_id' => $extraFieldInfo['id'],
-                                    'value' => $fileDirStored . $fileName,
-                                    'comment' => $comment
-                                );
-
-                                self::save($newParams);
-                            }
-                            break;
-                        case ExtraField::FIELD_TYPE_FILE:
-                            $dirPermissions = api_get_permissions_for_new_directories();
-
-                            switch ($this->type) {
-                                case 'course':
-                                    $fileDir = api_get_path(SYS_UPLOAD_PATH)."courses/";
-                                    $fileDirStored = "courses/";
-                                    break;
-                                case 'session':
-                                    $fileDir = api_get_path(SYS_UPLOAD_PATH)."sessions/";
-                                    $fileDirStored = "sessions/";
-                                    break;
-                                case 'user':
-                                    $fileDir = UserManager::getUserPathById($params['item_id'], 'system');
-                                    $fileDirStored = UserManager::getUserPathById($params['item_id'], 'last');
-                                    break;
-                            }
-
-                            $cleanedName = api_replace_dangerous_char($value['name']);
-                            $fileName = ExtraField::FIELD_TYPE_FILE . "_{$params['item_id']}_$cleanedName";
-                            if (!file_exists($fileDir)) {
-                                mkdir($fileDir, $dirPermissions, true);
-                            }
-
-                            if ($value['error'] == 0) {
-                                moveUploadedFile($value, $fileDir . $fileName);
-
-                                $new_params = array(
-                                    'item_id' => $params['item_id'],
-                                    'field_id' => $extraFieldInfo['id'],
-                                    'value' => $fileDirStored . $fileName
-                                );
-
-                                if ($this->type !== 'session' && $this->type !== 'course') {
-                                    $new_params['comment'] = $comment;
-                                }
-
-                                self::save($new_params);
-                            }
-                            break;
-                        default:
-                            $newParams = array(
-                                'item_id' => $params['item_id'],
-                                'field_id' => $extraFieldInfo['id'],
-                                'value' => $value,
-                                'comment' => $comment
-                            );
-
-                            self::save($newParams);
+                        UserManager::process_tags(
+                            $value,
+                            $params['item_id'],
+                            $extraFieldInfo['id']
+                        );
+                        break;
                     }
-                }
+
+                    $em = Database::getManager();
+
+                    $currentTags = $em
+                        ->getRepository('ChamiloCoreBundle:ExtraFieldRelTag')
+                        ->findBy([
+                            'fieldId' => $extraFieldInfo['id'],
+                            'itemId' => $params['item_id']
+                        ]);
+
+                    foreach ($currentTags as $extraFieldtag) {
+                        $em->remove($extraFieldtag);
+                    }
+
+                    $em->flush();
+
+                    $tagValues = is_array($value) ? $value : [$value];
+                    $tags = [];
+
+                    foreach ($tagValues as $tagValue) {
+                        $tagsResult = $em
+                            ->getRepository('ChamiloCoreBundle:Tag')
+                            ->findBy([
+                                'tag' => $tagValue,
+                                'fieldId' => $extraFieldInfo['id']
+                            ]);
+
+                        if (empty($tagsResult)) {
+                            $tag = new \Chamilo\CoreBundle\Entity\Tag();
+                            $tag->setFieldId($extraFieldInfo['id']);
+                            $tag->setTag($tagValue);
+
+                            $tags[] = $tag;
+                        } else {
+                            $tags = array_merge($tags, $tagsResult);
+                        }
+                    }
+
+                    foreach ($tags as $tag) {
+                        $tagUses = $em
+                            ->getRepository('ChamiloCoreBundle:ExtraFieldRelTag')
+                            ->findBy([
+                                'tagId' => $tag->getId()
+                            ]);
+
+                        $tag->setCount(count($tagUses) + 1);
+                        $em->persist($tag);    
+                    }
+
+                    $em->flush();
+
+                    foreach ($tags as $tag) {
+                        $fieldRelTag = new Chamilo\CoreBundle\Entity\ExtraFieldRelTag();
+                        $fieldRelTag->setFieldId($extraFieldInfo['id']);
+                        $fieldRelTag->setItemId($params['item_id']);
+                        $fieldRelTag->setTagId($tag->getId());
+
+                        $em->persist($fieldRelTag);
+                    }
+
+                    $em->flush();
+                    break;
+                case ExtraField::FIELD_TYPE_FILE_IMAGE:
+                    $dirPermissions = api_get_permissions_for_new_directories();
+                    switch ($this->type) {
+                        case 'course':
+                            $fileDir = api_get_path(SYS_UPLOAD_PATH)."courses/";
+                            $fileDirStored = "courses/";
+                            break;
+                        case 'session':
+                            $fileDir = api_get_path(SYS_UPLOAD_PATH)."sessions/";
+                            $fileDirStored = "sessions/";
+                            break;
+                        case 'user':
+                            $fileDir = UserManager::getUserPathById($params['item_id'], 'system');
+                            $fileDirStored = UserManager::getUserPathById($params['item_id'], 'last');
+                            break;
+                    }
+
+                    $fileName = ExtraField::FIELD_TYPE_FILE_IMAGE . "_{$params['item_id']}.png";
+
+                    if (!file_exists($fileDir)) {
+                        mkdir($fileDir, $dirPermissions, true);
+                    }
+
+                    if ($value['error'] == 0) {
+                        $imageExtraField = new Image($value['tmp_name']);
+                        $imageExtraField->send_image($fileDir . $fileName, -1, 'png');
+                        $newParams = array(
+                            'item_id' => $params['item_id'],
+                            'field_id' => $extraFieldInfo['id'],
+                            'value' => $fileDirStored . $fileName,
+                            'comment' => $comment
+                        );
+
+                        self::save($newParams);
+                    }
+                    break;
+                case ExtraField::FIELD_TYPE_FILE:
+                    $dirPermissions = api_get_permissions_for_new_directories();
+
+                    switch ($this->type) {
+                        case 'course':
+                            $fileDir = api_get_path(SYS_UPLOAD_PATH)."courses/";
+                            $fileDirStored = "courses/";
+                            break;
+                        case 'session':
+                            $fileDir = api_get_path(SYS_UPLOAD_PATH)."sessions/";
+                            $fileDirStored = "sessions/";
+                            break;
+                        case 'user':
+                            $fileDir = UserManager::getUserPathById($params['item_id'], 'system');
+                            $fileDirStored = UserManager::getUserPathById($params['item_id'], 'last');
+                            break;
+                    }
+
+                    $cleanedName = api_replace_dangerous_char($value['name']);
+                    $fileName = ExtraField::FIELD_TYPE_FILE . "_{$params['item_id']}_$cleanedName";
+                    if (!file_exists($fileDir)) {
+                        mkdir($fileDir, $dirPermissions, true);
+                    }
+
+                    if ($value['error'] == 0) {
+                        moveUploadedFile($value, $fileDir . $fileName);
+
+                        $new_params = array(
+                            'item_id' => $params['item_id'],
+                            'field_id' => $extraFieldInfo['id'],
+                            'value' => $fileDirStored . $fileName
+                        );
+
+                        if ($this->type !== 'session' && $this->type !== 'course') {
+                            $new_params['comment'] = $comment;
+                        }
+
+                        self::save($new_params);
+                    }
+                    break;
+                default:
+                    $newParams = array(
+                        'item_id' => $params['item_id'],
+                        'field_id' => $extraFieldInfo['id'],
+                        'value' => $value,
+                        'comment' => $comment
+                    );
+
+                    self::save($newParams);
             }
         }
     }
@@ -626,6 +640,7 @@ class ExtraFieldValue extends Model
                     }
                 }
             }
+
             return $result;
         } else {
             return false;
@@ -672,6 +687,7 @@ class ExtraFieldValue extends Model
         $result = Database::query($sql);
         if ($result !== false && Database::num_rows($result)) {
             $result = Database::fetch_array($result, 'ASSOC');
+
             return $result;
         } else {
             return false;
@@ -679,7 +695,8 @@ class ExtraFieldValue extends Model
     }
 
     /**
-     * @param $fieldId
+     * @param int $fieldId
+     *
      * @return array|bool
      */
     public function getValuesByFieldId($fieldId)
@@ -699,6 +716,7 @@ class ExtraFieldValue extends Model
         if (Database::num_rows($result)) {
             return Database::store_result($result, 'ASSOC');
         }
+
         return false;
     }
 
@@ -726,6 +744,7 @@ class ExtraFieldValue extends Model
         if (Database::num_rows($result)) {
             return Database::store_result($result, 'ASSOC');
         }
+
         return false;
     }
 
@@ -752,6 +771,7 @@ class ExtraFieldValue extends Model
         if (Database::num_rows($result)) {
             return Database::store_result($result, 'ASSOC');
         }
+
         return false;
     }
 
@@ -759,6 +779,7 @@ class ExtraFieldValue extends Model
      * @param int $itemId
      * @param int $fieldId
      * @param string $fieldValue
+     *
      * @return array|bool
      */
     public function getAllValuesByItemAndFieldAndValue($itemId, $fieldId, $fieldValue)
@@ -788,6 +809,7 @@ class ExtraFieldValue extends Model
     /**
      * Deletes all the values related to a specific field ID
      * @param int $field_id
+     *
      * @return void
      * @assert ('a') == null
      */
@@ -854,7 +876,7 @@ class ExtraFieldValue extends Model
         $itemId = intval($itemId);
         $fieldId = intval($fieldId);
         $fieldValue = Database::escape_string($fieldValue);
-        $extraFieldType = $this->getExtraField()->getExtraFieldType();
+        //$extraFieldType = $this->getExtraField()->getExtraFieldType();
 
         $sql = "DELETE FROM {$this->table}
                 WHERE
@@ -936,5 +958,4 @@ class ExtraFieldValue extends Model
 
         return $valueList;
     }
-
 }

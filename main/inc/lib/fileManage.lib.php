@@ -55,21 +55,21 @@ function update_db_info($action, $old_path, $new_path = '')
  *           boolean FALSE otherwise.
  */
 function check_name_exist($file_path) {
-	clearstatcache();
-	$save_dir = getcwd();
-	if (!is_dir(dirname($file_path))) {
-		return false;
-	}
-	chdir(dirname($file_path));
-	$file_name = basename($file_path);
+    clearstatcache();
+    $save_dir = getcwd();
+    if (!is_dir(dirname($file_path))) {
+        return false;
+    }
+    chdir(dirname($file_path));
+    $file_name = basename($file_path);
 
-	if (file_exists($file_name)) {
-		chdir($save_dir);
-		return true;
-	} else {
-		chdir($save_dir);
-		return false;
-	}
+    if (file_exists($file_name)) {
+        chdir($save_dir);
+        return true;
+    } else {
+        chdir($save_dir);
+        return false;
+    }
 }
 
 /**
@@ -82,17 +82,17 @@ function check_name_exist($file_path) {
  */
 function my_delete($file)
 {
-	if (check_name_exist($file)) {
-		if (is_file($file)) { // FILE CASE
-			unlink($file);
-			return true;
-		} elseif (is_dir($file)) { // DIRECTORY CASE
-			removeDir($file);
-			return true;
-		}
-	} else {
-		return false; // no file or directory to delete
-	}
+    if (check_name_exist($file)) {
+        if (is_file($file)) { // FILE CASE
+            unlink($file);
+            return true;
+        } elseif (is_dir($file)) { // DIRECTORY CASE
+            removeDir($file);
+            return true;
+        }
+    } else {
+        return false; // no file or directory to delete
+    }
 }
 
 /**
@@ -107,31 +107,31 @@ function my_delete($file)
  */
 function removeDir($dir)
 {
-	if (!@$opendir = opendir($dir)) {
-		return false;
-	}
+    if (!@$opendir = opendir($dir)) {
+        return false;
+    }
 
-	while ($readdir = readdir($opendir)) {
-		if ($readdir != '..' && $readdir != '.') {
-			if (is_file($dir.'/'.$readdir)) {
-				if (!@unlink($dir.'/'.$readdir)) {
-					return false;
-				}
-			} elseif (is_dir($dir.'/'.$readdir)) {
-				if (!removeDir($dir.'/'.$readdir)) {
-					return false;
-				}
-			}
-		}
-	}
+    while ($readdir = readdir($opendir)) {
+        if ($readdir != '..' && $readdir != '.') {
+            if (is_file($dir.'/'.$readdir)) {
+                if (!@unlink($dir.'/'.$readdir)) {
+                    return false;
+                }
+            } elseif (is_dir($dir.'/'.$readdir)) {
+                if (!removeDir($dir.'/'.$readdir)) {
+                    return false;
+                }
+            }
+        }
+    }
 
-	closedir($opendir);
+    closedir($opendir);
 
-	if (!@rmdir($dir)) {
-		return false;
-	}
+    if (!@rmdir($dir)) {
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 /**
@@ -154,9 +154,9 @@ function folder_is_empty($in_folder)
             $folder_is_empty = 1;
         }
     }
+
     return $folder_is_empty;
 }
-
 
 /**
  * Renames a file or a directory
@@ -173,7 +173,6 @@ function my_rename($file_path, $new_file_name) {
 	$save_dir = getcwd();
 	$path = dirname($file_path);
 	$old_file_name = basename($file_path);
-
 	$new_file_name = api_replace_dangerous_char($new_file_name);
 
 	// If no extension, take the old one
@@ -345,7 +344,6 @@ function dirsize($root, $recursive = true) {
 */
 class FileManager
 {
-
 	/**
 		Returns a list of all directories, except the base dir,
 		of the current course. This function uses recursion.
@@ -355,15 +353,16 @@ class FileManager
 		@author Roan Embrechts
 		@version 1.0.1
 	*/
-	function list_all_directories($path) {
-
+	function list_all_directories($path)
+    {
 		$result_array = array();
 		if (is_dir($path)) {
 			$save_dir = getcwd();
 			chdir($path);
 			$handle = opendir($path);
 			while ($element = readdir($handle)) {
-				if ($element == '.' || $element == '..') continue; // Skip the current and parent directories
+				if ($element == '.' || $element == '..') continue;
+                // Skip the current and parent directories
 				if (is_dir($element)) {
 					$dir_array[] = $path.'/'.$element;
 				}
@@ -392,8 +391,8 @@ class FileManager
 		@author Roan Embrechts
 		@version 1.0
 	*/
-	function list_all_files($dir_array) {
-
+	function list_all_files($dir_array)
+    {
 		$element_array = array();
 		if (is_dir($dir_array)) {
 
@@ -402,7 +401,8 @@ class FileManager
 				chdir($directory);
 				$handle = opendir($directory);
 			   	while ($element = readdir($handle)) {
-					if ($element == '.' || $element == '..' || $element == '.htaccess') continue; // Skip the current and parent directories
+					if ($element == '.' || $element == '..' || $element == '.htaccess') continue;
+                    // Skip the current and parent directories
 					if (!is_dir($element)) {
 						$element_array[] = $directory.'/'.$element;
 					}
@@ -412,6 +412,7 @@ class FileManager
 				chdir($save_dir);
 			}
 		}
+
 		return $element_array;
 	}
 
@@ -420,7 +421,8 @@ class FileManager
 		Function kept for compatibility with older PHP versions.
 		Function is binary safe (is needed on Windows)
 	*/
-	function compat_load_file($file_name) {
+	function compat_load_file($file_name)
+    {
 		$buffer = '';
 		if (file_exists($file_name)) {
 			$fp = fopen($file_name, 'rb');
@@ -447,7 +449,8 @@ class FileManager
 	 * @author	Roan Embrechts
 	 * @version 1.2
 	 */
-	function set_default_settings($upload_path, $filename, $filetype = 'file', $glued_table, $default_visibility = 'v') {
+	function set_default_settings($upload_path, $filename, $filetype = 'file', $glued_table, $default_visibility = 'v')
+    {
 		if (!$default_visibility) $default_visibility = 'v';
 
 		// Make sure path is not wrongly formed
@@ -459,7 +462,6 @@ class FileManager
 		}
 
 		$full_file_name = $upload_path.'/'.$filename;
-		//$upload_path = str_replace("//", '/', $upload_path);
 		$full_file_name = str_replace("//", '/', $full_file_name);
 
 		$sql_query = "SELECT count(*) as number_existing FROM $glued_table WHERE path='$full_file_name'";
@@ -468,42 +470,13 @@ class FileManager
 		// Determine which query to execute
 		if ($result['number_existing'] > 0) {
 			// Entry exists, update
-			$query = "UPDATE $glued_table SET path='$full_file_name',visibility='$default_visibility', filetype='$filetype' WHERE path='$full_file_name'";
+			$query = "UPDATE $glued_table SET path='$full_file_name',visibility='$default_visibility', filetype='$filetype'
+			          WHERE path='$full_file_name'";
 		} else {
 			// No entry exists, create new one
-			$query = "INSERT INTO $glued_table (path,visibility,filetype) VALUES('$full_file_name','$default_visibility','$filetype')";
+			$query = "INSERT INTO $glued_table (path,visibility,filetype)
+			          VALUES ('$full_file_name','$default_visibility','$filetype')";
 		}
 		Database::query($query);
-	}
-
-
-
-} //end class FileManager
-
-
-
-
-
-/*	DEPRECATED FUNCTIONS */
-
-/**
- * Like in Java, creates the directory named by this abstract pathname,
- * including any necessary but nonexistent parent directories.
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
- *
- * @param  string $path - path to create
- * @param  string $mode - directory permission (default is '770')
- *
- * @return boolean TRUE if succeeds FALSE otherwise
- */
-function mkdirs($path, $mode = '0770') {
-	if (file_exists($path)) {
-		return false;
-	} else {
-		FileManager :: mkdirs(dirname($path), $mode);
-	 	//mkdir($path, $mode);
-		return true;
 	}
 }

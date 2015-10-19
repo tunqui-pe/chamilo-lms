@@ -221,6 +221,7 @@ function get_course_data_by_session($from, $number_of_items, $column, $direction
         $course_rem = array($course[0], $course[1], $course[2], $course[3], $course[4], $course[5], $course[6], $course[7]);
         $courses[] = $course_rem;
     }
+
     return $courses;
 }
 
@@ -230,14 +231,22 @@ function get_course_data_by_session($from, $number_of_items, $column, $direction
 function modify_filter($code)
 {
     $icourse = api_get_course_info($code);
+
     return
-        '<a href="course_information.php?code='.$code.'">'.Display::return_icon('synthese_view.gif', get_lang('Info')).'</a>&nbsp;'.
-        //'<a href="../course_home/course_home.php?cidReq='.$code.'">'.Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>&nbsp;'. // This is not the preferable way to go to the homepage.
-        '<a href="'.api_get_path(WEB_COURSE_PATH).$icourse['path'].'/index.php">'.Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>&nbsp;'.
-        '<a href="../tracking/courseLog.php?cidReq='.$code.'">'.Display::return_icon('statistics.gif', get_lang('Tracking')).'</a>&nbsp;'.
-        '<a href="course_edit.php?id='.$icourse['real_id'].'">'.Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL).'</a>&nbsp;'.
-        '<a href="../coursecopy/backup.php?cidReq='.$code.'">'.Display::return_icon('backup.gif', get_lang('CreateBackup')).'</a>&nbsp;'.
-        '<a href="course_list.php?delete_course='.$code.'"  onclick="javascript: if (!confirm('."'".addslashes(api_htmlentities(get_lang('ConfirmYourChoice'), ENT_QUOTES))."'".')) return false;">'.Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
+        '<a href="course_information.php?code='.$code.'">'.
+        Display::return_icon('synthese_view.gif', get_lang('Info')).'</a>&nbsp;'.
+        //'<a href="../course_home/course_home.php?cidReq='.$code.'">'.
+        //Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>&nbsp;'. // This is not the preferable way to go to the homepage.
+        '<a href="'.api_get_path(WEB_COURSE_PATH).$icourse['path'].'/index.php">'.
+        Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>&nbsp;'.
+        '<a href="../tracking/courseLog.php?cidReq='.$code.'">'.
+        Display::return_icon('statistics.gif', get_lang('Tracking')).'</a>&nbsp;'.
+        '<a href="course_edit.php?id='.$icourse['real_id'].'">'.
+        Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL).'</a>&nbsp;'.
+        '<a href="../coursecopy/create_backup.php?cidReq='.$code.'">'.
+        Display::return_icon('backup.gif', get_lang('CreateBackup')).'</a>&nbsp;'.
+        '<a href="course_list.php?delete_course='.$code.'"  onclick="javascript: if (!confirm('."'".addslashes(api_htmlentities(get_lang('ConfirmYourChoice'), ENT_QUOTES))."'".')) return false;">'.
+        Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
 }
 
 /**
@@ -359,49 +368,58 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
     $form = new FormValidator('search_simple', 'get', '', '', array(), FormValidator::LAYOUT_INLINE);
     $form->addElement('text', 'keyword', null, array('id' => 'course-search-keyword'));
     $form->addButtonSearch(get_lang('SearchCourse'));
-    $form->addElement('static', 'search_advanced_link', null, '<a href="course_list.php?search=advanced">'.get_lang('AdvancedSearch').'</a>');
+    $advanced = '<a class="btn btn-default" href="'.  api_get_path(WEB_CODE_PATH).'admin/course_list.php?search=advanced"><em class="fa fa-search"></em> '.get_lang('AdvancedSearch').'</a>';
 
     // Create a filter by session
     $sessionFilter = new FormValidator('course_filter', 'get', '', '', array(), FormValidator::LAYOUT_INLINE);
     $url = api_get_path(WEB_AJAX_PATH).'session.ajax.php?a=search_session';
-    $sessionList = array();
-    if (!empty($sessionId)) {
-        $sessionList = array();
-        $sessionInfo = SessionManager::fetch($sessionId);
-        $sessionList[$sessionInfo['id']] = $sessionInfo['name'];
-    }
-    $sessionFilter->addElement(
+    $sessionSelect = $sessionFilter->addElement(
         'select_ajax',
         'session_name',
         get_lang('SearchCourseBySession'),
         null,
-        array(
-            'url' => $url,
-            'defaults' => $sessionList
-        )
+        array('url' => $url)
     );
+
+    if (!empty($sessionId)) {
+        $sessionInfo = SessionManager::fetch($sessionId);
+        $sessionSelect->addOption($sessionInfo['name'], $sessionInfo['id'], ['selected' => 'selected']);
+    }
+    
     $courseListUrl = api_get_self();
-    $actions = '
-    <script>
-    $(function() {
-        $("#session_name").on("change", function() {
-           var sessionId = $(this).val();
-           window.location = "'.$courseListUrl.'?session_id="+sessionId;
-        });
-    });
-    </script>';
-    $actions .= '<div class="pull-right">';
+    $actions .= '<div class="row">';
+    $actions .= '<div class="col-md-2">';
     $actions .= '<a href="course_add.php">'.Display::return_icon('new_course.png', get_lang('AddCourse'),'',ICON_SIZE_MEDIUM).'</a> ';
     if (api_get_setting('course_validation') == 'true') {
         $actions .= '<a href="course_request_review.php">'.Display::return_icon('course_request_pending.png', get_lang('ReviewCourseRequests'),'',ICON_SIZE_MEDIUM).'</a>';
     }
     $actions .= '</div>';
-
-    $actions .= '<div class="pull-right">';
+    $actions .= '<div class="col-md-4">';
+    $actions .= $form->return_form();
+    $actions .= '</div>';
+    $actions .= '<div class="col-md-4">';
     $actions .= $sessionFilter->return_form();
     $actions .= '</div>';
+    $actions .= '<div class="col-md-2">';
+    $actions .= '<div class="pull-right">';
+    $actions .= $advanced;
+    $actions .= '</div>';
+    $actions .= '</div>';
+    $actions .= '</div>';
+    $actions .= '
+    <script>
+    $(function() {
+        $("#session_name").on("change", function() {
+            var sessionId = $(this).val();
 
-    $actions .= $form->return_form();
+            if (!sessionId) {
+                return;
+            }
+
+            window.location = "'.$courseListUrl.'?session_id="+sessionId;
+        });
+    });
+    </script>';
 
     if (isset($_GET['session_id']) && !empty($_GET['session_id'])) {
         // Create a sortable table with the course data filtered by session

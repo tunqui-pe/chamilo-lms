@@ -143,7 +143,7 @@ function startChatSession() {
                         if (item)    { // fix strange ie bug
                             //my_user_id        = item.f;
                             if ($("#chatbox_"+my_user_id).length <= 0) {
-                                createChatBox(my_user_id, user_items.user_info.user_name, 1, user_items.user_info.online);
+                                createChatBox(my_user_id, user_items.user_info.user_name, 1, user_items.user_info.online, user_items.user_info.avatar);
                             }
 
                             if (item.s == 1) {
@@ -242,7 +242,7 @@ function chatHeartbeat() {
 					if (item)	{ // fix strange ie bug
 
 						if ($("#chatbox_"+my_user_id).length <= 0) {
-							createChatBox(my_user_id, user_items.user_info.user_name, 0, user_items.user_info.online);
+							createChatBox(my_user_id, user_items.user_info.user_name, 0, user_items.user_info.online, user_items.user_info.avatar);
 						}
 						if ($("#chatbox_"+my_user_id).css('display') == 'none') {
 							$("#chatbox_"+my_user_id).css('display','block');
@@ -379,36 +379,23 @@ function createChatBox(user_id, chatboxtitle, minimizeChatBox, online, userImage
 		.addClass('chatboxoptions')
 		.appendTo(chatboxHead);
 
-	if (!!Modernizr.prefixed('RTCPeerConnection', window)) {
+	if (
+            !!Modernizr.prefixed('RTCPeerConnection', window) &&
+            (online === '1' || online === 1)
+        ) {
 		$('<a>')
-			.addClass('btn btn-xs')
+			.addClass('btn btn-xs ajax')
 			.attr({
-				href: '#'
+				href: ajax_url + '?action=create_room&to=' + user_id
 			})
-			.html('<i class="fa fa-video-camera"></i>')
-			.on('click', function(e) {
-				e.preventDefault();
-
-				var createForm = $.get(
-					ajax_url,
-					{
-						action: 'start_video',
-						to: user_id
-					}
-				);
-
-				$.when(createForm).done(function(response) {
-					$('#global-modal')
-						.find('.modal-dialog')
-						.removeClass('modal-lg');
-
-					$('#global-modal')
-						.find('.modal-body')
-						.html(response);
-
-					$('#global-modal').modal('show');
-				});
-			})
+                        .data({
+                            title: '<em class="fa fa-video-camera"></em>',
+                            size: 'sm'
+                        })
+                        .on('click', function () {
+                            $(this).data('title', $('.chatboxtitle').text());
+                        })
+			.html('<em class="fa fa-video-camera"></em>')
 			.appendTo(chatboxoptions);
 	}
 
@@ -418,7 +405,7 @@ function createChatBox(user_id, chatboxtitle, minimizeChatBox, online, userImage
 			href: 'javascript:void(0)',
 			rel: user_id
 		})
-		.html('<i class="fa fa-toggle-down"></i>')
+		.html('<em class="fa fa-toggle-down"></em>')
 		.appendTo(chatboxoptions);
 
 	$('<a>')
@@ -427,7 +414,7 @@ function createChatBox(user_id, chatboxtitle, minimizeChatBox, online, userImage
 			href: 'javascript:void(0)',
 			rel: user_id
 		})
-		.html('<i class="fa fa-close"></i>')
+		.html('<em class="fa fa-close"></em>')
 		.appendTo(chatboxoptions);
 
 	$('<br>')
@@ -484,7 +471,7 @@ function createChatBox(user_id, chatboxtitle, minimizeChatBox, online, userImage
 		}
 
 		if (minimize == 1) {
-                        $('.togglelink').html('<i class="fa fa-toggle-up"></i>');
+                        $('.togglelink').html('<em class="fa fa-toggle-up"></em>');
 			$('#chatbox_'+user_id+' .chatboxcontent').css('display','none');
 			$('#chatbox_'+user_id+' .chatboxinput').css('display','none');
 		}
@@ -569,7 +556,7 @@ function toggleChatBoxGrowth(user_id) {
 		$('#chatbox_'+user_id+' .chatboxinput').css('display','block');
 		$("#chatbox_"+user_id+" .chatboxcontent").scrollTop($("#chatbox_"+user_id+" .chatboxcontent")[0].scrollHeight);
 
-                $('.togglelink').html('<i class="fa fa-toggle-down"></i>');
+                $('.togglelink').html('<em class="fa fa-toggle-down"></em>');
 	} else {
 		var newCookie = user_id;
 		if ($.cookie('chatbox_minimized')) {
@@ -579,7 +566,7 @@ function toggleChatBoxGrowth(user_id) {
 		$('#chatbox_'+user_id+' .chatboxcontent').css('display','none');
 		$('#chatbox_'+user_id+' .chatboxinput').css('display','none');
 
-                $('.togglelink').html('<i class="fa fa-toggle-up"></i>');
+                $('.togglelink').html('<em class="fa fa-toggle-up"></em>');
 	}
 }
 

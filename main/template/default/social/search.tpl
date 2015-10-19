@@ -3,27 +3,24 @@
 {% block content %}
 <div class="row">
     <div class="col-md-3">
-        <div class="social-menu">
+        <div class="social-network-menu">
             {{ social_avatar_block }}
             {{ social_menu_block }}
         </div>
     </div>
-    <div class="col-md-9" style="min-height:1px">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="message_ajax_reponse" class=""></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+    <div class="col-md-9">
+        
+            <div class="form-search-sm">
                 {{ search_form }}
             </div>
-            {{ social_right_content }}
-        </div>
+            <div class="list-search-sm">
+                {{ social_search }}
+            </div>
+        
     </div>
 </div>
 
-{% if formModals is defined %}
-    {{ formModals }}
+{% if form_modals is defined %}
+    {{ form_modals }}
 {% endif %}
 {% endblock %}

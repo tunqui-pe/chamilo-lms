@@ -4,13 +4,22 @@
 <div class="row">
     <div class="col-md-3">
         {{ social_avatar_block }}
-        {{ social_extra_info_block }}        
-        <div class="social-menu">
+        {{ social_extra_info_block }}
+        <div class="social-network-menu">
             {{ social_menu_block }}
         </div>
     </div>
     <div id="wallMessages" class="col-md-6">
         {{ social_wall_block }}
+        <div class="spinner"></div>
+        <div class="panel panel-preview panel-default" hidden="true">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ "Url" | get_lang }} - {{ "Preview" | get_lang }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="url_preview"></div>
+            </div>
+        </div>
         {{ social_post_wall_block }}
         {{ social_auto_extend_link }}
     </div>
@@ -55,7 +64,7 @@
                     </div>
                 </div>
             </div>
-         {% endif %}                   
+         {% endif %}
         <!-- Block session list -->
         {% if sessionList != null %}
         <div class="panel-group" id="session-block" role="tablist" aria-multiselectable="true">
@@ -81,14 +90,13 @@
                 </div>
             </div>
          </div>
-         {% endif %}              
-        
-        
+         {% endif %}
+
         {{ social_rss_block }}
         {{ social_right_information }}
     </div>
 </div>
-    {% if formModals is defined %}
-        {{ formModals }}
+    {% if form_modals is defined %}
+        {{ form_modals }}
     {% endif %}
 {% endblock %}

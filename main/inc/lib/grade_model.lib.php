@@ -13,18 +13,23 @@ class GradeModel extends Model
     /**
      * Constructor
      */
-	public function __construct()
+    public function __construct()
     {
         $this->table =  Database::get_main_table(TABLE_GRADE_MODEL);
-	}
+    }
 
     /**
      * @param array $where_conditions
+     *
      * @return array
      */
     public function get_all($where_conditions = array())
     {
-        return Database::select('*',$this->table, array('where'=>$where_conditions,'order' =>'name ASC'));
+        return Database::select(
+            '*',
+            $this->table,
+            array('where' => $where_conditions, 'order' => 'name ASC')
+        );
     }
 
     /**
@@ -32,7 +37,13 @@ class GradeModel extends Model
      */
     public function get_count()
     {
-        $row = Database::select('count(*) as count', $this->table, array(),'first');
+        $row = Database::select(
+            'count(*) as count',
+            $this->table,
+            array(),
+            'first'
+        );
+
         return $row['count'];
     }
 
@@ -52,9 +63,10 @@ class GradeModel extends Model
     /**
      * Returns a Form validator Obj
      * @todo the form should be auto generated
-     * @param   string  url
-     * @param   string  action add, edit
-     * @return  obj     form validator obj
+     * @param   string  $url
+     * @param   string  $action add, edit
+     *
+     * @return  FormValidator form validator obj
      */
     public function return_form($url, $action)
     {
@@ -86,9 +98,9 @@ class GradeModel extends Model
 
         $form->addElement('label', get_lang('Components'));
 
-        //Get components
+        // Get components
         $nr_items = 2;
-        $max      = 10;
+        $max = 10;
 
         // Setting the defaults
 
@@ -110,10 +122,10 @@ class GradeModel extends Model
 
         for ($i = 0; $i <= $max; $i++) {
             $counter = $i;
-            $form->addElement('text', 'components['.$i.'][percentage]', null, array('class' => 'span1'));
-            $form->addElement('text', 'components['.$i.'][acronym]',    null, array('class' => 'span1'));
-            $form->addElement('text', 'components['.$i.'][title]',      null, array('class' => 'span3'));
-            $form->addElement('hidden', 'components['.$i.'][id]',       null, array('class' => 'span3'));
+            $form->addElement('text', 'components['.$i.'][percentage]', null);
+            $form->addElement('text', 'components['.$i.'][acronym]',    null);
+            $form->addElement('text', 'components['.$i.'][title]',      null);
+            $form->addElement('hidden', 'components['.$i.'][id]',       null);
 
              $template_percentage =
             '<div id=' . $i . ' style="display: '.(($i<=$nr_items)?'inline':'none').';" class="control-group">
@@ -179,6 +191,7 @@ class GradeModel extends Model
 
         // Setting the rules
         $form->addRule('name', get_lang('ThisFieldIsRequired'), 'required');
+
 		return $form;
     }
 
@@ -203,10 +216,14 @@ class GradeModel extends Model
                 }
             }
         }
+
         //event_system(LOG_CAREER_CREATE, LOG_CAREER_ID, $id, api_get_utc_datetime(), api_get_user_id());
    		return $id;
     }
 
+    /**
+     * @param array $params
+     */
     public function update($params)
     {
         parent::update($params);

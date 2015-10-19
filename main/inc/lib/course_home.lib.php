@@ -1,9 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-define('SHORTCUTS_HORIZONTAL', 0);
-define('SHORTCUTS_VERTICAL', 1);
-
 /**
  * Class CourseHome
  */
@@ -12,9 +9,10 @@ class CourseHome
     /**
      * Gets the html content to show in the 3 column view
      */
-    public static function show_tool_3column($cat)
+    public static function show_tool_3column($cat, $userId = null)
     {
-        global $_user;
+        $_user = api_get_user_info($userId);
+
         $TBL_ACCUEIL = Database :: get_course_table(TABLE_TOOL_LIST);
         $TABLE_TOOLS = Database :: get_main_table(TABLE_MAIN_COURSE_MODULE);
 
@@ -298,10 +296,6 @@ class CourseHome
             foreach ($all_tools_list as & $tool) {
 
                 if ($tool['image'] == 'scormbuilder.gif') {
-                    // display links to lp only for current session
-                    /* if (api_get_session_id() != $tool['session_id']) {
-                      continue;
-                      } */
                     // check if the published learnpath is visible for student
                     $published_lp_id = self::get_published_lp_id_from_link($tool['link']);
 
@@ -993,8 +987,6 @@ class CourseHome
      */
     public static function show_session_data($id_session)
     {
-        $session_table = Database::get_main_table(TABLE_MAIN_SESSION);
-        $user_table = Database::get_main_table(TABLE_MAIN_USER);
         $session_category_table = Database::get_main_table(TABLE_MAIN_SESSION_CATEGORY);
 
         $sessionInfo = api_get_session_info($id_session);
@@ -1331,9 +1323,7 @@ class CourseHome
 
     /**
      * @param int $id
-     * @param int $courseId
-     * @param int $sessionId
-     * @param $values
+     * @param array $values
      */
     public static function updateTool($id, $values)
     {

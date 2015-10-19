@@ -13,7 +13,7 @@ use Symfony\Component\Finder\Finder;
  * current configuration file.
  * @package chamilo.install
  */
-Log::notice('Entering file');
+error_log('Entering file');
 
 if (defined('SYSTEM_INSTALLATION')) {
     // Changes for 1.10.x
@@ -164,21 +164,7 @@ if (defined('SYSTEM_INSTALLATION')) {
         unlink(api_get_path(SYS_PATH).'courses/.htaccess');
     }
 
-    // Delete all "courses/ABC/index.php" files.
-
-    $finder = new Finder();
-    $dirs = $finder->directories()->in(api_get_path(SYS_APP_PATH).'courses');
-    $fs = new Filesystem();
-    /** @var Symfony\Component\Finder\SplFileInfo $dir */
-    foreach ($dirs as $dir) {
-        $indexFile = $dir->getPath().'/index.php';
-        if ($fs->exists($indexFile)) {
-            $fs->remove($indexFile);
-        }
-    }
-
     // Move dirs into new structures.
-
     $movePathList = [
         api_get_path(SYS_CODE_PATH).'upload/users/groups' => api_get_path(SYS_UPLOAD_PATH),
         api_get_path(SYS_CODE_PATH).'upload/users' => api_get_path(SYS_UPLOAD_PATH),
@@ -193,6 +179,37 @@ if (defined('SYSTEM_INSTALLATION')) {
             move($origin, $destination);
         }
     }
+
+
+    // Delete all "courses/ABC/index.php" files.
+    $finder = new Finder();
+
+    $courseDir = api_get_path(SYS_APP_PATH).'courses';
+    if (is_dir($courseDir)) {
+        $dirs = $finder->directories()->in($courseDir);
+        $fs = new Filesystem();
+        /** @var Symfony\Component\Finder\SplFileInfo $dir */
+        foreach ($dirs as $dir) {
+            $indexFile = $dir->getPath().'/index.php';
+            if ($fs->exists($indexFile)) {
+                $fs->remove($indexFile);
+            }
+        }
+    }
+
+    // Remove old "courses" folder if empty
+    $originalCourseDir = api_get_path(SYS_PATH).'courses';
+
+    if (is_dir($originalCourseDir)) {
+        $dirs = $finder->directories()->in($originalCourseDir);
+        $files = $finder->directories()->in($originalCourseDir);
+        $dirCount = $dirs->count();
+        $fileCount = $dirs->count();
+        if ($fileCount == 0 && $dirCount == 0) {
+            @rrmdir(api_get_path(SYS_PATH).'courses');
+        }
+    }
+
 
     // Remove archive
     @rrmdir(api_get_path(SYS_PATH).'archive');

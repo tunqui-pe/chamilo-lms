@@ -4,7 +4,6 @@
 /**
  * Class SubLanguageManager
  * @package chamilo.admin.sublanguage
- * @todo clean this lib and move to main/inc/lib
  */
 class SubLanguageManager
 {
@@ -39,6 +38,7 @@ class SubLanguageManager
                 }
             }
             closedir($dh);
+
             return $content_dir;
         }
     }
@@ -51,14 +51,17 @@ class SubLanguageManager
      */
     public static function get_all_information_of_sub_language($parent_id, $sub_language_id)
     {
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT * FROM ' . $tbl_admin_languages . '
-                WHERE parent_id= ' . intval($parent_id) . ' AND id= ' . intval($sub_language_id) . '';
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT * FROM ' . $table . '
+                WHERE
+                    parent_id= ' . intval($parent_id).' AND
+                    id= ' . intval($sub_language_id) . '';
         $rs = Database::query($sql);
         $all_information = array();
         while ($row = Database::fetch_array($rs, 'ASSOC')) {
             $all_information = $row;
         }
+
         return $all_information;
     }
 
@@ -69,13 +72,14 @@ class SubLanguageManager
      */
     public static function get_all_information_of_language($parent_id)
     {
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT * FROM ' . $tbl_admin_languages . ' WHERE id = "' . intval($parent_id) . '"';
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT * FROM ' . $table . ' WHERE id = "' . intval($parent_id) . '"';
         $rs = Database::query($sql);
         $all_information = array();
         while ($row = Database::fetch_array($rs, 'ASSOC')) {
             $all_information = $row;
         }
+
         return $all_information;
     }
 
@@ -116,6 +120,7 @@ class SubLanguageManager
     public static function add_file_in_language_directory($system_path_file)
     {
         $return_value = @file_put_contents($system_path_file, '<?php' . PHP_EOL);
+
         return $return_value;
     }
 
@@ -158,6 +163,7 @@ class SubLanguageManager
         if (is_dir($dir)) {
             return true;
         } //even if the dir already exists, we reach the objective of having the directory there
+
         return @mkdir($dir, api_get_permissions_for_new_directories());
     }
 
@@ -169,11 +175,15 @@ class SubLanguageManager
      */
     public static function remove_sub_language($parent_id, $sub_language_id)
     {
-        if (empty($parent_id) or (intval($parent_id) != $parent_id) or empty($sub_language_id) or (intval($sub_language_id) != $sub_language_id)) {
+        if (empty($parent_id) ||
+            (intval($parent_id) != $parent_id) ||
+            empty($sub_language_id) ||
+            (intval($sub_language_id) != $sub_language_id)
+        ) {
             return false;
         }
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT dokeos_folder FROM ' . $tbl_admin_languages . '
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT dokeos_folder FROM ' . $table . '
                 WHERE parent_id = ' . $parent_id . ' and id = ' . $sub_language_id;
         $res = Database::query($sql);
         if ($res === false or Database::num_rows($res) < 1) {
@@ -184,8 +194,8 @@ class SubLanguageManager
         if ($res === false) {
             return false;
         } //can't delete dir, so do not delete language record
-        $sql = 'DELETE FROM ' . $tbl_admin_languages . '
-                WHERE id= ' . intval($sub_language_id) . ' ';
+        $sql = 'DELETE FROM ' . $table . '
+                WHERE id= ' . intval($sub_language_id);
         $res = Database::query($sql);
 
         return $res;
@@ -225,8 +235,10 @@ class SubLanguageManager
      */
     public static function check_if_exist_language_by_id($language_id)
     {
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT count(*) as count FROM ' . $tbl_admin_languages . ' WHERE id="' . intval($language_id) . '"';
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT count(*) as count
+                FROM ' . $table . '
+                WHERE id="' . intval($language_id) . '"';
         $rs = Database::query($sql);
         if (Database::num_rows($rs) > 0) {
             if (Database::result($rs, 0, 'count') == 1) {
@@ -246,8 +258,10 @@ class SubLanguageManager
      */
     public static function get_name_of_language_by_id($language_id)
     {
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT original_name FROM ' . $tbl_admin_languages . ' WHERE id= ' . intval($language_id) . '';
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT original_name
+                FROM ' . $table . '
+                WHERE id= ' . intval($language_id) . '';
         $rs = Database::query($sql);
         if (Database::num_rows($rs) > 0) {
             return Database::result($rs, 0, 'original_name');
@@ -258,13 +272,14 @@ class SubLanguageManager
 
     /**
      * Verified if language is sub-language
-     * @param Integer The language id
-     * @return Boolean
+     * @param int $language_id
+     *
+     * @return bool
      */
     public static function check_if_language_is_sub_language($language_id)
     {
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT count(*) AS count FROM ' . $tbl_admin_languages . '
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT count(*) AS count FROM ' . $table . '
                 WHERE id = ' . intval($language_id) . ' AND NOT ISNULL(parent_id)';
         $rs = Database::query($sql);
 
@@ -282,8 +297,8 @@ class SubLanguageManager
     public static function check_if_language_is_used($language_id)
     {
         $language_info = self::get_all_information_of_language($language_id);
-        $user_table = Database :: get_main_table(TABLE_MAIN_USER);
-        $sql = 'SELECT count(*) AS count FROM ' . $user_table . '
+        $table = Database :: get_main_table(TABLE_MAIN_USER);
+        $sql = 'SELECT count(*) AS count FROM ' . $table . '
                 WHERE language ="' . Database::escape_string($language_info['english_name']).'"';
         $rs = Database::query($sql);
         if (Database::num_rows($rs) > 0 && Database::result($rs, '0', 'count') >= 1) {
@@ -300,8 +315,8 @@ class SubLanguageManager
      */
     public static function check_if_language_is_father($language_id)
     {
-        $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql = 'SELECT count(*) AS count FROM ' . $tbl_admin_languages . '
+        $table = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
+        $sql = 'SELECT count(*) AS count FROM ' . $table . '
                 WHERE parent_id= ' . intval($language_id) . ' AND NOT ISNULL(parent_id);';
         $rs = Database::query($sql);
 
@@ -320,8 +335,10 @@ class SubLanguageManager
     public static function make_unavailable_language($language_id)
     {
         $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql_make_unavailable = "UPDATE $tbl_admin_languages SET available='0' WHERE id = " . intval($language_id) . "";
-        $result = Database::query($sql_make_unavailable);
+        $sql = "UPDATE $tbl_admin_languages SET available='0'
+                WHERE id = " . intval($language_id) . "";
+        $result = Database::query($sql);
+
         return $result !== false; //only return false on sql error
     }
 
@@ -333,8 +350,10 @@ class SubLanguageManager
     public static function make_available_language($language_id)
     {
         $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
-        $sql_make_available = "UPDATE $tbl_admin_languages SET available='1' WHERE id = " . intval($language_id) . "";
-        $result = Database::query($sql_make_available);
+        $sql = "UPDATE $tbl_admin_languages SET available='1'
+                WHERE id = " . intval($language_id) . "";
+        $result = Database::query($sql);
+
         return $result !== false; //only return false on sql error
     }
 
@@ -350,10 +369,12 @@ class SubLanguageManager
         }
         $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
         $tbl_settings_current = Database :: get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
-        $sql_update = "SELECT english_name FROM " . $tbl_admin_languages . " WHERE id= " . intval($language_id) . "";
-        $result = Database::query($sql_update);
+        $sql = "SELECT english_name FROM " . $tbl_admin_languages . "
+                WHERE id= " . intval($language_id) . "";
+        $result = Database::query($sql);
         $lang = Database::fetch_array($result);
-        $sql_update_2 = "UPDATE " . $tbl_settings_current . " SET selected_value='" . $lang['english_name'] . "' WHERE variable='platformLanguage'";
+        $sql_update_2 = "UPDATE " . $tbl_settings_current . " SET selected_value='" . $lang['english_name'] . "'
+                         WHERE variable='platformLanguage'";
         $result_2 = Database::query($sql_update_2);
         Event::addEvent(
             LOG_PLATFORM_LANGUAGE_CHANGE,
@@ -378,6 +399,7 @@ class SubLanguageManager
             return false;
         }
         $row = Database::fetch_array($res);
+
         return $row['id'];
     }
 

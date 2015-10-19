@@ -9,9 +9,31 @@
 /**
  * Init
  */
-$rights_full=array("article_add","article_delete","article_edit","article_rate","article_comments_add","article_comments_delete","article_comments_rate","task_management","member_management","role_management");
-$rights_limited=array("Add","Edit","Delete");
-$rights_blog=array("article_add","article_delete","article_edit","article_rate","article_comments_add","article_comments_delete","article_comments_rate","task_management","member_management","role_management");
+$rights_full = array(
+    "article_add",
+    "article_delete",
+    "article_edit",
+    "article_rate",
+    "article_comments_add",
+    "article_comments_delete",
+    "article_comments_rate",
+    "task_management",
+    "member_management",
+    "role_management",
+);
+$rights_limited = array("Add", "Edit", "Delete");
+$rights_blog = array(
+    "article_add",
+    "article_delete",
+    "article_edit",
+    "article_rate",
+    "article_comments_add",
+    "article_comments_delete",
+    "article_comments_rate",
+    "task_management",
+    "member_management",
+    "role_management",
+);
 $course_tool_table = Database::get_course_table(TABLE_TOOL_LIST);
 
 // Get all user
@@ -31,32 +53,32 @@ while ($user = Database::fetch_assoc($result)) {
 }
 
 //$user_id=$userIdViewed;
-if ($mainUserInfo['status']==1)
-{
-	$course_admin=1;
+if (isset($mainUserInfo) && isset($mainUserInfo['status']) && $mainUserInfo['status'] == 1) {
+    $course_admin = 1;
 }
 
 include_once('permissions_functions.inc.php');
-include_once(api_get_path(LIBRARY_PATH) . "/groupmanager.lib.php");
 // 			ACTIONS
-if (isset($_GET['do']))
-{
-	if ( isset($_GET['permission']) AND isset($_GET['tool']) AND ($_GET['do']=='grant' OR $_GET['do']=='revoke'))
-	{
-		$result_message=store_one_permission('user', $_GET['do'], $_GET['user_id'], $_GET['tool'], $_GET['permission']);
-	}
-	if (isset($_GET['role']) AND ($_GET['do']=='grant' OR $_GET['do']=='revoke'))
-	{
-		$result_message=assign_role('user', $_GET['do'], $user_id, $_GET['role'], $_GET['scope']);
-	}
+if (isset($_GET['do'])) {
+    if (isset($_GET['permission']) AND isset($_GET['tool']) AND ($_GET['do'] == 'grant' OR $_GET['do'] == 'revoke')) {
+        $result_message = store_one_permission(
+            'user',
+            $_GET['do'],
+            $_GET['user_id'],
+            $_GET['tool'],
+            $_GET['permission']
+        );
+    }
+    if (isset($_GET['role']) AND ($_GET['do'] == 'grant' OR $_GET['do'] == 'revoke')) {
+        $result_message = assign_role(
+            'user',
+            $_GET['do'],
+            $user_id,
+            $_GET['role'],
+            $_GET['scope']
+        );
+    }
 }
-/*
-if (isset($result_message))
-{
-	Display::display_normal_message($result_message);
-}
-*/
-
 
 // ------------------------------------------------------------------
 // 			RETRIEVING THE PERMISSIONS OF THE ROLES OF THE USER
@@ -80,16 +102,13 @@ if (api_get_setting('user_roles')=='true') {
 // ------------------------------------------------------------------
 //	RETRIEVING THE PERMISSIONS OF THE ROLES OF THE GROUPS OF THE USER
 // ------------------------------------------------------------------
-if (api_get_setting('group_roles')=='true')
-{
+if (api_get_setting('group_roles')=='true') {
 	// NOTE: DIT MOET NOG VERDER UITGEWERKT WORDEN
-	foreach ($groups_of_user as $group)
-	{
+	foreach ($groups_of_user as $group) {
 		$this_current_group_role_permissions_of_user=get_roles_permissions('user',$user_id);
 		//$inherited_permissions[$tool][]=$permission;
 	}
 }
-
 
 echo "<form method=\"post\" action=\"".str_replace('&', '&amp;', $_SERVER['REQUEST_URI'])."\">";
 
@@ -135,8 +154,7 @@ echo "\t<tr>\n";
 echo "\t</tr>\n";
 
 // the main area with the checkboxes or images
-foreach ($blog_users as $user_id => $user_name) // $blog_users contains all the users in this blog
-{
+foreach ($blog_users as $user_id => $user_name) { // $blog_users contains all the users in this blog
 	// ---------------------------------------------------
 	// 			RETRIEVING THE PERMISSIONS OF THE USER
 	// ---------------------------------------------------
@@ -145,16 +163,21 @@ foreach ($blog_users as $user_id => $user_name) // $blog_users contains all the 
 
 	echo "\t<tr>\n";
 	echo "\t\t<td>\n";
-		echo $user_name;
+	echo $user_name;
 	echo "\t\t</td>\n";
 
-	foreach ($rights_full as $key => $value)
-	{
+	foreach ($rights_full as $key => $value) {
 
 		echo "\t\t<td align='center'>\n";
-		if (in_array($value,$rights_blog))
-		{
-			display_image_matrix_for_blogs($current_user_permissions, $user_id, 'BLOG_'.$blog_id, $value,$inherited_permissions, $course_admin);
+		if (in_array($value,$rights_blog)) {
+			display_image_matrix_for_blogs(
+				$current_user_permissions,
+				$user_id,
+				'BLOG_'.$blog_id,
+				$value,
+				(isset($inherited_permissions) ? $inherited_permissions : null),
+				(isset($course_admin) ? $course_admin : null)
+			);
 		}
 		// note: in a later stage this part will be replaced by a function
 		// so that we can easily switch between a checkbox approach or an image approach

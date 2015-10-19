@@ -130,7 +130,13 @@ $form->addText('title', get_lang('Title'), true);
 $form->applyFilter('title', 'html_filter');
 $form->applyFilter('title', 'trim');
 
-$form->addElement('select', 'category_code', get_lang('Fac'), $categories, array('style'=>'width:350px', 'class'=>'chzn-select', 'id'=>'category_code'));
+$form->addElement(
+    'select',
+    'category_code',
+    get_lang('Fac'),
+    $categories,
+    ['style'=>'width:350px', 'id'=>'category_code']
+);
 $form->addElement('select_language', 'course_language', array(get_lang('Ln'), get_lang('TipLang')));
 
 $form->addText('department_name', get_lang('Department'), false);
@@ -164,7 +170,7 @@ if (api_get_setting('allow_course_theme') == 'true') {
         'SelectTheme',
         'course_theme',
         null,
-        array('class' => ' ', 'id' => 'course_theme_id')
+        array('id' => 'course_theme_id')
     );
     $form->addGroup($group, '', array(get_lang("Stylesheets")), '');
 }
@@ -205,7 +211,7 @@ $form->addGroup($group, '', array(get_lang("Unsubscription")), '');
 $form->addText('course_registration_password', get_lang('CourseRegistrationPassword'), false, array('size' => '60'));
 
 $form->addElement('checkbox', 'activate_legal', array(null, get_lang('ShowALegalNoticeWhenEnteringTheCourse')), get_lang('ActivateLegal'));
-$form->addElement('textarea', 'legal', get_lang('CourseLegalAgreement'), array('class'=>'span6', 'rows' => 8));
+$form->addElement('textarea', 'legal', get_lang('CourseLegalAgreement'), array('rows' => 8));
 $form->addButtonSave(get_lang('SaveSettings'), 'submit_save');
 
 $form->addElement('html', '</div></div>');

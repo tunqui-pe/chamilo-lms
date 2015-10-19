@@ -44,7 +44,7 @@ function remove_image_form(id_elem1) {
 	if (filepaths.childNodes.length < 3) {
 		var link_attach = document.getElementById("link-more-attach");
 		if (link_attach) {
-			link_attach.innerHTML=\'<a href="javascript://" onclick="return add_image_form()">'.get_lang('AddOneMoreFile').'</a>\';
+			link_attach.innerHTML=\'<a href="javascript://" class="btn btn-default" onclick="return add_image_form()">'.get_lang('AddOneMoreFile').'</a>\';
 		}
 	}
 }
@@ -62,7 +62,12 @@ function add_image_form() {
 	filepaths.appendChild(elem1);
 	id_elem1 = "filepath_"+counter_image;
 	id_elem1 = "\'"+id_elem1+"\'";
-	document.getElementById("filepath_"+counter_image).innerHTML = "<input type=\"file\" name=\"attach_"+counter_image+"\"  size=\"20\" />&nbsp;<a href=\"javascript:remove_image_form("+id_elem1+")\"><img src=\"'.api_get_path(WEB_IMG_PATH).'delete.gif\"></a>";
+	document.getElementById("filepath_"+counter_image).innerHTML = "\n\
+        <input type=\"file\" name=\"attach_"+counter_image+"\"  size=\"20\" />\n\
+        <a href=\"javascript:remove_image_form("+id_elem1+")\">\n\
+            <img src=\"' . api_get_path(WEB_IMG_PATH) . 'delete.gif\">\n\
+        </a>\n\
+    ";
 
 	if (filepaths.childNodes.length == 3) {
 		var link_attach = document.getElementById("link-more-attach");
@@ -138,7 +143,11 @@ if ($group_id != 0) {
                     Display::return_message(get_lang('UserIsSubscribedToThisGroup'), 'confirmation', false)
                 );
             } else {
-                $usergroup->add_user_to_group($user_join, $group_id, GROUP_USER_PERMISSION_PENDING_INVITATION_SENT_BY_USER);
+                $usergroup->add_user_to_group(
+                    $user_join,
+                    $group_id,
+                    GROUP_USER_PERMISSION_PENDING_INVITATION_SENT_BY_USER
+                );
                 Display::addFlash(
                     Display::return_message(get_lang('InvitationSent'), 'confirmation', false)
                 );
@@ -195,7 +204,8 @@ if ($is_group_member || $group_info['visibility'] == GROUP_PERMISSION_OPEN) {
                 [
                     'class' => 'ajax btn btn-default',
                     'title' => get_lang('ComposeMessage'),
-                    'data-title' => get_lang('ComposeMessage')
+                    'data-title' => get_lang('ComposeMessage'),
+                    'data-size' => 'lg'
                 ]
             );
         } else {
@@ -205,7 +215,7 @@ if ($is_group_member || $group_info['visibility'] == GROUP_PERMISSION_OPEN) {
                     'view_panel' => 1,
                     'user_friend' => api_get_user_id(),
                     'group_id' => $group_id,
-                    'action' => add_message_group,
+                    'action' => 'add_message_group',
                 ]);
             $create_thread_link = Display::url(
                 get_lang('NewTopic'),
@@ -213,7 +223,8 @@ if ($is_group_member || $group_info['visibility'] == GROUP_PERMISSION_OPEN) {
                 [
                     'class' => 'ajax btn btn-default',
                     'title' => get_lang('ComposeMessage'),
-                    'data-title' => get_lang('ComposeMessage')
+                    'data-title' => get_lang('ComposeMessage'),
+                    'data-size' => 'lg'
                 ]
             );
         }
@@ -232,13 +243,15 @@ if ($is_group_member || $group_info['visibility'] == GROUP_PERMISSION_OPEN) {
         }
         foreach ($members as $member) {
             // if is a member
-            if (in_array($member['relation_type'], array(GROUP_USER_PERMISSION_ADMIN, GROUP_USER_PERMISSION_READER,GROUP_USER_PERMISSION_MODERATOR))) {
+            if (in_array($member['relation_type'],
+                array(GROUP_USER_PERMISSION_ADMIN, GROUP_USER_PERMISSION_READER,GROUP_USER_PERMISSION_MODERATOR))
+            ) {
                 //add icons
                 if ($member['relation_type'] == GROUP_USER_PERMISSION_ADMIN) {
                     $icon= Display::return_icon('social_group_admin.png', get_lang('Admin'));
                 } elseif ($member['relation_type'] == GROUP_USER_PERMISSION_MODERATOR) {
                     $icon= Display::return_icon('social_group_moderator.png', get_lang('Moderator'));
-                } else{
+                } else {
                     $icon= '';
                 }
 
@@ -279,13 +292,10 @@ $tpl = new Template(null);
 SocialManager::setSocialUserBlock($tpl, $user_id, 'groups', $group_id);
 //Block Social Menu
 $social_menu_block = SocialManager::show_social_menu('groups', $group_id);
-
 $tpl->setHelp('Groups');
-
 $tpl->assign('create_link', $create_thread_link);
 $tpl->assign('is_group_member', $is_group_member);
 $tpl->assign('group_info', $group_info);
-
 $tpl->assign('social_menu_block', $social_menu_block);
 $tpl->assign('social_right_content', $social_right_content);
 $social_layout = $tpl->get_template('social/group_view.tpl');

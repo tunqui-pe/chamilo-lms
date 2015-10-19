@@ -70,8 +70,6 @@ $(function() {
 });
 </script>';
 
-global $_configuration;
-
 $action = isset($_GET['action']) ? Security::remove_XSS($_GET['action']) : null;
 $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
 $tool_name = get_lang('ConfigureHomePage');
@@ -155,7 +153,7 @@ if (api_is_multiple_url_enabled()) {
 		$clean_url .= '/';
 
 		$homep = $homePath; //homep for Home Path
-		$homep_new = $homePath.'home/'.$clean_url; //homep for Home Path added the url
+		$homep_new = $homePath.$clean_url; //homep for Home Path added the url
 		$new_url_dir = $homePath.$clean_url;
 		//we create the new dir for the new sites
 		if (!is_dir($new_url_dir)) {
@@ -474,7 +472,7 @@ if (!empty($action)) {
 					// If the requested action is to create a link, make some room
 					// for the new link in the home_menu array at the requested place
 					// and insert the new link there
-                    $icon = '<i class="fa fa-external-link"></i>';
+                    $icon = '<em class="fa fa-external-link"></em>';
 					if ($action == 'insert_link' || $action == 'insert_tabs') {
 						for ($i = sizeof($home_menu); $i; $i--) {
 							if ($i > $insert_where) {
@@ -1007,18 +1005,18 @@ switch ($action) {
 <section id="page-home">
     <div class="row">
         <div class="col-md-3">
-            
+
             <!-- login block -->
             <div id="login_block" class="panel panel-default">
                 <div class="panel-body">
                     <?php echo api_display_language_form(); ?>
                     <form id="formLogin" class="form-horizontal">
                         <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                            <div class="input-group-addon"><em class="fa fa-user"></em></div>
                             <input class="form-control" type="text" id="login" value="" disabled="disabled" />
                         </div>
                     	<div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                            <div class="input-group-addon"><em class="fa fa-lock"></em></div>
                             <input type="password" id="password"class="form-control" value="" disabled="disabled" />
                         </div>
 			<button class="btn btn-primary btn-block" type="button" name="submitAuth" value="<?php echo get_lang('Ok'); ?>" disabled="disabled"><?php echo get_lang('Ok'); ?></button>
@@ -1029,10 +1027,10 @@ switch ($action) {
                     </ul>
                 </div>
             </div>
-            
+
             <!-- notice block -->
-            
-            
+
+
                 <div class="panel-group" id="notice-block" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
@@ -1062,8 +1060,8 @@ switch ($action) {
                     </div>
                 </div>
             <!-- insert link block -->
-            
-        
+
+
             <div class="panel-group" id="links-block" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -1077,7 +1075,7 @@ switch ($action) {
                         <div class="panel-body">
                             <a href="<?php echo api_get_self(); ?>?action=insert_link"><?php Display::display_icon('addd.gif', get_lang('InsertLink')); ?>
                                 <?php echo get_lang('InsertLink'); ?>
-                            </a> 
+                            </a>
                             <ul class="menulist">
                                 <?php
                                     $home_menu = '';
@@ -1110,7 +1108,7 @@ switch ($action) {
                     </div>
                 </div>
             </div>
-       
+
         </div>
         <div class="col-md-9">
             <div class="actions">
@@ -1132,14 +1130,14 @@ switch ($action) {
                 echo $open;
                 ?>
             </section>
-            
+
             <?php
                 $access_url_id = 1;
                 // we only show the category options for the main chamilo installation
                 if (api_is_multiple_url_enabled()) {
                     $access_url_id = api_get_current_access_url_id();
                 }
-               
+
                 if ($access_url_id == 1) {
                     echo '<div class="actions">';
                     echo '<a href="course_category.php">'.Display::return_icon('edit.png', get_lang('Edit')).get_lang('EditCategories').'</a>';
@@ -1158,7 +1156,7 @@ switch ($action) {
                 }
                 echo '</ul>';
             ?>
-            
+
             <?php
 		if (file_exists($homep.$newsf.'_'.$lang.$ext)) {
                     $open = @(string)file_get_contents($homep.$newsf.'_'.$lang.$ext);
@@ -1170,7 +1168,7 @@ switch ($action) {
                     echo $open;
 		}
             ?>
-            
+
             <?php
                 // Add new page
 		$home_menu = '';

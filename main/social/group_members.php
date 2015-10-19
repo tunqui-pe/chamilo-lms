@@ -18,6 +18,7 @@ if (api_get_setting('allow_social_tool') != 'true') {
 $this_section = SECTION_SOCIAL;
 $group_id = intval($_GET['id']);
 $userGroup = new UserGroup();
+$user_role = '';
 
 //todo @this validation could be in a function in group_portal_manager
 if (empty($group_id)) {
@@ -187,7 +188,7 @@ if (count($new_member_list) > 0) {
 }
 
 $tpl = new Template(null);
-$tpl->set_help('Groups');
+$tpl->setHelp('Groups');
 $tpl->assign('social_avatar_block', $social_avatar_block);
 $tpl->assign('social_menu_block', $social_menu_block);
 $tpl->assign('social_right_content', $social_right_content);

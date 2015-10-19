@@ -1,8 +1,9 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 /**
  *  Used to implement the loading of custom pages
- * 
+ *
  * @license see /license.txt
  * @author 2011, Jean-Karim Bockstael <jeankarim@cblue.be>
  * @author Laurent Opprecht <laurent@opprecht.info> for the Univesity of Geneva
@@ -27,8 +28,9 @@ class CustomPages
 
     /**
      * Returns the path to a custom page.
-     * 
+     *
      * @param string $name
+     *
      * @return string
      */
     public static function path($name = '')
@@ -38,7 +40,7 @@ class CustomPages
 
     /**
      * If enabled display a custom page and exist. Otherwise log error and returns.
-     * 
+     *
      * @param string $page_name
      * @param array $content used to path data to the custom page
      */
@@ -58,10 +60,11 @@ class CustomPages
     }
 
     /**
-     * Does not look like this function is being used is being used 
-     * 
-     * @param type $url_id
-     * @return string 
+     * Does not look like this function is being used is being used
+     *
+     * @param int $url_id
+     *
+     * @return string
      */
     public static function getURLImages($url_id = null)
     {
@@ -76,7 +79,20 @@ class CustomPages
                 $images[] = api_get_path(WEB_PATH) . 'custompages/url-images/' . $url_id . '_url_image_' . $img_id . '.png';
             }
         }
+
         return $images;
+    }
+
+    /**
+     * Check if exists the file for custom page
+     * @param string $pageName The name of custom page
+     * @return boolean
+     */
+    public static function exists($pageName)
+    {
+        $fileName = self::path("$pageName.php");
+
+        return file_exists($fileName);
     }
 
 }

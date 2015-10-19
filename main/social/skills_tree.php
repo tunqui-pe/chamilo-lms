@@ -18,15 +18,16 @@ if (api_get_setting('allow_skills_tool') != 'true') {
 
 //Adds the JS needed to use the jqgrid
 $htmlHeadXtra[] = api_get_jqgrid_js();
+$htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
 $htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
 $htmlHeadXtra[] = api_get_js('skills.js');
 
-$skill  = new Skill();
-$type   = 'read'; //edit
+$skill = new Skill();
+$type = 'read'; //edit
 
-$tree   = $skill->get_skills_tree(api_get_user_id(), null, true);
+$tree = $skill->get_skills_tree(api_get_user_id(), null, true);
 $skill_visualizer = new SkillVisualizer($tree, $type);
-$url  = api_get_path(WEB_AJAX_PATH).'skill.ajax.php?1=1';
+$url = api_get_path(WEB_AJAX_PATH).'skill.ajax.php?1=1';
 $tpl = new Template(null, false, false);
 
 $tpl->assign('url', $url);

@@ -27,39 +27,36 @@
  * @package chamilo.document
  */
 
-use ChamiloSession as Session;
-
 require_once '../inc/global.inc.php';
+
 $current_course_tool = TOOL_DOCUMENT;
 $this_section = SECTION_COURSES;
 $to_user_id = null;
 $parent_id = null;
-$message = null;
 
 $lib_path = api_get_path(LIBRARY_PATH);
-
+$actionsRight = '';
 api_protect_course_script(true);
 api_protect_course_group(GroupManager::GROUP_TOOL_DOCUMENTS);
 
 DocumentManager::removeGeneratedAudioTempFile();
 
-if(
+if (
     isset($_SESSION['temp_realpath_image']) &&
     !empty($_SESSION['temp_realpath_image']) &&
     file_exists($_SESSION['temp_realpath_image'])
 ) {
     unlink($_SESSION['temp_realpath_image']);
 }
+$_user = api_get_user_info();
 $courseInfo = api_get_course_info();
 $course_dir = $courseInfo['directory'] . '/document';
 $sys_course_path = api_get_path(SYS_COURSE_PATH);
 $base_work_dir = $sys_course_path . $course_dir;
-$http_www = api_get_path(WEB_COURSE_PATH) .
-    $courseInfo['directory'] . '/document';
+$http_www = api_get_path(WEB_COURSE_PATH).$courseInfo['directory'] . '/document';
 $document_path = $base_work_dir;
 $usePpt2lp = api_get_setting('service_ppt2lp', 'active') == 'true';
 
-$courseInfo = api_get_course_info();
 $course_dir = $courseInfo['directory'].'/document';
 $sys_course_path = api_get_path(SYS_COURSE_PATH);
 $base_work_dir = $sys_course_path.$course_dir;
@@ -68,7 +65,7 @@ $document_path = $base_work_dir;
 
 $currentUrl = api_get_self().'?'.api_get_cidreq();
 
-//Removing sessions
+// Removing sessions
 unset($_SESSION['draw_dir']);
 unset($_SESSION['paint_dir']);
 unset($_SESSION['temp_audio_nanogong']);
@@ -229,18 +226,20 @@ switch ($action) {
 
                     if ($deleteDocument) {
                         $certificateId = isset($_GET['delete_certificate_id']) ? $_GET['delete_certificate_id'] : null;
-                        DocumentManager::remove_attach_certificate(api_get_course_id(), $certificateId);
-                        $message = Display::return_message(
+                        DocumentManager::remove_attach_certificate(
+                            api_get_course_id(),
+                            $certificateId
+                        );
+                        Display::addFlash(Display::return_message(
                             get_lang('DocDeleted') . ': ' . $documentInfo['title'],
                             'success'
-                        );
+                        ));
                     } else {
-                        $message = Display::return_message(get_lang('DocDeleteError'), 'warning');
+                        Display::addFlash(Display::return_message(get_lang('DocDeleteError'), 'warning'));
                     }
                 } else {
-                    $message = Display::return_message(get_lang('FileNotFound'), 'warning');
+                    Display::addFlash(Display::return_message(get_lang('FileNotFound'), 'warning'));
                 }
-                Session::write('message', $message);
                 header("Location: $currentUrl");
                 exit;
             }
@@ -352,7 +351,7 @@ switch ($action) {
                 );
             }
             $parent_id = $document_info['parent_id'];
-            $my_path = UserManager::getUserPathById(api_get_user_id());
+            $my_path = UserManager::getUserPathById(api_get_user_id(), 'system');
             $user_folder = $my_path.'my_files/';
             $my_path = null;
 
@@ -390,27 +389,28 @@ switch ($action) {
                     get_lang('Yes').
                     '</a></p>';
                 if (!isset($_GET['copy'])) {
-                    $message = Display::return_message($message, 'warning', false);
+                    Display::addFlash(Display::return_message($message, 'warning', false));
                 }
                 if (Security::remove_XSS($_GET['copy']) == 'yes') {
                     if (!copy($file, $copyfile)) {
-                        $message = Display::return_message(get_lang('CopyFailed'), 'error');
+                        Display::addFlash(Display::return_message(get_lang('CopyFailed'), 'error'));
                     } else {
-                        $message = Display::return_message(
+                        Display::addFlash(Display::return_message(
                             get_lang('OverwritenFile').' '.$file_link,
                             'confirmation',
                             false
-                        );
+                        ));
                     }
                 }
             } else {
                 if (!copy($file, $copyfile)) {
-                    $message = Display::return_message(get_lang('CopyFailed'), 'error');
+                    Display::addFlash(Display::return_message(get_lang('CopyFailed'), 'error'));
                 } else {
-                    $message = Display::return_message(get_lang('CopyMade').' '.$file_link, 'confirmation', false);
+                    Display::addFlash(
+                        Display::return_message(get_lang('CopyMade').' '.$file_link, 'confirmation', false)
+                    );
                 }
             }
-            Session::write('message', $message);
         }
         break;
     case 'convertToPdf':
@@ -432,10 +432,10 @@ switch ($action) {
             '/document' . $document_info['path'];
         $fileInfo = pathinfo($file);
         if ($fileInfo['extension'] == $formatTarget) {
-            $message = Display::return_message(
-                get_lang('ErrorSameFormat'),
+            Display::addFlash(Display::return_message(
+                get_lang('ConversionToSameFileFormat'),
                 'warning'
-            );
+            ));
         } elseif (
             !(
                 in_array(
@@ -455,10 +455,10 @@ switch ($action) {
                 )
             )
         ) {
-            $message = Display::return_message(
-                get_lang('FormatNotSupported'),
+            Display::addFlash(Display::return_message(
+                get_lang('FileFormatNotSupported'),
                 'warning'
-            );
+            ));
         } else {
             $convertedFile = $fileInfo['dirname'] . DIRECTORY_SEPARATOR .
                 $fileInfo['filename'] . '_from_' . $fileInfo['extension'] .
@@ -466,10 +466,10 @@ switch ($action) {
             $convertedTitle = $document_info['title'];
             $obj = new OpenofficePresentation(true);
             if (file_exists($convertedFile)) {
-                $message = Display::return_message(
+                Display::addFlash(Display::return_message(
                     get_lang('FileExists'),
                     'error'
-                );
+                ));
             } else {
                 $result = $obj->convertCopyDocument(
                     $file,
@@ -477,10 +477,10 @@ switch ($action) {
                     $convertedTitle
                 );
                 if (empty($result)) {
-                    $message = Display::return_message(
+                    Display::addFlash(Display::return_message(
                         get_lang('CopyFailed'),
                         'error'
-                    );
+                    ));
                 } else {
                     $cidReq = Security::remove_XSS($_GET['cidReq']);
                     $id_session = api_get_session_id();
@@ -492,11 +492,11 @@ switch ($action) {
                         '&id_session=' . $id_session . '&' .
                         'gidReq=' . $gidReq . '&id=' . current($result)
                     );
-                    $message = Display::return_message(
+                    Display::addFlash(Display::return_message(
                         get_lang('CopyMade') . ' ' . $file_link,
                         'confirmation',
                         false
-                    );
+                    ));
                 }
             }
         }
@@ -685,7 +685,7 @@ $tool_visibility = $tool_row['visibility'];*/
 
 $htmlHeadXtra[] = '<script>
 function confirmation (name) {
-    if (confirm(" '.get_lang('AreYouSureToDelete').' "+ name + " ?")) {
+    if (confirm(" '.get_lang('AreYouSureToDeleteJS').' "+ name + " ?")) {
         return true;
     } else {
         return false;
@@ -879,7 +879,10 @@ if (!empty($documentAndFolders)) {
     foreach ($documentAndFolders as $file) {
         if ($file['filetype'] == 'file') {
             $path_info = pathinfo($file['path']);
-            $extension = strtolower($path_info['extension']);
+            $extension = '';
+            if (!empty($path_info['extension'])) {
+                $extension = strtolower($path_info['extension']);
+            }
 
             //@todo use a js loop to auto generate this code
             if (in_array($extension, array('ogg', 'mp3', 'wav'))) {
@@ -1056,7 +1059,7 @@ if ($is_allowed_to_edit ||
                         null,
                         $sessionId
                     );
-                    $message = Display::return_message(get_lang('DirMv'), 'confirmation');
+                    Display::addFlash(Display::return_message(get_lang('DirMv'), 'confirmation'));
                 } elseif (is_file($real_path_target)) {
                     api_item_property_update(
                         $courseInfo,
@@ -1070,7 +1073,7 @@ if ($is_allowed_to_edit ||
                         null,
                         $sessionId
                     );
-                    $message = Display::return_message(get_lang('DocMv'), 'confirmation');
+                    Display::addFlash(Display::return_message(get_lang('DocMv'), 'confirmation'));
                 }
 
                 // Set the current path
@@ -1083,14 +1086,14 @@ if ($is_allowed_to_edit ||
                     } elseif (is_file($real_path_target)) {
                         $message = Display::return_message(get_lang('FileExists'), 'v');
                     }
+                    Display::addFlash($message);
                 } else {
-                    $message = Display::return_message(get_lang('Impossible'), 'error');
+                    Display::addFlash(Display::return_message(get_lang('Impossible'), 'error'));
                 }
             }
         } else {
-            $message = Display::return_message(get_lang('Impossible'), 'error');
+            Display::addFlash(Display::return_message(get_lang('Impossible'), 'error'));
         }
-        Session::write('message', $message);
     }
 }
 
@@ -1207,8 +1210,7 @@ if ($is_allowed_to_edit ||
                 }
             }
         } // endforeach
-
-        Session::write('message', $messages);
+        Display::addFlash($messages);
     }
 }
 
@@ -1281,7 +1283,7 @@ if ($is_allowed_to_edit ||
             }
 
         }
-        Session::write('message', $message);
+        Display::addFlash($message);
     }
 
     // Show them the form for the directory name
@@ -1369,9 +1371,7 @@ if ($is_allowed_to_edit ||
     } elseif (isset($_GET['add_as_template']) && isset($_POST['create_template'])) {
 
         $document_id_for_template = intval($_GET['add_as_template']);
-
         $title = Security::remove_XSS($_POST['template_title']);
-        //$description = Security::remove_XSS($_POST['template_description']);
         $user_id = api_get_user_id();
 
         // Create the template_thumbnails folder in the upload folder (if needed)
@@ -1422,8 +1422,9 @@ if ($is_allowed_to_edit ||
             $user_id,
             $new_file_name
         );
-        $message = Display::return_message(get_lang('DocumentSetAsTemplate'), 'confirmation');
-        Session::write('message', $message);
+        Display::addFlash(
+            Display::return_message(get_lang('DocumentSetAsTemplate'), 'confirmation')
+        );
     }
 
     if (isset($_GET['remove_as_template'])) {
@@ -1434,8 +1435,10 @@ if ($is_allowed_to_edit ||
             $course_code,
             $user_id
         );
-        $message = Display::return_message(get_lang('DocumentUnsetAsTemplate'), 'confirmation');
-        Session::write('message', $message);
+
+        Display::addFlash(
+            Display::return_message(get_lang('DocumentUnsetAsTemplate'), 'confirmation')
+        );
     }
 }
 
@@ -1451,7 +1454,9 @@ if (isset($_GET['curdirpath']) &&
         $document_id = Security::remove_XSS($_GET['set_certificate']); // document id
         DocumentManager::attach_gradebook_certificate($course_id, $document_id);
         $message = Display::return_message(get_lang('IsDefaultCertificate'), 'normal');
-        Session::write('message', $message);
+        Display::addFlash(
+            $message
+        );
     }
 }
 /* 	GET ALL DOCUMENT DATA FOR CURDIRPATH */
@@ -1499,36 +1504,20 @@ if ($groupId != 0) {
 if (!isset($folders) || $folders === false) {
     $folders = array();
 }
+$btngroup = array('class' => 'btn btn-default');
 
-$actions = '<div class="actions">';
-if (!$is_certificate_mode) {
-    /* BUILD SEARCH FORM */
-
-    $form = new FormValidator(
-        'search_document',
-        'get',
-        api_get_self().'?'.api_get_cidreq(),
-        '',
-        array(),
-        FormValidator::LAYOUT_INLINE
-    );
-    $form->addText('keyword', '', false, array('class' => 'col-md-2'));
-    $form->addElement('hidden', 'cidReq', api_get_course_id());
-    $form->addElement('hidden', 'id_session', api_get_session_id());
-    $form->addElement('hidden', 'gidReq', $groupId);
-    $form->addButtonSearch(get_lang('Search'));
-    $actions .= $form->returnForm();
-}
 
 /* GO TO PARENT DIRECTORY */
+$actionsLeft = '';
+
 if ($curdirpath != '/' && $curdirpath != $group_properties['directory'] && !$is_certificate_mode) {
-    $actions .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&id='.$parent_id.'">';
-    $actions .= Display::return_icon('folder_up.png', get_lang('Up'), '', ICON_SIZE_MEDIUM);
-    $actions .= '</a>';
+    $actionsLeft = '<a href="'.api_get_self().'?'.api_get_cidreq().'&id='.$parent_id.'">';
+    $actionsLeft .= Display::return_icon('folder_up.png', get_lang('Up'), '', ICON_SIZE_MEDIUM);
+    $actionsLeft .= '</a>';
 }
 
 if ($is_certificate_mode && $curdirpath != '/certificates') {
-    $actions .= Display::url(
+    $actionsLeft .= Display::url(
         Display::return_icon('folder_up.png', get_lang('Up'), '', ICON_SIZE_MEDIUM),
         api_get_self().'?'.api_get_cidreq().'&curdirpath='.$curdirpath
     );
@@ -1542,11 +1531,9 @@ if ($is_allowed_to_edit ||
 ) {
     // TODO:check enable more options for shared folders
     /* CREATE NEW DOCUMENT OR NEW DIRECTORY / GO TO UPLOAD / DOWNLOAD ZIPPED FOLDER */
-
     // Create new document
-
     if (!$is_certificate_mode) {
-        $actions .= Display::url(
+        $actionsLeft .= Display::url(
             Display::return_icon('new_document.png', get_lang('CreateDoc'), '', ICON_SIZE_MEDIUM),
             api_get_path(WEB_CODE_PATH).'document/create_document.php?'.api_get_cidreq().'&id='.$document_id
         );
@@ -1554,18 +1541,18 @@ if ($is_allowed_to_edit ||
         // Create new draw
         if (api_get_setting('enabled_support_svg') == 'true') {
             if (api_browser_support('svg')) {
-                $actions .= Display::url(
+                $actionsLeft .= Display::url(
                     Display::return_icon('new_draw.png', get_lang('Draw'), '', ICON_SIZE_MEDIUM),
                     api_get_path(WEB_CODE_PATH).'document/create_draw.php?'.api_get_cidreq().'&id='.$document_id
                 );
             } else {
-                $actions .= Display::return_icon('new_draw_na.png', get_lang('BrowserDontSupportsSVG'), '', ICON_SIZE_MEDIUM);
+                $actionsLeft .= Display::return_icon('new_draw_na.png', get_lang('BrowserDontSupportsSVG'), '', ICON_SIZE_MEDIUM);
             }
         }
 
         // Create new paint
         if (api_get_setting('enabled_support_pixlr') == 'true') {
-            $actions .= Display::url(
+            $actionsLeft .= Display::url(
                 Display::return_icon('new_paint.png', get_lang('PhotoRetouching'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/create_paint.php?'.api_get_cidreq().'&id='.$document_id
             );
@@ -1573,7 +1560,7 @@ if ($is_allowed_to_edit ||
 
         // Record an image clip from my webcam
         if (api_get_setting('enable_webcam_clip') == 'true') {
-            $actions .= Display::url(
+            $actionsLeft .= Display::url(
                 Display::return_icon('webcam.png', get_lang('WebCamClip'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/webcam_clip.php?'.api_get_cidreq().'&id='.$document_id
             );
@@ -1581,7 +1568,7 @@ if ($is_allowed_to_edit ||
 
         // Record audio (nanogong)
         if (api_get_setting('enable_nanogong') == 'true') {
-            $actions .= Display::url(
+            $actionsLeft .= Display::url(
                 Display::return_icon('new_recording.png', get_lang('RecordMyVoice'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/record_audio.php?'.api_get_cidreq().'&id='.$document_id
             );
@@ -1589,7 +1576,7 @@ if ($is_allowed_to_edit ||
 
         // Record  audio (wami record)
         if (api_get_setting('enable_wami_record') == 'true') {
-            $actions .= Display::url(
+            $actionsLeft .= Display::url(
                 Display::return_icon('new_recording.png', get_lang('RecordMyVoice'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/record_audio_wami.php?'.api_get_cidreq().'&id='.$document_id
             );
@@ -1599,7 +1586,7 @@ if ($is_allowed_to_edit ||
         if (api_get_setting('enabled_text2audio') == 'true') {
             $dt2a = 'google';
             $req_dt2a = '&amp;dt2a='.$dt2a;
-            $actions .= Display::url(
+            $actionsLeft .= Display::url(
                 Display::return_icon('new_sound.png', get_lang('CreateAudio'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/create_audio.php?'.api_get_cidreq().'&id='.$document_id.$req_dt2a
             );
@@ -1608,19 +1595,19 @@ if ($is_allowed_to_edit ||
 
     // Create new certificate
     if ($is_certificate_mode) {
-        $actions .= Display::url(
+        $actionsLeft .= Display::url(
             Display::return_icon('new_certificate.png', get_lang('CreateCertificate'), '', ICON_SIZE_MEDIUM),
             api_get_path(WEB_CODE_PATH).'document/create_document.php?'.api_get_cidreq().'&id='.$document_id.'&certificate=true&selectcat='.$selectcat
         );
     }
     // File upload link
     if ($is_certificate_mode) {
-        $actions .= Display::url(
+        $actionsLeft .= Display::url(
             Display::return_icon('upload_certificate.png', get_lang('UploadCertificate'), '', ICON_SIZE_MEDIUM),
             api_get_path(WEB_CODE_PATH).'document/upload.php?'.api_get_cidreq().'&id='.$current_folder_id.'&certificate=true'
         );
     } else {
-        $actions .= Display::url(
+        $actionsLeft .= Display::url(
             Display::return_icon('upload_file.png', get_lang('UplUploadDocument'), '', ICON_SIZE_MEDIUM),
             api_get_path(WEB_CODE_PATH).'document/upload.php?'.api_get_cidreq().'&id='.$current_folder_id
         );
@@ -1630,8 +1617,8 @@ if ($is_allowed_to_edit ||
     echo Display::display_icon('capture.png', get_lang('CatchScreenCasts'), '', ICON_SIZE_MEDIUM).'</a>';*/
 
     if ($capturePluginInstalled) {
-        $actions .= '<span id="appletplace"></span>';
-        $actions .= Display::url(
+        $actionsLeft .= '<span id="appletplace"></span>';
+        $actionsLeft .= Display::url(
             Display::return_icon('capture.png', get_lang('CatchScreenCasts'), '', ICON_SIZE_MEDIUM),
             '#',
             array('id' => 'jcapture')
@@ -1640,11 +1627,43 @@ if ($is_allowed_to_edit ||
 
     // Create directory
     if (!$is_certificate_mode) {
-        $actions .= Display::url(
+        $actionsLeft .= Display::url(
             Display::return_icon('new_folder.png', get_lang('CreateDir'), '', ICON_SIZE_MEDIUM),
             api_get_path(WEB_CODE_PATH).'document/document.php?'.api_get_cidreq().'&id='.$document_id.'&createdir=1'
         );
     }
+}
+require 'document_slideshow.inc.php';
+if ($image_present && !isset($_GET['keyword'])) {
+    $actionsLeft .= Display::url(
+        Display::return_icon('slideshow.png', get_lang('ViewSlideshow'), '', ICON_SIZE_MEDIUM),
+        api_get_path(WEB_CODE_PATH).'document/slideshow.php?'.api_get_cidreq().'&curdirpath='.$curdirpathurl
+    );
+}
+
+if (api_is_allowed_to_edit(null, true)) {
+    $actionsLeft .= Display::url(
+        Display::return_icon('percentage.png', get_lang('DocumentQuota'), '', ICON_SIZE_MEDIUM),
+        api_get_path(WEB_CODE_PATH).'document/document_quota.php?'.api_get_cidreq()
+    );
+}
+
+if (!$is_certificate_mode) {
+    /* BUILD SEARCH FORM */
+    $form = new FormValidator(
+        'search_document',
+        'get',
+        api_get_self().'?'.api_get_cidreq(),
+        '',
+        array(),
+        FormValidator::LAYOUT_INLINE
+    );
+    $form->addText('keyword', '', false, array('class' => 'col-md-2'));
+    $form->addElement('hidden', 'cidReq', api_get_course_id());
+    $form->addElement('hidden', 'id_session', api_get_session_id());
+    $form->addElement('hidden', 'gidReq', $groupId);
+    $form->addButtonSearch(get_lang('Search'));
+    $actionsRight = $form->returnForm();
 }
 
 $table_footer = '';
@@ -1720,7 +1739,7 @@ if (isset($documentAndFolders) && is_array($documentAndFolders)) {
                 $count++;
             }
 
-            // Validacion when belongs to a session
+            // Validation when belongs to a session
             $session_img = api_get_session_image($document_data['session_id'], $_user['status']);
 
             // Document title with link
@@ -1739,7 +1758,6 @@ if (isset($documentAndFolders) && is_array($documentAndFolders)) {
                 $invisibility_span_close;
 
             // Last edit date
-
             $last_edit_date = api_get_local_time($document_data['lastedit_date']);
             $display_date = date_to_str_ago($last_edit_date).
                 ' <div class="muted"><small>'.$last_edit_date."</small></div>";
@@ -1809,7 +1827,7 @@ if (!is_null($documentAndFolders)) {
             || api_is_allowed_to_edit()
             || api_is_platform_admin()
         ) {
-            $actions .= Display::url(
+            $actionsLeft .= Display::url(
                 Display::return_icon(
                     'save_pack.png',
                     get_lang('Save').' (ZIP)',
@@ -1822,21 +1840,16 @@ if (!is_null($documentAndFolders)) {
     }
 }
 
-require 'document_slideshow.inc.php';
-if ($image_present && !isset($_GET['keyword'])) {
-    $actions .= Display::url(
-        Display::return_icon('slideshow.png', get_lang('ViewSlideshow'), '', ICON_SIZE_MEDIUM),
-        api_get_path(WEB_CODE_PATH).'document/slideshow.php?'.api_get_cidreq().'&curdirpath='.$curdirpathurl
-    );
-}
 
-if (api_is_allowed_to_edit(null, true)) {
-    $actions .= Display::url(
-        Display::return_icon('percentage.png', get_lang('DocumentQuota'), '', ICON_SIZE_MEDIUM),
-        api_get_path(WEB_CODE_PATH).'document/document_quota.php?'.api_get_cidreq()
-    );
+if (api_is_platform_admin()) {
+    if (api_get_configuration_value('document_manage_deleted_files')) {
+        $actionsLeft .= Display::url(
+            get_lang('Recycle'),
+            api_get_path(WEB_CODE_PATH).'document/recycle.php?'.api_get_cidreq(),
+            array('class' => 'btn btn-default')
+        );
+    }
 }
-$actions .= '</div>';
 
 if (!empty($moveTo)) {
     $document_id = DocumentManager::get_document_id($courseInfo, $moveTo);
@@ -1959,8 +1972,12 @@ if (!empty($groupId)) {
 } else {
     Display::display_introduction_section(TOOL_DOCUMENT);
 }
+$toolbar = Display::toolbarAction(
+    'toolbar-document',
+    array(0 => $actionsLeft, 1 => $actionsRight)
+);
 
-echo $actions;
+echo $toolbar;
 echo $templateForm;
 echo $moveForm;
 echo $dirForm;
@@ -1991,40 +2008,42 @@ if (!empty($table_footer)) {
 
 echo '
     <div id="convertModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header" style="text-align: center;">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span>
-              <span class="sr-only">' . get_lang('Close') . '</span>
-            </button>
-            <h4 class="modal-title">' . get_lang('PleaseSelectConvertFormat') . '</h4>
-          </div>
-          <div class="modal-body" style="text-align: center;">
-            <p>' . get_lang('ConvertFormats') . '&hellip;</p>
-            <select id="convertSelect" class="input-lg text-center">
-                <option value="">
-                    ' . get_lang('SelectConvertFormat') . '
-                </option>
-                <option value="pdf">
-                    PDF - Portable Document File
-                </option>
-                <option value="odt" style="display:none;" class="textFormatType">
-                    ODT - Open Document Text
-                </option>
-                <option value="odp" style="display:none;" class="presentationFormatType">
-                    ODP - Open Document Portable
-                </option>
-                <option value="ods" style="display:none;" class="spreadsheetFormatType">
-                    ODS - Open Document Spreadsheet
-                </option>
-            </select>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">' . get_lang('Close') . '</button>
-          </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: center;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="' . get_lang('Close') . '">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">' . get_lang('Convert') . '</h4>
+            </div>
+            <div class="modal-body">
+              <form action="#" class="form-horizontal">
+                  <div class="form-group">
+                      <label class="col-sm-4 control-label" for="convertSelect">' . get_lang('ConvertFormats') . '</label>
+                      <div class="col-sm-8">
+                          <select id="convertSelect">
+                              <option value="">' . get_lang('Select') . '</option>
+                              <option value="pdf">
+                                  PDF - Portable Document File
+                              </option>
+                              <option value="odt" style="display:none;" class="textFormatType">
+                                  ODT - Open Document Text
+                              </option>
+                              <option value="odp" style="display:none;" class="presentationFormatType">
+                                  ODP - Open Document Portable
+                              </option>
+                              <option value="ods" style="display:none;" class="spreadsheetFormatType">
+                                  ODS - Open Document Spreadsheet
+                              </option>
+                          </select>
+                      </div>
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">' . get_lang('Close') . '</button>
+            </div>
         </div>
-      </div>
     </div>';
 
 // Footer

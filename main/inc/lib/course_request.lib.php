@@ -31,8 +31,13 @@ class CourseRequestManager
         }
         $table_course_request = Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST);
         $wanted_course_code = Database::escape_string($wanted_course_code);
-        $sql = sprintf('SELECT COUNT(id) AS number FROM %s WHERE visual_code = "%s"', $table_course_request, $wanted_course_code);
+        $sql = sprintf(
+            'SELECT COUNT(id) AS number FROM %s WHERE visual_code = "%s"',
+            $table_course_request,
+            $wanted_course_code
+        );
         $result = Database::fetch_array(Database::query($sql));
+
         return $result['number'] > 0;
     }
 
@@ -46,7 +51,7 @@ class CourseRequestManager
      * @param string $objetives
      * @param string $target_audience
      * @param int/string $user_id
-     * @return int/bool                 The database id of the newly created course request or FALSE on failure.
+     * @return int/bool The database id of the newly created course request or FALSE on failure.
      */
     public static function create_course_request(
         $wanted_code,
@@ -235,7 +240,7 @@ class CourseRequestManager
      * @param string $objetives
      * @param string $target_audience
      * @param int/string $user_id
-     * @return bool                     Returns TRUE on success or FALSE on failure.
+     * @return bool Returns TRUE on success or FALSE on failure.
      */
     public static function update_course_request(
         $id,
@@ -271,7 +276,6 @@ class CourseRequestManager
         $code = $wanted_code;
         $tutor_name = $course_request_info['tutor_name'];
         $directory = $course_request_info['directory'];
-        $db_name = $course_request_info['db_name'];
         $visual_code = $course_request_info['visual_code'];
         $request_date = $course_request_info['request_date'];
         $status = $course_request_info['status'];
@@ -295,7 +299,13 @@ class CourseRequestManager
         if ($user_id != $course_request_info['code']) {
             $user_info = api_get_user_info($user_id);
             if (is_array($user_info)) {
-                $tutor_name = api_get_person_name($user_info['firstname'], $user_info['lastname'], null, null, $course_language);
+                $tutor_name = api_get_person_name(
+                    $user_info['firstname'],
+                    $user_info['lastname'],
+                    null,
+                    null,
+                    $course_language
+                );
             } else {
                 $user_id = $course_request_info['code'];
             }
@@ -304,7 +314,13 @@ class CourseRequestManager
         if ($course_language != $course_request_info['course_language']) {
             $user_info = api_get_user_info($user_id);
             if (is_array($user_info)) {
-                $tutor_name = api_get_person_name($user_info['firstname'], $user_info['lastname'], null, null, $course_language);
+                $tutor_name = api_get_person_name(
+                    $user_info['firstname'],
+                    $user_info['lastname'],
+                    null,
+                    null,
+                    $course_language
+                );
             }
         }
 
@@ -345,7 +361,8 @@ class CourseRequestManager
     public static function delete_course_request($id)
     {
         $id = (int)$id;
-        $sql = "DELETE FROM ".Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST)." WHERE id = ".$id;
+        $sql = "DELETE FROM ".Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST)."
+                WHERE id = ".$id;
         $result = Database::query($sql);
         return $result !== false;
     }
@@ -361,7 +378,8 @@ class CourseRequestManager
             $sql = "SELECT COUNT(id) AS number FROM ".$course_table;
         } else {
             $status = (int)$status;
-            $sql = "SELECT COUNT(id) AS number FROM ".$course_table." WHERE status = ".$status;
+            $sql = "SELECT COUNT(id) AS number FROM ".$course_table."
+                    WHERE status = ".$status;
         }
         $result = Database::fetch_array(Database::query($sql));
         if (is_array($result)) {
@@ -442,13 +460,13 @@ class CourseRequestManager
         // Create the requested course
         $params = array();
 
-        $params['title']                = $course_request_info['title'];
-        $params['course_category']        = $course_request_info['category_code'];
-        $params['course_language']      = $course_request_info['course_language'];
-        $params['exemplary_content']    = intval($course_request_info['exemplary_content']) > 0;
-        $params['wanted_code']          = $course_request_info['code'];
-        $params['user_id']              = $course_request_info['user_id'];
-        $params['tutor_name']           = api_get_person_name($user_info['firstname'], $user_info['lastname']);
+        $params['title'] = $course_request_info['title'];
+        $params['course_category'] = $course_request_info['category_code'];
+        $params['course_language'] = $course_request_info['course_language'];
+        $params['exemplary_content'] = intval($course_request_info['exemplary_content']) > 0;
+        $params['wanted_code'] = $course_request_info['code'];
+        $params['user_id'] = $course_request_info['user_id'];
+        $params['tutor_name'] = api_get_person_name($user_info['firstname'], $user_info['lastname']);
 
         $course_info = CourseManager::create_course($params);
         if (!empty($course_info)) {
@@ -532,7 +550,9 @@ class CourseRequestManager
 
         $code = $course_request_info['code'];
 
-        $sql = "UPDATE ".Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST)." SET status = ".COURSE_REQUEST_REJECTED." WHERE id = ".$id;
+        $sql = "UPDATE ".Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST)."
+                SET status = ".COURSE_REQUEST_REJECTED."
+                WHERE id = ".$id;
         if (Database::query($sql) === false) {
             return false;
         }
@@ -625,13 +645,18 @@ class CourseRequestManager
         $email_body .= api_get_person_name($user_info['firstname'], $user_info['lastname'], null, null, $email_language).",\n\n";
         $email_body .= sprintf(get_lang('CourseRequestAskInfoEmailText', null, $email_language), $code)."\n";
         $email_body .= "\n".get_lang('Formula', null, $email_language)."\n";
-        $email_body .= api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, null, $email_language)."\n";
+        $email_body .= api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))."\n";
         $email_body .= get_lang('Manager', null, $email_language).' '.api_get_setting('siteName')."\n";
         $email_body .= get_lang('Phone', null, $email_language).': '.api_get_setting('administratorTelephone')."\n";
-        $email_body .= get_lang('Email', null, $email_language).': '.api_get_setting('emailAdministrator', null, $email_language)."\n";
+        $email_body .= get_lang('Email', null, $email_language).': '.api_get_setting('emailAdministrator')."\n";
         $email_body .= "\n".get_lang('CourseRequestLegalNote', null, $email_language)."\n";
 
-        $sender_name = api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
+        $sender_name = api_get_person_name(
+            api_get_setting('administratorName'),
+            api_get_setting('administratorSurname'),
+            null,
+            PERSON_NAME_EMAIL_ADDRESS
+        );
         $sender_email = api_get_setting('emailAdministrator');
         $recipient_name = api_get_person_name($user_info['firstname'], $user_info['lastname'], null, PERSON_NAME_EMAIL_ADDRESS);
         $recipient_email = $user_info['mail'];
@@ -661,7 +686,8 @@ class CourseRequestManager
         }
 
         // Marking the fact that additional information about the request has been asked.
-        $sql = "UPDATE ".Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST)." SET info = 1 WHERE id = ".$id;
+        $sql = "UPDATE ".Database :: get_main_table(TABLE_MAIN_COURSE_REQUEST)."
+                SET info = 1 WHERE id = ".$id;
         $result = Database::query($sql) !== false;
 
         return $result;

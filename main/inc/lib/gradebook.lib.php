@@ -42,7 +42,9 @@ class Gradebook extends Model
     {
         $name = 'gradebook';
         $table = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
-        $sql = "SELECT * from $table WHERE variable='course_hide_tools' AND subkey='$name' LIMIT 1";
+        $sql = "SELECT * from $table
+                WHERE variable='course_hide_tools' AND subkey='$name'
+                LIMIT 1";
         $result = Database::query($sql);
         $setting = Database::store_result($result);
         $setting = isset($setting[0]) ? $setting[0] : null;
@@ -55,7 +57,9 @@ class Gradebook extends Model
 
         $c_id = $c_id ? intval($c_id) : api_get_course_int_id();
         $table  = Database::get_course_table(TABLE_TOOL_LIST);
-        $sql = "SELECT * from $table WHERE c_id = $c_id and name='$name' LIMIT 1";
+        $sql = "SELECT * from $table
+                WHERE c_id = $c_id and name='$name'
+                LIMIT 1";
         $result = Database::query($sql);
         $item = Database::store_result($result, 'ASSOC');
         $item = isset($item[0]) ? $item[0] : null;
@@ -68,6 +72,7 @@ class Gradebook extends Model
 
     /**
      * @param array $options
+     *
      * @return array
      */
     public function get_all($options = array())
@@ -77,13 +82,13 @@ class Gradebook extends Model
             if (empty($gradebook['name'])) {
                 $gradebook['name'] = $gradebook['course_code'];
             }
-            //$gradebook['name'] = $gradebook['course_code'] .' > '.$gradebook['name'];
         }
         return $gradebooks;
     }
 
     /**
      * @param array $params
+     *
      * @return bool
      */
     public function update($params)
@@ -101,20 +106,23 @@ class Gradebook extends Model
         $skill_list,
         $deleteSkillNotInList = true
     ) {
-        if (!empty($skill_list)) {
+        $skill_gradebook = new SkillRelGradebook();
+        $skill_gradebooks_source = $skill_gradebook->get_all(
+            array('where' => array('gradebook_id = ?' => $gradebook_id))
+        );
+        $clean_gradebook = array();
 
-            //Cleaning skills
-            $skill_list = array_map('intval', $skill_list);
-            $skill_list = array_filter($skill_list);
-            $skill_gradebook = new SkillRelGradebook();
-            $skill_gradebooks_source = $skill_gradebook->get_all(array('where'=>array('gradebook_id = ?' =>$gradebook_id)));
-            $clean_gradebook = array();
-
-            if (!empty($skill_gradebooks_source)) {
-                foreach($skill_gradebooks_source as $source) {
-                    $clean_gradebook[]= $source['skill_id'];
-                }
+        if (!empty($skill_gradebooks_source)) {
+            foreach($skill_gradebooks_source as $source) {
+                $clean_gradebook[] = $source['skill_id'];
             }
+        }
+
+        //Cleaning skills
+        $skill_list = array_map('intval', $skill_list);
+        $skill_list = array_filter($skill_list);
+
+        if (!empty($skill_list)) {
 
             if (!empty($clean_gradebook)) {
                 $skill_to_remove = array_diff($clean_gradebook, $skill_list);
@@ -128,20 +136,20 @@ class Gradebook extends Model
                     $skill_gradebook->save($params);
                 }
             }
+        } else {
+            $skill_to_remove = $clean_gradebook;
+        }
 
-            if ($deleteSkillNotInList) {
-                if (!empty($skill_to_remove)) {
-                    foreach ($skill_to_remove as $remove) {
-                        $skill_item = $skill_gradebook->get_skill_info(
-                            $remove,
-                            $gradebook_id
-                        );
-                        $skill_gradebook->delete($skill_item['id']);
-                    }
+        if ($deleteSkillNotInList) {
+            if (!empty($skill_to_remove)) {
+                foreach ($skill_to_remove as $remove) {
+                    $skill_item = $skill_gradebook->get_skill_info(
+                        $remove,
+                        $gradebook_id
+                    );
+                    $skill_gradebook->delete($skill_item['id']);
                 }
             }
-
-            return true;
         }
 
         return false;
@@ -177,8 +185,6 @@ class Gradebook extends Model
             get_lang('Skills'),
             $clean_skill_list,
             array(
-                'width' => '450px',
-                'class' => 'chzn-select',
                 'multiple' => 'multiple'
             )
         );

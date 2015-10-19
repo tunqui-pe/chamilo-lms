@@ -50,6 +50,7 @@ if ($showGlossary) {
     $htmlHeadXtra[] = api_get_js('jquery.highlight.js');
 }
 
+$htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
 $htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
 $htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
 
@@ -61,8 +62,6 @@ $htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.epiclock.min.js');
 $htmlHeadXtra[] = api_get_js('epiclock/renderers/minute/epiclock.minute.js');
 
 $template = new Template();
-
-$htmlHeadXtra[] = $template->fetch('default/exercise/submit.js.tpl');
 
 // General parameters passed via POST/GET
 
@@ -94,13 +93,15 @@ $exercise_attempt_table = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_ATT
 /*  Teacher takes an exam and want to see a preview,
     we delete the objExercise from the session in order to get the latest
     changes in the exercise */
-if (api_is_allowed_to_edit(null,true) && isset($_GET['preview']) && $_GET['preview'] == 1 ) {
+if (api_is_allowed_to_edit(null, true) && isset($_GET['preview']) && $_GET['preview'] == 1 ) {
     Session::erase('objExercise');
 }
 
 // 1. Loading the $objExercise variable
 
-if (!isset($_SESSION['objExercise']) || $_SESSION['objExercise']->id != $_REQUEST['exerciseId']) {
+if (!isset($_SESSION['objExercise']) ||
+    $_SESSION['objExercise']->id != $_REQUEST['exerciseId']
+) {
     // Construction of Exercise
     $objExercise = new Exercise();
     Session::write('firstTime', true);
@@ -143,6 +144,8 @@ if ($objExercise->review_answers) {
         exit;
     }
 }
+$template->assign('shuffle_answers', $objExercise->random_answers);
+$htmlHeadXtra[] = $template->fetch('default/exercise/submit.js.tpl');
 
 $current_timestamp = time();
 $my_remind_list = array();
@@ -190,9 +193,20 @@ if ($objExercise->selectAttempts() > 0) {
                 if (!empty($exercise_stat_info)) {
                     $max_exe_id = max(array_keys($exercise_stat_info));
                     $last_attempt_info = $exercise_stat_info[$max_exe_id];
-                    $attempt_html .= Display::div(get_lang('Date').': '.api_get_local_time($last_attempt_info['exe_date']), array('id'=>''));
+                    $attempt_html .= Display::div(
+                        get_lang('Date').': '.api_get_local_time($last_attempt_info['exe_date']),
+                        array('id' => '')
+                    );
 
-                    $attempt_html .= Display::return_message(sprintf(get_lang('ReachedMaxAttempts'), $exercise_title, $objExercise->selectAttempts()), 'warning', false);
+                    $attempt_html .= Display::return_message(
+                        sprintf(
+                            get_lang('ReachedMaxAttempts'),
+                            $exercise_title,
+                            $objExercise->selectAttempts()
+                        ),
+                        'warning',
+                        false
+                    );
 
                     if (!empty($last_attempt_info['question_list'])) {
                         foreach($last_attempt_info['question_list'] as $question_data) {
@@ -722,19 +736,8 @@ if ($time_control) {
 	echo '<div style="display:none" class="warning-message" id="expired-message-id">'.get_lang('ExerciseExpiredTimeMessage').'</div>';
 }
 
-if (!empty($objExercise->description)) {
-    echo "<script>
-        $(function() {
-            $('#description_content').accordion({
-                changestart: function(event, ui) {
-                    //var clicked = $(this).find('.ui-state-active').attr('id');
-                    //$('#'+clicked).load('/widgets/'+clicked);
-                    $('#collapse1').html(".json_encode($objExercise->description).");
-                }
-            });
-         });
-        </script>";
-    echo Display::generate_accordion(array(array('title' => get_lang('ExerciseDescriptionLabel'), 'content' => $objExercise->description)), 'jquery', 'description_content');
+if (!empty($objExercise->description)){
+    echo Display::panelCollapse(get_lang('ExerciseDescriptionLabel'), $objExercise->description, 'exercise-description', null, 'description', 'exercise-collapse');
 }
 
 if ($origin != 'learnpath') {
@@ -839,6 +842,16 @@ if (!empty($error)) {
 
     echo '<script>
         $(function() {
+            //This pre-load the save.png icon
+            var saveImage = new Image();
+            saveImage.src = \'' .  Display::return_icon(
+                'save.png',
+                get_lang('Saved'),
+                array(),
+                ICON_SIZE_SMALL,
+                false,
+                true
+            ) . '\';
 
             // Block form submition on enter
             $(".block_on_enter").keypress(function(event) {
@@ -888,7 +901,7 @@ if (!empty($error)) {
             } else {
                 url = "exercise_submit.php?'.$params.'&num='.$current_question.'&remind_question_id='.$remind_question_id.'";
             }
-            //$("#save_for_now_"+question_id).html("'.addslashes(Display::return_icon('save.png', get_lang('Saved'), array(), ICON_SIZE_SMALL)).'");
+            //$("#save_for_now_"+question_id).html(\'' . Display::return_icon('save.png', get_lang('Saved'), array(), ICON_SIZE_SMALL) . '\');
             window.location = url;
         }
 
@@ -920,7 +933,7 @@ if (!empty($error)) {
 
             // Only for the first time
 
-            $("#save_for_now_"+question_id).html("'.addslashes(Display::return_icon('loading1.gif')).'");
+            $("#save_for_now_"+question_id).html(\'' . Display::returnFontAwesomeIcon('spinner', true, null, 'fa-spin') . '\');
             $.ajax({
                 type:"post",
                 async: false,
@@ -928,9 +941,9 @@ if (!empty($error)) {
                 data: "'.$params.'&type=simple&question_id="+question_id+"&"+my_choice+"&"+hotspot+"&"+remind_list,
                 success: function(return_value) {
                     if (return_value == "ok") {
-                        $("#save_for_now_"+question_id).html("'.addslashes(Display::return_icon('save.png', get_lang('Saved'), array(), ICON_SIZE_SMALL)).'");
+                        $("#save_for_now_"+question_id).html(\'' . Display::return_icon('save.png', get_lang('Saved'), array(), ICON_SIZE_SMALL) . '\');
                     } else if (return_value == "error") {
-                        $("#save_for_now_"+question_id).html("'.addslashes(Display::return_icon('error.png', get_lang('Error'), array(), ICON_SIZE_SMALL)).'");
+                        $("#save_for_now_"+question_id).html(\'' . Display::return_icon('error.png', get_lang('Error'), array(), ICON_SIZE_SMALL) . '\');
                     } else if (return_value == "one_per_page") {
                         var url = "";
                         if ('.$reminder.' == 1 ) {
@@ -945,13 +958,13 @@ if (!empty($error)) {
                             url = url_extra;
                         }
 
-                        $("#save_for_now_"+question_id).html("'.addslashes(Display::return_icon('save.png', get_lang('Saved'), array(), ICON_SIZE_SMALL)).'");
+                        $("#save_for_now_"+question_id).html(\'' . Display::return_icon('save.png', get_lang('Saved'), array(), ICON_SIZE_SMALL) . '\');
 
                         window.location = url;
                     }
                 },
                 error: function() {
-                    $("#save_for_now_"+question_id).html("'.addslashes(Display::return_icon('error.png', get_lang('Error'), array(), ICON_SIZE_SMALL)).'");
+                    $("#save_for_now_"+question_id).html(\'' . Display::return_icon('error.png', get_lang('Error'), array(), ICON_SIZE_SMALL) . '\');
                 }
             });
             return false;
@@ -984,7 +997,7 @@ if (!empty($error)) {
 
             free_answers = $.param(free_answers);
 
-            $("#save_all_reponse").html("'.addslashes(Display::return_icon('loading1.gif')).'");
+            $("#save_all_reponse").html(\'' . Display::returnFontAwesomeIcon('spinner', true, null, 'fa-spin') . '\');
 
             $.ajax({
                 type:"post",
@@ -993,14 +1006,14 @@ if (!empty($error)) {
                 data: "'.$params.'&type=all&"+my_choice+"&"+hotspot+"&"+free_answers+"&"+remind_list,
                 success: function(return_value) {
                     if (return_value == "ok") {
-                        //$("#save_all_reponse").html("'.addslashes(Display::return_icon('accept.png')).'");
+                        //$("#save_all_reponse").html(\'' . Display::return_icon('accept.png') . '\');
                         if (validate == "validate") {
                             window.location = "'.$script_php.'?'.$params.'";
                         } else {
-                            $("#save_all_reponse").html("'.addslashes(Display::return_icon('accept.png')).'");
+                            $("#save_all_reponse").html(\'' . Display::return_icon('accept.png') . '\');
                         }
                     } else {
-                        $("#save_all_reponse").html("'.addslashes(Display::return_icon('wrong.gif')).'");
+                        $("#save_all_reponse").html(\'' . Display::return_icon('wrong.gif') . '\');
                     }
                 }
             });
@@ -1039,7 +1052,6 @@ if (!empty($error)) {
     }
 
     foreach ($questionList as $questionId) {
-
         // for sequential exercises
         if ($objExercise->type == ONE_PER_PAGE) {
             // if it is not the right question, goes to the next loop iteration
@@ -1088,7 +1100,16 @@ if (!empty($error)) {
         echo '<div id="question_div_'.$questionId.'" class="main-question '.$remind_highlight.'" >';
 
         // Shows the question and its answers
-        ExerciseLib::showQuestion($questionId, false, $origin, $i, true, false, $user_choice, false);
+        ExerciseLib::showQuestion(
+            $questionId,
+            false,
+            $origin,
+            $i,
+            true,
+            false,
+            $user_choice,
+            false
+        );
 
         // Button save and continue
         switch ($objExercise->type) {

@@ -11,8 +11,8 @@ function checkLength( o, n, min, max ) {
 }
 function clean_user_select() {
     //Cleans the selected attr
-    $("#users_to_send_id").val('').trigger("chosen:updated");
-    /*$('#users_to_send_id')
+    $("#users_to_send").val('').trigger("chosen:updated");
+    /*$('#users_to_send')
         .find('option')
         .removeAttr('selected')
         .end();*/
@@ -115,10 +115,10 @@ $(document).ready(function() {
 		    clean_user_select();
 
             // Sets the 1st item selected by default
-            $('#users_to_send_id option').eq(0).attr('selected', 'selected');
+            $('#users_to_send option').eq(0).attr('selected', 'selected');
 
 			// Update chz-select
-			//$("#users_to_send_id").trigger("chosen:updated");
+			//$("#users_to_send").trigger("chosen:updated");
 
 			if ({{ can_add_events }} == 1) {
 				var url = '{{ web_agenda_ajax_url }}&a=add_event&start='+start.format('YYYY-MM-DD 00:00:00')+'&end='+end.format('YYYY-MM-DD 00:00:00')+'&all_day='+allDay+'&view='+view.name;
@@ -126,7 +126,7 @@ $(document).ready(function() {
                 var end_date_value = end.format('{{ js_format_date }}');
 
                 $('#start_date').html(start_date_value);
-
+                
                 if (start_date_value == end_date_value) {
                     $('#end_date').html(' - ' + end_date_value);
                 } else {
@@ -138,6 +138,13 @@ $(document).ready(function() {
 				$('#color_calendar').removeClass('group_event');
 				$('#color_calendar').addClass('label_tag');
 				$('#color_calendar').addClass('{{ type_event_class }}');
+                                
+                //It shows the CKEDITOR while Adding an Event
+                $('#cke_content').show();
+                //It Fixing a minor bug with textarea ckeditor.remplace
+                $('#content').css('display','none');
+                //Reset the CKEditor content that persist in memory
+                CKEDITOR.instances['content'].setData('');
 
 				allFields.removeClass("ui-state-error");
 				$("#dialog-form").dialog("open");
@@ -146,13 +153,18 @@ $(document).ready(function() {
 						'{{ "Add" | get_lang }}' : function() {
 							var bValid = true;
 							bValid = bValid && checkLength(title, "title", 1, 255);
+                                                        
+                            //Update the CKEditor Instance to the remplaced textarea, ready to be serializable
+                            for ( instance in CKEDITOR.instances ) {
+                                CKEDITOR.instances[instance].updateElement();
+                            }
 
 							var params = $("#add_event_form").serialize();
 
 							$.ajax({
 								url: url+'&'+params,
 								success:function(data) {
-									var user = $('#users_to_send_id').val();
+									var user = $('#users_to_send').val();
                                     if (user) {
                                         if (user.length > 1) {
                                             user = 0;
@@ -199,9 +211,6 @@ $(document).ready(function() {
                         $("#comment").val('');
 					}
 				});
-
-	            // Don't follow the link.
-	            return false;
 
 				calendar.fullCalendar('unselect');
                 //Reload events
@@ -264,6 +273,9 @@ $(document).ready(function() {
                 $('#color_calendar').removeClass('personal_event');
                 $('#color_calendar').removeClass('group_event');
                 $('#color_calendar').addClass(calEvent.type+'_event');
+                
+                //It hides the CKEDITOR while clicking an existing Event
+                $('#cke_content').hide();
 
                 $('#start_date').html(calEvent.start.format("YY-MM-DD"));
                 if (calEvent.end) {
@@ -533,6 +545,7 @@ $(document).ready(function() {
 });
 </script>
 {{ actions_div }}
+{{ toolbar }}
 
 <div id="simple-dialog-form" style="display:none;">
     <div style="width:500px">

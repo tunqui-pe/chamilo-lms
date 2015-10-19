@@ -17,9 +17,41 @@ class Version20150522222222 extends AbstractMigrationChamilo
      */
     public function up(Schema $schema)
     {
-        $this->addSql('ALTER TABLE user ADD COLUMN last_login datetime DEFAULT NULL');
+        // The first ALTER queries here requires a check because the field might already exist
+        $connection = $this->connection;
+        $fieldExists = false;
+        $sql = "SELECT *
+                FROM user
+                LIMIT 1";
+        $result = $connection->executeQuery($sql);
+        $dataList = $result->fetchAll();
+        if (!empty($dataList)) {
+            foreach ($dataList as $data) {
+                if (isset($data['last_login'])) {
+                    $fieldExists = true;
+                }
+            }
+        }
+        if (!$fieldExists) {
+            $this->addSql('ALTER TABLE user ADD COLUMN last_login datetime DEFAULT NULL');
+        }
         // calendar events comments
-        $this->addSql("ALTER TABLE c_calendar_event ADD COLUMN comment TEXT");
+        $fieldExists = false;
+        $sql = "SELECT *
+                FROM c_calendar_event
+                LIMIT 1";
+        $result = $connection->executeQuery($sql);
+        $dataList = $result->fetchAll();
+        if (!empty($dataList)) {
+            foreach ($dataList as $data) {
+                if (isset($data['comment'])) {
+                    $fieldExists = true;
+                }
+            }
+        }
+        if (!$fieldExists) {
+            $this->addSql("ALTER TABLE c_calendar_event ADD COLUMN comment TEXT");
+        }
 
         // Move some settings from configuration.php to the database
         // Current settings categories are:
@@ -707,9 +739,26 @@ class Version20150522222222 extends AbstractMigrationChamilo
             '',
             'radio',
             'Tools',
-            ($value?$value:'false'),
+            ($value ? $value : 'false'),
             'DropboxHideCourseCoachTitle',
             'DropboxHideCourseCoachComment',
+            null,
+            '',
+            1,
+            true,
+            false,
+            [0 => ['value' => 'true', 'text' => 'Yes'], 1 => ['value' => 'false', 'text' => 'No']]
+        );
+
+        $value = api_get_configuration_value('dropbox_hide_general_coach');
+        $this->addSettingCurrent(
+            'dropbox_hide_general_coach',
+            '',
+            'radio',
+            'Tools',
+            ($value ? $value : 'false'),
+            'DropboxHideGeneralCoachTitle',
+            'DropboxHideGeneralCoachComment',
             null,
             '',
             1,

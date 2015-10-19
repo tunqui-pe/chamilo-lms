@@ -51,6 +51,13 @@ if (api_is_platform_admin()) {
         ),
         api_get_self().'?user_id='.$user['user_id'].'&action=export'
     );
+    $vCardExportLink = Display::url(
+        Display::return_icon(
+            'vcard.png', get_lang('UserInfo'),'', ICON_SIZE_MEDIUM
+        ),
+        api_get_path(WEB_PATH).'main/social/vcard_export.php?userId='.$user['user_id']
+    );
+    
 }
 
 // Show info about who created this user and when
@@ -69,10 +76,19 @@ $data = array(
     get_lang('Phone') => $user['phone'],
     get_lang('OfficialCode') => $user['official_code'],
     get_lang('Online') => $user['user_is_online'] ?
-        Display::return_icon('online.png') : Display::return_icon('offline.png'),
-    get_lang('Status') => $user['status'] == 1 ? get_lang('Teacher') : get_lang('Student'),
-    null => sprintf(get_lang('CreatedByXYOnZ'), 'user_information.php?user_id='
-        .$creatorId, $creatorInfo['username'], api_get_utc_datetime($registrationDate))
+        Display::return_icon('online.png') : Display::return_icon(
+            'offline.png'
+        ),
+    get_lang('Status') => $user['status'] == 1 ? get_lang('Teacher') : get_lang(
+        'Student'
+    ),
+    null => sprintf(
+        get_lang('CreatedByXYOnZ'),
+        'user_information.php?user_id='
+        .$creatorId,
+        $creatorInfo['username'],
+        api_get_utc_datetime($registrationDate)
+    ),
 );
 
 $row = 1;
@@ -251,12 +267,12 @@ $sql = 'SELECT * FROM '.$table_course_user.' cu, '.$table_course.' c
 $res = Database::query($sql);
 if (Database::num_rows($res) > 0) {
     $header = array(
-        array(get_lang('Code'), true),
-        array(get_lang('Title'), true),
-        array(get_lang('Status'), true),
-        array(get_lang('TimeSpentInTheCourse'), true),
-        array(get_lang('TotalPostsInAllForums'), true),
-        array('', false)
+        array(get_lang('Code')),
+        array(get_lang('Title')),
+        array(get_lang('Status')),
+        array(get_lang('TimeSpentInTheCourse')),
+        array(get_lang('TotalPostsInAllForums')),
+        array('')
     );
 
     $headerList = array();
@@ -278,7 +294,7 @@ if (Database::num_rows($res) > 0) {
             Display::return_icon('synthese_view.gif', get_lang('Overview')).'</a>'.
             '<a href="'.$courseInfo['course_public_url'].'">'.
             Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>' .
-            '<a href="course_edit.php?course_code='.$courseCode.'">'.
+            '<a href="course_edit.php?id='.$course->c_id.'">'.
             Display::return_icon('edit.gif', get_lang('Edit')).'</a>';
         if ($course->status == STUDENT) {
             $tools .= '<a href="user_information.php?action=unsubscribe&course_code='.$courseCode.'&user_id='.$user['user_id'].'">'.
@@ -328,8 +344,7 @@ if (Database::num_rows($res) > 0) {
         array(),
         array('user_id' => intval($_GET['user_id']))
     );
-    $courseInformation .=  $courseToolInformationTotal;
-
+    $courseInformation .= $courseToolInformationTotal;
 } else {
     $courseInformation = '<p>'.get_lang('NoCoursesForThisUser').'</p>';
 }
@@ -339,7 +354,7 @@ if (Database::num_rows($res) > 0) {
  */
 $urlInformation = null;
 if (api_is_multiple_url_enabled()) {
-    $urlList= UrlManager::get_access_url_from_user($user['user_id']);
+    $urlList = UrlManager::get_access_url_from_user($user['user_id']);
     if (count($urlList) > 0) {
         $header = array();
         $header[] = array('URL', true);
@@ -405,21 +420,21 @@ echo '<div class="actions">
         '.$login_as_icon.'
         '.$editUser.'
         '.$exportLink.'
+        '.$vCardExportLink.'
     </div>';
 
 echo Display::page_header($tool_name);
 
 
-$fullUrlBig = Usermanager::getUserPicture(
+$fullUrlBig = UserManager::getUserPicture(
     $user['user_id'],
     USER_IMAGE_SIZE_BIG
 );
 
-$fullUrl = Usermanager::getUserPicture(
+$fullUrl = UserManager::getUserPicture(
     $user['user_id'],
     USER_IMAGE_SIZE_ORIGINAL
 );
-
 
 echo '<div class="row">';
 echo '<div class="col-md-2">';

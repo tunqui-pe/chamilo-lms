@@ -1,88 +1,92 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
+ * Image class
  * This class provides a layer to manage images
  * @author Julio Montoya <gugli100@gmail.com>
  * @package chamilo.include.image
  * @todo move in a DB configuration setting
  */
-define('IMAGE_PROCESSOR', 'gd'); // imagick or gd strings
-/**
- * Image class
- * @package chamilo.include.image
- */
 class Image
 {
-	public $image_wrapper = null;
+    public $image_wrapper = null;
 
-	function __construct($path)
-	{
-		$path = preg_match(VALID_WEB_PATH, $path) ? (api_is_internal_path(
-			$path
-		) ? api_get_path(TO_SYS, $path) : $path) : $path;
-		if (IMAGE_PROCESSOR == 'gd') {
-			$this->image_wrapper = new GDWrapper($path);
-		} else {
-			if (class_exists('Imagick')) {
-				$this->image_wrapper = new ImagickWrapper($path);
-			} else {
-				Display::display_warning_message('Class Imagick not found');
-				exit;
-			}
-		}
-	}
+    /**
+     * Image constructor.
+     * @param string $path
+     */
+    public function __construct($path)
+    {
+        $path = preg_match(VALID_WEB_PATH, $path) ? (api_is_internal_path(
+            $path
+        ) ? api_get_path(TO_SYS, $path) : $path) : $path;
+        if (IMAGE_PROCESSOR == 'gd') {
+            $this->image_wrapper = new GDWrapper($path);
+        } else {
+            if (class_exists('Imagick')) {
+                $this->image_wrapper = new ImagickWrapper($path);
+            } else {
+                Display::display_warning_message('Class Imagick not found');
+                exit;
+            }
+        }
+    }
 
-	public function resize(
-		$thumbw,
-		$thumbh,
-		$border = 0,
-		$specific_size = false
-	) {
-		$this->image_wrapper->resize($thumbw, $thumbh, $border, $specific_size);
-	}
+    public function resize(
+        $thumbw,
+        $thumbh,
+        $border = 0,
+        $specific_size = false
+    ) {
+        $this->image_wrapper->resize($thumbw, $thumbh, $border, $specific_size);
+    }
 
-	public function send_image(
-		$file = '',
-		$compress = -1,
-		$convert_file_to = null
-	) {
-		return $this->image_wrapper->send_image(
-			$file,
-			$compress,
-			$convert_file_to
-		);
-	}
+    public function send_image(
+        $file = '',
+        $compress = -1,
+        $convert_file_to = null
+    ) {
+        return $this->image_wrapper->send_image(
+            $file,
+            $compress,
+            $convert_file_to
+        );
+    }
 
-	public function get_image_size()
-	{
-		return $this->image_wrapper->get_image_size();
-	}
+    public function get_image_size()
+    {
+        return $this->image_wrapper->get_image_size();
+    }
 
-	public function get_image_info()
-	{
-		return $this->image_wrapper->get_image_info();
-	}
+    public function get_image_info()
+    {
+        return $this->image_wrapper->get_image_info();
+    }
 
-	public function convert2bw()
-	{
-		$this->image_wrapper->convert2bw();
-	}
+    public function convert2bw()
+    {
+        $this->image_wrapper->convert2bw();
+    }
 }
 
 /**
  * Image wrapper class
+ *
  * @package chamilo.include.image
  */
-abstract class ImageWrapper {
-    var $debug = true;
-    var $path;
-    var $width;
-    var $height;
-    var $type;
-    var $allowed_extensions = array('jpeg', 'jpg', 'png', 'gif');
-    var $image_validated = false;
+abstract class ImageWrapper
+{
+    public $debug = true;
+    public $path;
+    public $width;
+    public $height;
+    public $type;
+    public $allowed_extensions = array('jpeg', 'jpg', 'png', 'gif');
+    public $image_validated = false;
 
-    public function __construct($path) {
+    public function __construct($path)
+    {
         if (empty($path)) {
             return false;
         }
@@ -95,11 +99,14 @@ abstract class ImageWrapper {
     abstract function get_image_size();
     abstract function resize($thumbw, $thumbh, $border, $specific_size = false);
     abstract function send_image($file = '', $compress = -1, $convert_file_to = null);
-    public function get_image_info() {
-        return array('width' => $this->width,
-        			'height' => $this->height,
-        			'type'   => $this->type
-                        );
+
+    public function get_image_info()
+    {
+        return array(
+            'width' => $this->width,
+            'height' => $this->height,
+            'type' => $this->type,
+        );
     }
 }
 
@@ -110,32 +117,36 @@ abstract class ImageWrapper {
  *
  * @package chamilo.include.image
  */
-class ImagickWrapper extends ImageWrapper {
-    var $image;
-    var $filter = Imagick::FILTER_LANCZOS;
+class ImagickWrapper extends ImageWrapper
+{
+    public $image;
+    public $filter = Imagick::FILTER_LANCZOS;
 
-    public function __construct($path) {
+    public function __construct($path)
+    {
           parent::__construct($path);
     }
-    public function set_image_wrapper() {
-    	if ($this->debug) error_log('Image::set_image_wrapper loaded');
-        try {
-        	if (file_exists($this->path)) {
-	            $this->image     = new Imagick($this->path);
 
-	            if ($this->image) {
-	                $this->fill_image_info(); //Fills height, width and type
-	            }
-        	} else {
-        		if ($this->debug) error_log('Image::image does not exist');
-        	}
+    public function set_image_wrapper()
+    {
+        if ($this->debug) error_log('Image::set_image_wrapper loaded');
+        try {
+            if (file_exists($this->path)) {
+                $this->image     = new Imagick($this->path);
+
+                if ($this->image) {
+                    $this->fill_image_info(); //Fills height, width and type
+                }
+            } else {
+                if ($this->debug) error_log('Image::image does not exist');
+            }
         } catch(ImagickException $e) {
             if ($this->debug) error_log($e->getMessage());
         }
-
     }
 
-    public function fill_image_info() {
+    public function fill_image_info()
+    {
         $image_info      = $this->image->identifyImage();
 
         $this->width     = $image_info['geometry']['width'];
@@ -148,7 +159,8 @@ class ImagickWrapper extends ImageWrapper {
         }
     }
 
-	public function get_image_size() {
+	public function get_image_size()
+    {
 		$imagesize = array('width'=>0,'height'=>0);
 	    if ($this->image_validated) {
             $imagesize = $this->image->getImageGeometry();
@@ -157,7 +169,8 @@ class ImagickWrapper extends ImageWrapper {
 	}
 
 	//@todo implement border logic case for Imagick
-	public function resize($thumbw, $thumbh, $border, $specific_size = false) {
+	public function resize($thumbw, $thumbh, $border, $specific_size = false)
+    {
 	    if (!$this->image_validated) return false;
 
         if ($specific_size) {
@@ -173,7 +186,8 @@ class ImagickWrapper extends ImageWrapper {
 		$this->height = $thumbh;
 	}
 
-    public function send_image($file = '', $compress = -1, $convert_file_to = null) {
+    public function send_image($file = '', $compress = -1, $convert_file_to = null)
+    {
         if (!$this->image_validated) return false;
         $type = $this->type;
         if (!empty($convert_file_to) && in_array($convert_file_to, $this->allowed_extensions)) {
@@ -215,8 +229,9 @@ class ImagickWrapper extends ImageWrapper {
  * php-gd wrapper
  * @package chamilo.include.image
  */
-class GDWrapper extends ImageWrapper {
-    var $bg;
+class GDWrapper extends ImageWrapper
+{
+    public $bg;
 
     function __construct($path) {
         parent::__construct($path);
@@ -320,7 +335,8 @@ class GDWrapper extends ImageWrapper {
 		@imagedestroy($src_img);
 	}
 
-	public function send_image($file = '', $compress = -1, $convert_file_to = null) {
+	public function send_image($file = '', $compress = -1, $convert_file_to = null)
+    {
 	    if (!$this->image_validated) return false;
         $compress = (int)$compress;
         $type = $this->type;

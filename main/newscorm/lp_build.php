@@ -11,22 +11,12 @@
  * @package chamilo.learnpath
  */
 
-/**
- * INIT SECTION 
-*/
-
 $_SESSION['whereami'] = 'lp/build';
 $this_section = SECTION_COURSES;
 
 api_protect_course_script();
 
-/* Libraries */
-
-// The main_api.lib.php, database.lib.php and display.lib.php
-// libraries are included by default.
-
 include 'learnpath_functions.inc.php';
-//include '../resourcelinker/resourcelinker.inc.php';
 include 'resourcelinker.inc.php';
 
 /* Constants and variables */
@@ -95,7 +85,7 @@ $interbreadcrumb[] = array('url' => '#', "name" => $therow['name']);
 $lp_theme_css=$_SESSION['oLP']->get_theme();
 $show_learn_path = true;
 Display::display_header('', 'Path');
-$suredel = trim(get_lang('AreYouSureToDelete'));
+$suredel = trim(get_lang('AreYouSureToDeleteJS'));
 
 ?>
 <script type='text/javascript'>
@@ -125,8 +115,8 @@ echo $_SESSION['oLP']->build_action_menu();
 echo '<div class="row">';
 echo '<div class="col-md-4">';
 // Build the tree with the menu items in it.
-echo $_SESSION['oLP']->return_new_tree();    
-echo '</div>';        
+echo $_SESSION['oLP']->return_new_tree();
+echo '</div>';
 echo '<div class="col-md-8">';
 
 if (isset($is_success) && $is_success === true) {
@@ -139,25 +129,25 @@ if (isset($is_success) && $is_success === true) {
     $gradebook = isset($_GET['gradebook']) ? Security::remove_XSS($_GET['gradebook']) : null;
 
     echo Display::page_subheader(get_lang('LearnPathAddedTitle'));
-    
+
     echo '<ul id="lp_overview" class="thumbnails">';
-    
+
     echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=add_item&type=step&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("NewStep"), get_lang('NewStepComment'), 'tools.png');
-    
+
 //    echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=admin_view&updateaudio=true&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("BasicOverview"), get_lang('BasicOverviewComment'), 'audio.png');
-    
+
     echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=view&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Display"), get_lang('DisplayComment'), 'view.png');
-    
+
     //echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=edit&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Settings"), null, 'reference.png');
-    
-    echo '</ul>';    
+
+    echo '</ul>';
 }
 echo '</div>';
 echo '</div>';
 
 
 function show_block($link, $title, $subtitle, $icon) {
-    $html = '<li class="span4">';
+    $html = '<li class="col-md-4">';
         $html .=  '<div class="thumbnail">';
         $html .=  '<a href="'.$link.'" title="'.$title.'">';
         $html .=  Display::return_icon($icon, $title, array(), ICON_SIZE_BIG);

@@ -198,6 +198,16 @@ class CoursesController
     public function subscribe_user($course_code, $search_term, $category_code)
     {
         $courseInfo = api_get_course_info($course_code);
+
+        if (empty($courseInfo)) {
+            return false;
+        }
+
+        $message = '';
+        $error = '';
+        $content = '';
+        $result = [];
+
         // The course must be open in order to access the auto subscription
         if (in_array(
             $courseInfo['visibility'],
@@ -210,8 +220,8 @@ class CoursesController
                 $error = get_lang('CourseRegistrationCodeIncorrect');
             } else {
                 // Redirect directly to the course after subscription
-                $message = $result['message'];
-                $content = $result['content'];
+                $message = isset($result['message']) ? $result['message'] : '';
+                $content = isset($result['content']) ? $result['content'] : '';
             }
         }
 
@@ -234,7 +244,6 @@ class CoursesController
         $result = $this->model->store_course_category($category_title);
         if ($result) {
             Display::addFlash(Display::return_message(get_lang('CourseCategoryStored')));
-
         } else {
             Display::addFlash(Display::return_message(get_lang('ACourseCategoryWithThisNameAlreadyExists'), 'error'));
         }
@@ -581,7 +590,7 @@ class CoursesController
      */
     public function getAlreadyRegisteredInSessionLabel()
     {
-        $icon = '<i class="fa fa-smile-o"></i>';
+        $icon = '<em class="fa fa-smile-o"></em>';
 
         return Display::div(
             $icon . ' ' . get_lang("AlreadyRegisteredToSession"),
@@ -669,6 +678,37 @@ class CoursesController
         $tpl->assign('search_token', Security::get_token());
         $tpl->assign('search_date', Security::remove_XSS($searchDate));
         $tpl->assign('search_tag', Security::remove_XSS($searchTag));
+        $tpl->assign('sessions', $sessionsBlocks);
+
+        $contentTemplate = $tpl->get_template('auth/session_catalog.tpl');
+
+        $tpl->display($contentTemplate);
+    }
+
+    /**
+     * Show the Session Catalogue with filtered session by a query term
+     * @param array $limit
+     */
+    public function sessionListBySearch(array $limit)
+    {
+        $q = isset($_REQUEST['q']) ? Security::remove_XSS($_REQUEST['q']) : null;
+        $hiddenLinks = isset($_GET['hidden_links']) ? intval($_GET['hidden_links']) == 1 : false;
+        $courseUrl = getCourseCategoryUrl(1, $limit['length'], null, 0, 'subscribe');
+        $searchDate = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
+
+        $sessions = $this->model->browseSessionsBySearch($q, $limit);
+        $sessionsBlocks = $this->getFormatedSessionsBlock($sessions);
+
+        $tpl = new Template();
+        $tpl->assign('show_courses', CoursesAndSessionsCatalog::showCourses());
+        $tpl->assign('show_sessions', CoursesAndSessionsCatalog::showSessions());
+        $tpl->assign('show_tutor', (api_get_setting('show_session_coach')==='true' ? true : false));
+        $tpl->assign('course_url', $courseUrl);
+        $tpl->assign('already_subscribed_label', $this->getAlreadyRegisteredInSessionLabel());
+        $tpl->assign('hidden_links', $hiddenLinks);
+        $tpl->assign('search_token', Security::get_token());
+        $tpl->assign('search_date', Security::remove_XSS($searchDate));
+        $tpl->assign('search_tag', Security::remove_XSS($q));
         $tpl->assign('sessions', $sessionsBlocks);
 
         $contentTemplate = $tpl->get_template('auth/session_catalog.tpl');

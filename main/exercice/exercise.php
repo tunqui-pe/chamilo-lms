@@ -11,8 +11,6 @@
  * Modified by hubert.borderiou (question category)
  */
 
-// name of the language file that needs to be included
-
 use \ChamiloSession as Session;
 
 // including the global library
@@ -118,7 +116,6 @@ $nameTools = get_lang('Exercises');
 $errorXmlExport = null;
 if ($is_allowedToEdit && !empty($choice) && $choice == 'exportqti2') {
     require_once api_get_path(SYS_CODE_PATH).'exercice/export/qti2/qti2_export.php';
-    require_once api_get_path(LIBRARY_PATH).'pclzip/pclzip.lib.php';
 
     $export = export_exercise_to_qti($exerciseId, true);
     $archive_path = api_get_path(SYS_ARCHIVE_PATH);
@@ -422,7 +419,7 @@ if ($is_allowedToEdit && $origin != 'learnpath') {
         Display :: return_icon('new_question.png', get_lang('AddQ'), '', ICON_SIZE_MEDIUM).'</a>';
     // Question category
     echo '<a href="'.api_get_path(WEB_CODE_PATH).'exercice/tests_category.php?'.api_get_cidreq().'">';
-    echo Display::return_icon('question_category_show.gif', get_lang('QuestionCategory'));
+    echo Display::return_icon('green_open.png', get_lang('QuestionCategory'), '', ICON_SIZE_MEDIUM);
     echo '</a>';
     echo '<a href="'.api_get_path(WEB_CODE_PATH).'exercice/question_pool.php?'.api_get_cidreq().'">';
     echo Display::return_icon('database.png', get_lang('QuestionPool'), '', ICON_SIZE_MEDIUM);
@@ -527,6 +524,7 @@ if (!empty($exercise_list)) {
                 $time_limits = true;
             }
 
+            $is_actived_time = false;
             if ($time_limits) {
                 // check if start time
                 $start_time = false;
@@ -538,7 +536,6 @@ if (!empty($exercise_list)) {
                     $end_time = api_strtotime($row['end_time'], 'UTC');
                 }
                 $now = time();
-                $is_actived_time = false;
 
                 //If both "clocks" are enable
                 if ($start_time && $end_time) {
@@ -704,7 +701,7 @@ if (!empty($exercise_list)) {
                                 ICON_SIZE_SMALL
                             ),
                             '',
-                            array('onclick' => "javascript:if(!confirm('".addslashes(api_htmlentities(get_lang('AreYouSureToDelete'), ENT_QUOTES, $charset))." ".addslashes($row['title'])."?"."')) return false;", 'href' => 'exercise.php?'.api_get_cidreq().'&choice=delete&sec_token='.$token.'&exerciseId='.$row['id'])
+                            array('onclick' => "javascript:if(!confirm('".addslashes(api_htmlentities(get_lang('AreYouSureToDeleteJS'), ENT_QUOTES, $charset))." ".addslashes($row['title'])."?"."')) return false;", 'href' => 'exercise.php?'.api_get_cidreq().'&choice=delete&sec_token='.$token.'&exerciseId='.$row['id'])
                         );
                     } else {
                         $actions .= Display::return_icon('delete_na.png', get_lang('ResourceLockedByGradebook'), '', ICON_SIZE_SMALL);
@@ -806,7 +803,8 @@ if (!empty($exercise_list)) {
                                 $attempt_text = get_lang('NotAttempted');
                             }
                         } else {
-                            $attempt_text = get_lang('CantShowResults');
+                            //$attempt_text = get_lang('CantShowResults');
+                            $attempt_text = '-';
                         }
                     } else {
                         //Quiz not ready due to time limits 	700 	$attempt_text = get_lang('NotAttempted');
@@ -845,7 +843,8 @@ if (!empty($exercise_list)) {
                             $attempt_text = get_lang('NotAttempted');
                         }
                     } else {
-                        $attempt_text = get_lang('CantShowResults');
+                        //$attempt_text = get_lang('CantShowResults');
+                        $attempt_text = '-';
                     }
                 }
 
@@ -964,7 +963,7 @@ if (isset($attribute['path']) && is_array($attribute['path'])) {
                 $actions .='    <a href="'.$exercisePath.'?'.api_get_cidreq().'&hpchoice=enable&page='.$page.'&file='.$path.'">'.
                     Display::return_icon('invisible.png', get_lang('Activate'), '', ICON_SIZE_SMALL).'</a>';
             }
-            $actions .= '<a href="'.$exercisePath.'?'.api_get_cidreq().'&hpchoice=delete&file='.$path.'" onclick="javascript:if(!confirm(\''.addslashes(api_htmlentities(get_lang('AreYouSureToDelete'), ENT_QUOTES, $charset).' '.$title."?").'\')) return false;">'.
+            $actions .= '<a href="'.$exercisePath.'?'.api_get_cidreq().'&hpchoice=delete&file='.$path.'" onclick="javascript:if(!confirm(\''.addslashes(api_htmlentities(get_lang('AreYouSureToDeleteJS'), ENT_QUOTES, $charset).' '.$title."?").'\')) return false;">'.
                 Display::return_icon('delete.png', get_lang('Delete'), '', ICON_SIZE_SMALL).'</a>';
             $item .= Display::tag('td', $actions);
             $tableRows[] = Display::tag('tr', $item);
@@ -1012,7 +1011,7 @@ if (empty($exercise_list) && $hotpotatoes_exist == false) {
         echo '<h3>'.get_lang('Quiz').'</h3>';
         echo Display::return_icon('quiz.png', '', array(), 64);
         echo '<div class="controls">';
-        echo Display::url('<i class="fa fa-plus"></i> '.get_lang('NewEx'), 'exercise_admin.php?'.api_get_cidreq(), array('class' => 'btn btn-primary'));
+        echo Display::url('<em class="fa fa-plus"></em> '.get_lang('NewEx'), 'exercise_admin.php?'.api_get_cidreq(), array('class' => 'btn btn-primary'));
         echo '</div>';
         echo '</div>';
     }

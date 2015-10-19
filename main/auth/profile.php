@@ -33,7 +33,7 @@ if (!(isset($_user['user_id']) && $_user['user_id']) || api_is_anonymous($_user[
 $htmlHeadXtra[] = api_get_password_checker_js('#username', '#password1');
 $htmlHeadXtra[] = '<script>
 function confirmation(name) {
-    if (confirm("'.get_lang('AreYouSureToDelete', '').' " + name + " ?")) {
+    if (confirm("'.get_lang('AreYouSureToDeleteJS', '').' " + name + " ?")) {
             document.forms["profile"].submit();
     } else {
         return false;
@@ -431,7 +431,7 @@ if ($form->validate()) {
     $wrong_current_password = false;
     $user_data = $form->getSubmitValues(1);
 
-    $user = Usermanager::getRepository()->find(api_get_user_id());
+    $user = UserManager::getRepository()->find(api_get_user_id());
 
     // set password if a new one was provided
     $validPassword = false;
@@ -752,8 +752,8 @@ if (api_get_setting('allow_social_tool') == 'true') {
     $social_layout = $tpl->get_template('social/edit_profile.tpl');
     $tpl->display($social_layout);
 } else {
-    $bigImage = Usermanager::getUserPicture(api_get_user_id(), USER_IMAGE_SIZE_BIG);
-    $normalImage = Usermanager::getUserPicture(api_get_user_id(), USER_IMAGE_SIZE_ORIGINAL);
+    $bigImage = UserManager::getUserPicture(api_get_user_id(), USER_IMAGE_SIZE_BIG);
+    $normalImage = UserManager::getUserPicture(api_get_user_id(), USER_IMAGE_SIZE_ORIGINAL);
 
     $imageToShow = '<div id="image-message-container">';
     $imageToShow .= '<a class="expand-image" href="'.$bigImage.'" /><img src="'.$normalImage.'"></a>';

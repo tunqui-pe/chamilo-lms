@@ -18,14 +18,11 @@ api_protect_limit_for_session_admin();
 $this_section = SECTION_PLATFORM_ADMIN;
 $htmlHeadXtra[] = '<script>
 function selectAll(idCheck,numRows,action) {
-    for(i=0;i<numRows;i++) {
-        idcheck = document.getElementById(idCheck+"_"+i);
-        if (action == "true"){
-            idcheck.checked = true;
-        } else {
-            idcheck.checked = false;
-        }
+    for(i = 0; i < numRows; i++) {
+        idcheck = document.getElementById(idCheck + "_" + i);
+        idcheck.checked = action == "true";
     }
+}
 </script>';
 
 $tbl_session_category = Database::get_main_table(TABLE_MAIN_SESSION_CATEGORY);
@@ -109,21 +106,27 @@ if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
     ?>
 
     <div class="actions">
-        <?php
-        echo '<div style="float:right;">
-			<a href="'.api_get_path(WEB_CODE_PATH).'session/session_category_add.php">'.Display::return_icon('new_folder.png', get_lang('AddSessionCategory'), '', ICON_SIZE_MEDIUM).'</a>
-			<a href="'.api_get_path(WEB_CODE_PATH).'session/session_list.php">'.Display::return_icon('session.png', get_lang('ListSession'), '', ICON_SIZE_MEDIUM).'</a>
-	 	  </div>';
-        ?>
-        <form method="POST" action="session_category_list.php" class="form-inline">
-            <div class="form-group">
-            <input class="form-control" type="text" name="keyword" value="<?php echo $keyword; ?>"/>
-            <button class="btn btn-default" type="submit" name="name" value="<?php echo get_lang('Search') ?>"><i class="fa fa-search"></i> <?php echo get_lang('Search') ?></button>
-            <!-- <a href="session_list.php?search=advanced"><?php echo get_lang('AdvancedSearch'); ?></a> -->
-             </div>
-        </form>
-        <form method="post" action="<?php echo api_get_self(); ?>?action=delete&sort=<?php echo $sort; ?>" onsubmit="javascript:if(!confirm('<?php echo get_lang('ConfirmYourChoice'); ?>')) return false;">
-    </div><br />
+        <div class="row">
+            <div class="col-md-6">
+              <?php
+                echo '<a href="'.api_get_path(WEB_CODE_PATH).'session/session_category_add.php">'.Display::return_icon('new_folder.png', get_lang('AddSessionCategory'), '', ICON_SIZE_MEDIUM).'</a>
+                      <a href="'.api_get_path(WEB_CODE_PATH).'session/session_list.php">'.Display::return_icon('session.png', get_lang('ListSession'), '', ICON_SIZE_MEDIUM).'</a>';
+            ?>  
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                <form method="POST" action="session_category_list.php" class="form-inline">
+                    <div class="form-group">
+                    <input class="form-control" type="text" name="keyword" value="<?php echo $keyword; ?>"/>
+                    <button class="btn btn-default" type="submit" name="name" value="<?php echo get_lang('Search') ?>"><em class="fa fa-search"></em> <?php echo get_lang('Search') ?></button>
+                    <!-- <a href="session_list.php?search=advanced"><?php echo get_lang('AdvancedSearch'); ?></a> -->
+                    </div>
+                </form>
+                </div>    
+            </div>
+        </div>
+    <form method="post" action="<?php echo api_get_self(); ?>?action=delete&sort=<?php echo $sort; ?>" onsubmit="javascript:if(!confirm('<?php echo get_lang('ConfirmYourChoice'); ?>')) return false;">
+    </div>
     <div align="left">
         <?php
         if (count($Sessions) == 0 && isset($_POST['keyword'])) {
@@ -151,7 +154,7 @@ if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
             }
             ?>
         </div>
-        <br />
+        
         <table class="data_table" width="100%">
             <tr>
                 <th>&nbsp;</th>
@@ -180,8 +183,8 @@ if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
                     <td><input type="checkbox" id="idChecked_<?php echo $x; ?>" name="idChecked[]" value="<?php echo $enreg['id']; ?>"></td>
                     <td><?php echo api_htmlentities($enreg['name'], ENT_QUOTES, $charset); ?></td>
                     <td><?php echo "<a href=\"session_list.php?id_category=".$enreg['id']."\">".$nb_courses." Session(s) </a>"; ?></td>
-                    <td><?php echo api_htmlentities($enreg['date_start'], ENT_QUOTES, $charset); ?></td>
-                    <td><?php echo api_htmlentities($enreg['date_end'], ENT_QUOTES, $charset); ?></td>
+                    <td><?php echo api_format_date($enreg['date_start'], DATE_FORMAT_SHORT); ?></td>
+                    <td><?php echo api_format_date($enreg['date_end'], DATE_FORMAT_SHORT); ?></td>
                     <td>
                         <a href="session_category_edit.php?&id=<?php echo $enreg['id']; ?>">
                             <?php Display::display_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL); ?>
@@ -226,13 +229,16 @@ if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
             }
             ?>
         </div>
-        <br />
-        <a href="#" onclick="selectAll('idChecked',<?php echo $x; ?>,'true');return false;"><?php echo get_lang('SelectAll') ?></a>&nbsp;-&nbsp;
-        <a href="#" onclick="selectAll('idChecked',<?php echo $x; ?>,'false');return false;"><?php echo get_lang('UnSelectAll') ?></a>
-        <select name="action">
-            <option value="delete_off_session" selected="selected"><?php echo get_lang('DeleteSelectedSessionCategory'); ?></option>
-            <option value="delete_on_session"><?php echo get_lang('DeleteSelectedFullSessionCategory'); ?></option>
-        </select>
+        <div class="btn-group">
+            <a class="btn btn-default" href="#" onclick="selectAll('idChecked',<?php echo $x; ?>,'true');return false;"><?php echo get_lang('SelectAll') ?></a>
+            <a class="btn btn-default" href="#" onclick="selectAll('idChecked',<?php echo $x; ?>,'false');return false;"><?php echo get_lang('UnSelectAll') ?></a>
+        </div>
+        <div class="list-category">
+            <select class="selectpicker show-tick form-control" name="action">
+                <option value="delete_off_session" selected="selected"><?php echo get_lang('DeleteSelectedSessionCategory'); ?></option>
+                <option value="delete_on_session"><?php echo get_lang('DeleteSelectedFullSessionCategory'); ?></option>
+            </select>
+        </div>
         <button class="btn btn-success" type="submit" name="name" value="<?php echo get_lang('Ok') ?>"><?php echo get_lang('Ok') ?></button>
     <?php } ?>
     </table>

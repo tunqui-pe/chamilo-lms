@@ -15,8 +15,14 @@ if (empty($survey_id)) {
 
 $survey_data = SurveyManager::get_survey($survey_id);
 
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php', 'name' => get_lang('SurveyList'));
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id, 'name' => strip_tags($survey_data['title']));
+$interbreadcrumb[] = array(
+    'url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php',
+    'name' => get_lang('SurveyList'),
+);
+$interbreadcrumb[] = array(
+    'url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id,
+    'name' => strip_tags($survey_data['title']),
+);
 
 Display::display_header(get_lang('Survey'), 'Survey');
 
@@ -31,10 +37,10 @@ $link = SurveyManager::generate_survey_link(
     api_get_group_id()
 );
 echo '<div class="row">';
-    echo '<div class="span12" style="text-align:center">';
+    echo '<div class="col-md-12">';
     echo Display::url(get_lang('GenerateSurveyAccessLink'), $link, array('class' => 'btn btn-primary btn-large'));
     echo '</div>';
-    echo '<div class="span12">';
+    echo '<div class="col-md-12">';
     echo get_lang('GenerateSurveyAccessLinkExplanation');
 
     echo '<pre>';
