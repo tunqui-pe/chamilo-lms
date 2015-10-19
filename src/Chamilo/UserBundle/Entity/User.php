@@ -368,6 +368,11 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
     protected $sessionCourseSubscriptions;
 
     /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SkillRelUser", mappedBy="user", cascade={"persist"})
+     */
+    protected $achievedSkills;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1563,5 +1568,12 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
         $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
     }
 
-
+    /**
+     * Get achievedSkills
+     * @return ArrayCollection
+     */
+    public function getAchievedSkills()
+    {
+        return $this->achievedSkills;
+    }
 }

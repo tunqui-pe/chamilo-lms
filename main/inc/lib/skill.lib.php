@@ -465,6 +465,9 @@ class SkillRelUser extends Model
 
         if ($courseId > 0) {
             $whereConditions['AND course_id = ? '] = $courseId;
+        }
+
+        if ($sessionId > 0) {
             $whereConditions['AND session_id = ?'] = $sessionId;
         }
 
@@ -489,14 +492,20 @@ class SkillRelUser extends Model
      */
     public function getByUserAndSkill($userId, $skillId, $courseId, $sessionId = 0)
     {
-        $where = array(
-            'user_id = ? AND skill_id = ? AND course_id = ? AND session_id = ?' => array(
-                intval($userId),
-                intval($skillId),
-                intval($courseId),
-                intval($sessionId)
-            )
-        );
+        $userId = intval($userId);
+        $skillId = intval($skillId);
+        $courseId = intval($courseId);
+        $sessionId = intval($sessionId);
+
+        $where = [
+            'user_id = ? ' => $userId,
+            'AND skill_id = ? ' => $skillId,
+            'AND course_id = ?' => $courseId
+        ];
+
+        if ($sessionId > 0) {
+            $where['AND session_id = ?'] = $sessionId;
+        }
 
         return Database::select('*', $this->table, array(
             'where' => $where
@@ -812,9 +821,12 @@ class Skill extends Model
                         'user_id' => $user_id,
                         'skill_id' => $skill_gradebook['skill_id'],
                         'acquired_skill_at' => api_get_utc_datetime(),
-                        'course_id' => intval($courseId),
-                        'session_id' => intval($sessionId)
+                        'course_id' => intval($courseId)
                     );
+
+                    if (!empty($sessionId)) {
+                        $params['session_id'] = $sessionId;
+                    }
 
                     $skill_rel_user->save($params);
                 }
@@ -1281,6 +1293,9 @@ class Skill extends Model
 
         if ($courseId > 0) {
             $whereConditions['AND course_id = ? '] = $courseId;
+        }
+
+        if ($sessionId > 0) {
             $whereConditions['AND session_id = ? '] = $sessionId;
         }
 

@@ -30,8 +30,8 @@ if (!$user || !$skill) {
 
 $skillUserRepo = $entityManager->getRepository('ChamiloCoreBundle:SkillRelUser');
 $userSkills = $skillUserRepo->findBy([
-    'userId' => $user->getId(),
-    'skillId' => $skill->getId()
+    'user' => $user->getId(),
+    'skill' => $skill->getId()
 ]);
 
 if (!$userSkills) {
@@ -62,12 +62,12 @@ $badgeAssertions = [];
 
 foreach ($userSkills as $userSkill) {
     $sessionId = 0;
-    $course = $entityManager->find('ChamiloCoreBundle:Course', $userSkill->getCourseId());
+    $course = $userSkill->getCourse();
+    $session = $userSkill->getSession();
+
     $courseName = $course->getTitle();
 
-    if ($userSkill->getSessionId()) {
-        $session = $entityManager->find('ChamiloCoreBundle:Session', $userSkill->getSessionId());
-        $sessionId = $session->getId();
+    if ($session) {
         $courseName = "[{$session->getName()}] {$course->getTitle()}";
     }
 
@@ -81,8 +81,8 @@ foreach ($userSkills as $userSkill) {
     $assertionUrl .= http_build_query(array(
         'user' => $user->getId(),
         'skill' => $skill->getId(),
-        'course' => $userSkill->getCourseId(),
-        'session' => $userSkill->getSessionId()
+        'course' => $course->getId(),
+        'session' => $session ? $session->getId() : 0
     ));
 
     $badgeAssertions[] = $assertionUrl;

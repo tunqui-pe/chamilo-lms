@@ -203,6 +203,11 @@ class Session
     private $sendSubscriptionNotification;
 
     /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SkillRelUser", mappedBy="session", cascade={"persist"})
+     */
+    protected $issuedSkills;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1006,4 +1011,12 @@ class Session
         return $this->userCourseSubscriptions->matching($criteria);
     }
 
+    /**
+     * Get issuedSkills
+     * @return ArrayCollection
+     */
+    public function getIssuedSkills()
+    {
+        return $this->issuedSkills;
+    }
 }

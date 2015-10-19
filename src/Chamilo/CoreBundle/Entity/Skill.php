@@ -77,7 +77,10 @@ class Skill
      */
     private $id;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SkillRelUser", mappedBy="skill", cascade={"persist"})
+     */
+    protected $issuedSkills;
 
     /**
      * Set name
@@ -280,5 +283,14 @@ class Skill
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get issuedSkills
+     * @return ArrayCollection
+     */
+    public function getIssuedSkills()
+    {
+        return $this->issuedSkills;
     }
 }

@@ -7,24 +7,29 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SkillRelUser
  *
- * @ORM\Table(name="skill_rel_user", indexes={@ORM\Index(name="idx_select_cs", columns={"course_id", "session_id"})})
+ * @ORM\Table(
+ *  name="skill_rel_user",
+ *  indexes={
+ *      @ORM\Index(name="idx_select_cs", columns={"course_id", "session_id"}),
+ *      @ORM\Index(name="idx_select_s_c_u", columns={"session_id", "course_id", "user_id"}),
+ *      @ORM\Index(name="idx_select_sk_u", columns={"skill_id", "user_id"})
+ *  }
+ * )
  * @ORM\Entity
  */
 class SkillRelUser
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chamilo\UserBundle\Entity\User", inversedBy="achievedSkills", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
-    private $userId;
+    private $user;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="skill_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Skill", inversedBy="issuedSkills", cascade={"persist"})
+     * @ORM\JoinColumn(name="skill_id", referencedColumnName="id", nullable=false)
      */
-    private $skillId;
+    private $skill;
 
     /**
      * @var \DateTime
@@ -41,18 +46,16 @@ class SkillRelUser
     private $assignedBy;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="course_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="issuedSkills", cascade={"persist"})
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", nullable=false)
      */
-    private $courseId;
+    private $course;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="session_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Session", inversedBy="issuedSkills", cascade={"persist"})
+     * @ORM\JoinColumn(name="session_id", referencedColumnName="id")
      */
-    private $sessionId;
+    private $session;
 
     /**
      * @var integer
@@ -63,52 +66,46 @@ class SkillRelUser
      */
     private $id;
 
-
-
     /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return SkillRelUser
+     * Set user
+     * @param \Chamilo\UserBundle\Entity\User $user
+     * @return \Chamilo\CoreBundle\Entity\SkillRelUser
      */
-    public function setUserId($userId)
+    public function setUser(\Chamilo\UserBundle\Entity\User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get userId
-     *
-     * @return integer
+     * Get user
+     * @return \Chamilo\UserBundle\Entity\User
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
-     * Set skillId
-     *
-     * @param integer $skillId
-     * @return SkillRelUser
+     * Set skill
+     * @param \Chamilo\CoreBundle\Entity\Skill $skill
+     * @return \Chamilo\CoreBundle\Entity\SkillRelUser
      */
-    public function setSkillId($skillId)
+    public function setSkill(Skill $skill)
     {
-        $this->skillId = $skillId;
+        $this->skill = $skill;
 
         return $this;
     }
 
     /**
-     * Get skillId
-     *
-     * @return integer
+     * Get skill
+     * @return \Chamilo\CoreBundle\Entity\Skill
      */
-    public function getSkillId()
+    public function getSkill()
     {
-        return $this->skillId;
+        return $this->skill;
     }
 
     /**
@@ -158,49 +155,45 @@ class SkillRelUser
     }
 
     /**
-     * Set courseId
-     *
-     * @param integer $courseId
-     * @return SkillRelUser
+     * Set course
+     * @param \Chamilo\CoreBundle\Entity\Course $course
+     * @return \Chamilo\CoreBundle\Entity\SkillRelUser
      */
-    public function setCourseId($courseId)
+    public function setCourse(Course $course)
     {
-        $this->courseId = $courseId;
+        $this->course = $course;
 
         return $this;
     }
 
     /**
-     * Get courseId
-     *
-     * @return integer
+     * Get course
+     * @return \Chamilo\CoreBundle\Entity\Course
      */
-    public function getCourseId()
+    public function getCourse()
     {
-        return $this->courseId;
+        return $this->course;
     }
 
     /**
-     * Set sessionId
-     *
-     * @param integer $sessionId
-     * @return SkillRelUser
+     * Set session
+     * @param \Chamilo\CoreBundle\Entity\Session $session
+     * @return \Chamilo\CoreBundle\Entity\SkillRelUser
      */
-    public function setSessionId($sessionId)
+    public function setSession(Session $session)
     {
-        $this->sessionId = $sessionId;
+        $this->session = $session;
 
         return $this;
     }
 
     /**
-     * Get sessionId
-     *
-     * @return integer
+     * Get session
+     * @return \Chamilo\CoreBundle\Entity\Session
      */
-    public function getSessionId()
+    public function getSession()
     {
-        return $this->sessionId;
+        return $this->session;
     }
 
     /**

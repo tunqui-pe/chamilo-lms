@@ -30,7 +30,7 @@ class SkillRepository extends EntityRepository{
             'ChamiloCoreBundle:SkillRelUser',
             'su',
             Join::WITH,
-            's.id = su.skillId'
+            's.id = su.skill'
         )
         ->where(
             $qb->expr()->eq('su.userId', $user->getId())
