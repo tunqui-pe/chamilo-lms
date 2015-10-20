@@ -36,7 +36,10 @@ $userSkills = $skillUserRepo->findBy([
 
 if (!$userSkills) {
     Display::addFlash(
-        Display::return_message(get_lang('TheUserXNotYetAchievedTheSkillX'), 'error')
+        Display::return_message(
+            sprintf(get_lang('TheUserXNotYetAchievedTheSkillX'), $user->getCompleteName(), $skill->getName()),
+            'error'
+        )
     );
 
     header('Location: ' . api_get_path(WEB_PATH));
@@ -65,23 +68,28 @@ foreach ($userSkills as $userSkill) {
     $course = $userSkill->getCourse();
     $session = $userSkill->getSession();
 
-    $courseName = $course->getTitle();
+    $courseName = '';
 
     if ($session) {
-        $courseName = "[{$session->getName()}] {$course->getTitle()}";
+        $courseName = "[{$session->getName()}] ";
+    }
+
+    if ($course) {
+        $courseName .= $course->getTitle();
     }
 
     $userSkillDate = api_get_local_time($userSkill->getAcquiredSkillAt());
     $skillInfo['courses'][] = [
         'name' => $courseName,
-        'date_issued' => api_format_date($userSkillDate, DATE_TIME_FORMAT_LONG)
+        'date_issued' => api_format_date($userSkillDate, DATE_TIME_FORMAT_LONG),
+        'argumentation' => $userSkill->getArgumentation()
     ];
 
     $assertionUrl = api_get_path(WEB_CODE_PATH) . "badge/assertion.php?";
     $assertionUrl .= http_build_query(array(
         'user' => $user->getId(),
         'skill' => $skill->getId(),
-        'course' => $course->getId(),
+        'course' => $course ? $course->getId() : 0,
         'session' => $session ? $session->getId() : 0
     ));
 
