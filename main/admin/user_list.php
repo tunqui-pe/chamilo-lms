@@ -528,6 +528,15 @@ function modify_filter($user_id, $url_params, $row) {
 		}
 	}
 
+    $alloAssignSkill = api_is_platform_admin(false, true);
+
+    if ($alloAssignSkill) {
+        $result .= Display::url(
+            Display::return_icon('skill-badges.png', get_lang('AssignSkill'), null, ICON_SIZE_SMALL),
+            get_lang('AssignSkill')
+        );
+    }
+
 	if ($is_admin) {
 		$result .= Display::return_icon('admin_star.png', get_lang('IsAdministrator'),array('width'=> ICON_SIZE_SMALL, 'heigth'=> ICON_SIZE_SMALL));
 	} else {

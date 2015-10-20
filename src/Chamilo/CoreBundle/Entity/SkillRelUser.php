@@ -47,7 +47,7 @@ class SkillRelUser
 
     /**
      * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="issuedSkills", cascade={"persist"})
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      */
     private $course;
 
@@ -65,6 +65,13 @@ class SkillRelUser
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="argumentation", type="text")
+     */
+    private $argumentation;
 
     /**
      * Set user
@@ -204,5 +211,26 @@ class SkillRelUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set argumentation
+     * @param string $argumentation
+     * @return \Chamilo\CoreBundle\Entity\SkillRelUser
+     */
+    public function setArgumentation($argumentation)
+    {
+        $this->argumentation = $argumentation;
+
+        return $this;
+    }
+
+    /**
+     * Get argumentation
+     * @return string
+     */
+    public function getArgumentation()
+    {
+        return $this->argumentation;
     }
 }

@@ -24,6 +24,8 @@ if (!api_is_allowed_to_create_course() &&
     }
 }
 
+$alloAssignSkill = api_is_platform_admin(false, true);
+
 $htmlHeadXtra[] = '<script>
 function show_image(image,width,height) {
 	width = parseInt(width) + 20;
@@ -339,7 +341,14 @@ if (!empty($student_id)) {
     }
     if (api_can_login_as($student_id)) {
         echo '<a href="'.api_get_path(WEB_CODE_PATH).'admin/user_list.php?action=login_as&user_id='.$student_id.'&sec_token='.$token.'">'.
-            Display::return_icon('login_as.png', get_lang('LoginAs'), null, ICON_SIZE_MEDIUM).'</a>&nbsp;&nbsp;';
+            Display::return_icon('login_as.png', get_lang('LoginAs'), null, ICON_SIZE_MEDIUM).'</a>';
+    }
+
+    if ($alloAssignSkill) {
+        echo Display::url(
+            Display::return_icon('skill-badges.png', get_lang('AssignSkill'), null, ICON_SIZE_MEDIUM),
+            api_get_path(WEB_CODE_PATH) . 'badge/assign.php?' . http_build_query(['user' => $student_id])
+        );
     }
 
     echo '</div>';

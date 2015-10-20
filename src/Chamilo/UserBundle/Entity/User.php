@@ -1576,4 +1576,22 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
     {
         return $this->achievedSkills;
     }
+
+    /**
+     * Check if the user has the skill
+     * @param \Chamilo\CoreBundle\Entity\Skill $skill The skill
+     * @return boolean
+     */
+    public function hasSkill(\Chamilo\CoreBundle\Entity\Skill $skill)
+    {
+        $achievedSkills = $this->getAchievedSkills();
+
+        foreach ($achievedSkills as $userSkill) {
+            if ($userSkill->getSkill()->getId() !== $skill->getId()) {
+                continue;
+            }
+
+            return true;
+        }
+    }
 }
