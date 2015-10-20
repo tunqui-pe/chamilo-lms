@@ -533,7 +533,7 @@ function modify_filter($user_id, $url_params, $row) {
     if ($alloAssignSkill) {
         $result .= Display::url(
             Display::return_icon('skill-badges.png', get_lang('AssignSkill'), null, ICON_SIZE_SMALL),
-            get_lang('AssignSkill')
+            api_get_path(WEB_CODE_PATH) . 'badge/assign.php?' . http_build_query(['user' => $user_id])
         );
     }
 
