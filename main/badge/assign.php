@@ -60,7 +60,7 @@ if ($form->validate()) {
     if ($user->hasSkill($skill)) {
         Display::addFlash(
             Display::return_message(
-                sprintf(get_lang('TheUserXHasAlreadyAchievedTheSkillX'), $user->getCompleteName(), $skill->getName()),
+                sprintf(get_lang('TheUserXHasAlreadyAchievedTheSkillY'), $user->getCompleteName(), $skill->getName()),
                 'warning'
             )
         );
@@ -81,7 +81,7 @@ if ($form->validate()) {
 
     Display::addFlash(
         Display::return_message(
-            sprintf(get_lang('SkillXAssignedToUserX'), $skill->getName(), $user->getCompleteName()),
+            sprintf(get_lang('SkillXAssignedToUserY'), $skill->getName(), $user->getCompleteName()),
             'success'
         )
     );
