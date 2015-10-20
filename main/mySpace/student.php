@@ -188,7 +188,7 @@ if (api_is_drh()) {
         Display::url(Display::return_icon('session.png', get_lang('Sessions'), array(), ICON_SIZE_MEDIUM), 'session.php'),
         Display::url(
             Display::return_icon('skills.png', get_lang('Skills'), array(), ICON_SIZE_MEDIUM),
-            'skills.php'
+            api_get_path(WEB_CODE_PATH) . 'social/skills_ranking.php'
         )
     );
 
