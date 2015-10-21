@@ -201,16 +201,25 @@ class Skill
     }
 
     /**
-     * Get the icon URL
+     * Get the icon (badge image) URL
+     * @param boolean $getSmall Optional. Allow get the small image
      * @return string
      */
-    public function getWebIconPath()
+    public function getWebIconPath($getSmall = false)
     {
-        if ($this->getIcon()) {
-            return api_get_path(WEB_UPLOAD_PATH) . "badges/{$this->getIcon()}";
+        if ($getSmall) {
+            if (empty($this->icon)) {
+                return \Display::return_icon('badges-default.png', null, null, ICON_SIZE_BIG, null, true);
+            }
+
+            return api_get_path(WEB_UPLOAD_PATH) . 'badges/' . sha1($this->name) . '-small.png';
         }
 
-        return \Display::return_icon('badges-default.png', null, null, ICON_SIZE_HUGE, null, true);
+        if (empty($this->icon)) {
+            return \Display::return_icon('badges-default.png', null, null, ICON_SIZE_HUGE, null, true);
+        }
+
+        return api_get_path(WEB_UPLOAD_PATH) . "badges/{$this->icon}";
     }
 
     /**
