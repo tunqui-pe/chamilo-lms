@@ -56,21 +56,16 @@ if (isset($_GET['origin'])) {
 }
 
 /* Header and Breadcrumbs */
-$gradebook = null;
-if (isset($_SESSION['gradebook'])) {
-    $gradebook=	$_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
 
 $current_forum_category = get_forum_categories($_GET['forumcategory']);
 $interbreadcrumb[] = array(
-    'url' => 'index.php?gradebook=' . $gradebook . '&search='
+    'url' => 'index.php?'.api_get_cidreq().'&search='
         . Security::remove_XSS(urlencode(isset($_GET['search']) ? $_GET['search'] : '')),
     'name' => get_lang('Forum')
 );
@@ -117,7 +112,7 @@ if (
 /* Action Links */
 $html  = '';
 $html .= '<div class="actions">';
-$html .= '<a href="index.php?gradebook='.$gradebook.'&'.api_get_cidreq().'">'.
+$html .= '<a href="index.php?'.api_get_cidreq().'">'.
     Display::return_icon('back.png', get_lang('BackToForumOverview'), '', ICON_SIZE_MEDIUM).'</a>';
 if (api_is_allowed_to_edit(false,true)) {
     $html .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&forumcategory='

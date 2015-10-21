@@ -26,7 +26,6 @@ if (isset($_GET['origin'])) {
     $origin =  Security::remove_XSS($_GET['origin']);
 }
 $my_search = null;
-$gradebook = null;
 
 /* MAIN DISPLAY SECTION */
 
@@ -41,16 +40,12 @@ $current_thread	= get_thread_information($_GET['thread']);
 $current_forum	= get_forum_information($current_thread['forum_id']);
 $current_forum_category	= get_forumcategory_information($current_forum['forum_category']);
 $whatsnew_post_info = isset($_SESSION['whatsnew_post_info']) ? $_SESSION['whatsnew_post_info'] : null;
+
 /* Header and Breadcrumbs */
 
-if (!empty($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
-    $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
-    $gradebook = $_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array (
-        'url' => '../gradebook/' . $_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
@@ -83,9 +78,7 @@ if ($origin == 'group') {
         Display::display_reduced_header();
     } else {
         $interbreadcrumb[] = array(
-            'url' => 'index.php?'
-                . (isset($gradebook) ? "gradebook=$gradebook&" : '')
-                . 'search=' . Security::remove_XSS(urlencode($my_search)),
+            'url' => 'index.php?'.api_get_cidreq().'&search=' . Security::remove_XSS(urlencode($my_search)),
             'name' => $nameTools
         );
         $interbreadcrumb[] = array(

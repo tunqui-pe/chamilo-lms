@@ -36,18 +36,17 @@ if (!$is_allowedToEdit) {
     api_not_allowed(true);
 }
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook=	$_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook=='view') {
-    $interbreadcrumb[]= array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
 
-$interbreadcrumb[]=array("url" => "exercise.php","name" => get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    "name" => get_lang('Exercises'),
+);
 
 $nameTools = get_lang('adminHP');
 

@@ -379,7 +379,7 @@ if (!isset($_GET['exportpdf']) and !isset($_GET['export_certificate'])) {
             'name' => get_lang('ToolGradebook')
         );
         Display :: display_header(get_lang('FlatView'));
-    } elseif (isset ($_GET['search'])) {
+    } elseif (isset($_GET['search'])) {
         if ($_SESSION['gradebook_dest'] == 'index.php') {
             $gradebook_dest = Security::remove_XSS($_SESSION['gradebook_dest']).'?cidReq='.Security::remove_XSS($_GET['course']).'&amp;';
         } else {

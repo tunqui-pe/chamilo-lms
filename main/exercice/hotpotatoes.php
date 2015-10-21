@@ -17,16 +17,13 @@ if (!api_is_allowed_to_edit(null, true)) {
     api_not_allowed();
 }
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook = $_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
+
 // The breadcrumbs.
 $interbreadcrumb[] = array('url' => './exercise.php', 'name' => get_lang('Exercises'));
 

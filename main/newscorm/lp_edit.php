@@ -17,19 +17,21 @@ Event::event_access_tool(TOOL_LEARNPATH);
 
 api_protect_course_script();
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook = $_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
-$interbreadcrumb[] = array('url' => 'lp_controller.php?action=list', 'name' => get_lang('LearningPaths'));
-$interbreadcrumb[] = array('url' => api_get_self()."?action=build&lp_id=".$_SESSION['oLP']->get_id(), 'name' => $_SESSION['oLP']->get_name());
-//$interbreadcrumb[] = array('url' => api_get_self()."?action=add_item&type=step&lp_id=$learnpath_id", 'name' => get_lang('NewStep'));
+
+$interbreadcrumb[] = array(
+    'url' => 'lp_controller.php?action=list&'.api_get_cidreq(),
+    'name' => get_lang('LearningPaths'),
+);
+$interbreadcrumb[] = array(
+    'url' => api_get_self()."?action=build&lp_id=".$_SESSION['oLP']->get_id().'&'.api_get_cidreq(),
+    'name' => $_SESSION['oLP']->get_name()
+);
 
 $htmlHeadXtra[] = '<script>
 function activate_start_date() {
@@ -49,8 +51,6 @@ function activate_end_date() {
 }
 
 </script>';
-
-$gradebook = isset($_GET['gradebook']) ? Security::remove_XSS($_GET['gradebook']) : null;
 
 $defaults=array();
 $form = new FormValidator('form1', 'post', 'lp_controller.php');
@@ -93,7 +93,13 @@ $content_proximity_select->addOption(get_lang('Local'), 'local');
 $content_proximity_select->addOption(get_lang('Remote'), 'remote');
 */
 //Hide toc frame
-$hide_toc_frame = $form->addElement('checkbox', 'hide_toc_frame', null, get_lang('HideTocFrame'),array('onclick' => '$("#lp_layout_column").toggle()' ));
+$hide_toc_frame = $form->addElement(
+    'checkbox',
+    'hide_toc_frame',
+    null,
+    get_lang('HideTocFrame'),
+    array('onclick' => '$("#lp_layout_column").toggle()')
+);
 if (api_get_setting('allow_course_theme') == 'true') {
     $mycourselptheme = api_get_course_setting('allow_learning_path_theme');
     if (!empty($mycourselptheme) && $mycourselptheme!=-1 && $mycourselptheme== 1) {
@@ -107,7 +113,17 @@ if (api_get_setting('allow_course_theme') == 'true') {
 }
 
 // Author
-$form->addElement('html_editor', 'lp_author', get_lang('Author'), array('size' => 80), array('ToolbarSet' => 'LearningPathAuthor', 'Width' => '100%', 'Height' => '150px') );
+$form->addElement(
+    'html_editor',
+    'lp_author',
+    get_lang('Author'),
+    array('size' => 80),
+    array(
+        'ToolbarSet' => 'LearningPathAuthor',
+        'Width' => '100%',
+        'Height' => '150px',
+    )
+);
 $form->applyFilter('lp_author', 'html_filter');
 
 // LP image
@@ -126,8 +142,17 @@ $form->addRule('lp_preview_image', get_lang('OnlyImagesAllowed'), 'filetype', ar
 if (api_get_setting('search_enabled') === 'true') {
     $specific_fields = get_specific_field_list();
     foreach ($specific_fields as $specific_field) {
-        $form -> addElement ('text', $specific_field['code'], $specific_field['name']);
-        $filter = array('c_id'=> "'". api_get_course_int_id() ."'", 'field_id' => $specific_field['id'], 'ref_id' => $_SESSION['oLP']->lp_id, 'tool_id' => '\''. TOOL_LEARNPATH .'\'');
+        $form->addElement(
+            'text',
+            $specific_field['code'],
+            $specific_field['name']
+        );
+        $filter = array(
+            'c_id' => "'".api_get_course_int_id()."'",
+            'field_id' => $specific_field['id'],
+            'ref_id' => $_SESSION['oLP']->lp_id,
+            'tool_id' => '\''.TOOL_LEARNPATH.'\'',
+        );
         $values = get_specific_field_values_list($filter, array('value'));
         if (!empty($values)) {
             $arr_str_values = array();

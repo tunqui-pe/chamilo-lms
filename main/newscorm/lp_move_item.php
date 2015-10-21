@@ -78,20 +78,25 @@ $therow = Database::fetch_array($result);
 */
 /* SHOWING THE ADMIN TOOLS */
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook=	$_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
 
-$interbreadcrumb[] = array('url' => 'lp_controller.php?action=list', 'name' => get_lang('LearningPaths'));
-$interbreadcrumb[] = array('url' => api_get_self()."?action=build&lp_id=$learnpath_id", 'name' => stripslashes("{$therow['name']}"));
-$interbreadcrumb[] = array('url' => api_get_self()."?action=add_item&type=step&lp_id=$learnpath_id", 'name' => get_lang('NewStep'));
+$interbreadcrumb[] = array(
+    'url' => 'lp_controller.php?action=list?'.api_get_cidreq(),
+    'name' => get_lang('LearningPaths'),
+);
+$interbreadcrumb[] = array(
+    'url' => api_get_self()."?action=build&lp_id=$learnpath_id&".api_get_cidreq(),
+    'name' => stripslashes("{$therow['name']}"),
+);
+$interbreadcrumb[] = array(
+    'url' => api_get_self()."?action=add_item&type=step&lp_id=$learnpath_id&".api_get_cidreq(),
+    'name' => get_lang('NewStep'),
+);
 
 // Theme calls
 $show_learn_path = true;

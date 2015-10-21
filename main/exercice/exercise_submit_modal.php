@@ -14,7 +14,6 @@ require_once api_get_path(LIBRARY_PATH).'geometry.lib.php';
 Display::display_reduced_header();
 $message = null;
 $dbg_local = 0;
-$gradebook = null;
 
 $final_overlap = null;
 $final_missing = null;
@@ -108,7 +107,7 @@ if (empty($choice_value)) {
 	// IMPORTANT
 	//this is the real redirect function
 	//echo 'window.location.href = "exercise_submit_modal.php?learnpath_id='.$learnpath_id.'&learnpath_item_id='.$learnpath_item_id.'&hotspotcoord="+ hotspotcoord + "&hotspot="+ hotspot + "&choice="+ choice_js + "&exerciseId='.$exerciseId.'&num='.$questionNum.'&exerciseType='.$exerciseType.'&origin='.$origin.'&gradebook='.$gradebook.'";';
-    echo ' url = "exercise_submit_modal.php?learnpath_id='.$learnpath_id.'&learnpath_item_id='.$learnpath_item_id.'&hotspotcoord="+ hotspotcoord + "&hotspot="+ hotspot + "&choice="+ choice_js + "&exerciseId='.$exerciseId.'&num='.$questionNum.'&exerciseType='.$exerciseType.'&origin='.$origin.'&gradebook='.$gradebook.'";';
+    echo ' url = "exercise_submit_modal.php?learnpath_id='.$learnpath_id.'&learnpath_item_id='.$learnpath_item_id.'&hotspotcoord="+ hotspotcoord + "&hotspot="+ hotspot + "&choice="+ choice_js + "&exerciseId='.$exerciseId.'&num='.$questionNum.'&exerciseType='.$exerciseType.'&origin='.$origin.'";';
     echo "$('#dialog').load(url);	";
 	echo '</script>';
 }

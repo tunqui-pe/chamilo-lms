@@ -3225,18 +3225,14 @@ class learnpath
         $html = '';
 
         if ($is_allowed_to_edit && $hide_teacher_icons_lp == false) {
-            $gradebook = '';
-            if (!empty($_GET['gradebook'])) {
-                $gradebook = Security:: remove_XSS($_GET['gradebook']);
-            }
             if ($this->get_lp_session_id() == api_get_session_id()) {
                 $html .= '<div id="actions_lp" class="actions_lp">';
                 $html .= '<div class="btn-group">';
-                $html .= "<a class='btn btn-sm btn-default' href='lp_controller.php?" . api_get_cidreq()."&gradebook=$gradebook&action=build&lp_id=" . $this->lp_id . "' target='_parent'>" .
+                $html .= "<a class='btn btn-sm btn-default' href='lp_controller.php?" . api_get_cidreq()."&action=build&lp_id=" . $this->lp_id . "' target='_parent'>" .
                     Display::returnFontAwesomeIcon('street-view') . get_lang('Overview') . "</a>";
                 $html .= "<a class='btn btn-sm btn-default' href='lp_controller.php?" . api_get_cidreq()."&action=add_item&type=step&lp_id=" . $this->lp_id . "' target='_parent'>" .
                     Display::returnFontAwesomeIcon('pencil') . get_lang('Edit') . "</a>";
-                $html .= '<a class="btn btn-sm btn-default" href="lp_controller.php?'.api_get_cidreq()."&gradebook=$gradebook&action=edit&lp_id=" . $this->lp_id.'">' .
+                $html .= '<a class="btn btn-sm btn-default" href="lp_controller.php?'.api_get_cidreq()."&action=edit&lp_id=" . $this->lp_id.'">' .
                     Display::returnFontAwesomeIcon('cog') . get_lang('Settings').'</a>';
                 $html .= '</div>';
                 $html .= '</div>';
@@ -5758,9 +5754,8 @@ class learnpath
      */
     public function build_action_menu($returnContent = false)
     {
-        $gradebook = isset($_GET['gradebook']) ? Security :: remove_XSS($_GET['gradebook']) : null;
         $return = '<div class="actions">';
-        $return .=  '<a href="lp_controller.php?'.api_get_cidreq().'&gradebook=' . $gradebook . '&action=view&lp_id=' . $_SESSION['oLP']->lp_id . '&isStudentView=true">' . Display :: return_icon('preview_view.png', get_lang('Display'),'',ICON_SIZE_MEDIUM).'</a> ';
+        $return .=  '<a href="lp_controller.php?'.api_get_cidreq().'&action=view&lp_id=' . $_SESSION['oLP']->lp_id . '&isStudentView=true">' . Display :: return_icon('preview_view.png', get_lang('Display'),'',ICON_SIZE_MEDIUM).'</a> ';
         $return .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=admin_view&lp_id=' . $_SESSION['oLP']->lp_id . '&updateaudio=true">' . Display :: return_icon('upload_audio.png', get_lang('UpdateAllAudioFragments'),'',ICON_SIZE_MEDIUM).'</a>';
         $return .= '<a href="lp_controller.php?'.api_get_cidreq().'&action=edit&lp_id=' . $_SESSION['oLP']->lp_id . '">' . Display :: return_icon('settings.png', get_lang('CourseSettings'),'',ICON_SIZE_MEDIUM).'</a>';
         $buttons = array(
@@ -7155,9 +7150,7 @@ class learnpath
 
         unset ($this->arrMenu);
 
-        $gradebook = isset($_GET['gradebook']) ? Security :: remove_XSS($_GET['gradebook']) : null;
-
-        $url = api_get_self() . '?' .api_get_cidreq().'&gradeboook='.$gradebook.'&action='.$action.'&type='.$item_type.'&lp_id='.$this->lp_id;
+        $url = api_get_self() . '?' .api_get_cidreq().'&action='.$action.'&type='.$item_type.'&lp_id='.$this->lp_id;
 
         $form = new FormValidator('form', 'POST',  $url);
 

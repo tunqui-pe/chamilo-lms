@@ -32,16 +32,21 @@ if (!$result) {
     api_not_allowed(true);
 }
 
-$gradebook = isset($_GET['gradebook']) ? Security :: remove_XSS($_GET['gradebook']) : null;
 $learnpath_id = isset($_REQUEST['learnpath_id']) ? intval($_REQUEST['learnpath_id']) : null;
 $learnpath_item_id = isset($_REQUEST['learnpath_item_id']) ? intval($_REQUEST['learnpath_item_id']) : null;
 $origin = isset($_REQUEST['origin']) ? Security::remove_XSS($_REQUEST['origin']) : null;
-
-$interbreadcrumb[] = array("url" => "exercise.php?gradebook=$gradebook", "name" => get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    "name" => get_lang('Exercises'),
+);
 $interbreadcrumb[] = array("url" => "#", "name" => $objExercise->name);
 
 $time_control = false;
-$clock_expired_time = ExerciseLib::get_session_time_control_key($objExercise->id, $learnpath_id, $learnpath_item_id);
+$clock_expired_time = ExerciseLib::get_session_time_control_key(
+    $objExercise->id,
+    $learnpath_id,
+    $learnpath_item_id
+);
 
 if ($objExercise->expired_time != 0 && !empty($clock_expired_time)) {
     $time_control = true;

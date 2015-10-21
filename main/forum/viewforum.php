@@ -97,14 +97,9 @@ if (!empty($groupId)) {
 $my_search = isset($_GET['search']) ? $_GET['search'] : '';
 $my_action = isset($_GET['action']) ? $_GET['action'] : '';
 
-$gradebook = null;
-if (isset($_SESSION['gradebook'])){
-    $gradebook = $_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
@@ -118,7 +113,7 @@ $forumUrl = api_get_path(WEB_CODE_PATH).'forum/';
 
 if ($origin == 'group') {
     $interbreadcrumb[] = array(
-        'url' => api_get_path(WEB_CODE_PATH) . 'group/group.php',
+        'url' => api_get_path(WEB_CODE_PATH) . 'group/group.php?'.api_get_cidreq(),
         'name' => get_lang('Groups')
     );
     $interbreadcrumb[] = array(
@@ -345,8 +340,7 @@ echo '<div class="actions">';
 
 if ($origin != 'learnpath') {
     if ($origin=='group') {
-        echo '<a href="' . api_get_path(WEB_CODE_PATH) . 'group/group_space.php?'
-            . api_get_cidreq() . '&gradebook=' . $gradebook . '">'
+        echo '<a href="' . api_get_path(WEB_CODE_PATH) . 'group/group_space.php?'. api_get_cidreq().'">'
             . Display::return_icon('back.png', get_lang('BackTo')
             . ' ' . get_lang('Groups'), '', ICON_SIZE_MEDIUM) . '</a>';
     } else {

@@ -59,16 +59,13 @@ $groupId = api_get_group_id();
 /*
     Header and Breadcrumbs
 */
-if (isset($_SESSION['gradebook'])){
-    $gradebook=	$_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook=='view') {
-    $interbreadcrumb[]= array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
+
 
 if ($origin == 'learnpath') {
     Display::display_reduced_header();
@@ -76,7 +73,7 @@ if ($origin == 'learnpath') {
     if (!empty($groupId)) {
         $group_properties  = GroupManager::get_group_properties($groupId);
         $interbreadcrumb[] = array(
-            "url" => "../group/group.php",
+            "url" => "../group/group.php?".api_get_cidreq(),
             "name" => get_lang('Groups'),
         );
         $interbreadcrumb[] = array(
@@ -84,12 +81,12 @@ if ($origin == 'learnpath') {
             "name"=> get_lang('GroupSpace').' ('.$group_properties['name'].')'
         );
         $interbreadcrumb[] = array(
-            "url" => "viewforum.php?forum=".Security::remove_XSS($_GET['forum'])."&origin=".$origin."&search=".Security::remove_XSS(urlencode($_GET['search'])),
+            "url" => "viewforum.php?forum=".intval($_GET['forum'])."&origin=".$origin."&search=".Security::remove_XSS(urlencode($_GET['search'])),
             "name" => prepare4display($currentForum['forum_title'])
         );
         if ($message <> 'PostDeletedSpecial') {
             $interbreadcrumb[]= array(
-                "url" => "viewthread.php?forum=".Security::remove_XSS($_GET['forum'])."&gradebook=".$gradebook."&thread=".Security::remove_XSS($_GET['thread']),
+                "url" => "viewthread.php?forum=".intval($_GET['forum'])."&thread=".intval($_GET['thread']),
                 "name" => prepare4display($currentThread['thread_title'])
             );
         }

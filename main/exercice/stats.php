@@ -6,8 +6,6 @@ require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 
 $exercise_id = isset($_GET['exerciseId']) && !empty($_GET['exerciseId']) ? intval($_GET['exerciseId']) : 0;
-$gradebook = isset($gradebook) ? $gradebook : null;
-
 $objExercise = new Exercise();
 $result = $objExercise->read($exercise_id);
 
@@ -276,8 +274,14 @@ foreach ($data as $row_table) {
 }
 $content .= $table->toHtml();
 
-$interbreadcrumb[] = array("url" => "exercise.php?gradebook=$gradebook&".api_get_cidreq(), "name" => get_lang('Exercises'));
-$interbreadcrumb[] = array("url" => "admin.php?exerciseId=$exercise_id&".api_get_cidreq(), "name" => $objExercise->name);
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    "name" => get_lang('Exercises'),
+);
+$interbreadcrumb[] = array(
+    "url" => "admin.php?exerciseId=$exercise_id&".api_get_cidreq(),
+    "name" => $objExercise->name,
+);
 
 $tpl = new Template(get_lang('ReportByQuestion'));
 $actions = '<a href="exercise_report.php?exerciseId='.intval($_GET['exerciseId']).'&'.api_get_cidreq().'">' .
