@@ -37,14 +37,45 @@
                 {% endif %}
             </li>
         </ul>
-        <hr>
         {% if allow_export %}
+            <hr>
             <p class="text-center">
                 <a href="#" class="btn btn-success" id="badge-export-button">
                     <em class="fa fa-external-link-square fa-fw"></em> {{ 'ExportBadge'|get_lang }}
                 </a>
             </p>
         {% endif %}
+        <hr>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{ 'Comments'|get_lang }}
+            </div>
+            <div class="panel-body">
+                {% if not allow_export %}
+                    {{ comment_form }}
+                    <hr>
+                {% endif %}
+                {% for comment in issue_info.comments %}
+                    <article class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ comment.giver_complete_name }}</h4>
+                            <p><small>{{ comment.datetime }}</small></p>
+                            <p>{{ comment.text }}</p>
+                        </div>
+                        <div class="media-right text-right">
+                            <div style="width: 80px;">
+                                {% if comment.value %}
+                                    <em class="fa fa-certificate fa-fw" aria-label="{{ 'SkillEvaluation' }}"></em>
+                                    <span class="sr-only">{{ 'SkillEvaluation' }}</span> {{ comment.value }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                {% else %}
+                    <p>{{ 'WithoutComment'|get_lang }}</p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% if allow_export %}
