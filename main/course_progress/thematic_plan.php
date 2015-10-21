@@ -32,47 +32,46 @@ echo $thematic_data['content'];
 if (isset($message) && $message == 'ok') {
     Display::display_normal_message(get_lang('ThematicSectionHasBeenCreatedSuccessfull'));
 }
-$param_gradebook = null;
 if ($action == 'thematic_plan_list') {
-        $form = new FormValidator(
-            'thematic_plan_add',
-            'POST',
-            'index.php?action=thematic_plan_list&thematic_id='.$thematic_id.'&'.api_get_cidreq().$param_gradebook
+    $form = new FormValidator(
+        'thematic_plan_add',
+        'POST',
+        'index.php?action=thematic_plan_list&thematic_id='.$thematic_id.'&'.api_get_cidreq()
+    );
+    $form->addElement('hidden', 'action', 'thematic_plan_add');
+    //$form->addElement('hidden', 'thematic_plan_token', $token);
+    $form->addElement('hidden', 'thematic_id', $thematic_id);
+
+    foreach ($default_thematic_plan_title as $id => $title) {
+        $form->addElement('hidden', 'description_type['.$id.']', $id);
+        $form->addText('title['.$id.']', get_lang('Title'), false, array('size'=>'50'));
+        $form->addHtmlEditor(
+           'description['.$id.']',
+           get_lang('Description'),
+           false,
+           false,
+           array(
+               'ToolbarStartExpanded' => 'false',
+               'ToolbarSet' => 'TrainingDescription',
+               'Height' => '150'
+           )
         );
-        $form->addElement('hidden', 'action', 'thematic_plan_add');
-        //$form->addElement('hidden', 'thematic_plan_token', $token);
-        $form->addElement('hidden', 'thematic_id', $thematic_id);
 
-        foreach ($default_thematic_plan_title as $id => $title) {
-            $form->addElement('hidden', 'description_type['.$id.']', $id);
-            $form->addText('title['.$id.']', get_lang('Title'), false, array('size'=>'50'));
-            $form->addHtmlEditor(
-               'description['.$id.']',
-               get_lang('Description'),
-               false,
-               false,
-               array(
-                   'ToolbarStartExpanded' => 'false',
-                   'ToolbarSet' => 'TrainingDescription',
-                   'Height' => '150'
-               )
-            );
-
-            if (!empty($thematic_simple_list) && in_array($id, $thematic_simple_list)) {
-                $thematic_plan = $new_thematic_plan_data[$id];
-                // set default values
-                $default['title['.$id.']']       = $thematic_plan['title'];
-                $default['description['.$id.']'] = $thematic_plan['description'];
-                $thematic_plan = null;
-            } else {
-                $thematic_plan = null;
-                $default['title['.$id.']']       = $title;
-                $default['description['.$id.']']= '';
-            }
-            $form->setDefaults($default);
+        if (!empty($thematic_simple_list) && in_array($id, $thematic_simple_list)) {
+            $thematic_plan = $new_thematic_plan_data[$id];
+            // set default values
+            $default['title['.$id.']']       = $thematic_plan['title'];
+            $default['description['.$id.']'] = $thematic_plan['description'];
+            $thematic_plan = null;
+        } else {
+            $thematic_plan = null;
+            $default['title['.$id.']']       = $title;
+            $default['description['.$id.']']= '';
         }
-        $form->addButtonSave(get_lang('Save'));
-        $form->display();
+        $form->setDefaults($default);
+    }
+    $form->addButtonSave(get_lang('Save'));
+    $form->display();
 } elseif ($action == 'thematic_plan_add' || $action == 'thematic_plan_edit') {
     if ($description_type >= ADD_THEMATIC_PLAN) {
         $header_form = get_lang('NewBloc');
@@ -88,8 +87,7 @@ if ($action == 'thematic_plan_list') {
     $form = new FormValidator(
         'thematic_plan_add',
         'POST',
-        'index.php?action=thematic_plan_edit&thematic_id='.$thematic_id.'&'.api_get_cidreq(
-        ).$param_gradebook,
+        'index.php?action=thematic_plan_edit&thematic_id='.$thematic_id.'&'.api_get_cidreq(),
         '',
         'style="width: 100%;"'
     );
