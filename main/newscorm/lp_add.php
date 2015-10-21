@@ -68,23 +68,23 @@ if ((!$is_allowed_to_edit) || ($isStudentView)) {
     Course admin section
     - all the functions not available for students - always available in this case (page only shown to admin)
 */
-if (isset($_SESSION['gradebook'])){
-    $gradebook = $_SESSION['gradebook'];
-}
 
-if (!empty($gradebook) && $gradebook=='view') {
-    $interbreadcrumb[]= array (
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
 
-$interbreadcrumb[] = array('url' => 'lp_controller.php?action=list', 'name' => get_lang('LearningPaths'));
+$interbreadcrumb[] = array(
+    'url' => 'lp_controller.php?action=list&'.api_get_cidreq(),
+    'name' => get_lang('LearningPaths'),
+);
 
 Display::display_header(get_lang('LearnpathAddLearnpath'), 'Path');
 
 echo '<div class="actions">';
-echo '<a href="lp_controller.php?cidReq='.$_course['sysCode'].'">'.
+echo '<a href="lp_controller.php?'.api_get_cidreq().'">'.
         Display::return_icon('back.png', get_lang('ReturnToLearningPaths'),'',ICON_SIZE_MEDIUM).'</a>';
 echo '</div>';
 

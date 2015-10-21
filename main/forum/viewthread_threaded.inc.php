@@ -150,13 +150,13 @@ $class_next = '';
 // Links
 $first_href = $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
-    '&gradebook=' . $gradebook . '&id=1&post=' . $prev_next_array[0];
+    '&id=1&post=' . $prev_next_array[0];
 $last_href 	= $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
-    '&gradebook=' . $gradebook . '&post=' . $prev_next_array[$max-1];
+    '&post=' . $prev_next_array[$max-1];
 $prev_href	= $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
-    '&gradebook=' . $gradebook . '&post=' . $prev_next_array[$prev_id];
+    '&post=' . $prev_next_array[$prev_id];
 $next_href	= $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
     '&post=' . $prev_next_array[$next_id];

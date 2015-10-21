@@ -11,7 +11,6 @@
 
 // including files
 require_once '../inc/global.inc.php';
-
 require_once 'attendance_controller.php';
 require_once api_get_path(SYS_CODE_PATH).'gradebook/lib/fe/exportgradebook.php';
 
@@ -168,15 +167,6 @@ $(function() {
 
 </script>';
 
-// interbreadcrumbs
-if (!empty($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
-    $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
-    $gradebook = $_SESSION['gradebook'];
-} elseif (empty($_GET['gradebook'])) {
-    unset($_SESSION['gradebook']);
-    $gradebook = '';
-}
-
 $student_param = '';
 $student_id = null;
 if (api_is_drh() && isset($_GET['student_id'])) {
@@ -188,7 +178,7 @@ if (api_is_drh() && isset($_GET['student_id'])) {
         'name' => $student_info['complete_name']
     );
 }
-if (!empty($gradebook)) {
+if (api_is_in_gradebook()) {
     $interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php', 'name' => get_lang('ToolGradebook'));
 }
 $interbreadcrumb[] = array('url' => 'index.php?'.api_get_cidreq().'&action=attendance_list&'.$student_param, 'name' => get_lang('ToolAttendance'));

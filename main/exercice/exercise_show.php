@@ -104,12 +104,11 @@ if (!$is_allowedToEdit) {
     }
 }
 
-if (isset($_SESSION['gradebook'])) {
-	$gradebook=	Security::remove_XSS($_SESSION['gradebook']);
-}
-
-if (!empty($gradebook) && $gradebook=='view') {
-	$interbreadcrumb[]= array ('url' => '../gradebook/'.$_SESSION['gradebook_dest'],'name' => get_lang('ToolGradebook'));
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
+        'name' => get_lang('ToolGradebook')
+    );
 }
 
 $fromlink = '';

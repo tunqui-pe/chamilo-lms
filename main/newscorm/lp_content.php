@@ -90,19 +90,19 @@ if ($debug > 0) {
 }
 $_SESSION['oLP']->set_previous_item($lp_item_id);
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook = $_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
+
 // Define the 'doc.inc.php' as language file.
 $nameTools = $_SESSION['oLP']->get_name();
-$interbreadcrumb[] = array('url' => './lp_list.php', 'name' => get_lang('Doc'));
+$interbreadcrumb[] = array(
+    'url' => './lp_list.php?'.api_get_cidreq(),
+    'name' => get_lang('Doc'),
+);
 // Update global setting to avoid displaying right menu.
 $save_setting = api_get_setting('show_navigation_menu');
 global $_setting;

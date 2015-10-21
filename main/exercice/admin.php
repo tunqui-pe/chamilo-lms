@@ -281,13 +281,9 @@ if ($editQuestion || $modifyQuestion || $newQuestion || $modifyAnswers) {
     $nameTools = get_lang('QuestionManagement');
 }
 
-if (isset($_SESSION['gradebook'])){
-    $gradebook=	$_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook=='view') {
+if (api_is_in_gradebook()) {
     $interbreadcrumb[]= array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }

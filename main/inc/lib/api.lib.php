@@ -1741,6 +1741,9 @@ function api_get_cidreq($addSessionId = true, $addGroupId = true)
     return $url;
 }
 
+/**
+ * @return bool
+ */
 function api_is_in_gradebook()
 {
     return Session::read('in_gradebook', false);
@@ -4237,7 +4240,7 @@ function api_display_language_form($hide_if_no_choice = false)
             jumpMenu("parent",this,0);
         });
     });
-    
+
     function jumpMenu(targ,selObj,restore){ // v3.0
         eval(targ+".location=\'"+selObj.options[selObj.selectedIndex].value+"\'");
         if (restore) selObj.selectedIndex=0;
@@ -4357,7 +4360,7 @@ function api_get_language_from_type($lang_type)
                     if ($c) {
                         $cidReq = $c;
                     }
-                } 
+                }
             }
             $_course = api_get_course_info($cidReq);
             if (isset($_course['language']) && !empty($_course['language']))

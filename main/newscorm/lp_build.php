@@ -64,21 +64,17 @@ $therow = Database::fetch_array($result);
 
 /* SHOWING THE ADMIN TOOLS */
 
-if (!empty($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
-    $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
-    $gradebook = $_SESSION['gradebook'];
-} elseif (empty($_GET['gradebook'])) {
-    unset($_SESSION['gradebook']);
-    $gradebook = '';
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array (
-        'url' => '../gradebook/' . $_SESSION['gradebook_dest'],
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('ToolGradebook')
     );
 }
-$interbreadcrumb[] = array('url' => 'lp_controller.php?action=list', 'name' => get_lang('LearningPaths'));
+
+$interbreadcrumb[] = array(
+    'url' => 'lp_controller.php?action=list&'.api_get_cidreq(),
+    'name' => get_lang('LearningPaths'),
+);
 $interbreadcrumb[] = array('url' => '#', "name" => $therow['name']);
 
 // Theme calls.
@@ -125,21 +121,12 @@ if (isset($is_success) && $is_success === true) {
     if ($is_new) {
         Display::display_normal_message(get_lang('LearnpathAdded'), false);
     }
-    // Display::display_normal_message(get_lang('LPCreatedAddChapterStep'), false);
-    $gradebook = isset($_GET['gradebook']) ? Security::remove_XSS($_GET['gradebook']) : null;
-
     echo Display::page_subheader(get_lang('LearnPathAddedTitle'));
-
     echo '<ul id="lp_overview" class="thumbnails">';
-
-    echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=add_item&type=step&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("NewStep"), get_lang('NewStepComment'), 'tools.png');
-
+    echo show_block('lp_controller.php?'.api_get_cidreq().'&action=add_item&type=step&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("NewStep"), get_lang('NewStepComment'), 'tools.png');
 //    echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=admin_view&updateaudio=true&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("BasicOverview"), get_lang('BasicOverviewComment'), 'audio.png');
-
-    echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=view&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Display"), get_lang('DisplayComment'), 'view.png');
-
+    echo show_block('lp_controller.php?'.api_get_cidreq().'&action=view&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Display"), get_lang('DisplayComment'), 'view.png');
     //echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=edit&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Settings"), null, 'reference.png');
-
     echo '</ul>';
 }
 echo '</div>';

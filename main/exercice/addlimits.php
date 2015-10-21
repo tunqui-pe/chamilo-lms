@@ -53,16 +53,13 @@ if (empty ($objExercise)) {
 $exercise_id = intval($_GET['exercise_id']);
 $is_allowedToEdit=$is_courseAdmin;
 
-if (isset($_SESSION['gradebook'])){
-	$gradebook=	$_SESSION['gradebook'];
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[]= array(
+        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
+        'name' => get_lang('ToolGradebook')
+    );
 }
 
-if (!empty($gradebook) && $gradebook=='view') {
-	$interbreadcrumb[]= array (
-			'url' => '../gradebook/'.Security::remove_XSS($_SESSION['gradebook_dest']),
-			'name' => get_lang('ToolGradebook')
-		);
-}
 $nameTools=get_lang('Exercises');
 $interbreadcrumb[] = array(
     "url" => "exercise.php",
