@@ -233,4 +233,50 @@ class SkillRelUser
     {
         return $this->argumentation;
     }
+
+    /**
+     * Get the source which the skill was obtained
+     * @return string
+     */
+    public function getSourceName()
+    {
+        $source = '';
+
+        if ($this->session) {
+            $source .= "[{$this->session->getName()}] ";
+        }
+
+        if ($this->course) {
+            $source .= $this->course->getTitle();
+        }
+
+        return $source;
+    }
+
+    /**
+     * Get the URL for the issue
+     * @return string
+     */
+    public function getIssueUrl()
+    {
+        return api_get_path(WEB_PATH) . "badge/issue/{$this->id}/user/{$this->user->getId()}/";
+    }
+
+    /**
+     * Get the URL for the assertion
+     * @return string
+     */
+    public function getAssertionUrl()
+    {
+        $url = api_get_path(WEB_CODE_PATH) . "badge/assertion.php?";
+
+        $url .= http_build_query(array(
+            'user' => $this->user->getId(),
+            'skill' => $this->skill->getId(),
+            'course' => $this->course ? $this->course->getId() : 0,
+            'session' => $this->session ? $this->session->getId() : 0
+        ));
+
+        return $url;
+    }
 }

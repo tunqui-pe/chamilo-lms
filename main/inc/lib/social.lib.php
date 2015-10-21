@@ -725,9 +725,9 @@ class SocialManager extends UserManager
             array('shared_profile', 'groups', 'group_edit', 'member_list', 'waiting_list', 'invite_friends')
         )) {
 
-            
+
             $links = '<ul class="nav nav-pills nav-stacked">';
-            
+
             $active = $show == 'home' ? 'active' : null;
             $links .= '
                 <li class="home-icon ' . $active . '">
@@ -793,7 +793,7 @@ class SocialManager extends UserManager
                     </a>
                 </li>';
             $links .='</ul>';
-            
+
             $html .= Display::panelCollapse(
                     get_lang('SocialNetwork'),
                     $links,
@@ -813,7 +813,7 @@ class SocialManager extends UserManager
         }
 
         if ($show == 'shared_profile') {
-            
+
             $links =  '<ul class="nav nav-pills nav-stacked">';
 
             // My own profile
@@ -1558,7 +1558,7 @@ class SocialManager extends UserManager
             $image = $domain . $image;
         }
         $title = $graph->title;
-        
+
         $html  = '<div class="thumbnail">';
         $html .= '<a target="_blank" href="'.$link.'"><h3>'.$title.'</h3>';
         $html .= empty($image) ? '' : '<img alt="" src="'.$image.'" /></a>';
@@ -1567,7 +1567,7 @@ class SocialManager extends UserManager
         $html .= '</div>';
         return $html;
     }
-    
+
     /**
      * verify if Url Exist - Using Curl
      * @param $URI url
@@ -1832,7 +1832,7 @@ class SocialManager extends UserManager
             api_get_path(WEB_CODE_PATH).'social/profile.php',
             null,
             array('enctype' => 'multipart/form-data') ,
-            FormValidator::LAYOUT_HORIZONTAL    
+            FormValidator::LAYOUT_HORIZONTAL
         );
 
         $form->addTextarea(
@@ -1881,15 +1881,30 @@ class SocialManager extends UserManager
             return null;
         }
 
-        $skill = new Skill();
+        $entityManager = Database::getManager();
+        $user = $entityManager->find('ChamiloUserBundle:User', $userId);
 
-        $ranking = $skill->get_user_skill_ranking($userId);
-        $skills = $skill->get_user_skills($userId, true);
+        if (!$user) {
+            return null;
+        }
+
+        $achievedSkills = $user->getAchievedSkills();
+        $ranking = $achievedSkills->count();
+        $skillsInfo = [];
+
+        foreach ($achievedSkills as $userSkill) {
+            $skillsInfo[] = [
+                'id' => $userSkill->getSkill()->getId(),
+                'name' => $userSkill->getSkill()->getName(),
+                'icon' => $userSkill->getSkill()->getWebIconPath(true),
+                'source_name' => $userSkill->getSourceName(),
+                'issue_url' => $userSkill->getIssueUrl()
+            ];
+        }
 
         $template = new Template(null, false, false, false, false, false);
         $template->assign('ranking', $ranking);
-        $template->assign('skills', $skills);
-        $template->assign('user_id', $userId);
+        $template->assign('skills', $skillsInfo);
         $template->assign(
             'show_skills_report_link',
             api_is_student() || api_is_student_boss() || api_is_drh()
