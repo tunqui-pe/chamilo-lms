@@ -1345,7 +1345,7 @@ $DeleteSelectedClasses = "Eliminar las clases seleccionadas";
 $DeleteSelectedGroups = "Eliminar los grupos seleccionados";
 $Administrator = "Administrador";
 $ChangePicture = "Cambiar la imagen";
-$myCoursesSessionView = "Viesta por sesión";
+$XComments = "%s comentarios";
 $AddUsers = "Añadir usuarios";
 $AddGroups = "Crear grupos en la red social";
 $AddClasses = "Crear clases";
@@ -7599,4 +7599,7 @@ $SkillXAssignedToUserY = "La competencia %s ha sido asignada al usuario %s";
 $AssignSkill = "Asignar competencia";
 $AddressField = "Dirección";
 $Geolocalization = "Geolocalización";
+$RateTheSkillInPractice = "En una valoración de 1 a 10 ¿Qué tan bien se observa que esta persona podría poner esta competencia en práctica?";
+$AverageRatingX = "Promedio de la valoración %s";
+$AverageRating = "Promedio de la valoración";
 ?>
