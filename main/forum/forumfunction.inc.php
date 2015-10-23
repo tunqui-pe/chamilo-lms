@@ -269,7 +269,7 @@ function show_add_forum_form($inputvalues = array(), $lp_id)
     } else {
         $form_title = get_lang('AddForum');
     }
-    $session_header = isset($_SESSION['session_name']) ? ' ('.$_SESSION['session_name'].') ' : '';
+    $session_header = Session::read('session_name');
     $form->addElement('header', $form_title.$session_header);
 
     // We have a hidden field if we are editing.

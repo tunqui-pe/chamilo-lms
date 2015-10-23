@@ -106,7 +106,7 @@ if (!isset($_SESSION['objExercise']) ||
     $objExercise = new Exercise();
     Session::write('firstTime', true);
     if ($debug) {error_log('1. Setting the $objExercise variable'); };
-    unset($_SESSION['questionList']);
+    Session::erase('questionList');
 
     // if the specified exercise doesn't exist or is disabled
     if (!$objExercise->read($exerciseId) ||
@@ -127,7 +127,7 @@ if (!isset($_SESSION['objExercise']) ||
 //2. Checking if $objExercise is set
 if (!isset($objExercise) && isset($_SESSION['objExercise'])) {
 	if ($debug) { error_log('2. Loading $objExercise from session'); };
-    $objExercise = $_SESSION['objExercise'];
+    $objExercise = Session::read('objExercise');
 }
 
 //3. $objExercise is not set, then return to the exercise list
@@ -430,7 +430,7 @@ if (!isset($_SESSION['questionList'])) {
     if ($debug > 0) { error_log('$_SESSION[questionList] was set'); }
 } else {
 	if (isset($objExercise) && isset($_SESSION['objExercise'])) {
-    	$questionList = $_SESSION['questionList'];
+    	$questionList = Session::read('questionList');
 	}
 }
 

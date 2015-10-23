@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  * Adding limits
  * @package chamilo.exercise
@@ -29,9 +32,8 @@ if (empty ($learnpath_item_id)) {
 if (empty ($formSent)) {
     $formSent = $_REQUEST['formSent'];
 }
-if (empty ($exerciseResult)) {
-    $exerciseResult = $_SESSION['exerciseResult'];
-}
+$exerciseResult = Session::read('exerciseResult');
+
 if (empty ($questionId)) {
     $questionId = $_REQUEST['questionId'];
 }
@@ -44,14 +46,14 @@ if (empty ($questionNum)) {
 if (empty ($nbrQuestions)) {
     $nbrQuestions = $_REQUEST['nbrQuestions'];
 }
-if (empty ($questionList)) {
-    $questionList = $_SESSION['questionList'];
-}
+
+$questionList = Session::read('questionList');
+
 if (empty ($objExercise)) {
     $objExercise = $_SESSION['objExercise'];
 }
 $exercise_id = intval($_GET['exercise_id']);
-$is_allowedToEdit=$is_courseAdmin;
+$is_allowedToEdit = $is_courseAdmin;
 
 if (api_is_in_gradebook()) {
     $interbreadcrumb[]= array(

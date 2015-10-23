@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
+
 /**
  * Class TestCategory
  * @author hubert.borderiou
@@ -496,7 +498,7 @@ class TestCategory
     {
         $is_student = !(api_is_allowed_to_edit(null,true) || api_is_session_admin());
         // @todo fix $_SESSION['objExercise']
-        $objExercise = isset($_SESSION['objExercise']) ? $_SESSION['objExercise'] : null;
+        $objExercise = Session::read('objExercise');
         if (!empty($objExercise)) {
             $in_display_category_name = $objExercise->display_category_name;
         }

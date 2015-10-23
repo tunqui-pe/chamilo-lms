@@ -65,21 +65,11 @@ $exercisePath = substr($exercisePath, 0, strpos($exercisePath, $exfile));
 $exercisePath = $exercisePath."exercise.php";
 
 // Clear the exercise session
-if (isset($_SESSION['objExercise'])) {
-    Session::erase('objExercise');
-}
-if (isset($_SESSION['objQuestion'])) {
-    Session::erase('objQuestion');
-}
-if (isset($_SESSION['objAnswer'])) {
-    Session::erase('objAnswer');
-}
-if (isset($_SESSION['questionList'])) {
-    Session::erase('questionList');
-}
-if (isset($_SESSION['exerciseResult'])) {
-    Session::erase('exerciseResult');
-}
+Session::erase('objExercise');
+Session::erase('objQuestion');
+Session::erase('objAnswer');
+Session::erase('questionList');
+Session::erase('exerciseResult');
 
 //General POST/GET/SESSION/COOKIES parameters recovery
 $origin = isset($_REQUEST['origin']) ? Security::remove_XSS($_REQUEST['origin']) : null;

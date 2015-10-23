@@ -33,12 +33,10 @@ $htmlHeadXtra[] = api_get_jqgrid_js();
 
 $course_id  = isset($_GET['course_id'])  ? intval($_GET['course_id']) : null;
 
-$_SESSION['id_session'] = $session_id;
+Session::write('id_session', $session_id);
 
 // Clear the exercise session just in case
-if (isset($_SESSION['objExercise'])) {
-    Session::erase('objExercise');
-}
+Session::erase('objExercise');
 
 $userId = api_get_user_id();
 $session_info = SessionManager::fetch($session_id);

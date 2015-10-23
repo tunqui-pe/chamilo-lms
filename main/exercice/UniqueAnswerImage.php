@@ -1,6 +1,7 @@
 <?php
-
 /* For licensing terms, see /license.txt */
+
+use \ChamiloSession as Session;
 
 /**
  * UniqueAnswerImage
@@ -9,7 +10,6 @@
  */
 class UniqueAnswerImage extends UniqueAnswer
 {
-
     static $typePicture = 'uaimg.png';
     static $explanationLangVar = 'UniqueAnswerImage';
 
@@ -23,7 +23,8 @@ class UniqueAnswerImage extends UniqueAnswer
 
     public function createAnswersForm($form)
     {
-        $objExercise = $_SESSION['objExercise'];
+        /** @var Exercise $objExercise */
+        $objExercise = Session::read('objExercise');
 
         $editorConfig = array(
             'ToolbarSet' => 'TestFreeAnswer',

@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use \ChamiloSession as Session;
+
 /**
 * Exercise reminder overview
 * Then it shows the results on the screen.
@@ -58,7 +61,7 @@ if (empty($exerciseId)) {
 
 if (empty($objExercise)) {
     if (!empty($_SESSION['objExercise'])) {
-        $objExercise = $_SESSION['objExercise'];
+        $objExercise = Session::read('objExercise');
     } else {
         $objExercise = null;
     }
@@ -90,9 +93,7 @@ if ($time_control) {
 }
 
 
-if (isset($_SESSION['exe_id'])) {
-    $exe_id = intval($_SESSION['exe_id']);
-}
+$exe_id = intval(Session::read('exe_id'));
 $exercise_stat_info	= $objExercise->get_stat_track_exercise_info_by_exe_id($exe_id);
 if (!empty($exercise_stat_info['data_tracking'])) {
     $question_list = explode(',', $exercise_stat_info['data_tracking']);

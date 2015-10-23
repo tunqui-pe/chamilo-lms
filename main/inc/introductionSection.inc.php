@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CourseBundle\Entity\CToolIntro;
+
 /**
  * The INTRODUCTION MICRO MODULE is used to insert and edit
  * an introduction section on a Chamilo module or on the course homepage.
@@ -27,8 +30,6 @@
  *
  * @package chamilo.include
  */
-
-use Chamilo\CourseBundle\Entity\CToolIntro;
 
 $TBL_INTRODUCTION = Database::get_course_table(TABLE_TOOL_INTRO);
 $intro_editAllowed = $is_allowed_to_edit;
@@ -247,20 +248,15 @@ if ($tool == TOOL_COURSE_HOMEPAGE && !isset($_GET['intro_cmdEdit'])) {
             $thematic_advance_info['start_date'],
             DATE_TIME_FORMAT_LONG
         );
-        $userInfo = $_SESSION['_user'];
+        $userInfo = api_get_user_info();
         $courseInfo = api_get_course_info();
         $titleThematic = $thematic_advance .' : '. $courseInfo['name'] . ' <b>( '. $thematicScore .' )</b>';
-
-
-
         $infoUser = '<div class="thematic-avatar"><img src="' . $userInfo['avatar'] . '" class="img-circle img-responsive"></div>';
         $infoUser .= '<div class="progress">
                         <div class="progress-bar progress-bar-danger" role="progressbar" style="width: ' . $thematicScore . ';">
                         '.$thematicScore.'
                         </div>
                     </div>';
-
-
         $thematicItemOne = '
         <div class="col-md-6 items-progress">
             <div class="thematic-cont '.$class1.'">

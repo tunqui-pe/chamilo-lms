@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
 *	This file saves every click in the hotspot tool into track_e_hotspots
 *	@package chamilo.exercise
@@ -11,8 +13,8 @@ require_once '../inc/global.inc.php';
 $courseCode   = $_GET['coursecode'];
 $questionId   = $_GET['questionId'];
 $coordinates  = $_GET['coord'];
-$objExcercise = $_SESSION['objExercise'];
-$exerciseId   = $objExcercise->selectId();
+$objExercise = Session::read('objExercise');
+$exerciseId = $objExercise->selectId();
 // Save clicking order
 $answerOrderId = count($_SESSION['exerciseResult'][$questionId]['ids'])+1;
 if ($_GET['answerId'] == "0") // click is NOT on a hotspot
