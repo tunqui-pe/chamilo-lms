@@ -7,19 +7,15 @@
  */
 require_once '../inc/global.inc.php';
 
-$userId = isset($_GET['user']) ? intval($_GET['user']) : 0;
-$skillId = isset($_GET['skill']) ? intval($_GET['skill']) : 0;
-
-if (!isset($_GET['user'], $_GET['skill'])) {
+if (!isset($_GET['user'], $_GET['issue'])) {
     header('Location: ' . api_get_path(WEB_PATH));
     exit;
 }
 
 $entityManager = Database::getManager();
-$user = $entityManager->find('ChamiloUserBundle:User', $_GET['user']);
-$skill = $entityManager->find('ChamiloCoreBundle:Skill', $_GET['skill']);
+$skillIssue = $entityManager->find('ChamiloCoreBundle:SkillRelUser', $_GET['issue']);
 
-if (!$user || !$skill) {
+if (!$skillIssue) {
     Display::addFlash(
         Display::return_message(get_lang('NoResults'), 'error')
     );
@@ -28,75 +24,32 @@ if (!$user || !$skill) {
     exit;
 }
 
-$skillUserRepo = $entityManager->getRepository('ChamiloCoreBundle:SkillRelUser');
-$userSkills = $skillUserRepo->findBy([
-    'user' => $user->getId(),
-    'skill' => $skill->getId()
-]);
-
-if (!$userSkills) {
+if ($skillIssue->getUser()->getId() !== intval($_GET['user'])) {
     Display::addFlash(
-        Display::return_message(
-            sprintf(get_lang('TheUserXNotYetAchievedTheSkillX'), $user->getCompleteName(), $skill->getName()),
-            'error'
-        )
+        Display::return_message(get_lang('NoResults'), 'error')
     );
 
     header('Location: ' . api_get_path(WEB_PATH));
     exit;
 }
 
-$userInfo = [
-    'id' => $user->getId(),
-    'complete_name' => $user->getCompleteName()
+$skillIssueDate = api_get_local_time($skillIssue->getAcquiredSkillAt());
+
+$skillIssueInfo = [
+    'id' => $skillIssue->getId(),
+    'datetime' => api_format_date($skillIssueDate, DATE_TIME_FORMAT_SHORT),
+    'argumentation' => $skillIssue->getArgumentation(),
+    'source_name' => $skillIssue->getSourceName(),
+    'user_complete_name' => $skillIssue->getUser()->getCompleteName(),
+    'skill_badge_image' => $skillIssue->getSkill()->getWebIconPath(),
+    'skill_name' => $skillIssue->getSkill()->getName(),
+    'skill_short_code' => $skillIssue->getSkill()->getShortCode(),
+    'skill_description' => $skillIssue->getSkill()->getDescription(),
+    'skill_criteria' => $skillIssue->getSkill()->getCriteria(),
+    'badge_asserion' => [$skillIssue->getAssertionUrl()]
 ];
 
-$skillInfo = [
-    'id' => $skill->getId(),
-    'name' => $skill->getName(),
-    'short_code' => $skill->getShortCode(),
-    'description' => $skill->getDescription(),
-    'criteria' => $skill->getCriteria(),
-    'badge_image' => $skill->getWebIconPath(),
-    'courses' => []
-];
-
-$badgeAssertions = [];
-
-foreach ($userSkills as $userSkill) {
-    $sessionId = 0;
-    $course = $userSkill->getCourse();
-    $session = $userSkill->getSession();
-
-    $courseName = '';
-
-    if ($session) {
-        $courseName = "[{$session->getName()}] ";
-    }
-
-    if ($course) {
-        $courseName .= $course->getTitle();
-    }
-
-    $userSkillDate = api_get_local_time($userSkill->getAcquiredSkillAt());
-    $skillInfo['courses'][] = [
-        'name' => $courseName,
-        'date_issued' => api_format_date($userSkillDate, DATE_TIME_FORMAT_LONG),
-        'argumentation' => $userSkill->getArgumentation()
-    ];
-
-    $assertionUrl = api_get_path(WEB_CODE_PATH) . "badge/assertion.php?";
-    $assertionUrl .= http_build_query(array(
-        'user' => $user->getId(),
-        'skill' => $skill->getId(),
-        'course' => $course ? $course->getId() : 0,
-        'session' => $session ? $session->getId() : 0
-    ));
-
-    $badgeAssertions[] = $assertionUrl;
-}
-
-$allowExport = api_get_user_id() == $user->getId();
+$allowExport = api_get_user_id() === $skillIssue->getUser()->getId();
 
 if ($allowExport) {
     $backpack = 'https://backpack.openbadges.org/';
@@ -111,13 +64,8 @@ if ($allowExport) {
 }
 
 $template = new Template('');
-$template->assign('skill_info', $skillInfo);
-$template->assign('user_info', $userInfo);
+$template->assign('issue_info', $skillIssueInfo);
 $template->assign('allow_export', $allowExport);
-
-if ($allowExport) {
-    $template->assign('assertions', $badgeAssertions);
-}
 
 $content = $template->fetch(
     $template->get_template('skill/issued.tpl')

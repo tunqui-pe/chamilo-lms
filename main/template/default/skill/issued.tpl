@@ -2,42 +2,40 @@
     <div class="col-md-5">
         <div class="thumbnail">
             <figure class="text-center">
-                <img class="img-responsive center-block" src="{{ skill_info.badge_image }}" alt="{{ skill_info.name }}">
+                <img class="img-responsive center-block" src="{{ issue_info.skill_badge_image }}" alt="{{ issue_info.skill_name }}">
                 <figcaption>
-                    <p class="lead">{{ skill_info.name }}</p>
-                    {% if skill_info.short_code %}
-                        <p>{{ skill_info.short_code }}</p>
+                    <p class="lead">{{ issue_info.skill_name }}</p>
+                    {% if issue_info.skill_short_code %}
+                        <p>{{ issue_info.skill_short_code }}</p>
                     {% endif %}
                 </figcaption>
             </figure>
             <div class="caption">
-                {% if skill_info.description %}
-                    <p>{{ skill_info.description }}</p>
+                {% if issue_info.skill_description %}
+                    <p>{{ issue_info.skill_description }}</p>
                 {% endif %}
-                {% if skill_info.criteria %}
+                {% if issue_info.skill_criteria %}
                     <h3>{{ 'CriteriaToEarnTheBadge'|get_lang }}</h3>
-                    <p>{{ skill_info.criteria }}</p>
+                    <p>{{ issue_info.skill_criteria }}</p>
                 {% endif %}
             </div>
         </div>
     </div>
     <div class="col-md-7">
         <h3>{{ 'RecipientDetails'|get_lang }}</h3>
-        <p class="lead">{{ user_info.complete_name }}</p>
+        <p class="lead">{{ issue_info.user_complete_name }}</p>
         <h4>{{ 'SkillAcquiredAt'|get_lang }}</h4>
         <ul class="fa-ul">
-        {% for course in skill_info.courses %}
             <li>
-                {% if course.name %}
-                    <em class="fa-li fa fa-clock-o fa-fw"></em> {{ 'TimeXThroughCourseY'|get_lang|format(course.date_issued, course.name) }}
+                {% if issue_info.source_name %}
+                    <em class="fa-li fa fa-clock-o fa-fw"></em> {{ 'TimeXThroughCourseY'|get_lang|format(issue_info.datetime, issue_info.source_name) }}
                 {% else %}
-                    <em class="fa-li fa fa-clock-o fa-fw"></em> {{ course.date_issued }}
+                    <em class="fa-li fa fa-clock-o fa-fw"></em> {{ issue_info.datetime }}
                 {% endif %}
-                {% if course.argumentation %}
-                    <p>{{ course.argumentation }}</p>
+                {% if issue_info.argumentation %}
+                    <p>{{ issue_info.argumentation }}</p>
                 {% endif %}
             </li>
-        {% endfor %}
         </ul>
         <hr>
         {% if allow_export %}
@@ -55,7 +53,7 @@
             $('#badge-export-button').on('click', function (e) {
                 e.preventDefault();
 
-                OpenBadges.issue({{ assertions|json_encode() }});
+                OpenBadges.issue({{ issue_info.badge_asserion|json_encode() }});
             });
         });
     </script>

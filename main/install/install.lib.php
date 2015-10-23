@@ -2070,6 +2070,19 @@ function fixIds(EntityManager $em)
         error_log('Update tools');
     }
 
+    // Create temporary indexes to increase speed of the following operations
+    // Adding and removing indexes will usually take much less time than
+    // the execution without indexes of the queries in this function, particularly
+    // for large tables
+    $sql = "ALTER TABLE c_document ADD INDEX tmpidx_doc(c_id, id)";
+    $connection->executeQuery($sql);
+    $sql = "ALTER TABLE c_student_publication ADD INDEX tmpidx_stud (c_id, id)";
+    $connection->executeQuery($sql);
+    $sql = "ALTER TABLE c_quiz ADD INDEX tmpidx_quiz (c_id, id)";
+    $connection->executeQuery($sql);
+    $sql = "ALTER TABLE c_item_property ADD INDEX tmpidx_ip (to_group_id)";
+    $connection->executeQuery($sql);
+
     $sql = "SELECT * FROM c_lp_item";
     $result = $connection->fetchAll($sql);
     foreach ($result as $item) {
@@ -2201,70 +2214,83 @@ function fixIds(EntityManager $em)
     if ($debug) {
         error_log('update c_item_property');
     }
-    $sql = "SELECT * FROM c_item_property";
-    $result = $connection->fetchAll($sql);
-    $counter = 0;
-    error_log("Items to process: ".count($result));
 
-    foreach ($result as $item) {
-        $courseId = $item['c_id'];
-        $sessionId = intval($item['session_id']);
-        $groupId = intval($item['to_group_id']);
-        $iid = $item['iid'];
-        $ref = $item['ref'];
+    $sql = "SELECT * FROM course";
+    $courseList = $connection->fetchAll($sql);
+    if ($debug) {
+        error_log('Getting course list');
+    }
 
-        // Fix group id
+    foreach ($courseList  as $courseData) {
+        $courseId = $courseData['id'];
+        if ($debug) {
+            error_log('Updating course: '.$courseData['code']);
+        }
 
-        if (!empty($groupId)) {
-            $sql = "SELECT * FROM c_group_info
-                    WHERE c_id = $courseId AND id = $groupId";
-            $data = $connection->fetchAssoc($sql);
-            if (!empty($data)) {
-                $newGroupId = $data['iid'];
-                $sql = "UPDATE c_item_property SET to_group_id = $newGroupId
-                        WHERE iid = $iid";
-                $connection->executeQuery($sql);
-            } else {
-                // The group does not exists clean this record
-                $sql = "DELETE FROM c_item_property WHERE iid = $iid";
+        $sql = "SELECT * FROM c_item_property WHERE c_id = $courseId";
+        $result = $connection->fetchAll($sql);
+        $counter = 0;
+        error_log("Items to process: ".count($result));
+
+        foreach ($result as $item) {
+            //$courseId = $item['c_id'];
+            $sessionId = intval($item['session_id']);
+            $groupId = intval($item['to_group_id']);
+            $iid = $item['iid'];
+            $ref = $item['ref'];
+
+            // Fix group id
+            if (!empty($groupId)) {
+                $sql = "SELECT * FROM c_group_info
+                        WHERE c_id = $courseId AND id = $groupId";
+                $data = $connection->fetchAssoc($sql);
+                if (!empty($data)) {
+                    $newGroupId = $data['iid'];
+                    $sql = "UPDATE c_item_property SET to_group_id = $newGroupId
+                            WHERE iid = $iid";
+                    $connection->executeQuery($sql);
+                } else {
+                    // The group does not exists clean this record
+                    $sql = "DELETE FROM c_item_property WHERE iid = $iid";
+                    $connection->executeQuery($sql);
+                }
+            }
+
+            $sql = '';
+            $newId = '';
+            switch ($item['tool']) {
+                case TOOL_LINK:
+                    $sql = "SELECT * FROM c_link WHERE c_id = $courseId AND id = $ref ";
+                    break;
+                case TOOL_STUDENTPUBLICATION:
+                    $sql = "SELECT * FROM c_student_publication WHERE c_id = $courseId AND id = $ref";
+                    break;
+                case TOOL_QUIZ:
+                    $sql = "SELECT * FROM c_quiz WHERE c_id = $courseId AND id = $ref";
+                    break;
+                case TOOL_DOCUMENT:
+                    $sql = "SELECT * FROM c_document WHERE c_id = $courseId AND id = $ref";
+                    break;
+                case TOOL_FORUM:
+                    $sql = "SELECT * FROM c_forum_forum WHERE c_id = $courseId AND id = $ref";
+                    break;
+                case 'thread':
+                    $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND id = $ref";
+                    break;
+            }
+
+            if (!empty($sql) && !empty($newId)) {
+                $data = $connection->fetchAssoc($sql);
+                if (isset($data['iid'])) {
+                    $newId = $data['iid'];
+                }
+                $sql = "UPDATE c_item_property SET ref = $newId WHERE iid = $iid";
+                error_log($sql);
                 $connection->executeQuery($sql);
             }
+            error_log("Process item #$counter");
+            $counter++;
         }
-
-        $sql = '';
-        $newId = '';
-        switch ($item['tool']) {
-            case TOOL_LINK:
-                $sql = "SELECT * FROM c_link WHERE c_id = $courseId AND id = $ref ";
-                break;
-            case TOOL_STUDENTPUBLICATION:
-                $sql = "SELECT * FROM c_student_publication WHERE c_id = $courseId AND id = $ref";
-                break;
-            case TOOL_QUIZ:
-                $sql = "SELECT * FROM c_quiz WHERE c_id = $courseId AND id = $ref";
-                break;
-            case TOOL_DOCUMENT:
-                $sql = "SELECT * FROM c_document WHERE c_id = $courseId AND id = $ref";
-                break;
-            case TOOL_FORUM:
-                $sql = "SELECT * FROM c_forum_forum WHERE c_id = $courseId AND id = $ref";
-                break;
-            case 'thread':
-                $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND id = $ref";
-                break;
-        }
-
-        if (!empty($sql) && !empty($newId)) {
-            $data = $connection->fetchAssoc($sql);
-            if (isset($data['iid'])) {
-                $newId = $data['iid'];
-            }
-            $sql = "UPDATE c_item_property SET ref = $newId WHERE iid = $iid";
-            error_log($sql);
-            $connection->executeQuery($sql);
-        }
-        error_log("Process item #$counter");
-        $counter++;
     }
 
     if ($debug) {
@@ -2300,7 +2326,7 @@ function fixIds(EntityManager $em)
                 //$sql = "SELECT * FROM c_document WHERE c_id = $courseId AND id = $ref";
                 break;
             case LINK_FORUM_THREAD:
-                $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND id = $ref";
+                $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND thread_id = $ref";
                 break;
         }
 
@@ -2524,6 +2550,15 @@ function fixIds(EntityManager $em)
             }
         }
     }
+    // Drop temporary indexes added to increase speed of this function's queries
+    $sql = "ALTER TABLE c_document DROP INDEX tmpidx_doc";
+    $connection->executeQuery($sql);
+    $sql = "ALTER TABLE c_student_publication DROP INDEX tmpidx_stud";
+    $connection->executeQuery($sql);
+    $sql = "ALTER TABLE c_quiz DROP INDEX tmpidx_quiz";
+    $connection->executeQuery($sql);
+    $sql = "ALTER TABLE c_item_property DROP INDEX tmpidx_ip";
+    $connection->executeQuery($sql);
 }
 
 /**

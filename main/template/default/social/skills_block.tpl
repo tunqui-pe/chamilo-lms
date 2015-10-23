@@ -29,18 +29,24 @@
         <div id="skillList" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
                 {% if skills %}
-                    <ul class="list-unstyled list-badges">
+                    <figure class="list-badges">
                         {% for skill in skills %}
-                            <li class="thumbnail">
-                                <a href="{{ _p.web }}badge/{{ skill.id }}/user/{{ user_id }}" target="_blank">
-                                    <img title="{{ skill.name }}" class="img-responsive" src="{{ skill.icon ? skill.web_icon_thumb_path : 'badges-default.png'|icon(64) }}" width="64" height="64" alt="{{ skill.name }}">
-                                    <div class="caption">
-                                        <p class="text-center">{{ skill.name }}</p>
-                                    </div>
+                            <figure class="thumbnail">
+                                <a href="{{ skill.issue_url }}" target="_blank">
+                                    <img title="{{ skill.name }}" class="img-responsive" src="{{ skill.icon }}" width="64" height="64" alt="{{ skill.name }}">
                                 </a>
-                            </li>
+                                <figcaption class="caption text-center">
+                                    <a href="{{ skill.issue_url }}" target="_blank">
+                                        {{ skill.name }}
+                                        {% if skill.source_name %}
+                                            <br>
+                                            <small>{{ skill.source_name }}</small>
+                                        {% endif %}
+                                    </a>
+                                </figcaption>
+                            </figure>
                         {% endfor %}
-                    </ul>
+                    </figure>
                 {% else %}
                     <p>{{ 'WithoutAchievedSkills'|get_lang }}</p>
                     <p>
