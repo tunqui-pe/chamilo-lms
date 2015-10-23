@@ -5707,24 +5707,24 @@ function api_is_course_visible_for_user($userid = null, $cid = null) {
  */
 function api_is_element_in_the_session($tool, $element_id, $session_id = null) {
     if (is_null($session_id)) {
-        $session_id = intval($_SESSION['id_session']);
+        $session_id = api_get_session_id();
     }
 
     // Get information to build query depending of the tool.
     switch ($tool) {
-        case TOOL_SURVEY :
+        case TOOL_SURVEY:
             $table_tool = Database::get_course_table(TABLE_SURVEY);
             $key_field = 'survey_id';
             break;
-        case TOOL_ANNOUNCEMENT :
+        case TOOL_ANNOUNCEMENT:
             $table_tool = Database::get_course_table(TABLE_ANNOUNCEMENT);
             $key_field = 'id';
             break;
-        case TOOL_AGENDA :
+        case TOOL_AGENDA:
             $table_tool = Database::get_course_table(TABLE_AGENDA);
             $key_field = 'id';
             break;
-        case TOOL_GROUP :
+        case TOOL_GROUP:
             $table_tool = Database::get_course_table(TABLE_GROUP);
             $key_field = 'id';
             break;
@@ -5733,7 +5733,9 @@ function api_is_element_in_the_session($tool, $element_id, $session_id = null) {
     }
     $course_id = api_get_course_int_id();
 
-    $sql = "SELECT session_id FROM $table_tool WHERE c_id = $course_id AND $key_field =  ".intval($element_id);
+    $sql = "SELECT session_id
+            FROM $table_tool
+            WHERE c_id = $course_id AND $key_field =  ".intval($element_id);
     $rs = Database::query($sql);
     if ($element_session_id = Database::result($rs, 0, 0)) {
         if ($element_session_id == intval($session_id)) {
@@ -5834,7 +5836,8 @@ function api_get_current_access_url_id() {
 /**
  * Gets the registered urls from a given user id
  * @author Julio Montoya <gugli100@gmail.com>
- * @return int user id
+ *
+ * @return array
  */
 function api_get_access_url_from_user($user_id) {
     $user_id = intval($user_id);
@@ -5846,11 +5849,12 @@ function api_get_access_url_from_user($user_id) {
             ON (url_rel_user.access_url_id = u.id)
             WHERE user_id = ".intval($user_id);
     $result = Database::query($sql);
-    $url_list = array();
+    $list = array();
     while ($row = Database::fetch_array($result, 'ASSOC')) {
-        $url_list[] = $row['access_url_id'];
+        $list[] = $row['access_url_id'];
     }
-    return $url_list;
+
+    return $list;
 }
 
 /**
@@ -5863,8 +5867,8 @@ function api_get_status_of_user_in_course($user_id, $courseId)
 {
     $tbl_rel_course_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
     if (!empty($user_id) && !empty($courseId)) {
-        $user_id        = intval($user_id);
-        $courseId    = intval($courseId);
+        $user_id = intval($user_id);
+        $courseId = intval($courseId);
         $sql = 'SELECT status
                 FROM '.$tbl_rel_course_user.'
                 WHERE user_id='.$user_id.' AND c_id = '.$courseId;

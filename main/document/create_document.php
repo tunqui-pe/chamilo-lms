@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  *	This file allows creating new html documents with an online WYSIWYG html editor.
  *
@@ -8,7 +11,7 @@
 
 require_once '../inc/global.inc.php';
 
-$_SESSION['whereami'] = 'document/create';
+Session::write('whereami', 'document/create');
 $this_section = SECTION_COURSES;
 
 $htmlHeadXtra[] = '
@@ -29,12 +32,12 @@ $(document).ready(function() {
     if ($(window).width() <= 785 ) {
         hide_bar();
     }
-    
+
 
     $("#hide_bar_template").click(function() {
-        
+
         $("#template_col").toggleClass("hide");
-        
+
         if ($("#doc_form").is(".col-md-8")) {
             $("#doc_form").removeClass("col-md-8");
             $("#doc_form").addClass("col-md-11");
@@ -42,9 +45,9 @@ $(document).ready(function() {
             $("#doc_form").removeClass("col-md-11");
             $("#doc_form").addClass("col-md-8");
         }
-        
+
         $("#hide_bar_template").toggleClass("hide_bar_template_not_hide");
-        
+
     });
 
     CKEDITOR.on("instanceReady", function (e) {
@@ -447,7 +450,7 @@ if ($form->validate()) {
 	$values = $form->exportValues();
 	$readonly = isset($values['readonly']) ? 1 : 0;
 	$values['title'] = trim($values['title']);
-    
+
     if (!empty($values['dirValue'])) {
         $dir = $values['dirValue'];
     }
@@ -619,9 +622,9 @@ if ($form->validate()) {
 		$actionsLeft = '<a href="document.php?curdirpath='.Security::remove_XSS($dir).'">'.
             Display::return_icon('back.png',get_lang('Back').' '.get_lang('To').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
         }
-        
+
         echo $toolbar = Display::toolbarAction('actions-documents', array(0 => $actionsLeft, 1 => ''));
-                
+
 
 	if ($is_certificate_mode) {
 		$all_information_by_create_certificate = DocumentManager::get_all_info_to_certificate(api_get_user_id(), api_get_course_id());

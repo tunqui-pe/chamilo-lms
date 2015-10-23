@@ -4,8 +4,10 @@
 /**
  *  @package chamilo.admin
  */
+use ChamiloSession as Session;
 
 $cidReset = true;
+
 require_once '../inc/global.inc.php';
 
 $this_section = SECTION_PLATFORM_ADMIN;
@@ -104,9 +106,9 @@ switch ($action) {
         if (api_get_session_id() != 0 && !api_is_allowed_to_session_edit(false, true)) {
             api_not_allowed();
         }
-        $_SESSION['notebook_view'] = 'creation_date';
+        Session::write('notebook_view', 'creation_date');
 
-        $url  = api_get_self().'?action='.Security::remove_XSS($_GET['action']);
+        $url = api_get_self().'?action='.Security::remove_XSS($_GET['action']);
         $form = $career->return_form($url, 'add');
 
         // The validation or display

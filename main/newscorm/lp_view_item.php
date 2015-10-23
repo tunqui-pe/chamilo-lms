@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This is a learning path creation and player tool in Chamilo - previously learnpath_handler.php
  *
@@ -45,10 +47,9 @@ if (isset($_GET['lp_item_id'])) {
 $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : 'fullpage';
 
 /* INIT SECTION */
-
-$_SESSION['whereami'] = 'lp/build';
+Session::write('whereami', 'lp/build');
 if (isset($_SESSION['oLP']) && isset($_GET['id'])) {
-    $_SESSION['oLP'] -> current = intval($_GET['id']);
+    $_SESSION['oLP']->current = intval($_GET['id']);
 }
 $this_section = SECTION_COURSES;
 /* Header and action code */

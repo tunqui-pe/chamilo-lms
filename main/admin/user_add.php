@@ -86,10 +86,6 @@ function display_drh_list(){
 }
 </script>';
 
-if (!empty($_GET['message'])) {
-    $message = urldecode($_GET['message']);
-}
-
 $interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => 'user_list.php', "name" => get_lang('UserList'));
 $tool_name = get_lang('AddUsers');
@@ -427,17 +423,19 @@ if ($form->validate()) {
             $extraFieldValues = new ExtraFieldValue('user');
             $user['item_id'] = $user_id;
             $extraFieldValues->saveFieldValues($user);
-
 			$message = get_lang('UserAdded');
 		}
+
+        Display::addFlash(Display::return_message($message));
+
 		if (isset($user['submit_plus'])) {
 			//we want to add more. Prepare report message and redirect to the same page (to clean the form)
-			header('Location: user_add.php?message='.urlencode($message).'&sec_token='.$tok);
-			exit ();
+			header('Location: user_add.php?sec_token='.$tok);
+			exit();
 		} else {
 			$tok = Security::get_token();
-			header('Location: user_list.php?action=show_message&message='.urlencode($message).'&sec_token='.$tok);
-			exit ();
+			header('Location: user_list.php?sec_token='.$tok);
+			exit();
 		}
 	}
 } else {
@@ -449,13 +447,9 @@ if ($form->validate()) {
 	$form->setConstants(array('sec_token' => $token));
 }
 
-if (!empty($message)){
-	$message = Display::return_message(stripslashes($message));
-}
 $content = $form->returnForm();
 
 $tpl = new Template($tool_name);
 //$tpl->assign('actions', $actions);
-$tpl->assign('message', $message);
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This file was originally the copy of document.php, but many modifications happened since then ;
  * the direct file view is not needed anymore, if the user uploads a scorm zip file, a directory
@@ -12,11 +14,10 @@
  * @author Isthvan Mandak, several new features
  * @author Roan Embrechts, code improvements and refactoring
  */
-use \ChamiloSession as Session;
 
 $use_anonymous = true;
 
-$_SESSION['whereami'] = 'lp/view';
+Session::write('whereami', 'lp/view');
 $this_section = SECTION_COURSES;
 
 if ($lp_controller_touched != 1) {

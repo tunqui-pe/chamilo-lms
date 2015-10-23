@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file allows record wav files.
  *
@@ -12,7 +14,7 @@
 
 require_once '../inc/global.inc.php';
 
-$_SESSION['whereami'] = 'document/voicerecord';
+Session::write('whereami', 'document/voicerecord');
 $this_section = SECTION_COURSES;
 
 $nameTools = get_lang('VoiceRecord');

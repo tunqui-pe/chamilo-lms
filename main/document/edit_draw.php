@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file allows creating new svg and png documents with an online editor.
  *
@@ -9,9 +11,10 @@
  * @author Juan Carlos Ra�a Trabado
  * @since 25/september/2010
 */
+
 require_once '../inc/global.inc.php';
 
-$_SESSION['whereami'] = 'document/editdraw';
+Session::write('whereami', 'document/editdraw');
 $this_section = SECTION_COURSES;
 
 api_protect_course_script(true);

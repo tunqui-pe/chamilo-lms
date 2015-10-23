@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file allows creating new svg and png documents with an online editor.
  *
@@ -12,7 +14,7 @@
 
 require_once '../inc/global.inc.php';
 
-$_SESSION['whereami'] = 'document/createdraw';
+Session::write('whereami', 'document/createdraw');
 $this_section = SECTION_COURSES;
 
 $nameTools = get_lang('Draw');

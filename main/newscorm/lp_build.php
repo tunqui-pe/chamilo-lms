@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This is a learning path creation and player tool in Chamilo - previously learnpath_handler.php
  *
@@ -11,7 +13,7 @@
  * @package chamilo.learnpath
  */
 
-$_SESSION['whereami'] = 'lp/build';
+Session::write('whereami', 'lp/build');
 $this_section = SECTION_COURSES;
 
 api_protect_course_script();

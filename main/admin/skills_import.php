@@ -7,7 +7,6 @@
  * section here: http://en.wikipedia.org/wiki/Personal_knowledge_management
  */
 
-
 $cidReset = true;
 require '../inc/global.inc.php';
 
@@ -235,26 +234,25 @@ if (!empty($_POST['formSent']) && $_FILES['import_file']['size'] !== 0) {
 	}
 
 	// if the warning message is too long then we display the warning message trough a session
-	if (!empty($warning_message) && api_strlen($warning_message) > 150) {
-		$_SESSION['session_message_import_skills'] = $warning_message;
-		$warning_message = 'session_message';
+	if (!empty($warning_message)) {
+		Display::addFlash(Display::return_message($warning_message, 'normal', false));
 	}
 
     if ($error_kind_file) {
-		$error_message = get_lang('YouMustImportAFileAccordingToSelectedOption');
-	} else {
-		//header('Location: '.api_get_path(WEB_CODE_PATH).'admin/skills_import.php?action=show_message&warn='.urlencode($warning_message).'&message='.urlencode($see_message_import).'&sec_token='.$tok);
-		//exit;
+        Display::addFlash(
+            Display::return_message(
+                get_lang('YouMustImportAFileAccordingToSelectedOption'),
+                'error',
+                false
+            )
+        );
 	}
-
 }
+
 Display :: display_header($tool_name);
 
-if (!empty($error_message)) {
-	Display::display_error_message($error_message);
-}
 if (!empty($see_message_import)) {
-	Display::display_normal_message($see_message_import);
+    Display::addFlash(Display::return_message($see_message_import));
 }
 
 $form = new FormValidator('user_import','post','skills_import.php');

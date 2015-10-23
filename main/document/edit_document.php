@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This file allows editing documents.
  *
@@ -24,7 +26,6 @@
  * @todo improve script structure (FormValidator is used to display form, but
  * not for validation at the moment)
  */
-
 require_once '../inc/global.inc.php';
 
 // Template's javascript
@@ -54,7 +55,7 @@ $(document).ready(function() {
 
 </script>';
 
-$_SESSION['whereami'] = 'document/create';
+Session::write('whereami', 'document/create');
 $this_section = SECTION_COURSES;
 $lib_path = api_get_path(LIBRARY_PATH);
 

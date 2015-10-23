@@ -1,17 +1,16 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
- * This script is used by the mp3 player to see if it should start 
+ * This script is used by the mp3 player to see if it should start
  * automatically or not
  * @package chamilo.include
  */
-/**
- * Code
- */
-require ('../../global.inc.php');
-switch ($_SESSION['whereami']) {
-
-
+require '../../global.inc.php';
+$where = Session::read('whereami');
+switch ($where) {
 	case 'lp/build' :
 	case 'document/create' :
 	case 'document/edit' :
@@ -22,4 +21,3 @@ switch ($_SESSION['whereami']) {
 
 }
 echo utf8_encode('autostart='.$autostart);
-?>

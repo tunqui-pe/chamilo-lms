@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
 *
 * @package chamilo.learnpath
@@ -8,7 +10,7 @@
 
 require_once '../inc/global.inc.php';
 
-$_SESSION['whereami'] = 'lp/impress';
+Session::write('whereami', 'lp/impress');
 $this_section = SECTION_COURSES;
 
 //To prevent the template class

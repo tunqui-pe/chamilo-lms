@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  *	This file allows creating audio files from a text.
  *
@@ -10,9 +13,8 @@
  * @todo clean all file
 */
 
-/*	INIT SECTION */
 require_once '../inc/global.inc.php';
-$_SESSION['whereami'] = 'document/createpaint';
+Session::write('whereami', 'document/createpaint');
 $this_section = SECTION_COURSES;
 
 $nameTools = get_lang('PhotoRetouching');

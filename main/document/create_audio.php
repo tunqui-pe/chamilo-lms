@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file allows creating audio files from a text.
  *
@@ -12,7 +14,8 @@
 */
 
 require_once '../inc/global.inc.php';
-$_SESSION['whereami'] = 'document/createaudio';
+Session::write('whereami', 'document/createaudio');
+
 $this_section = SECTION_COURSES;
 
 $nameTools = get_lang('CreateAudio');
