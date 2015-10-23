@@ -741,10 +741,13 @@ function display_requirements(
                 <td class="requirements-item"><a href="http://php.net/manual/en/book.json.php" target="_blank">JSON</a> '.get_lang('support').'</td>
                 <td class="requirements-value">'.checkExtension('json', get_lang('Yes'), get_lang('No')).'</td>
             </tr>
-
              <tr>
                 <td class="requirements-item"><a href="http://php.net/manual/en/book.image.php" target="_blank">GD</a> '.get_lang('support').'</td>
                 <td class="requirements-value">'.checkExtension('gd', get_lang('Yes'), get_lang('ExtensionGDNotAvailable')).'</td>
+            </tr>
+            <tr>
+                <td class="requirements-item"><a href="http://php.net/manual/en/book.curl.php" target="_blank">cURL</a>'.get_lang('support').'</td>
+                <td class="requirements-value">'.checkExtension('curl', get_lang('Yes'), get_lang('No')).'</td>
             </tr>
 
             <tr>
@@ -763,12 +766,6 @@ function display_requirements(
                 <td class="requirements-item"><a href="http://xapian.org/" target="_blank">Xapian</a> '.get_lang('support').' ('.get_lang('Optional').')</td>
                 <td class="requirements-value">'.checkExtension('xapian', get_lang('Yes'), get_lang('No'), true).'</td>
             </tr>
-
-            <tr>
-                <td class="requirements-item"><a href="http://php.net/manual/en/book.curl.php" target="_blank">cURL</a> '.get_lang('support').' ('.get_lang('Optional').')</td>
-                <td class="requirements-value">'.checkExtension('curl', get_lang('Yes'), get_lang('No'), true).'</td>
-            </tr>
-
           </table>';
     echo '  </div>';
     echo '</div>';
@@ -2067,7 +2064,6 @@ function fixIds(EntityManager $em)
 
     if ($debug) {
         error_log('fixIds');
-        error_log('Update tools');
     }
 
     // Create temporary indexes to increase speed of the following operations
@@ -2221,7 +2217,10 @@ function fixIds(EntityManager $em)
         error_log('Getting course list');
     }
 
-    foreach ($courseList  as $courseData) {
+    $totalCourse = count($courseList);
+    $counter = 0;
+
+    foreach ($courseList as $courseData) {
         $courseId = $courseData['id'];
         if ($debug) {
             error_log('Updating course: '.$courseData['code']);
@@ -2229,68 +2228,70 @@ function fixIds(EntityManager $em)
 
         $sql = "SELECT * FROM c_item_property WHERE c_id = $courseId";
         $result = $connection->fetchAll($sql);
-        $counter = 0;
-        error_log("Items to process: ".count($result));
 
         foreach ($result as $item) {
             //$courseId = $item['c_id'];
-            $sessionId = intval($item['session_id']);
-            $groupId = intval($item['to_group_id']);
-            $iid = $item['iid'];
-            $ref = $item['ref'];
+        $sessionId = intval($item['session_id']);
+        $groupId = intval($item['to_group_id']);
+        $iid = $item['iid'];
+        $ref = $item['ref'];
+        // Fix group id
 
-            // Fix group id
-            if (!empty($groupId)) {
-                $sql = "SELECT * FROM c_group_info
-                        WHERE c_id = $courseId AND id = $groupId";
-                $data = $connection->fetchAssoc($sql);
-                if (!empty($data)) {
-                    $newGroupId = $data['iid'];
-                    $sql = "UPDATE c_item_property SET to_group_id = $newGroupId
-                            WHERE iid = $iid";
-                    $connection->executeQuery($sql);
-                } else {
-                    // The group does not exists clean this record
-                    $sql = "DELETE FROM c_item_property WHERE iid = $iid";
-                    $connection->executeQuery($sql);
-                }
-            }
-
-            $sql = '';
-            $newId = '';
-            switch ($item['tool']) {
-                case TOOL_LINK:
-                    $sql = "SELECT * FROM c_link WHERE c_id = $courseId AND id = $ref ";
-                    break;
-                case TOOL_STUDENTPUBLICATION:
-                    $sql = "SELECT * FROM c_student_publication WHERE c_id = $courseId AND id = $ref";
-                    break;
-                case TOOL_QUIZ:
-                    $sql = "SELECT * FROM c_quiz WHERE c_id = $courseId AND id = $ref";
-                    break;
-                case TOOL_DOCUMENT:
-                    $sql = "SELECT * FROM c_document WHERE c_id = $courseId AND id = $ref";
-                    break;
-                case TOOL_FORUM:
-                    $sql = "SELECT * FROM c_forum_forum WHERE c_id = $courseId AND id = $ref";
-                    break;
-                case 'thread':
-                    $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND id = $ref";
-                    break;
-            }
-
-            if (!empty($sql) && !empty($newId)) {
-                $data = $connection->fetchAssoc($sql);
-                if (isset($data['iid'])) {
-                    $newId = $data['iid'];
-                }
-                $sql = "UPDATE c_item_property SET ref = $newId WHERE iid = $iid";
-                error_log($sql);
+        if (!empty($groupId)) {
+            $sql = "SELECT * FROM c_group_info
+                    WHERE c_id = $courseId AND id = $groupId";
+            $data = $connection->fetchAssoc($sql);
+            if (!empty($data)) {
+                $newGroupId = $data['iid'];
+                $sql = "UPDATE c_item_property SET to_group_id = $newGroupId
+                        WHERE iid = $iid";
+                $connection->executeQuery($sql);
+            } else {
+                // The group does not exists clean this record
+                $sql = "DELETE FROM c_item_property WHERE iid = $iid";
                 $connection->executeQuery($sql);
             }
-            error_log("Process item #$counter");
-            $counter++;
         }
+
+        $sql = '';
+        $newId = '';
+        switch ($item['tool']) {
+            case TOOL_LINK:
+                $sql = "SELECT * FROM c_link WHERE c_id = $courseId AND id = $ref ";
+                break;
+            case TOOL_STUDENTPUBLICATION:
+                $sql = "SELECT * FROM c_student_publication WHERE c_id = $courseId AND id = $ref";
+                break;
+            case TOOL_QUIZ:
+                $sql = "SELECT * FROM c_quiz WHERE c_id = $courseId AND id = $ref";
+                break;
+            case TOOL_DOCUMENT:
+                $sql = "SELECT * FROM c_document WHERE c_id = $courseId AND id = $ref";
+                break;
+            case TOOL_FORUM:
+                $sql = "SELECT * FROM c_forum_forum WHERE c_id = $courseId AND id = $ref";
+                break;
+            case 'thread':
+                $sql = "SELECT * FROM c_forum_thread WHERE c_id = $courseId AND id = $ref";
+                break;
+        }
+
+        if (!empty($sql) && !empty($newId)) {
+            $data = $connection->fetchAssoc($sql);
+            if (isset($data['iid'])) {
+                $newId = $data['iid'];
+            }
+            $sql = "UPDATE c_item_property SET ref = $newId WHERE iid = $iid";
+            error_log($sql);
+            $connection->executeQuery($sql);
+        }
+
+            if ($debug) {
+                // Print a status in the log once in a while
+        error_log("Process item #$counter");
+            }
+        $counter++;
+    }
     }
 
     if ($debug) {
@@ -2353,10 +2354,27 @@ function fixIds(EntityManager $em)
 
     if (!empty($groups )) {
         foreach ($groups as $group) {
+            if (empty($group['name'])) {
+                continue;
+            }
+
+            /*$group['description'] = Database::escape_string($group['description']);
+            $group['name'] = Database::escape_string($group['name']);
             $sql = "INSERT INTO usergroup (name, group_type, description, picture, url, visibility, updated_at, created_at)
                     VALUES ('{$group['name']}', '1', '{$group['description']}', '{$group['picture_uri']}', '{$group['url']}', '{$group['visibility']}', '{$group['updated_on']}', '{$group['created_on']}')";
+            */
+            $params = [
+                'name' => $group['name'],
+                'description' => $group['description'],
+                'group_type' => 1,
+                'picture' => $group['picture_uri'],
+                'url' => $group['url'],
+                'visibility' => $group['visibility'],
+                'updated_at' => $group['updated_on'],
+                'created_at' => $group['created_on']
+            ];
+            $connection->insert('usergroup', $params);
 
-            $connection->executeQuery($sql);
             $id = $connection->lastInsertId('id');
             $oldGroups[$group['id']] = $id;
         }
@@ -2368,8 +2386,8 @@ function fixIds(EntityManager $em)
                 $oldId,
                 'system'
             );
-            if (!empty($path)) {
 
+            if (!empty($path)) {
                 $newPath = str_replace(
                     "groups/$oldId/",
                     "groups/$newId/",
@@ -2419,7 +2437,7 @@ function fixIds(EntityManager $em)
             foreach ($dataList as $data) {
                 if (isset($oldGroups[$data['group_id']])) {
                     // Deleting relation
-                    $sql = "DELETE FROM announcement_rel_group WHERE id = {$data['id']}";
+                    $sql = "DELETE FROM announcement_rel_group WHERE group_id = {$data['group_id']}";
                     $connection->executeQuery($sql);
 
                     // Add new relation
@@ -2464,10 +2482,16 @@ function fixIds(EntityManager $em)
     foreach ($extraFieldTables as $type => $table) {
         //continue;
         $sql = "SELECT * FROM $table ";
+        if ($debug) {
+            error_log($sql);
+        }
         $result = $connection->query($sql);
         $fields = $result->fetchAll();
 
         foreach ($fields as $field) {
+            if ($debug) {
+                error_log("Loading field: ".$field['field_variable']);
+            }
             $originalId = $field['id'];
             $extraField = new ExtraField();
             $extraField
@@ -2485,6 +2509,7 @@ function fixIds(EntityManager $em)
             $em->flush();
 
             $values = array();
+            $handlerId = null;
             switch ($type) {
                 case ExtraField::USER_FIELD_TYPE:
                     $optionTable = Database::get_main_table(
@@ -2535,10 +2560,17 @@ function fixIds(EntityManager $em)
                 $sql = "SELECT * FROM $valueTable WHERE field_id = $originalId ";
                 $result = $connection->query($sql);
                 $values = $result->fetchAll();
+                if ($debug) {
+                    error_log("Fetch all values for field");
+                }
             }
 
             if (!empty($values)) {
+                if ($debug) {
+                    error_log("Saving field value in new table");
+                }
                 foreach ($values as $value) {
+                    if (isset($value[$handlerId])) {
                     $extraFieldValue = new ExtraFieldValues();
                     $extraFieldValue
                         ->setValue($value['field_value'])
@@ -2549,7 +2581,13 @@ function fixIds(EntityManager $em)
                 }
             }
         }
+        }
     }
+
+    if ($debug) {
+        error_log('Remove index');
+    }
+
     // Drop temporary indexes added to increase speed of this function's queries
     $sql = "ALTER TABLE c_document DROP INDEX tmpidx_doc";
     $connection->executeQuery($sql);
@@ -2559,6 +2597,10 @@ function fixIds(EntityManager $em)
     $connection->executeQuery($sql);
     $sql = "ALTER TABLE c_item_property DROP INDEX tmpidx_ip";
     $connection->executeQuery($sql);
+
+    if ($debug) {
+        error_log('Finish fixId function');
+    }
 }
 
 /**

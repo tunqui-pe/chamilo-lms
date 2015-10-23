@@ -187,8 +187,7 @@ class BlockDaily extends Block
                 $attendance['course_code'] = $course_info['code'];
 
                 if ($attendance['done'] != '0') {
-                    $attendances[] = '<a href="' . api_get_path(WEB_PATH).'main/attendance/index.php?' . api_get_cidreq(). '&action=attendance_sheet_print&attendance_id=' . $attendance['id'].'">' .
-                        Display::return_icon('printmgr.gif', get_lang('Print')).'</a>';
+                    $attendances[] = '<a href="' . api_get_path(WEB_PATH).'main/attendance/index.php?cidReq=' . $attendance['course_code'] . '&action=attendance_sheet_print&attendance_id=' . $attendance['id']. '">' . Display::return_icon('printmgr.gif', get_lang('Print')).'</a>';
                 } else {
                     $attendances[] = get_lang("NotAvailable");
                 }
@@ -238,8 +237,7 @@ class BlockDaily extends Block
                 if (count($eval) > 0) {
                     $i = 0;
                     foreach ($eval as $item) {
-                        $score .= '<a href="' . api_get_path(WEB_PATH).'main/gradebook/gradebook_view_result.php?export=pdf&cat_code=' . $cat[0]->get_id() . '&official_code=' . $cat[0]->get_course_code() . '&selecteval=' . $item->get_id(). '&'.api_get_cidreq().'">' .
-                            $item->get_name() . '</a>';
+                        $score .= '<a href="' . api_get_path(WEB_PATH).'main/gradebook/gradebook_view_result.php?export=pdf&cat_code=' . $cat[0]->get_id() . '&official_code=' . $cat[0]->get_course_code() . '&selecteval=' . $item->get_id().$param_gradebook . '">' . $item->get_name() . '</a>';
                         if (count($eval) - 1 != $i) {
                             $score .= ', ';
                         }

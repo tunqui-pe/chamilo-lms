@@ -89,7 +89,6 @@ class Thematic
 
         $thematics = array();
         $user_info = api_get_user_info(api_get_user_id());
-
         while ($thematic = Database::fetch_row($res)) {
             $session_star = '';
             if (api_get_session_id() == $thematic[3]) {

@@ -135,7 +135,7 @@ class Attendance
 				LIMIT $from,$number_of_items ";
 
 		$res = Database::query($sql);
-		$attendances = array();
+		$attendances = array ();
 		$user_info = api_get_user_info();
 		$allowDelete = api_get_setting('allow_delete_attendance');
 
@@ -191,7 +191,7 @@ class Attendance
 						$attendance[2] = '<span class="muted">'.$attendance[2].'</span>';
 					}
 					if ($allowDelete === 'true') {
-						$actions .= '<a href="index.php?' . api_get_cidreq() . '&action=attendance_delete&attendance_id=' . $attendance[0].'">' .
+						$actions .= '<a href="index.php?' . api_get_cidreq() . '&action=attendance_delete&attendance_id=' . $attendance[0]. '">' .
 							Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL) . '</a>';
 					}
 				} else {
@@ -230,7 +230,7 @@ class Attendance
 							$message_alert = get_lang('UnlockMessageInformation');
 						}
 						$actions .= '&nbsp;<a onclick="javascript:if(!confirm(\''.$message_alert.'\')) return false;" href="index.php?'.api_get_cidreq().'&action=lock_attendance&attendance_id='.$attendance[0].'">'.
-								Display::return_icon('unlock.png', get_lang('LockAttendance')).'</a>';
+                            Display::return_icon('unlock.png', get_lang('LockAttendance')).'</a>';
 					} else {
 						if (api_is_platform_admin()) {
 							$actions .= '&nbsp;<a onclick="javascript:if(!confirm(\''.get_lang('AreYouSureToUnlockTheAttendance').'\')) return false;" href="index.php?'.api_get_cidreq().'&action=unlock_attendance&attendance_id='.$attendance[0].'">'.
