@@ -1086,10 +1086,10 @@ class Wiki
                     array('onclick' => "javascript: goprint();")
                 );
             }
-                        
+
             echo Display::toolbarAction('toolbar-wikistudent', array(0 => $actionsLeft, 1 => $actionsRight));
 
-            
+
 
             if (empty($title)) {
                 $pageTitle = get_lang('DefaultTitle');
@@ -1100,7 +1100,7 @@ class Wiki
             } else {
                 $pageTitle = api_htmlentities($title);
             }
-           
+
 
             $pageWiki = self::make_wiki_link_clickable(
                     self::detect_external_link(
@@ -1115,9 +1115,9 @@ class Wiki
                         )
                     )
                 );
-            
+
             $footerWiki = '<div id="wikifooter">'.get_lang('Progress').': '.($row['progress']*10).'%&nbsp;&nbsp;&nbsp;'.get_lang('Rating').': '.$row['score'].'&nbsp;&nbsp;&nbsp;'.get_lang('Words').': '.self::word_count($content).'</div>';
-            
+
             echo Display::panel($pageWiki, $pageTitle, $footerWiki);
         } //end filter visibility
     }
@@ -2059,15 +2059,18 @@ class Wiki
      */
     public function double_post($wpost_id)
     {
-        if (isset($_SESSION['wpost_id'])) {
-            if ($wpost_id == $_SESSION['wpost_id']) {
+        $postId = Session::read('wpost_id');
+        if (isset($postId)) {
+            if ($wpost_id == $postId) {
                 return false;
             } else {
-                $_SESSION['wpost_id'] = $wpost_id;
+                Session::write('wpost_id', $wpost_id);
+
                 return true;
             }
         } else {
-            $_SESSION['wpost_id'] = $wpost_id;
+            Session::write('wpost_id', $wpost_id);
+
             return true;
         }
     }
@@ -2668,9 +2671,9 @@ class Wiki
 
                 // First prevent concurrent users and double version
                 if ($is_editing_block['is_editing'] == $userId) {
-                    $_SESSION['_version'] = $is_editing_block['version'];
+                    Session::write('_version', $is_editing_block['version']);
                 } else {
-                    unset($_SESSION['_version']);
+                    Session::erase('_version');
                 }
                 // Second checks if has exceeded the time that a page may be available or if a page was edited and saved by its author
                 if ($time_editing > $max_edit_time || ($is_editing_block['is_editing'] == $userId && $action!='edit')) {
@@ -4682,7 +4685,7 @@ class Wiki
         $groupId = $this->group_id;
         $page = $this->page;
 
-        
+
         $actionsLeft = '';
         $actionsLeft .= '<a href="index.php?action=showpage&title=index&cidReq='.$_course['id'].'&session_id='.$session_id.'&group_id='.$groupId.'">'.
             Display::return_icon('home.png', get_lang('Home'), '', ICON_SIZE_MEDIUM).'</a>';
@@ -4721,8 +4724,8 @@ class Wiki
         // menu recent changes
         $actionsLeft .= '<a class="btn btn-default" href="index.php?cidReq='.$_course['id'].'&action=recentchanges&session_id='.$session_id.'&group_id='.$groupId.'"'.self::is_active_navigation_tab('recentchanges').'>'.
             get_lang('RecentChanges').'</a>';
-        
-        
+
+
         echo Display::toolbarAction('toolbar-wiki', array( 0 => $actionsLeft));
     }
 
@@ -5065,6 +5068,8 @@ class Wiki
                     $form->setDefaults($row);
                     $form->display();
 
+                    $versionSession = Session::read('_version');
+
                     // Saving a change
                     if ($form->validate()) {
                         if (empty($_POST['title'])) {
@@ -5076,7 +5081,7 @@ class Wiki
                             );
                         } elseif (!self::double_post($_POST['wpost_id'])) {
                             //double post
-                        } elseif ($_POST['version']!='' && $_SESSION['_version'] !=0 && $_POST['version'] != $_SESSION['_version']) {
+                        } elseif ($_POST['version'] != '' && $versionSession !=0 && $_POST['version'] != $versionSession) {
                             //prevent concurrent users and double version
                             Display::addFlash(
                                 Display::return_message(

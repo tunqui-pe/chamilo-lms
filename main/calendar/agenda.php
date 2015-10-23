@@ -33,7 +33,7 @@ if (empty($action)) {
 }
 
 /* 	Resource linker */
-$_SESSION['source_type'] = 'Agenda';
+Session::write('source_type', 'Agenda');
 require_once '../resourcelinker/resourcelinker.inc.php';
 $group_id = api_get_group_id();
 $eventId = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;

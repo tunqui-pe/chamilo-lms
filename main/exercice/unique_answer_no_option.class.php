@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
+
 /**
  * Class UniqueAnswerNoOption
  * Allows to instantiate an object of type UNIQUE_ANSWER (MULTIPLE CHOICE, UNIQUE ANSWER),
@@ -34,7 +36,7 @@ class UniqueAnswerNoOption extends Question
     function createAnswersForm($form)
     {
         // getting the exercise list
-        $obj_ex = $_SESSION['objExercise'];
+        $obj_ex = Session::read('objExercise');
 
         $editor_config = array('ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '125');
 

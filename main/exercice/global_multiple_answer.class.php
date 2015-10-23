@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class GlobalMultipleAnswer
  */
@@ -10,7 +12,7 @@ class GlobalMultipleAnswer extends Question
     static $explanationLangVar = 'GlobalMultipleAnswer';
 
     /**
-     *
+     * Constructor
      */
     public function __construct()
     {
@@ -28,7 +30,7 @@ class GlobalMultipleAnswer extends Question
         $nb_answers = isset($_POST['nb_answers']) ? $_POST['nb_answers'] : 4;
         $nb_answers += (isset($_POST['lessAnswers']) ? -1 : (isset($_POST['moreAnswers']) ? 1 : 0));
 
-        $obj_ex = $_SESSION['objExercise'];
+        $obj_ex = Session::read('objExercise');
 
         /* Mise en variable de Affichage "Reponses" et son icone, "N�", "Vrai", "Reponse" */
         $html = '<table class="data_table">

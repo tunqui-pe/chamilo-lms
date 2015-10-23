@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file allows creating new svg and png documents with an online editor.
  *
@@ -17,11 +19,11 @@ api_block_anonymous_users();
 //delete temporal file
 unlink($_SESSION['temp_realpath_image']);
 
-//Clean sessions and return to Chamilo file list
-unset($_SESSION['paint_dir']);
-unset($_SESSION['paint_file']);
-unset($_SESSION['whereami']);
-unset($_SESSION['temp_realpath_image']);
+// Clean sessions and return to Chamilo file list
+Session::erase('paint_dir');
+Session::erase('paint_file');
+Session::erase('whereami');
+Session::erase('temp_realpath_image');
 
 if (!isset($_SESSION['exit_pixlr'])){
 	$location=api_get_path(WEB_CODE_PATH).'document/document.php';

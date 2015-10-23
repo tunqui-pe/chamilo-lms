@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * These files are a complete rework of the forum. The database structure is
  * based on phpBB but all the code is rewritten. A lot of new functionalities
@@ -17,7 +19,7 @@
  *
  * @package chamilo.forum
  */
-// Including the global initialization file.
+
 require_once '../inc/global.inc.php';
 
 // The section (tabs).
@@ -85,9 +87,10 @@ if (api_is_in_gradebook()) {
     );
 }
 
-if ($origin == 'group') {
-    $_clean['toolgroup'] = (int)$_SESSION['toolgroup'];
-    $group_properties  = GroupManager :: get_group_properties($_clean['toolgroup']);
+$groupId = api_get_group_id();
+
+if (!empty($groupId)) {
+    $group_properties  = GroupManager :: get_group_properties($groupId);
     $interbreadcrumb[] = array(
         'url' => '../group/group.php?'.api_get_cidreq(),
         'name' => get_lang('Groups'),

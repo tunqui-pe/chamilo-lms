@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file allows record wav files.
  *
@@ -10,9 +12,10 @@
  * @since 7/jun/2012
  * @Updated 04/09/2015 Upgrade to WebCamJS
 */
+
 require_once '../inc/global.inc.php';
 
-$_SESSION['whereami'] = 'document/webcamclip';
+Session::write('whereami', 'document/webcamclip');
 $this_section = SECTION_COURSES;
 $nameTools = get_lang('WebCamClip');
 
@@ -157,28 +160,28 @@ echo '</div>';
                Webcam.freeze();
                return false;
            });
-           
+
            $('#btnClean').click(function() {
                Webcam.unfreeze();
                return false;
            });
-           
+
            $('#btnSave').click(function() {
                snap();
                return false;
            });
-           
+
            $('#btnAuto').click(function() {
                start_video();
                return false;
            });
-           
+
            $('#btnStop').click(function() {
                stop_video();
                return false;
            });
         });
-        
+
         function snap() {
             Webcam.snap( function(data_uri) {
                   var clip_filename='video_clip.jpg';
@@ -230,7 +233,7 @@ echo '</div>';
 	</td><td width=50></td><td valign='top' align='center'>
 		<div id="upload_results" style="background-color:#ffffff;"></div>
 	</td></tr></table>
-    
+
     <!-- Implementing Button html5 Tags instead Inputs and some cool bootstrap button styles -->
     <div>
         <br/>

@@ -408,7 +408,8 @@ if ($form->validate()) {
         $extraFieldValue->saveFieldValues($user);
 
 		$tok = Security::get_token();
-		header('Location: user_list.php?action=show_message&message='.urlencode(get_lang('UserUpdated')).'&sec_token='.$tok);
+		Display::addFlash(Display::return_message(get_lang('UserUpdated')));
+		header('Location: user_list.php?sec_token='.$tok);
 		exit();
 	}
 }

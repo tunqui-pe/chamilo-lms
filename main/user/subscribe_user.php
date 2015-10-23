@@ -6,6 +6,7 @@
 * to their course.
 * @package chamilo.user
 */
+use ChamiloSession as Session;
 
 require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_USER;
@@ -32,6 +33,7 @@ $type = isset($_REQUEST['type']) ? intval($_REQUEST['type']) : STUDENT;
 $keyword = isset($_REQUEST['keyword']) ? Security::remove_XSS($_REQUEST['keyword']) : null;
 
 $courseInfo = api_get_course_info();
+$sessionId = api_get_session_id();
 
 if ($type == COURSEMANAGER) {
 	$tool_name = get_lang("SubscribeUserToCourseAsTeacher");
@@ -76,22 +78,25 @@ if (isset($_REQUEST['register'])) {
         );
     }
 
-	$user_id_temp = $_SESSION['session_user_id'];
+	$user_id_temp = Session::read('session_user_id');
 
     if (is_array($user_id_temp)) {
         $counter = count($user_id_temp);
         for ($j=0; $j<$counter;$j++) {
             if 	($user_id_temp[$j]==$_GET['user_id']) {
                 if ($result_simple_sub)	{
-                    Display::addFlash(Display::return_message($_SESSION['session_user_name'][$j].' '.get_lang('AddedToCourse')));
+                    Display::addFlash(
+                        Display::return_message($_SESSION['session_user_name'][$j].' '.get_lang('AddedToCourse'))
+                    );
                 } else {
-                    Display::addFlash(Display::return_message($_SESSION['session_user_name'][$j].' '.get_lang('NotAddedToCourse'), 'error'));
-
+                    Display::addFlash(
+                        Display::return_message($_SESSION['session_user_name'][$j].' '.get_lang('NotAddedToCourse'), 'error')
+                    );
                 }
             }
         }
-        unset($_SESSION['session_user_id']);
-        unset($_SESSION['session_user_name']);
+        Session::erase('session_user_id');
+        Session::erase('session_user_name');
     }
 
     header('Location:'.api_get_path(WEB_CODE_PATH).'user/user.php?'.api_get_cidreq().'&type='.$type);
@@ -128,11 +133,11 @@ if (isset($_POST['action'])) {
                 }
             }
 
-            $user_id_temp = $_SESSION['session_user_id'];
-            $user_name_temp = $_SESSION['session_user_name'];
+            $user_id_temp = Session::read('session_user_id');
+            $user_name_temp = Session::read('session_user_name');
 
-            unset($_SESSION['session_user_id']);
-            unset($_SESSION['session_user_name']);
+            Session::erase('session_user_id');
+            Session::erase('session_user_name');
             $counter = 0;
             $is_suscribe_counter = count($is_suscribe_user_id);
 
@@ -173,13 +178,8 @@ if (isset($_POST['action'])) {
 	}
 }
 
-if (!empty($_SESSION['session_user_id'])) {
-	unset($_SESSION['session_user_id']);
-}
-
-if (!empty($_SESSION['session_user_name'])) {
-	unset($_SESSION['session_user_name']);
-}
+Session::erase('session_user_id');
+Session::erase('session_user_name');
 
 $is_western_name_order = api_is_western_name_order();
 $sort_by_first_name = api_sort_by_first_name();
@@ -434,7 +434,7 @@ function get_number_of_users()
 		}
 
 		// getting all the users of the course (to make sure that we do not display users that are already in the course)
-		if (!empty($_SESSION["id_session"])) {
+		if (!empty($sessionId)) {
             $a_course_users = CourseManager:: get_user_list_from_course_code(
                 $courseCode,
                 $sessionId
@@ -740,7 +740,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
 		if (is_array($additional_users)) {
 			foreach($additional_users as $additional_user_key=>$additional_user_value){
 				if (!in_array($additional_user_key, $_SESSION['session_user_id']) &&
-                    !in_array($additional_user_key,$users_of_course)
+                    !in_array($additional_user_key, $users_of_course)
                 ){
                     $users[] = array(
                         $additional_user_value['col0'],

@@ -6,6 +6,8 @@
  * @package chamilo.chat
  */
 
+use ChamiloSession as Session;
+
 require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_CHAT;
 $this_section = SECTION_COURSES;
@@ -17,10 +19,10 @@ $target = isset($_GET["target"]) ? Security::remove_XSS($_GET["target"]) : null;
 if ($origin != 'whoisonline') {
     api_protect_course_script(true);
 } else {
-    $origin = $_SESSION['origin'];
-    $target = $_SESSION['target'];
-    $_SESSION['origin']= $origin;
-    $_SESSION['target']= $target;
+    $origin = Session::read('origin');
+    $target = Session::read('target');
+    Session::write('origin', $origin);
+    Session::write('target', $target);
 }
 
 api_protect_course_group(GroupManager::GROUP_TOOL_CHAT, false);

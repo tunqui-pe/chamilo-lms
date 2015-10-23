@@ -36,15 +36,16 @@ $TBL_TRACK_ATTEMPT		= Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
 if ($debug) { error_log('Entered exercise_result.php: '.print_r($_POST,1)); }
 
 if (empty($formSent)) {            $formSent       = isset($_REQUEST['formSent']) ? $_REQUEST['formSent'] : null; }
-if (empty($exerciseResult)) {      $exerciseResult = isset($_SESSION['exerciseResult']) ? $_SESSION['exerciseResult'] : null; }
 if (empty($questionId)) {          $questionId     = isset($_REQUEST['questionId']) ? $_REQUEST['questionId'] : null;}
 if (empty($choice)) {              $choice         = isset($_REQUEST['choice']) ? $_REQUEST['choice'] : null;}
 if (empty($questionNum)) {         $questionNum    = isset($_REQUEST['num']) ? $_REQUEST['num'] : null;}
 if (empty($nbrQuestions)) {        $nbrQuestions   = isset($_REQUEST['nbrQuestions']) ? $_REQUEST['nbrQuestions'] : null;}
-if (empty($questionList)) {        $questionList   = isset($_SESSION['questionList']) ? $_SESSION['questionList'] : null;}
-if (empty($objExercise)) {         $objExercise    = isset($_SESSION['objExercise']) ? $_SESSION['objExercise'] : null;}
 if (empty($exeId)) {               $exeId          = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;}
 if (empty($action)) {              $action         = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;}
+
+$exerciseResult = Session::read('exerciseResult');
+$questionList = Session::read('questionList');
+$objExercise = Session::read('objExercise');
 
 $id = intval($_REQUEST['id']); //exe id
 
@@ -776,7 +777,7 @@ if ($origin != 'learnpath') {
 	Display::display_footer();
 } else {
 	if (!isset($_GET['fb_type'])) {
-		$lp_mode =  $_SESSION['lp_mode'];
+		$lp_mode =  Session::read('lp_mode');
 		$url = '../newscorm/lp_controller.php?'.api_get_cidreq().'&action=view&lp_id='.$learnpath_id.'&lp_item_id='.$learnpath_item_id.'&exeId='.$exeId.'&fb_type='.$feedback_type;
 		$href = ($lp_mode == 'fullscreen')?' window.opener.location.href="'.$url.'" ':' top.location.href="'.$url.'" ';
 		echo '<script type="text/javascript">'.$href.'</script>';

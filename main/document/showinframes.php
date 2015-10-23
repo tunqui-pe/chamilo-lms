@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This file will show documents in a separate frame.
  *	We don't like frames, but it was the best of two bad things.
@@ -22,6 +24,7 @@
  *	@author Roan Embrechts (roan.embrechts@vub.ac.be)
  *	@package chamilo.document
  */
+
 require_once '../inc/global.inc.php';
 
 api_protect_course_script();
@@ -159,7 +162,7 @@ if (empty($document_data['parents'])) {
 }
 
 $this_section = SECTION_COURSES;
-$_SESSION['whereami'] = 'document/view';
+Session::write('whereami', 'document/view');
 $nameTools = get_lang('Documents');
 
 /**

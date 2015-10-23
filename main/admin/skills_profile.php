@@ -5,6 +5,8 @@
  *  @package chamilo.admin
  */
 
+use \ChamiloSession as Session;
+
 $cidReset = true;
 require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
@@ -51,14 +53,13 @@ if ($form->validate()) {
 
         $skills = array_filter($skills);
         $skills = array_unique($skills);
-
-        $_SESSION['skills'] = $skills;
+        Session::write('skills', $skills);
 
     } else {
-        $skills = isset($_SESSION['skills']) ? $_SESSION['skills']: array();
+        $skills = Session::read('skills', array());
     }
 } else {
-    $skills = isset($_SESSION['skills']) ? $_SESSION['skills']: array();
+    $skills = Session::read('skills', array());
 }
 
 $user_list = array();
@@ -117,9 +118,8 @@ if (!empty($skills)) {
 
 $total_skills_to_search = $skill->get_skills_info($total_skills_to_search);
 
-
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
-$id     = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
+$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
 
 switch ($action) {
     case 'remove_skill':
@@ -129,7 +129,8 @@ switch ($action) {
                 $new_skill[] = $skill_id;
             }
         }
-        $skills = $_SESSION['skills'] = $new_skill;
+        $skills = $new_skill;
+        Session::write('skills', $skills);
         break;
     case 'load_profile':
         $skill_profile = new SkillRelProfile();
@@ -145,7 +146,7 @@ foreach ($total_skills_to_search as $skill_info) {
 
 $tpl->assign('skill_list', $skill_list);
 $tpl->assign('search_skill_list', $skills);
-$form_to_html = $form->return_form();
+$form_to_html = $form->returnForm();
 $tpl->assign('form', $form_to_html);
 $tpl->assign('url', $url);
 $content = $tpl->fetch('default/skill/profile.tpl');

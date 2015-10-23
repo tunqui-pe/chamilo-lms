@@ -1,11 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Responses to AJAX calls
  */
 
 require_once '../global.inc.php';
+
 $debug = false;
 api_protect_course_script(true);
 
@@ -209,7 +212,7 @@ switch ($action) {
         break;
     case 'add_question_to_reminder':
         /** @var Exercise $objExercise */
-        $objExercise  = $_SESSION['objExercise'];
+        $objExercise = Session::read('objExercise');
         if (empty($objExercise)) {
             echo 0;
             exit;
@@ -257,11 +260,11 @@ switch ($action) {
 
             // Exercise information.
             /** @var Exercise $objExercise */
-            $objExercise = isset($_SESSION['objExercise']) ? $_SESSION['objExercise'] : null;
+            $objExercise = Session::read('objExercise');
 
             // Question info.
             $question_id = isset($_REQUEST['question_id']) ? intval($_REQUEST['question_id']) : null;
-            $question_list = $_SESSION['questionList'];
+            $question_list = Session::read('questionList');
 
             // If exercise or question is not set then exit.
             if (empty($question_list) || empty($objExercise)) {

@@ -501,7 +501,8 @@ function modify_filter($user_id, $url_params, $row) {
     if (api_is_platform_admin() || (api_is_session_admin() && $current_user_status_label == $statusname[STUDENT])) {
     	if (!$user_is_anonymous) {
             if (api_global_admin_can_edit_admin($user_id)) {
-                $result .= '<a href="user_list.php?action=login_as&user_id='.$user_id.'&sec_token='.$_SESSION['sec_token'].'">'.Display::return_icon('login_as.png', get_lang('LoginAs')).'</a>&nbsp;&nbsp;';
+                $result .= '<a href="user_list.php?action=login_as&user_id='.$user_id.'&sec_token='.$_SESSION['sec_token'].'">'.
+                    Display::return_icon('login_as.png', get_lang('LoginAs')).'</a>&nbsp;&nbsp;';
             } else {
                 $result .= Display::return_icon('login_as_na.png', get_lang('LoginAs')).'&nbsp;&nbsp;';
             }
@@ -590,7 +591,8 @@ function modify_filter($user_id, $url_params, $row) {
                 api_global_admin_can_edit_admin($user_id)
             ) {
                 // you cannot lock yourself out otherwise you could disable all the accounts including your own => everybody is locked out and nobody can change it anymore.
-                $result .= ' <a href="user_list.php?action=delete_user&user_id='.$user_id.'&'.$url_params.'&sec_token='.$_SESSION['sec_token'].'"  onclick="javascript:if(!confirm('."'".addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset))."'".')) return false;">'.Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
+                $result .= ' <a href="user_list.php?action=delete_user&user_id='.$user_id.'&'.$url_params.'&sec_token='.$_SESSION['sec_token'].'"  onclick="javascript:if(!confirm('."'".addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset))."'".')) return false;">'.
+                    Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
             } else {
                 $result .= Display::return_icon('delete_na.png', get_lang('Delete'), array(), ICON_SIZE_SMALL);
             }
@@ -673,26 +675,7 @@ if (!empty($action)) {
                     $message  = Display::return_message($message, 'confirmation');
                 }
                 break;
-			case 'show_message' :
-                if (!empty($_GET['warn'])) {
-                    // to prevent too long messages
-                    if ($_GET['warn'] == 'session_message') {
-                        $_GET['warn'] = $_SESSION['session_message_import_users'];
-                    }
-                    if (isset($_GET['warn']) && !empty($_GET['warn'])) {
-                        $message .= Display::return_message(
-                            Security::remove_XSS($_GET['warn']),
-                            'warning',
-                            false
-                        );
-                    }
-                }
-                if (!empty($_GET['message'])) {
-                    $message .= Display::return_message(stripslashes($_GET['message']), 'confirmation');
-                }
-
-				break;
-			case 'delete_user' :
+			case 'delete_user':
 				if (api_is_platform_admin()) {
                     $user_to_delete = $_GET['user_id'];
                     $current_user_id = api_get_user_id();

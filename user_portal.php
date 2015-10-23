@@ -219,8 +219,8 @@ if ($useCookieValidation === 'true') {
 
 //check for flash and message
 $sniff_notification = '';
-$some_activex = isset($_SESSION['sniff_check_some_activex']) ? $_SESSION['sniff_check_some_activex'] : null;
-$some_plugins = isset($_SESSION['sniff_check_some_plugins']) ? $_SESSION['sniff_check_some_plugins'] : null;
+$some_activex = Session::read('sniff_check_some_activex');
+$some_plugins = Session::read('sniff_check_some_plugins');
 
 if (!empty($some_activex) || !empty($some_plugins)) {
     if (!preg_match("/flash_yes/", $some_activex) && !preg_match("/flash_yes/", $some_plugins)) {

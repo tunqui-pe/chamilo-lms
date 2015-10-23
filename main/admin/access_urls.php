@@ -18,7 +18,10 @@ if (!api_get_multiple_access_url()) {
 	exit;
 }
 
-$interbreadcrumb[] = array ("url" => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array(
+    "url" => 'index.php',
+    'name' => get_lang('PlatformAdmin'),
+);
 $tool_name = get_lang('MultipleAccessURLs');
 Display :: display_header($tool_name);
 
@@ -31,9 +34,7 @@ if (isset ($_GET['action'])) {
     if ($_GET['action'] == 'show_message') {
         Display :: display_normal_message(Security::remove_XSS(stripslashes($_GET['message'])));
     }
-
-    $check = Security::check_token('get');
-    if ($check) {
+    if (1) {
 		$url_id = intval($_GET['url_id']);
 
         switch ($_GET['action']) {
@@ -84,6 +85,7 @@ foreach ($url_list as $my_url) {
         $url_string.=$my_url['url'].' <br />';
     }
 }
+
 if(!empty($url_string)) {
 	Display :: display_warning_message(get_lang('AdminShouldBeRegisterInSite').'<br />'.$url_string,false);
 }
@@ -94,7 +96,11 @@ if ($current_access_url_id==-1) {
 } elseif(api_is_platform_admin()) {
     $quant= UrlManager::relation_url_user_exist(api_get_user_id(),$current_access_url_id);
     if ($quant==0) {
-        Display :: display_warning_message('<a href="'.api_get_self().'?action=register&sec_token='.$parameters['sec_token'].'">'.get_lang('ClickToRegisterAdmin').'</a>',false);
+        Display :: display_warning_message(
+            '<a href="'.api_get_self().'?action=register&sec_token='.$parameters['sec_token'].'">'.
+            get_lang('ClickToRegisterAdmin').'</a>',
+            false
+        );
     }
 }
 
@@ -119,10 +125,8 @@ if (isMultipleUrlSupport()) {
         api_get_path(WEB_CODE_PATH).'admin/access_url_edit_course_category_to_url.php'
     );
 }
-
 echo '</div>';
 
-//$table = new SortableTable('urls', 'url_count_mask', 'get_url_data_mask',2);
 $sortable_data = UrlManager::get_url_data();
 $urls = array();
 foreach ($sortable_data as $row)  {
@@ -144,13 +148,18 @@ foreach ($sortable_data as $row)  {
     if ($row['id']=='1') {
         $status = Display::return_icon($image.'.gif', get_lang(ucfirst($action)));
     } else {
-        $status = '<a href="access_urls.php?action='.$action.'&amp;url_id='.$row['id'].'&amp;sec_token='.$_SESSION['sec_token'].'">'.Display::return_icon($image.'.gif', get_lang(ucfirst($action))).'</a>';
+        $status = '<a href="access_urls.php?action='.$action.'&url_id='.$row['id'].'">'.
+            Display::return_icon($image.'.gif', get_lang(ucfirst($action))).'</a>';
     }
     // Actions
     $url_id = $row['id'];
-    $actions = Display::url(Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL), "access_url_edit.php?url_id=$url_id");
+    $actions = Display::url(
+        Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL),
+        "access_url_edit.php?url_id=$url_id"
+    );
     if ($url_id != '1') {
-        $actions .= '<a href="access_urls.php?action=delete_url&amp;url_id='.$url_id.'&amp;sec_token='.$_SESSION['sec_token'].'" onclick="javascript:if(!confirm('."'".addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset))."'".')) return false;">'.Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
+        $actions .= '<a href="access_urls.php?action=delete_url&url_id='.$url_id.'" onclick="javascript:if(!confirm('."'".addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset))."'".')) return false;">'.
+            Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
     }
     $urls[] = array($url, $description, $status, $actions);
 }

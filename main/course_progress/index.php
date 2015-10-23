@@ -7,7 +7,8 @@
  * @package chamilo.course_progress
  */
 
-// including files
+use ChamiloSession as Session;
+
 require_once '../inc/global.inc.php';
 require_once 'thematic_controller.php';
 
@@ -60,7 +61,7 @@ if (isset($_GET['isStudentView']) && $_GET['isStudentView'] == 'true') {
 }
 
 if ($action == 'thematic_details' || $action == 'thematic_list') {
-    $_SESSION['thematic_control'] = $action;
+    Session::write('thematic_control', $action);
 }
 
 // get thematic id
@@ -181,22 +182,24 @@ function check_per_custom_date(obj) {
 }
 </script>';
 
+$thematicAction = Session::read('thematic_control');
+
 if ($action == 'thematic_list') {
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('ThematicControl'));
 }
 if ($action == 'thematic_add') {
-    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$_SESSION['thematic_control'], 'name' => get_lang('ThematicControl'));
+    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$thematicAction, 'name' => get_lang('ThematicControl'));
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('NewThematicSection'));
 }
 if ($action == 'thematic_edit') {
-    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$_SESSION['thematic_control'], 'name' => get_lang('ThematicControl'));
+    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$thematicAction, 'name' => get_lang('ThematicControl'));
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('EditThematicSection'));
 }
 if ($action == 'thematic_details') {
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('ThematicControl'));
 }
 if ($action == 'thematic_plan_list' || $action == 'thematic_plan_delete') {
-    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$_SESSION['thematic_control'], 'name' => get_lang('ThematicControl'));
+    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$thematicAction, 'name' => get_lang('ThematicControl'));
     if (!empty($thematic_data)) {
         $interbreadcrumb[] = array(
             'url' => '#',
@@ -205,7 +208,7 @@ if ($action == 'thematic_plan_list' || $action == 'thematic_plan_delete') {
     }
 }
 if ($action == 'thematic_plan_add' || $action == 'thematic_plan_edit') {
-    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$_SESSION['thematic_control'], 'name' => get_lang('ThematicControl'));
+    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$thematicAction, 'name' => get_lang('ThematicControl'));
     $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action=thematic_plan_list&thematic_id='.$thematic_id, 'name' => get_lang('ThematicPlan').' ('.$thematic_data['title'].')');
     if ($description_type >= ADD_THEMATIC_PLAN) {
         $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('NewBloc'));
@@ -214,11 +217,11 @@ if ($action == 'thematic_plan_add' || $action == 'thematic_plan_edit') {
     }
 }
 if ($action == 'thematic_advance_list' || $action == 'thematic_advance_delete') {
-    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$_SESSION['thematic_control'], 'name' => get_lang('ThematicControl'));
+    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$thematicAction, 'name' => get_lang('ThematicControl'));
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('ThematicAdvance').' ('.$thematic_data['title'].')');
 }
 if ($action == 'thematic_advance_add' || $action == 'thematic_advance_edit') {
-    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$_SESSION['thematic_control'], 'name' => get_lang('ThematicControl'));
+    $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action='.$thematicAction, 'name' => get_lang('ThematicControl'));
     $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action=thematic_advance_list&thematic_id='.$thematic_id, 'name' => get_lang('ThematicAdvance').' ('.$thematic_data['title'].')');
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('NewThematicAdvance'));
 }
