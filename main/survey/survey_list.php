@@ -22,6 +22,7 @@ $current_course_tool = TOOL_SURVEY;
 
 api_protect_course_script(true);
 $action = isset($_GET['action']) ? Security::remove_XSS($_GET['action']) : null;
+$sessionId = api_get_session_id();
 
 // Tracking
 Event::event_access_tool(TOOL_SURVEY);
@@ -95,7 +96,7 @@ if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
 if ($action == 'delete' && isset($_GET['survey_id'])) {
     // Getting the information of the survey (used for when the survey is shared)
     $survey_data = SurveyManager::get_survey($_GET['survey_id']);
-    if (api_is_course_coach() && intval($_SESSION['id_session']) != $survey_data['session_id']) {
+    if (api_is_course_coach() && $sessionId != $survey_data['session_id']) {
         // The coach can't delete a survey not belonging to his session
         api_not_allowed();
         exit;

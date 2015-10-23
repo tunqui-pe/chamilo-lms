@@ -51,6 +51,8 @@ if (api_is_in_gradebook()) {
 }
 
 $groupId = api_get_group_id();
+$sessionId = api_get_session_id();
+
 if ($origin == 'group') {
     $group_properties = GroupManager::get_group_properties($groupId);
     $interbreadcrumb[] = array(
@@ -190,7 +192,7 @@ if ($my_message != 'PostDeletedSpecial') {
             if (
                 (
                     api_is_allowed_to_edit(false, true) &&
-                    !(api_is_course_coach() && $current_forum['session_id'] != $_SESSION['id_session'])
+                    !(api_is_course_coach() && $current_forum['session_id'] != $sessionId)
                 ) ||
                 ($current_forum['allow_new_threads'] == 1 && isset($_user['user_id'])) ||
                 ($current_forum['allow_new_threads'] == 1 && !isset($_user['user_id']) && $current_forum['allow_anonymous'] == 1)

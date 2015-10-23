@@ -167,10 +167,9 @@ if ($action_forums != 'add') {
     $html = '';
     $html .= '<div class="category-forum">';
 
-    $my_session = isset($_SESSION['id_session']) ? $_SESSION['id_session'] : null;
-
+    $sessionId = api_get_session_id();
     if (
-        (!isset($_SESSION['id_session']) || $_SESSION['id_session'] == 0) &&
+        (!isset($sessionId) || $sessionId == 0) &&
         !empty($forum_category['session_name'])
     ) {
         $session_displayed = ' ('.Security::remove_XSS($forum_category['session_name']).')';
@@ -189,7 +188,7 @@ if ($action_forums != 'add') {
         ICON_SIZE_MEDIUM
     );
 
-    if (api_is_allowed_to_edit(false, true) && !($forum_category['session_id'] == 0 && intval($my_session) != 0)) {
+    if (api_is_allowed_to_edit(false, true) && !($forum_category['session_id'] == 0 && intval($sessionId) != 0)) {
 
         $iconsEdit = '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&forumcategory='
             . Security::remove_XSS($_GET['forumcategory']) . '&action=edit&content=forumcategory&id='
@@ -355,7 +354,7 @@ if ($action_forums != 'add') {
                     $forum_title_group_addition = '';
                 }
 
-                if ((!isset($_SESSION['id_session']) || $_SESSION['id_session'] == 0) && !empty($forum['session_name'])) {
+                if ((!isset($sessionId) || $sessionId == 0) && !empty($forum['session_name'])) {
                     $session_displayed = ' ('.$forum['session_name'].')';
                 } else {
                     $session_displayed = '';
@@ -448,10 +447,8 @@ if ($action_forums != 'add') {
                 $html .= '</div>';
                 $html .= '<div class="col-md-4">';
 
-                if (
-                    api_is_allowed_to_edit(false, true) &&
-                    !($forum['session_id'] == 0 &&
-                    intval(isset($_SESSION['id_session']) ? $_SESSION['id_session'] : null) != 0)
+                if (api_is_allowed_to_edit(false, true) &&
+                    !($forum['session_id'] == 0 && $sessionId != 0)
                 ) {
                     $html .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&forumcategory='
                         . Security::remove_XSS($_GET['forumcategory'])
