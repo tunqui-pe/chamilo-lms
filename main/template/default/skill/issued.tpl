@@ -45,37 +45,46 @@
                 </a>
             </p>
         {% endif %}
-        <hr>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                {{ 'Comments'|get_lang }}
-            </div>
-            <div class="panel-body">
-                {% if not allow_export %}
+        {% if allow_comment %}
+            <hr>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <em class="fa fa-comment-o fa-fw" aria-hidden="true"></em> {{ 'XComments'|get_lang|format(issue_info.comments|length) }}
+                    /
+                    <em class="fa fa-thumbs-o-up fa-fw" aria-hidden="true"></em> {{ 'AverageRatingX'|get_lang|format(issue_info.feedback_average) }}
+                </div>
+                <div class="panel-body">
                     {{ comment_form }}
                     <hr>
-                {% endif %}
-                {% for comment in issue_info.comments %}
-                    <article class="media">
-                        <div class="media-body">
-                            <h4 class="media-heading">{{ comment.giver_complete_name }}</h4>
-                            <p><small>{{ comment.datetime }}</small></p>
-                            <p>{{ comment.text }}</p>
-                        </div>
-                        <div class="media-right text-right">
-                            <div style="width: 80px;">
-                                {% if comment.value %}
-                                    <em class="fa fa-certificate fa-fw" aria-label="{{ 'SkillEvaluation' }}"></em>
-                                    <span class="sr-only">{{ 'SkillEvaluation' }}</span> {{ comment.value }}
-                                {% endif %}
+                    {% for comment in issue_info.comments %}
+                        <article class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ comment.giver_complete_name }}</h4>
+                                <p><small>{{ comment.datetime }}</small></p>
+                                <p>{{ comment.text }}</p>
                             </div>
-                        </div>
-                    </article>
-                {% else %}
-                    <p>{{ 'WithoutComment'|get_lang }}</p>
-                {% endfor %}
+                            <div class="media-right text-right">
+                                <div style="width: 80px;">
+                                    {% if comment.value %}
+                                        <em class="fa fa-certificate fa-fw" aria-label="{{ 'AverageRating' }}"></em>
+                                        <span class="sr-only">{{ 'AverageRating' }}</span> {{ comment.value }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </article>
+                    {% else %}
+                        <p>{{ 'WithoutComment'|get_lang }}</p>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <hr>
+            <p class="lead">
+                <em class="fa fa-comment-o fa-fw" aria-hidden="true"></em> {{ 'XComments'|get_lang|format(issue_info.comments|length) }}
+                /
+                <em class="fa fa-thumbs-o-up fa-fw" aria-hidden="true"></em> {{ 'AverageRatingX'|get_lang|format(issue_info.feedback_average) }}
+            </p>
+        {% endif %}
     </div>
 </div>
 {% if allow_export %}

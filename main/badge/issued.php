@@ -34,6 +34,9 @@ if ($skillIssue->getUser()->getId() !== intval($_REQUEST['user'])) {
 }
 
 $currentUserId = api_get_user_id();
+$currentUser = $entityManager->find('ChamiloUserBundle:User', $currentUserId);
+$allowExport = $currentUser ? $currentUser->getId() === $skillIssue->getUser()->getId() : false;
+$allowComment = $currentUser ? Skill::userCanAddFeedbackToUser($currentUser, $skillIssue->getUser()) : false;
 $skillIssueDate = api_get_local_time($skillIssue->getAcquiredSkillAt());
 
 $skillIssueInfo = [
@@ -49,7 +52,8 @@ $skillIssueInfo = [
     'skill_description' => $skillIssue->getSkill()->getDescription(),
     'skill_criteria' => $skillIssue->getSkill()->getCriteria(),
     'badge_asserion' => [$skillIssue->getAssertionUrl()],
-    'comments' => []
+    'comments' => [],
+    'feedback_average' => $skillIssue->getAverage()
 ];
 
 $skillIssueComments = $skillIssue->getComments(true);
@@ -78,8 +82,7 @@ $form->addHidden('user', $skillIssue->getUser()->getId());
 $form->addHidden('issue', $skillIssue->getId());
 $form->addButtonSend(get_lang('Send'));
 
-if ($form->validate()) {
-    $currentUser = $entityManager->find('ChamiloUserBundle:User', $currentUserId);
+if ($form->validate() && $allowComment) {
     $values = $form->exportValues();
 
     $skillUserComment = new Chamilo\CoreBundle\Entity\SkillRelUserComment();
@@ -87,7 +90,7 @@ if ($form->validate()) {
         ->setFeedbackDateTime(new DateTime)
         ->setFeedbackGiver($currentUser)
         ->setFeedbackText($values['comment'])
-        ->setFeedbackValue($values['value'])
+        ->setFeedbackValue($values['value'] ? $values['value'] : null)
         ->setSkillRelUser($skillIssue);
 
     $entityManager->persist($skillUserComment);
@@ -96,8 +99,6 @@ if ($form->validate()) {
     header("Location: " . $skillIssue->getIssueUrl());
     exit;
 }
-
-$allowExport = $currentUserId === $skillIssue->getUser()->getId();
 
 if ($allowExport) {
     $backpack = 'https://backpack.openbadges.org/';
@@ -113,6 +114,7 @@ if ($allowExport) {
 
 $template = new Template(get_lang('IssuedBadgeInformation'));
 $template->assign('issue_info', $skillIssueInfo);
+$template->assign('allow_comment', $allowComment);
 $template->assign('allow_export', $allowExport);
 $template->assign('comment_form', $form->returnForm());
 

@@ -308,4 +308,28 @@ class SkillRelUser
 
         return $this->comments;
     }
+
+    /**
+     * Calculate the average value from the feedback comments
+     * @return type
+     */
+    public function getAverage()
+    {
+        $sum = 0;
+        $average = 0;
+        $countValues = 0;
+
+        foreach ($this->comments as $comment) {
+            if (!$comment->getFeedbackValue()) {
+                continue;
+            }
+
+            $sum += $comment->getFeedbackValue();
+            $countValues++;
+        }
+
+        $average = $countValues > 0 ? $sum / $countValues : 0;
+
+        return number_format($average, 2);
+    }
 }
