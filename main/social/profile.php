@@ -399,7 +399,7 @@ if ($show_full_profile) {
                         break;
                     case ExtraField::FIELD_TYPE_SOCIAL_PROFILE:
                         $icon_path = UserManager::get_favicon_from_url($data);
-                        if (SocialManager::verifyUrl($icon_path) == false){
+                        if (SocialManager::verifyUrl($icon_path) == false) {
                             break;
                         }
                         $bottom = '0.2';
