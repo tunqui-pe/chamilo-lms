@@ -44,6 +44,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
 
         "sylius/settings-bundle": "~0.1",
+        "sylius/translation": "~0.1",
+        "sylius/attribute": "~0.1",
 
         "sabre/vobject": "~3.1",
         "toin0u/digitalocean": "~1.4",
@@ -60,13 +62,9 @@
         "monolog/monolog": "~1.0",
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
         "doctrine/migrations": "1.0.*@dev",
-        "symfony/doctrine-bridge": "2.6.4",
-        "symfony/validator": "2.6.4",
-        "symfony/filesystem": "~2.6",
-        "symfony/security": "~2.6",
+
         "ircmaxell/password-compat": "~1.0.4",
-        "sylius/attribute": "0.13.0",
-        "sylius/translation": "0.13.0",
+
         "gedmo/doctrine-extensions": "~2.3",
         "sonata-project/user-bundle": "~2.2",
         "ramsey/array_column": "~1.1",
