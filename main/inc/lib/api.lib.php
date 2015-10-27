@@ -1427,7 +1427,9 @@ function _api_format_user($user, $add_password = false)
         'theme',
         'language',
         'creator_id',
-        'registration_date'
+        'registration_date',
+        'hr_dept_id',
+        'expiration_date'
     );
 
     foreach ($attributes as $attribute) {
@@ -6073,9 +6075,9 @@ function api_get_tools_lists($my_tool = null) {
  * @param int user id
  * @return bool true if we pass false otherwise
  */
-function api_check_term_condition($user_id) {
+function api_check_term_condition($user_id)
+{
     if (api_get_setting('allow_terms_conditions') == 'true') {
-
         //check if exists terms and conditions
         if (LegalManager::count() == 0) {
             return true;
@@ -6087,8 +6089,8 @@ function api_check_term_condition($user_id) {
             'legal_accept'
         );
 
-        if (!empty($data) && isset($data[0])) {
-            $rowv = $data[0];
+        if (!empty($data) && isset($data['value'])) {
+            $rowv = $data['value'];
             $user_conditions = explode(':', $rowv);
             $version = $user_conditions[0];
             $lang_id = $user_conditions[1];

@@ -135,7 +135,6 @@ if (isset($action) && $action == 'calendar_add') {
                     ''
                 );
                 $form->addDateTimePicker('date_time', array(get_lang('Date')), array('form_name'=>'attendance_calendar_edit'), 5);
-                //$form->addElement('date_time_picker', 'date_time', '', array('form_name'=>'attendance_calendar_edit'), 5);
                 $defaults['date_time'] = $calendar['date_time'];
                 $form->addButtonSave(get_lang('Save'));
                 $form->addButtonCancel(get_lang('Cancel'), 'cancel');
