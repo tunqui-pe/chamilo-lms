@@ -78,7 +78,7 @@
         "knplabs/knp-menu-bundle": "~2.0",
 
         "sonata-project/user-bundle": "~2.2@dev",
-        "sonata-project/block-bundle": "~2.3@dev",
+        "sonata-project/block-bundle": "~2.2@dev",
 
         "ramsey/array_column": "~1.1",
         "patchwork/utf8": "~1.2",
