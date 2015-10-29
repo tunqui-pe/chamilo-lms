@@ -27,6 +27,49 @@ class CourseManager
     const USER_SEPARATOR = ' |';
     const COURSE_FIELD_TYPE_CHECKBOX = 10;
     public $columns = array();
+    public static $em;
+    private static $manager;
+    public static $toolList;
+
+    /**
+     * @param ToolChain $toolList
+     */
+    public static function setToolList($toolList)
+    {
+        self::$toolList = $toolList;
+    }
+
+    /**
+     * @param \Doctrine\ORM\EntityManager
+     */
+    public static function setEntityManager($em)
+    {
+        self::$em = $em;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public static function getEntityManager()
+    {
+        return self::$em;
+    }
+
+    /**
+     * @return Chamilo\CoreBundle\Entity\CourseManager
+     */
+    public static function setCourseManager($manager)
+    {
+        self::$manager = $manager;
+    }
+
+    /**
+     * @return Chamilo\CoreBundle\Entity\CourseManager
+     */
+    public static function getCourseManager()
+    {
+        return self::$manager;
+    }
 
     /**
      * Creates a course
