@@ -17,8 +17,10 @@ class ScriptHandler
     {
         $appCss = __DIR__.'/../../../../app/Resources/public/css';
         $newPath = __DIR__.'/../../../../web/css';
-        $fs = new Filesystem();
-        $fs->mirror($appCss, $newPath);
+        if (is_dir($appCss)) {
+            $fs = new Filesystem();
+            $fs->mirror($appCss, $newPath);
+        }
     }
 
     /**
