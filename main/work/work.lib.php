@@ -1591,6 +1591,7 @@ function getWorkListTeacher(
                     '#'
                 );
             }
+            
             // Remove Delete Work Button from action List
             // Because removeXSS "removes" the onClick JS Event to do the action (See model.ajax.php - Line 1639)
             // But still can use the another jqgrid button to remove works (trash icon) 
