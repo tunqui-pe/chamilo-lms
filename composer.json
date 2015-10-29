@@ -32,9 +32,16 @@
     },
     "require": {
         "php": ">=5.4",
+        "ext-intl": "*",
+        "ext-gd": "*",
+        "ext-mysql": "*",
         "ext-curl": "*",
-        "symfony/symfony": "2.7.*",
+        "ext-zlib": "*",
+        "ext-xml": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
 
+        "symfony/symfony": "2.7.*",
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
@@ -46,6 +53,8 @@
         "sylius/settings-bundle": "~0.1",
         "sylius/translation": "~0.1",
         "sylius/attribute": "~0.1",
+        "sylius/resource-bundle": "~0.1",
+        "sylius/resource": "~0.1",
 
         "sabre/vobject": "~3.1",
         "toin0u/digitalocean": "~1.4",
@@ -59,14 +68,18 @@
         "mpdf/mpdf": "5.7.4",
         "barryvdh/elfinder-builds": "2.1.0.3",
         "jbroadway/urlify": "1.0.3-stable",
-        "monolog/monolog": "~1.0",
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/migrations": "1.0.*@dev",
+        "doctrine/migrations": "~1.0@dev",
+        "doctrine/doctrine-migrations-bundle": "*@dev",
 
         "ircmaxell/password-compat": "~1.0.4",
-
         "gedmo/doctrine-extensions": "~2.3",
-        "sonata-project/user-bundle": "~2.2",
+
+        "knplabs/knp-menu-bundle": "~2.0",
+
+        "sonata-project/user-bundle": "~2.2@dev",
+        "sonata-project/block-bundle": "~2.3@dev",
+
         "ramsey/array_column": "~1.1",
         "patchwork/utf8": "~1.2",
         "ddeboer/data-import": "@stable",
