@@ -42,7 +42,6 @@ foreach ($iterator as $folder) {
             $po = file($phpFilePath);
             $translations = array();
 
-
             $englishFile = $englishDir.'/'.$phpFile->getBasename();
             echo $englishFile.PHP_EOL;
             foreach ($po as $line) {
@@ -74,13 +73,7 @@ foreach ($iterator as $folder) {
             $fp = fopen($new_po_file, 'w');
             foreach ($translations as $item) {
                 $line = 'msgid "'.$item['msgid'].'"'."\n";
-                $line .= 'msgstr "'.nl2br(
-                        str_replace(
-                            array("\r\n", "\n"),
-                            "",
-                            addcslashes($item['msgstr'], "'")
-                        )
-                    ).'"'."\n\n";
+                $line .= 'msgstr "'.nl2br(str_replace(array("\r\n", "\n"), "<br />", addcslashes($item['msgstr'], '"'))).'"'."\n\n";
                 fwrite($fp, $line);
             }
             fclose($fp);
