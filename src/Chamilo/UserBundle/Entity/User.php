@@ -32,7 +32,26 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @ORM\Table(name="user")
  * //Vich\Uploadable
  * @UniqueEntity("username")
- * @ORM\Entity(repositoryClass="Chamilo\UserBundle\Entity\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Chamilo\UserBundle\Repository\UserRepository")
+ *
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email",
+ *         column=@ORM\Column(
+ *             name="email",
+ *             type="string",
+ *             length=255,
+ *             unique=false
+ *         )
+ *     ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(
+ *             name="emailCanonical",
+ *             type="string",
+ *             length=255,
+ *             unique=false
+ *         )
+ *     )
+ * })
  *
  */
 class User extends BaseUser //implements ParticipantInterface, ThemeUser
@@ -65,42 +84,42 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
      *
      * @ORM\Column(name="username", type="string", length=100, nullable=false, unique=true)
      */
-    protected $username;
+    //protected $username;
 
     /**
      * @var string
      *
      * * @ORM\Column(name="username_canonical", type="string", length=100, nullable=false, unique=true)
      */
-    protected $usernameCanonical;
+    //protected $usernameCanonical;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100, nullable=false, unique=false)
      */
-    protected $email;
+    //protected $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=60, nullable=true, unique=false)
      */
-    protected $lastname;
+    //protected $lastname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=60, nullable=true, unique=false)
      */
-    protected $firstname;
+    //protected $firstname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false, unique=false)
      */
-    protected $password;
+    //protected $password;
 
     /**
      * @var string
@@ -114,7 +133,7 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $status = STUDENT;
+    private $status;
 
     /**
      * @var string
@@ -128,7 +147,7 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
      *
      * @ORM\Column(name="phone", type="string", length=30, nullable=true, unique=false)
      */
-    protected $phone;
+    //protected $phone;
 
     /**
      * Vich\UploadableField(mapping="user_image", fileNameProperty="picture_uri")
@@ -266,14 +285,14 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $salt;
+    //protected $salt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=true, unique=false)
      */
-    protected $lastLogin;
+    //protected $lastLogin;
 
     /**
      * Random string sent to the user email address in order to verify it
@@ -281,14 +300,14 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
      * @var string
      * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
      */
-    protected $confirmationToken;
+    //protected $confirmationToken;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true, unique=false)
      */
-    protected $passwordRequestedAt;
+    //protected $passwordRequestedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\CourseRelUser", mappedBy="user")
@@ -327,8 +346,7 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
      * )
      */
-    //protected $groups;
-
+    protected $groups;
 
     //private $isActive;
 
@@ -377,6 +395,7 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
      */
     public function __construct()
     {
+        $this->status = self::STUDENT;
         parent::__construct();
 
         $this->salt = sha1(uniqid(null, true));
@@ -387,16 +406,16 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
         $this->courses = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->classes = new ArrayCollection();
-        //$this->roles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->curriculumItems = new ArrayCollection();
         $this->portals = new ArrayCollection();
         $this->dropBoxSentFiles = new ArrayCollection();
         $this->dropBoxReceivedFiles = new ArrayCollection();
         $this->chatcallUserId = 0;
-        //$this->extraFields = new ArrayCollection();
-        //$this->userId = 0;
-        //$this->createdAt = new \DateTime();
-        //$this->updatedAt = new \DateTime();
+        $this->extraFields = new ArrayCollection();
+        $this->userId = 0;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
