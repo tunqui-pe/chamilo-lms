@@ -39,7 +39,6 @@ class CourseListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-
     }
 
     /**
@@ -64,6 +63,7 @@ class CourseListener
         if ($controller[0] instanceof ToolInterface) {
         //if ($controller[0] instanceof ToolBaseController) {
             //$token = $event->getRequest()->query->get('token');
+
             $kernel = $event->getKernel();
             $request = $event->getRequest();
 
@@ -84,17 +84,22 @@ class CourseListener
             $em = $container->get('doctrine')->getManager();
 
             $securityChecker = $container->get('security.authorization_checker');
-
+            $tokenStorage = $container->get('security.token_storage');
+            $token = $tokenStorage->getToken();
+            $user = $token->getUser();
             if (!empty($courseCode)) {
                 /** @var Course $course */
                 $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneByCode($courseCode);
+
                 if ($course) {
                     // Session
                     $sessionId = $request->get('id_session');
 
+
                     if (empty($sessionId)) {
                         // Check if user is allowed to this course
                         // See CourseVoter.php
+
                         if (false === $securityChecker->isGranted(CourseVoter::VIEW, $course)) {
                             throw new AccessDeniedException('Unauthorised access to course!');
                         }
