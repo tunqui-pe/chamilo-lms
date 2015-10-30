@@ -85,7 +85,7 @@
         "sonata-project/block-bundle": "~2.3@dev",
         "sonata-project/intl-bundle": "~2.2@dev",
 
-        "mopa/bootstrap-bundle": "v3.0.0-RC2",
+        "mopa/bootstrap-bundle": "v3.0.0-beta3",
         "twbs/bootstrap": "v3.0.0",
 
         "friendsofsymfony/comment-bundle": "~2.0@dev",
