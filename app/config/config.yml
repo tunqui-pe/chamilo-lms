@@ -1,7 +1,11 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: assetic.yml }
     - { resource: services.yml }
+
+    # Mopa Bootstrap
+    - { resource: mopa/mopa_bootstrap.yml }
 
     # FriendOfSymfony Bundles
     #- { resource: fos/fos_comment.yml }
@@ -150,3 +154,13 @@ sylius_settings:
         parameter:
             model: Chamilo\CoreBundle\Entity\SettingsCurrent
             repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
+
+
+# Bower configuration
+sp_bower:
+    assetic: true
+    install_on_warmup: false
+    bundles:
+        ChamiloThemeBundle:
+            cache:
+                directory: %kernel.root_dir%/cache/public/components/cache
