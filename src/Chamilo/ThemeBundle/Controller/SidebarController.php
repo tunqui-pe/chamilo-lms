@@ -30,6 +30,7 @@ class SidebarController extends Controller
         if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_USER)) {
             return new Response();
         }
+
         $userEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_SIDEBAR_USER, new ShowUserEvent());
 
         return $this->render(

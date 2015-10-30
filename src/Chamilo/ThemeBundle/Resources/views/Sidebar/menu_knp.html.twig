@@ -11,6 +11,8 @@
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true}) }}
+    {{ mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:courseMenu', {'automenu': 'pills', 'stacked':true}) }}
+
 {% else %}
     <div class="user-panel">
     </div>
