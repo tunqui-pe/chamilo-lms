@@ -3,6 +3,8 @@
 
 namespace System;
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Session Management
  *
@@ -16,17 +18,35 @@ class Session implements \ArrayAccess
 
     static function read($variable, $default = null)
     {
-        return isset($_SESSION[$variable]) ? $_SESSION[$variable] : $default;
+        //return isset($_SESSION[$variable]) ? $_SESSION[$variable] : $default;
+        $session = Container::getSession();
+        $result = null;
+        if (isset($session)) {
+            $result = $session->get($variable);
+        }
+        // Check if the value exists in the $_SESSION array
+        if (empty($result)) {
+            return isset($_SESSION[$variable]) ? $_SESSION[$variable] : $default;
+        } else {
+            return $result;
+        }
     }
 
     static function write($variable, $value)
     {
+        //$_SESSION[$variable] = $value;
+        $session = Container::getSession();
+        // Writing the session in 2 instances because
         $_SESSION[$variable] = $value;
+        $session->set($variable, $value);
     }
 
     static function erase($variable)
     {
         $variable = (string) $variable;
+        $session = Container::getSession();
+        $session->remove($variable);
+
         if (isset($GLOBALS[$variable])) {
             unset($GLOBALS[$variable]);
         }
@@ -47,16 +67,14 @@ class Session implements \ArrayAccess
 
     static function clear()
     {
-        session_regenerate_id();
-        session_unset();
-        $_SESSION = array();
+        $session = Container::getSession();
+        $session->clear();
     }
 
     static function destroy()
     {
-        session_unset();
-        $_SESSION = array();
-        session_destroy();
+        $session = Container::getSession();
+        $session->invalidate();
     }
 
     /*
