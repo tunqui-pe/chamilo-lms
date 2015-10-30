@@ -1,0 +1,12 @@
+{% extends "ChamiloCoreBundle::layout.html.twig" %}
+
+{% block page_content %}
+
+    {% for scriptJs in js %}
+        {{ scriptJs | raw }}
+    {% endfor %}
+
+    {% autoescape false %}
+    {{ content }}
+    {% endautoescape %}
+{% endblock %}

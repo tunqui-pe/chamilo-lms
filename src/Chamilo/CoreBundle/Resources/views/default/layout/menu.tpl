@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuone" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="menuone">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url('home') }}">{{ 'Home' | trans }}</a></li>
+                <li><a href="{{ url('userportal') }}">{{ 'Courses' | trans }}</a></li>
+                <li><a href="{{ url('home') ~ 'main/calendar/agenda_js.php?type=personal' }}">{{ 'Agenda' | trans }}</a></li>
+                <li><a href="{{ url('home')~ 'main/social/home.php' }}">{{ 'SocialNetwork' | trans }}</a></li>
+                <li><a href="{{ url('home') }}">{{ 'Reporting' | trans }}</a></li>
+                <li><a href="{{ url('home') ~ 'main/admin/index.php' }}">{{ 'Administration' | trans }}</a></li>
+            </ul>
+            {% if app.user %}
+                <ul class="nav navbar-nav navbar-right">
+                    {#{% if user_notifications is not null %}#}
+                        {#<li><a href="{{ message_url }}">{{ user_notifications }}</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if _u.status != 6 %}#}
+                    {% if app.user %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ app.user.username }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ url('fos_user_profile_show') }}">
+                                        {{ "Profile" | trans }}
+                                    </a>
+                                    {{ message_link }}
+                                </li>
+                            </ul>
+                        </li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                <a id="logout_button" title="{{ "Logout"| trans }}" href="{{ url('fos_user_security_logout') }}" >
+                                    <em class="fa fa-sign-out"></em> {{ "Logout"| trans }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

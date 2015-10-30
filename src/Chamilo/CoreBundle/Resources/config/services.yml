@@ -125,69 +125,69 @@ services:
             - { name: kernel.event_subscriber }
 
     # Menu
-#    chamilo_core.listener.navbar_menu_listener:
-#        class: Chamilo\CoreBundle\EventListener\MenuListener
-#        arguments: [@service_container]
-#        tags:
-#            - { name: kernel.event_listener, event: theme.sidebar_setup_menu_knp, method: onSetupMenu }
-#            - { name: kernel.event_listener, event: theme.breadcrumb, method: onSetupMenu }
-#
-#    # Show the user information in the topbar
-#    chamilo_core.listener.navbar_user_listener:
-#        class: Chamilo\CoreBundle\EventListener\ShowUserListener
-#        arguments: [@service_container]
-#        tags:
-#            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
-#            - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
-#
-#    # Loads the message notifications in the top bar
-#    chamilo_core.listener.message_listener:
-#        class: Chamilo\CoreBundle\EventListener\MessageListener
-#        arguments: [@service_container]
-#        tags:
-#            - { name: kernel.event_listener, event: theme.messages, method: onListMessages }
-#
-#    # When user logins
+    chamilo_core.listener.navbar_menu_listener:
+        class: Chamilo\CoreBundle\EventListener\MenuListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: theme.sidebar_setup_menu_knp, method: onSetupMenu }
+            - { name: kernel.event_listener, event: theme.breadcrumb, method: onSetupMenu }
+
+    # Show the user information in the topbar
+    chamilo_core.listener.navbar_user_listener:
+        class: Chamilo\CoreBundle\EventListener\ShowUserListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
+            - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
+
+    # Loads the message notifications in the top bar
+    chamilo_core.listener.message_listener:
+        class: Chamilo\CoreBundle\EventListener\MessageListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: theme.messages, method: onListMessages }
+
+    # When user logins
     chamilo_core.listener.login_success_handler:
         class: Chamilo\CoreBundle\EventListener\LoginSuccessHandler
         arguments:  [@router, @security.authorization_checker]
-#
-#    # When user logouts
+
+    # When user logouts
     chamilo_core.listener.logout_success_handler:
         class: Chamilo\CoreBundle\EventListener\LogoutSuccessHandler
         arguments:  [@router, @security.authorization_checker]
-#
-#    # ORMs
-#    chamilo_course.entity.course:
-#        class: Chamilo\CourseBundle\Entity\CourseManager
-#        arguments: [@doctrine]
-#
-#    # Course block
-#    chamilo_core.block.course:
-#        class: Chamilo\CoreBundle\Block\CourseBlockService
-#        arguments: ["course_block", @templating ]
-#        tags:
-#            - { name: sonata.block }
-#
-#    # Course block
-#    chamilo_core.block.header:
-#        class: Chamilo\CoreBundle\Block\CourseBlockService
-#        arguments: ["header", @templating ]
-#        tags:
-#            - { name: sonata.block }
-#
-#    # Menus
-#    chamilo_core.menu.simple_menu:
-#        class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
-#        arguments: [@service_container]
 
-#    chamilo_core.menu.menu.main_menu_builder:
-#        class: Chamilo\CoreBundle\Menu\MainMenuBuilder
-#        arguments: [@knp_menu.factory, @router]
+    # ORMs
+    chamilo_course.entity.course:
+        class: Chamilo\CourseBundle\Entity\CourseManager
+        arguments: [@doctrine]
 
-#    chamilo_core.menu.menu.course_menu_builder:
-#        class: Chamilo\CoreBundle\Menu\CourseMenuBuilder
-#        arguments: [@knp_menu.factory, @chamilo_course.entity.course, @router]
+    # Course block
+    chamilo_core.block.course:
+        class: Chamilo\CoreBundle\Block\CourseBlockService
+        arguments: ["course_block", @templating ]
+        tags:
+            - { name: sonata.block }
+
+    # Course block
+    chamilo_core.block.header:
+        class: Chamilo\CoreBundle\Block\CourseBlockService
+        arguments: ["header", @templating ]
+        tags:
+            - { name: sonata.block }
+
+    # Menus
+    chamilo_core.menu.simple_menu:
+        class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
+        arguments: [@service_container]
+
+    chamilo_core.menu.menu.main_menu_builder:
+        class: Chamilo\CoreBundle\Menu\MainMenuBuilder
+        arguments: [@knp_menu.factory, @router]
+
+    chamilo_core.menu.menu.course_menu_builder:
+        class: Chamilo\CoreBundle\Menu\CourseMenuBuilder
+        arguments: [@knp_menu.factory, @chamilo_course.entity.course, @router]
 
     # Blocks
 

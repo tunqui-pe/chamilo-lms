@@ -164,12 +164,13 @@ class HomeController extends ToolBaseController
                 'edit_icons' => $editIcons,
                 'introduction_text' => $introduction,
                 'exercise_warning' => null,
-                'lp_warning' => null
+                'lp_warning' => null,
+                'menu' => ''
             )
         );
     }
 
-    function return_block($title, $content)
+    private function return_block($title, $content)
     {
         $html = '<div class="page-header">
                 <h3>'.$title.'</h3>
@@ -186,7 +187,7 @@ class HomeController extends ToolBaseController
         $session_id = api_get_session_id();
         $urlGenerator = $this->get('router');
 
-        $content = null;
+        $content = '';
 
         // Start of tools for CourseAdmins (teachers/tutors)
         $totalList = array();

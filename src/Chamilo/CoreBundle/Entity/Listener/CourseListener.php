@@ -34,7 +34,7 @@ class CourseListener
      */
     public function prePersist(Course $course, LifecycleEventArgs $args)
     {
-        //$this->toolChain->addToolsInCourse($course);
+        $this->toolChain->addToolsInCourse($course);
         /*
         error_log('ddd');
         $course->setDescription( ' dq sdqs dqs dqs ');

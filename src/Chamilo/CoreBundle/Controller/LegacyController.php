@@ -22,7 +22,7 @@ class LegacyController extends BaseController
     public $section;
 
     /**
-     * @param $name
+     * @param string $name
      * @param Request $request
      * @return Response
      */
@@ -63,6 +63,10 @@ class LegacyController extends BaseController
         //Container::$configDir = $this->container->get('kernel')->getConfigDir();
         //Container::$htmlEditor = $this->container->get('chamilo_core.html_editor');
         Container::$twig = $this->container->get('twig');
+
+        $is_allowed_in_course = api_is_allowed_in_course();
+        $is_courseAdmin = api_is_course_admin();
+        $is_platformAdmin = api_is_platform_admin();
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
@@ -108,11 +112,13 @@ class LegacyController extends BaseController
                 $response = $app['twig']->render($app['default_layout']);
             }*/
 
+
             return $this->render(
                 'ChamiloCoreBundle:Legacy:index.html.twig',
                 array(
                     'content' => $out,
-                    'js' => $js
+                    'js' => $js,
+                    'menu' => ''
                 )
             );
         } else {

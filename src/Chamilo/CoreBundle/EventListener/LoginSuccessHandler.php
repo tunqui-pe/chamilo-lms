@@ -49,7 +49,6 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
         $ip = $request->getClientIp();
 
-
         // Setting user info.
         $request->getSession()->set('_user', $userInfo);
 
@@ -84,6 +83,8 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
                     break;
             }
         }
+
+        $url = $this->router->generate('userportal');
 
         // Redirecting to a course or a session.
         if (api_get_setting('course.go_to_course_after_login') == 'true') {
