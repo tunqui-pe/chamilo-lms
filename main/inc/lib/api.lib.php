@@ -19,6 +19,10 @@ define('REQUIRED_MIN_UPLOAD_MAX_FILESIZE', '10');
 define('REQUIRED_MIN_POST_MAX_SIZE', '10');
 
 use ChamiloSession as Session;
+use Symfony\Component\Validator\Constraints as Assert;
+use Chamilo\UserBundle\Entity\User;
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Framework\Container;
 
 // USER STATUS CONSTANTS
 /** global status of a user: student */
@@ -332,7 +336,7 @@ define('SCRIPT_ASCIIMATHML', '{SCRIPT_ASCIIMATHML}');
 define('DRAWING_ASCIISVG', '{DRAWING_ASCIISVG}');
 
 // Forcing PclZip library to use a custom temporary folder.
-define('PCLZIP_TEMPORARY_DIR', api_get_path(SYS_ARCHIVE_PATH));
+//define('PCLZIP_TEMPORARY_DIR', api_get_path(SYS_ARCHIVE_PATH));
 
 // Relations type with Course manager
 define('COURSE_RELATION_TYPE_COURSE_MANAGER', 1);
@@ -565,6 +569,26 @@ define('SHORTCUTS_VERTICAL', 1);
 // Image class
 define('IMAGE_PROCESSOR', 'gd'); // 'imagick' or 'gd' strings
 
+/*	Constants */
+
+define('TOOL_PUBLIC', 'Public');
+define('TOOL_PUBLIC_BUT_HIDDEN', 'PublicButHide');
+define('TOOL_COURSE_ADMIN', 'courseAdmin');
+define('TOOL_PLATFORM_ADMIN', 'platformAdmin');
+define('TOOL_AUTHORING', 'toolauthoring');
+define('TOOL_INTERACTION', 'toolinteraction');
+define('TOOL_COURSE_PLUGIN', 'toolcourseplugin'); //all plugins that can be enabled in courses
+define('TOOL_ADMIN', 'tooladmin');
+define('TOOL_ADMIN_PLATFORM', 'tooladminplatform');
+define('TOOL_DRH', 'tool_drh');
+define('TOOL_STUDENT_VIEW', 'toolstudentview');
+define('TOOL_ADMIN_VISIBLE', 'tooladminvisible');
+
+// CONSTANTS defining all tools, using the english version
+/* When you add a new tool you must add it into function api_get_tools_lists() too */
+define('TOOL_BLOG', 'blog');
+define('TOOL_CURRICULUM', 'curriculum');
+
 /**
  * Inclusion of internationalization libraries
  */
@@ -718,6 +742,13 @@ function api_get_path($path_type, $path = null)
     static $root_sys;
     static $root_rel;
 
+    //$root_web = Container::getUrlGenerator()->generate('home');
+    //var_dump($root_web);exit;
+    //$rootDir = Container::getRootDir();
+
+    // Configuration data for already installed system.
+    //$root_sys = $rootDir;
+
     // Always load root_web modifications for multiple url features
     global $_configuration;
     //default $_configuration['root_web'] configuration
@@ -835,6 +866,7 @@ function api_get_path($path_type, $path = null)
         $paths[LIBRARY_PATH]            = $paths[SYS_CODE_PATH].$paths[LIBRARY_PATH];
         $paths[CONFIGURATION_PATH]      = $paths[SYS_PATH].$paths[CONFIGURATION_PATH];
         $paths[SYS_COURSE_PATH]         = $paths[SYS_APP_PATH].$course_folder;
+        //$paths[SYS_COURSE_PATH]         = Container::getCourseDir();
 
         $is_this_function_initialized = true;
     } else {
@@ -1337,7 +1369,11 @@ function api_is_self_registration_allowed()
  */
 function api_get_user_id()
 {
-    return empty($GLOBALS['_user']['user_id']) ? 0 : intval($GLOBALS['_user']['user_id']);
+    $userInfo = Session::read('_user');
+    if ($userInfo && isset($userInfo['user_id'])) {
+        return $userInfo['user_id'];
+    }
+    return 0;
 }
 
 /**
@@ -1612,7 +1648,7 @@ function api_get_user_info_from_email($email = '')
  */
 function api_get_course_id()
 {
-    return isset($GLOBALS['_cid']) ? $GLOBALS['_cid'] : null;
+    return Session::read('_cid');
 }
 
 /**
@@ -1646,7 +1682,8 @@ function api_get_course_int_id($code = null)
             return false;
         }
     }
-    return isset($_SESSION['_real_cid']) ? intval($_SESSION['_real_cid']) : 0;
+
+    return Session::read('_real_cid', 0);
 }
 
 /**
@@ -1799,7 +1836,7 @@ function api_get_course_info($course_code = null, $strict = false)
         return $courseInfo;
     }
 
-    global $_course;
+    $_course = Session::read('_course');
     if ($_course == '-1') {
         $_course = array();
     }
@@ -3301,7 +3338,7 @@ function api_is_allowed($tool, $action, $task_id = 0)
  * @return bool     true if this user is anonymous, false otherwise
  */
 function api_is_anonymous($user_id = null, $db_check = false) {
-    if (!isset($user_id)) {
+    /*if (!isset($user_id)) {
         $user_id = api_get_user_id();
     }
     if ($db_check) {
@@ -3324,7 +3361,32 @@ function api_is_anonymous($user_id = null, $db_check = false) {
         return true;
     }
 
-    return ((isset($_user['is_anonymous']) && $_user['is_anonymous'] === true) || $_user === false);
+    return ((isset($_user['is_anonymous']) && $_user['is_anonymous'] === true) || $_user === false);*/
+
+    if (!isset($user_id)) {
+        $user_id = api_get_user_id();
+    }
+
+    if ($db_check) {
+        $info = api_get_user_info($user_id);
+
+        if ($info['status'] == 6 || $user_id == 0 || empty($info)) {
+            return true;
+        }
+    }
+
+    $_user = Session::read('_user');
+
+    if (!isset($_user) || (isset($_user['user_id']) && $_user['user_id'] == 0)) {
+        // In some cases, api_set_anonymous doesn't seem to be triggered in local.inc.php. Make sure it is.
+        // Occurs in agenda for admin links - YW
+        /*global $use_anonymous;
+        if (isset($use_anonymous) && $use_anonymous) {*/
+        api_set_anonymous();
+        //}
+        return true;
+    }
+    return isset($_user['is_anonymous']) && $_user['is_anonymous'] === true;
 }
 
 /**
@@ -3334,6 +3396,8 @@ function api_is_anonymous($user_id = null, $db_check = false) {
  */
 function api_not_allowed($print_headers = false, $message = null)
 {
+    throw new Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
     if (api_get_setting('sso_authentication') === 'true') {
         global $osso;
         if ($osso) {
