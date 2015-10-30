@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+/**
+ * Class CourseCategoryManager
+ */
 class CourseCategoryManager
 {
     /**
@@ -152,10 +155,10 @@ class CourseCategoryManager
 
         $categoryId = Database::insert($tbl_category, $params);
 
-        updateParentCategoryChildrenCount($parent_id, 1);
+        self::updateParentCategoryChildrenCount($parent_id, 1);
 
         if (self::isMultipleUrlSupport()) {
-            addToUrl($categoryId);
+            self::addToUrl($categoryId);
         }
 
         return $categoryId;
@@ -178,7 +181,7 @@ class CourseCategoryManager
         $row = Database::fetch_array($result);
         if ($row !== false and $row['parent_id'] != 0) {
             // if a parent was found, enter there to see if he's got one more parent
-            updateParentCategoryChildrenCount($row['parent_id'], $delta);
+            self::updateParentCategoryChildrenCount($row['parent_id'], $delta);
         }
         // Now we're at the top, get back down to update each child
         //$children_count = courseCategoryChildrenCount($categoryId);
@@ -345,7 +348,7 @@ class CourseCategoryManager
         $sql = "SELECT id, code FROM $tbl_category WHERE parent_id = $categoryId";
         $result = Database::query($sql);
         while ($row = Database::fetch_array($result)) {
-            $count += courseCategoryChildrenCount($row['id']);
+            $count += self::courseCategoryChildrenCount($row['id']);
         }
         $sql = "UPDATE $tbl_category SET children_count = $count WHERE id = $categoryId";
         Database::query($sql);
@@ -368,7 +371,7 @@ class CourseCategoryManager
         $children = array();
         while ($row = Database::fetch_array($result, 'ASSOC')) {
             $children[] = $row;
-            $subChildren = getChildren($row['code']);
+            $subChildren = self::getChildren($row['code']);
             $children = array_merge($children, $subChildren);
         }
 
@@ -394,9 +397,9 @@ class CourseCategoryManager
         $result = Database::query($sql);
         $children = array();
         while ($row = Database::fetch_array($result, 'ASSOC')) {
-            $parent = getCategory($row['parent_id']);
+            $parent = self::getCategory($row['parent_id']);
             $children[] = $row;
-            $subChildren = getParents($parent['code']);
+            $subChildren = self::getParents($parent['code']);
             $children = array_merge($children, $subChildren);
         }
 
@@ -409,7 +412,7 @@ class CourseCategoryManager
      */
     function getParentsToString($categoryCode)
     {
-        $parents = getParents($categoryCode);
+        $parents = self::getParents($categoryCode);
 
         if (!empty($parents)) {
             $parents = array_reverse($parents);
@@ -433,7 +436,7 @@ class CourseCategoryManager
     function listCategories($categorySource)
     {
         $categorySource = isset($categorySource) ? $categorySource : null;
-        $categories = getCategories($categorySource);
+        $categories = self::getCategories($categorySource);
 
         if (count($categories) > 0) {
             $table = new HTML_Table(array('class' => 'data_table'));
@@ -538,6 +541,7 @@ class CourseCategoryManager
         if (!self::isMultipleUrlSupport()) {
             return false;
         }
+
         UrlManager::addCourseCategoryListToUrl(
             array($id),
             array(api_get_current_access_url_id())
@@ -558,8 +562,7 @@ class CourseCategoryManager
                 TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
             );
             $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
-            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id(
-                );
+            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
         }
 
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
@@ -621,7 +624,7 @@ class CourseCategoryManager
 
         );
         while ($row = Database::fetch_array($result)) {
-            $count_courses = countCoursesInCategory($row['code']);
+            $count_courses = self::countCoursesInCategory($row['code']);
             $row['count_courses'] = $count_courses;
             if (!isset($row['parent_id'])) {
                 $categories[0][$row['tree_pos']] = $row;
@@ -630,7 +633,7 @@ class CourseCategoryManager
             }
         }
 
-        $count_courses = countCoursesInCategory();
+        $count_courses = self::countCoursesInCategory();
 
         $categories[0][count($categories[0]) + 1] = array(
             'id' => 0,
@@ -808,7 +811,7 @@ class CourseCategoryManager
             }
             $sql = "SELECT * FROM $tbl_course WHERE id IN($id_in)";
         } else {
-            $limitFilter = getLimitFilterFromArray($limit);
+            $limitFilter = self::getLimitFilterFromArray($limit);
             $category_code = Database::escape_string($category_code);
             if (empty($category_code) || $category_code == "ALL") {
                 $sql = "SELECT * FROM $tbl_course
@@ -939,7 +942,7 @@ class CourseCategoryManager
 
             $element->addOption($option, $cat['code'], $params);
             if ($cat['auth_cat_child'] == 'TRUE') {
-                setCategoriesInForm(
+                self::setCategoriesInForm(
                     $element,
                     $defaultCode,
                     $cat['code'],
@@ -1082,7 +1085,7 @@ class CourseCategoryManager
      * @param $pageTotal
      * @return string
      */
-    function getCataloguePagination($pageCurrent, $pageLength, $pageTotal)
+    function getCatalogPagination($pageCurrent, $pageLength, $pageTotal)
     {
         // Start empty html
         $pageDiv = '';
@@ -1091,9 +1094,9 @@ class CourseCategoryManager
         $pageTop = min($pageTotal, $pageCurrent + 3);
 
         if ($pageBottom > 1) {
-            $pageDiv .= getPageNumberItem(1, $pageLength);
+            $pageDiv .= self::getPageNumberItem(1, $pageLength);
             if ($pageBottom > 2) {
-                $pageDiv .= getPageNumberItem(
+                $pageDiv .= self::getPageNumberItem(
                     $pageBottom - 1,
                     $pageLength,
                     null,
@@ -1115,21 +1118,21 @@ class CourseCategoryManager
             } else {
                 $pageItemAttributes = array();
             }
-            $pageDiv .= getPageNumberItem($i, $pageLength, $pageItemAttributes);
+            $pageDiv .= self::getPageNumberItem($i, $pageLength, $pageItemAttributes);
 
         }
         // Check if current page is the last page
 
         if ($pageTop < $pageTotal) {
             if ($pageTop < ($pageTotal - 1)) {
-                $pageDiv .= getPageNumberItem(
+                $pageDiv .= self::getPageNumberItem(
                     $pageTop + 1,
                     $pageLength,
                     null,
                     '...'
                 );
             }
-            $pageDiv .= getPageNumberItem($pageTotal, $pageLength);
+            $pageDiv .= self::getPageNumberItem($pageTotal, $pageLength);
         }
 
         // Complete pagination html
@@ -1222,7 +1225,7 @@ class CourseCategoryManager
         $content = ''
     ) {
         // Get page URL
-        $url = getCourseCategoryUrl(
+        $url = self::getCourseCategoryUrl(
             $pageNumber,
             $pageLength
         );
@@ -1262,21 +1265,21 @@ class CourseCategoryManager
         }
 
         switch ($action) {
-            case 'createcoursecategory' :
+            case 'createcoursecategory':
                 $nameTools = get_lang('CreateCourseCategory');
                 break;
-            case 'subscribe' :
+            case 'subscribe':
                 $nameTools = get_lang('CourseManagement');
                 break;
-            case 'subscribe_user_with_password' :
+            case 'subscribe_user_with_password':
                 $nameTools = get_lang('CourseManagement');
                 break;
-            case 'display_random_courses' :
+            case 'display_random_courses':
                 // No break
-            case 'display_courses' :
+            case 'display_courses':
                 $nameTools = get_lang('CourseManagement');
                 break;
-            case 'display_sessions' :
+            case 'display_sessions':
                 $nameTools = get_lang('Sessions');
                 break;
             default :

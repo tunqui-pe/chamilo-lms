@@ -120,7 +120,7 @@ if ($ajax_search) {
             $userGroupList[$item['id']] = $item ;
         }
     }
-    $noUserGroupList = getCourseCategoryNotInList(array_keys($userGroupList));
+    $noUserGroupList = CourseCategoryManager::getCourseCategoryNotInList(array_keys($userGroupList));
 }
 
 if ($add_type == 'multiple') {

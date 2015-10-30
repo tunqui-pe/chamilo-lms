@@ -1,8 +1,10 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * 	@package chamilo.admin
  */
+
 $cidReset = true;
 require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
@@ -12,12 +14,12 @@ $category = isset($_GET['category']) ? $_GET['category'] : null;
 
 $parentInfo = [];
 if (!empty($category)) {
-    $parentInfo = getCategory($category);
+    $parentInfo = CourseCategoryManager::getCategory($category);
 }
 $categoryId = isset($_GET['id']) ? Security::remove_XSS($_GET['id']) : null;
 
 if (!empty($categoryId)) {
-    $categoryInfo = getCategory($categoryId);
+    $categoryInfo = CourseCategoryManager::getCategory($categoryId);
 }
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 
@@ -29,20 +31,20 @@ if (!empty($action)) {
                 (isset($_configuration['enable_multiple_url_support_for_course_category']) &&
                 $_configuration['enable_multiple_url_support_for_course_category'])
             ) {
-                deleteNode($categoryId);
+                CourseCategoryManager::deleteNode($categoryId);
                 Display::addFlash(Display::return_message(get_lang('Deleted')));
                 header('Location: ' . api_get_self() . '?category=' . Security::remove_XSS($category));
                 exit();
             }
         } else {
-            deleteNode($categoryId);
+            CourseCategoryManager::deleteNode($categoryId);
             Display::addFlash(Display::return_message(get_lang('Deleted')));
             header('Location: ' . api_get_self() . '?category=' . Security::remove_XSS($category));
             exit();
         }
     } elseif (($action == 'add' || $action == 'edit') && isset($_POST['formSent']) && $_POST['formSent']) {
         if ($action == 'add') {
-            $ret = addNode(
+            $ret = CourseCategoryManager::addNode(
                 $_POST['code'],
                 $_POST['name'],
                 $_POST['auth_course_child'],
@@ -51,7 +53,7 @@ if (!empty($action)) {
 
             Display::addFlash(Display::return_message(get_lang('Created')));
         } else {
-            $ret = editNode(
+            $ret = CourseCategoryManager::editNode(
                 $_POST['code'],
                 $_POST['name'],
                 $_POST['auth_course_child'],
@@ -65,7 +67,7 @@ if (!empty($action)) {
             $errorMsg = get_lang('CatCodeAlreadyUsed');
         }
     } elseif ($action == 'moveUp') {
-        moveNodeUp($categoryId, $_GET['tree_pos'], $category);
+        CourseCategoryManager::moveNodeUp($categoryId, $_GET['tree_pos'], $category);
         header('Location: ' . api_get_self() . '?category=' . Security::remove_XSS($category));
         Display::addFlash(Display::return_message(get_lang('Updated')));
         exit();
@@ -154,7 +156,7 @@ if ($action == 'add' || $action == 'edit') {
     if (!empty($parentInfo)) {
         echo Display::page_subheader($parentInfo['name'].' ('.$parentInfo['code'].')');
     }
-    echo listCategories($category);
+    echo CourseCategoryManager::listCategories($category);
 }
 
 Display::display_footer();
