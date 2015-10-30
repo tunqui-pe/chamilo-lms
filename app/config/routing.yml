@@ -1,0 +1,22 @@
+#index:
+#    path: /
+
+#home:
+#    path: /
+#
+#login:
+#    path: /login
+
+#logout:
+#    path: /logout
+
+chamilo_course:
+    resource: "@ChamiloCourseBundle/Resources/config/routing.yml"
+    prefix:   /
+
+_front:
+    resource: routing_front.yml
+
+# Always at the end
+core_bundle:
+    resource: "@ChamiloCoreBundle/Resources/config/routing.yml"
