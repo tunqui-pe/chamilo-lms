@@ -1,12 +1,76 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Config\Loader\LoaderInterface;
+
 /**
  * Class AppKernel
  */
-class AppKernel
+class AppKernel extends Kernel
 {
     protected $rootDir;
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
+            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
+            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+
+            new Sp\BowerBundle\SpBowerBundle(),
+
+            // KNP HELPER BUNDLES
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+
+            // Sonata
+            //new Sonata\PageBundle\SonataPageBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+
+            // User
+            new FOS\UserBundle\FOSUserBundle(),
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+            new Chamilo\UserBundle\ChamiloUserBundle(),
+
+            // Sylius
+            new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
+            new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
+            //new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
+
+
+            // Chamilo
+            //new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
+            new Chamilo\CoreBundle\ChamiloCoreBundle(),
+            new Chamilo\CourseBundle\ChamiloCourseBundle(),
+            new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
+            new Chamilo\ThemeBundle\ChamiloThemeBundle(),
+        );
+
+        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+        }
+
+        return $bundles;
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    }
 
     /**
      * @return string
@@ -36,7 +100,7 @@ class AppKernel
      */
     public function getDataDir()
     {
-        return $this->getRealRootDir().'data/';
+        return $this->getAppDir().'courses/';
     }
 
     /**
