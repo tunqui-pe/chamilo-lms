@@ -75,10 +75,20 @@
         "ircmaxell/password-compat": "~1.0.4",
         "gedmo/doctrine-extensions": "~2.3",
 
+        "knplabs/gaufrette": "~0.1.6",
         "knplabs/knp-menu-bundle": "~2.0",
 
+        "sp/bower-bundle": "dev-master",
+
+        "sonata-project/core-bundle": "2.3.x-dev",
         "sonata-project/user-bundle": "~2.2@dev",
-        "sonata-project/block-bundle": "~2.2@dev",
+        "sonata-project/block-bundle": "~2.3@dev",
+        "sonata-project/intl-bundle": "~2.2@dev",
+
+        "mopa/bootstrap-bundle": "v3.0.0-RC2",
+        "twbs/bootstrap": "v3.0.0",
+
+        "friendsofsymfony/comment-bundle": "~2.0@dev",
 
         "ramsey/array_column": "~1.1",
         "patchwork/utf8": "~1.2",

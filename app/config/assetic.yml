@@ -1,0 +1,70 @@
+assetic:
+    debug:          true # %kernel.debug%
+    use_controller: false
+    read_from:      %kernel.root_dir%/../web
+    write_to:       %kernel.root_dir%/../web
+    bundles:        [ChamiloCoreBundle, ChamiloThemeBundle]
+
+    filters:
+        cssrewrite: ~
+        yui_js:  { jar: "%kernel.root_dir%/../bin/yuicompressor.jar" }
+        yui_css: { jar: "%kernel.root_dir%/../bin/yuicompressor.jar" }
+
+    assets:
+        chamilo_bootstrap_css:
+            inputs:
+                - bundles/chamilotheme/components/bootstrap/dist/css/bootstrap.min.css
+            filters:
+                - cssrewrite
+        chamilo_font_awesome_css:
+            inputs:
+                - bundles/chamilotheme/components/fontawesome/css/font-awesome.min.css
+            filters:
+                - cssrewrite
+        chamilo_ionicons_css:
+            inputs:
+                - bundles/chamilotheme/components/ionicons/css/ionicons.css
+            filters:
+                - cssrewrite
+
+        chamilo_css:
+            inputs:
+                - @chamilo_bootstrap_css
+                - @chamilo_font_awesome_css
+                - @chamilo_ionicons_css
+                - bundles/chamilotheme/components/fullcalendar/dist/fullcalendar.min.css
+                - bundles/chamilotheme/components/chosen-bower/chosen.css
+                - bundles/chamilotheme/components/jquery-ui/themes/cupertino/jquery-ui.min.css
+                - bundles/chamilotheme/components/bootflat/css/bootflat.css
+                - bundles/chamilotheme/components/jqgrid/css/ui.jqgrid.css
+                - bundles/chamilotheme/components/select2/dist/css/select2.css
+#                - bundles/chamilotheme/components/select2/select2-bootstrap.css
+                - bundles/chamilotheme/components/adminlte/css/jvectormap/*
+                - bundles/chamilotheme/components/adminlte/css/morris/*
+                - bundles/chamilotheme/components/adminlte/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.css
+                - bundles/chamilotheme/components/adminlte/css/bootstrap-slider/slider.css
+                - bundles/chamilotheme/components/adminlte/css/colorpicker/bootstrap-colorpicker.css
+                - bundles/chamilotheme/components/adminlte/css/datatables/dataTables.bootstrap.css
+                - bundles/chamilotheme/components/adminlte/css/daterangepicker/daterangepicker-bs3.css
+                - bundles/chamilotheme/components/adminlte/css/iCheck/all.css
+                - bundles/chamilotheme/components/adminlte/css/ionslider/ion.rangeSlider.css
+                - bundles/chamilotheme/components/adminlte/css/timepicker/bootstrap-timepicker.css
+                - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css
+                - bundles/chamilotheme/components/adminlte/css/AdminLTE.css
+            output: js/chamilo.css
+
+        chamilo_js:
+            inputs:
+                - bundles/chamilotheme/components/jquery/dist/jquery.js
+                - bundles/chamilotheme/components/jquery-ui/jquery-ui.min.js
+                - @bootstrap_js
+                - bundles/chamilotheme/components/chosen-bower/chosen.jquery.js
+                - @moment_js
+                - bundles/chamilotheme/components/fullcalendar/dist/fullcalendar.min.js
+                - bundles/chamilotheme/components/jqgrid/js/jquery.jqGrid.js
+                - bundles/chamilotheme/components/select2/dist/js/select2.js
+                - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
+                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
+
+#                - @ChamiloCoreBundle/Resources/public/js/app.js
+            output: js/chamilo.js
