@@ -391,6 +391,11 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
     protected $achievedSkills;
 
     /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SkillRelUserComment", mappedBy="feedbackGiver")
+     */
+    protected $commentedUserSkills;
+
+    /**
      * Constructor
      */
     public function __construct()

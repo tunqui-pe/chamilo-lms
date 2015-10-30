@@ -58,18 +58,18 @@ if (isset($action) && $action == 'calendar_add') {
     $form = new FormValidator(
         'attendance_calendar_add',
         'POST',
-        'index.php?action=calendar_add&attendance_id='.$attendance_id.'&' . api_get_cidreq(),
+        'index.php?action=calendar_add&attendance_id=' . $attendance_id . '&' . api_get_cidreq(),
         ''
     );
     $form->addElement('header', get_lang('AddADateTime'));
     //$form->addElement('date_time_picker', 'date_time');
-    
+
     $form->addDateTimePicker(
             'date_time',
             array(get_lang('StartDate')),
             array('id' => 'date_time')
         );
-    
+
     $defaults['date_time'] = date('Y-m-d H:i', api_strtotime(api_get_local_time()));
 
     $form->addElement(

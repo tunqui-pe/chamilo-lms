@@ -1,5 +1,5 @@
 <?php
-
+/* For licensing terms, see /license.txt */
 namespace Chamilo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -72,6 +72,16 @@ class SkillRelUser
      * @ORM\Column(name="argumentation", type="text")
      */
     private $argumentation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SkillRelUserComment", mappedBy="skillRelUser")
+     */
+    protected $comments;
+
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set user
@@ -278,5 +288,48 @@ class SkillRelUser
         ));
 
         return $url;
+    }
+
+    /**
+     * Get comments
+     * @param boolean $sortDescByDateTime
+     * @return ArrayCollection
+     */
+    public function getComments($sortDescByDateTime = false)
+    {
+        if ($sortDescByDateTime) {
+            $criteria = \Doctrine\Common\Collections\Criteria::create();
+            $criteria->orderBy([
+                'feedbackDateTime' => \Doctrine\Common\Collections\Criteria::DESC
+            ]);
+
+            return $this->comments->matching($criteria);
+        }
+
+        return $this->comments;
+    }
+
+    /**
+     * Calculate the average value from the feedback comments
+     * @return type
+     */
+    public function getAverage()
+    {
+        $sum = 0;
+        $average = 0;
+        $countValues = 0;
+
+        foreach ($this->comments as $comment) {
+            if (!$comment->getFeedbackValue()) {
+                continue;
+            }
+
+            $sum += $comment->getFeedbackValue();
+            $countValues++;
+        }
+
+        $average = $countValues > 0 ? $sum / $countValues : 0;
+
+        return number_format($average, 2);
     }
 }

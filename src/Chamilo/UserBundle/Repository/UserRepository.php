@@ -9,6 +9,7 @@ use \Chamilo\CoreBundle\Entity\Session;
 use \Chamilo\CoreBundle\Entity\Course;
 use \Doctrine\ORM\Query\Expr\Join;
 use \Chamilo\CoreBundle\Entity\SessionRelCourseRelUser;
+use \Chamilo\UserBundle\Entity\User;
 
 //use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 //use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -25,10 +26,10 @@ class UserRepository extends EntityRepository
 {
 
     /**
-     * @param string $keyword
+    * @param string $keyword
      *
-     * @return mixed
-     */
+    * @return mixed
+    */
     public function searchUserByKeyword($keyword)
     {
         $qb = $this->createQueryBuilder('a');
@@ -180,6 +181,7 @@ class UserRepository extends EntityRepository
 
     }
 
+
     /**
      * Get course user relationship based in the course_rel_user table.
      * @return array
@@ -240,4 +242,62 @@ class UserRepository extends EntityRepository
 
         return $query->execute();
     }*/
+
+    /**
+     * Get the sessions admins for a user
+     * @param \Chamilo\UserBundle\Entity\User $user The user
+     * @return array
+     */
+    public function getSessionAdmins(User $user)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder
+            ->distinct()
+            ->innerJoin(
+                'ChamiloCoreBundle:SessionRelUser',
+                'su',
+                Join::WITH,
+                $queryBuilder->expr()->eq('u', 'su.user')
+            )
+            ->innerJoin(
+                'ChamiloCoreBundle:SessionRelCourseRelUser',
+                'scu',
+                Join::WITH,
+                $queryBuilder->expr()->eq('su.session', 'scu.session')
+            )
+            ->where(
+                $queryBuilder->expr()->eq('scu.user', $user->getId())
+            )
+            ->andWhere(
+                $queryBuilder->expr()->eq('su.relationType', SESSION_RELATION_TYPE_RRHH)
+            );
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Get the student bosses for a user
+     * @param User $user The user
+     * @return array
+     */
+    public function getStudentBosses(User $user)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder
+            ->distinct()
+            ->innerJoin(
+                'ChamiloCoreBundle:UserRelUser',
+                'uu',
+                Join::WITH,
+                $queryBuilder->expr()->eq('u.id', 'uu.friendUserId')
+            )
+            ->where(
+                $queryBuilder->expr()->eq('uu.relationType', USER_RELATION_TYPE_BOSS)
+            )
+            ->andWhere(
+                $queryBuilder->expr()->eq('uu.userId', $user->getId())
+            );
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

@@ -17,19 +17,15 @@ class Version20151019163400 extends AbstractMigrationChamilo
      */
     public function up(Schema $schema)
     {
-        $user = $schema->getTable('user');
-        $skill = $schema->getTable('skill');
-        $course = $schema->getTable('course');
-        $session = $schema->getTable('session');
-
-        $skillRelUser = $schema->getTable('skill_rel_user');
-        $skillRelUser->getColumn('session_id')->setNotnull(false);
-        $skillRelUser->addForeignKeyConstraint($user, ['user_id'], ['id'], [], 'FK_su_user');
-        $skillRelUser->addForeignKeyConstraint($skill, ['skill_id'], ['id'], [], 'FK_su_skill');
-        $skillRelUser->addForeignKeyConstraint($course, ['course_id'], ['id'], [], 'FK_su_course');
-        $skillRelUser->addForeignKeyConstraint($session, ['session_id'], ['id'], [], 'FK_su_session');
-        $skillRelUser->addIndex(['session_id', 'course_id', 'user_id'], 'idx_select_s_c_u');
-        $skillRelUser->addIndex(['skill_id', 'user_id'], 'idx_select_sk_u');
+        $this->addSql("ALTER TABLE skill_rel_user CHANGE session_id session_id INT DEFAULT NULL");
+        $this->addSql("UPDATE skill_rel_user SET course_id = NULL WHERE course_id = 0");
+        $this->addSql("UPDATE skill_rel_user SET session_id = NULL WHERE session_id = 0");
+        $this->addSql("ALTER TABLE skill_rel_user ADD CONSTRAINT FK_su_user FOREIGN KEY (user_id) REFERENCES user (id)");
+        $this->addSql("ALTER TABLE skill_rel_user ADD CONSTRAINT FK_su_skill FOREIGN KEY (skill_id) REFERENCES skill (id)");
+        $this->addSql("ALTER TABLE skill_rel_user ADD CONSTRAINT FK_su_course FOREIGN KEY (course_id) REFERENCES course (id)");
+        $this->addSql("ALTER TABLE skill_rel_user ADD CONSTRAINT FK_su_session FOREIGN KEY (session_id) REFERENCES session (id)");
+        $this->addSql("CREATE INDEX idx_select_s_c_u ON skill_rel_user (session_id, course_id, user_id)");
+        $this->addSql("CREATE INDEX idx_select_sk_u ON skill_rel_user (skill_id, user_id)");
     }
 
     /**
@@ -37,12 +33,14 @@ class Version20151019163400 extends AbstractMigrationChamilo
      */
     public function down(Schema $schema)
     {
-        $skillRelUser = $schema->getTable('skill_rel_user');
-        $skillRelUser->removeForeignKey('FK_su_user');
-        $skillRelUser->removeForeignKey('FK_su_skill');
-        $skillRelUser->removeForeignKey('FK_su_course');
-        $skillRelUser->removeForeignKey('FK_su_session');
-        $skillRelUser->dropIndex('idx_select_s_c_u');
-        $skillRelUser->dropIndex('idx_select_sk_u');
+        $this->addSql("ALTER TABLE skill_rel_user DROP FOREIGN KEY FK_su_session");
+        $this->addSql("ALTER TABLE skill_rel_user DROP FOREIGN KEY FK_su_course");
+        $this->addSql("ALTER TABLE skill_rel_user DROP FOREIGN KEY FK_su_skill");
+        $this->addSql("ALTER TABLE skill_rel_user DROP FOREIGN KEY FK_su_user");
+        $this->addSql("DROP INDEX idx_select_s_c_u ON skill_rel_user");
+        $this->addSql("DROP INDEX idx_select_sk_u ON skill_rel_user");
+        $this->addSql("ALTER TABLE skill_rel_user CHANGE session_id session_id INT NOT NULL");
+        $this->addSql("UPDATE skill_rel_user SET course_id = 0 WHERE course_id IS NULL");
+        $this->addSql("UPDATE skill_rel_user SET session_id = 0 WHERE session_id IS NULL");
     }
 }
