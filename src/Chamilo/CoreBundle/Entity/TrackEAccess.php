@@ -63,7 +63,14 @@ class TrackEAccess
      */
     private $accessId;
 
-
+    /**
+     * TrackEAccess constructor.
+     */
+    public function __construct()
+    {
+        $this->accessDate = new \DateTime();
+        $this->userIp = '';
+    }
 
     /**
      * Set accessUserId
