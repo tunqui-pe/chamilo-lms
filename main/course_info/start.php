@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-require_once '../inc/global.inc.php';
+use Chamilo\CoreBundle\Framework\Container;
 
 api_protect_course_script(true);
 api_block_anonymous_users();
@@ -18,16 +18,20 @@ $title      = $course_info['title'];
 // Preparing a confirmation message.
 $link = api_get_path(WEB_COURSE_PATH).$directory.'/';
 
-$tpl = new Template(get_lang('ThingsToDo'));
+$tpl = Container::getTwig();
 
-$tpl->assign('course_url', $link);
-$tpl->assign('course_title', Display::url($title, $link));
-$tpl->assign('course_id', $course_info['code']);
-$tpl->assign('just_created', isset($_GET['first']) && $_GET['first'] ? 1 : 0);
+$tpl->addGlobal('course_url', $link);
+$tpl->addGlobal('course_title', Display::url($title, $link));
+$tpl->addGlobal('course_id', $course_info['code']);
+$tpl->addGlobal('just_created', isset($_GET['first']) && $_GET['first'] ? 1 : 0);
+
+echo $tpl->render('ChamiloCoreBundle:default/create_course:add_course.html.twig');
+
+/*
 $add_course_tpl = $tpl->get_template('create_course/add_course.tpl');
 $content = $tpl->fetch($add_course_tpl);
 
 $tpl->assign('content', $content);
 $template = $tpl->get_template('layout/layout_1_col.tpl');
-$tpl->display($template);
+$tpl->display($template);*/
 

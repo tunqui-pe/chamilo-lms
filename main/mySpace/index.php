@@ -8,8 +8,6 @@
 // resetting the course id
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
-
 $htmlHeadXtra[] = api_get_jqgrid_js();
 // the section (for the tabs)
 $this_section = SECTION_TRACKING;

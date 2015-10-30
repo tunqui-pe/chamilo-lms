@@ -1266,7 +1266,8 @@ EOT;
 function html_filter($html, $mode = NO_HTML)
 {
     $allowed_tags = HTML_QuickForm_Rule_HTML::get_allowed_tags($mode);
-    $cleaned_html = kses($html, $allowed_tags);
+    //$cleaned_html = kses($html, $allowed_tags);
+    return $html;
     return $cleaned_html;
 }
 

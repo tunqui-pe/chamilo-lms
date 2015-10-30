@@ -6,6 +6,9 @@
  */
 
 use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
+$tpl = Container::getTwig();
 
 // use anonymous mode when accessing this course tool
 $use_anonymous = true;
@@ -17,7 +20,6 @@ $userId = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : null;
 if ($type == 'personal') {
     $cidReset = true; // fixes #5162
 }
-require_once '../inc/global.inc.php';
 
 $current_course_tool = TOOL_CALENDAR_EVENT;
 $this_section = SECTION_MYAGENDA;
@@ -66,8 +68,7 @@ if (!empty($group_id)) {
     );
 }
 
-$tpl = new Template(get_lang('Agenda'));
-$tpl->assign('use_google_calendar', 0);
+$tpl->addGlobal('use_google_calendar', 0);
 
 $can_add_events = 0;
 
@@ -103,8 +104,8 @@ switch ($type) {
             isset($extra_field_data['google_calendar_url']) &&
             !empty($extra_field_data['google_calendar_url'])
         ) {
-            $tpl->assign('use_google_calendar', 1);
-            $tpl->assign('google_calendar_url', $extra_field_data['google_calendar_url']);
+            $tpl->addGlobal('use_google_calendar', 1);
+            $tpl->addGlobal('google_calendar_url', $extra_field_data['google_calendar_url']);
         }
         $this_section = SECTION_MYAGENDA;
         if (!api_is_anonymous()) {
@@ -121,11 +122,11 @@ $months = api_get_months_long();
 $months_short = api_get_months_short();
 
 //Setting calendar translations
-$tpl->assign('month_names', json_encode($months));
-$tpl->assign('month_names_short', json_encode($months_short));
-$tpl->assign('day_names', json_encode($days));
-$tpl->assign('day_names_short', json_encode($day_short));
-$tpl->assign('button_text',
+$tpl->addGlobal('month_names', json_encode($months));
+$tpl->addGlobal('month_names_short', json_encode($months_short));
+$tpl->addGlobal('day_names', json_encode($days));
+$tpl->addGlobal('day_names_short', json_encode($day_short));
+$tpl->addGlobal('button_text',
     json_encode(array(
         'today' => get_lang('Today'),
         'month' => get_lang('Month'),
@@ -136,29 +137,29 @@ $tpl->assign('button_text',
 
 //see http://docs.jquery.com/UI/Datepicker/$.datepicker.formatDate
 
-$tpl->assign('js_format_date', 'll');
+$tpl->addGlobal('js_format_date', 'll');
 $region_value = api_get_language_isocode();
 
 if ($region_value == 'en') {
     $region_value = 'en-GB';
 }
-$tpl->assign('region_value', $region_value);
+$tpl->addGlobal('region_value', $region_value);
 
 $export_icon = api_get_path(WEB_IMG_PATH).'img/export.png';
 $export_icon_low = api_get_path(WEB_IMG_PATH).'img/export_low_fade.png';
 $export_icon_high = api_get_path(WEB_IMG_PATH).'img/export_high_fade.png';
 
-$tpl->assign(
+$tpl->addGlobal(
     'export_ical_confidential_icon',
     Display::return_icon($export_icon_high, get_lang('ExportiCalConfidential'))
 );
 
 $actions = $agenda->displayActions('calendar', $userId);
 
-$tpl->assign('toolbar', $actions);
+$tpl->addGlobal('toolbar', $actions);
 
 // Calendar Type : course, admin, personal
-$tpl->assign('type', $type);
+$tpl->addGlobal('type', $type);
 
 $type_event_class = $type.'_event';
 $type_label = get_lang(ucfirst($type).'Calendar');
@@ -175,18 +176,18 @@ if (empty($defaultView)) {
 
 /* month, basicWeek, agendaWeek, agendaDay */
 
-$tpl->assign('default_view', $defaultView);
+$tpl->addGlobal('default_view', $defaultView);
 
 if ($type == 'course' && !empty($session_id)) {
     $type_event_class = 'session_event';
     $type_label = get_lang('SessionCalendar');
 }
 
-$tpl->assign('type_label', $type_label);
-$tpl->assign('type_event_class', $type_event_class);
+$tpl->addGlobal('type_label', $type_label);
+$tpl->addGlobal('type_event_class', $type_event_class);
 
 // Current user can add event?
-$tpl->assign('can_add_events', $can_add_events);
+$tpl->addGlobal('can_add_events', $can_add_events);
 
 // Setting AJAX caller
 if (!empty($userId)) {
@@ -199,7 +200,7 @@ if (isset($_GET['session_id'])) {
     $agenda_ajax_url .= '&session_id='.intval($_GET['session_id']);
 }
 
-$tpl->assign('web_agenda_ajax_url', $agenda_ajax_url);
+$tpl->addGlobal('web_agenda_ajax_url', $agenda_ajax_url);
 $course_code = api_get_course_id();
 
 $form = new FormValidator(
@@ -248,17 +249,13 @@ if ($agenda->type == 'course') {
     $form->addElement('textarea', 'comment', get_lang('Comment'), array('id' => 'comment'));
 }
 
-$tpl->assign('form_add', $form->returnForm());
-
-// Loading Agenda template.
-$content = $tpl->fetch('default/agenda/month.tpl');
+$tpl->addGlobal('form_add', $form->returnForm());
 
 $message = Session::read('message');
-$tpl->assign('message', $message);
+$tpl->addGlobal('message', $message);
 
 Session::erase('message');
 
-$tpl->assign('content', $content);
+//$tpl->addGlobal('content', $content);
 
-// Loading main Chamilo 1 col template
-$tpl->display_one_col_template();
+echo $tpl->render('ChamiloCoreBundle:Calendar:month.html.twig');

@@ -1,14 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Index page of the admin tools
  * @package chamilo.admin
  */
 // Resetting the course id.
 $cidReset = true;
-
-// Including some necessary chamilo files.
-require_once '../inc/global.inc.php';
 
 // Setting the section (for the tabs).
 $this_section = SECTION_PLATFORM_ADMIN;
@@ -441,7 +441,7 @@ if (api_is_platform_admin()) {
 }
 $admin_ajax_url = api_get_path(WEB_AJAX_PATH) . 'admin.ajax.php';
 
-$tpl = new Template();
+$tpl = Container::getTwig();
 
 // Display the Site Use Cookie Warning Validation
 $useCookieValidation = api_get_setting('cookie_warning');
@@ -450,16 +450,16 @@ if ($useCookieValidation === 'true') {
         api_set_site_use_cookie_warning_cookie();
     } else if (!api_site_use_cookie_warning_cookie_exist()) {
         if (Template::isToolBarDisplayedForUser()) {
-            $tpl->assign('toolBarDisplayed', true);
+            $tpl->addGlobal('toolBarDisplayed', true);
         } else {
-            $tpl->assign('toolBarDisplayed', false);
+            $tpl->addGlobal('toolBarDisplayed', false);
         }
-        $tpl->assign('displayCookieUsageWarning', true);
+        $tpl->addGlobal('displayCookieUsageWarning', true);
     }
 }
 
-$tpl->assign('web_admin_ajax_url', $admin_ajax_url);
-$tpl->assign('blocks', $blocks);
+$tpl->addGlobal('web_admin_ajax_url', $admin_ajax_url);
+$tpl->addGlobal('blocks', $blocks);
 
 if (api_is_platform_admin()) {
     $extraContentForm = new FormValidator(
@@ -524,14 +524,12 @@ if (api_is_platform_admin()) {
         'submit_extra_content'
     );
 
-    $tpl->assign('extraDataForm', $extraContentForm->returnForm());
+    $tpl->addGlobal('extraDataForm', $extraContentForm->returnForm());
 }
 
 // The template contains the call to the AJAX version checker
-$admin_template = $tpl->get_template('admin/settings_index.tpl');
-$content = $tpl->fetch($admin_template);
-$tpl->assign('content', $content);
-$tpl->assign('message', $message);
-$tpl->display_one_col_template();
+//$admin_template = $tpl->get_template('admin/settings_index.tpl');
 
-// Note: version checking mechanism has now been moved to main/inc/ajax/admin.ajax.php
+echo $tpl->render('ChamiloCoreBundle:default/admin/settings_index.tpl');
+
+

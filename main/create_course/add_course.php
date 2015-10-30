@@ -17,7 +17,7 @@ use \ChamiloSession as Session;
 $cidReset = true;
 
 // Including the global initialization file.
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // Section for the tabs.
 $this_section = SECTION_COURSES;
@@ -47,7 +47,7 @@ $interbreadcrumb[] = array(
 // Displaying the header.
 $tool_name = $course_validation_feature ? get_lang('CreateCourseRequest') : get_lang('CreateSite');
 
-$tpl = new Template($tool_name);
+//$tpl = new Template($tool_name);
 
 if (
     api_get_setting('allow_users_to_create_courses') == 'false' &&
@@ -245,7 +245,8 @@ if ($form->validate()) {
     $course_values = $form->exportValues();
 
     $wanted_code = $course_values['wanted_code'];
-    $category_code = $course_values['category_code'];
+    //$category_code = $course_values['category_code'];
+    $category_code = '';
     $title = $course_values['title'];
     $course_language = $course_values['course_language'];
     $exemplary_content = !empty($course_values['exemplary_content']);
@@ -368,7 +369,10 @@ if ($form->validate()) {
     $content = $form->returnForm();
 }
 
+echo $message;
+echo $content;
+/*
 $tpl->assign('message', $message);
 $tpl->assign('content', $content);
 $template = $tpl->get_template('layout/layout_1_col.tpl');
-$tpl->display($template);
+$tpl->display($template);*/

@@ -10,7 +10,7 @@
 use ChamiloSession as Session;
 
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $current_access_url_id = api_get_current_access_url_id();
 
@@ -462,7 +462,8 @@ function user_filter($name, $params, $row) {
  * @return string Some HTML-code with modify-buttons
  */
 function modify_filter($user_id, $url_params, $row) {
-	global $charset, $_admins_list;
+	global $charset;
+    $_admins_list = array_column(UserManager::get_all_administrators(), 'user_id');
 	$is_admin   = in_array($user_id,$_admins_list);
 	$statusname = api_get_status_langvars();
 	$user_is_anonymous = false;
@@ -757,12 +758,8 @@ $parameters['sec_token'] = Security::get_token();
 
 // get the list of all admins to mark them in the users list
 $admin_table = Database::get_main_table(TABLE_MAIN_ADMIN);
-$sql_admin = "SELECT user_id FROM $admin_table";
-$res_admin = Database::query($sql_admin);
-$_admins_list = array();
-while ($row_admin = Database::fetch_row($res_admin)) {
-	$_admins_list[] = $row_admin[0];
-}
+
+$_admins_list = array_column(UserManager::get_all_administrators(), 'user_id');
 
 // Display Advanced search form.
 $form = new FormValidator('advanced_search', 'get', '', '', array(), FormValidator::LAYOUT_HORIZONTAL);
@@ -903,8 +900,7 @@ if ($table->get_total_number_of_items() == 0) {
     }
 }
 
-$tpl = new Template($tool_name);
-$tpl->assign('actions', $actions);
-$tpl->assign('message', $message);
-$tpl->assign('content', $form.$table_result.$extra_search_options);
-$tpl->display_one_col_template();
+//$tpl->assign('actions', $actions);
+echo $message;
+echo $form.$table_result.$extra_search_options;
+

@@ -8,7 +8,6 @@
 */
 use ChamiloSession as Session;
 
-require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_USER;
 
 // the section (for the tabs)

@@ -12,8 +12,8 @@
  *	@package chamilo.user
  */
 $use_anonymous = true;
-require_once '../inc/global.inc.php';
-$current_course_tool  = TOOL_USER;
+
+$current_course_tool = TOOL_USER;
 $this_section = SECTION_COURSES;
 
 // notice for unauthorized people.

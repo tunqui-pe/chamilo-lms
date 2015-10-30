@@ -14,7 +14,6 @@ use Chamilo\UserBundle\Entity\User;
 use ChamiloSession as Session;
 
 $cidReset = true;
-require_once '../inc/global.inc.php';
 
 if (api_get_setting('allow_social_tool') == 'true') {
     $this_section = SECTION_SOCIAL;
@@ -155,7 +154,8 @@ $form->addRule('username', get_lang('UsernameWrong'), 'username');
 $form->addRule('username', get_lang('UserTaken'), 'username_available', $user_data['username']);
 
 //    OFFICIAL CODE
-if (CONFVAL_ASK_FOR_OFFICIAL_CODE) {
+//if (CONFVAL_ASK_FOR_OFFICIAL_CODE) {
+if (true) {
     $form->addElement('text', 'official_code', get_lang('OfficialCode'), array('size' => 40));
     if (api_get_setting('profile', 'officialcode') !== 'true') {
         $form->freeze('official_code');
@@ -375,6 +375,7 @@ function is_platform_authentication() {
  * @return    boolean    Editability of the profile
  */
 function is_profile_editable() {
+    return true;
     return $GLOBALS['profileIsEditable'];
 }
 
