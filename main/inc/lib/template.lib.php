@@ -75,10 +75,6 @@ class Template
 
         $cache_folder = api_get_path(SYS_ARCHIVE_PATH).'twig';
 
-        if (!is_dir($cache_folder)) {
-            mkdir($cache_folder, api_get_permissions_for_new_directories());
-        }
-
         $loader = new Twig_Loader_Filesystem($template_paths);
 
         //Setting Twig options depending on the server see http://twig.sensiolabs.org/doc/api.html#environment-options
@@ -857,7 +853,7 @@ class Template
 
         $notification = return_notification_menu();
         $this->assign('notification_menu', $notification);
-        
+
         $resize = '';
         if (api_get_setting('accessibility_font_resize') == 'true') {
             $resize .= '<div class="resize_font">';
@@ -869,7 +865,7 @@ class Template
             $resize .= '</div>';
         }
         $this->assign('accessibility', $resize);
-        
+
         // Preparing values for the menu
 
         // Logout link

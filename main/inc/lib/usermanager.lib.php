@@ -1495,21 +1495,21 @@ class UserManager
         $anonymousPath = api_get_path(WEB_CODE_PATH).'img/'.$pictureAnonymous;
 
         if ($pictureWebFile == 'unknown.jpg' || empty($pictureWebFile)) {
-            
+
             if ($gravatarEnabled === 'true') {
                 $file = self::getGravatar(
                     $imageWebPath['email'],
                     $gravatarSize,
                     api_get_setting('gravatar_type')
                 );
-                
+
                 if ($addRandomId) {
                     $file .= '&rand='.uniqid();
                 }
-                
+
                 return $file;
             }
-            
+
             return $anonymousPath;
         }
 
@@ -5100,6 +5100,42 @@ SQL;
 
             return Display::tabsOnlyLink($headers, $optionSelected);
         }
+    }
+
+
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    public static function  user_is_online($user_id)
+    {
+        $track_online_table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ONLINE);
+        $table_user = Database::get_main_table(TABLE_MAIN_USER);
+
+        $access_url_id = api_get_current_access_url_id();
+        $time_limit = api_get_setting('time_limit_whosonline');
+
+        $online_time = time() - $time_limit*60;
+        $limit_date = api_get_utc_datetime($online_time);
+        $user_id = intval($user_id);
+
+        $query = " SELECT login_user_id,login_date
+               FROM $track_online_table track
+               INNER JOIN $table_user u ON (u.id=track.login_user_id)
+               WHERE
+                    track.access_url_id =  $access_url_id AND
+                    login_date >= '".$limit_date."'  AND
+                    u.id =  $user_id
+               LIMIT 1 ";
+
+        $result = Database::query($query);
+        if (Database::num_rows($result)) {
+
+            return true;
+        }
+
+        return false;
+
     }
 
 }

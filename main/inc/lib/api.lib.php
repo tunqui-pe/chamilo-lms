@@ -738,27 +738,19 @@ function api_get_path($path_type, $path = null)
     static $is_this_function_initialized;
     static $server_base_web; // No trailing slash.
     static $server_base_sys; // No trailing slash.
-    static $root_web;
-    static $root_sys;
     static $root_rel;
 
-    //$root_web = Container::getUrlGenerator()->generate('home');
+    $root_web = Container::getUrlGenerator()->generate('home');
     //var_dump($root_web);exit;
-    //$rootDir = Container::getRootDir();
+    $rootDir = Container::getRootDir();
 
     // Configuration data for already installed system.
-    //$root_sys = $rootDir;
-
-    // Always load root_web modifications for multiple url features
-    global $_configuration;
-    //default $_configuration['root_web'] configuration
-    $root_web = $_configuration['root_web'];
+    $root_sys = $rootDir;
 
     $code_folder = 'main/';
     $course_folder = 'courses/';
 
     // Configuration data for already installed system.
-    $root_sys = $_configuration['root_sys'];
     $load_new_config = false;
 
     // To avoid that the api_get_access_url() function fails since global.inc.php also calls the main_api.lib.php
@@ -865,8 +857,8 @@ function api_get_path($path_type, $path = null)
         $paths[INCLUDE_PATH]            = $paths[SYS_CODE_PATH].$paths[INCLUDE_PATH];
         $paths[LIBRARY_PATH]            = $paths[SYS_CODE_PATH].$paths[LIBRARY_PATH];
         $paths[CONFIGURATION_PATH]      = $paths[SYS_PATH].$paths[CONFIGURATION_PATH];
-        $paths[SYS_COURSE_PATH]         = $paths[SYS_APP_PATH].$course_folder;
-        //$paths[SYS_COURSE_PATH]         = Container::getCourseDir();
+        //$paths[SYS_COURSE_PATH]         = $paths[SYS_APP_PATH].$course_folder;
+        $paths[SYS_COURSE_PATH]         = Container::getCourseDir();
 
         $is_this_function_initialized = true;
     } else {
@@ -1566,7 +1558,7 @@ function api_get_user_info(
     if (Database::num_rows($result) > 0) {
         $result_array = Database::fetch_array($result);
         if ($checkIfUserOnline) {
-            $use_status_in_platform = user_is_online($user_id);
+            $use_status_in_platform = UserManager::user_is_online($user_id);
 
             $result_array['user_is_online'] = $use_status_in_platform;
             $user_online_in_chat = 0;
@@ -2632,7 +2624,8 @@ function api_get_self() {
  */
 function api_is_platform_admin($allow_sessions_admins = false, $allow_drh = false)
 {
-    if (isset($_SESSION['is_platformAdmin']) && $_SESSION['is_platformAdmin']) {
+    $isPlatformAdmin = Session::read('is_platformAdmin');
+    if ($isPlatformAdmin) {
         return true;
     }
     $_user = api_get_user_info();

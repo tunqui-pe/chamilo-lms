@@ -87,6 +87,7 @@ class AddCourse
         $htmlpage = "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Not authorized</title>\n  </head>\n  <body>\n  </body>\n</html>";
         $cp = api_get_path(SYS_COURSE_PATH) . $course_repository;
 
+        var_dump($cp);
         //Creating document folder
         mkdir($cp, $perm);
         mkdir($cp . '/document', $perm);
@@ -471,12 +472,12 @@ class AddCourse
             TABLE_MAIN_GRADEBOOK_CERTIFICATE
         );
 
-        include_once api_get_path(SYS_CODE_PATH) . 'lang/english/trad4all.inc.php';
+        /*include_once api_get_path(SYS_CODE_PATH) . 'lang/english/trad4all.inc.php';
         $file_to_include = api_get_path(SYS_CODE_PATH) . 'lang/' . $language . '/trad4all.inc.php';
 
         if (file_exists($file_to_include)) {
             include_once $file_to_include;
-        }
+        }*/
 
         $visible_for_all = 1;
         $visible_for_course_admin = 0;
