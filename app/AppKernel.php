@@ -55,6 +55,9 @@ class AppKernel extends Kernel
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
+
+            // Extra
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
