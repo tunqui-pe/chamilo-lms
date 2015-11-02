@@ -30,6 +30,12 @@
             "main/inc/lib/hook"
         ]
     },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/jmontoyaa/MigrationBundle.git"
+    }
+  ],
     "require": {
         "php": ">=5.4",
         "ext-intl": "*",
@@ -53,8 +59,11 @@
         "sylius/settings-bundle": "~0.1",
         "sylius/translation": "~0.1",
         "sylius/attribute": "~0.1",
+        "sylius/flow-bundle": "~0.1",
         "sylius/resource-bundle": "~0.1",
         "sylius/resource": "~0.1",
+
+        "willdurand/faker-bundle": "~1.0",
 
         "sabre/vobject": "~3.1",
         "toin0u/digitalocean": "~1.4",
@@ -71,6 +80,8 @@
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
         "doctrine/migrations": "~1.0@dev",
         "doctrine/doctrine-migrations-bundle": "*@dev",
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "doctrine/data-fixtures": "~1.0@dev",
 
         "ircmaxell/password-compat": "~1.0.4",
         "gedmo/doctrine-extensions": "~2.3",
@@ -79,6 +90,7 @@
         "knplabs/knp-menu-bundle": "~2.0",
 
         "sp/bower-bundle": "dev-master",
+        "jmontoyaa/migration-bundle":"dev-master",
 
         "sonata-project/core-bundle": "2.3.x-dev",
         "sonata-project/user-bundle": "~2.2@dev",
