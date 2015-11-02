@@ -1751,7 +1751,8 @@ function api_get_anonymous_id()
  */
 function api_get_cidreq($addSessionId = true, $addGroupId = true)
 {
-    $url = empty($GLOBALS['_cid']) ? '' : 'cidReq='.htmlspecialchars($GLOBALS['_cid']);
+    $courseCode = api_get_course_id();
+    $url = empty($courseCode) ? '' : 'cidReq='.htmlspecialchars($courseCode);
     $origin = api_get_origin();
 
     if ($addSessionId) {

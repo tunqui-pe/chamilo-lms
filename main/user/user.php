@@ -27,6 +27,8 @@ if (!api_is_platform_admin(true)) {
     }
 }
 
+$is_allowed_in_course = api_is_allowed_in_course();
+
 /* Constants and variables */
 $course_code = Database::escape_string(api_get_course_id());
 $sessionId = api_get_session_id();

@@ -16,7 +16,7 @@ $dropbox_cnf['tbl_feedback'] = Database::get_course_table(TABLE_DROPBOX_FEEDBACK
 /**
  *  INITIALISE OTHER VARIABLES & CONSTANTS
  */
-$dropbox_cnf['courseId'] = $_cid;
+$dropbox_cnf['courseId'] = api_get_course_id();
 //path to dropbox subdir in course containing the uploaded files
 $dropbox_cnf['sysPath'] = api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/dropbox';
 $dropbox_cnf['webPath'] = api_get_path(WEB_COURSE_PATH) . $_course['path'] . '/dropbox';
