@@ -164,3 +164,15 @@ sp_bower:
         ChamiloThemeBundle:
             cache:
                 directory: %kernel.root_dir%/cache/public/components/cache
+
+
+stof_doctrine_extensions:
+    default_locale: "%locale%"
+    translation_fallback: true
+    orm:
+        default:
+            tree: true
+            timestampable: true
+            sluggable: true
+            sortable: true
+
