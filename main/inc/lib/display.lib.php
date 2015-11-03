@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class Display
@@ -708,7 +709,7 @@ class Display
         $show_text = true,
         $return_only_path = false
     ) {
-        $code_path = api_get_path(SYS_CODE_PATH);
+        $code_path = api_get_path(SYS_IMG_PATH);
         $w_code_path = api_get_path(WEB_CODE_PATH);
         $alternateCssPath = api_get_path(SYS_CSS_PATH);
         $alternateWebCssPath = api_get_path(WEB_CSS_PATH);
@@ -726,13 +727,13 @@ class Display
 
         //Checking the theme icons folder example: app/Resources/public/css/themes/chamilo/icons/XXX
         if (is_file($alternateCssPath.$theme.$size_extra.$image)) {
-            $icon = $alternateWebCssPath.$theme.$size_extra.$image;
-        } elseif (is_file($code_path.'img/icons/'.$size_extra.$image)) {
+            $icon = $theme.$size_extra.$image;
+        } elseif (is_file($code_path.'icons/'.$size_extra.$image)) {
             //Checking the main/img/icons/XXX/ folder
-            $icon = $w_code_path.'img/icons/'.$size_extra.$image;
+            $icon = 'icons/'.$size_extra.$image;
         } else {
             //Checking the img/ folder
-            $icon = $w_code_path . 'img/' . $image;
+            $icon = $image;
         }
 
         // Special code to enable SVG - refs #7359 - Needs more work
@@ -741,7 +742,7 @@ class Display
         // When moving this to production, the return_icon() calls should
         // ask for the SVG version directly
         $testServer = api_get_setting('server_type');
-        if ($testServer == 'test') {
+        /*if ($testServer == 'test') {
             $svgImage = substr($image, 0, -3) . 'svg';
             if (is_file($code_path . $theme . 'svg/' . $svgImage)) {
                 $icon = $w_code_path . $theme . 'svg/' . $svgImage;
@@ -755,9 +756,13 @@ class Display
             if (empty($additional_attributes['width'])) {
                 $additional_attributes['width'] = $size;
             }
-        }
+        }*/
 
-        $icon = api_get_cdn_path($icon);
+        $icon = 'bundles/chamilocore/img/'.$icon;
+        $icon = Container::getAsset()->getUrl($icon);
+
+        //$icon = api_get_cdn_path($icon);
+
         if ($return_only_path) {
             return $icon;
         }

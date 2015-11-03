@@ -297,6 +297,7 @@ define('WEB_CODE_PATH', 'WEB_CODE_PATH');
 define('SYS_CODE_PATH', 'SYS_CODE_PATH');
 define('SYS_LANG_PATH', 'SYS_LANG_PATH');
 define('WEB_IMG_PATH', 'WEB_IMG_PATH');
+define('SYS_IMG_PATH', 'SYS_IMG_PATH');
 define('WEB_CSS_PATH', 'WEB_CSS_PATH');
 define('WEB_PUBLIC_PATH', 'WEB_PUBLIC_PATH');
 define('SYS_CSS_PATH', 'SYS_CSS_PATH');
@@ -634,7 +635,6 @@ require_once __DIR__.'/internationalization.lib.php';
  * The other configuration parameters have not been changed.
  *
  * This is how we can get most used paths, for common purpose:
-
  * api_get_path(REL_PATH)                       /chamilo/
  * api_get_path(REL_COURSE_PATH)                /chamilo/courses/
  * api_get_path(REL_CODE_PATH)                  /chamilo/main/
@@ -663,6 +663,7 @@ require_once __DIR__.'/internationalization.lib.php';
  * api_get_path(WEB_PLUGIN_PATH)                http://www.mychamilo.org/chamilo/plugin/
  * api_get_path(WEB_ARCHIVE_PATH)               http://www.mychamilo.org/chamilo/app/cache/
  * api_get_path(WEB_IMG_PATH)                   http://www.mychamilo.org/chamilo/main/img/
+ * api_get_path(SYS_IMG_PATH)                   /var/www/chamilo/web/bundles/chamilocore/img/
  * api_get_path(WEB_CSS_PATH)                   http://www.mychamilo.org/chamilo/web/css/
  * api_get_path(WEB_LIBRARY_PATH)               http://www.mychamilo.org/chamilo/main/inc/lib/
  * api_get_path(WEB_LIBRARY_JS_PATH)            http://www.mychamilo.org/chamilo/web/Chamilo/javascript
@@ -701,6 +702,7 @@ function api_get_path($path_type, $path = null)
         SYS_CODE_PATH           => '',
         SYS_LANG_PATH           => 'lang/',
         WEB_IMG_PATH            => 'img/',
+        SYS_IMG_PATH => 'web/bundles/chamilocore/img/',
         WEB_CSS_PATH            => 'web/css/',
         SYS_CSS_PATH            => 'app/Resources/public/css/',
         SYS_PLUGIN_PATH         => 'plugin/',
@@ -841,6 +843,7 @@ function api_get_path($path_type, $path = null)
 
         $paths[WEB_CSS_PATH]            = $paths[WEB_PATH].$paths[WEB_CSS_PATH];
         $paths[WEB_IMG_PATH]            = $paths[WEB_CODE_PATH].$paths[WEB_IMG_PATH];
+        $paths[SYS_IMG_PATH] = $paths[SYS_PATH].$paths[SYS_IMG_PATH];
         $paths[WEB_LIBRARY_PATH]        = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_PATH];
         $paths[WEB_LIBRARY_JS_PATH]     = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_JS_PATH];
 
