@@ -815,19 +815,19 @@ foreach ($categories as $item) {
     ];
 }
 
-$template = new Template($nameTools);
-$template->assign('is_allowed_to_edit', $is_allowed_to_edit);
-$template->assign('is_invitee', api_is_invitee());
-$template->assign('actions', $actions);
-$template->assign('message', $message);
-$template->assign('introduction_section', $introductionSection);
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$template->addGlobal('is_allowed_to_edit', $is_allowed_to_edit);
+$template->addGlobal('is_invitee', api_is_invitee());
+$template->addGlobal('actions', $actions);
+$template->addGlobal('message', $message);
+$template->addGlobal('introduction_section', $introductionSection);
 
-$template->assign('data', $data);
-$template->assign('lp_is_shown', $lpIsShown);
+$template->addGlobal('data', $data);
+$template->addGlobal('lp_is_shown', $lpIsShown);
 
 $content = $template->fetch('default/learnpath/list.tpl');
 
-$template->assign('content', $content);
+$template->addGlobal('content', $content);
 $template->display_one_col_template();
 
 $course_info = api_get_course_info();

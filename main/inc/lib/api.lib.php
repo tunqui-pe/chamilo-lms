@@ -2863,11 +2863,9 @@ function api_is_coach($session_id = 0, $courseId = null, $check_student_view = t
     } else {
         $session_id = api_get_session_id();
     }
-
+    $studentView = Session::read('studentview');
     // The student preview was on
-    if ($check_student_view &&
-        isset($_SESSION['studentview']) && $_SESSION['studentview'] == "studentview"
-    ) {
+    if ($check_student_view && $studentView == "studentview") {
         return false;
     }
 
@@ -3093,15 +3091,16 @@ function api_display_tool_view_option() {
             //$sourceurl = str_replace('&', '&amp;', $sourceurl);
         }
     }
+    $studentView = Session::read('studentview');
 
     $output_string = '';
-    if (!empty($_SESSION['studentview'])) {
-        if ($_SESSION['studentview'] == 'studentview') {
+    if (!empty($studentView)) {
+        if ($studentView == 'studentview') {
             // We have to remove the isStudentView=true from the $sourceurl
             $sourceurl = str_replace('&isStudentView=true', '', $sourceurl);
             $sourceurl = str_replace('&isStudentView=false', '', $sourceurl);
             $output_string .= '<a class="btn btn-success btn-xs" href="'.$sourceurl.'&isStudentView=false" target="_self">'.get_lang('SwitchToTeacherView').'</a>';
-        } elseif ($_SESSION['studentview'] == 'teacherview') {
+        } elseif ($studentView == 'teacherview') {
             // Switching to teacherview
             $sourceurl = str_replace('&isStudentView=true', '', $sourceurl);
             $sourceurl = str_replace('&isStudentView=false', '', $sourceurl);
@@ -3137,14 +3136,11 @@ function api_is_allowed_to_edit($tutor = false, $coach = false, $session_coach =
     $my_session_id = api_get_session_id();
     $is_allowed_coach_to_edit = api_is_coach(null, null, $check_student_view);
     $session_visibility = api_get_session_visibility($my_session_id);
-
+    $studentView = Session::read('studentview');
     // Admins can edit anything.
     if (api_is_platform_admin(false)) {
         //The student preview was on
-        if ($check_student_view &&
-            isset($_SESSION['studentview']) &&
-            $_SESSION['studentview'] == "studentview"
-        ) {
+        if ($check_student_view && $studentView == "studentview") {
             return false;
         } else {
             return true;
@@ -3192,11 +3188,11 @@ function api_is_allowed_to_edit($tutor = false, $coach = false, $session_coach =
                 $is_allowed = false;
             }
             if ($check_student_view) {
-                $is_allowed = $is_allowed && $_SESSION['studentview'] != 'studentview';
+                $is_allowed = $is_allowed && $studentView != 'studentview';
             }
         } else {
             if ($check_student_view) {
-                $is_allowed = $is_courseAdmin && $_SESSION['studentview'] != 'studentview';
+                $is_allowed = $is_courseAdmin && $studentView != 'studentview';
             } else {
                 $is_allowed = $is_courseAdmin;
             }
@@ -4238,7 +4234,6 @@ function api_get_item_property_info($course_id, $tool, $ref, $session_id = 0)
 
 function api_get_languages_combo($name = 'language') {
     $ret = '';
-    $platformLanguage = api_get_setting('platformLanguage');
 
     // Retrieve a complete list of all the languages.
     $language_list = api_get_languages();
@@ -4247,12 +4242,7 @@ function api_get_languages_combo($name = 'language') {
         return $ret;
     }
 
-    // The the current language of the user so that his/her language occurs as selected in the dropdown menu.
-    if (isset($_SESSION['user_language_choice'])) {
-        $default = $_SESSION['user_language_choice'];
-    } else {
-        $default = $platformLanguage;
-    }
+    $default = api_get_user_language();
 
     $languages  = $language_list['name'];
     $folder     = $language_list['folder'];
@@ -4270,6 +4260,38 @@ function api_get_languages_combo($name = 'language') {
     return $ret;
 }
 
+function api_get_user_language()
+{
+    $user_language = null;
+
+    if (!api_is_anonymous()) {
+        $userInfo = api_get_user_info();
+        if (isset($userInfo['language'])) {
+            $user_language = $userInfo['language'];
+        }
+    }
+
+    // When this is use?
+    /*
+    if (isset($_POST['language_list']) && !empty($_POST['language_list'])) {
+        if (in_array($_GET['language'], $valid_languages)) {
+            $user_language = str_replace('index.php?language=', '', $_POST['language_list']);
+        }
+    }*/
+
+    if (isset($_REQUEST['language']) && !empty($_REQUEST['language'])) {
+        api_set_login_language($_REQUEST['language']);
+    }
+
+    // Last chance we get the platform language
+    if (empty($user_language)) {
+        $user_language = Container::getTranslator()->getLocale();
+    }
+
+    return $user_language;
+}
+
+
 /**
  * Displays a form (drop down menu) so the user can select his/her preferred language.
  * The form works with or without javascript
@@ -4284,13 +4306,7 @@ function api_display_language_form($hide_if_no_choice = false)
         return; //don't show any form
     }
 
-    // The the current language of the user so that his/her language occurs as selected in the dropdown menu.
-    if (isset($_SESSION['user_language_choice'])) {
-        $user_selected_language = $_SESSION['user_language_choice'];
-    }
-    if (empty($user_selected_language)) {
-        $user_selected_language = api_get_setting('platformLanguage');
-    }
+    $user_selected_language = api_get_language_selected_in_login();
 
     $original_languages = $language_list['name'];
     $folder = $language_list['folder']; // This line is probably no longer needed.
@@ -4328,6 +4344,18 @@ function api_display_language_form($hide_if_no_choice = false)
     $html .=  '</form>';
     return $html;
 }
+
+function api_get_language_selected_in_login()
+{
+    $language = api_get_setting('platformLanguage');
+    $userLanguageChoice = Session::read('user_language_choice');
+    if (isset($userLanguageChoice) && !empty($userLanguageChoice)) {
+        $language = $userLanguageChoice;
+    }
+
+    return $language;
+}
+
 
 /**
  * Returns a list of all the languages that are made available by the admin.
@@ -4393,47 +4421,36 @@ function api_get_language_id($language)
 function api_get_language_from_type($lang_type)
 {
     $return = false;
+    $language = false;
 
     switch ($lang_type) {
         case 'platform_lang':
-            $temp_lang = api_get_setting('platformLanguage');
-            if (!empty($temp_lang))
-                $return = $temp_lang;
+            $platformLanguage = api_get_setting('platformLanguage');
+            if (!empty($platformLanguage)) {
+                $language = $platformLanguage;
+            }
             break;
         case 'user_profil_lang':
-            $_user = api_get_user_info();
-            if (isset($_user['language']) && !empty($_user['language']))
-                $return = $_user['language'];
+            $_user = Session::read('_user');
+            if (isset($_user['language']) && !empty($_user['language'])) {
+                $language = $_user['language'];
+            }
             break;
         case 'user_selected_lang':
-            if (isset($_SESSION['user_language_choice']) && !empty($_SESSION['user_language_choice']))
-                $return = $_SESSION['user_language_choice'];
+            $language = api_get_language_selected_in_login();
             break;
         case 'course_lang':
-            global $_course;
-            $cidReq = null;
-            if (empty($_course)) {
-                // Code modified because the local.inc.php file it's declarated after this work
-                // causing the function api_get_course_info() returns a null value
-                $cidReq = isset($_GET["cidReq"]) ? Database::escape_string($_GET["cidReq"]) : null;
-                $cDir = (!empty($_GET['cDir']) ? $_GET['cDir'] : null);
-                if (empty($cidReq) && !empty($cDir)) {
-                    $c = CourseManager::get_course_id_from_path($cDir);
-                    if ($c) {
-                        $cidReq = $c;
-                    }
-                }
+            $_course = api_get_course_info();
+            if (isset($_course['language']) && !empty($_course['language'])) {
+                $language = $_course['language'];
             }
-            $_course = api_get_course_info($cidReq);
-            if (isset($_course['language']) && !empty($_course['language']))
-                $return = $_course['language'];
             break;
         default:
-            $return = false;
+            $language = false;
         break;
     }
 
-    return $return;
+    return $language;
 }
 
 function api_get_language_info($language_id) {
@@ -5942,22 +5959,6 @@ function api_get_status_of_user_in_course($user_id, $courseId)
     }
 }
 
-/**
- * Checks whether the curent user is in a course or not.
- *
- * @param string        The course code - optional (takes it from session if not given)
- * @return boolean
- * @author Yannick Warnier <yannick.warnier@beeznest.com>
- */
-function api_is_in_course($course_code = null) {
-    if (isset($_SESSION['_course']['sysCode'])) {
-        if (!empty($course_code)) {
-            return $course_code == $_SESSION['_course']['sysCode'];
-        }
-        return true;
-    }
-    return false;
-}
 
 /**
  * Checks whether the curent user is in a group or not.
@@ -5967,19 +5968,22 @@ function api_is_in_course($course_code = null) {
  * @return boolean
  * @author Ivan Tcholakov
  */
-function api_is_in_group($group_id = null, $course_code = null) {
-
+function api_is_in_group($group_id = null, $course_code = null)
+{
+    $courseCodeFromSession = api_get_course_id();
     if (!empty($course_code)) {
-        if (isset($_SESSION['_course']['sysCode'])) {
-            if ($course_code != $_SESSION['_course']['sysCode']) return false;
+        if (isset($courseCodeFromSession)) {
+            if ($course_code != $courseCodeFromSession) {
+                return false;
+            }
         } else {
             return false;
         }
     }
-
-    if (isset($_SESSION['_gid']) && $_SESSION['_gid'] != '') {
+    $groupFromSession = api_get_group_id();
+    if (isset($groupFromSession) && $groupFromSession != '') {
         if (!empty($group_id)) {
-            return $group_id == $_SESSION['_gid'];
+            return $group_id == $groupFromSession;
         } else {
             return true;
         }
@@ -5994,7 +5998,8 @@ function api_is_in_group($group_id = null, $course_code = null) {
  * @param string $security_key - security key from Chamilo
  * @return boolean - true if secret key is valid, false otherwise
  */
-function api_is_valid_secret_key($original_key_secret, $security_key) {
+function api_is_valid_secret_key($original_key_secret, $security_key)
+{
     return $original_key_secret == sha1($security_key);
 }
 
@@ -8125,6 +8130,9 @@ function api_protect_limit_for_session_admin()
     }
 }
 
-function api_is_student_view_active() {
-    return (isset($_SESSION['studentview']) && $_SESSION['studentview'] == "studentview");
+function api_is_student_view_active()
+{
+    $studentView = Session::read('studentview');
+
+    return $studentView == "studentview";
 }

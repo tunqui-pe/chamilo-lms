@@ -338,7 +338,7 @@ function multiple_answer_true_false_onchange(variable) {
 $htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
 $htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
 
-$template = new Template();
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
 $htmlHeadXtra[] = $template->fetch('default/exercise/submit.js.tpl');
 $htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
@@ -560,4 +560,3 @@ if ($objExercise->selectFeedbackType() == EXERCISE_FEEDBACK_TYPE_EXAM) {
 Session::write('objExercise', $objExercise);
 Session::write('objQuestion', $objQuestion);
 Session::write('objAnswer', $objAnswer);
-Display::display_footer();

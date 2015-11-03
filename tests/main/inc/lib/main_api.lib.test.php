@@ -692,14 +692,6 @@ class TestMainApi extends UnitTestCase {
 		//var_dump($res);
 	}
 
-	function testApiIsInCourse(){
-		$_SESSION['_course']['sysCode']=0;
-		$res=api_is_in_course($course_code=null);
-		$this->assertTrue(is_bool($res));
-		$this->assertTrue(isset($_SESSION['_course']['sysCode']));
-		//var_dump($res);
-	}
-
 	function testApiIsInGroup(){
 		$res=api_is_in_group($group_id=null, $course_code=null);
 		$this->assertTrue(is_bool($res));
