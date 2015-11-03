@@ -1645,9 +1645,10 @@ class SocialManager extends UserManager
      * group_add, home, messages, messages_inbox, messages_compose,
      * messages_outbox, invitations, shared_profile, friends, groups, search
      * @param int $groupId Optional. Group ID
+     * @param boolean $show_full_profile - Optional. Shows the Full Profile or Not
      * @return string The HTML code with the social block
      */
-    public static function setSocialUserBlock(Template $template, $userId, $groupBlock = '', $groupId = 0)
+    public static function setSocialUserBlock(Template $template, $userId, $groupBlock = '', $groupId = 0, $show_full_profile = true)
     {
         if (api_get_setting('allow_social_tool') != 'true') {
             return '';
@@ -1671,8 +1672,12 @@ class SocialManager extends UserManager
         $template->assign('user', $userInfo);
         $template->assign('social_avatar_block', $socialAvatarBlock);
         $template->assign('profile_edition_link', $profileEditionLink);
-        //Added the link to export the vCard to the Template
-        $template->assign('vcard_user_link', $vCardUserLink);
+        
+        //If not friend $show_full_profile is False and the user can't see Email Address and Vcard Download Link
+        if ($show_full_profile) {
+            //Added the link to export the vCard to the Template
+            $template->assign('vcard_user_link', $vCardUserLink);
+        }
 
         if (api_get_setting('gamification_mode') === '1') {
             $gamificationPoints = GamificationUtils::getTotalUserPoints(
@@ -1824,30 +1829,35 @@ class SocialManager extends UserManager
     /**
      * @return string
      */
-    public static function getWallForm()
+    public static function getWallForm($show_full_profile = true)
     {
-        $form = new FormValidator(
-            'social_wall_main',
-            'post',
-            api_get_path(WEB_CODE_PATH).'social/profile.php',
-            null,
-            array('enctype' => 'multipart/form-data') ,
-            FormValidator::LAYOUT_HORIZONTAL
-        );
+        if ($show_full_profile) {
+            $userId = isset($_GET['u']) ? '?u='.intval($_GET['u']) : '';
+            $form = new FormValidator(
+                'social_wall_main',
+                'post',
+                api_get_path(WEB_CODE_PATH).'social/profile.php'.$userId,
+                null,
+                array('enctype' => 'multipart/form-data') ,
+                FormValidator::LAYOUT_HORIZONTAL
+            );
+            
+            $socialWallPlaceholder = isset($_GET['u']) ? get_lang('SocialWallWriteNewPostToFriend') : get_lang('SocialWallWhatAreYouThinkingAbout');
+            
+            $form->addTextarea(
+                'social_wall_new_msg_main',
+                null,
+                [
+                    'placeholder' => $socialWallPlaceholder,
+                    'cols-size' => [1, 10, 1]
+                ]
+            );
+            $form->addHidden('url_content', '');
+            $form->addButtonSend(get_lang('Post'), 'wall_post_button', false, ['cols-size' => [1, 10, 1]]);
+            $html = Display::panel($form->returnForm(), get_lang('SocialWall'));
 
-        $form->addTextarea(
-            'social_wall_new_msg_main',
-            null,
-            [
-                'placeholder' => get_lang('SocialWallWhatAreYouThinkingAbout'),
-                'cols-size' => [1, 10, 1]
-            ]
-        );
-        $form->addHidden('url_content', '');
-        $form->addButtonSend(get_lang('Post'), 'wall_post_button', false, ['cols-size' => [1, 10, 1]]);
-        $html = Display::panel($form->returnForm(), get_lang('SocialWall'));
-
-        return $html;
+            return $html;
+        }
     }
 
     /**

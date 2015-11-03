@@ -275,7 +275,7 @@ $friend_html = SocialManager::listMyFriendsBlock(
     $show_full_profile
 );
 
-$wallSocialAddPost = SocialManager::getWallForm();
+$wallSocialAddPost = SocialManager::getWallForm($show_full_profile);
 $social_wall_block = $wallSocialAddPost;
 
 // Social Post Wall
@@ -331,7 +331,6 @@ $(document).ready(function() {
 
 $socialRightInformation = null;
 $social_right_content = null;
-$show_full_profile = true;
 if ($show_full_profile) {
 
     $t_ufo = Database :: get_main_table(TABLE_EXTRA_FIELD_OPTIONS);
@@ -680,7 +679,7 @@ if ($show_full_profile) {
 
 $tpl = new Template(get_lang('Social'));
 // Block Avatar Social
-SocialManager::setSocialUserBlock($tpl, $user_id, 'shared_profile');
+SocialManager::setSocialUserBlock($tpl, $user_id, 'shared_profile', 0, $show_full_profile);
 
 $tpl->assign('social_friend_block', $friend_html);
 $tpl->assign('social_menu_block', $social_menu_block);
