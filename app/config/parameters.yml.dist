@@ -20,6 +20,9 @@ parameters:
 
     installed: ~
     password_encryption: sha1
+    sp_bower_bin: '/usr/bin/bower'
 
     sylius.cache:
         type: file_system
+
+

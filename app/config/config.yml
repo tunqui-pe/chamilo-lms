@@ -172,6 +172,7 @@ doctrine_cache:
 
 # Bower configuration
 sp_bower:
+    bin: "%sp_bower_bin%" # Optional
     assetic: true
     install_on_warmup: false
     bundles:
