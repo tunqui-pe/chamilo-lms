@@ -3939,7 +3939,7 @@ class UserManager
         $masterSelect = "SELECT DISTINCT * FROM ";
 
         if ($getCount) {
-            $masterSelect = "SELECT COUNT(DISTINCT(u.id)) as count FROM ";
+            $masterSelect = "SELECT COUNT(DISTINCT(user_id)) as count FROM ";
             $select = " SELECT DISTINCT(u.id) user_id";
         }
 

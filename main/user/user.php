@@ -39,6 +39,7 @@ $user_id = api_get_user_id();
 $_user = api_get_user_info();
 $courseCode = $course_info['code'];
 $courseId = $course_info['real_id'];
+$type = isset($_REQUEST['type']) ? intval($_REQUEST['type']) : STUDENT;
 
 //Can't auto unregister from a session
 if (!empty($sessionId)) {
@@ -178,7 +179,7 @@ if (api_is_allowed_to_edit(null, true)) {
                     $a_users[0][] = get_lang('LegalAgreementAccepted');
                 }
 
-                if ($_GET['type'] == 'pdf') {
+                if ($_GET['format'] == 'pdf') {
                     $select_email_condition = ' user.email, ';
                     if ($is_western_name_order) {
                         $a_users[0] = array(
@@ -226,8 +227,12 @@ if (api_is_allowed_to_edit(null, true)) {
                         $sql .= " AND user.user_id = au.user_id AND access_url_id =  $current_access_url_id  ";
                     }
 
-                    //only users no coaches/teachers
-                    $sql .= " AND session_course_user.status = 0 ";
+                    // only users no coaches/teachers
+                    if ($type == COURSEMANAGER) {
+                        $sql .= " AND session_course_user.status = 2 ";
+                    } else {
+                        $sql .= " AND session_course_user.status = 0 ";
+                    }
                     $sql .= $sort_by_first_name ? ' ORDER BY user.firstname, user.lastname' : ' ORDER BY user.lastname, user.firstname';
 
                     $rs = Database::query($sql);
@@ -254,10 +259,10 @@ if (api_is_allowed_to_edit(null, true)) {
                             }
                         }
                         $data[] = $user;
-                        if ($_GET['type'] == 'pdf') {
+                        if ($_GET['format'] == 'pdf') {
                             $user_info = api_get_user_info($user['user_id']);
                             $user_image = Display::img(
-                                $user_info['avatar'],
+                                $user_info['avatar_no_query'],
                                 null,
                                 array('width' => $user_image_pdf_size.'px')
                             );
@@ -312,8 +317,12 @@ if (api_is_allowed_to_edit(null, true)) {
                         $sql .= " AND user.user_id = au.user_id  AND access_url_id =  $current_access_url_id  ";
                     }
 
-                    //only users no teachers/coaches
-                    $sql .= " AND course_user.status = 5 ";
+                    // only users no teachers/coaches
+                    if ($type == COURSEMANAGER) {
+                        $sql .= " AND course_user.status = 1 ";
+                    } else {
+                        $sql .= " AND course_user.status = 5 ";
+                    }
 
                     $sql .= ($sort_by_first_name ? " ORDER BY user.firstname, user.lastname" : " ORDER BY user.lastname, user.firstname");
 
@@ -340,10 +349,10 @@ if (api_is_allowed_to_edit(null, true)) {
                                 $user[$key] = $extra_value;
                             }
                         }
-                        if ($_GET['type'] == 'pdf') {
+                        if ($_GET['format'] == 'pdf') {
                             $user_info = api_get_user_info($user['user_id']);
                             $user_image = Display::img(
-                                $user_info['avatar'],
+                                $user_info['avatar_no_query'],
                                 null,
                                 array('width' => $user_image_pdf_size.'px')
                             );
@@ -377,12 +386,20 @@ if (api_is_allowed_to_edit(null, true)) {
                     }
                 }
 
-                switch ($_GET['type']) {
+                $fileName = get_lang('StudentList');
+                $pdfTitle = get_lang('StudentList');
+
+                if ($type == COURSEMANAGER) {
+                    $fileName = get_lang('Teachers');
+                    $pdfTitle = get_lang('Teachers');
+                }
+
+                switch ($_GET['format']) {
                     case 'csv' :
-                        Export::arrayToCsv($a_users);
+                        Export::arrayToCsv($a_users, $fileName);
                         exit;
                     case 'xls' :
-                        Export::arrayToXls($a_users);
+                        Export::arrayToXls($a_users, $fileName);
                         exit;
                     case 'pdf' :
                         $header_attributes = array(
@@ -391,11 +408,10 @@ if (api_is_allowed_to_edit(null, true)) {
                             array('style' => 'width:50px'),
                             array('style' => 'width:500px'),
                         );
-
                         $params = array(
                             'add_signatures' => false,
-                            'filename' => get_lang('UserList'),
-                            'pdf_title' => get_lang('StudentList'),
+                            'filename' => $fileName,
+                            'pdf_title' => $pdfTitle,
                             'header_attributes' => $header_attributes
                         );
                         Export::export_table_pdf($a_users, $params);
@@ -934,8 +950,6 @@ $is_allowed_to_track = ($is_courseAdmin || $is_courseTutor);
 // Tool introduction
 Display::display_introduction_section(TOOL_USER, 'left');
 $actions = '';
-$type = isset($_REQUEST['type']) ? intval($_REQUEST['type']) : STUDENT;
-
 $selectedTab = 1;
 
 if (api_is_allowed_to_edit(null, true)) {
@@ -958,9 +972,9 @@ if (api_is_allowed_to_edit(null, true)) {
         Display::return_icon('add.png', get_lang('Add'), '', ICON_SIZE_MEDIUM),
         $url
     );
-    $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&type=csv">'.
+    $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&format=csv&type='.$type.'">'.
         Display::return_icon('export_csv.png', get_lang('ExportAsCSV'),'',ICON_SIZE_MEDIUM).'</a> ';
-    $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&type=xls">'.
+    $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&format=xls&type='.$type.'">'.
         Display::return_icon('export_excel.png', get_lang('ExportAsXLS'),'',ICON_SIZE_MEDIUM).'</a> ';
 
     if (api_get_setting('allow_user_course_subscription_by_course_admin') == 'true' ||
@@ -970,7 +984,7 @@ if (api_is_allowed_to_edit(null, true)) {
             Display::return_icon('import_csv.png', get_lang('ImportUsersToACourse'),'',ICON_SIZE_MEDIUM).'</a> ';
     }
 
-    $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&type=pdf">'.
+    $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&format=pdf&type='.$type.'">'.
         Display::return_icon('pdf.png', get_lang('ExportToPDF'),'',ICON_SIZE_MEDIUM).'</a> ';
     echo $actions;
 
@@ -991,9 +1005,6 @@ if (api_is_allowed_to_edit(null, true)) {
         $actions .= ' <a class="btn btn-default" href="session_list.php?'.api_get_cidreq().'">'.
             get_lang('Sessions').'</a>';
     }
-
-
-
     echo '</div>';
 }
 
