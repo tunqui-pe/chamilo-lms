@@ -1,11 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	@package chamilo.admin
  */
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -173,7 +175,7 @@ if ($form->validate()) {
     $course['wanted_code'] = $course['visual_code'];
     $course['gradebook_model_id']   = isset($course['gradebook_model_id']) ? $course['gradebook_model_id'] : null;
     // Fixing category code
-    $course['course_category'] = $course['category_code'];
+    $course['course_category'] = isset($course['category_code']) ? $course['category_code'] : '';
     $course_info = CourseManager::create_course($course);
 
     header('Location: course_list.php'.($course_info===false?'?action=show_msg&warn='.api_get_last_failure():''));
@@ -183,6 +185,6 @@ if ($form->validate()) {
 // Display the form.
 $content = $form->return_form();
 
-$tpl = new Template($tool_name);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+$tpl = Container::getTwig();
+$tpl->addGlobal('content', $content);
+echo $tpl->render('ChamiloCoreBundle:default/layout:layout_1_col.html.twig');

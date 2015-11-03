@@ -3,9 +3,11 @@
 /**
 *	@package chamilo.admin
 */
+
+use Chamilo\CoreBundle\Framework\Container;
 $cidReset = true;
-// Including necessary libraries.
-require_once '../inc/global.inc.php';
+
+//require_once '../inc/global.inc.php';
 $libpath = api_get_path(LIBRARY_PATH);
 
 // Section for the tabs
@@ -449,7 +451,8 @@ if ($form->validate()) {
 
 $content = $form->returnForm();
 
-$tpl = new Template($tool_name);
-//$tpl->assign('actions', $actions);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+$tpl = Container::getTwig();
+//$tpl->addGlobal('actions', $actions);
+$tpl->addGlobal('content', $content);
+
+echo $tpl->render('ChamiloCoreBundle:default/layout:layout_1_col.html.twig');

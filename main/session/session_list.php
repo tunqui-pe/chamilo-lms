@@ -6,7 +6,7 @@
  */
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 SessionManager::protectSession(null, false);
@@ -322,7 +322,3 @@ echo '</div>';
 echo '<div id="session-table" class="table-responsive">';
 echo Display::grid_html('sessions');
 echo '</div>';
-
-Display::display_footer();
-
-
