@@ -9,11 +9,12 @@ ob_start();
 $nameTools = 'Cours';
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $this_section = SECTION_TRACKING;
 
 $sessionId = isset($_GET['session_id']) ? intval($_GET['session_id']) : null;
+$user_id = api_get_user_id();
 
 api_block_anonymous_users();
 $interbreadcrumb[] = array ("url" => "index.php", "name" => get_lang('MySpace'));
@@ -116,19 +117,19 @@ if (api_is_drh() || api_is_session_admin() || api_is_platform_admin()) {
         }
     }
     if (count($a_courses) > 0) {
-        
+
         $actionsRight .= Display::url(
             Display::return_icon('printer.png', get_lang('Print'), array(), 32),
             'javascript: void(0);',
             array('onclick'=>'javascript: window.print();')
         );
-       
+
     }
-    
+
     $toolbar = Display::toolbarAction('toolbar-course', $content = array( 0 => $actionsLeft, 1 => $actionsRight ));
 
     echo $toolbar;
-    
+
     echo Display::page_header($title);
 }
 

@@ -8,7 +8,7 @@
 
 ob_start();
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//quire_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 
