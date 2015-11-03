@@ -59,8 +59,7 @@ class LoadSettingsData extends AbstractFixture implements
      */
     private function generateCode($manager, $entity, $variableName, $variables)
     {
-        $data = $manager->getRepository('ChamiloCoreBundle:'.$entity)->findAll(
-        );
+        $data = $manager->getRepository('ChamiloCoreBundle:'.$entity)->findAll();
 
         if (!empty($data)) {
             $code = null;
@@ -423,6 +422,7 @@ class LoadSettingsData extends AbstractFixture implements
         $setting->setSubkeytext('officialcode');
         $setting->setAccessUrlChangeable('0');
         $setting->setUrl($accessUrl);
+
         $manager->persist($setting);
 
 

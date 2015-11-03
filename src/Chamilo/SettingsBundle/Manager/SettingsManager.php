@@ -158,6 +158,7 @@ class SettingsManager extends SyliusSettingsManager
                     ->setName($name)
                     ->setValue($value)
                     ->setUrl($this->getUrl())
+                    ->setAccessUrlLocked(0)
                     ->setAccessUrlChangeable(1)
                 ;
 

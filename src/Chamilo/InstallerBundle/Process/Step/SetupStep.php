@@ -30,12 +30,15 @@ class SetupStep extends AbstractStep
         $form->get('portal')->get('institution')->setData(
             $settings->get('institution')
         );
+
         $form->get('portal')->get('institution_url')->setData(
             $settings->get('institution_url')
         );
+
         $form->get('portal')->get('site_name')->setData(
             $settings->get('site_name')
         );
+
         $date = new \DateTime();
         $timezone = $date->getTimezone();
         $form->get('portal')->get('timezone')->setData($timezone->getName());
