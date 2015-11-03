@@ -4,7 +4,7 @@
 namespace Chamilo\InstallerBundle\Process\Step;
 
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
-use Application\Migrations\Data\ORM\LoadAdminUserData;
+use Chamilo\CoreBundle\Migrations\Data\ORM\LoadAdminUserData;
 //use Oro\Bundle\ConfigBundle\Config\ConfigManager;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManager;
 use Symfony\Component\HttpFoundation\Response;

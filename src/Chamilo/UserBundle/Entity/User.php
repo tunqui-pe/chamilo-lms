@@ -411,7 +411,7 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
         $this->courses = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->classes = new ArrayCollection();
-        $this->roles = new ArrayCollection();
+        //$this->roles = new ArrayCollection();
         $this->curriculumItems = new ArrayCollection();
         $this->portals = new ArrayCollection();
         $this->dropBoxSentFiles = new ArrayCollection();

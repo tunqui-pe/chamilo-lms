@@ -41,6 +41,13 @@ class SchemaStep extends AbstractStep
                     )
                 );
             case 'schema-update':
+                // Creating identities:
+                return $this->handleAjaxAction(
+                    'doctrine:schema:update',
+                    array('--force' => true)
+                );
+
+                // Run migrations
                 return $this->handleAjaxAction(
                     'oro:migration:load',
                     array('--force' => true)

@@ -20,7 +20,7 @@ use Chamilo\InstallerBundle\ScriptExecutor;
 class InstallCommand extends ContainerAwareCommand
 {
     /**
-     *
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -281,7 +281,7 @@ class InstallCommand extends ContainerAwareCommand
         $output->writeln('<info>Administration setup.</info>');
 
         $this->setupAdmin($output);
-
+        /*
         $this->runCommand(
             'sonata:page:update-core-routes',
             $output,
@@ -291,7 +291,7 @@ class InstallCommand extends ContainerAwareCommand
             'sonata:page:create-snapshots',
             $output,
             array('--site' => array('all'))
-        );
+        );*/
 
         $output->writeln('');
 

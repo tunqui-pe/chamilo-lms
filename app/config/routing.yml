@@ -14,6 +14,9 @@ chamilo_course:
 _front:
     resource: routing_front.yml
 
+chamilo_installer:
+    resource: "@ChamiloInstallerBundle/Resources/config/routing.yml"
+
 # Always at the end
 core_bundle:
     resource: "@ChamiloCoreBundle/Resources/config/routing.yml"

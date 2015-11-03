@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             new Sp\BowerBundle\SpBowerBundle(),
+            new Oro\Bundle\MigrationBundle\OroMigrationBundle(),
 
             // KNP HELPER BUNDLES
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
@@ -46,11 +47,10 @@ class AppKernel extends Kernel
             // Sylius
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
-            //new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
-
+            new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
 
             // Chamilo
-            //new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
+            new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
             new Chamilo\CoreBundle\ChamiloCoreBundle(),
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
@@ -65,6 +65,8 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+
+            $bundles[] = new Bazinga\Bundle\FakerBundle\BazingaFakerBundle();
         }
 
         return $bundles;
