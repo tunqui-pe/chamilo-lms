@@ -108,6 +108,13 @@ class SettingsCurrent implements ParameterInterface
      */
     private $accessUrlLocked;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AccessUrl", inversedBy="settings", cascade={"persist"})
+     * @ORM\JoinColumn(name="access_url", referencedColumnName="id")
+     */
+    protected $url;
+
     /**
      * Set variable
      *
@@ -457,6 +464,19 @@ class SettingsCurrent implements ParameterInterface
     public function setValue($value)
     {
         $this->setSelectedValue($value);
+        return $this;
+    }
+
+    /**
+     * Set accessUrl
+     *
+     * @param AccessUrl $accessUrl
+     * @return SettingsCurrent
+     */
+    public function setUrl($accessUrl)
+    {
+        $this->url = $accessUrl;
+
         return $this;
     }
 

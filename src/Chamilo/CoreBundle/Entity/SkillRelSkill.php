@@ -15,6 +15,15 @@ class SkillRelSkill
     /**
      * @var integer
      *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="skill_id", type="integer", nullable=false)
      */
     private $skillId;
@@ -41,15 +50,14 @@ class SkillRelSkill
     private $level;
 
     /**
-     * @var integer
+     * Set id
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @return integer
      */
-    private $id;
-
-
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set skillId

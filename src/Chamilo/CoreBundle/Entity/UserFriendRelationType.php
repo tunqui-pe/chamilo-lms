@@ -24,11 +24,9 @@ class UserFriendRelationType
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue()
      */
     private $id;
-
-
 
     /**
      * Set title
@@ -62,4 +60,15 @@ class UserFriendRelationType
     {
         return $this->id;
     }
+
+    /**
+     * Set id
+     *
+     * @return integer
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 }

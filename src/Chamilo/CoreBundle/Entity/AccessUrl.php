@@ -72,15 +72,15 @@ class AccessUrl
     /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SettingsCurrent", mappedBy="url", cascade={"persist"}, orphanRemoval=true)
      **/
-    //protected $settings;
+    protected $settings;
 
     /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SessionCategory", mappedBy="url", cascade={"persist"}, orphanRemoval=true)
      **/
-    private $sessionCategory;
+    protected $sessionCategory;
 
     /**
-     *
+     * Constructor
      */
     public function __construct()
     {
