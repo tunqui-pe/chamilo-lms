@@ -139,12 +139,11 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-#doctrine_migrations:
-#    dir_name: %kernel.root_dir%/../vendor/chamilo/chash/src/Chash/Migrations
-#    namespace: Chash\Migrations
-#    table_name: version
-#    name: Chamilo Migrations
-
+doctrine_migrations:
+    dir_name: %kernel.root_dir%/Migrations/Schema/V20/
+    namespace: Application\Migrations\Schema\V20
+    table_name: version
+    name: Chamilo Migrations
 
 # Platform settings
 
