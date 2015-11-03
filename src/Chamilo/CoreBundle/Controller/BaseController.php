@@ -4,6 +4,7 @@
 namespace Chamilo\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +35,7 @@ abstract class BaseController extends Controller
     }
 
     /**
-     * @return object
+     * @return TwigEngine
      */
     public function getTemplate()
     {

@@ -154,6 +154,21 @@ sylius_settings:
             model: Chamilo\CoreBundle\Entity\SettingsCurrent
             repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
 
+# Course settings
+chamilo_course:
+    driver: doctrine/orm
+    classes:
+        parameter:
+            model: Chamilo\CourseBundle\Entity\CCourseSetting
+            repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
+
+doctrine_cache:
+    providers:
+        sylius_settings:
+            type: file_system
+        chamilo_settings:
+            type: file_system
+
 
 # Bower configuration
 sp_bower:

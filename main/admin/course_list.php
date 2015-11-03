@@ -7,7 +7,7 @@
  * @package chamilo.admin
  */
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -385,7 +385,7 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
         $sessionInfo = SessionManager::fetch($sessionId);
         $sessionSelect->addOption($sessionInfo['name'], $sessionInfo['id'], ['selected' => 'selected']);
     }
-    
+
     $courseListUrl = api_get_self();
     $actions .= '<div class="row">';
     $actions .= '<div class="col-md-2">';
@@ -460,8 +460,8 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
     $content .= $table->return_table();
 }
 
-$tpl = new Template($tool_name);
 $tpl->assign('actions', $actions);
 $tpl->assign('message', $message);
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
+

@@ -17,7 +17,9 @@
                 <li><a href="{{ url('home') ~ 'main/calendar/agenda_js.php?type=personal' }}">{{ 'Agenda' | trans }}</a></li>
                 <li><a href="{{ url('home')~ 'main/social/home.php' }}">{{ 'SocialNetwork' | trans }}</a></li>
                 <li><a href="{{ url('home') }}">{{ 'Reporting' | trans }}</a></li>
-                <li><a href="{{ url('home') ~ 'main/admin/index.php' }}">{{ 'Administration' | trans }}</a></li>
+                <li>
+                    <a href="{{ url('administration') }}">{{ 'Administration' | trans }}</a>
+                </li>
             </ul>
             {% if app.user %}
                 <ul class="nav navbar-nav navbar-right">
