@@ -99,6 +99,7 @@ class LoadSettingsData extends AbstractFixture implements
      */
     public function createSettings(ObjectManager $manager)
     {
+        return;
         $accessUrl = $this->getReference('access_url');
 
         $setting = new SettingsCurrent();

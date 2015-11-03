@@ -249,6 +249,7 @@ class LoadPortalData extends AbstractFixture implements
         $languages = Intl::getLocaleBundle()->getLocaleNames('en');
 
         // Getting po files inside the path
+        // Check path to get po files
         /*$translationPath = $kernel->locateResource('@ChamiloCoreBundle/Resources/translations');
 
         $finder = new Finder();
@@ -264,8 +265,9 @@ class LoadPortalData extends AbstractFixture implements
                 array('all.', '.po'), '', $fileName
             );
             $availableIsoCode[] = $isoCodeInFolder;
-        }
-
+        }*/
+        // use this just for now
+        $availableIsoCode = ['en', 'es', 'fr', 'nl', 'ru', 'se'];
         foreach ($languages as $code => $languageName) {
             if (!in_array($code, $availableIsoCode)) {
                 continue;
@@ -280,11 +282,9 @@ class LoadPortalData extends AbstractFixture implements
             $lang->setOriginalName($localeName);
             $lang->setEnglishName($languageName);
             $manager->persist($lang);
-        }*/
+        }
 
         $manager->flush();
-
-
     }
 
     /**
