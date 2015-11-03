@@ -61,7 +61,7 @@ $htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.dateformat.min.js');
 $htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.epiclock.min.js');
 $htmlHeadXtra[] = api_get_js('epiclock/renderers/minute/epiclock.minute.js');
 
-$template = new Template();
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
 // General parameters passed via POST/GET
 
@@ -144,7 +144,7 @@ if ($objExercise->review_answers) {
         exit;
     }
 }
-$template->assign('shuffle_answers', $objExercise->random_answers);
+$template->addGlobal('shuffle_answers', $objExercise->random_answers);
 $htmlHeadXtra[] = $template->fetch('default/exercise/submit.js.tpl');
 
 $current_timestamp = time();
