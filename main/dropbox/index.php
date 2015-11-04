@@ -15,6 +15,8 @@ if (isset($_SESSION[$_course['id']]) && $_SESSION[$_course['id']]['last_access']
 	}
 }
 
+$categoryName = isset($_POST['category_name']) ? $_POST['category_name'] : '';
+$editId = isset($_POST['edit_id']) ? $_POST['edit_id'] : '';
 $postAction = isset($_POST['action']) ? $_POST['action'] : null;
 $view = isset($_GET['view']) ? Security::remove_XSS($_GET['view']) : null;
 $viewReceivedCategory = isset($_GET['view_received_category']) ? Security::remove_XSS($_GET['view_received_category']) : null;
@@ -75,7 +77,7 @@ if ($action == 'addreceivedcategory' || $action == 'addsentcategory') {
 	if (api_get_session_id() != 0 && !api_is_allowed_to_session_edit(false, true)) {
 		api_not_allowed();
 	}
-	display_addcategory_form($_POST['category_name'], '', $_GET['action']);
+	display_addcategory_form($categoryName, '', $_GET['action']);
 }
 
 // Editing a category: displaying the form
@@ -102,7 +104,7 @@ if (isset($_POST['StoreCategory'])) {
 	}
 	if ($return_information['type'] == 'error') {
 		Display :: display_error_message(get_lang('FormHasErrorsPleaseComplete').'<br />'.$return_information['message']);
-		display_addcategory_form($_POST['category_name'], $_POST['edit_id'], $postAction);
+		display_addcategory_form($categoryName, $editId, $postAction);
 	}
 }
 
