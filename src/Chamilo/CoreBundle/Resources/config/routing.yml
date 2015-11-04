@@ -13,6 +13,12 @@ course:
     type:     annotation
     prefix:   /course
 
+
+legacy_javascript:
+    resource: "@ChamiloCoreBundle/Controller/JavascriptLegacyController.php"
+    type:     annotation
+    prefix:   /js
+
 # Legacy routes
 main:
     path:     /main/{name}

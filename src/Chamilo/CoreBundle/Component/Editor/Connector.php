@@ -3,13 +3,14 @@
 
 namespace Chamilo\CoreBundle\Component\Editor;
 
-use Chamilo\CoreBundle\Component\Editor\Driver\Driver;
-use Chamilo\CoreBundle\Entity\Course;
+use Doctrine\ORM\EntityManager;
 use Chamilo\UserBundle\Entity\User;
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Translation\Translator;
+use Chamilo\CoreBundle\Entity\Course;
 
-//use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Routing\Router;
+use Chamilo\CoreBundle\Component\Editor\Driver\Driver;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class elFinder Connector - editor + Chamilo repository
@@ -28,6 +29,7 @@ class Connector
 
     /** @var Router */
     public $urlGenerator;
+
     /** @var SecurityContext */
     public $security;
 
@@ -39,13 +41,13 @@ class Connector
     public $driverList = array();
 
     public function __construct(
-        /*EntityManager $entityManager,
+        EntityManager $entityManager,
         array $paths,
         Router $urlGenerator,
         Translator $translator,
-        SecurityContext $security,*/
-        //$user,
-        //$course = null
+        SecurityContext $security,
+        $user,
+        $course = null
     ) {
         $this->paths = array(
             'root_sys' => api_get_path(SYS_PATH),
@@ -55,11 +57,11 @@ class Connector
             'path.temp' => api_get_path(SYS_ARCHIVE_PATH),
             //'sys_log_path' => $app['path.logs']
         );
-        /*$this->entityManager = $entityManager;
+        $this->entityManager = $entityManager;
         $this->paths = $paths;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
-        $this->security = $security;*/
+        $this->security = $security;
         $this->user = api_get_user_info();
         $this->course = api_get_course_info();
         $this->driverList = $this->getDefaultDriverList();

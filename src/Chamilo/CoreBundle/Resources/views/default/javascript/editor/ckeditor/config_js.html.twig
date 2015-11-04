@@ -1,3 +1,4 @@
+
 /* Ckeditor global configuration file */
 
 CKEDITOR.editorConfig = function (config) {
@@ -16,20 +17,20 @@ CKEDITOR.editorConfig = function (config) {
     config.removeDialogTabs = 'image:advanced;link:advanced';
 
     config.templates_files  = [
-        '{{ _p.web_main ~ 'inc/lib/elfinder/templates.php'}}'
+        '{{ url('home') ~ 'inc/lib/elfinder/templates.php'}}'
     ];
 
-    {% if moreButtonsInMaximizedMode %}
+    {% if more_buttons_in_max_mode %}
         config.toolbar = 'minToolbar';
         config.smallToolbar = 'minToolbar';
         config.maximizedToolbar = 'maxToolbar';
     {% endif %}
 
     // File manager (elFinder)
-    config.filebrowserBrowseUrl = '{{ _p.web_lib ~ 'elfinder/filemanager.php' }}';
+    config.filebrowserBrowseUrl = '{{ url('home') ~ 'elfinder/filemanager.php' }}';
 
     // Allows to use "class" attribute inside divs and spans.
     config.allowedContent = true;
 
-    config.customConfig = '{{ _p.web_main ~ 'inc/lib/javascript/ckeditor/config_js.php'}}';
+    config.customConfig = '{{ url('config_editor') }}';
 };

@@ -6,8 +6,6 @@ namespace Chamilo\CoreBundle\Component\Editor\CkEditor;
 use Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar;
 use Chamilo\CoreBundle\Component\Editor\Editor;
 
-//use Symfony\Component\Routing\Generator\UrlGenerator;
-
 /**
  * Class CkEditor
  * @package Chamilo\CoreBundle\Component\Editor\CkEditor
@@ -77,7 +75,13 @@ class CkEditor extends Editor
      */
     public function editorReplace()
     {
-        $toolbar = new Toolbar\Basic($this->toolbarSet, $this->config, 'CkEditor');
+        $toolbar = new Toolbar\Basic(
+            $this->urlGenerator,
+            $this->toolbarSet,
+            $this->config,
+            'CkEditor'
+        );
+
         $toolbar->setLanguage($this->getLocale());
         $config = $toolbar->getConfig();
 

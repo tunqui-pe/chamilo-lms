@@ -347,13 +347,11 @@ class AdminController extends BaseController
             'label' => get_lang('AddSession'),
         );
         $items[] = array(
-            'url' => $adminUrl.'session_category_list.php',
+            'url' => api_get_path(WEB_CODE_PATH).'session/session_category_list.php',
             'label' => get_lang('ListSessionCategory'),
         );
         $items[] = array(
-            'url' => api_get_path(
-                    WEB_CODE_PATH
-                ).'session/session_import.php',
+            'url' => api_get_path(WEB_CODE_PATH).'session/session_import.php',
             'label' => get_lang('ImportSessionListXMLCSV'),
         );
         if (isset($extAuthSource) && isset($extAuthSource['ldap']) && count(
@@ -366,9 +364,7 @@ class AdminController extends BaseController
             );
         }
         $items[] = array(
-            'url' => api_get_path(
-                    WEB_CODE_PATH
-                ).'session/session_export.php',
+            'url' => api_get_path(WEB_CODE_PATH).'session/session_export.php',
             'label' => get_lang('ExportSessionListXMLCSV'),
         );
         $items[] = array(

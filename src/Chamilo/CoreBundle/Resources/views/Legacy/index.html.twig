@@ -1,6 +1,53 @@
 {% extends "ChamiloCoreBundle::layout.html.twig" %}
 
+
+
 {% block page_content %}
+
+    <script>
+        // External plugins not part of the default Ckeditor package.
+        var plugins = [
+            'asciimath',
+            'asciisvg',
+            'audio',
+            //'ckeditor_wiris',
+            'dialogui',
+            'glossary',
+            'leaflet',
+            'mapping',
+            'maximize',
+            'mathjax',
+            'oembed',
+            'toolbar',
+            'toolbarswitch',
+            'video',
+            'wikilink',
+            'wordcount',
+            'youtube'
+        ];
+        plugins.forEach(function (plugin) {
+            CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
+        });
+
+        // basic plugins
+        plugins = [
+            'adobeair',
+            'ajax',
+            'docprops',
+            'iframedialog',
+            'lineutils',
+            'sourcedialog',
+            'stylesheetparser',
+            'sharedspace',
+            //'uicolor',
+            'widget',
+            'tableresize',
+            'xml'
+        ];
+        plugins.forEach(function (plugin) {
+            CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilotheme/components/ckeditor/plugins/') }}' + plugin + '/');
+        });
+    </script>
 
     {% for scriptJs in js %}
         {{ scriptJs | raw }}

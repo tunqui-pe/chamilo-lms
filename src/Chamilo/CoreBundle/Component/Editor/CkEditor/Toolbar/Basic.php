@@ -17,7 +17,7 @@ class Basic extends Toolbar
      * @var array
      */
     public $defaultPlugins = array(
-       'adobeair',
+        'adobeair',
         'ajax',
         'audio',
         'bidi',
@@ -35,30 +35,30 @@ class Basic extends Toolbar
         'iframe',
         'iframedialog',
         'indentblock',
-       'justify',
-       'language',
-       'lineutils',
-       'liststyle',
-       'newpage',
-       'oembed',
-       'pagebreak',
-       'preview',
-       'print',
-       'save',
-       'selectall',
-       'sharedspace',
-       'showblocks',
-       'smiley',
-       'sourcedialog',
-       'stylesheetparser',
-       'tableresize',
-       'templates',
-       'uicolor',
-       'video',
-       'widget',
-       'wikilink',
-       'wordcount',
-       'xml'
+        'justify',
+        'language',
+        'lineutils',
+        'liststyle',
+        'newpage',
+        'oembed',
+        'pagebreak',
+        'preview',
+        'print',
+        'save',
+        'selectall',
+        'sharedspace',
+        'showblocks',
+        'smiley',
+        'sourcedialog',
+        'stylesheetparser',
+        'tableresize',
+        'templates',
+        //'uicolor',
+        'video',
+        'widget',
+        'wikilink',
+        'wordcount',
+        'xml',
     );
 
     /**
@@ -144,7 +144,11 @@ class Basic extends Toolbar
             $config['toolbar_maxToolbar'] = $this->getMaximizedToolbar();
         }
 
-        $config['customConfig'] = api_get_path(WEB_LIBRARY_PATH).'javascript/ckeditor/config_js.php';
+
+        $config['customConfig'] = $this->getUrlGenerator()->generate(
+            'config_editor'
+        );
+
 
         /*filebrowserFlashBrowseUrl
         filebrowserFlashUploadUrl

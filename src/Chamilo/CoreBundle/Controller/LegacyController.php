@@ -35,7 +35,7 @@ class LegacyController extends BaseController
 
         $rootDir = $this->get('kernel')->getRealRootDir();
 
-
+        // Legacy require files
         require api_get_path(LIBRARY_PATH).'fileManage.lib.php';
         require api_get_path(LIBRARY_PATH).'fileUpload.lib.php';
         require api_get_path(LIBRARY_PATH).'fileDisplay.lib.php';
@@ -44,7 +44,7 @@ class LegacyController extends BaseController
         $mainPath = $rootDir.'main/';
         $fileToLoad = $mainPath.$name;
 
-        // Legacy inclusions
+        // Setting legacy values inside the container
         Container::setSession($request->getSession());
 
         /** @var Connection $dbConnection */
@@ -66,26 +66,24 @@ class LegacyController extends BaseController
         Container::$tempDir = $this->container->get('kernel')->getCacheDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
         //Container::$configDir = $this->container->get('kernel')->getConfigDir();
-        //Container::$htmlEditor = $this->container->get('chamilo_core.html_editor');
+        Container::$htmlEditor = $this->container->get(
+            'chamilo_core.html_editor'
+        );
         Container::$twig = $this->container->get('twig');
-
-        $is_allowed_in_course = api_is_allowed_in_course();
-        $is_courseAdmin = api_is_course_admin();
-        $is_platformAdmin = api_is_platform_admin();
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
         ) {
+            // Files inside /main need this variables to be set
+            $is_allowed_in_course = api_is_allowed_in_course();
+            $is_courseAdmin = api_is_course_admin();
+            $is_platformAdmin = api_is_platform_admin();
+
             $toolNameFromFile = basename(dirname($fileToLoad));
             $charset = 'UTF-8';
             // Default values
             $_course = api_get_course_info();
             $_user = api_get_user_info();
-
-            /*
-            $text_dir = api_get_text_direction();
-            $is_platformAdmin = api_is_platform_admin();
-            $_cid = api_get_course_id();*/
             $debug = $this->container->get('kernel')->getEnvironment() == 'dev' ? true : false;
 
             // Loading file
@@ -104,18 +102,6 @@ class LegacyController extends BaseController
 
             // $interbreadcrumb is loaded in the require_once file.
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
-            //$this->getTemplate()->setBreadcrumb($interbreadcrumb);
-            //$breadCrumb = $this->getTemplate()->getBreadCrumbLegacyArray();
-            //$menu = $this->parseLegacyBreadCrumb($breadCrumb);
-            //$this->getTemplate()->assign('new_breadcrumb', $menu);
-            //$this->getTemplate()->parseResources();
-
-            /*if (isset($tpl)) {
-                $response = $app['twig']->render($app['default_layout']);
-            } else {
-                $this->getTemplate()->assign('content', $out);
-                $response = $app['twig']->render($app['default_layout']);
-            }*/
 
 
             return $this->render(
@@ -127,6 +113,7 @@ class LegacyController extends BaseController
                 )
             );
         } else {
+            // Found does not exist
             throw new NotFoundHttpException();
         }
     }
