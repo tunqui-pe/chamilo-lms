@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use \Chamilo\CoreBundle\Component\Editor\CkEditor\CkEditor;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * A html editor field to use with QuickForm
@@ -38,8 +39,7 @@ class HtmlEditor extends HTML_QuickForm_textarea
         $this->_persistantFreeze = true;
         $this->_type = 'html_editor';
 
-        //$editor = Container::getHtmlEditor();
-        $editor = new CkEditor();
+        $editor = Container::getHtmlEditor();
         if ($editor) {
             $this->editor = $editor;
             $this->editor->setName($name);
@@ -66,7 +66,6 @@ class HtmlEditor extends HTML_QuickForm_textarea
                 }
             }
         }
-
 
         if ($this->isFrozen()) {
             return $this->getFrozenHtml();
