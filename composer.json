@@ -100,6 +100,9 @@
         "mopa/bootstrap-bundle": "v3.0.0-beta3",
         "twbs/bootstrap": "v3.0.0",
 
+        "liip/theme-bundle": "dev-master",
+        "egeloen/ckeditor-bundle": "~3.0",
+        "friendsofsymfony/jsrouting-bundle": "~1.5",
         "friendsofsymfony/comment-bundle": "~2.0@dev",
 
         "ramsey/array_column": "~1.1",

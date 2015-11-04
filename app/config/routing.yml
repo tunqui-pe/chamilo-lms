@@ -20,3 +20,11 @@ chamilo_installer:
 # Always at the end
 core_bundle:
     resource: "@ChamiloCoreBundle/Resources/config/routing.yml"
+
+liip_theme:
+    resource: "@LiipThemeBundle/Resources/config/routing.xml"
+    prefix: /theme
+
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
