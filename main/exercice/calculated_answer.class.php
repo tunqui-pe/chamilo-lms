@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Webit\Util\EvalMath\EvalMath;
+
 /**
  *  Class CalculatedAnswer
  *  This class contains calculated answer form and answer processing functions
@@ -232,7 +234,7 @@ class CalculatedAnswer extends Question
                 }
                 $this->save();
                 $objAnswer = new Answer($this->id);
-                $objAnswer->createAnswer($auxAnswer, 1, '', $this->weighting, null);
+                $objAnswer->createAnswer($auxAnswer, 1, '', $this->weighting, '');
                 $objAnswer->position = array();
                 $objAnswer->save();
             }

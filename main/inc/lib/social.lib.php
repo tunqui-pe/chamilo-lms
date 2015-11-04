@@ -725,9 +725,9 @@ class SocialManager extends UserManager
             array('shared_profile', 'groups', 'group_edit', 'member_list', 'waiting_list', 'invite_friends')
         )) {
 
-
+            
             $links = '<ul class="nav nav-pills nav-stacked">';
-
+            
             $active = $show == 'home' ? 'active' : null;
             $links .= '
                 <li class="home-icon ' . $active . '">
@@ -793,7 +793,7 @@ class SocialManager extends UserManager
                     </a>
                 </li>';
             $links .='</ul>';
-
+            
             $html .= Display::panelCollapse(
                     get_lang('SocialNetwork'),
                     $links,
@@ -813,7 +813,7 @@ class SocialManager extends UserManager
         }
 
         if ($show == 'shared_profile') {
-
+            
             $links =  '<ul class="nav nav-pills nav-stacked">';
 
             // My own profile
@@ -1228,8 +1228,6 @@ class SocialManager extends UserManager
 
         //Just in case we replace the and \n and \n\r while saving in the DB
         $messageContent = str_replace(array("\n", "\n\r"), '<br />', $messageContent);
-        //commenting this line avoid the escape_string to insert correctly HTML content in Database
-        //$cleanMessageContent = Database::escape_string($messageContent);
 
         $attributes = array(
             'user_sender_id' => $userId,
@@ -1558,7 +1556,7 @@ class SocialManager extends UserManager
             $image = $domain . $image;
         }
         $title = $graph->title;
-
+        
         $html  = '<div class="thumbnail">';
         $html .= '<a target="_blank" href="'.$link.'"><h3>'.$title.'</h3>';
         $html .= empty($image) ? '' : '<img alt="" src="'.$image.'" /></a>';
@@ -1570,12 +1568,13 @@ class SocialManager extends UserManager
 
     /**
      * verify if Url Exist - Using Curl
-     * @param $URI url
+     * @param $uri url
+     *
      * @return boolean
      */
-    public static function verifyUrl($URI) {
-        $curl = curl_init($URI);
-
+    public static function verifyUrl($uri)
+    {
+        $curl = curl_init($uri);
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -1583,11 +1582,8 @@ class SocialManager extends UserManager
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-
         $response = curl_exec($curl);
-
         curl_close($curl);
-
         if (!empty($response)) {
             return true;
         } else {
@@ -1836,19 +1832,19 @@ class SocialManager extends UserManager
             $form = new FormValidator(
                 'social_wall_main',
                 'post',
-                api_get_path(WEB_CODE_PATH).'social/profile.php'.$userId,
+                    api_get_path(WEB_CODE_PATH).'social/profile.php'.$userId,
                 null,
                 array('enctype' => 'multipart/form-data') ,
-                FormValidator::LAYOUT_HORIZONTAL
+                FormValidator::LAYOUT_HORIZONTAL    
             );
-            
-            $socialWallPlaceholder = isset($_GET['u']) ? get_lang('SocialWallWriteNewPostToFriend') : get_lang('SocialWallWhatAreYouThinkingAbout');
-            
+                
+                $socialWallPlaceholder = isset($_GET['u']) ? get_lang('SocialWallWriteNewPostToFriend') : get_lang('SocialWallWhatAreYouThinkingAbout');
+
             $form->addTextarea(
                 'social_wall_new_msg_main',
                 null,
                 [
-                    'placeholder' => $socialWallPlaceholder,
+                        'placeholder' => $socialWallPlaceholder,
                     'cols-size' => [1, 10, 1]
                 ]
             );
@@ -1891,30 +1887,15 @@ class SocialManager extends UserManager
             return null;
         }
 
-        $entityManager = Database::getManager();
-        $user = $entityManager->find('ChamiloUserBundle:User', $userId);
+        $skill = new Skill();
 
-        if (!$user) {
-            return null;
-        }
-
-        $achievedSkills = $user->getAchievedSkills();
-        $ranking = $achievedSkills->count();
-        $skillsInfo = [];
-
-        foreach ($achievedSkills as $userSkill) {
-            $skillsInfo[] = [
-                'id' => $userSkill->getSkill()->getId(),
-                'name' => $userSkill->getSkill()->getName(),
-                'icon' => $userSkill->getSkill()->getWebIconPath(true),
-                'source_name' => $userSkill->getSourceName(),
-                'issue_url' => $userSkill->getIssueUrl()
-            ];
-        }
+        $ranking = $skill->get_user_skill_ranking($userId);
+        $skills = $skill->get_user_skills($userId, true);
 
         $template = new Template(null, false, false, false, false, false);
         $template->assign('ranking', $ranking);
-        $template->assign('skills', $skillsInfo);
+        $template->assign('skills', $skills);
+        $template->assign('user_id', $userId);
         $template->assign(
             'show_skills_report_link',
             api_is_student() || api_is_student_boss() || api_is_drh()
