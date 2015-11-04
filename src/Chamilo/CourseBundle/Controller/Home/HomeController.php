@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Chamilo\CoreBundle\Entity\CTool;
+use Chamilo\CourseBundle\Entity\CTool;
 use Display;
 use CourseHome;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +28,8 @@ class HomeController extends ToolBaseController
      * @Route("/", name="course_home")
      * @Route("/index.php")
      * @Method({"GET"})
-
+     *
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -113,7 +114,6 @@ class HomeController extends ToolBaseController
                 }
             }
         }
-
 
         $homeView = api_get_setting('course.homepage_view');
         $homeView = 'activity_big';
@@ -425,7 +425,9 @@ class HomeController extends ToolBaseController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $criteria = array('cId' => api_get_course_int_id(), 'id' => $iconId);
-        $tool = $this->getRepository('Chamilo\CoreBundle\Entity\CTool')->findOneBy($criteria);
+        $tool = $this->getRepository(
+            'Chamilo\CourseBundle\Entity\CTool'
+        )->findOneBy($criteria);
         if ($tool) {
             $tool->setVisibility(1);
         }
@@ -448,7 +450,9 @@ class HomeController extends ToolBaseController
 
         $entityManager = $this->getDoctrine()->getManager();
         $criteria = array('cId' => api_get_course_int_id(), 'id' => $iconId);
-        $tool = $this->getRepository('Chamilo\CoreBundle\Entity\CTool')->findOneBy($criteria);
+        $tool = $this->getRepository(
+            'Chamilo\CourseBundle\Entity\CTool'
+        )->findOneBy($criteria);
         if ($tool) {
             $tool->setVisibility(0);
         }
@@ -471,7 +475,9 @@ class HomeController extends ToolBaseController
 
         $entityManager = $this->getDoctrine()->getManager();
         $criteria = array('cId' => api_get_course_int_id(), 'id' => $iconId, 'added_tool' => 1);
-        $tool = $this->getRepository('Chamilo\CoreBundle\Entity\CTool')->findOneBy($criteria);
+        $tool = $this->getRepository(
+            'Chamilo\CourseBundle\Entity\CTool'
+        )->findOneBy($criteria);
         $entityManager->remove($tool);
         //$entityManager->flush();
         return Display::return_message(get_lang('Deleted'), 'confirmation');
@@ -480,18 +486,24 @@ class HomeController extends ToolBaseController
     /**
      * @Route("/icon_list")
      * @Method({"GET"})
+     * @param Request $request
      */
-    public function iconListAction()
+    public function iconListAction(Request $request)
     {
         //$this->getSecurity()->isGranted('');
 
-        $sessionId = intval($this->getRequest()->get('id_session'));
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository(
+            'ChamiloCourseBundle:CTool'
+        );
+
+        $sessionId = intval($request->get('id_session'));
         $itemsFromSession = array();
         if (!empty($sessionId)) {
 
-            $query = $this->getDoctrine()->getManager()->createQueryBuilder('a');
+            $query = $repo->createQueryBuilder('a');
             $query->select('s');
-            $query->from('Chamilo\CoreBundle\Entity\CTool', 's');
+            $query->from('Chamilo\CourseBundle\Entity\CTool', 's');
             $query->where('s.cId  = :courseId AND s.sessionId = :sessionId')
                 ->setParameters(
                     array(
@@ -507,9 +519,9 @@ class HomeController extends ToolBaseController
             }
 
             //$itemsFromSession = $this->getRepository()->findBy($criteria);
-            $query = $this->getDoctrine()->getManager()->createQueryBuilder('a');
+            $query = $repo->createQueryBuilder('a');
             $query->select('s');
-            $query->from('Chamilo\CoreBundle\Entity\CTool', 's');
+            $query->from('Chamilo\CourseBundle\Entity\CTool', 's');
             $query->where('s.cId  = :courseId AND s.sessionId = 0')
                 ->setParameters(
                     array(
@@ -522,14 +534,17 @@ class HomeController extends ToolBaseController
             $itemsFromCourse = $query->getQuery()->getResult();
         } else {
             $criteria = array('cId' => $this->getCourse()->getId(), 'sessionId' => 0);
-            $itemsFromCourse = $this->getDoctrine()->getManager()->findBy($criteria);
+            $itemsFromCourse = $repo->findBy($criteria);
         }
 
-        $this->getTemplate()->assign('items_from_course', $itemsFromCourse);
-        $this->getTemplate()->assign('items_from_session', $itemsFromSession);
-        $this->getTemplate()->assign('links', $this->generateLinks());
-
-        return $this->get('template')->render_template($this->getTemplatePath().'tool/list.tpl');
+        return $this->render(
+            $this->getTemplatePath().'tool/list.tpl',
+            [
+                'items_from_course' => $itemsFromCourse,
+                'items_from_session' => $itemsFromSession,
+                'links' => $this->generateLinks(),
+            ]
+        );
     }
 
     /**
@@ -569,7 +584,7 @@ class HomeController extends ToolBaseController
 
             $query = $this->getDoctrine()->getManager()->createQueryBuilder('a');
             $query->select('MAX(s.id) as id');
-            $query->from('Chamilo\CoreBundle\Entity\CTool', 's');
+            $query->from('Chamilo\CourseBundle\Entity\CTool', 's');
             $query->where('s.cId  = :courseId')->setParameter('courseId', $this->getCourse()->getId());
             $result = $query->getQuery()->getArrayResult();
             $maxId = $result[0]['id'] + 1;

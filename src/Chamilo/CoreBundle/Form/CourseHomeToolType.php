@@ -45,7 +45,7 @@ class CourseHomeToolType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Chamilo\CoreBundle\Entity\CTool',
+                'data_class' => 'Chamilo\CourseBundle\Entity\CTool',
             )
         );
     }
