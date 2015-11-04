@@ -35,6 +35,11 @@ class LegacyController extends BaseController
 
         $rootDir = $this->get('kernel')->getRealRootDir();
 
+
+        require api_get_path(LIBRARY_PATH).'fileManage.lib.php';
+        require api_get_path(LIBRARY_PATH).'fileUpload.lib.php';
+        require api_get_path(LIBRARY_PATH).'fileDisplay.lib.php';
+
         //$_REQUEST = $request->request->all();
         $mainPath = $rootDir.'main/';
         $fileToLoad = $mainPath.$name;
