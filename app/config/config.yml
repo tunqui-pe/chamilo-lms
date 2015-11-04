@@ -51,6 +51,16 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
+    form:
+        resources:
+            - 'bootstrap_3_layout.html.twig'
+#            - 'SonataFormatterBundle:Form:formatter.html.twig'
+#            - 'SonataMediaBundle:Form:media_widgets.html.twig'
+#            - 'SonataCoreBundle:Form:datepicker.html.twig'
+#            - 'ChamiloCoreBundle:Form:fields.html.twig'
+
+#    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+
     paths:
           "%kernel.root_dir%/../src/Chamilo/CoreBundle/Resources/views/default": template_style
 
@@ -190,4 +200,29 @@ stof_doctrine_extensions:
             timestampable: true
             sluggable: true
             sortable: true
+
+liip_theme:
+    themes: ['web', 'tablet', 'phone']
+    active_theme: 'web'
+    assetic_integration: true
+
+ivory_ck_editor:
+    autoload: false
+    base_path: "bundles/ivoryckeditor"
+    js_path:   "bundles/ivoryckeditor/ckeditor.js"
+    default_config: default
+    plugins:
+        wordcount:
+            path:     "/bundles/chamilocore/ckeditor/plugins/wordcount"
+            filename: "plugin.js"
+#        adobeair:
+#            path:     "/bundles/chamilotheme/components/ckeditor/plugins/adobeair"
+#            filename: "plugin.js"
+#        iframedialog:
+#            path:     "/bundles/chamilotheme/components/ckeditor/plugins/iframedialog"
+#            filename: "plugin.js"
+#        docprops:
+#            path:     "/bundles/chamilotheme/components/ckeditor/plugins/docprops"
+#            filename: "plugin.js"
+#
 
