@@ -1,0 +1,7302 @@
+msgid "ShowAllEvents"
+msgstr "Mostrar todos los eventos"
+
+msgid "Month"
+msgstr "Mes"
+
+msgid "Hour"
+msgstr "Hora"
+
+msgid "Minutes"
+msgstr "Minutos"
+
+msgid "AddSuccess"
+msgstr "Evento de la agenda añadido"
+
+msgid "AgendaDeleteSuccess"
+msgstr "El evento de la agenda ha sido borrado"
+
+msgid "NoAgendaItems"
+msgstr "No hay eventos en la agenda"
+
+msgid "ClassName"
+msgstr "Nombre de la clase"
+
+msgid "ItemTitle"
+msgstr "Título del evento"
+
+msgid "Day"
+msgstr "Día"
+
+msgid "month_default"
+msgstr "Mes por defecto"
+
+msgid "year_default"
+msgstr "Año por defecto"
+
+msgid "Hour"
+msgstr "Hora"
+
+msgid "hour_default"
+msgstr "hora por defecto"
+
+msgid "Minute"
+msgstr "minuto"
+
+msgid "Lasting"
+msgstr "duración"
+
+msgid "OldToNew"
+msgstr "antiguo a reciente"
+
+msgid "NewToOld"
+msgstr "reciente a antiguo"
+
+msgid "Now"
+msgstr "Ahora"
+
+msgid "AddEvent"
+msgstr "Añadir un evento"
+
+msgid "Detail"
+msgstr "Detalles"
+
+msgid "MonthView"
+msgstr "Vista por mes"
+
+msgid "WeekView"
+msgstr "Vista por semana"
+
+msgid "DayView"
+msgstr "Vista por día"
+
+msgid "AddPersonalItem"
+msgstr "Añadir evento personal"
+
+msgid "Week"
+msgstr "Semana"
+
+msgid "Time"
+msgstr "Hora"
+
+msgid "AddPersonalCalendarItem"
+msgstr "Añadir un evento personal a la agenda"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "Modificar un evento personal en la agenda"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "El evento personal ha sido añadido a su agenda"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "El evento personal de su agenda ha sido editado"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "El evento personal ha sido borrado de su agenda"
+
+msgid "ViewPersonalItem"
+msgstr "Ver eventos personales"
+
+msgid "Print"
+msgstr "Imprimir"
+
+msgid "ScormVersion"
+msgstr "versión"
+
+msgid "ScormRestarted"
+msgstr "Todas las lecciones están por completar."
+
+msgid "ScormNoNext"
+msgstr "Esta es la última lección."
+
+msgid "ScormNoPrev"
+msgstr "Esta es la primera lección."
+
+msgid "ScormTime"
+msgstr "Tiempo"
+
+msgid "ScormNoOrder"
+msgstr "No hay un orden definido, puede acceder a cualquier lección."
+
+msgid "ScormScore"
+msgstr "Puntaje"
+
+msgid "ScormLessonTitle"
+msgstr "Título de la lección"
+
+msgid "ScormStatus"
+msgstr "Estatus"
+
+msgid "ScormToEnter"
+msgstr "Entrar"
+
+msgid "ScormFirstNeedTo"
+msgstr "Primero necesita finalizar"
+
+msgid "ScormThisStatus"
+msgstr "Esta lección está"
+
+msgid "ScormClose"
+msgstr "Cerrar aplicación"
+
+msgid "ScormRestart"
+msgstr "Reiniciar"
+
+msgid "ScormCompstatus"
+msgstr "Completada"
+
+msgid "ScormIncomplete"
+msgstr "Incompleta"
+
+msgid "ScormPassed"
+msgstr "Aprobada"
+
+msgid "ScormFailed"
+msgstr "Reprobada"
+
+msgid "ScormPrevious"
+msgstr "Anterior"
+
+msgid "ScormNext"
+msgstr "Siguiente"
+
+msgid "ScormTitle"
+msgstr "Visualizador de contenidos Scorm"
+
+msgid "ScormMystatus"
+msgstr "Mi estatus"
+
+msgid "ScormNoItems"
+msgstr "Este contenido no tiene elementos"
+
+msgid "ScormNoStatus"
+msgstr "No hay estatus para este contenido"
+
+msgid "ScormLoggedout"
+msgstr "Ha salido del área Scorm"
+
+msgid "ScormCloseWindow"
+msgstr "Está seguro de que terminó?"
+
+msgid "ScormBrowsed"
+msgstr "Visto"
+
+msgid "ScormExitFullScreen"
+msgstr "Volver a la pantalla normal"
+
+msgid "ScormFullScreen"
+msgstr "Pantalla completa"
+
+msgid "ScormNotAttempted"
+msgstr "Sin intentar"
+
+msgid "Local"
+msgstr "Local"
+
+msgid "Remote"
+msgstr "Remoto"
+
+msgid "Autodetect"
+msgstr "Autodetectar"
+
+msgid "AccomplishedStepsTotal"
+msgstr "Total de etapas realizadas"
+
+msgid "AreYouSureToDeleteSteps"
+msgstr "¿ Está seguro de querer borrar estos pasos ?"
+
+msgid "Origin"
+msgstr "Origen"
+
+msgid "Local"
+msgstr "Local"
+
+msgid "Remote"
+msgstr "Remoto"
+
+msgid "FileToUpload"
+msgstr "Archivo a enviar"
+
+msgid "ContentMaker"
+msgstr "Creador de contenidos"
+
+msgid "ContentProximity"
+msgstr "Proximidad del contenido"
+
+msgid "UploadLocalFileFromGarbageDir"
+msgstr "Enviar archivo local desde el directorio main/garbage"
+
+msgid "Messages"
+msgstr "Mensajes"
+
+msgid "NewMessage"
+msgstr "Nuevo mensaje"
+
+msgid "DeleteSelectedMessages"
+msgstr "Borrar los mensajes seleccionados"
+
+msgid "DeselectAll"
+msgstr "Anular selección"
+
+msgid "ReplyToMessage"
+msgstr "Responder"
+
+msgid "BackToInbox"
+msgstr "Volver a la Bandeja de entrada"
+
+msgid "MessageSentTo"
+msgstr "El mensaje ha sido enviado a"
+
+msgid "SendMessageTo"
+msgstr "Enviar a"
+
+msgid "Myself"
+msgstr "Yo mismo"
+
+msgid "InvalidMessageId"
+msgstr "El id del mensaje a contestar no es válido."
+
+msgid "ErrorSendingMessage"
+msgstr "Se ha producido un error mientras se intentaba enviar el mensaje."
+
+msgid "SureYouWantToDeleteSelectedMessages"
+msgstr "¿ Está seguro de querer borrar los mensajes seleccionados ?"
+
+msgid "ModifInfo"
+msgstr "Modificar la información sobre el curso"
+
+msgid "ModifDone"
+msgstr "La información ha sido modificada"
+
+msgid "DelCourse"
+msgstr "Eliminar el sitio web completo de este curso"
+
+msgid "Professors"
+msgstr "Profesores"
+
+msgid "Faculty"
+msgstr "Facultad"
+
+msgid "Confidentiality"
+msgstr "Confidenciabilidad"
+
+msgid "Unsubscription"
+msgstr "Retirar suscripción"
+
+msgid "PrivOpen"
+msgstr "Acceso privado, inscripción abierta"
+
+msgid "Forbidden"
+msgstr "No tiene permisos"
+
+msgid "CourseAccessConfigTip"
+msgstr "Por defecto, el curso sólo es accesible para usted como  único usuario. Si usted desea un mínimo de confidencialidad,  lo más simple es abrir la inscripción durante una semana, pedir a los estudiantes que se inscriban ellos mismos, después cerrar la inscr"
+
+msgid "OpenToTheWorld"
+msgstr "Abierto - accceso permitido para todos"
+
+msgid "OpenToThePlatform"
+msgstr "Abierto - acceso permitido para usuarios registrados"
+
+msgid "OpenToThePlatform"
+msgstr "Abierto - acceso permitido para usuarios registrados"
+
+msgid "TipLang"
+msgstr "Este lenguaje será válido para todos los visitantes de la web de su curso."
+
+msgid "Vid"
+msgstr "Video"
+
+msgid "Work"
+msgstr "Trabajos de los Estudiantes"
+
+msgid "ProgramMenu"
+msgstr "Programa del Curso"
+
+msgid "Stats"
+msgstr "Estadísticas"
+
+msgid "UplPage"
+msgstr "Enviar una página y enlazarla a la principal"
+
+msgid "LinkSite"
+msgstr "Agregar un enlace a la página principal"
+
+msgid "HasDel"
+msgstr "ha sido suprimido"
+
+msgid "ByDel"
+msgstr "Si suprime esta web, usted suprimirá; todos los documentos que contiene y desinscribirá a todos los estudiantes que están inscritos en él. <p>Está usted seguro  que quiere suprimir el curso?"
+
+msgid "Y"
+msgstr "Si"
+
+msgid "N"
+msgstr "No"
+
+msgid "DepartmentUrl"
+msgstr "URL del Departmento"
+
+msgid "DepartmentUrlName"
+msgstr "Departamento"
+
+msgid "BackupCourse"
+msgstr "Archivar este curso"
+
+msgid "ModifGroups"
+msgstr "Grupos"
+
+msgid "Professor"
+msgstr "Profesor"
+
+msgid "DescriptionCours"
+msgstr "Descripción del Curso"
+
+msgid "ArchiveCourse"
+msgstr "Resguardo del Curso"
+
+msgid "RestoreCourse"
+msgstr "Restaurar un curso"
+
+msgid "Restore"
+msgstr "Restaurar"
+
+msgid "CreatedIn"
+msgstr "creado el"
+
+msgid "CreateMissingDirectories"
+msgstr "Creación de directorios perdidos"
+
+msgid "CopyDirectoryCourse"
+msgstr "Copia de los archivos del curso"
+
+msgid "Disk_free_space"
+msgstr "espacio libre"
+
+msgid "BuildTheCompressedFile"
+msgstr "2° - Creación del archivo de resguardo"
+
+msgid "FileCopied"
+msgstr "archivo copiado"
+
+msgid "ArchiveLocation"
+msgstr "Ubicación del archivo"
+
+msgid "SizeOf"
+msgstr "Tamaño de"
+
+msgid "ArchiveName"
+msgstr "Nombre del archivo"
+
+msgid "BackupSuccesfull"
+msgstr "Resguardo exitoso"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "Resguardo del los datos del curso en la base de datos principal para"
+
+msgid "BUUsersInMainBase"
+msgstr "Resguardo de los datos de usuarios en la base de datos principal para"
+
+msgid "BUAnnounceInMainBase"
+msgstr "Resguardo de los datos de anuncios en la base de datos principal para"
+
+msgid "BackupOfDataBase"
+msgstr "Resguardo de la Base de datos"
+
+msgid "ExpirationDate"
+msgstr "Expira"
+
+msgid "LastEdit"
+msgstr "Ultima edición"
+
+msgid "LastVisit"
+msgstr "Ultima visita"
+
+msgid "Subscription"
+msgstr "Subscripción"
+
+msgid "CourseAccess"
+msgstr "Accso al curso"
+
+msgid "ConfirmBackup"
+msgstr "Realmente desea hacer una copia de resguardo del curso"
+
+msgid "CreateSite"
+msgstr "Crear un curso"
+
+msgid "RestoreDescription"
+msgstr "El curso está en un archivo que puedes seleccionar de abajo.<br /><br />Cuando hagas clic en \"Restaurar\", el archivo se descomprimirá y el curso se creará de nuevo."
+
+msgid "RestoreNotice"
+msgstr "Este script no permite automáticamente restaurar los usuarios, pero los datos guardados de los \"usuarios.csv\" son suficientes para el administrador."
+
+msgid "AvailableArchives"
+msgstr "Lista de archivos disponible"
+
+msgid "NoArchive"
+msgstr "No ha seleccionado ningún archivo"
+
+msgid "ArchiveNotFound"
+msgstr "No se encontró ningún archivo"
+
+msgid "ArchiveUncompressed"
+msgstr "Se descomprimió y se instaló el archivo"
+
+msgid "CsvPutIntoDocTool"
+msgstr "El archivo \"usuarios.csv\" se puso dentro de la herramienta documentos"
+
+msgid "BackH"
+msgstr "Regresar a página de inicio"
+
+msgid "OtherCategory"
+msgstr "Otra categoría"
+
+msgid "AllowedToUnsubscribe"
+msgstr "Los usuarios pueden retirarse de este curso"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "Los usuarios no pueden retirarse de este curso"
+
+msgid "CourseVisibilityClosed"
+msgstr "Cerrado - no hay acceso a este curso"
+
+msgid "CourseVisibilityClosed"
+msgstr "Cerrado - no hay acceso a este curso"
+
+msgid "CourseVisibilityModified"
+msgstr "Modificado (ajustes más detallados especificados a través del sistema roles-permisos)"
+
+msgid "WorkEmailAlert"
+msgstr "Avisar por correo electrónico cuando se envía un trabajo"
+
+msgid "WorkEmailAlertActivate"
+msgstr "Activar el aviso por correo electrónico del envío de un nuevo trabajo"
+
+msgid "WorkEmailAlertDeactivate"
+msgstr "Desactivar el aviso por correo electrónico del envío de un nuevo trabajo"
+
+msgid "DropboxEmailAlert"
+msgstr "Avisar por correo electrónico cuando hay un envío en el baúl de tareas"
+
+msgid "DropboxEmailAlertActivate"
+msgstr "Activar el aviso por correo electrónico de un nuevo envío al baúl de tareas"
+
+msgid "DropboxEmailAlertDeactivate"
+msgstr "Desactivar el aviso por correo electrónico de un nuevo envío al baúl de tareas"
+
+msgid "AllowUserEditAgenda"
+msgstr "Permitir a los usuarios editar la agenda del curso"
+
+msgid "AllowUserEditAgendaActivate"
+msgstr "Activar la edición por los usuarios de la agenda del curso"
+
+msgid "AllowUserEditAgendaDeactivate"
+msgstr "Desactivar la edición por los usuarios de la agenda del curso"
+
+msgid "AllowUserEditAnnouncement"
+msgstr "Permitir a los usuarios editar los anuncios del curso"
+
+msgid "AllowUserEditAnnouncementActivate"
+msgstr "Permitir la edición por los usuarios"
+
+msgid "AllowUserEditAnnouncementDeactivate"
+msgstr "Desactivar la edición por los usuarios"
+
+msgid "OrInTime"
+msgstr "o dentro"
+
+msgid "CourseRegistrationPassword"
+msgstr "Contraseña de registro en el curso"
+
+msgid "DescriptionDeleteCourse"
+msgstr "Haga clic en este enlace para eliminar cualquier rastro del curso en el servidor...<br /><br />¡ Esta funcionalidad debe ser usada con extrema precaución !"
+
+msgid "DescriptionCopyCourse"
+msgstr "Chamilo introduce la posibilidad de copiar, en parte o completamente, un curso en otro que inicialmente debe estar vacío.<br /><br />La única condición es tener un curso que contenga algunos documentos, anuncios, foros... y un segundo curso que no contenga lo"
+
+msgid "DescriptionRecycleCourse"
+msgstr "Esta herramienta vacía el curso de los elementos seleccionados, o todo el conjunto de los elementos que contiene. Quita los documentos, los foros, enlaces Este procedimiento puede realizarse al final de una formación, o de un año académico. ¡ Por supuest"
+
+msgid "PressAgain"
+msgstr "Pulse de nuevo 'Almacenar' ..."
+
+msgid "Rights"
+msgstr "Derechos de uso"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "StatusTip"
+msgstr "seleccionar de la lista"
+
+msgid "CreatedSize"
+msgstr "Creado, tamaño"
+
+msgid "AuthorTip"
+msgstr "en formato VCARD"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "FormatTip"
+msgstr "seleccionar de la lista"
+
+msgid "Statuses"
+msgstr ":draft:esbozo,, final:final,, revised:revisado,, unavailable:no disponible"
+
+msgid "Costs"
+msgstr ":no:gratuito,, yes:no es gratuito, debe pagarse"
+
+msgid "Copyrights"
+msgstr ":sí:copyright,, no:sin copyright"
+
+msgid "Formats"
+msgstr ":text/plain;iso-8859-1:texto/plano;iso-8859-1,, text/plain;utf-8:texto/plano;utf-8,, text/html;iso-8859-1:texto/html;iso-8859-1,, text/html;utf-8:texto/html;utf-8,, inode/directory:Directorio,, application/msword:MsWord,, application/octet-stream:Octet st"
+
+msgid "LngResTypes"
+msgstr ":exercise:ejercicio,,      simulation:simulación,,      questionnaire:cuestionario,,      diagram:diagrama,,      figure:figura,,      graph:gráfico,,      index:índice,,      slide:diapositiva,,      table:tabla,,      narrative text:texto narrativo,,"
+
+msgid "SelectOptionForBackup"
+msgstr "Por favor, seleccione una opción de copia de seguridad"
+
+msgid "LetMeSelectItems"
+msgstr "Seleccionar los componentes del curso a reciclar"
+
+msgid "CreateFullBackup"
+msgstr "Crear una copia de seguridad completa de este curso"
+
+msgid "CreateBackup"
+msgstr "Crear una copia de seguridad"
+
+msgid "BackupCreated"
+msgstr "La copia de seguridad de este curso ha sido creada. La descarga de este archivo se producirá en breves instantes. Si la descarga no se inicia, haga clic en el siguiente enlace"
+
+msgid "SelectBackupFile"
+msgstr "seleccionar un archivo de copia de seguridad"
+
+msgid "ImportBackup"
+msgstr "Importar copia de seguridad"
+
+msgid "ImportFullBackup"
+msgstr "Importar copia de seguridad completa"
+
+msgid "ImportFinished"
+msgstr "Importación finalizada"
+
+msgid "Tests"
+msgstr "Tests"
+
+msgid "Learnpaths"
+msgstr "Itinerarios formativos"
+
+msgid "CopyCourse"
+msgstr "Copiar el curso"
+
+msgid "SelectItemsToCopy"
+msgstr "Seleccione los elementos a copiar"
+
+msgid "CopyFinished"
+msgstr "La copia ha finalizado"
+
+msgid "FullRecycle"
+msgstr "Reciclado completo"
+
+msgid "RecycleCourse"
+msgstr "Reciclar el curso"
+
+msgid "RecycleFinished"
+msgstr "El reciclado ha finalizado"
+
+msgid "RecycleWarning"
+msgstr "Cuidado: utilizando esta herramienta, Usted puede borrar algunas partes del curso, no siendo posible recuperarlas posteriormente. Le aconsejamos que realice una <a href=\"create_backup.php\">copia de seguridad</a> antes de usar esta herramienta"
+
+msgid "SameFilename"
+msgstr "¿Qué hacer con los ficheros importados con el mismo nombre que otros existentes ?"
+
+msgid "SameFilenameSkip"
+msgstr "Saltar los ficheros con el mismo nombre"
+
+msgid "SameFilenameRename"
+msgstr "Renombrar el fichero (ej. archivo.pdf se convierte en  archivo_1.pdf)"
+
+msgid "SameFilenameOverwrite"
+msgstr "Sobreescribir archivo"
+
+msgid "SelectDestinationCourse"
+msgstr "Seleccionar el curso de destino"
+
+msgid "FullCopy"
+msgstr "Copia completa"
+
+msgid "NoResourcesToBackup"
+msgstr "No hay recursos con los que hacer una copia de seguridad"
+
+msgid "NoResourcesInBackupFile"
+msgstr "No hay recursos disponibles en este fichero de copia de seguridad"
+
+msgid "SelectResources"
+msgstr "Marque los recursos"
+
+msgid "NoResourcesToRecycles"
+msgstr "No hay recursos para reciclar"
+
+msgid "IncludeQuestionPool"
+msgstr "Incluir el repositorio de preguntas"
+
+msgid "LocalFile"
+msgstr "archivo local (en su computadora)"
+
+msgid "ServerFile"
+msgstr "Archivo del servidor"
+
+msgid "NoBackupsAvailable"
+msgstr "no hay copia de seguridad disponible"
+
+msgid "NoDestinationCoursesAvailable"
+msgstr "No hay disponible un curso de destino"
+
+msgid "ImportBackupInfo"
+msgstr "Usted puede  subir una copia de seguridad desde su ordenador o usar una copia de seguridad disponible en el servidor"
+
+msgid "CreateBackupInfo"
+msgstr "Puede seleccionar los contenidos del curso que constituirán la copia de seguridad"
+
+msgid "ToolIntro"
+msgstr "Introducción de herramienta"
+
+msgid "UploadError"
+msgstr "No se pudo subir archivo, por favor revise el límite de tamaño máximo de archivo y los derechos de directorio."
+
+msgid "DocumentsWillBeAddedToo"
+msgstr "Los documentos serán añadidos también"
+
+msgid "ToExportLearnpathWithQuizYouHaveToSelectQuiz"
+msgstr "Si quiere exportar un curso conteniendo un examen, debe asegurarse que los exámenes correspondientes están incluidos  en la exportación, así usted tiene que seleccionarlos de la lista de exámenes."
+
+msgid "ArchivesDirectoryNotWriteableContactAdmin"
+msgstr "El directorio de archivos, utilizado por esta herramienta, no permite la escritura. Por favor póngase en contacto con el administrador de la plataforma."
+
+msgid "DestinationCourse"
+msgstr "Curso destino"
+
+msgid "Explanation"
+msgstr "Una vez que usted haya pulsado \"Crear Curso\", el curso es creado con secciones para exámenes, proyectos basados en el aprendizaje, evaluaciones, cursos, buzón, agenda y muchas cosas más. Al iniciar la sesión como profesor le proporciona privilegios de e"
+
+msgid "CodeTaken"
+msgstr "Este código de curso ya se utilizó por otro curso.<br />Utilice el botón 'Atrás' de su navegador y vuelva a empezar."
+
+msgid "ExerciceEx"
+msgstr "Ejemplo de ejercicio"
+
+msgid "Antique"
+msgstr "Historia de la filosofía clásica"
+
+msgid "SocraticIrony"
+msgstr "La ironía socrática consiste en..."
+
+msgid "ManyAnswers"
+msgstr "(varias respuestas correctas son posibles)"
+
+msgid "Ridiculise"
+msgstr "Ridiculizar al interlocutor para hacerle admitir su error."
+
+msgid "NoPsychology"
+msgstr "No. La ironía socrática no se aplica al terreno de la psicología, sino en el de la argumentación."
+
+msgid "AdmitError"
+msgstr "Reconocer los propios errores para invitar al interlocutor a hacer lo mismo."
+
+msgid "NoSeduction"
+msgstr "No. No se trata de una estrategia de seducción o de un método por ejemplo."
+
+msgid "Force"
+msgstr "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, para que reconozca que no sabe lo que pretende saber."
+
+msgid "Indeed"
+msgstr "Correcto. La ironía socrática es un metódo interrogativo. El término griego \"eirotao\" significa , por otro lado, \"interrogar\"."
+
+msgid "Contradiction"
+msgstr "Utilizar el principio de no contradicción para llevar al interlocutor a un callejón sin salida."
+
+msgid "NotFalse"
+msgstr "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor se realiza poniendo en evidencia las contradicciones en que desembocan sus tesis."
+
+msgid "AddPageHome"
+msgstr "Enviar una página y enlazarla con la página principal"
+
+msgid "ModifyInfo"
+msgstr "Descripción del curso"
+
+msgid "CourseDesc"
+msgstr "Descripción del Curso"
+
+msgid "AgendaTitle"
+msgstr "Martes 11 diciembre 14h00 : curso de filosofía (1) - Local : Sur 18"
+
+msgid "AgendaText"
+msgstr "Introducción general a la filosofía y explicación sobre el funcionamiento del curso"
+
+msgid "Micro"
+msgstr "Entrevistas de calle"
+
+msgid "Google"
+msgstr "Potente motor de búsqueda"
+
+msgid "IntroductionTwo"
+msgstr "Esta página permite a cada estudiante o grupo de estudiantes colocar un documento en el sitio web del curso. Envíe documentos en formato HTML únicamente si estos no contienen imágenes."
+
+msgid "AnnouncementEx"
+msgstr "Este es un ejemplo de un anuncio."
+
+msgid "JustCreated"
+msgstr "Usted acaba de crear el sitio web del curso"
+
+msgid "CreateCourseGroups"
+msgstr "Grupos"
+
+msgid "CatagoryMain"
+msgstr "Principal"
+
+msgid "CatagoryGroup"
+msgstr "Foros de grupos"
+
+msgid "Ln"
+msgstr "Idioma"
+
+msgid "FieldsRequ"
+msgstr "Todos los campos son obligatorios"
+
+msgid "Ex"
+msgstr "p. ej. <i>Historia de la literatura</i>"
+
+msgid "Fac"
+msgstr "Facultad/Carrera"
+
+msgid "TargetFac"
+msgstr "Se trata de la Facultad en la que se realiza el curso"
+
+msgid "Doubt"
+msgstr "En caso de dudas sobre el título exacto del curso o el código que le corresponde , consultar el"
+
+msgid "Program"
+msgstr "Programa del curso</a>. Si el sitio web que usted quiere crear no corresponde con ningún código de curso existente, usted puede definir uno. Por ejemplo <i>INNOVACION</i> si se trata de un programa de formación  sobre gestión de la innovación"
+
+msgid "Scormtool"
+msgstr "Itinerario Formativo"
+
+msgid "Scormbuildertool"
+msgstr "Constructor de itinerarios scorm"
+
+msgid "Pathbuildertool"
+msgstr "Constructor de itinerario formativo"
+
+msgid "OnlineConference"
+msgstr "Conferencia en línea"
+
+msgid "AgendaCreationTitle"
+msgstr "Creación de curso"
+
+msgid "AgendaCreationContenu"
+msgstr "Este curso acaba de ser creado"
+
+msgid "OnlineDescription"
+msgstr "Este es un ejemplo de descripción para la herramienta de Conferencia en línea"
+
+msgid "Only"
+msgstr "Sólo"
+
+msgid "RandomLanguage"
+msgstr "Escoja entre los idiomas disponibles"
+
+msgid "ForumLanguage"
+msgstr "Español"
+
+msgid "NewCourse"
+msgstr "Nuevo curso"
+
+msgid "AddNewCourse"
+msgstr "Agregar un nuevo curso"
+
+msgid "OtherProperties"
+msgstr "Autres propriétés trouvées dans l'archive"
+
+msgid "SysId"
+msgstr "Id Système"
+
+msgid "ScoreShow"
+msgstr "Mostar puntajes"
+
+msgid "Visibility"
+msgstr "Visibilidad"
+
+msgid "VersionDb"
+msgstr "Version de la base de donnée lors de l'archivage"
+
+msgid "Expire"
+msgstr "Expiración"
+
+msgid "ChoseFile"
+msgstr "Selecccione el archivo"
+
+msgid "FtpFileTips"
+msgstr "Si le fichier est sur un ordinateur tiers et accessible par ftp"
+
+msgid "HttpFileTips"
+msgstr "Si le fichier est sur un ordinateur tiers et accessible par http"
+
+msgid "LocalFileTips"
+msgstr "Si le fichier est sur l'espace de stockage des cours de ce campus"
+
+msgid "PostFileTips"
+msgstr "Si le fichier est sur  votre ordinateur"
+
+msgid "Minimum"
+msgstr "mínimo"
+
+msgid "Maximum"
+msgstr "máximo"
+
+msgid "RestoreACourse"
+msgstr "Restaurar un curso"
+
+msgid "Recycle"
+msgstr "Reciclar curso"
+
+msgid "AnnouncementExampleTitle"
+msgstr "Este es un anuncio de ejemplo"
+
+msgid "Wikipedia"
+msgstr "Enciclopedia libre en línea"
+
+msgid "DefaultGroupCategory"
+msgstr "Grupos por defecto"
+
+msgid "TitleNotification"
+msgstr "Since your last visit"
+
+msgid "DeleteAllAttendances"
+msgstr "Eliminar todas las asistencias creadas"
+
+msgid "ShowFeedback"
+msgstr "Mostrar feedback"
+
+msgid "GiveFeedback"
+msgstr "Añadir / Modificar un feedback"
+
+msgid "JustUploadInSelect"
+msgstr "---Transferir a mí mismo---"
+
+msgid "MailingNothingFor"
+msgstr "Nada para"
+
+msgid "MailingFileNotRegistered"
+msgstr "(no inscrito en este curso)"
+
+msgid "MailingFileSentTo"
+msgstr "enviado a"
+
+msgid "MailingFileIsFor"
+msgstr "es para"
+
+msgid "ClickKw"
+msgstr "Presione sobre la palabra clave en el árbol para seleccionarla o deseleccionarla"
+
+msgid "KwHelp"
+msgstr "<br /> Clic en el botón '+' para abrir, en el botón '-' cerrar, en el botón '++' para abrir todo, en el botón '--' para cerrar todo.<br /> <br /> Desechar todas las palabras claves seleccionadas cerrando el árbol y abriéndolo de nuevo con el botón '"
+
+msgid "SearchCrit"
+msgstr "Use el área de abajo para palabras descriptivas, una palabra por línea!"
+
+msgid "NoKeywords"
+msgstr "Este curso no tiene claves"
+
+msgid "KwCacheProblem"
+msgstr "La palabra clave no puede ser abierta"
+
+msgid "CourseKwds"
+msgstr "palabras clave del curso"
+
+msgid "KwdsInMD"
+msgstr "palabras clave usadas en los metadatos (MD)"
+
+msgid "KwdRefs"
+msgstr "referencias de palabras clave"
+
+msgid "NonCourseKwds"
+msgstr "Palabras clave no pertenecientes al curso"
+
+msgid "KwdsUse"
+msgstr "Palabras clave del curso (negrita = sin usar)"
+
+msgid "TotalMDEs"
+msgstr "Total de entradas de metadatos (MD):"
+
+msgid "AddForumCategory"
+msgstr "Agregar una nueva categoría al foro"
+
+msgid "AddForum"
+msgstr "Agregar un nuevo foro"
+
+msgid "Posts"
+msgstr "Mensajes"
+
+msgid "LastPosts"
+msgstr "Último mensaje"
+
+msgid "NoForumInThisCategory"
+msgstr "No hay foros en esta categoría"
+
+msgid "InForumCategory"
+msgstr "Crear en categoría"
+
+msgid "AllowAnonymousPosts"
+msgstr "¿ Permitir mensajes anónimos ?"
+
+msgid "StudentsCanEdit"
+msgstr "¿ Pueden los estudiantes editar sus mensajes ?"
+
+msgid "ApprovalDirect"
+msgstr "Aprobación / Mensaje directo"
+
+msgid "AllowNewThreads"
+msgstr "Permitir a los estudiantes iniciar nuevos temas"
+
+msgid "DefaultViewType"
+msgstr "Tipo de vista por defecto"
+
+msgid "GroupSettings"
+msgstr "Configuración del grupo"
+
+msgid "NotAGroupForum"
+msgstr "No es un foro de grupo"
+
+msgid "PublicPrivateGroupForum"
+msgstr "¿ Foro del grupo público o privado ?"
+
+msgid "NewPostStored"
+msgstr "Su mensaje ha sido guardado"
+
+msgid "ReplyToThread"
+msgstr "Responder a este tema"
+
+msgid "QuoteMessage"
+msgstr "Citar este mensaje"
+
+msgid "NewTopic"
+msgstr "Nuevo tema"
+
+msgid "Views"
+msgstr "Vistas"
+
+msgid "LastPost"
+msgstr "Último mensaje"
+
+msgid "Quoting"
+msgstr "Citando"
+
+msgid "NotifyByEmail"
+msgstr "Notificarme por e-mail cuando alguien responda"
+
+msgid "StickyPost"
+msgstr "Este es un mensaje fijo (aparece siempre arriba y tiene un icono fijo especial)"
+
+msgid "ReplyShort"
+msgstr "Re:"
+
+msgid "DeletePost"
+msgstr "¿ Está seguro de querer borrar este mensaje ? Al borrar este mensaje también borrará las respuestas que tenga. Por favor verifique el hilo del tema para ver que mensajes serán eliminados."
+
+msgid "Locked"
+msgstr "Cerrado: los estudiantes no pueden publicar más mensajes en esta categoría, foro o tema, pero pueden leer los mensajes que anteriormente hayan sido publicados."
+
+msgid "Unlocked"
+msgstr "Abierto: los estudiantes pueden publicar nuevos mensajes en esta categoría, foro o tema"
+
+msgid "Flat"
+msgstr "Plana"
+
+msgid "Threaded"
+msgstr "Hilo del tema"
+
+msgid "Nested"
+msgstr "Jerarquizado"
+
+msgid "FlatView"
+msgstr "Vista plana"
+
+msgid "ThreadedView"
+msgstr "Hilo del tema"
+
+msgid "NestedView"
+msgstr "Vista jerarquizada"
+
+msgid "Structure"
+msgstr "Estructura"
+
+msgid "ForumCategoryEdited"
+msgstr "La categoría de foros ha sido modificada"
+
+msgid "ForumEdited"
+msgstr "El foro ha sido modificado"
+
+msgid "NewThreadStored"
+msgstr "El nuevo tema ha sido añadido"
+
+msgid "Approval"
+msgstr "Aprobación"
+
+msgid "Direct"
+msgstr "Directo"
+
+msgid "ForGroup"
+msgstr "Para Grupo"
+
+msgid "ThreadLocked"
+msgstr "Tema cerrado."
+
+msgid "NotAllowedHere"
+msgstr "No está autorizado para estar aquí."
+
+msgid "ReplyAdded"
+msgstr "La respuesta ha sido añadida"
+
+msgid "EditPost"
+msgstr "Editar mensaje"
+
+msgid "EditPostStored"
+msgstr "El mensaje ha sido modificado"
+
+msgid "NewForumPost"
+msgstr "Nuevo mensaje en el foro"
+
+msgid "YouWantedToStayInformed"
+msgstr "Ha indicado que desea ser informado por e-mail cuando alguien conteste al tema"
+
+msgid "MessageHasToBeApproved"
+msgstr "Su mensaje debe ser aprobado antes de que los demás puedan verlo."
+
+msgid "LinkName"
+msgstr "Nombre del enlace"
+
+msgid "LinkAdd"
+msgstr "El enlace ha sido agregado"
+
+msgid "LinkAdded"
+msgstr "El enlace ha sido añadido"
+
+msgid "LinkMod"
+msgstr "El enlace ha sido modificado"
+
+msgid "LinkModded"
+msgstr "El enlace ha sido modificado"
+
+msgid "LinkDel"
+msgstr "El enlace ha sido borrado"
+
+msgid "LinkDeleted"
+msgstr "El enlace ha sido eliminado"
+
+msgid "LinkDelconfirm"
+msgstr "¿Usted desea eliminar este enlace?"
+
+msgid "AllLinksDel"
+msgstr "Eliminar todos los enlaces en esta categoría"
+
+msgid "CategoryName"
+msgstr "Nombre de la categoría"
+
+msgid "CategoryAdd"
+msgstr "Añadir una categoría"
+
+msgid "CategoryModded"
+msgstr "La categoría ha sido modificada"
+
+msgid "CategoryDel"
+msgstr "Eliminar categoría"
+
+msgid "CategoryDelconfirm"
+msgstr "Cuando elimine una categoría, todos los enlaces de esta categoría se eliminan. ¿Desea eliminar la categoría y sus enlaces?"
+
+msgid "AllCategoryDel"
+msgstr " Borrar todas las categorías y sus enlaces"
+
+msgid "GiveURL"
+msgstr "Por favor indique la URL del elnace"
+
+msgid "GiveCategoryName"
+msgstr "Por favor signe un nombre  a la categoría"
+
+msgid "NoCategory"
+msgstr "No hay categorías"
+
+msgid "ShowNone"
+msgstr "Cerrar todas las categorías"
+
+msgid "ListDeleted"
+msgstr "La lista ha sido borrada"
+
+msgid "AddLink"
+msgstr "Agregar un enlace"
+
+msgid "DelList"
+msgstr "Borrar completamente la lista"
+
+msgid "ModifyLink"
+msgstr "Modificar un enlace"
+
+msgid "CsvImport"
+msgstr "Importación CSV"
+
+msgid "CsvFileNotFound"
+msgstr "El archivo CSV importado no pudo abrirse (p.ej. vacìo, demasiado grande, etc)"
+
+msgid "CsvFileNoSeps"
+msgstr "El archivo de importación CSV debe usar , o ; como separador de lista"
+
+msgid "CsvFileNoURL"
+msgstr "El archivo CSV debe al menos tener las columnas URL y título"
+
+msgid "CsvFileLine1"
+msgstr " 	... - línea 1 ="
+
+msgid "CsvLinesFailed"
+msgstr "falla al importar el enlace (no hay URL o título)"
+
+msgid "CsvLinesOld"
+msgstr "los enlaces existentes se han actualizado"
+
+msgid "CsvLinesNew"
+msgstr "nuevo(s) enlace(s) creados"
+
+msgid "CsvExplain"
+msgstr "El archivo debe presentar el siguiente formato: URL;categoría;título;descripción;http://www.aaa.org/...;Enlaces importantes;Nombre 1;Descripción 1;http://www.bbb.net/...;;Nombre 2;\"Descripción 2\";Si la 'URL' y la 'categoría' pertenecen a un enlace y"
+
+msgid "LinkUpdated"
+msgstr "El enlace ha sido actualizado"
+
+msgid "OnHomepage"
+msgstr "Mostrar el enlace en la página de inicio"
+
+msgid "ShowLinkOnHomepage"
+msgstr "Mostrar este enlace como un ícono en la página de inicio"
+
+msgid "StatDB"
+msgstr "BD de Seguimiento. Use sólo si hay varias BD"
+
+msgid "EnableTracking"
+msgstr "Permitir Seguimiento"
+
+msgid "InstituteShortName"
+msgstr "Abreviatura de la Institución"
+
+msgid "WarningResponsible"
+msgstr "Use este script únicamente tras haber hecho una copia de seguridad. El equipo de Chamilo no es responsable si usted pierde o estropea sus datos."
+
+msgid "AllowSelfRegProf"
+msgstr "Permitir auto-registro como creador de cursos"
+
+msgid "EG"
+msgstr "p. ej."
+
+msgid "DBHost"
+msgstr "Host de la base de datos"
+
+msgid "DBLogin"
+msgstr "Usuario de la base de datos"
+
+msgid "DBPassword"
+msgstr "Contraseña de la base de datos"
+
+msgid "MainDB"
+msgstr "Base de datos principal de Chamilo (BD)"
+
+msgid "AllFieldsRequired"
+msgstr "todos los campos son obligatorios"
+
+msgid "PrintVers"
+msgstr "Versión imprimible"
+
+msgid "LocalPath"
+msgstr "Ruta local correspondiente"
+
+msgid "AdminEmail"
+msgstr "email del Administrador"
+
+msgid "AdminName"
+msgstr "Nombre del Administrador"
+
+msgid "AdminSurname"
+msgstr "Apellido del Administrador"
+
+msgid "AdminLogin"
+msgstr "Nombre de usuario del Administrador"
+
+msgid "AdminPass"
+msgstr "Contraseña del Administrador (<font color=\"red\">debería de cambiarla</font>)"
+
+msgid "EducationManager"
+msgstr "Administrador de Educación"
+
+msgid "CampusName"
+msgstr "El nombre de su Campus"
+
+msgid "DBSettingIntro"
+msgstr "El script de instalación creará las principales bases de datos de Chamilo. Por favor, recuerde que Chamilo necesitará crear varias bases de datos. Si sólo puede tener una base de datos en su proveedor, Chamilo no funcionará."
+
+msgid "Step3"
+msgstr "Paso 3 de 6"
+
+msgid "Step4"
+msgstr "Paso 4 de 6"
+
+msgid "Step5"
+msgstr "Paso 5 de 6"
+
+msgid "Step6"
+msgstr "Paso 6 de 6"
+
+msgid "CfgSetting"
+msgstr "Valores de la Configuración"
+
+msgid "DBSetting"
+msgstr "Valores de la base de datos MySQL"
+
+msgid "MainLang"
+msgstr "Idioma principal"
+
+msgid "Licence"
+msgstr "Licencia"
+
+msgid "LastCheck"
+msgstr "Ultima verificación antes de instalar"
+
+msgid "DbPrefixForm"
+msgstr "Prefijo MySQL"
+
+msgid "DbPrefixCom"
+msgstr "Deje en blanco si no se requiere"
+
+msgid "EncryptUserPass"
+msgstr "Encriptar las contraseñas de usuarios en la base de datos"
+
+msgid "SingleDb"
+msgstr "Use una o varias bases de datos para Chamilo"
+
+msgid "AllowSelfReg"
+msgstr "Permitir auto-registro"
+
+msgid "Recommended"
+msgstr "(recomendado)"
+
+msgid "ScormDB"
+msgstr "Base de datos Scorm"
+
+msgid "AdminLastName"
+msgstr "Apellido del administrador"
+
+msgid "AdminPhone"
+msgstr "Teléfono del administrador"
+
+msgid "NewNote"
+msgstr "Nueva nota"
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "NoteDeleted"
+msgstr "Nota eliminada"
+
+msgid "NoteUpdated"
+msgstr "Nota actualizada"
+
+msgid "NoteCreated"
+msgstr "Nota creada"
+
+msgid "YouMustWriteANote"
+msgstr "Por favor, escriba una nota"
+
+msgid "SaveNote"
+msgstr "Guardar nota"
+
+msgid "WriteYourNoteHere"
+msgstr "Cliquee aquí para escribir una nueva nota"
+
+msgid "SearchByTitle"
+msgstr "Búsqueda por título"
+
+msgid "WriteTheTitleHere"
+msgstr "Escriba el título aquí"
+
+msgid "UpdateDate"
+msgstr "Fecha de actualización"
+
+msgid "NoteAddNew"
+msgstr "Añadir una nota en mi agenda personal"
+
+msgid "OrderByCreationDate"
+msgstr "Ordenar por fecha de creación"
+
+msgid "OrderByModificationDate"
+msgstr "Ordenar por fecha de la última modificación"
+
+msgid "OrderByTitle"
+msgstr "Ordenar por título"
+
+msgid "NoteTitle"
+msgstr "Título de nota"
+
+msgid "NoteComment"
+msgstr "Detalles de nota"
+
+msgid "NoteAdded"
+msgstr "Nota añadida"
+
+msgid "NoteConfirmDelete"
+msgstr "¿Realmente desea eliminar esta nota?"
+
+msgid "AddNote"
+msgstr "Crear nota"
+
+msgid "ModifyNote"
+msgstr "Editar mi agenda personal"
+
+msgid "BackToNoteList"
+msgstr "Regresar a la lista de notas"
+
+msgid "NotebookManagement"
+msgstr "Administración de la agenda"
+
+msgid "NotesSortedByTitleAsc"
+msgstr "Notas en orden ascendente por título"
+
+msgid "Titular"
+msgstr "Titular"
+
+msgid "AdministrationTools"
+msgstr "Herramientas de Administración"
+
+msgid "CatList"
+msgstr "Categorías"
+
+msgid "Subscribe"
+msgstr "Suscribir"
+
+msgid "AlreadySubscribed"
+msgstr "Ya está suscrito"
+
+msgid "CourseCategoryStored"
+msgstr "La categoría del curso está creada"
+
+msgid "WithoutTimeLimits"
+msgstr "Sin limites de tiempo"
+
+msgid "Added"
+msgstr "Añadido"
+
+msgid "Deleted"
+msgstr "Borrado"
+
+msgid "Keeped"
+msgstr "Guardado"
+
+msgid "HideAndSubscribeClosed"
+msgstr "Oculto / Cerrado"
+
+msgid "HideAndSubscribeOpen"
+msgstr "Oculto / Abierto"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "Visible / Abierto"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "Visible / Cerrado"
+
+msgid "AdminThisUser"
+msgstr "Volver a este usuario"
+
+msgid "Manage"
+msgstr "Gestión del campus"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "Ha sido inscrito en el curso"
+
+msgid "SubCat"
+msgstr "sub-categorías"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "No está permitido el retiro de este curso"
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "Usted es el administrador de este curso."
+
+msgid "CourseManagement"
+msgstr "Administrar mis cursos"
+
+msgid "SortMyCourses"
+msgstr "Ordenar mis cursos"
+
+msgid "SubscribeToCourse"
+msgstr "Inscripción a cursos"
+
+msgid "UnsubscribeFromCourse"
+msgstr "Retirar suscripción de curso"
+
+msgid "CreateCourseCategory"
+msgstr "Crear una categoría de curso"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "¿Está seguro de querer borrar esta categoría de curso ? Los cursos de esta categoría aparecerán en la lista sin categorizar"
+
+msgid "CourseCategories"
+msgstr "Categorías de cursos"
+
+msgid "CoursesInCategory"
+msgstr "Cursos en esta categoría"
+
+msgid "SearchCourse"
+msgstr "Buscar cursos"
+
+msgid "UpOneCategory"
+msgstr "<- Una categoría arriba"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "¿ Está useted seguro de querer retirar la inscripción de este curso ?"
+
+msgid "NoCourseCategory"
+msgstr "Curso sin categorías"
+
+msgid "EditCourseCategorySucces"
+msgstr "El curso fue agregado a la categoría"
+
+msgid "SubscribingNotAllowed"
+msgstr "Inscripción no permitida"
+
+msgid "CourseSortingDone"
+msgstr "Ordenación de cursos realizada"
+
+msgid "ExistingCourseCategories"
+msgstr "Categorías de cursos existentes"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "Ahora ya no está inscrito en el curso"
+
+msgid "ViewOpenCourses"
+msgstr "Ver los cursos abiertos"
+
+msgid "DocumentList"
+msgstr "Lista de todos los documentos"
+
+msgid "OrganisationList"
+msgstr "Lista organizativa"
+
+msgid "EditTOC"
+msgstr "Editar Tabla de Contenidos (TOC)"
+
+msgid "EditDocument"
+msgstr "Editar documento"
+
+msgid "CreateDocument"
+msgstr "Crear un documento"
+
+msgid "MissingImagesDetected"
+msgstr "Se detectaron imágenes perdidas"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Scormcontentstudent"
+msgstr "Este es un curso con formato SCORM. Si deseas verlo, pulsa aquí :  <input type=button name=scormbutton value='Comenzar it !' onclick='openscorm()'>"
+
+msgid "Scormcontent"
+msgstr "Esto es un contenido SCORM <br /><input type=button name=scormbutton value='Comenzar !' onclick='openscorm()'>"
+
+msgid "DownloadAndZipEnd"
+msgstr "El archivo ZIP ha sido enviado al servidor y descomprimido"
+
+msgid "ZipNoPhp"
+msgstr "El archivo zip no puede tener archivos .PHP"
+
+msgid "GroupForumLink"
+msgstr "Foro del Grupo"
+
+msgid "NotScormContent"
+msgstr "¡ No es un archivo ZIP en formato SCORM!"
+
+msgid "NoText"
+msgstr "Por favor, escriba el contenido de Texto/HTML"
+
+msgid "NoFileName"
+msgstr "No existe el nombre del archivo"
+
+msgid "FileError"
+msgstr "El archivo que quiere enviar no es válido."
+
+msgid "ViMod"
+msgstr "Visibilidad modificada"
+
+msgid "AddComment"
+msgstr "Añadir/Modificar un comentario"
+
+msgid "Impossible"
+msgstr "Operación imposible"
+
+msgid "NoSpace"
+msgstr "Error al enviar los documentos. No hay espacio suficiente en su directorio"
+
+msgid "DownloadEnd"
+msgstr "Ha finalizado el envio al servidor"
+
+msgid "FileExists"
+msgstr "Operación imposible.<br />Ya existe un archivo con el mismo nombre."
+
+msgid "DocCopied"
+msgstr "Documento copiado"
+
+msgid "DocDeleted"
+msgstr "El documento de Aprendizaje Dirigido en formato SCORM, ha sido borrado"
+
+msgid "ElRen"
+msgstr "Elemento renombrado"
+
+msgid "DirMv"
+msgstr "Elemento movido"
+
+msgid "ComMod"
+msgstr "Comentario modificado"
+
+msgid "Rename"
+msgstr "Renombrar"
+
+msgid "NameDir"
+msgstr "Nombre del nuevo directorio"
+
+msgid "DownloadFile"
+msgstr "Enviar al servidor un archivo ZIP con contenidos IMS o SCORM"
+
+msgid "Builder"
+msgstr "Constructor de Itinerarios de Aprendizaje"
+
+msgid "ScormBuilder"
+msgstr "Constructor de Scorm"
+
+msgid "CreateDoc"
+msgstr "Crear documento"
+
+msgid "OrganiseDocuments"
+msgstr "Organizar documentos"
+
+msgid "Uncompress"
+msgstr "Descomprimir"
+
+msgid "ExportShort"
+msgstr "Exportación corta"
+
+msgid "WCAGGoMenu"
+msgstr "Ir al menú"
+
+msgid "WCAGGoContent"
+msgstr "Ir al contenido"
+
+msgid "AdminBy"
+msgstr "Administrado por"
+
+msgid "Statistiques"
+msgstr "Estadísticas"
+
+msgid "VisioHostLocal"
+msgstr "Servidor de Videoconferencia"
+
+msgid "VisioRTMPIsWeb"
+msgstr "En caso de que el protocolo de videoconferencia esté basado en la web (falso la mayoría de las veces)"
+
+msgid "ShowBackLinkOnTopOfCourseTreeComment"
+msgstr "Muestra una liga para regresarse en la jerarquía del curso. De cualquier manera, en la parte baja de la lista está disponible una liga."
+
+msgid "Used"
+msgstr "usado"
+
+msgid "Exist"
+msgstr "existente"
+
+msgid "ShowBackLinkOnTopOfCourseTree"
+msgstr "Regresa la liga al primer lugar de las categorías/árbol de cursos"
+
+msgid "ShowNumberOfCourses"
+msgstr "Muestra el número de cursos"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "Mostrar al profesor en el título del curso."
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "Mostrar al profesor en el listado de comentarios del curso."
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "Mostrar el código de curso en el listado de comentarios del curso."
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "Mostrar el código de curso en el título del curso"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "No existen cursos virtuales en la plataforma."
+
+msgid "ConfigureHomePage"
+msgstr "Configurar la página inicial"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "Módulos activos hasta la creación del curso"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "¿Qué herramientas deben activarse por defecto cuando es creado un curso?"
+
+msgid "CreateUser"
+msgstr "Crear Usuario"
+
+msgid "ModifyUser"
+msgstr "Modificar Usuario"
+
+msgid "buttonEditUserField"
+msgstr "Editar campo de usuario."
+
+msgid "ModifyCoach"
+msgstr "Modificar Tutor"
+
+msgid "ModifyThisSession"
+msgstr "Editar esta sesión"
+
+msgid "ExportSession"
+msgstr "Exportar sesión(es)"
+
+msgid "ImportSession"
+msgstr "Importar sesión(es)"
+
+msgid "CourseBackup"
+msgstr "Respaldar este curso"
+
+msgid "CourseTitular"
+msgstr "Profesor"
+
+msgid "CourseFaculty"
+msgstr "Categoría del curso"
+
+msgid "CourseDepartment"
+msgstr "Departamento del curso"
+
+msgid "CourseDepartmentURL"
+msgstr "URL del Departamento del curso"
+
+msgid "CourseSubscription"
+msgstr "Inscripción al curso"
+
+msgid "PublicAccess"
+msgstr "Acceso público"
+
+msgid "PrivateAccess"
+msgstr "Acceso Privado"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "La administración de la base de datos esta permitida solamente para el administrador del servidor"
+
+msgid "ShowUsersOfCourse"
+msgstr "Mostrar usuarios suscritos a este curso"
+
+msgid "ShowClassesOfCourse"
+msgstr "Mostrar las clases suscritas a este curso"
+
+msgid "ShowGroupsOfCourse"
+msgstr "Mostrar los grupos de este curso"
+
+msgid "PhoneNumber"
+msgstr "Número de teléfono"
+
+msgid "AddToCourse"
+msgstr "Agregar a un curso"
+
+msgid "DeleteFromPlatform"
+msgstr "Eliminar de la Plataforma"
+
+msgid "DeleteCourse"
+msgstr "Borrar los curso(s) seleccionado(s)"
+
+msgid "DeleteFromCourse"
+msgstr "Darse de baja de este curso"
+
+msgid "DeleteSelectedClasses"
+msgstr "Borrar las clases seleccionadas"
+
+msgid "DeleteSelectedGroups"
+msgstr "Borrar los grupos seleccionados"
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "ChangePicture"
+msgstr "Cambiar la foto"
+
+msgid "AddUsers"
+msgstr "Agregar usuarios"
+
+msgid "AddGroups"
+msgstr "Agregar Grupos"
+
+msgid "AddClasses"
+msgstr "Agregar Clases"
+
+msgid "ExportUsers"
+msgstr "Exportar la lista de usuarios"
+
+msgid "NumberOfParticipants"
+msgstr "Número de participantes"
+
+msgid "NumberOfUsers"
+msgstr "Número de usuarios"
+
+msgid "Participants"
+msgstr "participantes"
+
+msgid "FirstLetterClass"
+msgstr "Primera letra (clase)"
+
+msgid "FirstLetterUser"
+msgstr "Primera letra (Apellido)"
+
+msgid "FirstLetterCourse"
+msgstr "Primera letra (curso)"
+
+msgid "ModifyUserInfo"
+msgstr "Modificar información del usuario"
+
+msgid "ModifyClassInfo"
+msgstr "Modificar la información de la clase"
+
+msgid "ModifyGroupInfo"
+msgstr "Modificar la información del grupo"
+
+msgid "ModifyCourseInfo"
+msgstr "Modificar la información del curso"
+
+msgid "PleaseEnterClassName"
+msgstr "Por favor, ingrese el nombre de la clase!"
+
+msgid "PleaseEnterLastName"
+msgstr "Por favor, ingrese el apellido del usuario!"
+
+msgid "PleaseEnterFirstName"
+msgstr "Por favor, ingrese el nombre del usuario!"
+
+msgid "PleaseEnterValidEmail"
+msgstr "Por favor, ingrese un email válido!"
+
+msgid "PleaseEnterValidLogin"
+msgstr "Por favor, ingrese un nombre de usuario válido!"
+
+msgid "PleaseEnterCourseCode"
+msgstr "Por favor, ingrese el código del curso!"
+
+msgid "PleaseEnterTitularName"
+msgstr "Por favor, ingrese el nombre del profesor!"
+
+msgid "PleaseEnterCourseTitle"
+msgstr "Por favor, ingrese el nombre del curso!"
+
+msgid "AcceptedPictureFormats"
+msgstr "Los formatos aceptados son: JPG, PNG o GIF!"
+
+msgid "LoginAlreadyTaken"
+msgstr "El nombre de usuario elegido ya existe!"
+
+msgid "ImportUserListXMLCSV"
+msgstr "Importar una lista de usuarios desde un archivo XML/CSV"
+
+msgid "ExportUserListXMLCSV"
+msgstr "Exportar la lista de usuarios a un archivo XML/CSV"
+
+msgid "OnlyUsersFromCourse"
+msgstr "Solo usuarios del curso"
+
+msgid "AddClassesToACourse"
+msgstr "Agregar clases a un curso"
+
+msgid "AddUsersToACourse"
+msgstr "Agregar usuarios a un curso"
+
+msgid "AddUsersToAClass"
+msgstr "Agregar usuarios a clase"
+
+msgid "AddUsersToAGroup"
+msgstr "Agregar usuarios al grupo"
+
+msgid "AtLeastOneClassAndOneCourse"
+msgstr "Usted debe elegir por lo menos un curso y una clase!"
+
+msgid "AtLeastOneUser"
+msgstr "Usted debe elegir por lo menos un usuario"
+
+msgid "AtLeastOneUserAndOneCourse"
+msgstr "Usted debe elegir por lo menos un usuario y un curso"
+
+msgid "ClassList"
+msgstr "Lista de Clases"
+
+msgid "AddToThatCourse"
+msgstr "Agregar al (los) curso(s)"
+
+msgid "AddToClass"
+msgstr "Agregar a la clase"
+
+msgid "RemoveFromClass"
+msgstr "Eliminar de la clase"
+
+msgid "AddToGroup"
+msgstr "Agregar al grupo"
+
+msgid "RemoveFromGroup"
+msgstr "Eliminar del grupo"
+
+msgid "UsersOutsideClass"
+msgstr "Usuarios fuera de la clase"
+
+msgid "UsersInsideClass"
+msgstr "Usuarios dentro de la clase"
+
+msgid "UsersOutsideGroup"
+msgstr "Usuarios fuera del grupo"
+
+msgid "UsersInsideGroup"
+msgstr "Usuarios dentro del grupo"
+
+msgid "MustUseSeparator"
+msgstr "debe usar el caracter ';' como separador"
+
+msgid "CSVMustLookLike"
+msgstr "El archivo CSV debe parecerse a esto"
+
+msgid "XMLMustLookLike"
+msgstr "El archivo XML debe parecerse a esto"
+
+msgid "MandatoryFields"
+msgstr "los campos en <b>negrita</b> son obligatorios"
+
+msgid "NotXML"
+msgstr "El archivo no tiene formato XML válido"
+
+msgid "NotCSV"
+msgstr "El archivo no tiene formato CSV válido"
+
+msgid "NoNeededData"
+msgstr "El archivo no tiene todos los datos necesarios"
+
+msgid "MaxImportUsers"
+msgstr "No se pueden importar más de 500 usuarios!"
+
+msgid "AdminDatabases"
+msgstr "Bases de Datos (PhpMyAdmin)"
+
+msgid "AdminUsers"
+msgstr "Usuarios"
+
+msgid "AdminClasses"
+msgstr "Clases de Usuarios"
+
+msgid "AdminGroups"
+msgstr "Grupos de Usuarios"
+
+msgid "AdminCourses"
+msgstr "Cursos"
+
+msgid "AdminCategories"
+msgstr "Categoría de los cursos"
+
+msgid "SubscribeUserGroupToCourse"
+msgstr "Inscribir a un usuario / grupo a un curso"
+
+msgid "NoCategories"
+msgstr "No hay Categorías aquí"
+
+msgid "AllowCoursesInCategory"
+msgstr "¿Permitir el agregado de cursos en esta categoría ?"
+
+msgid "GoToForum"
+msgstr "Ir al Foro"
+
+msgid "CategoryCode"
+msgstr "Código de la categoría"
+
+msgid "EditNode"
+msgstr "Editar esta categoría"
+
+msgid "OpenNode"
+msgstr "Abrir esta categoría"
+
+msgid "DeleteNode"
+msgstr "Borrar esta categoría"
+
+msgid "AddChildNode"
+msgstr "Agregar una Sub - Categoría"
+
+msgid "ViewChildren"
+msgstr "Ver procesos subordinados"
+
+msgid "TreeRebuildedIn"
+msgstr "Arbol reconstruido en"
+
+msgid "TreeRecountedIn"
+msgstr "Árbol reconsiderado en"
+
+msgid "RebuildTree"
+msgstr "Recontruya el árbol"
+
+msgid "RefreshNbChildren"
+msgstr "Actualice el número de procesos subordinados"
+
+msgid "ShowTree"
+msgstr "Mostrar árbol"
+
+msgid "LogDeleteCat"
+msgstr "Categoría borrada"
+
+msgid "RecountChildren"
+msgstr "Recontar procesos subordinados"
+
+msgid "UpInSameLevel"
+msgstr "Subir en el mismo nivel"
+
+msgid "MailTo"
+msgstr "Correo a:"
+
+msgid "AddAdminInApache"
+msgstr "Agregar un usuario administrador"
+
+msgid "AddFaculties"
+msgstr "Agregar categorías"
+
+msgid "SearchACourse"
+msgstr "Buscar un curso"
+
+msgid "SearchAUser"
+msgstr "Buscar un usuario"
+
+msgid "TechnicalTools"
+msgstr "Técnico"
+
+msgid "Config"
+msgstr "Configuración del sistema"
+
+msgid "LogIdentLogoutComplete"
+msgstr "Registro de accesos (extendido)"
+
+msgid "LimitUsersListDefaultMax"
+msgstr "Máxima cantidad de usuarios a mostrar en la lista desplegable"
+
+msgid "NoTimeLimits"
+msgstr "Sin límite de tiempo"
+
+msgid "GeneralProperties"
+msgstr "Propiedades generales"
+
+msgid "CourseCoach"
+msgstr "Coordinador del Curso"
+
+msgid "UsersNumber"
+msgstr "Numero de Usuarios"
+
+msgid "PublicAdmin"
+msgstr "Administrador Público"
+
+msgid "PageAfterLoginTitle"
+msgstr "Página luego de iniciar sesión"
+
+msgid "PageAfterLoginComment"
+msgstr "Página que es visualizada por los usuarios luego de conectarse"
+
+msgid "TabsMyProfile"
+msgstr "Mi Perfil"
+
+msgid "GlobalRole"
+msgstr "Rol Global"
+
+msgid "NomOutilTodo"
+msgstr "Administrar la lista de cosas por hacer"
+
+msgid "NomPageAdmin"
+msgstr "Administración"
+
+msgid "SysInfo"
+msgstr "Información acerca del Sistema"
+
+msgid "DiffTranslation"
+msgstr "Comparar traducciones"
+
+msgid "StatOf"
+msgstr "Estadísticas de"
+
+msgid "SpeeSubscribe"
+msgstr "Inscripción rápida como Verificador de Curso"
+
+msgid "LogIdentLogout"
+msgstr "Registro de accesos"
+
+msgid "ServerStatus"
+msgstr "Estado del servidor MySql :"
+
+msgid "DataBase"
+msgstr "Base de datos"
+
+msgid "Run"
+msgstr "trabajo"
+
+msgid "Client"
+msgstr "Cliente MySql"
+
+msgid "Server"
+msgstr "Servidor MySql"
+
+msgid "titulary"
+msgstr "Titularidad"
+
+msgid "UpgradeBase"
+msgstr "Actualizar la base de datos"
+
+msgid "ErrorsFound"
+msgstr "errores encontrados"
+
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+msgid "Upgrade"
+msgstr "Actualizar Chamilo"
+
+msgid "Website"
+msgstr "Web site de Chamilo"
+
+msgid "Documentation"
+msgstr "Documentación"
+
+msgid "Contribute"
+msgstr "Contribuir"
+
+msgid "InfoServer"
+msgstr "Información sobre el servidor"
+
+msgid "SendMailToUsers"
+msgstr "Enviar un correo a los usuarios"
+
+msgid "CourseSystemCode"
+msgstr "Código del sistema"
+
+msgid "CourseVisualCode"
+msgstr "Código visual"
+
+msgid "SystemCode"
+msgstr "Codigo del Sistema"
+
+msgid "VisualCode"
+msgstr "código visual"
+
+msgid "AddCourse"
+msgstr "Crear un nuevo curso"
+
+msgid "AdminManageVirtualCourses"
+msgstr "Administrar cursos virtuales"
+
+msgid "AdminCreateVirtualCourse"
+msgstr "Crear un curso virtual"
+
+msgid "AdminCreateVirtualCourseExplanation"
+msgstr "El curso virtual compartirá espacio de almacenamiento (directorio  y base de datos) con un curso existente 'real'"
+
+msgid "RealCourseCode"
+msgstr "Código de curso real"
+
+msgid "CourseCreationSucceeded"
+msgstr "El curso fue creado exitosamente"
+
+msgid "OnTheHardDisk"
+msgstr "en el disco duro"
+
+msgid "IsVirtualCourse"
+msgstr "Es un curso virtual"
+
+msgid "AnnouncementUpdated"
+msgstr "El anuncio se ha actualizado"
+
+msgid "PermissionsForNewFiles"
+msgstr "Permisos para nuevos Archivos"
+
+msgid "PermissionsForNewFilesComment"
+msgstr "La capacidad para definir el estado de los permisos por asignar a cada archivo recién creado le permite mejorar la seguridad en contra de los ataques de hackers que cargan contenido peligroso a su portal. El estado por defecto (0550) debiera ser suficient"
+
+msgid "Guest"
+msgstr "Invitado"
+
+msgid "LoginAsThisUserColumnName"
+msgstr "Entrar como"
+
+msgid "LoginAsThisUser"
+msgstr "Entrar como"
+
+msgid "SelectPicture"
+msgstr "Seleccionar imagen..."
+
+msgid "DontResetPassword"
+msgstr "No reiniciar contraseña"
+
+msgid "ParticipateInCommunityDevelopment"
+msgstr "Participe en el desarrollo"
+
+msgid "CourseAdmin"
+msgstr "Usted es administrador de este Curso"
+
+msgid "PlatformLanguageTitle"
+msgstr "Idioma de la plataforma"
+
+msgid "ServerStatusComment"
+msgstr "¿Qué tipo de servidor es este? Habilita o deshabilita algunas opciones. En los servidores de desarrollo la funcionalidad de traducción, indica los textos que no han sido traducidos."
+
+msgid "ServerStatusTitle"
+msgstr "Tipo de Servidor"
+
+msgid "PlatformLanguages"
+msgstr "Idiomas de la plataforma Chamilo"
+
+msgid "PlatformLanguagesExplanation"
+msgstr "Esta herramienta administra el menú de selección de idiomas en la página de login. Como administrador de la plataforma usted puede decidir que idiomas estarán disponibles para sus usuarios."
+
+msgid "OriginalName"
+msgstr "Nombre Original"
+
+msgid "EnglishName"
+msgstr "Nombre Inglés"
+
+msgid "LMSFolder"
+msgstr "Carpeta de Chamilo"
+
+msgid "Properties"
+msgstr "Propiedades"
+
+msgid "PlatformConfigSettings"
+msgstr "Configuraciones de Chamilo"
+
+msgid "SettingsStored"
+msgstr "La configuración fue guardada"
+
+msgid "InstitutionTitle"
+msgstr "Nombre de la institución"
+
+msgid "InstitutionComment"
+msgstr "Nombre de la institución (aparece a la derecha en el encabezado)"
+
+msgid "InstitutionUrlTitle"
+msgstr "URL de la institución"
+
+msgid "InstitutionUrlComment"
+msgstr "El URL de la institución (El link que aparece a la derecha, en la cabecera)"
+
+msgid "SiteNameTitle"
+msgstr "Titulo del Campus Chamilo"
+
+msgid "SiteNameComment"
+msgstr "El nombre de su campus Chamilo (aparece a la izquierda, en la cabecera)"
+
+msgid "emailAdministratorTitle"
+msgstr "Administrador de la plataforma : E-mail"
+
+msgid "emailAdministratorComment"
+msgstr "La dirección de e-mail del administrador de la plataforma (Aparece en el pie de página, a la izquierda)"
+
+msgid "administratorSurnameTitle"
+msgstr "Administrador de la plataforma : Apellido"
+
+msgid "administratorSurnameComment"
+msgstr "El apellido del administrador de la plataforma (Aparece en el pie de página a la izquierda)"
+
+msgid "administratorNameTitle"
+msgstr "Administrador de la plataforma : Nombre"
+
+msgid "administratorNameComment"
+msgstr "El nombre del administrador de la plataforma (aparece a la izquierda en el pie de página)"
+
+msgid "ShowAdministratorDataTitle"
+msgstr "Información del administrador de la plataforma en el pie de página"
+
+msgid "ShowAdministratorDataComment"
+msgstr "¿Mostrar la información del administrador de la plataforma en el pie de página?"
+
+msgid "HomepageViewTitle"
+msgstr "Vista de la página principal"
+
+msgid "HomepageViewComment"
+msgstr "¿Como quiere que se vea la página principal de un curso?"
+
+msgid "HomepageViewDefault"
+msgstr "Esquema de dos columnas. Herramientas inactivas ocultas"
+
+msgid "HomepageViewFixed"
+msgstr "Esquema de tres columnas. Las herramientas inactivas aparecen desvanecidas (Los íconos se mantienen en su lugar)"
+
+msgid "ShowToolShortcutsTitle"
+msgstr "Accesos directos a Herramientas"
+
+msgid "ShowToolShortcutsComment"
+msgstr "Mostrar los accesos directos a herramientas en el banner"
+
+msgid "ShowStudentViewTitle"
+msgstr "Vista de estudiante"
+
+msgid "ShowStudentViewComment"
+msgstr "¿Habilitar la vista de estudiante?<br />Esta funcionalidad permite al profesor ver el curso como lo ve el alumno."
+
+msgid "AllowGroupCategories"
+msgstr "Categorías de Grupos"
+
+msgid "AllowGroupCategoriesComment"
+msgstr "¿Permitir a los administradores de cursos crear categorías en el módulo de Grupos?"
+
+msgid "PlatformLanguageComment"
+msgstr "Usted puede determinar los idiomas de la plataforma en una parte diferente del administrador de la plataforma, llamado <a href=\"languages.php\">Idiomas de la plataforma Chamilo</a>"
+
+msgid "ProductionServer"
+msgstr "Servidor de producción"
+
+msgid "TestServer"
+msgstr "Servidor de Pruebas"
+
+msgid "ShowOnlineTitle"
+msgstr "Quién está en línea"
+
+msgid "AsPlatformLanguage"
+msgstr "como idioma de la plataforma"
+
+msgid "ShowOnlineComment"
+msgstr "¿Mostrar el numero de personas en línea?"
+
+msgid "AllowNameChangeTitle"
+msgstr "¿Permitir el cambio de nombre en el perfil?"
+
+msgid "AllowNameChangeComment"
+msgstr "¿El usuario puede cambiar su nombre y apellido?"
+
+msgid "DefaultDocumentQuotumTitle"
+msgstr "Cuota por defecto para documentos"
+
+msgid "DefaultDocumentQuotumComment"
+msgstr "¿Cuál es la cuota por defecto para la herramienta de documentos? Usted puede sobreescribir la cuota para cursos especificos a través de : Administración de la plataforma > Cursos > Modificar"
+
+msgid "ProfileChangesTitle"
+msgstr "Perfil"
+
+msgid "ProfileChangesComment"
+msgstr "¿Qué partes del perfil pueden ser modificadas?"
+
+msgid "RegistrationRequiredFormsTitle"
+msgstr "Inscripción : campos requeridos"
+
+msgid "RegistrationRequiredFormsComment"
+msgstr "Que campos son requeridos (aparte de Nombre, Apellido, login y contraseña)"
+
+msgid "DefaultGroupQuotumTitle"
+msgstr "Cuota por defecto del grupo"
+
+msgid "DefaultGroupQuotumComment"
+msgstr "¿Cuál es la cuota por defecto para la herramienta de documentos de grupo?"
+
+msgid "AllowLostPasswordTitle"
+msgstr "Contraseña perdida"
+
+msgid "AllowLostPasswordComment"
+msgstr "¿Puede el usuario requerir una contraseña perdida?"
+
+msgid "AllowRegistrationTitle"
+msgstr "Inscripción"
+
+msgid "AllowRegistrationComment"
+msgstr "¿Está permitida la inscripción como nuevo usuario? ¿Pueden los usuarios crear nuevas cuentas?"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "Inscripción como profesor"
+
+msgid "AllowRegistrationAsTeacherComment"
+msgstr "¿Puede uno inscribirse como profesor (que pueda crear cursos)?"
+
+msgid "PlatformLanguage"
+msgstr "Idioma de la plataforma"
+
+msgid "Tuning"
+msgstr "Afinado"
+
+msgid "SplitUsersUploadDirectory"
+msgstr "Dividir el directorio de transferencias de los usuarios"
+
+msgid "SplitUsersUploadDirectoryComment"
+msgstr "En el caso de portales con alto índice de uso, en el que están registrados una gran cantidad de usuarios que envían sus fotografías, el directorio de carga (main/upload/users) podría contener demasiados archivos para el sistema manejador de archivos (se h"
+
+msgid "CourseQuota"
+msgstr "Cuota del curso"
+
+msgid "EditNotice"
+msgstr "Editar notificación"
+
+msgid "InsertLink"
+msgstr "insertar enlace"
+
+msgid "EditNews"
+msgstr "Editar las noticias"
+
+msgid "EditCategories"
+msgstr "Editar las categorías"
+
+msgid "EditHomePage"
+msgstr "Editar la página inicial"
+
+msgid "AllowUserHeadingsComment"
+msgstr "¿Puede el administrador definir los encabezados del usuario para recabar mayor información del usuario?"
+
+msgid "Languages"
+msgstr "Idiomas"
+
+msgid "NoticeTitle"
+msgstr "Título de la notificación"
+
+msgid "NoticeText"
+msgstr "Texto de la notificación"
+
+msgid "LinkURL"
+msgstr "URL del enlace"
+
+msgid "OpenInNewWindow"
+msgstr "Abrir en una nueva ventana"
+
+msgid "LimitUsersListDefaultMaxComment"
+msgstr "En las pantallas de inscripción de los usuarios a los cursos o a las clases, si el número de usuarios en la primera lista no filtrada es mayor a este número, entonces filtrar por defecto a la primera letra (A)"
+
+msgid "HideDLTTMarkupComment"
+msgstr "Oculta la etiqueta  [= ... =] cuando una variable de lenguaje no está traducida."
+
+msgid "UserDeleted"
+msgstr "El usuario ha sido borrado"
+
+msgid "NoClassesForThisCourse"
+msgstr "No existen clases dentro de este curso"
+
+msgid "CourseUsage"
+msgstr "Uso del curso"
+
+msgid "NoCoursesForThisUser"
+msgstr "Este usuario no pertenece a ningún curso"
+
+msgid "NoClassesForThisUser"
+msgstr "Este usuario no pertenece a ninguna clase"
+
+msgid "NoCoursesForThisClass"
+msgstr "Esta clase no pertenece a ningún curso"
+
+msgid "Tool"
+msgstr "herramienta"
+
+msgid "NumberOfItems"
+msgstr "número de items"
+
+msgid "DocumentsAndFolders"
+msgstr "Documentos y carpetas"
+
+msgid "Exercises"
+msgstr "Ejercicios"
+
+msgid "AllowPersonalAgendaTitle"
+msgstr "Agenda Personal"
+
+msgid "AllowPersonalAgendaComment"
+msgstr "¿Puede el usuario añadir items personales en la página de Mi Agenda?"
+
+msgid "CurrentValue"
+msgstr "valor actual"
+
+msgid "UserPassword"
+msgstr "Contraseña"
+
+msgid "SubscriptionAllowed"
+msgstr "Suscripción permitida"
+
+msgid "UnsubscriptionAllowed"
+msgstr "Anulación de la suscripción permitida"
+
+msgid "AddDummyContentToCourse"
+msgstr "Agregue algún contenido (de ejemplo) para este curso"
+
+msgid "DummyCourseCreator"
+msgstr "Crear contenido para curso dummy"
+
+msgid "DummyCourseDescription"
+msgstr "Esto añadirá algún contenido de muestra (ejemplo) a este curso.Sólo se hace para propósitos de prueba."
+
+msgid "AvailablePlugins"
+msgstr "Estos son las extensiones (plugins) que han sido encontrados en su sistema. Usted puede obtener extensiones (plugins) adicionales en <a href=\"http://www.chamilo.org/extensions/index.php?section=plugins\">http://www.chamilo.org/extensions/index.php?sectio"
+
+msgid "CreateVirtualCourse"
+msgstr "Crear un curso virtual"
+
+msgid "DisplayListVirtualCourses"
+msgstr "Mostrar lista de cursos virtuales"
+
+msgid "LinkedToRealCourseCode"
+msgstr "Enlazado a un código de curso real"
+
+msgid "AttemptedCreationVirtualCourse"
+msgstr "Se ha intentado la creación del curso virtual"
+
+msgid "WantedCourseCode"
+msgstr "Código de curso buscado"
+
+msgid "ResetPassword"
+msgstr "Reinicializar contraseña"
+
+msgid "CheckToSendNewPassword"
+msgstr "Verificar para envío de contraseña"
+
+msgid "AutoGeneratePassword"
+msgstr "Generar automáticamente una nueva contraseña"
+
+msgid "UseDocumentTitleTitle"
+msgstr "Utilizar un título para el nombre del documento"
+
+msgid "UseDocumentTitleComment"
+msgstr "Esto permitirá el uso de un título para nombres de documento en vez de nombre_de_documento.ext"
+
+msgid "StudentPublications"
+msgstr "Publicaciones de estudiantes"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "Los archivos borrados no pueden restaurarse"
+
+msgid "PermanentlyRemoveFilesComment"
+msgstr "Si borra un archivo en la herramienta de documentos lo eliminará permanentemente. El archivo no puede ser recuperado"
+
+msgid "DropboxMaxFilesizeTitle"
+msgstr "Máximo tamaño de un documento del baúl de tareas"
+
+msgid "DropboxMaxFilesizeComment"
+msgstr "¿Qué tan grande (en bytes) puede ser un documento del baúl de tareas?"
+
+msgid "DropboxAllowOverwriteTitle"
+msgstr "Baúl de tareas: Los documentos pueden sobreescribirse"
+
+msgid "DropboxAllowOverwriteComment"
+msgstr "¿Puede el documento original sobreescribirse cuando un estudiante o profesor sube un documento con el nombre de un documento que ya existe?Si responde afirmativamente entonces perderá el mecanismo de versiones"
+
+msgid "DropboxAllowJustUploadTitle"
+msgstr "Baúl de tareas: ¿Subir al baúl propio?"
+
+msgid "DropboxAllowJustUploadComment"
+msgstr "Se permite a estudiantes y profesores subir documentos a su propio baúl de tareas sin enviar copia a nadie más"
+
+msgid "DropboxAllowStudentToStudentTitle"
+msgstr "Baúl de tareas: Estudiante a Estudiante"
+
+msgid "DropboxAllowStudentToStudentComment"
+msgstr "Permitir a los estudiantes enviar documentos a otros estudiantes (Punto a Punto, intercambio P2P). Los estudiantes pueden utilizarlo para documentos menos relevantes (mp3, soluciones,... ) Si usted deshabilita esta opción el estudiante sólo enviará docume"
+
+msgid "DropboxAllowMailingTitle"
+msgstr "Baúl de tareas: Permitir envío de correos"
+
+msgid "DropboxAllowMailingComment"
+msgstr "Con la funcionalidad de correo usted puede enviar a cada estudiante un documento personal"
+
+msgid "PermissionsForNewDirs"
+msgstr "Permiso para nuevos directorios"
+
+msgid "PermissionsForNewDirsComment"
+msgstr "La capacidad para definir el estado de los permisos por asignar a cada directorio de reciente creación le permite mejorar la seguridad en contra de los ataques de hackers que cargan contenido peligroso a su portal. El estado inicial de los permisos (0770)"
+
+msgid "UserListHasBeenExported"
+msgstr "Se ha exportado la lista de usuarios"
+
+msgid "ClickHereToDownloadTheFile"
+msgstr "De click aquí para descargar un archivo"
+
+msgid "administratorTelephoneTitle"
+msgstr "Administrador de la Plataforma: Teléfono"
+
+msgid "administratorTelephoneComment"
+msgstr "El número telefónico del administrador de la plataforma"
+
+msgid "SendMailToNewUser"
+msgstr "Enviar correo a un nuevo usuario"
+
+msgid "ExtendedProfileTitle"
+msgstr "Perfil extendido"
+
+msgid "ExtendedProfileComment"
+msgstr "Si esta herramienta está habilitada, un usuario puede llenar unos campos opcionales: 'Mis competencias', 'Mis diplomas', 'Qué puedo enseñar' y 'Mi área personal pública'"
+
+msgid "Classes"
+msgstr "Clases"
+
+msgid "UserUnsubscribed"
+msgstr "El usuario ha sido excluido"
+
+msgid "CannotUnsubscribeUserFromCourse"
+msgstr "El usuario no puede ser excluido del curso. Este usuario es un administrador del curso"
+
+msgid "InvalidStartDate"
+msgstr "Se ha ingresado una  fecha érronea de inicio"
+
+msgid "InvalidEndDate"
+msgstr "Se ha ingresado una  fecha érronea de finalización"
+
+msgid "DateFormatLabel"
+msgstr "(d/m/a h:m)"
+
+msgid "HomePageFilesNotWritable"
+msgstr "Los archivos de la página de inicio no tienen permiso de escritura"
+
+msgid "PleaseEnterNoticeText"
+msgstr "Por favor escriba un texto de notificación"
+
+msgid "PleaseEnterNoticeTitle"
+msgstr "Por favor escriba un título de noticia"
+
+msgid "PleaseEnterLinkName"
+msgstr "Por favor entre el nombre para el enlace"
+
+msgid "InsertThisLink"
+msgstr "Insertar este enlace"
+
+msgid "FirstPlace"
+msgstr "Primer lugar"
+
+msgid "DropboxAllowGroupTitle"
+msgstr "Baúl de tareas: Permitir al grupo"
+
+msgid "DropboxAllowGroupComment"
+msgstr "Los usuarios pueden enviar archivos en grupos"
+
+msgid "ClassDeleted"
+msgstr "La clase ha sido borrada"
+
+msgid "ClassesDeleted"
+msgstr "Las clases han sido borradas"
+
+msgid "NoUsersInClass"
+msgstr "No hay usuarios en esta clase"
+
+msgid "UsersAreSubscibedToCourse"
+msgstr "Los usuarios seleccionados están suscritos a los cursos seleccionados"
+
+msgid "InvalidTitle"
+msgstr "Por favor ingrese un título"
+
+msgid "CatCodeAlreadyUsed"
+msgstr "Esta categoría ya ha sido utilizado"
+
+msgid "PleaseEnterCategoryInfo"
+msgstr "Por favor ingrese un código y un nombre para la categoría"
+
+msgid "RegisterYourPortal"
+msgstr "Registre su portal"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "Mostrar menú de navegación del curso"
+
+msgid "ShowNavigationMenuComment"
+msgstr "Mostrar el menú de navegación facilitará el acceso a las diferentes áreas del curso."
+
+msgid "LoginAs"
+msgstr "Ingresar como"
+
+msgid "ImportClassListCSV"
+msgstr "Importar una Lista de Clases a través de CSV"
+
+msgid "ShowOnlineWorld"
+msgstr "Mostrar el número de usuarios en línea en la página de autentificación (visible para todo el mundo)"
+
+msgid "ShowOnlineUsers"
+msgstr "Mostrar el número de usuarios en línea en todas las páginas (visible para quienes se hayan autentificado)"
+
+msgid "ShowOnlineCourse"
+msgstr "Mostrar el número de usuarios en línea en este curso"
+
+msgid "ShowIconsInNavigationsMenuTitle"
+msgstr "¿ Mostrar los iconos en el menú de navegación ?"
+
+msgid "SeeAllRightsAllRolesForSpecificLocation"
+msgstr "Ver todos los roles y privilegios para un lugar específico"
+
+msgid "ClassesSubscribed"
+msgstr "Las clases seleccionadas fueron inscritas a los cursos seleccionados"
+
+msgid "RoleId"
+msgstr "ID del rol"
+
+msgid "RoleName"
+msgstr "Nombre del rol"
+
+msgid "RoleType"
+msgstr "Tipo"
+
+msgid "MakeAvailable"
+msgstr "Hacer disponible"
+
+msgid "MakeUnavailable"
+msgstr "Hacer no disponible"
+
+msgid "Stylesheets"
+msgstr "Estilos CSS"
+
+msgid "ShowIconsInNavigationsMenuComment"
+msgstr "Debe el menú de navegación mostrar los distintos íconos de las herramientas?"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "MainMenu"
+msgstr "Menú Principal"
+
+msgid "MainMenuLogged"
+msgstr "Menú principal después de autentificarse"
+
+msgid "Banner"
+msgstr "Banner"
+
+msgid "ImageResizeTitle"
+msgstr "Redimensionar las imágenes enviadas por los usuarios"
+
+msgid "ImageResizeComment"
+msgstr "Las imágenes de los usuarios pueden ser redimensionadas al ser subidas si PHP está compilado con la <a href=\"http://php.net/manual/en/ref.image.php\" target=\"_blank\">librería GD</a>. Si GD no está disponible, la configuración será ignorada."
+
+msgid "MaxImageWidthTitle"
+msgstr "Ancho máximo de la imagen de usuario"
+
+msgid "MaxImageWidthComment"
+msgstr "Ancho máximo en pixeles para la imagen de usuario. Esta característica solo aplica si las imágenes están configuradas para ser redimensionadas al ser subidas."
+
+msgid "MaxImageHeightTitle"
+msgstr "Alto máximo de la imagen de usuario"
+
+msgid "MaxImageHeightComment"
+msgstr "Alto máximo en pixeles para la imagen de usuario. Esta característica solo aplica si las imágenes están configuradas para ser redimensionadas al ser subidas."
+
+msgid "YourVersionIs"
+msgstr "Su versión es"
+
+msgid "ConnectSocketError"
+msgstr "Error de conexion (Socket)"
+
+msgid "SocketFunctionsDisabled"
+msgstr "Conexiónes vía Socket desabilitada"
+
+msgid "ShowEmailAddresses"
+msgstr "Mostrar dirección e-mail"
+
+msgid "ShowEmailAddressesComment"
+msgstr "Mostrar dirección e-mail a los usuarios"
+
+msgid "ActiveExtensions"
+msgstr "Activar este servicio"
+
+msgid "Visioconf"
+msgstr "Videoconferencia"
+
+msgid "VisioconfDescription"
+msgstr "Chamilo Live Conferencing® es una herramienta estándar de videoconferencia que ofrece: mostrar diapositivas, pizarra para dibujar y escribir, audio/video duplex, chat. Sólo requiere de Flash® player y permite usar tres modos: uno a uno, uno a muchos, y mu"
+
+msgid "Ppt2lp"
+msgstr "PowerPoint2LearningPath"
+
+msgid "Ppt2lpDescription"
+msgstr "Oogie-Woogie es una herramienta de Aprendizaje Rápido. Le permite convertir las presentaciones de Power Point y los documentos de Word y sus equivalentes de OpenOffice en e-cursos SCORM-compatibles. Depués de la conversión, usted puede usar la herramienta"
+
+msgid "BandWidthStatistics"
+msgstr "Estadísticas de Ancho de Banda"
+
+msgid "BandWidthStatisticsDescription"
+msgstr "MRTG le permite consultar estadísticas detalladas del estado del servidor en las últimas 24 horas."
+
+msgid "ServerStatistics"
+msgstr "Estadísticas del servidor"
+
+msgid "ServerStatisticsDescription"
+msgstr "AWStats le permite consultar las estadísticas de su plataforma: visitantes, páginas vistas, referenciadores..."
+
+msgid "SearchEngine"
+msgstr "Buscador de texto completo"
+
+msgid "SearchEngineDescription"
+msgstr "El buscador de texto completo le permite buscar una palabra a través de toda la plataforma. La indización diaria de los contenidos le asegura la calidad de los resultados."
+
+msgid "ListSession"
+msgstr "Lista de sesiones"
+
+msgid "AddSession"
+msgstr "Añadir una sesion"
+
+msgid "ImportSessionListXMLCSV"
+msgstr "Importar sesiones en formato XML/CSV"
+
+msgid "ExportSessionListXMLCSV"
+msgstr "Exportar sesiones en formato XML/CSV"
+
+msgid "NbCourses"
+msgstr "Número de cursos"
+
+msgid "DateStart"
+msgstr "Fecha inicial"
+
+msgid "DateEnd"
+msgstr "Fecha final"
+
+msgid "CoachName"
+msgstr "Nombre del tutor"
+
+msgid "SessionNameIsRequired"
+msgstr "Debe dar un nombre a la sesión"
+
+msgid "NextStep"
+msgstr "Paso siguiente"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "UnsubscribeUsersFromCourse"
+msgstr "Anular la inscripción de los usuarios en el curso"
+
+msgid "MissingClassName"
+msgstr "Falta el nombre de la clase"
+
+msgid "ClassNameExists"
+msgstr "El nombre de la clase ya existe"
+
+msgid "ImportCSVFileLocation"
+msgstr "Localización del fichero de importación CSV"
+
+msgid "ClassesCreated"
+msgstr "Clases creadas"
+
+msgid "ErrorsWhenImportingFile"
+msgstr "Errores al importar el fichero"
+
+msgid "ServiceActivated"
+msgstr "Servicio activado"
+
+msgid "ActivateExtension"
+msgstr "Servicios activos"
+
+msgid "InvalidExtension"
+msgstr "Extensión no válida"
+
+msgid "VersionCheckExplanation"
+msgstr "Para habilitar la comprobación automática de la versión debe registrar su campus en chamilo.com. La información obtenida al hacer click en este botón sólo es para uso interno y sólo los datos añadidos estarán disponibles públicamente (número total de usua"
+
+msgid "AfterApproval"
+msgstr "Después de ser aprobado"
+
+msgid "StudentViewEnabledTitle"
+msgstr "Vista del estudiante"
+
+msgid "StudentViewEnabledComment"
+msgstr "Vista del estudiantes, la cual permite a un profesor o administrador ver un curso como lo vería un estudiante"
+
+msgid "TimeLimitWhosonlineTitle"
+msgstr "Tiempo límite sobre Quién está en Línea"
+
+msgid "TimeLimitWhosonlineComment"
+msgstr "Este tiempo límite define por cuantos segundos después de su última acción se considerará que un usuario está \"en línea\""
+
+msgid "ExampleMaterialCourseCreationTitle"
+msgstr "Material de ejemplo en la creación de un curso"
+
+msgid "ExampleMaterialCourseCreationComment"
+msgstr "Crear automáticamente material de ejemplo cuando se crea un nuevo curso"
+
+msgid "AccountValidDurationTitle"
+msgstr "Validez de la cuenta"
+
+msgid "AccountValidDurationComment"
+msgstr "Una cuenta de usuario es válida por este número de días después de su creación"
+
+msgid "UseSessionModeTitle"
+msgstr "Usar modo sesión"
+
+msgid "UseSessionModeComment"
+msgstr "Sesiones proporcionan una forma diferente de tratar con los cursos, en el que un curso con un creador, un asesor y estudiantes. Cada asesor trabaja con el curso y sus estudiantes un periodo de tiempo llamado \"sesión\"."
+
+msgid "HomepageViewActivity"
+msgstr "Visualizar la actividad"
+
+msgid "HomepageView2column"
+msgstr "Visualización en dos columnas"
+
+msgid "HomepageView3column"
+msgstr "Visualización en tres columnas"
+
+msgid "AllowUserHeadings"
+msgstr "Permitir encabezados de los usuarios"
+
+msgid "IconsOnly"
+msgstr "Sólo iconos"
+
+msgid "TextOnly"
+msgstr "Sólo texto"
+
+msgid "IconsText"
+msgstr "Iconos y texto"
+
+msgid "EnableToolIntroductionTitle"
+msgstr "Permitir introducción a la herramienta"
+
+msgid "EnableToolIntroductionComment"
+msgstr "Permitir introducciones en el homepage de cada herramienta"
+
+msgid "BreadCrumbsCourseHomepageComment"
+msgstr "La barra de navegación, es un sistema de navegación horizontal mediante enlaces que generalmente se ubica en la parte superior izquierda de su página. Esta opción permite seleccionar el contenido que desea que aparezca en la página del curso."
+
+msgid "LoginPageMainArea"
+msgstr "Área principal de la página de acceso"
+
+msgid "CampusHomepageMainArea"
+msgstr "Área de la página principal del campus"
+
+msgid "MyCoursesMenu"
+msgstr "Menú de cursos"
+
+msgid "DeleteSelectedSessions"
+msgstr "Elimina las secciones seleccionadas"
+
+msgid "SubscribeUsersToSession"
+msgstr "Inscribir usuarios a esta sesión"
+
+msgid "UserOnHost"
+msgstr "Nombre de usuario"
+
+msgid "WCAGContent"
+msgstr "texto"
+
+msgid "DateStartSession"
+msgstr "Fecha de inicio de sesión"
+
+msgid "Ajax_course_tracking_refresh_comment"
+msgstr "Esta opción es usada para calcular en tiempo real, el tiempo que el usuario dedica al curso. El valor en el campo es el intervalo de actualización en segundos. Para desactivar esta opción, deje el valor 0 en el campo."
+
+msgid "FinishSessionCreation"
+msgstr "Finalizar creación de la sesión"
+
+msgid "NoClassesHaveBeenCreated"
+msgstr "Ninguna clase ha sido creada"
+
+msgid "UserNameNotAvailable"
+msgstr "Este nombre de usuario no está disponible"
+
+msgid "WrongStatus"
+msgstr "Este estatus no existe"
+
+msgid "UserDoesNotExist"
+msgstr "Este usuario no existe"
+
+msgid "WrongDate"
+msgstr "Formato de fecha erróneo (aaaa-mm-dd)"
+
+msgid "XMLNotValid"
+msgstr "El documento XML no es válido"
+
+msgid "LDAPEnableTitle"
+msgstr "Habilitar LDAP"
+
+msgid "AllowSocialToolComment"
+msgstr "La herramienta de red social permite a los usuarios definir sus vínculos con otros usuarios y, de esta manera, definir grupos de amigos. Combinada con la herramienta de mensajes internos, esta herramienta permite la comunicación estrecha con amigos, en el"
+
+msgid "TheFollowingCoursesAlreadyUseThisVisualCode"
+msgstr "Los siguientes cursos ya usan este código"
+
+msgid "AnnEmpty"
+msgstr "Se han borrado todos los anuncios"
+
+msgid "AnnouncementModified"
+msgstr "El anuncio ha sido modificado"
+
+msgid "AnnouncementAdded"
+msgstr "El anuncio ha sido agregado"
+
+msgid "AnnouncementDeleted"
+msgstr "el anuncio ha sido borrado"
+
+msgid "AnnouncementPublishedOn"
+msgstr "Publicado el"
+
+msgid "AddAnnouncement"
+msgstr "Agregar un anuncio"
+
+msgid "AnnouncementDeleteAll"
+msgstr "Borrar la lista de anuncios"
+
+msgid "professorMessage"
+msgstr "Mensaje de su profesor"
+
+msgid "EmailSent"
+msgstr " y enviado por e-mail a los estudiantes registrados"
+
+msgid "EmailOption"
+msgstr "Enviar por e-mail este anuncio a los estudiantes registrados"
+
+msgid "On"
+msgstr "Activos:"
+
+msgid "RegUser"
+msgstr "usuarios registrados del sitio"
+
+msgid "Unvalid"
+msgstr "no tienen una dirección de e-mail, o ésta es inválida"
+
+msgid "ModifAnn"
+msgstr "Modificar este anuncio"
+
+msgid "SelMess"
+msgstr "Advertencia a ciertos usuarios"
+
+msgid "SelectedUsers"
+msgstr "Usuarios seleccionados"
+
+msgid "PleaseEnterMessage"
+msgstr "Debe introducir el texto del mensaje"
+
+msgid "PleaseSelectUsers"
+msgstr "Debe seleccionar algún usuario"
+
+msgid "Teachersubject"
+msgstr "Mensaje enviado a sus estudiantes"
+
+msgid "MessageToSelectedUsers"
+msgstr "Mensajes a usuarios específicos"
+
+msgid "IntroText"
+msgstr "Para enviar un mensaje, seleccione grupos de usuarios (marcados con una G delante)o a usuarios individuales (marcados con una U) de la lista de la izquierda"
+
+msgid "MsgSent"
+msgstr "El mensaje ha sido enviado a los alumnos seleccionados"
+
+msgid "SelUser"
+msgstr "seleccionar usuarios"
+
+msgid "MessageToSelectedGroups"
+msgstr "Mensaje para los grupos seleccionados"
+
+msgid "SelectedGroups"
+msgstr "grupos seleccionados"
+
+msgid "Msg"
+msgstr "Mensajes"
+
+msgid "MsgText"
+msgstr "Mensaje"
+
+msgid "AnnouncementDeletedAll"
+msgstr "Todos los anuncion han sido borrados"
+
+msgid "AnnouncementMoved"
+msgstr "El anuncio ha sido movido"
+
+msgid "NoAnnouncements"
+msgstr "No hay anuncios"
+
+msgid "SelectEverybody"
+msgstr "Seleccionar Todos"
+
+msgid "SelectedUsersGroups"
+msgstr "grupo de usuarios seleccionados"
+
+msgid "LearnerMessage"
+msgstr "Mensaje de un estudiante"
+
+msgid "TitleIsRequired"
+msgstr "El título es obligatorio"
+
+msgid "AnnounceSentByEmail"
+msgstr "Anuncio enviado por correo electrónico"
+
+msgid "AnnounceSentToUserSelection"
+msgstr "Anuncio enviado a los usuarios seleccionados"
+
+msgid "LineNumber"
+msgstr "Número de Líneas"
+
+msgid "LineOrLines"
+msgstr "linea(s)"
+
+msgid "AddNewHeading"
+msgstr "Aagregar nuevo encabezamiento"
+
+msgid "CourseAdministratorOnly"
+msgstr "Solamente para administrador del curso"
+
+msgid "DefineHeadings"
+msgstr "Definir Encabezados"
+
+msgid "BackToUsersList"
+msgstr "Volver a la lista de usuarios"
+
+msgid "CourseManager"
+msgstr "Profesor"
+
+msgid "ModRight"
+msgstr "cambiar los derechos de"
+
+msgid "NoAdmin"
+msgstr "desde ahora <b>no</b> tiene derecho de administración sobre este sitio"
+
+msgid "AllAdmin"
+msgstr "ahora tiene <b>todos</b> los derechos de administración sobre esta página"
+
+msgid "ModRole"
+msgstr "Cambiar el rol de"
+
+msgid "IsNow"
+msgstr "es de ahora en adelante"
+
+msgid "InC"
+msgstr "en este curso"
+
+msgid "Filled"
+msgstr "No todos los campos fueron llenados"
+
+msgid "UserNo"
+msgstr "Usuario No"
+
+msgid "Taken"
+msgstr "ya está en uso. Por favor, haga otra selección"
+
+msgid "Tutor"
+msgstr "Tutor"
+
+msgid "Unreg"
+msgstr "Retirar suscripción"
+
+msgid "GroupUserManagement"
+msgstr "Administración de grupo"
+
+msgid "AddAUser"
+msgstr "Añadir usuarios"
+
+msgid "NewGroupCreate"
+msgstr "Cerar nuevos grupos"
+
+msgid "GroupCreation"
+msgstr "Creación de grupos nuevos"
+
+msgid "NewGroups"
+msgstr "grupo nuevo"
+
+msgid "Max"
+msgstr "max."
+
+msgid "GroupPlacesThis"
+msgstr "lugares (opcional)"
+
+msgid "GroupsAdded"
+msgstr "los grupos han sido agregados"
+
+msgid "GroupDel"
+msgstr "Grupo borrado"
+
+msgid "ExistingGroups"
+msgstr "Grupos"
+
+msgid "Registered"
+msgstr "Registrado"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "Los estudiantes están autorizados a registrarse solos en los grupos"
+
+msgid "GroupTools"
+msgstr "Herramientas"
+
+msgid "GroupDocument"
+msgstr "Documentos"
+
+msgid "GroupPropertiesModified"
+msgstr "La configuración del grupo ha sido modificada"
+
+msgid "GroupName"
+msgstr "Nombre del grupo"
+
+msgid "GroupDescription"
+msgstr "Descripción"
+
+msgid "GroupMembers"
+msgstr "Miembros del grupo"
+
+msgid "EditGroup"
+msgstr "Editar este grupo"
+
+msgid "GroupSettingsModified"
+msgstr "Configuración del grupo modificada"
+
+msgid "GroupTooMuchMembers"
+msgstr "El número propuesto excede el max. que usted tiene permitido (puede modificarlo abajo). 				La composición del grupo no ha sido modificada"
+
+msgid "GroupTutor"
+msgstr "Tutor"
+
+msgid "GroupNoTutor"
+msgstr "(ninguno)"
+
+msgid "GroupNone"
+msgstr "(ninguno)"
+
+msgid "GroupNoneMasc"
+msgstr "(ninguno)"
+
+msgid "AddTutors"
+msgstr "Administrar lista de usuarios"
+
+msgid "MyGroup"
+msgstr "mi grupo"
+
+msgid "OneMyGroups"
+msgstr "mi supervision"
+
+msgid "GroupSelfRegistration"
+msgstr "Registración"
+
+msgid "GroupSelfRegInf"
+msgstr "registrarse"
+
+msgid "RegIntoGroup"
+msgstr "Agregarme a este grupo"
+
+msgid "GroupNowMember"
+msgstr "Ahora usted es miembro de este grupo"
+
+msgid "Private"
+msgstr "privado"
+
+msgid "Public"
+msgstr "público"
+
+msgid "PropModify"
+msgstr "Modificar la configuración"
+
+msgid "State"
+msgstr "Estado"
+
+msgid "GroupFilledGroups"
+msgstr "Los grupos han sido completados con los estudiantes presentes en la lista de usuarios."
+
+msgid "Subscribed"
+msgstr "personas registradas en este curso"
+
+msgid "StudentsNotInThisGroups"
+msgstr "Usuarios fuera de este grupo"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "Un usuario puede ser miembro de un máximo de"
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr " grupos"
+
+msgid "GroupLimit"
+msgstr "Límite"
+
+msgid "StudentRegAllowed"
+msgstr "Los estudiantes están autorizados a registrarse solos en los grupos"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "Los usuarios están habilitados para retirar su inscripción de los grupos"
+
+msgid "AllGroups"
+msgstr "Todos los grupos"
+
+msgid "StudentUnsubscribe"
+msgstr "Retirar mi inscripción de este grupo"
+
+msgid "StudentDeletesHimself"
+msgstr "Su inscripción fue retirada"
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "Configuración por defecto para los nuevos grupos"
+
+msgid "SelectedGroupsDeleted"
+msgstr "Todos los grupos seleccionados han sido borrados"
+
+msgid "SelectedGroupsEmptied"
+msgstr "Todos los grupos seleccionados están ahora vacíos"
+
+msgid "GroupEmptied"
+msgstr "El grupo ahora está vacío"
+
+msgid "SelectedGroupsFilled"
+msgstr "Todos los grupos seleccionados han sido completados"
+
+msgid "GroupSelfUnRegInf"
+msgstr "Retirar inscripción"
+
+msgid "SameForAll"
+msgstr "igual para todos"
+
+msgid "NoLimit"
+msgstr "Sin límite"
+
+msgid "PleaseEnterValidNumber"
+msgstr "Por favor, introduzca el número de grupos deseado"
+
+msgid "CreateGroupsFromVirtualCourses"
+msgstr "Crear grupos para todos los usuarios en los cursos virtuales"
+
+msgid "CreateGroupsFromVirtualCoursesInfo"
+msgstr "Este curso es una combinación de un curso real y uno o más cursos virtuales. Si presiona el siguiente botón, nuevos grupos serán creados a partir de estos cursos virtuales. Todos los estudiantes serán inscritos en los grupos"
+
+msgid "NoGroupsAvailable"
+msgstr "No hay grupos disponibles"
+
+msgid "GroupsFromVirtualCourses"
+msgstr "Cursos virtuales"
+
+msgid "CreateSubgroups"
+msgstr "Crear subgrupos"
+
+msgid "CreateSubgroupsInfo"
+msgstr "Esta opción le permite crear nuevos grupos basados en grupos ya existentes. Indique el número de grupos que desea y elija un grupo existente. Se crearán el número de grupos deseado y todos los miembros del grupo inicial serán inscritos en ellos. El grupo"
+
+msgid "CreateNumberOfGroups"
+msgstr "Crear"
+
+msgid "WithUsersFrom"
+msgstr "grupos con miembros de"
+
+msgid "FillGroup"
+msgstr "añadir usuarios"
+
+msgid "EmptyGroup"
+msgstr "retirar sucripción a todos los usuarios"
+
+msgid "MaxGroupsPerUserInvalid"
+msgstr "El número máximo de grupos por usuario que ha enviado no es válido. Actualmente hay usuarios inscritos en un número mayor de grupos que el que usted propone"
+
+msgid "GroupOverview"
+msgstr "Vista del grupo"
+
+msgid "GroupCategory"
+msgstr "Categoría del grupo"
+
+msgid "NoTitleGiven"
+msgstr "Por favor, introduzca un título"
+
+msgid "InvalidMaxNumberOfMembers"
+msgstr "Por favor, introduzca un número válido para el número máximo de miembros"
+
+msgid "CategoryOrderChanged"
+msgstr "El orden de las categorías ha sido cambiado"
+
+msgid "CategoryCreated"
+msgstr "Categoría creada"
+
+msgid "GroupTutors"
+msgstr "Tutores"
+
+msgid "GroupWork"
+msgstr "Trabajo"
+
+msgid "GroupCalendar"
+msgstr "Agenda"
+
+msgid "GroupAnnouncements"
+msgstr "Anuncios"
+
+msgid "NoCategoriesDefined"
+msgstr "Sin categorías definidas"
+
+msgid "GroupsFromClasses"
+msgstr "Grupos de clases"
+
+msgid "GroupsFromClassesInfo"
+msgstr "Usando esta opción, puede crear grupos basado en las clases subscritas a su curso."
+
+msgid "LearnpathTitle"
+msgstr "título"
+
+msgid "LearnpathPrerequisites"
+msgstr "Prerequisitos"
+
+msgid "LearnpathMoveUp"
+msgstr "Elevar"
+
+msgid "LearnpathMoveDown"
+msgstr "Bajar"
+
+msgid "ThisItem"
+msgstr "este ítem"
+
+msgid "LearnpathTitleAndDesc"
+msgstr "Título y descripción"
+
+msgid "LearnpathChangeOrder"
+msgstr "Cambiar orden"
+
+msgid "LearnpathAddPrereqi"
+msgstr "Añadir prerrequisitos"
+
+msgid "LearnpathAddTitleAndDesc"
+msgstr "Editar título y descripción"
+
+msgid "LearnpathMystatus"
+msgstr "Mi estatus"
+
+msgid "LearnpathCompstatus"
+msgstr "completado"
+
+msgid "LearnpathIncomplete"
+msgstr "incompleto"
+
+msgid "LearnpathPassed"
+msgstr "aprobado"
+
+msgid "LearnpathFailed"
+msgstr "sin aprobar"
+
+msgid "LearnpathPrevious"
+msgstr "Previo"
+
+msgid "LearnpathNext"
+msgstr "Siguiente"
+
+msgid "LearnpathRestart"
+msgstr "Reiniciar"
+
+msgid "LearnpathThisStatus"
+msgstr "Este módulo ha sido"
+
+msgid "LearnpathToEnter"
+msgstr "Entrar"
+
+msgid "LearnpathFirstNeedTo"
+msgstr "primero necesita terminar"
+
+msgid "LearnpathLessonTitle"
+msgstr "Tìtulo del módulo"
+
+msgid "LearnpathStatus"
+msgstr "Estatus"
+
+msgid "LearnpathScore"
+msgstr "Puntaje"
+
+msgid "LearnpathTime"
+msgstr "Tiempo"
+
+msgid "LearnpathVersion"
+msgstr "versión"
+
+msgid "LearnpathRestarted"
+msgstr "Todos los módulos están incompletos"
+
+msgid "LearnpathNoNext"
+msgstr "Este es el último módulo"
+
+msgid "LearnpathNoPrev"
+msgstr "Este es el primer módulo"
+
+msgid "LearnpathAddLearnpath"
+msgstr "Añadir una nueva ruta de aprendizaje"
+
+msgid "LearnpathEditLearnpath"
+msgstr "Editar la Ruta"
+
+msgid "LearnpathDeleteLearnpath"
+msgstr "Eliminar la ruta"
+
+msgid "LearnpathDoNotPublish"
+msgstr "no publicar"
+
+msgid "LearnpathPublish"
+msgstr "publicar"
+
+msgid "LearnpathNotPublished"
+msgstr "no publicado"
+
+msgid "LearnpathPublished"
+msgstr "publicado"
+
+msgid "LearnpathEditModule"
+msgstr "Editar el título y descripción del módulo"
+
+msgid "LearnpathDeleteModule"
+msgstr "Borrar módulo"
+
+msgid "LearnpathNoChapters"
+msgstr "No hay módulos añadidos"
+
+msgid "LearnpathAddItem"
+msgstr "Añadir capìtulos al módulo"
+
+msgid "LearnpathItemDeleted"
+msgstr "El capítulo ha sido eliminado"
+
+msgid "LearnpathItemEdited"
+msgstr "El capítulo ha sido modificado"
+
+msgid "LearnpathPrereqNotCompleted"
+msgstr "pre-requisitos no completados."
+
+msgid "NewChapter"
+msgstr "Nuevo capítulo"
+
+msgid "NewStep"
+msgstr "Nuevo paso"
+
+msgid "EditPrerequisites"
+msgstr "Editar los prerequisitos del item actual"
+
+msgid "TitleManipulateChapter"
+msgstr "Manipular el capítulo actual"
+
+msgid "TitleManipulateModule"
+msgstr "Manipular el módulo actual"
+
+msgid "TitleManipulateDocument"
+msgstr "Manipular el documento actual"
+
+msgid "TitleManipulateLink"
+msgstr "Manipular el enlace actual"
+
+msgid "TitleManipulateQuiz"
+msgstr "Manipular el ejercicio actual"
+
+msgid "TitleManipulateStudentPublication"
+msgstr "Manipular la publicación actual del estudiante"
+
+msgid "EnterDataNewChapter"
+msgstr "Ingrese la información del nuevo capítulo"
+
+msgid "EnterDataNewModule"
+msgstr "Ingrese la información del nuevo módulo"
+
+msgid "CreateNewStep"
+msgstr "Crear un nuevo paso :"
+
+msgid "NewDocument"
+msgstr "Nuevo documento"
+
+msgid "UseAnExistingResource"
+msgstr "O utilizar un recurso existente :"
+
+msgid "Position"
+msgstr "Posición"
+
+msgid "NewChapterCreated"
+msgstr "El nuevo capítulo ha sido creado. Ahora puede agregar otro capítulo o paso en él."
+
+msgid "NewLinksCreated"
+msgstr "El nuevo vínculo ha sido creado"
+
+msgid "NewStudentPublicationCreated"
+msgstr "La nueva publicacion del estudiante ha sido creada"
+
+msgid "NewModuleCreated"
+msgstr "El nuevo módulo ha sido creado. Ahora puede agregar un capítulo o un paso."
+
+msgid "NewExerciseCreated"
+msgstr "El nuevo ejercicio ha sido creado."
+
+msgid "ItemRemoved"
+msgstr "El ítem ha sido eliminado"
+
+msgid "Converting"
+msgstr "Convirtiendo..."
+
+msgid "Ppt2lpError"
+msgstr "Error durante la conversión de PowerPoint. Por favor verifique si hay carácteres especiales en el nombre de su PowerPoint."
+
+msgid "Build"
+msgstr "Construir"
+
+msgid "ViewModeEmbedded"
+msgstr "Vista: embebida"
+
+msgid "ViewModeFullScreen"
+msgstr "Vista: pantalla completa"
+
+msgid "ShowDebug"
+msgstr "Mostrar debug"
+
+msgid "HideDebug"
+msgstr "Ocultar debug"
+
+msgid "CantEditDocument"
+msgstr "Este documento no es editable"
+
+msgid "After"
+msgstr "Después"
+
+msgid "LearnpathPrerequisitesLimit"
+msgstr "Prerrequisitos (límite)"
+
+msgid "HotPotatoesFinished"
+msgstr "Esta prueba de HotPotatoes ha sido cerrada"
+
+msgid "CompletionLimit"
+msgstr "Límite de tiempo (puntos mínimos)"
+
+msgid "PrereqToEnter"
+msgstr "Ingresar"
+
+msgid "PrereqFirstNeedTo"
+msgstr "usted primero debe cumplir con"
+
+msgid "PrereqModuleMinimum1"
+msgstr "Por lo menos falta 1 paso"
+
+msgid "PrereqModuleMinimum2"
+msgstr "que se fija como pre-requisito."
+
+msgid "PrereqTestLimit1"
+msgstr "debe alcanzar un mínimo"
+
+msgid "PrereqTestLimit2"
+msgstr "puntos en"
+
+msgid "PrereqTestLimitNow"
+msgstr "Ahora usted tiene:"
+
+msgid "LearnpathExitFullScreen"
+msgstr "regresar a la pantalla normal"
+
+msgid "LearnpathFullScreen"
+msgstr "pantalla completa"
+
+msgid "ItemMissing1"
+msgstr "Hubo un"
+
+msgid "ItemMissing2"
+msgstr "un capítulo en la Ruta de Aprendizaje de Chamilo"
+
+msgid "NoItemSelected"
+msgstr "Para mostrar algo aquí, por favor seleccione un item del menú lateral"
+
+msgid "NewDocumentCreated"
+msgstr "El nuevo documento ha sido creado."
+
+msgid "EditCurrentChapter"
+msgstr "Editar el capítulo actual"
+
+msgid "ditCurrentModule"
+msgstr "Editar el módulo actual"
+
+msgid "CreateTheDocument"
+msgstr "Crear el documento"
+
+msgid "MoveTheCurrentDocument"
+msgstr "Mover el documento actual"
+
+msgid "EditTheCurrentDocument"
+msgstr "Editar el documento actual"
+
+msgid "Warning"
+msgstr "¡ Advertencia !"
+
+msgid "WarningEditingDocument"
+msgstr "Cuando edita un documento existente en el itinerario formativo, la nueva versión del documento no sobreescribirá la versión anterior sino que será guardada como un nuevo documento. Si desea editar un documento definitivamente, puede hacerlo con la herrami"
+
+msgid "CreateTheExercise"
+msgstr "Crear el ejercicio"
+
+msgid "MoveTheCurrentExercise"
+msgstr "Mover el ejercicio actual"
+
+msgid "EditCurrentExecice"
+msgstr "Editar el ejercicio actual"
+
+msgid "UploadScorm"
+msgstr "Importación SCORM y AICC"
+
+msgid "PowerPointConvert"
+msgstr "Conversor PowerPoint"
+
+msgid "LPCreatedToContinue"
+msgstr "Para continuar puede agregar un módulo, capítulo o paso a su itinerario formativo desde el menu izquierdo."
+
+msgid "LPCreatedAddChapterStep"
+msgstr "Puede agregar un módulo, capítulo o paso a su itinerario formativo desde el menú izquierdo."
+
+msgid "PrerequisitesAdded"
+msgstr "Prerequisitos para el paso actual han sido agregados."
+
+msgid "AddEditPrerequisites"
+msgstr "Agregar/editar prerequisitos"
+
+msgid "NoDocuments"
+msgstr "No hay documentos"
+
+msgid "NoExercisesAvailable"
+msgstr "No hay ejercicios disponibles"
+
+msgid "NoLinksAvailable"
+msgstr "No hay vínculos disponibles"
+
+msgid "NoItemsInLp"
+msgstr "No hay items en el itinerario de aprendizaje en este momento. Click en \"Avanzado\" para crear items en su itinerario de aprendizaje"
+
+msgid "TypeMessage"
+msgstr "Por favor, escriba su mensaje"
+
+msgid "ConfirmReset"
+msgstr "¿Seguro que quiere borrar todos los mensajes?"
+
+msgid "ClearList"
+msgstr "Limpiar lista"
+
+msgid "CallSent"
+msgstr "Petición de conferencia enviada, espere por la aprobación de su compañero"
+
+msgid "ChatDenied"
+msgstr "Su peteción ha sido denegada por su compañero"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Connected"
+msgstr "Conectado"
+
+msgid "Exercice"
+msgstr "Ejercicio"
+
+msgid "NoEx"
+msgstr "Por el momento, no hay ejercicios"
+
+msgid "NewEx"
+msgstr "Nuevo ejercicio"
+
+msgid "Questions"
+msgstr "Preguntas"
+
+msgid "Answers"
+msgstr "Respuestas"
+
+msgid "True"
+msgstr "Verdadero"
+
+msgid "Answer"
+msgstr "Respuesta"
+
+msgid "YourResults"
+msgstr "Sus resultados"
+
+msgid "StudentResults"
+msgstr "Puntuaciones de los estudiantes"
+
+msgid "ExerciseType"
+msgstr "Tipo de ejercicio"
+
+msgid "ExerciseName"
+msgstr "Nombre del ejercicio"
+
+msgid "ExerciseDescription"
+msgstr "Descripción del ejercicio"
+
+msgid "SimpleExercise"
+msgstr "En una única página"
+
+msgid "SequentialExercise"
+msgstr "Una pregunta por página (secuencial)"
+
+msgid "RandomQuestions"
+msgstr "Preguntas al azar"
+
+msgid "GiveExerciseName"
+msgstr "Por favor, dé el nombre del ejercicio"
+
+msgid "Sound"
+msgstr "Archivo de audio o video"
+
+msgid "DeleteSound"
+msgstr "Borrar el archivo de audio o video"
+
+msgid "NoAnswer"
+msgstr "No hay respuestas por el momento"
+
+msgid "GoBackToQuestionPool"
+msgstr "Volver al banco de preguntas"
+
+msgid "GoBackToQuestionList"
+msgstr "Volver a la lista de preguntas"
+
+msgid "QuestionAnswers"
+msgstr "Responder la pregunta"
+
+msgid "UsedInSeveralExercises"
+msgstr "AAtención ! Esta pregunta y sus respuestas se usaron en varios ejercicios. Desea modificarla"
+
+msgid "ModifyInAllExercises"
+msgstr "en todos los ejercicios"
+
+msgid "ModifyInThisExercise"
+msgstr "solo en el ejercicio actual"
+
+msgid "AnswerType"
+msgstr "Tipo de respuesta"
+
+msgid "MultipleSelect"
+msgstr "Múltiple choice (varias respuestas)"
+
+msgid "FillBlanks"
+msgstr "Completar en los espacios"
+
+msgid "Matching"
+msgstr "Hacer parejas"
+
+msgid "ReplacePicture"
+msgstr "Reemplazar la imagen"
+
+msgid "DeletePicture"
+msgstr "Borrar la imagen"
+
+msgid "QuestionDescription"
+msgstr "Descripción de la pregunta"
+
+msgid "GiveQuestion"
+msgstr "Por favor, dé la pregunta"
+
+msgid "WeightingForEachBlank"
+msgstr "Por favor, otorgue un peso a cada blanco"
+
+msgid "UseTagForBlank"
+msgstr "use corchetes  [...] para definir uno o más blancos"
+
+msgid "QuestionWeighting"
+msgstr "Peso"
+
+msgid "MoreAnswers"
+msgstr "+resp"
+
+msgid "LessAnswers"
+msgstr "-resp"
+
+msgid "MoreElements"
+msgstr "+elem"
+
+msgid "LessElements"
+msgstr "-elem"
+
+msgid "TypeTextBelow"
+msgstr "Por favor, escriba su texto a continuación"
+
+msgid "DefaultTextInBlanks"
+msgstr "[Los británicos] viven en  [Inglaterra]."
+
+msgid "DefaultMatchingOptA"
+msgstr "rico"
+
+msgid "DefaultMatchingOptB"
+msgstr "buena vista"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "Su padre es"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "Su madre es"
+
+msgid "DefineOptions"
+msgstr "Por favor, defina las opciones"
+
+msgid "MakeCorrespond"
+msgstr "Hacer corresponder"
+
+msgid "FillLists"
+msgstr "Por favor, complete las dos listas que siguen"
+
+msgid "GiveText"
+msgstr "Por favor, escriba el texto"
+
+msgid "DefineBlanks"
+msgstr "POr favor, defina al menos un blanco con corchetes [...]"
+
+msgid "GiveAnswers"
+msgstr "Por favor, dé las respuestas de la pregunta"
+
+msgid "ChooseGoodAnswer"
+msgstr "Por favor, elija una respuesta correcta"
+
+msgid "ChooseGoodAnswers"
+msgstr "Por favor, dé elija un o más respuestas correctas"
+
+msgid "QuestionList"
+msgstr "Lista de preguntas"
+
+msgid "GetExistingQuestion"
+msgstr "Obtener una pregunta desde la base"
+
+msgid "FinishTest"
+msgstr "Concluir la prueba"
+
+msgid "QuestionPool"
+msgstr "Depósito de preguntas"
+
+msgid "OrphanQuestions"
+msgstr "preguntas huéfanas"
+
+msgid "NoQuestion"
+msgstr "Por el momento, no hay preguntas"
+
+msgid "AllExercises"
+msgstr "Todos los ejercicios"
+
+msgid "GoBackToEx"
+msgstr "Volver al ejercicio"
+
+msgid "Reuse"
+msgstr "Reusar"
+
+msgid "ExerciseManagement"
+msgstr "Administración de ejercicios"
+
+msgid "QuestionManagement"
+msgstr "Pregunta / Manejo de respuestas"
+
+msgid "QuestionNotFound"
+msgstr "No se encontró la pregunta"
+
+msgid "ExerciseNotFound"
+msgstr "No se encontró el ejercicio"
+
+msgid "AlreadyAnswered"
+msgstr "Ud. ya respondió la pregunta"
+
+msgid "ElementList"
+msgstr "Lista de elementos"
+
+msgid "CorrespondsTo"
+msgstr "Corresponde a"
+
+msgid "ExpectedChoice"
+msgstr "Elección esperada"
+
+msgid "YourTotalScore"
+msgstr "Su puntaje total es"
+
+msgid "EvalSet"
+msgstr "parámetros de evaluación"
+
+msgid "Active"
+msgstr "activo"
+
+msgid "Inactive"
+msgstr "inactivo"
+
+msgid "QuestCreate"
+msgstr "crear preguntas"
+
+msgid "ExRecord"
+msgstr "su ejercicio ha sigo guardado"
+
+msgid "BackModif"
+msgstr "volver a la página de edición de preguntas"
+
+msgid "DoEx"
+msgstr "realizar el ejercicio"
+
+msgid "DefScor"
+msgstr "describir los parámetros de evaluación"
+
+msgid "CreateModif"
+msgstr "crear / modificar preguntas"
+
+msgid "Sub"
+msgstr "subtítulo"
+
+msgid "MyAnswer"
+msgstr "Mi respuesta"
+
+msgid "MorA"
+msgstr "+ respuesta"
+
+msgid "LesA"
+msgstr "- respuesta"
+
+msgid "RecEx"
+msgstr "guardar ejercicio"
+
+msgid "RecQu"
+msgstr "Almacenar pregunta"
+
+msgid "RecAns"
+msgstr "Guardar respuestas"
+
+msgid "Introduction"
+msgstr "Introducción"
+
+msgid "TitleAssistant"
+msgstr "Asistente para la creación de ejercicios"
+
+msgid "QuesList"
+msgstr "lista de preguntas"
+
+msgid "SaveEx"
+msgstr "guardar ejercicios"
+
+msgid "QImage"
+msgstr "Pregunta con una imagen"
+
+msgid "AddQ"
+msgstr "Añadir una pregunta"
+
+msgid "DoAnEx"
+msgstr "Realizar un ejercicio"
+
+msgid "Generator"
+msgstr "Lista de ejercicios"
+
+msgid "Correct"
+msgstr "Correcto"
+
+msgid "PossAnsw"
+msgstr "Número de respuestas acertadas para una pregunta"
+
+msgid "StudAnsw"
+msgstr "número de errores del estudiante"
+
+msgid "Determine"
+msgstr "Determine el peso de la evaluación modificando la tabla situada bajo este texto. Después pulse \"OK\""
+
+msgid "NonNumber"
+msgstr "un valor no numérico"
+
+msgid "Replaced"
+msgstr "Reemplazado"
+
+msgid "Superior"
+msgstr "un valor mayor que 20"
+
+msgid "Rep20"
+msgstr "fue introducido. Fue sustituido por 20"
+
+msgid "DefComment"
+msgstr "los valores anteriores serán reemplazados cuando pulse el botón \"valores por defecto\""
+
+msgid "ScoreGet"
+msgstr "números en negrita = puntuación"
+
+msgid "ShowScor"
+msgstr "Mostrar la evaluación del estudiante:"
+
+msgid "Step1"
+msgstr "Paso 1"
+
+msgid "Step2"
+msgstr "Paso 2"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "Importar ejercicios de HotPotatoes"
+
+msgid "HotPotatoesTests"
+msgstr "Importar exámenes de HotPotatoes"
+
+msgid "DownloadImg"
+msgstr "Subir un archivo de imagen al servidor"
+
+msgid "NoImg"
+msgstr "Prueba sin imágenes"
+
+msgid "ImgNote_st"
+msgstr "<br /> Aún debe subir"
+
+msgid "ImgNote_en"
+msgstr "imagen(es):"
+
+msgid "NameNotEqual"
+msgstr "no es el archivo válido!"
+
+msgid "Indice"
+msgstr "Índice"
+
+msgid "Indices"
+msgstr "Indices"
+
+msgid "DateExo"
+msgstr "Fecha"
+
+msgid "ShowQuestion"
+msgstr "Mostrar una pregunta"
+
+msgid "UnknownExercise"
+msgstr "Ejercicio deconocido"
+
+msgid "ReuseQuestion"
+msgstr "Reusar una pregunta existente"
+
+msgid "CreateExercise"
+msgstr "Crear un ejercicio"
+
+msgid "CreateQuestion"
+msgstr "Crear una pregunta"
+
+msgid "CreateAnswers"
+msgstr "Crear respuestas"
+
+msgid "ModifyExercise"
+msgstr "Modificar un ejercicio"
+
+msgid "ModifyAnswers"
+msgstr "Modificar respuestas"
+
+msgid "ForExercise"
+msgstr "para el ejercicio"
+
+msgid "UseExistantQuestion"
+msgstr "Usar una pregunta existente"
+
+msgid "FreeAnswer"
+msgstr "Respuesta libre"
+
+msgid "notCorrectedYet"
+msgstr "Esta respuesta no ha sido corregida. Mientras, su puntaje para esta pregunta es de 0, afectando el puntaje total."
+
+msgid "adminHP"
+msgstr "Administración Hot Potatoes"
+
+msgid "NewQu"
+msgstr "Nueva pregunta"
+
+msgid "NoImage"
+msgstr "Seleccione una imagen en el inferior de la página."
+
+msgid "AnswerHotspot"
+msgstr "La descripción y el valor son requeridos para cada hotspot - el comentario es opcional"
+
+msgid "MinHotspot"
+msgstr "Tiene que crear, al menos, un (1) hotspot."
+
+msgid "MaxHotspot"
+msgstr "El máximo de hotspots que puede crear es doce (12)"
+
+msgid "HotspotError"
+msgstr "Por favor, proporcione una descripción y un valor a cada hotspot."
+
+msgid "MoreHotspots"
+msgstr "+hotspot"
+
+msgid "LessHotspots"
+msgstr "-hotspot"
+
+msgid "HotspotZones"
+msgstr "Hotspots"
+
+msgid "CorrectAnswer"
+msgstr "Respuesta correcta"
+
+msgid "HotspotHit"
+msgstr "Su respuesta era"
+
+msgid "OnlyJPG"
+msgstr "Para los hotspots, sólo puede usar imágenes JPG (o JPEG)"
+
+msgid "FinishThisTest"
+msgstr "Mostrar las respuestas correctas a cada pregunta y la puntuación del examen"
+
+msgid "AllQuestions"
+msgstr "Todas las preguntas"
+
+msgid "ModifyTitleDescription"
+msgstr "Editar título y comentarios"
+
+msgid "ModifyHotspots"
+msgstr "Editar respuestas/hotspots"
+
+msgid "HotspotNotDrawn"
+msgstr "Todavía no ha dibujado todos los hotspots"
+
+msgid "HotspotWeightingError"
+msgstr "Debe dar un valor (>0) positivo a todos los hotspots"
+
+msgid "HotspotValidateError1"
+msgstr "Debe contestar completamente a la pregunta ("
+
+msgid "HotspotValidateError2"
+msgstr "click(s) required on the image) before seeing the results"
+
+msgid "HotspotRequired"
+msgstr "La descripción y el valor son requeridos en cada hotspot. El comentario es opcional."
+
+msgid "HotspotChoose"
+msgstr "<div style=\"padding:2px 3px;\">&bull; Para crear un hotspot: seleccionar una forma junto al color, y después dibujar el hotspot.</div><div style=\"padding:2px 3px;\">&bull; Para mover un hotspot, seleccionar el color, hacer clic en otro punto de la image"
+
+msgid "Fault"
+msgstr "Incorrecto"
+
+msgid "HotSpot"
+msgstr "Hotspot"
+
+msgid "ClickNumber"
+msgstr "Número de clicks"
+
+msgid "HotspotGiveAnswers"
+msgstr "Por favor, responda"
+
+msgid "Addlimits"
+msgstr "Añadir límites"
+
+msgid "AreYouSure"
+msgstr "Está seguro"
+
+msgid "StudentScore"
+msgstr "Puntuación del estudiante"
+
+msgid "backtoTesthome"
+msgstr "Volver a la página principal del examen"
+
+msgid "MarkIsUpdated"
+msgstr "La nota ha sido actualizada"
+
+msgid "MarkInserted"
+msgstr "Nota insertada"
+
+msgid "PleaseGiveAMark"
+msgstr "Por favor, proporcione una nota"
+
+msgid "EditCommentsAndMarks"
+msgstr "Editar comentarios y notas"
+
+msgid "AddComments"
+msgstr "Añadir comentarios"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "UsersOnline"
+msgstr "Usuarios en línea"
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "Enter"
+msgstr "Ingresar"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Links"
+msgstr "Enlaces"
+
+msgid "Works"
+msgstr "Trabajos de Alumnos"
+
+msgid "Forums"
+msgstr "Foros"
+
+msgid "CreateDir"
+msgstr "Crear un directorio"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Visible"
+msgstr "Visible/Invisible"
+
+msgid "NewDir"
+msgstr "Nombre del directorio nuevo"
+
+msgid "DirCr"
+msgstr "Directorio creado"
+
+msgid "Download"
+msgstr "Descargar"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "GroupForum"
+msgstr "Foro"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "LoginName"
+msgstr "Usuario"
+
+msgid "Assignments"
+msgstr "Assignments"
+
+msgid "Forum"
+msgstr "Forum"
+
+msgid "DelImage"
+msgstr "Eliminar fotografía"
+
+msgid "Code"
+msgstr "Código del curso"
+
+msgid "Up"
+msgstr "Subir"
+
+msgid "Down"
+msgstr "abajo"
+
+msgid "TheListIsEmpty"
+msgstr "La lista está vacía"
+
+msgid "UniqueSelect"
+msgstr "Múltiple choice (respuesta única)"
+
+msgid "CourseCreate"
+msgstr "Crear el sitio web de un curso"
+
+msgid "Todo"
+msgstr "Sugerencias"
+
+msgid "UserName"
+msgstr "Nombre de usuario"
+
+msgid "CategoryMod"
+msgstr "Modificar categoría"
+
+msgid "Hide"
+msgstr "Ocultar"
+
+msgid "Dear"
+msgstr "Estimado(a)"
+
+msgid "Archive"
+msgstr "archivo"
+
+msgid "CourseCode"
+msgstr "Código del curso"
+
+msgid "NoDescription"
+msgstr "Sin descripción"
+
+msgid "OfficialCode"
+msgstr "Código oficial"
+
+msgid "FirstName"
+msgstr "Nombre"
+
+msgid "LastName"
+msgstr "Apellido"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "iso639_2_code"
+msgstr "es"
+
+msgid "iso639_1_code"
+msgstr "esp"
+
+msgid "charset"
+msgstr "iso-8859-1"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "verdana, helvetica, arial, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "helvetica, arial, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr "."
+
+msgid "number_decimal_separator"
+msgstr ","
+
+msgid "dateFormatShort"
+msgstr "%b %d, %y"
+
+msgid "dateFormatLong"
+msgstr "%A %B %d, %Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%B %d, %Y at %I:%M %p"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "No"
+
+msgid "Next"
+msgstr "siguiente"
+
+msgid "Allowed"
+msgstr "Permitido"
+
+msgid "BackHome"
+msgstr "Volver al inicio"
+
+msgid "Propositions"
+msgstr "Sugerencias para mejoras de"
+
+msgid "Maj"
+msgstr "Actualizar"
+
+msgid "Modify"
+msgstr "Modificar"
+
+msgid "Invisible"
+msgstr "Hacer invisible"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Move"
+msgstr "Mover"
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "Ok"
+msgstr "Aceptar"
+
+msgid "Add"
+msgstr "Agregar"
+
+msgid "AddIntro"
+msgstr "Agregar un texto introductorio"
+
+msgid "BackList"
+msgstr "Volver a la lista"
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "Empty"
+msgstr "Vacío"
+
+msgid "ConfirmYourChoice"
+msgstr "Por favor, confirme su elección"
+
+msgid "And"
+msgstr "y"
+
+msgid "Choice"
+msgstr "Su elección"
+
+msgid "Finish"
+msgstr "Terminar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "NotAllowed"
+msgstr "Ud. no está admitido aquí"
+
+msgid "NotLogged"
+msgstr "No ha entrado como usuario de un curso"
+
+msgid "Manager"
+msgstr "Administrador"
+
+msgid "Optional"
+msgstr "Opcional"
+
+msgid "NextPage"
+msgstr "Próxima página"
+
+msgid "PreviousPage"
+msgstr "Página anterior"
+
+msgid "Use"
+msgstr "Usa"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Take"
+msgstr "toma"
+
+msgid "One"
+msgstr "Uno"
+
+msgid "Several"
+msgstr "Algunos"
+
+msgid "Notice"
+msgstr "Aviso"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Among"
+msgstr "entre"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "MyCourses"
+msgstr "Lista de mis cursos"
+
+msgid "ModifyProfile"
+msgstr "Modificar mi perfil"
+
+msgid "MyStats"
+msgstr "Ver mis estadísticas"
+
+msgid "Logout"
+msgstr "Salir"
+
+msgid "MyAgenda"
+msgstr "Mi agenda"
+
+msgid "CourseHomepage"
+msgstr "Página inicial del curso"
+
+msgid "SwitchToTeacherView"
+msgstr "Vista del profesor"
+
+msgid "SwitchToStudentView"
+msgstr "Vista del alumno"
+
+msgid "AddResource"
+msgstr "Añadir este recurso"
+
+msgid "AddedResources"
+msgstr "Recursos añadidos"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['brazilian']"
+msgstr ""
+
+msgid "NameOfLang['bulgarian']"
+msgstr ""
+
+msgid "NameOfLang['catalan']"
+msgstr ""
+
+msgid "NameOfLang['croatian']"
+msgstr ""
+
+msgid "NameOfLang['danish']"
+msgstr ""
+
+msgid "NameOfLang['dutch']"
+msgstr ""
+
+msgid "NameOfLang['english']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['french']"
+msgstr ""
+
+msgid "NameOfLang['french_corporate']"
+msgstr ""
+
+msgid "NameOfLang['french_KM']"
+msgstr ""
+
+msgid "NameOfLang['galician']"
+msgstr ""
+
+msgid "NameOfLang['german']"
+msgstr ""
+
+msgid "NameOfLang['greek']"
+msgstr ""
+
+msgid "NameOfLang['italian']"
+msgstr ""
+
+msgid "NameOfLang['japanese']"
+msgstr ""
+
+msgid "NameOfLang['polish']"
+msgstr ""
+
+msgid "NameOfLang['portuguese']"
+msgstr ""
+
+msgid "NameOfLang['russian']"
+msgstr ""
+
+msgid "NameOfLang['simpl_chinese']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Close"
+msgstr "cerrar"
+
+msgid "Platform"
+msgstr "Plataforma"
+
+msgid "localLangName"
+msgstr "español"
+
+msgid "email"
+msgstr "Correo electrónico"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "El código del curso ya existe, Por favor seleccione otro."
+
+msgid "Statistics"
+msgstr "Estadística"
+
+msgid "GroupList"
+msgstr "lista de grupos"
+
+msgid "Previous"
+msgstr "anterior"
+
+msgid "Courses"
+msgstr "Cursos"
+
+msgid "In"
+msgstr "en"
+
+msgid "ShowAll"
+msgstr "Mostrar todos"
+
+msgid "Page"
+msgstr "Página"
+
+msgid "englishLangName"
+msgstr "spanish"
+
+msgid "Home"
+msgstr "inicio"
+
+msgid "AreYouSureToDelete"
+msgstr "Está usted seguro de borrar?"
+
+msgid "SelectAll"
+msgstr "seleccionar todos"
+
+msgid "UnSelectAll"
+msgstr "deseleccionar todos"
+
+msgid "WithSelected"
+msgstr "Con lo seleccionado"
+
+msgid "OnLine"
+msgstr "En línea"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "PlatformAdmin"
+msgstr "Administración"
+
+msgid "NameOfLang['hungarian']"
+msgstr ""
+
+msgid "NameOfLang['indonesian']"
+msgstr ""
+
+msgid "NameOfLang['malay']"
+msgstr ""
+
+msgid "NameOfLang['slovenian']"
+msgstr ""
+
+msgid "NameOfLang['spanish_latin']"
+msgstr ""
+
+msgid "NameOfLang['swedish']"
+msgstr ""
+
+msgid "NameOfLang['thai']"
+msgstr ""
+
+msgid "NameOfLang['turkce']"
+msgstr ""
+
+msgid "NameOfLang['vietnamese']"
+msgstr ""
+
+msgid "UserInfo"
+msgstr "información de usuario"
+
+msgid "ModifyQuestion"
+msgstr "Modificar una pregunta"
+
+msgid "CheckAll"
+msgstr "Marcar todo"
+
+msgid "NbAnnoucement"
+msgstr "Avisos"
+
+msgid "OtherCourses"
+msgstr "otros cursos"
+
+msgid "Doc"
+msgstr "documento"
+
+msgid "PlataformAdmin"
+msgstr "Administración de la plataforma"
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "GroupManagement"
+msgstr "Administración de grupo"
+
+msgid "All"
+msgstr "Todo"
+
+msgid "None"
+msgstr "Nada"
+
+msgid "Sorry"
+msgstr "Seleccione primero un curso"
+
+msgid "Denied"
+msgstr "Esta función sólo está disponible para los administradores del curso"
+
+msgid "Today"
+msgstr "hoy"
+
+msgid "CourseHomepageLink"
+msgstr "Curso actual"
+
+msgid "Attachment"
+msgstr "Adjunto"
+
+msgid "User"
+msgstr "Usuario"
+
+msgid "MondayInit"
+msgstr "L"
+
+msgid "TuesdayInit"
+msgstr "M"
+
+msgid "WednesdayInit"
+msgstr "M"
+
+msgid "ThursdayInit"
+msgstr "J"
+
+msgid "FridayInit"
+msgstr "V"
+
+msgid "SaturdayInit"
+msgstr "S"
+
+msgid "SundayInit"
+msgstr "D"
+
+msgid "MondayShort"
+msgstr "Lun"
+
+msgid "TuesdayShort"
+msgstr "Mar"
+
+msgid "WednesdayShort"
+msgstr "mie"
+
+msgid "ThursdayShort"
+msgstr "Jue"
+
+msgid "FridayShort"
+msgstr "Vie"
+
+msgid "SaturdayShort"
+msgstr "Sab"
+
+msgid "SundayShort"
+msgstr "Dom"
+
+msgid "MondayLong"
+msgstr "Lunes"
+
+msgid "TuesdayLong"
+msgstr "Martes"
+
+msgid "WednesdayLong"
+msgstr "Miércoles"
+
+msgid "ThursdayLong"
+msgstr "Jueves"
+
+msgid "FridayLong"
+msgstr "Viernes"
+
+msgid "SaturdayLong"
+msgstr "Sábado"
+
+msgid "SundayLong"
+msgstr "Domingo"
+
+msgid "JanuaryInit"
+msgstr "E"
+
+msgid "FebruaryInit"
+msgstr "F"
+
+msgid "MarchInit"
+msgstr "M"
+
+msgid "AprilInit"
+msgstr "A"
+
+msgid "MayInit"
+msgstr "M"
+
+msgid "JuneInit"
+msgstr "J"
+
+msgid "JulyInit"
+msgstr "J"
+
+msgid "AugustInit"
+msgstr "A"
+
+msgid "SeptemberInit"
+msgstr "S"
+
+msgid "OctoberInit"
+msgstr "O"
+
+msgid "NovemberInit"
+msgstr "N"
+
+msgid "DecemberInit"
+msgstr "D"
+
+msgid "JanuaryShort"
+msgstr "Ene"
+
+msgid "FebruaryShort"
+msgstr "Feb"
+
+msgid "MarchShort"
+msgstr "Mar"
+
+msgid "AprilShort"
+msgstr "Abr"
+
+msgid "MayShort"
+msgstr "May"
+
+msgid "JuneShort"
+msgstr "Jun"
+
+msgid "JulyShort"
+msgstr "Jul"
+
+msgid "AugustShort"
+msgstr "Ago"
+
+msgid "SeptemberShort"
+msgstr "Sep"
+
+msgid "OctoberShort"
+msgstr "Oct"
+
+msgid "NovemberShort"
+msgstr "Nov"
+
+msgid "DecemberShort"
+msgstr "Dic"
+
+msgid "JanuaryLong"
+msgstr "Enero"
+
+msgid "FebruaryLong"
+msgstr "Febrero"
+
+msgid "MarchLong"
+msgstr "Marzo"
+
+msgid "AprilLong"
+msgstr "Abril"
+
+msgid "MayLong"
+msgstr "Mayo"
+
+msgid "JuneLong"
+msgstr "Junio"
+
+msgid "JulyLong"
+msgstr "Julio"
+
+msgid "AugustLong"
+msgstr "Agosto"
+
+msgid "SeptemberLong"
+msgstr "Septiembre"
+
+msgid "OctoberLong"
+msgstr "Octubre"
+
+msgid "NovemberLong"
+msgstr "Noviembre"
+
+msgid "DecemberLong"
+msgstr "Diciembre"
+
+msgid "MyCompetences"
+msgstr "Mis competencias"
+
+msgid "MyDiplomas"
+msgstr "Mis títulos"
+
+msgid "MyPersonalOpenArea"
+msgstr "Mi área personal pública"
+
+msgid "MyTeach"
+msgstr "Qué puedo enseñar"
+
+msgid "Agenda"
+msgstr "Agenda"
+
+msgid "HourShort"
+msgstr "h"
+
+msgid "PleaseTryAgain"
+msgstr "¡ Por favor, inténtelo otra vez !"
+
+msgid "UplNoFileUploaded"
+msgstr "Ningún archivo ha sido enviado"
+
+msgid "UplSelectFileFirst"
+msgstr "Por favor, seleccione el archivo antes de presionar el botón enviar"
+
+msgid "UplNotAZip"
+msgstr "El archivo seleccionado no es un archivo zip"
+
+msgid "UplUploadSucceeded"
+msgstr "¡ El archivo ha sido enviado !"
+
+msgid "ExportAsCSV"
+msgstr "Exportar a un archivo CSV"
+
+msgid "ExportAsXLS"
+msgstr "Exportar a un archivo XLS"
+
+msgid "Openarea"
+msgstr "Area personal abierta"
+
+msgid "Done"
+msgstr "Hecho"
+
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "DocumentAdded"
+msgstr "Documento añadido"
+
+msgid "DocumentUpdated"
+msgstr "Documento actualizado"
+
+msgid "DocumentInFolderUpdated"
+msgstr "Documento actualizado en la carpeta"
+
+msgid "Course_description"
+msgstr "Descripción del curso"
+
+msgid "Document"
+msgstr "Documentos"
+
+msgid "Learnpath"
+msgstr "Itinerario formativo"
+
+msgid "Link"
+msgstr "Enlaces"
+
+msgid "Announcement"
+msgstr "Tablón de avisos"
+
+msgid "Dropbox"
+msgstr "Baúl de tareas"
+
+msgid "Quiz"
+msgstr "Tests"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "Conference"
+msgstr "Conferencia"
+
+msgid "Student_publication"
+msgstr "Publicaciones de los estudiantes"
+
+msgid "Tracking"
+msgstr "Seguimiento"
+
+msgid "homepage_link"
+msgstr "Añadir un enlace a esta página"
+
+msgid "Course_setting"
+msgstr "Configuración del curso"
+
+msgid "Backup"
+msgstr "Copia de seguridad del curso"
+
+msgid "copy_course_content"
+msgstr "Copiar el contenido de este curso"
+
+msgid "recycle_course"
+msgstr "Reciclar este curso"
+
+msgid "StartDate"
+msgstr "Fecha de inicio"
+
+msgid "EndDate"
+msgstr "Fecha de finalización"
+
+msgid "StartTime"
+msgstr "Hora de inicio"
+
+msgid "EndTime"
+msgstr "Hora de finalización"
+
+msgid "YouWereCalled"
+msgstr "Le llaman para chatear con"
+
+msgid "DoYouAccept"
+msgstr "¿acepta?"
+
+msgid "Everybody"
+msgstr "Todos"
+
+msgid "SentTo"
+msgstr "Enviar a"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Tools"
+msgstr "Herramientas"
+
+msgid "Everyone"
+msgstr "Cada uno"
+
+msgid "SelectGroupsUsers"
+msgstr "Seleccionar grupos/usuarios"
+
+msgid "Student"
+msgstr "Estudiante"
+
+msgid "Teacher"
+msgstr "Profesor"
+
+msgid "Send2All"
+msgstr "No seleccionó un usuario / grupo. Este item es visible para todos los usuarios."
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Complete"
+msgstr "Completado"
+
+msgid "Incomplete"
+msgstr "Incompleto"
+
+msgid "reservation"
+msgstr "reservación"
+
+msgid "StartTimeWindow"
+msgstr "Inicio"
+
+msgid "EndTimeWindow"
+msgstr "Fin"
+
+msgid "AccessNotAllowed"
+msgstr "No esta permitido el acceso a esta página"
+
+msgid "InThisCourse"
+msgstr "En este curso"
+
+msgid "ThisFieldIsRequired"
+msgstr "campo requerido"
+
+msgid "AllowedHTMLTags"
+msgstr "Etiquetas HTML permitidas"
+
+msgid "FormHasErrorsPleaseComplete"
+msgstr "Este formulario contiene datos incorrectos o incompletos. Por favor, revise lo que ha escrito."
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "La primera fecha debe estar antes que la fecha de finalización"
+
+msgid "InvalidDate"
+msgstr "Fecha inválida"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "Solamente se permiten letras y números"
+
+msgid "BasicOverview"
+msgstr "Vista básica"
+
+msgid "CourseAdminRole"
+msgstr "Administrador del curso"
+
+msgid "UserRole"
+msgstr "Rol"
+
+msgid "OnlyImagesAllowed"
+msgstr "Sólo están permitidas imágenes PNG, JPG y GIF"
+
+msgid "ViewRight"
+msgstr "Ver"
+
+msgid "EditRight"
+msgstr "Editar"
+
+msgid "DeleteRight"
+msgstr "Borrar"
+
+msgid "OverviewCourseRights"
+msgstr " Descripción de roles y permisos"
+
+msgid "SeeAllRightsAllLocationsForSpecificRole"
+msgstr "Rol"
+
+msgid "SeeAllRolesAllLocationsForSpecificRight"
+msgstr "Permiso"
+
+msgid "Advanced"
+msgstr "Avanzado"
+
+msgid "RightValueModified"
+msgstr "El valor ha sido modificado."
+
+msgid "course_rights"
+msgstr "Vista de roles y permisos"
+
+msgid "Visio_conference"
+msgstr "Videoconferencia"
+
+msgid "CourseAdminRoleDescription"
+msgstr "Administrador del curso"
+
+msgid "MoveTo"
+msgstr "Mover a"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "MoveFileTo"
+msgstr "Mover archivo a"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Anonymous"
+msgstr "Anónimo"
+
+msgid "h"
+msgstr "h"
+
+msgid "CreateNewGlobalRole"
+msgstr "Crear un nuevo rol global"
+
+msgid "CreateNewLocalRole"
+msgstr "Crear un nuevo rol local"
+
+msgid "Actions"
+msgstr "Acción"
+
+msgid "Inbox"
+msgstr "Bandeja de Entrada"
+
+msgid "ComposeMessage"
+msgstr "Redactar mensaje"
+
+msgid "Other"
+msgstr "Otro"
+
+msgid "AddRight"
+msgstr "Añadir"
+
+msgid "CampusHomepage"
+msgstr "Página principal del Campus"
+
+msgid "YouHaveNewMessage"
+msgstr "Tiene un nuevo mensaje"
+
+msgid "myActiveSessions"
+msgstr "Mis sesiones activas"
+
+msgid "myInactiveSessions"
+msgstr "Mis sesiones inactivas"
+
+msgid "FileUpload"
+msgstr "Archivo enviado"
+
+msgid "MyActiveSessions"
+msgstr "Mis sesiones activas"
+
+msgid "MyInActiveSessions"
+msgstr "Mis sesiones inactivas"
+
+msgid "MySpace"
+msgstr "Mi espacio"
+
+msgid "ExtensionActivedButNotYetOperational"
+msgstr "Esta extensión ha sido activada pero, por ahora, no puede estar operativa."
+
+msgid "MyStudents"
+msgstr "Mis estudiantes"
+
+msgid "Progress"
+msgstr "Progreso"
+
+msgid "Or"
+msgstr "o"
+
+msgid "Uploading"
+msgstr "Enviando..."
+
+msgid "AccountExpired"
+msgstr "Cuenta caducada"
+
+msgid "AccountInactive"
+msgstr "Cuenta no activa"
+
+msgid "ActionNotAllowed"
+msgstr "Acción no permitida"
+
+msgid "SubTitle"
+msgstr "Subtítulo"
+
+msgid "NoResourcesToRecycle"
+msgstr "No hay recursos para reciclar"
+
+msgid "noOpen"
+msgstr "No puede abrirse"
+
+msgid "TempsFrequentation"
+msgstr "Tiempo de frecuenciación"
+
+msgid "Progression"
+msgstr "Progreso"
+
+msgid "NoCourse"
+msgstr "El curso no puede ser encontrado"
+
+msgid "Teachers"
+msgstr "Profesores"
+
+msgid "Session"
+msgstr "Sesión"
+
+msgid "Sessions"
+msgstr "Sesiones"
+
+msgid "NoSession"
+msgstr "La sesión no puede ser encontrada"
+
+msgid "NoStudent"
+msgstr "El estudiante no puede ser encontrado"
+
+msgid "Students"
+msgstr "Estudiantes"
+
+msgid "NoResults"
+msgstr "No se encuentran resultados"
+
+msgid "Tutors"
+msgstr "Tutores"
+
+msgid "Tel"
+msgstr "Teléfono"
+
+msgid "NoTel"
+msgstr "Sin teléfono"
+
+msgid "SendMail"
+msgstr "Enviar correo"
+
+msgid "RdvAgenda"
+msgstr "Cita de la agenda"
+
+msgid "VideoConf"
+msgstr "Videoconferencia"
+
+msgid "MyProgress"
+msgstr "Mi progreso"
+
+msgid "NoOnlineStudents"
+msgstr "No hay estudiantes en línea"
+
+msgid "InCourse"
+msgstr "en curso"
+
+msgid "UserOnlineListSession"
+msgstr "Lista de usuarios en línea - Sesión"
+
+msgid "From"
+msgstr "de"
+
+msgid "To"
+msgstr "para"
+
+msgid "CourseProgram"
+msgstr "Descripción del Curso"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "Actualmente, este curso no tiene una descripción"
+
+msgid "QuestionPlan"
+msgstr "Pregunta al profesor"
+
+msgid "NewBloc"
+msgstr "Otro"
+
+msgid "InvalidId"
+msgstr "Acceso no válido.<br />Si usted no está registrado complete el <a href='claroline/auth/inscription.php'>formulario de inscripción</a></font color>"
+
+msgid "Pass"
+msgstr "Contraseña"
+
+msgid "Advises"
+msgstr "Consejos"
+
+msgid "CourseDoesntExist"
+msgstr "<b>Alerta :</b> Este curso no existe"
+
+msgid "GetCourseFromOldPortal"
+msgstr "haga clic aquí para obtener este curso de su antiguo portal"
+
+msgid "SupportForum"
+msgstr "Foro de soporte"
+
+msgid "BackToHomePage"
+msgstr "Volver a la página de inicio"
+
+msgid "LostPassword"
+msgstr "¿Olvidó su contraseña?"
+
+msgid "Valvas"
+msgstr "Últimos anuncios"
+
+msgid "Helptwo"
+msgstr "Ayuda"
+
+msgid "EussMenu"
+msgstr "menú"
+
+msgid "Opinio"
+msgstr "Opinión"
+
+msgid "Intranet"
+msgstr "Intranet"
+
+msgid "Englin"
+msgstr "Inglés"
+
+msgid "InvalidForSelfRegistration"
+msgstr "Acceso negado - si no está registrado utilice el <a href=claroline/auth/inscription.php>formulario de inscripción</a>"
+
+msgid "MenuGeneral"
+msgstr "General"
+
+msgid "MenuUser"
+msgstr "Usuario"
+
+msgid "MenuAdmin"
+msgstr "Administrar Plataforma"
+
+msgid "UsersOnLineList"
+msgstr "Lista de usuarios en línea"
+
+msgid "TotalOnLine"
+msgstr "Total usuarios en línea"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "SystemAnnouncements"
+msgstr "Anuncios del Sistema"
+
+msgid "HelpMaj"
+msgstr "Ayuda"
+
+msgid "NotRegistered"
+msgstr "No registrado"
+
+msgid "Login"
+msgstr "Acceso"
+
+msgid "RegisterForCourse"
+msgstr "Matricularse en un curso"
+
+msgid "UnregisterForCourse"
+msgstr "Desuscribirse del curso"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "TotalOnLine"
+msgstr "Total usuarios en línea"
+
+msgid "CourseClosed"
+msgstr "El curso está actualmente cerrado"
+
+msgid "Teach"
+msgstr "Qué puede enseñarse"
+
+msgid "Productions"
+msgstr "Producciones"
+
+msgid "SendChatRequest"
+msgstr "Enviar una solicitud de chat a esta persona"
+
+msgid "RequestDenied"
+msgstr "La llamada ha sido denegada"
+
+msgid "UsageDatacreated"
+msgstr "Datos de uso creados"
+
+msgid "SessionView"
+msgstr "Mostrar los cursos ordenados por sesiones"
+
+msgid "CourseView"
+msgstr "Mostrar toda la lista de cursos"
+
+msgid "ShouldBeCSVFormat"
+msgstr "El archivo debe estar formato CSV. No añada espacios. La estructura debe ser exactamente :"
+
+msgid "Enter2passToChange"
+msgstr "Para cambiar la contraseña, introduzca la nueva contraseña en estos dos campos. Si desea mantener la actual, deje vacíos ambos."
+
+msgid "AuthInfo"
+msgstr "Autentificación"
+
+msgid "ImageWrong"
+msgstr "El archivo debe tener un tamaño menor de"
+
+msgid "password_request"
+msgstr "Ha solicitado restablecer su contraseña. Si no lo ha solicitado, simplemente ignore este mensaje.Para generar una nueva contraseña haga click sobre el link \"restablecer\"."
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "Su contraseña le ha sido enviada a través de e-mail."
+
+msgid "EnterEmailAndWeWillSendYouYourPassword"
+msgstr "Introduzca la dirección e-mail que usted usó para registrarse y nosotros le enviaremos su contraseña."
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Preserved"
+msgstr "Preservado"
+
+msgid "ConfirmUnsubscribe"
+msgstr "Confirme que borra a un usuario"
+
+msgid "See"
+msgstr "Ir A"
+
+msgid "LastVisits"
+msgstr "Mi última visita"
+
+msgid "IfYouWantToAddManyUsers"
+msgstr "Si desea agregar una lista de usuarios en su curso, por favor contacte con su administrador del sitio web."
+
+msgid "PassTooEasy"
+msgstr "esa contraseña es demasiado simple. Use una contraseña como ésta"
+
+msgid "AddedToCourse"
+msgstr "está registrado en el campus, pero no en este curso. Ahora lo está."
+
+msgid "UserAlreadyRegistered"
+msgstr "Un usuario con el mismo nombre/apellido ha sido inscripto en este curso. No puede registrarlo dos veces."
+
+msgid "BackUser"
+msgstr "Volver a la lista de usuarios"
+
+msgid "UserOneByOneExplanation"
+msgstr "El(ella) recibirá un e-mail de confirmación con su nombre de usuario y contaseña"
+
+msgid "GiveTutor"
+msgstr "Hacer tutor"
+
+msgid "RemoveRight"
+msgstr "Quitar este derecho"
+
+msgid "GiveAdmin"
+msgstr "Hacer administrador"
+
+msgid "UserNumber"
+msgstr "número"
+
+msgid "DownloadUserList"
+msgstr "Actualizar lista"
+
+msgid "UserAddExplanation"
+msgstr "cada línea del archivo a enviar tendrá que incluír necesariamente 5 campos: <b>Nombre   Apellido   Usuario   Contraseña   Email</b> separados por tabuladores y en ese orden. Los usuarios recibirán un e-mail de conformación con su nombre de usuario/contras"
+
+msgid "UserMany"
+msgstr "Importar una lista de usuarios desde un archivo de texto"
+
+msgid "OneByOne"
+msgstr "Agregar usuarios manualmente"
+
+msgid "AddHereSomeCourses"
+msgstr "<font size=2 face='Arial, Helvetica'><big>Modificar la lista de cursos</big><br /><br />Marque los cursos que desea seguir.<br />Deseleccione aquellos que no desea seguir más.<br /> Luego haga clic en 'Aceptar' al final de la lista"
+
+msgid "ImportUserList"
+msgstr "Importar lista de usuarios"
+
+msgid "AddAU"
+msgstr "Agregar un usuario"
+
+msgid "AddedU"
+msgstr "ha sido agregado. Si ya escribió su direccción de e-mail, se le enviará un mensaje para comunicarle su nombre de usuario"
+
+msgid "TheU"
+msgstr "El usuario"
+
+msgid "RegYou"
+msgstr "lo ha inscripto en este curso"
+
+msgid "OneResp"
+msgstr "Uno de los administradores del curso"
+
+msgid "UserPicture"
+msgstr "Foto"
+
+msgid "ProfileReg"
+msgstr "Su nuevo perfil de usuario ha sido registrado"
+
+msgid "EmailWrong"
+msgstr "La dirección de correo electrónico que ha escrito está incompleta o contiene caracteres inválidos"
+
+msgid "UserTaken"
+msgstr "El nombre de usuario que ha elegido ya existe"
+
+msgid "Fields"
+msgstr "Ha dejado algunos campos sin completar"
+
+msgid "Again"
+msgstr "Intente de nuevo!"
+
+msgid "PassTwo"
+msgstr "Usted ha escrito dos contraseñas diferentes"
+
+msgid "ViewProfile"
+msgstr "Ver mi perfil (no se puede modificar)"
+
+msgid "ModifProfile"
+msgstr "Modificar mi perfil"
+
+msgid "IsReg"
+msgstr "Sus modificaciones han sido registradas"
+
+msgid "NowGoCreateYourCourse"
+msgstr "Ahora Ud. puede crear su curso"
+
+msgid "NowGoChooseYourCourses"
+msgstr "Ahora Ud. puede seleccionar, en la lista, los cursos a los cuales desea acceder."
+
+msgid "MailHasBeenSent"
+msgstr "Un email le ha sido enviado para ayudarle a recordar su nombre de usuario y su contraseña."
+
+msgid "PersonalSettings"
+msgstr "Sus datos personales han sido registrados y ha sido enviado un correo electrónico a su casilla para recordarle su nombre de usuario y su contraseña.</p> Ahora seleccione de la lista los cursos a los que desea tener  acceso."
+
+msgid "Problem"
+msgstr "En caso de tener algún problema, no dude en contactarnos."
+
+msgid "Is"
+msgstr "es"
+
+msgid "Address"
+msgstr "La dirección de"
+
+msgid "YourReg"
+msgstr "Su inscripción en"
+
+msgid "UserFree"
+msgstr "El nombre de usuario que eligió ya existe. Use el botón 'Atrás'  del navegador y elija uno diferente."
+
+msgid "EmptyFields"
+msgstr "Ha dejado algunos campos en blanco. Use el botón 'Atrás' del navegador y vuelva a intentarlo."
+
+msgid "PassTwice"
+msgstr "Ha escrito dos contraseñas diferentes. Use el botón  'Atrás'  del navegador y vuelva a intentarlo."
+
+msgid "RegAdmin"
+msgstr "Crear sitios web de cursos (Profesor)"
+
+msgid "RegStudent"
+msgstr "Inscribirme en cursos (estudiante)"
+
+msgid "Confirmation"
+msgstr "Confirmación"
+
+msgid "Surname"
+msgstr "Nombre"
+
+msgid "Registration"
+msgstr "Inscripción"
+
+msgid "YourAccountParam"
+msgstr "Estos son su Usuario y Contraseña de su cuenta"
+
+msgid "LoginRequest"
+msgstr "Información de ingreso"
+
+msgid "AdminOfCourse"
+msgstr "Administrador del curso"
+
+msgid "SimpleUserOfCourse"
+msgstr "Usuario del curso"
+
+msgid "IsTutor"
+msgstr "Tutor"
+
+msgid "ParamInTheCourse"
+msgstr "Estatus en el curso"
+
+msgid "HaveNoCourse"
+msgstr "sin curso"
+
+msgid "UserProfileReg"
+msgstr "Ha sido registrado el e-portafolio del usuario"
+
+msgid "Courses4User"
+msgstr "Cursos de este usuario"
+
+msgid "CoursesByUser"
+msgstr "Cursos por usuarios"
+
+msgid "SubscribeUserToCourse"
+msgstr "Inscribir usuarios en este curso"
+
+msgid "Preced100"
+msgstr "100 anteriores"
+
+msgid "Addmore"
+msgstr "Añadir usuarios registrados"
+
+msgid "Addback"
+msgstr "Ir a la Lista de Usuarios"
+
+msgid "reg"
+msgstr "Inscribir"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "YourPasswordHasBeenReset"
+msgstr "Su contraseña ha sido restablecida"
+
+msgid "Sex"
+msgstr "Sexo"
+
+msgid "OptionalTextFields"
+msgstr "Campos opcionales"
+
+msgid "FullUserName"
+msgstr "Nombre completo"
+
+msgid "SearchForUser"
+msgstr "Buscar por usuario"
+
+msgid "SearchButton"
+msgstr "Buscar"
+
+msgid "SearchNoResultsFound"
+msgstr "No se han encontrado resultados en la búsqueda"
+
+msgid "UsernameWrong"
+msgstr "Su nombre de usuario debe contener únicamente letras, números y _.-"
+
+msgid "PasswordRequestFrom"
+msgstr "Esta es una solicitud de contraseña para la dirección de correo electrónico"
+
+msgid "CorrespondsToAccount"
+msgstr "Esta dirección de correo electrónico corresponde a la siguiente cuenta de usuario."
+
+msgid "CorrespondsToAccounts"
+msgstr "Esta dirección de correo electrónico corresponde a las siguientes cuentas de usuario."
+
+msgid "AccountExternalAuthSource"
+msgstr "Chamilo no puede gestionar la petición automáticamente porque la cuenta tiene una fuente de autorización externa. Por favor, tome las medidas apropiadas y notifiquelas al usuario."
+
+msgid "AccountsExternalAuthSource"
+msgstr "Chamilo no puede gestionar automáticamente la petición porque al menos una de las cuentas tiene una fuente de autentificación externa. Por favor, tome las medidas apropiadas en todas las cuentas (incluyendo las que tienen autorización de la plataforma) y"
+
+msgid "RequestSentToPlatformAdmin"
+msgstr "Chamilo no puede gestionar automáticamente la petición para este tipo de cuenta. Su petición se ha enviado al administrador de la plataforma, que tomará las medidas apropiadas y le notificará del resultado."
+
+msgid "InLnk"
+msgstr "Enlaces desactivados"
+
+msgid "DelLk"
+msgstr "¿Está seguro de que quiere borrar este enlace?"
+
+msgid "NameOfTheLink"
+msgstr "Nombre del enlace"
+
+msgid "CourseAdminOnly"
+msgstr "Solo profesores"
+
+msgid "PlatformAdminOnly"
+msgstr "Solo administradores"
+
+msgid "CombinedCourse"
+msgstr "Curso combinado"
+
+msgid "ToolIsNowVisible"
+msgstr "La herramienta es ahora visible"
+
+msgid "ToolIsNowHidden"
+msgstr "La herramienta es ahora invisible"
+
+msgid "GreyIcons"
+msgstr "Caja de herramientas"
+
+msgid "Interaction"
+msgstr "Interacción"
+
+msgid "Authoring"
+msgstr "Creación de contenidos"
+
+msgid "ToolName"
+msgstr "Estadísticas"
+
+msgid "TrackingDisabled"
+msgstr "El seguimiento ha sido desactivado por el administrador."
+
+msgid "CourseStats"
+msgstr "Estadisticas del curso"
+
+msgid "ToolsAccess"
+msgstr "Acceso a las herramientas"
+
+msgid "LinksAccess"
+msgstr "Enlaces"
+
+msgid "DocumentsAccess"
+msgstr "Documentos"
+
+msgid "ScormAccess"
+msgstr "Itinerario formativo - Cursos con formato Scorm"
+
+msgid "LinksDetails"
+msgstr "Enlaces accedidos por el estudiante"
+
+msgid "WorksDetails"
+msgstr "Trabajos enviados por el estudiante en nombre de 'Autores'"
+
+msgid "LoginsDetails"
+msgstr "Haga clic en el nombre del mes para ver más detalles"
+
+msgid "DocumentsDetails"
+msgstr "Documentos descargados por el estudiante"
+
+msgid "ExercicesDetails"
+msgstr "Puntajes de los ejercicios realizados"
+
+msgid "BackToList"
+msgstr "Volver a la lista de usuarios"
+
+msgid "StatsOfCourse"
+msgstr "Estadísticas del curso"
+
+msgid "StatsOfUser"
+msgstr "Estadísticas del usuario"
+
+msgid "StatsOfCampus"
+msgstr "Estadísticas del campus"
+
+msgid "CountUsers"
+msgstr "Número de usuarios"
+
+msgid "CountToolAccess"
+msgstr "Cantidad total de conexiones a este curso"
+
+msgid "LoginsTitleMonthColumn"
+msgstr "Mes"
+
+msgid "LoginsTitleCountColumn"
+msgstr "Cantidad de registraciones"
+
+msgid "ToolTitleToolnameColumn"
+msgstr "Nombre de la herramienta"
+
+msgid "ToolTitleUsersColumn"
+msgstr "Clicks de los usuarios"
+
+msgid "ToolTitleCountColumn"
+msgstr "Total de Clicks"
+
+msgid "LinksTitleLinkColumn"
+msgstr "Enlace"
+
+msgid "LinksTitleUsersColumn"
+msgstr "Clicks de los usuarios"
+
+msgid "LinksTitleCountColumn"
+msgstr "Total de Clicks"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "Ejercicio"
+
+msgid "ExercicesTitleScoreColumn"
+msgstr "Puntaje"
+
+msgid "DocumentsTitleDocumentColumn"
+msgstr "Documento"
+
+msgid "DocumentsTitleUsersColumn"
+msgstr "Descargas de usuarios"
+
+msgid "DocumentsTitleCountColumn"
+msgstr "Total de Descargas"
+
+msgid "ScormContentColumn"
+msgstr "Título"
+
+msgid "ScormStudentColumn"
+msgstr "Usuarios"
+
+msgid "ScormTitleColumn"
+msgstr "Unidad"
+
+msgid "ScormStatusColumn"
+msgstr "Estado"
+
+msgid "ScormScoreColumn"
+msgstr "Puntaje"
+
+msgid "ScormTimeColumn"
+msgstr "Tiempo"
+
+msgid "ScormNeverOpened"
+msgstr "Este alumno no ha accedido nunca a este curso."
+
+msgid "WorkTitle"
+msgstr "Titulo"
+
+msgid "WorkAuthors"
+msgstr "Autores"
+
+msgid "WorkDescription"
+msgstr "Descripción"
+
+msgid "informationsAbout"
+msgstr "Seguimiento de"
+
+msgid "NoEmail"
+msgstr "No especificó una dirección de email"
+
+msgid "NoResult"
+msgstr "Sin resultados"
+
+msgid "Hits"
+msgstr "Accesos"
+
+msgid "LittleHour"
+msgstr "h."
+
+msgid "Last31days"
+msgstr "En los últimos 31 días"
+
+msgid "Last7days"
+msgstr "En los últimos 7 días"
+
+msgid "ThisDay"
+msgstr "Hoy"
+
+msgid "Logins"
+msgstr "Logins"
+
+msgid "LoginsExplaination"
+msgstr "Esta es la lista de sus últimos accesos con las herramientas que ha visitado durante esas sesiones."
+
+msgid "ExercicesResults"
+msgstr "Resultados de los ejercicios realizados"
+
+msgid "At"
+msgstr "en"
+
+msgid "LoginTitleDateColumn"
+msgstr "Fecha"
+
+msgid "LoginTitleCountColumn"
+msgstr "Visitas"
+
+msgid "LoginsAndAccessTools"
+msgstr "Conexiones y accesos a las herramientas"
+
+msgid "WorkUploads"
+msgstr "Trabajos enviados"
+
+msgid "ErrorUserNotInGroup"
+msgstr "Usuario inválido: ese usuario no existe en su grupo"
+
+msgid "ListStudents"
+msgstr "Lista de estudiantes en este grupo"
+
+msgid "PeriodHour"
+msgstr "Hora"
+
+msgid "PeriodDay"
+msgstr "Día"
+
+msgid "PeriodWeek"
+msgstr "Semana"
+
+msgid "PeriodMonth"
+msgstr "Mes"
+
+msgid "PeriodYear"
+msgstr "Año"
+
+msgid "NextDay"
+msgstr "Día siguente"
+
+msgid "PreviousDay"
+msgstr "Día anterior"
+
+msgid "NextWeek"
+msgstr "Semana siguente"
+
+msgid "PreviousWeek"
+msgstr "Semana anterior"
+
+msgid "NextMonth"
+msgstr "Mes siguente"
+
+msgid "PreviousMonth"
+msgstr "Mes anterior"
+
+msgid "NextYear"
+msgstr "Año siguente"
+
+msgid "PreviousYear"
+msgstr "Año anterior"
+
+msgid "ViewToolList"
+msgstr "Ver la lista de todas las herramientas"
+
+msgid "ToolList"
+msgstr "Lista de todas las herramientas"
+
+msgid "PeriodToDisplay"
+msgstr "Período"
+
+msgid "DetailView"
+msgstr "Visto por"
+
+msgid "BredCrumpGroups"
+msgstr "Grupos"
+
+msgid "BredCrumpGroupSpace"
+msgstr "Area de Grupos"
+
+msgid "BredCrumpUsers"
+msgstr "Usuarios"
+
+msgid "AdminToolName"
+msgstr "Estadísticas del Administrador"
+
+msgid "PlatformStats"
+msgstr "Estadísticas de la Plataforma"
+
+msgid "StatsDatabase"
+msgstr "Estadísticas de la Base de Datos"
+
+msgid "PlatformAccess"
+msgstr "Acceso al campus"
+
+msgid "PlatformCoursesAccess"
+msgstr "Acceso a los cursos"
+
+msgid "PlatformToolAccess"
+msgstr "Acceso a las herramientas"
+
+msgid "HardAndSoftUsed"
+msgstr "Países Proveedores Navegadores S.O. Referenciadores"
+
+msgid "StrangeCases"
+msgstr "Casos Peculiares"
+
+msgid "StatsDatabaseLink"
+msgstr "Presione aquí"
+
+msgid "CountCours"
+msgstr "Número de cursos"
+
+msgid "CountCourseByFaculte"
+msgstr "Número de cursos por categoría"
+
+msgid "CountCourseByLanguage"
+msgstr "Número de cursos por lenguaje"
+
+msgid "CountCourseByVisibility"
+msgstr "Number of courses by visibility"
+
+msgid "CountUsersByCourse"
+msgstr "Número de usuarios por curso"
+
+msgid "CountUsersByFaculte"
+msgstr "Número de cursos por facultad"
+
+msgid "CountUsersByStatus"
+msgstr "Número de usuarios por estatus"
+
+msgid "Access"
+msgstr "Acceso"
+
+msgid "Countries"
+msgstr "Países"
+
+msgid "Providers"
+msgstr "Proveedores"
+
+msgid "OS"
+msgstr "OS"
+
+msgid "Browsers"
+msgstr "Navegadores"
+
+msgid "Referers"
+msgstr "Referenciador"
+
+msgid "AccessExplain"
+msgstr "(Cuando un usuario abre el índice del campus)"
+
+msgid "TotalPlatformAccess"
+msgstr "Total"
+
+msgid "TotalPlatformLogin"
+msgstr "Total"
+
+msgid "MultipleLogins"
+msgstr "Cuentas con el mismo <i>Nombre de Usuario</i>"
+
+msgid "MultipleUsernameAndPassword"
+msgstr "Cuentas con el mismo <i>Nombre de Usuario</i> y misma <i>Clave</i>"
+
+msgid "MultipleEmails"
+msgstr "Cuentas con el mismo <i>Email</i>"
+
+msgid "CourseWithoutProf"
+msgstr "Cursos sin profesor"
+
+msgid "CourseWithoutAccess"
+msgstr "Cursos no usados"
+
+msgid "LoginWithoutAccess"
+msgstr "Logins no usados"
+
+msgid "AllRight"
+msgstr "Aquí no hay ningún caso extraño"
+
+msgid "Defcon"
+msgstr "Vaya, se han detectado casos extraños !!"
+
+msgid "NULLValue"
+msgstr "Vacio (o NULO)"
+
+msgid "TrafficDetails"
+msgstr "Detalles de Tráfico"
+
+msgid "SeeIndividualTracking"
+msgstr "Para hacer un seguimiento individualizado ver herramienta de<a href=../user/user.php>usuarios</a>."
+
+msgid "PathNeverOpenedByAnybody"
+msgstr "Nadie ha accedido anteriormente a este itinerario."
+
+msgid "SynthesisView"
+msgstr "Vista sintética"
+
+msgid "Visited"
+msgstr "Visitado"
+
+msgid "FirstAccess"
+msgstr "Primer acceso"
+
+msgid "LastAccess"
+msgstr "Último acceso"
+
+msgid "Probationers"
+msgstr "Usuarios"
+
+msgid "MoyenneTest"
+msgstr "Promedio del test"
+
+msgid "MoyCourse"
+msgstr "Promedio del curso"
+
+msgid "MoyenneExamen"
+msgstr "Promedio del examen"
+
+msgid "MoySession"
+msgstr "Promedio de sesión"
+
+msgid "TakenSessions"
+msgstr "Sesiones tomadas"
+
+msgid "FollowUp"
+msgstr "Seguimiento"
+
+msgid "Trainers"
+msgstr "Profesores"
+
+msgid "Administrators"
+msgstr "Administradores"
+
+msgid "Tracks"
+msgstr "Seguimiento"
+
+msgid "Success"
+msgstr "Calificación"
+
+msgid "ExcelFormat"
+msgstr "Formato Excel"
+
+msgid "MdCallingTool"
+msgstr "Itinerario de Aprendizaje - SCORM"
+
+msgid "NotInDB"
+msgstr "no hay entrada en la Base de Datos (BD) de Chamilo"
+
+msgid "ManifestSyntax"
+msgstr "(error de sintáxis en el archivo Manifest...)"
+
+msgid "EmptyManifest"
+msgstr "(el archivo Manifest está vacío...)"
+
+msgid "NoManifest"
+msgstr "(no existe el archivo Manifest...)"
+
+msgid "NotFolder"
+msgstr "no es posible, esto no es una carpeta ..."
+
+msgid "UploadHtt"
+msgstr "Enviar un archivo HTT"
+
+msgid "HttFileNotFound"
+msgstr "El nuevo archivo HTT no puede ser abierto (ej., vacío, demasiado grande)"
+
+msgid "HttOk"
+msgstr "El nuevo archivo HTT ha sido enviado al servidor"
+
+msgid "HttNotOk"
+msgstr "El envío del archivo HTT al servidor, no ha sido posible"
+
+msgid "RemoveHtt"
+msgstr "Borrar el archivo HTT"
+
+msgid "HttRmvOk"
+msgstr "El archivo HTT ha sido borrado"
+
+msgid "HttRmvNotOk"
+msgstr "No ha sido posible borrar el archivo HTT"
+
+msgid "AllRemovedFor"
+msgstr "Todas las entradas han sido suprimidas para"
+
+msgid "Index"
+msgstr "Indexar palabras con PhpDig"
+
+msgid "MainMD"
+msgstr "Abrir la página principal de Entradas de Meta Datos (MDE)"
+
+msgid "Lines"
+msgstr "líneas"
+
+msgid "Play"
+msgstr "Ejecutar index.php"
+
+msgid "NonePossible"
+msgstr "Imposible realizar operaciones sobre los Meta Datos (MD)"
+
+msgid "OrElse"
+msgstr "Seleccione un Directorio SCORM o su identificador"
+
+msgid "WorkWith"
+msgstr "Trabaje con un directorio SCORM"
+
+msgid "SDI"
+msgstr "... Directorio SCORM con SD-id (dividir el Manifest o dejarlo vacío)"
+
+msgid "Root"
+msgstr "raíz"
+
+msgid "SplitData"
+msgstr "Dividir el Manifest, y #MDe, si cualquiera:"
+
+msgid "MffNotOk"
+msgstr "No ha sido posible el reemplazo del archivo Manifest"
+
+msgid "MffOk"
+msgstr "El archivo Manifest ha sido reemplazado"
+
+msgid "MffFileNotFound"
+msgstr "El nuevo archivo Manifest no puede ser abierto (ej., vacío, demasiado grande)"
+
+msgid "UploadMff"
+msgstr "Reemplazar el archivo manifiesto"
+
+msgid "GroupSpaceLink"
+msgstr "Area del Grupo"
+
+msgid "CreationSucces"
+msgstr "Se ha creado la tabla de contenidos"
+
+msgid "CanViewOrganisation"
+msgstr "Ya puede ver la organización de sus contenidos"
+
+msgid "ViewDocument"
+msgstr "Ver"
+
+msgid "HtmlTitle"
+msgstr "Tabla de contenidos"
+
+msgid "AddToTOC"
+msgstr "Añadir a los contenidos"
+
+msgid "AddChapter"
+msgstr "Añadir capítulo"
+
+msgid "Ready"
+msgstr "Generar tabla de contenidos"
+
+msgid "StoreDocuments"
+msgstr "Almacenar documentos"
+
+msgid "TocDown"
+msgstr "Abajo"
+
+msgid "TocUp"
+msgstr "Arriba"
+
+msgid "CutPasteLink"
+msgstr "Sin marcos"
+
+msgid "CreatePath"
+msgstr "Crear un itinerario"
+
+msgid "OogieConversionPowerPoint"
+msgstr "Oogie: conversión PowerPoint"
+
+msgid "WelcomeOogieSubtitle"
+msgstr "Un conversor de PowerPoint a Itinerarios de aprendizaje"
+
+msgid "GoMetadata"
+msgstr "Ir"
+
+msgid "QuotaForThisCourseIs"
+msgstr "El tamaño de este curso en el servidor es de"
+
+msgid "Del"
+msgstr "Borrar"
+
+msgid "ShowCourseQuotaUse"
+msgstr "Mostrar tamaño del curso en el servidor"
+
+msgid "CourseCurrentlyUses"
+msgstr "Este curso actualmente utiliza"
+
+msgid "MaximumAllowedQuota"
+msgstr "Su límite de espacio de almacenamiento es"
+
+msgid "PercentageQuotaInUse"
+msgstr "Porcentaje de espacio en uso"
+
+msgid "PercentageQuotaFree"
+msgstr "Porcentaje de espacio libre"
+
+msgid "CurrentDirectory"
+msgstr "Directorio actual"
+
+msgid "UplUploadDocument"
+msgstr "Enviar un documento"
+
+msgid "UplPartialUpload"
+msgstr "Sólo se ha enviado parcialmente el archivo"
+
+msgid "UplExceedMaxPostSize"
+msgstr "El tamaño del archivo excede el máximo permitido en la configuración:"
+
+msgid "UplExceedMaxServerUpload"
+msgstr "El archivo enviado excede el máximo de tamaño permitido por el servidor"
+
+msgid "UplUploadFailed"
+msgstr "¡ No se ha podido enviar el archivo !"
+
+msgid "UplNotEnoughSpace"
+msgstr "¡ No hay suficiente espacio para enviar este archivo !"
+
+msgid "UplNoSCORMContent"
+msgstr "¡ No se ha encontrado ningún contenido SCORM !"
+
+msgid "UplZipExtractSuccess"
+msgstr "¡ Archivo zip extraido !"
+
+msgid "UplZipCorrupt"
+msgstr "¡ No se puede extraer el archivo zip (¿ archivo corrupto ?) !"
+
+msgid "UplFileSavedAs"
+msgstr "Archivo guardado como"
+
+msgid "UplFileOverwritten"
+msgstr "fue sobreescrito"
+
+msgid "CannotCreateDir"
+msgstr "¡ No se puede crear el directorio !"
+
+msgid "UplUpload"
+msgstr "Enviar"
+
+msgid "UplWhatIfFileExists"
+msgstr "Si ya existe el archivo:"
+
+msgid "UplDoNothing"
+msgstr "Hacer nada"
+
+msgid "UplDoNothingLong"
+msgstr "No enviar si el archivo existe"
+
+msgid "UplOverwrite"
+msgstr "Sobreescribir"
+
+msgid "UplOverwriteLong"
+msgstr "Sobreescribir el archivo existente"
+
+msgid "UplRename"
+msgstr "Renombrar"
+
+msgid "UplRenameLong"
+msgstr "Renombrar el archivo enviado si ya existe"
+
+msgid "DocumentQuota"
+msgstr "Espacio del curso en el servidor"
+
+msgid "NoDocsInFolder"
+msgstr "¡ No hay documentos en esta carpeta !"
+
+msgid "UploadTo"
+msgstr "Enviar a"
+
+msgid "fileModified"
+msgstr "El archivo ha sido modificado"
+
+msgid "DocumentsOverview"
+msgstr "Sumario del documento"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "WelcomeOogieConverter"
+msgstr "Bienvenido al conversor de PowerPoint Oogie<br />1. Explore su disco duro y busque cualquier archivo con las extensiones *.ppt u *.odp<br />2. Envíelo a Oogie. Este lo transformará en un Itinerario de aprendizaje Scorm.<br />3. Ud. ahora podrá añadir comentario"
+
+msgid "ConvertToLP"
+msgstr "Convertir a un Itinerario de aprendizaje"
+
+msgid "MailingFileRecipDup"
+msgstr "varios usuarios tienen"
+
+msgid "MailingFileRecipNotFound"
+msgstr "ningún estudiante con"
+
+msgid "MailingFileNoRecip"
+msgstr "el nombre no contiene ningún identificador del destinatario"
+
+msgid "MailingFileNoPostfix"
+msgstr "el nombre no termina con"
+
+msgid "MailingFileNoPrefix"
+msgstr "el nombre no comienza con"
+
+msgid "MailingFileFunny"
+msgstr "sin nombre o con una extensión que no tiene entre 1 y 4 caracteres"
+
+msgid "MailingZipDups"
+msgstr "El archivo ZIP de correo no debe contener archivos duplicados - de ser así no será enviado"
+
+msgid "MailingZipPhp"
+msgstr "El archivo ZIP de correo no puede contener archivos php - de ser así no será enviado"
+
+msgid "MailingZipEmptyOrCorrupt"
+msgstr "El archivo ZIP de correo está vacío o está en mal estado"
+
+msgid "MailingWrongZipfile"
+msgstr "El correo debe ser un archivo ZIP con el ID DEL ESTUDIANTE o NOMBRE DE USUARIO"
+
+msgid "MailingConfirmSend"
+msgstr "¿ Enviar el contenido de los archivos a direcciones específicas ?"
+
+msgid "MailingSend"
+msgstr "Enviar el contenido de los archivos"
+
+msgid "MailingNotYetSent"
+msgstr "Los ficheros contenidos en el e-mail no han sido enviados..."
+
+msgid "MailingInSelect"
+msgstr "---Enviar por e-mail---"
+
+msgid "MailingAsUsername"
+msgstr "Enviar por e-mail"
+
+msgid "Sender"
+msgstr "remitente"
+
+msgid "FileSize"
+msgstr "tamaño del archivo"
+
+msgid "OverwriteFile"
+msgstr "¿ Sobreescribir los archivos previamente enviados ?"
+
+msgid "SentOn"
+msgstr "el"
+
+msgid "SendTo"
+msgstr "Enviar a"
+
+msgid "ErrorCreatingDir"
+msgstr "No se puede crear el directorio del baúl de tareas. Por favor, contacte al administrador del sistema."
+
+msgid "NoFileSpecified"
+msgstr "Usted no ha seleccionado ningún archivo para transferir."
+
+msgid "NoUserSelected"
+msgstr "Por favor, seleccione el usuario al que desea enviar el archivo."
+
+msgid "BadFormData"
+msgstr "El envío ha fallado: datos del formulario erróneos. Por favor contacte con el administrador del sistema."
+
+msgid "GeneralError"
+msgstr "Se ha producido un error. Por favor, consulte con el administrador del sistema."
+
+msgid "ReceivedFiles"
+msgstr "Archivos recibidos"
+
+msgid "SentFiles"
+msgstr "Archivos enviados"
+
+msgid "ReceivedTitle"
+msgstr "Título"
+
+msgid "SentTitle"
+msgstr "Archivos enviados"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "LastResent"
+msgstr "Último reenvío el"
+
+msgid "kB"
+msgstr "kB"
+
+msgid "UploadNewFile"
+msgstr "Enviar un nuevo archivo"
+
+msgid "Feedback"
+msgstr "Feedback"
+
+msgid "CloseFeedback"
+msgstr "Cerrar feedback"
+
+msgid "AddNewFeedback"
+msgstr "Añadir un nuevo feedback"
+
+msgid "DropboxFeedbackStored"
+msgstr "El mensaje de feedback ha sido almacenado"
+
+msgid "AllUsersHaveDeletedTheFileAndWillNotSeeFeedback"
+msgstr "Todos los usuarios han borrado el archivo por lo que nadie podrá ver el feedback que está añadiendo."
+
+msgid "FeedbackError"
+msgstr "Error de feedback"
+
+msgid "PleaseTypeText"
+msgstr "Por favor, escriba algún texto."
+
+msgid "YouAreNotAllowedToDownloadThisFile"
+msgstr "No tiene permiso para descargar este archivo."
+
+msgid "CheckAtLeastOneFile"
+msgstr "Compurebe al menos un archivo."
+
+msgid "ReceivedFileDeleted"
+msgstr "El archivo recibido ha sido borrado."
+
+msgid "SentFileDeleted"
+msgstr "El archivo enviado ha sido borrado."
+
+msgid "FilesMoved"
+msgstr "Los archivos seleccionados han sido movidos."
+
+msgid "ReceivedFileMoved"
+msgstr "Los archivos recibidos han sido movidos."
+
+msgid "SentFileMoved"
+msgstr "Los archivos enviados han sido movidos"
+
+msgid "NotMovedError"
+msgstr "Este archivo(s) no puede moverse."
+
+msgid "AddNewCategory"
+msgstr "Añadir una nueva categoría"
+
+msgid "EditCategory"
+msgstr "Editar esta categoría"
+
+msgid "ErrorPleaseGiveCategoryName"
+msgstr "Por favor, escoja un nombre para la categoría"
+
+msgid "CategoryAlreadyExistsEditIt"
+msgstr "Esta categoría ya existe, por favor use un nombre diferente"
+
+msgid "CurrentlySeeing"
+msgstr "Actualmente está viendo la categoría"
+
+msgid "CategoryStored"
+msgstr "La categoría ha sido guardada."
+
+msgid "CategoryModified"
+msgstr "La categoría ha sido modificada."
+
+msgid "AuthorFieldCannotBeEmpty"
+msgstr "El campo autor no puede estar vacío"
+
+msgid "YouMustSelectAtLeastOneDestinee"
+msgstr "Debe seleccionar al menos un destino"
+
+msgid "DropboxFileTooBig"
+msgstr "El archivo del baúl de tareas es demasiado grande."
+
+msgid "TheFileIsNotUploaded"
+msgstr "El archivo no ha sido enviado."
+
+msgid "MailingNonMailingError"
+msgstr "El correo no se puede sobreescribir por los envíos no e-mail y viceversa"
+
+msgid "MailingSelectNoOther"
+msgstr "El correo no puede ser combinado con otros destinatarios"
+
+msgid "MailingJustUploadSelectNoOther"
+msgstr "El envío a mi mismo no se puede combinar con otros recipientes"
+
+msgid "MdTitle"
+msgstr "Nombre del enlace"
+
+msgid "MdDescription"
+msgstr "Descripción del enlace"
+
+msgid "MdCoverage"
+msgstr "Universal"
+
+msgid "MdCopyright"
+msgstr "Universidad de Gante"
+
+msgid "NoScript"
+msgstr "El script no está activado en su navegador, por favor ignore lo que se vea debajo de este texto, no funcionará"
+
+msgid "LanguageTip"
+msgstr "el idioma en el cual este objeto de aprendizaje fue hecho"
+
+msgid "Identifier"
+msgstr "Identificador"
+
+msgid "IdentifierTip"
+msgstr "identificación única para este objeto de aprendizaje, compuesto de letras, dígitos, _-.()'!*"
+
+msgid "TitleTip"
+msgstr "título o nombre e idioma del título o nombre"
+
+msgid "DescriptionTip"
+msgstr "descripción o comentario e idioma usado para describir el objeto de aprendizaje"
+
+msgid "Keyword"
+msgstr "Palabras Clave"
+
+msgid "KeywordTip"
+msgstr "separado por comas (letras, digitos, -.)"
+
+msgid "Coverage"
+msgstr "Categoría"
+
+msgid "CoverageTip"
+msgstr "nombre de categoría"
+
+msgid "KwNote"
+msgstr "Si ud cambia el idioma de descripción, no añada palabras clave al mismo tiempo"
+
+msgid "Location"
+msgstr "URL/URI"
+
+msgid "LocationTip"
+msgstr "haga clic para abrir el objeto"
+
+msgid "Store"
+msgstr "Almacenar"
+
+msgid "DeleteAll"
+msgstr "Borrar todos los metadatos"
+
+msgid "ConfirmDelete"
+msgstr "Está *seguro* de querer borrar todos los metadatos ?"
+
+msgid "WorkOn"
+msgstr "en"
+
+msgid "Continue"
+msgstr "Continuar con"
+
+msgid "Create"
+msgstr "Crear Entradas de Meta Datos (MDE)"
+
+msgid "RemainingFor"
+msgstr "entradas obsoletas quitadas por categoría"
+
+msgid "WarningDups"
+msgstr "¡ - los nombres de categoría duplicados serán retirados de la lista !"
+
+msgid "SLC"
+msgstr "Trabajar con la categoría de Enlaces nombrada"
+
+msgid "HFor"
+msgstr "Ayuda de los foros"
+
+msgid "ForContent"
+msgstr "El foro es una herramienta de discusión escrita y asincrónica. A diferencia del email que permite un dialogo uno-a-uno, los foros permiten diálogos públicos o semi-públicos.</p><p>Hablando técnicamente, los estudiantes solo necesitan un prograama de naveg"
+
+msgid "HDropbox"
+msgstr "Baúl de tareas"
+
+msgid "DropboxContent"
+msgstr "<p>El Baúl de tareas es una herramienta de administración de contenidos dedicada al intercambio de datos \"peer-to-peer\".  Cualquier tipo de archivo es aceptado: Word, Excel, PDF etc.  Manejará versiones en el sentido que evitará la destrucción de un doc"
+
+msgid "HHome"
+msgstr "Ayuda página principal"
+
+msgid "HomeContent"
+msgstr "La mayoría de las rúbricas de iCampus están ya rellenadas con un corto texto o por un enlace dados por defecto, o por un ejemplo. A usted le corresponde el modificarlos.</p><p>As&iacute un corto texto aparece, bien a la vista, en la cabecera de vuestra we"
+
+msgid "HOnline"
+msgstr "Ayuda para Sistema de Conferencia en línea"
+
+msgid "OnlineContent"
+msgstr "<br /><span style=\"font-weight: bold;\">Introducción</span><br /> <br /> <div style=\"margin-left: 40px;\">El sistema de Conferencia en línea de chamilo le permite de forma sencilla, enseñar, informar o reunir a más de 500 personas.<br /> </div> <ul> <ul"
+
+msgid "HClar"
+msgstr "Ayuda: primeros pasos"
+
+msgid "HDoc"
+msgstr "Ayuda documentos"
+
+msgid "DocContent"
+msgstr "<p>El módulo de gestión de documentos funciona de manera semejante a la gestión de sus documentos en un ordenador. </p><p>Usted puede introducir documentos de todo tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Tenga en cuenta, sin"
+
+msgid "HUser"
+msgstr "Ayuda usuarios"
+
+msgid "HExercise"
+msgstr "Ayuda: Ejercicios"
+
+msgid "HPath"
+msgstr "Ayuda: Itinerarios formativos"
+
+msgid "HDescription"
+msgstr "Ayuda: Descripción del curso"
+
+msgid "HLinks"
+msgstr "Ayuda: Enlaces"
+
+msgid "HMycourses"
+msgstr "Acerca de la página de inicio"
+
+msgid "HAgenda"
+msgstr "Ayuda de Agenda"
+
+msgid "HAnnouncements"
+msgstr "Ayuda de Anuncios"
+
+msgid "HChat"
+msgstr "Ayuda de Chat"
+
+msgid "HWork"
+msgstr "Ayuda para las Publicaciones de Estudiantes"
+
+msgid "HTracking"
+msgstr "Ayuda del seguimiento"
+
+msgid "GeneralDescription"
+msgstr "Descripción General"
+
+msgid "GeneralDescriptionQuestions"
+msgstr "¿ Cuál es el papel y función del curso en el programa ? ¿ Se requieren actividades previas ? ¿ Qué relación tiene este curso con otros ?"
+
+msgid "GeneralDescriptionInformation"
+msgstr "Describe el curso (número de horas, código, lugar donde se desarrolla...). Profesor (nombre, apellidos, despacho, teléfono, e-mail...)."
+
+msgid "Objectives"
+msgstr "Objetivos"
+
+msgid "ObjectivesInformation"
+msgstr "Presentación de los objetivos globales y específicos del curso"
+
+msgid "ObjectivesQuestions"
+msgstr "¿ Qué quiere que los estudiantes sepan hacer al finalizar el curso ? ¿ Qué objetivos irán alcanzando durante el mismo ? ¿Qué habilidades desarrollarán ?"
+
+msgid "Topics"
+msgstr "Tópicos"
+
+msgid "TopicsInformation"
+msgstr "Lista de contenidos del curso. Importancia de cada contenido. Nivel de dificultad. Estructura e interdependencia entre sus apartados."
+
+msgid "TopicsQuestions"
+msgstr "¿ Cuál será el desarrollo del curso ? ¿ Dónde deben prestar especial atención los estudiantes ? ¿ Hay problemas identificados en la comprensión de algunos capítulos ? ¿ Cuánto debe dedicarse a cada parte del curso ?"
+
+msgid "Methodology"
+msgstr "Metodología"
+
+msgid "MethodologyQuestions"
+msgstr "¿ Qué métodos y actividades ayudarán a alcanzar los objetivos del curso ? ¿ Cuál es el calendario ?"
+
+msgid "MethodologyInformation"
+msgstr "Presentación de las actividades (conferencias, disertaciones, investigaciones en grupo, laboratorios...)."
+
+msgid "CourseMaterial"
+msgstr "Materiales del curso"
+
+msgid "CourseMaterialQuestions"
+msgstr "¿ Existe una guía del curso, una colección de documentos, una bibliografía, una lista de enlaces de Internet ?"
+
+msgid "CourseMaterialInformation"
+msgstr "Breve descripción de los materiales del curso."
+
+msgid "HumanAndTechnicalResources"
+msgstr "Recursos humanos y técnicos"
+
+msgid "HumanAndTechnicalResourcesQuestions"
+msgstr "¿ Dispone de profesores, tutores, servicio de asistencia técnica, asistentes sociales, salas de computadoras ?"
+
+msgid "HumanAndTechnicalResourcesInformation"
+msgstr "Breve descripción de las personas de contacto y de los recursos técnicos disponibles."
+
+msgid "Assessment"
+msgstr "Asignaciones"
+
+msgid "AssessmentQuestions"
+msgstr "¿ Cómo van a ser evaluados los estudiantes ? ¿ Cuáles son las estrategias para que éstos acaben dominando la materia ?"
+
+msgid "AssessmentInformation"
+msgstr "Ejemplos de las preguntas de examen. Criterios de evaluación. Pistas y trucos."
+
+msgid "Height"
+msgstr "Alto"
+
+msgid "ResizingComment"
+msgstr "reajuste la imagen a las siguientes dimensiones (en pixeles)"
+
+msgid "Width"
+msgstr "Ancho"
+
+msgid "Resizing"
+msgstr "REDIMENSIONAR"
+
+msgid "NoResizingComment"
+msgstr "Muestra todas las imágenes en su tamaño original. Ningún reajuste se ha hecho. Las barras de desplazamiento aparecerán automáticamente si la imagen es más larga que el tamaño de su monitor."
+
+msgid "ShowThumbnails"
+msgstr "Mostrar Miniaturas"
+
+msgid "SetSlideshowOptions"
+msgstr "Configurar Opciones de la Presentación"
+
+msgid "SlideshowOptions"
+msgstr "Opciones de la Presentación"
+
+msgid "NoResizing"
+msgstr "NO REDIMENSIONADO (por defecto)"
+
+msgid "SlideShow"
+msgstr "Presentación"
+
+msgid "ViewSlideshow"
+msgstr "Ver Presentación"
+
+msgid "MyTasks"
+msgstr "Mis tareas"
+
+msgid "FavoriteBlogs"
+msgstr "Mis blogs favoritos"
+
+msgid "Navigation"
+msgstr "Navegación"
+
+msgid "TopTen"
+msgstr "Los 10 mejores blogs"
+
+msgid "ThisBlog"
+msgstr "Este blog"
+
+msgid "NewPost"
+msgstr "Nuevo artículo"
+
+msgid "TaskManager"
+msgstr "Administración de tareas"
+
+msgid "MemberManager"
+msgstr "Administración de usuarios"
+
+msgid "PostFullText"
+msgstr "Texto"
+
+msgid "ReadPost"
+msgstr "Leer artículo"
+
+msgid "FirstPostText"
+msgstr "¡ Este es el primer artículo en el blog ! En adelante, todo el mundo que esté suscrito a este blog puede participar."
+
+msgid "AddNewComment"
+msgstr "Añadir un comentario"
+
+msgid "ReplyToThisComment"
+msgstr "Contestar a este comentario"
+
+msgid "ManageTasks"
+msgstr "Administrar tareas"
+
+msgid "ManageMembers"
+msgstr "Administrar usuarios"
+
+msgid "Register"
+msgstr "Inscribirse en este blog"
+
+msgid "UnRegister"
+msgstr "Anular la inscripción en este blog"
+
+msgid "SubscribeMembers"
+msgstr "Inscribir usuarios"
+
+msgid "UnsubscribeMembers"
+msgstr "Dar de baja a usuarios"
+
+msgid "RightsManager"
+msgstr "Administrar los derechos de los usuarios"
+
+msgid "ManageRights"
+msgstr "Administrar los perfiles y derechos de los usuarios de este blog"
+
+msgid "Task"
+msgstr "Tarea"
+
+msgid "Tasks"
+msgstr "Tareas"
+
+msgid "Member"
+msgstr "Usuario"
+
+msgid "Members"
+msgstr "Usuarios"
+
+msgid "Role"
+msgstr "Perfil"
+
+msgid "Rate"
+msgstr "Puntuación"
+
+msgid "AddTask"
+msgstr "Nueva tarea"
+
+msgid "AddTasks"
+msgstr "Añadir nuevas tareas"
+
+msgid "AssignTask"
+msgstr "Asignar una tarea"
+
+msgid "AssignTasks"
+msgstr "Asignar tareas"
+
+msgid "EditTask"
+msgstr "Editar esta tarea"
+
+msgid "DeleteTask"
+msgstr "Borrar esta tarea"
+
+msgid "DeleteSystemTask"
+msgstr "Esta es una tarea predefinida. Ud., no puede borrar una tarea predefinida."
+
+msgid "SelectUser"
+msgstr "Usuario"
+
+msgid "SelectTask"
+msgstr "Tarea"
+
+msgid "SelectTargetDate"
+msgstr "Fecha"
+
+msgid "TargetDate"
+msgstr "Fecha"
+
+msgid "Color"
+msgstr "Color"
+
+msgid "TaskList"
+msgstr "Lista de tareas"
+
+msgid "AssignedTasks"
+msgstr "Tareas asignadas"
+
+msgid "ArticleManager"
+msgstr "Administración de artículos"
+
+msgid "CommentManager"
+msgstr "Administración de comentarios"
+
+msgid "BlogManager"
+msgstr "Administración del blog"
+
+msgid "ReadMore"
+msgstr "Leer más..."
+
+msgid "DeleteThisArticle"
+msgstr "Borrar este artículo"
+
+msgid "EditThisPost"
+msgstr "Editar este artículo"
+
+msgid "DeleteThisComment"
+msgstr "Borrar este comentario"
+
+msgid "NoArticles"
+msgstr "No hay ningún artículo en el blog. Si Ud. es un autor en este blog, haga click sobre el enlace 'nuevo artículo' para escribir uno."
+
+msgid "NoTasks"
+msgstr "No hay tareas disponibles"
+
+msgid "Rating"
+msgstr "Valor"
+
+msgid "RateThis"
+msgstr "Calificar"
+
+msgid "SelectTaskArticle"
+msgstr "Seleccionar un artículo para esta tarea"
+
+msgid "ExecuteThisTask"
+msgstr "Ejecutar la tarea"
+
+msgid "WrittenBy"
+msgstr "Escrito por"
+
+msgid "InBlog"
+msgstr "en el blog"
+
+msgid "ViewPostsOfThisDay"
+msgstr "Ver los artículos de este día"
+
+msgid "PostsOf"
+msgstr "Artículos de"
+
+msgid "NoArticleMatches"
+msgstr "No se encuentran artículos que se ajusten a sus criterios de búsqueda. Probablemente haya escrito incorrectamente algo o su búsqueda es poco concreta. Realice las modificaciones que estime oportunas y ejecute una nueva búsqueda."
+
+msgid "Task1"
+msgstr "Tarea 1"
+
+msgid "blog_management"
+msgstr "Administrar blogs"
+
+msgid "Welcome"
+msgstr "Bienvenido !"
+
+msgid "Module"
+msgstr "Módulo"
+
+msgid "UserHasPermissionNot"
+msgstr "El usuario no posee los privilegios"
+
+msgid "UserHasPermission"
+msgstr "El usuario posee privilegios"
+
+msgid "UserHasPermissionByRoleGroup"
+msgstr "El usuario tiene los privilegios de su grupo"
+
+msgid "AddBlog"
+msgstr "Crear un nuevo blog"
+
+msgid "EditBlog"
+msgstr "Editar título y subtítulo"
+
+msgid "DeleteBlog"
+msgstr "Borrar este blog"
+
+msgid "ResourceAdded"
+msgstr "Resource added. You can now go back to the path or add more resources."
+
+msgid "LearningPath"
+msgstr "Learning Path"
+
+msgid "LevelUp"
+msgstr "level up"
+
+msgid "AddIt"
+msgstr "Add it"
+
+msgid "MainCategory"
+msgstr "main category"
+
+msgid "AddToLinks"
+msgstr "Add to the course links"
+
+msgid "DontAdd"
+msgstr "do not add"
+
+msgid "ResourcesAdded"
+msgstr "Added new resources"
+
+msgid "ExternalResources"
+msgstr "External resources"
+
+msgid "CourseResources"
+msgstr "Course resources"
+
+msgid "ExternalLink"
+msgstr "External link"
+
+msgid "DropboxAdd"
+msgstr "Add the dropbox page to this chapter."
+
+msgid "AddAssignmentPage"
+msgstr "Add the upload assignment page to this chapter."
+
+msgid "ShowDelete"
+msgstr "Mostrar / Borrar"
+
+msgid "IntroductionText"
+msgstr "Texto de introducción"
+
+msgid "CourseDescription"
+msgstr "Descripción del curso"
+
+msgid "IntroductionTextAdd"
+msgstr "Añadir una página que contenga el texto de introducción a este módulo."
+
+msgid "CourseDescriptionAdd"
+msgstr "Añadir a este módulo una página que contenga la Descripción del curso."
+
+msgid "GroupsAdd"
+msgstr "Añadir una página con los Grupos a este módulo."
+
+msgid "UsersAdd"
+msgstr "Añadir una página de los Usuarios a este módulo."
+
+msgid "ExportableCourseResources"
+msgstr "Recursos del curso exportables al formato SCORM"
+
+msgid "LMSRelatedCourseMaterial"
+msgstr "Recursos relacionados. No exportables al formato SCORM"
+
+msgid "LinkTarget"
+msgstr "Destino del enlace"
+
+msgid "SameWindow"
+msgstr "En la misma ventana"
+
+msgid "NewWindow"
+msgstr "En una nueva ventana"
+
+msgid "StepDeleted1"
+msgstr "Este"
+
+msgid "StepDeleted2"
+msgstr "el elemento fue suprimido en esta herramienta."
+
+msgid "Chapter"
+msgstr "Capítulo"
+
+msgid "AgendaAdd"
+msgstr "Añadir un evento de la Agenda"
+
+msgid "UserGroupFilter"
+msgstr "Filtrar por grupos de usuarios"
+
+msgid "AgendaSortChronologicallyUp"
+msgstr "Ordenar la agenda cronológicamente (arriba)"
+
+msgid "ShowCurrent"
+msgstr "Mostrar los eventos actuales de la agenda"
+
+msgid "ModifyCalendarItem"
+msgstr "Modificar eventos de la agenda"
+
+msgid "Detail"
+msgstr "Detalles"
+
+msgid "EditSuccess"
+msgstr "La modificación se ha producido"
+
+msgid "AddCalendarItem"
+msgstr "Añadir un evento a la Agenda"
+
+msgid "AddAnn"
+msgstr "Añadir un anuncio"
+
+msgid "ForumAddNewTopic"
+msgstr "Foro: añadir un tema"
+
+msgid "ForumEditTopic"
+msgstr "Foro: editar un tema"
+
+msgid "ExerciseAnswers"
+msgstr "Ejercicio: Respuestas"
+
+msgid "ForumReply"
+msgstr "Foro: responder"
+
+msgid "AgendaSortChronologicallyDown"
+msgstr "Ordenar la agenda cronológicamente (del más reciente al más antiguo)"
+
+msgid "SendWork"
+msgstr "Enviar el documento"
+
+msgid "TooBig"
+msgstr "No ha elegido ningún archivo o el archivo es demasiado grande."
+
+msgid "DocModif"
+msgstr "El documento ha sido modificado"
+
+msgid "DocAdd"
+msgstr "El documento ha sido agregado"
+
+msgid "DocDel"
+msgstr "El trabajo ha sido borrado"
+
+msgid "TitleWork"
+msgstr "Título del trabajo"
+
+msgid "Authors"
+msgstr "Autores"
+
+msgid "WorkDelete"
+msgstr "Eliminar"
+
+msgid "WorkModify"
+msgstr "Modificar"
+
+msgid "WorkConfirmDelete"
+msgstr "Realmente desea eliminar este trabajo"
+
+msgid "AllFiles"
+msgstr "Todos los archivos"
+
+msgid "DefaultUpload"
+msgstr "Configuración de visibilidad establecida por defecto para los nuevos documentos"
+
+msgid "NewVisible"
+msgstr "Los nuevos documentos están visibles  para todos los usuarios"
+
+msgid "NewUnvisible"
+msgstr "Los nuevos documentos están visibles sólo para profesores"
+
+msgid "MustBeRegisteredUser"
+msgstr "Sólo los usuarios inscritos en este curso pueden publicar documentos"
+
+msgid "ListDel"
+msgstr "Borrar lista"
+
+msgid "CreateDirectory"
+msgstr "Crear directorio"
+
+msgid "CurrentDir"
+msgstr "carpeta actual"
+
+msgid "UploadADocument"
+msgstr "Subir un documento"
+
+msgid "EditToolOptions"
+msgstr "Editar las opciones de las herramientas"
+
+msgid "DocumentDeleted"
+msgstr "Documento eliminado"
+
+msgid "SendMailBody"
+msgstr "Un usuario envió un documento el la Barra de Tareas"
+
+msgid "DirDelete"
+msgstr "Direcrorio de eliminación"
+
+msgid "ValidateChanges"
+msgstr "Validar Cambios"
+
+msgid "AdminFirstName"
+msgstr "Nombre del administrador"
+
+msgid "InstituteURL"
+msgstr "URL de esta organización"
+
+msgid "UserDB"
+msgstr "Usuario de la Base de datos"
+
+msgid "UserContent"
+msgstr "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ninguna función informática. No otorgan ningún derecho sobre el sistema. Usted puede modificarlos haciendo click sobre 'modificar' debajo de  'rol/papel' y después introduciendo todas las letras d"
+
+msgid "GroupContent"
+msgstr "<p><b>Introducción</b></p><p>Esta herramienta permite crear y gestionar grupos dentro de su curso.Cuando se crea el curso (Crear Grupos), los grupos están vacios. Hay muchas formas de rellenarlos:<ul><li>automáticamente ('Rellenar grupos'),</li><li>manu"
+
+msgid "ExerciseContent"
+msgstr "<p>La herramienta 'Ejercicios' le permite crear ejercicios que contendrán tantas preguntas como Vd. quiera.<br /><br />Las preguntas que cree, pueden tener varios modelos de respuestas disponibles :<br /><br /><ul>  <li>Elección múltiple (Respuesta única)</li>"
+
+msgid "PathContent"
+msgstr "La herramienta de Itinerarios formativos tiene dos funciones:<ul><li>Crear un itinerario de aprendizaje con recursos del propio curso</li><li>Importar un contenido externo con formato SCORM o IMS</li></ul><img src=\"../img/path_help.gif\"><p><b>¿Qué es un"
+
+msgid "DescriptionContent"
+msgstr "<p>Esta herramienta le ayudará  a describir su curso de una forma sintética. Esta descripción dará los estudiantes una idea de lo que pueden esperar del curso.Así mismo, a Vd. le puede ayudar a repensar el escenario educativo propuesto.</p>Para facilitar"
+
+msgid "LinksContent"
+msgstr "<p> Esta herramienta  permite a los profesores ofrecer una biblioteca de recursos a sus alumnos</p><p>Si la lista de enlaces es muy larga, puede ser útil organizarlos en categorías para facilitar la búsqueda de información. También puede modificar cada en"
+
+msgid "MycoursesContent"
+msgstr "<p>Una vez ingresado en la plataforma, usted ingresa a su <i>página de inicio personal</i>.</p> <p> En el área principal (central) usted verá \"<b>Mi lista de cursos</b>\", una lista de todos sus cursos. Dependiendo de sus derechos de usuario, tendrá la o"
+
+msgid "AgendaContent"
+msgstr "<p>La agenda aparece tanto en el área de cada curso como herramienta permanente de los estudiantes. ('Mi agenda' en el encabezado).</p> <p>En el curso, la agenda aparece como una lista de eventos. Usted puede adjuntar documentos o actividades a una fech"
+
+msgid "AnnouncementsContent"
+msgstr "<p>La herramienta de Anuncios le permite enviar un email a todos los estudiantes, a algunos de ellos o a algunos grupos. Puede ser un medio útil para atraer a los estudiantes ala plataforma si no la visitan con frecuencia.</p> <p>Para enviar los mensajes,"
+
+msgid "ChatContent"
+msgstr "<p>La herramienta de Chat le permite sostener una discusión en tiempo real con sus alumnos. </p> <p>Este chat es distinto de los tradicionales como  MSN® o Yahoo Messenger® porque se basa en web. La desventaja es que se refresca cada diez segundos y no in"
+
+msgid "WorkContent"
+msgstr "<p>La herramienta de publicaciones de estudiantes es muy simple. Le permite a sus alumnos subir cualquier documento en el curso. </p> <p>Dependiendo del modelo de su curso, usted puede permitir que sean visibles por defecto para todos los alumnos, o sólo"
+
+msgid "TrackingContent"
+msgstr "<p>El segumiento le ayuda a usted a ver el desarrollo de sus estudiantes : se conectaron al sistema, cuando, cuantas veces? Cómo les va en las pruebas? Han entregado sus trabajos? Cuando? Si utiliza cursos Scorm, puede saber cuanto tiempo gasta su alumno"
+
+msgid "HSettings"
+msgstr "Ayuda de Configuración del Curso"
+
+msgid "SettingsContent"
+msgstr "<p>La configuración del curso le permite manejar los parámetros globales de su curso: Titulo, código, idioma, nombre de los docentes, etc.</p> <p>Las opciones situadas en la mitad de la página se refieren a la confidencialidad: es el curso público o priva"
+
+msgid "HExternal"
+msgstr "Ayuda de añadir un enlace"
+
+msgid "ExternalContent"
+msgstr "<p>Dokeos es una herramienta modular. Usted puede mostrar y esconder las herramientas que desee, de acuerdo a su proyecto o a sus etapas cronológicas. Pero usted también puede añadir sus herramientas o herramientas externas al portal Chamilo. De esta form"
+
+msgid "ClarContent3"
+msgstr "</p><p><b>Pedagogía</b><p>Para los profesores, preparar un curso en internet es también un asunto  pedagógico."
+
+msgid "ClarContent4"
+msgstr "está a vuestra disposición para ayudaros en las diferentes fases de la creación de vuestro proyecto: de la concepción de la herramienta en su integración en un dispositivo coherente y a su evaluatión en terminos del impacto sobre el aprendizaje.</p>"
+
+msgid "ClarContent1"
+msgstr "es el campous virtual de"
+
+msgid "ClarContent2"
+msgstr "Aquí, los profesores y los asitentes crean y administran las webs de los cursos, los estudiantes las consultan (documentos, agendas, informaciones diversos). Cuando proceda, los estudiantes realizan ejercicios, publican trabajos, toman parte en las discus"
+
+msgid "HGroups"
+msgstr "Ayuda: Grupos"
+
+msgid "GroupsContent"
+msgstr "Esta herramienta le permite crear áreas para grupos de estudiantes y asignarles dos herramientas de colaboración: un foro de debate y una sección de documentación común donde pueden compartir, subir y organizar sus propios archivos (independiente del módu"
+
+msgid "Guide"
+msgstr "Manual"
+
+msgid "InstallationLanguage"
+msgstr "Idioma de instalación"
+
+msgid "ReadThoroughly"
+msgstr "Lea cuidadosamente"
+
+msgid "WarningExistingLMSInstallationDetected"
+msgstr "Atención !<br />El instalador ha detectado una instalación previa de Chamilo en su sistema."
+
+msgid "NewInstallation"
+msgstr "Nueva instalación"
+
+msgid "CheckDatabaseConnection"
+msgstr "Comprobar la conexión a la base de datos"
+
+msgid "PrintOverview"
+msgstr "Mostrar perspectiva general"
+
+msgid "Installing"
+msgstr "Instalar"
+
+msgid "of"
+msgstr "de"
+
+msgid "MoreDetails"
+msgstr "Para más detalles"
+
+msgid "ServerRequirements"
+msgstr "Requerimientos del servidor"
+
+msgid "ServerRequirementsInfo"
+msgstr "Librerías y características que el servidor debe proporcionar para poder utilizar Chamilo con todas sus posibilidades"
+
+msgid "PHPVersion"
+msgstr "Versión PHP"
+
+msgid "support"
+msgstr "soporte"
+
+msgid "PHPVersionOK"
+msgstr "La versión PHP es correcta"
+
+msgid "RecommendedSettings"
+msgstr "Parámetros recomendados"
+
+msgid "RecommendedSettingsInfo"
+msgstr "Parámetros recomendados para la configuración de su servidor. Estos parámetros deben establecerse en el archivo de configuración php.ini de su servidor."
+
+msgid "Actual"
+msgstr "Actual"
+
+msgid "DirectoryAndFilePermissions"
+msgstr "Permisos de directorios y archivos"
+
+msgid "DirectoryAndFilePermissionsInfo"
+msgstr "Algunos directorios y los archivos que contienen deben tener permisos de escritura en el servidor web para que Chamilo pueda funcionar (archivos subidos por estudiantes, archivos html,...). Esto puede suponer un cambio manual en su servidor (debe realizar"
+
+msgid "NotWritable"
+msgstr "Escritura no permitida"
+
+msgid "Writable"
+msgstr "Escritura permitida"
+
+msgid "ExtensionLDAPNotAvailable"
+msgstr "Extensión LDAP no disponible"
+
+msgid "ExtensionGDNotAvailable"
+msgstr "Extensión GD no disponible"
+
+msgid "LMSLicenseInfo"
+msgstr "Chamilo es un software libre distribuido bajo licencia GNU General Public licence (GPL)"
+
+msgid "IAccept"
+msgstr "Acepto"
+
+msgid "ConfigSettingsInfo"
+msgstr "Los siguientes valores serán escritos en su archivo de configuración <b>main/inc/conf/configuration.php</b>:"
+
+msgid "GoToYourNewlyCreatedPortal"
+msgstr "Ir al portal que acaba de crear."
+
+msgid "FirstUseTip"
+msgstr "Cuando entra en su campus por primera vez, la mejor manera de entenderlo es registrarse con la opción \"Crear el sitio de un curso\" y seguir el camino."
+
+msgid "InvitationReceived"
+msgstr "Invitación recibida"
+
+msgid "InvitationSent"
+msgstr "Invitación envida"
+
+msgid "YouAlreadySentAnInvitation"
+msgstr "Ud. ya ha enviado una invitación"
+
+msgid "LowerCaseUser"
+msgstr "usuario"
+
