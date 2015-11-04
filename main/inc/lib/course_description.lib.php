@@ -29,7 +29,6 @@ class CourseDescription
      */
     public function __construct()
     {
-
     }
 
     /**

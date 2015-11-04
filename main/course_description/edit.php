@@ -76,9 +76,9 @@ $form = new FormValidator(
 $form->addElement('header','',$header);
 $form->addElement('hidden', 'id', $original_id);
 $form->addElement('hidden', 'description_type',$description_type);
-$form->addElement('hidden', 'sec_token',$token);
+$form->addElement('hidden', 'sec_token', $token);
 $form->addText('title', get_lang('Title'), true, array('size'=>'50'));
-$form->applyFilter('title','html_filter');
+$form->applyFilter('title', 'html_filter');
 $form->addHtmlEditor(
 	'contentDescription',
 	get_lang('Content'),

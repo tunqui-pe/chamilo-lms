@@ -27,7 +27,6 @@ class TestFileManager extends UnitTestCase {
 	//todo public function testFormDirList
 	//todo public function testMkpath
 	//todo public function testGetextension
-	//todo public function testDirsize
 	//todo public function testListAllDirectories
 	//todo public function testListAllFiles
 	//todo public function testCompatLoadFile
