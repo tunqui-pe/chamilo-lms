@@ -1,0 +1,8982 @@
+msgid "SelectADateOnTheCalendar"
+msgstr "Valitse päivä kalenterista"
+
+msgid "AreYouSureDeleteTestResultBeforeDateD"
+msgstr "Haluatko varmasti poistaa tulokset ennen valittua päivää"
+
+msgid "CleanStudentsResultsBeforeDate"
+msgstr "Poista kaikki tulokset ennen valittua päivää"
+
+msgid "AreYouSureToEmptyAllTestResults"
+msgstr "Poista kaikkien käyttäjien tulokset kaikista harjoituksista"
+
+msgid "CleanAllStudentsResultsForAllTests"
+msgstr "Haluatko varmasti poistaa kaikkien harjoitusten tulokset?"
+
+msgid "TestFeedbackNotShown"
+msgstr "Tämä harjoitus on määritelty niin ettei palaute näy käyttäjille. Kommentit ei näy harjoiutksen lopussa, mutta voivat olla avuksi opettajalle harjoitusta arvioitaessa."
+
+msgid "SelectAnAnswerToContinue"
+msgstr "Valitse vastaus jatkaaksesi"
+
+msgid "QuestionReused"
+msgstr "Kysymys lisätty tähän harjoitukseen"
+
+msgid "QuestionCopied"
+msgstr "Kysymys on kopioitu harjoitukseen"
+
+msgid "ExerciseEndButtonDisconnect"
+msgstr "Kirjaudu ulos"
+
+msgid "ExerciseEndButtonCourseHome"
+msgstr "Kurssin aloitussivu"
+
+msgid "HideQuestionTitle"
+msgstr "Piilota kysymyksen otsikko"
+
+msgid "ToReview"
+msgstr "Odottaa tarkastamista"
+
+msgid "Unanswered"
+msgstr "Vastaamatta"
+
+msgid "CurrentQuestion"
+msgstr "Tämänhetkinen kysymys"
+
+msgid "ShowAllEvents"
+msgstr "Näytä kaikki kalenterimerkinnät"
+
+msgid "Month"
+msgstr "Kuukausi"
+
+msgid "Hour"
+msgstr "Tunti"
+
+msgid "Minutes"
+msgstr "Minuutit"
+
+msgid "AddSuccess"
+msgstr "Merkintä on lisätty"
+
+msgid "AgendaDeleteSuccess"
+msgstr "Merkintä on poistettu"
+
+msgid "NoAgendaItems"
+msgstr "Kalenterimerkintöjä ei ole"
+
+msgid "ClassName"
+msgstr "Luokkan nimi"
+
+msgid "ItemTitle"
+msgstr "Merkinnän otsikko"
+
+msgid "Day"
+msgstr "Päivä"
+
+msgid "month_default"
+msgstr "oletus kuukausi"
+
+msgid "year_default"
+msgstr "oletus vuosi"
+
+msgid "Hour"
+msgstr "Tunti"
+
+msgid "hour_default"
+msgstr "oletus tunti"
+
+msgid "Minute"
+msgstr "minuutit"
+
+msgid "Lasting"
+msgstr "kesto"
+
+msgid "OldToNew"
+msgstr "vanhimmasta uusimpaan"
+
+msgid "NewToOld"
+msgstr "uusimmasta vanhimpaan"
+
+msgid "Now"
+msgstr "Nyt"
+
+msgid "AddEvent"
+msgstr "Lisää merkintä"
+
+msgid "Detail"
+msgstr "Yksityiskohdat"
+
+msgid "MonthView"
+msgstr "Kuukausinäkymä"
+
+msgid "WeekView"
+msgstr "Viikkonäkymä"
+
+msgid "DayView"
+msgstr "Päivänäkymä"
+
+msgid "AddPersonalItem"
+msgstr "Lisää henkilökohtainen merkintä"
+
+msgid "Week"
+msgstr "Viikko"
+
+msgid "Time"
+msgstr "Aika"
+
+msgid "AddPersonalCalendarItem"
+msgstr "Lisää henkilökohtainen merkintä"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "Muokkaa henkilökohtaista merkintää"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "Merkintä on lisätty"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "Merkintää on muokattu"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "Merkintä on poistettu"
+
+msgid "ViewPersonalItem"
+msgstr "Tarkastele henkilökohtaisia merkintöjä"
+
+msgid "Print"
+msgstr "Tulosta"
+
+msgid "MyTextHere"
+msgstr "minun tekstini tähän"
+
+msgid "CopiedAsAnnouncement"
+msgstr "Kopioi ilmoituksena"
+
+msgid "NewAnnouncement"
+msgstr "Uusi ilmoitus"
+
+msgid "UpcomingEvent"
+msgstr "Tuleva tapahtuma"
+
+msgid "RepeatedEvent"
+msgstr "Toistuva tapahtuma"
+
+msgid "RepeatType"
+msgstr "Toistuva tyyppi"
+
+msgid "RepeatDaily"
+msgstr "Päivittäin"
+
+msgid "RepeatWeekly"
+msgstr "Viikottain"
+
+msgid "RepeatMonthlyByDate"
+msgstr "Kuukausittain, päivämäärän mukaan"
+
+msgid "RepeatMonthlyByDay"
+msgstr "Kuukausittain, päivän mukaan"
+
+msgid "RepeatMonthlyByDayR"
+msgstr "Kuukausi-, päivänäkymä estetty"
+
+msgid "RepeatYearly"
+msgstr "Vuosittain"
+
+msgid "RepeatEnd"
+msgstr "Toistuvuus päättyy"
+
+msgid "RepeatedEventViewOriginalEvent"
+msgstr "Näytä alkuperäinen tapahtuma"
+
+msgid "ICalFileImport"
+msgstr "Tuo iCal/ics tiedosto"
+
+msgid "AllUsersOfThePlatform"
+msgstr "Kaikki käyttäjät"
+
+msgid "GlobalEvent"
+msgstr "Yleinen tapahtuma"
+
+msgid "ModifyEvent"
+msgstr "Muokkaa tapahtumaa"
+
+msgid "EndDateCannotBeBeforeTheStartDate"
+msgstr "Päättymispäivä ei voi olla ennen alkamispäivää"
+
+msgid "ItemForUserSelection"
+msgstr "Käyttäjien poiminta lista"
+
+msgid "IsNotiCalFormatFile"
+msgstr "Tiedosto ei ole iCal formaatissa"
+
+msgid "RepeatEvent"
+msgstr "Toista tapahtuma"
+
+msgid "ScormVersion"
+msgstr "versio"
+
+msgid "ScormRestarted"
+msgstr "Ainuttakaan oppimisaihiota ei ole suoritettu loppuun."
+
+msgid "ScormNoNext"
+msgstr "Tämä on viimeisin oppimisaihio."
+
+msgid "ScormNoPrev"
+msgstr "Tämä on ensimmäinen oppimisaihio."
+
+msgid "ScormTime"
+msgstr "Aika"
+
+msgid "ScormNoOrder"
+msgstr "Järjestystä ei ole määrätty ennalta. Voit valita minkä tahansa oppimisaihion."
+
+msgid "ScormScore"
+msgstr "Tulos"
+
+msgid "ScormLessonTitle"
+msgstr "Oppimisaihion nimi"
+
+msgid "ScormStatus"
+msgstr "Tila"
+
+msgid "ScormToEnter"
+msgstr "Aloittaaksesi"
+
+msgid "ScormFirstNeedTo"
+msgstr "sinun täytyy ensin suorittaa"
+
+msgid "ScormThisStatus"
+msgstr "Tämä oppimisaihio on nyt"
+
+msgid "ScormClose"
+msgstr "Sulje"
+
+msgid "ScormRestart"
+msgstr "Aloita alusta"
+
+msgid "ScormCompstatus"
+msgstr "Valmis"
+
+msgid "ScormIncomplete"
+msgstr "Kesken"
+
+msgid "ScormPassed"
+msgstr "Suoritettu hyväksytysti"
+
+msgid "ScormFailed"
+msgstr "Hylätty"
+
+msgid "ScormPrevious"
+msgstr "Edellinen"
+
+msgid "ScormNext"
+msgstr "Seuraava"
+
+msgid "ScormTitle"
+msgstr "Chamilo Scorm -soitin"
+
+msgid "ScormMystatus"
+msgstr "Tilastoni"
+
+msgid "ScormNoItems"
+msgstr "Tämä oppimispolku on tyhjä."
+
+msgid "ScormNoStatus"
+msgstr "Tämän sisällön tilaa ei ole"
+
+msgid "ScormLoggedout"
+msgstr "poistunut Scorm -alueelta"
+
+msgid "ScormCloseWindow"
+msgstr "Sulje ikkuna"
+
+msgid "ScormBrowsed"
+msgstr "Luettu"
+
+msgid "ScormExitFullScreen"
+msgstr "Palaa normaaliin näyttöön"
+
+msgid "ScormFullScreen"
+msgstr "Koko näyttö"
+
+msgid "ScormNotAttempted"
+msgstr "Aloittamatta"
+
+msgid "Local"
+msgstr "Paikallinen"
+
+msgid "Remote"
+msgstr "Etä"
+
+msgid "Autodetect"
+msgstr "Automaattinen tunnistus"
+
+msgid "AccomplishedStepsTotal"
+msgstr "Suoritetut osat yhteensä"
+
+msgid "AreYouSureToDeleteSteps"
+msgstr "Oletko varma että haluat poistaa nämä vaiheet?"
+
+msgid "Origin"
+msgstr "Muokkaustyökalu"
+
+msgid "Local"
+msgstr "Paikallinen"
+
+msgid "Remote"
+msgstr "Etä"
+
+msgid "FileToUpload"
+msgstr "Lähetettävä SCORM tai AICC -tiedosto"
+
+msgid "ContentMaker"
+msgstr "Muokkaustyökalu"
+
+msgid "ContentProximity"
+msgstr "Kurssin sijainti"
+
+msgid "UploadLocalFileFromGarbageDir"
+msgstr "Lähetä paikallinen tiedosto kansiosta main/archive"
+
+msgid "ThisItemIsNotExportable"
+msgstr "Tämä oppimisaihio ei ole SCORM -yhteensopiva. Siksi sitä ei voi viedä."
+
+msgid "MoveCurrentChapter"
+msgstr "Siirrä tämä osio"
+
+msgid "GenericScorm"
+msgstr "Yleinen Scorm"
+
+msgid "UnknownPackageFormat"
+msgstr "Tiedostomuotoa ei voitu tunnistaa. Tarkista yhteensopivuus."
+
+msgid "MoveTheCurrentForum"
+msgstr "Siirrä tämä keskustelualue"
+
+msgid "WarningWhenEditingScorm"
+msgstr "Varoitus! Jos muokkaat Scorm -elementin sisältöä, saatat muuttaa kurssin raportointia tai vahingoittaa Scorm -elementtiä."
+
+msgid "MessageEmptyMessageOrSubject"
+msgstr "Aihe tai viesti tarvitaan"
+
+msgid "Messages"
+msgstr "Viestit"
+
+msgid "NewMessage"
+msgstr "Uusi viesti"
+
+msgid "DeleteSelectedMessages"
+msgstr "Poista valitut viestit"
+
+msgid "DeselectAll"
+msgstr "Poista kaikki valinnat"
+
+msgid "ReplyToMessage"
+msgstr "Vastaa tähän viestiin"
+
+msgid "BackToInbox"
+msgstr "Takaisin postilaatikkoon"
+
+msgid "MessageSentTo"
+msgstr "Viesti on lähetetty"
+
+msgid "SendMessageTo"
+msgstr "Kenelle"
+
+msgid "Myself"
+msgstr "Minulle"
+
+msgid "InvalidMessageId"
+msgstr "Vastattavan viestin tunnus ei ole kelvollinen"
+
+msgid "ErrorSendingMessage"
+msgstr "Virhe viestin lähetyksessä."
+
+msgid "SureYouWantToDeleteSelectedMessages"
+msgstr "Haluatko varmasti poistaa valitut viestit?"
+
+msgid "SelectedMessagesDeleted"
+msgstr "Valitut viestit on poistettu"
+
+msgid "EnterTitle"
+msgstr "Anna otsikko"
+
+msgid "TypeYourMessage"
+msgstr "Kirjoita viestisi tähän"
+
+msgid "MessageDeleted"
+msgstr "Viesti on poistettu"
+
+msgid "ConfirmDeleteMessage"
+msgstr "Haluatko varmasti poistaa valitun viestin?"
+
+msgid "DeleteMessage"
+msgstr "Poista viesti"
+
+msgid "ReadMessage"
+msgstr "Lue viesti"
+
+msgid "SendInviteMessage"
+msgstr "Lähetä kutsu"
+
+msgid "SendMessageInvitation"
+msgstr "Haluatko varmasti lähettää nämä kutsut?"
+
+msgid "MessageTool"
+msgstr "Viesti työkalu"
+
+msgid "WriteAMessage"
+msgstr "Kirjoita viesti"
+
+msgid "AlreadyReadMessage"
+msgstr "Viesti on jo luettu"
+
+msgid "UnReadMessage"
+msgstr "Lukemattomat"
+
+msgid "MessageSent"
+msgstr "Viesti lähetetty"
+
+msgid "ModifInfo"
+msgstr "Muuta kurssin tietoja"
+
+msgid "ModifDone"
+msgstr "Tietoja on muutettu"
+
+msgid "DelCourse"
+msgstr "Poista kurssin koko sivusto"
+
+msgid "Professors"
+msgstr "Opettajat"
+
+msgid "Faculty"
+msgstr "Koulutusala"
+
+msgid "Confidentiality"
+msgstr "Luottamuksellisesti"
+
+msgid "Unsubscription"
+msgstr "Peruuta osallistuminen"
+
+msgid "PrivOpen"
+msgstr "Yksityinen pääsy, avoin rekisteröityminen"
+
+msgid "Forbidden"
+msgstr "Ei sallittu"
+
+msgid "CourseAccessConfigTip"
+msgstr "Oletuksena kurssille on pääsy vain rekisteröityneille henkilöille. Jos halutaan luottamuksellisuutta, niin helpointa on avata rekisteröinti yhden viikon ajaksi, pyytää opiskelijoita rekeisteröitymään ja sitten sulkea rekisteröinti ja tarkistaa mahdolliset tunkeutujat käyttjien listalta."
+
+msgid "OpenToTheWorld"
+msgstr "Avoinna - kaikilla pääsy (myös vierailijat)"
+
+msgid "OpenToThePlatform"
+msgstr "Avoinna - kaikki ympäristöön rekisteröityneet käyttäjät pääsevät sisälle"
+
+msgid "OpenToThePlatform"
+msgstr "Avoinna - kaikki ympäristöön rekisteröityneet käyttäjät pääsevät sisälle"
+
+msgid "TipLang"
+msgstr "Tämä kieli on pätee kaikille kurssin sivuston kävijöille."
+
+msgid "Vid"
+msgstr "Video"
+
+msgid "Work"
+msgstr "Opiskelijoiden tehtävät"
+
+msgid "ProgramMenu"
+msgstr "Kurssin ohjelma"
+
+msgid "Stats"
+msgstr "Tilastot"
+
+msgid "UplPage"
+msgstr "Lataa sivu ja linkki omalle sivulle"
+
+msgid "LinkSite"
+msgstr "Lisää linkki omalle sivulle"
+
+msgid "HasDel"
+msgstr "on poistettu"
+
+msgid "ByDel"
+msgstr "Tämän kurssin sivuston poistaminen poistaa lopullisesti kaikki dokumentit sekä poistaa opiskelijoiden rekisteröinnit, ei kuitenkaan muilta kursseilta.<p>Haluatko varmasti poistaa kurssin"
+
+msgid "Y"
+msgstr "Kyllä"
+
+msgid "N"
+msgstr "Ei"
+
+msgid "DepartmentUrl"
+msgstr "Osaston URL"
+
+msgid "DepartmentUrlName"
+msgstr "Osasto"
+
+msgid "BackupCourse"
+msgstr "Varmista tämä kurssialue"
+
+msgid "ModifGroups"
+msgstr "Ryhmät"
+
+msgid "Professor"
+msgstr "Opettaja"
+
+msgid "DescriptionCours"
+msgstr "Kurssin kuvaus"
+
+msgid "ArchiveCourse"
+msgstr "Kurssin varmuuskopiointi"
+
+msgid "RestoreCourse"
+msgstr "Palauta kurssi"
+
+msgid "Restore"
+msgstr "Palauta"
+
+msgid "CreatedIn"
+msgstr "luotu"
+
+msgid "CreateMissingDirectories"
+msgstr "Puuttuvien kansioiden luonti"
+
+msgid "CopyDirectoryCourse"
+msgstr "Kopioi kurssin tiedostot"
+
+msgid "Disk_free_space"
+msgstr "Vapaa levytila"
+
+msgid "BuildTheCompressedFile"
+msgstr "Varmuuskopion tekeminen"
+
+msgid "FileCopied"
+msgstr "tiedosto kopioitu"
+
+msgid "ArchiveLocation"
+msgstr "Varmistuksen sijainti"
+
+msgid "SizeOf"
+msgstr "Koko"
+
+msgid "ArchiveName"
+msgstr "Varmistuksen nimi"
+
+msgid "BackupSuccesfull"
+msgstr "Varmuuskopiointi onnistunut"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "Kurssin varmuuskopio päätietokannassa"
+
+msgid "BUUsersInMainBase"
+msgstr "Käyttäjätietojen varmuuskopio päätietokannassa"
+
+msgid "BUAnnounceInMainBase"
+msgstr "Ilmoitusten varmuuskopio päätietokannassa"
+
+msgid "BackupOfDataBase"
+msgstr "Tietokannan varmuuskopiointi"
+
+msgid "ExpirationDate"
+msgstr "Vanhentumis pvm"
+
+msgid "LastEdit"
+msgstr "Viimeksi muokattu"
+
+msgid "LastVisit"
+msgstr "Viimeksi vierailtu"
+
+msgid "Subscription"
+msgstr "Kuvaus"
+
+msgid "CourseAccess"
+msgstr "Kurssi pääsy"
+
+msgid "ConfirmBackup"
+msgstr "Haluatko todella tehdä kurssista varmuuskopion"
+
+msgid "CreateSite"
+msgstr "Luo kurssin sivusto"
+
+msgid "RestoreDescription"
+msgstr "Kurssi on varmuuskopiotiedostossa jonka voit valita alapuolelta.<br><br> Kun klikkaat \"Palauta\" varmuuskopio puretaan ja kurssi luodaan uudelleen."
+
+msgid "RestoreNotice"
+msgstr "Tämä toiminto ei vielä mahdollista käyttäjien palautusta, mutta \"users.csv\" tiedosta löytyvä data on riittävä pääkäyttäjälle uusien käyttäjien palauttamiseksi käsin."
+
+msgid "AvailableArchives"
+msgstr "Käytettävissä olevat varmistukset"
+
+msgid "NoArchive"
+msgstr "Varmuuskopiota ei ole valittu"
+
+msgid "ArchiveNotFound"
+msgstr "Varmistusta ei löytynyt"
+
+msgid "ArchiveUncompressed"
+msgstr "Varmuuskopio on purettu ja asennettu."
+
+msgid "CsvPutIntoDocTool"
+msgstr "Tiedosto \"users.csv\" on ladatavissa Tiedostot työkalulla"
+
+msgid "BackH"
+msgstr "Kurssin oma sivu"
+
+msgid "OtherCategory"
+msgstr "Muut"
+
+msgid "AllowedToUnsubscribe"
+msgstr "Käyttäjä voi peruuttaa osallistumisensa tältä kurssilta"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "Käyttäjät eivät itse voi peruuttaa osallistumistaan tältä kurssilta"
+
+msgid "CourseVisibilityClosed"
+msgstr "Suljettu - ei pääsyä kurssille"
+
+msgid "CourseVisibilityClosed"
+msgstr "Suljettu - ei pääsyä kurssille"
+
+msgid "CourseVisibilityModified"
+msgstr "Muokattu (tarkemmat asetukset on määritetty roolien-oikeus asetuksilla)"
+
+msgid "WorkEmailAlert"
+msgstr "Hälytys sähköpostilla työn palautuksesta"
+
+msgid "WorkEmailAlertActivate"
+msgstr "Aktivoi sähköpostihälytys uuden työn palautuksesta"
+
+msgid "WorkEmailAlertDeactivate"
+msgstr "Poista sähköpostihälytys uuden työn palautuksesta"
+
+msgid "DropboxEmailAlert"
+msgstr "Hälytys sähköpostilla uudesta jaetusta tiedostosta"
+
+msgid "DropboxEmailAlertActivate"
+msgstr " Kytke hälytys sähköpostilla uudesta jaetusta tiedostosta"
+
+msgid "DropboxEmailAlertDeactivate"
+msgstr "Poista hälytys sähköpostilla uudesta jaetusta tiedostosta"
+
+msgid "AllowUserEditAgenda"
+msgstr "Salli käyttäjien muokata kurssiohjelmaa"
+
+msgid "AllowUserEditAgendaActivate"
+msgstr "Aktivoi kurssiohjelman muokkasu käyttäjille"
+
+msgid "AllowUserEditAgendaDeactivate"
+msgstr "Poista kurssiohjelman muokkasu käyttäjille"
+
+msgid "AllowUserEditAnnouncement"
+msgstr "Salli käyttäjien muokata kurssi-ilmoituksia"
+
+msgid "AllowUserEditAnnouncementActivate"
+msgstr "Salli muokkaus käyttäjille"
+
+msgid "AllowUserEditAnnouncementDeactivate"
+msgstr "Estä muokkaus käyttäjiltä"
+
+msgid "OrInTime"
+msgstr "Tai"
+
+msgid "CourseRegistrationPassword"
+msgstr "Kurssin rekisteröinti salasana"
+
+msgid "DescriptionDeleteCourse"
+msgstr "Klikkaa tätä linkkiä poistaaksesi kaikki jäljet tästä kurssista palvelimelta.<br><br>Tätä toimintoa käytettäessä täytyy olla erittäin varovainen!"
+
+msgid "DescriptionCopyCourse"
+msgstr "Monista kurssi tai osia siitä toiselle kurssille. Tarvitset vähintään 2 kurssia käyttääksesi tätä työkalua."
+
+msgid "DescriptionRecycleCourse"
+msgstr "Tämä työkalu tyhjentää kurssin. Se poistaa dokumentit, keskustelut, linkit. Voit valita mitkä osat haluat poistaa tai poistaa kaikki."
+
+msgid "QuizEmailAlert"
+msgstr "Hälytä sähköpostilla kun uusi testi tehdään"
+
+msgid "QuizEmailAlertActivate"
+msgstr "Aktivoi sähköposti-ilmoitus kun käyttäjä vastaa kyselyyn."
+
+msgid "QuizEmailAlertDeactivate"
+msgstr "Poista sähköposti-ilmoitus kun käyttäjä vastaa kyselyyn."
+
+msgid "AllowUserImageForum"
+msgstr "Käyttäjän kuva keskustelualueella"
+
+msgid "AllowUserImageForumActivate"
+msgstr "Näytä käyttäjien kuvat keskustelualueella"
+
+msgid "AllowUserImageForumDeactivate"
+msgstr "Piilota käyttäjien kuvat keskustelualueella"
+
+msgid "AllowLearningPathTheme"
+msgstr "Salli oppimispolun teema"
+
+msgid "AllowLearningPathThemeAllow"
+msgstr "Sallittu"
+
+msgid "AllowLearningPathThemeDisallow"
+msgstr "Estetty"
+
+msgid "ConfigChat"
+msgstr "Keskusteluasetukset"
+
+msgid "AllowOpenchatWindow"
+msgstr "Avaa keskustelu uuteen ikkunaan"
+
+msgid "AllowOpenChatWindowActivate"
+msgstr "Aktivoi avaa keskustelu uuteen ikkunaan"
+
+msgid "AllowOpenChatWindowDeactivate"
+msgstr "Poista keskustelun avaus uuteen ikkunaan"
+
+msgid "NewUserEmailAlert"
+msgstr "Ilmoitus sähköpostilla opettajalle kun uusi opiskelija ilmoittautuu kurssille"
+
+msgid "NewUserEmailAlertEnable"
+msgstr "Aktivoi ilmoitus sähköpostilla opettajalle kun uusi opiskelija ilmoittautuu kurssille"
+
+msgid "NewUserEmailAlertToTeacharAndTutor"
+msgstr "Poista ilmoitus sähköpostilla opettajalle kun uusi opiskelija ilmoittautuu kurssille"
+
+msgid "NewUserEmailAlertDisable"
+msgstr "Estä sähköposti-ilmoitus uudesta käyttäjästä kurssilla"
+
+msgid "PressAgain"
+msgstr "Paina 'Tallenna' uudelleen..."
+
+msgid "SelectOptionForBackup"
+msgstr "Valitse varmistuksen tyyppi"
+
+msgid "LetMeSelectItems"
+msgstr "Valitsen kurssin komponentit"
+
+msgid "CreateFullBackup"
+msgstr "Tee täydellinen varmistus kurssista"
+
+msgid "CreateBackup"
+msgstr "Tee varmistus"
+
+msgid "BackupCreated"
+msgstr "Varmistus kurssista on tehty. Tiedoston lautaus käynnistyy hetken kuluttua. Jos lataus ei käynnisty, klikkaa seuraavaa linkkiä."
+
+msgid "SelectBackupFile"
+msgstr "Valitse varmistus tiedosto"
+
+msgid "ImportBackup"
+msgstr "Tuo varmistus"
+
+msgid "ImportFullBackup"
+msgstr "Tuo täysi varmistus"
+
+msgid "ImportFinished"
+msgstr "Tuonti valmis"
+
+msgid "Tests"
+msgstr "Testit"
+
+msgid "Learnpaths"
+msgstr "Oppimispolut"
+
+msgid "CopyCourse"
+msgstr "Kopioi kurssi"
+
+msgid "SelectItemsToCopy"
+msgstr "Valitse kopioitavat osat"
+
+msgid "CopyFinished"
+msgstr "Kopiointi valmis"
+
+msgid "FullRecycle"
+msgstr "Käytä täysin uudelleen"
+
+msgid "RecycleCourse"
+msgstr "Käytä kurssi uudelleen"
+
+msgid "RecycleFinished"
+msgstr "Kurssin uudelleen käyttö valmis"
+
+msgid "RecycleWarning"
+msgstr "Varoitus: käyttämällä tätä työkalua, poistat joitain kurssin osia. Tätä ei voi perua. Suosittelemme tekemään <a href=\"create_backup.php\">varmistuksen</a> ennen kuin käytät tätä työkalua."
+
+msgid "SameFilename"
+msgstr "Mitä tehdään tuoduille tiedostoille jos saman niminen tiedosto on jo olemassa?"
+
+msgid "SameFilenameSkip"
+msgstr "Ohita saman niminen tiedosto"
+
+msgid "SameFilenameRename"
+msgstr "Nimeä tiedosto uudellen (esim file.pdf -> file_1.pdf)"
+
+msgid "SameFilenameOverwrite"
+msgstr "Ylikirjoita tiedosto"
+
+msgid "SelectDestinationCourse"
+msgstr "Valitse kohde kurssi"
+
+msgid "FullCopy"
+msgstr "Täysi kopiointi"
+
+msgid "NoResourcesToBackup"
+msgstr "Ei ole mitään mistä ottaa varmuuskopio"
+
+msgid "NoResourcesInBackupFile"
+msgstr "Varmistustiedostossa ei ole mitään"
+
+msgid "SelectResources"
+msgstr "Valitse resurssit"
+
+msgid "NoResourcesToRecycles"
+msgstr "Ei ole mitään resursseja uudelleen käytettäväksi"
+
+msgid "IncludeQuestionPool"
+msgstr "Sisällytä kysymyspankki"
+
+msgid "LocalFile"
+msgstr "paikallinen tiedosto"
+
+msgid "ServerFile"
+msgstr "palvelimen tiedosto"
+
+msgid "NoBackupsAvailable"
+msgstr "varmistusta ei ole saatavilla"
+
+msgid "NoDestinationCoursesAvailable"
+msgstr "kohde kurssia ei ole saatavilla"
+
+msgid "ImportBackupInfo"
+msgstr "Tuo varmistus. Voit ladata varmistustiedoston omalta koneeltasi tai voit käyttää palvelimella mahdollisesti olevaa varmistusta."
+
+msgid "CreateBackupInfo"
+msgstr "Tee kurssista varmistus. Voit valita varmistettavat kurssin osat."
+
+msgid "ToolIntro"
+msgstr "Työkalun kuvaus"
+
+msgid "UploadError"
+msgstr "Lataus epäonnistui, tarkista maksimi tiedoston koko ja kansion oikeudet."
+
+msgid "DocumentsWillBeAddedToo"
+msgstr "Dokumentit lisätään myös"
+
+msgid "ToExportLearnpathWithQuizYouHaveToSelectQuiz"
+msgstr "Jos haluat siirtää oppimispolun joka sisältää testin, sinun täytyy varmistaa että vastaavat testit on valittu siirtoon, joten sinun täytyy valita ne testien listalta."
+
+msgid "ArchivesDirectoryNotWriteableContactAdmin"
+msgstr "Varmistus kansioon ei voi kirjoittaa. Ota yhteyttä ympäristön ylläpitäjään."
+
+msgid "DestinationCourse"
+msgstr "Kohde kurssi"
+
+msgid "Camera"
+msgstr "Kamera"
+
+msgid "Microphone"
+msgstr "Mikrofoni"
+
+msgid "DeleteStream"
+msgstr "Poista tallenne"
+
+msgid "Record"
+msgstr "Nauhoita"
+
+msgid "NoFileAvailable"
+msgstr "Tiedostoa ei saatavilla"
+
+msgid "RecordingOnlyForTeachers"
+msgstr "Äänittäminen vain opettajille."
+
+msgid "UsersNow"
+msgstr "Käyttäjiä tällä hetkellä:"
+
+msgid "StartConference"
+msgstr "Aloita konferenssi"
+
+msgid "MyName"
+msgstr "Nimeni"
+
+msgid "OrganisationSVideoconference"
+msgstr "Chamilo LIVE"
+
+msgid "ImportPresentation"
+msgstr "Lataa esitys"
+
+msgid "RefreshList"
+msgstr "Virkistä lista"
+
+msgid "GoToTop"
+msgstr "Mene alkuun"
+
+msgid "NewPoll"
+msgstr "Uusi äänestys"
+
+msgid "CreateNewPoll"
+msgstr "Luo uusi äänestys tähän huoneesen"
+
+msgid "Question"
+msgstr "Kysymys"
+
+msgid "PollType"
+msgstr "Kyselyn tyyppi:"
+
+msgid "InfoConnectedUsersGetNotifiedOfThisPoll"
+msgstr "Info: Jokainen tässä tilassa oleva käyttäjä saa ilmoituksen uudesta kyselystä."
+
+msgid "YesNo"
+msgstr "Kyllä / Ei"
+
+msgid "Numeric1To10"
+msgstr "Numero 1-10"
+
+msgid "Poll"
+msgstr "Kysely"
+
+msgid "YouHaveToBecomeModeratorOfThisRoomToStartPolls"
+msgstr "Sinun tulee olla puheenjohtaja jotta voit tehdä kyselyitä."
+
+msgid "YourVoteHasBeenSent"
+msgstr "Äänesi on rekisteröity"
+
+msgid "YouAlreadyVotedForThisPoll"
+msgstr "Olet jo äänestänyt"
+
+msgid "VoteButton"
+msgstr "Äänestä!"
+
+msgid "YourAnswer"
+msgstr "Vastauksesi:"
+
+msgid "WantsToKnow"
+msgstr "haluaa tietää:"
+
+msgid "PollResults"
+msgstr "Kyselyn tulokset"
+
+msgid "ThereIsNoPoll"
+msgstr "Kyselyä ei ole."
+
+msgid "MeetingMode"
+msgstr "Kokous (max 4 käyttäjää)"
+
+msgid "ConferenceMaxSeats"
+msgstr "Luento (max 50 käyttäjää)"
+
+msgid "RemainingSeats"
+msgstr "Paikkoja jäljellä"
+
+msgid "AlreadyIn"
+msgstr "Jo sisällä"
+
+msgid "CheckIn"
+msgstr "Kirjautuminen"
+
+msgid "TheModeratorHasLeft"
+msgstr "Luennon valvoja on poistunut huoneesta."
+
+msgid "SystemMessage"
+msgstr "Järjestelmän viesti"
+
+msgid "ChooseDevices"
+msgstr "Valitse laitteet"
+
+msgid "ChooseCam"
+msgstr "Valitse kamera"
+
+msgid "ChooseMic"
+msgstr "Valitse mikrofoni:"
+
+msgid "YouHaveToReconnectSoThatTheChangesTakeEffect"
+msgstr "Sinun täytyy kirjautua uudelleen, jotta muutokset tulevat voimaan."
+
+msgid "ChangeSettings"
+msgstr "Muuta asetuksia"
+
+msgid "CourseLanguage"
+msgstr "Kieli:"
+
+msgid "ConfirmClearWhiteboard"
+msgstr "Haluatko varmasti tyhjentää taulun"
+
+msgid "ShouldWitheboardBeClearedBeforeNewImage"
+msgstr "Tyhjennetäänkö taulu ennen uuden kuvan lisäystä?"
+
+msgid "DontAskMeAgain"
+msgstr "Älä kysy enää"
+
+msgid "ShowConfirmationBeforeClearingWhiteboard"
+msgstr "Kysy vahvistus ennen taulun tyhjentämistä"
+
+msgid "ClearDrawArea"
+msgstr "Tyhjennä piirto alue"
+
+msgid "Undo"
+msgstr "Peru"
+
+msgid "Redo"
+msgstr "Toista"
+
+msgid "SelectAnObject"
+msgstr "Valitse objekti"
+
+msgid "DrawLine"
+msgstr "Piirrä viiva"
+
+msgid "DrawUnderline"
+msgstr "Alleviivaa"
+
+msgid "Rectangle"
+msgstr "Suorakulmio"
+
+msgid "Elipse"
+msgstr "Ellipsi"
+
+msgid "Arrow"
+msgstr "Nuoli"
+
+msgid "DeleteChosenItem"
+msgstr "Poista valittu resurssi"
+
+msgid "ApplyForModeration"
+msgstr "Ilmoittaudu valvojaksi"
+
+msgid "BecomeModerator"
+msgstr "Ryhdy valvojaksi"
+
+msgid "Italic"
+msgstr "Kursiivi"
+
+msgid "Bold"
+msgstr "Lihavoitu"
+
+msgid "Explanation"
+msgstr "Kun klikkaat Ok, niin sivustolle luodaan foorumi, esityslista, dokumenttien hallinta yms. Voit muuttaa sivustoa omalla tunnuksellasi."
+
+msgid "CodeTaken"
+msgstr "Tämä kurssi on jo käytössä.<br>Mene takaisin ja yritä uudetaan."
+
+msgid "ExerciceEx"
+msgstr "Testitehtävä"
+
+msgid "Antique"
+msgstr "Antiikin filosofian hitoria"
+
+msgid "SocraticIrony"
+msgstr "Sokraattinen ironia on..."
+
+msgid "ManyAnswers"
+msgstr "(Vastauksia voi olla useampi)"
+
+msgid "Ridiculise"
+msgstr "Naurualainen tapa vaikuttaa puhetoveriin, jotta tämä myöntäisi olevansa väärässä."
+
+msgid "NoPsychology"
+msgstr "Ei. Sokraattinen ironia ei liity psykologiaan, se käsittelee argumentaatiota."
+
+msgid "AdmitError"
+msgstr "Myöntää virheensä, jotta puhetoveri tekisi samoin."
+
+msgid "NoSeduction"
+msgstr "Ei. Sokraattinen ironia ei ole houkutukseen perustuva startegia tai esimerkkiin perustuva menetelmä."
+
+msgid "Force"
+msgstr "Pakottaa puhekumppani kysymyksillä ja lisäkysymyksillä myöntämään, että hän ei tiedä, mitä hän väittää tietävänsä."
+
+msgid "Indeed"
+msgstr "Todellakin. Sokraattinen ironia on kyselyyn perustuva menetelmä. Kreikan sana \"eirotao\" merkitsee \"tehdä kysymys\"."
+
+msgid "Contradiction"
+msgstr "Käyttämällä myöntämisen periaatetta pakotetaan puhekumppani umpikujaan."
+
+msgid "NotFalse"
+msgstr "Tämä vastaus ei ole väärin. On totta, että puhekumppanin tietämättömyys paljastaminen tarkoittaa kieltävien johtopäätelmien näyttämistä, jotka johtuvat hänen lähtökohdistaan."
+
+msgid "AddPageHome"
+msgstr "Lisää sivu ja linkki kotisivulle"
+
+msgid "ModifyInfo"
+msgstr "Kurssitiedot"
+
+msgid "CourseDesc"
+msgstr "Kurssin kuvaus"
+
+msgid "AgendaTitle"
+msgstr "Tiistai 11. joulukuuta - Ensimmäineen oppi: Newton 18"
+
+msgid "AgendaText"
+msgstr "Yleinen johdanto filosofian ja metodologian perusteisiin"
+
+msgid "Micro"
+msgstr "Katu haastattelut"
+
+msgid "Google"
+msgstr "Nopea ja tehokas haukone."
+
+msgid "IntroductionTwo"
+msgstr "Tämä sivu mahdollistaa kenen tahansa oppilaan tai ryhmän lisätä dokumentin kurssin sivustolle. Voit käyttää HTML-sivua kunhan siinä ei ole kuvia."
+
+msgid "AnnouncementEx"
+msgstr "Tämä on esimerkki ilmoituksesta. Vain opettajat ja ylläpitäjät voivat julaista ilmoituksia."
+
+msgid "JustCreated"
+msgstr "Loit juuri kurssin sivuston."
+
+msgid "CreateCourseGroups"
+msgstr "Ryhmät"
+
+msgid "CatagoryMain"
+msgstr "Ylintaso"
+
+msgid "CatagoryGroup"
+msgstr "Ryhmien foorumit"
+
+msgid "Ln"
+msgstr "Kieli"
+
+msgid "FieldsRequ"
+msgstr "Täytä kaikki kentät"
+
+msgid "Ex"
+msgstr "Esimerkki: <i>Kirjallisuuden historia</i>"
+
+msgid "Fac"
+msgstr "Koulutusala"
+
+msgid "TargetFac"
+msgstr "Kurssista vastaava koulutusala:"
+
+msgid "Doubt"
+msgstr "Jos et tiedä kurssin koodia, kysy:"
+
+msgid "Program"
+msgstr "Kurssin ohjelma</a>. Jos kurssilla ei ole koodia, keksi sellainen, esimerkiksi jos kurssisi käsittelee keksintöjä, niin anna kurssin koodiksi <i>Keksinnöt</i>"
+
+msgid "Scormtool"
+msgstr "Oppimispolku"
+
+msgid "Scormbuildertool"
+msgstr "Scorm polun rakentaminen"
+
+msgid "Pathbuildertool"
+msgstr "Rakenna oppimispolku"
+
+msgid "OnlineConference"
+msgstr "Konferenssi"
+
+msgid "AgendaCreationTitle"
+msgstr "Kurssin luominen"
+
+msgid "AgendaCreationContenu"
+msgstr "Kurssi on nyt luotu."
+
+msgid "OnlineDescription"
+msgstr "Konferenssin kuvaus"
+
+msgid "Only"
+msgstr "Vain"
+
+msgid "RandomLanguage"
+msgstr "Sekoita valinta mahdollisissa kielissä"
+
+msgid "ForumLanguage"
+msgstr "english"
+
+msgid "NewCourse"
+msgstr "Uusi kurssialue"
+
+msgid "AddNewCourse"
+msgstr "Lisää uusi kurssialue"
+
+msgid "OtherProperties"
+msgstr "Muitakin materiaaleja löydetty"
+
+msgid "SysId"
+msgstr "System ID"
+
+msgid "ScoreShow"
+msgstr "Näytä pisteet"
+
+msgid "Visibility"
+msgstr "Näkyvyys"
+
+msgid "VersionDb"
+msgstr "Tietokannan versio varmistus hetkellä"
+
+msgid "Expire"
+msgstr "Päättyy"
+
+msgid "ChoseFile"
+msgstr "Valitse tiedosto"
+
+msgid "FtpFileTips"
+msgstr "Tiedosto FTP palvelimella"
+
+msgid "HttpFileTips"
+msgstr "Tiedosto Web (HTTP) palvelimella"
+
+msgid "LocalFileTips"
+msgstr "Tiedosto palvelimella"
+
+msgid "PostFileTips"
+msgstr "Tiedosto paikallisella tietokoneellasi"
+
+msgid "Minimum"
+msgstr "minimi"
+
+msgid "Maximum"
+msgstr "maksimi"
+
+msgid "RestoreACourse"
+msgstr "palauta kurssi"
+
+msgid "Recycle"
+msgstr "Käytä kurssi uudelleen"
+
+msgid "AnnouncementExampleTitle"
+msgstr "Tämä on ilmoitus esimerkki"
+
+msgid "Wikipedia"
+msgstr "Ilmainen verkko sanakirja"
+
+msgid "DefaultGroupCategory"
+msgstr "Oletus ryhmät"
+
+msgid "DefaultCourseImages"
+msgstr "Galleria"
+
+msgid "ExampleForumCategory"
+msgstr "Esimerkki keskustelualueen luokka"
+
+msgid "ExampleForum"
+msgstr "Esimerkki keskustelualue"
+
+msgid "ExampleThread"
+msgstr "Esimerkki keskustelu"
+
+msgid "ExampleThreadContent"
+msgstr "Esimerkki sisältö"
+
+msgid "IntroductionWiki"
+msgstr "Sana Wiki on lyhennys hawaijin kielen sanasta Wikiwiki joka tarkoittaa nopeaa tai vauhtia. Wikissä ihmiset kirjoittavat sivuja yhdessä. Jos joku kirjoittaa jotain väärin seuraava voi korjata sen. Toinen käyttäjä voi myös lisätä jotain uutta sivulle. Tästä johtuen sivut kehittyvät jatkuvasti."
+
+msgid "CreateCourseArea"
+msgstr "Luo uusi kurssi"
+
+msgid "CreateCourse"
+msgstr "Luo kurssi"
+
+msgid "TitleNotification"
+msgstr "Since your last visit"
+
+msgid "ForumCategoryAdded"
+msgstr "Keskustelualue ryhmä lisätty"
+
+msgid "LearnpathAdded"
+msgstr "Kurssi lisätty"
+
+msgid "GlossaryAdded"
+msgstr "Lisää uusi termi Sanastoon"
+
+msgid "DeleteAllAttendances"
+msgstr "Poista kaikki valitut läsnäolot"
+
+msgid "Upload"
+msgstr "Lataa"
+
+msgid "ShowFeedback"
+msgstr "Näytä palaute"
+
+msgid "GiveFeedback"
+msgstr "Anna / muokkaa palautetta"
+
+msgid "JustUploadInSelect"
+msgstr "Tallenna itsellesi"
+
+msgid "MailingNothingFor"
+msgstr "Nenio por"
+
+msgid "MailingFileNotRegistered"
+msgstr "(ei ole rekisteröitynyt tälle kurssille)"
+
+msgid "MailingFileSentTo"
+msgstr "vastaanottaja"
+
+msgid "MailingFileIsFor"
+msgstr "estas por  XX"
+
+msgid "ForumDeleted"
+msgstr "Keskustelualue poistettu"
+
+msgid "ForumCategoryDeleted"
+msgstr "Keskustelualue ryhmä poistettu"
+
+msgid "ForumLocked"
+msgstr "Keskustelualue lukittu"
+
+msgid "AddForumCategory"
+msgstr "Lisää keskustelualue ryhmä"
+
+msgid "AddForum"
+msgstr "Lisää uusi keskustelualue"
+
+msgid "Posts"
+msgstr "Viestit"
+
+msgid "LastPosts"
+msgstr "Viimeisin viesti"
+
+msgid "NoForumInThisCategory"
+msgstr "Tässä ryhmässä ei ole keskustelualueita"
+
+msgid "InForumCategory"
+msgstr "Luo ryhmään"
+
+msgid "AllowAnonymousPosts"
+msgstr "Salli nimettömät kirjoitukset?"
+
+msgid "StudentsCanEdit"
+msgstr "Voiko käyttäjä muokata omia kirjoituksiaan?"
+
+msgid "AllowNewThreads"
+msgstr "Salli käyttäjän aloittaa uusi keskustelu"
+
+msgid "DefaultViewType"
+msgstr "Oletus asettelu"
+
+msgid "GroupSettings"
+msgstr "Ryhmä asetukset"
+
+msgid "NotAGroupForum"
+msgstr "Ei ryhmän keskustelualue"
+
+msgid "PublicPrivateGroupForum"
+msgstr "Julkinen vai yksityinen ryhmän keskustelualue"
+
+msgid "NewPostStored"
+msgstr "Viesti tallennettu"
+
+msgid "ReplyToThread"
+msgstr "Vastaa tähän keskusteluun"
+
+msgid "QuoteMessage"
+msgstr "Lainaa viestiä"
+
+msgid "NewTopic"
+msgstr "Uusi keskustelu"
+
+msgid "Views"
+msgstr "Näytetty"
+
+msgid "LastPost"
+msgstr "Viimeisin viesti"
+
+msgid "Quoting"
+msgstr "Lainaa"
+
+msgid "NotifyByEmail"
+msgstr "Ilmoita vastauksesta sähköpostilla"
+
+msgid "StickyPost"
+msgstr "Tämä on kiinnitetty viesti (näkyy aina ensimmäisenä)"
+
+msgid "ReplyShort"
+msgstr "VS:"
+
+msgid "DeletePost"
+msgstr "Haluatko varmasti poistaa tämän viestin? Viestin poistaminen poistaa myös vastaukset tähän viestiin. Ole hyvä ja tarkista mitkä muut viestit myös poistetaan."
+
+msgid "Locked"
+msgstr "Lukittu: käyttäjät eivät voi enää kirjoittaa uusia viestejä tähän keskustelualue ryhmään, keskustelualueeseen tai keskusteluun. Mutta he voivat silti lukea aiemmin kirjoitettuja viestejä."
+
+msgid "Unlocked"
+msgstr "Avattu: käyttäjät voivat kirjoittaa uusia viestejä."
+
+msgid "Flat"
+msgstr "allekkain"
+
+msgid "Threaded"
+msgstr "Viesti kerralllaan"
+
+msgid "Nested"
+msgstr "Sisennetty"
+
+msgid "FlatView"
+msgstr "Allekkain"
+
+msgid "ThreadedView"
+msgstr "Viesti Kerrallaan"
+
+msgid "NestedView"
+msgstr "Sisennetty Näkymä"
+
+msgid "Structure"
+msgstr "Rakenne"
+
+msgid "ForumCategoryEdited"
+msgstr "Keskustelualue ryhmää muokattu"
+
+msgid "ForumEdited"
+msgstr "Keskustelualuetta muokattu"
+
+msgid "NewThreadStored"
+msgstr "Uusi keskustelu lisätty"
+
+msgid "Approval"
+msgstr "Hyväksyntä"
+
+msgid "ForGroup"
+msgstr "Ryhmälle"
+
+msgid "ThreadLocked"
+msgstr "Keskustelu lukittu"
+
+msgid "NotAllowedHere"
+msgstr "Sinun ei pitäisi olla täällä."
+
+msgid "ReplyAdded"
+msgstr "Vastaus lisätty"
+
+msgid "EditPost"
+msgstr "Muokkaa tehtävää"
+
+msgid "EditPostStored"
+msgstr "Viestiä muokattu"
+
+msgid "NewForumPost"
+msgstr "Uusi viesti keskustelualueella"
+
+msgid "YouWantedToStayInformed"
+msgstr "Olet halunnut ilmoituksen sähköpostilla, kun joku vastaa keskusteluun."
+
+msgid "MessageHasToBeApproved"
+msgstr "Viestisi tarkistetaan ennen kuin muut käyttäjät näkevät sen."
+
+msgid "AllowAttachments"
+msgstr "Salli liitteet"
+
+msgid "EditForumCategory"
+msgstr "Muokkaa keskustelualue ryhmää"
+
+msgid "MovePost"
+msgstr "Siirrä viesti"
+
+msgid "MoveToThread"
+msgstr "Siirrä keskusteluun"
+
+msgid "ANewThread"
+msgstr "Uusi viestiketju"
+
+msgid "DeleteForum"
+msgstr "Poista keskustelualue"
+
+msgid "DeleteForumCategory"
+msgstr "Poista keskustelualue ryhmä?"
+
+msgid "Lock"
+msgstr "Lukitse"
+
+msgid "Unlock"
+msgstr "Poista lukitus"
+
+msgid "MoveThread"
+msgstr "Siirrä keskustelu"
+
+msgid "PostVisibilityChanged"
+msgstr "Viestin näkyvyys muutettu"
+
+msgid "PostDeleted"
+msgstr "Viesti poistettu"
+
+msgid "ThreadCanBeFoundHere"
+msgstr "Viesti löytyy täältä"
+
+msgid "DeleteCompleteThread"
+msgstr "Poista koko keskustelu?"
+
+msgid "ThreadDeleted"
+msgstr "Keskustelu poistettu"
+
+msgid "NextMessage"
+msgstr "Seuraava viesti"
+
+msgid "PrevMessage"
+msgstr "Edellinen viesti"
+
+msgid "FirstMessage"
+msgstr "Ensimmäinen viesti"
+
+msgid "LastMessage"
+msgstr "Viimeinen viesti"
+
+msgid "ForumSearch"
+msgstr "Etsi keskusteluista"
+
+msgid "ForumSearchResults"
+msgstr "Haku tulokset"
+
+msgid "ForumSearchInformation"
+msgstr "Etsi useammalla sanalla käyttämällä + merkkiä"
+
+msgid "YouWillBeNotifiedOfNewPosts"
+msgstr "Uusista viesteista lähetetään sinulle sähköpostilla ilmoitus."
+
+msgid "YouWillNoLongerBeNotifiedOfNewPosts"
+msgstr "Sinulle ei enää lähetetä ilmoituksia sähköpostilla uusista viesteistä"
+
+msgid "AddImage"
+msgstr "Lisää kuva"
+
+msgid "QualifyThread"
+msgstr "Merkitse keskustelu"
+
+msgid "QualifyThisThread"
+msgstr "Merkitse tämä keskustelu"
+
+msgid "PostsNumber"
+msgstr "Viestien määrä"
+
+msgid "NumberOfPostsForThisUser"
+msgstr "Käyttäjän kirjoittamien viestien määrä"
+
+msgid "AveragePostPerUser"
+msgstr "Viestit käyttäjittäin"
+
+msgid "MoreRecent"
+msgstr "uudemmat"
+
+msgid "Older"
+msgstr "vanhemmat"
+
+msgid "MaxScore"
+msgstr "Pisteet"
+
+msgid "ThreadStatistics"
+msgstr "Keskustelun tilastot"
+
+msgid "Thread"
+msgstr "Keskustelu"
+
+msgid "NotifyMe"
+msgstr "Ilmoita minulle"
+
+msgid "ForumMoved"
+msgstr "Keskustelualue on siirretty"
+
+msgid "DeleteAttachmentFile"
+msgstr "Poista liite tiedosto"
+
+msgid "EditAnAttachment"
+msgstr "Muokkaa liitettä"
+
+msgid "CreateForum"
+msgstr "Luo keskustelualue"
+
+msgid "ModifyForum"
+msgstr "Edit keskustelualue"
+
+msgid "CreateThread"
+msgstr "Luo keskustelu"
+
+msgid "ModifyThread"
+msgstr "Muokkaa keskustelua"
+
+msgid "EditForum"
+msgstr "Muokkaa keskustelualuetta"
+
+msgid "BackToForum"
+msgstr "Palaa keskustelualueelle"
+
+msgid "BackToForumOverview"
+msgstr "Palaa keskustelun etusivulle"
+
+msgid "BackToThread"
+msgstr "Palaa keskusteluun"
+
+msgid "LinkMoved"
+msgstr "Linkki siirretty"
+
+msgid "LinkName"
+msgstr "Linkin nimi"
+
+msgid "LinkAdd"
+msgstr "Lisää linkki"
+
+msgid "LinkAdded"
+msgstr "Linkki on lisätty"
+
+msgid "LinkMod"
+msgstr "Muokkaa linkkiä"
+
+msgid "LinkModded"
+msgstr "Linkki on muokattu"
+
+msgid "LinkDel"
+msgstr "Linkki on poistettu"
+
+msgid "LinkDeleted"
+msgstr "Linkki on poistettu"
+
+msgid "LinkDelconfirm"
+msgstr "Haluatko poistaa tämän linkin?"
+
+msgid "AllLinksDel"
+msgstr "Poista kaikki linkit tästä aihealueesta"
+
+msgid "CategoryName"
+msgstr "Aihealueen nimi"
+
+msgid "CategoryAdd"
+msgstr "Lisää aihealue"
+
+msgid "CategoryModded"
+msgstr "Aihealue on muokattu."
+
+msgid "CategoryDel"
+msgstr "Poista aihealue"
+
+msgid "CategoryDelconfirm"
+msgstr "Poistaessasi aihealuuen kaikki siellä olevat linkit poistuvat.<br />Haluatko varmasti poistaa tämän aihealueen?"
+
+msgid "AllCategoryDel"
+msgstr "Poista kaikki aihealueet ja linkit"
+
+msgid "GiveURL"
+msgstr "Kirjoita linkit URL-osoite"
+
+msgid "GiveCategoryName"
+msgstr "Kirjoita aihealueen nimi"
+
+msgid "NoCategory"
+msgstr "Ei aihealuetta"
+
+msgid "ShowNone"
+msgstr "Sulje kaikki aihealueet"
+
+msgid "ListDeleted"
+msgstr "Lista on poistettu"
+
+msgid "AddLink"
+msgstr "Lisää linkki"
+
+msgid "DelList"
+msgstr "Poista koko lista"
+
+msgid "ModifyLink"
+msgstr "Muokkaa linkkiä"
+
+msgid "CsvImport"
+msgstr "CSV tiedoston tuonti"
+
+msgid "CsvFileNotFound"
+msgstr "CVS liitetiedostoa ei voida avata (tyhjä tai liian iso)"
+
+msgid "CsvFileNoSeps"
+msgstr "CSV tiedostossa välimerkkinä täytyy olla , tai ;"
+
+msgid "CsvFileNoURL"
+msgstr "CSV tiedostossa pitää vähintään olla sarakkeet URL ja title"
+
+msgid "CsvFileLine1"
+msgstr "... - rivi 1 ="
+
+msgid "CsvLinesFailed"
+msgstr "rivi(ä) ei voitu tuoda linkkiä (ei URL tai otsikkoa)"
+
+msgid "CsvLinesOld"
+msgstr "aiempaa linkki(ä) päivitetty (sama URL tai luokka)"
+
+msgid "CsvLinesNew"
+msgstr "uutta linkkiä luotu."
+
+msgid "CsvExplain"
+msgstr "Tiedoston sisällön tulisi olla: <blockquote><pre> <b>URL</b>;category;<b>title</b>;description; <b>http://www.aaa.org/...</b>;Tärkeät linkit;<b>Nimi 1</b>;Kuvaus 1; <b>http://www.bbb.net/...</b>;;<b>Nimi 2</b>;\"Kuvaus 2\"; </pre></blockquote> Jos URL ja luokka vastaavat jo olemassa olevaa linkkiä otsikko ja kuvaus päivitetään.  Muussa tapauksessa tehdään uusi linkki.<br><br> Lihavoitu = pakollinen. Sarakkeet voi olla missä tahansa järjestyksessä, nimet pienellä tai isolla kirjoitettuna. Ylimääräiset kentät lisätään kuvaukseen. Välimerkkinä: pilkku tai puolipiste (, ;)."
+
+msgid "LinkUpdated"
+msgstr "Linkki on päivitetty"
+
+msgid "OnHomepage"
+msgstr "Näytä linkki kotisivulla"
+
+msgid "ShowLinkOnHomepage"
+msgstr "Näytä tämä linkki kuvakkeena kurssin etusivulla"
+
+msgid "General"
+msgstr "Yleinen"
+
+msgid "SaveLink"
+msgstr "Tallenna linkki"
+
+msgid "SaveCategory"
+msgstr "Tallenna kansio"
+
+msgid "BackToLinksOverview"
+msgstr "Palaa linkkien johdantoon"
+
+msgid "NewNote"
+msgstr "Uusi muistiinpano"
+
+msgid "Note"
+msgstr "Muistiinpano"
+
+msgid "NoteDeleted"
+msgstr "Muistiinpano poistettu"
+
+msgid "NoteUpdated"
+msgstr "Muistiinpano päivitetty"
+
+msgid "NoteCreated"
+msgstr "Muistiinpano tehty"
+
+msgid "YouMustWriteANote"
+msgstr "Kirjoita muistiinpano"
+
+msgid "SaveNote"
+msgstr "Tallenna muistiinpano"
+
+msgid "WriteYourNoteHere"
+msgstr "Klikkaa kirjoittaaksesi uuden muistiinpanon"
+
+msgid "SearchByTitle"
+msgstr "Etsi otsikolla"
+
+msgid "WriteTheTitleHere"
+msgstr "Kirjoita otsikko tähän"
+
+msgid "UpdateDate"
+msgstr "Muokkaus päivä"
+
+msgid "NoteAddNew"
+msgstr "Lisää uusi muistiinpano"
+
+msgid "OrderByCreationDate"
+msgstr "Järjestä luontipäivän mukaan"
+
+msgid "OrderByModificationDate"
+msgstr "Järjestä muokkauspäivän mukaan"
+
+msgid "OrderByTitle"
+msgstr "Järjestä otsikon mukaan"
+
+msgid "NoteTitle"
+msgstr "Muistiinpanon otsikko"
+
+msgid "NoteComment"
+msgstr "Muistiinpanon yksityiskohdat"
+
+msgid "NoteAdded"
+msgstr "Muistiinpano lisätty"
+
+msgid "NoteConfirmDelete"
+msgstr "Haluatko varmasti poistaa tämän muistiinpanon?"
+
+msgid "AddNote"
+msgstr "Lisää muistiinpano"
+
+msgid "ModifyNote"
+msgstr "Muokkaa henkilökohtaista muistiinpanoa"
+
+msgid "BackToNoteList"
+msgstr "Palaa muistio listaan"
+
+msgid "NotebookManagement"
+msgstr "Muistion hallinta"
+
+msgid "BackToNotesList"
+msgstr "Takaisin muistio listaan"
+
+msgid "NotesSortedByTitleAsc"
+msgstr "Muistiot järjestettynä nimen mukaan (a-z)"
+
+msgid "NotesSortedByTitleDESC"
+msgstr "Muistiot järjestettynä nimen mukaan (z-a)"
+
+msgid "Titular"
+msgstr "Opettaja"
+
+msgid "AdministrationTools"
+msgstr "Ylläpitotyökalut"
+
+msgid "CatList"
+msgstr "Aihealueet"
+
+msgid "Subscribe"
+msgstr "Ilmoittaudu"
+
+msgid "AlreadySubscribed"
+msgstr "Olet jo ilmoittautunut"
+
+msgid "CodeMandatory"
+msgstr "Koodi on pakollinen"
+
+msgid "CourseCategoryMandatory"
+msgstr "Kurssi kategoria on pakollinen"
+
+msgid "TeacherMandatory"
+msgstr "Opettaja on pakollinen"
+
+msgid "CourseCategoryStored"
+msgstr "Aiheryhmä luotu"
+
+msgid "WithoutTimeLimits"
+msgstr "Ei aikarajoitusta"
+
+msgid "Added"
+msgstr "Lisätty"
+
+msgid "Deleted"
+msgstr "Poistettu"
+
+msgid "Keeped"
+msgstr "Säilytetty"
+
+msgid "HideAndSubscribeClosed"
+msgstr "Piilotettu / Suljettu"
+
+msgid "HideAndSubscribeOpen"
+msgstr "Piilotettu / Avoin"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "Näkyvissä / Avoin"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "Näkyvissä / Suljettu"
+
+msgid "AdminThisUser"
+msgstr "Takaisin"
+
+msgid "Manage"
+msgstr "Ympäristön ylläpito"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "Olet rekisteröitynyt kurssille"
+
+msgid "SubCat"
+msgstr "alakategoriat"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "Tältä kurssilta ei voi kirjautua pois"
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "Olet tämän kurssin ylläpitäjä"
+
+msgid "CourseManagement"
+msgstr "Kurssin ylläpito"
+
+msgid "SortMyCourses"
+msgstr "Järjestä kurssini"
+
+msgid "SubscribeToCourse"
+msgstr "Ilmoittaudu kursseille"
+
+msgid "UnsubscribeFromCourse"
+msgstr "Kirjaudu pois kurssilta"
+
+msgid "CreateCourseCategory"
+msgstr "Luo aihealue kursseille"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "Oletko varma, että haluat poistaa tämän aihealueen? Siellä olevat kurssit eivät jatkossa kuulu mihinkään aihealueeseen."
+
+msgid "CourseCategories"
+msgstr "Kurssien aihealueet"
+
+msgid "CoursesInCategory"
+msgstr "Kurssit tässä aihealueessa"
+
+msgid "SearchCourse"
+msgstr "Etsi kursseja"
+
+msgid "UpOneCategory"
+msgstr "Edelliseen aihealueeseen"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "Oletko varma, että haluat peruuttaa osallistumisesi tälle kurssille?"
+
+msgid "NoCourseCategory"
+msgstr "Ei aihealuetta"
+
+msgid "EditCourseCategorySucces"
+msgstr "Kurssi on lisätty aihealueeseen"
+
+msgid "SubscribingNotAllowed"
+msgstr "Kirjautuminen ei ole sallittua"
+
+msgid "CourseSortingDone"
+msgstr "Kurssit on järjestetty"
+
+msgid "ExistingCourseCategories"
+msgstr "Olemassa olevat kurssien aihealueet"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "Osallistumisesi kurssille on nyt peruutettu"
+
+msgid "ViewOpenCourses"
+msgstr "Näytä avoimet kurssit"
+
+msgid "ErrorContactPlatformAdmin"
+msgstr "Tapahtui tunnistamaton virhe. Ota yhteys ylläpitäjään."
+
+msgid "CourseRegistrationCodeIncorrect"
+msgstr "Kurssi koodi on väärä"
+
+msgid "CourseRequiresPassword"
+msgstr "Kurssille tarvitaan salasana"
+
+msgid "SubmitRegistrationCode"
+msgstr "Syötä rekisteröinti koodi"
+
+msgid "CourseCategoryDeleted"
+msgstr "Kurssi kategoria on poistettu"
+
+msgid "CategorySortingDone"
+msgstr "Kategorioiden lajittelu valmis"
+
+msgid "CourseCategoryEditStored"
+msgstr "Kategoria päivitetty"
+
+msgid "buttonCreateCourseCategory"
+msgstr "Tallenna kategoria"
+
+msgid "buttonSaveCategory"
+msgstr "Tallenna kategoria"
+
+msgid "buttonChangeCategory"
+msgstr "Muuta kategoria"
+
+msgid "Expand"
+msgstr "Laajenna"
+
+msgid "Collapse"
+msgstr "Pienennä"
+
+msgid "CourseDetails"
+msgstr "Kurssin kuvaus"
+
+msgid "WCAGGoMenu"
+msgstr "Mene valikkoon"
+
+msgid "WCAGGoContent"
+msgstr "Mene sisältöön"
+
+msgid "AdminBy"
+msgstr "Ylläpito"
+
+msgid "Statistiques"
+msgstr "Tilastot"
+
+msgid "VisioHostLocal"
+msgstr "Videokonferenssin isäntä"
+
+msgid "Used"
+msgstr "käytetty"
+
+msgid "Exist"
+msgstr "olemassa oleva"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "Näytä opettaja kurssin otsikossa"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "Näytä opettaja kurssilistan kommentissa"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "Näytä kurssikoodi kurssilistan kommentissa"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "Näytä kurssikoodi kurssin otsikossa"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "Ei ole virtuaalikursseja alustassa"
+
+msgid "CourseBackup"
+msgstr "Tee varmuuskopio tästä kursista"
+
+msgid "CourseTitular"
+msgstr "Opettaja"
+
+msgid "CourseFaculty"
+msgstr "Kurssi kategoria"
+
+msgid "CourseSubscription"
+msgstr "Kurssin tilaus"
+
+msgid "PublicAccess"
+msgstr "Julkinen pääsy"
+
+msgid "PrivateAccess"
+msgstr "Yksityinen pääsy"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "Tietokannan ylläpito on sallittu vain palvelimen ylläpitäjälle"
+
+msgid "PhoneNumber"
+msgstr "Puhelinnumero"
+
+msgid "AddToCourse"
+msgstr "Lisää kurssiin"
+
+msgid "DeleteFromCourse"
+msgstr "Peruuta kurssi(t)"
+
+msgid "Administrator"
+msgstr "Ylläpitäjä"
+
+msgid "AddUsers"
+msgstr "Lisää käyttäjä"
+
+msgid "AddGroups"
+msgstr "Lisää ryhmiä"
+
+msgid "AddClasses"
+msgstr "Lisää luokkia"
+
+msgid "ExportUsers"
+msgstr "Tuo käyttäjä lista"
+
+msgid "ModifyUserInfo"
+msgstr "Muokkaa käyttäjätieto"
+
+msgid "ModifyGroupInfo"
+msgstr "Muokkaa ryhmätieto"
+
+msgid "ServerStatusTitle"
+msgstr "Palvelin tyyppi"
+
+msgid "Languages"
+msgstr "Kielet"
+
+msgid "ClassDeleted"
+msgstr "Luokka on poistettu"
+
+msgid "SearchXapianModuleNotInstalled"
+msgstr "Xapian hakumodulia ei ole asennettu"
+
+msgid "AnnEmpty"
+msgstr "Ilmoitusten lista on tyhjennetty"
+
+msgid "AnnouncementModified"
+msgstr "Ilmoituksia on muutettu"
+
+msgid "AnnouncementAdded"
+msgstr "Ilmoitus on lisätty"
+
+msgid "AnnouncementDeleted"
+msgstr "Ilmoitus on poistettu"
+
+msgid "AnnouncementPublishedOn"
+msgstr "Julkaistu"
+
+msgid "AddAnnouncement"
+msgstr "Lisää ilmoituksena"
+
+msgid "AnnouncementDeleteAll"
+msgstr "Tyhjennä ilmoitusten lista"
+
+msgid "professorMessage"
+msgstr "Viesti opettajaltasi"
+
+msgid "EmailSent"
+msgstr "ja lähetetty sähköpostilla rekisteröityneille käyttäjille"
+
+msgid "EmailOption"
+msgstr "Lähetä tämä ilmoitus sähköpostilla rekisteröityneille käyttäjille"
+
+msgid "On"
+msgstr "On"
+
+msgid "RegUser"
+msgstr "kurssin rekisteröityneet käyttäjät"
+
+msgid "Unvalid"
+msgstr "have unvalid or no email address"
+
+msgid "ModifAnn"
+msgstr "Muokkaa tätä ilmoitusta"
+
+msgid "SelMess"
+msgstr "Varoitukset joillekkin käyttäjille"
+
+msgid "SelectedUsers"
+msgstr "Valitut käyttäjät"
+
+msgid "PleaseEnterMessage"
+msgstr "Sinun on esiteltävä viestin teksti."
+
+msgid "PleaseSelectUsers"
+msgstr "Valitse ainakin yksi käyttäjä"
+
+msgid "Teachersubject"
+msgstr "Viesti lähetetty opiskelijoillesi"
+
+msgid "MessageToSelectedUsers"
+msgstr "Viesti valituille käyttäjille"
+
+msgid "IntroText"
+msgstr "Lähettääksesi viesti, valitse ryhmä (merkitty G -kirjaimella) tai yksittäisiä käyttäjiä vasemmalla olevasta listasta."
+
+msgid "MsgSent"
+msgstr "Viesti on lähetetty valituille käyttäjille"
+
+msgid "SelUser"
+msgstr "valitut käyttäjät"
+
+msgid "MessageToSelectedGroups"
+msgstr "Viesti valituille ryhmille"
+
+msgid "SelectedGroups"
+msgstr "valitut ryhmät"
+
+msgid "Msg"
+msgstr "Viestit"
+
+msgid "MsgText"
+msgstr "Viesti"
+
+msgid "AnnouncementDeletedAll"
+msgstr "Kaikki ilmoitukset on poistettu"
+
+msgid "AnnouncementMoved"
+msgstr "Ilmoitukset on siirretty"
+
+msgid "NoAnnouncements"
+msgstr "Ilmoituksia ei ole"
+
+msgid "SelectEverybody"
+msgstr "Valitse kaikki"
+
+msgid "SelectedUsersGroups"
+msgstr "valitut käyttäjä ryhmät"
+
+msgid "LearnerMessage"
+msgstr "Viesti opiskelijalta"
+
+msgid "TitleIsRequired"
+msgstr "Otsikko täytyy olla"
+
+msgid "AnnounceSentByEmail"
+msgstr "Ilmoitus lähetetty sähköpostilla"
+
+msgid "AnnounceSentToUserSelection"
+msgstr "Ilmoitus lähetetty valituille käyttäjille"
+
+msgid "SendAnnouncement"
+msgstr "Lähetä ilmoitus"
+
+msgid "ModifyAnnouncement"
+msgstr "Muokkaa ilmoitusta"
+
+msgid "ButtonPublishAnnouncement"
+msgstr "Lähetä ilmoitus"
+
+msgid "LineNumber"
+msgstr "Rivinumero"
+
+msgid "LineOrLines"
+msgstr "rivi(t)"
+
+msgid "AddNewHeading"
+msgstr "Lisää uusi otsikko"
+
+msgid "CourseAdministratorOnly"
+msgstr "vain opettaja"
+
+msgid "DefineHeadings"
+msgstr "Määrittele otsikot"
+
+msgid "BackToUsersList"
+msgstr "Takaisin käyttäjälistaan"
+
+msgid "CourseManager"
+msgstr "Opettaja"
+
+msgid "ModRight"
+msgstr "muuta oikeuksia"
+
+msgid "NoAdmin"
+msgstr "ei omista enää oikeuksia tälle sivulle"
+
+msgid "AllAdmin"
+msgstr "omistaa tästä eteenpäin kaikki oikeudet tälle sivulle"
+
+msgid "ModRole"
+msgstr "Vaihda roolia"
+
+msgid "IsNow"
+msgstr "on tästä eteenpäin"
+
+msgid "InC"
+msgstr "tällä kurssilla"
+
+msgid "Filled"
+msgstr "Jätit jotkut kentistä tyhjiksi."
+
+msgid "UserNo"
+msgstr "Valitsemasi käyttäjänimi"
+
+msgid "Taken"
+msgstr "on jo käytössä. valitse uusi."
+
+msgid "Tutor"
+msgstr "Tutor"
+
+msgid "Unreg"
+msgstr "Peruuta"
+
+msgid "GroupUserManagement"
+msgstr "Ryhmän hallinta"
+
+msgid "AddAUser"
+msgstr "Lisää käyttäjä"
+
+msgid "NewGroupCreate"
+msgstr "Muodosta uusia ryhmiä"
+
+msgid "GroupCreation"
+msgstr "Uusien ryhmien muodostaminen"
+
+msgid "NewGroups"
+msgstr "uudet ryhmät"
+
+msgid "Max"
+msgstr "Korkeintaan 12 merkkiä, esimerkiksi <i>Luokka2121</i>"
+
+msgid "GroupPlacesThis"
+msgstr "paikkoja (valinnainen)"
+
+msgid "GroupsAdded"
+msgstr "ryhmät on lisätty"
+
+msgid "GroupDel"
+msgstr "Ryhmä poistettu"
+
+msgid "ExistingGroups"
+msgstr "Ryhmät"
+
+msgid "Registered"
+msgstr "Rekisteröityneet"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "Käyttäjät voivat itse muodostaa ryhmät"
+
+msgid "GroupTools"
+msgstr "Työkalut"
+
+msgid "GroupDocument"
+msgstr "Dokumentit"
+
+msgid "GroupPropertiesModified"
+msgstr "Ryhmien asetuksia on muutettu"
+
+msgid "GroupName"
+msgstr "Ryhmän nimi"
+
+msgid "GroupDescription"
+msgstr "Kuvaus"
+
+msgid "GroupMembers"
+msgstr "Ryhmän jäsenet"
+
+msgid "EditGroup"
+msgstr "Muokkaa tätä ryhmää"
+
+msgid "GroupSettingsModified"
+msgstr "Ryhmäasetuksia muutettu"
+
+msgid "GroupTooMuchMembers"
+msgstr "Ehdottamasi määrä ylittää maksinin, jonka olet määritellyt (voit muuttaa sitä alla). Ryhmää ei muodostettu."
+
+msgid "GroupTutor"
+msgstr "Tutor"
+
+msgid "GroupNoTutor"
+msgstr "(ei ole)"
+
+msgid "GroupNone"
+msgstr "(ei yhtään)"
+
+msgid "GroupNoneMasc"
+msgstr "(ei yhtään)"
+
+msgid "AddTutors"
+msgstr "Muokkaa käyttäjälistaa"
+
+msgid "MyGroup"
+msgstr "ryhmäni"
+
+msgid "OneMyGroups"
+msgstr "valvonnassani"
+
+msgid "GroupSelfRegistration"
+msgstr "Rekisteröityminen"
+
+msgid "GroupSelfRegInf"
+msgstr "rekisteröidy"
+
+msgid "RegIntoGroup"
+msgstr "Lisää minut tähän ryhmään"
+
+msgid "GroupNowMember"
+msgstr "Olet nyt tämän ryhmän jäsen."
+
+msgid "Private"
+msgstr "Yksityinen pääsy, reisteröityminen suljettu (sisäänpääsy vain <a href=../user/user.php>käyttäjien listalta</a>)"
+
+msgid "Public"
+msgstr "Avoin pääsy sivuston omalta sivulta ilman sisäänkirjautumista"
+
+msgid "PropModify"
+msgstr "Muokkaa asetuksia"
+
+msgid "State"
+msgstr "Tila"
+
+msgid "GroupFilledGroups"
+msgstr "Ryhmät on täydennetty käyttäjälistassa olevilla käyttäjillä."
+
+msgid "Subscribed"
+msgstr "kurssille rekisteröityneet käyttäjät"
+
+msgid "StudentsNotInThisGroups"
+msgstr "Käyttäjät jotka eivät ole tässä ryhmässä"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "Käyttäjä voi kuulu maksimissaan"
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr " ryhmään"
+
+msgid "GroupLimit"
+msgstr "Rajoitus"
+
+msgid "CreateGroup"
+msgstr "Luo ryhmä(t)"
+
+msgid "StudentRegAllowed"
+msgstr "Opiskelijat voivat itse rekisteröityä ryhmiin"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "Käyttäjät on sallitu itse poistua ryhmistä"
+
+msgid "AllGroups"
+msgstr "Kaikki ryhmät"
+
+msgid "StudentUnsubscribe"
+msgstr "Poista minut tästä ryhmästä."
+
+msgid "StudentDeletesHimself"
+msgstr "Sinut on nyt poistettu ryhmästä."
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "Oletusasetukset uusille ryhmille"
+
+msgid "SelectedGroupsDeleted"
+msgstr "Kaikki valitut ryhmät on poistettu"
+
+msgid "SelectedGroupsEmptied"
+msgstr "Kaikki valitut ryhmät ovat nyt tyhjiä"
+
+msgid "GroupEmptied"
+msgstr "Ryhmä on nyt tyhjä"
+
+msgid "SelectedGroupsFilled"
+msgstr "Kaikki valitut ryhmät on nyt täytetty"
+
+msgid "GroupSelfUnRegInf"
+msgstr "poistu"
+
+msgid "SameForAll"
+msgstr "sama kaikille"
+
+msgid "NoLimit"
+msgstr "Ei rajoituksia"
+
+msgid "PleaseEnterValidNumber"
+msgstr "Montako ryhmää haluat muodostaa"
+
+msgid "CreateGroupsFromVirtualCourses"
+msgstr "Muodosta ryhmät kaikista kurssilla olijoista"
+
+msgid "FillGroup"
+msgstr "Lisää käyttäjiä"
+
+msgid "GroupAnnouncements"
+msgstr "Ilmoitukset"
+
+msgid "NewForumCreated"
+msgstr "Uusi foorumi luotu"
+
+msgid "NewThreadCreated"
+msgstr "Uusi viestiketju luotu"
+
+msgid "AddHotpotatoes"
+msgstr "Lisää HotPotatoes"
+
+msgid "HideAttemptView"
+msgstr "Piilota yritykset"
+
+msgid "ExtendAttemptView"
+msgstr "Näytä yritykset"
+
+msgid "LearnPathAddedTitle"
+msgstr "Tervetuloa Dokeoksen kurssityökaluun!"
+
+msgid "BuildComment"
+msgstr "Lisää oppimisobjekteja ja tehtäviä kurssiisi"
+
+msgid "BasicOverviewComment"
+msgstr "Lisää ääni kommentteja ja järjestä objekteja sisällysluettelossa"
+
+msgid "DisplayComment"
+msgstr "Katso kurssia oppilaan näkökulmasta"
+
+msgid "NewChapterComment"
+msgstr "Luku 1, Luku 2 tai Viikko 1, Viikko 2..."
+
+msgid "NewStepComment"
+msgstr "Lisää testejä, aktiviteetteja tai multimedia sisältöjä"
+
+msgid "LearnpathTitle"
+msgstr "otsikko"
+
+msgid "LearnpathPrerequisites"
+msgstr "Ennakkovaatimukset"
+
+msgid "LearnpathMoveUp"
+msgstr "Siirrä ylös"
+
+msgid "LearnpathMoveDown"
+msgstr "Siirrä alas"
+
+msgid "ThisItem"
+msgstr "tämä asia"
+
+msgid "LearnpathTitleAndDesc"
+msgstr "Otsikko ja kuvaus"
+
+msgid "LearnpathChangeOrder"
+msgstr "Vaihda järjestystä"
+
+msgid "LearnpathAddPrereqi"
+msgstr "Lisää ennakkovaatimuksia"
+
+msgid "LearnpathAddTitleAndDesc"
+msgstr "Muokaa otsikkoa ja sisältöä"
+
+msgid "LearnpathMystatus"
+msgstr "Tilanteeni"
+
+msgid "LearnpathCompstatus"
+msgstr "valmis"
+
+msgid "LearnpathIncomplete"
+msgstr "kesken"
+
+msgid "LearnpathPassed"
+msgstr "hyväksytty"
+
+msgid "LearnpathFailed"
+msgstr "hylätty"
+
+msgid "LearnpathPrevious"
+msgstr "Edellinen"
+
+msgid "LearnpathNext"
+msgstr "Seuraava"
+
+msgid "LearnpathRestart"
+msgstr "Aloita alusta"
+
+msgid "LearnpathThisStatus"
+msgstr "Tämä oppimisobjekti on nyt"
+
+msgid "LearnpathToEnter"
+msgstr "Jatkaaksesi"
+
+msgid "LearnpathFirstNeedTo"
+msgstr "Sinun täytyy ensin suorittaa"
+
+msgid "LearnpathLessonTitle"
+msgstr "Osion nimi"
+
+msgid "LearnpathStatus"
+msgstr "Tila"
+
+msgid "LearnpathScore"
+msgstr "Tulos"
+
+msgid "LearnpathTime"
+msgstr "Aika"
+
+msgid "LearnpathVersion"
+msgstr "versio"
+
+msgid "LearnpathRestarted"
+msgstr "Ei suoritettuja oppimisobjekteja"
+
+msgid "LearnpathNoNext"
+msgstr "Tämä on viimeinen askel"
+
+msgid "LearnpathNoPrev"
+msgstr "Tämä on ensimmäinen askel."
+
+msgid "LearnpathAddLearnpath"
+msgstr "Lisää oppimispolku"
+
+msgid "LearnpathEditLearnpath"
+msgstr "muokkaa oppimispolkua"
+
+msgid "LearnpathDeleteLearnpath"
+msgstr "poista oppimispolku"
+
+msgid "LearnpathDoNotPublish"
+msgstr "älä julkaise"
+
+msgid "LearnpathPublish"
+msgstr "julkaise"
+
+msgid "LearnpathNotPublished"
+msgstr "ei julkaistu"
+
+msgid "LearnpathPublished"
+msgstr "julkaistu"
+
+msgid "LearnpathEditModule"
+msgstr "Muokkaa osion kuvausta/nimeä"
+
+msgid "LearnpathDeleteModule"
+msgstr "Poista luku"
+
+msgid "LearnpathNoChapters"
+msgstr "Ei vielä lisättyjä osioita"
+
+msgid "LearnpathAddItem"
+msgstr "Lisää oppimiobjekteja tähän osioon"
+
+msgid "LearnpathItemDeleted"
+msgstr "Oppimisobjekti on poistettu"
+
+msgid "LearnpathItemEdited"
+msgstr "Oppimisobjektia on muokattu"
+
+msgid "LearnpathPrereqNotCompleted"
+msgstr "Oppimisobjektia ei voida näyttää, koska kurssin edellytykset eivät ole vielä täyttyneet. Näin käy kun kurssi pitää käydä läpi askel askeleelta tai kokeessa täytyy saada vaaditut pisteet ennen seuraavaan vaiheeseen pääsyä."
+
+msgid "NewChapter"
+msgstr "Lisää osio"
+
+msgid "NewStep"
+msgstr "Lisää oppimisobjekti tai aktiviteetti"
+
+msgid "EditPrerequisites"
+msgstr "Muokkaa nykyisen oppimisobjektin edellytyksiä"
+
+msgid "TitleManipulateChapter"
+msgstr "Muokkaa osiota"
+
+msgid "TitleManipulateModule"
+msgstr "Muokkaa osiota"
+
+msgid "TitleManipulateDocument"
+msgstr "Muokkaa dokumenttia"
+
+msgid "TitleManipulateLink"
+msgstr "Muokkaa linkkiä"
+
+msgid "TitleManipulateQuiz"
+msgstr "Muokkaa testin rakennetta"
+
+msgid "TitleManipulateStudentPublication"
+msgstr "Muokkaa tehtävää"
+
+msgid "EnterDataNewChapter"
+msgstr "Osion lisääminen tälle kurssille"
+
+msgid "EnterDataNewModule"
+msgstr "Syötä osion tiedot"
+
+msgid "CreateNewStep"
+msgstr "Luo uusi askel"
+
+msgid "NewDocument"
+msgstr "Uusi dokumentti"
+
+msgid "UseAnExistingResource"
+msgstr "Tai käytä jo olemassa olevaa resurssia:"
+
+msgid "Position"
+msgstr "Sisällysluettelossa"
+
+msgid "NewChapterCreated"
+msgstr "Uusi osio on luotu. Voit jatkaa lisäämällä osion tai askeleen."
+
+msgid "NewLinksCreated"
+msgstr "Uusi linkki on luotu"
+
+msgid "NewStudentPublicationCreated"
+msgstr "Uusi tehtävä on luotu"
+
+msgid "NewModuleCreated"
+msgstr "Uusi osio on luotu. Voit nyt lisätä osion tai oppimisobjektin siihen."
+
+msgid "NewExerciseCreated"
+msgstr "Uusi harjoitus luotu"
+
+msgid "ItemRemoved"
+msgstr "Oppimisobjekti on poistettu"
+
+msgid "Converting"
+msgstr "Muunnetaan..."
+
+msgid "Ppt2lpError"
+msgstr "Virhe muunnettaessa esitystä. Tarkista ettei tiedoston nimessä ole mitään erikoismerkkejä."
+
+msgid "Build"
+msgstr "Muokkaa"
+
+msgid "ViewModeEmbedded"
+msgstr "Näkymä: sulautettu"
+
+msgid "ViewModeFullScreen"
+msgstr "Näkymä: kokoruutu"
+
+msgid "ShowDebug"
+msgstr "Näytä virheiden etsintä"
+
+msgid "HideDebug"
+msgstr "Piiltoa virheiden etsintä"
+
+msgid "CantEditDocument"
+msgstr "Tämä dokumentti ei ole muokattavissa"
+
+msgid "After"
+msgstr "Jälkeen"
+
+msgid "LearnpathPrerequisitesLimit"
+msgstr "Edellytykset (raja)"
+
+msgid "HotPotatoesFinished"
+msgstr "Tämä HotPotatoes testi on suljettu."
+
+msgid "CompletionLimit"
+msgstr "Suoritus raja (minimi pisteet)"
+
+msgid "PrereqToEnter"
+msgstr "Jatkaaksesi"
+
+msgid "PrereqFirstNeedTo"
+msgstr "sinun täytyy ensin suorittaa"
+
+msgid "PrereqModuleMinimum1"
+msgstr "Ainakin 1 askel uupuu"
+
+msgid "PrereqModuleMinimum2"
+msgstr "on määritetty edellytykseksi."
+
+msgid "PrereqTestLimit1"
+msgstr "sinun täytyy saada vähintään"
+
+msgid "PrereqTestLimit2"
+msgstr "pistettä"
+
+msgid "PrereqTestLimitNow"
+msgstr "Nyt sinulla on:"
+
+msgid "LearnpathExitFullScreen"
+msgstr "takaisin normaali näkymään"
+
+msgid "LearnpathFullScreen"
+msgstr "koko näyttö"
+
+msgid "NoItemSelected"
+msgstr "Valitse oppimisobjekti sisällysluettelosta"
+
+msgid "NewDocumentCreated"
+msgstr "Uusi dokumentti luotu"
+
+msgid "EditCurrentChapter"
+msgstr "Muokkaa nykyistä lukua"
+
+msgid "ditCurrentModule"
+msgstr "Muokkaa nykyistä osiota"
+
+msgid "MoveTheCurrentDocument"
+msgstr "Siirrä nykyinen dokumentti"
+
+msgid "EditTheCurrentDocument"
+msgstr "Muokkaa nykyistä dokumenttia"
+
+msgid "Warning"
+msgstr "Varoitus!"
+
+msgid "CreateTheExercise"
+msgstr "Luo harjoitus"
+
+msgid "MoveTheCurrentExercise"
+msgstr "Siirrä nykyinen testi"
+
+msgid "EditCurrentExecice"
+msgstr "Muokkaa nykyistä testiä"
+
+msgid "UploadScorm"
+msgstr "Tuo SCORM kurssi"
+
+msgid "PowerPointConvert"
+msgstr "Chamilo RAPID"
+
+msgid "LPCreatedToContinue"
+msgstr "Jatkaaksesi lisää osio tai oppimisobjekti tai aktiviteetti kurssillesi."
+
+msgid "LPCreatedAddChapterStep"
+msgstr "<html><body><p><big><img height=\"250\" width=\"250\" align=\"right\" src=\"images/gallery/mr_dokeos/animated/practicerAnim.gif\" alt=\"practicerAnim.gif\" />Tervetuola Chamilo kurssityökaluun!</big></p> <ul> <li><b>Muokkaa</b> : Lisää oppimisobjekteja ja aktiviteetteja  kurssiisi</li> <li><b>Järjestä</b> : Lisää ääni kommentteja ja muokkaa objektien järjestystä</li> <li><b>Näytä</b> : Katsele kurssia oppilaan näkökulmasta</li> <li><b>Lisää osio</b> : Luku 1, Luku 2 tai Viikko 1, Viikko 2...</li> <li><b>Lisää oppimisobjekti tai aktiviteetti</b> : aktiviteettejä, testejä, videoita, multimediaa</li> </ul> </html></body>"
+
+msgid "PrerequisitesAdded"
+msgstr "Edellytykset tällä oppimisobjektille on lisätty."
+
+msgid "AddEditPrerequisites"
+msgstr "Lisää/muokkaa edellytyksiä"
+
+msgid "NoDocuments"
+msgstr "Ei dokumentteja"
+
+msgid "NoExercisesAvailable"
+msgstr "Ei testejä saatavilla"
+
+msgid "NoLinksAvailable"
+msgstr "Ei linkkejä saatavilla"
+
+msgid "NoItemsInLp"
+msgstr "Tällä kurssilla ei ole oppimisobjekteja. Klikkaa \"Muokkaa\" päästäksesi muokkaus tilaan."
+
+msgid "FirstPosition"
+msgstr "Ensimmäinen sijainti"
+
+msgid "NewQuiz"
+msgstr "Uusi testi"
+
+msgid "CreateTheForum"
+msgstr "Lisää foorumi"
+
+msgid "AddLpIntro"
+msgstr "<strong>Tervetuloa</strong> Chamilo kurssityökaluun.<br />Tee kurssisi askel askeleelta. Sisällysluettelo ilmestyy vasemmalle."
+
+msgid "AddLpToStart"
+msgstr "Aloittaaksesi anna kurssillesi otsikko"
+
+msgid "CreateTheLink"
+msgstr "Lisätään linkkiä kurssiin."
+
+msgid "MoveCurrentLink"
+msgstr "Siirrä nykyinen linkki"
+
+msgid "EditCurrentLink"
+msgstr "Muokkaa nykyistä linkkiä"
+
+msgid "MoveCurrentStudentPublication"
+msgstr "Siirrä nykyinen tehtävä"
+
+msgid "EditCurrentStudentPublication"
+msgstr "Muokkaa nykyistä tehtävää"
+
+msgid "AllowMultipleAttempts"
+msgstr "Salli useita yrityksiä"
+
+msgid "PreventMultipleAttempts"
+msgstr "Estä useat yritykset"
+
+msgid "DocumentHasBeenDeleted"
+msgstr "Dokumenttia ei voida näyttää koska se on poistettu"
+
+msgid "EditCurrentForum"
+msgstr "Muokkaa nykyistä keskustelualuetta"
+
+msgid "NoPrerequisites"
+msgstr "Ei edellytyksiä"
+
+msgid "NewExercise"
+msgstr "Uusi testi"
+
+msgid "CreateANewLink"
+msgstr "Luo uusi linkki"
+
+msgid "CreateANewForum"
+msgstr "Luo uusi keskustelualue"
+
+msgid "CorrectAnswers"
+msgstr "Oikeat vastaukset"
+
+msgid "StudentResponse"
+msgstr "Opiskelijan vastaukset"
+
+msgid "LatencyTimeSpent"
+msgstr "Käytetty aika"
+
+msgid "TakeSlideName"
+msgstr "Käytä diojen nimiä kurssin oppimisobjektien niminä"
+
+msgid "CannotConnectToOpenOffice"
+msgstr "Yhteys tiedostomuuntimeen epäonnistui. Ota yhteyttä ympäristön ylläpitäjään."
+
+msgid "OogieConversionFailed"
+msgstr "Muunto epäonnistui. Jotkut tiedostot ovat liian monimutkaisia automaattiseen muunnokseen."
+
+msgid "OogieUnknownError"
+msgstr "Muunto epäonnistui tuntemattomasta syystä."
+
+msgid "OogieBadExtension"
+msgstr "Lataa ainoastaan esityksiä. Tiedoston tulisi olla tyypiltään joko .ppt tai .odp"
+
+msgid "ViewLearningPath"
+msgstr "Näytä oppimispolku"
+
+msgid "ReturnToLearningPaths"
+msgstr "Palaa kursseihin"
+
+msgid "UploadMp3audio"
+msgstr "Lataa mp3 äänitiedostoja"
+
+msgid "UpdateAllAudioFragments"
+msgstr "Lisää ääntä"
+
+msgid "LeaveEmptyToKeepCurrentFile"
+msgstr "Jätä tuo kenttä tyhjäksi säilyttääksesi nykyisen äänitiedoston."
+
+msgid "RemoveAudio"
+msgstr "Poista ääni"
+
+msgid "SaveAudio"
+msgstr "Hyväksy"
+
+msgid "ViewScoreChangeHistory"
+msgstr "Näytä piste historia"
+
+msgid "ImageWillResizeMsg"
+msgstr "Opiskelijan kuvan kokoa muutetaan jos tarpeen"
+
+msgid "ImagePreview"
+msgstr "Kuvan esikatselu"
+
+msgid "UplAlreadyExists"
+msgstr "on jo olemassa!"
+
+msgid "UplUnableToSaveFile"
+msgstr "Tallennettavaa tiedostoa ei voitu tallentaa!"
+
+msgid "MoveDocument"
+msgstr "Siirrä dokumentti"
+
+msgid "EditLPSettings"
+msgstr "Muokkaa kurssin asetuksia"
+
+msgid "SaveLPSettings"
+msgstr "Tallenna kurssin asetukset"
+
+msgid "ShowAllAttempts"
+msgstr "Näytä kaikki yritykset"
+
+msgid "HideAllAttempts"
+msgstr "Piilota kaikki yritykset"
+
+msgid "ShowAllAttemptsByExercise"
+msgstr "Näytä kaikki yritykset tehtävittäin"
+
+msgid "ShowAttempt"
+msgstr "Näytä yritys"
+
+msgid "ShowAndQualifyAttempt"
+msgstr "Näytä ja arvioi yritys"
+
+msgid "ModifyPrerequisites"
+msgstr "Tallenna edellytys asetukset"
+
+msgid "CreateLearningPath"
+msgstr "Jatka >"
+
+msgid "AddExercise"
+msgstr "Lisää testi kurssiin"
+
+msgid "LPCreateDocument"
+msgstr "Lisää dokumentti tähän kurssiin"
+
+msgid "LPName"
+msgstr "Kurssin nimi"
+
+msgid "AddLinkToCourse"
+msgstr "Lisää linkki kurssiin"
+
+msgid "AddAssignmentToCourse"
+msgstr "Lisää tehtävä kurssiin"
+
+msgid "AddForumToCourse"
+msgstr "Lisää keskustelualue kurssiin"
+
+msgid "TypeMessage"
+msgstr "Kirjoita viestisi!"
+
+msgid "ConfirmReset"
+msgstr "Tahdotko varmasti poistaa kaikki viestit?"
+
+msgid "ClearList"
+msgstr "Tyhjennä lista"
+
+msgid "CallSent"
+msgstr "Chatti kutsu on lähetetty. Odottaa kumppanisi hyväksyntää."
+
+msgid "ChatDenied"
+msgstr "Kumppanisi on hylännyt kutsusi."
+
+msgid "Send"
+msgstr "Lähetä"
+
+msgid "Connected"
+msgstr "Keskustelussa"
+
+msgid "Exercice"
+msgstr "Harjoitus"
+
+msgid "NoEx"
+msgstr "Tällä hetkellä ei ole harjoituksia"
+
+msgid "NewEx"
+msgstr "Uusi harjoitus"
+
+msgid "Questions"
+msgstr "Kysymykset"
+
+msgid "Answers"
+msgstr "Vastaukset"
+
+msgid "True"
+msgstr "Tosi"
+
+msgid "Answer"
+msgstr "Vastaus"
+
+msgid "YourResults"
+msgstr "Tuloksesi"
+
+msgid "StudentResults"
+msgstr "Opiskelijan pisteet"
+
+msgid "ExerciseType"
+msgstr "Harjoituksen tyyppi"
+
+msgid "ExerciseName"
+msgstr "Harjoituksen nimi"
+
+msgid "ExerciseDescription"
+msgstr "Harjoituksen kuvaus"
+
+msgid "SimpleExercise"
+msgstr "Omalla sivullaan"
+
+msgid "SequentialExercise"
+msgstr "Yksi kysymys/sivu"
+
+msgid "RandomQuestions"
+msgstr "Satunnaiset kysymykset"
+
+msgid "GiveExerciseName"
+msgstr "Anna harjoitukselle nimi"
+
+msgid "Sound"
+msgstr "Ääni- tai videotiedosto"
+
+msgid "DeleteSound"
+msgstr "Poista ääni- tai videotiedosto"
+
+msgid "NoAnswer"
+msgstr "Vastausta ei tällä hetkellä ole"
+
+msgid "GoBackToQuestionPool"
+msgstr "Palaa takaisin valmiisiin kysymyksiin"
+
+msgid "GoBackToQuestionList"
+msgstr "Palaa takaisin kysymyslistaan"
+
+msgid "QuestionAnswers"
+msgstr "Vastaa kysymyksiin"
+
+msgid "UsedInSeveralExercises"
+msgstr "Varoitus! Tämä kysymys on käytössä useissa harjoituksissa. Haluatko varmasti muokata sitä?"
+
+msgid "ModifyInAllExercises"
+msgstr "kaikissa harjoituksissa"
+
+msgid "ModifyInThisExercise"
+msgstr "vain tässä harjoituksessa"
+
+msgid "AnswerType"
+msgstr "Vastaustyyppi"
+
+msgid "MultipleSelect"
+msgstr "Monivalinta (useita oikeita vastauksia)"
+
+msgid "FillBlanks"
+msgstr "Aukkotehtävä"
+
+msgid "Matching"
+msgstr "Yhdistä oikeat"
+
+msgid "ReplacePicture"
+msgstr "Vaihda kuva"
+
+msgid "DeletePicture"
+msgstr "Poista kuva"
+
+msgid "QuestionDescription"
+msgstr "Mahdollinen kommentti"
+
+msgid "GiveQuestion"
+msgstr "Kirjoita kysymys"
+
+msgid "WeightingForEachBlank"
+msgstr "Anna painotus yksittäiselle vaihtoehdolle"
+
+msgid "UseTagForBlank"
+msgstr "käytä hakasulkeita [...] määrittääksesi yksi tai useampi aukko"
+
+msgid "QuestionWeighting"
+msgstr "Painotus"
+
+msgid "MoreAnswers"
+msgstr "+vast"
+
+msgid "LessAnswers"
+msgstr "-vast"
+
+msgid "MoreElements"
+msgstr "+osio"
+
+msgid "LessElements"
+msgstr "-osio"
+
+msgid "TypeTextBelow"
+msgstr "Kirjoita teksti alle"
+
+msgid "DefaultTextInBlanks"
+msgstr "[Suomalaiset] asuvat [Suomessa]."
+
+msgid "DefaultMatchingOptA"
+msgstr "rikas"
+
+msgid "DefaultMatchingOptB"
+msgstr "kaunis"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "Isäsi on"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "Äitisi on"
+
+msgid "DefineOptions"
+msgstr "Määrittele vaihtoehdot"
+
+msgid "MakeCorrespond"
+msgstr "Yhdistä oikeat"
+
+msgid "FillLists"
+msgstr "Täytä alla olevat kohdat"
+
+msgid "GiveText"
+msgstr "Syötä teksti"
+
+msgid "DefineBlanks"
+msgstr "Määritää vähintään yksi aukko hakasulkuihin [...]"
+
+msgid "GiveAnswers"
+msgstr "Kirjoita kysymyksen vastaus"
+
+msgid "ChooseGoodAnswer"
+msgstr "Valitse oikea vastaus"
+
+msgid "ChooseGoodAnswers"
+msgstr "Valitse yksi tai useampia oikeita vastauksia"
+
+msgid "QuestionList"
+msgstr "Harjoitukset kysymyslista"
+
+msgid "GetExistingQuestion"
+msgstr "Etsi kysymys vanhoista kysymyksistä"
+
+msgid "FinishTest"
+msgstr "Lopeta harjoitus"
+
+msgid "QuestionPool"
+msgstr "Vanhat tehtävät"
+
+msgid "OrphanQuestions"
+msgstr "Orvot kysymykset"
+
+msgid "NoQuestion"
+msgstr "Tällä hetkellä ei ole kysymyksiä"
+
+msgid "AllExercises"
+msgstr "Kaikki harjoitukset"
+
+msgid "GoBackToEx"
+msgstr "Takaisin harjoitukseen"
+
+msgid "Reuse"
+msgstr "Käytä uudelleen"
+
+msgid "ExerciseManagement"
+msgstr "Harjoituksen hallinta"
+
+msgid "QuestionManagement"
+msgstr "Kysymysten ja vastausten hallinta"
+
+msgid "QuestionNotFound"
+msgstr "Kysymystä ei löydy"
+
+msgid "ExerciseNotFound"
+msgstr "Harjoitusta ei löydy tai se ei ole käytössä"
+
+msgid "AlreadyAnswered"
+msgstr "Olet jo vastannut kysymykseen"
+
+msgid "ElementList"
+msgstr "Luettelo"
+
+msgid "CorrespondsTo"
+msgstr "Vastaa"
+
+msgid "ExpectedChoice"
+msgstr "Oikea vastaus"
+
+msgid "YourTotalScore"
+msgstr "Yhteispistemääräsi on"
+
+msgid "ReachedMaxAttemptsAdmin"
+msgstr "Olet saavuttanut yritysten maksimin."
+
+msgid "ExerciseAdded"
+msgstr "Harjoitus lisätty"
+
+msgid "EvalSet"
+msgstr "Pisteytys määritykset"
+
+msgid "Active"
+msgstr "Toimiva"
+
+msgid "Inactive"
+msgstr "Toimimaton"
+
+msgid "QuestCreate"
+msgstr "Kysymysten luominen"
+
+msgid "ExRecord"
+msgstr "Harjoituksesi on tallennettu"
+
+msgid "BackModif"
+msgstr "Takaisin harjoituksen muotoiluun"
+
+msgid "DoEx"
+msgstr "Tee harjoitus"
+
+msgid "DefScor"
+msgstr "Määrittele pisteytyksen asetukset"
+
+msgid "CreateModif"
+msgstr "Kysymysten luominen/muotoilu"
+
+msgid "Sub"
+msgstr "Ala-otsikko"
+
+msgid "MyAnswer"
+msgstr "Vastaukseni"
+
+msgid "MorA"
+msgstr "+vastaus"
+
+msgid "LesA"
+msgstr "-vastaus"
+
+msgid "RecEx"
+msgstr "Tallenna harjoitus"
+
+msgid "RecQu"
+msgstr "tallenna kysymys"
+
+msgid "RecAns"
+msgstr "Tallenna vastaus"
+
+msgid "Introduction"
+msgstr "Esittely"
+
+msgid "TitleAssistant"
+msgstr "Harjoituksen laadinta avustaja"
+
+msgid "QuesList"
+msgstr "kysymyslista"
+
+msgid "SaveEx"
+msgstr "tallenna harjoitus"
+
+msgid "QImage"
+msgstr "Kysymys kuvan kanssa"
+
+msgid "AddQ"
+msgstr "Lisää kysymys"
+
+msgid "DoAnEx"
+msgstr "Tee harjoitus"
+
+msgid "Generator"
+msgstr "Harjoitus-generaattori"
+
+msgid "Correct"
+msgstr "Tosi"
+
+msgid "PossAnsw"
+msgstr "Kysymyksen mahdollisten vastausten lukumäärä"
+
+msgid "StudAnsw"
+msgstr "Oppilaan tekemien virheiden määrä"
+
+msgid "Determine"
+msgstr "Määrittele itsellesi pisteiden painotukset muotoilemalla taulukkoa, klkkaa 'Ok'"
+
+msgid "NonNumber"
+msgstr "Ei-numeerinen arvo:"
+
+msgid "Replaced"
+msgstr "on johdettu. Se on korvattu numerolla 0"
+
+msgid "Superior"
+msgstr "Suurempi arvo kuin 20"
+
+msgid "Rep20"
+msgstr "on johdettu. Se on korvattu numerolla 20"
+
+msgid "DefComment"
+msgstr "* Jos klikkaat 'Oletusarvot', aikaisemmat arvosi poistetaan lopullisesti."
+
+msgid "ScoreGet"
+msgstr "Numerot mustassa = Pisteet"
+
+msgid "ShowScor"
+msgstr "Näytä arviointi oppilaalle"
+
+msgid "Step1"
+msgstr "Askel 1"
+
+msgid "Step2"
+msgstr "Askel 2"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "Tuo harjoitus HotPotatoes -ohjelmasta"
+
+msgid "HotPotatoesTests"
+msgstr "Tuo harjoitus HotPotatoes -ohjelmasta"
+
+msgid "DownloadImg"
+msgstr "Tallenna kuvatiedosto palvelimelle"
+
+msgid "NoImg"
+msgstr "Testaa ilman kuvia"
+
+msgid "ImgNote_st"
+msgstr "<br> Sinun pitää vielä tallentaa"
+
+msgid "ImgNote_en"
+msgstr "kuva(t):"
+
+msgid "NameNotEqual"
+msgstr "ei ole oikea tiedosto !"
+
+msgid "DateExo"
+msgstr "Päiväys"
+
+msgid "ShowQuestion"
+msgstr "Näytä kysymys"
+
+msgid "UnknownExercise"
+msgstr "Tuntematon Harjoitus"
+
+msgid "ReuseQuestion"
+msgstr "Käytä kysymys uudelleen"
+
+msgid "CreateExercise"
+msgstr "Luo harjoitus"
+
+msgid "CreateQuestion"
+msgstr "Luo kysymys"
+
+msgid "CreateAnswers"
+msgstr "Luo vastauksia"
+
+msgid "ModifyExercise"
+msgstr "Muokkaa harjoitusta"
+
+msgid "ModifyAnswers"
+msgstr "Muokkaa vastauksia"
+
+msgid "UseExistantQuestion"
+msgstr "Käytä valmista kysymystä"
+
+msgid "FreeAnswer"
+msgstr "Avoin kysymys"
+
+msgid "notCorrectedYet"
+msgstr "Tätä kysymystä ei ole vielä korjattu. Toistaiseksi pisteesi siitä ovat 0, joten kokonaispistemäärä ei ole vielä todellinen."
+
+msgid "adminHP"
+msgstr "Hot Potatoes ylläpito"
+
+msgid "NewQu"
+msgstr "Uusi kysymys"
+
+msgid "NoImage"
+msgstr "Valitse kuva"
+
+msgid "AnswerHotspot"
+msgstr "Kuvaus ja pisteytys tarvitaan jokaiselle interaktiiviselle alueelle - palaute on vapaaehtoinen"
+
+msgid "MinHotspot"
+msgstr "Sinun täytyy tehdä vähintään yksi interaktiivinen alue."
+
+msgid "MaxHotspot"
+msgstr "Voit tehdä korkeintaan 12 interaktiivista aluetta."
+
+msgid "HotspotError"
+msgstr "Lisää kuvaus ja arviointi jokaiseen interaktiiviseen alueeseen."
+
+msgid "MoreHotspots"
+msgstr "lisää interaktiivinen alue"
+
+msgid "LessHotspots"
+msgstr "Poista interaktiivinen alue"
+
+msgid "HotspotZones"
+msgstr "Interaktiiviset alueet"
+
+msgid "CorrectAnswer"
+msgstr "Oikea vastaus"
+
+msgid "HotspotHit"
+msgstr "Vastauksesi oli"
+
+msgid "OnlyJPG"
+msgstr "Interaktiiviseen alueeseen voi käyttää ainoastaan JPG (tai JPEG) kuvia."
+
+msgid "FinishThisTest"
+msgstr "Näytä oikeat vastaukset kysymyksiin ja testin kokonaispisteet"
+
+msgid "AllQuestions"
+msgstr "Kaikki kysymykset"
+
+msgid "ModifyTitleDescription"
+msgstr "Muokkaa otsikkoa ja kuvausta"
+
+msgid "ModifyHotspots"
+msgstr "Muokkaa vastauksia / interaktiivisia alueita"
+
+msgid "HotspotNotDrawn"
+msgstr "Et ole vielä piirtänyt kaikkia alueita"
+
+msgid "HotspotWeightingError"
+msgstr "Sinun pitään antaa positiivinen arvo (>0) jokaiselle interaktiiviselle alueelle."
+
+msgid "HotspotValidateError1"
+msgstr "Vastaa kysymykseen kokonaan"
+
+msgid "HotspotValidateError2"
+msgstr "klikkausta tarvitaan kuvaan) ennen tuloksen näyttämistä"
+
+msgid "HotspotRequired"
+msgstr "Kuvaus ja arviointi tarvitaan jokaiselle interaktiiviselle alueelle. Palaute on vapaaehtoinen."
+
+msgid "HotspotChoose"
+msgstr "Tehdäksesi interaktiivisen alueen: valitse muoto värin vierestä ja piirrä alue. Siirtääksesi aluetta valitse väri klikkaa toista kohta kuvassa ja piirrä alue. Lisätäksesi uuden alueen paina Lisää alue painiketta. Sulkeaksesi monikulmion paina oikeaa nappia ja valitse sulje monikulmio."
+
+msgid "Fault"
+msgstr "Virheellinen"
+
+msgid "HotSpot"
+msgstr "Interaktiiviset alueet"
+
+msgid "HotspotGiveAnswers"
+msgstr "Anna vastaus"
+
+msgid "AreYouSure"
+msgstr "Oletko varma"
+
+msgid "StudentScore"
+msgstr "Oppilaan pisteet"
+
+msgid "MarkIsUpdated"
+msgstr "Arvosana päivitetty"
+
+msgid "MarkInserted"
+msgstr "Arvosana lisätty"
+
+msgid "PleaseGiveAMark"
+msgstr "Anna arvosana"
+
+msgid "EditCommentsAndMarks"
+msgstr "Muokkaa palautetta ja arvosanoja"
+
+msgid "AddComments"
+msgstr "Lisää palaute"
+
+msgid "Number"
+msgstr "Nr."
+
+msgid "Weighting"
+msgstr "Tulos"
+
+msgid "ChooseQuestionType"
+msgstr "Tehdäksesi uuden kysymyksä valitse tyyppi yläpuolelta"
+
+msgid "CorrectTest"
+msgstr "Tarkista harjoitus"
+
+msgid "ViewTest"
+msgstr "Näytä"
+
+msgid "NotAttempted"
+msgstr "Ei aloittettu"
+
+msgid "DelElem"
+msgstr "Poista elementti"
+
+msgid "PlusAnswer"
+msgstr "Lisää vastaus vaihtoehto"
+
+msgid "LessAnswer"
+msgstr "Poista vastaus vaihtoehto"
+
+msgid "YourScore"
+msgstr "Sinun tuloksesi"
+
+msgid "Attempted"
+msgstr "Aloitettu"
+
+msgid "AssignMarks"
+msgstr "Määritä arvosana"
+
+msgid "ExerciseStored"
+msgstr "Harjoitus tallennettu"
+
+msgid "ChooseAtLeastOneCheckbox"
+msgstr "Valitse vähintään yksi hyväksyttävä vastaus"
+
+msgid "ExerciseDeleted"
+msgstr "Harjoitus poistettu"
+
+msgid "OpenQuestionsAttempted"
+msgstr "Käyttäjä on vastannut avoimeen kysymykseen"
+
+msgid "TestAttempted"
+msgstr "Harjoitusta yritetty"
+
+msgid "StudentName"
+msgstr "Oppilaan nimi"
+
+msgid "StudentEmail"
+msgstr "Sähköposti"
+
+msgid "HotspotDescription"
+msgstr "Nyt klikkaa: (...)"
+
+msgid "ExamSheetVCC"
+msgstr "Tehtävä tarkistettu"
+
+msgid "AttemptVCC"
+msgstr "Tehtäväsi on tarkistettu/kommentoitu."
+
+msgid "Regards"
+msgstr "Terveisin"
+
+msgid "AttemptVCCLong"
+msgstr "Vastauksesi tehtävään %s on tarkastettu opettajan toimesta. Klikkaa alla olevaa linkkiä kirjautuaksesi oppimisympäristöön"
+
+msgid "DearStudentEmailIntroduction"
+msgstr "Hyvä Opiskelija,"
+
+msgid "DisableResults"
+msgstr "Älä näytä tuloksia oppilaille"
+
+msgid "EnableResults"
+msgstr "Näytä tulokset oppilaille"
+
+msgid "ValidateAnswer"
+msgstr "Tarkista vastaukset"
+
+msgid "ReachedMaxAttempts"
+msgstr "Et voi tehdä harjoitusta %s koska olet saavuttanut rajan %s yritystä."
+
+msgid "DeleteAttempt"
+msgstr "Poista yritys"
+
+msgid "QuantityQuestions"
+msgstr "Kysymyksiä"
+
+msgid "TryAgain"
+msgstr "Yritä uudelleen"
+
+msgid "QuestionsPerPage"
+msgstr "Kysymys per sivu"
+
+msgid "MoreHotspotsImage"
+msgstr "Lisää/muokkaa interaktiivista aluetta kuvassa"
+
+msgid "HotspotDelineation"
+msgstr "Hahmotelma"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "By"
+msgstr "Kirjoittaja"
+
+msgid "UsersOnline"
+msgstr "Käyttäjiä kirjautuneena"
+
+msgid "Remove"
+msgstr "Poista"
+
+msgid "Enter"
+msgstr "Sisään."
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "Links"
+msgstr "Linkit"
+
+msgid "Works"
+msgstr "Tehtäväpalautus"
+
+msgid "Forums"
+msgstr "Foorumit"
+
+msgid "CreateDir"
+msgstr "Luo hakemisto"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Comment"
+msgstr "Kommentti"
+
+msgid "Visible"
+msgstr "Näkyvä/Näkymätön"
+
+msgid "NewDir"
+msgstr "Uuden hakemiston nimi"
+
+msgid "DirCr"
+msgstr "Hakemisto on luotu"
+
+msgid "Download"
+msgstr "Lataa"
+
+msgid "Group"
+msgstr "Ryhmä"
+
+msgid "Edit"
+msgstr "muokkaa"
+
+msgid "GroupForum"
+msgstr "Ryhmien foorumit"
+
+msgid "Language"
+msgstr "Kieli"
+
+msgid "LoginName"
+msgstr "Kirjaudu"
+
+msgid "AutostartMp3"
+msgstr "Haluatko että ääni soitetaan automaattisesti?"
+
+msgid "Assignments"
+msgstr "Oppilaan tehtävät"
+
+msgid "Forum"
+msgstr "Keskustelut"
+
+msgid "DelImage"
+msgstr "Poista kuva"
+
+msgid "Code"
+msgstr "Kurssikoodi"
+
+msgid "Up"
+msgstr "Ylös"
+
+msgid "Down"
+msgstr "alas"
+
+msgid "Theme"
+msgstr "Teema"
+
+msgid "TheListIsEmpty"
+msgstr "Lista on tyhjä"
+
+msgid "UniqueSelect"
+msgstr "Monivalinta (yksi oikea vastaus)"
+
+msgid "CreateCategory"
+msgstr "Luo kansio"
+
+msgid "SendFile"
+msgstr "Lataa tiedosto"
+
+msgid "SaveChanges"
+msgstr "Tallenna muutokset"
+
+msgid "SearchTerm"
+msgstr "hakusana"
+
+msgid "TooShort"
+msgstr "Liian lyhyt"
+
+msgid "CourseCreate"
+msgstr "Luo kurssille nettisivu"
+
+msgid "Todo"
+msgstr "To do"
+
+msgid "UserName"
+msgstr "Käyttäjä"
+
+msgid "CategoryMod"
+msgstr "Muokkaa aihealuetta"
+
+msgid "Hide"
+msgstr "Piilota"
+
+msgid "Dear"
+msgstr "Hyvä"
+
+msgid "Archive"
+msgstr "arkisto"
+
+msgid "CourseCode"
+msgstr "Kurssikoodi"
+
+msgid "NoDescription"
+msgstr "Ei kuvausta"
+
+msgid "OfficialCode"
+msgstr "Virallinen koodi"
+
+msgid "FirstName"
+msgstr "Etunimi"
+
+msgid "LastName"
+msgstr "Sukunimi"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "SlideshowConversion"
+msgstr "Esityksen muuntaminen"
+
+msgid "UploadFile"
+msgstr "Lataa tiedosto"
+
+msgid "AvailableFrom"
+msgstr "Saatavilla lähtien"
+
+msgid "AvailableTill"
+msgstr "Saakka"
+
+msgid "Preview"
+msgstr "Esikatselu"
+
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "EmailAddress"
+msgstr "Sähköpostiosoite"
+
+msgid "Organisation"
+msgstr "Organisaatio"
+
+msgid "Reporting"
+msgstr "Raportointi"
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "SelectQuestionType"
+msgstr "Valitse kysymyksen tyyppi"
+
+msgid "CurrentCourse"
+msgstr "Nykyinen kurssi"
+
+msgid "Back"
+msgstr "Takaisin"
+
+msgid "Info"
+msgstr "Informaatio"
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "AdvancedSearch"
+msgstr "Laajennettu haku"
+
+msgid "Open"
+msgstr "Avoin"
+
+msgid "Import"
+msgstr "Tuo"
+
+msgid "AddAnother"
+msgstr "Lisää toinen"
+
+msgid "Author"
+msgstr "Tekijä"
+
+msgid "TrueFalse"
+msgstr "Tosi / Epätosi"
+
+msgid "QuestionType"
+msgstr "Kysymyksen tyyppi"
+
+msgid "NoSearchResults"
+msgstr "Ei hakutuloksia"
+
+msgid "SelectQuestion"
+msgstr "Valitse kysymys"
+
+msgid "AddNewQuestionType"
+msgstr "Lisää uusi kysymys tyyppi"
+
+msgid "Numbered"
+msgstr "Numeroitu"
+
+msgid "iso639_2_code"
+msgstr "fi"
+
+msgid "iso639_1_code"
+msgstr "fin"
+
+msgid "charset"
+msgstr "iso-8859-1"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "verdana, arial, helvetica, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "arial, helvetica, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr ","
+
+msgid "number_decimal_separator"
+msgstr "."
+
+msgid "dateFormatShort"
+msgstr "%d.%m.%Y"
+
+msgid "dateFormatLong"
+msgstr "%A %d.%m.%Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%d.%m.%Y klo %H:%M"
+
+msgid "timeNoSecFormat"
+msgstr "%H:%M"
+
+msgid "Yes"
+msgstr "kyllä"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "Allowed"
+msgstr "Sallittu"
+
+msgid "BackHome"
+msgstr "Takaisin oamlle sivulle:"
+
+msgid "Propositions"
+msgstr "Parannusehdotuksia"
+
+msgid "Maj"
+msgstr "Päivitä"
+
+msgid "Modify"
+msgstr "Muokkaa"
+
+msgid "Invisible"
+msgstr "Piilota"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Move"
+msgstr "Siirrä"
+
+msgid "Help"
+msgstr "Apua"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "AddIntro"
+msgstr "Lisää esittely"
+
+msgid "BackList"
+msgstr "Takaisin listaan"
+
+msgid "Text"
+msgstr "Teksti"
+
+msgid "Empty"
+msgstr "Jätit joitain kenttiä tyhjäksi.<br>Mene takaisin ja yritä uudetaan.<br>Jos et huomannut kurssin koodia, katso kurssin ohjelmasta."
+
+msgid "ConfirmYourChoice"
+msgstr "Varmista valintasi"
+
+msgid "And"
+msgstr "ja"
+
+msgid "Choice"
+msgstr "Valintasi"
+
+msgid "Finish"
+msgstr "Lopeta"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "NotAllowed"
+msgstr "Ei sallittu"
+
+msgid "NotLogged"
+msgstr "Et ole kirjautunut kurssille"
+
+msgid "Manager"
+msgstr "Ylläpitäjä"
+
+msgid "Optional"
+msgstr "Valinnainen"
+
+msgid "NextPage"
+msgstr "Seuraava sivu"
+
+msgid "PreviousPage"
+msgstr "Edellinen sivu"
+
+msgid "Use"
+msgstr "Käytä"
+
+msgid "Total"
+msgstr "Yhteensä"
+
+msgid "Take"
+msgstr "valitse"
+
+msgid "One"
+msgstr "Yksi"
+
+msgid "Several"
+msgstr "Useita"
+
+msgid "Notice"
+msgstr "Huomaa"
+
+msgid "Date"
+msgstr "Päivämäärä"
+
+msgid "Among"
+msgstr "joukossa"
+
+msgid "Show"
+msgstr "Näytä"
+
+msgid "MyCourses"
+msgstr "Kurssini"
+
+msgid "ModifyProfile"
+msgstr "Muokkaa profiiliani"
+
+msgid "MyStats"
+msgstr "Katso tilastojasi"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "MyAgenda"
+msgstr "Oma kalenteri"
+
+msgid "CourseHomepage"
+msgstr "Kurssin kotisivu"
+
+msgid "SwitchToTeacherView"
+msgstr "Opettajanäkymä"
+
+msgid "SwitchToStudentView"
+msgstr "Oppilasnäkymä"
+
+msgid "AddResource"
+msgstr "Lisää"
+
+msgid "AddedResources"
+msgstr "Liitteet"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['brazilian']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Close"
+msgstr "sulje"
+
+msgid "Platform"
+msgstr "Alusta"
+
+msgid "localLangName"
+msgstr "kieli"
+
+msgid "email"
+msgstr "sähköposti"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "Kurssikoodi on jo käytössä. Ole hyvä ja valitse toinen."
+
+msgid "Statistics"
+msgstr "Tilastot"
+
+msgid "GroupList"
+msgstr "ryhmälista"
+
+msgid "Previous"
+msgstr "edellinen"
+
+msgid "DestDirectoryDoesntExist"
+msgstr "Kohde hakemistoa ei ole olemassa"
+
+msgid "Courses"
+msgstr "kurssit"
+
+msgid "ShowAll"
+msgstr "Näytä kaikki"
+
+msgid "Page"
+msgstr "Sivu"
+
+msgid "englishLangName"
+msgstr "englanti"
+
+msgid "Home"
+msgstr "Projektin kotisivu"
+
+msgid "AreYouSureToDelete"
+msgstr "Haluatko varmasti poistaa"
+
+msgid "SelectAll"
+msgstr "Valitse kaikki"
+
+msgid "UnSelectAll"
+msgstr "poista valinnat"
+
+msgid "WithSelected"
+msgstr "Valittujen kanssa"
+
+msgid "OnLine"
+msgstr "Kirjautuneena"
+
+msgid "Users"
+msgstr "Käyttäjät"
+
+msgid "PlatformAdmin"
+msgstr "Alustan ylläpito"
+
+msgid "UserInfo"
+msgstr "tietoja käyttäjästä"
+
+msgid "ModifyQuestion"
+msgstr "Muokkaa kysymystä"
+
+msgid "CheckAll"
+msgstr "Valitse kaikki"
+
+msgid "NbAnnoucement"
+msgstr "Ilmoitus"
+
+msgid "OtherCourses"
+msgstr "Kurssit"
+
+msgid "Doc"
+msgstr "tiedosto"
+
+msgid "PlataformAdmin"
+msgstr "Alustan ylläpitäjä"
+
+msgid "Groups"
+msgstr "Ryhmät"
+
+msgid "GroupManagement"
+msgstr "Ryhmän hallinta"
+
+msgid "All"
+msgstr "Kaikki"
+
+msgid "None"
+msgstr "Ei mitään"
+
+msgid "Sorry"
+msgstr "Valitse kurssi ensin"
+
+msgid "Denied"
+msgstr "Tämä toiminto on sallittu vain opettajille"
+
+msgid "Today"
+msgstr "tänään"
+
+msgid "CourseHomepageLink"
+msgstr "Nykyinen kurssi"
+
+msgid "Attachment"
+msgstr "liite"
+
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "MondayInit"
+msgstr "Ma"
+
+msgid "TuesdayInit"
+msgstr "Ti"
+
+msgid "WednesdayInit"
+msgstr "Ke"
+
+msgid "ThursdayInit"
+msgstr "To"
+
+msgid "FridayInit"
+msgstr "Pe"
+
+msgid "SaturdayInit"
+msgstr "La"
+
+msgid "SundayInit"
+msgstr "Su"
+
+msgid "MondayShort"
+msgstr "maa"
+
+msgid "TuesdayShort"
+msgstr "tii"
+
+msgid "WednesdayShort"
+msgstr "kes"
+
+msgid "ThursdayShort"
+msgstr "tor"
+
+msgid "FridayShort"
+msgstr "per"
+
+msgid "SaturdayShort"
+msgstr "lau"
+
+msgid "SundayShort"
+msgstr "sun"
+
+msgid "MondayLong"
+msgstr "maanantai"
+
+msgid "TuesdayLong"
+msgstr "tiistai"
+
+msgid "WednesdayLong"
+msgstr "keskiviikko"
+
+msgid "ThursdayLong"
+msgstr "torstai"
+
+msgid "FridayLong"
+msgstr "perjantai"
+
+msgid "SaturdayLong"
+msgstr "lauantai"
+
+msgid "SundayLong"
+msgstr "sunnuntai"
+
+msgid "JanuaryInit"
+msgstr "T"
+
+msgid "FebruaryInit"
+msgstr "H"
+
+msgid "MarchInit"
+msgstr "M"
+
+msgid "AprilInit"
+msgstr "H"
+
+msgid "MayInit"
+msgstr "T"
+
+msgid "JuneInit"
+msgstr "K"
+
+msgid "JulyInit"
+msgstr "H"
+
+msgid "AugustInit"
+msgstr "E"
+
+msgid "SeptemberInit"
+msgstr "S"
+
+msgid "OctoberInit"
+msgstr "L"
+
+msgid "NovemberInit"
+msgstr "M"
+
+msgid "DecemberInit"
+msgstr "J"
+
+msgid "JanuaryShort"
+msgstr "tam"
+
+msgid "FebruaryShort"
+msgstr "hel"
+
+msgid "MarchShort"
+msgstr "maa"
+
+msgid "AprilShort"
+msgstr "huh"
+
+msgid "MayShort"
+msgstr "tou"
+
+msgid "JuneShort"
+msgstr "kes"
+
+msgid "JulyShort"
+msgstr "hei"
+
+msgid "AugustShort"
+msgstr "elo"
+
+msgid "SeptemberShort"
+msgstr "syy"
+
+msgid "OctoberShort"
+msgstr "lok"
+
+msgid "NovemberShort"
+msgstr "mar"
+
+msgid "DecemberShort"
+msgstr "jou"
+
+msgid "JanuaryLong"
+msgstr "tammikuu"
+
+msgid "FebruaryLong"
+msgstr "helmikuu"
+
+msgid "MarchLong"
+msgstr "maaliskuu"
+
+msgid "AprilLong"
+msgstr "huhtikuu"
+
+msgid "MayLong"
+msgstr "toukokuu"
+
+msgid "JuneLong"
+msgstr "kesäkuu"
+
+msgid "JulyLong"
+msgstr "heinäkuu"
+
+msgid "AugustLong"
+msgstr "elokuu"
+
+msgid "SeptemberLong"
+msgstr "syyskuu"
+
+msgid "OctoberLong"
+msgstr "lokakuu"
+
+msgid "NovemberLong"
+msgstr "marraskuu"
+
+msgid "DecemberLong"
+msgstr "joulukuu"
+
+msgid "MyCompetences"
+msgstr "Osaamiseni"
+
+msgid "MyDiplomas"
+msgstr "Suoritukseni"
+
+msgid "MyPersonalOpenArea"
+msgstr "Lisätietoja minusta"
+
+msgid "MyTeach"
+msgstr "Aineet joita opetan"
+
+msgid "Agenda"
+msgstr "Aikataulu"
+
+msgid "HourShort"
+msgstr "h"
+
+msgid "PleaseTryAgain"
+msgstr "Yritä uudelleen!"
+
+msgid "UplNoFileUploaded"
+msgstr "Yhtään tiedostoa ei tallennettu"
+
+msgid "UplSelectFileFirst"
+msgstr "Valitse tiedosto ennenkuin painat tallenna painiketta."
+
+msgid "UplNotAZip"
+msgstr "Valitsemasi tiedosto ei ollut zip-tiedosto."
+
+msgid "UplUploadSucceeded"
+msgstr "Tiedosto päivitetty onnistuneesti"
+
+msgid "ExportAsCSV"
+msgstr "Tuo CSV-tiedosto"
+
+msgid "ExportAsXLS"
+msgstr "Tuo xls-tiedosto"
+
+msgid "Openarea"
+msgstr "Yleinen kuvaus"
+
+msgid "Done"
+msgstr "Valmis"
+
+msgid "Documents"
+msgstr "Dokumentit"
+
+msgid "DocumentAdded"
+msgstr "Dokumentti lisätty"
+
+msgid "DocumentUpdated"
+msgstr "Dokumentti päivitetty"
+
+msgid "DocumentInFolderUpdated"
+msgstr "Dokumentti päivitetty kansiossa"
+
+msgid "Course_description"
+msgstr "Kurssin kuvaus"
+
+msgid "Average"
+msgstr "Keskiarvo"
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Learnpath"
+msgstr "Oppimispolku"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Announcement"
+msgstr "Ilmoitukset"
+
+msgid "Dropbox"
+msgstr "Tiedostot"
+
+msgid "Quiz"
+msgstr "Harjoitukset"
+
+msgid "Chat"
+msgstr "Keskustelu"
+
+msgid "Conference"
+msgstr "Konferenssi"
+
+msgid "Student_publication"
+msgstr "Opiskelijoiden julkaisut"
+
+msgid "Tracking"
+msgstr "Seuranta"
+
+msgid "homepage_link"
+msgstr "Lisää linkki tälle sivulle"
+
+msgid "Course_setting"
+msgstr "Kurssin asetukset"
+
+msgid "Backup"
+msgstr "Kurssin varmuuskopio"
+
+msgid "copy_course_content"
+msgstr "Kopioi tämän kurssin sisältö"
+
+msgid "recycle_course"
+msgstr "Käytä tämä kurssi uudelleen"
+
+msgid "StartDate"
+msgstr "Aloituspäivä"
+
+msgid "EndDate"
+msgstr "Lopetuspäivä"
+
+msgid "StartTime"
+msgstr "Aloitusaika"
+
+msgid "EndTime"
+msgstr "Päättymisaika"
+
+msgid "YouWereCalled"
+msgstr "Sinut on kutsunut keskustelemaan"
+
+msgid "DoYouAccept"
+msgstr "Hyväksytkö sen ?"
+
+msgid "Everybody"
+msgstr "Kaikki"
+
+msgid "SentTo"
+msgstr "Nähtävillä"
+
+msgid "Export"
+msgstr "Tuo"
+
+msgid "Tools"
+msgstr "Työkalut"
+
+msgid "Everyone"
+msgstr "Kaikki"
+
+msgid "SelectGroupsUsers"
+msgstr "Valitse ryhmiä/käyttäjiä"
+
+msgid "Student"
+msgstr "Opiskelija"
+
+msgid "Teacher"
+msgstr "Opettaja"
+
+msgid "Send2All"
+msgstr "Et valinnut käyttäjää tai ryhmää. Se on näkyville kaikille"
+
+msgid "Wiki"
+msgstr "Ryhmän wiki"
+
+msgid "Complete"
+msgstr "Valmis"
+
+msgid "Incomplete"
+msgstr "Kesken"
+
+msgid "reservation"
+msgstr "varaus"
+
+msgid "StartTimeWindow"
+msgstr "Alkaa"
+
+msgid "EndTimeWindow"
+msgstr "Päättyy"
+
+msgid "AccessNotAllowed"
+msgstr "Pääsy tälle sivulle ei ole sallittu"
+
+msgid "InThisCourse"
+msgstr "tällä kurssilla"
+
+msgid "ThisFieldIsRequired"
+msgstr "Tämä kenttä on pakollinen"
+
+msgid "AllowedHTMLTags"
+msgstr "Sallitut HTML tagit"
+
+msgid "FormHasErrorsPleaseComplete"
+msgstr "Lomake sisältää vääriä tai puutteellisia tietoja. Ole hyvä ja tarkista syöttämäsi tiedot."
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "Alkamispäivän täytyy olla ennen päättymispäivää"
+
+msgid "InvalidDate"
+msgstr "Epäkelpo päivämäärä"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "Vain kirjaimet ja numerot ovat sallittuja"
+
+msgid "BasicOverview"
+msgstr "Järjestä"
+
+msgid "CourseAdminRole"
+msgstr "Kurssin ylläpitäjä"
+
+msgid "UserRole"
+msgstr "Rooli"
+
+msgid "OnlyImagesAllowed"
+msgstr "Ainoastaan PNG, JPG tai GIF kuvat sallittu"
+
+msgid "ViewRight"
+msgstr "Katselu"
+
+msgid "EditRight"
+msgstr "Muokkaa"
+
+msgid "DeleteRight"
+msgstr "Poista"
+
+msgid "OverviewCourseRights"
+msgstr "Roolien ja oikeuksien yhteenveto"
+
+msgid "SeeAllRightsAllLocationsForSpecificRole"
+msgstr "Katso roolin oikeudet"
+
+msgid "SeeAllRolesAllLocationsForSpecificRight"
+msgstr "Katso kaikki joilla oikeus"
+
+msgid "RightValueModified"
+msgstr "Arvoa on muutettu."
+
+msgid "course_rights"
+msgstr "Roolien ja oikeuksien yhteenveto"
+
+msgid "Visio_conference"
+msgstr "Virtuaalitapaaminen"
+
+msgid "CourseAdminRoleDescription"
+msgstr "Kouluttaja"
+
+msgid "MoveTo"
+msgstr "Siirrä"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "MoveFileTo"
+msgstr "Siirrä tiedosto"
+
+msgid "Error"
+msgstr "Virhe"
+
+msgid "Anonymous"
+msgstr "Anonyymi"
+
+msgid "h"
+msgstr "h"
+
+msgid "CreateNewGlobalRole"
+msgstr "Luo uusi globaali rooli"
+
+msgid "CreateNewLocalRole"
+msgstr "luo uusi paikallinen rooli"
+
+msgid "Actions"
+msgstr "Toiminto"
+
+msgid "Inbox"
+msgstr "Postilaatikko"
+
+msgid "ComposeMessage"
+msgstr "Kirjoita viesti"
+
+msgid "Other"
+msgstr "Muu"
+
+msgid "AddRight"
+msgstr "Lisää"
+
+msgid "CampusHomepage"
+msgstr "Kotisivu"
+
+msgid "YouHaveNewMessage"
+msgstr "Sinulle on uusi viesti!"
+
+msgid "myActiveSessions"
+msgstr "Omat aktiiviset sessiot"
+
+msgid "myInactiveSessions"
+msgstr "Omat ei aktiiviset sessiot"
+
+msgid "FileUpload"
+msgstr "Tiedoston tallennus"
+
+msgid "MyActiveSessions"
+msgstr "Omat aktiiviset sessiot"
+
+msgid "MyInActiveSessions"
+msgstr "Omat ei aktiiviset sessiot"
+
+msgid "MySpace"
+msgstr "Raportointi"
+
+msgid "ExtensionActivedButNotYetOperational"
+msgstr "Tämä laajennos on aktivoitu mutta ei ole vielä käytössä."
+
+msgid "MyStudents"
+msgstr "Minun käyttäjäni"
+
+msgid "Progress"
+msgstr "Edistyminen"
+
+msgid "Or"
+msgstr "tai"
+
+msgid "Uploading"
+msgstr "Ladataan..."
+
+msgid "AccountExpired"
+msgstr "Tunnus vanhentunut"
+
+msgid "AccountInactive"
+msgstr "Tunnus suljettu"
+
+msgid "ActionNotAllowed"
+msgstr "Toiminto ei ole sallittu"
+
+msgid "SubTitle"
+msgstr "Alaotsikko"
+
+msgid "NoResourcesToRecycle"
+msgstr "Ei resursseja kierrätettäväksi"
+
+msgid "noOpen"
+msgstr "Ei voitu avata"
+
+msgid "Progression"
+msgstr "Edistyminen"
+
+msgid "NoCourse"
+msgstr "Kurssia ei löytynyt"
+
+msgid "Teachers"
+msgstr "Kouluttajat"
+
+msgid "Session"
+msgstr "Sessio"
+
+msgid "Sessions"
+msgstr "Harjoitus sessiot"
+
+msgid "NoSession"
+msgstr "Sessiota ei löytynyt"
+
+msgid "NoStudent"
+msgstr "Käyttäjää ei löytynyt"
+
+msgid "Students"
+msgstr "Oppilaat"
+
+msgid "NoResults"
+msgstr "Ei hakutuloksia"
+
+msgid "Tutors"
+msgstr "Tutorit"
+
+msgid "Tel"
+msgstr "Puh"
+
+msgid "NoTel"
+msgstr "Ei puhelinta"
+
+msgid "SendMail"
+msgstr "Lähetä sähköposti"
+
+msgid "RdvAgenda"
+msgstr "Kalenteri tapaaminen"
+
+msgid "VideoConf"
+msgstr "Chamilo LIVE"
+
+msgid "MyProgress"
+msgstr "Edistymiseni"
+
+msgid "NoOnlineStudents"
+msgstr "Ei ketään kirjautuneena"
+
+msgid "InCourse"
+msgstr "Kurssilla"
+
+msgid "UserOnlineListSession"
+msgstr "Käyttäjiä kirjautuneena - Minun harjoitus sessioissa"
+
+msgid "From"
+msgstr "Lähettäjä"
+
+msgid "To"
+msgstr "Vastaanottaja"
+
+msgid "Content"
+msgstr "Sisältö"
+
+msgid "Year"
+msgstr "vuosi"
+
+msgid "Years"
+msgstr "vuotta"
+
+msgid "Day"
+msgstr "Päivä"
+
+msgid "Days"
+msgstr "päivää"
+
+msgid "PleaseStandBy"
+msgstr "Ole hyvä ja odota..."
+
+msgid "AvailableUntil"
+msgstr "Saakka"
+
+msgid "HourMinuteDivider"
+msgstr "h"
+
+msgid "Visio_classroom"
+msgstr "Virtuaalinen luokkahuone"
+
+msgid "Survey"
+msgstr "Kysely"
+
+msgid "More"
+msgstr "Lisää"
+
+msgid "ClickHere"
+msgstr "Klikkaa tästä"
+
+msgid "Here"
+msgstr "täällä"
+
+msgid "SaveQuestion"
+msgstr "Tallenna kysymys"
+
+msgid "ReturnTo"
+msgstr "Voit nyt palata"
+
+msgid "Horizontal"
+msgstr "Vaakasuora"
+
+msgid "Vertical"
+msgstr "Pystysuora"
+
+msgid "DisplaySearchResults"
+msgstr "Näytä hakutulokset"
+
+msgid "DisplayAll"
+msgstr "Näytä kaikki"
+
+msgid "File_upload"
+msgstr "Tiedoston tallennus"
+
+msgid "NoUsersInCourse"
+msgstr "Ei käyttäjiä kurssilla"
+
+msgid "Percentage"
+msgstr "Prosenttia"
+
+msgid "Information"
+msgstr "Informaatio"
+
+msgid "EmailDestination"
+msgstr "Vastaanottaja"
+
+msgid "SendEmail"
+msgstr "Lähetä sähköpostia"
+
+msgid "EmailTitle"
+msgstr "Aihe"
+
+msgid "EmailText"
+msgstr "Sähköpostin sisältö"
+
+msgid "Comments"
+msgstr "Kommentit"
+
+msgid "ModifyRecipientList"
+msgstr "Muokkaa vastaanottajien listaa"
+
+msgid "Line"
+msgstr "Viiva"
+
+msgid "NoLinkVisited"
+msgstr "Ei vierailtu"
+
+msgid "NoDocumentDownloaded"
+msgstr "Tiedostoa ei ladattu"
+
+msgid "Clicks"
+msgstr "klikkausta"
+
+msgid "SearchResults"
+msgstr "Etsinnän tulokset"
+
+msgid "SessionPast"
+msgstr "Menneet"
+
+msgid "SessionActive"
+msgstr "Aktiivinen"
+
+msgid "SessionFuture"
+msgstr "Ei ole vielä alkanut"
+
+msgid "DateFormatLongWithoutDay"
+msgstr "%d.%B.%Y"
+
+msgid "InvalidDirectoryPleaseCreateAnImagesFolder"
+msgstr "Virheellinen kansio: Tee kansio nimeltä \"images\" dokumentit työkalulla, jotta kuvia voidaan ladata tähän kansioon."
+
+msgid "UsersConnectedToMySessions"
+msgstr "Kirjautuneena minun sessioissa"
+
+msgid "Category"
+msgstr "Kategoria"
+
+msgid "DearUser"
+msgstr "Hyvä käyttäjä"
+
+msgid "YourRegistrationData"
+msgstr "Käyttäjä tietosi"
+
+msgid "ResetLink"
+msgstr "Paina tästä palauttaaksesi salasanasi"
+
+msgid "VisibilityChanged"
+msgstr "Näkyvyyttä on muutettu."
+
+msgid "MainNavigation"
+msgstr "Pää navigaatio"
+
+msgid "SeeDetail"
+msgstr "Näytä yksityiskohdat"
+
+msgid "GroupSingle"
+msgstr "Ryhmä"
+
+msgid "PleaseLoginAgainFromHomepage"
+msgstr "Ole hyvä ja yritä kirjautua uudelleen etusivulta"
+
+msgid "PleaseLoginAgainFromFormBelow"
+msgstr "Ole hyvä ja kirjaudu uudelleen"
+
+msgid "AccessToFaq"
+msgstr "Usein kysytyt kysymykset (FAQ)"
+
+msgid "Faq"
+msgstr "Usein kysytyt kysymykset (FAQ)"
+
+msgid "RemindInactivesLearnersSince"
+msgstr "Muistuta oppilaita,jotka ovat viimeksi kirjautuneet"
+
+msgid "RemindInactiveLearnersMailSubject"
+msgstr "Aktiivisuutesi kurssilla %s"
+
+msgid "RemindInactiveLearnersMailContent"
+msgstr "Hyvä käyttäjä,<br /><br />et ole käynyt kurssilla %s %s päivään."
+
+msgid "OpenIdAuthentication"
+msgstr "OpenID kirjautuminen"
+
+msgid "UploadMaxSize"
+msgstr "Tallennuksen maksimi koko"
+
+msgid "Unknown"
+msgstr "Tuntematon"
+
+msgid "MoveUp"
+msgstr "Siirrä ylös"
+
+msgid "MoveDown"
+msgstr "Siirrä alas"
+
+msgid "UplUnableToSaveFileFilteredExtension"
+msgstr "Tiedoston tallennus epäonnistui: tiedoston tyyppi ei ole sallittu"
+
+msgid "OpenIDURL"
+msgstr "OpenID URL"
+
+msgid "UplFileTooBig"
+msgstr "Tiedosto on liian suuri."
+
+msgid "UplGenericError"
+msgstr "Tiedoston lataus ei onnistunut. Ole hyvä ja kokeile uudelleen tai ota yhteyttä ylläpitäjään."
+
+msgid "MyGradebook"
+msgstr "Arvioinnit"
+
+msgid "Gradebook"
+msgstr "Arvioinnit"
+
+msgid "OpenIDWhatIs"
+msgstr "Mikä on OpenID"
+
+msgid "NoManager"
+msgstr "Ei vastuuhenkilöä"
+
+msgid "ExportiCal"
+msgstr "iCal vienti"
+
+msgid "ExportiCalPublic"
+msgstr "Vie iCal muodossa julkisena tapahtumana"
+
+msgid "ExportiCalPrivate"
+msgstr "Vie iCal muodossa yksityisenä tapahtumana"
+
+msgid "ExportiCalConfidential"
+msgstr "Vie iCal muodossa luottamuksellisena tapahtumana"
+
+msgid "MoreStats"
+msgstr "Lisää tilastoja"
+
+msgid "Drh"
+msgstr "Henkilöstöpäällikkö"
+
+msgid "MinDecade"
+msgstr "vuosikymmen"
+
+msgid "MinYear"
+msgstr "vuosi"
+
+msgid "MinMonth"
+msgstr "kuukausi"
+
+msgid "MinWeek"
+msgstr "viikko"
+
+msgid "MinDay"
+msgstr "päivä"
+
+msgid "MinHour"
+msgstr "tunti"
+
+msgid "MinMinute"
+msgstr "minuutti"
+
+msgid "MinDecades"
+msgstr "vuosikymmentä"
+
+msgid "MinYears"
+msgstr "vuotta"
+
+msgid "MinMonths"
+msgstr "kuukautta"
+
+msgid "MinWeeks"
+msgstr "viikkoa"
+
+msgid "MinDays"
+msgstr "päivää"
+
+msgid "MinHours"
+msgstr "tuntia"
+
+msgid "MinMinutes"
+msgstr "minuuttia"
+
+msgid "HomeDirectory"
+msgstr "Koti"
+
+msgid "DocumentCreated"
+msgstr "Dokumentti luotu"
+
+msgid "ForumAdded"
+msgstr "Keskustelualue lisätty"
+
+msgid "ForumThreadAdded"
+msgstr "Viestiketju lisätty"
+
+msgid "ForumAttachmentAdded"
+msgstr "Keskustelu liite lisätty"
+
+msgid "directory"
+msgstr "hakemisto"
+
+msgid "Directories"
+msgstr "hakemistot"
+
+msgid "UserAge"
+msgstr "Ikä"
+
+msgid "UserBirthday"
+msgstr "Syntymäpäivä"
+
+msgid "Course"
+msgstr "Kurssi"
+
+msgid "FilesUpload"
+msgstr "tiedostot"
+
+msgid "ExerciseFinished"
+msgstr "Harjoitus valmis"
+
+msgid "UserSex"
+msgstr "Sukupuoli"
+
+msgid "UserNativeLanguage"
+msgstr "Äidinkieli"
+
+msgid "UserResidenceCountry"
+msgstr "Kotimaa"
+
+msgid "AddAnAttachment"
+msgstr "Lisää liite"
+
+msgid "FileComment"
+msgstr "Tiedoston kommentti"
+
+msgid "FileName"
+msgstr "Tiedoston nimi"
+
+msgid "SessionsAdmin"
+msgstr "Harjoitus session ylläpitäjä"
+
+msgid "MakeChangeable"
+msgstr "Muuta muokattavaksi"
+
+msgid "MakeUnchangeable"
+msgstr "Muuta kiinteäksi"
+
+msgid "UserFields"
+msgstr "profiilin muuttujat"
+
+msgid "FieldShown"
+msgstr "Kenttä on nyt käyttäjien nähtävissä"
+
+msgid "CannotShowField"
+msgstr "Kenttää ei voi tehdä näkyväksi"
+
+msgid "FieldHidden"
+msgstr "Kenttä ei nyt näy käyttäjälle."
+
+msgid "CannotHideField"
+msgstr "Kenttää ei voi tehdä näkymättömäksi"
+
+msgid "FieldMadeChangeable"
+msgstr "Kenttä on nyt käyttäjän muokattavissa: Käyttäjä voi nyt kirjoittaa tai muokata kentän sisältöä."
+
+msgid "CannotMakeFieldChangeable"
+msgstr "Kenttää ei voi muuttaa muokattavaksi."
+
+msgid "FieldMadeUnchangeable"
+msgstr "Kenttä on nyt määritetty kiinteäksi: Käyttäjä ei voi kirjoittaa tai muokata kenttää."
+
+msgid "CannotMakeFieldUnchangeable"
+msgstr "Kenttää ei voi muuttaa kiinteäksi"
+
+msgid "Folder"
+msgstr "Kansio"
+
+msgid "CloseOtherSession"
+msgstr "Keskustelua ei voida avata koska toinen kurssi on auki toisella sivulla."
+
+msgid "FileUploadSucces"
+msgstr "Tiedosto on onnistuneesti tallennettu."
+
+msgid "Yesterday"
+msgstr "Eilen"
+
+msgid "Submit"
+msgstr "Lähetä"
+
+msgid "Department"
+msgstr "Osasto"
+
+msgid "BackToNewSearch"
+msgstr "Palaa etsiäksesi uudelleen"
+
+msgid "Step"
+msgstr "Askel"
+
+msgid "SomethingFemininAddedSuccessfully"
+msgstr "lisättiin onnistuneesti"
+
+msgid "SomethingMasculinAddedSuccessfully"
+msgstr "lisättiin onnistuneesti"
+
+msgid "DeleteError"
+msgstr "Virhe poistettaessa"
+
+msgid "StepsList"
+msgstr "Lista askeleista"
+
+msgid "AddStep"
+msgstr "Lisää askel"
+
+msgid "StepCode"
+msgstr "Askeleen koodi"
+
+msgid "Label"
+msgstr "Otsikko"
+
+msgid "UnableToConnectTo"
+msgstr "Ei voi yhdistää"
+
+msgid "NoUser"
+msgstr "Ei käyttäjää"
+
+msgid "SearchResultsFor"
+msgstr "Etsinnän tulokset:"
+
+msgid "SelectFile"
+msgstr "Valitse tiedosto"
+
+msgid "AddCategory"
+msgstr "Lisää kategoria"
+
+msgid "NoExercises"
+msgstr "Ei harjoituksia"
+
+msgid "NotAllowedClickBack"
+msgstr "Valitettavasti pääsy tälle sivulle on estetty."
+
+msgid "Exercise"
+msgstr "Test"
+
+msgid "Result"
+msgstr "Tulos"
+
+msgid "AttemptingToLoginAs"
+msgstr "Yritetään kirjautua tunnuksella %s %s (id %s)"
+
+msgid "LoginSuccessfulGoToX"
+msgstr "Kirjautuminen onnistui. Mene %s"
+
+msgid "FckMp3Autostart"
+msgstr "Aloita ääni automaattisesti"
+
+msgid "Learner"
+msgstr "Opiskelija"
+
+msgid "IntroductionTextUpdated"
+msgstr "Johdanto on päivitetty"
+
+msgid "Align"
+msgstr "Tasaus"
+
+msgid "Width"
+msgstr "Width"
+
+msgid "Border"
+msgstr "Raja"
+
+msgid "Alt"
+msgstr "Alt"
+
+msgid "Height"
+msgstr "Height"
+
+msgid "ImageManager"
+msgstr "Kuvien hallinta"
+
+msgid "ImageFile"
+msgstr "Kuvatiedosto"
+
+msgid "ConstrainProportions"
+msgstr "Kiinteät mittasuhteet"
+
+msgid "InsertImage"
+msgstr "Lisää kuva"
+
+msgid "AccountActive"
+msgstr "Tunnus aktiivinen"
+
+msgid "GroupSpace"
+msgstr "Ryhmän alue"
+
+msgid "GroupWiki"
+msgstr "Wiki"
+
+msgid "ExportToPDF"
+msgstr "Vie PDF-tiedostoksi"
+
+msgid "CommentAdded"
+msgstr "Viestisi on lisätty"
+
+msgid "BackToPreviousPage"
+msgstr "Palaa edelliselle sivulle"
+
+msgid "ListView"
+msgstr "Näytä listana"
+
+msgid "NoOfficialCode"
+msgstr "Ei koodia"
+
+msgid "Owner"
+msgstr "Omistaja"
+
+msgid "DisplayOrder"
+msgstr "Järjestys"
+
+msgid "SearchFeatureDoIndexDocument"
+msgstr "Indeksoi dokumentin teksti?"
+
+msgid "SearchFeatureDocumentLanguage"
+msgstr "Dokumentin kieli indeksointia varten"
+
+msgid "GeneralCoach"
+msgstr "Yleistutor"
+
+msgid "SaveDocument"
+msgstr "Tallenna dokumentti"
+
+msgid "CategoryDeleted"
+msgstr "Kategoria on poistettu"
+
+msgid "CategoryAdded"
+msgstr "Kategoria on lisätty"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Qualify"
+msgstr "Arvostele"
+
+msgid "Words"
+msgstr "Sanaa"
+
+msgid "GoBack"
+msgstr "Palaa"
+
+msgid "Details"
+msgstr "Yksityiskohdat"
+
+msgid "EditLink"
+msgstr "Muokkaa linkkiä"
+
+msgid "LinkEdited"
+msgstr "Tehtävää muokattu"
+
+msgid "ForumThreads"
+msgstr "Keskustelu aiheita"
+
+msgid "GradebookVisible"
+msgstr "Näkyvissä"
+
+msgid "GradebookInvisible"
+msgstr "Näkymätön"
+
+msgid "Phone"
+msgstr "Puhelin"
+
+msgid "InfoMessage"
+msgstr "Tiedote"
+
+msgid "ConfirmationMessage"
+msgstr "Vahvistus"
+
+msgid "WarningMessage"
+msgstr "Varoitus"
+
+msgid "ErrorMessage"
+msgstr "Virhe"
+
+msgid "Glossary"
+msgstr "Sanasto"
+
+msgid "Coach"
+msgstr "Tutor"
+
+msgid "Condition"
+msgstr "Tila"
+
+msgid "CourseSettings"
+msgstr "Kurssin asetukset"
+
+msgid "EmailNotifications"
+msgstr "Sähköposti ilmoitukset"
+
+msgid "UserRights"
+msgstr "Käyttäjän oikeudet"
+
+msgid "Theming"
+msgstr "Graafinen teema"
+
+msgid "Qualification"
+msgstr "Pisteet"
+
+msgid "OnlyNumbers"
+msgstr "Vain numeroita"
+
+msgid "ReorderOptions"
+msgstr "Järjestä uudelleen"
+
+msgid "EditUserFields"
+msgstr "Muokkaa käyttäjän tietoja"
+
+msgid "OptionText"
+msgstr "Teksti"
+
+msgid "FieldTypeDoubleSelect"
+msgstr "Kaksoisvalinta"
+
+msgid "FieldTypeDivider"
+msgstr "Näkyvä jakaja"
+
+msgid "ScormUnknownPackageFormat"
+msgstr "Tuntematon paketin muoto"
+
+msgid "ResourceDeleted"
+msgstr "Resurssi on poistettu"
+
+msgid "AdvancedParameters"
+msgstr "Laajemmat asetukset"
+
+msgid "GoTo"
+msgstr "Mene"
+
+msgid "SessionNameAndCourseTitle"
+msgstr "Session ja kurssin nimi"
+
+msgid "CreationDate"
+msgstr "Luonti päivä"
+
+msgid "LastUpdateDate"
+msgstr "Viimeisin päivitys"
+
+msgid "ViewHistoryChange"
+msgstr "Näytä muutos historia"
+
+msgid "SearchGoToLearningPath"
+msgstr "Mene kurssille"
+
+msgid "SearchLectureLibrary"
+msgstr "Luento kirjasto"
+
+msgid "SearchImagePreview"
+msgstr "Esikatselu kuva"
+
+msgid "SearchAdvancedOptions"
+msgstr "Laajennetut haku asetukset"
+
+msgid "SearchResetKeywords"
+msgstr "Tyhjennä avainsanat"
+
+msgid "SearchKeywords"
+msgstr "Avainsanat"
+
+msgid "IntroductionTextDeleted"
+msgstr "Johdanto on poistettu"
+
+msgid "SearchKeywordsHelpTitle"
+msgstr "Avainsana haun ohjeet"
+
+msgid "SearchKeywordsHelpComment"
+msgstr "Valitse hakusanat yhdestä tai useammasta kentästä ja klikkaa etsi.<br />Valitaksesi useamman sanan paina Ctrl+hiiren oikea."
+
+msgid "Validate"
+msgstr "Vahvista"
+
+msgid "SearchCombineSearchWith"
+msgstr "Yhdistä hakusanat"
+
+msgid "SearchFeatureNotEnabledComment"
+msgstr "Teksti haku ei ole käytössä Chamilossa. Ota yhteyttä ylläpitäjään."
+
+msgid "Top"
+msgstr "Ylös"
+
+msgid "YourTextHere"
+msgstr "Sinun teksti tähän"
+
+msgid "OrderBy"
+msgstr "Järjestä"
+
+msgid "Notebook"
+msgstr "Muistio"
+
+msgid "FieldRequired"
+msgstr "Pakollinen kenttä"
+
+msgid "BookingSystem"
+msgstr "Varausjärjestelmä"
+
+msgid "Any"
+msgstr "Mikä tahansa"
+
+msgid "SaveSettings"
+msgstr "Tallenna asetukset"
+
+msgid "NoParticipation"
+msgstr "Osanottajia ei ole"
+
+msgid "Subscribers"
+msgstr "Tilaajat"
+
+msgid "Accept"
+msgstr "Hyväksy"
+
+msgid "Reserved"
+msgstr "Varattu"
+
+msgid "SharedDocumentsDirectory"
+msgstr "Jaettujen tiedostojen kansio"
+
+msgid "Gallery"
+msgstr "Galleria"
+
+msgid "Audio"
+msgstr "Ääni"
+
+msgid "GoToQuestion"
+msgstr "Mene kysymykseen"
+
+msgid "Level"
+msgstr "Taso"
+
+msgid "Duration"
+msgstr "Kesto"
+
+msgid "MaxTimeAllowed"
+msgstr "Maksimi aika (minuuttia)"
+
+msgid "Class"
+msgstr "Luokka"
+
+msgid "Select"
+msgstr "Vahvista"
+
+msgid "Booking"
+msgstr "Varaus"
+
+msgid "ManageReservations"
+msgstr "Varaus"
+
+msgid "DestinationUsers"
+msgstr "Kohde käyttäjät"
+
+msgid "AttachmentFileDeleteSuccess"
+msgstr "Liitetty tiedosto on poistettu"
+
+msgid "MaxFileSize"
+msgstr "Maksimi tiedoston koko"
+
+msgid "SendFileError"
+msgstr "Virhe ladattaessa tiedostoa. Tarkista ettei tiedosto ole viallinen ja kokeile uudelleen."
+
+msgid "Expired"
+msgstr "Vanhentunut"
+
+msgid "InvitationHasBeenSent"
+msgstr "Kutsu on lähetetty"
+
+msgid "InvitationHasBeenNotSent"
+msgstr "Kutsua ei lähetetty"
+
+msgid "Outbox"
+msgstr "Lähetetyt"
+
+msgid "Overview"
+msgstr "Yleiskuva"
+
+msgid "GenerateApiKey"
+msgstr "Luo API avain"
+
+msgid "MyApiKey"
+msgstr "Minun API avain"
+
+msgid "DateSend"
+msgstr "lähetyspäivä"
+
+msgid "Deny"
+msgstr "Estä"
+
+msgid "ThereIsNotQualifiedLearners"
+msgstr "Ei hyväksyttyjä oppijoita"
+
+msgid "ThereIsNotUnqualifiedLearners"
+msgstr "Ei hylättyjä oppijoita"
+
+msgid "SocialNetwork"
+msgstr "Sosiaalinen media"
+
+msgid "BackToOutbox"
+msgstr "Palaa lähetettyihin"
+
+msgid "Invitation"
+msgstr "Kutsu"
+
+msgid "SeeMoreOptions"
+msgstr "Näytä lisää asetuksia"
+
+msgid "TemplatePreview"
+msgstr "Pohjan esikatselu"
+
+msgid "NoTemplatePreview"
+msgstr "Esikatselua ei ole saatavilla"
+
+msgid "ModifyCategory"
+msgstr "Muokkaa kategoriaa"
+
+msgid "Photo"
+msgstr "Kuva"
+
+msgid "MoveFile"
+msgstr "Siirrä tiedosto"
+
+msgid "Filter"
+msgstr "Suodata"
+
+msgid "Subject"
+msgstr "Aihe"
+
+msgid "Message"
+msgstr "Viesti"
+
+msgid "MoreInformation"
+msgstr "Lisätietoja"
+
+msgid "MakeInvisible"
+msgstr "Tee näkymättömäksi"
+
+msgid "MakeVisible"
+msgstr "Tee näkyväksi"
+
+msgid "Image"
+msgstr "Kuva"
+
+msgid "SaveIntroText"
+msgstr "Tallenna johdanto teksti"
+
+msgid "CourseName"
+msgstr "Kurssin nimi"
+
+msgid "SendAMessage"
+msgstr "Lähetä viesti"
+
+msgid "Menu"
+msgstr "Valikko"
+
+msgid "BackToUserList"
+msgstr "Palaa käyttäjä listaan"
+
+msgid "GraphicNotAvailable"
+msgstr "Grafiikka ei saatavilla"
+
+msgid "BackTo"
+msgstr "Palaa"
+
+msgid "HistoryTrainingSessions"
+msgstr "Harjoitus session historia"
+
+msgid "ConversionFailled"
+msgstr "Muunnos epäonnistui"
+
+msgid "AlreadyExists"
+msgstr "On jo olemassa"
+
+msgid "TheNewWordHasBeenAdded"
+msgstr "Uusi sana on lisätty"
+
+msgid "CommentErrorExportDocument"
+msgstr "Jotkut dokumentit on liian monimutkaisia automaattiselle muunnokselle"
+
+msgid "DataType"
+msgstr "Tiedon tyyppi"
+
+msgid "Value"
+msgstr "Arvo"
+
+msgid "System"
+msgstr "Järjestelmä"
+
+msgid "ImportantActivities"
+msgstr "Tärkeät tapahtumat"
+
+msgid "SearchActivities"
+msgstr "Hae tapahtumia"
+
+msgid "Parent"
+msgstr "Ylempi"
+
+msgid "SurveyAdded"
+msgstr "Kysely lisätty"
+
+msgid "WikiAdded"
+msgstr "Wiki lisätty"
+
+msgid "ReadOnly"
+msgstr "Vain luku"
+
+msgid "Unacceptable"
+msgstr "ei hyväksyttävä"
+
+msgid "DisplayTrainingList"
+msgstr "Näytä kurssi lista"
+
+msgid "HistoryTrainingSession"
+msgstr "Kurssin historia"
+
+msgid "Until"
+msgstr "Saakka"
+
+msgid "FirstPage"
+msgstr "Ensimmäinen sivu"
+
+msgid "LastPage"
+msgstr "Viimeinen sivu"
+
+msgid "Coachs"
+msgstr "Tutorit"
+
+msgid "CourseProgram"
+msgstr "Kurssin kuvaus"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "Kurssin kuvausta ei ole vielä tehty."
+
+msgid "QuestionPlan"
+msgstr "Kysymyksiä opettajalle"
+
+msgid "NewBloc"
+msgstr "Muu"
+
+msgid "CourseDescriptionUpdated"
+msgstr "Kurssin kuvaus on päivitetty"
+
+msgid "CourseDescriptionDeleted"
+msgstr "Kurssin kuvaus on poistettu"
+
+msgid "InvalidId"
+msgstr "Sisäänkirjautuminen epäonnistui. Jos et ole rekisteröitynyt, niin täytä <a href='../auth/inscription.php'>rekisteröitymislomake</a></font color>"
+
+msgid "Pass"
+msgstr "Salasana"
+
+msgid "Advises"
+msgstr "Vinkit"
+
+msgid "CourseDoesntExist"
+msgstr "<b>Varoitus:</b>Tätä kurssia ei enää ole"
+
+msgid "SupportForum"
+msgstr "Tukifoorumi(eng)"
+
+msgid "BackToHomePage"
+msgstr "Takaisin etusivulle"
+
+msgid "LostPassword"
+msgstr "Salasana hukassa"
+
+msgid "Valvas"
+msgstr "Viimeinen ilmoitus"
+
+msgid "Helptwo"
+msgstr "Apua"
+
+msgid "EussMenu"
+msgstr "Valikko"
+
+msgid "Englin"
+msgstr "Englanti"
+
+msgid "InvalidForSelfRegistration"
+msgstr "Kirjautuminen epäonnistui - jos et ole vielä rekisteröitynyt, tee se<a href=claroline/auth/inscription.php>rekisteröintilomakkeella</a>"
+
+msgid "MenuGeneral"
+msgstr "Yleiset"
+
+msgid "MenuUser"
+msgstr "Käyttäjä"
+
+msgid "MenuAdmin"
+msgstr "Ympäristön ylläpitäjä"
+
+msgid "UsersOnLineList"
+msgstr "Tällä hetkellä kirjautuneina"
+
+msgid "TotalOnLine"
+msgstr "Käyttäjiä kirjautuneena yhteensä"
+
+msgid "Refresh"
+msgstr "Päivitä"
+
+msgid "SystemAnnouncements"
+msgstr "Järjestelmän tiedotus"
+
+msgid "HelpMaj"
+msgstr "Apua"
+
+msgid "NotRegistered"
+msgstr "Rekisteröitymätön"
+
+msgid "Login"
+msgstr "Kirjautuminen"
+
+msgid "RegisterForCourse"
+msgstr "Rekisteröidy kurssille"
+
+msgid "UnregisterForCourse"
+msgstr "Rekisteröidy kurssilta pois"
+
+msgid "Refresh"
+msgstr "Päivitä"
+
+msgid "TotalOnLine"
+msgstr "Käyttäjiä kirjautuneena yhteensä"
+
+msgid "CourseClosed"
+msgstr "(kurssi on tällä hetkellä suljettu)"
+
+msgid "Teach"
+msgstr "Mitä hän voi opettaa"
+
+msgid "Productions"
+msgstr "Tuotokset"
+
+msgid "SendChatRequest"
+msgstr "Lähetä keskustelupyyntö hänelle"
+
+msgid "RequestDenied"
+msgstr "Kutsu hylätty."
+
+msgid "NewMessageInForum"
+msgstr "Uusi viesti keskustelualueella"
+
+msgid "FolderCreated"
+msgstr "Uusi kansio tehty"
+
+msgid "AgendaAdded"
+msgstr "Tapahtuma lisätty"
+
+msgid "ShouldBeCSVFormat"
+msgstr "Tiedoston tulee olla CSV-formaatissa. Älä lisää välilyöntejä. Tiedoston rakenteen tulee olla tarkasti seuraava:"
+
+msgid "Enter2passToChange"
+msgstr "Vaihtaaksesi salasanasi syötä se kaksi kertaa. Muussa tapauksessa jätä kentät tyhjiksi."
+
+msgid "AuthInfo"
+msgstr "Tunnistaminen"
+
+msgid "ImageWrong"
+msgstr "Tiedoston koon pitäisi olla pienempi kuin"
+
+msgid "NewPass"
+msgstr "Uusi salasana"
+
+msgid "CurrentPasswordEmptyOrIncorrect"
+msgstr "Nykyinen salasana on väärä"
+
+msgid "password_request"
+msgstr "Olet pyytänyt salasanasi uusimista. Jos et ole pyytänyt sitä voit jättää tämän viestin huomiotta."
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "Salasanasi on lähetetty sähköpostiisi"
+
+msgid "EnterEmailAndWeWillSendYouYourPassword"
+msgstr "Syötä sähköpostiosoitteesi jota käytit rekisteröityessäsi niin lähetämme salasanasi sinulle."
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "Preserved"
+msgstr "Varattu"
+
+msgid "ConfirmUnsubscribe"
+msgstr "Vahvista käyttäjän poisto"
+
+msgid "See"
+msgstr "Siirry"
+
+msgid "LastVisits"
+msgstr "Viimeisimmät vierailuni"
+
+msgid "IfYouWantToAddManyUsers"
+msgstr "Jos haluat lisätä joukon käyttäjiä kurssillesi ota yhteyttä pääkäyttäjään."
+
+msgid "PassTooEasy"
+msgstr "tämä salasana on liian yksinkertainen. Käytä salasanaa kuten"
+
+msgid "AddedToCourse"
+msgstr "on lisätty kurssille"
+
+msgid "UserAlreadyRegistered"
+msgstr "Saman niminen käyttäjä on jo rekisteröity tälle kurssille"
+
+msgid "BackUser"
+msgstr "Takaisin käyttäjälistaan"
+
+msgid "UserOneByOneExplanation"
+msgstr "Käyttäjälle lähetetään sähköpostivahvistus, jossa on käyttäjätunnus ja salasana"
+
+msgid "GiveTutor"
+msgstr "Tee tutoriksi"
+
+msgid "RemoveRight"
+msgstr "Poista tämä oikeus"
+
+msgid "GiveAdmin"
+msgstr "Tee admin"
+
+msgid "UserNumber"
+msgstr "numero"
+
+msgid "DownloadUserList"
+msgstr "Lataa lista"
+
+msgid "UserAddExplanation"
+msgstr "Jokaisen rivin tiedostossa täytyy sisältää vähintään 5 kenttää: Etunimi Sukunimi Käyttäjätunnus Salasana Sähköposti eroteltuna tabulaattorilla tässä järjestyksessä. Käyttäjät saavat sähköpostivahvistuksen, jossa on käyttätunnus ja salasana."
+
+msgid "UserMany"
+msgstr "Tuo käyttäjälista"
+
+msgid "OneByOne"
+msgstr "Lisää käyttäjä manuaalisesti"
+
+msgid "ImportUserList"
+msgstr "Tuo lista käyttäjistä"
+
+msgid "AddAU"
+msgstr "Lisää käyttäjä"
+
+msgid "AddedU"
+msgstr "on lisätty. Sähköposti, jossa on hänen käyttäjänimensä, on lähetety hänelle"
+
+msgid "TheU"
+msgstr "Käyttäjä"
+
+msgid "RegYou"
+msgstr "on rekisteröinyt sinut tälle kurssille"
+
+msgid "OneResp"
+msgstr "Eräs kurssin ylläpitäjistä"
+
+msgid "UserPicture"
+msgstr "Kuva"
+
+msgid "ProfileReg"
+msgstr "Profiili on tallennettu"
+
+msgid "EmailWrong"
+msgstr "Sähköpostiosoitteesi on puutteellinen tai virheellinen"
+
+msgid "UserTaken"
+msgstr "Tämä käyttäjänimi on jo käytössä"
+
+msgid "Fields"
+msgstr "Jotkut kentät ovat tyhjiä"
+
+msgid "Again"
+msgstr "Yritä uudestaan!"
+
+msgid "PassTwo"
+msgstr "Kaksi eri salasanaa!"
+
+msgid "ModifProfile"
+msgstr "Muokkaa profiiliani"
+
+msgid "IsReg"
+msgstr "Kursseille on rekisteröity"
+
+msgid "NowGoCreateYourCourse"
+msgstr "Nyt voit luoda oman kurssisi"
+
+msgid "NowGoChooseYourCourses"
+msgstr "Voit nyt siirtyä valitsemaan haluamasi kurssin"
+
+msgid "MailHasBeenSent"
+msgstr "Sinulle on lähetetty sähköpostilla käyttäjätunnuksesi ja salasanasi."
+
+msgid "PersonalSettings"
+msgstr "Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.</p>Valitse listasta kurssit, joihin haluat pääsyn."
+
+msgid "Problem"
+msgstr "Jos sinulla on ongelmia, ota yhteyttä."
+
+msgid "Is"
+msgstr "on"
+
+msgid "Address"
+msgstr "Osoite"
+
+msgid "YourReg"
+msgstr "Rekisteröintisi:"
+
+msgid "UserFree"
+msgstr "Tämä käyttäjänimi on jo käytössä. Mene takaisin ja yritä uudestaan."
+
+msgid "EmptyFields"
+msgstr "Jätit jotkut kentistä tyhjiksi. Mene takaisin ja yritä uudestaan."
+
+msgid "PassTwice"
+msgstr "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan."
+
+msgid "RegAdmin"
+msgstr "Luo kurssien sivustot (opettaja)"
+
+msgid "RegStudent"
+msgstr "Valitse kursseja (opiskelija)"
+
+msgid "Confirmation"
+msgstr "Vahvistus"
+
+msgid "Surname"
+msgstr "Etunimi"
+
+msgid "Registration"
+msgstr "Rekisteröinti"
+
+msgid "AdminOfCourse"
+msgstr "Kurssin ylläpitäjä"
+
+msgid "SimpleUserOfCourse"
+msgstr "Kurssin opiskelija"
+
+msgid "IsTutor"
+msgstr "Tutor"
+
+msgid "ParamInTheCourse"
+msgstr "Rooli kurssilla"
+
+msgid "HaveNoCourse"
+msgstr "ei kurssia"
+
+msgid "Courses4User"
+msgstr "Käyttäjän kurssit"
+
+msgid "CoursesByUser"
+msgstr "Käyttäjien kurssit"
+
+msgid "SubscribeUserToCourse"
+msgstr "Lisää käyttäjiä kurssille"
+
+msgid "Preced100"
+msgstr "Edelliset 100"
+
+msgid "Addmore"
+msgstr "Lisää rekisteröityneitä käyttäjiä"
+
+msgid "Addback"
+msgstr "Käyttäjälistaan"
+
+msgid "reg"
+msgstr "Rekisteröidy"
+
+msgid "Quit"
+msgstr "Lopeta"
+
+msgid "YourPasswordHasBeenReset"
+msgstr "Salasanasi on nollattu"
+
+msgid "Sex"
+msgstr "Sukupuoli"
+
+msgid "OptionalTextFields"
+msgstr "Valinnaiset kentät"
+
+msgid "FullUserName"
+msgstr "Koko nimi"
+
+msgid "SearchForUser"
+msgstr "Etsi käyttäjää"
+
+msgid "SearchButton"
+msgstr "Etsi"
+
+msgid "SearchNoResultsFound"
+msgstr "Etsinnälle ei löytynyt tuloksia"
+
+msgid "UsernameWrong"
+msgstr "Käyttäjätunnuksessa saa olla ainoastaan kirjaimia, numeroita ja _.-"
+
+msgid "PasswordRequestFrom"
+msgstr "Tämä on salasanan pyyntö sähköpostiosoitteelle"
+
+msgid "CorrespondsToAccount"
+msgstr "Tämä sähköpostiosoite liittyy käyttäjätunnukseen"
+
+msgid "CorrespondsToAccounts"
+msgstr "Tämä sähköpostiosoite liittyy seuraaviin käyttäjätunnuksiin"
+
+msgid "AccountExternalAuthSource"
+msgstr "Chamilo ei voi käsitellä pyyntöä automaattisesti, koska käyttäjätunnukseen liittyy ulkopuolinen autentikointi lähde. Ole hyvä ja ilmoita käyttäjälle."
+
+msgid "ProgressIntroduction"
+msgstr "Aloita valitsemalla haluamasi kurssi.<br />Sen jälkeen voit seurata edistymistäsi jokaisella kurssillasi."
+
+msgid "NeverExpires"
+msgstr "Ei vanhene koskaan"
+
+msgid "ActiveAccount"
+msgstr "Tunnus"
+
+msgid "YourAccountHasToBeApproved"
+msgstr "Tunnuksesi täytyy hyväksyä"
+
+msgid "ApprovalForNewAccount"
+msgstr "Uuden tunnuksen hyväksyminen"
+
+msgid "ManageUser"
+msgstr "Hallitse käyttäjää"
+
+msgid "SubscribeUserToCourseAsTeacher"
+msgstr "Rekisteröi kouluttajia"
+
+msgid "PasswordEncryptedForSecurity"
+msgstr "Salasanasi on salattu tietoturvan takaamiseksi. Painamalla linkkiä saat sähköpostiin uuden salasanan."
+
+msgid "SystemUnableToSendEmailContact"
+msgstr "Sähköpostin lähettäminen ei onnistunut"
+
+msgid "UsernameMaxXCharacters"
+msgstr "Tunnuksen pitää olla korkeintaan %s merkkiä pitkä"
+
+msgid "PictureUploaded"
+msgstr "Kuvasi on ladattu"
+
+msgid "UsersRegistered"
+msgstr "Käyttäjät on rekisteröity kurssille"
+
+msgid "UserAlreadyRegisterByOtherCreator"
+msgstr "Käyttäjä on rekisteröity jo toiselle kouluttajalle"
+
+msgid "UserCreatedPlatform"
+msgstr "Käyttäjä luotu sivustolle"
+
+msgid "UserNotAdded"
+msgstr "Käyttäjää ei lisätty."
+
+msgid "NoUsersRead"
+msgstr "Tarkista XML/CVS tiedoston rakenne."
+
+msgid "InLnk"
+msgstr "Piilotetut työkalut ja linkit"
+
+msgid "DelLk"
+msgstr "Haluatko varmasti poistaa tämän linkin?"
+
+msgid "NameOfTheLink"
+msgstr "Linkin nimi"
+
+msgid "CourseAdminOnly"
+msgstr "Ainoastaan opettajille"
+
+msgid "PlatformAdminOnly"
+msgstr "Ainoastaan ylläpitäjille"
+
+msgid "CombinedCourse"
+msgstr "Yhdistetty kurssi"
+
+msgid "ToolIsNowVisible"
+msgstr "Työkalu on nyt nähtävillä"
+
+msgid "ToolIsNowHidden"
+msgstr "Työkalu on nyt piilotettu"
+
+msgid "GreyIcons"
+msgstr "Työkalut"
+
+msgid "Interaction"
+msgstr "Vuorovaikutus"
+
+msgid "Authoring"
+msgstr "Julkaiseminen"
+
+msgid "SessionIdentifier"
+msgstr "Session tunniste"
+
+msgid "SessionCategory"
+msgstr "Session kategoria"
+
+msgid "WikiSearchResults"
+msgstr "Wiki haun tulokset"
+
+msgid "StartPage"
+msgstr "Pääsivu"
+
+msgid "EditThisPage"
+msgstr "Muokkaa tätä sivua"
+
+msgid "ShowPageHistory"
+msgstr "Historia"
+
+msgid "RecentChanges"
+msgstr "Uusimmat muutokset"
+
+msgid "AllPages"
+msgstr "Kaikki sivut"
+
+msgid "AddNew"
+msgstr "Lisää uusi sivu"
+
+msgid "ChangesStored"
+msgstr "Ääni lisätty"
+
+msgid "NewWikiSaved"
+msgstr "Uusi Wiki-kotisivu on tallennettu. Klikkaa tästä nähdäksesi:"
+
+msgid "DefaultContent"
+msgstr "<br/> <br/> <p align=\"center\"> <img src=\"%swiki/wcollaborative.png\" alt=\"Mr. Chamilo\" title=\"Mr. Chamilo\" /></p> <p align=\"center\">Aloita muokkaamalla tätä sivua</p>"
+
+msgid "CourseWikiPages"
+msgstr "Kurssin Wiki sivut"
+
+msgid "GroupWikiPages"
+msgstr "Ryhmän Wiki sivut"
+
+msgid "NoWikiPageTitle"
+msgstr "Muutoksesi on tallennettu. Sivulle täytyy antaa vielä otsikko."
+
+msgid "WikiPageTitleExist"
+msgstr "Tällä otsikolla on jo aiemmin tehty sivu, muokkaa sivua klikkaamalla:"
+
+msgid "WikiDiffAddedLine"
+msgstr "Rivi lisätty"
+
+msgid "WikiDiffDeletedLine"
+msgstr "Rivi poistettu"
+
+msgid "WikiDiffMovedLine"
+msgstr "Rivi siirretty"
+
+msgid "WikiDiffUnchangedLine"
+msgstr "Muuttumaton rivi"
+
+msgid "DifferencesNew"
+msgstr "muutokset versiossa"
+
+msgid "DifferencesOld"
+msgstr "vanha versio"
+
+msgid "Differences"
+msgstr "Erot"
+
+msgid "MostRecentVersion"
+msgstr "Viimeisin versio"
+
+msgid "ShowDifferences"
+msgstr "Vertaa valittuja versioita"
+
+msgid "SearchPages"
+msgstr "Etsi sivuilta"
+
+msgid "Discuss"
+msgstr "Keskustele"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "ShowThisPage"
+msgstr "Näytä tämä sivu"
+
+msgid "DeleteThisPage"
+msgstr "Poista tämä sivu"
+
+msgid "DiscussThisPage"
+msgstr "Keskustele tästä sivusta"
+
+msgid "HomeWiki"
+msgstr "Wiki:n etusivu"
+
+msgid "DeleteWiki"
+msgstr "Poista kaikki Wiki:n sisältö"
+
+msgid "WikiDeleted"
+msgstr "Wiki on poistettu"
+
+msgid "WikiPageDeleted"
+msgstr "Sivu ja kaikki siihen liittyvä historia on poistettu"
+
+msgid "NumLine"
+msgstr "rivinumero"
+
+msgid "DeletePageHistory"
+msgstr "Poista sivu kaikkine versioineen"
+
+msgid "OnlyAdminDeleteWiki"
+msgstr "Ohjaaajat vain voivat poistaa Wikejä"
+
+msgid "OnlyAdminDeletePageWiki"
+msgstr "Vain kurssiylläpitäjät voivat poistaa sivuja"
+
+msgid "OnlyAddPagesGroupMembers"
+msgstr "Vain kurssiylläpitäjät ja tämän ryhmän jäsenet voivat lisätä sivuja ryhmän Wiki:in"
+
+msgid "OnlyEditPagesGroupMembers"
+msgstr "Vain kurssiylläpitäjät ja tämän ryhmän jäsenet voivat muokata ryhmän Wiki:n sivuja"
+
+msgid "ConfirmDeleteWiki"
+msgstr "Haluatko varmasti poistaa tämän Wiki:n ?"
+
+msgid "ConfirmDeletePage"
+msgstr "Haluatko varmasti poistaa tämän sivun ja kaiken siihen liittyvän historian?"
+
+msgid "AlsoSearchContent"
+msgstr "Etsi myös sisällöstä"
+
+msgid "PageLocked"
+msgstr "Sivu on suojattu"
+
+msgid "PageUnlocked"
+msgstr "Sivu on ei suojattu"
+
+msgid "PageLockedExtra"
+msgstr "Tämä sivu on suojattu. Vain kurssiylläpitäjät voivat muuttaa sitä."
+
+msgid "PageUnlockedExtra"
+msgstr "Tätä sivua ei ole suojattu. Kaikki kurssin käyttäjät ja ryhmän jäsenet voivat muokata sitä."
+
+msgid "ShowAddOption"
+msgstr "Näytää lisää vaihtoehto"
+
+msgid "HideAddOption"
+msgstr "Piilota lisää optio"
+
+msgid "AddOptionProtected"
+msgstr "Lisää toiminto on estetty. Vain ohjaajat voivat lisätä sivuja tähän Wikiin. Mutta opiskelijat ja ryhmän jäsenet voivat silti muokata niitä."
+
+msgid "AddOptionUnprotected"
+msgstr "Lisää toiminto on sallittu kaikille kurssin opiskelijoille."
+
+msgid "NotifyChanges"
+msgstr "Ilmoita minulle muutoksista"
+
+msgid "NotNotifyChanges"
+msgstr "Älä ilmoita minulle muutoksista"
+
+msgid "CancelNotifyByEmail"
+msgstr "Älä ilmoita minulle sähköpostilla kun tätä sivua on muutettu"
+
+msgid "MostRecentVersionBy"
+msgstr "Viimeisintä versiota muokkasi"
+
+msgid "NumComments"
+msgstr "Kommentteja tästä sivusta"
+
+msgid "NumCommentsScore"
+msgstr "Kommenttejen määrä tästä sivusta:"
+
+msgid "LinksPages"
+msgstr "Lähteet"
+
+msgid "ShowLinksPages"
+msgstr "Näytä sivut joilta on linkki tähän sivuun"
+
+msgid "MoreWikiOptions"
+msgstr "Lisää Wiki asetuksia"
+
+msgid "DefaultTitle"
+msgstr "Etusivu"
+
+msgid "DiscussNotAvailable"
+msgstr "Keskustelu ei saatavilla"
+
+msgid "EditPage"
+msgstr "Muokkaa"
+
+msgid "AddedBy"
+msgstr "Lisääjä:"
+
+msgid "EditedBy"
+msgstr "Muokkaaja:"
+
+msgid "DeletedBy"
+msgstr "poistaja:"
+
+msgid "GroupStandardMember"
+msgstr "Ryhmän jäsen"
+
+msgid "ConfigDefault"
+msgstr "Oletus asetukset"
+
+msgid "UnlockPage"
+msgstr "Suojaamaton"
+
+msgid "LockPage"
+msgstr "Suojaa"
+
+msgid "WikiDiffAddedTex"
+msgstr "Teksti lisätty"
+
+msgid "WikiDiffDeletedTex"
+msgstr "Teksti poistettu"
+
+msgid "WordsDiff"
+msgstr "sana sanalta"
+
+msgid "LinesDiff"
+msgstr "rivi riviltä"
+
+msgid "MustSelectPage"
+msgstr "Valitse ensin sivu"
+
+msgid "Export2ZIP"
+msgstr "Vie ZIP-tiedostoon"
+
+msgid "HidePage"
+msgstr "Piilota sivu"
+
+msgid "ShowPage"
+msgstr "Näytä sivu"
+
+msgid "GoAndEditMainPage"
+msgstr "Aloittaaksesi Wiki mene ja muokkaa pääsivua"
+
+msgid "LinksPagesFrom"
+msgstr "Sivut jotka linkittävät tähän sivuun"
+
+msgid "OnlyEditPagesCourseManager"
+msgstr "Pääsivua voi muokata vain ohjaaja"
+
+msgid "CurrentVersion"
+msgstr "Nykyinen versio"
+
+msgid "ToolName"
+msgstr "Käytön seuranta"
+
+msgid "TrackingDisabled"
+msgstr "Seuranta on kytketty pois päältä ylläpitäjän toimesta."
+
+msgid "CourseStats"
+msgstr "Kurssin tilastot"
+
+msgid "ToolsAccess"
+msgstr "Työkalujen käyttö"
+
+msgid "LinksAccess"
+msgstr "Linkit"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "Harjoitus"
+
+msgid "NoResult"
+msgstr "Tulosta ei vielä ole"
+
+msgid "MyLearnpath"
+msgstr "Oppimispolkuni"
+
+msgid "Correction"
+msgstr "Korjaus"
+
+msgid "NoExercise"
+msgstr "Ei harjoituksia"
+
+msgid "CourseTitle"
+msgstr "Kurssin nimi"
+
+msgid "GroupSpaceLink"
+msgstr "Ryhmän alue"
+
+msgid "CreationSucces"
+msgstr "Sisällysluettelo onnistuneesti luotu"
+
+msgid "CanViewOrganisation"
+msgstr "Voit tarkastella organisaatiotasi"
+
+msgid "ViewDocument"
+msgstr "Katso"
+
+msgid "HtmlTitle"
+msgstr "Sisällysluettelo"
+
+msgid "AddToTOC"
+msgstr "Lisää sisältöön"
+
+msgid "AddChapter"
+msgstr "Lisää kappale"
+
+msgid "Ready"
+msgstr "Luo sisällysluettelo automaattisesti"
+
+msgid "StoreDocuments"
+msgstr "Tallenna dokumentit"
+
+msgid "TocDown"
+msgstr "Alas"
+
+msgid "TocUp"
+msgstr "Ylös"
+
+msgid "CutPasteLink"
+msgstr "Ei kehyksiä"
+
+msgid "CreatePath"
+msgstr "Luo polku"
+
+msgid "SendDocument"
+msgstr "Lataa tiedosto"
+
+msgid "ThisFolderCannotBeDeleted"
+msgstr "Tätä kansiota ei voi poistaa"
+
+msgid "ChangeVisibility"
+msgstr "Muuta näkyvyyttä"
+
+msgid "VisibilityCannotBeChanged"
+msgstr "Näkyvyyttä ei voi muuttaa"
+
+msgid "DocumentCannotBeMoved"
+msgstr "Dokumenttia ei voi siirtää"
+
+msgid "OogieConversionPowerPoint"
+msgstr "Oogie: PowerPoint muunnos"
+
+msgid "WelcomeOogieSubtitle"
+msgstr "PowerPointista oppimispoluksi muunnin"
+
+msgid "GoMetadata"
+msgstr "Mene"
+
+msgid "QuotaForThisCourseIs"
+msgstr "Tämän kurssin kapasiteetti on"
+
+msgid "Del"
+msgstr "poista"
+
+msgid "ShowCourseQuotaUse"
+msgstr "Näytä kurssin kapasiteetti"
+
+msgid "CourseCurrentlyUses"
+msgstr "Tällä hetkellä kurssilla käytössä"
+
+msgid "MaximumAllowedQuota"
+msgstr "Tallennuskapasiteettisi on"
+
+msgid "PercentageQuotaInUse"
+msgstr "Kapasiteetista käytössä prosentteina"
+
+msgid "PercentageQuotaFree"
+msgstr "Kapasiteettia vapaana prosentteina"
+
+msgid "CurrentDirectory"
+msgstr "Nykyinen hakemisto"
+
+msgid "UplUploadDocument"
+msgstr "Tallenna dokumentti"
+
+msgid "UplPartialUpload"
+msgstr "Tallennettava tiedosto tallentui vain osittain."
+
+msgid "UplExceedMaxPostSize"
+msgstr "Tiedoston koko ylitti sallitun:"
+
+msgid "UplExceedMaxServerUpload"
+msgstr "Tallennettavan tiedoston koko ylitti koko kapasiteetin:"
+
+msgid "UplUploadFailed"
+msgstr "Tiedoston tallentaminen epäonnistui!"
+
+msgid "UplNotEnoughSpace"
+msgstr "Tilaa ei ole tarpeeksi tiedoston tallentamiseen!"
+
+msgid "UplNoSCORMContent"
+msgstr "SCORM sisältöä ei löytynyt!"
+
+msgid "UplZipExtractSuccess"
+msgstr "Zip-tiedosto onnistuneesti purettu!"
+
+msgid "UplZipCorrupt"
+msgstr "Tiedoston purkaminen epäonnistui."
+
+msgid "UplFileSavedAs"
+msgstr "Tiedosto tallennettu"
+
+msgid "UplFileOverwritten"
+msgstr "on tallennettu päälle."
+
+msgid "CannotCreateDir"
+msgstr "Hakemiston luominen ei onnistu"
+
+msgid "UplUpload"
+msgstr "Tallenna"
+
+msgid "UplWhatIfFileExists"
+msgstr "Jos tiedosto on jo olemassa:"
+
+msgid "UplDoNothing"
+msgstr "Älä tee mitään"
+
+msgid "UplDoNothingLong"
+msgstr "Älä tallenna, jos tiedosto on jo olemassa"
+
+msgid "UplOverwrite"
+msgstr "Tallenna päälle"
+
+msgid "UplOverwriteLong"
+msgstr "Tallenna vanhan tiedoston päälle"
+
+msgid "UplRename"
+msgstr "Uudelleennimeä"
+
+msgid "UplRenameLong"
+msgstr "Uudelleennimeä tallennetava tiedosto, jos sellainen jo on"
+
+msgid "DocumentQuota"
+msgstr "Dokumenttien määrä"
+
+msgid "NoDocsInFolder"
+msgstr "Tässä kansiossa ei dokumentteja"
+
+msgid "UploadTo"
+msgstr "Tallenna"
+
+msgid "fileModified"
+msgstr "Tiedostoa on muokattu"
+
+msgid "DocumentsOverview"
+msgstr "dokumenttien esikatselu"
+
+msgid "Options"
+msgstr "Vaihtoehdot"
+
+msgid "WelcomeOogieConverter"
+msgstr "Tervetuloa Oogie PowerPoint muuntimeen<ul type=\"1\"><li>Hae kovalevyltä .ppt tai .odp tiedosto<li>Lataa se Oogieen. Se muunnetaan Scorm oppimispoluksi.<li>Voit sen jälkeen lisätä äänikommentteja jokaiseen diaan ja lisätä harjoituksia ja testejä diojen väliin.	"
+
+msgid "ConvertToLP"
+msgstr "Muunna oppimispoluksi"
+
+msgid "AdvancedSettings"
+msgstr "Lisäasetukset"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "DocDeleteError"
+msgstr "Virhe poistettaessa tiedostoa"
+
+msgid "ViModProb"
+msgstr "Virhe päivitettäessä näkyvyyttä"
+
+msgid "DirDeleted"
+msgstr "Kansio poistettu"
+
+msgid "TemplateName"
+msgstr "Mallin nimi"
+
+msgid "TemplateDescription"
+msgstr "Mallin kuvaus"
+
+msgid "DocumentSetAsTemplate"
+msgstr "Dokumentti on määritetty uudeksi malliksi"
+
+msgid "DocumentUnsetAsTemplate"
+msgstr "Dokumentti poistettu malleista"
+
+msgid "AddAsTemplate"
+msgstr "Lisää malliksi"
+
+msgid "RemoveAsTemplate"
+msgstr "Poista malli"
+
+msgid "ReadOnlyFile"
+msgstr "Tiedosto on vain luku"
+
+msgid "FileNotFound"
+msgstr "Tiedostoa ei löytynyt"
+
+msgid "TemplateTitleFirstPage"
+msgstr "Ensimmäinen sivu"
+
+msgid "TemplateTitleFirstPageDescription"
+msgstr "Kurssisi ensimmäinen sivu"
+
+msgid "TemplateTitleDedicatory"
+msgstr "Omistus"
+
+msgid "TemplateTitleDedicatoryDescription"
+msgstr "Tee oma omistus"
+
+msgid "TemplateTitlePreface"
+msgstr "Kurssin alkusanat"
+
+msgid "TemplateTitlePrefaceDescription"
+msgstr "Alkusanat"
+
+msgid "TemplateTitleIntroduction"
+msgstr "Johdanto"
+
+msgid "TemplateTitleIntroductionDescription"
+msgstr "Lisää johdanto teksti"
+
+msgid "TemplateTitlePlan"
+msgstr "Suunnitelma"
+
+msgid "TemplateTitlePlanDescription"
+msgstr "Sisällysluettelo"
+
+msgid "TemplateTitleTeacher"
+msgstr "Kouluttaja"
+
+msgid "TemplateTitleTeacherDescription"
+msgstr "oppijan kanssa"
+
+msgid "TemplateTitleProduction"
+msgstr "Tuotanto"
+
+msgid "TemplateTitleProductionDescription"
+msgstr "Tuotannon kuvaus"
+
+msgid "TemplateTitleAnalyze"
+msgstr "Analyysi"
+
+msgid "TemplateTitleAnalyzeDescription"
+msgstr "Analyysin kuvaus"
+
+msgid "TemplateTitleSynthetize"
+msgstr "Synthetize"
+
+msgid "TemplateTitleSynthetizeDescription"
+msgstr "Synthetize kuvaus"
+
+msgid "TemplateTitleText"
+msgstr "Teksti"
+
+msgid "TemplateTitleTextDescription"
+msgstr "Pelkkä teksti"
+
+msgid "TemplateTitleLeftImage"
+msgstr "Kuva vasemmalla"
+
+msgid "TemplateTitleLeftImageDescription"
+msgstr "Kuva vasemmalla"
+
+msgid "TemplateTitleTextCentered"
+msgstr "Teksti ja kuva keskellä"
+
+msgid "TemplateTitleTextCenteredDescription"
+msgstr "Teksti ja kuva keskellä ja seloste"
+
+msgid "TemplateTitleComparison"
+msgstr "Vertailu"
+
+msgid "TemplateTitleComparisonDescription"
+msgstr "2 sarakkeinen tekstisivu"
+
+msgid "TemplateTitleDiagram"
+msgstr "Kaavio selitettynä"
+
+msgid "TemplateTitleDiagramDescription"
+msgstr "Kuva vasemmalla teksti oikealla"
+
+msgid "TemplateTitleImage"
+msgstr "Pelkkä kuva"
+
+msgid "TemplateTitleImageDescription"
+msgstr "Pelkkä kuva"
+
+msgid "TemplateTitleFlash"
+msgstr "Flash animaatio"
+
+msgid "TemplateTitleFlashDescription"
+msgstr "Flash animaatio ja teksti"
+
+msgid "TemplateTitleAudio"
+msgstr "Ääniraidalla"
+
+msgid "TemplateTitleAudioDescription"
+msgstr "Ääni+ kuva+ teksti: kuunteluharjoitus"
+
+msgid "TemplateTitleSchema"
+msgstr "Kaavio äänellä"
+
+msgid "TemplateTitleSchemaDescription"
+msgstr "Kaavio jota selostaa ohjaaja"
+
+msgid "TemplateTitleVideo"
+msgstr "Video sivu"
+
+msgid "TemplateTitleVideoDescription"
+msgstr "Video ja teksti"
+
+msgid "TemplateTitleVideoFullscreen"
+msgstr "Video koko ruutu"
+
+msgid "TemplateTitleVideoFullscreenDescription"
+msgstr "video kokoruutu"
+
+msgid "TemplateTitleTable"
+msgstr "Taulukko"
+
+msgid "TemplateTitleTableDescription"
+msgstr "Taulukkolaskenta tyyppinen"
+
+msgid "TemplateTitleAssigment"
+msgstr "Tehtävän kuvaus"
+
+msgid "TemplateTitleAssigmentDescription"
+msgstr "Selvittää tavoitteet, roolit, aikataulun"
+
+msgid "TemplateTitleResources"
+msgstr "Resurssit"
+
+msgid "TemplateTitleResourcesDescription"
+msgstr "Kirjat, linkit, työkalut"
+
+msgid "TemplateTitleBibliography"
+msgstr "Lähdeluettelo"
+
+msgid "TemplateTitleBibliographyDescription"
+msgstr "Kirat, linkit, työkalut"
+
+msgid "TemplateTitleFAQ"
+msgstr "Usein kysytyt kysymykset"
+
+msgid "TemplateTitleFAQDescription"
+msgstr "Kysymysten ja vastausten lista"
+
+msgid "TemplateTitleGlossary"
+msgstr "Sanasto"
+
+msgid "TemplateTitleGlossaryDescription"
+msgstr "Lista termeistä"
+
+msgid "TemplateTitleEvaluation"
+msgstr "Arvionti"
+
+msgid "TemplateTitleEvaluationDescription"
+msgstr "Arviointi"
+
+msgid "TemplateTitleCertificate"
+msgstr "Suoritustodistus"
+
+msgid "TemplateTitleCertificateDescription"
+msgstr "Näytetään kurssin lopuksi"
+
+msgid "TemplateTitleCheckList"
+msgstr "Tarkistuslista"
+
+msgid "TemplateTitleCourseTitle"
+msgstr "Kurssin nimi"
+
+msgid "TemplateTitleLeftList"
+msgstr "Luettelo vasemmalla"
+
+msgid "TemplateTitleLeftListDescription"
+msgstr "Luettelo vasemmalla ohjaajan kanssa"
+
+msgid "TemplateTitleCheckListDescription"
+msgstr "Luettelo resursseista"
+
+msgid "TemplateTitleCourseTitleDescription"
+msgstr "Kurssin nimi ja logo"
+
+msgid "TemplateTitleRightList"
+msgstr "Lista oikealla"
+
+msgid "TemplateTitleRightListDescription"
+msgstr "Lista oikealla ohjaajan kanssa"
+
+msgid "TemplateTitleLeftRightList"
+msgstr "Lista vasemmalla ja oikealla"
+
+msgid "TemplateTitleLeftRightListDescription"
+msgstr "Lista vasemmalla ja oikealla ohjaajan kanssa"
+
+msgid "TemplateTitleDesc"
+msgstr "Kuvaus"
+
+msgid "TemplateTitleDescDescription"
+msgstr "Kuvaile resurssi"
+
+msgid "TemplateTitleObjectives"
+msgstr "Kurssin tavoitteet"
+
+msgid "TemplateTitleObjectivesDescription"
+msgstr "Kuvaile kurssin tavoitteet"
+
+msgid "TemplateTitleCycle"
+msgstr "Piirakkakaavio"
+
+msgid "TemplateTitleCycleDescription"
+msgstr "2 listaa pyörivillä nuolilla"
+
+msgid "TemplateTitleLearnerWonder"
+msgstr "Oppija pohtii"
+
+msgid "TemplateTitleLearnerWonderDescription"
+msgstr "Pohtivan oppijan kuvaus"
+
+msgid "TemplateTitleTimeline"
+msgstr "Aikajana"
+
+msgid "TemplateTitleTimelineDescription"
+msgstr "3 listaa ja nuoli"
+
+msgid "TemplateTitleStopAndThink"
+msgstr "Pysähdy ja pohdi"
+
+msgid "TemplateTitleListLeftListDescription"
+msgstr "Lista vasemmalla ja ohjaaja"
+
+msgid "TemplateTitleStopAndThinkDescription"
+msgstr "Pohja joka rohkaisee pysähtymään ja pohtimaan"
+
+msgid "CreateTemplate"
+msgstr "Luo sivupohja"
+
+msgid "SharedFolder"
+msgstr "Jaettu kansio"
+
+msgid "CreateFolder"
+msgstr "Luo kansio"
+
+msgid "HelpDefaultDirDocuments"
+msgstr "TÄMÄ NÄKYY VAIN OPETTAJILLE: Tämä kansio sisältää oletustiedostot. Voit poistaa tiedostoja tai lisätä uusia, mutta jos tiedosto on piilotettu ja se lisätään dokumenttiin se ei näy dokumentissa oppijoille. Jos lisäät tiedoston dokumenttiin muuta se ensin näkyväksi. Kansio voi olla piilotettu."
+
+msgid "HelpSharedFolder"
+msgstr "Tämä kansio sisältää tiedostoja joita muut oppijat (tai sinä) lähettää kurssille editorila. Oletuksena ne näkyvät kaikille oppijoille, mutta ne voidaan myös piilottaa toisilta. Jos teet yhden oppijan kansion näkyväksi toiset oppijat näkevät sen kaiken sisällön."
+
+msgid "TemplateImage"
+msgstr "Sivupohjan kuvake"
+
+msgid "MailingFileRecipDup"
+msgstr "pli ol unu studento trovis  XX"
+
+msgid "MailingFileRecipNotFound"
+msgstr "neniu studento trovis  XX"
+
+msgid "MailingFileNoRecip"
+msgstr "ne adresito-id en la nomo"
+
+msgid "MailingFileNoPostfix"
+msgstr "nomo ne finiĝas per"
+
+msgid "MailingFileNoPrefix"
+msgstr "nomo ne komenciĝas per"
+
+msgid "MailingFileFunny"
+msgstr "Neniu nomo, aŭ sufikso ne konsistanta el 1-4 literoj kaj ciferoj"
+
+msgid "MailingZipDups"
+msgstr "Mesaĝa zip-dosiero enhavas duoblaĵojn - transsendo maleblas"
+
+msgid "MailingZipPhp"
+msgstr "Mesaĝa zip-dosiero enhavas php-doiserojn - transsendo maleblas"
+
+msgid "MailingZipEmptyOrCorrupt"
+msgstr "Mesaĝa zip-dosiero estas malplena aŭ difekta"
+
+msgid "MailingWrongZipfile"
+msgstr "Sendotaĵo estu zip-dosiero kun STUDENTID aŭ LOGINNAME en la nomo"
+
+msgid "MailingConfirmSend"
+msgstr "Ĉu sendi dokumentojn al iliaj individuaj adresitoj?"
+
+msgid "MailingSend"
+msgstr "Sendi dokumentojn"
+
+msgid "MailingNotYetSent"
+msgstr "Sendotaĵoj estas ankoraŭ ne senditaj..."
+
+msgid "MailingInSelect"
+msgstr "--sähköpostilla--"
+
+msgid "MailingAsUsername"
+msgstr "Sähköpostilla"
+
+msgid "Sender"
+msgstr "lähettäjä"
+
+msgid "FileSize"
+msgstr "tiedostokoko"
+
+msgid "OverwriteFile"
+msgstr "Korvaa aiemmin lähetetty tiedosto?"
+
+msgid "SendTo"
+msgstr "Vastaanottaja"
+
+msgid "ErrorCreatingDir"
+msgstr "Tiedostorakennetta ei voitu luoda. Ota yhteyttä ylläpitoon."
+
+msgid "NoFileSpecified"
+msgstr "Et valinnut tiedostoa tallennettavaksi."
+
+msgid "NoUserSelected"
+msgstr "Valitse käyttäjä, jolle haluat tiedoston lähettää."
+
+msgid "BadFormData"
+msgstr "Lähetys epäonnistui: datavirhe. Ota yhteyttä ylläpitäjään."
+
+msgid "GeneralError"
+msgstr "VIrhe on tapahtunut. Ota yhteyttä ylläpitäjään."
+
+msgid "ThereAreNoRegisteredDatetimeYet"
+msgstr "Päivää/aikaa ei ole vielä rekisteröity"
+
+msgid "CalendarList"
+msgstr "Kalenteri lista tapaamisista"
+
+msgid "ReceivedFiles"
+msgstr "Vastaanotetut Tiedostot"
+
+msgid "SentFiles"
+msgstr "Lähetetyt Tiedostot"
+
+msgid "ReceivedTitle"
+msgstr "Nimi"
+
+msgid "SentTitle"
+msgstr "Lähetetyt tiedostot"
+
+msgid "Size"
+msgstr "Koko"
+
+msgid "LastResent"
+msgstr "Viimeisin"
+
+msgid "kB"
+msgstr "kB"
+
+msgid "UploadNewFile"
+msgstr "Jaa uusi tiedosto"
+
+msgid "Feedback"
+msgstr "Palaute"
+
+msgid "CloseFeedback"
+msgstr "Sulje palaute"
+
+msgid "AddNewFeedback"
+msgstr "Lisää palaute"
+
+msgid "DropboxFeedbackStored"
+msgstr "Palaute tallennettu"
+
+msgid "AllUsersHaveDeletedTheFileAndWillNotSeeFeedback"
+msgstr "Kaikki käyttäjät ovat poistaneet tiedoston, joten kukaan ei nää lisäämääsi palautetta."
+
+msgid "FeedbackError"
+msgstr "Virhe palautteessa"
+
+msgid "PleaseTypeText"
+msgstr "Kirjoita jotain tekstiä."
+
+msgid "YouAreNotAllowedToDownloadThisFile"
+msgstr "Et saa ladata tätä tiedostoa."
+
+msgid "CheckAtLeastOneFile"
+msgstr "Valitse vähintään yksi tiedosto."
+
+msgid "ReceivedFileDeleted"
+msgstr "Vastaanotettu tiedosto on poistettu."
+
+msgid "SentFileDeleted"
+msgstr "Lähetetty tiedosto on poistettu."
+
+msgid "FilesMoved"
+msgstr "Valitut tiedostot on siirretty."
+
+msgid "ReceivedFileMoved"
+msgstr "Vastaanotettu tiedosto on siirretty."
+
+msgid "SentFileMoved"
+msgstr "Lähetetty tiedosto on siirretty"
+
+msgid "NotMovedError"
+msgstr "Tiedosto(j)a ei voi siirtää."
+
+msgid "AddNewCategory"
+msgstr "Lisää uusi kansio"
+
+msgid "EditCategory"
+msgstr "Muokkaa tätä luokkaa"
+
+msgid "ErrorPleaseGiveCategoryName"
+msgstr "Anna luokalle nimi"
+
+msgid "CategoryAlreadyExistsEditIt"
+msgstr "Luokka on jo olemassa, valitse toinen nimi"
+
+msgid "CurrentlySeeing"
+msgstr "Olet kansiossa"
+
+msgid "CategoryStored"
+msgstr "Kansio on luotu"
+
+msgid "CategoryModified"
+msgstr "Kategoriaa on muokattu"
+
+msgid "AuthorFieldCannotBeEmpty"
+msgstr "Tekijä kenttä ei voi olla tyhjä"
+
+msgid "YouMustSelectAtLeastOneDestinee"
+msgstr "Valitse vähintään yksi vastaanottaja"
+
+msgid "DropboxFileTooBig"
+msgstr "Tiedosto on liian suuri."
+
+msgid "TheFileIsNotUploaded"
+msgstr "Tiedostoa ei ladattu."
+
+msgid "MailingSelectNoOther"
+msgstr "Sähköpostitukseen ei voi yhdistää useampia vastaanottajia"
+
+msgid "MailingJustUploadSelectNoOther"
+msgstr "Ainoastaan lataamista ei voi yhdistää muihin vastaanottajiin"
+
+msgid "NewDropboxFileUploaded"
+msgstr "Uusi tiedosto on lähetetty tiedostoihin"
+
+msgid "NewDropboxFileUploadedContent"
+msgstr "Uusi tiedosto on lähetetty tiedostoihin"
+
+msgid "AddEdit"
+msgstr "Lisää / Muokkaa"
+
+msgid "ErrorNoFilesInFolder"
+msgstr "Tämä kansio on tyhjä"
+
+msgid "SentCatgoryDeleted"
+msgstr "Kansio poistettu"
+
+msgid "ReceivedCatgoryDeleted"
+msgstr "Kansio poistettu"
+
+msgid "TermAddNew"
+msgstr "Lisää uusi termi"
+
+msgid "TermName"
+msgstr "Termin nimi"
+
+msgid "TermDefinition"
+msgstr "Termin määritelmä"
+
+msgid "TermDeleted"
+msgstr "Termi poistettu"
+
+msgid "TermUpdated"
+msgstr "Termi päivitetty"
+
+msgid "TermConfirmDelete"
+msgstr "Haluatko varmasti poistaa tämän termin"
+
+msgid "TermAddButton"
+msgstr "Lisää tämä termi"
+
+msgid "TermUpdateButton"
+msgstr "Termin päivitys"
+
+msgid "TermEdit"
+msgstr "Termin muokkaus"
+
+msgid "TermDeleteAction"
+msgstr "Termin poisto"
+
+msgid "PreSelectedOrder"
+msgstr "Ennalta määritetty"
+
+msgid "TermAdded"
+msgstr "Termi lisättty"
+
+msgid "YouMustEnterATermName"
+msgstr "Termille täytyy antaa nimi"
+
+msgid "YouMustEnterATermDefinition"
+msgstr "Termille täytyy antaa kuvaus"
+
+msgid "TableView"
+msgstr "Taulukko näkymä"
+
+msgid "HFor"
+msgstr "Apua - foorumit"
+
+msgid "ForContent"
+msgstr "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja ajasta riippumatonta. Sähköposti on kahden henkilön välistä keskustelua, sitä vastoin foorumi mahdollistaa julkisen tai puolijulkisen keskustelun.</p><p>Teknisestä näkökulmasta katsoen oppilaat tarvitsevat vain selaimen osallistuakseen Clarolinen foorumeihin.<p><p>Voit organisoida foorumin, klikkaa ylläpito-työkalua. Keskustelut on organisoitu sarjaksi seuraavalla tavalla:</p><p><b>Kategoria > Foorumi > Aihe > Vastaukset</b></p><p>Sinun kannatta järjestää oppilaiden keskusteluja etukäteen luomalla kategoriat ja foorumit. Jätä oppilaiden osaksi luoda aiheet ja vastaukset.</p><p>Oletuksena Claroline-foorumi sisältää vain kategorian 'julkinen', esimerkkifoorumin ja esimerkkiaiheen</p><p>Sinun täytyy ensiksi poistaa esimerkkiaihe ja muokata ensimmäisen foorumin nimeä. Sitten voit luoda 'julkiseen' kategoriaan muita foorumeita, ryhmittäin tai teemoittain. Tämä riippuu omista näkemyksistäsi opetuksen suhteen.</p><p>Älä sekoita kategorioita ja foorumeita. Tyhjä kategoria ilman foorumeita ei näy opiskelijoille.</p><p>Kuvaus foorumista voi olla lista sen jäsenistä, määritys tavoitteista kurssilla, tehtävä, teema ja niin edelleen.</p>"
+
+msgid "HHome"
+msgstr "Apua - Kotisivu"
+
+msgid "HomeContent"
+msgstr "<p>Mukavuuden vuoksi Claroline-työkalut eivät ilmesty tyhjinä. Jokaisen työkalun mukana pieni esimerkki, joka auttaa sinut nopeasti alkuun. Voit joko poistaa esiemrkin tai muokata sitä.</p><p>Esimerkiksi kurssin sivuston kotisivulla on lyhyt johdanto, jossa kerrotaan miten tekstiä voidaan muokata. Klikkaa muokkausta, muokkaa tekstiä ja vahvista teksti, niin yksinkertaista se on. Kaikissa työkaluissa on sama logiikka: lisää, poista, muokkaa. Näin dynaamiset sivustot toimivat.</p><p>Kun luot kurssin sivuston, useimmat työkaluista ovat toiminnassa. Jos haluat poistaa toimintoja sivustolta, niin klikkaa 'toimimaton'. Silloin toiminto näkyy sivuston harmaassa osassa. Toiminto ei näy opiskelijoille, mutta voit saada toiminnon takaisin milloin tahansa.</p><p>Voit lisätä omia sivuja kotisivulle. Näiden sivujen tulee olla HTML-muotoisia. Voit luoda tällaisia sivuja millä tahansa tekstinkäsittely-ohjelmalla tai selainten sivunteko-ohjelmilla. Käytä 'lisää sivu ja linkki kotisivulle'-toimintoa lisätäksesi sivun palvelimelle. Uuden dokumentin otsikoksi tulee sama kuin sivuston, voit keskittyä sivun sisältöön. Jos haluat linkittää minkä tahansa sivun missä tahansa käytä 'lisää linkki kotisivulle'-toimintoa. Voit poistaa sivuja, työkaluja voit tehdä vain toimimattomaksi.</p><p>Kun kurssin sivusto on valmis, käytä 'Muokkaa kurssin tietoja'-toimintaa ja päätä minkä tasoista luottamuksellisuutta haluat. Oletuksena kurssi on piilossa (koska työskentelet siinä).</p>"
+
+msgid "HClar"
+msgstr "Apua - Claroline"
+
+msgid "HDoc"
+msgstr "Apua - Dokumentit"
+
+msgid "DocContent"
+msgstr "<p>Työkalu dokumentteja varten on samankaltainen kuin tietokoneen tiedostonhallinta.</p><p>Voit lisätä minkälaisia tiedostoja tahansa (.html, .doc, .sxw, .pdf, .swf, .mov ja niin edelleen). Sinun pitää vain huolehtia, että opiskelijoilla on oikeat ohjelmat, joilla he voivat käsitellä tiedostoja. Sinun pitää huolehtia myös mahdollisesta virus-vaarasta.</p><p>Dokumentit näyttään aakkosjärjestyksessä.<br><b>Vinkki: </b>Jos haluat esittää tiedostot toisella tavalla, numeroi ne: 01, 02, 03 ja niin edelleen</p><p>Voit tehdä seuraavaa :</p><h4>Lisätä dokumentin</h4><ul>  <li>Valitse tiedosto tietokoneeltasi käyttämällä selaa (Browse) nappia <input type=submit value=Browse name=submit2> ruudun oikella puolella.</li>  <li>Siirrä tiedosto käyttämällä (Upload) nappia <input type=submit value=Upload name=submit2>.</li></ul><h4>Nimeä uudelleen tiedosto(tai hakemisto)</h4><ul>  <li>Klikkaa <img src=../img/renommer.gif width=20 height=20 align=baseline> nappia sarakkeessa.</li>  <li>Kirjoita uusi nimi kenttään (ylhäällä vasemmalla). </li>  <li>Hyväksy klikkaamalla nappia <input type=submit value=Ok name=submit24></li>.</ul><h4>Poista tiedosto (tai hakemisto)</h4><ul>  <li>Klikkaa <img src=../img/delete.gif width=20 height=20> sarakkeessa 'Poista'.</li></ul><h4>Muuta dokumentti (tai hakemisto) näkymättömäksi opiskelijoille</h4><ul>  <li>Klikkaa <img src=../img/visible.gif width=20 height=20> sarakkeessa 'Näkyvä/Näkymätön'.</li>  <li>Dokumetti (tai hakemisto) on edelleen olemassa, mutta ei näy enää opiskelijoille.</li>  <li>Muuttaaksesi sen takaisin näkyväksi, klikkaa <img src=../document/../img/invisible.gif width=24 height=20> saraketta 'Näkyvä/Näkymätön'</li></ul><h4>Lisää tai muokkaa dokumentin (tai hakemiston) kommenttia</h4><ul>   <li>Klikkaa <img src=../img/comment.gif width=20 height=20> saraketta 'Kommentti'</li>   <li>Kirjoita uusi kommentti asianmukaiseeen kenttään (ylhäällä oikealla).</li>   <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit2>.</li></ul><p>Poistaaksesi kommentin, klikkaa <img src=../img/comment.gif width=20 height=20>, poista vanha kommentti kentästä ja klikkaa <input type=submit value=OK name=submit22>.<hr><p>Voit järjestää sisältöä täyttämällä tähän tapaan:</p><h4><b>Luo hakemisto</b></h4><ul>   <li>Klikkaa <img src=../img/dossier.gif width=20 height=20> 'Luo hakemisto' (vasemmalla ylhäällä)</li>   <li>Kirjoita hakemiston uusi nimi asianmukaiseen kenttään (vasemmalla ylhäällä)</li>   <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit23>.</li></ul><h4>Siirrä dokumentti (tai hakemisto)</h4><ul>   <li>Klikkaa <img src=../img/deplacer.gif width=34 height=16> sarakkeessa 'Siirrä'</li>   <li>Valitse hakemisto, jonne haluat siirtää dokumetin (tai hakemiston) asianmukaisesta valikosta (vasemmalla ylhäällä). Sana 'root' merkitsee, että olet jo ylimmällä tasalla palvelimen hakemistopuussa.</li>   <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit232>.</li></ul><p>"
+
+msgid "HUser"
+msgstr "Apua - Käyttäjä"
+
+msgid "PublishSurvey"
+msgstr "Julkaise kysely"
+
+msgid "CompareQuestions"
+msgstr "Vertaa kysymyksiä"
+
+msgid "InformationUpdated"
+msgstr "Tiedot päivitetty"
+
+msgid "SurveyTitle"
+msgstr "Kyselyn otsikko"
+
+msgid "SurveyIntroduction"
+msgstr "Kyselyn johdanto"
+
+msgid "CreateNewSurvey"
+msgstr "Luo kysely"
+
+msgid "SurveyTemplate"
+msgstr "Kyselypohja"
+
+msgid "PleaseEnterSurveyTitle"
+msgstr "Kirjoita kyselyn otsikko"
+
+msgid "PleaseEnterValidDate"
+msgstr "Syötä kelvollinen päivämäärä"
+
+msgid "NotPublished"
+msgstr "Ei julkaistu"
+
+msgid "AdvancedReportDetails"
+msgstr "Laajennetu raportti mahdollistaa valita käyttäjän ja kysymyksen tarkempaa analysointia varten."
+
+msgid "AdvancedReport"
+msgstr "Laajennettu raportti"
+
+msgid "CompleteReportDetails"
+msgstr "Täydellisestä raportista näkyy kaikki annetut vastaukset, sekä tietojen lataus csv-muodossa (Exceliin)."
+
+msgid "CompleteReport"
+msgstr "Täydellinen raportti"
+
+msgid "OnlyThoseAddresses"
+msgstr "Lähetä kysely vain näihin osoitteisiin"
+
+msgid "BackToQuestions"
+msgstr "Takaisin kysymyksiin"
+
+msgid "SelectWhichLanguage"
+msgstr "Valitse millä kielellä kysely luodaan"
+
+msgid "CreateInAnotherLanguage"
+msgstr "Luo kysely toisella kielellä"
+
+msgid "ExportInExcel"
+msgstr "Vie Excel muodossa"
+
+msgid "ComparativeResults"
+msgstr "Verrannolliset tulokset"
+
+msgid "SelectDataYouWantToCompare"
+msgstr "Valitse tiedot mitä tahdot verrata"
+
+msgid "OrCopyPasteUrl"
+msgstr "Tai kopioi linkki selaimesi osoiteriville:"
+
+msgid "ClickHereToOpenSurvey"
+msgstr "Klikkaa tästä aloittaaksesi kyselyn"
+
+msgid "SurveyNotShared"
+msgstr "Yhtään kyselyä ei ole vielä jaettu"
+
+msgid "ViewSurvey"
+msgstr "Näytä kysely"
+
+msgid "SelectDisplayType"
+msgstr "Valitse näkymän tyyppi:"
+
+msgid "Thanks"
+msgstr "Palaute viesti"
+
+msgid "SurveyReporting"
+msgstr "Kyselyn raportointi"
+
+msgid "NoSurveyAvailable"
+msgstr "Kyselyjä ei ole saatavilla"
+
+msgid "YourSurveyHasBeenPublished"
+msgstr "on julkaistu"
+
+msgid "CreateFromExistingSurvey"
+msgstr "Luo aiemmasta kyselystä"
+
+msgid "SearchASurvey"
+msgstr "Hae kyselyä"
+
+msgid "SurveysOfAllCourses"
+msgstr "Kaikkien kurssien kyselyt"
+
+msgid "PleaseSelectAChoice"
+msgstr "Tee valintasi"
+
+msgid "ThereAreNoQuestionsInTheDatabase"
+msgstr "Tietokannassa ei ole yhtään kysymystä"
+
+msgid "UpdateQuestionType"
+msgstr "Päivitä kysymyksen tyyppi:"
+
+msgid "AddAnotherQuestion"
+msgstr "Lisää uusi kysymys"
+
+msgid "IsShareSurvey"
+msgstr "Jaa kysely muiden kanssa"
+
+msgid "Proceed"
+msgstr "Jatka"
+
+msgid "PleaseFillNumber"
+msgstr "Anna pisteet numeroina."
+
+msgid "PleaseFillAllPoints"
+msgstr "Täytä pisteet 1-5"
+
+msgid "PleasFillAllAnswer"
+msgstr "Täytä vastaus kentät"
+
+msgid "PleaseSelectFourTrue"
+msgstr "Valitse vähintään 4 oikeaa vastausta."
+
+msgid "PleaseSelectFourDefault"
+msgstr "Valitse vähintään neljä oletus vastausta."
+
+msgid "PleaseFillDefaultText"
+msgstr "Täytä oletus teksti"
+
+msgid "ModifySurveyInformation"
+msgstr "Muokkaa kyselyn tietoja"
+
+msgid "ViewQuestions"
+msgstr "Näytä kysymykset"
+
+msgid "CreateSurvey"
+msgstr "Luo kysely"
+
+msgid "FinishSurvey"
+msgstr "Lopeta kysely"
+
+msgid "QuestionsAdded"
+msgstr "Kysymykset lisätty"
+
+msgid "DeleteSurvey"
+msgstr "Poista kysely"
+
+msgid "SurveyCode"
+msgstr "Koodi"
+
+msgid "SurveyList"
+msgstr "Lista kyselyistä"
+
+msgid "SurveyAttached"
+msgstr "Kysely liitetty"
+
+msgid "QuestionByType"
+msgstr "Kysymykset tyypeittäin"
+
+msgid "SelectQuestionByType"
+msgstr "Valitse kysymys tyypin mukaan"
+
+msgid "PleaseEnterAQuestion"
+msgstr "Syötä kysymys"
+
+msgid "NoOfQuestions"
+msgstr "Kysymysten määrä"
+
+msgid "ThisCodeAlradyExists"
+msgstr "Koodi on jo käytössä"
+
+msgid "SaveAndExit"
+msgstr "Tallenna ja poistu"
+
+msgid "ViewAnswers"
+msgstr "Näytä vastaukset"
+
+msgid "CreateExistingSurvey"
+msgstr "Luo olemassa olevasta kyselystä"
+
+msgid "SurveyName"
+msgstr "Kyselyn nimi"
+
+msgid "SurveySubTitle"
+msgstr "Kyselyn alaotsikko"
+
+msgid "ShareSurvey"
+msgstr "Jaa kysely"
+
+msgid "SurveyThanks"
+msgstr "Loppu kiitokset"
+
+msgid "EditSurvey"
+msgstr "Muokkaa kyselyä"
+
+msgid "OrReturnToSurveyOverview"
+msgstr "Tai palaa kyselyn alkuun"
+
+msgid "SurveyParametersMissingUseCopyPaste"
+msgstr "Linkkistä puuttuu osa. Käytä leikkaa/liimaa tekniikkaa."
+
+msgid "WrongInvitationCode"
+msgstr "Väärä kutsu koodi"
+
+msgid "SurveyFinished"
+msgstr "Olet saanut kyselyn valmiiksi."
+
+msgid "SurveyPreview"
+msgstr "Kyselyn esittely"
+
+msgid "InvallidSurvey"
+msgstr "Epäkelpo kysely"
+
+msgid "AddQuestion"
+msgstr "Lisää kysymys"
+
+msgid "EditQuestion"
+msgstr "Muokkaa kysymystä"
+
+msgid "TypeDoesNotExist"
+msgstr "Tätä tyyppiä ei löydy"
+
+msgid "SurveyCreatedSuccesfully"
+msgstr "Kysely on luotu onnistuneesti"
+
+msgid "YouCanNowAddQuestionToYourSurvey"
+msgstr "Voit nyt lisätä kysymyksiä kyselyyn"
+
+msgid "SurveyUpdatedSuccesfully"
+msgstr "Kysely on päivitetty onnistuneesti"
+
+msgid "QuestionAdded"
+msgstr "Kysymys on lisätty"
+
+msgid "QuestionUpdated"
+msgstr "Kysymys on päivitetty."
+
+msgid "RemoveAnswer"
+msgstr "Poista vaihtoehto"
+
+msgid "AddAnswer"
+msgstr "Lisää vaihtoehto"
+
+msgid "DisplayAnswersHorVert"
+msgstr "Näkymä"
+
+msgid "AnswerOptions"
+msgstr "Vastaus vaihtoehdot"
+
+msgid "MultipleResponse"
+msgstr "Useampi vastaus"
+
+msgid "Dropdown"
+msgstr "Alasveto"
+
+msgid "Pagebreak"
+msgstr "Sivun vaihto (jaa kysymykset)"
+
+msgid "QuestionNumber"
+msgstr "nro"
+
+msgid "NumberOfOptions"
+msgstr "Vaihtoehdot"
+
+msgid "SurveyInvitations"
+msgstr "Kutsut kyselyyn"
+
+msgid "InvitationCode"
+msgstr "Kutsukoodi"
+
+msgid "InvitationDate"
+msgstr "Kutsu päivämäärä"
+
+msgid "Answered"
+msgstr "Vastattu"
+
+msgid "AdditonalUsersComment"
+msgstr "Voit kutsua muita käyttäjiä osallistumaan kyselyyn. Tehdäksesi näin syötä heidän sähköpostiosoitteensa tähän eroiteltuna , tai ;"
+
+msgid "MailTitle"
+msgstr "Viestin otsikko"
+
+msgid "InvitationsSend"
+msgstr "Kutsu lähetetty."
+
+msgid "SurveyDeleted"
+msgstr "Kysely on poistettu."
+
+msgid "NoSurveysSelected"
+msgstr "Yhtään kyselyä ei ole valittuna."
+
+msgid "NumberOfQuestions"
+msgstr "Kysymykset"
+
+msgid "Invited"
+msgstr "Kutsuttu"
+
+msgid "SubmitQuestionFilter"
+msgstr "Suodata"
+
+msgid "ResetQuestionFilter"
+msgstr "Poista suodatus"
+
+msgid "ExportCurrentReport"
+msgstr "Vie tämä raportti"
+
+msgid "OnlyQuestionsWithPredefinedAnswers"
+msgstr "Ainoastaan kysymyksiä joihin on määritetty vastaukset voidaan käyttää"
+
+msgid "SelectXAxis"
+msgstr "Valitse kysymys X-akselille"
+
+msgid "SelectYAxis"
+msgstr "Valite kysymys Y-akselille"
+
+msgid "ComparativeReport"
+msgstr "Vertaileva raportti"
+
+msgid "AllQuestionsOnOnePage"
+msgstr "Tämä ruutu näyttää tarkan kopion lomakkeesta, seillaisena kuin käyttäjä sen täyttää"
+
+msgid "SelectUserWhoFilledSurvey"
+msgstr "Valitse kyselyn täyttänyt käyttäjä"
+
+msgid "userreport"
+msgstr "Käyttäjä raportti"
+
+msgid "VisualRepresentation"
+msgstr "Graafinen"
+
+msgid "AbsoluteTotal"
+msgstr "Kokonaismäärä"
+
+msgid "NextQuestion"
+msgstr "Seuraava kysymys"
+
+msgid "PreviousQuestion"
+msgstr "Edellinen kysymys"
+
+msgid "PeopleWhoAnswered"
+msgstr "Käyttäjät jotka ovat valinneet tämän vastauksen"
+
+msgid "SurveyPublication"
+msgstr "Kyselyn julkaisu"
+
+msgid "AdditonalUsers"
+msgstr "Lisätyt käyttäjät"
+
+msgid "MailText"
+msgstr "Sähköposti viesti"
+
+msgid "UseLinkSyntax"
+msgstr "Valitut käyttäjät saavat sähköpostilla yllä olevan tekstin ja yksilöllisen linkin, jota heidän on klikattava täyttääkseen kyselyn. Jos haluat lisätä linkin tekstiisi, lisää **link** (tähti tähti link tähti tähti) tekstiisi. Tämä korvataan automaattisesti yksilöllisellä linkillä. Jos et lisää **link** merkintää tekstiisi linkki liitetään automaattisesti sähköpostin loppuun."
+
+msgid "DetailedReportByUser"
+msgstr "Yksityiskohtainen raportti käyttäjittäin"
+
+msgid "DetailedReportByQuestion"
+msgstr "Yksityiskohtainen raportti kysymyksittäin"
+
+msgid "ComparativeReportDetail"
+msgstr "Tässä raportissa voit verrata kahta kysymystä"
+
+msgid "CompleteReportDetail"
+msgstr "Tässä raportissa näet kaikki vastaukset kaikilta käyttäjiltä kaikkiin kysymyksiin. Voit myös valita vain osan kysymyksistä. Voit viedä tulokset CSV muodossa tilastollista analyysia varten esim. Exceliin."
+
+msgid "DetailedReportByUserDetail"
+msgstr "Tässä raportissa näet kaikki vastaukset mitä tietty käyttäjä on antanut."
+
+msgid "DetailedReportByQuestionDetail"
+msgstr "Tässä raportissa näet tulokset kysymyksittäin. Perustilastot ja grafiikat näytetään myös."
+
+msgid "ReminderResendToAllUsers"
+msgstr "Muistuta kaikkia käyttäjiä kyselystä. Jos et valitse tätä ruutua ainoastaan lisätyt käyttäjät saavat sähköpostiviestin."
+
+msgid "Multiplechoice"
+msgstr "Monivalinta"
+
+msgid "Score"
+msgstr "Pisteet"
+
+msgid "Invite"
+msgstr "Kutsu"
+
+msgid "MaximumScore"
+msgstr "Pisteet"
+
+msgid "ViewInvited"
+msgstr "Näytä kutsutut"
+
+msgid "ViewAnswered"
+msgstr "Näytä ketkä ovat vastanneet"
+
+msgid "ViewUnanswered"
+msgstr "Näytä ketkä eivät ole vastanneet"
+
+msgid "DeleteSurveyQuestion"
+msgstr "Oletko varma että haluat poistaa kysymyksen?"
+
+msgid "YouAlreadyFilledThisSurvey"
+msgstr "Olet jo vastannut tähän kyselyyn"
+
+msgid "ClickHereToAnswerTheSurvey"
+msgstr "Klikkaa tästä vastataksesi kyselyyn"
+
+msgid "UnknowUser"
+msgstr "Tuntematon käyttäjä"
+
+msgid "HaveAnswered"
+msgstr "on vastannut"
+
+msgid "WereInvited"
+msgstr "on kutsuttu"
+
+msgid "PagebreakNotFirst"
+msgstr "Sivunvaihto ei voi olla ensimmäisenä"
+
+msgid "PagebreakNotLast"
+msgstr "Sivunvaihto ei voi olla viimeisenä"
+
+msgid "SurveyNotAvailableAnymore"
+msgstr "Valitettavasti tämä kysely ei ole enää saatavilla. Kiitos kuitenkin yrityksestä."
+
+msgid "DuplicateSurvey"
+msgstr "Monista kysely"
+
+msgid "EmptySurvey"
+msgstr "Tyhjennä kysely"
+
+msgid "SurveyEmptied"
+msgstr "Vastaukset kyselyyn on onnistuneesti poistettu"
+
+msgid "SurveyNotAvailableYet"
+msgstr "Tamä kysely ei ole vielä avoinna. Ole hyvä ja kokeile myöhemmin uudelleen."
+
+msgid "PeopleAnswered"
+msgstr "vastanneet käyttäjät"
+
+msgid "AnonymousSurveyCannotKnowWhoAnswered"
+msgstr "Tämä on anonyymi kysely. Et näe kuka on vastannut."
+
+msgid "IllegalSurveyId"
+msgstr "Tuntematon kyselyn koodi."
+
+msgid "SurveyQuestionMoved"
+msgstr "Kysymys on siirretty"
+
+msgid "IdenticalSurveycodeWarning"
+msgstr "Tämä kysely koodi on jo käytössä. Tämä todennäköisesti tarkoittaa että kysely on olemassa muulla kielellä. Kutsutut käyttäjät valitsevat haluamansa kielen."
+
+msgid "ThisSurveyCodeSoonExistsInThisLanguage"
+msgstr "Tämä koodi on pian käytössä tällä kielellä"
+
+msgid "SurveyUserAnswersHaveBeenRemovedSuccessfully"
+msgstr "Käyttäjän vastaukset kyselyyn on onnistuneesti poistettu."
+
+msgid "DeleteSurveyByUser"
+msgstr "Poista tämän käyttäjän vastaukset"
+
+msgid "SelectType"
+msgstr "Valitse tyyppi"
+
+msgid "Conditional"
+msgstr "Ehdollinen"
+
+msgid "ParentSurvey"
+msgstr "Ylempi kysely"
+
+msgid "OneQuestionPerPage"
+msgstr "Yksi kysymys sivulla"
+
+msgid "ActivateShuffle"
+msgstr "Salli sekoitus"
+
+msgid "ShowFormProfile"
+msgstr "Näytä profiili lomake"
+
+msgid "PersonalityQuestion"
+msgstr "Muokkaa kysymystä"
+
+msgid "YouNeedToCreateGroups"
+msgstr "Sinun täytyy tehdä ryhmiä"
+
+msgid "ManageGroups"
+msgstr "Hallitse ryhmiä"
+
+msgid "GroupCreatedSuccessfully"
+msgstr "Ryhmä luotu onnistuneesti"
+
+msgid "GroupNeedName"
+msgstr "Ryhmä tarvitsee nimen"
+
+msgid "Personality"
+msgstr "Yksilöi"
+
+msgid "Primary"
+msgstr "Ensisijainen"
+
+msgid "Secondary"
+msgstr "Toissijainen"
+
+msgid "PleaseChooseACondition"
+msgstr "Valitse ehto"
+
+msgid "ChooseDifferentCategories"
+msgstr "Valitse toinen kategoria"
+
+msgid "Normal"
+msgstr "Normaali"
+
+msgid "AutoInviteLink"
+msgstr "Käyttäjät jotka on kutsuttu voivat käyttää tätä linkkiä vastatakseen kyselyyn:"
+
+msgid "SurveysDeleted"
+msgstr "Kyselyt poistettu"
+
+msgid "RemindUnanswered"
+msgstr "Muistuta vain käyttäjiä jotka eivät vastanneet"
+
+msgid "ModifySurvey"
+msgstr "Muokkaa kyselyä"
+
+msgid "CreateQuestionSurvey"
+msgstr "Luo kysymys"
+
+msgid "ModifyQuestionSurvey"
+msgstr "Muokkaa kysymystä"
+
+msgid "BackToSurvey"
+msgstr "Takaisin kyselyyn"
+
+msgid "UpdateInformation"
+msgstr "Päivitä tiedot"
+
+msgid "PleaseFillSurvey"
+msgstr "Ole hyvä ja täytä kysely"
+
+msgid "ReportingOverview"
+msgstr "Raportin yhteenveto"
+
+msgid "GeneralDescription"
+msgstr "Yleinen kuvaus"
+
+msgid "Objectives"
+msgstr "Tavoitteet"
+
+msgid "Topics"
+msgstr "Aiheet"
+
+msgid "Methodology"
+msgstr "Menetelmä"
+
+msgid "CourseMaterial"
+msgstr "Kurssimateriaali"
+
+msgid "Assessment"
+msgstr "Arviointi"
+
+msgid "Height"
+msgstr "Height"
+
+msgid "ResizingComment"
+msgstr "resize the image to the following dimensions (in pixels)"
+
+msgid "Width"
+msgstr "Width"
+
+msgid "Resizing"
+msgstr "RESIZE"
+
+msgid "NoResizingComment"
+msgstr "Show all images in their original size. No resizing is done. Scrollbars will automatically appear if the image is larger than your monitor size."
+
+msgid "ShowThumbnails"
+msgstr "Show Thumbnails"
+
+msgid "SetSlideshowOptions"
+msgstr "Set Slideshow Options"
+
+msgid "SlideshowOptions"
+msgstr "Slideshow Options"
+
+msgid "NoResizing"
+msgstr "NO RESIZING (default)"
+
+msgid "SlideShow"
+msgstr "Esitys"
+
+msgid "ViewSlideshow"
+msgstr "Näytä esitys"
+
+msgid "MyTasks"
+msgstr "Tehtäväni"
+
+msgid "FavoriteBlogs"
+msgstr "Projektini"
+
+msgid "Navigation"
+msgstr "Navigointi"
+
+msgid "TopTen"
+msgstr "Top 10"
+
+msgid "ThisBlog"
+msgstr "Tämä projekti"
+
+msgid "NewPost"
+msgstr "Uusi tehtävä"
+
+msgid "TaskManager"
+msgstr "Roolien hallinta"
+
+msgid "MemberManager"
+msgstr "Käyttäjien hallinta"
+
+msgid "PostFullText"
+msgstr "Tehtävä"
+
+msgid "ReadPost"
+msgstr "Lue tämä viesti"
+
+msgid "FirstPostText"
+msgstr "Tämä on projektin ensimmäinen tehtävä. Kaikki projektin jäsenet voivat osallistua."
+
+msgid "AddNewComment"
+msgstr "Lisää kommentti"
+
+msgid "ReplyToThisComment"
+msgstr "Vastaa"
+
+msgid "ManageTasks"
+msgstr "Hallitse rooleja"
+
+msgid "ManageMembers"
+msgstr "Liisä / poista käyttäjiä tähän projektiin"
+
+msgid "Register"
+msgstr "Rekisteröidy"
+
+msgid "UnRegister"
+msgstr "Poista rekisteröinti"
+
+msgid "SubscribeMembers"
+msgstr "Valitse käyttäjiä"
+
+msgid "UnsubscribeMembers"
+msgstr "Poista käyttäjiä"
+
+msgid "RightsManager"
+msgstr "käyttöoikeuksienhallinta"
+
+msgid "ManageRights"
+msgstr "Hallitse käyttäjien rooleja ja oikeuksia tässä projektissa"
+
+msgid "Task"
+msgstr "Tehtävä"
+
+msgid "Tasks"
+msgstr "Tehtävät"
+
+msgid "Member"
+msgstr "Jäsen"
+
+msgid "Members"
+msgstr "Jäsenet"
+
+msgid "Role"
+msgstr "Rooli"
+
+msgid "Rate"
+msgstr "Arvostele"
+
+msgid "AddTask"
+msgstr "Lisää uusi rooli"
+
+msgid "AddTasks"
+msgstr "Lisää uusi rooli"
+
+msgid "AssignTask"
+msgstr "Lisää rooli"
+
+msgid "AssignTasks"
+msgstr "Lisää rooleja"
+
+msgid "EditTask"
+msgstr "Muokkaa tätä tehtävää"
+
+msgid "DeleteTask"
+msgstr "Poista tämä tehtävä"
+
+msgid "DeleteSystemTask"
+msgstr "Tämä on ennalta asetettu tehtävä. Tätä ei voi poistaa."
+
+msgid "SelectUser"
+msgstr "Käyttäjä"
+
+msgid "SelectTask"
+msgstr "Tehtävä"
+
+msgid "SelectTargetDate"
+msgstr "Pvm"
+
+msgid "TargetDate"
+msgstr "Pvm"
+
+msgid "Color"
+msgstr "Väri"
+
+msgid "TaskList"
+msgstr "Roolit tässä projektissa"
+
+msgid "AssignedTasks"
+msgstr "Määritetyt tehtävät"
+
+msgid "ArticleManager"
+msgstr "Tehtävien hallinta"
+
+msgid "CommentManager"
+msgstr "Kommenttien hallinta"
+
+msgid "BlogManager"
+msgstr "Projektipäällikkö"
+
+msgid "ReadMore"
+msgstr "Lue lisää..."
+
+msgid "DeleteThisArticle"
+msgstr "Poista tämä tehtävä"
+
+msgid "EditThisPost"
+msgstr "Muokkaa tätä tehtävää"
+
+msgid "DeleteThisComment"
+msgstr "Poista tämä kommentti"
+
+msgid "NoArticles"
+msgstr "Tässä projektissa ei ole tehtäviä. Jos olet projektinpäällikkö, klikkaa linkkiä \"Uusi tehtävä\" lisätäksesi tehtävän."
+
+msgid "NoTasks"
+msgstr "Ei tehtäviä"
+
+msgid "Rating"
+msgstr "Arvostelu"
+
+msgid "RateThis"
+msgstr "Arvioi tämä tehtävä"
+
+msgid "SelectTaskArticle"
+msgstr "Valitse tehtävä tälle roolille"
+
+msgid "ExecuteThisTask"
+msgstr "Tehtävä minulle"
+
+msgid "WrittenBy"
+msgstr "Kirjoittanut"
+
+msgid "InBlog"
+msgstr "projektissa"
+
+msgid "ViewPostsOfThisDay"
+msgstr "Näytä tämän päivän tehtävä"
+
+msgid "PostsOf"
+msgstr "Tehtävät"
+
+msgid "NoArticleMatches"
+msgstr "Tehtäviä ei löytynyt. Kokeile toista hakutermiä."
+
+msgid "SaveProject"
+msgstr "Tallenna projekti"
+
+msgid "Task1"
+msgstr "Tehtävä 1"
+
+msgid "Task2"
+msgstr "Tehtävä 2"
+
+msgid "Task3"
+msgstr "Tehtävä 3"
+
+msgid "Task1Desc"
+msgstr "Tehtävän 1 kuvaus"
+
+msgid "Task2Desc"
+msgstr "Tehtävän 2 kuvaus"
+
+msgid "Task3Desc"
+msgstr "Tehtävän 3 kuvaus"
+
+msgid "blog_management"
+msgstr "Projektin hallinta"
+
+msgid "Welcome"
+msgstr "Tervetuloa!"
+
+msgid "Module"
+msgstr "Moduli"
+
+msgid "UserHasPermissionNot"
+msgstr "Käyttäjällä ei ole oikeuksia"
+
+msgid "UserHasPermission"
+msgstr "Käyttäjällä on oikeus"
+
+msgid "UserHasPermissionByRoleGroup"
+msgstr "Käyttäjä ryhmällä on oikeus"
+
+msgid "AddBlog"
+msgstr "Luo uusi projekti"
+
+msgid "EditBlog"
+msgstr "Muokkaa projektia"
+
+msgid "DeleteBlog"
+msgstr "Poista tämä projekti"
+
+msgid "Shared"
+msgstr "Jaettu"
+
+msgid "PermissionGrantedByGroupOrRole"
+msgstr "Ryhmälle tai roolille annettu oikeudet"
+
+msgid "Reader"
+msgstr "Lukija"
+
+msgid "BlogDeleted"
+msgstr "Projekti on poistettu"
+
+msgid "BlogEdited"
+msgstr "Projektia on muokattu."
+
+msgid "BlogStored"
+msgstr "Projekti on lisätty."
+
+msgid "CommentCreated"
+msgstr "Kommentti on tallennettu"
+
+msgid "BlogAdded"
+msgstr "Artikkeli on lisätty."
+
+msgid "TaskCreated"
+msgstr "Tehtävä on luotu."
+
+msgid "TaskEdited"
+msgstr "Tehtävää on muokattu."
+
+msgid "TaskAssigned"
+msgstr "Tehtävä annettu."
+
+msgid "AssignedTaskEdited"
+msgstr "Annettua tehtävää muokattu."
+
+msgid "UserRegistered"
+msgstr "Käyttäjä on rekisteröity"
+
+msgid "TaskDeleted"
+msgstr "Tehtävä on poistettu."
+
+msgid "TaskAssignmentDeleted"
+msgstr "Tehtävänanto on poistettu"
+
+msgid "CommentDeleted"
+msgstr "Kommentti on poistettu."
+
+msgid "RatingAdded"
+msgstr "Arviointi on lisätty."
+
+msgid "ResourceAdded"
+msgstr "Liitteet on lisätty. Voit nyt palata oppimispolkuun tai lisätä uusia liitteitä."
+
+msgid "LearningPath"
+msgstr "Learning Path"
+
+msgid "LevelUp"
+msgstr "level up"
+
+msgid "AddIt"
+msgstr "Add it"
+
+msgid "MainCategory"
+msgstr "main category"
+
+msgid "AddToLinks"
+msgstr "Add to the course links"
+
+msgid "DontAdd"
+msgstr "do not add"
+
+msgid "ResourcesAdded"
+msgstr "Added new resources"
+
+msgid "ExternalResources"
+msgstr "External resources"
+
+msgid "CourseResources"
+msgstr "Course resources"
+
+msgid "ExternalLink"
+msgstr "External link"
+
+msgid "DropboxAdd"
+msgstr "Add the dropbox page to this chapter."
+
+msgid "AddAssignmentPage"
+msgstr "Add the upload assignment page to this chapter."
+
+msgid "ShowDelete"
+msgstr "Näytä / Poista"
+
+msgid "IntroductionText"
+msgstr "esittely teksti"
+
+msgid "CourseDescription"
+msgstr "Kurssin kuvaus"
+
+msgid "IntroductionTextAdd"
+msgstr "Lisää sivu joka sisältää johdannon tähän osaan."
+
+msgid "CourseDescriptionAdd"
+msgstr "Lisää sivu joka sisältää kuvauksen tähän osioon."
+
+msgid "GroupsAdd"
+msgstr "Lisää Ryhmät työkalu tähän osioon."
+
+msgid "UsersAdd"
+msgstr "Lisää Käyttäjät työkalu tähän osioon."
+
+msgid "ExportableCourseResources"
+msgstr "Siirrettäviä kurssimateriaaleja"
+
+msgid "LMSRelatedCourseMaterial"
+msgstr "Dokeokseen liittyviä kurssimateriaaleja"
+
+msgid "LinkTarget"
+msgstr "Linkin kohde"
+
+msgid "SameWindow"
+msgstr "Samassa ikkunassa"
+
+msgid "NewWindow"
+msgstr "Uudessa ikkunassa"
+
+msgid "StepDeleted1"
+msgstr "Tämä"
+
+msgid "StepDeleted2"
+msgstr "on poistettu tässä työkalussa."
+
+msgid "Chapter"
+msgstr "Kappale"
+
+msgid "AgendaAdd"
+msgstr "Lisää uusi merkintä"
+
+msgid "UserGroupFilter"
+msgstr "Suodatin ryhmisä/kättäjissä"
+
+msgid "AgendaSortChronologicallyUp"
+msgstr "Nouseva"
+
+msgid "ShowCurrent"
+msgstr "Näytä tämän kuun kalenterimerkinnät"
+
+msgid "ModifyCalendarItem"
+msgstr "Muokkaa merkintää"
+
+msgid "Detail"
+msgstr "Yksityiskohdat"
+
+msgid "EditSuccess"
+msgstr "Merkintää on muokattu"
+
+msgid "AddCalendarItem"
+msgstr "Lisää uusi merkintä"
+
+msgid "AddAnn"
+msgstr "Lisää ilmoitus"
+
+msgid "ForumAddNewTopic"
+msgstr "Foorumi: lisää uusi aihe"
+
+msgid "ForumEditTopic"
+msgstr "Foorumi: muokkaa aihetta"
+
+msgid "ExerciseAnswers"
+msgstr "Tehtävä: Vastaus"
+
+msgid "ForumReply"
+msgstr "Foorumi: vastaus"
+
+msgid "AgendaSortChronologicallyDown"
+msgstr "Laskeva"
+
+msgid "SendWork"
+msgstr "Lisää tiedosto"
+
+msgid "TooBig"
+msgstr "Et valinnut mitään tallennettavaksi tai se on liian iso"
+
+msgid "DocModif"
+msgstr "Tehtävän otsikko on muutettu"
+
+msgid "DocAdd"
+msgstr "Tehtävä on lisätty"
+
+msgid "DocDel"
+msgstr "Tehtävä on poistettu"
+
+msgid "TitleWork"
+msgstr "Tehtävän otsikko"
+
+msgid "Authors"
+msgstr "Tekijät"
+
+msgid "WorkDelete"
+msgstr "Poista"
+
+msgid "WorkModify"
+msgstr "Muokkaa"
+
+msgid "WorkConfirmDelete"
+msgstr "Haluatko varmasti poistaa tämän"
+
+msgid "AllFiles"
+msgstr "Toiminnot kaikille tiedostoille"
+
+msgid "DefaultUpload"
+msgstr "Oletusasetukset näkyvyydestä uusille tiedostoille"
+
+msgid "NewVisible"
+msgstr "Uudet dokumentit ovat käyttäjien nähtävillä"
+
+msgid "NewUnvisible"
+msgstr "Uudet dokumentit ovat ainoastaan kurssin opettajan nähtävillä"
+
+msgid "MustBeRegisteredUser"
+msgstr "Ainoastaan kurssin rekisteröityneet käyttäjät voivat julkaista dokumentteja."
+
+msgid "ListDel"
+msgstr "Poista lista"
+
+msgid "CreateDirectory"
+msgstr "Luo hakemisto"
+
+msgid "CurrentDir"
+msgstr "Nykyinen kansio"
+
+msgid "UploadADocument"
+msgstr "Tallenna dokumentti"
+
+msgid "EditToolOptions"
+msgstr "Muokkaa työkaluja"
+
+msgid "DocumentDeleted"
+msgstr "Tiedosto poistettu"
+
+msgid "SendMailBody"
+msgstr "Käyttäjä on tehnyt dokumentin kurssisi julkaisu työkalulla."
+
+msgid "DirDelete"
+msgstr "Poista hakemisto"
+
+msgid "ValidateChanges"
+msgstr "Tallenna muutokset"
+
+msgid "FolderUpdated"
+msgstr "Kansio päivitetty"
+
+msgid "EndsAt"
+msgstr "Päättyy (täysin suljettu)"
+
+msgid "ButtonCreateAssignment"
+msgstr "Luo testi"
+
+msgid "AssignmentName"
+msgstr "Testin nimi"
+
+msgid "CreateAssignment"
+msgstr "Luo testi"
+
+msgid "UserContent"
+msgstr "<p><b>Roolit</b></p><p>Rooleilla ei ole mitään tekemistä tietokoneiden kanssa. Ne eivät anna oikeuksia järjestelmän suhteen. Ne tarkoittavat vain ihmisiä, kuka kukin on. Voit muokata niitä klikkamalla 'Muokkaa' 'roolin' alla. Voit kirjoittaa mitä tahansa rooliksi: opettaja, assistentti, vierailija, asiantuntija ja niin edelleen.</p><hr><p><b>Ylläpito-oikeudet</b></p><p>Toisaalta ylläpito-oikeudet liittyy tekniseen oikeuteen muokata sisältöä ja järjestää kurssin sivustoa. Tällä hetkellä vaihtoehtoja on vain kaksi, kaikki tai ei mitään oikeuksia.</p><p>Jos haluat antaa apulaiselle oikeuden ylläpitää sivustoa, sinun täytyy rekisteröidä hänet(tai hänen pitää itse rekisteröityä), sitten klikkaat 'Muokkaa' 'Ylläpito-oikeudet' alla, sitten klikkaat 'kaikki',ja sitten vielä 'ok'.</p><hr><p><b>Muut opettajat</b></p><p>Jos haluat mainita muita opettajia kurssille, käytä työkalua 'Muokkaa kurssin tietoja' (oranssit työkalut). Tämä muutos ei tee muista opettajista kurssin oppilaita, kenttä 'Opettajat' on täysin erillään käyttäjien listasta.</p><hr><p><b>Lisää käyttäjä</b></p><p>Jos haluat lisätä oppilaita kurssillesi, niin tarkista että ovatko he rekisteröityneet. Jos oppilas on jo rekisteröitynyt, niin tarkista laatikko hänen nimensä vieressä ja klikkaa 'Ok'. Jos hän ei ole rekisteröitynyt, niin lisää hänet käsin. Kummassakin tapauksessa, henkilö saa sähköpostiviestin, jossa kerrotaan, että olet rekisteröinyt hänet. Lisäksi hän saa tai hänelle muistutetaan tunnuksesta ja salasanasta.</p>"
+
+msgid "ClarContent3"
+msgstr "<p><b>Opetuksen teoriaa</b></p><p>Opettajille: kurssin muokkaaminen internettiin on aina myös opetuksen teoriota koskettava kysymys.</p>"
+
+msgid "ClarContent4"
+msgstr "Claroline on käytössäsi auttaakseen sinua opetuksessasi.</p>"
+
+msgid "ClarContent1"
+msgstr "Virtuaalinen Kampus"
+
+msgid "ClarContent2"
+msgstr "Täällä opettajat ja ylläpitäjät luovat kurssien kotisivuja. Oppilaat lukevat (dokumentteja, esityslistoja, ilmoituksia) ja joskus tekevät harjoituksia, julkaisevat papereita, osallistuvat foorumien keskusteluihin ja niin edelleen.</p><p><b>Rekisteröinti</b></p><p>Jos olet opiskelija, rekisteröi itsesi valitsemalla 'Valitse kursseja (opiskelija)' ja sen jälkeen valitsemalla kurssit, joihin haluat osallistua.</p><p>Jos olet opettaja, niin sinunkin pitää rekisteröityä, mutta valitse 'Luo kurssien sivustot (opettaja)'. Sen jälkeen täytä lomake, johon tulee kurssin koodi, koulutusala ja kurssin otsikko. Kun olet hyväksynyt nämä, niin sinut ohjataan sivustolle, jonka juuri loit. Voit sen jälkeen muokata sivuston sisältöä ja järjestellä sivustoa omien vaatimuksiesi mukaan.</p><p>Jos haluat muutoksia sivustoon, lisää toimintoja, niin käytä 'Tee nämä'-toimintoa Kampuksen kotisivulla. Tiedot välittyvät ylläpitäjille. </p><p>Rekisteröityminen löytyy Kampuksen kotisivulta.</p><p><b>Sisäänkirjautuminen</b></p><p>Kun palaat kampukselle seuraavan kerran, niin kirjoita tunnuksesi ja salasanasi päästäksesi kurssille."
+
+msgid "HGroups"
+msgstr "Ryhmät"
+
+msgid "GroupsContent"
+msgstr "Ryhmien sisältö"
+
+msgid "Guide"
+msgstr "Manuaali"
+
+msgid "YouShouldWriteAMessage"
+msgstr "Sinun pitäisi kirjoittaa viesti"
+
+msgid "MessageOfNewCourseToAdmin"
+msgstr "Tiedoksesi oppimisympäristöön on luotu uusi kurssi"
+
+msgid "NewCourseCreatedIn"
+msgstr "Uusi kurssi loutu"
+
+msgid "ExplicationTrainers"
+msgstr "Sinut on nyt määritetty kouluttajaksi. Voit muuttaa tätä asetusta myöhemmin kurssin asetuksissa."
+
+msgid "GroupPendingInvitations"
+msgstr "Ryhmän odottavat kutsut"
+
+msgid "Compose"
+msgstr "Laadi"
+
+msgid "SessionData"
+msgstr "Session tiedot"
+
+msgid "MoveElement"
+msgstr "Siirrä elementtiä"
+
+msgid "AdditionalProfileField"
+msgstr "Lisää kenttä käyttäjäprofiiliin"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "AddAdditionalProfileField"
+msgstr "Lisää kenttä käyttäjäprofiiliin"
+
+msgid "UserAdded"
+msgstr "Käyttäjä lisätty"
+
+msgid "Metadata"
+msgstr "Metadata"
+
+msgid "AddMetadata"
+msgstr "Näytä/Muokkaa Metadataa"
+
+msgid "SendMessage"
+msgstr "Lähetä viesti"
+
+msgid "SeeForum"
+msgstr "Näytä keskustelualue"
+
+msgid "SeeMore"
+msgstr "Näytä lisää"
+
+msgid "Created"
+msgstr "Luotu"
+
+msgid "LastUpdate"
+msgstr "Viimeisin päivitys"
+
+msgid "UserNonRegisteredAtTheCourse"
+msgstr "Käyttäjä ei ole rekisteröitynyt kurssille"
+
+msgid "EditMyProfile"
+msgstr "Muokkaa profiiliani"
+
+msgid "Announcements"
+msgstr "Ilmoitukset"
+
+msgid "Password"
+msgstr "salasana"
+
+msgid "DescriptionGroup"
+msgstr "Ryhmän kuvaus"
+
+msgid "Installation"
+msgstr "Asennus"
+
+msgid "ReadTheInstallationGuide"
+msgstr "Lue asennusohje"
+
+msgid "SeeBlog"
+msgstr "Näytä blogi"
+
+msgid "Blog"
+msgstr "Blogi"
+
+msgid "BlogPosts"
+msgstr "Blogi kirjoitukset"
+
+msgid "BlogComments"
+msgstr "Blogi kommentit"
+
+msgid "ThereAreNotExtrafieldsAvailable"
+msgstr "Lisäkenttiä ei ole saatavilla"
+
+msgid "StartToType"
+msgstr "Aloita kirjoittamalla ja klikkaa sitten tästä hyväksyäksesi tunnisteen"
+
+msgid "ChamiloURL"
+msgstr "Chamilon URL-osoite"
+
+msgid "ThereAreNotQuestionsForthisSurvey"
+msgstr "Tässä kyselyssä ei ole kysymyksiä"
+
+msgid "EditProfile"
+msgstr "Muokkaa profiilia"
+
+msgid "ColumnPosition"
+msgstr "Sijainti (sarake)"
+
+msgid "Homepage"
+msgstr "Kotisivu"
+
+msgid "Attendances"
+msgstr "Läsnä"
+
+msgid "Timezone"
+msgstr "Aikavyöhyke"
+
+msgid "LoginEnter"
+msgstr "Kirjaudu sisään"
+
+msgid "CopyExercise"
+msgstr "Kopioi tämä harjoitus uudeksi"
+
+msgid "CleanStudentResults"
+msgstr "Tyhjennä kaikki oppijoiden vastaukset tästä harjoituksesta"
+
+msgid "ThereAreNoRegisteredLearnersInsidetheCourse"
+msgstr "Kurssilla ei ole rekisteröityjä oppijoita"
+
+msgid "ToolCourseDescription"
+msgstr "Kurssin kuvaus"
+
+msgid "ToolDocument"
+msgstr "Dokumentit"
+
+msgid "ToolLearnpath"
+msgstr "Oppimispolku"
+
+msgid "ToolLink"
+msgstr "Linkit"
+
+msgid "ToolQuiz"
+msgstr "Harjoitukset"
+
+msgid "ToolAnnouncement"
+msgstr "Ilmoitukset"
+
+msgid "ToolGradebook"
+msgstr "Arvioinnit"
+
+msgid "ToolGlossary"
+msgstr "Sanasto"
+
+msgid "ToolAttendance"
+msgstr "Läsnäolot"
+
+msgid "ToolCalendarEvent"
+msgstr "Aikataulu"
+
+msgid "ToolForum"
+msgstr "Keskustelut"
+
+msgid "ToolDropbox"
+msgstr "Tiedostojen siirto"
+
+msgid "ToolUser"
+msgstr "Käyttäjät"
+
+msgid "ToolGroup"
+msgstr "Ryhmät"
+
+msgid "ToolChat"
+msgstr "Chat"
+
+msgid "ToolStudentPublication"
+msgstr "Tehtävät"
+
+msgid "ToolSurvey"
+msgstr "Kyselyt"
+
+msgid "ToolWiki"
+msgstr "Wiki"
+
+msgid "ToolNotebook"
+msgstr "Muistio"
+
+msgid "ToolBlogManagement"
+msgstr "Projektit"
+
+msgid "ToolTracking"
+msgstr "Seuranta"
+
+msgid "ToolCourseSetting"
+msgstr "Asetukset"
+
+msgid "ToolCourseMaintenance"
+msgstr "Kurssin ylläpito"
+
+msgid "AreYouSureToDeleteAllDates"
+msgstr "Haluatko varmasti poistaa kaikki päiväykset"
+
+msgid "AddADateTime"
+msgstr "Lisää ajankohta"
+
+msgid "AllowUserViewUserList"
+msgstr "Salli käyttäjän nähdä käyttäjä luettelo"
+
+msgid "AllowUserViewUserListActivate"
+msgstr "Aktivoi käyttäjä lista"
+
+msgid "AllowUserViewUserListDeactivate"
+msgstr "Poista käyttäjä lista"
+
+msgid "DurationInHours"
+msgstr "Kesto tunteina"
+
+msgid "ThereAreNoAttendancesInsideCourse"
+msgstr "Tällä kurssilla ei ole läsnäololistoja"
+
+msgid "YouMustSelectAtleastAStartDate"
+msgstr "Valitse alku pvm"
+
+msgid "ReturnToLPList"
+msgstr "Palaa luetteloon"
+
+msgid "DurationInHoursMustBeNumeric"
+msgstr "Keston pitää olla luku"
+
+msgid "DoNotDisplayAnyAdvance"
+msgstr "Älä näytä edistymistä"
+
+msgid "ToolCourseProgress"
+msgstr "Kurssin edistyminen"
+
+msgid "QualificationNumeric"
+msgstr "Maksimi pisteet"
+
+msgid "Literal0"
+msgstr "Nolla"
+
+msgid "Literal1"
+msgstr "Yksi"
+
+msgid "Literal2"
+msgstr "Kaksi"
+
+msgid "Literal3"
+msgstr "kolme"
+
+msgid "Literal4"
+msgstr "neljä"
+
+msgid "Literal5"
+msgstr "viisi"
+
+msgid "Literal6"
+msgstr "kuusi"
+
+msgid "Literal7"
+msgstr "seitsemän"
+
+msgid "Literal8"
+msgstr "kahdeksan"
+
+msgid "Literal9"
+msgstr "yhdeksän"
+
+msgid "Literal10"
+msgstr "kymmenen"
+
+msgid "Literal11"
+msgstr "yksitoista"
+
+msgid "Literal12"
+msgstr "kaksitoista"
+
+msgid "Literal13"
+msgstr "kolmetoista"
+
+msgid "Literal14"
+msgstr "neljätoista"
+
+msgid "Literal18"
+msgstr "kahdeksantoista"
+
+msgid "Literal19"
+msgstr "yhdeksäntoista"
+
+msgid "Literal20"
+msgstr "kaksikymmentä"
+
+msgid "DateTime"
+msgstr "Päiväys ja aika"
+
+msgid "Never"
+msgstr "Ei koskaan"
+
+msgid "YourAccountIsActiveYouCanLoginAndCheckYourCourses"
+msgstr "Hyvä käyttäjä, käyttäjätunnuksesi on nyt aktivoitu ja voit nyt kirjautua ympäristöön."
+
+msgid "ReportABug"
+msgstr "Ilmoita bugi"
+
+msgid "NewHomeworkEmailAlert"
+msgstr "Lähetä käyttäjille sähköpostia tehtävästä"
+
+msgid "NewHomeworkEmailAlertEnable"
+msgstr "Aktivoi sähköposti käyttäjille tehtävän annosta"
+
+msgid "NewHomeworkEmailAlertDisable"
+msgstr "Estä sähköposti käyttäjille tehtävän annosta"
+
+msgid "ScormNotEnoughSpaceInCourseToInstallPackage"
+msgstr "Kurssin jäljellä oleva tila ei ole riittävä tämän paketin purkamiseen."
+
+msgid "ScormPackageFormatNotScorm"
+msgstr "Paketti jota yrität viedä ei ilmeisesti ole Scorm -formaatissa. Tarkista että ZIP -tiedosto sisältää tiedoston nimeltä imsmanifest.xml"
+
+msgid "ContactInformation"
+msgstr "Yhteystiedot"
+
+msgid "PersonName"
+msgstr "Nimesi"
+
+msgid "CompanyName"
+msgstr "Yhtiön nimi:"
+
+msgid "PersonRole"
+msgstr "Tehtävän kuvaus"
+
+msgid "SendInformation"
+msgstr "Lähetä tiedot"
+
+msgid "SelectOne"
+msgstr "Valitse yksi"
+
+msgid "DisplayAboutNextAdvanceNotDoneAndLastDoneAdvance"
+msgstr "Näytä viimein tehty askel ja seuraava ei tehty askel"
+
+msgid "EndDateMustBeMoreThanStartDate"
+msgstr "Päättymispäivän pitää olla myöhemmin kun alkamispäivän."
+
+msgid "Multipleresponse"
+msgstr "Monivalinta"
+
+msgid "MemoryUsage"
+msgstr "Muistin käyttö"
+
+msgid "CopyToMyFiles"
+msgstr "Kopioi henkilökohtaisele alueelle"
+
+msgid "Export2PDF"
+msgstr "Vie PDF tiedostoksi"
+
+msgid "ResourceShared"
+msgstr "Resurssi jaettu"
+
+msgid "CopyAlreadyDone"
+msgstr "Yksityisellä alueellasi on jo tämän niminen tiedosto. Haluatko korvata sen?"
+
+msgid "CopyFailed"
+msgstr "Kopiointi epäonnistui"
+
+msgid "CopyMade"
+msgstr "Kopioitu"
+
+msgid "OverwritenFile"
+msgstr "Tiedosto korvattu"
+
+msgid "Draw"
+msgstr "Piirä"
+
+msgid "ThereAreNoCoursesInThisCategory"
+msgstr "Tässä kategoriassa ei ole kursseja"
+
+msgid "TotalStudents"
+msgstr "Oppijoita yhteensä"
+
+msgid "ExamFail"
+msgstr "Hylätty"
+
+msgid "NoAttempt"
+msgstr "Ei yrityksiä"
+
+msgid "PassExam"
+msgstr "Hyväksytty"
+
+msgid "CourseRequestCreated"
+msgstr "Pyyntösi uudesta kurssista on lähetetty onnistuneesti. Saat vastauksen lähipäivinä."
+
+msgid "CreateThisCourseRequest"
+msgstr "Luo tämä kurssipyyntö"
+
+msgid "CourseRequestDate"
+msgstr "Pyynnön päiväys"
+
+msgid "AcceptThisCourseRequest"
+msgstr "Hyväksy tämä kurssi"
+
+msgid "ANewCourseWillBeCreated"
+msgstr "Uusi kurssi: %s on valmis luotavaksi. Tahdotko jatkaa"
+
+msgid "AdditionalInfoWillBeAsked"
+msgstr "Lisätietoa kurssista %s tullaan pyytämään sähköpostilla. Tahdotko jatkaa?"
+
+msgid "AskAdditionalInfo"
+msgstr "Kysy lisätietoja"
+
+msgid "BrowserDontSupportsSVG"
+msgstr "Selaimesi ei tue SVG-tiedostoja. Piirto-työkalun käyttöön suositellaan selaimeksi Firefox tai Chrome"
+
+msgid "DeleteThisCourseRequest"
+msgstr "Poista tämä kurssi pyyntö"
+
+msgid "ACourseRequestWillBeDeleted"
+msgstr "Kurssi pyyntö %s poistetaan. Tahdotko jatkaa?"
+
+msgid "RejectThisCourseRequest"
+msgstr "Hylkää tämä kurssipyyntö"
+
+msgid "ACourseRequestWillBeRejected"
+msgstr "Kurssipyyntö %s hylätään. Haluatko jatkaa?"
+
+msgid "CourseRequestAccepted"
+msgstr "Kurssipyyntö %s on hyväksytty. Uusi kurssi %s on nyt luotu."
+
+msgid "CourseRequestAcceptanceFailed"
+msgstr "Kurssipyyntöä %s ei hyväksytty virheen vuoksi."
+
+msgid "CourseRequestRejected"
+msgstr "Kurssipyyntö %s on hylätty."
+
+msgid "CourseRequestRejectionFailed"
+msgstr "Kurssipyyntöä %s ei hylätty virheen vuoksi."
+
+msgid "CourseRequestInfoAsked"
+msgstr "Lisätietoa kurssipyynnöstä %s on pyydetty."
+
+msgid "CourseRequestInfoFailed"
+msgstr "Lisätietopyyntöä ei voitu lähettää virheen vuoksi."
+
+msgid "CourseRequestDeleted"
+msgstr "Kurssipyyntö %s on poistettu"
+
+msgid "CourseRequestDeletionFailed"
+msgstr "Kurssipyyntöä %s ei ole poistettu virheen vuoksi."
+
+msgid "DeleteCourseRequests"
+msgstr "Poista valitut kurssipyynnöt"
+
+msgid "SelectedCourseRequestsDeleted"
+msgstr "Valitut kurssipyynnöt on poistettu."
+
+msgid "SomeCourseRequestsNotDeleted"
+msgstr "Joitain valituista kurssipyynnöistä ei poistettu virheen vuoksi."
+
+msgid "CourseRequestEmailSubject"
+msgstr "%s pyyntö uudesta kurssista %s"
+
+msgid "CourseRequestMailOpening"
+msgstr "Olemme vastaanottaneet seuraavaan kurssipyynnön:"
+
+msgid "CourseRequestPageForApproval"
+msgstr "Tämän kurssipyynnön voi hyväksyä seuraavalla sivulla:"
+
+msgid "PleaseActivateCourseValidationFeature"
+msgstr "Kurssin hyväksyntä toiminto ei ole tällä hetkellä käytössä. Käyttääksesi tätä toimintoa ota se käytöön %s toiminnolla."
+
+msgid "CourseRequestLegalNote"
+msgstr "Tätä kurssipyyntöä koskevat tiedot ovat luottamuksellisia. Niitä voidaan käyttää vain uuden kurssin luomiseen meidän oppimisportaalissa, eikä niitä tule jakaa kolmannen osapuolen kanssa."
+
+msgid "CourseRequestAskInfoEmailSubject"
+msgstr "%s lisätietopyyntö uudesta kurssipyynnöstä %s"
+
+msgid "CourseRequestAskInfoEmailText"
+msgstr "Olemme vastaanottaneet kurssipyynnön koodilla %s. Ennen hyväksymistä tarvitsemme lisätietoja. /n/n<br />Kerro lyhyesti kurssin sisällöstä, tavoitteista, oppijoista tai kurssin käyttäjistä. Jos mahdollista mainitse myös yksikkö, jonka puolesta teit pyynnön."
+
+msgid "CourseRequestAcceptedEmailSubject"
+msgstr "%s Kurssipyyntö %s on hyväksytty"
+
+msgid "CourseRequestAcceptedEmailText"
+msgstr "Kurssipyyntösi %s on hyväksytty. Uusi kurssi %s on luotu ja sinut on rekisteröity sen ohjaajaksi. /n/n Pääset uudelle kurssille osoitteessa: %s"
+
+msgid "CourseRequestRejectedEmailSubject"
+msgstr "%s Kurssipyyntö %s on hylätty."
+
+msgid "CourseRequestRejectedEmailText"
+msgstr "Valitettavasti tekemäsi kurssipyyntö %s on hylätty."
+
+msgid "CourseCreationFailed"
+msgstr "Kurssia ei luotu johtuen virheestä"
+
+msgid "CourseRequestCreationFailed"
+msgstr "Kurssipyyntöä ei tehty johtuen virheestä."
+
+msgid "CourseRequestEdit"
+msgstr "Muokkaa kurssipyyntöä"
+
+msgid "CourseRequestHasNotBeenFound"
+msgstr "Kurssipyyntöä ei löytynyt"
+
+msgid "FileExistsChangeToSave"
+msgstr "Tämän niminen tiedosto on jo olemassa. Valitse toinen nimi tallettaaksesi kuvasi."
+
+msgid "CourseRequestUpdateFailed"
+msgstr "Kurssipyyntöä ei päivitetty johtuen virheestä."
+
+msgid "CourseRequestUpdated"
+msgstr "Kurssipyyntö %s on päivitetty."
+
+msgid "FillWithExemplaryContent"
+msgstr "Täytä esittely sisällöllä"
+
+msgid "FileSavedAs"
+msgstr "Tiedosto tallennettu nimellä"
+
+msgid "FileExportAs"
+msgstr "Vie tiedosto"
+
+msgid "ToolVideoconference"
+msgstr "Videoneuvottelu"
+
+msgid "SelectSVGEditImage"
+msgstr "Valitse kuva"
+
+msgid "UserFolder"
+msgstr "Käyttäjän kansio"
+
+msgid "HelpFolderCertificates"
+msgstr "TÄMÄ NÄKYY VAIN OHJAAJILLE:<br /><br />Tämä kansio sisältää todistuspohjia jotka on tehty arvostelutyökalua varten. Tätä ei kannata muuttaa näkyväksi kaikille."
+
+msgid "DestinationDirectory"
+msgstr "Kohde kansio"
+
+msgid "ChatFiles"
+msgstr "Keskustelu historia"
+
+msgid "Flash"
+msgstr "Flash"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Images"
+msgstr "Kuvat"
+
+msgid "BuildMP3"
+msgstr "Tee mp3"
+
+msgid "HelpGoogleAudio"
+msgstr "Tukee 100 merkkiä usealla kielellä. Tiedosto luodaan ja tallennetaan siihen kansioon missä juuri olet."
+
+msgid "HelpvozMe"
+msgstr "Tukee useita tuhansia merkkiä pitkiä tekstejä. Voit myös valita mies- tai naisäänen. Tukee vähemmän eri kieliä ja äänen laatu on huonompi. Sinun pitää käsin kopioida tiedostot."
+
+msgid "SaveMP3"
+msgstr "Tallenna mp3"
+
+msgid "OpenInANewWindow"
+msgstr "Avaa uudessa ikkunassa"
+
+msgid "Speed"
+msgstr "Nopeus"
+
+msgid "GoFaster"
+msgstr "Nopeammin"
+
+msgid "Fast"
+msgstr "Nopea"
+
+msgid "Slow"
+msgstr "Hidas"
+
+msgid "SlowDown"
+msgstr "Hitaampi"
+
+msgid "Pediaphon"
+msgstr "Käytä Pediaphon äänipalvelua"
+
+msgid "HelpPediaphon"
+msgstr "Tukee useita tuhansia merkkejä pitkiä tekstejä. Erityyppisiä ääniä riippuen kielestä. Äänitiedostot luodaan ja tallennetaan Chamilo kansioon missä olet automaattisesti."
+
+msgid "FirstSelectALanguage"
+msgstr "Valitse kieli"
+
+msgid "AddPicture"
+msgstr "lisää kuva"
+
+msgid "LPAutoLaunch"
+msgstr "Aktivoi oppimispolun automaattikäynnistys"
+
+msgid "TheLPAutoLaunchSettingIsONStudentsWillBeRedirectToAnSpecificLP"
+msgstr "Oppimispolun automaattikäynnistys on kytketty päälle. Kun opiskelija avaa kurssin hänet ohjataan automaattisesti oppimispolulle,joka on merkitty automaattisesti käynnistyväksi."
+
+msgid "LoginOrEmailAddress"
+msgstr "Käyttäjätunnus tai sähköpostiosoite"
+
+msgid "Activate"
+msgstr "Ota käyttöön"
+
+msgid "Deactivate"
+msgstr "Poista käytöstä"
+
+msgid "ConfigLearnpath"
+msgstr "Oppimispolun asetukset"
+
+msgid "Profile"
+msgstr "Profiili"
+
+msgid "MyResults"
+msgstr "Tulokseni"
+
+msgid "LearningPaths"
+msgstr "Oppimispolut"
+
+msgid "AllLearningPaths"
+msgstr "Kaikki oppimispolut"
+
+msgid "AddACourse"
+msgstr "Lisää kurssi"
+
+msgid "RenameAndComment"
+msgstr "Nimeä uudellen ja kommentoi"
+
+msgid "SeeAll"
+msgstr "Näytä kaikki"
+
+msgid "LatestAttempt"
+msgstr "Viimeisin yritys"
+
+msgid "PDFWaterMarkHeader"
+msgstr "Ylätunnisteen vesileima PDF-tiedostoissa"
+
+msgid "FileDeleted"
+msgstr "Tiedosto poistettu"
+
+msgid "HotSpotDelineation"
+msgstr "Interaktiivisen alueen hahmotelma"
+
+msgid "CorrectAndRate"
+msgstr "Korjaa ja arvioi"
+
+msgid "MyStatistics"
+msgstr "Tilastoni"
+
+msgid "RedirectToALearningPath"
+msgstr "Ohjaa valittuun oppimispolkuun"
+
+msgid "RedirectToTheLearningPathList"
+msgstr "Ohjaa oppimispolkujen listaukseen"
+
+msgid "MailNotifyInvitation"
+msgstr "Ilmoita sähköpostilla uudesta kutsusta"
+
+msgid "MailNotifyMessage"
+msgstr "Ilmoita viestillä uudesta henkilökohtaisesta viestistä"
+
+msgid "MailNotifyGroupMessage"
+msgstr "Ilmoita sähköpostilla uudesta ryhmän saamasta viestistä"
+
+msgid "Installed"
+msgstr "Asennettu"
+
+msgid "NotInstalled"
+msgstr "Ei asennettu"
+
+msgid "Settings"
+msgstr "Asetukset"
+
+msgid "OnlyLettersAndNumbers"
+msgstr "Vain kirjaimia (a-z) ja numeroita(0-9)"
+
+msgid "CheckFilePermissions"
+msgstr "Tarkista tiedoston käyttöoikeudet"
+
+msgid "NotAvailable"
+msgstr "Ei saatavilla"
+
+msgid "ToolSearch"
+msgstr "Haku"
+
+msgid "NanogongNoApplet"
+msgstr "Sovellusta Nanogong ei löydy"
+
+msgid "NanogongRecordBeforeSave"
+msgstr "Äänitä ennen lähettämistä"
+
+msgid "NanogongGiveTitle"
+msgstr "Anna nimi tiedostolle"
+
+msgid "NanogongFailledToSubmit"
+msgstr "Tallettaminen ei onnistunut"
+
+msgid "NanogongSubmitted"
+msgstr "Äänitetty tiedosto lähetetty"
+
+msgid "RecordMyVoice"
+msgstr "Äänitä ääneni"
+
+msgid "PressRecordButton"
+msgstr "Aloittaaksesi äänityksen paina punaista nappia"
+
+msgid "VoiceRecord"
+msgstr "Äänitys"
+
+msgid "FileExistRename"
+msgstr "Tämän niminen tiedosto on jo olemassa, anna toinen nimi"
+
+msgid "AllDone"
+msgstr "Kaikki tehty"
+
+msgid "IfYourLPsHaveAudioFilesIncludedYouShouldSelectThemFromTheDocuments"
+msgstr "Jos oppimispolkusi sisältää äänitiedostoja muista valita ne dokumenteista"
+
+msgid "Blogs"
+msgstr "Blogit"
+
+msgid "SelectACourse"
+msgstr "Valitse kurssi"
+
+msgid "Postpone"
+msgstr "Lykkää"
+
+msgid "NewImage"
+msgstr "Uusi kuva"
+
+msgid "Hotspot"
+msgstr "Interaktiivinen alue"
+
+msgid "Saved"
+msgstr "Tallennettu"
+
+msgid "NextBis"
+msgstr "Seuraava"
+
+msgid "Prev"
+msgstr "Edellinen"
+
+msgid "UserRoles"
+msgstr "Käyttäjä roolit"
+
+msgid "GroupRoles"
+msgstr "Ryhmän roolit"
+
+msgid "PendingInvitation"
+msgstr "Odottava kutsu"
+
+msgid "MaximunFileSizeXMB"
+msgstr "Tiedoston suurin sallittu koko: % Mt."
+
+msgid "MessageHasBeenSent"
+msgstr "Viestisi on lähetetty"
+
+msgid "Tags"
+msgstr "Tunnisteet"
+
+msgid "DirExists"
+msgstr "Ei onnistu, tämän niminen kansio on jo olemassa."
+
+msgid "DocMv"
+msgstr "Tiedosto siirretty"
+
+msgid "SeeMessage"
+msgstr "Näytä viesti"
+
+msgid "SeeInvitation"
+msgstr "Näytä kutsu"
+
+msgid "YouHaveReceivedThisNotificationBecauseYouAreSubscribedOrInvolvedInItToChangeYourNotificationPreferencesPleaseClickHereX"
+msgstr "Olet saanut tämän viestin koska olet tilannut tai liityt siihen. Muuttaaksesi saamiasi viestejä klikkaa tästä: %s"
+
+msgid "Replies"
+msgstr "Vastaukset"
+
+msgid "Reply"
+msgstr "Vastaa"
+
+msgid "Broken"
+msgstr "Rikki"
+
+msgid "CheckURL"
+msgstr "Tarkista linkki"
+
+msgid "Copy"
+msgstr "Kopioi"
+
+msgid "AllEvents"
+msgstr "Kaikki tapahtumat"
+
+msgid "Wrong"
+msgstr "Väärä"
+
+msgid "NewExercises"
+msgstr "Uudet harjoitukset"
+
+msgid "MyAverage"
+msgstr "Keskiarvoni"
+
+msgid "AllAttempts"
+msgstr "Kaikki yritykset"
+
+msgid "NoCookies"
+msgstr "Keksit ei ole sallittuna selaimessasi. Kirjautuaksesi on selaimen asetuksissa sallittava keksit (Cookies)."
+
+msgid "NoJavascript"
+msgstr "Selaimessa ei ole JavaScript tukea. Chamilo käyttää JavaScriptiä tehdäksen käyttökokemuksesta dynaamisemman. Suurin osa toiminnoista toimii ilmankin mutta suosittelemme ottamaan selaimen asetuksista JavaScript tuen käyttöön."
+
+msgid "NoFlash"
+msgstr "Selaimessa ei ole Flash tukea. Tästä syystä kaikki toiminnot eivät ole välttämättä käytettävissä. Suosittelemme asentamaan Flash liitännäisen ja käynnistämään selaimen uudelleen."
+
+msgid "ActivateLegal"
+msgstr "Aktivoi lakiteksti"
+
+msgid "ShowALegalNoticeWhenEnteringTheCourse"
+msgstr "Näytä lakiteksti kurssille tultaessa"
+
+msgid "AddAsAnnouncement"
+msgstr "Lisää ilmoitukseksi"
+
+msgid "HideTocFrame"
+msgstr "Piilota sisällysluettelo"
+
+msgid "Me"
+msgstr "Minä"
+
+msgid "Vote"
+msgstr "Äänestä"
+
+msgid "Votes"
+msgstr "Äänet"
+
+msgid "XStarsOutOf5"
+msgstr "%s tähteä viidestä"
+
+msgid "YourVote"
+msgstr "Äänesi"
+
+msgid "HottestCourses"
+msgstr "Suosituimmat kurssit"
+
+msgid "LoginToVote"
+msgstr "Kirjaudu äänestääksesi"
+
+msgid "DoNotShow"
+msgstr "Älä näytä"
+
+msgid "ShowToAdminsOnly"
+msgstr "Näytä vain ylläpitäjille"
+
+msgid "ShowToAdminsAndTeachers"
+msgstr "Näytä ylläpitäjille ja opettajille"
+
+msgid "ShowToAllUsers"
+msgstr "Näytä kaikille käyttäjille"
+
+msgid "LoginX"
+msgstr "Kirjaudu käyttäjänä: %s"
+
+msgid "AddCourseDescription"
+msgstr "Lisää kurssin kuvaus"
+
+msgid "EndTest"
+msgstr "Tarkista vastaukset"
+

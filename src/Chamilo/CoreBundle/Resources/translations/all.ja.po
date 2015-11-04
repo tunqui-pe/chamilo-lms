@@ -1,0 +1,5490 @@
+msgid "Username"
+msgstr "ユーザー名"
+
+msgid "ShowAllEvents"
+msgstr "Show All Agenda Items"
+
+msgid "Month"
+msgstr "月"
+
+msgid "Hour"
+msgstr "Hour"
+
+msgid "Minutes"
+msgstr "Minutes"
+
+msgid "AddSuccess"
+msgstr "Agenda item added"
+
+msgid "AgendaDeleteSuccess"
+msgstr "The agenda item has been deleted"
+
+msgid "NoAgendaItems"
+msgstr "There are no Agenda Items"
+
+msgid "ClassName"
+msgstr "クラス名"
+
+msgid "Week"
+msgstr "週"
+
+msgid "RepeatType"
+msgstr "繰り返しの種類"
+
+msgid "RepeatDaily"
+msgstr "毎日"
+
+msgid "RepeatWeekly"
+msgstr "毎週"
+
+msgid "RepeatMonthlyByDate"
+msgstr "毎月、同じ曜日"
+
+msgid "RepeatMonthlyByDay"
+msgstr "毎月、同じ日"
+
+msgid "RepeatMonthlyByDayR"
+msgstr "毎月、同じ日、制限付き"
+
+msgid "RepeatYearly"
+msgstr "毎年"
+
+msgid "RepeatEnd"
+msgstr "繰り返しの終了日"
+
+msgid "ICalFileImport"
+msgstr "Outlook のインポート"
+
+msgid "EndDateCannotBeBeforeTheStartDate"
+msgstr "終了日を開始日よりも前にすることはできません"
+
+msgid "RepeatEvent"
+msgstr "イベントを繰り返す"
+
+msgid "ScormTime"
+msgstr "時間"
+
+msgid "ScormScore"
+msgstr "得点"
+
+msgid "ScormLessonTitle"
+msgstr "学習オブジェクト名"
+
+msgid "ScormStatus"
+msgstr "状態"
+
+msgid "ScormCompstatus"
+msgstr "完了"
+
+msgid "ScormPrevious"
+msgstr "前へ"
+
+msgid "ScormNext"
+msgstr "次へ"
+
+msgid "ScormMystatus"
+msgstr "進行状況"
+
+msgid "AccomplishedStepsTotal"
+msgstr "完了した学習オブジェクトの合計"
+
+msgid "DeleteSelectedMessages"
+msgstr "選択したメッセージを削除"
+
+msgid "SelectedMessagesDeleted"
+msgstr "選択したメッセージを削除しました"
+
+msgid "SendMessageInvitation"
+msgstr "これらの招待を送信してもよろしいですか ?"
+
+msgid "ModifInfo"
+msgstr "設定"
+
+msgid "ModifDone"
+msgstr "攫鼠饯赖されました"
+
+msgid "DelCourse"
+msgstr "コース領域を削除"
+
+msgid "Professors"
+msgstr "么碰兜镑"
+
+msgid "Faculty"
+msgstr "池彩"
+
+msgid "Confidentiality"
+msgstr "入"
+
+msgid "Unsubscription"
+msgstr "登録解除"
+
+msgid "PrivOpen"
+msgstr "判峡荚嘎年¨判峡は材墙です。"
+
+msgid "Forbidden"
+msgstr "钓材されていません"
+
+msgid "CourseAccessConfigTip"
+msgstr "既定では、コースは完全に公開されます。ただし、上記でアクセス レベルを定義することができます。"
+
+msgid "OpenToTheWorld"
+msgstr "完全な公開 - 全世界にアクセスを許可する"
+
+msgid "OpenToThePlatform"
+msgstr " 公開 - プラットフォームに登録されたユーザーにアクセスを許可する"
+
+msgid "TipLang"
+msgstr "この言語はコースの Web サイトにアクセスしたすべてのユーザーに有効になります。"
+
+msgid "Vid"
+msgstr "ヴィデオ"
+
+msgid "Work"
+msgstr "池栏の矢今たち"
+
+msgid "ProgramMenu"
+msgstr "コ〖スプログラム"
+
+msgid "Stats"
+msgstr "統計情報"
+
+msgid "UplPage"
+msgstr "ペ〖ジとリンクをホ〖ムペ〖ジにアップロ〖ド"
+
+msgid "LinkSite"
+msgstr "サイトをリンク"
+
+msgid "HasDel"
+msgstr "贷に猴近されました。"
+
+msgid "ByDel"
+msgstr "このコ〖スのウエブサイトを猴近すると、そこに崔まれるすべての矢今が久えます。また池栏判峡も久えます(戮のコ〖ス判峡は痰簇犯です)。<p>塑碰に猴近しますか?</p>"
+
+msgid "Y"
+msgstr "はい"
+
+msgid "N"
+msgstr "いいえ"
+
+msgid "Subscription"
+msgstr "登録"
+
+msgid "BackH"
+msgstr "コ〖スのホ〖ムペ〖ジ"
+
+msgid "CourseVisibilityClosed"
+msgstr "非公開 - コースを教員のみにアクセス可能にする"
+
+msgid "WorkEmailAlert"
+msgstr "レポートの送信を電子メールで通知"
+
+msgid "WorkEmailAlertActivate"
+msgstr "新しいレポートの送信についての電子メール通知をアクティブにする"
+
+msgid "WorkEmailAlertDeactivate"
+msgstr "新しいレポートの送信についての電子メール通知を無効にする"
+
+msgid "DropboxEmailAlert"
+msgstr "課題提出箱の送信を電子メールで通知"
+
+msgid "DropboxEmailAlertActivate"
+msgstr "課題提出箱の送信についての電子メール通知をアクティブにする"
+
+msgid "DropboxEmailAlertDeactivate"
+msgstr "課題提出箱の送信についての電子メール通知を無効にする"
+
+msgid "AllowUserEditAgenda"
+msgstr "学生に予定表の編集を許可"
+
+msgid "AllowUserEditAgendaActivate"
+msgstr "ユーザーによるコースの予定表の編集をアクティブにする"
+
+msgid "AllowUserEditAgendaDeactivate"
+msgstr "学生による予定表の編集を無効にする"
+
+msgid "AllowUserEditAnnouncement"
+msgstr "学生にお知らせの編集を許可"
+
+msgid "AllowUserEditAnnouncementActivate"
+msgstr "ユーザーによる編集を有効にする"
+
+msgid "AllowUserEditAnnouncementDeactivate"
+msgstr "ユーザーによる編集を無効にする"
+
+msgid "CourseRegistrationPassword"
+msgstr "コース登録パスワード"
+
+msgid "DescriptionDeleteCourse"
+msgstr "サーバーからコースを完全に削除するには、このリンクをクリックします。<br /><br />元に戻すことはできませんのでご注意ください!"
+
+msgid "DescriptionCopyCourse"
+msgstr "コースまたは学習オブジェクトを別のコースに複製します。この機能を使用するには、複製元と複製先の 2 つのコースが必要です。"
+
+msgid "DescriptionRecycleCourse"
+msgstr "このツールはコースを空にします。ドキュメント、フォーラム、リンクを削除します。削除するものを選択するか、全体を削除することができます。"
+
+msgid "QuizEmailAlert"
+msgstr "新しいテストが送信された場合の電子メール通知"
+
+msgid "QuizEmailAlertActivate"
+msgstr "ユーザーが新しいテストの回答を送信した場合の電子メール送信をアクティブにする"
+
+msgid "QuizEmailAlertDeactivate"
+msgstr "新しいテストの回答が送信された場合の電子メール通知を無効にする"
+
+msgid "AllowUserImageForum"
+msgstr "フォーラムのユーザー画像"
+
+msgid "AllowUserImageForumActivate"
+msgstr "ユーザー画像をフォーラムで表示する"
+
+msgid "AllowUserImageForumDeactivate"
+msgstr "ユーザー画像をフォーラムで非表示にする"
+
+msgid "AllowLearningPathTheme"
+msgstr "コースのテーマを許可"
+
+msgid "AllowLearningPathThemeAllow"
+msgstr "許可する"
+
+msgid "AllowLearningPathThemeDisallow"
+msgstr "許可しない"
+
+msgid "ConfigChat"
+msgstr "チャットの設定"
+
+msgid "AllowOpenchatWindow"
+msgstr "チャットを新しいウィンドウで開く"
+
+msgid "AllowOpenChatWindowActivate"
+msgstr "チャットを新しいウィンドウで開くことをアクティブにする"
+
+msgid "AllowOpenChatWindowDeactivate"
+msgstr "チャットを新しいウィンドウで開くことを非アクティブにする"
+
+msgid "NewUserEmailAlert"
+msgstr "新しいユーザーの自動登録を教員に電子メールで通知"
+
+msgid "NewUserEmailAlertEnable"
+msgstr "新しいユーザーの自動登録についての教員への電子メール通知を有効にする"
+
+msgid "NewUserEmailAlertToTeacharAndTutor"
+msgstr "新しいユーザーの自動登録についての教員と TA への電子メール通知を有効にする"
+
+msgid "NewUserEmailAlertDisable"
+msgstr "新しいユーザーがコースに登録されたことについての電子メール通知を無効にする"
+
+msgid "SelectOptionForBackup"
+msgstr "バックアップ オプションを選択してください"
+
+msgid "LetMeSelectItems"
+msgstr "学習オブジェクトを選択する"
+
+msgid "CreateFullBackup"
+msgstr "このコースの完全なバックアップを作成する"
+
+msgid "SelectBackupFile"
+msgstr "バックアップ ファイルを選択します"
+
+msgid "ImportBackup"
+msgstr "バックアップをインポート"
+
+msgid "ImportFullBackup"
+msgstr "完全なバックアップをインポートする"
+
+msgid "Tests"
+msgstr "テスト"
+
+msgid "CopyCourse"
+msgstr "コースをコピー"
+
+msgid "SameFilename"
+msgstr "インポートするファイルが既存のファイルと同じ名前の場合に何をしますか?"
+
+msgid "SameFilenameSkip"
+msgstr "同じファイル名をスキップする"
+
+msgid "SameFilenameRename"
+msgstr "ファイルの名前を変更する (たとえば file.pdf を file_1.pdf にします)"
+
+msgid "SameFilenameOverwrite"
+msgstr "ファイルを上書きする"
+
+msgid "SelectResources"
+msgstr "リソースを選択"
+
+msgid "LocalFile"
+msgstr "ローカル ファイル"
+
+msgid "NoBackupsAvailable"
+msgstr "バックアップがありません"
+
+msgid "ImportBackupInfo"
+msgstr "バックアップをインポートします。ローカル ドライブからバックアップ ファイルをアップロードするか、サーバーのバックアップ ファイルを使用することができます。"
+
+msgid "CreateBackupInfo"
+msgstr "バックアップを作成します。バックアップ ファイルに統合する学習オブジェクトを選択することができます。"
+
+msgid "ToolIntro"
+msgstr "ツールの概要"
+
+msgid "DocumentsWillBeAddedToo"
+msgstr "ドキュメントも追加されます"
+
+msgid "ToExportLearnpathWithQuizYouHaveToSelectQuiz"
+msgstr "テストを含むコースをエクスポートする場合、対応するテストをエクスポートに含める必要があるので、テスト一覧で選択してください。"
+
+msgid "Question"
+msgstr "質問"
+
+msgid "YesNo"
+msgstr "はい / いいえ"
+
+msgid "CourseLanguage"
+msgstr "言語:"
+
+msgid "Arrow"
+msgstr "矢印"
+
+msgid "ShowHotCoursesComment"
+msgstr "最も人気のあるコース一覧が索引ページに追加されます"
+
+msgid "ShowHotCoursesTitle"
+msgstr "最も人気のあるコースを表示"
+
+msgid "Explanation"
+msgstr "办搀OKをクリックすると、柴的技や徒年、矢今マネ〖ジャ〖烧のサイトが叫丸ます。サイト侯喇荚としてログインすると、サイトを饯赖することが叫丸ます。"
+
+msgid "CodeTaken"
+msgstr "このコ〖スコ〖ドは贷に蝗われています。<br />提るボタンを病して、浩刨活してください。"
+
+msgid "ExerciceEx"
+msgstr "遍浆啼玛毋"
+
+msgid "Antique"
+msgstr "概洛暖池凰"
+
+msgid "SocraticIrony"
+msgstr "Socratic irony is..."
+
+msgid "ManyAnswers"
+msgstr "(more than one answer can be true)"
+
+msgid "Ridiculise"
+msgstr "Ridiculise one's interlocutor in order to have him concede he is wrong."
+
+msgid "NoPsychology"
+msgstr "No. Socratic irony is not a matter of psychology, it concerns argumentation."
+
+msgid "AdmitError"
+msgstr "Admit one's own errors to invite one's interlocutor to do the same."
+
+msgid "NoSeduction"
+msgstr "No. Socratic irony is not a seduction strategy or a method based on the example."
+
+msgid "Force"
+msgstr "Compell one's interlocutor, by a series of questions and sub-questions, to admit he doesn't know what he claims to know."
+
+msgid "Indeed"
+msgstr "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\""
+
+msgid "Contradiction"
+msgstr "Use the Principle of Non Contradiction to force one's interlocutor into a dead end."
+
+msgid "NotFalse"
+msgstr "This answer is not false. It is true that the revelation of the interlocutor's ignorance means showing the contradictory conclusions where lead his premisses."
+
+msgid "AddPageHome"
+msgstr "ペ〖ジをアップロ〖ドし、ホ〖ムペ〖ジにリンクをはる"
+
+msgid "ModifyInfo"
+msgstr "コ〖スの攫鼠を柠赖"
+
+msgid "AgendaTitle"
+msgstr "Tuesday the 11th of December - First lesson : Newton 18"
+
+msgid "AgendaText"
+msgstr "General introduction to philosophy and methodology principles"
+
+msgid "Google"
+msgstr "Quick and powerfull search engine"
+
+msgid "IntroductionTwo"
+msgstr "池栏、壬が矢今をアップロ〖ド叫丸るペ〖ジです。HTMLのみで茶咙は叫丸ません。"
+
+msgid "AnnouncementEx"
+msgstr "お梦らせの毋:コ〖スの兜徽か瓷妄荚のみが今けます。"
+
+msgid "JustCreated"
+msgstr "コ〖スのウエブサイトを侯りました"
+
+msgid "Ln"
+msgstr "言語"
+
+msgid "FieldsRequ"
+msgstr "すべての腕の淡掐が涩妥"
+
+msgid "Ex"
+msgstr "毋¨<i>矢池凰</i>"
+
+msgid "Fac"
+msgstr "カテゴリ"
+
+msgid "TargetFac"
+msgstr "このコ〖スの池彩、池婶"
+
+msgid "Doubt"
+msgstr "コ〖ス戎规が悼わしいなら、碰澈婶金に息晚してください"
+
+msgid "Program"
+msgstr "コ〖スプログラム"
+
+msgid "TitleNotification"
+msgstr "Since your last visit"
+
+msgid "LearnpathAdded"
+msgstr "コースを追加しました"
+
+msgid "DocumentInvisible"
+msgstr "ドキュメントを非表示にしました"
+
+msgid "DocumentVisible"
+msgstr "ドキュメントを表示しました"
+
+msgid "CourseDescriptionAdded"
+msgstr "コースの説明を追加しました"
+
+msgid "DeleteAllAttendances"
+msgstr "作成した出席をすべて削除"
+
+msgid "AlreadyRegisteredToCourse"
+msgstr "コースに既に登録済み"
+
+msgid "AddForumCategory"
+msgstr "フォーラム カテゴリを追加"
+
+msgid "Posts"
+msgstr "投稿"
+
+msgid "LastPosts"
+msgstr "最新の投稿"
+
+msgid "InForumCategory"
+msgstr "カテゴリに作成"
+
+msgid "StudentsCanEdit"
+msgstr "学生は自身の投稿を編集することができますか?"
+
+msgid "AllowNewThreads"
+msgstr "ユーザーに新しいスレッドの開始を許可"
+
+msgid "DefaultViewType"
+msgstr "既定の表示の種類"
+
+msgid "NotAGroupForum"
+msgstr "グループ フォーラムではありません"
+
+msgid "PublicPrivateGroupForum"
+msgstr "公開または制限付きグループ フォーラム"
+
+msgid "Views"
+msgstr "表示"
+
+msgid "LastPost"
+msgstr "最新の投稿"
+
+msgid "Flat"
+msgstr "フラット"
+
+msgid "Threaded"
+msgstr "スレッド"
+
+msgid "Nested"
+msgstr "入れ子"
+
+msgid "Approval"
+msgstr "承認"
+
+msgid "Direct"
+msgstr "直接"
+
+msgid "ForGroup"
+msgstr "対象グループ"
+
+msgid "DeleteForum"
+msgstr "フォーラムを削除しますか ?"
+
+msgid "DeleteForumCategory"
+msgstr "フォーラム カテゴリを削除しますか ?"
+
+msgid "Lock"
+msgstr "ロック"
+
+msgid "Unlock"
+msgstr "ロック解除"
+
+msgid "MoveThread"
+msgstr "スレッドを移動"
+
+msgid "DeleteCompleteThread"
+msgstr "スレッドを完全に削除しますか?"
+
+msgid "AddImage"
+msgstr "画像を追加"
+
+msgid "ThreadUsersList"
+msgstr "スレッドのユーザー一覧"
+
+msgid "Thread"
+msgstr "スレッド"
+
+msgid "NotifyMe"
+msgstr "通知する"
+
+msgid "CreateForum"
+msgstr "フォーラムを作成"
+
+msgid "ModifyForum"
+msgstr "フォーラムを編集"
+
+msgid "EditForum"
+msgstr "フォーラムを編集"
+
+msgid "BackToForumOverview"
+msgstr "フォーラムの概要へ戻る"
+
+msgid "LinkDelconfirm"
+msgstr "このリンクを削除しますか?"
+
+msgid "CategoryAdd"
+msgstr "カテゴリを追加"
+
+msgid "OnHomepage"
+msgstr "リンクをコースのホームページに表示"
+
+msgid "General"
+msgstr "全般"
+
+msgid "SaveLink"
+msgstr "リンクを保存"
+
+msgid "AddTargetOfLinkOnHomepage"
+msgstr "コースのホームページに表示するリンクの \"target\" を選択します"
+
+msgid "NoteAddNew"
+msgstr "新しいノートを個人用のノートブックに追加"
+
+msgid "OrderByCreationDate"
+msgstr "作成日で並べ替え"
+
+msgid "OrderByModificationDate"
+msgstr "最終変更日で並べ替え"
+
+msgid "OrderByTitle"
+msgstr "タイトルで並べ替え"
+
+msgid "NoteTitle"
+msgstr "ノートのタイトル"
+
+msgid "NoteComment"
+msgstr "ノートの詳細"
+
+msgid "NoteConfirmDelete"
+msgstr "このノートを削除してもよろしいですか"
+
+msgid "AddNote"
+msgstr "ノートを作成"
+
+msgid "BackToNotesList"
+msgstr "ノート一覧へ戻る"
+
+msgid "CourseManagement"
+msgstr "コース カタログ"
+
+msgid "SortMyCourses"
+msgstr "コースを並べ替え"
+
+msgid "CourseCategories"
+msgstr "コース カテゴリ"
+
+msgid "SearchCourse"
+msgstr "コースを検索"
+
+msgid "CreateDocument"
+msgstr "リッチ メディアのページ / 活動項目を作成"
+
+msgid "CreateDoc"
+msgstr "リッチ メディアのページ / 活動項目を作成"
+
+msgid "Uncompress"
+msgstr "ZIP ファイルを展開"
+
+msgid "WCAGGoMenu"
+msgstr "メニューへ"
+
+msgid "WCAGGoContent"
+msgstr "コンテンツへ"
+
+msgid "AdminBy"
+msgstr "管理者"
+
+msgid "Statistiques"
+msgstr "統計"
+
+msgid "VisioHostLocal"
+msgstr "ビデオ会議サーバ"
+
+msgid "ShowBackLinkOnTopOfCourseTreeComment"
+msgstr "コースの階層へ戻るリンクを表示します。リンクは一覧の下にあります。"
+
+msgid "ShowBackLinkOnTopOfCourseTree"
+msgstr "カテゴリ/コースから戻るリンクを表示"
+
+msgid "ShowNumberOfCourses"
+msgstr "コース数を表示"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "コース名に教員を表示"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "コース一覧に教員を表示します"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "コース一覧にコース コードを表示します"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "コース名にコードを表示"
+
+msgid "ConfigureHomePage"
+msgstr "プラットフォームのホームページを編集"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "コースの作成時にアクティブなモジュール"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "新しいコースを作成した場合、どのツールを既定で有効にする (表示する) 必要がありますか?"
+
+msgid "CreateUser"
+msgstr "ユーザ作成"
+
+msgid "ModifyUser"
+msgstr "ユーザ編集"
+
+msgid "CourseFaculty"
+msgstr "カテゴリ"
+
+msgid "CourseDepartment"
+msgstr "部門"
+
+msgid "CourseDepartmentURL"
+msgstr "部門の URL"
+
+msgid "PhoneNumber"
+msgstr "電話番号"
+
+msgid "AddToCourse"
+msgstr "コースを追加"
+
+msgid "DeleteFromPlatform"
+msgstr "プラットフォームから削除"
+
+msgid "DeleteCourse"
+msgstr "選択したコースを削除"
+
+msgid "DeleteSelectedClasses"
+msgstr "選択されたクラスを削除"
+
+msgid "Administrator"
+msgstr "管理者"
+
+msgid "AddUsers"
+msgstr "ユーザーを追加"
+
+msgid "AddGroups"
+msgstr "グループを追加"
+
+msgid "ModifyUserInfo"
+msgstr "ユーザー情報を編集"
+
+msgid "ModifyCourseInfo"
+msgstr "コース情報を編集"
+
+msgid "ImportUserListXMLCSV"
+msgstr "ユーザー一覧をインポート"
+
+msgid "ExportUserListXMLCSV"
+msgstr "ユーザー一覧をエクスポート"
+
+msgid "AddUsersToACourse"
+msgstr "ユーザーをコースに追加"
+
+msgid "AdminCategories"
+msgstr "コース カテゴリ"
+
+msgid "PageAfterLoginTitle"
+msgstr "ログイン後のページ"
+
+msgid "PageAfterLoginComment"
+msgstr "プラットフォームにアクセスしたユーザーが参照するページです"
+
+msgid "Maintenance"
+msgstr "バックアップ"
+
+msgid "AddCourse"
+msgstr "コースを作成"
+
+msgid "DontResetPassword"
+msgstr "パスワードをリセットしない"
+
+msgid "PlatformLanguageTitle"
+msgstr "プラットフォームの言語"
+
+msgid "ServerStatusComment"
+msgstr "このサーバーの種類は何ですか? この設定は特定のオプションを有効または無効にします。開発サーバーには、未翻訳の文字列を示す翻訳機能があります"
+
+msgid "ServerStatusTitle"
+msgstr "サーバーの種類"
+
+msgid "PlatformLanguages"
+msgstr "Chamilo のプラットフォームの言語"
+
+msgid "PlatformLanguagesExplanation"
+msgstr "このツールではログイン ページの言語選択メニューを管理します。プラットフォーム管理者として、ユーザーが利用可能な言語を決定することができます。"
+
+msgid "OriginalName"
+msgstr "元の名前"
+
+msgid "EnglishName"
+msgstr "英語名"
+
+msgid "LMSFolder"
+msgstr "Chamilo のフォルダー"
+
+msgid "Properties"
+msgstr "プロパティ"
+
+msgid "PlatformConfigSettings"
+msgstr "構成の設定"
+
+msgid "InstitutionTitle"
+msgstr "組織名"
+
+msgid "InstitutionComment"
+msgstr "組織の名前です (ヘッダーの右に表示します)"
+
+msgid "InstitutionUrlTitle"
+msgstr "組織の URL (Web アドレス)"
+
+msgid "InstitutionUrlComment"
+msgstr "組織の URL です (ヘッダーの右に表示するリンクです)"
+
+msgid "SiteNameTitle"
+msgstr "e ラーニングのプラットフォーム名"
+
+msgid "SiteNameComment"
+msgstr "Chamilo のプラットフォーム名です (ヘッダーに表示します)"
+
+msgid "emailAdministratorTitle"
+msgstr "プラットフォーム管理者: 電子メール"
+
+msgid "emailAdministratorComment"
+msgstr "プラットフォーム管理者の電子メール アドレスです (フッターの左に表示します)"
+
+msgid "administratorSurnameTitle"
+msgstr "プラットフォーム管理者: 姓"
+
+msgid "administratorSurnameComment"
+msgstr "プラットフォーム管理者の姓です (フッターの左に表示します)"
+
+msgid "administratorNameTitle"
+msgstr "プラットフォーム管理者: 名"
+
+msgid "administratorNameComment"
+msgstr "プラットフォーム管理者の名前です (フッターの左に表示します)"
+
+msgid "ShowAdministratorDataTitle"
+msgstr "フッターのプラットフォーム管理者の情報"
+
+msgid "ShowAdministratorDataComment"
+msgstr "プラットフォーム管理者の情報をフッターに表示しますか?"
+
+msgid "HomepageViewTitle"
+msgstr "コースのホームページの設計"
+
+msgid "HomepageViewComment"
+msgstr "コースのホームページをどのように表示しますか?"
+
+msgid "ShowToolShortcutsTitle"
+msgstr "ツールのショートカット"
+
+msgid "ShowToolShortcutsComment"
+msgstr "ツールのショートカットを見出しに表示しますか?"
+
+msgid "AllowGroupCategories"
+msgstr "グループ カテゴリ"
+
+msgid "AllowGroupCategoriesComment"
+msgstr "グループ ツールで教員にカテゴリの作成を許可しますか?"
+
+msgid "PlatformLanguageComment"
+msgstr "プラットフォーム管理の別の画面でプラットフォームの言語を決定することができます: <a href=\"languages.php\">Chamilo のプラットフォームの言語</a>"
+
+msgid "ProductionServer"
+msgstr "運用サーバー"
+
+msgid "TestServer"
+msgstr "テスト サーバー"
+
+msgid "ShowOnlineTitle"
+msgstr "オンライン ユーザー"
+
+msgid "ShowOnlineComment"
+msgstr "オンライン ユーザー数を表示しますか?"
+
+msgid "DefaultDocumentQuotumTitle"
+msgstr "既定のハード ディスク領域"
+
+msgid "DefaultDocumentQuotumComment"
+msgstr "コースの利用可能なディスク領域はいくつですか? 特定のコースのクォータを上書きすることができます: プラットフォーム管理 > コース > 変更"
+
+msgid "DefaultGroupQuotumTitle"
+msgstr "グループの利用可能なディスク領域"
+
+msgid "DefaultGroupQuotumComment"
+msgstr "グループのドキュメント ツールで利用可能な既定のハード ディスク領域はいくつですか?"
+
+msgid "AllowLostPasswordTitle"
+msgstr "パスワード忘れ"
+
+msgid "AllowLostPasswordComment"
+msgstr "ユーザーに忘れたパスワードを要求することを許可しますか?"
+
+msgid "AllowRegistrationTitle"
+msgstr "登録"
+
+msgid "AllowRegistrationComment"
+msgstr "新しいユーザーとして登録することを許可しますか? ユーザーは新しいアカウントを作成することができますか?"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "教員として登録"
+
+msgid "AllowRegistrationAsTeacherComment"
+msgstr "ユーザーは教員 (コースを作成可能) として登録することができますか?"
+
+msgid "PlatformLanguage"
+msgstr "プラットフォームの言語"
+
+msgid "Tuning"
+msgstr "チューニング"
+
+msgid "CourseQuota"
+msgstr "ディスク領域"
+
+msgid "AllowUserHeadingsComment"
+msgstr "教員は学生のプロファイルのフィールドを定義して追加情報を取得することができますか?"
+
+msgid "Languages"
+msgstr "言語"
+
+msgid "HideDLTTMarkupComment"
+msgstr "言語の変数が未翻訳の場合、[= ... =] のマークアップを非表示にします"
+
+msgid "NoClassesForThisUser"
+msgstr "このユーザーはクラスに登録されていません"
+
+msgid "Tool"
+msgstr "ツール"
+
+msgid "CurrentValue"
+msgstr "現在の値"
+
+msgid "SubscriptionAllowed"
+msgstr "登録を許可"
+
+msgid "UnsubscriptionAllowed"
+msgstr "登録解除を許可"
+
+msgid "AutoGeneratePassword"
+msgstr "新しいパスワードを自動的に生成する"
+
+msgid "StudentPublications"
+msgstr "課題"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "削除したファイルを復元できない"
+
+msgid "PermanentlyRemoveFilesComment"
+msgstr "ドキュメント ツールでファイルを完全に削除します。ファイルを復元することはできません"
+
+msgid "DropboxMaxFilesizeTitle"
+msgstr "課題提出箱: ドキュメントの最大ファイル サイズ"
+
+msgid "DropboxMaxFilesizeComment"
+msgstr "課題提出箱のドキュメントの最大はいくつですか? (MB 単位)"
+
+msgid "DropboxAllowOverwriteTitle"
+msgstr "課題提出箱: ドキュメントを上書きすることができますか"
+
+msgid "DropboxAllowOverwriteComment"
+msgstr "ユーザーまたは教員が既に存在する名前のドキュメントをアップロードした場合、元のドキュメントを上書きすることができますか? はいを選択するとバージョン管理メカニズムを失います。"
+
+msgid "DropboxAllowJustUploadTitle"
+msgstr "課題提出箱: 自身の課題提出箱の領域にアップロードしますか?"
+
+msgid "DropboxAllowJustUploadComment"
+msgstr "ドキュメントを自身に送信せずに課題提出箱にアップロードすることを教員とユーザーに許可します"
+
+msgid "DropboxAllowStudentToStudentTitle"
+msgstr "課題提出箱: 学生 <-> 学生"
+
+msgid "DropboxAllowStudentToStudentComment"
+msgstr "その他のユーザー (ピア ツー ピア) にドキュメントを送信することを許可します。ユーザーはこれを関連性の低いドキュメント (MP3、テストの正解、...) に使用する場合があります。これを無効にした場合、ユーザーは教員のみにドキュメントを送信することができます。"
+
+msgid "DropboxAllowMailingTitle"
+msgstr "課題提出箱: メールを許可"
+
+msgid "DropboxAllowMailingComment"
+msgstr "メール機能では、個人用のドキュメントを各学生に送信することができます"
+
+msgid "administratorTelephoneTitle"
+msgstr "プラットフォーム管理者: 電話"
+
+msgid "administratorTelephoneComment"
+msgstr "プラットフォーム管理者の電話番号です"
+
+msgid "SendMailToNewUser"
+msgstr "メールを新しいユーザーに送信"
+
+msgid "Classes"
+msgstr "クラス"
+
+msgid "DropboxAllowGroupTitle"
+msgstr "課題提出箱: グループを許可"
+
+msgid "DropboxAllowGroupComment"
+msgstr "ユーザーがファイルをグループに送信することができます"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "コースのナビゲーション メニューを表示"
+
+msgid "ShowNavigationMenuComment"
+msgstr "ツールに素早くアクセスできるナビゲーション メニューを表示します"
+
+msgid "LoginAs"
+msgstr "このユーザーとしてログイン"
+
+msgid "ShowOnlineWorld"
+msgstr "オンライン ユーザー数をログイン ページに表示する (全員に表示します)"
+
+msgid "ShowOnlineUsers"
+msgstr "オンライン ユーザー数をすべてのページに表示する (ログインしたユーザーに表示します)"
+
+msgid "ShowOnlineCourse"
+msgstr "このコースのオンライン ユーザー数を表示する"
+
+msgid "MakeAvailable"
+msgstr "利用可能にする"
+
+msgid "MakeUnavailable"
+msgstr "利用不可能にする"
+
+msgid "Stylesheets"
+msgstr "スタイル シート"
+
+msgid "Plugin"
+msgstr "プラグイン"
+
+msgid "MainMenu"
+msgstr "メインメニュー"
+
+msgid "YourVersionIs"
+msgstr "お使いのバージョンは"
+
+msgid "ShowEmailAddresses"
+msgstr "電子メール アドレスを表示"
+
+msgid "ShowEmailAddressesComment"
+msgstr "電子メール アドレスをユーザーに表示します"
+
+msgid "ListSession"
+msgstr "コースのセッション一覧"
+
+msgid "AddSession"
+msgstr "コースのセッションを追加"
+
+msgid "ImportSessionListXMLCSV"
+msgstr "セッション一覧をインポート"
+
+msgid "ExportSessionListXMLCSV"
+msgstr "セッション一覧をエクスポート"
+
+msgid "AfterApproval"
+msgstr "承認後"
+
+msgid "StudentViewEnabledTitle"
+msgstr "学生表示を有効にする"
+
+msgid "StudentViewEnabledComment"
+msgstr "学生表示を有効にして、教員または管理者に学生としてコースを参照することを許可します"
+
+msgid "TimeLimitWhosonlineTitle"
+msgstr "オンライン ユーザーの時間制限"
+
+msgid "TimeLimitWhosonlineComment"
+msgstr "この時間制限は、オンラインと見なされるユーザーの最後の操作後の時間 (分) を定義します"
+
+msgid "AccountValidDurationTitle"
+msgstr "アカウントの有効性"
+
+msgid "AccountValidDurationComment"
+msgstr "ユーザー アカウントは、作成後この日数の間は有効です"
+
+msgid "HomepageViewActivity"
+msgstr "活動項目表示 (既定)"
+
+msgid "HomepageView2column"
+msgstr "2 列表示"
+
+msgid "HomepageView3column"
+msgstr "3 列表示"
+
+msgid "AllowUserHeadings"
+msgstr "ユーザーにコースのプロファイルを許可"
+
+msgid "IconsOnly"
+msgstr "アイコンのみ"
+
+msgid "TextOnly"
+msgstr "テキストのみ"
+
+msgid "IconsText"
+msgstr "アイコンとテキスト"
+
+msgid "EnableToolIntroductionTitle"
+msgstr "ツールの概要を有効にする"
+
+msgid "EnableToolIntroductionComment"
+msgstr "各ツールのホームページで概要を有効にします"
+
+msgid "BreadCrumbsCourseHomepageTitle"
+msgstr "コースのホームページの階層リンク"
+
+msgid "BreadCrumbsCourseHomepageComment"
+msgstr "階層リンクは水平のリンクのナビゲーション システムで、通常、ページの左上に表示されます。このオプションではコースのホームページの階層リンクに表示するものを選択します"
+
+msgid "VersionCheck"
+msgstr "バージョンの確認"
+
+msgid "ThisFieldShouldBeNumeric"
+msgstr "このフィールドは数値でなければなりません"
+
+msgid "RegistrationDate"
+msgstr "登録日"
+
+msgid "CourseTeachers"
+msgstr "教員"
+
+msgid "HideDLTTMarkup"
+msgstr "DLTT マークアップを非表示にする"
+
+msgid "ShowDifferentCourseLanguageComment"
+msgstr "各コースの言語をホームページのコース一覧でコースのタイトルの隣に表示します"
+
+msgid "ShowEmptyCourseCategoriesComment"
+msgstr "空の場合でも、コース カテゴリをホームページに表示します"
+
+msgid "ShowEmptyCourseCategories"
+msgstr "空のコース カテゴリを表示"
+
+msgid "AllowEmailEditorTitle"
+msgstr "オンライン電子メール エディターを有効にする"
+
+msgid "AllowEmailEditorComment"
+msgstr "このオプションをアクティブにした場合、電子メール アドレスをクリックするとオンライン メール エディターが開きます。"
+
+msgid "ShowDifferentCourseLanguage"
+msgstr "コースの言語を表示"
+
+msgid "Security"
+msgstr "セキュリティ"
+
+msgid "ShowNumberOfCoursesComment"
+msgstr "各カテゴリのコース数をホームページのコース カテゴリに表示します"
+
+msgid "NoSessionsForThisUser"
+msgstr "このユーザーはセッションに登録されていません"
+
+msgid "DisplayCategoriesOnHomepageTitle"
+msgstr "ホーム ページにカテゴリを表示"
+
+msgid "DisplayCategoriesOnHomepageComment"
+msgstr "このオプションはプラットフォームのホーム ページにコース カテゴリを表示または非表示にします"
+
+msgid "ShowTabsTitle"
+msgstr "ヘッダーのタブ"
+
+msgid "ShowTabsComment"
+msgstr "ヘッダーに表示するタブのチェックボックスをオンにします。オフにしたタブは、表示する必要がある場合、プラットフォームのホームページとコースのページの右側のメニューに表示されます"
+
+msgid "DefaultForumViewTitle"
+msgstr "既定のフォーラム表示"
+
+msgid "DefaultForumViewComment"
+msgstr "新しいコースを作成するときの既定のオプションは何ですか。教員は個々のフォーラムで別の表示を選択することができます"
+
+msgid "TabsMyCourses"
+msgstr "コース タブ"
+
+msgid "TabsCampusHomepage"
+msgstr "プラットフォームのホームページ タブ"
+
+msgid "TabsReporting"
+msgstr "レポート作成タブ"
+
+msgid "TabsPlatformAdministration"
+msgstr "プラットフォーム管理タブ"
+
+msgid "TabsMyAgenda"
+msgstr "予定表タブ"
+
+msgid "PlatformCharsetTitle"
+msgstr "文字セット"
+
+msgid "PlatformCharsetComment"
+msgstr "文字セットでは、特定の言語を Chamilo に表示させる方法を設定することができます。たとえばロシア語または日本語の文字を使用するときに、これを変更する場合があります。英語、ラテン語および西ヨーロッパのすべての文字は既定の UTF-8 で問題ありません。"
+
+msgid "NoReplyEmailAddress"
+msgstr "送信専用の電子メール アドレス"
+
+msgid "NoReplyEmailAddressComment"
+msgstr "これは、返信を要求しない電子メールを送信する場合に使用する電子メール アドレスです。一般に、この電子メール アドレスをサーバーに構成して、すべての受信メールを除外/無視しなければなりません。"
+
+msgid "SurveyEmailSenderNoReply"
+msgstr "意見調査の電子メールの送信者 (送信専用)"
+
+msgid "SurveyEmailSenderNoReplyComment"
+msgstr "TA の電子メール アドレスまたはメインの構成セクションで定義した送信専用のアドレスのどちらを意見調査の招待に使用しますか?"
+
+msgid "CourseCoachEmailSender"
+msgstr "TA の電子メール アドレス"
+
+msgid "NoReplyEmailSender"
+msgstr "送信専用の電子メール アドレス"
+
+msgid "InstallDirAccessibleSecurityThreat"
+msgstr "Web ユーザーは Chamilo システムのメイン/インストール ディレクトリにまだアクセスすることができます。これはインストールのセキュリティの脅威になる場合があります。このディレクトリを削除するかアクセス許可を変更して、Web ユーザーにスクリプトを使用できなくすることをお勧めします。"
+
+msgid "UserThemeSelection"
+msgstr "ユーザーのテーマ選択"
+
+msgid "UserThemeSelectionComment"
+msgstr "ユーザーにプロファイルで視覚テーマを選択することを許可します。これはそのユーザーの Chamilo の外観を変更しますが、プラットフォームの既定のスタイルはそのまま残ります。特定のコースまたはセッションに特定のテーマを割り当てた場合、優先度はユーザー定義のテーマよりも高くなります。"
+
+msgid "ManageUserFields"
+msgstr "プロファイル"
+
+msgid "AllowCourseThemeTitle"
+msgstr "コースのテーマを許可"
+
+msgid "AllowCourseThemeComment"
+msgstr "コースのグラフィック テーマを許可して、コースで使用するスタイル シートを Chamilo で利用可能な任意のスタイル シートに変更できるようにします。ユーザーがコースにアクセスした場合、コースのスタイル シートはユーザーのスタイル シートやプラットフォームの既定のスタイル シートよりも優先度が高くなります。"
+
+msgid "DisplayMiniMonthCalendarTitle"
+msgstr "予定表ツールで小さい月間カレンダーを表示"
+
+msgid "DisplayMiniMonthCalendarComment"
+msgstr "この設定は予定表ツールの左の列に表示される小さい月間カレンダーを有効または無効にします"
+
+msgid "DisplayUpcomingEventsTitle"
+msgstr "予定表ツールで今後のイベントを表示"
+
+msgid "DisplayUpcomingEventsComment"
+msgstr "この設定はコースの予定表ツールの左の列に表示される今後のイベントを有効または無効にします"
+
+msgid "NumberOfUpcomingEventsTitle"
+msgstr "今後のイベントの表示数"
+
+msgid "NumberOfUpcomingEventsComment"
+msgstr "予定表に表示する今後のイベントの数です。これは今後のイベントの機能がアクティブである必要があります (上記の設定を参照してください)。"
+
+msgid "ShowClosedCoursesTitle"
+msgstr "非公開コースをログイン ページとプラットフォームの開始ページに表示しますか?"
+
+msgid "ShowClosedCoursesComment"
+msgstr "非公開コースをログイン ページとコースの開始ページに表示しますか? プラットフォームの開始ページでは、各コースに素早く登録するアイコンがコースの隣に表示されます。これは、ユーザーがログインした場合とユーザーがプラットフォームにまだ登録していない場合にのみプラットフォームの開始ページに表示されます。"
+
+msgid "LDAP"
+msgstr "LDAP"
+
+msgid "AllowUsersToCreateCoursesTitle"
+msgstr "管理者以外にコースの作成を許可"
+
+msgid "AllowUsersToCreateCoursesComment"
+msgstr "管理者以外 (教員) にサーバーで新しいコースの作成を許可します"
+
+msgid "AllowStudentsToBrowseCoursesComment"
+msgstr "学生にコース カタログの参照とコースへの登録を許可します"
+
+msgid "YesWillDeletePermanently"
+msgstr "はい (ファイルは完全に削除され、復元することはできません)"
+
+msgid "NoWillDeletePermanently"
+msgstr "いいえ (ファイルはアプリケーションから削除されますが、サーバー管理者が手動で復元することができます)"
+
+msgid "AllowStudentsToBrowseCoursesTitle"
+msgstr "学生がコース カタログにアクセスする"
+
+msgid "GlobalAgenda"
+msgstr "グローバルな予定表"
+
+msgid "ScormAndLPProgressTotalAverage"
+msgstr "コースの進行状況の平均"
+
+msgid "Templates"
+msgstr "テンプレート"
+
+msgid "AllowMessageToolTitle"
+msgstr "内部のメッセージ ツール"
+
+msgid "AllowReservationTitle"
+msgstr "予約"
+
+msgid "AllowReservationComment"
+msgstr "予約システムではコースのリソースを予約することができます (部屋、机、書籍、スクリーン、...)。ユーザーのメニューに表示するにはこのツールを (管理画面から) 有効にする必要があります。"
+
+msgid "AreYouSureYouWantToSetThisLanguageAsThePortalDefault"
+msgstr "この言語をプラットフォームの既定として設定してもよろしいですか?"
+
+msgid "CurrentLanguagesPortal"
+msgstr "現在のプラットフォームの言語"
+
+msgid "ScormAndLPTestTotalAverage"
+msgstr "学習パスのテストの平均"
+
+msgid "ImportUsersToACourse"
+msgstr "ユーザー一覧をインポート"
+
+msgid "ImportCourses"
+msgstr "コース一覧をインポート"
+
+msgid "AllowMessageToolComment"
+msgstr "内部のメッセージ ツールを有効にすると、ユーザーはメッセージをプラットフォームのその他のユーザーに送信して、メッセージの受信トレイを持つことができます。"
+
+msgid "AllowSocialToolTitle"
+msgstr "ソーシャル ネットワーク ツール (Facebook のような)"
+
+msgid "AllowSocialToolComment"
+msgstr "ソーシャル ネットワーク ツールではその他のユーザーとの関係を定義して、友人のグループを定義することができます。内部のメッセージ ツールと組み合わせると、このツールではプラットフォーム環境の友人と緊密なコミュニケーションをとることができます。"
+
+msgid "SetLanguageAsDefault"
+msgstr "言語を既定値として設定"
+
+msgid "AllowUseSubLanguageTitle"
+msgstr "サブ言語の定義と使用を許可"
+
+msgid "AllowUseSubLanguageComment"
+msgstr "このオプションを有効にすると、既存の言語を拡張して、プラットフォームのインターフェイスで使用する新しい言語の各用語を定義することができます。このオプションは管理パネルの言語セクションにあります。"
+
+msgid "LanguageIsNowVisible"
+msgstr "言語を表示しました。プラットフォーム全体で使用することができます。"
+
+msgid "LanguageIsNowHidden"
+msgstr "言語を非表示にしました。もう一度表示するまで使用することはできません。"
+
+msgid "ShowGlossaryInDocumentsTitle"
+msgstr "ドキュメントの用語集の用語を表示"
+
+msgid "ShowGlossaryInDocumentsComment"
+msgstr "ドキュメントから用語集の用語にリンクを追加する方法をここで構成することができます"
+
+msgid "ShowGlossaryInDocumentsIsAutomatic"
+msgstr "自動: すべての定義した用語集の用語へのリンクをドキュメントに追加します"
+
+msgid "ShowGlossaryInDocumentsIsManual"
+msgstr "手動: オンライン エディターに用語集のアイコンを表示して、用語にリンクさせることができます"
+
+msgid "ShowGlossaryInDocumentsIsNone"
+msgstr "なし: 用語集の用語をドキュメントに追加しません"
+
+msgid "ShowTeacherDataTitle"
+msgstr "フッターに教員の情報を表示"
+
+msgid "ShowTeacherDataComment"
+msgstr "教員の情報 (名前と電子メール) をフッターに表示しますか?"
+
+msgid "AllowTermsAndConditionsTitle"
+msgstr "利用規約を有効にする"
+
+msgid "AllowTermsAndConditionsComment"
+msgstr "このオプションは利用規約を新しいユーザーの登録フォームに表示します。最初にプラットフォームの管理ページで構成する必要があります。"
+
+msgid "ListSessionCategory"
+msgstr "セッション カテゴリ一覧"
+
+msgid "CopyFromCourseInSessionToAnotherSession"
+msgstr "セッションのコースを別のセッションにコピー"
+
+msgid "CurrentCourses"
+msgstr "現在のコース"
+
+msgid "ShowCoursesDescriptionsInCatalogTitle"
+msgstr "カタログにコースの説明を表示"
+
+msgid "ShowCoursesDescriptionsInCatalogComment"
+msgstr "コース カタログでコース情報のアイコンをクリックしたときに、統合されたポップアップとしてコースの説明を表示します"
+
+msgid "SpecialExports"
+msgstr "特別なエクスポート"
+
+msgid "ConfigureInscription"
+msgstr "登録ページを設定"
+
+msgid "AnnEmpty"
+msgstr "お梦らせをすべて、猴近する"
+
+msgid "AnnouncementModified"
+msgstr "お梦らせ饯赖"
+
+msgid "AnnouncementAdded"
+msgstr "お梦らせ纳裁"
+
+msgid "AnnouncementDeleted"
+msgstr "お梦らせ猴近"
+
+msgid "AnnouncementPublishedOn"
+msgstr "给倡"
+
+msgid "AddAnnouncement"
+msgstr "お知らせを追加"
+
+msgid "AnnouncementDeleteAll"
+msgstr "お梦らせをすべて、猴近する"
+
+msgid "professorMessage"
+msgstr "Message from your professor"
+
+msgid "EmailSent"
+msgstr " and emailed to registered students"
+
+msgid "EmailOption"
+msgstr "このお知らせを選択したグループ/ユーザーに電子メールで送信する"
+
+msgid "On"
+msgstr "On"
+
+msgid "RegUser"
+msgstr "registered users of the site"
+
+msgid "Unvalid"
+msgstr "have unvalid or no email address"
+
+msgid "ModifyAnnouncement"
+msgstr "お知らせを編集"
+
+msgid "ButtonPublishAnnouncement"
+msgstr "お知らせを送信"
+
+msgid "CourseManager"
+msgstr "教員"
+
+msgid "GroupUserManagement"
+msgstr "グループ管理"
+
+msgid "AddToFriends"
+msgstr "この連絡先を友人に追加してもよろしいですか ?"
+
+msgid "AddPersonalMessage"
+msgstr "個人用のメッセージを追加"
+
+msgid "Friends"
+msgstr "友人"
+
+msgid "SocialFriend"
+msgstr "友人"
+
+msgid "ExtraInformation"
+msgstr "追加情報"
+
+msgid "Friend"
+msgstr "友人"
+
+msgid "ViewMySharedProfile"
+msgstr "共有プロファイル"
+
+msgid "TryAndFindSomeFriends"
+msgstr "友人を検索"
+
+msgid "SendInvitation"
+msgstr "招待を送信"
+
+msgid "NewGroupCreate"
+msgstr "新しいグループを作成"
+
+msgid "GroupCreation"
+msgstr "新しいグループの作成"
+
+msgid "NewGroups"
+msgstr "新しいグループ"
+
+msgid "GroupPlacesThis"
+msgstr "人 (オプション)"
+
+msgid "GroupsAdded"
+msgstr "グループを追加しました"
+
+msgid "Registered"
+msgstr "登録済み"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "学生にグループへの自己登録を許可する"
+
+msgid "GroupDocument"
+msgstr "ドキュメント"
+
+msgid "GroupName"
+msgstr "グループ名"
+
+msgid "GroupSettingsModified"
+msgstr "グループの設定を変更しました"
+
+msgid "GroupSelfRegistration"
+msgstr "登録"
+
+msgid "PropModify"
+msgstr "設定を編集"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "ユーザーがメンバーになることができる最大:"
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr " グループ"
+
+msgid "GroupLimit"
+msgstr "制限"
+
+msgid "CreateGroup"
+msgstr "グループを作成"
+
+msgid "ProceedToCreateGroup"
+msgstr "グループの作成を続行"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "学生に自身をグループから登録解除することを許可する"
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "新しいグループの既定の設定"
+
+msgid "NoLimit"
+msgstr "制限なし"
+
+msgid "FillGroup"
+msgstr "コースの学生をグループへランダムに登録"
+
+msgid "EmptyGroup"
+msgstr "ユーザーをすべて登録解除"
+
+msgid "MaxGroupsPerUserInvalid"
+msgstr "ユーザーごとのグループの最大数が無効です。指定した数よりも多くのグループに登録されたユーザーがいます。"
+
+msgid "GroupOverview"
+msgstr "グループの概要"
+
+msgid "InvalidMaxNumberOfMembers"
+msgstr "メンバーの最大数に有効な数値を入力してください。"
+
+msgid "GroupTutors"
+msgstr "TA"
+
+msgid "GroupWork"
+msgstr "課題"
+
+msgid "GroupCalendar"
+msgstr "予定表"
+
+msgid "GroupAnnouncements"
+msgstr "お知らせ"
+
+msgid "BackToGroupList"
+msgstr "グループ一覧へ戻る"
+
+msgid "LearnPathAddedTitle"
+msgstr "Chamilo のコース作成ツールへようこそ !"
+
+msgid "DisplayComment"
+msgstr "学生の視点からコースを参照"
+
+msgid "NewStepComment"
+msgstr "テスト、活動項目およびマルチメディア コンテンツを追加"
+
+msgid "LearnpathTitle"
+msgstr "タイトル"
+
+msgid "LearnpathAddLearnpath"
+msgstr "新しい学習パスを作成"
+
+msgid "LearnpathEditLearnpath"
+msgstr "学習パスを編集"
+
+msgid "LearnpathDeleteLearnpath"
+msgstr "コースを削除"
+
+msgid "LearnpathPublish"
+msgstr "コースのホームページに公開"
+
+msgid "LearnpathEditModule"
+msgstr "セクションの説明/名前を編集"
+
+msgid "LearnpathDeleteModule"
+msgstr "セクションを削除"
+
+msgid "NewChapter"
+msgstr "セクションを追加"
+
+msgid "NewStep"
+msgstr "学習オブジェクトまたは活動項目を追加"
+
+msgid "EnterDataNewChapter"
+msgstr "セクションをコースに追加しています"
+
+msgid "NewDocument"
+msgstr "リッチ メディアのページ / 活動項目"
+
+msgid "Position"
+msgstr "目次"
+
+msgid "ViewModeEmbedded"
+msgstr "現在の表示モード: 埋め込み"
+
+msgid "ShowDebug"
+msgstr "デバッグを表示する"
+
+msgid "NewDocumentCreated"
+msgstr "リッチ メディアのページ/活動項目をコースに追加しました"
+
+msgid "UploadScorm"
+msgstr "SCORM のコースをインポート"
+
+msgid "FirstPosition"
+msgstr "最初の位置"
+
+msgid "AddLpIntro"
+msgstr "<strong>ようこそ</strong>、Chamilo のコース作成ツールへ。<br />手順を追ってコースを作成します。目次が左に表示されます。"
+
+msgid "AddLpToStart"
+msgstr "まず、コースのタイトルを入力します"
+
+msgid "AllowMultipleAttempts"
+msgstr "複数の実施を許可する"
+
+msgid "NewExercise"
+msgstr "新しいテスト"
+
+msgid "CreateANewForum"
+msgstr "新しいフォーラムを作成"
+
+msgid "ReturnToLearningPaths"
+msgstr "学習パスへ戻る"
+
+msgid "UpdateAllAudioFragments"
+msgstr "音声を追加"
+
+msgid "RemoveAudio"
+msgstr "音声を削除"
+
+msgid "ImageWillResizeMsg"
+msgstr "教員の画像は必要に応じてサイズ変更されます"
+
+msgid "EditLPSettings"
+msgstr "コースの設定を編集"
+
+msgid "SaveLPSettings"
+msgstr "コースの設定を保存"
+
+msgid "ShowAllAttempts"
+msgstr "実施をすべて表示する"
+
+msgid "HideAllAttempts"
+msgstr "実施をすべて非表示にする"
+
+msgid "CreateLearningPath"
+msgstr "続行"
+
+msgid "LPCreateDocument"
+msgstr "このドキュメントをコースに追加"
+
+msgid "LPName"
+msgstr "コース名"
+
+msgid "AuthoringOptions"
+msgstr "作成オプション"
+
+msgid "SaveSection"
+msgstr "セクションを保存"
+
+msgid "SaveAudioAndOrganization"
+msgstr "音声と構成を保存"
+
+msgid "TypeMessage"
+msgstr "メッセージを入力してください!"
+
+msgid "ConfirmReset"
+msgstr "メッセージをすべて削除しますか?"
+
+msgid "ClearList"
+msgstr "チャットを消去"
+
+msgid "Connected"
+msgstr "チャットの相手"
+
+msgid "Exercice"
+msgstr "テスト"
+
+msgid "NoEx"
+msgstr "附哼遍浆啼玛はありません"
+
+msgid "NewEx"
+msgstr "新しいテストを作成"
+
+msgid "Questions"
+msgstr "問題"
+
+msgid "Answers"
+msgstr "批え"
+
+msgid "True"
+msgstr "赖豺"
+
+msgid "Answer"
+msgstr "選択肢"
+
+msgid "ExerciseName"
+msgstr "テスト名"
+
+msgid "ExerciseDescription"
+msgstr "コンテキストをテストに指定"
+
+msgid "SimpleExercise"
+msgstr "1 つのページにすべての問題を表示する"
+
+msgid "SequentialExercise"
+msgstr "ページごとに 1 つの問題を表示する"
+
+msgid "RandomQuestions"
+msgstr "ランダムな問題"
+
+msgid "GiveExerciseName"
+msgstr "テスト名を入力してください"
+
+msgid "GoBackToQuestionList"
+msgstr "問題一覧へ戻る"
+
+msgid "AnswerType"
+msgstr "回答の種類"
+
+msgid "MultipleSelect"
+msgstr "複数選択"
+
+msgid "FillBlanks"
+msgstr "穴埋め"
+
+msgid "Matching"
+msgstr "組み合わせ"
+
+msgid "QuestionDescription"
+msgstr "問題を装飾"
+
+msgid "GiveQuestion"
+msgstr "問題を入力してください"
+
+msgid "GetExistingQuestion"
+msgstr "既存の問題を再利用"
+
+msgid "QuestionPool"
+msgstr "既存の問題を再利用"
+
+msgid "OrphanQuestions"
+msgstr "孤立した問題"
+
+msgid "AllExercises"
+msgstr "すべてのテスト"
+
+msgid "ExerciseManagement"
+msgstr "テスト管理"
+
+msgid "QuestionManagement"
+msgstr "問題 / 回答の管理"
+
+msgid "ExpectedChoice"
+msgstr "期待される回答"
+
+msgid "YourTotalScore"
+msgstr "テストの得点"
+
+msgid "EvalSet"
+msgstr "爬眶のセッティング"
+
+msgid "Active"
+msgstr "铜跟"
+
+msgid "Inactive"
+msgstr "痰跟"
+
+msgid "QuestCreate"
+msgstr "啼をつくる"
+
+msgid "ExRecord"
+msgstr "糠遍浆啼玛は瘦赂されました"
+
+msgid "BackModif"
+msgstr "遍浆啼玛试礁のために、もどる"
+
+msgid "DoEx"
+msgstr "啼玛を豺く"
+
+msgid "DefScor"
+msgstr "爬眶の年盗"
+
+msgid "CreateModif"
+msgstr "啼の侯喇と饯赖"
+
+msgid "Sub"
+msgstr "サブタイトル"
+
+msgid "MorA"
+msgstr "+answ."
+
+msgid "LesA"
+msgstr "-answ."
+
+msgid "RecEx"
+msgstr "遍浆啼玛を瘦赂する"
+
+msgid "RecQu"
+msgstr "啼を瘦赂する"
+
+msgid "AddQ"
+msgstr "問題を追加"
+
+msgid "DoAnEx"
+msgstr "遍浆啼玛を豺く"
+
+msgid "Generator"
+msgstr "啼玛侯喇ツ〖ル"
+
+msgid "Correct"
+msgstr "正解"
+
+msgid "PossAnsw"
+msgstr "啼に滦しての联买搀批腕眶"
+
+msgid "StudAnsw"
+msgstr "豺批荚の粗般眶"
+
+msgid "Determine"
+msgstr "Determine yourself the scoring weight through editing the table below. Click then on \"Ok\""
+
+msgid "NonNumber"
+msgstr "A non numeric value in"
+
+msgid "Replaced"
+msgstr "has been introduced. It has been replaced by 0"
+
+msgid "Superior"
+msgstr "A value bigger than 20 in"
+
+msgid "Rep20"
+msgstr "has been introduced. It has been replaced by 20"
+
+msgid "DefComment"
+msgstr "* If you click on \"Default values\", your ancient values will be permanently deleted."
+
+msgid "ScoreGet"
+msgstr "Numbers in black"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "Hot Potatoes ファイルをインポート"
+
+msgid "CreateQuestion"
+msgstr "問題を作成"
+
+msgid "ModifyExercise"
+msgstr "テスト名と設定を編集"
+
+msgid "FreeAnswer"
+msgstr "自由回答"
+
+msgid "NewQu"
+msgstr "新しい問題"
+
+msgid "NoImage"
+msgstr "画像を選択してください"
+
+msgid "HotSpot"
+msgstr "画像の領域"
+
+msgid "StudentScore"
+msgstr "学生の得点"
+
+msgid "Weighting"
+msgstr "得点"
+
+msgid "UploadJpgPicture"
+msgstr "領域に適用する画像 (JPG、PNG または GIF) をアップロードします。"
+
+msgid "RandomQuestionsHelp"
+msgstr "すべての問題をランダムに並べ替えるには、\"すべて\" を選択します。ランダムに並べ替えない場合は、\"いいえ\" を選択します。"
+
+msgid "ExerciseAttempts"
+msgstr "最大受験回数"
+
+msgid "Infinite"
+msgstr "無制限"
+
+msgid "BackToExercisesList"
+msgstr "テスト ツールへ戻る"
+
+msgid "DeleteAttempt"
+msgstr "受験を削除しますか?"
+
+msgid "QuantityQuestions"
+msgstr "問題"
+
+msgid "ReachedTimeLimit"
+msgstr "制限時間に達しました"
+
+msgid "NoFeedback"
+msgstr "試験 (フィードバックなし)"
+
+msgid "FeedbackType"
+msgstr "フィードバック"
+
+msgid "Difficulty"
+msgstr "難易度"
+
+msgid "ShowResultsToStudents"
+msgstr "得点を学生に表示"
+
+msgid "ProcedToQuestions"
+msgstr "問題を続行"
+
+msgid "AddQuestionToExercise"
+msgstr "この問題をテストに追加"
+
+msgid "UniqueAnswer"
+msgstr "選択"
+
+msgid "MultipleAnswer"
+msgstr "複数選択"
+
+msgid "QuestionsPerPage"
+msgstr "ページごとの問題"
+
+msgid "ExerciseAtTheEndOfTheTest"
+msgstr "テスト終了時"
+
+msgid "EnrichQuestion"
+msgstr "問題を装飾"
+
+msgid "SelectExercise"
+msgstr "テストを選択"
+
+msgid "YouHaveToSelectATest"
+msgstr "テストを選択する必要があります"
+
+msgid "HotspotDelineation"
+msgstr "領域の図示"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "UsersOnline"
+msgstr "オンライン ユーザー"
+
+msgid "Remove"
+msgstr "败瓢"
+
+msgid "Description"
+msgstr "説明"
+
+msgid "Links"
+msgstr "リンク"
+
+msgid "Works"
+msgstr "課題"
+
+msgid "Forums"
+msgstr "フォーラム"
+
+msgid "CreateDir"
+msgstr "フォルダーを作成"
+
+msgid "Name"
+msgstr "叹疚"
+
+msgid "Comment"
+msgstr "コメント"
+
+msgid "Visible"
+msgstr "表示"
+
+msgid "NewDir"
+msgstr "新しいフォルダーの名前"
+
+msgid "DirCr"
+msgstr "ディレクトリ侯喇"
+
+msgid "Download"
+msgstr "ダウンロード"
+
+msgid "Group"
+msgstr "グループ"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "GroupForum"
+msgstr "グループ フォーラム"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "LoginName"
+msgstr "ログイン"
+
+msgid "AutostartMp3"
+msgstr "音声を自動再生しますか？"
+
+msgid "Assignments"
+msgstr "Assignments"
+
+msgid "Forum"
+msgstr "フォーラム"
+
+msgid "DelImage"
+msgstr "画像を削除"
+
+msgid "Code"
+msgstr "コース コード"
+
+msgid "Up"
+msgstr "Up"
+
+msgid "Down"
+msgstr "下へ"
+
+msgid "Theme"
+msgstr "グラフィック テーマ"
+
+msgid "TheListIsEmpty"
+msgstr "空"
+
+msgid "UniqueSelect"
+msgstr "選択"
+
+msgid "CourseCreate"
+msgstr "コースを作成"
+
+msgid "Todo"
+msgstr "≈妥司∽"
+
+msgid "UserName"
+msgstr "ユ〖ザ叹"
+
+msgid "Hide"
+msgstr "非表示"
+
+msgid "Dear"
+msgstr "飞球"
+
+msgid "Archive"
+msgstr "アーカイブ"
+
+msgid "CourseCode"
+msgstr "コース コード"
+
+msgid "OfficialCode"
+msgstr "コード"
+
+msgid "FirstName"
+msgstr "名"
+
+msgid "LastName"
+msgstr "姓"
+
+msgid "Status"
+msgstr "状態"
+
+msgid "Email"
+msgstr "電子メール"
+
+msgid "AvailableFrom"
+msgstr "開始日"
+
+msgid "Preview"
+msgstr "プレビュー"
+
+msgid "Type"
+msgstr "種類"
+
+msgid "Reporting"
+msgstr "レポート作成"
+
+msgid "Back"
+msgstr "戻る"
+
+msgid "Info"
+msgstr "情報"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "AdvancedSearch"
+msgstr "高度な検索"
+
+msgid "Import"
+msgstr "インポート"
+
+msgid "Author"
+msgstr "作成者"
+
+msgid "QuestionType"
+msgstr "問題の種類"
+
+msgid "iso639_2_code"
+msgstr "ja"
+
+msgid "iso639_1_code"
+msgstr "jpn"
+
+msgid "charset"
+msgstr "UTF-8"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "sans-serif"
+
+msgid "right_font_family"
+msgstr "sans-serif"
+
+msgid "number_thousands_separator"
+msgstr ","
+
+msgid "number_decimal_separator"
+msgstr "."
+
+msgid "dateFormatShort"
+msgstr "%Y/%m/%d"
+
+msgid "dateFormatLong"
+msgstr "%Y/%m/%d (%a)"
+
+msgid "dateTimeFormatLong"
+msgstr "%Y/%m/%d %H:%M"
+
+msgid "timeNoSecFormat"
+msgstr "%H:%M"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "Allowed"
+msgstr "許可する"
+
+msgid "Modify"
+msgstr "饯赖"
+
+msgid "Invisible"
+msgstr "非表示"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Add"
+msgstr "追加"
+
+msgid "AddIntro"
+msgstr "Add introduction text"
+
+msgid "BackList"
+msgstr "リストに提る"
+
+msgid "ConfirmYourChoice"
+msgstr "よろしいですか"
+
+msgid "Choice"
+msgstr "回答"
+
+msgid "NotAllowed"
+msgstr "このページを参照することが許可されていません。接続の有効期限が切れたか、ページにアクセスするための特権が不足しています。"
+
+msgid "Manager"
+msgstr "管理者"
+
+msgid "NextPage"
+msgstr "次のページへ"
+
+msgid "PreviousPage"
+msgstr "前のページへ"
+
+msgid "Show"
+msgstr "表示"
+
+msgid "MyCourses"
+msgstr "コース"
+
+msgid "ModifyProfile"
+msgstr "プロファイル"
+
+msgid "MyStats"
+msgstr "進行状況を表示"
+
+msgid "Logout"
+msgstr "ログアウト"
+
+msgid "MyAgenda"
+msgstr "個人用の予定表"
+
+msgid "CourseHomepage"
+msgstr "コースのホーム"
+
+msgid "SwitchToTeacherView"
+msgstr "教員表示"
+
+msgid "SwitchToStudentView"
+msgstr "学生表示"
+
+msgid "Platform"
+msgstr "iCampus utilise la plate-forme"
+
+msgid "Statistics"
+msgstr "統計情報"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Courses"
+msgstr "コース"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "SelectAll"
+msgstr "すべて選択"
+
+msgid "UnSelectAll"
+msgstr "すべて選択解除"
+
+msgid "OnLine"
+msgstr "オンライン"
+
+msgid "PlatformAdmin"
+msgstr "管理"
+
+msgid "Doc"
+msgstr "コース"
+
+msgid "Groups"
+msgstr "グループ"
+
+msgid "GroupManagement"
+msgstr "グループ管理"
+
+msgid "All"
+msgstr "すべて"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Denied"
+msgstr "この機能を教員のみに利用可能にする"
+
+msgid "Today"
+msgstr "今日"
+
+msgid "CourseHomepageLink"
+msgstr "コースのホーム"
+
+msgid "User"
+msgstr "ユーザー"
+
+msgid "MondayShort"
+msgstr "月"
+
+msgid "TuesdayShort"
+msgstr "火"
+
+msgid "WednesdayShort"
+msgstr "水"
+
+msgid "ThursdayShort"
+msgstr "木"
+
+msgid "FridayShort"
+msgstr "金"
+
+msgid "SaturdayShort"
+msgstr "土"
+
+msgid "SundayShort"
+msgstr "日"
+
+msgid "MondayLong"
+msgstr "月曜日"
+
+msgid "TuesdayLong"
+msgstr "火曜日"
+
+msgid "WednesdayLong"
+msgstr "水曜日"
+
+msgid "ThursdayLong"
+msgstr "木曜日"
+
+msgid "FridayLong"
+msgstr "金曜日"
+
+msgid "SaturdayLong"
+msgstr "土曜日"
+
+msgid "SundayLong"
+msgstr "日曜日"
+
+msgid "JanuaryShort"
+msgstr "1 月"
+
+msgid "FebruaryShort"
+msgstr "2 月"
+
+msgid "MarchShort"
+msgstr "3 月"
+
+msgid "AprilShort"
+msgstr "4 月"
+
+msgid "MayShort"
+msgstr "5 月"
+
+msgid "JuneShort"
+msgstr "6 月"
+
+msgid "JulyShort"
+msgstr "7 月"
+
+msgid "AugustShort"
+msgstr "8 月"
+
+msgid "SeptemberShort"
+msgstr "9 月"
+
+msgid "OctoberShort"
+msgstr "10 月"
+
+msgid "NovemberShort"
+msgstr "11 月"
+
+msgid "DecemberShort"
+msgstr "12 月"
+
+msgid "JanuaryLong"
+msgstr "1 月"
+
+msgid "FebruaryLong"
+msgstr "2 月"
+
+msgid "MarchLong"
+msgstr "3 月"
+
+msgid "AprilLong"
+msgstr "4 月"
+
+msgid "MayLong"
+msgstr "5 月"
+
+msgid "JuneLong"
+msgstr "6 月"
+
+msgid "JulyLong"
+msgstr "7 月"
+
+msgid "AugustLong"
+msgstr "8 月"
+
+msgid "SeptemberLong"
+msgstr "9 月"
+
+msgid "OctoberLong"
+msgstr "10 月"
+
+msgid "NovemberLong"
+msgstr "11 月"
+
+msgid "DecemberLong"
+msgstr "12 月"
+
+msgid "Agenda"
+msgstr "予定表"
+
+msgid "HourShort"
+msgstr "時"
+
+msgid "ExportAsCSV"
+msgstr "CSV ファイルのエクスポート"
+
+msgid "ExportAsXLS"
+msgstr "Excel ファイルのエクスポート"
+
+msgid "Documents"
+msgstr "ドキュメント"
+
+msgid "DocumentAdded"
+msgstr "ドキュメントを追加しました"
+
+msgid "Course_description"
+msgstr "説明"
+
+msgid "Document"
+msgstr "ドキュメント"
+
+msgid "Learnpath"
+msgstr "コース"
+
+msgid "Link"
+msgstr "リンク"
+
+msgid "Dropbox"
+msgstr "課題提出箱"
+
+msgid "Quiz"
+msgstr "テスト"
+
+msgid "Student_publication"
+msgstr "課題"
+
+msgid "Tracking"
+msgstr "レポート作成"
+
+msgid "Backup"
+msgstr "バックアップとインポート"
+
+msgid "recycle_course"
+msgstr "このコースを空にする"
+
+msgid "StartDate"
+msgstr "開始日"
+
+msgid "EndDate"
+msgstr "終了日"
+
+msgid "StartTime"
+msgstr "開始時刻"
+
+msgid "EndTime"
+msgstr "終了時刻"
+
+msgid "Everybody"
+msgstr "すべて"
+
+msgid "SentTo"
+msgstr "宛先"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Everyone"
+msgstr "全員"
+
+msgid "Student"
+msgstr "学生"
+
+msgid "Teacher"
+msgstr "教員"
+
+msgid "Send2All"
+msgstr "ユーザー / グループを選択しませんでした。お知らせを学生全員に表示します"
+
+msgid "ThisFieldIsRequired"
+msgstr "必須フィールド"
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "最初の日付は終了日よりも前でなければなりません"
+
+msgid "InvalidDate"
+msgstr "日付が無効です"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "文字と数字のみが許可されています"
+
+msgid "OnlyImagesAllowed"
+msgstr "PNG、JPG または GIF 画像のみが使用することができます"
+
+msgid "MoveTo"
+msgstr "移動先"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Error"
+msgstr "エラー"
+
+msgid "Anonymous"
+msgstr "匿名"
+
+msgid "h"
+msgstr "時"
+
+msgid "Actions"
+msgstr "詳細"
+
+msgid "Inbox"
+msgstr "受信トレイ"
+
+msgid "ComposeMessage"
+msgstr "メッセージを作成"
+
+msgid "Other"
+msgstr "その他"
+
+msgid "CampusHomepage"
+msgstr "ホームページ"
+
+msgid "MySpace"
+msgstr "レポート作成"
+
+msgid "MyStudents"
+msgstr "学生"
+
+msgid "ActionNotAllowed"
+msgstr "操作が許可されていません"
+
+msgid "Teachers"
+msgstr "教員"
+
+msgid "Session"
+msgstr "セッション"
+
+msgid "Sessions"
+msgstr "コースのセッション"
+
+msgid "NoSession"
+msgstr "セッションが見つかりませんでした"
+
+msgid "Students"
+msgstr "学生"
+
+msgid "Tel"
+msgstr "電話"
+
+msgid "NoTel"
+msgstr "電話がありません"
+
+msgid "SendMail"
+msgstr "メールを送信"
+
+msgid "MyProgress"
+msgstr "進行状況"
+
+msgid "To"
+msgstr "宛先"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Day"
+msgstr "日"
+
+msgid "Days"
+msgstr "日"
+
+msgid "PleaseStandBy"
+msgstr "しばらくお待ちください..."
+
+msgid "AvailableUntil"
+msgstr "終了日"
+
+msgid "HourMinuteDivider"
+msgstr "時"
+
+msgid "Survey"
+msgstr "意見調査"
+
+msgid "More"
+msgstr "その他"
+
+msgid "ReturnTo"
+msgstr "戻ることができます:"
+
+msgid "Horizontal"
+msgstr "水平方向"
+
+msgid "Vertical"
+msgstr "垂直方向"
+
+msgid "Percentage"
+msgstr "割合"
+
+msgid "Information"
+msgstr "情報"
+
+msgid "SendEmail"
+msgstr "電子メールを送信"
+
+msgid "EmailTitle"
+msgstr "件名"
+
+msgid "Comments"
+msgstr "コメント"
+
+msgid "ModifyRecipientList"
+msgstr "受信者一覧を編集"
+
+msgid "NoLinkVisited"
+msgstr "リンクにアクセスしていません"
+
+msgid "NoDocumentDownloaded"
+msgstr "ドキュメントをダウンロードしていません"
+
+msgid "Clicks"
+msgstr "クリック"
+
+msgid "SessionActive"
+msgstr "アクティブ"
+
+msgid "Category"
+msgstr "カテゴリ"
+
+msgid "VisibilityChanged"
+msgstr "表示を変更しました。"
+
+msgid "SeeDetail"
+msgstr "詳細を参照"
+
+msgid "GroupSingle"
+msgstr "グループ"
+
+msgid "PleaseLoginAgainFromHomepage"
+msgstr "ホームページからもう一度ログインをお試しください"
+
+msgid "RemindInactivesLearnersSince"
+msgstr "非アクティブな学生に通知"
+
+msgid "Gradebook"
+msgstr "評価"
+
+msgid "NoManager"
+msgstr "管理者がいません"
+
+msgid "ExportiCalPublic"
+msgstr "公開イベントとして iCal ファイル形式にエクスポート"
+
+msgid "ExportiCalPrivate"
+msgstr "制限付きイベントとして iCal ファイル形式にエクスポート"
+
+msgid "ExportiCalConfidential"
+msgstr "機密のイベントとして iCal ファイル形式にエクスポート"
+
+msgid "Drh"
+msgstr "人事管理者"
+
+msgid "MinDecade"
+msgstr "10 年"
+
+msgid "MinYear"
+msgstr "年"
+
+msgid "MinMonth"
+msgstr "月"
+
+msgid "MinWeek"
+msgstr "週"
+
+msgid "MinDay"
+msgstr "日"
+
+msgid "MinHour"
+msgstr "時間"
+
+msgid "MinMinute"
+msgstr "分"
+
+msgid "MinDecades"
+msgstr "10 年"
+
+msgid "MinYears"
+msgstr "年"
+
+msgid "MinMonths"
+msgstr "月"
+
+msgid "MinWeeks"
+msgstr "週"
+
+msgid "MinDays"
+msgstr "日"
+
+msgid "MinHours"
+msgstr "時間"
+
+msgid "MinMinutes"
+msgstr "分"
+
+msgid "HomeDirectory"
+msgstr "ホーム"
+
+msgid "ForumAdded"
+msgstr "フォーラムを追加しました"
+
+msgid "FilesUpload"
+msgstr "ドキュメント"
+
+msgid "AddAnAttachment"
+msgstr "添付ファイルを追加"
+
+msgid "FileComment"
+msgstr "ファイルのコメント"
+
+msgid "FileName"
+msgstr "ファイル名"
+
+msgid "SessionsAdmin"
+msgstr "セッション管理者"
+
+msgid "Yesterday"
+msgstr "昨日"
+
+msgid "Department"
+msgstr "部門"
+
+msgid "NotAllowedClickBack"
+msgstr "申し訳ありませんが、このページへのアクセスが許可されていないか、接続の有効期限が切れた可能性があります。お使いのブラウザーの \"戻る\" ボタンをクリックするか、以下のリンクに従って前のページへ戻ってください。"
+
+msgid "Exercise"
+msgstr "テスト"
+
+msgid "AccountActive"
+msgstr "アクティブなアカウント"
+
+msgid "GroupSpace"
+msgstr "グループ領域"
+
+msgid "GroupWiki"
+msgstr "Wiki"
+
+msgid "ExportToPDF"
+msgstr "PDF ファイルにエクスポート"
+
+msgid "ListView"
+msgstr "一覧表示"
+
+msgid "NoOfficialCode"
+msgstr "コードがありません"
+
+msgid "Qualify"
+msgstr "活動項目を採点"
+
+msgid "Words"
+msgstr "単語"
+
+msgid "Details"
+msgstr "詳細"
+
+msgid "EditLink"
+msgstr "リンクを編集"
+
+msgid "Phone"
+msgstr "電話"
+
+msgid "Glossary"
+msgstr "用語集"
+
+msgid "CourseSettings"
+msgstr "コースの設定"
+
+msgid "EmailNotifications"
+msgstr "電子メール通知"
+
+msgid "UserRights"
+msgstr "ユーザー権限"
+
+msgid "GoTo"
+msgstr "移動:"
+
+msgid "SessionNameAndCourseTitle"
+msgstr "セッションとコースの名前"
+
+msgid "LastUpdateDate"
+msgstr "最終更新"
+
+msgid "Notebook"
+msgstr "ノートブック"
+
+msgid "FieldRequired"
+msgstr "必須フィールド"
+
+msgid "SaveSettings"
+msgstr "設定を保存"
+
+msgid "NoParticipation"
+msgstr "参加者がいません"
+
+msgid "Audio"
+msgstr "音声"
+
+msgid "GoToQuestion"
+msgstr "質問へ移動"
+
+msgid "Duration"
+msgstr "期間"
+
+msgid "Select"
+msgstr "選択"
+
+msgid "DestinationUsers"
+msgstr "対象ユーザー"
+
+msgid "MaxFileSize"
+msgstr "最大ファイル サイズ"
+
+msgid "Outbox"
+msgstr "送信トレイ"
+
+msgid "Overview"
+msgstr "概要"
+
+msgid "SocialNetwork"
+msgstr "ソーシャル ネットワーク"
+
+msgid "Photo"
+msgstr "写真"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Subject"
+msgstr "件名"
+
+msgid "Message"
+msgstr "メッセージ"
+
+msgid "MakeInvisible"
+msgstr "非表示にする"
+
+msgid "SaveIntroText"
+msgstr "概要のテキストを保存"
+
+msgid "Menu"
+msgstr "メニュー"
+
+msgid "BackTo"
+msgstr "戻る:"
+
+msgid "HistoryTrainingSessions"
+msgstr "コースのセッションの履歴"
+
+msgid "System"
+msgstr "システム"
+
+msgid "Parent"
+msgstr "親"
+
+msgid "FirstPage"
+msgstr "最初のページへ"
+
+msgid "LastPage"
+msgstr "最後のページへ"
+
+msgid "ScoreEdit"
+msgstr "スキルのランク"
+
+msgid "RootCat"
+msgstr "メイン フォルダー"
+
+msgid "NewEvaluation"
+msgstr "教室の活動項目を追加"
+
+msgid "Weight"
+msgstr "重み"
+
+msgid "EvaluationName"
+msgstr "評価"
+
+msgid "MakeLink"
+msgstr "オンラインでの活動項目を追加"
+
+msgid "DeleteSelected"
+msgstr "選択した項目を削除"
+
+msgid "SetVisible"
+msgstr "表示する"
+
+msgid "SetInvisible"
+msgstr "非表示にする"
+
+msgid "CertificateMinScore"
+msgstr "証明書の最低点"
+
+msgid "Display"
+msgstr "ランク"
+
+msgid "Results"
+msgstr "結果とフィードバック"
+
+msgid "Evaluation"
+msgstr "得点"
+
+msgid "EditAllWeights"
+msgstr "レポートの重み"
+
+msgid "AttachCertificate"
+msgstr "証明書を添付"
+
+msgid "GradebookSeeListOfStudentsCertificates"
+msgstr "学生の証明書一覧を参照"
+
+msgid "Evaluations"
+msgstr "評価"
+
+msgid "ThereIsNotACertificateAvailableByDefault"
+msgstr "既定の証明書がありません"
+
+msgid "QuestionPlan"
+msgstr "ヘルプ"
+
+msgid "NewBloc"
+msgstr "その他"
+
+msgid "InvalidId"
+msgstr "ログインは减け烧けられませんでした。もし判峡がまだなら、肌のリンクでどうぞ <a href"
+
+msgid "Pass"
+msgstr "パスワ〖ド"
+
+msgid "CourseDoesntExist"
+msgstr "焚桂¨このコ〖スは赂哼しません。"
+
+msgid "MenuGeneral"
+msgstr "ヘルプ"
+
+msgid "UsersOnLineList"
+msgstr "オンライン ユーザー一覧"
+
+msgid "SystemAnnouncements"
+msgstr "プラットフォームのお知らせ"
+
+msgid "HelpMaj"
+msgstr "へルプ"
+
+msgid "Login"
+msgstr "ログイン"
+
+msgid "Enter2passToChange"
+msgstr "パスワードを変更するには、上のフィールドに現在のパスワードを入力して、下の両方のフィールドに新しいパスワードを入力します。現在のパスワードを維持するには、3 つのフィールドを空のままにします。"
+
+msgid "NewPass"
+msgstr "新しいパスワード"
+
+msgid "AddAU"
+msgstr "ユ〖ザを裁える"
+
+msgid "AddedU"
+msgstr "has been added. An email has been sent to give him his username"
+
+msgid "TheU"
+msgstr "The user"
+
+msgid "RegYou"
+msgstr "has registered you on this course"
+
+msgid "OneResp"
+msgstr "One of the course administrators"
+
+msgid "UserPicture"
+msgstr "画像"
+
+msgid "ProfileReg"
+msgstr "新しいプロファイルを保存しました"
+
+msgid "EmailWrong"
+msgstr "電子メール アドレスが不完全または無効な文字が含まれています"
+
+msgid "UserTaken"
+msgstr "このログインは既に使用されています"
+
+msgid "Fields"
+msgstr "いくつかの腕が鄂球です。"
+
+msgid "Again"
+msgstr "浩刨活してください!"
+
+msgid "PassTwo"
+msgstr "2 つの異なるパスワードを入力しました"
+
+msgid "ModifProfile"
+msgstr "プロファイルを編集"
+
+msgid "IsReg"
+msgstr "ccourses is registered"
+
+msgid "PersonalSettings"
+msgstr "改客肋年が判峡されました。ユ〖ザ叹とパスワ〖ドの承えを淡很した mailが流烧されました。さて、あなたがとりたいコ〖スを联んでください。"
+
+msgid "Problem"
+msgstr "啼玛がおきたときは、息晚してください"
+
+msgid "Is"
+msgstr "は"
+
+msgid "Address"
+msgstr "アドレス::"
+
+msgid "YourReg"
+msgstr "判峡されました:"
+
+msgid "UserFree"
+msgstr "このユ〖ザ叹はすでに、戮の客がつかっています。ボタンで提って、侍の叹涟で判峡してください。"
+
+msgid "EmptyFields"
+msgstr "いくつかの腕が鄂球です。ボタンで提って、浩刨ためしてください"
+
+msgid "PassTwice"
+msgstr "1刨誊と2刨誊で般ったパスワ〖ドを掐れました。ボタンで提って、浩刨ためしてください"
+
+msgid "RegAdmin"
+msgstr "コースを作成"
+
+msgid "RegStudent"
+msgstr "コースに登録"
+
+msgid "Confirmation"
+msgstr "パスワードの確認入力"
+
+msgid "Surname"
+msgstr "叹涟"
+
+msgid "Registration"
+msgstr "判峡"
+
+msgid "SubscribeUserToCourse"
+msgstr "ユーザーをコースに登録"
+
+msgid "SearchButton"
+msgstr "検索"
+
+msgid "UsernameWrong"
+msgstr "ログインには文字、数字および _.- のみを含めることができます"
+
+msgid "NeverExpires"
+msgstr "無期限"
+
+msgid "ActiveAccount"
+msgstr "アカウント"
+
+msgid "SubscribeUserToCourseAsTeacher"
+msgstr "教員を登録"
+
+msgid "UsernameMaxXCharacters"
+msgstr "ログインを最大 %s 文字にする必要があります"
+
+msgid "RegisterUser"
+msgstr "登録"
+
+msgid "LostPass"
+msgstr "パスワードをお忘れですか ?"
+
+msgid "EnterEmailUserAndWellSendYouPassword"
+msgstr "登録したユーザー名または電子メール アドレスを入力すると、パスワードが送信されます。"
+
+msgid "NoUserAccountWithThisEmailAddress"
+msgstr "このユーザーまたは電子メール アドレスのアカウントはありません"
+
+msgid "InLnk"
+msgstr "リンクを痰跟にする"
+
+msgid "DelLk"
+msgstr "塑碰にリンクを猴近するのですか々々"
+
+msgid "ToolIsNowVisible"
+msgstr "ツールを表示しました。"
+
+msgid "ToolIsNowHidden"
+msgstr "ツールを非表示にしました。"
+
+msgid "Interaction"
+msgstr "対話"
+
+msgid "Authoring"
+msgstr "作成"
+
+msgid "EditThisPage"
+msgstr "このページを編集"
+
+msgid "ShowPageHistory"
+msgstr "履歴"
+
+msgid "RecentChanges"
+msgstr "最新の変更"
+
+msgid "AllPages"
+msgstr "すべてのページ"
+
+msgid "AddNew"
+msgstr "新しいページを追加"
+
+msgid "DefaultContent"
+msgstr " <br/> <br/> <p align=\"center\"> <img src=\"%swiki/wcollaborative.png\" alt=\"チームとして作業\" title=\"チームとして作業\" /></p> <p align=\"center\">このページの編集を開始して、このテキストを削除します</p>"
+
+msgid "SearchPages"
+msgstr "検索"
+
+msgid "ShowThisPage"
+msgstr "このページを表示"
+
+msgid "DeleteThisPage"
+msgstr "このページを削除"
+
+msgid "DiscussThisPage"
+msgstr "このページのディスカッション"
+
+msgid "HomeWiki"
+msgstr "Wiki のホーム"
+
+msgid "DeleteWiki"
+msgstr "すべてを削除"
+
+msgid "PageUnlockedExtra"
+msgstr "このページは保護されていません。すべてのコースのユーザーまたはグループのメンバーは、このページを編集することができます。"
+
+msgid "AddOptionProtected"
+msgstr "追加オプションを保護しました。教員のみがページをこの Wiki に追加することができます。ただし、学生とグループ メンバーはまだ編集することができます"
+
+msgid "CancelNotifyByEmail"
+msgstr "このページが編集されても電子メールで通知しない"
+
+msgid "LinksPages"
+msgstr "ここへのリンク"
+
+msgid "DefaultTitle"
+msgstr "ホーム"
+
+msgid "ShowPageExtra"
+msgstr "すべてのユーザーがページを表示することができます"
+
+msgid "InactivesStudents"
+msgstr "1 週間以上接続していない学生"
+
+msgid "AverageTimeSpentOnThePlatform"
+msgstr "プラットフォームに費やされた時間"
+
+msgid "AverageCoursePerStudent"
+msgstr "学生ごとのコース"
+
+msgid "AverageProgressInLearnpath"
+msgstr "コースの進行状況"
+
+msgid "AverageResultsToTheExercices"
+msgstr "テストの得点"
+
+msgid "SeeStudentList"
+msgstr "学生一覧を参照"
+
+msgid "LinksDetails"
+msgstr "アクセスしたリンク"
+
+msgid "DocumentsDetails"
+msgstr "ダウンロードしたドキュメント"
+
+msgid "CountUsers"
+msgstr "ユーザー数"
+
+msgid "CountCours"
+msgstr "コース"
+
+msgid "Trainers"
+msgstr "教員"
+
+msgid "LastConnexion"
+msgstr "最終ログイン"
+
+msgid "NoExercise"
+msgstr "テストがありません"
+
+msgid "LatestLogin"
+msgstr "最後"
+
+msgid "TimeSpentOnThePlatform"
+msgstr "プラットフォームに費やされた時間"
+
+msgid "AveragePostsInForum"
+msgstr "フォーラムの投稿"
+
+msgid "AverageAssignments"
+msgstr "学生ごとの課題の平均"
+
+msgid "StudentDetails"
+msgstr "学生の詳細"
+
+msgid "OtherTools"
+msgstr "オンライン コースの対話設定のレポート"
+
+msgid "DetailsStudentInCourse"
+msgstr "コースの学生の詳細"
+
+msgid "CourseTitle"
+msgstr "コースのタイトル"
+
+msgid "NbStudents"
+msgstr "学生"
+
+msgid "TimeSpentInTheCourse"
+msgstr "コースに費やされた時間"
+
+msgid "AvgStudentsProgress"
+msgstr "進行状況"
+
+msgid "AvgCourseScore"
+msgstr "学習パスの平均点"
+
+msgid "AvgMessages"
+msgstr "学生ごとのメッセージ"
+
+msgid "ToolsMostUsed"
+msgstr "最も使用されているツール"
+
+msgid "StudentsTracking"
+msgstr "学生のレポート"
+
+msgid "CourseTracking"
+msgstr "コース レポート"
+
+msgid "LinksMostClicked"
+msgstr "最もアクセスされているリンク"
+
+msgid "DocumentsMostDownloaded"
+msgstr "最もダウンロードされているドキュメント"
+
+msgid "NoConnexion"
+msgstr "接続がありません"
+
+msgid "TeacherInterface"
+msgstr "教員表示"
+
+msgid "AdminInterface"
+msgstr "管理者表示"
+
+msgid "NumberOfSessions"
+msgstr "セッション数"
+
+msgid "YourCourseList"
+msgstr "コース"
+
+msgid "CoachList"
+msgstr "教員一覧"
+
+msgid "AvgTimeSpentInTheCourse"
+msgstr "時間"
+
+msgid "FirstLogin"
+msgstr "最初の接続"
+
+msgid "AccessDetails"
+msgstr "アクセスの詳細"
+
+msgid "DisplayCoaches"
+msgstr "教員の概要"
+
+msgid "DisplayUserOverview"
+msgstr "ユーザーの概要"
+
+msgid "ExportUserOverviewOptions"
+msgstr "ユーザーの概要のエクスポート オプション"
+
+msgid "TotalExercisesScoreObtained"
+msgstr "テストの合計点"
+
+msgid "TotalExercisesAnswered"
+msgstr "回答したテスト数"
+
+msgid "ForumForumsNumber"
+msgstr "フォーラム数"
+
+msgid "ForumThreadsNumber"
+msgstr "スレッド数"
+
+msgid "ForumPostsNumber"
+msgstr "投稿数"
+
+msgid "ChatConnectionsDuringLastXDays"
+msgstr "過去 %s 日間のチャットへの接続"
+
+msgid "ChatLastConnection"
+msgstr "チャットの最終接続"
+
+msgid "SendNotification"
+msgstr "通知"
+
+msgid "TimeOfActiveByTraining"
+msgstr "コースの時間"
+
+msgid "AvgAllUsersInAllCourses"
+msgstr "すべてのコースのすべての学生の平均"
+
+msgid "AvgExercisesScore"
+msgstr "テストの得点"
+
+msgid "TrainingTime"
+msgstr "時間"
+
+msgid "CourseProgress"
+msgstr "進行状況"
+
+msgid "ResourcesTracking"
+msgstr "リソースのレポート"
+
+msgid "SendDocument"
+msgstr "ファイルをアップロード"
+
+msgid "ThisFolderCannotBeDeleted"
+msgstr "このフォルダーを削除できません"
+
+msgid "ShowCourseQuotaUse"
+msgstr "利用可能な領域"
+
+msgid "CurrentDirectory"
+msgstr "現在のフォルダー"
+
+msgid "UplUploadDocument"
+msgstr "ドキュメントをアップロード"
+
+msgid "UplUpload"
+msgstr "アップロード"
+
+msgid "UplWhatIfFileExists"
+msgstr "ファイルが存在する場合:"
+
+msgid "UplDoNothing"
+msgstr "何もしない"
+
+msgid "UplOverwriteLong"
+msgstr "既存のファイルを上書きする"
+
+msgid "UplRenameLong"
+msgstr "存在する場合は、アップロードしたファイルの名前を変更する"
+
+msgid "DocumentQuota"
+msgstr "利用可能な領域"
+
+msgid "DocumentsOverview"
+msgstr "ドキュメントの概要"
+
+msgid "File"
+msgstr "ファイル"
+
+msgid "TemplateTitleTeacher"
+msgstr "教員"
+
+msgid "TemplateTitleTeacherDescription"
+msgstr "下のダイアログと教員"
+
+msgid "TemplateTitleDiagram"
+msgstr "図の説明"
+
+msgid "TemplateTitleDiagramDescription"
+msgstr "左の画像、右のコメント"
+
+msgid "TemplateTitleFlash"
+msgstr "Flash アニメーション"
+
+msgid "TemplateTitleFlashDescription"
+msgstr "アニメーション + 概要のテキスト"
+
+msgid "TemplateTitleAudio"
+msgstr "音声のコメント"
+
+msgid "TemplateTitleAudioDescription"
+msgstr "音声 + 画像 + テキスト : リスニング"
+
+msgid "TemplateTitleVideo"
+msgstr "動画のページ"
+
+msgid "TemplateTitleVideoDescription"
+msgstr "オン デマンドの動画 + テキスト"
+
+msgid "TemplateTitleTable"
+msgstr "表のページ"
+
+msgid "TemplateTitleCourseTitle"
+msgstr "コースのタイトル"
+
+msgid "TemplateTitleLeftList"
+msgstr "左の一覧"
+
+msgid "TemplateTitleCheckListDescription"
+msgstr "リソース一覧"
+
+msgid "TemplateTitleCourseTitleDescription"
+msgstr "コースのタイトルとロゴ"
+
+msgid "TemplateTitleRightList"
+msgstr "右の一覧"
+
+msgid "TemplateTitleRightListDescription"
+msgstr "右の一覧と教員"
+
+msgid "TemplateTitleLeftRightList"
+msgstr "左右の一覧"
+
+msgid "TemplateTitleLeftRightListDescription"
+msgstr "左右の一覧と教員"
+
+msgid "TemplateTitleDesc"
+msgstr "説明"
+
+msgid "TemplateTitleCycle"
+msgstr "循環グラフ"
+
+msgid "TemplateTitleCycleDescription"
+msgstr "2 つの一覧と環状矢印"
+
+msgid "TemplateTitleTimeline"
+msgstr "タイムラインの段階"
+
+msgid "TemplateTitleTimelineDescription"
+msgstr "3 つの一覧と関連矢印"
+
+msgid "TemplateTitleListLeftListDescription"
+msgstr "左の一覧と教員"
+
+msgid "CreateFolder"
+msgstr "フォルダーを作成"
+
+msgid "HelpDefaultDirDocuments"
+msgstr "教員のみに表示する情報:<br />このフォルダーには既定のアーカイブが含まれています。ファイルを消去するか新しいファイルを追加することができますが、Web ドキュメントに挿入するファイルが非表示の場合、学生はこのドキュメントで参照することはできません。ファイルを Web ドキュメントに挿入する場合、まずそれが表示されることを確認してください。フォルダーは非表示のままにすることができます。"
+
+msgid "MailingConfirmSend"
+msgstr "個人にコンテンツ ファイルを送信しますか?"
+
+msgid "PlatformUnsubscribeTitle"
+msgstr "プラットフォームからの登録解除を許可"
+
+msgid "DragAndDropAnElementHere"
+msgstr "要素をここにドラッグ/ドロップ"
+
+msgid "NoFileSpecified"
+msgstr "アップロードするファイルを指定していません。"
+
+msgid "NoUserSelected"
+msgstr "ファイルを送信するユーザーを選択してください。"
+
+msgid "CalendarList"
+msgstr "出席カレンダー一覧"
+
+msgid "AttendanceCalendarDescription"
+msgstr "出席カレンダーでは、出席一覧を登録することができます (学生の出席が必要な実際のセッションごとに 1 つ)。新しい出席一覧をここに追加します。"
+
+msgid "CleanCalendar"
+msgstr "カレンダー一覧をすべて消去"
+
+msgid "AddDateAndTime"
+msgstr "日時を追加"
+
+msgid "AttendanceSheet"
+msgstr "出席簿"
+
+msgid "GoToAttendanceCalendar"
+msgstr "出席カレンダーへ移動"
+
+msgid "AttendanceCalendar"
+msgstr "出席カレンダー"
+
+msgid "CreateANewAttendance"
+msgstr "新しい出席一覧を作成"
+
+msgid "Attendance"
+msgstr "出席"
+
+msgid "AreYouSureToDeleteResults"
+msgstr "結果を削除してもよろしいですか"
+
+msgid "AreYouSureToCopy"
+msgstr "コピーしてもよろしいですか"
+
+msgid "ReceivedFiles"
+msgstr "受信済みのファイル"
+
+msgid "SentFiles"
+msgstr "送信済みのファイル"
+
+msgid "ReceivedTitle"
+msgstr "タイトル"
+
+msgid "SentTitle"
+msgstr "送信済みのファイル"
+
+msgid "Size"
+msgstr "サイズ"
+
+msgid "LastResent"
+msgstr "最終送信日"
+
+msgid "UploadNewFile"
+msgstr "新しいファイルを共有"
+
+msgid "AddNewCategory"
+msgstr "新しいフォルダーを追加"
+
+msgid "PlatformUnsubscribeComment"
+msgstr "このオプションを有効にすると、ユーザーに自身のアカウントとそれに関連するすべてのデータをプラットフォームから完全に削除することを許可します。これはかなり根本的な操作ですが、ユーザーが自動登録できる完全に公開されたプラットフォームでは必要です。追加の項目がユーザーのプロファイルに表示されて、確認後に登録解除することができます。"
+
+msgid "TermAddNew"
+msgstr "新しい用語集の用語を追加"
+
+msgid "TermName"
+msgstr "用語"
+
+msgid "TermDefinition"
+msgstr "用語の定義"
+
+msgid "TermConfirmDelete"
+msgstr "この用語を削除しますか:"
+
+msgid "TermAddButton"
+msgstr "用語を保存"
+
+msgid "HFor"
+msgstr "フォーラムのヘルプ"
+
+msgid "ForContent"
+msgstr "<p>この柴的技は、≈矢机∽で乖う柴的技です。お高いの箕粗のすれちがいを涟捏とした皮侠のための苹恶です。排灰メ〖ルが１滦１の滦厦を钓すとすれば、柴的技は给鼎、染给鼎の剩眶の客」の滦厦を涂えるものです。</p><p>祷窖弄には、池栏紧矾は、极尸のブラウザだけをもpてば、clarolineの柴的技をつかえます。</p><p>柴的技を寥骏するためには、≈瓷妄∽adminをクリックします。皮侠の肋年は肌のようにします。</p><p><b>カテゴリ〖 > 柴的技 > トピック > > Answers</b></p>池栏たちの皮侠を寥骏するためには、涟もってカテゴリ〖と柴的技をつくり、トピックと搀批を侯るのは池栏たちにゆだねます。デフォルトでは、clarolineの柴的技は、'Public'というカテゴリ〖のみをもっています。ひとつのシンプルな柴的技とトピックのみがあるカテゴリ〖です。</p><p>呵介に乖うべきは、そのシンプルなトピックを猴近することと、柴的技叹を恃构することです。そのあとは、柴的技をグル〖プやテ〖マごとに、鉴度のシナリオに炳じて、戮の柴的技をつくればいです。</p><p>カテゴリ〖、と柴的技を寒票しないように。また、柴的技が赂哼しないカテゴリは、池栏には斧えないことを撕れないでください。</p><p>柴的技の豺棱には、そのメンバ〖のリストや、誊弄、侯度柒推霹などを今きます。</p>"
+
+msgid "HDropbox"
+msgstr "課題提出箱のヘルプ"
+
+msgid "HHome"
+msgstr "ホームページのヘルプ"
+
+msgid "HomeContent"
+msgstr "<p>网脱荚の守倒を雇えて、clarolineのツ〖ルは、介袋觉轮でもまっさらではありません。すべてのツ〖ルには、すぐにでもなにかできるように、井さな毋が介袋觉轮でのっています。その毋を饯赖したり、猴近してたりして、おつかいください。</p><p>毋えば、このコ〖スのウエブサイトのホ〖ムペ〖ジには,つぎのようなテキストがのっています。'これは、あなたのコ〖スの棱汤矢今です。あなたに圭うように饯赖してください。うんぬん' すべてのツ〖ルには、票じような拎侯缄界、≈纳裁、猴近、饯赖∽があります。これは瓢弄ウエブサイトが铜する鼎奶の侠妄だといえましょう。</p><p>はじめてウエブサイトを侯ったとき、ツ〖ルの驴くはアクティブになっています。また、涩妥ではないものを、痰跟步叫丸ます。≈痰跟∽をクリックすればいいです。その婶尸がグレ〖になるでしょう。あなたの池栏はなにも斧えなくなります。铜跟に提すのは、いつでも材墙です。</p><p>ペ〖ジを、あなたのホ〖ムペ〖ジを裁えることが叫丸ます。ペ〖ジは HTML でなければなりません  ( ワ〖プロや、试礁ソフトで侯れます). ≈ペ〖ジをホ〖ムペ〖ジにアップロ〖ドしてホ〖ムペ〖ジにリンクする∽というリンクを联び、あなたのペ〖ジをサ〖バに流ってください。</p></p>あなたのウエブサイトの筛洁弄なへッダが、极瓢弄にあなたの矢今に烧裁されます。したがって、柒推侯喇のみに礁面できます。もし、あなたが、极尸のホ〖ムをこのウエブサ〖バに赂哼するサイトあるいはペ〖ジとリンクづけたいのであれば、≈ホ〖ムペ〖ジにリンクを纳裁∽を联んでください。裁えたペ〖ジは、痰跟步することが叫丸ます。猴近は叫丸ません。</p><p>办枚あなたのコ〖スのウエブサイトの洁洒が叫丸たら、≈コ〖スの攫鼠を饯赖∽に乖ってください。そして、あなたが司む≈攫鼠入瓶レベル∽ confidentiality を联んでください。デフォルトでは、コ〖スは≈保す∽hidden  となっています(あなたがそこで慌祸をしているのですから).</p>"
+
+msgid "HClar"
+msgstr "スタ〖トのへルプ"
+
+msgid "HDoc"
+msgstr "ドキュメントのヘルプ"
+
+msgid "DocContent"
+msgstr "<p>この矢今ツ〖ルは、コンピュ〖タのファイルマネ〖ジャに击ています。</p><p>HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.などのファイルをアップロ〖ド叫丸ます。停办、簇看を失うべきは、あなたの池栏が、そのファイルを粕める茨董にあるかどうか、ということのみです。いくつかのファイルタイプには、ウイルスがつきものです。そのようなファイルに滦する奥链についてはあなたの勒扦です。アップロ〖ドの涟に、ウイルスチェックソフトで矢今をチェックするなど、庙罢をしてください。</p><br /><p>矢今は、アルファベット界に事びます。<br /><b>ちょっとしたヒント : </b>もし侍の界で事べたいなら、たとえばファイルの片に: 01, 02, 03...など眶机を事べるといいですね。</p><br /><p>You can :</p><br /><h4>矢今のアップロ〖ド</h4><br /><ul><br />  <li>宝にある、ブラウズボタンを联びます。<input type=submit value=Browse name=submit2><br /></li><br />  <li>アップロ〖ド(流慨)ボタンで流慨します <input type=submit value=Upload name=submit2><br />	.</li><br /></ul><br /><h4>矢今叹の恃构(a directory)</h4><br /><ul><br />  <li> <img src=../img/renommer.gif width=20 height=20 align=baseline> ボタンを病して、恃构します。</li><br />  <li>糠しい叹涟を掐れます(焊に腕が叫ます)</li><br />  <li>恃构澄千ボタン<input type=submit value=Ok name=submit24><br />	. <br /></ul><br />	<h4>矢今あるいはディレクトリの猴近</h4><br />	<ul><br />	  <br />  <li> <img src=../img/delete.gif width=20 height=20> <br />	≈猴近∽ボタン</li><br />	</ul><br />	<h4>矢今あるいはディレクトリを池栏には斧えなくする</h4><br />	<ul><br />	  <br />  <li><img src=../img/visible.gif width=20 height=20>≈斧えるようにする/斧えないようにする∽ボタン</li><br />	  <li>矢今、ディレクトリは赂哼しています(猴近されるわけではありません)。池栏が斧えなくなるだけです。</li>	  <br />  <li>浩刨斧えるようにするには、票じボタンを病してください<img src=../document/../img/invisible.gif width=24 height=20> </li><br />	</ul><br />	<h4>コメントを矢今、ディレクトリに裁えたり饯赖したりする</h4><br />	<ul>	  <br />  <li>コメントボタン <img src=../document/../img/comment.gif width=20 height=20></li><br />	  <li>宝娄に腕が叫ます</li><br />	  <li>恃构澄千ボタンをおす <input type=submit value=OK name=submit2><br />		.</li><br />	</ul><br />	<p>コメントを猴近<img src=../document/../img/comment.gif width=20 height=20>, 	腕柒の概いコメントを鄂球にする <input type=submit value=OK name=submit22><br />	  . <br />	<hr /><br />	<p>矢今腊妄は肌のようにします:</p><br />	<h4><b>ディレクトリを侯る</b></h4><br />	<ul><br />	  <li> <img src=../document/../img/dossier.gif width=20 height=20> 焊娄に≈ディレクトリを侯る∽腕が叫ます</li><br />	  <li>ディレクトリ叹を掐れます</li><br />	  <li>恃构澄千<input type=submit value=OK name=submit23>.</li><br />	</ul><br />	<h4>矢今、ディレクトリの败瓢</h4><br />	<ul><br />	  <li>≈败瓢∽ボタンを病します <img src=../document/../img/deplacer.gif width=34 height=16></li><br /><br />	  <li>败瓢したい矢今、ディレクトリをスクロ〖ルメニュで联びます(焊にでます)(庙罢'root'という咐驼は、矢今を办つ惧の眷疥を回します).</li><br />	  <li>恃构澄千ボタン<input type=submit value=OK name=submit232>.</li><br />	</ul><br />	<center><br />	  <p>"
+
+msgid "HUser"
+msgstr "ユーザーのヘルプ"
+
+msgid "HExercise"
+msgstr "テストのヘルプ"
+
+msgid "HPath"
+msgstr "学習パスのヘルプ"
+
+msgid "HDescription"
+msgstr "説明のヘルプ"
+
+msgid "HLinks"
+msgstr "リンクのヘルプ"
+
+msgid "HMycourses"
+msgstr "コースのヘルプ"
+
+msgid "HAgenda"
+msgstr "予定表のヘルプ"
+
+msgid "HAnnouncements"
+msgstr "お知らせのヘルプ"
+
+msgid "HChat"
+msgstr "チャットのヘルプ"
+
+msgid "HWork"
+msgstr "課題のヘルプ"
+
+msgid "HTracking"
+msgstr "レポート作成のヘルプ"
+
+msgid "SurveyTitle"
+msgstr "意見調査のタイトル"
+
+msgid "SurveyIntroduction"
+msgstr "意見調査の概要"
+
+msgid "CreateNewSurvey"
+msgstr "意見調査を作成"
+
+msgid "CreateSurvey"
+msgstr "意見調査を作成"
+
+msgid "DeleteSurvey"
+msgstr "意見調査を削除"
+
+msgid "SurveyCode"
+msgstr "コード"
+
+msgid "SurveyList"
+msgstr "意見調査一覧"
+
+msgid "SurveyName"
+msgstr "意見調査名"
+
+msgid "SurveySubTitle"
+msgstr "意見調査のサブタイトル"
+
+msgid "SurveyThanks"
+msgstr "最後の謝辞"
+
+msgid "EditSurvey"
+msgstr "意見調査を編集"
+
+msgid "AddQuestion"
+msgstr "質問を追加"
+
+msgid "SurveyCreatedSuccesfully"
+msgstr "意見調査を正常に作成しました"
+
+msgid "YouCanNowAddQuestionToYourSurvey"
+msgstr "意見調査に質問を追加することができます"
+
+msgid "QuestionAdded"
+msgstr "質問を追加しました。"
+
+msgid "RemoveAnswer"
+msgstr "選択肢を削除"
+
+msgid "AddAnswer"
+msgstr "選択肢を追加"
+
+msgid "DisplayAnswersHorVert"
+msgstr "表示"
+
+msgid "AnswerOptions"
+msgstr "選択肢"
+
+msgid "MultipleResponse"
+msgstr "複数選択"
+
+msgid "Dropdown"
+msgstr "ドロップダウン"
+
+msgid "Pagebreak"
+msgstr "ページの終了 (質問の区切り)"
+
+msgid "QuestionNumber"
+msgstr "番号"
+
+msgid "NumberOfOptions"
+msgstr "選択肢"
+
+msgid "NumberOfQuestions"
+msgstr "質問"
+
+msgid "Multiplechoice"
+msgstr "選択"
+
+msgid "Invite"
+msgstr "招待"
+
+msgid "MaximumScore"
+msgstr "最高点"
+
+msgid "DeleteSurveyQuestion"
+msgstr "質問を削除してもよろしいですか?"
+
+msgid "Conditional"
+msgstr "条件付き"
+
+msgid "ParentSurvey"
+msgstr "親の意見調査"
+
+msgid "OneQuestionPerPage"
+msgstr "ページごとに 1 つの質問"
+
+msgid "ActivateShuffle"
+msgstr "シャッフル モードを有効にする"
+
+msgid "Normal"
+msgstr "標準"
+
+msgid "CreateQuestionSurvey"
+msgstr "質問を作成"
+
+msgid "BackToSurvey"
+msgstr "意見調査へ戻る"
+
+msgid "GeneralDescription"
+msgstr "説明"
+
+msgid "GeneralDescriptionQuestions"
+msgstr "コースの目標は何ですか? 前提条件はありますか? このコースはその他のコースにどのように結び付きますか?"
+
+msgid "GeneralDescriptionInformation"
+msgstr "コース (時間、ユーザー数、場所) と教員 (名前、勤務先、電話、電子メール、勤務時間 . . . .) を説明します。"
+
+msgid "Objectives"
+msgstr "目的"
+
+msgid "ObjectivesInformation"
+msgstr "コースの目的は何ですか (能力、スキル、結果)?"
+
+msgid "ObjectivesQuestions"
+msgstr "学生がコースを完了した場合の終了結果はどうあるべきですか? コースで実行する活動項目は何ですか?"
+
+msgid "TopicsInformation"
+msgstr "コースに含まれているトピック一覧です。各トピックの重要度です。難易度のレベルです。異なる部分の構造と相互依存度です。"
+
+msgid "TopicsQuestions"
+msgstr "コースはどのように進行しますか? 学生が特別に注意を払うべきことは何ですか? コースの別の領域に費やされるべき時間はどのくらいですか?"
+
+msgid "Methodology"
+msgstr "方法論"
+
+msgid "MethodologyQuestions"
+msgstr "コースの目的を達成させる方法と活動項目は何ですか? どういったスケジュールですか?"
+
+msgid "MethodologyInformation"
+msgstr "活動項目の表示です (会議、論文、研究グループ、研究室...)。"
+
+msgid "CourseMaterial"
+msgstr "コース教材"
+
+msgid "CourseMaterialQuestions"
+msgstr "コースの書籍、論文集、参考文献、インターネットのリンク一覧はありますか?"
+
+msgid "CourseMaterialInformation"
+msgstr "コース教材の短い説明です。"
+
+msgid "HumanAndTechnicalResources"
+msgstr "リソース"
+
+msgid "HumanAndTechnicalResourcesQuestions"
+msgstr "教員、TA、技術的なヘルプデスク、コース管理者、および教材を検討します。"
+
+msgid "HumanAndTechnicalResourcesInformation"
+msgstr "異なる連絡先と技術的な装置を識別して説明します。"
+
+msgid "Assessment"
+msgstr "評価"
+
+msgid "AssessmentQuestions"
+msgstr "学生をどのように評価しますか? トピックを習得するための学習手順はありますか?"
+
+msgid "AssessmentInformation"
+msgstr "スキルを取得するための条件です。"
+
+msgid "Height"
+msgstr "Height"
+
+msgid "ResizingComment"
+msgstr "resize the image to the following dimensions (in pixels)"
+
+msgid "Width"
+msgstr "Width"
+
+msgid "Resizing"
+msgstr "RESIZE"
+
+msgid "NoResizingComment"
+msgstr "Show all images in their original size. No resizing is done. Scrollbars will automatically appear if the image is larger than your monitor size."
+
+msgid "ShowThumbnails"
+msgstr "Show Thumbnails"
+
+msgid "SetSlideshowOptions"
+msgstr "Set Slideshow Options"
+
+msgid "SlideshowOptions"
+msgstr "Slideshow Options"
+
+msgid "NoResizing"
+msgstr "NO RESIZING (default)"
+
+msgid "SlideShow"
+msgstr "Slideshow"
+
+msgid "ViewSlideshow"
+msgstr "View Slideshow"
+
+msgid "MyTasks"
+msgstr "タスク"
+
+msgid "NewPost"
+msgstr "新しいタスク"
+
+msgid "TaskManager"
+msgstr "タスク管理"
+
+msgid "MemberManager"
+msgstr "ユーザー管理"
+
+msgid "ReadPost"
+msgstr "この投稿を読む"
+
+msgid "FirstPostText"
+msgstr "これは計画の最初のタスクです。この計画に登録された全員が参加することができます"
+
+msgid "ManageTasks"
+msgstr "タスクを管理"
+
+msgid "ManageMembers"
+msgstr "ユーザーをこの計画に登録 / 登録解除"
+
+msgid "Register"
+msgstr "登録"
+
+msgid "UnRegister"
+msgstr "登録解除"
+
+msgid "SubscribeMembers"
+msgstr "ユーザーを登録"
+
+msgid "UnsubscribeMembers"
+msgstr "ユーザーを登録解除"
+
+msgid "RightsManager"
+msgstr "ユーザー権限の管理"
+
+msgid "ManageRights"
+msgstr "この計画のユーザーのタスクと権限を管理"
+
+msgid "Task"
+msgstr "タスク"
+
+msgid "AddTasks"
+msgstr "新しいタスクを追加"
+
+msgid "AssignTask"
+msgstr "タスクを割り当て"
+
+msgid "AssignTasks"
+msgstr "タスクを割り当て"
+
+msgid "SelectTask"
+msgstr "タスク"
+
+msgid "SelectTargetDate"
+msgstr "日付"
+
+msgid "TargetDate"
+msgstr "日付"
+
+msgid "Color"
+msgstr "色"
+
+msgid "TaskList"
+msgstr "この計画でのタスク"
+
+msgid "AssignedTasks"
+msgstr "割り当て済みのタスク"
+
+msgid "NoTasks"
+msgstr "タスクがありません"
+
+msgid "ViewPostsOfThisDay"
+msgstr "今日のタスクを表示"
+
+msgid "SaveProject"
+msgstr "ブログを保存"
+
+msgid "blog_management"
+msgstr "計画管理"
+
+msgid "AddBlog"
+msgstr "新しい計画を作成"
+
+msgid "EditBlog"
+msgstr "計画を編集"
+
+msgid "DeleteBlog"
+msgstr "この計画を削除"
+
+msgid "Reader"
+msgstr "閲覧者"
+
+msgid "BlogStored"
+msgstr "計画を追加しました。"
+
+msgid "BlogAdded"
+msgstr "記事を追加しました。"
+
+msgid "UserRegistered"
+msgstr "ユーザーを登録しました"
+
+msgid "ResourceAdded"
+msgstr "Resource added. You can now go back to the path or add more resources."
+
+msgid "LearningPath"
+msgstr "学習パス"
+
+msgid "LevelUp"
+msgstr "level up"
+
+msgid "AddIt"
+msgstr "Add it"
+
+msgid "MainCategory"
+msgstr "main category"
+
+msgid "AddToLinks"
+msgstr "Add to the course links"
+
+msgid "DontAdd"
+msgstr "do not add"
+
+msgid "ResourcesAdded"
+msgstr "Added new resources"
+
+msgid "ExternalResources"
+msgstr "External resources"
+
+msgid "CourseResources"
+msgstr "Course resources"
+
+msgid "ExternalLink"
+msgstr "External link"
+
+msgid "DropboxAdd"
+msgstr "Add the dropbox page to this chapter."
+
+msgid "AddAssignmentPage"
+msgstr "課題ツールをコースに追加"
+
+msgid "CourseDescription"
+msgstr "コースの説明"
+
+msgid "LinkTarget"
+msgstr "リンク先"
+
+msgid "AgendaAdd"
+msgstr "イベントを追加"
+
+msgid "AddCalendarItem"
+msgstr "イベントを予定表に追加"
+
+msgid "SendWork"
+msgstr "アップロードファイル"
+
+msgid "TooBig"
+msgstr "ファイルが络きすぎるので、联买できません。"
+
+msgid "DocModif"
+msgstr "文書のタイトルが変更されました。"
+
+msgid "DocAdd"
+msgstr "このファイルは一覧に追加されました。"
+
+msgid "DocDel"
+msgstr "ファイルが削除されました。"
+
+msgid "TitleWork"
+msgstr "ファイルのタイトル"
+
+msgid "Authors"
+msgstr "編集者"
+
+msgid "WorkDelete"
+msgstr "削除する"
+
+msgid "WorkModify"
+msgstr "編集する"
+
+msgid "WorkConfirmDelete"
+msgstr "このファイルを本当に削除しますか？"
+
+msgid "AllFiles"
+msgstr "全てのファイルに適用"
+
+msgid "DefaultUpload"
+msgstr "新しく投稿されたファイルの表示の既定の設定"
+
+msgid "NewVisible"
+msgstr "新しいドキュメントをすべてのユーザーに表示する"
+
+msgid "NewUnvisible"
+msgstr "新しいドキュメントを教員のみに表示する"
+
+msgid "CreateDirectory"
+msgstr "確認"
+
+msgid "UploadADocument"
+msgstr "文書をアップロードする。"
+
+msgid "EditToolOptions"
+msgstr "課題の設定"
+
+msgid "DirDelete"
+msgstr "ディレクトリを削除"
+
+msgid "WeightInTheGradebook"
+msgstr "評価の重み"
+
+msgid "DirectoryCreated"
+msgstr "ディレクトリを作成しました"
+
+msgid "Assignment"
+msgstr "課題"
+
+msgid "EnableExpiryDate"
+msgstr "提出期限を有効にする (学生に表示されます)"
+
+msgid "EnableEndDate"
+msgstr "最終受理日を有効にする (学生には表示されません)"
+
+msgid "EndDateCannotBeBeforeTheExpireDate"
+msgstr "終了日を期限日よりも前にすることはできません"
+
+msgid "WeightNecessary"
+msgstr "期待される最低点"
+
+msgid "AssignmentName"
+msgstr "課題名"
+
+msgid "CreateAssignment"
+msgstr "課題を作成"
+
+msgid "UserContent"
+msgstr "<b>≈舔充∽roles</b><p>≈舔充∽はコンピュ〖タの怠墙ではありません。システム笨脱惧の咐驼ではないのです。≈舔充∽は、客に充り碰てられた≈この客茂?∽という罢蹋に戮喇りません。あなたは、≈舔充∽の≈饯赖∽で、それらを恃构することが叫丸ます。≈兜徽∽≈アシスタント∽≈池栏∽≈爽啼荚∽≈漓嚏踩∽。。。。</p><hr /><br /><b>瓷妄荚の涪网</b><br /><p>戮数、≈瓷妄荚の涪网∽Admin rightsは、サイトやコ〖スの柒推にかかわる祷窖弄な拎侯の镜千を山します。あなたは、惧の≈舔充∽の客たちに、≈瓷妄荚の涪网∽を链て涂えるか、链脸涂えないか、どうかを疯めることのみできます。</p><br /><p>このサイトの定票笨脱荚として、アシスタントに、それを涂えようとするなら、揉谨/揉をこのサイトに判峡するか、あるいは判峡していることを澄かめてから≈瓷妄荚∽のリンクの黎の≈瓷妄荚の涪网饯赖∽で、≈すべて∽を联びます</p><hr /><br /><b>定票肩核荚(Co-chairmen)</b><br /><p>コ〖スの肆片に≈定票肩核荚∽という叹涟を掐れるためには、≈コ〖ス攫鼠の饯赖恃构∽ (オレンジのツ〖ルです)を蝗います。この饯赖をしても、あなたの定票肩核荚は、コ〖スのユ〖ザとして判峡されるわけではありません。≈兜徽∽腕は、ユ〖ザリストと窗链に迫惟していますので。</p><hr /><br /><b>ユ〖ザ纳裁</b><br /><p>ユ〖ザを纳裁するには、このバ〖チャルキャンパスウエブサイト链挛に、そのユ〖ザが判峡されていないかどうか、澄かめてください。もし、判峡されていたら、揉谨/揉の叹涟の玻にあるチェックボックスにチェックを掐れて≈OK∽を叫してください。踏判峡なら、判峡してください。どちらのケ〖スであっても、揉谨/揉に、メ〖ルが流られ、判峡がすんだこと、あるいは、糠判峡の眷圭はユ〖ザ叹とパスワ〖ドが帕えられます。</p>"
+
+msgid "ExerciseContent"
+msgstr "<p>テスト ツールでは、任意の数の問題を含むテストを作成することができます。<br><br> ページの上部に明確に表示される範囲から選択して、(たとえば) 以下の問題の形式を含むテストを作成することができます:<br><br><ul>  <li>選択 (1 つまたは複数選択)</li>  <li>組み合わせ</li>  <li>穴埋めなど</li></ul>問題と問題の形式を任意の数と組み合わせでテストに含めることができます。</p><hr><b>テストの作成</b><p>テストを作成するには、\"新しいテスト\" のリンクをクリックします。<br><br>テストの名前と説明を入力します。<br><br>たとえばリスニングの音声または動画ファイルを含む、さまざまな要素を追加することができますが、ダウンロードにかかる時間を最適化するためにそのようなファイルはできるだけ小さくする必要があります (たとえば、WAV ファイルよりも MP3 ファイルを使用します - その方がはるかに小さく品質は保たれます)。<br><br>2 つの表示モードから選択することもできます:<br><br><ul>  <li>1 つのページにすべての問題</li>  <li>ページごとに 1 つの問題 (順に)</li></ul>テストを実施した場合に問題をランダムに構成するオプションもあります。<br><br>最後に、テストを保存します。問題の管理へ進みます。</p><hr><b>問題の追加</b><p>新しく作成したテストに問題を追加することができます。説明または画像を含めることができます。上記のテストの種類を作成するには、以下の手順に従います: </p><hr><b>選択</b><p>複数選択問題 / 選択問題を作成するには :<br><br><ul>  <li>問題の選択肢を定義します。右側のボタンをクリックして選択肢を追加または削除することができます</li>  <li>正解の左のチェック ボックスをオンにします</li>  <li>コメントを追加します。このコメントは問題に回答するまでユーザーに表示されません</li>  <li>各選択肢の重みを入力します。重みは任意の正または負の整数 (または 0) にすることができます</li>  <li>選択肢を保存します</li></ul></p><hr><b>穴埋め</b><p>穴埋めの文章を作成することができます。ユーザーにテキストから削除した単語の入力を求めることが目的です。<br><br>テキストから単語を削除して、空欄を作成するには、[このように] 周りにかっこを記述します。<br><br>テキストを入力して空欄を定義した場合、問題の回答によって学生に表示されるコメントを追加することができます。<br><br>テキストを保存して、各空欄の重みを割り当てる次の手順へ進みます。たとえば、10 点の問題に 5 つの空欄がある場合、2 点の重みを各空欄に入力することができます。</p><hr><b>組み合わせ</b><p>この回答の種類では、ユーザーが A の一覧の要素と B の一覧の要素を接続する問題を作成することができます。<br><br>ユーザーに要素の並べ替えを求めることもできます。<br><br>最初に、ユーザーが回答を選択する選択肢を定義します。次に、定義した選択肢の 1 つにリンクする問題を定義します。最後に、1 番目の一覧の要素と 2 番目の一覧の要素をドロップダウン メニューで接続します。<br><br>注意: 1 番目の一覧の複数の要素が 2 番目の一覧の同じ要素に接続する場合があります。<br><br>各正解の組み合わせに重みを割り当てて、回答を保存します。</p><hr><b>テストの変更</b><p>テストの変更は、テストの作成と同様です。変更するテストの隣にある画像 <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> をクリックして、上記の指示に従います。</p><hr><b>テストの削除</b><p>テストを削除するには、削除するテストの隣にある画像 <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> をクリックします。</p><hr><b>テストを有効にする</b><p>テストを使用できるようにするには、テスト名の隣にある画像 <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> をクリックして有効にする必要があります。</p><hr><b>テストの実施</b><p>テスト一覧の名前をクリックして、テストを試すことができます。</p><hr><b>ランダムな問題</b><p>テストを作成/変更した場合、すべてのテストの問題からランダムな順序で問題を表示するかを決定することができます。<br><br>このオプションを有効にすると、ユーザーがテストを実施するたびに異なる順序で問題が表示されます。<br><br>問題数が多い場合、ランダムに表示する問題数を選択することができます。</p><hr><b>問題プール</b><p>テストを削除した場合、問題はデータベースから削除されないため、問題プールから別のテストで再利用することができます。<br><br>問題プールでは、複数のテストで同じ問題を使用することもできます。<br><br>既定では、コースに関連するすべての問題は表示されません。ドロップダウン メニューの 'フィルター' を選択して、テストに関連する問題を表示することができます。<br><br>孤立した問題はテストに所属していません。</p><hr><b>Hot Potatoes のテスト</b><p>Hot Potatoes のテストを Chamilo のプラットフォームにインポートして、テスト ツールで使用することができます。このテスト結果は Chamilo のテスト結果と同様に保存され、レポート作成ツールを使用して容易に監視することができます。簡易なテストの場合は、HTML または HTM 形式の使用をお勧めします。テストに画像を含める場合、ZIP ファイルのアップロードが最も便利な方法です。</p><p>注意: 学習パスの手順として Hot Potatoes のテストを含めることもできます。</p><b>インポートの方法</b><ul>  <li>画面の右の参照ボタン <input type=submit value=参照 name=submit2>	を使用してお使いのコンピューターのファイルを選択します。</li>		<li>			アップロード ボタン <input type=submit value=アップロード name=submit2> でアップロードを実行します。		</li>		<li>			名前をクリックしてテストを開くことができます。		</li>	</ul>	<br><b>役に立つリンク</b><br><ul><li>Hot Potatoes のホーム ページ :  <a href=\"http://web.uvic.ca/hrd/halfbaked/\">http://web.uvic.ca/hrd/halfbaked/</a></li></li></ul>"
+
+msgid "HSettings"
+msgstr "コースの設定のヘルプ"
+
+msgid "HExternal"
+msgstr "リンクの追加のヘルプ"
+
+msgid "ClarContent3"
+msgstr "内容を消去"
+
+msgid "ClarContent4"
+msgstr "内容を消去"
+
+msgid "ClarContent1"
+msgstr "内容を消去"
+
+msgid "ClarContent2"
+msgstr "内容を消去"
+
+msgid "HGroups"
+msgstr "グループのヘルプ"
+
+msgid "GroupsContent"
+msgstr "グループの内容"
+
+msgid "Guide"
+msgstr "マニュアル"
+
+msgid "Compose"
+msgstr "作成"
+
+msgid "SelectFieldToAdd"
+msgstr "追加するユーザー プロファイルのフィールドを選択"
+
+msgid "MoveElement"
+msgstr "要素を移動"
+
+msgid "ShowGlossaryInExtraToolsTitle"
+msgstr "用語集の用語を追加のツールに表示"
+
+msgid "ShowGlossaryInExtraToolsComment"
+msgstr "ここから用語集の用語を学習パスとテスト ツールに追加する方法を構成することができます"
+
+msgid "HSurvey"
+msgstr "意見調査のヘルプ"
+
+msgid "HBlogs"
+msgstr "計画のヘルプ"
+
+msgid "ExportCourses"
+msgstr "コースをエクスポート"
+
+msgid "IsNotAdministrator"
+msgstr "管理者ではありません"
+
+msgid "SendEmailToAdminTitle"
+msgstr "新しいコースの作成の電子メール通知"
+
+msgid "SendEmailToAdminComment"
+msgstr "教員が新しいコースを登録するたびに、プラットフォーム管理者に電子メールを送信します"
+
+msgid "SpecialCourse"
+msgstr "特別なコース"
+
+msgid "Editor"
+msgstr "HTML エディター"
+
+msgid "GoToCourseAfterLoginTitle"
+msgstr "ログイン後にコースへ直接移動"
+
+msgid "GoToCourseAfterLoginComment"
+msgstr "ユーザーが 1 つのコースに登録されている場合、ログイン後にコースへ直接移動します"
+
+msgid "AllowStudentsDownloadFoldersTitle"
+msgstr "学生にディレクトリのダウンロードを許可"
+
+msgid "AllowStudentsDownloadFoldersComment"
+msgstr "学生にドキュメント ツールからディレクトリを完全にまとめてダウンロードすることを許可します"
+
+msgid "AllowStudentsToCreateGroupsInSocialTitle"
+msgstr "学生にソーシャル ネットワークのグループを作成することを許可"
+
+msgid "AllowStudentsToCreateGroupsInSocialComment"
+msgstr "学生にソーシャル ネットワークのグループを作成することを許可します"
+
+msgid "AllowSendMessageToAllPlatformUsersTitle"
+msgstr "プラットフォームの任意のユーザーへのメッセージの送信を許可"
+
+msgid "AllowSendMessageToAllPlatformUsersComment"
+msgstr "友人や現在オンラインのユーザーだけでなく、プラットフォームの任意のユーザーへのメッセージの送信を許可します。"
+
+msgid "TabsSocial"
+msgstr "ソーシャル ネットワーク タブ"
+
+msgid "MessageMaxUploadFilesizeTitle"
+msgstr "メッセージの最大アップロード ファイル サイズ"
+
+msgid "MessageMaxUploadFilesizeComment"
+msgstr "メッセージ ツールのファイルのアップロードの最大サイズです (バイト単位)"
+
+msgid "ChamiloHomepage"
+msgstr "Chamilo のホームページ"
+
+msgid "ChamiloForum"
+msgstr "Chamilo のフォーラム"
+
+msgid "ChamiloExtensions"
+msgstr "Chamilo の拡張機能"
+
+msgid "Invitations"
+msgstr "招待"
+
+msgid "MyGroups"
+msgstr "グループ"
+
+msgid "Social"
+msgstr "ソーシャル"
+
+msgid "UsersGroups"
+msgstr "ユーザー、グループ"
+
+msgid "AddOneMoreFile"
+msgstr "ファイルをさらに 1 つ追加"
+
+msgid "ModifyInformation"
+msgstr "情報を編集"
+
+msgid "Newest"
+msgstr "最新"
+
+msgid "Popular"
+msgstr "人気"
+
+msgid "EnableTimerControl"
+msgstr "時間の制御を有効にする"
+
+msgid "ExerciseTotalDurationInMinutes"
+msgstr "テストの合計期間 (分)"
+
+msgid "RandomAnswers"
+msgstr "選択肢をランダムに並べ替え"
+
+msgid "MultipleSelectCombination"
+msgstr "正誤"
+
+msgid "MultipleAnswerCombination"
+msgstr "正誤"
+
+msgid "ExerciseExpiredTimeMessage"
+msgstr "テストは期限切れです"
+
+msgid "AddAdditionalProfileField"
+msgstr "ユーザー プロファイルのフィールドを追加"
+
+msgid "Metadata"
+msgstr "メタデータ"
+
+msgid "AddMetadata"
+msgstr "メタデータを表示/編集"
+
+msgid "SeeMore"
+msgstr "詳細を参照"
+
+msgid "Announcements"
+msgstr "お知らせ"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Blog"
+msgstr "ブログ"
+
+msgid "StartToType"
+msgstr "入力後、タグを確認するにはこのバーをクリックします"
+
+msgid "PortalHomepageDefaultIntroduction"
+msgstr "<h2>e ラーニングのプラットフォームを正常にインストールしました!</h2>  <p>以下の 3 つの簡単な手順でインストールを完了することができます:<br /> <ol>     <li>管理セクションへ移動して、プラットフォーム -> <a href=\"main/admin/settings.php\">構成の設定</a> を選択してプラットフォームを構成します。</li>     <li>ユーザーまたはコースをプラットフォームに作成します。アカウントを作成する新しいユーザーを招待するか、<a href=\"main/admin/\">管理</a> のユーザーまたはコース セクションから自身でアカウントを作成することができます。</li>     <li>管理セクションの <a href=\"main/admin/configure_homepage.php\">プラットフォームのホームページを編集</a> から、このページを編集します。</li> </ol> <p>このソフトウェアの詳しい情報は Web サイトにあります: <a href=\"http://www.chamilo.org\">http://www.chamilo.org</a></p> <p>コミュニティに参加して<a href=\"http://www.chamilo.org/forum\">フォーラム</a>にフィードバックを頂けると幸いです。</p>"
+
+msgid "StudentAllowedToDeleteOwnPublication"
+msgstr "学生に自身の提出物の削除を許可"
+
+msgid "ThematicAdvance"
+msgstr "テーマ進行"
+
+msgid "TabsDashboard"
+msgstr "ダッシュボード"
+
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Attendances"
+msgstr "出席"
+
+msgid "CountDoneAttendance"
+msgstr "出席数"
+
+msgid "SessionsInformation"
+msgstr "セッション レポート"
+
+msgid "YourSessionsList"
+msgstr "セッション"
+
+msgid "TeachersInformationsList"
+msgstr "教員レポート"
+
+msgid "YourTeachers"
+msgstr "教員"
+
+msgid "StudentsInformationsList"
+msgstr "学生レポート"
+
+msgid "YourStudents"
+msgstr "学生"
+
+msgid "TeachersInformationsGraph"
+msgstr "教員レポートのグラフ"
+
+msgid "StudentsInformationsGraph"
+msgstr "学生レポートのグラフ"
+
+msgid "Timezones"
+msgstr "タイムゾーン"
+
+msgid "TimeSpentOnThePlatformLastWeekByDay"
+msgstr "過去 1 週間の日ごとのプラットフォームに費やされた時間"
+
+msgid "AttendancesFaults"
+msgstr "欠席"
+
+msgid "ThereIsNoInformationAboutYourSessions"
+msgstr "セッション情報がありません"
+
+msgid "TimeSpentLastWeek"
+msgstr "過去 1 週間に費やされた時間"
+
+msgid "SystemStatus"
+msgstr "システムの状態"
+
+msgid "LoginEnter"
+msgstr "ログイン"
+
+msgid "CopyExercise"
+msgstr "このテストを新しいテストとしてコピー"
+
+msgid "CleanStudentResults"
+msgstr "このテストの学生の結果をすべて消去"
+
+msgid "AttendanceSheetDescription"
+msgstr "出席簿では、コースの出席を報告する日付一覧を指定することができます。"
+
+msgid "EvaluationsGraph"
+msgstr "評価のグラフ"
+
+msgid "ToolCourseDescription"
+msgstr "コースの説明"
+
+msgid "ToolDocument"
+msgstr "ドキュメント"
+
+msgid "ToolLearnpath"
+msgstr "学習パス"
+
+msgid "ToolLink"
+msgstr "リンク"
+
+msgid "ToolQuiz"
+msgstr "テスト"
+
+msgid "ToolAnnouncement"
+msgstr "お知らせ"
+
+msgid "ToolGradebook"
+msgstr "評価"
+
+msgid "ToolGlossary"
+msgstr "用語集"
+
+msgid "ToolAttendance"
+msgstr "出席"
+
+msgid "ToolCalendarEvent"
+msgstr "予定表"
+
+msgid "ToolForum"
+msgstr "フォーラム"
+
+msgid "ToolDropbox"
+msgstr "課題提出箱"
+
+msgid "ToolUser"
+msgstr "ユーザー"
+
+msgid "ToolGroup"
+msgstr "グループ"
+
+msgid "ToolChat"
+msgstr "チャット"
+
+msgid "ToolStudentPublication"
+msgstr "課題"
+
+msgid "ToolSurvey"
+msgstr "意見調査"
+
+msgid "ToolWiki"
+msgstr "Wiki"
+
+msgid "ToolNotebook"
+msgstr "ノートブック"
+
+msgid "ToolBlogManagement"
+msgstr "計画"
+
+msgid "ToolTracking"
+msgstr "レポート作成"
+
+msgid "ToolCourseSetting"
+msgstr "設定"
+
+msgid "ToolCourseMaintenance"
+msgstr "バックアップ"
+
+msgid "AreYouSureToDeleteAllDates"
+msgstr "日付をすべて削除してもよろしいですか?"
+
+msgid "ImportQtiQuiz"
+msgstr "QTI2 のテストをインポート"
+
+msgid "AddADateTime"
+msgstr "日時を追加"
+
+msgid "AllowUserViewUserList"
+msgstr "ユーザーにユーザー一覧の表示を許可"
+
+msgid "AllowUserViewUserListActivate"
+msgstr "ユーザー一覧を有効にする"
+
+msgid "AllowUserViewUserListDeactivate"
+msgstr "ユーザー一覧を無効にする"
+
+msgid "ThematicControl"
+msgstr "テーマ制御"
+
+msgid "ThematicDetails"
+msgstr "詳細なテーマ表示"
+
+msgid "Thematic"
+msgstr "テーマ"
+
+msgid "ThematicPlan"
+msgstr "テーマの計画"
+
+msgid "EditThematicPlan"
+msgstr "テーマ進行を編集"
+
+msgid "EditThematicAdvance"
+msgstr "テーマ進行を編集"
+
+msgid "NewThematicSection"
+msgstr "新しいテーマ セクション"
+
+msgid "ThematicDetailsDescription"
+msgstr "トピック、各計画および進行状況の詳細です。日付順の日付を選択してトピックを完了として指定すると、システムは前の日付をすべて完了として表示します。"
+
+msgid "SkillToAcquireQuestions"
+msgstr "このテーマ セクションの終了までに取得するスキルは何ですか?"
+
+msgid "SkillToAcquire"
+msgstr "取得するスキル"
+
+msgid "InfrastructureQuestions"
+msgstr "通常、このトピックの目標を達成するのに必要な基盤は何ですか?"
+
+msgid "Infrastructure"
+msgstr "基盤"
+
+msgid "DurationInHours"
+msgstr "期間 (時間)"
+
+msgid "StartDateFromAnAttendance"
+msgstr "出席日から開始日を選択する"
+
+msgid "StartDateCustom"
+msgstr "ユーザー設定の開始日"
+
+msgid "StartDateOptions"
+msgstr "開始日オプション"
+
+msgid "ThematicAdvanceConfiguration"
+msgstr "テーマ進行の構成"
+
+msgid "InfoAboutAdvanceInsideHomeCourse"
+msgstr "コースのホームページのテーマ進行の情報"
+
+msgid "DisplayAboutLastDoneAdvance"
+msgstr "最後に完了したトピックの情報を表示する"
+
+msgid "DisplayAboutNextAdvanceNotDone"
+msgstr "次の未完了のトピックの情報を表示する"
+
+msgid "InfoAboutLastDoneAdvance"
+msgstr "最後に完了したトピックの情報"
+
+msgid "ThereIsNoAThematicSection"
+msgstr "テーマ セクションがありません"
+
+msgid "ThereIsNoAThematicAdvance"
+msgstr "テーマ進行がありません"
+
+msgid "NewThematicAdvance"
+msgstr "新しいテーマ進行"
+
+msgid "DoNotDisplayAnyAdvance"
+msgstr "進行状況を表示しない"
+
+msgid "ToolCourseProgress"
+msgstr "コースの進行状況"
+
+msgid "SelectAnAttendance"
+msgstr "出席を選択"
+
+msgid "LinkOpenSelf"
+msgstr "self で開く"
+
+msgid "LinkOpenBlank"
+msgstr "blank で開く"
+
+msgid "LinkOpenParent"
+msgstr "parent で開く"
+
+msgid "LinkOpenTop"
+msgstr "top で開く"
+
+msgid "ThematicSectionHasBeenCreatedSuccessfull"
+msgstr "テーマ セクションを正常に作成しました"
+
+msgid "NowYouShouldAddThematicPlanXAndThematicAdvanceX"
+msgstr "テーマの計画 %s とテーマ進行 %s を追加しなければなりません"
+
+msgid "LpPrerequisiteDescription"
+msgstr "前提条件として別の学習パスを選択すると、前提条件の学習パスが完全に完了する (100%) まで現在の前提条件が非表示になります"
+
+msgid "HomepageViewVerticalActivity"
+msgstr "縦の活動項目表示"
+
+msgid "CoursesInformation"
+msgstr "コース情報"
+
+msgid "DateTime"
+msgstr "日付と時間"
+
+msgid "ConfigureDashboardPlugin"
+msgstr "ダッシュボード プラグインを構成"
+
+msgid "EditBlocks"
+msgstr "ブロックを編集"
+
+msgid "Never"
+msgstr "なし"
+
+msgid "SkillsRanking"
+msgstr "スキルのランク"
+
+msgid "SkillsImport"
+msgstr "スキルのインポート"
+
+msgid "SkillsWheel"
+msgstr "スキル ホイール"
+
+msgid "YourSkillRankingX"
+msgstr "スキルのランク: %s"
+
+msgid "ManageSkills"
+msgstr "スキルを管理"
+
+msgid "ViewSkillsWheel"
+msgstr "スキル ホイールを表示"
+
+msgid "CourseSettingsRegisterDirectLink"
+msgstr "コースを完全に公開または公開した場合、以下の直接リンクを使用して新しいユーザーに招待を送信することができますので、登録後、ユーザーはコースに直接アクセスすることができます。 また、URL に e=1 パラメーターを追加することもできます。\"1\" はテスト ID に置き換えて、特定のテストに直接アクセスすることができます。テスト ID はテストをクリックするときの URL で発見することができます。<br/>%s"
+
+msgid "DirectLink"
+msgstr "直接リンク"
+
+msgid "HelpFolderLearningPaths"
+msgstr "教員のみに表示する情報:<br />このフォルダーには学習パス ツールで作成したドキュメントが含まれています。このフォルダーでは、たとえば Chamilo Rapid のように学習パスから内容をインポートして生成する HTML ファイルを編集することができます。このフォルダーを学生に非表示にすることをお勧めします。"
+
+msgid "YouWillBeRedirectedInXSeconds"
+msgstr "しばらくお待ちください。%s 秒後にリダイレクトされます..."
+
+msgid "NumberOfCoursesPublic"
+msgstr "完全な公開コース数"
+
+msgid "NumberOfCoursesOpen"
+msgstr "公開コース数"
+
+msgid "NumberOfCoursesPrivate"
+msgstr "制限付きコース数"
+
+msgid "NumberOfCoursesClosed"
+msgstr "非公開コース数"
+
+msgid "NumberOfCoursesTotal"
+msgstr "コースの合計数"
+
+msgid "NumberOfUsersActive"
+msgstr "アクティブ ユーザー数"
+
+msgid "GlobalPlatformInformation"
+msgstr "グローバル プラットフォーム情報"
+
+msgid "ShowLinkBugNotificationTitle"
+msgstr "バグを報告するリンクを表示"
+
+msgid "ShowLinkBugNotificationComment"
+msgstr "サポート プラットフォーム (http://support.chamilo.org) にバグを報告するリンクをヘッダーに表示します。リンクをクリックした場合、ユーザーはバグを報告する手続きを説明するサポート プラットフォームの Wiki ページに送信されます。"
+
+msgid "ReportABug"
+msgstr "バグを報告"
+
+msgid "NewHomeworkEmailAlert"
+msgstr "課題の送信をユーザーに電子メールで通知"
+
+msgid "NewHomeworkEmailAlertEnable"
+msgstr "課題の送信についてのユーザーへの電子メール通知を有効にする"
+
+msgid "NewHomeworkEmailAlertDisable"
+msgstr "課題の送信についてのユーザーへの電子メール通知を無効にする"
+
+msgid "MaximumOfParticipants"
+msgstr "メンバーの最大数"
+
+msgid "DataFiller"
+msgstr "データの入力"
+
+msgid "ContactInformation"
+msgstr "連絡先情報"
+
+msgid "DateUnLock"
+msgstr "日付をロック解除"
+
+msgid "DateLock"
+msgstr "日付をロック"
+
+msgid "GoToStudentDetails"
+msgstr "学生の詳細へ移動"
+
+msgid "DisplayAboutNextAdvanceNotDoneAndLastDoneAdvance"
+msgstr "最後に実行された手順と次の未完了の手順を表示する"
+
+msgid "RepeatDate"
+msgstr "日付を繰り返す"
+
+msgid "EndDateMustBeMoreThanStartDate"
+msgstr "終了日は開始日よりも大きくする必要があります"
+
+msgid "AllUsersAreAutomaticallyRegistered"
+msgstr "すべてのユーザーを自動的に登録します"
+
+msgid "AreYouSureToEditTheUserStatus"
+msgstr "ユーザーの状態を編集してもよろしいですか?"
+
+msgid "DisplayCourseOverview"
+msgstr "コースの概要"
+
+msgid "DisplaySessionOverview"
+msgstr "セッションの概要"
+
+msgid "TotalNumberOfMessages"
+msgstr "メッセージの合計数"
+
+msgid "TotalNumberOfAssignments"
+msgstr "課題の合計数"
+
+msgid "MyFiles"
+msgstr "ファイル"
+
+msgid "AllowUsersCopyFilesTitle"
+msgstr "ユーザーがコースのファイルを個人用のファイル領域にコピーすることを許可"
+
+msgid "AllowUsersCopyFilesComment"
+msgstr "ファイルをコースから個人用のファイル領域にコピーすることをユーザーに許可して、コースの外でソーシャル ネットワークまたは HTML エディターから表示します"
+
+msgid "UpdateImage"
+msgstr "画像を更新"
+
+msgid "Draw"
+msgstr "図形"
+
+msgid "ConnectionsLastMonth"
+msgstr "過去 1 か月の接続"
+
+msgid "TotalStudents"
+msgstr "学生の合計"
+
+msgid "FilteringWithScoreX"
+msgstr "得点でフィルター: %s"
+
+msgid "ExamTaken"
+msgstr "受験済み"
+
+msgid "ExamNotTaken"
+msgstr "未受験"
+
+msgid "ExamPassX"
+msgstr "合格: 最低 %s"
+
+msgid "ExamFail"
+msgstr "不合格"
+
+msgid "ExamTracking"
+msgstr "テストの追跡"
+
+msgid "EnableCourseValidation"
+msgstr "コースの確認"
+
+msgid "EnableCourseValidationComment"
+msgstr "\"コースの確認\" の機能を有効にした場合、教員はコースを単独で作成することはできません。教員はコースの要求を入力します。プラットフォーム管理者は要求を確認して承認または拒否します。<br />この機能は電子メール メッセージを自動的に送信します。専用のアカウントを使用して電子メール サーバーにアクセスするように Chamilo を設定します。"
+
+msgid "CourseValidationTermsAndConditionsLink"
+msgstr "コースの確認 - 利用規約のリンク"
+
+msgid "CourseValidationTermsAndConditionsLinkComment"
+msgstr "これはコースの要求を行うために有効な \"利用規約\" のドキュメントの URL です。アドレスをここに設定した場合、ユーザーはコースの要求を送信する前にこの利用規約を読んで同意しなければなりません。<br />Chamilo の \"利用規約\" モジュールを有効にしてその URL を使用する場合は、この設定を空のままにします。"
+
+msgid "EnabledSVGTitle"
+msgstr "SVG ファイルの作成と編集"
+
+msgid "EnabledSVGComment"
+msgstr "このオプションでは、PNG ファイル形式の画像をエクスポートするのと同様にオンラインで SVG (Scalable Vector Graphics) ファイルの作成と編集ができます。"
+
+msgid "LPExerciseResultsBySession"
+msgstr "セッションごとの学習パスのテスト結果"
+
+msgid "LPQuestionListResults"
+msgstr "学習パスのテスト結果一覧"
+
+msgid "PleaseSelectACourse"
+msgstr "コースを選択してください"
+
+msgid "StudentScoreAverageIsCalculatedBaseInAllLPsAndAllAttempts"
+msgstr "学生の平均点をすべての学習パスとすべての実施に基づいて計算します"
+
+msgid "AverageScore"
+msgstr "平均点"
+
+msgid "LastConnexionDate"
+msgstr "最終接続日"
+
+msgid "UserFolders"
+msgstr "ユーザーのフォルダー"
+
+msgid "HelpUsersFolder"
+msgstr "教員のみに表示する情報:<br />ユーザーのフォルダーは、ドキュメント ツールでアクセスしたかオンライン エディターでファイルをコースに送信した各ユーザーのフォルダーが含まれています。どちらの状況も発生していない場合、ユーザーのフォルダーは作成されません。グループの場合、エディターで送信したファイルは各グループのフォルダーに追加され、このグループの学生のみがアクセスすることができます。<br /><br /><br /><br />ユーザーのフォルダーと含まれている各フォルダーは既定ですべての学生に非表示になりますが、各学生はオンライン エディターで自身のディレクトリの内容を参照することができます。ただし、学生が別の学生のファイルまたはフォルダーのアドレスを知っていると、アクセスできる場合があります。<br /><br /><br /><br />学生のフォルダーを表示する場合、その他の学生は内容を参照することができます。この場合、フォルダーを所有する学生は次のこともできます (ドキュメント ツールから自身のフォルダーのみで): Web ドキュメントの作成と編集、ドキュメントを個人用のテンプレートに変換、SVG と PNG 形式の図形の作成と編集、音声ファイルを WAV 形式で録音、テキストから MP3 の音声ファイルを作成、Web カメラからスナップショットの作成、ドキュメントの送信、フォルダーの作成、フォルダーとファイルの移動、フォルダーとファイルの削除、および自身のフォルダーのバックアップのダウンロード<br /><br /><br /><br />さらに、ドキュメント ツールはオンライン エディターのファイル マネージャーと同期するので、これらの片方の変更は両方に影響します。<br /><br /><br /><br />このように、ユーザーのフォルダーはファイルを保存するだけの場所ではなく、学生がコースで使用するドキュメントの管理場所になります。また、任意のユーザーがドキュメント ツールの表示されたファイルを任意のフォルダー (自身が所有者でなくても) からポートフォリオまたはソーシャル ネットワークの個人用のドキュメント領域にコピーして、その他のコースで使用することができますのでご注意ください。"
+
+msgid "HelpFolderChat"
+msgstr "教員のみに表示する情報:<br />このフォルダーにはチャットで開かれたすべてのセッションが含まれています。チャット セッションは簡易ですが、とても興味深く、追加の作業ドキュメントとして組み込む価値があります。組み込むには、このフォルダーの表示を変更せず、ファイルを表示してリンクさせます。このフォルダーを全員に表示することはお勧めしません。"
+
+msgid "DestinationDirectory"
+msgstr "対象フォルダー"
+
+msgid "CertificatesFiles"
+msgstr "証明書"
+
+msgid "ChatFiles"
+msgstr "チャットの会話の履歴"
+
+msgid "Flash"
+msgstr "Flash"
+
+msgid "Video"
+msgstr "動画"
+
+msgid "Images"
+msgstr "画像"
+
+msgid "Text2AudioTitle"
+msgstr "テキストを音声に変換するオンライン サービスを有効にする"
+
+msgid "Text2AudioComment"
+msgstr "テキストを音声に変換するオンライン ツールです。音声合成技術を使用して音声ファイルを生成し、コースに保存します。"
+
+msgid "ShowUsersFoldersTitle"
+msgstr "ユーザーのフォルダーをドキュメント ツールに表示"
+
+msgid "ShowUsersFoldersComment"
+msgstr "このオプションでは、システムが各ユーザーに生成するフォルダーを教員に表示または非表示にすることができます。ユーザーはツールのドキュメントにアクセスするか、Web エディターからファイルを送信します。これらのフォルダーを教員に表示する場合、教員は学生に表示または非表示して、コースの特定の場所を各学生に与えることができます。学生はその場所にドキュメントを保存するだけでなく、Web ページの作成と編集、PDF ファイルへのエクスポート、図形の作成、個人用の Web テンプレートの作成、ファイルの送信、ディレクトリとファイルの作成、移動および削除、フォルダーからのコピーへのセキュリティ設定ができます。コースの各ユーザーは完全なドキュメントの管理場所を持ちます。また、任意のユーザーがドキュメント ツールの表示されたファイルを任意のフォルダー (自身が所有者でなくても) からポートフォリオまたはソーシャル ネットワークの個人用のドキュメント領域にコピーして、その他のコースで使用することができますのでご注意ください。"
+
+msgid "ShowDefaultFoldersTitle"
+msgstr "既定で提供されるマルチメディア リソースを含むすべてのフォルダーをドキュメント ツールに表示"
+
+msgid "ShowDefaultFoldersComment"
+msgstr "既定で提供されるファイルを含むマルチメディア ファイルのフォルダーは、コースで使用する動画、音声、画像と Flash アニメーションのカテゴリに整理されます。ドキュメント ツールで非表示にしても、プラットフォームの Web エディターでこれらのリソースを使用することができます。"
+
+msgid "ShowChatFolderTitle"
+msgstr "チャットの会話の履歴フォルダーを表示"
+
+msgid "ShowChatFolderComment"
+msgstr "チャットのすべてのセッションを含むフォルダーが教員に表示されます。教員は学生に表示または非表示にして、リソースとして使用することができます"
+
+msgid "EnabledStudentExport2PDFTitle"
+msgstr "学生がドキュメント ツールと Wiki ツールで Web ドキュメントを PDF ファイル形式にエクスポートすることを許可"
+
+msgid "EnabledStudentExport2PDFComment"
+msgstr "この機能は既定で有効ですが、サーバーの過負荷または特定の学習環境では、すべてのコースに無効にする場合があります。"
+
+msgid "CreateAudio"
+msgstr "音声を作成"
+
+msgid "InsertText2Audio"
+msgstr "音声ファイルに変換するテキストを入力"
+
+msgid "HelpText2Audio"
+msgstr "テキストを音声に変換"
+
+msgid "CourseHideToolsTitle"
+msgstr "ツールを教員に非表示にする"
+
+msgid "CourseHideToolsComment"
+msgstr "教員に非表示にするツールのチェックボックスをオンにします。これはツールへのアクセスを禁止します。"
+
+msgid "GoogleAudio"
+msgstr "Google の音声サービスを使用"
+
+msgid "SaveMP3"
+msgstr "MP3 ファイルを保存"
+
+msgid "Pediaphon"
+msgstr "Pediaphon の音声サービスを使用"
+
+msgid "MoveUserStats"
+msgstr "セッションのユーザーの結果を移動"
+
+msgid "PDFExportWatermarkEnableTitle"
+msgstr "PDF ファイルのエクスポートで透かしを有効にする"
+
+msgid "PDFExportWatermarkEnableComment"
+msgstr "このオプションを有効にすると、画像またはテキストをアップロードして、システムのドキュメントを PDF ファイルにエクスポートするときに透かしとして自動的に追加することができます。"
+
+msgid "AddWaterMark"
+msgstr "透かし画像をアップロード"
+
+msgid "PDFExportWatermarkByCourseTitle"
+msgstr "コースごとの透かしの定義を有効にする"
+
+msgid "PDFExportWatermarkByCourseComment"
+msgstr "このオプションを有効にした場合、教員は自身の透かしをコースのドキュメントに定義することができます。"
+
+msgid "PDFExportWatermarkTextTitle"
+msgstr "PDF ファイルの透かしのテキスト"
+
+msgid "PDFExportWatermarkTextComment"
+msgstr "このテキストはドキュメントを PDF ファイルとしてエクスポートするときに透かしとして追加されます。"
+
+msgid "ExerciseMinScoreTitle"
+msgstr "テストの最低点"
+
+msgid "ExerciseMinScoreComment"
+msgstr "プラットフォームのすべてのテストの最低点 (通常は 0) を定義します。これは最終結果をユーザーと教員に表示する方法を定義します。"
+
+msgid "ExerciseMaxScoreTitle"
+msgstr "テストの最高点"
+
+msgid "ExerciseMaxScoreComment"
+msgstr "プラットフォームのすべてのテストの最高点 (通常は 10、20 または 100) を定義します。これは最終結果をユーザーと教員に表示する方法を定義します。"
+
+msgid "LPAutoLaunch"
+msgstr "学習パスの自動起動を有効にする"
+
+msgid "UseMaxScore100"
+msgstr "100 を既定の最高点に使用する"
+
+msgid "UniqueAnswerNoOption"
+msgstr "選択/分かりません"
+
+msgid "MultipleAnswerTrueFalse"
+msgstr "選択 (正しい/誤り/分かりません)"
+
+msgid "MultipleAnswerCombinationTrueFalse"
+msgstr "複数選択 (正しい/誤り/分かりません)"
+
+msgid "LoginOrEmailAddress"
+msgstr "ユーザー名または電子メール アドレス"
+
+msgid "Activate"
+msgstr "アクティブにする"
+
+msgid "Deactivate"
+msgstr "非アクティブにする"
+
+msgid "ConfigLearnpath"
+msgstr "学習パスの設定"
+
+msgid "CareersAndPromotions"
+msgstr "経歴分野と促進項目"
+
+msgid "LearningPaths"
+msgstr "学習パス"
+
+msgid "PhotoRetouching"
+msgstr "写真を修正"
+
+msgid "EnabledPixlrTitle"
+msgstr "外部の Pixlr サービスを有効にする"
+
+msgid "EnabledPixlrComment"
+msgstr "Pixlr では Photoshop と同様の機能で写真の編集、調整とフィルター処理ができます。ビットマップに基づいて画像の最適な補間処理を行います"
+
+msgid "LatestAttempt"
+msgstr "最終受験"
+
+msgid "PublicationDate"
+msgstr "公開日"
+
+msgid "SocialGroups"
+msgstr "ソーシャル グループ"
+
+msgid "CreateASocialGroup"
+msgstr "ソーシャル グループを作成"
+
+msgid "EnableAccessibilityFontResizeTitle"
+msgstr "フォントをサイズ変更するユーザー補助機能"
+
+msgid "EnableAccessibilityFontResizeComment"
+msgstr "フォントをサイズ変更するオプションをキャンパスの右上に表示するこのオプションを有効にします。これは視覚障碍者にコースの内容を読みやすくします。"
+
+msgid "AtOnce"
+msgstr "受信時"
+
+msgid "Daily"
+msgstr "1 日 1 回"
+
+msgid "ItemUpdated"
+msgstr "項目を更新しました"
+
+msgid "RedirectToALearningPath"
+msgstr "選択した学習パスにリダイレクトする"
+
+msgid "RedirectToTheLearningPathList"
+msgstr "学習パス一覧にリダイレクトする"
+
+msgid "PropagateNegativeResults"
+msgstr "負の得点をその他の問題に伝達させる"
+
+msgid "LPNotVisibleToStudent"
+msgstr "学生はこの学習パスを参照することができません"
+
+msgid "OnlyShowScore"
+msgstr "練習モード: 得点のみを表示する"
+
+msgid "MailNotifyInvitation"
+msgstr "新しい招待を受信したらメールで通知"
+
+msgid "MailNotifyMessage"
+msgstr "新しい個人用のメッセージを受信したらメールで通知"
+
+msgid "MailNotifyGroupMessage"
+msgstr "グループで新しいメッセージを受信したらメールで通知"
+
+msgid "ClickToSelectOrDragAndDropMultipleFilesOnTheUploadField"
+msgstr "以下のボックスをクリックしてお使いのコンピューターからファイルを選択するか (Ctrl キーを押しながらクリックして、一度に複数のファイルを選択することができます)、ファイルをお使いのデスクトップから以下のボックスに直接ドラッグ/ドロップします。 残りはシステムが処理します!"
+
+msgid "Simple"
+msgstr "簡易"
+
+msgid "UploadFiles"
+msgstr "クリックまたはアップロードするファイルをここにドラッグ/ドロップ"
+
+msgid "ImportExcelQuiz"
+msgstr "Excel ファイルからクイズをインポート"
+
+msgid "YouAreCurrentlyUsingXOfYourX"
+msgstr "現在 %s MB (%s) / %s MB 使用しています。"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "OnlyLettersAndNumbers"
+msgstr "英字 (a-z) と数字 (0-9) のみです"
+
+msgid "HomepageViewActivityBig"
+msgstr "大きな活動項目表示 (iPad スタイル)"
+
+msgid "NotAvailable"
+msgstr "利用不可"
+
+msgid "EnableQuizScenarioTitle"
+msgstr "クイズのシナリオを有効にする"
+
+msgid "EnableQuizScenarioComment"
+msgstr "ユーザーの回答によって異なる問題を出題するテストをここから作成することができます。"
+
+msgid "RecordMyVoice"
+msgstr "音声を録音"
+
+msgid "VoiceRecord"
+msgstr "音声の録音"
+
+msgid "EnableNanogongTitle"
+msgstr "NanoGong の録音 - 音声再生をアクティブにする"
+
+msgid "EnableNanogongComment"
+msgstr "NanoGong では、音声を録音して、プラットフォームに送信するか、お使いのハード ドライブにダウンロードすることができます。録音したものを再生することもできます。学生にはマイクとスピーカーのみが必要で、最初に読み込まれたときにアプレットを受理します。言語の学生が教員の正しい発音を聞いた後、WAV 形式の音声ファイルで自身の音声を聞く場合に役に立ちます。"
+
+msgid "GradebookAndAttendances"
+msgstr "評価と出席"
+
+msgid "AllDone"
+msgstr "実施済みのすべて"
+
+msgid "AllNotDone"
+msgstr "未実施のすべて"
+
+msgid "IfYourLPsHaveAudioFilesIncludedYouShouldSelectThemFromTheDocuments"
+msgstr "音声ファイルが学習パスに含まれる場合、ドキュメントからそれらを選択しなくてはなりません"
+
+msgid "Blogs"
+msgstr "ブログ"
+
+msgid "Others"
+msgstr "その他"
+
+msgid "NewImage"
+msgstr "新しい画像"
+
+msgid "Numeric"
+msgstr "数値"
+
+msgid "InvalidQuestionType"
+msgstr "問題の種類が無効です"
+
+msgid "Saved"
+msgstr "保存しました。"
+
+msgid "CourseAutoRegister"
+msgstr "自動登録コース"
+
+msgid "Tags"
+msgstr "タグ"
+
+msgid "ThereIsNoClassScheduledTodayTryPickingAnotherDay"
+msgstr "今日のスケジュールされたクラスがありません。別の日付を選択するか、操作アイコンを使用して出席項目を追加してください。"
+
+msgid "TotalWeight"
+msgstr "重みの合計"
+
+msgid "RandomPick"
+msgstr "ランダムに選択"
+
+msgid "ShowScoreAndRightAnswer"
+msgstr "自動評価モード: 得点と期待される回答を表示する"
+
+msgid "DoNotShowScoreNorRightAnswer"
+msgstr "試験モード: 得点と回答を表示しない"
+
+msgid "Replies"
+msgstr "返信"
+
+msgid "InstallationGuide"
+msgstr "インストール ガイド"
+
+msgid "ChangesInLastVersion"
+msgstr "最新バージョンの変更点"
+
+msgid "ContributorsList"
+msgstr "貢献者一覧"
+
+msgid "SecurityGuide"
+msgstr "セキュリティ ガイド"
+
+msgid "OptimizationGuide"
+msgstr "最適化ガイド"
+
+msgid "FreeBusyCalendar"
+msgstr "予定あり/なしカレンダー"
+
+msgid "CheckURL"
+msgstr "リンクを確認"
+
+msgid "LoadExtraData"
+msgstr "追加のユーザー フィールドのデータを読み込みます (表示するには 'フィルター' としてマークする必要があります)。"
+
+msgid "TotalWeightMustBeX"
+msgstr "すべての活動項目の重みの合計を %s にする必要があります"
+
+msgid "ForumCategories"
+msgstr "フォーラム カテゴリ"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "ArchiveDirCleanup"
+msgstr "アーカイブ ディレクトリのクリーンアップ"
+
+msgid "EnableStartTime"
+msgstr "開始時刻を有効にする"
+
+msgid "EnableEndTime"
+msgstr "終了時刻を有効にする"
+
+msgid "StartTest"
+msgstr "テストを開始"
+
+msgid "Wrong"
+msgstr "不正解"
+
+msgid "AllAttempts"
+msgstr "すべての受験"
+
+msgid "QuestionsToReview"
+msgstr "確認する問題"
+
+msgid "QuestionWithNoAnswer"
+msgstr "未回答の問題"
+
+msgid "ReviewQuestions"
+msgstr "選択した問題を確認"
+
+msgid "NoJavascript"
+msgstr "JavaScript がお使いのブラウザーで有効になっていません。Chamilo は動的なインターフェイスを提供するために JavaScript に大きく依存しています。ほとんどの機能は動作しますが、操作性の向上した最新機能を利用できない場合があります。お使いのブラウザーの構成を変更して (通常は編集 -> 設定メニュー)、このページを再読み込みすることをお勧めします。"
+
+msgid "Attempt"
+msgstr "実施"
+
+msgid "SaveForNow"
+msgstr "保存して続行"
+
+msgid "ContinueTest"
+msgstr "テストを続行"
+
+msgid "Attempts"
+msgstr "受験"
+
+msgid "XQuestionsWithTotalScoreY"
+msgstr "問題数: %d、合計点 (すべての問題): %s"
+
+msgid "UploadedDocuments"
+msgstr "アップロードしたドキュメント"
+
+msgid "YesWithCategoriesSorted"
+msgstr "はい、カテゴリは順に表示します"
+
+msgid "YesWithCategoriesShuffled"
+msgstr "はい、カテゴリもランダムに並べ替えます"
+
+msgid "ManageAllQuestions"
+msgstr "すべての問題を管理"
+
+msgid "RemoveFromTest"
+msgstr "テストから削除"
+
+msgid "QuestionUpperCaseFirstLetter"
+msgstr "問題"
+
+msgid "QuestionCategory"
+msgstr "問題カテゴリ"
+
+msgid "AddACategory"
+msgstr "カテゴリを追加"
+
+msgid "PersonalCalendar"
+msgstr "個人用のカレンダー"
+
+msgid "Skills"
+msgstr "スキル"
+
+msgid "CourseCalendar"
+msgstr "コース カレンダー"
+
+msgid "ResultsNotRevised"
+msgstr "未確認の結果"
+
+msgid "ResultNotRevised"
+msgstr "未確認の結果"
+
+msgid "ActivateLegal"
+msgstr "利用規約を有効にする"
+
+msgid "ShowALegalNoticeWhenEnteringTheCourse"
+msgstr "コースにアクセスしたら利用規約を表示します"
+
+msgid "LowestScore"
+msgstr "最低点"
+
+msgid "HighestScore"
+msgstr "最高点"
+
+msgid "ExerciseProgress"
+msgstr "テストの進行状況"
+
+msgid "SelectGradebook"
+msgstr "評価を選択"
+
+msgid "MySkills"
+msgstr "スキル"
+
+msgid "AllowTextAssignments"
+msgstr "オンライン エディターでの課題の提出を許可する"
+
+msgid "ShowDocumentPreviewTitle"
+msgstr "ドキュメントのプレビューを表示"
+
+msgid "ShowDocumentPreviewComment"
+msgstr "ドキュメント ツールでドキュメントのプレビューを表示すると、新しいページを読み込まずにドキュメントを表示しますが、一部の古いブラウザーまたは小さい幅の画面で不安定な結果になる場合があります。"
+
+msgid "UserList"
+msgstr "ユーザー一覧"
+
+msgid "SearchUsers"
+msgstr "ユーザーを検索"
+
+msgid "Administration"
+msgstr "管理"
+
+msgid "AddAsAnnouncement"
+msgstr "お知らせとして追加"
+
+msgid "SkillsAndGradebooks"
+msgstr "スキルと評価"
+
+msgid "ShowAdminToolbarTitle"
+msgstr "管理者ツールバーを表示"
+
+msgid "CourseLegalAgreement"
+msgstr "このコースの利用規約"
+
+msgid "RandomQuestionByCategory"
+msgstr "カテゴリごとのランダムな問題"
+
+msgid "QuestionDisplayCategoryName"
+msgstr "問題カテゴリを表示"
+
+msgid "ReviewAnswers"
+msgstr "回答を確認"
+
+msgid "TextWhenFinished"
+msgstr "テストの最後に表示するテキスト"
+
+msgid "Validated"
+msgstr "確認済み"
+
+msgid "NotValidated"
+msgstr "未確認"
+
+msgid "SelectAQuestionToReview"
+msgstr "変更する問題を選択"
+
+msgid "ReviewQuestionLater"
+msgstr "問題を後で変更"
+
+msgid "NumberStudentWhoSelectedIt"
+msgstr "選択した学生数"
+
+msgid "QuestionsAlreadyAnswered"
+msgstr "既に回答した問題"
+
+msgid "AddGradebook"
+msgstr "評価を追加"
+
+msgid "NumberOfStudents"
+msgstr "学生数"
+
+msgid "NumberStudentsAccessingCourse"
+msgstr "コースにアクセスする学生数"
+
+msgid "PercentageStudentsAccessingCourse"
+msgstr "コースにアクセスする学生の割合"
+
+msgid "NumberStudentsCompleteAllActivities"
+msgstr "すべての活動項目を完了した学生数 (進行状況 100%)"
+
+msgid "PercentageStudentsCompleteAllActivities"
+msgstr "すべての活動項目を完了した学生の割合 (進行状況 100%)"
+
+msgid "AverageOfActivitiesCompletedPerStudent"
+msgstr "学生ごとの完了した活動項目数の平均"
+
+msgid "TotalTimeSpentInTheCourse"
+msgstr "コースに費やされた時間の合計"
+
+msgid "AverageTimePerStudentInCourse"
+msgstr "コースの学生ごとの費やされた時間の平均"
+
+msgid "NumberOfDocumentsInLearnpath"
+msgstr "学習パスのドキュメント数"
+
+msgid "NumberOfExercisesInLearnpath"
+msgstr "学習パスのテスト数"
+
+msgid "NumberOfLinksInLearnpath"
+msgstr "学習パスのリンク数"
+
+msgid "NumberOfForumsInLearnpath"
+msgstr "学習パスのフォーラム数"
+
+msgid "NumberOfAssignmentsInLearnpath"
+msgstr "学習パスの課題数"
+
+msgid "NumberOfAnnouncementsInCourse"
+msgstr "コースのお知らせ数"
+
+msgid "CurrentCoursesReport"
+msgstr "現在のコースのレポート"
+
+msgid "HideTocFrame"
+msgstr "目次のフレームを非表示にする"
+
+msgid "CoursesReporting"
+msgstr "コース レポート"
+
+msgid "AdminReports"
+msgstr "管理者レポート"
+
+msgid "ExamsReporting"
+msgstr "テスト レポート"
+
+msgid "MyReporting"
+msgstr "レポート作成"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "ShowAdminToolbarComment"
+msgstr "ページの上部のグローバル ツールバーを、指定したユーザーの役割に表示します。WordPress や Google の黒いツールバーとよく似たこのツールバーは、複雑な操作を高速化して、学習コンテンツに利用可能な領域を改善しますが、一部のユーザーに混乱を招く場合があります"
+
+msgid "SessionList"
+msgstr "セッション一覧"
+
+msgid "StudentList"
+msgstr "学生一覧"
+
+msgid "StudentsWhoAreTakingTheExerciseRightNow"
+msgstr "テストを現在受験している学生"
+
+msgid "ReportByQuestion"
+msgstr "問題ごとのレポート"
+
+msgid "LiveResults"
+msgstr "リアルタイムの結果"
+
+msgid "XStarsOutOf5"
+msgstr "5 つ星のうち %s"
+
+msgid "YourVote"
+msgstr "あなたの投票"
+
+msgid "EnableHelpLinkTitle"
+msgstr "ヘルプのリンクを有効にする"
+
+msgid "EnableHelpLinkComment"
+msgstr "ヘルプのリンクは画面の右上に表示されます"
+
+msgid "AllowGlobalChatTitle"
+msgstr "グローバル チャットを許可"
+
+msgid "AllowGlobalChatComment"
+msgstr "ユーザーはお互いにチャットすることができます"
+
+msgid "DoNotShow"
+msgstr "表示しない"
+
+msgid "ShowToAdminsOnly"
+msgstr "管理者のみに表示する"
+
+msgid "ShowToAdminsAndTeachers"
+msgstr "管理者と教員に表示する"
+
+msgid "ShowToAllUsers"
+msgstr "すべてのユーザーに表示する"
+
+msgid "ImportGlossary"
+msgstr "用語集をインポート"
+
+msgid "ExportGlossaryAsCSV"
+msgstr "用語集を CSV ファイルとしてエクスポート"
+
+msgid "LoginX"
+msgstr "ログイン: %s"
+
+msgid "ChatConnected"
+msgstr "チャット (接続済み)"
+
+msgid "ChatDisconnected"
+msgstr "チャット (切断)"
+
+msgid "OralExpression"
+msgstr "口頭表現"
+
+msgid "CoursesDefaultCreationVisibilityTitle"
+msgstr "既定のコース表示"
+
+msgid "CoursesDefaultCreationVisibilityComment"
+msgstr "新しいコースを作成するときの既定のコース表示です"
+
+msgid "YouHaveEnteredTheCourseXInY"
+msgstr "コース <b>%s</b> へ <b>%s</b> に登録しました"
+
+msgid "LoginIsEmailTitle"
+msgstr "電子メールをユーザー名として使用する"
+
+msgid "LoginIsEmailComment"
+msgstr "システムのログインに電子メールを使用します"
+
+msgid "CongratulationsYouPassedTheTest"
+msgstr "テストに合格しました!"
+
+msgid "YouDidNotReachTheMinimumScore"
+msgstr "最低限の得点に届きませんでした"
+
+msgid "EndTest"
+msgstr "テストを終了"
+
+msgid "EnableWamiRecordTitle"
+msgstr "WAMI recorder をアクティブにする"
+
+msgid "EnableWamiRecordComment"
+msgstr "WAMI recorder は Flash の音声録音ツールです"
+
+msgid "EventType"
+msgstr "イベントの種類"
+
+msgid "WamiFlashDialog"
+msgstr "マイクのアクセス許可を求めるダイアログ ボックスが表示されます。はいを選択してダイアログ ボックスを閉じます (再表示させない場合は、閉じる前にチェックをオンにします)"
+
+msgid "WamiStartRecorder"
+msgstr "マイクを押して録音を開始します。もう一度押すと停止します。これを行うたびに、ファイルが生成されます。"
+
+msgid "WamiNeedFilename"
+msgstr "録音をアクティブにする前にファイル名が必要です。"
+
+msgid "InputNameHere"
+msgstr "名前をここに入力"
+
+msgid "Reload"
+msgstr "再読み込み"
+
+msgid "GoToCourse"
+msgstr "コースへ移動"
+
+msgid "Regions"
+msgstr "領域"
+
+msgid "CourseList"
+msgstr "コース一覧"
+
+msgid "Plugins"
+msgstr "プラグイン"
+
+msgid "LanguagePriority1Title"
+msgstr "言語の優先度 1"
+
+msgid "LanguagePriority2Title"
+msgstr "言語の優先度 2"
+
+msgid "LanguagePriority3Title"
+msgstr "言語の優先度 3"
+
+msgid "LanguagePriority4Title"
+msgstr "言語の優先度 4"
+
+msgid "LanguagePriority1Comment"
+msgstr "優先度の最も高い言語です"
+
+msgid "LanguagePriority2Comment"
+msgstr "2 番目の優先度の言語です"
+
+msgid "LanguagePriority3Comment"
+msgstr "3 番目の優先度の言語です"
+
+msgid "LanguagePriority4Comment"
+msgstr "4 番目の優先度の言語です"
+
+msgid "UserLanguage"
+msgstr "ユーザーの言語"
+
+msgid "UserSelectedLanguage"
+msgstr "ユーザーが選択した言語"
+
+msgid "PassPercentage"
+msgstr "合格の割合"
+
+msgid "AllowSkillsToolTitle"
+msgstr "スキル ツールを許可"
+
+msgid "AllowSkillsToolComment"
+msgstr "ユーザーはソーシャル ネットワークとホームページのブロックでスキルを参照することができます。"
+
+msgid "AllowPublicCertificatesTitle"
+msgstr "証明書の公開を許可"
+
+msgid "AllowPublicCertificatesComment"
+msgstr "未登録のユーザーはユーザーの証明書を表示することができます。"
+
+msgid "DontForgetToSelectTheMediaFilesIfYourResourceNeedIt"
+msgstr "メディア ファイルがリソースに必要な場合は、それも選択してください"
+
+msgid "Default"
+msgstr "既定"
+
+msgid "NoCategorySelected"
+msgstr "カテゴリを選択していません"
+
+msgid "ReturnToCourseHomepage"
+msgstr "コースのホームページへ戻る"
+
+msgid "ExerciseAverage"
+msgstr "テストの平均"
+
+msgid "WebCamClip"
+msgstr "Web カメラのクリップ"
+
+msgid "EnableWebCamClipTitle"
+msgstr "Web カメラのクリップを有効にする"
+
+msgid "EnableWebCamClipComment"
+msgstr "Web カメラのクリップでは、ユーザーは Web カメラから画像を取り込んでサーバーに JPEG ファイル形式で送信することができます"
+
+msgid "ActivateEmailTemplateTitle"
+msgstr "電子メール通知のテンプレートを有効にする"
+
+msgid "ActivateEmailTemplateComment"
+msgstr "特定のイベントで (特定のユーザーに) 通知する電子メールを独自に定義します"
+
+msgid "SystemManagement"
+msgstr "システムの管理"
+
+msgid "Events"
+msgstr "イベント"
+
+msgid "ChamiloOfficialServicesProviders"
+msgstr "Chamilo の公式サービス プロバイダー"
+
+msgid "GlobalMultipleAnswer"
+msgstr "グローバルの複数選択"
+
+msgid "AllQuestionsShort"
+msgstr "すべて"
+
+msgid "FollowedSessions"
+msgstr "セッション"
+
+msgid "FollowedCourses"
+msgstr "コース"
+
+msgid "FollowedUsers"
+msgstr "ユーザー"
+
+msgid "Timeline"
+msgstr "タイムライン"
+
+msgid "ExportToPDFOnlyHTMLAndImages"
+msgstr "Web ページと画像を PDF にエクスポート"
+
+msgid "CourseCatalog"
+msgstr "コース カタログ"
+
+msgid "ImportThematic"
+msgstr "コースの進行状況をインポート"
+
+msgid "ExportThematic"
+msgstr "コースの進行状況をエクスポート"
+
+msgid "UseCustomPagesTitle"
+msgstr "ユーザー設定のページを使用する"
+
+msgid "UseCustomPagesComment"
+msgstr "この機能を有効にして、特定のログイン ページを役割ごとに構成します"
+
+msgid "StudentPageAfterLoginTitle"
+msgstr "学生のログイン後のページ"
+
+msgid "StudentPageAfterLoginComment"
+msgstr "このページは、すべての学生のログイン後に表示されます"
+
+msgid "TeacherPageAfterLoginTitle"
+msgstr "教員のログイン後のページ"
+
+msgid "TeacherPageAfterLoginComment"
+msgstr "このページは、すべての教員のログイン後に読み込まれます"
+
+msgid "DRHPageAfterLoginTitle"
+msgstr "人事管理者のログイン後のページ"
+
+msgid "DRHPageAfterLoginComment"
+msgstr "このページは、すべての人事管理者のログイン後に読み込まれます"
+
+msgid "StudentAutosubscribeTitle"
+msgstr "学生の自動登録"
+
+msgid "StudentAutosubscribeComment"
+msgstr "学生の自動登録です - まだ利用できません"
+
+msgid "TeacherAutosubscribeTitle"
+msgstr "教員の自動登録"
+
+msgid "TeacherAutosubscribeComment"
+msgstr "教員の自動登録です - まだ利用できません"
+
+msgid "DRHAutosubscribeTitle"
+msgstr "人事管理者の自動登録"
+
+msgid "DRHAutosubscribeComment"
+msgstr "人事管理者の自動登録です - まだ利用できません"
+
+msgid "ScormCumulativeSessionTimeTitle"
+msgstr "SCORM の累積的なセッション時間"
+
+msgid "ScormCumulativeSessionTimeComment"
+msgstr "SCORM の学習パスのセッション時間は、有効にすると累積され、無効にすると最終更新時刻からのみ計算されます。"
+
+msgid "ToolVisibleByDefaultAtCreationTitle"
+msgstr "コースの作成時に表示するツール"
+
+msgid "ToolVisibleByDefaultAtCreationComment"
+msgstr "コースの作成時に表示するツールを選択します - まだ利用できません"
+
+msgid "PleaseVisitOurWebsite"
+msgstr "Web サイトにアクセスしてください: http://www.chamilo.org"
+
+msgid "First"
+msgstr "最初"
+
+msgid "Last"
+msgstr "最終"
+
+msgid "Sent"
+msgstr "送信"
+
+msgid "HideColumn"
+msgstr "列を非表示にする"
+
+msgid "DisplayColumn"
+msgstr "列を表示する"
+

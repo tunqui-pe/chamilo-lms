@@ -1,0 +1,18 @@
+msgid "SelectOptionForBackup"
+msgstr "sistemas operativos"
+
+msgid "AdminBy"
+msgstr "Administrator"
+
+msgid "Statistiques"
+msgstr "Statistika"
+
+msgid "VisioHostLocal"
+msgstr "Videokonferencijski poslužitelj"
+
+msgid "VisioRTMPIsWeb"
+msgstr "Ukoliko je protokol videokonferencije web baziran ( u većini slučajeva netačno)"
+
+msgid "MyTasks"
+msgstr "Moje teme"
+

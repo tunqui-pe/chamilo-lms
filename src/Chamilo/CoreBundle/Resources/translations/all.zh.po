@@ -1,0 +1,10749 @@
+msgid "ShowAllEvents"
+msgstr "显示所有日程"
+
+msgid "Month"
+msgstr "月"
+
+msgid "Hour"
+msgstr "时"
+
+msgid "Minutes"
+msgstr "分"
+
+msgid "AddSuccess"
+msgstr "已加入新日程"
+
+msgid "AgendaDeleteSuccess"
+msgstr "日程已被删除"
+
+msgid "NoAgendaItems"
+msgstr "没有事件"
+
+msgid "ClassName"
+msgstr "班级名称"
+
+msgid "ItemTitle"
+msgstr "日程标题"
+
+msgid "Day"
+msgstr "日"
+
+msgid "month_default"
+msgstr "默认月"
+
+msgid "year_default"
+msgstr "默认年"
+
+msgid "Hour"
+msgstr "时"
+
+msgid "hour_default"
+msgstr "默认时"
+
+msgid "Minute"
+msgstr "分"
+
+msgid "Lasting"
+msgstr "持续时间"
+
+msgid "OldToNew"
+msgstr "旧到新"
+
+msgid "NewToOld"
+msgstr "新到旧"
+
+msgid "Now"
+msgstr "现在"
+
+msgid "AddEvent"
+msgstr "添加事件"
+
+msgid "Detail"
+msgstr "详细内容"
+
+msgid "MonthView"
+msgstr "按月浏览"
+
+msgid "WeekView"
+msgstr "按周浏览"
+
+msgid "DayView"
+msgstr "按日浏览"
+
+msgid "AddPersonalItem"
+msgstr "添加个人议项"
+
+msgid "Week"
+msgstr "周"
+
+msgid "Time"
+msgstr "时间"
+
+msgid "AddPersonalCalendarItem"
+msgstr "添加个人议项"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "修改个人议项"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "已成功添加个人议项"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "已成功修改个人议项"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "已成功删除个人议项"
+
+msgid "ViewPersonalItem"
+msgstr "浏览个人议项"
+
+msgid "Print"
+msgstr "打印"
+
+msgid "MyTextHere"
+msgstr "我的文本"
+
+msgid "CopiedAsAnnouncement"
+msgstr "已经复制成为公告"
+
+msgid "NewAnnouncement"
+msgstr "新的公告"
+
+msgid "UpcomingEvent"
+msgstr "预定的事件"
+
+msgid "RepeatedEvent"
+msgstr "重复的事件"
+
+msgid "RepeatType"
+msgstr "重复的类型"
+
+msgid "RepeatDaily"
+msgstr "每天"
+
+msgid "RepeatWeekly"
+msgstr "每周"
+
+msgid "RepeatMonthlyByDate"
+msgstr "按日期每月重复"
+
+msgid "RepeatMonthlyByDay"
+msgstr "按天数每月重复"
+
+msgid "RepeatMonthlyByDayR"
+msgstr "按特定的天数每月重复"
+
+msgid "RepeatYearly"
+msgstr "每年"
+
+msgid "RepeatEnd"
+msgstr "重复结束的日期"
+
+msgid "RepeatedEventViewOriginalEvent"
+msgstr "查看初始的事件"
+
+msgid "ICalFileImport"
+msgstr "从Outlook导入"
+
+msgid "AllUsersOfThePlatform"
+msgstr "全部用户"
+
+msgid "GlobalEvent"
+msgstr "世界性的事件"
+
+msgid "ModifyEvent"
+msgstr "修改事件"
+
+msgid "EndDateCannotBeBeforeTheStartDate"
+msgstr "结束日期不能早于开始日期"
+
+msgid "ItemForUserSelection"
+msgstr "用户选择列表"
+
+msgid "IsNotiCalFormatFile"
+msgstr "文件不符合iCal格式"
+
+msgid "RepeatEvent"
+msgstr "重复事件"
+
+msgid "ScormVersion"
+msgstr "版本"
+
+msgid "ScormRestarted"
+msgstr "所有课程还没有完全结束."
+
+msgid "ScormNoNext"
+msgstr "这是最后一节课."
+
+msgid "ScormNoPrev"
+msgstr "这是第一节课."
+
+msgid "ScormTime"
+msgstr "时间"
+
+msgid "ScormNoOrder"
+msgstr "没有指定顺序, 你可以点击任意一节课."
+
+msgid "ScormScore"
+msgstr "得分"
+
+msgid "ScormLessonTitle"
+msgstr "课程标题"
+
+msgid "ScormStatus"
+msgstr "状态"
+
+msgid "ScormToEnter"
+msgstr "进入"
+
+msgid "ScormFirstNeedTo"
+msgstr "你需要首先完成它"
+
+msgid "ScormThisStatus"
+msgstr "现在这门课程是"
+
+msgid "ScormClose"
+msgstr "结束"
+
+msgid "ScormRestart"
+msgstr "重新启动"
+
+msgid "ScormCompstatus"
+msgstr "完成"
+
+msgid "ScormIncomplete"
+msgstr "未完成"
+
+msgid "ScormPassed"
+msgstr "通过"
+
+msgid "ScormFailed"
+msgstr "失败"
+
+msgid "ScormPrevious"
+msgstr "上一个"
+
+msgid "ScormNext"
+msgstr "下一个"
+
+msgid "ScormTitle"
+msgstr "Chamilo Scorm 操作者"
+
+msgid "ScormMystatus"
+msgstr "学习进度"
+
+msgid "ScormNoItems"
+msgstr "此目录不含有任何项目."
+
+msgid "ScormNoStatus"
+msgstr "本内容没有状态"
+
+msgid "ScormLoggedout"
+msgstr "退出 SCORM 区"
+
+msgid "ScormCloseWindow"
+msgstr "关闭窗口"
+
+msgid "ScormBrowsed"
+msgstr "已浏览"
+
+msgid "ScormExitFullScreen"
+msgstr "返回普通屏幕"
+
+msgid "ScormFullScreen"
+msgstr "全屏"
+
+msgid "ScormNotAttempted"
+msgstr "未尝试"
+
+msgid "Local"
+msgstr "本地"
+
+msgid "Remote"
+msgstr "远距"
+
+msgid "Autodetect"
+msgstr "自动侦测"
+
+msgid "AccomplishedStepsTotal"
+msgstr "合计"
+
+msgid "AreYouSureToDeleteSteps"
+msgstr "你肯定要取消这些步骤吗？"
+
+msgid "Origin"
+msgstr "原始"
+
+msgid "Local"
+msgstr "本地"
+
+msgid "Remote"
+msgstr "远距"
+
+msgid "FileToUpload"
+msgstr "需要上传的文件"
+
+msgid "ContentMaker"
+msgstr "内容创建者"
+
+msgid "ContentProximity"
+msgstr "课程位置"
+
+msgid "Messages"
+msgstr "信息"
+
+msgid "NewMessage"
+msgstr "新信息"
+
+msgid "DeleteSelectedMessages"
+msgstr "删除被选信息"
+
+msgid "DeselectAll"
+msgstr "不选全部"
+
+msgid "ReplyToMessage"
+msgstr "回复本主题"
+
+msgid "BackToInbox"
+msgstr "回到收信箱"
+
+msgid "MessageSentTo"
+msgstr "本信息已发给"
+
+msgid "SendMessageTo"
+msgstr "寄给"
+
+msgid "Myself"
+msgstr "我自己"
+
+msgid "InvalidMessageId"
+msgstr "要回复的信息ID 无效。"
+
+msgid "ErrorSendingMessage"
+msgstr "发送信息时发生错误。"
+
+msgid "SureYouWantToDeleteSelectedMessages"
+msgstr "你肯定要删除被选的信息？"
+
+msgid "ModifInfo"
+msgstr "设置"
+
+msgid "ModifDone"
+msgstr "课程信息已更新"
+
+msgid "DelCourse"
+msgstr "删除课程"
+
+msgid "Professors"
+msgstr "教师"
+
+msgid "Faculty"
+msgstr "分类"
+
+msgid "Confidentiality"
+msgstr "访问限制策略"
+
+msgid "Unsubscription"
+msgstr "注销"
+
+msgid "PrivOpen"
+msgstr "内部访问-对注册用户开放"
+
+msgid "Forbidden"
+msgstr "禁止"
+
+msgid "CourseAccessConfigTip"
+msgstr "课程默认为开放. 你可以自定义开放级别."
+
+msgid "OpenToTheWorld"
+msgstr "开放 - 允许任何人访问"
+
+msgid "OpenToThePlatform"
+msgstr "开放－允许注册用户访问"
+
+msgid "OpenToThePlatform"
+msgstr "开放－允许注册用户访问"
+
+msgid "TipLang"
+msgstr "将此语言设为课程的默认语言。"
+
+msgid "Vid"
+msgstr "视频"
+
+msgid "Work"
+msgstr "作业论文"
+
+msgid "ProgramMenu"
+msgstr "教学大纲"
+
+msgid "Stats"
+msgstr "统计信息"
+
+msgid "UplPage"
+msgstr "上传网页和链接"
+
+msgid "LinkSite"
+msgstr "添加链接"
+
+msgid "HasDel"
+msgstr "已删除"
+
+msgid "ByDel"
+msgstr "删除课程将永久删除这门课程的所有内容(文档、链接...) 及所有成员的注册信息(不会删除他们在其他课程的注册信息)。<P>确定要删除课程吗？"
+
+msgid "Y"
+msgstr "是"
+
+msgid "N"
+msgstr "否"
+
+msgid "DepartmentUrl"
+msgstr "部门链接"
+
+msgid "DepartmentUrlName"
+msgstr "部门"
+
+msgid "BackupCourse"
+msgstr "备份该课程"
+
+msgid "ModifGroups"
+msgstr "小组"
+
+msgid "Professor"
+msgstr "教师"
+
+msgid "DescriptionCours"
+msgstr "教学大纲"
+
+msgid "ArchiveCourse"
+msgstr "课程备份"
+
+msgid "RestoreCourse"
+msgstr "还原课程备份"
+
+msgid "Restore"
+msgstr "还原"
+
+msgid "CreatedIn"
+msgstr "在这里创建"
+
+msgid "CreateMissingDirectories"
+msgstr "创建丢失的目录"
+
+msgid "CopyDirectoryCourse"
+msgstr "复制课程文件"
+
+msgid "Disk_free_space"
+msgstr "剩余空间"
+
+msgid "BuildTheCompressedFile"
+msgstr "创建备份文件"
+
+msgid "FileCopied"
+msgstr "文件已复制"
+
+msgid "ArchiveLocation"
+msgstr "备份位置"
+
+msgid "SizeOf"
+msgstr "大小"
+
+msgid "ArchiveName"
+msgstr "文件名"
+
+msgid "BackupSuccesfull"
+msgstr "成功备份"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "课程数据在主数据库备份"
+
+msgid "BUUsersInMainBase"
+msgstr "用户的数据已经在主数据库备份"
+
+msgid "BUAnnounceInMainBase"
+msgstr "公告已经在主数据库备份"
+
+msgid "BackupOfDataBase"
+msgstr "备份数据库"
+
+msgid "ExpirationDate"
+msgstr "过期"
+
+msgid "LastEdit"
+msgstr "最近一次修改"
+
+msgid "LastVisit"
+msgstr "最近一次登录"
+
+msgid "Subscription"
+msgstr "注册"
+
+msgid "CourseAccess"
+msgstr "课程访问"
+
+msgid "ConfirmBackup"
+msgstr "你要备份这个课程吗?"
+
+msgid "CreateSite"
+msgstr "创建一个课程站点"
+
+msgid "RestoreDescription"
+msgstr "这个课程的备份件如下：<br /><br />当你点击 \"恢复 \"，备份文件会被解压缩并创建课程。"
+
+msgid "RestoreNotice"
+msgstr "此脚本无能自动恢复用户列表，但是数据存储在\"用户.csv\"中，管理员可以手动操作。"
+
+msgid "AvailableArchives"
+msgstr "备份列表"
+
+msgid "NoArchive"
+msgstr "没有选择备份文件"
+
+msgid "ArchiveNotFound"
+msgstr "找不到该备份"
+
+msgid "ArchiveUncompressed"
+msgstr "该备份已经解压缩并且安装。"
+
+msgid "CsvPutIntoDocTool"
+msgstr "文件 \"users.csv\" 已经放入文档工具中。"
+
+msgid "BackH"
+msgstr "返回主页"
+
+msgid "OtherCategory"
+msgstr "其它分类"
+
+msgid "AllowedToUnsubscribe"
+msgstr "允许"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "拒绝"
+
+msgid "CourseVisibilityClosed"
+msgstr "已关闭-这个课程只对讲师开放"
+
+msgid "CourseVisibilityClosed"
+msgstr "已关闭-这个课程只对讲师开放"
+
+msgid "CourseVisibilityModified"
+msgstr "已修改 (更详细的设置已通过正确的系统角色修改)"
+
+msgid "WorkEmailAlert"
+msgstr "任务提交发送邮件报告"
+
+msgid "WorkEmailAlertActivate"
+msgstr "激活邮件提交错误报告"
+
+msgid "WorkEmailAlertDeactivate"
+msgstr "关闭邮件提交错误报告"
+
+msgid "DropboxEmailAlert"
+msgstr "当下拉列表提交时邮件报告功能"
+
+msgid "DropboxEmailAlertActivate"
+msgstr "激活下拉列表提交时电子邮件错误报告"
+
+msgid "DropboxEmailAlertDeactivate"
+msgstr "关闭下拉列表提交时电子邮件错误报告"
+
+msgid "AllowUserEditAgenda"
+msgstr "允许用户编辑课程议程"
+
+msgid "AllowUserEditAgendaActivate"
+msgstr "激活用户编辑课程议程功能"
+
+msgid "AllowUserEditAgendaDeactivate"
+msgstr "关闭用户编辑课程议程功能"
+
+msgid "AllowUserEditAnnouncement"
+msgstr "允许用户编辑课程公告"
+
+msgid "AllowUserEditAnnouncementActivate"
+msgstr "激活用户编辑课程公告功能"
+
+msgid "AllowUserEditAnnouncementDeactivate"
+msgstr "关闭"
+
+msgid "OrInTime"
+msgstr "或在"
+
+msgid "CourseRegistrationPassword"
+msgstr "课程注册密码"
+
+msgid "DescriptionDeleteCourse"
+msgstr "点击链接后将会提示永久删除该课程。<br /><br />请谨慎使用该功能！"
+
+msgid "DescriptionCopyCourse"
+msgstr "系统允许您将课程整个或部分的复制到另一个空的课程，<br /><br />复制的前提是必需有一门课程包含内容，同时另一门课程是空的！"
+
+msgid "DescriptionRecycleCourse"
+msgstr "此工具将清除文档,论坛,链接, 你可以选择其中某些部分或者全部的内容."
+
+msgid "QuizEmailAlert"
+msgstr "已提交新考试通知电子邮件提醒"
+
+msgid "QuizEmailAlertActivate"
+msgstr "当用户提交新的测试答案时，激活邮件发送功能"
+
+msgid "QuizEmailAlertDeactivate"
+msgstr "禁用新测试答案提交的邮件提醒功能"
+
+msgid "AllowUserImageForum"
+msgstr "允许论坛自定义图片"
+
+msgid "AllowUserImageForumActivate"
+msgstr "论坛中显示用户图片"
+
+msgid "AllowUserImageForumDeactivate"
+msgstr "隐藏用户图片"
+
+msgid "AllowLearningPathTheme"
+msgstr "允许培训主题"
+
+msgid "AllowLearningPathThemeAllow"
+msgstr "允许"
+
+msgid "AllowLearningPathThemeDisallow"
+msgstr "禁止"
+
+msgid "ConfigChat"
+msgstr "聊天设置"
+
+msgid "AllowOpenchatWindow"
+msgstr "在新窗口聊天"
+
+msgid "AllowOpenChatWindowActivate"
+msgstr "打开并跳转到新聊天窗口"
+
+msgid "AllowOpenChatWindowDeactivate"
+msgstr "取消打开新聊天窗口的功能"
+
+msgid "PressAgain"
+msgstr "再次点击'保存'..."
+
+msgid "Rights"
+msgstr "使用权限"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "StatusTip"
+msgstr "从列表中选择"
+
+msgid "CreatedSize"
+msgstr "创建者、大小"
+
+msgid "AuthorTip"
+msgstr "VCARD 格式"
+
+msgid "Format"
+msgstr "格式"
+
+msgid "FormatTip"
+msgstr "从列表中选择"
+
+msgid "Statuses"
+msgstr ":草稿:草稿,,         终稿:终稿,,          已修改:已修改,,          无用:无用"
+
+msgid "Costs"
+msgstr ":否:免费,, 是:要收费"
+
+msgid "Copyrights"
+msgstr ":是:有版权,, 否:无版权"
+
+msgid "Formats"
+msgstr ":text/plain;iso-8859-1:text/plain;iso-8859-1,, text/plain;utf-8:text/plain;utf-8,, text/html;iso-8859-1:text/html;iso-8859-1,, text/html;utf-8:text/html;utf-8,, inode/directory:Folder,, application/msword:MsWord,, application/octet-stream:Octet stream,, application/pdf:PDF,, application/postscript:PostScript,, application/rtf:RTF,, application/vnd.ms-excel:MsExcel,, application/vnd.ms-powerpoint:MsPowerpoint,, application/xml;iso-8859-1:XML;iso-8859-1,, application/xml;utf-8:XML;utf-8,, application/zip:ZIP"
+
+msgid "LngResTypes"
+msgstr ":练习:练习,, 模拟:模拟,, 问卷:问卷,, 图表:图表,, 图:图,, 图:图,, 索引:索引,, 幻灯:幻灯,, 表:表,, 描述文本:描述文本,, 考试:考试,, 实验:实验,, 问题声明:问题声明,, 自我评价:自我评价,, 演讲:演讲"
+
+msgid "SelectOptionForBackup"
+msgstr "备份选项"
+
+msgid "LetMeSelectItems"
+msgstr "选择课程组件"
+
+msgid "CreateFullBackup"
+msgstr "创建课程的完全备份"
+
+msgid "CreateBackup"
+msgstr "创建备份"
+
+msgid "BackupCreated"
+msgstr "这门课程的备份已经创建，如果没有自动下载，请点击下面的链接"
+
+msgid "SelectBackupFile"
+msgstr "选择备份文件"
+
+msgid "ImportBackup"
+msgstr "导入备份"
+
+msgid "ImportFullBackup"
+msgstr "导入完全备份"
+
+msgid "ImportFinished"
+msgstr "导入完成"
+
+msgid "Tests"
+msgstr "测验"
+
+msgid "Learnpaths"
+msgstr "学习路径"
+
+msgid "CopyCourse"
+msgstr "复制课程"
+
+msgid "SelectItemsToCopy"
+msgstr "选择要复制的项目"
+
+msgid "CopyFinished"
+msgstr "复制完成"
+
+msgid "FullRecycle"
+msgstr "完全清空"
+
+msgid "RecycleCourse"
+msgstr "清空课程"
+
+msgid "RecycleFinished"
+msgstr "已完成清空"
+
+msgid "RecycleWarning"
+msgstr "警告: 使用这个工具可以删除课程的某一部分，此操作不能撤销，建议在使用这个清空工具时做一个<A href=\"create_backup.php\">备份</A>。"
+
+msgid "SameFilename"
+msgstr "如果导入的文件与现有文件重名采取什么方法？"
+
+msgid "SameFilenameSkip"
+msgstr "跳过同名文件"
+
+msgid "SameFilenameRename"
+msgstr "重命名文件（如：file.pdf 重命名成file_1.dbf）"
+
+msgid "SameFilenameOverwrite"
+msgstr "覆盖文件"
+
+msgid "SelectDestinationCourse"
+msgstr "选择目标课程"
+
+msgid "FullCopy"
+msgstr "完全复制"
+
+msgid "NoResourcesToBackup"
+msgstr "没有可备份的资源"
+
+msgid "NoResourcesInBackupFile"
+msgstr "备份文件里没有资源"
+
+msgid "SelectResources"
+msgstr "选择资源"
+
+msgid "NoResourcesToRecycles"
+msgstr "没有资源可以清空"
+
+msgid "IncludeQuestionPool"
+msgstr "包括问题集"
+
+msgid "LocalFile"
+msgstr "本地文件"
+
+msgid "ServerFile"
+msgstr "服务器文件"
+
+msgid "NoBackupsAvailable"
+msgstr "没有备份文件可用"
+
+msgid "NoDestinationCoursesAvailable"
+msgstr "没有目标课程可用"
+
+msgid "ImportBackupInfo"
+msgstr "导入备份，你可以从本地磁盘上传备份文件或使用服务器上可用的备份文件。"
+
+msgid "CreateBackupInfo"
+msgstr "创建此课程的备份，你可以选择放在备份文件中课程内容。"
+
+msgid "ToolIntro"
+msgstr "工具介绍"
+
+msgid "UploadError"
+msgstr "上传文件错误，请检查文件大小的限制和相应权限"
+
+msgid "Explanation"
+msgstr "点击确定后，将创建您的课程，该课程具有课程论坛、教学计划、讲义材料管理等；登录后您可以按照需要添加课程内容。"
+
+msgid "CodeTaken"
+msgstr "这个课程代码已被其他用户占用。<br /><b>返回</b>重试"
+
+msgid "ExerciceEx"
+msgstr "测验示例"
+
+msgid "Antique"
+msgstr "古代哲学史"
+
+msgid "SocraticIrony"
+msgstr "苏格拉底式的无知是指..."
+
+msgid "ManyAnswers"
+msgstr "（可能有多个选项是正确的）"
+
+msgid "Ridiculise"
+msgstr "荒谬地使某个谈话者勉强承认自己是错误的。"
+
+msgid "NoPsychology"
+msgstr "不，苏格拉底式的无知是跟心理学无关的，它关系争论的结果。"
+
+msgid "AdmitError"
+msgstr "承认自己的错误并且要对方也承认有同样的错误。"
+
+msgid "NoSeduction"
+msgstr "不，苏格拉底式的无知是一个诱惑策略，或者是基于事例的方法。"
+
+msgid "Force"
+msgstr "质询对话者通过一系列的问题和反问，用承认他的无知主张自己的意见。"
+
+msgid "Indeed"
+msgstr "实际上苏格拉底式的无知是表示质问的一种方法，希腊语 \"eirotao\" 意思是 \"问问题\""
+
+msgid "Contradiction"
+msgstr "使用这个法则或者反驳来迫使迫使对方进入一个死逻辑循环。"
+
+msgid "NotFalse"
+msgstr "这个答案是正确的，这个事实上揭露了谈话者的无知，使用对立的结论来引导它的前提。"
+
+msgid "AddPageHome"
+msgstr "上传网页和链接"
+
+msgid "ModifyInfo"
+msgstr "课程设置"
+
+msgid "CourseDesc"
+msgstr "教学大纲"
+
+msgid "AgendaTitle"
+msgstr "星期二 12月11日 - 第一次会议 房间: LIN 18"
+
+msgid "AgendaText"
+msgstr "一般介绍哲学和方法论的讲授"
+
+msgid "Micro"
+msgstr "路边采访"
+
+msgid "Google"
+msgstr "快速强力搜索引擎"
+
+msgid "IntroductionTwo"
+msgstr "这里允许学生或者小组上传关于本课程的文件。"
+
+msgid "AnnouncementEx"
+msgstr "这是一个通知示例，只有本课程教授和其他课程管理人员可以发布公告通知。"
+
+msgid "JustCreated"
+msgstr "您已经成功创建了新的课程"
+
+msgid "CreateCourseGroups"
+msgstr "小组"
+
+msgid "CatagoryMain"
+msgstr "主要"
+
+msgid "CatagoryGroup"
+msgstr "小组论坛"
+
+msgid "Ln"
+msgstr "语言"
+
+msgid "FieldsRequ"
+msgstr "所有项目都需填写"
+
+msgid "Ex"
+msgstr "例如： <i>改革管理</i>"
+
+msgid "Fac"
+msgstr "分类"
+
+msgid "TargetFac"
+msgstr "这是本门课程所属部门或分类"
+
+msgid "Doubt"
+msgstr "如果您对课程代码有疑问的话，请询问"
+
+msgid "Program"
+msgstr "<a>教学大纲</a>如果您的课程没有代码，请创建一个，例如：如果您的课程内容是关于改革管理的，可以取课程代码为<i>INNOVATION</i>"
+
+msgid "Scormtool"
+msgstr "学习路径"
+
+msgid "Scormbuildertool"
+msgstr "Scorm 编辑器"
+
+msgid "Pathbuildertool"
+msgstr "学习路径编辑器"
+
+msgid "OnlineConference"
+msgstr "在线会议"
+
+msgid "AgendaCreationTitle"
+msgstr "创建课程"
+
+msgid "AgendaCreationContenu"
+msgstr "课程已创建。"
+
+msgid "OnlineDescription"
+msgstr "会议描述"
+
+msgid "Only"
+msgstr "仅"
+
+msgid "RandomLanguage"
+msgstr "在可用语言中随机选择"
+
+msgid "ForumLanguage"
+msgstr "英语"
+
+msgid "NewCourse"
+msgstr "新课程"
+
+msgid "AddNewCourse"
+msgstr "添加课程"
+
+msgid "OtherProperties"
+msgstr "备份文档的其他属性"
+
+msgid "SysId"
+msgstr "系统ID"
+
+msgid "ScoreShow"
+msgstr "显示分数"
+
+msgid "Visibility"
+msgstr "显示"
+
+msgid "VersionDb"
+msgstr "归档时使用的数据库版本"
+
+msgid "Expire"
+msgstr "期限"
+
+msgid "ChoseFile"
+msgstr "选择文件"
+
+msgid "FtpFileTips"
+msgstr "FTP服务器上的文件"
+
+msgid "HttpFileTips"
+msgstr "HTTP服务器上的文件"
+
+msgid "LocalFileTips"
+msgstr "生产服务器上的文件"
+
+msgid "PostFileTips"
+msgstr "本地文件"
+
+msgid "Minimum"
+msgstr "最小"
+
+msgid "Maximum"
+msgstr "最大"
+
+msgid "RestoreACourse"
+msgstr "恢复课程"
+
+msgid "Recycle"
+msgstr "循环利用课程"
+
+msgid "AnnouncementExampleTitle"
+msgstr "这是通知的样例"
+
+msgid "Wikipedia"
+msgstr "免费的在线百科全书"
+
+msgid "DefaultGroupCategory"
+msgstr "默认小组"
+
+msgid "DefaultCourseImages"
+msgstr "相册"
+
+msgid "ExampleForumCategory"
+msgstr "论坛分类样例"
+
+msgid "ExampleForum"
+msgstr "论坛样例"
+
+msgid "ExampleThread"
+msgstr "论坛话题"
+
+msgid "ExampleThreadContent"
+msgstr "话题内容样例"
+
+msgid "CreateCourseArea"
+msgstr "创建这个课程"
+
+msgid "CreateCourse"
+msgstr "创建课程"
+
+msgid "TitleNotification"
+msgstr "自上次访问以来"
+
+msgid "LearnpathAdded"
+msgstr "添加课程"
+
+msgid "GlossaryAdded"
+msgstr "添加新词到词汇表"
+
+msgid "QuizQuestionAdded"
+msgstr "添加新题目到测试中"
+
+msgid "QuizQuestionUpdated"
+msgstr "更新测试的新题目"
+
+msgid "QuizQuestionDeleted"
+msgstr "删除测试的新题目"
+
+msgid "DocumentInvisible"
+msgstr "文档不可见"
+
+msgid "DocumentVisible"
+msgstr "文档可见"
+
+msgid "DeleteAllAttendances"
+msgstr "删除全部的出勤记录"
+
+msgid "ClickKw"
+msgstr "点击子目录下关键字选择或不选择它。"
+
+msgid "KwHelp"
+msgstr "点击 '+'按钮打开，'-'按钮关闭，'++'按钮打开所有，'--'按钮关闭所有，<br /><br />通过关闭子目录取消对所有关键字的选择，再次打开点按钮'+'。<br />按alt单击'+'在子目录中寻找原始关键字，<br /><br />按alt单击选择一个没有broader terms 的关键字，或不选择它，<br /><br />time. 如果您改变了描述语言，请不要同时加上关键字.<br />"
+
+msgid "SearchCrit"
+msgstr "每行一字！"
+
+msgid "NoKeywords"
+msgstr "此课程无关键词"
+
+msgid "KwCacheProblem"
+msgstr "关键词缓存无法打开"
+
+msgid "CourseKwds"
+msgstr "此文档包含课程关键字"
+
+msgid "KwdsInMD"
+msgstr "MD 所使用的关键词"
+
+msgid "KwdRefs"
+msgstr "关键词参考"
+
+msgid "NonCourseKwds"
+msgstr "非课程关键词"
+
+msgid "KwdsUse"
+msgstr "课程关键字(粗体就是未被使用)"
+
+msgid "TotalMDEs"
+msgstr "全部 MD 条目的链接数："
+
+msgid "AddForumCategory"
+msgstr "增加新的论坛分类"
+
+msgid "AddForum"
+msgstr "添加新论坛"
+
+msgid "Posts"
+msgstr "回复"
+
+msgid "LastPosts"
+msgstr "最新回复"
+
+msgid "NoForumInThisCategory"
+msgstr "此分类无论坛"
+
+msgid "InForumCategory"
+msgstr "建立在分类"
+
+msgid "AllowAnonymousPosts"
+msgstr "允许匿名贴？"
+
+msgid "StudentsCanEdit"
+msgstr "学员能修改本身的帖子吗？"
+
+msgid "ApprovalDirect"
+msgstr "批准 / 直接帖子"
+
+msgid "AllowNewThreads"
+msgstr "允许学员发表新文章"
+
+msgid "DefaultViewType"
+msgstr "默认查看类型"
+
+msgid "GroupSettings"
+msgstr "小组设定"
+
+msgid "NotAGroupForum"
+msgstr "不是一个小组论坛"
+
+msgid "PublicPrivateGroupForum"
+msgstr "公开或私人小组论坛？"
+
+msgid "NewPostStored"
+msgstr "您的贴已被储存"
+
+msgid "ReplyToThread"
+msgstr "回复本帖子"
+
+msgid "QuoteMessage"
+msgstr "引用本文章"
+
+msgid "NewTopic"
+msgstr "新主题"
+
+msgid "Views"
+msgstr "查看"
+
+msgid "LastPost"
+msgstr "最后发表"
+
+msgid "Quoting"
+msgstr "引用"
+
+msgid "NotifyByEmail"
+msgstr "当有人回复时请电邮通知我"
+
+msgid "StickyPost"
+msgstr "这是一个置顶文章（出现在论坛顶端并有一个置顶图标）"
+
+msgid "ReplyShort"
+msgstr "回复主题"
+
+msgid "DeletePost"
+msgstr "你肯定你要删除此帖子？ 删除此帖子的同时所有回复也会被删除。 请用树状模式查看那些帖子也会被删除"
+
+msgid "Locked"
+msgstr "禁止∶学员不能发布新帖子，但仍然能阅读他们已发布的文章"
+
+msgid "Unlocked"
+msgstr "解禁∶学员可以发布新帖子"
+
+msgid "Flat"
+msgstr "平面"
+
+msgid "Threaded"
+msgstr "树状"
+
+msgid "Nested"
+msgstr "复合"
+
+msgid "FlatView"
+msgstr "平板模式"
+
+msgid "ThreadedView"
+msgstr "树状模式"
+
+msgid "NestedView"
+msgstr "复合模式"
+
+msgid "Structure"
+msgstr "结构"
+
+msgid "ForumCategoryEdited"
+msgstr "论坛组别已被修改"
+
+msgid "ForumEdited"
+msgstr "论坛已被修改"
+
+msgid "NewThreadStored"
+msgstr "新文章已被添加"
+
+msgid "Approval"
+msgstr "批准"
+
+msgid "Direct"
+msgstr "直接"
+
+msgid "ForGroup"
+msgstr "小组"
+
+msgid "ThreadLocked"
+msgstr "主题已被锁"
+
+msgid "NotAllowedHere"
+msgstr "你不被允许到这里。"
+
+msgid "ReplyAdded"
+msgstr "回复已被添加"
+
+msgid "EditPost"
+msgstr "编辑一篇文章"
+
+msgid "EditPostStored"
+msgstr "帖子已被修改"
+
+msgid "NewForumPost"
+msgstr "论坛新帖子"
+
+msgid "YouWantedToStayInformed"
+msgstr "你说明你想收到帖子回复的电邮通知"
+
+msgid "MessageHasToBeApproved"
+msgstr "信息必须验证后才能被看到."
+
+msgid "LinkName"
+msgstr "链接名称"
+
+msgid "LinkAdd"
+msgstr "添加链接"
+
+msgid "LinkAdded"
+msgstr "链接已添加。"
+
+msgid "LinkMod"
+msgstr "修改链接"
+
+msgid "LinkModded"
+msgstr "链接已修改。"
+
+msgid "LinkDel"
+msgstr "删除链接"
+
+msgid "LinkDeleted"
+msgstr "链接已被删除。"
+
+msgid "LinkDelconfirm"
+msgstr "你要删除这个链接吗？"
+
+msgid "AllLinksDel"
+msgstr "删除这个分类中的所有链接"
+
+msgid "CategoryName"
+msgstr "分类名"
+
+msgid "CategoryAdd"
+msgstr "添加分类"
+
+msgid "CategoryModded"
+msgstr "分类已修改。"
+
+msgid "CategoryDel"
+msgstr "删除分类"
+
+msgid "CategoryDelconfirm"
+msgstr "当您删除分类时，分类中的所有链接也被删除，<br />确定要删除此分类及其链接吗？"
+
+msgid "AllCategoryDel"
+msgstr "删除所有分类及其链接"
+
+msgid "GiveURL"
+msgstr "请输入链接网址"
+
+msgid "GiveCategoryName"
+msgstr "请输入分类名称"
+
+msgid "NoCategory"
+msgstr "无分类"
+
+msgid "ShowNone"
+msgstr "关闭所有分类"
+
+msgid "ListDeleted"
+msgstr "列表已删除"
+
+msgid "AddLink"
+msgstr "添加一个链接"
+
+msgid "DelList"
+msgstr "删除链接"
+
+msgid "ModifyLink"
+msgstr "修改链接"
+
+msgid "CsvImport"
+msgstr "导入-CSV"
+
+msgid "CsvFileNotFound"
+msgstr "导入的CSV文件不能被打开（例如：空或太大）"
+
+msgid "CsvFileNoSeps"
+msgstr "导入的CSV文件正在使用或 ; 作为行的分隔符"
+
+msgid "CsvFileNoURL"
+msgstr "导入的CSV文件必须有网址和标题列"
+
+msgid "CsvFileLine1"
+msgstr "... -第一行="
+
+msgid "CsvLinesFailed"
+msgstr "导入链接到行失败（无网址或标题）。"
+
+msgid "CsvLinesOld"
+msgstr "现有链接已更新（相同网址与分类）。"
+
+msgid "CsvLinesNew"
+msgstr "链接已创建。"
+
+msgid "CsvExplain"
+msgstr "文件的特征是：  <BLOCKQUOTE><PRE><B>URL</B>;category;<B>title</B>;description;<B>http://www.aaa.org/...</B>;Important links;<B>Name 1</B>;Description 1;<B>http://www.bbb.net/...</B>;;<B>Name 2</B>;\"Description 2\";</PRE></BLOCKQUOTE>如果网页或分类与已经存在的那些链接相同，它的标题和描述已经升级，在其他的情况下新链接已经被创建。<br /><br />粗体=强制，其他领域需添加附加描述。分隔符为：逗号或分号。有的[b]HTML 标签[/b]   可以导入到这些描述中。"
+
+msgid "LinkUpdated"
+msgstr "链接已更新"
+
+msgid "OnHomepage"
+msgstr "主页中显示"
+
+msgid "ShowLinkOnHomepage"
+msgstr "在课程主页将链接显示为一个图标"
+
+msgid "SaveLink"
+msgstr "保存链接"
+
+msgid "SaveCategory"
+msgstr "保存分类"
+
+msgid "StatDB"
+msgstr "日志数据库"
+
+msgid "EnableTracking"
+msgstr "启用日志"
+
+msgid "InstituteShortName"
+msgstr "你的组织简称"
+
+msgid "WarningResponsible"
+msgstr "备份后才能使用这个脚本，如果丢失或损坏数据 IILearn 小组将不负责"
+
+msgid "AllowSelfRegProf"
+msgstr "允许老师注册"
+
+msgid "EG"
+msgstr "例如"
+
+msgid "DBHost"
+msgstr "数据库主机"
+
+msgid "DBLogin"
+msgstr "数据库用户名"
+
+msgid "DBPassword"
+msgstr "数据库密码"
+
+msgid "MainDB"
+msgstr "IILearn 主数据库"
+
+msgid "AllFieldsRequired"
+msgstr "所有选项都必需填写"
+
+msgid "PrintVers"
+msgstr "打印版本"
+
+msgid "LocalPath"
+msgstr "本地路径"
+
+msgid "AdminEmail"
+msgstr "管理员 Email"
+
+msgid "AdminName"
+msgstr "管理员名字"
+
+msgid "AdminSurname"
+msgstr "管理员姓氏"
+
+msgid "AdminLogin"
+msgstr "管理员登录名"
+
+msgid "AdminPass"
+msgstr "管理员密码(<FONT color=red>可以修改</FONT>)"
+
+msgid "EducationManager"
+msgstr "项目管理人"
+
+msgid "CampusName"
+msgstr "网站名称"
+
+msgid "DBSettingIntro"
+msgstr "安装脚本将创建 IILearn 的数据库，系统默认将使用多数据库模式，如果你的主机服务商只允许使用一个数据库，您应选择一个数据库的模式。"
+
+msgid "Step3"
+msgstr "步骤3/7"
+
+msgid "Step4"
+msgstr "步骤4/7"
+
+msgid "Step5"
+msgstr "步骤5/7"
+
+msgid "Step6"
+msgstr "步骤6/7"
+
+msgid "CfgSetting"
+msgstr "参数文件设置"
+
+msgid "DBSetting"
+msgstr "数据库设置"
+
+msgid "MainLang"
+msgstr "首选语言"
+
+msgid "Licence"
+msgstr "软件许可"
+
+msgid "LastCheck"
+msgstr "安装前的检查"
+
+msgid "DbPrefixForm"
+msgstr "数据库前缀"
+
+msgid "DbPrefixCom"
+msgstr "没有需要可以不填"
+
+msgid "EncryptUserPass"
+msgstr "加密用户密码"
+
+msgid "SingleDb"
+msgstr "使用一个或多个数据库"
+
+msgid "AllowSelfReg"
+msgstr "允许学生注册"
+
+msgid "Recommended"
+msgstr "(推荐)"
+
+msgid "ScormDB"
+msgstr "Scorm 数据库"
+
+msgid "AdminLastName"
+msgstr "管理员姓氏"
+
+msgid "AdminPhone"
+msgstr "管理员电话"
+
+msgid "NewNote"
+msgstr "新笔记"
+
+msgid "Note"
+msgstr "笔记"
+
+msgid "NoteDeleted"
+msgstr "笔记已删除"
+
+msgid "NoteUpdated"
+msgstr "笔记已更新"
+
+msgid "NoteCreated"
+msgstr "笔记已创建"
+
+msgid "YouMustWriteANote"
+msgstr "请写下笔记"
+
+msgid "SaveNote"
+msgstr "保存笔记"
+
+msgid "WriteYourNoteHere"
+msgstr "点此处写新笔记"
+
+msgid "SearchByTitle"
+msgstr "根据标题搜索"
+
+msgid "WriteTheTitleHere"
+msgstr "在此写标题"
+
+msgid "UpdateDate"
+msgstr "更新"
+
+msgid "NoteAddNew"
+msgstr "添加新的笔记到个人笔记本"
+
+msgid "OrderByCreationDate"
+msgstr "根据创建日期排序"
+
+msgid "OrderByModificationDate"
+msgstr "根据最后修改日期排序"
+
+msgid "OrderByTitle"
+msgstr "根据标题排序"
+
+msgid "NoteTitle"
+msgstr "笔记标题"
+
+msgid "NoteComment"
+msgstr "笔记内容"
+
+msgid "NoteAdded"
+msgstr "已添加笔记"
+
+msgid "NoteConfirmDelete"
+msgstr "你是否确定删除此笔记"
+
+msgid "AddNote"
+msgstr "创建笔记"
+
+msgid "ModifyNote"
+msgstr "修改个人笔记"
+
+msgid "BackToNoteList"
+msgstr "返回笔记列表"
+
+msgid "NotebookManagement"
+msgstr "笔记本管理"
+
+msgid "BackToNotesList"
+msgstr "返回笔记列表"
+
+msgid "NotesSortedByTitleAsc"
+msgstr "根据标题升序排序"
+
+msgid "NotesSortedByTitleDESC"
+msgstr "根据标题降序排序"
+
+msgid "NotesSortedByUpdateDateAsc"
+msgstr "根据更新日期升序"
+
+msgid "NotesSortedByUpdateDateDESC"
+msgstr "根据更新日期降序"
+
+msgid "NotesSortedByCreationDateAsc"
+msgstr "根据创建日期升序"
+
+msgid "NotesSortedByCreationDateDESC"
+msgstr "根据创建日期降序"
+
+msgid "Titular"
+msgstr "领导"
+
+msgid "AdministrationTools"
+msgstr "管理工具"
+
+msgid "CatList"
+msgstr "分类"
+
+msgid "Subscribe"
+msgstr "注册"
+
+msgid "AlreadySubscribed"
+msgstr "已注册"
+
+msgid "CourseCategoryStored"
+msgstr "课程分类已经创建"
+
+msgid "WithoutTimeLimits"
+msgstr "没有时间限制"
+
+msgid "Added"
+msgstr "添加"
+
+msgid "Deleted"
+msgstr "删除"
+
+msgid "Keeped"
+msgstr "保持"
+
+msgid "HideAndSubscribeClosed"
+msgstr "隐藏/关闭"
+
+msgid "HideAndSubscribeOpen"
+msgstr "隐藏/打开"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "显示/打开"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "显示/关闭"
+
+msgid "AdminThisUser"
+msgstr "返回用户"
+
+msgid "Manage"
+msgstr "管理入口"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "您已经注册了该课程"
+
+msgid "SubCat"
+msgstr "子分类"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "不允许取消注册"
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "您是课程管理员"
+
+msgid "CourseManagement"
+msgstr "课程管理"
+
+msgid "SortMyCourses"
+msgstr "课程排序"
+
+msgid "SubscribeToCourse"
+msgstr "注册到课程"
+
+msgid "UnsubscribeFromCourse"
+msgstr "注销课程"
+
+msgid "CreateCourseCategory"
+msgstr "创建课程分类"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "确认想要删除这个课程分类吗? 这个课程分类中的课程将要被移到课程分类以外"
+
+msgid "CourseCategories"
+msgstr "课程分类"
+
+msgid "CoursesInCategory"
+msgstr "此分类中的课程"
+
+msgid "SearchCourse"
+msgstr "搜索课程"
+
+msgid "UpOneCategory"
+msgstr "上级分类"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "你确认要注销这门课程吗?"
+
+msgid "NoCourseCategory"
+msgstr "没有课程分类"
+
+msgid "EditCourseCategorySucces"
+msgstr "课程已添加到分类"
+
+msgid "SubscribingNotAllowed"
+msgstr "不允许注册"
+
+msgid "CourseSortingDone"
+msgstr "课程排序完成"
+
+msgid "ExistingCourseCategories"
+msgstr "已有课程分类"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "正从当前课程注销"
+
+msgid "ViewOpenCourses"
+msgstr "浏览公开课程"
+
+msgid "ErrorContactPlatformAdmin"
+msgstr "未知错误，请联系平台管理员"
+
+msgid "CourseRegistrationCodeIncorrect"
+msgstr "非法课程代码"
+
+msgid "CourseRequiresPassword"
+msgstr "课程密码不能为空"
+
+msgid "SubmitRegistrationCode"
+msgstr "提交注册"
+
+msgid "CourseCategoryDeleted"
+msgstr "课程目录已经删除"
+
+msgid "CategorySortingDone"
+msgstr "分类过滤完成"
+
+msgid "CourseCategoryEditStored"
+msgstr "分类更新完成"
+
+msgid "DocumentList"
+msgstr "所有文档列表"
+
+msgid "OrganisationList"
+msgstr "内容表格"
+
+msgid "EditTOC"
+msgstr "编辑内容表格"
+
+msgid "EditDocument"
+msgstr "编辑文档"
+
+msgid "CreateDocument"
+msgstr "新建文档"
+
+msgid "MissingImagesDetected"
+msgstr "发现图片丢失"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Scormcontentstudent"
+msgstr "这是Scorm格式课程，观看请点击此处: <input type=button name=scormbutton value='启用' onclick='openscorm()'>"
+
+msgid "Scormcontent"
+msgstr "这是Scorm格式内容<br /><input type=button name=scormbutton value='启用' onclick='openscorm()'>"
+
+msgid "DownloadAndZipEnd"
+msgstr "Zip文件已经上传并且解压了"
+
+msgid "ZipNoPhp"
+msgstr "Zip文件不能包含.php文件"
+
+msgid "GroupForumLink"
+msgstr "小组论坛"
+
+msgid "NotScormContent"
+msgstr "这不是一个 scorm 课程的ZIP文件!"
+
+msgid "NoText"
+msgstr "请输入你的 text / HTML 内容"
+
+msgid "NoFileName"
+msgstr "请输入文件名"
+
+msgid "FileError"
+msgstr "上传的文件非法。"
+
+msgid "ViMod"
+msgstr "已修改显示/隐藏属性"
+
+msgid "AddComment"
+msgstr "添加/修改摘要"
+
+msgid "Impossible"
+msgstr "操作失败"
+
+msgid "NoSpace"
+msgstr "上传失败！超过最大上传文件大小或磁盘空间不足."
+
+msgid "DownloadEnd"
+msgstr "上传结束"
+
+msgid "FileExists"
+msgstr "操作失败，文件或目录已经存在."
+
+msgid "DocCopied"
+msgstr "文件已复制"
+
+msgid "DocDeleted"
+msgstr "文件已删除"
+
+msgid "ElRen"
+msgstr "目录或文件已重命名"
+
+msgid "DirMv"
+msgstr "文件已经移动"
+
+msgid "ComMod"
+msgstr "简介已更新"
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "NameDir"
+msgstr "目录名称"
+
+msgid "DownloadFile"
+msgstr "本地文件"
+
+msgid "Builder"
+msgstr "创建学习路径"
+
+msgid "ScormBuilder"
+msgstr "建立路径 - 建立Scorm格式课程"
+
+msgid "CreateDoc"
+msgstr "新建文档"
+
+msgid "OrganiseDocuments"
+msgstr "创建内容表格"
+
+msgid "Uncompress"
+msgstr "解压文件(.zip)"
+
+msgid "ExportShort"
+msgstr "以SCORM格式导出"
+
+msgid "WCAGGoMenu"
+msgstr "至菜单"
+
+msgid "WCAGGoContent"
+msgstr "至内容"
+
+msgid "AdminBy"
+msgstr "管理员"
+
+msgid "Statistiques"
+msgstr "统计"
+
+msgid "VisioHostLocal"
+msgstr "视频会议主持人"
+
+msgid "VisioRTMPIsWeb"
+msgstr "视频会议协议是基于网页的吗?(大部分情况下都不是)"
+
+msgid "ShowBackLinkOnTopOfCourseTreeComment"
+msgstr "显示一个去往培训体系的连接,这个连接无论何时都会在列表的底部显示."
+
+msgid "Used"
+msgstr "已经使用!"
+
+msgid "Exist"
+msgstr "存在的"
+
+msgid "ShowBackLinkOnTopOfCourseTree"
+msgstr "在目录或培训页面显示返回连接"
+
+msgid "ShowNumberOfCourses"
+msgstr "显示培训课程的数目"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "在课程里显示讲师的名称"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "在课程列表里显示讲师的名称"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "在课程列表里显示课程代码"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "在课程名称里显示代码"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "在培训平台上没有同名的课程"
+
+msgid "ConfigureHomePage"
+msgstr "编辑门户首页"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "课程创建时激活模块"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "新课程创建时,那些工具默认已经激活?"
+
+msgid "CreateUser"
+msgstr "创建用户"
+
+msgid "ModifyUser"
+msgstr "修改用户"
+
+msgid "buttonEditUserField"
+msgstr "编辑用户区域"
+
+msgid "ModifyCoach"
+msgstr "修改训练"
+
+msgid "ModifyThisSession"
+msgstr "修改这个课程"
+
+msgid "ExportSession"
+msgstr "导出课程"
+
+msgid "ImportSession"
+msgstr "导入课程"
+
+msgid "CourseBackup"
+msgstr "备份课程"
+
+msgid "CourseTitular"
+msgstr "授课老师"
+
+msgid "CourseFaculty"
+msgstr "课程分类"
+
+msgid "CourseDepartment"
+msgstr "课程所属部门"
+
+msgid "CourseDepartmentURL"
+msgstr "部门URL"
+
+msgid "CourseSubscription"
+msgstr "课程注册"
+
+msgid "PublicAccess"
+msgstr "匿名访问"
+
+msgid "PrivateAccess"
+msgstr "密码访问"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "数据库管理仅对服务器管理员开放"
+
+msgid "ShowUsersOfCourse"
+msgstr "显示注册该课程用户"
+
+msgid "ShowClassesOfCourse"
+msgstr "显示注册该课程班级"
+
+msgid "ShowGroupsOfCourse"
+msgstr "显示注册该课程用户组"
+
+msgid "PhoneNumber"
+msgstr "电话号码"
+
+msgid "AddToCourse"
+msgstr "加入到该课程"
+
+msgid "DeleteFromPlatform"
+msgstr "删除"
+
+msgid "DeleteCourse"
+msgstr "删除所选课程"
+
+msgid "DeleteFromCourse"
+msgstr "取消注册课程"
+
+msgid "DeleteSelectedClasses"
+msgstr "删除所选班级"
+
+msgid "DeleteSelectedGroups"
+msgstr "删除所选组"
+
+msgid "Administrator"
+msgstr "管理员"
+
+msgid "ChangePicture"
+msgstr "更换图片"
+
+msgid "AddUsers"
+msgstr "添加用户"
+
+msgid "AddGroups"
+msgstr "添加组"
+
+msgid "AddClasses"
+msgstr "添加班级"
+
+msgid "ExportUsers"
+msgstr "输出用户名单"
+
+msgid "NumberOfParticipants"
+msgstr "参加者数目"
+
+msgid "NumberOfUsers"
+msgstr "学生数量"
+
+msgid "Participants"
+msgstr "参加者"
+
+msgid "FirstLetterClass"
+msgstr "首字母"
+
+msgid "FirstLetterUser"
+msgstr "首字母"
+
+msgid "FirstLetterCourse"
+msgstr "首字母"
+
+msgid "ModifyUserInfo"
+msgstr "修改用户信息"
+
+msgid "ModifyClassInfo"
+msgstr "修改班级信息"
+
+msgid "ModifyGroupInfo"
+msgstr "修改组信息"
+
+msgid "ModifyCourseInfo"
+msgstr "修改课程"
+
+msgid "PleaseEnterClassName"
+msgstr "请输入班级名称!"
+
+msgid "PleaseEnterLastName"
+msgstr "请输入用户姓!"
+
+msgid "PleaseEnterFirstName"
+msgstr "请输入用户名!"
+
+msgid "PleaseEnterValidEmail"
+msgstr "请输入有效电子邮件地址!"
+
+msgid "PleaseEnterValidLogin"
+msgstr "请输入有效用户!"
+
+msgid "PleaseEnterCourseCode"
+msgstr "请输入课程代码!"
+
+msgid "PleaseEnterTitularName"
+msgstr "请输入授课老师姓名!"
+
+msgid "PleaseEnterCourseTitle"
+msgstr "请输入课程名称!"
+
+msgid "AcceptedPictureFormats"
+msgstr "可接受格式为:JPG, PNG 于GIF!"
+
+msgid "LoginAlreadyTaken"
+msgstr "您已经登录!"
+
+msgid "ImportUserListXMLCSV"
+msgstr "导入用户"
+
+msgid "ExportUserListXMLCSV"
+msgstr "导出用户"
+
+msgid "OnlyUsersFromCourse"
+msgstr "导出范围"
+
+msgid "AddClassesToACourse"
+msgstr "分配课程-班级"
+
+msgid "AddUsersToACourse"
+msgstr "分配课程-用户"
+
+msgid "AddUsersToAClass"
+msgstr "添加学生"
+
+msgid "AddUsersToAGroup"
+msgstr "加组用户"
+
+msgid "AtLeastOneClassAndOneCourse"
+msgstr "你至少选择一个班级和一门课程！"
+
+msgid "AtLeastOneUser"
+msgstr "你至少要选择一个用户!"
+
+msgid "AtLeastOneUserAndOneCourse"
+msgstr "你至少选择一个用户和一门课程！"
+
+msgid "ClassList"
+msgstr "班级列表"
+
+msgid "AddToThatCourse"
+msgstr "加入该课程"
+
+msgid "AddToClass"
+msgstr "加入该班级"
+
+msgid "RemoveFromClass"
+msgstr "从班级删除"
+
+msgid "AddToGroup"
+msgstr "加入该组"
+
+msgid "RemoveFromGroup"
+msgstr "从组删除"
+
+msgid "UsersOutsideClass"
+msgstr "班级外学生"
+
+msgid "UsersInsideClass"
+msgstr "班级内学生"
+
+msgid "UsersOutsideGroup"
+msgstr "组外用户"
+
+msgid "UsersInsideGroup"
+msgstr "组内用户"
+
+msgid "MustUseSeparator"
+msgstr "需用"
+
+msgid "CSVMustLookLike"
+msgstr "CSV文件格式如下"
+
+msgid "XMLMustLookLike"
+msgstr "XML文件格式如下"
+
+msgid "MandatoryFields"
+msgstr "<strong>加粗</strong>为必需字段"
+
+msgid "NotXML"
+msgstr "文件不是XML格式!"
+
+msgid "NotCSV"
+msgstr "文件不是CSV格式!"
+
+msgid "NoNeededData"
+msgstr "文件中没有找到所需数据!"
+
+msgid "MaxImportUsers"
+msgstr "每次输入用户数不能超过500名!"
+
+msgid "AdminDatabases"
+msgstr "数据库（phpMyAdmin）"
+
+msgid "AdminUsers"
+msgstr "用户"
+
+msgid "AdminClasses"
+msgstr "班级"
+
+msgid "AdminGroups"
+msgstr "用户组"
+
+msgid "AdminCourses"
+msgstr "课程"
+
+msgid "AdminCategories"
+msgstr "课程分类"
+
+msgid "SubscribeUserGroupToCourse"
+msgstr "加入用户/组到课程"
+
+msgid "NoCategories"
+msgstr "没有分类"
+
+msgid "AllowCoursesInCategory"
+msgstr "允许添加课程"
+
+msgid "GoToForum"
+msgstr "转向论坛"
+
+msgid "CategoryCode"
+msgstr "分类代码"
+
+msgid "EditNode"
+msgstr "编辑分类"
+
+msgid "OpenNode"
+msgstr "打开分类"
+
+msgid "DeleteNode"
+msgstr "删除该分类"
+
+msgid "AddChildNode"
+msgstr "添加二级分类"
+
+msgid "ViewChildren"
+msgstr "察看下一级"
+
+msgid "TreeRebuildedIn"
+msgstr "主目录重建于"
+
+msgid "TreeRecountedIn"
+msgstr "主目录重数于"
+
+msgid "RebuildTree"
+msgstr "重建主目录"
+
+msgid "RefreshNbChildren"
+msgstr "刷新下一级数目"
+
+msgid "ShowTree"
+msgstr "显示主目录"
+
+msgid "LogDeleteCat"
+msgstr "分类已删除"
+
+msgid "RecountChildren"
+msgstr "重数下一级"
+
+msgid "UpInSameLevel"
+msgstr "提升到同一级"
+
+msgid "MailTo"
+msgstr "寄给:"
+
+msgid "AddAdminInApache"
+msgstr "添加管理员"
+
+msgid "AddFaculties"
+msgstr "添加分类"
+
+msgid "SearchACourse"
+msgstr "搜索课程"
+
+msgid "SearchAUser"
+msgstr "搜索用户"
+
+msgid "TechnicalTools"
+msgstr "技术支持"
+
+msgid "Config"
+msgstr "系统配置"
+
+msgid "LogIdentLogoutComplete"
+msgstr "登录名单（扩展）"
+
+msgid "LimitUsersListDefaultMax"
+msgstr "在列表能显示的最大用户数"
+
+msgid "NoTimeLimits"
+msgstr "无时间限制"
+
+msgid "GeneralProperties"
+msgstr "一般选项"
+
+msgid "CourseCoach"
+msgstr "课程训练"
+
+msgid "UsersNumber"
+msgstr "用户数量"
+
+msgid "PublicAdmin"
+msgstr "公共管理"
+
+msgid "PageAfterLoginTitle"
+msgstr "登录后页面"
+
+msgid "PageAfterLoginComment"
+msgstr "本页被相连用户浏览"
+
+msgid "TabsMyProfile"
+msgstr "我的账户标签"
+
+msgid "GlobalRole"
+msgstr "全局角色"
+
+msgid "NomOutilTodo"
+msgstr "管理Todo列表"
+
+msgid "NomPageAdmin"
+msgstr "系统管理"
+
+msgid "SysInfo"
+msgstr "系统信息"
+
+msgid "DiffTranslation"
+msgstr "比较翻译"
+
+msgid "StatOf"
+msgstr "统计信息"
+
+msgid "SpeeSubscribe"
+msgstr "快速选课"
+
+msgid "LogIdentLogout"
+msgstr "登录日志"
+
+msgid "ServerStatus"
+msgstr "MySQL服务器状态"
+
+msgid "DataBase"
+msgstr "数据库"
+
+msgid "Run"
+msgstr "生效"
+
+msgid "Client"
+msgstr "MySql客户"
+
+msgid "Server"
+msgstr "MySql服务器"
+
+msgid "titulary"
+msgstr "控权"
+
+msgid "UpgradeBase"
+msgstr "升级数据库"
+
+msgid "ErrorsFound"
+msgstr "发现问题"
+
+msgid "Maintenance"
+msgstr "维护工具"
+
+msgid "Upgrade"
+msgstr "升级IILearn"
+
+msgid "Website"
+msgstr "DEKEOS网站"
+
+msgid "Documentation"
+msgstr "文献"
+
+msgid "Contribute"
+msgstr "贡献"
+
+msgid "InfoServer"
+msgstr "服务器信息"
+
+msgid "SendMailToUsers"
+msgstr "发送邮件"
+
+msgid "CourseSystemCode"
+msgstr "系统代码"
+
+msgid "CourseVisualCode"
+msgstr "可见代码"
+
+msgid "SystemCode"
+msgstr "系统代码"
+
+msgid "VisualCode"
+msgstr "可见代码"
+
+msgid "AddCourse"
+msgstr "新建课程"
+
+msgid "AdminManageVirtualCourses"
+msgstr "管理虚拟课程"
+
+msgid "AdminCreateVirtualCourse"
+msgstr "新建虚拟课程"
+
+msgid "AdminCreateVirtualCourseExplanation"
+msgstr "这门虚拟课程将要和现有的\"真实\"课程共享存储空间（目录和数据库空间）"
+
+msgid "RealCourseCode"
+msgstr "真实课程代码"
+
+msgid "CourseCreationSucceeded"
+msgstr "创建课程成功"
+
+msgid "OnTheHardDisk"
+msgstr "在硬盘上"
+
+msgid "IsVirtualCourse"
+msgstr "虚拟课程"
+
+msgid "AnnouncementUpdated"
+msgstr "通知已经被更新"
+
+msgid "PermissionsForNewFiles"
+msgstr "新文件的权限"
+
+msgid "PermissionsForNewFilesComment"
+msgstr "对新生成课程定义权限的功能，能够改善系统安全性，防止黑客上载危险的内容到系统中。默认设置（0550）对服务器应该有足够的保护。权限设置使用UNIX的术语，也就对于所有者-组-其他给与读-写-执行的权限。如果你使用Oogie，请注意使用OpenOffice的用户可以向课程目录中写文件。"
+
+msgid "Guest"
+msgstr "访问者"
+
+msgid "LoginAsThisUserColumnName"
+msgstr "用户登录"
+
+msgid "LoginAsThisUser"
+msgstr "登录"
+
+msgid "SelectPicture"
+msgstr "选择图片"
+
+msgid "DontResetPassword"
+msgstr "勿重新设定密码"
+
+msgid "ParticipateInCommunityDevelopment"
+msgstr "研究的参与者"
+
+msgid "CourseAdmin"
+msgstr "教师"
+
+msgid "PlatformLanguageTitle"
+msgstr "平台语言"
+
+msgid "ServerStatusComment"
+msgstr "这是一个什么类型的服务器?这将会开启或关闭一些特定的选项.比如,在一台开发者服务器上,将会有一个用于翻译的功能以及那些还没有翻译的字符串."
+
+msgid "ServerStatusTitle"
+msgstr "服务器类型"
+
+msgid "PlatformLanguages"
+msgstr "Chamilo平台语言"
+
+msgid "PlatformLanguagesExplanation"
+msgstr "此页面将定制登录界面的语言. 作为平台管理员, 你可以决定你的用户使用哪种语言"
+
+msgid "OriginalName"
+msgstr "原名字"
+
+msgid "EnglishName"
+msgstr "英文名"
+
+msgid "LMSFolder"
+msgstr "桌面文件夹"
+
+msgid "Properties"
+msgstr "属性"
+
+msgid "PlatformConfigSettings"
+msgstr "Chamilo 设置"
+
+msgid "SettingsStored"
+msgstr "设置已经保存"
+
+msgid "InstitutionTitle"
+msgstr "学校名称"
+
+msgid "InstitutionComment"
+msgstr "学校名称(出现在右上方标题)"
+
+msgid "InstitutionUrlTitle"
+msgstr "机构地址"
+
+msgid "InstitutionUrlComment"
+msgstr "学校URL(出现在右上方标题)"
+
+msgid "SiteNameTitle"
+msgstr "Chamilo学校名称"
+
+msgid "SiteNameComment"
+msgstr "Chamilo 学校名称(出现在标题)"
+
+msgid "emailAdministratorTitle"
+msgstr "平台管理员邮件:"
+
+msgid "emailAdministratorComment"
+msgstr "平台管理员邮个(左下角)"
+
+msgid "administratorSurnameTitle"
+msgstr "平台管理员姓:"
+
+msgid "administratorSurnameComment"
+msgstr "平台管理员的姓（出现在底部的左边）"
+
+msgid "administratorNameTitle"
+msgstr "平台管理员名:"
+
+msgid "administratorNameComment"
+msgstr "平台管理员名(左下脚)"
+
+msgid "ShowAdministratorDataTitle"
+msgstr "下角平台管理员信息"
+
+msgid "ShowAdministratorDataComment"
+msgstr "是否在底部显示平台管理员的信息?"
+
+msgid "HomepageViewTitle"
+msgstr "主页"
+
+msgid "HomepageViewComment"
+msgstr "你喜欢哪种主页?"
+
+msgid "HomepageViewDefault"
+msgstr "两栏布局。掩藏没激活的工具"
+
+msgid "HomepageViewFixed"
+msgstr "三栏布局。灰色隐藏未激活的工具(图标)"
+
+msgid "ShowToolShortcutsTitle"
+msgstr "工具捷径"
+
+msgid "ShowToolShortcutsComment"
+msgstr "横幅显示工具捷径?"
+
+msgid "ShowStudentViewTitle"
+msgstr "学生模式"
+
+msgid "ShowStudentViewComment"
+msgstr "学生视角<br>这项功能允许讲师以学生的角度查看课程内容。"
+
+msgid "AllowGroupCategories"
+msgstr "组分类"
+
+msgid "AllowGroupCategoriesComment"
+msgstr "允许课程管理员在小组模块中创建分类?"
+
+msgid "PlatformLanguageComment"
+msgstr "不同平台管理员可以决定不同的平台语言, 即:  <a href=\"languages.php\">Chamilo平台语言</a>"
+
+msgid "ProductionServer"
+msgstr "平台服务器"
+
+msgid "TestServer"
+msgstr "测试服务器"
+
+msgid "ShowOnlineTitle"
+msgstr "在线用户"
+
+msgid "AsPlatformLanguage"
+msgstr "作为平台语言"
+
+msgid "ShowOnlineComment"
+msgstr "显示在线用户数?"
+
+msgid "AllowNameChangeTitle"
+msgstr "允许改变用户名?"
+
+msgid "AllowNameChangeComment"
+msgstr "允许用户改变姓名?"
+
+msgid "DefaultDocumentQuotumTitle"
+msgstr "缺省文件数限制"
+
+msgid "DefaultDocumentQuotumComment"
+msgstr "缺省文件数限制是多少?管理员可修改:管理>课程>修改"
+
+msgid "ProfileChangesTitle"
+msgstr "个人设置"
+
+msgid "ProfileChangesComment"
+msgstr "可修改个人设置的哪些部分?"
+
+msgid "RegistrationRequiredFormsTitle"
+msgstr "注册:必填项"
+
+msgid "RegistrationRequiredFormsComment"
+msgstr "哪内容必需填写(包括姓, 名, 用户名, 密码)"
+
+msgid "DefaultGroupQuotumTitle"
+msgstr "缺省组限量"
+
+msgid "DefaultGroupQuotumComment"
+msgstr "一组文件的默认大小是多少?"
+
+msgid "AllowLostPasswordTitle"
+msgstr "密码丢失"
+
+msgid "AllowLostPasswordComment"
+msgstr "允许用户找回密码?"
+
+msgid "AllowRegistrationTitle"
+msgstr "注册"
+
+msgid "AllowRegistrationComment"
+msgstr "可以注册新用户吗?用户可以创建帐号吗?"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "注册为教师"
+
+msgid "AllowRegistrationAsTeacherComment"
+msgstr "用户可以注册为教师(创建课程)吗?"
+
+msgid "PlatformLanguage"
+msgstr "首页语言"
+
+msgid "Tuning"
+msgstr "调整"
+
+msgid "SplitUsersUploadDirectory"
+msgstr "分离用户的上传文件夹"
+
+msgid "CourseQuota"
+msgstr "课程数量限制"
+
+msgid "EditNotice"
+msgstr "编辑通知"
+
+msgid "InsertLink"
+msgstr "插入链接"
+
+msgid "EditNews"
+msgstr "编辑新闻"
+
+msgid "EditCategories"
+msgstr "编辑分类"
+
+msgid "EditHomePage"
+msgstr "编辑主页"
+
+msgid "AllowUserHeadingsComment"
+msgstr "课程管理员是否可以定义用户标题查看更多用户信息吗?"
+
+msgid "Languages"
+msgstr "语言"
+
+msgid "NoticeTitle"
+msgstr "通知的标题"
+
+msgid "NoticeText"
+msgstr "通知的内容"
+
+msgid "LinkURL"
+msgstr "链接的URL"
+
+msgid "OpenInNewWindow"
+msgstr "在新窗口打开"
+
+msgid "LimitUsersListDefaultMaxComment"
+msgstr "此界面允许添加用户到课程或班级中, 如果第一个未经筛选的列表中的用户数超过这个数字, 默认为第一个字母（A）"
+
+msgid "HideDLTTMarkupComment"
+msgstr "当没合适的翻译时，隐藏[=...=]符号"
+
+msgid "UserDeleted"
+msgstr "用户已删除"
+
+msgid "NoClassesForThisCourse"
+msgstr "此课程无班级注册"
+
+msgid "CourseUsage"
+msgstr "课程使用"
+
+msgid "NoCoursesForThisUser"
+msgstr "没有此用户的课程"
+
+msgid "NoClassesForThisUser"
+msgstr "没有此用户的班级"
+
+msgid "NoCoursesForThisClass"
+msgstr "没有此班级的课程"
+
+msgid "Tool"
+msgstr "工具"
+
+msgid "NumberOfItems"
+msgstr "项目数字"
+
+msgid "DocumentsAndFolders"
+msgstr "文件与文件夹"
+
+msgid "Exercises"
+msgstr "wϰ"
+
+msgid "AllowPersonalAgendaTitle"
+msgstr "个人日程"
+
+msgid "AllowPersonalAgendaComment"
+msgstr "用户可以在我的日程上创建个人日程吗?"
+
+msgid "CurrentValue"
+msgstr "当前值"
+
+msgid "UserPassword"
+msgstr "密码"
+
+msgid "SubscriptionAllowed"
+msgstr "允许注册"
+
+msgid "UnsubscriptionAllowed"
+msgstr "允许注消"
+
+msgid "AddDummyContentToCourse"
+msgstr "添加课程样例"
+
+msgid "DummyCourseCreator"
+msgstr "创造课程样例"
+
+msgid "DummyCourseDescription"
+msgstr "将添加课程样例, 仅用于测试."
+
+msgid "AvailablePlugins"
+msgstr "这是平台上所能使用的插件. 请访问<a href=\"http://www.chamilo.org/extensions/index.php?section=plugins\">http://www.chamilo.org/extensions/index.php?section=plugins</a>获得更多插件"
+
+msgid "CreateVirtualCourse"
+msgstr "新建虚拟课程"
+
+msgid "DisplayListVirtualCourses"
+msgstr "显示虚拟课程列表"
+
+msgid "LinkedToRealCourseCode"
+msgstr "链接到真实课程代码"
+
+msgid "AttemptedCreationVirtualCourse"
+msgstr "创建虚拟课程..."
+
+msgid "WantedCourseCode"
+msgstr "索取课程代码"
+
+msgid "ResetPassword"
+msgstr "密码重置"
+
+msgid "CheckToSendNewPassword"
+msgstr "检测发送新密码"
+
+msgid "AutoGeneratePassword"
+msgstr "自动生成密码"
+
+msgid "UseDocumentTitleTitle"
+msgstr "用标题作为文件名"
+
+msgid "UseDocumentTitleComment"
+msgstr "这将使用标题作为文件名, 而不是类似于document_name.ext"
+
+msgid "StudentPublications"
+msgstr "学生发贴"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "已删除文件无法恢复"
+
+msgid "PermanentlyRemoveFilesComment"
+msgstr "文件永久删除. 已删除文件无法恢复"
+
+msgid "DropboxMaxFilesizeTitle"
+msgstr "投递箱: 最大文件大小"
+
+msgid "DropboxMaxFilesizeComment"
+msgstr "投递箱内的文档最大是多少(字节)?"
+
+msgid "DropboxAllowOverwriteTitle"
+msgstr "投递箱: 文件能否被覆盖?"
+
+msgid "DropboxAllowOverwriteComment"
+msgstr "如果文件名相同, 原文件能否覆盖已上传的文件? 如果你回答是, 你就不能修改版本."
+
+msgid "DropboxAllowJustUploadTitle"
+msgstr "投递箱: 上传到自己的投递箱?"
+
+msgid "DropboxAllowJustUploadComment"
+msgstr "允许老师与学生上传各自的文件到自己的投递箱, 而不是发给别人."
+
+msgid "DropboxAllowStudentToStudentTitle"
+msgstr "投递箱: 学生<-> 学生"
+
+msgid "DropboxAllowStudentToStudentComment"
+msgstr "允许学生之间学生交换文件(peer 2 peer, P2P 交换). 学生可使用它交换与教学无关的文件如(mp3, 视频, ...). 如果禁用, 学生只能给老师发文件."
+
+msgid "DropboxAllowMailingTitle"
+msgstr "投递箱: 允许邮寄"
+
+msgid "DropboxAllowMailingComment"
+msgstr "您可使用邮寄功能给每位学生发送文档"
+
+msgid "UserListHasBeenExported"
+msgstr "用户名单已输出"
+
+msgid "ClickHereToDownloadTheFile"
+msgstr "点此处下载文件"
+
+msgid "administratorTelephoneTitle"
+msgstr "管理员: 电话"
+
+msgid "administratorTelephoneComment"
+msgstr "管理员电话号码"
+
+msgid "SendMailToNewUser"
+msgstr "给新用户发邮件"
+
+msgid "ExtendedProfileTitle"
+msgstr "扩展特征"
+
+msgid "ExtendedProfileComment"
+msgstr "如果设置为\"真\", 用户可填写下列(可选)字段: \"我的能力\", \"我的学历\", \"我能教授的课程\"与\"个人开放区\"."
+
+msgid "Classes"
+msgstr "班级"
+
+msgid "UserUnsubscribed"
+msgstr "用户注销"
+
+msgid "CannotUnsubscribeUserFromCourse"
+msgstr "作为课程的老师, 此用户不能注销这个课程."
+
+msgid "InvalidStartDate"
+msgstr "起始日期无效"
+
+msgid "InvalidEndDate"
+msgstr "结束日期无效"
+
+msgid "DateFormatLabel"
+msgstr "日/月/年 时:分"
+
+msgid "HomePageFilesNotWritable"
+msgstr "主页无法写入文件！"
+
+msgid "PleaseEnterNoticeText"
+msgstr "请给出通知文本"
+
+msgid "PleaseEnterNoticeTitle"
+msgstr "请给出通知标题"
+
+msgid "PleaseEnterLinkName"
+msgstr "请给出链接名称"
+
+msgid "InsertThisLink"
+msgstr "插入链接"
+
+msgid "FirstPlace"
+msgstr "第一处"
+
+msgid "DropboxAllowGroupTitle"
+msgstr "投递箱: 允许组"
+
+msgid "DropboxAllowGroupComment"
+msgstr "用户可发送文件到组"
+
+msgid "ClassDeleted"
+msgstr "班级已删除"
+
+msgid "ClassesDeleted"
+msgstr "班级已删除"
+
+msgid "NoUsersInClass"
+msgstr "该班级无用户"
+
+msgid "UsersAreSubscibedToCourse"
+msgstr "所选用户已注册到所选班级"
+
+msgid "InvalidTitle"
+msgstr "请输入标题"
+
+msgid "CatCodeAlreadyUsed"
+msgstr "此分类代码已被使用"
+
+msgid "PleaseEnterCategoryInfo"
+msgstr "请键入该分类名和代码"
+
+msgid "RegisterYourPortal"
+msgstr "注册门户站"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "显示课程导航菜单"
+
+msgid "ShowNavigationMenuComment"
+msgstr "显示导航菜单以方便浏览课程各部分。"
+
+msgid "LoginAs"
+msgstr "登录为"
+
+msgid "ImportClassListCSV"
+msgstr "通过CSV格式导入课程名单"
+
+msgid "ShowOnlineWorld"
+msgstr "在登录页面显示在线人数（公开于所有人)"
+
+msgid "ShowOnlineUsers"
+msgstr "在所有页面显示在线人数（只开放于已登录者）"
+
+msgid "ShowOnlineCourse"
+msgstr "显示本课程的在线用户"
+
+msgid "ShowIconsInNavigationsMenuTitle"
+msgstr "在导航菜单中显示图标？"
+
+msgid "SeeAllRightsAllRolesForSpecificLocation"
+msgstr "以地点为准"
+
+msgid "ClassesSubscribed"
+msgstr "选定班级已注册到选定课程"
+
+msgid "RoleId"
+msgstr "角色ID"
+
+msgid "RoleName"
+msgstr "角色名称"
+
+msgid "RoleType"
+msgstr "种类"
+
+msgid "MakeAvailable"
+msgstr "激活"
+
+msgid "MakeUnavailable"
+msgstr "使之不可用"
+
+msgid "Stylesheets"
+msgstr "样式表"
+
+msgid "ShowIconsInNavigationsMenuComment"
+msgstr "导航菜单需要展示不同的工具图标吗？"
+
+msgid "Plugin"
+msgstr "插件"
+
+msgid "MainMenu"
+msgstr "主菜单"
+
+msgid "MainMenuLogged"
+msgstr "登录后的主菜单"
+
+msgid "Banner"
+msgstr "标志"
+
+msgid "ImageResizeTitle"
+msgstr "调整上传用户图片的尺寸"
+
+msgid "ImageResizeComment"
+msgstr "如果PHP与<a href=\"http://php.net/manual/en/ref.image.php\" target=\"_blank\">GD library</a>一起编译, 图片上传后可调整大小. 如果没有GD, 此项设置将不起作用."
+
+msgid "MaxImageWidthTitle"
+msgstr "用户图片的最大宽度"
+
+msgid "MaxImageWidthComment"
+msgstr "用户图片的最大象素宽度. 此项设置仅适用于用户图片设置为上传后可调整大小."
+
+msgid "MaxImageHeightTitle"
+msgstr "用户图片的最大高度"
+
+msgid "MaxImageHeightComment"
+msgstr "用户图像的最高像素. 本设定只限于当用户图像被设为上传时尺寸可修改。"
+
+msgid "YourVersionIs"
+msgstr "您的版本是"
+
+msgid "ConnectSocketError"
+msgstr "Socket连接错误"
+
+msgid "SocketFunctionsDisabled"
+msgstr "Socket连接已被禁止"
+
+msgid "ShowEmailAddresses"
+msgstr "显示电邮"
+
+msgid "ShowEmailAddressesComment"
+msgstr "对用户显示电邮"
+
+msgid "ActiveExtensions"
+msgstr "启动本服务"
+
+msgid "Visioconf"
+msgstr "视频会议"
+
+msgid "VisioconfDescription"
+msgstr "Chamilo Live Conferencing 是一个标准的视频会议工具，它提供了显示幻灯片、白板、语音/视频和聊天等功能；它仅仅需要Flash播放器支持，它提供了三种使用模式：一对一、一对多、多对多。"
+
+msgid "Ppt2lp"
+msgstr "oogie"
+
+msgid "Ppt2lpDescription"
+msgstr "本工具让您可以点击鼠标就能将幻灯片转换为学习路径。"
+
+msgid "BandWidthStatistics"
+msgstr "流量统计"
+
+msgid "BandWidthStatisticsDescription"
+msgstr "MRTG 让您可以了解服务器在最近24小时内的运行状态。"
+
+msgid "ServerStatistics"
+msgstr "服务器统计"
+
+msgid "ServerStatisticsDescription"
+msgstr "AWStats 让您了解系统以下情况：访问、页面浏览、提交..."
+
+msgid "SearchEngine"
+msgstr "全文搜索引擎"
+
+msgid "SearchEngineDescription"
+msgstr "全文搜索引擎让您搜索系统的内容，每天进行内容索引保证了搜索质量。"
+
+msgid "ListSession"
+msgstr "讲习班列表"
+
+msgid "AddSession"
+msgstr "增加一个讲习班"
+
+msgid "ImportSessionListXMLCSV"
+msgstr "使用XML/CSV格式导入讲习班"
+
+msgid "ExportSessionListXMLCSV"
+msgstr "以XML/CSV格式导出讲习班"
+
+msgid "NbCourses"
+msgstr "课程编号"
+
+msgid "DateStart"
+msgstr "开始日期"
+
+msgid "DateEnd"
+msgstr "结束日期"
+
+msgid "CoachName"
+msgstr "导师名"
+
+msgid "SessionNameIsRequired"
+msgstr "需要讲习班名称"
+
+msgid "NextStep"
+msgstr "下一步"
+
+msgid "Confirm"
+msgstr "确定"
+
+msgid "UnsubscribeUsersFromCourse"
+msgstr "没有订阅的用户"
+
+msgid "MissingClassName"
+msgstr "缺少类名"
+
+msgid "ClassNameExists"
+msgstr "类名不存在"
+
+msgid "ImportCSVFileLocation"
+msgstr "CSV 文件位置"
+
+msgid "ClassesCreated"
+msgstr "课程被创建"
+
+msgid "ErrorsWhenImportingFile"
+msgstr "导入文件时出错"
+
+msgid "ServiceActivated"
+msgstr "服务经启动"
+
+msgid "ActivateExtension"
+msgstr "激活服务"
+
+msgid "InvalidExtension"
+msgstr "无效的扩展"
+
+msgid "VersionCheckExplanation"
+msgstr "In order to enable the automatic version checking you have to register your campus on chamilo.com. The information obtained by clicking this button is only for internal use and only aggregated data will be publicly available (total number of campusses, total number of chamilo courses, total number of chamilo students, ...) (see <a href=\"http://www.chamilo.org/stats/\">http://www.chamilo.org/stats/</a>. When registering you will also appear on the worldwide list (<a href=\"http://www.chamilo.org/community.php\">http://www.chamilo.org/community.php</a>. If you do not want to appear in this list you have to check the checkbox below. The registration is as easy as it can be: you only have to click this button: <br />"
+
+msgid "AfterApproval"
+msgstr "批准后"
+
+msgid "StudentViewEnabledTitle"
+msgstr "学生视图"
+
+msgid "StudentViewEnabledComment"
+msgstr "学生视图让教师或管理员以学生的视角来浏览课程"
+
+msgid "TimeLimitWhosonlineTitle"
+msgstr "时间限制"
+
+msgid "TimeLimitWhosonlineComment"
+msgstr "时间限制是指用户最后操作后多少秒内被认为在线"
+
+msgid "ExampleMaterialCourseCreationTitle"
+msgstr "创建课程的范例"
+
+msgid "ExampleMaterialCourseCreationComment"
+msgstr "当创建新课程时自动创建范例"
+
+msgid "AccountValidDurationTitle"
+msgstr "帐号有效"
+
+msgid "AccountValidDurationComment"
+msgstr "一个新建帐户的有效天数"
+
+msgid "UseSessionModeTitle"
+msgstr "使用讲习班模式"
+
+msgid "UseSessionModeComment"
+msgstr "讲习班提供另一种方式来管理课程(课程有创建者, 教师和学生). 每个教师对这门课程提供一个时间段的讲解, 就称为*讲习班*"
+
+msgid "HomepageViewActivity"
+msgstr "活动视图"
+
+msgid "HomepageView2column"
+msgstr "两列视图"
+
+msgid "HomepageView3column"
+msgstr "三列视图"
+
+msgid "AllowUserHeadings"
+msgstr "允许用户标题"
+
+msgid "IconsOnly"
+msgstr "仅图标"
+
+msgid "TextOnly"
+msgstr "仅文本"
+
+msgid "IconsText"
+msgstr "图标和文本"
+
+msgid "EnableToolIntroductionTitle"
+msgstr "允许工具介绍"
+
+msgid "EnableToolIntroductionComment"
+msgstr "每个工具的首页允许介绍"
+
+msgid "BreadCrumbsCourseHomepageTitle"
+msgstr "水平导航"
+
+msgid "BreadCrumbsCourseHomepageComment"
+msgstr "系统的水平导航一般放在页面的左上角，该选项让您选择在课程首页中显示什么导航内容"
+
+msgid "LoginPageMainArea"
+msgstr "登录页面"
+
+msgid "LoginPageMenu"
+msgstr "登录菜单"
+
+msgid "CampusHomepageMainArea"
+msgstr "校园首页"
+
+msgid "CampusHomepageMenu"
+msgstr "校园首页菜单"
+
+msgid "MyCoursesMainArea"
+msgstr "课程范围"
+
+msgid "MyCoursesMenu"
+msgstr "课程菜单"
+
+msgid "Header"
+msgstr "页眉"
+
+msgid "Footer"
+msgstr "页脚"
+
+msgid "PublicPagesComplyToWAITitle"
+msgstr "Public pages compliance to WAI"
+
+msgid "PublicPagesComplyToWAIComment"
+msgstr "WAI (Web Accessibility Initiative) is an initiative to make the web more accessible. By selecting this option, the public pages of Chamilo will become more accessible. This also means that some content on the portal's public pages might appear differently."
+
+msgid "VersionCheck"
+msgstr "版本检查"
+
+msgid "SessionOverview"
+msgstr "讲习班概述"
+
+msgid "SubscribeUserIfNotAllreadySubscribed"
+msgstr "如果用户还没注册, 允许用户参加课程"
+
+msgid "UnsubscribeUserIfSubscriptionIsNotInFile"
+msgstr "如果文件中没记录, 取消用户所注册课程"
+
+msgid "DeleteSelectedSessions"
+msgstr "删除选择的学期"
+
+msgid "CourseListInSession"
+msgstr "这个讲习班的课程"
+
+msgid "UnsubscribeCoursesFromSession"
+msgstr "从这个讲习班中取消选定此课程"
+
+msgid "NbUsers"
+msgstr "用户"
+
+msgid "SubscribeUsersToSession"
+msgstr "使用户加入此讲习班"
+
+msgid "UserListInPlatform"
+msgstr "用户列表"
+
+msgid "UserListInSession"
+msgstr "用户列表已加入此讲习班"
+
+msgid "CourseListInPlatform"
+msgstr "课程列表"
+
+msgid "Host"
+msgstr "主机"
+
+msgid "UserOnHost"
+msgstr "用户名"
+
+msgid "FtpPassword"
+msgstr "FTP密码"
+
+msgid "PathToLzx"
+msgstr "Path to LZX files"
+
+msgid "WCAGContent"
+msgstr "文本"
+
+msgid "SubscribeCoursesToSession"
+msgstr "添加课程到此讲习班"
+
+msgid "DateStartSession"
+msgstr "讲习开始日子"
+
+msgid "DateEndSession"
+msgstr "讲习结束日子"
+
+msgid "EditSession"
+msgstr "编辑此讲习班"
+
+msgid "VideoConferenceUrl"
+msgstr "视频会议路径"
+
+msgid "VideoClassroomUrl"
+msgstr "视频教室路径"
+
+msgid "ReconfigureExtension"
+msgstr "重新配置扩展"
+
+msgid "ServiceReconfigured"
+msgstr "重新配置服务"
+
+msgid "ChooseNewsLanguage"
+msgstr "选择新闻语言"
+
+msgid "Ajax_course_tracking_refresh"
+msgstr "课程花费的总时间"
+
+msgid "Ajax_course_tracking_refresh_comment"
+msgstr "这个选项是用来计算用户花在课程上的实际时间。字段中的值按照秒来计算。如果要关闭这个选项，将值设置城0"
+
+msgid "FinishSessionCreation"
+msgstr "讲习班创建完毕"
+
+msgid "VisioRTMPPort"
+msgstr "视频会议 RTMTP协议端口"
+
+msgid "SessionNameAlreadyExists"
+msgstr "会议名称马上存在"
+
+msgid "NoClassesHaveBeenCreated"
+msgstr "没有教室"
+
+msgid "ThisFieldShouldBeNumeric"
+msgstr "此字段类型为数字"
+
+msgid "UserLocked"
+msgstr "用户被锁定"
+
+msgid "UserUnlocked"
+msgstr "用户解除锁定"
+
+msgid "CannotDeleteUser"
+msgstr "无法删除此用户"
+
+msgid "SelectedUsersDeleted"
+msgstr "选择的用户已经被删除"
+
+msgid "SomeUsersNotDeleted"
+msgstr "用户已被删除"
+
+msgid "ExternalAuthentication"
+msgstr "外部验证"
+
+msgid "RegistrationDate"
+msgstr "注册日期"
+
+msgid "UserUpdated"
+msgstr "更新用户"
+
+msgid "HomePageFilesNotReadable"
+msgstr "无法读取主页文件"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "ModifySessionCourse"
+msgstr "会议课程修改"
+
+msgid "CourseSessionList"
+msgstr "会议课程列表"
+
+msgid "SelectACoach"
+msgstr "选择一个教练"
+
+msgid "UserNameUsedTwice"
+msgstr "用户被使用两次"
+
+msgid "UserNameNotAvailable"
+msgstr "用户名不可用"
+
+msgid "UserNameTooLong"
+msgstr "用户名太长"
+
+msgid "WrongStatus"
+msgstr "此状态不存在"
+
+msgid "ClassNameNotAvailable"
+msgstr "教室名称不可用"
+
+msgid "FileImported"
+msgstr "已导入的文件"
+
+msgid "WhichSessionToExport"
+msgstr "选择要导出的会议"
+
+msgid "AllSessions"
+msgstr "所有的会议"
+
+msgid "CodeDoesNotExists"
+msgstr "代码不存在"
+
+msgid "UnknownUser"
+msgstr "未知用户"
+
+msgid "UnknownStatus"
+msgstr "未知状态"
+
+msgid "SessionDeleted"
+msgstr "会议已经被删除"
+
+msgid "CourseDoesNotExist"
+msgstr "课程不存在"
+
+msgid "UserDoesNotExist"
+msgstr "用户不存在"
+
+msgid "ButProblemsOccured"
+msgstr "但出现的问题"
+
+msgid "UsernameTooLongWasCut"
+msgstr "用户名被裁剪"
+
+msgid "NoInputFile"
+msgstr "没有文件被发送"
+
+msgid "StudentStatusWasGivenTo"
+msgstr "学籍被送到"
+
+msgid "WrongDate"
+msgstr "错误的日期格式(年-月-日)"
+
+msgid "YouWillSoonReceiveMailFromCoach"
+msgstr "你很快会收到一封课程指导者发来的e-mail"
+
+msgid "SlideSize"
+msgstr "幻灯片尺寸"
+
+msgid "EphorusPlagiarismPrevention"
+msgstr "防盗保护"
+
+msgid "CourseTeachers"
+msgstr "课程教师"
+
+msgid "UnknownTeacher"
+msgstr "未知教师"
+
+msgid "HideDLTTMarkup"
+msgstr "隐藏 DLTT 标记"
+
+msgid "ListOfCoursesOfSession"
+msgstr "列出本学期的课程"
+
+msgid "ShowEmptyCourseCategoriesComment"
+msgstr "在首页显示非空的课程分类"
+
+msgid "ShowEmptyCourseCategories"
+msgstr "显示空的课程分类"
+
+msgid "XMLNotValid"
+msgstr "XML文件不合法"
+
+msgid "AllowEmailEditorTitle"
+msgstr "激活在线邮件编辑"
+
+msgid "AllowEmailEditorComment"
+msgstr "如果这个选项被激活,点击邮件会打开一个在线邮件编辑器"
+
+msgid "AddCSVHeader"
+msgstr "添加CSV首行内容?"
+
+msgid "YesAddCSVHeader"
+msgstr "是的, 添加CSV头部<br />首行内容定义了字段名, 当导入到其它的Chamilo平台时为必须的"
+
+msgid "ListOfUsersSubscribedToCourse"
+msgstr "登记本课程的用户列表"
+
+msgid "NumberOfCourses"
+msgstr "课程数"
+
+msgid "ShowDifferentCourseLanguage"
+msgstr "显示课程语言"
+
+msgid "Security"
+msgstr "安全"
+
+msgid "UploadExtensionsListType"
+msgstr "文件上传过滤类型"
+
+msgid "UploadExtensionsListTypeComment"
+msgstr "您是否想使用黑名单或者白名单过滤。参看下面的黑名单或白名单描述获得更多细节。"
+
+msgid "Blacklist"
+msgstr "黑名单"
+
+msgid "Whitelist"
+msgstr "白名单"
+
+msgid "UploadExtensionsBlacklist"
+msgstr "黑名单-设置"
+
+msgid "UploadExtensionsWhitelist"
+msgstr "白名单-设置"
+
+msgid "UploadExtensionsBlacklistComment"
+msgstr "黑名单是用来通过删除活着重命名的方式来过滤文件扩展的。"
+
+msgid "UploadExtensionsReplaceBy"
+msgstr "替换的扩展名"
+
+msgid "EphorusClickHereForInformationsAndPrices"
+msgstr "点击这里获取更多信息和价格"
+
+msgid "DisplayCategoriesOnHomepageTitle"
+msgstr "在首页显示分类"
+
+msgid "ShowTabsTitle"
+msgstr "显示栏目名称"
+
+msgid "DefaultForumViewTitle"
+msgstr "默认论坛视图"
+
+msgid "LastNameMandatory"
+msgstr "名字不能空白"
+
+msgid "FirstNameMandatory"
+msgstr "姓名不能空白"
+
+msgid "EmailMandatory"
+msgstr "电子邮件地址不能空白"
+
+msgid "NoticeWillBeNotDisplayed"
+msgstr "首页不显示通告"
+
+msgid "PlatformCharsetTitle"
+msgstr "字符集设置"
+
+msgid "NoReplyEmailAddress"
+msgstr "无回复的电子邮件地址"
+
+msgid "CourseCoachEmailSender"
+msgstr "老师的邮件地址"
+
+msgid "NoReplyEmailSender"
+msgstr "无回复的电子邮件地址"
+
+msgid "VersionCheckEnabled"
+msgstr "版本检查打开"
+
+msgid "UserTheme"
+msgstr "模板（样式表）"
+
+msgid "UserThemeSelection"
+msgstr "用户模板选择"
+
+msgid "VisioHost"
+msgstr "视频会议媒体服务器主机名或ip地址"
+
+msgid "VisioPort"
+msgstr "视频会议媒体服务器端口"
+
+msgid "VisioPassword"
+msgstr "视频会议媒体服务器密码"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "EphorusClickHereForADemoAccount"
+msgstr "点击进入测试帐号"
+
+msgid "ManageUserFields"
+msgstr "管理用户自定义字段"
+
+msgid "AddUserField"
+msgstr "添加用户字段"
+
+msgid "FieldLabel"
+msgstr "字段名"
+
+msgid "FieldType"
+msgstr "字段类型"
+
+msgid "FieldTitle"
+msgstr "字段名"
+
+msgid "FieldDefaultValue"
+msgstr "字段默认值"
+
+msgid "FieldOrder"
+msgstr "字段排序"
+
+msgid "FieldVisibility"
+msgstr "字段可见"
+
+msgid "FieldChangeability"
+msgstr "可否修改"
+
+msgid "FieldTypeText"
+msgstr "文本"
+
+msgid "FieldTypeTextarea"
+msgstr "文本框"
+
+msgid "FieldTypeRadio"
+msgstr "单选按钮"
+
+msgid "FieldTypeSelect"
+msgstr "下拉选择列表"
+
+msgid "FieldTypeSelectMultiple"
+msgstr "多选列表"
+
+msgid "FieldAdded"
+msgstr "字段添加成功"
+
+msgid "AddUserFields"
+msgstr "添加用户字段"
+
+msgid "FieldPossibleValues"
+msgstr "可能值"
+
+msgid "FieldTypeDate"
+msgstr "日期"
+
+msgid "FieldTypeDatetime"
+msgstr "日期和时间"
+
+msgid "AllowCourseThemeTitle"
+msgstr "允许课程模板"
+
+msgid "LDAPSearchTermTitle"
+msgstr "搜索小组"
+
+msgid "EmailNotifySubscription"
+msgstr "用邮件通知注册用户"
+
+msgid "DontUncheck"
+msgstr "不选"
+
+msgid "AllSlashNone"
+msgstr "所有/无"
+
+msgid "SelectDepartment"
+msgstr "选择部门"
+
+msgid "RegistrationYear"
+msgstr "注册年份"
+
+msgid "SelectComponent"
+msgstr "选择组件"
+
+msgid "Component"
+msgstr "组件"
+
+msgid "SelectStudents"
+msgstr "选择学生"
+
+msgid "LDAPUsersAdded"
+msgstr "LDAP用户已添加"
+
+msgid "NoUserAdded"
+msgstr "无用户添加"
+
+msgid "VisioUseRtmptTitle"
+msgstr "使用rtmpt协议"
+
+msgid "UploadNewStylesheet"
+msgstr "新的样式表"
+
+msgid "NameStylesheet"
+msgstr "样式表名称"
+
+msgid "StylesheetAdded"
+msgstr "样式表已添加"
+
+msgid "IsNotWritable"
+msgstr "是不可写的"
+
+msgid "FieldMovedDown"
+msgstr "字段已下移"
+
+msgid "CannotMoveField"
+msgstr "不能移动字段"
+
+msgid "FieldMovedUp"
+msgstr "字段已上移"
+
+msgid "FieldDeleted"
+msgstr "字段已删除"
+
+msgid "CannotDeleteField"
+msgstr "不能删除这个字段"
+
+msgid "CannotMoveFieldOption"
+msgstr "不能移动选项。"
+
+msgid "DefineSessionOptions"
+msgstr "限制可访问教师的人数"
+
+msgid "DaysBefore"
+msgstr "天之前"
+
+msgid "DaysAfter"
+msgstr "天之后"
+
+msgid "SessionAddTypeUnique"
+msgstr "单人注册"
+
+msgid "SessionAddTypeMultiple"
+msgstr "多人注册"
+
+msgid "EnableSearchTitle"
+msgstr "全文搜索特性"
+
+msgid "AddUrl"
+msgstr "添加连接"
+
+msgid "SelectAResponsible"
+msgstr "选择一个管理员"
+
+msgid "GlobalAgenda"
+msgstr "全部日程"
+
+msgid "SearchHideUnlinkedResults"
+msgstr "不显示他们"
+
+msgid "Templates"
+msgstr "模板"
+
+msgid "EnableVersionCheck"
+msgstr "允许版本检查"
+
+msgid "URLAdded"
+msgstr "这个地址已经被添加"
+
+msgid "ImportUsersToACourse"
+msgstr "导入用户列表"
+
+msgid "ImportCourses"
+msgstr "导入课程列表"
+
+msgid "AddNews"
+msgstr "添加通知"
+
+msgid "ShowTutorDataTitle"
+msgstr "导师的数据显示于页脚."
+
+msgid "ListSessionCategory"
+msgstr "讲习班分类列表"
+
+msgid "ThereIsNotStillASession"
+msgstr "没可用的讲习班"
+
+msgid "SelectASession"
+msgstr "选择一个班"
+
+msgid "OriginCoursesFromSession"
+msgstr "原讲习班中的课程"
+
+msgid "DestinationCoursesFromSession"
+msgstr "目标讲习班的课程"
+
+msgid "CopyCourseFromSessionToSessionExplanation"
+msgstr "复制讲习班中的课程"
+
+msgid "TypeOfCopy"
+msgstr "复制的方法"
+
+msgid "CopyFromCourseInSessionToAnotherSession"
+msgstr "复制讲习班的课程到另一个班中"
+
+msgid "SessionVisibility"
+msgstr "课程结束后开放"
+
+msgid "AddSessionsInCategories"
+msgstr "添加讲习班到分类中"
+
+msgid "SpecialExports"
+msgstr "特殊导出"
+
+msgid "SubscribeSessionsToCategory"
+msgstr "注册讲习班到此分类"
+
+msgid "SessionListInPlatform"
+msgstr "系统中讲习班列表"
+
+msgid "SessionListInCategory"
+msgstr "分类中讲习班列表"
+
+msgid "ConfigureInscription"
+msgstr "设置注册页面"
+
+msgid "AnnEmpty"
+msgstr "通知列表已经被删除"
+
+msgid "AnnouncementModified"
+msgstr "通知列表已更新"
+
+msgid "AnnouncementAdded"
+msgstr "已添加通知"
+
+msgid "AnnouncementDeleted"
+msgstr "已删除通知"
+
+msgid "AnnouncementPublishedOn"
+msgstr "发布"
+
+msgid "AddAnnouncement"
+msgstr "添加通知"
+
+msgid "AnnouncementDeleteAll"
+msgstr "清除通知列表"
+
+msgid "professorMessage"
+msgstr "来自教师的信息"
+
+msgid "EmailSent"
+msgstr "发送邮件给学生"
+
+msgid "EmailOption"
+msgstr "将此通知通过email发送给选定的组/用户"
+
+msgid "On"
+msgstr "在"
+
+msgid "RegUser"
+msgstr "注册用户"
+
+msgid "Unvalid"
+msgstr "无效或没有邮件地址"
+
+msgid "ModifAnn"
+msgstr "修改通知"
+
+msgid "SelMess"
+msgstr "对某些用户的警告"
+
+msgid "SelectedUsers"
+msgstr "选定的用户"
+
+msgid "PleaseEnterMessage"
+msgstr "必须输入消息文本"
+
+msgid "PleaseSelectUsers"
+msgstr "必须选择用户"
+
+msgid "Teachersubject"
+msgstr "发送给你学生的信息"
+
+msgid "MessageToSelectedUsers"
+msgstr "发送给选定群组的消息"
+
+msgid "IntroText"
+msgstr "发送消息时，请选择用户组（在前面用G标识）或在左边列表框里单个用户。"
+
+msgid "MsgSent"
+msgstr "消息已经发送给选定的用户"
+
+msgid "SelUser"
+msgstr "选定的用户"
+
+msgid "MessageToSelectedGroups"
+msgstr "发送给选定群组的消息"
+
+msgid "SelectedGroups"
+msgstr "选定的群组"
+
+msgid "Msg"
+msgstr "消息"
+
+msgid "MsgText"
+msgstr "消息"
+
+msgid "AnnouncementDeletedAll"
+msgstr "所有通知已经删除"
+
+msgid "AnnouncementMoved"
+msgstr "通知已经移走"
+
+msgid "NoAnnouncements"
+msgstr "没有新的通知"
+
+msgid "SelectEverybody"
+msgstr "选择所有人"
+
+msgid "SelectedUsersGroups"
+msgstr "选择用户组"
+
+msgid "LearnerMessage"
+msgstr "学员短信息"
+
+msgid "TitleIsRequired"
+msgstr "需要标题"
+
+msgid "AnnounceSentByEmail"
+msgstr "通过电子邮件发布通知"
+
+msgid "AnnounceSentToUserSelection"
+msgstr "发送到所选择的用户"
+
+msgid "SendAnnouncement"
+msgstr "发送通知"
+
+msgid "ModifyAnnouncement"
+msgstr "修改通知"
+
+msgid "ButtonPublishAnnouncement"
+msgstr "发送通知"
+
+msgid "LineNumber"
+msgstr "行数"
+
+msgid "LineOrLines"
+msgstr "行"
+
+msgid "AddNewHeading"
+msgstr "添加新标题"
+
+msgid "CourseAdministratorOnly"
+msgstr "仅教师使用"
+
+msgid "DefineHeadings"
+msgstr "定义标题"
+
+msgid "BackToUsersList"
+msgstr "返回列表"
+
+msgid "CourseManager"
+msgstr "课程管理员"
+
+msgid "ModRight"
+msgstr "更改权限"
+
+msgid "NoAdmin"
+msgstr "从现在开始<B>无权</B>查看本页"
+
+msgid "AllAdmin"
+msgstr "从现在开始<b>有权</b>查看此页"
+
+msgid "ModRole"
+msgstr "改变角色"
+
+msgid "IsNow"
+msgstr "是从现在开始的"
+
+msgid "InC"
+msgstr "在本课程中"
+
+msgid "Filled"
+msgstr "您有些选项没有填写。"
+
+msgid "UserNo"
+msgstr "您选择的用户名"
+
+msgid "Taken"
+msgstr "已被占用，请选择其他的用户名。"
+
+msgid "Tutor"
+msgstr "教师"
+
+msgid "Unreg"
+msgstr "注销"
+
+msgid "GroupUserManagement"
+msgstr "小组管理"
+
+msgid "AddAUser"
+msgstr "添加用户"
+
+msgid "UsersUnsubscribed"
+msgstr "用户已经注销"
+
+msgid "ThisStudentIsSubscribeThroughASession"
+msgstr "学生已经从本课程注销，你不能编辑此类信息"
+
+msgid "AddToFriends"
+msgstr "是否确定添加此联系人为你朋友?"
+
+msgid "AddPersonalMessage"
+msgstr "添加个人消息"
+
+msgid "Friends"
+msgstr "好友"
+
+msgid "PersonalData"
+msgstr "个人资料"
+
+msgid "Contacts"
+msgstr "联系人"
+
+msgid "SocialInformationComment"
+msgstr "此画面允许编辑你的联系人"
+
+msgid "AttachContactsToGroup"
+msgstr "添加联系人到组别中"
+
+msgid "ContactsList"
+msgstr "联系人列表"
+
+msgid "NewGroupCreate"
+msgstr "新建小组"
+
+msgid "GroupCreation"
+msgstr "新建小组"
+
+msgid "NewGroups"
+msgstr " 个新的小组"
+
+msgid "Max"
+msgstr "最多12个字母，例如<i>INNOV21</i>"
+
+msgid "GroupPlacesThis"
+msgstr "人数"
+
+msgid "GroupsAdded"
+msgstr "小组已经被添加"
+
+msgid "GroupDel"
+msgstr "小组已经被删除"
+
+msgid "ExistingGroups"
+msgstr "小组名称"
+
+msgid "Registered"
+msgstr "注册人数"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "允许用户注册"
+
+msgid "GroupTools"
+msgstr "工具"
+
+msgid "GroupDocument"
+msgstr "文档"
+
+msgid "GroupPropertiesModified"
+msgstr "小组设置已经被修改"
+
+msgid "GroupName"
+msgstr "组名"
+
+msgid "GroupDescription"
+msgstr "组描述"
+
+msgid "GroupMembers"
+msgstr "小组成员"
+
+msgid "EditGroup"
+msgstr "修改小组"
+
+msgid "GroupSettingsModified"
+msgstr "小组设置已经修改"
+
+msgid "GroupTooMuchMembers"
+msgstr "成员数量超过允许的上限，修改没有完成。"
+
+msgid "GroupTutor"
+msgstr "组辅导"
+
+msgid "GroupNoTutor"
+msgstr "（无）"
+
+msgid "GroupNone"
+msgstr "（无）"
+
+msgid "GroupNoneMasc"
+msgstr "（无）"
+
+msgid "AddTutors"
+msgstr "管理用户列表"
+
+msgid "MyGroup"
+msgstr "我的小组"
+
+msgid "OneMyGroups"
+msgstr "我的监督"
+
+msgid "GroupSelfRegistration"
+msgstr "用户注册"
+
+msgid "GroupSelfRegInf"
+msgstr "注册"
+
+msgid "RegIntoGroup"
+msgstr "将我添加到这个小组"
+
+msgid "GroupNowMember"
+msgstr "您是这个小组的新成员。"
+
+msgid "Private"
+msgstr "访问限制 - 仅对选定的用户开放访问"
+
+msgid "Public"
+msgstr "公共访问-用户不从登录也可访问。"
+
+msgid "PropModify"
+msgstr "缺省设置"
+
+msgid "State"
+msgstr "声明"
+
+msgid "GroupFilledGroups"
+msgstr "已经向小组注册了课程中的全部用户"
+
+msgid "Subscribed"
+msgstr "用户已经在此课程中注册"
+
+msgid "StudentsNotInThisGroups"
+msgstr "用户不在此小组中"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "一个用户也可成为最大成员数"
+
+msgid "GroupLimit"
+msgstr "人数限制"
+
+msgid "CreateGroup"
+msgstr "创建小组"
+
+msgid "ProceedToCreateGroup"
+msgstr "下一步创建小组"
+
+msgid "StudentRegAllowed"
+msgstr "允许学生注册到的小组"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "允许用户取消注册"
+
+msgid "AllGroups"
+msgstr "所有小组"
+
+msgid "StudentUnsubscribe"
+msgstr "已经从该小组取消注册。"
+
+msgid "StudentDeletesHimself"
+msgstr "你已经被取消注册。"
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "缺省设置"
+
+msgid "SelectedGroupsDeleted"
+msgstr "所选的小组已经被删除"
+
+msgid "SelectedGroupsEmptied"
+msgstr "所选的小组当前为空"
+
+msgid "GroupEmptied"
+msgstr "已经删除小组全部成员"
+
+msgid "SelectedGroupsFilled"
+msgstr "选定的小组已经填写"
+
+msgid "GroupSelfUnRegInf"
+msgstr "注销"
+
+msgid "SameForAll"
+msgstr "全部相同"
+
+msgid "NoLimit"
+msgstr "无限制"
+
+msgid "PleaseEnterValidNumber"
+msgstr "请输入小组编号"
+
+msgid "CreateGroupsFromVirtualCourses"
+msgstr "为虚拟课程的所有用户创建小组"
+
+msgid "CreateGroupsFromVirtualCoursesInfo"
+msgstr "课程是一门真实课程与一门或多门虚拟课程的联合体，你可以点击下面的按钮，根据这些（虚拟）课程创建新的小组，所有的学生将分派到这些小组中。"
+
+msgid "NoGroupsAvailable"
+msgstr "没有可用小组"
+
+msgid "GroupsFromVirtualCourses"
+msgstr "虚拟课程"
+
+msgid "CreateSubgroups"
+msgstr "新建分组"
+
+msgid "CreateNumberOfGroups"
+msgstr "新建"
+
+msgid "WithUsersFrom"
+msgstr "从有成员的小组"
+
+msgid "FillGroup"
+msgstr "添加用户"
+
+msgid "EmptyGroup"
+msgstr "删除所有用户"
+
+msgid "MaxGroupsPerUserInvalid"
+msgstr "你提交的每用户最大小组数无效. 当前用户注册的小组数比你要设定的还大."
+
+msgid "GroupOverview"
+msgstr "查看小组"
+
+msgid "GroupCategory"
+msgstr "小组分类"
+
+msgid "NoTitleGiven"
+msgstr "请输入标题"
+
+msgid "InvalidMaxNumberOfMembers"
+msgstr "请输入一个有效的最大成员数."
+
+msgid "CategoryOrderChanged"
+msgstr "分类顺序已更改"
+
+msgid "CategoryCreated"
+msgstr "分类已新建"
+
+msgid "GroupTutors"
+msgstr "导师"
+
+msgid "GroupWork"
+msgstr "工作"
+
+msgid "GroupCalendar"
+msgstr "议程"
+
+msgid "GroupAnnouncements"
+msgstr "布告"
+
+msgid "LearnPathAddedTitle"
+msgstr "欢迎使用Chamilo课程创作工具 !"
+
+msgid "BuildComment"
+msgstr "添加学习目标和活动到你的课程"
+
+msgid "BasicOverviewComment"
+msgstr "添加声音/评论和学习目标的内容到表格中"
+
+msgid "DisplayComment"
+msgstr "从学员的角度观察课程"
+
+msgid "NewChapterComment"
+msgstr "第1章, 第2章 或者 第1周, 第2周..."
+
+msgid "NewStepComment"
+msgstr "添加测试, 活动和多媒体内容"
+
+msgid "LearnpathTitle"
+msgstr "标题"
+
+msgid "LearnpathPrerequisites"
+msgstr "前提"
+
+msgid "LearnpathMoveUp"
+msgstr "上移"
+
+msgid "LearnpathMoveDown"
+msgstr "下移"
+
+msgid "ThisItem"
+msgstr "标题"
+
+msgid "LearnpathTitleAndDesc"
+msgstr "标题和简介"
+
+msgid "LearnpathChangeOrder"
+msgstr "更改顺序"
+
+msgid "LearnpathAddPrereqi"
+msgstr "添加前提"
+
+msgid "LearnpathAddTitleAndDesc"
+msgstr "修改标题和简介"
+
+msgid "LearnpathMystatus"
+msgstr "学习进度"
+
+msgid "LearnpathCompstatus"
+msgstr "完成"
+
+msgid "LearnpathIncomplete"
+msgstr "未完成"
+
+msgid "LearnpathPassed"
+msgstr "通过"
+
+msgid "LearnpathFailed"
+msgstr "失败"
+
+msgid "LearnpathPrevious"
+msgstr "上一个"
+
+msgid "LearnpathNext"
+msgstr "下一个"
+
+msgid "LearnpathRestart"
+msgstr "重新启动"
+
+msgid "LearnpathThisStatus"
+msgstr "当前步骤是"
+
+msgid "LearnpathToEnter"
+msgstr "进入"
+
+msgid "LearnpathFirstNeedTo"
+msgstr "需要首先完成"
+
+msgid "LearnpathLessonTitle"
+msgstr "步骤标题"
+
+msgid "LearnpathStatus"
+msgstr "状态"
+
+msgid "LearnpathScore"
+msgstr "得分"
+
+msgid "LearnpathTime"
+msgstr "时间"
+
+msgid "LearnpathVersion"
+msgstr "创建"
+
+msgid "LearnpathRestarted"
+msgstr "所有的步骤还未完成。"
+
+msgid "LearnpathNoNext"
+msgstr "这是最后一步。"
+
+msgid "LearnpathNoPrev"
+msgstr "这是第一步。"
+
+msgid "LearnpathAddLearnpath"
+msgstr "添加学习路径"
+
+msgid "LearnpathEditLearnpath"
+msgstr "修改"
+
+msgid "LearnpathDeleteLearnpath"
+msgstr "删除"
+
+msgid "LearnpathDoNotPublish"
+msgstr "未发布"
+
+msgid "LearnpathPublish"
+msgstr "发布"
+
+msgid "LearnpathNotPublished"
+msgstr "未发布"
+
+msgid "LearnpathPublished"
+msgstr "发布"
+
+msgid "LearnpathEditModule"
+msgstr "修改"
+
+msgid "LearnpathDeleteModule"
+msgstr "删除"
+
+msgid "LearnpathNoChapters"
+msgstr "没有添加模块。"
+
+msgid "LearnpathAddItem"
+msgstr "添加步骤到该模块"
+
+msgid "LearnpathItemDeleted"
+msgstr "学习路径步骤已删除"
+
+msgid "LearnpathItemEdited"
+msgstr "已经被修改！"
+
+msgid "LearnpathPrereqNotCompleted"
+msgstr "请先学习必学内容"
+
+msgid "NewChapter"
+msgstr "添加章节"
+
+msgid "NewStep"
+msgstr "添加步骤"
+
+msgid "EditPrerequisites"
+msgstr "修改前提"
+
+msgid "TitleManipulateChapter"
+msgstr "处理当前章节"
+
+msgid "TitleManipulateModule"
+msgstr "处理当前模块"
+
+msgid "TitleManipulateDocument"
+msgstr "处理当前文档"
+
+msgid "TitleManipulateLink"
+msgstr "处理当前链接"
+
+msgid "TitleManipulateQuiz"
+msgstr "处理当前测验"
+
+msgid "TitleManipulateStudentPublication"
+msgstr "处理当前作业"
+
+msgid "EnterDataNewChapter"
+msgstr "请输入章节标题"
+
+msgid "EnterDataNewModule"
+msgstr "请输入学习路径标题"
+
+msgid "CreateNewStep"
+msgstr "创建步骤："
+
+msgid "NewDocument"
+msgstr "创建文档"
+
+msgid "UseAnExistingResource"
+msgstr "使用现有资源："
+
+msgid "Position"
+msgstr "位置"
+
+msgid "NewChapterCreated"
+msgstr "章节已创建，您可以添加其他章节或加入步骤。"
+
+msgid "NewLinksCreated"
+msgstr "链接已创建"
+
+msgid "NewStudentPublicationCreated"
+msgstr "学生作业已经创建"
+
+msgid "NewModuleCreated"
+msgstr "学习路径已经创建，您可以添加章节或步骤。"
+
+msgid "NewExerciseCreated"
+msgstr "测验已创建。"
+
+msgid "ItemRemoved"
+msgstr "项目已经被删除"
+
+msgid "Converting"
+msgstr "转换中。。。"
+
+msgid "Ppt2lpError"
+msgstr "转换幻灯片时发生了错误，请检查文件名是否有特殊字符。"
+
+msgid "Build"
+msgstr "高级"
+
+msgid "ViewModeEmbedded"
+msgstr "浏览模式：嵌入式"
+
+msgid "ViewModeFullScreen"
+msgstr "浏览模式：全屏式"
+
+msgid "ShowDebug"
+msgstr "显现除错"
+
+msgid "HideDebug"
+msgstr "隐藏除错"
+
+msgid "CantEditDocument"
+msgstr "文件不能被编辑"
+
+msgid "After"
+msgstr "之后"
+
+msgid "LearnpathPrerequisitesLimit"
+msgstr "前提(限制)"
+
+msgid "HotPotatoesFinished"
+msgstr "热点测验已完成."
+
+msgid "CompletionLimit"
+msgstr "完成限制(最小点)"
+
+msgid "PrereqToEnter"
+msgstr "进入"
+
+msgid "PrereqFirstNeedTo"
+msgstr "您需要首先完成"
+
+msgid "PrereqModuleMinimum1"
+msgstr "缺少最基本的一步"
+
+msgid "PrereqModuleMinimum2"
+msgstr "被设为前提。"
+
+msgid "PrereqTestLimit1"
+msgstr "您必须达到最小值"
+
+msgid "PrereqTestLimit2"
+msgstr "分数"
+
+msgid "PrereqTestLimitNow"
+msgstr "现在您有："
+
+msgid "LearnpathExitFullScreen"
+msgstr "返回标准屏幕"
+
+msgid "LearnpathFullScreen"
+msgstr "全屏"
+
+msgid "ItemMissing1"
+msgstr "有一个"
+
+msgid "ItemMissing2"
+msgstr "在原学习路径中的页面（步骤）。"
+
+msgid "NoItemSelected"
+msgstr "要在这里显示，请从旁边的菜单中选择项目"
+
+msgid "NewDocumentCreated"
+msgstr "文件已经被创建。"
+
+msgid "EditCurrentChapter"
+msgstr "修改章节"
+
+msgid "ditCurrentModule"
+msgstr "修改模块"
+
+msgid "CreateTheDocument"
+msgstr "创建文档"
+
+msgid "MoveTheCurrentDocument"
+msgstr "移动当前文件"
+
+msgid "EditTheCurrentDocument"
+msgstr "编辑当前文件"
+
+msgid "Warning"
+msgstr "警告！"
+
+msgid "WarningEditingDocument"
+msgstr "当您编辑文档时，新版本不会覆盖旧版本，但旧版本将会另存为新版本， 如果希望覆盖原来的文档则可以使用文档工具。"
+
+msgid "CreateTheExercise"
+msgstr "创建测验"
+
+msgid "MoveTheCurrentExercise"
+msgstr "移动当前测验"
+
+msgid "EditCurrentExecice"
+msgstr "编辑当前测验"
+
+msgid "UploadScorm"
+msgstr "导入 SCORM/AICC"
+
+msgid "PowerPointConvert"
+msgstr "幻灯片转换"
+
+msgid "LPCreatedToContinue"
+msgstr "您可以继续从左边菜单添加模块、章节或步骤到学习路径。"
+
+msgid "LPCreatedAddChapterStep"
+msgstr "您可以从左边菜单添加章节或步骤到学习路径。"
+
+msgid "PrerequisitesAdded"
+msgstr "当前步骤已添加了前提。"
+
+msgid "AddEditPrerequisites"
+msgstr "添加/修改前提"
+
+msgid "NoDocuments"
+msgstr "没有文件"
+
+msgid "NoExercisesAvailable"
+msgstr "没有测验"
+
+msgid "NoLinksAvailable"
+msgstr "没有链接"
+
+msgid "NoItemsInLp"
+msgstr "学习路径没有项目，点击\"创建\"来添加项目。"
+
+msgid "FirstPosition"
+msgstr "第一个位置"
+
+msgid "NewQuiz"
+msgstr "新测验"
+
+msgid "CreateTheForum"
+msgstr "为课程添加论坛"
+
+msgid "AddLpIntro"
+msgstr "<strong>欢迎</strong>使用Chamilo课程创作工具<br />请根据提示一步一步创建你的课程."
+
+msgid "AddLpToStart"
+msgstr "从命名标题作为一个好的开始吧"
+
+msgid "CreateTheLink"
+msgstr "添加链接到你的课程"
+
+msgid "MoveCurrentLink"
+msgstr "移动此链接"
+
+msgid "EditCurrentLink"
+msgstr "编辑此链接"
+
+msgid "MoveCurrentStudentPublication"
+msgstr "移动此作业"
+
+msgid "EditCurrentStudentPublication"
+msgstr "编辑此作业"
+
+msgid "AllowMultipleAttempts"
+msgstr "允许多次尝试"
+
+msgid "PreventMultipleAttempts"
+msgstr "防止多次尝试"
+
+msgid "MakeScormRecordingExtra"
+msgstr "制作额外的SCORM记录"
+
+msgid "MakeScormRecordingNormal"
+msgstr "制作常规的SCORM记录"
+
+msgid "DocumentHasBeenDeleted"
+msgstr "文档已删除"
+
+msgid "EditCurrentForum"
+msgstr "编辑此论坛"
+
+msgid "NoPrerequisites"
+msgstr "不需要前提条件"
+
+msgid "NewExercise"
+msgstr "新练习"
+
+msgid "CreateANewLink"
+msgstr "添加新的链接"
+
+msgid "CreateANewForum"
+msgstr "添加新的论坛"
+
+msgid "WoogieConversionPowerPoint"
+msgstr "Woogie : 文档转换"
+
+msgid "WelcomeWoogieSubtitle"
+msgstr "MS Word转换器"
+
+msgid "WelcomeWoogieConverter"
+msgstr "欢迎使用Woogie Rapid Learning<ul type=\"1\"><li>选择文件 .doc, .sxw, .odt<li>上传到Woogie转换成SCORM课程<li>你将可以添加声音评论, 测试或者其它事件到页面中</ul>"
+
+msgid "WoogieError"
+msgstr "转换出错, 请检查是否有特殊字符在文件中.."
+
+msgid "WordConvert"
+msgstr "MS Word转换器"
+
+msgid "InteractionID"
+msgstr "交互ID"
+
+msgid "TimeFinished"
+msgstr "时间 (完成于...)"
+
+msgid "CorrectAnswers"
+msgstr "正确答案"
+
+msgid "StudentResponse"
+msgstr "学员答案"
+
+msgid "LatencyTimeSpent"
+msgstr "所用时间"
+
+msgid "SplitStepsPerPage"
+msgstr "每页一个学习目标"
+
+msgid "SplitStepsPerChapter"
+msgstr "每段一个学习目标"
+
+msgid "TakeSlideName"
+msgstr "使用幻灯片文件名作为课程学习对象的名称"
+
+msgid "CannotConnectToOpenOffice"
+msgstr "暂时不能连接转换服务. 请联系系统管理员."
+
+msgid "OogieConversionFailed"
+msgstr "转换失败. <br />某些文件过于复杂. <br />我们将尽力改进它."
+
+msgid "OogieUnknownError"
+msgstr "出现不可预知的错误.<br />请联系管理员以得到更多的信息."
+
+msgid "OogieBadExtension"
+msgstr "请上传文件名后缀为 .ppt or .odp"
+
+msgid "WoogieBadExtension"
+msgstr "请上传文件名后缀为 .doc, .docx or .odt"
+
+msgid "ShowAudioRecorder"
+msgstr "显示录音机"
+
+msgid "SearchFeatureSearchExplanation"
+msgstr "请使用以下格式搜索课程数据库:<br/>        <i>名词 tag:tag_name -exclude +include \"准确的名称\"</i><br/>     例如:<br/>        <i>car tag:truck -ferrari +ford \"high consumption\".</i><br/>     这将显示所有标记为'truck'的'car', 不包括'ferrari', 但包括'ford'作为'high consumption'."
+
+msgid "ViewLearningPath"
+msgstr "查看课程"
+
+msgid "SearchFeatureDocumentTagsIfIndexing"
+msgstr "增加标签到文档便于建立索引"
+
+msgid "ReturnToLearningPaths"
+msgstr "返回课程"
+
+msgid "ImageWillResizeMsg"
+msgstr "图片将会根据需要调整"
+
+msgid "EditLPSettings"
+msgstr "修改课程设置"
+
+msgid "SaveLPSettings"
+msgstr "保存课程设置"
+
+msgid "CreateLearningPath"
+msgstr "继续"
+
+msgid "LPName"
+msgstr "课程名称"
+
+msgid "AuthoringOptions"
+msgstr "创作选项"
+
+msgid "TypeMessage"
+msgstr "请输入你的消息!"
+
+msgid "ConfirmReset"
+msgstr "真的想要删除所有消息吗？"
+
+msgid "ClearList"
+msgstr "清除列表"
+
+msgid "CallSent"
+msgstr "聊天请求已经发送，等待对方同意。"
+
+msgid "ChatDenied"
+msgstr "你的聊天请求已经被对方拒绝。"
+
+msgid "Send"
+msgstr "发送"
+
+msgid "Connected"
+msgstr "已连接"
+
+msgid "Exercice"
+msgstr "测验"
+
+msgid "NoEx"
+msgstr "没有测验"
+
+msgid "NewEx"
+msgstr "添加测验"
+
+msgid "Questions"
+msgstr "题目"
+
+msgid "Answers"
+msgstr "答案"
+
+msgid "True"
+msgstr "正确"
+
+msgid "Answer"
+msgstr "答案"
+
+msgid "YourResults"
+msgstr "你的结果"
+
+msgid "StudentResults"
+msgstr "学生得分"
+
+msgid "ExerciseType"
+msgstr "类型"
+
+msgid "ExerciseName"
+msgstr "名称"
+
+msgid "ExerciseDescription"
+msgstr "描述"
+
+msgid "SimpleExercise"
+msgstr "在一页中"
+
+msgid "SequentialExercise"
+msgstr "每题一页"
+
+msgid "RandomQuestions"
+msgstr "随机题目"
+
+msgid "GiveExerciseName"
+msgstr "请输入测验名称"
+
+msgid "Sound"
+msgstr "音频或视频文件"
+
+msgid "DeleteSound"
+msgstr "删除音频或视频文件"
+
+msgid "NoAnswer"
+msgstr "该题目没有提供答案"
+
+msgid "GoBackToQuestionPool"
+msgstr "返回"
+
+msgid "GoBackToQuestionList"
+msgstr "返回题目列表"
+
+msgid "QuestionAnswers"
+msgstr "题目的答案"
+
+msgid "UsedInSeveralExercises"
+msgstr "警告！这个题目和答案已经用于多个测验，你确定要修改它吗？"
+
+msgid "ModifyInAllExercises"
+msgstr "在所有测验中"
+
+msgid "ModifyInThisExercise"
+msgstr "仅在当前测验中"
+
+msgid "AnswerType"
+msgstr "答案类型"
+
+msgid "MultipleSelect"
+msgstr "多选题"
+
+msgid "FillBlanks"
+msgstr "填空题"
+
+msgid "Matching"
+msgstr "匹配题"
+
+msgid "ReplacePicture"
+msgstr "替换图片"
+
+msgid "DeletePicture"
+msgstr "删除图片"
+
+msgid "QuestionDescription"
+msgstr "描述"
+
+msgid "GiveQuestion"
+msgstr "请输入题目"
+
+msgid "WeightingForEachBlank"
+msgstr "请输入空白处的分数"
+
+msgid "UseTagForBlank"
+msgstr "用方括号 [...] 定义一个或多个空"
+
+msgid "QuestionWeighting"
+msgstr "分数"
+
+msgid "MoreAnswers"
+msgstr "增加答案"
+
+msgid "LessAnswers"
+msgstr "减少答案"
+
+msgid "MoreElements"
+msgstr "增加项目"
+
+msgid "LessElements"
+msgstr "减少项目"
+
+msgid "TypeTextBelow"
+msgstr "请在下面输入文本"
+
+msgid "DefaultTextInBlanks"
+msgstr "[中国人民]生活在[中国]."
+
+msgid "DefaultMatchingOptA"
+msgstr "富有"
+
+msgid "DefaultMatchingOptB"
+msgstr "英俊"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "你父亲是"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "你母亲是"
+
+msgid "DefineOptions"
+msgstr "请定义选项"
+
+msgid "MakeCorrespond"
+msgstr "匹配答案"
+
+msgid "FillLists"
+msgstr "请填写下面的两个列表"
+
+msgid "GiveText"
+msgstr "请输入文本"
+
+msgid "DefineBlanks"
+msgstr "请用方括号[...]定义至少一个空白"
+
+msgid "GiveAnswers"
+msgstr "请给出题目答案"
+
+msgid "ChooseGoodAnswer"
+msgstr "请选择正确答案"
+
+msgid "ChooseGoodAnswers"
+msgstr "请选择一个或多个正确答案"
+
+msgid "QuestionList"
+msgstr "测验的题目列表"
+
+msgid "GetExistingQuestion"
+msgstr "从题库选择"
+
+msgid "FinishTest"
+msgstr "完成测验"
+
+msgid "QuestionPool"
+msgstr "题库"
+
+msgid "OrphanQuestions"
+msgstr "独立的题目"
+
+msgid "NoQuestion"
+msgstr "目前没有题目"
+
+msgid "AllExercises"
+msgstr "所有测验"
+
+msgid "GoBackToEx"
+msgstr "返回"
+
+msgid "Reuse"
+msgstr "重新使用"
+
+msgid "ExerciseManagement"
+msgstr "测验题目"
+
+msgid "QuestionManagement"
+msgstr "题目与答案"
+
+msgid "QuestionNotFound"
+msgstr "没有找到答案"
+
+msgid "ExerciseNotFound"
+msgstr "没有测验或隐藏"
+
+msgid "AlreadyAnswered"
+msgstr "您已经回答了这个题目"
+
+msgid "ElementList"
+msgstr "匹配项目"
+
+msgid "CorrespondsTo"
+msgstr "答案"
+
+msgid "ExpectedChoice"
+msgstr "正确答案"
+
+msgid "YourTotalScore"
+msgstr "您的总分："
+
+msgid "EvalSet"
+msgstr "评分设置"
+
+msgid "Active"
+msgstr "显示"
+
+msgid "Inactive"
+msgstr "隐藏"
+
+msgid "QuestCreate"
+msgstr "新建题目"
+
+msgid "ExRecord"
+msgstr "您的题目已保存"
+
+msgid "BackModif"
+msgstr "返回题目编辑页面"
+
+msgid "DoEx"
+msgstr "开始做题"
+
+msgid "DefScor"
+msgstr "定义评分设置"
+
+msgid "CreateModif"
+msgstr "创建/更新题目"
+
+msgid "Sub"
+msgstr "副标题"
+
+msgid "MyAnswer"
+msgstr "我的答案"
+
+msgid "MorA"
+msgstr "增加答案"
+
+msgid "LesA"
+msgstr "减少答案"
+
+msgid "RecEx"
+msgstr "保存练习"
+
+msgid "RecQu"
+msgstr "保存题目"
+
+msgid "RecAns"
+msgstr "保存答案"
+
+msgid "Introduction"
+msgstr "介绍"
+
+msgid "TitleAssistant"
+msgstr "习题创建助手"
+
+msgid "QuesList"
+msgstr "题目列表"
+
+msgid "SaveEx"
+msgstr "保存练习"
+
+msgid "QImage"
+msgstr "图像题目"
+
+msgid "AddQ"
+msgstr "添加题目"
+
+msgid "DoAnEx"
+msgstr "开始做题"
+
+msgid "Generator"
+msgstr "练习列表"
+
+msgid "Correct"
+msgstr "答案"
+
+msgid "PossAnsw"
+msgstr "正确答案数"
+
+msgid "StudAnsw"
+msgstr "错误答案数"
+
+msgid "Determine"
+msgstr "确认"
+
+msgid "NonNumber"
+msgstr "存在非数值项目"
+
+msgid "Replaced"
+msgstr "已替换"
+
+msgid "Superior"
+msgstr "存在超过 20 的值"
+
+msgid "Rep20"
+msgstr "替换 20 处"
+
+msgid "DefComment"
+msgstr "如果点击\"缺省设置\"按钮，您原先的设置将被永久替代。"
+
+msgid "ScoreGet"
+msgstr "黑色数字=分数"
+
+msgid "ShowScor"
+msgstr "学生分数："
+
+msgid "Step1"
+msgstr "步骤一"
+
+msgid "Step2"
+msgstr "步骤二"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "导入 HotPotatoes 测验"
+
+msgid "HotPotatoesTests"
+msgstr "导入 HotPotatoes 测验"
+
+msgid "DownloadImg"
+msgstr "上传图像到服务器"
+
+msgid "NoImg"
+msgstr "测验没有图像"
+
+msgid "ImgNote_st"
+msgstr "<br />是否仍然要上传"
+
+msgid "ImgNote_en"
+msgstr "图像："
+
+msgid "NameNotEqual"
+msgstr "是非法文件!"
+
+msgid "Indice"
+msgstr "索引"
+
+msgid "Indices"
+msgstr "索引"
+
+msgid "DateExo"
+msgstr "日期"
+
+msgid "ShowQuestion"
+msgstr "显示题目"
+
+msgid "UnknownExercise"
+msgstr "未知练习"
+
+msgid "ReuseQuestion"
+msgstr "重新使用题目"
+
+msgid "CreateExercise"
+msgstr "新建练习"
+
+msgid "CreateQuestion"
+msgstr "新建题目"
+
+msgid "CreateAnswers"
+msgstr "新建答案"
+
+msgid "ModifyExercise"
+msgstr "修改练习"
+
+msgid "ModifyAnswers"
+msgstr "修改答案"
+
+msgid "ForExercise"
+msgstr "做练习"
+
+msgid "UseExistantQuestion"
+msgstr "用一个现有题目"
+
+msgid "FreeAnswer"
+msgstr "自由回答"
+
+msgid "notCorrectedYet"
+msgstr "回答不正确"
+
+msgid "adminHP"
+msgstr "Hot Potatoes 管理"
+
+msgid "NewQu"
+msgstr "新问题"
+
+msgid "AnswerHotspot"
+msgstr "题目和分数是必需的，摘要是可选的"
+
+msgid "MinHotspot"
+msgstr "你必须创建至少一个热点。"
+
+msgid "MaxHotspot"
+msgstr "你可创建最多12个热点。"
+
+msgid "HotspotError"
+msgstr "请输入题目和分数。"
+
+msgid "MoreHotspots"
+msgstr "增加热点"
+
+msgid "LessHotspots"
+msgstr "减少热点"
+
+msgid "HotspotZones"
+msgstr "热点"
+
+msgid "CorrectAnswer"
+msgstr "正确答案"
+
+msgid "HotspotHit"
+msgstr "答案"
+
+msgid "OnlyJPG"
+msgstr "你只能使用 JPG（或JPEG）图片"
+
+msgid "FinishThisTest"
+msgstr "显示每道题目的正确答案和分数"
+
+msgid "AllQuestions"
+msgstr "全部题目"
+
+msgid "ModifyTitleDescription"
+msgstr "修改标题和备注"
+
+msgid "ModifyHotspots"
+msgstr "修改答案/热点"
+
+msgid "HotspotNotDrawn"
+msgstr "没有画完所有的热点"
+
+msgid "HotspotWeightingError"
+msgstr "你需要给出一个正数 (>0) 作为热点的权值"
+
+msgid "HotspotValidateError1"
+msgstr "你应完全回答题目 ("
+
+msgid "HotspotValidateError2"
+msgstr "点击图片) 在查看答案之前"
+
+msgid "HotspotRequired"
+msgstr "题目和分数是必需的，摘要是可选的。"
+
+msgid "HotspotChoose"
+msgstr "<div style=\"padding:2px 3px;\">创建热点：先选择颜色对应的图形然后画出热点</div><div style=\"padding:2px 3px;\">移动热点：先选择颜色对应的图形然后画出新的热点</div><div style=\"padding:2px 3px;\">关闭多边形：点击右键然后选择关闭多边形</div><div style=\"padding:2px 3px;\"></div>"
+
+msgid "Fault"
+msgstr "不正确"
+
+msgid "HotSpot"
+msgstr "热点"
+
+msgid "HotspotGiveAnswers"
+msgstr "请给一个答案"
+
+msgid "Addlimits"
+msgstr "增加限制"
+
+msgid "AreYouSure"
+msgstr "你肯定吗"
+
+msgid "StudentScore"
+msgstr "学生成绩"
+
+msgid "backtoTesthome"
+msgstr "回到测验主页"
+
+msgid "AddComments"
+msgstr "增加意见"
+
+msgid "Number"
+msgstr "序号"
+
+msgid "Weighting"
+msgstr "得分"
+
+msgid "AddElem"
+msgstr "增加选项"
+
+msgid "DelElem"
+msgstr "删除选项"
+
+msgid "PlusAnswer"
+msgstr "增加答案选项"
+
+msgid "LessAnswer"
+msgstr "删除答案选项"
+
+msgid "UploadJpgPicture"
+msgstr "上传图片 (jpg, png or gif) 作为热点问题."
+
+msgid "HotspotDescription"
+msgstr "点击标记答案位置 : (...)"
+
+msgid "FillInBlankSwitchable"
+msgstr "允许答案顺序不同"
+
+msgid "Difficulty"
+msgstr "难度"
+
+msgid "ProcedToQuestions"
+msgstr "添加问题"
+
+msgid "AddQuestionToExercise"
+msgstr "添加问题到测验中"
+
+msgid "UniqueAnswer"
+msgstr "单选题"
+
+msgid "MultipleAnswer"
+msgstr "多选题"
+
+msgid "EnrichQuestion"
+msgstr "问题补充"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "By"
+msgstr "By"
+
+msgid "UsersOnline"
+msgstr "在线用户"
+
+msgid "Remove"
+msgstr "删除"
+
+msgid "Enter"
+msgstr "返回课程列表"
+
+msgid "Description"
+msgstr "简介"
+
+msgid "Links"
+msgstr "链接"
+
+msgid "Works"
+msgstr "作业论文"
+
+msgid "Forums"
+msgstr "学习论坛"
+
+msgid "CreateDir"
+msgstr "创建目录"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Comment"
+msgstr "摘要"
+
+msgid "Visible"
+msgstr "显示/隐藏"
+
+msgid "NewDir"
+msgstr "新文件夹名称"
+
+msgid "DirCr"
+msgstr "目录已经创建"
+
+msgid "Download"
+msgstr "下载"
+
+msgid "Group"
+msgstr "小组"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "GroupForum"
+msgstr "小组论坛"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "LoginName"
+msgstr "登录名"
+
+msgid "AutostartMp3"
+msgstr "MP3文件需要自动播放吗？"
+
+msgid "Assignments"
+msgstr "学生作业"
+
+msgid "Forum"
+msgstr "论坛"
+
+msgid "DelImage"
+msgstr "移除图片"
+
+msgid "Code"
+msgstr "代码"
+
+msgid "Up"
+msgstr "向上"
+
+msgid "Down"
+msgstr "向下"
+
+msgid "Theme"
+msgstr "图形主题"
+
+msgid "TheListIsEmpty"
+msgstr "列表为空."
+
+msgid "UniqueSelect"
+msgstr "单选题"
+
+msgid "CreateCategory"
+msgstr "创建分类"
+
+msgid "SendFile"
+msgstr "上传文档"
+
+msgid "SaveChanges"
+msgstr "保存修改"
+
+msgid "SearchTerm"
+msgstr "搜索词语"
+
+msgid "TooShort"
+msgstr "太短"
+
+msgid "CourseCreate"
+msgstr "创建课程"
+
+msgid "Todo"
+msgstr "您的建议"
+
+msgid "UserName"
+msgstr "用户名"
+
+msgid "CategoryMod"
+msgstr "修改分类"
+
+msgid "Hide"
+msgstr "隐藏"
+
+msgid "Dear"
+msgstr "尊敬的"
+
+msgid "Archive"
+msgstr "存档"
+
+msgid "CourseCode"
+msgstr "课程编号"
+
+msgid "NoDescription"
+msgstr "无形容"
+
+msgid "OfficialCode"
+msgstr "编号"
+
+msgid "FirstName"
+msgstr "姓"
+
+msgid "LastName"
+msgstr "名"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Email"
+msgstr "电子邮件"
+
+msgid "SlideshowConversion"
+msgstr "转换幻灯片"
+
+msgid "UploadFile"
+msgstr "上传文件"
+
+msgid "AvailableFrom"
+msgstr "可用"
+
+msgid "AvailableTill"
+msgstr "直到"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "EmailAddress"
+msgstr "邮件地址"
+
+msgid "Organisation"
+msgstr "住址机构（单位）"
+
+msgid "Reporting"
+msgstr "报告"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "SelectQuestionType"
+msgstr "选择问题类型"
+
+msgid "CurrentCourse"
+msgstr "当前课程"
+
+msgid "Back"
+msgstr "后退"
+
+msgid "Info"
+msgstr "信息"
+
+msgid "Search"
+msgstr "检索"
+
+msgid "AdvancedSearch"
+msgstr "高级检索"
+
+msgid "Open"
+msgstr "打开"
+
+msgid "Import"
+msgstr "确定"
+
+msgid "AddAnother"
+msgstr "继续添加"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "TrueFalse"
+msgstr "是/否"
+
+msgid "QuestionType"
+msgstr "问题类型"
+
+msgid "NoSearchResults"
+msgstr "无搜索结果"
+
+msgid "SelectQuestion"
+msgstr "选择问题"
+
+msgid "AddNewQuestionType"
+msgstr "添加新的问题类型"
+
+msgid "Numbered"
+msgstr "数字化的"
+
+msgid "iso639_2_code"
+msgstr "zh"
+
+msgid "iso639_1_code"
+msgstr "zho"
+
+msgid "charset"
+msgstr "字符编码"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "verdana, helvetica, arial, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "helvetica, arial, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr ","
+
+msgid "number_decimal_separator"
+msgstr "."
+
+msgid "dateFormatShort"
+msgstr "%b %d, %y"
+
+msgid "dateFormatLong"
+msgstr "%A %B %d, %Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%B %d, %Y at %I:%M %p"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "确定"
+
+msgid "No"
+msgstr "否"
+
+msgid "Next"
+msgstr "下一步"
+
+msgid "Allowed"
+msgstr "允许"
+
+msgid "BackHome"
+msgstr "返回主页"
+
+msgid "Propositions"
+msgstr "提出建议"
+
+msgid "Maj"
+msgstr "更新"
+
+msgid "Modify"
+msgstr "修改"
+
+msgid "Invisible"
+msgstr "隐蒇"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Move"
+msgstr "移动"
+
+msgid "Help"
+msgstr "帮助"
+
+msgid "Ok"
+msgstr "确定"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "AddIntro"
+msgstr "添加介绍文本"
+
+msgid "BackList"
+msgstr "返回列表"
+
+msgid "Text"
+msgstr "内容"
+
+msgid "Empty"
+msgstr "有些项目没有填写。<br /><b>返回重试</b>。<br />如果不想填写课程代码，请参考教学大纲"
+
+msgid "ConfirmYourChoice"
+msgstr "确定您的选择吗？"
+
+msgid "And"
+msgstr "和"
+
+msgid "Choice"
+msgstr "选择答案"
+
+msgid "Finish"
+msgstr "完成"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "NotAllowed"
+msgstr "禁用"
+
+msgid "NotLogged"
+msgstr "你并没有登录一项课程"
+
+msgid "Manager"
+msgstr "管理员"
+
+msgid "Optional"
+msgstr "可选"
+
+msgid "NextPage"
+msgstr "下一页"
+
+msgid "PreviousPage"
+msgstr "上一页"
+
+msgid "Use"
+msgstr "使用"
+
+msgid "Total"
+msgstr "总计"
+
+msgid "Take"
+msgstr "参与"
+
+msgid "One"
+msgstr "一个"
+
+msgid "Several"
+msgstr "多个"
+
+msgid "Notice"
+msgstr "注意"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Among"
+msgstr "在"
+
+msgid "Show"
+msgstr "显示"
+
+msgid "MyCourses"
+msgstr "我的课程"
+
+msgid "ModifyProfile"
+msgstr "个人资料"
+
+msgid "MyStats"
+msgstr "查看状态"
+
+msgid "Logout"
+msgstr "退出"
+
+msgid "MyAgenda"
+msgstr "日程安排"
+
+msgid "CourseHomepage"
+msgstr "课程主页"
+
+msgid "SwitchToTeacherView"
+msgstr "教师视角"
+
+msgid "SwitchToStudentView"
+msgstr "学生视角"
+
+msgid "AddResource"
+msgstr "添加"
+
+msgid "AddedResources"
+msgstr "附件"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['brazilian']"
+msgstr ""
+
+msgid "NameOfLang['bulgarian']"
+msgstr ""
+
+msgid "NameOfLang['catalan']"
+msgstr ""
+
+msgid "NameOfLang['croatian']"
+msgstr ""
+
+msgid "NameOfLang['danish']"
+msgstr ""
+
+msgid "NameOfLang['dutch']"
+msgstr ""
+
+msgid "NameOfLang['english']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['french']"
+msgstr ""
+
+msgid "NameOfLang['french_corporate']"
+msgstr ""
+
+msgid "NameOfLang['french_KM']"
+msgstr ""
+
+msgid "NameOfLang['galician']"
+msgstr ""
+
+msgid "NameOfLang['german']"
+msgstr ""
+
+msgid "NameOfLang['greek']"
+msgstr ""
+
+msgid "NameOfLang['italian']"
+msgstr ""
+
+msgid "NameOfLang['japanese']"
+msgstr ""
+
+msgid "NameOfLang['polish']"
+msgstr ""
+
+msgid "NameOfLang['portuguese']"
+msgstr ""
+
+msgid "NameOfLang['russian']"
+msgstr ""
+
+msgid "NameOfLang['simpl_chinese']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Platform"
+msgstr "系统"
+
+msgid "localLangName"
+msgstr "语言"
+
+msgid "email"
+msgstr "电子邮件"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "对不起，课程代码已经存在，请选择另外一个"
+
+msgid "Statistics"
+msgstr "统计"
+
+msgid "GroupList"
+msgstr "群组列表"
+
+msgid "Previous"
+msgstr "上一步"
+
+msgid "DestDirectoryDoesntExist"
+msgstr "目标文件夹不存在"
+
+msgid "Courses"
+msgstr "课程"
+
+msgid "In"
+msgstr "在"
+
+msgid "ShowAll"
+msgstr "全部显示"
+
+msgid "Page"
+msgstr "页"
+
+msgid "englishLangName"
+msgstr "English"
+
+msgid "Home"
+msgstr "主页"
+
+msgid "AreYouSureToDelete"
+msgstr "确定要删除"
+
+msgid "SelectAll"
+msgstr "选全部"
+
+msgid "UnSelectAll"
+msgstr "放弃全选"
+
+msgid "WithSelected"
+msgstr "已选定"
+
+msgid "OnLine"
+msgstr "在线"
+
+msgid "Users"
+msgstr "用户"
+
+msgid "PlatformAdmin"
+msgstr "系统管理"
+
+msgid "NameOfLang['hungarian']"
+msgstr ""
+
+msgid "NameOfLang['indonesian']"
+msgstr ""
+
+msgid "NameOfLang['malay']"
+msgstr ""
+
+msgid "NameOfLang['slovenian']"
+msgstr ""
+
+msgid "NameOfLang['spanish_latin']"
+msgstr ""
+
+msgid "NameOfLang['swedish']"
+msgstr ""
+
+msgid "NameOfLang['thai']"
+msgstr ""
+
+msgid "NameOfLang['turkce']"
+msgstr ""
+
+msgid "NameOfLang['vietnamese']"
+msgstr ""
+
+msgid "UserInfo"
+msgstr "用户信息"
+
+msgid "ModifyQuestion"
+msgstr "修改题目"
+
+msgid "CheckAll"
+msgstr "全部选定"
+
+msgid "NbAnnoucement"
+msgstr "通知"
+
+msgid "OtherCourses"
+msgstr "其它课程"
+
+msgid "Doc"
+msgstr "文档"
+
+msgid "PlataformAdmin"
+msgstr "平台管理"
+
+msgid "Groups"
+msgstr "小组"
+
+msgid "GroupManagement"
+msgstr "小组管理"
+
+msgid "All"
+msgstr "所有"
+
+msgid "None"
+msgstr "没有"
+
+msgid "Sorry"
+msgstr "请先选择一门课程"
+
+msgid "Denied"
+msgstr "拒绝"
+
+msgid "Today"
+msgstr "今天"
+
+msgid "CourseHomepageLink"
+msgstr "课程首页"
+
+msgid "Attachment"
+msgstr "附件"
+
+msgid "User"
+msgstr "用户"
+
+msgid "MondayInit"
+msgstr "周一"
+
+msgid "TuesdayInit"
+msgstr "周二"
+
+msgid "WednesdayInit"
+msgstr "周三"
+
+msgid "ThursdayInit"
+msgstr "周四"
+
+msgid "FridayInit"
+msgstr "周五"
+
+msgid "SaturdayInit"
+msgstr "周六"
+
+msgid "SundayInit"
+msgstr "周日"
+
+msgid "MondayShort"
+msgstr "周一"
+
+msgid "TuesdayShort"
+msgstr "周二"
+
+msgid "WednesdayShort"
+msgstr "周三"
+
+msgid "ThursdayShort"
+msgstr "周四"
+
+msgid "FridayShort"
+msgstr "周五"
+
+msgid "SaturdayShort"
+msgstr "周六"
+
+msgid "SundayShort"
+msgstr "周日"
+
+msgid "MondayLong"
+msgstr "星期一"
+
+msgid "TuesdayLong"
+msgstr "星期二"
+
+msgid "WednesdayLong"
+msgstr "星期三"
+
+msgid "ThursdayLong"
+msgstr "星期四"
+
+msgid "FridayLong"
+msgstr "星期五"
+
+msgid "SaturdayLong"
+msgstr "星期六"
+
+msgid "SundayLong"
+msgstr "星期日"
+
+msgid "JanuaryInit"
+msgstr "一月"
+
+msgid "FebruaryInit"
+msgstr "二月"
+
+msgid "MarchInit"
+msgstr "三月"
+
+msgid "AprilInit"
+msgstr "四月"
+
+msgid "MayInit"
+msgstr "五月"
+
+msgid "JuneInit"
+msgstr "六月"
+
+msgid "JulyInit"
+msgstr "七月"
+
+msgid "AugustInit"
+msgstr "八月"
+
+msgid "SeptemberInit"
+msgstr "九月"
+
+msgid "OctoberInit"
+msgstr "十月"
+
+msgid "NovemberInit"
+msgstr "十一月"
+
+msgid "DecemberInit"
+msgstr "十二月"
+
+msgid "JanuaryShort"
+msgstr "一月"
+
+msgid "FebruaryShort"
+msgstr "二月"
+
+msgid "MarchShort"
+msgstr "三月"
+
+msgid "AprilShort"
+msgstr "四月"
+
+msgid "MayShort"
+msgstr "五月"
+
+msgid "JuneShort"
+msgstr "六月"
+
+msgid "JulyShort"
+msgstr "七月"
+
+msgid "AugustShort"
+msgstr "八月"
+
+msgid "SeptemberShort"
+msgstr "九月"
+
+msgid "OctoberShort"
+msgstr "十月"
+
+msgid "NovemberShort"
+msgstr "十一月"
+
+msgid "DecemberShort"
+msgstr "十二月"
+
+msgid "JanuaryLong"
+msgstr "一月"
+
+msgid "FebruaryLong"
+msgstr "二月"
+
+msgid "MarchLong"
+msgstr "三月"
+
+msgid "AprilLong"
+msgstr "四月"
+
+msgid "MayLong"
+msgstr "五月"
+
+msgid "JuneLong"
+msgstr "六月"
+
+msgid "JulyLong"
+msgstr "七月"
+
+msgid "AugustLong"
+msgstr "八月"
+
+msgid "SeptemberLong"
+msgstr "九月"
+
+msgid "OctoberLong"
+msgstr "十月"
+
+msgid "NovemberLong"
+msgstr "十一月"
+
+msgid "DecemberLong"
+msgstr "十二月"
+
+msgid "MyCompetences"
+msgstr "我的能力"
+
+msgid "MyDiplomas"
+msgstr "我的证书"
+
+msgid "MyPersonalOpenArea"
+msgstr "我的个人开放区域"
+
+msgid "MyTeach"
+msgstr "我能教什么"
+
+msgid "Agenda"
+msgstr "日程"
+
+msgid "HourShort"
+msgstr "时"
+
+msgid "PleaseTryAgain"
+msgstr "请重试!"
+
+msgid "UplNoFileUploaded"
+msgstr "没有上传任何文件."
+
+msgid "UplSelectFileFirst"
+msgstr "在按下上传按钮前请选择文件."
+
+msgid "UplNotAZip"
+msgstr "你选定的文件不是压缩文件."
+
+msgid "UplUploadSucceeded"
+msgstr "文件上传成功!"
+
+msgid "ExportAsCSV"
+msgstr "导出为CSV 文件"
+
+msgid "ExportAsXLS"
+msgstr "导出为 XLS 文件"
+
+msgid "Openarea"
+msgstr "个人开放区"
+
+msgid "Done"
+msgstr "完成"
+
+msgid "Documents"
+msgstr "文件"
+
+msgid "DocumentAdded"
+msgstr "添加文档"
+
+msgid "DocumentUpdated"
+msgstr "更新文档"
+
+msgid "DocumentInFolderUpdated"
+msgstr "文件夹中的文档已更新"
+
+msgid "Course_description"
+msgstr "课程简介"
+
+msgid "Document"
+msgstr "文档"
+
+msgid "Learnpath"
+msgstr "学习路径"
+
+msgid "Link"
+msgstr "链接"
+
+msgid "Announcement"
+msgstr "通知"
+
+msgid "Dropbox"
+msgstr "投递箱"
+
+msgid "Quiz"
+msgstr "测试"
+
+msgid "Chat"
+msgstr "聊天"
+
+msgid "Conference"
+msgstr "会议"
+
+msgid "Student_publication"
+msgstr "学生的作业"
+
+msgid "Tracking"
+msgstr "学习跟踪"
+
+msgid "homepage_link"
+msgstr "在本页面添加链接"
+
+msgid "Course_setting"
+msgstr "课程设置"
+
+msgid "Backup"
+msgstr "课程备份"
+
+msgid "copy_course_content"
+msgstr "拷备课程内容"
+
+msgid "recycle_course"
+msgstr "清空课程"
+
+msgid "StartDate"
+msgstr "开始日期"
+
+msgid "EndDate"
+msgstr "结束日期"
+
+msgid "StartTime"
+msgstr "开始时间"
+
+msgid "EndTime"
+msgstr "结束时间"
+
+msgid "YouWereCalled"
+msgstr "你应邀聊天, 邀请人"
+
+msgid "DoYouAccept"
+msgstr "是否同意?"
+
+msgid "Everybody"
+msgstr "所有人"
+
+msgid "SentTo"
+msgstr "显示给"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Tools"
+msgstr "工具"
+
+msgid "Everyone"
+msgstr "所有人"
+
+msgid "SelectGroupsUsers"
+msgstr "选择小组/用户"
+
+msgid "Student"
+msgstr "学生"
+
+msgid "Teacher"
+msgstr "教师"
+
+msgid "Send2All"
+msgstr "你未选定用户/小组. 此项是对所有人公开"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Complete"
+msgstr "完整"
+
+msgid "Incomplete"
+msgstr "不完整"
+
+msgid "reservation"
+msgstr "保留"
+
+msgid "StartTimeWindow"
+msgstr "开始"
+
+msgid "EndTimeWindow"
+msgstr "结束"
+
+msgid "AccessNotAllowed"
+msgstr "无权访问此页面"
+
+msgid "InThisCourse"
+msgstr "在这个课程中"
+
+msgid "ThisFieldIsRequired"
+msgstr "必须栏目"
+
+msgid "AllowedHTMLTags"
+msgstr "允许 HTML 标注"
+
+msgid "FormHasErrorsPleaseComplete"
+msgstr "资料输入错误或不完整. 请重新检查."
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "第一个日期必须在结束日期之前"
+
+msgid "InvalidDate"
+msgstr "非法日期"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "只允许字母和数字"
+
+msgid "BasicOverview"
+msgstr "基本"
+
+msgid "CourseAdminRole"
+msgstr "课程管理员"
+
+msgid "UserRole"
+msgstr "角色"
+
+msgid "OnlyImagesAllowed"
+msgstr "只允许PNG, JPG 或 GIF 格式的图片"
+
+msgid "ViewRight"
+msgstr "查看"
+
+msgid "EditRight"
+msgstr "编辑"
+
+msgid "DeleteRight"
+msgstr "删除"
+
+msgid "OverviewCourseRights"
+msgstr "查看角色和权限"
+
+msgid "SeeAllRightsAllLocationsForSpecificRole"
+msgstr "以角色为准"
+
+msgid "SeeAllRolesAllLocationsForSpecificRight"
+msgstr "以权限为准"
+
+msgid "Advanced"
+msgstr "高级"
+
+msgid "RightValueModified"
+msgstr "值已被修改。"
+
+msgid "course_rights"
+msgstr "查看角色和权限"
+
+msgid "Visio_conference"
+msgstr "视频会议"
+
+msgid "CourseAdminRoleDescription"
+msgstr "课程管理员"
+
+msgid "MoveTo"
+msgstr "移到"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "MoveFileTo"
+msgstr "文件搬移到"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Anonymous"
+msgstr "匿名"
+
+msgid "h"
+msgstr "时"
+
+msgid "CreateNewGlobalRole"
+msgstr "新建全局角色"
+
+msgid "CreateNewLocalRole"
+msgstr "新建本地角色"
+
+msgid "Actions"
+msgstr "动作"
+
+msgid "Inbox"
+msgstr "收信箱"
+
+msgid "ComposeMessage"
+msgstr "写信息"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "AddRight"
+msgstr "加入"
+
+msgid "CampusHomepage"
+msgstr "校园首页"
+
+msgid "YouHaveNewMessage"
+msgstr "你有一个新信息！"
+
+msgid "myActiveSessions"
+msgstr "我的活跃会话"
+
+msgid "myInactiveSessions"
+msgstr "我的不活跃会话"
+
+msgid "FileUpload"
+msgstr "文件上传"
+
+msgid "MyActiveSessions"
+msgstr "我的活跃会话"
+
+msgid "MyInActiveSessions"
+msgstr "我的不活跃会话"
+
+msgid "MySpace"
+msgstr "学习进度"
+
+msgid "ExtensionActivedButNotYetOperational"
+msgstr "此扩展已经被激活，但是现在不可用"
+
+msgid "MyStudents"
+msgstr "我的学员"
+
+msgid "Progress"
+msgstr "进度"
+
+msgid "Or"
+msgstr "或"
+
+msgid "Uploading"
+msgstr "上传中。。。"
+
+msgid "AccountExpired"
+msgstr "过期用户"
+
+msgid "AccountInactive"
+msgstr "不活跃用户"
+
+msgid "ActionNotAllowed"
+msgstr "不允许活动"
+
+msgid "SubTitle"
+msgstr "副标题"
+
+msgid "NoResourcesToRecycle"
+msgstr "没有再循环资源"
+
+msgid "noOpen"
+msgstr "无法开启"
+
+msgid "TempsFrequentation"
+msgstr "访问时间"
+
+msgid "Progression"
+msgstr "进度"
+
+msgid "NoCourse"
+msgstr "无法找到该课程"
+
+msgid "Teachers"
+msgstr "导师"
+
+msgid "Session"
+msgstr "会话"
+
+msgid "Sessions"
+msgstr "讲习班"
+
+msgid "NoSession"
+msgstr "无法找到该会话"
+
+msgid "NoStudent"
+msgstr "本学生不存在"
+
+msgid "Students"
+msgstr "学员"
+
+msgid "NoResults"
+msgstr "无结果"
+
+msgid "Tutors"
+msgstr "导师"
+
+msgid "Tel"
+msgstr "电话"
+
+msgid "NoTel"
+msgstr "没有电话"
+
+msgid "SendMail"
+msgstr "寄电邮"
+
+msgid "RdvAgenda"
+msgstr "议程约会"
+
+msgid "VideoConf"
+msgstr "视频会议"
+
+msgid "MyProgress"
+msgstr "我的进度"
+
+msgid "NoOnlineStudents"
+msgstr "没有在线学生"
+
+msgid "InCourse"
+msgstr "在课程内"
+
+msgid "UserOnlineListSession"
+msgstr "在线用户名单 - 会话"
+
+msgid "From"
+msgstr "由"
+
+msgid "To"
+msgstr "至"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Year"
+msgstr "年"
+
+msgid "Years"
+msgstr "年"
+
+msgid "Day"
+msgstr "日"
+
+msgid "Days"
+msgstr "日"
+
+msgid "PleaseStandBy"
+msgstr "请稍等......"
+
+msgid "AvailableUntil"
+msgstr "直到"
+
+msgid "HourMinuteDivider"
+msgstr "小时"
+
+msgid "Visio_classroom"
+msgstr "虚拟教室"
+
+msgid "Survey"
+msgstr "调查"
+
+msgid "More"
+msgstr "更多....."
+
+msgid "ClickHere"
+msgstr "单击"
+
+msgid "Here"
+msgstr "这里"
+
+msgid "SaveQuestion"
+msgstr "保存题目"
+
+msgid "ReturnTo"
+msgstr "你现在可以返回"
+
+msgid "Horizontal"
+msgstr "横"
+
+msgid "Vertical"
+msgstr "纵"
+
+msgid "DisplaySearchResults"
+msgstr "显示检索结果"
+
+msgid "DisplayAll"
+msgstr "全部显示"
+
+msgid "File_upload"
+msgstr "上传文件"
+
+msgid "NoUsersInCourse"
+msgstr "课程中没有用户"
+
+msgid "Percentage"
+msgstr "百分之"
+
+msgid "Information"
+msgstr "信息"
+
+msgid "EmailDestination"
+msgstr "收件人"
+
+msgid "SendEmail"
+msgstr "发送"
+
+msgid "EmailTitle"
+msgstr "邮件主题"
+
+msgid "EmailText"
+msgstr "邮件内容"
+
+msgid "Comments"
+msgstr "评论"
+
+msgid "ModifyRecipientList"
+msgstr "编辑收件箱"
+
+msgid "Line"
+msgstr "行"
+
+msgid "NoLinkVisited"
+msgstr "无访问过的链接"
+
+msgid "NoDocumentDownloaded"
+msgstr "无下载的文档"
+
+msgid "Clicks"
+msgstr "单击"
+
+msgid "SearchResults"
+msgstr "检索结果"
+
+msgid "SessionPast"
+msgstr "过去"
+
+msgid "SessionActive"
+msgstr "激活"
+
+msgid "SessionFuture"
+msgstr "开始前"
+
+msgid "DateFormatLongWithoutDay"
+msgstr "%B %d, %Y"
+
+msgid "InvalidDirectoryPleaseCreateAnImagesFolder"
+msgstr "非法文件夹：请建立用来存储图片的文件夹"
+
+msgid "UsersConnectedToMySessions"
+msgstr "查看此会话的所有用户"
+
+msgid "Category"
+msgstr "类别"
+
+msgid "DearUser"
+msgstr "亲爱的用户"
+
+msgid "YourRegistrationData"
+msgstr "你的注册数据"
+
+msgid "ResetLink"
+msgstr "单击此处恢复你的密码"
+
+msgid "VisibilityChanged"
+msgstr "可视属性已经修改"
+
+msgid "MainNavigation"
+msgstr "主导航"
+
+msgid "SeeDetail"
+msgstr "详情"
+
+msgid "GroupSingle"
+msgstr "小组"
+
+msgid "PleaseLoginAgainFromHomepage"
+msgstr "请从首页尝试登录"
+
+msgid "PleaseLoginAgainFromFormBelow"
+msgstr "请用以下表格尝试登录"
+
+msgid "AccessToFaq"
+msgstr "前往最常见问题"
+
+msgid "Faq"
+msgstr "常见问题"
+
+msgid "RemindInactivesLearnersSince"
+msgstr "提醒学员不活跃状态超过"
+
+msgid "RemindInactiveLearnersMailSubject"
+msgstr "不活跃"
+
+msgid "RemindInactiveLearnersMailContent"
+msgstr "用户您好，<br />您的课程%s已经超过%s天没访问了"
+
+msgid "OpenIdAuthentication"
+msgstr "OpenID认证"
+
+msgid "UploadMaxSize"
+msgstr "最大上传大小"
+
+msgid "Unknown"
+msgstr "不明"
+
+msgid "MoveUp"
+msgstr "上移"
+
+msgid "MoveDown"
+msgstr "下移"
+
+msgid "UplUnableToSaveFileFilteredExtension"
+msgstr "上传文件失败：文件类型不符合要求"
+
+msgid "OpenIDURL"
+msgstr "OpenID URL"
+
+msgid "UplFileTooBig"
+msgstr "文件过大"
+
+msgid "UplGenericError"
+msgstr "未能成功接收上传文件。请稍后再试或者联系平台管理员"
+
+msgid "MyGradebook"
+msgstr "我的成绩本"
+
+msgid "Gradebook"
+msgstr "成绩本"
+
+msgid "OpenIDWhatIs"
+msgstr "什么是OpenID"
+
+msgid "OpenIDDescription"
+msgstr "OpenID可以消除在不同网站不同帐户登录的要求，简化了您的在线体验。您可以选择自己的OpenID，并使用可相信的OpenID供应商。最重要的是，OpenID技术并不是私有的，完全免费使用。对于商业方面，这意味着当使用新的网络通信时，使用较低成本就能维护帐户和密码管理。OpenID使得用户能自己控制登录来减少多帐户的烦恼"
+
+msgid "NoManager"
+msgstr "没有经理"
+
+msgid "ExportiCal"
+msgstr "导出iCal"
+
+msgid "ExportiCalPublic"
+msgstr "导出iCal的公共事件"
+
+msgid "ExportiCalPrivate"
+msgstr "导出iCal的个人事件"
+
+msgid "ExportiCalConfidential"
+msgstr "作为保密事件导出iCal格式"
+
+msgid "MoreStats"
+msgstr "更多统计"
+
+msgid "Drh"
+msgstr "人力资源经理"
+
+msgid "MinDecade"
+msgstr "十年"
+
+msgid "MinYear"
+msgstr "年"
+
+msgid "MinMonth"
+msgstr "月"
+
+msgid "MinWeek"
+msgstr "周"
+
+msgid "MinDay"
+msgstr "日"
+
+msgid "MinHour"
+msgstr "小时"
+
+msgid "MinMinute"
+msgstr "分钟"
+
+msgid "MinDecades"
+msgstr "十年"
+
+msgid "MinYears"
+msgstr "年"
+
+msgid "MinMonths"
+msgstr "月"
+
+msgid "MinWeeks"
+msgstr "周"
+
+msgid "MinDays"
+msgstr "日"
+
+msgid "MinHours"
+msgstr "时"
+
+msgid "MinMinutes"
+msgstr "分"
+
+msgid "HomeDirectory"
+msgstr "主目录"
+
+msgid "DocumentCreated"
+msgstr "创建文档"
+
+msgid "ForumAdded"
+msgstr "添加论坛"
+
+msgid "ForumThreadAdded"
+msgstr "添加话题"
+
+msgid "ForumAttachmentAdded"
+msgstr "添加附件"
+
+msgid "directory"
+msgstr "目录"
+
+msgid "Directories"
+msgstr "目录"
+
+msgid "UserAge"
+msgstr "年龄"
+
+msgid "UserBirthday"
+msgstr "生日"
+
+msgid "Course"
+msgstr "课程"
+
+msgid "FilesUpload"
+msgstr "文档"
+
+msgid "ExerciseFinished"
+msgstr "测试完成"
+
+msgid "UserSex"
+msgstr "性别"
+
+msgid "UserNativeLanguage"
+msgstr "本地语言"
+
+msgid "UserResidenceCountry"
+msgstr "居住国家"
+
+msgid "AddAnAttachment"
+msgstr "添加附件"
+
+msgid "FileComment"
+msgstr "文件评论"
+
+msgid "FileName"
+msgstr "文件名"
+
+msgid "AddCategory"
+msgstr "添加分类"
+
+msgid "ListView"
+msgstr "列表视图"
+
+msgid "DisplayOrder"
+msgstr "显示顺序"
+
+msgid "Details"
+msgstr "详情"
+
+msgid "Glossary"
+msgstr "词汇表"
+
+msgid "CourseSettings"
+msgstr "课程设置"
+
+msgid "AdvancedParameters"
+msgstr "高级选择"
+
+msgid "CreationDate"
+msgstr "创建日期"
+
+msgid "LastUpdateDate"
+msgstr "最后更新日期"
+
+msgid "Validate"
+msgstr "确定"
+
+msgid "Notebook"
+msgstr "笔记本"
+
+msgid "SaveSettings"
+msgstr "保存设置"
+
+msgid "Accept"
+msgstr "同意"
+
+msgid "GoToQuestion"
+msgstr "转到提问"
+
+msgid "Class"
+msgstr "班级"
+
+msgid "Select"
+msgstr "确定"
+
+msgid "Booking"
+msgstr "预定"
+
+msgid "ManageReservations"
+msgstr "预定"
+
+msgid "Photo"
+msgstr "相片"
+
+msgid "SaveIntroText"
+msgstr "保存介绍"
+
+msgid "CourseName"
+msgstr "课程名称"
+
+msgid "BackTo"
+msgstr "返回"
+
+msgid "HistoryTrainingSessions"
+msgstr "培训历史记录"
+
+msgid "DataType"
+msgstr "数据类型"
+
+msgid "Value"
+msgstr "值"
+
+msgid "System"
+msgstr "系统"
+
+msgid "ImportantActivities"
+msgstr "重要活动"
+
+msgid "SearchActivities"
+msgstr "查找活动"
+
+msgid "DisplayTrainingList"
+msgstr "显示培训列表"
+
+msgid "HistoryTrainingSession"
+msgstr "培训历史记录"
+
+msgid "ModifyEvaluation"
+msgstr "保存评估"
+
+msgid "CreateLink"
+msgstr "添加学习活动到评估中"
+
+msgid "AddResultNoStudents"
+msgstr "没学员可以添加结果"
+
+msgid "ScoreEdit"
+msgstr "技能排行"
+
+msgid "ScoreColor"
+msgstr "技能熟练度颜色标记"
+
+msgid "ScoringSystem"
+msgstr "技能排行"
+
+msgid "EnableScoreColor"
+msgstr "开启技能熟练度"
+
+msgid "Below"
+msgstr "低于"
+
+msgid "WillColorRed"
+msgstr "标记红色"
+
+msgid "EnableScoringSystem"
+msgstr "允许技能排行"
+
+msgid "IncludeUpperLimit"
+msgstr "包括上限 (如 0-20 包括 20)"
+
+msgid "ScoreInfo"
+msgstr "分数"
+
+msgid "Between"
+msgstr "在之间"
+
+msgid "CurrentCategory"
+msgstr "目前培训"
+
+msgid "RootCat"
+msgstr "主目录"
+
+msgid "NewCategory"
+msgstr "新分类"
+
+msgid "NewEvaluation"
+msgstr "添加课室评估"
+
+msgid "Weight"
+msgstr "权重"
+
+msgid "PickACourse"
+msgstr "选择一个培训"
+
+msgid "CourseIndependent"
+msgstr "独立于培训"
+
+msgid "CourseIndependentEvaluation"
+msgstr "独立于培训的评测"
+
+msgid "EvaluationName"
+msgstr "评测"
+
+msgid "DateEval"
+msgstr "评估日期"
+
+msgid "AddUserToEval"
+msgstr "添加评估用户"
+
+msgid "NewSubCategory"
+msgstr "新的子分类"
+
+msgid "MakeLink"
+msgstr "添加在线活动"
+
+msgid "DeleteSelected"
+msgstr "删除选择的"
+
+msgid "SetVisible"
+msgstr "可视"
+
+msgid "SetInvisible"
+msgstr "不可视"
+
+msgid "ChooseLink"
+msgstr "选择评估的活动类型"
+
+msgid "LMSDropbox"
+msgstr "投递箱"
+
+msgid "ChooseExercise"
+msgstr "选择测验"
+
+msgid "AddResult"
+msgstr "标记学员"
+
+msgid "BackToOverview"
+msgstr "返回目录视图"
+
+msgid "ExportPDF"
+msgstr "导出PDF"
+
+msgid "ChooseOrientation"
+msgstr "选择方向"
+
+msgid "Portrait"
+msgstr "直打"
+
+msgid "Landscape"
+msgstr "横打"
+
+msgid "FilterCategory"
+msgstr "过滤分类"
+
+msgid "ScoringUpdated"
+msgstr "更新技能排行"
+
+msgid "CertificateWCertifiesStudentXFinishedCourseYWithGradeZ"
+msgstr "%s 授予证书<br /><br /> %s <br /><br />已完成培训 <br /><br /> '%s' <br /><br />分数<br /><br /> '%s'"
+
+msgid "CertificateMinScore"
+msgstr "最低通过分数"
+
+msgid "InViMod"
+msgstr "评估不可以视"
+
+msgid "ViewResult"
+msgstr "评估详情"
+
+msgid "NoResultsInEvaluation"
+msgstr "目前没评测结果"
+
+msgid "AddStudent"
+msgstr "添加用户"
+
+msgid "ImportResult"
+msgstr "导入成绩"
+
+msgid "ImportFileLocation"
+msgstr "导入成绩到评估中"
+
+msgid "FileType"
+msgstr "文件类型"
+
+msgid "ExampleCSVFile"
+msgstr "CSV 文件样例"
+
+msgid "ExampleXMLFile"
+msgstr "XML 文件样例"
+
+msgid "OverwriteScores"
+msgstr "覆盖分数"
+
+msgid "IgnoreErrors"
+msgstr "忽略错误"
+
+msgid "ItemsVisible"
+msgstr "资源可视"
+
+msgid "ItemsInVisible"
+msgstr "资源不可视"
+
+msgid "NoItemsSelected"
+msgstr "无资源选择"
+
+msgid "DeletedCategories"
+msgstr "分类已删除"
+
+msgid "DeletedEvaluations"
+msgstr "评测已删除"
+
+msgid "DeletedLinks"
+msgstr "链接已删除"
+
+msgid "TotalItems"
+msgstr "全部资源"
+
+msgid "EditEvaluation"
+msgstr "修改评测"
+
+msgid "DeleteResult"
+msgstr "删除成绩"
+
+msgid "Display"
+msgstr "排行"
+
+msgid "ViewStatistics"
+msgstr "图形视图"
+
+msgid "ResultAdded"
+msgstr "结果已添加"
+
+msgid "EvaluationStatistics"
+msgstr "评测统计"
+
+msgid "ExportResult"
+msgstr "PDF 报表"
+
+msgid "EditResult"
+msgstr "学员成绩"
+
+msgid "GradebookWelcomeMessage"
+msgstr "欢迎使用评估工具. 此工具允许你评测个人在组织中能力. 根据学习活动(课堂学习和在线学习)生成能力报表. 这个可以适合多样化教学的环境."
+
+msgid "CreateAllCat"
+msgstr "创建培训分类"
+
+msgid "AddAllCat"
+msgstr "添加全部分类"
+
+msgid "StatsStudent"
+msgstr "统计"
+
+msgid "Results"
+msgstr "结果和反馈"
+
+msgid "Certificates"
+msgstr "证书"
+
+msgid "Certificate"
+msgstr "证书"
+
+msgid "ChooseUser"
+msgstr "选择评测的学生"
+
+msgid "ResultEdited"
+msgstr "结果已修改"
+
+msgid "ChooseFormat"
+msgstr "PDF 报表"
+
+msgid "OutputFileType"
+msgstr "输出文件类型"
+
+msgid "OverMax"
+msgstr "数值超过最大分数."
+
+msgid "MoreInfo"
+msgstr "更多信息"
+
+msgid "ResultsPerUser"
+msgstr "每个用户的结果"
+
+msgid "TotalUser"
+msgstr "全部用户"
+
+msgid "AverageTotal"
+msgstr "全体的平均值"
+
+msgid "Evaluation"
+msgstr "分数"
+
+msgid "EvaluationAverage"
+msgstr "平均水平评估"
+
+msgid "EditAllWeights"
+msgstr "报表中的权重"
+
+msgid "GradebookQualificationTotal"
+msgstr "全部"
+
+msgid "GradebookEvaluationDeleted"
+msgstr "评估已删"
+
+msgid "GradebookQualifyLog"
+msgstr "评估历史"
+
+msgid "GradebookNameLog"
+msgstr "评估名称"
+
+msgid "GradebookDescriptionLog"
+msgstr "评估描述"
+
+msgid "GradebookVisibilityLog"
+msgstr "评估可视"
+
+msgid "ResourceType"
+msgstr "分类"
+
+msgid "GradebookWhoChangedItLog"
+msgstr "更改记录"
+
+msgid "EvaluationEdited"
+msgstr "测评已成功修改"
+
+msgid "CategoryEdited"
+msgstr "分类已更新"
+
+msgid "IncorrectData"
+msgstr "不正常的数据"
+
+msgid "Resource"
+msgstr "评估"
+
+msgid "PleaseEnableScoringSystem"
+msgstr "请开启技能排行功能"
+
+msgid "AllResultDeleted"
+msgstr "全部结果已删除"
+
+msgid "ImportNoFile"
+msgstr "没文件可导入"
+
+msgid "ProblemUploadingFile"
+msgstr "上传文件过程出错."
+
+msgid "AllResultsEdited"
+msgstr "全部结果已修改"
+
+msgid "UserInfoDoesNotMatch"
+msgstr "用户信息不符合."
+
+msgid "ScoreDoesNotMatch"
+msgstr "分数不符合"
+
+msgid "FileUploadComplete"
+msgstr "文件上传成功"
+
+msgid "NoResultsAvailable"
+msgstr "没可用的结果"
+
+msgid "CannotChangeTheMaxNote"
+msgstr "不能改变分数"
+
+msgid "GradebookWeightUpdated"
+msgstr "权重成功更新"
+
+msgid "ChooseItem"
+msgstr "选择活动访问"
+
+msgid "AverageResultsVsResource"
+msgstr "平衡结果和资源"
+
+msgid "ToViewGraphScoreRuleMustBeEnabled"
+msgstr "需要开启分数规则以查看图表"
+
+msgid "GradebookPreviousWeight"
+msgstr "预览资源的权重"
+
+msgid "AddAssessment"
+msgstr "添加课室活动到评估"
+
+msgid "FolderView"
+msgstr "评估视图"
+
+msgid "GradebookSkillsRanking"
+msgstr "技能排行"
+
+msgid "SaveScoringRules"
+msgstr "保存权重到报表中"
+
+msgid "AttachCertificate"
+msgstr "添加证书"
+
+msgid "GradebookSeeListOfStudentsCertificates"
+msgstr "查看学生证书"
+
+msgid "CreateCertificate"
+msgstr "创建证书"
+
+msgid "UploadCertificate"
+msgstr "上传证书"
+
+msgid "CertificateName"
+msgstr "证书名称"
+
+msgid "CertificateOverview"
+msgstr "证书概述"
+
+msgid "CreateCertificateWithTags"
+msgstr "创建证书并加入此标识"
+
+msgid "ViewPresenceSheets"
+msgstr "查看考席表"
+
+msgid "ViewEvaluations"
+msgstr "查看评测"
+
+msgid "NewPresenceSheet"
+msgstr "新的考席表"
+
+msgid "NewPresenceStep1"
+msgstr "新的考席表: 步骤 1/2 : 详细填写考勤表"
+
+msgid "TitlePresenceSheet"
+msgstr "活动标题"
+
+msgid "PresenceSheetCreatedBy"
+msgstr "考勤表填写人"
+
+msgid "SavePresence"
+msgstr "保存考勤表, 然后进行下一步"
+
+msgid "NewPresenceStep2"
+msgstr "新的考勤表: 步骤 2/2 : 查看学员是否出席"
+
+msgid "NoCertificateAvailable"
+msgstr "无可用证书"
+
+msgid "SaveCertificate"
+msgstr "保存证书"
+
+msgid "CertificateNotRemoved"
+msgstr "不能删除证书"
+
+msgid "CertificateRemoved"
+msgstr "证书已删除"
+
+msgid "NoDefaultCertificate"
+msgstr "无默认证书"
+
+msgid "DefaultCertificate"
+msgstr "默认证书"
+
+msgid "PreviewCertificate"
+msgstr "预览证书"
+
+msgid "IsDefaultCertificate"
+msgstr "设为默认"
+
+msgid "ImportPresences"
+msgstr "导入考勤表"
+
+msgid "AddPresences"
+msgstr "添加考勤"
+
+msgid "DeletePresences"
+msgstr "删除考勤"
+
+msgid "GradebookListOfStudentsCertificates"
+msgstr "成绩单 学生证书列表"
+
+msgid "NewPresence"
+msgstr "新的考勤表"
+
+msgid "EditPresence"
+msgstr "修改考勤表"
+
+msgid "SavedEditPresence"
+msgstr "保存考勤表"
+
+msgid "PresenceSheetFormatExplanation"
+msgstr "你可以下载考勤表. 考勤表中包含课程的学员信息. XLS 文件的第一栏是学生代码, 跟着的是学生姓名. 你只需修改第4列标记为 0 = 缺席, 1 = 出席"
+
+msgid "ValidatePresenceSheet"
+msgstr "校验考勤表"
+
+msgid "PresenceSheet"
+msgstr "考勤表"
+
+msgid "PresenceSheets"
+msgstr "考勤表"
+
+msgid "Evaluations"
+msgstr "评测"
+
+msgid "SaveEditPresence"
+msgstr "保存考勤表变更"
+
+msgid "Training"
+msgstr "培训"
+
+msgid "Present"
+msgstr "考席"
+
+msgid "Numero"
+msgstr "序号"
+
+msgid "PresentAbsent"
+msgstr "0 = 缺席, 1 = 出席"
+
+msgid "ExampleXLSFile"
+msgstr "Excel (XLS) 文件样例"
+
+msgid "NoResultsInPresenceSheet"
+msgstr "无考勤表"
+
+msgid "EditPresences"
+msgstr "修改考席"
+
+msgid "TotalWeightMustNotBeMoreThan"
+msgstr "全部的权利不能高于"
+
+msgid "ThereIsNotACertificateAvailableByDefault"
+msgstr "默认没有可用证书"
+
+msgid "CertificateMinimunScoreIsRequiredAndMustNotBeMoreThan"
+msgstr "需要最低通过分数也不能超过"
+
+msgid "CourseProgram"
+msgstr "教学大纲"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "本课程目前没有教学大纲。"
+
+msgid "QuestionPlan"
+msgstr "给老师的问题"
+
+msgid "NewBloc"
+msgstr "其他内容"
+
+msgid "CourseDescriptionUpdated"
+msgstr "课程描述更新完成"
+
+msgid "CourseDescriptionDeleted"
+msgstr "课程描述删除完成"
+
+msgid "InvalidId"
+msgstr "登录失败 - 用户名/密码错误"
+
+msgid "Pass"
+msgstr "密码"
+
+msgid "Advises"
+msgstr "建议"
+
+msgid "CourseDoesntExist"
+msgstr "<B>警告：</B>这门课程不存在"
+
+msgid "GetCourseFromOldPortal"
+msgstr "点击这里从旧系统得到这门课程"
+
+msgid "SupportForum"
+msgstr "技术支持"
+
+msgid "BackToHomePage"
+msgstr "查看分类"
+
+msgid "LostPassword"
+msgstr "找回密码"
+
+msgid "Valvas"
+msgstr "上一个通知"
+
+msgid "Helptwo"
+msgstr "帮助"
+
+msgid "EussMenu"
+msgstr "菜单"
+
+msgid "Opinio"
+msgstr "意见"
+
+msgid "Intranet"
+msgstr "局域网"
+
+msgid "Englin"
+msgstr "英语"
+
+msgid "InvalidForSelfRegistration"
+msgstr "登录失败－如果你还没有注册，你可以点击<A href=claroline/auth/inscription.php>注册用户</A>"
+
+msgid "MenuGeneral"
+msgstr "通用功能"
+
+msgid "MenuUser"
+msgstr "用户"
+
+msgid "MenuAdmin"
+msgstr "系统管理"
+
+msgid "UsersOnLineList"
+msgstr "在线用户"
+
+msgid "TotalOnLine"
+msgstr "在线用户总数"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "SystemAnnouncements"
+msgstr "学校通知"
+
+msgid "HelpMaj"
+msgstr "帮助"
+
+msgid "NotRegistered"
+msgstr "未注册"
+
+msgid "Login"
+msgstr "登陆"
+
+msgid "RegisterForCourse"
+msgstr "注册课程"
+
+msgid "UnregisterForCourse"
+msgstr "注销课程"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "TotalOnLine"
+msgstr "在线用户总数"
+
+msgid "CourseClosed"
+msgstr "(当前课程未开放)"
+
+msgid "Teach"
+msgstr "他/她能教什么"
+
+msgid "Productions"
+msgstr "作品"
+
+msgid "SendChatRequest"
+msgstr "发送回复给这个人"
+
+msgid "RequestDenied"
+msgstr "已拒绝请求."
+
+msgid "UsageDatacreated"
+msgstr "已创建数据"
+
+msgid "ShouldBeCSVFormat"
+msgstr "文件应该是CSV格式，请不要加空格，结构应该是："
+
+msgid "Enter2passToChange"
+msgstr "修改密码请重复输入两次，否则保持为空。"
+
+msgid "AuthInfo"
+msgstr "有效"
+
+msgid "ImageWrong"
+msgstr "文件尺寸要小于"
+
+msgid "password_request"
+msgstr "您已经请求重新设置您的密码, 如果您确认, 可以忽略此邮件, 点击重置链接重新设置您的密码."
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "密码已经通过邮件发送给您."
+
+msgid "EnterEmailAndWeWillSendYouYourPassword"
+msgstr "输入您注册时的电子邮件，您的密码将通过电子邮件发送给您。"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "Preserved"
+msgstr "保持"
+
+msgid "ConfirmUnsubscribe"
+msgstr "确认用户注销"
+
+msgid "See"
+msgstr "转到"
+
+msgid "LastVisits"
+msgstr "我的最后一次登录"
+
+msgid "IfYouWantToAddManyUsers"
+msgstr "假如你想加入一个用户列表，请联系你的系统管理员。"
+
+msgid "PassTooEasy"
+msgstr "这个密码太简单，请使用复杂一些的密码，比如"
+
+msgid "AddedToCourse"
+msgstr "已经注册到您的课程"
+
+msgid "UserAlreadyRegistered"
+msgstr "已有同名用户注册到此课程。"
+
+msgid "BackUser"
+msgstr "返回"
+
+msgid "UserOneByOneExplanation"
+msgstr "他（她）将通过电子邮件来确认用户和密码"
+
+msgid "GiveTutor"
+msgstr "加为教师"
+
+msgid "RemoveRight"
+msgstr "除去该项权限"
+
+msgid "GiveAdmin"
+msgstr "加为管理员"
+
+msgid "UserNumber"
+msgstr "数量"
+
+msgid "DownloadUserList"
+msgstr "上传列表"
+
+msgid "UserAddExplanation"
+msgstr "每封发给用户的邮件都包括用制表符分开的5个字段：<B>名字 姓 用户名 密码</B>，用户会收到一封电子邮件来确认用户名和密码。"
+
+msgid "UserMany"
+msgstr "从CSV / XML 文件导入用户表"
+
+msgid "OneByOne"
+msgstr "手工添加用户"
+
+msgid "AddHereSomeCourses"
+msgstr "<FONT face=\"Arial, Helvetica\" size=2><BIG>更新我的课程</BIG><br /><br />选择你要参与的课程，<br />反选你要退出的课程，<br />然后点击列表下面确定按钮. </FONT>"
+
+msgid "ImportUserList"
+msgstr "导入用户列表"
+
+msgid "AddAU"
+msgstr "添加一个用户"
+
+msgid "AddedU"
+msgstr "已添加，已通过邮件发送用户名。"
+
+msgid "TheU"
+msgstr "用户"
+
+msgid "RegYou"
+msgstr "已经使您在本课程注册"
+
+msgid "OneResp"
+msgstr "课程管理员"
+
+msgid "UserPicture"
+msgstr "相片"
+
+msgid "ProfileReg"
+msgstr "您的个人信息已经保存。"
+
+msgid "EmailWrong"
+msgstr "邮件地址不正确，存在非法字符"
+
+msgid "UserTaken"
+msgstr "用户名已经存在"
+
+msgid "Fields"
+msgstr "您有些选项未填写"
+
+msgid "Again"
+msgstr "重试！"
+
+msgid "PassTwo"
+msgstr "两次输入的密码不同"
+
+msgid "ViewProfile"
+msgstr "浏览注册信息"
+
+msgid "ModifProfile"
+msgstr "修改注册信息"
+
+msgid "IsReg"
+msgstr "你的更正已经注册"
+
+msgid "NowGoCreateYourCourse"
+msgstr "点击下一步来创建您的课程："
+
+msgid "NowGoChooseYourCourses"
+msgstr "点击下一步来选择您的课程："
+
+msgid "MailHasBeenSent"
+msgstr "邮件已经发送，里面包含用户名和密码，"
+
+msgid "PersonalSettings"
+msgstr "您已经成功注册，"
+
+msgid "Problem"
+msgstr "遇到问题请联系我们:"
+
+msgid "Is"
+msgstr "是"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "YourReg"
+msgstr "您的注册信息"
+
+msgid "UserFree"
+msgstr "用户名已经存在, 点击浏览器的退回按纽重新选择用户名。"
+
+msgid "EmptyFields"
+msgstr "有些项未填写！返回重试。"
+
+msgid "PassTwice"
+msgstr "密码两次输入不一致！返回重试。"
+
+msgid "RegAdmin"
+msgstr "创建课程（老师）"
+
+msgid "RegStudent"
+msgstr "选修课程（学生）"
+
+msgid "Confirmation"
+msgstr "确认密码"
+
+msgid "Surname"
+msgstr "姓名"
+
+msgid "Registration"
+msgstr "注册"
+
+msgid "YourAccountParam"
+msgstr "这是你的帐户和登录密码"
+
+msgid "LoginRequest"
+msgstr "需要登录"
+
+msgid "AdminOfCourse"
+msgstr "课程管理员"
+
+msgid "SimpleUserOfCourse"
+msgstr "课程用户"
+
+msgid "IsTutor"
+msgstr "教师"
+
+msgid "ParamInTheCourse"
+msgstr "状态"
+
+msgid "HaveNoCourse"
+msgstr "没有课程"
+
+msgid "UserProfileReg"
+msgstr "用户已注册"
+
+msgid "Courses4User"
+msgstr "课程用户"
+
+msgid "CoursesByUser"
+msgstr "用户选择的课程"
+
+msgid "SubscribeUserToCourse"
+msgstr "学生注册"
+
+msgid "Preced100"
+msgstr "前100个"
+
+msgid "Addmore"
+msgstr "添加注册用户"
+
+msgid "Addback"
+msgstr "转到用户列表"
+
+msgid "reg"
+msgstr "注册"
+
+msgid "Quit"
+msgstr "退出"
+
+msgid "YourPasswordHasBeenReset"
+msgstr "您的密码已经被重置"
+
+msgid "Sex"
+msgstr "性别"
+
+msgid "OptionalTextFields"
+msgstr "可选项"
+
+msgid "FullUserName"
+msgstr "全名"
+
+msgid "SearchForUser"
+msgstr "用户搜索"
+
+msgid "SearchButton"
+msgstr "搜索"
+
+msgid "SearchNoResultsFound"
+msgstr "搜索无结果"
+
+msgid "UsernameWrong"
+msgstr "你的用户名只可用字母, 数字和_.-"
+
+msgid "PasswordRequestFrom"
+msgstr "这是该电邮的密码索取请求"
+
+msgid "CorrespondsToAccount"
+msgstr "此电邮地址与下列用户一致."
+
+msgid "CorrespondsToAccounts"
+msgstr "此电邮地址与下列用户一致."
+
+msgid "AccountExternalAuthSource"
+msgstr "Chamilo无法自动处理这类请求, 因为本帐户有外界确认源. 请采取适当措施, 并通知用户."
+
+msgid "AccountsExternalAuthSource"
+msgstr "Chamilo无法自动处理这类请求, 因为最少其中一个帐户有外界确认源. 请对所有帐户 (包括有平台认证者) 采取适当措施, 并通知用户."
+
+msgid "RequestSentToPlatformAdmin"
+msgstr "Chamilo无法自动处理这类帐户的请求. 您的请求已经被送到平台管理员, 他将采取适当的措施, 并将结果通知您."
+
+msgid "NeverExpires"
+msgstr "从不失效"
+
+msgid "ActiveAccount"
+msgstr "帐号状态"
+
+msgid "EditExtendProfile"
+msgstr "编辑扩充资料"
+
+msgid "InLnk"
+msgstr "隐藏的工具"
+
+msgid "DelLk"
+msgstr "确定要移除该工具吗?"
+
+msgid "NameOfTheLink"
+msgstr "链接名称"
+
+msgid "CourseAdminOnly"
+msgstr "教师"
+
+msgid "PlatformAdminOnly"
+msgstr "仅平台管理员"
+
+msgid "CombinedCourse"
+msgstr "合并的课程"
+
+msgid "ToolIsNowVisible"
+msgstr "工具当前可用."
+
+msgid "ToolIsNowHidden"
+msgstr "工具当前不可用."
+
+msgid "GreyIcons"
+msgstr "工具箱"
+
+msgid "Interaction"
+msgstr "互动"
+
+msgid "Authoring"
+msgstr "写作"
+
+msgid "SessionIdentifier"
+msgstr "会话识别符"
+
+msgid "SessionCategory"
+msgstr "会话分类"
+
+msgid "WikiSearchResults"
+msgstr "维基查找结果"
+
+msgid "StartPage"
+msgstr "首页"
+
+msgid "EditThisPage"
+msgstr "编辑此页面"
+
+msgid "ShowPageHistory"
+msgstr "历史"
+
+msgid "RecentChanges"
+msgstr "最新更改"
+
+msgid "AllPages"
+msgstr "全部页面"
+
+msgid "AddNew"
+msgstr "添加新页面"
+
+msgid "ChangesStored"
+msgstr "音频已添加"
+
+msgid "NewWikiSaved"
+msgstr "维基页面已保存. 通过点击查看:"
+
+msgid "DefaultContent"
+msgstr " <br/> <br/> <p align=\"center\"> <img src=\"%swiki/wcollaborative.png\" alt=\"Mr. Chamilo\" title=\"Mr. Chamilo\" /></p> <p align=\"center\">删除此文字以开始编辑主页面</p>"
+
+msgid "CourseWikiPages"
+msgstr "课程维基页面"
+
+msgid "GroupWikiPages"
+msgstr "组别维基页面"
+
+msgid "NoWikiPageTitle"
+msgstr "更改已保存. 需要为页面起名"
+
+msgid "WikiPageTitleExist"
+msgstr "页面名称已存在. 点此修改页面内容:"
+
+msgid "WikiDiffAddedLine"
+msgstr "已添加行"
+
+msgid "WikiDiffDeletedLine"
+msgstr "已删除行"
+
+msgid "WikiDiffMovedLine"
+msgstr "行已移动"
+
+msgid "WikiDiffUnchangedLine"
+msgstr "行没有改变"
+
+msgid "DifferencesNew"
+msgstr "版本变更"
+
+msgid "DifferencesOld"
+msgstr "旧版本"
+
+msgid "Differences"
+msgstr "差异"
+
+msgid "MostRecentVersion"
+msgstr "查看最近选择的版本"
+
+msgid "ShowDifferences"
+msgstr "比较已选择版本"
+
+msgid "SearchPages"
+msgstr "搜索"
+
+msgid "Discuss"
+msgstr "讨论"
+
+msgid "History"
+msgstr "历史"
+
+msgid "ShowThisPage"
+msgstr "查看页面"
+
+msgid "DeleteThisPage"
+msgstr "删除页面"
+
+msgid "DiscussThisPage"
+msgstr "讨论页面"
+
+msgid "HomeWiki"
+msgstr "维基主目录"
+
+msgid "DeleteWiki"
+msgstr "删除全部"
+
+msgid "WikiDeleted"
+msgstr "维基已删除"
+
+msgid "WikiPageDeleted"
+msgstr "页面和历史记录已删."
+
+msgid "NumLine"
+msgstr "行数"
+
+msgid "DeletePageHistory"
+msgstr "删除页面和全部的版本"
+
+msgid "OnlyAdminDeleteWiki"
+msgstr "只能删除维基"
+
+msgid "OnlyAdminDeletePageWiki"
+msgstr "只能删除页面"
+
+msgid "OnlyAddPagesGroupMembers"
+msgstr "组成员只能添加页面到组别维基"
+
+msgid "OnlyEditPagesGroupMembers"
+msgstr "组成员只能编辑组别维基里面的页面"
+
+msgid "ConfirmDeleteWiki"
+msgstr "确认删除此维基?"
+
+msgid "ConfirmDeletePage"
+msgstr "确认删除此页面和其历史记录?"
+
+msgid "AlsoSearchContent"
+msgstr "在内容中搜索"
+
+msgid "PageLocked"
+msgstr "页面受保护"
+
+msgid "PageUnlocked"
+msgstr "页面无保护"
+
+msgid "PageLockedExtra"
+msgstr "页面受保护. 只有导师能修改"
+
+msgid "PageUnlockedExtra"
+msgstr "页面无保护. 课程学员或组成员可以修改"
+
+msgid "ShowAddOption"
+msgstr "显示添加选项"
+
+msgid "HideAddOption"
+msgstr "隐藏添加选项"
+
+msgid "AddOptionProtected"
+msgstr "添加选项已受保护. 只有导师可以添加页面到维基中, 但学员和组成员可以对其编辑"
+
+msgid "AddOptionUnprotected"
+msgstr "添加选项已开放给课程用户和组成员"
+
+msgid "NotifyChanges"
+msgstr "改变时通知我"
+
+msgid "NotNotifyChanges"
+msgstr "改变时不通知我"
+
+msgid "CancelNotifyByEmail"
+msgstr "取消页面修改后邮件通知"
+
+msgid "MostRecentVersionBy"
+msgstr "最新的版本修改自"
+
+msgid "RatingMedia"
+msgstr "页面的平均分是"
+
+msgid "NumComments"
+msgstr "页面评论"
+
+msgid "NumCommentsScore"
+msgstr "评论数:"
+
+msgid "AddPagesLocked"
+msgstr "添加选项暂时无法使用"
+
+msgid "LinksPages"
+msgstr "参考"
+
+msgid "ShowLinksPages"
+msgstr "显示链接到此的页面"
+
+msgid "MoreWikiOptions"
+msgstr "更多维基选项"
+
+msgid "DefaultTitle"
+msgstr "主目录"
+
+msgid "DiscussNotAvailable"
+msgstr "讨论不可用"
+
+msgid "EditPage"
+msgstr "编辑"
+
+msgid "AddedBy"
+msgstr "添加自"
+
+msgid "EditedBy"
+msgstr "修改自"
+
+msgid "DeletedBy"
+msgstr "删除自"
+
+msgid "WikiStandardMode"
+msgstr "维基模式"
+
+msgid "GroupTutorAndMember"
+msgstr "导师和组成员"
+
+msgid "GroupStandardMember"
+msgstr "组成员"
+
+msgid "AssignmentMode"
+msgstr "个人模式"
+
+msgid "ConfigDefault"
+msgstr "默认配置"
+
+msgid "UnlockPage"
+msgstr "解保护"
+
+msgid "LockPage"
+msgstr "加保护"
+
+msgid "NotifyDiscussChanges"
+msgstr "通知评论"
+
+msgid "NotNotifyDiscussChanges"
+msgstr "不通知评论"
+
+msgid "AssignmentWork"
+msgstr "学员作业"
+
+msgid "AssignmentDesc"
+msgstr "导师建议的作业"
+
+msgid "WikiDiffAddedTex"
+msgstr "文本已添加"
+
+msgid "WikiDiffDeletedTex"
+msgstr "文本已删除"
+
+msgid "WordsDiff"
+msgstr "逐个单词"
+
+msgid "LinesDiff"
+msgstr "逐行"
+
+msgid "MustSelectPage"
+msgstr "需要先选择一个页面"
+
+msgid "Export2ZIP"
+msgstr "导出为ZIP"
+
+msgid "HidePage"
+msgstr "隐藏页面"
+
+msgid "ShowPage"
+msgstr "显示页面"
+
+msgid "GoAndEditMainPage"
+msgstr "修改主页面以开始使用维基"
+
+msgid "UnlockDiscuss"
+msgstr "解锁讨论"
+
+msgid "LockDiscuss"
+msgstr "上锁讨论"
+
+msgid "HideDiscuss"
+msgstr "隐藏讨论"
+
+msgid "ShowDiscuss"
+msgstr "显示讨论"
+
+msgid "UnlockRatingDiscuss"
+msgstr "激活评分"
+
+msgid "LockRatingDiscuss"
+msgstr "取消评分"
+
+msgid "EditAssignmentWarning"
+msgstr "你可以修改页面, 但学员将收不到更改通知"
+
+msgid "ExportToDocArea"
+msgstr "导出最新版本到文档中"
+
+msgid "LockByTeacher"
+msgstr "导师禁止"
+
+msgid "LinksPagesFrom"
+msgstr "链接到此的页面"
+
+msgid "DefineAssignmentPage"
+msgstr "定义此页面为个人作业"
+
+msgid "AssignmentDescription"
+msgstr "作业描述"
+
+msgid "UnlockRatingDiscussExtra"
+msgstr "全部成员可评分此页面"
+
+msgid "LockRatingDiscussExtra"
+msgstr "只有导师可评分此页面"
+
+msgid "HidePageExtra"
+msgstr "页面只对导师可见"
+
+msgid "ShowPageExtra"
+msgstr "页面对全部用户可见"
+
+msgid "OnlyEditPagesCourseManager"
+msgstr "主页面只能由导师编辑"
+
+msgid "AssignmentLinktoTeacherPage"
+msgstr "访问导师页面"
+
+msgid "HideDiscussExtra"
+msgstr "讨论只对导师可见"
+
+msgid "ShowDiscussExtra"
+msgstr "讨论对全部用户可见"
+
+msgid "LockDiscussExtra"
+msgstr "只有导师可以添加评论到讨论中"
+
+msgid "UnlockDiscussExtra"
+msgstr "全部用户可以添加评论到讨论中"
+
+msgid "AssignmentDescExtra"
+msgstr "这是导师推荐的作业"
+
+msgid "AssignmentWorkExtra"
+msgstr "这是学员的作业"
+
+msgid "NoAreSeeingTheLastVersion"
+msgstr "注意 你目前查看的页面不是最新版本"
+
+msgid "AssignmentFirstComToStudent"
+msgstr "修改此页面作为你所推荐的作业"
+
+msgid "AssignmentLinkstoStudentsPage"
+msgstr "访问学员的作业"
+
+msgid "AllowLaterSends"
+msgstr "全部延迟发送"
+
+msgid "WikiStandBy"
+msgstr "维基目前封禁中. 需要导师去开启."
+
+msgid "NotifyDiscussByEmail"
+msgstr "允许使用邮件通知当有新的评论添加到此页面"
+
+msgid "CancelNotifyDiscussByEmail"
+msgstr "禁止使用邮件通知当有新的评论添加到此页面"
+
+msgid "EmailWikiChanges"
+msgstr "通知维基变更"
+
+msgid "EmailWikipageModified"
+msgstr "维基页面已更改"
+
+msgid "EmailWikiPageAdded"
+msgstr "页面已添加"
+
+msgid "EmailWikipageDedeleted"
+msgstr "页面已删除"
+
+msgid "EmailWikiPageDiscAdded"
+msgstr "评论已添加"
+
+msgid "FullNotifyByEmail"
+msgstr "允许每次维基变更时发送邮件通知"
+
+msgid "FullCancelNotifyByEmail"
+msgstr "取消每次维基变更时发送邮件通知"
+
+msgid "EmailWikiChangesExt_1"
+msgstr "依用户需要此通知用于告知维基的变更. 此选项说明你已经激活功能"
+
+msgid "EmailWikiChangesExt_2"
+msgstr "如果你想停止变更通知, 选择相应的标签<strong>最近变更</ strong>, <strong>目前页面</ strong>, <strong>讨论</ strong> 并取消选项"
+
+msgid "OrphanedPages"
+msgstr "独立的页面"
+
+msgid "WantedPages"
+msgstr "需要的页面"
+
+msgid "MostVisitedPages"
+msgstr "最多浏览的页面"
+
+msgid "MostChangedPages"
+msgstr "最多变更的页面"
+
+msgid "Changes"
+msgstr "变更"
+
+msgid "MostActiveUsers"
+msgstr "更多在线用户"
+
+msgid "Contributions"
+msgstr "贡献"
+
+msgid "UserContributions"
+msgstr "用户贡献"
+
+msgid "WarningDeleteMainPage"
+msgstr "因为主页面为维基主要访问页面, 不推荐删除.<br />如果你需要这样做, 请重新创建此主页面. 只有这样, 其他用户才能添加新页面."
+
+msgid "ConvertToLastVersion"
+msgstr "点击设置此版本为最新版本"
+
+msgid "CurrentVersion"
+msgstr "当前版本"
+
+msgid "LastVersion"
+msgstr "最后版本"
+
+msgid "PageRestored"
+msgstr "页面已恢复。点击浏览"
+
+msgid "RestoredFromVersion"
+msgstr "恢复自版本"
+
+msgid "HWiki"
+msgstr "帮助: 维基"
+
+msgid "FirstSelectOnepage"
+msgstr "请先选择页面"
+
+msgid "DefineTask"
+msgstr "如果添加了描述, 此页面将允许你创建一个任务"
+
+msgid "ThisPageisBeginEditedBy"
+msgstr "此页面同时修改自"
+
+msgid "ThisPageisBeginEditedTryLater"
+msgstr "请稍后尝试. 如果当前正在修改的用户没保存此页面, 你将可以使用此页面"
+
+msgid "EditedByAnotherUser"
+msgstr "由于其他用户已修改此页面, 你以前所作的修改将不能保存"
+
+msgid "WarningMaxEditingTime"
+msgstr "你有20分钟可以修改此页面. 如果超时的话, 将轮到其他用户进行修改, 而你所作的修改将丢失"
+
+msgid "TheTaskDoesNotBeginUntil"
+msgstr "还没到开始日期"
+
+msgid "TheDeadlineHasBeenCompleted"
+msgstr "超过限期"
+
+msgid "HasReachedMaxNumWords"
+msgstr "超出字数限制"
+
+msgid "HasReachedMaxiNumVersions"
+msgstr "超过版本数目"
+
+msgid "DescriptionOfTheTask"
+msgstr "任务描述"
+
+msgid "OtherSettings"
+msgstr "其它需求"
+
+msgid "NMaxWords"
+msgstr "最多字数"
+
+msgid "NMaxVersion"
+msgstr "最多版本数目"
+
+msgid "AddFeedback"
+msgstr "添加带有进度的反馈信息"
+
+msgid "Feedback1"
+msgstr "第一条信息"
+
+msgid "Feedback2"
+msgstr "第二条信息"
+
+msgid "Feedback3"
+msgstr "第三条信息"
+
+msgid "FProgress"
+msgstr "进度"
+
+msgid "PutATimeLimit"
+msgstr "设置时间限制"
+
+msgid "StandardTask"
+msgstr "标准任务"
+
+msgid "ToolName"
+msgstr "导入毕博课程"
+
+msgid "TrackingDisabled"
+msgstr "系统管理员已禁止学习跟踪功能."
+
+msgid "InactivesStudents"
+msgstr "活动用户"
+
+msgid "AverageTimeSpentOnThePlatform"
+msgstr "平均占用时间"
+
+msgid "AverageProgressInLearnpath"
+msgstr "课程进度"
+
+msgid "AverageResultsToTheExercices"
+msgstr "测试成绩"
+
+msgid "CourseStats"
+msgstr "课程统计"
+
+msgid "ToolsAccess"
+msgstr "工具使用"
+
+msgid "LinksAccess"
+msgstr "链接"
+
+msgid "DocumentsAccess"
+msgstr "文档"
+
+msgid "ScormAccess"
+msgstr "学习路径- Scorm 格式课程"
+
+msgid "LinksDetails"
+msgstr "用户链接"
+
+msgid "WorksDetails"
+msgstr "用户上传的作品命名为'作者'"
+
+msgid "LoginsDetails"
+msgstr "点击月名以游览更多资料"
+
+msgid "DocumentsDetails"
+msgstr "用户下载的文档"
+
+msgid "ExercicesDetails"
+msgstr "测验成绩已完成"
+
+msgid "BackToList"
+msgstr "返回列表"
+
+msgid "StatsOfCourse"
+msgstr "课程范围统计"
+
+msgid "StatsOfUser"
+msgstr "用户统计"
+
+msgid "StatsOfCampus"
+msgstr "系统统计"
+
+msgid "CountUsers"
+msgstr "用户数量"
+
+msgid "CountToolAccess"
+msgstr "与此课程关联的总数"
+
+msgid "LoginsTitleMonthColumn"
+msgstr "月"
+
+msgid "LoginsTitleCountColumn"
+msgstr "已登录用户"
+
+msgid "ToolTitleToolnameColumn"
+msgstr "工具名称"
+
+msgid "ToolTitleUsersColumn"
+msgstr "用户点击"
+
+msgid "ToolTitleCountColumn"
+msgstr "总点击量"
+
+msgid "LinksTitleLinkColumn"
+msgstr "链接"
+
+msgid "LinksTitleUsersColumn"
+msgstr "用户点击"
+
+msgid "LinksTitleCountColumn"
+msgstr "总点击量"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "测验"
+
+msgid "ExercicesTitleScoreColumn"
+msgstr "得分"
+
+msgid "DocumentsTitleDocumentColumn"
+msgstr "文档"
+
+msgid "DocumentsTitleUsersColumn"
+msgstr "用户下载"
+
+msgid "DocumentsTitleCountColumn"
+msgstr "总下载量"
+
+msgid "ScormContentColumn"
+msgstr "标题"
+
+msgid "ScormStudentColumn"
+msgstr "用户"
+
+msgid "ScormTitleColumn"
+msgstr "课程/步骤"
+
+msgid "ScormStatusColumn"
+msgstr "状态"
+
+msgid "ScormScoreColumn"
+msgstr "得分"
+
+msgid "ScormTimeColumn"
+msgstr "时间"
+
+msgid "ScormNeverOpened"
+msgstr "该课程不向此用户开放."
+
+msgid "WorkTitle"
+msgstr "标题"
+
+msgid "WorkAuthors"
+msgstr "作者"
+
+msgid "WorkDescription"
+msgstr "描述"
+
+msgid "informationsAbout"
+msgstr "学习跟踪"
+
+msgid "NoEmail"
+msgstr "未提供电子邮件"
+
+msgid "NoResult"
+msgstr "没有结果"
+
+msgid "Hits"
+msgstr "提示"
+
+msgid "LittleHour"
+msgstr "时"
+
+msgid "Last31days"
+msgstr "在最后的31天内"
+
+msgid "Last7days"
+msgstr "在最后的7天内"
+
+msgid "ThisDay"
+msgstr "今天"
+
+msgid "Logins"
+msgstr "登录"
+
+msgid "LoginsExplaination"
+msgstr "这是你在这段时间内用这个工具最后注册访问的列表."
+
+msgid "ExercicesResults"
+msgstr "测试成绩"
+
+msgid "At"
+msgstr "在"
+
+msgid "LoginTitleDateColumn"
+msgstr "日期"
+
+msgid "LoginTitleCountColumn"
+msgstr "访问"
+
+msgid "LoginsAndAccessTools"
+msgstr "登录并使用工具"
+
+msgid "WorkUploads"
+msgstr "上传贡献"
+
+msgid "ErrorUserNotInGroup"
+msgstr "非法用户: 此用户在小组中不存在."
+
+msgid "ListStudents"
+msgstr "小组中的用户列表"
+
+msgid "PeriodHour"
+msgstr "小时"
+
+msgid "PeriodDay"
+msgstr "日"
+
+msgid "PeriodWeek"
+msgstr "周"
+
+msgid "PeriodMonth"
+msgstr "月"
+
+msgid "PeriodYear"
+msgstr "年"
+
+msgid "NextDay"
+msgstr "明天"
+
+msgid "PreviousDay"
+msgstr "昨天"
+
+msgid "NextWeek"
+msgstr "下周"
+
+msgid "PreviousWeek"
+msgstr "上周"
+
+msgid "NextMonth"
+msgstr "下月"
+
+msgid "PreviousMonth"
+msgstr "上月"
+
+msgid "NextYear"
+msgstr "明年"
+
+msgid "PreviousYear"
+msgstr "去年"
+
+msgid "ViewToolList"
+msgstr "查看所有工具列表"
+
+msgid "ToolList"
+msgstr "所有工具列表"
+
+msgid "PeriodToDisplay"
+msgstr "期限"
+
+msgid "DetailView"
+msgstr "查看方式"
+
+msgid "BredCrumpGroups"
+msgstr "小组"
+
+msgid "BredCrumpGroupSpace"
+msgstr "小组区"
+
+msgid "BredCrumpUsers"
+msgstr "用户"
+
+msgid "AdminToolName"
+msgstr "管理统计"
+
+msgid "PlatformStats"
+msgstr "系统统计"
+
+msgid "StatsDatabase"
+msgstr "统计数据库"
+
+msgid "PlatformAccess"
+msgstr "系统权限"
+
+msgid "PlatformCoursesAccess"
+msgstr "课程权限"
+
+msgid "PlatformToolAccess"
+msgstr "按工具"
+
+msgid "HardAndSoftUsed"
+msgstr "国家 提供者 浏览器 操作系统 介绍者"
+
+msgid "StrangeCases"
+msgstr "问题个案"
+
+msgid "StatsDatabaseLink"
+msgstr "点击此处"
+
+msgid "CountCours"
+msgstr "按数量"
+
+msgid "CountCourseByFaculte"
+msgstr "课程数量-按分类排序"
+
+msgid "CountCourseByLanguage"
+msgstr "按语言"
+
+msgid "CountCourseByVisibility"
+msgstr "课程数量-按显示隐藏排序"
+
+msgid "CountUsersByCourse"
+msgstr "用户数量-按课程排序"
+
+msgid "CountUsersByFaculte"
+msgstr "用户数量-按分类排序"
+
+msgid "CountUsersByStatus"
+msgstr "用户数量-按状态排序"
+
+msgid "Access"
+msgstr "访问"
+
+msgid "Countries"
+msgstr "国家"
+
+msgid "Providers"
+msgstr "提供者"
+
+msgid "OS"
+msgstr "操作系统"
+
+msgid "Browsers"
+msgstr "浏览器"
+
+msgid "Referers"
+msgstr "介绍者"
+
+msgid "AccessExplain"
+msgstr "(当一位用户打开系统首页时)"
+
+msgid "TotalPlatformAccess"
+msgstr "总数"
+
+msgid "TotalPlatformLogin"
+msgstr "总数"
+
+msgid "MultipleLogins"
+msgstr "拥有相同<I>用户名</I>的帐号"
+
+msgid "MultipleUsernameAndPassword"
+msgstr "拥有相同<I>用户名</I>和相同<I>密码</I>的用户"
+
+msgid "MultipleEmails"
+msgstr "拥有相同<I>电子邮件</I>的帐户"
+
+msgid "CourseWithoutProf"
+msgstr "没有领导的课程"
+
+msgid "CourseWithoutAccess"
+msgstr "未使用课程"
+
+msgid "LoginWithoutAccess"
+msgstr "未使用登录"
+
+msgid "AllRight"
+msgstr "未发现问题"
+
+msgid "Defcon"
+msgstr "出现错误!!"
+
+msgid "NULLValue"
+msgstr "空(或NULL)"
+
+msgid "TrafficDetails"
+msgstr "流量明细"
+
+msgid "SeeIndividualTracking"
+msgstr "个别追踪请使用<A href=\"../user/user.php\">用户</A>工具."
+
+msgid "PathNeverOpenedByAnybody"
+msgstr "本路径从未开放."
+
+msgid "SynthesisView"
+msgstr "综合查看"
+
+msgid "Visited"
+msgstr "已访问"
+
+msgid "FirstAccess"
+msgstr "首次使用"
+
+msgid "LastAccess"
+msgstr "最后使用"
+
+msgid "Probationers"
+msgstr "学生"
+
+msgid "MoyenneTest"
+msgstr "测验平均"
+
+msgid "MoyCourse"
+msgstr "课程平均"
+
+msgid "MoyenneExamen"
+msgstr "测验平均"
+
+msgid "MoySession"
+msgstr "session 平均"
+
+msgid "TakenSessions"
+msgstr "被用 session"
+
+msgid "FollowUp"
+msgstr "跟进"
+
+msgid "Trainers"
+msgstr "导师"
+
+msgid "Administrators"
+msgstr "管理员"
+
+msgid "Tracks"
+msgstr "跟踪"
+
+msgid "Success"
+msgstr "成功"
+
+msgid "ExcelFormat"
+msgstr "Excel 格式"
+
+msgid "MyLearnpath"
+msgstr "我的学习路径"
+
+msgid "LastConnexion"
+msgstr "最近登录"
+
+msgid "LatestLogin"
+msgstr "最近登录"
+
+msgid "TimeSpentOnThePlatform"
+msgstr "用在平台上的时间"
+
+msgid "CourseTitle"
+msgstr "课程名称"
+
+msgid "NbStudents"
+msgstr "学员"
+
+msgid "AvgStudentsProgress"
+msgstr "进度"
+
+msgid "AvgCourseScore"
+msgstr "得分"
+
+msgid "AvgMessages"
+msgstr "信息"
+
+msgid "AvgAssignments"
+msgstr "作业"
+
+msgid "ToolsMostUsed"
+msgstr "最常使用工具"
+
+msgid "StudentsTracking"
+msgstr "学员报表"
+
+msgid "CourseTracking"
+msgstr "导师报表"
+
+msgid "LinksMostClicked"
+msgstr "最多访问链接"
+
+msgid "DocumentsMostDownloaded"
+msgstr "最多下载文档"
+
+msgid "TeacherInterface"
+msgstr "导师视图"
+
+msgid "AdminInterface"
+msgstr "管理视图"
+
+msgid "NumberOfSessions"
+msgstr "讲习班数目"
+
+msgid "YourCourseList"
+msgstr "你培训的平均值"
+
+msgid "CoachList"
+msgstr "导师列表"
+
+msgid "NoUsersInCourseTracking"
+msgstr "已注册到此课程的学员跟踪"
+
+msgid "AvgTimeSpentInTheCourse"
+msgstr "时间"
+
+msgid "DisplayCoaches"
+msgstr "导师概要"
+
+msgid "DisplayUserOverview"
+msgstr "用户概要"
+
+msgid "ExportUserOverviewOptions"
+msgstr "用户概要导出选项"
+
+msgid "TotalExercisesScoreObtained"
+msgstr "所得总分"
+
+msgid "TotalExercisesScorePossible"
+msgstr "可能得分"
+
+msgid "TotalExercisesAnswered"
+msgstr "回答数目"
+
+msgid "TotalExercisesScorePercentage"
+msgstr "分数比例"
+
+msgid "ForumForumsNumber"
+msgstr "论坛数目"
+
+msgid "ForumThreadsNumber"
+msgstr "话题数目"
+
+msgid "ForumPostsNumber"
+msgstr "回复数目"
+
+msgid "ChatConnectionsDuringLastXDays"
+msgstr "距离上次到聊天室的日子%s天"
+
+msgid "CourseInformation"
+msgstr "课程信息"
+
+msgid "SendNotification"
+msgstr "通知"
+
+msgid "TimeOfActiveByTraining"
+msgstr "培训时间"
+
+msgid "AvgAllUsersInAllCourses"
+msgstr "全部学员的平均值"
+
+msgid "AvgExercisesScore"
+msgstr "测试成绩"
+
+msgid "ResourcesTracking"
+msgstr "资源使用报表"
+
+msgid "MdCallingTool"
+msgstr "文档"
+
+msgid "NotInDB"
+msgstr "没有此链接分类"
+
+msgid "ManifestSyntax"
+msgstr "（语法错误在显示文件中...）"
+
+msgid "EmptyManifest"
+msgstr "空的 manifest 文件...）"
+
+msgid "NoManifest"
+msgstr "（无 manifest 文件...)"
+
+msgid "NotFolder"
+msgstr "不可能，它不是一个文件夹..."
+
+msgid "UploadHtt"
+msgstr "上传 HTT 文件"
+
+msgid "HttFileNotFound"
+msgstr "新的 HTT 文件无法打开（因为空或太大）"
+
+msgid "HttOk"
+msgstr "新 HTT 文件已经上传"
+
+msgid "HttNotOk"
+msgstr "上传 HTT 文件失败"
+
+msgid "RemoveHtt"
+msgstr "删除 HTT 文件"
+
+msgid "HttRmvOk"
+msgstr "HTT 文件已被删除"
+
+msgid "HttRmvNotOk"
+msgstr "删除 HTT 文件失败"
+
+msgid "AllRemovedFor"
+msgstr "所有条目的分类都被移走"
+
+msgid "Index"
+msgstr "索引词"
+
+msgid "MainMD"
+msgstr "开启主要 MDE"
+
+msgid "Lines"
+msgstr "行"
+
+msgid "Play"
+msgstr "执行 index.php"
+
+msgid "NonePossible"
+msgstr "不可能执行任何 MD 行动"
+
+msgid "OrElse"
+msgstr "选择一个链接分类"
+
+msgid "WorkWith"
+msgstr "在 Scorm 路径中运行"
+
+msgid "SDI"
+msgstr "... 有 SD-id 的 Scorm 路径（清楚分开 - 或保持为空）"
+
+msgid "Root"
+msgstr "根目录"
+
+msgid "SplitData"
+msgstr "分离 manifest 和#MDe,  如有:"
+
+msgid "MffNotOk"
+msgstr "替换 manifest 文件失败"
+
+msgid "MffOk"
+msgstr "已替换 manifest 文件"
+
+msgid "MffFileNotFound"
+msgstr "新的 manifest 文件无法开启（可能是空或太大）"
+
+msgid "UploadMff"
+msgstr "替换 manifest 文件"
+
+msgid "GroupSpaceLink"
+msgstr "小组空间"
+
+msgid "CreationSucces"
+msgstr "内容表格创建成功."
+
+msgid "CanViewOrganisation"
+msgstr "你可以查看你的组织"
+
+msgid "ViewDocument"
+msgstr "查看"
+
+msgid "HtmlTitle"
+msgstr "内容表格"
+
+msgid "AddToTOC"
+msgstr "添加内容"
+
+msgid "AddChapter"
+msgstr "添加章节"
+
+msgid "Ready"
+msgstr "生成内容表格"
+
+msgid "StoreDocuments"
+msgstr "存储文档"
+
+msgid "TocDown"
+msgstr "向下"
+
+msgid "TocUp"
+msgstr "向上"
+
+msgid "CutPasteLink"
+msgstr "全屏显示"
+
+msgid "CreatePath"
+msgstr "新建路径"
+
+msgid "SendDocument"
+msgstr "上传文件"
+
+msgid "ThisFolderCannotBeDeleted"
+msgstr "这个文件夹不能删除"
+
+msgid "ChangeVisibility"
+msgstr "改变是否可见"
+
+msgid "VisibilityCannotBeChanged"
+msgstr "可见性不能改变"
+
+msgid "DocumentCannotBeMoved"
+msgstr "此文档不能移动"
+
+msgid "OogieConversionPowerPoint"
+msgstr "Oogie : 幻灯片转换功能"
+
+msgid "WelcomeOogieSubtitle"
+msgstr "幻灯片到学习路径的转换器"
+
+msgid "GoMetadata"
+msgstr "转到"
+
+msgid "QuotaForThisCourseIs"
+msgstr "这门课程的磁盘配额是"
+
+msgid "Del"
+msgstr "删除"
+
+msgid "ShowCourseQuotaUse"
+msgstr "显示课程磁盘配额"
+
+msgid "CourseCurrentlyUses"
+msgstr "目前参加课程的用户"
+
+msgid "MaximumAllowedQuota"
+msgstr "你的存储限制是"
+
+msgid "PercentageQuotaInUse"
+msgstr "已用磁盘配额的百分比"
+
+msgid "PercentageQuotaFree"
+msgstr "空闲磁盘配额的百分比"
+
+msgid "CurrentDirectory"
+msgstr "当前目录"
+
+msgid "UplUploadDocument"
+msgstr "上传文档"
+
+msgid "UplPartialUpload"
+msgstr "仅部分文上传."
+
+msgid "UplExceedMaxPostSize"
+msgstr "文件大小超过限制:"
+
+msgid "UplExceedMaxServerUpload"
+msgstr "上传的文件超过服务器允许的文件大小:"
+
+msgid "UplUploadFailed"
+msgstr "上传文件失败."
+
+msgid "UplNotEnoughSpace"
+msgstr "磁盘空间不足, 无法此上传文件."
+
+msgid "UplNoSCORMContent"
+msgstr "没有发现SCORM内容."
+
+msgid "UplZipExtractSuccess"
+msgstr "成功解压ZIP文件."
+
+msgid "UplZipCorrupt"
+msgstr "不能解压zip文件 (文件损坏?)"
+
+msgid "UplFileSavedAs"
+msgstr "文件另存为"
+
+msgid "UplFileOverwritten"
+msgstr "已覆盖."
+
+msgid "CannotCreateDir"
+msgstr "无法新建目录."
+
+msgid "UplUpload"
+msgstr "上传"
+
+msgid "UplWhatIfFileExists"
+msgstr "如果文件已存在:"
+
+msgid "UplDoNothing"
+msgstr "不操作"
+
+msgid "UplDoNothingLong"
+msgstr "如果文件已存在不要上传"
+
+msgid "UplOverwrite"
+msgstr "覆盖"
+
+msgid "UplOverwriteLong"
+msgstr "覆盖现有文件"
+
+msgid "UplRename"
+msgstr "重命名"
+
+msgid "UplRenameLong"
+msgstr "如果存在重名, 重命名上传的文件"
+
+msgid "DocumentQuota"
+msgstr "文档磁盘配额"
+
+msgid "NoDocsInFolder"
+msgstr "没有可显示的文档."
+
+msgid "UploadTo"
+msgstr "上传到"
+
+msgid "fileModified"
+msgstr "文件已修改"
+
+msgid "DocumentsOverview"
+msgstr "查看文档"
+
+msgid "Options"
+msgstr "选项"
+
+msgid "WelcomeOogieConverter"
+msgstr "欢迎使用Chamilo RAPID<ul type=\"1\"><li>从电脑上选择.ppt 或 .odp文件<li>上传到Oogie. 它将转换成Scorm课程.<li>你将可以添加声音评论, 测试或者其它事件到页面中."
+
+msgid "ConvertToLP"
+msgstr "转换为学习路线"
+
+msgid "AdvancedSettings"
+msgstr "高级设置"
+
+msgid "File"
+msgstr "文件"
+
+msgid "DocDeleteError"
+msgstr "删除文档出错"
+
+msgid "TemplateTitleGlossary"
+msgstr "词汇表"
+
+msgid "TemplateTitleCourseTitle"
+msgstr "课程标题"
+
+msgid "CreateTemplate"
+msgstr "创建模板"
+
+msgid "SharedFolder"
+msgstr "共享文件夹"
+
+msgid "CreateFolder"
+msgstr "创建文件夹"
+
+msgid "TemplateImage"
+msgstr "模板的图标"
+
+msgid "MailingSend"
+msgstr "确定"
+
+msgid "SentOn"
+msgstr "在"
+
+msgid "ThereAreNoRegisteredDatetimeYet"
+msgstr "暂时没有注册的日期"
+
+msgid "CalendarList"
+msgstr "出勤日历表"
+
+msgid "AttendanceCalendarDescription"
+msgstr "出勤日历允许你注册考勤表。添加新的考勤表。"
+
+msgid "CleanCalendar"
+msgstr "清除日历"
+
+msgid "AddDateAndTime"
+msgstr "添加时间"
+
+msgid "AttendanceSheet"
+msgstr "考勤页面"
+
+msgid "GoToAttendanceCalendar"
+msgstr "转到出勤日历"
+
+msgid "AttendanceCalendar"
+msgstr "出勤日历"
+
+msgid "QualifyAttendanceGradebook"
+msgstr "在成绩单中加入考勤表"
+
+msgid "CreateANewAttendance"
+msgstr "创建考勤表"
+
+msgid "Attendance"
+msgstr "考勤"
+
+msgid "ReceivedFiles"
+msgstr "收到的文件"
+
+msgid "SentFiles"
+msgstr "已发出的文件"
+
+msgid "ReceivedTitle"
+msgstr "主题"
+
+msgid "SentTitle"
+msgstr "主题"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "LastResent"
+msgstr "最后发出于"
+
+msgid "kB"
+msgstr "kB"
+
+msgid "UploadNewFile"
+msgstr "发送一份新文件"
+
+msgid "Feedback"
+msgstr "反馈"
+
+msgid "FeedbackError"
+msgstr "回馈错误"
+
+msgid "FilesMoved"
+msgstr "被选的文件已被移动。"
+
+msgid "AddNewCategory"
+msgstr "添加新的文件夹"
+
+msgid "EditCategory"
+msgstr "修改类别"
+
+msgid "MdTitle"
+msgstr "学习对象标题"
+
+msgid "MdDescription"
+msgstr "保存这条信息，请点击保存按钮"
+
+msgid "MdCoverage"
+msgstr "例如：学士的..."
+
+msgid "MdCopyright"
+msgstr "例如：提供公认的原始资料"
+
+msgid "NoScript"
+msgstr "脚本在浏览器中无法运行，请忽略这段文本以下的屏幕内容，无法正常显示..."
+
+msgid "LanguageTip"
+msgstr "在这部分学习对象中语言已经被定义"
+
+msgid "Identifier"
+msgstr "标识符"
+
+msgid "IdentifierTip"
+msgstr "学习对象的唯一标识符是由字母、数字及_-.()'!*组成"
+
+msgid "TitleTip"
+msgstr "标题或名字，标题或名字的语言"
+
+msgid "DescriptionTip"
+msgstr "描述和注释，以及描述这个学习对象的语言"
+
+msgid "Keyword"
+msgstr "关键词"
+
+msgid "KeywordTip"
+msgstr "用逗号分割(字母、数字,-.)"
+
+msgid "Coverage"
+msgstr "覆盖"
+
+msgid "CoverageTip"
+msgstr "例如文理学士的xxx: yyy"
+
+msgid "KwNote"
+msgstr "如果您改变了描述语言，请不要同时加上关键字。"
+
+msgid "Location"
+msgstr "网址"
+
+msgid "LocationTip"
+msgstr "点击打开对象"
+
+msgid "Store"
+msgstr "保存"
+
+msgid "DeleteAll"
+msgstr "删除所有元数据"
+
+msgid "ConfirmDelete"
+msgstr "你确定要删除所有元数据吗？"
+
+msgid "WorkOn"
+msgstr "在"
+
+msgid "Continue"
+msgstr "继续"
+
+msgid "Create"
+msgstr "新建"
+
+msgid "RemainingFor"
+msgstr "废除的分类被移走"
+
+msgid "WarningDups"
+msgstr "- 已经从列表中删除了重复的分类名！"
+
+msgid "SLC"
+msgstr "启用链接分类名称"
+
+msgid "TermAddNew"
+msgstr "添加新名词"
+
+msgid "TermName"
+msgstr "名词"
+
+msgid "TermDefinition"
+msgstr "名词定义"
+
+msgid "TermDeleted"
+msgstr "名词已删除"
+
+msgid "TermUpdated"
+msgstr "名词已更新"
+
+msgid "TermConfirmDelete"
+msgstr "你是否想删除此名词"
+
+msgid "TermAddButton"
+msgstr "保存名词"
+
+msgid "TermUpdateButton"
+msgstr "更新名词"
+
+msgid "TermEdit"
+msgstr "修改名词"
+
+msgid "TermDeleteAction"
+msgstr "删除名词"
+
+msgid "PreSelectedOrder"
+msgstr "预定义"
+
+msgid "TermAdded"
+msgstr "名词已添加"
+
+msgid "YouMustEnterATermName"
+msgstr "你需要输入一个名称"
+
+msgid "YouMustEnterATermDefinition"
+msgstr "你需要输入一个名词定义"
+
+msgid "TableView"
+msgstr "表格视图"
+
+msgid "GlossaryTermAlreadyExistsYouShouldEditIt"
+msgstr "这个名词已存在. 请更改新的名称."
+
+msgid "GlossaryManagement"
+msgstr "名词管理"
+
+msgid "TermMoved"
+msgstr "名词已移动"
+
+msgid "HFor"
+msgstr "论坛帮助"
+
+msgid "ForContent"
+msgstr "论坛是异步讨论工具. 电子邮件是一对一的对话方式, 而论坛则使得公共对话或者半公共(组)对话成为可能.<p>从技术上讲, 用户只要使用浏览器就可以使用Dokeos论坛.</p><p>要组织论坛, 请点击'论坛管理'. 论坛按照类和子类以如下方式组织起来:</p><p><b>分类 > 论坛 > 话题 > 回复</b></p>为使学生的讨论有一个清晰的结构, 预先组织分类和论坛是必要的, 然后让学生来发表话题和回复. Chamilo论坛的默认设置只包含一个'Public'分类,一个论去样例和一个话题.<p>所以首先要做的事是删除话题样例, 更新第一个论坛的名称. 接下来,可以在'public'分类中按照小组或主题创建新的论坛来满足课程学习环境的需要.</p><p>不要混淆分类和论坛, 也不要忘记空的类别 (不含有论坛) 对学生是不可见的.</p><p>论坛简介可以是它的用户列表, 目标, 任务, 主题等等...</p> <p>小组论坛不能通过论坛工具创建, 但可以通过小组工具创建. 使用小组工具你可以决定所创建的论坛是私有论坛还是公开论坛.</p> <b>教育学的高级应用</b><p>一些教师/教练员使用论坛发布作业. 学生/学员提交作业答案. 教师/教练员点击编辑器按钮(黄色的笔), 然后启动所见即所得编辑器判作业 (使用颜色和下划线指出错误和正确的例子), 其他学生/学员从这个改正中受益."
+
+msgid "HDropbox"
+msgstr "投递箱"
+
+msgid "DropboxContent"
+msgstr "<p>投递箱是一个致力于点对点数据交换的内容管理工具. 任何类型的文件都可以接受 : Word, Excel, PDF 等等. 投递箱是以管理版本的方式管理文件以免相同名字的文件覆盖.</p> <p>投递箱显示了发给你的文件 (收件箱) 和你发给其他课程成员的文件 (发件箱). </p><p>如果接收或发送文件列表太长, 你可以从列表里删除所有的或一部分文件. 在别人可以看到这个文件时, 文件本身不能移除.</p> <p>发送文档给多个人, 你需要在多选框使用 CTRL+clic. 多选框是显示成员列表的框.</p>"
+
+msgid "HHome"
+msgstr "课程首页帮助"
+
+msgid "HomeContent"
+msgstr "<p>课程首页显示一系列工具 : 前言, 课程简介, 文件管理等. 这是一个模块化的页面 : 你可以在任何时间通过点击按钮隐藏/显示任何工具.</p> <B>导航</B><p>浏览课程有二个工具. 一个是在顶端左侧路径可以显示你所在课程的位置. 另一个在右侧, 你可以通过点击图标进入. 无论你选择左侧的课程代码 (常常是大写) 或者是左侧的图标, 你都会进入到你课程的首页. </p> <B>最佳实践</B><p>要想吸引你的学生, 最重要的是你的课程是动态的. 这就会使人感到显示器隐藏着某个人. 给人这种感觉的最快方法是至少每周通过编辑前言 (点击黄色的铅笔) 来告诉每一个人将要学习的内容是什么等等.</p> <p>想要创建课程可能需要通过以下步骤完成: <ol><li>在课程设置中,     检查课程开放 : 私有与注册 : 拒绝. 这样,     在创建过程中就没有人能够进入到你的课程中了;</li> <li>点击页面下面的灰色的链接以显示所有的工具;</li> <li>用工具     '填满' 你的课程, 比如内容、事件、指南、测验等;</li> <li>隐藏所有工具     : 从学生角度来看, 你的主页是空的;</li> <li>使用学习路径工具创建学生访问和学习的方式.     这样你使用其它的工具, 但不会在一开始就显示出来;</li> <li>点击你创建的学习路径旁边的眼睛图标     : 这个学习路径就会在你的主页上显示出来;</li> <li>你的课程准备已经完毕.     你的主页显示了一个前言.     然后有一个链接引导学生完成课程.点示学生示图（顶端右侧）以从学生的角度察看所准备的课程.</li></ol>"
+
+msgid "HOnline"
+msgstr "视频会议系统帮助"
+
+msgid "OnlineContent"
+msgstr "<br><span style=\"font-weight: bold;\">简介 </span><br> <br> <div style=\"margin-left: 40px;\">Dokeos在线会议系统允许您以简单而快速的方法开展教学、通知或召集达500人.<br> </div> <ul> <ul> <li><b>实时视频 :</b> 教员的声音实时广播给学生,<br> </li> <li><b>幻灯片 :</b> 学生通过呈现在面前的Power Point或PDF学习,<br> </li> <li><b>互动 :</b> 学生可以通过聊天室提出问题.</li> </ul> </ul> <span style=\"font-weight: bold;\"></span><span style=\"font-weight: bold;\"><br> 学生 / 成员</span><br> <br> <div style=\"margin-left: 40px;\">要参加某一会议您需要:<br> </div> <br> <div style=\"margin-left: 40px;\">1. 音箱 (或耳机)连接到您的PC上<br> <br> <a href=\"http://www.logitech.com\"><img style=\"border: 0px solid ; width: 87px; height: 58px;\" alt=\"speakers\" src=\"../img/speaker.gif\"></a><br> <br> 2. Winamp 媒体播放器<br> <br> <a href=\"http://www.winamp.com\"><img style=\"border: 0px solid ; width: 87px; height: 27px;\" alt=\"Winamp\" src=\"../img/winamp.gif\"></a><br> <br> Mac : 使用 <a href=\"http://www.quicktime.com\">Quicktime</a><br> Linux : 使用 <a href=\"http://www.xmms.org/\">XMMS</a> <br> <br>"
+
+msgid "HClar"
+msgstr "Dokeo 帮助"
+
+msgid "HDoc"
+msgstr "文档帮助"
+
+msgid "DocContent"
+msgstr "<p>文档管理工具类似桌面电脑应用中的文件管理器.</p><p>您可以上传各种格式(HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime,等等)的文件,需要注意的是学生必须有相应的软件读取这些材料.而且,有些文件可能会携带病毒, 不要上传这样的文件也是您的责任.建议预先用杀毒软件检查后在上传.</p> <p>文件以字母顺序排列.<br><br><b>提示 : </b>如果您需要以不同的顺序显示,在文件名中添加数字: 01, 02, 03...或者使用学习路径给出较复杂的表格内容. 文档上传后, 可以使用显示隐藏工具决定是否在主页面上显示(用主页上的桔黄色的工具添加链接)或者在学习路径中显示文档内容.</p> <p>您可以:</p> <H4>新建文档</H4> <p>选定文档 > 命名 (无空格, 无标点) > 输入文本 > 使用Wysiwyg编辑器(所见即所得)按钮构建信息, 创建表格, 风格等. 要创建网页, 使需要明确3个概念 : 链接, 图片和表格. 网页能提供的页面要比Ms-Word少. 你可以从现有网页和Word文档中剪切和粘贴, 而不是在编辑器中新建文档. 这样可以容易而快速地把现有内容移植到Dokeos课程中. </p> <ul><li><b>添加链接</b>, 你可以把任何一个网址拷贝过来. 我们建议你同时打开两个浏览器窗口一个是你的dokeos课程,另一个用于浏览网站. 一旦你发现你要找的网页 (你的dokeos课程所需的网页), 拷贝它的网址 (CTRL+C 或 APPLE+C), 回到你的页面编辑器, 选定要链接的文本, 点击小的链接图标, 将网址粘贴到那里. 页面保存后, 测试一下链接看是否能打开目标. 你可以定义链接是在新建窗口打开还是在同一窗口打开.</li> <li><b>添加图片</b>, 与添加链接相似 : 同时打开两个窗口, 找到图片 (你的dokeos课程所需的图片, 选择 '无框架' 以使仅得到图片而不是内容), 拷贝网址 (在地址栏中选定整个网址然后 CTRL+C 或 APPLE+C) 然后返回页面编辑器, 将鼠标放到你希望图片所放的位置上, 点击树状图标并将图片的链接拷贝到链接栏中, 预览并确认. 在网页中, 你不能像在PowerPoint中那样重新定义尺寸, 也不能重新定位它在网页的任何一个位置.</li> <li><b>添加表格</b>, 将鼠标放在表格所要显示的位置, 在Wysiwyg编辑器菜单中选定表格图标, 确定行列数并提交. 要画一个好的表格, 我们建议你选择以下值 : border=1, cellspacing=0, cellpadding=4. 表格创建后是无法改变表格尺寸或者添加行列的 (这一点非常遗憾, 因为只是一个在线编辑器, 而不是word处理程序).</li> </ul> <h4>上传文档</h4> <ul> <li>选择您电脑上的文件, 点击右侧的 <input type=submit value=浏览 name=submit2> 按钮.</li> <li> 点击 <input type=submit value=上传 name=submit2> 按钮开始上传. </li> <li> 如果你的文档是zip文件或者是所谓的<b>Scorm content</b>内容, 请选中上传按钮下面的选项. Scorm内容比较特殊,少它是按照国际标准设计的 : <b>Scorm</b>. 它是一个专门为学习内容准备的特殊格式, 可以在不是学习管理系统中(LMS)自由交换. 换句话说, <b>Scorm</b> 资料具有平台独立性, 它们的导入和导出非常简单. </li> </ul> <h4> 重命名文档 (目录) </h4> <ul> <li> 在重命名栏中点击 <img src=../img/renommer.gif width=20 height=20 align=baseline> 按钮 </li> <li> 输入新名称 (左上) </li> <li> 点击 <input type=submit value=确定 name=submit24> 确认. </li> </ul> <h4> 删除文档 (目录) </h4> <ul> <li> 在删除栏中点击 <img src=../img/delete.gif width=20 height=20>. </li> </ul> <h4> 显示/隐藏文件 (或目录) </h4> <ul> <li> 在显示/隐藏栏中点击<img src=../img/visible.gif width=20 height=20>. </li> <li> 隐藏文件(或目录)后,它还是存在的,只是对学生已经不可见. </li> <li> 要再使其返回不可见状态, 在显击/隐藏栏中点击 <img src=../document/../img/invisible.gif width=24 height=20> </li> </ul> <h4> 为文件(或目录)添加或更新摘要 </h4> <ul> <li> 在摘要栏中点击<img src=../document/../img/comment.gif width=20 height=20></li> <li> 输入新摘要(右上). </li> <li> 点击<input type=submit value=确定 name=submit2> 确认.</li> </ul> <p> 删除摘要, 点击<img src=../document/../img/comment.gif width=20 height=20>, 删除旧摘要然后点击<input type=submit value=确定 name=submit22>. <hr> <p> 可以通过填写组织内容. 你可以: </p> <h4> <b> 新建目录 </b> </h4> <ul> <li> 点击 <img src=../document/../img/dossier.gif width=20 height=20> '创建目录' (左上) </li> <li> 输入新建目录名称 (左上) </li> <li> 点击 <input type=submit value=确定 name=submit23>确认. </li> </ul> <h4> 移动文档 (或目录) </h4> <ul> <li> 在移动栏中点击 <img src=../document/../img/deplacer.gif width=34 height=16> </li> <li> 在相应的菜单中(左上)选定文档(或目录)要移动的目标目录 (注:  '根' 的意思是服务器上你的文件目录树的最高一级). </li> <li> Validate by clicking on <input type=submit value=OK name=submit232>. </li> </ul> <h4> <b> 新建学习路径 </b> </h4>学习路径像一个内容表格, 也可以作为一个内容表格, 但它能提供更丰富的内容. 参见学习路径."
+
+msgid "HUser"
+msgstr "用户帮助"
+
+msgid "HExercise"
+msgstr "测验帮助"
+
+msgid "HPath"
+msgstr "学习路径帮助"
+
+msgid "HDescription"
+msgstr "课程简介帮助"
+
+msgid "HLinks"
+msgstr "链接工具帮助"
+
+msgid "HMycourses"
+msgstr "关于首页"
+
+msgid "HAgenda"
+msgstr "日程帮助"
+
+msgid "HAnnouncements"
+msgstr "通知帮助"
+
+msgid "HChat"
+msgstr "聊天室帮助"
+
+msgid "HWork"
+msgstr "作业论文帮助"
+
+msgid "HTracking"
+msgstr "学习跟踪帮助"
+
+msgid "PublishSurvey"
+msgstr "公布调查报告"
+
+msgid "CompareQuestions"
+msgstr "对比问题"
+
+msgid "InformationUpdated"
+msgstr "信息已更新"
+
+msgid "SurveyTitle"
+msgstr "调查标题"
+
+msgid "SurveyIntroduction"
+msgstr "调查介绍"
+
+msgid "CreateNewSurvey"
+msgstr "创建调查"
+
+msgid "SurveyTemplate"
+msgstr "调查报告模板"
+
+msgid "PleaseEnterSurveyTitle"
+msgstr "请输入调查报告的标题"
+
+msgid "PleaseEnterValidDate"
+msgstr "请输入有较日期"
+
+msgid "NotPublished"
+msgstr "未公布"
+
+msgid "AdvancedReportDetails"
+msgstr "高阶报告允许选择用户和问题以查看更多摘要信息"
+
+msgid "AdvancedReport"
+msgstr "高阶报告"
+
+msgid "CompleteReportDetails"
+msgstr "完成报告以查看问题的结果, 和导出到csv (用于Excel)"
+
+msgid "CompleteReport"
+msgstr "完成报告"
+
+msgid "OnlyThoseAddresses"
+msgstr "报告只发送到以下地址"
+
+msgid "BackToQuestions"
+msgstr "返回问题"
+
+msgid "SelectWhichLanguage"
+msgstr "选择调查报告使用的语言"
+
+msgid "CreateInAnotherLanguage"
+msgstr "用另一种语言创建调查报告"
+
+msgid "ExportInExcel"
+msgstr "导出到Excel格式"
+
+msgid "ComparativeResults"
+msgstr "可对比的结果"
+
+msgid "SelectDataYouWantToCompare"
+msgstr "选择你需要对比的结果"
+
+msgid "OrCopyPasteUrl"
+msgstr "或者复制链接到地址栏 :"
+
+msgid "ClickHereToOpenSurvey"
+msgstr "点击开始填写调报告"
+
+msgid "SurveyNotShared"
+msgstr "还没有调查报告被共享"
+
+msgid "ViewSurvey"
+msgstr "查看调查报告"
+
+msgid "SelectDisplayType"
+msgstr "选择显示的类型 :"
+
+msgid "Thanks"
+msgstr "反馈信息"
+
+msgid "SurveyReporting"
+msgstr "调查报告生成中"
+
+msgid "NoSurveyAvailable"
+msgstr "没可用的调查问卷"
+
+msgid "YourSurveyHasBeenPublished"
+msgstr "已公布"
+
+msgid "CreateFromExistingSurvey"
+msgstr "从现有的调查报告中创建"
+
+msgid "SearchASurvey"
+msgstr "搜索调查"
+
+msgid "SurveysOfAllCourses"
+msgstr "全部的调查"
+
+msgid "PleaseSelectAChoice"
+msgstr "请作出选择"
+
+msgid "ThereAreNoQuestionsInTheDatabase"
+msgstr "目前数据库中没有题目"
+
+msgid "UpdateQuestionType"
+msgstr "更新题目类型 :"
+
+msgid "AddAnotherQuestion"
+msgstr "添加新题目"
+
+msgid "IsShareSurvey"
+msgstr "和他人共享调查报告"
+
+msgid "Proceed"
+msgstr "继续"
+
+msgid "PleaseFillNumber"
+msgstr "请填入点数"
+
+msgid "PleaseFillAllPoints"
+msgstr "点数范围 1-5"
+
+msgid "PleasFillAllAnswer"
+msgstr "请填入答案."
+
+msgid "PleaseSelectFourTrue"
+msgstr "请选择至少四个正确答案."
+
+msgid "PleaseSelectFourDefault"
+msgstr "请选择至少四个默认答案."
+
+msgid "PleaseFillDefaultText"
+msgstr "请填入默认文本"
+
+msgid "ModifySurveyInformation"
+msgstr "修改调查信息"
+
+msgid "ViewQuestions"
+msgstr "查看题目"
+
+msgid "CreateSurvey"
+msgstr "创建调查"
+
+msgid "FinishSurvey"
+msgstr "完成调查"
+
+msgid "QuestionsAdded"
+msgstr "已添加题目"
+
+msgid "DeleteSurvey"
+msgstr "删除调查"
+
+msgid "SurveyCode"
+msgstr "代码"
+
+msgid "SurveyList"
+msgstr "调查列表"
+
+msgid "SurveyAttached"
+msgstr "调查已附加"
+
+msgid "QuestionByType"
+msgstr "题目类型"
+
+msgid "SelectQuestionByType"
+msgstr "选择题目类型"
+
+msgid "PleaseEnterAQuestion"
+msgstr "输入题目"
+
+msgid "NoOfQuestions"
+msgstr "问题数目"
+
+msgid "ThisCodeAlradyExists"
+msgstr "代码已存在"
+
+msgid "SaveAndExit"
+msgstr "保存并退出"
+
+msgid "ViewAnswers"
+msgstr "查看答案"
+
+msgid "CreateExistingSurvey"
+msgstr "从已有的调查中生成"
+
+msgid "SurveyName"
+msgstr "调查名称"
+
+msgid "SurveySubTitle"
+msgstr "调查子标题"
+
+msgid "ShareSurvey"
+msgstr "共享调查"
+
+msgid "SurveyThanks"
+msgstr "谢谢完成"
+
+msgid "EditSurvey"
+msgstr "修改调查"
+
+msgid "OrReturnToSurveyOverview"
+msgstr "或者返回调查概要"
+
+msgid "SurveyParametersMissingUseCopyPaste"
+msgstr "链接中有参数缺失. 请用复制和粘贴"
+
+msgid "WrongInvitationCode"
+msgstr "错误的邀请代码"
+
+msgid "SurveyFinished"
+msgstr "你已经完成这个调查."
+
+msgid "SurveyPreview"
+msgstr "调查预览"
+
+msgid "InvallidSurvey"
+msgstr "无效的调查"
+
+msgid "AddQuestion"
+msgstr "添加一个题目"
+
+msgid "EditQuestion"
+msgstr "修改题目"
+
+msgid "TypeDoesNotExist"
+msgstr "此类型不存在"
+
+msgid "SurveyCreatedSuccesfully"
+msgstr "调查成功创建"
+
+msgid "YouCanNowAddQuestionToYourSurvey"
+msgstr "你现在可添加问题到调查中"
+
+msgid "SurveyUpdatedSuccesfully"
+msgstr "调查成功更新"
+
+msgid "QuestionAdded"
+msgstr "题目已添加."
+
+msgid "QuestionUpdated"
+msgstr "题目已更新."
+
+msgid "RemoveAnswer"
+msgstr "删除选项"
+
+msgid "AddAnswer"
+msgstr "添加选项"
+
+msgid "DisplayAnswersHorVert"
+msgstr "显示"
+
+msgid "AnswerOptions"
+msgstr "答案选项"
+
+msgid "MultipleResponse"
+msgstr "多项选择"
+
+msgid "Dropdown"
+msgstr "下拉"
+
+msgid "Pagebreak"
+msgstr "分页 (独立问题)"
+
+msgid "QuestionNumber"
+msgstr "序号"
+
+msgid "NumberOfOptions"
+msgstr "选项"
+
+msgid "SurveyInvitations"
+msgstr "调查邀请"
+
+msgid "InvitationCode"
+msgstr "邀请代码"
+
+msgid "InvitationDate"
+msgstr "邀请日期"
+
+msgid "Answered"
+msgstr "已回答"
+
+msgid "AdditonalUsersComment"
+msgstr "你可以邀请其他用户去填写此调查. 去完成这步, 你可以在这里填写他们的电邮地址, 通过','或者';' 去分隔多个地址"
+
+msgid "MailTitle"
+msgstr "邮件标题"
+
+msgid "InvitationsSend"
+msgstr "邀请已发送."
+
+msgid "SurveyDeleted"
+msgstr "调查已删除."
+
+msgid "NoSurveysSelected"
+msgstr "没选中调查."
+
+msgid "NumberOfQuestions"
+msgstr "问题"
+
+msgid "Invited"
+msgstr "已邀请"
+
+msgid "SubmitQuestionFilter"
+msgstr "筛选"
+
+msgid "ResetQuestionFilter"
+msgstr "重设筛选条件"
+
+msgid "ExportCurrentReport"
+msgstr "导出目前的报告"
+
+msgid "OnlyQuestionsWithPredefinedAnswers"
+msgstr "只有带答案的题目才能使用"
+
+msgid "SelectXAxis"
+msgstr "选择在X轴上的问题"
+
+msgid "SelectYAxis"
+msgstr "选择在Y轴上的问题"
+
+msgid "ComparativeReport"
+msgstr "相当的报告"
+
+msgid "AllQuestionsOnOnePage"
+msgstr "这个页面显示用户所填表格"
+
+msgid "SelectUserWhoFilledSurvey"
+msgstr "选择填写此调查的用户"
+
+msgid "userreport"
+msgstr "用户报告"
+
+msgid "VisualRepresentation"
+msgstr "图表"
+
+msgid "AbsoluteTotal"
+msgstr "绝对总数"
+
+msgid "NextQuestion"
+msgstr "下个问题"
+
+msgid "PreviousQuestion"
+msgstr "前个问题"
+
+msgid "PeopleWhoAnswered"
+msgstr "选择这个答案的人群"
+
+msgid "SurveyPublication"
+msgstr "公布调查"
+
+msgid "AdditonalUsers"
+msgstr "其他用户"
+
+msgid "MailText"
+msgstr "邮件信息"
+
+msgid "UseLinkSyntax"
+msgstr "已选择用户将收到一封邮件, 包含上述文件和唯一的链接作为问卷调查. 假如你需要放置链接到其它文本中, 文本中需包含如: **链接** . 这将自动替换成唯的链接. 如果不添加这样的格式 **链接**, 电子邮件的链接将附加到邮件底部."
+
+msgid "DetailedReportByUser"
+msgstr "按用户方式显示详细报告"
+
+msgid "DetailedReportByQuestion"
+msgstr "按题目方式显示详细报告"
+
+msgid "ComparativeReportDetail"
+msgstr "在这份报告中, 你可以对照两个问题."
+
+msgid "CompleteReportDetail"
+msgstr "在这份报告中, 你可以得到一个概述关于全部用户在所有问题上的答案. 你也可以选择只看想要的问题. 也可以导出到CSV格式的文件用于其它的统计程序中"
+
+msgid "DetailedReportByUserDetail"
+msgstr "在这份报告中, 你可以查看指定用户的全部答案."
+
+msgid "DetailedReportByQuestionDetail"
+msgstr "在这份报告中, 你可以查看题目的结果. 提供了基本统计信息和图表"
+
+msgid "ReminderResendToAllUsers"
+msgstr "提醒全部用户关于这次的调查. 如果你不选择这个, 只有新加入用户会收到此提醒."
+
+msgid "Multiplechoice"
+msgstr "多选"
+
+msgid "Score"
+msgstr "得分"
+
+msgid "Invite"
+msgstr "邀请"
+
+msgid "MaximumScore"
+msgstr "分数"
+
+msgid "ViewInvited"
+msgstr "查看已邀请"
+
+msgid "ViewAnswered"
+msgstr "查看已回答用户"
+
+msgid "ViewUnanswered"
+msgstr "查看未回答用户"
+
+msgid "DeleteSurveyQuestion"
+msgstr "是否确定删除此问题?"
+
+msgid "YouAlreadyFilledThisSurvey"
+msgstr "你已填过此调查"
+
+msgid "ClickHereToAnswerTheSurvey"
+msgstr "点击回答调查问卷"
+
+msgid "UnknowUser"
+msgstr "未知用户"
+
+msgid "HaveAnswered"
+msgstr "已回答"
+
+msgid "WereInvited"
+msgstr "已被邀请"
+
+msgid "PagebreakNotFirst"
+msgstr "此页面不能作为首页面"
+
+msgid "PagebreakNotLast"
+msgstr "此页面不能作为末页面"
+
+msgid "SurveyNotAvailableAnymore"
+msgstr "对不起, 调查服务暂时无法使用. 请稍后尝试."
+
+msgid "DuplicateSurvey"
+msgstr "复制调查"
+
+msgid "EmptySurvey"
+msgstr "清空调查"
+
+msgid "SurveyEmptied"
+msgstr "答案已成功删除"
+
+msgid "SurveyNotAvailableYet"
+msgstr "调查暂时无法使用. 请稍后尝试. 谢谢."
+
+msgid "PeopleAnswered"
+msgstr "已作答的用户"
+
+msgid "AnonymousSurveyCannotKnowWhoAnswered"
+msgstr "匿名调查. 你不能查看作答用户."
+
+msgid "IllegalSurveyId"
+msgstr "未知调查ID"
+
+msgid "SurveyQuestionMoved"
+msgstr "题目已移动"
+
+msgid "IdenticalSurveycodeWarning"
+msgstr "调查的代码已存在. 这意味着调查存在于其它语系中. 被邀请用户可选择不同语言."
+
+msgid "ThisSurveyCodeSoonExistsInThisLanguage"
+msgstr "将添加此调查代码到这个语言中"
+
+msgid "SurveyUserAnswersHaveBeenRemovedSuccessfully"
+msgstr "成功删除用户答案."
+
+msgid "DeleteSurveyByUser"
+msgstr "删除用户答案"
+
+msgid "SelectType"
+msgstr "选择类型"
+
+msgid "Conditional"
+msgstr "条件"
+
+msgid "ParentSurvey"
+msgstr "家长调查"
+
+msgid "OneQuestionPerPage"
+msgstr "每页一个问题"
+
+msgid "ActivateShuffle"
+msgstr "允许乱序模式"
+
+msgid "ShowFormProfile"
+msgstr "显示概要表格"
+
+msgid "PersonalityQuestion"
+msgstr "编辑问题"
+
+msgid "YouNeedToCreateGroups"
+msgstr "你需要创建组别"
+
+msgid "ManageGroups"
+msgstr "管理级别"
+
+msgid "GroupCreatedSuccessfully"
+msgstr "级别成功创建"
+
+msgid "GroupNeedName"
+msgstr "需要名称"
+
+msgid "Personality"
+msgstr "个性化"
+
+msgid "Primary"
+msgstr "主要的"
+
+msgid "Secondary"
+msgstr "次要的"
+
+msgid "PleaseChooseACondition"
+msgstr "请选择一个条件"
+
+msgid "ChooseDifferentCategories"
+msgstr "选择不同类别"
+
+msgid "Normal"
+msgstr "正常"
+
+msgid "NoLogOfDuration"
+msgstr "此期间找不到记录"
+
+msgid "AutoInviteLink"
+msgstr "未被邀请用户可使用这个链接填写调查 :"
+
+msgid "CompleteTheSurveysQuestions"
+msgstr "完成调查题目"
+
+msgid "SurveysDeleted"
+msgstr "调查已删除"
+
+msgid "RemindUnanswered"
+msgstr "只提醒未作答用户"
+
+msgid "ModifySurvey"
+msgstr "编辑调查"
+
+msgid "CreateQuestionSurvey"
+msgstr "创建问题"
+
+msgid "ModifyQuestionSurvey"
+msgstr "编辑问题"
+
+msgid "BackToSurvey"
+msgstr "返回调查"
+
+msgid "UpdateInformation"
+msgstr "更新信息"
+
+msgid "PleaseFillSurvey"
+msgstr "请填写调查"
+
+msgid "ReportingOverview"
+msgstr "报告概述"
+
+msgid "GeneralDescription"
+msgstr "概要简介"
+
+msgid "GeneralDescriptionQuestions"
+msgstr "课程在计划中的什么位置? 有没有前提条件? 课程与其他的课程联系如何?"
+
+msgid "GeneralDescriptionInformation"
+msgstr "描述这门课程(学时, 代码, 教室)和教师(名字, 姓氏, 办公室, 电话, 电邮...)"
+
+msgid "Objectives"
+msgstr "目标"
+
+msgid "ObjectivesInformation"
+msgstr "展示课程的整体及详细目标"
+
+msgid "ObjectivesQuestions"
+msgstr "用户将在课程的完结时能做到什么? 课程过程中他们需要有什么样的创新?"
+
+msgid "Topics"
+msgstr "主题"
+
+msgid "TopicsInformation"
+msgstr "主体列表包含在课程之中. 每个主题的重点. 难易程度. 结构和相互独立的不同部分."
+
+msgid "TopicsQuestions"
+msgstr "课程的进程怎样? 用户需要特殊注意的地方是哪里? 这些问题如果在不同的章节中理解方面有什么区别吗? 用户在什么时间才能把精力放在不同的章节中去?"
+
+msgid "Methodology"
+msgstr "方法学"
+
+msgid "MethodologyQuestions"
+msgstr "用什么样的方法才能有助于达到课程目标? 和什么样的进度表?"
+
+msgid "MethodologyInformation"
+msgstr "活动呈现(会议, 论文, 小组调查, 实验室...)."
+
+msgid "CourseMaterial"
+msgstr "课程内容"
+
+msgid "CourseMaterialQuestions"
+msgstr "在网际网络里是否有课本, 论文, 自传或链接名单?"
+
+msgid "CourseMaterialInformation"
+msgstr "课程内容的简短描述."
+
+msgid "HumanAndTechnicalResources"
+msgstr "人力和技术资源"
+
+msgid "HumanAndTechnicalResourcesQuestions"
+msgstr "有教师, 助教, 技术支持, 社会主力, 以及计算机室吗?"
+
+msgid "HumanAndTechnicalResourcesInformation"
+msgstr "简要描述利用不同联系之间的人们和利用技术设备的的统一性."
+
+msgid "Assessment"
+msgstr "评估"
+
+msgid "AssessmentQuestions"
+msgstr "用户将如何评价? 用什么样的方法才使用户抓住主题?"
+
+msgid "AssessmentInformation"
+msgstr "举例测试问题. 正确标准. 提示以及窍门."
+
+msgid "Height"
+msgstr "高度"
+
+msgid "ResizingComment"
+msgstr "将图像的尺寸改编为下面的尺寸(用像素表示)"
+
+msgid "Width"
+msgstr "宽度"
+
+msgid "Resizing"
+msgstr "重新定义尺寸"
+
+msgid "NoResizingComment"
+msgstr "显示所有图像的原始尺寸, 没有重新定义尺寸, 如果图像大于显示器的尺寸滚动条将自动显示."
+
+msgid "ShowThumbnails"
+msgstr "显示略图"
+
+msgid "SetSlideshowOptions"
+msgstr "幻灯设置"
+
+msgid "SlideshowOptions"
+msgstr "幻灯选项"
+
+msgid "NoResizing"
+msgstr "不可重新定义尺寸(默认)"
+
+msgid "SlideShow"
+msgstr "幻灯"
+
+msgid "ViewSlideshow"
+msgstr "查看幻灯"
+
+msgid "MyTasks"
+msgstr "我的工作"
+
+msgid "FavoriteBlogs"
+msgstr "我喜爱的博客"
+
+msgid "Navigation"
+msgstr "导航"
+
+msgid "TopTen"
+msgstr "十大博客文章"
+
+msgid "ThisBlog"
+msgstr "本博客"
+
+msgid "NewPost"
+msgstr "新文章"
+
+msgid "TaskManager"
+msgstr "任务管理"
+
+msgid "MemberManager"
+msgstr "用户管理"
+
+msgid "PostFullText"
+msgstr "文本"
+
+msgid "ReadPost"
+msgstr "阅读此邮件"
+
+msgid "FirstPostText"
+msgstr "这是博客中的第一篇文章。现在每一个订阅此blog的人都可以参加"
+
+msgid "AddNewComment"
+msgstr "添加新注释"
+
+msgid "ReplyToThisComment"
+msgstr "提交此评论"
+
+msgid "ManageTasks"
+msgstr "管理任务"
+
+msgid "ManageMembers"
+msgstr "订阅/退订本博客的用户"
+
+msgid "Register"
+msgstr "注册"
+
+msgid "UnRegister"
+msgstr "注销"
+
+msgid "SubscribeMembers"
+msgstr "订阅用户"
+
+msgid "UnsubscribeMembers"
+msgstr "退订用户"
+
+msgid "RightsManager"
+msgstr "用户权限管理"
+
+msgid "ManageRights"
+msgstr "管理此博客的用户权限和角色"
+
+msgid "Task"
+msgstr "任务"
+
+msgid "Tasks"
+msgstr "任务"
+
+msgid "Member"
+msgstr "成员"
+
+msgid "Members"
+msgstr "成员"
+
+msgid "Role"
+msgstr "角色"
+
+msgid "Rate"
+msgstr "频率"
+
+msgid "AddTask"
+msgstr "添加新任务"
+
+msgid "AddTasks"
+msgstr "添加新任务"
+
+msgid "AssignTask"
+msgstr "分派任务"
+
+msgid "AssignTasks"
+msgstr "分派任务"
+
+msgid "EditTask"
+msgstr "编辑任务"
+
+msgid "DeleteTask"
+msgstr "删除任务"
+
+msgid "DeleteSystemTask"
+msgstr "这是一个预定的任务. 您不能删除预设任务."
+
+msgid "SelectUser"
+msgstr "用户"
+
+msgid "SelectTask"
+msgstr "任务"
+
+msgid "SelectTargetDate"
+msgstr "日期"
+
+msgid "TargetDate"
+msgstr "日期"
+
+msgid "Color"
+msgstr "颜色"
+
+msgid "TaskList"
+msgstr "任务清单"
+
+msgid "AssignedTasks"
+msgstr "分派任务"
+
+msgid "ArticleManager"
+msgstr "文章管理"
+
+msgid "CommentManager"
+msgstr "评论管理"
+
+msgid "BlogManager"
+msgstr "日志管理"
+
+msgid "ReadMore"
+msgstr "更多......"
+
+msgid "DeleteThisArticle"
+msgstr "删除文章"
+
+msgid "EditThisPost"
+msgstr "编辑"
+
+msgid "DeleteThisComment"
+msgstr "删除评论"
+
+msgid "NoArticles"
+msgstr "现在，没有文章。如果您是博客的作者，单击"
+
+msgid "NoTasks"
+msgstr "没有任务"
+
+msgid "Rating"
+msgstr "评级"
+
+msgid "RateThis"
+msgstr "评价"
+
+msgid "SelectTaskArticle"
+msgstr "为此任务选择文章"
+
+msgid "ExecuteThisTask"
+msgstr "执行任务"
+
+msgid "WrittenBy"
+msgstr "作者是"
+
+msgid "InBlog"
+msgstr "在此博客"
+
+msgid "ViewPostsOfThisDay"
+msgstr "查看今日发表文章"
+
+msgid "PostsOf"
+msgstr "分配任务到"
+
+msgid "NoArticleMatches"
+msgstr "找不到相关的任务，请检查拼写或尝试新的搜索"
+
+msgid "SaveProject"
+msgstr "保存工程"
+
+msgid "Task1"
+msgstr "任务 1"
+
+msgid "Task2"
+msgstr "任务 2"
+
+msgid "Task3"
+msgstr "任务 3"
+
+msgid "Task1Desc"
+msgstr "任务 1 描述"
+
+msgid "Task2Desc"
+msgstr "任务 2 描述"
+
+msgid "Task3Desc"
+msgstr "任务 3 描述"
+
+msgid "blog_management"
+msgstr "博客管理"
+
+msgid "Welcome"
+msgstr "欢迎 ！"
+
+msgid "Module"
+msgstr "模块"
+
+msgid "UserHasPermissionNot"
+msgstr "用户没有权限"
+
+msgid "UserHasPermission"
+msgstr "用户有权限"
+
+msgid "UserHasPermissionByRoleGroup"
+msgstr "用户有群组的权限"
+
+msgid "AddBlog"
+msgstr "创建新博客"
+
+msgid "EditBlog"
+msgstr "编辑标题和子标题"
+
+msgid "DeleteBlog"
+msgstr "删除博客"
+
+msgid "Shared"
+msgstr "共享"
+
+msgid "PermissionGrantedByGroupOrRole"
+msgstr "通过组别或角色授权"
+
+msgid "Reader"
+msgstr "读者"
+
+msgid "BlogDeleted"
+msgstr "工程已被删除"
+
+msgid "BlogEdited"
+msgstr "工程已被修改"
+
+msgid "BlogStored"
+msgstr "已添加工程"
+
+msgid "CommentCreated"
+msgstr "已保存评论"
+
+msgid "BlogAdded"
+msgstr "已添加文章"
+
+msgid "TaskCreated"
+msgstr "已添加任务"
+
+msgid "TaskEdited"
+msgstr "任务已修改"
+
+msgid "TaskAssigned"
+msgstr "已分配任务"
+
+msgid "AssignedTaskEdited"
+msgstr "已修改分配的任务"
+
+msgid "UserRegistered"
+msgstr "用户已注册"
+
+msgid "TaskDeleted"
+msgstr "任务已删除"
+
+msgid "TaskAssignmentDeleted"
+msgstr "分配的任务已删除"
+
+msgid "CommentDeleted"
+msgstr "评论已删除"
+
+msgid "RatingAdded"
+msgstr "评分已添加"
+
+msgid "ResourceAdded"
+msgstr "资源已添加. 你可以返回路径或添加更多资源."
+
+msgid "LearningPath"
+msgstr "学习路径"
+
+msgid "LevelUp"
+msgstr "上一级"
+
+msgid "AddIt"
+msgstr "添加"
+
+msgid "MainCategory"
+msgstr "主要分类"
+
+msgid "AddToLinks"
+msgstr "添加课程链接"
+
+msgid "DontAdd"
+msgstr "不添加"
+
+msgid "ResourcesAdded"
+msgstr "新资源已添加"
+
+msgid "ExternalResources"
+msgstr "外部资源"
+
+msgid "CourseResources"
+msgstr "课程资源"
+
+msgid "ExternalLink"
+msgstr "外部链接"
+
+msgid "DropboxAdd"
+msgstr "在此章中添加投递箱."
+
+msgid "AddAssignmentPage"
+msgstr "在此章中添加学生发表页."
+
+msgid "ShowDelete"
+msgstr "显示/删除"
+
+msgid "IntroductionText"
+msgstr "介绍文本"
+
+msgid "CourseDescription"
+msgstr "课程描述"
+
+msgid "IntroductionTextAdd"
+msgstr "在这章中添加一页说明文本."
+
+msgid "CourseDescriptionAdd"
+msgstr "在此章中添加一页课程简介."
+
+msgid "GroupsAdd"
+msgstr "在此章中添加组页面."
+
+msgid "UsersAdd"
+msgstr "在此章中添加用户页."
+
+msgid "ExportableCourseResources"
+msgstr "可导出的课程资源"
+
+msgid "LMSRelatedCourseMaterial"
+msgstr "Chamilo 相关课程资源"
+
+msgid "LinkTarget"
+msgstr "链接目标"
+
+msgid "SameWindow"
+msgstr "在同一窗口中"
+
+msgid "NewWindow"
+msgstr "在新建窗口中"
+
+msgid "StepDeleted2"
+msgstr "在此工具中项目已经被删除."
+
+msgid "Chapter"
+msgstr "章"
+
+msgid "AgendaAdd"
+msgstr "添加新日程"
+
+msgid "UserGroupFilter"
+msgstr "组/用户过滤"
+
+msgid "AgendaSortChronologicallyUp"
+msgstr "按时间排序日程(升序)"
+
+msgid "ShowCurrent"
+msgstr "显示本月日程"
+
+msgid "ModifyCalendarItem"
+msgstr "修改日程"
+
+msgid "Detail"
+msgstr "详细内容"
+
+msgid "EditSuccess"
+msgstr "日程已被编辑"
+
+msgid "AddCalendarItem"
+msgstr "添加新日程"
+
+msgid "AddAnn"
+msgstr "添加通知"
+
+msgid "ForumAddNewTopic"
+msgstr "论坛: 添加新话题"
+
+msgid "ForumEditTopic"
+msgstr "论坛: 编辑主题"
+
+msgid "ExerciseAnswers"
+msgstr "练习: 答案"
+
+msgid "ForumReply"
+msgstr "论坛: 回复"
+
+msgid "SendWork"
+msgstr "上传文件"
+
+msgid "TooBig"
+msgstr "你没有选择任何文件，或者文件太大"
+
+msgid "DocModif"
+msgstr "论文标题已修改"
+
+msgid "DocAdd"
+msgstr "作业已经上传。"
+
+msgid "DocDel"
+msgstr "文件已经删除"
+
+msgid "TitleWork"
+msgstr "文件标题"
+
+msgid "Authors"
+msgstr "作者"
+
+msgid "WorkDelete"
+msgstr "删除"
+
+msgid "WorkModify"
+msgstr "修改"
+
+msgid "WorkConfirmDelete"
+msgstr "你真的想要删除这个文件"
+
+msgid "AllFiles"
+msgstr "应用于本课程所有作业"
+
+msgid "DefaultUpload"
+msgstr "作业可见性的默认设置"
+
+msgid "NewVisible"
+msgstr "作业对所有人都可见"
+
+msgid "NewUnvisible"
+msgstr "作业只对课程管理员可见"
+
+msgid "MustBeRegisteredUser"
+msgstr "只有此课程的注册用户可以上传作业。"
+
+msgid "ListDel"
+msgstr "删除列表"
+
+msgid "CreateDirectory"
+msgstr "新建目录"
+
+msgid "CurrentDir"
+msgstr "当前目录"
+
+msgid "UploadADocument"
+msgstr "上传文档"
+
+msgid "EditToolOptions"
+msgstr "编辑工具选项"
+
+msgid "DocumentDeleted"
+msgstr "已删除文件"
+
+msgid "SendMailBody"
+msgstr "发件人"
+
+msgid "DirDelete"
+msgstr "删除目录"
+
+msgid "ValidateChanges"
+msgstr "验证变化"
+
+msgid "FolderUpdated"
+msgstr "文件夹已更新"
+
+msgid "EndsAt"
+msgstr "结束于(可完全关闭)"
+
+msgid "ExpiresAt"
+msgstr "过期于"
+
+msgid "DirectoryCreated"
+msgstr "文件夹已创建"
+
+msgid "MoveXTo"
+msgstr "移动 %s 到"
+
+msgid "AdminFirstName"
+msgstr "管理员名字"
+
+msgid "InstituteURL"
+msgstr "组织的网址"
+
+msgid "UserDB"
+msgstr "用户数据库"
+
+msgid "UserContent"
+msgstr "<B>角色</B> <P>角色没有计算机管理相关的功能. 这并不赋予谁系统操作的权力. 这只是告诉我们,每个人在教学过程中扮演的角色.您可以点击'角色'下面的'更新'来更新, 可以键入任何您认为的角色:教授, 助教, 学生, 过客, 专家...</P><HR><B>管理权力</B> <P>管理权利,另一方面,对应于系统操作权力,更新内容,组织课程网站等. 目前为之, 您只能选择赋予所有权力,或者相反,不赋予任何权力.</P><P>举例来说,使一位助教来共同管理网站,您需要确保他已在本课程注册,点击 '管理权力'下的'更新',然后选择'所有', '确认'即可.</P><HR><B>联合主讲</B> <P>为在课程网站显示联合主讲的名字,请使用'更新课程信息'工具(桔黄色). 这项更新并不为联合主讲在本课程注册.'教授'域和用户列表是相互独立的.</P><HR><B>增加用户</B> <P>为本课程增加一个用户,首先检查该用户是否已在虚拟校园注册.如果已经注册, 选择他名字旁边的选项格,然后'确认'. 如果还没有注册, 可以手工添加. 任何一种情况, 他都会收到一封含用户名和密码的确认邮件.</P>"
+
+msgid "GroupContent"
+msgstr "<P><B>介绍</B></P><P>在创建小组时，组是空的，有好几种方法填满小组： <UL><LI>自动（随机填满） <LI>手动(?#32534;辑?, <LI>用户自助注册(小组设置: ?#20801;许自助注册...?. </LI></UL>三种方法可以联合使用。例如，你可以要求使用者首先自助注册，然后发现他们中的一些没有注册，那么决定自动填满小组以便完成注册。在自助注册和自动填充之前或之后，你也可以编辑每一个小组，一个一个的排定用户。 <P>不管是自动或手动，如果用户已经注册到这个区域，小组填充才起作用。在用户工具，用户列表是可见的。 </P><HR noShade SIZE=1><P><B>创建小组</B></P><P>点击?#21019;建新组?#20197;及组的编号，就可以创建新组了。</P><HR noShade SIZE=1><P><B>小组设置</B></P><P>你可以设置小组全局设定(针对所有的小组). <B>允许用户在小组中自助注册</B>: <P>你创建空的小组，用户自助注册。如果你已经定义了一个最大值，填满的小组不能接受新的成员。这个方法对那些要创建小组而不知道用户列表的教师来说，是一个好的主意。</P>工具: <P>每个小组都拥有一个论坛（私人或公开）或一个文档区（一个共享文件管理器）或两者都有（大多数情况是这样）。</P><HR noShade SIZE=1><P><B>手动编辑</B></P><P>一旦小组被创建，在页面的底部，你可以看到小组设定工具 <UL><LI><B>编辑</B> 可以修改组名字，描述，助教，成员列表。 <LI><B>删除</B> 删除一个小组</LI></UL><HR noShade SIZE=1>"
+
+msgid "ExerciseContent"
+msgstr "<P>练习测试工具允许你创建包含有你想要的很多问题的测试<BR><BR>创建测试问题，有各种类型的试题答案：:<BR><BR><UL><LI>单项选择 <LI>多项选择 <LI>匹配 <LI>填空 </LI></UL>测试卷集合了一定数量的问题。 <HR>创建测试卷<P>I为了创建测试卷，在课程主页，选择\"测试练习\"，点击\"新的测试卷\"。<BR><BR>输入测试卷的名称<BR><BR>你可以增加音频或视频文件给听力理解等。等于是选择这些文件尽量小以便很容易的通过Web 浏览器下载，最好是MP3 文件或WAV 文件，因为，压缩率越高，文件尺寸越小。 <BR><BR>你可以在两种测试类型中选择：<BR><BR><UL><LI>问题在一页显示 <LI>每页一个问题(顺次排序) </LI></UL>一个问题一页然后确定在测试开始时，问题是否随机排序。<BR><BR>然后，点击确认保存测试卷。进入问题管理。 <HR>增加问题 <P>你可以增加问题到先前创建的测试卷，描述是可选的，和你的问题相关的图片也是可选的。</P><HR>选择题<P>为了创建一个单项选择题或多项选择题：<BR><BR><UL><LI>定义问题答案，你可以通过点击+/-按钮，增加或删减问题答案 <LI>选择正确答案 <LI>增加可选的注释，用户回答了问题以后，这个注释才能被看到 <LI>给每一个问题一个分值。分值可以是正整数或负整数或零。保存练习之后，你可以调整分数机制。 <LI>保存答案 </LI></UL><HR>填空 <P>允许你创建一个文本空缺，目标就是让用户填入你已从文本中移走的单词。<BR><BR>为了从文本中移走单词，创建一个空缺，把单词放在中括号之间。<BR><BR>一旦文本输入和空缺定义以后，你可以增加注释，当学生回到问题后，学生可以看到注释。<BR><BR>保存你的文本，然后你将进入下一步，给予每一个空缺一个分值。例如，如果问题是10 分，你有5 个空缺，你可以给予一个空缺2 分。</P><HR><B>匹配</B><P>当用户需要从一个单元的元素连接另外一个单元的元素时，这种答案类型可以被选择创建问题。<BR><BR>当用户要求排序时，也可被选择。<BR><BR>首先定义正确答案的选项，然后定义连接到刚刚定义的选项的问题，最后，通过选择下拉菜单，链接第一个单元和第二个单元。<BR><BR>注意：第一个单元的元素可以指向第二个单元同一个元素。<BR><BR>给每一个正确的匹配一个分值，保存你的问题。</P><HR><B>练习测试修改</B><P>修改测试，和创建测试一样，点击要修改的测试下面的 <IMG src='\"../img/edit.gif\"' align='\"absmiddle\"' border='\"0\"'> 图标修改.</P><HR><B>删除测试</B><P>删除测试，点击要删除的测试下面的 <IMG src='\"../img/delete.gif\"' align='\"absmiddle\"' border='\"0\"'> 图标。</P><HR><B>显示测试</B><P>在测试名称下面，点击图标 <IMG src='\"../img/invisible.gif\"' align='\"absmiddle\"' border='\"0\"'> ，使测试可用。</P><HR><B>运行测试</B> <P>点击测试名称来测试你的练习。</P><HR><B>随机问题</B><P>在测试创建或修改时，你能告诉你想你的问题在所有测试问题中是一个随机的顺序显示。<BR><BR>通过使用这个操作，当每次运行测试时，问题可以以一个不同的顺序出现。<BR><BR>如果你有一个试题库，你也可以选择在所有问题中随机抽出X个问题。</P><HR>问题池<P>当你删除一个测试时，他的问题不能从数据库中移除，通过问题工具，他们可以被重新使用到另外一个测试中。<BR><BR>问题工具允许你使用一样的问题到很多测试中。<BR><BR>默认，所有问题是隐藏的。你可以在过滤下拉菜单选择你的测试涉及的问题。<BR><BR>孤立问题是不属于任何测试的问题。</P>添加问题 <HR><B>HotPotatoes试题</B><P>你可以导入HotPotatoes试题到Dokeos中。测题结果的存放方法和Dokeos试题一样。在用户跟踪工具中你可以察看测试结果。在单独测试中，我们建议使用 html或htm格式, 如果包含图乍，用压缩文件上传是一个较为方便的方法。</P><P>注: 同样你可以添加HotPotatoes试题在学习路径中。</P><B>导入方法</B> <UL><LI>点击浏览按钮，<INPUT type=submit value=Browse name=submit2> 在显示器右侧从你本地计算机选择文件。 <LI>点击上传按钮弹出上传对话框<INPUT type=submit value=Upload name=submit2>。 <LI>你可以通过点击试题名打开试题。 </LI></UL><BR><B>有用链接</B><BR><UL><LI>Hot Potatoes home page : <A href=\"%22http:/web.uvic.ca/hrd/halfbaked/%22\">http://web.uvic.ca/hrd/halfbaked/</A> </LI></UL>"
+
+msgid "PathContent"
+msgstr "学习路径有两个功能： <UL><LI>创建学习路径 <LI>上传一个SCORM或IMS格式的学习路径</LI></UL><IMG src=\"../img/path_help.gif\"> <P><B>什么是学习路径？</B> </P><P>学习路径是一个模块化的学习步骤序列。它是基于内容的（看起来像一个内容表格）、活动的。就像教学机计划或一个指导你测试或练习知识点的的程序。</P><P>除了构造之外，学习路径也是有序列的。这个意思是说你完成一个步骤以后才能进行第二个步骤。序列会提示你（你应该完成一个步骤再做下一个）或命令你（你增加先决条件以便强迫学生完成序列）。 </P><P><B>怎样创建自己的学习路径？</B></P><P>第一步是前往学习路径创建区域。在学习路径屏幕，有一个创建学习路径的链接，在这里，你可以通过点击\"增加一个新的学习路径\"创建很多学习路径，但是在你增加模块和步骤到学习路径之前，他们是空的。<BR>如果你设置了显示路径，那么它作为一个新的工具出现在课程主页上。</P><P><B>路径的步骤是什么 (能够增加什么项目)</B></P><P>所有Dokeos 工具，事件和你认为有用和和你设计的路径关联的内容都可以加入：<BR><UL><LI>教学计划 <LI>文档（文本，图片，OFFICE文档） <LI>通知 <LI>整个论坛 <LI>主题 <LI>个人主题消息 <LI>链接 <LI>Dokeos测试 <LI>HotPotatoes测试 <BR>（注：在呈现他们之前，你必须在自测工具里设置显示测试） <LI>发布作业 <LI>收件箱 <LI>链接到系统外的外部链接</LI></UL><P><B>学习路径的其他特点</B> </P><P>你设置预先的路径后，学生被以一个既定的顺序去执行你的路径。这个意思就是，学生在没有读完文档1之前不能进入测试2。所有的条目都有一个状态：完成或为完成，因此，学生的进程是清楚可见的。 </P><P>如果你修改步骤的原始标题，新的标题将出现在通路中，但是原始标题不能够被探测到。因此，如果你想要test8.doc 作为期末测试出现在通路中，你必须重命名这个文件，使通路中出现一个新的名字。修改文件名对文件名太长也是有益的。 </P><P>做完后，不要忘记核查学生视图。内容表格出现在左边，通路步骤一般一个接一个出现在右边。 </P><BR><P><B>什么是SCORM 或IMS 格式的学习路径和怎样上传（导入）他们？</B> </P><P>学习路径工具允许你上传SCORM 和IMS 兼容的课程内容。</P><P>SCORM（可扩展内容对象参考模型）是一个由主要的E－Learning 厂商像 NETg，Macromedia，Microsoft，Skillsoft 等遵循的公共标准。有三个特性： </P><UL><LI><B>经济性：</B>通过分离内容和内容框架，Scorm允许整个课程或小内容单元在不同的学习内容管理平台之间可重复使用。 <LI><B>教育性：</B>Scorm集成了序列或顺序概念（例如：在没有通过测试1 ，你不能前往第2 章） <LI><B>先进性：</B>Scorm创造了一个内容表格，它是一个位于课程内容和LSM平台之外的抽象层。它有助于课程内容和LMS互相通讯。沟通的东西主要是书签（张三在课程的哪里？）、得分（张三怎样通过考试的？）和时间（张三做完第一章用了多长时间？）。 </LI></UL><B>怎样创建SCORM兼容的学习路径?<BR></B><BR>最普通的方法是使用网络教学平台学习路径编辑器，然而，在上传到你的网络教学平台之前，在你自己的计算机上，你或许想要创建完全Scorm兼容的网站。这种情况下，我们推荐你使用一个复杂的工具像Lectora"
+
+msgid "DescriptionContent"
+msgstr "<P>课程描述工具允许你描述你的课程。将来学生可以对你的课程有一个轮廓。他也是一个你重新设计课程的机会。</P>在这里，有建议的标题。如果你想要用自己创建的标题，仅仅选择\"其他\"，填入你的标题。 <P>为了填充课程描述，选择创建和编辑课程描述>下拉菜单，选择你要的项目>填充表格>确认。点击铅笔或红叉图标，你可以随时修改或删除每一个项目的内容。</P>"
+
+msgid "LinksContent"
+msgstr "<P>链接工具允许你为学生创建一个资源库。尤其你不可以自己创建资源。</P><P>随着列表的增长，分类链接有助于你的学生在正确的地方找到正确的信息。你可以编辑每一个链接，重新指派到一个新的分类（你需要首先创建这个分类）。</P><P>描述区域既可以提供目标Web页的预先信息，也可以描述你期望学生用这个链接做什么。例如，你在亚里斯多德上设置了链接，描述或许要求学生学习合成和分解的不同。</P>"
+
+msgid "MycoursesContent"
+msgstr "<P>进入平台后，你就会在个人开始页面。</P><P>在主区域(中间)会看到 \"<B>我的课程列表</B>\", 你所有课程的列表。如果你的用户权限可以成为教师的话，你可以创建新的课程 (通过右侧的菜单)。 </P><P>在顶端你可看到 <UL><LI>\"<B>个人设置</B>\": 使用个人设置修改你的密码，用户名，头像，或其它设置。你也可以察看个人状态； <LI>\"<B>我的日程</B>\": 我的日程包含了你注册之后所有课程事件。</LI></UL><P><B>编辑我的课程列表</B>, 在右侧菜单中，你可以以一个教师或组织者的身份注册一个新的课程并允许别人加入到你的课程中。这个工具也允许你退出某一课程。 </P><P>在 <B>支持论坛</B> 和 <B>文件</B> 链接中，链接到 Chamilo 主页, 在那儿你可以询问技术问题或教学问题，查找更多的信息。进入一个课程（你主页的主区域), 点击各个名称。你就可以从一个课程转到另一个课程中。在某一课程中你是教师，而在另一课程中，你就可能是学生。</P>"
+
+msgid "AgendaContent"
+msgstr "<P>每一门课程网站都有教学计划，作为学生综合工具是\"我的日历\"，它在网页的顶部。</P><P>在课程网站里，教学计划显示了所有事件列表。你可以粘贴文档或活动到一个日期，以便使用教学计划顺序安排你的教学活动。</P><P>教学计划除了安排事件以外，学生下次登录时，新的教学计划事件将展现给学生，系统告诉学生自他上次访问以来在教学计划（或通知）里增加了什么。在课程门户网页里，课程名的旁边，将有一个表示通知或事件增加的小图标。</P><P>如果你想要相继的教学活动逻辑结构更有前瞻性，我们建议，你适宜使用学习通路，它用更高级的功能提供一样的原理。学习通路可以当作是一个综合表格内容工具+教学计划+序列（强加的顺序）和跟踪。</P>"
+
+msgid "AnnouncementsContent"
+msgstr "<P>通知工具允许你发送Email 给所有的学生或一部分学生或一组学生。如果学生不经常访问你的课程网站，通知工具能使学生返回到你的课程网站。</P><P>发送通知给某个用户和/或某些组，选择 '选择用户发送通知' 然后用 CTRL+C 在左侧菜单中选择一个以上用户, 点击向右的双箭头移动他们到选中学生列表，在下面的区域输入你的消息内容，点击\"确认\"。</P>"
+
+msgid "ChatContent"
+msgstr "<P>聊天工具允许你和你的学生在线讨论。</P><P>这个聊天工具不和常见的聊天工具（如MSN,Yahoo Messenger）不一样，他是基于Web方式的。缺点是它不是即时的，而是10秒钟刷新一次，优点是它集成在你的课程里边，归档你的讨论到讲义材料里而且不需要学生下载任何插件.</P><P>如果用户在顶部\"个人资料\"里添加了他们的照片，那么照片将显示在聊天工具里边帮助你识别正在聊天的人是谁。</P><P>仅仅老师可以删除聊天记录。</P><P><B>教育学相关</B></P><P>增加聊天工具到你的课程不一定是个好主意。然而，如果你的教学设计需要聊天工具，那么它是很有帮助的。你可以想像，例如，平时隐藏聊天工具除非在特定的时间你需要和学生进行在线回答问题的的会议。很少用这种方式自由讨论，但是你可以给学生一个保证，参加在线聊天是有益于学习的。</P>"
+
+msgid "WorkContent"
+msgstr "<P>作业论文工具是简单的。它允许你的学生上传任何文档到课程区域。</P><P>依赖于你的课程设计，你需要决定是否想要全体学生看到所有文档（例如，你想要他们在其他的空白页写下他们的意见）或你想要仅仅你自己可以看到文档（例如，你想要放一份答案。）。</P><P>这个工具有一个介绍文本区域，允许你写一个疑问或详细指导方针或截至期限或你发现相关的东西。</P>"
+
+msgid "TrackingContent"
+msgstr "<P>你可以注意到学生的行为：他们登录过系统吗？什么时候登录或登录多长时间？从测试中他们得到多少？他们上传了作业没有？什么时候上传的？如果你在使用SCORM课程，你可以看到学生在一个章节或模块上花了多长时间。跟踪提供了两个水平的信息： <UL><LI><B>全局性：</B>多少学生访问这门课程？访问量最大的页面和链接是什么？ <LI><B>个别性：</B>John Doe访问过什么页面？在测试中，他得了多少分？最后一次登录系统是什么时候？</LI></UL>"
+
+msgid "HSettings"
+msgstr "课程设置帮助"
+
+msgid "SettingsContent"
+msgstr "<P>课程设置允许你管理你课程的全局变量: 标题，代码，语言，教师名字等。</P><P>这个选项位于页面的中部能够进行个性化设置：课程是公开还是私有 学生能否注册进入? 你可以灵活地使用这些设置 : 在需一周打开注册功能 > 告诉你的学生开始注册 > 关闭注册 > 在用户列表中删除无关人员。通过这种方法胸可以对选择你课程的学生加以控制。</P><P>在页面的底部，你可以备份或删除课程。备份课程将会在服务器上创建一个文件并允许你将其拷贝到你自己的物理硬盘上。这样就有2个在不同位置上的备份了。如果你备份了一个课程然后删除了它，你本人是无法恢复你的课程了，如果你告诉系统管理员你的课程代码，只有系统管理员才能够恢复。备份课程能够将你所有的资料备份到你自己的计算机上。你将需要一些工具，比如 Winzip"
+
+msgid "HExternal"
+msgstr "添加链接"
+
+msgid "ExternalContent"
+msgstr "<P>Dokeos 是一个模块化工具。根据你的课程主题和教学设计理念的不同，你可以隐藏和显示你想要隐藏的工具。然而，你也可以增加你已经创建的个人主页，他是在Dokeos系统的外边。这样,就使你的课程主页成为你的个人主页.</P><P>增加链接到主页，选择“添加链接”按钮。链接有2种类型： <UL><LI><B>外部链接</B>: 你可以在你的课程网站创建一个链向外部的URL 。这种情况下，你可以选择在新窗口打开链接，因为你不想要这个链接替换你的Dokeos环境。 . <LI><B>内部链接</B>: 你可以在你的课程网站链接一个页面或工具，你需要首先去那页或文档或工具，从浏览器的地址栏拷贝他的UR，然后增加链接，粘贴这个URL到URL输入框，然后，输入内部连接名字。这种情况下，你可以选择在同一个窗口打开新的链接，因为你希望保持网络教学平台横条幅仍然在一个窗口中。.</LI></UL>一旦创建，这些链接不能够修改，如果要修改，唯一的解决办法是删除他们然后重建。"
+
+msgid "ClarContent3"
+msgstr "清除内容"
+
+msgid "ClarContent4"
+msgstr "清除内容"
+
+msgid "ClarContent1"
+msgstr "清除内容"
+
+msgid "ClarContent2"
+msgstr "清除内容"
+
+msgid "HGroups"
+msgstr "小组"
+
+msgid "GroupsContent"
+msgstr "小组内容"
+
+msgid "Guide"
+msgstr "手册"
+
+msgid "MessageOfNewCourseToAdmin"
+msgstr "此信息告之您系统中已添加一个新的课程"
+
+msgid "NewCourseCreatedIn"
+msgstr "新课程创建在"
+
+msgid "ExplicationTrainers"
+msgstr "暂时预定此教师, 你可以稍后通过课程设置改更"
+
+msgid "InstallationLanguage"
+msgstr "安装语言"
+
+msgid "ReadThoroughly"
+msgstr "详细阅读"
+
+msgid "WarningExistingLMSInstallationDetected"
+msgstr "警告!<br />安装程序检查到您的系统内已有一Chamilo平台."
+
+msgid "NewInstallation"
+msgstr "全新安装"
+
+msgid "CheckDatabaseConnection"
+msgstr "检查数据库连接"
+
+msgid "PrintOverview"
+msgstr "显示概况"
+
+msgid "Installing"
+msgstr "安装"
+
+msgid "of"
+msgstr "of"
+
+msgid "MoreDetails"
+msgstr "要求更多详情"
+
+msgid "ServerRequirements"
+msgstr "伺服器要求"
+
+msgid "PHPVersion"
+msgstr "PHP 版本"
+
+msgid "support"
+msgstr "支持"
+
+msgid "PHPVersionOK"
+msgstr "PHP 版本能接受"
+
+msgid "RecommendedSettings"
+msgstr "推荐设定"
+
+msgid "RecommendedSettingsInfo"
+msgstr "服务器的推荐设定。这些设定已出现在您的服务器里的php.ini文件。"
+
+msgid "Actual"
+msgstr "当前"
+
+msgid "DirectoryAndFilePermissions"
+msgstr "目录及文档许可"
+
+msgid "NotWritable"
+msgstr "不可写"
+
+msgid "Writable"
+msgstr "可写"
+
+msgid "IAccept"
+msgstr "我接受"
+
+msgid "GoToYourNewlyCreatedPortal"
+msgstr "访问你新创建的入门网站。"
+
+msgid "PendingInvitations"
+msgstr "等待邀请中"
+
+msgid "SessionData"
+msgstr "会话数据"
+
+msgid "SelectFieldToAdd"
+msgstr "选择用户资料名称以添加"
+
+msgid "ShowGlossaryInExtraToolsTitle"
+msgstr "在其他工具中显示这个词汇表"
+
+msgid "ShowGlossaryInExtraToolsComment"
+msgstr "在这里你可以设置怎样在其他工具中添加词汇表, 如学习路径和测验题目"
+
+msgid "ExportCourses"
+msgstr "导出课程"
+
+msgid "SpecialCourse"
+msgstr "特殊课程"
+
+msgid "MessagesSent"
+msgstr "已发送消息条数"
+
+msgid "MessagesReceived"
+msgstr "已收到消息条数"
+
+msgid "CountFriends"
+msgstr "联系人数目"
+
+msgid "Social"
+msgstr "社交"
+
+msgid "EditNormalProfile"
+msgstr "编辑基本资料"
+
+msgid "MyProductions"
+msgstr "我的作品"
+
+msgid "MultipleSelectCombination"
+msgstr "辨析题"
+
+msgid "MultipleAnswerCombination"
+msgstr "辨析题答案组合"
+
+msgid "Metadata"
+msgstr "元数据"
+
+msgid "AddMetadata"
+msgstr "查看/编辑 元数据"
+
+msgid "YouDoNotHaveAnySessionInItsHistory"
+msgstr "你还没有任何培训记录"
+
+msgid "PortalHomepageDefaultIntroduction"
+msgstr "<h2>你已经成功运行了e-learning平台</h2> <p>通过以下三步来完成这个教学平台:<br /> <ol>     <li>通过访问系统管理页面来配置平台 -> <a href=\"main/admin/settings.php\">系统设置</a> </li>     <li>通过添加用户和课程来增加平台的人气. 你可以邀请朋友注册他们的帐户或者你自己通过<a href=\"main/admin/\">系统管理</a>来增加帐户和课程.</li>     <li>通过 <a href=\"main/admin/configure_homepage.php\">修改主页</a> 设计此开始页面.</li> </ol> <p>请访问 <a href=\"http://www.chamilo.org\">http://www.chamilo.org</a> 以得到更多信息.</p> <p>祝你使用愉快, 请加入我们的社区和通过<a href=\"http://www.chamilo.org/forum\">论坛</a>反馈意见和建议.</p>"
+
+msgid "ThePageHasBeenExportedToDocArea"
+msgstr "页面已导出到文档工具中"
+
+msgid "ConfigureExtensions"
+msgstr "插件配置"
+
+msgid "ThereAreNotQuestionsForthisSurvey"
+msgstr "此调查没相关的题目"
+
+msgid "TabsDashboard"
+msgstr "资料卡"
+
+msgid "DashboardBlocks"
+msgstr "资料卡"
+
+msgid "DashboardList"
+msgstr "资料卡列表"
+
+msgid "YouHaveNotEnabledBlocks"
+msgstr "还没有允许的卡片"
+
+msgid "BlocksHaveBeenUpdatedSuccessfully"
+msgstr "卡片已更新"
+
+msgid "Dashboard"
+msgstr "资料卡"
+
+msgid "DashboardPlugins"
+msgstr "资料卡插件"
+
+msgid "SelectBlockForDisplayingInsideBlocksDashboardView"
+msgstr "选择需要查看的内容"
+
+msgid "ColumnPosition"
+msgstr "位置 (列)"
+
+msgid "EnableDashboardBlock"
+msgstr "允许的资料卡"
+
+msgid "Enabled"
+msgstr "允许"
+
+msgid "Homepage"
+msgstr "主页"
+
+msgid "Attendances"
+msgstr "考勤"
+
+msgid "CountDoneAttendance"
+msgstr "# 已加入"
+
+msgid "AssignUsers"
+msgstr "分配用户"
+
+msgid "AssignCourses"
+msgstr "分配课程"
+
+msgid "AssignSessions"
+msgstr "分配会话"
+
+msgid "Timezone"
+msgstr "时区"
+
+msgid "Timezones"
+msgstr "时区"
+
+msgid "SystemStatus"
+msgstr "系统状态"
+
+msgid "DashboardPluginsUpdatedSuccessfully"
+msgstr "成功更新资料卡插件"
+
+msgid "LoginEnter"
+msgstr "登录"
+
+msgid "CopyExercise"
+msgstr "复制此练习"
+
+msgid "CleanStudentResults"
+msgstr "清除学生全部的结果"
+
+msgid "AttendanceSheetDescription"
+msgstr "考勤表允许你指定一系列将要考勤课程的日子"
+
+msgid "ThereAreNoRegisteredLearnersInsidetheCourse"
+msgstr "没有学员注册此课程"
+
+msgid "GoToAttendanceCalendarList"
+msgstr "转到带出勤日期的日历表"
+
+msgid "ToolCourseDescription"
+msgstr "教学大纲"
+
+msgid "ToolDocument"
+msgstr "文档"
+
+msgid "ToolLearnpath"
+msgstr "学习路径"
+
+msgid "ToolLink"
+msgstr "链接"
+
+msgid "ToolQuiz"
+msgstr "测验"
+
+msgid "ToolAnnouncement"
+msgstr "通知"
+
+msgid "ToolGradebook"
+msgstr "成绩"
+
+msgid "ToolGlossary"
+msgstr "词汇表"
+
+msgid "ToolAttendance"
+msgstr "考勤"
+
+msgid "ToolCalendarEvent"
+msgstr "日程"
+
+msgid "ToolForum"
+msgstr "论坛"
+
+msgid "ToolDropbox"
+msgstr "投递箱"
+
+msgid "ToolUser"
+msgstr "用户"
+
+msgid "ToolGroup"
+msgstr "小组"
+
+msgid "ToolChat"
+msgstr "聊天"
+
+msgid "ToolStudentPublication"
+msgstr "任务"
+
+msgid "ToolSurvey"
+msgstr "调查"
+
+msgid "ToolWiki"
+msgstr "Wiki"
+
+msgid "ToolNotebook"
+msgstr "笔记本"
+
+msgid "ToolBlogManagement"
+msgstr "博客管理"
+
+msgid "ToolTracking"
+msgstr "学习跟踪"
+
+msgid "ToolCourseSetting"
+msgstr "课程设置"
+
+msgid "ToolCourseMaintenance"
+msgstr "维护工具"
+
+msgid "AreYouSureToDeleteAllDates"
+msgstr "是否确定删除全部的日期？"
+
+msgid "ImportQtiQuiz"
+msgstr "导入 Qti2 测验"
+
+msgid "AddADateTime"
+msgstr "添加日期"
+
+msgid "ThematicControl"
+msgstr "课题控制"
+
+msgid "ThematicDetails"
+msgstr "课题详情"
+
+msgid "ThematicList"
+msgstr "课题列表"
+
+msgid "Thematic"
+msgstr "课题"
+
+msgid "ThematicPlan"
+msgstr "课题计划"
+
+msgid "EditThematicPlan"
+msgstr "编辑课题计划"
+
+msgid "ThereIsNoStillAthematicSection"
+msgstr "暂时没有课题"
+
+msgid "NewThematicSection"
+msgstr "新的课题"
+
+msgid "DeleteAllThematics"
+msgstr "删除全部的课题"
+
+msgid "ThematicDetailsDescription"
+msgstr "课题的详细资料以及计划和进度. 如需标明课题已完成, 选择其最后一天, 系统将之前的日期作为完成标识."
+
+msgid "ReturnToLPList"
+msgstr "返回学习路径"
+
+msgid "EditTematicAdvance"
+msgstr "编辑预定的课题"
+
+msgid "ThereIsNoAThematicSection"
+msgstr "没有课题项目"
+
+msgid "NewThematicAdvance"
+msgstr "添加预定的课题"
+
+msgid "ToolCourseProgress"
+msgstr "课程进度"
+
+msgid "ResultsHiddenByExerciseSetting"
+msgstr "结果已隐藏"
+
+msgid "ThematicSectionHasBeenCreatedSuccessfull"
+msgstr "课题成功创建"
+
+msgid "NowYouShouldAddThematicPlanXAndThematicAdvanceX"
+msgstr "你需要添加课题计划 %s 和预定的课题 %s"
+
+msgid "LpPrerequisiteDescription"
+msgstr "所需的前提条件"
+
+msgid "QualificationNumeric"
+msgstr "分数"
+
+msgid "ExportAllCoursesList"
+msgstr "导出全部课程"
+
+msgid "ExportSelectedCoursesFromCoursesList"
+msgstr "导出下表所选的课程"
+
+msgid "CoursesListHasBeenExported"
+msgstr "已导出列表中的课程"
+
+msgid "WhichCoursesToExport"
+msgstr "需导出的课程"
+
+msgid "ConfigureDashboardPlugin"
+msgstr "配置资料卡插件"
+
+msgid "EditBlocks"
+msgstr "编辑资料块"
+
+msgid "EndDateMustBeMoreThanStartDate"
+msgstr "结束日期需迟于开始日期"
+
+msgid "ToolSearch"
+msgstr "搜索"
+
+msgid "NewImage"
+msgstr "新图片"
+

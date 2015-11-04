@@ -1,0 +1,3 @@
+msgid "CourseProgram"
+msgstr "კურსის აღწერა"
+

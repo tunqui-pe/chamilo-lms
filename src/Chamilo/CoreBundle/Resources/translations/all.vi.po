@@ -1,0 +1,1896 @@
+msgid "ShowAllEvents"
+msgstr "Hiển thị tất cả các mục đã đánh dấu"
+
+msgid "Month"
+msgstr "Tháng"
+
+msgid "Hour"
+msgstr "Giờ"
+
+msgid "Minutes"
+msgstr "Phút"
+
+msgid "AddSuccess"
+msgstr "Thêm mới thành công"
+
+msgid "AgendaDeleteSuccess"
+msgstr "Đã xóa"
+
+msgid "NoAgendaItems"
+msgstr "Không có mục nào được đánh dấu"
+
+msgid "ModifInfo"
+msgstr "Các xác lập cho khóa học"
+
+msgid "ModifDone"
+msgstr "Thông tin đã được hiệu chỉnh"
+
+msgid "DelCourse"
+msgstr "Xóa toàn bộ website của khóa học"
+
+msgid "Professors"
+msgstr "Giáo viên"
+
+msgid "Faculty"
+msgstr "Bộ môn"
+
+msgid "Confidentiality"
+msgstr "Bảo mật"
+
+msgid "PrivOpen"
+msgstr "Truy cập có điều kiện hạn chế, đăng kí tự do"
+
+msgid "Forbidden"
+msgstr "Không có quyền"
+
+msgid "CourseAccessConfigTip"
+msgstr "Mặc định, chỉ có người dùng mới có thể truy cập đến khóa học mà mình đã đăng kí. Nếu bạn muốn bảo mật,các đơn giản nhất là cho phép đăng kí trong vòng 1 tuần, yêu cầu chính học sinh tự đăng kí, sau đó không cho phép đăng kí thêm và kiểm tra kẻ xâm nhập có thể có trong danh sách"
+
+msgid "TipLang"
+msgstr "Ngôn ngữ này sẽ được hiển thị đối với tất cả các website khóa học của bạn"
+
+msgid "Vid"
+msgstr "Video"
+
+msgid "Work"
+msgstr "Bài viết của học sinh"
+
+msgid "ProgramMenu"
+msgstr "Chương trình khóa học"
+
+msgid "Stats"
+msgstr "Thống kê"
+
+msgid "UplPage"
+msgstr "Upload trang và tạo liên kết tại trang chủ"
+
+msgid "LinkSite"
+msgstr "Thêm liên kết vào trang chính"
+
+msgid "HasDel"
+msgstr "Đã bị xóa"
+
+msgid "ByDel"
+msgstr "Xóa website khóa học này sẽ xóa vĩnh viễn tất cả dữ liệu(không xóa chúng từ khóa học khác).<p>Bạn có thực sự muốn xóa khóa học này"
+
+msgid "Y"
+msgstr "YES"
+
+msgid "N"
+msgstr "NO"
+
+msgid "DepartmentUrl"
+msgstr "Đương dẫn trang chủ của khoa"
+
+msgid "DepartmentUrlName"
+msgstr "Trường/Khoa"
+
+msgid "BackupCourse"
+msgstr "Lưu trữ khóa học này"
+
+msgid "ModifGroups"
+msgstr "Sửa Nhóm"
+
+msgid "Professor"
+msgstr "Giáo viên"
+
+msgid "DescriptionCours"
+msgstr "Mô tả khóa học"
+
+msgid "ArchiveCourse"
+msgstr "BackUp khóa học"
+
+msgid "RestoreCourse"
+msgstr "Restore khóa học"
+
+msgid "Restore"
+msgstr "Restore"
+
+msgid "CreatedIn"
+msgstr "Tạo mới"
+
+msgid "CreateMissingDirectories"
+msgstr "Creation of missing directories"
+
+msgid "CopyDirectoryCourse"
+msgstr "Copy thư mục khóa học"
+
+msgid "Disk_free_space"
+msgstr "Dung lượng còn trống"
+
+msgid "BuildTheCompressedFile"
+msgstr "Creation of backup file"
+
+msgid "FileCopied"
+msgstr "Đã sao chép file"
+
+msgid "ArchiveLocation"
+msgstr "Vị trí lưu trữ tài liệu"
+
+msgid "SizeOf"
+msgstr "Dung lượng của"
+
+msgid "ArchiveName"
+msgstr "Tên tài liệu"
+
+msgid "BackupSuccesfull"
+msgstr "BackUp thành công"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "BackUp dữ liệu khóa học tại cơ sở dữ liệu chính"
+
+msgid "BUUsersInMainBase"
+msgstr "BackUp dữ liệu người dùng tại cơ sở dữ liệu chính"
+
+msgid "BUAnnounceInMainBase"
+msgstr "BackUp thông báo tại cơ sở dữ liệu chính"
+
+msgid "BackupOfDataBase"
+msgstr "BackUp cơ sở dữ liệu"
+
+msgid "ExpirationDate"
+msgstr "Ngày hết hạn"
+
+msgid "LastEdit"
+msgstr "Chỉnh sửa trước"
+
+msgid "LastVisit"
+msgstr "Lần ghé thăm trước"
+
+msgid "Subscription"
+msgstr "đăng kí"
+
+msgid "CourseAccess"
+msgstr "Truy cập khóa học"
+
+msgid "ConfirmBackup"
+msgstr "Bạn có thực sự muốn BackUp khóa học này"
+
+msgid "CreateSite"
+msgstr "Tạo website cho khóa học mới"
+
+msgid "RestoreDescription"
+msgstr "Khóa học được lưu trong tệp tin mà bạn có thể lựa chọn dưới đấy<br><br>Khi bạn nhấn vào nút \"Restore\", các kho lưu trữ sẽ được giải nén và tái tạo quá trình"
+
+msgid "RestoreNotice"
+msgstr "Kịch bản này không cho phép có thể tự động khôi phục lại người dùng, nhưng dữ liệu được lưu trữ trong \"users.csv\" cho phép quản trị viên thao tác công việc đó bằng tay"
+
+msgid "AvailableArchives"
+msgstr "Danh sách lưu trữ sẵn sàng"
+
+msgid "NoArchive"
+msgstr "Chưa lưa chọn dữ liệu"
+
+msgid "ArchiveNotFound"
+msgstr "Không tìm thấy dữ liệu"
+
+msgid "ArchiveUncompressed"
+msgstr "Lưu trữ đã được giải nén và cài đặt"
+
+msgid "CsvPutIntoDocTool"
+msgstr "File \"users.csv\" đã được đưa vào công cụ tài liệu."
+
+msgid "Explanation"
+msgstr "Sau khi bấm OK, một website sẽ được tạo ra với đầy đủ các chuyên mục. Bạn chỉ cần đăng nhập và hiệu chỉnh theo ý muôn."
+
+msgid "CodeTaken"
+msgstr "Mã này đã tồn tại"
+
+msgid "ExerciceEx"
+msgstr "Bài tập mẫu"
+
+msgid "Antique"
+msgstr "Lịch sử triết học cổ đại"
+
+msgid "SocraticIrony"
+msgstr "Socratic irony is..."
+
+msgid "ManyAnswers"
+msgstr "(nhiều hơn 1 câu trả lời có thể đúng)"
+
+msgid "Ridiculise"
+msgstr "Ridiculise one's interlocutor in order to have him concede he is wrong."
+
+msgid "NoPsychology"
+msgstr "Số Socrates trớ trêu là không phải là một vấn đề của tâm lý học, nó liên quan đến lập luận."
+
+msgid "AdmitError"
+msgstr "Admit one's own errors to invite one's interlocutor to do the same."
+
+msgid "NoSeduction"
+msgstr "Số Socrates trớ trêu là không phải là một chiến lược quyến rũ hoặc một phương pháp dựa trên ví dụ."
+
+msgid "Force"
+msgstr "Compell one's interlocutor, by a series of questions and sub-questions, to admit he doesn't know what he claims to know."
+
+msgid "Indeed"
+msgstr "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\""
+
+msgid "Contradiction"
+msgstr "Use the Principle of Non Contradiction to force one's interlocutor into a dead end."
+
+msgid "NotFalse"
+msgstr "This answer is not false. It is true that the revelation of the interlocutor's ignorance means showing the contradictory conclusions where lead his premisses."
+
+msgid "AddPageHome"
+msgstr "Upload trang và liên kết vào trang chủ"
+
+msgid "ModifyInfo"
+msgstr "Các xác lập của khóa học"
+
+msgid "CourseDesc"
+msgstr "Mô tả khóa học"
+
+msgid "AgendaTitle"
+msgstr "Thứ 3 ngày 11 tháng 12 - Bài học thứ nhất : Newton 18"
+
+msgid "AgendaText"
+msgstr "Giới thiệ chung về Triết lí và phương pháp luận"
+
+msgid "Micro"
+msgstr "Phỏng vấn"
+
+msgid "Google"
+msgstr "Công cụ tìm kiếm nhanh và mạnh mẽ"
+
+msgid "IntroductionTwo"
+msgstr "Trang này dành cho học sinh hoặc nhóm học sinh gửi bài vào website .Nếu không có hình ảnh đính kèm vào nội dung, nên gửi dưới dạng tập tin .htm."
+
+msgid "AnnouncementEx"
+msgstr "Thông báo mẫu . Chỉ có giáo viên hoặc quản trị viên mới có quyền thông báo tại đây"
+
+msgid "JustCreated"
+msgstr "Bạn vừa tạo xong 1 site khóa học"
+
+msgid "CreateCourseGroups"
+msgstr "Khỏi tạo khóa học nhóm"
+
+msgid "CatagoryMain"
+msgstr "Nhóm diễn đàn chính"
+
+msgid "CatagoryGroup"
+msgstr "Diễn đàn nhóm"
+
+msgid "Ln"
+msgstr "Ngôn ngữ"
+
+msgid "FieldsRequ"
+msgstr "Xin điền đầy đủ các mục"
+
+msgid "Ex"
+msgstr "ví dụ . <i>Lịch sử - văn học</i>"
+
+msgid "Fac"
+msgstr "Chủ đề (phân loại theo bộ môn)"
+
+msgid "Doubt"
+msgstr "Nếu chưa rõ cách đặt mã, xin hỏi"
+
+msgid "Program"
+msgstr "Chương trình Khoá học</a>.Nếu khoá học chưa có mã, hãy tạo mã có tính gợi ý và ngắn gọn"
+
+msgid "ForumLanguage"
+msgstr "tiếng Anh"
+
+msgid "NewCourse"
+msgstr "Khoá học mới"
+
+msgid "AddNewCourse"
+msgstr "Thêm khoá học mới"
+
+msgid "OtherProperties"
+msgstr "Các tính chất khác"
+
+msgid "SysId"
+msgstr "Mã hệ thống"
+
+msgid "ScoreShow"
+msgstr "Hiển thị điểm"
+
+msgid "Visibility"
+msgstr "Hiển thị"
+
+msgid "VersionDb"
+msgstr "Version de la base de donnée lors de l'archivage"
+
+msgid "Expire"
+msgstr "Hết hạn"
+
+msgid "ChoseFile"
+msgstr "Chọn file"
+
+msgid "FtpFileTips"
+msgstr "Si le fichier est sur un ordinateur tiers et accessible par ftp"
+
+msgid "HttpFileTips"
+msgstr "Si le fichier est sur un ordinateur tiers et accessible par http"
+
+msgid "LocalFileTips"
+msgstr "Si le fichier est sur l'espace de stockage des cours de ce campus"
+
+msgid "PostFileTips"
+msgstr "Si le fichier est sur  votre ordinateur"
+
+msgid "TitleNotification"
+msgstr "Từ lần ghé thăm trước"
+
+msgid "LinkName"
+msgstr "Tên liên kết"
+
+msgid "LinkAdd"
+msgstr "Đã tạo liên kết mới"
+
+msgid "LinkMod"
+msgstr "Đã sửa liên kết"
+
+msgid "LinkDel"
+msgstr "Đã xoá liên kết"
+
+msgid "GiveURL"
+msgstr "Xin nhập địa chỉ URL"
+
+msgid "ListDeleted"
+msgstr "Danh sách đã bị xoá"
+
+msgid "AddLink"
+msgstr "Thêm liên kết mới"
+
+msgid "DelList"
+msgstr "Xoá toàn bộ danh sách"
+
+msgid "ModifyLink"
+msgstr "Sửa liên kết"
+
+msgid "StatDB"
+msgstr "Tracking DB.  Useful only if several DB"
+
+msgid "EnableTracking"
+msgstr "Enable Tracking"
+
+msgid "InstituteShortName"
+msgstr "Organisation short name"
+
+msgid "WarningResponsible"
+msgstr "Use this script only after backup. Claroline team is not responsible if you lost or corrupted data"
+
+msgid "EG"
+msgstr "e. g."
+
+msgid "DBHost"
+msgstr "Database Host"
+
+msgid "DBLogin"
+msgstr "Database Username"
+
+msgid "DBPassword"
+msgstr "Database Password"
+
+msgid "MainDB"
+msgstr "Main claroline DB"
+
+msgid "AllFieldsRequired"
+msgstr "all fields required"
+
+msgid "PrintVers"
+msgstr "Printable version"
+
+msgid "LocalPath"
+msgstr "Corresponding local path"
+
+msgid "AdminEmail"
+msgstr "Administrator email"
+
+msgid "AdminName"
+msgstr "Administrator name"
+
+msgid "AdminSurname"
+msgstr "Administrator surname"
+
+msgid "AdminLogin"
+msgstr "Administrator login"
+
+msgid "AdminPass"
+msgstr "Administrator password"
+
+msgid "EducationManager"
+msgstr "Education manager"
+
+msgid "CampusName"
+msgstr "Your campus' name"
+
+msgid "DBSettingIntro"
+msgstr "				Install script will create claroline main DB. Please note that Claroline 				will need to create many DBs (unless you select option \"One\" below). If you are allowed only one 				DB for your website by your Hosting Services, Claroline will not work."
+
+msgid "Step3"
+msgstr "Step 3 of 6"
+
+msgid "Step4"
+msgstr "Step 4 of 6"
+
+msgid "Step5"
+msgstr "Step 5 of 6"
+
+msgid "Step6"
+msgstr "Step 6 of 6"
+
+msgid "CfgSetting"
+msgstr "Config settings"
+
+msgid "DBSetting"
+msgstr "MySQL database settings"
+
+msgid "MainLang"
+msgstr "Main language"
+
+msgid "Licence"
+msgstr "License"
+
+msgid "LastCheck"
+msgstr "Last check before install"
+
+msgid "DbPrefixForm"
+msgstr "MySQL Prefix"
+
+msgid "DbPrefixCom"
+msgstr "Leave empty if not requested"
+
+msgid "EncryptUserPass"
+msgstr "Encrypt user passwords in database"
+
+msgid "SingleDb"
+msgstr "Use one or several DB for Claroline"
+
+msgid "AllowSelfReg"
+msgstr "Allow self-registration"
+
+msgid "Recommended"
+msgstr "(recommended)"
+
+msgid "Titular"
+msgstr "Danh nghĩa"
+
+msgid "AdministrationTools"
+msgstr "Các công cụ quản trị"
+
+msgid "Added"
+msgstr "Đã thêm mới"
+
+msgid "Deleted"
+msgstr "Đã xóa"
+
+msgid "Keeped"
+msgstr "Giữ lại"
+
+msgid "HideAndSubscribeClosed"
+msgstr "Ẩn / Đóng"
+
+msgid "HideAndSubscribeOpen"
+msgstr "Ẩn / Mở"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "Hiện / Mở"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "Hiện / Đóng"
+
+msgid "AdminThisUser"
+msgstr "Trở về trang người dùng"
+
+msgid "Manage"
+msgstr "Quản lý chuyên môn"
+
+msgid "WCAGGoMenu"
+msgstr "Chuyển đến thực đơn"
+
+msgid "WCAGGoContent"
+msgstr "Chuyển đến nội dung"
+
+msgid "AdminBy"
+msgstr "Quản trị bởi"
+
+msgid "Statistiques"
+msgstr "Thống kê"
+
+msgid "Used"
+msgstr "used"
+
+msgid "Exist"
+msgstr "Thoát ra"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "Tên giáo viên trên tiêu đề khóa học"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "Tên Giáo viên trong chú thích danh sách khóa học"
+
+msgid "AddAdminInApache"
+msgstr "Thêm người quản trịr"
+
+msgid "AddFaculties"
+msgstr "Thêm bộ môn"
+
+msgid "SearchACourse"
+msgstr "Tìm giáo trình"
+
+msgid "SearchAUser"
+msgstr "Tìm người dùng"
+
+msgid "TechnicalTools"
+msgstr "Quản trị kỹ thuật"
+
+msgid "Config"
+msgstr "Cầu hình hệ thống"
+
+msgid "LogIdentLogoutComplete"
+msgstr "Danh mục Login (mở rộng)"
+
+msgid "NomOutilTodo"
+msgstr "Quản lí danh mục cần làm"
+
+msgid "NomPageAdmin"
+msgstr "Quản trị"
+
+msgid "SysInfo"
+msgstr "Thông tin về hệ thống"
+
+msgid "DiffTranslation"
+msgstr "So sánh các bản dịch ngôn ngữ"
+
+msgid "StatOf"
+msgstr "Thống kê về"
+
+msgid "SpeeSubscribe"
+msgstr "Đăng ký nhanh quyền kiểm tra giáo trình"
+
+msgid "LogIdentLogout"
+msgstr "Danh mục đăng nhập"
+
+msgid "ServerStatus"
+msgstr "Trạng thái MySQL server :"
+
+msgid "DataBase"
+msgstr "Database"
+
+msgid "Run"
+msgstr "work"
+
+msgid "Client"
+msgstr "MySql Client"
+
+msgid "Server"
+msgstr "MySql Server"
+
+msgid "titulary"
+msgstr "Owner"
+
+msgid "UpgradeBase"
+msgstr "nâng cấp cơ sở dữ liệu"
+
+msgid "ErrorsFound"
+msgstr "lỗi tìm thấy"
+
+msgid "Maintenance"
+msgstr "Bảo trì"
+
+msgid "Upgrade"
+msgstr "Nâng cấp"
+
+msgid "Website"
+msgstr "Claroline website"
+
+msgid "Documentation"
+msgstr "Tài liệu"
+
+msgid "Contribute"
+msgstr "Tài trợ"
+
+msgid "AnnEmpty"
+msgstr "Danh mục các thông báo đã được xoá"
+
+msgid "AnnouncementModified"
+msgstr "Thông báo đã chỉnh sửa"
+
+msgid "AnnouncementAdded"
+msgstr "ThĂ´ng bĂ¡o má»›i Ä‘Ă£ Ä‘Æ°á»£c Ä‘Æ°a vĂ o"
+
+msgid "AnnouncementDeleted"
+msgstr "Thông báo đã bị xoá"
+
+msgid "AnnouncementPublishedOn"
+msgstr "NgĂ y"
+
+msgid "AddAnnouncement"
+msgstr "Tạo thông báo mới"
+
+msgid "AnnouncementDeleteAll"
+msgstr "Xoá tất cả thông báo"
+
+msgid "professorMessage"
+msgstr "Thư của giáo viên"
+
+msgid "EmailSent"
+msgstr " và đã gữi cho các học sinh có đăng ký"
+
+msgid "EmailOption"
+msgstr "Gá»­i thĂ´ng bĂ¡o nĂ y cho cĂ¡c há»"
+
+msgid "On"
+msgstr "On"
+
+msgid "RegUser"
+msgstr "người dùng đã đăng ký"
+
+msgid "Unvalid"
+msgstr "không có địa chỉ email hoặc địa chỉ email không hợp lệ"
+
+msgid "ModifAnn"
+msgstr "Sửa thông báo này"
+
+msgid "LineNumber"
+msgstr "Số dòng"
+
+msgid "LineOrLines"
+msgstr "dòng"
+
+msgid "AddNewHeading"
+msgstr "Add new heading"
+
+msgid "CourseAdministratorOnly"
+msgstr "Chỉ dành cho người quản trị"
+
+msgid "DefineHeadings"
+msgstr "Define Headings"
+
+msgid "BackToUsersList"
+msgstr "Trở về danh sách người dùng"
+
+msgid "CourseManager"
+msgstr "Quản lý khoá học"
+
+msgid "NewGroupCreate"
+msgstr "Tạo nhóm mới"
+
+msgid "GroupCreation"
+msgstr "Nhóm vừa tạo"
+
+msgid "NewGroups"
+msgstr "Nhóm mới"
+
+msgid "Max"
+msgstr "tối đa 12 kí tự, v.d. <i>TOAN12</i>"
+
+msgid "GroupPlacesThis"
+msgstr "seats (optional)"
+
+msgid "GroupsAdded"
+msgstr "đã thêm nhóm mới"
+
+msgid "GroupDel"
+msgstr "đã xóa"
+
+msgid "ExistingGroups"
+msgstr "nhóm"
+
+msgid "Registered"
+msgstr "đã đăng kí"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "nhóm cho phép sinh viên đăng kí"
+
+msgid "GroupTools"
+msgstr "công cụ"
+
+msgid "GroupDocument"
+msgstr "tài liệu"
+
+msgid "GroupPropertiesModified"
+msgstr "đặc tính về nhóm đã được chỉnh sửa"
+
+msgid "GroupName"
+msgstr "Tên nhóm"
+
+msgid "GroupDescription"
+msgstr "Miêu tả về nhóm"
+
+msgid "GroupMembers"
+msgstr "Thành viên của nhóm"
+
+msgid "EditGroup"
+msgstr "Chỉnh sửa nhóm"
+
+msgid "GroupSettingsModified"
+msgstr "Những điều chỉnh về nhóm đã được thay đổi"
+
+msgid "GroupTooMuchMembers"
+msgstr "Number proposed exceeds max. that you allowed (you can modify it below). 				Group composition has not been modified"
+
+msgid "GroupTutor"
+msgstr "Tutor"
+
+msgid "GroupNoTutor"
+msgstr "(none)"
+
+msgid "GroupNone"
+msgstr "(none)"
+
+msgid "GroupNoneMasc"
+msgstr "(none)"
+
+msgid "AddTutors"
+msgstr "Admin users list"
+
+msgid "MyGroup"
+msgstr "Nhóm của tôi"
+
+msgid "OneMyGroups"
+msgstr "my supervision"
+
+msgid "GroupSelfRegistration"
+msgstr "Registration"
+
+msgid "GroupSelfRegInf"
+msgstr "register"
+
+msgid "RegIntoGroup"
+msgstr "Add me to this group"
+
+msgid "GroupNowMember"
+msgstr "You are now member of this group"
+
+msgid "Private"
+msgstr "Truy cập chỉ với <a href=../user/user.php>danh sách user</a>)"
+
+msgid "Public"
+msgstr "Truy cập không cần đăng nhập"
+
+msgid "PropModify"
+msgstr "Thay đổi"
+
+msgid "State"
+msgstr "Trạng thái"
+
+msgid "GroupFilledGroups"
+msgstr "Groups have been filled (or completed) by students present in the 'Users' list."
+
+msgid "Subscribed"
+msgstr "Người đăng kí khóa học này"
+
+msgid "StudentsNotInThisGroups"
+msgstr "Bạn không thuộc nhóm này"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "A user can be member of maximum"
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr "A groups"
+
+msgid "StudentRegAllowed"
+msgstr "Cho phép sinh viên đăng kí vào nhóm"
+
+msgid "Exercice"
+msgstr "Bài tập"
+
+msgid "NoEx"
+msgstr "Chưa có bài tập"
+
+msgid "NewEx"
+msgstr "Bài tập mới"
+
+msgid "Questions"
+msgstr "Câu hỏi"
+
+msgid "Answers"
+msgstr "Trả lời"
+
+msgid "True"
+msgstr "True"
+
+msgid "Answer"
+msgstr "Trả lời"
+
+msgid "ExerciseType"
+msgstr "Loại bài tập"
+
+msgid "ExerciseName"
+msgstr " Tên bài tập"
+
+msgid "ExerciseDescription"
+msgstr "Ghi chú về bài tập"
+
+msgid "SimpleExercise"
+msgstr "Trên một trang"
+
+msgid "SequentialExercise"
+msgstr "Mỗi câu hỏi một trang (liên tiếp)"
+
+msgid "RandomQuestions"
+msgstr "Câu hỏi ngẫu nhiên"
+
+msgid "GiveExerciseName"
+msgstr "Xin ghi tên bài tập"
+
+msgid "NoAnswer"
+msgstr "Chưa có câu trả lời"
+
+msgid "GoBackToQuestionPool"
+msgstr "Trở về phần lập câu hỏi"
+
+msgid "GoBackToQuestionList"
+msgstr "Trở về phần danh mục câu hỏi"
+
+msgid "QuestionAnswers"
+msgstr "Trả lời cho câu hỏi"
+
+msgid "UsedInSeveralExercises"
+msgstr "Coi chừng! Câu hỏi này dùng trong nhiều bài tập khác nhau."
+
+msgid "ModifyInAllExercises"
+msgstr "trong tất cả bài tập"
+
+msgid "ModifyInThisExercise"
+msgstr "chỉ trong bài tập hiện hành"
+
+msgid "AnswerType"
+msgstr "Kiểu trả lời"
+
+msgid "MultipleSelect"
+msgstr "Nhiều lựa chọn đúng"
+
+msgid "FillBlanks"
+msgstr "Điền vào chỗ trống"
+
+msgid "Matching"
+msgstr "Ghép cột"
+
+msgid "ReplacePicture"
+msgstr "Thay thế hình"
+
+msgid "DeletePicture"
+msgstr "Xoá hình"
+
+msgid "QuestionDescription"
+msgstr "Ghi chú tuỳ chọnt"
+
+msgid "GiveQuestion"
+msgstr "Hãy đặt câu hỏi"
+
+msgid "WeightingForEachBlank"
+msgstr "Xin cho điểm vào mỗi ô trống"
+
+msgid "UseTagForBlank"
+msgstr "dùng ngoặc vuông [...] để định nghĩa các chỗ cần điền"
+
+msgid "QuestionWeighting"
+msgstr "Điểm"
+
+msgid "MoreAnswers"
+msgstr "+answ"
+
+msgid "LessAnswers"
+msgstr "-answ"
+
+msgid "MoreElements"
+msgstr "+elem"
+
+msgid "LessElements"
+msgstr "-elem"
+
+msgid "TypeTextBelow"
+msgstr "Nhập vào phần sau đây"
+
+msgid "DefaultTextInBlanks"
+msgstr "[Biên Hoà] là thành phố thuộc tỉnh [Đồng Nai]."
+
+msgid "DefaultMatchingOptA"
+msgstr "giàu có"
+
+msgid "DefaultMatchingOptB"
+msgstr "đẹp"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "Bố của bạn"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "Mẹ của bạn"
+
+msgid "DefineOptions"
+msgstr "Định nghĩa các chọn lựa"
+
+msgid "MakeCorrespond"
+msgstr "Thiết lập tương ứng"
+
+msgid "FillLists"
+msgstr "Hãy điền vào hai danh sách dưới đây"
+
+msgid "GiveText"
+msgstr "Gõ vào"
+
+msgid "DefineBlanks"
+msgstr "Phải có í nhất 1 từ trong ngoặc [...]"
+
+msgid "GiveAnswers"
+msgstr "Phải nêu trả lời cho câu hỏi"
+
+msgid "ChooseGoodAnswer"
+msgstr "Chọn câu trả lời đúng"
+
+msgid "ChooseGoodAnswers"
+msgstr "Chọn một hay nhiều câu trả lời đúng"
+
+msgid "QuestionList"
+msgstr "Danh mục câu hỏi trong bài tập"
+
+msgid "GetExistingQuestion"
+msgstr "Lấy câu hỏi từ một bài tập khác"
+
+msgid "QuestionPool"
+msgstr "Kho câu hỏi"
+
+msgid "OrphanQuestions"
+msgstr "Câu hỏi mồ côi"
+
+msgid "NoQuestion"
+msgstr "Chưa có câu hỏi"
+
+msgid "AllExercises"
+msgstr "Tất cả bài tập"
+
+msgid "GoBackToEx"
+msgstr "Về bài tập"
+
+msgid "Reuse"
+msgstr "Dùng lại"
+
+msgid "ExerciseManagement"
+msgstr "Quản lý bài tập"
+
+msgid "QuestionManagement"
+msgstr "Quản lý câu hỏi/câu trả lờit"
+
+msgid "QuestionNotFound"
+msgstr "Không tìm thấy câu hỏi"
+
+msgid "ExerciseNotFound"
+msgstr "Không tìm thấy bài tập"
+
+msgid "AlreadyAnswered"
+msgstr "Bạn đã trả lời câu này rồi"
+
+msgid "ElementList"
+msgstr "Liệt kê"
+
+msgid "CorrespondsTo"
+msgstr "Tương ứng với"
+
+msgid "ExpectedChoice"
+msgstr "Cần chọn"
+
+msgid "YourTotalScore"
+msgstr "Tổng điểm của bạn là"
+
+msgid "Remove"
+msgstr "Xoá"
+
+msgid "Enter"
+msgstr "Trở lại danh mục khoá học"
+
+msgid "Description"
+msgstr "Mô tả tóm tắt"
+
+msgid "Links"
+msgstr "Liên kết"
+
+msgid "Works"
+msgstr "Bài làm"
+
+msgid "Forums"
+msgstr "Diễn đàn"
+
+msgid "CreateDir"
+msgstr "Tạo thư mục"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Comment"
+msgstr "Ghi chú"
+
+msgid "Visible"
+msgstr "Hiển thị/không hiển thị"
+
+msgid "NewDir"
+msgstr "Tên thư mục mới"
+
+msgid "DirCr"
+msgstr "Thư mục đã tạo"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "GroupForum"
+msgstr "Forum"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Assignments"
+msgstr "Assignments"
+
+msgid "Forum"
+msgstr "Forum"
+
+msgid "Code"
+msgstr "Mã khoá học"
+
+msgid "Up"
+msgstr "Up"
+
+msgid "UniqueSelect"
+msgstr "Một lựa chọn đúng"
+
+msgid "CourseCreate"
+msgstr "Tạo một khoá học"
+
+msgid "Todo"
+msgstr "Kiến nghị"
+
+msgid "UserName"
+msgstr "Tên truy cập"
+
+msgid "Dear"
+msgstr "Dear"
+
+msgid "iso639_2_code"
+msgstr "en"
+
+msgid "iso639_1_code"
+msgstr "eng"
+
+msgid "left_font_family"
+msgstr "verdana, helvetica, arial, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "helvetica, arial, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr ","
+
+msgid "number_decimal_separator"
+msgstr "."
+
+msgid "dateFormatShort"
+msgstr "%d-%m-%y"
+
+msgid "dateFormatLong"
+msgstr "%A, %d-%m-%Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%d - %m, %Y - %I:%M %p"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "No"
+msgstr "Không"
+
+msgid "Next"
+msgstr "Tiếp"
+
+msgid "Allowed"
+msgstr "Được phép"
+
+msgid "BackHome"
+msgstr "Trở về trang chính của"
+
+msgid "Propositions"
+msgstr "Đề xuất cải tiến về"
+
+msgid "Maj"
+msgstr "Cập nhật"
+
+msgid "Modify"
+msgstr "Thay đổi"
+
+msgid "Move"
+msgstr "Di chuyển"
+
+msgid "Help"
+msgstr "Trợ giúp"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Add"
+msgstr "Thêm"
+
+msgid "AddIntro"
+msgstr "Lời giới thiệu"
+
+msgid "BackList"
+msgstr "Về danh mục"
+
+msgid "Text"
+msgstr "Văn bản"
+
+msgid "Empty"
+msgstr "Bạn còn chừa trống ô.<br>Bấm nút <b>Back</b>để làm lại.<br>"
+
+msgid "ConfirmYourChoice"
+msgstr "Hãy xác nhận lại lựa chọn của bạn"
+
+msgid "And"
+msgstr "và"
+
+msgid "Choice"
+msgstr "Lựa chọn của bạn"
+
+msgid "Finish"
+msgstr "Kết thúc"
+
+msgid "Cancel"
+msgstr "Hủy"
+
+msgid "NotAllowed"
+msgstr "Không được chấp nhận"
+
+msgid "Manager"
+msgstr "Quản lí"
+
+msgid "Optional"
+msgstr "Tuỳ chọn"
+
+msgid "NextPage"
+msgstr "Trang kế tiếp"
+
+msgid "PreviousPage"
+msgstr "Trang trước"
+
+msgid "Use"
+msgstr "Sử dụng"
+
+msgid "Total"
+msgstr "Tổng cộng"
+
+msgid "Take"
+msgstr "cần"
+
+msgid "One"
+msgstr "Một"
+
+msgid "Several"
+msgstr "Nhiều"
+
+msgid "Notice"
+msgstr "Ghi chú"
+
+msgid "Date"
+msgstr "Ngày"
+
+msgid "Among"
+msgstr "trong số"
+
+msgid "MyCourses"
+msgstr "Danh mục khoá học"
+
+msgid "ModifyProfile"
+msgstr "Sửa thông tin cá nhân"
+
+msgid "MyStats"
+msgstr "Xem thống kê"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "CourseProgram"
+msgstr "Mô tả tóm tắt"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "Giáo trình này không có phần diễn giải"
+
+msgid "QuestionPlan"
+msgstr "Câu hỏi với giáo viên"
+
+msgid "NewBloc"
+msgstr "Khác"
+
+msgid "InvalidId"
+msgstr "<small>Không đăng nhập được.Nếu bạn chưa phải thành viên, hãy <a href=claroline/auth/inscription.php>đăng ký ở đây</a></small></font color>"
+
+msgid "Pass"
+msgstr "Password"
+
+msgid "Advises"
+msgstr "Advises"
+
+msgid "SupportForum"
+msgstr "Diễn đàn hỗ trợ"
+
+msgid "BackToHomePage"
+msgstr "Trở về trang chủ"
+
+msgid "LostPassword"
+msgstr "Quên mật khẩu"
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "Mật khẩu của bạn đã được gửi tới email"
+
+msgid "EnterEmailAndWeWillSendYouYourPassword"
+msgstr "Nhập địa chỉ email bạn đã đăng kí, chúng tôi sẽ gửi mật khẩu cho bạn thông qua email."
+
+msgid "Action"
+msgstr "Hành động"
+
+msgid "Preserved"
+msgstr "Đã lưu"
+
+msgid "ConfirmUnsubscribe"
+msgstr "Xác nhận đăng kí"
+
+msgid "See"
+msgstr "Go to"
+
+msgid "LastVisits"
+msgstr "Lần ghé thăm gần đây nhất"
+
+msgid "IfYouWantToAddManyUsers"
+msgstr "Nếu bạn muốn thêm mới nhiều người dùng cùng 1 lúc, xin liên hệ với người quản trị‹"
+
+msgid "PassTooEasy"
+msgstr "Mật khẩu không đủ mạnh. Nên sử dụng mật khẩu khác"
+
+msgid "AddedToCourse"
+msgstr "Đã đăng kí theo khóa học"
+
+msgid "UserAlreadyRegistered"
+msgstr "Trùng họ / tên với người dùng hiện có"
+
+msgid "BackUser"
+msgstr "Trở về danh sách người dùng"
+
+msgid "UserOneByOneExplanation"
+msgstr "Người dùng sẽ nhận được emmail thông báo login và  password"
+
+msgid "GiveTutor"
+msgstr "gán quyền giáo viên"
+
+msgid "RemoveRight"
+msgstr "Xóa quyền này"
+
+msgid "GiveAdmin"
+msgstr "Gán quyền admin"
+
+msgid "UserNumber"
+msgstr "số lượng"
+
+msgid "DownloadUserList"
+msgstr "Danh sách Upload"
+
+msgid "UserAddExplanation"
+msgstr "every line of file to send will necessarily an only		include 5 fields: <b>Last NameÂ Â Â First NameÂ Â Â 		LoginÂ Â Â PasswordÂ 		Â Â Email</b> separated by tabs and in this order.		Users will recieve email confirmation with login/password."
+
+msgid "UserMany"
+msgstr "Import users list through textfile"
+
+msgid "OneByOne"
+msgstr "Sau khi đăng kí"
+
+msgid "AddHereSomeCourses"
+msgstr "<font size=2 face='Arial, Helvetica'><big>Hiệu chỉnh danh sách khóa học</big><br><br>Đánh dấu vào khóa học bạn chọn<br>Ngược lại bỏ đánh dấu nếu không chọn<br> Sau đó bấm nút OK tại cuối danh sách"
+
+msgid "AddAU"
+msgstr "Thêm user"
+
+msgid "AddedU"
+msgstr "Đã được thêm. Sẽ gửi thông báo đến email"
+
+msgid "TheU"
+msgstr "Người dùng"
+
+msgid "RegYou"
+msgstr "Đã đăng kí cho bạn trong khóa học này"
+
+msgid "OneResp"
+msgstr "Một trong số những quản trị viên của khóa học"
+
+msgid "ProfileReg"
+msgstr "Hồ sơ của bạn đã được lưu lại"
+
+msgid "EmailWrong"
+msgstr "Email này không tồn tại hoặc chưa 1 vài kí tự không hợp lệ"
+
+msgid "UserTaken"
+msgstr "Tên đăng nhập này đã được sử dụng"
+
+msgid "Fields"
+msgstr "Bạn chưa điền 1 số thông tin bắt buộc"
+
+msgid "Again"
+msgstr "Thử lại lần nữa"
+
+msgid "PassTwo"
+msgstr "Bạn xác nhận sai mật khẩu"
+
+msgid "ModifProfile"
+msgstr "Sửa hồ sơ"
+
+msgid "IsReg"
+msgstr "Sửa đổi của bạn được bảo đảm"
+
+msgid "NowGoCreateYourCourse"
+msgstr "Hiện tại bạn đã có thể tạo khóa học"
+
+msgid "NowGoChooseYourCourses"
+msgstr "Bây giờ bạn đã có thể lựa chọn khóa học trong danh sách khóa học"
+
+msgid "PersonalSettings"
+msgstr "Thông tin cá nhân của bạn đã được đảm bảo và 1 email đã được gửi để giúp bạn ghi nhớ tên đăng nhập và mật khẩu </p>"
+
+msgid "Problem"
+msgstr "Trong trường hợp có lỗi xảy ra, hãy liên hệ với chúng tôi"
+
+msgid "Is"
+msgstr "is"
+
+msgid "Address"
+msgstr "địa chỉ của"
+
+msgid "YourReg"
+msgstr "Your registration on"
+
+msgid "UserFree"
+msgstr "Tên đăng nhập đã có người sử dụng. Sử dụng nút quay lại của trình duyệt và chọn 1 kết quả khac"
+
+msgid "EmptyFields"
+msgstr "Bạn để trống 1 số thông tin. Sử dụng nút quay lại của trình duyệt và thử lại lần nữa."
+
+msgid "PassTwice"
+msgstr "Bạn vừa xác nhận sai mật khẩu. Sử dụng nút quay lại của trình duyệt và thử lại lần nữa"
+
+msgid "RegAdmin"
+msgstr "Tạo website cho khóa học(GV)"
+
+msgid "RegStudent"
+msgstr "Tham gia các khóa học(HS)"
+
+msgid "Confirmation"
+msgstr "Xác nhận lại"
+
+msgid "Surname"
+msgstr "tên"
+
+msgid "Registration"
+msgstr "đăng kí"
+
+msgid "YourAccountParam"
+msgstr "điền tên đăng nhập và mật khẩu của bạn"
+
+msgid "LoginRequest"
+msgstr "Cần phải đăng nhập"
+
+msgid "AdminOfCourse"
+msgstr "admin"
+
+msgid "SimpleUserOfCourse"
+msgstr "normal"
+
+msgid "IsTutor"
+msgstr "giáo viên"
+
+msgid "ParamInTheCourse"
+msgstr "Trạng thái"
+
+msgid "HaveNoCourse"
+msgstr "không có khóa học"
+
+msgid "UserProfileReg"
+msgstr "updated"
+
+msgid "Courses4User"
+msgstr "Các khóa học dành cho người dùng"
+
+msgid "CoursesByUser"
+msgstr "Các khóa học được tạo bởi người dùng"
+
+msgid "InLnk"
+msgstr "Tạm ngưng hoạt động"
+
+msgid "DelLk"
+msgstr "Bạn muốn xoá liên kết này?"
+
+msgid "NameOfTheLink"
+msgstr "Tên của liên kết"
+
+msgid "ToolName"
+msgstr "Thống kê"
+
+msgid "TrackingDisabled"
+msgstr "Theo dõi được ngừng hoạt động bởi quản trị hệ thống."
+
+msgid "CourseStats"
+msgstr "Trạng thái khóa học"
+
+msgid "ToolsAccess"
+msgstr "Công cụ truy cập"
+
+msgid "LinksAccess"
+msgstr "Liên kết"
+
+msgid "DocumentsAccess"
+msgstr "Truy cập tài liệu"
+
+msgid "LinksDetails"
+msgstr "Liên kết truy cập bởi học sinh"
+
+msgid "WorksDetails"
+msgstr "Bài làm do học sinh tải lên"
+
+msgid "LoginsDetails"
+msgstr "Bấm vào tên tháng để xem chi tiết"
+
+msgid "DocumentsDetails"
+msgstr "Tài liệu học sinh download về"
+
+msgid "ExercicesDetails"
+msgstr "điểm số các bài tập"
+
+msgid "BackToList"
+msgstr "Trở về danh sách người dùng"
+
+msgid "StatsOfCourse"
+msgstr "Thống kê khóa học"
+
+msgid "StatsOfUser"
+msgstr "Thống kê người dùng"
+
+msgid "StatsOfCampus"
+msgstr "Thống kê chung"
+
+msgid "CountUsers"
+msgstr "số lượng người dùng"
+
+msgid "CountToolAccess"
+msgstr "Tổng số lượt truy cập khóa học"
+
+msgid "LoginsTitleMonthColumn"
+msgstr "Tháng"
+
+msgid "LoginsTitleCountColumn"
+msgstr "Số lượt đăng nhập"
+
+msgid "ToolTitleToolnameColumn"
+msgstr "Tên công cụ"
+
+msgid "ToolTitleUsersColumn"
+msgstr "Số lượt truy cập của user"
+
+msgid "ToolTitleCountColumn"
+msgstr "Tổng số lượt truy cập"
+
+msgid "LinksTitleLinkColumn"
+msgstr "Liên kết"
+
+msgid "LinksTitleUsersColumn"
+msgstr "Số lượt truy cập của user"
+
+msgid "LinksTitleCountColumn"
+msgstr "Tổng số lượt truy cập"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "Bài tập"
+
+msgid "ExercicesTitleScoreColumn"
+msgstr "điểm"
+
+msgid "DocumentsTitleDocumentColumn"
+msgstr "Tài liệu"
+
+msgid "DocumentsTitleUsersColumn"
+msgstr "Số lượng Downloads"
+
+msgid "DocumentsTitleCountColumn"
+msgstr "Tổng số lượng Downloads"
+
+msgid "WorkTitle"
+msgstr "Tiêu đề"
+
+msgid "WorkAuthors"
+msgstr "Người gửi"
+
+msgid "WorkDescription"
+msgstr "Ghi chú"
+
+msgid "informationsAbout"
+msgstr "Theo dõi"
+
+msgid "NoEmail"
+msgstr "Chưa có địa chỉ email"
+
+msgid "NoResult"
+msgstr "Chưa có kết quả"
+
+msgid "Hits"
+msgstr "Hits"
+
+msgid "LittleHour"
+msgstr "h."
+
+msgid "Last31days"
+msgstr "Trong 31 ngày gần đây"
+
+msgid "Last7days"
+msgstr "Trong 7 ngày gần đây"
+
+msgid "ThisDay"
+msgstr "Hôm nay"
+
+msgid "Logins"
+msgstr "đăng nhập"
+
+msgid "LoginsExplaination"
+msgstr "đây là danh sách các công cụ bạn đã sử dụng trong lần truy cập gần đây nhất."
+
+msgid "ExercicesResults"
+msgstr "Kết quả các bài tập"
+
+msgid "At"
+msgstr "tại"
+
+msgid "LoginTitleDateColumn"
+msgstr "Ngày"
+
+msgid "LoginTitleCountColumn"
+msgstr "Lượt ghé thăm"
+
+msgid "LoginsAndAccessTools"
+msgstr "Công cụ đăng nhập và truy cập"
+
+msgid "WorkUploads"
+msgstr "Các  bài đã upload"
+
+msgid "ErrorUserNotInGroup"
+msgstr "Không có trong nhóm"
+
+msgid "ListStudents"
+msgstr "Danh sách học sinh trong nhóm"
+
+msgid "PeriodHour"
+msgstr "Giờ"
+
+msgid "PeriodDay"
+msgstr "Ngày"
+
+msgid "PeriodWeek"
+msgstr "Tuầnn"
+
+msgid "PeriodMonth"
+msgstr "Tháng"
+
+msgid "PeriodYear"
+msgstr "Năm"
+
+msgid "NextDay"
+msgstr "Ngày kế tiếp"
+
+msgid "PreviousDay"
+msgstr "Ngày trước"
+
+msgid "NextWeek"
+msgstr "Tuần kế tiếp"
+
+msgid "PreviousWeek"
+msgstr "Tuần trước"
+
+msgid "NextMonth"
+msgstr "Tháng kê tiếp"
+
+msgid "PreviousMonth"
+msgstr "Tháng trước"
+
+msgid "NextYear"
+msgstr "Năm kế tiếp"
+
+msgid "PreviousYear"
+msgstr "Năm trứơc"
+
+msgid "ViewToolList"
+msgstr "Xem danh sách tất cả công cụ"
+
+msgid "ToolList"
+msgstr "Danh sách tất cả công cụ"
+
+msgid "PeriodToDisplay"
+msgstr "Chu kì"
+
+msgid "DetailView"
+msgstr "Xem thông tin"
+
+msgid "BredCrumpGroups"
+msgstr "Nhóm"
+
+msgid "BredCrumpGroupSpace"
+msgstr "Không gian của nhóm"
+
+msgid "BredCrumpUsers"
+msgstr "Người dùng"
+
+msgid "AdminToolName"
+msgstr "Admin Stats"
+
+msgid "PlatformStats"
+msgstr "Trạng thái hệ thống"
+
+msgid "StatsDatabase"
+msgstr "Trạng thái cơ sở dữ liệu"
+
+msgid "PlatformAccess"
+msgstr "Truy cập hệ thống"
+
+msgid "PlatformCoursesAccess"
+msgstr "Truy cập khóa học"
+
+msgid "PlatformToolAccess"
+msgstr "Truy cập công cụ"
+
+msgid "HardAndSoftUsed"
+msgstr "Các quốc gia cung cấp trình duyệt os Referers"
+
+msgid "StrangeCases"
+msgstr "Trường hợp lạ"
+
+msgid "StatsDatabaseLink"
+msgstr "Nhấn vào đây"
+
+msgid "CountCours"
+msgstr "Số khóa học"
+
+msgid "CountCourseByFaculte"
+msgstr "Số lượng khóa học bộ môn"
+
+msgid "CountCourseByLanguage"
+msgstr "Số lượng khóa học ngôn ngữ"
+
+msgid "CountCourseByVisibility"
+msgstr "Number of courses by visibility"
+
+msgid "CountUsersByCourse"
+msgstr "Number of users by course"
+
+msgid "CountUsersByFaculte"
+msgstr "Number of users by faculte"
+
+msgid "CountUsersByStatus"
+msgstr "Số lượng người sử dụng theo tình trạng"
+
+msgid "Access"
+msgstr "Truy cập"
+
+msgid "Countries"
+msgstr "Quốc gia"
+
+msgid "Providers"
+msgstr "Người cung cấp"
+
+msgid "OS"
+msgstr "OS"
+
+msgid "Browsers"
+msgstr "Browsers"
+
+msgid "Referers"
+msgstr "Referers"
+
+msgid "AccessExplain"
+msgstr "(When an user open the index of the campus)"
+
+msgid "TotalPlatformAccess"
+msgstr "Tổng số lượt truy cập hệ thống"
+
+msgid "TotalPlatformLogin"
+msgstr "Tổng số đăng nhập"
+
+msgid "MultipleLogins"
+msgstr "Accounts with same <i>Username</i>"
+
+msgid "MultipleUsernameAndPassword"
+msgstr "Accounts with same <i>Username</i> AND same <i>Password</i>"
+
+msgid "MultipleEmails"
+msgstr "Accounts with same <i>Email</i>"
+
+msgid "CourseWithoutProf"
+msgstr "Courses without professor"
+
+msgid "CourseWithoutAccess"
+msgstr "Courses not used"
+
+msgid "LoginWithoutAccess"
+msgstr "Logins not used"
+
+msgid "AllRight"
+msgstr "There is no strange case here"
+
+msgid "Defcon"
+msgstr "Ooops, stranges cases detected !!"
+
+msgid "NULLValue"
+msgstr "Không có giá trị"
+
+msgid "TrafficDetails"
+msgstr "Traffic Details"
+
+msgid "GroupSpaceLink"
+msgstr "Khu vực nhóm"
+
+msgid "HFor"
+msgstr "Hỗ trợ diễn đàn"
+
+msgid "ForContent"
+msgstr "Diễn đàn là nơi thảo luận không đồng bộ. Nơi mà email có thể trao đối, đối thoại công khai.</p><p>Về mặt kĩ thuật, sinh viên chỉ cần có trình duyệt web là có thể sử dụng diễn đàn</P><p>Để liên lạc với tổ chức diễn đàn, nhấp vào 'Administer'. Các cuộc thảo luận được tổ chức đồng bộ và được bố trí như sau:</p><p><b>Danh mục > Diễn đàn > Chủ đề > Trả lời</b></p>Để cấu trúc được các cuộc thảo luận của sinh viên, it is necessary to organise catgories and forums beforehand, leaving the creation of topics and answers to them. By default, the claroline forum contains only the category 'Public', a sample forum ans a sample topic.</p><p>The first thing you should do is deleting the sample topic and modify the first forum's name. Then, you can create, in the 'public' category, other forums, by groups or by themes, to fit your learning scenario requirements.</p><p>Don't mix Categories and forums, and don't forget that an empty category (without forums) does not appear on the student view.</p><p>The description of a forum can be the list of its members, the definition of a goal, a task, a theme..."
+
+msgid "HHome"
+msgstr "Hỗ trợ trang chủ"
+
+msgid "HomeContent"
+msgstr "để thuận tiện hơn, những công cụ claroline chứa các mục mặc định. Có 1 ví dụ nhỏ trong tất cả công cụ để giúp bạn nắm thật nhanh nó hoạt động như thế nào.Bạn có thể sửa đổi hoặc xóa nó.</p><p>Ví dụ, trên trang chủ website khóa học của bạn, có 1 dòng giới thiệu nhỏ : ' Đây là phần giới thiệu cho khóa học của bạn. Để thay đổi nói, nhấp vào modify ở phía dưới'. Sau khi nhấp vào modify, thay đổi nó và OK. Nó thật đơn giản. Every tool has the same logic: add, delete, modify, which is the logic of dynamic websites.</p><p>When you first create your website, most of the tools are active. Here again, it is up to you to deactivate the ones you don't need. You just have to click on 'deactivate'. Then it goes down to the grey section of your homepage an becomes invisible to your students.  However, you can reactivate it whenever you want, making it visible to the students once more.</p><p>You can add your own pages to your Home Page. These pages must be HTML pages (which can be created by any Word Processor or Web Composer). Use 'Upload page and link to Homepage' to send your page to the server. The standard header of your website will be automatically merged with your new document, so that you just need to concentrate on the content. If you want to link from your Home towards existaing websites or pages existing anywhere on the web (even inside your own site), use 'Add link on Homepage' The pages you have added to the Home page can deactivated then deleted, where the standard tools can be deactivated, but not deleted.</p><p>Once your course website is ready, go to 'Modify course info' and decide what level of confidentiality you want. By default, your course is hidden (because you work on it).</p>"
+
+msgid "HClar"
+msgstr "Hỗ trợ khởi đầu"
+
+msgid "HDoc"
+msgstr "Hỗ trợ tài liệu"
+
+msgid "DocContent"
+msgstr "<p>Công cụ để quản lí tThe Documents tool is similar to the FileManager of your desktop computer.</p><p>You can upload files of any type (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern must be that your students have the corresponding software to read them. Some file types can contain viruses, it is your responsibilty not to upload virus contaminated files. It is a worthwhile precaution to check documents with antivirus software before uploading them.</p><p>The documents are presented in alphabetical order.<br><b>Tip : </b>If you want to present them in a different order, numerate them: 01, 02, 03...</p><p>You can :</p><h4>Upload a document</h4><ul>  <li>Select the file on your computer using the Browse button <input type=submit value=Browse name=submit2>	on the right of your screen.</li>		<li>			Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.		</li>	</ul>	<h4>		Rename a document (a directory)	</h4>	<ul>		<li>			click on the <img src=../img/renommer.gif width=20 height=20 align=baseline>			button in the Rename column		</li>		<li>			Type the new name in the field (top left)		</li>		<li>			Validate by clicking <input type=submit value=Ok name=submit24>.		</li>	</ul>		<h4>			Delete a document (or a directory)		</h4>		<ul>			<li>				Click on <img src=../img/delete.gif width=20 height=20>				in column 'Delete'.			</li>		</ul>		<h4>			Make a document (or directory) invisible to students		</h4>		<ul>			<li>				Click on <img src=../img/visible.gif width=20 height=20>				in column 'Visible/invisible'.			</li>			<li>				The document (or directory) still exists but it is not visible by students anymore.			</li>			<li>				To make it invisible back again, click on				<img src=../document/../img/invisible.gif width=24 height=20>				in column 'Visible/invisible'			</li>		</ul>		<h4>			Add or modify a comment to a document (or a directory)		</h4>		<ul>			<li>				Click on <img src=../document/../img/comment.gif width=20 height=20> in column 'Comment'			</li>			<li>				Type new comment in the corresponding field (top right).			</li>			<li>				Validate by clicking <input type=submit value=OK name=submit2>			.</li>		</ul>		<p>		To delete a comment, click on <img src=../document/../img/comment.gif width=20 height=20>,		delete the old comment in the field and click		<input type=submit value=OK name=submit22>.		<hr>		<p>			You can organise your content through filing. For this:		</p>		<h4>			<b>				Create a directory			</b>		</h4>		<ul>			<li>				Click on				<img src=../document/../img/dossier.gif width=20 height=20>				'Create a directory' (top left)			</li>			<li>				Type the name of your new directory in the corresponding field (top left)			</li>			<li>				Validate by clicking <input type=submit value=OK name=submit23>.			</li>		</ul>		<h4>			Move a document (or directory)		</h4>		<ul>			<li>				Click on button <img src=../document/../img/deplacer.gif width=34 height=16>				in column 'Move'			</li>			<li>				Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word 'root' means you cannot go upper than that level in the document tree of the server).			</li>			<li>				Validate by clicking on <input type=submit value=OK name=submit232>.			</li>		</ul><center><p>"
+
+msgid "HUser"
+msgstr "Hỗ trợ người dùng"
+
+msgid "HExercise"
+msgstr "Hỗ trợ bài tập"
+
+msgid "Height"
+msgstr "Chiều cao"
+
+msgid "ResizingComment"
+msgstr "thay đổi kích thước bức ảnh thep pixels"
+
+msgid "Width"
+msgstr "Chiều rộng"
+
+msgid "Resizing"
+msgstr "thay đổi kích thước"
+
+msgid "NoResizingComment"
+msgstr "Hiển thị toàn bộ những bức ảnh với kích thước thật của nó. Con lăn sẽ tự động xuất hiện nếu kích thước bức ảnh lớn hơn kích thước màn hình máy tính của bạn."
+
+msgid "ShowThumbnails"
+msgstr "Hiển thị hình nhỏ"
+
+msgid "SetSlideshowOptions"
+msgstr "Cài đặt các lựa chọn cho slideshow"
+
+msgid "SlideshowOptions"
+msgstr "Những lựa chọn của Slide"
+
+msgid "NoResizing"
+msgstr "Mặc định"
+
+msgid "SlideShow"
+msgstr "Slideshow"
+
+msgid "ViewSlideshow"
+msgstr "Xem slide"
+
+msgid "ResourceAdded"
+msgstr "Tài nguyên đã được thêm vào.Bây giờ bạn có thể quay lại hoặc thêm tài nguyên mới"
+
+msgid "LearningPath"
+msgstr "Quá trình học tập"
+
+msgid "LevelUp"
+msgstr "level up"
+
+msgid "AddIt"
+msgstr "Thêm nó"
+
+msgid "MainCategory"
+msgstr "Danh mục chính"
+
+msgid "AddToLinks"
+msgstr "Thêm liên kết vào khóa học"
+
+msgid "DontAdd"
+msgstr "Không thêm"
+
+msgid "ResourcesAdded"
+msgstr "Thêm tài nguyên mới"
+
+msgid "ExternalResources"
+msgstr "Tài nguyên bên ngoài"
+
+msgid "CourseResources"
+msgstr "Tài nguyên khóa học"
+
+msgid "ExternalLink"
+msgstr "Liên kết ngoài"
+
+msgid "DropboxAdd"
+msgstr "Thêm Dropbox cho chương này"
+
+msgid "AddAssignmentPage"
+msgstr "Thêm các trang phân tải lên chương này."
+
+msgid "SendWork"
+msgstr "Upload bài"
+
+msgid "TooBig"
+msgstr "Bạn không chọn tệp nào, hoặc là kích thước tệp quá lớn"
+
+msgid "DocModif"
+msgstr "tên bài đã sửa"
+
+msgid "DocAdd"
+msgstr "Bài đã nộp"
+
+msgid "DocDel"
+msgstr "Bài đã xoá"
+
+msgid "TitleWork"
+msgstr "Tên bài"
+
+msgid "Authors"
+msgstr "Người gửi"
+
+msgid "WorkDelete"
+msgstr "Xoá"
+
+msgid "WorkModify"
+msgstr "Sửa"
+
+msgid "WorkConfirmDelete"
+msgstr "Bạn có chắc muốn xoá bài nàyr"
+
+msgid "AllFiles"
+msgstr "Tất cả file"
+
+msgid "UserContent"
+msgstr "<b>Roles</b><p>Roles have no computer related function. They do not give rights on operating the system. They just indicate to Humans, who is who. You can modify them by clicking on 'modify' under 'role', then typing whatever you want: professor, assistant, student, visitor, expert...</P><hr><b>Admin rights</b><p>Admin rights, on the other hand, correspond to the technical authorisation to modify the content and organisation of the course website. For the moment, you can only choose between giving all the admin rights and giving none of them.</P><p>To allow an assistant, for instance, to co-admin the site, you need to register him in the course or be sure he is already registerd, then click on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr><b>Co-chairmen</b><p>To mention in the header of the course website the name of a co-chairmen, use the tool 'Modify course information' (orange tools). This modification does not register your co-chairmen as a user of the course. The field 'Professors' is completely independant of the Users list.</p><hr><b>Add a user</b><p>To add a user for your course, fill the fields and validate. The personwill receive an email telling him/her you have registered him/her and tellinghim/her or reminding him/her his/her login and  password.</p>"
+
+msgid "GroupContent"
+msgstr "<p><b>Introduction</b></p><p>This tool allows to create and manage work groups.At creation (Create groups), groups are emtpy. There aremany ways to fill them:<ul><li>automatically ('Fill groups'),</li><li>manually ('Edit'),</li><li>self-registration by students diants (Groups settings: 'Self registration allowed...').</li></ul>These three ways can be combined. You can, for instance, ask students to self-register first.Then discover that some of them didn't and decide then to fill groups automatically inorder to complete them. You can also edit each group to compose membership one studentat a time after or before self-registration and/or automatical filling.</p><p>Groups filling, whether automatical or manual, works only if there are already studentsregistered in the course (don't mix registration to the course with registration into groups).Students list is visible in <b>Users</b> tool. </p><hr noshade size=1><p><b>Create groups</b></p><p>To create new groups, click on 'Create new group(s)' and determine number of groups tocreate. Maximum number of members is optional but we suggest to chose one. If you leave max. fieldunchanged, groups size maximum will be infinite.</p><hr noshade size=1><p><b>Group settings</b></p><p>You can determine Group settings globally (for all groups).<b>Students are allowed to self-register in groups</b>:<p>You create empty groups, students self-register.If you have defined a maximum number, full groups do not accept new members.This method is good for teachers who do not know students list whencreating groups.</p><b>Outils</b>:</p><p>Every group possesses either a forum (private or public) or a Documents area(a shared file manager) or (most frequent) both.</p><hr noshade size=1><p><b>Manual edit</b></p><p>Once groups created (Create groups), you see at bottom of page, a list of groupswith a series of informations and functions<ul><li><b>Edit</b> to modify manually Group name, description, tutor,members list.</li><li><b>Delete</b> deletes a group.</li></ul><hr noshade size=1>"
+
+msgid "ExerciseContent"
+msgstr "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br><br>There are various types of answers available for the creation of your questions :<br><br><ul>  <li>Multiple choice (Unique answer)</li>  <li>Multiple choice (multiple answers)</li>  <li>Matching</li>  <li>Fill in the blanks</li></ul>An exercise gathers a certain number of questions under a common theme.</p><hr><b>Exercise creation</b><p>In order to create an exercise, click on the link \"New exercise\".<br><br>Type the exercise name, as well as an optional description of it.<br><br>You can also choose between 2 exercise types :<br><br><ul>  <li>Questions on an unique page</li>  <li>One question per page (sequential)</li></ul>and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>Then, save your exercise. You will go to to the question administration for this exercise.</p><hr><b>Question adding</b><p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p><hr><b>Multiple choice</b><p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>In order to create a MAQ / MCQ :<br><br><ul>  <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>  <li>Check via the left box the correct answer(s)</li>  <li>Add an optional comment. This comment won't be seen by the student till this one has replied to the question</li>  <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>  <li>Save your answers</li></ul></p><hr><b>Fill in the blanks</b><p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p><hr><b>Matching</b><p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>It can also be used to ask students to sort elements in a certain order.<br><br>First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>Give a weighting to each correct matching, and save your answer.</p><hr><b>Exercise modification</b><p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p><hr><b>Exercise deleting</b><p>In order to delete an exercise, click on the picture <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p><hr><b>Exercise enabling</b><p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p><hr><b>Exercise running</b><p>You can test your exercise by clicking on its name in the exercise list.</p><hr><b>Random exercises</b><p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p><hr><b>Question pool</b><p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>The question pool also allows to reuse a same questions into several exercises.<br><br>By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu \"Filter\".<br><br>Orphan questions are questions that don't belong to any exercise.</p>"
+
+msgid "ClarContent3"
+msgstr "</p><p><b>Educational Theory</b><p>For the professors, prepare a course on the internet is a question of Educational Theory too."
+
+msgid "ClarContent4"
+msgstr "is at your disposal to help you during the different steps of your teaching project evolution: from tool design to its integration in a clear and coherent strategy and objective evaluation of its impact on student learning.</p>"
+

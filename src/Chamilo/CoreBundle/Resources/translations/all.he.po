@@ -1,0 +1,6 @@
+msgid "ShowAllEvents"
+msgstr "הראה את כל פריטי לוח הזמנים"
+
+msgid "AdminBy"
+msgstr "מנוהל על ידי"
+

@@ -1,0 +1,5196 @@
+msgid "ShowAllEvents"
+msgstr "모든 일정 보기"
+
+msgid "Month"
+msgstr "한달"
+
+msgid "Hour"
+msgstr "시각"
+
+msgid "Minutes"
+msgstr "분"
+
+msgid "AddSuccess"
+msgstr "일정이 추가되었습니다"
+
+msgid "AgendaDeleteSuccess"
+msgstr "일정이 삭제되었습니다"
+
+msgid "NoAgendaItems"
+msgstr "일정이 없습니다"
+
+msgid "ClassName"
+msgstr "클래스 명"
+
+msgid "ItemTitle"
+msgstr "일정 제목"
+
+msgid "Day"
+msgstr "날"
+
+msgid "month_default"
+msgstr "기본 달"
+
+msgid "year_default"
+msgstr "기본 해"
+
+msgid "Hour"
+msgstr "시각"
+
+msgid "hour_default"
+msgstr "현재 시각"
+
+msgid "Minute"
+msgstr "분"
+
+msgid "Lasting"
+msgstr "지속"
+
+msgid "OldToNew"
+msgstr "이전 것을 새 것으로"
+
+msgid "NewToOld"
+msgstr "새 것을 이전 것으로"
+
+msgid "Now"
+msgstr "현재"
+
+msgid "AddEvent"
+msgstr "이벤트 추가"
+
+msgid "Detail"
+msgstr "세부사항"
+
+msgid "MonthView"
+msgstr "월별 보기"
+
+msgid "WeekView"
+msgstr "주별 보기"
+
+msgid "DayView"
+msgstr "일별 보기"
+
+msgid "AddPersonalItem"
+msgstr "개인 일정 추가"
+
+msgid "Week"
+msgstr "주"
+
+msgid "Time"
+msgstr "시간"
+
+msgid "AddPersonalCalendarItem"
+msgstr "개인 일정 추가"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "개인 일정 변경"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "개인 일정이 성공적으로 추가되었습니다"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "개인 일정이 성공적으로 변경되었습니다"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "개인 일정이 성공적으로 삭제되었습니다"
+
+msgid "ViewPersonalItem"
+msgstr "개인 일정 보기"
+
+msgid "Print"
+msgstr "프린트하기"
+
+msgid "ScormVersion"
+msgstr "버전"
+
+msgid "ScormRestarted"
+msgstr "모든 수업을 수행하지 못하였습니다."
+
+msgid "ScormNoNext"
+msgstr "마지막 레슨입니다."
+
+msgid "ScormNoPrev"
+msgstr "첫번째 레슨입니다."
+
+msgid "ScormTime"
+msgstr "시간"
+
+msgid "ScormScore"
+msgstr "점수"
+
+msgid "ScormLessonTitle"
+msgstr "레슨 제목"
+
+msgid "ScormStatus"
+msgstr "직위"
+
+msgid "ScormToEnter"
+msgstr "들어가기"
+
+msgid "ScormFirstNeedTo"
+msgstr "처음 레슨을 수행하셔야 합니다"
+
+msgid "ScormThisStatus"
+msgstr "이 레슨은 지금"
+
+msgid "ScormRestart"
+msgstr "재시작"
+
+msgid "ScormCompstatus"
+msgstr "완료"
+
+msgid "ScormIncomplete"
+msgstr "미완료"
+
+msgid "ScormPassed"
+msgstr "합격"
+
+msgid "ScormFailed"
+msgstr "불합격"
+
+msgid "ScormPrevious"
+msgstr "이전"
+
+msgid "ScormNext"
+msgstr "다음"
+
+msgid "ScormTitle"
+msgstr "Chamilo Scorm player"
+
+msgid "ScormMystatus"
+msgstr "내 상태"
+
+msgid "ScormNoItems"
+msgstr "이 컨텐츠에는 아이템이 없습니다."
+
+msgid "ScormNoStatus"
+msgstr "이 컨텐츠의 상태정보가 없습니다"
+
+msgid "ScormLoggedout"
+msgstr "Scorm 에서 로그아웃"
+
+msgid "ScormCloseWindow"
+msgstr "창 닫기"
+
+msgid "ScormExitFullScreen"
+msgstr "일반 화면으로 돌아가기"
+
+msgid "ScormFullScreen"
+msgstr "전체 화면"
+
+msgid "ScormNotAttempted"
+msgstr "시도되지 않았습니다"
+
+msgid "ModifInfo"
+msgstr "과정 세팅"
+
+msgid "ModifDone"
+msgstr "정보가 변경되었습니다"
+
+msgid "DelCourse"
+msgstr "전체 과정 삭제"
+
+msgid "Professors"
+msgstr "교사"
+
+msgid "Faculty"
+msgstr "카테고리"
+
+msgid "Confidentiality"
+msgstr "기밀성"
+
+msgid "Unsubscription"
+msgstr "신청 취소"
+
+msgid "PrivOpen"
+msgstr "개인적 접근, 등록한 사람에게 공개"
+
+msgid "Forbidden"
+msgstr "허용되지 않음"
+
+msgid "CourseAccessConfigTip"
+msgstr "기본적으로 과정은 모두에게 공개됩니다. 그러나, 위의 공개 레벨을 통해 지정이 가능합니다."
+
+msgid "OpenToTheWorld"
+msgstr "공개 - 누구나 접근 가능합니다"
+
+msgid "OpenToThePlatform"
+msgstr "공개 - 플랫폼에 등록한 유저 접근 가능"
+
+msgid "OpenToThePlatform"
+msgstr "공개 - 플랫폼에 등록한 유저 접근 가능"
+
+msgid "TipLang"
+msgstr "이 언어는 당신의 과정 웹사이트에 접근하는 모든 방문자에게 적용될 것입니다."
+
+msgid "Vid"
+msgstr "비디오"
+
+msgid "Work"
+msgstr "기여자"
+
+msgid "ProgramMenu"
+msgstr "과정 프로그램"
+
+msgid "Stats"
+msgstr "통계"
+
+msgid "UplPage"
+msgstr "페이지를 올리고 홈페이지에 링크"
+
+msgid "LinkSite"
+msgstr "홈페이지의 페이지에 링크 추가"
+
+msgid "HasDel"
+msgstr "삭제되었습니다"
+
+msgid "ByDel"
+msgstr "이 부분을 삭제하게 되면 저장하고 있는 모든 문서를 영구적으로 삭제하게 되며 그 멤버들은 모두 등록이 취소가 됩니다.(다른 부분에서는 삭제되지 않음)<p>정말로 삭제하시겠습니까?"
+
+msgid "Y"
+msgstr "예"
+
+msgid "N"
+msgstr "아니요"
+
+msgid "DepartmentUrl"
+msgstr "단과 URL"
+
+msgid "DepartmentUrlName"
+msgstr "단과"
+
+msgid "BackupCourse"
+msgstr "이 과정 영역을 보관"
+
+msgid "ModifGroups"
+msgstr "그룹"
+
+msgid "Professor"
+msgstr "교사"
+
+msgid "DescriptionCours"
+msgstr "과정 설명"
+
+msgid "ArchiveCourse"
+msgstr "과정 백업"
+
+msgid "RestoreCourse"
+msgstr "과정 복구"
+
+msgid "Restore"
+msgstr "복구"
+
+msgid "CreatedIn"
+msgstr "생성"
+
+msgid "CreateMissingDirectories"
+msgstr "손실된 디렉토리 생성"
+
+msgid "CopyDirectoryCourse"
+msgstr "과정 파일 복사"
+
+msgid "Disk_free_space"
+msgstr "남은 디스크 공간"
+
+msgid "BuildTheCompressedFile"
+msgstr "백업파일 생성"
+
+msgid "FileCopied"
+msgstr "파일 복사됨"
+
+msgid "ArchiveLocation"
+msgstr "보관 장소"
+
+msgid "SizeOf"
+msgstr "사이즈"
+
+msgid "ArchiveName"
+msgstr "보관 명"
+
+msgid "BackupSuccesfull"
+msgstr "백업이 성공하였습니다"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "메인 데이터베이스에 과정 데이터 백업"
+
+msgid "BUUsersInMainBase"
+msgstr "메인 데이터베이스에 유저 데이터 백업"
+
+msgid "BUAnnounceInMainBase"
+msgstr "메인 데이터베이스에 공지 날짜 백업"
+
+msgid "BackupOfDataBase"
+msgstr "데이터베이스 백업"
+
+msgid "ExpirationDate"
+msgstr "종료 날짜"
+
+msgid "LastEdit"
+msgstr "마지막 변경"
+
+msgid "LastVisit"
+msgstr "마지막 방문"
+
+msgid "Subscription"
+msgstr "신청"
+
+msgid "CourseAccess"
+msgstr "과정 접근"
+
+msgid "ConfirmBackup"
+msgstr "과정 영역을 백업하시겠습니까?"
+
+msgid "CreateSite"
+msgstr "과정 영역 생성"
+
+msgid "RestoreDescription"
+msgstr "이 과정은 아래에서 선택할 수 있는 백업 파일입니다 .\"Restore\", 버튼을 누르면 백업 파일의 압축이 해제되면서 과정이 새로 생성됩니다"
+
+msgid "RestoreNotice"
+msgstr "이 스크립트는 유저들을 자동으로 복구하는 것까지 허용하지는 않지만 \"users.csv\"에 저장된 데이터를 통해 관리자가 수동으로 복구할 수 있습니다."
+
+msgid "AvailableArchives"
+msgstr "사용가능한 백업파일 리스트"
+
+msgid "NoArchive"
+msgstr "백업파일을 선택하지 않았습니다"
+
+msgid "ArchiveNotFound"
+msgstr "백업파일을 찾을 수 없습니다"
+
+msgid "ArchiveUncompressed"
+msgstr "백업파일의 압축이 해제되고 설치되었습니다."
+
+msgid "CsvPutIntoDocTool"
+msgstr "\"users.csv\"파일을 문서도구에 넣었습니다."
+
+msgid "BackH"
+msgstr "홈페이지로 돌아가기"
+
+msgid "OtherCategory"
+msgstr "다른 카테고리"
+
+msgid "AllowedToUnsubscribe"
+msgstr "유저가 이 과정에 등록 취소를 수행할 수 있습니다"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "유저가 이 과정등록신청을 취소하는 것이 허용되지 않았습니다"
+
+msgid "CourseVisibilityClosed"
+msgstr "차단됨 - 이 과정에 접근이 불가능합니다"
+
+msgid "CourseVisibilityClosed"
+msgstr "차단됨 - 이 과정에 접근이 불가능합니다"
+
+msgid "PressAgain"
+msgstr "'Store'를 다시 누르십시요..."
+
+msgid "Rights"
+msgstr "사용 권한"
+
+msgid "Version"
+msgstr "버전"
+
+msgid "StatusTip"
+msgstr "목록에서 선택"
+
+msgid "CreatedSize"
+msgstr "생성됨, 사이즈"
+
+msgid "AuthorTip"
+msgstr "VCARD 형식"
+
+msgid "Format"
+msgstr "형식"
+
+msgid "FormatTip"
+msgstr "목록에서 선택"
+
+msgid "Statuses"
+msgstr ":draft:draft,, final:final,, revised:revised,, unavailable:unavailable"
+
+msgid "Costs"
+msgstr ":no:free, no cost,, yes:not free, cost"
+
+msgid "Copyrights"
+msgstr ":yes:copyright,, no:no copyright"
+
+msgid "Formats"
+msgstr ":text/plain;iso-8859-1:text/plain;iso-8859-1,, text/plain;utf-8:text/plain;utf-8,, text/html;iso-8859-1:text/html;iso-8859-1,, text/html;utf-8:text/html;utf-8,, inode/directory:Folder,, application/msword:MsWord,, application/octet-stream:Octet stream,, application/pdf:PDF,, application/postscript:PostScript,, application/rtf:RTF,, application/vnd.ms-excel:MsExcel,, application/vnd.ms-powerpoint:MsPowerpoint,, application/xml;iso-8859-1:XML;iso-8859-1,, application/xml;utf-8:XML;utf-8,, application/zip:ZIP"
+
+msgid "LngResTypes"
+msgstr ":exercise:exercise,, simulation:simulation,, questionnaire:questionnaire,, diagram:diagram,, figure:figure,, graph:graf,, index:index,, slide:slide,, table:table,, narrative text:narrative text,, exam:exam,, experiment:experiment,, problem statement:problem statement,, self assessment:self assessment,, lecture:lecture"
+
+msgid "SelectOptionForBackup"
+msgstr "백업 옵션을 선택하여 주십시요."
+
+msgid "LetMeSelectItems"
+msgstr "과정 컴포넌트를 선택할 수 있도록 해주십시요"
+
+msgid "CreateFullBackup"
+msgstr "이 과정의 전체 백업 생성"
+
+msgid "CreateBackup"
+msgstr "백업 생성"
+
+msgid "BackupCreated"
+msgstr "이 과정의 백업이 생성되었습니다. 이 파일의 다운로드가 시작되는 데는 약간의 시간이 소요됩니다. 만일 다운로드가 시작되지 않을 시에는, 다음 링크를 클릭하십시요."
+
+msgid "SelectBackupFile"
+msgstr "백업 파일 선택"
+
+msgid "ImportBackup"
+msgstr "백업 불러오기"
+
+msgid "ImportFullBackup"
+msgstr "전체 백업 불러오기"
+
+msgid "ImportFinished"
+msgstr "불러오기가 종료되었습니다"
+
+msgid "Tests"
+msgstr "테스트"
+
+msgid "Learnpaths"
+msgstr "Learnpaths"
+
+msgid "CopyCourse"
+msgstr "과정 복사"
+
+msgid "SelectItemsToCopy"
+msgstr "복사 할 항목 선택"
+
+msgid "CopyFinished"
+msgstr "복사하기가 종료되었습니다"
+
+msgid "FullRecycle"
+msgstr "전체 재사용"
+
+msgid "RecycleCourse"
+msgstr "과정 재사용"
+
+msgid "RecycleFinished"
+msgstr "재사용이 종료되었습니다"
+
+msgid "RecycleWarning"
+msgstr "경고: 이 툴을 사용할 경우, 과정의 일부를 삭제하게 됩니다. 취소도 불가능합니다. 이 재활용 툴을 사용하기 전에 <a href=\"create_backup.php\">백업</a> 하기 바랍니다."
+
+msgid "SameFilename"
+msgstr "불러온 파일과 같은 파일 명이 존재하면 어떻게 하시겠습니까?"
+
+msgid "SameFilenameSkip"
+msgstr "불러오기 취소"
+
+msgid "SameFilenameRename"
+msgstr "파일명 재작성 (eg file.pdf 인 경우 file_1.pdf로)"
+
+msgid "SameFilenameOverwrite"
+msgstr "덮어쓰기"
+
+msgid "SelectDestinationCourse"
+msgstr "대상 과정을 선택"
+
+msgid "FullCopy"
+msgstr "전체 복사"
+
+msgid "NoResourcesToBackup"
+msgstr "백업 할 리소스가 존재하지 않습니다"
+
+msgid "NoResourcesInBackupFile"
+msgstr "백업 파일에 리소스가 존재하지 않습니다"
+
+msgid "SelectResources"
+msgstr "리소스 선택"
+
+msgid "NoResourcesToRecycles"
+msgstr "재사용 할 리소스가 존재하지 않습니다"
+
+msgid "IncludeQuestionPool"
+msgstr "질문 풀 삽입"
+
+msgid "LocalFile"
+msgstr "로컬 파일"
+
+msgid "ServerFile"
+msgstr "서버 파일"
+
+msgid "NoBackupsAvailable"
+msgstr "백업이 불가능합니다"
+
+msgid "NoDestinationCoursesAvailable"
+msgstr "대상 과정이 존재하지 않습니다"
+
+msgid "ImportBackupInfo"
+msgstr "백업 불러오기. 로컬 드라이브 또는 서버 상의 팩업 파일을 업로드 하는 것이 가능합니다."
+
+msgid "CreateBackupInfo"
+msgstr "이 과정의 백업을 생성합니다. 과정 컨텐츠를 선택적으로 백업 파일에 넣을 수 있습니다."
+
+msgid "ToolIntro"
+msgstr "툴 개요"
+
+msgid "Explanation"
+msgstr "OK를 클릭하면, 포럼, 일정, 문서 관리자 등을 가진 웹사이트를 생성하게 됩니다. 웹사이트의 생성자로 로그인하면, 자신의 필요에 따라 변경이 가능합니다."
+
+msgid "CodeTaken"
+msgstr "이 과정 코드는 이미 사용중입니다. <br><b>Back</b>버튼을 이용하여 다시 지정하십시요."
+
+msgid "ExerciceEx"
+msgstr "샘플 테스트"
+
+msgid "Antique"
+msgstr "Irony"
+
+msgid "SocraticIrony"
+msgstr "Socratic irony is..."
+
+msgid "ManyAnswers"
+msgstr "(하나 이상의 응답이 참이 될 수 있다)"
+
+msgid "Ridiculise"
+msgstr "Ridiculise one's interlocutor in order to have him concede he is wrong."
+
+msgid "NoPsychology"
+msgstr "No. Socratic irony is not a matter of psychology, it concerns argumentation."
+
+msgid "AdmitError"
+msgstr "Admit one's own errors to invite one's interlocutor to do the same."
+
+msgid "NoSeduction"
+msgstr "No. Socratic irony is not a seduction strategy or a method based on the example."
+
+msgid "Force"
+msgstr "Compell one's interlocutor, by a series of questions and sub-questions, to admit he doesn't know what he claims to know."
+
+msgid "Indeed"
+msgstr "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\""
+
+msgid "Contradiction"
+msgstr "Use the Principle of Non Contradiction to force one's interlocutor into a dead end."
+
+msgid "NotFalse"
+msgstr "This answer is not false. It is true that the revelation of the interlocutor's ignorance means showing the contradictory conclusions where lead his premisses."
+
+msgid "AddPageHome"
+msgstr "페이지를 업로드하고 홈페이지에 링크"
+
+msgid "ModifyInfo"
+msgstr "과정 세팅"
+
+msgid "CourseDesc"
+msgstr "과정 설명"
+
+msgid "AgendaTitle"
+msgstr "Tuesday the 11th of December - First meeting. Room: LIN 18"
+
+msgid "AgendaText"
+msgstr "프로젝트 관리의 일반 개요"
+
+msgid "Micro"
+msgstr "길거리 인터뷰"
+
+msgid "Google"
+msgstr "빠르고 강력한 검색 엔진"
+
+msgid "IntroductionTwo"
+msgstr "이 페이지는 유저와 그룹이 문서 게시하는 것을 허용합니다."
+
+msgid "AnnouncementEx"
+msgstr "이는 공지사항 예시입니다. 과정 교사들만이 공지사항을 게시할 수 있습니다."
+
+msgid "JustCreated"
+msgstr "과정 영역을 생성하였습니다"
+
+msgid "CatagoryMain"
+msgstr "메인"
+
+msgid "CatagoryGroup"
+msgstr "그룹 포럼"
+
+msgid "Ln"
+msgstr "언어"
+
+msgid "FieldsRequ"
+msgstr "모든 필드가 필요합니다"
+
+msgid "Ex"
+msgstr "e.g. <i>Innovation management</i>"
+
+msgid "Fac"
+msgstr "카테고리"
+
+msgid "TargetFac"
+msgstr "이것은 과정이 전달되는 특정 카테고리의 일부입니다."
+
+msgid "Scormtool"
+msgstr "Learning Path"
+
+msgid "Pathbuildertool"
+msgstr "Learning Path builder"
+
+msgid "OnlineConference"
+msgstr "컨퍼런스"
+
+msgid "AgendaCreationTitle"
+msgstr "과정 생성"
+
+msgid "AgendaCreationContenu"
+msgstr "이 과정이 지금생성되었습니다."
+
+msgid "OnlineDescription"
+msgstr "컨퍼런스 설명"
+
+msgid "Only"
+msgstr "Only"
+
+msgid "RandomLanguage"
+msgstr "적절한 언어로 선택을 변경"
+
+msgid "ForumLanguage"
+msgstr "영어"
+
+msgid "NewCourse"
+msgstr "새 과정 영역"
+
+msgid "AddNewCourse"
+msgstr "새 과정 영역에 추가"
+
+msgid "OtherProperties"
+msgstr "백업파일의 또 다른 특성이 발견되었습니다"
+
+msgid "SysId"
+msgstr "시스템 ID"
+
+msgid "ScoreShow"
+msgstr "점수 보기"
+
+msgid "Visibility"
+msgstr "가시성"
+
+msgid "VersionDb"
+msgstr "백업 시에 데이터베이스 버전 사용"
+
+msgid "Expire"
+msgstr "만료"
+
+msgid "ChoseFile"
+msgstr "파일 선택"
+
+msgid "FtpFileTips"
+msgstr "FTP 서버의 파일"
+
+msgid "HttpFileTips"
+msgstr "웹(HTTP)서버의 파일"
+
+msgid "LocalFileTips"
+msgstr "플랫폼 서버의 파일"
+
+msgid "PostFileTips"
+msgstr "로컬 컴퓨터의 파일"
+
+msgid "Minimum"
+msgstr "최소"
+
+msgid "Maximum"
+msgstr "최대"
+
+msgid "RestoreACourse"
+msgstr "과정 복구"
+
+msgid "Recycle"
+msgstr "과정 재사용"
+
+msgid "AnnouncementExampleTitle"
+msgstr "이것은 공지사항 예시입니다"
+
+msgid "Wikipedia"
+msgstr "무료 온라인 백과사전"
+
+msgid "DefaultGroupCategory"
+msgstr "기본 그룹"
+
+msgid "TitleNotification"
+msgstr "마지막 방문으로부터"
+
+msgid "ShowFeedback"
+msgstr "피드백 보기"
+
+msgid "GiveFeedback"
+msgstr "피드백 쓰기/수정"
+
+msgid "MailingFileNotRegistered"
+msgstr "(이 과정에 등록되어있지 않습니다)"
+
+msgid "ClickKw"
+msgstr "선택하거나 선택을 해제하려면 트리에서 키워드 클릭."
+
+msgid "KwHelp"
+msgstr "<br/> 열기 위해서는 '+' 버튼을 클릭, 닫기 위해서는 '-' 버튼을 클릭, 모두 열기 위해서는 '++' 버튼을 클릭l, 모두 닫기 위해서는 '--' 버튼을 클릭하십시요.<br/> <br/> 트리를 모두 닫음으로써 키워드 선택을 모두 해제할 수 있고 '+' 버튼을 통해 다시 열 수 있다.<br/> Alt-click '+' 를  통해 트리의 본래 키워드를 검색할 수 있습니다. <br/> <br/> Alt-click 키워드는 광범위한 용어 없이 키워드를 선택할 수 있고 혹은 광범위한 용어의 키워드의 선택을 해제할 수 있습니다. .<br/> <br/> 설명 언어를 바꾼다면, 키워드를 동시에 추가하지 말아주십시요.<br/> <br/>"
+
+msgid "SearchCrit"
+msgstr "라인마다 한 단어씩!"
+
+msgid "NoKeywords"
+msgstr "이 과정은 키워드가 없습니다."
+
+msgid "KwCacheProblem"
+msgstr "키워드 캐시를 열수 없습니다"
+
+msgid "CourseKwds"
+msgstr "이 문서는 과정 키워드를 포함하고 있습니다"
+
+msgid "KwdsInMD"
+msgstr "MD에 사용된 키워드"
+
+msgid "KwdRefs"
+msgstr "키워드 레퍼런스"
+
+msgid "NonCourseKwds"
+msgstr "과정 키워드 없음"
+
+msgid "KwdsUse"
+msgstr "과정 키워드 (bold = not used)"
+
+msgid "TotalMDEs"
+msgstr "MD 항목의 전체 링크 수:"
+
+msgid "LinkName"
+msgstr "링크 명"
+
+msgid "LinkAdd"
+msgstr "링크 추가"
+
+msgid "LinkAdded"
+msgstr "링크가 추가되었습니다."
+
+msgid "LinkMod"
+msgstr "링크 수정"
+
+msgid "LinkModded"
+msgstr "링크가 수정되었습니다."
+
+msgid "LinkDel"
+msgstr "링크 삭제"
+
+msgid "LinkDeleted"
+msgstr "링크가 삭제되었습니다"
+
+msgid "LinkDelconfirm"
+msgstr "이 링크를 삭제하시겠습니까?"
+
+msgid "AllLinksDel"
+msgstr "이 카테고리의 모든 링크 삭제"
+
+msgid "CategoryName"
+msgstr "카테고리 명"
+
+msgid "CategoryAdd"
+msgstr "카테고리 추가"
+
+msgid "CategoryModded"
+msgstr "카테고리가 수정되었습니다."
+
+msgid "CategoryDel"
+msgstr "카테고리 삭제"
+
+msgid "CategoryDelconfirm"
+msgstr "카테고리를 삭제할 때, 카테고리의 모든 링크 역시 삭제됩니다. <br />이 카테고리와 모든 링크를 삭제하시겠습니까?"
+
+msgid "AllCategoryDel"
+msgstr "모든 카테고리와 모든 링크 삭제"
+
+msgid "GiveURL"
+msgstr "링크 URL을 지정하십시요"
+
+msgid "GiveCategoryName"
+msgstr "카테고리 명을 지정하십시요"
+
+msgid "NoCategory"
+msgstr "카테고리 없음"
+
+msgid "ShowNone"
+msgstr "모든 카테고리 닫기"
+
+msgid "ListDeleted"
+msgstr "목록이 삭제되었습니다"
+
+msgid "AddLink"
+msgstr "링크 추가"
+
+msgid "DelList"
+msgstr "목록 삭제"
+
+msgid "ModifyLink"
+msgstr "링크 수정"
+
+msgid "CsvImport"
+msgstr "CSV 가져오기"
+
+msgid "CsvFileNotFound"
+msgstr "가져온 CSV 파일이 열리지 않습니다. (e.g. 비었거나, 너무 큼)"
+
+msgid "CsvFileNoSeps"
+msgstr "가져온 CVS파일은 목록구분자로 , 나 ;를 사용합니다"
+
+msgid "CsvFileNoURL"
+msgstr "가져온 CSV 파일은 최소한 URL과 제목 컬럼을 포함하고 있어야 합니다"
+
+msgid "CsvFileLine1"
+msgstr "... - line 1 ="
+
+msgid "CsvLinesFailed"
+msgstr "링크 가져오기에 실패한 라인(URL 또는 제목 부재)"
+
+msgid "CsvLinesOld"
+msgstr "존재하는 링크가 업데이트 되었습니다(동일한 URL 과 카테고리)"
+
+msgid "CsvLinesNew"
+msgstr "새 링크가 생성되었습니다."
+
+msgid "CsvExplain"
+msgstr "파일은 다음과 같아야 합니다: <blockquote><pre> <b>URL</b>;category;<b>title</b>;description; <b>http://www.aaa.org/...</b>;Important links;<b>Name 1</b>;Description 1; <b>http://www.bbb.net/...</b>;;<b>Name 2</b>;\"Description 2\"; </pre></blockquote> URL과 카테고리가 존재하는 링크와 동일하다면, 그 제목과 설명이 업데이트됩니다.  그 외의 모든 경우에는 새 링크가 생성됩니다.<br><br> Bold = 필수적임. 필드의 순서도 상관이 없고 이름도 대소문자 구분하지 않습니다. 부가적인 필드에는 설명이 추가됩니다. 구분자: 콤마 혹은 세미콜론 사용. 값에는 제하는 있슬 수도 있지만 필드 명에는 제한이 없습니다. [b]HTML tags[/b]는 설명 필드에 불러질 수 있습니다."
+
+msgid "LinkUpdated"
+msgstr "링크가 업데이트되었습니다"
+
+msgid "OnHomepage"
+msgstr "홈페이지의 링크 보기"
+
+msgid "ShowLinkOnHomepage"
+msgstr "이 링크를 과정 홈페이지에서 아이콘으로 나타내기"
+
+msgid "StatDB"
+msgstr "Tracking DB."
+
+msgid "EnableTracking"
+msgstr "Tracking 활성화"
+
+msgid "InstituteShortName"
+msgstr "기관명"
+
+msgid "WarningResponsible"
+msgstr "백업한 후에만 이 스크립트를 사용하십시요. Chamilo 팀은 데이터 손실에 대한 책임이 없습니다."
+
+msgid "AllowSelfRegProf"
+msgstr "과정 생성자로써 직접등록 허용"
+
+msgid "EG"
+msgstr "예."
+
+msgid "DBHost"
+msgstr "데이터베이스 호스트"
+
+msgid "DBLogin"
+msgstr "데이터베이스 유저명"
+
+msgid "DBPassword"
+msgstr "데이터베이스 패스워드"
+
+msgid "MainDB"
+msgstr "메인 Chamilo 데이터베이스"
+
+msgid "AllFieldsRequired"
+msgstr "모든 필드정보가 필요합니다"
+
+msgid "PrintVers"
+msgstr "프린트 버전"
+
+msgid "LocalPath"
+msgstr "대응하는 로컬 경로"
+
+msgid "AdminEmail"
+msgstr "관리자 이메일"
+
+msgid "AdminName"
+msgstr "관리자 이름"
+
+msgid "AdminSurname"
+msgstr "관리자dml 성(Surname)"
+
+msgid "AdminLogin"
+msgstr "관리자 로그인"
+
+msgid "AdminPass"
+msgstr "관리자 패스워드(<font color=\"red\">you may want to change this</font>)"
+
+msgid "EducationManager"
+msgstr "프로젝트 매니저"
+
+msgid "CampusName"
+msgstr "포털 명"
+
+msgid "DBSettingIntro"
+msgstr "설치 스크립트가 Chamilo 메인 데이터베이스를 생성해줄 것입니다. Chamilo는 여러 데이터베이스를 생성해야 한다는 것을 주지하십시요. 만약 \"One database\"을 선택하지 않고, 호스팅 서비스에 의해 하나의  데이터베이스만 사용하도록 허용되었다면, Chamilo는 동작하지 않을 것입니다."
+
+msgid "Step3"
+msgstr "Step 3 of 6"
+
+msgid "Step4"
+msgstr "Step 4 of 6"
+
+msgid "Step5"
+msgstr "Step 5 of 6"
+
+msgid "Step6"
+msgstr "Step 6 of 6"
+
+msgid "CfgSetting"
+msgstr "환경 설정"
+
+msgid "DBSetting"
+msgstr "MySQL 데이터베이스 설정"
+
+msgid "MainLang"
+msgstr "주 언어"
+
+msgid "Licence"
+msgstr "라이센스"
+
+msgid "LastCheck"
+msgstr "설치하기 전 마지막 확인"
+
+msgid "DbPrefixForm"
+msgstr "MySQL 데이터베이스 접두사"
+
+msgid "DbPrefixCom"
+msgstr "요청하지 않은 부분은 비어있도록 놔둠"
+
+msgid "EncryptUserPass"
+msgstr "데이터베이스 상에서 유저 패스워드 암호화"
+
+msgid "SingleDb"
+msgstr "Chamilo를 위해 하나 혹은 여러 개의 DB사용"
+
+msgid "AllowSelfReg"
+msgstr "직접-등록 허용"
+
+msgid "Recommended"
+msgstr "(권장)"
+
+msgid "ScormDB"
+msgstr "Scorm DB"
+
+msgid "AdminLastName"
+msgstr "관리자 성(last name)"
+
+msgid "AdminPhone"
+msgstr "관리자 전화"
+
+msgid "Titular"
+msgstr "리더"
+
+msgid "AdministrationTools"
+msgstr "관리 도구"
+
+msgid "CatList"
+msgstr "카테고리"
+
+msgid "Subscribe"
+msgstr "수강 신청"
+
+msgid "AlreadySubscribed"
+msgstr "이미 수강신청이 되었습니다."
+
+msgid "CourseCategoryStored"
+msgstr "과정 카테고리가 생성되었습니다"
+
+msgid "Added"
+msgstr "추가되었음"
+
+msgid "Deleted"
+msgstr "삭제되었음"
+
+msgid "Keeped"
+msgstr "저장하였음"
+
+msgid "HideAndSubscribeClosed"
+msgstr "숨김 / 잠금"
+
+msgid "HideAndSubscribeOpen"
+msgstr "숨김 / 열림"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "보임 / 열림"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "보임 / 잠금"
+
+msgid "AdminThisUser"
+msgstr "유저로 돌아가기"
+
+msgid "Manage"
+msgstr "포털 관리"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "과정에 등록되었습니다"
+
+msgid "SubCat"
+msgstr "하위 카테고리"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "이 과정의 등록취소가 불가능합니다."
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "당신은 이 과정의 과정 관리자입니다."
+
+msgid "CourseManagement"
+msgstr "과정 관리"
+
+msgid "SortMyCourses"
+msgstr "내 과정 정렬"
+
+msgid "SubscribeToCourse"
+msgstr "과정 등록"
+
+msgid "UnsubscribeFromCourse"
+msgstr "과정등록 취소"
+
+msgid "CreateCourseCategory"
+msgstr "과정 카테고리 생성"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "이 과정 카테고리를 정말로 삭제하시겠습니까? 이 과정 카테고리 안의 과정이 모두 과정 카테고리 밖으로 이동될 것입니다."
+
+msgid "CourseCategories"
+msgstr "과정 카테고리"
+
+msgid "CoursesInCategory"
+msgstr "이 카테고리 안의 과정"
+
+msgid "SearchCourse"
+msgstr "과정 검색"
+
+msgid "UpOneCategory"
+msgstr "< - 한 카테고리 위로"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "정말로 이 과정 등록을 취소하시겠습니까?"
+
+msgid "NoCourseCategory"
+msgstr "과정 카테고리가 없습니다"
+
+msgid "EditCourseCategorySucces"
+msgstr "과정이 카테고리에 추가되었습니다"
+
+msgid "SubscribingNotAllowed"
+msgstr "등록이 허용되지 않았습니다"
+
+msgid "CourseSortingDone"
+msgstr "과정 정렬을 마쳤습니다"
+
+msgid "ExistingCourseCategories"
+msgstr "과정 카테고리가 존재합니다"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "과정 등록이 취소되었습니다"
+
+msgid "DocumentList"
+msgstr "모든 문서의 목록"
+
+msgid "OrganisationList"
+msgstr "컨텐츠의 테이블"
+
+msgid "EditTOC"
+msgstr "컨텐츠 테이블 수정"
+
+msgid "EditDocument"
+msgstr "수정"
+
+msgid "CreateDocument"
+msgstr "문서 생성"
+
+msgid "MissingImagesDetected"
+msgstr "잃어버린 이미지를 찾았습니다"
+
+msgid "Publish"
+msgstr "발행"
+
+msgid "Scormcontentstudent"
+msgstr "이것은 Scorm 형식의 과정입니다. 실행하시려면, 이곳을 클릭하십시요.  <input type=button name=scormbutton value='Launch?it?!' onclick='openscorm()'>"
+
+msgid "Scormcontent"
+msgstr "이것은 Scorm 컨텐츠입니다<br><input type=button name=scormbutton value='Launch?it?!' onclick='openscorm()'>"
+
+msgid "DownloadAndZipEnd"
+msgstr "압축 파일 올리고 압축 해제"
+
+msgid "ZipNoPhp"
+msgstr "압축 파일은 .PHP 파일을 포함할 수 없습니다"
+
+msgid "GroupForumLink"
+msgstr "그룹 포럼"
+
+msgid "NotScormContent"
+msgstr "scorm 압축 파일이 아닙니다 !"
+
+msgid "NoText"
+msgstr " text / HTML 내용을 입력하여 주십시요"
+
+msgid "NoFileName"
+msgstr "파일 명을 입력해주십시요"
+
+msgid "FileError"
+msgstr "올리려는 파일이 적절하지 않습니다."
+
+msgid "ViMod"
+msgstr "가시성이 변경되었습니다"
+
+msgid "AddComment"
+msgstr "커멘트 추가/수정"
+
+msgid "Impossible"
+msgstr "동작이 불가능합니다"
+
+msgid "NoSpace"
+msgstr "파일 올리기가 실패하였습니다. 제한 사용량을 넘었거나, 디스크 공간이 충분하지 않을 수 있습니다."
+
+msgid "DownloadEnd"
+msgstr "파일 올리기가 종료되었습니다"
+
+msgid "FileExists"
+msgstr "작업진행이 불가능합니다. 동일한 이름의 파일이 존재합니다."
+
+msgid "DocCopied"
+msgstr "문서가 복사되었습니다"
+
+msgid "DocDeleted"
+msgstr "문서가 삭제되었습니다"
+
+msgid "ElRen"
+msgstr "구성요소의 이름이 재지정되었습니다"
+
+msgid "DirMv"
+msgstr "구성요소가 삭제되었습니다"
+
+msgid "ComMod"
+msgstr "커멘트가 수정되었습니다"
+
+msgid "Rename"
+msgstr "이름바꾸기"
+
+msgid "NameDir"
+msgstr "새 디렉토리 명"
+
+msgid "DownloadFile"
+msgstr "서버에 파일 올리기"
+
+msgid "ScormBuilder"
+msgstr "Path builder - Scorm format course builder"
+
+msgid "CreateDoc"
+msgstr "문서 생성"
+
+msgid "Uncompress"
+msgstr "압축 해제"
+
+msgid "ExportShort"
+msgstr "간단히 내보내기"
+
+msgid "AdminBy"
+msgstr "관리자"
+
+msgid "Statistiques"
+msgstr "통계"
+
+msgid "Used"
+msgstr "사용"
+
+msgid "Exist"
+msgstr "존재함"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "과정 제목에 교사명 표기"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "과정 목록에 교사명 표기"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "과정 코드를 과정 목록에 표기"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "과정 제목에 과정 코드 표기"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "가상 과정이 존재하지 않습니다."
+
+msgid "ConfigureHomePage"
+msgstr "홈페이지 구성"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "과정 생성을 위해 활성화 된 모듈"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "새 과정이 생성될 때, 기본적으로 활성화(visible) 할 도구는?"
+
+msgid "CourseBackup"
+msgstr "이 과정을 백업합니다"
+
+msgid "CourseTitular"
+msgstr "교사"
+
+msgid "CourseFaculty"
+msgstr "과정 카테고리"
+
+msgid "CourseDepartment"
+msgstr "과정 department"
+
+msgid "CourseDepartmentURL"
+msgstr "Department URL"
+
+msgid "CourseSubscription"
+msgstr "과정 등록"
+
+msgid "PublicAccess"
+msgstr "전체 접근"
+
+msgid "PrivateAccess"
+msgstr "개인 접근"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "데이터베이스 관리는 서버관리자만 할 수 있습니다"
+
+msgid "ShowUsersOfCourse"
+msgstr "이 과정에 등록한 유저 보기"
+
+msgid "ShowClassesOfCourse"
+msgstr "이 과정에 등록된 클래스 보기"
+
+msgid "ShowGroupsOfCourse"
+msgstr "이 과정의 그룹 보기"
+
+msgid "PhoneNumber"
+msgstr "전화번호"
+
+msgid "AddToCourse"
+msgstr "과정에 추가"
+
+msgid "DeleteFromPlatform"
+msgstr "플랫폼에서 제거"
+
+msgid "DeleteCourse"
+msgstr "선택한 과정을 삭제"
+
+msgid "DeleteFromCourse"
+msgstr "과정등록 취소"
+
+msgid "DeleteSelectedClasses"
+msgstr "선택한 클래스 삭제"
+
+msgid "DeleteSelectedGroups"
+msgstr "선택한 그룹 삭제"
+
+msgid "Administrator"
+msgstr "관리자"
+
+msgid "ChangePicture"
+msgstr "사진 변경"
+
+msgid "AddUsers"
+msgstr "유저 추가"
+
+msgid "AddGroups"
+msgstr "그룹 추가"
+
+msgid "AddClasses"
+msgstr "클래스 추가"
+
+msgid "ExportUsers"
+msgstr "유저목록 내보내기"
+
+msgid "NumberOfParticipants"
+msgstr "참가자 수"
+
+msgid "NumberOfUsers"
+msgstr "유저 수"
+
+msgid "Participants"
+msgstr "참가자"
+
+msgid "FirstLetterClass"
+msgstr "첫 글자 (클래스 명)"
+
+msgid "FirstLetterUser"
+msgstr "첫 글자 (성)"
+
+msgid "FirstLetterCourse"
+msgstr "첫 글자 (코드)"
+
+msgid "ModifyUserInfo"
+msgstr "사용자 정보 수정"
+
+msgid "ModifyClassInfo"
+msgstr "클래스 정보 수정"
+
+msgid "ModifyGroupInfo"
+msgstr "그룹 정보 수정"
+
+msgid "ModifyCourseInfo"
+msgstr "과정 정보 수정"
+
+msgid "PleaseEnterClassName"
+msgstr "클래스 명을 입력하십시오!"
+
+msgid "PleaseEnterLastName"
+msgstr "사용자의 성을 입력하십시오!"
+
+msgid "PleaseEnterFirstName"
+msgstr "사용자의 이름을 입력하십시오!"
+
+msgid "PleaseEnterValidEmail"
+msgstr "정확한 e-mail 주소를 입력하십시오!"
+
+msgid "PleaseEnterValidLogin"
+msgstr "정확한 로그인 명을 입력하십시오 !"
+
+msgid "PleaseEnterCourseCode"
+msgstr "과정 코드를 입력하십시요 !"
+
+msgid "PleaseEnterTitularName"
+msgstr "교사의 성명을 입력하십시오!"
+
+msgid "PleaseEnterCourseTitle"
+msgstr "과정 타이틀을 입력하십시오 !"
+
+msgid "AcceptedPictureFormats"
+msgstr "허용가능한 파일 형태는 JPG, PNG 그리고 GIF입니다 !"
+
+msgid "LoginAlreadyTaken"
+msgstr "이미 존재하는 로그인 네임입니다 !"
+
+msgid "ImportUserListXMLCSV"
+msgstr "XML/CSV 파일로부터 유저리스트를 가지고옵니다. (import)"
+
+msgid "ExportUserListXMLCSV"
+msgstr "유저 리스트를 XML/CSV 파일형태로 저장합니다 (export)"
+
+msgid "OnlyUsersFromCourse"
+msgstr "과정의 유저들만"
+
+msgid "AddClassesToACourse"
+msgstr "클래스를 과정에 추가"
+
+msgid "AddUsersToACourse"
+msgstr "과정에 유저를 추가"
+
+msgid "AddUsersToAClass"
+msgstr "클래스에 유저 추가"
+
+msgid "AddUsersToAGroup"
+msgstr "그룹에 유저 추가"
+
+msgid "AtLeastOneClassAndOneCourse"
+msgstr "최소 하나의 클래스와 과정을 선택해야만 합니다 !"
+
+msgid "AtLeastOneUser"
+msgstr "최소 한 유저를 선택해야 합니다 !"
+
+msgid "AtLeastOneUserAndOneCourse"
+msgstr "최소 한 유저와 한 과정을 선택해야합니다 !"
+
+msgid "ClassList"
+msgstr "클래스 리스트"
+
+msgid "AddToThatCourse"
+msgstr "이 과정에 추가"
+
+msgid "AddToClass"
+msgstr "클래스에 추가"
+
+msgid "RemoveFromClass"
+msgstr "클래스에서 제외"
+
+msgid "AddToGroup"
+msgstr "그룹에 추가"
+
+msgid "RemoveFromGroup"
+msgstr "그룹에서 제외"
+
+msgid "UsersOutsideClass"
+msgstr "클래스에 포함되지 않은 유저"
+
+msgid "UsersInsideClass"
+msgstr "클래스 안의 유저"
+
+msgid "UsersOutsideGroup"
+msgstr "그룹에 속하지 않은 유저들"
+
+msgid "UsersInsideGroup"
+msgstr "그룹에 포함된 유저들"
+
+msgid "MustUseSeparator"
+msgstr "' ; ' 을 구분자로 사용해야만 합니다"
+
+msgid "CSVMustLookLike"
+msgstr "CSV 파일은 다음과 같아야 합니다"
+
+msgid "XMLMustLookLike"
+msgstr "XML 파일은 다음과 같아야 합니다"
+
+msgid "MandatoryFields"
+msgstr "strong>bold</strong> 안의 필드는 필수적인 것입니다."
+
+msgid "NotXML"
+msgstr "지정한 파일은 XML 유형이 아닙니다 !"
+
+msgid "NotCSV"
+msgstr "지정한 파일은 CSV 유형이 아닙니다 !"
+
+msgid "NoNeededData"
+msgstr "지정한 파일은 필요한 데이터를 모두 포함하고 있지 않습니다 !"
+
+msgid "MaxImportUsers"
+msgstr "한 번에 500 유저 이상은 불러들일 수 없습니다 !"
+
+msgid "AdminDatabases"
+msgstr "데이터베이스 (phpMyAdmin)"
+
+msgid "AdminUsers"
+msgstr "유저"
+
+msgid "AdminClasses"
+msgstr "유저의 클래스"
+
+msgid "AdminGroups"
+msgstr "유저가 속한 그룹"
+
+msgid "AdminCourses"
+msgstr "과정"
+
+msgid "AdminCategories"
+msgstr "과정의 카테고리"
+
+msgid "SubscribeUserGroupToCourse"
+msgstr "과정에 유저/그룹 등록"
+
+msgid "NoCategories"
+msgstr "카테고리가 존재하지 않습니다"
+
+msgid "AllowCoursesInCategory"
+msgstr "이 카테고리에 과정 추가하기가 허용되었습니까?"
+
+msgid "GoToForum"
+msgstr "포럼으로 이동"
+
+msgid "CategoryCode"
+msgstr "카테고리 코드"
+
+msgid "EditNode"
+msgstr "이 카테고리를 수정"
+
+msgid "OpenNode"
+msgstr "이 카테고리를 열기"
+
+msgid "DeleteNode"
+msgstr "이 카테고리를 삭제"
+
+msgid "AddChildNode"
+msgstr "하위 카테고리 추가"
+
+msgid "ViewChildren"
+msgstr "하위 카테고리 보기"
+
+msgid "TreeRebuildedIn"
+msgstr "재구성 된 트리"
+
+msgid "TreeRecountedIn"
+msgstr "재계산 된 트리"
+
+msgid "RebuildTree"
+msgstr "트리 재구성"
+
+msgid "RefreshNbChildren"
+msgstr "하위 카테고리 수 새로고침"
+
+msgid "ShowTree"
+msgstr "트리 보기"
+
+msgid "LogDeleteCat"
+msgstr "카테고리가 삭제되었습니다"
+
+msgid "RecountChildren"
+msgstr "하위 카테고리 재계산"
+
+msgid "UpInSameLevel"
+msgstr "동일한 레벨로 올리기"
+
+msgid "MailTo"
+msgstr "Mail to :"
+
+msgid "AddAdminInApache"
+msgstr "관리자 추가"
+
+msgid "AddFaculties"
+msgstr "카테고리 추가"
+
+msgid "SearchACourse"
+msgstr "과정 검색"
+
+msgid "SearchAUser"
+msgstr "수강자 검색"
+
+msgid "TechnicalTools"
+msgstr "기술적"
+
+msgid "Config"
+msgstr "시스템 설정"
+
+msgid "LogIdentLogoutComplete"
+msgstr "로그인 리스트(확장)"
+
+msgid "NomOutilTodo"
+msgstr "관리 지침 리스트"
+
+msgid "NomPageAdmin"
+msgstr "관리"
+
+msgid "SysInfo"
+msgstr "시스템 정보"
+
+msgid "DiffTranslation"
+msgstr "번역본과 비교"
+
+msgid "StatOf"
+msgstr "통계정보"
+
+msgid "SpeeSubscribe"
+msgstr "과정 체커로 빠른 등록"
+
+msgid "LogIdentLogout"
+msgstr "로그인 리스트"
+
+msgid "ServerStatus"
+msgstr "MySQL의 상태:"
+
+msgid "DataBase"
+msgstr "데이터베이스"
+
+msgid "Run"
+msgstr "works"
+
+msgid "Client"
+msgstr "MySql 클라이언트"
+
+msgid "Server"
+msgstr "MySql 서버"
+
+msgid "titulary"
+msgstr "소유자"
+
+msgid "UpgradeBase"
+msgstr "데이터베이스 업그레이드"
+
+msgid "ErrorsFound"
+msgstr "에러 발견"
+
+msgid "Maintenance"
+msgstr "유지"
+
+msgid "Upgrade"
+msgstr "Chamilo 업그레이드"
+
+msgid "Website"
+msgstr "Dokes 웹사이트"
+
+msgid "Documentation"
+msgstr "문서"
+
+msgid "Contribute"
+msgstr "기여"
+
+msgid "InfoServer"
+msgstr "서버 정보"
+
+msgid "SendMailToUsers"
+msgstr "수강자에게 메일 보내기"
+
+msgid "CourseSystemCode"
+msgstr "시스템 코드"
+
+msgid "CourseVisualCode"
+msgstr "보여지는 코드"
+
+msgid "SystemCode"
+msgstr "시스템 코드"
+
+msgid "VisualCode"
+msgstr "보여지는 코드"
+
+msgid "AddCourse"
+msgstr "과정 생성"
+
+msgid "AdminManageVirtualCourses"
+msgstr "가상 과정(Virtual) 관리"
+
+msgid "AdminCreateVirtualCourse"
+msgstr "가상(virtual) 과정 생성"
+
+msgid "AdminCreateVirtualCourseExplanation"
+msgstr "가상(virtual) 과정은 '실제' 과정과 저장 공간을 공유하게 됩니다."
+
+msgid "RealCourseCode"
+msgstr "실제 과정 코드"
+
+msgid "CourseCreationSucceeded"
+msgstr "과정이 성공적으로 생성되었습니다."
+
+msgid "OnTheHardDisk"
+msgstr "하드디스크에"
+
+msgid "IsVirtualCourse"
+msgstr "가상(virtual) 과정입니다"
+
+msgid "AnnouncementUpdated"
+msgstr "공지사항이 업데이트되었습니다"
+
+msgid "Guest"
+msgstr "손님(Guest)"
+
+msgid "LoginAsThisUserColumnName"
+msgstr "로그인 as"
+
+msgid "LoginAsThisUser"
+msgstr "로그인"
+
+msgid "CourseAdmin"
+msgstr "과정 관리자"
+
+msgid "PlatformLanguageTitle"
+msgstr "플랫폼 언어"
+
+msgid "ServerStatusComment"
+msgstr "어떤 종류의 서버인가요? 이에 따라 특정 옵션이 활성화 또는 비활성화 됩니다. 개발서버에는 번역되지 않은 문자를 나타내는 번역기능이 있습니다."
+
+msgid "ServerStatusTitle"
+msgstr "서버 타입"
+
+msgid "PlatformLanguages"
+msgstr "Chamilo 기본 언어"
+
+msgid "PlatformLanguagesExplanation"
+msgstr "이 툴은 로그인 페이지에서 언어를 선택할 수 있는 메뉴를 제공합니다. 플랫폼 관리자는 수강자들에 적합한 언어를 결정할 수 있습니다."
+
+msgid "OriginalName"
+msgstr "원어 이름"
+
+msgid "EnglishName"
+msgstr "영문 이름"
+
+msgid "LMSFolder"
+msgstr "Chamilo 폴더"
+
+msgid "Properties"
+msgstr "속성"
+
+msgid "PlatformConfigSettings"
+msgstr "Chamilo 설정 변경"
+
+msgid "SettingsStored"
+msgstr "설정 내용이 저장되었습니다"
+
+msgid "InstitutionTitle"
+msgstr "기관 명"
+
+msgid "InstitutionComment"
+msgstr "기관 명 (오른쪽 상단에 표기됩니다)"
+
+msgid "InstitutionUrlTitle"
+msgstr "기관 URL"
+
+msgid "InstitutionUrlComment"
+msgstr "기관 URL (오른쪽 상단에 링크가 표기됩니다)"
+
+msgid "SiteNameTitle"
+msgstr "Chamilo 캠퍼스 명"
+
+msgid "SiteNameComment"
+msgstr "Chamilo 캠퍼스 명 ( header에 표기 )"
+
+msgid "emailAdministratorTitle"
+msgstr "플랫폼 관리자: E-mail"
+
+msgid "emailAdministratorComment"
+msgstr "플랫폼 관리자의 e-mail 주소 ( 왼쪽 하단에 표기됩니다 )"
+
+msgid "administratorSurnameTitle"
+msgstr "플랫폼 관리자: 성(Family Name)"
+
+msgid "administratorSurnameComment"
+msgstr "플랫폼 관리자의 성(family name) (왼쪽 하단에 표기됩니다)"
+
+msgid "administratorNameTitle"
+msgstr "플랫폼 관리자: 이름"
+
+msgid "administratorNameComment"
+msgstr "플랫폼 관리자의 이름 (왼쪽 하단에 표기됩니다)"
+
+msgid "ShowAdministratorDataTitle"
+msgstr "하단의 플랫폼 관리자 정보"
+
+msgid "ShowAdministratorDataComment"
+msgstr "하단의 플랫폼 관리자 정보가 나타났습니까?"
+
+msgid "HomepageViewTitle"
+msgstr "홈페이지 보기"
+
+msgid "HomepageViewComment"
+msgstr "과정 홈페이지가 어떻게 보여지기를 원하나요?"
+
+msgid "HomepageViewDefault"
+msgstr "두 칸으로 나뉜 구조. 비활성화 된 툴들은 숨겨지게 됩니다."
+
+msgid "HomepageViewFixed"
+msgstr "세 칸으로 나뉜 구조. 비활성화 된 툴들이 희미하게 나타납니다. (아이콘은 원래자리에 위치)"
+
+msgid "ShowToolShortcutsTitle"
+msgstr "도구 바로가기"
+
+msgid "ShowToolShortcutsComment"
+msgstr "도구 바로가기가 배너에 나타났습니까?"
+
+msgid "ShowStudentViewTitle"
+msgstr "학생 보기"
+
+msgid "ShowStudentViewComment"
+msgstr "학생 보기를 활성화하겠습니까? 이 기능은 교사가 학생들의 정보를 확인할 수 있도록 해줍니다."
+
+msgid "AllowGroupCategories"
+msgstr "그룹 카테고리"
+
+msgid "AllowGroupCategoriesComment"
+msgstr "과정관리자가 그룹 모듈의 카테고리 생성하는 것을 허용하시겠습니까?"
+
+msgid "PlatformLanguageComment"
+msgstr "플랫폼 관리자의 다른 부분에서 플랫폼 언어를 결정할 수 있습니다, 즉; <a href=\"languages.php\">Dokeos Platform Languages</a>"
+
+msgid "ProductionServer"
+msgstr "제품 서버"
+
+msgid "TestServer"
+msgstr "테스트 서버"
+
+msgid "ShowOnlineTitle"
+msgstr "누가 로그인했을까?"
+
+msgid "AsPlatformLanguage"
+msgstr "플랫폼 언어처럼"
+
+msgid "ShowOnlineComment"
+msgstr "온라인 상에 있는 사람의 수를 표시하도록 하겠습니까?"
+
+msgid "AllowNameChangeTitle"
+msgstr "개인정보의 이름변경을 허용하시겠습니까?"
+
+msgid "AllowNameChangeComment"
+msgstr "유저가 자신의 이름을 변경하는 것이 허용되었습니까?"
+
+msgid "DefaultDocumentQuotumTitle"
+msgstr "기본 문서 할당량"
+
+msgid "DefaultDocumentQuotumComment"
+msgstr "문서의 기본 할당량은 얼마인가요? 과벙 별로 할당량을 수정할 수도 있습니다: platform administration > Courses > modify"
+
+msgid "ProfileChangesTitle"
+msgstr "개인정보"
+
+msgid "ProfileChangesComment"
+msgstr "개인정보의 어느 부분을 수정 가능합니까?"
+
+msgid "RegistrationRequiredFormsTitle"
+msgstr "등록: 필수 항목"
+
+msgid "RegistrationRequiredFormsComment"
+msgstr "어떤 항목이 필수적입니까 (besides name, first name, login and password)"
+
+msgid "DefaultGroupQuotumTitle"
+msgstr "기본 그룹 할당량"
+
+msgid "DefaultGroupQuotumComment"
+msgstr "그룹 문서의 기본 할당량은 얼마입니까?"
+
+msgid "AllowLostPasswordTitle"
+msgstr "패스워드 분실"
+
+msgid "AllowLostPasswordComment"
+msgstr "유저들이 자신의 잃어버린 패스워드를 요청하는 것이 허용되었습니까?"
+
+msgid "AllowRegistrationTitle"
+msgstr "등록"
+
+msgid "AllowRegistrationComment"
+msgstr "새 유저를 등록하는 것이 허용되었습니까? 유저가 새로운 계정을 생성할 수 있습니까?"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "교사로 등록"
+
+msgid "AllowRegistrationAsTeacherComment"
+msgstr "교사로 등록하는 것이 가능합니까(과정생성 가능)?"
+
+msgid "PlatformLanguage"
+msgstr "플랫폼 언어"
+
+msgid "CourseQuota"
+msgstr "코스 할당 용량"
+
+msgid "EditNotice"
+msgstr "알림 수정"
+
+msgid "InsertLink"
+msgstr "링크 삽입"
+
+msgid "EditNews"
+msgstr "뉴스 수정"
+
+msgid "EditCategories"
+msgstr "카테고리 수정"
+
+msgid "EditHomePage"
+msgstr "홈페이지 수정"
+
+msgid "AllowUserHeadingsComment"
+msgstr "과정 관리자가 유저의 부가적인 정보를 검샐하기 위해 유저의 headning을 정의할 수 있습니까?"
+
+msgid "Languages"
+msgstr "언어"
+
+msgid "NoticeTitle"
+msgstr "알림 제목"
+
+msgid "NoticeText"
+msgstr "알림 내용"
+
+msgid "LinkURL"
+msgstr "링크 URL"
+
+msgid "OpenInNewWindow"
+msgstr "새창에서 열기"
+
+msgid "NoClassesForThisCourse"
+msgstr "이 과정에 등록한 클래스가 없습니다"
+
+msgid "CourseUsage"
+msgstr "과정 용도"
+
+msgid "NoCoursesForThisUser"
+msgstr "이 유저는 과정에 등록하지 않았습니다"
+
+msgid "NoClassesForThisUser"
+msgstr "이 유저는 클래스에 등록하지 않았습니다"
+
+msgid "NoCoursesForThisClass"
+msgstr "이 클래스는 과정에 등록하지 않았습니다"
+
+msgid "Tool"
+msgstr "도구"
+
+msgid "NumberOfItems"
+msgstr "아이템 수"
+
+msgid "DocumentsAndFolders"
+msgstr "문서와 폴더"
+
+msgid "Exercises"
+msgstr "연습문제"
+
+msgid "AllowPersonalAgendaTitle"
+msgstr "개인 일정"
+
+msgid "AllowPersonalAgendaComment"
+msgstr "유저가 My Agenda 페이지에서 개인일정을 추가할 수 있습니까?"
+
+msgid "CurrentValue"
+msgstr "현재 값"
+
+msgid "UserPassword"
+msgstr "패스워드"
+
+msgid "SubscriptionAllowed"
+msgstr "신청이 허용되었습니다"
+
+msgid "UnsubscriptionAllowed"
+msgstr "신청 취소가 허용되었습니다"
+
+msgid "AddDummyContentToCourse"
+msgstr "연습용 컨텐츠를 이 과정에 추가"
+
+msgid "DummyCourseCreator"
+msgstr "연습용 과정 컨텐츠 생성"
+
+msgid "DummyCourseDescription"
+msgstr "연습용컨텐츠를 과정에 추가할 수 있도록 해줍니다. 이는 테스트 목적으로 이루어집니다."
+
+msgid "AvailablePlugins"
+msgstr "이것들은 시스템에서 필요로 하는 플러그인들입니다. 부가적인 플러그인은 <a href=\"http://www.chamilo.org/extensions/index.php?section=plugins\">http://www.chamilo.org/extensions/index.php?section=plugins</a>에서 다운로드 가능합니다."
+
+msgid "CreateVirtualCourse"
+msgstr "가상 과정 생성"
+
+msgid "DisplayListVirtualCourses"
+msgstr "가상 과정의 리스트 보여주기"
+
+msgid "LinkedToRealCourseCode"
+msgstr "실제 과정에 연결"
+
+msgid "AttemptedCreationVirtualCourse"
+msgstr "가상 과정 생성 시도..."
+
+msgid "WantedCourseCode"
+msgstr "과정 코드 필요"
+
+msgid "ResetPassword"
+msgstr "패스워드 초기화"
+
+msgid "CheckToSendNewPassword"
+msgstr "새 패스워드 전송 확인"
+
+msgid "AutoGeneratePassword"
+msgstr "자동으로 새 패스워드 생성"
+
+msgid "UseDocumentTitleTitle"
+msgstr "문서 명을 위한 타이틀 사용"
+
+msgid "UseDocumentTitleComment"
+msgstr "document_name.ext 대신 파일 명을 위해 타이틀을 사용하는 것을 허용합니다"
+
+msgid "StudentPublications"
+msgstr "학생 출판"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "삭제된 파일은 복구될 수 없습니다"
+
+msgid "PermanentlyRemoveFilesComment"
+msgstr "문서 도구의 파일을 삭제하면 영구적으로 삭제하는 것입니다. 파일은 복구될 수 없습니다."
+
+msgid "DropboxMaxFilesizeTitle"
+msgstr "Dropbox : Dropbox 문서의 최대 파일크기"
+
+msgid "DropboxMaxFilesizeComment"
+msgstr "Dropbox 문서의 크기는 어느정도 크기(in bytes)여야 하나?"
+
+msgid "DropboxAllowOverwriteTitle"
+msgstr "Dropbox: 문서 덮어쓰기가 가능합니다"
+
+msgid "DropboxAllowOverwriteComment"
+msgstr "학생이나 강사가 원래 존재하는 파일과 동일한 파일명으로 문서를 업로드 하면 본래 파일은 덮어쓰기가 됩니까? 만약 그러하다면 versioning 메커니즘을 잃게 됩니다."
+
+msgid "DropboxAllowJustUploadTitle"
+msgstr "Dropbox: 자신의 Dropbox에 업로드 하겠습니까?"
+
+msgid "DropboxAllowJustUploadComment"
+msgstr "강사나 학생이 문서들을 자신이나 다른 누구에게 전송하는 과정 없이 자신의 Dropbox에 문서업로드하는 것을 허용"
+
+msgid "DropboxAllowStudentToStudentTitle"
+msgstr "Dropbox: Student <-> Student"
+
+msgid "DropboxAllowStudentToStudentComment"
+msgstr "학생들이 문서를 다른 학생에게 전송하는 것을 허용합니다 (peer 2 peer, P2P exchange). 학생들은 이를 관련성이 상대적으로 적은 문서들 또한 사용가능하게 합니다 (mp3, solutions, ...) 만약 이 기능이 비활성화되어 있다면 학생은 강사에게만 문서 전송이 가능합니다."
+
+msgid "DropboxAllowMailingTitle"
+msgstr "Dropbox: 메일링 허용"
+
+msgid "DropboxAllowMailingComment"
+msgstr "메일링 기능으로 학생들끼리 개인적 문서 교환이 가능해집니다."
+
+msgid "UserListHasBeenExported"
+msgstr "유저 리스트가 export 되었습니다."
+
+msgid "ClickHereToDownloadTheFile"
+msgstr "파일을 다운로드하려면 이곳을 클릭하십시요."
+
+msgid "administratorTelephoneTitle"
+msgstr "플랫폼 관리자: 전화"
+
+msgid "administratorTelephoneComment"
+msgstr "플랫폼 관리자의 전화번호"
+
+msgid "SendMailToNewUser"
+msgstr "새로 등록한 유저에게 메일 전송"
+
+msgid "ExtendedProfileTitle"
+msgstr "부가적 개인 정보"
+
+msgid "ExtendedProfileComment"
+msgstr "이 설정이 'True'로 설정되었다면, 유저는 다음과 같은 (부가적) 내용을 입력할 수 있습니다: 'My competences', 'My diplomas', 'What I am able to teach' and 'My personal open area'"
+
+msgid "Classes"
+msgstr "클래스"
+
+msgid "UserUnsubscribed"
+msgstr "과정신청을 취소한 유저입니다"
+
+msgid "CannotUnsubscribeUserFromCourse"
+msgstr "유저는 과정신청을 취소할 수 없습니다. 이 유저는 과정 관리자입니다."
+
+msgid "InvalidStartDate"
+msgstr "유효하지 않은 시작 날짜입니다."
+
+msgid "InvalidEndDate"
+msgstr "유효하지 않은 종료일입니다."
+
+msgid "DateFormatLabel"
+msgstr "(d/m/y h:m)"
+
+msgid "HomePageFilesNotWritable"
+msgstr "홈페이지 파일에는 쓰기가 불가능합니다 !"
+
+msgid "PleaseEnterNoticeText"
+msgstr "경고 메시지를 입력하십시요"
+
+msgid "PleaseEnterNoticeTitle"
+msgstr "경고 제목을 입력하십시요"
+
+msgid "PleaseEnterLinkName"
+msgstr "링크 네임을 입력하십시요"
+
+msgid "InsertThisLink"
+msgstr "이 링크를 입력"
+
+msgid "FirstPlace"
+msgstr "첫번째 장소"
+
+msgid "DropboxAllowGroupTitle"
+msgstr "Dropboz: 그룹 허용"
+
+msgid "DropboxAllowGroupComment"
+msgstr "유저들이 그룹에 파일을 전송할 수 있습니다."
+
+msgid "ClassDeleted"
+msgstr "클래스가 삭제되었습니다"
+
+msgid "ClassesDeleted"
+msgstr "클래스들이 삭제되었습니다"
+
+msgid "NoUsersInClass"
+msgstr "이 클래스에는 아무 유저도 없습니다"
+
+msgid "UsersAreSubscibedToCourse"
+msgstr "지정한 유저들이 이 과정에 등록되었습니다"
+
+msgid "InvalidTitle"
+msgstr "타이틀을 입력하십시요"
+
+msgid "CatCodeAlreadyUsed"
+msgstr "이 카테고리는 이미 사용중입니다"
+
+msgid "PleaseEnterCategoryInfo"
+msgstr "카테고리의 코드와 이름을 입력하십시요"
+
+msgid "RegisterYourPortal"
+msgstr "자신의 포털 등록"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "과정 네비게이션 메뉴 보여주기"
+
+msgid "ShowNavigationMenuComment"
+msgstr "과정의 특정 부분으로 찾아가기 쉽도록 과정 네비게이션 메뉴를 나타내줍니다"
+
+msgid "LoginAs"
+msgstr "로그인 명"
+
+msgid "ImportClassListCSV"
+msgstr "CSV를 통해 클래스 리스트를 불러오기"
+
+msgid "ShowOnlineWorld"
+msgstr "로그인 페이지에 온라인상에 있는 유저의 수를 나타내기"
+
+msgid "ShowOnlineUsers"
+msgstr "온라인 상에 있는 유저의 수를 모든 페이지에서 나타내줍니다"
+
+msgid "ShowOnlineCourse"
+msgstr "이 과정에 로그인한 유저의 수를 나타내줍니다"
+
+msgid "ShowIconsInNavigationsMenuTitle"
+msgstr "네비게이션 메뉴의 아이콘들이 보입니까?"
+
+msgid "SeeAllRightsAllRolesForSpecificLocation"
+msgstr "모든 역할과 특정 위치의 권한을 보여줍니다"
+
+msgid "ClassesSubscribed"
+msgstr "지정 클래스가 지정한 과정에 등록되었습니다"
+
+msgid "RoleId"
+msgstr "역할 ID"
+
+msgid "RoleName"
+msgstr "역할 이름"
+
+msgid "RoleType"
+msgstr "타입"
+
+msgid "AnnEmpty"
+msgstr "공지사항 목록이 초기화되었습니다"
+
+msgid "AnnouncementModified"
+msgstr "공지사항이 변경되었습니다"
+
+msgid "AnnouncementAdded"
+msgstr "공지사항이 추가되었습니다"
+
+msgid "AnnouncementDeleted"
+msgstr "공지사항이 삭제되었습니다"
+
+msgid "AnnouncementPublishedOn"
+msgstr "Published on"
+
+msgid "AddAnnouncement"
+msgstr "공지사항 추가"
+
+msgid "AnnouncementDeleteAll"
+msgstr "공지사항 목록 모두 삭제"
+
+msgid "professorMessage"
+msgstr "담당교사 메시지"
+
+msgid "EmailSent"
+msgstr "그리고 등록한 학생들에게 메일전송"
+
+msgid "EmailOption"
+msgstr "이 공지사항을 지정한 그룹과 유저에게 메일로 전송"
+
+msgid "On"
+msgstr "On"
+
+msgid "RegUser"
+msgstr "이 사이트에 회원가입한 유저"
+
+msgid "Unvalid"
+msgstr "메일주소가 잘못되었거나 존재하지 않습니다"
+
+msgid "ModifAnn"
+msgstr "이 공지사항 변경"
+
+msgid "SelMess"
+msgstr "특정유저에게 경고하기"
+
+msgid "SelectedUsers"
+msgstr "지정 유저"
+
+msgid "PleaseEnterMessage"
+msgstr "메세지를 반드시 남겨야합니다."
+
+msgid "PleaseSelectUsers"
+msgstr "유저를 선택해야 합니다."
+
+msgid "Teachersubject"
+msgstr "학생에게 메세지가 전달되었습니다"
+
+msgid "MessageToSelectedUsers"
+msgstr "유저들에게 메세지 보내기"
+
+msgid "IntroText"
+msgstr "메세지를 보내기 위해서는, 왼쪽의 리스트에서 유저의 그룹을 선택하거나(앞에 G로 표기) 개별 유저를 선택한다."
+
+msgid "MsgSent"
+msgstr "메세지가 지정한 학생들에게 전송되었습니다"
+
+msgid "SelUser"
+msgstr "사이트의 지정된 유저"
+
+msgid "MessageToSelectedGroups"
+msgstr "지정된 그룹에게 메세지 보내기"
+
+msgid "SelectedGroups"
+msgstr "지정 그룹"
+
+msgid "Msg"
+msgstr "메세지"
+
+msgid "MsgText"
+msgstr "메세지"
+
+msgid "AnnouncementDeletedAll"
+msgstr "모든 공지사항이 삭제되었습니다"
+
+msgid "AnnouncementMoved"
+msgstr "공지사항을 이동하였습니다"
+
+msgid "NoAnnouncements"
+msgstr "공지사항이 없습니다"
+
+msgid "LineNumber"
+msgstr "라인 번호"
+
+msgid "LineOrLines"
+msgstr "라인"
+
+msgid "AddNewHeading"
+msgstr "새 제목 추가"
+
+msgid "CourseAdministratorOnly"
+msgstr "교사만 가능"
+
+msgid "DefineHeadings"
+msgstr "제목 정의"
+
+msgid "BackToUsersList"
+msgstr "유저 목록으로 돌아가기"
+
+msgid "CourseManager"
+msgstr "교사"
+
+msgid "InC"
+msgstr "이 과정"
+
+msgid "Filled"
+msgstr "입력하지 않은 항목이 있습니다."
+
+msgid "UserNo"
+msgstr "선택한 유저명"
+
+msgid "Taken"
+msgstr "이미 사용중입니다. 다른 것을 선택하십시오."
+
+msgid "Tutor"
+msgstr "튜터"
+
+msgid "Unreg"
+msgstr "등록 취소"
+
+msgid "GroupUserManagement"
+msgstr "그룹 관리"
+
+msgid "AddAUser"
+msgstr "유저 추가"
+
+msgid "NewGroupCreate"
+msgstr "새 그룹 생성"
+
+msgid "GroupCreation"
+msgstr "새 그룹 생성"
+
+msgid "NewGroups"
+msgstr "새 그룹"
+
+msgid "Max"
+msgstr "최대. 20 자, e.g. <i>INNOV21</i>"
+
+msgid "GroupPlacesThis"
+msgstr "좌석(부가항목)"
+
+msgid "GroupsAdded"
+msgstr "그룹이 추가되었습니다"
+
+msgid "GroupDel"
+msgstr "그룹이 삭제되었습니다"
+
+msgid "ExistingGroups"
+msgstr "그룹"
+
+msgid "Registered"
+msgstr "등록됨"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "유저는 그룹별로 직접등록 하는 것이 허용되었습니다"
+
+msgid "GroupTools"
+msgstr "도구"
+
+msgid "GroupDocument"
+msgstr "문서"
+
+msgid "GroupPropertiesModified"
+msgstr "그룹 설정이 변경되었습니다"
+
+msgid "GroupName"
+msgstr "그룹 명"
+
+msgid "GroupDescription"
+msgstr "그룹 설명"
+
+msgid "GroupMembers"
+msgstr "그룹 멤버"
+
+msgid "EditGroup"
+msgstr "그룹정보 수정"
+
+msgid "GroupTooMuchMembers"
+msgstr "지정된 수가 허용한도를 초과하였습니다(아래에서 수정가능). 그룹 구성이 변경되지 않았습니다."
+
+msgid "GroupTutor"
+msgstr "그룹 튜터"
+
+msgid "GroupNoTutor"
+msgstr "(none)"
+
+msgid "GroupNone"
+msgstr "(none)"
+
+msgid "GroupNoneMasc"
+msgstr "(none)"
+
+msgid "AddTutors"
+msgstr "관리자 목록"
+
+msgid "MyGroup"
+msgstr "내 그룹"
+
+msgid "OneMyGroups"
+msgstr "내 교사"
+
+msgid "GroupSelfRegistration"
+msgstr "등록"
+
+msgid "GroupSelfRegInf"
+msgstr "등록"
+
+msgid "RegIntoGroup"
+msgstr "나를 이 그룹에 추가"
+
+msgid "GroupNowMember"
+msgstr "이제 이 그룹의 멤버가 되었습니다."
+
+msgid "Private"
+msgstr "개인 접근 (유저 리스트에 있는 사람만이 접근 가능합니다)"
+
+msgid "Public"
+msgstr "로그인 없이도 포털 홈페이지로부터 누구나 접근 가능"
+
+msgid "PropModify"
+msgstr "설정 수정"
+
+msgid "State"
+msgstr "상태"
+
+msgid "GroupFilledGroups"
+msgstr "그룹은 \"Users\"목록에 나타난 유저들로 채워집니다."
+
+msgid "Subscribed"
+msgstr "이 과정에 등록한 유저"
+
+msgid "StudentsNotInThisGroups"
+msgstr "이 그룹에 속하지 않는 유저"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "제한 인원의 수만큼 유저가 등록할 수 있습니다."
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr "?그룹"
+
+msgid "GroupLimit"
+msgstr "제한"
+
+msgid "StudentRegAllowed"
+msgstr "학생들은 스스로 그룹에 등록할 수 있습니다"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "유저는 스스로 그룹에서 탈퇴할 수 있습니다"
+
+msgid "AllGroups"
+msgstr "모든 그룹"
+
+msgid "StudentUnsubscribe"
+msgstr "이 그룹에서 나를 제외시킴"
+
+msgid "StudentDeletesHimself"
+msgstr "그룹에서 제외되었습니다."
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "새 그룹의 기본 설정"
+
+msgid "SelectedGroupsDeleted"
+msgstr "선택된 모든 그룹이 삭제되었습니다"
+
+msgid "SelectedGroupsEmptied"
+msgstr "선택한 모든 그룹이 이제 존재하지 않습니다"
+
+msgid "GroupEmptied"
+msgstr "그룹이 현재 존재하지 않습니다"
+
+msgid "SelectedGroupsFilled"
+msgstr "선택한 모든 그룹의 인원이 찼습니다"
+
+msgid "GroupSelfUnRegInf"
+msgstr "등록 취소"
+
+msgid "SameForAll"
+msgstr "모두 같음"
+
+msgid "NoLimit"
+msgstr "제한없음"
+
+msgid "PleaseEnterValidNumber"
+msgstr "원하는 그룹 수를 입력하십시요"
+
+msgid "CreateGroupsFromVirtualCoursesInfo"
+msgstr "이 과정은 실제 과정과 한개 혹은 그 이상의 가상 과정이 결합된 것입니다. 만일 다음 버튼을 누르면, 이 과정에 대한 새 그룹이 생성될 것입니다. 모든 학생들은 그룹에 등록할 수 있습니다."
+
+msgid "NoGroupsAvailable"
+msgstr "적합한 그룹이 없습니다"
+
+msgid "GroupsFromVirtualCourses"
+msgstr "가상 과정"
+
+msgid "CreateSubgroups"
+msgstr "하위그룹 생성"
+
+msgid "CreateSubgroupsInfo"
+msgstr "이 옵션은 기존 그룹에 근거하여 새 그룹을 생성할 수 있도록 허용해줍니다. 원하는 그룹 수를 제공하고 존재하는 그룹에서도 선택할 수 있도록 해줍니다. 주어진 그룹 수만큼 새로 생성이 되고 기존 그룹의 모든 멤버는 그러한 새 그룹에 등록할 수 있습니다. 존재하는 그룹에는 영향을 미치지 않습니다."
+
+msgid "CreateNumberOfGroups"
+msgstr "생성"
+
+msgid "WithUsersFrom"
+msgstr "멤버가 있는 그룹"
+
+msgid "FillGroup"
+msgstr "유저 추가"
+
+msgid "EmptyGroup"
+msgstr "모든 듀저 등록 취소"
+
+msgid "MaxGroupsPerUserInvalid"
+msgstr "당신이 제시한 유저 당 그룹의 최대 수가 부정확합니다. 현재 당신이 제안한 그룹보다 더 많은 수의 그룹에 등록한 유저가 존재합니다."
+
+msgid "GroupOverview"
+msgstr "그룹 개요"
+
+msgid "GroupCategory"
+msgstr "그룹 카테고리"
+
+msgid "NoTitleGiven"
+msgstr "제목을 입력하십시요"
+
+msgid "InvalidMaxNumberOfMembers"
+msgstr "최대 멤버 수를 정확히 기입해주십시요"
+
+msgid "CategoryOrderChanged"
+msgstr "카테고리 순서가 변경되었습니다"
+
+msgid "CategoryCreated"
+msgstr "카테고리가 생성되었습니다"
+
+msgid "LearnpathTitle"
+msgstr "제목"
+
+msgid "LearnpathPrerequisites"
+msgstr "선수조건"
+
+msgid "LearnpathMoveUp"
+msgstr "위로 올리기"
+
+msgid "LearnpathMoveDown"
+msgstr "아래로 내리기"
+
+msgid "ThisItem"
+msgstr "이 항목"
+
+msgid "LearnpathTitleAndDesc"
+msgstr "제목과 설명"
+
+msgid "LearnpathChangeOrder"
+msgstr "순서 변경"
+
+msgid "LearnpathAddPrereqi"
+msgstr "선수조건 추가"
+
+msgid "LearnpathAddTitleAndDesc"
+msgstr "제목과 설명 수정"
+
+msgid "LearnpathMystatus"
+msgstr "내 상태"
+
+msgid "LearnpathCompstatus"
+msgstr "완료"
+
+msgid "LearnpathIncomplete"
+msgstr "미완료"
+
+msgid "LearnpathPassed"
+msgstr "합격"
+
+msgid "LearnpathFailed"
+msgstr "불합격"
+
+msgid "LearnpathPrevious"
+msgstr "이전"
+
+msgid "LearnpathNext"
+msgstr "다음"
+
+msgid "LearnpathRestart"
+msgstr "재시작"
+
+msgid "LearnpathThisStatus"
+msgstr "이 단계는 현재"
+
+msgid "LearnpathToEnter"
+msgstr "들어가기"
+
+msgid "LearnpathFirstNeedTo"
+msgstr "첫번째 성취가 필요합니다"
+
+msgid "LearnpathLessonTitle"
+msgstr "단계 제목"
+
+msgid "LearnpathStatus"
+msgstr "상태"
+
+msgid "LearnpathScore"
+msgstr "점수"
+
+msgid "LearnpathTime"
+msgstr "시간"
+
+msgid "LearnpathVersion"
+msgstr "버전"
+
+msgid "LearnpathRestarted"
+msgstr "모든 단계를 수행하지 않은 상태입니다."
+
+msgid "LearnpathNoNext"
+msgstr "마지막 단계입니다."
+
+msgid "LearnpathNoPrev"
+msgstr "첫번째 단계입니다."
+
+msgid "LearnpathEditLearnpath"
+msgstr "learnpath 수정"
+
+msgid "LearnpathDeleteLearnpath"
+msgstr "learnpath 삭제"
+
+msgid "LearnpathDoNotPublish"
+msgstr "발행하지 않음"
+
+msgid "LearnpathPublish"
+msgstr "발행"
+
+msgid "LearnpathNotPublished"
+msgstr "미발행"
+
+msgid "LearnpathPublished"
+msgstr "발행"
+
+msgid "LearnpathEditModule"
+msgstr "모듈 설명/제목 수정"
+
+msgid "LearnpathDeleteModule"
+msgstr "모듈 삭제"
+
+msgid "LearnpathNoChapters"
+msgstr "추가된 모듈이 없습니다."
+
+msgid "LearnpathAddItem"
+msgstr "이 모듈에 단계 추가"
+
+msgid "LearnpathItemDeleted"
+msgstr "learning path 단계가 삭제되었습니다"
+
+msgid "LearnpathItemEdited"
+msgstr "learning path 단계가 변경되었습니다"
+
+msgid "LearnpathPrereqNotCompleted"
+msgstr "선수조건이 만족되지 않았습니다"
+
+msgid "LearnpathPrerequisitesLimit"
+msgstr "선수조건(제한사항)"
+
+msgid "HotPotatoesFinished"
+msgstr "HotPotatoes 테스트가 종료되었습니다."
+
+msgid "CompletionLimit"
+msgstr "합격 최저점"
+
+msgid "PrereqToEnter"
+msgstr "들어가기"
+
+msgid "PrereqFirstNeedTo"
+msgstr "첫번째 단계를 수행하시기 바랍니다"
+
+msgid "PrereqModuleMinimum1"
+msgstr "최소 1 단계를 놓쳤습니다"
+
+msgid "PrereqModuleMinimum2"
+msgstr "선수조건으로 지정된 것 중."
+
+msgid "PrereqTestLimit1"
+msgstr "최저점을 달성해야 합니다"
+
+msgid "PrereqTestLimit2"
+msgstr "도달할 점수"
+
+msgid "PrereqTestLimitNow"
+msgstr "현재 점수 :"
+
+msgid "LearnpathExitFullScreen"
+msgstr "일반 화면으로 돌아가기"
+
+msgid "LearnpathFullScreen"
+msgstr "전체 화면"
+
+msgid "ItemMissing1"
+msgstr "항목이 사라졌습니다"
+
+msgid "ItemMissing2"
+msgstr "이 단계의 페이지는 원래의 Chamilo Learning Path에 있습니다"
+
+msgid "NoItemSelected"
+msgstr "이 곳에 있는 항목을 보려면, 옆의 항목을 선택해주십시요"
+
+msgid "TypeMessage"
+msgstr "메세지를 입력하여 주십시요!"
+
+msgid "ConfirmReset"
+msgstr "정말로 모든 메세지를 삭제하시겠습니까?"
+
+msgid "ClearList"
+msgstr "리스트 모두 삭제"
+
+msgid "CallSent"
+msgstr "대화를 신청하였습니다. 상대방의 수락을 기다리는 중입니다."
+
+msgid "ChatDenied"
+msgstr "상대방으로부터 대화 신청이 거부되었습니다."
+
+msgid "Exercice"
+msgstr "테스트"
+
+msgid "NoEx"
+msgstr "이번에는 테스트가 없습니다"
+
+msgid "NewEx"
+msgstr "새 테스트"
+
+msgid "Questions"
+msgstr "문제들"
+
+msgid "Answers"
+msgstr "해답"
+
+msgid "True"
+msgstr "참"
+
+msgid "Answer"
+msgstr "해답"
+
+msgid "YourResults"
+msgstr "당신의 결과"
+
+msgid "StudentResults"
+msgstr "학생 점수"
+
+msgid "ExerciseType"
+msgstr "테스트 유형"
+
+msgid "ExerciseName"
+msgstr "테스트 명"
+
+msgid "ExerciseDescription"
+msgstr "테스트 설명"
+
+msgid "SimpleExercise"
+msgstr "단독 페이지에서"
+
+msgid "SequentialExercise"
+msgstr "페이지 당 한 문제 (순서대로)"
+
+msgid "RandomQuestions"
+msgstr "랜덤 출제"
+
+msgid "GiveExerciseName"
+msgstr "테스트 명을 기입하십시요"
+
+msgid "Sound"
+msgstr "오디오 또는 비디오 파일"
+
+msgid "DeleteSound"
+msgstr "오디오 또는 비디오 파일 삭제"
+
+msgid "NoAnswer"
+msgstr "현재 해답이 없습니다."
+
+msgid "GoBackToQuestionPool"
+msgstr "문제 풀로 돌아가기"
+
+msgid "GoBackToQuestionList"
+msgstr "문제 목록으로 돌아가기"
+
+msgid "QuestionAnswers"
+msgstr "문제의 해답"
+
+msgid "UsedInSeveralExercises"
+msgstr "경고! 이 문제와 해답은 여러 테스트에서 사용되었습니다. 이를 수정하시겠습니까?"
+
+msgid "ModifyInAllExercises"
+msgstr "모든 테스트에서"
+
+msgid "ModifyInThisExercise"
+msgstr "현재 테스트에서만"
+
+msgid "AnswerType"
+msgstr "해답 유형"
+
+msgid "MultipleSelect"
+msgstr "Multiple choice (여러개의 답)"
+
+msgid "FillBlanks"
+msgstr "Fill in blanks"
+
+msgid "Matching"
+msgstr "Matching"
+
+msgid "ReplacePicture"
+msgstr "그림 대체"
+
+msgid "DeletePicture"
+msgstr "사진 삭제"
+
+msgid "QuestionDescription"
+msgstr "부연설명"
+
+msgid "GiveQuestion"
+msgstr "문제를 입력하십시요"
+
+msgid "WeightingForEachBlank"
+msgstr "모든 공란의 wighting을 입력하십시요"
+
+msgid "UseTagForBlank"
+msgstr "하나 또는 그 이상의 공란을 지정할 때는 대괄호[...]를 사용하십시요"
+
+msgid "QuestionWeighting"
+msgstr "wighting"
+
+msgid "MoreAnswers"
+msgstr "+answ"
+
+msgid "LessAnswers"
+msgstr "-answ"
+
+msgid "MoreElements"
+msgstr "+elem"
+
+msgid "LessElements"
+msgstr "-elem"
+
+msgid "TypeTextBelow"
+msgstr "답을 아래에 입력하십시요"
+
+msgid "DefaultTextInBlanks"
+msgstr "[British people] live in the [United Kingdom]."
+
+msgid "DefaultMatchingOptA"
+msgstr "rich"
+
+msgid "DefaultMatchingOptB"
+msgstr "good looking"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "Your daddy is"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "Your mother is"
+
+msgid "DefineOptions"
+msgstr "옵션을 지정하십시요"
+
+msgid "MakeCorrespond"
+msgstr "다음을 매치시키십시요"
+
+msgid "FillLists"
+msgstr "아래의 두 목록을 채우십시요"
+
+msgid "GiveText"
+msgstr "다음을 입력하십시요"
+
+msgid "DefineBlanks"
+msgstr "대괄호[...] 안의 최소 하나의 공란을 지정하십시요"
+
+msgid "GiveAnswers"
+msgstr "질문의 답을 입력하십시요"
+
+msgid "ChooseGoodAnswer"
+msgstr "정답을 체크하십시요"
+
+msgid "ChooseGoodAnswers"
+msgstr "하나 또는 하나 이상의 정답을 체크하십시요"
+
+msgid "QuestionList"
+msgstr "테스트의 문제 목록"
+
+msgid "GetExistingQuestion"
+msgstr "문제 풀에서 문제 가져오기"
+
+msgid "FinishTest"
+msgstr "테스트 종료"
+
+msgid "QuestionPool"
+msgstr "문제 풀"
+
+msgid "OrphanQuestions"
+msgstr "잘못된 문제"
+
+msgid "NoQuestion"
+msgstr "문제가 존재하지 않습니다"
+
+msgid "AllExercises"
+msgstr "모든 테스트"
+
+msgid "GoBackToEx"
+msgstr "테스트로 돌아가기"
+
+msgid "Reuse"
+msgstr "재사용"
+
+msgid "ExerciseManagement"
+msgstr "테스트 관리"
+
+msgid "QuestionManagement"
+msgstr "문제 / 해답 관리"
+
+msgid "QuestionNotFound"
+msgstr "문제를 찾을 수 없습니다"
+
+msgid "ExerciseNotFound"
+msgstr "테스트를 찾을 수 없거나 보여지지 않습니다"
+
+msgid "AlreadyAnswered"
+msgstr "이미 문제를 풀었습니다"
+
+msgid "ElementList"
+msgstr "요소 목록"
+
+msgid "CorrespondsTo"
+msgstr "상응하는"
+
+msgid "ExpectedChoice"
+msgstr "예상 해답"
+
+msgid "YourTotalScore"
+msgstr "당신의 총점은"
+
+msgid "EvalSet"
+msgstr "평가 파라미터"
+
+msgid "Active"
+msgstr "활성화"
+
+msgid "Inactive"
+msgstr "비활성화"
+
+msgid "QuestCreate"
+msgstr "문제 생성"
+
+msgid "ExRecord"
+msgstr "당신의 학습결과가 저장되었습니다"
+
+msgid "BackModif"
+msgstr "문제들이 있는 페이지로 되돌아가기"
+
+msgid "DoEx"
+msgstr "연습문제 만들기"
+
+msgid "DefScor"
+msgstr "평가 파라미터 설명"
+
+msgid "CreateModif"
+msgstr "문제 생성 / 수정"
+
+msgid "Sub"
+msgstr "부제"
+
+msgid "MyAnswer"
+msgstr "나의 답"
+
+msgid "MorA"
+msgstr "+ answer"
+
+msgid "LesA"
+msgstr "- answer"
+
+msgid "RecEx"
+msgstr "시험 저장"
+
+msgid "RecQu"
+msgstr "문제 저장"
+
+msgid "RecAns"
+msgstr "답안 저장"
+
+msgid "Introduction"
+msgstr "개요"
+
+msgid "TitleAssistant"
+msgstr "연습문제 생성 보조"
+
+msgid "QuesList"
+msgstr "문제 목록"
+
+msgid "SaveEx"
+msgstr "연습문제 저장"
+
+msgid "QImage"
+msgstr "이미지를 포함한 문제"
+
+msgid "AddQ"
+msgstr "문제 추가"
+
+msgid "DoAnEx"
+msgstr "연습문제 풀기"
+
+msgid "Generator"
+msgstr "연습문제 목록"
+
+msgid "Correct"
+msgstr "정답"
+
+msgid "PossAnsw"
+msgstr "한 문제에 대한 여러 개의 모범답안"
+
+msgid "StudAnsw"
+msgstr "학생에 의한 에러 수"
+
+msgid "Determine"
+msgstr "결정"
+
+msgid "NonNumber"
+msgstr "숫자가 아닌 값"
+
+msgid "Replaced"
+msgstr "대체"
+
+msgid "Superior"
+msgstr "20 이상의 값"
+
+msgid "Rep20"
+msgstr "20 대체"
+
+msgid "DefComment"
+msgstr "\"기본 값\" 버튼을 누르게 되면 기존 값이 대체"
+
+msgid "ScoreGet"
+msgstr "검은 수 = 점수"
+
+msgid "ShowScor"
+msgstr "학생에게 평가를 보여주기"
+
+msgid "Step1"
+msgstr "Step 1"
+
+msgid "Step2"
+msgstr "Step 2"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "HotPotatoes 테스트 불러오기"
+
+msgid "HotPotatoesTests"
+msgstr "HotPotatoes 테스트 불러오기"
+
+msgid "DownloadImg"
+msgstr "이미지 파일 서버에 업로드하기"
+
+msgid "NoImg"
+msgstr "이미지 없이 테스트"
+
+msgid "ImgNote_st"
+msgstr "<br> 업로드 해야 합니다"
+
+msgid "ImgNote_en"
+msgstr "이미지 :"
+
+msgid "NameNotEqual"
+msgstr "유효한 파일이 아닙니다 !"
+
+msgid "Indice"
+msgstr "색인"
+
+msgid "Indices"
+msgstr "색인"
+
+msgid "DateExo"
+msgstr "날짜"
+
+msgid "ShowQuestion"
+msgstr "문제 보기"
+
+msgid "UnknownExercise"
+msgstr "알수 없는 연습문제"
+
+msgid "ReuseQuestion"
+msgstr "문제 재사용"
+
+msgid "CreateExercise"
+msgstr "연습문제 생성"
+
+msgid "CreateQuestion"
+msgstr "문제 생성"
+
+msgid "CreateAnswers"
+msgstr "해답 생성"
+
+msgid "ModifyExercise"
+msgstr "연습문제 수정"
+
+msgid "ModifyAnswers"
+msgstr "해답 수정"
+
+msgid "ForExercise"
+msgstr "연습문제를 위한"
+
+msgid "UseExistantQuestion"
+msgstr "기존 문제 사용"
+
+msgid "FreeAnswer"
+msgstr "자유 답안"
+
+msgid "notCorrectedYet"
+msgstr "이 답은 정답이 아닙니다. 이로 인해, 이 문제에 대한 점수는 0점이고, 전체 점수에 반영될 것입니다."
+
+msgid "adminHP"
+msgstr "Hot Potatoes 관리"
+
+msgid "UsersOnline"
+msgstr "온라인 상의 유저"
+
+msgid "Remove"
+msgstr "삭제"
+
+msgid "Enter"
+msgstr "과정 목록으로 돌아가기"
+
+msgid "Description"
+msgstr "설명"
+
+msgid "Links"
+msgstr "링크"
+
+msgid "Works"
+msgstr "학생 출판"
+
+msgid "Forums"
+msgstr "포럼"
+
+msgid "CreateDir"
+msgstr "디렉토리 생성"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "Comment"
+msgstr "커멘트"
+
+msgid "Visible"
+msgstr "공개/비공개"
+
+msgid "NewDir"
+msgstr "새 폴더 이름"
+
+msgid "DirCr"
+msgstr "디렉토리가 생성되었습니다"
+
+msgid "Download"
+msgstr "업로드"
+
+msgid "Group"
+msgstr "그룹"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "GroupForum"
+msgstr "그룹의 포럼"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "LoginName"
+msgstr "로그인"
+
+msgid "Assignments"
+msgstr "학생 출판"
+
+msgid "Forum"
+msgstr "포럼"
+
+msgid "Code"
+msgstr "과정 코드"
+
+msgid "Up"
+msgstr "위로"
+
+msgid "Down"
+msgstr "아래로"
+
+msgid "TheListIsEmpty"
+msgstr "목록이 비어있습니다"
+
+msgid "UniqueSelect"
+msgstr "Multiple choice (한개의 답)"
+
+msgid "CourseCreate"
+msgstr "과정 웹사이트 생성"
+
+msgid "Todo"
+msgstr "할 일"
+
+msgid "UserName"
+msgstr "유저 명"
+
+msgid "CategoryMod"
+msgstr "카테고리 수정"
+
+msgid "Dear"
+msgstr "Dear"
+
+msgid "iso639_2_code"
+msgstr "en"
+
+msgid "iso639_1_code"
+msgstr "eng"
+
+msgid "charset"
+msgstr "iso-8859-1"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "verdana, helvetica, arial, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "helvetica, arial, geneva, sans-serif"
+
+msgid "dateFormatShort"
+msgstr "%b %d, %y"
+
+msgid "dateFormatLong"
+msgstr "%A %B %d, %Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%B %d, %Y at %I:%M %p"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "Next"
+msgstr "다음"
+
+msgid "Allowed"
+msgstr "허용"
+
+msgid "BackHome"
+msgstr "~의 홈페이지로 돌아가기"
+
+msgid "Propositions"
+msgstr "성능개선을 위한 제안"
+
+msgid "Maj"
+msgstr "업데이트"
+
+msgid "Modify"
+msgstr "변경"
+
+msgid "Invisible"
+msgstr "비공개로 전환"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Move"
+msgstr "이동"
+
+msgid "Help"
+msgstr "도움말"
+
+msgid "Ok"
+msgstr "확인"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "AddIntro"
+msgstr "개요문 추가"
+
+msgid "BackList"
+msgstr "목록으로 되돌아가기"
+
+msgid "Text"
+msgstr "텍스트"
+
+msgid "Empty"
+msgstr "채우지 않은 필드가 있습니다. .<br>브라우저의<b>Back</b> 버튼을 이용하여 다시 시도하십시요..<br>만약 과정 코드를 생략한다면, Course Program을 보십시요."
+
+msgid "ConfirmYourChoice"
+msgstr "선택한 항목을 재확인 해주십시오"
+
+msgid "And"
+msgstr "그리고"
+
+msgid "Finish"
+msgstr "종료"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "NotAllowed"
+msgstr "허용안됨"
+
+msgid "NotLogged"
+msgstr "과정에 로그인 하지 않았습니다"
+
+msgid "Manager"
+msgstr "매니저"
+
+msgid "NextPage"
+msgstr "다음 페이지"
+
+msgid "PreviousPage"
+msgstr "이전 페이지"
+
+msgid "Use"
+msgstr "사용"
+
+msgid "Total"
+msgstr "전체"
+
+msgid "Take"
+msgstr "take"
+
+msgid "One"
+msgstr "하나"
+
+msgid "Several"
+msgstr "여럿"
+
+msgid "Notice"
+msgstr "공지"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Among"
+msgstr "among"
+
+msgid "Show"
+msgstr "보여주기"
+
+msgid "MyCourses"
+msgstr "내 과정"
+
+msgid "ModifyProfile"
+msgstr "내 프로필"
+
+msgid "MyStats"
+msgstr "내 통계정보 보기"
+
+msgid "Logout"
+msgstr "로그아웃"
+
+msgid "MyAgenda"
+msgstr "내 일정"
+
+msgid "CourseHomepage"
+msgstr "과정 홈"
+
+msgid "SwitchToTeacherView"
+msgstr "교사 화면"
+
+msgid "SwitchToStudentView"
+msgstr "학생 화면"
+
+msgid "AddResource"
+msgstr "추가"
+
+msgid "AddedResources"
+msgstr "첨부"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['bulgarian']"
+msgstr ""
+
+msgid "NameOfLang['catalan']"
+msgstr ""
+
+msgid "NameOfLang['croatian']"
+msgstr ""
+
+msgid "NameOfLang['danish']"
+msgstr ""
+
+msgid "NameOfLang['dutch']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['french']"
+msgstr ""
+
+msgid "NameOfLang['german']"
+msgstr ""
+
+msgid "NameOfLang['greek']"
+msgstr ""
+
+msgid "NameOfLang['italian']"
+msgstr ""
+
+msgid "NameOfLang['japanese']"
+msgstr ""
+
+msgid "NameOfLang['polish']"
+msgstr ""
+
+msgid "NameOfLang['russian']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Platform"
+msgstr "플랫폼"
+
+msgid "localLangName"
+msgstr "언어"
+
+msgid "email"
+msgstr "e-mail"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "존재하는 과목 코드입니다. 다른 코드를 선택하시기 바랍니다."
+
+msgid "Statistics"
+msgstr "통계정보"
+
+msgid "GroupList"
+msgstr "그룹 목록"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "Courses"
+msgstr "과정"
+
+msgid "In"
+msgstr "들어가기"
+
+msgid "ShowAll"
+msgstr "전체 보기"
+
+msgid "englishLangName"
+msgstr "English"
+
+msgid "Home"
+msgstr "홈"
+
+msgid "AreYouSureToDelete"
+msgstr "정말로 삭제하시겠습니까"
+
+msgid "SelectAll"
+msgstr "전체 선택"
+
+msgid "UnSelectAll"
+msgstr "전체 선택 해제"
+
+msgid "WithSelected"
+msgstr "중복 선택"
+
+msgid "OnLine"
+msgstr "온라인 상의"
+
+msgid "Users"
+msgstr "유저"
+
+msgid "PlatformAdmin"
+msgstr "플랫폼 관리"
+
+msgid "NameOfLang['hungarian']"
+msgstr ""
+
+msgid "NameOfLang['indonesian']"
+msgstr ""
+
+msgid "NameOfLang['malay']"
+msgstr ""
+
+msgid "NameOfLang['slovenian']"
+msgstr ""
+
+msgid "NameOfLang['spanish_latin']"
+msgstr ""
+
+msgid "NameOfLang['swedish']"
+msgstr ""
+
+msgid "NameOfLang['thai']"
+msgstr ""
+
+msgid "NameOfLang['turkce']"
+msgstr ""
+
+msgid "NameOfLang['vietnamese']"
+msgstr ""
+
+msgid "UserInfo"
+msgstr "유저 정보"
+
+msgid "ModifyQuestion"
+msgstr "문제 수정"
+
+msgid "NbAnnoucement"
+msgstr "공지사항"
+
+msgid "OtherCourses"
+msgstr "다른 과정들"
+
+msgid "Doc"
+msgstr "문서"
+
+msgid "PlataformAdmin"
+msgstr "플랫폼 관리자"
+
+msgid "Groups"
+msgstr "그룹"
+
+msgid "GroupManagement"
+msgstr "그룹 관리"
+
+msgid "All"
+msgstr "모두"
+
+msgid "None"
+msgstr "none"
+
+msgid "Sorry"
+msgstr "과정을 먼저 선택하십시요"
+
+msgid "Denied"
+msgstr "이 기능은 과정 관리자만 사용 가능합니다"
+
+msgid "Today"
+msgstr "오늘"
+
+msgid "CourseHomepageLink"
+msgstr "과정 홈"
+
+msgid "Attachment"
+msgstr "첨부"
+
+msgid "User"
+msgstr "유저"
+
+msgid "MondayInit"
+msgstr "월"
+
+msgid "TuesdayInit"
+msgstr "화"
+
+msgid "WednesdayInit"
+msgstr "수"
+
+msgid "ThursdayInit"
+msgstr "목"
+
+msgid "FridayInit"
+msgstr "금"
+
+msgid "SaturdayInit"
+msgstr "토"
+
+msgid "SundayInit"
+msgstr "일"
+
+msgid "MondayShort"
+msgstr "월"
+
+msgid "TuesdayShort"
+msgstr "화"
+
+msgid "WednesdayShort"
+msgstr "수"
+
+msgid "ThursdayShort"
+msgstr "목"
+
+msgid "FridayShort"
+msgstr "금"
+
+msgid "SaturdayShort"
+msgstr "토"
+
+msgid "SundayShort"
+msgstr "일"
+
+msgid "MondayLong"
+msgstr "월요일"
+
+msgid "TuesdayLong"
+msgstr "화요일"
+
+msgid "WednesdayLong"
+msgstr "수요일"
+
+msgid "ThursdayLong"
+msgstr "목요일"
+
+msgid "FridayLong"
+msgstr "금요일"
+
+msgid "SaturdayLong"
+msgstr "토요일"
+
+msgid "SundayLong"
+msgstr "일요일"
+
+msgid "JanuaryInit"
+msgstr "1월"
+
+msgid "FebruaryInit"
+msgstr "2월"
+
+msgid "MarchInit"
+msgstr "3월"
+
+msgid "AprilInit"
+msgstr "4월"
+
+msgid "MayInit"
+msgstr "5월"
+
+msgid "JuneInit"
+msgstr "6월"
+
+msgid "JulyInit"
+msgstr "7월"
+
+msgid "AugustInit"
+msgstr "8월"
+
+msgid "SeptemberInit"
+msgstr "9월"
+
+msgid "OctoberInit"
+msgstr "10월"
+
+msgid "NovemberInit"
+msgstr "11월"
+
+msgid "DecemberInit"
+msgstr "12월"
+
+msgid "JanuaryShort"
+msgstr "1월"
+
+msgid "FebruaryShort"
+msgstr "2월"
+
+msgid "MarchShort"
+msgstr "3월"
+
+msgid "AprilShort"
+msgstr "4일"
+
+msgid "MayShort"
+msgstr "5월"
+
+msgid "JuneShort"
+msgstr "6월"
+
+msgid "JulyShort"
+msgstr "7월"
+
+msgid "AugustShort"
+msgstr "8월"
+
+msgid "SeptemberShort"
+msgstr "9월"
+
+msgid "OctoberShort"
+msgstr "10월"
+
+msgid "NovemberShort"
+msgstr "11월"
+
+msgid "DecemberShort"
+msgstr "12월"
+
+msgid "JanuaryLong"
+msgstr "1월"
+
+msgid "FebruaryLong"
+msgstr "2월"
+
+msgid "MarchLong"
+msgstr "3월"
+
+msgid "AprilLong"
+msgstr "4월"
+
+msgid "MayLong"
+msgstr "5월"
+
+msgid "JuneLong"
+msgstr "6월"
+
+msgid "JulyLong"
+msgstr "7월"
+
+msgid "AugustLong"
+msgstr "8월"
+
+msgid "SeptemberLong"
+msgstr "9월"
+
+msgid "OctoberLong"
+msgstr "10월"
+
+msgid "NovemberLong"
+msgstr "11월"
+
+msgid "DecemberLong"
+msgstr "12월"
+
+msgid "MyCompetences"
+msgstr "내 능력"
+
+msgid "MyDiplomas"
+msgstr "내 학위"
+
+msgid "MyPersonalOpenArea"
+msgstr "개인정보 공개 영역"
+
+msgid "MyTeach"
+msgstr "강의 가능한 과목"
+
+msgid "Agenda"
+msgstr "일정"
+
+msgid "HourShort"
+msgstr "h"
+
+msgid "PleaseTryAgain"
+msgstr "다시 시도하십시오!"
+
+msgid "UplNoFileUploaded"
+msgstr "업로드 한 파일이 없습니다."
+
+msgid "UplSelectFileFirst"
+msgstr "업로드 버튼을 누르기 전에 파일을 선택해주십시요."
+
+msgid "UplNotAZip"
+msgstr "선택한 파일이 압축파일이 아닙니다."
+
+msgid "UplUploadSucceeded"
+msgstr "파일이 업로드 되었습니다!"
+
+msgid "ExportAsCSV"
+msgstr "CSV 파일로 내보내기"
+
+msgid "ExportAsXLS"
+msgstr "XLS 파일로 내보내기"
+
+msgid "Openarea"
+msgstr "개인적 공개 영역"
+
+msgid "Done"
+msgstr "완료"
+
+msgid "Documents"
+msgstr "문서"
+
+msgid "DocumentAdded"
+msgstr "문서가 추가되었습니다"
+
+msgid "DocumentUpdated"
+msgstr "문서가 업데이트 되었습니다"
+
+msgid "DocumentInFolderUpdated"
+msgstr "폴더의 문서가 업데이트 되었습니다"
+
+msgid "Course_description"
+msgstr "과정 설명"
+
+msgid "Document"
+msgstr "문서"
+
+msgid "Learnpath"
+msgstr "Learnpath"
+
+msgid "Link"
+msgstr "링크"
+
+msgid "Announcement"
+msgstr "공지사항"
+
+msgid "Dropbox"
+msgstr "파일 보관함"
+
+msgid "Quiz"
+msgstr "퀴즈"
+
+msgid "Chat"
+msgstr "채팅"
+
+msgid "Conference"
+msgstr "컨퍼런스"
+
+msgid "Student_publication"
+msgstr "학생 발간"
+
+msgid "Tracking"
+msgstr "Tracking"
+
+msgid "homepage_link"
+msgstr "이 페이지에 링크 추가"
+
+msgid "Course_setting"
+msgstr "과정 구성"
+
+msgid "Backup"
+msgstr "과정 백업"
+
+msgid "copy_course_content"
+msgstr "이 과정 컨텐츠를 복사"
+
+msgid "recycle_course"
+msgstr "이 과정 재사용"
+
+msgid "StartDate"
+msgstr "시작 날짜"
+
+msgid "EndDate"
+msgstr "종료 날짜"
+
+msgid "StartTime"
+msgstr "시작 시간"
+
+msgid "EndTime"
+msgstr "종료 시간"
+
+msgid "YouWereCalled"
+msgstr "대화 신청이 왔습니다"
+
+msgid "DoYouAccept"
+msgstr "받아들이겠습니까?"
+
+msgid "Everybody"
+msgstr "모두"
+
+msgid "SentTo"
+msgstr "공개 대상"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Tools"
+msgstr "도구"
+
+msgid "Everyone"
+msgstr "모두"
+
+msgid "SelectGroupsUsers"
+msgstr "그룹/유저 선택"
+
+msgid "Student"
+msgstr "학생"
+
+msgid "Teacher"
+msgstr "교사"
+
+msgid "Send2All"
+msgstr "유저/그룹을 선택하지 않았습니다. 아이템이 모든 유저에게 공개됩니다."
+
+msgid "Complete"
+msgstr "완료"
+
+msgid "Incomplete"
+msgstr "미완료"
+
+msgid "reservation"
+msgstr "예약"
+
+msgid "StartTimeWindow"
+msgstr "시작"
+
+msgid "EndTimeWindow"
+msgstr "종료"
+
+msgid "AccessNotAllowed"
+msgstr "이 페이지의 접근이 허용되지 않았습니다"
+
+msgid "InThisCourse"
+msgstr "이 과정에서"
+
+msgid "ThisFieldIsRequired"
+msgstr "필수 항목"
+
+msgid "AllowedHTMLTags"
+msgstr "HTML 태그 허용"
+
+msgid "FormHasErrorsPleaseComplete"
+msgstr "형식이 잘못되었거나 정확한 데이터가 아닙니다. 입력내용을 다시 검토해 주십시오."
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "첫번째 날짜가 종료일 이전이어야 합니다"
+
+msgid "InvalidDate"
+msgstr "유효하지 않은 날짜"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "문자와 숫자만 허용됩니다"
+
+msgid "CourseAdminRole"
+msgstr "과정 관리자"
+
+msgid "UserRole"
+msgstr "역할"
+
+msgid "OnlyImagesAllowed"
+msgstr "PNG, JPG 또는 GIF 형식의 파일만 허용됩니다"
+
+msgid "CourseProgram"
+msgstr "과정 설명"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "이 과정에 대한 설명이 존재하지 않습니다."
+
+msgid "QuestionPlan"
+msgstr "관리자에게 질문"
+
+msgid "NewBloc"
+msgstr "그 외"
+
+msgid "InvalidId"
+msgstr "로그인이 실패하였습니다 - 유저명이나 패스워드가 정확하지 않습니다."
+
+msgid "Pass"
+msgstr "패스워드"
+
+msgid "Advises"
+msgstr "조언"
+
+msgid "CourseDoesntExist"
+msgstr "<b>경고 :</b>  이 과정은 존재하지 않습니다"
+
+msgid "GetCourseFromOldPortal"
+msgstr "이전 포털로부터 이 과정을 가져오고 싶으면 이곳을 클릭하십시요"
+
+msgid "SupportForum"
+msgstr "지원 포럼"
+
+msgid "BackToHomePage"
+msgstr "카테고리 개요"
+
+msgid "LostPassword"
+msgstr "패스워드 분실"
+
+msgid "Valvas"
+msgstr "마지막 공지"
+
+msgid "Helptwo"
+msgstr "도움말"
+
+msgid "EussMenu"
+msgstr "메뉴"
+
+msgid "Opinio"
+msgstr "오피니언"
+
+msgid "Intranet"
+msgstr "Intranet"
+
+msgid "Englin"
+msgstr "English"
+
+msgid "InvalidForSelfRegistration"
+msgstr "로그인 실패 - 만약 가입이 안되어있다면, <a href=claroline/auth/inscription.php>registration form</a>을 통해 가입하십시요."
+
+msgid "MenuGeneral"
+msgstr "일반"
+
+msgid "MenuUser"
+msgstr "유저"
+
+msgid "MenuAdmin"
+msgstr "플랫폼 관리"
+
+msgid "UsersOnLineList"
+msgstr "온라인 유저 목록"
+
+msgid "TotalOnLine"
+msgstr "온라인 상의 유저 전체 수"
+
+msgid "Refresh"
+msgstr "새로고침"
+
+msgid "SystemAnnouncements"
+msgstr "시스템 공지사항"
+
+msgid "HelpMaj"
+msgstr "도움말"
+
+msgid "NotRegistered"
+msgstr "가입되어있지 않습니다"
+
+msgid "RegisterForCourse"
+msgstr "과정 등록"
+
+msgid "UnregisterForCourse"
+msgstr "과정 등록 취소"
+
+msgid "Refresh"
+msgstr "새로고침"
+
+msgid "TotalOnLine"
+msgstr "온라인 상의 유저 전체 수"
+
+msgid "CourseClosed"
+msgstr "(과정이 현재 종료되었습니다)"
+
+msgid "Teach"
+msgstr "수업 가능 과목"
+
+msgid "Productions"
+msgstr "저작물"
+
+msgid "SendChatRequest"
+msgstr "이 사람에게 대화신청 하기"
+
+msgid "RequestDenied"
+msgstr "대화신청이 거부되었습니다."
+
+msgid "Enter2passToChange"
+msgstr "변경하려면 패스워드를 두 번 입력하십시오. 아니면, 필드를 비워주십시오."
+
+msgid "password_request"
+msgstr "패스워드를 재설정하려면 요청을 하시기 바랍니다. 요청하지 않으면 이 메일은 무시됩니다. 패스워드를 재설정하기 위해서는 reset 링크를 클릭하십시오."
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "패스워드가 메일로 전송되었습니다."
+
+msgid "EnterEmailAndWeWillSendYouYourPassword"
+msgstr "등록 시에 사용한 이메일 주소를 입력하시면 패스워드를 전송하겠습니다."
+
+msgid "See"
+msgstr "이동하기"
+
+msgid "IfYouWantToAddManyUsers"
+msgstr "과정의 유저목록을 추가를 하고싶다면, 웹 관리자에게 문의하십시오."
+
+msgid "PassTooEasy"
+msgstr "패스워드가 너무 단순합니다. 이와 같은 패스워드를 사용하십시오."
+
+msgid "AddedToCourse"
+msgstr "당신의 과정에 등록되었습니다"
+
+msgid "UserAlreadyRegistered"
+msgstr "동일한 유저명이 이 과정에 이미 등록되었습니다."
+
+msgid "BackUser"
+msgstr "유저 목록으로 돌아가기"
+
+msgid "UserOneByOneExplanation"
+msgstr "유저가 로그인과 패스워드에 대한 확인 메일을 받게 될 것입니다"
+
+msgid "GiveAdmin"
+msgstr "관리자 만들기"
+
+msgid "UserNumber"
+msgstr "번호"
+
+msgid "UserMany"
+msgstr "CVS/XML 파일을 통해 유저 목록 가져오기"
+
+msgid "OneByOne"
+msgstr "유저 직접 등록"
+
+msgid "AddHereSomeCourses"
+msgstr "<font size=2 face='Arial, Helvetica'><big>과정 목록 수정</big><br><br>수강하고 싶은 과정을 체크하십시오.<br>더 이상 수강하고싶지 않은 과정은 체크를 해제해주십시오.<br> 그 다음 리스트 하단의 Ok를 클릭하십시오."
+
+msgid "ImportUserList"
+msgstr "유저 목록 불러오기"
+
+msgid "AddAU"
+msgstr "유저 추가"
+
+msgid "AddedU"
+msgstr "추가되었습니다. 이메일이 유저명을 입력한 사람에게 전송되었습니다."
+
+msgid "TheU"
+msgstr "유저"
+
+msgid "RegYou"
+msgstr "이 과정에 등록되었습니다"
+
+msgid "OneResp"
+msgstr "과정 관리자 중 한 명"
+
+msgid "ProfileReg"
+msgstr "새 신상정보가 저장되었습니다"
+
+msgid "EmailWrong"
+msgstr "이메일 주소가 완전하지 않거나 허용되지 않은 문자가 사용되었습니다"
+
+msgid "UserTaken"
+msgstr "이 유저명은 이미 사용중입니다"
+
+msgid "Fields"
+msgstr "입력하지 않은 항목이 있습니다"
+
+msgid "Again"
+msgstr "다시 시도하십시오!"
+
+msgid "PassTwo"
+msgstr "입력한 두 개의 패스워드가 일치하지 않습니다"
+
+msgid "ViewProfile"
+msgstr "내 포트폴리오 보기"
+
+msgid "ModifProfile"
+msgstr "프로필 수정"
+
+msgid "IsReg"
+msgstr "수정한 내용이 저장되었습니다"
+
+msgid "NowGoCreateYourCourse"
+msgstr "당신의 과정 생성 부분으로 이동이 가능합니다"
+
+msgid "NowGoChooseYourCourses"
+msgstr "접속하고자 하는 과정의 리스트에서 선택할 수 있습니다"
+
+msgid "MailHasBeenSent"
+msgstr "유저명과 패스워드가 이메일로 전송되었습니다"
+
+msgid "PersonalSettings"
+msgstr "개인 설정이 등록되었습니다"
+
+msgid "Problem"
+msgstr "문제 발생시에는 연락을 주시기 바랍니다."
+
+msgid "Is"
+msgstr "은"
+
+msgid "Address"
+msgstr "주소"
+
+msgid "YourReg"
+msgstr "등록정보"
+
+msgid "UserFree"
+msgstr "이 유저명은 이미 사용중입니다. 되돌아 가서 다른 것으로 선택해주십시오."
+
+msgid "EmptyFields"
+msgstr "입력하지 않은 항목이 있습니다. 되돌아 가서 재시도하십시오."
+
+msgid "PassTwice"
+msgstr "입력하신 두 패스워드가 일치하지 않습니다. 다시 입력해주십시오."
+
+msgid "RegAdmin"
+msgstr "과정 영역 생성"
+
+msgid "RegStudent"
+msgstr "과정 수행"
+
+msgid "Surname"
+msgstr "성"
+
+msgid "Registration"
+msgstr "등록"
+
+msgid "YourAccountParam"
+msgstr "이것은 당신의 접속 정보입니다"
+
+msgid "LoginRequest"
+msgstr "로그인이 필요합니다"
+
+msgid "AdminOfCourse"
+msgstr "과정 관리자"
+
+msgid "SimpleUserOfCourse"
+msgstr "과정의 유저"
+
+msgid "IsTutor"
+msgstr "튜터"
+
+msgid "ParamInTheCourse"
+msgstr "과정에서의 지위"
+
+msgid "HaveNoCourse"
+msgstr "과정 없음"
+
+msgid "UserProfileReg"
+msgstr "유저 포트폴리오가 등록되었습니다"
+
+msgid "Courses4User"
+msgstr "이 유저의 과정"
+
+msgid "CoursesByUser"
+msgstr "유저의 과정"
+
+msgid "SubscribeUserToCourse"
+msgstr "이 과정에 유저 등록"
+
+msgid "Preced100"
+msgstr "이전 100개"
+
+msgid "Addmore"
+msgstr "등록한 유저 추가"
+
+msgid "Addback"
+msgstr "유저 목록으로 가기"
+
+msgid "reg"
+msgstr "등록"
+
+msgid "Quit"
+msgstr "중지"
+
+msgid "YourPasswordHasBeenReset"
+msgstr "패스워드가 초기회되었습니다"
+
+msgid "OptionalTextFields"
+msgstr "부가적 항목"
+
+msgid "FullUserName"
+msgstr "성명"
+
+msgid "SearchForUser"
+msgstr "유저 검색"
+
+msgid "SearchButton"
+msgstr "검색"
+
+msgid "SearchNoResultsFound"
+msgstr "검색 결과가 없습니다"
+
+msgid "UsernameWrong"
+msgstr "유저명은 문자,숫자 그리고 _.-만 포함할 수 있습니다"
+
+msgid "InLnk"
+msgstr "숨김 도구와 링크"
+
+msgid "DelLk"
+msgstr "정말로 이 링크를 삭제하겠습니까?"
+
+msgid "NameOfTheLink"
+msgstr "링크 명"
+
+msgid "CourseAdminOnly"
+msgstr "담당교사만 가능"
+
+msgid "PlatformAdminOnly"
+msgstr "플랫폼 관리자만 가능"
+
+msgid "CombinedCourse"
+msgstr "결합된 과정"
+
+msgid "ToolIsNowVisible"
+msgstr "이 도구가 보여집니다"
+
+msgid "ToolIsNowHidden"
+msgstr "이 도구가 이제 보여집니다"
+
+msgid "ToolName"
+msgstr "Blackboard 과정 가져오기"
+
+msgid "TrackingDisabled"
+msgstr "관리자가 Tracking을 비활성화 하였습니다."
+
+msgid "CourseStats"
+msgstr "과정 통계"
+
+msgid "ToolsAccess"
+msgstr "도구에 접속"
+
+msgid "LinksAccess"
+msgstr "링크"
+
+msgid "DocumentsAccess"
+msgstr "문서"
+
+msgid "ScormAccess"
+msgstr "Learning path - Scorm 형식 과정"
+
+msgid "LinksDetails"
+msgstr "유저가 접속한 링크"
+
+msgid "WorksDetails"
+msgstr "\"저자\"가 업로드 한 작업"
+
+msgid "LoginsDetails"
+msgstr "자세한 사항을 보려면 월을 클릭하십시오."
+
+msgid "DocumentsDetails"
+msgstr "유저가 다운로드한 문서"
+
+msgid "ExercicesDetails"
+msgstr "종료한 테스트 점수"
+
+msgid "BackToList"
+msgstr "유저 목록으로 돌아가기"
+
+msgid "StatsOfCourse"
+msgstr "과정 통계"
+
+msgid "StatsOfUser"
+msgstr "유저 통계"
+
+msgid "StatsOfCampus"
+msgstr "포털 통계"
+
+msgid "CountUsers"
+msgstr "유저 수"
+
+msgid "CountToolAccess"
+msgstr "이 과정의 총 접속 수"
+
+msgid "LoginsTitleMonthColumn"
+msgstr "달"
+
+msgid "LoginsTitleCountColumn"
+msgstr "로그인 수"
+
+msgid "ToolTitleToolnameColumn"
+msgstr "도구 이름"
+
+msgid "ToolTitleUsersColumn"
+msgstr "유저 클릭"
+
+msgid "ToolTitleCountColumn"
+msgstr "전체 클릭"
+
+msgid "LinksTitleLinkColumn"
+msgstr "링크"
+
+msgid "LinksTitleUsersColumn"
+msgstr "유저 클릭"
+
+msgid "LinksTitleCountColumn"
+msgstr "전체 클릭"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "테스트"
+
+msgid "ExercicesTitleScoreColumn"
+msgstr "점수"
+
+msgid "DocumentsTitleDocumentColumn"
+msgstr "문서"
+
+msgid "DocumentsTitleUsersColumn"
+msgstr "유저 다운로드"
+
+msgid "DocumentsTitleCountColumn"
+msgstr "전체 다운로드"
+
+msgid "ScormContentColumn"
+msgstr "제목"
+
+msgid "ScormStudentColumn"
+msgstr "유저"
+
+msgid "ScormTitleColumn"
+msgstr "레슨/단계"
+
+msgid "ScormStatusColumn"
+msgstr "상태"
+
+msgid "ScormScoreColumn"
+msgstr "점수"
+
+msgid "ScormTimeColumn"
+msgstr "시간"
+
+msgid "ScormNeverOpened"
+msgstr "이 과정은 유저에게 오픈되지 않았습니다."
+
+msgid "WorkTitle"
+msgstr "제목"
+
+msgid "WorkAuthors"
+msgstr "저자"
+
+msgid "informationsAbout"
+msgstr "Tracking of"
+
+msgid "NoEmail"
+msgstr "이메일 주소가 지정되지 않았습니다"
+
+msgid "NoResult"
+msgstr "아직 결과가 나오지 않았습니다"
+
+msgid "Hits"
+msgstr "히트 수"
+
+msgid "Last31days"
+msgstr "지난 한 달"
+
+msgid "Last7days"
+msgstr "지난 일주일"
+
+msgid "ThisDay"
+msgstr "오늘"
+
+msgid "Logins"
+msgstr "로그인"
+
+msgid "LoginsExplaination"
+msgstr "이 세션이 유지되는 동안 도구에 접속한 로그인 목록이 있습니다."
+
+msgid "ExercicesResults"
+msgstr "종료된 테스트의 점수"
+
+msgid "At"
+msgstr "at"
+
+msgid "LoginsAndAccessTools"
+msgstr "도구에 로그인과 접속"
+
+msgid "WorkUploads"
+msgstr "업로드에 공헌"
+
+msgid "ErrorUserNotInGroup"
+msgstr "확인되지 않은 유저: 이 유저는 그룹에 존재하지 않습니다"
+
+msgid "ListStudents"
+msgstr "이 그룹의 유저 목록"
+
+msgid "PeriodHour"
+msgstr "시"
+
+msgid "PeriodDay"
+msgstr "일"
+
+msgid "PeriodWeek"
+msgstr "주"
+
+msgid "PeriodMonth"
+msgstr "달"
+
+msgid "PeriodYear"
+msgstr "해"
+
+msgid "NextDay"
+msgstr "하루 후"
+
+msgid "PreviousDay"
+msgstr "하루 전"
+
+msgid "NextWeek"
+msgstr "다음 주"
+
+msgid "PreviousWeek"
+msgstr "이전 주"
+
+msgid "NextMonth"
+msgstr "다음 달"
+
+msgid "PreviousMonth"
+msgstr "이전 달"
+
+msgid "NextYear"
+msgstr "내년"
+
+msgid "PreviousYear"
+msgstr "작년"
+
+msgid "ViewToolList"
+msgstr "모든 도구의 목록 보기"
+
+msgid "ToolList"
+msgstr "모든 도구 목록"
+
+msgid "PeriodToDisplay"
+msgstr "기간"
+
+msgid "DetailView"
+msgstr "보기"
+
+msgid "BredCrumpGroups"
+msgstr "그룹"
+
+msgid "BredCrumpGroupSpace"
+msgstr "그룹 영역"
+
+msgid "BredCrumpUsers"
+msgstr "유저"
+
+msgid "PlatformStats"
+msgstr "플랫폼 통계"
+
+msgid "StatsDatabase"
+msgstr "통계 데이터베이스"
+
+msgid "PlatformAccess"
+msgstr "포털에 접속"
+
+msgid "PlatformCoursesAccess"
+msgstr "과정에 접속"
+
+msgid "PlatformToolAccess"
+msgstr "도구에 접속"
+
+msgid "HardAndSoftUsed"
+msgstr "Countries Providers Browsers Os Referers"
+
+msgid "StrangeCases"
+msgstr "문제 사례"
+
+msgid "StatsDatabaseLink"
+msgstr "여기를 클릭"
+
+msgid "CountCours"
+msgstr "과정 수"
+
+msgid "CountCourseByFaculte"
+msgstr "카테고리별 과정 수"
+
+msgid "CountCourseByLanguage"
+msgstr "언어별 과정 수"
+
+msgid "CountCourseByVisibility"
+msgstr "공개여부에 의한 과정 수"
+
+msgid "CountUsersByCourse"
+msgstr "과정별 유저 수"
+
+msgid "CountUsersByFaculte"
+msgstr "카테고리별 유저 수"
+
+msgid "CountUsersByStatus"
+msgstr "상태별 유저 수"
+
+msgid "Access"
+msgstr "접속"
+
+msgid "Countries"
+msgstr "국가"
+
+msgid "Providers"
+msgstr "공급자"
+
+msgid "OS"
+msgstr "OS"
+
+msgid "Browsers"
+msgstr "브라우저"
+
+msgid "Referers"
+msgstr "Referers"
+
+msgid "AccessExplain"
+msgstr "(유저가 포털의 인덱스를 오픈할 때)"
+
+msgid "TotalPlatformAccess"
+msgstr "전체"
+
+msgid "TotalPlatformLogin"
+msgstr "전체"
+
+msgid "MultipleLogins"
+msgstr "동일한 <i>유저명</i>의 계정"
+
+msgid "MultipleUsernameAndPassword"
+msgstr "동일한 <i>유저명</i>과 <i>패스워드</i>의 계정"
+
+msgid "MultipleEmails"
+msgstr "동일한  <i>이메일</i>의 계정"
+
+msgid "CourseWithoutProf"
+msgstr "리더가 없는 과정"
+
+msgid "CourseWithoutAccess"
+msgstr "과정이 사용되지 않습니다"
+
+msgid "LoginWithoutAccess"
+msgstr "로그인이 사용되지 않음"
+
+msgid "AllRight"
+msgstr "이상한 사례가 없습니다"
+
+msgid "Defcon"
+msgstr "문제 상황이 발생되었습니다 !"
+
+msgid "NULLValue"
+msgstr "비었음"
+
+msgid "TrafficDetails"
+msgstr "트래픽 세부정보"
+
+msgid "SeeIndividualTracking"
+msgstr "개별 tracking을 이해 <a href=../user/user.php>Users</a> 도구를 보십시오."
+
+msgid "PathNeverOpenedByAnybody"
+msgstr "이  path를 아무도 열어보지 않았습니다."
+
+msgid "SynthesisView"
+msgstr "종합적으로 보기"
+
+msgid "Visited"
+msgstr "방문함"
+
+msgid "FirstAccess"
+msgstr "첫번째 접속"
+
+msgid "LastAccess"
+msgstr "마지막 접속"
+
+msgid "MdCallingTool"
+msgstr "문서"
+
+msgid "NotInDB"
+msgstr "그런 링크 카테고리가 없습니다"
+
+msgid "ManifestSyntax"
+msgstr "(syntax error in manifest file...)"
+
+msgid "EmptyManifest"
+msgstr "(empty manifest file...)"
+
+msgid "NoManifest"
+msgstr "(no manifest file...)"
+
+msgid "NotFolder"
+msgstr "불가능합니다, 폴더가 아닙니다..."
+
+msgid "UploadHtt"
+msgstr "HTT 파일 업로드"
+
+msgid "HttFileNotFound"
+msgstr "새  HTT 파일을 열 수 없습니다 (e.g. 비어 있거나, 너무 큽니다)"
+
+msgid "HttOk"
+msgstr "새  HTT 파일이 업로드 되었습니다"
+
+msgid "HttNotOk"
+msgstr "HTT 파일 업로드가 실패하였습니다"
+
+msgid "RemoveHtt"
+msgstr "HTT 파일 삭제"
+
+msgid "HttRmvOk"
+msgstr "HTT 파일이 삭제되었습니다"
+
+msgid "HttRmvNotOk"
+msgstr "HTT 파일 삭제가 실패하였습니다"
+
+msgid "AllRemovedFor"
+msgstr "카테고리의 모든 항목이 삭제되었습니다"
+
+msgid "Index"
+msgstr "색인 용어"
+
+msgid "MainMD"
+msgstr "메인 MDE 열기"
+
+msgid "Lines"
+msgstr "라인"
+
+msgid "Play"
+msgstr "index.php 동작"
+
+msgid "NonePossible"
+msgstr "MD 동작이 불가능합니다"
+
+msgid "OrElse"
+msgstr "링크 카테고리 선택"
+
+msgid "WorkWith"
+msgstr "스콤 디렉토리에서 동작"
+
+msgid "SDI"
+msgstr ".....SD-id와 스콤 디렉토리(and split manifest - or leave empty)"
+
+msgid "Root"
+msgstr "root"
+
+msgid "SplitData"
+msgstr "Split manifests, and #MDe, if any:"
+
+msgid "MffNotOk"
+msgstr "Manifest 파일 교체가 실패하였습니다"
+
+msgid "MffOk"
+msgstr "Manifest 파일이 교체되었습니다"
+
+msgid "MffFileNotFound"
+msgstr "새 Manifest 파일을 열 수가 없습니다 (e.g. 비어있거나, 너무 큽니다)"
+
+msgid "UploadMff"
+msgstr "Manifest 파일 교체"
+
+msgid "GroupSpaceLink"
+msgstr "그룹 영역"
+
+msgid "CreationSucces"
+msgstr "컨텐츠 테이블이 생성되었습니다."
+
+msgid "CanViewOrganisation"
+msgstr "자신의 조직을 볼 수 있습니다"
+
+msgid "ViewDocument"
+msgstr "보기"
+
+msgid "HtmlTitle"
+msgstr "컨텐츠 테이블"
+
+msgid "AddToTOC"
+msgstr "컨텐츠에 추가"
+
+msgid "AddChapter"
+msgstr "챕터 추가"
+
+msgid "Ready"
+msgstr "컨텐츠 테이블 생성"
+
+msgid "StoreDocuments"
+msgstr "문서 저장"
+
+msgid "TocDown"
+msgstr "아래로"
+
+msgid "TocUp"
+msgstr "위로"
+
+msgid "CutPasteLink"
+msgstr "프레임 없음"
+
+msgid "CreatePath"
+msgstr "경로 생성"
+
+msgid "GoMetadata"
+msgstr "Go"
+
+msgid "QuotaForThisCourseIs"
+msgstr "이 과정의 제한 용량"
+
+msgid "Del"
+msgstr "삭제"
+
+msgid "ShowCourseQuotaUse"
+msgstr "과정 제한 용량 보기"
+
+msgid "CourseCurrentlyUses"
+msgstr "이 과정은 현재 사용중입니다"
+
+msgid "MaximumAllowedQuota"
+msgstr "당신의 저장공간 한계는"
+
+msgid "PercentageQuotaInUse"
+msgstr "할당 공간의 사용량(비율)"
+
+msgid "PercentageQuotaFree"
+msgstr "할당공간의 남은 용량(비율)"
+
+msgid "CurrentDirectory"
+msgstr "현재 디렉토리"
+
+msgid "UplUploadDocument"
+msgstr "문서 업로드"
+
+msgid "UplPartialUpload"
+msgstr "업로드 파일은 부분적으로 업로드 한 파일입니다."
+
+msgid "UplExceedMaxPostSize"
+msgstr "설정해놓은 최대 파일 사이즈를 초과하였습니다:"
+
+msgid "UplExceedMaxServerUpload"
+msgstr "업로드 한 파일이 서버에서 허용한 최대 파일 사이즈를 초과하였습니다."
+
+msgid "UplUploadFailed"
+msgstr "파일 업로드가 실패하였습니다."
+
+msgid "UplNotEnoughSpace"
+msgstr "이 파일을 업로드 하기에 충분한 공간이 없습니다."
+
+msgid "UplNoSCORMContent"
+msgstr "SCORM 컨텐츠를 찾을 수 없습니다."
+
+msgid "UplZipExtractSuccess"
+msgstr "압축이 성공적으로 해제되었습니다."
+
+msgid "UplZipCorrupt"
+msgstr "압축파일을 해제할 수 없습니다. (손상된 파일?)"
+
+msgid "UplFileSavedAs"
+msgstr "파일이 ~로 저장되었습니다."
+
+msgid "UplFileOverwritten"
+msgstr "덮어쓰기 되었습니다."
+
+msgid "CannotCreateDir"
+msgstr "디렉토리를 생성할 수 없습니다."
+
+msgid "UplUpload"
+msgstr "업로드"
+
+msgid "UplWhatIfFileExists"
+msgstr "만일 파일이 존재한다면:"
+
+msgid "UplDoNothing"
+msgstr "아무것도 하지 않음"
+
+msgid "UplDoNothingLong"
+msgstr "파일이 존재하면 업로드 하지 않음"
+
+msgid "UplOverwrite"
+msgstr "덮어쓰기"
+
+msgid "UplOverwriteLong"
+msgstr "존재하는 파일 덮어쓰기"
+
+msgid "UplRename"
+msgstr "이름 바꾸기"
+
+msgid "UplRenameLong"
+msgstr "동일한 파일 존재 시에 업로드 파일 이름바꾸기"
+
+msgid "DocumentQuota"
+msgstr "문서 제한용량"
+
+msgid "NoDocsInFolder"
+msgstr "나타낼 문서가 존재하지 않습니다."
+
+msgid "UploadTo"
+msgstr "업로드 할 곳"
+
+msgid "fileModified"
+msgstr "파일이 수정되었습니다"
+
+msgid "DocumentsOverview"
+msgstr "문서 개요"
+
+msgid "Options"
+msgstr "옵션"
+
+msgid "MailingFileNoRecip"
+msgstr "이름에는 수신자 ID가 포함되어 있지 않습니다"
+
+msgid "MailingFileNoPostfix"
+msgstr "이름이 ~로 끝나지 않았습니다"
+
+msgid "MailingFileNoPrefix"
+msgstr "이름이 ~로 시작하지 않습니다"
+
+msgid "MailingFileFunny"
+msgstr "이름이 없거나, 확장자가 1-4자이거나 숫자"
+
+msgid "MailingZipDups"
+msgstr "메일링 압축파일은 중복된 파일을 포함하고 있으면 안됩니다 - 전송이 안됩니다"
+
+msgid "MailingZipPhp"
+msgstr "메일링 압축파일은 php 파일을 포함하면 안됩니다 - 전송이 안됩니다."
+
+msgid "MailingZipEmptyOrCorrupt"
+msgstr "메일링한 압축파일이 비어있거나 유효한 파일 형식이 아닙니다"
+
+msgid "MailingWrongZipfile"
+msgstr "메일링은 STUDENTID 또는 LOGINNAME과 합께 압축된 파일이어야 합니다."
+
+msgid "MailingConfirmSend"
+msgstr "컨텐츠 파일을 개별적 목적지로 전송하겠습니까?"
+
+msgid "MailingSend"
+msgstr "컨텐츠 파일을 전송"
+
+msgid "MailingNotYetSent"
+msgstr "메일링 컨텐츠 파일이 아직 전송되지 않았습니다..."
+
+msgid "MailingInSelect"
+msgstr "---메일링---"
+
+msgid "MailingAsUsername"
+msgstr "메일링"
+
+msgid "Sender"
+msgstr "보낸사람"
+
+msgid "FileSize"
+msgstr "파일크기"
+
+msgid "OverwriteFile"
+msgstr "이전에 보낸 파일을 덮어쓰기 하였습니까?"
+
+msgid "SendTo"
+msgstr "받는 사람"
+
+msgid "ErrorCreatingDir"
+msgstr "dropbox 디렉토리를 생성하지 못했습니다. 시스템 관리자에게 문의하십시요."
+
+msgid "NoFileSpecified"
+msgstr "업로드 할 파일을 지정하지 않았습니다."
+
+msgid "NoUserSelected"
+msgstr "파일을 전송할 유저를 선택하십시요."
+
+msgid "BadFormData"
+msgstr "등록 실패: 데이터 형식이 잘못되었습니다. 시스템 관리자에게 문의하십시요."
+
+msgid "GeneralError"
+msgstr "에러가 발생하였습니다. 시스템 관리자에게 문의하십시요."
+
+msgid "SentTitle"
+msgstr "보낸 파일"
+
+msgid "MailingNonMailingError"
+msgstr "메일링은 비메일링과 그 반대의 것에 의해 덮어쓰기 될 수 없습니다."
+
+msgid "MailingSelectNoOther"
+msgstr "메일링은 다른 수신자와 결합할 수 없습니다"
+
+msgid "MdTitle"
+msgstr "배울 과목 제목"
+
+msgid "MdDescription"
+msgstr "이 정보를 저장하기 위해, Store 버튼을 누르십시요"
+
+msgid "MdCoverage"
+msgstr "e.g. Bachelor of ..."
+
+msgid "MdCopyright"
+msgstr "e.g. provided the source is acknowledged"
+
+msgid "NoScript"
+msgstr "스크립트가 브라우저에서 실행되지 않았습니다, 하단의 스크린 부분을 무시하십시요, 동작하지 않습니다..."
+
+msgid "LanguageTip"
+msgstr "이 과목의 언어가 생성되었습니다"
+
+msgid "Identifier"
+msgstr "구분자"
+
+msgid "IdentifierTip"
+msgstr "이 과목의 유일한 구분자, 문자, 숫자, _-.()'!*로 구성"
+
+msgid "TitleTip"
+msgstr "제목 혹은 이름, 그리고 제목이나 이름의 언어"
+
+msgid "DescriptionTip"
+msgstr "설명 혹은 코멘트, 그리고 이 과목을 설명하는 데 사용된 언어"
+
+msgid "Keyword"
+msgstr "키워드"
+
+msgid "KeywordTip"
+msgstr "콤마로 구분 (letters, digits, -.)"
+
+msgid "Coverage"
+msgstr "적용 범위"
+
+msgid "CoverageTip"
+msgstr "예를 들어 xxx: yyy의 수료"
+
+msgid "KwNote"
+msgstr "만약 설명 언어를 바꾼다면, 키워드를 동시에 추가하지 마십시요."
+
+msgid "Location"
+msgstr "URL/URI"
+
+msgid "LocationTip"
+msgstr "오픈 할 항목 클릭"
+
+msgid "Store"
+msgstr "저장"
+
+msgid "DeleteAll"
+msgstr "모든 메타데이터 삭제"
+
+msgid "ConfirmDelete"
+msgstr "*정말로* 모든 메타데이터를 삭제하시겠습니까?"
+
+msgid "WorkOn"
+msgstr "on"
+
+msgid "Continue"
+msgstr "계속"
+
+msgid "Create"
+msgstr "생성"
+
+msgid "RemainingFor"
+msgstr "카테고리의 쓸모없는 항목들이 삭제되었습니다"
+
+msgid "WarningDups"
+msgstr "- 중복되는 카테고리 명이 목록에서 삭제되었습니다!"
+
+msgid "SLC"
+msgstr "카테고리 명의 링크와 동작"
+
+msgid "GeneralDescription"
+msgstr "일반적 설명"
+
+msgid "GeneralDescriptionQuestions"
+msgstr "이 프로그램에서 이 과정은 어느 단계입니까? 선수조건이 있습니까? 다른 과정과 어떻게 연계됩니까?"
+
+msgid "GeneralDescriptionInformation"
+msgstr "과정 설명( 시수, 공식 코드, 교실)과 교사(이름, 성, 사무실, 전화번호, 이메일...)"
+
+msgid "Objectives"
+msgstr "목표"
+
+msgid "ObjectivesInformation"
+msgstr "과정 전체 혹은 세부 목표의 소개"
+
+msgid "ObjectivesQuestions"
+msgstr "과정 종료 후 수강자는 어떤 능력을 갖게 됩니까?"
+
+msgid "Topics"
+msgstr "주제"
+
+msgid "TopicsInformation"
+msgstr "과정에 포함된 주제의 목록. 각 주제의 중요성.난이도. 난이도 별 구성."
+
+msgid "TopicsQuestions"
+msgstr "과정의 순서가 어떻게 진행됩니까? 수강자가 특히 신경써야 할 부분은? 어려운 챕터를 이해하는 데 일정한 문제 패턴이 있다면 무었입니까? 과정의 다른 부분에 기여할 수 있게 되는 시점은 언제입니까?"
+
+msgid "Methodology"
+msgstr "방법론"
+
+msgid "MethodologyQuestions"
+msgstr "어떤 방법과 어떤 활동이 이 과정의 목표를 달성하는 데 도움이 됩니까? 어떤 스케쥴을 따라야 합니까?"
+
+msgid "MethodologyInformation"
+msgstr "활동 소개 (컨퍼런스, 논문, 그룹 연구, 실습...)"
+
+msgid "CourseMaterial"
+msgstr "학습 자료"
+
+msgid "CourseMaterialQuestions"
+msgstr "교재, 논문 모음집, 참고서적 목록, 관련 링크가 있습니까?"
+
+msgid "CourseMaterialInformation"
+msgstr "학습 자료에 대한 간단한 설명."
+
+msgid "HumanAndTechnicalResources"
+msgstr "인력과 기술적 자원"
+
+msgid "HumanAndTechnicalResourcesQuestions"
+msgstr "교사, 튜터, 기술의 헬프데스크, 사회적 보조물, 컴퓨터실이 있습니까?"
+
+msgid "HumanAndTechnicalResourcesInformation"
+msgstr "각각의 인물에 대한 짧은 설명과 기술 장치들에 대한 설명"
+
+msgid "Assessment"
+msgstr "평가"
+
+msgid "AssessmentQuestions"
+msgstr "수강자들에 대한 평가는 어떻게 이루어집니까? 주제를 마스터하기 위해 특별한 전략이 있습니까?"
+
+msgid "AssessmentInformation"
+msgstr "시험 문제의 예. 합격의 기준. 팁과 트릭."
+
+msgid "Height"
+msgstr "높이"
+
+msgid "ResizingComment"
+msgstr "다음과 같은 크기로 이미지 사이즈 조정(in pixesls)"
+
+msgid "Width"
+msgstr "넓이"
+
+msgid "Resizing"
+msgstr "사이즈조정"
+
+msgid "NoResizingComment"
+msgstr "모든 이미지를 원래 사이즈로 보여주기. 사이즈를 조절하지 않았습니다. 모니터 사이즈보다 더 큰 이미지에는 스크롤바가 자동으로 생성될 것입니다."
+
+msgid "ShowThumbnails"
+msgstr "Thumbnails 보기"
+
+msgid "SetSlideshowOptions"
+msgstr "슬라이드쇼 옵션 설정"
+
+msgid "SlideshowOptions"
+msgstr "슬라이드쇼 옵션"
+
+msgid "NoResizing"
+msgstr "사이즈 조정 없음(기본)"
+
+msgid "SlideShow"
+msgstr "슬라이드쇼"
+
+msgid "ViewSlideshow"
+msgstr "슬라이드쇼 보기"
+
+msgid "ResourceAdded"
+msgstr "자료가 추가되었습니다. path로 돌아가거나 다른 자료를 추가할 수 있습니다."
+
+msgid "LearningPath"
+msgstr "Learning path"
+
+msgid "LevelUp"
+msgstr "level up"
+
+msgid "AddIt"
+msgstr "추가"
+
+msgid "MainCategory"
+msgstr "메인 카테고리"
+
+msgid "AddToLinks"
+msgstr "과정 링크에 추가"
+
+msgid "DontAdd"
+msgstr "추가하지 않음"
+
+msgid "ResourcesAdded"
+msgstr "자료가 추가되었습니다"
+
+msgid "CourseResources"
+msgstr "수업 자료"
+
+msgid "ExternalLink"
+msgstr "외부 링크"
+
+msgid "DropboxAdd"
+msgstr "파일보관함 페이지에 이 장을 추가"
+
+msgid "AddAssignmentPage"
+msgstr "학생 출판 페이지에 이 장을 추가"
+
+msgid "ShowDelete"
+msgstr "보여주기 / 삭제"
+
+msgid "IntroductionText"
+msgstr "소개 문구"
+
+msgid "CourseDescription"
+msgstr "과정 설명"
+
+msgid "IntroductionTextAdd"
+msgstr "이 장의 소개 문구를 포함한 페이지 추가."
+
+msgid "CourseDescriptionAdd"
+msgstr "이 장의 과정 설명을 포함한 페이지 추가"
+
+msgid "GroupsAdd"
+msgstr "이 장에 그룹 페이지 추가."
+
+msgid "UsersAdd"
+msgstr "이 장에 유저 페이지 추가."
+
+msgid "ExportableCourseResources"
+msgstr "내보내기가 가능한 교육 자료"
+
+msgid "LMSRelatedCourseMaterial"
+msgstr "Chamilo 관련 교육 자료"
+
+msgid "LinkTarget"
+msgstr "링크 대상"
+
+msgid "SameWindow"
+msgstr "같은 창에서 열기"
+
+msgid "NewWindow"
+msgstr "새창에서 열기"
+
+msgid "StepDeleted1"
+msgstr "이 항목"
+
+msgid "StepDeleted2"
+msgstr "항목이 도구에서 삭제되었습니다."
+
+msgid "Chapter"
+msgstr "장"
+
+msgid "AgendaAdd"
+msgstr "새로운 일정 추가"
+
+msgid "UserGroupFilter"
+msgstr "그룹/유저별 필터링"
+
+msgid "AgendaSortChronologicallyUp"
+msgstr "연대별로 일정 정렬(오름차순)"
+
+msgid "ShowCurrent"
+msgstr "이번 달 일정 보기"
+
+msgid "ModifyCalendarItem"
+msgstr "일정 변경"
+
+msgid "Detail"
+msgstr "세부사항"
+
+msgid "EditSuccess"
+msgstr "일정이 변경되었습니다"
+
+msgid "AddCalendarItem"
+msgstr "새로운 일정 추가"
+
+msgid "AddAnn"
+msgstr "공지사항 추가"
+
+msgid "ForumAddNewTopic"
+msgstr "포럼: 새 주제 추가"
+
+msgid "ForumEditTopic"
+msgstr "포럼: 주제 수정"
+
+msgid "ExerciseAnswers"
+msgstr "연습문제: 답안"
+
+msgid "ForumReply"
+msgstr "포럼: 댓글"
+
+msgid "SendWork"
+msgstr "파일 업로드"
+
+msgid "TooBig"
+msgstr "전송할 파일을 선택하지 않았거나, 파일사이즈가 너무 큽니다"
+
+msgid "DocAdd"
+msgstr "파일이 발행물의 목록에 추가되었습니다."
+
+msgid "DocDel"
+msgstr "파일이 삭제되었습니다"
+
+msgid "TitleWork"
+msgstr "파일 제목"
+
+msgid "Authors"
+msgstr "저자"
+
+msgid "WorkDelete"
+msgstr "삭제"
+
+msgid "AllFiles"
+msgstr "모든 파일에 동작"
+
+msgid "DefaultUpload"
+msgstr "기본 설정은 새로 추가된 파일은 모두 공개로 되어있습니다"
+
+msgid "NewVisible"
+msgstr "새 문서가 모두에게 공개됩니다"
+
+msgid "NewUnvisible"
+msgstr "새 문서가 과정 관리자에게만 보여집니다"
+
+msgid "MustBeRegisteredUser"
+msgstr "이 과정에 등록한 유저만이 문서를 발행할 수 있습니다."
+
+msgid "CreateDirectory"
+msgstr "디렉토리 생성"
+
+msgid "UploadADocument"
+msgstr "문서 업로드"
+
+msgid "EditToolOptions"
+msgstr "도구 옵션 수정"
+
+msgid "AdminFirstName"
+msgstr "관리자 이름(first name)"
+
+msgid "InstituteURL"
+msgstr "해당기관 URL"
+
+msgid "UserDB"
+msgstr "사용자 DB"
+
+msgid "ReadThoroughly"
+msgstr "철저히 읽기"
+
+msgid "WarningExistingLMSInstallationDetected"
+msgstr "Warning !<br>인스톨러가 이 시스템에 이미 설치되어 있는 chamilo를 탐지하였습니다."
+
+msgid "NewInstallation"
+msgstr "새로 설치"
+
