@@ -1,0 +1,60 @@
+msgid "AdminBy"
+msgstr "Ipinfunni nipase"
+
+msgid "Statistiques"
+msgstr "iro numeri"
+
+msgid "Used"
+msgstr "Lo"
+
+msgid "Exist"
+msgstr "o wa nbe"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "Fi Oluko wan ni ori eko"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "fi oluko han ninu ise iwe asoye"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "fi ena ise yi han ninu iwe iladi"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "fi ena ise yi han ninu oruko ise"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "ko si virtual ise lori pepe"
+
+msgid "ConfigureHomePage"
+msgstr "se eto ewe iwe akoko"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "yara ipa sori ise didasile"
+
+msgid "CourseTitular"
+msgstr "Oluko"
+
+msgid "CourseFaculty"
+msgstr "Ise idipo"
+
+msgid "CourseDepartment"
+msgstr "Iso ise"
+
+msgid "CourseDepartmentURL"
+msgstr "Iso URL"
+
+msgid "CourseSubscription"
+msgstr "ifi oruko sile fun ise"
+
+msgid "PublicAccess"
+msgstr "ayefun gbogbo enia"
+
+msgid "PrivateAccess"
+msgstr "aye fun enia kan"
+
+msgid "Language"
+msgstr "Ede"
+
+msgid "LoginName"
+msgstr "wole"
+

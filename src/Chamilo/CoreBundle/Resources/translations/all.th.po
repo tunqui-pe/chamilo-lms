@@ -1,0 +1,5943 @@
+msgid "ShowAllEvents"
+msgstr "แสดงกำหนดการทั้งหมด"
+
+msgid "Month"
+msgstr "เดือน"
+
+msgid "Hour"
+msgstr "ชั่วโมง"
+
+msgid "Minutes"
+msgstr "นาที"
+
+msgid "AddSuccess"
+msgstr "เพิ่มกำหนดการแล้ว"
+
+msgid "AgendaDeleteSuccess"
+msgstr "ลบกำหนดการแล้ว"
+
+msgid "NoAgendaItems"
+msgstr "ÂÑ§äÁèÁÕ¡ÓË¹Ž¡ÒÃ"
+
+msgid "ClassName"
+msgstr "ชื่อหมู่เรียน"
+
+msgid "ItemTitle"
+msgstr "รายชื่อเรื่อง"
+
+msgid "Day"
+msgstr "วัน"
+
+msgid "month_default"
+msgstr "เดือนที่เริ่มต้น"
+
+msgid "year_default"
+msgstr "ปีเริ่มต้น"
+
+msgid "Hour"
+msgstr "ชั่วโมง"
+
+msgid "hour_default"
+msgstr "ชั่วโมงเริ่มต้น"
+
+msgid "Minute"
+msgstr "นาที"
+
+msgid "Lasting"
+msgstr "ล่าสุด"
+
+msgid "OldToNew"
+msgstr "แสดงรายการเก่าเริ่มต้นก่อน"
+
+msgid "NewToOld"
+msgstr "แสดงรายการใหม่เริ่มต้นก่อน"
+
+msgid "Now"
+msgstr "»ÑššØºÑ¹"
+
+msgid "AddEvent"
+msgstr "บันทึกเหตุการณ์"
+
+msgid "Detail"
+msgstr "รายละเอียด"
+
+msgid "MonthView"
+msgstr "ดูกำหนดการทั้งเดือน"
+
+msgid "WeekView"
+msgstr "ดูกำหนดการรายสัปดาห์"
+
+msgid "DayView"
+msgstr "ดูกำหนดการรายวัน"
+
+msgid "AddPersonalItem"
+msgstr "เพิ่มกำหนดการส่วนตัว"
+
+msgid "Week"
+msgstr "สัปดาห์"
+
+msgid "Time"
+msgstr "เวลา"
+
+msgid "AddPersonalCalendarItem"
+msgstr "เพิ่มกำหนดการส่วนตัว"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "ปรับแก้กำหนดการส่วนตัว"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "ได้เพิ่มกำหนดการส่วนตัวของคุณแล้ว"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "ได้แก้ไขกำหนดการส่วนตัวของคุณแล้ว"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "ได้ลบกำหนดการส่วนตัวของคุณแล้ว"
+
+msgid "ViewPersonalItem"
+msgstr "ดูกำหนดการส่วนตัวของเรา"
+
+msgid "Print"
+msgstr "พิมพ์"
+
+msgid "ScormVersion"
+msgstr "รุ่น"
+
+msgid "ScormRestarted"
+msgstr "ทุกบทเรียนยังไม่เรียบร้อย"
+
+msgid "ScormNoNext"
+msgstr "¹Õè€×ÍË¹èÇÂ¡ÒÃàÃÕÂ¹º·ÊØŽ·éÒÂ"
+
+msgid "ScormNoPrev"
+msgstr "¹Õè€×ÍË¹èÇÂ¡ÒÃàÃÕÂ¹º·àÃÕÂ¹·ÕèË¹Öè§"
+
+msgid "ScormTime"
+msgstr "เวลา"
+
+msgid "ScormNoOrder"
+msgstr "ยังไม่เลือกคำสั่ง ให้คลิกที่บทเรียนใดๆ"
+
+msgid "ScormScore"
+msgstr "คะแนน:Score"
+
+msgid "ScormLessonTitle"
+msgstr "ชื่อบท:Lesson title"
+
+msgid "ScormStatus"
+msgstr "สถานะ:Status"
+
+msgid "ScormToEnter"
+msgstr "enter"
+
+msgid "ScormFirstNeedTo"
+msgstr "คุณต้องทำให้เสร็จก่อน:you need first accomplish"
+
+msgid "ScormThisStatus"
+msgstr "¡ÓÅÑ§àÃÕÂ¹ÍÂÙèã¹º·àÃÕÂ¹¹Õé"
+
+msgid "ScormClose"
+msgstr "สิ้นสุด(Terminate)"
+
+msgid "ScormRestart"
+msgstr "เริ่มต้นใหม่:Restart"
+
+msgid "ScormCompstatus"
+msgstr "สำเร็จ:Completed"
+
+msgid "ScormIncomplete"
+msgstr "ไม่สำเร็จ:Incomplete"
+
+msgid "ScormPassed"
+msgstr "ผ่าน:Passed"
+
+msgid "ScormFailed"
+msgstr "ล้มเหลว:Failed"
+
+msgid "ScormPrevious"
+msgstr "ที่ผ่านมา:Previous"
+
+msgid "ScormNext"
+msgstr "ต่อไป:Next"
+
+msgid "ScormTitle"
+msgstr "ตัวเล่น Chamilo Scorm"
+
+msgid "ScormMystatus"
+msgstr "สถานะของตัวเรา"
+
+msgid "ScormNoItems"
+msgstr "ÂÑ§äÁèÁÕà¹×éÍËÒ"
+
+msgid "ScormNoStatus"
+msgstr "ÂÑ§äÁè¡ÓË¹ŽÊ¶Ò¹Ð¢Í§à¹×éÍËÒ"
+
+msgid "ScormLoggedout"
+msgstr "ออกจากขอบข่ายของscorm"
+
+msgid "ScormCloseWindow"
+msgstr "ปิดวินโดวส์นี้"
+
+msgid "ScormBrowsed"
+msgstr "ที่ค้นเลือกมาแล้ว"
+
+msgid "ScormExitFullScreen"
+msgstr "กลับไปหน้าจอปกติ:Back to normal screen"
+
+msgid "ScormFullScreen"
+msgstr "เต็มจอ:Full screen"
+
+msgid "ScormNotAttempted"
+msgstr "ยังไม่ต้องการ"
+
+msgid "Local"
+msgstr "ที่อยู่ปัจจุบัน"
+
+msgid "Remote"
+msgstr "ควบคุมระยะไกล"
+
+msgid "Autodetect"
+msgstr "ตรวจหาอัตโนมัติ"
+
+msgid "AccomplishedStepsTotal"
+msgstr "รวมขั้นตอนทั้งหมด"
+
+msgid "ModifInfo"
+msgstr "ตั้งค่าวิชา"
+
+msgid "ModifDone"
+msgstr "ได้แก้ไขข้อมูลแล้ว"
+
+msgid "DelCourse"
+msgstr "ลบรายวิชานี้"
+
+msgid "Professors"
+msgstr "อาจารย์ผู้สอน"
+
+msgid "Faculty"
+msgstr "ประเภท"
+
+msgid "Confidentiality"
+msgstr "ความลับ"
+
+msgid "Unsubscription"
+msgstr "ถอนการสมัคร"
+
+msgid "PrivOpen"
+msgstr "แบบสิทธิเฉพาะ,เปิดการลงทะเบียน"
+
+msgid "Forbidden"
+msgstr "ไม่อนุญาต"
+
+msgid "CourseAccessConfigTip"
+msgstr "โดยปกติการเปิดวิชาครั้งแรกจะให้เป็นแบบสาธารณะคือใครก็เข้าเรียนได้ แต่อย่างไรก็ตาม สามารถกำหนดค่าระดับการรักษาความปลอดภัยของข้อมูลได้"
+
+msgid "OpenToTheWorld"
+msgstr "เปิด ให้เรียนฟรี"
+
+msgid "OpenToThePlatform"
+msgstr "แบบสาธารณะ โดยอนุญาตเฉพาะผู้ทึลงทะเบียนเป็นผู้ใช้ในระบบ"
+
+msgid "OpenToThePlatform"
+msgstr "แบบสาธารณะ โดยอนุญาตเฉพาะผู้ทึลงทะเบียนเป็นผู้ใช้ในระบบ"
+
+msgid "TipLang"
+msgstr "ภาษาที่กำหนดใช้นี้ จะใช้แสดงผลตรงกับภาษาที่กำหนดไว้ และกับทุกคนที่เข้าใช้โฮมเพจวิชานี้"
+
+msgid "Vid"
+msgstr "วิดีทัศน์"
+
+msgid "Work"
+msgstr "การสนับสนุน"
+
+msgid "ProgramMenu"
+msgstr "ปฏิทินการศึกษา"
+
+msgid "Stats"
+msgstr "สถิติ"
+
+msgid "UplPage"
+msgstr "หน้าโอนย้ายไฟล์และเชื่อมต่อไปหน้าโฮมเพจ"
+
+msgid "LinkSite"
+msgstr "เพิ่มการเชื่อมโยงต่อไปหน้าโฮมเพจ"
+
+msgid "HasDel"
+msgstr "ลบแล้ว"
+
+msgid "ByDel"
+msgstr "การลบในที่นี้ จะเป็นการลบเอกสารที่มีทั้งหมดรวมทั้งรายชื่อสมาชิกในรายวิชาแบบถาวร(ห้ามเอาออกในที่อื่น)<p>คุณต้องการลบออกจริงๆหรือไม่?"
+
+msgid "Y"
+msgstr "ใช่"
+
+msgid "N"
+msgstr "ไม่"
+
+msgid "DepartmentUrl"
+msgstr "ที่อยู่เว็ปไซท์ของหน่วยงาน"
+
+msgid "DepartmentUrlName"
+msgstr "หน่วยงาน"
+
+msgid "BackupCourse"
+msgstr "เก็บรวบรวมเอกสารของรายวิชา"
+
+msgid "ModifGroups"
+msgstr "กลุ่ม"
+
+msgid "Professor"
+msgstr "อาจารย์ผู้สอน"
+
+msgid "DescriptionCours"
+msgstr "คำอธิบายรายวิชา"
+
+msgid "ArchiveCourse"
+msgstr "สำรองข้อมูลรายวิชา"
+
+msgid "RestoreCourse"
+msgstr "กู้คืนรายวิชา"
+
+msgid "Restore"
+msgstr "กู้คืน"
+
+msgid "CreatedIn"
+msgstr "สร้างใน"
+
+msgid "CreateMissingDirectories"
+msgstr "การสร้างยังไม่มีแฟ้ม"
+
+msgid "CopyDirectoryCourse"
+msgstr "ทำสำเนาไฟล์ของรายวิชา"
+
+msgid "Disk_free_space"
+msgstr "ลบไฟล์ขยะ"
+
+msgid "BuildTheCompressedFile"
+msgstr "การสำรองข้อมูล"
+
+msgid "FileCopied"
+msgstr "ทำสำเนาไฟล์แล้ว"
+
+msgid "ArchiveLocation"
+msgstr "ที่เก็บรวบรวมเอกสาร"
+
+msgid "SizeOf"
+msgstr "ขนาดของ"
+
+msgid "ArchiveName"
+msgstr "ชื่อที่เก็บรวบรวมเอกสาร"
+
+msgid "BackupSuccesfull"
+msgstr "การสำรองข้อมูลเสร็จเรียบร้อย"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "สำรองข้อมูลและฐานข้อมูลหลักของ"
+
+msgid "BUUsersInMainBase"
+msgstr "สำรองข้อมูลและฐานข้อมูลของผู้ใช้"
+
+msgid "BUAnnounceInMainBase"
+msgstr "สำรองข้อมูลและฐานข้อมูลของประกาศ"
+
+msgid "BackupOfDataBase"
+msgstr "สำรองฐานข้อมูล"
+
+msgid "ExpirationDate"
+msgstr "วันหมดอายุ"
+
+msgid "LastEdit"
+msgstr "แก้ไขครั้งล่าสุด"
+
+msgid "LastVisit"
+msgstr "เข้ามาครั้งล่าสุด"
+
+msgid "Subscription"
+msgstr "การสมัคร"
+
+msgid "CourseAccess"
+msgstr "การเข้าเรียนในวิชา"
+
+msgid "ConfirmBackup"
+msgstr "คุณต้องการสำรองแผนการเรียนของรายวิชาใช่หรือไม่?"
+
+msgid "CreateSite"
+msgstr "สร้างขอบข่ายรายวิชา"
+
+msgid "RestoreDescription"
+msgstr "การคืนสภาพวิชาที่จัดเก็บไว้ ให้เลือกรายวิชาที่ถูกจัดเก็บไว้<br><br>ให้คลิกที่ \"Restore\"เพื่อแตกไฟล์ทั้งหมดกลับคืนมาเป็นรายวิชาปกติ"
+
+msgid "RestoreNotice"
+msgstr "����觹���ѧ���͹حҵ�����׹���ͼ�������ѵ��ѵ� �������Ѵ������� \"users.csv\" ��觡���§�ͷ��������èѴ����к� ����ö�ШѴ��õ�ʹ��µ���ͧ���§���"
+
+msgid "AvailableArchives"
+msgstr "รายการเอกสารที่จัดเก็บไว้ในสารบบ"
+
+msgid "NoArchive"
+msgstr "ไม่มีการเลือกรายการสารบบใดๆ"
+
+msgid "ArchiveNotFound"
+msgstr "ค้นไม่พบเอกสารรวมในสารบบ"
+
+msgid "ArchiveUncompressed"
+msgstr "เอกสารที่เก็บรวบรวมไว้ในสารบบได้ทำการกู้และคืนสภาพพร้อมใช้แล้ว"
+
+msgid "CsvPutIntoDocTool"
+msgstr "ไฟล์ \"users.csv\"ได้จัดการเรียบร้อยแล้ว"
+
+msgid "BackH"
+msgstr "กลับไปหน้าโฮมเพจ"
+
+msgid "OtherCategory"
+msgstr "ประเภทอื่น"
+
+msgid "AllowedToUnsubscribe"
+msgstr "ผู้ใช้สามารถถอนวิชาเองได้"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "ผู้ใช้ไม่ได้รับอนุญาตให้ถอนวิชาด้วยตัวเอง"
+
+msgid "CourseVisibilityClosed"
+msgstr "ปิด-ไม่ให้เข้าในวิชานี้"
+
+msgid "CourseVisibilityClosed"
+msgstr "ปิด-ไม่ให้เข้าในวิชานี้"
+
+msgid "CourseVisibilityModified"
+msgstr "การแก้ไข(มีรายละเอียดการตั้งค่าอีกมากที่ต้องกำหนดผ่านทางระบบกำหนดสิทธิ์)"
+
+msgid "PressAgain"
+msgstr "จัดเก็บอีกครั้ง Press 'Store' again..."
+
+msgid "Rights"
+msgstr "ใช้สิทธิ์ Usage Rights"
+
+msgid "Version"
+msgstr "รุ่น Version"
+
+msgid "StatusTip"
+msgstr "เลือกจากรายการ select from list"
+
+msgid "CreatedSize"
+msgstr "สร้างแล้ว ขนาด Created, size"
+
+msgid "AuthorTip"
+msgstr "in VCARD format"
+
+msgid "Format"
+msgstr "รูปแบบ Format"
+
+msgid "FormatTip"
+msgstr "เลือกจากรายการ select from list"
+
+msgid "Statuses"
+msgstr "ร่าง:ร่าง,งานสำเร็จ:งานสำเร็จ,แก้ไขใหม่:แก้ไขใหม่,ยังไม่ได้:ยังไม่ได้ :draft:draft,, final:final,, revised:revised,, unavailable:unavailable"
+
+msgid "Costs"
+msgstr ":ไม่:ฟรี,ไม่มีราคา,,ใช่:ไม่ฟรี,ราคา:no:free, no cost,, yes:not free, cost"
+
+msgid "Copyrights"
+msgstr ":ใช่ :ลิขสิทธิ์,, ไม่:ไม่มีลิขสิทธิ์ :yes:copyright,, no:no copyright"
+
+msgid "Formats"
+msgstr ":text/plain;tis-620:text/plain;tis-620,, text/plain;utf-8:text/plain;utf-8,, text/html;tis-620 1:text/html;tis-620,, text/html;windows-874:text/html;windows-874,, inode/directory:Folder,, application/msword:MsWord,, application/octet-stream:Octet stream,, application/pdf:PDF,, application/postscript:PostScript,, application/rtf:RTF,, application/vnd.ms-excel:MsExcel,, application/vnd.ms-powerpoint:MsPowerpoint,, application/xml;tis-620 :XML;tis-620,, application/xml;windows-874:XML;windows-874,, application/zip:ZIP"
+
+msgid "LngResTypes"
+msgstr ":แบบฝึกหัด:แบบฝึกหัด,, simulation:simulation,, questionnaire:questionnaire,, diagram:diagram,, figure:figure,, graph:graf,, index:index,, slide:slide,, table:table,, narrative text:narrative text,, exam:exam,, experiment:experiment,, problem statement:problem statement,, self assessment:self assessment,, lecture:lecture"
+
+msgid "SelectOptionForBackup"
+msgstr "กรุณาเลือกค่าและวิธีการสำรองข้อมูล"
+
+msgid "LetMeSelectItems"
+msgstr "เลือกส่วนประกอบของรายวิชา"
+
+msgid "CreateFullBackup"
+msgstr "ทำการสำรองข้อมูลของวิชานี้"
+
+msgid "CreateBackup"
+msgstr "ทำการสำรองข้อมูล"
+
+msgid "BackupCreated"
+msgstr "¡ÒÃÊÓÃÍ§¢éÍÁÙÅàÊÃçšÊÔé¹áÅéÇ ÍÕ¡ÊÑ¡€ÃÙèÃÐººšÐãËéâÍ¹ÂéÒÂä¿ÅìÅ§ÁÒãËéâŽÂÍÑµâ¹ÁÑµÔ ËÒ¡ÃÐººäÁè·Ó§Ò¹µèÍãËé·èÒ¹€ÅÔ¡·Õè LinkàŸ×èÍŽÒÇ¹ìâËÅŽàÍ§"
+
+msgid "SelectBackupFile"
+msgstr "เลือกไฟล์ที่ต้องการสำรองข้อมูล"
+
+msgid "ImportBackup"
+msgstr "นำข้อมูลสำรองเข้าในระบบ"
+
+msgid "ImportFullBackup"
+msgstr "นำเข้าไฟล์ที่สำรองไว้ทั้งชุด"
+
+msgid "ImportFinished"
+msgstr "การนำเข้าเรียบร้อยแล้ว"
+
+msgid "Tests"
+msgstr "แบบทดสอบ"
+
+msgid "Learnpaths"
+msgstr "ลำดับการเรียน"
+
+msgid "CopyCourse"
+msgstr "ทำสำเนารายวิชา"
+
+msgid "SelectItemsToCopy"
+msgstr "เลือกรายการเพื่อทำสำเนา"
+
+msgid "CopyFinished"
+msgstr "ทำสำเนาเรียบร้อยแล้ว"
+
+msgid "FullRecycle"
+msgstr "นำกลับมาใช้ใหม่ทั้งหมด"
+
+msgid "RecycleCourse"
+msgstr "นำวิชากลับมาเปิดใช้ใหม่อีก"
+
+msgid "RecycleFinished"
+msgstr "การนำวิชากลับมาเปิดเรียนใหม่ เรียบร้อยแล้ว"
+
+msgid "RecycleWarning"
+msgstr "คำเตือน:การใช้คำสั่งนี้ จะเป็นการลบบางส่วนของวิชา ซึ่งอาจมีข้อผิดพลาด ขอแนะนำให้คุณทำการa <a href=\"create_backup.php\">สำรองข้อมูล</a>ก่อนใช้คำสั่งนี้เพื่อทำการนำรายวิชากลับมาใช้ใหม่อีก"
+
+msgid "SameFilename"
+msgstr "สิ่งควรระวังเมื่อนำเข้าไฟล์ คือชื่อไฟล์ที่เหมือนกันกับที่มีอยู่ในระบบ"
+
+msgid "SameFilenameSkip"
+msgstr "ข้ามไฟล์ที่มีชื่อเดียวกัน"
+
+msgid "SameFilenameRename"
+msgstr "เปลี่ยนชื่อไฟล์(เช่น prachid.pdf เป็น prachid_1.pdf)"
+
+msgid "SameFilenameOverwrite"
+msgstr "บันทึกทับไฟล์เดิม"
+
+msgid "SelectDestinationCourse"
+msgstr "เลือกไปที่รายวิชา"
+
+msgid "FullCopy"
+msgstr "สำเนาอย่างสมบูรณ์"
+
+msgid "NoResourcesToBackup"
+msgstr "ไม่มีข้อมูลที่จะสำรอง"
+
+msgid "NoResourcesInBackupFile"
+msgstr "ไม่มีข้อมูลในไฟล์ที่สำรองไว้"
+
+msgid "SelectResources"
+msgstr "เลือกแหล่งข้อมูล"
+
+msgid "NoResourcesToRecycles"
+msgstr "ไม่มีข้อมูลที่จะนำกลับมาใช้ใหม่ได้"
+
+msgid "IncludeQuestionPool"
+msgstr "รวมแบบสอบถาม"
+
+msgid "LocalFile"
+msgstr "ไฟล์ในเครื่อง"
+
+msgid "ServerFile"
+msgstr "ไฟล์ในเครื่องแม่ข่าย"
+
+msgid "NoBackupsAvailable"
+msgstr "ไม่มีข้อมูลสำรอง"
+
+msgid "NoDestinationCoursesAvailable"
+msgstr "ไม่มีรายวิชาที่ต้องการ"
+
+msgid "ImportBackupInfo"
+msgstr "การนำเข้าไฟล์ข้อมูลที่สำรองไว้ สามารถนำเข้าจากไฟล์ที่สำรองไว้ในเครื่องแม่ข่ายหรือจากเครื่องที่ท่านใช้งานอยู่"
+
+msgid "CreateBackupInfo"
+msgstr "การสำรองรายวิชา คุณสามารถเลือกเนื้อหาวิชาที่จะสำรองเก็บไว้ได้"
+
+msgid "ToolIntro"
+msgstr "แนะนำเครื่องมือ"
+
+msgid "Explanation"
+msgstr "เมื่อคุณคลิกปุ่ม ตกลง ระบบจะทำการสร้างโฮมเพจที่มีเครื่องมือสำหรับการกำหนดค่าของระบบบริหารจัดการในส่วนประกอบต่างๆของรายวิชา เช่นการจัดการเอกสารของรายวิชา จัดกลุ่มการอภิปราย , กำหนดการของรายวิชา และ ฯลฯ ที่คุณสามารถเลือกกำหนด เพิ่มเติม ปรับปรุงหรือเปลี่ยนแปลงหัวข้อใดๆ ภายในรายวิชาของคุณได้เมื่อต้องการ ในฐานะของผู้สร้างวิชา."
+
+msgid "CodeTaken"
+msgstr "�����Ԫҹ��١�������<br />��ԡ���� ��͹��Ѻ ����ͧ�����ա����"
+
+msgid "ExerciceEx"
+msgstr "ตัวอย่างแบบฝึกหัด"
+
+msgid "Antique"
+msgstr "ประวัติศาสตร์ปรัชญา"
+
+msgid "SocraticIrony"
+msgstr "Socratic irony is..."
+
+msgid "ManyAnswers"
+msgstr "(มีคำตอบถูกต้องมากกว่าหนึ่งคำตอบ)"
+
+msgid "Ridiculise"
+msgstr "Ridiculise one's interlocutor in order to have him concede he is wrong."
+
+msgid "NoPsychology"
+msgstr "No. Socratic irony is not a matter of psychology, it concerns argumentation."
+
+msgid "AdmitError"
+msgstr "Admit one's own errors to invite one's interlocutor to do the same."
+
+msgid "NoSeduction"
+msgstr "No. Socratic irony is not a seduction strategy or a method based on the example."
+
+msgid "Force"
+msgstr "Compell one's interlocutor, by a series of questions and sub-questions, to admit he doesn't know what he claims to know."
+
+msgid "Indeed"
+msgstr "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\""
+
+msgid "Contradiction"
+msgstr "Use the Principle of Non Contradiction to force one's interlocutor into a dead end."
+
+msgid "NotFalse"
+msgstr "This answer is not false. It is true that the revelation of the interlocutor's ignorance means showing the contradictory conclusions where lead his premisses."
+
+msgid "AddPageHome"
+msgstr "โอนย้ายไฟล์เอกสารเข้าเป็นรายการเชื่อมโยงในหน้าโฮมเพจ"
+
+msgid "ModifyInfo"
+msgstr "แก้ไขและตั้งค่าของรายวิชา"
+
+msgid "CourseDesc"
+msgstr "คำอธิบายรายวิชา"
+
+msgid "AgendaTitle"
+msgstr "ในวันอังคารที่ 11 ธันวาคม - ปฐมนิเทศวิชาและเตรียมความพร้อมก่อนเรียน : อาคาร 3/1 312/1 (ห้องคอมพิวเตอร์กราฟิก) ภาควิชาศิลปกรรม มหาวิทยาลัยราชภัฏจันทรเกษม ถนนรัชดาภิเษก เขตจตุจักร กทม. เวลา 9.00 -11.00 น.แจ้งลงทะเบียนล่วงหน้าได้ที่http://amd.chandra.ac.th(ตัวอย่างการแจ้งกำหนดการ)"
+
+msgid "AgendaText"
+msgstr "เกริ่นนำทั่วไปถึงการบริหารจัดการโครงการ"
+
+msgid "Micro"
+msgstr "บทสัมภาษณ์"
+
+msgid "Google"
+msgstr "ค้นหาด้วย search engine เช่น Google.com"
+
+msgid "IntroductionTwo"
+msgstr "˹�ҹ����˹�ҷ��͹حҵ������������/������¹�觧ҹ/������͡��âͧ����"
+
+msgid "AnnouncementEx"
+msgstr "����͵�����ҧ��С�� ͹حҵ�����������С����੾���Ҩ������м��Ѵ����к���ҹ��"
+
+msgid "JustCreated"
+msgstr "คุณได้สร้างโฮมเพจวิชาไว้ในระบบแล้ว"
+
+msgid "CreateCourseGroups"
+msgstr "กลุ่ม"
+
+msgid "CatagoryMain"
+msgstr "ประเภทหลัก"
+
+msgid "CatagoryGroup"
+msgstr "กลุ่มอภิปราย"
+
+msgid "Ln"
+msgstr "ภาษา"
+
+msgid "FieldsRequ"
+msgstr "ต้องกรอกข้อมูลทุกช่อง"
+
+msgid "Ex"
+msgstr "ตัวอย่างเช่น <b>การออกแบบบรรจุภัณฑ์(Package Design)</b>"
+
+msgid "Fac"
+msgstr "จัดอยู่ในประเภทวิชา"
+
+msgid "TargetFac"
+msgstr "ภาควิชา/หมวดวิชา"
+
+msgid "Doubt"
+msgstr "ุถ้าท่านสงสัยเกี่ยวกับชื่อรหัสวิชา โปรดปรึกษา"
+
+msgid "Program"
+msgstr "โปรแกรมวิชา </a>ถ้ารายวิชาของท่านไม่มีรหัสวิชา ไม่ว่าด้วยสาเหตุใด ให้เลือกคำใดคำหนึ่งที่สื่อความหมายแทน เช่น <b>Design </b>สำหรับรายวิชาชื่อ <b>Visual Communication Design</b>"
+
+msgid "Scormtool"
+msgstr "แผนการเรียน"
+
+msgid "Scormbuildertool"
+msgstr "เครื่องมือสร้างแบบมาตรฐานScorm"
+
+msgid "Pathbuildertool"
+msgstr "กำหนดแนวทางการเรียน:Learning Path builder"
+
+msgid "OnlineConference"
+msgstr "การสัมมนาออนไลน์"
+
+msgid "AgendaCreationTitle"
+msgstr "การสร้างวิชา"
+
+msgid "AgendaCreationContenu"
+msgstr "ได้สร้างวิชาแล้ว"
+
+msgid "OnlineDescription"
+msgstr "รายละเอียดการสัมมนา"
+
+msgid "Only"
+msgstr "เท่านั้น"
+
+msgid "RandomLanguage"
+msgstr "เลือกภาษา"
+
+msgid "ForumLanguage"
+msgstr "อังกฤษ"
+
+msgid "NewCourse"
+msgstr "เพิ่มเติมขอบข่ายวิชาอีก"
+
+msgid "AddNewCourse"
+msgstr "เพิ่มเติมขอบข่ายวิชา"
+
+msgid "OtherProperties"
+msgstr "คุณลักษณะอื่นๆของเอกสารที่รวบรวมไว้"
+
+msgid "SysId"
+msgstr "รหัสของระบบ"
+
+msgid "ScoreShow"
+msgstr "แสดงคะแนน"
+
+msgid "Visibility"
+msgstr "มองเห็น"
+
+msgid "VersionDb"
+msgstr "เวอร์ชันของฐานข้อมูลที่ใช้เก็บรวบรวมเอกสาร"
+
+msgid "Expire"
+msgstr "หมดอายุ"
+
+msgid "ChoseFile"
+msgstr "เลือกไฟล์"
+
+msgid "FtpFileTips"
+msgstr "ไฟล์บน FTP Server"
+
+msgid "HttpFileTips"
+msgstr "ไฟล์บนเว็ปไซท์"
+
+msgid "LocalFileTips"
+msgstr "ไฟล์บนระบบเครื่องแม่ข่าย"
+
+msgid "PostFileTips"
+msgstr "ไฟล์ในเครื่องลูกข่าย"
+
+msgid "Minimum"
+msgstr "อย่างต่ำ"
+
+msgid "Maximum"
+msgstr "มากที่สุด"
+
+msgid "RestoreACourse"
+msgstr "กู้คืนวิชา"
+
+msgid "Recycle"
+msgstr "นำวิชาเดิมมาเปิดใหม่"
+
+msgid "AnnouncementExampleTitle"
+msgstr "<b>��С��</b> : �Թ�յ�͹�Ѻ�����Ѥ����¹�Ԫ��͹�Ź���к��ء��ҹ ������¹��к��͹�Ź��� ������¹����֡�Ҥ���觵�ҧ���к�������� ��������ö��ԺѵԵ����鹵͹����к��Ѵ������¹����͹ �ҡ��ҹ�բ��ʧ����� ���Դ��ͼ��Ѵ����к�������ͷ���ʴ��˹���á ���͵Դ����Ҩ�����Ш��ԪҢͧ��ҹ<br />����С�� : ��.��ЪԴ �Գ�ص� ��������Ͷ��.0 96670091 website : http://www.tinnabutr.com �Դ�������ŷ�� : prachid@ tinnabutr.com"
+
+msgid "Wikipedia"
+msgstr "สารานุกรมออนไลน์(wikipedia)"
+
+msgid "DefaultGroupCategory"
+msgstr "กลุ่มแรก"
+
+msgid "TitleNotification"
+msgstr "นับตั้งแต่คุณเข้ามาครั้งสุดท้าย"
+
+msgid "ShowFeedback"
+msgstr "แสดงความเห็นที่ตอบกลับ"
+
+msgid "GiveFeedback"
+msgstr "ชื่อภาษาอังกฤษ / แก้ไข การตอบกลับ"
+
+msgid "JustUploadInSelect"
+msgstr "ส่งเข้ามาล่าสุด"
+
+msgid "MailingNothingFor"
+msgstr "ไม่มีเจ้าของ"
+
+msgid "MailingFileNotRegistered"
+msgstr "ไม่ได้สมัครเรียนในวิชานี้"
+
+msgid "MailingFileSentTo"
+msgstr "ส่งถึง"
+
+msgid "MailingFileIsFor"
+msgstr "สำหรับ"
+
+msgid "ClickKw"
+msgstr "Click a keyword in the tree to select or deselect it."
+
+msgid "KwHelp"
+msgstr "<br/>คลิกปุ่มบวก '+' เพื่อเปิด,ลบ '-' เพื่อปิด, '++' button to open all, '--' button to close all..<br/> <br/> Clear all selected keywords by closing the tree and opening it again with the '+' button.<br/> Alt-click '+' searches the original keywords in the tree.<br/> <br/> Alt-click keyword selects a keyword without broader terms or deselects a keyword with broader terms.<br/> <br/> If you change the description language, do not add keywords at the same time.<br/> <br/>"
+
+msgid "SearchCrit"
+msgstr "หนึ่งคำต่อบรรทัด! One word per line!"
+
+msgid "NoKeywords"
+msgstr "�Ԫҹ������դ��Ӥѭ"
+
+msgid "KwCacheProblem"
+msgstr "แคชคำสำคัญไม่สามารถเปิดได้"
+
+msgid "CourseKwds"
+msgstr "�͡��ù���դ��Ӥѭ�ͧ�Ԫ�"
+
+msgid "KwdsInMD"
+msgstr "คำสำคัญที่ใช้ในMD"
+
+msgid "KwdRefs"
+msgstr "การอ้างอิงคำสำคัญ"
+
+msgid "NonCourseKwds"
+msgstr "ไม่มีคำสำคัญของวิชา"
+
+msgid "KwdsUse"
+msgstr "คำสำคัญของวิชา(ตัวหนา=ไม่ใช้)"
+
+msgid "TotalMDEs"
+msgstr "รวมจำนวนการเชื่อมโยงที่มีของ MD"
+
+msgid "AddForumCategory"
+msgstr "เพิ่มหมวดหมู่การอภิปรายใหม่"
+
+msgid "AddForum"
+msgstr "เพิ่มรายการอภิปรายใหม่"
+
+msgid "Posts"
+msgstr "กระทู้"
+
+msgid "LastPosts"
+msgstr "กระทู้ล่าสุด"
+
+msgid "NoForumInThisCategory"
+msgstr "ยังไม่มีการอภิปรายในหมวดนี้"
+
+msgid "InForumCategory"
+msgstr "สร้างเอาไว้ในหมวด"
+
+msgid "AllowAnonymousPosts"
+msgstr "อนุญาตให้บุคลทั่วไปส่งกระทู้เข้าได้"
+
+msgid "StudentsCanEdit"
+msgstr "ผู้เรียนสามารถแก้ไขกระทู้ของตนเองได้หรือไม่"
+
+msgid "ApprovalDirect"
+msgstr "ตรวจสอบ/กระทู้ที่ส่งโดยตรง"
+
+msgid "AllowNewThreads"
+msgstr "อนุญาตให้ผู้เรียนตั้งกระทู้เองได้"
+
+msgid "DefaultViewType"
+msgstr "มุมมองปกติ"
+
+msgid "GroupSettings"
+msgstr "ตั้งค่ากลุ่ม"
+
+msgid "NotAGroupForum"
+msgstr "ไม่ใช่กลุ่มอภิปราย"
+
+msgid "PublicPrivateGroupForum"
+msgstr "อภิปรายเฉพาะกลุ่มหรือเป็นกลุ่มสาธารณะ"
+
+msgid "NewPostStored"
+msgstr "บันทึกข้อความกระทู้เอาไว้แล้ว"
+
+msgid "ReplyToThread"
+msgstr "ตอบกระทู้นี้"
+
+msgid "QuoteMessage"
+msgstr "คัดลอกข้อความ"
+
+msgid "NewTopic"
+msgstr "กระทู้ที่ตั้งเข้า"
+
+msgid "Views"
+msgstr "มีผู้อ่าน"
+
+msgid "LastPost"
+msgstr "กระทู้ล่าสุด"
+
+msgid "Quoting"
+msgstr "Quoting"
+
+msgid "NotifyByEmail"
+msgstr "แจ้งข่าวทางอีเมลเมื่อมีผู้ตอบกระทู้"
+
+msgid "StickyPost"
+msgstr "เป็นข้อความที่เกาะติด(จะแสดงเป็นข้อความเริ่มแรกเสมอและมีสัญรูปเกาะติดข่าวด้วย)"
+
+msgid "ReplyShort"
+msgstr "ตอบ"
+
+msgid "DeletePost"
+msgstr "คุณแน่ใจว่าต้องการจะลบกระทู้นี้ การลบกระทู้จะเป็นการลบเอากระทู้ตอบที่เกี่ยวข้องออกไปด้วย กรุณาตรวจสอบก่อนลบ"
+
+msgid "Locked"
+msgstr "ล๊อค:ผู้เรียนจะไม่สามารถส่งกระทู้เข้าสู่หมวดการอภิปรายได้แต่สามารถเข้าอ่านกระทู้ที่มีแล้วได้"
+
+msgid "Unlocked"
+msgstr "ปลดล๊อค:ผู้เรียนสามารถส่งกระทู้และอภิปรายเข้าหมวดหมู่ต่างๆได้"
+
+msgid "Flat"
+msgstr "Flat"
+
+msgid "Threaded"
+msgstr "ส่งเข้าแล้ว"
+
+msgid "Nested"
+msgstr "Nested"
+
+msgid "FlatView"
+msgstr "Flat View"
+
+msgid "ThreadedView"
+msgstr "ดูกระทู้เข้า"
+
+msgid "NestedView"
+msgstr "ดูกระทู้ที่เกี่ยวข้อง"
+
+msgid "Structure"
+msgstr "โครงสร้าง"
+
+msgid "ForumCategoryEdited"
+msgstr "ได้แก้ไขหัวข้อหมวดหมู่การอภิปรายให้แล้ว"
+
+msgid "ForumEdited"
+msgstr "ได้แก้ไขกระทู้ให้แล้ว"
+
+msgid "NewThreadStored"
+msgstr "เพิ่มกระทู้อภิปรายใหม่เข้าให้แล้ว"
+
+msgid "Approval"
+msgstr "การตรวจสอบ"
+
+msgid "Direct"
+msgstr "โดยตรง"
+
+msgid "ForGroup"
+msgstr "สำหรับกลุ่ม"
+
+msgid "ThreadLocked"
+msgstr "ล๊อคกระทู้แล้ว"
+
+msgid "NotAllowedHere"
+msgstr "คุณไม่ได้รับอนุญาต"
+
+msgid "ReplyAdded"
+msgstr "เพิ่มกระทู้ตอบเรียบร้อยแล้ว"
+
+msgid "EditPost"
+msgstr "แก้ไขกระทู้"
+
+msgid "EditPostStored"
+msgstr "ได้แก้ไขกระทู้ให้แล้ว"
+
+msgid "NewForumPost"
+msgstr "กระทู้ใหม่ในการอภิปราย"
+
+msgid "YouWantedToStayInformed"
+msgstr "คุณต้องการให้มีการแจ้งข่าวทางอีเมลเมื่อมีผู้เข้าตอบกระทู้"
+
+msgid "MessageHasToBeApproved"
+msgstr "กระทู้ของคุณจะได้รับการตรวจสอบก่อนการนำเผยแพร่"
+
+msgid "LinkName"
+msgstr "ชื่อเชื่อมโยง"
+
+msgid "LinkAdd"
+msgstr "เพิ่มรายการเชื่อมโยง"
+
+msgid "LinkAdded"
+msgstr "เพิ่มการเชื่อมโยงแล้ว"
+
+msgid "LinkMod"
+msgstr "แก้ไขรายการเชื่อมโยง"
+
+msgid "LinkModded"
+msgstr "แก้ไขการเชื่อมโยงแล้ว"
+
+msgid "LinkDel"
+msgstr "ลบรายการเชื่อมโยง"
+
+msgid "LinkDeleted"
+msgstr "ลบการเชื่อมโยงแล้ว"
+
+msgid "LinkDelconfirm"
+msgstr "คุณต้องการที่จะลบการเชื่อมโยงนี้"
+
+msgid "AllLinksDel"
+msgstr "ลบการเชื่อมโยงในประเภทนี้ทั้งหมด"
+
+msgid "CategoryName"
+msgstr "ชื่อประเภท"
+
+msgid "CategoryAdd"
+msgstr "เพิ่มประเภท"
+
+msgid "CategoryModded"
+msgstr "ได้แก้ไขประเภทแล้ว"
+
+msgid "CategoryDel"
+msgstr "ลบประเภท"
+
+msgid "CategoryDelconfirm"
+msgstr "เมื่อลบประเภทแล้วทุกรายการเชื่อมโยงต้องถูกลบด้วย คุณแน่ใจที่จะลบหรือไม่"
+
+msgid "AllCategoryDel"
+msgstr "ลบทุกรายการและประเภทเชื่อมโยง"
+
+msgid "GiveURL"
+msgstr "กรุณาใส่ที่อยู่ออนไลน์ของรายการเชื่อมโยง"
+
+msgid "GiveCategoryName"
+msgstr "กรุณาตั้งชื่อประเภท"
+
+msgid "NoCategory"
+msgstr "ไม่มีประเภท"
+
+msgid "ShowNone"
+msgstr "ปิดรายการเชื่อมโยงทุกประเภท"
+
+msgid "ListDeleted"
+msgstr "รายการถูกลบแล้ว"
+
+msgid "AddLink"
+msgstr "เพิ่มการเชื่อมโยง"
+
+msgid "DelList"
+msgstr "ลบรายการทั้งหมด"
+
+msgid "ModifyLink"
+msgstr "แก้ไขรายการเชื่อมโยง"
+
+msgid "CsvImport"
+msgstr "นำเข้าcsv"
+
+msgid "CsvFileNotFound"
+msgstr "ไฟล์ CSV ที่นำเข้ามาไม่สามารถเปิดได้ เพราะไฟล์มีขนาดใหญ่เกินหรือไม่มีข้อมูลภายใน"
+
+msgid "CsvFileNoSeps"
+msgstr "ไฟล์CSVที่นำเข้ามาต้องใช้เครื่องหมายคอมม่า,หรือเซมิโคล่อน; เป็นตัวคั่นรายการชื่อไฟล์"
+
+msgid "CsvFileNoURL"
+msgstr "ไฟล์csvที่นำเข้าต้องมีส่วนประกอบอย่างน้อยคือ ชื่อและรายการบ่งชี้ที่อยู่ออนไลน์"
+
+msgid "CsvFileLine1"
+msgstr "... - บรรทัดที่1="
+
+msgid "CsvLinesFailed"
+msgstr "บรรทัดนี้การเชื่อมโยงผิดพลาด(ไม่มีที่อยู่เว็ปหรือไม่มีชื่อ)"
+
+msgid "CsvLinesOld"
+msgstr "มีรายการเชื่อมโยงนี้แล้ว ปรับปรุงแล้ว(มีที่อยู่และประเภทเดียวกัน)"
+
+msgid "CsvLinesNew"
+msgstr "สร้างรายการเชื่อมโยงให้แล้ว"
+
+msgid "CsvExplain"
+msgstr "ไฟล์ต้องควรจะเป็นดังนี้: <blockquote><pre> <b>ที่อยู่เว็ปไซท์</b>;ประเภท;<b>ชื่อเรื่อง</b>;คำอธิบาย; <b>http://www.tinnabutr.com/dokeos</b>;รายการเชื่อมโยงที่น่าสนใจ;<b>ชื่อที่ 1</b>;คำอธิบายที่ 1; <b>http://www.wittycomputer.com/prachid</b>;;<b>ชิ่อเรื่องที่ 2</b>;\"คำอธิบายที่ 2\"; </pre></blockquote>หากมีชื่อ ที่อยู่เว็ป และคำอธิบายอยู่เดิมแล้วก็จะถือว่าเป็นการปรับปรุงข้อมูลใหม่.<br><br> ตัวหนา = ส่วนที่รับคำสั่ง. การพิมพ์รับค่าได้ทั้งตัวใหญ่ตัวเล็ก หากต้องการใส่หลายค่าในแต่ละตารางแสดงข้อมูลให้แยกคำด้วยเครื่องหมาย, หรือ ; [b]โค๊ดคำสั่งของ HTML tags[/b] สามารถนำเข้าไฟล์ มาใส่ไว้ในตาราง."
+
+msgid "LinkUpdated"
+msgstr "ปรับแก้การเชื่อมโยงแล้ว"
+
+msgid "OnHomepage"
+msgstr "แสดงการเชื่อมโยงในโฮมเพจวิชา"
+
+msgid "ShowLinkOnHomepage"
+msgstr "�ʴ���¡��������§����ྨ�Ԫ����ٻ�ͤ�͹�ԧ��"
+
+msgid "StatDB"
+msgstr "ชื่อฐานข้อมูลสถิติ"
+
+msgid "EnableTracking"
+msgstr "เปิดใช้ระบบบันทึกสถิติ"
+
+msgid "InstituteShortName"
+msgstr "ชื่อย่อของหน่วยงาน"
+
+msgid "WarningResponsible"
+msgstr "ใช้คำสั่งนี้หลังการสำรองข้อมูล ทีม Chamilo จะไม่สามารถตอบท่านได้หากข้อมูลเกิดเสียหายหรือมีข้อมูลที่ไม่สามารถเรียกได้"
+
+msgid "AllowSelfRegProf"
+msgstr "อนุญาตให้ผู้ลงทะเบียนเป็นสมาชิกใหม่ มีสิทธิฐานะเป็นอาจารย์ผู้สอนในระบบ และสามารถสร้างวิชาใหม่ได้ทันที"
+
+msgid "EG"
+msgstr "คือ/หรือใช้"
+
+msgid "DBHost"
+msgstr "ชื่อที่อยู่เครื่องแม่ข่ายบริการเว็ปไซท์และให้ใช้ฐานข้อมูล"
+
+msgid "DBLogin"
+msgstr "ชื่อผู้มีสิทธิฐานะเข้าใช้ฐานข้อมูลในเครื่องบริการแม่ข่ายของคุณ"
+
+msgid "DBPassword"
+msgstr "รหัสผ่านเข้าใช้ฐานข้อมูลที่ตั้งให้"
+
+msgid "MainDB"
+msgstr "ชื่อฐานข้อมูลหลัก"
+
+msgid "AllFieldsRequired"
+msgstr "รายการที่ต้องกรอก"
+
+msgid "PrintVers"
+msgstr "การอนุญาตลิขสิทธิ์้ ของเวอร์ชั่นที่ใช้ปัจจุบัน"
+
+msgid "LocalPath"
+msgstr "เส้นทางที่อยู่ไฟล์(Path)ในเครื่องที่ใช้บริการ"
+
+msgid "AdminEmail"
+msgstr "อีเมลของผู้จัดการระบบ"
+
+msgid "AdminName"
+msgstr "นามสกุลของผู้จัดการระบบ"
+
+msgid "AdminSurname"
+msgstr "ชื่อของผู้จัดการระบบ"
+
+msgid "AdminLogin"
+msgstr "ชื่อที่จะใช้เข้าบริหารระบบ"
+
+msgid "AdminPass"
+msgstr "รหัสผ่านของผู้จัดการระบบ(<font color=\"red\">ตั้งเองหรือใช้ตามนี้</font>)"
+
+msgid "EducationManager"
+msgstr "ผู้จัดการโครงการ Project manager"
+
+msgid "CampusName"
+msgstr "ตั้งชื่อเว็ปไซท์ระบบโดคีออส อีเลิร์นนิ่งของคุณ"
+
+msgid "DBSettingIntro"
+msgstr "ในการติดตั้งระบบบริการจัดการการเรียนการสอนDokeosนั้น โดยปกติจะสร้างฐานข้อมูลหลักแยกให้อัตโนมัติอย่างน้อย 4 ฐานข้อมูล คือฐานข้อมูลหลัก ฐานข้อมูลสถิติ ฐานข้อมูลสกอร์มและฐานข้อมูลผู้ใช้  ดังนั้นก่อนการติดตั้งระบบ คุณต้องทราบว่า Chamilo โดยปกติจะใช้งานฐานข้อมูลแยกรายการ แบบอัตโมัติมาให้ และจะสร้างชื่อพร้อมกัน 4 ฐานข้อมูล หากคุณใช้เครื่องแม่ข่ายที่บริหารจัดการเองภายในสถาบันหรือเฉพาะหน่วยงาน ที่คุณสามารถดำเนินการเองได้ เช่นภายในระบบ Lan  ก็ให้ใช้ค่าที่ระบบแจ้งเป็นค่าโดยปริยาย แบบหลายฐานข้อมูลให้กับระบบของ Chamilo  แต่ถ้าหากคุณใช้เครื่องบริการแม่ข่ายแบบเช่าจากผู้ให้บริการพาณิชย์ทั่วไป(Web Hosting Server Provider) ระบบของเขาอาจจะไม่อนุญาตให้สร้างชื่อฐานข้อมูลอัตโนมัติในครั้งเดียวได้พร้อมกัน อีกทั้งยังมีข้อจำกัดเรื่องจำนวนฐานข้อมูลที่ให้บริการด้วย และส่วนใหญ่คุณจะต้องสร้างชื่อฐานข้อมูล รองรับไว้ก่อนการติดตั้ง ขอแนะนำว่า ในการสร้างชื่อฐานข้อมูลนั้นให้สร้างชื่อฐานข้อมูลหลัก เป็น Chamilo_main เพียงชื่อเดียวเท่านั้น และเลือกกำหนดค่าการใช้ฐานข้อมูลเดียวหรือหลายฐานข้อมูลให้กับระบบ โดยให้เลือกคลิกค่าเป็นหนึ่ง  หากต้องการความช่วยเหลือให้เข้าอ่านไฟล์การติดตั้งก่อน หรือดูขั้นตอนการติดตั้งได้ใน เว็ปไซท์ของ ประชิดดอทคอม www.prachid.com"
+
+msgid "Step3"
+msgstr "ขั้นตอนที่3จากทั้งหมด 6 ขั้นตอน"
+
+msgid "Step4"
+msgstr " ขั้นตอนที่4จากทั้งหมด 6 ขั้นตอน"
+
+msgid "Step5"
+msgstr "ขั้นตอนที่5จากทั้งหมด 6 ขั้นตอน"
+
+msgid "Step6"
+msgstr " ขั้นตอนที่6"
+
+msgid "CfgSetting"
+msgstr "ตั้งค่าระบบ"
+
+msgid "DBSetting"
+msgstr "ตั้งค่าระบบฐานข้อมูลMySQL"
+
+msgid "MainLang"
+msgstr "เลือกแสดงภาษาแรกของระบบ เป็นภาษา"
+
+msgid "Licence"
+msgstr "การอนุญาตใช้ลิขสิทธิ์"
+
+msgid "LastCheck"
+msgstr "ตรวจสอบครั้งสุดท้ายก่อนการติดตั้ง"
+
+msgid "DbPrefixForm"
+msgstr "ชื่อนำหน้าของชื่อฐานข้อมูลMySQL"
+
+msgid "DbPrefixCom"
+msgstr "ปล่อยว่างไว้หากไม่ต้องการกำหนด"
+
+msgid "EncryptUserPass"
+msgstr "เข้ารหัสความปลอดภัย รหัสของผู้ใช้ไว้ในฐานข้อมูล"
+
+msgid "SingleDb"
+msgstr "เลือกใช้รวมเป็นฐานข้อมูลเดียวหรือแยกหลายฐานข้อมูลตามค่าที่ให้มา"
+
+msgid "AllowSelfReg"
+msgstr "อนุญาตให้สามารถลงทะเบียนเป็นผู้ใช้ในระบบได้ด้วยตัวเอง"
+
+msgid "Recommended"
+msgstr "(แนะนำให้ทำตามนี้)"
+
+msgid "ScormDB"
+msgstr "ชื่อฐานข้อมูลScorm"
+
+msgid "AdminLastName"
+msgstr "ชื่อผู้จัดการระบบ"
+
+msgid "AdminPhone"
+msgstr "เบอร์โทรศัพท์ของผู้จัดการระบบ"
+
+msgid "Titular"
+msgstr "หัวหน้า"
+
+msgid "AdministrationTools"
+msgstr "เครื่องมือการบริหารจัดการระบบ"
+
+msgid "CatList"
+msgstr "ประเภทรายวิชา"
+
+msgid "Subscribe"
+msgstr "รับสมัคร"
+
+msgid "AlreadySubscribed"
+msgstr "รับสมัครแล้ว"
+
+msgid "CourseCategoryStored"
+msgstr "สร้างประเภทวิชาให้แล้ว"
+
+msgid "Added"
+msgstr "เพิ่มแล้ว"
+
+msgid "Deleted"
+msgstr "ลบแล้ว"
+
+msgid "Keeped"
+msgstr "จัดเก็บแล้ว"
+
+msgid "HideAndSubscribeClosed"
+msgstr "ปิด/ซ่อน"
+
+msgid "HideAndSubscribeOpen"
+msgstr "ซ่อน/เปิด"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "เห็น/เปิด"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "เห็น/ปิด"
+
+msgid "AdminThisUser"
+msgstr "ไปที่ผู้ใช้"
+
+msgid "Manage"
+msgstr "สำนักงานบริหาร"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "คุณได้ลงทะเบียนวิชาแล้ว"
+
+msgid "SubCat"
+msgstr "หัวข้อย่อยในรายการ"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "ไม่อนุญาตให้ถอนการสมัครในวิชานี้"
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "คุณคือเจ้าของวิชานี้"
+
+msgid "CourseManagement"
+msgstr "การบริหารจัดการรายวิชา"
+
+msgid "SortMyCourses"
+msgstr "ประเภทรายวิชาของเรา"
+
+msgid "SubscribeToCourse"
+msgstr "สมัครเรียน"
+
+msgid "UnsubscribeFromCourse"
+msgstr "ถอนวิชา"
+
+msgid "CreateCourseCategory"
+msgstr "สร้างประเภทรายวิชา"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "คุณแน่ใจที่จะลบประเภทวิชาหรือไม่? รายวิชาที่อยู่ในประเภทจะถูกย้ายออกมาภายนอก"
+
+msgid "CourseCategories"
+msgstr "ประเภทรายวิชา"
+
+msgid "CoursesInCategory"
+msgstr "รายวิชาที่มีอยู่ในประเภทนี้"
+
+msgid "SearchCourse"
+msgstr "ค้นหารายวิชา"
+
+msgid "UpOneCategory"
+msgstr "ขึ้นไปสู่อีกประเภทต่อไป"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "คุณแน่ใจว่าจะถอนวิชานี้?"
+
+msgid "NoCourseCategory"
+msgstr "ไม่มีประเภทวิชา"
+
+msgid "EditCourseCategorySucces"
+msgstr "เพิ่มรายวิชาเข้าเก็บในประเภทแล้ว"
+
+msgid "SubscribingNotAllowed"
+msgstr "ไม่อนุญาตให้สมัคร"
+
+msgid "CourseSortingDone"
+msgstr "แยกประเภทวิชาให้แล้ว"
+
+msgid "ExistingCourseCategories"
+msgstr "ประเภทวิชาที่มี"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "ได้ถอนวิชาให้คุณเรียบร้อยแล้ว"
+
+msgid "ViewOpenCourses"
+msgstr "ดูวิชาที่เปิดเรียน"
+
+msgid "ErrorContactPlatformAdmin"
+msgstr "เกิดข้อผิดพลาดโปรดติดต่อผู้ดูแลระบบ"
+
+msgid "CourseRegistrationCodeIncorrect"
+msgstr "รหัสการลงทะเบียนไม่ถูกต้อง"
+
+msgid "CourseRequiresPassword"
+msgstr "คอร์สนี้ต้องการรหัสผ่าน"
+
+msgid "SubmitRegistrationCode"
+msgstr "ยืนยันรหัสลงทะเขียน"
+
+msgid "DocumentList"
+msgstr "รายชื่อเอกสารทั้งหมด"
+
+msgid "OrganisationList"
+msgstr "สารบัญเนื้อหา"
+
+msgid "EditTOC"
+msgstr "แก้ไขสารบัญเนื้อหา"
+
+msgid "EditDocument"
+msgstr "แก้ไข"
+
+msgid "CreateDocument"
+msgstr "สร้างเอกสาร"
+
+msgid "MissingImagesDetected"
+msgstr "พบว่า ภาพหายไป"
+
+msgid "Publish"
+msgstr "ตีพิมพ์"
+
+msgid "Scormcontentstudent"
+msgstr "คือวิชาตามมาตรฐานscorm. เข้าอ่านและใช้งานคลิกที่นี่: <input type=button name=scormbutton value='Launch it !' onclick='openscorm()'>"
+
+msgid "Scormcontent"
+msgstr "นี่คือเนื้อหาScorm<br><input type=button name=scormbutton value='Launch it !' onclick='openscorm()'>"
+
+msgid "DownloadAndZipEnd"
+msgstr " ส่งข้อมูลไฟล์บีบอัดและทำการขยายเรียบร้อยแล้ว"
+
+msgid "ZipNoPhp"
+msgstr "ไฟล์ zip ไม่สามารถบรรจุ PHP filesได้"
+
+msgid "GroupForumLink"
+msgstr "กลุ่มอภิปราย"
+
+msgid "NotScormContent"
+msgstr "�������� .zip ���Ẻ�ҵðҹScorm"
+
+msgid "NoText"
+msgstr "กรุณาพิมพ์ข้อความ/หรือไฟล์เนื้อหารูปแบบเอกสาร html:Please type your text / HTML content"
+
+msgid "NoFileName"
+msgstr "กรุณาใส่ชื่อไฟล์"
+
+msgid "FileError"
+msgstr "ไฟล์ที่จะโอนย้ายขึ้นระบบ(Upload)ไม่ถูกต้องสมบูรณ์"
+
+msgid "ViMod"
+msgstr "ปรับปรุงการให้เห็นเอกสารแล้ว"
+
+msgid "AddComment"
+msgstr "เพิ่ม/ปรับปรุงหมายเหตุที่"
+
+msgid "Impossible"
+msgstr "ไม่สามารถปฏิบัติได้"
+
+msgid "NoSpace"
+msgstr "การอัพโหลดล้มเหลว มีเนื้อที่ไม่พอในไดเร็กทอรีของท่าน"
+
+msgid "DownloadEnd"
+msgstr "สิ้นสุดการอัพโหลด"
+
+msgid "FileExists"
+msgstr "ไม่สามารถปฏิบัติได้<br>มีไฟล์ชื่อนี้อยู่แล้ว"
+
+msgid "DocCopied"
+msgstr "ย้ายเอกสารแล้ว"
+
+msgid "DocDeleted"
+msgstr "ลบเอกสารแล้ว"
+
+msgid "ElRen"
+msgstr "เปลี่ยนชื่อแล้ว"
+
+msgid "DirMv"
+msgstr "ย้ายdirectory เรียบร้อย"
+
+msgid "ComMod"
+msgstr "แก้ไขข้อคิดเห็นแล้ว"
+
+msgid "Rename"
+msgstr "เปลี่ยนชื่อ"
+
+msgid "NameDir"
+msgstr "ชื่อแฟ้มเก็บไฟล์ใหม่"
+
+msgid "DownloadFile"
+msgstr "อัพโหลดข้อมูลไปที่เครื่องแม่ข่าย"
+
+msgid "Builder"
+msgstr "ตัวสร้างแผนการเรียน"
+
+msgid "ScormBuilder"
+msgstr "โปรแกรมสร้างรูปแบบมาตรฐานscorm"
+
+msgid "CreateDoc"
+msgstr "สร้างเอกสาร"
+
+msgid "OrganiseDocuments"
+msgstr "สร้างสารบัญเนื้อหา"
+
+msgid "Uncompress"
+msgstr "ขยายไฟล์บีบอัดบนเครื่องแม่ข่าย"
+
+msgid "ExportShort"
+msgstr "ส่งออกไฟล์"
+
+msgid "AdminBy"
+msgstr "บริหารระบบโดย"
+
+msgid "Statistiques"
+msgstr "สถิติ"
+
+msgid "VisioHostLocal"
+msgstr "เครื่องแม่ข่ายบริการประชุมออนไลน์"
+
+msgid "VisioRTMPIsWeb"
+msgstr "แม้ว่าโปรโตคอลของ videoconference นั้นต้่องขึ้นอยู่กับเว็บ (ผิดเวลาไปมาก)"
+
+msgid "Used"
+msgstr "ใช้แล้ว"
+
+msgid "Exist"
+msgstr "มีอยู่แล้ว"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "แสดงชื่อผู้สอนในรายวิชา"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "แสดงชื่อผู้สอนในรายวิชาที่มีการแสดงความคิดเห็น"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "แสดงรหัสรายวิชาในรายวิชาที่มีการแสดงความคิดเห็น"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "แสดงรหัสรายวิชาในชื่อรายวิชา"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "�ѧ����ա���Դ����Ԫ�����ҹ��"
+
+msgid "ConfigureHomePage"
+msgstr "ตั้งค่าหน้าแรกของเว็ปไซท์"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "ให้หน่วยการเรียนใช้งานได้เมื่อมีการสร้างรายวิชาขึ้นใหม่"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "เครื่องมือใดจะใช้งานได้เป็นค่าเริ่มต้นโดยปริยาย ต่อเมื่อมีการสร้างรายวิชาแล้ว"
+
+msgid "CourseBackup"
+msgstr "ทำการสำรองข้อมูลรายวิชานี้"
+
+msgid "CourseTitular"
+msgstr "อาจารย์ผู้สอน"
+
+msgid "CourseFaculty"
+msgstr "ประเภทรายวิชา"
+
+msgid "CourseDepartment"
+msgstr "หลักสูตรภาควิชา/หมวดวิชา"
+
+msgid "CourseDepartmentURL"
+msgstr "ที่อยู่เว็ปไซท์ของหน่วยงาน"
+
+msgid "CourseSubscription"
+msgstr "การสมัครเข้าเรียน"
+
+msgid "PublicAccess"
+msgstr "เปิดให้เข้าเรียนแบบสาธารณะ"
+
+msgid "PrivateAccess"
+msgstr "เปิดให้เข้าเรียนเป็นส่วนบุคคล"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "การบริหารจัดการระบบฐานข้อมูล อนุญาตเฉพาะผู้บริหารเครื่องแม่ข่ายบริการ"
+
+msgid "ShowUsersOfCourse"
+msgstr "แสดงชื่อสมาชิกที่สมัครเข้าเรียนในรายวิชา"
+
+msgid "ShowClassesOfCourse"
+msgstr "แสดงชื่อหมู่เรียนที่สมัครเรียนในรายวิชานี้"
+
+msgid "ShowGroupsOfCourse"
+msgstr "แสดงกลุ่มของรายวิชา"
+
+msgid "PhoneNumber"
+msgstr "เบอร์โทรศัพท์"
+
+msgid "AddToCourse"
+msgstr "เพิ่มเข้าในรายวิชา"
+
+msgid "DeleteFromPlatform"
+msgstr "เอาออกจากระบบบริหารจัดการ"
+
+msgid "DeleteCourse"
+msgstr "ลบรายวิชาที่เลือก"
+
+msgid "DeleteFromCourse"
+msgstr "ถอดถอนการสมัครรายวิชา"
+
+msgid "DeleteSelectedClasses"
+msgstr "ลบหมู่เรียนที่เลือก"
+
+msgid "DeleteSelectedGroups"
+msgstr "ลบกลุ่มเรียนที่เลือก"
+
+msgid "Administrator"
+msgstr "ผู้ดูแลระบบ"
+
+msgid "ChangePicture"
+msgstr "เปลี่ยนภาพ"
+
+msgid "AddUsers"
+msgstr "เพิ่มชื่อผู้ใช้"
+
+msgid "AddGroups"
+msgstr "เพิ่มกลุ่มเรียน"
+
+msgid "AddClasses"
+msgstr "เพิ่มหมู่เรียน"
+
+msgid "ExportUsers"
+msgstr "ส่งออกรายชื่อผู้ใช้"
+
+msgid "NumberOfParticipants"
+msgstr "จำนวนผู้ร่วมงาน"
+
+msgid "NumberOfUsers"
+msgstr "จำนวนสมาชิกผู้ใช้"
+
+msgid "Participants"
+msgstr "ผู้ร่วมงาน"
+
+msgid "FirstLetterClass"
+msgstr "อักษรนำหน้า(หมู่เรียน)"
+
+msgid "FirstLetterUser"
+msgstr "อักษรนำหน้า(นามสกุล)"
+
+msgid "FirstLetterCourse"
+msgstr "อักษรนำหน้า(รัหสวิชา)"
+
+msgid "ModifyUserInfo"
+msgstr "แก้ไขข้อมูลสมาชิก"
+
+msgid "ModifyClassInfo"
+msgstr "แก้ไขข้อมูลหมู่เรียน"
+
+msgid "ModifyGroupInfo"
+msgstr "แก้ไขข้อมูลกลุ่มเรียน"
+
+msgid "ModifyCourseInfo"
+msgstr "แก้ไขข้อมูลรายวิชา"
+
+msgid "PleaseEnterClassName"
+msgstr "กรุณาใส่ชื่อหมู่เรียน!"
+
+msgid "PleaseEnterLastName"
+msgstr "กรุณาใส่นามสกุลของผู้ใช้"
+
+msgid "PleaseEnterFirstName"
+msgstr "กรุณาใส่ชื่อของผู้ใช้"
+
+msgid "PleaseEnterValidEmail"
+msgstr "กรุณาใส่ที่อยู่อีเมลให้ถูกต้องและสมบูรณ์แบบ"
+
+msgid "PleaseEnterValidLogin"
+msgstr "กรุณาใส่ชื่อผู้ใช้ให้ถูกต้อง"
+
+msgid "PleaseEnterCourseCode"
+msgstr "กรุณาใส่รหัสวิชา"
+
+msgid "PleaseEnterTitularName"
+msgstr "กรุณาใส่ชื่ออาจารย์ผู้สอน"
+
+msgid "PleaseEnterCourseTitle"
+msgstr "กรุณาใส่ชื่อวิชา"
+
+msgid "AcceptedPictureFormats"
+msgstr "รูปแบบไฟล์ภาพที่ระบบยอมรับและแสดงผลได้คือสกุล .jpg .png .gif"
+
+msgid "LoginAlreadyTaken"
+msgstr "���ͼ�������駹�� �ռ�����������"
+
+msgid "ImportUserListXMLCSV"
+msgstr "นำเข้ารายชื่อผู้ใช้จากไฟล์รูปแบบ xml/csv"
+
+msgid "ExportUserListXMLCSV"
+msgstr "ส่งออกรายชื่อผู้ใช้เป็นไฟล์รูปแบบ xml/csv"
+
+msgid "OnlyUsersFromCourse"
+msgstr "เฉพาะผู้ใช้ในรายวิชา"
+
+msgid "AddClassesToACourse"
+msgstr "เพิ่มหมู่เรียนในรายวิชา"
+
+msgid "AddUsersToACourse"
+msgstr "เพิ่มผู้ใช้เข้ารายวิชา"
+
+msgid "AddUsersToAClass"
+msgstr "เพิ่มผู้ใช้ในหมู่เรียน"
+
+msgid "AddUsersToAGroup"
+msgstr "เพิ่มผู้ใช้เข้ากลุ่ม"
+
+msgid "AtLeastOneClassAndOneCourse"
+msgstr "คุณต้องเลือกอย่างน้อย 1 หมู่เรียนและ 1 รายวิชา"
+
+msgid "AtLeastOneUser"
+msgstr "คุณต้องเลือกอย่างน้อย 1 ผู้ใช้"
+
+msgid "AtLeastOneUserAndOneCourse"
+msgstr "คุณต้องเลือกอย่างน้อย 1 ผู้ใช้และ 1 รายวิชา"
+
+msgid "ClassList"
+msgstr "รายชื่อหมู่เรียน"
+
+msgid "AddToThatCourse"
+msgstr "เพิ่มเข้าไปในรายวิชานี้"
+
+msgid "AddToClass"
+msgstr "เพิ่มเข้าในหมู่เรียน"
+
+msgid "RemoveFromClass"
+msgstr "เอาออกจากหมู่เรียน"
+
+msgid "AddToGroup"
+msgstr "เพิ่มเข้าในกลุ่ม"
+
+msgid "RemoveFromGroup"
+msgstr "เอาออกจากกลุ่ม"
+
+msgid "UsersOutsideClass"
+msgstr "ผู้ใช้ที่ไม่สังกัดหมู่เรียน"
+
+msgid "UsersInsideClass"
+msgstr "ผู้ใช้สังกัดหมู่เรียน"
+
+msgid "UsersOutsideGroup"
+msgstr "ผู้ใช้ที่ไม่สังกัดกลุ่ม"
+
+msgid "UsersInsideGroup"
+msgstr "ผู้ใช้ที่สังกัดในกลุ่ม"
+
+msgid "MustUseSeparator"
+msgstr "ต้องใช้เครื่องหมาย ; เป็นตัวคั่น"
+
+msgid "CSVMustLookLike"
+msgstr "ไฟล์ csv ต้องดูเหมือนอย่างนี้"
+
+msgid "XMLMustLookLike"
+msgstr "ไฟล์ xml ต้องดูเหมือนอย่างนี้"
+
+msgid "MandatoryFields"
+msgstr "รูปแบบคำสั่ง<strong>bold</strong>คือให้เป็นตัวหนา"
+
+msgid "NotXML"
+msgstr "ไฟล์ที่ระบุนี้ไม่ใช่รูปแบบของไฟล์ xml"
+
+msgid "NotCSV"
+msgstr "ไฟล์ที่ระบุไม่ใช่ไฟล์รูปแบบ csv"
+
+msgid "NoNeededData"
+msgstr "ไฟล์ที่ระบุ ไม่มีข้อมูลที่ตรงกับความต้องการ"
+
+msgid "MaxImportUsers"
+msgstr "อนุญาตให้นำเข้ารายชื่อผู้ใช้ได้ครั้งละไม่เกิน 500 คน"
+
+msgid "AdminDatabases"
+msgstr "ฐานข้อมูล(phpMyAdmin)"
+
+msgid "AdminUsers"
+msgstr "ผู้ใช้ในระบบ"
+
+msgid "AdminClasses"
+msgstr "หมู่เรียน"
+
+msgid "AdminGroups"
+msgstr "กลุ่มผู้ใช้"
+
+msgid "AdminCourses"
+msgstr "รายวิชา"
+
+msgid "AdminCategories"
+msgstr "ประเภทรายวิชา"
+
+msgid "SubscribeUserGroupToCourse"
+msgstr "รับลงทะเบียนผู้ใช้/กลุ่มเข้าในรายวิชา"
+
+msgid "NoCategories"
+msgstr "�ѧ����ա�èѴ������"
+
+msgid "AllowCoursesInCategory"
+msgstr "อนุญาตให้เพิ่มรายวิชาในประเภทนี้"
+
+msgid "GoToForum"
+msgstr "ไปที่การอภิปราย"
+
+msgid "CategoryCode"
+msgstr "รหัสประเภท"
+
+msgid "EditNode"
+msgstr "แก้ไขประเภทนี้"
+
+msgid "OpenNode"
+msgstr "เปิดประเภทนี้"
+
+msgid "DeleteNode"
+msgstr "ลบประเภทนี้"
+
+msgid "AddChildNode"
+msgstr "เพิ่มหัวข้อย่อยในประเภท"
+
+msgid "ViewChildren"
+msgstr "ดูแผนผังโครงสร้างไฟล์ย่อย"
+
+msgid "TreeRebuildedIn"
+msgstr "สร้างโครงสร้างไฟล์รูปแบบแผนภูมิต้นไม้ ใหม่ใน"
+
+msgid "TreeRecountedIn"
+msgstr "นับแผนภูมิโครงสร้างไฟล์แบบต้นไม้ ใหม่ใน"
+
+msgid "RebuildTree"
+msgstr "สร้างโครงสร้างไฟล์รูปแบบแผนภูมิต้นไม้ ใหม่"
+
+msgid "RefreshNbChildren"
+msgstr "กะพริบจอดูแผนผังโครงสร้างไฟล์ย่อยใหม่"
+
+msgid "ShowTree"
+msgstr "แสดงโครงสร้างไฟล์รูปแบบแผนภูมิต้นไม้"
+
+msgid "LogDeleteCat"
+msgstr "ลบประเภท"
+
+msgid "RecountChildren"
+msgstr "นับดูแผนผังโครงสร้างไฟล์ย่อยใหม่"
+
+msgid "UpInSameLevel"
+msgstr "ปรับมาระดับเดียวกัน"
+
+msgid "MailTo"
+msgstr "ส่งอีเมลถึง"
+
+msgid "AddAdminInApache"
+msgstr "เพิ่มผู้ดูแลระบบ"
+
+msgid "AddFaculties"
+msgstr "เพิ่มประเภท"
+
+msgid "SearchACourse"
+msgstr "ค้นหารายวิชา"
+
+msgid "SearchAUser"
+msgstr "ค้นหาผู้ใช้"
+
+msgid "TechnicalTools"
+msgstr "เทคนิค"
+
+msgid "Config"
+msgstr "ตั้งค่าระบบ"
+
+msgid "LogIdentLogoutComplete"
+msgstr "บันทึกการเข้าใช้งานระบบ"
+
+msgid "LimitUsersListDefaultMax"
+msgstr "แสดงจำนวนสมาชิกในรายการแถบเลื่อนไว้มากที่สุด"
+
+msgid "PageAfterLoginTitle"
+msgstr "หน้าที่แสดงเมื่อเข้าใช้ระบบ"
+
+msgid "PageAfterLoginComment"
+msgstr "หน้าที่ให้เห็นเฉพาะสมาชิกที่กำลังเชื่อมต่อ"
+
+msgid "GlobalRole"
+msgstr "Global Role"
+
+msgid "NomOutilTodo"
+msgstr "สิ่งควรปรับปรุง"
+
+msgid "NomPageAdmin"
+msgstr "การบริหารจัดการระบบ"
+
+msgid "SysInfo"
+msgstr "แสดงรายละเอียดสถานะของระบบ"
+
+msgid "DiffTranslation"
+msgstr "เปรียบเทียบการแปล"
+
+msgid "StatOf"
+msgstr "ʶԵԢͧ"
+
+msgid "SpeeSubscribe"
+msgstr "ลงทะเบียนด่วนเป็นผู้ตรวจสอบวิชา"
+
+msgid "LogIdentLogout"
+msgstr "แสดงรายการเข้าสู่ระบบ"
+
+msgid "ServerStatus"
+msgstr "ʶҹТͧ MySQL server"
+
+msgid "DataBase"
+msgstr "ฐานข้อมูล"
+
+msgid "Run"
+msgstr "งาน"
+
+msgid "Client"
+msgstr "ลูกข่ายรับบริการ MySql"
+
+msgid "Server"
+msgstr "เครื่องแม่ข่ายบริการ MySql"
+
+msgid "titulary"
+msgstr "เจ้าของ"
+
+msgid "UpgradeBase"
+msgstr "ปรับปรุงฐานข้อมูล"
+
+msgid "ErrorsFound"
+msgstr "พบข้อผิดพลาด"
+
+msgid "Maintenance"
+msgstr "การดูแลรักษา"
+
+msgid "Upgrade"
+msgstr "ปรับรุ่น Chamilo"
+
+msgid "Website"
+msgstr "เว็ปไซท์Dokeos"
+
+msgid "Documentation"
+msgstr "การจัดเอกสาร"
+
+msgid "Contribute"
+msgstr "ʹѺʹع"
+
+msgid "InfoServer"
+msgstr "ข้อมูลแม่ข่ายบริการ"
+
+msgid "SendMailToUsers"
+msgstr "ส่งอีเมลถึงผู้ใช้ในระบบ"
+
+msgid "CourseSystemCode"
+msgstr "รหัสระบบ"
+
+msgid "CourseVisualCode"
+msgstr "รหัสที่มองเห็น"
+
+msgid "SystemCode"
+msgstr "รหัสระบบ"
+
+msgid "VisualCode"
+msgstr "รหัสที่มองเห็น"
+
+msgid "AddCourse"
+msgstr "สร้างรายวิชา"
+
+msgid "AdminManageVirtualCourses"
+msgstr "บริหารรายวิชาเสมือน"
+
+msgid "AdminCreateVirtualCourse"
+msgstr "สร้างรายวิชาเสมือน"
+
+msgid "AdminCreateVirtualCourseExplanation"
+msgstr "รายวิชาเสมือนจะร่วมใช้ไฟล์และพื้นที่เก็บไฟล์กับรายวิชาจริง"
+
+msgid "RealCourseCode"
+msgstr "รหัสวิชาจริง"
+
+msgid "CourseCreationSucceeded"
+msgstr "ได้สร้างรายวิชาเรียบร้อยแล้ว"
+
+msgid "OnTheHardDisk"
+msgstr "อยู่ในฮาร์ดดิสก์"
+
+msgid "IsVirtualCourse"
+msgstr "เป็นวิชาเสมือน"
+
+msgid "AnnouncementUpdated"
+msgstr "ปรับแก้ประกาศแล้ว"
+
+msgid "Guest"
+msgstr "บุคคลทั่วไป"
+
+msgid "LoginAsThisUserColumnName"
+msgstr "เข้าสู่ระบบด้วยชื่อ"
+
+msgid "LoginAsThisUser"
+msgstr "เข้าสู่ระบบ"
+
+msgid "DontResetPassword"
+msgstr "อย่าตั้งรหัสผ่านใหม่"
+
+msgid "ParticipateInCommunityDevelopment"
+msgstr "ร่วมพัฒนา"
+
+msgid "CourseAdmin"
+msgstr "ผู้จัดการวิชา"
+
+msgid "PlatformLanguageTitle"
+msgstr "ภาษาของระบบ"
+
+msgid "ServerStatusComment"
+msgstr "การทราบชนิดของเครื่องแม่ข่าย ก็เพื่อสามารถกำหนดค่าทางเลือก และสมรรถนะของการปรับปรุงคุณภาพและคุณสมบัติเครื่อง ให้มีความสามารถแปลคำสั่งได้ตรงกับหน้าที่การใช้งานที่ต้องการ"
+
+msgid "ServerStatusTitle"
+msgstr "ชนิดของเครื่องแม่ข่าย"
+
+msgid "PlatformLanguages"
+msgstr "ภาษาคำสั่งของระบบ"
+
+msgid "PlatformLanguagesExplanation"
+msgstr "������͡���Ҩҡ�����˹���á�ͧ���ྨ ���繡�����͡���������ҷ�����͡����к�"
+
+msgid "OriginalName"
+msgstr "ชื่อภาษาเดิม"
+
+msgid "EnglishName"
+msgstr "ชื่อภาษาอังกฤษ"
+
+msgid "LMSFolder"
+msgstr "ชื่อในแฟ้มของDokeos"
+
+msgid "Properties"
+msgstr "ปรับเปลี่ยน"
+
+msgid "PlatformConfigSettings"
+msgstr "แก้ไขตั้งค่าระบบ Chamilo"
+
+msgid "SettingsStored"
+msgstr "เก็บค่าที่แก้ไขแล้ว"
+
+msgid "InstitutionTitle"
+msgstr "ชื่อหน่วยงาน"
+
+msgid "InstitutionComment"
+msgstr "ชื่อของหน่วยงาน(จะปรากฏที่หัวมุมบนด้านขวามือ)"
+
+msgid "InstitutionUrlTitle"
+msgstr "เว็ปไซท์หน่วยงาน"
+
+msgid "InstitutionUrlComment"
+msgstr "ชื่อเว็ปไซท์ของหน่วยงาน(เป็นชื่อที่เชื่อมโยงและปรากฏอยู่ด้านบนขวา)"
+
+msgid "SiteNameTitle"
+msgstr "ตั้งชื่อหัวเรื่องของระบบ"
+
+msgid "SiteNameComment"
+msgstr "ชื่อเว็ปไซท์Dokeosของคุณ(จะปรากฏชื่อบนแถบด้านบน)"
+
+msgid "emailAdministratorTitle"
+msgstr "อีเมลของผู้ดูแลระบบ"
+
+msgid "emailAdministratorComment"
+msgstr "อีเมลของผู้จัดการระบบ(จะปรากฏในแถบล่างมุมซ้าย)"
+
+msgid "administratorSurnameTitle"
+msgstr "นามสกุลของผู้จัดการระบบ"
+
+msgid "administratorSurnameComment"
+msgstr "ชื่อของผุ้จัดการระบบ(จะปรากฏที่ท้ายหน้าโฮมเพจมุมซ้ายล่าง)"
+
+msgid "administratorNameTitle"
+msgstr "ชื่อผู้จัดการระบบ"
+
+msgid "administratorNameComment"
+msgstr "ชื่อผู้จัดการระบบ(จะปรากฏที่ท้ายหน้าโฮมเพจมุมล่างซ้าย)"
+
+msgid "ShowAdministratorDataTitle"
+msgstr "ข้อมูลและรุ่นของระบบที่จะแสดงที่ท้ายล่างของโฮมเพจ"
+
+msgid "ShowAdministratorDataComment"
+msgstr "แสดงข้อมูลและรุ่นของระบบที่ท้ายหน้าโฮมเพจ"
+
+msgid "HomepageViewTitle"
+msgstr "ดูโฮมเพจ"
+
+msgid "HomepageViewComment"
+msgstr "คุณต้องการให้โฮมเพจวิชามีรูปแบบตามนี้"
+
+msgid "HomepageViewDefault"
+msgstr "ซ่อนเครื่องมือที่ควบคุมการแสดงผลแบบ 2 คอลัมน์"
+
+msgid "HomepageViewFixed"
+msgstr "จัดหน้าโฮมเพจแบบ 3 คอลัมน์ หากปุ่มเครื่องมือเป็นสีเทาแสดงว่ายังไม่ถูกกำหนดให้ใช้งาน"
+
+msgid "ShowToolShortcutsTitle"
+msgstr "เครื่องมือลัด"
+
+msgid "ShowToolShortcutsComment"
+msgstr "แสดงเครื่องมือลัดไว้ในป้ายประกาศ"
+
+msgid "ShowStudentViewTitle"
+msgstr "หน้าจอผู้เรียน"
+
+msgid "ShowStudentViewComment"
+msgstr "ให้แสดงผลหน้าจอของผู้เรียน<b>การกำหนดใช้คำสั่งนี้ก็เพื่อให้ผู้สอนทราบว่า หน้าจอของผู้เรียนจะปรากฏรายการใดแสดงให้เห็นบ้าง"
+
+msgid "AllowGroupCategories"
+msgstr "ประเภทกลุ่ม"
+
+msgid "AllowGroupCategoriesComment"
+msgstr "อนุญาตให้ผู้จัดการวิชาสร้างประเภทรายการในบทเรียนได้"
+
+msgid "PlatformLanguageComment"
+msgstr "คุณสามารถกำหนดภาษาของระบบไว้ในส่วนต่างๆได้ เพียงคัดลอกคำสั่งเชื่อมโยงนี้ไปไว้ในที่ต้องการ<a href=\"languages.php\">ภาษาระบบของDokeos</a>"
+
+msgid "ProductionServer"
+msgstr "เครื่องแม่ข่ายบริการจริง"
+
+msgid "TestServer"
+msgstr "เครื่องแม่ข่ายบริการจำลอง"
+
+msgid "ShowOnlineTitle"
+msgstr "ผู้ที่กำลังร่วมใช้งาน"
+
+msgid "AsPlatformLanguage"
+msgstr "เป็นภาษาของระบบ"
+
+msgid "ShowOnlineComment"
+msgstr "ให้แสดงจำนวนผู้ที่กำลังใช้งานระบบ"
+
+msgid "AllowNameChangeTitle"
+msgstr "อนุญาตให้เปลี่ยนชื่อในแฟ้มประวัติได้"
+
+msgid "AllowNameChangeComment"
+msgstr "ให้ผู้ใช้เปลี่ยนแปลงชื่อและนามสกุลได้หรือไม่"
+
+msgid "DefaultDocumentQuotumTitle"
+msgstr "พื้นที่เก็บเอกสาร"
+
+msgid "DefaultDocumentQuotumComment"
+msgstr "การควบคุมโควต้าเอกสาร สามารถกำหนดเองได้โดยพิมพ์ค่าตัวเลขเป็นจำนวนไบท์ ลงในช่องกำหนดตามที่ต้องการ เส้นทางการเข้าถึงการกำหนดค่าโควต้าคือไปที่ : การบริหารจัดการ> รายวิชา> ใส่ค่าที่ต้องการ"
+
+msgid "ProfileChangesTitle"
+msgstr "ประวัติ"
+
+msgid "ProfileChangesComment"
+msgstr "อนุญาตให้เปลี่ยนแปลงแฟ้มส่วนบุคคลในส่วนใด"
+
+msgid "RegistrationRequiredFormsTitle"
+msgstr "การลงทะเบียน: บังคับต้องกรอกรายการในช่องที่มี * กำกับ"
+
+msgid "RegistrationRequiredFormsComment"
+msgstr "เขตข้อมูลที่ต้องการ (besides name, first name, login and password)"
+
+msgid "DefaultGroupQuotumTitle"
+msgstr "ค่าเริ่มต้นของโควตากลุ่ม"
+
+msgid "DefaultGroupQuotumComment"
+msgstr "โควต้าเอกสารกลุ่ม (What is the default quotum for a groups documents tool?)"
+
+msgid "AllowLostPasswordTitle"
+msgstr "ลืมรหัสผ่าน"
+
+msgid "AllowLostPasswordComment"
+msgstr "อนุญาตให้ผู้ใช้ร้องขอรหัสที่ลืมได้หรือไม่"
+
+msgid "AllowRegistrationTitle"
+msgstr "การลงทะเบียน"
+
+msgid "AllowRegistrationComment"
+msgstr "อนุญาตให้ผู้ใช้สร้างชื่อใหม่ได้หรือไม่"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "ลงทะเบียนเป็นอาจารย์ผู้สอน"
+
+msgid "AllowRegistrationAsTeacherComment"
+msgstr "อนุญาตให้ผู้สมัครเป็นผู้ใช้ใหม่มีสิทธิฐานะเป็นผู้สอนได้เลยหรือไม่"
+
+msgid "PlatformLanguage"
+msgstr "ระบบภาษา"
+
+msgid "CourseQuota"
+msgstr "มีพื้นที่เก็บไฟล์ของวิชาในระบบให้เป็นจำนวน(ไบท์)"
+
+msgid "EditNotice"
+msgstr "แก้ไขการแจ้งข่าว"
+
+msgid "InsertLink"
+msgstr "เพิ่มการเชื่อมโยง"
+
+msgid "EditNews"
+msgstr "แก้ไขข่าว"
+
+msgid "EditCategories"
+msgstr "แก้ไขประเภท"
+
+msgid "EditHomePage"
+msgstr "แก้ไขหน้าโฮมเพจ"
+
+msgid "AllowUserHeadingsComment"
+msgstr "ผู้บริหารวิชาสามารถเพิ่มเติมรายละเอียดข้อมูลของผู้เรียน/ผู้ใช้(User)"
+
+msgid "Languages"
+msgstr "ภาษา"
+
+msgid "NoticeTitle"
+msgstr "แจ้งข่าวเรื่อง"
+
+msgid "NoticeText"
+msgstr "ข้อความที่แจ้งให้ทราบ"
+
+msgid "LinkURL"
+msgstr "ที่อยู่รายการที่เชื่อมโยง"
+
+msgid "OpenInNewWindow"
+msgstr "เปิดเป็นหน้าจอใหม่"
+
+msgid "LimitUsersListDefaultMaxComment"
+msgstr "ในหน้าจอการอนุญาตเพิ่มผู้เรียนเข้าชั้นนั้นIn the screens allowing addition of users to courses or classes, if the first non-filtered list contains more than this number of users, then default to the first letter (A)"
+
+msgid "UserDeleted"
+msgstr "ลบชื่อผู้ใช้แล้ว"
+
+msgid "NoClassesForThisCourse"
+msgstr "ยังไม่มีหมู่เรียนใดสมัครเรียนวิชานี้"
+
+msgid "CourseUsage"
+msgstr "การเข้าเรียนในรายวิชา"
+
+msgid "NoCoursesForThisUser"
+msgstr "��������ѧ�������Ѥ�������¹"
+
+msgid "NoClassesForThisUser"
+msgstr "��������������Ѥ������������¹"
+
+msgid "NoCoursesForThisClass"
+msgstr "�������¹����ѧ�������Ѥ����¹"
+
+msgid "Tool"
+msgstr "เครื่องมือ"
+
+msgid "NumberOfItems"
+msgstr "จำนวนในแต่ละรายการ"
+
+msgid "DocumentsAndFolders"
+msgstr "แฟ้มเก็บเอกสาร"
+
+msgid "Exercises"
+msgstr "แบบทดสอบ"
+
+msgid "AllowPersonalAgendaTitle"
+msgstr "กำหนดการส่วนตัว"
+
+msgid "AllowPersonalAgendaComment"
+msgstr "ผู้ใช้สามารถเพิ่มเติมกำหนดการของตัวเองเข้าได้หรือไม่"
+
+msgid "CurrentValue"
+msgstr "ปัจจุบันใช้คำสั่งของระบบเป็นภาษา"
+
+msgid "UserPassword"
+msgstr "รหัสผ่าน"
+
+msgid "SubscriptionAllowed"
+msgstr "รับการสมัครแล้ว"
+
+msgid "UnsubscriptionAllowed"
+msgstr "อนุมัติให้ถอนการสมัคร"
+
+msgid "AddDummyContentToCourse"
+msgstr "เพิ่มผังรายการเนื้อหา(ตัวอย่าง)ในรายวิชา"
+
+msgid "DummyCourseCreator"
+msgstr "สร้างผังรายการเนื้อหาวิชา"
+
+msgid "DummyCourseDescription"
+msgstr "���繡�������ѧ��¡��������(������ҧ)���������Ԫ� : ���ͷ��ͺ����ҹ��"
+
+msgid "AvailablePlugins"
+msgstr "�������¡������������(plugins)����յԴ���������к� �س����ö�ӡ���͹���ŧ�ҵԴ������������ҡ<a href=\"http://www.chamilo.org/extensions/index.php?section=plugins\">http://www.chamilo.org/extensions/index.php?section=plugins</a>"
+
+msgid "CreateVirtualCourse"
+msgstr "สร้างรายวิชาเสมือน"
+
+msgid "DisplayListVirtualCourses"
+msgstr "แสดงรายชื่อรายวิชาเสมือน"
+
+msgid "LinkedToRealCourseCode"
+msgstr "เชื่อมสู่รหัสวิชาจริง : Linked to real course code"
+
+msgid "AttemptedCreationVirtualCourse"
+msgstr "ต้องการสร้างรายวิชาเสมือน"
+
+msgid "WantedCourseCode"
+msgstr "ต้องใส่รหัสวิชา"
+
+msgid "ResetPassword"
+msgstr "ตั้งรหัสผ่านใหม่"
+
+msgid "CheckToSendNewPassword"
+msgstr "ตรวจเพื่อส่งรหัสผ่านใหม่"
+
+msgid "AutoGeneratePassword"
+msgstr "ตั้งรหัสผ่านให้โดยอัตโนมัติ"
+
+msgid "UseDocumentTitleTitle"
+msgstr "ใช้ชื่อเรื่องเป็นชื่อเอกสาร"
+
+msgid "UseDocumentTitleComment"
+msgstr "�����������ͧ�ͧ�͡����繡�õ�駪������������͡���"
+
+msgid "StudentPublications"
+msgstr "ผลงาน/การบ้านของผู้เรียน"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "ไฟล์ที่ลบไม่สามารถกู้คืนได้อีก"
+
+msgid "PermanentlyRemoveFilesComment"
+msgstr "การลบไฟล์ด้วยเครื่องมือของโปรแกรมจะเป็นการลบอย่างถาวร. ไฟล์จะไม่สามารถกู้คืนได้"
+
+msgid "DropboxMaxFilesizeTitle"
+msgstr "กล่องรับส่งงาน:รับขนาดไฟล์ได้สูงสุด"
+
+msgid "DropboxMaxFilesizeComment"
+msgstr "ขนาดไฟล์ใหญ่สุดที่เท่าไร ที่กล่องรับส่งงานรับเข้าได้"
+
+msgid "DropboxAllowOverwriteTitle"
+msgstr "กล่องรับส่งงาน:สามารถบันทึกทับไฟล์เดิมได้"
+
+msgid "DropboxAllowOverwriteComment"
+msgstr "ชื่อเอกสารเดิมที่จัดเก็บในระบบสามารถบันทึกทับกันได้ เมื่อมีการโอนย้ายไฟล์เข้าเก็บในแฟ้มเก็บงานเดียวกัน หากคุณยอมรับ ไฟล์เดิมจะถูกบันทึกเป็นไฟล์ใหม่ล่าสุดแทน"
+
+msgid "DropboxAllowJustUploadTitle"
+msgstr "กล่องรับส่งงาน: โอนย้ายขึ้นเก็บในส่วนของตัวเอง"
+
+msgid "DropboxAllowJustUploadComment"
+msgstr "อนุญาตให้อาจารย์หรือผู้เรียนโอนย้ายไฟล์เอกสารขึ้นเก็บในพื้นที่ของตนเองได้เป็นอิสระ โดยไม่ต้องแจ้งใคร : Allow teachers and student to upload documents to their own dropbox without sending them to anyone (=sending the documents to themselves)"
+
+msgid "DropboxAllowStudentToStudentTitle"
+msgstr "กล่องรับส่งงาน:ผู้เรียน<->ผู้เรียน"
+
+msgid "DropboxAllowStudentToStudentComment"
+msgstr "การอนุญาตให้ผู้เรียนส่งไฟล์แลกเปลี่ยนถึงกันและกันได้ อาจารย์ควรพิจารณาอนุญาตและคาดหมายถึงพฤติกรรมการส่งไฟล์ระหว่างกันนั้น เป็นไฟล์ที่จะเป็นประโยชน์หรือไม่ เช่นอาจจะส่งไฟล์ที่เป็นเพลง mp3 หรือแลก/ลอกไฟล์การบ้านกัน หากไม่อนุญาต ผู้เรียนจะส่งงานให้ได้เฉพาะอาจารย์ผู้สอนเท่านั้น"
+
+msgid "DropboxAllowMailingTitle"
+msgstr "กล่องรับส่งงาน:อนุญาตให้ส่งอีเมล"
+
+msgid "DropboxAllowMailingComment"
+msgstr "กำหนดให้ส่งอีเมล์เอกสารไปให้ผู้เรียนเป็นรายบุคคล"
+
+msgid "UserListHasBeenExported"
+msgstr "ได้ส่งออกบัญชีชื่อผู้ใช้แล้ว"
+
+msgid "ClickHereToDownloadTheFile"
+msgstr "คลิกที่นี่เพื่อโอนย้ายไฟล์ลงมา(Download)"
+
+msgid "administratorTelephoneTitle"
+msgstr "เบอร์โทรศัพท์ผู้บริหารระบบ"
+
+msgid "administratorTelephoneComment"
+msgstr "เบอร์โทรศัพท์ของผู้จัดการระบบ"
+
+msgid "SendMailToNewUser"
+msgstr "ส่งอีเมลให้ผู้ใช้คนใหม่"
+
+msgid "ExtendedProfileTitle"
+msgstr "ส่วนเพิ่มเติมแฟ้มประวัติ"
+
+msgid "ExtendedProfileComment"
+msgstr "หากตั้งค่าให้เป็น\"ใช่\"ผู้สมัครในสิทธิฐานะอาจารย์ผู้สอนต้องกรอกข้อมูลเพิ่มเติมในช่องของ ความสามารถพิเศษ คุณวุฒิ และวิชาที่สามารถสอนได้ และข้อมูลส่วนตัวที่สามารถเปิดเผยได้"
+
+msgid "Classes"
+msgstr "หมู่เรียน"
+
+msgid "UserUnsubscribed"
+msgstr "ถอดถอนการสมัครของผู้ใช้แล้ว"
+
+msgid "CannotUnsubscribeUserFromCourse"
+msgstr "������������ö�͹�Ԫ����ͧ ��ͧ�駼������èѴ����ԪҴ��Թ������"
+
+msgid "InvalidStartDate"
+msgstr "กำหนดวันเริ่มต้นไม่ถูกต้อง"
+
+msgid "InvalidEndDate"
+msgstr "กำหนดวันสุดท้ายไม่ถูกต้อง"
+
+msgid "DateFormatLabel"
+msgstr "วัน/เดือน/ปี/ชั่วโมง:นาที"
+
+msgid "HomePageFilesNotWritable"
+msgstr "ไฟล์โฮมเพจไม่สามารถบันทึกได้"
+
+msgid "PleaseEnterNoticeText"
+msgstr "กรุณาพิมพ์ ข้อความที่จะแจ้งให้ทราบ"
+
+msgid "PleaseEnterNoticeTitle"
+msgstr "กรุณาพิมพ์ชื่อเรื่อง เรื่องที่แจ้งให้ทราบ"
+
+msgid "PleaseEnterLinkName"
+msgstr "กรุณาแจ้ง ชื่อการเชื่อมโยง"
+
+msgid "InsertThisLink"
+msgstr "ใส่การเชื่อมโยงนี้"
+
+msgid "FirstPlace"
+msgstr "ก่อนรายการ"
+
+msgid "DropboxAllowGroupTitle"
+msgstr "กล่องรับส่งงาน:ของกลุ่ม"
+
+msgid "DropboxAllowGroupComment"
+msgstr "ผู้ใช้งานในระบบสามารถส่งไฟล์ให้กันได้"
+
+msgid "ClassDeleted"
+msgstr "ลบหมู่เรียนแล้ว"
+
+msgid "ClassesDeleted"
+msgstr "ลบหมู่เรียนแล้ว"
+
+msgid "NoUsersInClass"
+msgstr "ไม่มีผู้เรียนในหมู่เรียนนี้"
+
+msgid "UsersAreSubscibedToCourse"
+msgstr "เพิ่มชื่อผู้สมัครเรียนตามรายการที่เลือก เข้าไปในรายวิชา"
+
+msgid "InvalidTitle"
+msgstr "กรุณาใส่ชื่อเรื่อง"
+
+msgid "CatCodeAlreadyUsed"
+msgstr "���������������"
+
+msgid "PleaseEnterCategoryInfo"
+msgstr "โปรดใส่รหัสและชื่อประเภท"
+
+msgid "RegisterYourPortal"
+msgstr "แจ้งลงทะเบียนเว็ปไซท์ของเราไว้ที่ Chamilo"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "แสดงเมนูนำทางวิชา"
+
+msgid "ShowNavigationMenuComment"
+msgstr "แสดงเมนูนำทางทำให้ง่ายต่อการเข้าไปในรายวิชาต่างๆ"
+
+msgid "LoginAs"
+msgstr "เข้าใช้ระบบด้วยชื่อ"
+
+msgid "ImportClassListCSV"
+msgstr "นำเข้ารายชื่อผู้เรียนด้วยไฟล์ CSV"
+
+msgid "ShowOnlineWorld"
+msgstr "แสดงจำนวนผู้ที่กำลังเข้าใช้งานในหน้าที่กำลังดูอยู่ปัจจุบัน(เห็นทุกคน)"
+
+msgid "ShowOnlineUsers"
+msgstr "แสดงจำนวนผู้ที่กำลังเข้าใช้งานในทุกหน้า(เห็นเฉพาะผู้ที่เข้าสู่ระบบแล้ว)"
+
+msgid "ShowOnlineCourse"
+msgstr "แสดงจำนวนผู้ที่กำลังเข้าใช้งานในรายวิชา"
+
+msgid "ShowIconsInNavigationsMenuTitle"
+msgstr "แสดงสัญรูปในเมนูนำทาง"
+
+msgid "SeeAllRightsAllRolesForSpecificLocation"
+msgstr "ดูสิทธิ์และกฏระเบียบที่ใช้เฉพาะทั้งหมด"
+
+msgid "ClassesSubscribed"
+msgstr "ได้รับกลุ่มเรียนที่เลือกไว้ เข้าในรายวิชาแล้ว"
+
+msgid "RoleId"
+msgstr "รหัสระเบียบ"
+
+msgid "RoleName"
+msgstr "ชื่อระเบียบ"
+
+msgid "RoleType"
+msgstr "ประเภท"
+
+msgid "MakeAvailable"
+msgstr "ทำให้ใช้งานได้"
+
+msgid "MakeUnavailable"
+msgstr "ทำให้ยังใช้งานไม่ได้"
+
+msgid "Stylesheets"
+msgstr "รูปแบบเอกสาร"
+
+msgid "ShowIconsInNavigationsMenuComment"
+msgstr "ให้แสดงเมนูนำทางด้วยสัญรูปที่แตกต่างหรือไม่"
+
+msgid "Plugin"
+msgstr " โปรแกรมเสริม"
+
+msgid "MainMenu"
+msgstr "เมนูหลัก"
+
+msgid "MainMenuLogged"
+msgstr "เมนูหลักเมื่อเข้าระบบ"
+
+msgid "Banner"
+msgstr "ป้ายโฆษณา"
+
+msgid "ImageResizeTitle"
+msgstr "ปรับขนาดภาพของสมาชิกที่ส่งขึ้น"
+
+msgid "ImageResizeComment"
+msgstr "ภาพของสมาชิกสามารถปรับขนาดได้ในระหว่างหารส่งไฟล์ขึ้น หากระบบสามารถคอมพายล์ใช้คำสั่งภาษาPHP ร่วมกับ<a href=\"http://php.net/manual/en/ref.image.php\" target=\"_blank\">GD library</a>. ได้ หากไม่คอมพายล์ใช้งาน การตั้งค่าปรับขนาดของภาพจะไม่เกิดผลกับภาพแต่อย่างใด"
+
+msgid "MaxImageWidthTitle"
+msgstr "ขนาดภาพกว้างมากที่สุด"
+
+msgid "MaxImageWidthComment"
+msgstr "Maximum width in pixels of a user image. This setting only applies if user images are set to be resized on upload."
+
+msgid "MaxImageHeightTitle"
+msgstr "ความสูงของภาพใหญ่สุดที่กำหนด"
+
+msgid "MaxImageHeightComment"
+msgstr "Maximum height in pixels of a user image. This setting only applies if user images are set to be resized on upload."
+
+msgid "YourVersionIs"
+msgstr "เวอร์ชั่นของคุณคือ"
+
+msgid "ConnectSocketError"
+msgstr "การเชื่อมต่อทาง Socket เกิดความผิดพลาด"
+
+msgid "SocketFunctionsDisabled"
+msgstr "ไม่สามารถใช้การเชื่อมต่อทาง Socket ได้"
+
+msgid "ShowEmailAddresses"
+msgstr "แสดงชื่อที่อยู่อีเมล"
+
+msgid "ShowEmailAddressesComment"
+msgstr "แสดงชื่อที่อยู่อีเมล"
+
+msgid "ActiveExtensions"
+msgstr "เปิดใช้งาน"
+
+msgid "Visioconf"
+msgstr "กรประชุมสัมมนาออนไลน์"
+
+msgid "ServerStatistics"
+msgstr "สถิติของเครื่องแม่ข่ายบริการ"
+
+msgid "NbCourses"
+msgstr "รหัสกระบวนวิชา"
+
+msgid "DateStart"
+msgstr "เริ่มวันที่"
+
+msgid "DateEnd"
+msgstr "ถึงวันที่"
+
+msgid "AnnEmpty"
+msgstr "ลบประกาศทุกรายการแล้ว"
+
+msgid "AnnouncementModified"
+msgstr "แก้ไขประกาศแล้ว"
+
+msgid "AnnouncementAdded"
+msgstr "เพิ่มประกาศแล้ว"
+
+msgid "AnnouncementDeleted"
+msgstr "ลบประกาศแล้ว"
+
+msgid "AnnouncementPublishedOn"
+msgstr "ประกาศเมื่อ"
+
+msgid "AddAnnouncement"
+msgstr "เพิ่มประกาศ"
+
+msgid "AnnouncementDeleteAll"
+msgstr "ลบรายการที่ประกาศ"
+
+msgid "professorMessage"
+msgstr "ข้อความจากอาจารย์ผู้สอน"
+
+msgid "EmailSent"
+msgstr "อีเมลส่งถึงผู้เรียนที่ลงทะเบียน"
+
+msgid "EmailOption"
+msgstr "ส่งประกาศนี้ทางอีเมล์ไปยังนักศึกษาที่ลงทะเบียน"
+
+msgid "On"
+msgstr "มี"
+
+msgid "RegUser"
+msgstr "ผู้ที่ลงทะเบียนเป็นผู้ใช้งานในระบบ"
+
+msgid "Unvalid"
+msgstr "รูปแบบอีเมล์ไม่ถูกต้อง"
+
+msgid "ModifAnn"
+msgstr "แก้ไขประกาศ"
+
+msgid "SelMess"
+msgstr "คำเตือนสำหรับผู้ใช้"
+
+msgid "SelectedUsers"
+msgstr "เลือกผู้ใช้"
+
+msgid "PleaseEnterMessage"
+msgstr "คุณต้องเขียนข้อความแนะนำ"
+
+msgid "PleaseSelectUsers"
+msgstr "คุณต้องเลือกผู้ใช้บางคน"
+
+msgid "Teachersubject"
+msgstr "ส่งข้อความถึงผู้เรียนของท่านแล้ว"
+
+msgid "MessageToSelectedUsers"
+msgstr "ข้อความถึงผู้ใช้ที่เลือกไว้"
+
+msgid "IntroText"
+msgstr "การส่งข้อความ : เลือกคลิกทำเครื่องหมายหน้ารายการที่ต้องการส่งถึง"
+
+msgid "MsgSent"
+msgstr "ข้อความได้ส่งไปให้ผู้เรียนที่ท่านเลือกแล้ว"
+
+msgid "SelUser"
+msgstr "เลือกผู้ใช้ในระบบ"
+
+msgid "MessageToSelectedGroups"
+msgstr "ข้อความถึงกลุ่ม"
+
+msgid "SelectedGroups"
+msgstr "เลือกกลุ่ม"
+
+msgid "Msg"
+msgstr "ข้อความ"
+
+msgid "MsgText"
+msgstr "ข้อความ"
+
+msgid "AnnouncementDeletedAll"
+msgstr "ลบประกาศทั้งหมดแล้ว"
+
+msgid "AnnouncementMoved"
+msgstr "ย้ายประกาศแล้ว"
+
+msgid "NoAnnouncements"
+msgstr "ÂÑ§äÁèÁÕ»ÃÐ¡ÒÈ"
+
+msgid "SelectEverybody"
+msgstr "เลือกทุกคน"
+
+msgid "LineNumber"
+msgstr "บรรทัดที่"
+
+msgid "LineOrLines"
+msgstr "บรรทัด"
+
+msgid "AddNewHeading"
+msgstr "เพิ่มหัวเรื่องใหม่"
+
+msgid "CourseAdministratorOnly"
+msgstr "ผู้สอนเท่านั้น"
+
+msgid "DefineHeadings"
+msgstr "นิยามหัวเรื่อง"
+
+msgid "BackToUsersList"
+msgstr "กลับไปที่รายชื่อผู้ใช้"
+
+msgid "CourseManager"
+msgstr "อาจารย์ผู้สอน"
+
+msgid "ModRight"
+msgstr "เปลี่ยนแปลงสิทธิ์ของ"
+
+msgid "NoAdmin"
+msgstr "ตั้งแต่นี้ไป<b>ไม่มี</b>สิทธิ์ในหน้านี้"
+
+msgid "AllAdmin"
+msgstr "ตั้งแต่นี้ไป มีสิทธิ์ในหน้านี้<b>ทั้งหมด</b>"
+
+msgid "ModRole"
+msgstr "เปลี่ยนบทบาทของ"
+
+msgid "IsNow"
+msgstr "ตั้งแต่นี้ไป"
+
+msgid "InC"
+msgstr "�����Ԫҹ��"
+
+msgid "Filled"
+msgstr "คุณกรอกข้อมูลยังไม่ครบ"
+
+msgid "UserNo"
+msgstr "ชื่อผู้ใช้ที่คุณเลือก"
+
+msgid "Taken"
+msgstr "ถูกใช้แล้ว โปรดเลือกชื่ออื่น"
+
+msgid "Tutor"
+msgstr "ผู้ช่วยสอน"
+
+msgid "Unreg"
+msgstr "ถอนการสมัคร"
+
+msgid "GroupUserManagement"
+msgstr "การจัดการกลุ่ม"
+
+msgid "AddAUser"
+msgstr "เพิ่มผู้ใช้"
+
+msgid "NewGroupCreate"
+msgstr "สร้างหมู่เรียนใหม่"
+
+msgid "GroupCreation"
+msgstr "เปิดหมู่เรียนใหม่"
+
+msgid "NewGroups"
+msgstr "หมู่เรียนใหม่"
+
+msgid "Max"
+msgstr "ตั้งได้จำนวนสูงสุด 12 ตัวอักษรเช่น<b>AD2032106</b>"
+
+msgid "GroupPlacesThis"
+msgstr "ที่นั่ง"
+
+msgid "GroupsAdded"
+msgstr "ได้เพิ่มกลุ่มแล้ว"
+
+msgid "GroupDel"
+msgstr "สร้างกลุ่ม"
+
+msgid "ExistingGroups"
+msgstr "กลุ่ม"
+
+msgid "Registered"
+msgstr "ลงทะเบียน"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "อนุญาตให้ผู้ใช้ลงทะเบียนเข้ากลุ่มด้วยตัวเอง"
+
+msgid "GroupTools"
+msgstr "เครื่องมือ"
+
+msgid "GroupDocument"
+msgstr "เอกสาร"
+
+msgid "GroupPropertiesModified"
+msgstr "แก้ไขการตั้งค่ากลุ่ม"
+
+msgid "GroupName"
+msgstr "ชื่อกลุ่ม"
+
+msgid "GroupDescription"
+msgstr "รายละเอียดกลุ่ม"
+
+msgid "GroupMembers"
+msgstr "สมาชิกกลุ่ม"
+
+msgid "EditGroup"
+msgstr "แก้ไขกลุ่มนี้"
+
+msgid "GroupSettingsModified"
+msgstr "แก้ไขการตั้งค่ากลุ่มแล้ว"
+
+msgid "GroupTooMuchMembers"
+msgstr "เกินจำนวนที่กำหนดไว้ คุณต้องตั้งค่าใหม่Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified"
+
+msgid "GroupTutor"
+msgstr "กลุ่มผู้ช่วยสอน"
+
+msgid "GroupNoTutor"
+msgstr "ไม่มี(none)"
+
+msgid "GroupNone"
+msgstr "ไม่มี(none)"
+
+msgid "GroupNoneMasc"
+msgstr "ไม่มี(none)"
+
+msgid "AddTutors"
+msgstr "รายชื่อผู้ใช้ที่ได้รับสิทธิ์ให้เป็นผู้บริหารระบบ"
+
+msgid "MyGroup"
+msgstr "กลุ่มของเรา"
+
+msgid "OneMyGroups"
+msgstr "ที่ปรึกษากลุ่ม"
+
+msgid "GroupSelfRegistration"
+msgstr "การลงทะเบียน"
+
+msgid "GroupSelfRegInf"
+msgstr "ลงทะเบียน"
+
+msgid "RegIntoGroup"
+msgstr "เพิ่มตัวเราเข้ากลุ่มนี้"
+
+msgid "GroupNowMember"
+msgstr "คุณได้เป็นสมาชิกในกลุ่มนี้แล้ว"
+
+msgid "Private"
+msgstr "เปิดเป็นวิชาเรียนเฉพาะกลุ่มบุคคลที่ระบุชื่อ"
+
+msgid "Public"
+msgstr "บุคคลทั่วไปเข้าโฮมเพจได้โดยไม่ต้องใช้รหัส"
+
+msgid "PropModify"
+msgstr "แก้ไขการตั้งค่า"
+
+msgid "State"
+msgstr "สถานที่"
+
+msgid "GroupFilledGroups"
+msgstr "เพิ่มชื่อในกลุ่มแล้ว"
+
+msgid "Subscribed"
+msgstr "สมาชิกที่ลงทะเบียนรายวิชา"
+
+msgid "StudentsNotInThisGroups"
+msgstr "สมาชิกผู้ใช้ที่ไม่ได้อยู่ในกลุ่มนี้"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "มีสมาชิกกลุ่มได้ไม่เกิน"
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr "¡ÅØèÁ"
+
+msgid "GroupLimit"
+msgstr "จำกัด"
+
+msgid "StudentRegAllowed"
+msgstr "ผู้เรียนสามารถลงทะเบียนเข้ากลุ่มได้ด้วยตัวเอง"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "ผู้ใช้ที่เป็นสมาชิกกลุ่มสามารถถอนชื่อออกจากกลุ่มได้เอง"
+
+msgid "AllGroups"
+msgstr "ทุกกลุ่ม"
+
+msgid "StudentUnsubscribe"
+msgstr "ถอนชื่อเราออกจากกลุ่มนี้"
+
+msgid "StudentDeletesHimself"
+msgstr "คุณได้ถอนชื่อออกจากกบุ่มแล้ว"
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "ค่าเริ่มต้นสำหรับกล่มที่สร้างใหม่"
+
+msgid "SelectedGroupsDeleted"
+msgstr "กลุ่มที่คุณเลือกไว้ ได้ถูกลบไปแล้ว"
+
+msgid "SelectedGroupsEmptied"
+msgstr "ไม่มีกลุ่มที่เลือกแล้ว"
+
+msgid "GroupEmptied"
+msgstr "äÁèÁÕ¡ÅØèÁ"
+
+msgid "SelectedGroupsFilled"
+msgstr "ทุกกลุ่มที่เลือกมีอยู่แล้ว"
+
+msgid "GroupSelfUnRegInf"
+msgstr "ไม่ลงทะเบียน"
+
+msgid "SameForAll"
+msgstr "เหมือนกันหมด"
+
+msgid "NoLimit"
+msgstr "ไม่จำกัด"
+
+msgid "PleaseEnterValidNumber"
+msgstr "เลือกหมายเลขกลุ่มที่คุณต้องการ"
+
+msgid "CreateGroupsFromVirtualCourses"
+msgstr "สร้างกลุ่มจากชื่อผู้ใช้จาก virtual courses"
+
+msgid "CreateGroupsFromVirtualCoursesInfo"
+msgstr "ÇÔªÒ¹Õé€×Í¡ÒÃÃÇÁ¡Ñ¹¢Í§ÇÔªÒšÃÔ§áÅÐÇÔªÒàÊÁ×Í¹Ë¹Öè§áÅÐËÅÒÂÇÔªÒ. ¶éÒ€Ø³¡Ž»ØèÁŽÑ§µèÍä»¹Õé, ÃÐººšÐÊÃéÒ§¡ÅØèÁãËÁèãËéàÊÁ×Í¹à»ç¹ÇÔªÒšÃÔ§.ŒÙéàÃÕÂ¹·Ø¡€¹šÐô¡ÃÑºÃÇÁà»ç¹ÊÁÒªÔ¡¢Í§¡ÅØèÁ¹ÕéŽéÇÂ.This course is a combination of a real course and one or more virtual courses."
+
+msgid "NoGroupsAvailable"
+msgstr "ยังไม่มีกลุ่มที่เข้าใช้งานได้"
+
+msgid "GroupsFromVirtualCourses"
+msgstr "วิขาเสมือนVirtual courses"
+
+msgid "CreateSubgroups"
+msgstr "สร้างกลุ่มย่อย"
+
+msgid "CreateSubgroupsInfo"
+msgstr "This option allows you to create new groups based on an existing group. Provide the desired number of groups and choose an existing group. The given number of groups will be created and all members of the existing group will be subscribed in those new gro"
+
+msgid "CreateNumberOfGroups"
+msgstr "สร้าง"
+
+msgid "WithUsersFrom"
+msgstr "กลุ่มและสมาชิกจาก"
+
+msgid "FillGroup"
+msgstr "เพิ่มผู้ใช้"
+
+msgid "EmptyGroup"
+msgstr "ถอนการสมัครของทุกคน"
+
+msgid "MaxGroupsPerUserInvalid"
+msgstr "ระบุการอนุญาตให้มีจำนวนกลุ่มไว้ทั้งหมดและจำนวนสมาชิกภายในกลุ่มไว้ไม่เกินเท่าใด"
+
+msgid "GroupOverview"
+msgstr "ลักษณะทั่วไปของกลุ่ม"
+
+msgid "GroupCategory"
+msgstr "ประเภทกลุ่ม"
+
+msgid "NoTitleGiven"
+msgstr "กรุณาตั้งชื่อ"
+
+msgid "InvalidMaxNumberOfMembers"
+msgstr "กรุณาใส่จำนวนมากสุดของกลุ่ม"
+
+msgid "CategoryOrderChanged"
+msgstr "เปลี่ยนประเภทให้แล้ว"
+
+msgid "CategoryCreated"
+msgstr "สร้างประเภทวิชา"
+
+msgid "GroupTutors"
+msgstr "ผู้ช่วยสอน"
+
+msgid "GroupWork"
+msgstr "งาน"
+
+msgid "GroupCalendar"
+msgstr "กำหนดการ"
+
+msgid "GroupAnnouncements"
+msgstr "ประกาศ"
+
+msgid "LearnpathTitle"
+msgstr "ชื่อหน่วย"
+
+msgid "LearnpathPrerequisites"
+msgstr "ที่ต้องเรียนผ่านมาก่อน"
+
+msgid "LearnpathMoveUp"
+msgstr "เลื่อนขึ้น"
+
+msgid "LearnpathMoveDown"
+msgstr "เลื่อนลง"
+
+msgid "ThisItem"
+msgstr "ÃÒÂ¡ÒÃ¹Õé"
+
+msgid "LearnpathTitleAndDesc"
+msgstr "ชื่อและคำอธิบาย"
+
+msgid "LearnpathChangeOrder"
+msgstr "จัดลำดับ"
+
+msgid "LearnpathAddPrereqi"
+msgstr "เพิ่มแผนการเรียน ที่ต้องเรียนก่อน"
+
+msgid "LearnpathAddTitleAndDesc"
+msgstr "แก้ไขชื่อและคำอธิบาย"
+
+msgid "LearnpathMystatus"
+msgstr "ผลการเรียน"
+
+msgid "LearnpathCompstatus"
+msgstr "เรียนแล้ว"
+
+msgid "LearnpathIncomplete"
+msgstr "ยังไม่เรียน"
+
+msgid "LearnpathPassed"
+msgstr "ผ่าน"
+
+msgid "LearnpathFailed"
+msgstr "ไม่ผ่าน"
+
+msgid "LearnpathPrevious"
+msgstr "ย้อนกลับ"
+
+msgid "LearnpathNext"
+msgstr "ต่อไป"
+
+msgid "LearnpathRestart"
+msgstr "เริ่มต้นใหม่"
+
+msgid "LearnpathThisStatus"
+msgstr "¡ÓÅÑ§ÍÂÙèã¹áŒ¹¡ÒÃàÃÕÂ¹Ë¹èÇÂ¹Õé"
+
+msgid "LearnpathToEnter"
+msgstr "เข้าเรียน"
+
+msgid "LearnpathFirstNeedTo"
+msgstr "คุณต้องทำให้เสร็จขั้นตอนก่อน"
+
+msgid "LearnpathLessonTitle"
+msgstr "ชื่อหน่วย/ขั้นการเรียน"
+
+msgid "LearnpathStatus"
+msgstr "สถานะ Status"
+
+msgid "LearnpathScore"
+msgstr "คะแนน Score"
+
+msgid "LearnpathTime"
+msgstr "เวลา Time"
+
+msgid "LearnpathVersion"
+msgstr "รุ่นversion"
+
+msgid "LearnpathRestarted"
+msgstr "ขณะนี้ยังไม่เสร็จเรียบร้อยทุกขั้นตอน"
+
+msgid "LearnpathNoNext"
+msgstr "¹Õèà»ç¹áŒ¹¡ÒÃàÃÕÂ¹Ë¹èÇÂÊØŽ·éÒÂ"
+
+msgid "LearnpathNoPrev"
+msgstr "¹Õèà»ç¹áŒ¹¡ÒÃàÃÕÂ¹Ë¹èÇÂáÃ¡"
+
+msgid "LearnpathAddLearnpath"
+msgstr "เพิ่มเติมแผนการเรียนใหม่"
+
+msgid "LearnpathEditLearnpath"
+msgstr "แก้ไขแผนการเรียน"
+
+msgid "LearnpathDeleteLearnpath"
+msgstr "ลบแผนการเรียน"
+
+msgid "LearnpathDoNotPublish"
+msgstr "ยังไม่เผยแพร่"
+
+msgid "LearnpathPublish"
+msgstr "เผยแพร่"
+
+msgid "LearnpathNotPublished"
+msgstr "ไม่เผยแพร่"
+
+msgid "LearnpathPublished"
+msgstr "ส่งเผยแพร่แล้ว"
+
+msgid "LearnpathEditModule"
+msgstr "แก้ไข ชื่อ คำอธิบาย หน่วยการเรียน"
+
+msgid "LearnpathDeleteModule"
+msgstr "ลบหน่วยการเรียน"
+
+msgid "LearnpathNoChapters"
+msgstr "ยังไม่มีการเพิ่มหน่วยการเรียน"
+
+msgid "LearnpathAddItem"
+msgstr "เพิ่มลำดับการเรียนในหน่วยการเรียน"
+
+msgid "LearnpathItemDeleted"
+msgstr "ลบหน่วยการเรียนแล้ว"
+
+msgid "LearnpathItemEdited"
+msgstr "ได้แก้ไขขั้นตอนการเรียนของแผนการเรียน เรียบร้อยแล้ว"
+
+msgid "LearnpathPrereqNotCompleted"
+msgstr "prerequisites are not complete"
+
+msgid "LearnpathPrerequisitesLimit"
+msgstr "Prerequisities (limit)"
+
+msgid "HotPotatoesFinished"
+msgstr "This HotPotatoes test has been closed."
+
+msgid "CompletionLimit"
+msgstr "Completion limit (minimum points)"
+
+msgid "PrereqToEnter"
+msgstr "To enter"
+
+msgid "PrereqFirstNeedTo"
+msgstr "คุณต้องผ่านขั้นแรกมาก่อน"
+
+msgid "PrereqModuleMinimum1"
+msgstr "Minimum 1 step is missing from"
+
+msgid "PrereqModuleMinimum2"
+msgstr "which is set as prerequisities."
+
+msgid "PrereqTestLimit1"
+msgstr "you must reach minimum"
+
+msgid "PrereqTestLimit2"
+msgstr "ลงใน"
+
+msgid "PrereqTestLimitNow"
+msgstr "ตอนนี้คุณมี Now you have :"
+
+msgid "LearnpathExitFullScreen"
+msgstr "กลับหน้าจอปกติ"
+
+msgid "LearnpathFullScreen"
+msgstr "ขยายเต็มจอ"
+
+msgid "ItemMissing1"
+msgstr "There was a"
+
+msgid "ItemMissing2"
+msgstr "page (step) here in the original Chamilo Learning Path."
+
+msgid "NoItemSelected"
+msgstr "To display something here, please select an item from the side menu"
+
+msgid "TypeMessage"
+msgstr "กรุณาพิมพ์ข้อความ"
+
+msgid "ConfirmReset"
+msgstr "คุณต้องการลบข้อความทั้งหมดหรือไม่"
+
+msgid "ClearList"
+msgstr "ลบข้อความสนทนาทั้งหมด คลิกที่นี่"
+
+msgid "CallSent"
+msgstr "ได้ส่งข้อความไปขอเชิญมาร่วมสนทนาออนไลน์แล้ว กรุณารอจนกว่าจะได้รับการตรวจสอบและตอบรับกลับจากผู้ที่คุณเชิญไป"
+
+msgid "ChatDenied"
+msgstr "คุณถูกปฏิเสธจากบุคคลที่คุณเชิญ"
+
+msgid "Exercice"
+msgstr "แบบทดสอบ"
+
+msgid "NoEx"
+msgstr "ขณะนี้ยังไม่มีการสอบ"
+
+msgid "NewEx"
+msgstr "แบบทดสอบใหม่"
+
+msgid "Questions"
+msgstr "คำถามทั้งหมด"
+
+msgid "Answers"
+msgstr "ตัวเลือกตอบ"
+
+msgid "True"
+msgstr "ถูกต้อง"
+
+msgid "Answer"
+msgstr "คำตอบ"
+
+msgid "YourResults"
+msgstr "ผลคะแนนของคุณ"
+
+msgid "StudentResults"
+msgstr "คะแนนผลสอบของผู้เรียน"
+
+msgid "ExerciseType"
+msgstr "ประเภทของแบบทดสอบ"
+
+msgid "ExerciseName"
+msgstr "ชื่อแบบทดสอบ"
+
+msgid "ExerciseDescription"
+msgstr "คำชี้แจง"
+
+msgid "SimpleExercise"
+msgstr "ในหน้าเดียวกัน"
+
+msgid "SequentialExercise"
+msgstr "คำถามเดียวต่อหนึ่งหน้า(เรียงตามลำดับ)"
+
+msgid "RandomQuestions"
+msgstr "สุ่มคำถาม"
+
+msgid "GiveExerciseName"
+msgstr "ตั้งชื่อแบบทดสอบ"
+
+msgid "Sound"
+msgstr "ไฟล์เสียงหรือวิดีทัศน์"
+
+msgid "DeleteSound"
+msgstr "ลบไฟล์เสียงหรือวิดีทัศน์"
+
+msgid "NoAnswer"
+msgstr "ยังไม่มีคำตอบ"
+
+msgid "GoBackToQuestionPool"
+msgstr "กลับไปที่แบบสอบถาม"
+
+msgid "GoBackToQuestionList"
+msgstr "กลับไปที่รายการคำถาม"
+
+msgid "QuestionAnswers"
+msgstr "ตอบคำถาม"
+
+msgid "UsedInSeveralExercises"
+msgstr "คำเตือน! คำถามและคำตอบนี้ จะถูกใช้ในแบบทดสอบหลายชุด. คุณต้องการที่จะแก้ไขหรือไม่"
+
+msgid "ModifyInAllExercises"
+msgstr "ในทุกแบบทดสอบ"
+
+msgid "ModifyInThisExercise"
+msgstr "ใช้ในแบบทดสอบนี้เท่านั้น"
+
+msgid "AnswerType"
+msgstr "คำตอบประเภท"
+
+msgid "MultipleSelect"
+msgstr "แบบปรนัย(สามารถตอบได้หลายข้อ)"
+
+msgid "FillBlanks"
+msgstr "เติมคำในช่องว่าง"
+
+msgid "Matching"
+msgstr "แบบจับคู่"
+
+msgid "ReplacePicture"
+msgstr "แทนที่รูปภาพ"
+
+msgid "DeletePicture"
+msgstr "ลบภาพ"
+
+msgid "QuestionDescription"
+msgstr "ความเห็นเพิ่มเติม"
+
+msgid "GiveQuestion"
+msgstr "กรุณาพิมพ์คำถาม"
+
+msgid "WeightingForEachBlank"
+msgstr "จงเติมคำในช่องว่าง"
+
+msgid "UseTagForBlank"
+msgstr "ให้ใช้วงเล็บปีกกาเปิดแล้วปิด [...]ข้อคำตอบในส่วนที่ท่านอธิบายตอบคำถามในพื้นที่เกินกว่าที่กำหนดว่างไว้ให้"
+
+msgid "QuestionWeighting"
+msgstr "ให้คะแนน"
+
+msgid "MoreAnswers"
+msgstr "เพิ่มตัวเลือกตอบ"
+
+msgid "LessAnswers"
+msgstr "ลบตัวเลือกตอบ"
+
+msgid "MoreElements"
+msgstr "เพิ่มส่วนประกอบ"
+
+msgid "LessElements"
+msgstr "ลบส่วนประกอบ"
+
+msgid "TypeTextBelow"
+msgstr "กรุณาพิมพ์คำตอบด้านล่าง"
+
+msgid "DefaultTextInBlanks"
+msgstr "[ประติมากรรม]จัดอยู่ในศิลปะประเภท[วิจิตรศิลป์]"
+
+msgid "DefaultMatchingOptA"
+msgstr "มาก"
+
+msgid "DefaultMatchingOptB"
+msgstr "ดูดี"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "บิดาของคุณคือ"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "มารดาของคุณคือ"
+
+msgid "DefineOptions"
+msgstr "กรุณาให้คำจำกัดความเพิ่มเติม"
+
+msgid "MakeCorrespond"
+msgstr "จงเลอกจับคู่ให้ถูกต้อง"
+
+msgid "FillLists"
+msgstr "จงเติมคำในสองรายการข้างล่างนี้"
+
+msgid "GiveText"
+msgstr "กรุณาพิมพ์ข้อความ"
+
+msgid "DefineBlanks"
+msgstr "พิมพ์คำอธิบายตอบลงในเครื่องหมายวงเล็บปีกกา[...]อย่างน้อย 1 แห่ง"
+
+msgid "GiveAnswers"
+msgstr "กรุณาพิมพ์คำตอบ"
+
+msgid "ChooseGoodAnswer"
+msgstr "กรุณาเช็คคำตอบที่ถูกต้อง"
+
+msgid "ChooseGoodAnswers"
+msgstr "กรุณาเลือกกำหนดว่า มีหนึ่งคำตอบหรือหลายคำตอบ"
+
+msgid "QuestionList"
+msgstr "รายการคำถามของแบบทดสอบ"
+
+msgid "GetExistingQuestion"
+msgstr "เลือกคำถามที่มีจากฐานข้อมูล"
+
+msgid "FinishTest"
+msgstr "สอบเสร็จ"
+
+msgid "QuestionPool"
+msgstr "คลังข้อสอบ"
+
+msgid "OrphanQuestions"
+msgstr "แบบทดสอบแยกชุด"
+
+msgid "NoQuestion"
+msgstr "ไม่มีคำถามในตอนนี้"
+
+msgid "AllExercises"
+msgstr "แบบทดสอบทั้งหมด"
+
+msgid "GoBackToEx"
+msgstr "กลับไปที่แบบทดสอบ"
+
+msgid "Reuse"
+msgstr "นำไปใช้อีก"
+
+msgid "ExerciseManagement"
+msgstr "การจัดการแบบทดสอบ"
+
+msgid "QuestionManagement"
+msgstr "การจัดการ คำถาม/คำตอบ"
+
+msgid "QuestionNotFound"
+msgstr "ไม่พบคำถาม"
+
+msgid "ExerciseNotFound"
+msgstr "ไม่พบแบบทดสอบหรือมองไม่เห็น"
+
+msgid "AlreadyAnswered"
+msgstr "คุณตอบคำถามไปแล้ว"
+
+msgid "ElementList"
+msgstr "รายการประกอบ"
+
+msgid "CorrespondsTo"
+msgstr "สอดคล้องกับ"
+
+msgid "ExpectedChoice"
+msgstr "ตัวเลือกตอบที่ถูกต้อง"
+
+msgid "YourTotalScore"
+msgstr "คะแนนรวมของคุณคือ"
+
+msgid "EvalSet"
+msgstr "เกณฑ์การประเมินผล"
+
+msgid "Active"
+msgstr "เปิด"
+
+msgid "Inactive"
+msgstr "ปิด"
+
+msgid "QuestCreate"
+msgstr "สร้างคำถาม"
+
+msgid "ExRecord"
+msgstr "ได้บันทึกแบบทดสอบของคุณแล้ว"
+
+msgid "BackModif"
+msgstr "กลับไปที่หน้าแก้ไขคำถาม"
+
+msgid "DoEx"
+msgstr "ทำแบบทดสอบ"
+
+msgid "DefScor"
+msgstr "อธิบายเกณฑ์การประเมินผล"
+
+msgid "CreateModif"
+msgstr "สร้าง/แก้ไขคำถาม"
+
+msgid "Sub"
+msgstr "ชื่อเรื่องรอง"
+
+msgid "MyAnswer"
+msgstr "คำตอบของเรา"
+
+msgid "MorA"
+msgstr "เพิ่มตัวเลือกตอบ"
+
+msgid "LesA"
+msgstr "ลบตัวเลือกตอบ"
+
+msgid "RecEx"
+msgstr "บันทึกแบบทดสอบ"
+
+msgid "RecQu"
+msgstr "บันทึกคำถาม"
+
+msgid "RecAns"
+msgstr "บันทึกคำตอบ"
+
+msgid "Introduction"
+msgstr "คำนำ"
+
+msgid "TitleAssistant"
+msgstr "ตัวช่วยสร้างแบบทดสอบ"
+
+msgid "QuesList"
+msgstr "รายการคำถาม"
+
+msgid "SaveEx"
+msgstr "บันทึกแบบทดสอบ"
+
+msgid "QImage"
+msgstr "รูปภาพ-คำถาม"
+
+msgid "AddQ"
+msgstr "เพิ่มคำถาม"
+
+msgid "DoAnEx"
+msgstr "ทำแบบทดสอบ"
+
+msgid "Generator"
+msgstr "รายชื่อแบบทดสอบ"
+
+msgid "Correct"
+msgstr "เฉลย"
+
+msgid "PossAnsw"
+msgstr "จำนวนคำตอบต่อหนึ่งคำถาม"
+
+msgid "StudAnsw"
+msgstr "จำนวนการตอบผิดของนักศึกษา"
+
+msgid "Determine"
+msgstr "ประมาณการคะแนนของท่านกับตารางด้านล่าง คลิกเมื่อ \"ตกลง\""
+
+msgid "NonNumber"
+msgstr "ไม่มีค่าตัวเลข"
+
+msgid "Replaced"
+msgstr "แนะนำให้แทนที่ด้วย 0"
+
+msgid "Superior"
+msgstr "ค่ามากเกินกว่า 20"
+
+msgid "Rep20"
+msgstr "แนะนำให้แทนด้วยค่า 20"
+
+msgid "DefComment"
+msgstr "* ถ้าคุณคลิกบน \"ค่าเริ่มต้น\", ตัวเลขค่าเก่าของท่าน จะถูกลบทิ้งอย่างถาวร"
+
+msgid "ScoreGet"
+msgstr "Numbers in black = คะแนน"
+
+msgid "ShowScor"
+msgstr "แสดงคะแนนให้นักศึกษาดู :"
+
+msgid "Step1"
+msgstr "ขั้นที่1"
+
+msgid "Step2"
+msgstr "ขั้นที่ 2"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "นำเข้าแบบทดสอบจาก HotPotatoes Tests"
+
+msgid "HotPotatoesTests"
+msgstr "นำเข้าแบบทดสอบ HotPotatoes Tests"
+
+msgid "DownloadImg"
+msgstr "โอนย้ายไฟล์รูปภาพขึ้นสู่เครื่องแม่ข่าย"
+
+msgid "NoImg"
+msgstr "แบบทดสอบไม่มีรูปภาพ"
+
+msgid "ImgNote_st"
+msgstr "<br>คุณยังต้องโอนย้ายไฟล์ You still have to upload"
+
+msgid "ImgNote_en"
+msgstr "รูปภาพ"
+
+msgid "NameNotEqual"
+msgstr "ไฟล์งานไม่ถูกต้อง/สมบูรณ์"
+
+msgid "Indice"
+msgstr "ดัชนี Index"
+
+msgid "Indices"
+msgstr "ดัชนีIndex"
+
+msgid "DateExo"
+msgstr "วันที่"
+
+msgid "ShowQuestion"
+msgstr "แสดงคำถาม"
+
+msgid "UnknownExercise"
+msgstr "ไม่รู้จักแบบฝึกหัด"
+
+msgid "ReuseQuestion"
+msgstr "ใช้คำถามเดิมอีก Reuse the question"
+
+msgid "CreateExercise"
+msgstr "สร้างแบบฝึกหัด Create Exercise"
+
+msgid "CreateQuestion"
+msgstr "ตั้งคำถาม"
+
+msgid "CreateAnswers"
+msgstr "ตั้งคำตอบ"
+
+msgid "ModifyExercise"
+msgstr "แก้ไขแบบฝึกหัด"
+
+msgid "ModifyAnswers"
+msgstr "แก้ไขคำตอบ"
+
+msgid "ForExercise"
+msgstr "สำหรับแบบฝึกหัด for exercise"
+
+msgid "UseExistantQuestion"
+msgstr "ใช้คำถามเดิมที่มีอยู่ Use an existing question"
+
+msgid "FreeAnswer"
+msgstr "ตอบคำถามแบบอัตนัย"
+
+msgid "notCorrectedYet"
+msgstr "�ӵͺ����ѧ���Ѻ��Ҷ١��ͧ �س�����ṹ�� 0 ��觡���繼ŵ�ͤ�ṹ������� This answer has not yet been corrected. Meanwhile, your score for this question is set to 0, affecting the total score."
+
+msgid "adminHP"
+msgstr "Hot Potatoes Admin"
+
+msgid "By"
+msgstr "โดย"
+
+msgid "UsersOnline"
+msgstr "สมาชิกที่กำลังใช้งาน"
+
+msgid "Remove"
+msgstr "เอาออก"
+
+msgid "Enter"
+msgstr "ย้อนกลับ"
+
+msgid "Description"
+msgstr "คำอธิบาย"
+
+msgid "Links"
+msgstr "การเชื่อมโยง"
+
+msgid "Works"
+msgstr "ผลงาน/การบ้านของผู้เรียน"
+
+msgid "Forums"
+msgstr "กลุ่มอภิปราย"
+
+msgid "CreateDir"
+msgstr "สร้างแฟ้มเก็บไฟล์"
+
+msgid "Name"
+msgstr "ชื่อเอกสาร"
+
+msgid "Comment"
+msgstr "ข้อคิดเห็น"
+
+msgid "Visible"
+msgstr "แสดง/ซ่อน"
+
+msgid "NewDir"
+msgstr "ชื่อแฟ้มใหม่"
+
+msgid "DirCr"
+msgstr "สร้างdirectory เรียบร้อย"
+
+msgid "Download"
+msgstr "การโอนย้ายไฟล์ขึ้น"
+
+msgid "Group"
+msgstr "กลุ่ม"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "GroupForum"
+msgstr "กลุ่มอภิปราย"
+
+msgid "Language"
+msgstr "ภาษา"
+
+msgid "LoginName"
+msgstr "เข้าสู่ระบบ"
+
+msgid "Assignments"
+msgstr "งานที่อาจารย์มอบหมาย/การบ้าน"
+
+msgid "Forum"
+msgstr "การอภิปราย"
+
+msgid "DelImage"
+msgstr "เอาภาพออก"
+
+msgid "Code"
+msgstr "รหัสวิชา"
+
+msgid "Up"
+msgstr "ขึ้น"
+
+msgid "Down"
+msgstr "ŧ"
+
+msgid "TheListIsEmpty"
+msgstr "ไม่มีรายการ"
+
+msgid "UniqueSelect"
+msgstr "แบบปรนัย(มีคำตอบที่ถูกเพียงข้อเดียว)"
+
+msgid "CourseCreate"
+msgstr "สร้างโฮมเพจรายวิชา"
+
+msgid "Todo"
+msgstr "ต้องทำ"
+
+msgid "UserName"
+msgstr "ชื่อผู้ใช้"
+
+msgid "CategoryMod"
+msgstr "แก้ไขประเภท"
+
+msgid "Hide"
+msgstr "ซ่อน"
+
+msgid "Dear"
+msgstr "สวัสดี คุณ"
+
+msgid "iso639_2_code"
+msgstr "th"
+
+msgid "iso639_1_code"
+msgstr "tha"
+
+msgid "charset"
+msgstr "utf-8"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "tahoma,MS Sans Serif,verdana, arial, sans-serif"
+
+msgid "right_font_family"
+msgstr "MS Sans Serif, tahoma, helvetica, arial, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr ","
+
+msgid "number_decimal_separator"
+msgstr "."
+
+msgid "dateFormatShort"
+msgstr "%b %d, %y"
+
+msgid "dateFormatLong"
+msgstr "%A %B %d, %Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%B %d, %Y at %I:%M %p"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "ใช่"
+
+msgid "No"
+msgstr "ไม่"
+
+msgid "Next"
+msgstr "ต่อไป"
+
+msgid "Allowed"
+msgstr "͹حҵ"
+
+msgid "BackHome"
+msgstr "กลับไปที่โฮมเพจของ"
+
+msgid "Propositions"
+msgstr "ข้อเสนอแนะ"
+
+msgid "Maj"
+msgstr "ล่าสุด"
+
+msgid "Modify"
+msgstr "แก้ไข"
+
+msgid "Invisible"
+msgstr "ทำไม่ให้มองเห็น"
+
+msgid "Save"
+msgstr "บันทึกการสนทนา"
+
+msgid "Move"
+msgstr "ย้าย"
+
+msgid "Help"
+msgstr "คำแนะนำ"
+
+msgid "Ok"
+msgstr "ตกลง"
+
+msgid "Add"
+msgstr "เพิ่ม"
+
+msgid "AddIntro"
+msgstr "เพิ่มคำนำ"
+
+msgid "BackList"
+msgstr "กลับไปสารบัญ"
+
+msgid "Text"
+msgstr "ข้อความ"
+
+msgid "Empty"
+msgstr "คุณกรอกรายการที่ต้องการยังไม่ครบ.<br>ให้กดปุ่ม Back ของโปรแกรมดูอินเตอร์เน็ตที่คุณกำลังใช้อยู่ เพื่อย้อนกลับไปตรวจสอบและกรอกรายการให้ครบตามที่ระบบต้องการหรือที่มีเครื่องหมายดอกจันกำกับไว้*<br>หากวิชาของคุณไม่มีรหัสวิชาตามหลักสูตรของสถานศึกษา โปรดกำหนดขึ้นเองหรือใช้ชื่อวิชาแทนไปก่อน"
+
+msgid "ConfirmYourChoice"
+msgstr "โปรดยืนยันที่คุณเลือก"
+
+msgid "And"
+msgstr "และ"
+
+msgid "Choice"
+msgstr "ที่คุณเลือก"
+
+msgid "Finish"
+msgstr "เสร็จสิ้น"
+
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgid "NotAllowed"
+msgstr "ไม่อนุญาต"
+
+msgid "NotLogged"
+msgstr "คุณยังไม่ได้เข้าสู่รายวิชา"
+
+msgid "Manager"
+msgstr "ผู้จัดการระบบ"
+
+msgid "Optional"
+msgstr "เลือกตั้งค่า"
+
+msgid "NextPage"
+msgstr "หน้าต่อไป"
+
+msgid "PreviousPage"
+msgstr "หน้าที่ผ่านมา"
+
+msgid "Use"
+msgstr "ใช้"
+
+msgid "Total"
+msgstr "รวม"
+
+msgid "Take"
+msgstr "เริ่ม take"
+
+msgid "One"
+msgstr "หนึ่ง"
+
+msgid "Several"
+msgstr "หลาย"
+
+msgid "Notice"
+msgstr "แจ้งข่าว"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Among"
+msgstr "ระหว่าง among"
+
+msgid "Show"
+msgstr "แสดง"
+
+msgid "MyCourses"
+msgstr "รายวิชาของเรา"
+
+msgid "ModifyProfile"
+msgstr "แก้ไขข้อมูลส่วนตัว"
+
+msgid "MyStats"
+msgstr "ดูสถิติการเข้าใช้งานระบบของเรา"
+
+msgid "Logout"
+msgstr "ออกจากระบบ"
+
+msgid "MyAgenda"
+msgstr "กำหนดการของเรา"
+
+msgid "CourseHomepage"
+msgstr "โฮมเพจรายวิชา"
+
+msgid "SwitchToTeacherView"
+msgstr "หน้าแสดงผลของผู้สอน"
+
+msgid "SwitchToStudentView"
+msgstr "หน้าแสดงผลของผู้เรียน"
+
+msgid "AddResource"
+msgstr "เพิ่ม"
+
+msgid "AddedResources"
+msgstr "แนบไฟล์"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['brazilian']"
+msgstr ""
+
+msgid "NameOfLang['bulgarian']"
+msgstr ""
+
+msgid "NameOfLang['catalan']"
+msgstr ""
+
+msgid "NameOfLang['croatian']"
+msgstr ""
+
+msgid "NameOfLang['danish']"
+msgstr ""
+
+msgid "NameOfLang['dutch']"
+msgstr ""
+
+msgid "NameOfLang['english']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['french']"
+msgstr ""
+
+msgid "NameOfLang['french_corporate']"
+msgstr ""
+
+msgid "NameOfLang['french_KM']"
+msgstr ""
+
+msgid "NameOfLang['galician']"
+msgstr ""
+
+msgid "NameOfLang['german']"
+msgstr ""
+
+msgid "NameOfLang['greek']"
+msgstr ""
+
+msgid "NameOfLang['italian']"
+msgstr ""
+
+msgid "NameOfLang['japanese']"
+msgstr ""
+
+msgid "NameOfLang['polish']"
+msgstr ""
+
+msgid "NameOfLang['portuguese']"
+msgstr ""
+
+msgid "NameOfLang['russian']"
+msgstr ""
+
+msgid "NameOfLang['simpl_chinese']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "Platform"
+msgstr "ระบบ"
+
+msgid "localLangName"
+msgstr "ภาษา"
+
+msgid "email"
+msgstr "อีเมล"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "ขออภัย! รหัสวิชานี้มีอยู่แล้ว โปรดเลือกรหัสอื่นหรือกำหนดให้แตกต่างออกไป"
+
+msgid "Statistics"
+msgstr "สถิติ"
+
+msgid "GroupList"
+msgstr "รายชื่อกลุ่ม"
+
+msgid "Previous"
+msgstr "ที่ผ่านมา"
+
+msgid "Courses"
+msgstr "รายวิชา"
+
+msgid "In"
+msgstr "ใน"
+
+msgid "ShowAll"
+msgstr "แสดงทั้งหมด"
+
+msgid "Page"
+msgstr "หน้า"
+
+msgid "englishLangName"
+msgstr "อังกฤษ"
+
+msgid "Home"
+msgstr "หน้าแรก"
+
+msgid "AreYouSureToDelete"
+msgstr "ท่านแน่ใจหรือว่าต้องการลบ"
+
+msgid "SelectAll"
+msgstr "เลือกทั้งหมด"
+
+msgid "UnSelectAll"
+msgstr "ไม่เลือกทั้งหมด"
+
+msgid "WithSelected"
+msgstr "กับที่เลือก"
+
+msgid "OnLine"
+msgstr "ออนไลน์"
+
+msgid "Users"
+msgstr "ผู้ใช้"
+
+msgid "PlatformAdmin"
+msgstr "การบริหารจัดการระบบ"
+
+msgid "NameOfLang['hungarian']"
+msgstr ""
+
+msgid "NameOfLang['indonesian']"
+msgstr ""
+
+msgid "NameOfLang['malay']"
+msgstr ""
+
+msgid "NameOfLang['slovenian']"
+msgstr ""
+
+msgid "NameOfLang['spanish_latin']"
+msgstr ""
+
+msgid "NameOfLang['swedish']"
+msgstr ""
+
+msgid "NameOfLang['thai']"
+msgstr ""
+
+msgid "NameOfLang['turkce']"
+msgstr ""
+
+msgid "NameOfLang['vietnamese']"
+msgstr ""
+
+msgid "UserInfo"
+msgstr "ข้อมูลของผู้ใช้"
+
+msgid "ModifyQuestion"
+msgstr "ปรับ/แก้ไขคำถาม"
+
+msgid "CheckAll"
+msgstr "เลือกทั้งหมด"
+
+msgid "NbAnnoucement"
+msgstr "ประกาศ"
+
+msgid "OtherCourses"
+msgstr "รายวิชาอื่น"
+
+msgid "Doc"
+msgstr "เอกสาร"
+
+msgid "PlataformAdmin"
+msgstr "การบริหารระบบ"
+
+msgid "Groups"
+msgstr "กลุ่ม"
+
+msgid "GroupManagement"
+msgstr "การบริหารกลุ่ม"
+
+msgid "All"
+msgstr "ทั้งหมด"
+
+msgid "None"
+msgstr "ไม่มี"
+
+msgid "Sorry"
+msgstr "เลือกวิชาก่อน"
+
+msgid "Denied"
+msgstr "à»ç¹Ë¹éÒ·Õè¢Í§ŒÙéŽÙáÅÃÐºº"
+
+msgid "Today"
+msgstr "ÇÑ¹¹Õé"
+
+msgid "CourseHomepageLink"
+msgstr "โฮมเพจรายวิชา"
+
+msgid "Attachment"
+msgstr "สิ่งที่แนบมาด้วย"
+
+msgid "User"
+msgstr "ผู้ใช้"
+
+msgid "MondayInit"
+msgstr "จ"
+
+msgid "TuesdayInit"
+msgstr "อ"
+
+msgid "WednesdayInit"
+msgstr "พ"
+
+msgid "ThursdayInit"
+msgstr "พฤ"
+
+msgid "FridayInit"
+msgstr "ศ"
+
+msgid "SaturdayInit"
+msgstr "ส"
+
+msgid "SundayInit"
+msgstr "อา"
+
+msgid "MondayShort"
+msgstr "จ"
+
+msgid "TuesdayShort"
+msgstr "อ"
+
+msgid "WednesdayShort"
+msgstr "พ"
+
+msgid "ThursdayShort"
+msgstr "พฤ"
+
+msgid "FridayShort"
+msgstr "ศ"
+
+msgid "SaturdayShort"
+msgstr "ส"
+
+msgid "SundayShort"
+msgstr "อา"
+
+msgid "MondayLong"
+msgstr "จันทร์"
+
+msgid "TuesdayLong"
+msgstr "อังคาร"
+
+msgid "WednesdayLong"
+msgstr "พุธ"
+
+msgid "ThursdayLong"
+msgstr "พฤหัสบดี"
+
+msgid "FridayLong"
+msgstr "ศุกร์"
+
+msgid "SaturdayLong"
+msgstr "เสาร์"
+
+msgid "SundayLong"
+msgstr "อาทิตย์"
+
+msgid "FebruaryInit"
+msgstr "กพ."
+
+msgid "MarchInit"
+msgstr "มีค."
+
+msgid "AprilInit"
+msgstr "เมย."
+
+msgid "MayInit"
+msgstr "พค."
+
+msgid "JuneInit"
+msgstr "มิย."
+
+msgid "JulyInit"
+msgstr "กค."
+
+msgid "AugustInit"
+msgstr "ʤ."
+
+msgid "SeptemberInit"
+msgstr "กย."
+
+msgid "OctoberInit"
+msgstr "ตค."
+
+msgid "NovemberInit"
+msgstr "พย."
+
+msgid "DecemberInit"
+msgstr "ธค."
+
+msgid "FebruaryShort"
+msgstr "กพ."
+
+msgid "MarchShort"
+msgstr "มีค."
+
+msgid "AprilShort"
+msgstr "เมย."
+
+msgid "MayShort"
+msgstr "พค."
+
+msgid "JuneShort"
+msgstr "มิย."
+
+msgid "JulyShort"
+msgstr "กค."
+
+msgid "AugustShort"
+msgstr "ʤ."
+
+msgid "SeptemberShort"
+msgstr "กย."
+
+msgid "OctoberShort"
+msgstr "ตค."
+
+msgid "NovemberShort"
+msgstr "พย."
+
+msgid "DecemberShort"
+msgstr "ธค."
+
+msgid "JanuaryLong"
+msgstr "มกราคม"
+
+msgid "FebruaryLong"
+msgstr "กุมภาพันธ์"
+
+msgid "MarchLong"
+msgstr "มีนาคม"
+
+msgid "AprilLong"
+msgstr "เมษายน"
+
+msgid "MayLong"
+msgstr "พฤษภาคม"
+
+msgid "JuneLong"
+msgstr "มิถุนายน"
+
+msgid "JulyLong"
+msgstr "กรกฎาคม"
+
+msgid "AugustLong"
+msgstr "สิงหาคม"
+
+msgid "SeptemberLong"
+msgstr "กันยายน"
+
+msgid "OctoberLong"
+msgstr "ตุลาคม"
+
+msgid "NovemberLong"
+msgstr "พฤศจิกายน"
+
+msgid "DecemberLong"
+msgstr "ธันวาคม"
+
+msgid "MyCompetences"
+msgstr "ความสามารถพิเศษ"
+
+msgid "MyDiplomas"
+msgstr "คุณวุฒิ"
+
+msgid "MyPersonalOpenArea"
+msgstr "ข้อมูลส่วนตัวที่เปิดเผยได้"
+
+msgid "MyTeach"
+msgstr "วิชาที่สอนได้"
+
+msgid "Agenda"
+msgstr "กำหนดการ"
+
+msgid "HourShort"
+msgstr ":"
+
+msgid "PleaseTryAgain"
+msgstr "กรุณาลองใหม่"
+
+msgid "UplNoFileUploaded"
+msgstr "ไม่มีไฟล์ที่โอนย้ายขึ้นสู่ระบบ"
+
+msgid "UplSelectFileFirst"
+msgstr "โปรดเลือกไฟล์ก่อนกดปุ่มโอนไฟล์(Upload)"
+
+msgid "UplNotAZip"
+msgstr "ไฟล์ที่เลือกไม่ใช่ไฟล์zip"
+
+msgid "UplUploadSucceeded"
+msgstr "โอนย้ายไฟล์ขึ้นระบบเรียบร้อยแล้ว"
+
+msgid "ExportAsCSV"
+msgstr "ส่งออกเป็นไฟล์csv"
+
+msgid "ExportAsXLS"
+msgstr "ส่งออกเป็นไฟล์xls"
+
+msgid "Openarea"
+msgstr "ข้อมูลส่วนตัวที่เปิดเผยได้"
+
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+msgid "Documents"
+msgstr "เอกสาร"
+
+msgid "DocumentAdded"
+msgstr "เพิ่มเอกสารแล้ว"
+
+msgid "DocumentUpdated"
+msgstr "เอกสารได้ปรับให้เป็นปัจจุบันแล้ว"
+
+msgid "DocumentInFolderUpdated"
+msgstr "เอกสารในแฟ้มได้ปรับเป็นปัจจุบันแล้ว"
+
+msgid "Course_description"
+msgstr "คำอธิบายรายวิชา"
+
+msgid "Document"
+msgstr "เอกสาร"
+
+msgid "Learnpath"
+msgstr "แผนการเรียน"
+
+msgid "Link"
+msgstr "การเชื่อมโยง"
+
+msgid "Announcement"
+msgstr "ประกาศ"
+
+msgid "Dropbox"
+msgstr "กล่องรับส่งงาน"
+
+msgid "Quiz"
+msgstr "แบบทดสอบ"
+
+msgid "Chat"
+msgstr "สนทนาออนไลน์"
+
+msgid "Conference"
+msgstr "การสัมมนาออนไลน์"
+
+msgid "Student_publication"
+msgstr "การส่งผลงาน/การบ้านของผู้เรียน"
+
+msgid "Tracking"
+msgstr "การติดตามผล"
+
+msgid "homepage_link"
+msgstr "เพิ่มรายการเชื่อมโยงสู่หน้านี้"
+
+msgid "Course_setting"
+msgstr "ตั้งค่ารายวิชา"
+
+msgid "Backup"
+msgstr "สำรองข้อมูลรายวิชา"
+
+msgid "copy_course_content"
+msgstr "ทำสำเนาเนื้อหารายวิชา"
+
+msgid "recycle_course"
+msgstr "นำรายวิชานี้กลับมาใช้อีก"
+
+msgid "StartDate"
+msgstr "เริ่มวันที่"
+
+msgid "EndDate"
+msgstr "ถึงวันที่"
+
+msgid "StartTime"
+msgstr "เริ่มเวลา"
+
+msgid "EndTime"
+msgstr "ถึงเวลา"
+
+msgid "YouWereCalled"
+msgstr "คุณได้รับเชิญให้เข้าร่วมสนทนาออนไลน์กับ"
+
+msgid "DoYouAccept"
+msgstr "คุณยอมรับหรือไม่"
+
+msgid "Everybody"
+msgstr "ทุกคน"
+
+msgid "SentTo"
+msgstr "ส่งถึง"
+
+msgid "Export"
+msgstr "ส่งออก"
+
+msgid "Tools"
+msgstr "เครื่องมือ"
+
+msgid "Everyone"
+msgstr "ทุกคน"
+
+msgid "SelectGroupsUsers"
+msgstr "เลือกกลุ่ม/ผู้ใช้"
+
+msgid "Student"
+msgstr "ผู้เรียน"
+
+msgid "Teacher"
+msgstr "อาจารย์ผู้สอน"
+
+msgid "Send2All"
+msgstr "คุณยังไม่ได้เลือกผู้ใช้หรือกลุ่มผู้ใช้ รายการนี้มองเห็นได้ทุกคน"
+
+msgid "Wiki"
+msgstr "Wiki:สารานุกรมออนไลน์"
+
+msgid "Complete"
+msgstr "เสร็จเรียบร้อย"
+
+msgid "Incomplete"
+msgstr "ยังไม่เสร็จ"
+
+msgid "reservation"
+msgstr "สำรองไว้"
+
+msgid "StartTimeWindow"
+msgstr "เริ่ม"
+
+msgid "EndTimeWindow"
+msgstr "สิ้นสุด"
+
+msgid "AccessNotAllowed"
+msgstr "ไม่อนุญาตให้เข้าใช้หน้านี้"
+
+msgid "InThisCourse"
+msgstr "ã¹ÇÔªÒ¹Õé"
+
+msgid "ThisFieldIsRequired"
+msgstr "ต้องกรอกข้อมูล"
+
+msgid "AllowedHTMLTags"
+msgstr "อนุญาตใช้HTML tags"
+
+msgid "FormHasErrorsPleaseComplete"
+msgstr "การกรอกแบบฟอร์มไม่ครบสมบูรณ์ กรุณาตรวจสอบอีกครั้ง"
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "เวลาเริ่มต้น ต้องมาก่อนเวลาสิ้นสุด"
+
+msgid "InvalidDate"
+msgstr "วัน ไม่ถูกต้อง"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "รับข้อมูลที่เป็นตัวอักษรและตัวเลขเท่านั้น"
+
+msgid "CourseAdminRole"
+msgstr "ผู้จัดหลักสูตรวิชา"
+
+msgid "UserRole"
+msgstr "บทบาท"
+
+msgid "OnlyImagesAllowed"
+msgstr "อนุญาตเฉพาะไฟล์ภาพ สกุล.png,jpgและ.gif"
+
+msgid "ViewRight"
+msgstr "ดู"
+
+msgid "EditRight"
+msgstr "แก้ไข"
+
+msgid "DeleteRight"
+msgstr "ź"
+
+msgid "OverviewCourseRights"
+msgstr "ดูบทบาทและสิทธิหน้าที่"
+
+msgid "SeeAllRightsAllLocationsForSpecificRole"
+msgstr "บทบาทเฉพาะ"
+
+msgid "SeeAllRolesAllLocationsForSpecificRight"
+msgstr "ดูกฏระเบียบที่ใช้สิทธิ์เฉพาะทั้งหมด"
+
+msgid "RightValueModified"
+msgstr "ได้เปลี่ยนแปลงค่าแล้ว"
+
+msgid "course_rights"
+msgstr "แสดงสิทธิและบทบาทสมาชิกทั้งหมด"
+
+msgid "CourseAdminRoleDescription"
+msgstr "ผู้จัดการวิชา"
+
+msgid "h"
+msgstr "ช.ม."
+
+msgid "CreateNewGlobalRole"
+msgstr "สร้างกฏระเบียบทั่วไป"
+
+msgid "CreateNewLocalRole"
+msgstr "สร้างกฏระเบียบใหม่"
+
+msgid "Actions"
+msgstr "ปฏิบัติ"
+
+msgid "Inbox"
+msgstr "กล่องรับข้อความ"
+
+msgid "ComposeMessage"
+msgstr "เขียนข้อความ"
+
+msgid "Other"
+msgstr "อื่นๆ"
+
+msgid "AddRight"
+msgstr "สิทธิ์เพิ่ม"
+
+msgid "CampusHomepage"
+msgstr "โฮมเพจของระบบอีเลิร์นนิ่ง"
+
+msgid "InCourse"
+msgstr "ในวิชา"
+
+msgid "CourseProgram"
+msgstr "คำอธิบายรายวิชา"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "ÇÔªÒ¹ÕéÂÑ§äÁèÁÕ€ÓÍžÔºÒÂÃÒÂÇÔªÒ"
+
+msgid "QuestionPlan"
+msgstr "ฝากคำถามถึงหัวหน้า"
+
+msgid "NewBloc"
+msgstr "อื่นๆ"
+
+msgid "InvalidId"
+msgstr "การเข้าสู่ระบบล้มเหลว รหัสผู้ใช้และระหัสผ่านไม่ถูกต้อง"
+
+msgid "Pass"
+msgstr "รหัสผ่าน"
+
+msgid "Advises"
+msgstr "แนะนำ"
+
+msgid "CourseDoesntExist"
+msgstr "<b>คำเตือน: </b> ไม่มีรายวิชานี้"
+
+msgid "GetCourseFromOldPortal"
+msgstr "คลิกที่นี่เพื่อรับวิชานี้ จากระบบควบคุมเดิมของท่าน"
+
+msgid "SupportForum"
+msgstr "อภิปรายปรึกษา"
+
+msgid "BackToHomePage"
+msgstr "กลับไปที่หน้าแรก"
+
+msgid "LostPassword"
+msgstr "แจ้งลืมรหัสผ่าน"
+
+msgid "Valvas"
+msgstr "ประกาศที่ผ่านมา"
+
+msgid "Helptwo"
+msgstr "ระบบช่วยเหลือ"
+
+msgid "EussMenu"
+msgstr "รายการเชื่อมโยง"
+
+msgid "Opinio"
+msgstr "ความคิดเห็น"
+
+msgid "Intranet"
+msgstr "เครือข่ายภายใน"
+
+msgid "Englin"
+msgstr "อังกฤษ"
+
+msgid "InvalidForSelfRegistration"
+msgstr "การเข้าสู่ระบบล้มเหลว หากยังไม่ลงทะเบียน กรุณาคลิกที่<a href=claroline/auth/inscription.php>แบบฟอร์มการลงทะเบียนนี้</a>"
+
+msgid "MenuGeneral"
+msgstr "รายการเชื่อมโยงทั่วไป"
+
+msgid "MenuUser"
+msgstr "เมนูของผู้เข้าใช้ระบบ"
+
+msgid "MenuAdmin"
+msgstr "ระบบการจัดการ"
+
+msgid "UsersOnLineList"
+msgstr "��ª��ͼ��������ѧ��ҹ�к�"
+
+msgid "TotalOnLine"
+msgstr "จำนวนผู้ที่กำลังใช้งานระบบรวมทั้งสิ้น"
+
+msgid "Refresh"
+msgstr "ล้างหน้าจอใหม่"
+
+msgid "SystemAnnouncements"
+msgstr "ประกาศข่าวภายในระบบ"
+
+msgid "HelpMaj"
+msgstr "ระบบช่วยเหลือ"
+
+msgid "NotRegistered"
+msgstr "ยังไม่ลงทะเบียน"
+
+msgid "Login"
+msgstr "เข้าสู่ระบบ"
+
+msgid "RegisterForCourse"
+msgstr "ลงทะเบียนวิชา"
+
+msgid "UnregisterForCourse"
+msgstr "ถอนการลงทะเบียนวิชา"
+
+msgid "Refresh"
+msgstr "ล้างหน้าจอใหม่"
+
+msgid "TotalOnLine"
+msgstr "จำนวนผู้ที่กำลังใช้งานระบบรวมทั้งสิ้น"
+
+msgid "CourseClosed"
+msgstr "ยังไม่เปิดวิชา"
+
+msgid "Teach"
+msgstr "วิชาที่สามารถสอนได้"
+
+msgid "Productions"
+msgstr "ผลงาน"
+
+msgid "SendChatRequest"
+msgstr "ส่งข้อความเชิญร่วมสนทนาออนไลน์"
+
+msgid "RequestDenied"
+msgstr "ไม่รับคำเชิญ"
+
+msgid "ShouldBeCSVFormat"
+msgstr "ไฟล์ต้องเป็นCSV,อย่าเว้นวรรค, โครงสร้างต้องเป็นดังนี้"
+
+msgid "Enter2passToChange"
+msgstr "การเปลี่ยนรหัสผ่านใหม่ ให้กรอกรหัสผ่านที่ตั้งใหม่ทั้งสองชอง หากไม่เปลี่ยนก็ปล่อยว่างไว้"
+
+msgid "AuthInfo"
+msgstr "การรับรองสิทธิ์"
+
+msgid "ImageWrong"
+msgstr "ขนาดไฟล์ต้องไม่เกิน"
+
+msgid "password_request"
+msgstr "คุณได้ทำคำร้องขอให้เปลี่ยนรหัสผ่านใหม่ ให้คุณยืนยันระบบอีกครั้งโดยการคลิกที่ link หากคุณเปลี่ยนใจหรือไม่ใด้ทำคำร้องเอง ให้ลบหรือไม่ต้องสนใจอีเมลฉบับนี้"
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "รหัสผ่านได้ส่งให้คุณทางอีเมลแล้ว"
+
+msgid "EnterEmailAndWeWillSendYouYourPassword"
+msgstr "ใส่ชื่ออีเมลที่คุณใช้ลงทะเบียน แล้วเราจะส่งรหัสผ่านไปให้"
+
+msgid "Action"
+msgstr "สิทธิฐานะ"
+
+msgid "Preserved"
+msgstr "ได้รับการคุ้มครอง"
+
+msgid "ConfirmUnsubscribe"
+msgstr "ยืนยันการถอดถอนผู้ใช้"
+
+msgid "See"
+msgstr "ไปที่"
+
+msgid "LastVisits"
+msgstr "เข้ามาครั้งล่าสุด"
+
+msgid "IfYouWantToAddManyUsers"
+msgstr "หากต้องการเพิ่มรายชื่อผู้ใช้เข้าในรายวิชา ให้ติดต่อผู้ดูแลโฮมเพจ ของคุณ"
+
+msgid "PassTooEasy"
+msgstr "���ʼ�ҹ�������Թ� �ͧ�������"
+
+msgid "AddedToCourse"
+msgstr "ได้ลงทะเบียนวิชาแล้ว"
+
+msgid "UserAlreadyRegistered"
+msgstr "มีผู้ใช้ชื่อนี้ลงทะเบียนแล้ว"
+
+msgid "BackUser"
+msgstr "ย้อนกลับไปที่บัญชีชื่อผู้ใช้"
+
+msgid "UserOneByOneExplanation"
+msgstr "ผู้ลงทะเบียนจะได้รับอีเมลแจ้งชื่อและรหัสผ่านเพื่อการยืนยันอีกครั้ง"
+
+msgid "GiveTutor"
+msgstr "ให้เป็นผู้ช่วยสอน"
+
+msgid "RemoveRight"
+msgstr "ยกเลิกสิทธิ์"
+
+msgid "GiveAdmin"
+msgstr "ให้เป็นผู้ดูแลระบบ"
+
+msgid "UserNumber"
+msgstr "ลำดับ"
+
+msgid "DownloadUserList"
+msgstr "ส่งรายชื่อขึ้นระบบ"
+
+msgid "UserAddExplanation"
+msgstr "การส่งไฟล์ยืนยันการลงทะเบียนเป็นผู้ใช้ในระบบ ระบบจะส่งไฟล์ที่จำเป็นใช้และกรอกอยู่ในเขตข้อมูลไว้ใน 5 เขตข้อมูล แจ้งไปให้แก่ผู้สมัคร คือ<b>ชื่อเฉพาะ   นามสกุล    ชื่อผู้ใช้   รหัสผ่าน    อีเมล</b>"
+
+msgid "UserMany"
+msgstr "นำเข้าชื่อผู้ใช้ด้วยไฟล์ csv/xml"
+
+msgid "OneByOne"
+msgstr "เพิ่มชื่อผู้ใช้เอง(พิมพ์รายการเอง)"
+
+msgid "AddHereSomeCourses"
+msgstr "<font size=2 face='Ms Sans Serif,Arial, Helvetica'><big>การแก้ไขรายชื่อวิชา</big><br><br>เลือกชื่อวิชาที่คุณต้องการ.<br>อย่าเลือกเช็ครายวิชาหากคุณไม่ต้องการ.<br> จากนั้นกดปุ่ม ตกลง"
+
+msgid "ImportUserList"
+msgstr "นำเข้ารายชื่อผู้ใช้"
+
+msgid "AddAU"
+msgstr "เพิ่มผู้ใช้"
+
+msgid "AddedU"
+msgstr "เพิ่มให้แล้ว และแจ้ง ชื่อผู้ใช้(Username)ให้ทราบทางอีเมลแล้ว"
+
+msgid "TheU"
+msgstr "ผู้เรียน"
+
+msgid "RegYou"
+msgstr "ลงทะเบียนให้คุณที่รายวิชานี้"
+
+msgid "OneResp"
+msgstr "ผู้ดูแลรายวิชาคนหนึ่ง"
+
+msgid "UserPicture"
+msgstr "รูปภาพ"
+
+msgid "ProfileReg"
+msgstr "ข้อมูลส่วนตัวใหม่ถูกบันทึกเรียบร้อย"
+
+msgid "EmailWrong"
+msgstr "อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน"
+
+msgid "UserTaken"
+msgstr "���ͼ�������駹�� �ռ�������� �ô��駪��ͼ��������"
+
+msgid "Fields"
+msgstr "คุณกรอกข้อมูลที่ระบบต้องการยังไม่ครบถ้วน"
+
+msgid "Again"
+msgstr "ลองใหม่!"
+
+msgid "PassTwo"
+msgstr "คุณพิมพ์รหัสผ่านไม่ตรงกันสองครั้ง"
+
+msgid "ViewProfile"
+msgstr "ดูแฟ้มประวัติและผลงานของเรา"
+
+msgid "ModifProfile"
+msgstr "แก้ไขข้อมูลส่วนตัว"
+
+msgid "IsReg"
+msgstr "ได้รับการปรับปรุงแล้ว"
+
+msgid "NowGoCreateYourCourse"
+msgstr "คุณพร้อมที่จะสร้างรายวิชาได้แล้ว"
+
+msgid "NowGoChooseYourCourses"
+msgstr "คุณสามารถเลือกรายชื่อวิชาที่คุณสนใจสมัครเข้าเรียนได้จากรายชื่อ"
+
+msgid "MailHasBeenSent"
+msgstr "ชื่อผู้ใช้ในระบบของเรา(Username)และรหัสผ่าน(Password)ได้จัดส่งไปให้คุณแล้ว ตามที่อยู่อีเมลที่คุณแจ้งไว้ กรุณาพิมพ์และหรือจัดเก็บไว้กันลืม หากลืมให้รีบติดต่อและแจ้งต่อผู้ดูแลระบบ"
+
+msgid "PersonalSettings"
+msgstr "ข้อมูลของท่านได้รับการลงทะเบียนแล้ว อีเมล์จะถูกส่งไปให้เพื่อช่วยจำ username และรหัสผ่าน</p> โปรดเลือกรายวิชาที่ต้องการ"
+
+msgid "Problem"
+msgstr "กรณีที่มีปัญหา โปรดติดต่อเรา"
+
+msgid "Is"
+msgstr "คือ"
+
+msgid "Address"
+msgstr "ที่อยู่"
+
+msgid "YourReg"
+msgstr "ท่านลงทะเบียนวันที่"
+
+msgid "UserFree"
+msgstr "���ͼ������ �١������� ��ԡ������͹��ѧ ����ͧ��駪��������ա����˹��"
+
+msgid "EmptyFields"
+msgstr "คุณปล่อยบางช่องไว้ว่างเปล่า คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง"
+
+msgid "PassTwice"
+msgstr "คุณพิมพ์รหัสผ่านไม่เหมือนกันสองครั้ง คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง"
+
+msgid "RegAdmin"
+msgstr "ผู้สอน/ผู้สร้างรายวิชา"
+
+msgid "RegStudent"
+msgstr "ผู้เรียน"
+
+msgid "Confirmation"
+msgstr "ยืนยันรหัสผ่าน"
+
+msgid "Surname"
+msgstr "ชื่อจริง"
+
+msgid "Registration"
+msgstr "ลงทะเบียน"
+
+msgid "YourAccountParam"
+msgstr "����͢����Ţͧ�س������Դ��͡Ѻ"
+
+msgid "LoginRequest"
+msgstr "ต้องเข้าสู่ระบบ"
+
+msgid "AdminOfCourse"
+msgstr "ผู้บริหารรายวิชา"
+
+msgid "SimpleUserOfCourse"
+msgstr "ผู้ใช้ในรายวิชา"
+
+msgid "IsTutor"
+msgstr "ผู้ช่วยสอน"
+
+msgid "ParamInTheCourse"
+msgstr "สถานะในวิชา"
+
+msgid "HaveNoCourse"
+msgstr "ไม่มีรายวิชา"
+
+msgid "UserProfileReg"
+msgstr "ลงทะเบียนประวัติผู้ใช้ เรียบร้อยแล้ว"
+
+msgid "Courses4User"
+msgstr "����ԪҢͧ�������"
+
+msgid "CoursesByUser"
+msgstr "รายวิชาของผู้ใช้"
+
+msgid "SubscribeUserToCourse"
+msgstr "ยอมรับการสมัครของผู้ใช้ในรายวิชานี้"
+
+msgid "Preced100"
+msgstr "100 รายการที่ผ่านมา"
+
+msgid "Addmore"
+msgstr "ลงทะเบียนให้ผู้ใช้"
+
+msgid "Addback"
+msgstr "ไปที่บัญชีชื่อผู้ใช้"
+
+msgid "reg"
+msgstr "ลงทะเบียน"
+
+msgid "Quit"
+msgstr "ออก"
+
+msgid "YourPasswordHasBeenReset"
+msgstr "ตั้งรหัสผ่านให้ใหม่แล้ว"
+
+msgid "Sex"
+msgstr "เพศ"
+
+msgid "OptionalTextFields"
+msgstr "กำหนดค่าตัวเลือก"
+
+msgid "FullUserName"
+msgstr "ชื่อ-นามสกุลจริง"
+
+msgid "SearchForUser"
+msgstr "ผู้ใช้ค้นหา"
+
+msgid "SearchButton"
+msgstr "ค้นหา"
+
+msgid "SearchNoResultsFound"
+msgstr "ไม่พบรายการที่ค้นหา"
+
+msgid "UsernameWrong"
+msgstr "การตั้งชื่อผู้ใช้ ต้องเป็นตัวอักษร ตัวเลขและสัญลักษณ์การแยกคำโดยใช้ _.-"
+
+msgid "PasswordRequestFrom"
+msgstr "นี่เป็นรหัสผ่านที่ร้องขอ สำหรับชื่อที่อยู่อีเมลของ"
+
+msgid "CorrespondsToAccount"
+msgstr "ชื่อที่อยู่อีเมลที่ตรงกับสมาชิก/ผู้เรียน ต่อไปนี้"
+
+msgid "CorrespondsToAccounts"
+msgstr "ชื่อที่อยู่อีเมลนี้สอดคล้องตรงกันกับบัญชีชื่อผู้ใช้ดังต่อไปนี้"
+
+msgid "AccountExternalAuthSource"
+msgstr "ไม่สามารถติดตามการร้องขอให้โดยอัตโนมัติได้ เพราะชื่อนี้ ใช้วิธีการตรวจสอบรับรองิทธิ์สมาชิก จากภายนอกระบบ โปรดเลือกใช้เกณฑ์วิธีอื่นที่เหมาะสม และแจ้งเตือนไปยังผู้ใช้"
+
+msgid "AccountsExternalAuthSource"
+msgstr "ไม่สามารถติดตามการร้องขอให้โดยอัตโนมัติได้ เพราะต้องมีชื่อผู้ใช้หรือสมาชิกที่ใช้วิธีการตรวจสอบรับรองิทธิ์สมาชิกจากภายนอก อย่างน้อย 1 คน โปรดเลือกใช้เกณฑ์วิธีอื่นที่เหมาะสมกับผู้ใช้ทั้งหมด(รวมทั้งหมดนี้ให้สอดคล้องกับวิธีการที่เลือกใช้)และแจ้งเตือนไปยังผู้ใช้"
+
+msgid "RequestSentToPlatformAdmin"
+msgstr "ระบบไม่สามารถทำตามที่ร้องขอให้ทำโดยอัตโนมัติ สำหรับบัญชีชื่อประเภทนี้ได้ คำร้องขอของคุณได้ถูกส่งไปยังผู้จัดการระบบให้เรียบร้อยแล้ว ซึ่งจะได้แจ้งและดำเนินการให้ในลำดับต่อไป"
+
+msgid "InLnk"
+msgstr "ส่วนประกอบของหน้าโฮมเพจวิชา<b>ที่อาจารย์ยังไม่เปิดให้ใช้งาน</b>"
+
+msgid "DelLk"
+msgstr "คุณแน่ใจว่าจะลบรายการ การเชื่อมโยงนี้"
+
+msgid "NameOfTheLink"
+msgstr "ชื่อการเชื่อมโยง"
+
+msgid "CourseAdminOnly"
+msgstr "ส่วนควบคุม<b>สถานะการเปิด/ปิดการใช้งาน</b>รายการส่วนประกอบต่างๆของหน้าโฮมเพจวิชา เฉพาะในรายวิชาของอาจารย์"
+
+msgid "PlatformAdminOnly"
+msgstr "ส่วนของผู้บริหารจัดการระบบ"
+
+msgid "CombinedCourse"
+msgstr "บูรณาการวิชา"
+
+msgid "ToolIsNowVisible"
+msgstr "แสดงรายการส่วนประกอบต่างๆของรายวิชา<b>ที่อาจารย์เปิด</b>ให้ผู้เรียนเข้าใช้งาน ศึกษาเรียนรู้และสามารถร่วมทำกิจกรรมออนไลน์ได้"
+
+msgid "ToolIsNowHidden"
+msgstr "แสดงรายการส่วนประกอบต่างๆของรายวิชา <b>ที่อาจารย์ยังไม่ได้เปิด</b>ให้ผู้เรียนเข้าใช้งาน ศึกษาเรียนรู้และสามารถร่วมทำกิจกรรมออนไลน์"
+
+msgid "ToolName"
+msgstr "นำเข้ารายวิชาจาก Blackboard"
+
+msgid "TrackingDisabled"
+msgstr "ผู้บริหารระบบไม่ให้ใช้การติดตาม"
+
+msgid "CourseStats"
+msgstr "สถิติของรายวิชา"
+
+msgid "ToolsAccess"
+msgstr "เข้าใช้เครื่องมือ"
+
+msgid "LinksAccess"
+msgstr "การเชื่อมโยงถึง"
+
+msgid "DocumentsAccess"
+msgstr "เอกสาร"
+
+msgid "ScormAccess"
+msgstr "แผนการเรียน เนื้อหาวิชาตามรูปแบบมาตรฐานของ Scorm"
+
+msgid "LinksDetails"
+msgstr "การเชื่อมโยงสู่ระบบ ของผู้ใช้"
+
+msgid "WorksDetails"
+msgstr "การโอนย้ายไฟล์ขึ้นสู่ระบบของผู้ใช้ ในนามของผู้เขียน"
+
+msgid "LoginsDetails"
+msgstr "คลิกที่ชื่อเดือน เพื่อดูรายละเอียด"
+
+msgid "DocumentsDetails"
+msgstr "การดาวน์โหลดข้อมูลโดยผู้ใช้"
+
+msgid "ExercicesDetails"
+msgstr "ผลคะแนนการทดสอบ"
+
+msgid "BackToList"
+msgstr "ย้อนไปดูรายชื่อ"
+
+msgid "StatsOfCourse"
+msgstr "สถิติของรายวิชา"
+
+msgid "StatsOfUser"
+msgstr "สถิติผู้ใช้"
+
+msgid "StatsOfCampus"
+msgstr "สถิติของเว็ป"
+
+msgid "CountUsers"
+msgstr "จำนวนสมาชิกผู้ใช้"
+
+msgid "CountToolAccess"
+msgstr "รวมจำนวนผู้เข้ามาในวิชานี้"
+
+msgid "LoginsTitleMonthColumn"
+msgstr "เดือน"
+
+msgid "LoginsTitleCountColumn"
+msgstr "สถิติผู้เข้าใช้ระบบ"
+
+msgid "ToolTitleToolnameColumn"
+msgstr "ชื่อเครื่องมือ"
+
+msgid "ToolTitleUsersColumn"
+msgstr "ผู้ใช้ที่คลิก"
+
+msgid "ToolTitleCountColumn"
+msgstr "รวมจำนวนคลิก"
+
+msgid "LinksTitleLinkColumn"
+msgstr "การเชื่อมโยง"
+
+msgid "LinksTitleUsersColumn"
+msgstr "ผู้ใช้คลิก"
+
+msgid "LinksTitleCountColumn"
+msgstr "รวมจำนวนคลิก"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "ชื่อแบบทดสอบ"
+
+msgid "ExercicesTitleScoreColumn"
+msgstr "คะแนน"
+
+msgid "DocumentsTitleDocumentColumn"
+msgstr "เอกสาร"
+
+msgid "DocumentsTitleUsersColumn"
+msgstr "ผู้ใช้ดาวน์โหลด"
+
+msgid "DocumentsTitleCountColumn"
+msgstr "จำนวนดาวน์โหลด"
+
+msgid "ScormContentColumn"
+msgstr "เรื่อง"
+
+msgid "ScormStudentColumn"
+msgstr "ผู้ใช้ในระบบ"
+
+msgid "ScormTitleColumn"
+msgstr "บทเรียน"
+
+msgid "ScormStatusColumn"
+msgstr "สถานะ"
+
+msgid "ScormScoreColumn"
+msgstr "คะแนน"
+
+msgid "ScormTimeColumn"
+msgstr "เวลา"
+
+msgid "ScormNeverOpened"
+msgstr "ÇÔªÒ¹ÕéÂÑ§äÁèà€Âà»ÔŽ âŽÂŒÙéãªé¹Õé"
+
+msgid "WorkTitle"
+msgstr "เรื่อง"
+
+msgid "WorkAuthors"
+msgstr "ผู้เขียน"
+
+msgid "WorkDescription"
+msgstr "คำอธิบายงาน"
+
+msgid "informationsAbout"
+msgstr "ติดตามผลของ"
+
+msgid "NoEmail"
+msgstr "ไม่ได้ระบุอีเมล"
+
+msgid "NoResult"
+msgstr "ยังไม่มีผลคะแนน"
+
+msgid "Hits"
+msgstr "จำนวนผู้เข้ามาเยี่ยม"
+
+msgid "LittleHour"
+msgstr ":"
+
+msgid "Last31days"
+msgstr "เดือนที่ผ่านมา"
+
+msgid "Last7days"
+msgstr "สัปดาห์ที่ผ่านมา"
+
+msgid "ThisDay"
+msgstr "ÇÑ¹¹Õé"
+
+msgid "Logins"
+msgstr "เข้าระบบ"
+
+msgid "LoginsExplaination"
+msgstr "»ÃÐÇÑµÔ¡ÒÃà¢éÒãªé§Ò¹ã¹ÃÐºº¢Í§€Ø³"
+
+msgid "ExercicesResults"
+msgstr "ผลคะแนนสอบ"
+
+msgid "At"
+msgstr "ที่"
+
+msgid "LoginTitleDateColumn"
+msgstr "วันที่"
+
+msgid "LoginTitleCountColumn"
+msgstr "เข้ามาชม"
+
+msgid "LoginsAndAccessTools"
+msgstr "เข้าระบบและเข้าใช้เครื่องมือ"
+
+msgid "WorkUploads"
+msgstr "การโอนไฟล์ขึ้นสู่ระบบ"
+
+msgid "ErrorUserNotInGroup"
+msgstr "ไม่ปรากฏชื่อผู้ใช้ในกลุ่มนี้"
+
+msgid "ListStudents"
+msgstr "รายชื่อสมาชิกกลุ่ม"
+
+msgid "PeriodHour"
+msgstr "ชั่วโมง"
+
+msgid "PeriodDay"
+msgstr "วัน"
+
+msgid "PeriodWeek"
+msgstr "สัปดาห์"
+
+msgid "PeriodMonth"
+msgstr "เดือน"
+
+msgid "PeriodYear"
+msgstr "ปี"
+
+msgid "NextDay"
+msgstr "พรุ่งนี้"
+
+msgid "PreviousDay"
+msgstr "วันวาน"
+
+msgid "NextWeek"
+msgstr "สัปดาห์หน้า"
+
+msgid "PreviousWeek"
+msgstr "สัปดาห์ที่ผ่านมา"
+
+msgid "NextMonth"
+msgstr "เดือนหน้า"
+
+msgid "PreviousMonth"
+msgstr "เดือนที่ผ่านมา"
+
+msgid "NextYear"
+msgstr "ปีหน้า"
+
+msgid "PreviousYear"
+msgstr "ปีที่ผ่านมา"
+
+msgid "ViewToolList"
+msgstr "ดูรายการเครื่องมือทั้งหมด"
+
+msgid "ToolList"
+msgstr "รายการเครื่องมือทั้งหมด"
+
+msgid "PeriodToDisplay"
+msgstr "ช่วงเวลา"
+
+msgid "DetailView"
+msgstr "โดย"
+
+msgid "BredCrumpGroups"
+msgstr "กลุ่ม"
+
+msgid "BredCrumpGroupSpace"
+msgstr "ภายในกลุ่ม"
+
+msgid "BredCrumpUsers"
+msgstr "ผู้ใช้ในระบบ"
+
+msgid "AdminToolName"
+msgstr "สถิติการจัดการ"
+
+msgid "PlatformStats"
+msgstr "สถิติของระบบ"
+
+msgid "StatsDatabase"
+msgstr "สถิติของฐานข้อมูล"
+
+msgid "PlatformAccess"
+msgstr "นำเข้าสู่ทาง"
+
+msgid "PlatformCoursesAccess"
+msgstr "นำเข้าสู่รายวิชา"
+
+msgid "PlatformToolAccess"
+msgstr "เข้าสู่เครื่องมือ"
+
+msgid "HardAndSoftUsed"
+msgstr "ผู้ให้บริการอินเตอร์เน็ตจากประเทศ,โปรแกรมเปิดอินเตอร์เน็ต,ระบบปฏิบัติการ,ผู้อ้างอิง"
+
+msgid "StrangeCases"
+msgstr "กรณีที่เป็นปัญหา"
+
+msgid "StatsDatabaseLink"
+msgstr "คลิ๊กที่นี่"
+
+msgid "CountCours"
+msgstr "จำนวนรายวิชา"
+
+msgid "CountCourseByFaculte"
+msgstr "จำนวนรายวิชาแยกตามหมวดหมู่"
+
+msgid "CountCourseByLanguage"
+msgstr "จำนวนรายวิชาแยกตามภาษา"
+
+msgid "CountCourseByVisibility"
+msgstr "จำนวนรายวิชาที่เข้าดูได้"
+
+msgid "CountUsersByCourse"
+msgstr "จำนวนผู้เข้าใช้แยกตามรายวิชา"
+
+msgid "CountUsersByFaculte"
+msgstr "จำนวนผู้เข้าใช้แยกตามหมวดหมู่"
+
+msgid "CountUsersByStatus"
+msgstr "จำนวนผู้เข้าใช้แยกตามสถานภาพ"
+
+msgid "Access"
+msgstr "เข้าใช้"
+
+msgid "Countries"
+msgstr "ประเทศ"
+
+msgid "Providers"
+msgstr "ผู้ให้บริการ"
+
+msgid "OS"
+msgstr "ระบบปฏิบัติการ"
+
+msgid "Browsers"
+msgstr "โปรแกรมเปิดอินเตอร์เนต"
+
+msgid "Referers"
+msgstr "ผู้อ้างอิง"
+
+msgid "AccessExplain"
+msgstr "(เมื่อผู้เข้าใช้เปิดเข้าไปในหน้าควบคุม)"
+
+msgid "TotalPlatformAccess"
+msgstr "ยอดรวม"
+
+msgid "TotalPlatformLogin"
+msgstr "รวมทั้งหมด"
+
+msgid "MultipleLogins"
+msgstr "บัญขีชื่อผู้ใช้ที่มี<i>Username</i>เหมือนกัน"
+
+msgid "MultipleUsernameAndPassword"
+msgstr "บัญชีชื่อผู้ใช้ที่มี<i>Username</i> และ<i>Password</i> เหมือนกัน"
+
+msgid "MultipleEmails"
+msgstr "บัญชีชื่อผู้ใช้ที่มี<i>Email</i> เหมือนกัน"
+
+msgid "CourseWithoutProf"
+msgstr "รายวิชาที่ไม่มีผู้สอน"
+
+msgid "CourseWithoutAccess"
+msgstr "รายวิชาที่ยังไม่เปิดเข้าใช้"
+
+msgid "LoginWithoutAccess"
+msgstr "ยังไม่เปิดให้เข้าใช้"
+
+msgid "AllRight"
+msgstr "äÁèÁÕàÃ×èÍ§á»Å¡ãËÁè·Õè¹Õè"
+
+msgid "Defcon"
+msgstr "ค้นหาเรื่องที่มีปัญหาอบู่"
+
+msgid "NULLValue"
+msgstr "ว่าง"
+
+msgid "TrafficDetails"
+msgstr "ขั้นตอนรายละเอียด"
+
+msgid "SeeIndividualTracking"
+msgstr "เข้าดูประวัติการเข้าใช้งานระบบของคุณ <a href=../user/user.php>Users</a> tool."
+
+msgid "PathNeverOpenedByAnybody"
+msgstr "äÁèÁÕã€Ãà»ÔŽà¢éÒÁÒŽÙàÅÂ"
+
+msgid "SynthesisView"
+msgstr "Synthesis view"
+
+msgid "Visited"
+msgstr "มาเยี่ยม"
+
+msgid "FirstAccess"
+msgstr "เข้ามาครั้งแรก"
+
+msgid "LastAccess"
+msgstr "เข้ามาครั้งล่าสุด"
+
+msgid "MdCallingTool"
+msgstr "เอกสาร Documents"
+
+msgid "NotInDB"
+msgstr "ไม่มีประเภทรายการเชื่อมโยง"
+
+msgid "ManifestSyntax"
+msgstr "(syntax error in manifest file...)"
+
+msgid "EmptyManifest"
+msgstr "ไม่มีไฟล์ข้อมูล"
+
+msgid "NoManifest"
+msgstr "ไม่มีไฟล์ข้อมูล"
+
+msgid "NotFolder"
+msgstr "เป็นไปไม่ได้ ไม่มีแฟ้ม"
+
+msgid "UploadHtt"
+msgstr "โอนย้ายไฟล์ HTT ขึ้นระบบ"
+
+msgid "HttFileNotFound"
+msgstr "ไฟล์HTTไม่สามารถเปิดได้(อาจเป็นไฟล์เปล่าหรือมีขนาดใหญ่เกินพิกัด)"
+
+msgid "HttOk"
+msgstr "ทำการโอนย้ายไฟล์HTTใหม่เข้าระบบแล้ว"
+
+msgid "HttNotOk"
+msgstr "การโอนย้ายไฟล์ HTT ล้มเหลว"
+
+msgid "RemoveHtt"
+msgstr "เอาไฟล์HTTออก"
+
+msgid "HttRmvOk"
+msgstr "เอาไฟล์HTTออกแล้ว"
+
+msgid "HttRmvNotOk"
+msgstr "ยังเอาไฟล์ HTT ออกไม่ได้"
+
+msgid "AllRemovedFor"
+msgstr "เอารายการที่มีในประเภทออกไป"
+
+msgid "Index"
+msgstr "ดัชนีคำ"
+
+msgid "MainMD"
+msgstr "เปิดรายการหลัก MDE"
+
+msgid "Lines"
+msgstr "บรรทัด"
+
+msgid "Play"
+msgstr "เปิดไฟล์ index.php"
+
+msgid "NonePossible"
+msgstr "ไม่มี MDก็ไม่สามารถดำเนินการได้"
+
+msgid "OrElse"
+msgstr "เลือกประเภทการเชื่อมโยง"
+
+msgid "WorkWith"
+msgstr "ใช้งานร่วมกับสมุดบัญชีรายชื่อของScorm"
+
+msgid "SDI"
+msgstr "...สมุดบัญชีรายชื่อของScorm กับรหัส SD(แยกรายการที่มีหรือปล่อยว่างไว้)"
+
+msgid "Root"
+msgstr "root"
+
+msgid "SplitData"
+msgstr "แยกรายการที่มี,และ#MDe ถ้ามี"
+
+msgid "MffNotOk"
+msgstr "การแทนที่รายการที่มี ล้มเหลว"
+
+msgid "MffOk"
+msgstr "ได้แทนที่รายการที่มีเรียบร้อยแล้ว"
+
+msgid "MffFileNotFound"
+msgstr "ไฟล์รายการใหม่ไม่สามารถเปิดได้ เพราะเป็นไฟล์ที่ไม่มีข้อมูลหรือมีขนาดเกินพิกัด"
+
+msgid "UploadMff"
+msgstr "แทนที่ไฟล์"
+
+msgid "GroupSpaceLink"
+msgstr "พื้นที่กลุ่ม"
+
+msgid "CreationSucces"
+msgstr "สร้างสารบัญเนื้อหาแล้ว"
+
+msgid "CanViewOrganisation"
+msgstr "คุณสามารถเข้าดูโครงสร้างการจัดการระบบ"
+
+msgid "ViewDocument"
+msgstr "ดู"
+
+msgid "HtmlTitle"
+msgstr "สารบัญเนื้อหา"
+
+msgid "AddToTOC"
+msgstr "เพิ่มสารบัญ"
+
+msgid "AddChapter"
+msgstr "เพิ่มบท:Add chapter"
+
+msgid "Ready"
+msgstr "จัดเรียงสารบัญ"
+
+msgid "StoreDocuments"
+msgstr "จัดเก็บเอกสาร"
+
+msgid "TocDown"
+msgstr "ŧ"
+
+msgid "TocUp"
+msgstr "ขึ้น"
+
+msgid "CutPasteLink"
+msgstr "ขยายเต็มจอ"
+
+msgid "CreatePath"
+msgstr "สร้างเส้นทางเข้าถึงไฟล์(Path)"
+
+msgid "GoMetadata"
+msgstr "ไปที่"
+
+msgid "QuotaForThisCourseIs"
+msgstr "�ǵ�Ңͧ�Ԫҹ��"
+
+msgid "Del"
+msgstr "ź"
+
+msgid "ShowCourseQuotaUse"
+msgstr "แสดงโควต้าวิชา"
+
+msgid "CourseCurrentlyUses"
+msgstr "�Ԫҹ�����"
+
+msgid "MaximumAllowedQuota"
+msgstr "คุณมีพื้นที่จำกัดคือ"
+
+msgid "PercentageQuotaInUse"
+msgstr "จำนวนเปอร์เซ็นต์ที่คุณใช้ไป"
+
+msgid "PercentageQuotaFree"
+msgstr "จำนวนเปอร์เซ็นต์ที่เหลือ"
+
+msgid "CurrentDirectory"
+msgstr "แฟ้มเก็บงานปัจจุบัน"
+
+msgid "UplUploadDocument"
+msgstr "โอนย้ายเอกสารขึ้นระบบ(Upload)"
+
+msgid "UplPartialUpload"
+msgstr "โอนย้ายไฟล์ได้เพียงบางส่วน"
+
+msgid "UplExceedMaxPostSize"
+msgstr "ไฟล์มีขนาดใหญ่เกินที่อนุญาตไว้"
+
+msgid "UplExceedMaxServerUpload"
+msgstr "การโอนย้ายไฟล์มีขนาดเกินกว่าที่เครื่องแม่ข่ายบริการกำหนดไว้"
+
+msgid "UplUploadFailed"
+msgstr "การโอนย้ายไฟล์ขึ้นสู่ระบบ ล้มเหลว!"
+
+msgid "UplNotEnoughSpace"
+msgstr "พื้นที่ไม่พอให้โอนย้ายไฟล์เข้า"
+
+msgid "UplNoSCORMContent"
+msgstr "ไม่พบเอกสารScorm"
+
+msgid "UplZipExtractSuccess"
+msgstr "แตกไฟล์zipเรียบร้อยแล้ว"
+
+msgid "UplZipCorrupt"
+msgstr "ไม่สามารถแตกคืนสภาพไฟล์ได้(ไฟล์มีปัญหา)"
+
+msgid "UplFileSavedAs"
+msgstr "บันทึกไฟล์เป็น(save as)"
+
+msgid "UplFileOverwritten"
+msgstr "บันทึกทับแล้ว"
+
+msgid "CannotCreateDir"
+msgstr "ไม่สามารถสร้างแฟ้มเก็บงานได้"
+
+msgid "UplUpload"
+msgstr "โอนย้ายไฟล์ขึ้นระบบ"
+
+msgid "UplWhatIfFileExists"
+msgstr "หากไฟล์มีอยู่แล้ว"
+
+msgid "UplDoNothing"
+msgstr "ไม่ได้ทำอะไร"
+
+msgid "UplDoNothingLong"
+msgstr "ไม่ต้องโอนย้ายไฟล์ หากมีไฟล์เดิมอยู่แล้ว"
+
+msgid "UplOverwrite"
+msgstr "บันทึกทับ"
+
+msgid "UplOverwriteLong"
+msgstr "บันทึกทับไฟล์ที่มีอยู่แล้ว"
+
+msgid "UplRename"
+msgstr "เปลี่ยนชื่อ"
+
+msgid "UplRenameLong"
+msgstr "ให้เปลี่ยนชื่อไฟล์ที่โอนย้ายขึ้นนี้ หากมีไฟล์ที่มีชื่อเดียวกันอยู่ก่อนแล้ว"
+
+msgid "DocumentQuota"
+msgstr "โควต้าเอกสาร"
+
+msgid "NoDocsInFolder"
+msgstr "ไม่มีเอกสารในแฟ้มนี้"
+
+msgid "UploadTo"
+msgstr "โอนย้ายไฟขึ้นไปที่"
+
+msgid "fileModified"
+msgstr "แก้ไขไฟล์แล้ว"
+
+msgid "DocumentsOverview"
+msgstr "เอกสารแนะนำ"
+
+msgid "Options"
+msgstr "เลือกกำหนดตั้งค่า"
+
+msgid "MailingFileRecipDup"
+msgstr "multiple users have"
+
+msgid "MailingFileNoRecip"
+msgstr "name does not contain any recipient-id"
+
+msgid "MailingFileNoPostfix"
+msgstr "ชื่อต้องไม่ลงท้ายด้วย"
+
+msgid "MailingFileNoPrefix"
+msgstr "ชื่อต้องไม่เริ่มด้วย"
+
+msgid "MailingFileFunny"
+msgstr "no name, or extension not 1-4 letters or digits"
+
+msgid "MailingZipDups"
+msgstr "Mailing zipfile must not contain duplicate files - it will not be sent"
+
+msgid "MailingZipPhp"
+msgstr "Mailing zipfile must not contain php files - it will not be sent"
+
+msgid "MailingZipEmptyOrCorrupt"
+msgstr "Mailing zipfile is empty or not a valid zipfile"
+
+msgid "MailingWrongZipfile"
+msgstr "Mailing must be zipfile with STUDENTID or LOGINNAME"
+
+msgid "MailingConfirmSend"
+msgstr "ส่งไฟล์เนื้อหาให้แต่ละคน Send content files to individual destinations ?"
+
+msgid "MailingSend"
+msgstr "ส่งไฟล์เนื้อหา Send content files"
+
+msgid "MailingNotYetSent"
+msgstr "Mailing content files have not yet been sent out..."
+
+msgid "MailingInSelect"
+msgstr "---ส่งอีเมล---"
+
+msgid "MailingAsUsername"
+msgstr "ส่งอีเมล Mailing"
+
+msgid "Sender"
+msgstr "ผู้ส่ง"
+
+msgid "FileSize"
+msgstr "ขนาดไฟล์"
+
+msgid "OverwriteFile"
+msgstr "บันทึกทับไฟล์ที่ส่งไปให้ก่อนหน้านี้"
+
+msgid "SentOn"
+msgstr "บน"
+
+msgid "SendTo"
+msgstr "ส่งถึง"
+
+msgid "ErrorCreatingDir"
+msgstr "ไมสามารถสร้างแฟ้มเก็บงานให้ได้ โปรดติดต่อผู้บริหารระบบของคุณ."
+
+msgid "NoFileSpecified"
+msgstr "คุณไม่ได้ระบุไฟล์ที่จะโอนย้าย"
+
+msgid "NoUserSelected"
+msgstr "โปรดเลือกชื่อผู้ใช้ที่ต้องการส่งไฟล์ถึง"
+
+msgid "BadFormData"
+msgstr "การรับค่าล้มเหลว:ข้อมูลเสียหาย โปรดติดต่อผู้บริหารระบบของคุณ."
+
+msgid "GeneralError"
+msgstr "มีข้อผิดพลาด. โปรดติดต่อผู้บริหารระบบของคุณ."
+
+msgid "MdTitle"
+msgstr "วัตถุประสงค์การเรียน Learning Object Title"
+
+msgid "MdDescription"
+msgstr "กดปุ่มจัดเก็บ(restore) To store this information, press Store"
+
+msgid "MdCoverage"
+msgstr "เช่น ปริญญา e.g. Bachelor of ..."
+
+msgid "MdCopyright"
+msgstr "e.g. provided the source is acknowledged"
+
+msgid "NoScript"
+msgstr "โปรแกรมดูอินเตอร์เน็ตที่ท่านใช้อยู่นี้ ไม่ได้อนุญาตให้อ่านคำสั่งนี้ ให้ข้ามไป Script is not enabled in your browser, please ignore the screen part below this text, it won't work..."
+
+msgid "LanguageTip"
+msgstr "the language in which this learning object was made"
+
+msgid "Identifier"
+msgstr "ตัวบ่งชี้ Identifier"
+
+msgid "IdentifierTip"
+msgstr "unique identification for this learning object, composed of letters, digits, _-.()'!*"
+
+msgid "TitleTip"
+msgstr "title or name, and language of that title or name"
+
+msgid "DescriptionTip"
+msgstr "อธิบายแสดงความคิดเห็น description or comment, and language used for describing this learning object"
+
+msgid "Keyword"
+msgstr "คำสำคัญ"
+
+msgid "KeywordTip"
+msgstr "แยกคำด้วยเครื่องหมาย , separate by commas (letters, digits, -.)"
+
+msgid "Coverage"
+msgstr "ครอบคลุม Coverage"
+
+msgid "CoverageTip"
+msgstr "ตัวอย่างปริญญาของ for example bachelor of xxx: yyy"
+
+msgid "KwNote"
+msgstr "If you change the description language, do not add keywords at the same time."
+
+msgid "Location"
+msgstr "URL/URI"
+
+msgid "LocationTip"
+msgstr "คลิกเปิด click to open object"
+
+msgid "Store"
+msgstr "จัดเก็บ Store"
+
+msgid "DeleteAll"
+msgstr "ลบ metadata ทั้งหมด"
+
+msgid "ConfirmDelete"
+msgstr "คุณต้องการที่จะลบ metadata ทั้งหมดจริงๆใช่หรือไม่"
+
+msgid "WorkOn"
+msgstr "เปิด"
+
+msgid "Continue"
+msgstr "ต่อไปด้วย"
+
+msgid "Create"
+msgstr "สร้าง"
+
+msgid "RemainingFor"
+msgstr "เอารายการที่ล้าหลังออกจากประเภท"
+
+msgid "WarningDups"
+msgstr "สำเนาชื่อประเภทได้เอาออกจากรายการแล้ว"
+
+msgid "SLC"
+msgstr "ใช้งานร่วมกับชื่อของประเภท"
+
+msgid "HFor"
+msgstr "ระบบช่วยเหลือ 'กระดานข่าว'"
+
+msgid "ForContent"
+msgstr "กระดานข่าวเป็นรูปแบบของการสนทนาแบบกลุ่ม ซึ่งจะแตกต่างจากอีเมล์ ที่สามารถพูดคุยได้แค่ตัวต่อตัวเท่านั้น</p><p>เทคนิคการใช้กระดานข่าว - นักศึกษาเพียงแค่ใช้ browser เปิดอ่าน , เขียน , หรือตอบกระทู้ที่ต้องการ</P><p>สำหรับการดูแลจัดการกระดานข่าว, คลิกที่ 'admin'(ใต้หัวข้อกระดานข่าว) เพื่อเข้าสู่ระบบจัดการกระดานข่าว ซึ่งมีเมนูคำสั่งต่างๆดังนี้:</p><p><b>สร้างหมวดหมู่ > สร้างกระดานข่าว > เขียนกระทู้ > ตอบหรือลบกระทู้</b></p>การกำหนดรูปแบบของการสนทนา หรือการเปิดกระดานข่าวของท่าน เพื่อให้นักศึกษาใช้งานท่านจะต้องทำการสร้างหมวดหมู่ และสร้างกระดานข่าว ในหัวข้อที่ท่านต้องการขึ้นมาก่อน จากนั้นจึงทิ้งกระดานให้ว่างไว้ เพื่อให้นักศึกษาสามารถเข้ามาตั้งกระทู้ และพูดคุยปรึกษากันในกลุ่มได้ <p>claroline forum ได้สร้างกระดานข่าวหมวดหมู่ 'Public' เพื่อเป็นตัวอย่างสำหรับการถามตอบกระทู้</p><p> สิ่งแรกที่ควรทำคือ ทำการลบกระทู้ตัวอย่างทิ้ง และปรับปรุงแก้ไขชื่อของกระดานเสียใหม่  ท่านอาจเปิดกระดานอื่นๆ เพิ่มเติมได้อีกตามความเหมาะสมของบทเรียนของท่าน<p> แต่อย่ารวมทุกกระดานไว้ในหมวดหมู่เดียวกัน และอย่าลืมว่าหมวดหมู่ที่ไม่มีกระดานข่าวอยู่ภายใน จะไม่ถูกแสดงให้นักศึกษาเห็น </p><p>คำอธิบายของกระดานข่าวนั้นๆ จะช่วยให้นักศึกษา เกิดความเข้าใจได้ง่าย ในการเข้าร่วมใช้งาน"
+
+msgid "HDropbox"
+msgstr "กล่องรับส่งงาน"
+
+msgid "DropboxContent"
+msgstr "<p>กล่องรับส่งงาน(dropbox)เป็นเครื่องมือของการบริหารจัดการด้านการสื่อสาร การแลกเปลียน การแจกจ่ายเนื้อหาการศึกษาออนไลน์ระหว่างกัน.เป็นเหมือนกล่องรวมรับไฟล์งานของระบบ จัดเก็บ รับ จัดการ ไฟล์งานได้หลากหลายรูปแบบเช่น Word, Excel, PDF etc. สามารถบริหารจัดการกับไฟล์งานที่มีชื่อเหมอืนกันได้โดยไม่ทำลายโครงสร้างสำคัญของไฟล์เช่นการตรวจสอบชื่ไฟล์แล้วเปลี่ยนชื่อให้ใหม่เป็นต้น</p> <p>ในกล่องรับส่งงานของแต่ละคนประกอบด้วยส่วนรับไฟล์และส่วนของการส่งไฟล์</p><p>หากกล่องรับส่งงานของแต่ละคนมีรายการรับ-ส่งมากเกินไป ก็สามารถลบรายการออกเฉพาะตนได้ โดยที่ไม่ได้ลบไฟล์ที่เก็บในระบบไปด้วย.</p> <p>การส่งไฟล์ก็สามารถเลือกส่งไฟล์ไปพร้อมกันหลายไฟล์และหลากหลายผู้ใช้ เช่นกำหนดส่งไปให้สมาชิกในระบบรายใดๆ กลุ่มใดๆหรือเก็บไว้เป็นส่วนตัวก็ได้ และใช้รูปแบบคำสั่งง่ายไร่วมกับปุ่มแป้นพิมพ์ CTRL+click เลือกรายการ</p>"
+
+msgid "HHome"
+msgstr "ระบบช่วยเหลือ 'หน้าหลักบทเรียน'"
+
+msgid "HomeContent"
+msgstr "เพื่อความง่าย และสะดวกต่อการใช้งาน ภายในแต่ละระบบงานจะประกอบด้วยตัวอย่างเล็กๆเพื่อช่วยให้ท่านเข้าใจการทำงานของเครื่องมือนั้นๆได้อย่างรวดเร็วขึ้น ท่านสามารถที่จะลบหรือปรับปรุงตัวอย่างเหล่านี้ ได้ตามควมต้องการ </p><p>ตัวอย่างเช่น ตรงกลางหน้าหลักของบทเรียนท่าน มีแถบข้อความสั้นๆ ข้อความว่า 'นี้คือคำนำของบทเรียนท่าน ต้องการแก้ไขข้อความ โปรดคลิกที่ปุ่ม ปรับปรุง ด้านล่าง'  การแก้ไขเพื่อให้เป็นข้อความของท่านเองเพี่ยงแต่คลิกที่ข้อความ 'ปรับปรุง' และทำการแก้ไขเป็นข้อความของท่าน เสร็จแล้วคลิกปุ่ม 'ตกลง' บทนำดังกล่าวก็จะเปลี่ยนเป็นข้อความของตัวท่าน  การใช้เครื่องมืออื่นๆก็เป็นลักษณะเดียวกันคือ : เพิ่ม , ลบ , ปรับปรุง ซึ่งกระบวนการเหล่านี้เป็นลักษณะเด่นของ dynamic website</p><p>เมื่อท่านเริ่มต้นสร้างบทเรียนของท่าน เครื่องมือส่วนใหญ่จะเปิดทำงาน  เช่นเดียวกันหากไม่ต้องการ เพียงแต่คลิก 'ปิดการใช้งาน'ระบบงานนั้นก็จะถูกปิดลง กลายเป็นเมนูสีเทาอยู่ด้านล่างสุด  ซึ่งจะไม่สามารถมองเห็นได้ในมุมมองของนักศึกษา และท่านสามารถที่จะเปิดใช้งานอีกครั้งเมื่อใดก็ได้ที่ต้องการ</p><p>ท่านสามารถที่จะเพิ่มหน้าเนื้อหา เข้าในหน้าหลักบทเรียนของท่านได้  แต่หน้าเหล่านั้นต้องเป็นรูปแบบ HTML (ซึ่งสามารถสร้างได้จาก Word Processor หรือ Web Composer ใดๆก็ได้)  ใช้เมนูคำสั่ง 'ส่งข้อมูลและเชื่อมเข้ากับบทเรียน'หน้าเอกสาร HTML ที่เพิ่มเข้าไปนี้ ก็จะรวมเข้ากับบทเรียนของท่านโดยอัตโนมัติ  แต่ถ้าท่านต้องการเชื่อมบทเรียนของท่านเข้ากับ web site อื่นๆ ภายนอกหรือภายในคณะก็ตาม ขอให้ใช้คำสั่ง 'เพิ่ม link ในบทเรียนนี้' <p>หน้าเอกสารและ link ที่เพิ่มเข้าไปนี้ สามารถลบออกได้เมื่อท่านปิดการใช้งานของมันลงเสียก่อน</p><p>ตอนนี้บทเรียนของท่านพร้อมใช้งานแล้ว ขอให้เข้าไปที่ 'ปรับปรุงรายละเอียดวิชา' เพื่อตั้งค่ากำหนดการเข้าเรียนของนักศึกษาของท่าน  และขอแนะนำให้เลือก 'ปิดลงทะเบียน' ไว้ก่อน (เพราะท่านกำลังดำเนินการสร้างบทเรียนของท่านอยู่) เมื่อทุกอย่างพร้อม จึงค่อยเปลี่ยนเป็นตัวเลือกอื่นตามต้องการต่อไป </p>"
+
+msgid "HOnline"
+msgstr "ระบบช่วยเหลือการสัมมนาออนไลน์"
+
+msgid "OnlineContent"
+msgstr "<br><span style=\"font-weight: bold;\">Introduction </span><br> <br> <div style=\"margin-left: 40px;\">Dokeos online conferencing system allows you to teach, inform or gather together up to 500 people in a simple and quick way.<br> </div> <ul> <ul> <li><b>live audio :</b> the trainer's voice is broadcasted live to participants,<br> </li> <li><b>slides :</b> the participants follow the Power Point or PDF presentation,<br> </li> <li><b>interaction :</b> the participants ask questions through a chat.</li> </ul> </ul> <span style=\"font-weight: bold;\"></span><span style=\"font-weight: bold;\"><br> Student / participant</span><br> <br> <div style=\"margin-left: 40px;\">To attend a conference you need:<br> </div> <br> <div style=\"margin-left: 40px;\">1. Loudspeakers (or headset) connected to your PC<br> <br> <a href=\"http://www.logitech.com\"><img style=\"border: 0px solid ; width: 87px; height: 58px;\" alt=\"speakers\" src=\"../img/speaker.gif\"></a><br> <br> 2. Winamp Media player<br> <br> <a href=\"http://www.winamp.com\"><img style=\"border: 0px solid ; width: 87px; height: 27px;\" alt=\"Winamp\" src=\"../img/winamp.gif\"></a><br> <br> Mac : use <a href=\"http://www.quicktime.com\">Quicktime</a><br> Linux : use <a href=\"http://www.xmms.org/\">XMMS</a> <br> <br>   3. Acrobat PDF reader or Word or PowerPoint, depending on the format of the teacher's slides<br> <br> <a href=\"http://www.acrobat.com\"><img style=\"border: 0px solid ; width: 87px; height: 31px;\" alt=\"acrobat reader\" src=\"../img/acroread.gif\"></a><br> </div> <br> <span style=\"font-weight: bold;\"><br> Teacher / lecturer</span><br> <br> <div style=\"margin-left: 40px;\">To give a lecture, you need :<br> </div> <br> <div style=\"margin-left: 40px;\">1. A microphone headset<br> <br> <a href=\"http://www.logitech.com\"><img style=\"border: 0px solid ; width: 87px; height: 87px;\" alt=\"Headset\" src=\"../img/headset.gif\"></a><br> We advise you to use a <a href=\"http://www.logitech.com/\">Logitech</a> USB one for a better audio broadcasting quality.<br> <br> 2. Winamp<br> <br> <a href=\"http://www.winamp.com\"><img style=\"border: 0px solid ; width: 87px; height: 27px;\" alt=\"Winamp\" src=\"../img/winamp.gif\"></a><br> <br> 3. SHOUTcast DSP Plug-In for Winamp 2.x <br> <br> <a href=\"http://www.shoutcast.com\"><img style=\"border: 0px solid ; width: 87px; height: 24px;\" alt=\"Shoutcast\" src=\"../img/shoutcast.gif\"></a><br> <br> Follow instructions on <a href=\"http://www.shoutcast.com\">www.shoutcast.com</a> on how to install and configure Shoutcast Winamp DSP Plug-In. <br> </div> <br> <span style=\"font-weight: bold;\"><br> How to give a conference?<br> <br> </span> <div style=\"margin-left: 40px;\">Create a Chamilo course > Enter it > Show then enter Conference tool > Edit (pencil icon on top left) the settings > upload your slides (PDF, PowerPoint or whatever) > type an introduction text > type the URL of your live streaming according to the information you got from your technical admin.<span style=\"font-weight: bold;\"></span><br> <span style=\"font-weight: bold;\"></span></div> <div style=\"margin-left: 40px;\"><img style=\"width: 256px; height: 182px;\" alt=\"conference config\" src=\"../img/conf_screen_conf.gif\"><br> Don't forget to give a clear meeting date, time and other guidelines to your participants beforehand. <br> <br> <span style=\"font-weight: bold;\">Tip</span> : 10 minutes before conference time, type a short message in the chat to inform participants that you are here and to help people who might have audio trouble. <br> </div> <br> <br> <span style=\"font-weight: bold;\">Streaming Server</span><br> <br> <div style=\"margin-left: 40px;\">To give an online live streaming conference, you need a streaming server and probably a technical admin to help you use it. This guy will give you the URL you need to type in the live streaming form field once you edit your conference settings.<br> <br> <small><a href=\"http://www.chamilo.org/hosting.php#streaming\"><img style=\"border: 0px solid ; width: 258px; height: 103px;\" alt=\"chamilo streaming\" src=\"../img/streaming.jpg\"><br> chamilo streaming</a></small><br> <br> Do it yourself : install, configure and admin <a href=\"http://www.shoutcast.com\">Shoutcast</a> or <a href=\"http://developer.apple.com/darwin/projects/streaming/\">Apple Darwin</a>. <br> <br> Or contact Chamilo. We can help you organise your conference, asssist your lecturer and rent you a low cost streaming slot on our servers : <a href=\"http://www.chamilo.org/hosting.php#streaming\">http://www.chamilo.org/hosting.php</a><br> <br> <br>"
+
+msgid "HClar"
+msgstr "เริ่มต้น หน้าช่วยเหลือ"
+
+msgid "HDoc"
+msgstr "ระบบช่วยเหลือ 'งานเอกสาร'"
+
+msgid "DocContent"
+msgstr "<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager ของคอมพิวเตอร์ทั่วไป</p><p>ท่านสามารถ upload ไฟล์ข้อมูลชนิดใดก็ได้ (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) <br><b> ++แต่ให้ตั้งชื่อไฟล์เป็นภาษาอังกฤษเท่านั้น++ </b><br>และท่านควรนึกถึงโปรแกรมที่นักศึกษา ต้องใช้สำหรับเปิดเอกสารของท่านด้วย <p>ไฟล์ข้อมูลบางประเภท อาจมีไวรัสแฝงอยู่ ท่านไม่ควรเสี่ยงที่จะ upload ขึ้นสู่บทเรียน และเพื่อให้แน่ใจยิ่งขึ้น ควรทำการตรวจสอบไวรัสด้วยโปรแกรม antivirus ของท่านก่อนทำการ upload ทุกๆไฟล์</p><p>เอกสารของท่านจะถูกจัดเรียงตามลำดับตัวอักษร<br><b>Tip : </b>หากท่านต้องการจัดเรียงลำดับให้แตกต่างไป ให้กำหนดเป็นตัวเลข เข่น 01, 02, 03...แทน</p><p>ท่านสามารถ :</p><h4>Upload เอกสาร</h4><ul>  <li>เลือกไฟล์บนคอมพิวเตอร์ของท่าน โดยใช้ปุ่ม Browse <input type=submit value=Browse name=submit2>	ที่ด้านขวาของจอภาพ</li>  <li>ทำการ upload ด้วยปุ่ม Upload <input type=submit value=Upload name=submit2>	.</li></ul><h4>เปลี่ยนชื่อเอกสาร (หรือชื่อ directory)</h4><ul>  <li>คลิกที่รูป <img src=../img/renommer.gif width=20 height=20 align=baseline> ในช่องคอลัมม์ เปลี่ยนชื่อ</li>  <li>พิมพ์ชื่อใหม่ลงในช่อง (ด้านซ้ายบน)</li>  <li>คลิกปุ่ม <input type=submit value=Ok name=submit24></ul>	<h4>ลบเอกสาร (หรือลบ directory)</h4>	<ul>	    <li>คลิกที่รูป <img src=../img/delete.gif width=20 height=20> 	ในคอลัมม์ 'ลบ'</li>	</ul>	<h4>การอนุญาตให้นักศึกษาเห็นเอกสาร (หรือ directory) หรือไม่</h4>	<ul>	    <li>คลิกที่รูป <img src=../img/visible.gif width=20 height=20>   ในคอลัมม์  'Visible/invisible'</li><li>เอกสาร (หรือ directory) ยังคงมีอยู่ แต่นักศึกษาจะไม่สามารถมองเห็นได้</li>	    <li>ทำให้กลับมามองเห็นเช่นเดิม คลิกที่รูป <img src=../document/../img/invisible.gif width=24 height=20> 	ในคอลัมม์ 'Visible/invisible'</li>	</ul>	<h4>เพิ่มหรือปรับปรุงหมายเหตุของเอกสาร (หรือ directory)</h4>	<ul>	    <li>คลิกที่รูป <img src=../document/../img/comment.gif width=20 height=20> 	ในคอลัมม์ 'หมายเหตุ'</li>	  <li>พิมพ์หมายเหตุในกรอบโต้ตอบ (ด้านบนซ้าย)</li>	  <li>คลิกปุ่ม <input type=submit value=OK name=submit2></li>	</ul>	<p> ต้องการลบหมายเหตุ คลิกที่รูป <img src=../document/../img/comment.gif width=20 height=20>, 	 ลบหมายเหตุเก่าในช่องออก และคลิกปุ่ม <input type=submit value=OK name=submit22>	<hr>	<p>ท่านสามารถจัดระบบการเก็บเอกสารของท่านได้ โดย :</p>	<h4><b>สร้าง directory</b></h4>	<ul>	  <li>คลิกที่รูป <img src=../document/../img/dossier.gif width=20 height=20> 'สร้าง directory' (top left)</li>	  <li>พิมพ์ชื่อ directory ใหม่ในช่องกรอบโต้ตอบ (ซ้ายมือบน)</li>	  <li>คลิกปุ่ม <input type=submit value=OK name=submit23></li>	</ul>	<h4>ย้ายเอกสาร (หรือ directory)</h4>	<ul>	  <li>คลิกที่รูป <img src=../document/../img/deplacer.gif width=34 height=16> 		ในคอลัมม์ 'ย้าย'</li>	  <li>เลือก directory ที่ต้องการจะย้ายเอกสารไปไว้ ในกรอบโต้ตอบ (ด้านซ้ายบน) <br>	  (note: ข้อความ 'root' หมายความว่า เป็น directory สูงสุดของ server นี้แล้ว</li>	  <li>คลิกปุ่ม <input type=submit value=OK name=submit232></li>	</ul>	<center>	  <p>"
+
+msgid "HUser"
+msgstr "ระบบช่วยเหลือ 'Users'"
+
+msgid "HExercise"
+msgstr "คำชี้แจงการทำแบบฝึกหัด/แบบทดสอบ"
+
+msgid "HPath"
+msgstr "คำแนะนำการเข้าเรียนวิชา"
+
+msgid "HDescription"
+msgstr "คำแนะนำคำอธิบายรายวิชา"
+
+msgid "HLinks"
+msgstr "คำแนะนำการใช้เครื่องมือสร้างการเชื่อมโยง"
+
+msgid "HMycourses"
+msgstr "เกี่ยวกับหน้าแรก"
+
+msgid "HAgenda"
+msgstr "คำแนะนำกำหนดการ"
+
+msgid "HAnnouncements"
+msgstr "คำแนะนำการประกาศ"
+
+msgid "HChat"
+msgstr "คำแนะนำการสนทนาออนไลน์"
+
+msgid "HWork"
+msgstr "คำแนะนำสำหรับงานพิมพ์ของผู้เรียน"
+
+msgid "HTracking"
+msgstr "คำแนะนำ การติดตามผล"
+
+msgid "GeneralDescription"
+msgstr "คำอธิบายทั่วไป"
+
+msgid "GeneralDescriptionQuestions"
+msgstr "What is the place of the course in the program? Are there pre-requisites? How is the course connected with other courses?"
+
+msgid "GeneralDescriptionInformation"
+msgstr "แนะนำรายละเอียดต่างๆที่เกี่ยวข้องกับรายวิชา"
+
+msgid "Objectives"
+msgstr "วัตถุประสงค์"
+
+msgid "ObjectivesInformation"
+msgstr "วัตถุประสงค์ทั่วไป"
+
+msgid "ObjectivesQuestions"
+msgstr "What will the users be able to do at the end of the course period. What are they invited to create during course process?"
+
+msgid "Topics"
+msgstr "หัวข้อ"
+
+msgid "TopicsInformation"
+msgstr "List of topics included in the course. Importance of each topic. Level of difficulty. Structure and inter-dependence of the different parts."
+
+msgid "TopicsQuestions"
+msgstr "How does the course progress? Where should the users pay special attention? Are there identified problems in the understanding if its different chapters? What time should one dedicate to the different parts of the course?"
+
+msgid "Methodology"
+msgstr "Methodology"
+
+msgid "MethodologyQuestions"
+msgstr "What methods and what activities will help reach the objectives of the course? Along what schedule?"
+
+msgid "MethodologyInformation"
+msgstr "Presentation of the activities (conference, papers, group research, labs...)."
+
+msgid "CourseMaterial"
+msgstr "Course material"
+
+msgid "CourseMaterialQuestions"
+msgstr "Is there a coursebook, a collection of papers, a bibliography, a list of links on the internet?"
+
+msgid "CourseMaterialInformation"
+msgstr "Short description of the course materials."
+
+msgid "HumanAndTechnicalResources"
+msgstr "Human and technical Resources"
+
+msgid "HumanAndTechnicalResourcesQuestions"
+msgstr "Are there teachers, tutors, a technical helpdesk, social assistants, computer rooms?"
+
+msgid "HumanAndTechnicalResourcesInformation"
+msgstr "Short description of the identitiy of the different contact persons and technical devices available"
+
+msgid "Assessment"
+msgstr "การประเมิน"
+
+msgid "AssessmentQuestions"
+msgstr "How will users be evaluated? Are there starategies to develop in order to master the topic?"
+
+msgid "AssessmentInformation"
+msgstr "Example exam questions. Criteria of success. Tips and tricks."
+
+msgid "Height"
+msgstr "ความสูง"
+
+msgid "ResizingComment"
+msgstr "ปรับขนาดภาพตามที่กำหนดนี้(หน่วยเป็นPixels)"
+
+msgid "Width"
+msgstr "ความกว้าง"
+
+msgid "Resizing"
+msgstr "ปรับขนาดใหม่"
+
+msgid "NoResizingComment"
+msgstr "แสดงภาพทั้งหมดในขนาดจริง โดยไม่ต้องปรับขนาดใหม่ หากพื้นที่ไม่พอแสดงภาพจะขึ้นแถบเลื่อนดูภาพให้"
+
+msgid "ShowThumbnails"
+msgstr "แสดงภาพขนาดเล็ก"
+
+msgid "SetSlideshowOptions"
+msgstr "เลือกกำหนดตั้งค่า การแสดงภาพสไลด์"
+
+msgid "SlideshowOptions"
+msgstr "ตั้งค่าการแสดงภาพสไลด์"
+
+msgid "NoResizing"
+msgstr "ไม่ปรับขนาด ใช้ขนาดจริงเดิมของไฟล์"
+
+msgid "SlideShow"
+msgstr "แสดงภาพไลด์"
+
+msgid "ViewSlideshow"
+msgstr "ดูภาพไลด์"
+
+msgid "ResourceAdded"
+msgstr "เพิ่มหน่วยการเรียนรู้แล้ว หากต้องการเพิ่มเติมอีกให้ย้อนกลับไปที่เดิมแล้วเพิ่มรายการใหม่"
+
+msgid "LearningPath"
+msgstr "แผนการเรียน"
+
+msgid "LevelUp"
+msgstr "ย้อนขึ้นไปอีกระดับ"
+
+msgid "AddIt"
+msgstr "เพิ่ม"
+
+msgid "MainCategory"
+msgstr "ประเภทรายการหลัก"
+
+msgid "AddToLinks"
+msgstr "เพิ่มเข้าไปในรายการเชื่อมโยงของรายวิชา"
+
+msgid "DontAdd"
+msgstr "ไม่ต้องเพิ่ม"
+
+msgid "ResourcesAdded"
+msgstr "เพิ่มหน่วยการเรียน"
+
+msgid "ExternalResources"
+msgstr "หน่วยการเรียนรู้จากภายนอก"
+
+msgid "CourseResources"
+msgstr "หน่วยการเรียนรู้ของรายวิชา"
+
+msgid "ExternalLink"
+msgstr "รายการเชื่อมโยงไปนอกระบบ"
+
+msgid "DropboxAdd"
+msgstr "เพิ่มกล่องรับส่งงานไว้ไนหน่วยการเรียน/บทนี้"
+
+msgid "AddAssignmentPage"
+msgstr "เพิ่มหน้าการส่งงาน/การบ้านของผู้เรียน เข้าไว้ในหน่วยการเรียน/บทนี้"
+
+msgid "ShowDelete"
+msgstr "แสดง / ลบ"
+
+msgid "IntroductionText"
+msgstr "บทนำ"
+
+msgid "CourseDescription"
+msgstr "คำอธิบายรายวิชา"
+
+msgid "IntroductionTextAdd"
+msgstr "เพิ่มบทนำในบทเรียน"
+
+msgid "CourseDescriptionAdd"
+msgstr "เพิ่มคำอธิบายรายวิชาในบทเรียน"
+
+msgid "GroupsAdd"
+msgstr "เพิ่มกลุ่มในบทเรียน"
+
+msgid "UsersAdd"
+msgstr "เพิ่มชื่อผู้ใช้ในบทเรียน"
+
+msgid "ExportableCourseResources"
+msgstr "หน่วยการเรียนรู้ที่สามารถส่งออกเป็นไฟล์ได้"
+
+msgid "LMSRelatedCourseMaterial"
+msgstr "หน่วยการเรียนรู้ที่มีเนื้อหาเกี่ยวข้องกับระบบ Chamilo"
+
+msgid "LinkTarget"
+msgstr "เชื่อมโยงต่อไปที่"
+
+msgid "SameWindow"
+msgstr "ในหน้าต่างเดิม"
+
+msgid "NewWindow"
+msgstr "ในหน้าต่างใหม่"
+
+msgid "StepDeleted1"
+msgstr "¹Õé"
+
+msgid "StepDeleted2"
+msgstr "item was deleted in that tool."
+
+msgid "Chapter"
+msgstr "บทที่"
+
+msgid "AgendaAdd"
+msgstr "เพิ่มกำหนดการใหม่"
+
+msgid "UserGroupFilter"
+msgstr "กรองจากกลุ่ม/บัญชีผู้ใช้งาน"
+
+msgid "AgendaSortChronologicallyUp"
+msgstr "แสดงกำหนดการตามลำดับวันเวลา"
+
+msgid "ShowCurrent"
+msgstr "แสดงกำหนดการทั้งหมดของเดือนนี้"
+
+msgid "ModifyCalendarItem"
+msgstr "แก้ไขกำหนดการ"
+
+msgid "Detail"
+msgstr "รายละเอียด"
+
+msgid "EditSuccess"
+msgstr "แก้ไขกำหนดการแล้ว"
+
+msgid "AddCalendarItem"
+msgstr "เพิ่มกำหนดการใหม่"
+
+msgid "AddAnn"
+msgstr "เพิ่มประกาศ"
+
+msgid "ForumAddNewTopic"
+msgstr "เปิดอภิปราย: ตั้งหัวข้อใหม่"
+
+msgid "ForumEditTopic"
+msgstr "การอภิปราย:แก้ไขหัวข้อ"
+
+msgid "ExerciseAnswers"
+msgstr "แบบฝึกหัด:คำตอบ"
+
+msgid "ForumReply"
+msgstr "การอภิปราย:ตอบกระทู้"
+
+msgid "SendWork"
+msgstr "ส่งไฟล์ขึ้นระบบ"
+
+msgid "TooBig"
+msgstr "คุณไม่ได้เลือกไฟล์ที่จะส่งหรือไฟล์มีขนาดใหญ่เกินไป"
+
+msgid "DocModif"
+msgstr "ปรับปรุงชื่อเรื่องแล้ว"
+
+msgid "DocAdd"
+msgstr "เพิ่มเอกสารแล้ว"
+
+msgid "DocDel"
+msgstr "ลบเอกสารแล้ว"
+
+msgid "TitleWork"
+msgstr "ชื่อไฟล์"
+
+msgid "Authors"
+msgstr "ผู้เขียน/เจ้าของผลงาน"
+
+msgid "WorkDelete"
+msgstr "ลบงาน"
+
+msgid "WorkModify"
+msgstr "แก้ไขงาน"
+
+msgid "WorkConfirmDelete"
+msgstr "คุณต้องการที่จะลบไฟล์งานนี้"
+
+msgid "AllFiles"
+msgstr "ปฏิบัติเหมือนกันทุกไฟล์"
+
+msgid "DefaultUpload"
+msgstr "ตั้งค่าเริ่มต้นแสดงโดยปริยายให้กับไฟล์ที่โพสท์เข้ามาใหม่"
+
+msgid "NewVisible"
+msgstr "ให้ทุกคนมองเห็นไฟล์เอกสารใหม่"
+
+msgid "NewUnvisible"
+msgstr "ให้มองเห็นเอกสารใหม่เฉพาะผู้จัดการรายวิชา"
+
+msgid "MustBeRegisteredUser"
+msgstr "อนุญาตให้ส่งไฟล์เอกสารได้เฉพาะผู้ที่ลงทะเบียนในรายวิชานี้"
+
+msgid "ListDel"
+msgstr "ลบรายการ"
+
+msgid "CreateDirectory"
+msgstr "สร้างแฟ้มเอกสาร"
+
+msgid "CurrentDir"
+msgstr "แฟ้มปัจจุบัน"
+
+msgid "UploadADocument"
+msgstr "โอนย้ายไฟล์เอกสารขึ้นสู่ระบบ"
+
+msgid "EditToolOptions"
+msgstr "แก้ไขคุณสมบัติของเครื่องมือ"
+
+msgid "AdminFirstName"
+msgstr "นามสกุลผู้จัดการระบบ"
+
+msgid "InstituteURL"
+msgstr "ชื่อเว็ปไซท์ของหน่วยงานหลักคุณ"
+
+msgid "UserDB"
+msgstr "ชื่อฐานข้อมูลผู้ใช้"
+
+msgid "UserContent"
+msgstr "<b>สถานะภาพ</b><p>สถานะภาพ ใช้เพื่อแสดงบทบาทของผู้นั้นว่าเป็นใครเท่านั้น ไม่เกี่ยวข้องกับสิทธิ์ในการดูแลระบบคอมพิวเตอร์นี้อย่างไร ท่านสามารถปรับเปลี่ยนได้ โดยคลิกที่ 'ปรับปรุง'ในช่องคอลัมม์หน้าที่ และพิมพ์หน้าที่ที่ท่านต้องการให้ผู้นั้นเป็นลงไป เช่น อาจารย์ , ผู้ช่วย , นักศึกษา , ผู้เยี่ยมชม , หรือผู้เชี่ยวชาญ เป็นต้น</P><hr><b>สิทธิ์ในบทเรียน</b><p>สิทธิ์ในบทเรียน คือการอนุญาตให้แก่ผู้หนึ่งผู้ใด มีสิทธิ์ในการเข้าร่วมแก้ไข ปรับปรุงข้อมูล หรือจัดการด้านอื่นๆ เทียบเท่าเจ้าของบทเรียนนั้นๆ  ท่านสามารถเลือกได้สองแบบเท่านั้น คือ ให้สิทธิ์ทั้งหมด หรือไม่ให้สิทธิ์เลย</P><p>การอนุญาตผู้ช่วย ให้เข้าร่วมในการสร้างบทเรียน ท่านต้องลงทะเบียนให้เขา หรือต้องแน่ใจว่าเขาได้ลงทะเบียนบทเรียนของท่านไว้แล้ว จากนั้น จึงคลิก 'ปรับปรุง' ที่คอลัมม์ 'สิทธิ์ในบทเรียน' และเลือก 'ทั้งหมด' </P><hr><b>การเพิ่มผู้รับผิดชอบวิชา</b><p>การเพิ่มชื่อผู้รับผิดชอบวิชาร่วม ที่ตำแหน่งส่วนหัวของบทเรียน ใช้เมนู 'ปรับปรุงรายละเอียดวิชา' (เมนูคำสั่งสีส้ม) และพิมพ์ชื่อเพิ่มในช่อง 'อาจารย์' แต่การใช้คำสั่งนี้ ไม่ใช่การอนุญาตสิทธิ์ในบทเรียน เช่นเดียวกับการทำในคำสั่ง 'สิทธิ์ในบทเรียน'</p><hr><b>เพิ่ม user</b><p>การเพิ่ม user ในบทเรียนของท่าน  กรอกข้อมูลในช่องให้ครบ และคลิกปุ่มตกลง บุคคลนั้นจะได้รับอีเมล์ แจ้งว่าท่านได้ทำการลงทะเบียนเข้าสู่บทเรียนแก่เขาแล้ว รวมทั้งแจ้งชื่อผู้ใช้และรหัสผ่านแก่เขาด้วย</p>"
+
+msgid "GroupContent"
+msgstr "<p><b>คำนำ</b></p><p>เครื่องมือนี้เพื่อสำหรับใช้สร้างกลุ่มทำงาน  ในขั้นตอนการสร้าง (สร้างกลุ่มใหม่), กลุ่มจะว่างเปล่า มีหลายวิธีที่จะนำนักศึกษาเข้ากลุ่ม :<ul><li>อัตโนมัติ('เพิ่มนักศึกษาเข้ากลุ่ม'),</li><li>ทำด้วยตนเอง ('แก้ไข'),</li><li>ให้นักศึกษาลงทะเบียนเข้ากลุ่มเอง (จัดระเบียบกลุ่ม: 'อนุญาตให้ลงทะเบียนเองได้...').</li></ul>ทั้งสามวิธีนี้สามารถใช้ประกอบกันได้  ท่านอาจบอกให้นักศึกษาลงทะเบียนเข้ากลุ่มเองก่อนจากนั้นจึงสำรวจดูว่าหากยังมีบางคนยังไม่ตัดสินใจ ท่านจึงค่อยนำพวกเขาเข้ากลุ่มให้เองโดยวิธีอัตโนมัตินอกจากนี้ ท่านยังสามารถแก้ไขจำนวนสมาชิกของแต่ละกลุ่ม ในเวลาก่อนหรือหลังจากให้นักศึกษาลงทะเบียนเข้ากลุ่มเองแล้ว หรือขณะเติมนักศึกษาเข้ากลุ่มโดยวิธีอัตโนมัติก็ได้</p><p>การเติมนักศึกษาเข้ากลุ่ม ไม่ว่าอย่างอัตโนมัติ หรือกำหนดเอง จะทำได้ก็ต่อเมื่อมีนักศึกษาลงทะเบียนเข้าเรียนในรายวิชานั้นๆแล้วเท่านั้น(การลงทะเบียนเข้าเรียนในรายวิชา กับการลงทะเบียนเข้ากลุ่มนั้นแตกต่างกัน อย่ารวมเข้าด้วยกัน)รายชื่อนักศึกษาของท่านจะปรากฎอยู่ในเมนูเครื่องมือ <b>Users</b> </p><hr noshade size=1><p><b>สร้างกลุ่มใหม่</b></p><p>การสร้างกลุ่มใหม่ คลิกที่ 'สร้างกลุ่มใหม่' และทำการกำหนดจำนวนของสมาชิกในกลุ่ม จำนวนสมาชิกสูงสุดสามารถกำหนดเท่าไรก็ได้ แต่ขอแนะนำให้มีจำนวนอย่างน้อยหนึ่งคน เพราะหากปล่อยช่องให้ว่างไว้ ขนาดสูงสุดของจำนวนคนในกลุ่ม จะกลายเป็นไม่มีที่สิ้นสุด</p><hr noshade size=1><p><b>จัดระเบียบกลุ่ม</b></p><p>ท่านสามารถตั้งค่ากำหนดให้ครอบคลุมทุกกลุ่มที่สร้างขึ้นได้โดยกำหนดที่<b>นักศึกษาได้รับอนุญาตให้ลงทะเบียนด้วยตัวเองได้</b>: <p>ทำการสร้างกลุ่มว่างขึ้นหนึ่งกลุ่ม เพื่อให้นักศึกษาลงทะเบียนเองถ้าหากท่านกำหนดจำนวนสมาชิกสูงสุดไว้ เมื่อเต็มแล้วนักศึกษาจะไม่สามารถลงทะเบียนเข้ากลุ่มได้อีก วิธีนี้ดีสำหรับผู้สอนที่ไม่ทราบรายชื่อนักศึกษา ที่ลงทะเบียนในรายวิชานั้น ขณะทำการสร้างกลุ่มให้อยู่</p><b>เครื่องมือ</b>:</p><p>ทุกกลุ่มจะมีกระดานข่าวของกลุ่ม (ส่วนตัวหรือสาธารณะ) หรือส่วนงานเอกสารของกลุ่มเอง</p><hr noshade size=1><p><b>การแก้ไข</b></p><p>เมื่อทำการสร้างกลุ่มแล้ว ท่านจะเห็นรายชื่อของกลุ่มอยู่ที่ด้านล่างของหน้า<ul><li><b>แก้ไข</b> เพือปรับปรุงชื่อของกลุ่ม คำอธิบาย กำหนดติวเตอร์ หรือรายชื่อสมาชิก</li><li><b>ลบ</b> เพื่อลบกลุ่ม</li></ul><hr noshade size=1>"
+
+msgid "ExerciseContent"
+msgstr "<p>The tests tool allows you to create tests that will contains as many questions as you like.<br><br> There are various types of answers available for the creation of your questions :<br><br> <ul> <li>Multiple choice (Unique answer)</li> <li>Multiple choice (multiple answers)</li> <li>Matching</li> <li>Fill in the blanks</li> </ul> A test gathers a certain number of questions.</p> <hr> <b>Test creation</b> <p>In order to create a test, click on the link \"New test\".<br><br> Type the test name, as well as an optional description of it.<br><br> You can add an audio or a video file, for listening comprehension etc. It is up to you to choose these files as light as possible so that they download easily through the web. Prefer .mp3 files to .wav file for instance, because of a better compression and then smaller file size. <br> <br> You can also choose between 2 test types :<br><br> <ul> <li>Questions on an unique page</li> <li>One question per page (sequential)</li> </ul> and tell if you want questions to be randomly sorted at the time of test running.<br><br> Then, save your test. You will go to to the question administration.</p> <hr> <b>Adding a question</b> <p>You can now add a question into the test previously created. The description is optional, as well as the picture that you have the possibility to link to your question.</p> <hr> <b>Multiple choice</b> <p>In order to create a MAQ / MCQ :<br><br> <ul> <li>Define the answers for your question. You can add or delete an answer by clicking on the right button</li> <li>Check the left box for the correct answer(s)</li> <li>Add an optional comment. This comment won't be seen by the user untill he/she has answered to the question</li> <li>Give a weighting to each answer. The weighting can be any positive or negative integer, or zero</li> <li>Save your answers</li> </ul></p> <hr> <b>Fill in the blanks</b> <p>This allows you to create a text with gaps. The aim is to let the user find words that you have removed from the text.<br><br> To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br> Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br> Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p> <hr> <b>Matching</b> <p>This answer type can be chosen so as to create a question where the user will have to connect elements from an unit U1 with elements from an unit U2.<br><br> It can also be used to ask the user to sort elements in a certain order.<br><br> First define the options among which the user will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br> Notice : Several elements from the first unit can point to the same element in the second unit.<br><br> Give a weighting to each correct matching, and save your answer.</p> <hr> <b>Test modification</b> <p>In order to modify a test, the principle is the same as for the creation. Just click on the picture <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the test to modify, and follow instructions above.</p> <hr> <b>Test deleting</b> <p>In order to delete a test, click on the picture <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the test to delete it.</p> <hr> <b>Test enabling</b> <p>So as for a test to be used, you have to enable it by clicking on the picture <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the test name.</p> <hr> <b>Running the test</b> <p>You can test your exercise by clicking on its name in the tests list.</p> <hr> <b>Random questions</b> <p>At the time of test creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the test.<br><br> By enabling this option, questions will be drawn in a different order every time users will run the test.<br><br> If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p> <hr> <b>Questions pool</b> <p>When you delete a test, its questions are not removed from the database, and they can be reused into a new test, via the questions pool.<br><br> The questions pool also allows to reuse the same question into several tests.<br><br> By default, all the questions of your course are hidden. You can show the questions related to a test, by chosing this one in the drop-down menu \"Filter\".<br><br> Orphan questions are questions that don not belong to any test.</p> Adding a question <hr> <b>HotPotatoes Tests</b> <p>You can import HotPotatoes tests into Chamilo portal, to this Tests tool. Results of these tests are stored the same way as Chamilo tests. You can explore the results in User Tracking. In case of single tests, we recommend to use html or htm format, if your test contains pictures, a zip file upload is the most convenient way.</p> <p>Note : You can add HotPotatoes Tests as a step in the Learning Path, as well.</p> <b>Method of the import</b> <ul> <li>Select the file on your computer using the Browse button <input type=submit value=Browse name=submit2> on the right of your screen.</li> <li> Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>. </li> <li> You can open the test by clicking onto its name. </li> </ul> <br> <b>Useful link</b><br> <ul> <li>Hot Potatoes home page : <a href=\"http://web.uvic.ca/hrd/halfbaked/\">http://web.uvic.ca/hrd/halfbaked/</a></li> </li> </ul>"
+
+msgid "PathContent"
+msgstr "The Learning Path tool has two functions : <ul><li>Create a learning Path</li> <li>Upload a Scorm or IMS format Learning path</li></ul> <img src=\"../img/path_help.gif\"> <p><b> What is a Learning Path ?</b> </p><p>A Learning Path is a sequence of learning steps included in modules. It can be content-based (looking like a table of contents) or activities-based, looking like an agenda or a programme of what you need to do in order to understand and practice a certain knowledge or know-how.</p><p>In addition to being structured, a learning path can also be sequenced. This means that some steps will constitute pre-requisites for others ('you cannot go to step 2 before step1'). Your sequence can be suggestive (you show steps one after the other) or imperative (you add pre-requisites so that people are forced to follow the sequence). </p> <p><b>How to create our own Learning Path ?</b></p> <p> The first step is to arrive to Learning Path Builder section. In the Learning Path screen, there is a link to it. There you can create many paths by clicking onto <i>Add a new learning path</i>. But they are empty, till you add modules and steps to them.<br>If you make a path visible, it will appear as a new tool on the homepage of the course. This way their access is easier.</p> <p> <b>What are the steps for these paths ? (What are the items that can be added?)</b></p> <p>All Chamilo tools, activities and contents that you consider to be useful and connected to your imagined path can be added :<br><ul> <li>Agenda items</li> <li>Separate documents (texts, pictures, Office docs, ...)</li> <li>Announcement items</li> <li>Forums as a whole</li> <li>Topics</li> <li>Individual topic messages</li> <li>Links</li> <li>Dokeos Tests</li> <li>HotPotatoes Tests <br>(note : those invisible tests, that you put in a path, become visible for students, but only in the Path tool)</li> <li>Assignments page</li> <li>Dropbox page</li> <li>External links, which point out of Chamilo system</li></ul> </p> <p><b> Other features of Learning Path</b> </p> <p> Students can be asked to follow (read) your path in a given order, as you can set <u>prerequisities</u> in the path. This means that for example students cannot go to Quiz 2 till they have read Document 1. All items have a status : completed or incomplete, so the progress of students is clearly available. </p><p> If you alter the original title of a step, the new title will appear in the path, but the original title will not be deleted. So if you want test8.doc to appear as 'Final Exam' in the path, you do not have to rename the file, you can use the new title in the path. It is also useful to give new titles to links as they are too long. </p><p> When finished, do not forget to check the student view, where the table of contents appears on the left and the path steps usually appear on the right, one by one. </p><br><p><b> What is a Scorm or IMS format Learning path and how to upload (import) it?</b> </p> <p>The learning path tool allows you to upload SCORM and IMS compliant course contents.</p> <p>SCORM (<i>Sharable Content Object Reference Model</i>) is a public standard followed by major e-Learning actors like NETg, Macromedia, Microsoft, Skillsoft, etc. and acting at three levels: </p> <ul> <li><b>Economy</b> : Scorm allows whole courses or small content units to be reusable on different Learning Management Systems (LMS) through the separation of content and context,</li> <li><b>Pedagogy</b> : Scorm integrates the notion of pre-requisite or <i>sequencing</i> (<i>e.g. </i>\"You cannot go to chapter 2 before passing Quiz 1\"),</li> <li><b>Technology</b> : Scorm generates a table of contents as an abstraction layer situated outside content and outside the LMS. It helps content and LMS communicate with each other. What is communicated is mainly <i>bookmarks </i>(\"Where is John in the course?\"), <i>scoring</i> (\"How did John pass the test?\") and <i>time</i> (\"How much time did John spent in chapter 1?\").</li> </ul> <b>How to create a SCORM compliant learning path?</b><br> <br> The most natural way is to use the Chamilo Learning Path Builder. However, you may want to create complete Scorm compliant websites locally on your own computer before uploading it onto your chamilo platform. In this case, we recommend the use of a sophisticated tool like Lectoraฎ or Reloadฎ <br></p><p> <b>Useful links</b><br> <ul> <li>Adlnet : authority responsible for Scorm normalisation, <a href=\"http://www.adlnet.org/\">http://www.adlnet.org</a></li> <li>Reload : Open Source free Scorm player and editor, <a href=\"http://www.reload.ac.uk/\">http://www.reload.ac.uk</a></li> <li>Lectora : Scorm publisher authoring software, <a href=\"http://www.trivantis.com/\">http://www.trivantis.com</a><br> <li>HotPotatoes home page, <a href=\"http://web.uvic.ca/hrd/halfbaked/\">http://web.uvic.ca/hrd/halfbaked/</a><br> </li> </ul> <p><b> Note :</b></p><p> The Learning Path section lists all the <i>self-built Learning Paths</i> and all uploaded <i>Scorm format Learning Paths</i>, as well. </p>"
+
+msgid "DescriptionContent"
+msgstr "<p>This tool will help you describe your course in a synthetic way and from the outside. It may help your future students get a clear view on what they can expect from this course. It is also an opportunity for you to rethink your course scenario.</p>Items are given here as proposals. If you want to create a course description with your own items, use only the 'Other' item and decide for its title.</p> <p> To fill the course description, select Create and edit with forms > Scrolldown menu and select the item of your choice > fill the form > Validate. You can always edit or delete the content of every item by clicking on the pencil or red cross icons.</p>"
+
+msgid "LinksContent"
+msgstr "<p>The Links tool allows you to create a library of resources for your students. Especially resoucrs that you have not created yourself.</p> <p>When the list grows, it might proove relevant to organise it into categories to help your students find the right information at the right place. You can edit every link to re-assign it into a new category (you need to create this category first).</p> <p>The Description field can be used to give pre-information on the target web pages but also to describe what you expect the student to do with the link. If, for instance, you point to a website on Aristotle, the description field may ask the student to study the difference between synthesis and analysis."
+
+msgid "MycoursesContent"
+msgstr "<p>Once logged in into the platform, you are in your <i>personal startpage</i>.</p> <p> In the main area (center) you see \"<b>My course list</b>\", a list of all your courses. Depending on your user rights you can also have the possibility to create new courses (via the right hand menu). </p> <p> In the top banner you see <ul><li>\"<b>My e-portfolio</b>\": use this to modify your password, username, picture, or other settings. You can also check your personal platform statistics;</li> <li>\"<b>My agenda</b>\": this contains all agenda events of the courses you are registered in.</li></ul> </p> <p> <b>Edit my course list</b>, in the right hand menu, allows you to enroll in new courses as far as the tacher or the organisation has left these courses open to enrollment. This link lets you unregister from courses too. </p> <p> The links <b>Support Forum</b> and <b>Documentation</b> that point to the main Chamilo website, where you can ask technical or pedagogical questions, find more information.</li> To enter a course (main area of your startpage), click on its name. Your profile can vary from one course to the other. It is possible that you are teacher in one course and student in another. </p>"
+
+msgid "AgendaContent"
+msgstr "<p>The agenda appears both in each course area and as a synthetic tool for the student ('My agenda' in top banner).</p> <p>In the course, the agenda appears as a list of events. You can attach documents or activities to a date so that the agenda becomes a chronological programme for your learning activities.</p> <p>In addition to being present in the agenda, the new events are indicated to the student when he/she logs in the next time. The system tells what has been added in the Agenda (and in the Announcements) since his/her last visit : icons appear on the portal home page besides the courses where events and announcements hve been added.</p> <p>If you want to go further in the logic of structuring learning activities one after the other, we suggest that you use preferably the Learning Path that offers the same principles with more advanced features. The Learning Path can be considered as a synthesis of a Table of Contens tool + an Agenda + sequencing (imposed order) and tracking.</p>"
+
+msgid "AnnouncementsContent"
+msgstr "<p>The Announcements tool allows you to send an email to all your students or to some of them or to some groups. It can proove efficient to drive students back to your website if they do not visit it very often.</p> <p>To send a message to some users and/or some groups, select 'Messages to selected users' then use CTRL+C to select more than one in the left hand menu, click on the right arrow to move them then type your message in the field below.</p>"
+
+msgid "ChatContent"
+msgstr "<p>The Chat tool allows you to discuss live with your students.</p> <p>This chat is not similar to usual ones, like MSNฎ or Yahoo Messengerฎ because it is web based. The disadvantage is that it refreshes only after 10 seconds and not immediately. The advantage is that it is integrated in your course,it archives your discussions into the Documents tool and it doesn't require from your students any plugin to download.</p> <p>If users send their pictures in 'My e-portfolio' (top banner), then this picture will appear in the discussion to help identify who is speaking.</p> <p>Only the teacher is allowed to delete the discussion when he/she finds it relevant.</p> <p><b>Pedagogical relevance</b></p> <p>Adding a chat to your course is not necessarily a good idea. However, if this participates to your scenario, the chat can help. You can imagine, for instance, to hide the chat always except at a certain time when you have a dedicated meeting with your students to answer their questions live. It is less a 'free' dicsussion tool this way, but you give students a guarantee that they will benefit from this live meeting.</p>."
+
+msgid "WorkContent"
+msgstr "<p>The student publications tool is a very simple one. It allows your students to upload any document in the course area.</p> <p>Depending on your course scenario, you can set all files to be visible to all students by default, or only visible for you. Making all files visible is useful when for instance you want to ask students to give their opinion on each other's papers or let them learn to publish texts to the world. Keep files invisible if e.g. you ask the same question to everybody and want to avoid cheating.</p> <p>This tool has an <i>Introduction text</i> area to allow you to write a question, detailed guidelines, a reminder of a deadline or anything else you may find relevant.</p>"
+
+msgid "TrackingContent"
+msgstr "<p>The tracking helps you follow your students : did they connect to the sytem, when, how many times? How much do they get in tests? Did they already upload their Paper? When? If you use Scorm courses, you can evn know how much time a student spent on a module or chapter. The trackinggives information at 2 levels: <ul><li><b>Globally</b>: How many students access the course? What are the most visited pages and links?</i> <li><b>Nominatively</i>: What pages has John Doe visited? What score does he get in tests? When was hs last connection on the system?</li>>/ul>"
+
+msgid "HSettings"
+msgstr "คำแนะนำการตั้งค่าวิชา"
+
+msgid "SettingsContent"
+msgstr "<p>Course settings allows you to manage the global parameters of your course : Title, code, language, name of teachers etc.</p> <p>The options situated in the middle of the page deal with confidentiality settings : is the course public or private? Can students register to it? You can use these settigs dynamically : open registration during one week > ask your students to register > close access to registration > remove possible intruders through the Users list. This way you keep control of who is in byt you don't have the administrative hassle of registrating them yourself.</p> <p>At the bottom of the page, you can Backup the course and delete it. Backup will create a file on the server and allow you to copy it on your own Hard Disk locally. So that there will be 2 backups of it in different places. If you backup a course then delete it. You will not be allowed to restore it yourself but the system administrator can do this for you if you give him/her the code of your course. Backuping a course is also a good way to get all your documents back onto your own computer. You will need a tool, like Winzipฎ to UNZIP the archive. Note that backuping a course does not remove it in any way.</p>"
+
+msgid "HExternal"
+msgstr "เพิ่มรายการระบบช่วยเหลือ"
+
+msgid "ExternalContent"
+msgstr "<p>Dokeos is a modular tool. You can hide and show tools whenever you want, according to your project or to its different chronological phases. But you can also add on your home page tools or pages that you have created yourself or that come from the outside of your Chamilo portal. This way, you will make of your course home page YOUR page.</p> <p>To take possession of your page that way, you will Add links on it. These links can be of 2 types: <ul><li><b>External link</b>: you create on your home page a link to a website situated outside your course area. In this case, you will select Target= In a new window because you don't want that website to replace your Chamilo environment.</li> <li><b>Internal link</b>: you link towards a page or a tool inside your Chamilo course. To do this, you go first to that page or document or tool, you copy its URL from the URL bar of your browser (CTRL+C), then you go to Add a link and you paste this URL in the URL field and you give it the name you want. In this case, you will select Target=Same window because you will keep the Chamilo banner on top and the remain in the same environment.</li></ul> Once created, these links cannot be edited. To modify them, the only solution is to deactivate them then delete them, then restart from zero.</p>"
+
+msgid "ClarContent3"
+msgstr "</p><p><b>Educational Theory</b><p>For the professors, prepare a course on the internet is a question of Educational Theory too."
+
+msgid "ClarContent4"
+msgstr "is at your disposal to help you during the different steps of your teaching project evolution: from tool design to its integration in a clear and coherent strategy and objective evaluation of its impact on student learning.</p>"
+
+msgid "ClarContent1"
+msgstr "คือวิทยาเขตเสมือนของ"
+
+msgid "ClarContent2"
+msgstr "ที่นี่ อาจารย์และทีมงานผู้ช่วย สามารถสร้าง และจัดการบทเรียนต่างๆได้ด้วยตนเองนักศึกษาสามารถเข้าเรียน อ่าน (เอกสารประกอบการศึกษา กำหนดการ ประกาศ และข่าวสารต่างๆ) และบางครั้ง อาจได้ทำแบบฝึกหัดส่งงานของตัวเอง หรือเข้าร่วมแสดงความคิดเห็นในกระดานข่าวด้วย...</p><b>ลงทะเบียน</b><p>หากท่านเป็นนักศึกษา , เมื่อทำการลงทะเบียนขอให้เลือก 'เข้าสู่บทเรียน' จากนั้นจึงค่อยเลือกบทเรียนที่ต้องการต่อไป </p><p>สำหรับอาจารย์ ขอให้ลงทะเบียนก่อนเช่นกัน แต่ให้เลือก Action เป็น 'สร้างบทเรียน' จากนั้นท่านจะต้องกรอกข้อมูลชื่อบทเรียน รหัสวิชา และภาควิชา เมื่อทุกอย่างถูกต้อง โปรแกรมจะนำท่านเข้าสู่บทเรียนของท่าน ซึ่งท่านสามารถที่จะปรับปรุงหรือแก้ไขรุปแบบของบทเรียน ให้เหมาะสมได้ตามความต้องการ</p><p><b>การ Login</b><p>เมื่อท่านเข้าสู่บทเรียน ในครั้งต่อๆไป  พิมพ์ชื่อผู้ใช้และรหัสผ่าน จากนั้นคลิกปุ่ม 'ตกลง'ท่านก็จะสามารถเข้าสู่บทเรียนของท่านได้ทันที URL ของ web site นี้คือ"
+
+msgid "HGroups"
+msgstr "กลุ่ม"
+
+msgid "GroupsContent"
+msgstr "สารบัญกลุ่ม"
+
+msgid "Guide"
+msgstr "คู่มือ"
+
+msgid "InstallationLanguage"
+msgstr "ภาษาที่จะใช้ในระหว่างการติดตั้งระบบ"
+
+msgid "ReadThoroughly"
+msgstr "กรุณาอ่านรายละเอียดก่อนทำการติดตั้ง"
+
+msgid "WarningExistingLMSInstallationDetected"
+msgstr "คำเตือน:<br>ตัวติดตั้งโปรแกรมตรวจพบว่ามีการติดตั้งDokeosในเครื่องแม่ข่ายบริการของคุณแล้ว"
+
+msgid "NewInstallation"
+msgstr "ติดตั้งใหม่"
+
+msgid "CheckDatabaseConnection"
+msgstr "คลิกตรวจสอบการเชื่อมต่อกับฐานข้อมูล"
+
+msgid "PrintOverview"
+msgstr "แสดงข้อมูลคุณลักษณะโดยรวม"
+
+msgid "Installing"
+msgstr "ติดตั้ง"
+
+msgid "of"
+msgstr "ของ"
+
+msgid "MoreDetails"
+msgstr "รายละเอียดเพิ่มเติม"
+
+msgid "ServerRequirements"
+msgstr "สิ่งที่ต้องติดตั้งในเครื่องแม่ข่ายบริการ"
+
+msgid "ServerRequirementsInfo"
+msgstr "Libraries and features the server must provide to use Chamilo to its full extent"
+
+msgid "PHPVersion"
+msgstr "PHP เวอร์ชั่น"
+
+msgid "support"
+msgstr "ʹѺʹع"
+
+msgid "PHPVersionOK"
+msgstr "PHP เวอร์ชั่นนี้ ใช้ร่วมได้"
+
+msgid "RecommendedSettings"
+msgstr "แนะนำตามค่านี้"
+
+msgid "RecommendedSettingsInfo"
+msgstr "Recommended settings for your server configuration. These settings are set in the php.ini configuration file on your server."
+
+msgid "Actual"
+msgstr "ปัจจุบัน"
+
+msgid "DirectoryAndFilePermissions"
+msgstr "การอนุญาตเขียนไฟล์และแฟ้ม"
+
+msgid "DirectoryAndFilePermissionsInfo"
+msgstr "Some directories and the files they include must be writeable by the web server in order for Chamilo to run (students uploaded files, homepage html files, ...). This might imply a manual change on your server (outside of this interface)."
+
+msgid "NotWritable"
+msgstr "ยังไม่อนุญาตให้เขียนไฟล์"
+
+msgid "Writable"
+msgstr "อนุญาตให้เขียนไฟล์"
+
+msgid "ExtensionLDAPNotAvailable"
+msgstr "ระบบสิทธิ์ของ LDAP ไม่สามารถใช้ได้"
+
+msgid "ExtensionGDNotAvailable"
+msgstr "โปรแกรมระบบสนับสนุนงานกราฟิก GD ของ PHP ยังไม่สามารถใช้งานได้ ต้องเปิดใช้งานก่อน ปกติจะอยู่ในไฟล์ php.ini ดูการตั้งค่าในส่วนของ Extension โดยลบ ;ออกจากบรรทัดคำสั่ง ให้เป็นค่าตามนี้คื extension=php_gd2.dll"
+

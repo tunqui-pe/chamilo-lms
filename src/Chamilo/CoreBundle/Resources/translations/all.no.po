@@ -1,0 +1,3231 @@
+msgid "ShowAllEvents"
+msgstr "Vis alle oppføringer i kalender"
+
+msgid "Month"
+msgstr "Måned"
+
+msgid "Hour"
+msgstr "Time"
+
+msgid "Minutes"
+msgstr "Minutter"
+
+msgid "AddSuccess"
+msgstr "Lagt til oppføring i kalender"
+
+msgid "AgendaDeleteSuccess"
+msgstr "Slettet oppføring fra kalender"
+
+msgid "NoAgendaItems"
+msgstr "Det er ingen oppføringer i kalender"
+
+msgid "ClassName"
+msgstr "Klassenavn"
+
+msgid "ItemTitle"
+msgstr "Tittel for oppføring"
+
+msgid "Day"
+msgstr "dag"
+
+msgid "month_default"
+msgstr "standard måned"
+
+msgid "year_default"
+msgstr "standard år"
+
+msgid "Hour"
+msgstr "Time"
+
+msgid "hour_default"
+msgstr "standard time"
+
+msgid "Minute"
+msgstr "minutt"
+
+msgid "Lasting"
+msgstr "varighet"
+
+msgid "OldToNew"
+msgstr "gammel til ny"
+
+msgid "NewToOld"
+msgstr "ny til gammel"
+
+msgid "Now"
+msgstr "nå"
+
+msgid "AddEvent"
+msgstr "Legg til oppføring"
+
+msgid "Detail"
+msgstr "Detaljer"
+
+msgid "MonthView"
+msgstr "Månedsvisning"
+
+msgid "WeekView"
+msgstr "Ukevisning"
+
+msgid "DayView"
+msgstr "Dagvisning"
+
+msgid "AddPersonalItem"
+msgstr "Legg til personlig oppføring"
+
+msgid "Week"
+msgstr "Uke"
+
+msgid "Time"
+msgstr "Tid"
+
+msgid "AddPersonalCalendarItem"
+msgstr "Legg til en personlig oppføring i kalender"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "Rediger en personlig kalenderoppføring"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "Din personlige oppføring ble lagt til kalender"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "Din personlige oppføring i kalender ble endret"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "Din personlige oppføring i kalender ble slettet"
+
+msgid "ViewPersonalItem"
+msgstr "Vis personlige oppføringer"
+
+msgid "Print"
+msgstr "Utskrift"
+
+msgid "CopiedAsAnnouncement"
+msgstr "Kopiert som meddelelse"
+
+msgid "NewAnnouncement"
+msgstr "Ny meddelelse"
+
+msgid "ModifInfo"
+msgstr "Kursinnstillinger"
+
+msgid "ModifDone"
+msgstr "Informasjonen ble endret"
+
+msgid "DelCourse"
+msgstr "Slett hele kursområdet"
+
+msgid "Professors"
+msgstr "Lærere"
+
+msgid "Faculty"
+msgstr "Kategori"
+
+msgid "Confidentiality"
+msgstr "Konfidensielt"
+
+msgid "Unsubscription"
+msgstr "Stopp abonnement"
+
+msgid "PrivOpen"
+msgstr "Privat yilgang, krever registrering"
+
+msgid "Forbidden"
+msgstr "Ikke tillatt"
+
+msgid "DescriptionCours"
+msgstr "Kursbeskrivelse"
+
+msgid "ExpirationDate"
+msgstr "Utløpsdato"
+
+msgid "LastEdit"
+msgstr "Sist endret"
+
+msgid "LastVisit"
+msgstr "Sist besøkt"
+
+msgid "Subscription"
+msgstr "Abonnement"
+
+msgid "CourseAccess"
+msgstr "Kurs tilgang"
+
+msgid "CreateSite"
+msgstr "Opprett ett kursområde"
+
+msgid "BackH"
+msgstr "tilbake til hjemmesiden"
+
+msgid "OtherCategory"
+msgstr "Annen kategori"
+
+msgid "AllowedToUnsubscribe"
+msgstr "Deltagere kan avmelde seg fra dette kurset"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "Deltagere kan ikke avmelde seg fra dette kurset"
+
+msgid "CreateBackup"
+msgstr "Opprett en sikkerhetskopi"
+
+msgid "SelectBackupFile"
+msgstr "velg en sikkerhetskopifil"
+
+msgid "ImportBackup"
+msgstr "Importer sikkerhetskopi"
+
+msgid "ImportFullBackup"
+msgstr "Importer full sikkerhetskopi"
+
+msgid "ImportFinished"
+msgstr "Import fullført"
+
+msgid "Explanation"
+msgstr "Når du klikker ok, blir det oprettet en kursusside indeholdende Diskusjonsforum, Kalender, Dokumenter osv. Som administrator av siden kan du til enhver tid redigere kursussiden efter behov og ønsker"
+
+msgid "ExerciceEx"
+msgstr "Eksepmeltest"
+
+msgid "Antique"
+msgstr "Ironi"
+
+msgid "AddPageHome"
+msgstr "Last opp et dokument til kurssiden"
+
+msgid "CourseDesc"
+msgstr "Kursbeskrivelse"
+
+msgid "AgendaText"
+msgstr "Generell introduksjon til prosjekthåndtering"
+
+msgid "LinkName"
+msgstr "Navn på lenke"
+
+msgid "LinkAdd"
+msgstr "Legg til en lenke"
+
+msgid "LinkAdded"
+msgstr "Lenken ble lagt til"
+
+msgid "LinkMod"
+msgstr "Rediger lenke"
+
+msgid "LinkModded"
+msgstr "Lenken har blitt endret"
+
+msgid "LinkDel"
+msgstr "Slett lenke"
+
+msgid "EducationManager"
+msgstr "Prosjektadministrator"
+
+msgid "Titular"
+msgstr "Lærer"
+
+msgid "AdministrationTools"
+msgstr "Administrasjonsverktøy"
+
+msgid "CatList"
+msgstr "Kategorier"
+
+msgid "Subscribe"
+msgstr "Meld deg på her"
+
+msgid "AlreadySubscribed"
+msgstr "Påmeldt"
+
+msgid "CourseCategoryStored"
+msgstr "Kurskategori ble opprettet"
+
+msgid "Added"
+msgstr "Lagt til"
+
+msgid "Deleted"
+msgstr "Slettet"
+
+msgid "Keeped"
+msgstr "Beholdt"
+
+msgid "HideAndSubscribeClosed"
+msgstr "Skjult / Lukket"
+
+msgid "HideAndSubscribeOpen"
+msgstr "Skjult / Åpen"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "Synlig / Åpen"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "Synlig / Lukket"
+
+msgid "AdminThisUser"
+msgstr "Tilbake til bruker"
+
+msgid "Manage"
+msgstr "Administrer portal"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "Du har blitt påmeldt til kurset"
+
+msgid "SubCat"
+msgstr "Underkategorier"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "Avmelding er ikke tillatt for dette kurset"
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "Du er kursadmin for dette kurset"
+
+msgid "CourseManagement"
+msgstr "Kurshåndtering"
+
+msgid "SortMyCourses"
+msgstr "Sorter mine kurs"
+
+msgid "SubscribeToCourse"
+msgstr "Velg en kategori under og meld deg på ønsket kurs"
+
+msgid "UnsubscribeFromCourse"
+msgstr "Avmelding fra kursene"
+
+msgid "CreateCourseCategory"
+msgstr "Opprett en kurskategori"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "Ønsker du å slette denn kurskategorien? Kurser i kurskategorien vil bli flyttet ut av kurskategoriene"
+
+msgid "CourseCategories"
+msgstr "Kurskategorier"
+
+msgid "CoursesInCategory"
+msgstr "Kurs i denne kategorien"
+
+msgid "SearchCourse"
+msgstr "Søk kurs"
+
+msgid "UpOneCategory"
+msgstr "En kategori opp"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "Ønsker du virkelig å avmelde deg fra dette kurset?"
+
+msgid "NoCourseCategory"
+msgstr "Ingen kurskategori"
+
+msgid "EditCourseCategorySucces"
+msgstr "Kurset ble lagt til kategorien"
+
+msgid "SubscribingNotAllowed"
+msgstr "Påmelding ikke tillatt"
+
+msgid "CourseSortingDone"
+msgstr "Sortering av kurs foretatt"
+
+msgid "ExistingCourseCategories"
+msgstr "Eksisterende kurskategorier"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "Du er nå avmeldt fra dette kurset"
+
+msgid "ViewOpenCourses"
+msgstr "Vis åpne kurs"
+
+msgid "ErrorContactPlatformAdmin"
+msgstr "Det har skjedd en ukjent feil. Vennligst kontakt plattform administrator."
+
+msgid "CourseRegistrationCodeIncorrect"
+msgstr "Kurskoden er feil"
+
+msgid "CourseRequiresPassword"
+msgstr "Kurset krever et passord"
+
+msgid "SubmitRegistrationCode"
+msgstr "Send registrering koden"
+
+msgid "CourseCategoryDeleted"
+msgstr "Kategorien er slettet"
+
+msgid "CategorySortingDone"
+msgstr "Kategoriene er sortete"
+
+msgid "CourseCategoryEditStored"
+msgstr "Kategorien er oppdaterte"
+
+msgid "WCAGGoMenu"
+msgstr "Gå til meny"
+
+msgid "WCAGGoContent"
+msgstr "Gå til innhold"
+
+msgid "AdminBy"
+msgstr "Administreres av"
+
+msgid "Statistiques"
+msgstr "Statistikk"
+
+msgid "VisioHostLocal"
+msgstr "Videokonferanse host"
+
+msgid "VisioRTMPIsWeb"
+msgstr "Om videokonferencens protokol er webbaseret"
+
+msgid "ShowBackLinkOnTopOfCourseTreeComment"
+msgstr "Vis en link, som gør det muligt at gå tilbake i kurshierarkiet. En tilsvarende link vil uansett være tilgjengelig nederst på siden"
+
+msgid "Used"
+msgstr "brukt"
+
+msgid "Exist"
+msgstr "eksisterende"
+
+msgid "ShowBackLinkOnTopOfCourseTree"
+msgstr "Vis en tilbakelink fra kategori/kurs"
+
+msgid "ShowNumberOfCourses"
+msgstr "Vis antall kurs"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "Vis lærer i kurstittelen"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "Vis lærer i kurslistekommentar"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "Vis kurskode i kurslistekommentaren"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "Vis kurskode i kurstittelen"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "Det er ingen virtuelle kurs p� denne plattformen"
+
+msgid "ConfigureHomePage"
+msgstr "Konfigurer hjemmeside"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "Aktive moduler ved kursopprettelse"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "Hvilke verktøy skal være aktive (synlige) som standard når et nytt kurs oprettes?"
+
+msgid "CreateUser"
+msgstr "Opprett bruker"
+
+msgid "ModifyUser"
+msgstr "Rediger bruker"
+
+msgid "buttonEditUserField"
+msgstr "Rediger brukerområde"
+
+msgid "ModifyCoach"
+msgstr "Rediger lærer"
+
+msgid "ModifyThisSession"
+msgstr "Rediger denne læringsøkten"
+
+msgid "ExportSession"
+msgstr "Exporter læringsøkten"
+
+msgid "ImportSession"
+msgstr "Importer læringsøkt"
+
+msgid "CourseBackup"
+msgstr "Ta en sikkerhetskopi av dette kurset"
+
+msgid "CourseTitular"
+msgstr "Lærer"
+
+msgid "CourseFaculty"
+msgstr "Kurs kategori"
+
+msgid "CourseDepartment"
+msgstr "Kurs avdeling"
+
+msgid "CourseDepartmentURL"
+msgstr "Avdelings URL"
+
+msgid "CourseSubscription"
+msgstr "Kurs abonnement"
+
+msgid "PublicAccess"
+msgstr "Offentlig innsyn (tilgang)"
+
+msgid "PrivateAccess"
+msgstr "Privat innsyn (tilgang)"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "Database administrasjon er kun tilgjenglig for server administrator"
+
+msgid "ShowUsersOfCourse"
+msgstr "Vis brukere som er abonnerer på dette kurset"
+
+msgid "ShowClassesOfCourse"
+msgstr "Vis klasser som er abonnerer på dette kurset"
+
+msgid "ShowGroupsOfCourse"
+msgstr "Vis grupper i dette kurset"
+
+msgid "PhoneNumber"
+msgstr "Telefonnummer"
+
+msgid "AddToCourse"
+msgstr "Legg til et kurs"
+
+msgid "DeleteFromPlatform"
+msgstr "Fjern fra plattformen"
+
+msgid "DeleteCourse"
+msgstr "Slett valgte kurs(ene)"
+
+msgid "DeleteFromCourse"
+msgstr "Stopp abonnement fra kurs(ene)"
+
+msgid "DeleteSelectedClasses"
+msgstr "Slett valgte klasser"
+
+msgid "DeleteSelectedGroups"
+msgstr "Slett valgte grupper"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "ChangePicture"
+msgstr "Endre bilde"
+
+msgid "AddUsers"
+msgstr "Legg til brukere"
+
+msgid "AddGroups"
+msgstr "Legg til grupper"
+
+msgid "AddClasses"
+msgstr "Legg til klasser"
+
+msgid "ExportUsers"
+msgstr "Eksporter bruker liste"
+
+msgid "NumberOfParticipants"
+msgstr "Antall deltagere"
+
+msgid "NumberOfUsers"
+msgstr "Antall brukere"
+
+msgid "Participants"
+msgstr "deltagere"
+
+msgid "FirstLetterClass"
+msgstr "Første bokstav (klassenavn)"
+
+msgid "FirstLetterUser"
+msgstr "Første bokstav (etternavn)"
+
+msgid "FirstLetterCourse"
+msgstr "Første bokstav (kode)"
+
+msgid "ModifyUserInfo"
+msgstr "Rediger brukerinformasjon"
+
+msgid "ModifyClassInfo"
+msgstr "Rediger klasseinformasjon"
+
+msgid "ModifyGroupInfo"
+msgstr "Rediger gruppeinformasjon"
+
+msgid "ModifyCourseInfo"
+msgstr "Rediger kursinformasjon"
+
+msgid "PleaseEnterClassName"
+msgstr "Registrer navn på klasse"
+
+msgid "PleaseEnterLastName"
+msgstr "Registrer brukers etternavn"
+
+msgid "PleaseEnterFirstName"
+msgstr "Registrer brukers etternavn"
+
+msgid "PleaseEnterValidEmail"
+msgstr "Registrer en gyldig epostadresse"
+
+msgid "PleaseEnterValidLogin"
+msgstr "Registrer et gyldig login"
+
+msgid "PleaseEnterCourseCode"
+msgstr "Registrer kode for kurset"
+
+msgid "PleaseEnterTitularName"
+msgstr "Registrer undervisers navn og fornavn"
+
+msgid "PleaseEnterCourseTitle"
+msgstr "Registrer tittel for kurset"
+
+msgid "AcceptedPictureFormats"
+msgstr "Godkjente formater er JPG, PNG og GIF !"
+
+msgid "LoginAlreadyTaken"
+msgstr "Dette p�loggingsnavnet er opptatt !"
+
+msgid "ImportUserListXMLCSV"
+msgstr "Importer en liste av brukere fra en XML/CSV-fil"
+
+msgid "ExportUserListXMLCSV"
+msgstr "Eksporter brukerlisten til en XML/CSV-fil"
+
+msgid "OnlyUsersFromCourse"
+msgstr "Bare brukere fra kurset"
+
+msgid "AddClassesToACourse"
+msgstr "Legg klasser til et kurs"
+
+msgid "AddUsersToACourse"
+msgstr "Legg brukere til et kurs"
+
+msgid "AddUsersToAClass"
+msgstr "Legg brukere til i en klasse"
+
+msgid "AddUsersToAGroup"
+msgstr "Legg brukere til i en gruppe"
+
+msgid "AtLeastOneClassAndOneCourse"
+msgstr "Du må velge minst en klasse og ett kurs!"
+
+msgid "AtLeastOneUser"
+msgstr "Du må velge minst en bruker"
+
+msgid "AtLeastOneUserAndOneCourse"
+msgstr "Du må velge minst en bruker og ett kurs!"
+
+msgid "ClassList"
+msgstr "Liste klasser"
+
+msgid "AddToThatCourse"
+msgstr "Legg til dette/disse kurset/kursene"
+
+msgid "AddToClass"
+msgstr "Legg til klassen"
+
+msgid "RemoveFromClass"
+msgstr "Fjern fra klassen"
+
+msgid "AddToGroup"
+msgstr "Legg til gruppen"
+
+msgid "RemoveFromGroup"
+msgstr "Fjern fra gruppen"
+
+msgid "UsersOutsideClass"
+msgstr "Brukere utenfor klassen"
+
+msgid "UsersInsideClass"
+msgstr "Brukere i klassen"
+
+msgid "UsersOutsideGroup"
+msgstr "Brukere utenfor gruppen"
+
+msgid "UsersInsideGroup"
+msgstr "Brukere i gruppen"
+
+msgid "MustUseSeparator"
+msgstr "må benytte ';' -karakteren som separator"
+
+msgid "CSVMustLookLike"
+msgstr "CSV-filen må se slik ut"
+
+msgid "XMLMustLookLike"
+msgstr "XML-filen må se slik ut"
+
+msgid "MandatoryFields"
+msgstr "Felter som er <strong>uthevet</strong> er obligatoriske"
+
+msgid "NotXML"
+msgstr "Den valgte filen er ikke i XML-Format!"
+
+msgid "NotCSV"
+msgstr "Den valgte filen er ikke i CSV-format!"
+
+msgid "NoNeededData"
+msgstr "Den valgte filen inneholder ikke alle nødvendige data!"
+
+msgid "MaxImportUsers"
+msgstr "Du kan ikke importere mer enn 500 brukere av gangen !"
+
+msgid "AdminDatabases"
+msgstr "Databaser (phpMyAdmin)"
+
+msgid "AdminUsers"
+msgstr "Brukere"
+
+msgid "AdminClasses"
+msgstr "Klasser av brukere"
+
+msgid "AdminGroups"
+msgstr "Grupper av brukere"
+
+msgid "AdminCourses"
+msgstr "Kurser"
+
+msgid "AdminCategories"
+msgstr "Kurskategorier"
+
+msgid "SubscribeUserGroupToCourse"
+msgstr "Oppmeld en bruker / gruppe til ett kurs"
+
+msgid "NoCategories"
+msgstr "Det er ingen kategorier her"
+
+msgid "AllowCoursesInCategory"
+msgstr "Tiilate opprettelse av kurs i denne kategorien?"
+
+msgid "GoToForum"
+msgstr "Gå til forumet"
+
+msgid "CategoryCode"
+msgstr "Kategorikode"
+
+msgid "EditNode"
+msgstr "Rediger denne kategorien"
+
+msgid "OpenNode"
+msgstr "Åpne denne kategorien"
+
+msgid "DeleteNode"
+msgstr "Slett denne kategorien"
+
+msgid "AddChildNode"
+msgstr "Opprett en underkategori"
+
+msgid "ViewChildren"
+msgstr "Vis underordnede"
+
+msgid "TreeRebuildedIn"
+msgstr "Tre gjenskapt på"
+
+msgid "TreeRecountedIn"
+msgstr "Treomtelling tok"
+
+msgid "RebuildTree"
+msgstr "Gjenoppbygg tre"
+
+msgid "RefreshNbChildren"
+msgstr "Gjenoppfrisk antall underliggende"
+
+msgid "ShowTree"
+msgstr "Vis trestruktur"
+
+msgid "LogDeleteCat"
+msgstr "Kategori slettet"
+
+msgid "RecountChildren"
+msgstr "Tell undergrupper på nytt"
+
+msgid "UpInSameLevel"
+msgstr "Opp i samme nivå"
+
+msgid "MailTo"
+msgstr "E-post til :"
+
+msgid "AddAdminInApache"
+msgstr "Legg til en administrator"
+
+msgid "AddFaculties"
+msgstr "Legg til kategorier"
+
+msgid "SearchACourse"
+msgstr "Søk etter ett kurs"
+
+msgid "SearchAUser"
+msgstr "Søk etter en bruker"
+
+msgid "TechnicalTools"
+msgstr "Teknisk"
+
+msgid "Config"
+msgstr "Systemkonfigurasjon"
+
+msgid "LogIdentLogoutComplete"
+msgstr "Påloggede (utvidet liste)"
+
+msgid "LimitUsersListDefaultMax"
+msgstr "Maks. antall brukere som vises i rullelisten"
+
+msgid "NoTimeLimits"
+msgstr "Ingen tidsbegrensning"
+
+msgid "GeneralProperties"
+msgstr "Generelle egenskaper"
+
+msgid "CourseCoach"
+msgstr "Kurslærer"
+
+msgid "UsersNumber"
+msgstr "Bruker nummer"
+
+msgid "PublicAdmin"
+msgstr "Alminnelig administrasjon"
+
+msgid "PageAfterLoginTitle"
+msgstr "Side etter pålogging"
+
+msgid "PageAfterLoginComment"
+msgstr "Siden som vises for pålogget bruker"
+
+msgid "TabsMyProfile"
+msgstr "Min profil fane"
+
+msgid "GlobalRole"
+msgstr "Global rolle"
+
+msgid "NomOutilTodo"
+msgstr "Håndter gjøremålsliste"
+
+msgid "NomPageAdmin"
+msgstr "Administrasjon"
+
+msgid "SysInfo"
+msgstr "Informasjon om systemet"
+
+msgid "DiffTranslation"
+msgstr "Sammenlign oversettelser"
+
+msgid "StatOf"
+msgstr "Statistikk om"
+
+msgid "SpeeSubscribe"
+msgstr "Hurtig registrering som kursobserverer"
+
+msgid "LogIdentLogout"
+msgstr "Liste påloggede"
+
+msgid "ServerStatus"
+msgstr "Status for MySQL-tjener"
+
+msgid "DataBase"
+msgstr "Database"
+
+msgid "Run"
+msgstr "Arbeider"
+
+msgid "Client"
+msgstr "MySQL Klient"
+
+msgid "Server"
+msgstr "MySQL tjener"
+
+msgid "titulary"
+msgstr "Eier"
+
+msgid "UpgradeBase"
+msgstr "Oppgrader database"
+
+msgid "ErrorsFound"
+msgstr "feil funnet"
+
+msgid "Maintenance"
+msgstr "Vedlikehold"
+
+msgid "Upgrade"
+msgstr "Oppgrader Chamilo"
+
+msgid "Website"
+msgstr "Chamilo nettsted"
+
+msgid "Documentation"
+msgstr "Dokumentasjon"
+
+msgid "Contribute"
+msgstr "Bidra"
+
+msgid "InfoServer"
+msgstr "Tjenerinformasjon"
+
+msgid "SendMailToUsers"
+msgstr "Send en epost til brukerne"
+
+msgid "CourseSystemCode"
+msgstr "Systemkode"
+
+msgid "CourseVisualCode"
+msgstr "Visuell kode"
+
+msgid "SystemCode"
+msgstr "Systemkode"
+
+msgid "VisualCode"
+msgstr "Visuell kode"
+
+msgid "AddCourse"
+msgstr "Opprett et kurs"
+
+msgid "AdminManageVirtualCourses"
+msgstr "Administrer virtuelle kurs"
+
+msgid "AdminCreateVirtualCourse"
+msgstr "Opprett ett virtuelt kurs"
+
+msgid "AdminCreateVirtualCourseExplanation"
+msgstr "Det virtuelle kurset vil dele minne(mappe og database) med et eksisterende 'ekte' kurs."
+
+msgid "RealCourseCode"
+msgstr "Ekte kurskode"
+
+msgid "CourseCreationSucceeded"
+msgstr "Kurset ble opprettet"
+
+msgid "OnTheHardDisk"
+msgstr "på harddisken"
+
+msgid "IsVirtualCourse"
+msgstr "er virtuelt kurs"
+
+msgid "AnnouncementUpdated"
+msgstr "Annonsering ble oppdatert"
+
+msgid "PermissionsForNewFiles"
+msgstr "Nye filers rettigheter"
+
+msgid "PermissionsForNewFilesComment"
+msgstr "Muligheten til å definere tillatelser innstillingene som skal gjelde for alle nyopprettede filer, lar deg bedre sikkerhet mot angrep fra hackere, opplasting av farlig innhold til portalen. Standardinnstillingen (0550) skal være nok til å gi serveren en rimelig beskyttelse nivå. Det oppgitte formatet bruker UNIX terminologi av Eigar-Group-Andre med Read-Write-Execute tillatelser. Hvis du bruker Oogie, sørg for at brukeren som starter OpenOffice kan skrive filer i kursmappen."
+
+msgid "Guest"
+msgstr "Gjest"
+
+msgid "LoginAsThisUserColumnName"
+msgstr "Logg inn som"
+
+msgid "LoginAsThisUser"
+msgstr "Logg inn"
+
+msgid "SelectPicture"
+msgstr "Velg bilde..."
+
+msgid "DontResetPassword"
+msgstr "Ikke tilbakestill passord"
+
+msgid "ParticipateInCommunityDevelopment"
+msgstr "Delta i utviklingen"
+
+msgid "CourseAdmin"
+msgstr "Kursleder"
+
+msgid "PlatformLanguageTitle"
+msgstr "Språk for plattformen"
+
+msgid "ServerStatusComment"
+msgstr "Hvilke type server er dette? Dette aktiverer eller deaktiverer spefikke instillinger. På en utviklings-server er det en oversettelses-funktion som indikerer ikke oversatte tekst-strenger"
+
+msgid "ServerStatusTitle"
+msgstr "Tjenertype"
+
+msgid "PlatformLanguages"
+msgstr "Chamilo Portal-språk"
+
+msgid "OriginalName"
+msgstr "Opprinnelig navn"
+
+msgid "EnglishName"
+msgstr "Navn på engelsk"
+
+msgid "LMSFolder"
+msgstr "Chamilo mappe"
+
+msgid "Properties"
+msgstr "Egenskaper"
+
+msgid "PlatformConfigSettings"
+msgstr "Chamilo konfigurasjonsinnstillinger"
+
+msgid "SettingsStored"
+msgstr "Innstillingene er oppdatert"
+
+msgid "InstitutionTitle"
+msgstr "Navn på organsisasjonen"
+
+msgid "InstitutionComment"
+msgstr "Organisasjonens navn (vises til høyre i headeren)"
+
+msgid "InstitutionUrlTitle"
+msgstr "Institusjonens URL"
+
+msgid "SiteNameComment"
+msgstr "Navnet på ditt Chamilo læresenter (fremstår i overskriften til venstre)"
+
+msgid "emailAdministratorTitle"
+msgstr "Platformadministrators e-postadresse"
+
+msgid "emailAdministratorComment"
+msgstr "E-postadresse til platformens administrator(vises i bunnen til venstre)"
+
+msgid "administratorSurnameTitle"
+msgstr "Platformadministrators etternavn"
+
+msgid "administratorSurnameComment"
+msgstr "Platformadministrators etternavn (vises i bunnen til venstre)"
+
+msgid "administratorNameTitle"
+msgstr "Platformadministrators fornavn"
+
+msgid "HomepageViewTitle"
+msgstr "Startsidens utseende"
+
+msgid "ShowToolShortcutsTitle"
+msgstr "Snarvei til verktøy"
+
+msgid "ShowStudentViewTitle"
+msgstr "Studentvisning"
+
+msgid "AllowGroupCategories"
+msgstr "Gruppekategorier"
+
+msgid "ProductionServer"
+msgstr "Produksjonstjener"
+
+msgid "TestServer"
+msgstr "Testtjener"
+
+msgid "ShowOnlineTitle"
+msgstr "Hvem er pålogget"
+
+msgid "AsPlatformLanguage"
+msgstr "som plattformspråk"
+
+msgid "ShowOnlineComment"
+msgstr "Vise antall personer pålogget?"
+
+msgid "AllowNameChangeTitle"
+msgstr "Tillat endring av navn i profilen?"
+
+msgid "ProfileChangesTitle"
+msgstr "Profil"
+
+msgid "RegistrationRequiredFormsTitle"
+msgstr "Registrering: påkrevde felt"
+
+msgid "AllowLostPasswordTitle"
+msgstr "Glemt passord"
+
+msgid "AllowLostPasswordComment"
+msgstr "kan bruker etterspørre sitt glemte passord?"
+
+msgid "AllowRegistrationTitle"
+msgstr "Registrering"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "Registrering som lærer"
+
+msgid "EditNotice"
+msgstr "Rediger notis"
+
+msgid "InsertLink"
+msgstr "sett inn lenke"
+
+msgid "EditNews"
+msgstr "Rediger nyheter"
+
+msgid "EditCategories"
+msgstr "Rediger kategorier"
+
+msgid "EditHomePage"
+msgstr "Rediger hjemmeside"
+
+msgid "Languages"
+msgstr "Språk"
+
+msgid "NoticeTitle"
+msgstr "Tittel på notat"
+
+msgid "NoticeText"
+msgstr "Tekst for notat"
+
+msgid "LinkURL"
+msgstr "Adresse (URL) for lenke"
+
+msgid "OpenInNewWindow"
+msgstr "Åpne i nytt vindu"
+
+msgid "UserDeleted"
+msgstr "Brukeren ble slettet"
+
+msgid "NoClassesForThisCourse"
+msgstr "Det er ingen oppmeldte klasser til dette kurset"
+
+msgid "CourseUsage"
+msgstr "Kursutnyttelse"
+
+msgid "NoCoursesForThisUser"
+msgstr "Denne brukeren er ikke p�meldt noen kurs"
+
+msgid "NoClassesForThisUser"
+msgstr "Denne brukeren er ikke p�meldt noen klasse"
+
+msgid "NoCoursesForThisClass"
+msgstr "Denne klassen er ikke p�meldt noen kurs"
+
+msgid "Tool"
+msgstr "Verktøy"
+
+msgid "NumberOfItems"
+msgstr "Antall elementer"
+
+msgid "DocumentsAndFolders"
+msgstr "Dokumenter og mapper"
+
+msgid "Exercises"
+msgstr "Øvelser"
+
+msgid "AllowPersonalAgendaTitle"
+msgstr "Personlig kalender"
+
+msgid "AllowPersonalAgendaComment"
+msgstr "Kan brukeren tilføye personlige kalenderelementer på Min Kalenderside?"
+
+msgid "CurrentValue"
+msgstr "nåværende verdi"
+
+msgid "UserPassword"
+msgstr "Passord"
+
+msgid "SubscriptionAllowed"
+msgstr "Påmelding tillatt"
+
+msgid "UnsubscriptionAllowed"
+msgstr "Avmelding tillatt"
+
+msgid "CreateVirtualCourse"
+msgstr "Opprett et virtuelt kurs"
+
+msgid "DisplayListVirtualCourses"
+msgstr "Vis liste over virtuelle kurs"
+
+msgid "WantedCourseCode"
+msgstr "Ønsket kurskode"
+
+msgid "ResetPassword"
+msgstr "Tilbakestill passord"
+
+msgid "CheckToSendNewPassword"
+msgstr "Kryss av for å sende nytt passord"
+
+msgid "AutoGeneratePassword"
+msgstr "Generer et nytt passord automatisk?"
+
+msgid "UseDocumentTitleTitle"
+msgstr "Bruk en tittel for dokumentnavnet"
+
+msgid "StudentPublications"
+msgstr "Studentpublikasjoner"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "Slettede filer kan ikke gjenvinnes"
+
+msgid "UserListHasBeenExported"
+msgstr "Brukerlisten ble eksportert"
+
+msgid "ClickHereToDownloadTheFile"
+msgstr "Klikk her for å laste ned filen"
+
+msgid "administratorTelephoneTitle"
+msgstr "Plattformadministrator: Telefon"
+
+msgid "administratorTelephoneComment"
+msgstr "Telefonnummer til plattformansvarlig"
+
+msgid "SendMailToNewUser"
+msgstr "Send epost til ny bruker"
+
+msgid "ExtendedProfileTitle"
+msgstr "Utvidet profil"
+
+msgid "Classes"
+msgstr "Klasser"
+
+msgid "InvalidStartDate"
+msgstr "feil startdato angitt"
+
+msgid "InvalidEndDate"
+msgstr "feil sluttdato angitt"
+
+msgid "HomePageFilesNotWritable"
+msgstr "Hjemmesidefilene er ikke skrivbare!"
+
+msgid "InsertThisLink"
+msgstr "Sett inn denne lenken"
+
+msgid "FirstPlace"
+msgstr "Første plassering"
+
+msgid "DropboxAllowGroupComment"
+msgstr "Brukere kan sende filer til grupper"
+
+msgid "ClassDeleted"
+msgstr "Klassen er slettet"
+
+msgid "ClassesDeleted"
+msgstr "Klassene er slettet"
+
+msgid "NoUsersInClass"
+msgstr "Ingen brukere i klassen"
+
+msgid "UsersAreSubscibedToCourse"
+msgstr "De valgte brukere er påmeldt til de valgte kursene"
+
+msgid "InvalidTitle"
+msgstr "Registrer en tittel"
+
+msgid "CatCodeAlreadyUsed"
+msgstr "Denne kategorien er allerede i bruk"
+
+msgid "PleaseEnterCategoryInfo"
+msgstr "Registrer en kode og et navn for denne kategorien"
+
+msgid "RegisterYourPortal"
+msgstr "Registrer din portal"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "Verktøymeny"
+
+msgid "LoginAs"
+msgstr "Logg inn som"
+
+msgid "SeeAllRightsAllRolesForSpecificLocation"
+msgstr "Fokus på lokasjon"
+
+msgid "RoleId"
+msgstr "Rolleident"
+
+msgid "RoleName"
+msgstr "Rollenavn"
+
+msgid "RoleType"
+msgstr "Type"
+
+msgid "MakeAvailable"
+msgstr "Gjør tilgjengelig"
+
+msgid "MakeUnavailable"
+msgstr "Gjør utilgjengelig"
+
+msgid "Stylesheets"
+msgstr "Stilark"
+
+msgid "Plugin"
+msgstr "Utvidelse"
+
+msgid "MainMenu"
+msgstr "Hovedmeny"
+
+msgid "MainMenuLogged"
+msgstr "Hovedmeny etter pålogging"
+
+msgid "YourVersionIs"
+msgstr "Din versjon er"
+
+msgid "ShowEmailAddresses"
+msgstr "Vis e-postadresser"
+
+msgid "ShowEmailAddressesComment"
+msgstr "Vis e-postadresser til brukere"
+
+msgid "DateStart"
+msgstr "Startdato"
+
+msgid "LoginPageMainArea"
+msgstr "Hovedområde for påloggingssiden"
+
+msgid "LoginPageMenu"
+msgstr "Meny for påloggingssiden"
+
+msgid "CampusHomepageMainArea"
+msgstr "Campus Hjemmesidens hoveområde"
+
+msgid "CampusHomepageMenu"
+msgstr "Hjemmesidemeny for Campus"
+
+msgid "MyCoursesMainArea"
+msgstr "Kursenes hovedområde"
+
+msgid "MyCoursesMenu"
+msgstr "Meny for kursene"
+
+msgid "TabsReporting"
+msgstr "Rapport-tab"
+
+msgid "TabsMyGradebook"
+msgstr "Min karrakterbok-tab"
+
+msgid "EditSessionToURL"
+msgstr "Rediger session"
+
+msgid "AddSessionsToThatURL"
+msgstr "Knytt denne sesjonen til følgende URL"
+
+msgid "SessionBelongURL"
+msgstr "Sessionen ble endret"
+
+msgid "ManageSessions"
+msgstr "Administrer session"
+
+msgid "AllowMessageToolComment"
+msgstr "Aktivere intern meldingsenheten verktøyet kan brukerne sende meldinger til andre brukere av plattformen og ha en meldingsenheten innboksen."
+
+msgid "AllowSocialToolTitle"
+msgstr "Sosial tjeneste (Facebook-like)"
+
+msgid "AllowSocialToolComment"
+msgstr "Det sosiale nettverket verktøyet tillater brukere å definere relasjoner med andre brukere, og dermed til å definere grupper av venner. Kombinert med den interne meldingsenheten verktøy, dette verktøyet kan stramt kommunikasjon med venner, inne i portalen miljø."
+
+msgid "SetLanguageAsDefault"
+msgstr "Sett default språk"
+
+msgid "FieldFilter"
+msgstr "Filter"
+
+msgid "FilterOn"
+msgstr "Filter på"
+
+msgid "FilterOff"
+msgstr "Filter av"
+
+msgid "FieldFilterSetOn"
+msgstr "Du kan nå filtrere på feltet"
+
+msgid "FieldFilterSetOff"
+msgstr "Dette feltet kan ikke filtreres på"
+
+msgid "buttonAddUserField"
+msgstr "Legg til brukerfelter"
+
+msgid "UsersSubscribedToFollowingCoursesBecauseOfVirtualCourses"
+msgstr "Brukerne har blitt påmeldt følgende kurs fordi flere kurs har benyttet samme visningskode"
+
+msgid "TheFollowingCoursesAlreadyUseThisVisualCode"
+msgstr "Følgende kurs benytter allerede denne koden"
+
+msgid "UsersSubscribedToBecauseVisualCode"
+msgstr "Brukerne har blitt påmeld flere kurs fordi ulike kurs har benyttet samme visningskode"
+
+msgid "UsersUnsubscribedFromBecauseVisualCode"
+msgstr "Brukeren er avmeldt følgende kurs fordi flere kurs har benyttet samme visningskode"
+
+msgid "FilterUsers"
+msgstr "Brukerfilter"
+
+msgid "SeveralCoursesSubscribedToSessionBecauseOfSameVisualCode"
+msgstr "Mange brukere ble lagt til sessionen pga dublisert kurskode"
+
+msgid "CoachIsRequired"
+msgstr "Du må velge en lærer"
+
+msgid "EncryptMethodUserPass"
+msgstr "Krypteringsmetode"
+
+msgid "AddTemplate"
+msgstr "Legg til template"
+
+msgid "TemplateImageComment100x70"
+msgstr "Dette bildet vil vise templatet i templatelisten. Max 100*70 px"
+
+msgid "TemplateAdded"
+msgstr "Template er lagt til"
+
+msgid "TemplateDeleted"
+msgstr "Template er slettet"
+
+msgid "EditTemplate"
+msgstr "Templateversjon"
+
+msgid "FileImportedJustUsersThatAreNotRegistered"
+msgstr "Brukerne som ikke var registert ble importert vellyket"
+
+msgid "YouMustImportAFileAccordingToSelectedOption"
+msgstr "Du må importere en fil med korrekt format"
+
+msgid "ShowEmailOfTeacherOrTutorTitle"
+msgstr "Vise lærers eller overlærers email i footer?"
+
+msgid "ShowEmailOfTeacherOrTutorComent"
+msgstr "Vise lærers eller overlærers email i footer?"
+
+msgid "AddSystemAnnouncement"
+msgstr "Legg til systemannonsering"
+
+msgid "EditSystemAnnouncement"
+msgstr "Endre systemannonsering"
+
+msgid "LPProgressScore"
+msgstr "% av emnet fullført"
+
+msgid "TotalTimeByCourse"
+msgstr "Totalt tidsforbruk i kurset"
+
+msgid "LastTimeTheCourseWasUsed"
+msgstr "Siste inlogging av læreren var"
+
+msgid "AnnouncementAvailable"
+msgstr "Annonseringen er tilgjengelig"
+
+msgid "AnnouncementNotAvailable"
+msgstr "Annonseringen er ikke tilgjengelig"
+
+msgid "Searching"
+msgstr "Søker"
+
+msgid "AddLDAPUsers"
+msgstr "Legg til LDAP brukere"
+
+msgid "Academica"
+msgstr "Academica"
+
+msgid "AddNews"
+msgstr "Legg til nyheter"
+
+msgid "AnnEmpty"
+msgstr "Annonseringslisten er nå ryddet opp"
+
+msgid "AnnouncementModified"
+msgstr "Annonsering ble endret"
+
+msgid "AnnouncementAdded"
+msgstr "Annonsering ble lagt til"
+
+msgid "AnnouncementDeleted"
+msgstr "Annonsering ble slettet"
+
+msgid "AnnouncementPublishedOn"
+msgstr "Publisert den"
+
+msgid "AddAnnouncement"
+msgstr "Legg til som meddelelse"
+
+msgid "professorMessage"
+msgstr "Melding fra læreren"
+
+msgid "EmailSent"
+msgstr "og sendt som e-post til registrerte brukere"
+
+msgid "EmailOption"
+msgstr "Send denne annonseringen som e-post til valgte grupper/brukere"
+
+msgid "On"
+msgstr "På"
+
+msgid "RegUser"
+msgstr "registrerte brukere av dette nettstedet"
+
+msgid "Unvalid"
+msgstr "har en ugyldig eller ingen e-postadresse"
+
+msgid "ModifAnn"
+msgstr "Rediger denne annonseringen"
+
+msgid "SelMess"
+msgstr "Advarsel til noen brukere"
+
+msgid "SelectedUsers"
+msgstr "Valgte brukere"
+
+msgid "PleaseEnterMessage"
+msgstr "Du må registrere meldingsteksten"
+
+msgid "PleaseSelectUsers"
+msgstr "Du må velge noen brukere"
+
+msgid "Teachersubject"
+msgstr "Melding sendt til dine studenter"
+
+msgid "MessageToSelectedUsers"
+msgstr "Meldinger til valgte brukere"
+
+msgid "SelectedGroups"
+msgstr "valgte grupper"
+
+msgid "Msg"
+msgstr "Meldinger"
+
+msgid "MsgText"
+msgstr "Melding"
+
+msgid "SelectEverybody"
+msgstr "Velg alle"
+
+msgid "LineNumber"
+msgstr "Linjenummer"
+
+msgid "LineOrLines"
+msgstr "linje(r)"
+
+msgid "AddNewHeading"
+msgstr "Legg til ny overskrift"
+
+msgid "CourseAdministratorOnly"
+msgstr "Kun for lærere"
+
+msgid "DefineHeadings"
+msgstr "Definer overskrifter"
+
+msgid "BackToUsersList"
+msgstr "Tilbake til brukerliste"
+
+msgid "CourseManager"
+msgstr "Lærer"
+
+msgid "ModRight"
+msgstr "endre rettigheter for"
+
+msgid "NoAdmin"
+msgstr "har fra nå av ingen rettigheter på denne side"
+
+msgid "AllAdmin"
+msgstr "har fra nå av alle rettigheter på denne side"
+
+msgid "ModRole"
+msgstr "Endre rolle for"
+
+msgid "IsNow"
+msgstr "er fra nå av"
+
+msgid "InC"
+msgstr "i dette kurset"
+
+msgid "Filled"
+msgstr "Ikke alle felt ble utfylt"
+
+msgid "UserNo"
+msgstr "Brukernr."
+
+msgid "Taken"
+msgstr "er allerede i bruk.  Velg en annen"
+
+msgid "Tutor"
+msgstr "Mentor"
+
+msgid "Unreg"
+msgstr "Avmeld"
+
+msgid "GroupUserManagement"
+msgstr "Gruppehåndtering"
+
+msgid "AddAUser"
+msgstr "Legg til brukere"
+
+msgid "GroupDocument"
+msgstr "Dokumenter"
+
+msgid "LearnpathMystatus"
+msgstr "Min status"
+
+msgid "LearnpathAddLearnpath"
+msgstr "Ny læringssti"
+
+msgid "UploadScorm"
+msgstr "SCORM og AICC import"
+
+msgid "PowerPointConvert"
+msgstr "PowerPoint konvertering"
+
+msgid "WoogieConversionPowerPoint"
+msgstr "Woogie : Word konvertering"
+
+msgid "WordConvert"
+msgstr "Word konvertering"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "UsersOnline"
+msgstr "Brukere online"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "Enter"
+msgstr "Logg inn"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Forums"
+msgstr "Forum"
+
+msgid "CreateDir"
+msgstr "Opprett en mappe"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Visible"
+msgstr "Synlig/usynlig"
+
+msgid "Download"
+msgstr "Last opp"
+
+msgid "Group"
+msgstr "Gruppe"
+
+msgid "Edit"
+msgstr "rediger"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "LoginName"
+msgstr "Pålogging"
+
+msgid "Forum"
+msgstr "Forum"
+
+msgid "DelImage"
+msgstr "Fjern bilde"
+
+msgid "Code"
+msgstr "Kurskode"
+
+msgid "Up"
+msgstr "forrige nivå"
+
+msgid "Down"
+msgstr "ned"
+
+msgid "Theme"
+msgstr "Utseende"
+
+msgid "TheListIsEmpty"
+msgstr "Listen er tom"
+
+msgid "CourseCreate"
+msgstr "Opprett ett kursnettsted"
+
+msgid "Todo"
+msgstr "Gjøremål"
+
+msgid "UserName"
+msgstr "Brukernavn"
+
+msgid "Hide"
+msgstr "Skjul"
+
+msgid "Archive"
+msgstr "arkiver"
+
+msgid "CourseCode"
+msgstr "Kurs kode"
+
+msgid "OfficialCode"
+msgstr "Offisiell kode"
+
+msgid "FirstName"
+msgstr "Fornavn"
+
+msgid "LastName"
+msgstr "Etternavn"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "EmailAddress"
+msgstr "Mail adresse"
+
+msgid "Reporting"
+msgstr "Rapportering"
+
+msgid "iso639_2_code"
+msgstr "no"
+
+msgid "iso639_1_code"
+msgstr "nor"
+
+msgid "charset"
+msgstr "iso-8859-1"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "verdana, helvetica, arial, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "helvetica, arial, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr "."
+
+msgid "number_decimal_separator"
+msgstr ","
+
+msgid "dateFormatShort"
+msgstr " %d. %b. %y"
+
+msgid "dateFormatLong"
+msgstr " %A %B %d, %Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%B %d, %Y at %I:%M %p"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "ja"
+
+msgid "No"
+msgstr "Nei"
+
+msgid "Next"
+msgstr "Neste"
+
+msgid "Allowed"
+msgstr "Tillatt"
+
+msgid "BackHome"
+msgstr "Til hjemmesiden for kurset"
+
+msgid "Propositions"
+msgstr "Forslag til en forbedring av"
+
+msgid "Maj"
+msgstr "Oppdater"
+
+msgid "Modify"
+msgstr "rediger"
+
+msgid "Invisible"
+msgstr "Gjør usynlig"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Move"
+msgstr "Flytte"
+
+msgid "Help"
+msgstr "Hjelp"
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "AddIntro"
+msgstr "Opprett en introduksjonstekst"
+
+msgid "BackList"
+msgstr "Retur til listen"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Empty"
+msgstr "Tom"
+
+msgid "ConfirmYourChoice"
+msgstr "Bekreft ditt valg"
+
+msgid "And"
+msgstr "og"
+
+msgid "Choice"
+msgstr "Ditt valg"
+
+msgid "Finish"
+msgstr "Avslutt"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "NotAllowed"
+msgstr "Du har ikke tilgang her eller din sesjon har utløpt.  Logg på igjen."
+
+msgid "NotLogged"
+msgstr "Du er ikke pålogget et kurs"
+
+msgid "Manager"
+msgstr "Administrator"
+
+msgid "Optional"
+msgstr "Valgfri"
+
+msgid "NextPage"
+msgstr "Neste side"
+
+msgid "PreviousPage"
+msgstr "Forrige side"
+
+msgid "Use"
+msgstr "Bruk"
+
+msgid "Total"
+msgstr "Totalt"
+
+msgid "Take"
+msgstr "ta"
+
+msgid "One"
+msgstr "En"
+
+msgid "Several"
+msgstr "Flere"
+
+msgid "Notice"
+msgstr "Notis"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Among"
+msgstr "blandt"
+
+msgid "Show"
+msgstr "Vis"
+
+msgid "MyCourses"
+msgstr "Mine kurs"
+
+msgid "ModifyProfile"
+msgstr "Min profile"
+
+msgid "MyStats"
+msgstr "Vis min statistikk"
+
+msgid "Logout"
+msgstr "Logg av"
+
+msgid "MyAgenda"
+msgstr "Min agenda"
+
+msgid "CourseHomepage"
+msgstr "Kursets hjemmeside"
+
+msgid "SwitchToTeacherView"
+msgstr "Lærervisning"
+
+msgid "SwitchToStudentView"
+msgstr "Studentvisning"
+
+msgid "AddResource"
+msgstr "Legg til"
+
+msgid "AddedResources"
+msgstr "Vedlegg"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['brazilian']"
+msgstr ""
+
+msgid "NameOfLang['bulgarian']"
+msgstr ""
+
+msgid "NameOfLang['catalan']"
+msgstr ""
+
+msgid "NameOfLang['croatian']"
+msgstr ""
+
+msgid "NameOfLang['danish']"
+msgstr ""
+
+msgid "NameOfLang['dutch']"
+msgstr ""
+
+msgid "NameOfLang['english']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['french']"
+msgstr ""
+
+msgid "NameOfLang['french_corporate']"
+msgstr ""
+
+msgid "NameOfLang['french_KM']"
+msgstr ""
+
+msgid "NameOfLang['galician']"
+msgstr ""
+
+msgid "NameOfLang['german']"
+msgstr ""
+
+msgid "NameOfLang['greek']"
+msgstr ""
+
+msgid "NameOfLang['italian']"
+msgstr ""
+
+msgid "NameOfLang['japanese']"
+msgstr ""
+
+msgid "NameOfLang['polish']"
+msgstr ""
+
+msgid "NameOfLang['portuguese']"
+msgstr ""
+
+msgid "NameOfLang['russian']"
+msgstr ""
+
+msgid "NameOfLang['simpl_chinese']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Platform"
+msgstr "Platform"
+
+msgid "localLangName"
+msgstr "språk"
+
+msgid "email"
+msgstr "e-post"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "Denne kurskoden finnes allerede.  Benytt en annen"
+
+msgid "Statistics"
+msgstr "Statistikk"
+
+msgid "GroupList"
+msgstr "liste grupper"
+
+msgid "Previous"
+msgstr "forrige"
+
+msgid "Courses"
+msgstr "kurs"
+
+msgid "In"
+msgstr "i"
+
+msgid "ShowAll"
+msgstr "Vis alle"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "englishLangName"
+msgstr "Engelsk"
+
+msgid "SelectAll"
+msgstr "velg alle"
+
+msgid "UnSelectAll"
+msgstr "fravelg alle"
+
+msgid "WithSelected"
+msgstr "Med valgte"
+
+msgid "OnLine"
+msgstr "Online"
+
+msgid "Users"
+msgstr "Brukere"
+
+msgid "PlatformAdmin"
+msgstr "Plattformadministrator"
+
+msgid "NameOfLang['hungarian']"
+msgstr ""
+
+msgid "NameOfLang['indonesian']"
+msgstr ""
+
+msgid "NameOfLang['malay']"
+msgstr ""
+
+msgid "NameOfLang['slovenian']"
+msgstr ""
+
+msgid "NameOfLang['spanish_latin']"
+msgstr ""
+
+msgid "NameOfLang['swedish']"
+msgstr ""
+
+msgid "NameOfLang['thai']"
+msgstr ""
+
+msgid "NameOfLang['turkce']"
+msgstr ""
+
+msgid "NameOfLang['vietnamese']"
+msgstr ""
+
+msgid "UserInfo"
+msgstr "Brukerinformasjon"
+
+msgid "CheckAll"
+msgstr "Velg alle"
+
+msgid "NbAnnoucement"
+msgstr "Annonsering"
+
+msgid "OtherCourses"
+msgstr "Andre kurs"
+
+msgid "Doc"
+msgstr "dokument"
+
+msgid "PlataformAdmin"
+msgstr "Plattformadministrasjon"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "GroupManagement"
+msgstr "Gruppehåndtering"
+
+msgid "Today"
+msgstr "idag"
+
+msgid "CourseHomepageLink"
+msgstr "Nåværende kurs"
+
+msgid "Attachment"
+msgstr "Vedlegg"
+
+msgid "User"
+msgstr "Bruker"
+
+msgid "MondayInit"
+msgstr "M"
+
+msgid "TuesdayInit"
+msgstr "T"
+
+msgid "WednesdayInit"
+msgstr "O"
+
+msgid "ThursdayInit"
+msgstr "T"
+
+msgid "FridayInit"
+msgstr "F"
+
+msgid "SaturdayInit"
+msgstr "L"
+
+msgid "SundayInit"
+msgstr "S"
+
+msgid "MondayShort"
+msgstr "Man"
+
+msgid "TuesdayShort"
+msgstr "Tir"
+
+msgid "WednesdayShort"
+msgstr "Ons"
+
+msgid "ThursdayShort"
+msgstr "Tor"
+
+msgid "FridayShort"
+msgstr "Fre"
+
+msgid "SaturdayShort"
+msgstr "Lør"
+
+msgid "SundayShort"
+msgstr "Søn"
+
+msgid "MondayLong"
+msgstr "Mandag"
+
+msgid "TuesdayLong"
+msgstr "Tirsdag"
+
+msgid "WednesdayLong"
+msgstr "Onsdag"
+
+msgid "ThursdayLong"
+msgstr "Torsdag"
+
+msgid "FridayLong"
+msgstr "Fredag"
+
+msgid "SaturdayLong"
+msgstr "Lørdag"
+
+msgid "SundayLong"
+msgstr "Søndag"
+
+msgid "JanuaryInit"
+msgstr "J"
+
+msgid "FebruaryInit"
+msgstr "F"
+
+msgid "MarchInit"
+msgstr "M"
+
+msgid "AprilInit"
+msgstr "A"
+
+msgid "MayInit"
+msgstr "M"
+
+msgid "JuneInit"
+msgstr "J"
+
+msgid "JulyInit"
+msgstr "J"
+
+msgid "AugustInit"
+msgstr "A"
+
+msgid "SeptemberInit"
+msgstr "S"
+
+msgid "OctoberInit"
+msgstr "O"
+
+msgid "NovemberInit"
+msgstr "N"
+
+msgid "DecemberInit"
+msgstr "D"
+
+msgid "JanuaryShort"
+msgstr "Jan"
+
+msgid "FebruaryShort"
+msgstr "Feb"
+
+msgid "MarchShort"
+msgstr "Mar"
+
+msgid "AprilShort"
+msgstr "Apr"
+
+msgid "MayShort"
+msgstr "Mai"
+
+msgid "JuneShort"
+msgstr "Jun"
+
+msgid "JulyShort"
+msgstr "Jul"
+
+msgid "AugustShort"
+msgstr "Aug"
+
+msgid "SeptemberShort"
+msgstr "Sep"
+
+msgid "OctoberShort"
+msgstr "Okt"
+
+msgid "NovemberShort"
+msgstr "Nov"
+
+msgid "DecemberShort"
+msgstr "Des"
+
+msgid "JanuaryLong"
+msgstr "Januar"
+
+msgid "FebruaryLong"
+msgstr "Februar"
+
+msgid "MarchLong"
+msgstr "Mars"
+
+msgid "AprilLong"
+msgstr "April"
+
+msgid "MayLong"
+msgstr "Mai"
+
+msgid "JuneLong"
+msgstr "Juni"
+
+msgid "JulyLong"
+msgstr "Juli"
+
+msgid "AugustLong"
+msgstr "August"
+
+msgid "SeptemberLong"
+msgstr "September"
+
+msgid "OctoberLong"
+msgstr "Oktober"
+
+msgid "NovemberLong"
+msgstr "November"
+
+msgid "DecemberLong"
+msgstr "Desember"
+
+msgid "MyCompetences"
+msgstr "Min kompetanse"
+
+msgid "MyDiplomas"
+msgstr "Mine diplomer"
+
+msgid "MyPersonalOpenArea"
+msgstr "Om meg selv"
+
+msgid "Agenda"
+msgstr "Kalender"
+
+msgid "HourShort"
+msgstr "t"
+
+msgid "PleaseTryAgain"
+msgstr "Prøv igjen!"
+
+msgid "UplNotAZip"
+msgstr "Filen du valgte er ikke en zip-fil."
+
+msgid "UplUploadSucceeded"
+msgstr "Filopplasting korrekt!"
+
+msgid "ExportAsCSV"
+msgstr "Eksporter som CSV-fil"
+
+msgid "ExportAsXLS"
+msgstr "Eksporter som XLS-fil"
+
+msgid "Openarea"
+msgstr "Personlig åpent område"
+
+msgid "Done"
+msgstr "Utført"
+
+msgid "Documents"
+msgstr "Dokumenter"
+
+msgid "DocumentAdded"
+msgstr "Dokument lagt til"
+
+msgid "DocumentUpdated"
+msgstr "Dokument oppdatert"
+
+msgid "DocumentInFolderUpdated"
+msgstr "Dokument oppdatert i mappe"
+
+msgid "Course_description"
+msgstr "Kursbeskrivelse"
+
+msgid "Document"
+msgstr "Dokument"
+
+msgid "Learnpath"
+msgstr "Læringssti"
+
+msgid "Link"
+msgstr "Lenke"
+
+msgid "Announcement"
+msgstr "Annonseringer"
+
+msgid "Dropbox"
+msgstr "Dropboks"
+
+msgid "Quiz"
+msgstr "Øvelser"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "Conference"
+msgstr "Konferanse"
+
+msgid "Student_publication"
+msgstr "Studentpublikasjoner"
+
+msgid "Tracking"
+msgstr "Sporing"
+
+msgid "homepage_link"
+msgstr "Tilføy lenke til denne siden"
+
+msgid "Course_setting"
+msgstr "Kursinnstillinger"
+
+msgid "Backup"
+msgstr "Sikkerhetskopier kurset"
+
+msgid "copy_course_content"
+msgstr "Kopier dette kursets innhold"
+
+msgid "recycle_course"
+msgstr "Gjenbruk dette kurset"
+
+msgid "StartDate"
+msgstr "Startdato"
+
+msgid "EndDate"
+msgstr "Sluttdato"
+
+msgid "StartTime"
+msgstr "Starttid"
+
+msgid "EndTime"
+msgstr "Slutt-tid"
+
+msgid "YouWereCalled"
+msgstr "Du ble invitert til chat med"
+
+msgid "DoYouAccept"
+msgstr "Aksepterer du dette?"
+
+msgid "Everybody"
+msgstr "Alle"
+
+msgid "SentTo"
+msgstr "Synlig for"
+
+msgid "Export"
+msgstr "Eksporter"
+
+msgid "Everyone"
+msgstr "Alle"
+
+msgid "SelectGroupsUsers"
+msgstr "Velg grupper/brukere"
+
+msgid "Student"
+msgstr "Student"
+
+msgid "Teacher"
+msgstr "Lærer"
+
+msgid "Send2All"
+msgstr "Du valgte ikke en bruker/gruppe.  Objektet er synlig for alle brukere"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Complete"
+msgstr "Komplett"
+
+msgid "Incomplete"
+msgstr "ikke komplett"
+
+msgid "reservation"
+msgstr "reservasjon"
+
+msgid "StartTimeWindow"
+msgstr "Start"
+
+msgid "EndTimeWindow"
+msgstr "Slutt"
+
+msgid "AccessNotAllowed"
+msgstr "Adgang til denne siden er ulovlig"
+
+msgid "InThisCourse"
+msgstr "I dette kurset"
+
+msgid "ThisFieldIsRequired"
+msgstr "nødvendig felt"
+
+msgid "AllowedHTMLTags"
+msgstr "Tillat HTML-tagger"
+
+msgid "FormHasErrorsPleaseComplete"
+msgstr "Skjemaet inneholder feil eller ufullstendige data.  Kontroller din registrering"
+
+msgid "StartDateShouldBeBeforeEndDate"
+msgstr "Startdato må være før sluttdato"
+
+msgid "InvalidDate"
+msgstr "Ugyldig dato"
+
+msgid "OnlyLettersAndNumbersAllowed"
+msgstr "Bare bokstaver og tall tillatt"
+
+msgid "CourseAdminRole"
+msgstr "Kursadministrasjon"
+
+msgid "UserRole"
+msgstr "Rolle"
+
+msgid "ViewRight"
+msgstr "Vis"
+
+msgid "EditRight"
+msgstr "Rediger"
+
+msgid "DeleteRight"
+msgstr "Slett"
+
+msgid "OverviewCourseRights"
+msgstr "Oversikt roller og rettigheter"
+
+msgid "SeeAllRightsAllLocationsForSpecificRole"
+msgstr "Fokus på roller"
+
+msgid "SeeAllRolesAllLocationsForSpecificRight"
+msgstr "Fokus på rettigheter"
+
+msgid "RightValueModified"
+msgstr "Verdien er endret"
+
+msgid "course_rights"
+msgstr "Oversikt over roller og rettigheter"
+
+msgid "CourseAdminRoleDescription"
+msgstr "Kursadministrator"
+
+msgid "CreateNewGlobalRole"
+msgstr "Opprett ny global rolle"
+
+msgid "CreateNewLocalRole"
+msgstr "Opprett ny lokal rolle"
+
+msgid "Actions"
+msgstr "Handling"
+
+msgid "Inbox"
+msgstr "Innboks"
+
+msgid "ComposeMessage"
+msgstr "Komponer melding"
+
+msgid "Other"
+msgstr "Annen"
+
+msgid "CampusHomepage"
+msgstr "Innloggingssiden"
+
+msgid "MySpace"
+msgstr "Rapportering"
+
+msgid "Progress"
+msgstr "Fremdrift"
+
+msgid "MyProgress"
+msgstr "Min fremdrift"
+
+msgid "MyGradebook"
+msgstr "Min karakterbok"
+
+msgid "Gradebook"
+msgstr "Karakterbok"
+
+msgid "CourseProgram"
+msgstr "Kurs beskrivelse"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "Dette kureste er ennå ikke beskrevet"
+
+msgid "QuestionPlan"
+msgstr "Spørsmål til lærer"
+
+msgid "NewBloc"
+msgstr "Annen"
+
+msgid "CourseDescriptionUpdated"
+msgstr "Kursbeskrivelsen ble oppdatert"
+
+msgid "CourseDescriptionDeleted"
+msgstr "Kursbeskrivelsen ble slettet"
+
+msgid "InvalidId"
+msgstr "Innlogging feilet - ugyldig brukernavn og passord."
+
+msgid "Pass"
+msgstr "Passord"
+
+msgid "Advises"
+msgstr "Rådgivning"
+
+msgid "CourseDoesntExist"
+msgstr "<b>Advarsel :</b> Dette kurset eksisterer ikke"
+
+msgid "GetCourseFromOldPortal"
+msgstr "klikk her for å hente dette kurset fra din gamle portal"
+
+msgid "SupportForum"
+msgstr "Supportforum"
+
+msgid "BackToHomePage"
+msgstr "Tilbake til hovedsiden"
+
+msgid "LostPassword"
+msgstr "Glemt Passord"
+
+msgid "Valvas"
+msgstr "Siste kunngjøringer"
+
+msgid "Helptwo"
+msgstr "Hjelp"
+
+msgid "EussMenu"
+msgstr "meny"
+
+msgid "Opinio"
+msgstr "Synspunkt"
+
+msgid "Intranet"
+msgstr "Intranett"
+
+msgid "Englin"
+msgstr "Engelsk"
+
+msgid "InvalidForSelfRegistration"
+msgstr "Innlogging feilet - dersom du ikke er registrert kan du gjøre det ved å benytte <a href=claroline/auth/inscription.php>registreringsskjemaet</a>"
+
+msgid "MenuGeneral"
+msgstr "Generelt"
+
+msgid "MenuUser"
+msgstr "Bruker"
+
+msgid "MenuAdmin"
+msgstr "Administrator"
+
+msgid "UsersOnLineList"
+msgstr "Liste over innloggede brukere"
+
+msgid "TotalOnLine"
+msgstr "brukere innlogget totalt"
+
+msgid "Refresh"
+msgstr "Oppfrisk"
+
+msgid "SystemAnnouncements"
+msgstr "Systemannonseringer"
+
+msgid "HelpMaj"
+msgstr "Hjelp"
+
+msgid "NotRegistered"
+msgstr "Ikke registrert"
+
+msgid "Login"
+msgstr "Pålogging"
+
+msgid "RegisterForCourse"
+msgstr "Melde på nytt kurs"
+
+msgid "UnregisterForCourse"
+msgstr "Melde av kurs"
+
+msgid "Refresh"
+msgstr "Oppfrisk"
+
+msgid "TotalOnLine"
+msgstr "brukere innlogget totalt"
+
+msgid "CourseClosed"
+msgstr "(kurset er for tiden lukket)"
+
+msgid "Teach"
+msgstr "Hva hun/han underviser i"
+
+msgid "Productions"
+msgstr "Produksjoner"
+
+msgid "SendChatRequest"
+msgstr "Send en forespørsel til denne personen"
+
+msgid "RequestDenied"
+msgstr "Dette oppkallet ble avvist"
+
+msgid "AuthInfo"
+msgstr "Autentifikasjon"
+
+msgid "ImageWrong"
+msgstr "Filstørrelsen skal være mindre enn"
+
+msgid "password_request"
+msgstr "Vi har mottatt en forespørsel om å resette ditt passord. Dersom dette ikke er ønskelig, ignorer denne mailen."
+
+msgid "YourPasswordHasBeenEmailed"
+msgstr "Ditt passord er sendt til din mailadresse"
+
+msgid "Action"
+msgstr "Aksjon"
+
+msgid "Preserved"
+msgstr "Bevart"
+
+msgid "ConfirmUnsubscribe"
+msgstr "Bekreft brukeravmelding"
+
+msgid "See"
+msgstr "Gå til"
+
+msgid "LastVisits"
+msgstr "Mine siste besøk"
+
+msgid "ModifProfile"
+msgstr "Redigere min profil"
+
+msgid "NowGoChooseYourCourses"
+msgstr "NB! Trykk neste, og velg kurs fra kurskattegorilisten du ønsker å melde deg på"
+
+msgid "MailHasBeenSent"
+msgstr "En email er sendt deg med brukernavn og passord"
+
+msgid "PersonalSettings"
+msgstr "Dine personlige opplysninger er registrert."
+
+msgid "Surname"
+msgstr "Etternavn"
+
+msgid "Sex"
+msgstr "Kjønn"
+
+msgid "InLnk"
+msgstr "Skjulte verktøy og lenker"
+
+msgid "DelLk"
+msgstr "Skal lenken slettes?"
+
+msgid "NameOfTheLink"
+msgstr "Navn på lenken"
+
+msgid "CourseAdminOnly"
+msgstr "Kun for lærere"
+
+msgid "PlatformAdminOnly"
+msgstr "Kun for platformadministratorer"
+
+msgid "CombinedCourse"
+msgstr "Kombinert kurs"
+
+msgid "ToolIsNowVisible"
+msgstr "Verktøyet er nå synlig"
+
+msgid "ToolIsNowHidden"
+msgstr "Verktøyet er nå usynlig"
+
+msgid "GreyIcons"
+msgstr "Verktøykasse"
+
+msgid "Interaction"
+msgstr "Samhandling"
+
+msgid "ToolName"
+msgstr "Importer Blackboard kurser"
+
+msgid "TrackingDisabled"
+msgstr "System administrator har slått av rapportering."
+
+msgid "InactivesStudents"
+msgstr "Uaktive brukere"
+
+msgid "AverageTimeSpentOnThePlatform"
+msgstr "Forbrukt tid i portalen"
+
+msgid "AverageCoursePerStudent"
+msgstr "Gjennomsnittlig antall kurs per bruker"
+
+msgid "AverageProgressInLearnpath"
+msgstr "Kursprogresjon"
+
+msgid "AverageResultsToTheExercices"
+msgstr "Gjennomsnittlig poengsum"
+
+msgid "SeeStudentList"
+msgstr "Deltagerliste"
+
+msgid "NbActiveSessions"
+msgstr "Aktive sesjoner"
+
+msgid "NbPastSessions"
+msgstr "Tidligere sesjoner"
+
+msgid "NbFutureSessions"
+msgstr "Planlagte sesjoner"
+
+msgid "NbStudentPerSession"
+msgstr "Antall deltakere per sesjon"
+
+msgid "NbCoursesPerSession"
+msgstr "Antall kurssider per sesjon"
+
+msgid "SeeSessionList"
+msgstr "Se oversikt over sesjoner"
+
+msgid "CourseStats"
+msgstr "Kursstatistikk"
+
+msgid "ToolsAccess"
+msgstr "Adgang til verktøyene"
+
+msgid "LinksAccess"
+msgstr "Lenker"
+
+msgid "DocumentsAccess"
+msgstr "Dokumenter"
+
+msgid "ScormAccess"
+msgstr "Læringssti - SCORM"
+
+msgid "LinksDetails"
+msgstr "Lenke detaljer"
+
+msgid "WorksDetails"
+msgstr "Innleverte oppgaver"
+
+msgid "LoginsDetails"
+msgstr "Klikk på månedens navn for flere detaljer"
+
+msgid "DocumentsDetails"
+msgstr "Dokumenter lastet ned av bruker"
+
+msgid "ExercicesDetails"
+msgstr "Poengsum for gjennomførte øvelser"
+
+msgid "BackToList"
+msgstr "Tilbake til brukerlisten"
+
+msgid "StatsOfCourse"
+msgstr "Kursstatistikk"
+
+msgid "StatsOfUser"
+msgstr "Brukerstatistikk"
+
+msgid "StatsOfCampus"
+msgstr "Platform statistikk"
+
+msgid "CountUsers"
+msgstr "Antall brukere"
+
+msgid "CountToolAccess"
+msgstr "Totalt antall forbindelser til dette kurset"
+
+msgid "LoginsTitleMonthColumn"
+msgstr "Måned"
+
+msgid "LoginsTitleCountColumn"
+msgstr "Antall innlogginger"
+
+msgid "ToolTitleToolnameColumn"
+msgstr "Verktøyets navn"
+
+msgid "ToolTitleUsersColumn"
+msgstr "Brukeres klikk"
+
+msgid "ToolTitleCountColumn"
+msgstr "Totale klikk"
+
+msgid "LinksTitleLinkColumn"
+msgstr "Lenke"
+
+msgid "LinksTitleUsersColumn"
+msgstr "Brukeres klikk"
+
+msgid "LinksTitleCountColumn"
+msgstr "Totale klikk"
+
+msgid "ExercicesTitleExerciceColumn"
+msgstr "Øvelse"
+
+msgid "ExercicesTitleScoreColumn"
+msgstr "Poengsum"
+
+msgid "DocumentsTitleDocumentColumn"
+msgstr "Dokument"
+
+msgid "DocumentsTitleUsersColumn"
+msgstr "Brukeres nedlastinger"
+
+msgid "DocumentsTitleCountColumn"
+msgstr "Totale nedlastinger"
+
+msgid "ScormContentColumn"
+msgstr "Tittel"
+
+msgid "ScormStudentColumn"
+msgstr "Brukere"
+
+msgid "ScormTitleColumn"
+msgstr "Leksjon/Skritt"
+
+msgid "ScormStatusColumn"
+msgstr "Status"
+
+msgid "ScormScoreColumn"
+msgstr "Resultat"
+
+msgid "ScormTimeColumn"
+msgstr "Tid"
+
+msgid "ScormNeverOpened"
+msgstr "Dette kurset ble aldri åpnet av brukeren."
+
+msgid "WorkTitle"
+msgstr "Tittel"
+
+msgid "WorkAuthors"
+msgstr "Forfattere"
+
+msgid "WorkDescription"
+msgstr "Beskrivelse"
+
+msgid "informationsAbout"
+msgstr "Sporing av"
+
+msgid "NoEmail"
+msgstr "Ingen epostadresse angitt"
+
+msgid "NoResult"
+msgstr "Intet resultat"
+
+msgid "Hits"
+msgstr "Treff"
+
+msgid "LittleHour"
+msgstr "t."
+
+msgid "Last31days"
+msgstr "I de siste 31 dager"
+
+msgid "Last7days"
+msgstr "I de siste 7 dager"
+
+msgid "ThisDay"
+msgstr "I dag"
+
+msgid "Logins"
+msgstr "Antall innlogginger"
+
+msgid "LoginsExplaination"
+msgstr "Liste over dine siste innlogginger sammen med de verktøy du benyttet i sesjonene."
+
+msgid "ExercicesResults"
+msgstr "Resultat fra tester"
+
+msgid "At"
+msgstr "hos"
+
+msgid "LoginTitleDateColumn"
+msgstr "Dato"
+
+msgid "LoginTitleCountColumn"
+msgstr "Besøk"
+
+msgid "LoginsAndAccessTools"
+msgstr "Innlogginger og tilgang til verktøy"
+
+msgid "WorkUploads"
+msgstr "Opplastet arbeid"
+
+msgid "ErrorUserNotInGroup"
+msgstr "Ugyldig deltaker: brukere finnes ikke i gruppen din"
+
+msgid "ListStudents"
+msgstr "Liste over brukere i gruppen"
+
+msgid "PeriodHour"
+msgstr "Time"
+
+msgid "PeriodDay"
+msgstr "Dag"
+
+msgid "PeriodWeek"
+msgstr "Uke"
+
+msgid "PeriodMonth"
+msgstr "Måned"
+
+msgid "PeriodYear"
+msgstr "År"
+
+msgid "NextDay"
+msgstr "Neste dag"
+
+msgid "PreviousDay"
+msgstr "Foregående dag"
+
+msgid "NextWeek"
+msgstr "Neste uke"
+
+msgid "PreviousWeek"
+msgstr "Foregående uke"
+
+msgid "NextMonth"
+msgstr "Neste måned"
+
+msgid "PreviousMonth"
+msgstr "Foregående måned"
+
+msgid "NextYear"
+msgstr "Neste år"
+
+msgid "PreviousYear"
+msgstr "Foregående år"
+
+msgid "ViewToolList"
+msgstr "Se liste over alle verktøy"
+
+msgid "ToolList"
+msgstr "Liste over alle verktøy"
+
+msgid "PeriodToDisplay"
+msgstr "Periode"
+
+msgid "DetailView"
+msgstr "Sett av"
+
+msgid "BredCrumpGroups"
+msgstr "Grupper"
+
+msgid "BredCrumpGroupSpace"
+msgstr "Gruppe område"
+
+msgid "BredCrumpUsers"
+msgstr "Brukere"
+
+msgid "AdminToolName"
+msgstr "Admin statistikk"
+
+msgid "PlatformStats"
+msgstr "Plattformstatistikk"
+
+msgid "StatsDatabase"
+msgstr "Databasestatistikk"
+
+msgid "PlatformAccess"
+msgstr "Tilgang til portal"
+
+msgid "PlatformCoursesAccess"
+msgstr "Tilgang til kurs"
+
+msgid "PlatformToolAccess"
+msgstr "Tilgang til verktøy"
+
+msgid "HardAndSoftUsed"
+msgstr "Land, tilbydere, nettlesere, os, referenter"
+
+msgid "StrangeCases"
+msgstr "Uvanlige tilfeller"
+
+msgid "StatsDatabaseLink"
+msgstr "Klikk her"
+
+msgid "CountCours"
+msgstr "Antall kurs"
+
+msgid "Access"
+msgstr "Tilgang"
+
+msgid "Countries"
+msgstr "Land"
+
+msgid "Providers"
+msgstr "Leverandører"
+
+msgid "OS"
+msgstr "OS"
+
+msgid "Browsers"
+msgstr "Nettlesere"
+
+msgid "Referers"
+msgstr "Referenter"
+
+msgid "AccessExplain"
+msgstr "(Når en bruker åpner forsiden til E-Learning)"
+
+msgid "TotalPlatformAccess"
+msgstr "Totalt"
+
+msgid "TotalPlatformLogin"
+msgstr "Totalt"
+
+msgid "MultipleLogins"
+msgstr "Konti med samme <i>brukernavn</i>"
+
+msgid "MultipleUsernameAndPassword"
+msgstr "Konti med samme <i>brukernavn</i> og samme <i>passord</i>"
+
+msgid "MultipleEmails"
+msgstr "Konti med samme <i>E-postadresse</i>"
+
+msgid "CourseWithoutProf"
+msgstr "Kurs uten lærer"
+
+msgid "CourseWithoutAccess"
+msgstr "Ikke påbegynte kurs"
+
+msgid "LoginWithoutAccess"
+msgstr "Pålogging ikke benyttet"
+
+msgid "AllRight"
+msgstr "Der er ingen uvanlige saker her"
+
+msgid "Defcon"
+msgstr "Ops, problemer oppdaget!!"
+
+msgid "NULLValue"
+msgstr "Tomt (eller NULL)"
+
+msgid "TrafficDetails"
+msgstr "Trafikkdetaljer"
+
+msgid "PathNeverOpenedByAnybody"
+msgstr "Denne sti har aldri vært åpnet av noen."
+
+msgid "SynthesisView"
+msgstr "Sammensatt visning"
+
+msgid "Visited"
+msgstr "Besøkt"
+
+msgid "FirstAccess"
+msgstr "Første adgang"
+
+msgid "LastAccess"
+msgstr "Siste adgang"
+
+msgid "Probationers"
+msgstr "Lærende"
+
+msgid "MoyenneTest"
+msgstr "Poengsum for test"
+
+msgid "CourseInformation"
+msgstr "Kursinformasjon"
+
+msgid "AvgExercisesScore"
+msgstr "Poengsum test"
+
+msgid "TrainingTime"
+msgstr "Forbrukt tid"
+
+msgid "CourseProgress"
+msgstr "Progresjon"
+
+msgid "CurrentDirectory"
+msgstr "Nåværende mappe"
+
+msgid "UplOverwrite"
+msgstr "Overskrive"
+
+msgid "MdTitle"
+msgstr "Navn på lenke"
+
+msgid "MdDescription"
+msgstr "Beskrivelse for lenke"
+
+msgid "MdCoverage"
+msgstr "Generell"
+
+msgid "MdCopyright"
+msgstr "Ghent Universitet"
+
+msgid "Identifier"
+msgstr "Identifikasjon"
+
+msgid "Keyword"
+msgstr "Nøkkelord"
+
+msgid "Coverage"
+msgstr "Kategori"
+
+msgid "Store"
+msgstr "Lagre"
+
+msgid "Continue"
+msgstr "Fortsett med"
+
+msgid "Create"
+msgstr "Opprett MDE'er"
+
+msgid "RemainingFor"
+msgstr "Utgåtte poster slettet for kategori"
+
+msgid "GeneralDescription"
+msgstr "Generell beskrivelse"
+
+msgid "Objectives"
+msgstr "Målsettning"
+
+msgid "Topics"
+msgstr "Emner"
+
+msgid "Methodology"
+msgstr "Metode"
+
+msgid "CourseMaterial"
+msgstr "Kurs materiell"
+
+msgid "HumanAndTechnicalResources"
+msgstr "Menneskelige og tekniske ressurser"
+
+msgid "Assessment"
+msgstr "Eksamen"
+
+msgid "LearningPath"
+msgstr "Læringssti"
+
+msgid "LevelUp"
+msgstr "opp et nivå"
+
+msgid "AddIt"
+msgstr "Legg til"
+
+msgid "MainCategory"
+msgstr "hoved kategori"
+
+msgid "AddToLinks"
+msgstr "Legg til kursets linker"
+
+msgid "DontAdd"
+msgstr "ikke legg til"
+
+msgid "ResourcesAdded"
+msgstr "Resursen er lagt til"
+
+msgid "ExternalResources"
+msgstr "Eksterne ressurser"
+
+msgid "ExternalLink"
+msgstr "Eksterne linker"
+
+msgid "ShowDelete"
+msgstr "Vis / Slett"
+
+msgid "IntroductionText"
+msgstr "Introduksjonstekst"
+
+msgid "CourseDescription"
+msgstr "Kursbeskrivelse"
+
+msgid "SameWindow"
+msgstr "I samme vindu"
+
+msgid "NewWindow"
+msgstr "I et nytt vindu"
+
+msgid "StepDeleted1"
+msgstr "Denne"
+
+msgid "Chapter"
+msgstr "Kapitell"
+
+msgid "AgendaAdd"
+msgstr "Legg til ny oppføring i kalender"
+
+msgid "Detail"
+msgstr "Detaljer"
+
+msgid "SendWork"
+msgstr "Last opp fil"
+
+msgid "TooBig"
+msgstr "Da har ikke valgt en fil eller filen er for stor"
+
+msgid "DocModif"
+msgstr "Dokumentets tittel er endret"
+
+msgid "DocAdd"
+msgstr "Filen er lagt til liste over publikasjoner"
+
+msgid "DocDel"
+msgstr "Filen slettet"
+
+msgid "TitleWork"
+msgstr "Dokumenttittel"
+
+msgid "Authors"
+msgstr "Forfattere"
+
+msgid "WorkDelete"
+msgstr "Slett"
+
+msgid "WorkModify"
+msgstr "Rediger"
+
+msgid "WorkConfirmDelete"
+msgstr "Ønsker du å slette denne filen?"
+
+msgid "AllFiles"
+msgstr "Aksjon for alle filer"
+
+msgid "DefaultUpload"
+msgstr "Standard innstilling for synlighet av nylig postede filer"
+
+msgid "NewVisible"
+msgstr "Ney dokumenter er synlige for alle brukere"
+
+msgid "NewUnvisible"
+msgstr "Nye dokumenter er bare synlige for kursleder(e)"
+
+msgid "MustBeRegisteredUser"
+msgstr "Bare registrerte brukere av dette kurset kan publisere dokumenter"
+
+msgid "ListDel"
+msgstr "Slett liste"
+
+msgid "CreateDirectory"
+msgstr "Opprett mappe"
+
+msgid "CurrentDir"
+msgstr "gjeldende mappe"
+
+msgid "UploadADocument"
+msgstr "Last opp ett dokument"
+
+msgid "EditToolOptions"
+msgstr "Rediger verktøysinnstillinger"
+
+msgid "DocumentDeleted"
+msgstr "Dokument slettet"
+
+msgid "DirDelete"
+msgstr "Slett katalog"
+
+msgid "ValidateChanges"
+msgstr "Valider endringer"
+
+msgid "BabyOrange"
+msgstr "Beibyorange"
+
+msgid "BlueLagoon"
+msgstr "Blå lagune"
+
+msgid "CoolBlue"
+msgstr "Kjølig blå"
+
+msgid "Corporate"
+msgstr "Firma"
+
+msgid "CosmicCampus"
+msgstr "Kosmisk leir"
+
+msgid "DeliciousBordeaux"
+msgstr "Deilig Bordeaux"
+
+msgid "EmpireGreen"
+msgstr "Empirisk grønn"
+
+msgid "FruityOrange"
+msgstr "Frukt orange"
+
+msgid "Medical"
+msgstr "Medisin"
+
+msgid "RoyalPurple"
+msgstr "Kongelig rosa"
+
+msgid "SilverLine"
+msgstr "Sølvaktig"
+
+msgid "SoberBrown"
+msgstr "Sober brun"
+
+msgid "SteelGrey"
+msgstr "Stål grå"
+
+msgid "TastyOlive"
+msgstr "Tasty olive"
+

@@ -1,0 +1,5196 @@
+msgid "ShowAllEvents"
+msgstr "Показати всі елементи повістки дня"
+
+msgid "Month"
+msgstr "Місяць"
+
+msgid "Hour"
+msgstr "Година"
+
+msgid "Minutes"
+msgstr "Хвилини"
+
+msgid "AddSuccess"
+msgstr "Елемент повістки дня додано"
+
+msgid "AgendaDeleteSuccess"
+msgstr "Елемент повістки дня видалено"
+
+msgid "NoAgendaItems"
+msgstr "&#1053;&#1077;&#1084;&#1072;&#1108; &#1077;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1110;&#1074; &#1087;&#1086;&#1074;&#1110;&#1089;&#1090;&#1082;&#1080; &#1076;&#1085;&#1103;"
+
+msgid "ClassName"
+msgstr "Назва класу"
+
+msgid "ItemTitle"
+msgstr "Назва елементу повістки дня"
+
+msgid "Day"
+msgstr "День"
+
+msgid "month_default"
+msgstr "місяць за замовчуванням"
+
+msgid "year_default"
+msgstr "рік за замовчуванням"
+
+msgid "Hour"
+msgstr "Година"
+
+msgid "hour_default"
+msgstr "година за замовчуванням"
+
+msgid "Minute"
+msgstr "хвилина"
+
+msgid "Lasting"
+msgstr "тривалий"
+
+msgid "OldToNew"
+msgstr "старий на новий"
+
+msgid "NewToOld"
+msgstr "новий на старий"
+
+msgid "Now"
+msgstr "&#1079;&#1072;&#1088;&#1072;&#1079;"
+
+msgid "AddEvent"
+msgstr "Додати подію"
+
+msgid "Detail"
+msgstr "детально"
+
+msgid "MonthView"
+msgstr "Перегляд місяця"
+
+msgid "WeekView"
+msgstr "Перегляд тижня"
+
+msgid "DayView"
+msgstr "Перегляд дня"
+
+msgid "AddPersonalItem"
+msgstr "Додати персональний елемент"
+
+msgid "Week"
+msgstr "Тиждень"
+
+msgid "Time"
+msgstr "Час"
+
+msgid "AddPersonalCalendarItem"
+msgstr "Додати персональний елемент повістки дня"
+
+msgid "ModifyPersonalCalendarItem"
+msgstr "Змінити персональний елемент повістки дня"
+
+msgid "PeronalAgendaItemAdded"
+msgstr "Ваш персональний елемент повістки дня додано"
+
+msgid "PeronalAgendaItemEdited"
+msgstr "Ваш персональний елемент повістки дня змінено"
+
+msgid "PeronalAgendaItemDeleted"
+msgstr "Ваш персональний елемент повістки дня видалено"
+
+msgid "ViewPersonalItem"
+msgstr "Перегляд персональних елементів"
+
+msgid "Print"
+msgstr "Друк"
+
+msgid "MyTextHere"
+msgstr "тут мій текст"
+
+msgid "CopiedAsAnnouncement"
+msgstr "Скопійовано як оголошення"
+
+msgid "NewAnnouncement"
+msgstr "Нове оголошення"
+
+msgid "ModifInfo"
+msgstr "Налаштування курсу"
+
+msgid "ModifDone"
+msgstr "Інформацію було змінено"
+
+msgid "DelCourse"
+msgstr "Видалити весь курс"
+
+msgid "Professors"
+msgstr "Викладачі"
+
+msgid "Faculty"
+msgstr "Категорія"
+
+msgid "Confidentiality"
+msgstr "Конфіденційність"
+
+msgid "Unsubscription"
+msgstr "Скасувати зарахування"
+
+msgid "PrivOpen"
+msgstr "Приватний доступ, реєстрація відкрита"
+
+msgid "Forbidden"
+msgstr "Недоступно"
+
+msgid "CourseAccessConfigTip"
+msgstr "За замовчуванням ваш курс є публічним. Але ви можете визначити вищий рівень конфіденційності."
+
+msgid "OpenToTheWorld"
+msgstr "Відкритий доступ для всіх"
+
+msgid "OpenToThePlatform"
+msgstr "Відкрито - доступно зареєстрованим користувачам порталу"
+
+msgid "OpenToThePlatform"
+msgstr "Відкрито - доступно зареєстрованим користувачам порталу"
+
+msgid "TipLang"
+msgstr "Ця мова буде основною для всіх відвідувачів вебсайту курсу."
+
+msgid "Vid"
+msgstr "Відео"
+
+msgid "Work"
+msgstr "Праця студентів"
+
+msgid "ProgramMenu"
+msgstr "Програма курсу"
+
+msgid "Stats"
+msgstr "Статистика"
+
+msgid "UplPage"
+msgstr "Завантажити сторінку та зв'язати із головною сторінкою курсу"
+
+msgid "LinkSite"
+msgstr "Додати посилання на головну сторінку курсу"
+
+msgid "HasDel"
+msgstr "було видалено"
+
+msgid "ByDel"
+msgstr "Видалення цієї зони призведе до видалення всього контенту (документів, посилань...) та відрахування всіх її членів (але не відрахує їх з інших зон). Це також призведе до видалення всіх віртуальних курсів, що посилаються на цей курс.<p>Ви дійсно бажаєте видалити зону курсу?"
+
+msgid "Y"
+msgstr "Так"
+
+msgid "N"
+msgstr "Ні"
+
+msgid "DepartmentUrl"
+msgstr "Адреса URL установи"
+
+msgid "DepartmentUrlName"
+msgstr "Установа"
+
+msgid "BackupCourse"
+msgstr "Архівувати курс"
+
+msgid "ModifGroups"
+msgstr "Групи"
+
+msgid "Professor"
+msgstr "Викладач"
+
+msgid "DescriptionCours"
+msgstr "Опис курсу"
+
+msgid "ArchiveCourse"
+msgstr "Архівування курсу"
+
+msgid "RestoreCourse"
+msgstr "Поновлення курсу"
+
+msgid "Restore"
+msgstr "Поновлення"
+
+msgid "CreatedIn"
+msgstr "створено у"
+
+msgid "CreateMissingDirectories"
+msgstr "Створення відсутніх каталогів"
+
+msgid "CopyDirectoryCourse"
+msgstr "Копіювання файлів курсу"
+
+msgid "Disk_free_space"
+msgstr "Вільний дисковий простір"
+
+msgid "BuildTheCompressedFile"
+msgstr "Створення архіву"
+
+msgid "FileCopied"
+msgstr "файл скопійовано"
+
+msgid "ArchiveLocation"
+msgstr "Місцеположення архіву"
+
+msgid "SizeOf"
+msgstr "Розмір"
+
+msgid "ArchiveName"
+msgstr "Назва архіву"
+
+msgid "BackupSuccesfull"
+msgstr "Архівування вдале"
+
+msgid "BUCourseDataOfMainBase"
+msgstr "Архівування даних курсу в головній базі даних для"
+
+msgid "BUUsersInMainBase"
+msgstr "Архівування даних користувача в головній базі даних для"
+
+msgid "BUAnnounceInMainBase"
+msgstr "Архівування даних оголошень в головній базі даних для"
+
+msgid "BackupOfDataBase"
+msgstr "Архівування бази даних"
+
+msgid "ExpirationDate"
+msgstr "Термін закінчення дії"
+
+msgid "LastEdit"
+msgstr "Останнє редагування"
+
+msgid "LastVisit"
+msgstr "Останнє відвідування"
+
+msgid "Subscription"
+msgstr "Зарахування"
+
+msgid "CourseAccess"
+msgstr "Доступ до курсу"
+
+msgid "ConfirmBackup"
+msgstr "Ви дійсно бажаєте архівувати весь курс?"
+
+msgid "CreateSite"
+msgstr "Створити сайт курсу"
+
+msgid "RestoreDescription"
+msgstr "Архів курсу ви можете вибрати нижче.<br><br> Натиснувши \"Поновити\", архів буде відкрито, а курс з нього поновлено."
+
+msgid "RestoreNotice"
+msgstr "Цей скрипт поки що не дозволяє автоматично поновлювати користувачів, але даних, збережених в \"users.csv\", достатньо адміністратору для того, аби зробити це вручну."
+
+msgid "AvailableArchives"
+msgstr "Список доступних архівів"
+
+msgid "NoArchive"
+msgstr "Жодного архіву не вибрано"
+
+msgid "ArchiveNotFound"
+msgstr "Архів не було знайдено"
+
+msgid "ArchiveUncompressed"
+msgstr "Архів було розпаковано та інстальовано"
+
+msgid "CsvPutIntoDocTool"
+msgstr "Файл \"users.csv\" було розміщено в розіділі Документи."
+
+msgid "BackH"
+msgstr "до головної сторінки"
+
+msgid "OtherCategory"
+msgstr "Інша категорія"
+
+msgid "AllowedToUnsubscribe"
+msgstr "Користувачам дозволено відраховуватися з цього курсу"
+
+msgid "NotAllowedToUnsubscribe"
+msgstr "Користувачам заборонено відраховуватися з цього курсу"
+
+msgid "CourseVisibilityClosed"
+msgstr "Курс доступний лише для адміністраторів та викладачів."
+
+msgid "CourseVisibilityClosed"
+msgstr "Курс доступний лише для адміністраторів та викладачів."
+
+msgid "CourseVisibilityModified"
+msgstr "Змінено (більш детальні налаштування визначені через систему прав-ролей)"
+
+msgid "WorkEmailAlert"
+msgstr "Email повідомлення при призначенні роботи"
+
+msgid "WorkEmailAlertActivate"
+msgstr "Активувати email повідомлення при призначенні нової роботи"
+
+msgid "WorkEmailAlertDeactivate"
+msgstr "Деактивувати email повідомлення при призначенні нової роботи"
+
+msgid "DropboxEmailAlert"
+msgstr "Email повідомлення при зміні вмісту скриньки контенту"
+
+msgid "DropboxEmailAlertActivate"
+msgstr "Активувати email повідомлення при новому призначенні в скринці контенту"
+
+msgid "DropboxEmailAlertDeactivate"
+msgstr "Деактивувати email повідомлення при новому призначенні в скринці контенту"
+
+msgid "AllowUserEditAgenda"
+msgstr "Дозволити користувачам редагувати план курсів"
+
+msgid "AllowUserEditAgendaActivate"
+msgstr "Активувати редагування плану курсів користувачами"
+
+msgid "AllowUserEditAgendaDeactivate"
+msgstr "Деактивувати редагування плану курсів користувачами"
+
+msgid "AllowUserEditAnnouncement"
+msgstr "Дозволити користувачам редагувати оголошення щодо курсів"
+
+msgid "AllowUserEditAnnouncementActivate"
+msgstr "Включити можливість редагування користувачами"
+
+msgid "AllowUserEditAnnouncementDeactivate"
+msgstr "Виключити можливість редагування користувачами"
+
+msgid "OrInTime"
+msgstr "Або у"
+
+msgid "CourseRegistrationPassword"
+msgstr "Пароль реєстрації курсу"
+
+msgid "DescriptionDeleteCourse"
+msgstr "Натисніть на це посилання для відключення будь-якої ознаки існування курсу на сервері.<br><br>Ця функціональність повинна використовуватись обережно!"
+
+msgid "DescriptionCopyCourse"
+msgstr "Chamilo пропонує можливість дуплікації всього або частини курсу в інший курс, що є початково пустим.<br><br>Передумова: мати курс, що складається із деяких документів, оголошень, форумів... та інший курс, що не має в складі елементів першого курсу!"
+
+msgid "DescriptionRecycleCourse"
+msgstr "Цей інструмент видаляє із курсу вибрані елементи або всі елементи (документи, форуми, посилання...). Ця процедура може проводитися в кінці навчання або в кінці року. Перед цим перевірте, чи не потрібний вам контент цього курсу в майбутньому! Ви можете зберегти весь контент."
+
+msgid "SelectOptionForBackup"
+msgstr "Будь ласка, виберіть параметри резервного копіювання."
+
+msgid "LetMeSelectItems"
+msgstr "Дозвольте мені вибрати компоненти курсу"
+
+msgid "CreateFullBackup"
+msgstr "Створити повну резервну копію цього курсу"
+
+msgid "CreateBackup"
+msgstr "створити резервну копію"
+
+msgid "BackupCreated"
+msgstr "&#1056;&#1077;&#1079;&#1077;&#1088;&#1074;&#1085;&#1091; &#1082;&#1086;&#1087;&#1110;&#1102; &#1094;&#1100;&#1086;&#1075;&#1086; &#1082;&#1091;&#1088;&#1089;&#1091; &#1089;&#1090;&#1074;&#1086;&#1088;&#1077;&#1085;&#1086;. &#1047;&#1072;&#1074;&#1072;&#10"
+
+msgid "SelectBackupFile"
+msgstr "виберіть файл резервної копії"
+
+msgid "ImportBackup"
+msgstr "Імпортувати резервну копію"
+
+msgid "ImportFullBackup"
+msgstr "Імпортувати повну резервну копію"
+
+msgid "ImportFinished"
+msgstr "Імпорт закінчено"
+
+msgid "Tests"
+msgstr "Тести"
+
+msgid "Learnpaths"
+msgstr "Навчальні плани"
+
+msgid "CopyCourse"
+msgstr "Копіювати курс"
+
+msgid "SelectItemsToCopy"
+msgstr "Виберіть елементи для копіювання"
+
+msgid "CopyFinished"
+msgstr "Копіювання закінчено"
+
+msgid "FullRecycle"
+msgstr "Повне поновлення"
+
+msgid "RecycleCourse"
+msgstr "Поновити курс"
+
+msgid "RecycleFinished"
+msgstr "Поновлення завершено"
+
+msgid "RecycleWarning"
+msgstr "Увага: використовуючи цей інструмент, ви можете видалити деякі частини вашого курсу. Ми радимо вам створювати <a href=\"create_backup.php\">резервну копію</a> перед використанням цього інструменту поновлення."
+
+msgid "SameFilename"
+msgstr "Що потрібно зробити з імпортованими файлами, які мають таку ж назву, як і існуючі?"
+
+msgid "SameFilenameSkip"
+msgstr "Пропустити таку ж саму назву файлу"
+
+msgid "SameFilenameRename"
+msgstr "Перейменувати файл (напр. file.pdf стане file_1.pdf)"
+
+msgid "SameFilenameOverwrite"
+msgstr "Перезаписати файл"
+
+msgid "SelectDestinationCourse"
+msgstr "Виберіть курс призначення"
+
+msgid "FullCopy"
+msgstr "Повне копіювання"
+
+msgid "NoResourcesToBackup"
+msgstr "Немає ресурсів для резервного копіювання"
+
+msgid "NoResourcesInBackupFile"
+msgstr "Немає ресурсів в резервній копії"
+
+msgid "SelectResources"
+msgstr "Вибрати ресурси"
+
+msgid "NoResourcesToRecycles"
+msgstr "Немає ресурсів для поновлення"
+
+msgid "IncludeQuestionPool"
+msgstr "Включити сукупність питань"
+
+msgid "LocalFile"
+msgstr "локальний файл"
+
+msgid "ServerFile"
+msgstr "файл серверу"
+
+msgid "NoBackupsAvailable"
+msgstr "резервна копія недоступна"
+
+msgid "NoDestinationCoursesAvailable"
+msgstr "Визначений курс недоступний"
+
+msgid "ImportBackupInfo"
+msgstr "Імпортувати резервну копію. Ви маєте змогу завантажити резервну копію файлу з локального диску або використати резервну копію файлу з сервера."
+
+msgid "CreateBackupInfo"
+msgstr "Створити резервну копію цього курсу. Ви можете вибрати контент курсу для включення його до резервної копії."
+
+msgid "ToolIntro"
+msgstr "Вступ до інструменту"
+
+msgid "UploadError"
+msgstr "Завантаження на сервер невдале. Будь ласка перевірте межі максимального розміру файлу та права на каталог."
+
+msgid "DocumentsWillBeAddedToo"
+msgstr "Документи буде також додано"
+
+msgid "Explanation"
+msgstr "Як тільки ви натиснете ОК, сайт з Форумом, Планом та менеджером Документів буде створено. Ви будете мати можливість змінювати його контент, коли завгодно."
+
+msgid "CodeTaken"
+msgstr "Цей код курсу вже використовується. <br />Натисніть кнопку <b>Назад</b> вашого браузеру та спробуйте ще раз"
+
+msgid "ExerciceEx"
+msgstr "Приклад тесту"
+
+msgid "Antique"
+msgstr "Історія античної філософії"
+
+msgid "SocraticIrony"
+msgstr "Іронія Сократа це..."
+
+msgid "ManyAnswers"
+msgstr "(може бути вірною більше однієї відповіді)"
+
+msgid "Ridiculise"
+msgstr "Висміяти співрозмовника для запевнення в його неправоті."
+
+msgid "NoPsychology"
+msgstr "Ні. Іронія Сократа не стосується психології, це стосується теорії аргументації."
+
+msgid "AdmitError"
+msgstr "Признавати свої власні помилки, аби співрозмовник робив те саме."
+
+msgid "NoSeduction"
+msgstr "Ні. Іронія Сократа не є стратегією спокушання або методом прикладу."
+
+msgid "Force"
+msgstr "Заставляти співрозмовника питаннями та підпитаннями погоджуватися, що він не знає, що йому потрібно знати."
+
+msgid "Indeed"
+msgstr "Дійсно. Іронія Сократа - це цікавий метод. Грецьке \"eirotao\" означає \"запитувати питання\""
+
+msgid "Contradiction"
+msgstr "Використовуйте принцип непротиріччя для того, аби ввести співрозмовника в тупік."
+
+msgid "NotFalse"
+msgstr "Ця відповідь не є невірною. Правда, що розкриття ігнорування співрозмовником означає показ висновків, які протирічать засновкам."
+
+msgid "AddPageHome"
+msgstr "Завантажити сторінку та зробити посилання на Домашню сторінку"
+
+msgid "ModifyInfo"
+msgstr "Налаштування курсу"
+
+msgid "CourseDesc"
+msgstr "Опис курсу"
+
+msgid "AgendaTitle"
+msgstr "Вівторок, 11 грудня - перші збори. Аудиторія: 18"
+
+msgid "AgendaText"
+msgstr "Вступ до керування проектом"
+
+msgid "Micro"
+msgstr "Вуличні інтерв'ю"
+
+msgid "Google"
+msgstr "Швидкий та потужний пошук"
+
+msgid "IntroductionTwo"
+msgstr "Ця сторінка дозволяє користувачам та групам публікувати документи."
+
+msgid "AnnouncementEx"
+msgstr "Це приклад оголошення. Тільки викладачам дозволено публікувати оголошення."
+
+msgid "JustCreated"
+msgstr "Ви тільки-но створили зону курсу"
+
+msgid "CreateCourseGroups"
+msgstr "Групи"
+
+msgid "CatagoryMain"
+msgstr "Головна"
+
+msgid "CatagoryGroup"
+msgstr "Форуми груп"
+
+msgid "Ln"
+msgstr "Мова"
+
+msgid "FieldsRequ"
+msgstr "Всі поля обов'язкові"
+
+msgid "Ex"
+msgstr "напр. <i>Інноваційний менеджмент</i>"
+
+msgid "Fac"
+msgstr "Категорія"
+
+msgid "TargetFac"
+msgstr "Це відділення або будь-яка інша категорія, якій призначено курс"
+
+msgid "Doubt"
+msgstr "Якщо ви сумніваєтесь щодо коду курсу, проконсультуйтесь"
+
+msgid "Program"
+msgstr "Програма курсу. Якщо ваш курс не має коду, з якихось причин, призначте його. Наприклад, <i>INNOVATION</i>, якщо курс стосується Інноваційного менеджменту"
+
+msgid "Scormtool"
+msgstr "Навчальний план"
+
+msgid "Scormbuildertool"
+msgstr "Будівельник планів SCORM"
+
+msgid "Pathbuildertool"
+msgstr "Будівельник навчальних планів"
+
+msgid "OnlineConference"
+msgstr "Конференція"
+
+msgid "AgendaCreationTitle"
+msgstr "Створення курсу"
+
+msgid "AgendaCreationContenu"
+msgstr "Курс було створено."
+
+msgid "OnlineDescription"
+msgstr "Деталі конференції"
+
+msgid "Only"
+msgstr "Тільки"
+
+msgid "RandomLanguage"
+msgstr "Змішаний вибір доступних мов"
+
+msgid "ForumLanguage"
+msgstr "англійська"
+
+msgid "NewCourse"
+msgstr "Нова зона курсу"
+
+msgid "AddNewCourse"
+msgstr "Додати нову зону курсу"
+
+msgid "OtherProperties"
+msgstr "В архіві знайдено інші властивості."
+
+msgid "SysId"
+msgstr "ID системи"
+
+msgid "ScoreShow"
+msgstr "Показати результат"
+
+msgid "Visibility"
+msgstr "Видимість"
+
+msgid "VersionDb"
+msgstr "Версія бази даних використовується під час архівування"
+
+msgid "Expire"
+msgstr "Закінчення дії"
+
+msgid "ChoseFile"
+msgstr "Вибрати файл"
+
+msgid "FtpFileTips"
+msgstr "Файл на FTP сервері"
+
+msgid "HttpFileTips"
+msgstr "Файл на вебсервері"
+
+msgid "LocalFileTips"
+msgstr "Файл на сервері порталу"
+
+msgid "PostFileTips"
+msgstr "Файл на локальному диску"
+
+msgid "Minimum"
+msgstr "мінімум"
+
+msgid "Maximum"
+msgstr "максімум"
+
+msgid "RestoreACourse"
+msgstr "поновити курс"
+
+msgid "Recycle"
+msgstr "Повторно використати курс"
+
+msgid "AnnouncementExampleTitle"
+msgstr "Це приклад оголошення"
+
+msgid "Wikipedia"
+msgstr "Вільна онлайн-енциклопедія"
+
+msgid "DefaultGroupCategory"
+msgstr "Групи за замовчуванням"
+
+msgid "DefaultCourseImages"
+msgstr "Галерея"
+
+msgid "ExampleForumCategory"
+msgstr "Приклад категорії форуму"
+
+msgid "ExampleForum"
+msgstr "Приклад форуму"
+
+msgid "ExampleThread"
+msgstr "Приклад теми"
+
+msgid "ExampleThreadContent"
+msgstr "Приклад контенту"
+
+msgid "ShowFeedback"
+msgstr "Показати Зворотній зв'язок"
+
+msgid "GiveFeedback"
+msgstr "Надати / Редагувати Зворотній зв'язок"
+
+msgid "JustUploadInSelect"
+msgstr "--- ПростоЗавантажити ---"
+
+msgid "MailingNothingFor"
+msgstr "Нічого для"
+
+msgid "MailingFileNotRegistered"
+msgstr "(не зареєстровано на цей курс)"
+
+msgid "MailingFileSentTo"
+msgstr "відправлено до"
+
+msgid "MailingFileIsFor"
+msgstr "для"
+
+msgid "ForumDeleted"
+msgstr "Форум видалено"
+
+msgid "ForumCategoryDeleted"
+msgstr "Категорію форуму видалено"
+
+msgid "ForumLocked"
+msgstr "Форум заблоковано"
+
+msgid "AddForumCategory"
+msgstr "Додати нову категорію форуму"
+
+msgid "AddForum"
+msgstr "Додати новий форум"
+
+msgid "Posts"
+msgstr "Повідомлення"
+
+msgid "LastPosts"
+msgstr "Останнє Повідомлення"
+
+msgid "NoForumInThisCategory"
+msgstr "Немає форумів в цій категорії"
+
+msgid "InForumCategory"
+msgstr "Створити в категорії"
+
+msgid "AllowAnonymousPosts"
+msgstr "Дозволити анонімні повідомлення?"
+
+msgid "StudentsCanEdit"
+msgstr "Чи можуть студенти редагувати свої власні повідомлення?"
+
+msgid "ApprovalDirect"
+msgstr "Погодження / Пряме повідомлення"
+
+msgid "AllowNewThreads"
+msgstr "Дозволяти студентам розпочинати нові теми"
+
+msgid "DefaultViewType"
+msgstr "Вигляд за замовчуванням"
+
+msgid "GroupSettings"
+msgstr "Налаштування групи"
+
+msgid "NotAGroupForum"
+msgstr "Негруповий форум"
+
+msgid "PublicPrivateGroupForum"
+msgstr "Форум публічної чи приватної групи?"
+
+msgid "NewPostStored"
+msgstr "Ваше повідомлення збережено"
+
+msgid "ReplyToThread"
+msgstr "Відповісти на цю тему"
+
+msgid "QuoteMessage"
+msgstr "Цитувати це повідомлення"
+
+msgid "NewTopic"
+msgstr "Нова тема"
+
+msgid "Views"
+msgstr "Перегляди"
+
+msgid "LastPost"
+msgstr "Останнє повідомлення"
+
+msgid "Quoting"
+msgstr "Цитування"
+
+msgid "NotifyByEmail"
+msgstr "Повідомляти мені через email при відповідях"
+
+msgid "StickyPost"
+msgstr "Це поверхневе повідомлення (завжди з'являється зверху та має спеціальну іконку)"
+
+msgid "ReplyShort"
+msgstr "Віпд.:"
+
+msgid "DeletePost"
+msgstr "Видалити це повідомлення? Ви впевнені? Видалення цього повідомлення призведе до видалення всіх відповідей на нього. Перегляньте тему для з'ясування, які повідомлення ви можете видалити"
+
+msgid "Locked"
+msgstr "Замкнуто: студенти не можуть надсилати нові повідомлення в цю категорію форуму або тему, але вони мають змогу перечитувати вже розміщені повідомлення"
+
+msgid "Unlocked"
+msgstr "Відкрито: студенти можуть надсилати нові повідомлення в цю категорію форуму або тему"
+
+msgid "Flat"
+msgstr "Лінійний"
+
+msgid "Threaded"
+msgstr "Тематичний"
+
+msgid "Nested"
+msgstr "Ієрархічний"
+
+msgid "FlatView"
+msgstr "Лінійний вид"
+
+msgid "ThreadedView"
+msgstr "Тематичний вид"
+
+msgid "NestedView"
+msgstr "Ієрархічний вид"
+
+msgid "Structure"
+msgstr "Структура"
+
+msgid "ForumCategoryEdited"
+msgstr "Категорію форуму змінено"
+
+msgid "ForumEdited"
+msgstr "Форум змінено"
+
+msgid "NewThreadStored"
+msgstr "Нову тему додано"
+
+msgid "Approval"
+msgstr "Погодження"
+
+msgid "Direct"
+msgstr "Напряму"
+
+msgid "ForGroup"
+msgstr "Для Групи"
+
+msgid "ThreadLocked"
+msgstr "Тему закрито."
+
+msgid "NotAllowedHere"
+msgstr "Немає доступу."
+
+msgid "ReplyAdded"
+msgstr "Відповідь додано"
+
+msgid "EditPost"
+msgstr "Редагувати статтю"
+
+msgid "EditPostStored"
+msgstr "Повідомлення змінено"
+
+msgid "NewForumPost"
+msgstr "Нове Повідомлення на форумі"
+
+msgid "YouWantedToStayInformed"
+msgstr "Ви встановили, що бажаєте отримувати email при відповідях на повідомлення теми"
+
+msgid "MessageHasToBeApproved"
+msgstr "Ваше повідомлення потрібно погодити перед тим, як воно стане публічним"
+
+msgid "AllowAttachments"
+msgstr "Дозволити прикріплення"
+
+msgid "EditForumCategory"
+msgstr "Редагувати категорію форуму"
+
+msgid "MovePost"
+msgstr "Перемістити повідомлення"
+
+msgid "MoveToThread"
+msgstr "Перемістити в тему"
+
+msgid "ANewThread"
+msgstr "Нова тема"
+
+msgid "DeleteForum"
+msgstr "Видалити форум?"
+
+msgid "DeleteForumCategory"
+msgstr "Видалити категорію форуму?"
+
+msgid "Lock"
+msgstr "Закрити"
+
+msgid "Unlock"
+msgstr "Відкрити"
+
+msgid "MoveThread"
+msgstr "Перемістити тему"
+
+msgid "PostVisibilityChanged"
+msgstr "Видимість повідомлення змінено"
+
+msgid "PostDeleted"
+msgstr "Повідомлення видалено"
+
+msgid "ThreadCanBeFoundHere"
+msgstr "Тему можна знайти тут"
+
+msgid "DeleteCompleteThread"
+msgstr "Видалити закінчену тему?"
+
+msgid "PostDeletedSpecial"
+msgstr "Спеціальне повідомлення видалено"
+
+msgid "AdminLogin"
+msgstr "Логін адміністратора"
+
+msgid "Titular"
+msgstr "Відповідальний"
+
+msgid "AdministrationTools"
+msgstr "Інструменти адміністрування"
+
+msgid "CatList"
+msgstr "Категорії"
+
+msgid "Subscribe"
+msgstr "Зарахувати"
+
+msgid "AlreadySubscribed"
+msgstr "Вже зараховано"
+
+msgid "CourseCategoryStored"
+msgstr "Категорію курсу створено"
+
+msgid "WithoutTimeLimits"
+msgstr "Без обмежень часу"
+
+msgid "Added"
+msgstr "Додано"
+
+msgid "Deleted"
+msgstr "Видалено"
+
+msgid "Keeped"
+msgstr "Збережено"
+
+msgid "HideAndSubscribeClosed"
+msgstr "Приховано / Закрито"
+
+msgid "HideAndSubscribeOpen"
+msgstr "Приховано / Відкрито"
+
+msgid "ShowAndSubscribeOpen"
+msgstr "Видимо / Відкрито"
+
+msgid "ShowAndSubscribeClosed"
+msgstr "Видимо / Закрито"
+
+msgid "AdminThisUser"
+msgstr "Повернутися до даних про користувача"
+
+msgid "Manage"
+msgstr "Керування порталом"
+
+msgid "EnrollToCourseSuccessful"
+msgstr "Вас зареєстровано на курс"
+
+msgid "SubCat"
+msgstr "підкатегорії"
+
+msgid "UnsubscribeNotAllowed"
+msgstr "Відрахування не дозволено для цього курсу"
+
+msgid "CourseAdminUnsubscribeNotAllowed"
+msgstr "Ви є адміністратором цього курсу"
+
+msgid "CourseManagement"
+msgstr "Керування курсом"
+
+msgid "SortMyCourses"
+msgstr "Сортувати мої курси"
+
+msgid "SubscribeToCourse"
+msgstr "Зарахувати на курс"
+
+msgid "UnsubscribeFromCourse"
+msgstr "Відрахувати з курсу"
+
+msgid "CreateCourseCategory"
+msgstr "Створити категорію курсу"
+
+msgid "CourseCategoryAbout2bedeleted"
+msgstr "Ви впевнені, що цю категорію курсів потрібно видалити? Курси цієї категорії будуть переміщені за межі категорії"
+
+msgid "CourseCategories"
+msgstr "Категорії курсів"
+
+msgid "CoursesInCategory"
+msgstr "Курси цієї категорії"
+
+msgid "SearchCourse"
+msgstr "Пошук курсів"
+
+msgid "UpOneCategory"
+msgstr "На категорію вище"
+
+msgid "ConfirmUnsubscribeFromCourse"
+msgstr "Ви впевнені, що бажаєте відрахуватися з цього курсу?"
+
+msgid "NoCourseCategory"
+msgstr "Немає категорії курсу"
+
+msgid "EditCourseCategorySucces"
+msgstr "Курс було додано до категорії"
+
+msgid "SubscribingNotAllowed"
+msgstr "Зарахування не дозволено"
+
+msgid "CourseSortingDone"
+msgstr "Сортування курсу виконано"
+
+msgid "ExistingCourseCategories"
+msgstr "Існуючі категорії курсу"
+
+msgid "YouAreNowUnsubscribed"
+msgstr "Вас відраховано з курсу"
+
+msgid "ViewOpenCourses"
+msgstr "Перегляд відкритих курсів"
+
+msgid "ErrorContactPlatformAdmin"
+msgstr "Помилка. Будь ласка, зв'яжіться з адміністратором."
+
+msgid "CourseRegistrationCodeIncorrect"
+msgstr "Невірний код курсу"
+
+msgid "CourseRequiresPassword"
+msgstr "Необхідно пароль для доступу до курсу"
+
+msgid "SubmitRegistrationCode"
+msgstr "Запропонувати код реєстрації"
+
+msgid "CourseCategoryDeleted"
+msgstr "Категорію курсу видалено"
+
+msgid "CategorySortingDone"
+msgstr "Сортування категорії виконано"
+
+msgid "CourseCategoryEditStored"
+msgstr "Категорію оновлено"
+
+msgid "WCAGGoMenu"
+msgstr "Перейти до меню"
+
+msgid "WCAGGoContent"
+msgstr "Перейти до контенту"
+
+msgid "AdminBy"
+msgstr "Адмініструється"
+
+msgid "Statistiques"
+msgstr "Статистика"
+
+msgid "VisioHostLocal"
+msgstr "Хост для відеоконференцій"
+
+msgid "VisioRTMPIsWeb"
+msgstr "Протокол відеоконференції на веб-основі (неправда в більшості часу)"
+
+msgid "ShowBackLinkOnTopOfCourseTreeComment"
+msgstr "Показати посилання для повернення назад в структурі курсу. Посилання доступне внизу списку"
+
+msgid "Used"
+msgstr "використовується"
+
+msgid "Exist"
+msgstr "існуючий"
+
+msgid "ShowBackLinkOnTopOfCourseTree"
+msgstr "Показати посилання назад на дереві категорій/курсів"
+
+msgid "ShowNumberOfCourses"
+msgstr "Показати кількість курсів"
+
+msgid "DisplayTeacherInCourselistTitle"
+msgstr "Показати викладача в заголовку курсу"
+
+msgid "DisplayTeacherInCourselistComment"
+msgstr "Показати ім'я викладача в списку курсу"
+
+msgid "DisplayCourseCodeInCourselistComment"
+msgstr "Показати код курсу в списку курсів"
+
+msgid "DisplayCourseCodeInCourselistTitle"
+msgstr "Показати код курсу в назві курсу"
+
+msgid "ThereAreNoVirtualCourses"
+msgstr "Немає віртуальних курсів на платформі"
+
+msgid "ConfigureHomePage"
+msgstr "Налаштувати Домашню сторінку"
+
+msgid "CourseCreateActiveToolsTitle"
+msgstr "Активні модулі при створенні нового курсу"
+
+msgid "CourseCreateActiveToolsComment"
+msgstr "Які інструменти повинні бути активовані (видимі) за замовчуванням при створенні нового курсу?"
+
+msgid "CourseBackup"
+msgstr "Створити резервну копію цього курсу"
+
+msgid "CourseTitular"
+msgstr "Викладач"
+
+msgid "CourseFaculty"
+msgstr "Категорія курсу"
+
+msgid "CourseDepartment"
+msgstr "Кафедра курсу"
+
+msgid "CourseDepartmentURL"
+msgstr "URL кафедри"
+
+msgid "CourseSubscription"
+msgstr "Зарахування на курс"
+
+msgid "PublicAccess"
+msgstr "Публічний доступ"
+
+msgid "PrivateAccess"
+msgstr "Приватний доступ"
+
+msgid "DBManagementOnlyForServerAdmin"
+msgstr "Керування базою даних доступне лише адміністратору"
+
+msgid "ShowUsersOfCourse"
+msgstr "Показати користувачів, зарахованих на цей курс"
+
+msgid "ShowClassesOfCourse"
+msgstr "Показати класи, зараховані на цей курс"
+
+msgid "ShowGroupsOfCourse"
+msgstr "Показати групи цього курсу"
+
+msgid "PhoneNumber"
+msgstr "Номер телефону"
+
+msgid "AddToCourse"
+msgstr "Додати до курсу"
+
+msgid "DeleteFromPlatform"
+msgstr "Видалити з платформи"
+
+msgid "DeleteCourse"
+msgstr "Видалити вибрані курси"
+
+msgid "DeleteFromCourse"
+msgstr "Скасувати зарахування на цей курс"
+
+msgid "DeleteSelectedClasses"
+msgstr "Видалити вибрані класи"
+
+msgid "DeleteSelectedGroups"
+msgstr "Видалити вибрані групи"
+
+msgid "Administrator"
+msgstr "Адміністратор"
+
+msgid "ChangePicture"
+msgstr "Змінити малюнок"
+
+msgid "AddUsers"
+msgstr "Додати користувачів"
+
+msgid "AddGroups"
+msgstr "Додати групи"
+
+msgid "AddClasses"
+msgstr "Додати класи"
+
+msgid "ExportUsers"
+msgstr "Експортувати список користувачів"
+
+msgid "NumberOfParticipants"
+msgstr "Кількість учасників"
+
+msgid "NumberOfUsers"
+msgstr "Кількість користувачів"
+
+msgid "Participants"
+msgstr "учасники"
+
+msgid "FirstLetterClass"
+msgstr "Перша літера назви класу"
+
+msgid "FirstLetterUser"
+msgstr "Перша літера прізвища"
+
+msgid "FirstLetterCourse"
+msgstr "Перша літера коду"
+
+msgid "ModifyUserInfo"
+msgstr "Редагувати інформацію користувача"
+
+msgid "ModifyClassInfo"
+msgstr "Редагувати інформацію класу"
+
+msgid "ModifyGroupInfo"
+msgstr "Редагувати інформацію групи"
+
+msgid "ModifyCourseInfo"
+msgstr "Редагувати інформацію курсу"
+
+msgid "PleaseEnterClassName"
+msgstr "Будь ласка, введіть назву класу !"
+
+msgid "PleaseEnterLastName"
+msgstr "Будь ласка, введіть прізвище користувача !"
+
+msgid "PleaseEnterFirstName"
+msgstr "Будь ласка, введіть ім'я користувача !"
+
+msgid "PleaseEnterValidEmail"
+msgstr "Будь ласка, введіть вірний email !"
+
+msgid "PleaseEnterValidLogin"
+msgstr "Будь ласка, введіть вірний логін !"
+
+msgid "PleaseEnterCourseCode"
+msgstr "Будь ласка, введіть код курсу !"
+
+msgid "PleaseEnterTitularName"
+msgstr "Будь ласка, введіть ім'я та прізвище викладача !"
+
+msgid "PleaseEnterCourseTitle"
+msgstr "Будь ласка, введіть назву курсу !"
+
+msgid "AcceptedPictureFormats"
+msgstr "Допустимі формати файлів: JPG, PNG та GIF !"
+
+msgid "LoginAlreadyTaken"
+msgstr "Такий логін вже зарезервований !"
+
+msgid "ImportUserListXMLCSV"
+msgstr "Імпорт списку користувачів із файлів XML/CSV"
+
+msgid "ExportUserListXMLCSV"
+msgstr "Експорт списку користувачів у файл XML/CSV"
+
+msgid "OnlyUsersFromCourse"
+msgstr "Тільки користувачі курсу"
+
+msgid "AddClassesToACourse"
+msgstr "Додати класи до курсу"
+
+msgid "AddUsersToACourse"
+msgstr "Додати користувачів до курсу"
+
+msgid "AddUsersToAClass"
+msgstr "Додати користувачів до класу"
+
+msgid "AddUsersToAGroup"
+msgstr "Додати користувачів до групи"
+
+msgid "AtLeastOneClassAndOneCourse"
+msgstr "Ви повинні вибрати, як мінімум, один клас та один курс !"
+
+msgid "AtLeastOneUser"
+msgstr "Ви повинні вибрати, як мінімум, одного користувача !"
+
+msgid "AtLeastOneUserAndOneCourse"
+msgstr "Ви повинні вибрати, як мінімум, одного користувача та один курс !"
+
+msgid "ClassList"
+msgstr "Список класів"
+
+msgid "AddToThatCourse"
+msgstr "Додати до цього курсу"
+
+msgid "AddToClass"
+msgstr "Додати до класу"
+
+msgid "RemoveFromClass"
+msgstr "Прибрати з класу"
+
+msgid "AddToGroup"
+msgstr "Додати до групи"
+
+msgid "RemoveFromGroup"
+msgstr "Прибрати з групи"
+
+msgid "UsersOutsideClass"
+msgstr "Користувачі з-поза класу"
+
+msgid "UsersInsideClass"
+msgstr "Користувачі класу"
+
+msgid "UsersOutsideGroup"
+msgstr "Користувачі з-поза групи"
+
+msgid "UsersInsideGroup"
+msgstr "Користувачі групи"
+
+msgid "MustUseSeparator"
+msgstr "повинні використовувати знак ';' як поділювач"
+
+msgid "CSVMustLookLike"
+msgstr "CSV файл повинен виглядати так"
+
+msgid "XMLMustLookLike"
+msgstr "XML файл повинен виглядати так"
+
+msgid "MandatoryFields"
+msgstr "<strong>Позначені</strong> поля обов'язкові"
+
+msgid "NotXML"
+msgstr "Вказаний файл не у XML форматі"
+
+msgid "NotCSV"
+msgstr "Вказаний файл не у CSV форматі"
+
+msgid "NoNeededData"
+msgstr "Вказаний файл не має всіх необхідних даних !"
+
+msgid "MaxImportUsers"
+msgstr "Ви не можете імпортувати більше 500 користувачів за один раз !"
+
+msgid "AdminDatabases"
+msgstr "Бази даних (phpMyAdmin)"
+
+msgid "AdminUsers"
+msgstr "Користувачі"
+
+msgid "AdminClasses"
+msgstr "Класи користувачів"
+
+msgid "AdminGroups"
+msgstr "Групи користувачів"
+
+msgid "AdminCourses"
+msgstr "Курси"
+
+msgid "AdminCategories"
+msgstr "Категорії курсів"
+
+msgid "SubscribeUserGroupToCourse"
+msgstr "Зарахувати користувача / групу на курс"
+
+msgid "NoCategories"
+msgstr "Немає категорій"
+
+msgid "AllowCoursesInCategory"
+msgstr "Дозволити додавати курси в цю категорію ?"
+
+msgid "GoToForum"
+msgstr "Йдіть до форуму"
+
+msgid "CategoryCode"
+msgstr "Код категорії"
+
+msgid "EditNode"
+msgstr "Редагувати цю категорію"
+
+msgid "OpenNode"
+msgstr "Відкрити цю категорію"
+
+msgid "DeleteNode"
+msgstr "Видалити цю категорію"
+
+msgid "AddChildNode"
+msgstr "Додати підкатегорію"
+
+msgid "ViewChildren"
+msgstr "Подивитися нащадків"
+
+msgid "TreeRebuildedIn"
+msgstr "Дерево перебудовано в"
+
+msgid "TreeRecountedIn"
+msgstr "Дерево перераховано в"
+
+msgid "RebuildTree"
+msgstr "Перебудувати дерево"
+
+msgid "RefreshNbChildren"
+msgstr "Оновити кількість нащадків"
+
+msgid "ShowTree"
+msgstr "Показати дерево"
+
+msgid "LogDeleteCat"
+msgstr "Категорія видалена"
+
+msgid "RecountChildren"
+msgstr "Перерахувати нащадків"
+
+msgid "UpInSameLevel"
+msgstr "Вгору на такий самий рівень"
+
+msgid "MailTo"
+msgstr "Відіслати email до:"
+
+msgid "AddAdminInApache"
+msgstr "Додати адміністратора"
+
+msgid "AddFaculties"
+msgstr "Додати категорії"
+
+msgid "SearchACourse"
+msgstr "Пошук курсу"
+
+msgid "SearchAUser"
+msgstr "Пошук користувача"
+
+msgid "TechnicalTools"
+msgstr "Технічний"
+
+msgid "Config"
+msgstr "Налаштування системи"
+
+msgid "LogIdentLogoutComplete"
+msgstr "Список логінів (розширений)"
+
+msgid "LimitUsersListDefaultMax"
+msgstr "Максимальна кількість користувачів, відображуваних на сторінці"
+
+msgid "NoTimeLimits"
+msgstr "Без ліміту часу"
+
+msgid "GeneralProperties"
+msgstr "Основні властивості"
+
+msgid "CourseCoach"
+msgstr "Інструктор курсу"
+
+msgid "UsersNumber"
+msgstr "Номер користувача"
+
+msgid "PageAfterLoginTitle"
+msgstr "Сторінка після логіну"
+
+msgid "PageAfterLoginComment"
+msgstr "Сторінка, яку користувачі бачать після логіну"
+
+msgid "TabsMyProfile"
+msgstr "Закладка мого профілю"
+
+msgid "GlobalRole"
+msgstr "Глобальна роль"
+
+msgid "NomOutilTodo"
+msgstr "Керування списком завдань"
+
+msgid "NomPageAdmin"
+msgstr "Адміністрування"
+
+msgid "SysInfo"
+msgstr "Інформація про платформу"
+
+msgid "DiffTranslation"
+msgstr "Порівняти переклади"
+
+msgid "StatOf"
+msgstr "Статистика"
+
+msgid "SpeeSubscribe"
+msgstr "Швидке зарахування в якості ревізора курсу"
+
+msgid "LogIdentLogout"
+msgstr "Список логінів та логаутів"
+
+msgid "ServerStatus"
+msgstr "Статус серверу MySQL:"
+
+msgid "DataBase"
+msgstr "База даних"
+
+msgid "Run"
+msgstr "працює"
+
+msgid "Client"
+msgstr "MySQL клієнт"
+
+msgid "Server"
+msgstr "MySQL сервер"
+
+msgid "titulary"
+msgstr "Власник"
+
+msgid "UpgradeBase"
+msgstr "Оновити базу даних"
+
+msgid "ErrorsFound"
+msgstr "знайдено помилки"
+
+msgid "Maintenance"
+msgstr "Підтримка"
+
+msgid "Upgrade"
+msgstr "Оновити Chamilo"
+
+msgid "Website"
+msgstr "Вебсайт Chamilo"
+
+msgid "Documentation"
+msgstr "Документація"
+
+msgid "Contribute"
+msgstr "Співпраця"
+
+msgid "InfoServer"
+msgstr "Інформація про сервер"
+
+msgid "SendMailToUsers"
+msgstr "Надіслати email користувачам"
+
+msgid "CourseSystemCode"
+msgstr "Код системи"
+
+msgid "CourseVisualCode"
+msgstr "Видимий код курсу"
+
+msgid "SystemCode"
+msgstr "Код системи"
+
+msgid "VisualCode"
+msgstr "видимий код"
+
+msgid "AddCourse"
+msgstr "Створити курс"
+
+msgid "AdminManageVirtualCourses"
+msgstr "Керувати віртуальними курсами"
+
+msgid "AdminCreateVirtualCourse"
+msgstr "Створити віртуальний курс"
+
+msgid "AdminCreateVirtualCourseExplanation"
+msgstr "Віртуальний курс використає спільний простір (директорію та базу даних) з існуючим реальним курсом."
+
+msgid "RealCourseCode"
+msgstr "Код реального курсу"
+
+msgid "CourseCreationSucceeded"
+msgstr "Курс був успішно створений"
+
+msgid "OnTheHardDisk"
+msgstr "на жорсткий диск"
+
+msgid "IsVirtualCourse"
+msgstr "Є віртуальним курсом"
+
+msgid "AnnouncementUpdated"
+msgstr "Оголошення було оновлено"
+
+msgid "PermissionsForNewFiles"
+msgstr "Права на нові файли"
+
+msgid "PermissionsForNewFilesComment"
+msgstr "Можливість визначати налаштування прав для призначення кожному новому файлу дозволяє підвищити рівень безпеки проти атак завантаження небезпечного контенту на ваш портал. Налаштування за замовчуванням (0550) достатнє для придатного рівня захисту. Формат використовує термінологію UNIX Власник-Група-Інші з правами Читати-Писати-Виконувати. Якщо ви використовуєте Oogie, будьте певні, що користувач, який запускає OpenOffice може писати файли в каталог курсу."
+
+msgid "Guest"
+msgstr "Гість"
+
+msgid "LoginAsThisUserColumnName"
+msgstr "Логін як"
+
+msgid "LoginAsThisUser"
+msgstr "Логін"
+
+msgid "SelectPicture"
+msgstr "Вибрати малюнок..."
+
+msgid "DontResetPassword"
+msgstr "Не змінюйте пароль"
+
+msgid "ParticipateInCommunityDevelopment"
+msgstr "Брати участь у розробці"
+
+msgid "CourseAdmin"
+msgstr "керівник курсу"
+
+msgid "PlatformLanguageTitle"
+msgstr "Мова платформи"
+
+msgid "ServerStatusComment"
+msgstr "Який вид сервера? Це вмикає чи вимикає деякі специфічні опції. На сервері, що розробляється, це можливість перекладу, яка дозволяє показувати неперекладені змінні."
+
+msgid "ServerStatusTitle"
+msgstr "Тип сервера"
+
+msgid "PlatformLanguages"
+msgstr "Мови платформи Chamilo"
+
+msgid "PlatformLanguagesExplanation"
+msgstr "Цей інструмент управляє меню вибору мови на сторінці логіну. Як адміністратор, ви можете вирішити, які мови повинні бути доступні для користувачів."
+
+msgid "OriginalName"
+msgstr "Оригінальне ім'я"
+
+msgid "EnglishName"
+msgstr "Англійське ім'я"
+
+msgid "LMSFolder"
+msgstr "Каталог Chamilo"
+
+msgid "Properties"
+msgstr "Властивості"
+
+msgid "PlatformConfigSettings"
+msgstr "Налаштування Chamilo"
+
+msgid "SettingsStored"
+msgstr "Налаштування були збережені"
+
+msgid "InstitutionTitle"
+msgstr "Назва установи"
+
+msgid "InstitutionComment"
+msgstr "Назва установи (з'являється в заголовку зправа)"
+
+msgid "InstitutionUrlTitle"
+msgstr "URL установи"
+
+msgid "InstitutionUrlComment"
+msgstr "URL установи (посилання, що з'являється справа в заголовку)"
+
+msgid "SiteNameTitle"
+msgstr "Назва порталу"
+
+msgid "SiteNameComment"
+msgstr "Назва порталу (з'являється в заголовку)"
+
+msgid "emailAdministratorTitle"
+msgstr "Email адміністратора платформи"
+
+msgid "emailAdministratorComment"
+msgstr "Email адміністратора платформи (з'являється внизу зліва)"
+
+msgid "administratorSurnameTitle"
+msgstr "Прізвище адміністратора платформи"
+
+msgid "administratorSurnameComment"
+msgstr "Прізвище адміністратора платформи (з'являється внизу зліва)"
+
+msgid "administratorNameTitle"
+msgstr "Ім'я адміністратора платформи"
+
+msgid "administratorNameComment"
+msgstr "Ім'я адміністратора платформи (з'являється внизу зліва)"
+
+msgid "ShowAdministratorDataTitle"
+msgstr "Інформація адміністратора платформи"
+
+msgid "ShowAdministratorDataComment"
+msgstr "Показувати інформацію адміністратора платформи внизу сторінки?"
+
+msgid "HomepageViewTitle"
+msgstr "Вид домашньої сторінки"
+
+msgid "HomepageViewComment"
+msgstr "Як ви хочете, аби виглядала домашня сторінка?"
+
+msgid "HomepageViewDefault"
+msgstr "Макет двох колонок. Неактивні інструменти заховані"
+
+msgid "HomepageViewFixed"
+msgstr "Макет трьох колонок. Неактивні інструменти підсвічені сірим (іконки на їхньому місці)."
+
+msgid "ShowToolShortcutsTitle"
+msgstr "Ярлики інструментів"
+
+msgid "ShowToolShortcutsComment"
+msgstr "Чи показувати ярлики інструментів на банері?"
+
+msgid "ShowStudentViewTitle"
+msgstr "Вид студента"
+
+msgid "ShowStudentViewComment"
+msgstr "Ввімкнути вид студента?<br>Ця властивість дозволяє викладачу бачити, що бачить студент"
+
+msgid "AllowGroupCategories"
+msgstr "Категорії груп"
+
+msgid "AllowGroupCategoriesComment"
+msgstr "Дозволити адміністраторам створювати категорії в модулі груп?"
+
+msgid "PlatformLanguageComment"
+msgstr "Ви можете визначити мови в окремій частині адміністрування платформи, а саме: <a href=\"languages.php\">Мови Chamilo</a>"
+
+msgid "ProductionServer"
+msgstr "Випускаючий сервер"
+
+msgid "TestServer"
+msgstr "Тестовий сервер"
+
+msgid "ShowOnlineTitle"
+msgstr "Хто в онлайні"
+
+msgid "AsPlatformLanguage"
+msgstr "як мова платформи"
+
+msgid "ShowOnlineComment"
+msgstr "Показувати кількість осіб, що в онлайні?"
+
+msgid "AllowNameChangeTitle"
+msgstr "Дозволити зміну назви в профілі?"
+
+msgid "AllowNameChangeComment"
+msgstr "Дозволити зміну користувачем свого ім'я та прізвища?"
+
+msgid "DefaultDocumentQuotumTitle"
+msgstr "Розмір документу за замовчуванням"
+
+msgid "DefaultDocumentQuotumComment"
+msgstr "Який за замовчуванням розмір документів? Ви можете перевстановити розмір для конкретних курсів через: адміністрування платформи > Курси > змінити"
+
+msgid "ProfileChangesTitle"
+msgstr "Профіль"
+
+msgid "ProfileChangesComment"
+msgstr "Які частини профілю можуть бути змінені?"
+
+msgid "RegistrationRequiredFormsTitle"
+msgstr "Реєстрація: обов'язкові поля"
+
+msgid "RegistrationRequiredFormsComment"
+msgstr "Які поля є обов'язковими (окрім імені, ніка, логіну та паролю)?"
+
+msgid "DefaultGroupQuotumTitle"
+msgstr "Розмір групи за замовчуванням"
+
+msgid "DefaultGroupQuotumComment"
+msgstr "Який розмір за замовчуванням для документів груп?"
+
+msgid "AllowLostPasswordTitle"
+msgstr "Пароль втрачено"
+
+msgid "AllowLostPasswordComment"
+msgstr "Чи дозволяється користувачу вимагати нагадування втраченого паролю?"
+
+msgid "AllowRegistrationTitle"
+msgstr "Реєстрація"
+
+msgid "AllowRegistrationComment"
+msgstr "Дозволити реєстрацію в якості нового користувача? Чи можуть користувачі створювати нові акаунти?"
+
+msgid "AllowRegistrationAsTeacherTitle"
+msgstr "Реєстрація в якості викладача"
+
+msgid "AllowRegistrationAsTeacherComment"
+msgstr "Чи можна реєструватися в якості викладача (може створювати курси)?"
+
+msgid "PlatformLanguage"
+msgstr "Мова платформи"
+
+msgid "Tuning"
+msgstr "Тонке налаштування"
+
+msgid "SplitUsersUploadDirectory"
+msgstr "Поєднати каталоги завантажувань користувача"
+
+msgid "SplitUsersUploadDirectoryComment"
+msgstr "На порталах, де багато користувачів надсилають свої файли, каталог завантажувань (main/upload/users/) може містити багато файлів для обробки файловою системою. Зміна цієї опції включить однорівнене поєднання директорій в каталозі завантажувань. 9 каталогів будуть використані як базові, а всі підкаталоги користувачів будуть збережені в одному з цих 9 каталогів. Зміна цієї опції не призведе до зміни порядку каталогів на диску, але змінить поведінку в коді Chamilo. Тому, якщо ви змінили цю опцію, то вам необхідно створити каталоги та перемістити існуючі каталоги на сервер вручну. Будьте певні, що при створенні та переміщенні цих каталогів, вам необхідно перемістити користувацькі каталоги з 1 по 9 в підкаталоги з тою самою назвою. Якщо ви не впевнені в цій опції, то не використовуйте її."
+
+msgid "CourseQuota"
+msgstr "Розмір курсу"
+
+msgid "EditNotice"
+msgstr "Редагувати нотатки"
+
+msgid "InsertLink"
+msgstr "вставити посилання"
+
+msgid "EditNews"
+msgstr "Редагувати новини"
+
+msgid "EditCategories"
+msgstr "редагувати категорії"
+
+msgid "EditHomePage"
+msgstr "Редагувати домашню сторінку"
+
+msgid "AllowUserHeadingsComment"
+msgstr "Чи може адміністратор курсу визначати заголовки користувача, щоб отримувати додаткову інформацію про користувача?"
+
+msgid "Languages"
+msgstr "Мови"
+
+msgid "NoticeTitle"
+msgstr "Назва нотатки"
+
+msgid "NoticeText"
+msgstr "Текст нотатки"
+
+msgid "LinkURL"
+msgstr "URL посилання"
+
+msgid "OpenInNewWindow"
+msgstr "Відкрити у новому вікні"
+
+msgid "LimitUsersListDefaultMaxComment"
+msgstr "На сторінках зарахування користувачів на курси або в групи, якщо перший нефільтрований список має більше, ніж цю кількість користувачів, то за замовчуванням фільтр по першій літері (А)"
+
+msgid "HideDLTTMarkupComment"
+msgstr "Сховати [= ... =] маркер, коли мовна змінна не перекладена"
+
+msgid "UserDeleted"
+msgstr "Користувача видалено"
+
+msgid "NoClassesForThisCourse"
+msgstr "Немає класів, зарахованих на цей курс"
+
+msgid "CourseUsage"
+msgstr "Користування курсом"
+
+msgid "NoCoursesForThisUser"
+msgstr "Цього користувача не зараховано на курс"
+
+msgid "NoClassesForThisUser"
+msgstr "Цього користувача не зараховано до класу"
+
+msgid "NoCoursesForThisClass"
+msgstr "Цей клас не зараховано на курс"
+
+msgid "Tool"
+msgstr "інструмент"
+
+msgid "NumberOfItems"
+msgstr "кількість елементів"
+
+msgid "DocumentsAndFolders"
+msgstr "Документи та каталоги"
+
+msgid "Exercises"
+msgstr "Вправи"
+
+msgid "AllowPersonalAgendaTitle"
+msgstr "Персональна повістка дня"
+
+msgid "AllowPersonalAgendaComment"
+msgstr "Чи може користувач додавати елементи персональної повістки дня на сторінку Моя повістка дня?"
+
+msgid "CurrentValue"
+msgstr "поточне значення"
+
+msgid "UserPassword"
+msgstr "Пароль"
+
+msgid "SubscriptionAllowed"
+msgstr "Зарахування дозволено"
+
+msgid "UnsubscriptionAllowed"
+msgstr "Скасування зарахування дозволено"
+
+msgid "AddDummyContentToCourse"
+msgstr "Додати деякий зразковий контент (приклад) до цього курсу"
+
+msgid "DummyCourseCreator"
+msgstr "Створити зразковий контент курсу"
+
+msgid "DummyCourseDescription"
+msgstr "Це додасть деякий зразковий контент (приклад) до цього курсу. Лише для мети тесту."
+
+msgid "AvailablePlugins"
+msgstr "Ці плагіни були знайдені у вашій системі. Ви можете закачати додаткові плагіни з <a href=\"http://www.chamilo.org/extensions/index.php?section=plugins\">http://www.chamilo.org/extensions/index.php?section=plugins</a>"
+
+msgid "CreateVirtualCourse"
+msgstr "Створити віртуальний курс"
+
+msgid "DisplayListVirtualCourses"
+msgstr "Показати список віртуальних курсів"
+
+msgid "LinkedToRealCourseCode"
+msgstr "Зв'язано з реальним кодом курсу"
+
+msgid "AttemptedCreationVirtualCourse"
+msgstr "Спроба створення віртуального курсу..."
+
+msgid "WantedCourseCode"
+msgstr "Вимагається код курсу"
+
+msgid "ResetPassword"
+msgstr "Змінити пароль"
+
+msgid "CheckToSendNewPassword"
+msgstr "Зазначити висилання нового паролю"
+
+msgid "AutoGeneratePassword"
+msgstr "Автоматично створити новий пароль"
+
+msgid "UseDocumentTitleTitle"
+msgstr "Використовувати назву як ім'я документу"
+
+msgid "UseDocumentTitleComment"
+msgstr "Це дозволяє використовувати назву документу замість ім'я_документу.розширення"
+
+msgid "StudentPublications"
+msgstr "Публікації студентів"
+
+msgid "PermanentlyRemoveFilesTitle"
+msgstr "Видалені файли не можуть бути поновлені"
+
+msgid "PermanentlyRemoveFilesComment"
+msgstr "Видалення файлу в інструментарії документів назавжди видалить його. Файл не може бути поновлений"
+
+msgid "DropboxMaxFilesizeTitle"
+msgstr "Скринька контенту: максимальний розмір документу"
+
+msgid "DropboxMaxFilesizeComment"
+msgstr "Наскільки великим (в байтах) може бути документ у скринці контенту?"
+
+msgid "DropboxAllowOverwriteTitle"
+msgstr "Скринька контенту: чи можна перезаписувати документи замість існуючих?"
+
+msgid "DropboxAllowOverwriteComment"
+msgstr "Чи може перезаписуватись документ, якщо студент або викладач завантажив в систему документ з таким самим ім'ям? Якщо ви відповісте \"Так\", ви втратите механізм версій"
+
+msgid "DropboxAllowJustUploadTitle"
+msgstr "Скринька контенту: завантажувати в свою власну скриньку?"
+
+msgid "DropboxAllowJustUploadComment"
+msgstr "Дозволити викладачам та студентам завантажувати документи до їх власних скриньок контенту без відсилання документів до інших користувачів (завантаження документів собі)"
+
+msgid "DropboxAllowStudentToStudentTitle"
+msgstr "Скринька контенту: Студент <-> Студент"
+
+msgid "DropboxAllowStudentToStudentComment"
+msgstr "Дозволити студентам відсилати документи іншим студентам (обмін точка-точка). Студенти можуть використовувати це не для важливих документів (музика, відео). Якщо це заборонити, студенти зможуть відсилати документи тільки до викладачів"
+
+msgid "DropboxAllowMailingTitle"
+msgstr "Скринька контенту: дозволити листування"
+
+msgid "DropboxAllowMailingComment"
+msgstr "Із опцією листування ви маєте змогу надсилати кожному студентові персональний документ"
+
+msgid "PermissionsForNewDirs"
+msgstr "Права для нових каталогів"
+
+msgid "PermissionsForNewDirsComment"
+msgstr "Можливість визначати налаштування прав для призначення кожному новому каталогу дозволяє підвищити рівень безпеки проти атак завантаження небезпечного контенту на ваш портал. Налаштування за замовчуванням (0770) достатнє для придатного рівня захисту. Формат використовує термінологію UNIX Власник-Група-Інші з правами Читати-Писати-Виконувати. Якщо ви використовуєте Oogie, будьте певні, що користувач, який запускає OpenOffice може писати файли в каталог курсу."
+
+msgid "UserListHasBeenExported"
+msgstr "Список користувачів було експортовано."
+
+msgid "ClickHereToDownloadTheFile"
+msgstr "Натисніть сюди, щоб завантажити файл."
+
+msgid "administratorTelephoneTitle"
+msgstr "Адміністратор платформи: Телефон"
+
+msgid "administratorTelephoneComment"
+msgstr "Номер телефону адміністратора платформи"
+
+msgid "SendMailToNewUser"
+msgstr "Надіслати листа новому користувачу"
+
+msgid "ExtendedProfileTitle"
+msgstr "Розширений профіль"
+
+msgid "ExtendedProfileComment"
+msgstr "Якщо цю опцію встановлено в \"Правда\", користувач може заповнювати (опціональні) поля: \"Мої навички\", \"Мої дипломи\", \"Що я можу викладати\" та \"Моя персональна відкрита зона\""
+
+msgid "Classes"
+msgstr "Класи"
+
+msgid "UserUnsubscribed"
+msgstr "Користувача відраховано"
+
+msgid "CannotUnsubscribeUserFromCourse"
+msgstr "Користувача не може бути відраховано з курсу. Цей користувач є адміністратором курсу."
+
+msgid "InvalidStartDate"
+msgstr "Невірна початкова дата"
+
+msgid "InvalidEndDate"
+msgstr "Невірна кінцева дата."
+
+msgid "DateFormatLabel"
+msgstr "(д/м/р г:х)"
+
+msgid "HomePageFilesNotWritable"
+msgstr "Файли домашньої сторінки не є записуваними!"
+
+msgid "PleaseEnterNoticeText"
+msgstr "Додайте текст нотатки"
+
+msgid "PleaseEnterNoticeTitle"
+msgstr "Додайте назву нотатки"
+
+msgid "PleaseEnterLinkName"
+msgstr "Додайте назву посилання"
+
+msgid "InsertThisLink"
+msgstr "Вставити це посилання"
+
+msgid "FirstPlace"
+msgstr "Перше місце"
+
+msgid "DropboxAllowGroupTitle"
+msgstr "Скринька контенту: дозволити групу"
+
+msgid "DropboxAllowGroupComment"
+msgstr "Користувачі можуть надсилати файли групам"
+
+msgid "ClassDeleted"
+msgstr "Клас видалено"
+
+msgid "ClassesDeleted"
+msgstr "Класи видалено"
+
+msgid "NoUsersInClass"
+msgstr "Немає користувачів в цьому класі"
+
+msgid "UsersAreSubscibedToCourse"
+msgstr "Вибрані користувачі зараховані на вибрані курси"
+
+msgid "InvalidTitle"
+msgstr "Будь ласка, введіть заголовок"
+
+msgid "CatCodeAlreadyUsed"
+msgstr "Ця категорія вже використовується"
+
+msgid "PleaseEnterCategoryInfo"
+msgstr "Будь ласка, введіть код та назву для категорії"
+
+msgid "RegisterYourPortal"
+msgstr "Зареєструйте ваш портал"
+
+msgid "ShowNavigationMenuTitle"
+msgstr "Показувати в курсах меню навігації"
+
+msgid "ShowNavigationMenuComment"
+msgstr "Показувати меню навігації, що спрощує пересування до різних зон курсу."
+
+msgid "LoginAs"
+msgstr "Логін як"
+
+msgid "ImportClassListCSV"
+msgstr "Імпортувати список класу з CSV"
+
+msgid "ShowOnlineWorld"
+msgstr "Показувати кількість користувачів в онлайні на сторінці логіну (видно для всіх)"
+
+msgid "ShowOnlineUsers"
+msgstr "Показувати кількість користувачів в онлайні на всіх сторінках (видно для осіб, що ввійшли в систему)"
+
+msgid "ShowOnlineCourse"
+msgstr "Показувати кількість користувачів в онлайні в цьому курсі"
+
+msgid "ShowIconsInNavigationsMenuTitle"
+msgstr "Показувати іконки в меню навігації?"
+
+msgid "SeeAllRightsAllRolesForSpecificLocation"
+msgstr "Фокус на місцезнаходження"
+
+msgid "ClassesSubscribed"
+msgstr "Вибрані класи були зараховані на вибрані курси"
+
+msgid "RoleId"
+msgstr "ID ролі"
+
+msgid "RoleName"
+msgstr "Назва ролі"
+
+msgid "RoleType"
+msgstr "Тип ролі"
+
+msgid "MakeAvailable"
+msgstr "Зробити доступним"
+
+msgid "MakeUnavailable"
+msgstr "Зробити недоступним"
+
+msgid "Stylesheets"
+msgstr "Таблиці стилей"
+
+msgid "ShowIconsInNavigationsMenuComment"
+msgstr "Чи потрібно, аби меню навігації показувало різні іконки інструментів?"
+
+msgid "Plugin"
+msgstr "Плагін"
+
+msgid "MainMenu"
+msgstr "Головне меню"
+
+msgid "MainMenuLogged"
+msgstr "Головне меню після логіну"
+
+msgid "Banner"
+msgstr "Банер"
+
+msgid "ImageResizeTitle"
+msgstr "Змінити розмір малюнків, завантажених користувачем"
+
+msgid "ImageResizeComment"
+msgstr "Розмір малюнків, завантажених користувачем, може бути змінений, якщо PHP собрано із підтримкою <a href=\"http://php.net/manual/en/ref.image.php\" target=\"_blank\">бібліотеки GD</a>. Якщо бібліотека GD недоступна, ця опція буде проігнорована."
+
+msgid "MaxImageWidthTitle"
+msgstr "Максимальна ширина малюнка користувача"
+
+msgid "MaxImageWidthComment"
+msgstr "Максимальна ширина малюнка користувача в пікселях. Ця опція застосовується, якщо встановлено можливість зміни розміру зображення при завантаженні."
+
+msgid "MaxImageHeightTitle"
+msgstr "Максимальна висота малюнка користувача"
+
+msgid "MaxImageHeightComment"
+msgstr "Максимальна висота малюнка користувача в пікселях. Ця опція застосовується, якщо встановлено можливість зміни розміру зображення при завантаженні."
+
+msgid "YourVersionIs"
+msgstr "Ваша версія"
+
+msgid "ConnectSocketError"
+msgstr "Помилка з'єднання сокету"
+
+msgid "SocketFunctionsDisabled"
+msgstr "З'єднання сокету вимкнено"
+
+msgid "ShowEmailAddresses"
+msgstr "Показувати адреси email"
+
+msgid "ShowEmailAddressesComment"
+msgstr "Показувати адреси email користувачам"
+
+msgid "ActiveExtensions"
+msgstr "Активувати цю службу"
+
+msgid "Visioconf"
+msgstr "Відеоконференція"
+
+msgid "VisioconfDescription"
+msgstr "Chamilo Live Conferencing╝ це стандартний інструмент відеоконференцій, який пропонує: показ слайдів, дошки для малювання та записів, потокові аудіо та відео, чат. Потрібен лише Flash╝ player та дозвіл використання трьох режимів: один-один, один-багато, багато-багато."
+
+msgid "Ppt2lp"
+msgstr "PowerPoint2LearningPath"
+
+msgid "Ppt2lpDescription"
+msgstr "PowerPoint2LearningPath дозволяє вам перетворити презентації PowerPoint в навчальний план за кілька кліків."
+
+msgid "BandWidthStatistics"
+msgstr "Статистика пропускної здатності"
+
+msgid "BandWidthStatisticsDescription"
+msgstr "MRTG дозволяє вам передивлятись статистику стану сервера за останні 24 години."
+
+msgid "ServerStatistics"
+msgstr "Статистика сервера"
+
+msgid "ServerStatisticsDescription"
+msgstr "AWStats дозволяє вам передивлятись статистику вашої платформи: відвідувачі, перегляд сторінок, перенаправлення..."
+
+msgid "SearchEngine"
+msgstr "Движок повнотекстового пошуку"
+
+msgid "SearchEngineDescription"
+msgstr "Движок повнотекстового пошуку дозволяє вам шукати слово по всій платформі. Щоденна індексація контенту гарантує якість результатів."
+
+msgid "ListSession"
+msgstr "Список сесій"
+
+msgid "AddSession"
+msgstr "Додати сесію"
+
+msgid "ImportSessionListXMLCSV"
+msgstr "Імпортувати сесії в форматі XML/CSV"
+
+msgid "ExportSessionListXMLCSV"
+msgstr "Експортувати сесії в форматі XML/CSV"
+
+msgid "NbCourses"
+msgstr "кількість курсів"
+
+msgid "DateStart"
+msgstr "Дата початку"
+
+msgid "DateEnd"
+msgstr "Дата кінця"
+
+msgid "CoachName"
+msgstr "Ім'я інструктора"
+
+msgid "SessionNameIsRequired"
+msgstr "Необхідна назва сесії"
+
+msgid "NextStep"
+msgstr "Наступний крок"
+
+msgid "Confirm"
+msgstr "Підтвердити"
+
+msgid "UnsubscribeUsersFromCourse"
+msgstr "Відрахувати користувачів з курсу"
+
+msgid "MissingClassName"
+msgstr "Пропущено назву класу"
+
+msgid "ClassNameExists"
+msgstr "Назва класу існує"
+
+msgid "ImportCSVFileLocation"
+msgstr "Місцезнаходження CSV файлу імпорту"
+
+msgid "ClassesCreated"
+msgstr "Класи створено"
+
+msgid "ErrorsWhenImportingFile"
+msgstr "Помилки при імпортуванні файлу"
+
+msgid "ServiceActivated"
+msgstr "Служба активована"
+
+msgid "ActivateExtension"
+msgstr "Активні служби"
+
+msgid "InvalidExtension"
+msgstr "Невірне розширення"
+
+msgid "VersionCheckExplanation"
+msgstr "Для ввімкнення автоматичної перевірки версій вам необхідно зареєструвати ваш портал на chamilo.com. Інформація, отримана при кліканні на цю кнопку, застосовується лише для внутрішнього використання та тільки зведена інформація буде публічною (загальна кількість порталів, загальні кількість курсів, загальна кількість студентів) (див.  <a href=\"http://www.chamilo.org/stats/\">http://www.chamilo.org/stats/</a>). При реєстрації ви, також, з'являєтесь у всесвітньому списку <a href=\"http://www.chamilo.org/community.php\">http://www.chamilo.org/community.php</a>. Якщо ви не хочете, аби ваш портал з'явився у цьому списку, поставте галочку нижче. Реєстрація дуже проста: вам потрібно лише нажати цю кнопку:"
+
+msgid "AfterApproval"
+msgstr "Після підтвердження"
+
+msgid "StudentViewEnabledTitle"
+msgstr "Ввімкнути вид студента"
+
+msgid "StudentViewEnabledComment"
+msgstr "Ввімкнути вид студента, що дозволить викладачу чи адміністратору бачити курс, як його бачить студент"
+
+msgid "TimeLimitWhosonlineTitle"
+msgstr "Ліміт часу на ХтоВОнлайні"
+
+msgid "TimeLimitWhosonlineComment"
+msgstr "Цей ліміт часу визначає, скільки секунд після останньої активної дії користувача вважати його в онлайні"
+
+msgid "ExampleMaterialCourseCreationTitle"
+msgstr "Приклад матеріалу при створенні курсу"
+
+msgid "ExampleMaterialCourseCreationComment"
+msgstr "Створювати приклад матеріалу курсу автоматично, коли створюється новий курс"
+
+msgid "AccountValidDurationTitle"
+msgstr "Період дії облікового запису"
+
+msgid "AccountValidDurationComment"
+msgstr "Обліковий запис користувача дійсний протягом цієї кількості днів після створення"
+
+msgid "UseSessionModeTitle"
+msgstr "Використовувати режим сесії"
+
+msgid "UseSessionModeComment"
+msgstr "Сесії надають різні можливості роботи з курсами, коли курс має автора, інструктора та студентів. Кожний інструктор пропонує курс на певний період, названий \"сесія\", певній кількості студентів."
+
+msgid "HomepageViewActivity"
+msgstr "Вид активності"
+
+msgid "HomepageView2column"
+msgstr "Вид в дві колонки"
+
+msgid "HomepageView3column"
+msgstr "Вид в три колонки"
+
+msgid "AllowUserHeadings"
+msgstr "Дозволити заголовки користувача"
+
+msgid "IconsOnly"
+msgstr "Тільки іконки"
+
+msgid "TextOnly"
+msgstr "Тільки текст"
+
+msgid "IconsText"
+msgstr "Іконки та текст"
+
+msgid "EnableToolIntroductionTitle"
+msgstr "Ввімкнути інструмент вступу"
+
+msgid "EnableToolIntroductionComment"
+msgstr "Ввімкнути вступ на кожній домашній сторінці інструменту"
+
+msgid "BreadCrumbsCourseHomepageTitle"
+msgstr "Бредкрамби на домашній сторінці курсу"
+
+msgid "BreadCrumbsCourseHomepageComment"
+msgstr "Бредкрамби - це система навігації горизонтальних посилань в лівому верхньому куту вашої сторінки. Ця опція встановлює, що ви хочете, щоб з'являлося на бредкрамбах домашньої сторінки курсу."
+
+msgid "LoginPageMainArea"
+msgstr "Головна зона сторінки логіну"
+
+msgid "LoginPageMenu"
+msgstr "Меню сторінки логіну"
+
+msgid "CampusHomepageMainArea"
+msgstr "Головна зона домашньої сторінки порталу"
+
+msgid "CampusHomepageMenu"
+msgstr "Меню домашньої сторінки порталу"
+
+msgid "MyCoursesMainArea"
+msgstr "Головна зона курсів"
+
+msgid "MyCoursesMenu"
+msgstr "Меню курсів"
+
+msgid "Header"
+msgstr "Заголовок"
+
+msgid "Footer"
+msgstr "Підніжжя"
+
+msgid "PublicPagesComplyToWAITitle"
+msgstr "Публічні сторінки згідно з WAI"
+
+msgid "PublicPagesComplyToWAIComment"
+msgstr "WAI (Web Accessibility Initiative - Веб-доступність) - це ініціатива для створення більш доступного вебу. Вибираючи цю опцію, публічні сторінки Chamilo стануть більш зручними. Це також значить, що деякий контент на публічних сторінках порталу може відображуватись по-різному."
+
+msgid "VersionCheck"
+msgstr "Перевірка версій"
+
+msgid "SessionOverview"
+msgstr "Огляд сесії"
+
+msgid "SubscribeUserIfNotAllreadySubscribed"
+msgstr "Зарахувати нового користувача, якщо його ще не зараховано"
+
+msgid "UnsubscribeUserIfSubscriptionIsNotInFile"
+msgstr "Відрахувати користувача, якщо зарахування немає в дататеці"
+
+msgid "DeleteSelectedSessions"
+msgstr "Видалити вибрані сесії"
+
+msgid "CourseListInSession"
+msgstr "Список курсів цієї сесії"
+
+msgid "UnsubscribeCoursesFromSession"
+msgstr "Відрахувати вибрані курси з цієї сесії"
+
+msgid "NbUsers"
+msgstr "Користувачі"
+
+msgid "SubscribeUsersToSession"
+msgstr "Зарахувати користувачів на цю сесію"
+
+msgid "UserListInPlatform"
+msgstr "Список користувачів платформи"
+
+msgid "UserListInSession"
+msgstr "Список користувачів, зарахованих до цієї сесії"
+
+msgid "CourseListInPlatform"
+msgstr "Список курсів платформи"
+
+msgid "Host"
+msgstr "Хост"
+
+msgid "UserOnHost"
+msgstr "Ім'я користувача"
+
+msgid "FtpPassword"
+msgstr "Пароль FTP"
+
+msgid "PathToLzx"
+msgstr "Шлях до файлів LZX"
+
+msgid "WCAGContent"
+msgstr "Текст WCAG"
+
+msgid "SubscribeCoursesToSession"
+msgstr "Зарахувати курси до цієї сесії"
+
+msgid "DateStartSession"
+msgstr "Дата початку сесії"
+
+msgid "DateEndSession"
+msgstr "Дата закінчення сесії"
+
+msgid "EditSession"
+msgstr "Редагувати цю сесію"
+
+msgid "VideoConferenceUrl"
+msgstr "Шлях до відеоконференції"
+
+msgid "VideoClassroomUrl"
+msgstr "Шлях до відеоконференції класу"
+
+msgid "ReconfigureExtension"
+msgstr "Переконфігурувати розширення"
+
+msgid "ServiceReconfigured"
+msgstr "Службу переконфігуровано"
+
+msgid "ChooseNewsLanguage"
+msgstr "Виберіть мову новин"
+
+msgid "Ajax_course_tracking_refresh"
+msgstr "Всього часу потрачено на курс"
+
+msgid "Ajax_course_tracking_refresh_comment"
+msgstr "Ця опція використовується для підрахунку реального часу, що його витратив користувач на роботу з курсом. Значення в полі поновлюється через інтервал в секундах. Для деактивації цієї функції поставте значення за замовчуванням 0 в полі."
+
+msgid "FinishSessionCreation"
+msgstr "Завершити створення сесії"
+
+msgid "VisioRTMPPort"
+msgstr "Порт протоколу відеоконференцій RTMTP"
+
+msgid "SessionNameAlreadyExists"
+msgstr "Така назва сесії вже існує"
+
+msgid "NoClassesHaveBeenCreated"
+msgstr "Не було створено жодного класу"
+
+msgid "ThisFieldShouldBeNumeric"
+msgstr "Це поле повинно містити лише цифри"
+
+msgid "UserLocked"
+msgstr "Користувача заблоковано"
+
+msgid "UserUnlocked"
+msgstr "Користувача розблоковано"
+
+msgid "CannotDeleteUser"
+msgstr "Ви не можете видалити цього користувача"
+
+msgid "SelectedUsersDeleted"
+msgstr "Вибрані користувачі видалені"
+
+msgid "SomeUsersNotDeleted"
+msgstr "Деяких користувачів не було видалено"
+
+msgid "ExternalAuthentication"
+msgstr "Зовнішня автентифікація"
+
+msgid "RegistrationDate"
+msgstr "Дата реєстрації"
+
+msgid "UserUpdated"
+msgstr "Користувача відкориговано"
+
+msgid "HomePageFilesNotReadable"
+msgstr "Файли домашньої сторінки не читаються"
+
+msgid "Choose"
+msgstr "Вибрати"
+
+msgid "ModifySessionCourse"
+msgstr "Модифікувати курс сесії"
+
+msgid "CourseSessionList"
+msgstr "Список курсів сесії"
+
+msgid "SelectACoach"
+msgstr "Вибрати інструктора"
+
+msgid "UserNameUsedTwice"
+msgstr "Ім'я користувача використовується двічі"
+
+msgid "UserNameNotAvailable"
+msgstr "Це ім'я користувача не доступне"
+
+msgid "UserNameTooLong"
+msgstr "Це ім'я користувача дуже довге"
+
+msgid "WrongStatus"
+msgstr "Цього статусу не існує"
+
+msgid "ClassNameNotAvailable"
+msgstr "Це ім'я класу не доступне"
+
+msgid "FileImported"
+msgstr "Файл імпортовано"
+
+msgid "WhichSessionToExport"
+msgstr "Вибрати сесію для експорту"
+
+msgid "AllSessions"
+msgstr "Всі сесії"
+
+msgid "CodeDoesNotExists"
+msgstr "Цього коду не існує"
+
+msgid "UnknownUser"
+msgstr "Невідомий користувач"
+
+msgid "UnknownStatus"
+msgstr "Невідомий статус"
+
+msgid "SessionDeleted"
+msgstr "Сесію було видалено"
+
+msgid "CourseDoesNotExist"
+msgstr "Цього курсу не існує"
+
+msgid "UserDoesNotExist"
+msgstr "Цього користувача не існує"
+
+msgid "ButProblemsOccured"
+msgstr "але проблеми виникають"
+
+msgid "UsernameTooLongWasCut"
+msgstr "Це ім'я користувача було скорочено"
+
+msgid "NoInputFile"
+msgstr "Жодного файлу не було відправлено"
+
+msgid "StudentStatusWasGivenTo"
+msgstr "Статус студента було надано"
+
+msgid "WrongDate"
+msgstr "Невірний формат дати (рррр-мм-д)"
+
+msgid "YouWillSoonReceiveMailFromCoach"
+msgstr "Скоро ви отримаєте листа від вашого викладача."
+
+msgid "SlideSize"
+msgstr "Розмір слайдів"
+
+msgid "EphorusPlagiarismPrevention"
+msgstr "Запобігання плагіату Ephorus"
+
+msgid "CourseTeachers"
+msgstr "Викладачі курсу"
+
+msgid "UnknownTeacher"
+msgstr "Невідомий викладач"
+
+msgid "HideDLTTMarkup"
+msgstr "Сховати позначення DLTT"
+
+msgid "ListOfCoursesOfSession"
+msgstr "Список курсів на сесію"
+
+msgid "UnsubscribeSelectedUsersFromSession"
+msgstr "Відрахувати вибраних користувачів з сесії"
+
+msgid "ShowDifferentCourseLanguageComment"
+msgstr "Показати мову курсу після загаловку на домашній сторінці курсу"
+
+msgid "ShowEmptyCourseCategoriesComment"
+msgstr "Показати категорії курсів на домашній сторінці, навіть, якщо вони порожні"
+
+msgid "ShowEmptyCourseCategories"
+msgstr "Показати порожні категорії курсів"
+
+msgid "XMLNotValid"
+msgstr "Невірний документ XML"
+
+msgid "ForTheSession"
+msgstr "для сесії"
+
+msgid "AllowEmailEditorTitle"
+msgstr "Активувати онлайновий редактор email"
+
+msgid "AllowEmailEditorComment"
+msgstr "Якщо ця опція активована, натиснення на email відкриє онлайновий редактор пошти."
+
+msgid "AddCSVHeader"
+msgstr "Додати лінію заголовку в файлі CSV?"
+
+msgid "YesAddCSVHeader"
+msgstr "Так, додати заголовок CSV.<br />Ця лінія визначає поля та необхідна при імпорті файлу на інший кампус Chamilo."
+
+msgid "ListOfUsersSubscribedToCourse"
+msgstr "Список користувачів, зарахованих на курс"
+
+msgid "NumberOfCourses"
+msgstr "Кількість курсів"
+
+msgid "ShowDifferentCourseLanguage"
+msgstr "Показати мови курсу"
+
+msgid "VisioRTMPTunnelPort"
+msgstr "Тунельний порт протоколу відеоконференцій RTMTP"
+
+msgid "Security"
+msgstr "Безпека"
+
+msgid "UploadExtensionsListType"
+msgstr "Тип фільтру для завантажених документів"
+
+msgid "UploadExtensionsListTypeComment"
+msgstr "Ви можете використовувати чорний або білий список для фільтру. Дивіться опис чорного або білого списку для деталей."
+
+msgid "Blacklist"
+msgstr "Чорний список"
+
+msgid "Whitelist"
+msgstr "Білий список"
+
+msgid "UploadExtensionsBlacklist"
+msgstr "Чорний список - налаштування"
+
+msgid "UploadExtensionsWhitelist"
+msgstr "Білий список - налаштування"
+
+msgid "UploadExtensionsBlacklistComment"
+msgstr "Чорний список використовується для фільтру розширень файлів, виключаючи чи перейменовуючи будь-які розширення файлів нижче. Розширення не повинні містити крапку (.) та розділяються крапкою з комою (;) як далі: exe;com;bat;scr;php. Файли без розширення приймаються. Регістр літер не враховується."
+
+msgid "UploadExtensionsWhitelistComment"
+msgstr "Білий список використовується для фільтрування розширень файлів видаленням (перейменуванням) будь-якого файлу, чиє розширення *НЕ* присутнє в цьому списку. Це найбільш безпечне та досить жорстке фільтрування. Розширення не повинні містити крапки (.) та відокремлюються крапкою з комою: html; htm; doc; txt . Файли без розширення приймаються. Регістр літер (великі/малі) не має значення."
+
+msgid "UploadExtensionsSkip"
+msgstr "Поведінка фільтрування (пропустити/перейменувати)"
+
+msgid "UploadExtensionsSkipComment"
+msgstr "Якщо ви вибирете пропустити, файли, відфільтровані через чорний чи білий список, не будуть завантажені на сервер. Якщо ви вибирете перейменувати їх, то їхнє розширення буде замінено на один з визначених замінників. Зверніть увагу, що перейменування не захищає вас та може викликати проблеми колізій назв файлів."
+
+msgid "UploadExtensionsReplaceBy"
+msgstr "Розширення-замінник"
+
+msgid "UploadExtensionsReplaceByComment"
+msgstr "Введіть розширення, яким ви бажаєте замінити небезпечні файлові розширення, виявлені фільтром. Потрібно, коли вибрано фільтр заміни."
+
+msgid "ShowNumberOfCoursesComment"
+msgstr "Показати кількість курсів в кожній категорії в категоріях курсів на домашній сторінці"
+
+msgid "EphorusDescription"
+msgstr "Розпочніть використовувати сервіс антиплагіату Ephorus в Chamilo.<br /> <STRONG>З Ephorus ви маєте змогу уникнути інтернет-плагіату.</STRONG><br /> Ви можете використовувати вебсервіс для побудови власного модулю або користуватися одним з вбудованих модулів Chamilo."
+
+msgid "EphorusLeadersInAntiPlagiarism"
+msgstr "<STRONG>Лідери <BR>антиплагіату</STRONG>"
+
+msgid "EphorusClickHereForInformationsAndPrices"
+msgstr "Натисніть тут для отримання додаткової інформації та цін"
+
+msgid "NameOfTheSession"
+msgstr "Назва сесії"
+
+msgid "NoSessionsForThisUser"
+msgstr "Цього користувача не зараховано на сесію"
+
+msgid "DisplayCategoriesOnHomepageTitle"
+msgstr "Показувати категорії на домашній сторінці"
+
+msgid "DisplayCategoriesOnHomepageComment"
+msgstr "Ця опція покаже чи сховає категорії курсів на домашній сторінці порталу"
+
+msgid "ShowTabsTitle"
+msgstr "Закладки в заголовку"
+
+msgid "ShowTabsComment"
+msgstr "Визначте закладки, які ви бажаєте бачити в заголовку. Невідзначені закладки з'являться справа в меню на сторінці порталу та на сторінці власних курсів, якщо вони там потрібні."
+
+msgid "DefaultForumViewTitle"
+msgstr "Вид форуму за замовчуванням"
+
+msgid "DefaultForumViewComment"
+msgstr "Що повинно бути опцією за замовчуванням при створенні форуму. Будь-який адміністратор курсу може, однак, вибрати інший вид для кожного форуму."
+
+msgid "TabsMyCourses"
+msgstr "Мої курси"
+
+msgid "TabsCampusHomepage"
+msgstr "Домашня сторінка порталу"
+
+msgid "TabsReporting"
+msgstr "Звітування"
+
+msgid "TabsPlatformAdministration"
+msgstr "Адміністрування платформи"
+
+msgid "NoCoursesForThisSession"
+msgstr "Немає курсів в цій сесії"
+
+msgid "NoUsersForThisSession"
+msgstr "Немає користувачів в цій сесії"
+
+msgid "LastNameMandatory"
+msgstr "Прізвище не може бути пустим"
+
+msgid "FirstNameMandatory"
+msgstr "Ім'я не може бути пустим"
+
+msgid "EmailMandatory"
+msgstr "Email не може бути пустим"
+
+msgid "TabsMyAgenda"
+msgstr "Моя Повістка дня"
+
+msgid "NoticeWillBeNotDisplayed"
+msgstr "Повідомлення не буде відображено на домашній сторінці"
+
+msgid "LetThoseFieldsEmptyToHideTheNotice"
+msgstr "Залиште ці поля пустими для приховування повідомлення"
+
+msgid "Ppt2lpVoiceRecordingNeedsRed5"
+msgstr "Запис голосу в редакторі навчальних планів залежить від потокового серверу Red5. Параметри цього серверу можна конфігурувати в секції відеоконференції на цій сторінці."
+
+msgid "PlatformCharsetTitle"
+msgstr "Кодировка"
+
+msgid "PlatformCharsetComment"
+msgstr "Кодировка встановлює відображення специфічних мов на порталі Chamilo. Якщо ви використовуєте російську або японську кодировки, наприклад, ви можете змінити це. Для всіх англійських, латинських та західноєвропейських мов встановлено кодировку за замовчуванням UTF-8."
+
+msgid "AnnEmpty"
+msgstr "Всі оголошення видалено"
+
+msgid "AnnouncementModified"
+msgstr "Оголошення змінено"
+
+msgid "AnnouncementAdded"
+msgstr "Оголошення додано"
+
+msgid "AnnouncementDeleted"
+msgstr "Оголошення видалено"
+
+msgid "AnnouncementPublishedOn"
+msgstr "Опубліковано"
+
+msgid "AddAnnouncement"
+msgstr "Додати як оголошення"
+
+msgid "AnnouncementDeleteAll"
+msgstr "Видалити всі оголошення"
+
+msgid "professorMessage"
+msgstr "Повідомлення від викладача"
+
+msgid "EmailSent"
+msgstr "та відправлено електронною поштою зареєстрованим студентам"
+
+msgid "EmailOption"
+msgstr "Відправити це оголошення електронною поштою вибраним групам/користувачам"
+
+msgid "On"
+msgstr "На"
+
+msgid "RegUser"
+msgstr "зареєстровані користувачі"
+
+msgid "Unvalid"
+msgstr "має невірну адресу email або не має email"
+
+msgid "ModifAnn"
+msgstr "Змінити це оголошення"
+
+msgid "SelMess"
+msgstr "Попередження для певних користувачів"
+
+msgid "SelectedUsers"
+msgstr "Вибрані користувачі"
+
+msgid "PleaseEnterMessage"
+msgstr "Вам потрібно ввести текст повідомлення."
+
+msgid "PleaseSelectUsers"
+msgstr "Вам потрібно вибрати декількох користувачів."
+
+msgid "Teachersubject"
+msgstr "Повідомлення відправлено студентам"
+
+msgid "MessageToSelectedUsers"
+msgstr "Повідомлення вибраним користувачам"
+
+msgid "IntroText"
+msgstr "Для відправлення повідомлення виберіть групи (позначені літерою Г спереду) або одного користувача зі списку зліва."
+
+msgid "MsgSent"
+msgstr "Повідомлення були відправлені вибраним користувачам"
+
+msgid "SelUser"
+msgstr "вибрані користувачі з сайту"
+
+msgid "MessageToSelectedGroups"
+msgstr "Повідомлення для вибраних груп"
+
+msgid "SelectedGroups"
+msgstr "вибрані групи"
+
+msgid "Msg"
+msgstr "Повідомлення"
+
+msgid "MsgText"
+msgstr "Повідомлення"
+
+msgid "AnnouncementDeletedAll"
+msgstr "Всі оголошення було видалено"
+
+msgid "AnnouncementMoved"
+msgstr "Оголошення було переміщено"
+
+msgid "NoAnnouncements"
+msgstr "&#1053;&#1077;&#1084;&#1072;&#1108; &#1086;&#1075;&#1086;&#1083;&#1086;&#1096;&#1077;&#1085;&#1100;"
+
+msgid "SelectEverybody"
+msgstr "Вибрати всіх"
+
+msgid "SelectedUsersGroups"
+msgstr "вибрані групи користувачів"
+
+msgid "LineNumber"
+msgstr "Номер рядка"
+
+msgid "LineOrLines"
+msgstr "рядок/рядки"
+
+msgid "AddNewHeading"
+msgstr "Додати новий заголовок"
+
+msgid "CourseAdministratorOnly"
+msgstr "Лише викладачі"
+
+msgid "DefineHeadings"
+msgstr "Визначити Заголовки"
+
+msgid "BackToUsersList"
+msgstr "Повернутись до списку користувачів"
+
+msgid "CourseManager"
+msgstr "Викладач"
+
+msgid "ModRight"
+msgstr "змінити права"
+
+msgid "NoAdmin"
+msgstr "зараз <b>немає</b> прав на цій сторінці"
+
+msgid "AllAdmin"
+msgstr "зараз є <b>всі</b> права на цій сторінці"
+
+msgid "ModRole"
+msgstr "Змінити роль"
+
+msgid "IsNow"
+msgstr "з цього моменту є"
+
+msgid "InC"
+msgstr "в цьому курсі"
+
+msgid "Filled"
+msgstr "Не всі поля заповнено"
+
+msgid "UserNo"
+msgstr "№ користувача"
+
+msgid "Taken"
+msgstr "вже використовується. Будь ласка, виберіть інший"
+
+msgid "Tutor"
+msgstr "Інструктор"
+
+msgid "Unreg"
+msgstr "Відрахувати"
+
+msgid "GroupUserManagement"
+msgstr "Керування групою"
+
+msgid "AddAUser"
+msgstr "Додати користувачів"
+
+msgid "UsersUnsubscribed"
+msgstr "Вибраних користувачів було відраховано з курсу"
+
+msgid "NewGroupCreate"
+msgstr "Створити нову групу"
+
+msgid "GroupCreation"
+msgstr "Створення нових груп"
+
+msgid "NewGroups"
+msgstr "нова група"
+
+msgid "Max"
+msgstr "макс. 20 літер, напр. <i>INNOV21</i>"
+
+msgid "GroupPlacesThis"
+msgstr "місця (опціонально)"
+
+msgid "GroupsAdded"
+msgstr "групу(и) додано"
+
+msgid "GroupDel"
+msgstr "Групу видалено"
+
+msgid "ExistingGroups"
+msgstr "Групи"
+
+msgid "Registered"
+msgstr "Зареєстровано"
+
+msgid "GroupAllowStudentRegistration"
+msgstr "Користувачам дозволено самозарахування в групи"
+
+msgid "GroupTools"
+msgstr "Інструменти"
+
+msgid "GroupDocument"
+msgstr "Документи"
+
+msgid "GroupPropertiesModified"
+msgstr "Налаштування групи змінено"
+
+msgid "GroupName"
+msgstr "Назва групи"
+
+msgid "GroupDescription"
+msgstr "Опис групи"
+
+msgid "GroupMembers"
+msgstr "Члени групи"
+
+msgid "EditGroup"
+msgstr "Редагувати цю групу"
+
+msgid "GroupSettingsModified"
+msgstr "Налаштування групи змінено"
+
+msgid "GroupTooMuchMembers"
+msgstr "Кількість запропонованих перевищує максимально встановлену (ви можете змінити це нижче). Структуру групи не змінено"
+
+msgid "GroupTutor"
+msgstr "Інструктор групи"
+
+msgid "GroupNoTutor"
+msgstr "(немає)"
+
+msgid "GroupNone"
+msgstr "(немає)"
+
+msgid "GroupNoneMasc"
+msgstr "(немає)"
+
+msgid "AddTutors"
+msgstr "Список адміністраторів"
+
+msgid "MyGroup"
+msgstr "моя група"
+
+msgid "OneMyGroups"
+msgstr "мій нагляд"
+
+msgid "GroupSelfRegistration"
+msgstr "Реєстрація"
+
+msgid "GroupSelfRegInf"
+msgstr "зарахувати"
+
+msgid "RegIntoGroup"
+msgstr "Додати мене до цієї групи"
+
+msgid "GroupNowMember"
+msgstr "Зараз ви член цієї групи."
+
+msgid "Private"
+msgstr "Приватний доступ (сайт доступний лише для осіб із списку користувачів)"
+
+msgid "Public"
+msgstr "Публічний доступ із домашньої сторінки порталу (без паролю)"
+
+msgid "PropModify"
+msgstr "Змінити налаштування"
+
+msgid "State"
+msgstr "Стан"
+
+msgid "GroupFilledGroups"
+msgstr "Групи заповнені (або завершені) користувачами зі списку \"Користувачі\"."
+
+msgid "Subscribed"
+msgstr "користувачі, зараховані на цей курс"
+
+msgid "StudentsNotInThisGroups"
+msgstr "Користувачі не в цій групі"
+
+msgid "QtyOfUserCanSubscribe_PartBeforeNumber"
+msgstr "Користувач може бути членом"
+
+msgid "QtyOfUserCanSubscribe_PartAfterNumber"
+msgstr " &#1075;&#1088;&#1091;&#1087;&#1080;"
+
+msgid "GroupLimit"
+msgstr "Обмеження"
+
+msgid "StudentRegAllowed"
+msgstr "Студенти можуть самозараховуватися до груп"
+
+msgid "GroupAllowStudentUnregistration"
+msgstr "Користувачам дозволено самовідрахування з груп"
+
+msgid "AllGroups"
+msgstr "Всі групи"
+
+msgid "StudentUnsubscribe"
+msgstr "Відрахувати мене з цієї групи."
+
+msgid "StudentDeletesHimself"
+msgstr "Вас відраховано."
+
+msgid "DefaultSettingsForNewGroups"
+msgstr "Налаштування за замовчуванням для нових груп"
+
+msgid "SelectedGroupsDeleted"
+msgstr "Всі вибрані групи видалено"
+
+msgid "SelectedGroupsEmptied"
+msgstr "Всі вибрані групи зараз порожні"
+
+msgid "GroupEmptied"
+msgstr "&#1043;&#1088;&#1091;&#1087;&#1072; &#1079;&#1072;&#1088;&#1072;&#1079; &#1087;&#1086;&#1088;&#1086;&#1078;&#1085;&#1103;"
+
+msgid "SelectedGroupsFilled"
+msgstr "Всі вибрані групи заповнено"
+
+msgid "GroupSelfUnRegInf"
+msgstr "відрахувати"
+
+msgid "SameForAll"
+msgstr "однаково для всіх"
+
+msgid "NoLimit"
+msgstr "Без обмежень"
+
+msgid "PleaseEnterValidNumber"
+msgstr "Будь ласка, введіть бажану кількість груп"
+
+msgid "CreateGroupsFromVirtualCourses"
+msgstr "Створити групи з усіх користувачів віртуальних курсів"
+
+msgid "CreateGroupsFromVirtualCoursesInfo"
+msgstr "&#1062;&#1077;&#1081; &#1082;&#1091;&#1088;&#1089; &#1108; &#1082;&#1086;&#1084;&#1073;&#1110;&#1085;&#1072;&#1094;&#1110;&#1108;&#1102; &#1088;&#1077;&#1072;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1082;&#1091;&#1088;&#1089;&#1091; &#1090;&#1072; &#1"
+
+msgid "NoGroupsAvailable"
+msgstr "Групи недоступні"
+
+msgid "GroupsFromVirtualCourses"
+msgstr "Віртуальні курси"
+
+msgid "CreateSubgroups"
+msgstr "Створити підгрупи"
+
+msgid "CreateSubgroupsInfo"
+msgstr "&#1062;&#1103; &#1086;&#1087;&#1094;&#1110;&#1103; &#1076;&#1086;&#1079;&#1074;&#1086;&#1083;&#1103;&#1108; &#1089;&#1090;&#1074;&#1086;&#1088;&#1080;&#1090;&#1080; &#1085;&#1086;&#1074;&#1110; &#1075;&#1088;&#1091;&#1087;&#1080; &#1085;&#1072; &#1086;&#1"
+
+msgid "CreateNumberOfGroups"
+msgstr "Створити"
+
+msgid "WithUsersFrom"
+msgstr "групи з членами від"
+
+msgid "FillGroup"
+msgstr "додати користувачів"
+
+msgid "EmptyGroup"
+msgstr "відрахувати всіх користувачів"
+
+msgid "MaxGroupsPerUserInvalid"
+msgstr "Максимальна, встановлена вами, кількість груп користувача помилкова. Існують користувачі, що зараховані в більшу кількість груп, ніж встановлена вами."
+
+msgid "GroupOverview"
+msgstr "Перегляд групи"
+
+msgid "GroupCategory"
+msgstr "Категорія групи"
+
+msgid "NoTitleGiven"
+msgstr "Будь ласка, дайте заголовок"
+
+msgid "InvalidMaxNumberOfMembers"
+msgstr "Будь ласка, введіть вірну максимальну кількість членів."
+
+msgid "CategoryOrderChanged"
+msgstr "Порядок категорій змінено"
+
+msgid "CategoryCreated"
+msgstr "Категорію створено"
+
+msgid "GroupTutors"
+msgstr "Викладачі групи"
+
+msgid "GroupWork"
+msgstr "Робота"
+
+msgid "GroupCalendar"
+msgstr "Календар"
+
+msgid "GroupAnnouncements"
+msgstr "Оголошення"
+
+msgid "NoCategoriesDefined"
+msgstr "Не визначено категорії"
+
+msgid "GroupsFromClasses"
+msgstr "Групи з класів"
+
+msgid "GroupsFromClassesInfo"
+msgstr "Використовуючи цю опцію, ви можете створювати групи на основі класів, зарахованих на ваш курс."
+
+msgid "Build"
+msgstr "Будувати"
+
+msgid "TypeMessage"
+msgstr "Будь ласка, введіть повідомлення!"
+
+msgid "ConfirmReset"
+msgstr "Ви дійсно бажаєте видалити всі повідомлення?"
+
+msgid "ClearList"
+msgstr "Почистити список"
+
+msgid "CallSent"
+msgstr "Запит відправлено. Очікуємо підтвердження партнера."
+
+msgid "ChatDenied"
+msgstr "Ваш запит було відкинуто партнером."
+
+msgid "Send"
+msgstr "Відправити"
+
+msgid "Connected"
+msgstr "З'єднаний"
+
+msgid "Exercice"
+msgstr "Тест"
+
+msgid "NoEx"
+msgstr "На цей момент немає тестів"
+
+msgid "NewEx"
+msgstr "Новий тест"
+
+msgid "Questions"
+msgstr "Питання"
+
+msgid "Answers"
+msgstr "Відповіді"
+
+msgid "True"
+msgstr "Вірно"
+
+msgid "Answer"
+msgstr "Відповідь"
+
+msgid "YourResults"
+msgstr "Ваші результати"
+
+msgid "StudentResults"
+msgstr "Бали студентів"
+
+msgid "ExerciseType"
+msgstr "Тип тесту"
+
+msgid "ExerciseName"
+msgstr "Назва тесту"
+
+msgid "ExerciseDescription"
+msgstr "Опис тесту"
+
+msgid "SimpleExercise"
+msgstr "На окремій сторінці"
+
+msgid "SequentialExercise"
+msgstr "Одне питання на сторінку (послідовний)"
+
+msgid "RandomQuestions"
+msgstr "Випадкові питання"
+
+msgid "GiveExerciseName"
+msgstr "Будь ласка, дайте назву тесту"
+
+msgid "Sound"
+msgstr "Аудіо або відео файл"
+
+msgid "DeleteSound"
+msgstr "Видалити аудіо або відео файл"
+
+msgid "NoAnswer"
+msgstr "Немає відповіді на цей момент"
+
+msgid "GoBackToQuestionPool"
+msgstr "Назад до збірки питань"
+
+msgid "GoBackToQuestionList"
+msgstr "Назад до списку питань"
+
+msgid "QuestionAnswers"
+msgstr "Відповіді на питання"
+
+msgid "UsedInSeveralExercises"
+msgstr "Увага! Це питання та його відповіді використовується в деяких тестах. Ви бажаєте змінити їх?"
+
+msgid "ModifyInAllExercises"
+msgstr "в усіх тестах"
+
+msgid "ModifyInThisExercise"
+msgstr "тільки в цьому тесті"
+
+msgid "AnswerType"
+msgstr "Тип відповіді"
+
+msgid "MultipleSelect"
+msgstr "Множинний вибір"
+
+msgid "FillBlanks"
+msgstr "Заповнити пропуски"
+
+msgid "Matching"
+msgstr "Відповідність"
+
+msgid "ReplacePicture"
+msgstr "Замінити зображення"
+
+msgid "DeletePicture"
+msgstr "Видалити малюнок"
+
+msgid "QuestionDescription"
+msgstr "Коментар до питання (за бажанням)"
+
+msgid "GiveQuestion"
+msgstr "Введіть питання"
+
+msgid "WeightingForEachBlank"
+msgstr "Будь ласка, призначте вагу для кожного пропуску"
+
+msgid "UseTagForBlank"
+msgstr "використовуйте квадратні дужки [...] для визначення пропусків"
+
+msgid "QuestionWeighting"
+msgstr "Вага"
+
+msgid "MoreAnswers"
+msgstr "+відп"
+
+msgid "LessAnswers"
+msgstr "-відп"
+
+msgid "MoreElements"
+msgstr "+елем"
+
+msgid "LessElements"
+msgstr "-елем"
+
+msgid "TypeTextBelow"
+msgstr "Будь ласка, введіть текст нижче"
+
+msgid "DefaultTextInBlanks"
+msgstr "[Українці] живуть в [Україні]."
+
+msgid "DefaultMatchingOptA"
+msgstr "багатий"
+
+msgid "DefaultMatchingOptB"
+msgstr "добре виглядає"
+
+msgid "DefaultMakeCorrespond1"
+msgstr "Ваш тато є"
+
+msgid "DefaultMakeCorrespond2"
+msgstr "Ваша мати є"
+
+msgid "DefineOptions"
+msgstr "Будь ласка, визначіть налаштування"
+
+msgid "MakeCorrespond"
+msgstr "З'ясуйте відповідність"
+
+msgid "FillLists"
+msgstr "Будь ласка, заповніть два списки нижче"
+
+msgid "GiveText"
+msgstr "Будь ласка, введіть текст"
+
+msgid "DefineBlanks"
+msgstr "Будь ласка, визначте хоча б один пропуск квадратними дужками [...]"
+
+msgid "GiveAnswers"
+msgstr "Будь ласка, введіть відповіді на питання"
+
+msgid "ChooseGoodAnswer"
+msgstr "Позчачте вірну відповідь"
+
+msgid "ChooseGoodAnswers"
+msgstr "Позначте одну або більше вірних відповідей"
+
+msgid "QuestionList"
+msgstr "Список питань тесту"
+
+msgid "GetExistingQuestion"
+msgstr "Збірка питань"
+
+msgid "FinishTest"
+msgstr "Завершити тест"
+
+msgid "QuestionPool"
+msgstr "Збірка питань"
+
+msgid "OrphanQuestions"
+msgstr "Одиничні питання"
+
+msgid "NoQuestion"
+msgstr "Немає питання на цей момент"
+
+msgid "AllExercises"
+msgstr "Всі тести"
+
+msgid "GoBackToEx"
+msgstr "Назад до тесту"
+
+msgid "Reuse"
+msgstr "Повторне використання"
+
+msgid "ExerciseManagement"
+msgstr "Керування тестами"
+
+msgid "QuestionManagement"
+msgstr "Керування Питання / Відповідь"
+
+msgid "QuestionNotFound"
+msgstr "Питання не знайдено"
+
+msgid "ExerciseNotFound"
+msgstr "Тест не знайдено або він невидимий"
+
+msgid "AlreadyAnswered"
+msgstr "Ви вже відповіли на питання"
+
+msgid "ElementList"
+msgstr "Список елементів"
+
+msgid "CorrespondsTo"
+msgstr "Відповідає"
+
+msgid "ExpectedChoice"
+msgstr "Очикуємий вибір"
+
+msgid "YourTotalScore"
+msgstr "Ваш загальний бал"
+
+msgid "EvalSet"
+msgstr "параметри оцінювання"
+
+msgid "Active"
+msgstr "активний"
+
+msgid "Inactive"
+msgstr "неактивний"
+
+msgid "QuestCreate"
+msgstr "створити питання"
+
+msgid "ExRecord"
+msgstr "вашу вправу збережено"
+
+msgid "BackModif"
+msgstr "повернутися до сторінки редагування питань"
+
+msgid "DoEx"
+msgstr "Створити вправу"
+
+msgid "DefScor"
+msgstr "описати параметри оцінювання"
+
+msgid "CreateModif"
+msgstr "створити / змінити питання"
+
+msgid "Sub"
+msgstr "підзаголовок"
+
+msgid "MyAnswer"
+msgstr "Моя відповідь"
+
+msgid "MorA"
+msgstr "+ відповідь"
+
+msgid "LesA"
+msgstr "- відповідь"
+
+msgid "RecEx"
+msgstr "Зберегти вправу"
+
+msgid "RecQu"
+msgstr "Зберегти питання"
+
+msgid "RecAns"
+msgstr "Зберегти відповіді"
+
+msgid "Introduction"
+msgstr "Вступ"
+
+msgid "TitleAssistant"
+msgstr "Помічник створення вправ"
+
+msgid "QuesList"
+msgstr "список питань"
+
+msgid "SaveEx"
+msgstr "Зберегти вправи"
+
+msgid "QImage"
+msgstr "Питання з зображенням"
+
+msgid "AddQ"
+msgstr "Додати питання"
+
+msgid "DoAnEx"
+msgstr "Робити вправу"
+
+msgid "Generator"
+msgstr "Список вправ"
+
+msgid "Correct"
+msgstr "Вірний"
+
+msgid "PossAnsw"
+msgstr "Кількість вірних відповідей на питання"
+
+msgid "StudAnsw"
+msgstr "Кількість помилок студента"
+
+msgid "Determine"
+msgstr "Визначити"
+
+msgid "NonNumber"
+msgstr "Нечислове значення"
+
+msgid "Replaced"
+msgstr "Замінено"
+
+msgid "Superior"
+msgstr "Значення більше 20"
+
+msgid "Rep20"
+msgstr "Замінити 20"
+
+msgid "DefComment"
+msgstr "попередні значення будуть замінені при натисканні кнопки \"значення за замовчуванням\""
+
+msgid "ScoreGet"
+msgstr "чорні цифри = бал"
+
+msgid "ShowScor"
+msgstr "Показати оцінювання студенту:"
+
+msgid "Step1"
+msgstr "Крок 1"
+
+msgid "Step2"
+msgstr "Крок 2"
+
+msgid "ImportHotPotatoesQuiz"
+msgstr "Імпортувати тести HotPotatoes"
+
+msgid "HotPotatoesTests"
+msgstr "Імпортувати тести HotPotatoes"
+
+msgid "DownloadImg"
+msgstr "Завантажити зображення на сервер"
+
+msgid "NoImg"
+msgstr "Тест без зображень"
+
+msgid "ImgNote_st"
+msgstr "<br> Вам необхідно завантажити"
+
+msgid "ImgNote_en"
+msgstr "зображення:"
+
+msgid "NameNotEqual"
+msgstr "недійсний файл!"
+
+msgid "Indice"
+msgstr "Індекс"
+
+msgid "Indices"
+msgstr "Індекси"
+
+msgid "DateExo"
+msgstr "Дата"
+
+msgid "ShowQuestion"
+msgstr "Показати Питання"
+
+msgid "UnknownExercise"
+msgstr "Невідома вправа"
+
+msgid "ReuseQuestion"
+msgstr "Повторно використати питання"
+
+msgid "CreateExercise"
+msgstr "Створити вправу"
+
+msgid "CreateQuestion"
+msgstr "Створити питання"
+
+msgid "CreateAnswers"
+msgstr "Створити відповіді"
+
+msgid "ModifyExercise"
+msgstr "Змінити вправу"
+
+msgid "ModifyAnswers"
+msgstr "змінити питання"
+
+msgid "ForExercise"
+msgstr "для вправи"
+
+msgid "UseExistantQuestion"
+msgstr "Використовувати існуюче питанння"
+
+msgid "FreeAnswer"
+msgstr "Відкрити питання"
+
+msgid "notCorrectedYet"
+msgstr "Цю відповідь ще не виправлено. Між тим, ваш бал за це питання встановлено в 0, що вплине на результат."
+
+msgid "adminHP"
+msgstr "Адміністратор HotPotatoes"
+
+msgid "NewQu"
+msgstr "Нове питання"
+
+msgid "NoImage"
+msgstr "Виберіть зображення."
+
+msgid "AnswerHotspot"
+msgstr "Опис та вага необхідні для кожного хотспоту. Коментар - опціонально."
+
+msgid "MinHotspot"
+msgstr "Вам необхідно створити хоча б один хотспот."
+
+msgid "MaxHotspot"
+msgstr "Максимально ви можете створити дванадцять (12) хотспотів."
+
+msgid "HotspotError"
+msgstr "Будь ласка, призначте опис та вагу кожному хотспоту."
+
+msgid "MoreHotspots"
+msgstr "+ хотспот"
+
+msgid "LessHotspots"
+msgstr "- хотспот"
+
+msgid "HotspotZones"
+msgstr "Зони зображення"
+
+msgid "CorrectAnswer"
+msgstr "Вірна відповідь"
+
+msgid "HotspotHit"
+msgstr "Ваша відповідь була"
+
+msgid "OnlyJPG"
+msgstr "Для хотспотів ви можете використовувати тільки зображення JPEG/JPG"
+
+msgid "FinishThisTest"
+msgstr "Показати вірні відповіді на кожне питання та результати тесту"
+
+msgid "AllQuestions"
+msgstr "Всі питання"
+
+msgid "ModifyTitleDescription"
+msgstr "Редагувати заголовок та коментар"
+
+msgid "ModifyHotspots"
+msgstr "Редагувати відповіді / хотспоти"
+
+msgid "HotspotNotDrawn"
+msgstr "Ви ще не намалювали всі ваші хотспоти"
+
+msgid "HotspotWeightingError"
+msgstr "Вам необхідно надати позитивні (>0) ваги для всіх хотспотів"
+
+msgid "HotspotValidateError1"
+msgstr "Вам необхідно повністю відповісти на питання ("
+
+msgid "HotspotValidateError2"
+msgstr "натискання на зображення необхідні) перед переглядом результатів"
+
+msgid "HotspotRequired"
+msgstr "Опис та вага необхідні для кожного хотспоту. Коментар - опціонально."
+
+msgid "HotspotChoose"
+msgstr "<div style=\"padding:2px 3px;\">•═ Для створення хотспоту: виберіть фігуру та намалюйте хотспот.</div><div style=\"padding:2px 3px;\">•═ Для переміщення хотспоту, виберіть колір, натисніть на іншу пляму на зображенні та намалюйте хотспот.</div><div style=\"padding:2px 3px;\">•═ Для того, аби додати хотспот: натисніть кнопку [+хотспот].</div><div style=\"padding:2px 3px;\">•═Для закриття фігури полігону: правий клік та \"Закрити полігон\".</div>"
+
+msgid "Fault"
+msgstr "Невірно"
+
+msgid "HotSpot"
+msgstr "Зони зображення"
+
+msgid "ClickNumber"
+msgstr "Кількість натискань"
+
+msgid "HotspotGiveAnswers"
+msgstr "Будь ласка, дайте відповідь"
+
+msgid "Addlimits"
+msgstr "Додати обмеження"
+
+msgid "AreYouSure"
+msgstr "Ви впевнені"
+
+msgid "StudentScore"
+msgstr "Бал студента"
+
+msgid "backtoTesthome"
+msgstr "Назад до сторінки тестів"
+
+msgid "MarkIsUpdated"
+msgstr "Оцінку було оновлено"
+
+msgid "MarkInserted"
+msgstr "Оцінку вставлено"
+
+msgid "PleaseGiveAMark"
+msgstr "Будь ласка, проставте оцінку"
+
+msgid "EditCommentsAndMarks"
+msgstr "Редагувати коментарі та оцінки"
+
+msgid "AddComments"
+msgstr "Додати коментарі"
+
+msgid "Number"
+msgstr "№"
+
+msgid "Weighting"
+msgstr "Вага"
+
+msgid "ChooseQuestionType"
+msgstr "Для створення нового питання, виберіть тип нижче"
+
+msgid "MatchesTo"
+msgstr "Відповідає"
+
+msgid "CorrectTest"
+msgstr "Виправити цей тест"
+
+msgid "ViewTest"
+msgstr "Переглянути"
+
+msgid "NotAttempted"
+msgstr "Нерозпочатий"
+
+msgid "AddElem"
+msgstr "+ елемент"
+
+msgid "DelElem"
+msgstr "- елемент"
+
+msgid "PlusAnswer"
+msgstr "+ відповідь"
+
+msgid "LessAnswer"
+msgstr "- відповідь"
+
+msgid "YourScore"
+msgstr "Ваш бал"
+
+msgid "Attempted"
+msgstr "Розпочатий"
+
+msgid "AssignMarks"
+msgstr "Призначити оцінку"
+
+msgid "ExerciseStored"
+msgstr "Вправу збережено"
+
+msgid "ChooseAtLeastOneCheckbox"
+msgstr "Виберіть хоча б одну вірну відповідь"
+
+msgid "ExerciseEdited"
+msgstr "Вправу відредаговано"
+
+msgid "ExerciseDeleted"
+msgstr "Вправу видалено"
+
+msgid "ClickToCommentAndGiveFeedback"
+msgstr "Натисніть посилання нижче для перевірки відповіді та зворотнього зв'язку"
+
+msgid "OpenQuestionsAttempted"
+msgstr "Слухач відповів на відкрите питання"
+
+msgid "AttemptDetails"
+msgstr "Деталі спроби"
+
+msgid "TestAttempted"
+msgstr "Тест розпочато"
+
+msgid "StudentName"
+msgstr "Ім'я студента"
+
+msgid "StudentEmail"
+msgstr "Email студента"
+
+msgid "OpenQuestionsAttemptedAre"
+msgstr "Відкрити питання розпочате"
+
+msgid "UploadJpgPicture"
+msgstr "Завантажити зображення JPG"
+
+msgid "HotspotDescription"
+msgstr "Опис хотспоту"
+
+msgid "ExamSheetVCC"
+msgstr "Список іспитів переглянутих/виправлених/коментованих викладачем"
+
+msgid "AttemptVCC"
+msgstr "Ваша спроба була переглянута/коментована/виправлена викладачем"
+
+msgid "ClickLinkToViewComment"
+msgstr "Натисніть посилання нижче для доступу до ваших облікових даних та перегляду коментованого списку іспитів."
+
+msgid "Regards"
+msgstr "Вітання"
+
+msgid "AttemptVCCLong"
+msgstr "Ваша спроба тесту %s була переглянута/коментована/виправлена викладачем.Натисніть посилання нижче для доступу до ваших облікових даних та перегляду списку іспитів."
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "UsersOnline"
+msgstr "Користувачі онлайн"
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "Enter"
+msgstr "Повернутися до списку моїх курсів"
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "Links"
+msgstr "Посилання"
+
+msgid "Works"
+msgstr "Публікації студентів"
+
+msgid "Forums"
+msgstr "Форуми"
+
+msgid "CreateDir"
+msgstr "Створити каталог"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Visible"
+msgstr "Видимий/невидимий"
+
+msgid "NewDir"
+msgstr "Назва нового каталогу"
+
+msgid "DirCr"
+msgstr "Каталог створено"
+
+msgid "Download"
+msgstr "Завантажити"
+
+msgid "Group"
+msgstr "Групи"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "GroupForum"
+msgstr "Форум Групи"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "LoginName"
+msgstr "Логін"
+
+msgid "Forum"
+msgstr "Форуми"
+
+msgid "Code"
+msgstr "Код курсу"
+
+msgid "Up"
+msgstr "Вверх"
+
+msgid "Down"
+msgstr "вниз"
+
+msgid "TheListIsEmpty"
+msgstr "Список порожній."
+
+msgid "UniqueSelect"
+msgstr "Множинний вибір"
+
+msgid "CourseCreate"
+msgstr "Створити вебсайт курсу"
+
+msgid "Todo"
+msgstr "Пропозиції"
+
+msgid "UserName"
+msgstr "Ім'я користувача"
+
+msgid "Hide"
+msgstr "Сховати"
+
+msgid "Archive"
+msgstr "архів"
+
+msgid "CourseCode"
+msgstr "Код курсу"
+
+msgid "NoDescription"
+msgstr "Немає опису"
+
+msgid "OfficialCode"
+msgstr "Офіційний код"
+
+msgid "FirstName"
+msgstr "Ім'я"
+
+msgid "LastName"
+msgstr "Прізвище"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "SlideshowConversion"
+msgstr "Перетворення на слайдшоу"
+
+msgid "UploadFile"
+msgstr "Завантажити файл"
+
+msgid "AvailableFrom"
+msgstr "Доступно з"
+
+msgid "AvailableTill"
+msgstr "Доступно до"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "EmailAddress"
+msgstr "Адреса email"
+
+msgid "Organisation"
+msgstr "Організація"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "CurrentCourse"
+msgstr "Поточний курс"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Info"
+msgstr "інформація"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "AdvancedSearch"
+msgstr "Розширений пошук"
+
+msgid "Open"
+msgstr "Відкрити"
+
+msgid "Import"
+msgstr "Імпорт"
+
+msgid "AddAnother"
+msgstr "Додати інший"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "TrueFalse"
+msgstr "Вірно / Невірно"
+
+msgid "NoSearchResults"
+msgstr "Пошук не дав результатів"
+
+msgid "SelectQuestion"
+msgstr "Вибрати питання"
+
+msgid "AddNewQuestionType"
+msgstr "Додати новий тип питання"
+
+msgid "Numbered"
+msgstr "Пронумеровано"
+
+msgid "iso639_2_code"
+msgstr "ua"
+
+msgid "iso639_1_code"
+msgstr "ukr"
+
+msgid "charset"
+msgstr "iso-8859-1"
+
+msgid "text_dir"
+msgstr "ltr"
+
+msgid "left_font_family"
+msgstr "verdana, helvetica, arial, geneva, sans-serif"
+
+msgid "right_font_family"
+msgstr "helvetica, arial, geneva, sans-serif"
+
+msgid "number_thousands_separator"
+msgstr ","
+
+msgid "number_decimal_separator"
+msgstr "."
+
+msgid "dateFormatShort"
+msgstr "%d.%m.%y"
+
+msgid "dateFormatLong"
+msgstr "%A %d %B %Y"
+
+msgid "dateTimeFormatLong"
+msgstr "%d %B, %Y у %H:%M"
+
+msgid "timeNoSecFormat"
+msgstr "%I:%M %p"
+
+msgid "Yes"
+msgstr "так"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Next"
+msgstr "Наступний"
+
+msgid "Allowed"
+msgstr "Дозволено"
+
+msgid "BackHome"
+msgstr "Повернутися до головної сторінки"
+
+msgid "Propositions"
+msgstr "Пропозиція удосконалення"
+
+msgid "Maj"
+msgstr "Оновити"
+
+msgid "Modify"
+msgstr "змінити"
+
+msgid "Invisible"
+msgstr "Зробити невидимим"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Move"
+msgstr "Перемістити"
+
+msgid "Help"
+msgstr "Допомога"
+
+msgid "Ok"
+msgstr "ОК"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "AddIntro"
+msgstr "Додати вступний текст"
+
+msgid "BackList"
+msgstr "Повернутись до списку"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Empty"
+msgstr "Ви залишили деякі поля пустими.<br>Натисніть кнопку <b>Назад</b> вашого браузеру та спробуйте ще раз.<br>Якщо ви не вказали код курсу, див. Програму Курсу"
+
+msgid "ConfirmYourChoice"
+msgstr "Будь ласка, підтвердіть ваш вибір"
+
+msgid "And"
+msgstr "та"
+
+msgid "Choice"
+msgstr "Ваш вибір"
+
+msgid "Finish"
+msgstr "Завершити"
+
+msgid "Cancel"
+msgstr "Відмінити"
+
+msgid "NotAllowed"
+msgstr "Доступу немає або ваша сесія закінчилась. Будь ласка, повторіть логін."
+
+msgid "NotLogged"
+msgstr "Вас не зараховані на курс"
+
+msgid "Manager"
+msgstr "Керівник"
+
+msgid "Optional"
+msgstr "Опціонально"
+
+msgid "NextPage"
+msgstr "Наступна сторінка"
+
+msgid "PreviousPage"
+msgstr "Попередня сторінка"
+
+msgid "Use"
+msgstr "Використовувати"
+
+msgid "Total"
+msgstr "Загалом"
+
+msgid "Take"
+msgstr "брати"
+
+msgid "One"
+msgstr "Один"
+
+msgid "Several"
+msgstr "Декілька"
+
+msgid "Notice"
+msgstr "Повідомляти"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Among"
+msgstr "серед"
+
+msgid "Show"
+msgstr "Показати"
+
+msgid "MyCourses"
+msgstr "Мої курси"
+
+msgid "ModifyProfile"
+msgstr "Мій профіль"
+
+msgid "MyStats"
+msgstr "Переглянути мою статистику"
+
+msgid "Logout"
+msgstr "Вийти"
+
+msgid "MyAgenda"
+msgstr "Мій календар"
+
+msgid "CourseHomepage"
+msgstr "Домашня сторінка курсу"
+
+msgid "SwitchToTeacherView"
+msgstr "Вид викладача"
+
+msgid "SwitchToStudentView"
+msgstr "Вид студента"
+
+msgid "AddResource"
+msgstr "Додати це"
+
+msgid "AddedResources"
+msgstr "Додатки"
+
+msgid "NameOfLang['arabic']"
+msgstr ""
+
+msgid "NameOfLang['brazilian']"
+msgstr ""
+
+msgid "NameOfLang['bulgarian']"
+msgstr ""
+
+msgid "NameOfLang['catalan']"
+msgstr ""
+
+msgid "NameOfLang['croatian']"
+msgstr ""
+
+msgid "NameOfLang['danish']"
+msgstr ""
+
+msgid "NameOfLang['dutch']"
+msgstr ""
+
+msgid "NameOfLang['english']"
+msgstr ""
+
+msgid "NameOfLang['finnish']"
+msgstr ""
+
+msgid "NameOfLang['french']"
+msgstr ""
+
+msgid "NameOfLang['french_corporate']"
+msgstr ""
+
+msgid "NameOfLang['french_KM']"
+msgstr ""
+
+msgid "NameOfLang['galician']"
+msgstr ""
+
+msgid "NameOfLang['german']"
+msgstr ""
+
+msgid "NameOfLang['greek']"
+msgstr ""
+
+msgid "NameOfLang['italian']"
+msgstr ""
+
+msgid "NameOfLang['japanese']"
+msgstr ""
+
+msgid "NameOfLang['polish']"
+msgstr ""
+
+msgid "NameOfLang['portuguese']"
+msgstr ""
+
+msgid "NameOfLang['russian']"
+msgstr ""
+
+msgid "NameOfLang['simpl_chinese']"
+msgstr ""
+
+msgid "NameOfLang['spanish']"
+msgstr ""
+
+msgid "Close"
+msgstr "закрити"
+
+msgid "Platform"
+msgstr "Платформа"
+
+msgid "localLangName"
+msgstr "мова"
+
+msgid "CourseCodeAlreadyExists"
+msgstr "Вибачте, але цей код курсу вже існує. Будь ласка, виберіть інший"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "GroupList"
+msgstr "список групи"
+
+msgid "Previous"
+msgstr "попередній"
+
+msgid "DestDirectoryDoesntExist"
+msgstr "Каталог призначення не існує"
+
+msgid "Courses"
+msgstr "курси"
+
+msgid "In"
+msgstr "в"
+
+msgid "ShowAll"
+msgstr "Показати всі"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "englishLangName"
+msgstr "Англійська"
+
+msgid "Home"
+msgstr "Додому"
+
+msgid "AreYouSureToDelete"
+msgstr "Ви впевнені, що хочете видалити"
+
+msgid "SelectAll"
+msgstr "вибрати все"
+
+msgid "UnSelectAll"
+msgstr "зняти вибір з усіх"
+
+msgid "WithSelected"
+msgstr "З вибраними"
+
+msgid "OnLine"
+msgstr "Онлайн"
+
+msgid "Users"
+msgstr "Користувачі"
+
+msgid "PlatformAdmin"
+msgstr "Адміністрування Платформи"
+
+msgid "NameOfLang['hungarian']"
+msgstr ""
+
+msgid "NameOfLang['indonesian']"
+msgstr ""
+
+msgid "NameOfLang['malay']"
+msgstr ""
+
+msgid "NameOfLang['slovenian']"
+msgstr ""
+
+msgid "NameOfLang['spanish_latin']"
+msgstr ""
+
+msgid "NameOfLang['swedish']"
+msgstr ""
+
+msgid "NameOfLang['thai']"
+msgstr ""
+
+msgid "NameOfLang['turkce']"
+msgstr ""
+
+msgid "NameOfLang['vietnamese']"
+msgstr ""
+
+msgid "UserInfo"
+msgstr "інформація користувача"
+
+msgid "ModifyQuestion"
+msgstr "Змінити питання"
+
+msgid "CheckAll"
+msgstr "Позначити всі"
+
+msgid "NbAnnoucement"
+msgstr "Оголошення"
+
+msgid "OtherCourses"
+msgstr "інші курси"
+
+msgid "Doc"
+msgstr "Документ"
+
+msgid "PlataformAdmin"
+msgstr "Адміністратор платформи"
+
+msgid "Groups"
+msgstr "Групи"
+
+msgid "GroupManagement"
+msgstr "Керування групою"
+
+msgid "All"
+msgstr "Всі"
+
+msgid "None"
+msgstr "жоден"
+
+msgid "Today"
+msgstr "&#1089;&#1100;&#1086;&#1075;&#1086;&#1076;&#1085;&#1110;"
+
+msgid "CourseHomepageLink"
+msgstr "Домашня сторінка курсу"
+
+msgid "Attachment"
+msgstr "додаток"
+
+msgid "User"
+msgstr "Користувачі"
+
+msgid "MondayInit"
+msgstr "П"
+
+msgid "TuesdayInit"
+msgstr "В"
+
+msgid "JanuaryInit"
+msgstr "С"
+
+msgid "FebruaryInit"
+msgstr "Л"
+
+msgid "MarchInit"
+msgstr "М"
+
+msgid "UplNoFileUploaded"
+msgstr "Жодного файлу не завантажено."
+
+msgid "UplSelectFileFirst"
+msgstr "Будь ласка, виберіть файл перед натисканням кнопки завантаження."
+
+msgid "Tools"
+msgstr "Інструменти"
+
+msgid "UserRole"
+msgstr "Роль"
+
+msgid "MoveTo"
+msgstr "Перемістити в"
+
+msgid "Years"
+msgstr "роки"
+
+msgid "Day"
+msgstr "День"
+
+msgid "Days"
+msgstr "дні"
+
+msgid "PleaseStandBy"
+msgstr "Будь ласка, зачекайте..."
+
+msgid "AvailableUntil"
+msgstr "Доступно до"
+
+msgid "HourMinuteDivider"
+msgstr "ч"
+
+msgid "Visio_classroom"
+msgstr "Віртуальний класний кабінет"
+
+msgid "Survey"
+msgstr "Опитування"
+
+msgid "More"
+msgstr "Більше"
+
+msgid "ClickHere"
+msgstr "Натиснути тут"
+
+msgid "Here"
+msgstr "&#1090;&#1091;&#1090;"
+
+msgid "ReturnTo"
+msgstr "Зараз ви можете повернутися до"
+
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+msgid "Vertical"
+msgstr "Вертикально"
+
+msgid "DisplaySearchResults"
+msgstr "Показати результати пошуку"
+
+msgid "DisplayAll"
+msgstr "Показати всі"
+
+msgid "File_upload"
+msgstr "Завантаження файлу"
+
+msgid "NoUsersInCourse"
+msgstr "Немає користувачів на курсі"
+
+msgid "Percentage"
+msgstr "Процент"
+
+msgid "Information"
+msgstr "Інформації"
+
+msgid "EmailDestination"
+msgstr "Отримувач"
+
+msgid "SendEmail"
+msgstr "Відправити email"
+
+msgid "EmailTitle"
+msgstr "Тема повідомлення"
+
+msgid "EmailText"
+msgstr "Зміст email"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+msgid "ModifyRecipientList"
+msgstr "Змінити список отримувачів"
+
+msgid "NoLinkVisited"
+msgstr "Жодного посилання не відвідано"
+
+msgid "NoDocumentDownloaded"
+msgstr "Жодного документу не скачано"
+
+msgid "Clicks"
+msgstr "кліки"
+
+msgid "SearchResults"
+msgstr "Результати пошуку"
+
+msgid "SessionPast"
+msgstr "Минуле"
+
+msgid "SessionActive"
+msgstr "Активно"
+
+msgid "SessionFuture"
+msgstr "Ще не розпочато"
+
+msgid "DateFormatLongWithoutDay"
+msgstr "%d. %B. %Y"
+
+msgid "InvalidDirectoryPleaseCreateAnImagesFolder"
+msgstr "Невірний каталог. Будь ласка, створіть каталог в інструментарії Документи для того, аби завантажувати туди зображення"
+
+msgid "UsersConnectedToMySessions"
+msgstr "Показати всіх користувачів, підключених до моїх сесій"
+
+msgid "Category"
+msgstr "Категорія"
+
+msgid "CourseProgram"
+msgstr "Деталі курсу"
+
+msgid "ThisCourseDescriptionIsEmpty"
+msgstr "&#1062;&#1077;&#1081; &#1082;&#1091;&#1088;&#1089; &#1097;&#1077; &#1085;&#1077; &#1086;&#1087;&#1080;&#1089;&#1072;&#1085;&#1086;."
+
+msgid "QuestionPlan"
+msgstr "Питання викладачу щодо планування"
+
+msgid "NewBloc"
+msgstr "Інше"
+
+msgid "CourseDescriptionUpdated"
+msgstr "Опис курсу було оновлено"
+
+msgid "CourseDescriptionDeleted"
+msgstr "Опис курсу було видалено"
+
+msgid "InvalidId"
+msgstr "Невірне ім'я чи пароль."
+
+msgid "Pass"
+msgstr "Пароль"
+
+msgid "InLnk"
+msgstr "Деактивувати інструменти та посилання"
+
+msgid "DelLk"
+msgstr "Ви дійсно бажаєте видалити це посилання?"
+
+msgid "NameOfTheLink"
+msgstr "Назва посилання"
+
+msgid "CourseAdminOnly"
+msgstr "Для викладачів"
+
+msgid "PlatformAdminOnly"
+msgstr "Для адміністраторів портала"
+
+msgid "CombinedCourse"
+msgstr "Об'єднаний курс"
+
+msgid "ToolIsNowVisible"
+msgstr "Інструмент зараз видимий"
+
+msgid "ToolIsNowHidden"
+msgstr "Інструмент зараз невидимий"
+
+msgid "GreyIcons"
+msgstr "Інструменти"
+
+msgid "Interaction"
+msgstr "Взаємодія"
+
+msgid "Authoring"
+msgstr "Авторство"
+
+msgid "ToolName"
+msgstr "Імпортувати курси Blackboard"
+
+msgid "TrackingDisabled"
+msgstr "Відслідковування скасовано системним адміністратором."
+
+msgid "Lines"
+msgstr "рядки"
+
+msgid "GroupSpaceLink"
+msgstr "Зона групи"
+
+msgid "CreationSucces"
+msgstr "Зміст створено."
+
+msgid "CanViewOrganisation"
+msgstr "Ви можете переглянути свою організацію"
+
+msgid "ViewDocument"
+msgstr "Переглянути"
+
+msgid "HtmlTitle"
+msgstr "Зміст"
+
+msgid "AddToTOC"
+msgstr "Додати до змісту"
+
+msgid "AddChapter"
+msgstr "Додати розділ"
+
+msgid "Ready"
+msgstr "Згенерувати зміст"
+
+msgid "StoreDocuments"
+msgstr "Складувати документи"
+
+msgid "TocDown"
+msgstr "Вниз"
+
+msgid "TocUp"
+msgstr "Вверх"
+
+msgid "CutPasteLink"
+msgstr "Без рамки"
+
+msgid "CreatePath"
+msgstr "Створити шлях"
+
+msgid "OogieConversionPowerPoint"
+msgstr "OOGIE : PowerPoint переробка"
+
+msgid "WelcomeOogieSubtitle"
+msgstr "Конвертор PowerPoint в Навчальний план"
+
+msgid "GoMetadata"
+msgstr "Старт"
+
+msgid "QuotaForThisCourseIs"
+msgstr "Квота цього курсу"
+
+msgid "Del"
+msgstr "видалити"
+
+msgid "ShowCourseQuotaUse"
+msgstr "Показати квоту курсу"
+
+msgid "CourseCurrentlyUses"
+msgstr "Цей курс використовується"
+
+msgid "MaximumAllowedQuota"
+msgstr "Ліміт збереження контенту"
+
+msgid "PercentageQuotaInUse"
+msgstr "Відсоток використаної квоти"
+
+msgid "PercentageQuotaFree"
+msgstr "Відсоток вільної квоти"
+
+msgid "CurrentDirectory"
+msgstr "Поточний каталог"
+
+msgid "UplUploadDocument"
+msgstr "Завантажити документ"
+
+msgid "UplPartialUpload"
+msgstr "Файл завантажено частково."
+
+msgid "UplExceedMaxPostSize"
+msgstr "Розмір файлу перевищує максимально дозволений:"
+
+msgid "UplExceedMaxServerUpload"
+msgstr "Розмір завантаженого файлу перевищує дозволений сервером:"
+
+msgid "UplUploadFailed"
+msgstr "Завантаження невдале."
+
+msgid "UplNotEnoughSpace"
+msgstr "Не вистачає вільного місця для завантаження файлу."
+
+msgid "UplNoSCORMContent"
+msgstr "Не знайдено контенту SCORM."
+
+msgid "UplZipExtractSuccess"
+msgstr "Архів zip було розпаковано."
+
+msgid "UplZipCorrupt"
+msgstr "Неможливо розпакувати файл zip (пошкоджений файл)."
+
+msgid "UplFileSavedAs"
+msgstr "Файл збережено як"
+
+msgid "UplFileOverwritten"
+msgstr "було перезаписано."
+
+msgid "CannotCreateDir"
+msgstr "Неможливо створити каталог."
+
+msgid "UplUpload"
+msgstr "Завантажити"
+
+msgid "UplWhatIfFileExists"
+msgstr "Якщо файл існує:"
+
+msgid "UplDoNothing"
+msgstr "Нічого не робити"
+
+msgid "UplDoNothingLong"
+msgstr "Не завантажувати, якщо файл існує"
+
+msgid "UplOverwrite"
+msgstr "Перезаписати"
+
+msgid "UplOverwriteLong"
+msgstr "Перезаписати існуючий файл"
+
+msgid "UplRename"
+msgstr "Перейменувати"
+
+msgid "UplRenameLong"
+msgstr "Перейменувати завантажений файл, якщо він існує"
+
+msgid "DocumentQuota"
+msgstr "Квота на документи"
+
+msgid "NoDocsInFolder"
+msgstr "Немає документів для відображення."
+
+msgid "UploadTo"
+msgstr "Завантажити у"
+
+msgid "fileModified"
+msgstr "Файл змінено"
+
+msgid "DocumentsOverview"
+msgstr "перегляд документів"
+
+msgid "Options"
+msgstr "Налаштування"
+
+msgid "WelcomeOogieConverter"
+msgstr "Ласкаво просимо до конвертору OOGIE -> PowerPoint <ul type=\"1\"><li>Перегляньте ваш диск для пошуку файлів .ppt або .odp<li>Завантажте їх у OOGIE. Це змінить їх на Навчальний план SCORM.<li>Після цього ви зможете додати до них аудіокоментар на кожен слайд та вставити тести між слайдами для оцінки знань."
+
+msgid "ConvertToLP"
+msgstr "Конвертація у Навчальний план"
+
+msgid "AdvancedSettings"
+msgstr "Розширені налаштування"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "DocDeleteError"
+msgstr "Помилка при видаленні документу"
+
+msgid "ViModProb"
+msgstr "Помилка при зміні статусу видимісті"
+
+msgid "DirDeleted"
+msgstr "Каталог видалено"
+
+msgid "MailingFileRecipDup"
+msgstr "багато користувачів мають"
+
+msgid "MailingFileRecipNotFound"
+msgstr "немає отримувача з"
+
+msgid "MailingFileNoRecip"
+msgstr "назва не містить жодного ID отримувача"
+
+msgid "MailingFileNoPostfix"
+msgstr "назва не може закінчуватися на"
+
+msgid "MailingFileNoPrefix"
+msgstr "назва не може починатися з"
+
+msgid "MailingFileFunny"
+msgstr "немає назви або розширення не 1-4 символи"
+
+msgid "MailingZipDups"
+msgstr "Кореспонденція не повинна містити повторюваних файлів - це не буде відправлено"
+
+msgid "MailingZipPhp"
+msgstr "Кореспонденція не повинна містити файли .php - це не буде відправлено"
+
+msgid "MailingZipEmptyOrCorrupt"
+msgstr "Файл zip кореспонденції порожній або помилковий"
+
+msgid "MailingWrongZipfile"
+msgstr "Файли кореспонденції повинні бути файлами zip з ID студента або Логіном"
+
+msgid "MailingConfirmSend"
+msgstr "Відправити файли окремим отримувачам?"
+
+msgid "MailingSend"
+msgstr "Відправити файли"
+
+msgid "MailingNotYetSent"
+msgstr "Файли кореспонденції ще не відправлено..."
+
+msgid "MailingInSelect"
+msgstr "--- Кореспонденція ---"
+
+msgid "MailingAsUsername"
+msgstr "Кореспонденція"
+
+msgid "Sender"
+msgstr "відправитель"
+
+msgid "FileSize"
+msgstr "розмір файлу"
+
+msgid "OverwriteFile"
+msgstr "Перезаписати попередньо відправлений файл?"
+
+msgid "SentOn"
+msgstr "на"
+
+msgid "SendTo"
+msgstr "Відправити до"
+
+msgid "ErrorCreatingDir"
+msgstr "Неможливо створити каталог скриньки контенту. Зв'яжіться з адміністратором."
+
+msgid "NoFileSpecified"
+msgstr "Ви не вказали файл для завантаження."
+
+msgid "NoUserSelected"
+msgstr "Виберіть користувача, якому надіслати файл."
+
+msgid "BadFormData"
+msgstr "Помилка відправлення: невірні дані форми. Зв'яжіться з адміністратором."
+
+msgid "GeneralError"
+msgstr "Виникла помилка. Зв'яжіться з адміністратором."
+
+msgid "ReceivedFiles"
+msgstr "Отримані файли"
+
+msgid "SentFiles"
+msgstr "Відправлені файли"
+
+msgid "ReceivedTitle"
+msgstr "Заголовок"
+
+msgid "SentTitle"
+msgstr "Відправлені файли"
+
+msgid "Size"
+msgstr "Розмір"
+
+msgid "LastResent"
+msgstr "Останнє відправлення"
+
+msgid "kB"
+msgstr "кБ"
+
+msgid "UploadNewFile"
+msgstr "Відправити новий файл"
+
+msgid "Feedback"
+msgstr "Зворотній зв'язок"
+
+msgid "CloseFeedback"
+msgstr "Закрити Зворотній зв'язок"
+
+msgid "AddNewFeedback"
+msgstr "Додати новий Зворотній зв'язок"
+
+msgid "DropboxFeedbackStored"
+msgstr "Повідомлення зворотнього зв'язку збережено"
+
+msgid "AllUsersHaveDeletedTheFileAndWillNotSeeFeedback"
+msgstr "Всі користувачі видалили файл і тому ніхто не побачить зворотній зв'язок, що ви додали."
+
+msgid "FeedbackError"
+msgstr "Помилка Зворотнього зв'язку"
+
+msgid "PleaseTypeText"
+msgstr "Будь ласка, введіть який-небудь текст."
+
+msgid "YouAreNotAllowedToDownloadThisFile"
+msgstr "Вам не дозволено скачувати цей файл."
+
+msgid "CheckAtLeastOneFile"
+msgstr "Перевірити, як мінімум, один файл."
+
+msgid "ReceivedFileDeleted"
+msgstr "Отриманий файл було видалено."
+
+msgid "SentFileDeleted"
+msgstr "Відправлений файл було видалено."
+
+msgid "FilesMoved"
+msgstr "Вибрані файли було переміщено."
+
+msgid "ReceivedFileMoved"
+msgstr "Получений файл було переміщено."
+
+msgid "SentFileMoved"
+msgstr "Відправлений файл було переміщено."
+
+msgid "NotMovedError"
+msgstr "Файл(и) не може бути переміщено."
+
+msgid "AddNewCategory"
+msgstr "Додати нову категорію"
+
+msgid "EditCategory"
+msgstr "Редагувати цю категорію"
+
+msgid "ErrorPleaseGiveCategoryName"
+msgstr "Будь ласка, назвіть категорію"
+
+msgid "CategoryAlreadyExistsEditIt"
+msgstr "Ця категорія вже існує, будь ласка, використовуйте іншу назву"
+
+msgid "CurrentlySeeing"
+msgstr "Ви передивляєтесь категорію"
+
+msgid "CategoryStored"
+msgstr "Категорію збережено."
+
+msgid "CategoryModified"
+msgstr "Категорію змінено."
+
+msgid "AuthorFieldCannotBeEmpty"
+msgstr "Поле автора не може бути порожнім"
+
+msgid "YouMustSelectAtLeastOneDestinee"
+msgstr "Потрібно вибрати хоча б одного отримувача"
+
+msgid "DropboxFileTooBig"
+msgstr "Скринька контенту завелика."
+
+msgid "TheFileIsNotUploaded"
+msgstr "Файл не завантажено."
+
+msgid "MailingNonMailingError"
+msgstr "Кореспонденція не може бути перезаписан&#1072"
+
+msgid "MailingSelectNoOther"
+msgstr "Кореспонденція не може поєднуватися з ін&#109"
+
+msgid "MailingJustUploadSelectNoOther"
+msgstr "Просто Завантажити не може поєднуватися з іншими отримувачами"
+
+msgid "NewDropboxFileUploaded"
+msgstr "Новий файл надіслано до Скриньки контенту"
+
+msgid "NewDropboxFileUploadedContent"
+msgstr "Новий файл було надіслано до Скриньки контенту вашого курсу"
+
+msgid "HFor"
+msgstr "Форуми Допомоги"
+
+msgid "ForContent"
+msgstr "Форум √це письмовий асинхронний інструментарій для бесід. Коли email дозволяє диалог один-один, форуми дозволяють публічну або напівпублічну (групову) бесіду.</p><p> Для організації форуму натисніть ╚Адміністрування Форуму╩. Бесіди організовуються в набори або піднабори, як показан далі:</p><p><b>Категорія > Форум > Тема > Відповіді</b></p>Для структурування користувацьких бесід необхідно організувати категорії та форуми заздалегідь, залишаючи користувачам лише створення тем та відповідей на них. За замовчуванням,  форум Chamilo має лише категорію 'Публічне', як приклад форуму та теми.</p><p>Спершу що вам необхідно зробити, так це видалити приклад теми та змінити назву форуму. Після цього ви можете створювати інші форуми в категорії ╚Публічне╩ відповідно до ваших навчальних планів</p><p>Не плутайте Категорії і Форуми, та не забувайте, що порожня категорія (без форумів) не з▓явиться у Виді студента.</p><p>Описом форуму може бути список його членів, визначення мети, завдання, тематика┘</p> <p>Форуми групи створюються через інструмент Групи. Там ви можете вирішити, чи необхідно зробити ваші форуми публічними, чи приватними.</p> <b>Педагогічне використання </b> <p>Викладачі використовують форуми для повідомлення виправлень. Студенти використовують форуми для публікації робіт. Викладачі можуть виправляти їх, користуючись кнопкою редагування (жовтий олівець), після натискання на яку відкриється спеціальний редактор WYSYWIG (використовуйте кольори та підкреслення для вказування на помилки та неточності)."
+
+msgid "HDropbox"
+msgstr "Скринька контенту"
+
+msgid "DropboxContent"
+msgstr "<p>Скринька контенту √ це інструмент керування контентом, що створений для обміну даними між користувачами. Приймаються будь-які типи файлів: Word, Excel, PDF тощо. Тут можна керувати версіями документів в частині запобігання помилок та втрат файлів при існуванні документів, що мають однакові назви.</p> <p>Скринька контенту показує, які файли були надіслані вам (каталог отриманих) та які файли надіслали ви іншим членам курсу (каталог відправлених).</p><p>При необхідності ви можете видалити всі або частину файлів каталогу. Файл не може бути видалено поки його переглядає інший.</p> <p>Для відправлення документу кільком особам вам необхідно користуватися CTRL+клік на множинному чекбоксі. Цей чекбокс  показує список членів.</p>"
+
+msgid "HHome"
+msgstr "Домашня сторінка Допомоги з Курсу"
+
+msgid "HomeContent"
+msgstr "<p>Домашня сторінка курсу має інструменти: вступний текст, опис курсу, менеджер Документів тощо. Ця сторінка модульна: ви можете сховати / показати будь-який інструмент за один клік. Сховані інструменти можуть бути реактивовані в будь-який час.</p> <b>Навігація</b> <p>Для перегляду курсу ви маєте 2 навігаційних інструменти. Один √ дерево структури зліва. Зверху справа ви можете потрапити до інструменту за один клік. Коли ви виберете код курсу зліва або іконку дому справа, ви потрапите до домашньої сторінки курсу. </p> <b>Практика</b> <p>Для мотивування студентів робіть якомога динамічну зону курсу. Це надасть уявлення, що є хтось ╚за екраном╩. Найшвидший шлях до цього √ редагування вступного тексту (клік на жовтому олівцеві) принаймні раз на тиждень з оновленням новин, наступних термінів здач таке інше.</p> <p>Для будування курсу важливими кроками є:<ol><li>В налаштуваннях курсу виберіть Доступ до курсу: Приватний та Зарахування: Заборонено. Це призведе до того, що ніхто не буде мати доступ до курсу під час його створення,</li> <li>Показати всі інструменти, натискаючи сіре посилання нижче, що знаходиться внизу сторінки,</li> <li>Використовуйте інструменти, що вам необхідні для ╚заповнення╩ зони курсу контентом, подією, підказками, тестами тощо,</li> <li>Сховати всі інструменти: сторінка вашого курсу буде порожньою у Виді студента,</li> <li>Використовуйте інструмент Навчального плану для структурування вивчення навчального матеріалу студентами. Також ви можете використовувати інші інструменти, але не показувати їх зразу.</li> <li>Натисніть на іконку ока поруч зі створеним вами навчальним планом: цей план буде показано на домашній сторінці курсу,</li> <li>Роботу над зоною курсу завершено. На домашній сторінці курсу присутній вступний текст, що за одне натискання проведе студентів через увесь курс. Натисніть Вид студента (зверху справа) для перегляду того, як це будуть бачити студенти.<I></I></li></ol>"
+
+msgid "HOnline"
+msgstr "Допомога з системи Потокових Конференцій"
+
+msgid "OnlineContent"
+msgstr "<br><span style=\"font-weight: bold;\">Вступ </span><br> <br> <div style=\"margin-left: 40px;\">Dokeos система онлайн конференцій дозволяє зручно навчати, інформувати або з▓єднувати до 500 чоловік.<br> </div> <ul> <ul> <li><b>живе аудіо:</b> голос викладача розсилається учасникам наживо,<br> </li> <li><b>слайди:</b> учасники слідують слайдам Power Point або PDF презентації,<br> </li> <li><b>інтерактив:</b> учасники задають питання через чат.</li> </ul> </ul> <span style=\"font-weight: bold;\"></span><span style=\"font-weight: bold;\"><br> Студент / учасник</span><br> <br> <div style=\"margin-left: 40px;\">Для участі у конференції вам необхідно:<br> </div> <br> <div style=\"margin-left: 40px;\">1. Колонки (або навушники)<br> <br> <a href=\"http://www.logitech.com\"><img style=\"border: 0px solid ; width: 87px; height: 58px;\" alt=\"speakers\" src=\"../img/speaker.gif\"></a><br> <br> 2. Медіапрогравач Winamp<br> <br> <a href=\"http://www.winamp.com\"><img style=\"border: 0px solid ; width: 87px; height: 27px;\" alt=\"Winamp\" src=\"../img/winamp.gif\"></a><br> <br> Mac: користуйтеся <a href=\"http://www.quicktime.com\">Quicktime</a><br> Linux: користуйтеся <a href=\"http://www.xmms.org/\">XMMS</a> <br> <br> ═ 3. Прочитувач Acrobat PDF або Word, або PowerPoint залежно від формату слайдів<br> <br> <a href=\"http://www.acrobat.com\"><img style=\"border: 0px solid ; width: 87px; height: 31px;\" alt=\"acrobat reader\" src=\"../img/acroread.gif\"></a><br> </div> <br> <span style=\"font-weight: bold;\"><br> Викладач / лектор</span><br> <br> <div style=\"margin-left: 40px;\">Для проведення лекції вам необхідно:<br> </div> <br> <div style=\"margin-left: 40px;\">1. Мікрофон (гарнітура)<br> <br> <a href=\"http://www.logitech.com\"><img style=\"border: 0px solid ; width: 87px; height: 87px;\" alt=\"Гарнітура\" src=\"../img/headset.gif\"></a><br> Ми радимо користуватися <a href=\"http://www.logitech.com/\">Logitech</a> USB гарнітурами для отримання гарної якості розсилки аудіо.<br> <br> 2. Winamp<br> <br> <a href=\"http://www.winamp.com\"><img style=\"border: 0px solid ; width: 87px; height: 27px;\" alt=\"Winamp\" src=\"../img/winamp.gif\"></a><br> <br> 3. SHOUTcast DSP Plug-In для Winamp 2.x <br> <br> <a href=\"http://www.shoutcast.com\"><img style=\"border: 0px solid ; width: 87px; height: 24px;\" alt=\"Shoutcast\" src=\"../img/shoutcast.gif\"></a><br> <br> Слідуйте інструкціям на <a href=\"http://www.shoutcast.com\">www.shoutcast.com</a> для інсталяції та налаштування Shoutcast Winamp DSP Plug-In. <br> </div> <br> <span style=\"font-weight: bold;\"><br>Як проводити конференцію?<br> <br> </span> <div style=\"margin-left: 40px;\">Створіть курс > Увійдіть в нього > Зробіть видимим інструмент конференції та увійдіть в нього > Редагуйте (олівець зверху зліва) налаштування > завантажте ваші слайди (PDF, PowerPoint) > введіть вступний текст > введіть URL живого потоку згідно інформації, що ви отримали від вашого адміністратора.<span style=\"font-weight: bold;\"></span><br> <span style=\"font-weight: bold;\"></span></div> <div style=\"margin-left: 40px;\"><img style=\"width: 256px; height: 182px;\" alt=\"конференції\" src=\"../img/conf_screen_conf.gif\"><br> Не забудьте надати чіткі дату та час проведення, а також інші підказки вашим учасникам заздалегідь. <br> <br> <span style=\"font-weight: bold;\">Підказка</span>: за 10 хвилин до конференції повідомте учасникам в чаті, що ви є тут та можете допомогти із проблемами налаштування.<br> </div> <br> <br> <span style=\"font-weight: bold;\">Потоковий сервер</span><br> <br> <div style=\"margin-left: 40px;\">Для проведення конференцій вам потрібний потоковий сервер. Ваш адміністратор може допомогти користуватися ним. Він надасть вам необхідний URL, який ви вставите у поле форми налаштування потокової конференції при її редагуванні.<br> <br> <small><a href=\"http://www.chamilo.org/hosting.php#streaming\"><img style=\"border: 0px solid ; width: 258px; height: 103px;\" alt=\"конференції chamilo\" src=\"../img/streaming.jpg\"><br>робота з потоковими конференціями chamilo</a></small><br> <br> Зробіть самі: інсталяція, налаштування та адміністрування <a href=\"http://www.shoutcast.com\">Shoutcast</a> або <a href=\"http://developer.apple.com/darwin/projects/streaming/\">Apple Darwin</a>. <br> <br> Або зв▓яжіться з Chamilo. Ми допоможемо організувати вам конференцію, проінструктуємо вашого викладача та здамо в оренду потужності для потокових конференцій на наших серверах: <a href=\"http://www.chamilo.org/hosting.php#streaming\">http://www.chamilo.org/hosting.php</a><br> <br> <br>"
+
+msgid "HClar"
+msgstr "Допомога Chamilo"
+
+msgid "HDoc"
+msgstr "Допомога Документи"
+
+msgid "DocContent"
+msgstr "<p>Інструментарій Документи схожий на файл-менеджер вашого комп▓ютера.</p><p>Ви можете створювати прості веб-сторінки (╚Створити документ╩) або завантажувати файли різних типів (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime тощо). Вам лише потрібно знати, що відповідне програмне забезпечення для їх перегляду є у користувачів. Деякі файли можуть мати віруси тому до вашої відповідальності відноситься те, аби не завантажувати ці файли на сервер допоки адміністратор не встановить серверне антивірусне програмне забезпечення. Необхідно попередньо перевіряти файли на віруси перед їх завантаженням на сервер.</p> <p>Документи впорядковуються за абеткою.<br><br><b>Підказка: </b>Якщо ви хочете встановити інший порядок, пронумеруйте їх: 01, 02, 03... Або використовуйте Навчальний План для складання ускладненого змісту. Увага: як тільки ви завантажили документ на сервер, ви можете вирішувати, чи сховати зону документів та показати лише одну сторінку на Домашній сторінці (Додати посилання на домашню сторінку √ помаранчевий інструмент), чи ваш Навчальний План буде мати деякі документи із зони Документів.</p> <p>Ви можете:</p> <H4>Створити документ</H4> <p>Вибрати Створити документ > Надати заголовок (без пробілів, підкреслень) > ввести текст > Використовувати кнопки вбудованого редактора Wysiwyg (What You See Is What You Get) для структурування інформації, створення таблиць, стилів тощо. Для створення веб сторінок вам необхідно знати 3 моменти: Посилання, Зображення та Таблиці. Увага: зважте на те, що веб-сторінки пропонують меншу гнучкість форматування, аніж документи Word. Увага: для створення документ в редакторі ви також можете вирізати та вставляти куски контенту з іншиї веб-сторінок та документів Word. Це є простим шляхом для міграції контенту до курсів Chamilo. </p> <ul><li><b>Для додавання посилання</b> вам необхідно скопіювати цільовий URL. Ви радимо відкривати 2  вікна браузера для одночасної роботи, один для роботи із chamilo , а інший √ для роботи з веб. Як тільки ви знайшли необхідну веб-сторінку (ця сторінка може бути в середині вашого курсу), скопіюйте її URL (CTRL+C або APPLE+C), поверніться до редактору, виберіть слово, що буде посилання, натисніть іконку з зображенням ланцюга, вставте URL вашого призначення та підтвердіть це. Після збереження сторінки перевірте її та всі її посилання. Увага: вам необхідно вирішити, чи буде посилання відкриватися у новому вікні, чи воно відкриється у тому ж вікні, що й був chamilo.</li> <li><b>Для додавання зображення</b> зробіть майже ті дії, що і для посилання: знайдіть зображення в веб (якщо зображення в зоні курсу, виберіть ╚без рамок╩ для отримання лише зображення, а не його контекстних рамок), скопіюйте весь URL (CTRL+C або APPLE+C) та поверніть до редактору вашої сторінки, поставте мишу  в місці тексту, де в хочете, аби було зображення та натисніть іконку з зображенням дерева, скопіюйте URL зображення у відповідне поле, попередньо передивіться та підтвердіть це. Увага: веб-сторінка не змінить розміри зображення як презентація PowerPoint; незважаючи на це ви можете змінити місце розташування зображення на веб-сторінці.</li> <li><b>Для додавання таблиці</b> поставте мишу в місці, де ви хочете, щоб появилась таблиця, натисніть на іконку редактора Wysiwyg, виберіть кількість стовпців та рядків, підтвердіть це. Для створення якісних таблиць ми пропонуємо використовувати наступні значення: border=1, cellspacing=0, cellpadding=4. Увага: ви не зможете змінити розміри або додати рядків чи стовпців до вашої таблиці після її створення (вибачте, це лише онлайн редактор).</li> </ul> <h4>Завантажити документ</h4> <ul> <li>Виберіть файл на вашому комп▓ютері, використовуючи кнопку Переглянути <input type=submit value=Переглянути name=submit2> праворуч на екрані.</li> <li> Запустіть завантаження кнопкою Завантажити <input type=submit value=Завантажити name=submit2>. </li> <li> Позначте галочкою під кнопкою Завантажити, якщо ваш документ є файлом zip або так званим <b>контентом SCORM</b>. Контент SCORM √ це спеціальна структура матеріалу, що встановлена міжнародною нормою: <b>SCORM</b>. Це спеціальний формат навчального контенту, що спрощує вільний обмін між різноманітними Системами Керування Навчанням. Іншими словами, матеріали <b>SCORM</b>  не залежать від платформи, їх імпорт та експорт простий. </li> </ul> <h4> Перейменувати документ (каталог) </h4> <ul> <li> натисніть <img src=../img/renommer.gif width=20 height=20 align=baseline> кнопку в стовпці Перейменувати </li> <li> Введіть нове ім▓я в полі (зверху зліва) </li> <li> Підтвердіть натисканням <input type=submit value=Ок name=submit24>. </li> </ul> <h4> Видалити документ (каталог) </h4> <ul> <li> Натисніть <img src=../img/delete.gif width=20 height=20> в стовпці ╚Видалити╩. </li> </ul> <h4> Зробити документ (каталог) невидимим для користувачів </h4> <ul> <li> Натисніть <img src=../img/visible.gif width=20 height=20> в стовпці 'Видимий / невидимий'. </li> <li> Документ (каталог) ще існує, але потрібно зробити його невидимим. </li> <li> Для того, аби зробити його невидимим, поверніться назад, натисніть <img src=../document/../img/invisible.gif width=24 height=20> в стовпці ╚Видимий / невидимий╩ </li> </ul> <h4> Додати або змінити коментар для документу (каталогу) </h4> <ul> <li> Натисніть <img src=../document/../img/comment.gif width=20 height=20> в стовпці ╚Коментар╩ </li> <li> Ввести новий коментар у відповідному полі (зверху справа). </li> <li> Підтвердіть натисканням <input type=submit value=Ок name=submit2> .</li> </ul> <p> Для того, щоб видалити коментар, натисніть <img src=../document/../img/comment.gif width=20 height=20>, видаліть старий коментар та натисніть <input type=submit value=Ок name=submit22>. <hr> <p> Ви можете організовувати матеріал через процедуру створення каталогів / файлів . Для цього: </p> <h4> <b> Створіть каталог </b> </h4> <ul> <li> Натисніть <img src=../document/../img/dossier.gif width=20 height=20> Створити каталог (зверху зліва) </li> <li> Введіть ім▓я нового каталогу  у відповідному полі (зверху зліва) </li> <li> Підтвердіть натисканням <input type=submit value=Ок name=submit23>. </li> </ul> <h4> Перемістити документ (каталог) </h4> <ul> <li> Натисніть <img src=../document/../img/deplacer.gif width=34 height=16> в стовпці ╚Перемістити╩ </li> <li> Виберіть каталог, в який ви хочете перемістити документ (каталог), у відповідному меню (зверху зліва) (увага: слово ╚корінь╩ означає, що ви не можете піднятися вище по каталогу сервера). </li> <li>  Підтвердіть натисканням <input type=submit value=Ок name=submit232>. </li> </ul> <h4> <b> Створити Навчальний План </b> </h4> Цей навчальний план буде виглядати, як Зміст та може використовуватися як Зміст, але він пропонує вам значно більше. Дивіться Навчальний План."
+
+msgid "HUser"
+msgstr "Допомога Користувачі"
+
+msgid "HExercise"
+msgstr "Допомога з тестів"
+
+msgid "HPath"
+msgstr "Допомога - Навчальний план"
+
+msgid "HDescription"
+msgstr "Опис допомоги курсу"
+
+msgid "HLinks"
+msgstr "Інструмент посилань допомоги"
+
+msgid "HMycourses"
+msgstr "Про стартову сторінку"
+
+msgid "MyTasks"
+msgstr "Мої завдання"
+
+msgid "FavoriteBlogs"
+msgstr "Мої улюблені блоги"
+
+msgid "Navigation"
+msgstr "Навігація"
+
+msgid "TopTen"
+msgstr "Краща десятка блогів"
+
+msgid "ThisBlog"
+msgstr "Цей блог"
+
+msgid "NewPost"
+msgstr "Нова стаття"
+
+msgid "TaskManager"
+msgstr "Керування завданнями"
+
+msgid "MemberManager"
+msgstr "Керування користувачами"
+
+msgid "PostFullText"
+msgstr "Текст"
+
+msgid "ReadPost"
+msgstr "Читати це повідомлення"
+
+msgid "FirstPostText"
+msgstr "Це перша стаття в цьому блозі. Наразі ті, хто зараховані на цей блог, можуть брати участь"
+
+msgid "AddNewComment"
+msgstr "Додати новий коментар"
+
+msgid "ReplyToThisComment"
+msgstr "Відповісти на коментар"
+
+msgid "ManageTasks"
+msgstr "Керувати завданнями"
+
+msgid "ManageMembers"
+msgstr "Зарахувати / відрахувати користувача з цього блогу"
+
+msgid "Register"
+msgstr "Зареєструватися на цей блог"
+
+msgid "UnRegister"
+msgstr "Скасувати реєстрацію на цей блог"
+
+msgid "SubscribeMembers"
+msgstr "Зарахувати користувачів"
+
+msgid "UnsubscribeMembers"
+msgstr "Відрахувати користувачів"
+
+msgid "RightsManager"
+msgstr "Керування правами користувача"
+
+msgid "ManageRights"
+msgstr "Керувати ролями та правами користувача цього блогу"
+
+msgid "Task"
+msgstr "Завдання"
+
+msgid "Tasks"
+msgstr "Завдання"
+
+msgid "Member"
+msgstr "Член"
+
+msgid "Members"
+msgstr "Члени"
+
+msgid "Role"
+msgstr "Роль"
+
+msgid "Rate"
+msgstr "Оцінка"
+
+msgid "AddTask"
+msgstr "Додати нове завдання"
+
+msgid "AddTasks"
+msgstr "Додати нове завдання"
+
+msgid "AssignTask"
+msgstr "Призначити завдання"
+
+msgid "AssignTasks"
+msgstr "Призначити завдання"
+
+msgid "EditTask"
+msgstr "Редагувати це завдання"
+
+msgid "DeleteTask"
+msgstr "Видалити це завдання"
+
+msgid "DeleteSystemTask"
+msgstr "Це раніше встановлене системне завдання. Ви не можете видалити таке завдання."
+
+msgid "SelectUser"
+msgstr "Користувач"
+
+msgid "SelectTask"
+msgstr "Завдання"
+
+msgid "SelectTargetDate"
+msgstr "Вибрати дату"
+
+msgid "TargetDate"
+msgstr "Дата"
+
+msgid "Color"
+msgstr "Колір"
+
+msgid "TaskList"
+msgstr "Завдання в цьому блозі"
+
+msgid "AssignedTasks"
+msgstr "Призначені завдання"
+
+msgid "ArticleManager"
+msgstr "Керівник статей"
+
+msgid "CommentManager"
+msgstr "Керівник коментарів"
+
+msgid "BlogManager"
+msgstr "Керівник блогу"
+
+msgid "ReadMore"
+msgstr "Читати більше..."
+
+msgid "DeleteThisArticle"
+msgstr "Видалити цю статтю"
+
+msgid "EditThisPost"
+msgstr "Редагувати цю статтю"
+
+msgid "DeleteThisComment"
+msgstr "Видалити цей коментар"
+
+msgid "NoArticles"
+msgstr "На цей момент немає статей в цьому блозі. Якщо ви є автором цього блогу, натисніть посилання 'нова стаття' для створення статті."
+
+msgid "NoTasks"
+msgstr "Немає завдань"
+
+msgid "Rating"
+msgstr "Рейтинг"
+
+msgid "RateThis"
+msgstr "Оцінити цю статтю"
+
+msgid "SelectTaskArticle"
+msgstr "Вибрати статтю для цього завдання"
+
+msgid "ExecuteThisTask"
+msgstr "Виконати це завдання"
+
+msgid "WrittenBy"
+msgstr "Написана"
+
+msgid "InBlog"
+msgstr "В блог"
+
+msgid "ViewPostsOfThisDay"
+msgstr "Переглянути статті за цей день"
+
+msgid "PostsOf"
+msgstr "Статті від"
+
+msgid "NoArticleMatches"
+msgstr "Жодної статті не знайдено. Перевірте орфографію та спробуйте ще раз."
+
+msgid "Task1"
+msgstr "Завдання 1"
+
+msgid "Task2"
+msgstr "Завдання 2"
+
+msgid "Task3"
+msgstr "Завдання 3"
+
+msgid "Task1Desc"
+msgstr "Опис завдання 1"
+
+msgid "Task2Desc"
+msgstr "Опис завдання 2"
+
+msgid "Task3Desc"
+msgstr "Опис завдання 3"
+
+msgid "blog_management"
+msgstr "Керування блогом"
+
+msgid "Welcome"
+msgstr "Раді вітати !"
+
+msgid "Module"
+msgstr "Модуль"
+
+msgid "UserHasPermissionNot"
+msgstr "Користувач не має прав"
+
+msgid "UserHasPermission"
+msgstr "Користувач має права"
+
+msgid "UserHasPermissionByRoleGroup"
+msgstr "Користувач має права групи"
+
+msgid "AddBlog"
+msgstr "Створити новий блог"
+
+msgid "EditBlog"
+msgstr "Редагувати назву та підназву"
+
+msgid "DeleteBlog"
+msgstr "Видалити цей блог"
+
+msgid "Shared"
+msgstr "Спільний"
+
+msgid "SendWork"
+msgstr "Завантажити файл"
+
+msgid "TooBig"
+msgstr "Ви не вибрали жодного файлу для відправлення або файл дуже великий"
+
+msgid "DocModif"
+msgstr "Заголовок документу змінено"
+
+msgid "DocAdd"
+msgstr "Файл додано до списку публікацій."
+
+msgid "DocDel"
+msgstr "Файл видалено"
+
+msgid "TitleWork"
+msgstr "Заголовок файлу"
+
+msgid "Authors"
+msgstr "Автори"
+
+msgid "WorkDelete"
+msgstr "Видалити"
+
+msgid "WorkModify"
+msgstr "Змінити"
+
+msgid "WorkConfirmDelete"
+msgstr "Ви впевнені, що хочете видалити цей файл?"
+
+msgid "AllFiles"
+msgstr "Дії на всіх файлах"
+
+msgid "DefaultUpload"
+msgstr "Налаштування за замовчуванням видимості нових відправлених файлів"
+
+msgid "NewVisible"
+msgstr "Нові документи видимі для всіх користувачів"
+
+msgid "NewUnvisible"
+msgstr "Нові документи видимі тільки для керівників курсів"
+
+msgid "MustBeRegisteredUser"
+msgstr "Лише зареєстровані користувачі цього курсу можуть публікувати документи."
+
+msgid "ListDel"
+msgstr "Видалити список"
+
+msgid "CreateDirectory"
+msgstr "Створити каталог"
+
+msgid "CurrentDir"
+msgstr "Поточний каталог"
+
+msgid "UploadADocument"
+msgstr "Завантажити документ"
+
+msgid "EditToolOptions"
+msgstr "Редагувати налаштування Інструментів"
+
+msgid "DocumentDeleted"
+msgstr "Документ видалено"
+
+msgid "SendMailBody"
+msgstr "Користувач відправив документ до інструменту Публікації вашого курсу."
+
+msgid "DirDelete"
+msgstr "Видалити каталог"
+
+msgid "ValidateChanges"
+msgstr "Підтвердити зміни"
+
+msgid "UserContent"
+msgstr "<p><b>Додавання користувачів</b></p> <p>Ви можете зарахувати існуючих користувачів на курс, натискаючи посилання ╚Зарахувати користувачів на цей курс╩. Зазвичай краще відкрити курс для самореєстрації користувачів на нього. </p> <p><b>Опис</b></p> <p>Опис немає спеціальної функції. Він не надає прав системі. Він тільки показує користувачам, що є що. Ви можете змінювати опис, натискаючи на олівець та вписуючи, що завгодно: професор, помічник, асистент, студент, відвідувач, експерт...</P> <p><b>Права адміністратора</b></p> <p>Права адміністратора відповідають авторизації на змінювання контенту та структури зони курсу. Ви можете вибрати лише призначення всіх адміністративних прав або їх ненадання.</p> <p>Для дозволяння асистенту, наприклад, співадмініструвати зону вам необхідно бути впевненим, що його/її зареєстровано, та після цього натиснути олівець, потім - ╚Викладач╩ та ╚ОК╩.</P> <p><b>Співвикладачі</b></p> <p>Для відображення в заголовку зони ім▓я співвикладача використовуйте інструмент ╚Налаштування курсу╩. Ця зміна не зареєструє вашого спів викладача в якості користувача курсу. Поле ╚Викладачі╩ незалежне від списку користувачів.</p> <p><b>Відслідковування та персональні домашні сторінки</b></p> <p>На додаток до відображення списку користувачів та зміни їх прав інструмент ╚Користувачі╩ показує індивідуальні відслідковування та дозволяє викладачу визначати можливість заповнення студентами заголовків персональних домашніх сторінок.</p>"
+
+msgid "GroupContent"
+msgstr "<p><b>Вступ</b></p> <p>Цей інструмент дозволяє створювати робосі групи та керувати ними. При створенні (Створити групи) групи порожні. Є кілька засобів їх заповнення: <ul><li>автоматично (╚Заповнити групи випадково╩),</li> <li>вручну (╚Редагувати╩),</li> <li>самореєстрація користувачів (Групові налаштування: ╚Дозволити самореєстрацію┘╩).</li> </ul> Ці три засоби можуть комбінуватися. Ви можете, наприклад, запитати користувача про самореєстрацію. Після цього визначити, що дехто з них не зареєструвався, та автоматично випадково заповнити групи. Ви можете редагувати групи для композиції членства користувача після або до самореєстрації, чи автоматичного заповнення.</p> <p>Заповнення груп, як-то автоматичне чи ручне, працює лише, коли користувачів зараховано до відповідної зони. Список користувачів можна подивитись у інструментарії <b>Користувачі</b>. </p><hr noshade size=1> <p><b>Створити групи</b></p> <p> Для створення нових груп, натисніть ╚Створити нові групи╩ та визначіть кількість груп.</p><hr noshade size=1> <p><b>Налаштування групи </b></p> <p>Ви можете визначити налаштування груп глобально (для всіх груп). <b>Користувачам дозволена самореєстрація в групах </b>: <p>Ви створюєте порожні групи. Якщо ви визначили максимальну кількість користувачів групи, то повні групи не будуть приймати нових користувачів. Цей метод є корисним для викладачів, які не знають списку користувачів при створенні груп.</p> <b>Інструменти </b>:</p> <p>Кожна група має в собі форум (приватний або публічний) чи зону Документи (файл менеджер для обміну даними), або, в більшості випадків, - обидва .</p> <hr noshade size=1> <p><b>Ручне редагування </b></p> <p>Як тільки групи створено (Створити групи), ви можете бачити список груп з інформацією та функціями внизу сторінки <ul><li><b>Редагувати</b> - для зміни вручну назви групи, опису, викладача, списку членів.</li> <li><b>Видалити </b> - видаляє групу.</li></ul> <hr noshade size=1>"
+
+msgid "ExerciseContent"
+msgstr "<p>Інструмент тестів дозволяє вам створювати тести, які будуть, містить стільки питань, скільки вам необхідно.<br><br> Є різні види відповідей, доступних для створення ваших питань: <br><br> <ul> <li>Множинний вибір (унікальна відповідь) </li> <li>Множинний вибір (багаторазові відповіді) </li> <li>Відповідність </li> <li>Заповнення пропусків</li> </ul> Тест збирає певний ряд питань.</p> <hr> <b>Створення тесту </b> <p>Щоб створити випробування, клацніть по посиланню \"Новий тест\".<br><br> Введіть назву тесту, його опис.<br><br> Ви можете додати звук або відеофайл для розуміння, і т.п. Вибирайте  невеликі файли, адже вони легко завантажуються через мережу. Віддайте перевагу .mp3 файлам .wav файлу, наприклад, із-за кращої компресії. <br> <br>Ви можете вибрати між двома типами:<br><br> <ul> <li>Питання на окремій сторінці</li> <li>Одне питання на сторінці (послідовність)</li> </ul> вкажіть необхідність вільного сортування питань тесту.<br><br> Збережіть ваш тест. Ви попадете в секцію адміністрування питань.</p> <hr> <b>Додати питання</b> <p>Ви можете додати питання до створеного тесту. Опис не обов▓язковий, як і картинка, яку можна додати до питання.</p> <hr> <b>Множинний вибір</b> <p>Для створення тестів множинного вибору (ТМВ):<br><br> <ul> <li>Визначте відповіді на ваші питання. Ви можете додати або видалити відповіді натисканням правої кнопки </li> <li>Поставте відмітку справа для правильної відповіді</li> <li>Додати необов▓язковий коментар. Цей коментар не буде видно користувачу поки він не відповість на питання</li> <li>Проставте вагу кожному питанню. Вага може бути позитивною, негативною або нульовою </li> <li>Збережіть ваші питання</li> </ul></p> <hr> <b>Заповнення пропусків</b> <p>Це дозволяє створити текст з пропусками. Мета √ дозволити користувачам вставити слова або фрази, які ви навмисно пропустили в тексті.<br><br> Для видалення слова та створення пропуску, поставте квадратні скобки [як тут].<br><br>Як тільки текст було введено та пропуски визначено, ви можете додати коментар, який побачить студент при відповіді на питання.<br><br>Збережіть текст. Ви будете направлені на наступний етап, де вам буде дозволено проставити вагу до кожного пропуску. Наприклад, якщо питання важить 10 балів та ви маєте 5 пропусків, то кожен пропуск = 2 бали.</p> <hr> <b>Відповідність</b> <p>Цей тип питання можна вибрати, коли необхідно створити тест поєднання елементів з блоку Б1 з елементами блоку Б2.<br><br> Це також можна використовувати для запропонування користувачеві сортувати елементи відповіді у вірному порядку.<br><br>Спочатку визначте опції, з яких користувач буде вибирати вірну відповідь. Після √ визначте питання, які будуть з▓єднуватись з опціями. В кінці √ поєднайте їх через випадаюче меню.<br><br> До відома: Декілька елементів першого блоку можна поєднати зі стількома ж елементами другого блоку.<br><br> Проставте вагу кожній відповіді та збережіть питання.</p> <hr> <b>Зміна тесту </b> <p>Для модифікації тесту повторіть ті ж самі дії, що і при його створенні. Просто натисніть на картинку <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> біля тесту для його зміни.</p> <hr> <b>Видалення тесту </b> <p>Для видалення тесту натисніть на  картинку <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> біля тесту для його видалення.</p> <hr> <b>Включення тесту</b> <p>Ви можете включити ваш тест натисканням картинки <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> біля назви тесту.</p> <hr> <b>Стартування тесту </b> <p>Ви можете стартувати тест натисканням його назви в списку тестів.</p> <hr> <b>Довільні питання </b> <p>При створенні/зміні тесту ви можете вказати довільний порядок показу питань.<br><br> Включивши це, питання будуть видаватись в довільному порядку кожен раз при старті тесту.<br><br> Якщо в тесті багато питань, то можна вибрати ті, які будуть сортуватися довільно серед всіх питань.</p> <hr> <b>Список питань </b> <p> Коли ви видаляєте тест, то питання залишаються в базі. Їх можна використовувати в майбутньому тесті.<br><br> Питання зі списку також можна використовувати як джерело для декількох тестів.<br><br> За замовчуванням, всі питання курсу невидимі. Ви можете показати питання, які відносяться до тесту, вибравши їх з випадаючого меню \"Фільтр\".<br><br> Одинокі питання √ це питання, які не належать до жодного тесту.</p> Додавання питання <hr> <b>Тести HotPotatoes</b> <p> Ви можете імпортувати тести HotPotatoes в портал Chamilo, до списку тестів. Результати цих тестів будуть зберігатися як і тести Chamilo. Ви можете перевірити результати в Слідкуванні Користувача. Використовуйте формати html або htm, якщо ваш тест містить картинки. Архів zip при завантаженні найбільш зручний..</p> <p>Увага: ви можете додати тести HotPotatoes, також, як шаг в Навчальному Плані.</p> <b>Імпортування</b> <ul> <li> Виберіть файл, натиснувши кнопку Browse або Переглянути <input type=submit value=Browse name=submit2> справа на екрані.</li> <li> Запустіть завантаження кнопкою Upload/Завантаження <input type=submit value=Upload name=submit2>. </li> <li> Ви можете відкрити тест, натиснувши його назву. </li> </ul> <br> <b>Корисне посилання</b><br> <ul> <li>Hot Potatoes домашня сторінка: <a href=\"http://web.uvic.ca/hrd/halfbaked/\">http://web.uvic.ca/hrd/halfbaked/</a></li> </li> </ul>"
+
+msgid "PathContent"
+msgstr "Інструмент Навчальний План має дві функції: <ul><li>Створити навчальний план</li> <li>Завантажити навчальний план як Scorm або IMS</li></ul> <img src=\"../img/path_help.gif\"> <p><b>Що таке навчальний план?</b> </p><p>Навчальний план √ це послідовність шагів, які обмежені модулями. Він може бути оснований на змісті (конвент-основа) або орієнтований на діях (дія-основа), який виглядає як програма або календар того, що вам необхідно знати або практикувати, як окреме знання або ноу-хау.</p><p>Крім того, що навчальний план можна структурувати, його також можна обмежити у послідовності проходження. Це значить, що деякі шаги мають необхідними попередні шаги (ви не можете прийти до шагу 2 не пройшовши шаг 1). Послідовність може бути вільною або імперативною (з пререквізитами). </p> <p><b>Як створити Навчальний План?</b></p> <p> Перший крок √ зайти в секцію Будівельник Навчального плану на сторінці Навчальний План. Там можна створити багато планів, натисканням <i>Додати новий навчальний план</i>. Але вони порожні, поки ви не додасте до них модулі та уроки.<br>Якщо ви зробите план видимим, він з▓явиться як новий інструмент на домашній сторінці курсу. </p> <p> <b>Що таке шаги для цих планів? (Які елементи можна додати?)</b></p> <p>Всі інструменти, дії та контент, які ви вважаєте корисними та поєднаними з планом, можуть бути доданими:<br><ul> <li>Повістка дня</li> <li> Окремі документи (тексти, картинки, документи Office, ...)</li> <li>Оголошення </li> <li>Форуми </li> <li>Теми </li> <li>Повідомлення в темах </li> <li>Посилання </li> <li>Тести Chamilo </li> <li>Тести HotPotatoes <br>(увага : невидимі тести, які ви додаєте до плану, стають видимими для користувачів, але тільки в інструменті План)</li> <li>Оцінювання</li> <li>Скринька контенту </li> <li>Зовнішні посилання, які вказують за межі порталу Chamilo </li></ul> </p> <p><b>Інші властивості Навчального Плану </b> </p> <p> Користувачі можуть проходити план в порядку, встановленому вами у <u>пререквізитах</u> плану. Це означає, що користувачі, наприклад, не можуть зайти на питання 2, поки вони не прочитають документ 1. Всі елементи мають статус: завершено, не завершено. Тому, прогрес користувачів доступний. </p><p> Якщо ви зміните назву шагу, нова назва з▓явиться в плані, але стара видалена не буде. Так, якщо ви хочете змінити назву test8.doc на 'Останній іспит' в плані, вам не потрібно змінювати назву файлу, а лише назву шагу. Це також зручно при називанні посилань з довгими іменами. </p><p> Коли закінчили створювати план, не забудьте перевірити Вид студента. </p><br><p><b> Що таке Scorm або IMS формат Навчального плану та як його завантажити/імпортувати?</b> </p> <p>Інструмент навчального плану дозволяє вам завантажити курс у сумісному форматі SCORM та IMS.</p> <p>SCORM (<i>Sharable Content Object Reference Model</i>) це є публічний стандарт, який підтримується багатьма великими розробниками електронних курсів: NETg, Macromedia, Microsoft, Skillsoft тощо. Та діє на трьох рівнях: </p> <ul> <li><b>Економія </b> : Scorm дозволяє розбивати великі курси на маленькі модулі та використовувати в багатьох Системах Керування Навчанням (LMS),</li> <li><b>Педагогіка</b> : Scorm інтегрує ідею пререквізитів або <i>послідовностей</i> (<i>e.g. </i>\"Ви не можете зайти на Главу 2 не пройшовши Тести 1 \"),</li> <li><b>Технологія </b> : Scorm генерує зміст як абстрактний рівень, який розміщується поза контентом та поза LMS. Це дозволяє контенту та LMS взаємодіяти один з одним. Що є головним <i>закладки </i>(\"Де знаходиться Олександр в курсі 1?\"), <i>оцінювання </i> (\"Як він пройшов Тест 1?\") та <i>час</i> (\"Скільки часу він витратив на Главу 2?\").</li> </ul> <b>Як створити сумісний SCORM навчальний план?</b><br> <br> Натуральним шляхом буде використання Будівельника Навчального Плану Chamilo. Але, ви можете створювати сумісні Scorm  веб-сайти локально у себе на комп▓ютері перед тим, як завантажити їх на портал. Для цього ми рекомендуємо використовувати всеохоплюючий інструмент Lectora╝ або Reload╝ <br></p><p> <b>Корисні посилання </b><br> <ul> <li>Adlnet : спільнота відповідальна за Scorm нормалізацію, <a href=\"http://www.adlnet.org/\">http://www.adlnet.org</a></li> <li>Reload : Вільний Scorm плеєр та редактор, <a href=\"http://www.reload.ac.uk/\">http://www.reload.ac.uk</a></li> <li>Lectora : Scorm публікатор та середовище для розробки, <a href=\"http://www.trivantis.com/\">http://www.trivantis.com</a><br> <li>HotPotatoes домашня сторінка, <a href=\"http://web.uvic.ca/hrd/halfbaked/\">http://web.uvic.ca/hrd/halfbaked/</a><br> </li> </ul> <p><b> Увага :</b></p><p> Секція Навчальний План відображає всі плани, як створені в Chamilo, так і імпортовані. </p>"
+
