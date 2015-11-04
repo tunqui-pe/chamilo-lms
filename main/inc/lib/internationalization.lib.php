@@ -12,6 +12,7 @@
  */
 
 use Patchwork\Utf8;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Constants
@@ -88,7 +89,30 @@ define('LANGUAGE_DETECT_MAX_DELTA', 140000);
  * 3. Translations are created many contributors through using a special tool: Chamilo Translation Application.
  * @link http://translate.chamilo.org/
  */
-function get_lang($variable, $reserved = null, $language = null) {
+function get_lang($variable, $reserved = null, $language = null)
+{
+    $defaultDomain = 'all';
+    $translated = Container::getTranslator()->trans(
+        $variable,
+        array(),
+        $defaultDomain
+    );
+
+    if ($translated == $variable) {
+        // Check the langVariable for BC
+        $translated = Container::getTranslator()->trans(
+            "lang$variable",
+            array(),
+            $defaultDomain
+        );
+
+        if ($translated == "lang$variable") {
+            return $variable;
+        }
+    }
+
+    return $translated;
+
     global
         // For serving some old hacks:
         // By manipulating this global variable the translation may be done in different languages too (not the elegant way).
@@ -251,6 +275,8 @@ function api_purify_language_id($language) {
  */
 function api_get_language_isocode($language = null, $default_code = 'en')
 {
+    return Container::getTranslator()->getLocale();
+
     static $iso_code = array();
     if (empty($language)) {
         $language = api_get_interface_language(false, true);
