@@ -16,7 +16,7 @@ use ChamiloSession as Session;
 
 $use_anonymous = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 if (!empty($_course['language'])){
     $resource_linker_file =  api_get_path(SYS_CODE_PATH).'lang/'.$_course['language'].'/resourcelinker.inc.php';
     if (file_exists($resource_linker_file)) {

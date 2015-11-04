@@ -24,7 +24,7 @@ use ChamiloSession as Session;
  *  @package chamilo.forum
  */
 // Including the global initialization file.
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // The section (tabs).
 $this_section = SECTION_COURSES;

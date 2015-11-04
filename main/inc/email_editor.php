@@ -12,7 +12,7 @@
 
 use ChamiloSession as Session;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 if (empty($_user['user_id'])) {
     api_not_allowed(true);

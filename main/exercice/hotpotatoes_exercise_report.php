@@ -10,7 +10,7 @@
 use ChamiloSession as Session;
 
 // including the global library
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // Setting the tabs
 $this_section = SECTION_COURSES;

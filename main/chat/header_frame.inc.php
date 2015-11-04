@@ -9,7 +9,7 @@
  * @package chamilo.chat
  */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 if (!defined('FRAME')) {
     exit();
@@ -268,7 +268,7 @@ header('Content-Type: text/html; charset=UTF-8');
     jQuery(document).ready(function(){
        jQuery('.scrollbar-inner').scrollbar();
     });
-    
+
 </script>
 </head>
 <body <?php echo $bodyXtra; ?> >

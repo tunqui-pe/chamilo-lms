@@ -15,7 +15,7 @@
 
 $uInfo = $_REQUEST['uInfo'];
 $view = $_REQUEST['view'];
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // Roles and rights system
 $user_id = api_get_user_id();

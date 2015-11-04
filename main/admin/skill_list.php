@@ -9,7 +9,7 @@ use ChamiloSession as Session;
 
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $this_section = SECTION_PLATFORM_ADMIN;
 
@@ -28,7 +28,7 @@ $entityManager = Database::getManager();
 switch ($action) {
     case 'enable':
         $skill = $entityManager->find('ChamiloCoreBundle:Skill', $skillId);
-        
+
         if (is_null($skill)) {
             Display::addFlash(
                 Display::return_message(
@@ -61,7 +61,7 @@ switch ($action) {
         break;
     case 'disable':
         $skill = $entityManager->find('ChamiloCoreBundle:Skill', $skillId);
-        
+
         if (is_null($skill)) {
             Display::addFlash(
                 Display::return_message(
@@ -82,7 +82,7 @@ switch ($action) {
 
             $skillObj = new Skill();
             $childrens = $skillObj->get_children($skill->getId());
-            
+
             foreach ($childrens as $children) {
                 $skill = $entityManager->find(
                     'ChamiloCoreBundle:Skill',
@@ -146,17 +146,17 @@ switch ($view) {
             'info pull-right',
             ['title' => get_lang('FlatView')]
         );
-        
+
         /* Nested View */
         //extra JS lib for the collapsible table
         $htmlHeadXtra[] = '<script src="'. api_get_path(WEB_PATH) .'web/assets/aCollapTable/jquery.aCollapTable.js"></script>';
         $htmlHeadXtra[] = '<script>
                             $(document).ready(function(){
-                              $(".collaptable").aCollapTable({ 
+                              $(".collaptable").aCollapTable({
                                 startCollapsed: true,
-                                addColumn: false, 
-                                plusButton: "<em class=\"fa fa-plus-circle \"></em>  ", 
-                                minusButton: "<em class=\"fa fa-minus-circle\"></em>  " 
+                                addColumn: false,
+                                plusButton: "<em class=\"fa fa-plus-circle \"></em>  ",
+                                minusButton: "<em class=\"fa fa-minus-circle\"></em>  "
                               });
                             });
                            </script>';
@@ -202,8 +202,8 @@ switch ($view) {
             'warning',
             ['title' => get_lang('BadgesManagement')]
         );
-        
-        $toolbar .= Display::toolbarButton(
+
+    $toolbar .= Display::toolbarButton(
             get_lang('NestedView'),
             api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php?view=nested',
             'eye',

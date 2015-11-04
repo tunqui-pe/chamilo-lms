@@ -5,7 +5,7 @@
  * @package chamilo.admin.sub_language
  */
 $this_script = 'sub_language';
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 api_protect_admin_script();
 

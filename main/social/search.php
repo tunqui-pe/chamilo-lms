@@ -7,7 +7,7 @@
  */
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 require_once api_get_path(LIBRARY_PATH).'magpierss/rss_fetch.inc';
 $ajax_url = api_get_path(WEB_AJAX_PATH).'message.ajax.php';
 api_block_anonymous_users();
@@ -73,7 +73,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
 
     $results = '<div id="whoisonline">';
     if (is_array($users) && count($users) > 0) {
-        
+
         $results .= '<div class="row">';
         $buttonClass = 'btn btn-default btn-sm';
         foreach ($users as $user) {
@@ -112,7 +112,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
             } else {
                 $status_icon = Display::return_icon('offline.png', get_lang('Disconnected'), null, ICON_SIZE_TINY);
             }
-            
+
             if ($user_info['status'] == 5) {
                 $user_icon = Display::return_icon('user.png', get_lang('Student'), null, ICON_SIZE_TINY);
             } else {
@@ -130,7 +130,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
                                 </div>
                                 <div class="user-info">
                                    <p>'.$user_info['complete_name'].'</p>
-                                   <div class="items-user-status">' . $status_icon . $user_icon . '</div>    
+                                   <div class="items-user-status">'.$status_icon.$user_icon.'</div>
                                    <div class="toolbar">
                                     '.$invitations.'
                                    </div>
@@ -141,8 +141,8 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
 
         }
         $results .= '</div></div>';
-        
-        
+
+
     }
 
     $visibility = array(true, true, true, true, true);
@@ -160,7 +160,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
     );
 
     $block_search .= Display::panelCollapse(get_lang('Users'), $results, 'search-friends', null, 'friends-acorderon', 'friends-collapse');
-    
+
     $grid_groups = array();
     $block_groups = '<div id="whoisonline">';
     if (is_array($groups) && count($groups) > 0) {
@@ -194,7 +194,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
                         </div>
                         <div class="user-info">
                             '.$item_1.'
-                            <p>' . $members . '</p>    
+                            <p>'.$members.'</p>
                             <p>' . $group['description'] . '</p>
                             <p>' . $tags . '</p>
                             <p>' . $url_open.get_lang('SeeMore') . $url_close . '</p>
@@ -204,7 +204,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
 
         }
         $block_groups .= '</div></div></div>';
-        
+
     }
 
     $visibility = array(true, true, true, true, true);
@@ -220,7 +220,7 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
         array(),
         $totalGroups
     );
-    
+
     $block_search .= Display:: panelCollapse(get_lang('Groups'), $block_groups, 'search-groups', null, 'groups-acorderon', 'groups-collapse');
 }
 

@@ -8,7 +8,7 @@
 // resetting the course id.
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $sessionId = isset($_GET['id_session']) ? intval($_GET['id_session']) : null;
 $add = isset($_GET['add']) ? Security::remove_XSS($_GET['add']) : null;
@@ -244,7 +244,7 @@ unset($Courses);
                 <?php if($add_type == 'multiple') { ?>
                     <div class="code-course">
                         <?php echo get_lang('FirstLetterCourse'); ?> :
-                        
+
                         <select name="firstLetterCourse" onchange = "xajax_search_courses(this.value,'multiple')" class="selectpicker show-tick form-control">
                             <option value="%">--</option>
                             <?php
@@ -255,8 +255,8 @@ unset($Courses);
                     </div>
                 <?php } ?>
                 <div class="control-course">
-                    
-                <?php
+
+                    <?php
                 if ($ajax_search) {
                     ?>
                     <div class="separate-action">
@@ -276,9 +276,9 @@ unset($Courses);
                         <button class="btn btn-primary" type="button" onclick="moveItem(document.getElementById('destination'), document.getElementById('origin'))" onclick="moveItem(document.getElementById('destination'), document.getElementById('origin'))">
                             <em class="fa fa-chevron-left"></em>
                         </button>
-                    </div>    
-                    
-                <?php
+                    </div>
+
+                    <?php
                 }
                 ?>
                     <div class="separate-action">
@@ -287,8 +287,8 @@ unset($Courses);
                             <?php echo get_lang('ImportGradebookInCourse'); ?>
                         </label>
                     </div>
-                    
-                <?php
+
+                    <?php
                 echo '<div class="separate-action">';
                 if (isset($_GET['add'])) {
                     echo '<button class="btn btn-success" type="button" value="" onclick="valide()" >'.get_lang('NextStep').'</button>';

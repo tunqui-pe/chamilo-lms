@@ -7,7 +7,7 @@
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // return to index if no tool is set
 if (empty($_SESSION['my_tool'])) {

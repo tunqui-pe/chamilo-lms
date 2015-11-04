@@ -12,7 +12,7 @@ use \Chamilo\CoreBundle\Entity\SequenceResource;
 
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $sessionId = isset($_GET['session_id']) ? intval($_GET['session_id']) : 0;
 

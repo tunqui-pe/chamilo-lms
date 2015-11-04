@@ -5,7 +5,7 @@
  * This file takes care of all blog navigation and displaying.
  * @package chamilo.blogs
  */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $blog_id = intval($_GET['blog_id']);
 
@@ -312,7 +312,7 @@ Display::display_introduction_section(TOOL_BLOGS);
 
 <div class="row">
 	<div class="col-md-3">
-            
+
             <div class="panel panel-default">
                 <div class="panel-heading"><?php echo get_lang('Calendar') ?></div>
                 <div class="panel-body">
@@ -323,7 +323,7 @@ Display::display_introduction_section(TOOL_BLOGS);
                     ?>
                 </div>
             </div>
-		
+
             <div class="panel panel-default">
                 <div class="panel-heading"><?php echo get_lang('Search') ?></div>
                 <div class="panel-body">
@@ -337,14 +337,14 @@ Display::display_introduction_section(TOOL_BLOGS);
                     </form>
                 </div>
             </div>
-		
+
             <div class="panel panel-default">
                 <div class="panel-heading"><?php echo get_lang('MyTasks') ?></div>
                 <div class="panel-body">
                     <?php Blog::get_personal_task_list(); ?>
                 </div>
             </div>
-		
+
 	</div>
 	<div class="col-md-9">
 		<?php

@@ -9,7 +9,7 @@
 // resetting the course id
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 

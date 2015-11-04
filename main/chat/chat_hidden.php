@@ -11,7 +11,7 @@ use ChamiloSession as Session;
 
 define('FRAME', 'hidden');
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 require_once 'chat_functions.lib.php';
 
 $tbl_user = Database::get_main_table(TABLE_MAIN_USER);

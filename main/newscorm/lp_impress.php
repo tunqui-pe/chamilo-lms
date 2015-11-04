@@ -8,7 +8,7 @@ use ChamiloSession as Session;
 * @package chamilo.learnpath
 */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 Session::write('whereami', 'lp/impress');
 $this_section = SECTION_COURSES;

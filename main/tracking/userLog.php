@@ -11,7 +11,7 @@
 $uInfo = intval($_REQUEST['uInfo']);
 $view  = Security::remove_XSS($_REQUEST['view']);
 // Including the global initialization file
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // the section (for the tabs)
 $this_section = "session_my_space";

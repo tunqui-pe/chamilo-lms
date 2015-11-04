@@ -3,7 +3,7 @@
 
 use ChamiloSession as Session;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $token = isset($_GET['token']) ? $_GET['token'] : '';
 

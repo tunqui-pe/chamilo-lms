@@ -9,7 +9,7 @@ use ChamiloSession as Session;
  *	@package chamilo.document
  */
 
-require_once '../inc/global.inc.php';
+////require_once '../inc/global.inc.php';
 
 Session::write('whereami', 'document/create');
 $this_section = SECTION_COURSES;
@@ -33,9 +33,7 @@ $(document).ready(function() {
         hide_bar();
     }
 
-
     $("#hide_bar_template").click(function() {
-
         $("#template_col").toggleClass("hide");
 
         if ($("#doc_form").is(".col-md-8")) {

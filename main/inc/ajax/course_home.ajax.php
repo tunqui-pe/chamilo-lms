@@ -8,7 +8,6 @@ $action = $_GET['a'];
 
 switch ($action) {
     case 'set_visibility':
-        require_once '../global.inc.php';
         $course_id = api_get_course_int_id();
         if (api_is_allowed_to_edit(null, true)) {
             $tool_table = Database::get_course_table(TABLE_TOOL_LIST);
@@ -30,12 +29,13 @@ switch ($action) {
                     null,
                     true
                 );
-                $na_image   = str_replace('.png', '_na.png', $tool_image);
+                $na_image = str_replace('.png', '_na.png', $tool_image);
             }
 
             if (isset($tool_info['custom_icon']) && !empty($tool_info['custom_icon'])) {
                 $tool_image = CourseHome::getCustomWebIconPath().$tool_info['custom_icon'];
-                $na_image = CourseHome::getCustomWebIconPath().CourseHome::getDisableIcon($tool_info['custom_icon']);
+                $na_image = CourseHome::getCustomWebIconPath().
+                    CourseHome::getDisableIcon($tool_info['custom_icon']);
             }
 
             $requested_image = ($tool_visibility == 0 ) ? $tool_image : $na_image;
@@ -63,8 +63,7 @@ switch ($action) {
             echo json_encode($response_data);
         }
         break;
-	case 'show_course_information' :
-		require_once '../global.inc.php';
+    case 'show_course_information':
 
 		// Get the name of the database course.
 		$tbl_course_description = Database::get_course_table(TABLE_COURSE_DESCRIPTION);
@@ -75,8 +74,6 @@ switch ($action) {
 				exit;
 			}
 		}
-		//echo Display::tag('h2', $course_info['name']);
-		//echo '<br />';
 
 		$sql = "SELECT * FROM $tbl_course_description
 		        WHERE c_id = ".$course_info['real_id']." AND session_id = 0
@@ -102,7 +99,6 @@ switch ($action) {
          * wrapper to process the AJAX petitions from the jqgrid
          */
 
-        require_once '../global.inc.php';
         $now = time();
         $page  = intval($_REQUEST['page']);     //page
         $limit = intval($_REQUEST['rows']);     // quantity of rows
@@ -233,7 +229,6 @@ switch ($action) {
         echo json_encode($response);
         break;
     case 'session_courses_lp_by_week':
-        require_once '../global.inc.php';
         $now = time();
 
         $page  = intval($_REQUEST['page']);     //page
@@ -365,7 +360,6 @@ switch ($action) {
         echo json_encode($response);
         break;
     case 'session_courses_lp_by_course':
-        require_once '../global.inc.php';
         $now = time();
         $page  = intval($_REQUEST['page']);     //page
         $limit = intval($_REQUEST['rows']);     // quantity of rows

@@ -10,7 +10,7 @@
  */
 define('FRAME', 'message');
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 require_once api_get_path(SYS_CODE_PATH).'chat/chat_functions.lib.php';
 
 $userId = api_get_user_id();

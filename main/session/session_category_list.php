@@ -7,7 +7,7 @@
 
 $cidReset = true;
 
-//require_once '../inc/global.inc.php';
+////require_once '../inc/global.inc.php';
 
 api_protect_admin_script(true);
 api_protect_limit_for_session_admin();

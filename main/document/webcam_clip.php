@@ -13,7 +13,7 @@ use ChamiloSession as Session;
  * @Updated 04/09/2015 Upgrade to WebCamJS
 */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 Session::write('whereami', 'document/webcamclip');
 $this_section = SECTION_COURSES;

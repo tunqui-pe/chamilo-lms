@@ -12,7 +12,7 @@ use ChamiloSession as Session;
  * @since 5/april/2012
 */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 Session::write('whereami', 'document/voicerecord');
 $this_section = SECTION_COURSES;

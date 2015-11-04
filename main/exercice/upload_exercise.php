@@ -13,7 +13,7 @@ use \ChamiloSession as Session;
 $help_content = 'exercise_upload';
 
 // including the global Dokeos file
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 require_once api_get_path(LIBRARY_PATH) . 'pear/excelreader/reader.php';
 

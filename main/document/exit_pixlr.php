@@ -12,7 +12,7 @@ use ChamiloSession as Session;
  * @since 30/january/2011
 */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 api_protect_course_script(true);
 api_block_anonymous_users();
 

@@ -5,7 +5,7 @@
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.badge
  */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $userId = isset($_GET['user']) ? intval($_GET['user']) : 0;
 $skillId = isset($_GET['skill']) ? intval($_GET['skill']) : 0;

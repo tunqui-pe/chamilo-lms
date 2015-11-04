@@ -3,7 +3,7 @@
 use \Chamilo\CoreBundle\Entity\Skill;
 use \Chamilo\CoreBundle\Entity\SkillRelUser;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 if (!api_is_platform_admin(false, true)) {
     api_not_allowed();

@@ -8,7 +8,7 @@
 // resetting the course id
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $ajax_search = false;
 // create an ajax object

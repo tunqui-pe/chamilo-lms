@@ -7,7 +7,7 @@
  * @package chamilo.glossary
  */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 /**
  * Search a term and return description from a glossary.

@@ -6,7 +6,7 @@
  * @author Julio Montoya <gugli100@gmail.com>
  */
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 

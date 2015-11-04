@@ -8,7 +8,7 @@
 
 use ChamiloSession as Session;
 
-//require_once '../inc/global.inc.php';
+////require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_CHAT;
 $this_section = SECTION_COURSES;
 $nameTools = get_lang('ToolChat');

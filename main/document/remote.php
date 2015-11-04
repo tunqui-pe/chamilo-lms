@@ -29,7 +29,7 @@ if ($debug>0) {
     }
 }
 /*==== INCLUDE ====*/
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 api_block_anonymous_users();
 /*==== Variables initialisation ====*/
 $action = $_REQUEST['action']; //safe as only used in if()'s

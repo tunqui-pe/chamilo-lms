@@ -7,7 +7,7 @@ use ChamiloSession as Session;
  * Responses to AJAX calls
  */
 
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 $debug = false;
 api_protect_course_script(true);

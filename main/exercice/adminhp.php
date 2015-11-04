@@ -6,7 +6,7 @@
 * 	@author Istvan Mandak
 * 	@version $Id: adminhp.php 20089 2009-04-24 21:12:54Z cvargas1 $
 */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $this_section=SECTION_COURSES;
 

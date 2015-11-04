@@ -13,7 +13,7 @@
 $reqdate        = $_REQUEST['reqdate'];
 $period         = $_REQUEST['period'];
 $displayType    = $_REQUEST['displayType'];
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $courseId = api_get_course_int_id();
 

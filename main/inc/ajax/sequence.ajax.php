@@ -10,8 +10,7 @@ use Chamilo\CoreBundle\Entity\SequenceResource;
 use Fhaculty\Graph\Graph;
 use Fhaculty\Graph\Vertex;
 
-
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;

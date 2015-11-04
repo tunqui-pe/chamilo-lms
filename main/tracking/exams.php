@@ -6,7 +6,7 @@
  * @package chamilo.tracking
  */
 
-require_once '../inc/global.inc.php';
+////require_once '../inc/global.inc.php';
 
 $toolTable = Database::get_course_table(TABLE_TOOL_LIST);
 $quizTable = Database::get_course_table(TABLE_QUIZ_TEST);
@@ -88,7 +88,7 @@ if (!$exportToXLS) {
         Display::return_icon('stats.png', get_lang('MyStats'), '', ICON_SIZE_MEDIUM);
         $actionsLeft .= '</a>';
 
-        
+
 
         $courseLink = '';
         $courseInfo = api_get_course_info();
@@ -101,7 +101,7 @@ if (!$exportToXLS) {
             Display::return_icon('export_excel.png',get_lang('ExportAsXLS'),'',ICON_SIZE_MEDIUM).'</a>';
         $actionsRight .= '<a href="javascript: void(0);" onclick="javascript: window.print()">'.
             Display::return_icon('printer.png',get_lang('Print'),'',ICON_SIZE_MEDIUM).'</a>';
-        
+
 
         $menuItems[] = Display::url(
             Display::return_icon('teacher.png', get_lang('TeacherInterface'), array(), 32),
@@ -145,8 +145,8 @@ if (!$exportToXLS) {
         );
 
     }
-    
-    
+
+
     $toolbar = Display::toolbarAction('toolbar-exams', $content = array( 0 => $actionsLeft, 1 => $actionsRight ));
     echo $toolbar;
 

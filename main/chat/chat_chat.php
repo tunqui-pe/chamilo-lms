@@ -10,7 +10,7 @@
 
 define('FRAME', 'chat');
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $course = $_GET['cidReq'];
 $session_id = api_get_session_id();
@@ -193,7 +193,7 @@ if (!empty($course)) {
 		        WHERE (user_id = ".$userId.")";
 		$result = Database::query($sql);
 	}
-        
+
 	echo '<div id="content-chat"';
 	foreach ($content as & $this_line) {
         echo $this_line;

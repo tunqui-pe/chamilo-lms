@@ -6,7 +6,7 @@ use ChamiloSession as Session;
 /**
  * Responses to AJAX calls
  */
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 $action = isset($_GET['a']) ? $_GET['a'] : null;
 

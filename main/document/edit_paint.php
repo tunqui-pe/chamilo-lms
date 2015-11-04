@@ -13,7 +13,7 @@ use ChamiloSession as Session;
  * @since 30/january/2011
 */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 Session::write('whereami', 'document/editpaint');
 $this_section = SECTION_COURSES;

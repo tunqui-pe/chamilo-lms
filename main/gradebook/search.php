@@ -10,7 +10,7 @@ use \ChamiloSession as Session;
 
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 if (api_get_setting('allow_public_certificates') != 'true') {
     api_not_allowed(

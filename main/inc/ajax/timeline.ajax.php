@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 $timeline = new Timeline();
 

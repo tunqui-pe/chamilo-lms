@@ -10,7 +10,7 @@
  */
 
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 if (api_get_setting('allow_social_tool') !='true') {
     $url = api_get_path(WEB_PATH).'whoisonline.php?id='.intval($_GET['u']);
@@ -55,7 +55,7 @@ if (!empty($_POST['social_wall_new_msg_main']) || !empty($_FILES['picture']['tmp
             $fileComment = ''
         );
     }
-    
+
 
     Display::addFlash(Display::return_message(get_lang('MessageSent')));
 
@@ -295,7 +295,7 @@ $socialAutoExtendLink = Display::url(
 // Added a Jquery Function to return the Preview of OpenGraph URL Content
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
-    
+
     $("[name=\'social_wall_new_msg_main\']").on("paste", function(e) {
         $.ajax({
             contentType: "application/x-www-form-urlencoded",

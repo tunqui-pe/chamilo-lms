@@ -3,10 +3,8 @@
 /**
  * Responses to AJAX calls
  */
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 $action = $_GET['a'];
-
-
 switch ($action) {
     case 'access_detail':
         $user_id = intval($_REQUEST['student']);

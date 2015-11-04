@@ -5,7 +5,7 @@
  * Implements the tracking of students in the Reporting pages
  * @package chamilo.reporting
  */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 
@@ -365,7 +365,7 @@ if (!empty($student_id)) {
     $course_code = isset($_GET['course']) ? Security :: remove_XSS($_GET['course']) : null;
 
     if (CourseManager :: is_user_subscribed_in_course($user_info['user_id'], $course_code, true)) {
-        
+
         $avg_student_progress = Tracking::get_avg_student_progress(
             $user_info['user_id'],
             $course_code,

@@ -3,7 +3,7 @@
 /**
  * Responses to AJAX calls
  */
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 //@todo for some reason nanogong doesn't like this variables
 //api_protect_course_script(true);

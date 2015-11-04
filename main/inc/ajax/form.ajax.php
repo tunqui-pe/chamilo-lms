@@ -1,6 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 

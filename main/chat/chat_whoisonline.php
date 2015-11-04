@@ -9,7 +9,7 @@
 
 define('FRAME', 'online');
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $course = api_get_course_id();
 $courseInfo = api_get_course_info();

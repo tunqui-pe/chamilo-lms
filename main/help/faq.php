@@ -9,7 +9,7 @@
 /**
  * Code
  */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $help_name = isset($_GET['open']) ? Security::remove_XSS($_GET['open']) : null;
 
 Display :: display_header(get_lang('Faq'));

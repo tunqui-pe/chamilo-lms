@@ -1,9 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
-/* 
- * Report from students for learning path 
+/*
+ * Report from students for learning path
  */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $isAllowedToEdit = api_is_allowed_to_edit(null, true);
 

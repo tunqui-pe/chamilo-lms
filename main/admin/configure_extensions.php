@@ -5,7 +5,7 @@
  * @package chamilo.admin
  */
 $cidReset=true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section=SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
 $interbreadcrumb[] = array ('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
@@ -357,7 +357,7 @@ Display::display_header($nameTool);
                 </div>
             </div>
         </div>
-	
+
 	<?php
 	/*
 	<!-- EPHORUS -->

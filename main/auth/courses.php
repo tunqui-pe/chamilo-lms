@@ -13,7 +13,7 @@ use \Chamilo\CoreBundle\Entity\SequenceResource;
 $cidReset = true; // Flag forcing the 'current course' reset
 
 // including files
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $ctok = Security::get_existing_token();
 

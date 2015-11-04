@@ -9,7 +9,7 @@
  * Init
  */
 // TODO: This file seems to be unfinished and unused.
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $nameTools = get_lang('Progression');
 

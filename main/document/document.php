@@ -27,7 +27,7 @@
  * @package chamilo.document
  */
 
-require_once __DIR__.'/../inc/global.inc.php';
+//require_once __DIR__.'/../inc/global.inc.php';
 
 $current_course_tool = TOOL_DOCUMENT;
 $this_section = SECTION_COURSES;
@@ -40,6 +40,7 @@ api_protect_course_script(true);
 api_protect_course_group(GroupManager::GROUP_TOOL_DOCUMENTS);
 
 DocumentManager::removeGeneratedAudioTempFile();
+$row = [];
 
 if (
     isset($_SESSION['temp_realpath_image']) &&

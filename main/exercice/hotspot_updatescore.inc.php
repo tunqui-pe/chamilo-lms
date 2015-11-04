@@ -8,7 +8,7 @@
 * 	@version $Id: admin.php 10680 2007-01-11 21:26:23Z pcool $
 */
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 $courseCode   = $_GET['coursecode'];
 $questionId   = $_GET['questionId'];

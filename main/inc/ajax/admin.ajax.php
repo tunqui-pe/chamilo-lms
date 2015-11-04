@@ -3,7 +3,7 @@
 /**
  * Responses to AJAX calls
  */
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 api_protect_admin_script();
 

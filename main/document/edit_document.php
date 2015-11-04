@@ -26,7 +26,7 @@ use ChamiloSession as Session;
  * @todo improve script structure (FormValidator is used to display form, but
  * not for validation at the moment)
  */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // Template's javascript
 $htmlHeadXtra[] = '

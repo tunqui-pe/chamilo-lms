@@ -8,7 +8,7 @@
  */
 
 $cidReset = true;
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 require_once api_get_path(SYS_CODE_PATH).'forum/forumfunction.inc.php';
 require_once api_get_path(SYS_CODE_PATH).'work/work.lib.php';
@@ -57,7 +57,7 @@ if (api_is_platform_admin()) {
         ),
         api_get_path(WEB_PATH).'main/social/vcard_export.php?userId='.$user['user_id']
     );
-    
+
 }
 
 // Show info about who created this user and when

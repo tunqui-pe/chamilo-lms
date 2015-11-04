@@ -11,7 +11,7 @@
 
 session_cache_limiter('public');
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 
 require_once 'forumconfig.inc.php';

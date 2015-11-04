@@ -25,7 +25,7 @@
 use \ChamiloSession as Session;
 
 // Including the global initialiation file.
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // The section (tabs).
 $this_section = SECTION_COURSES;

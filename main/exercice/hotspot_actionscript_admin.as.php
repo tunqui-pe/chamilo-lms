@@ -8,7 +8,7 @@ use ChamiloSession as Session;
 * @package chamilo.exercise
 * @author Toon Keppens
 */
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 // set vars
 $questionId = intval($_GET['modifyAnswers']);

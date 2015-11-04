@@ -8,7 +8,7 @@
 
 $cidReset = true;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 
 Display::display_header(null);
 

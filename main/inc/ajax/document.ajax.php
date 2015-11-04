@@ -3,7 +3,7 @@
 /**
  * Responses to AJAX calls for the document upload
  */
-require_once '../global.inc.php';
+//require_once '../global.inc.php';
 
 $action = $_REQUEST['a'];
 switch ($action) {

@@ -6,7 +6,7 @@
 */
 use \ChamiloSession as Session;
 
-require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 api_protect_course_script(false);
 
 require_once api_get_path(LIBRARY_PATH).'geometry.lib.php';
