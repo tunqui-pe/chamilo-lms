@@ -37,7 +37,7 @@ if (!empty($course)) {
 
     list($pseudo_user) = Database::fetch_array($result);
 
-	$isAllowed = !(empty($pseudo_user) || !$_cid);
+	$isAllowed = !(empty($pseudo_user));
 	$isMaster = api_is_course_admin();
     $date_inter = api_get_utc_datetime(time() - 120);
 

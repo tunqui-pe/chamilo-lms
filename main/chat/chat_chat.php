@@ -12,15 +12,14 @@ define('FRAME', 'chat');
 
 //require_once '../inc/global.inc.php';
 
-$course = $_GET['cidReq'];
 $session_id = api_get_session_id();
-$group_id 	= api_get_group_id();
+$group_id = api_get_group_id();
 $userId = api_get_user_id();
 $_course = api_get_course_info();
 $time = api_get_utc_datetime();
 
 // if we have the session set up
-if (!empty($course)) {
+if (!empty($_course)) {
     $reset = isset($_GET['reset']) ? (bool)$_GET['reset'] : null;
     $tbl_user = Database::get_main_table(TABLE_MAIN_USER);
     $query = "SELECT username FROM $tbl_user WHERE user_id='".$userId."'";
@@ -28,7 +27,7 @@ if (!empty($course)) {
 
     list($pseudo_user) = Database::fetch_row($result);
 
-    $isAllowed = !(empty($pseudo_user) || !$_cid);
+    $isAllowed = !(empty($pseudo_user));
     $isMaster = (bool)api_is_course_admin();
 
     $date_now = date('Y-m-d');

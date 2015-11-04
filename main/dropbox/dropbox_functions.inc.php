@@ -390,7 +390,7 @@ function store_addcategory()
         return array('type' => 'error', 'message' => get_lang('ErrorPleaseGiveCategoryName'));
     }
 
-    if (!$_POST['edit_id']) {
+    if (!isset($_POST['edit_id'])) {
         $session_id = api_get_session_id();
         // step 3a, we check if the category doesn't already exist
         $sql = "SELECT * FROM ".$dropbox_cnf['tbl_category']."

@@ -14,8 +14,8 @@ api_protect_course_script(true);
 
 require_once 'work.lib.php';
 
-$course_info = api_get_course_info();
-$course_id = $course_info['real_id'];
+$courseInfo = api_get_course_info();
+$course_id = $courseInfo['real_id'];
 $user_id = api_get_user_id();
 $id_session = api_get_session_id();
 
@@ -114,7 +114,6 @@ $student_can_edit_in_session = api_is_allowed_to_session_edit(false, true);
 if (!in_array($action, array('add', 'create_dir'))) {
     $token = Security::get_token();
 }
-$courseInfo = api_get_course_info();
 
 $currentUrl = api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq();
 $content = null;
@@ -125,7 +124,7 @@ switch ($action) {
         //if posts
         if ($is_allowed_to_edit && !empty($_POST['changeProperties'])) {
             updateSettings(
-                $course,
+                $courseInfo,
                 $_POST['show_score'],
                 $_POST['student_delete_own_publication']
             );
@@ -137,7 +136,7 @@ switch ($action) {
         /*	Display of tool options */
         $content = settingsForm(
             array(
-                'show_score' => $course_info['show_score'],
+                'show_score' => $courseInfo['show_score'],
                 'student_delete_own_publication' =>  $studentDeleteOwnPublication
             )
         );
@@ -203,7 +202,7 @@ switch ($action) {
                 $content = generateMoveForm(
                     $item_id,
                     $curdirpath,
-                    $course_info,
+                    $courseInfo,
                     $group_id,
                     $session_id
                 );

@@ -227,7 +227,9 @@ $currentUrl = api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq();
 // If form validates -> save data
 if ($form->validate()) {
     $values = $form->exportValues();
-    if ($values['max_member_no_limit'] == GroupManager::MEMBER_PER_GROUP_NO_LIMIT) {
+    if (isset($values['max_member_no_limit']) &&
+        $values['max_member_no_limit'] == GroupManager::MEMBER_PER_GROUP_NO_LIMIT
+    ) {
 		$max_member = GroupManager::MEMBER_PER_GROUP_NO_LIMIT;
 	} else {
 		$max_member = $values['max_member'];
