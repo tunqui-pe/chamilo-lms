@@ -90,7 +90,7 @@ foreach ($iterator as $folder) {
     if ($folder->isDir()) {
         $langPath = $folder->getPathname();
 
-        if (in_array($folder->getBasename(), $simple)) {
+        if (!in_array($folder->getBasename(), $simple)) {
             continue;
         }
 
