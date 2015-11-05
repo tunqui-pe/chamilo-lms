@@ -57,6 +57,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
 
         "sylius/settings-bundle": "~0.1",
+        "sylius/attribute-bundle": "~0.1",
         "sylius/translation": "~0.1",
         "sylius/attribute": "~0.1",
         "sylius/flow-bundle": "~0.1",
@@ -92,10 +93,11 @@
         "sp/bower-bundle": "dev-master",
         "jmontoyaa/migration-bundle":"dev-master",
 
-        "sonata-project/core-bundle": "2.3.x-dev",
-        "sonata-project/user-bundle": "~2.2@dev",
-        "sonata-project/block-bundle": "~2.3@dev",
-        "sonata-project/intl-bundle": "~2.2@dev",
+        "sonata-project/core-bundle": "dev-master",
+        "sonata-project/user-bundle": "dev-master",
+        "sonata-project/block-bundle": "dev-master",
+        "sonata-project/intl-bundle": "dev-master",
+        "sonata-project/datagrid-bundle": "dev-master",
 
         "mopa/bootstrap-bundle": "v3.0.0-beta3",
         "twbs/bootstrap": "v3.0.0",
@@ -139,7 +141,9 @@
         "essence/essence": "^2.5",
         "jeroendesloovere/vcard": "^1.2",
         "stof/doctrine-extensions-bundle": "^1.2",
-        "alchemy/zippy": "^0.2.1"
+        "alchemy/zippy": "^0.2.1",
+        "hwi/oauth-bundle": "^0.3.9",
+        "jjanvier/crowdin-bundle": "*@dev"
     },
     "require-dev": {
         "behat/behat": "2.5.*@stable",
