@@ -132,7 +132,7 @@ foreach ($iterator as $folder) {
                 )]) ? $languages[$folder->getBasename()] : 'what';
             //LC_MESSAGES
             $fileName = $phpFile->getBasename('.php');
-            $fileName = 'all';
+            $fileName = 'messages';
             $new_po_file = $save_path.'/'.$fileName.'.'.$code.'.po';
 
             /*if (!is_dir($save_path.$folder->getBasename())) {
