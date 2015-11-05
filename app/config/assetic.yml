@@ -39,18 +39,18 @@ assetic:
                 - bundles/chamilotheme/components/jqgrid/css/ui.jqgrid.css
                 - bundles/chamilotheme/components/select2/dist/css/select2.css
 #                - bundles/chamilotheme/components/select2/select2-bootstrap.css
-                - bundles/chamilotheme/components/adminlte/css/jvectormap/*
-                - bundles/chamilotheme/components/adminlte/css/morris/*
-                - bundles/chamilotheme/components/adminlte/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.css
-                - bundles/chamilotheme/components/adminlte/css/bootstrap-slider/slider.css
-                - bundles/chamilotheme/components/adminlte/css/colorpicker/bootstrap-colorpicker.css
-                - bundles/chamilotheme/components/adminlte/css/datatables/dataTables.bootstrap.css
-                - bundles/chamilotheme/components/adminlte/css/daterangepicker/daterangepicker-bs3.css
-                - bundles/chamilotheme/components/adminlte/css/iCheck/all.css
-                - bundles/chamilotheme/components/adminlte/css/ionslider/ion.rangeSlider.css
-                - bundles/chamilotheme/components/adminlte/css/timepicker/bootstrap-timepicker.css
+#                - bundles/chamilotheme/components/adminlte/css/jvectormap/*
+#                - bundles/chamilotheme/components/adminlte/css/morris/*
+#                - bundles/chamilotheme/components/adminlte/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.css
+#                - bundles/chamilotheme/components/adminlte/css/bootstrap-slider/slider.css
+#                - bundles/chamilotheme/components/adminlte/css/colorpicker/bootstrap-colorpicker.css
+#                - bundles/chamilotheme/components/adminlte/css/datatables/dataTables.bootstrap.css
+#                - bundles/chamilotheme/components/adminlte/css/daterangepicker/daterangepicker-bs3.css
+#                - bundles/chamilotheme/components/adminlte/css/iCheck/all.css
+#                - bundles/chamilotheme/components/adminlte/css/ionslider/ion.rangeSlider.css
+#                - bundles/chamilotheme/components/adminlte/css/timepicker/bootstrap-timepicker.css
                 - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css
-                - bundles/chamilotheme/components/adminlte/css/AdminLTE.css
+#                - bundles/chamilotheme/components/adminlte/css/AdminLTE.css
             output: js/chamilo.css
 
         chamilo_js:
@@ -64,7 +64,7 @@ assetic:
                 - bundles/chamilotheme/components/jqgrid/js/jquery.jqGrid.js
                 - bundles/chamilotheme/components/select2/dist/js/select2.js
                 - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
-                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
+#                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
 
 #                - @ChamiloCoreBundle/Resources/public/js/app.js
             output: js/chamilo.js
