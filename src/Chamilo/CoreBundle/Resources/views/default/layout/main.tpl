@@ -64,7 +64,7 @@
         {% endif %}
 
         {# menu #}
-        {% include "@template_style/layout/menu.tpl" %}
+        {% include "@template_style/layout/menu.html.twig" %}
     </header>
 
     {# Bug and help notifications #}

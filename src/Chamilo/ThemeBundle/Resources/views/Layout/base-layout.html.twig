@@ -1,3 +1,4 @@
+{% trans_default_domain "all" %}
 {% import "ChamiloThemeBundle:Macros:box.html.twig" as macro_box %}
 {% import "ChamiloThemeBundle:Macros:actions.html.twig" as macro_actions %}
 {% import "ChamiloThemeBundle:Macros:buttons.html.twig" as macro_buttons %}
@@ -70,7 +71,7 @@
 
     {# topbar #}
     {% block topbar %}
-        {% include "@template_style/layout/topbar.tpl" %}
+        {% include "@template_style/layout/topbar.html.twig" %}
         {% if show_toolbar == 1 %}
             <div class="clear-header"></div>
         {% endif %}
@@ -126,7 +127,7 @@
         <section id="menu-bar">
             {# menu #}
             {% block menu %}
-                {% include "@template_style/layout/menu.tpl" %}
+                {% include "@template_style/layout/menu.html.twig" %}
             {% endblock %}
         </section>
         <section id="breadcrumb-bar">
@@ -141,7 +142,7 @@
 <div id="top_main_content" class="container">
 <div class="row">
 {# course navigation links/shortcuts need to be activated by the admin #}
-{% include "@template_style/layout/course_navigation.tpl" %}
+    {% include "@template_style/layout/course_navigation.html.twig" %}
 {% endif %}
 
 {% block chamilo_admin_header %}
@@ -194,7 +195,6 @@
     <!-- /.content -->
 </div>
 <!-- /.right-side -->
-
 
 {% endblock %}
 </body>

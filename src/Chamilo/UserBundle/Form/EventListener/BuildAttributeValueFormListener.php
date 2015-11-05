@@ -21,7 +21,7 @@ class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListene
      *
      * @var FormFactoryInterface
      */
-    private $factory;
+    protected $factory;
 
     /**
      * Constructor.
@@ -86,7 +86,7 @@ class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListene
      *
      * @param AttributeValueInterface $attributeValue
      */
-    private function verifyValue(AttributeValueInterface $attributeValue)
+    protected function verifyValue(AttributeValueInterface $attributeValue)
     {
         switch ($attributeValue->getType()) {
 
