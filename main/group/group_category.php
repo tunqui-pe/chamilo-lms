@@ -48,7 +48,7 @@ function check_groups_per_user($value)
     return true;
 }
 
-if (api_get_setting('allow_group_categories') == 'true') {
+if (api_get_setting('group.allow_group_categories') == 'true') {
     if (isset($_GET['id'])) {
         $category = GroupManager::get_category($_GET['id']);
         $nameTools = get_lang('EditGroupCategory').': '.$category['title'];
@@ -106,7 +106,7 @@ if (isset($_GET['id'])) {
 }
 
 // If categories allowed, show title & description field
-if (api_get_setting('allow_group_categories') == 'true') {
+if (api_get_setting('group.allow_group_categories') == 'true') {
     $form->addElement('header', $nameTools);
     $form->addElement('html', '<div class="row"><div class="col-md-6">');
 	$form->addText('title', get_lang('Title'));

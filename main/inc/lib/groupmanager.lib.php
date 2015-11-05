@@ -2748,7 +2748,7 @@ class GroupManager
         if (!empty($categories)) {
 
             foreach ($categories as $category) {
-                if (api_get_setting('allow_group_categories') == 'true') {
+                if (api_get_setting('group.allow_group_categories') == 'true') {
                     $content .= '<h2>'.$category['title'].'</h2>';
                 }
                 if (!empty($keyword)) {

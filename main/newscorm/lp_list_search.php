@@ -32,7 +32,7 @@ $interbreadcrumb[] = array(
 search_widget_prepare($htmlHeadXtra);
 Display::display_header(null, 'Path');
 
-if (api_get_setting('search_enabled') !== 'true') {
+if (api_get_setting('search.search_enabled') !== 'true') {
     Display::display_error_message(get_lang('SearchFeatureNotEnabledComment'));
 } else {
     if (!empty($_GET['action'])) {

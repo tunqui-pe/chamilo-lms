@@ -163,7 +163,7 @@ if (api_get_setting('pdf_export_watermark_by_course') == 'true') {
     $form->addRule('pdf_export_watermark_path', get_lang('OnlyImagesAllowed').' ('.implode(',', $allowed_picture_types).')', 'filetype', $allowed_picture_types);
 }
 
-if (api_get_setting('allow_course_theme') == 'true') {
+if (api_get_setting('course.allow_course_theme') == 'true') {
     $group = array();
     $group[] = $form->createElement(
         'SelectTheme',
@@ -309,7 +309,7 @@ $group[]=$form->createElement('radio', 'enable_lp_auto_launch', get_lang('LPAuto
 $group[]=$form->createElement('radio', 'enable_lp_auto_launch', null, get_lang('Deactivate'), 0);
 $form->addGroup($group, '', array(get_lang("LPAutoLaunch")), '');
 
-if (api_get_setting('allow_course_theme') == 'true') {
+if (api_get_setting('course.allow_course_theme') == 'true') {
     // Allow theme into Learning path
     $group = array();
     $group[]=$form->createElement('radio', 'allow_learning_path_theme', get_lang('AllowLearningPathTheme'), get_lang('AllowLearningPathThemeAllow'), 1);

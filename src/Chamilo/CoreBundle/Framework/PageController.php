@@ -32,7 +32,6 @@ class PageController
      * @uses UserManager::get_user_pictur_path_by_id() to get the image path
      * @uses UserManager::get_picture_user() to get the details of the image in a specific format
      * @uses PageController::show_right_block() to include the image in a larger user block
-     * @assert (-1) === false
      */
     public function setUserImageBlock($user_id = null)
     {
@@ -67,7 +66,6 @@ class PageController
      * contents are only based on the user defined by the active session.
      *
      * @return string HTML <div> with links
-     * @assert () != ''
      */
     public function setCourseBlock($filter = null)
     {
@@ -171,7 +169,6 @@ class PageController
      * Returns the profile block, showing links to the messaging and social
      * network tools. The user ID is taken from the active session
      * @return string HTML <div> block
-     * @assert () != ''
      */
     public function setProfileBlock()
     {
@@ -210,7 +207,6 @@ class PageController
      * "hot courses").
      * @uses CourseManager::returnHotCourses() in fact, the current method is only a bypass to this method
      * @return string HTML <div> with the most popular courses
-     * @assert () != ''
      */
     public function returnHotCourses()
     {
@@ -221,7 +217,6 @@ class PageController
      * Returns an online help block read from the home/home_menu_[lang].html
      * file
      * @return string HTML block
-     * @assert () != ''
      */
     public function returnHelp()
     {
@@ -248,7 +243,6 @@ class PageController
     /**
      * Returns an HTML block with links to the skills tools
      * @return string HTML <div> block
-     * @assert () != ''
      */
     public function returnSkillsLinks()
     {
@@ -274,7 +268,6 @@ class PageController
      * Returns an HTML block with the notice, as found in the
      * home/home_notice_[lang].html file
      * @return string HTML <div> block
-     * @assert () != ''
      */
     public function returnNotice()
     {
@@ -304,7 +297,6 @@ class PageController
      * @param string ID to be added to the HTML attributes for the block
      * @param array Array of attributes to add to the HTML block
      * @return string HTML <div> block
-     * @assert ('a','') != ''
      * @todo use the menu builder
      */
     public function show_right_block($title, $content, $id, $params = null)
@@ -328,7 +320,6 @@ class PageController
      * main/search/ directory. If search_enabled is not set, then it returns
      * an empty string
      * @return string HTML <div> block showing the search form, or an empty string if search not enabled
-     * @assert () !== false
      */
     public function return_search_block()
     {
@@ -352,8 +343,6 @@ class PageController
      * @param int User ID
      * @param bool True: show the announcements as a slider. False: show them as a vertical list
      * @return string HTML list of announcements
-     * @assert () != ''
-     * @assert (1) != ''
      */
     public function getAnnouncements($user_id = null, $show_slide = true)
     {
@@ -388,7 +377,6 @@ class PageController
     /**
      * Return the homepage, including announcements
      * @return string The portal's homepage as an HTML string
-     * @assert () != ''
      */
     public function returnHomePage()
     {
@@ -435,7 +423,6 @@ class PageController
     /**
      * Returns the reservation block (if the reservation tool is enabled)
      * @return string HTML block, or empty string if reservation tool is disabled
-     * @assert () == ''
      */
     public function return_reservation_block()
     {
@@ -456,7 +443,6 @@ class PageController
     /**
      * Returns an HTML block with classes (if show_groups_to_users is true)
      * @return string A list of links to users classes tools, or an empty string if show_groups_to_users is disabled
-     * @assert  () == ''
      */
     public function return_classes_block()
     {
@@ -494,7 +480,6 @@ class PageController
      * Prepares a block with all the pending exercises in all courses
      * @param array Array of courses (arrays) of the user
      * @return void Doesn't return anything but prepares and HTML block for use in templates
-     * @assert () !== 1
      */
     public function return_exercise_block($personal_course_list, $tpl)
     {
@@ -536,7 +521,6 @@ class PageController
      * Returns links to teachers tools (create course, etc) based on the user
      * in the active session
      * @return string HTML <div> block
-     * @assert () == ''
      */
     public function return_teacher_link()
     {
@@ -602,7 +586,6 @@ class PageController
      * @version 1.1
      * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University - refactoring and code cleaning
      * @author Julio Montoya <gugli100@gmail.com>, Beeznest template modifs
-     * @assert () !== 0
      */
     public function return_courses_in_categories()
     {
@@ -944,7 +927,6 @@ class PageController
     * @param string $filter
     * @param int $page
     * @return string HTML list of sessions and courses
-    * @assert () === false
     *
     */
     public function returnCourses($user_id, $filter, $page)
@@ -1410,7 +1392,6 @@ class PageController
      * the course list
      * @param object A Template object used to declare variables usable in the given template
      * @return void
-     * @assert () === false
      */
     public function return_welcome_to_course_block($tpl)
     {

@@ -277,7 +277,10 @@ if ($group_id != 0) {
 	if ($socialToolIsActive) {
 	} else {
 		$social_right_content .= '<div class=actions>';
-		if (api_get_setting('allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting(
+                'social.allow_social_tool'
+            ) == 'true' && api_get_setting('allow_message_tool') == 'true'
+        ) {
 			$social_right_content .= '<a href="'.api_get_path(WEB_PATH).'main/social/profile.php">'.
                 Display::return_icon('shared_profile.png', get_lang('ViewSharedProfile')).'</a>';
 		}
@@ -295,7 +298,7 @@ if ($group_id != 0) {
 
 // LEFT COLUMN
 $social_left_content = null;
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     //Block Social Menu
     $social_menu_block = SocialManager::show_social_menu('messages');
     $social_right_content .= '<div class="row">';
@@ -353,7 +356,7 @@ if (!isset($_POST['compose'])) {
         }
     }
 }
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $social_right_content .=  '</div>';
     $social_right_content .=  '</div>';
 }
@@ -362,7 +365,7 @@ $tpl = new Template(get_lang('ComposeMessage'));
 // Block Social Avatar
 SocialManager::setSocialUserBlock($tpl, $user_id, 'messages');
 
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $tpl->assign('social_menu_block', $social_menu_block);
     $tpl->assign('social_right_content', $social_right_content);
     $social_layout = $tpl->get_template('social/inbox.tpl');

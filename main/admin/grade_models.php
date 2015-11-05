@@ -12,7 +12,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
 
-if (api_get_setting('gradebook_enable_grade_model') != 'true') {
+if (api_get_setting('gradebook.gradebook_enable_grade_model') != 'true') {
     api_not_allowed();
 }
 

@@ -37,7 +37,9 @@ $tool_name = get_lang('DelCourse');
     $noPHP_SELF = true;
     $message = '<h2>'.get_lang('Course').' : '.$current_course_name.' ('.$current_course_code.') </h2>';
     $message .=get_lang('HasDel');
-    $message .= '<br /><br /><a href="../../index.php">'.get_lang('BackHome').' '.api_get_setting('siteName').'</a>';
+        $message .= '<br /><br /><a href="../../index.php">'.get_lang(
+                'BackHome'
+            ).' '.api_get_setting('platform.site_name').'</a>';
 
 } else {
     $message = '<h3>'.get_lang('Course').' : '.$current_course_name.' ('.$current_course_code.') </h3>';

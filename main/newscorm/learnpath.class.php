@@ -1081,7 +1081,7 @@ class learnpath
             GradebookUtils::remove_resource_from_course_gradebook($link_info['id']);
         }
 
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             require_once api_get_path(LIBRARY_PATH).'specific_fields_manager.lib.php';
             delete_all_values_for_item($this->cc, TOOL_LEARNPATH, $this->lp_id);
         }
@@ -1173,7 +1173,7 @@ class learnpath
         Database::query($sql_all);
 
         // Remove from search engine if enabled.
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $tbl_se_ref = Database :: get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
             $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level=%d LIMIT 1';
             $sql = sprintf($sql, $tbl_se_ref, $this->cc, TOOL_LEARNPATH, $lp, $id);
@@ -4548,7 +4548,7 @@ class learnpath
     public function set_terms_by_prefix($terms_string, $prefix)
     {
         $course_id = api_get_course_int_id();
-        if (api_get_setting('search_enabled') !== 'true')
+        if (api_get_setting('search.search_enabled') !== 'true')
             return false;
 
         if (!extension_loaded('xapian')) {

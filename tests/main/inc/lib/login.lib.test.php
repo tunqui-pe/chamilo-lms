@@ -45,7 +45,7 @@ class TestLogin extends UnitTestCase {
 		global $_configuration;
 		ob_start();
 		$user=array('abc');
-		$emailSubject = "[".api_get_setting('siteName')."] ".get_lang('LoginRequest'); // SUBJECT
+		$emailSubject = "[".api_get_setting('platform.site_name')."] ".get_lang('LoginRequest'); // SUBJECT
 		$userAccountList = Login::get_user_account_list($user, true); // BODY
 		$emailTo = $user[0]["email"];
 		$secretword = Login::get_secret_word($emailTo);

@@ -13,7 +13,7 @@ if (isset($_GET['messages_page_nr'])) {
     if ($_REQUEST['f'] == 'social') {
         $social_link = '?f=social';
     }
-    if (api_get_setting('allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
+    if (api_get_setting('social.allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
         header('Location:inbox.php'.$social_link);
         exit;
     }
@@ -109,12 +109,12 @@ if (isset($_GET['f']) && $_GET['f'] == 'social') {
 
 $social_parameter = '';
 
-if (isset($_GET['f']) && $_GET['f'] == 'social' || api_get_setting('allow_social_tool') == 'true') {
+if (isset($_GET['f']) && $_GET['f'] == 'social' || api_get_setting('social.allow_social_tool') == 'true') {
     $social_parameter = '?f=social';
 } else {
     $actions = null;
     //Comes from normal profile
-    if (api_get_setting('allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
+    if (api_get_setting('social.allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
         $actions .= '<a href="'.api_get_path(WEB_PATH).'main/social/profile.php">'.
             Display::return_icon('shared_profile.png', get_lang('ViewSharedProfile')).'</a>';
     }
@@ -130,7 +130,7 @@ if (isset($_GET['f']) && $_GET['f'] == 'social' || api_get_setting('allow_social
 }
 
 //LEFT CONTENT
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     //Block Social Menu
     $social_menu_block = SocialManager::show_social_menu('messages');
 }
@@ -138,7 +138,7 @@ if (api_get_setting('allow_social_tool') == 'true') {
 //Right content
 $social_right_content = null;
 
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $social_right_content .= '<div class="col-md-12">';
     $social_right_content .= '<div class="actions">';
     $social_right_content .= '<a href="'.api_get_path(WEB_PATH).'main/messages/new_message.php?f=social">'.
@@ -164,14 +164,14 @@ if (!isset($_GET['del_msg'])) {
     $social_right_content .= MessageManager::inbox_display();
 }
 
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $social_right_content .= '</div>';
 }
 
 $tpl = new Template(null);
 // Block Social Avatar
 SocialManager::setSocialUserBlock($tpl, $user_id, 'messages');
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $tpl->assign('social_menu_block', $social_menu_block);
     $tpl->assign('social_right_content', $social_right_content);
     $social_layout = $tpl->get_template('social/inbox.tpl');

@@ -1302,7 +1302,7 @@ class DocumentManager
     public static function delete_document_from_search_engine($course_id, $document_id)
     {
         // remove from search engine if enabled
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
             $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
             $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_DOCUMENT, $document_id);
@@ -1848,7 +1848,7 @@ class DocumentManager
 
         //info portal
         $organization_name = api_get_setting('Institution');
-        $portal_name = api_get_setting('siteName');
+        $portal_name = api_get_setting('platform.site_name');
 
         //Extra user data information
         $extra_user_info_data = UserManager::get_extra_user_data(
@@ -3857,7 +3857,7 @@ class DocumentManager
         $if_exists = '',
         $simulation = false
     ) {
-        if (api_get_setting('search_enabled') !== 'true') {
+        if (api_get_setting('search.search_enabled') !== 'true') {
             return false;
         }
         if (empty($docid) or $docid != intval($docid)) {
@@ -5226,7 +5226,7 @@ class DocumentManager
             }
 
             // Copy files to users myfiles
-            if (api_get_setting('allow_social_tool') == 'true' &&
+            if (api_get_setting('social.allow_social_tool') == 'true' &&
                 api_get_setting('users_copy_files') == 'true' &&
                 !api_is_anonymous()
             ) {

@@ -33,7 +33,7 @@ class JavascriptLegacyController extends BaseController
     {
         $moreButtonsInMaximizedMode = false;
 
-        if (api_get_setting('more_buttons_maximized_mode') == 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
             $moreButtonsInMaximizedMode = true;
         }
 

@@ -825,7 +825,10 @@ function modify_filter($user_id, $row, $data)
             }
         }
         // edit
-        if (api_get_setting('allow_user_course_subscription_by_course_admin') == 'true' or api_is_platform_admin()) {
+        if (api_get_setting(
+                'course.allow_user_course_subscription_by_course_admin'
+            ) == 'true' or api_is_platform_admin()
+        ) {
             // unregister
             if ($user_id != $current_user_id || api_is_platform_admin()) {
                 $result .= '<a class="btn btn-small btn-danger" href="'.api_get_self().'?'.api_get_cidreq().'&type='.$type.'&unregister=yes&user_id='.$user_id.'" title="'.get_lang('Unreg').' " onclick="javascript:if(!confirm(\''.addslashes(api_htmlentities(get_lang('ConfirmYourChoice'),ENT_QUOTES,$charset)).'\')) return false;">'.
@@ -884,7 +887,10 @@ $table->set_header($header_nr++, get_lang('LoginName'));
 $indexList['groups'] = $header_nr;
 $table->set_header($header_nr++, get_lang('GroupSingle'), false);
 
-if (api_is_allowed_to_edit(null, true) && api_get_setting('allow_user_course_subscription_by_course_admin') == 'true') {
+if (api_is_allowed_to_edit(null, true) && api_get_setting(
+        'course.allow_user_course_subscription_by_course_admin'
+    ) == 'true'
+) {
 
 } else {
     $table->set_column_filter(0, 'hide_field');
@@ -902,7 +908,10 @@ if (!empty($hideFields)) {
 if (api_is_allowed_to_edit(null, true)) {
     $table->set_header($header_nr++, get_lang('Status'), false);
     $table->set_header($header_nr++, get_lang('Active'), false);
-    if (api_get_setting('allow_user_course_subscription_by_course_admin') == 'true') {
+    if (api_get_setting(
+            'course.allow_user_course_subscription_by_course_admin'
+        ) == 'true'
+    ) {
         $table->set_column_filter(8, 'active_filter');
     } else {
         $table->set_column_filter(8, 'active_filter');
@@ -916,7 +925,10 @@ if (api_is_allowed_to_edit(null, true)) {
     $table->set_header($header_nr++, get_lang('Action'), false);
     $table->set_column_filter($header_nr-1, 'modify_filter');
 
-    if (api_get_setting('allow_user_course_subscription_by_course_admin') == 'true') {
+    if (api_get_setting(
+            'course.allow_user_course_subscription_by_course_admin'
+        ) == 'true'
+    ) {
         $table->set_form_actions(array('unsubscribe' => get_lang('Unreg')), 'user');
     }
 } else {
@@ -977,7 +989,9 @@ if (api_is_allowed_to_edit(null, true)) {
     $actions .= '<a href="user.php?'.api_get_cidreq().'&action=export&format=xls&type='.$type.'">'.
         Display::return_icon('export_excel.png', get_lang('ExportAsXLS'),'',ICON_SIZE_MEDIUM).'</a> ';
 
-    if (api_get_setting('allow_user_course_subscription_by_course_admin') == 'true' ||
+    if (api_get_setting(
+            'course.allow_user_course_subscription_by_course_admin'
+        ) == 'true' ||
         api_is_platform_admin()
     ) {
         $actions .= '<a href="user_import.php?'.api_get_cidreq().'&action=import">'.

@@ -460,7 +460,10 @@ if ($_SESSION['oLP']->current == $_SESSION['oLP']->get_last()) {
 
 
 $template = new Template('title', false, false, true, true, false);
-$template->assign('glossary_extra_tools', api_get_setting('show_glossary_in_extra_tools'));
+$template->assign(
+    'glossary_extra_tools',
+    api_get_setting('glossary.show_glossary_in_extra_tools')
+);
 
 $fixLinkSetting = api_get_configuration_value('lp_fix_embed_content');
 $fixLink = '';
@@ -479,7 +482,10 @@ $gamificationMode = api_get_setting('gamification_mode');
 // ...AND this learning path is set in gamification mode, then change the display
 $gamificationMode = $gamificationMode && $_SESSION['oLP']->seriousgame_mode;
 
-$template->assign('show_glossary_in_documents', api_get_setting('show_glossary_in_documents'));
+$template->assign(
+    'show_glossary_in_documents',
+    api_get_setting('document.show_glossary_in_documents')
+);
 $template->assign('jquery_web_path', api_get_jquery_web_path());
 $template->assign('jquery_ui_js_web_path', api_get_jquery_ui_js_web_path());
 $template->assign('jquery_ui_css_web_path', api_get_jquery_ui_css_web_path());

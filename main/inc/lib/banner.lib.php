@@ -80,7 +80,7 @@ function get_tabs($courseId = null)
     }
 
 	// Social
-	if (api_get_setting('allow_social_tool')=='true') {
+    if (api_get_setting('social.allow_social_tool') == 'true') {
         $navigation['social']['url'] = api_get_path(WEB_CODE_PATH).'social/home.php';
         $navigation['social']['title'] = get_lang('SocialNetwork');
         $navigation['social']['key'] = 'social-network';
@@ -153,7 +153,7 @@ function return_logo($theme)
     $html = '';
     $logoBase = api_get_path(SYS_CSS_PATH).'themes/'.$theme.'/images/header-logo.';
 
-    $site_name = api_get_setting('siteName');
+    $site_name = api_get_setting('platform.site_name');
     $attributes = array(
         'title' => $site_name,
         'class' => 'img-responsive',
@@ -286,7 +286,7 @@ function return_navigation_array()
 
         // My Profile
         if (api_get_setting('show_tabs', 'my_profile') == 'true' &&
-            api_get_setting('allow_social_tool') != 'true'
+            api_get_setting('social.allow_social_tool') != 'true'
         ) {
             $navigation['myprofile'] = $possible_tabs['myprofile'];
         } else {
@@ -326,7 +326,7 @@ function return_navigation_array()
 
         // Social Networking
         if (api_get_setting('show_tabs', 'social') == 'true') {
-            if (api_get_setting('allow_social_tool') == 'true') {
+            if (api_get_setting('social.allow_social_tool') == 'true') {
                 $navigation['social'] = isset($possible_tabs['social']) ? $possible_tabs['social'] : null;
             }
         } else{

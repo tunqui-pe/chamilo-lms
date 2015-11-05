@@ -9,7 +9,7 @@ $cidReset = true;
 api_block_anonymous_users();
 
 if (isset($_GET['messages_page_nr'])) {
-	if (api_get_setting('allow_social_tool')=='true' &&
+    if (api_get_setting('social.allow_social_tool') == 'true' &&
         api_get_setting('allow_message_tool')=='true'
     ) {
 		$social_link = '';
@@ -65,7 +65,10 @@ if (isset($_GET['f']) && $_GET['f']=='social') {
 
 $actions = '';
 if (api_get_setting('extended_profile') == 'true') {
-    if (api_get_setting('allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
+    if (api_get_setting(
+            'social.allow_social_tool'
+        ) == 'true' && api_get_setting('allow_message_tool') == 'true'
+    ) {
         $actions .=  '<a href="'.api_get_path(WEB_PATH).'main/social/profile.php">'.Display::return_icon('shared_profile.png', get_lang('ViewSharedProfile')).'</a>';
     }
     if (api_get_setting('allow_message_tool') == 'true') {
@@ -100,7 +103,7 @@ if (isset($_REQUEST['action'])) {
 }
 
 $social_right_content = '';
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     //Block Social Menu
     $social_menu_block = SocialManager::show_social_menu('messages');
 
@@ -137,7 +140,7 @@ if ($action == 'delete') {
 $tpl = new Template(get_lang('ComposeMessage'));
 // Block Social Avatar
 SocialManager::setSocialUserBlock($tpl, $user_id, 'messages');
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
 
     $tpl->assign('social_menu_block', $social_menu_block);
     $tpl->assign('social_right_content', $social_right_content);

@@ -153,7 +153,10 @@ class CourseManager
                         $params['exemplary_content']
                     );
 
-                    if (api_get_setting('gradebook_enable_grade_model') == 'true') {
+                    if (api_get_setting(
+                            'gradebook.gradebook_enable_grade_model'
+                        ) == 'true'
+                    ) {
                         //Create gradebook_category for the new course and add
                         // a gradebook model for the course
                         if (isset($params['gradebook_model_id']) &&

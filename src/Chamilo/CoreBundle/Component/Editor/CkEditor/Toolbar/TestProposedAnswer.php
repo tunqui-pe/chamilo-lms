@@ -5,7 +5,7 @@ namespace Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar;
 
 /**
  * TestProposedAnswer toolbar configuration
- * 
+ *
  * @package Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar
  */
 class TestProposedAnswer extends Basic
@@ -44,7 +44,7 @@ class TestProposedAnswer extends Basic
         $config['extraPlugins'] = $this->getPluginsToString();
         //$config['width'] = '100';
         //$config['height'] = '200';
-        if (api_get_setting('more_buttons_maximized_mode') != 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') != 'true') {
             $config['toolbar'] = $this->getNormalToolbar();
         } else {
             $config['toolbar_minToolbar'] = $this->getMinimizedToolbar();
@@ -60,7 +60,10 @@ class TestProposedAnswer extends Basic
     public function getConditionalPlugins()
     {
         $plugins = array();
-        if (api_get_setting('show_glossary_in_documents') == 'ismanual') {
+        if (api_get_setting(
+                'document.show_glossary_in_documents'
+            ) == 'ismanual'
+        ) {
             $plugins[] = 'glossary';
         }
 

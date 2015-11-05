@@ -725,9 +725,9 @@ class SocialManager extends UserManager
             array('shared_profile', 'groups', 'group_edit', 'member_list', 'waiting_list', 'invite_friends')
         )) {
 
-            
+
             $links = '<ul class="nav nav-pills nav-stacked">';
-            
+
             $active = $show == 'home' ? 'active' : null;
             $links .= '
                 <li class="home-icon ' . $active . '">
@@ -793,7 +793,7 @@ class SocialManager extends UserManager
                     </a>
                 </li>';
             $links .='</ul>';
-            
+
             $html .= Display::panelCollapse(
                     get_lang('SocialNetwork'),
                     $links,
@@ -813,7 +813,7 @@ class SocialManager extends UserManager
         }
 
         if ($show == 'shared_profile') {
-            
+
             $links =  '<ul class="nav nav-pills nav-stacked">';
 
             // My own profile
@@ -1030,7 +1030,7 @@ class SocialManager extends UserManager
             $url =  null;
             // Anonymous users can't have access to the profile
             if (!api_is_anonymous()) {
-                if (api_get_setting('allow_social_tool') == 'true') {
+                if (api_get_setting('social.allow_social_tool') == 'true') {
                     $url = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$uid.$course_url;
                 } else {
                     $url = '?id='.$uid.$course_url;
@@ -1556,7 +1556,7 @@ class SocialManager extends UserManager
             $image = $domain . $image;
         }
         $title = $graph->title;
-        
+
         $html  = '<div class="thumbnail">';
         $html .= '<a target="_blank" href="'.$link.'"><h3>'.$title.'</h3>';
         $html .= empty($image) ? '' : '<img alt="" src="'.$image.'" /></a>';
@@ -1646,7 +1646,7 @@ class SocialManager extends UserManager
      */
     public static function setSocialUserBlock(Template $template, $userId, $groupBlock = '', $groupId = 0, $show_full_profile = true)
     {
-        if (api_get_setting('allow_social_tool') != 'true') {
+        if (api_get_setting('social.allow_social_tool') != 'true') {
             return '';
         }
 
@@ -1668,7 +1668,7 @@ class SocialManager extends UserManager
         $template->assign('user', $userInfo);
         $template->assign('social_avatar_block', $socialAvatarBlock);
         $template->assign('profile_edition_link', $profileEditionLink);
-        
+
         //If not friend $show_full_profile is False and the user can't see Email Address and Vcard Download Link
         if ($show_full_profile) {
             //Added the link to export the vCard to the Template
@@ -1835,10 +1835,10 @@ class SocialManager extends UserManager
                     api_get_path(WEB_CODE_PATH).'social/profile.php'.$userId,
                 null,
                 array('enctype' => 'multipart/form-data') ,
-                FormValidator::LAYOUT_HORIZONTAL    
+                FormValidator::LAYOUT_HORIZONTAL
             );
-                
-                $socialWallPlaceholder = isset($_GET['u']) ? get_lang('SocialWallWriteNewPostToFriend') : get_lang('SocialWallWhatAreYouThinkingAbout');
+
+            $socialWallPlaceholder = isset($_GET['u']) ? get_lang('SocialWallWriteNewPostToFriend') : get_lang('SocialWallWhatAreYouThinkingAbout');
 
             $form->addTextarea(
                 'social_wall_new_msg_main',

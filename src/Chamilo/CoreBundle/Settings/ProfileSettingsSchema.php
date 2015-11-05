@@ -70,6 +70,7 @@ class ProfileSettingsSchema implements SchemaInterface
             ->add('user_selected_theme', 'yes_no')
             ->add('use_users_timezone', 'yes_no')
             ->add('allow_users_to_change_email_with_no_password', 'yes_no')
-            ->add('login_is_email', 'yes_no');
+            ->add('login_is_email', 'yes_no')
+        ;
     }
 }

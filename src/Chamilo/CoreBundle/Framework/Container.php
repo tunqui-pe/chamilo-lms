@@ -6,6 +6,8 @@ namespace Chamilo\CoreBundle\Framework;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -27,8 +29,9 @@ class Container
     public static $session;
     public static $request;
     public static $configuration;
+    public static $environment;
     public static $urlGenerator;
-    public static $security;
+    public static $checker;
     public static $translator;
     public static $mailer;
     public static $template;
@@ -61,11 +64,19 @@ class Container
     }
 
     /**
+     * @return string
+     */
+    public static function getEnvironment()
+    {
+        return self::$container->get('kernel')->getEnvironment();
+    }
+
+    /**
      * @return RoleHierarchy
      */
     public static function getRoles()
     {
-        return self::$roles;
+        return self::$container->get('security.role_hierarchy');
     }
 
     /**
@@ -73,7 +84,7 @@ class Container
      */
     public static function getLogDir()
     {
-        return self::$logDir;
+        return self::$container->get('kernel')->getLogDir();
     }
 
     /**
@@ -81,7 +92,7 @@ class Container
      */
     public static function getTempDir()
     {
-        return self::$tempDir;
+        return self::$container->get('kernel')->getCacheDir();
     }
 
     /**
@@ -89,7 +100,7 @@ class Container
      */
     public static function getRootDir()
     {
-        return self::$rootDir;
+        return self::$container->get('kernel')->getRealRootDir();
     }
 
     /**
@@ -113,7 +124,7 @@ class Container
      */
     public static function getTwig()
     {
-        return self::$twig;
+        return self::$container->get('twig');
     }
 
     /**
@@ -125,11 +136,11 @@ class Container
     }
 
     /**
-     * @return UrlGeneratorInterface
+     * @return \Symfony\Bundle\FrameworkBundle\Routing\Router
      */
     public static function getUrlGenerator()
     {
-        return self::$urlGenerator;
+        return self::$container->get('router');
     }
 
     /**
@@ -162,11 +173,11 @@ class Container
     }
 
     /**
-     * @return
+     * @return AuthorizationChecker
      */
-    public static function getSecurity()
+    public static function getAuthorizationChecker()
     {
-        return self::$security;
+        return self::$container->get('security.authorization_checker');
     }
 
     /**
@@ -174,7 +185,7 @@ class Container
      */
     public static function getTranslator()
     {
-        return self::$translator;
+        return self::$container->get('translator');
     }
 
     /**
@@ -182,7 +193,7 @@ class Container
      */
     public static function getAsset()
     {
-        return self::$assets;
+        return self::$container->get('templating.helper.assets');
     }
 
     /**
@@ -190,7 +201,7 @@ class Container
      */
     public static function getMailer()
     {
-       return self::$mailer;
+       return self::$container->get('mailer');
     }
 
     /**
@@ -257,7 +268,6 @@ class Container
     {
         return self::$container->get('form.factory');
     }
-
 
     /**
      * @param string $message

@@ -27,7 +27,10 @@ if (isset($_GET['f']) && $_GET['f']=='social') {
 	if (api_get_setting('extended_profile') == 'true') {
 		$social_right_content .= '<div class="actions">';
 
-		if (api_get_setting('allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting(
+                'social.allow_social_tool'
+            ) == 'true' && api_get_setting('allow_message_tool') == 'true'
+        ) {
 			$social_right_content .= '<a href="'.api_get_path(WEB_PATH).'main/social/profile.php">'.
                 Display::return_icon('shared_profile.png', get_lang('ViewSharedProfile')).'</a>';
 		}
@@ -56,7 +59,7 @@ if (empty($_GET['id'])) {
 $message  = '';
 
 // LEFT COLUMN
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     //Block Social Menu
     $social_menu_block = SocialManager::show_social_menu($show_menu);
 }
@@ -72,7 +75,7 @@ $tpl = new Template(get_lang('View'));
 // Block Social Avatar
 SocialManager::setSocialUserBlock($tpl, $user_id, $show_menu);
 
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $tpl->assign('social_menu_block', $social_menu_block);
     $tpl->assign('social_right_content', $social_right_content);
     $social_layout = $tpl->get_template('social/inbox.tpl');

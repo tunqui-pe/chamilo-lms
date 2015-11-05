@@ -15,7 +15,7 @@ use ChamiloSession as Session;
 
 $cidReset = true;
 
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     $this_section = SECTION_SOCIAL;
 } else {
     $this_section = SECTION_MYPROFILE;
@@ -229,7 +229,7 @@ if (api_get_setting('profile', 'language') !== 'true') {
 }
 
 //THEME
-if (is_profile_editable() && api_get_setting('user_selected_theme') == 'true') {
+if (is_profile_editable() && api_get_setting('profile.user_selected_theme') == 'true') {
     $form->addElement('SelectTheme', 'theme', get_lang('Theme'));
     if (api_get_setting('profile', 'theme') !== 'true') {
         $form->freeze('theme');
@@ -704,11 +704,11 @@ if ($form->validate()) {
 // the header
 
 $actions = null;
-if (api_get_setting('allow_social_tool') != 'true') {
+if (api_get_setting('social.allow_social_tool') != 'true') {
     if (api_get_setting('extended_profile') == 'true') {
         $actions .= '<div class="actions">';
 
-        if (api_get_setting('allow_social_tool') == 'true' &&
+        if (api_get_setting('social.allow_social_tool') == 'true' &&
             api_get_setting('allow_message_tool') == 'true'
         ) {
             $actions .= '<a href="'.api_get_path(WEB_PATH).'main/social/profile.php">'.
@@ -738,7 +738,7 @@ $tpl->assign('actions', $actions);
 
 SocialManager::setSocialUserBlock($tpl, $user_id, 'messages');
 
-if (api_get_setting('allow_social_tool') == 'true') {
+if (api_get_setting('social.allow_social_tool') == 'true') {
     SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'home');
     $menu = SocialManager::show_social_menu(
         'home',

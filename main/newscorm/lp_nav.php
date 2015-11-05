@@ -36,7 +36,7 @@ if (isset($_SESSION['lpobject'])) {
 
     // Setting up the CSS theme if exists
     $mycourselptheme = null;
-    if (api_get_setting('allow_course_theme') == 'true') {
+    if (api_get_setting('course.allow_course_theme') == 'true') {
         $mycourselptheme = api_get_course_setting('allow_learning_path_theme');
     }
 

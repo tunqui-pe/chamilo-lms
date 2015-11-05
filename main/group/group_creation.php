@@ -34,7 +34,10 @@ if (isset($_POST['action'])) {
                 if (!empty($_POST['same_places'])) {
                     $group['places'] = $_POST['group_0_places'];
                 }
-                if (api_get_setting('allow_group_categories') == 'false') {
+				if (api_get_setting(
+								'group.allow_group_categories'
+						) == 'false'
+				) {
                     $group['category'] = 0;
                 } elseif (isset($_POST['same_category']) && $_POST['same_category']) {
                     $group['category'] = $_POST['group_0_category'];
@@ -156,7 +159,7 @@ EOT;
 		$group_el = array();
 		$group_el[] = $form->createElement('static', null, null, '<b>'.get_lang('GroupName').'</b>');
 
-		if (api_get_setting('allow_group_categories') == 'true') {
+		if (api_get_setting('group.allow_group_categories') == 'true') {
 			$group_el[] = $form->createElement('static', null, null, '<b>'.get_lang('GroupCategory').'</b>');
 		}
 		$group_el[] = $form->createElement('static', null, null, '<b>'.get_lang('GroupPlacesThis').'</b>');
@@ -165,7 +168,7 @@ EOT;
 		if ($_POST['number_of_groups'] > 1) {
 			$group_el = array ();
 			$group_el[] = $form->createElement('static', null, null, ' ');
-			if (api_get_setting('allow_group_categories') == 'true') {
+			if (api_get_setting('group.allow_group_categories') == 'true') {
 				$group_el[] = $form->createElement('checkbox', 'same_category', null, get_lang('SameForAll'), array('onclick' => "javascript: switch_state('category');"));
 			}
 			$group_el[] = $form->createElement('checkbox', 'same_places', null, get_lang('SameForAll'), array ('onclick' => "javascript: switch_state('places');"));
@@ -175,7 +178,7 @@ EOT;
 		for ($group_number = 0; $group_number < $_POST['number_of_groups']; $group_number ++) {
 			$group_el = array();
 			$group_el[] = $form->createElement('text', 'group_'.$group_number.'_name');
-			if (api_get_setting('allow_group_categories') == 'true') {
+			if (api_get_setting('group.allow_group_categories') == 'true') {
 				$group_el[] = $form->createElement('select', 'group_'.$group_number.'_category', null, $cat_options, array('id' => 'category_'.$group_number));
 			}
 			$group_el[] = $form->createElement('text', 'group_'.$group_number.'_places', null, array('class' => 'span1', 'id' => 'places_'.$group_number));
@@ -223,7 +226,10 @@ EOT;
 	/*
 	 * Show form to generate subgroups
 	 */
-	if (api_get_setting('allow_group_categories') == 'true' && count(GroupManager :: get_group_list()) > 0) {
+	if (api_get_setting('group.allow_group_categories') == 'true' && count(
+					GroupManager:: get_group_list()
+			) > 0
+	) {
 		$base_group_options = array ();
 		$groups = GroupManager :: get_group_list();
 		foreach ($groups as $index => $group) {
@@ -273,7 +279,7 @@ EOT;
 
 		$create_class_groups_form = new FormValidator('create_class_groups_form', 'post', api_get_self().'?'.api_get_cidreq());
 		$create_class_groups_form->addElement('hidden', 'action');
-		if (api_get_setting('allow_group_categories') == 'true') {
+		if (api_get_setting('group.allow_group_categories') == 'true') {
 			$group_categories = GroupManager :: get_categories();
 			$cat_options = array();
 			foreach ($group_categories as $index => $category) {

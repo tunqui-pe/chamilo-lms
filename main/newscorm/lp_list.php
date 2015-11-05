@@ -44,7 +44,7 @@ api_protect_course_script();
  * Display
  */
 /* Require the search widget and prepare the header with its stuff. */
-if (api_get_setting('search_enabled') == 'true') {
+if (api_get_setting('search.search_enabled') == 'true') {
     require api_get_path(LIBRARY_PATH).'search/search_widget.php';
     search_widget_prepare($htmlHeadXtra);
 }

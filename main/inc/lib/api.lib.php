@@ -8,6 +8,12 @@
  * @package chamilo.library
  */
 
+use ChamiloSession as Session;
+use Symfony\Component\Validator\Constraints as Assert;
+use Chamilo\UserBundle\Entity\User;
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Constants declaration
  */
@@ -17,12 +23,6 @@ define('REQUIRED_PHP_VERSION', '5.4');
 define('REQUIRED_MIN_MEMORY_LIMIT', '128');
 define('REQUIRED_MIN_UPLOAD_MAX_FILESIZE', '10');
 define('REQUIRED_MIN_POST_MAX_SIZE', '10');
-
-use ChamiloSession as Session;
-use Symfony\Component\Validator\Constraints as Assert;
-use Chamilo\UserBundle\Entity\User;
-use Chamilo\CoreBundle\Entity\Course;
-use Chamilo\CoreBundle\Framework\Container;
 
 // USER STATUS CONSTANTS
 /** global status of a user: student */
@@ -281,6 +281,7 @@ define('VALID_WEB_SERVER_BASE', '/https?:\/\/[^\/]*/i');            // $new_path
 define('WEB_PATH', 'WEB_PATH');
 define('WEB_APP_PATH', 'WEB_APP_PATH');
 define('SYS_PATH', 'SYS_PATH');
+//define('SYS_LOG_PATH', 'SYS_LOG_PATH');
 define('SYS_APP_PATH', 'SYS_APP_PATH');
 define('SYS_UPLOAD_PATH', 'SYS_UPLOAD_PATH');
 define('WEB_UPLOAD_PATH', 'WEB_UPLOAD_PATH');
@@ -743,7 +744,6 @@ function api_get_path($path_type, $path = null)
     static $root_rel;
 
     $root_web = Container::getUrlGenerator()->generate('home');
-    //var_dump($root_web);exit;
     $rootDir = Container::getRootDir();
 
     // Configuration data for already installed system.
@@ -834,7 +834,7 @@ function api_get_path($path_type, $path = null)
         $paths[SYS_UPLOAD_PATH]         = $paths[SYS_PATH].$paths[SYS_UPLOAD_PATH];
 
         $paths[SYS_PLUGIN_PATH]         = $paths[SYS_PATH].$paths[SYS_PLUGIN_PATH];
-        $paths[SYS_ARCHIVE_PATH]        = $paths[SYS_PATH].$paths[SYS_ARCHIVE_PATH];
+        $paths[SYS_ARCHIVE_PATH] = Container::getTempDir();
         $paths[SYS_TEST_PATH]           = $paths[SYS_PATH].$paths[SYS_TEST_PATH];
         $paths[SYS_TEMPLATE_PATH]       = $paths[SYS_CODE_PATH].$paths[SYS_TEMPLATE_PATH];
         $paths[SYS_PUBLIC_PATH]         = $paths[SYS_PATH].$paths[SYS_PUBLIC_PATH];
@@ -860,8 +860,11 @@ function api_get_path($path_type, $path = null)
         $paths[INCLUDE_PATH]            = $paths[SYS_CODE_PATH].$paths[INCLUDE_PATH];
         $paths[LIBRARY_PATH]            = $paths[SYS_CODE_PATH].$paths[LIBRARY_PATH];
         $paths[CONFIGURATION_PATH]      = $paths[SYS_PATH].$paths[CONFIGURATION_PATH];
-        //$paths[SYS_COURSE_PATH]         = $paths[SYS_APP_PATH].$course_folder;
+
         $paths[SYS_COURSE_PATH]         = Container::getCourseDir();
+        /*$paths[SYS_LOG_PATH]            = Container::getLogDir();
+        $paths[SYS_CONFIG_PATH]         = Container::getConfigDir();
+        */
 
         $is_this_function_initialized = true;
     } else {
@@ -2541,6 +2544,24 @@ function api_get_coachs_from_course($session_id = 0, $courseId = '')
  */
 function api_get_setting($variable, $key = null)
 {
+    switch ($variable) {
+        case 'server_type':
+            $test = ['dev', 'test'];
+            $enviroment = Container::getEnvironment();
+            if (in_array($enviroment, $test)) {
+                return 'test';
+            }
+
+            return 'prod';
+        case 'stylesheets':
+            return 'platform.theme';
+            break;
+        default:
+            return Container::getSettingsManager()->getSetting($variable);
+    }
+
+
+
     global $_setting;
     if ($variable == 'header_extra_content') {
         $filename = api_get_path(SYS_PATH).api_get_home_path().'header_extra_content.txt';
@@ -2632,6 +2653,20 @@ function api_get_self() {
  */
 function api_is_platform_admin($allow_sessions_admins = false, $allow_drh = false)
 {
+    $checker = Container::getAuthorizationChecker();
+    if ($checker) {
+        if ($checker->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+        if ($allow_sessions_admins) {
+            if ($checker->isGranted('ROLE_SESSION_MANAGER')) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+
     $isPlatformAdmin = Session::read('is_platformAdmin');
     if ($isPlatformAdmin) {
         return true;
@@ -4480,7 +4515,7 @@ function api_get_visual_theme() {
         // Platform's theme.
         $visual_theme = $platform_theme;
 
-        if (api_get_setting('user_selected_theme') == 'true') {
+        if (api_get_setting('profile.user_selected_theme') == 'true') {
             $user_info = api_get_user_info();
             if (isset($user_info['theme'])) {
                 $user_theme = $user_info['theme'];
@@ -4494,7 +4529,7 @@ function api_get_visual_theme() {
 
         $course_id = api_get_course_id();
         if (!empty($course_id) && $course_id != -1) {
-            if (api_get_setting('allow_course_theme') == 'true') {
+            if (api_get_setting('course.allow_course_theme') == 'true') {
                 $course_theme = api_get_course_setting('course_theme');
 
                 if (!empty($course_theme) && $course_theme != -1) {
@@ -6935,7 +6970,7 @@ function api_is_global_chat_enabled()
     return
         !api_is_anonymous() &&
         api_get_setting('allow_global_chat') == 'true' &&
-        api_get_setting('allow_social_tool') == 'true';
+        api_get_setting('social.allow_social_tool') == 'true';
 }
 
 /**

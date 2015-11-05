@@ -49,7 +49,10 @@ switch ($action) {
 
         $likeCondition = " AND (firstname LIKE '%$search%' OR lastname LIKE '%$search%' OR email LIKE '%$search%') ";
 
-        if (api_get_setting('allow_social_tool')=='true' && api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting(
+                'social.allow_social_tool'
+            ) == 'true' && api_get_setting('allow_message_tool') == 'true'
+        ) {
             // All users
             if (api_get_setting('allow_send_message_to_all_platform_users') == 'true' || api_is_platform_admin() ) {
                 if ($access_url_id != 0) {
@@ -97,7 +100,10 @@ switch ($action) {
                                 $likeCondition";
                 }
             }
-        } elseif (api_get_setting('allow_social_tool')=='false' && api_get_setting('allow_message_tool')=='true') {
+        } elseif (api_get_setting(
+                'social.allow_social_tool'
+            ) == 'false' && api_get_setting('allow_message_tool') == 'true'
+        ) {
             if (api_get_setting('allow_send_message_to_all_platform_users') == 'true') {
                 $sql = "SELECT DISTINCT u.user_id as id, u.firstname, u.lastname, u.email
                         FROM $tbl_user u LEFT JOIN $tbl_access_url_rel_user r ON u.user_id = r.user_id

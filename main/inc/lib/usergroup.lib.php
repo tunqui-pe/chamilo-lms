@@ -1450,7 +1450,10 @@ class UserGroup extends Model
         $user = Database::fetch_array($res);
         $picture_filename = trim($user['picture']);
 
-        if (api_get_setting('split_users_upload_directory') === 'true') {
+        if (api_get_setting(
+                'profile.split_users_upload_directory'
+            ) === 'true'
+        ) {
             if (!empty($picture_filename)) {
                 $dir = $base.'groups/'.substr($picture_filename, 0, 1).'/'.$id.'/';
             } elseif ($preview) {

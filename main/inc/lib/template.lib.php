@@ -480,7 +480,7 @@ class Template
         $_s = array(
             'software_name' => $_configuration['software_name'],
             'system_version' => $_configuration['system_version'],
-            'site_name' => api_get_setting('siteName'),
+            'site_name' => api_get_setting('platform.site_name'),
             'institution' => api_get_setting('Institution'),
             'date' => api_format_date('now', DATE_FORMAT_LONG),
             'timezone' => _api_get_timezone(),
@@ -759,7 +759,7 @@ class Template
         $title_list = array();
 
         $title_list[] = api_get_setting('Institution');
-        $title_list[] = api_get_setting('siteName');
+        $title_list[] = api_get_setting('platform.site_name');
 
         if (!empty($course_title)) {
             $title_list[] = $course_title;
@@ -877,7 +877,7 @@ class Template
         }
 
         //Profile link
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             $profile_url  = api_get_path(WEB_CODE_PATH).'social/home.php';
             $profile_link = Display::url(get_lang('Profile'), $profile_url);
         } else {
@@ -898,7 +898,9 @@ class Template
         $this->assign('message_url', $message_url);
 
         $institution = api_get_setting('Institution');
-        $portal_name = empty($institution) ? api_get_setting('siteName') : $institution;
+        $portal_name = empty($institution) ? api_get_setting(
+            'platform.site_name'
+        ) : $institution;
 
         $this->assign('portal_name', $portal_name);
 
@@ -914,7 +916,7 @@ class Template
         }
 
         $total_invitations = 0;
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             $number_of_new_messages_of_friend = SocialManager::get_message_number_invitation_by_user_id(
                 api_get_user_id()
             );

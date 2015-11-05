@@ -1591,10 +1591,10 @@ function getWorkListTeacher(
                     '#'
                 );
             }
-            
+
             // Remove Delete Work Button from action List
             // Because removeXSS "removes" the onClick JS Event to do the action (See model.ajax.php - Line 1639)
-            // But still can use the another jqgrid button to remove works (trash icon) 
+            // But still can use the another jqgrid button to remove works (trash icon)
             //
             // $deleteUrl = api_get_path(WEB_CODE_PATH).'work/work.php?id='.$workId.'&action=delete_dir&'.api_get_cidreq();
             // $deleteLink = '<a href="#" onclick="showConfirmationPopup(this, \'' . $deleteUrl . '\' ) " >' .
@@ -2210,7 +2210,7 @@ function send_reminder_users_without_publication($task_data)
     $_course = api_get_course_info();
     $task_id = $task_data['id'];
     $task_title = !empty($task_data['title']) ? $task_data['title'] : basename($task_data['url']);
-    $subject = '[' . api_get_setting('siteName') . '] ';
+    $subject = '[' . api_get_setting('platform.site_name') . '] ';
 
     // The body can be as long as you wish, and any combination of text and variables
     $content = get_lang('ReminderToSubmitPendingTask')."\n".get_lang('CourseName').' : '.$_course['name']."\n";
@@ -2250,7 +2250,7 @@ function send_email_on_homework_creation($courseId, $sessionId = 0, $workId)
     } else {
         $students = CourseManager::get_student_list_from_course_code($courseCode, true, $sessionId);
     }
-    $emailsubject = '[' . api_get_setting('siteName') . '] '.get_lang('HomeworkCreated');
+    $emailsubject = '[' . api_get_setting('platform.site_name') . '] '.get_lang('HomeworkCreated');
     $currentUser = api_get_user_info(api_get_user_id());
     if (!empty($students)) {
         foreach($students as $student) {
@@ -3606,7 +3606,7 @@ function sendAlertToUsers($workId, $courseInfo, $session_id)
             null,
             PERSON_NAME_EMAIL_ADDRESS
         );
-        $subject = "[" . api_get_setting('siteName') . "] ".get_lang('SendMailBody')."\n ".get_lang('CourseName').": ".$courseInfo['name']."  ";
+        $subject = "[" . api_get_setting('platform.site_name') . "] ".get_lang('SendMailBody')."\n ".get_lang('CourseName').": ".$courseInfo['name']."  ";
         foreach ($user_list as $user_data) {
             $to_user_id = $user_data['user_id'];
             $user_info = api_get_user_info($to_user_id);

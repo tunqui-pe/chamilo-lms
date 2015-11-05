@@ -28,7 +28,7 @@ $htmlHeadXtra[] = '<script type="text/javascript">
 </script>';
 $htmlHeadXtra[] = $form_style;
 
-if (api_get_setting('search_enabled')=='true') {
+if (api_get_setting('search.search_enabled') == 'true') {
     $specific_fields = get_specific_field_list();
 }
 
@@ -40,7 +40,7 @@ if (isset($_POST['convert'])) {
             require('../newscorm/lp_upload.php');
             if (isset($o_doc) && $first_item_id != 0) {
                 // Search-related section
-                if (api_get_setting('search_enabled')=='true') {
+                if (api_get_setting('search.search_enabled') == 'true') {
                     require_once(api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php');
                     $specific_fields = get_specific_field_list();
 
@@ -148,7 +148,7 @@ EOT;
 $renderer->setCustomElementTemplate($user_file_template);
 
 $form -> addElement ('file', 'user_file','<img src="../img/word_big.gif" align="absbottom" />');
-if (api_get_setting('search_enabled')=='true') {
+if (api_get_setting('search.search_enabled') == 'true') {
     $form -> addElement ('checkbox', 'index_document','', get_lang('SearchFeatureDoIndexDocument'));
     $form -> addElement ('html','<br />');
     $form -> addElement ('html', get_lang('SearchFeatureDocumentLanguage').': &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'. api_get_languages_combo());

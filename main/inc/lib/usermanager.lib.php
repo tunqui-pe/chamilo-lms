@@ -620,7 +620,7 @@ class UserManager
             UrlManager::delete_url_rel_user($user_id, 1);
         }
 
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             $userGroup = new UserGroup();
             //Delete user from portal groups
             $group_list = $userGroup->get_groups_by_user($user_id);
@@ -915,7 +915,11 @@ class UserManager
 
         if (!empty($email) && $send_email) {
             $recipient_name = api_get_person_name($firstname, $lastname, null, PERSON_NAME_EMAIL_ADDRESS);
-            $emailsubject = '['.api_get_setting('siteName').'] '.get_lang('YourReg').' '.api_get_setting('siteName');
+            $emailsubject = '['.api_get_setting(
+                    'platform.site_name'
+                ).'] '.get_lang('YourReg').' '.api_get_setting(
+                    'platform.site_name'
+                );
             $sender_name = api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
             $email_admin = api_get_setting('emailAdministrator');
 
@@ -923,10 +927,66 @@ class UserManager
                 $access_url_id = api_get_current_access_url_id();
                 if ($access_url_id != -1) {
                     $url = api_get_access_url($access_url_id);
-                    $emailbody = get_lang('Dear')." ".stripslashes(api_get_person_name($firstname, $lastname)).",\n\n".get_lang('YouAreReg')." ".api_get_setting('siteName')." ".get_lang('WithTheFollowingSettings')."\n\n".get_lang('Username')." : ".$username.(($reset_password > 0) ? "\n".get_lang('Pass')." : ".stripslashes($original_password) : "")."\n\n".get_lang('Address')." ".api_get_setting('siteName')." ".get_lang('Is')." : ".$url['url']."\n\n".get_lang('Problem')."\n\n".get_lang('SignatureFormula').",\n\n".api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))."\n".get_lang('Manager')." ".api_get_setting('siteName')."\nT. ".api_get_setting('administratorTelephone')."\n".get_lang('Email')." : ".api_get_setting('emailAdministrator');
+                    $emailbody = get_lang('Dear')." ".stripslashes(
+                            api_get_person_name($firstname, $lastname)
+                        ).",\n\n".get_lang('YouAreReg')." ".api_get_setting(
+                            'platform.site_name'
+                        )." ".get_lang(
+                            'WithTheFollowingSettings'
+                        )."\n\n".get_lang(
+                            'Username'
+                        )." : ".$username.(($reset_password > 0) ? "\n".get_lang(
+                                'Pass'
+                            )." : ".stripslashes(
+                                $original_password
+                            ) : "")."\n\n".get_lang(
+                            'Address'
+                        )." ".api_get_setting(
+                            'platform.site_name'
+                        )." ".get_lang('Is')." : ".$url['url']."\n\n".get_lang(
+                            'Problem'
+                        )."\n\n".get_lang(
+                            'SignatureFormula'
+                        ).",\n\n".api_get_person_name(
+                            api_get_setting('administratorName'),
+                            api_get_setting('administratorSurname')
+                        )."\n".get_lang('Manager')." ".api_get_setting(
+                            'platform.site_name'
+                        )."\nT. ".api_get_setting(
+                            'administratorTelephone'
+                        )."\n".get_lang('Email')." : ".api_get_setting(
+                            'emailAdministrator'
+                        );
                 }
             } else {
-                $emailbody = get_lang('Dear')." ".stripslashes(api_get_person_name($firstname, $lastname)).",\n\n".get_lang('YouAreReg')." ".api_get_setting('siteName')." ".get_lang('WithTheFollowingSettings')."\n\n".get_lang('Username')." : ".$username.(($reset_password > 0) ? "\n".get_lang('Pass')." : ".stripslashes($original_password) : "")."\n\n".get_lang('Address')." ".api_get_setting('siteName')." ".get_lang('Is')." : ".$_configuration['root_web']."\n\n".get_lang('Problem')."\n\n".get_lang('SignatureFormula').",\n\n".api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))."\n".get_lang('Manager')." ".api_get_setting('siteName')."\nT. ".api_get_setting('administratorTelephone')."\n".get_lang('Email')." : ".api_get_setting('emailAdministrator');
+                $emailbody = get_lang('Dear')." ".stripslashes(
+                        api_get_person_name($firstname, $lastname)
+                    ).",\n\n".get_lang('YouAreReg')." ".api_get_setting(
+                        'platform.site_name'
+                    )." ".get_lang('WithTheFollowingSettings')."\n\n".get_lang(
+                        'Username'
+                    )." : ".$username.(($reset_password > 0) ? "\n".get_lang(
+                            'Pass'
+                        )." : ".stripslashes(
+                            $original_password
+                        ) : "")."\n\n".get_lang('Address')." ".api_get_setting(
+                        'platform.site_name'
+                    )." ".get_lang(
+                        'Is'
+                    )." : ".$_configuration['root_web']."\n\n".get_lang(
+                        'Problem'
+                    )."\n\n".get_lang(
+                        'SignatureFormula'
+                    ).",\n\n".api_get_person_name(
+                        api_get_setting('administratorName'),
+                        api_get_setting('administratorSurname')
+                    )."\n".get_lang('Manager')." ".api_get_setting(
+                        'platform.site_name'
+                    )."\nT. ".api_get_setting(
+                        'administratorTelephone'
+                    )."\n".get_lang('Email')." : ".api_get_setting(
+                        'emailAdministrator'
+                    );
             }
             api_mail_html(
                 $recipient_name,
@@ -1411,7 +1471,10 @@ class UserManager
         }
 
         $userPath = "users/$id/";
-        if (api_get_setting('split_users_upload_directory') === 'true') {
+        if (api_get_setting(
+                'profile.split_users_upload_directory'
+            ) === 'true'
+        ) {
             $userPath = 'users/'.substr((string) $id, 0, 1).'/'.$id.'/';
             // In exceptional cases, on some portals, the intermediate base user
             // directory might not have been created. Make sure it is before
@@ -1490,7 +1553,7 @@ class UserManager
                 break;
         }
 
-        $gravatarEnabled = api_get_setting('gravatar_enabled');
+        $gravatarEnabled = api_get_setting('platform.gravatar_enabled');
 
         $anonymousPath = api_get_path(WEB_CODE_PATH).'img/'.$pictureAnonymous;
 
@@ -1500,7 +1563,7 @@ class UserManager
                 $file = self::getGravatar(
                     $imageWebPath['email'],
                     $gravatarSize,
-                    api_get_setting('gravatar_type')
+                    api_get_setting('platform.gravatar_type')
                 );
 
                 if ($addRandomId) {
@@ -5065,7 +5128,9 @@ SQL;
      */
     public static function getUserSubscriptionTab($optionSelected = 1)
     {
-        $allowAdmin = api_get_setting('allow_user_course_subscription_by_course_admin');
+        $allowAdmin = api_get_setting(
+            'course.allow_user_course_subscription_by_course_admin'
+        );
         if (($allowAdmin == 'true' && api_is_allowed_to_edit()) ||
             api_is_platform_admin()
         ) {

@@ -6,7 +6,7 @@
 $tpl = new Template();
 
 $templateName = 'glossary/glossary_auto.js.tpl';
-if (api_get_setting('show_glossary_in_documents') == 'ismanual') {
+if (api_get_setting('document.show_glossary_in_documents') == 'ismanual') {
     $templateName = 'glossary/glossary_manual.js.tpl';
 }
 

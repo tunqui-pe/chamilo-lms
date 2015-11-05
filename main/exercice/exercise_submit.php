@@ -39,7 +39,7 @@ api_protect_course_script(true);
 $origin = isset($_REQUEST['origin']) ? Security::remove_XSS($_REQUEST['origin']) : '';
 
 $is_allowedToEdit = api_is_allowed_to_edit(null,true);
-$glossaryExtraTools = api_get_setting('show_glossary_in_extra_tools');
+$glossaryExtraTools = api_get_setting('glossary.show_glossary_in_extra_tools');
 
 $showGlossary = in_array($glossaryExtraTools, array('true', 'exercise', 'exercise_and_lp'));
 if ($origin == 'learnpath') {

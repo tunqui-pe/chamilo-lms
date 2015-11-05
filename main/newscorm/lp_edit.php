@@ -100,7 +100,7 @@ $hide_toc_frame = $form->addElement(
     get_lang('HideTocFrame'),
     array('onclick' => '$("#lp_layout_column").toggle()')
 );
-if (api_get_setting('allow_course_theme') == 'true') {
+if (api_get_setting('course.allow_course_theme') == 'true') {
     $mycourselptheme = api_get_course_setting('allow_learning_path_theme');
     if (!empty($mycourselptheme) && $mycourselptheme!=-1 && $mycourselptheme== 1) {
         //LP theme picker
@@ -139,7 +139,7 @@ $form->addElement('file', 'lp_preview_image', array($label, get_lang('ImageWillR
 $form->addRule('lp_preview_image', get_lang('OnlyImagesAllowed'), 'filetype', array ('jpg', 'jpeg', 'png', 'gif'));
 
 // Search terms (only if search is activated).
-if (api_get_setting('search_enabled') === 'true') {
+if (api_get_setting('search.search_enabled') === 'true') {
     $specific_fields = get_specific_field_list();
     foreach ($specific_fields as $specific_field) {
         $form->addElement(

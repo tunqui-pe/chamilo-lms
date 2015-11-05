@@ -217,7 +217,7 @@ class Link extends Model
 
                 $catlinkstatus = get_lang('LinkAdded');
 
-                if ((api_get_setting('search_enabled') == 'true') &&
+                if ((api_get_setting('search.search_enabled') == 'true') &&
                     $link_id && extension_loaded('xapian')
                 ) {
                     require_once api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php';
@@ -448,7 +448,7 @@ class Link extends Model
     public static function delete_link_from_search_engine($course_id, $link_id)
     {
         // Remove from search engine if enabled.
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $tbl_se_ref = Database:: get_main_table(
                 TABLE_MAIN_SEARCH_ENGINE_REF
             );
@@ -563,7 +563,7 @@ class Link extends Model
         Database::update($tbl_link, $params, ['c_id = ? AND id = ?' => [$course_id, $id] ]);
 
         // Update search enchine and its values table if enabled.
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $course_int_id = api_get_course_int_id();
             $course_id = api_get_course_id();
             $link_title = Database:: escape_string($values['title']);
@@ -1710,7 +1710,7 @@ class Link extends Model
             'target' => $target_link
         );
 
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             require_once api_get_path(LIBRARY_PATH).'specific_fields_manager.lib.php';
             $specific_fields = get_specific_field_list();
             $form->addCheckBox('index_document', get_lang('SearchFeatureDoIndexLink'), get_lang('Yes'));

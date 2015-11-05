@@ -846,7 +846,7 @@ class Exercise
                 api_get_user_id()
             );
 
-            if (api_get_setting('search_enabled')=='true') {
+            if (api_get_setting('search.search_enabled') == 'true') {
                 $this->search_engine_edit();
             }
         } else {
@@ -917,7 +917,10 @@ class Exercise
                     $this->course
                 );
 
-                if (api_get_setting('search_enabled') == 'true' && extension_loaded('xapian')) {
+                if (api_get_setting(
+                        'search.search_enabled'
+                    ) == 'true' && extension_loaded('xapian')
+                ) {
                     $this->search_engine_save();
                 }
             }
@@ -1020,7 +1023,10 @@ class Exercise
         api_item_property_update($this->course, TOOL_QUIZ, $this->id, 'QuizDeleted', api_get_user_id());
         api_item_property_update($this->course, TOOL_QUIZ, $this->id, 'delete', api_get_user_id());
 
-        if (api_get_setting('search_enabled')=='true' && extension_loaded('xapian') ) {
+        if (api_get_setting(
+                'search.search_enabled'
+            ) == 'true' && extension_loaded('xapian')
+        ) {
             $this->search_engine_delete();
         }
     }
@@ -1305,7 +1311,7 @@ class Exercise
 
             $defaults = array();
 
-            if (api_get_setting('search_enabled') === 'true') {
+            if (api_get_setting('search.search_enabled') === 'true') {
                 require_once api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php';
 
                 $form->addElement ('checkbox', 'index_document','', get_lang('SearchFeatureDoIndexDocument'));
@@ -1407,7 +1413,7 @@ class Exercise
             $defaults['exerciseTitle'] = $this->selectTitle();
             $defaults['exerciseDescription'] = $this->selectDescription();
         }
-        if (api_get_setting('search_enabled') === 'true') {
+        if (api_get_setting('search.search_enabled') === 'true') {
             $defaults['index_document'] = 'checked="checked"';
         }
         $form->setDefaults($defaults);
@@ -1550,7 +1556,10 @@ class Exercise
     function search_engine_edit()
     {
         // update search enchine and its values table if enabled
-        if (api_get_setting('search_enabled')=='true' && extension_loaded('xapian')) {
+        if (api_get_setting(
+                'search.search_enabled'
+            ) == 'true' && extension_loaded('xapian')
+        ) {
             $course_id = api_get_course_id();
 
             // actually, it consists on delete terms from db,
@@ -1626,7 +1635,10 @@ class Exercise
     function search_engine_delete()
     {
         // remove from search engine if enabled
-        if (api_get_setting('search_enabled') == 'true' && extension_loaded('xapian') ) {
+        if (api_get_setting(
+                'search.search_enabled'
+            ) == 'true' && extension_loaded('xapian')
+        ) {
             $course_id = api_get_course_id();
             $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
             $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level IS NULL LIMIT 1';

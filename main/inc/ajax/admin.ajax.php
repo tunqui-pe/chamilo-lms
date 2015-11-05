@@ -130,7 +130,7 @@ function check_system_version()
 
         $data = array(
             'url' => api_get_path(WEB_PATH),
-            'campus' => api_get_setting('siteName'),
+            'campus' => api_get_setting('platform.site_name'),
             'contact' => api_get_setting('emailAdministrator'),
             'version' => $system_version,
             'numberofcourses' => $number_of_courses,

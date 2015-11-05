@@ -384,6 +384,8 @@ function api_get_timezones()
  */
 function _api_get_timezone()
 {
+    return date_default_timezone_get();
+
     // First, get the default timezone of the server
     $to_timezone = date_default_timezone_get();
     // Second, see if a timezone has been chosen for the platform
@@ -901,7 +903,9 @@ function api_get_person_name(
             switch ($format) {
                 case PERSON_NAME_COMMON_CONVENTION:
                     $valid[$format][$language] = _api_get_person_name_convention($language, 'format');
-                    $usernameOrderFromDatabase = api_get_setting('user_name_order');
+                    $usernameOrderFromDatabase = api_get_setting(
+                        'display.user_name_order'
+                    );
                     if (isset($usernameOrderFromDatabase) && !empty($usernameOrderFromDatabase)) {
                         $valid[$format][$language] = $usernameOrderFromDatabase;
                     }
@@ -995,7 +999,7 @@ function api_is_western_name_order($format = null, $language = null)
  * @author Ivan Tcholakov
  */
 function api_sort_by_first_name($language = null) {
-    $userNameSortBy = api_get_setting('user_name_sort_by');
+    $userNameSortBy = api_get_setting('display.user_name_sort_by');
     if (!empty($userNameSortBy) && in_array($userNameSortBy, array('firstname', 'lastname'))) {
         return $userNameSortBy == 'firstname' ? true : false;
     }

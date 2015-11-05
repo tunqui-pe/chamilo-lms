@@ -53,7 +53,10 @@ class ScoreDisplayForm extends FormValidator
 				'input-size' => 2
             ));
 
-            if (api_get_setting('teachers_can_change_score_settings') != 'true') {
+			if (api_get_setting(
+							'gradebook.teachers_can_change_score_settings'
+					) != 'true'
+			) {
                 $this->freeze('scorecolpercent');
             }
 

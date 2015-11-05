@@ -66,7 +66,7 @@ class IndexController extends BaseController
             $pageController->returnSkillsLinks();
         }*/
         $hotCourses = '';
-        if (api_get_setting('show_hot_courses') == 'true') {
+        if (api_get_setting('display.show_hot_courses') == 'true') {
             $hotCourses = $pageController->returnHotCourses();
         }
 

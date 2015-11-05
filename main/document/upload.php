@@ -276,7 +276,7 @@ $form->addElement(
     'onclick="javascript: check_unzip();" value="1"'
 );
 
-if (api_get_setting('search_enabled') == 'true') {
+if (api_get_setting('search.search_enabled') == 'true') {
     //TODO: include language file
     $supported_formats = get_lang('SupportedFormatsForIndex').': HTML, PDF, TXT, PDF, Postscript, MS Word, RTF, MS Power Point';
     $form->addElement('checkbox', 'index_document', '', get_lang('SearchFeatureDoIndexDocument').'<div style="font-size: 80%" >'.$supported_formats.'</div>');

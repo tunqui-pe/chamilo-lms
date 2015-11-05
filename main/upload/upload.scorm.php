@@ -32,7 +32,7 @@ if ($error == 'upload_file_too_big') {
         $msg = urlencode(get_lang('ScormPackageFormatNotScorm'));
         $dialogtype = 'error';
     } else {
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             require_once api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php';
             $specific_fields = get_specific_field_list();
 

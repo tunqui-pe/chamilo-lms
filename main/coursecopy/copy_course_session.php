@@ -350,7 +350,7 @@ if (Security::check_token('post') && (
     Security::clear_token();
 
     // Else, if a CourseSelectForm is requested, show it
-    if (api_get_setting('show_glossary_in_documents') != 'none') {
+    if (api_get_setting('document.show_glossary_in_documents') != 'none') {
         Display::display_normal_message(get_lang('ToExportDocumentsWithGlossaryYouHaveToSelectGlossary'));
     }
 

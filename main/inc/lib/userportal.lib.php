@@ -735,7 +735,7 @@ class IndexManager
     public function return_search_block()
     {
         $html = '';
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $search_btn = get_lang('Search');
             $search_content = '<form action="main/search/" method="post">
                 <div class="form-group">
@@ -789,7 +789,7 @@ class IndexManager
             $userPicture = UserManager::getUserPicture(api_get_user_id());
             $content = null;
 
-            if (api_get_setting('allow_social_tool') == 'true') {
+            if (api_get_setting('social.allow_social_tool') == 'true') {
                 $content .= '<a style="text-align:center" href="' . api_get_path(WEB_PATH) . 'main/social/home.php">
                 <img class="img-circle" src="' . $userPicture . '" ></a>';
             } else {
@@ -843,13 +843,13 @@ class IndexManager
             $cant_msg = Display::badge($number_of_new_messages);
 
             $link = '';
-            if (api_get_setting('allow_social_tool') == 'true') {
+            if (api_get_setting('social.allow_social_tool') == 'true') {
                 $link = '?f=social';
             }
             $profile_content .= '<li class="inbox-message-social"><a href="'.api_get_path(WEB_PATH).'main/messages/inbox.php'.$link.'">'.Display::return_icon('inbox.png',get_lang('Inbox'),null,ICON_SIZE_SMALL).get_lang('Inbox').$cant_msg.' </a></li>';
             $profile_content .= '<li class="new-message-social"><a href="'.api_get_path(WEB_PATH).'main/messages/new_message.php'.$link.'">'.Display::return_icon('new-message.png',get_lang('Compose'),null,ICON_SIZE_SMALL).get_lang('Compose').' </a></li>';
 
-            if (api_get_setting('allow_social_tool') == 'true') {
+            if (api_get_setting('social.allow_social_tool') == 'true') {
                 $total_invitations = Display::badge($total_invitations);
                 $profile_content .= '<li class="invitations-social"><a href="'.api_get_path(WEB_PATH).'main/social/invitations.php">'.Display::return_icon('invitations.png',get_lang('PendingInvitations'),null,ICON_SIZE_SMALL).get_lang('PendingInvitations').$total_invitations.'</a></li>';
             }
@@ -880,7 +880,7 @@ class IndexManager
         $html = '';
 
         // Deleting the myprofile link.
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             unset($this->tpl->menu_navigation['myprofile']);
         }
 

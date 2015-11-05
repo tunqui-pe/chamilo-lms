@@ -626,7 +626,7 @@ class AddCourse
             }
         }
 
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             Database::query(
                 "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
                 VALUES ($course_id, 23, '" . TOOL_SEARCH . "','search/','info.gif','" . self::string2binary(
@@ -1384,7 +1384,7 @@ class AddCourse
 
                 // @todo Improve code to send to all current portal administrators.
                 if ($send_mail_to_admin == 'true') {
-                    $siteName = api_get_setting('siteName');
+                    $siteName = api_get_setting('platform.site_name');
                     $recipient_email = api_get_setting('emailAdministrator');
                     $recipient_name = api_get_person_name(
                         api_get_setting('administratorName'),

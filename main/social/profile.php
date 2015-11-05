@@ -12,7 +12,7 @@
 $cidReset = true;
 //require_once '../inc/global.inc.php';
 
-if (api_get_setting('allow_social_tool') !='true') {
+if (api_get_setting('social.allow_social_tool') != 'true') {
     $url = api_get_path(WEB_PATH).'whoisonline.php?id='.intval($_GET['u']);
     header('Location: '.$url);
     exit;

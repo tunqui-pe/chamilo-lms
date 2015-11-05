@@ -30,6 +30,8 @@ class PlatformSettingsSchema implements SchemaInterface
                     'administrator_phone' => '123456',
                     'timezone' => 'Europe/Paris',
                     'theme' => 'chamilo',
+                    'gravatar_enabled' => 'false',
+                    'gravatar_type' => 'mm',
                 )
             )
             ->setAllowedTypes(
@@ -42,6 +44,8 @@ class PlatformSettingsSchema implements SchemaInterface
                     'administrator_surname' => array('string'),
                     'administrator_phone' => array('string'),
                     'timezone' => array('string'),
+                    'gravatar_enabled' => array('string'),
+                    'gravatar_type' => array('string'),
                 )
             );
     }
@@ -60,6 +64,9 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('administrator_surname')
             ->add('administrator_phone')
             ->add('timezone', 'timezone')
-            ->add('theme');
+            ->add('theme')
+            ->add('gravatar_enabled', 'yes_no')
+            ->add('gravatar_type')
+        ;
     }
 }

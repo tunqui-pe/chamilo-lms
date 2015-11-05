@@ -170,7 +170,7 @@ class Certificate extends Model
 
             // Prepare all necessary variables:
             $organization_name = api_get_setting('Institution');
-            //$portal_name         = api_get_setting('siteName');
+            //$portal_name         = api_get_setting('platform.site_name');
             $stud_fn = $user['firstname'];
             $stud_ln = $user['lastname'];
 

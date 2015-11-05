@@ -327,7 +327,7 @@ class CatForm extends FormValidator
             }
 
             if (count($test_cats) > 1 || !empty($links)) {
-                if (api_get_setting('gradebook_enable_grade_model') == 'true') {
+                if (api_get_setting('gradebook.gradebook_enable_grade_model') == 'true') {
                     $this->freeze('grade_model_id');
                 }
             }

@@ -210,7 +210,10 @@ class CourseSelectForm
     						Display::display_warning_message(get_lang('IfYourLPsHaveAudioFilesIncludedYouShouldSelectThemFromTheDocuments'));
 						}
 						if ($type == RESOURCE_DOCUMENT) {
-                            if (api_get_setting('show_glossary_in_documents') != 'none') {
+                            if (api_get_setting(
+                                    'document.show_glossary_in_documents'
+                                ) != 'none'
+                            ) {
                                 Display::display_warning_message(get_lang('ToExportDocumentsWithGlossaryYouHaveToSelectGlossary'));
                             }
 						}

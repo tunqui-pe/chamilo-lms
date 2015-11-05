@@ -63,7 +63,7 @@ class ScoreDisplay
 
         // Loading portal settings + using standard functions.
 
-        $value = api_get_setting('gradebook_score_display_coloring');
+        $value = api_get_setting('gradebook.gradebook_score_display_coloring');
         $value = $value['my_display_coloring'];
 
         // Setting coloring.
@@ -77,7 +77,7 @@ class ScoreDisplay
         }
 
         //Setting custom enabled
-        $value = api_get_setting('gradebook_score_display_custom');
+        $value = api_get_setting('gradebook.gradebook_score_display_custom');
         $value = $value['my_display_custom'];
         $this->custom_enabled  = $value == 'true' ? true : false;
 
@@ -106,7 +106,10 @@ class ScoreDisplay
 
         //If teachers can override the portal parameters
 
-        if (api_get_setting('teachers_can_change_score_settings') == 'true') {
+        if (api_get_setting(
+                'gradebook.teachers_can_change_score_settings'
+            ) == 'true'
+        ) {
             //Load course settings
             if ($this->custom_enabled) {
                 $this->custom_display = $this->get_custom_displays();

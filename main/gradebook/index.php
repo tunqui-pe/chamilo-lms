@@ -826,7 +826,9 @@ if (isset($first_time) && $first_time==1 && api_is_allowed_to_edit(null,true)) {
     $cats = Category::load(null, null, $course_code, null, null, $session_id, false);
 
     if (!empty($cats)) {
-        if ((api_get_setting('gradebook_enable_grade_model') == 'true') &&
+        if ((api_get_setting(
+                    'gradebook.gradebook_enable_grade_model'
+                ) == 'true') &&
             (
                 api_is_platform_admin() || (api_is_allowed_to_edit(null, true) &&
                 api_get_setting('teachers_can_change_grade_model_settings') == 'true')
@@ -906,7 +908,9 @@ if (isset($first_time) && $first_time==1 && api_is_allowed_to_edit(null,true)) {
                 );
 
                 if (api_is_allowed_to_edit(null,true) &&
-                    api_get_setting('gradebook_enable_grade_model') == 'true'
+                    api_get_setting(
+                        'gradebook.gradebook_enable_grade_model'
+                    ) == 'true'
                 ) {
                     //Showing the grading system
                     if (!empty($grade_models[$grade_model_id])) {

@@ -629,7 +629,7 @@ function handle_search()
     global $SettingsStored, $_configuration;
 
     require_once api_get_path(LIBRARY_PATH).'specific_fields_manager.lib.php';
-    $search_enabled = api_get_setting('search_enabled');
+    $search_enabled = api_get_setting('search.search_enabled');
 
     $form = new FormValidator('search-options', 'post', api_get_self().'?category=Search');
     $values = api_get_settings_options('search_enabled');
@@ -645,7 +645,7 @@ function handle_search()
     //SearchEnabledComment
     $form->addGroup($group, 'search_enabled', array(get_lang('SearchEnabledTitle'), get_lang('SearchEnabledComment')), '<br />', false);
 
-    $search_enabled = api_get_setting('search_enabled');
+    $search_enabled = api_get_setting('search.search_enabled');
 
     if ($form->validate()) {
         $formvalues = $form->exportValues();
@@ -1348,7 +1348,7 @@ function generate_settings_form($settings, $settings_by_access_list)
                 $group = array ();
                 while ($rowkeys = Database::fetch_array($result)) {
                     // Profile tab option should be hidden when the social tool is enabled.
-                    if (api_get_setting('allow_social_tool') == 'true') {
+                    if (api_get_setting('social.allow_social_tool') == 'true') {
                         if ($rowkeys['variable'] == 'show_tabs' && $rowkeys['subkey'] == 'my_profile') {
                             continue;
                         }

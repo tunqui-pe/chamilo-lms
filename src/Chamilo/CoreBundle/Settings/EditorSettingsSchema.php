@@ -39,6 +39,7 @@ class EditorSettingsSchema implements SchemaInterface
                     'enabled_support_pixlr' => '',
                     'htmlpurifier_wiki' => '',
                     'enable_iframe_inclusion' => '',
+                    'enabled_mathjax' => ''
                 )
             )
             ->setAllowedTypes(
@@ -70,6 +71,8 @@ class EditorSettingsSchema implements SchemaInterface
             ->add('enabled_insertHtml', 'yes_no')
             ->add('enabled_support_pixlr', 'yes_no')
             ->add('htmlpurifier_wiki', 'yes_no')
-            ->add('enable_iframe_inclusion', 'yes_no');
+            ->add('enable_iframe_inclusion', 'yes_no')
+            ->add('enabled_mathjax', 'yes_no')
+        ;
     }
 }

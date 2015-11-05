@@ -5,7 +5,7 @@ namespace Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar;
 
 /**
  * TestAnswerFeedback toolbar configuration
- * 
+ *
  * @package Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar
  */
 class TestAnswerFeedback extends Basic
@@ -43,7 +43,7 @@ class TestAnswerFeedback extends Basic
         //$config['width'] = '100';
         //$config['height'] = '200';
 
-        if (api_get_setting('more_buttons_maximized_mode') != 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') != 'true') {
             $config['toolbar'] = $this->getNormalToolbar();
         } else {
             $config['toolbar_minToolbar'] = $this->getMinimizedToolbar();

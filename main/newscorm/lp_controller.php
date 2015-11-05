@@ -28,12 +28,12 @@ if (isset($_GET['action'])) {
 $current_course_tool  = TOOL_LEARNPATH;
 $_course = api_get_course_info();
 
-$glossaryExtraTools = api_get_setting('show_glossary_in_extra_tools');
+$glossaryExtraTools = api_get_setting('glossary.show_glossary_in_extra_tools');
 $showGlossary = in_array($glossaryExtraTools, array('true', 'lp', 'exercise_and_lp'));
 
 if ($showGlossary) {
-    if (api_get_setting('show_glossary_in_documents') == 'ismanual' ||
-        api_get_setting('show_glossary_in_documents') == 'isautomatic'
+    if (api_get_setting('document.show_glossary_in_documents') == 'ismanual' ||
+        api_get_setting('document.show_glossary_in_documents') == 'isautomatic'
     ) {
         $htmlHeadXtra[] = '<script>
     <!--
@@ -969,7 +969,7 @@ switch ($action) {
             if ($_FILES['lp_preview_image']['size'] > 0)
                 $_SESSION['oLP']->upload_image($_FILES['lp_preview_image']);
 
-            if (api_get_setting('search_enabled') === 'true') {
+            if (api_get_setting('search.search_enabled') === 'true') {
                 require_once api_get_path(LIBRARY_PATH).'specific_fields_manager.lib.php';
                 $specific_fields = get_specific_field_list();
                 foreach ($specific_fields as $specific_field) {

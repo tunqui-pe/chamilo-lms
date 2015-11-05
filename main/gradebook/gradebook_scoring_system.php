@@ -9,7 +9,7 @@
 
 api_block_anonymous_users();
 
-if (api_get_setting('teachers_can_change_score_settings') != 'true') {
+if (api_get_setting('gradebook.teachers_can_change_score_settings') != 'true') {
     api_not_allowed();
 }
 

@@ -60,22 +60,12 @@ class LegacyListener
         \CourseManager::setEntityManager($entityManager);
         //\CourseManager::setCourseManager($container->get('chamilo_core.manager.course'));
         //\CourseManager::setCourseSettingsManager($container->get('chamilo_course.settings.manager'));
-        Container::$mailer = $container->get('mailer');
 
         // Setting legacy properties.
-        Container::$urlGenerator = $container->get('router');
-        Container::$security = $container->get('security.authorization_checker');
-        Container::$translator = $container->get('translator');
-
         // Setting paths.
-        Container::$rootDir = $container->get('kernel')->getRealRootDir();
-        Container::$logDir = $container->get('kernel')->getLogDir();
         Container::$dataDir = $container->get('kernel')->getDataDir();
-        Container::$tempDir = $container->get('kernel')->getCacheDir();
         Container::$courseDir = $container->get('kernel')->getDataDir();
-        //Container::$configDir = $container->get('kernel')->getConfigDir();
-        Container::$assets = $container->get('templating.helper.assets');
-        Container::$roles = $container->get('security.role_hierarchy');
+
 
         // Setting editor
         //Container::$htmlEditor = $container->get('chamilo_core.html_editor');

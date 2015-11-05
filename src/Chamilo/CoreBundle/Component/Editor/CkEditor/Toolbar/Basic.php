@@ -78,11 +78,14 @@ class Basic extends Toolbar
         // Adding plugins depending of platform conditions
         $plugins = array();
 
-        if (api_get_setting('show_glossary_in_documents') == 'ismanual') {
+        if (api_get_setting(
+                'document.show_glossary_in_documents'
+            ) == 'ismanual'
+        ) {
             $plugins[] = 'glossary';
         }
 
-        if (api_get_setting('youtube_for_students') == 'true') {
+        if (api_get_setting('editor.youtube_for_students') == 'true') {
             $plugins[] = 'youtube';
         } else {
             if (api_is_allowed_to_edit() || api_is_platform_admin()) {
@@ -90,28 +93,28 @@ class Basic extends Toolbar
             }
         }
 
-        if (api_get_setting('enabled_googlemaps') == 'true') {
+        if (api_get_setting('editor.enabled_googlemaps') == 'true') {
             $plugins[] = 'leaflet';
         }
 
-        if (api_get_setting('math_asciimathML') == 'true') {
+        if (api_get_setting('editor.math_asciimathML') == 'true') {
             $plugins[] = 'asciimath';
         }
 
-        if (api_get_setting('enabled_mathjax') == 'true') {
+        if (api_get_setting('editor.enabled_mathjax') == 'true') {
             $plugins[] = 'mathjax';
         }
 
-        if (api_get_setting('enabled_asciisvg') == 'true') {
+        if (api_get_setting('editor.enabled_asciisvg') == 'true') {
             $plugins[] = 'asciisvg';
         }
 
-        if (api_get_setting('enabled_wiris') == 'true') {
+        if (api_get_setting('editor.enabled_wiris') == 'true') {
             // Commercial plugin
             //$plugins[] = 'ckeditor_wiris';
         }
 
-        if (api_get_setting('enabled_imgmap') == 'true') {
+        if (api_get_setting('editor.enabled_imgmap') == 'true') {
             $plugins[] = 'mapping';
         }
 
@@ -119,11 +122,11 @@ class Basic extends Toolbar
             // Missing
         }*/
 
-        if (api_get_setting('more_buttons_maximized_mode') == 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
             $plugins[] = 'toolbarswitch';
         }
 
-        if (api_get_setting('allow_spellcheck') == 'true') {
+        if (api_get_setting('editor.allow_spellcheck') == 'true') {
             $plugins[] = 'scayt';
         }
 
@@ -138,7 +141,7 @@ class Basic extends Toolbar
     public function getConfig()
     {
         $config = array();
-        if (api_get_setting('more_buttons_maximized_mode') == 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
             $config['toolbar_minToolbar'] = $this->getMinimizedToolbar();
 
             $config['toolbar_maxToolbar'] = $this->getMaximizedToolbar();

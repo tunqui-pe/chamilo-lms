@@ -172,7 +172,10 @@ if ($form->validate()) {
             get_lang('DirectFeedbackCantModifyTypeQuestion')
         );
 
-    if (api_get_setting('search_enabled')=='true' && !extension_loaded('xapian')) {
+    if (api_get_setting('search.search_enabled') == 'true' && !extension_loaded(
+            'xapian'
+        )
+    ) {
         Display::display_error_message(get_lang('SearchXapianModuleNotInstalled'));
     }
 

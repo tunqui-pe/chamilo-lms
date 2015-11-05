@@ -223,7 +223,7 @@ class SessionManager
 
                       $user_info = api_get_user_info(1);
                       $complete_name = $user_info['firstname'].' '.$user_info['lastname'];
-                      $subject = api_get_setting('siteName').' - '.get_lang('ANewSessionWasCreated');
+                      $subject = api_get_setting('platform.site_name').' - '.get_lang('ANewSessionWasCreated');
                       $message = get_lang('ANewSessionWasCreated')." <br /> ".get_lang('NameOfTheSession').' : '.$name;
                       api_mail_html($complete_name, $user_info['email'], $subject, $message);
                      *

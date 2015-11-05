@@ -142,7 +142,11 @@ class CourseRequestManager
         // E-mail language: The platform language seems to be the best choice.
         $email_language = api_get_setting('platformLanguage');
 
-        $email_subject = sprintf(get_lang('CourseRequestEmailSubject', null, $email_language), '['.api_get_setting('siteName').']', $code);
+        $email_subject = sprintf(
+            get_lang('CourseRequestEmailSubject', null, $email_language),
+            '['.api_get_setting('platform.site_name').']',
+            $code
+        );
 
         $email_body = get_lang('CourseRequestMailOpening', null, $email_language)."\n\n";
         $email_body .= get_lang('CourseName', null, $email_language).': '.$title."\n";
@@ -195,7 +199,11 @@ class CourseRequestManager
         $email_body_teacher .= $email_body;
         $email_body_teacher .= "\n".get_lang('Formula', null, $email_language)."\n";
         $email_body_teacher .= api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, null, $email_language)."\n";
-        $email_body_teacher .= get_lang('Manager', null, $email_language).' '.api_get_setting('siteName')."\n";
+        $email_body_teacher .= get_lang(
+                'Manager',
+                null,
+                $email_language
+            ).' '.api_get_setting('platform.site_name')."\n";
         $email_body_teacher .= get_lang('Phone', null, $email_language).': '.api_get_setting('administratorTelephone')."\n";
         $email_body_teacher .= get_lang('Email', null, $email_language).': '.api_get_setting('emailAdministrator', null, $email_language)."\n";
         $email_body_teacher .= "\n".get_lang('CourseRequestLegalNote', null, $email_language)."\n";
@@ -482,14 +490,26 @@ class CourseRequestManager
             // E-mail language: The platform language seems to be the best choice
             $email_language = api_get_setting('platformLanguage');
 
-            $email_subject = sprintf(get_lang('CourseRequestAcceptedEmailSubject', null, $email_language), '['.api_get_setting('siteName').']', $course_info['code']);
+            $email_subject = sprintf(
+                get_lang(
+                    'CourseRequestAcceptedEmailSubject',
+                    null,
+                    $email_language
+                ),
+                '['.api_get_setting('platform.site_name').']',
+                $course_info['code']
+            );
 
             $email_body = get_lang('Dear', null, $email_language).' ';
             $email_body .= api_get_person_name($user_info['firstname'], $user_info['lastname'], null, null, $email_language).",\n\n";
             $email_body .= sprintf(get_lang('CourseRequestAcceptedEmailText', null, $email_language), $wanted_code, $course_info['code'], api_get_path(WEB_COURSE_PATH).$course_info['directory'].'/')."\n";
             $email_body .= "\n".get_lang('Formula', null, $email_language)."\n";
             $email_body .= api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, null, $email_language)."\n";
-            $email_body .= get_lang('Manager', null, $email_language).' '.api_get_setting('siteName')."\n";
+            $email_body .= get_lang(
+                    'Manager',
+                    null,
+                    $email_language
+                ).' '.api_get_setting('platform.site_name')."\n";
             $email_body .= get_lang('Phone', null, $email_language).': '.api_get_setting('administratorTelephone')."\n";
             $email_body .= get_lang('Email', null, $email_language).': '.api_get_setting('emailAdministrator', null, $email_language)."\n";
             $email_body .= "\n".get_lang('CourseRequestLegalNote', null, $email_language)."\n";
@@ -562,14 +582,26 @@ class CourseRequestManager
         // E-mail language: The platform language seems to be the best choice.
         $email_language = api_get_setting('platformLanguage');
 
-        $email_subject = sprintf(get_lang('CourseRequestRejectedEmailSubject', null, $email_language), '['.api_get_setting('siteName').']', $code);
+        $email_subject = sprintf(
+            get_lang(
+                'CourseRequestRejectedEmailSubject',
+                null,
+                $email_language
+            ),
+            '['.api_get_setting('platform.site_name').']',
+            $code
+        );
 
         $email_body = get_lang('Dear', null, $email_language).' ';
         $email_body .= api_get_person_name($user_info['firstname'], $user_info['lastname'], null, null, $email_language).",\n\n";
         $email_body .= sprintf(get_lang('CourseRequestRejectedEmailText', null, $email_language), $code)."\n";
         $email_body .= "\n".get_lang('Formula', null, $email_language)."\n";
         $email_body .= api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, null, $email_language)."\n";
-        $email_body .= get_lang('Manager', null, $email_language).' '.api_get_setting('siteName')."\n";
+        $email_body .= get_lang(
+                'Manager',
+                null,
+                $email_language
+            ).' '.api_get_setting('platform.site_name')."\n";
         $email_body .= get_lang('Phone', null, $email_language).': '.api_get_setting('administratorTelephone')."\n";
         $email_body .= get_lang('Email', null, $email_language).': '.api_get_setting('emailAdministrator', null, $email_language)."\n";
         $email_body .= "\n".get_lang('CourseRequestLegalNote', null, $email_language)."\n";
@@ -639,14 +671,22 @@ class CourseRequestManager
 
         // E-mail language: The platform language seems to be the best choice.
         $email_language = api_get_setting('platformLanguage');
-        $email_subject = sprintf(get_lang('CourseRequestAskInfoEmailSubject', null, $email_language), '['.api_get_setting('siteName').']', $code);
+        $email_subject = sprintf(
+            get_lang('CourseRequestAskInfoEmailSubject', null, $email_language),
+            '['.api_get_setting('platform.site_name').']',
+            $code
+        );
 
         $email_body = get_lang('Dear', null, $email_language).' ';
         $email_body .= api_get_person_name($user_info['firstname'], $user_info['lastname'], null, null, $email_language).",\n\n";
         $email_body .= sprintf(get_lang('CourseRequestAskInfoEmailText', null, $email_language), $code)."\n";
         $email_body .= "\n".get_lang('Formula', null, $email_language)."\n";
         $email_body .= api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))."\n";
-        $email_body .= get_lang('Manager', null, $email_language).' '.api_get_setting('siteName')."\n";
+        $email_body .= get_lang(
+                'Manager',
+                null,
+                $email_language
+            ).' '.api_get_setting('platform.site_name')."\n";
         $email_body .= get_lang('Phone', null, $email_language).': '.api_get_setting('administratorTelephone')."\n";
         $email_body .= get_lang('Email', null, $email_language).': '.api_get_setting('emailAdministrator')."\n";
         $email_body .= "\n".get_lang('CourseRequestLegalNote', null, $email_language)."\n";

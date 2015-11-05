@@ -250,7 +250,10 @@ class GradeModel extends Model
 
     public function fill_grade_model_select_in_form(&$form, $name = 'gradebook_model_id', $default_value = null)
     {
-        if (api_get_setting('gradebook_enable_grade_model') == 'false') {
+        if (api_get_setting(
+                'gradebook.gradebook_enable_grade_model'
+            ) == 'false'
+        ) {
             return false;
         }
 

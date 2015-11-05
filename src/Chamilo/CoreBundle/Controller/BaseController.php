@@ -29,10 +29,10 @@ abstract class BaseController extends Controller
     /**
      * @return \Symfony\Component\Security\Core\SecurityContextInterface
      */
-    public function getSecurity()
+    /*public function getSecurity()
     {
         return $this->container->get('security.context');
-    }
+    }*/
 
     /**
      * @return TwigEngine

@@ -838,7 +838,7 @@ abstract class Question
                     api_get_user_id()
                 );
             }
-            if (api_get_setting('search_enabled') == 'true') {
+            if (api_get_setting('search.search_enabled') == 'true') {
                 if ($exerciseId != 0) {
                     $this -> search_engine_edit($exerciseId);
                 } else {
@@ -936,7 +936,7 @@ abstract class Question
                     }
                 }
 
-                if (api_get_setting('search_enabled') == 'true') {
+                if (api_get_setting('search.search_enabled') == 'true') {
                     if ($exerciseId != 0) {
                         $this->search_engine_edit($exerciseId, true);
                     } else {
@@ -959,7 +959,10 @@ abstract class Question
     public function search_engine_edit($exerciseId, $addQs=false, $rmQs=false)
     {
         // update search engine and its values table if enabled
-        if (api_get_setting('search_enabled')=='true' && extension_loaded('xapian')) {
+        if (api_get_setting(
+                'search.search_enabled'
+            ) == 'true' && extension_loaded('xapian')
+        ) {
             $course_id = api_get_course_id();
             // get search_did
             $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
@@ -1248,7 +1251,10 @@ abstract class Question
         } else {
             // just removes the exercise from the list
             $this->removeFromList($deleteFromEx);
-            if (api_get_setting('search_enabled') == 'true' && extension_loaded('xapian')) {
+            if (api_get_setting(
+                    'search.search_enabled'
+                ) == 'true' && extension_loaded('xapian')
+            ) {
                 // disassociate question with this exercise
                 $this->search_engine_edit($deleteFromEx, FALSE, TRUE);
             }

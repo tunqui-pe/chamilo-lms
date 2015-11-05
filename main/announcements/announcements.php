@@ -223,12 +223,12 @@ switch ($action) {
                 $email_ann = '1';
                 $content_to_modify = sprintf(
                     get_lang('RemindInactiveLearnersMailContent'),
-                    api_get_setting('siteName'),
+                    api_get_setting('platform.site_name'),
                     7
                 );
                 $title_to_modify = sprintf(
                     get_lang('RemindInactiveLearnersMailSubject'),
-                    api_get_setting('siteName')
+                    api_get_setting('platform.site_name')
                 );
             } elseif (isset($_GET['remindallinactives']) && $_GET['remindallinactives'] == 'true') {
                 // we want to remind inactive users. The $_GET['since'] parameter
@@ -249,12 +249,12 @@ switch ($action) {
                 // setting the variables for the form elements: the title of the email
                 $title_to_modify = sprintf(
                     get_lang('RemindInactiveLearnersMailSubject'),
-                    api_get_setting('siteName')
+                    api_get_setting('platform.site_name')
                 );
                 // setting the variables for the form elements: the message of the email
                 $content_to_modify = sprintf(
                     get_lang('RemindInactiveLearnersMailContent'),
-                    api_get_setting('siteName'),
+                    api_get_setting('platform.site_name'),
                     $since
                 );
                 // when we want to remind the users who have never been active
@@ -262,7 +262,7 @@ switch ($action) {
                 if ($_GET['since'] == 'never') {
                     $title_to_modify = sprintf(
                         get_lang('RemindInactiveLearnersMailSubject'),
-                        api_get_setting('siteName')
+                        api_get_setting('platform.site_name')
                     );
                     $content_to_modify = get_lang(
                         'YourAccountIsActiveYouCanLoginAndCheckYourCourses'

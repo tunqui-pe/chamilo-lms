@@ -37,7 +37,10 @@ class MessageManager
         if (isset($_SESSION['social_exist']) &&
             $_SESSION['social_exist'] === true
         ) {
-            if (api_get_setting('allow_social_tool') == 'true' && api_get_setting('allow_message_tool') == 'true') {
+            if (api_get_setting(
+                    'social.allow_social_tool'
+                ) == 'true' && api_get_setting('allow_message_tool') == 'true'
+            ) {
                 $success = get_lang('MessageSentTo').
                     "&nbsp;<b>".
                     GetFullUserName($uid).
@@ -981,14 +984,14 @@ class MessageManager
 
         $message_content = Display::page_subheader(str_replace("\\", "", $title));
 
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             $message_content .= $user_image.' ';
         }
 
         $receiverUserInfo = api_get_user_info($row['user_receiver_id']);
 
         $message_content .='<tr>';
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             if ($source == 'outbox') {
                 $message_content .= get_lang('From').': <a href="'.api_get_path(WEB_PATH).'main/social/profile.php?u='.$user_sender_id.'">'.$name.'</a> '.
                     api_strtolower(get_lang('To')).'&nbsp;<b>'.$receiverUserInfo['complete_name'].'</b>';

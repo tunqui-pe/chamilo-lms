@@ -119,16 +119,34 @@ switch ($action) {
                 if ($status == 1) {
                     $user_info = api_get_user_info($user_id);
                     $recipient_name = api_get_person_name($user_info['firstname'], $user_info['lastname'], null, PERSON_NAME_EMAIL_ADDRESS);
-                    $emailsubject = '['.api_get_setting('siteName').'] '.get_lang('YourReg').' '.api_get_setting('siteName');
+                    $emailsubject = '['.api_get_setting(
+                            'platform.site_name'
+                        ).'] '.get_lang('YourReg').' '.api_get_setting(
+                            'platform.site_name'
+                        );
                     $email_admin = api_get_setting('emailAdministrator');
                     $sender_name = api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
                     $emailbody=get_lang('Dear')." ".stripslashes($recipient_name).",\n\n";
 
-                    $emailbody.=sprintf(get_lang('YourAccountOnXHasJustBeenApprovedByOneOfOurAdministrators'), api_get_setting('siteName'))."\n";
+                    $emailbody .= sprintf(
+                            get_lang(
+                                'YourAccountOnXHasJustBeenApprovedByOneOfOurAdministrators'
+                            ),
+                            api_get_setting('platform.site_name')
+                        )."\n";
                     $emailbody.=sprintf(get_lang('YouCanNowLoginAtXUsingTheLoginAndThePasswordYouHaveProvided'), api_get_path(WEB_PATH)).",\n\n";
                     $emailbody.=get_lang('HaveFun')."\n\n";
                     //$emailbody.=get_lang('Problem'). "\n\n". get_lang('SignatureFormula');
-                    $emailbody.=api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))."\n". get_lang('Manager'). " ".api_get_setting('siteName')."\nT. ".api_get_setting('administratorTelephone')."\n" .get_lang('Email') ." : ".api_get_setting('emailAdministrator');
+                    $emailbody .= api_get_person_name(
+                            api_get_setting('administratorName'),
+                            api_get_setting('administratorSurname')
+                        )."\n".get_lang('Manager')." ".api_get_setting(
+                            'platform.site_name'
+                        )."\nT. ".api_get_setting(
+                            'administratorTelephone'
+                        )."\n".get_lang('Email')." : ".api_get_setting(
+                            'emailAdministrator'
+                        );
 
                     $additionalParameters = array(
                         'smsType' => SmsPlugin::ACCOUNT_APPROVED_CONNECT,

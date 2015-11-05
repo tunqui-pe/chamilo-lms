@@ -42,7 +42,7 @@ class EventsMail
         );
         $email_admin = api_get_setting('emailAdministrator');
         // basic  keys
-        $event_data["sitename"] = api_get_setting('siteName');
+        $event_data["sitename"] = api_get_setting('platform.site_name');
         $event_data["administrator_name"] = api_get_setting('administratorName');
         $event_data["administrator_surname"] = api_get_setting('administratorSurname');
         $event_data["administrator_phone"] = api_get_setting('administratorTelephone');

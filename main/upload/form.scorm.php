@@ -69,7 +69,7 @@ $form->addRule('user_file', get_lang('ThisFieldIsRequired'), 'required');
 unset($content_origins[0]);
 unset($content_origins[1]);
 
-if (api_get_setting('search_enabled') == 'true') {
+if (api_get_setting('search.search_enabled') == 'true') {
     $form->addElement('checkbox', 'index_document', '', get_lang('SearchFeatureDoIndexDocument'));
     $specific_fields = get_specific_field_list();
     foreach ($specific_fields as $specific_field) {

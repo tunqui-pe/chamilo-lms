@@ -690,7 +690,7 @@ class Template
         $this->assign('news_list', $announcements);
 
         $profile_link = null;
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             $profile_link = $this->urlGenerator->generate('root').'social/home.php';
         } else {
             if (api_is_profile_readable()) {
@@ -952,7 +952,7 @@ class Template
     public function getNavigationLinks()
     {
         // Deleting the my profile link.
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             unset($this->menu_navigation['myprofile']);
         }
         return $this->menu_navigation;
@@ -1061,7 +1061,7 @@ class Template
         }
 
         // Social
-        if (api_get_setting('allow_social_tool') == 'true') {
+        if (api_get_setting('social.allow_social_tool') == 'true') {
             $navigation['social']['url'] = $webCodePath.'social/home.php';
             $navigation['social']['title'] = get_lang('SocialNetwork');
         }
@@ -1266,7 +1266,7 @@ class Template
 
             // My Profile
             /*
-            if (api_get_setting('show_tabs', 'my_profile') == 'true' && api_get_setting('allow_social_tool') != 'true') {
+            if (api_get_setting('show_tabs', 'my_profile') == 'true' && api_get_setting('social.allow_social_tool') != 'true') {
                 if (isset($possible_tabs['myprofile'])) {
                     $navigation['myprofile'] = $possible_tabs['myprofile'];
                 }
@@ -1312,7 +1312,7 @@ class Template
 /*
             // Social Networking
             if (api_get_setting('show_tabs', 'social') == 'true') {
-                if (api_get_setting('allow_social_tool') == 'true') {
+                if (api_get_setting('social.allow_social_tool') == 'true') {
                     $navigation['social'] = $possible_tabs['social'];
                 }
             } else {

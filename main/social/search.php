@@ -12,7 +12,7 @@ require_once api_get_path(LIBRARY_PATH).'magpierss/rss_fetch.inc';
 $ajax_url = api_get_path(WEB_AJAX_PATH).'message.ajax.php';
 api_block_anonymous_users();
 
-if (api_get_setting('allow_social_tool') != 'true') {
+if (api_get_setting('social.allow_social_tool') != 'true') {
     api_not_allowed();
 }
 

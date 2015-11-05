@@ -30,10 +30,10 @@ abstract class BaseResourceController extends ResourceController
     /**
      * @return \Symfony\Component\Security\Core\SecurityContextInterface
      */
-    public function getSecurity()
+    /*public function getSecurity()
     {
         return $this->container->get('security.context');
-    }
+    }*/
 
     /**
      * @return object

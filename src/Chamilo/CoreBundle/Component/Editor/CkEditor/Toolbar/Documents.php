@@ -19,7 +19,7 @@ class Documents extends Basic
     public function getConfig()
     {
         $config = array();
-        if (api_get_setting('more_buttons_maximized_mode') != 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') != 'true') {
             $config['toolbar'] = $this->getNormalToolbar();
         } else {
             $config['toolbar_minToolbar'] = $this->getMinimizedToolbar();
@@ -38,7 +38,10 @@ class Documents extends Basic
     {
         $plugins = array();
 
-        if (api_get_setting('show_glossary_in_documents') == 'ismanual') {
+        if (api_get_setting(
+                'document.show_glossary_in_documents'
+            ) == 'ismanual'
+        ) {
             $plugins[] = 'glossary';
         }
 

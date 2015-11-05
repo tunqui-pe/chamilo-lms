@@ -78,7 +78,9 @@ class Login
      */
     public static function send_password_to_user($user, $by_username = false)
     {
-        $email_subject = "[" . api_get_setting('siteName') . "] " . get_lang('LoginRequest'); // SUBJECT
+        $email_subject = "[".api_get_setting(
+                'platform.site_name'
+            )."] ".get_lang('LoginRequest'); // SUBJECT
 
         if ($by_username) { // Show only for lost password
             $user_account_list = self::get_user_account_list($user, false, $by_username); // BODY
@@ -131,7 +133,9 @@ class Login
      */
     public static function handle_encrypted_password($user, $by_username = false)
     {
-        $email_subject = "[" . api_get_setting('siteName') . "] " . get_lang('LoginRequest'); // SUBJECT
+        $email_subject = "[".api_get_setting(
+                'platform.site_name'
+            )."] ".get_lang('LoginRequest'); // SUBJECT
 
         if ($by_username) {
         // Show only for lost password
@@ -145,7 +149,13 @@ class Login
         $email_body .= $user_account_list . "\n-----------------------------------------------\n\n";
         $email_body .= get_lang('PasswordEncryptedForSecurity');
 
-        $email_body .= "\n\n" . get_lang('SignatureFormula') . ",\n" . api_get_setting('administratorName') . " " . api_get_setting('administratorSurname') . "\n" . get_lang('PlataformAdmin') . " - " . api_get_setting('siteName');
+        $email_body .= "\n\n".get_lang(
+                'SignatureFormula'
+            ).",\n".api_get_setting('administratorName')." ".api_get_setting(
+                'administratorSurname'
+            )."\n".get_lang('PlataformAdmin')." - ".api_get_setting(
+                'platform.site_name'
+            );
 
         $sender_name = api_get_person_name(
             api_get_setting('administratorName'),

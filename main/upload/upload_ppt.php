@@ -21,7 +21,7 @@ if (isset($_POST['convert'])) {
         if (in_array(strtolower(pathinfo($_FILES['user_file']['name'], PATHINFO_EXTENSION)), $allowed_extensions)) {
             require_once api_get_path(SYS_CODE_PATH).'newscorm/lp_upload.php';
             if (isset($o_ppt) && $first_item_id != 0) {
-                if (api_get_setting('search_enabled')=='true') {
+                if (api_get_setting('search.search_enabled') == 'true') {
                     require_once api_get_path(LIBRARY_PATH).'specific_fields_manager.lib.php';
                     $specific_fields = get_specific_field_list();
                     foreach ($specific_fields as $specific_field) {
@@ -77,7 +77,7 @@ $form->addElement('header', get_lang("WelcomeOogieSubtitle"));
 $form->addElement('html', Display::return_message($message, 'info', false));
 $form->addElement('file', 'user_file', array('<img src="../img/powerpoint_big.gif" />', $div_upload_limit));
 $form->addElement('checkbox', 'take_slide_name', '', get_lang('TakeSlideName'));
-if (api_get_setting('search_enabled') == 'true') {
+if (api_get_setting('search.search_enabled') == 'true') {
     require_once(api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php');
     $specific_fields = get_specific_field_list();
     $form->addElement('checkbox', 'index_document', '', get_lang('SearchFeatureDoIndexDocument'));

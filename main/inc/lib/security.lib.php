@@ -339,7 +339,7 @@ class Security
             $config->set('Core.ConvertDocumentToFragment', false);
             $config->set('Core.RemoveProcessingInstructions', true);
 
-            if (api_get_setting('enable_iframe_inclusion') == 'true') {
+            if (api_get_setting('editor.enable_iframe_inclusion') == 'true') {
                 $config->set('Filter.Custom', array(new AllowIframes()));
             }
 

@@ -56,20 +56,12 @@ class LegacyController extends BaseController
         $database->setConnection($dbConnection);
         $database->setManager($em);
 
-        Container::$urlGenerator = $this->container->get('router');
-        Container::$security = $this->container->get('security.context');
-        Container::$translator = $this->container->get('translator');
-        Container::$assets = $this->container->get('templating.helper.assets');
-        Container::$rootDir = $this->container->get('kernel')->getRealRootDir();
-        Container::$logDir = $this->container->get('kernel')->getLogDir();
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
-        Container::$tempDir = $this->container->get('kernel')->getCacheDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
         //Container::$configDir = $this->container->get('kernel')->getConfigDir();
         Container::$htmlEditor = $this->container->get(
             'chamilo_core.html_editor'
         );
-        Container::$twig = $this->container->get('twig');
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
@@ -102,7 +94,6 @@ class LegacyController extends BaseController
 
             // $interbreadcrumb is loaded in the require_once file.
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
-
 
             return $this->render(
                 'ChamiloCoreBundle:Legacy:index.html.twig',

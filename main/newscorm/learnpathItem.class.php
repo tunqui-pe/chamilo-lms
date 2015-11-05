@@ -172,7 +172,7 @@ class learnpathItem
         $this->seriousgame_mode = 0;
 
         // Get search_did.
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $tbl_se_ref = Database::get_main_table(
                 TABLE_MAIN_SEARCH_ENGINE_REF
             );
@@ -342,7 +342,7 @@ class learnpathItem
             error_log('Deleting from lp_item: ' . $sql);
         }
 
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             if (!is_null($this->search_did)) {
                 require_once api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php';
                 $di = new ChamiloIndexer();
@@ -3394,7 +3394,7 @@ class learnpathItem
                     id=" . $this->get_id();
         Database::query($sql);
         // Save it to search engine.
-        if (api_get_setting('search_enabled') == 'true') {
+        if (api_get_setting('search.search_enabled') == 'true') {
             $di = new ChamiloIndexer();
             $di->update_terms($this->get_search_did(), $new_terms, 'T');
         }
