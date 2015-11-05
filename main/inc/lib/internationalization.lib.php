@@ -91,7 +91,7 @@ define('LANGUAGE_DETECT_MAX_DELTA', 140000);
  */
 function get_lang($variable, $reserved = null, $language = null)
 {
-    $defaultDomain = 'all';
+    $defaultDomain = 'messages';
     $translated = Container::getTranslator()->trans(
         $variable,
         array(),
