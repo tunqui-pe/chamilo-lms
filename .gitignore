@@ -10,7 +10,9 @@
 /app/phpunit.xml
 /bin/
 
-/app/config/parameters.yml
+/app/courses/*
+!app/courses/.gitkeep
+
 /app/config/add_course.conf.php
 /app/config/auth.conf.php
 /app/config/configuration.php
@@ -52,4 +54,7 @@ main/cron/incoming/*
 composer.lock
 vendor
 web/assets/*
-
+web/assetic/*
+web/bundles/*
+web/css/*
+web/js/*
