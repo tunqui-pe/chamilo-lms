@@ -96,7 +96,10 @@ $toolbar = Display::toolbarButton(
 );
 
 $tpl = new Template(get_lang('CreateBadge'));
-$tpl->assign('platformAdminEmail', api_get_setting('emailAdministrator'));
+$tpl->assign(
+    'platformAdminEmail',
+    api_get_setting('platform.administrator_email')
+);
 $tpl->assign('skill', $skill);
 
 $contentTemplate = $tpl->fetch('default/skill/badge_create.tpl');

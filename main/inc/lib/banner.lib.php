@@ -67,7 +67,7 @@ function get_tabs($courseId = null)
     } else {
         $navigation['session_my_progress']['url'] = api_get_path(WEB_CODE_PATH);
             // Link to my progress
-        switch (api_get_setting('gamification_mode')) {
+        switch (api_get_setting('platform.gamification_mode')) {
             case 1:
                 $navigation['session_my_progress']['url'] .= 'gamification/my_progress.php';
                 break;
@@ -218,13 +218,15 @@ function return_notification_menu()
         (api_get_setting('showonline', 'users') == 'true' && $user_id) ||
         (api_get_setting('showonline', 'course') == 'true' && $user_id && $course_id)
     ) {
-        $number = who_is_online_count(api_get_setting('time_limit_whosonline'));
+        $number = who_is_online_count(
+            api_get_setting('display.time_limit_whosonline')
+        );
 
         $number_online_in_course = 0;
         if (!empty($_course['id'])) {
             $number_online_in_course = who_is_online_in_this_course_count(
                 $user_id,
-                api_get_setting('time_limit_whosonline'),
+                api_get_setting('display.time_limit_whosonline'),
                 $_course['id']
             );
         }
@@ -395,7 +397,7 @@ function return_menu()
 
     // Displaying the tabs
 
-    $lang = api_get_setting('platformLanguage');
+    $lang = api_get_setting('language.platform_language');
 
     if (!empty($_SESSION['user_language_choice'])) {
         $lang = $_SESSION['user_language_choice'];

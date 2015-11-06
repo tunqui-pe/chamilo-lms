@@ -812,7 +812,7 @@ class TestInternationalization extends UnitTestCase {
 		$enabled_languages = $enabled_languages_info['folder'];
 		$language = array();
 		$language[] = '   '.strtoupper(api_get_interface_language()).'    ';
-		$language[] = " \t   ".strtoupper(api_get_setting('platformLanguage'))."   \t ";
+		$language[] = " \t   ".strtoupper(api_get_setting('language.platform_language'))."   \t ";
 		$language[] = 'xxxxxxxxxxxxxx';
 		$language[] = '   \t'.strtoupper('bulgarian').'    ';
 		$res = array();
@@ -824,7 +824,7 @@ class TestInternationalization extends UnitTestCase {
 		foreach ($language as $value) {
 			$value = str_replace('_km', '_KM', strtolower(trim($value)));
 			if (empty($value) || !in_array($value, $enabled_languages) || !api_is_language_supported($value)) {
-				$value = api_get_setting('platformLanguage');
+				$value = api_get_setting('language.platform_language');
 			}
 			$expected = $value;
 		}

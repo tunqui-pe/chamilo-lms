@@ -20,7 +20,9 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
 
 // A check whether the course validation feature is enabled.
-$course_validation_feature = api_get_setting('course_validation') == 'true';
+$course_validation_feature = api_get_setting(
+        'course.course_validation'
+    ) == 'true';
 
 // Filltering passed to this page parameters.
 $accept_course_request = isset($_GET['accept_course_request']) ? intval($_GET['accept_course_request']) : '';

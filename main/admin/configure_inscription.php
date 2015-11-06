@@ -20,7 +20,7 @@ if (api_get_setting('allow_terms_conditions') == 'true') {
             $term_preview = LegalManager::get_last_condition($language);
             if (!$term_preview) {
                 //look for the default language
-                $language = api_get_setting('platformLanguage');
+                $language = api_get_setting('language.platform_language');
                 $language = api_get_language_id($language);
                 $term_preview = LegalManager::get_last_condition($language);
             }
@@ -59,7 +59,7 @@ if (!empty($_SESSION['user_language_choice'])) {
 } elseif (!empty($_SESSION['_user']['language'])) {
     $lang = $_SESSION['_user']['language'];
 } else {
-    $lang = api_get_setting('platformLanguage');
+    $lang = api_get_setting('language.platform_language');
 }
 
 // ----- Ensuring availability of main files in the corresponding language -----
@@ -197,7 +197,7 @@ if ($display_all_form) {
 
     //	EMAIL
     $form->addElement('text', 'email', get_lang('Email'), array('size' => 40, 'disabled' => 'disabled'));
-    if (api_get_setting('registration', 'email') == 'true') {
+    if (api_get_setting_in_list('required_profile_fields', 'email')) {
         $form->addRule('email', get_lang('ThisFieldIsRequired'), 'required');
     }
     $form->addRule('email', get_lang('EmailWrong'), 'email');
@@ -224,12 +224,12 @@ if ($display_all_form) {
 
     //	PHONE
     $form->addElement('text', 'phone', get_lang('Phone'), array('size' => 40, 'disabled' => 'disabled'));
-    if (api_get_setting('registration', 'phone') == 'true') {
+    if (api_get_setting_in_list('required_profile_fields', 'phone')) {
         $form->addRule('phone', get_lang('ThisFieldIsRequired'), 'required');
     }
 
     //	LANGUAGE
-    if (api_get_setting('registration', 'language') == 'true') {
+    if (api_get_setting_in_list('required_profile_fields', 'languages')) {
         $form->addElement('select_language', 'language', get_lang('Language'), '', array('disabled' => 'disabled'));
     }
 
@@ -291,7 +291,7 @@ if (api_get_setting('allow_terms_conditions') == 'true') {
 
     if (!$term_preview) {
         //we load from the platform
-        $language = api_get_setting('platformLanguage');
+        $language = api_get_setting('language.platform_language');
         $language = api_get_language_id($language);
         $term_preview = LegalManager::get_last_condition($language);
         //if is false we load from english
@@ -322,7 +322,7 @@ $defaults['status'] = STUDENT;
 if (isset($_SESSION['user_language_choice']) && $_SESSION['user_language_choice'] != '') {
     $defaults['language'] = $_SESSION['user_language_choice'];
 } else {
-    $defaults['language'] = api_get_setting('platformLanguage');
+    $defaults['language'] = api_get_setting('language.platform_language');
 }
 
 if (!empty($_GET['username'])) {

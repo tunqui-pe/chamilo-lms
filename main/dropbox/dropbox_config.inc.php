@@ -22,17 +22,17 @@ $dropbox_cnf['sysPath'] = api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/d
 $dropbox_cnf['webPath'] = api_get_path(WEB_COURSE_PATH) . $_course['path'] . '/dropbox';
 
 //file size limit as imposed by the platform admin (see Chamilo Config Settings on the platform administration section)
-$dropbox_cnf['maxFilesize'] = api_get_setting('dropbox_max_filesize');
-$dropbox_cnf['allowOverwrite'] = api_string_2_boolean(api_get_setting('dropbox_allow_overwrite'));
-$dropbox_cnf['allowJustUpload'] = api_string_2_boolean(api_get_setting('dropbox_allow_just_upload'));
-$dropbox_cnf['allowStudentToStudent'] = api_string_2_boolean(api_get_setting('dropbox_allow_student_to_student'));
-$dropbox_cnf['allowGroup'] = api_string_2_boolean(api_get_setting('dropbox_allow_group'));
+$dropbox_cnf['maxFilesize'] = api_get_setting('dropbox.dropbox_max_filesize');
+$dropbox_cnf['allowOverwrite'] = api_string_2_boolean(api_get_setting('dropbox.dropbox_allow_overwrite'));
+$dropbox_cnf['allowJustUpload'] = api_string_2_boolean(api_get_setting('dropbox.dropbox_allow_just_upload'));
+$dropbox_cnf['allowStudentToStudent'] = api_string_2_boolean(api_get_setting('dropbox.dropbox_allow_student_to_student'));
+$dropbox_cnf['allowGroup'] = api_string_2_boolean(api_get_setting('dropbox.dropbox_allow_group'));
 
 /**
  * MAILING VARIABLES
  */
 // false = no mailing functionality
-$dropbox_cnf['allowMailing'] = api_string_2_boolean(api_get_setting('dropbox_allow_mailing'));
+$dropbox_cnf['allowMailing'] = api_string_2_boolean(api_get_setting('dropbox.dropbox_allow_mailing'));
 $dropbox_cnf['mailingIdBase'] = 10000000;  // bigger than any user_id,
 // allowing enough space for pseudo_ids as uploader_id, dest_user_id, user_id:
 // mailing pseudo_id = dropbox_cnf('mailingIdBase') + mailing id

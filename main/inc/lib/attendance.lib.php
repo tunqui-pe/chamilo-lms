@@ -137,7 +137,7 @@ class Attendance
 		$res = Database::query($sql);
 		$attendances = array();
 		$user_info = api_get_user_info();
-		$allowDelete = api_get_setting('allow_delete_attendance');
+		$allowDelete = api_get_setting('attendance.allow_delete_attendance');
 
 		while ($attendance = Database::fetch_row($res)) {
 			$student_param = '';

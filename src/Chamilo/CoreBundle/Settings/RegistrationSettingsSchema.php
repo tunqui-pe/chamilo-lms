@@ -6,6 +6,7 @@ namespace Chamilo\CoreBundle\Settings;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 
 /**
  * Class RegistrationSettingsSchema
@@ -21,7 +22,7 @@ class RegistrationSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'registration' => '', //officialcode, email, language, phone
+                    'required_profile_fields' => [],
                     'allow_registration' => '',
                     'allow_registration_as_teacher' => '',
                     'allow_lostpassword' => '',
@@ -41,11 +42,15 @@ class RegistrationSettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'registration' => array('string'),
+                    'required_profile_fields' => array('array'),
                     'allow_registration' => array('string'),
                     'allow_registration_as_teacher' => array('string'),
                     'allow_lostpassword' => array('string'),
                 )
+            )
+            ->setTransformer(
+                'required_profile_fields',
+                new ArrayToIdentifierTransformer()
             );
     }
 
@@ -56,9 +61,10 @@ class RegistrationSettingsSchema implements SchemaInterface
     {
         $builder
             ->add(
-                'registration',
+                'required_profile_fields',
                 'choice',
                 array(
+                    'multiple' => true,
                     'choices' => array(
                         'officialcode',
                         'email',
@@ -99,8 +105,8 @@ class RegistrationSettingsSchema implements SchemaInterface
             ->add('sessionadmin_page_after_login')
             ->add('student_autosubscribe')// ?
             ->add('teacher_autosubscribe')// ?
-            ->add('drh_autosubscribe', '')// ?
-            ->add('sessionadmin_autosubscribe', '')// ?
+            ->add('drh_autosubscribe')//?
+            ->add('sessionadmin_autosubscribe')// ?
             ->add('platform_unsubscribe_allowed', 'yes_no');
     }
 }

@@ -163,7 +163,7 @@ switch ($action) {
                 "month_view"
             );
 
-            if (api_get_setting('allow_personal_agenda') == 'true') {
+            if (api_get_setting('agenda.allow_personal_agenda') == 'true') {
                 $agendaitems = Agenda::get_personal_agenda_items(
                     $user_id,
                     $agendaitems,

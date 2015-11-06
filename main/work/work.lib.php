@@ -55,7 +55,10 @@ function display_action_links($id, $cur_dir_path, $action)
 
     if (api_is_allowed_to_edit(null, true) && $origin != 'learnpath' && api_is_allowed_to_session_edit(false, true)) {
         // Delete all files
-        if (api_get_setting('permanently_remove_deleted_files') == 'true'){
+        if (api_get_setting(
+                'document.permanently_remove_deleted_files'
+            ) == 'true'
+        ) {
             $message = get_lang('ConfirmYourChoiceDeleteAllfiles');
         } else {
             $message = get_lang('ConfirmYourChoice');
@@ -816,7 +819,10 @@ function deleteDirWork($id)
 
             $new_dir = $work_data_url.'_DELETED_'.$id;
 
-            if (api_get_setting('permanently_remove_deleted_files') == 'true') {
+            if (api_get_setting(
+                    'document.permanently_remove_deleted_files'
+                ) == 'true'
+            ) {
                 my_delete($work_data_url);
             } else {
                 if (file_exists($work_data_url)) {
@@ -3599,10 +3605,10 @@ function sendAlertToUsers($workId, $courseInfo, $session_id)
     }
 
     if ($send) {
-        $senderEmail = api_get_setting('emailAdministrator');
+        $senderEmail = api_get_setting('platform.administrator_email');
         $senderName = api_get_person_name(
-            api_get_setting('administratorName'),
-            api_get_setting('administratorSurname'),
+            api_get_setting('platform.administrator_name'),
+            api_get_setting('platform.administrator_surname'),
             null,
             PERSON_NAME_EMAIL_ADDRESS
         );
@@ -4112,7 +4118,10 @@ function deleteWorkItem($item_id, $courseInfo)
 
             if ($row['contains_file'] == 1) {
                 if (!empty($work)) {
-                    if (api_get_setting('permanently_remove_deleted_files') == 'true') {
+                    if (api_get_setting(
+                            'document.permanently_remove_deleted_files'
+                        ) == 'true'
+                    ) {
                         my_delete($currentCourseRepositorySys.'/'.$work);
                         $file_deleted = true;
                     } else {

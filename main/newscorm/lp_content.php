@@ -104,7 +104,7 @@ $interbreadcrumb[] = array(
     'name' => get_lang('Doc'),
 );
 // Update global setting to avoid displaying right menu.
-$save_setting = api_get_setting('show_navigation_menu');
+$save_setting = api_get_setting('course.show_navigation_menu');
 global $_setting;
 $_setting['show_navigation_menu'] = false;
 if ($debug > 0) {

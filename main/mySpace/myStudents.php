@@ -354,7 +354,7 @@ if (!empty($student_id)) {
     echo '</div>';
 
     // is the user online ?
-    if (user_is_online($_GET['student'])) {
+    if (UserManager::user_is_online($_GET['student'])) {
         $online = get_lang('Yes');
     } else {
         $online = get_lang('No');

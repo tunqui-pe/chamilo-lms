@@ -208,7 +208,7 @@ function ldap_put_user_info_locally($login, $info_array) {
         2. add info to Chamilo
     ------------------------------------------------------------ */
 
-    $language = api_get_setting('platformLanguage');
+    $language = api_get_setting('language.platform_language');
     if (empty($language)) { $language = 'english'; }
     $_userId = UserManager::create_user($prenom, $nom, $status,
                      $email, $uname, $password, $official_code,
@@ -523,7 +523,21 @@ function ldap_add_user_by_array($data, $update_if_exists = true) {
     // Adding user
     $user_id = 0;
     if (UserManager::is_username_available($username)) {
-        $user_id = UserManager::create_user($firstname,$lastname,$status,$email,$username,$password,$official_code,api_get_setting('platformLanguage'),$phone,$picture_uri,$auth_source,$expiration_date,$active);
+        $user_id = UserManager::create_user(
+            $firstname,
+            $lastname,
+            $status,
+            $email,
+            $username,
+            $password,
+            $official_code,
+            api_get_setting('language.platform_language'),
+            $phone,
+            $picture_uri,
+            $auth_source,
+            $expiration_date,
+            $active
+        );
     } else {
         if ($update_if_exists) {
             $user = api_get_user_info($username);

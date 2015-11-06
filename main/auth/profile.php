@@ -75,7 +75,7 @@ if (!empty($_GET['fe'])) {
 }
 
 $jquery_ready_content = '';
-if (api_get_setting('allow_message_tool') == 'true') {
+if (api_get_setting('message.allow_message_tool') == 'true') {
     $jquery_ready_content = <<<EOF
     $(".message-content .message-delete").click(function(){
         $(this).parents(".message-content").animate({ opacity: "hide" }, "slow");
@@ -97,11 +97,11 @@ $value_array = $array_list_key[$id_temp_key];
 $user_data['api_key_generate'] = $value_array;
 
 if ($user_data !== false) {
-    if (api_get_setting('login_is_email') == 'true') {
+    if (api_get_setting('profile.login_is_email') == 'true') {
         $user_data['username'] = $user_data['email'];
     }
     if (is_null($user_data['language'])) {
-        $user_data['language'] = api_get_setting('platformLanguage');
+        $user_data['language'] = api_get_setting('language.platform_language');
     }
 }
 
@@ -124,9 +124,12 @@ if (api_is_western_name_order()) {
     $form->addElement('text', 'lastname',  get_lang('LastName'),  array('size' => 40));
     $form->addElement('text', 'firstname', get_lang('FirstName'), array('size' => 40));
 }
-if (api_get_setting('profile', 'name') !== 'true') {
+
+$options = api_get_setting_in_list('profile.changeable_options', 'name');
+if (!$options) {
     $form->freeze(array('lastname', 'firstname'));
 }
+
 $form->applyFilter(array('lastname', 'firstname'), 'stripslashes');
 $form->applyFilter(array('lastname', 'firstname'), 'trim');
 $form->applyFilter(array('lastname', 'firstname'), 'html_filter');
@@ -144,8 +147,12 @@ $form->addElement(
         'size' => USERNAME_MAX_LENGTH,
     )
 );
-if (api_get_setting('profile', 'login') !== 'true' || api_get_setting('login_is_email') == 'true') {
-    $form->freeze('username');
+
+if (api_get_setting('profile.login_is_email') == 'true') {
+    $options = api_get_setting_in_list('profile.changeable_options', 'login');
+    if (!$options) {
+        $form->freeze('username');
+    }
 }
 $form->applyFilter('username', 'stripslashes');
 $form->applyFilter('username', 'trim');
@@ -157,24 +164,35 @@ $form->addRule('username', get_lang('UserTaken'), 'username_available', $user_da
 //if (CONFVAL_ASK_FOR_OFFICIAL_CODE) {
 if (true) {
     $form->addElement('text', 'official_code', get_lang('OfficialCode'), array('size' => 40));
-    if (api_get_setting('profile', 'officialcode') !== 'true') {
+    $options = api_get_setting_in_list(
+        'profile.changeable_options',
+        'officialcode'
+    );
+    if (!$options) {
         $form->freeze('official_code');
     }
     $form->applyFilter('official_code', 'stripslashes');
     $form->applyFilter('official_code', 'trim');
     $form->applyFilter('official_code', 'html_filter');
-    if (api_get_setting('registration', 'officialcode') == 'true' && api_get_setting('profile', 'officialcode') == 'true') {
+    if (api_get_setting_in_list(
+            'registration.required_profile_fields',
+            'officialcode'
+        ) && !$options
+    ) {
         $form->addRule('official_code', get_lang('ThisFieldIsRequired'), 'required');
     }
 }
 
 //    EMAIL
 $form->addElement('email', 'email', get_lang('Email'), array('size' => 40));
-if (api_get_setting('profile', 'email') !== 'true') {
+$options = api_get_setting_in_list('profile.changeable_options', 'email');
+if (!$options) {
     $form->freeze('email');
 }
 
-if (api_get_setting('registration', 'email') == 'true' &&  api_get_setting('profile', 'email') == 'true') {
+if (api_get_setting_in_list('registration.required_profile_fields', 'email') &&
+    !api_get_setting_in_list('profile.changeable_options', 'email')
+) {
     $form->applyFilter('email', 'stripslashes');
     $form->applyFilter('email', 'trim');
     $form->addRule('email', get_lang('ThisFieldIsRequired'), 'required');
@@ -182,13 +200,14 @@ if (api_get_setting('registration', 'email') == 'true' &&  api_get_setting('prof
 }
 
 // OPENID URL
-if (is_profile_editable() && api_get_setting('openid_authentication') == 'true') {
+/*if (is_profile_editable() && api_get_setting('openid_authentication') == 'true') {
     $form->addElement('text', 'openid', get_lang('OpenIDURL'), array('size' => 40));
-    if (api_get_setting('profile', 'openid') !== 'true') {
+    $options = api_get_setting_in_list('profile.changeable_options', 'openid');
+    if (!$options) {
         $form->freeze('openid');
     }
     $form->applyFilter('openid', 'trim');
-}
+}*/
 
 //    PHONE
 $form->addElement('text', 'phone', get_lang('Phone'), array('size' => 20));
@@ -307,7 +326,7 @@ if (is_platform_authentication() &&
     $form->addElement('password', 'password0', array(get_lang('Pass'), get_lang('Enter2passToChange')), array('size' => 40));
     $form->addElement('password', 'password1', get_lang('NewPass'), array('id'=> 'password1', 'size' => 40));
 
-    $checkPass = api_get_setting('allow_strength_pass_checker');
+    $checkPass = api_get_setting('security.allow_strength_pass_checker');
     if ($checkPass == 'true') {
         $form->addElement('label', null, '<div id="password_progress"></div>');
     }
@@ -578,7 +597,7 @@ if ($form->validate()) {
     //Checking the user language
     $languages = api_get_languages();
     if (!in_array($user_data['language'], $languages['folder'])) {
-        $user_data['language'] = api_get_setting('platformLanguage');
+        $user_data['language'] = api_get_setting('language.platform_language');
     }
     $_SESSION['_user']['language'] = $user_data['language'];
 
@@ -709,12 +728,12 @@ if (api_get_setting('social.allow_social_tool') != 'true') {
         $actions .= '<div class="actions">';
 
         if (api_get_setting('social.allow_social_tool') == 'true' &&
-            api_get_setting('allow_message_tool') == 'true'
+            api_get_setting('message.allow_message_tool') == 'true'
         ) {
             $actions .= '<a href="'.api_get_path(WEB_PATH).'main/social/profile.php">'.
                 Display::return_icon('shared_profile.png', get_lang('ViewSharedProfile')).'</a>';
         }
-        if (api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting('message.allow_message_tool') == 'true') {
             $actions .= '<a href="'.api_get_path(WEB_PATH).'main/messages/inbox.php">'.
                 Display::return_icon('inbox.png', get_lang('Messages')).'</a>';
         }

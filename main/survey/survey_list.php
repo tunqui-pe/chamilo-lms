@@ -53,7 +53,9 @@ if (!api_is_allowed_to_edit(false, true)) {
     exit;
 }
 
-$extend_rights_for_coachs = api_get_setting('extend_rights_for_coach_on_survey');
+$extend_rights_for_coachs = api_get_setting(
+    'survey.extend_rights_for_coach_on_survey'
+);
 
 // Database table definitions
 $table_survey = Database:: get_course_table(TABLE_SURVEY);

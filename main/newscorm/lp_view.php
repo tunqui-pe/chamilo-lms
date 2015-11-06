@@ -326,7 +326,7 @@ if (
 $_SESSION['oLP']->set_previous_item($lp_item_id);
 $nameTools = Security::remove_XSS($_SESSION['oLP']->get_name());
 
-$save_setting = api_get_setting('show_navigation_menu');
+$save_setting = api_get_setting('course.show_navigation_menu');
 global $_setting;
 $_setting['show_navigation_menu'] = 'false';
 $scorm_css_header = true;
@@ -478,7 +478,7 @@ $template->assign(
 );
 
 // If the global gamification mode is enabled...
-$gamificationMode = api_get_setting('gamification_mode');
+$gamificationMode = api_get_setting('platform.gamification_mode');
 // ...AND this learning path is set in gamification mode, then change the display
 $gamificationMode = $gamificationMode && $_SESSION['oLP']->seriousgame_mode;
 

@@ -334,7 +334,7 @@ function extldap_add_user_by_array($data, $update_if_exists = true)
             $username,
             $password,
             $official_code,
-            api_get_setting('platformLanguage'),
+            api_get_setting('language.platform_language'),
             $phone,
             $picture_uri,
             $auth_source,

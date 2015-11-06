@@ -73,7 +73,7 @@ $form->addElement('hidden', 'token', $tok);
 
 $tpl = new Template(get_lang('Groups'));
 
-if (api_get_setting('allow_message_tool')=='true') {
+if (api_get_setting('message.allow_message_tool') == 'true') {
     // Normal message
     $user_info = api_get_user_info($userfriend_id);
     $height = 180;

@@ -523,7 +523,10 @@ class PDF
     public static function get_watermark($course_code = null)
     {
         $web_path = false;
-        if (!empty($course_code) && api_get_setting('pdf_export_watermark_by_course') == 'true') {
+        if (!empty($course_code) && api_get_setting(
+                'document.pdf_export_watermark_by_course'
+            ) == 'true'
+        ) {
             $course_info = api_get_course_info($course_code);
             $store_path = api_get_path(SYS_COURSE_PATH).$course_info['path'].'/'.api_get_current_access_url_id().'_pdf_watermark.png';   // course path
             if (file_exists($store_path)) {
@@ -544,7 +547,10 @@ class PDF
      */
     public function delete_watermark($course_code = null)
     {
-        if (!empty($course_code) && api_get_setting('pdf_export_watermark_by_course') == 'true') {
+        if (!empty($course_code) && api_get_setting(
+                'document.pdf_export_watermark_by_course'
+            ) == 'true'
+        ) {
             $course_info = api_get_course_info($course_code);
             // course path
             $store_path  = api_get_path(SYS_COURSE_PATH).$course_info['path'].'/'.api_get_current_access_url_id().'_pdf_watermark.png';
@@ -569,7 +575,10 @@ class PDF
      */
     public function upload_watermark($filename, $source_file, $course_code = null)
     {
-        if (!empty($course_code) && api_get_setting('pdf_export_watermark_by_course') == 'true') {
+        if (!empty($course_code) && api_get_setting(
+                'document.pdf_export_watermark_by_course'
+            ) == 'true'
+        ) {
             $course_info = api_get_course_info($course_code);
             $store_path = api_get_path(SYS_COURSE_PATH).$course_info['path'];   // course path
             $web_path   = api_get_path(WEB_COURSE_PATH).$course_info['path'].'/pdf_watermark.png';
@@ -598,7 +607,7 @@ class PDF
     public function get_header($course_code = null)
     {
         /*$header = api_get_setting('pdf_export_watermark_text');
-    	if (!empty($course_code) && api_get_setting('pdf_export_watermark_by_course') == 'true') {
+    	if (!empty($course_code) && api_get_setting('document.pdf_export_watermark_by_course') == 'true') {
             $header = api_get_course_setting('pdf_export_watermark_text');
         }
         return $header;*/

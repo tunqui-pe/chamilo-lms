@@ -189,7 +189,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'make_unavailable_confirmed') {
     $language_info = SubLanguageManager::get_all_information_of_language($_GET['id']);
     if ($language_info['available'] == 1) {
         SubLanguageManager::make_unavailable_language($_GET['id']);
-        $platform_language = api_get_setting('platformLanguage');
+        $platform_language = api_get_setting('language.platform_language');
         UserManager::update_all_user_languages($language_info['english_name'], $platform_language);
         Display::display_confirmation_message(get_lang('LanguageIsNowHidden'));
     }
@@ -213,7 +213,10 @@ while ($row = Database::fetch_array($result_select)) {
     $row_td[] = $row['id'];
     // the first column is the original name of the language OR a form containing the original name
     if ($action == 'edit' and $row['id'] == $_GET['id']) {
-        if ($row['english_name'] == api_get_setting('platformLanguage')) {
+        if ($row['english_name'] == api_get_setting(
+                'language.platform_language'
+            )
+        ) {
             $checked = ' checked="checked" ';
         }
 

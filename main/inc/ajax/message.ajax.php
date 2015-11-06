@@ -51,7 +51,9 @@ switch ($action) {
 
         if (api_get_setting(
                 'social.allow_social_tool'
-            ) == 'true' && api_get_setting('allow_message_tool') == 'true'
+            ) == 'true' && api_get_setting(
+                'message.allow_message_tool'
+            ) == 'true'
         ) {
             // All users
             if (api_get_setting('allow_send_message_to_all_platform_users') == 'true' || api_is_platform_admin() ) {
@@ -102,7 +104,9 @@ switch ($action) {
             }
         } elseif (api_get_setting(
                 'social.allow_social_tool'
-            ) == 'false' && api_get_setting('allow_message_tool') == 'true'
+            ) == 'false' && api_get_setting(
+                'message.allow_message_tool'
+            ) == 'true'
         ) {
             if (api_get_setting('allow_send_message_to_all_platform_users') == 'true') {
                 $sql = "SELECT DISTINCT u.user_id as id, u.firstname, u.lastname, u.email
@@ -113,7 +117,7 @@ switch ($action) {
                             r.access_url_id = $access_url_id
                             $likeCondition ";
             } else {
-                $time_limit = api_get_setting('time_limit_whosonline');
+                $time_limit = api_get_setting('display.time_limit_whosonline');
                 $online_time = time() - $time_limit*60;
                 $limit_date	 = api_get_utc_datetime($online_time);
                 $sql = "SELECT SELECT DISTINCT u.user_id as id, u.firstname, u.lastname, u.email

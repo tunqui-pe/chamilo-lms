@@ -1199,7 +1199,7 @@ class CourseHome
         $course_id = api_get_course_id();
 
         $html = '<div id="toolnav"> <!-- start of #toolnav -->';
-        if (api_get_setting('show_navigation_menu') == 'icons') {
+        if (api_get_setting('course.show_navigation_menu') == 'icons') {
             $html .= self::show_navigation_tool_shortcuts($orientation = SHORTCUTS_VERTICAL);
         } else {
             $html .= '<div id="toolnavbox">';
@@ -1227,10 +1227,10 @@ class CourseHome
                     }
                 }
                 $html .= ' title="'.$navigation_item['name'].'">';
-                if (api_get_setting('show_navigation_menu') != 'text') {
+                if (api_get_setting('course.show_navigation_menu') != 'text') {
                     $html .= '<div align="left"><img src="'.api_get_path(WEB_IMG_PATH).$navigation_item['image'].'" alt="'.$navigation_item['name'].'"/></div>';
                 }
-                if (api_get_setting('show_navigation_menu') != 'icons') {
+                if (api_get_setting('course.show_navigation_menu') != 'icons') {
                     $html .= $navigation_item['name'];
                 }
                 $html .= '</a>';

@@ -131,7 +131,7 @@ function check_system_version()
         $data = array(
             'url' => api_get_path(WEB_PATH),
             'campus' => api_get_setting('platform.site_name'),
-            'contact' => api_get_setting('emailAdministrator'),
+            'contact' => api_get_setting('platform.administrator_email'),
             'version' => $system_version,
             'numberofcourses' => $number_of_courses,
             'numberofusers' => $number_of_users,
@@ -141,8 +141,10 @@ function check_system_version()
             // it true by default - this does not affect numbers counting
             'donotlistcampus' => api_get_setting('donotlistcampus'),
             'organisation' => api_get_setting('Institution'),
-            'language' => api_get_setting('platformLanguage'),
-            'adminname' => api_get_setting('administratorName').' '.api_get_setting('administratorSurname'),
+            'language' => api_get_setting('language.platform_language'),
+            'adminname' => api_get_setting(
+                    'platform.administrator_name'
+                ).' '.api_get_setting('platform.administrator_surname'),
         );
         $version = null;
         // version.php has been updated to include the version in an HTTP header

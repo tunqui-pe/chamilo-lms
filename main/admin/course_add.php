@@ -148,13 +148,20 @@ $form->add_progress_bar();
 $form->addButtonCreate(get_lang('CreateCourse'));
 
 // Set some default values.
-$values['course_language'] = api_get_setting('platformLanguage');
-$values['disk_quota'] = round(api_get_setting('default_document_quotum')/1024/1024, 1);
+$values['course_language'] = api_get_setting('language.platform_language');
+$values['disk_quota'] = round(
+    api_get_setting('document.default_document_quotum') / 1024 / 1024,
+    1
+);
 
-$default_course_visibility = api_get_setting('courses_default_creation_visibility');
+$default_course_visibility = api_get_setting(
+    'course.courses_default_creation_visibility'
+);
 
 if (isset($default_course_visibility)) {
-    $values['visibility'] = api_get_setting('courses_default_creation_visibility');
+    $values['visibility'] = api_get_setting(
+        'course.courses_default_creation_visibility'
+    );
 } else {
     $values['visibility'] = COURSE_VISIBILITY_OPEN_PLATFORM;
 }

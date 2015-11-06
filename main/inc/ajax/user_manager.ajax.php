@@ -29,7 +29,7 @@ switch ($action) {
         echo '</div>';
         echo '</div>';
 
-        if (api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting('message.allow_message_tool') == 'true') {
 
             echo '<script>';
             echo '
@@ -124,8 +124,15 @@ switch ($action) {
                         ).'] '.get_lang('YourReg').' '.api_get_setting(
                             'platform.site_name'
                         );
-                    $email_admin = api_get_setting('emailAdministrator');
-                    $sender_name = api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
+                    $email_admin = api_get_setting(
+                        'platform.administrator_email'
+                    );
+                    $sender_name = api_get_person_name(
+                        api_get_setting('platform.administrator_name'),
+                        api_get_setting('platform.administrator_surname'),
+                        null,
+                        PERSON_NAME_EMAIL_ADDRESS
+                    );
                     $emailbody=get_lang('Dear')." ".stripslashes($recipient_name).",\n\n";
 
                     $emailbody .= sprintf(
@@ -138,8 +145,8 @@ switch ($action) {
                     $emailbody.=get_lang('HaveFun')."\n\n";
                     //$emailbody.=get_lang('Problem'). "\n\n". get_lang('SignatureFormula');
                     $emailbody .= api_get_person_name(
-                            api_get_setting('administratorName'),
-                            api_get_setting('administratorSurname')
+                            api_get_setting('platform.administrator_name'),
+                            api_get_setting('platform.administrator_surname')
                         )."\n".get_lang('Manager')." ".api_get_setting(
                             'platform.site_name'
                         )."\nT. ".api_get_setting(

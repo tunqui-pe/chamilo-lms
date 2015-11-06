@@ -210,18 +210,16 @@ class AdminController extends BaseController
                 'label' => get_lang('ManageQuestionFields'),
             );
 
-            if (api_get_setting('gradebook.gradebook_enable_grade_model') ==
-                'true'
-            ) {
+            /*if (api_get_setting('gradebook.gradebook_enable_grade_model') == 'true') {
                 $items[] = array(
                     'url' => $adminUrl.'grade_models.php',
                     'label' => get_lang('GradeModel'),
                 );
-            }
+            }*/
 
-            if (isset($extAuthSource) && isset($extAuthSource['ldap']) && count(
-                    $extAuthSource['ldap']
-                ) > 0
+            if (isset($extAuthSource) &&
+                isset($extAuthSource['ldap']) &&
+                count($extAuthSource['ldap']) > 0
             ) {
                 $items[] = array(
                     'url' => $adminUrl.'ldap_import_students.php',

@@ -274,7 +274,9 @@ class GroupManager
                 $values['approval_direct_group']['approval_direct'] = 0;
                 $values['allow_attachments_group']['allow_attachments'] = 1;
                 $values['allow_new_threads_group']['allow_new_threads'] = 1;
-                $values['default_view_type_group']['default_view_type'] = api_get_setting('default_forum_view');
+                $values['default_view_type_group']['default_view_type'] = api_get_setting(
+                    'forum.default_forum_view'
+                );
                 $values['group_forum'] = $lastId;
                 if ($forumState == '1') {
                     $values['public_private_group_forum_group']['public_private_group_forum']='public';
@@ -419,7 +421,10 @@ class GroupManager
                 DocumentManager::delete_document($course_info, $group->secret_directory, $source_directory);
 
                 if (file_exists($source_directory)) {
-                    if (api_get_setting('permanently_remove_deleted_files') == 'true') {
+                    if (api_get_setting(
+                            'document.permanently_remove_deleted_files'
+                        ) == 'true'
+                    ) {
                         // Delete
                         my_delete($source_directory);
                     } else {
@@ -1487,7 +1492,9 @@ class GroupManager
         $table_user = Database :: get_main_table(TABLE_MAIN_USER);
         $table_group_user = Database :: get_course_table(TABLE_GROUP_USER);
         $order_clause = api_sort_by_first_name() ? ' ORDER BY u.firstname, u.lastname' : ' ORDER BY u.lastname, u.firstname';
-        $orderListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+        $orderListByOfficialCode = api_get_setting(
+            'platform.order_user_list_by_official_code'
+        );
         if ($orderListByOfficialCode === 'true') {
             $order_clause = " ORDER BY u.official_code, u.firstname, u.lastname";
         }
@@ -1532,7 +1539,9 @@ class GroupManager
         $table_group_tutor = Database :: get_course_table(TABLE_GROUP_TUTOR);
         $order_clause = api_sort_by_first_name() ? ' ORDER BY u.firstname, u.lastname' : ' ORDER BY u.lastname, u.firstname';
 
-        $orderListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+        $orderListByOfficialCode = api_get_setting(
+            'platform.order_user_list_by_official_code'
+        );
         if ($orderListByOfficialCode === 'true') {
             $order_clause = " ORDER BY u.official_code, u.firstname, u.lastname";
         }
@@ -2213,7 +2222,9 @@ class GroupManager
 
         $orig = isset($origin) ? $origin : null;
 
-        $hideGroup = api_get_setting('hide_course_group_if_no_tools_available');
+        $hideGroup = api_get_setting(
+            'group.hide_course_group_if_no_tools_available'
+        );
 
         foreach ($group_list as $this_group) {
 

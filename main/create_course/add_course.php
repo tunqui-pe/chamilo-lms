@@ -26,7 +26,7 @@ $this_section = SECTION_COURSES;
 // true  - the new course is requested only and it is created after approval;
 // false - the new course is created immediately, after filling this form.
 $course_validation_feature = false;
-if (api_get_setting('course_validation') == 'true' && !api_is_platform_admin()) {
+if (api_get_setting('course.course_validation') == 'true' && !api_is_platform_admin()) {
     $course_validation_feature = true;
 }
 
@@ -50,7 +50,7 @@ $tool_name = $course_validation_feature ? get_lang('CreateCourseRequest') : get_
 //$tpl = new Template($tool_name);
 
 if (
-    api_get_setting('allow_users_to_create_courses') == 'false' &&
+    api_get_setting('course.allow_users_to_create_courses') == 'false' &&
     !api_is_platform_admin()
 ) {
     api_not_allowed(true);
@@ -233,7 +233,7 @@ $form->add_progress_bar();
 if (isset($_user['language']) && $_user['language'] != '') {
     $values['course_language'] = $_user['language'];
 } else {
-    $values['course_language'] = api_get_setting('platformLanguage');
+    $values['course_language'] = api_get_setting('language.platform_language');
 }
 
 $form->setDefaults($values);

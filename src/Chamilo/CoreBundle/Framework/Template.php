@@ -268,7 +268,7 @@ class Template
         $this->assign('show_header', $status);
 
         //Toolbar
-        $show_admin_toolbar = api_get_setting('show_admin_toolbar');
+        $show_admin_toolbar = api_get_setting('display.show_admin_toolbar');
         $show_toolbar = 0;
 
         switch ($show_admin_toolbar) {
@@ -295,11 +295,11 @@ class Template
         $show_course_navigation_menu = null;
 
         if (!empty($this->course_id) && $this->user_is_logged_in) {
-            if (api_get_setting('show_toolshortcuts') != 'false') {
+            if (api_get_setting('course.show_tool_shortcuts') != 'false') {
                 //Course toolbar
                 $show_course_shortcut = CourseHome::show_navigation_tool_shortcuts();
             }
-            if (api_get_setting('show_navigation_menu') != 'false') {
+            if (api_get_setting('course.show_navigation_menu') != 'false') {
                 //Course toolbar
                 $show_course_navigation_menu = CourseHome::show_navigation_menu();
             }
@@ -703,7 +703,7 @@ class Template
 
         // Message link.
         $messageUrl = null;
-        if (api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting('message.allow_message_tool') == 'true') {
             $messageUrl = $this->urlGenerator->generate('root').'messages/inbox.php';
         }
         $this->assign('message_link', $messageUrl);
@@ -1166,13 +1166,13 @@ class Template
             (api_get_setting('showonline', 'users') == 'true' AND $user_id) OR
             (api_get_setting('showonline', 'course') == 'true' AND $user_id AND $course_id)
         ) {
-            $number = Online::who_is_online_count(api_get_setting('time_limit_whosonline'));
+            $number = Online::who_is_online_count(api_get_setting('display.time_limit_whosonline'));
 
             $number_online_in_course = 0;
             if (!empty($_course['id'])) {
                 $number_online_in_course = Online::who_is_online_in_this_course_count(
                     $user_id,
-                    api_get_setting('time_limit_whosonline'),
+                    api_get_setting('display.time_limit_whosonline'),
                     $_course['id']
                 );
             }

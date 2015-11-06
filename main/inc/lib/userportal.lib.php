@@ -182,7 +182,16 @@ class IndexManager
         if ($show_menu) {
             $html .= '<ul class="nav nav-pills nav-stacked">';
             if ($show_create_link) {
-                $html .= '<li class="add-course"><a href="' . api_get_path(WEB_CODE_PATH) . 'create_course/add_course.php">'.Display::return_icon('new-course.png',  get_lang('CourseCreate')).(api_get_setting('course_validation') == 'true' ? get_lang('CreateCourseRequest') : get_lang('CourseCreate')).'</a></li>';
+                $html .= '<li class="add-course"><a href="'.api_get_path(
+                        WEB_CODE_PATH
+                    ).'create_course/add_course.php">'.Display::return_icon(
+                        'new-course.png',
+                        get_lang('CourseCreate')
+                    ).(api_get_setting(
+                        'course.course_validation'
+                    ) == 'true' ? get_lang('CreateCourseRequest') : get_lang(
+                        'CourseCreate'
+                    )).'</a></li>';
             }
 
             if ($show_course_link) {
@@ -227,7 +236,9 @@ class IndexManager
             } elseif (!empty($_SESSION['_user']['language'])) {
                 $user_selected_language = $_SESSION['_user']['language'];
             } else {
-                $user_selected_language = api_get_setting('platformLanguage');
+                $user_selected_language = api_get_setting(
+                    'language.platform_language'
+                );
             }
 
             // Try language specific home
@@ -282,7 +293,7 @@ class IndexManager
     {
         $user_selected_language = api_get_interface_language();
         $sys_path               = api_get_path(SYS_PATH);
-        $platformLanguage       = api_get_setting('platformLanguage');
+        $platformLanguage = api_get_setting('language.platform_language');
 
         // Help section.
         /* Hide right menu "general" and other parts on anonymous right menu. */
@@ -557,7 +568,12 @@ class IndexManager
                         if (api_get_setting('display_teacher_in_courselist') == 'true') {
                             $course_details[] = CourseManager::get_teacher_list_from_course_code_to_string($course['code']);
                         }
-                        if (api_get_setting('show_different_course_language') == 'true' && $course['course_language'] != api_get_setting('platformLanguage')) {
+                        if (api_get_setting(
+                                'show_different_course_language'
+                            ) == 'true' && $course['course_language'] != api_get_setting(
+                                'language.platform_language'
+                            )
+                        ) {
                             $course_details[] = $course['course_language'];
                         }
                         $courses_list_string .= implode(' - ', $course_details);
@@ -603,7 +619,12 @@ class IndexManager
                             $course_details[] = $course['tutor_name'];
                         }
                     }
-                    if (api_get_setting('show_different_course_language') == 'true' && $course['course_language'] != api_get_setting('platformLanguage')) {
+                    if (api_get_setting(
+                            'show_different_course_language'
+                        ) == 'true' && $course['course_language'] != api_get_setting(
+                            'language.platform_language'
+                        )
+                    ) {
                         $course_details[] = $course['course_language'];
                     }
 
@@ -825,7 +846,7 @@ class IndexManager
         $profile_content = '<ul class="nav nav-pills nav-stacked">';
 
         //  @todo Add a platform setting to add the user image.
-        if (api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting('message.allow_message_tool') == 'true') {
             // New messages.
             $number_of_new_messages = MessageManager::get_new_messages();
             // New contact invitations.
@@ -910,7 +931,9 @@ class IndexManager
         $show_create_link = false;
         $show_course_link = false;
 
-        if ((api_get_setting('allow_users_to_create_courses') == 'false' &&
+        if ((api_get_setting(
+                    'course.allow_users_to_create_courses'
+                ) == 'false' &&
             !api_is_platform_admin()) || api_is_student()
         ) {
             $display_add_course_link = false;
@@ -935,7 +958,10 @@ class IndexManager
 
         if ($show_create_link) {
             $my_account_content .= '<li class="add-course"><a href="main/create_course/add_course.php">';
-            if (api_get_setting('course_validation') == 'true' && !api_is_platform_admin()) {
+            if (api_get_setting(
+                    'course.course_validation'
+                ) == 'true' && !api_is_platform_admin()
+            ) {
                 $my_account_content .= Display::return_icon('new-course.png',get_lang('CreateCourseRequest'),null,ICON_SIZE_SMALL);
                 $my_account_content .= get_lang('CreateCourseRequest');
             } else {
@@ -998,7 +1024,9 @@ class IndexManager
     {
         global $_configuration;
 
-        $gamificationModeIsActive = api_get_setting('gamification_mode');
+        $gamificationModeIsActive = api_get_setting(
+            'platform.gamification_mode'
+        );
 
         $load_history = (isset($_GET['history']) && intval($_GET['history']) == 1) ? true : false;
         if ($load_history) {

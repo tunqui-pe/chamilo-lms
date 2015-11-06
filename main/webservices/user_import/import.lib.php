@@ -96,7 +96,19 @@ function save_data($users) {
 
 			$user['Status'] = api_status_key($user['Status']);
 
-			$user_id = UserManager :: create_user($user['FirstName'], $user['LastName'], $user['Status'], $user['Email'], $user['UserName'], $user['Password'], $user['OfficialCode'], api_get_setting('PlatformLanguage'), $user['PhoneNumber'], '', $user['AuthSource']);
+			$user_id = UserManager:: create_user(
+					$user['FirstName'],
+					$user['LastName'],
+					$user['Status'],
+					$user['Email'],
+					$user['UserName'],
+					$user['Password'],
+					$user['OfficialCode'],
+					api_get_setting('language.platform_language'),
+					$user['PhoneNumber'],
+					'',
+					$user['AuthSource']
+			);
 			foreach ($user['Courses'] as $index => $course) {
 				if(CourseManager :: course_exists($course))
 					CourseManager :: subscribe_user($user_id, $course,$user['Status']);

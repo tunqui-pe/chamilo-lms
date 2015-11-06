@@ -2465,9 +2465,13 @@ class CourseManager
             $emailbody .= get_lang('Email') . ': <a href="mailto:' . $student['email'] . '">' . $student['email'] ."</a>\n\n";
             $recipient_name = api_get_person_name($tutor['firstname'], $tutor['lastname'], null,
                 PERSON_NAME_EMAIL_ADDRESS);
-            $sender_name = api_get_person_name(api_get_setting('administratorName'),
-                api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
-            $email_admin = api_get_setting('emailAdministrator');
+            $sender_name = api_get_person_name(
+                api_get_setting('platform.administrator_name'),
+                api_get_setting('platform.administrator_surname'),
+                null,
+                PERSON_NAME_EMAIL_ADDRESS
+            );
+            $email_admin = api_get_setting('platform.administrator_email');
 
             $additionalParameters = array(
                 'smsType' => SmsPlugin::NEW_USER_SUBSCRIBED_COURSE,
@@ -5031,7 +5035,7 @@ class CourseManager
             'show_system_folders'
         );
 
-        $allowLPReturnLink = api_get_setting('allow_lp_return_link');
+        $allowLPReturnLink = api_get_setting('course.allow_lp_return_link');
         if ($allowLPReturnLink === 'true') {
             $courseSettings[] = 'lp_return_link';
         }

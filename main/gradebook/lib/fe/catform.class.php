@@ -296,8 +296,9 @@ class CatForm extends FormValidator
 
         if (isset($this->category_object) &&
             $this->category_object->get_parent_id() == 0 &&
-            (api_is_platform_admin() || api_get_setting(
-                    'teachers_can_change_grade_model_settings'
+            (api_is_platform_admin() ||
+                api_get_setting(
+                    'gradebook.teachers_can_change_grade_model_settings'
                 ) == 'true')
         ) {
 
@@ -376,7 +377,9 @@ class CatForm extends FormValidator
             '>='
         );
 
-        $setting = api_get_setting('tool_visible_by_default_at_creation');
+        $setting = api_get_setting(
+            'document.tool_visible_by_default_at_creation'
+        );
         $visibility_default = 1;
         if (isset($setting['gradebook']) && $setting['gradebook'] == 'false') {
             $visibility_default = 0;

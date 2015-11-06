@@ -2531,16 +2531,28 @@ function api_get_coachs_from_course($session_id = 0, $courseId = '')
 }
 
 /**
+ * @param string $variable
+ * @param string $option
+ * @return bool
+ */
+function api_get_setting_in_list($variable, $option)
+{
+    $value = api_get_setting($variable);
+
+    return in_array($option, $value);
+}
+
+/**
  * Returns the value of a setting from the web-adjustable admin config settings.
  *
  * WARNING true/false are stored as string, so when comparing you need to check e.g.
- * if (api_get_setting('show_navigation_menu') == 'true') //CORRECT
+ * if (api_get_setting('course.show_navigation_menu') == 'true') //CORRECT
  * instead of
- * if (api_get_setting('show_navigation_menu') == true) //INCORRECT
+ * if (api_get_setting('course.show_navigation_menu') == true) //INCORRECT
  * @param string    $variable The variable name
- * @param string    $key The subkey (sub-variable) if any. Defaults to NULL
- * @author René Haentjens
- * @author Bart Mollet
+ * @return string
+ *
+ * @author Julio Montoya
  */
 function api_get_setting($variable, $key = null)
 {
@@ -4385,7 +4397,7 @@ function api_display_language_form($hide_if_no_choice = false)
 
 function api_get_language_selected_in_login()
 {
-    $language = api_get_setting('platformLanguage');
+    $language = api_get_setting('language.platform_language');
     $userLanguageChoice = Session::read('user_language_choice');
     if (isset($userLanguageChoice) && !empty($userLanguageChoice)) {
         $language = $userLanguageChoice;
@@ -4463,7 +4475,7 @@ function api_get_language_from_type($lang_type)
 
     switch ($lang_type) {
         case 'platform_lang':
-            $platformLanguage = api_get_setting('platformLanguage');
+            $platformLanguage = api_get_setting('language.platform_language');
             if (!empty($platformLanguage)) {
                 $language = $platformLanguage;
             }
@@ -4716,7 +4728,9 @@ function api_time_to_hms($seconds)
 function api_get_permissions_for_new_directories() {
     static $permissions;
     if (!isset($permissions)) {
-        $permissions = trim(api_get_setting('permissions_for_new_directories'));
+        $permissions = trim(
+            api_get_setting('document.permissions_for_new_directories')
+        );
         // The default value 0777 is according to that in the platform administration panel after fresh system installation.
         $permissions = octdec(!empty($permissions) ? $permissions : '0777');
     }
@@ -4733,7 +4747,9 @@ function api_get_permissions_for_new_directories() {
 function api_get_permissions_for_new_files() {
     static $permissions;
     if (!isset($permissions)) {
-        $permissions = trim(api_get_setting('permissions_for_new_files'));
+        $permissions = trim(
+            api_get_setting('document.permissions_for_new_files')
+        );
         // The default value 0666 is according to that in the platform administration panel after fresh system installation.
         $permissions = octdec(!empty($permissions) ? $permissions : '0666');
     }
@@ -7013,7 +7029,7 @@ function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseIn
             $tool_id = 'quiz';
             break;
     }
-    $setting = api_get_setting('tool_visible_by_default_at_creation');
+    $setting = api_get_setting('document.tool_visible_by_default_at_creation');
 
     if (isset($setting[$tool_id])) {
         $visibility = 'invisible';
@@ -7377,7 +7393,7 @@ function api_get_user_info_from_official_code($official_code = '')
  */
 function api_get_password_checker_js($usernameInputId, $passwordInputid)
 {
-    $checkPass = api_get_setting('allow_strength_pass_checker');
+    $checkPass = api_get_setting('security.allow_strength_pass_checker');
     $useStrengthPassChecker = $checkPass == 'true';
 
     if ($useStrengthPassChecker == false) {

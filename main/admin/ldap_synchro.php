@@ -103,7 +103,21 @@ foreach($Sessions as $session){
 					$active=1;
 					// Ajout de l'utilisateur
 					if (UserManager::is_username_available($username)) {
-						$user_id = UserManager::create_user($firstname,$lastname,$status,$email,$username,$password,$official_code,api_get_setting('platformLanguage'),$phone,$picture_uri,$auth_source,$expiration_date,$active);
+						$user_id = UserManager::create_user(
+								$firstname,
+								$lastname,
+								$status,
+								$email,
+								$username,
+								$password,
+								$official_code,
+								api_get_setting('language.platform_language'),
+								$phone,
+								$picture_uri,
+								$auth_source,
+								$expiration_date,
+								$active
+						);
 						$UserAdd[]=$user_id;
 					} else {
 						$user = api_get_user_info_from_username($username);

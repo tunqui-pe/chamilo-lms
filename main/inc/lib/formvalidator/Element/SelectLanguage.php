@@ -17,7 +17,10 @@ class SelectLanguage extends HTML_QuickForm_select
 		$this->_options = array();
 		$this->_values = array();
 		foreach ($languages['name'] as $index => $name) {
-			if($languages['folder'][$index] == api_get_setting('platformLanguage')) {
+			if ($languages['folder'][$index] == api_get_setting(
+							'language.platform_language'
+					)
+			) {
 				$this->addOption($name,$languages['folder'][$index],array('selected'=>'selected'));
 			} else {
 				$this->addOption($name,$languages['folder'][$index]);

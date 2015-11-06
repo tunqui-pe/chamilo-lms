@@ -292,7 +292,7 @@ class UserManager
         $languages = api_get_languages();
         $language = strtolower($language);
         if (!in_array($language, $languages['folder'])) {
-            $language = api_get_setting('platformLanguage');
+            $language = api_get_setting('language.platform_language');
         }
 
         if (!empty($currentUserId)) {
@@ -380,12 +380,12 @@ class UserManager
                 );
                 $emailSubject = $tplSubject->fetch($layoutSubject);
                 $sender_name = api_get_person_name(
-                    api_get_setting('administratorName'),
-                    api_get_setting('administratorSurname'),
+                    api_get_setting('platform.administrator_name'),
+                    api_get_setting('platform.administrator_surname'),
                     null,
                     PERSON_NAME_EMAIL_ADDRESS
                 );
-                $email_admin = api_get_setting('emailAdministrator');
+                $email_admin = api_get_setting('platform.administrator_email');
 
                 if (api_is_multiple_url_enabled()) {
                     $access_url_id = api_get_current_access_url_id();
@@ -846,7 +846,7 @@ class UserManager
         //Checking the user language
         $languages = api_get_languages();
         if (!in_array($language, $languages['folder'])) {
-            $language = api_get_setting('platformLanguage');
+            $language = api_get_setting('language.platform_language');
         }
 
         $change_active = 0;
@@ -920,8 +920,13 @@ class UserManager
                 ).'] '.get_lang('YourReg').' '.api_get_setting(
                     'platform.site_name'
                 );
-            $sender_name = api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'), null, PERSON_NAME_EMAIL_ADDRESS);
-            $email_admin = api_get_setting('emailAdministrator');
+            $sender_name = api_get_person_name(
+                api_get_setting('platform.administrator_name'),
+                api_get_setting('platform.administrator_surname'),
+                null,
+                PERSON_NAME_EMAIL_ADDRESS
+            );
+            $email_admin = api_get_setting('platform.administrator_email');
 
             if (api_is_multiple_url_enabled()) {
                 $access_url_id = api_get_current_access_url_id();
@@ -948,8 +953,8 @@ class UserManager
                         )."\n\n".get_lang(
                             'SignatureFormula'
                         ).",\n\n".api_get_person_name(
-                            api_get_setting('administratorName'),
-                            api_get_setting('administratorSurname')
+                            api_get_setting('platform.administrator_name'),
+                            api_get_setting('platform.administrator_surname')
                         )."\n".get_lang('Manager')." ".api_get_setting(
                             'platform.site_name'
                         )."\nT. ".api_get_setting(
@@ -978,8 +983,8 @@ class UserManager
                     )."\n\n".get_lang(
                         'SignatureFormula'
                     ).",\n\n".api_get_person_name(
-                        api_get_setting('administratorName'),
-                        api_get_setting('administratorSurname')
+                        api_get_setting('platform.administrator_name'),
+                        api_get_setting('platform.administrator_surname')
                     )."\n".get_lang('Manager')." ".api_get_setting(
                         'platform.site_name'
                     )."\nT. ".api_get_setting(
@@ -1206,7 +1211,17 @@ class UserManager
             // 1. Conversion of unacceptable letters (latinian letters with accents for example) into ASCII letters in order they not to be totally removed.
             // 2. Applying the strict purifier.
             // 3. Length limitation.
-            $return  = api_get_setting('login_is_email') == 'true' ? substr(preg_replace(USERNAME_PURIFIER_MAIL, '', $username), 0, USERNAME_MAX_LENGTH) : substr(preg_replace(USERNAME_PURIFIER, '', $username), 0, USERNAME_MAX_LENGTH);
+            $return = api_get_setting(
+                'profile.login_is_email'
+            ) == 'true' ? substr(
+                preg_replace(USERNAME_PURIFIER_MAIL, '', $username),
+                0,
+                USERNAME_MAX_LENGTH
+            ) : substr(
+                preg_replace(USERNAME_PURIFIER, '', $username),
+                0,
+                USERNAME_MAX_LENGTH
+            );
             $return = URLify::transliterate($return);
             return $return;
         }
@@ -5172,13 +5187,13 @@ SQL;
      * @param int $user_id
      * @return bool
      */
-    public static function  user_is_online($user_id)
+    public static function user_is_online($user_id)
     {
         $track_online_table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ONLINE);
         $table_user = Database::get_main_table(TABLE_MAIN_USER);
 
         $access_url_id = api_get_current_access_url_id();
-        $time_limit = api_get_setting('time_limit_whosonline');
+        $time_limit = api_get_setting('display.time_limit_whosonline');
 
         $online_time = time() - $time_limit*60;
         $limit_date = api_get_utc_datetime($online_time);

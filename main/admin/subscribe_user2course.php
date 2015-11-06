@@ -168,7 +168,9 @@ if ($use_extra_fields) {
 $target_name = api_sort_by_first_name() ? 'firstname' : 'lastname';
 $orderBy = $target_name;
 $showOfficialCode = false;
-$orderListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+$orderListByOfficialCode = api_get_setting(
+    'platform.order_user_list_by_official_code'
+);
 if ($orderListByOfficialCode === 'true') {
     $showOfficialCode = true;
     $orderBy = " official_code, firstname, lastname";

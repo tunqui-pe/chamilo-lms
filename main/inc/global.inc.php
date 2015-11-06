@@ -73,7 +73,7 @@ api_check_php_version($includePath.'/');
 // 3. Checking the login_is_email portal setting in order to accept 100 chars maximum
 
 $defaultUserNameLength = 40;
-if (api_get_setting('login_is_email') == 'true') {
+if (api_get_setting('profile.login_is_email') == 'true') {
     $defaultUserNameLength = 100;
 }
 define('USERNAME_MAX_LENGTH', $defaultUserNameLength);
@@ -406,7 +406,7 @@ $valid_languages = api_get_languages();
 if (!empty($valid_languages)) {
 
     if (!in_array($user_language, $valid_languages['folder'])) {
-        $user_language = api_get_setting('platformLanguage');
+        $user_language = api_get_setting('language.platform_language');
     }
 
     $language_priority1 = api_get_setting('languagePriority1');
@@ -426,7 +426,7 @@ if (!empty($valid_languages)) {
     if (!empty($language_priority4) && api_get_language_from_type($language_priority4) !== false) {
         $language_interface = api_get_language_from_type($language_priority4);
     } else {
-        $language_interface = api_get_setting('platformLanguage');
+        $language_interface = api_get_setting('language.platform_language');
     }
 
     if (!empty($language_priority3) && api_get_language_from_type($language_priority3) !== false) {
@@ -570,7 +570,7 @@ if (isset($_configuration['language_measure_frequency']) &&
 }
 
 //Default quota for the course documents folder
-$default_quota = api_get_setting('default_document_quotum');
+$default_quota = api_get_setting('document.default_document_quotum');
 //Just in case the setting is not correctly set
 if (empty($default_quota)) {
     $default_quota = 100000000;

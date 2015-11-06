@@ -404,7 +404,7 @@ class Security
     	static $bad_terms = array();
 
         if (empty($bad_terms)) {
-            $list = api_get_setting('filter_terms');
+            $list = api_get_setting('security.filter_terms');
             $list = explode("\n", $list);
             $list = array_filter($list);
             if (!empty($list)) {

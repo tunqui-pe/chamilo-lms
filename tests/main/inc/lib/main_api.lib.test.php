@@ -509,7 +509,7 @@ class TestMainApi extends UnitTestCase {
 	}
 
 	public function testApiGetPermissionsForNewDirectories() {
-		$perm = trim(api_get_setting('permissions_for_new_directories'));
+		$perm = trim(api_get_setting('document.permissions_for_new_directories'));
 		$perm = octdec(!empty($perm) ? $perm : '0777');
 		$res = api_get_permissions_for_new_directories();
 		$this->assertTrue($res === $perm);

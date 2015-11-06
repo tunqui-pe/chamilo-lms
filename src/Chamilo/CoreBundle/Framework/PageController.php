@@ -223,7 +223,7 @@ class PageController
         $home                   = api_get_home_path();
         $user_selected_language = api_get_interface_language();
         $sys_path               = api_get_path(SYS_PATH);
-        $platformLanguage       = api_get_setting('platformLanguage');
+        $platformLanguage = api_get_setting('language.platform_language');
 
         if (!isset($user_selected_language)) {
             $user_selected_language = $platformLanguage;
@@ -556,7 +556,9 @@ class PageController
             if ($show_create_link) {
                 $elements[] = array(
                     'href'  => api_get_path(WEB_CODE_PATH).'create_course/add_course.php',
-                    'title' => (api_get_setting('course_validation') == 'true' ? get_lang(
+                    'title' => (api_get_setting(
+                        'course.course_validation'
+                    ) == 'true' ? get_lang(
                         'CreateCourseRequest'
                     ) : get_lang('CourseCreate'))
                 );
@@ -761,7 +763,9 @@ class PageController
                             $course_details[] = $course['tutor_name'];
                         }
                         if (api_get_setting('display.show_different_course_language') ==
-                            'true' && $course['course_language'] != api_get_setting('platformLanguage')
+                            'true' && $course['course_language'] != api_get_setting(
+                                'language.platform_language'
+                            )
                         ) {
                             $course_details[] = $course['course_language'];
                         }
@@ -809,13 +813,19 @@ class PageController
                     if (api_get_setting('course.display_teacher_in_courselist') == 'true') {
                         $course_details[] = $course['tutor_name'];
                     }
-                    if (api_get_setting('display.show_different_course_language') == 'true' && $course['course_language'] != api_get_setting('platformLanguage')
+                    if (api_get_setting(
+                            'display.show_different_course_language'
+                        ) == 'true' && $course['course_language'] != api_get_setting(
+                            'language.platform_language'
+                        )
                     ) {
                         $course_details[] = $course['course_language'];
                     }
                     if (api_get_setting(
                         'show_different_course_language'
-                    ) == 'true' && $course['course_language'] != api_get_setting('platformLanguage')
+                        ) == 'true' && $course['course_language'] != api_get_setting(
+                            'language.platform_language'
+                        )
                     ) {
                         $course_details[] = $course['course_language'];
                     }

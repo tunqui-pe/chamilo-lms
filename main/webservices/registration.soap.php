@@ -310,7 +310,7 @@ function WSCreateUsers($params) {
 
         // Default language.
         if (empty($language)) {
-            $language = api_get_setting('platformLanguage');
+            $language = api_get_setting('language.platform_language');
         }
 
         if (!empty($_user['user_id'])) {
@@ -535,7 +535,7 @@ function WSCreateUser($params) {
 
     // Default language
     if (empty($language)) {
-        $language = api_get_setting('platformLanguage');
+        $language = api_get_setting('language.platform_language');
     }
 
     if (!empty($_user['user_id'])) {
@@ -866,7 +866,7 @@ function WSCreateUsersPasswordCrypted($params)
 
         // Default language.
         if (empty($language)) {
-            $language = api_get_setting('platformLanguage');
+            $language = api_get_setting('language.platform_language');
         }
 
         if (!empty($_user['user_id'])) {
@@ -1149,7 +1149,7 @@ function WSCreateUserPasswordCrypted($params)
 
     // Default language.
     if (empty($language)) {
-        $language = api_get_setting('platformLanguage');
+        $language = api_get_setting('language.platform_language');
     }
 
     if (!empty($_user['user_id'])) {
@@ -2643,7 +2643,9 @@ function WSCreateCourse($params)
         if (isset($_user['language']) && $_user['language'] != '') {
             $values['course_language'] = $_user['language'];
         } else {
-            $values['course_language'] = api_get_setting('platformLanguage');
+            $values['course_language'] = api_get_setting(
+                'language.platform_language'
+            );
         }
 
         $values['tutor_name'] = api_get_person_name($_user['firstName'], $_user['lastName'], null, null, $values['course_language']);
@@ -2811,8 +2813,8 @@ function WSCreateCourseByTitle($params)
         $title = $course_param['title'];
         $category_code = 'LANG'; // TODO: A hard-coded value.
         $wanted_code = '';
-        $tutor_firstname = api_get_setting('administratorName');
-        $tutor_lastname = api_get_setting('administratorSurname');
+        $tutor_firstname = api_get_setting('platform.administrator_name');
+        $tutor_lastname = api_get_setting('platform.administrator_surname');
         $course_language = 'spanish'; // TODO: Incorrect default value, it should 'english'.
         if (!empty($course_param['course_language'])) {
             $course_language = $course_param['course_language'];
@@ -2861,7 +2863,9 @@ function WSCreateCourseByTitle($params)
         if (isset($_user['language']) && $_user['language'] != '') {
             $values['course_language'] = $_user['language'];
         } else {
-            $values['course_language'] = api_get_setting('platformLanguage');
+            $values['course_language'] = api_get_setting(
+                'language.platform_language'
+            );
         }
 
         $values['tutor_name'] = api_get_person_name($_user['firstName'], $_user['lastName'], null, null, $values['course_language']);

@@ -22,7 +22,7 @@ $is_platform_admin = api_is_platform_admin() ? 1 : 0;
 $message = null;
 $htmlHeadXtra[] = api_get_password_checker_js('#username', '#password');
 
-$checkPass = api_get_setting('allow_strength_pass_checker');
+$checkPass = api_get_setting('security.allow_strength_pass_checker');
 if ($checkPass == 'true') {
     $htmlHeadXtra[] = '
     <script>
@@ -125,11 +125,11 @@ $form->applyFilter('official_code', 'trim');
 // Email
 $form->addElement('text', 'email', get_lang('Email'), array('size' => '40'));
 $form->addRule('email', get_lang('EmailWrong'), 'email');
-if (api_get_setting('registration', 'email') == 'true') {
+if (api_get_setting_in_list('registration.required_profile_fields', 'email')) {
     $form->addRule('email', get_lang('EmailWrong'), 'required');
 }
 
-if (api_get_setting('login_is_email') == 'true') {
+if (api_get_setting('profile.login_is_email') == 'true') {
     $form->addRule('email', sprintf(get_lang('UsernameMaxXCharacters'), (string)USERNAME_MAX_LENGTH), 'maxlength', USERNAME_MAX_LENGTH);
     $form->addRule('email', get_lang('UserTaken'), 'username_available');
 }
@@ -143,7 +143,7 @@ $allowed_picture_types = array ('jpg', 'jpeg', 'png', 'gif');
 $form->addRule('picture', get_lang('OnlyImagesAllowed').' ('.implode(',', $allowed_picture_types).')', 'filetype', $allowed_picture_types);
 
 // Username
-if (api_get_setting('login_is_email') != 'true') {
+if (api_get_setting('profile.login_is_email') != 'true') {
     $form->addElement('text', 'username', get_lang('LoginName'), array('id'=> 'username', 'maxlength' => USERNAME_MAX_LENGTH, 'autocomplete' => 'off'));
     $form->addRule('username', get_lang('ThisFieldIsRequired'), 'required');
     $form->addRule('username', sprintf(get_lang('UsernameMaxXCharacters'), (string)USERNAME_MAX_LENGTH), 'maxlength', USERNAME_MAX_LENGTH);
@@ -352,7 +352,7 @@ if ($form->validate()) {
 
 		$active = intval($user['active']);
 
-        if (api_get_setting('login_is_email') == 'true') {
+        if (api_get_setting('profile.login_is_email') == 'true') {
             $username = $email;
         }
 

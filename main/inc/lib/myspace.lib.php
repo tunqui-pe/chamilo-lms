@@ -2519,7 +2519,7 @@ class MySpace
                     $user['UserName'],
                     $user['Password'],
                     $user['OfficialCode'],
-                    api_get_setting('PlatformLanguage'),
+                    api_get_setting('language.platform_language'),
                     $user['PhoneNumber'],
                     ''
                 );
@@ -2600,11 +2600,18 @@ class MySpace
                     )." ".get_lang('Is')." : ".api_get_path(WEB_PATH)." \n\n".
                     get_lang('Problem')."\n\n".
                     get_lang('SignatureFormula').",\n\n".
-                    api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))."\n".
+                    api_get_person_name(
+                        api_get_setting('platform.administrator_name'),
+                        api_get_setting('platform.administrator_surname')
+                    )."\n".
                     get_lang('Manager')." ".api_get_setting(
                         'platform.site_name'
                     )."\nT. ".
-                    api_get_setting('administratorTelephone')."\n".get_lang('Email')." : ".api_get_setting('emailAdministrator');
+                    api_get_setting(
+                        'platform.administrator_phone'
+                    )."\n".get_lang('Email')." : ".api_get_setting(
+                        'platform.administrator_email'
+                    );
 
                 api_mail_html(
                     api_get_person_name($user['FirstName'], $user['LastName'], null, PERSON_NAME_EMAIL_ADDRESS),

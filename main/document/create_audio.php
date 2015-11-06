@@ -310,7 +310,7 @@ echo '<form id="form3" name="form3" method="post" action="http://vozme.com/text2
 	echo '<select name="lang" id="select">';
 	while ($row = Database::fetch_array($result_select)) {
 		if (in_array($row['isocode'], array('ca', 'en', 'es', 'hi', 'it', 'pt'))) {
-			if (api_get_setting('platformLanguage')==$row['english_name']){
+			if (api_get_setting('language.platform_language')==$row['english_name']){
 				echo '<option value="'.$row['isocode'].'" selected="selected">'.$row['original_name'].' ('.$row['english_name'].')</option>';
 			} else {
 				echo '<option value="'.$row['isocode'].'">'.$row['original_name'].' ('.$row['english_name'].')</option>';

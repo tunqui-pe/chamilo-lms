@@ -1225,7 +1225,10 @@ class DocumentManager
         }
 
         if ($document_exists_in_disk) {
-            if (api_get_setting('permanently_remove_deleted_files') == 'true') {
+            if (api_get_setting(
+                    'document.permanently_remove_deleted_files'
+                ) == 'true'
+            ) {
                 // Delete documents, do it like this so metadata gets deleted too
                 my_delete($base_work_dir.$path);
                 // Hard delete.
@@ -4295,7 +4298,9 @@ class DocumentManager
      */
     public static function getDocumentDefaultVisibility($courseCode)
     {
-        $settings = api_get_setting('tool_visible_by_default_at_creation');
+        $settings = api_get_setting(
+            'document.tool_visible_by_default_at_creation'
+        );
 
         $defaultVisibility = 'visible';
 
@@ -4308,7 +4313,10 @@ class DocumentManager
             $defaultVisibility = $portalDefaultVisibility;
         }
 
-        if (api_get_setting('documents_default_visibility_defined_in_course') == 'true') {
+        if (api_get_setting(
+                'document.documents_default_visibility_defined_in_course'
+            ) == 'true'
+        ) {
             $courseVisibility = api_get_course_setting('documents_default_visibility', $courseCode);
             if (!empty($courseVisibility) && in_array($courseVisibility, array('visible', 'invisible'))) {
                 $defaultVisibility = $courseVisibility;

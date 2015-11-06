@@ -53,7 +53,9 @@ function search_members_keyword($firstname, $lastname, $username, $official_code
  */
 function sort_users($user_a, $user_b)
 {
-    $orderListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+    $orderListByOfficialCode = api_get_setting(
+        'platform.order_user_list_by_official_code'
+    );
     if ($orderListByOfficialCode === 'true') {
         $cmp = api_strcmp($user_a['official_code'], $user_b['official_code']);
         if ($cmp !== 0) {
@@ -129,7 +131,9 @@ $form->addElement('hidden', 'action');
 $form->addElement('hidden', 'max_student', $current_group['max_student']);
 $complete_user_list = GroupManager::fill_groups_list($current_group['id']);
 
-$orderUserListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+$orderUserListByOfficialCode = api_get_setting(
+    'platform.order_user_list_by_official_code'
+);
 $possible_users = array();
 $userGroup = new UserGroup();
 

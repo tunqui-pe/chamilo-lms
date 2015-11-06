@@ -45,7 +45,7 @@ if (!empty($_SESSION['user_language_choice'])) {
 } elseif (!empty($_SESSION['_user']['language'])) {
     $user_selected_language = $_SESSION['_user']['language'];
 } else {
-    $user_selected_language = api_get_setting('platformLanguage');
+    $user_selected_language = api_get_setting('language.platform_language');
 }
 
 $form = new FormValidator('registration');
@@ -85,7 +85,7 @@ if ($user_already_registered_show_terms == false) {
         $form->addRule('email', get_lang('ThisFieldIsRequired'), 'required');
     }
 
-    if (api_get_setting('login_is_email') == 'true') {
+    if (api_get_setting('profile.login_is_email') == 'true') {
         $form->applyFilter('email', 'trim');
         if (api_get_setting('registration', 'email') != 'true') {
             $form->addRule('email', get_lang('ThisFieldIsRequired'), 'required');
@@ -119,7 +119,7 @@ if ($user_already_registered_show_terms == false) {
     }
 
     // USERNAME
-    if (api_get_setting('login_is_email') != 'true') {
+    if (api_get_setting('profile.login_is_email') != 'true') {
         $form->addElement('text', 'username', get_lang('UserName'), array('id' => 'username', 'size' => USERNAME_MAX_LENGTH));
         $form->applyFilter('username', 'trim');
         $form->addRule('username', get_lang('ThisFieldIsRequired'), 'required');
@@ -131,7 +131,7 @@ if ($user_already_registered_show_terms == false) {
     // PASSWORD
     $form->addElement('password', 'pass1', get_lang('Pass'), array('id' => 'pass1', 'size' => 20, 'autocomplete' => 'off'));
 
-    $checkPass = api_get_setting('allow_strength_pass_checker');
+    $checkPass = api_get_setting('security.allow_strength_pass_checker');
     if ($checkPass == 'true') {
         $form->addElement('label', null, '<div id="password_progress"></div>');
     }
@@ -278,7 +278,7 @@ if ($user_already_registered_show_terms == false) {
 if (isset($_SESSION['user_language_choice']) && $_SESSION['user_language_choice'] != '') {
     $defaults['language'] = $_SESSION['user_language_choice'];
 } else {
-    $defaults['language'] = api_get_setting('platformLanguage');
+    $defaults['language'] = api_get_setting('language.platform_language');
 }
 if (!empty($_GET['username'])) {
     $defaults['username'] = Security::remove_XSS($_GET['username']);
@@ -315,7 +315,7 @@ if (!CustomPages::enabled()) {
                 $term_preview = LegalManager::get_last_condition($language);
                 if (!$term_preview) {
                     //look for the default language
-                    $language = api_get_setting('platformLanguage');
+                    $language = api_get_setting('language.platform_language');
                     $language = api_get_language_id($language);
                     $term_preview = LegalManager::get_last_condition($language);
                 }
@@ -385,7 +385,7 @@ if (api_get_setting('allow_terms_conditions') == 'true') {
 
     if (!$term_preview) {
         //we load from the platform
-        $language = api_get_setting('platformLanguage');
+        $language = api_get_setting('language.platform_language');
         $language = api_get_language_id($language);
         $term_preview = LegalManager::get_last_condition($language);
 
@@ -433,7 +433,7 @@ if ($form->validate()) {
         $values['official_code'] = api_strtoupper($values['username']);
     }
 
-    if (api_get_setting('login_is_email') == 'true') {
+    if (api_get_setting('profile.login_is_email') == 'true') {
         $values['username'] = $values['email'];
     }
 
@@ -651,7 +651,9 @@ if ($form->validate()) {
     $_user['language'] = $values['language'];
     $_user['user_id'] = $user_id;
     $is_allowedCreateCourse = isset($values['status']) && $values['status'] == 1;
-    $usersCanCreateCourse = api_get_setting('allow_users_to_create_courses') == 'true';
+    $usersCanCreateCourse = api_get_setting(
+            'course.allow_users_to_create_courses'
+        ) == 'true';
 
     Session::write('_user', $_user);
     Session::write('is_allowedCreateCourse', $is_allowedCreateCourse);
@@ -689,7 +691,7 @@ if ($form->validate()) {
             }
             $form_data['action']  = '../create_course/add_course.php';
 
-            if (api_get_setting('course_validation') == 'true') {
+            if (api_get_setting('course.course_validation') == 'true') {
                 $form_data['button'] = Display::button(
                     'next',
                     get_lang('CreateCourseRequest', null, $_user['language']),

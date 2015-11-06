@@ -2061,7 +2061,7 @@ class Display
             $editProfileUrl = api_get_path(WEB_CODE_PATH)."admin/user_edit.php?user_id=".intval($userId);
         }
 
-        if (api_get_setting('sso_authentication') === 'true') {
+        /*if (api_get_setting('sso_authentication') === 'true') {
             $subSSOClass = api_get_setting('sso_authentication_subclass');
 
             $objSSO = null;
@@ -2078,7 +2078,7 @@ class Display
                 $userId,
                 $asAdmin
             );
-        }
+        }*/
 
         return $editProfileUrl;
     }

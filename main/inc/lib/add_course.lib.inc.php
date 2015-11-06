@@ -711,7 +711,7 @@ class AddCourse
         /*    Example Material  */
         global $language_interface;
         $language_interface = !empty($language_interface) ? $language_interface : api_get_setting(
-            'platformLanguage'
+            'language.platform_language'
         );
 
 
@@ -1195,7 +1195,7 @@ class AddCourse
 
         $category_code = isset($params['course_category']) ? $params['course_category'] : '';
         $course_language = isset($params['course_language']) && !empty($params['course_language']) ? $params['course_language'] : api_get_setting(
-            'platformLanguage'
+            'language.platform_language'
         );
         $user_id = empty($params['user_id']) ? api_get_user_id() : intval($params['user_id']);
         $department_name = isset($params['department_name']) ?
@@ -1207,7 +1207,7 @@ class AddCourse
 
         if (!isset($params['visibility'])) {
             $default_course_visibility = api_get_setting(
-                'courses_default_creation_visibility'
+                'course.courses_default_creation_visibility'
             );
             if (isset($default_course_visibility)) {
                 $visibility = $default_course_visibility;
@@ -1266,7 +1266,7 @@ class AddCourse
         }
 
         if (empty($disk_quota)) {
-            $disk_quota = api_get_setting('default_document_quotum');
+            $disk_quota = api_get_setting('document.default_document_quotum');
         }
 
         $time = api_get_utc_datetime();
@@ -1379,16 +1379,18 @@ class AddCourse
                 );
 
                 $send_mail_to_admin = api_get_setting(
-                    'send_email_to_admin_when_create_course'
+                    'course.send_email_to_admin_when_create_course'
                 );
 
                 // @todo Improve code to send to all current portal administrators.
                 if ($send_mail_to_admin == 'true') {
                     $siteName = api_get_setting('platform.site_name');
-                    $recipient_email = api_get_setting('emailAdministrator');
+                    $recipient_email = api_get_setting(
+                        'platform.administrator_email'
+                    );
                     $recipient_name = api_get_person_name(
-                        api_get_setting('administratorName'),
-                        api_get_setting('administratorSurname')
+                        api_get_setting('platform.administrator_name'),
+                        api_get_setting('platform.administrator_surname')
                     );
                     $iname = api_get_setting('Institution');
                     $subject = get_lang(

@@ -19,7 +19,7 @@ class HTML_QuickForm_Rule_Username extends HTML_QuickForm_Rule
      */
     public function validate($username, $options)
     {
-        if (api_get_setting('login_is_email') == 'true') {
+        if (api_get_setting('profile.login_is_email') == 'true') {
             return api_valid_email($username);
         } else {
             return UserManager::is_username_valid($username);

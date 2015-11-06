@@ -46,7 +46,7 @@ if (!$is_allowedToEdit) {
 }
 
 $show_delete_watermark_text_message = false;
-if (api_get_setting('pdf_export_watermark_by_course') == 'true') {
+if (api_get_setting('document.pdf_export_watermark_by_course') == 'true') {
     if (isset($_GET['delete_watermark'])) {
         PDF::delete_watermark($course_code);
         $show_delete_watermark_text_message = true;
@@ -152,7 +152,7 @@ $form->addRule('picture', get_lang('OnlyImagesAllowed').' ('.implode(',', $allow
 $form->addElement('html', '<div class="form-group "><div class="col-md-2"></div> <div class="col-md-8 help-image">'.get_lang('UniqueAnswerImagePreferredSize200x150').'</div></div>');
 $form->addElement('checkbox', 'delete_picture', null, get_lang('DeletePicture'));
 
-if (api_get_setting('pdf_export_watermark_by_course') == 'true') {
+if (api_get_setting('document.pdf_export_watermark_by_course') == 'true') {
     $url =  PDF::get_watermark($course_code);
     $form->addText('pdf_export_watermark_text', get_lang('PDFExportWatermarkTextTitle'), false, array('size' => '60'));
     $form->addElement('file', 'pdf_export_watermark_path', get_lang('AddWaterMark'));
@@ -216,7 +216,7 @@ $form->addButtonSave(get_lang('SaveSettings'), 'submit_save');
 $form->addElement('html', '</div></div>');
 
 // Documents
-if (api_get_setting('documents_default_visibility_defined_in_course') == 'true') {
+if (api_get_setting('document.documents_default_visibility_defined_in_course') == 'true') {
     $form->addElement('html', '<div> <h3>'.Display::return_icon('folder.png', Security::remove_XSS(get_lang('Documents')),'',ICON_SIZE_SMALL).' '.Security::remove_XSS(get_lang('Documents')).'</h3><div>');
 
     $group = array(
@@ -317,7 +317,7 @@ if (api_get_setting('course.allow_course_theme') == 'true') {
     $form->addGroup($group, '', array(get_lang("AllowLearningPathTheme")), '');
 }
 
-$allowLPReturnLink = api_get_setting('allow_lp_return_link');
+$allowLPReturnLink = api_get_setting('course.allow_lp_return_link');
 if ($allowLPReturnLink === 'true') {
     $group = array(
         $form->createElement(
@@ -380,7 +380,7 @@ $form->addButtonSave(get_lang('SaveSettings'), 'submit_save');
 $form->addElement('html', '</div></div>');
 
 // Certificate settings
-if (api_get_setting('allow_public_certificates')=='true') {
+if (api_get_setting('course.allow_public_certificates')=='true') {
     $form->addElement('html', '<div><h3>'.Display::return_icon('certificate.png', Security::remove_XSS(get_lang('Certificates')),'',ICON_SIZE_SMALL).' '.Security::remove_XSS(get_lang('Certificates')).'</h3><div>');
     $group = array();
     $group[]=$form->createElement('radio', 'allow_public_certificates', get_lang('AllowPublicCertificates'), get_lang('Yes'), 1);

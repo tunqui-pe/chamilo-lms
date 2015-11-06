@@ -69,10 +69,10 @@ class Notification extends Model
 
         // If no-reply email doesn't exist use the admin name/email
         if (empty($this->adminEmail)) {
-            $this->adminEmail = api_get_setting('emailAdministrator');
+            $this->adminEmail = api_get_setting('platform.administrator_email');
             $this->adminName = api_get_person_name(
-                api_get_setting('administratorName'),
-                api_get_setting('administratorSurname'),
+                api_get_setting('platform.administrator_name'),
+                api_get_setting('platform.administrator_surname'),
                 null,
                 PERSON_NAME_EMAIL_ADDRESS
             );
@@ -417,7 +417,10 @@ class Notification extends Model
         }
 
         // See message with link text
-        if (!empty($linkToNewMessage) && api_get_setting('allow_message_tool') == 'true') {
+        if (!empty($linkToNewMessage) && api_get_setting(
+                'message.allow_message_tool'
+            ) == 'true'
+        ) {
             $content = $content.'<br /><br />'.$linkToNewMessage;
         }
 

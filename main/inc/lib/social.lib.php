@@ -1675,7 +1675,7 @@ class SocialManager extends UserManager
             $template->assign('vcard_user_link', $vCardUserLink);
         }
 
-        if (api_get_setting('gamification_mode') === '1') {
+        if (api_get_setting('platform.gamification_mode') === '1') {
             $gamificationPoints = GamificationUtils::getTotalUserPoints(
                 $userId,
                 $userInfo['status']

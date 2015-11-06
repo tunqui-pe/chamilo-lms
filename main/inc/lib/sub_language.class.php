@@ -391,7 +391,7 @@ class SubLanguageManager
      */
     public static function get_platform_language_id()
     {
-        $name = api_get_setting('platformLanguage');
+        $name = api_get_setting('language.platform_language');
         $tbl_admin_languages = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
         $sql = "SELECT id FROM " . $tbl_admin_languages . " WHERE english_name ='$name'";
         $res = Database::query($sql);

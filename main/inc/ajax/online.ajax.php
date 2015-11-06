@@ -24,7 +24,7 @@ switch($action) {
                     $page_rows,
                     $images_to_show,
                     api_get_user_id(),
-                    api_get_setting('time_limit_whosonline'),
+                    api_get_setting('display.time_limit_whosonline'),
                     $_GET['cidReq']
                 );
             } else {

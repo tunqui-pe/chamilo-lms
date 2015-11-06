@@ -727,7 +727,7 @@ foreach ($categories as $item) {
                     $start_time = $end_time = '';
                 }
 
-                if (api_get_setting('gamification_mode') == 1) {
+                if (api_get_setting('platform.gamification_mode') == 1) {
                     if ($details['seriousgame_mode'] == 0) {
                         $actionSeriousGame = Display::toolbarButton(
                             null,

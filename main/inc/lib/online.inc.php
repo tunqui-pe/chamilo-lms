@@ -180,7 +180,7 @@ function who_is_online($from, $number_of_items, $column = null, $direction = nul
 {
     // Time limit in seconds?
     if (empty($time_limit)) {
-        $time_limit = api_get_setting('time_limit_whosonline');
+		$time_limit = api_get_setting('display.time_limit_whosonline');
     } else {
         $time_limit = intval($time_limit);
     }
@@ -279,7 +279,7 @@ function who_is_online($from, $number_of_items, $column = null, $direction = nul
 function who_is_online_count($time_limit = null, $friends = false)
 {
     if (empty($time_limit)) {
-        $time_limit = api_get_setting('time_limit_whosonline');
+		$time_limit = api_get_setting('display.time_limit_whosonline');
     } else {
         $time_limit = intval($time_limit);
     }
@@ -358,7 +358,7 @@ function who_is_online_in_this_course($from, $number_of_items, $uid, $time_limit
 	if (empty($course_code)) return false;
 
     if (empty($time_limit)) {
-        $time_limit = api_get_setting('time_limit_whosonline');
+		$time_limit = api_get_setting('display.time_limit_whosonline');
     } else {
         $time_limit = intval($time_limit);
     }

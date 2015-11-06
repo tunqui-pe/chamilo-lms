@@ -135,7 +135,7 @@ if (!empty($_SESSION['user_language_choice'])) {
 } elseif (!empty($_SESSION['_user']['language'])) {
 	$lang = $_SESSION['_user']['language'];
 } else {
-	$lang = api_get_setting('platformLanguage');
+	$lang = api_get_setting('language.platform_language');
 }
 
 $languageGet = isset($_GET['language']) ? Security::remove_XSS($_GET['language']) : $lang;

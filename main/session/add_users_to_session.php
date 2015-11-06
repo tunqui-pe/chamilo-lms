@@ -83,14 +83,18 @@ function search_users($needle, $type)
         $order_clause = api_sort_by_first_name() ? ' ORDER BY firstname, lastname, username' : ' ORDER BY lastname, firstname, username';
         $showOfficialCode = false;
 
-        $orderListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+        $orderListByOfficialCode = api_get_setting(
+            'platform.order_user_list_by_official_code'
+        );
         if ($orderListByOfficialCode === 'true') {
             $showOfficialCode = true;
             $order_clause = ' ORDER BY official_code, firstname, lastname, username';
         }
 
         if (api_is_session_admin() &&
-            api_get_setting('prevent_session_admins_to_manage_all_users') === 'true'
+            api_get_setting(
+                'session.prevent_session_admins_to_manage_all_users'
+            ) === 'true'
         ) {
             $order_clause = " AND user.creator_id = " . api_get_user_id() . $order_clause;
         }
@@ -329,7 +333,9 @@ $ajax_search = $add_type == 'unique' ? true : false;
 $order_clause = api_sort_by_first_name() ? ' ORDER BY firstname, lastname, username' : ' ORDER BY lastname, firstname, username';
 
 $showOfficialCode = false;
-$orderListByOfficialCode = api_get_setting('order_user_list_by_official_code');
+$orderListByOfficialCode = api_get_setting(
+    'platform.order_user_list_by_official_code'
+);
 if ($orderListByOfficialCode === 'true') {
     $showOfficialCode = true;
     $order_clause = ' ORDER BY official_code, firstname, lastname, username';
@@ -434,7 +440,10 @@ if ($ajax_search) {
             }
         }
     }
-    if (api_is_session_admin() && api_get_setting('prevent_session_admins_to_manage_all_users') === 'true') {
+    if (api_is_session_admin() && api_get_setting(
+            'session.prevent_session_admins_to_manage_all_users'
+        ) === 'true'
+    ) {
         $order_clause = " AND u.creator_id = " . api_get_user_id() . $order_clause;
     }
     if ($use_extra_fields) {

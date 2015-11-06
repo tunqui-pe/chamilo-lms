@@ -826,12 +826,15 @@ if (isset($first_time) && $first_time==1 && api_is_allowed_to_edit(null,true)) {
     $cats = Category::load(null, null, $course_code, null, null, $session_id, false);
 
     if (!empty($cats)) {
-        if ((api_get_setting(
-                    'gradebook.gradebook_enable_grade_model'
-                ) == 'true') &&
+        if (
+            api_get_setting(
+                'gradebook.gradebook_enable_grade_model'
+            ) == 'true' &&
             (
                 api_is_platform_admin() || (api_is_allowed_to_edit(null, true) &&
-                api_get_setting('teachers_can_change_grade_model_settings') == 'true')
+                    api_get_setting(
+                        'gradebook.teachers_can_change_grade_model_settings'
+                    ) == 'true')
             )
         ) {
             // Getting grade models.
@@ -973,7 +976,7 @@ if (isset($first_time) && $first_time==1 && api_is_allowed_to_edit(null,true)) {
                     $pdf = new PDF('A4', $params['orientation'], $params);
 
                     $address = api_get_setting('institution_address');
-                    $phone = api_get_setting('administratorTelephone');
+                    $phone = api_get_setting('platform.administrator_phone');
                     $address = str_replace('\n', '<br />', $address);
                     $pdf->custom_header = array('html' => "<h5  align='right'>$address <br />$phone</h5>");
 

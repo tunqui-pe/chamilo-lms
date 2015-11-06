@@ -63,8 +63,7 @@ class ScoreDisplay
 
         // Loading portal settings + using standard functions.
 
-        $value = api_get_setting('gradebook.gradebook_score_display_coloring');
-        $value = $value['my_display_coloring'];
+        $value = api_get_setting('gradebook.my_display_coloring');
 
         // Setting coloring.
         $this->coloring_enabled = $value == 'true' ? true : false;

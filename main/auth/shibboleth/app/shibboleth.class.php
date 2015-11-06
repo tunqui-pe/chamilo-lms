@@ -257,7 +257,7 @@ EOT;
             $header .= "Cc: $shibb_admin_email";
         }
 
-        $administrator_email = api_get_setting('emailAdministrator');
+        $administrator_email = api_get_setting('platform.administrator_email');
         $result = mail($administrator_email, $subject, $message);
         return (bool) $result;
     }

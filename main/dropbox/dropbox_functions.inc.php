@@ -561,7 +561,10 @@ function display_add_form($dropbox_unid, $viewReceivedCategory, $viewSentCategor
     // List of all users in this course and all virtual courses combined with it
     if (api_get_session_id()) {
         $complete_user_list_for_dropbox = array();
-        if (api_get_setting('dropbox_allow_student_to_student') == 'true' || $_user['status'] != STUDENT) {
+        if (api_get_setting(
+                'dropbox.dropbox_allow_student_to_student'
+            ) == 'true' || $_user['status'] != STUDENT
+        ) {
             $complete_user_list_for_dropbox = CourseManager:: get_user_list_from_course_code(
                 $course_info['code'],
                 api_get_session_id(),
@@ -602,7 +605,10 @@ function display_add_form($dropbox_unid, $viewReceivedCategory, $viewSentCategor
             );
         }
     } else {
-        if (api_get_setting('dropbox_allow_student_to_student') == 'true' || $_user['status'] != STUDENT) {
+        if (api_get_setting(
+                'dropbox.dropbox_allow_student_to_student'
+            ) == 'true' || $_user['status'] != STUDENT
+        ) {
             $complete_user_list_for_dropbox = CourseManager::get_user_list_from_course_code(
                 $course_info['code'],
                 api_get_session_id()

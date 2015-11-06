@@ -329,7 +329,7 @@ class Template
     public static function isToolBarDisplayedForUser()
     {
         //Toolbar
-        $show_admin_toolbar = api_get_setting('show_admin_toolbar');
+        $show_admin_toolbar = api_get_setting('display.show_admin_toolbar');
         $show_toolbar = false;
 
         switch ($show_admin_toolbar) {
@@ -374,11 +374,11 @@ class Template
         $show_course_navigation_menu = null;
 
         if (!empty($this->course_id) && $this->user_is_logged_in) {
-            if (api_get_setting('show_toolshortcuts') != 'false') {
+            if (api_get_setting('course.show_tool_shortcuts') != 'false') {
                 //Course toolbar
                 $show_course_shortcut = CourseHome::show_navigation_tool_shortcuts();
             }
-            if (api_get_setting('show_navigation_menu') != 'false') {
+            if (api_get_setting('course.show_navigation_menu') != 'false') {
                 //Course toolbar
                 $show_course_navigation_menu = CourseHome::show_navigation_menu();
             }
@@ -481,10 +481,10 @@ class Template
             'software_name' => $_configuration['software_name'],
             'system_version' => $_configuration['system_version'],
             'site_name' => api_get_setting('platform.site_name'),
-            'institution' => api_get_setting('Institution'),
+            'institution' => api_get_setting('platform.institution'),
             'date' => api_format_date('now', DATE_FORMAT_LONG),
             'timezone' => _api_get_timezone(),
-            'gamification_mode' => api_get_setting('gamification_mode')
+            'gamification_mode' => api_get_setting('platform.gamification_mode'),
         );
         $this->assign('_s', $_s);
     }
@@ -890,7 +890,7 @@ class Template
         //Message link
         $message_link = null;
         $message_url  = null;
-        if (api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting('message.allow_message_tool') == 'true') {
             $message_url  = api_get_path(WEB_CODE_PATH).'messages/inbox.php';
             $message_link = '<a href="'.api_get_path(WEB_CODE_PATH).'messages/inbox.php">'.get_lang('Inbox').'</a>';
         }
@@ -910,7 +910,7 @@ class Template
 
         // Setting notifications
         $count_unread_message = 0;
-        if (api_get_setting('allow_message_tool') == 'true') {
+        if (api_get_setting('message.allow_message_tool') == 'true') {
             // get count unread message and total invitations
             $count_unread_message = MessageManager::get_number_of_messages(true);
         }
@@ -993,8 +993,11 @@ class Template
         if (api_get_setting('show_administrator_data') == 'true') {
             // Administrator name
             $administrator_data = get_lang('Manager').' : '.Display::encrypted_mailto_link(
-                    api_get_setting('emailAdministrator'),
-                    api_get_person_name(api_get_setting('administratorName'), api_get_setting('administratorSurname'))
+                    api_get_setting('platform.administrator_email'),
+                    api_get_person_name(
+                        api_get_setting('platform.administrator_name'),
+                        api_get_setting('platform.administrator_surname')
+                    )
                 );
             $this->assign('administrator_name', $administrator_data);
         }
@@ -1302,10 +1305,10 @@ class Template
     private function setAdministratorParams()
     {
         $_admin = [
-            'email' => api_get_setting('emailAdministrator'),
-            'surname' => api_get_setting('administratorSurname'),
-            'name' => api_get_setting('administratorName'),
-            'telephone' => api_get_setting('administratorTelephone')
+            'email' => api_get_setting('platform.administrator_email'),
+            'surname' => api_get_setting('platform.administrator_surname'),
+            'name' => api_get_setting('platform.administrator_name'),
+            'telephone' => api_get_setting('platform.administrator_phone'),
         ];
 
         $this->assign('_admin', $_admin);
