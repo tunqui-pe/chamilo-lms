@@ -32,6 +32,7 @@ class SessionSettingsSchema implements SchemaInterface
                     'session_tutor_reports_visibility' => '',
                     'session_page_enabled' => '',
                     'allow_teachers_to_create_sessions' => '',
+                    'prevent_session_admins_to_manage_all_users' => '',
                 )
             )
             ->setAllowedTypes(
@@ -57,6 +58,7 @@ class SessionSettingsSchema implements SchemaInterface
             ->add('allow_session_admins_to_manage_all_sessions', 'yes_no')
             ->add('session_tutor_reports_visibility', 'yes_no')
             ->add('session_page_enabled', 'yes_no')
-            ->add('allow_teachers_to_create_sessions', 'yes_no');
+            ->add('allow_teachers_to_create_sessions', 'yes_no')
+            ->add('prevent_session_admins_to_manage_all_users', 'yes_no');
     }
 }

@@ -22,6 +22,7 @@ class GroupSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'allow_group_categories' => '',
+                    'hide_course_group_if_no_tools_available' => '',
                 )
             )
             ->setAllowedTypes(
@@ -37,6 +38,7 @@ class GroupSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_group_categories', 'yes_no');
+            ->add('allow_group_categories', 'yes_no')
+            ->add('hide_course_group_if_no_tools_available', 'yes_no');
     }
 }

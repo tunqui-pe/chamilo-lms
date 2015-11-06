@@ -38,7 +38,6 @@ class ChatSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_personal_agenda', 'yes_no')
             ->add('allow_global_chat', 'yes_no');
     }
 }

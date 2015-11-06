@@ -124,6 +124,13 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    # Setting user/system locale
+    chamilo_core.listener.settings:
+        class: Chamilo\CoreBundle\EventListener\SettingListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: sylius.settings.pre_save, method: onSettingPreSave }
+
     # Menu
     chamilo_core.listener.navbar_menu_listener:
         class: Chamilo\CoreBundle\EventListener\MenuListener
@@ -216,6 +223,11 @@ services:
         tags:
             - { name: sylius.settings_schema, namespace: agenda }
 
+    chamilo_core.settings_schema.attendance:
+        class: Chamilo\CoreBundle\Settings\AttendanceSettingsSchema
+        tags:
+            - { name: sylius.settings_schema, namespace: attendance }
+
     chamilo_core.settings_schema.chat:
         class: Chamilo\CoreBundle\Settings\ChatSettingsSchema
         tags:
@@ -270,6 +282,11 @@ services:
         class: Chamilo\CoreBundle\Settings\GroupSettingsSchema
         tags:
             - { name: sylius.settings_schema, namespace: group }
+
+    chamilo_core.settings_schema.language:
+        class: Chamilo\CoreBundle\Settings\LanguageSettingsSchema
+        tags:
+            - { name: sylius.settings_schema, namespace: language }
 
     chamilo_core.settings_schema.mail:
         class: Chamilo\CoreBundle\Settings\MailSettingsSchema

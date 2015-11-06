@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,7 @@ class ProfileSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'profile' => '',
+                    'changeable_options' => [],
                     'extended_profile' => '',
                     'account_valid_duration' => '3660',
                     'split_users_upload_directory' => '',
@@ -33,9 +34,13 @@ class ProfileSettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'profile' => array('string'),
+                    'changeable_options' => array('array'),
                     'account_valid_duration' => array('string'),
                 )
+            )
+            ->setTransformer(
+                'changeable_options',
+                new ArrayToIdentifierTransformer()
             );
     }
 
@@ -46,22 +51,23 @@ class ProfileSettingsSchema implements SchemaInterface
     {
         $builder
             ->add(
-                'profile',
+                'changeable_options',
                 'choice',
                 array(
+                    'multiple' => true,
                     'choices' => array(
-                        'name',
-                        'officialcode',
-                        'email',
-                        'picture',
-                        'login',
-                        'password',
-                        'language',
-                        'phone',
-                        'openid',
-                        'theme',
-                        'apikeys',
-                    ),
+                        'name' => 'name',
+                        'officialcode' => 'officialcode',
+                        'email' => 'email',
+                        'picture' => 'picture',
+                        'login' => 'login',
+                        'password' => 'password',
+                        'language' => 'language',
+                        'phone' => 'phone',
+                        'openid' => 'openid',
+                        'theme' => 'theme',
+                        'apikeys' => 'apikeys',
+                    )
                 )
             )
             ->add('extended_profile', 'yes_no')
@@ -70,7 +76,7 @@ class ProfileSettingsSchema implements SchemaInterface
             ->add('user_selected_theme', 'yes_no')
             ->add('use_users_timezone', 'yes_no')
             ->add('allow_users_to_change_email_with_no_password', 'yes_no')
-            ->add('login_is_email', 'yes_no')
+            ->add('login_is_email', 'yes_no', ['label' => 'LoginIsEmailTitle'])
         ;
     }
 }

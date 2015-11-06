@@ -8,10 +8,10 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class ForumSettingsSchema
+ * Class AttendanceSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class ForumSettingsSchema implements SchemaInterface
+class AttendanceSettingsSchema implements SchemaInterface
 {
     /**
      * {@inheritdoc}
@@ -21,14 +21,11 @@ class ForumSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'default_forum_view' => '',
-                    'display_groups_forum_in_general_tool' => '',
+                    'allow_delete_attendance' => '',
                 )
             )
             ->setAllowedTypes(
-                array(
-                    'default_forum_view' => array('string'),
-                )
+                array()
             );
     }
 
@@ -38,17 +35,6 @@ class ForumSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add(
-                'default_forum_view',
-                'choice',
-                array(
-                    'choices' => array(
-                        'flat' => 'Flat',
-                        'threaded' => 'Threaded',
-                        'nested' => 'Nested',
-                    ),
-                )
-            )
-            ->add('display_groups_forum_in_general_tool', 'yes_no');
+            ->add('allow_delete_attendance', 'yes_no');
     }
 }

@@ -22,7 +22,6 @@ class GradebookSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'gradebook_enable' => '',
-                    'gradebook_score_display_coloring' => '',
                     'gradebook_score_display_custom' => '',
                     'gradebook_score_display_colorsplit' => '',
                     'gradebook_score_display_upperlimit' => '',
@@ -34,7 +33,8 @@ class GradebookSettingsSchema implements SchemaInterface
                     'gradebook_default_weight' => '100',
                     'gradebook_locking_enabled' => '',
                     'gradebook_default_grade_model_id' => '',
-                    'gradebook_show_percentage_in_rep' => '' // ?
+                    'gradebook_show_percentage_in_rep' => '',
+                    'my_display_coloring' => '',
                 )
             )
             ->setAllowedTypes(
@@ -54,7 +54,6 @@ class GradebookSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('gradebook_enable', 'yes_no')
-            ->add('gradebook_score_display_coloring', 'yes_no')
             ->add('gradebook_score_display_custom', 'yes_no')
             ->add('gradebook_score_display_colorspl')
             ->add('gradebook_score_display_upperlim', 'yes_no')
@@ -66,6 +65,7 @@ class GradebookSettingsSchema implements SchemaInterface
             ->add('gradebook_default_weight')
             ->add('gradebook_locking_enabled', 'yes_no')
             ->add('gradebook_default_grade_model_id')
-            ->add('gradebook_show_percentage_in_rep');
+            ->add('gradebook_show_percentage_in_rep')
+            ->add('my_display_coloring');
     }
 }

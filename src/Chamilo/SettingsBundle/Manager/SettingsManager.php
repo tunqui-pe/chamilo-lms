@@ -4,6 +4,7 @@
 namespace Chamilo\SettingsBundle\Manager;
 
 use Chamilo\CoreBundle\Entity\AccessUrl;
+use Sylius\Bundle\SettingsBundle\Event\SettingsEvent;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Bundle\SettingsBundle\Model\Settings;
@@ -99,12 +100,10 @@ class SettingsManager extends SyliusSettingsManager
         } else {
             $parameters = $this->getParameters($namespace);
         }
-
         $schema = $this->schemaRegistry->getSchema($namespace);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
-
         foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
             if (array_key_exists($parameter, $parameters)) {
                 $parameters[$parameter] = $transformer->reverseTransform($parameters[$parameter]);
@@ -146,7 +145,14 @@ class SettingsManager extends SyliusSettingsManager
             $persistedParametersMap[$parameter->getName()] = $parameter;
         }
 
+        $event = $this->eventDispatcher->dispatch(
+            SettingsEvent::PRE_SAVE,
+            new SettingsEvent($namespace, $settings, $parameters)
+        );
+        $url = $event->getArgument('url');
+
         foreach ($parameters as $name => $value) {
+
             if (isset($persistedParametersMap[$name])) {
                 $persistedParametersMap[$name]->setValue($value);
             } else {
@@ -157,7 +163,8 @@ class SettingsManager extends SyliusSettingsManager
                     ->setNamespace($namespace)
                     ->setName($name)
                     ->setValue($value)
-                    ->setUrl($this->getUrl())
+                    ->setUrl($url)
+                    ->setAccessUrl(1)
                     ->setAccessUrlLocked(0)
                     ->setAccessUrlChangeable(1)
                 ;
@@ -173,6 +180,11 @@ class SettingsManager extends SyliusSettingsManager
         }
 
         $this->parameterManager->flush();
+
+        $this->eventDispatcher->dispatch(
+            SettingsEvent::POST_SAVE,
+            new SettingsEvent($namespace, $settings, $parameters)
+        );
 
         $this->cache->save($namespace, $parameters);
     }

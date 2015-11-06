@@ -43,6 +43,7 @@ class CourseSettingsSchema implements SchemaInterface
                     'scorm_cumulative_session_time' => '',
                     'courses_default_creation_visibility' => '',
                     'allow_public_certificates' => '',
+                    'allow_lp_return_link' => '',
                 )
             )
             ->setAllowedTypes(
@@ -166,6 +167,7 @@ class CourseSettingsSchema implements SchemaInterface
                     ),
                 )
             )
-            ->add('allow_public_certificates', 'yes_no');
+            ->add('allow_public_certificates', 'yes_no')
+            ->add('allow_lp_return_link', 'yes_no');
     }
 }

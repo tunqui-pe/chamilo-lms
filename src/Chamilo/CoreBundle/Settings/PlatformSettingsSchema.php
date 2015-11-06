@@ -32,6 +32,9 @@ class PlatformSettingsSchema implements SchemaInterface
                     'theme' => 'chamilo',
                     'gravatar_enabled' => 'false',
                     'gravatar_type' => 'mm',
+                    'gamification_mode' => '',
+                    'order_user_list_by_official_code' => '',
+
                 )
             )
             ->setAllowedTypes(
@@ -46,6 +49,7 @@ class PlatformSettingsSchema implements SchemaInterface
                     'timezone' => array('string'),
                     'gravatar_enabled' => array('string'),
                     'gravatar_type' => array('string'),
+                    'gamification_mode' => array('string'),
                 )
             );
     }
@@ -67,6 +71,9 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('theme')
             ->add('gravatar_enabled', 'yes_no')
             ->add('gravatar_type')
+            ->add('gamification_mode')
+            ->add('order_user_list_by_official_code', 'yes_no')
+
         ;
     }
 }

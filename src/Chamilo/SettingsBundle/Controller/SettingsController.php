@@ -28,6 +28,7 @@ class SettingsController extends SyliusSettingsController
     {
         $manager = $this->getSettingsManager();
         $schemas = $manager->getSchemas();
+
         return array('schemas' => $schemas);
     }
 

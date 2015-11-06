@@ -420,8 +420,6 @@ class SettingsCurrent implements ParameterInterface
         return $this->id;
     }
 
-
-    //
     /**
      * {@inheritdoc}
      */
