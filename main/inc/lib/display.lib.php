@@ -446,12 +446,12 @@ class Display
      */
     public static function display_normal_message($message, $filter = true, $returnValue = false)
     {
-    	$message = self::return_message($message, 'normal', $filter);
-        if ($returnValue) {
+    	self::return_message($message, 'normal', $filter);
+        /*if ($returnValue) {
             return $message;
         } else {
             echo $message;
-        }
+        }*/
     }
 
     /**
@@ -525,6 +525,9 @@ class Display
         	$message = api_htmlentities($message, ENT_QUOTES, api_is_xml_http_request() ? 'UTF-8' : api_get_system_encoding());
         }
 
+        Container::getSession()->getFlashBag()->add($type, $message);
+        return '';
+/*
         $class = "";
         switch($type) {
             case 'warning':
@@ -543,7 +546,7 @@ class Display
                 $class .= 'alert alert-info';
         }
 
-        return self::div($message, array('class'=> $class));
+        return self::div($message, array('class'=> $class));*/
     }
 
     /**
