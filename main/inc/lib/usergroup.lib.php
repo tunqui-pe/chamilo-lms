@@ -858,7 +858,7 @@ class UserGroup extends Model
         }
 
         // Multidimensional sort
-        $result = msort($result, $sidx, $sord);
+        $result = ArrayClass::msort($result, $sidx, $sord);
 
         return $result;
     }

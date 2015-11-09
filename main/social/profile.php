@@ -250,7 +250,7 @@ if (is_array($personal_course_list)) {
         $i++;
     }
     //to avoid repeted courses
-    $course_list_code = array_unique_dimensional($course_list_code);
+    $course_list_code = ArrayClass::array_unique_dimensional($course_list_code);
 }
 
 //Social Block Menu

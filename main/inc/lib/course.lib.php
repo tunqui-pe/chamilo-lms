@@ -1846,13 +1846,12 @@ class CourseManager
      * Return user info array of all teacher-users registered in a course
      * This only returns the users that are registered in this actual course, not linked courses.
      *
-     * @param string $course_code
+     * @param int $courseId
      * @return array with user id
      */
-    public static function get_teacher_list_from_course_code($course_code)
+    public static function getTeacherListFromCourse($courseId)
     {
-        $courseInfo = api_get_course_info($course_code);
-        $courseId = $courseInfo['real_id'];
+        $courseId = intval($courseId);
         if (empty($courseId)) {
             return false;
         }
@@ -1880,19 +1879,64 @@ class CourseManager
     }
 
     /**
+     * @param $userList
+     * @param null $separator
+     * @param bool|false $add_link_to_profile
+     * @return string
+     */
+    public static function formatUserListToString(
+        $userList,
+        $separator = null,
+        $add_link_to_profile = false
+    ) {
+        if (empty($separator)) {
+            $separator = self::USER_SEPARATOR;
+        }
+        $teacher_string = '';
+        $list = array();
+        if (!empty($userList)) {
+            foreach ($userList as $teacher) {
+                $teacher_name = api_get_person_name(
+                    $teacher['firstname'],
+                    $teacher['lastname']
+                );
+                if ($add_link_to_profile) {
+                    $url = api_get_path(
+                            WEB_AJAX_PATH
+                        ).'user_manager.ajax.php?a=get_user_popup&resizable=0&height=300&user_id='.$teacher['user_id'];
+                    $teacher_name = Display::url(
+                        $teacher_name,
+                        $url,
+                        array('class' => 'ajax')
+                    );
+                }
+                $list[] = $teacher_name;
+            }
+            if (!empty($list)) {
+                $teacher_string = ArrayClass::array_to_string(
+                    $list,
+                    $separator
+                );
+            }
+        }
+
+        return $teacher_string;
+    }
+
+    /**
      * Returns a string list of teachers assigned to the given course
-     * @param string $course_code
+     * @param int $courseId
      * @param string $separator between teachers names
      * @param bool $add_link_to_profile Whether to add a link to the teacher's profile
      * @return string List of teachers teaching the course
      */
-    public static function get_teacher_list_from_course_code_to_string(
-        $course_code,
+    public static function getTeacherListFromCourseToString(
+        $courseId,
         $separator = self::USER_SEPARATOR,
         $add_link_to_profile = false,
         $orderList = false
     ) {
-        $teacher_list = self::get_teacher_list_from_course_code($course_code);
+        $teacher_list = self::getTeacherListFromCourse($courseId);
         $teacher_string = '';
         $html = '';
         $list = array();
@@ -3188,7 +3232,7 @@ class CourseManager
         //Crop the image to adjust 4:3 ratio
         $image = new Image($source_file);
         $image->crop($cropParameters);
-        
+
         //Resize the images in two formats
         $medium = new Image($source_file);
         $medium->resize(85);
@@ -3196,7 +3240,7 @@ class CourseManager
         $normal = new Image($source_file);
         $normal->resize(300);
         $normal->send_image($course_image, -1, 'png');
-        
+
         $result = $medium && $normal;
 
         return $result ? $result : false;
@@ -3495,8 +3539,8 @@ class CourseManager
                         $course_title .= ' (' . $course_info['visual_code'] . ') ';
                     }
                     if (api_get_setting('display_teacher_in_courselist') == 'true') {
-                        $params['teachers'] = CourseManager::get_teacher_list_from_course_code_to_string(
-                            $course['code'],
+                        $params['teachers'] = CourseManager::getTeacherListFromCourseToString(
+                            $course['real_id'],
                             self::USER_SEPARATOR,
                             true
                         );
@@ -3733,8 +3777,8 @@ class CourseManager
             }
 
             if (api_get_setting('display_teacher_in_courselist') == 'true') {
-                $teachers = CourseManager::get_teacher_list_from_course_code_to_string(
-                    $course['code'],
+                $teachers = CourseManager::getTeacherListFromCourseToString(
+                    $course['real_id'],
                     self::USER_SEPARATOR,
                     true
                 );
@@ -3993,8 +4037,8 @@ class CourseManager
 
         if (api_get_setting('display_teacher_in_courselist') == 'true') {
 
-            $teacher_list = CourseManager::get_teacher_list_from_course_code_to_string(
-                $course_info['code'],
+            $teacher_list = CourseManager::getTeacherListFromCourseToString(
+                $course_info['real_id'],
                 self::USER_SEPARATOR,
                 true
             );
@@ -4692,7 +4736,9 @@ class CourseManager
                 );
             //}
             /* get_lang('Description') */
-            $my_course['extra_info']['teachers'] = CourseManager::get_teacher_list_from_course_code_to_string($course_info['code']);
+            $my_course['extra_info']['teachers'] = CourseManager::getTeacherListFromCourseToString(
+                $course_info['real_id']
+            );
             $point_info = self::get_course_ranking($course_info['real_id'], 0);
             $my_course['extra_info']['rating_html'] = Display::return_rating_system('star_' . $course_info['real_id'],
                 $ajax_url . '&course_id=' . $course_info['real_id'], $point_info);
@@ -4916,7 +4962,9 @@ class CourseManager
         $course_code = $courseInfo['code'];
 
         $course_user_table = Database::get_main_table(TABLE_MAIN_COURSE_USER);
-        $alreadyAddedTeachers = CourseManager::get_teacher_list_from_course_code($course_code);
+        $alreadyAddedTeachers = CourseManager::getTeacherListFromCourse(
+            $course_code
+        );
 
         if ($deleteTeachersNotInList) {
 
@@ -5806,7 +5854,11 @@ class CourseManager
         }
         $teachers = '';
         if (api_get_setting('display_teacher_in_courselist') == 'true') {
-            $teachers = CourseManager::get_teacher_list_from_course_code_to_string($course['code'], self::USER_SEPARATOR, true);
+            $teachers = CourseManager::getTeacherListFromCourseToString(
+                $course['real_id'],
+                self::USER_SEPARATOR,
+                true
+            );
         }
         $params['link'] = $course_title_url;
         $params['icon'] = $status_icon;

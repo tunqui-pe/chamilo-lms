@@ -199,7 +199,7 @@ switch ($action) {
             }
         }
 
-        $temp = msort($temp, $sidx, $sord);
+        $temp = ArrayClass::msort($temp, $sidx, $sord);
 
         $i =0;
         $response = new stdClass();
@@ -329,7 +329,7 @@ switch ($action) {
             }
         }
         if (!empty($sidx)) {
-            $temp = msort($temp, $sidx, $sord);
+            $temp = ArrayClass::msort($temp, $sidx, $sord);
         }
 
         $response = new stdClass();
@@ -456,7 +456,7 @@ switch ($action) {
             }
         }
 
-        $temp = msort($temp, $sidx, $sord);
+        $temp = ArrayClass::msort($temp, $sidx, $sord);
 
         $response = new stdClass();
         $i =0;

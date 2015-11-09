@@ -3281,8 +3281,8 @@ function addWorkComment($courseInfo, $userId, $parentWork, $work, $data)
     } else {
         $sessionId = api_get_session_id();
         if (empty($sessionId)) {
-            $teachers = CourseManager::get_teacher_list_from_course_code(
-                $courseInfo['code']
+            $teachers = CourseManager::getTeacherListFromCourse(
+                $courseInfo['real_id']
             );
             if (!empty($teachers)) {
                 $userIdListToSend = array_keys($teachers);
@@ -4807,8 +4807,8 @@ function exportAllStudentWorkFromPublication(
 
     $courseCode = $courseInfo['code'];
     $header = get_lang('Course').': '.$courseInfo['title'];
-    $teachers = CourseManager::get_teacher_list_from_course_code_to_string(
-        $courseCode
+    $teachers = CourseManager::getTeacherListFromCourseToString(
+        $courseInfo['real_id']
     );
 
     if (!empty($sessionId)) {

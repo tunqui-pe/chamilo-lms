@@ -4254,7 +4254,7 @@ class Exercise
         if (!empty($sessionId)) {
             $teachers = CourseManager::get_coach_list_from_course_code($courseCode, $sessionId);
         } else {
-            $teachers = CourseManager::get_teacher_list_from_course_code($courseCode);
+            $teachers = CourseManager::getTeacherListFromCourse($courseCode);
         }
 
         if (!empty($teachers)) {
@@ -4353,7 +4353,9 @@ class Exercise
             if (api_get_session_id()) {
                 $teachers = CourseManager::get_coach_list_from_course_code($courseCode, api_get_session_id());
             } else {
-                $teachers = CourseManager::get_teacher_list_from_course_code($courseCode);
+                $teachers = CourseManager::getTeacherListFromCourse(
+                    $course_info['real_id']
+                );
             }
 
             if (!empty($teachers)) {
@@ -4444,7 +4446,9 @@ class Exercise
             if (api_get_session_id()) {
                 $teachers = CourseManager::get_coach_list_from_course_code($courseCode, api_get_session_id());
             } else {
-                $teachers = CourseManager::get_teacher_list_from_course_code($courseCode);
+                $teachers = CourseManager::getTeacherListFromCourse(
+                    $course_info['real_id']
+                );
             }
 
             if (!empty($teachers)) {

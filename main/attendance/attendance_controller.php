@@ -498,7 +498,9 @@ class AttendanceController
 
         // Set headers pdf.
         $courseCategory = CourseManager::get_course_category($courseInfo['category_code']);
-        $teacherInfo = CourseManager::get_teacher_list_from_course_code($courseInfo['code']);
+        $teacherInfo = CourseManager::getTeacherListFromCourse(
+            $courseInfo['real_id']
+        );
         $teacherName = null;
         foreach ($teacherInfo as $teacherData) {
             if ($teacherName != null) {

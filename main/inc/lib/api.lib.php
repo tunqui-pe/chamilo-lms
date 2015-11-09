@@ -1831,13 +1831,25 @@ function api_get_course_info($course_code = null, $strict = false)
                 WHERE course.id = $courseId";
         $result = Database::query($sql);
         $courseInfo = array();
+
         if (Database::num_rows($result) > 0) {
             $data = Database::fetch_array($result);
+
+            $data['teacher_list'] = CourseManager::getTeacherListFromCourse(
+                $courseId
+            );
+            $data['teacher_list_formatted'] = CourseManager::formatUserListToString(
+                $data['teacher_list'],
+                null,
+                true
+            );
+
             $courseInfo = api_format_course_array($data);
         }
 
         return $courseInfo;
     }
+
 
     $_course = Session::read('_course');
     if ($_course == '-1') {
@@ -1954,6 +1966,11 @@ function api_format_course_array($course_data)
         $url_image = Display::return_icon('session_default.png',null,null,null,null,true);
     }
     $_course['course_image_large'] = $url_image;
+
+    $_course['extra_fields'] = isset($course_data['extra_fields']) ? $course_data['extra_fields'] : array();
+    $_course['settings'] = isset($course_data['settings']) ? $course_data['settings'] : array();
+    $_course['teacher_list'] = isset($course_data['teacher_list']) ? $course_data['teacher_list'] : array();
+    $_course['teacher_list_formatted'] = isset($course_data['teacher_list_formatted']) ? $course_data['teacher_list_formatted'] : array();
 
     return $_course;
 }

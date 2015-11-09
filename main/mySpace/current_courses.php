@@ -33,7 +33,7 @@ if (!empty($my_courses)) {
 			continue;
 		}
 
-		$teachers = CourseManager::get_teacher_list_from_course_code($course_code);
+		$teachers = CourseManager::getTeacherListFromCourse($course_id);
 		$teacher_list =  array();
 
 		if (!empty($teachers)) {

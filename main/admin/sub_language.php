@@ -282,7 +282,7 @@ function search_language_term(
 		}
 	}
 
-	$list_info = array_unique_dimensional($list_info);
+	$list_info = ArrayClass::array_unique_dimensional($list_info);
 	return $list_info;
 }
 

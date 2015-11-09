@@ -4464,7 +4464,7 @@ class SessionManager
                             if ($addTeachersToSession) {
                                 if ($addOriginalCourseTeachersAsCourseSessionCoaches) {
                                     // Adding course teachers as course session teachers.
-                                    $alreadyAddedTeachers = CourseManager::get_teacher_list_from_course_code(
+                                    $alreadyAddedTeachers = CourseManager::getTeacherListFromCourse(
                                         $course_code
                                     );
 
@@ -4510,7 +4510,9 @@ class SessionManager
                                 }
 
                                 // Un subscribe everyone that's not in the list.
-                                $teacherList = CourseManager::get_teacher_list_from_course_code($course_code);
+                                $teacherList = CourseManager::getTeacherListFromCourse(
+                                    $courseId
+                                );
                                 if (!empty($teacherList)) {
                                     foreach ($teacherList as $teacher) {
                                         if ($teacherToAdd != $teacher['user_id']) {
@@ -4617,7 +4619,9 @@ class SessionManager
 
                                 if (!empty($teacherToAdd)) {
                                     // Deleting all course teachers and adding the only coach as teacher.
-                                    $teacherList = CourseManager::get_teacher_list_from_course_code($course_code);
+                                    $teacherList = CourseManager::getTeacherListFromCourse(
+                                        $courseId
+                                    );
 
                                     if (!empty($teacherList)) {
                                         foreach ($teacherList as $teacher) {

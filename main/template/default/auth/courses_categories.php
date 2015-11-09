@@ -326,7 +326,7 @@ function return_title($course)
     $linkCourse = api_get_course_url($course['code']);
     $title = cut($course['title'], 70);
     $ajax_url = api_get_path(WEB_AJAX_PATH).'course.ajax.php?a=add_course_vote';
-    $teachers = CourseManager::get_teacher_list_from_course_code_to_string($course['code']);
+    $teachers = CourseManager::getTeacherListFromCourseToString($course['real_id']);
     $rating = Display::return_rating_system('star_'.$course['real_id'], $ajax_url.'&course_id='.$course['real_id'], $course['point_info']);
     $html .=  '<h4 class="title"><a href="' . $linkCourse . '">' . cut($title, 60) . '</a></h4>';
     $html .= '<div class="teachers">'.$teachers.'</div>';

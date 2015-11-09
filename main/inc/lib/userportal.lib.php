@@ -62,7 +62,7 @@ class IndexManager
                 }
             }
             if (!empty($exercise_list)) {
-                $exercise_list = msort($exercise_list, 'tms');
+                $exercise_list = ArrayClass::msort($exercise_list, 'tms');
                 $my_exercise = $exercise_list[0];
                 $url = Display::url($my_exercise['title'], api_get_path(WEB_CODE_PATH).'exercice/overview.php?exerciseId='.$my_exercise['id'].'&cidReq='.$my_exercise['course_code'].'&id_session='.$my_exercise['session_id']);
                 $this->tpl->assign('exercise_url', $url);

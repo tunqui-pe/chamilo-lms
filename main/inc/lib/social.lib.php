@@ -931,7 +931,9 @@ class SocialManager extends UserManager
                         $i++;
                     }
                     // To avoid repeated courses
-                    $course_list_code = array_unique_dimensional($course_list_code);
+                    $course_list_code = ArrayClass::array_unique_dimensional(
+                        $course_list_code
+                    );
                 }
 
                 // Announcements

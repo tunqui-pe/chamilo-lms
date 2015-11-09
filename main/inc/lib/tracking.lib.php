@@ -1173,7 +1173,7 @@ class Tracking
                 null,
                 null,
                 null
-            );  
+            );
             foreach ($platformCourses as $course) {
                 $courses[$course['code']] = $course['code'];
             }
@@ -4157,7 +4157,7 @@ class Tracking
             }
 
             if (empty($session_id)) {
-                $my_course_data = utf8_sort($my_course_data);
+                $my_course_data = ArrayClass::utf8_sort($my_course_data);
             }
 
             $final_course_data = array();

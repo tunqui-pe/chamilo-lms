@@ -720,7 +720,7 @@ switch ($action) {
 	case 'get_user_skill_ranking':
         $columns = array('photo', 'firstname', 'lastname', 'skills_acquired', 'currently_learning', 'rank');
         $result = $skill->get_user_list_skill_ranking($start, $limit, $sidx, $sord, $whereCondition);
-        $result = msort($result, 'skills_acquired', 'asc');
+        $result = ArrayClass::msort($result, 'skills_acquired', 'asc');
 
         $skills_in_course = array();
         if (!empty($result)) {
@@ -1540,7 +1540,7 @@ switch ($action) {
             $sidx = 'name';
         }
         // Multidimensional sort
-        $result = msort($result, $sidx, $sord);
+        $result = ArrayClass::msort($result, $sidx, $sord);
         break;
     default:
         exit;

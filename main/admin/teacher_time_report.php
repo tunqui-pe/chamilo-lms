@@ -85,7 +85,7 @@ if (!empty($selectedCourse)) {
     $withFilter = true;
     $course = api_get_course_info($selectedCourse);
     $reportTitle = sprintf(get_lang('TimeReportForCourseX'), $course['title']);
-    $teachers = CourseManager::get_teacher_list_from_course_code($selectedCourse);
+    $teachers = CourseManager::getTeacherListFromCourse($course['real_id']);
 
     foreach ($teachers as $teacher) {
         $totalTime = UserManager::getTimeSpentInCourses(

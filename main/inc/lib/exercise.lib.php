@@ -1837,8 +1837,8 @@ HTML;
             return $rowx[0];
         }
 
-        $teacher_list = CourseManager::get_teacher_list_from_course_code(
-            api_get_course_id()
+        $teacher_list = CourseManager::getTeacherListFromCourse(
+            api_get_course_int_id()
         );
         $teacher_id_list = array();
         foreach ($teacher_list as $teacher) {

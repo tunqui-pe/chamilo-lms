@@ -1498,7 +1498,7 @@ class Agenda
                 (
                     agenda.session_id = $session_id AND
                     ip.session_id = $session_id
-                ) ";                
+                ) ";
             }
 
             $sql = "SELECT DISTINCT
@@ -1545,7 +1545,7 @@ class Agenda
                 (
                     agenda.session_id = $session_id AND
                     ip.session_id = $session_id
-                ) ";                
+                ) ";
             }
 
             $sql = "SELECT DISTINCT
@@ -3187,8 +3187,8 @@ class Agenda
                     echo "<td ".$class.">".$dayheader;
 
                     if (!empty($agendaitems[$curday])) {
-                        $items =  $agendaitems[$curday];
-                        $items =  msort($items, 'start_date_tms');
+                        $items = $agendaitems[$curday];
+                        $items = ArrayClass::msort($items, 'start_date_tms');
 
                         foreach($items  as $value) {
                             $value['title'] = Security::remove_XSS($value['title']);

@@ -274,9 +274,8 @@ if ($session_id) {
     $titleSession = Display::return_icon('course.png', get_lang('Course'), array(), ICON_SIZE_SMALL).' '.$courseInfo['name'];
 }
 
-
-$teacherList = CourseManager::get_teacher_list_from_course_code_to_string(
-    $courseInfo['code'],
+$teacherList = CourseManager::getTeacherListFromCourseToString(
+    $courseInfo['real_id'],
     ',',
     false,
     true
