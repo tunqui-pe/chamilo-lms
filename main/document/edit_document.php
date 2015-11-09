@@ -525,7 +525,10 @@ if ($owner_id == api_get_user_id() ||
 		);
 	}
 
-	if ($extension=='svg' && !api_browser_support('svg') && api_get_setting('enabled_support_svg') == 'true'){
+	if ($extension == 'svg' && !api_browser_support('svg') && api_get_setting(
+					'editor.enabled_support_svg'
+			) == 'true'
+	) {
 		Display::display_warning_message(get_lang('BrowserDontSupportsSVG'));
 	}
 	echo '<div class="row-fluid" style="overflow:hidden">

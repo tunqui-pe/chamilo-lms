@@ -10,7 +10,7 @@
 header('Content-Type: application/json');
 
 $json = array(
-    'name' => api_get_setting('Institution'),
+    'name' => api_get_setting('platform.institution'),
     'url' => api_get_path(WEB_PATH)
 );
 

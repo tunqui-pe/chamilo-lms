@@ -586,7 +586,7 @@ class Category implements GradebookItem
                     if (isset($grade_model_id) && !empty($grade_model_id) && $grade_model_id != '-1') {
                         $obj = new GradeModel();
                         $components = $obj->get_components($grade_model_id);
-                        $default_weight_setting = api_get_setting('gradebook_default_weight');
+                        $default_weight_setting = api_get_setting('gradebook.gradebook_default_weight');
                         $default_weight = 100;
                         if (isset($default_weight_setting)) {
                             $default_weight = $default_weight_setting;
@@ -657,7 +657,7 @@ class Category implements GradebookItem
                 if (isset($grade_model_id) && !empty($grade_model_id) && $grade_model_id != '-1') {
                     $obj = new GradeModel();
                     $components = $obj->get_components($grade_model_id);
-                    $default_weight_setting = api_get_setting('gradebook_default_weight');
+                    $default_weight_setting = api_get_setting('gradebook.gradebook_default_weight');
                     $default_weight = 100;
                     if (isset($default_weight_setting)) {
                         $default_weight = $default_weight_setting;
@@ -1860,7 +1860,7 @@ class Category implements GradebookItem
      */
     public function lock_all_items($locked)
     {
-        if (api_get_setting('gradebook_locking_enabled') == 'true') {
+        if (api_get_setting('gradebook.gradebook_locking_enabled') == 'true') {
             $this->lock($locked);
 
             $evals_to_lock = $this->get_evaluations();
@@ -1939,7 +1939,7 @@ class Category implements GradebookItem
             return false;
         }
 
-        $skillToolEnabled = api_get_setting('allow_skills_tool') == 'true';
+        $skillToolEnabled = api_get_setting('skill.allow_skills_tool') == 'true';
         $userHasSkills = false;
 
         if ($skillToolEnabled) {

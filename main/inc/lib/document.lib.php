@@ -774,7 +774,7 @@ class DocumentManager
             $session_id = api_get_session_id();
             $condition_session = api_get_session_condition($session_id, true, false, 'docs.session_id');
             $show_users_condition = "";
-            if (api_get_setting('show_users_folders') == 'false') {
+            if (api_get_setting('document.show_users_folders') == 'false') {
                 $show_users_condition = " AND docs.path NOT LIKE '%shared_folder%'";
             }
 
@@ -1850,7 +1850,7 @@ class DocumentManager
         $course_info = api_get_course_info($course_id);
 
         //info portal
-        $organization_name = api_get_setting('Institution');
+        $organization_name = api_get_setting('platform.institution');
         $portal_name = api_get_setting('platform.site_name');
 
         //Extra user data information
@@ -4230,7 +4230,7 @@ class DocumentManager
         }
 
         // Admin setting for Hide/Show the folders of all users
-        if (api_get_setting('show_users_folders') == 'false') {
+        if (api_get_setting('document.show_users_folders') == 'false') {
             $foldersToAvoid[] = '/shared_folder';
 
             if (strstr($path, 'shared_folder_session_')) {
@@ -4239,7 +4239,7 @@ class DocumentManager
         }
 
         // Admin setting for Hide/Show Default folders to all users
-        if (api_get_setting('show_default_folders') == 'false') {
+        if (api_get_setting('document.show_default_folders') == 'false') {
             $foldersToAvoid[] = '/images';
             $foldersToAvoid[] = '/flash';
             $foldersToAvoid[] = '/audio';
@@ -4247,7 +4247,7 @@ class DocumentManager
         }
 
         // Admin setting for Hide/Show chat history folder
-        if (api_get_setting('show_chat_folder') == 'false') {
+        if (api_get_setting('chat.show_chat_folder') == 'false') {
             $foldersToAvoid[] = '/chat_files';
         }
 
@@ -5287,7 +5287,7 @@ class DocumentManager
                     (
                         preg_match('/wav$/i', urldecode($url)) &&
                         preg_match('/_chnano_.wav$/i', urldecode($url)) &&
-                        api_get_setting('enable_nanogong') == 'true'
+                        api_get_setting('document.enable_nanogong') == 'true'
                     )
                 ) {
                     // Simpler version of showinframesmin.php with no headers
@@ -5355,7 +5355,9 @@ class DocumentManager
                         (
                             preg_match('/wav$/i', urldecode($url)) &&
                             preg_match('/_chnano_.wav$/i', urldecode($url)) &&
-                            api_get_setting('enable_nanogong') == 'true'
+                            api_get_setting(
+                                'document.enable_nanogong'
+                            ) == 'true'
                         )
                     ) {
                         $url = 'showinframes.php?' . api_get_cidreq() . '&id=' . $document_data['id'];
@@ -5395,7 +5397,9 @@ class DocumentManager
                         (
                             preg_match('/wav$/i', urldecode($url)) &&
                             preg_match('/_chnano_.wav$/i', urldecode($url)) &&
-                            api_get_setting('enable_nanogong') == 'true'
+                            api_get_setting(
+                                'document.enable_nanogong'
+                            ) == 'true'
                         )
                     ) {
                         $url = 'showinframes.php?' . api_get_cidreq() . '&id=' . $document_data['id']; //without preview
@@ -5540,7 +5544,9 @@ class DocumentManager
         $curdirpath = urlencode($curdirpath);
         $extension = pathinfo($path, PATHINFO_EXTENSION);
         //@todo Implement remote support for converter
-        $usePpt2lp = (api_get_setting('service_ppt2lp', 'active') == 'true' && api_get_setting('service_ppt2lp', 'host') == 'localhost');
+        $usePpt2lp = api_get_setting(
+                'ppt_to_lp.active'
+            ) == 'true' && api_get_setting('ppt_to_lp.host') == 'localhost';
         $formatTypeList = DocumentManager::getFormatTypeListConvertor('from', $extension);
         $formatType = current($formatTypeList);
 
@@ -5568,13 +5574,19 @@ class DocumentManager
         // is from a non-session context, hide the edition capabilities
         if ($is_read_only /* or ($session_id!=api_get_session_id()) */) {
             if (api_is_course_admin() || api_is_platform_admin()) {
-                if ($extension == 'svg' && api_browser_support('svg') && api_get_setting('enabled_support_svg') == 'true') {
+                if ($extension == 'svg' && api_browser_support(
+                        'svg'
+                    ) && api_get_setting('editor.enabled_support_svg') == 'true'
+                ) {
                     $modify_icons = '<a href="edit_draw.php?' . api_get_cidreq() . '&id=' . $document_id . '">' .
                         Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
                 } elseif (in_array($extension, $web_odf_extension_list)  && api_get_setting('enabled_support_odf') === true) {
                     $modify_icons = '<a href="edit_odf.php?' . api_get_cidreq() . '&id=' . $document_id . '">' .
                         Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
-                } elseif ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'bmp' || $extension == 'gif' || $extension == 'pxd' && api_get_setting('enabled_support_pixlr') == 'true') {
+                } elseif ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'bmp' || $extension == 'gif' || $extension == 'pxd' && api_get_setting(
+                        'editor.enabled_support_pixlr'
+                    ) == 'true'
+                ) {
                     $modify_icons = '<a href="edit_paint.php?' . api_get_cidreq() . '&id=' . $document_id . '">' .
                         Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
                 } else {
@@ -5599,13 +5611,21 @@ class DocumentManager
             } else {
                 if (api_get_session_id()) {
                     if ($document_data['session_id'] == api_get_session_id()) {
-                        if ($extension == 'svg' && api_browser_support('svg') && api_get_setting('enabled_support_svg') == 'true') {
+                        if ($extension == 'svg' && api_browser_support(
+                                'svg'
+                            ) && api_get_setting(
+                                'editor.enabled_support_svg'
+                            ) == 'true'
+                        ) {
                             $modify_icons = '<a href="edit_draw.php?' . api_get_cidreq() . '&amp;id=' . $document_id  . '">' .
                                 Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
                         } elseif (in_array($extension, $web_odf_extension_list)  && api_get_setting('enabled_support_odf') === true) {
                             $modify_icons = '<a href="edit_odf.php?' . api_get_cidreq() . '&id=' . $document_id  . '">' .
                                 Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
-                        } elseif ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'bmp' || $extension == 'gif' || $extension == 'pxd' && api_get_setting('enabled_support_pixlr') == 'true') {
+                        } elseif ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'bmp' || $extension == 'gif' || $extension == 'pxd' && api_get_setting(
+                                'editor.enabled_support_pixlr'
+                            ) == 'true'
+                        ) {
                             $modify_icons = '<a href="edit_paint.php?' . api_get_cidreq() . '&id=' . $document_id  . '">' .
                                 Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
                         } else {
@@ -5616,13 +5636,21 @@ class DocumentManager
                         $modify_icons .= '&nbsp;' . Display::return_icon('edit_na.png', get_lang('Edit'), array(), ICON_SIZE_SMALL) . '</a>';
                     }
                 } else {
-                    if ($extension == 'svg' && api_browser_support('svg') && api_get_setting('enabled_support_svg') == 'true') {
+                    if ($extension == 'svg' && api_browser_support(
+                            'svg'
+                        ) && api_get_setting(
+                            'editor.enabled_support_svg'
+                        ) == 'true'
+                    ) {
                         $modify_icons = '<a href="edit_draw.php?' . api_get_cidreq() . '&amp;id=' . $document_id  . '">' .
                             Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
                     } elseif (in_array($extension, $web_odf_extension_list)  && api_get_setting('enabled_support_odf') === true) {
                         $modify_icons = '<a href="edit_odf.php?' . api_get_cidreq() . '&id=' . $document_id  . '">' .
                             Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
-                    } elseif ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'bmp' || $extension == 'gif' || $extension == 'pxd' && api_get_setting('enabled_support_pixlr') == 'true') {
+                    } elseif ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'bmp' || $extension == 'gif' || $extension == 'pxd' && api_get_setting(
+                            'editor.enabled_support_pixlr'
+                        ) == 'true'
+                    ) {
                         $modify_icons = '<a href="edit_paint.php?' . api_get_cidreq() . '&amp;id=' . $document_id . '">' .
                             Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL) . '</a>';
                     } else {
@@ -5783,14 +5811,18 @@ class DocumentManager
                         continue;
                     }
                     // Admin setting for Hide/Show the folders of all users
-                    if (api_get_setting('show_users_folders') == 'false' &&
+                    if (api_get_setting(
+                            'document.show_users_folders'
+                        ) == 'false' &&
                         (strstr($folder, '/shared_folder') || strstr($folder, 'shared_folder_session_'))
                     ) {
                         continue;
                     }
 
                     // Admin setting for Hide/Show Default folders to all users
-                    if (api_get_setting('show_default_folders') == 'false' &&
+                    if (api_get_setting(
+                            'document.show_default_folders'
+                        ) == 'false' &&
                         (
                             $folder == '/images' ||
                             $folder == '/flash' ||
@@ -5804,7 +5836,7 @@ class DocumentManager
                     }
 
                     // Admin setting for Hide/Show chat history folder
-                    if (api_get_setting('show_chat_folder') == 'false' &&
+                    if (api_get_setting('chat.show_chat_folder') == 'false' &&
                         $folder == '/chat_files') {
                         continue;
                     }

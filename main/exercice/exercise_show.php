@@ -63,7 +63,7 @@ if (api_is_course_session_coach(
     }
 }
 
-$allowCoachFeedbackExercises = api_get_setting('allow_coach_feedback_exercises') === 'true';
+$allowCoachFeedbackExercises = api_get_setting('exercise.allow_coach_feedback_exercises') === 'true';
 
 $maxEditors = intval(api_get_setting('exercise_max_ckeditors_in_page'));
 $is_allowedToEdit = api_is_allowed_to_edit(null, true) || $is_courseTutor || api_is_session_admin() || api_is_drh() || api_is_student_boss();

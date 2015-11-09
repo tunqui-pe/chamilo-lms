@@ -8,7 +8,7 @@
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 
-if (api_get_setting('allow_skills_tool') != 'true') {
+if (api_get_setting('skill.allow_skills_tool') != 'true') {
     exit;
 }
 

@@ -308,6 +308,11 @@ services:
         tags:
             - { name: sylius.settings_schema, namespace: profile }
 
+    chamilo_core.settings_schema.ppt_to_lp:
+        class: Chamilo\CoreBundle\Settings\PptToLpSettingsSchema
+        tags:
+            - { name: sylius.settings_schema, namespace: ppt_to_lp }
+
     chamilo_core.settings_schema.registration:
         class: Chamilo\CoreBundle\Settings\RegistrationSettingsSchema
         tags:

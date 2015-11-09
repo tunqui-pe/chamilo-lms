@@ -6789,7 +6789,7 @@ function api_resource_is_locked_by_gradebook($item_id, $link_type, $course_code 
     if (api_is_platform_admin()) {
         return false;
     }
-    if (api_get_setting('gradebook_locking_enabled') == 'true') {
+    if (api_get_setting('gradebook.gradebook_locking_enabled') == 'true') {
         if (empty($course_code)) {
             $course_code = api_get_course_id();
         }
@@ -6862,8 +6862,8 @@ function api_get_locked_settings() {
         'server_type',
         'permanently_remove_deleted_files',
         'account_valid_duration',
-        'service_visio',
-        'service_ppt2lp',
+        //'service_visio',
+        // 'service_ppt2lp',
         'wcag_anysurfer_public_pages',
         'upload_extensions_list_type',
         'upload_extensions_blacklist',

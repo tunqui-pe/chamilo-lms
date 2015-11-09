@@ -100,7 +100,7 @@ if ($is_allowed_to_edit) {
         '../upload/index.php?'.api_get_cidreq().'&curdirpath=/&tool='.TOOL_LEARNPATH
     );
 
-    if (api_get_setting('service_ppt2lp', 'active') == 'true') {
+    if (api_get_setting('ppt_to_lp.active') == 'true') {
         $actions .= Display::url(
             Display::return_icon('import_powerpoint.png', get_lang('PowerPointConvert'), '', ICON_SIZE_MEDIUM),
             '../upload/upload_ppt.php?'.api_get_cidreq().'&curdirpath=/&tool='.TOOL_LEARNPATH

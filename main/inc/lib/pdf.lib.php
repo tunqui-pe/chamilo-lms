@@ -91,7 +91,7 @@ class PDF
         // Assignments
         $tpl->assign('pdf_content', $content);
 
-        $organization = api_get_setting('Institution');
+        $organization = api_get_setting('platform.institution');
         $img = api_get_path(SYS_CSS_PATH).'themes/'.api_get_visual_theme().'/images/header-logo.png';
 
         // Search for classic logo
@@ -621,7 +621,7 @@ class PDF
         $this->pdf->defaultfooterfontsize = 12;   // in pts
         $this->pdf->defaultfooterfontstyle = B;   // blank, B, I, or BI
         $this->pdf->defaultfooterline = 1;        // 1 to include line below header/above footer
-        $platform_name   = api_get_setting('Institution');
+        $platform_name = api_get_setting('platform.institution');
         $left_content    = $platform_name;
         $center_content  = '';
         $right_content   = '{PAGENO} / {nb}';

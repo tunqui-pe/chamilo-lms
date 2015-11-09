@@ -131,7 +131,7 @@ if ($verified) {
                 $data['superior'] = $superiorArray;
                 $data['admins'] = $adminsArray;
                 $data['session'] = $sessionArray;
-                $data['signature'] = api_get_setting('Institution');
+                $data['signature'] = api_get_setting('platform.institution');
 
                 // Check if student boss exists
                 if (empty($superiorId)) {
@@ -286,7 +286,7 @@ if ($verified) {
                     $data['superior'] = $superiorArray;
                     $data['admins'] = $adminsArray;
                     $data['session'] = $sessionArray;
-                    $data['signature'] = api_get_setting('Institution');
+                    $data['signature'] = api_get_setting('platform.institution');
                     $data['admin_view_url'] = api_get_path(WEB_PLUGIN_PATH)
                         . 'advanced_subscription/src/admin_view.php?s=' . $data['sessionId'];
                     // Check if exist and action in data

@@ -4073,7 +4073,7 @@ class CourseManager
                 'session_category_id' => $session_category_id
             );
 
-            if (api_get_setting('allow_skills_tool') === 'true') {
+            if (api_get_setting('skill.allow_skills_tool') === 'true') {
                 $skill = $entityManager
                     ->getRepository('ChamiloCoreBundle:Skill')
                     ->getLastByUser($objUser, $objCourse, $objSession);

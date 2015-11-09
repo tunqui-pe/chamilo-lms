@@ -48,6 +48,7 @@ class DocumentSettingsSchema implements SchemaInterface
                     'tool_visible_by_default_at_creation' => '',// documents ?
                     'documents_default_visibility_defined_in_course' => '', // ?
                     'allow_personal_user_files' => '', // ?
+                    'if_file_exists_option' => ''
                 )
             )
             ->setAllowedTypes(
@@ -98,6 +99,8 @@ class DocumentSettingsSchema implements SchemaInterface
             ->add('show_documents_preview', 'yes_no')
             ->add('enable_wami_record', 'yes_no')
             ->add('enable_webcam_clip', 'yes_no')
-            ->add('tool_visible_by_default_at_creation', 'yes_no');
+            ->add('tool_visible_by_default_at_creation', 'yes_no')
+            ->add('if_file_exists_option')
+        ;
     }
 }

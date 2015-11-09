@@ -500,7 +500,7 @@ class GradebookTable extends SortableTable
                                 if (!is_null($value_data)) {
                                     //$score = $item->calc_score(api_get_user_id());
                                     //$new_score = $data[3] * $score[0] / $score[1];
-                                    //$new_score = floatval(number_format($new_score, api_get_setting('gradebook_number_decimals')));
+                                    //$new_score = floatval(number_format($new_score, api_get_setting('gradebook.gradebook_number_decimals')));
 
                                     // Result
                                     $row[] = $value_data;
@@ -962,7 +962,7 @@ class GradebookTable extends SortableTable
             case 'E' :
                 $cat = new Category();
                 $course_id = CourseManager::get_course_by_category($categoryId);
-                $show_message = $cat->show_message_resource_delete($course_id);                
+                $show_message = $cat->show_message_resource_delete($course_id);
 
                 // course/platform admin can go to the view_results page
                 if (api_is_allowed_to_edit() && $show_message===false) {

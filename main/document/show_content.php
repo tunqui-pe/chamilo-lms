@@ -90,7 +90,11 @@ $browser_display_title = 'Documents - '.Security::remove_XSS($_GET['cidReq']).' 
 $file_url_web = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$header_file.'?'.api_get_cidreq();
 $pathinfo = pathinfo($header_file);
 
-if ($pathinfo['extension']=='wav' && preg_match('/_chnano_.wav/i', $file_url_web) && api_get_setting('enable_nanogong') == 'true'){
+if ($pathinfo['extension'] == 'wav' && preg_match(
+				'/_chnano_.wav/i',
+				$file_url_web
+		) && api_get_setting('document.enable_nanogong') == 'true'
+) {
 	echo '<div align="center">';
 		echo '<br/>';
 		echo '<applet id="applet" archive="../inc/lib/nanogong/nanogong.jar" code="gong.NanoGong" width="160" height="95" >';

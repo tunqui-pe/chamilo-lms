@@ -166,7 +166,7 @@ class ExerciseLib
                 $s .= $form->returnForm();
             } elseif ($answerType == ORAL_EXPRESSION) {
                 // Add nanog
-                if (api_get_setting('enable_nanogong') == 'true') {
+                if (api_get_setting('document.enable_nanogong') == 'true') {
                     //@todo pass this as a parameter
                     global $exercise_stat_info, $exerciseId, $exe_id;
 

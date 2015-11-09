@@ -210,7 +210,7 @@ class CatForm extends FormValidator
             $this->freeze('name');
         }
 
-        $global_weight = api_get_setting('gradebook_default_weight');
+        $global_weight = api_get_setting('gradebook.gradebook_default_weight');
 
         if (isset($global_weight)) {
             $value = $global_weight;
@@ -230,7 +230,7 @@ class CatForm extends FormValidator
         $skillsDefaults = [];
 
         if (api_is_platform_admin() || api_is_drh()) {
-            if (api_get_setting('allow_skills_tool') == 'true') {
+            if (api_get_setting('skill.allow_skills_tool') == 'true') {
                 $skillSelect = $this->addElement(
                     'select_ajax',
                     'skills',

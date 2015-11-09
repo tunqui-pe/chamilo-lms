@@ -140,7 +140,7 @@ function check_system_version()
             //The donotlistcampus setting recovery should be improved to make
             // it true by default - this does not affect numbers counting
             'donotlistcampus' => api_get_setting('donotlistcampus'),
-            'organisation' => api_get_setting('Institution'),
+            'organisation' => api_get_setting('platform.institution'),
             'language' => api_get_setting('language.platform_language'),
             'adminname' => api_get_setting(
                     'platform.administrator_name'

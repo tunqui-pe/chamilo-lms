@@ -219,7 +219,10 @@ class GradebookUtils
             if (api_is_allowed_to_edit(null, true)) {
 
                 // Locking button
-                if (api_get_setting('gradebook_locking_enabled') == 'true') {
+                if (api_get_setting(
+                        'gradebook.gradebook_locking_enabled'
+                    ) == 'true'
+                ) {
                     if ($cat->is_locked()) {
                         if (api_is_platform_admin()) {
                             $modify_icons .= '&nbsp;<a onclick="javascript:if (!confirm(\'' . addslashes(get_lang('ConfirmToUnlockElement')) . '\')) return false;" href="' . api_get_self() . '?' . api_get_cidreq() . '&category_id=' . $cat->get_id() . '&action=unlock">' .
@@ -447,8 +450,61 @@ class GradebookUtils
      */
     public static function get_table_type_course($type)
     {
-        global $table_evaluated;
+        $table_evaluated = self::getTables();
         return Database::get_course_table($table_evaluated[$type][0]);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTables()
+    {
+        $table_evaluated = [];
+
+        $table_evaluated[LINK_EXERCISE] = array(
+            TABLE_QUIZ_TEST,
+            'title',
+            'id',
+            get_lang('Exercise'),
+        );
+        $table_evaluated[LINK_DROPBOX] = array(
+            TABLE_DROPBOX_FILE,
+            'name',
+            'id',
+            get_lang('Dropbox'),
+        );
+        $table_evaluated[LINK_STUDENTPUBLICATION] = array(
+            TABLE_STUDENT_PUBLICATION,
+            'url',
+            'id',
+            get_lang('Student_publication'),
+        );
+        $table_evaluated[LINK_LEARNPATH] = array(
+            TABLE_LP_MAIN,
+            'name',
+            'id',
+            get_lang('Learnpath'),
+        );
+        $table_evaluated[LINK_FORUM_THREAD] = array(
+            TABLE_FORUM_THREAD,
+            'thread_title_qualify',
+            'thread_id',
+            get_lang('Forum'),
+        );
+        $table_evaluated[LINK_ATTENDANCE] = array(
+            TABLE_ATTENDANCE,
+            'attendance_title_qualify',
+            'id',
+            get_lang('Attendance'),
+        );
+        $table_evaluated[LINK_SURVEY] = array(
+            TABLE_SURVEY,
+            'code',
+            'survey_id',
+            get_lang('Survey'),
+        );
+
+        return $table_evaluated;
     }
 
     /**
@@ -757,7 +813,9 @@ class GradebookUtils
                 $cat->set_description(null);
                 $cat->set_user_id(api_get_user_id());
                 $cat->set_parent_id(0);
-                $default_weight_setting = api_get_setting('gradebook_default_weight');
+                $default_weight_setting = api_get_setting(
+                    'gradebook.gradebook_default_weight'
+                );
                 $default_weight = isset($default_weight_setting) && !empty($default_weight_setting) ? $default_weight_setting : 100;
                 $cat->set_weight($default_weight);
 

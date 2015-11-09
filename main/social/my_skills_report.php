@@ -27,7 +27,7 @@ $tableRows = array();
 $tpl = new Template(get_lang('Skills'));
 $tplPath = null;
 
-$tpl->assign('allowSkillsTool', api_get_setting('allow_skills_tool') == 'true');
+$tpl->assign('allowSkillsTool', api_get_setting('skill.allow_skills_tool') == 'true');
 $tpl->assign('allowDrhSkillsManagement', api_get_setting('allow_hr_skills_management') == 'true');
 
 if ($isStudent) {

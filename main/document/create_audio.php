@@ -25,7 +25,7 @@ api_block_anonymous_users();
 
 $groupId = api_get_group_id();
 
-if (api_get_setting('enabled_text2audio') == 'false') {
+if (api_get_setting('document.enabled_text2audio') == 'false') {
 	api_not_allowed(true);
 }
 

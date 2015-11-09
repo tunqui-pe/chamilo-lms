@@ -81,7 +81,7 @@ abstract class OpenofficeDocument extends learnpath
 
         */
 
-        $ppt2lp_host = api_get_setting('service_ppt2lp', 'host');
+        $ppt2lp_host = api_get_setting('ppt_to_lp.host');
 
         if ($ppt2lp_host == 'localhost') {
             move_uploaded_file($file['tmp_name'], $this->base_work_dir.'/'.$this->file_path);
@@ -100,7 +100,7 @@ abstract class OpenofficeDocument extends learnpath
                 $cmd = 'cd ' . $converter_path . ' && java ' . $class_path . ' DokeosConverter';
             }
 
-            $cmd .= ' -p ' . api_get_setting('service_ppt2lp', 'port');
+            $cmd .= ' -p '.api_get_setting('ppt_to_lp.port');
             // Call to the function implemented by child.
             $cmd .= $this->add_command_parameters();
             // To allow openoffice to manipulate docs.
@@ -174,10 +174,10 @@ abstract class OpenofficeDocument extends learnpath
     private function _get_remote_ppt2lp_files($file)
     {
         // host
-        $ppt2lp_host = api_get_setting('service_ppt2lp', 'host');
+        $ppt2lp_host = api_get_setting('ppt_to_lp.host');
 
         // secret key
-        $secret_key = sha1(api_get_setting('service_ppt2lp', 'ftp_password'));
+        $secret_key = sha1(api_get_setting('ppt_to_lp.ftp_password'));
 
         // client
         $options = array(
@@ -192,7 +192,7 @@ abstract class OpenofficeDocument extends learnpath
 
         $file_data = base64_encode(file_get_contents($file['tmp_name']));
         $file_name = $file['name'];
-        $service_ppt2lp_size = api_get_setting('service_ppt2lp', 'size');
+        $service_ppt2lp_size = api_get_setting('ppt_to_lp.size');
 
         $params = array(
             'secret_key' => $secret_key,
@@ -228,7 +228,7 @@ abstract class OpenofficeDocument extends learnpath
         $this->base_work_dir = $originalPathInfo['dirname'];
         $this->file_path = $originalPathInfo['basename'];
         $this->created_dir = $convertedPathInfo['basename'];
-        $ppt2lpHost = api_get_setting('service_ppt2lp', 'host');
+        $ppt2lpHost = api_get_setting('ppt_to_lp.host');
         $permissionFile = api_get_permissions_for_new_files();
         $permissionFolder = api_get_permissions_for_new_directories();
         if (file_exists($this->base_work_dir . '/' . $this->created_dir)) {
@@ -247,7 +247,7 @@ abstract class OpenofficeDocument extends learnpath
                 $cmd = 'cd ' . $converterPath . ' && java ' . $classPath . ' ';
             }
 
-            $cmd .= ' -p ' . api_get_setting('service_ppt2lp', 'port');
+            $cmd .= ' -p '.api_get_setting('ppt_to_lp.port');
             // Call to the function implemented by child.
             $cmd .= ' "' . $this->base_work_dir . '/' . $this->file_path . '"  "' . $this->base_work_dir . '/' . $this->created_dir . '"';
             // To allow openoffice to manipulate docs.

@@ -169,7 +169,7 @@ class Certificate extends Model
             $scorecourse_display = isset($scorecourse) ? $scoredisplay->display_score($scorecourse,SCORE_AVERAGE) : get_lang('NoResultsAvailable');
 
             // Prepare all necessary variables:
-            $organization_name = api_get_setting('Institution');
+            $organization_name = api_get_setting('platform.institution');
             //$portal_name         = api_get_setting('platform.site_name');
             $stud_fn = $user['firstname'];
             $stud_ln = $user['lastname'];

@@ -12,7 +12,10 @@ $cidReset = true;
 
 //require_once '../inc/global.inc.php';
 
-if (!api_is_platform_admin() || api_get_setting('allow_skills_tool') !== 'true') {
+if (!api_is_platform_admin() || api_get_setting(
+        'skill.allow_skills_tool'
+    ) !== 'true'
+) {
     api_not_allowed(true);
 }
 

@@ -50,7 +50,7 @@ function wsConvertPpt($pptData)
         $cmd = 'cd ' . $converterPath . ' && java ' . $classPath . ' DokeosConverter';
     }
 
-    $cmd .= ' -p ' . api_get_setting('service_ppt2lp', 'port');
+    $cmd .= ' -p ' . api_get_setting('ppt_to_lp.port');
     $cmd .= ' -w 720 -h 540 -d oogie "' . $tempPath . $fullFileName.'"  "' . $tempPathNewFiles . $fileName . '.html"';
 
     $perms = api_get_permissions_for_new_files();

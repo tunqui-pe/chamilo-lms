@@ -1392,19 +1392,12 @@ class AddCourse
                         api_get_setting('platform.administrator_name'),
                         api_get_setting('platform.administrator_surname')
                     );
-                    $iname = api_get_setting('Institution');
-                    $subject = get_lang(
-                            'NewCourseCreatedIn'
-                        ) . ' ' . $siteName . ' - ' . $iname;
-                    $message = get_lang(
-                            'Dear'
-                        ) . ' ' . $recipient_name . ",\n\n" . get_lang(
-                            'MessageOfNewCourseToAdmin'
-                        ) . ' ' . $siteName . ' - ' . $iname . "\n";
+                    $iname = api_get_setting('platform.institution');
+                    $subject = get_lang('NewCourseCreatedIn') . ' ' . $siteName . ' - ' . $iname;
+                    $message = get_lang('Dear') . ' ' . $recipient_name . ",\n\n" .
+                        get_lang('MessageOfNewCourseToAdmin') . ' ' . $siteName . ' - ' . $iname . "\n";
                     $message .= get_lang('CourseName') . ' ' . $title . "\n";
-                    $message .= get_lang(
-                            'Category'
-                        ) . ' ' . $category_code . "\n";
+                    $message .= get_lang('Category') . ' ' . $category_code . "\n";
                     $message .= get_lang('Tutor') . ' ' . $tutor_name . "\n";
                     $message .= get_lang('Language') . ' ' . $course_language;
 

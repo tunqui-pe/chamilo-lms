@@ -758,7 +758,7 @@ class Template
 
         $title_list = array();
 
-        $title_list[] = api_get_setting('Institution');
+        $title_list[] = api_get_setting('platform.institution');
         $title_list[] = api_get_setting('platform.site_name');
 
         if (!empty($course_title)) {
@@ -897,7 +897,7 @@ class Template
         $this->assign('message_link', $message_link);
         $this->assign('message_url', $message_url);
 
-        $institution = api_get_setting('Institution');
+        $institution = api_get_setting('platform.institution');
         $portal_name = empty($institution) ? api_get_setting(
             'platform.site_name'
         ) : $institution;

@@ -170,7 +170,7 @@ function return_logo($theme)
     }
 
     if (file_exists($logo)) {
-        $site_name = api_get_setting('Institution').' - '.$site_name;
+        $site_name = api_get_setting('platform.institution').' - '.$site_name;
         $logo = Display::img(
             $image_url,
             $site_name,
@@ -179,8 +179,8 @@ function return_logo($theme)
         $html .= Display::url($logo, api_get_path(WEB_PATH).'index.php');
     } else {
         $html .= '<a href="'.api_get_path(WEB_PATH).'index.php" target="_top">'.$site_name.'</a>';
-        $iurl = api_get_setting('InstitutionUrl');
-        $iname = api_get_setting('Institution');
+        $iurl = api_get_setting('platform.institution_url');
+        $iname = api_get_setting('platform.institution');
 
         if (!empty($iname)) {
             $html .= '-&nbsp;<a href="'.$iurl.'" target="_top">'.$iname.'</a>';

@@ -1095,7 +1095,7 @@ class Exercise
                     )
                 );
 
-                if (api_get_setting('enable_quiz_scenario') == 'true') {
+                if (api_get_setting('exercise.enable_quiz_scenario') == 'true') {
                     //Can't convert a question from one feedback to another if there is more than 1 question already added
                     if ($this->selectNbrQuestions() == 0) {
                         $radios_feedback[] = $form->createElement(
@@ -1147,7 +1147,7 @@ class Exercise
                     $radios_feedback = array();
                     $radios_feedback[] = $form->createElement('radio', 'exerciseFeedbackType', null, get_lang('ExerciseAtTheEndOfTheTest'),'0',array('id' =>'exerciseType_0', 'onclick' => 'check_feedback()'));
 
-                    if (api_get_setting('enable_quiz_scenario') == 'true') {
+                    if (api_get_setting('exercise.enable_quiz_scenario') == 'true') {
                         $radios_feedback[] = $form->createElement('radio', 'exerciseFeedbackType', null, get_lang('DirectFeedback'), '1', array('id' =>'exerciseType_1' , 'onclick' => 'check_direct_feedback()'));
                     }
                     $radios_feedback[] = $form->createElement('radio', 'exerciseFeedbackType', null, get_lang('NoFeedback'),'2',array('id' =>'exerciseType_2'));

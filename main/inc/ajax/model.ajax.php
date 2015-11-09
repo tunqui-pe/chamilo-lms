@@ -835,7 +835,9 @@ switch ($action) {
             $columns = array(
                 'firstname', 'lastname', 'username', 'group_name', 'exe_duration', 'start_date', 'exe_date', 'score',  'user_ip', 'status', 'lp', 'actions'
             );
-            $officialCodeInList = api_get_setting('show_official_code_exercise_result_list');
+            $officialCodeInList = api_get_setting(
+                'exercise.show_official_code_exercise_result_list'
+            );
             if ($officialCodeInList === 'true') {
                 $columns = array_merge(array('official_code'), $columns);
             }

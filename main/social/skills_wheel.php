@@ -10,7 +10,7 @@ $cidReset = true;
 
 $this_section = SECTION_SOCIAL;
 
-if (api_get_setting('allow_skills_tool') != 'true') {
+if (api_get_setting('skill.allow_skills_tool') != 'true') {
     api_not_allowed();
 }
 

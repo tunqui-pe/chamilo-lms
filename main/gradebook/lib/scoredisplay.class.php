@@ -75,9 +75,8 @@ class ScoreDisplay
             }
         }
 
-        //Setting custom enabled
+        // Setting custom enabled
         $value = api_get_setting('gradebook.gradebook_score_display_custom');
-        $value = $value['my_display_custom'];
         $this->custom_enabled  = $value == 'true' ? true : false;
 
         if ($this->custom_enabled) {
@@ -269,7 +268,9 @@ class ScoreDisplay
      */
     public function get_number_decimals()
     {
-        $number_decimals = api_get_setting('gradebook_number_decimals');
+        $number_decimals = api_get_setting(
+            'gradebook.gradebook_number_decimals'
+        );
         if (!isset($number_decimals)) {
             $number_decimals = 0;
         }

@@ -502,7 +502,9 @@ class EvalForm extends FormValidator
                 'class' => 'span1',
                 'maxlength' => '5'
             ));
-            $default_max = api_get_setting('gradebook_default_weight');
+            $default_max = api_get_setting(
+                'gradebook.gradebook_default_weight'
+            );
             $defaults['max'] = isset($default_max) ? $default_max : 100;
             $this->setDefaults($defaults);
         }

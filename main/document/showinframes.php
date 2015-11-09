@@ -295,7 +295,10 @@ if ($is_freemind_available) {
     $execute_iframe = false;
 }
 
-$is_nanogong_available = $pathinfo['extension']=='wav' && preg_match('/_chnano_.wav/i', $file_url_web) && api_get_setting('enable_nanogong') == 'true';
+$is_nanogong_available = $pathinfo['extension'] == 'wav' && preg_match(
+        '/_chnano_.wav/i',
+        $file_url_web
+    ) && api_get_setting('document.enable_nanogong') == 'true';
 if ($is_nanogong_available) {
     $execute_iframe = false;
 }

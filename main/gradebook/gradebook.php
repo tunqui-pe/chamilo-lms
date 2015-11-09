@@ -546,7 +546,7 @@ if (!empty($keyword)) {
         $scoretotal_display = (isset($scoretotal) ? $scoredisplay->display_score($scoretotal,SCORE_PERCENT) : get_lang('NoResultsAvailable'));
 
         //prepare all necessary variables:
-        $organization_name = api_get_setting('Institution');
+        $organization_name = api_get_setting('platform.institution');
         $portal_name = api_get_setting('platform.site_name');
         $stud_fn = $user['firstname'];
         $stud_ln = $user['lastname'];

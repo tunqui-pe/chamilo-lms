@@ -56,7 +56,7 @@ $sys_course_path = api_get_path(SYS_COURSE_PATH);
 $base_work_dir = $sys_course_path . $course_dir;
 $http_www = api_get_path(WEB_COURSE_PATH).$courseInfo['directory'] . '/document';
 $document_path = $base_work_dir;
-$usePpt2lp = api_get_setting('service_ppt2lp', 'active') == 'true';
+$usePpt2lp = api_get_setting('ppt_to_lp.active') == 'true';
 
 $course_dir = $courseInfo['directory'].'/document';
 $sys_course_path = api_get_path(SYS_COURSE_PATH);
@@ -1540,7 +1540,7 @@ if ($is_allowed_to_edit ||
         );
 
         // Create new draw
-        if (api_get_setting('enabled_support_svg') == 'true') {
+        if (api_get_setting('editor.enabled_support_svg') == 'true') {
             if (api_browser_support('svg')) {
                 $actionsLeft .= Display::url(
                     Display::return_icon('new_draw.png', get_lang('Draw'), '', ICON_SIZE_MEDIUM),
@@ -1552,7 +1552,7 @@ if ($is_allowed_to_edit ||
         }
 
         // Create new paint
-        if (api_get_setting('enabled_support_pixlr') == 'true') {
+        if (api_get_setting('editor.enabled_support_pixlr') == 'true') {
             $actionsLeft .= Display::url(
                 Display::return_icon('new_paint.png', get_lang('PhotoRetouching'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/create_paint.php?'.api_get_cidreq().'&id='.$document_id
@@ -1560,7 +1560,7 @@ if ($is_allowed_to_edit ||
         }
 
         // Record an image clip from my webcam
-        if (api_get_setting('enable_webcam_clip') == 'true') {
+        if (api_get_setting('document.enable_webcam_clip') == 'true') {
             $actionsLeft .= Display::url(
                 Display::return_icon('webcam.png', get_lang('WebCamClip'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/webcam_clip.php?'.api_get_cidreq().'&id='.$document_id
@@ -1568,7 +1568,7 @@ if ($is_allowed_to_edit ||
         }
 
         // Record audio (nanogong)
-        if (api_get_setting('enable_nanogong') == 'true') {
+        if (api_get_setting('document.enable_nanogong') == 'true') {
             $actionsLeft .= Display::url(
                 Display::return_icon('new_recording.png', get_lang('RecordMyVoice'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/record_audio.php?'.api_get_cidreq().'&id='.$document_id
@@ -1576,7 +1576,7 @@ if ($is_allowed_to_edit ||
         }
 
         // Record  audio (wami record)
-        if (api_get_setting('enable_wami_record') == 'true') {
+        if (api_get_setting('document.enable_wami_record') == 'true') {
             $actionsLeft .= Display::url(
                 Display::return_icon('new_recording.png', get_lang('RecordMyVoice'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/record_audio_wami.php?'.api_get_cidreq().'&id='.$document_id
@@ -1584,7 +1584,7 @@ if ($is_allowed_to_edit ||
         }
 
         // Create new audio from text
-        if (api_get_setting('enabled_text2audio') == 'true') {
+        if (api_get_setting('document.enabled_text2audio') == 'true') {
             $dt2a = 'google';
             $req_dt2a = '&amp;dt2a='.$dt2a;
             $actionsLeft .= Display::url(

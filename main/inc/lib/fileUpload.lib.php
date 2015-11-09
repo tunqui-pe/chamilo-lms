@@ -1140,11 +1140,14 @@ function filter_extension(&$filename)
     if (substr($filename, -1) == '/') {
         return 1;  // Authorize directories
     }
-    $blacklist = api_get_setting('upload_extensions_list_type');
+    $blacklist = api_get_setting('document.upload_extensions_list_type');
     if ($blacklist != 'whitelist') { // if = blacklist
-        $extensions = explode(';', strtolower(api_get_setting('upload_extensions_blacklist')));
+        $extensions = explode(
+            ';',
+            strtolower(api_get_setting('document.upload_extensions_blacklist'))
+        );
 
-        $skip = api_get_setting('upload_extensions_skip');
+        $skip = api_get_setting('document.upload_extensions_skip');
         $ext = strrchr($filename, '.');
         $ext = substr($ext, 1);
         if (empty($ext)) {
@@ -1154,7 +1157,9 @@ function filter_extension(&$filename)
             if ($skip == 'true') {
                 return 0;
             } else {
-                $new_ext = api_get_setting('upload_extensions_replace_by');
+                $new_ext = api_get_setting(
+                    'document.upload_extensions_replace_by'
+                );
                 $filename = str_replace('.'.$ext, '.'.$new_ext, $filename);
                 return 1;
             }
@@ -1162,8 +1167,11 @@ function filter_extension(&$filename)
             return 1;
         }
     } else {
-        $extensions = explode(';', strtolower(api_get_setting('upload_extensions_whitelist')));
-        $skip = api_get_setting('upload_extensions_skip');
+        $extensions = explode(
+            ';',
+            strtolower(api_get_setting('document.upload_extensions_whitelist'))
+        );
+        $skip = api_get_setting('document.upload_extensions_skip');
         $ext = strrchr($filename, '.');
         $ext = substr($ext, 1);
         if (empty($ext)) {
@@ -1173,7 +1181,9 @@ function filter_extension(&$filename)
             if ($skip == 'true') {
                 return 0;
             } else {
-                $new_ext = api_get_setting('upload_extensions_replace_by');
+                $new_ext = api_get_setting(
+                    'document.upload_extensions_replace_by'
+                );
                 $filename = str_replace('.'.$ext, '.'.$new_ext, $filename);
                 return 1;
             }

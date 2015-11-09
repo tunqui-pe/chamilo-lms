@@ -75,7 +75,14 @@ if (isset($_GET['editres'])) {
         $result->set_evaluation_id($select_eval_edit);
         $row_value = isset($values['score']) ? (float) $values['score'] : 0;
         if (!empty($row_value) || $row_value == 0) {
-            $result->set_score(floatval(number_format($row_value, api_get_setting('gradebook_number_decimals'))));
+            $result->set_score(
+                floatval(
+                    number_format(
+                        $row_value,
+                        api_get_setting('gradebook.gradebook_number_decimals')
+                    )
+                )
+            );
         }
         $result->save();
         unset($result);
@@ -161,7 +168,16 @@ if (isset($_GET['import'])) {
                     $result = new Result();
                     $result->set_user_id($importedresult['user_id']);
                     if (!empty($importedresult['score'])) {
-                        $result->set_score(floatval(number_format($importedresult['score'], api_get_setting('gradebook_number_decimals'))));
+                        $result->set_score(
+                            floatval(
+                                number_format(
+                                    $importedresult['score'],
+                                    api_get_setting(
+                                        'gradebook.gradebook_number_decimals'
+                                    )
+                                )
+                            )
+                        );
                     }
                     if (!empty($importedresult['date'])) {
                         $result->set_date(api_get_utc_datetime($importedresult['date']));
@@ -224,7 +240,9 @@ if (isset($_GET['export'])) {
 
         // export results to pdf file
         if ($file_type == 'pdf') {
-            $number_decimals = api_get_setting('gradebook_number_decimals');
+            $number_decimals = api_get_setting(
+                'gradebook.gradebook_number_decimals'
+            );
             $datagen = new ResultsDataGenerator($eval[0], $allresults);
 
             // set headers pdf

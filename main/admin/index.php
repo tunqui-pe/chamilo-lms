@@ -363,7 +363,7 @@ if (api_is_platform_admin()) {
     $blocks['settings']['search_form'] = null;
 
     // Skills
-    if (api_get_setting('allow_skills_tool') == 'true') {
+    if (api_get_setting('skill.allow_skills_tool') == 'true') {
         $blocks['skills']['icon'] = Display::return_icon(
             'skill-badges.png',
             get_lang('Skills'),

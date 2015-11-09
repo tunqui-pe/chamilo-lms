@@ -301,7 +301,7 @@ $form->addElement('html', '</div>');
 $form->addButtonSend(get_lang('SendDocument'), 'submitDocument');
 $form->add_real_progress_bar('DocumentUpload', 'file');
 
-$fileExistsOption = api_get_setting('document_if_file_exists_option');
+$fileExistsOption = api_get_setting('document.if_file_exists_option');
 
 $defaultFileExistsOption = 'rename';
 if (!empty($fileExistsOption)) {

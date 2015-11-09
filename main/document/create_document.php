@@ -337,15 +337,30 @@ if (!$is_certificate_mode &&
                 continue;
             }
             // Admin setting for Hide/Show the folders of all users
-            if (api_get_setting('show_users_folders') == 'false' && (strstr($val, '/shared_folder') || strstr($val, 'shared_folder_session_'))){
+			if (api_get_setting(
+							'document.show_users_folders'
+					) == 'false' && (strstr($val, '/shared_folder') || strstr(
+									$val,
+									'shared_folder_session_'
+							))
+			) {
                 continue;
             }
             // Admin setting for Hide/Show Default folders to all users
-            if (api_get_setting('show_default_folders') == 'false' && ($val=='/images' || $val=='/flash' || $val=='/audio' || $val=='/video' || strstr($val, '/images/gallery') || $val=='/video/flv')){
+			if (api_get_setting(
+							'document.show_default_folders'
+					) == 'false' && ($val == '/images' || $val == '/flash' || $val == '/audio' || $val == '/video' || strstr(
+									$val,
+									'/images/gallery'
+							) || $val == '/video/flv')
+			) {
                 continue;
             }
             // Admin setting for Hide/Show chat history folder
-            if (api_get_setting('show_chat_folder') == 'false' && $val=='/chat_files'){
+			if (api_get_setting(
+							'chat.show_chat_folder'
+					) == 'false' && $val == '/chat_files'
+			) {
                 continue;
             }
 
@@ -374,13 +389,15 @@ if (!$is_certificate_mode &&
                     continue;
 				}
 				//Admin setting for Hide/Show the folders of all users
-				if (api_get_setting('show_users_folders') == 'false' &&
+				if (api_get_setting('document.show_users_folders') == 'false' &&
                     (strstr($folder, '/shared_folder') || strstr($folder, 'shared_folder_session_'))
                 ){
 					continue;
 				}
 				//Admin setting for Hide/Show Default folders to all users
-				if (api_get_setting('show_default_folders') == 'false' &&
+				if (api_get_setting(
+								'document.show_default_folders'
+						) == 'false' &&
                     (
                         $folder == '/images' ||
                         $folder == '/flash' ||
@@ -393,7 +410,7 @@ if (!$is_certificate_mode &&
 					continue;
 				}
 				//Admin setting for Hide/Show chat history folder
-				if (api_get_setting('show_chat_folder') == 'false' &&
+				if (api_get_setting('chat.show_chat_folder') == 'false' &&
                     $folder=='/chat_files'
                 ){
 					continue;

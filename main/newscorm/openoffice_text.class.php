@@ -310,7 +310,10 @@ class OpenofficeText extends OpenofficeDocument {
      */
     function format_page_content($header, $content) {
         // Limit the width of the doc.
-        list($max_width, $max_height) = explode('x',api_get_setting('service_ppt2lp','size'));
+        list($max_width, $max_height) = explode(
+            'x',
+            api_get_setting('ppt_to_lp.size')
+        );
 
         $content = preg_replace("|<body[^>]*>|i", "\\0\r\n<div style=\"width:".$max_width."\">", $content, -1, $count);
         if ($count < 1) {

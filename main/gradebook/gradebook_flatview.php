@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Script
  * @package chamilo.gradebook
@@ -8,9 +10,11 @@
 //require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_GRADEBOOK;
 
-api_protect_course_script(true);
+$studentView = Session::read('studentview');
 
+api_protect_course_script(true);
 api_block_anonymous_users();
+
 $isDrhOfCourse = CourseManager::isUserSubscribedInCourseAsDrh(
     api_get_user_id(),
     api_get_course_info()
@@ -20,8 +24,12 @@ if (!$isDrhOfCourse) {
     GradebookUtils::block_students();
 }
 
-if (isset ($_POST['submit']) && isset ($_POST['keyword'])) {
-    header('Location: '.api_get_self().'?selectcat='.Security::remove_XSS($_GET['selectcat']).'&search='.Security::remove_XSS($_POST['keyword']));
+if (isset($_POST['submit']) && isset($_POST['keyword'])) {
+    header(
+        'Location: '.api_get_self().'?selectcat='.intval(
+            $_GET['selectcat']
+        ).'&search='.Security::remove_XSS($_POST['keyword'])
+    );
     exit;
 }
 
@@ -264,7 +272,7 @@ if (isset($_GET['isStudentView']) && $_GET['isStudentView'] == 'false') {
         $simple_search_form
     );
     $flatviewtable->display();
-} elseif (isset($_GET['selectcat']) && ($_SESSION['studentview'] == 'teacherview')) {
+} elseif (isset($_GET['selectcat']) && ($studentView == 'teacherview')) {
 
     DisplayGradebook:: display_header_reduce_flatview(
         $cat[0],

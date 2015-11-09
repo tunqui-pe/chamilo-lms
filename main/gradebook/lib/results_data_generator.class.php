@@ -56,7 +56,9 @@ class ResultsDataGenerator
     public function get_data ($sorting = 0, $start = 0, $count = null, $ignore_score_color = false, $pdf=false)
     {
         // do some checks on count, redefine if invalid value
-        $number_decimals = api_get_setting('gradebook_number_decimals');
+        $number_decimals = api_get_setting(
+            'gradebook.gradebook_number_decimals'
+        );
         if (!isset($count)) {
             $count = count ($this->results) - $start;
         }

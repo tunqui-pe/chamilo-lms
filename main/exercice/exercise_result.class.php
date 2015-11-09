@@ -308,7 +308,9 @@ class ExerciseResult
                 $data .= get_lang('FirstName').';';
             }
         }
-        $officialCodeInList = api_get_setting('show_official_code_exercise_result_list');
+        $officialCodeInList = api_get_setting(
+            'exercise.show_official_code_exercise_result_list'
+        );
         if ($officialCodeInList === 'true') {
             $data .= get_lang('OfficialCode').';';
         }
@@ -430,7 +432,9 @@ class ExerciseResult
 			}
 		}
 
-        $officialCodeInList = api_get_setting('show_official_code_exercise_result_list');
+        $officialCodeInList = api_get_setting(
+            'exercise.show_official_code_exercise_result_list'
+        );
 
 		if ($with_column_user) {
             if (api_is_western_name_order()) {

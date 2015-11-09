@@ -599,7 +599,12 @@ if (!empty($exercise_list)) {
                     $class_tip = 'link_tooltip';
                 }
                 //$class_tip = 'exercise_link';
-                $url = $move.'<a '.$alt_title.' class="'.$class_tip.'" id="tooltip_'.$row['id'].'" href="overview.php?'.api_get_cidreq().$myorigin.$mylpid.$mylpitemid.'&exerciseId='.$row['id'].'"><img src="../img/quiz.gif" /> '.$title.' </a>';
+                $url = $move.'<a '.$alt_title.' class="'.$class_tip.'" id="tooltip_'.$row['id'].'" href="overview.php?'.api_get_cidreq(
+                    ).$myorigin.$mylpid.$mylpitemid.'&exerciseId='.$row['id'].'">
+                '.Display::return_icon(
+                        'quiz.png',
+                        get_lang('Exercise')
+                    ).' '.$title.' </a>';
 
                 $item = Display::tag('td', $url.' '.$session_img.$lp_blocked);
 
