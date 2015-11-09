@@ -7989,6 +7989,50 @@ function api_mail_html(
     $embedded_image = false,
     $additionalParameters = array()
 ) {
+
+    // Default values
+    $notification = new Notification();
+    $defaultEmail = $notification->getDefaultPlatformSenderEmail();
+    $defaultName = $notification->getDefaultPlatformSenderName();
+
+    // If the parameter is set don't use the admin.
+    $senderName = !empty($senderName) ? $senderName : $defaultName;
+    $senderEmail = !empty($senderEmail) ? $senderEmail : $defaultEmail;
+
+    $swiftMessage = \Swift_Message::newInstance()
+        ->setSubject($subject)
+        ->setFrom($senderEmail, $senderName)
+        ->setTo($recipient_email, $recipient_name)
+        ->setBody(
+            Container::getTemplating()->render(
+                'ChamiloCoreBundle:default/mail:mail.html.twig',
+                array('content' => $message)
+            ),
+            'text/html'
+        )/*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'Emails/registration.txt.twig',
+                array('name' => $name)
+            ),
+            'text/plain'
+        )
+        */
+    ;
+
+    if (!empty($additionalParameters)) {
+        $plugin = new AppPlugin();
+        $smsPlugin = $plugin->getSMSPluginLibrary();
+        if ($smsPlugin) {
+            $smsPlugin->send($additionalParameters);
+        }
+    }
+
+    Container::getMailer()->send($swiftMessage);
+
+    return 1;
+
     global $platform_email;
 
     $mail = new PHPMailer();

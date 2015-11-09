@@ -128,6 +128,14 @@ class Container
     }
 
     /**
+     * @return \Symfony\Bundle\TwigBundle\TwigEngine
+     */
+    public static function getTemplating()
+    {
+        return self::$container->get('templating');
+    }
+
+    /**
      * @return Editor
      */
     public static function getHtmlEditor()
