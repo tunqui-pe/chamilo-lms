@@ -96,7 +96,7 @@ class LegacyController extends BaseController
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
 
             return $this->render(
-                'ChamiloCoreBundle:Legacy:index.html.twig',
+                'ChamiloCoreBundle::layout_one_col.html.twig',
                 array(
                     'content' => $out,
                     'js' => $js,

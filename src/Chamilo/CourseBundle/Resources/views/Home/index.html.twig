@@ -1,11 +1,12 @@
-{% extends "ChamiloCoreBundle::layout.html.twig" %}
+{% extends "ChamiloCoreBundle::layout_two_col.html.twig" %}
 
 {% block page_title %} {{ course.title }}{% endblock %}
 {% block page_subtitle %}{{ course.code }}{% endblock %}
 
 {% block page_content %}
-
-{% autoescape false %}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            {% autoescape false %}
     <script>
         $(document).ready(function() {
             $(".make_visible_and_invisible").attr("href", "javascript:void(0);");
@@ -97,5 +98,7 @@
     <div id="course_tools">
         {{ icons }}
     </div>
-{% endautoescape %}
+            {% endautoescape %}
+        </div>
+    </div>
 {% endblock %}

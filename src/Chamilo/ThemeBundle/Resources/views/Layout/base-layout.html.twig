@@ -69,6 +69,51 @@
     <script src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    <script>
+        // External plugins not part of the default Ckeditor package.
+        var plugins = [
+            'asciimath',
+            'asciisvg',
+            'audio',
+            //'ckeditor_wiris',
+            'dialogui',
+            'glossary',
+            'leaflet',
+            'mapping',
+            'maximize',
+            'mathjax',
+            'oembed',
+            'toolbar',
+            'toolbarswitch',
+            'video',
+            'wikilink',
+            'wordcount',
+            'youtube'
+        ];
+        plugins.forEach(function (plugin) {
+            CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
+        });
+
+        // basic plugins
+        plugins = [
+            'adobeair',
+            'ajax',
+            'docprops',
+            'iframedialog',
+            'lineutils',
+            'sourcedialog',
+            'stylesheetparser',
+            'sharedspace',
+            //'uicolor',
+            'widget',
+            'tableresize',
+            'xml'
+        ];
+        plugins.forEach(function (plugin) {
+            CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilotheme/components/ckeditor/plugins/') }}' + plugin + '/');
+        });
+    </script>
 </head>
 <body class="{{ admin_skin|default('skin-blue')}}">
 <noscript>{{ "NoJavascript" | trans }}</noscript>
@@ -153,7 +198,6 @@
         </section>
     </header>
 <div id="top_main_content" class="container">
-<div class="row">
 {# course navigation links/shortcuts need to be activated by the admin #}
     {% include "@template_style/layout/course_navigation.html.twig" %}
 {% endif %}
@@ -172,43 +216,52 @@
     {#</header>#}
 {% endblock %}
 
-<div class="col-md-3 menu-column">
-    {% block chamilo_sidebar %}
-        {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}
-            {{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}
-        {% endif %}
-        {# Sidebar menu #}
-        {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request })) }}
+{% block chamilo_content %}
+    {# Flash messages #}
+    {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+
+    {% block page_content %}
     {% endblock %}
-</div>
+{% endblock %}
 
-<!-- Right side column. Contains the navbar and content of the page -->
-<div class="col-md-9">
-    <!-- Content Header (Page header) -->
-    {% block content_header %}
-    <section class="content-header">
-        {% block content_header_title %}
-            <h1>
-                {% block page_title %}{% endblock %}
-                <small>{% block page_subtitle %}{% endblock %}</small>
-            </h1>
-        {% endblock %}
+{#<div class="col-md-3 menu-column">#}
+    {#{% block chamilo_sidebar %}#}
+        {#{% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}#}
+            {#{{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}#}
+            {#{{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}#}
+        {#{% endif %}#}
+        {#&#123;&#35; Sidebar menu &#35;&#125;#}
+        {#{{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request })) }}#}
+    {#{% endblock %}#}
+{#</div>#}
 
-        {% block chamilo_breadcrumb %}
-        {{ render(controller('ChamiloThemeBundle:Breadcrumb:breadcrumb', {'request':app.request, 'title' : block('page_title')})) }}
-        {% endblock %}
-    </section>
-    {% endblock %}
+{#<!-- Right side column. Contains the navbar and content of the page -->#}
+{#<div class="col-md-9">#}
+    {#<!-- Content Header (Page header) -->#}
+    {#{% block content_header %}#}
+    {#<section class="content-header">#}
+        {#{% block content_header_title %}#}
+            {#<h1>#}
+                {#{% block page_title %}{% endblock %}#}
+                {#<small>{% block page_subtitle %}{% endblock %}</small>#}
+            {#</h1>#}
+        {#{% endblock %}#}
 
-    <!-- Main content -->
-    <section class="content">
-        {% block page_content %}{% endblock %}
-    </section>
-    <!-- /.content -->
-</div>
-<!-- /.right-side -->
+        {#{% block chamilo_breadcrumb %}#}
+        {#{{ render(controller('ChamiloThemeBundle:Breadcrumb:breadcrumb', {'request':app.request, 'title' : block('page_title')})) }}#}
+        {#{% endblock %}#}
+    {#</section>#}
+    {#{% endblock %}#}
+
+    {#<!-- Main content -->#}
+    {#<section class="content">#}
+        {#{% block page_content %}{% endblock %}#}
+    {#</section>#}
+    {#<!-- /.content -->#}
+{#</div>#}
+{#<!-- /.right-side -->#}
 
 {% endblock %}
+</div>
 </body>
 </html>

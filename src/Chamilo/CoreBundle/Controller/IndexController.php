@@ -72,7 +72,7 @@ class IndexController extends BaseController
 
         $announcementsBlock = $pageController->getAnnouncements();
         return $this->render(
-            'ChamiloCoreBundle:Index:index.html.twig',
+            'ChamiloCoreBundle::layout_two_col.html.twig',
             array(
                 'content' => 'hello',
                 'hot_courses' => $hotCourses,
