@@ -1,4 +1,5 @@
-{% block content %}
+{% block page_content %}
+    {% autoescape false %}
 
 <h3>{{ 'JustCreated'|trans }} {{ course_title }}</h3>
 <hr />
@@ -8,7 +9,7 @@
 <div id="course_thing_to_do" class="row">
     <div class="col-md-3">
         <div class="thumbnail">
-            <img src="icons/64/home.png"/>
+            <img src="{{ asset('bundles/chamilocore/img/icons/64/home.png') }} "/>
             <div class="caption">
                 <a href="{{ course_url }}" class="btn">
                     {{'CourseHomepage'|trans}}
@@ -17,12 +18,12 @@
         </div>
     </div>
 
-    {% if ("allow_user_course_subscription_by_course_admin" | get_setting) == 'true' or
+    {% if chamilo_settings_get("course.allow_user_course_subscription_by_course_admin") == 'true' or
         is_granted('ROLE_ADMIN')
     %}
     <div class="col-md-3">
         <div class="thumbnail">
-        <img src="icons/64/user.png"/>
+            <img src="{{ asset('bundles/chamilocore/img/icons/64/user.png') }} "/>
             <div class="caption">
             <a href="{{ url('home') }}main/user/subscribe_user.php?cidReq={{ course_id }}" class="btn">
                 {{ 'SubscribeUserToCourse'|trans }}
@@ -34,9 +35,10 @@
 
     <div class="col-md-3">
         <div class="thumbnail">
-        <img src="{{ '' }}icons/64/info.png"/>
+            <img src="{{ asset('bundles/chamilocore/img/icons/64/info.png') }} "/>
             <div class="caption">
-            <a href="course_description/?cidReq={{ course_id }}" class="btn">
+                <a href="course_description/index.php?cidReq={{ course_id }}"
+                   class="btn">
                 {{'AddCourseDescription'|trans}}
             </a>
             </div>
@@ -44,7 +46,7 @@
     </div>
     <div class="col-md-3">
         <div class="thumbnail">
-        <img src="{{ '' }}icons/64/reference.png"/>
+            <img src="{{ asset('bundles/chamilocore/img/icons/64/reference.png') }} "/>
             <div class="caption">
             <a href="course_info/infocours.php?cidReq={{ course_id }}" class="btn">
                 {{ 'ModifInfo' | trans }}
@@ -54,4 +56,5 @@
     </div>
 </div>
 <div class="clear"></div>
+    {% endautoescape %}
 {% endblock %}

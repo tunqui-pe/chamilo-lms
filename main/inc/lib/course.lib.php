@@ -171,7 +171,9 @@ class CourseManager
                     }
                     // If parameter defined, copy the contents from a specific
                     // template course into this new course
-                    $template = api_get_setting('course_creation_use_template');
+                    $template = api_get_setting(
+                        'course.course_creation_use_template'
+                    );
                     if (!empty($template)) {
                         // Include the necessary libraries to generate a course copy
                         require_once api_get_path(SYS_CODE_PATH) . 'coursecopy/classes/CourseBuilder.class.php';

@@ -657,7 +657,7 @@ class AddCourse
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
 
-        if (api_get_setting('service_visio', 'active') == 'true') {
+        /*if (api_get_setting('service_visio', 'active') == 'true') {
             $mycheck = api_get_setting('service_visio', 'visio_host');
             if (!empty($mycheck)) {
                 Database::query(
@@ -669,7 +669,7 @@ class AddCourse
                      VALUES ($course_id, 22, '" . TOOL_VISIO_CLASSROOM . "','conference/index.php?type=classroom','visio.gif','1','0','squaregrey.gif','NO','_self','authoring','0')"
                 );
             }
-        }
+        }*/
 
         if (api_get_setting('search.search_enabled') == 'true') {
             Database::query(
@@ -707,7 +707,7 @@ class AddCourse
         );
 
         $defaultEmailExerciseAlert = 1;
-        $alert = api_get_setting('email_alert_manager_on_new_quiz');
+        $alert = api_get_setting('exercise.email_alert_manager_on_new_quiz');
         if ($alert === 'true') {
             $defaultEmailExerciseAlert = 1;
         } else {
@@ -732,7 +732,9 @@ class AddCourse
             'enable_lp_auto_launch' => ['default' => 0, 'category' =>'learning_path'],
             'pdf_export_watermark_text' => ['default' =>'', 'category' =>'learning_path'],
             'allow_public_certificates' => [
-                'default' => api_get_setting('allow_public_certificates') === 'true' ? 1 : '',
+                'default' => api_get_setting(
+                    'course.allow_public_certificates'
+                ) === 'true' ? 1 : '',
                 'category' =>'certificates'
             ],
             'documents_default_visibility' => ['default' =>'visible', 'category' =>'document']

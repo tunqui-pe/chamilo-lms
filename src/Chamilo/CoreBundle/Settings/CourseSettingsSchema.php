@@ -45,6 +45,7 @@ class CourseSettingsSchema implements SchemaInterface
                     'courses_default_creation_visibility' => '',
                     'allow_public_certificates' => '',
                     'allow_lp_return_link' => '',
+                    'course_creation_use_template' => '',
                 )
             )
             ->setAllowedTypes(
@@ -178,6 +179,7 @@ class CourseSettingsSchema implements SchemaInterface
                 )
             )
             ->add('allow_public_certificates', 'yes_no')
-            ->add('allow_lp_return_link', 'yes_no');
+            ->add('allow_lp_return_link', 'yes_no')
+            ->add('course_creation_use_template');
     }
 }

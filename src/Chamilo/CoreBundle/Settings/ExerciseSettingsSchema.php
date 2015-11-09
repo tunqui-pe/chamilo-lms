@@ -26,6 +26,7 @@ class ExerciseSettingsSchema implements SchemaInterface
                     'enable_quiz_scenario' => '',
                     'allow_coach_feedback_exercises' => '',
                     'show_official_code_exercise_result_list' => '',
+                    'email_alert_manager_on_new_quiz' => ''
                 )
             )
             ->setAllowedTypes(
@@ -47,6 +48,8 @@ class ExerciseSettingsSchema implements SchemaInterface
             ->add('exercise_max_score')
             ->add('enable_quiz_scenario')
             ->add('allow_coach_feedback_exercises', 'yes_no')
-            ->add('show_official_code_exercise_result_list', 'yes_no');
+            ->add('show_official_code_exercise_result_list', 'yes_no')
+            ->add('email_alert_manager_on_new_quiz', 'yes_no')
+        ;
     }
 }
