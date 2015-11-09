@@ -451,8 +451,4 @@ if ($form->validate()) {
 
 $content = $form->returnForm();
 
-$tpl = Container::getTwig();
-//$tpl->addGlobal('actions', $actions);
-$tpl->addGlobal('content', $content);
-
-echo $tpl->render('ChamiloCoreBundle:default/layout:layout_1_col.html.twig');
+echo $content;

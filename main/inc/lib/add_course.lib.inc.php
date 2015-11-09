@@ -488,83 +488,110 @@ class AddCourse
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 1, '" . TOOL_COURSE_DESCRIPTION . "','course_description/','info.gif','" . self::string2binary(
-                api_get_setting(
-                    'course_create_active_tools',
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
                     'course_description'
                 )
-            ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
+            )."','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 2, '" . TOOL_CALENDAR_EVENT . "','calendar/agenda.php','agenda.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'agenda')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'agenda'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage  (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 3, '" . TOOL_DOCUMENT . "','document/document.php','folder_document.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'documents')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'documents'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 4, '" . TOOL_LEARNPATH . "','newscorm/lp_controller.php','scorms.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'learning_path')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'learning_path'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
              VALUES ($course_id, 5, '" . TOOL_LINK . "','link/link.php','links.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'links')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'links'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage  (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES  ($course_id, 6, '" . TOOL_QUIZ . "','exercice/exercice.php','quiz.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'quiz')
+                api_get_setting_in_list('course.active_tools_on_create', 'quiz')
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 7, '" . TOOL_ANNOUNCEMENT . "','announcements/announcements.php','valves.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'announcements')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'announcements'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 8, '" . TOOL_FORUM . "','forum/index.php','forum.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'forums')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'forums'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 9, '" . TOOL_DROPBOX . "','dropbox/index.php','dropbox.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'dropbox')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'dropbox'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 10, '" . TOOL_USER . "','user/user.php','members.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'users')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'users'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 11, '" . TOOL_GROUP . "','group/group.php','group.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'groups')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'groups'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 12, '" . TOOL_CHAT . "','chat/chat.php','chat.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'chat')
+                api_get_setting_in_list('course.active_tools_on_create', 'chat')
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 13, '" . TOOL_STUDENTPUBLICATION . "','work/work.php','works.gif','" . self::string2binary(
-                api_get_setting(
-                    'course_create_active_tools',
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
                     'student_publications'
                 )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
@@ -572,43 +599,61 @@ class AddCourse
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 14, '" . TOOL_SURVEY . "','survey/survey_list.php','survey.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'survey')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'survey'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 15, '" . TOOL_WIKI . "','wiki/index.php','wiki.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'wiki')
+                api_get_setting_in_list('course.active_tools_on_create', 'wiki')
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 16, '" . TOOL_GRADEBOOK . "','gradebook/index.php','gradebook.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'gradebook')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'gradebook'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 17, '" . TOOL_GLOSSARY . "','glossary/index.php','glossary.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'glossary')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'glossary'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 18, '" . TOOL_NOTEBOOK . "','notebook/index.php','notebook.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'notebook')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'notebook'
+                )
             ) . "','0','squaregrey.gif','NO','_self','interaction','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 19, '" . TOOL_ATTENDANCE . "','attendance/index.php','attendance.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'attendances')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'attendances'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 20, '" . TOOL_COURSE_PROGRESS . "','course_progress/index.php','course_progress.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'course_progress')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'course_progress'
+                )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
 
@@ -630,8 +675,8 @@ class AddCourse
             Database::query(
                 "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
                 VALUES ($course_id, 23, '" . TOOL_SEARCH . "','search/','info.gif','" . self::string2binary(
-                    api_get_setting(
-                        'course_create_active_tools',
+                    api_get_setting_in_list(
+                        'course.active_tools_on_create',
                         'enable_search'
                     )
                 ) . "','0','search.gif','NO','_self','authoring','0')"
@@ -640,7 +685,10 @@ class AddCourse
 
         $sql = "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
                 VALUES ($course_id, 24,'" . TOOL_BLOGS . "','blog/blog_admin.php','blog_admin.gif','" . self::string2binary(
-                api_get_setting('course_create_active_tools', 'blogs')
+                api_get_setting_in_list(
+                    'course.active_tools_on_create',
+                    'blogs'
+                )
             ) . "','1','squaregrey.gif','NO','_self','admin','0')";
         Database::query($sql);
 
@@ -1158,7 +1206,7 @@ class AddCourse
     /**
      * string2binary converts the string "true" or "false" to the boolean true false (0 or 1)
      * This is used for the Chamilo Config Settings as these store true or false as string
-     * and the api_get_setting('course_create_active_tools') should be 0 or 1 (used for
+     * and the api_get_setting('course.course_create_active_tools') should be 0 or 1 (used for
      * the visibility of the tool)
      * @param string $variable
      * @author Patrick Cool, patrick.cool@ugent.be

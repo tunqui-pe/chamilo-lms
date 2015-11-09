@@ -192,6 +192,5 @@ if ($form->validate()) {
 // Display the form.
 $content = $form->return_form();
 
-$tpl = Container::getTwig();
-$tpl->addGlobal('content', $content);
-echo $tpl->render('ChamiloCoreBundle:default/layout:layout_1_col.html.twig');
+echo $content;
+

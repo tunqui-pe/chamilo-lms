@@ -1835,7 +1835,7 @@ class LoadSettingsData extends AbstractFixture implements
         $setting->setUrl($accessUrl);
         $manager->persist($setting);
 
-
+/*
         $setting = new SettingsCurrent();
         $setting->setVariable('gradebook_score_display_coloring');
         $setting->setSubkey('my_display_coloring');
@@ -1848,7 +1848,7 @@ class LoadSettingsData extends AbstractFixture implements
         $setting->setSubkeytext('TabsGradebookEnableColoring');
         $setting->setAccessUrlChangeable('0');
         $setting->setUrl($accessUrl);
-        $manager->persist($setting);
+        $manager->persist($setting);*/
 
 
         $setting = new SettingsCurrent();

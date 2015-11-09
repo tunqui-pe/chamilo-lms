@@ -5391,6 +5391,7 @@ function api_get_access_urls($from = 0, $to = 1000000, $order = 'url', $directio
             ORDER BY $order $direction
             LIMIT $to OFFSET $from";
     $res = Database::query($sql);
+
     return Database::store_result($res);
 }
 

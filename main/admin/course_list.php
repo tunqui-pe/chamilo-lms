@@ -459,11 +459,7 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
     $table->set_form_actions(array('delete_courses' => get_lang('DeleteCourse')), 'course');
     $content .= $table->return_table();
 }
-$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
-$tpl->addGlobal('actions', $actions);
-$tpl->addGlobal('message', $message);
-$tpl->addGlobal('content', $content);
-
-echo $tpl->render('ChamiloCoreBundle:default/layout:layout_1_col.html.twig');
+echo $actions;
+echo $content;
 

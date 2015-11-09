@@ -98,6 +98,7 @@ class LegacyController extends BaseController
             return $this->render(
                 'ChamiloCoreBundle::layout_one_col.html.twig',
                 array(
+                    'show_header' => true,
                     'content' => $out,
                     'js' => $js,
                     'menu' => ''

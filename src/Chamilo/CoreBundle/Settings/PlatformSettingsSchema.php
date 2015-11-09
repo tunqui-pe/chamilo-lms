@@ -32,7 +32,7 @@ class PlatformSettingsSchema implements SchemaInterface
                     'theme' => 'chamilo',
                     'gravatar_enabled' => 'false',
                     'gravatar_type' => 'mm',
-                    'gamification_mode' => '',
+                    'gamification_mode' => ' ',
                     'order_user_list_by_official_code' => '',
 
                 )

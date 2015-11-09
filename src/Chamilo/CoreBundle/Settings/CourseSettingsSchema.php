@@ -6,6 +6,7 @@ namespace Chamilo\CoreBundle\Settings;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 
 /**
  * Class CourseSettingsSchema
@@ -23,7 +24,7 @@ class CourseSettingsSchema implements SchemaInterface
                 array(
                     'homepage_view' => 'activity_big',
                     'show_tool_shortcuts' => '',
-                    'course_create_active_tools' => '',
+                    'active_tools_on_create' => [],
                     'display_coursecode_in_courselist' => '',
                     'display_teacher_in_courselist' => '',
                     'student_view_enabled' => '',
@@ -39,7 +40,7 @@ class CourseSettingsSchema implements SchemaInterface
                     'allow_user_course_subscription_by_course_admin' => '',
                     'course_validation' => '',
                     'course_validation_terms_and_conditions_url' => '',
-                    'course_hide_tools' => '',
+                    'course_hide_tools' => [],
                     'scorm_cumulative_session_time' => '',
                     'courses_default_creation_visibility' => '',
                     'allow_public_certificates' => '',
@@ -50,11 +51,20 @@ class CourseSettingsSchema implements SchemaInterface
                 array(
                     'homepage_view' => array('string'),
                     'show_tool_shortcuts' => array('string'),
-                    'course_create_active_tools' => array('string'),
+                    'active_tools_on_create' => array('array'),
+                    'course_hide_tools' => array('array'),
                     'display_coursecode_in_courselist' => array('string'),
                     'display_teacher_in_courselist' => array('string'),
                     'student_view_enabled' => array('string'),
                 )
+            )
+            ->setTransformer(
+                'active_tools_on_create',
+                new ArrayToIdentifierTransformer()
+            )
+            ->setTransformer(
+                'course_hide_tools',
+                new ArrayToIdentifierTransformer()
             );
     }
 
@@ -100,7 +110,7 @@ class CourseSettingsSchema implements SchemaInterface
             )
             ->add('show_tool_shortcuts', 'yes_no')
             ->add(
-                'course_create_active_tools',
+                'active_tools_on_create',
                 'choice',
                 array(
                     'choices' => $tools,
