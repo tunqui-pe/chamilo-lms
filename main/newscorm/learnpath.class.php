@@ -10160,6 +10160,11 @@ EOD;
 
     /**
      * Calculate the count of stars for a user in this LP
+     * This calculation is based on the following rules:
+     * - the student gets one star when he gets to 50% of the learning path
+     * - the student gets a second star when the average score of all tests inside the learning path >= 50%
+     * - the student gets a third star when the average score of all tests inside the learning path >= 80%
+     * - the student gets the final star when the score for the *last* test is >= 80%
      * @param int $sessionId Optional. The session ID
      * @return int The count of stars
      */
@@ -10169,7 +10174,7 @@ EOD;
 
         $progress = self::getProgress($this->lp_id, $this->user_id, $this->course_int_id, $sessionId);
 
-        if ($progress > 50) {
+        if ($progress >= 50) {
             $stars++;
         }
 
