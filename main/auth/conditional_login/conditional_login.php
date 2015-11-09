@@ -47,7 +47,7 @@ function dc_check_phone_number($user)
  */
 function check_platform_legal_conditions($user)
 {
-    if (api_get_setting('allow_terms_conditions') == 'true') {
+    if (api_get_setting('registration.allow_terms_conditions') == 'true') {
         $term_and_condition_status = api_check_term_condition($user['user_id']);
         // @todo not sure why we need the login password and update_term_status
         if ($term_and_condition_status == false) {

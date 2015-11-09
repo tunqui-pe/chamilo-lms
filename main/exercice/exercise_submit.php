@@ -1147,7 +1147,7 @@ if (!empty($error)) {
     }
     // end foreach()
     if ($objExercise->type == ALL_ON_ONE_PAGE) {
-    	$exercise_actions =  $objExercise->show_button($questionId, $current_question);
+    	$exercise_actions = $objExercise->show_button($questionId, $current_question);
     	echo Display::div($exercise_actions, array('class'=>'exercise_actions'));
     }
     echo '</form>';
@@ -1157,7 +1157,6 @@ if (!empty($error)) {
 if ($origin != 'learnpath') {
     // So we are not in learnpath tool
     echo '</div>'; //End glossary div
-    Display :: display_footer();
 } else {
     echo '</body></html>';
 }

@@ -484,8 +484,6 @@ if (api_is_allowed_to_edit() && $announcement_number > 1) {
 if ($show_actions)
     echo '</div>';
 
-Display::showFlash();
-
 echo $content;
 
 if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {

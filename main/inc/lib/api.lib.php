@@ -6196,7 +6196,7 @@ function api_get_tools_lists($my_tool = null) {
  */
 function api_check_term_condition($user_id)
 {
-    if (api_get_setting('allow_terms_conditions') == 'true') {
+    if (api_get_setting('registration.allow_terms_conditions') == 'true') {
         //check if exists terms and conditions
         if (LegalManager::count() == 0) {
             return true;

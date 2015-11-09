@@ -249,7 +249,7 @@ if (api_is_platform_admin()) {
         }
     }
 
-    if (api_get_setting('allow_terms_conditions') == 'true') {
+    if (api_get_setting('registration.allow_terms_conditions') == 'true') {
         $items[] = array('url' => 'legal_add.php', 'label' => get_lang('TermsAndConditions'));
     }
     $blocks['platform']['items'] = $items;

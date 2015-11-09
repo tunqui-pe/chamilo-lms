@@ -33,8 +33,10 @@ $htmlHeadXtra[] = api_get_password_checker_js('#username', '#pass1');
 
 // User is not allowed if Terms and Conditions are disabled and
 // registration is disabled too.
-$isNotAllowedHere = api_get_setting('allow_terms_conditions') === 'false' &&
-    api_get_setting('allow_registration') === 'false';
+$isNotAllowedHere = api_get_setting(
+        'registration.allow_terms_conditions'
+    ) === 'false' &&
+    api_get_setting('registration.allow_registration') === 'false';
 
 if ($isNotAllowedHere) {
     api_not_allowed(true, get_lang('RegistrationDisabled'));
@@ -50,7 +52,7 @@ if (!empty($_SESSION['user_language_choice'])) {
 
 $form = new FormValidator('registration');
 
-if (api_get_setting('allow_terms_conditions') == 'true') {
+if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     $user_already_registered_show_terms = isset($_SESSION['term_and_condition']['user_id']);
 } else {
     $user_already_registered_show_terms = false;
@@ -178,7 +180,10 @@ if ($user_already_registered_show_terms == false) {
         }
     }
     // STUDENT/TEACHER
-    if (api_get_setting('allow_registration_as_teacher') != 'false') {
+    if (api_get_setting(
+            'registration.allow_registration_as_teacher'
+        ) != 'false'
+    ) {
         if (in_array('status', $allowedFields)) {
             $form->addElement(
                 'radio',
@@ -225,27 +230,27 @@ if ($user_already_registered_show_terms == false) {
     }
 
     // EXTENDED FIELDS
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true'
     ) {
         $form->addHtmlEditor('competences', get_lang('MyCompetences'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
     }
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'mydiplomas') == 'true'
     ) {
         $form->addHtmlEditor('diplomas', get_lang('MyDiplomas'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
     }
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'myteach') == 'true'
     ) {
         $form->addHtmlEditor('teach', get_lang('MyTeach'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
     }
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'mypersonalopenarea') == 'true'
     ) {
         $form->addHtmlEditor('openarea', get_lang('MyPersonalOpenArea'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
     }
-    if (api_get_setting('extended_profile') == 'true') {
+    if (api_get_setting('profile.extended_profile') == 'true') {
         if (api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true' &&
             api_get_setting('extendedprofile_registrationrequired', 'mycomptetences') == 'true'
         ) {
@@ -306,7 +311,7 @@ $content = null;
 
 if (!CustomPages::enabled()) {
     // Load terms & conditions from the current lang
-    if (api_get_setting('allow_terms_conditions') == 'true') {
+    if (api_get_setting('registration.allow_terms_conditions') == 'true') {
         $get = array_keys($_GET);
         if (isset($get)) {
             if (isset($get[0]) && $get[0] == 'legal') {
@@ -335,7 +340,10 @@ if (!CustomPages::enabled()) {
 
     $tool_name = get_lang('Registration', null, (!empty($_POST['language'])?$_POST['language']: $_user['language']));
 
-    if (api_get_setting('allow_terms_conditions') == 'true' && $user_already_registered_show_terms) {
+    if (api_get_setting(
+            'registration.allow_terms_conditions'
+        ) == 'true' && $user_already_registered_show_terms
+    ) {
         $tool_name = get_lang('TermsAndConditions');
     }
 
@@ -367,7 +375,7 @@ if (!CustomPages::enabled()) {
         api_not_allowed(true, get_lang('RegistrationDisabled'));
     }
 
-    if (api_get_setting('allow_registration') == 'approval') {
+    if (api_get_setting('registration.allow_registration') == 'approval') {
         $content .= Display::return_message(get_lang('YourAccountHasToBeApproved'));
     }
 
@@ -378,7 +386,7 @@ if (!CustomPages::enabled()) {
 }
 
 // Terms and conditions
-if (api_get_setting('allow_terms_conditions') == 'true') {
+if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     $language = api_get_interface_language();
     $language = api_get_language_id($language);
     $term_preview = LegalManager::get_last_condition($language);
@@ -425,7 +433,10 @@ if ($form->validate()) {
         $values['username'] = api_substr($values['username'], 0, USERNAME_MAX_LENGTH);
     }
 
-    if (api_get_setting('allow_registration_as_teacher') == 'false') {
+    if (api_get_setting(
+            'registration.allow_registration_as_teacher'
+        ) == 'false'
+    ) {
         $values['status'] = STUDENT;
     }
 
@@ -438,7 +449,7 @@ if ($form->validate()) {
     }
 
     if ($user_already_registered_show_terms &&
-        api_get_setting('allow_terms_conditions') == 'true'
+        api_get_setting('registration.allow_terms_conditions') == 'true'
     ) {
         $user_id = $_SESSION['term_and_condition']['user_id'];
         $is_admin = UserManager::is_admin($user_id);
@@ -516,28 +527,28 @@ if ($form->validate()) {
 
             $sql = "UPDATE ".Database::get_main_table(TABLE_MAIN_USER)." SET ";
 
-            if (api_get_setting('extended_profile') == 'true' &&
+            if (api_get_setting('profile.extended_profile') == 'true' &&
                 api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true'
             ) {
                 $sql_set[] = "competences = '".Database::escape_string($values['competences'])."'";
                 $store_extended = true;
             }
 
-            if (api_get_setting('extended_profile') == 'true' &&
+            if (api_get_setting('profile.extended_profile') == 'true' &&
                 api_get_setting('extendedprofile_registration', 'mydiplomas') == 'true'
             ) {
                 $sql_set[] = "diplomas = '".Database::escape_string($values['diplomas'])."'";
                 $store_extended = true;
             }
 
-            if (api_get_setting('extended_profile') == 'true' &&
+            if (api_get_setting('profile.extended_profile') == 'true' &&
                 api_get_setting('extendedprofile_registration', 'myteach') == 'true'
             ) {
                 $sql_set[] = "teach = '".Database::escape_string($values['teach'])."'";
                 $store_extended = true;
             }
 
-            if (api_get_setting('extended_profile') == 'true' &&
+            if (api_get_setting('profile.extended_profile') == 'true' &&
                 api_get_setting('extendedprofile_registration', 'mypersonalopenarea') == 'true'
             ) {
                 $sql_set[] = "openarea = '".Database::escape_string($values['openarea'])."'";
@@ -573,7 +584,10 @@ if ($form->validate()) {
             /* If the account has to be approved then we set the account to inactive,
             sent a mail to the platform admin and exit the page.*/
 
-            if (api_get_setting('allow_registration') == 'approval') {
+            if (api_get_setting(
+                    'registration.allow_registration'
+                ) == 'approval'
+            ) {
                 $TABLE_USER = Database::get_main_table(TABLE_MAIN_USER);
                 // 1. set account inactive
                 $sql = "UPDATE $TABLE_USER SET active='0' WHERE user_id = ".$user_id;
@@ -630,7 +644,7 @@ if ($form->validate()) {
     }
 
     // Terms & Conditions
-    if (api_get_setting('allow_terms_conditions') == 'true') {
+    if (api_get_setting('registration.allow_terms_conditions') == 'true') {
         // Update the terms & conditions.
         if (isset($values['legal_accept_type'])) {
             $cond_array = explode(':', $values['legal_accept_type']);
@@ -677,7 +691,10 @@ if ($form->validate()) {
         'action' => api_get_path(WEB_PATH).'user_portal.php'
     );
 
-    if (api_get_setting('allow_terms_conditions') == 'true' && $user_already_registered_show_terms) {
+    if (api_get_setting(
+            'registration.allow_terms_conditions'
+        ) == 'true' && $user_already_registered_show_terms
+    ) {
         $form_data['action'] = api_get_path(WEB_PATH).'user_portal.php';
     } else {
 

@@ -64,7 +64,7 @@ if (isset($_GET['f']) && $_GET['f']=='social') {
 }
 
 $actions = '';
-if (api_get_setting('extended_profile') == 'true') {
+if (api_get_setting('profile.extended_profile') == 'true') {
     if (api_get_setting(
             'social.allow_social_tool'
         ) == 'true' && api_get_setting('message.allow_message_tool') == 'true'

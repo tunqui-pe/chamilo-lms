@@ -11,9 +11,9 @@ $cidReset = true;
 api_protect_admin_script();
 
 // Load terms & conditions from the current lang
-if (api_get_setting('allow_terms_conditions') == 'true') {
+if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     $get = array_keys($_GET);
-    if (isset($get)) {
+    if (isset($get) && isset($get[0])) {
         if ($get[0] == 'legal') {
             $language = api_get_interface_language();
             $language = api_get_language_id($language);
@@ -159,12 +159,12 @@ echo Display::page_header($tool_name);
 
 // The following security condition has been removed, because it makes no sense here. See Bug #1846.
 //// Forbidden to self-register
-//if (api_get_setting('allow_registration') == 'false') {
+//if (api_get_setting('registration.allow_registration') == 'false') {
 //    api_not_allowed();
 //}
 
 //api_display_tool_title($tool_name);
-if (api_get_setting('allow_registration') == 'approval') {
+if (api_get_setting('registration.allow_registration') == 'approval') {
     Display::display_normal_message(get_lang('YourAccountHasToBeApproved'));
 }
 //if openid was not found
@@ -173,7 +173,7 @@ if (!empty($_GET['openid_msg']) && $_GET['openid_msg'] == 'idnotfound') {
 }
 
 $form = new FormValidator('registration');
-if (api_get_setting('allow_terms_conditions') == 'true') {
+if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     $display_all_form = !isset($_SESSION['update_term_and_condition']['user_id']);
 } else {
     $display_all_form = true;
@@ -197,13 +197,16 @@ if ($display_all_form) {
 
     //	EMAIL
     $form->addElement('text', 'email', get_lang('Email'), array('size' => 40, 'disabled' => 'disabled'));
-    if (api_get_setting_in_list('required_profile_fields', 'email')) {
+    if (api_get_setting_in_list(
+        'registration.required_profile_fields',
+        'email'
+    )) {
         $form->addRule('email', get_lang('ThisFieldIsRequired'), 'required');
     }
     $form->addRule('email', get_lang('EmailWrong'), 'email');
-    if (api_get_setting('openid_authentication') == 'true') {
+    /*if (api_get_setting('openid_authentication') == 'true') {
         $form->addElement('text', 'openid', get_lang('OpenIDURL'), array('size' => 40, 'disabled' => 'disabled'));
-    }
+    }*/
 
     //	USERNAME
     $form->addElement('text', 'username', get_lang('UserName'), array('size' => USERNAME_MAX_LENGTH, 'disabled' => 'disabled'));
@@ -218,53 +221,62 @@ if ($display_all_form) {
     $form->addRule('pass1', get_lang('ThisFieldIsRequired'), 'required');
     $form->addRule('pass2', get_lang('ThisFieldIsRequired'), 'required');
     $form->addRule(array('pass1', 'pass2'), get_lang('PassTwo'), 'compare');
-    if (CHECK_PASS_EASY_TO_FIND) {
+    /*if (CHECK_PASS_EASY_TO_FIND) {
         $form->addRule('password1', get_lang('PassTooEasy').': '.api_generate_password(), 'callback', 'api_check_password');
-    }
+    }*/
 
     //	PHONE
     $form->addElement('text', 'phone', get_lang('Phone'), array('size' => 40, 'disabled' => 'disabled'));
-    if (api_get_setting_in_list('required_profile_fields', 'phone')) {
+    if (api_get_setting_in_list(
+        'registration.required_profile_fields',
+        'phone'
+    )) {
         $form->addRule('phone', get_lang('ThisFieldIsRequired'), 'required');
     }
 
     //	LANGUAGE
-    if (api_get_setting_in_list('required_profile_fields', 'languages')) {
+    if (api_get_setting_in_list(
+        'registration.required_profile_fields',
+        'languages'
+    )) {
         $form->addElement('select_language', 'language', get_lang('Language'), '', array('disabled' => 'disabled'));
     }
 
     //	STUDENT/TEACHER
-    if (api_get_setting('allow_registration_as_teacher') != 'false') {
+    if (api_get_setting(
+            'registration.allow_registration_as_teacher'
+        ) != 'false'
+    ) {
         $form->addElement('radio', 'status', get_lang('Status'), get_lang('RegStudent'), STUDENT, array('disabled' => 'disabled'));
         $form->addElement('radio', 'status', null, get_lang('RegAdmin'), COURSEMANAGER, array('disabled' => 'disabled'));
     }
 
     //	EXTENDED FIELDS
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration','mycomptetences') == 'true'
     ) {
         $form->addHtmlEditor('competences', get_lang('MyCompetences'), false, false, array('ToolbarSet' => 'Profile', 'Width' => '100%', 'Height' => '130'));
     }
 
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration','mydiplomas') == 'true'
     ) {
         $form->addHtmlEditor('diplomas', get_lang('MyDiplomas'), false, false, array('ToolbarSet' => 'Profile', 'Width' => '100%', 'Height' => '130'));
     }
 
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration','myteach') == 'true'
     ) {
         $form->addHtmlEditor('teach', get_lang('MyTeach'), false, false, array('ToolbarSet' => 'Profile', 'Width' => '100%', 'Height' => '130'));
     }
 
-    if (api_get_setting('extended_profile') == 'true' &&
+    if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration','mypersonalopenarea') == 'true'
     ) {
         $form->addHtmlEditor('openarea', get_lang('MyPersonalOpenArea'), false, false, array('ToolbarSet' => 'Profile', 'Width' => '100%', 'Height' => '130'));
     }
 
-    if (api_get_setting('extended_profile') == 'true') {
+    if (api_get_setting('profile.extended_profile') == 'true') {
         if (api_get_setting('extendedprofile_registrationrequired', 'mycomptetences') == 'true') {
             $form->addRule('competences', get_lang('ThisFieldIsRequired'), 'required');
         }
@@ -284,7 +296,7 @@ if ($display_all_form) {
 }
 
 // Terms and conditions
-if (api_get_setting('allow_terms_conditions') == 'true') {
+if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     $language = api_get_interface_language();
     $language = api_get_language_id($language);
     $term_preview = LegalManager::get_last_condition($language);
@@ -337,9 +349,9 @@ if (!empty($_GET['phone'])) {
     $defaults['phone'] = Security::remove_XSS($_GET['phone']);
 }
 
-if (api_get_setting('openid_authentication') == 'true' && !empty($_GET['openid'])) {
+/*if (api_get_setting('openid_authentication') == 'true' && !empty($_GET['openid'])) {
     $defaults['openid'] = Security::remove_XSS($_GET['openid']);
-}
+}*/
 
 $form->setDefaults($defaults);
 
