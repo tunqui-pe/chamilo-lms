@@ -50,6 +50,7 @@ class AppKernel extends Kernel
 
             // Sylius
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
+            //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
 
@@ -62,20 +63,26 @@ class AppKernel extends Kernel
 
             // Extra
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            //new JMS\TranslationBundle\JMSTranslationBundle(),
+            //new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            //new JMS\AopBundle\JMSAopBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new Jjanvier\Bundle\CrowdinBundle\JjanvierCrowdinBundle();
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-
             $bundles[] = new Bazinga\Bundle\FakerBundle\BazingaFakerBundle();
         }
 
         return $bundles;
     }
 
+    /**
+     * @param LoaderInterface $loader
+     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');

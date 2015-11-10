@@ -172,12 +172,12 @@ chamilo_course:
             model: Chamilo\CourseBundle\Entity\CCourseSetting
             repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
 
-doctrine_cache:
-    providers:
-        sylius_settings:
-            type: file_system
-        chamilo_settings:
-            type: file_system
+#doctrine_cache:
+#    providers:
+#        sylius_settings:
+#            type: file_system
+#        chamilo_settings:
+#            type: file_system
 
 
 # Bower configuration
@@ -206,6 +206,16 @@ liip_theme:
     active_theme: 'web'
     assetic_integration: true
 
+jjanvier_crowdin:
+    crowdin:
+        api_key: 7207f8a2e4bf8cac21c1b6a74ad88af4
+        project_identifier: chamilo-lms
+    github:
+        username: "something_useless"
+        project: "something_useless"
+    project:
+        path: "something_useless"
+
 ivory_ck_editor:
     autoload: false
     base_path: "bundles/ivoryckeditor"
@@ -226,3 +236,46 @@ ivory_ck_editor:
 #            filename: "plugin.js"
 #
 
+#jms_translation:
+#    configs:
+#        app:
+#            dirs: [%kernel.root_dir%, %kernel.root_dir%/../src]
+#            output_dir: %kernel.root_dir%/Resources/translations
+#            ignored_domains: [routes]
+#            excluded_names: ["*TestCase.php", "*Test.php"]
+#            excluded_dirs: [cache, data, logs]
+##            extractors: [alias_of_the_extractor]
+
+sonata_core:
+    flashmessage:
+        success:
+            types:
+                - { type: my_custom_bundle_success }
+                - { type: my_other_bundle_success }
+
+        warning:
+            types:
+                - { type: my_custom_bundle_warning }
+                - { type: my_other_bundle_warning }
+        error:
+            css_class: danger # optionally, a CSS class can be defined
+            types:
+                - { type: my_custom_bundle }
+
+        confirmation: # You can add custom types too
+            types:
+                - { type: custom_bundle_type }
+
+        confirmation: # You can add custom types too
+            types:
+                - { type: custom_bundle_type }
+
+        confirm: # You can add custom types too
+            types:
+                - { type: custom_bundle_type }
+        normal:
+            types:
+                - { type: custom_bundle_type }
+        success: # You can add custom types too
+            types:
+                - { type: custom_bundle_type }
