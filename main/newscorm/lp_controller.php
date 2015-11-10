@@ -15,17 +15,7 @@ $use_anonymous = true;
 $debug = 0;
 if ($debug > 0) error_log('New LP -+- Entered lp_controller.php -+- (action: '.$_REQUEST['action'].')', 0);
 
-// Language files that needs to be included.
-if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'export') {
-        // Only needed on export.
-        $language_file[] = 'hotspot';
-    }
-}
-
-// Including the global initialization file.
-////require_once '../inc/global.inc.php';
-$current_course_tool  = TOOL_LEARNPATH;
+$current_course_tool = TOOL_LEARNPATH;
 $_course = api_get_course_info();
 
 $glossaryExtraTools = api_get_setting('glossary.show_glossary_in_extra_tools');
@@ -253,35 +243,15 @@ if (!empty($_REQUEST['dialog_box'])) {
 
 $lp_controller_touched = 1;
 $lp_found = false;
-
-if (isset($_SESSION['lpobject'])) {
-    if ($debug > 0) error_log('New LP - SESSION[lpobject] is defined', 0);
-    $oLP = unserialize($_SESSION['lpobject']);
-    if (isset($oLP) && is_object($oLP)) {
-        if ($debug > 0) error_log('New LP - oLP is object', 0);
-        if ($myrefresh == 1 OR
-            empty($oLP->cc) OR
-            $oLP->cc != api_get_course_id() OR
-            $oLP->lp_view_session_id != $session_id OR
-            $oLP->scorm_debug == '1'
-        ) {
-            if ($debug > 0) error_log('New LP - Course has changed, discard lp object', 0);
-            if ($myrefresh == 1) { $myrefresh_id = $oLP->get_id(); }
-            $oLP = null;
-            Session::erase('oLP');
-            Session::erase('lpobject');
-        } else {
-            $_SESSION['oLP'] = $oLP;
-            $lp_found = true;
-        }
-    }
-}
-
+$lpId = isset($_REQUEST['lp_id']) ? $_REQUEST['lp_id'] : '';
 $course_id = api_get_course_int_id();
 
 if ($debug>0) error_log('New LP - Passed data remains check', 0);
 
-if (!$lp_found || (!empty($_REQUEST['lp_id']) && $_SESSION['oLP']->get_id() != $_REQUEST['lp_id'])) {
+/** @var learnpath $learnpath */
+$learnPath = Session::read('oLP');
+
+if (!$lp_found || (!empty($_REQUEST['lp_id']) && !empty($learnPath) && $learnPath->lp_id != $_REQUEST['lp_id'])) {
     if ($debug > 0) error_log('New LP - oLP is not object, has changed or refresh been asked, getting new', 0);
     // Regenerate a new lp object? Not always as some pages don't need the object (like upload?)
     if (!empty($_REQUEST['lp_id']) || !empty($myrefresh_id)) {
@@ -296,7 +266,8 @@ if (!$lp_found || (!empty($_REQUEST['lp_id']) && $_SESSION['oLP']->get_id() != $
 
         $lp_table = Database::get_course_table(TABLE_LP_MAIN);
         if (is_numeric($lp_id)) {
-            $sel = "SELECT lp_type FROM $lp_table WHERE c_id = $course_id AND id = $lp_id";
+            $sel = "SELECT lp_type FROM $lp_table
+                    WHERE c_id = $course_id AND id = $lp_id";
             if ($debug > 0) error_log('New LP - querying '.$sel, 0);
             $res = Database::query($sel);
 
@@ -938,7 +909,8 @@ switch ($action) {
             $_SESSION['oLP']->set_hide_toc_frame($hide_toc_frame);
             $_SESSION['oLP']->set_prerequisite($_REQUEST['prerequisites']);
             $_SESSION['oLP']->set_use_max_score($_REQUEST['use_max_score']);
-            $_SESSION['oLP']->setSubscribeUsers($_REQUEST['subscribe_users']);
+            $subscribers = isset($_REQUEST['subscribe_users']) ? $_REQUEST['subscribe_users'] : '';
+            $_SESSION['oLP']->setSubscribeUsers($subscribers);
 
             if (isset($_REQUEST['activate_start_date_check']) && $_REQUEST['activate_start_date_check'] == 1) {
             	$publicated_on  = $_REQUEST['publicated_on'];
@@ -962,7 +934,7 @@ switch ($action) {
 
             $extraFieldValue = new ExtraFieldValue('lp');
             $params = array(
-                'lp_id' => $_SESSION['oLP']->id
+                'lp_id' => $learnPath->id,
             );
             $extraFieldValue->saveFieldValues($_REQUEST);
 

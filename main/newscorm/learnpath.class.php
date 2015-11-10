@@ -5465,7 +5465,10 @@ class learnpath
         }
 
         // We need to close the form when we are updating the mp3 files.
-        if ($update_audio == 'true' && count($this->arrMenu) != 0) {
+        if ($update_audio == 'true' && isset($this->arrMenu) && count(
+                $this->arrMenu
+            ) != 0
+        ) {
             $return .= '</form>';
         }
         return $return;
@@ -5867,7 +5870,11 @@ class learnpath
     {
         $course_id = api_get_course_int_id();
         global $charset;
-        $dir = isset ($_GET['dir']) ? $_GET['dir'] : $_POST['dir'];
+        $dir = isset($_GET['dir']) ? $_GET['dir'] : '';
+        if (empty($dir)) {
+            $dir = isset($_POST['dir']) ? $_POST['dir'] : '';
+        }
+
         // Please, do not modify this dirname formatting.
         if (strstr($dir, '..'))
             $dir = '/';
@@ -5961,8 +5968,9 @@ class learnpath
                         if ($new_title)
                             $ct .= ", title='" . Database::escape_string(htmlspecialchars($new_title, ENT_QUOTES, $charset))."' ";
 
-                        $sql_update = "UPDATE " . $tbl_doc ." SET " . substr($ct, 1)." WHERE c_id = ".$course_id." AND id = " . $document_id;
-                        Database::query($sql_update);
+                        $sql = "UPDATE ".$tbl_doc." SET ".substr($ct, 1)."
+                                WHERE c_id = ".$course_id." AND id = ".$document_id;
+                        Database::query($sql);
                     }
                 }
                 return $document_id;
@@ -6046,11 +6054,13 @@ class learnpath
                     WHERE c_id = ".$course_id." AND lp.id = " . intval($item_id);
             $result = Database::query($sql);
             while ($row = Database :: fetch_array($result,'ASSOC')) {
-                $_SESSION['parent_item_id'] = ($row['item_type'] == 'dokeos_chapter' || $row['item_type'] == 'dokeos_module' || $row['item_type'] == 'dir') ? $item_id : 0;
+                $valueId = ($row['item_type'] == 'dokeos_chapter' || $row['item_type'] == 'dokeos_module' || $row['item_type'] == 'dir') ? $item_id : 0;
+                Session::write('parent_item_id', $valueId);
 
                 // Prevents wrong parent selection for document, see Bug#1251.
                 if ($row['item_type'] != 'dokeos_chapter' || $row['item_type'] != 'dokeos_module') {
-                    $_SESSION['parent_item_id'] = $row['parent_item_id'];
+                    //$_SESSION['parent_item_id'] = $row['parent_item_id'];
+                    Session::write('parent_item_id', $row['parent_item_id']);
                 }
 
                 if ($show_actions) {
@@ -6784,7 +6794,6 @@ class learnpath
             $id
         );
 
-        //$parent_item_id = $_SESSION['parent_item_id'];
         for ($i = 0; $i < count($arrLP); $i++) {
             if ($action != 'add') {
                 if (($arrLP[$i]['item_type'] == 'dokeos_module' || $arrLP[$i]['item_type'] == 'dokeos_chapter' || $arrLP[$i]['item_type'] == 'dir') && !in_array($arrLP[$i]['id'], $arrHide) && !in_array($arrLP[$i]['parent_item_id'], $arrHide)) {
@@ -7453,7 +7462,7 @@ class learnpath
         if (!empty($id)) {
             $parent_select->setSelected($parent);
         } else {
-            $parent_item_id = $_SESSION['parent_item_id'];
+            $parent_item_id = Session::read('parent_item_id');
             $parent_select->setSelected($parent_item_id);
         }
 
@@ -7706,7 +7715,7 @@ class learnpath
             $id
         );
 
-        $parent_item_id = $_SESSION['parent_item_id'];
+        $parent_item_id = Session::read('parent_item_id');
 
         for ($i = 0; $i < count($arrLP); $i++) {
             if ($action != 'add') {
@@ -8470,7 +8479,12 @@ class learnpath
         $return = '<ul class="lp_resource">';
 
         $return .= '<li class="lp_resource_element">';
-        $return .= '<img alt="" src="../img/new_test_small.gif" style="margin-right:5px;" title="" />';
+        $return .= Display::return_icon(
+            'new_test_small.gif',
+            '',
+            '',
+            'style="margin-right:5px;"'
+        );
         $return .= '<a href="' . api_get_path(REL_CODE_PATH) . 'exercice/exercise_admin.php?'.api_get_cidreq().'&lp_id=' . $this->lp_id . '">' .
                     get_lang('NewExercise') . '</a>';
         $return .= '</li>';
@@ -8494,7 +8508,12 @@ class learnpath
             $return .= '<a class="moved" href="#">';
             $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
             $return .= '</a> ';
-            $return .= '<img alt="" src="../img/quizz_small.gif" style="margin-right:5px;" title="" />';
+            $return .= Display::return_icon(
+                'quizz_small.gif',
+                '',
+                array(),
+                ICON_SIZE_TINY
+            );
             $return .= '<a href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_QUIZ . '&file=' . $row_quiz['id'] . '&lp_id=' . $this->lp_id . '">' .
                 Security :: remove_XSS(cut($row_quiz['title'], 80)).
                 '</a>';
@@ -8558,7 +8577,12 @@ class learnpath
         </script>
         <ul class="lp_resource">
             <li class="lp_resource_element">
-                <img alt="" src="../img/linksnew.gif" style="margin-right:5px;width:16px"/>
+                '.Display::return_icon(
+            'linksnew.gif',
+            '',
+            array(),
+            ICON_SIZE_TINY
+        ).'
                 <a href="'.api_get_path(REL_CODE_PATH).'link/link.php?'.$courseIdReq.
                     '&action=addlink&lp_id='.$this->lp_id.'" title="'.get_lang('LinkAdd').'">'.get_lang('LinkAdd').'</a>
             </li>';
@@ -8572,7 +8596,12 @@ class learnpath
                         <a class="moved" href="#">'.
                             $moveEverywhereIcon.
                         '</a>
-                        <img alt="" src="../img/lp_link.gif" style="margin-right:5px;width:16px"/>
+                        '.Display::return_icon(
+                        'lp_link.gif',
+                        '',
+                        array(),
+                        ICON_SIZE_TINY
+                    ).'
                         <a href="'.$selfUrl.'?'.$courseIdReq.'&action=add_item&type='.
                             TOOL_LINK.'&file='.$key.'&lp_id='.$this->lp_id.'">'.
                             Security::remove_XSS($title).
@@ -8604,7 +8633,12 @@ class learnpath
     {
         $return = '<div class="lp_resource" >';
         $return .= '<div class="lp_resource_element">';
-        $return .= '<img align="left" alt="" src="../img/works_small.gif" style="margin-right:5px;" title="" />';
+        $return .= Display::return_icon(
+            'works_small.gif',
+            '',
+            array(),
+            ICON_SIZE_TINY
+        );
         $return .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&action=add_item&type=' . TOOL_STUDENTPUBLICATION . '&lp_id=' . $this->lp_id . '">' . get_lang('AddAssignmentPage') . '</a>';
         $return .= '</div>';
         $return .= '</div>';
@@ -8617,8 +8651,8 @@ class learnpath
      */
     public function get_forums()
     {
-        require_once '../forum/forumfunction.inc.php';
-        require_once '../forum/forumconfig.inc.php';
+        require_once api_get_path(SYS_CODE_PATH).'forum/forumfunction.inc.php';
+        require_once api_get_path(SYS_CODE_PATH).'forum/forumconfig.inc.php';
 
         $a_forums = get_forums();
 
@@ -8626,7 +8660,12 @@ class learnpath
 
         //First add link
         $return .= '<li class="lp_resource_element">';
-        $return .= '<img alt="" src="../img/forum_new_small.gif" style="margin-right:5px;" title="" />';
+        $return .= Display::return_icon(
+            'forum_new_small.gif',
+            '',
+            array(),
+            ICON_SIZE_TINY
+        );
         $return .= '<a href="' . api_get_path(REL_CODE_PATH) . 'forum/index.php?' . api_get_cidreq() . '&action=add&content=forum&origin=learnpath&lp_id=' . $this->lp_id . '" title="' . get_lang('CreateANewForum') . '">' . get_lang('CreateANewForum') . '</a>';
         $return .= '</li>';
 
@@ -8648,7 +8687,12 @@ class learnpath
                 $return .= '<a class="moved" href="#">';
                 $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
                 $return .= ' </a>';
-                $return .= '<img alt="" src="../img/lp_forum.gif" style="margin-right:5px;" title="" />';
+                $return .= Display::return_icon(
+                    'lp_forum.gif',
+                    '',
+                    array(),
+                    ICON_SIZE_TINY
+                );
                 $return .= '<a style="cursor:hand" onclick="javascript: toggle_forum(' . $forum['forum_id'] . ')" style="vertical-align:middle">
                                 <img src="' . api_get_path(WEB_IMG_PATH) . 'add.gif" id="forum_' . $forum['forum_id'] . '_opener" align="absbottom" />
                             </a>
@@ -10360,7 +10404,8 @@ EOD;
         //Scheme validation to avoid "Notices" when the lesson doesn't contain a valid scheme
         $scheme = isset($urlInfo['scheme']) ? $urlInfo['scheme'] : null;
         if ($platformProtocol != $scheme) {
-            $_SESSION['x_frame_source'] = $src;
+            //$_SESSION['x_frame_source'] = $src;
+            Session::write('x_frame_source', $src);
             $src = 'blank.php?error=x_frames_options';
             $protocolFixApplied = true;
         }
@@ -10394,7 +10439,8 @@ EOD;
                 }
 
                 if ($error) {
-                    $_SESSION['x_frame_source'] = $src;
+                    //$_SESSION['x_frame_source'] = $src;
+                    Session::write('x_frame_source', $src);
                     $src = 'blank.php?error=x_frames_options';
                 }
             }

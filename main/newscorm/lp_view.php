@@ -406,7 +406,7 @@ if ($is_allowed_to_edit) {
         'url' => '#',
         'name' => get_lang('Preview')
     );
-    $breadcrumb = return_breadcrumb($interbreadcrumb, null, null);
+    $breadcrumb = Display::returnBreadcrumb($interbreadcrumb, null, null);
 }
 
 // Return to course home.
@@ -456,11 +456,8 @@ if ($_SESSION['oLP']->current == $_SESSION['oLP']->get_last()) {
     }
 }
 
-
-
-
-$template = new Template('title', false, false, true, true, false);
-$template->assign(
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$template->addGlobal(
     'glossary_extra_tools',
     api_get_setting('glossary.show_glossary_in_extra_tools')
 );
@@ -471,8 +468,8 @@ if ($fixLinkSetting) {
     $fixLink = '{type:"script", id:"_fr10", src:"'.api_get_path(WEB_LIBRARY_PATH).'javascript/fixlinks.js"}';
 }
 
-$template->assign('fix_link', $fixLink);
-$template->assign(
+$template->addGlobal('fix_link', $fixLink);
+$template->addGlobal(
     'glossary_tool_availables',
     ['true', 'lp', 'exercise_and_lp']
 );
@@ -482,40 +479,42 @@ $gamificationMode = api_get_setting('platform.gamification_mode');
 // ...AND this learning path is set in gamification mode, then change the display
 $gamificationMode = $gamificationMode && $_SESSION['oLP']->seriousgame_mode;
 
-$template->assign(
+$template->addGlobal(
     'show_glossary_in_documents',
     api_get_setting('document.show_glossary_in_documents')
 );
-$template->assign('jquery_web_path', api_get_jquery_web_path());
-$template->assign('jquery_ui_js_web_path', api_get_jquery_ui_js_web_path());
-$template->assign('jquery_ui_css_web_path', api_get_jquery_ui_css_web_path());
-$template->assign('is_allowed_to_edit', $is_allowed_to_edit);
-$template->assign('gamification_mode', $gamificationMode);
-$template->assign('breadcrumb', $breadcrumb);
-$template->assign('button_home_url', $buttonHomeUrl);
-$template->assign('button_home_text', $buttonHomeText);
-$template->assign('navigation_bar', $navigation_bar);
-$template->assign('progress_bar', $progress_bar);
-$template->assign('show_audio_player', $show_audioplayer);
-$template->assign('media_player', $mediaplayer);
-$template->assign('toc_list', $get_toc_list);
-$template->assign('teacher_toc_buttons', $get_teacher_buttons);
-
-$template->assign('iframe_src', $src);
-$template->assign('navigation_bar_bottom', $navigation_bar_bottom);
+$template->addGlobal('jquery_web_path', api_get_jquery_web_path());
+$template->addGlobal('jquery_ui_js_web_path', api_get_jquery_ui_js_web_path());
+$template->addGlobal(
+    'jquery_ui_css_web_path',
+    api_get_jquery_ui_css_web_path()
+);
+$template->addGlobal('is_allowed_to_edit', $is_allowed_to_edit);
+$template->addGlobal('gamification_mode', $gamificationMode);
+$template->addGlobal('breadcrumb', $breadcrumb);
+$template->addGlobal('button_home_url', $buttonHomeUrl);
+$template->addGlobal('button_home_text', $buttonHomeText);
+$template->addGlobal('navigation_bar', $navigation_bar);
+$template->addGlobal('progress_bar', $progress_bar);
+$template->addGlobal('show_audio_player', $show_audioplayer);
+$template->addGlobal('media_player', $mediaplayer);
+$template->addGlobal('toc_list', $get_toc_list);
+$template->addGlobal('teacher_toc_buttons', $get_teacher_buttons);
+$template->addGlobal('iframe_src', $src);
+$template->addGlobal('navigation_bar_bottom', $navigation_bar_bottom);
 
 if ($gamificationMode == 1) {
-    $template->assign(
+    $template->addGlobal(
         'gamification_stars',
         $_SESSION['oLP']->getCalculateStars($sessionId)
     );
-    $template->assign(
+    $template->addGlobal(
         'gamification_points',
         $_SESSION['oLP']->getCalculateScore($sessionId)
     );
 }
 
-$template->assign(
+$template->addGlobal(
     'lp_preview_image',
     Display::img(
         $lpPreviewImagePath,
@@ -525,20 +524,22 @@ $template->assign(
     )
 );
 
-$template->assign('lp_author', $_SESSION['oLP']->get_author());
-$template->assign('lp_mode', $_SESSION['oLP']->mode);
-$template->assign('lp_title_scorm',$_SESSION['oLP']->name);
-$template->assign(
+$template->addGlobal('lp_author', $_SESSION['oLP']->get_author());
+$template->addGlobal('lp_mode', $_SESSION['oLP']->mode);
+$template->addGlobal('lp_title_scorm', $_SESSION['oLP']->name);
+$template->addGlobal(
     'lp_html_toc',
     $_SESSION['oLP']->get_html_toc($get_toc_list)
 );
-$template->assign('lp_id', $_SESSION['oLP']->lp_id);
-$template->assign('lp_current_item_id', $_SESSION['oLP']->get_current_item_id());
+$template->addGlobal('lp_id', $_SESSION['oLP']->lp_id);
+$template->addGlobal(
+    'lp_current_item_id',
+    $_SESSION['oLP']->get_current_item_id()
+);
 
-$content = $template->fetch('default/learnpath/view.tpl');
+$content = $template->render('@ChamiloCore/default/learnpath/view.html.twig');
+echo $content;
 
-$template->assign('content', $content);
-$template->display_no_layout_template();
 
 // Restore a global setting.
 $_setting['show_navigation_menu'] = $save_setting;
