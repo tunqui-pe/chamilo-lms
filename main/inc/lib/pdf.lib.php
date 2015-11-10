@@ -691,7 +691,9 @@ class PDF
         $this->pdf->defaultheaderline       = 1;    // 1 to include line below header/above footer
 
         if (!empty($course_data['code'])) {
-            $teacher_list = CourseManager::get_teacher_list_from_course_code($course_data['code']);
+            $teacher_list = CourseManager::getTeacherListFromCourse(
+                $course_data['real_id']
+            );
 
             $teachers = '';
             if (!empty($teacher_list)) {
@@ -814,7 +816,10 @@ class PDF
         // Add decoration only if not stated otherwise
         if ($complete) {
             // Adding watermark
-            if (api_get_setting('pdf_export_watermark_enable') == 'true') {
+            if (api_get_setting(
+                    'document.pdf_export_watermark_enable'
+                ) == 'true'
+            ) {
                 $watermark_file = self::get_watermark($course_code);
 
                 if ($watermark_file) {

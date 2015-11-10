@@ -1399,7 +1399,7 @@ class Template
             //$navigation_item['url'] = $web_course_path.$_course['path'].'/index.php'.(!empty($session_id) ? '?id_session='.$session_id : '');
             $course_title = Text::cut($_course['name'], MAX_LENGTH_BREADCRUMB);
 
-            switch (api_get_setting('breadcrumbs_course_homepage')) {
+            switch (api_get_setting('course.breadcrumbs_course_homepage')) {
                 case 'get_lang':
                     $navigation_item['title'] = /*Display::img(
                         api_get_path(WEB_CSS_PATH).'home.png',

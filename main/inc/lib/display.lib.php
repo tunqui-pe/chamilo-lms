@@ -2423,4 +2423,264 @@ class Display
         }
         return $html;
     }
+
+    public static function returnBreadcrumb(
+        $interbreadcrumb,
+        $language_file,
+        $nameTools
+    ) {
+        $session_id = api_get_session_id();
+        $session_name = api_get_session_name($session_id);
+        $_course = api_get_course_info();
+        $user_id = api_get_user_id();
+        $course_id = 0;
+        if (!empty($_course)) {
+            $course_id = $_course['real_id'];
+        }
+
+        /*  Plugins for banner section */
+        $web_course_path = api_get_path(WEB_COURSE_PATH);
+
+        /* If the user is a coach he can see the users who are logged in its session */
+        $navigation = array();
+
+        // part 1: Course Homepage. If we are in a course then the first breadcrumb is a link to the course homepage
+        // hide_course_breadcrumb the parameter has been added to hide the name of the course, that appeared in the default $interbreadcrumb
+        $session_name = cut($session_name, MAX_LENGTH_BREADCRUMB);
+        $my_session_name = is_null(
+            $session_name
+        ) ? '' : '&nbsp;('.$session_name.')';
+
+        if (!empty($_course) && !isset($_GET['hide_course_breadcrumb'])) {
+
+            $navigation_item['url'] = $web_course_path.$_course['path'].'/index.php'.(!empty($session_id) ? '?id_session='.$session_id : '');
+            $_course['name'] = api_htmlentities($_course['name']);
+            $course_title = cut($_course['name'], MAX_LENGTH_BREADCRUMB);
+
+            switch (api_get_setting('course.breadcrumbs_course_homepage')) {
+                case 'get_lang':
+                    $navigation_item['title'] = Display::img(
+                            api_get_path(WEB_IMG_PATH).'home.png',
+                            get_lang('CourseHomepageLink')
+                        ).' '.get_lang('CourseHomepageLink');
+                    break;
+                case 'course_code':
+                    $navigation_item['title'] = Display::img(
+                            api_get_path(WEB_IMG_PATH).'home.png',
+                            $_course['official_code']
+                        ).' '.$_course['official_code'];
+                    break;
+                case 'session_name_and_course_title':
+                    $navigation_item['title'] = Display::img(
+                            api_get_path(WEB_IMG_PATH).'home.png',
+                            $_course['name'].$my_session_name
+                        ).' '.$course_title.$my_session_name;
+                    break;
+                default:
+                    if (api_get_session_id() != -1) {
+                        $navigation_item['title'] = Display::img(
+                                api_get_path(WEB_IMG_PATH).'home.png',
+                                $_course['name'].$my_session_name
+                            ).' '.$course_title.$my_session_name;
+                    } else {
+                        $navigation_item['title'] = Display::img(
+                                api_get_path(WEB_IMG_PATH).'home.png',
+                                $_course['name']
+                            ).' '.$course_title;
+                    }
+                    break;
+            }
+            /**
+             * @todo could be useful adding the My courses in the breadcrumb
+             * $navigation_item_my_courses['title'] = get_lang('MyCourses');
+             * $navigation_item_my_courses['url'] = api_get_path(WEB_PATH).'user_portal.php';
+             * $navigation[] = $navigation_item_my_courses;
+             */
+            $navigation[] = $navigation_item;
+        }
+
+        /* part 2: Interbreadcrumbs. If there is an array $interbreadcrumb
+        defined then these have to appear before the last breadcrumb
+        (which is the tool itself)*/
+        if (isset($interbreadcrumb) && is_array($interbreadcrumb)) {
+            foreach ($interbreadcrumb as $breadcrumb_step) {
+                if (isset($breadcrumb_step['type']) && $breadcrumb_step['type'] == 'right') {
+                    continue;
+                }
+                if ($breadcrumb_step['url'] != '#') {
+                    $sep = (strrchr(
+                        $breadcrumb_step['url'],
+                        '?'
+                    ) ? '&amp;' : '?');
+                    $navigation_item['url'] = $breadcrumb_step['url'].$sep.api_get_cidreq(
+                        );
+                } else {
+                    $navigation_item['url'] = '#';
+                }
+                $navigation_item['title'] = $breadcrumb_step['name'];
+                // titles for shared folders
+                if ($breadcrumb_step['name'] == 'shared_folder') {
+                    $navigation_item['title'] = get_lang('UserFolders');
+                } elseif (strstr(
+                    $breadcrumb_step['name'],
+                    'shared_folder_session_'
+                )) {
+                    $navigation_item['title'] = get_lang('UserFolders');
+                } elseif (strstr($breadcrumb_step['name'], 'sf_user_')) {
+                    $userinfo = api_get_user_info(
+                        substr($breadcrumb_step['name'], 8)
+                    );
+                    $navigation_item['title'] = $userinfo['complete_name'];
+                } elseif ($breadcrumb_step['name'] == 'chat_files') {
+                    $navigation_item['title'] = get_lang('ChatFiles');
+                } elseif ($breadcrumb_step['name'] == 'images') {
+                    $navigation_item['title'] = get_lang('Images');
+                } elseif ($breadcrumb_step['name'] == 'video') {
+                    $navigation_item['title'] = get_lang('Video');
+                } elseif ($breadcrumb_step['name'] == 'audio') {
+                    $navigation_item['title'] = get_lang('Audio');
+                } elseif ($breadcrumb_step['name'] == 'flash') {
+                    $navigation_item['title'] = get_lang('Flash');
+                } elseif ($breadcrumb_step['name'] == 'gallery') {
+                    $navigation_item['title'] = get_lang('Gallery');
+                }
+                // Fixes breadcrumb title now we applied the Security::remove_XSS and
+                // we cut the string depending of the MAX_LENGTH_BREADCRUMB value
+                $navigation_item['title'] = cut(
+                    $navigation_item['title'],
+                    MAX_LENGTH_BREADCRUMB
+                );
+                $navigation_item['title'] = Security::remove_XSS(
+                    $navigation_item['title']
+                );
+                $navigation[] = $navigation_item;
+            }
+        }
+
+        $navigation_right = array();
+
+        if (isset($interbreadcrumb) && is_array($interbreadcrumb)) {
+            foreach ($interbreadcrumb as $breadcrumb_step) {
+                if (isset($breadcrumb_step['type']) && $breadcrumb_step['type'] == 'right') {
+                    if ($breadcrumb_step['url'] != '#') {
+                        $sep = (strrchr(
+                            $breadcrumb_step['url'],
+                            '?'
+                        ) ? '&amp;' : '?');
+                        $navigation_item['url'] = $breadcrumb_step['url'].$sep.api_get_cidreq(
+                            );
+                    } else {
+                        $navigation_item['url'] = '#';
+                    }
+                    $breadcrumb_step['title'] = cut(
+                        $navigation_item['title'],
+                        MAX_LENGTH_BREADCRUMB
+                    );
+                    $breadcrumb_step['title'] = Security::remove_XSS(
+                        $navigation_item['title']
+                    );
+                    $navigation_right[] = $breadcrumb_step;
+                }
+            }
+        }
+
+        // part 3: The tool itself. If we are on the course homepage we do not want
+        // to display the title of the course because this
+        // is the same as the first part of the breadcrumbs (see part 1)
+        if (isset($nameTools)) {
+            $navigation_item['url'] = '#';
+            $navigation_item['title'] = $nameTools;
+            $navigation[] = $navigation_item;
+        }
+
+        $final_navigation = array();
+        $counter = 0;
+        foreach ($navigation as $index => $navigation_info) {
+            if (!empty($navigation_info['title'])) {
+                if ($navigation_info['url'] == '#') {
+                    $final_navigation[$index] = $navigation_info['title'];
+                } else {
+                    $final_navigation[$index] = '<a href="'.$navigation_info['url'].'" target="_self">'.$navigation_info['title'].'</a>';
+                }
+                $counter++;
+            }
+        }
+
+        $html = '';
+
+        /* Part 4 . Show the teacher view/student view button at the right of the breadcrumb */
+        $view_as_student_link = null;
+        if ($user_id && isset($course_id)) {
+            if ((api_is_course_admin() || api_is_platform_admin(
+                    )) && api_get_setting(
+                    'course.student_view_enabled'
+                ) == 'true'
+            ) {
+                $view_as_student_link = api_display_tool_view_option();
+            }
+        }
+        if (!empty($final_navigation)) {
+            $lis = '';
+            $i = 0;
+            $final_navigation_count = count($final_navigation);
+            if (!empty($final_navigation)) {
+                // $home_link.= '<span class="divider">/</span>';
+                if (!empty($home_link)) {
+                    $lis .= Display::tag('li', $home_link);
+                }
+
+                foreach ($final_navigation as $bread) {
+                    $bread_check = trim(strip_tags($bread));
+                    if (!empty($bread_check)) {
+                        if ($final_navigation_count - 1 > $i) {
+                            $bread .= '';
+                        }
+                        $lis .= Display::tag(
+                            'li',
+                            $bread,
+                            array('class' => 'active')
+                        );
+                        $i++;
+                    }
+                }
+            } else {
+                if (!empty($home_link)) {
+                    $lis .= Display::tag('li', $home_link);
+                }
+            }
+
+            // View as student/teacher link
+            $view = null;
+            if (!empty($view_as_student_link)) {
+                $view .= Display::tag(
+                    'div',
+                    $view_as_student_link,
+                    array('id' => 'view_as_link', 'class' => 'pull-right')
+                );
+            }
+
+            if (!empty($navigation_right)) {
+                foreach ($navigation_right as $item) {
+                    $extra_class = isset($item['class']) ? $item['class'] : null;
+                    $lis .= Display::tag(
+                        'li',
+                        $item['title'],
+                        array('class' => $extra_class.' pull-right')
+                    );
+                }
+            }
+
+            if (!empty($lis)) {
+                $html .= $view;
+                $html .= Display::tag(
+                    'ul',
+                    $lis,
+                    array('class' => 'breadcrumb')
+                );
+            }
+        }
+
+        return $html;
+    }
+
 }

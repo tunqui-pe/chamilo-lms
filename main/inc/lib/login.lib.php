@@ -814,7 +814,7 @@ class Login
         }
 
         //set variable according to student_view_enabled choices
-        if (api_get_setting('student_view_enabled') == "true") {
+        if (api_get_setting('course.student_view_enabled') == "true") {
             if (isset($_GET['isStudentView'])) {
                 if ($_GET['isStudentView'] == 'true') {
                     if (isset($_SESSION['studentview'])) {

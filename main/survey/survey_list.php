@@ -9,6 +9,7 @@
  * 	@version $Id: survey_list.php 21933 2009-07-09 06:08:22Z ivantcholakov $
  *
  * 	@todo use quickforms for the forms
+ * @todo use quickforms for the forms
  */
 if (!isset($_GET['cidReq'])) {
     $_GET['cidReq'] = 'none'; // Prevent sql errors
@@ -87,7 +88,7 @@ if ($action == 'copy_survey') {
 Display::display_header($tool_name, 'Survey');
 
 // Tool introduction
-Display::display_introduction_section('survey', 'left');
+Display::display_introduction_section('survey');
 
 // Action handling: searching
 if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
