@@ -111,10 +111,6 @@ class LegacyListener
         Container::$dataDir = $container->get('kernel')->getDataDir();
         Container::$courseDir = $container->get('kernel')->getDataDir();
 
-
-        // Setting editor
-        //Container::$htmlEditor = $container->get('chamilo_core.html_editor');
-
         if (!defined('DEFAULT_DOCUMENT_QUOTA')) {
             $default_quota = api_get_setting('document.default_document_quotum');
 

@@ -744,7 +744,7 @@ class DisplayGradebook
         $info .= get_lang('Name') . ' :  <a target="_blank" href="' . api_get_path(WEB_CODE_PATH) . 'social/profile.php?u=' . $userid . '"> ' .
             $user['complete_name'] . '</a><br />';
 
-        if (api_get_setting('show_email_addresses') == 'true') {
+        if (api_get_setting('display.show_email_addresses') == 'true') {
             $info .= get_lang('Email') . ' : <a href="mailto:' . $user['email'] . '">' . $user['email'] . '</a><br />';
         }
 

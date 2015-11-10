@@ -26,12 +26,3 @@ $tpl->addGlobal('course_id', $course_info['code']);
 $tpl->addGlobal('just_created', isset($_GET['first']) && $_GET['first'] ? 1 : 0);
 
 echo $tpl->render('ChamiloCoreBundle:default/create_course:add_course.html.twig');
-
-/*
-$add_course_tpl = $tpl->get_template('create_course/add_course.tpl');
-$content = $tpl->fetch($add_course_tpl);
-
-$tpl->assign('content', $content);
-$template = $tpl->get_template('layout/layout_1_col.tpl');
-$tpl->display($template);*/
-

@@ -123,7 +123,7 @@ if (api_is_allowed_to_edit(null, true)) {
                 $extra_fields = array_keys($extra_fields);
                 $select_email_condition = '';
 
-                if (api_get_setting('show_email_addresses') == 'true') {
+                if (api_get_setting('display.show_email_addresses') == 'true') {
                     $select_email_condition = ' user.email, ';
                     if ($sort_by_first_name) {
                         $a_users[0] = array(

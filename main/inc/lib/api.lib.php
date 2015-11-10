@@ -2571,8 +2571,11 @@ function api_get_setting_in_list($variable, $option)
  *
  * @author Julio Montoya
  */
-function api_get_setting($variable, $key = null)
+function api_get_setting($variable)
 {
+    $variable = trim($variable);
+    //$variable = str_replace(array("\r","\n"), '', $variable);
+
     switch ($variable) {
         case 'server_type':
             $test = ['dev', 'test'];
@@ -2588,8 +2591,6 @@ function api_get_setting($variable, $key = null)
         default:
             return Container::getSettingsManager()->getSetting($variable);
     }
-
-
 
     global $_setting;
     if ($variable == 'header_extra_content') {

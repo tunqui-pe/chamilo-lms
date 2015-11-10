@@ -140,7 +140,7 @@ class Container
      */
     public static function getHtmlEditor()
     {
-        return self::$htmlEditor;
+        return self::$container->get('chamilo_core.html_editor');
     }
 
     /**

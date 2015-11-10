@@ -18,7 +18,7 @@ switch ($action) {
         echo '</div>';
         echo '</div>';
         echo '<div class="col-sm-7">';
-        if (api_get_setting('show_email_addresses') == 'false') {
+        if (api_get_setting('display.show_email_addresses') == 'false') {
             $user_info['mail'] = ' ';
         } else {
             $user_info['mail'] = ' '.$user_info['mail'].' ';

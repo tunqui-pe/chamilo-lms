@@ -40,6 +40,7 @@ class HtmlEditor extends HTML_QuickForm_textarea
         $this->_type = 'html_editor';
 
         $editor = Container::getHtmlEditor();
+
         if ($editor) {
             $this->editor = $editor;
             $this->editor->setName($name);

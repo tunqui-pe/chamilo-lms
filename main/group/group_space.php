@@ -339,7 +339,7 @@ if (api_is_western_name_order()) {
     $table->set_header(2, get_lang('FirstName'));
 }
 
-if (api_get_setting('show_email_addresses') == 'true') {
+if (api_get_setting('display.show_email_addresses') == 'true') {
     $table->set_header(3, get_lang('Email'));
     $table->set_column_filter(3, 'email_filter');
 } else {
@@ -402,7 +402,7 @@ function get_group_user_data($from, $number_of_items, $column, $direction)
     $course_id = api_get_course_int_id();
 
     // Query
-    if (api_get_setting('show_email_addresses') == 'true') {
+    if (api_get_setting('display.show_email_addresses') == 'true') {
         $sql = "SELECT user.user_id 	AS col0,
 				".(api_is_western_name_order() ?
                 "user.firstname 	AS col1,

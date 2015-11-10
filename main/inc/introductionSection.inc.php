@@ -139,6 +139,7 @@ if ($intro_editAllowed) {
 /* @todo use a lib to query the $TBL_INTRODUCTION table */
 // Getting course intro
 $intro_content = null;
+var_dump($moduleId);exit;
 $sql = "SELECT intro_text FROM $TBL_INTRODUCTION
         WHERE
             c_id = $course_id AND

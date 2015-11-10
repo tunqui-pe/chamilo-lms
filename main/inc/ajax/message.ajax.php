@@ -130,7 +130,7 @@ switch ($action) {
         $sql .=' LIMIT 20';
         $result = Database::query($sql);
 
-        $showEmail = api_get_setting('show_email_addresses');
+        $showEmail = api_get_setting('display.show_email_addresses');
         $return = array();
         if (Database::num_rows($result) > 0) {
             while ($row = Database::fetch_array($result, 'ASSOC')) {

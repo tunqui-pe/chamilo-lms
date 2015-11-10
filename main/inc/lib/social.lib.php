@@ -1100,7 +1100,7 @@ class SocialManager extends UserManager
             }
             $html .= '</div>';
 
-            if (api_get_setting('show_email_addresses') == 'true') {
+            if (api_get_setting('display.show_email_addresses') == 'true') {
                 $html .= Display::encrypted_mailto_link($user_object->email, $user_object->email).'<br />';
             }
 

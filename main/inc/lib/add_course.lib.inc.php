@@ -1256,9 +1256,7 @@ class AddCourse
             $params['disk_quota'] : null;
 
         if (!isset($params['visibility'])) {
-            $default_course_visibility = api_get_setting(
-                'course.courses_default_creation_visibility'
-            );
+            $default_course_visibility = api_get_setting('course.courses_default_creation_visibility');
             if (isset($default_course_visibility)) {
                 $visibility = $default_course_visibility;
             } else {
