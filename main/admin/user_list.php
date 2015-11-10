@@ -8,6 +8,7 @@
 */
 
 use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
 
 $cidReset = true;
 ////require_once '../inc/global.inc.php';
@@ -502,10 +503,11 @@ function modify_filter($user_id, $url_params, $row) {
 	}
 
     //only allow platform admins to login_as, or session admins only for students (not teachers nor other admins)
+    $url = Container::getUrlGenerator()->generate('home');
     if (api_is_platform_admin() || (api_is_session_admin() && $current_user_status_label == $statusname[STUDENT])) {
     	if (!$user_is_anonymous) {
             if (api_global_admin_can_edit_admin($user_id)) {
-                $result .= '<a href="user_list.php?action=login_as&user_id='.$user_id.'&sec_token='.$_SESSION['sec_token'].'">'.
+                $result .= '<a href="'.$url.'?_switch_user='.$row[5].'">'.
                     Display::return_icon('login_as.png', get_lang('LoginAs')).'</a>&nbsp;&nbsp;';
             } else {
                 $result .= Display::return_icon('login_as_na.png', get_lang('LoginAs')).'&nbsp;&nbsp;';

@@ -663,7 +663,7 @@ require_once __DIR__.'/internationalization.lib.php';
  * api_get_path(WEB_CODE_PATH)                  http://www.mychamilo.org/chamilo/main/
  * api_get_path(WEB_PLUGIN_PATH)                http://www.mychamilo.org/chamilo/plugin/
  * api_get_path(WEB_ARCHIVE_PATH)               http://www.mychamilo.org/chamilo/app/cache/
- * api_get_path(WEB_IMG_PATH)                   http://www.mychamilo.org/chamilo/main/img/
+ * api_get_path(WEB_IMG_PATH)                   http://www.mychamilo.org/chamilo/web/bundles/chamilocore/img/
  * api_get_path(SYS_IMG_PATH)                   /var/www/chamilo/web/bundles/chamilocore/img/
  * api_get_path(WEB_CSS_PATH)                   http://www.mychamilo.org/chamilo/web/css/
  * api_get_path(WEB_LIBRARY_PATH)               http://www.mychamilo.org/chamilo/main/inc/lib/
@@ -702,7 +702,7 @@ function api_get_path($path_type, $path = null)
         WEB_CODE_PATH           => '',
         SYS_CODE_PATH           => '',
         SYS_LANG_PATH           => 'lang/',
-        WEB_IMG_PATH            => 'img/',
+        WEB_IMG_PATH => 'web/bundles/chamilocore/img/',
         SYS_IMG_PATH => 'web/bundles/chamilocore/img/',
         WEB_CSS_PATH            => 'web/css/',
         SYS_CSS_PATH            => 'app/Resources/public/css/',
@@ -842,7 +842,10 @@ function api_get_path($path_type, $path = null)
         $paths[SYS_FONTS_PATH]          = $paths[SYS_CODE_PATH].$paths[SYS_FONTS_PATH];
 
         $paths[WEB_CSS_PATH]            = $paths[WEB_PATH].$paths[WEB_CSS_PATH];
-        $paths[WEB_IMG_PATH]            = $paths[WEB_CODE_PATH].$paths[WEB_IMG_PATH];
+
+        $paths[WEB_IMG_PATH] = Container::getAsset()->getUrl(
+            'bundles/chamilocore/img/'
+        );
         $paths[SYS_IMG_PATH] = $paths[SYS_PATH].$paths[SYS_IMG_PATH];
         $paths[WEB_LIBRARY_PATH]        = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_PATH];
         $paths[WEB_LIBRARY_JS_PATH]     = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_JS_PATH];
@@ -1599,6 +1602,15 @@ function api_get_user_info(
         return $user;
     }
     return false;
+}
+
+/**
+ * @param int $userId
+ * @return User
+ */
+function api_get_user_entity($userId)
+{
+    return UserManager::getManager()->find($userId);
 }
 
 /**
@@ -2722,13 +2734,15 @@ function api_is_platform_admin_by_id($user_id = null, $url = null)
     if (empty($user_id)) {
         $user_id = api_get_user_id();
     }
-    $admin_table = Database::get_main_table(TABLE_MAIN_ADMIN);
-    $sql = "SELECT * FROM $admin_table WHERE user_id = $user_id";
-    $res = Database::query($sql);
-    $is_admin = Database::num_rows($res) === 1;
+
+    $em = Container::getEntityManager();
+    $user = $em->getRepository('ChamiloUserBundle:User')->find($user_id);
+    $is_admin = $user->hasRole('ROLE_ADMIN');
+
     if (!$is_admin or !isset($url)) {
         return $is_admin;
     }
+
     // We get here only if $url is set
     $url = intval($url);
     $url_user_table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);

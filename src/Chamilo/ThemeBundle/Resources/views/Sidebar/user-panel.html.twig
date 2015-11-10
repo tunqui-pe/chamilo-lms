@@ -6,6 +6,11 @@
     </div>
     <div class="pull-left info">
         <p>{{ 'Hello, %user%'| trans( {'%user%': user.username }, 'ChamiloThemeBundle') }}</p>
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <a href="#"><i
+                    class="fa fa-circle text-success"></i> {{ 'Online' | trans }}
+        </a>
     </div>
+    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+        <a href="{{ path('home', {'_switch_user': '_exit'}) }}">{{ 'Exit impersonation' | trans }}</a>
+    {% endif %}
 </div>

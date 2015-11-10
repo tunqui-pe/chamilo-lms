@@ -3,10 +3,7 @@
 
 use Chamilo\CoreBundle\Entity\ExtraField as EntityExtraField;
 use Chamilo\UserBundle\Entity\User;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  *
@@ -49,7 +46,7 @@ class UserManager
 
     /**
      * Repository is use to query the DB, selects, etc
-     * @return Chamilo\UserBundle\Entity\Repository\UserRepository
+     * @return Chamilo\UserBundle\Repository\UserRepository
      */
     public static function getRepository()
     {
@@ -64,17 +61,7 @@ class UserManager
      */
     public static function getManager()
     {
-        $encoderFactory = self::getEncoderFactory();
-
-        $userManager = new Chamilo\UserBundle\Entity\Manager\UserManager(
-            $encoderFactory,
-            new \FOS\UserBundle\Util\Canonicalizer(),
-            new \FOS\UserBundle\Util\Canonicalizer(),
-            Database::getManager(),
-            'Chamilo\\UserBundle\\Entity\\User'
-        );
-
-        return $userManager;
+        return Container::$container->get('fos_user.user_manager');
     }
 
     /**
@@ -98,82 +85,6 @@ class UserManager
         return $encryptionMethod;
     }
 
-    /**
-     * @return EncoderFactory
-     */
-    private static function getEncoderFactory()
-    {
-        $encryption = self::getPasswordEncryption();
-        switch ($encryption) {
-            case 'none':
-                $defaultEncoder = new PlaintextPasswordEncoder();
-                break;
-            case 'sha1':
-            case 'md5':
-                $defaultEncoder = new MessageDigestPasswordEncoder($encryption, false, 1);
-                break;
-            case 'bcrypt':
-                $defaultEncoder = new BCryptPasswordEncoder(4);
-        }
-
-        $encoders = array(
-            'Chamilo\\UserBundle\\Entity\\User' => $defaultEncoder
-        );
-
-        $encoderFactory = new EncoderFactory($encoders);
-
-        return $encoderFactory;
-    }
-
-    /**
-     * @param User $user
-     *
-     * @return \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
-     */
-    private static function getEncoder(User $user)
-    {
-        $encoderFactory = self::getEncoderFactory();
-
-        return $encoderFactory->getEncoder($user);
-    }
-
-    /**
-     * Validates the password
-     * @param string $password
-     * @param User   $user
-     *
-     * @return bool
-     */
-    public static function isPasswordValid($password, User $user)
-    {
-        $encoder = self::getEncoder($user);
-
-        $validPassword = $encoder->isPasswordValid(
-            $user->getPassword(),
-            $password,
-            $user->getSalt()
-        );
-
-        return $validPassword;
-    }
-
-    /**
-     * @param string $raw
-     * @param User   $user
-     *
-     * @return bool
-     */
-    public static function encryptPassword($raw, User $user)
-    {
-        $encoder = self::getEncoder($user);
-
-        $encodedPassword = $encoder->encodePassword(
-            $raw,
-            $user->getSalt()
-        );
-
-        return $encodedPassword;
-    }
 
     /**
      * @param int $userId
@@ -313,9 +224,11 @@ class UserManager
             // Default expiration date
             // if there is a default duration of a valid account then
             // we have to change the expiration_date accordingly
-            if (api_get_setting('account_valid_duration') != '') {
+            if (api_get_setting('profile.account_valid_duration') != '') {
                 $expirationDate = new DateTime($currentDate);
-                $days = intval(api_get_setting('account_valid_duration'));
+                $days = intval(
+                    api_get_setting('profile.account_valid_duration')
+                );
                 $expirationDate->modify('+'.$days.' day');
             }
         } else {
@@ -357,7 +270,7 @@ class UserManager
             Database::query($sql);
 
             if ($isAdmin) {
-                UserManager::add_user_as_admin($userId);
+                UserManager::add_user_as_admin($user);
             }
 
             if (api_get_multiple_access_url()) {
@@ -447,6 +360,7 @@ class UserManager
                 $res = $res && self::update_extra_field_value($return, $fname, $fvalue);
             }
         }
+
         self::update_extra_field_value($return, 'already_logged_in', 'false');
 
         if (!empty($hook)) {
@@ -1570,7 +1484,7 @@ class UserManager
 
         $gravatarEnabled = api_get_setting('platform.gravatar_enabled');
 
-        $anonymousPath = api_get_path(WEB_CODE_PATH).'img/'.$pictureAnonymous;
+        $anonymousPath = api_get_path(WEB_IMG_PATH).$pictureAnonymous;
 
         if ($pictureWebFile == 'unknown.jpg' || empty($pictureWebFile)) {
 
@@ -1700,9 +1614,9 @@ class UserManager
         //Crop the image to adjust 1:1 ratio
         $image = new Image($source_file);
         $image->crop($cropParameters);
-        
+
         // Storing the new photos in 4 versions with various sizes.
-        
+
         $small = new Image($source_file);
         $small->resize(22);
         $small->send_image($path.'small_'.$filename);
@@ -1715,9 +1629,9 @@ class UserManager
 
         $big = new Image($source_file); // This is the original picture.
         $big->send_image($path.'big_'.$filename);
-        
+
         $result = $small && $medium && $normal && $big;
-        
+
         return $result ? $filename : false;
     }
 
@@ -4798,30 +4712,22 @@ EOF;
     }
 
     /**
-     * @param int $user_id
+     * @param User $user
      */
-    static function add_user_as_admin($user_id)
+    static function add_user_as_admin($user)
     {
-        $table_admin = Database :: get_main_table(TABLE_MAIN_ADMIN);
-        $user_id = intval($user_id);
-
-        if (!self::is_admin($user_id)) {
-            $sql = "INSERT INTO $table_admin SET user_id = $user_id";
-            Database::query($sql);
-        }
+        $user->addRole('ROLE_ADMIN');
+        self::getManager()->updateUser($user, true);
     }
 
     /**
-     * @param int $user_id
+     * @param User $user
      */
-    public static function remove_user_admin($user_id)
+    public static function remove_user_admin($user)
     {
-        $table_admin = Database :: get_main_table(TABLE_MAIN_ADMIN);
-        $user_id = intval($user_id);
-        if (self::is_admin($user_id)) {
-            $sql = "DELETE FROM $table_admin WHERE user_id = user_id";
-            Database::query($sql);
-        }
+        $user->removeRole('ROLE_ADMIN');
+
+        self::getManager()->updateUser($user, true);
     }
 
     /**

@@ -61,6 +61,7 @@ security:
                 invalidate_session: false
 #                handlers: ['sonata.page.cms_manager_selector']
             anonymous: ~
+            switch_user: true
             # activate different ways to authenticate
 
             # http_basic: ~

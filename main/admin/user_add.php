@@ -54,7 +54,7 @@ $(document).ready(function() {
     var canvas = "";
     var imageWidth = "";
     var imageHeight = "";
-    
+
     $("input:file").change(function() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("picture").files[0]);
@@ -83,7 +83,7 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     $("#cropButton").on("click", function() {
         var canvas = $image.cropper("getCroppedCanvas");
         var dataUrl = canvas.toDataURL();
@@ -365,7 +365,7 @@ $defaults['admin']['platform_admin'] = 0;
 $defaults['mail']['send_mail'] = 1;
 $defaults['password']['password_auto'] = 1;
 $defaults['active'] = 1;
-$days = api_get_setting('account_valid_duration');
+$days = api_get_setting('profile.account_valid_duration');
 $defaults['expiration_date'] = api_get_local_time('+'.$days.' day');
 
 $defaults['extra_mail_notify_invitation'] = 1;

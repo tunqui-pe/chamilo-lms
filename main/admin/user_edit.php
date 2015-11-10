@@ -78,7 +78,7 @@ $(document).ready(function() {
     var canvas = "";
     var imageWidth = "";
     var imageHeight = "";
-    
+
     $("input:file").change(function() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("picture").files[0]);
@@ -107,7 +107,7 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     $("#cropButton").on("click", function() {
         var canvas = $image.cropper("getCroppedCanvas");
         var dataUrl = canvas.toDataURL();
@@ -198,9 +198,9 @@ if (api_get_setting('profile.login_is_email') == 'true') {
 }
 
 // OpenID
-if (api_get_setting('openid_authentication') == 'true') {
+/*if (api_get_setting('openid_authentication') == 'true') {
 	$form->addElement('text', 'openid', get_lang('OpenIDURL'));
-}
+}*/
 
 // Phone
 $form->addElement('text', 'phone', get_lang('PhoneNumber'));
@@ -402,7 +402,7 @@ if ($form->validate()) {
                 $_FILES['picture']['name'],
                 $_FILES['picture']['tmp_name'],
                 $user['cropResult']
-                    
+
             );
 		}
 
@@ -461,15 +461,16 @@ if ($form->validate()) {
             $reset_password
         );
 
-		if (api_get_setting('openid_authentication') == 'true' && !empty($user['openid'])) {
-			$up = UserManager::update_openid($user_id, $user['openid']);
-		}
+        /*if (api_get_setting('openid_authentication') == 'true' && !empty($user['openid'])) {
+            $up = UserManager::update_openid($user_id, $user['openid']);
+        }*/
         $currentUserId = api_get_user_id();
 		if ($user_id != $currentUserId) {
+            $userEntity = api_get_user_entity($user_id);
 			if ($platform_admin == 1) {
-                UserManager::add_user_as_admin($user_id);
+                UserManager::add_user_as_admin($userEntity);
 			} else {
-                UserManager::remove_user_admin($user_id);
+                UserManager::remove_user_admin($userEntity);
 			}
 		}
 
@@ -502,7 +503,4 @@ $content .= '<div class="col-md-2">';
 $content .= '<a class="thumbnail expand-image" href="'.$bigImage.'" /><img src="'.$normalImage.'"></a>';
 $content .= '</div>';
 
-$tpl = new Template($tool_name);
-$tpl->assign('message', $message);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+echo $content;
