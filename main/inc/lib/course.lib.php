@@ -114,7 +114,6 @@ class CourseManager
             }
         }
 
-
         if (empty($params['title'])) {
             return false;
         }

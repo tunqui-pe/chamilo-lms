@@ -34,6 +34,11 @@ class Thematic
         $this->course_int_id = api_get_course_int_id();
     }
 
+    public function set_course_int_id($course_id)
+    {
+        $this->course_int_id = intval($course_id);
+    }
+
     /**
      * Get the total number of thematic inside current course and current session
      * @see SortableTable#get_total_number_of_items()

@@ -1467,4 +1467,74 @@ class CourseHome
             );
         }
     }
+
+    /**
+     * @param array $courseInfo
+     * @return string
+     */
+    public static function getCustomIconPath($courseInfo)
+    {
+        return api_get_path(WEB_DATA_COURSE_PATH).$courseInfo['directory'].'/upload/course_home_icons/';
+    }
+
+    /**
+     * @param string $text
+     * @param array $toolList
+     * @return string
+     */
+    public static function replaceTextWithToolUrls($text, $toolList)
+    {
+        if (empty($toolList)) {
+            return $text;
+        }
+
+        foreach ($toolList as $tool) {
+            if (!isset($tool['icon'])) {
+                continue;
+            }
+            $toolName = $tool['tool']['name'];
+            $search = array("{{ ".$toolName." }}", "{{".$toolName."}}", "((".$toolName."))", "(( ".$toolName." ))");
+            $text = str_replace($search, $tool['icon'], $text);
+        }
+
+        // Cleaning tags that are not used.
+        $tools = self::availableTools();
+        foreach ($tools as $toolName) {
+            $search = array("{{ ".$toolName." }}", "{{".$toolName."}}", "((".$toolName."))", "(( ".$toolName." ))");
+            $text = str_replace($search, null, $text);
+        }
+
+        return $text;
+    }
+
+    /**
+     * Available tools
+     * @return array
+     */
+    public static function availableTools()
+    {
+        return array(
+            'course_description',
+            'quiz',
+            'announcement',
+            'forum',
+            'dropbox',
+            'user',
+            'group',
+            'chat',
+            'student_publication',
+            'survey',
+            'wiki',
+            'gradebook',
+            'glossary',
+            'notebook',
+            'attendance',
+            'course_progress',
+            'curriculum',
+            'blog_management',
+            'tracking',
+            'course_setting',
+            'course_maintenance'
+        );
+    }
 }

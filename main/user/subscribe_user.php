@@ -207,7 +207,7 @@ if (api_is_western_name_order()) {
     $table->set_header($col ++, get_lang('FirstName'));
 }
 
-if (api_get_setting('show_email_addresses') == 'true') {
+if (api_get_setting('display.show_email_addresses') == 'true') {
     $table->set_header($col ++, get_lang('Email'));
     $table->set_column_filter($col -1, 'email_filter');
 }
@@ -248,7 +248,7 @@ if (isset($_GET['subscribe_user_filter_value']) AND !empty($_GET['subscribe_user
     $actionsLeft .= '<a href="subscribe_user.php?type='.$type.'">'.
         Display::return_icon('clean_group.gif').' '.get_lang('ClearFilterResults').'</a>';
 }
-if (api_get_setting('ProfilingFilterAddingUsers') == 'true') {
+if (api_get_setting('profile.profiling_filter_adding_users') == 'true') {
     display_extra_profile_fields_filter();
 }
 
@@ -385,7 +385,7 @@ function get_number_of_users()
 			// we change the SQL when we have a filter
 			if (isset($_GET['subscribe_user_filter_value']) &&
                 !empty($_GET['subscribe_user_filter_value']) &&
-                api_get_setting('ProfilingFilterAddingUsers') == 'true'
+                api_get_setting('profile.profiling_filter_adding_users') == 'true'
             ){
 				$field_identification = explode('*',$_GET['subscribe_user_filter_value']);
 				$sql .=	"
@@ -431,7 +431,7 @@ function get_number_of_users()
         )";
 
 		// we also want to search for users who have something in their profile fields that matches the keyword
-		if (api_get_setting('ProfilingFilterAddingUsers') == 'true') {
+		if (api_get_setting('profile.profiling_filter_adding_users') == 'true') {
 			$additional_users = search_additional_profile_fields($keyword);
 		}
 
@@ -482,7 +482,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
     // adding teachers
 	$is_western_name_order = api_is_western_name_order();
 
-    if (api_get_setting('show_email_addresses') == 'true') {
+    if (api_get_setting('display.show_email_addresses') == 'true') {
 
         $select_fields = "u.user_id              AS col0,
                 u.official_code        AS col1,
@@ -521,7 +521,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
 			// applying the filter of the additional user profile fields
 			if (isset($_GET['subscribe_user_filter_value']) &&
 				!empty($_GET['subscribe_user_filter_value']) &&
-				api_get_setting('ProfilingFilterAddingUsers') == 'true'
+				api_get_setting('profile.profiling_filter_adding_users') == 'true'
 			) {
 				$field_identification = explode('*',$_GET['subscribe_user_filter_value']);
 				$sql .=	"
@@ -549,7 +549,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
 				// applying the filter of the additional user profile fields
 				if (isset($_GET['subscribe_user_filter_value']) &&
 					!empty($_GET['subscribe_user_filter_value']) &&
-					api_get_setting('ProfilingFilterAddingUsers') == 'true'
+					api_get_setting('profile.profiling_filter_adding_users') == 'true'
 				) {
 					$field_identification = explode('*',$_GET['subscribe_user_filter_value']);
 					$sql .=	"
@@ -576,7 +576,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
 					// applying the filter of the additional user profile fields
 					if (isset($_GET['subscribe_user_filter_value']) &&
 						!empty($_GET['subscribe_user_filter_value']) &&
-						api_get_setting('ProfilingFilterAddingUsers') == 'true'
+						api_get_setting('profile.profiling_filter_adding_users') == 'true'
 					){
 						$field_identification = explode('*', $_GET['subscribe_user_filter_value']);
 						$sql .=	"
@@ -668,7 +668,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
 					// applying the filter of the additional user profile fields
 					if (isset($_GET['subscribe_user_filter_value']) &&
 						!empty($_GET['subscribe_user_filter_value']) &&
-						api_get_setting('ProfilingFilterAddingUsers') == 'true'
+						api_get_setting('profile.profiling_filter_adding_users') == 'true'
 					){
 						$field_identification = explode('*', $_GET['subscribe_user_filter_value']);
 						$sql .=	"
@@ -702,7 +702,7 @@ function get_user_data($from, $number_of_items, $column, $direction)
 					)
 				";
 
-		if (api_get_setting('ProfilingFilterAddingUsers') == 'true') {
+		if (api_get_setting('profile.profiling_filter_adding_users') == 'true') {
 			// we also want to search for users who have something in
 			// their profile fields that matches the keyword
 			$additional_users = search_additional_profile_fields($keyword);

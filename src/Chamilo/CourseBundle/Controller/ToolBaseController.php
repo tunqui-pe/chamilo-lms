@@ -217,4 +217,14 @@ abstract class ToolBaseController extends BaseController implements ToolInterfac
         }
     }
 
+    public function redirectCourseHome()
+    {
+        $url = $this->generateUrl(
+            'course_home',
+            ['course' => $this->getCourse()]
+        );
+
+        return $this->redirect($url);
+    }
+
 }
