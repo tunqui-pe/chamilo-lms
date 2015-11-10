@@ -158,12 +158,13 @@ class Display
 
     /**
      * @param string $tool
-     * @param array $editor_config
+     * @param array $toolList
+     *
      * @return null
      */
-    public static function return_introduction_section($urlGenerator, $tool, $toolList = array())
+    public static function return_introduction_section($tool, $toolList = array())
     {
-
+        $urlGenerator = Container::getRouter();
         $is_allowed_to_edit = api_is_allowed_to_edit();
         $courseInfo = api_get_course_info();
         $introduction_section = null;

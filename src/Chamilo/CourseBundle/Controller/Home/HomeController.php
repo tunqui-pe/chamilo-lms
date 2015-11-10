@@ -130,7 +130,6 @@ class HomeController extends ToolBaseController
         $toolList = $result['tool_list'];
 
         $introduction = Display::return_introduction_section(
-            $this->get('router'),
             TOOL_COURSE_HOMEPAGE,
             $toolList
         );

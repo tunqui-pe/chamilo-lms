@@ -74,7 +74,7 @@ class IndexController extends BaseController
         return $this->render(
             'ChamiloCoreBundle::layout_two_col.html.twig',
             array(
-                'content' => 'hello',
+                'content' => 'Check IndexController::indexAction',
                 'hot_courses' => $hotCourses,
                 'announcements_block' => $announcementsBlock
                 //'home_page_block' => $pageController->returnHomePage()

@@ -314,6 +314,7 @@ function loginUser($userId)
 
 	if ($userId) {
 
+
         // Logout the current user
         LoginDelete(api_get_user_id());
 
@@ -404,7 +405,7 @@ function get_user_data($from, $number_of_items, $column, $direction) {
 
 	$res = Database::query($sql);
 
-	$users = array ();
+    $users = array();
     $t = time();
 	while ($user = Database::fetch_row($res)) {
 		$userPicture = UserManager::getUserPicture($user[0], USER_IMAGE_SIZE_SMALL);
@@ -882,10 +883,17 @@ if ($table->get_total_number_of_items() == 0) {
                 }
                 if ($add_user) {
                     $row_table = array();
-                    $row_table[] =  api_get_person_name($user['firstname'], $user['lastname']).' ('.$user['username'].') ';
-                    $row_table[] =  $access_info_to_string;
+                    $row_table[] = api_get_person_name(
+                            $user['firstname'],
+                            $user['lastname']
+                        ).' ('.$user['username'].') ';
+                    $row_table[] = $access_info_to_string;
                     $url = api_get_self().'?action=add_user_to_my_url&user_id='.$user['id'].'&sec_token='.$_SESSION['sec_token'];
-                    $row_table[] =  Display::url(get_lang('AddUserToMyURL'), $url, array('class' => 'btn'));
+                    $row_table[] = Display::url(
+                        get_lang('AddUserToMyURL'),
+                        $url,
+                        array('class' => 'btn')
+                    );
 
                     foreach ($row_table as $cell) {
                         $table->setCellContents($row, $column, $cell);
