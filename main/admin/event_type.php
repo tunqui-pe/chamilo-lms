@@ -14,7 +14,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
 
-if (api_get_setting('activate_email_template') != 'true') {
+if (api_get_setting('mail.activate_email_template') != 'true') {
     api_not_allowed();
 }
 

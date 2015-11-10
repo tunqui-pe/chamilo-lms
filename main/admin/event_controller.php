@@ -8,7 +8,7 @@ $cidReset = true;
 
 //require_once '../inc/global.inc.php';
 
-if (api_get_setting('activate_email_template') != 'true') {
+if (api_get_setting('mail.activate_email_template') != 'true') {
     api_not_allowed();
 }
 

@@ -239,7 +239,7 @@ if (api_is_platform_admin()) {
 
     /* Event settings */
 
-    if (api_get_setting('activate_email_template') == 'true') {
+    if (api_get_setting('mail.activate_email_template') == 'true') {
         $items[] = array('url' => 'event_controller.php?action=listing', 'label' => get_lang('EventMessageManagement'));
     }
 
@@ -444,7 +444,7 @@ $admin_ajax_url = api_get_path(WEB_AJAX_PATH) . 'admin.ajax.php';
 $tpl = Container::getTwig();
 
 // Display the Site Use Cookie Warning Validation
-$useCookieValidation = api_get_setting('cookie_warning');
+$useCookieValidation = api_get_setting('platform.cookie_warning');
 if ($useCookieValidation === 'true') {
     if (isset($_POST['acceptCookies'])) {
         api_set_site_use_cookie_warning_cookie();

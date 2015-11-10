@@ -34,7 +34,7 @@ class PlatformSettingsSchema implements SchemaInterface
                     'gravatar_type' => 'mm',
                     'gamification_mode' => ' ',
                     'order_user_list_by_official_code' => '',
-
+                    'cookie_warning' => '',
                 )
             )
             ->setAllowedTypes(
@@ -73,6 +73,7 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('gravatar_type')
             ->add('gamification_mode')
             ->add('order_user_list_by_official_code', 'yes_no')
+            ->add('cookie_warning', 'yes_no')
 
         ;
     }
