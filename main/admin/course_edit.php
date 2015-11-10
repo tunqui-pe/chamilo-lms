@@ -314,10 +314,10 @@ if ($form->validate()) {
         $warn = substr($warn, 0, -1);
     }
 
-    $teachers = $course['course_teachers'];
+    $teachers = isset($course['course_teachers']) ? $course['course_teachers'] : '';
 
     $title = $course['title'];
-    $category_code = $course['category_code'];
+    $category_code = isset($course['category_code']) ? $course['category_code'] : '';
     $department_name = $course['department_name'];
     $department_url = $course['department_url'];
     $course_language = $course['course_language'];
@@ -352,11 +352,11 @@ if ($form->validate()) {
     $courseFieldValue->saveFieldValues($course);
     $addTeacherToSessionCourses = isset($course['add_teachers_to_sessions_courses']) && !empty($course['add_teachers_to_sessions_courses']) ? 1 : 0;
 
-    // Updating teachers
+    $sessionCoaches = isset($course['session_coaches']) ? $course['session_coaches'] : '';
 
+    // Updating teachers
     if ($addTeacherToSessionCourses) {
         // Updating session coaches
-        $sessionCoaches = $course['session_coaches'];
         if (!empty($sessionCoaches)) {
             foreach ($sessionCoaches as $sessionId => $teacherInfo) {
                 $coachesToSubscribe = $teacherInfo['coaches_by_session'];
@@ -368,14 +368,10 @@ if ($form->validate()) {
                 );
             }
         }
-
         CourseManager::updateTeachers($courseId, $teachers, true, true, false);
     } else {
         // Normal behaviour
         CourseManager::updateTeachers($courseId, $teachers, true, false);
-
-        // Updating session coaches
-        $sessionCoaches = $course['session_coaches'];
         if (!empty($sessionCoaches)) {
             foreach ($sessionCoaches as $sessionId => $coachesToSubscribe) {
                 if (!empty($coachesToSubscribe)) {

@@ -16,7 +16,6 @@ $tool_name = get_lang('AddCourse');
 $interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'course_list.php', 'name' => get_lang('CourseList'));
 
-
 // Get all possible teachers.
 $order_clause = api_sort_by_first_name() ? ' ORDER BY firstname, lastname' : ' ORDER BY lastname, firstname';
 $table_user = Database :: get_main_table(TABLE_MAIN_USER);
@@ -154,14 +153,10 @@ $values['disk_quota'] = round(
     1
 );
 
-$default_course_visibility = api_get_setting(
-    'course.courses_default_creation_visibility'
-);
+$default_course_visibility = api_get_setting('course.courses_default_creation_visibility');
 
 if (isset($default_course_visibility)) {
-    $values['visibility'] = api_get_setting(
-        'course.courses_default_creation_visibility'
-    );
+    $values['visibility'] = $default_course_visibility;
 } else {
     $values['visibility'] = COURSE_VISIBILITY_OPEN_PLATFORM;
 }
