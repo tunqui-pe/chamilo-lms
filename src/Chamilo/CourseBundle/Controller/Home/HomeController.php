@@ -116,7 +116,6 @@ class HomeController extends ToolBaseController
         }
 
         $homeView = api_get_setting('course.homepage_view');
-        $homeView = 'activity_big';
 
         if ($homeView == 'activity' || $homeView == 'activity_big') {
             $result = $this->renderActivityView();
