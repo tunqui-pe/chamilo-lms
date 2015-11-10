@@ -23,7 +23,7 @@ if (!empty($_course['language'])){
         require_once $resource_linker_file;
     }
 }
-require_once '../exercice/hotpotatoes.lib.php';
+require_once __DIR__.'/../exercice/hotpotatoes.lib.php';
 
 /* FUNCTIONS */
 

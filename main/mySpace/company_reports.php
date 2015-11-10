@@ -137,6 +137,4 @@ $content .= '</div>';
 $content .= '<h1 class="page-header">' . get_lang('CompanyReport') . '</h1>';
 $content .= Display::grid_html('user_course_report');
 
-$tpl = new Template($tool_name);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+echo $content;

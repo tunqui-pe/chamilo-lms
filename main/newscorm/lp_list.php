@@ -14,7 +14,7 @@ use ChamiloSession as Session;
 $this_section = SECTION_COURSES;
 //@todo who turns on $lp_controller_touched?
 if (empty($lp_controller_touched) || $lp_controller_touched != 1) {
-    header('location: lp_controller.php?action=list');
+    header('location: lp_controller.php?action=list?'.api_get_cidreq());
     exit;
 }
 
@@ -825,10 +825,9 @@ $template->addGlobal('introduction_section', $introductionSection);
 $template->addGlobal('data', $data);
 $template->addGlobal('lp_is_shown', $lpIsShown);
 
-$content = $template->fetch('default/learnpath/list.tpl');
+$content = $template->render('@ChamiloCore/default/learnpath/list.html.twig');
 
-$template->addGlobal('content', $content);
-$template->display_one_col_template();
+echo $content;
 
 $course_info = api_get_course_info();
 learnpath::generate_learning_path_folder($course_info);

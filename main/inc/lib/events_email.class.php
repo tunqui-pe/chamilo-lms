@@ -204,7 +204,7 @@ class EventsMail
      */
     public static function check_if_using_class($event_name)
     {
-        if (api_get_setting('activate_email_template') === 'false') {
+        if (api_get_setting('mail.activate_email_template') === 'false') {
             return false;
         }
         $current_language = api_get_interface_language();
