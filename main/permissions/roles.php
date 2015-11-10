@@ -5,7 +5,7 @@
 /**
  * Code
  */
-require '../inc/global.inc.php';
+//require '../inc/global.inc.php';
 require_once 'permissions_functions.inc.php';
 require_once 'all_permissions.inc.php';
 

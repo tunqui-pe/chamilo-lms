@@ -8,7 +8,7 @@
  */
 
 $cidReset = true;
-require '../inc/global.inc.php';
+//require '../inc/global.inc.php';
 
 /**
  * Validate the imported data.
