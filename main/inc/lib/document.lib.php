@@ -35,13 +35,13 @@ class DocumentManager
 
         $course_quota = null;
         if (empty($course_info)) {
-            return DEFAULT_DOCUMENT_QUOTA;
+            return api_get_setting('document.default_document_quotum');
         } else {
             $course_quota = $course_info['disk_quota'];
         }
         if (is_null($course_quota) || empty($course_quota)) {
             // Course table entry for quota was null, then use default value
-            $course_quota = DEFAULT_DOCUMENT_QUOTA;
+            $course_quota = api_get_setting('document.default_document_quotum');
         }
         return $course_quota;
     }

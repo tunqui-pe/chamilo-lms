@@ -34,7 +34,7 @@ class LegacyListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $kernel = $event->getKernel();
+        //$kernel = $event->getKernel();
         $request = $event->getRequest();
         $session = $request->getSession();
         /** @var ContainerInterface $container */
@@ -54,6 +54,7 @@ class LegacyListener
         $database->setConnection($connection);
         $entityManager = $container->get('doctrine')->getManager();
         $database->setManager($entityManager);
+        \CourseManager::setEntityManager($entityManager);
 
         // Legacy way of detect current access_url
 
@@ -99,19 +100,16 @@ class LegacyListener
 
 
 
-
         // Setting course tool chain (in order to create tools to a course)
         //\CourseManager::setToolList($container->get('chamilo_course.tool_chain'));
-        \CourseManager::setEntityManager($entityManager);
         //\CourseManager::setCourseManager($container->get('chamilo_core.manager.course'));
         //\CourseManager::setCourseSettingsManager($container->get('chamilo_course.settings.manager'));
 
         // Setting legacy properties.
-        // Setting paths.
         Container::$dataDir = $container->get('kernel')->getDataDir();
         Container::$courseDir = $container->get('kernel')->getDataDir();
 
-        if (!defined('DEFAULT_DOCUMENT_QUOTA')) {
+        /*if (!defined('DEFAULT_DOCUMENT_QUOTA')) {
             $default_quota = api_get_setting('document.default_document_quotum');
 
             // Just in case the setting is not correctly set
@@ -120,19 +118,18 @@ class LegacyListener
             }
 
             define('DEFAULT_DOCUMENT_QUOTA', $default_quota);
-        }
+        }*/
 
         // Access URL (multiple URL)
         /** @var \Sonata\PageBundle\Model\SnapshotPageProxy $page */
-        $page = $request->get('page');
+        /*$page = $request->get('page');
         if (isset($page) && !is_numeric($page)) {
             //$siteId = $page->getSite()->getId();
             //$request->getSession()->set('url_info', $page->getSite());
         } else {
             $siteId = 1;
         }
-
-        $request->getSession()->set('url_id', $siteId);
+        $request->getSession()->set('url_id', $siteId);*/
 
 /*
         // Loading portal settings from DB.

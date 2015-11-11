@@ -5714,7 +5714,7 @@ function api_is_course_visible_for_user($userid = null, $cid = null) {
     $courseInfo = api_get_course_info($cid);
     $courseId = $courseInfo['real_id'];
 
-    global $is_platformAdmin;
+    $is_platformAdmin = api_is_platform_admin();
 
     $course_table = Database::get_main_table(TABLE_MAIN_COURSE);
     $course_cat_table = Database::get_main_table(TABLE_MAIN_CATEGORY);
