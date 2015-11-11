@@ -172,10 +172,10 @@ chamilo_course:
             model: Chamilo\CourseBundle\Entity\CCourseSetting
             repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
 
-#doctrine_cache:
-#    providers:
-#        sylius_settings:
-#            type: file_system
+doctrine_cache:
+    providers:
+        sylius_settings:
+            type: file_system
 #        chamilo_settings:
 #            type: file_system
 
