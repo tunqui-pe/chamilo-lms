@@ -23,6 +23,7 @@ api_protect_course_script(true);
 $nameTools = get_lang('GroupOverview');
 $courseId = api_get_course_int_id();
 $courseInfo = api_get_course_info();
+$is_allowed_in_course = api_is_allowed_in_course();
 
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : null;
 

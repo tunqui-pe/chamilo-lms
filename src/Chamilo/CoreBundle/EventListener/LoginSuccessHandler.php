@@ -50,16 +50,16 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         $ip = $request->getClientIp();
 
         // Setting user info.
-        $request->getSession()->set('_user', $userInfo);
+        $session->set('_user', $userInfo);
 
         // Setting admin permissions for.
         if ($this->checker->isGranted('ROLE_ADMIN')) {
-            $request->getSession()->set('is_platformAdmin', true);
+            $session->set('is_platformAdmin', true);
         }
 
         // Setting teachers permissions.
         if ($this->checker->isGranted('ROLE_TEACHER')) {
-            $request->getSession()->set('is_allowedCreateCourse', true);
+            $session->set('is_allowedCreateCourse', true);
         }
 
         // Setting last login datetime

@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Entity;
 
+use Chamilo\CourseBundle\Entity\CGroupInfo;
 use Chamilo\CourseBundle\Entity\CTool;
 use Chamilo\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -244,6 +245,11 @@ class Course
     protected $sessionUserSubscriptions;
 
     /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CourseBundle\Entity\CGroupInfo", mappedBy="course", cascade={"persist"}, orphanRemoval=true)
+     **/
+    protected $groups;
+
+    /**
      * @ORM\OneToMany(targetEntity="Chamilo\CourseBundle\Entity\CItemProperty", mappedBy="course")
      **/
     //protected $items;
@@ -389,6 +395,14 @@ class Course
     /**
      * @return ArrayCollection
      */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
     public function getTeachers()
     {
         $criteria = Criteria::create();
@@ -483,6 +497,7 @@ class Course
 
     /**
      * @param User $user
+     *
      * @return bool
      */
     public function hasTeacher(User $user)
@@ -493,6 +508,21 @@ class Course
 
         return $this->getTeachers()->matching($criteria)->count() > 0;
     }
+
+    /**
+     * @param CGroupInfo $group
+     *
+     * @return bool
+     */
+    public function hasGroup(CGroupInfo $group)
+    {
+        $criteria = Criteria::create()->where(
+            Criteria::expr()->eq("groups", $group)
+        );
+
+        return $this->getGroups()->contains($group);
+    }
+
 
     /**
      * Remove $user

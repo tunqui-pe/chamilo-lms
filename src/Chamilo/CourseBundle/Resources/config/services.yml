@@ -5,7 +5,15 @@ parameters:
     chamilo_course.settings.manager.class: Chamilo\CourseBundle\Manager\SettingsManager
     chamilo_course.settings.schema_registry.class: Sylius\Bundle\SettingsBundle\Schema\SchemaRegistry
 
+    chamilo_course.entity.manager.group_manager.class: Chamilo\CourseBundle\Entity\Manager\GroupManager
+    chamilo_course.entity.group: Chamilo\CourseBundle\Entity\CGroupInfo
+
 services:
+    # Managers
+    chamilo_course.manager.group:
+        class: %chamilo_course.entity.manager.group_manager.class%
+        arguments: [%chamilo_course.entity.group%, @doctrine]
+
     # Event Listeners
     chamilo_course.listener.course:
         class: Chamilo\CourseBundle\EventListener\CourseListener
@@ -29,6 +37,16 @@ services:
         tags:
             - { name: kernel.event_listener, event: chamilo_course.course.session, method: onSessionAccessEvent }
 
+    # Voters
+
+    # Group voter, checks if a user has permissions to do actions
+    chamilo_course.security.authorization.voter.group_voter:
+        class: Chamilo\CoreBundle\Security\Authorization\Voter\GroupVoter
+        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.manager.course, @chamilo_course.manager.group, @service_container]
+        public: false
+        tags:
+           - { name: security.voter }
+
     # Course settings
     chamilo_course.controller.settings:
         class: "%chamilo_course.controller.settings.class%"
@@ -44,24 +62,21 @@ services:
             - @chamilo_course.settings.schema_registry
             - @form.factory
 
-#    chamilo_course.settings.cache:
-#        alias: doctrine_cache.providers.chamilo_settings
-
     chamilo_course.repository.parameter:
         class: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ Chamilo\CourseBundle\Entity\CCourseSetting ]
 
-#    chamilo_course.settings.manager:
-#        class: %chamilo_course.settings.manager.class%
-#        arguments:
-#            - @chamilo_course.settings.schema_registry
-#            - @sylius.manager.parameter
-#            - @chamilo_course.repository.parameter
-#            - @doctrine_cache.providers.chamilo_settings
-#            - @validator
-#            - @event_dispatcher
+    chamilo_course.settings.manager:
+        class: %chamilo_course.settings.manager.class%
+        arguments:
+            - @chamilo_course.settings.schema_registry
+            - @sylius.manager.parameter
+            - @chamilo_course.repository.parameter
+            - @sylius.settings.cache
+            - @validator
+            - @event_dispatcher
 
     # Course tool container
     chamilo_course.tool_chain:

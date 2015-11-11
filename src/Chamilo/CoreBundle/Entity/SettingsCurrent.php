@@ -421,6 +421,19 @@ class SettingsCurrent implements ParameterInterface
     }
 
     /**
+     * Set accessUrl
+     *
+     * @param AccessUrl $accessUrl
+     * @return SettingsCurrent
+     */
+    public function setUrl($accessUrl)
+    {
+        $this->url = $accessUrl;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getNamespace()
@@ -469,19 +482,6 @@ class SettingsCurrent implements ParameterInterface
     public function setValue($value)
     {
         $this->setSelectedValue($value);
-        return $this;
-    }
-
-    /**
-     * Set accessUrl
-     *
-     * @param AccessUrl $accessUrl
-     * @return SettingsCurrent
-     */
-    public function setUrl($accessUrl)
-    {
-        $this->url = $accessUrl;
-
         return $this;
     }
 

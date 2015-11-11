@@ -155,6 +155,12 @@ class CGroupInfo
     private $sessionId;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", cascade={"persist"})
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
+     */
+    protected $course;
+
+    /**
      * Set name
      *
      * @param string $name
@@ -567,4 +573,25 @@ class CGroupInfo
     {
         return $this->cId;
     }
+
+    /**
+     * @return Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    /**
+     * @param Course $course
+     *
+     * @return CGroupInfo
+     */
+    public function setCourse(Course $course)
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
 }

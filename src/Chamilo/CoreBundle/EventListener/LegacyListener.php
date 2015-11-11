@@ -98,11 +98,13 @@ class LegacyListener
 
         $session->set('access_url_id', $urlId);
 
-
-
         // Setting course tool chain (in order to create tools to a course)
-        //\CourseManager::setToolList($container->get('chamilo_course.tool_chain'));
-        //\CourseManager::setCourseManager($container->get('chamilo_core.manager.course'));
+        \CourseManager::setToolList(
+            $container->get('chamilo_course.tool_chain')
+        );
+        \CourseManager::setCourseManager(
+            $container->get('chamilo_core.manager.course')
+        );
         //\CourseManager::setCourseSettingsManager($container->get('chamilo_course.settings.manager'));
 
         // Setting legacy properties.

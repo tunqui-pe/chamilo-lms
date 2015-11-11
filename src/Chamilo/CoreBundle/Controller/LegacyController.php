@@ -3,13 +3,13 @@
 
 namespace Chamilo\CoreBundle\Controller;
 
+use Chamilo\CourseBundle\Controller\ToolBaseController;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Chamilo\CoreBundle\Framework\Container;
-use Display;
 
 /**
  * Class LegacyController
@@ -17,7 +17,7 @@ use Display;
  * @package Chamilo\CoreBundle\Controller
  * @author Julio Montoya <gugli100@gmail.com>
  */
-class LegacyController extends BaseController
+class LegacyController extends ToolBaseController
 {
     public $section;
 

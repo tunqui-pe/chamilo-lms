@@ -3,6 +3,11 @@
 
 use Chamilo\CoreBundle\Entity\ExtraField as EntityExtraField;
 use ChamiloSession as Session;
+use Chamilo\CourseBundle\Manager\SettingsManager;
+use Chamilo\CourseBundle\ToolChain;
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CourseBundle\Entity\CTool;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class CourseManager
@@ -30,6 +35,7 @@ class CourseManager
     public static $em;
     private static $manager;
     public static $toolList;
+    public static $courseSettingsManager;
 
     /**
      * @param ToolChain $toolList
@@ -61,6 +67,22 @@ class CourseManager
     public static function setCourseManager($manager)
     {
         self::$manager = $manager;
+    }
+
+    /**
+     * @return SettingsManager
+     */
+    public static function getCourseSettingsManager()
+    {
+        return self::$courseSettingsManager;
+    }
+
+    /**
+     * @param SettingsManager $courseSettingsManager
+     */
+    public static function setCourseSettingsManager($courseSettingsManager)
+    {
+        self::$courseSettingsManager = $courseSettingsManager;
     }
 
     /**
