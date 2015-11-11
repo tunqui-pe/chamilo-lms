@@ -21,9 +21,11 @@ class DropboxCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'email_alert_on_new_doc_dropbox' => ''
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
+                'email_alert_on_new_doc_dropbox' => array('string'),
             ))
         ;
     }
@@ -35,6 +37,7 @@ class DropboxCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('email_alert_on_new_doc_dropbox', 'yes_no')
         ;
     }
 }

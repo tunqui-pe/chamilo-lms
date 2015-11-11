@@ -21,6 +21,7 @@ class ChatCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'allow_open_chat_window' => ''
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
@@ -35,6 +36,8 @@ class ChatCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('allow_open_chat_window', 'yes_no')
+
         ;
     }
 }

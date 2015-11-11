@@ -21,9 +21,11 @@ class ExerciseCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'email_alert_manager_on_new_quiz' => '',
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
+                'enabled' => array('email_alert_manager_on_new_quiz'),
             ))
         ;
     }
@@ -35,6 +37,7 @@ class ExerciseCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('email_alert_manager_on_new_quiz', 'yes_no')
         ;
     }
 }

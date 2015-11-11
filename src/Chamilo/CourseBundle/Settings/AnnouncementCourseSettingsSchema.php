@@ -21,9 +21,11 @@ class AnnouncementCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'allow_user_edit_announcement' => '',
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
+                'allow_user_edit_announcement' => array('string'),
             ))
         ;
     }
@@ -35,6 +37,7 @@ class AnnouncementCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('allow_user_edit_announcement', 'yes_no')
         ;
     }
 }

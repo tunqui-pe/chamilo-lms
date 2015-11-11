@@ -15,7 +15,7 @@ use Sylius\Bundle\SettingsBundle\Model\ParameterInterface;
  *      @ORM\Index(name="course", columns={"c_id"})
  *  }
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository")
  */
 class CCourseSetting implements ParameterInterface
 {

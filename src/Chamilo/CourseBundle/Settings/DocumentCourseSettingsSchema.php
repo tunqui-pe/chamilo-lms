@@ -21,9 +21,11 @@ class DocumentCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'documents_default_visibility' => '',
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
+                'documents_default_visibility' => array('string'),
             ))
         ;
     }
@@ -35,6 +37,8 @@ class DocumentCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('documents_default_visibility')
+
         ;
     }
 }
