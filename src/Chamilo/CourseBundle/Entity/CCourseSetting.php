@@ -4,6 +4,7 @@
 namespace Chamilo\CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sylius\Bundle\SettingsBundle\Model\ParameterInterface;
 
 /**
  * CCourseSetting
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\Entity
  */
-class CCourseSetting
+class CCourseSetting implements ParameterInterface
 {
     /**
      * @var integer
@@ -325,5 +326,40 @@ class CCourseSetting
     public function getCId()
     {
         return $this->cId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return $this->getCategory();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setNamespace($namespace)
+    {
+        $this->setCategory($namespace);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->getVariable();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setName($name)
+    {
+        $this->setTitle($name);
+        $this->setVariable($name);
+        return $this;
     }
 }
