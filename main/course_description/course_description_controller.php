@@ -194,8 +194,6 @@ class CourseDescriptionController
         if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
             if (!empty($_POST['title']) && !empty($_POST['contentDescription'])) {
 
-                $check = Security::check_token();
-                if ($check) {
                     $title = $_POST['title'];
                     $content = $_POST['contentDescription'];
                     $description_type = $_POST['description_type'];
@@ -203,6 +201,7 @@ class CourseDescriptionController
                         $course_description->set_description_type($description_type);
                         $course_description->set_title($title);
                         $course_description->set_content($content);
+                        $course_description->set_progress(0);
                         $course_description->insert(api_get_course_int_id());
                     }
                     Security::clear_token();
@@ -212,7 +211,7 @@ class CourseDescriptionController
                             get_lang('CourseDescriptionUpdated')
                         )
                     );
-                }
+
                 $this->listing(false);
             } else {
                 $data['error'] = 1;

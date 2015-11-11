@@ -7667,7 +7667,7 @@ function api_can_login_as($loginAsUserId, $userId = null)
  */
 function api_is_allowed_in_course()
 {
-    return Session::read('lega');
+    return Session::read('is_allowed_in_course');
 }
 
 /**
