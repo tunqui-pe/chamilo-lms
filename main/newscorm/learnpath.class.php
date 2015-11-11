@@ -7521,7 +7521,9 @@ class learnpath
             }
 
             if (!$no_display_add) {
-                if (($extra_info == 'new' || $extra_info['item_type'] == TOOL_DOCUMENT || $_GET['edit'] == 'true')) {
+                $item_type = isset($extra_info['item_type']) ? $extra_info['item_type'] : null;
+                $edit = isset($_GET['edit']) ? $_GET['edit'] : null;
+                if (($extra_info == 'new' || $item_type == TOOL_DOCUMENT || $edit == 'true')) {
                     if (isset ($_POST['content']))
                         $content = stripslashes($_POST['content']);
                     elseif (is_array($extra_info)) {
