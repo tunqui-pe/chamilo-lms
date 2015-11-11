@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TrackEAccess
  *
+ * Start/end dates of access inside a course tool
+ *
  * @ORM\Table(name="track_e_access", indexes={@ORM\Index(name="access_user_id", columns={"access_user_id"}), @ORM\Index(name="access_c_id", columns={"c_id"}), @ORM\Index(name="access_session_id", columns={"access_session_id"})})
  * @ORM\Entity
  */
