@@ -9,6 +9,7 @@ use Chamilo\CoreBundle\Entity\TrackEAccess;
 
 /**
  * Class CourseAccessListener
+ * This listeners is always called when user enters the course home
  * @package Chamilo\CourseBundle\EventListener
  */
 class CourseAccessListener
@@ -30,6 +31,7 @@ class CourseAccessListener
     {
         $user = $event->getUser();
         $course = $event->getCourse();
+
         if ($user && $course) {
             $trackAccess = new TrackEAccess();
             $trackAccess->setCId($course->getId());

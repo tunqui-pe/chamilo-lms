@@ -3,8 +3,11 @@
 
 namespace Chamilo\CourseBundle\EventListener;
 
+use Chamilo\CoreBundle\Controller\LegacyController;
 use Chamilo\CoreBundle\Security\Authorization\Voter\CourseVoter;
 use Chamilo\CoreBundle\Security\Authorization\Voter\SessionVoter;
+use Chamilo\CoreBundle\Security\Authorization\Voter\GroupVoter;
+
 use Doctrine\ORM\EntityManager;
 use Chamilo\UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -53,15 +56,22 @@ class CourseListener
      */
     public function onKernelController(FilterControllerEvent $event)
     {
-        $controller = $event->getController();
+        //dump('CourseListener.php');
+        $controllerList = $event->getController();
 
-        if (!is_array($controller)) {
+        if (!is_array($controllerList)) {
             return;
         }
 
         // This controller implements ToolInterface? Then set the course/session
-        if ($controller[0] instanceof ToolInterface) {
-        //if ($controller[0] instanceof ToolBaseController) {
+        if (is_array($controllerList) && (
+                $controllerList[0] instanceof ToolInterface ||
+                $controllerList[0] instanceof LegacyController
+            )
+        ) {
+            $controller = $controllerList[0];
+
+            //if ($controller[0] instanceof ToolBaseController) {
             //$token = $event->getRequest()->query->get('token');
 
             $kernel = $event->getKernel();
@@ -87,6 +97,7 @@ class CourseListener
             $tokenStorage = $container->get('security.token_storage');
             $token = $tokenStorage->getToken();
             $user = $token->getUser();
+
             if (!empty($courseCode)) {
                 /** @var Course $course */
                 $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneByCode($courseCode);
@@ -94,12 +105,11 @@ class CourseListener
                 if ($course) {
                     // Session
                     $sessionId = $request->get('id_session');
-
-
+                    // Group
+                    $groupId = $request->get('gidReq');
                     if (empty($sessionId)) {
                         // Check if user is allowed to this course
                         // See CourseVoter.php
-
                         if (false === $securityChecker->isGranted(CourseVoter::VIEW, $course)) {
                             throw new AccessDeniedException('Unauthorised access to course!');
                         }
@@ -107,17 +117,58 @@ class CourseListener
                         $session = $em->getRepository('ChamiloCoreBundle:Session')->find($sessionId);
                         if ($session) {
                             //$course->setCurrentSession($session);
-                            $controller[0]->setSession($session);
+                            $controller->setSession($session);
                             $session->setCurrentCourse($course);
                             // Check if user is allowed to this course-session
                             // See SessionVoter.php
                             if (false === $securityChecker->isGranted(SessionVoter::VIEW, $session)) {
                                 throw new AccessDeniedException('Unauthorised access to session!');
                             }
+
+                            $request->getSession()->set(
+                                'session_name',
+                                $session->getName()
+                            );
+                            $request->getSession()->set(
+                                'id_session',
+                                $session->getId()
+                            );
+
                         } else {
                             throw new NotFoundHttpException('Session not found');
                         }
                     }
+
+                    if (!empty($groupId)) {
+                        $group = $em->getRepository(
+                            'ChamiloCourseBundle:CGroupInfo'
+                        )->find($groupId);
+                        if ($course->hasGroup($group)) {
+                            if ($group) {
+                                // Check if user is allowed to this course-group
+                                // See GroupVoter.php
+                                if (false === $securityChecker->isGranted(
+                                        GroupVoter::VIEW,
+                                        $group
+                                    )
+                                ) {
+                                    throw new AccessDeniedException(
+                                        'Unauthorised access to group!'
+                                    );
+                                }
+                            } else {
+                                throw new NotFoundHttpException(
+                                    'Group not found'
+                                );
+                            }
+                        } else {
+                            throw new AccessDeniedException(
+                                'Group does not exist in course'
+                            );
+                        }
+                    }
+
+
 
                     // Example 'chamilo_notebook.controller.notebook:indexAction'
                     $controllerAction = $request->get('_controller');
@@ -144,11 +195,11 @@ class CourseListener
                     $request->getSession()->set('_real_cid', $course->getId());
                     $request->getSession()->set('_cid', $course->getCode());
                     $request->getSession()->set('_course', $courseInfo);
+                    $request->getSession()->set('_gid', $groupId);
+                    $request->getSession()->set('is_allowed_in_course', true);
 
-                    /*
-                    Sets the controller course in order to use $this->getCourse()
-                    */
-                    $controller[0]->setCourse($course);
+                    // Sets the controller course in order to use $this->getCourse()
+                    $controller->setCourse($course);
                 } else {
                     throw new NotFoundHttpException('Course not found');
                 }
