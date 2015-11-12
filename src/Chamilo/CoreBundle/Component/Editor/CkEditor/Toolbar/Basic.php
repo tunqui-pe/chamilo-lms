@@ -72,6 +72,7 @@ class Basic extends Toolbar
      * @inheritdoc
      */
     public function __construct(
+        $router,
         $toolbar = null,
         $config = array(),
         $prefix = null
@@ -132,7 +133,6 @@ class Basic extends Toolbar
         }
 
         $this->defaultPlugins = array_merge($this->defaultPlugins, $plugins);
-        $router = Container::getRouter();
         parent::__construct($router, $toolbar, $config, $prefix);
     }
 
@@ -145,10 +145,8 @@ class Basic extends Toolbar
         $config = array();
         if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
             $config['toolbar_minToolbar'] = $this->getMinimizedToolbar();
-
             $config['toolbar_maxToolbar'] = $this->getMaximizedToolbar();
         }
-
 
         $config['customConfig'] = $this->getUrlGenerator()->generate(
             'config_editor'
@@ -247,7 +245,11 @@ class Basic extends Toolbar
             ['BulletedList', 'NumberedList', 'HorizontalRule', '-', 'Outdent', 'Indent', 'Blockquote'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', '-', 'TextColor', 'BGColor'],
-            [api_get_setting('allow_spellcheck') == 'true' ? 'Scayt' : ''],
+            [
+                api_get_setting(
+                    'editor.allow_spellcheck'
+                ) == 'true' ? 'Scayt' : '',
+            ],
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['PageBreak', 'ShowBlocks', 'Source'],
             ['Toolbarswitch'],

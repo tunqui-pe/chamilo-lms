@@ -78,7 +78,9 @@ class Wiki extends Basic
                 '-',
                 'TextColor',
                 'BGColor',
-                api_get_setting('allow_spellcheck') == 'true' ? 'Scayt' : '',
+                api_get_setting(
+                    'editor.allow_spellcheck'
+                ) == 'true' ? 'Scayt' : '',
             ],
             ['Source']
         ];

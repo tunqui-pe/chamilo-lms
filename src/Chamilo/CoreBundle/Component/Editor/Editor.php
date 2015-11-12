@@ -103,10 +103,16 @@ class Editor
      */
     public function editorReplace()
     {
-        $toolbar = new Toolbar($this->urlGenerator, $this->toolbarSet, $this->config);
+        $toolbar = new Toolbar(
+            $this->urlGenerator,
+            $this->toolbarSet,
+            $this->config
+        );
+
         $toolbar->setLanguage($this->getLocale());
         $config = $toolbar->getConfig();
         $javascript = $this->toJavascript($config);
+
         $html = "<script>
            CKEDITOR.replace('".$this->name."',
                $javascript
