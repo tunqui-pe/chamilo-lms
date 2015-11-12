@@ -23,7 +23,7 @@ class Toolbar
      * @param string $prefix
      */
     public function __construct(
-        RouterInterface $urlGenerator,
+        $urlGenerator,
         $toolbar = null,
         $config = array(),
         $prefix = null

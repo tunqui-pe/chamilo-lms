@@ -145,7 +145,9 @@ if ($objExercise->review_answers) {
     }
 }
 $template->addGlobal('shuffle_answers', $objExercise->random_answers);
-$htmlHeadXtra[] = $template->fetch('default/exercise/submit.js.tpl');
+$htmlHeadXtra[] = $template->render(
+    '@ChamiloCore/default/exercise/submit.html.twig'
+);
 
 $current_timestamp = time();
 $my_remind_list = array();
