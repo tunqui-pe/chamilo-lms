@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\CoreBundle\Block;
 
@@ -13,8 +14,15 @@ use Sonata\BlockBundle\Block\BlockContextInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class CourseBlockService
+ * @package Chamilo\CoreBundle\Block
+ */
 class CourseBlockService extends BaseBlockService
 {
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'Course block';

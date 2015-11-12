@@ -31,10 +31,14 @@ class MainMenuBlockService extends MenuBlockService
      * @param string                $name
      * @param EngineInterface       $templating
      * @param MenuProviderInterface $menuProvider
-     * @param ProductMenuBuilder    $menuBuilder
+     * @param MainMenuBuilder $menuBuilder
      */
-    public function __construct($name, EngineInterface $templating, MenuProviderInterface $menuProvider, MainMenuBuilder $menuBuilder)
-    {
+    public function __construct(
+        $name,
+        EngineInterface $templating,
+        MenuProviderInterface $menuProvider,
+        MainMenuBuilder $menuBuilder
+    ) {
         parent::__construct($name, $templating, $menuProvider, array());
 
         $this->menuBuilder = $menuBuilder;

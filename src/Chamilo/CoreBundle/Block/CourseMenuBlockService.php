@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\CoreBundle\Block;
 
@@ -31,8 +32,12 @@ class CourseMenuBlockService extends MenuBlockService
      * @param MenuProviderInterface $menuProvider
      * @param CourseMenuBuilder    $menuBuilder
      */
-    public function __construct($name, EngineInterface $templating, MenuProviderInterface $menuProvider, CourseMenuBuilder $menuBuilder)
-    {
+    public function __construct(
+        $name,
+        EngineInterface $templating,
+        MenuProviderInterface $menuProvider,
+        CourseMenuBuilder $menuBuilder
+    ) {
         parent::__construct($name, $templating, $menuProvider, array());
 
         $this->menuBuilder = $menuBuilder;
