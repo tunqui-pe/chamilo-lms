@@ -46,6 +46,10 @@ class CourseSettingsSchema implements SchemaInterface
                     'allow_public_certificates' => '',
                     'allow_lp_return_link' => '',
                     'course_creation_use_template' => '',
+                    'hide_scorm_export_link' => '',
+                    'hide_scorm_copy_link' => '',
+                    'hide_scorm_pdf_link' => '',
+
                 )
             )
             ->setAllowedTypes(
@@ -180,6 +184,9 @@ class CourseSettingsSchema implements SchemaInterface
             )
             ->add('allow_public_certificates', 'yes_no')
             ->add('allow_lp_return_link', 'yes_no')
-            ->add('course_creation_use_template');
+            ->add('course_creation_use_template')
+            ->add('hide_scorm_export_link', 'yes_no')
+            ->add('hide_scorm_copy_link', 'yes_no')
+            ->add('hide_scorm_pdf_link', 'yes_no');
     }
 }

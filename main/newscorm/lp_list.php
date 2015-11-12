@@ -760,17 +760,19 @@ foreach ($categories as $item) {
                 );
             }
 
-            $hideScormExportLink = api_get_setting('hide_scorm_export_link');
+            $hideScormExportLink = api_get_setting(
+                'course.hide_scorm_export_link'
+            );
             if ($hideScormExportLink === 'true') {
                 $dsp_disk = null;
             }
 
-            $hideScormCopyLink = api_get_setting('hide_scorm_copy_link');
+            $hideScormCopyLink = api_get_setting('course.hide_scorm_copy_link');
             if ($hideScormCopyLink === 'true') {
                 $copy = null;
             }
 
-            $hideScormPdfLink = api_get_setting('hide_scorm_pdf_link');
+            $hideScormPdfLink = api_get_setting('course.hide_scorm_pdf_link');
             if ($hideScormPdfLink === 'true') {
                 $export_icon = null;
             }

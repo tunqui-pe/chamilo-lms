@@ -90,15 +90,13 @@ $actions = Display::url(
     api_get_path(WEB_CODE_PATH) . 'newscorm/lp_controller.php?' . api_get_cidreq()
 );
 
-$template = new Template(get_lang('StudentScore'));
-$template->assign('user_list', $userList);
-$template->assign('session_id', api_get_session_id());
-$template->assign('course_code', api_get_course_id());
-$template->assign('lp_id', $lpId);
+//$template = new Template(get_lang('StudentScore'));
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$template->addGlobal('user_list', $userList);
+$template->addGlobal('session_id', api_get_session_id());
+$template->addGlobal('course_code', api_get_course_id());
+$template->addGlobal('lp_id', $lpId);
+$template->addGlobal('header', $lpInfo['name']);
+$template->addGlobal('actions', $actions);
 
-$layout = $template->get_template('learnpath/report.tpl');
-
-$template->assign('header', $lpInfo['name']);
-$template->assign('actions', $actions);
-$template->assign('content', $template->fetch($layout));
-$template->display_one_col_template();
+echo $template->render('@ChamiloCore/default/learnpath/report.html.twig');
