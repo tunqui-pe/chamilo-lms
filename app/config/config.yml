@@ -204,16 +204,6 @@ liip_theme:
     active_theme: 'web'
     assetic_integration: true
 
-jjanvier_crowdin:
-    crowdin:
-        api_key: 7207f8a2e4bf8cac21c1b6a74ad88af4
-        project_identifier: chamilo-lms
-    github:
-        username: "something_useless"
-        project: "something_useless"
-    project:
-        path: "something_useless"
-
 ivory_ck_editor:
     autoload: false
     base_path: "bundles/ivoryckeditor"

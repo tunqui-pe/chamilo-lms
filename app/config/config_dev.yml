@@ -1,6 +1,16 @@
 imports:
     - { resource: config.yml }
 
+jjanvier_crowdin:
+    crowdin:
+        api_key: "%jjanvier_crowdin.api_key%"
+        project_identifier: chamilo-lms
+    github:
+        username: "something_useless"
+        project: "something_useless"
+    project:
+        path: "something_useless"
+
 framework:
     router:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
