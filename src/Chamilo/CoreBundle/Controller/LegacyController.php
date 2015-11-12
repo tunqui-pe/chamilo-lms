@@ -56,6 +56,7 @@ class LegacyController extends ToolBaseController
 
         $database->setConnection($dbConnection);
         $database->setManager($em);
+        Container::$container = $this->container;
 
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();

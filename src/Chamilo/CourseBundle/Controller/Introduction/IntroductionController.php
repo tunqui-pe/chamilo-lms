@@ -3,6 +3,7 @@
 
 namespace Chamilo\CourseBundle\Controller\Introduction;
 
+use Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar\Introduction;
 use Chamilo\CourseBundle\Controller\ToolBaseController;
 use Chamilo\CoreBundle\Entity\CToolIntro;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,11 +24,11 @@ class IntroductionController extends ToolBaseController
     /**
      * @Route("/edit/{tool}")
      * @Method({"GET|POST"})
-     * @Template("ChamiloCoreBundle::layout_one_col.html.twig")
+     * @Template("ChamiloCourseBundle:Introduction:index.html.twig")
      * @param string $tool
      * @return Response
      */
-    public function editAction($tool)
+    public function editAction($tool, Request $request)
     {
         $message = null;
         // @todo use proper functions not api functions.
@@ -42,9 +43,10 @@ class IntroductionController extends ToolBaseController
         );
 
         $form = $this->getFormValidator($url, $tool);
+        $form->handleRequest($request);
 
-        if ($form->validate()) {
-            $values = $form->exportValues();
+        if ($form->isValid()) {
+            $values = $form->getData();
             $content = $values['content'];
 
             $sql = "REPLACE $table
@@ -53,30 +55,30 @@ class IntroductionController extends ToolBaseController
                         intro_text='".\Database::escape_string($content)."',
                         session_id='".intval($sessionId)."'";
             \Database::query($sql);
-            \Display::return_message(
-                get_lang('IntroductionTextUpdated'),
+
+            $this->addFlash(
                 'confirmation',
-                false
+                $this->trans('IntroductionTextUpdated')
             );
         } else {
 
             $sql = "SELECT intro_text FROM $table
-                    WHERE c_id = $courseId AND id='".$tool."' AND session_id = '".intval(
-                    $sessionId
-                )."'";
+                    WHERE
+                      c_id = $courseId AND
+                      id='".$tool."' AND
+                      session_id = '".intval($sessionId)."'";
             $result = \Database::query($sql);
             $content = null;
             if (\Database::num_rows($result) > 0) {
                 $row = \Database::fetch_array($result);
                 $content = $row['intro_text'];
             }
-            $form->setDefaults(array('content' => $content));
+            $form->setData(array('content' => $content));
         }
 
-        $response = null;
-
         return array(
-            'content' => $form->returnForm(),
+            'title' => $tool,
+            'form' => $form->createView(),
         );
     }
 
@@ -106,7 +108,8 @@ class IntroductionController extends ToolBaseController
         if ($toolIntro) {
             $doctrine->getManager()->remove($toolIntro);
             $doctrine->getManager()->flush();
-            $this->addFlash('success', "IntroductionTextDeleted");
+
+            $this->addFlash('success', $this->trans("IntroductionTextDeleted"));
         }
 
         return $this->redirectCourseHome();
@@ -116,32 +119,33 @@ class IntroductionController extends ToolBaseController
      *
      * @param string $url
      * @param string $tool
-     * @return \FormValidator
+     * @return \Symfony\Component\Form\Form
      */
     public function getFormValidator($url, $tool)
     {
-        $toolbar_set = 'IntroductionTool';
-        $width = '100%';
-        $height = '300';
-
-        $config = array(
-            'ToolbarSet' => $toolbar_set,
-            'Width' => $width,
-            'Height' => $height,
+        $form = $this->createFormBuilder(
+            null,
+            [
+                'action' => $url,
+            ]
         );
 
-        $form = new \FormValidator('form', 'post', $url);
-        $form->addHtmlEditor('content', null, null, false, $config);
-        if ($tool == 'course_homepage') {
-            $form->addElement(
-                'label',
-                get_lang('YouCanUseAllTheseTags'),
-                '(('.implode(')) <br /> ((', \CourseHome::availableTools()).'))'
-            );
-        }
-        $form->addButtonSave(get_lang('SaveIntroText'));
+        $toolbar = new Introduction('');
+        $config = $toolbar->getConfig();
 
-        return $form;
+        $form->add('content', 'ckeditor', ['config' => $config]);
+
+        //$form = new \FormValidator('form', 'post', $url);
+        //$form->addHtmlEditor('content', null, null, false, $config);
+        if ($tool == 'course_homepage') {
+            /*$form->add(get_lang('YouCanUseAllTheseTags'),
+                ''
+                '(('.implode(')) <br /> ((', \CourseHome::availableTools()).'))'
+            );*/
+        }
+        $form->add('save', 'submit', ['label' => get_lang('SaveIntroText')]);
+
+        return $form->getForm();
     }
 
 }

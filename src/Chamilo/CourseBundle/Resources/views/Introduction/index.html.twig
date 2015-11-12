@@ -1,0 +1,14 @@
+{% extends "ChamiloCoreBundle::layout_one_col.html.twig" %}
+
+{% block page_title %} {{ title }}{% endblock %}
+{#{% block page_subtitle %}{{ course.code }}{% endblock %}#}
+
+{% block page_content %}
+    {% autoescape false %}
+        {{ title }}
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endautoescape %}
+{% endblock %}

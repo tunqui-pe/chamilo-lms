@@ -4,11 +4,11 @@
 namespace Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar;
 
 /**
- * Announcements toolbar configuration
+ * Introduction toolbar configuration
  *
- * @package Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar *
+ * @package Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar
  */
-class Announcements extends Basic
+class Introduction extends Basic
 {
     /**
      * Get the toolbar config
@@ -29,10 +29,10 @@ class Announcements extends Basic
      * Get the default toolbar configuration when the setting more_buttons_maximized_mode is false
      * @return array
      */
-    public function getNormalToolbar()
+    protected function getNormalToolbar()
     {
         return [
-            ['Save', 'Maximize', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            ['Save', 'Maximize', '-', 'PasteFromWord', '-', 'Undo', 'Redo'],
             ['Link', 'Unlink', 'Anchor'],
             ['Image', 'Video', 'Flash', 'Oembed', 'Youtube', 'Audio'],
             ['Table', 'SpecialChar'],
@@ -45,16 +45,20 @@ class Announcements extends Basic
                 '-',
                 'TextColor',
                 'BGColor',
-                'Source'
             ],
             '/',
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['Bold', 'Italic', 'Underline'],
             [
+                'Subscript',
+                'Superscript',
+                '-',
                 'JustifyLeft',
                 'JustifyCenter',
-                'JustifyRight'
-            ]
+                'JustifyRight',
+                'JustifyBlock',
+            ],
+            ['Source'],
         ];
     }
 
@@ -62,16 +66,34 @@ class Announcements extends Basic
      * Get the toolbar configuration when CKEditor is minimized
      * @return array
      */
-    public function getMinimizedToolbar()
+    protected function getMinimizedToolbar()
     {
         return [
-            ['NewPage', 'Templates', '-', 'PasteFromWord'],
+            ['Save', 'NewPage', 'Templates', '-', 'PasteFromWord'],
             ['Undo', 'Redo'],
-            ['Link', 'Image', 'Video', 'Flash', 'Audio', 'Table', 'Asciimath', 'Asciisvg'],
+            [
+                'Link',
+                'Image',
+                'Video',
+                'Flash',
+                'Audio',
+                'Table',
+                'Asciimath',
+                'Asciisvg',
+            ],
             ['BulletedList', 'NumberedList', 'HorizontalRule'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
-            ['Toolbarswitch']
+            [
+                'Format',
+                'Font',
+                'FontSize',
+                'Bold',
+                'Italic',
+                'Underline',
+                'TextColor',
+                'BGColor',
+            ],
+            ['Toolbarswitch'],
         ];
     }
 

@@ -50,18 +50,21 @@ class Editor
     public $template;
 
     /**
-     * Constructor
+     * Editor constructor.
+     * @param Translator $translator
+     * @param RouterInterface $urlGenerator
      */
     public function __construct(
         Translator $translator,
-        RouterInterface $urlGenerator)
-    {
+        RouterInterface $urlGenerator
+    ) {
         $this->toolbarSet = 'Basic';
         $this->value = '';
         $this->config = array();
         $this->setConfigAttribute('width', '100%');
         $this->setConfigAttribute('height', '200');
         $this->setConfigAttribute('fullPage', false);
+
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
         //$this->course = $course;

@@ -44,7 +44,7 @@ class HtmlEditor extends HTML_QuickForm_textarea
         if ($editor) {
             $this->editor = $editor;
             $this->editor->setName($name);
-            $this->editor->processConfig($config);
+            $this->editor->processConfig($attributes);
         }
     }
 

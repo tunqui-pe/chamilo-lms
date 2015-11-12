@@ -4,6 +4,7 @@
 namespace Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar;
 
 use Chamilo\CoreBundle\Component\Editor\Toolbar;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class Basic
@@ -131,7 +132,8 @@ class Basic extends Toolbar
         }
 
         $this->defaultPlugins = array_merge($this->defaultPlugins, $plugins);
-        parent::__construct($toolbar, $config, $prefix);
+        $router = Container::getRouter();
+        parent::__construct($router, $toolbar, $config, $prefix);
     }
 
     /**
