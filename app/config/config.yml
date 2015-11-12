@@ -176,9 +176,8 @@ doctrine_cache:
     providers:
         sylius_settings:
             type: file_system
-#        chamilo_settings:
-#            type: file_system
-
+        chamilo_settings:
+            type: file_system
 
 # Bower configuration
 sp_bower:
@@ -189,7 +188,6 @@ sp_bower:
         ChamiloThemeBundle:
             cache:
                 directory: %kernel.root_dir%/cache/public/components/cache
-
 
 stof_doctrine_extensions:
     default_locale: "%locale%"

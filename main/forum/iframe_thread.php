@@ -25,13 +25,12 @@
 // A notice for unauthorized people.
 api_protect_course_script(true);
 $nameTools = get_lang('ToolForum');
-Display::display_reduced_header();
+//Display::display_reduced_header();
 
 /* Including necessary files */
 
 require 'forumconfig.inc.php';
 require_once 'forumfunction.inc.php';
-
 
 /* MAIN DISPLAY SECTION */
 

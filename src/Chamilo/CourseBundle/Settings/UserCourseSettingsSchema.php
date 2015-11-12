@@ -21,9 +21,11 @@ class UserCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'allow_user_view_user_list' => '',
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
+                'allow_user_view_user_list' => array('string'),
             ))
         ;
     }
@@ -35,6 +37,7 @@ class UserCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('allow_user_view_user_list', 'yes_no')
         ;
     }
 }

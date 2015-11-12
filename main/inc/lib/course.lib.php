@@ -38,14 +38,6 @@ class CourseManager
     public static $courseSettingsManager;
 
     /**
-     * @param ToolChain $toolList
-     */
-    public static function setToolList($toolList)
-    {
-        self::$toolList = $toolList;
-    }
-
-    /**
      * @param \Doctrine\ORM\EntityManager
      */
     public static function setEntityManager($em)
@@ -86,7 +78,7 @@ class CourseManager
     }
 
     /**
-     * @return Chamilo\CoreBundle\Entity\CourseManager
+     * @return Chamilo\CoreBundle\Entity\Manager\CourseManager
      */
     public static function getCourseManager()
     {
@@ -6053,5 +6045,21 @@ class CourseManager
             $html .= self::course_item_html($params, $is_subcontent);
         }
         return $html;
+    }
+
+    /**
+     * @param ToolChain $toolList
+     */
+    public static function setToolList($toolList)
+    {
+        self::$toolList = $toolList;
+    }
+
+    /**
+     * @return ToolChain
+     */
+    public static function getToolList()
+    {
+        return self::$toolList;
     }
 }

@@ -4,6 +4,11 @@
 namespace Chamilo\CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Chamilo\CoreBundle\Entity\Course;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CTool
@@ -125,6 +130,57 @@ class CTool
      * @ORM\Column(name="custom_icon", type="string", length=255, nullable=true)
      */
     private $customIcon;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="tools")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
+     */
+    private $course;
+
+    protected $originalImage;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        // Default values
+        $this->id = 0;
+        $this->sessionId = 0;
+        $this->address = 'squaregrey.gif';
+    }
+
+    /**
+     * @param Course $course
+     */
+    public function setCourse($course)
+    {
+        $this->course = $course;
+    }
+
+    /**
+     * @param ClassMetadata $metadata
+     */
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint(
+            'customIcon',
+            new Assert\File(array('mimeTypes' => array("image/png")))
+        );
+        $metadata->addPropertyConstraint(
+            'customIcon',
+            new Assert\Image(array('maxWidth' => 64, 'minHeight' => 64))
+        );
+        $metadata->addPropertyConstraint('cId', new Assert\NotBlank());
+    }
+
+    /**
+     * @return Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
 
     /**
      * Set name
@@ -440,4 +496,131 @@ class CTool
 
         return $this;
     }
+
+    /**
+     * Creates a gray icon.
+     * @param \Imagine\Image\ImagineInterface $imagine
+     * @return bool
+     */
+    public function createGrayIcon($imagine)
+    {
+        $customIcon = $this->getCustomIcon();
+        if (empty($customIcon)) {
+            return false;
+        }
+        if (file_exists($this->getAbsolutePath())) {
+            $image = $imagine->open($this->getAbsolutePath());
+            $fileInfo = pathinfo($this->getAbsolutePath());
+            $originalFilename = $fileInfo['basename'];
+            $filename = $fileInfo['filename'].'_na.'.$fileInfo['extension'];
+            $newPath = str_replace($originalFilename, $filename, $this->getAbsolutePath());
+            $transformation = new \Imagine\Filter\Advanced\Grayscale();
+            $transformation->apply($image)->save($newPath);
+        }
+    }
+
+    /**
+     * Replace the $this->image png extension to gif
+     * @return string
+     */
+    public function imageGifToPng()
+    {
+        return str_replace('.gif', '.png', $this->getImage());
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->getCustomIcon()
+            ? null
+            : $this->getUploadRootDir().'/'.$this->getCustomIcon();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        $dir = $this->getCourse()->getAbsoluteSysCoursePath().$this->getUploadDir();
+
+        if (is_dir($dir)) {
+            return $dir;
+        } else {
+            mkdir($dir);
+            return $dir;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'upload/course_home_icons';
+    }
+
+    /**
+     * Called before saving the entity
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getCustomIcon()) {
+
+            // do whatever you want to generate a unique name
+            //$filename = sha1(uniqid(mt_rand(), true));
+            $this->originalImage = $this->getCustomIcon();
+            $this->customIcon = $this->getName().'_'.$this->getSessionId().'.'.$this->getCustomIcon()->guessExtension();
+        }
+    }
+
+    /**
+     * Called before entity removal
+     *
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    /**
+     * Called after entity persistence
+     *
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getCustomIcon()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->originalImage->move(
+            $this->getUploadRootDir(),
+            $this->customIcon
+        );
+
+        // clean up the file property as you won't need it anymore
+        $this->originalImage = null;
+    }
+
+
+
 }

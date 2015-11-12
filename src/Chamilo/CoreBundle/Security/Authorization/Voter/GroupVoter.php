@@ -137,7 +137,7 @@ class GroupVoter extends AbstractVoter
                 }
                 break;
         }
-        dump("You dont have access to this group!!");
+        dump("You don't have access to this group!!");
 
         return false;
     }

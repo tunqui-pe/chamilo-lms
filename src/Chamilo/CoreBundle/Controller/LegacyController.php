@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Chamilo\CoreBundle\Framework\Container;
+use Display;
 
 /**
  * Class LegacyController
@@ -87,6 +88,7 @@ class LegacyController extends ToolBaseController
                     'cache-control' => 'no-store, no-cache, must-revalidate'
                 );
             }
+
             $js = isset($htmlHeadXtra) ? $htmlHeadXtra : array();
 
             // $interbreadcrumb is loaded in the require_once file.

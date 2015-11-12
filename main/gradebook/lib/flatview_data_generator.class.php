@@ -174,7 +174,10 @@ class FlatViewDataGenerator
                         api_get_self().'?selectcat='.$sub_cat->get_id().'&'.api_get_cidreq()
                     ).$add_weight;
 
-                if (api_get_setting('gradebook_detailed_admin_view') === 'true') {
+                if (api_get_setting(
+                        'gradebook.gradebook_detailed_admin_view'
+                    ) === 'true'
+                ) {
 
                     $links = $sub_cat->get_links();
                     $evaluations = $sub_cat->get_evaluations();
@@ -443,7 +446,10 @@ class FlatViewDataGenerator
                 foreach ($allcat as $sub_cat) {
                     $score = $sub_cat->calc_score($user_id);
 
-                    if (api_get_setting('gradebook_detailed_admin_view') === 'true') {
+                    if (api_get_setting(
+                            'gradebook.gradebook_detailed_admin_view'
+                        ) === 'true'
+                    ) {
                         $links = $sub_cat->get_links();
                         $evaluations = $sub_cat->get_evaluations();
 
@@ -498,7 +504,10 @@ class FlatViewDataGenerator
                             $this->params['only_total_category'] == false)
                     ) {
                         if (!$show_all) {
-                            if (api_get_setting('gradebook_detailed_admin_view') === 'true') {
+                            if (api_get_setting(
+                                    'gradebook.gradebook_detailed_admin_view'
+                                ) === 'true'
+                            ) {
                                 $finalList = array_merge($linkScoreList, $evalScoreList);
                                 if (empty($finalList)) {
                                     $average = 0;

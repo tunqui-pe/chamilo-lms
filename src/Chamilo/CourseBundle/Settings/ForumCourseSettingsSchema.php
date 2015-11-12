@@ -21,9 +21,11 @@ class ForumCourseSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(array(
                 'enabled' => '',
+                'allow_user_image_forum' => '',
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
+                'allow_user_image_forum' => array('string'),
             ))
         ;
     }
@@ -35,6 +37,7 @@ class ForumCourseSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('enabled', 'yes_no')
+            ->add('allow_user_image_forum', 'yes_no')
         ;
     }
 }

@@ -449,7 +449,7 @@ if (empty($_GET['origin']) || $_GET['origin'] !== 'learnpath') {
 // Actions
 $show_actions = false;
 if ((api_is_allowed_to_edit(false,true) ||
-    (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) &&
+    (api_get_course_setting('announcement.allow_user_edit_announcement') && !api_is_anonymous())) &&
     (empty($_GET['origin']) || $_GET['origin'] !== 'learnpath')
 ) {
     echo '<div class="actions">';

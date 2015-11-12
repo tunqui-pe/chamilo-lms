@@ -54,7 +54,9 @@ class LegacyListener
         $database->setConnection($connection);
         $entityManager = $container->get('doctrine')->getManager();
         $database->setManager($entityManager);
+
         \CourseManager::setEntityManager($entityManager);
+        \CourseManager::setCourseSettingsManager($container->get('chamilo_course.settings.manager'));
 
         // Legacy way of detect current access_url
 
@@ -102,6 +104,7 @@ class LegacyListener
         \CourseManager::setToolList(
             $container->get('chamilo_course.tool_chain')
         );
+
         \CourseManager::setCourseManager(
             $container->get('chamilo_core.manager.course')
         );

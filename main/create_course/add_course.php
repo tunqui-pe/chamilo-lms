@@ -349,7 +349,7 @@ if ($form->validate()) {
                     false
                 );
                 // Display the form.
-                $content = $form->return_form();
+                $content = $form->returnForm();
             }
         }
     } else {
@@ -359,7 +359,7 @@ if ($form->validate()) {
             false
         );
         // Display the form.
-        $content = $form->return_form();
+        $content = $form->returnForm();
     }
 } else {
     if (!$course_validation_feature) {
@@ -368,11 +368,5 @@ if ($form->validate()) {
     // Display the form.
     $content = $form->returnForm();
 }
-
 echo $message;
 echo $content;
-/*
-$tpl->assign('message', $message);
-$tpl->assign('content', $content);
-$template = $tpl->get_template('layout/layout_1_col.tpl');
-$tpl->display($template);*/

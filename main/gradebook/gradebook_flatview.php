@@ -272,7 +272,8 @@ if (isset($_GET['isStudentView']) && $_GET['isStudentView'] == 'false') {
         $simple_search_form
     );
     $flatviewtable->display();
-} elseif (isset($_GET['selectcat']) && ($studentView == 'teacherview')) {
+//} elseif (isset($_GET['selectcat']) && ($studentView == 'teacherview')) {
+} elseif (isset($_GET['selectcat'])) {
 
     DisplayGradebook:: display_header_reduce_flatview(
         $cat[0],
@@ -289,4 +290,3 @@ if (isset($_GET['isStudentView']) && $_GET['isStudentView'] == 'false') {
     echo '</div>';
 }
 
-Display :: display_footer();

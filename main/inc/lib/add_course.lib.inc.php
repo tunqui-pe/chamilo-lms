@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Entity\CTool;
+
 /**
  * Class AddCourse
  */
@@ -418,18 +420,49 @@ class AddCourse
         $course_repository,
         $language,
         $fill_with_exemplary_content = null
-
     ) {
         if (is_null($fill_with_exemplary_content)) {
-            $fill_with_exemplary_content = api_get_setting(
-                    'example_material_course_creation'
-                ) != 'false';
+            $fill_with_exemplary_content = api_get_setting('course.example_material_course_creation') != 'false';
         }
         $course_id = intval($course_id);
 
         if (empty($course_id)) {
             return false;
         }
+
+        $entityManager = Database::getManager();
+        $course = $entityManager->getRepository('ChamiloCoreBundle:Course')->find($course_id);
+
+        $tools = array();
+        $settingsManager = CourseManager::getCourseSettingsManager();
+        $settingsManager->setCourse($course);
+
+        $toolList = CourseManager::getToolList();
+        $toolList = $toolList->getTools();
+
+        /** @var Chamilo\CourseBundle\Tool\BaseTool $tool */
+        foreach ($toolList as $tool) {
+            $visibility = self::string2binary(
+                api_get_setting_in_list('course.active_tools_on_create', $tool->getName())
+            );
+            $toolObject = new CTool();
+            $toolObject->setName($tool->getName())
+                ->setCategory($tool->getCategory())
+                ->setLink($tool->getLink())
+                ->setImage($tool->getImage())
+                ->setVisibility($visibility)
+                ->setAdmin(0)
+                ->setTarget($tool->getTarget())
+            ;
+            $tools[] = $toolObject;
+            $settings = $settingsManager->loadSettings($tool->getName());
+            $settingsManager->saveSettings($tool->getName(), $settings);
+        }
+
+        $course->setTools($tools);
+        $entityManager->persist($course);
+        $entityManager->flush($course);
+
 
         $courseInfo = api_get_course_info_by_id($course_id);
         $now = api_get_utc_datetime(time());
@@ -484,7 +517,7 @@ class AddCourse
         $visible_for_platform_admin = 2;
 
         /*    Course tools  */
-
+        /*
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 1, '" . TOOL_COURSE_DESCRIPTION . "','course_description/','info.gif','" . self::string2binary(
@@ -656,6 +689,7 @@ class AddCourse
                 )
             ) . "','0','squaregrey.gif','NO','_self','authoring','0')"
         );
+        */
 
         /*if (api_get_setting('service_visio', 'active') == 'true') {
             $mycheck = api_get_setting('service_visio', 'visio_host');
@@ -670,7 +704,7 @@ class AddCourse
                 );
             }
         }*/
-
+        /*
         if (api_get_setting('search.search_enabled') == 'true') {
             Database::query(
                 "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
@@ -690,9 +724,10 @@ class AddCourse
                     'blogs'
                 )
             ) . "','1','squaregrey.gif','NO','_self','admin','0')";
-        Database::query($sql);
+        Database::query($sql);*/
 
         /*  Course homepage tools for course admin only  */
+        /*
         Database::query(
             "INSERT INTO $tbl_course_homepage  (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 25, '" . TOOL_TRACKING . "','tracking/courseLog.php','statistics.gif','$visible_for_course_admin','1','', 'NO','_self','admin','0')"
@@ -704,9 +739,8 @@ class AddCourse
         Database::query(
             "INSERT INTO $tbl_course_homepage (c_id, id, name, link, image, visibility, admin, address, added_tool, target, category, session_id)
             VALUES ($course_id, 27, '" . TOOL_COURSE_MAINTENANCE . "','course_info/maintenance.php','backup.gif','$visible_for_course_admin','1','','NO','_self', 'admin','0')"
-        );
+        );*/
 
-        $defaultEmailExerciseAlert = 1;
         $alert = api_get_setting('exercise.email_alert_manager_on_new_quiz');
         if ($alert === 'true') {
             $defaultEmailExerciseAlert = 1;
@@ -732,22 +766,20 @@ class AddCourse
             'enable_lp_auto_launch' => ['default' => 0, 'category' =>'learning_path'],
             'pdf_export_watermark_text' => ['default' =>'', 'category' =>'learning_path'],
             'allow_public_certificates' => [
-                'default' => api_get_setting(
-                    'course.allow_public_certificates'
-                ) === 'true' ? 1 : '',
+                'default' => api_get_setting('course.allow_public_certificates') === 'true' ? 1 : '',
                 'category' =>'certificates'
             ],
             'documents_default_visibility' => ['default' =>'visible', 'category' =>'document']
         ];
 
-        $counter = 1;
+        /*$counter = 1;
         foreach ($settings as $variable => $setting) {
             Database::query(
                 "INSERT INTO $TABLESETTING (id, c_id, variable, value, category)
                  VALUES ($counter, $course_id, '".$variable."', '".$setting['default']."', '".$setting['category']."')"
             );
             $counter++;
-        }
+        }*/
 
         /* Course homepage tools for platform admin only */
 
@@ -759,15 +791,11 @@ class AddCourse
         );
 
         /*    Example Material  */
-        global $language_interface;
-        $language_interface = !empty($language_interface) ? $language_interface : api_get_setting(
-            'language.platform_language'
-        );
-
+        $language_interface = !empty($language_interface) ? $language_interface : api_get_setting('language.platform_language');
 
         // Example material should be in the same language as the course is.
         $language_interface_original = $language_interface;
-        $language_interface = $language;
+
         $now = api_get_utc_datetime();
 
         $files = [
@@ -835,8 +863,6 @@ class AddCourse
                 );
                 $default_document_array[$folder] = $sorted_array;
             }
-
-            //echo '<pre>'; print_r($default_document_array);exit;
 
             //Light protection (adding index.html in every document folder)
             $htmlpage = "<!DOCTYPE html>\n<html lang=\"en\">\n <head>\n <meta charset=\"utf-8\">\n <title>Not authorized</title>\n  </head>\n  <body>\n  </body>\n</html>";

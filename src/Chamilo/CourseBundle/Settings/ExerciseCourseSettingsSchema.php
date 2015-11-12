@@ -25,7 +25,7 @@ class ExerciseCourseSettingsSchema implements SchemaInterface
             ))
             ->setAllowedTypes(array(
                 'enabled' => array('string'),
-                'enabled' => array('email_alert_manager_on_new_quiz'),
+                'email_alert_manager_on_new_quiz' => array('string'),
             ))
         ;
     }

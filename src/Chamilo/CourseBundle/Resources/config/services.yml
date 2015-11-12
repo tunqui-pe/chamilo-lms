@@ -74,7 +74,7 @@ services:
             - @chamilo_course.settings.schema_registry
             - @sylius.manager.parameter
             - @chamilo_course.repository.parameter
-            - @sylius.settings.cache
+            - @doctrine_cache.providers.chamilo_settings
             - @validator
             - @event_dispatcher
 

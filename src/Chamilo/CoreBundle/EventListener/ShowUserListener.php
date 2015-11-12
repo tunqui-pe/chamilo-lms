@@ -46,6 +46,7 @@ class ShowUserListener
         if ($token) {
             $user = $token->getUser();
             if ($user) {
+
                 return $user;
             }
         }

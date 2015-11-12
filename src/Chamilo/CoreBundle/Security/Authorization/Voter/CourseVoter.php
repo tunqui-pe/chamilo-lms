@@ -117,10 +117,10 @@ class CourseVoter extends AbstractVoter
 
                     return true;
                 }
+
                 break;
             case self::EDIT:
             case self::DELETE:
-
                 // Only teacher can edit/delete stuff
                 if ($course->hasTeacher($user)) {
                     $user->addRole(ResourceNodeVoter::ROLE_CURRENT_COURSE_TEACHER);

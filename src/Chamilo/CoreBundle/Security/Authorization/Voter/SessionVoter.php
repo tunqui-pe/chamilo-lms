@@ -119,7 +119,7 @@ class SessionVoter extends AbstractVoter
                 }
                 break;
         }
-        dump("You dont have access to this session!!");
+        dump("You don't have access to this session!!");
         return false;
     }
 }

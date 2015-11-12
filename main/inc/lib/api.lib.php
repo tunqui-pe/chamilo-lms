@@ -2586,13 +2586,12 @@ function api_get_setting_in_list($variable, $option)
 function api_get_setting($variable)
 {
     $variable = trim($variable);
-    //$variable = str_replace(array("\r","\n"), '', $variable);
 
     switch ($variable) {
         case 'server_type':
             $test = ['dev', 'test'];
-            $enviroment = Container::getEnvironment();
-            if (in_array($enviroment, $test)) {
+            $environment = Container::getEnvironment();
+            if (in_array($environment, $test)) {
                 return 'test';
             }
 

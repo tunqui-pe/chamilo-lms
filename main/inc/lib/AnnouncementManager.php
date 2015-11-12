@@ -195,7 +195,10 @@ class AnnouncementManager
 
         $course_id = api_get_course_int_id();
 
-        if (api_is_allowed_to_edit(false, true) || (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) {
+        if (api_is_allowed_to_edit(false, true) || (api_get_course_setting(
+                    'announcement.allow_user_edit_announcement'
+                ) && !api_is_anonymous())
+        ) {
             $sql = "SELECT announcement.*, toolitemproperties.*
                     FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
                     WHERE
@@ -251,7 +254,9 @@ class AnnouncementManager
             $html .= "<tr><td><h2>" . $title . "</h2></td></tr>";
 
             if (api_is_allowed_to_edit(false, true) ||
-                (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())
+                (api_get_course_setting(
+                        'announcement.allow_user_edit_announcement'
+                    ) && !api_is_anonymous())
             ) {
                 $modify_icons = "<a href=\"" . api_get_self() . "?" . api_get_cidreq() . "&action=modify&id=" . $announcement_id . "\">" .
                     Display::return_icon('edit.png', get_lang('Edit'), '', ICON_SIZE_SMALL) . "</a>";
@@ -1399,7 +1404,9 @@ class AnnouncementManager
         $_course = api_get_course_info();
 
         $group_memberships = GroupManager::get_group_ids($course_id, api_get_user_id());
-        $allowUserEditSetting = api_get_course_setting('allow_user_edit_announcement');
+        $allowUserEditSetting = api_get_course_setting(
+            'announcement.allow_user_edit_announcement'
+        );
 
         if (api_is_allowed_to_edit(false, true) ||
             ($allowUserEditSetting && !api_is_anonymous())
@@ -1589,7 +1596,9 @@ class AnnouncementManager
 
         if ($num_rows == 0) {
             if ((api_is_allowed_to_edit(false, true) OR
-                (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) and
+                    (api_get_course_setting(
+                            'announcement.allow_user_edit_announcement'
+                        ) && !api_is_anonymous())) and
                 (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath')
             ) {
                 $html .= '<div id="no-data-view">';
@@ -1619,7 +1628,10 @@ class AnnouncementManager
         $ths .= Display::tag('th', get_lang('LastUpdateDate') );
         if (api_is_allowed_to_edit(false,true) OR (api_is_course_coach() &&
             api_is_element_in_the_session(TOOL_ANNOUNCEMENT, $myrow['id']))
-            OR (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) {
+            OR (api_get_course_setting(
+                    'announcement.allow_user_edit_announcement'
+                ) && !api_is_anonymous())
+        ) {
             $ths .= Display::tag('th', get_lang('Modify'));
         }
 
@@ -1668,7 +1680,9 @@ class AnnouncementManager
                 // the session we are coaching OR the option to allow users to edit is on
                 if (api_is_allowed_to_edit(false,true) OR
                     (api_is_course_coach() && api_is_element_in_the_session(TOOL_ANNOUNCEMENT, $myrow['id']))
-                    OR (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())
+                    OR (api_get_course_setting(
+                            'announcement.allow_user_edit_announcement'
+                        ) && !api_is_anonymous())
                 ) {
 
                     $modify_icons = "<a href=\"".api_get_self()."?".api_get_cidreq()."&action=modify&id=".$myrow['id']."\">".
@@ -1758,7 +1772,10 @@ class AnnouncementManager
             if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {
                 $group_memberships = GroupManager::get_group_ids($_course['real_id'], $userId);
 
-                if ((api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) {
+                if ((api_get_course_setting(
+                        'announcement.allow_user_edit_announcement'
+                    ) && !api_is_anonymous())
+                ) {
 
                     if (api_get_group_id() == 0) {
                         $cond_user_id = " AND (
@@ -1811,7 +1828,10 @@ class AnnouncementManager
                     // the user is not member of any group
                     // this is an identified user => show the general announcements AND his personal announcements
                     if ($userId) {
-                        if ((api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())) {
+                        if ((api_get_course_setting(
+                                'announcement.allow_user_edit_announcement'
+                            ) && !api_is_anonymous())
+                        ) {
                             $cond_user_id = " AND (
                                 ip.lastedit_user_id = '".$userId."' OR
                                 ( ip.to_user_id='".$userId."' OR ip.to_group_id='0' OR ip.to_group_id IS NULL)
@@ -1834,7 +1854,9 @@ class AnnouncementManager
                             LIMIT 0, $maximum";
                     } else {
 
-                        if (api_get_course_setting('allow_user_edit_announcement')) {
+                        if (api_get_course_setting(
+                            'announcement.allow_user_edit_announcement'
+                        )) {
                             $cond_user_id = " AND (
                                 ip.lastedit_user_id = '".api_get_user_id()."' OR ip.to_group_id='0' OR ip.to_group_id IS NULL
                             ) ";

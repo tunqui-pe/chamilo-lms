@@ -35,6 +35,8 @@ class GradebookSettingsSchema implements SchemaInterface
                     'gradebook_default_grade_model_id' => '',
                     'gradebook_show_percentage_in_rep' => '',
                     'my_display_coloring' => '',
+                    'student_publication_to_take_in_gradebook' => '',
+                    'gradebook_detailed_admin_view' => '',
                 )
             )
             ->setAllowedTypes(
@@ -42,6 +44,8 @@ class GradebookSettingsSchema implements SchemaInterface
                     'gradebook_enable' => array('string'),
                     'gradebook_number_decimals' => array('string'),
                     'gradebook_default_weight' => array('string'),
+                    'student_publication_to_take_in_gradebook' => array('string'),
+                    'gradebook_detailed_admin_view' => array('string'),
 
                 )
             );
@@ -66,6 +70,8 @@ class GradebookSettingsSchema implements SchemaInterface
             ->add('gradebook_locking_enabled', 'yes_no')
             ->add('gradebook_default_grade_model_id')
             ->add('gradebook_show_percentage_in_rep')
-            ->add('my_display_coloring');
+            ->add('my_display_coloring')
+            ->add('student_publication_to_take_in_gradebook')
+            ->add('gradebook_detailed_admin_view');
     }
 }

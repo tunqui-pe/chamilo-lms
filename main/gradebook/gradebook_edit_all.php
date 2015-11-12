@@ -139,7 +139,10 @@ $form->addButtonUpdate(get_lang('AutoWeight'));
 
 if ($form->validate()) {
     $itemCount = count($links) + count($evaluations);
-    $weight = round($original_total / $itemCount, 2);
+    $weight = 0;
+    if ($itemCount > 0) {
+        $weight = round($original_total / $itemCount, 2);
+    }
     $total = $weight * $itemCount;
 
     $diff = null;

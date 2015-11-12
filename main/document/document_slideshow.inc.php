@@ -80,9 +80,16 @@ function sort_files($table)
         if ($file_array['filetype'] == 'file') {
             $slideshow_extension = strrchr($file_array['path'], '.');
             $slideshow_extension = strtolower($slideshow_extension);
-            if (in_array($slideshow_extension, $accepted_extensions)) {
-                $start_date = isset($file_array['insert_date']) ? $file_array['insert_date'] : null;
-                $temp[] = array('file', basename($file_array['path']), $file_array['size'], $start_date);
+            if (!empty($accepted_extensions)) {
+                if (in_array($slideshow_extension, $accepted_extensions)) {
+                    $start_date = isset($file_array['insert_date']) ? $file_array['insert_date'] : null;
+                    $temp[] = array(
+                        'file',
+                        basename($file_array['path']),
+                        $file_array['size'],
+                        $start_date,
+                    );
+                }
             }
         }
     }

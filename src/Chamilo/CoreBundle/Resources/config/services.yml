@@ -218,6 +218,11 @@ services:
         tags:
             - { name: sylius.settings_schema, namespace: admin }
 
+    chamilo_core.settings_schema.announcement:
+        class: Chamilo\CoreBundle\Settings\AnnouncementSettingsSchema
+        tags:
+            - { name: sylius.settings_schema, namespace: announcement }
+
     chamilo_core.settings_schema.agenda:
         class: Chamilo\CoreBundle\Settings\AgendaSettingsSchema
         tags:

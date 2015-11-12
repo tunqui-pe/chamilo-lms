@@ -38,7 +38,6 @@ class DocumentCourseSettingsSchema implements SchemaInterface
         $builder
             ->add('enabled', 'yes_no')
             ->add('documents_default_visibility')
-
         ;
     }
 }

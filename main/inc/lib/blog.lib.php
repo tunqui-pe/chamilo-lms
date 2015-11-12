@@ -996,10 +996,22 @@ class Blog
 		$task_id = (isset($_GET['task_id']) && is_numeric($_GET['task_id'])) ? intval($_GET['task_id']) : 0;
 
 		if (api_is_allowed('BLOG_' . $blog_id, 'article_edit', $task_id))
-			$blog_post_actions .= '<a href="blog.php?action=edit_post&blog_id=' . $blog_id . '&post_id=' . $post_id . '&article_id=' . $blog_post['post_id'] . '&task_id=' . $task_id . '" title="' . get_lang('EditThisPost') . '"><img src="../img/edit.gif" /></a>';
+            $blog_post_actions .= '<a href="blog.php?action=edit_post&blog_id='.$blog_id.'&post_id='.$post_id.'&article_id='.$blog_post['post_id'].'&task_id='.$task_id.'" title="'.get_lang(
+                    'EditThisPost'
+                ).'">
+			<img src="../img/edit.gif" /></a>';
 
 		if (api_is_allowed('BLOG_' . $blog_id, 'article_delete', $task_id))
-			$blog_post_actions .= '<a href="blog.php?action=view_post&blog_id=' . $blog_id . '&post_id=' . $post_id . '&do=delete_article&article_id=' . $blog_post['post_id'] . '&task_id=' . $task_id . '" title="' . get_lang('DeleteThisArticle') . '" onclick="javascript:if(!confirm(\''.addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset)). '\')) return false;"><img src="../img/delete.gif" border="0" /></a>';
+            $blog_post_actions .= '<a href="blog.php?action=view_post&blog_id='.$blog_id.'&post_id='.$post_id.'&do=delete_article&article_id='.$blog_post['post_id'].'&task_id='.$task_id.'" title="'.get_lang(
+                    'DeleteThisArticle'
+                ).'" onclick="javascript:if(!confirm(\''.addslashes(
+                    api_htmlentities(
+                        get_lang("ConfirmYourChoice"),
+                        ENT_QUOTES,
+                        $charset
+                    )
+                ).'\')) return false;">
+			<img src="../img/delete.gif" border="0" /></a>';
 
 		if(api_is_allowed('BLOG_' . $blog_id, 'article_rate'))
 			$rating_select = Blog::display_rating_form('post',$blog_id,$post_id);
@@ -1008,7 +1020,10 @@ class Blog
 
 		// Display post
 		echo '<div class="blogpost">';
-		echo '<span class="blogpost_title"><a href="blog.php?action=view_post&blog_id=' . $blog_id . '&post_id=' . $blog_post['post_id'] . '" title="' . get_lang('ReadPost') . '" >'.stripslashes($blog_post['title']) . '</a></span>';
+        echo '<span class="blogpost_title"><a href="blog.php?action=view_post&blog_id='.$blog_id.'&post_id='.$blog_post['post_id'].'" title="'.get_lang(
+                'ReadPost'
+            ).'" >'.
+            stripslashes($blog_post['title']).'</a></span>';
 		echo '<span class="blogpost_date">' . $blog_post_date . '</span>';
 		echo '<span class="blogpost_text">' . $blog_post_text . '</span><br />';
 
@@ -1027,12 +1042,28 @@ class Blog
 			echo '<br />';
 		}
         $username = api_htmlentities(sprintf(get_lang('LoginX'), $blog_post['username']), ENT_QUOTES);
-		echo '<span class="blogpost_info">'.get_lang('Author').': ' .Display::tag('span', api_get_person_name($blog_post['firstname'], $blog_post['lastname']), array('title'=>$username)).' - '.get_lang('Comments').': '.$blog_post_comments['number_of_comments'].' - '.get_lang('Rating').': '.Blog::display_rating('post',$blog_id,$post_id).$rating_select.'</span>';
+        echo '<span class="blogpost_info">'.get_lang('Author').': '.
+            Display::tag(
+                'span',
+                api_get_person_name(
+                    $blog_post['firstname'],
+                    $blog_post['lastname']
+                ),
+                array('title' => $username)
+            ).' - '.get_lang(
+                'Comments'
+            ).': '.$blog_post_comments['number_of_comments'].' - '.get_lang(
+                'Rating'
+            ).': '.Blog::display_rating(
+                'post',
+                $blog_id,
+                $post_id
+            ).$rating_select.'</span>';
 		echo '<span class="blogpost_actions">' . $blog_post_actions . '</span>';
 		echo '</div>';
 
 		// Display comments if there are any
-		if($blog_post_comments['number_of_comments'] > 0) {
+        if ($blog_post_comments['number_of_comments'] > 0) {
 			echo '<div class="comments">';
 				echo '<span class="blogpost_title">' . get_lang('Comments') . '</span><br />';
 				Blog::get_threaded_comments(0, 0, $blog_id, $post_id, $task_id);
@@ -2526,7 +2557,9 @@ class Blog
 
 				$url_start_blog = 'blog.php' ."?". "blog_id=".$info_log[3]. "&".api_get_cidreq();
 				$title = $info_log[0];
-    			$image = '<img src="../img/blog.gif" border="0" align="absmiddle" alt="' . $title . '">';
+                $image = Display::return_icon(
+                    'blog.gif'
+                );//'<img src="../img/blog.gif" border="0" align="absmiddle" alt="' . $title . '">';
     			$list_name = '<div style="float: left; width: 35px; height: 22px;"><a href="'.$url_start_blog.'">' . $image . '</a></div><a href="'.$url_start_blog.'">' .$title. '</a>' . $session_img;
 
 				$list_body_blog[] = $list_name;
@@ -2535,14 +2568,20 @@ class Blog
 				$visibility_icon=($info_log[2]==0) ? 'invisible' : 'visible';
 				$visibility_info=($info_log[2]==0) ? 'Visible' : 'Invisible';
 			 	$my_image = '<a href="' .api_get_self(). '?action=edit&blog_id=' . $info_log[3] . '">';
-				$my_image.= '<img src="../img/edit.gif" border="0" title="' . get_lang('EditBlog') . '" />';
+                $my_image .= Display::return_icon(
+                    'edit.png'
+                );//'<img src="../img/edit.gif" border="0" title="' . get_lang('EditBlog') . '" />';
 				$my_image.= "</a>\n";
 				$my_image.= '<a href="' .api_get_self(). '?action=delete&blog_id=' . $info_log[3] . '" ';
 				$my_image.= 'onclick="javascript:if(!confirm(\''.addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset)). '\')) return false;" >';
-				$my_image.= '<img src="../img/delete.gif" border="0" title="' . get_lang('DeleteBlog') . '" />';
+                $my_image .= Display::return_icon(
+                    'delete.png'
+                ); //'<img src="../img/delete.gif" border="0" title="' . get_lang('DeleteBlog') . '" />';
 				$my_image.= "</a>\n";
 				$my_image.= '<a href="' .api_get_self(). '?action=visibility&blog_id=' . $info_log[3] . '">';
-				$my_image.= '<img src="../img/' . $visibility_icon . '.gif" border="0" title="' . get_lang($visibility_info) . '" />';
+                $my_image .= Display::return_icon(
+                    $visibility_icon.'.png'
+                );//'<img src="../img/' . $visibility_icon . '.gif" border="0" title="' . get_lang($visibility_info) . '" />';
 				$my_image.= "</a>\n";
 
 				$list_body_blog[]=$my_image;

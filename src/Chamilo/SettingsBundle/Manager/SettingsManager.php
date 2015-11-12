@@ -80,7 +80,6 @@ class SettingsManager extends SyliusSettingsManager
         }
 
         list($namespace, $name) = explode('.', $name);
-
         $settings = $this->loadSettings($namespace);
 
         return $settings->get($name);
@@ -95,11 +94,12 @@ class SettingsManager extends SyliusSettingsManager
             return $this->resolvedSettings[$namespace];
         }
 
-        if ($this->cache->contains($namespace)) {
+        /*if ($this->cache->contains($namespace)) {
             $parameters = $this->cache->fetch($namespace);
         } else {
             $parameters = $this->getParameters($namespace);
-        }
+        }*/
+        $parameters = $this->getParameters($namespace);
         $schema = $this->schemaRegistry->getSchema($namespace);
 
         $settingsBuilder = new SettingsBuilder();
