@@ -132,16 +132,9 @@ if ($action_todo) {
         $url = api_get_self().'?id='.intval($_GET['id']);
     }
     $form = new FormValidator('system_announcement', 'post', $url);
-    $form->addElement('header', '', $form_title);
+    $form->addElement('header', $form_title);
     $form->addText('title', get_lang('Title'), true);
-    $language_list = api_get_languages();
-    $language_list_with_keys = array();
-    $language_list_with_keys['all'] = get_lang('All');
-    for ($i=0; $i<count($language_list['name']) ; $i++) {
-        $language_list_with_keys[$language_list['folder'][$i]] = $language_list['name'][$i];
-    }
-
-    $form->addElement('select', 'lang',get_lang('Language'), $language_list_with_keys);
+    $form->addElement('select_language', 'lang', get_lang('Language'));
     $form->addHtmlEditor(
         'content',
         get_lang('Content'),

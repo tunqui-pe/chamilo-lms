@@ -2229,22 +2229,6 @@ class CourseManager
 
             $course_tables = AddCourse::get_course_tables();
 
-            // Cleaning group categories
-            $groupCategories = GroupManager::get_categories($course['code']);
-
-            if (!empty($groupCategories)) {
-                foreach ($groupCategories as $category) {
-                    GroupManager::delete_category($category['id'], $course['code']);
-                }
-            }
-
-            // Cleaning groups
-            $groups = GroupManager::get_groups();
-            if (!empty($groups)) {
-                $groupList = array_column($groups, 'id');
-                GroupManager::delete_groups($groupList);
-            }
-
             // Cleaning c_x tables
             if (!empty($courseId)) {
                 foreach ($course_tables as $table) {
@@ -2285,6 +2269,23 @@ class CourseManager
                 Database::query($sql);
             }
 
+            // Cleaning group categories
+            $groupCategories = GroupManager::get_categories($course['code']);
+
+            if (!empty($groupCategories)) {
+                foreach ($groupCategories as $category) {
+                    GroupManager::delete_category($category['id'], $course['code']);
+                }
+            }
+
+            // Cleaning groups
+            $groups = GroupManager::get_groups();
+            if (!empty($groups)) {
+                $groupList = array_column($groups, 'id');
+                GroupManager::delete_groups($groupList);
+            }
+
+
             // Delete the course from the stats tables
 
             $sql = "DELETE FROM $table_stats_hotpots WHERE c_id = $courseId";
@@ -2316,6 +2317,8 @@ class CourseManager
             // Delete the course from the database
             $sql = "DELETE FROM $table_course WHERE code = '" . $codeFiltered . "'";
             Database::query($sql);
+
+
 
             // delete extra course fields
             $extraFieldValues = new ExtraFieldValue('course');

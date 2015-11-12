@@ -22,7 +22,7 @@ $idChecked = $_REQUEST['idChecked'];
 $tool_name = get_lang('SessionList');
 Display::display_header($tool_name);
 
-$allowTutors = api_get_setting('allow_tutors_to_assign_students_to_session');
+$allowTutors = api_get_setting('session.allow_tutors_to_assign_students_to_session');
 if ($allowTutors == 'true') {
 
     $error_message = ''; // Avoid conflict with the global variable $error_msg (array type) in add_course.conf.php.

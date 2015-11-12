@@ -35,6 +35,7 @@ class SessionSettingsSchema implements SchemaInterface
                     'prevent_session_admins_to_manage_all_users' => '',
                     'session_course_ordering' => '',
                     'limit_session_admin_role' => '',
+                    'allow_tutors_to_assign_students_to_session' => '',
                 )
             )
             ->setAllowedTypes(
@@ -64,6 +65,8 @@ class SessionSettingsSchema implements SchemaInterface
             ->add('prevent_session_admins_to_manage_all_users', 'yes_no')
             ->add('session_course_ordering')
             ->add('limit_session_admin_role', 'yes_no')
+            ->add('allow_tutors_to_assign_students_to_session', 'yes_no')
+
 
         ;
     }

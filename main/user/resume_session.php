@@ -16,7 +16,7 @@ SessionManager::protect_teacher_session_edit($id_session);
 
 $tool_name = get_lang('SessionOverview');
 
-$allowTutors = api_get_setting('allow_tutors_to_assign_students_to_session');
+$allowTutors = api_get_setting('session.allow_tutors_to_assign_students_to_session');
 if ($allowTutors == 'true') {
     // Database Table Definitions
     $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);

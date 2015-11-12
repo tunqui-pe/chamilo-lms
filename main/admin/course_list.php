@@ -152,7 +152,7 @@ function get_course_data($from, $number_of_items, $column, $direction)
         $course[5] = $course[5] == SUBSCRIBE_ALLOWED ? get_lang('Yes') : get_lang('No');
         $course[6] = $course[6] == UNSUBSCRIBE_ALLOWED ? get_lang('Yes') : get_lang('No');
 
-        $language = isset($languages[$course[3]]) ? $languages[$course[3]] : $course[3];
+        $language = isset($languages[$course['col3']]) ? $languages[$course['col3']] : $course['col3'];
 
         $course_rem = array(
             $course[0],

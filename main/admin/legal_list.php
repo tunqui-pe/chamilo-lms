@@ -32,7 +32,7 @@ if (isset ($_GET['action'])) {
 $legal_count = LegalManager::count();
 
 $languages = api_get_languages();
-$available_languages = count($languages['folder']);
+$available_languages = count($languages);
 if ($legal_count != $available_languages) {
     Display::display_warning_message(get_lang('YouShouldCreateTermAndConditionsForAllAvailableLanguages'));
 }

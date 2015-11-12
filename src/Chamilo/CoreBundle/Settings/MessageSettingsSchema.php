@@ -21,8 +21,8 @@ class MessageSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'allow_message_tool' => '',
-                    'allow_send_message_to_all_platform_users' => '',
+                    'allow_message_tool' => 'true',
+                    'allow_send_message_to_all_platform_users' => 'false',
                     'message_max_upload_filesize' => '20971520',
 
                 )

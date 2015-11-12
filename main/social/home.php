@@ -16,7 +16,6 @@ $this_section = SECTION_SOCIAL;
 unset($_SESSION['this_section']);
 
 api_block_anonymous_users();
-
 if (api_get_setting('social.allow_social_tool') != 'true') {
     $url = api_get_path(WEB_CODE_PATH) . 'auth/profile.php';
     header('Location: ' . $url);
@@ -26,7 +25,11 @@ if (api_get_setting('social.allow_social_tool') != 'true') {
 $userGroup = new UserGroup();
 
 //fast upload image
-if (api_get_setting('profile', 'picture') == 'true') {
+if (api_get_setting_in_list(
+        'profile.changeable_options',
+        'picture'
+    ) == 'true'
+) {
     $form = new FormValidator('profile', 'post', 'home.php', null, array());
 
     //	PICTURE
@@ -205,14 +208,16 @@ if (count($sessionList) > 0) {
 
 $social_group_block = Display::panelCollapse(get_lang('Group'), $social_group_block, 'sm-groups', null, 'grups-acordion', 'groups-collapse');
 
-$tpl = new Template(get_lang('SocialNetwork'));
+//$tpl =  new Template(get_lang('SocialNetwork'));
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'home');
 
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_friend_block', $friend_html);
-$tpl->assign('sessionList', $social_session_block);
-$tpl->assign('social_search_block', $social_search_block);
-$tpl->assign('social_skill_block', SocialManager::getSkillBlock($user_id));
-$tpl->assign('social_group_block', $social_group_block);
-$social_layout = $tpl->get_template('social/home.tpl');
-$tpl->display($social_layout);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_friend_block', $friend_html);
+$tpl->addGlobal('sessionList', $social_session_block);
+$tpl->addGlobal('social_search_block', $social_search_block);
+$tpl->addGlobal('social_skill_block', SocialManager::getSkillBlock($user_id));
+$tpl->addGlobal('social_group_block', $social_group_block);
+
+echo $tpl->render('@ChamiloCore/default/social/home.html.twig');
+

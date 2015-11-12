@@ -9,21 +9,22 @@ class SelectLanguage extends HTML_QuickForm_select
 	/**
 	 * Class constructor
 	 */
-	function SelectLanguage($elementName=null, $elementLabel=null, $options=null, $attributes=null)
-	{
+    function SelectLanguage(
+        $elementName = null,
+        $elementLabel = null,
+        $options = null,
+        $attributes = null
+    ) {
 		parent::__construct($elementName, $elementLabel, $options, $attributes);
 		// Get all languages
 		$languages = api_get_languages();
 		$this->_options = array();
 		$this->_values = array();
-		foreach ($languages['name'] as $index => $name) {
-			if ($languages['folder'][$index] == api_get_setting(
-							'language.platform_language'
-					)
-			) {
-				$this->addOption($name,$languages['folder'][$index],array('selected'=>'selected'));
+		foreach ($languages as $iso => $name) {
+			if ($iso == api_get_setting('language.platform_language')) {
+				$this->addOption($name, $iso, array('selected'=>'selected'));
 			} else {
-				$this->addOption($name,$languages['folder'][$index]);
+				$this->addOption($name, $iso);
 			}
 		}
 	}

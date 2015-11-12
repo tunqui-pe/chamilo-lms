@@ -45,6 +45,7 @@ class HomeController extends ToolBaseController
         $courseCode = $course->getId();
         $sessionId = api_get_session_id();
         $sessionHandler = $request->getSession();
+
         $coursesAlreadyVisited = $sessionHandler->get('coursesAlreadyVisited');
 
         $result = $this->autoLaunch();
@@ -98,13 +99,15 @@ class HomeController extends ToolBaseController
         $sessionHandler->remove('toolgroup');
         $sessionHandler->remove('_gid');
 
+        //is_courseMember
+
         $isSpecialCourse = \CourseManager::isSpecialCourse($courseCode);
 
         if ($isSpecialCourse) {
             $user = $this->getUser();
             if (!empty($user)) {
                 $userId = $this->getUser()->getId();
-                $autoreg = $this->getRequest()->get('autoreg');
+                $autoreg = $request->get('autoreg');
                 if ($autoreg == 1) {
                     \CourseManager::subscribe_user(
                         $userId,

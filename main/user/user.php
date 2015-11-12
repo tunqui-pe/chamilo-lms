@@ -960,7 +960,7 @@ if (isset($origin) && $origin == 'learnpath') {
 $is_allowed_to_track = ($is_courseAdmin || $is_courseTutor);
 
 // Tool introduction
-Display::display_introduction_section(TOOL_USER, 'left');
+Display::display_introduction_section(TOOL_USER);
 $actions = '';
 $selectedTab = 1;
 
@@ -1019,7 +1019,7 @@ if (api_is_allowed_to_edit(null, true)) {
     echo '</div>';
     echo '</div>';
 
-    $allowTutors = api_get_setting('allow_tutors_to_assign_students_to_session');
+    $allowTutors = api_get_setting('session.allow_tutors_to_assign_students_to_session');
     if (api_is_allowed_to_edit() && $allowTutors == 'true') {
         $actions .= ' <a class="btn btn-default" href="session_list.php?'.api_get_cidreq().'">'.
             get_lang('Sessions').'</a>';

@@ -21,7 +21,7 @@ class LanguageSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'platform_language' => '',
+                    'platform_language' => 'en',
                     'allow_use_sub_language' => '',
                     'auto_detect_language_custom_pages' => '',
                     'show_different_course_language' => '',
@@ -51,13 +51,14 @@ class LanguageSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('platform_language')
+            ->add('platform_language', 'language')
             ->add('allow_use_sub_language', 'yes_no')
             ->add('auto_detect_language_custom_pages', 'yes_no')
             ->add('show_different_course_language', 'yes_no')
             ->add('language_priority_1')
             ->add('language_priority_2')
             ->add('language_priority_3')
-            ->add('language_priority_4');
+            ->add('language_priority_4')
+        ;
     }
 }

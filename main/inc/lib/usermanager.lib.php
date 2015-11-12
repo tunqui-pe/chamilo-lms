@@ -112,7 +112,7 @@ class UserManager
      * @param  string Login
      * @param  string Password
      * @param  string Any official code (optional)
-     * @param  string User language    (optional)
+     * @param  string User language    (optional) (isocode)
      * @param  string Phone number    (optional)
      * @param  string Picture URI        (optional)
      * @param  string Authentication source    (optional, defaults to 'platform', dependind on constant)
@@ -201,8 +201,7 @@ class UserManager
 
         //Checking the user language
         $languages = api_get_languages();
-        $language = strtolower($language);
-        if (!in_array($language, $languages['folder'])) {
+        if (!in_array($language, array_keys($languages))) {
             $language = api_get_setting('language.platform_language');
         }
 
@@ -759,7 +758,7 @@ class UserManager
 
         //Checking the user language
         $languages = api_get_languages();
-        if (!in_array($language, $languages['folder'])) {
+        if (!in_array($language, array_keys($languages))) {
             $language = api_get_setting('language.platform_language');
         }
 

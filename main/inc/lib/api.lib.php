@@ -2586,7 +2586,6 @@ function api_get_setting_in_list($variable, $option)
 function api_get_setting($variable)
 {
     $variable = trim($variable);
-
     switch ($variable) {
         case 'server_type':
             $test = ['dev', 'test'];
@@ -2597,8 +2596,7 @@ function api_get_setting($variable)
 
             return 'prod';
         case 'stylesheets':
-            return 'platform.theme';
-            break;
+            $variable = 'platform.theme';
         default:
             return Container::getSettingsManager()->getSetting($variable);
     }
@@ -4317,27 +4315,25 @@ function api_get_languages_combo($name = 'language') {
     $ret = '';
 
     // Retrieve a complete list of all the languages.
-    $language_list = api_get_languages();
+    $languages = api_get_languages();
 
-    if (count($language_list['name']) < 2) {
+    if (count($languages) < 2) {
         return $ret;
     }
 
     $default = api_get_user_language();
 
-    $languages  = $language_list['name'];
-    $folder     = $language_list['folder'];
-
     $ret .= '<select name="' . $name . '" id="language_chosen">';
-    foreach ($languages as $key => $value) {
-        if ($folder[$key] == $default) {
+    foreach ($languages as $iso => $value) {
+        if ($iso == $default) {
             $selected = ' selected="selected"';
         } else {
             $selected = '';
         }
-        $ret .= sprintf('<option value=%s" %s>%s</option>', $folder[$key], $selected, $value);
+        $ret .= sprintf('<option value=%s" %s>%s</option>', $iso, $selected, $value);
     }
     $ret .= '</select>';
+
     return $ret;
 }
 
@@ -4383,14 +4379,12 @@ function api_display_language_form($hide_if_no_choice = false)
 {
     // Retrieve a complete list of all the languages.
     $language_list = api_get_languages();
-    if (count($language_list['name']) <= 1 && $hide_if_no_choice) {
+    if (count($language_list) <= 1 && $hide_if_no_choice) {
         return; //don't show any form
     }
 
     $user_selected_language = api_get_language_selected_in_login();
 
-    $original_languages = $language_list['name'];
-    $folder = $language_list['folder']; // This line is probably no longer needed.
     $html = '
     <script type="text/javascript">
     <!--
@@ -4410,13 +4404,13 @@ function api_display_language_form($hide_if_no_choice = false)
     $html .= '<label style="display: none;" for="language_list">' . get_lang('Language') . '</label>';
     $html .=  '<select id="language_list" class="selectpicker show-tick form-control" name="language_list" >';
 
-    foreach ($original_languages as $key => $value) {
-        if ($folder[$key] == $user_selected_language) {
+    foreach ($language_list as $iso => $value) {
+        if ($iso == $user_selected_language) {
             $option_end = ' selected="selected" >';
         } else {
             $option_end = '>';
         }
-        $html .=  '<option value="'.api_get_self().'?language='.$folder[$key].'"'.$option_end;
+        $html .=  '<option value="'.api_get_self().'?language='.$iso.'"'.$option_end;
         //echo substr($value, 0, 16); // Cut string to keep 800x600 aspect.
         $html .=  $value.'</option>';
     }
@@ -4450,8 +4444,8 @@ function api_get_languages() {
     $result = Database::query($sql);
     $language_list = array();
     while ($row = Database::fetch_array($result)) {
-        $language_list['name'][] = $row['original_name'];
-        $language_list['folder'][] = $row['dokeos_folder'];
+        //var_dump($row);
+        $language_list[$row['isocode']] = $row['original_name'];
     }
     return $language_list;
 }
@@ -4466,7 +4460,7 @@ function api_get_languages_to_array() {
     $result = Database::query($sql);
     $languages = array();
     while ($row = Database::fetch_array($result)) {
-        $languages[$row['dokeos_folder']] = $row['original_name'];
+        $languages[$row['isocode']] = $row['original_name'];
     }
     return $languages;
 }

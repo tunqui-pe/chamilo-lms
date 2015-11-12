@@ -283,10 +283,8 @@ $interbreadcrumb[] = array(
     "name" => $objExercise->name,
 );
 
-$tpl = new Template(get_lang('ReportByQuestion'));
+//$tpl = new Template(get_lang('ReportByQuestion'));
 $actions = '<a href="exercise_report.php?exerciseId='.intval($_GET['exerciseId']).'&'.api_get_cidreq().'">' .
     Display :: return_icon('back.png', get_lang('GoBackToQuestionList'),'',ICON_SIZE_MEDIUM).'</a>';
 $actions = Display::div($actions, array('class'=> 'actions'));
-$content = $actions.$content;
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+echo $actions.$content;

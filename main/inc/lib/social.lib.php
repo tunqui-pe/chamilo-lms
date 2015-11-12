@@ -1646,7 +1646,13 @@ class SocialManager extends UserManager
      * @param boolean $show_full_profile - Optional. Shows the Full Profile or Not
      * @return string The HTML code with the social block
      */
-    public static function setSocialUserBlock(Template $template, $userId, $groupBlock = '', $groupId = 0, $show_full_profile = true)
+    public static function setSocialUserBlock(
+        $template,
+        $userId,
+        $groupBlock = '',
+        $groupId = 0,
+        $show_full_profile = true
+    )
     {
         if (api_get_setting('social.allow_social_tool') != 'true') {
             return '';
@@ -1667,14 +1673,14 @@ class SocialManager extends UserManager
 
         $userInfo = api_get_user_info($userId, true, false, true);
 
-        $template->assign('user', $userInfo);
-        $template->assign('social_avatar_block', $socialAvatarBlock);
-        $template->assign('profile_edition_link', $profileEditionLink);
+        $template->addGlobal('user', $userInfo);
+        $template->addGlobal('social_avatar_block', $socialAvatarBlock);
+        $template->addGlobal('profile_edition_link', $profileEditionLink);
 
         //If not friend $show_full_profile is False and the user can't see Email Address and Vcard Download Link
         if ($show_full_profile) {
             //Added the link to export the vCard to the Template
-            $template->assign('vcard_user_link', $vCardUserLink);
+            $template->addGlobal('vcard_user_link', $vCardUserLink);
         }
 
         if (api_get_setting('platform.gamification_mode') === '1') {
@@ -1683,7 +1689,7 @@ class SocialManager extends UserManager
                 $userInfo['status']
             );
 
-            $template->assign('gamification_points', $gamificationPoints);
+            $template->addGlobal('gamification_points', $gamificationPoints);
         }
         $chatEnabled = api_is_global_chat_enabled();
         $template->assign('chat_enabled', $chatEnabled);
@@ -1693,7 +1699,10 @@ class SocialManager extends UserManager
             $templateName = $template->get_template('social/group_block.tpl');
         }
 
-        $template->assign('social_avatar_block', $template->fetch($templateName));
+        $template->addGlobal(
+            'social_avatar_block',
+            $template->fetch($templateName)
+        );
     }
 
     /**

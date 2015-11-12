@@ -340,7 +340,10 @@ $htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
 
 $template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
-$htmlHeadXtra[] = $template->fetch('default/exercise/submit.js.tpl');
+$htmlHeadXtra[] = $template->render(
+    'ChamiloCoreBundle:default/exercise:submit.html.twig',
+    ['shuffle_answers' => $objExercise->getShuffle()]
+);
 $htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
 
 $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"../plugin/hotspot/JavaScriptFlashGateway.js\"></script>
@@ -456,7 +459,7 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 // -->
 </script>";
 
-Display::display_header($nameTools,'Exercise');
+//Display::display_header($nameTools,'Exercise');
 /*
 if ($objExercise->exercise_was_added_in_lp) {
     if ($objExercise->force_edit_exercise_in_lp == true) {

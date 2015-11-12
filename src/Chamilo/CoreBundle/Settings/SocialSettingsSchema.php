@@ -21,7 +21,7 @@ class SocialSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'allow_social_tool' => '',
+                    'allow_social_tool' => 'true',
                     'allow_students_to_create_groups_in_social' => '',
 
                 )

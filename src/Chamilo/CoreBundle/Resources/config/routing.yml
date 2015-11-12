@@ -47,13 +47,17 @@ core_admin:
 #    resource: "@ChamiloCoreBundle/Controller/App"
 #    type: annotation
 #    prefix:   /app
-#
+
+course_url:
+    path: courses
+
 core_tool:
     resource: "@ChamiloCourseBundle/Controller"
     type: annotation
     prefix: /courses/{course}/
 
 # redirects /url/ to /url
+
 
 remove_trailing_slash:
     path: /{url}

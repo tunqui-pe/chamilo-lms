@@ -185,7 +185,7 @@ if ($form->validate()) {
 }
 
 // Display the form.
-$content = $form->return_form();
+$content = $form->returnForm();
 
 echo $content;
 
