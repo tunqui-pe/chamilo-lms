@@ -5235,7 +5235,7 @@ class DocumentManager
 
             // Copy files to users myfiles
             if (api_get_setting('social.allow_social_tool') == 'true' &&
-                api_get_setting('users_copy_files') == 'true' &&
+                api_get_setting('document.users_copy_files') == 'true' &&
                 !api_is_anonymous()
             ) {
                 $copy_myfiles_link = ($filetype == 'file') ? api_get_self() . '?' . api_get_cidreq() . '&action=copytomyfiles&id=' . $document_data['id'] : api_get_self() . '?' . api_get_cidreq();

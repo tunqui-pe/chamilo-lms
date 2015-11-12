@@ -1692,16 +1692,17 @@ class SocialManager extends UserManager
             $template->addGlobal('gamification_points', $gamificationPoints);
         }
         $chatEnabled = api_is_global_chat_enabled();
-        $template->assign('chat_enabled', $chatEnabled);
-        $templateName = $template->get_template('social/user_block.tpl');
+        $template->addGlobal('chat_enabled', $chatEnabled);
+
+        $templateName = $template->render('@ChamiloCore/default/social/user_block.html.twig');
 
         if (in_array($groupBlock, ['groups', 'group_edit', 'member_list'])) {
-            $templateName = $template->get_template('social/group_block.tpl');
+            $templateName = $template->renders('@ChamiloCore/default/social/group_block.html.twig');
         }
 
         $template->addGlobal(
             'social_avatar_block',
-            $template->fetch($templateName)
+            $templateName
         );
     }
 
