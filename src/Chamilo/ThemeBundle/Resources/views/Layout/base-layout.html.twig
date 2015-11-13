@@ -72,49 +72,12 @@
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
     <script>
-        // External plugins not part of the default Ckeditor package.
-        var plugins = [
-            'asciimath',
-            'asciisvg',
-            'audio',
-            //'ckeditor_wiris',
-            'dialogui',
-            'glossary',
-            'leaflet',
-            'mapping',
-            'maximize',
-            'mathjax',
-            'oembed',
-            'toolbar',
-            'toolbarswitch',
-            'video',
-            'wikilink',
-            'wordcount',
-            'youtube'
-        ];
-        plugins.forEach(function (plugin) {
-            CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
-        });
 
-        // basic plugins
-        plugins = [
-            'adobeair',
-            'ajax',
-            'docprops',
-            'iframedialog',
-            'lineutils',
-            'sourcedialog',
-            'stylesheetparser',
-            'sharedspace',
-            //'uicolor',
-            'widget',
-            'tableresize',
-            'xml'
-        ];
-        plugins.forEach(function (plugin) {
-            CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilotheme/components/ckeditor/plugins/') }}' + plugin + '/');
-        });
     </script>
+
+    {% block chamilo_header_js %}
+        {% include '@ChamiloTheme/Layout/header.js.twig' %}
+    {% endblock %}
 </head>
 <body class="{{ admin_skin|default('skin-blue')}}">
 <noscript>{{ "NoJavascript" | trans }}</noscript>
@@ -268,5 +231,10 @@
 
 {% endblock %}
 </div>
+
+    {% block chamilo_footer_js %}
+        {% include '@ChamiloTheme/Layout/footer.js.twig' %}
+    {% endblock %}
+
 </body>
 </html>

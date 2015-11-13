@@ -35,6 +35,7 @@ class PlatformSettingsSchema implements SchemaInterface
                     'gamification_mode' => ' ',
                     'order_user_list_by_official_code' => '',
                     'cookie_warning' => '',
+                    'donotlistcampus' => ''
                 )
             )
             ->setAllowedTypes(
@@ -74,6 +75,8 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('gamification_mode')
             ->add('order_user_list_by_official_code', 'yes_no')
             ->add('cookie_warning', 'yes_no')
+            ->add('donotlistcampus', 'yes_no')
+
 
         ;
     }

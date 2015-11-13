@@ -5,6 +5,8 @@
  */
 //require_once '../global.inc.php';
 
+\Chamilo\CoreBundle\Framework\Container::getTwig()->addGlobal('show_header', false);
+
 api_protect_admin_script();
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
@@ -139,12 +141,10 @@ function check_system_version()
             'numberofsessions' => $number_of_sessions,
             //The donotlistcampus setting recovery should be improved to make
             // it true by default - this does not affect numbers counting
-            'donotlistcampus' => api_get_setting('donotlistcampus'),
+            'donotlistcampus' => api_get_setting('platform.donotlistcampus'),
             'organisation' => api_get_setting('platform.institution'),
             'language' => api_get_setting('language.platform_language'),
-            'adminname' => api_get_setting(
-                    'platform.administrator_name'
-                ).' '.api_get_setting('platform.administrator_surname'),
+            'adminname' => api_get_setting('platform.administrator_name').' '.api_get_setting('platform.administrator_surname'),
         );
         $version = null;
         // version.php has been updated to include the version in an HTTP header

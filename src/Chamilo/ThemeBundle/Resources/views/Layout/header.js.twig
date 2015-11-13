@@ -1,6 +1,6 @@
 <script>
-// External plugins not part of the default Ckeditor package.
-var plugins = [
+    // External plugins not part of the default Ckeditor package.
+    var plugins = [
     'asciimath',
     'asciisvg',
     'audio',
@@ -18,11 +18,38 @@ var plugins = [
     'wikilink',
     'wordcount',
     'youtube'
-];
+    ];
+    plugins.forEach(function (plugin) {
+        CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
+        });
 
-plugins.forEach(function(plugin) {
-    CKEDITOR.plugins.addExternal(plugin, '{{ _p.web_main ~ 'inc/lib/javascript/ckeditor/plugins/' }}' + plugin + '/');
-});
+    // basic plugins
+    plugins = [
+    'adobeair',
+    'ajax',
+    'docprops',
+    'iframedialog',
+    'lineutils',
+    'sourcedialog',
+    'stylesheetparser',
+    'sharedspace',
+    //'uicolor',
+    'widget',
+    'tableresize',
+    'xml'
+    ];
+
+    plugins.forEach(function (plugin) {
+        CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilotheme/components/ckeditor/plugins/') }}' + plugin + '/');
+        });
+
+    /* Global chat variables */
+    var ajax_url = '{{ url('web.ajax') }}chat.ajax.php';
+    var online_button = '{{ asset('bundles/chamilocore/img/statusonline.png') }}';
+    var offline_button =
+    '{{ asset('bundles/chamilocore/img/statusoffline.png') }}';
+    var connect_lang = '{{ "ChatConnected"|trans }}';
+    var disconnect_lang = '{{ "ChatDisconnected"|trans }}';
 
 /**
  * Function use to load templates in a div
@@ -328,7 +355,7 @@ function showConfirmationPopup(obj, urlParam) {
 
     var dialog  = $("#dialog");
     if ($("#dialog").length == 0) {
-        dialog  = $('<div id="dialog" style="display:none">{{ "ConfirmYourChoice" | get_lang }} </div>').appendTo('body');
+        dialog  = $('<div id="dialog" style="display:none">{{ "ConfirmYourChoice" | trans }} </div>').appendTo('body');
     }
 
     var width_value = 350;
@@ -358,7 +385,7 @@ function showConfirmationPopup(obj, urlParam) {
         resizable   : resizable_value,
         buttons: [
             {
-                text: '{{ 'Yes' | get_lang }}',
+        text: '{{ 'Yes' | trans }}',
                 click: function() {
                     window.location = url;
                 },
@@ -367,7 +394,7 @@ function showConfirmationPopup(obj, urlParam) {
                 }
             },
             {
-                text: '{{ 'No' | get_lang }}',
+        text: '{{ 'No' | trans }}',
                 click: function() { $(this).dialog("close"); },
                 icons:{
                     primary:'ui-icon-locked'
@@ -394,7 +421,7 @@ function setCheckbox(value, table_id) {
 
 function action_click(element, table_id) {
     d = $("#"+table_id);
-    if (!confirm('{{ "ConfirmYourChoice"|get_lang }}')) {
+        if (!confirm('{{ "ConfirmYourChoice"|trans }}')) {
         return false;
     } else {
         var action =$(element).attr("data-action");

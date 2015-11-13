@@ -751,7 +751,12 @@ class Statistics
         if (Database::num_rows($res) > 0) {
             $courses = array ();
             while ($obj = Database::fetch_object($res)) {
+
                 $courseInfo = api_get_course_info_by_id($obj->c_id);
+                if (empty($courseInfo)) {
+                    continue;
+                }
+
                 $course = array ();
                 $course[]= '<a href="'.api_get_path(WEB_COURSE_PATH).$courseInfo['code'].'">'.$courseInfo['code'].' <a>';
                 // Allow sort by date hiding the numerical date
