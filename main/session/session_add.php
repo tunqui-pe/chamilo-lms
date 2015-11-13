@@ -221,5 +221,3 @@ echo '<a href="../session/session_list.php">'.
 echo '</div>';
 
 $form->display();
-
-Display::display_footer();

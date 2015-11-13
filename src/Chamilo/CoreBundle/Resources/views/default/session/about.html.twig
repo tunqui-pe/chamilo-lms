@@ -5,7 +5,8 @@
 
             {% if show_tutor %}
                 <p>
-                    <em class="fa fa-user"></em> {{ 'SessionGeneralCoach'|get_lang }}: <em>{{ session.generalCoach.getCompleteName() }}</em>
+                    <em class="fa fa-user"></em> {{ 'SessionGeneralCoach'|trans }}
+                    : <em>{{ session.generalCoach.getCompleteName() }}</em>
                 </p>
             {% endif %}
 
@@ -21,7 +22,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ 'RequiredSessions'|get_lang }}</div>
+                    <div class="panel-heading">{{ 'RequiredSessions'|trans }}</div>
                     <div class="panel-body">
                         <div class="row">
                             {% for sequence in sequences %}
@@ -48,7 +49,7 @@
 
     {% if is_subscribed %}
         <div class="alert alert-info">
-            {{ 'AlreadyRegisteredToSession'|get_lang }}
+            {{ 'AlreadyRegisteredToSession'|trans }}
         </div>
     {% endif %}
 
@@ -87,12 +88,14 @@
             <div class="col-xs-12 col-md-7">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{ "CourseInformation"|get_lang }}</h4>
+                        <h4>{{ "CourseInformation"|trans }}</h4>
                     </div>
                     <div class="panel-body">
                         {% if course_data.objectives %}
                             <div class="objective-course">
-                                <h4 class="title-info"><em class="fa fa-book"></em> {{ "Objectives"|get_lang }}</h4>
+                                <h4 class="title-info"><em
+                                            class="fa fa-book"></em> {{ "Objectives"|trans }}
+                                </h4>
                                 <div class="content-info">
                                     {{ course_data.objectives.getContent }}
                                 </div>
@@ -101,7 +104,9 @@
 
                         {% if course_data.topics %}
                             <div class="topics">
-                                <h4 class="title-info"><em class="fa fa-book"></em> {{ "Topics"|get_lang }}</h4>
+                                <h4 class="title-info"><em
+                                            class="fa fa-book"></em> {{ "Topics"|trans }}
+                                </h4>
                                 <div class="content-info">
                                     {{ course_data.topics.getContent }}
                                 </div>
@@ -115,7 +120,7 @@
                 {% if course_data.coaches %}
                     <div class="panel panel-default teachers">
                         <div class="panel-heading">
-                            <h4>{{ "Coaches"|get_lang }}</h4>
+                            <h4>{{ "Coaches"|trans }}</h4>
                         </div>
                         <div class="panel-body">
                             {% for coach in course_data.coaches %}
@@ -143,7 +148,7 @@
 
                 {% if course_data.tags %}
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ 'Tags'|get_lang }}</div>
+                        <div class="panel-heading">{{ 'Tags'|trans }}</div>
                         <div class="panel-body">
                             <ul class="list-inline">
                                 {% for tag in course_data.tags %}
@@ -157,7 +162,7 @@
                 {% endif %}
 
                 <div class="panel panel-default social-share">
-                    <div class="panel-heading">{{ "ShareWithYourFriends"|get_lang }}</div>
+                    <div class="panel-heading">{{ "ShareWithYourFriends"|trans }}</div>
                     <div class="panel-body">
                         <div class="icons-social text-center">
                             <a href="https://www.facebook.com/sharer/sharer.php?{{ {'u': pageUrl}|url_encode }}" target="_blank" class="btn bnt-link btn-lg">
@@ -185,7 +190,7 @@
             {% elseif not _u.logged %}
                 {% if 'allow_registration'|get_setting == 'true' %}
                     <a href="{{ _p.web_main ~ 'auth/inscription.php' }}" class="btn btn-info btn-lg">
-                        <em class="fa fa-sign-in fa-fw"></em> {{ 'SignUp'|get_lang }}
+                        <em class="fa fa-sign-in fa-fw"></em> {{ 'SignUp'|trans }}
                     </a>
                 {% endif %}
             {% endif %}

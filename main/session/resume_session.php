@@ -373,21 +373,34 @@ if (!empty($requirementAndDependencies['dependencies'])) {
     $dependencies .= implode(', ', array_column($requirementAndDependencies['dependencies'], 'admin_link'));
 }
 
-$tpl = new Template(get_lang('Session'));
-$tpl->assign('session_header', $sessionHeader);
-$tpl->assign('title', $sessionTitle);
-$tpl->assign('general_coach', $generalCoach);
-$tpl->assign('session_admin', api_get_user_info($session->getSessionAdminId()));
-$tpl->assign('session', $sessionInfo);
-$tpl->assign('session_category', is_null($sessionCategory) ? null : $sessionCategory->getName());
-$tpl->assign('session_dates', SessionManager::parseSessionDates($sessionInfo));
-$tpl->assign('session_visibility', SessionManager::getSessionVisibility($sessionInfo));
-$tpl->assign('url_list', $urlList);
-$tpl->assign('extra_fields', $extraFieldData);
-$tpl->assign('course_list', $courseListToShow);
-$tpl->assign('user_list', $userListToShow);
-$tpl->assign('dependencies', $dependencies);
-$tpl->assign('requirements', $requirements);
+//$tpl = new Template(get_lang('Session'));
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$tpl->addGlobal('session_header', $sessionHeader);
+$tpl->addGlobal('title', $sessionTitle);
+$tpl->addGlobal('general_coach', $generalCoach);
+$tpl->addGlobal(
+    'session_admin',
+    api_get_user_info($session->getSessionAdminId())
+);
+$tpl->addGlobal('session', $sessionInfo);
+$tpl->addGlobal(
+    'session_category',
+    is_null($sessionCategory) ? null : $sessionCategory->getName()
+);
+$tpl->addGlobal(
+    'session_dates',
+    SessionManager::parseSessionDates($sessionInfo)
+);
+$tpl->addGlobal(
+    'session_visibility',
+    SessionManager::getSessionVisibility($sessionInfo)
+);
+$tpl->addGlobal('url_list', $urlList);
+$tpl->addGlobal('extra_fields', $extraFieldData);
+$tpl->addGlobal('course_list', $courseListToShow);
+$tpl->addGlobal('user_list', $userListToShow);
+$tpl->addGlobal('dependencies', $dependencies);
+$tpl->addGlobal('requirements', $requirements);
 
-$layout = $tpl->get_template('session/resume_session.tpl');
-$tpl->display($layout);
+echo $tpl->render('@ChamiloCore/default/session/resume_session.html.twig');
+

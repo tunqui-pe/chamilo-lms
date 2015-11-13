@@ -1,66 +1,63 @@
-{% extends template ~ "/layout/layout_1_col.tpl" %}
-
-{% block content %}
-
+{% autoescape false %}
 {{ session_header }}
 {{ title }}
 
 <table id="session-properties" class="data_table">
     <tr>
-        <td>{{ 'CreatedBy'|get_lang }}</td>
+        <td>{{ 'CreatedBy'|trans }}</td>
         <td>{{ session_admin.complete_name }}</td>
     </tr>
     <tr>
-        <td>{{ 'GeneralCoach' | get_lang}} :</td>
+        <td>{{ 'GeneralCoach' | trans }} :</td>
         <td>{{ general_coach.complete_name }}</td>
     </tr>
     {% if session_category  %}
     <tr>
-        <td>{{ 'SessionCategory' | get_lang}} </td>
+        <td>{{ 'SessionCategory' | trans }} </td>
         <td>{{ session_category }}</td>
     </tr>
     {% endif %}
 
     {% if session.duration > 0 %}
     <tr>
-        <td>{{ 'Duration' | get_lang}} </td>
+        <td>{{ 'Duration' | trans }} </td>
         <td>
-            {{ session.duration }} {{ 'Days' | get_lang }}
+            {{ session.duration }} {{ 'Days' | trans }}
         </td>
     </tr>
     {% else %}
     <tr>
-        <td>{{ 'DisplayDates' | get_lang}} </td>
+        <td>{{ 'DisplayDates' | trans }} </td>
         <td>{{ session_dates.display }}</td>
     </tr>
     <tr>
-        <td>{{ 'AccessDates' | get_lang}} </td>
+        <td>{{ 'AccessDates' | trans }} </td>
         <td>{{ session_dates.access }}</td>
     </tr>
     <tr>
-        <td>{{ 'CoachDates' | get_lang}} </td>
+        <td>{{ 'CoachDates' | trans }} </td>
         <td>{{ session_dates.coach }}</td>
     </tr>
     {% endif %}
 
     <tr>
-        <td>{{ 'Description' | get_lang}} </td>
+        <td>{{ 'Description' | trans }} </td>
         <td>
             {{ session.description }}
         </td>
     </tr>
     <tr>
-        <td>{{ 'ShowDescription' | get_lang}} </td>
+        <td>{{ 'ShowDescription' | trans }} </td>
         <td>
             {% if session.show_description == 1 %}
-                {{ 'Yes' | get_lang}}
+                {{ 'Yes' | trans }}
             {% else %}
-                {{ 'No' | get_lang}}
+                {{ 'No' | trans }}
             {% endif %}
         </td>
     </tr>
     <tr>
-        <td>{{ 'SessionVisibility' | get_lang}} </td>
+        <td>{{ 'SessionVisibility' | trans }} </td>
         <td>
             {{ session_visibility }}
         </td>
@@ -89,4 +86,5 @@
 
 {{ requirements }}
 {{ dependencies }}
-{% endblock %}
+
+{% endautoescape %}
