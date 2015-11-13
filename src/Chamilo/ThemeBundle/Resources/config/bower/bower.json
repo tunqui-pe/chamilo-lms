@@ -45,7 +45,7 @@
     "jplayer": "2.8",
     "xcolor": "*",
     "jquery.ui.touch": "*",
-    "jsplumb": "*"
+    "jsplumb": "2.0.4"
   },
   "resolutions": {
     "jquery": "2.1.4"

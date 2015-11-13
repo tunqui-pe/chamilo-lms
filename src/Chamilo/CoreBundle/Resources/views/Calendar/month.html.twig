@@ -110,11 +110,11 @@ $(document).ready(function() {
 
         viewDisplay: function(view) {
             /* When changing the view update the qtips */
-            var api = $('.qtip').qtip('api'); // Access the API of the first tooltip on the page
+            /*var api = $('.qtip').qtip('api'); // Access the API of the first tooltip on the page
             if (api) {
                 api.destroy();
                 //api.render();
-            }
+             }*/
         },
         // Add event
         select: function(start, end, allDay, jsEvent, view) {
@@ -226,13 +226,14 @@ $(document).ready(function() {
         },
         eventRender: function(event, element) {
             if (event.attachment) {
-                element.qtip({
+                /*element.qtip({
                     hide: {
                         delay: 2000
                     },
                     content: event.attachment,
                     position: { at:'top right' , my:'bottom right'},
                 }).removeData('qtip'); // this is an special hack to add multiple qtip in the same target
+                 */
             }
             if (event.description) {
                 element.qtip({

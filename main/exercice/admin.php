@@ -335,8 +335,8 @@ function multiple_answer_true_false_onchange(variable) {
 
 </script>';
 
-$htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
-$htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
+$htmlHeadXtra[] = api_get_theme_asset('jsplumb/dist/js/jsPlumb-2.0.4.js');
+$htmlHeadXtra[] = api_get_theme_asset('jquery.ui.touch/jquery.ui.touch.js');
 
 $template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 

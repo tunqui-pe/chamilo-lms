@@ -2,7 +2,6 @@
 {% import "ChamiloThemeBundle:Macros:actions.html.twig" as macro_actions %}
 {% import "ChamiloThemeBundle:Macros:buttons.html.twig" as macro_buttons %}
 {% import "ChamiloThemeBundle:Macros:image.html.twig" as macro_image %}
-
 <!doctype html>
 <!--[if lt IE 7 ]>
 <html lang="{{ app.request.locale }}" class="no-js ie6"> <![endif]-->
@@ -57,6 +56,7 @@
 
     <link rel="stylesheet" href="{{ asset('bundles/chamilocore/css/base.css') }}"/>
     <link rel="stylesheet" media="print" href="{{ asset('bundles/chamilocore/css/print.css') }}"/>
+
     <link rel="stylesheet" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/default.css') }}"/>
     <link rel="stylesheet" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/learnpath.css') }}"/>
     <link rel="stylesheet" media="print" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/print.css') }}"/>
@@ -203,7 +203,7 @@
     {% include "@template_style/layout/course_navigation.html.twig" %}
 {% endif %}
 
-{% block chamilo_admin_header %}
+    {% block chamilo_header %}
     {#<header class="header">#}
         {#{% block chamilo_logo %}#}
         {#<a href="#" class="logo">#}

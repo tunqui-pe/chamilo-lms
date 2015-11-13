@@ -765,7 +765,8 @@ function active_filter($active, $urlParams, $row)
     /* you cannot lock yourself out otherwise you could disable all the accounts including your own => everybody is
         locked out and nobody can change it anymore.*/
     if ($row[0] <> $userId) {
-        $result = '<center><img src="../img/icons/16/'.$image.'.png" border="0" alt="'.get_lang(ucfirst($action)).'" title="'.get_lang(ucfirst($action)).'"/></center>';
+        $title = get_lang(ucfirst($action));
+        $result = '<center>'.Display::return_icon($image.'.png', $title).'</center>';
     }
 
     return $result;

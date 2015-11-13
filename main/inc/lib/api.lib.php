@@ -846,6 +846,8 @@ function api_get_path($path_type, $path = null)
         $paths[WEB_IMG_PATH] = Container::getAsset()->getUrl(
             'bundles/chamilocore/img/'
         );
+
+
         $paths[SYS_IMG_PATH] = $paths[SYS_PATH].$paths[SYS_IMG_PATH];
         $paths[WEB_LIBRARY_PATH]        = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_PATH];
         $paths[WEB_LIBRARY_JS_PATH]     = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_JS_PATH];
@@ -6594,6 +6596,26 @@ function api_get_js($file) {
  */
 function api_get_asset($file) {
     return '<script type="text/javascript" src="'.api_get_path(WEB_PATH).'web/assets/'.$file.'"></script>'."\n";
+}
+
+function api_get_bundle_asset($file)
+{
+    $path = str_replace('/chamilocore/img', '', api_get_path(WEB_IMG_PATH));
+
+    return '<script type="text/javascript" src="'.$path.'/'.$file.'"></script>'."\n";
+}
+
+function api_get_theme_asset($file)
+{
+    return api_get_bundle_asset('chamilotheme/components/'.$file);
+}
+
+function api_get_theme_asset_css($file)
+{
+    $path = str_replace('/chamilocore/img', '', api_get_path(WEB_IMG_PATH));
+    $file = $path.'chamilotheme/components/'.$file;
+
+    return api_get_css($file, 'screen');
 }
 
 /**

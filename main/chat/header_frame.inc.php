@@ -133,7 +133,7 @@ header('Content-Type: text/html; charset=UTF-8');
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/emojione/css/autocomplete.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/highlight/styles/github.css">
 <?php echo api_get_jquery_js(); ?>
-<?php echo api_get_asset('bootstrap/dist/js/bootstrap.min.js'); ?>
+<?php echo api_get_theme_asset('bootstrap/dist/js/bootstrap.min.js'); ?>
 <?php echo api_get_js('highlight/highlight.pack.js'); ?>
 <?php echo api_get_js('jquery-textcomplete/jquery.textcomplete.js'); ?>
 <?php echo api_get_js('emojione/js/emojione.min.js'); ?>

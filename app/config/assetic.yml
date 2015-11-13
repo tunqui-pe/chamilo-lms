@@ -64,6 +64,7 @@ assetic:
                 - bundles/chamilotheme/components/jqgrid/js/jquery.jqGrid.js
                 - bundles/chamilotheme/components/select2/dist/js/select2.js
                 - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
+                - bundles/chamilotheme/components/jquery.scrollbar/jquery.scrollbar.js
 #                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
 
 #                - @ChamiloCoreBundle/Resources/public/js/app.js
