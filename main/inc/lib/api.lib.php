@@ -6703,9 +6703,11 @@ function api_get_jquery_libraries_js($libraries) {
             $languaje = $platform_isocode;
         }
         //$js .= '<link rel="stylesheet" href="'.$js_path.'jqgrid/css/ui.jqgrid.css" type="text/css">';
-        $js .= api_get_css($js_path.'jqgrid/css/ui.jqgrid.css');
-        $js .= api_get_js('jqgrid/js/i18n/grid.locale-'.$languaje.'.js');
-        $js .= api_get_js('jqgrid/js/jquery.jqGrid.min.js');
+        $js .= api_get_theme_asset_css('jqgrid/css/ui.jqgrid.css');
+        $js .= api_get_theme_asset(
+            'jqgrid/js/i18n/grid.locale-'.$languaje.'.js'
+        );
+        $js .= api_get_theme_asset('jqgrid/js/minified/jquery.jqGrid.min.js');
     }
 
     //Document multiple upload funcionality
