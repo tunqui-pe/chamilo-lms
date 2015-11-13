@@ -89,17 +89,13 @@ if (!empty($dates)) {
     $content .= '<a href="#" id="prev"></a>';
     $content .= '<a href="#" id="next"></a>';
     $content .= '</div></div>';
-
 }
-
-$message = null;
 
 if (empty($content)) {
-    $message = Display::return_message(get_lang('NoDataAvailable'), 'warning');
+    Display::return_message(get_lang('NoDataAvailable'), 'warning');
 }
 
-$tpl = new Template($nameTools);
+//$tpl = new Template($nameTools);
 
-$tpl->assign('message', $message);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+echo $content;
+

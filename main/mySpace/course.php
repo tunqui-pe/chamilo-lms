@@ -44,7 +44,7 @@ function count_courses()
 //checking if the current coach is the admin coach
 $show_import_icon = false;
 
-if (api_get_setting('add_users_by_coach') == 'true') {
+if (api_get_setting('session.add_users_by_coach') == 'true') {
     if (!api_is_platform_admin()) {
         $sql = 'SELECT id_coach
                 FROM '.Database::get_main_table(TABLE_MAIN_SESSION).'

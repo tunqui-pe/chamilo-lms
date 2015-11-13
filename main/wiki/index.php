@@ -119,4 +119,3 @@ $wiki->showActionBar();
 echo $wiki->getMessages();
 echo $content;
 
-Display::display_footer();

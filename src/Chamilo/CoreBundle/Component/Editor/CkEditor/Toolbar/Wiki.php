@@ -25,7 +25,7 @@ class Wiki extends Basic
 
         $config['forcePasteAsPlainText'] = false;
 
-        if (api_get_setting('force_wiki_paste_as_plain_text') == 'true') {
+        if (api_get_setting('editor.force_wiki_paste_as_plain_text') == 'true') {
             $config['forcePasteAsPlainText'] = true;
         }
 

@@ -292,7 +292,7 @@ class Wiki
         // are not made here, but through the interce buttons
 
         // cleaning the variables
-        if (api_get_setting('htmlpurifier_wiki') == 'true'){
+        if (api_get_setting('editor.htmlpurifier_wiki') == 'true') {
             //$purifier = new HTMLPurifier();
             $values['content'] = Security::remove_XSS($values['content']);
         }
@@ -574,7 +574,7 @@ class Wiki
         $_clean['title']   = trim($values['title']);
         $_clean['content'] = $values['content'];
 
-        if (api_get_setting('htmlpurifier_wiki') == 'true') {
+        if (api_get_setting('editor.htmlpurifier_wiki') == 'true') {
             $purifier = new HTMLPurifier();
             $_clean['content'] = $purifier->purify($_clean['content']);
         }
@@ -5099,6 +5099,7 @@ class Wiki
                             );
                         }
                         $wikiData = self::getWikiData();
+
                         $redirectUrl = $this->url.'&action=showpage&title='.$wikiData['reflink'].'&'.api_get_cidreq();
                         header('Location: '.$redirectUrl);
                         exit;

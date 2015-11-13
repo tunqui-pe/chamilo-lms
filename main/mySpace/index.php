@@ -126,7 +126,7 @@ if (!empty($session_id) &&
 ) {
     echo '<a href="index.php">'.Display::return_icon('back.png', get_lang('Back'), '', ICON_SIZE_MEDIUM).'</a>';
     if (!api_is_platform_admin()) {
-        if (api_get_setting('add_users_by_coach') == 'true') {
+        if (api_get_setting('session.add_users_by_coach') == 'true') {
             if ($is_coach) {
                 echo "<div align=\"right\">";
                 echo '<a href="user_import.php?id_session='.$session_id.'&action=export&amp;type=xml">'.

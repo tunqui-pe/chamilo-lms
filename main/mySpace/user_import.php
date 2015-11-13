@@ -27,7 +27,7 @@ if (isset($_GET['id_session']) && $_GET['id_session'] != '') {
 $purification_option_for_usernames = false;
 
 // Checking whether the current coach is the admin coach.
-if (api_get_setting('add_users_by_coach') == 'true') {
+if (api_get_setting('session.add_users_by_coach') == 'true') {
     if (!api_is_platform_admin()) {
         if (isset($_REQUEST['id_session'])) {
             $id_session = intval($_REQUEST['id_session']);
