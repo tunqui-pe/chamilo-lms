@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	Allows to type the messages that will be displayed on chat_chat.php
  *
@@ -126,3 +129,5 @@ if ($sent) {
 <?php
 
 require 'footer_frame.inc.php';
+// Hide headers
+Container::getTwig()->addGlobal('show_header', false);

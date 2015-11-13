@@ -37,7 +37,8 @@ $course_access_settings = CourseManager:: get_access_settings($course_code);
 //LOGIC FUNCTIONS
 function is_settings_editable()
 {
-    return isset($GLOBALS['course_info_is_editable']) && $GLOBALS['course_info_is_editable'];
+    return true;
+    //return isset($GLOBALS['course_info_is_editable']) && $GLOBALS['course_info_is_editable'];
 }
 
 /* MAIN CODE */
@@ -45,8 +46,9 @@ if (!$is_allowedToEdit) {
     api_not_allowed(true);
 }
 
-$htmlHeadXtra[] = '<link  href="'. api_get_path(WEB_PATH) .'web/assets/cropper/dist/cropper.min.css" rel="stylesheet">';
-$htmlHeadXtra[] = '<script src="'. api_get_path(WEB_PATH) .'web/assets/cropper/dist/cropper.min.js"></script>';
+$htmlHeadXtra[] = api_get_theme_asset_css('cropper/dist/cropper.min.css');
+$htmlHeadXtra[] = api_get_theme_asset('cropper/dist/cropper.min.js');
+
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     var $image = $("#previewImage");
@@ -55,7 +57,7 @@ $(document).ready(function() {
     var canvas = "";
     var imageWidth = "";
     var imageHeight = "";
-    
+
     $("input:file").change(function() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("picture").files[0]);
@@ -84,7 +86,7 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     $("#cropButton").on("click", function() {
         var canvas = $image.cropper("getCroppedCanvas");
         var dataUrl = canvas.toDataURL();
@@ -479,7 +481,7 @@ $form->setDefaults($values);
 // Validate form
 if ($form->validate() && is_settings_editable()) {
     $updateValues = $form->exportValues();
-    
+
     // update course picture
     $picture = $_FILES['picture'];
     if (!empty($picture['name'])) {
@@ -490,7 +492,7 @@ if ($form->validate() && is_settings_editable()) {
             $updateValues['cropResult']
         );
     }
-    
+
     $visibility = $updateValues['visibility'];
     $deletePicture = isset($updateValues['delete_picture']) ? $updateValues['delete_picture'] : '';
 
@@ -581,7 +583,6 @@ if ($form->validate() && is_settings_editable()) {
     $appPlugin->saveCourseSettingsHook($updateValues);
     $cidReset = true;
     $cidReq = $course_code;
-    require '../inc/local.inc.php';
     $url = api_get_path(WEB_CODE_PATH).'course_info/infocours.php?action=show_message&cidReq='.$course_code;
     header("Location: $url");
     exit;

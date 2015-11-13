@@ -39,7 +39,7 @@
 
     {# Chamilo base #}
     {% set theme = chamilo_settings_get('platform.theme') %}
-    {% set show_header = true %}
+
     {% set bug_notification_link = '' %}
     {% set help_content = '' %}
     {% set header_extra_content = '' %}
@@ -118,6 +118,10 @@
 </head>
 <body class="{{ admin_skin|default('skin-blue')}}">
 <noscript>{{ "NoJavascript" | trans }}</noscript>
+
+{% if show_header is not defined %}
+    {% set show_header = true %}
+{% endif %}
 
 {% if show_header == true %}
 <div id="page-wrap"><!-- page section -->

@@ -7,6 +7,7 @@
  */
 
 use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
 
 ////require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_CHAT;
@@ -94,3 +95,6 @@ if (empty($open_chat_window)) {
 }
 
 echo '</html>';
+
+// Hide headers
+Container::getTwig()->addGlobal('show_header', false);

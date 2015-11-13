@@ -860,8 +860,8 @@ if (isset($_GET['createdir'])) {
 
 $js_path = api_get_path(WEB_LIBRARY_PATH).'javascript/';
 
-$htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skins/chamilo/jplayer.blue.monday.css" type="text/css">';
-$htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jquery.jplayer.min.js"></script>';
+//$htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skins/chamilo/jplayer.blue.monday.css" type="text/css">';
+//$htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jquery.jplayer.min.js"></script>';
 $mediaplayer_path = api_get_path(WEB_LIBRARY_PATH).'mediaplayer/player.swf';
 
 $documentAndFolders = DocumentManager::get_all_document_data(

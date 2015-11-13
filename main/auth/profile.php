@@ -30,8 +30,8 @@ if (!(isset($_user['user_id']) && $_user['user_id']) || api_is_anonymous($_user[
 }
 
 $htmlHeadXtra[] = api_get_password_checker_js('#username', '#password1');
-$htmlHeadXtra[] = '<link  href="'. api_get_path(WEB_PATH) .'web/assets/cropper/dist/cropper.min.css" rel="stylesheet">';
-$htmlHeadXtra[] = '<script src="'. api_get_path(WEB_PATH) .'web/assets/cropper/dist/cropper.min.js"></script>';
+$htmlHeadXtra[] = api_get_theme_asset_css('cropper/dist/cropper.min.css');
+$htmlHeadXtra[] = api_get_theme_asset('cropper/dist/cropper.min.js');
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     var $image = $("#previewImage");
@@ -40,7 +40,7 @@ $(document).ready(function() {
     var canvas = "";
     var imageWidth = "";
     var imageHeight = "";
-    
+
     $("input:file").change(function() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("picture_form").files[0]);
@@ -69,7 +69,7 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     $("#cropButton").on("click", function() {
         var canvas = $image.cropper("getCroppedCanvas");
         var dataUrl = canvas.toDataURL();

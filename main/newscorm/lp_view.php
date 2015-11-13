@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * This file was originally the copy of document.php, but many modifications happened since then ;
@@ -540,10 +541,8 @@ $template->addGlobal(
 $content = $template->render('@ChamiloCore/default/learnpath/view.html.twig');
 echo $content;
 
-
 // Restore a global setting.
 $_setting['show_navigation_menu'] = $save_setting;
 
-if ($debug) {
-    error_log(' ------- end lp_view.php ------');
-}
+// Hide headers
+Container::getTwig()->addGlobal('show_header', false);

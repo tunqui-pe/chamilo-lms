@@ -1,5 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	Shows the list of connected users
  *
@@ -160,3 +164,5 @@ if (!empty($course)) {
 	<?php
 }
 require 'footer_frame.inc.php';
+// Hide headers
+Container::getTwig()->addGlobal('show_header', false);

@@ -57,10 +57,10 @@ class LegacyController extends ToolBaseController
         $database->setConnection($dbConnection);
         $database->setManager($em);
         Container::$container = $this->container;
-
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
         //Container::$configDir = $this->container->get('kernel')->getConfigDir();
+        $this->container->get('twig')->addGlobal('show_header', true);
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
@@ -95,10 +95,11 @@ class LegacyController extends ToolBaseController
             // $interbreadcrumb is loaded in the require_once file.
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
 
+
             return $this->render(
                 'ChamiloCoreBundle::layout_one_col.html.twig',
                 array(
-                    'show_header' => true,
+                    //'show_header' => true,
                     'content' => $out,
                     'js' => $js,
                     'menu' => ''

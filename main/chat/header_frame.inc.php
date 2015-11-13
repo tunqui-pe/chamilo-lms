@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Header of each frame of the Chat tool
  *
@@ -272,3 +275,6 @@ header('Content-Type: text/html; charset=UTF-8');
 </script>
 </head>
 <body <?php echo $bodyXtra; ?> >
+<?php
+// Hide headers
+Container::getTwig()->addGlobal('show_header', false);

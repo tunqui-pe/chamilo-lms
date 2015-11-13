@@ -117,8 +117,6 @@ if ($action == 'add_item' && $type == 'document' ) {
 $show_learn_path = true;
 $lp_theme_css = $learnPath->get_theme();
 
-Display::display_header(null, 'Path');
-
 $suredel = trim(get_lang('AreYouSureToDeleteJS'));
 //@todo move this somewhere else css/fix.css
 ?>
@@ -285,5 +283,3 @@ if (isset($new_item_id) && is_numeric($new_item_id)) {
 }
 echo '</div>';
 echo '</div>';
-
-Display::display_footer();

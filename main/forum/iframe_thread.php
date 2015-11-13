@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * These files are a complete rework of the forum. The database structure is
  * based on phpBB but all the code is rewritten. A lot of new functionalities
@@ -98,6 +101,7 @@ while ($row = Database::fetch_array($result)) {
 }
 echo "</table>";
 
+// Hide headers
+Container::getTwig()->addGlobal('show_header', false);
+
 ?>
-</body>
-</html>

@@ -68,8 +68,8 @@ function confirmation(name) {
 }
 </script>';
 
-$htmlHeadXtra[] = '<link  href="'. api_get_path(WEB_PATH) .'web/assets/cropper/dist/cropper.min.css" rel="stylesheet">';
-$htmlHeadXtra[] = '<script src="'. api_get_path(WEB_PATH) .'web/assets/cropper/dist/cropper.min.js"></script>';
+$htmlHeadXtra[] = api_get_theme_asset_css('cropper/dist/cropper.min.css');
+$htmlHeadXtra[] = api_get_theme_asset('cropper/dist/cropper.min.js');
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     var $image = $("#previewImage");
