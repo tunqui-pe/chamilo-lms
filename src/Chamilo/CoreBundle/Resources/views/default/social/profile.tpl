@@ -14,8 +14,8 @@
             <div class="spinner"></div>
             <div class="panel panel-preview panel-default" hidden="true">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ "Url" | get_lang }}
-                        - {{ "Preview" | get_lang }}</h3>
+                    <h3 class="panel-title">{{ "Url" | trans }}
+                        - {{ "Preview" | trans }}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="url_preview"></div>
@@ -35,7 +35,7 @@
                                    data-parent="#blocklistFriends"
                                    href="#listFriends" aria-expanded="true"
                                    aria-controls="listFriends">
-                                    {{ "SocialFriend" | get_lang }}
+                                    {{ "SocialFriend" | trans }}
                                 </a>
                             </h4>
                         </div>
@@ -61,7 +61,7 @@
                                    data-parent="#course-block"
                                    href="#courseList" aria-expanded="true"
                                    aria-controls="courseList">
-                                    {{ "MyCourses" | get_lang }}
+                                    {{ "MyCourses" | trans }}
                                 </a>
                             </h4>
                         </div>
@@ -87,7 +87,7 @@
                                    data-parent="#session-block"
                                    href="#sessionList" aria-expanded="true"
                                    aria-controls="sessionList">
-                                    {{ "MySessions" | get_lang }}
+                                    {{ "MySessions" | trans }}
                                 </a>
                             </h4>
                         </div>

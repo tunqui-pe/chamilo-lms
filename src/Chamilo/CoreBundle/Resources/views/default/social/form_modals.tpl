@@ -4,11 +4,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
-                        aria-label="{{ 'Close' | get_lang }}">
+                        aria-label="{{ 'Close' | trans }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title"
-                    id="send-invitation-modal-title">{{ 'SendInvitation' | get_lang }}</h4>
+                    id="send-invitation-modal-title">{{ 'SendInvitation' | trans }}</h4>
             </div>
             <div class="modal-body">
                 <div id="send-invitation-alert"></div>
@@ -17,7 +17,7 @@
             <div class="modal-footer">
                 <button type="button" id="btn-send-invitation"
                         class="btn btn-primary">
-                    <em class="fa fa-send"></em> {{ 'Send' | get_lang }}
+                    <em class="fa fa-send"></em> {{ 'Send' | trans }}
                 </button>
             </div>
         </div>

@@ -12,7 +12,7 @@
                 <div id="edit_image">
                     <a class="btn btn-default"
                        href="{{ _p.web_main ~ 'social/group_edit.php?id=' ~ group_id }}">
-                        {{ 'EditGroup'|get_lang }}
+                        {{ 'EditGroup'|trans }}
                     </a>
                 </div>
             {% endif %}

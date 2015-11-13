@@ -6,7 +6,7 @@
             <div class="search-user">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{ 'SearchUsers' | get_lang }}
+                        {{ 'SearchUsers' | trans }}
                     </div>
                     <div class="panel-body">
                         {{ social_search }}

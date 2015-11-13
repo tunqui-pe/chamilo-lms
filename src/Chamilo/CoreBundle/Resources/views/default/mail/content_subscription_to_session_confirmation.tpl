@@ -1,10 +1,10 @@
-<p>{{ 'Dear'|get_lang }} {{ complete_name }},</p>
-<p>{{ 'YouAreRegisterToSessionX'|get_lang|format(session_name) }}</p>
-<p>{{ 'Address'|get_lang }}  {{ _s.site_name }} {{ 'Is'|get_lang }}
+<p>{{ 'Dear'|trans }} {{ complete_name }},</p>
+<p>{{ 'YouAreRegisterToSessionX'|trans|format(session_name) }}</p>
+<p>{{ 'Address'|trans }}  {{ _s.site_name }} {{ 'Is'|trans }}
     : {{ _p.web }}</p>
-<p>{{ 'Problem'|get_lang }}</p>
-<p>{{ 'SignatureFormula'|get_lang }}</p>
+<p>{{ 'Problem'|trans }}</p>
+<p>{{ 'SignatureFormula'|trans }}</p>
 <p>{{ _admin.name }} {{ _admin.surname }}<br>
-    {{ 'Manager'|get_lang }} {{ _s.site_name }}<br>
+    {{ 'Manager'|trans }} {{ _s.site_name }}<br>
     {{ _admin.telephone ? 'T. ' ~ _admin.telephone }}<br>
-    {{ _admin.email ? 'Email'|get_lang ~ ': ' ~ _admin.email }}</p>
+    {{ _admin.email ? 'Email'|trans ~ ': ' ~ _admin.email }}</p>

@@ -1,1 +1,1 @@
-{{ 'MailCronCourseExpirationReminderSubject'|get_lang|format(_s.institution) }}
+{{ 'MailCronCourseExpirationReminderSubject'|trans|format(_s.institution) }}

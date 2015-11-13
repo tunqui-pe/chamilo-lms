@@ -1,6 +1,6 @@
-{{ 'PleaseSubscribeMeToSession' | get_lang }}: {{ session_name }}
+{{ 'PleaseSubscribeMeToSession' | trans }}: {{ session_name }}
 
-{{ 'ContactInformation' | get_lang }}:
-{{ 'Name' | get_lang }}: {{ user.complete_name }}
-{{ 'Username' | get_lang }}: {{ user.username }}
-{{ 'Email' | get_lang }}: {{ user.email }}
+{{ 'ContactInformation' | trans }}:
+{{ 'Name' | trans }}: {{ user.complete_name }}
+{{ 'Username' | trans }}: {{ user.username }}
+{{ 'Email' | trans }}: {{ user.email }}

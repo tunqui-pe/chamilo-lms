@@ -6,7 +6,7 @@
                 <a role="button" data-toggle="collapse"
                    data-parent="#skill-block" href="#skillList"
                    aria-expanded="true" aria-controls="skillList">
-                    {{ "Skills" | get_lang }}
+                    {{ "Skills" | trans }}
                 </a>
 
                 <div class="btn-group pull-right">
@@ -17,15 +17,15 @@
                     <ul class="dropdown-menu">
                         {% if show_skills_report_link %}
                             <li>
-                                <a href="{{ _p.web_main ~ 'social/my_skills_report.php' }}"> {{ 'SkillsReport'|get_lang }}</a>
+                                <a href="{{ _p.web_main ~ 'social/my_skills_report.php' }}"> {{ 'SkillsReport'|trans }}</a>
                             </li>
                         {% endif %}
 
                         <li>
-                            <a href="{{ _p.web_main ~ 'social/skills_wheel.php' }}"> {{ 'SkillsWheel'|get_lang }}</a>
+                            <a href="{{ _p.web_main ~ 'social/skills_wheel.php' }}"> {{ 'SkillsWheel'|trans }}</a>
                         </li>
                         <li>
-                            <a href="{{ _p.web_main ~ 'social/skills_ranking.php' }}"> {{ 'YourSkillRankingX'|get_lang|format(ranking) }}</a>
+                            <a href="{{ _p.web_main ~ 'social/skills_ranking.php' }}"> {{ 'YourSkillRankingX'|trans|format(ranking) }}</a>
                         </li>
                     </ul>
                 </div>
@@ -58,9 +58,9 @@
                         {% endfor %}
                     </figure>
                 {% else %}
-                    <p>{{ 'WithoutAchievedSkills'|get_lang }}</p>
+                    <p>{{ 'WithoutAchievedSkills'|trans }}</p>
                     <p>
-                        <a href="{{ _p.web_main ~ 'social/skills_wheel.php' }}">{{ 'SkillsWheel'|get_lang }}</a>
+                        <a href="{{ _p.web_main ~ 'social/skills_wheel.php' }}">{{ 'SkillsWheel'|trans }}</a>
                     </p>
                 {% endif %}
             </div>

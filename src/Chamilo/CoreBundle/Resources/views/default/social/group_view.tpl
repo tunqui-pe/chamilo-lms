@@ -12,12 +12,12 @@
             {{ create_link }}
             {% if is_group_member == false %}
                 <div class="social-group-details-info">
-                    {{ 'Privacy' | get_lang }}
+                    {{ 'Privacy' | trans }}
 
                     {% if group_info.visibility == 1 %}
-                        {{ 'ThisIsAnOpenGroup' | get_lang }}
+                        {{ 'ThisIsAnOpenGroup' | trans }}
                     {% else %}
-                        {{ 'ThisIsACloseGroup' | get_lang }}
+                        {{ 'ThisIsACloseGroup' | trans }}
                     {% endif %}
                 </div>
             {% endif %}

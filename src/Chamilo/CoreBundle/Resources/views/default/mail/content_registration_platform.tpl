@@ -1,13 +1,13 @@
-<p>{{ 'Dear'|get_lang }} {{ complete_name }},</p>
-<p>{{ 'YouAreReg'|get_lang }} {{ _s.site_name }} {{ 'WithTheFollowingSettings'|get_lang }}</p>
-<p>{{ 'Username'|get_lang }} : {{ login_name }}<br>
-    {{ 'Pass'|get_lang }} : {{ original_password }}</p>
-<p>{{ 'ThanksForRegisteringToSite'|get_lang|format(_s.site_name) }}</p>
-<p>{{ 'Address'|get_lang }} {{ _s.site_name }} {{ 'Is'|get_lang }}
+<p>{{ 'Dear'|trans }} {{ complete_name }},</p>
+<p>{{ 'YouAreReg'|trans }} {{ _s.site_name }} {{ 'WithTheFollowingSettings'|trans }}</p>
+<p>{{ 'Username'|trans }} : {{ login_name }}<br>
+    {{ 'Pass'|trans }} : {{ original_password }}</p>
+<p>{{ 'ThanksForRegisteringToSite'|trans|format(_s.site_name) }}</p>
+<p>{{ 'Address'|trans }} {{ _s.site_name }} {{ 'Is'|trans }}
     : {{ mailWebPath }}</p>
-<p>{{ 'Problem'|get_lang }}</p>
-<p>{{ 'SignatureFormula'|get_lang }}</p>
+<p>{{ 'Problem'|trans }}</p>
+<p>{{ 'SignatureFormula'|trans }}</p>
 <p>{{ _admin.name }}, {{ _admin.surname }}<br>
-    {{ 'Manager'|get_lang }} {{ _s.site_name }}<br>
+    {{ 'Manager'|trans }} {{ _s.site_name }}<br>
     {{ _admin.telephone ? 'T. ' ~ _admin.telephone }}<br>
-    {{ _admin.email ? 'Email'|get_lang ~ ': ' ~ _admin.email }}</p>
+    {{ _admin.email ? 'Email'|trans ~ ': ' ~ _admin.email }}</p>

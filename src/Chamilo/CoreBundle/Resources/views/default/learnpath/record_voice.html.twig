@@ -7,17 +7,19 @@
     <audio class="skip" id="audio" autoplay="" loop="" controls=""></audio>
     <span id="progress-info"></span>
     <br />
-    <a id="record" class="btn btn-danger" >{{ 'RecordAudio' | get_lang }}</a>
-    <button id="stop" class="btn btn-default" disabled="">{{ 'StopRecordingAudio' | get_lang }}</button>
+    <a id="record" class="btn btn-danger">{{ 'RecordAudio' | trans }}</a>
+    <button id="stop" class="btn btn-default"
+            disabled="">{{ 'StopRecordingAudio' | trans }}</button>
 </div>
 
 <div id="wami" style="float:left; z-index:6000">
-    <a id="record-wami" class="btn btn-info">{{ 'ActivateAudioRecorder' | get_lang }}</a>
+    <a id="record-wami"
+       class="btn btn-info">{{ 'ActivateAudioRecorder' | trans }}</a>
     <br />
     <div id="wami-recorder">
     </div>
     <div id="start-recording" class="alert" style="display:none">
-        {{ "StartSpeaking" | get_lang }}
+        {{ "StartSpeaking" | trans }}
     </div>
 </div>
 
@@ -30,8 +32,9 @@
 
     <form name="form_nanogong">
         <input id="status" type="hidden" name="status" value="0">
-        <button class="upload" type="submit" value="{{ 'Send' | get_lang }}" onclick="submitVoice()">
-            {{ 'Send' | get_lang }}
+        <button class="upload" type="submit" value="{{ 'Send' | trans }}"
+                onclick="submitVoice()">
+            {{ 'Send' | trans }}
         </button>
     </form>
     <span id="nanogong_result" ></span>
@@ -65,11 +68,11 @@ function checkWamiEnable() {
 
 function submitVoice() {
     // lang vars
-    var lang_no_applet = "{{ 'NanogongNoApplet' | get_lang }}";
-    var lang_record_before_save = "{{ 'NanogongRecordBeforeSave' | get_lang }}";
-    var lang_give_a_title = "{{ 'NanogongGiveTitle' | get_lang }}";
-    var lang_failled_to_submit = "{{ 'NanogongFailledToSubmit' | get_lang }}";
-    var lang_submitted = "{{'NanogongSubmitted' | get_lang }}";
+    var lang_no_applet = "{{ 'NanogongNoApplet' | trans }}";
+    var lang_record_before_save = "{{ 'NanogongRecordBeforeSave' | trans }}";
+    var lang_give_a_title = "{{ 'NanogongGiveTitle' | trans }}";
+    var lang_failled_to_submit = "{{ 'NanogongFailledToSubmit' | trans }}";
+    var lang_submitted = "{{ 'NanogongSubmitted' | trans }}";
     // user and group id
 
     //path, url and filename
@@ -155,7 +158,7 @@ $(document).ready(function() {
             return false;
         });
     } else {
-        $('#record-result').html("{{ 'RecordIsNotAvailable' | get_lang }}");
+        $('#record-result').html("{{ 'RecordIsNotAvailable' | trans }}");
     }
 
     // Start web RTC code
