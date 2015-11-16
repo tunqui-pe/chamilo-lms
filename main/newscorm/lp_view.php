@@ -538,7 +538,7 @@ $template->addGlobal(
     $_SESSION['oLP']->get_current_item_id()
 );
 
-$content = $template->render('@ChamiloCore/default/learnpath/view.html.twig');
+$content = $template->render('@template_style/learnpath/view.html.twig');
 echo $content;
 
 // Restore a global setting.

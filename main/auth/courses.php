@@ -259,7 +259,9 @@ switch ($action) {
             exit;
         }
 
-        $registrationAllowed = api_get_setting('catalog_allow_session_auto_subscription');
+        $registrationAllowed = api_get_setting(
+            'session.catalog_allow_session_auto_subscription'
+        );
         if ($registrationAllowed === 'true') {
             $entityManager = Database::getManager();
             $repository = $entityManager->getRepository('ChamiloCoreBundle:SequenceResource');

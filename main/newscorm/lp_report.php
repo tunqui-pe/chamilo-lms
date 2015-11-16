@@ -99,4 +99,4 @@ $template->addGlobal('lp_id', $lpId);
 $template->addGlobal('header', $lpInfo['name']);
 $template->addGlobal('actions', $actions);
 
-echo $template->render('@ChamiloCore/default/learnpath/report.html.twig');
+echo $template->render('@template_style/learnpath/report.html.twig');

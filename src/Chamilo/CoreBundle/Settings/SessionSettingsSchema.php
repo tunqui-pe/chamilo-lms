@@ -37,6 +37,7 @@ class SessionSettingsSchema implements SchemaInterface
                     'limit_session_admin_role' => '',
                     'allow_tutors_to_assign_students_to_session' => '',
                     'drh_can_access_all_session_content' => '',
+                    'catalog_allow_session_auto_subscription' => ''
                 )
             )
             ->setAllowedTypes(
@@ -68,6 +69,8 @@ class SessionSettingsSchema implements SchemaInterface
             ->add('limit_session_admin_role', 'yes_no')
             ->add('allow_tutors_to_assign_students_to_session', 'yes_no')
             ->add('drh_can_access_all_session_content', 'yes_no')
+            ->add('catalog_allow_session_auto_subscription', 'yes_no')
+
 
 
 

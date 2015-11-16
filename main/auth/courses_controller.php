@@ -23,7 +23,7 @@ class CoursesController
     public function __construct()
     {
         $this->toolname = 'auth';
-        $actived_theme_path = api_get_template();
+        $actived_theme_path = api_get_path(SYS_TEMPLATE_PATH).'default/';
         $this->view = new View($this->toolname, $actived_theme_path);
         $this->model = new Auth();
     }
@@ -528,7 +528,9 @@ class CoursesController
         $catalogSessionAutoSubscriptionAllowed = false;
 
         if (
-            api_get_setting('catalog_allow_session_auto_subscription') === 'true'
+            api_get_setting(
+                'session.catalog_allow_session_auto_subscription'
+            ) === 'true'
         ) {
             $catalogSessionAutoSubscriptionAllowed = true;
         }
@@ -635,22 +637,37 @@ class CoursesController
         // Get session search catalogue URL
         $courseUrl = CourseCategoryManager::getCourseCategoryUrl(1, $limit['length'], null, 0, 'subscribe');
 
-        $tpl = new Template();
-        $tpl->assign('show_courses', CoursesAndSessionsCatalog::showCourses());
-        $tpl->assign('show_sessions', CoursesAndSessionsCatalog::showSessions());
-        $tpl->assign('show_tutor', (api_get_setting('show_session_coach')==='true' ? true : false));
-        $tpl->assign('course_url', $courseUrl);
-        $tpl->assign('catalog_pagination', $cataloguePagination);
-        $tpl->assign('hidden_links', $hiddenLinks);
-        $tpl->assign('search_token', Security::get_token());
-        $tpl->assign('search_date', $date);
-        $tpl->assign('web_session_courses_ajax_url', api_get_path(WEB_AJAX_PATH) . 'course.ajax.php');
-        $tpl->assign('sessions', $sessionsBlocks);
-        $tpl->assign('already_subscribed_label', $this->getAlreadyRegisteredInSessionLabel());
+        $tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+        $tpl->addGlobal(
+            'show_courses',
+            CoursesAndSessionsCatalog::showCourses()
+        );
+        $tpl->addGlobal(
+            'show_sessions',
+            CoursesAndSessionsCatalog::showSessions()
+        );
+        $tpl->addGlobal(
+            'show_tutor',
+            (api_get_setting(
+                'session.show_session_coach'
+            ) === 'true' ? true : false)
+        );
+        $tpl->addGlobal('course_url', $courseUrl);
+        $tpl->addGlobal('catalog_pagination', $cataloguePagination);
+        $tpl->addGlobal('hidden_links', $hiddenLinks);
+        $tpl->addGlobal('search_token', Security::get_token());
+        $tpl->addGlobal('search_date', $date);
+        $tpl->addGlobal(
+            'web_session_courses_ajax_url',
+            api_get_path(WEB_AJAX_PATH).'course.ajax.php'
+        );
+        $tpl->addGlobal('sessions', $sessionsBlocks);
+        $tpl->addGlobal(
+            'already_subscribed_label',
+            $this->getAlreadyRegisteredInSessionLabel()
+        );
 
-        $contentTemplate = $tpl->get_template('auth/session_catalog.tpl');
-
-        $tpl->display($contentTemplate);
+        echo $tpl->render('@template_style/auth/session_catalog.html.twig');
     }
 
     /**
@@ -671,7 +688,12 @@ class CoursesController
 
         $tpl->assign('show_courses', CoursesAndSessionsCatalog::showCourses());
         $tpl->assign('show_sessions', CoursesAndSessionsCatalog::showSessions());
-        $tpl->assign('show_tutor', (api_get_setting('show_session_coach')==='true' ? true : false));
+        $tpl->assign(
+            'show_tutor',
+            (api_get_setting(
+                'session.show_session_coach'
+            ) === 'true' ? true : false)
+        );
         $tpl->assign('course_url', $courseUrl);
         $tpl->assign('already_subscribed_label', $this->getAlreadyRegisteredInSessionLabel());
         $tpl->assign('hidden_links', $hiddenLinks);
@@ -702,7 +724,12 @@ class CoursesController
         $tpl = new Template();
         $tpl->assign('show_courses', CoursesAndSessionsCatalog::showCourses());
         $tpl->assign('show_sessions', CoursesAndSessionsCatalog::showSessions());
-        $tpl->assign('show_tutor', (api_get_setting('show_session_coach')==='true' ? true : false));
+        $tpl->assign(
+            'show_tutor',
+            (api_get_setting(
+                'session.show_session_coach'
+            ) === 'true' ? true : false)
+        );
         $tpl->assign('course_url', $courseUrl);
         $tpl->assign('already_subscribed_label', $this->getAlreadyRegisteredInSessionLabel());
         $tpl->assign('hidden_links', $hiddenLinks);

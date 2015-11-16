@@ -146,7 +146,7 @@ if ($objExercise->review_answers) {
 }
 $template->addGlobal('shuffle_answers', $objExercise->random_answers);
 $htmlHeadXtra[] = $template->render(
-    '@ChamiloCore/default/exercise/submit.html.twig'
+    '@template_style/exercise/submit.html.twig'
 );
 
 $current_timestamp = time();

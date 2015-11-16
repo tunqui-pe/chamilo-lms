@@ -533,12 +533,12 @@ class SocialManager extends UserManager
             $session['title'] = $my_course['session_name'];
             if ($my_course['access_start_date'] == '0000-00-00') {
                 $session['dates'] = get_lang('WithoutTimeLimits');
-                if (api_get_setting('show_session_coach') === 'true') {
+                if (api_get_setting('session.show_session_coach') === 'true') {
                     $session['coach'] = get_lang('GeneralCoach').': '.api_get_person_name($sessioncoach['firstname'], $sessioncoach['lastname']);
                 }
             } else {
                 $session ['dates'] = ' - '.get_lang('From').' '.$my_course['access_start_date'].' '.get_lang('To').' '.$my_course['access_end_date'];
-                if (api_get_setting('show_session_coach') === 'true') {
+                if (api_get_setting('session.show_session_coach') === 'true') {
                     $session['coach'] = get_lang('GeneralCoach').': '.api_get_person_name($sessioncoach['firstname'], $sessioncoach['lastname']);
                 }
             }
@@ -1694,10 +1694,10 @@ class SocialManager extends UserManager
         $chatEnabled = api_is_global_chat_enabled();
         $template->addGlobal('chat_enabled', $chatEnabled);
 
-        $templateName = $template->render('@ChamiloCore/default/social/user_block.html.twig');
+        $templateName = $template->render('@template_style/social/user_block.html.twig');
 
         if (in_array($groupBlock, ['groups', 'group_edit', 'member_list'])) {
-            $templateName = $template->renders('@ChamiloCore/default/social/group_block.html.twig');
+            $templateName = $template->renders('@template_style/social/group_block.html.twig');
         }
 
         $template->addGlobal(

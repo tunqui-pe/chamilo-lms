@@ -131,19 +131,27 @@ foreach ($sessionRequirements as $sequence) {
 $courseController = new CoursesController();
 
 /* View */
-$template = new Template($session->getName(), true, true, false, true, false);
-$template->assign('show_tutor', (api_get_setting('show_session_coach')==='true' ? true : false));
-$template->assign('pageUrl', api_get_path(WEB_PATH) . "session/{$session->getId()}/about/");
-$template->assign('session', $session);
-$template->assign('session_date', $sessionDates);
-$template->assign(
+//$template = new Template($session->getName(), true, true, false, true, false);
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
+
+$template->addGlobal(
+    'show_tutor',
+    (api_get_setting('session.show_session_coach') === 'true' ? true : false)
+);
+$template->addGlobal(
+    'pageUrl',
+    api_get_path(WEB_PATH)."session/{$session->getId()}/about/"
+);
+$template->addGlobal('session', $session);
+$template->addGlobal('session_date', $sessionDates);
+$template->addGlobal(
     'is_subscribed',
     SessionManager::isUserSubscribedAsStudent(
         $session->getId(),
         api_get_user_id()
     )
 );
-$template->assign(
+$template->addGlobal(
     'subscribe_button',
     $courseController->getRegisteredInSessionButton(
         $session->getId(),
@@ -152,21 +160,21 @@ $template->assign(
     )
 );
 
-$template->assign('courses', $courses);
-$template->assign('essence', \Essence\Essence::instance());
-$template->assign(
+$template->addGlobal('courses', $courses);
+$template->addGlobal('essence', \Essence\Essence::instance());
+$template->addGlobal(
     'session_extra_fields',
     $sessionValues->getAllValuesForAnItem($session->getId(), true)
 );
-$template->assign('has_requirements', $hasRequirements);
-$template->assign('sequences', $sessionRequirements);
+$template->addGlobal('has_requirements', $hasRequirements);
+$template->addGlobal('sequences', $sessionRequirements);
 
-$templateFolder = api_get_configuration_value('default_template');
+//$templateFolder = api_get_configuration_value('default_template');
 
-$layout = $template->get_template('session/about.tpl');
+echo $template->render('@template_style/session/about.html.twig');
 
-$content = $template->fetch($layout);
 
-$template->assign('header', $session->getName());
-$template->assign('content', $content);
-$template->display_one_col_template();
+
+//$template->assign('header', $session->getName());
+
+

@@ -1643,7 +1643,7 @@ class Display
                     empty($session_info['access_end_date']) && empty($session_info['access_start_date'])
                 )
             ) {
-                if (api_get_setting('show_session_coach') === 'true') {
+                if (api_get_setting('session.show_session_coach') === 'true') {
                     $session['coach'] = get_lang('GeneralCoach').': '.api_get_person_name($session_info['firstname'], $session_info['lastname']);
                 }
                 if (isset($session_info['duration']) && !empty($session_info['duration'])) {
@@ -1714,7 +1714,7 @@ class Display
                     );
                 }
 
-                if ( api_get_setting('show_session_coach') === 'true' ) {
+                if (api_get_setting('session.show_session_coach') === 'true') {
                     $session['coach'] = get_lang('GeneralCoach') . ': ' . api_get_person_name(
                         $session_info['firstname'],
                         $session_info['lastname']

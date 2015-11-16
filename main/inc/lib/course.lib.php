@@ -4112,14 +4112,14 @@ class CourseManager
                 if ($course_info['access_start_date'] == '0000-00-00') {
                     //$session['dates'] = get_lang('WithoutTimeLimits');
                     $session['dates'] = '';
-                    if (api_get_setting('show_session_coach') === 'true') {
+                    if (api_get_setting('session.show_session_coach') === 'true') {
                         $session['coach'] = get_lang('GeneralCoach') . ': ' . api_get_person_name($sessioncoach['firstname'],
                                 $sessioncoach['lastname']);
                     }
                     $active = true;
                 } else {
                     $session ['dates'] = ' - ' . get_lang('From') . ' ' . $course_info['access_start_date'] . ' ' . get_lang('To') . ' ' . $course_info['access_end_date'];
-                    if (api_get_setting('show_session_coach') === 'true') {
+                    if (api_get_setting('session.show_session_coach') === 'true') {
                         $session['coach'] = get_lang('GeneralCoach') . ': ' . api_get_person_name($sessioncoach['firstname'],
                                 $sessioncoach['lastname']);
                     }

@@ -827,7 +827,7 @@ $template->addGlobal('introduction_section', $introductionSection);
 $template->addGlobal('data', $data);
 $template->addGlobal('lp_is_shown', $lpIsShown);
 
-$content = $template->render('@ChamiloCore/default/learnpath/list.html.twig');
+$content = $template->render('@template_style/learnpath/list.html.twig');
 
 echo $content;
 

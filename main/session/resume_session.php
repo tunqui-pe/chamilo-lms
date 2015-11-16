@@ -402,5 +402,5 @@ $tpl->addGlobal('user_list', $userListToShow);
 $tpl->addGlobal('dependencies', $dependencies);
 $tpl->addGlobal('requirements', $requirements);
 
-echo $tpl->render('@ChamiloCore/default/session/resume_session.html.twig');
+echo $tpl->render('@template_style/session/resume_session.html.twig');
 
