@@ -667,7 +667,7 @@ require_once __DIR__.'/internationalization.lib.php';
  * api_get_path(SYS_IMG_PATH)                   /var/www/chamilo/web/bundles/chamilocore/img/
  * api_get_path(WEB_CSS_PATH)                   http://www.mychamilo.org/chamilo/web/css/
  * api_get_path(WEB_LIBRARY_PATH)               http://www.mychamilo.org/chamilo/main/inc/lib/
- * api_get_path(WEB_LIBRARY_JS_PATH)            http://www.mychamilo.org/chamilo/web/Chamilo/javascript
+ * api_get_path(WEB_LIBRARY_JS_PATH)            http://www.mychamilo.org/chamilo/web/bundles/chamilocore/js
  * api_get_path(WEB_TEMPLATE_PATH)              http://www.mychamilo.org/chamilo/main/template/
  * api_get_path(WEB_UPLOAD_PATH)                http://www.mychamilo.org/chamilo/app/upload/
  * api_get_path(WEB_PUBLIC_PATH)                http://www.mychamilo.org/chamilo/web/
@@ -718,7 +718,7 @@ function api_get_path($path_type, $path = null)
         LIBRARY_PATH            => 'inc/lib/',
         CONFIGURATION_PATH      => 'app/config/',
         WEB_LIBRARY_PATH        => 'inc/lib/',
-        WEB_LIBRARY_JS_PATH     => 'inc/lib/javascript/',
+        WEB_LIBRARY_JS_PATH => 'web/bundles/chamilocore/js/',
         WEB_AJAX_PATH           => 'inc/ajax/',
         SYS_TEST_PATH           => 'tests/',
         WEB_TEMPLATE_PATH       => 'template/',
@@ -843,14 +843,13 @@ function api_get_path($path_type, $path = null)
 
         $paths[WEB_CSS_PATH]            = $paths[WEB_PATH].$paths[WEB_CSS_PATH];
 
-        $paths[WEB_IMG_PATH] = Container::getAsset()->getUrl(
-            'bundles/chamilocore/img/'
-        );
+        $bundleWebPath = Container::getAsset()->getUrl('bundles/chamilocore/');
+        $paths[WEB_IMG_PATH] = $bundleWebPath.'img/';
 
 
         $paths[SYS_IMG_PATH] = $paths[SYS_PATH].$paths[SYS_IMG_PATH];
         $paths[WEB_LIBRARY_PATH]        = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_PATH];
-        $paths[WEB_LIBRARY_JS_PATH]     = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_JS_PATH];
+        $paths[WEB_LIBRARY_JS_PATH] = $bundleWebPath.'js/';
 
         $paths[WEB_AJAX_PATH]           = $paths[WEB_CODE_PATH].$paths[WEB_AJAX_PATH];
         $paths[WEB_FONTS_PATH]          = $paths[WEB_CODE_PATH].$paths[WEB_FONTS_PATH];
@@ -6391,7 +6390,7 @@ function api_protect_global_admin_script() {
  * @param string    path absolute(abs) or relative(rel) (optional:rel)
  * @return string   actived template path
  */
-function api_get_template($path_type = 'rel') {
+/*function api_get_template($path_type = 'rel') {
     $path_types = array('rel', 'abs');
     $template_path = '';
     if (in_array($path_type, $path_types)) {
@@ -6407,7 +6406,7 @@ function api_get_template($path_type = 'rel') {
     }
     $actived_theme_path = $template_path.$actived_theme.DIRECTORY_SEPARATOR;
     return $actived_theme_path;
-}
+}*/
 
 /**
  * Check browser support for type files
