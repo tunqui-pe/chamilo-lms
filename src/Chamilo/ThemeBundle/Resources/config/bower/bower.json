@@ -25,7 +25,7 @@
     "fullcalendar": "*",
     "select2": "4.0",
     "chosen-bower": "*",
-    "ckeditor": "*",
+    "ckeditor": "4.4.8",
     "iCheck": "*",
     "eonasdan-bootstrap-datetimepicker": "*",
     "bootstrap": "latest",
@@ -47,7 +47,6 @@
     "jsplumb": "2.0.4",
     "jqgrid": "4.7.0",
     "adminlte": "*"
-
   },
   "resolutions": {
     "jquery": "2.1.4"

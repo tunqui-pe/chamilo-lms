@@ -4,7 +4,7 @@
     'asciimath',
     'asciisvg',
     'audio',
-    //'ckeditor_wiris',
+    'ckeditor_wiris',
     'dialogui',
     'glossary',
     'leaflet',
@@ -19,6 +19,7 @@
     'wordcount',
     'youtube'
     ];
+
     plugins.forEach(function (plugin) {
         CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
         });
