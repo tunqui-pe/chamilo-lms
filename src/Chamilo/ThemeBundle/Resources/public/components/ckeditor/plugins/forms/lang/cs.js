@@ -11,8 +11,7 @@
         checkboxTitle: "Vlastnosti zaškrtávacího políčka",
         radioTitle: "Vlastnosti přepínače",
         value: "Hodnota",
-        selected: "Zaškrtnuto",
-        required: "Vyžadováno"
+        selected: "Zaškrtnuto"
     },
     form: {
         title: "Vlastnosti formuláře",
@@ -34,7 +33,6 @@
         size: "Velikost",
         lines: "Řádků",
         chkMulti: "Povolit mnohonásobné výběry",
-        required: "Vyžadováno",
         opText: "Text",
         opValue: "Hodnota",
         btnAdd: "Přidat",
@@ -55,7 +53,6 @@
         value: "Hodnota",
         charWidth: "Šířka ve znacích",
         maxChars: "Maximální počet znaků",
-        required: "Vyžadováno",
         type: "Typ",
         typeText: "Text",
         typePass: "Heslo",

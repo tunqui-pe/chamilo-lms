@@ -4,10 +4,10 @@
 */
 (function () {
     function h(b, e, c) {
-        var k = [], g = [], a;
+        var i = [], g = [], a;
         for (a = 0; a < b.styleSheets.length; a++) {
             var d = b.styleSheets[a];
-            if (!((d.ownerNode || d.owningElement).getAttribute("data-cke-temp") || d.href && "chrome://" == d.href.substr(0, 9)))try {
+            if (!(d.ownerNode || d.owningElement).getAttribute("data-cke-temp") && !(d.href && "chrome://" == d.href.substr(0, 9)))try {
                 for (var f = d.cssRules || d.rules, d = 0; d < f.length; d++)g.push(f[d].selectorText)
             } catch (h) {
             }
@@ -22,12 +22,12 @@
         b = [];
         for (g = 0; g < a.length; g++)f =
             a[g], c.test(f) && !e.test(f) && -1 == CKEDITOR.tools.indexOf(b, f) && b.push(f);
-        for (a = 0; a < b.length; a++)c = b[a].split("."), e = c[0].toLowerCase(), c = c[1], k.push({
+        for (a = 0; a < b.length; a++)c = b[a].split("."), e = c[0].toLowerCase(), c = c[1], i.push({
             name: e + "." + c,
             element: e,
             attributes: {"class": c}
         });
-        return k
+        return i
     }
 
     CKEDITOR.plugins.add("stylesheetparser", {

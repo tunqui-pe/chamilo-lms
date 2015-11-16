@@ -10,7 +10,7 @@
     lowerGreek: "小寫希臘字母 (alpha, beta, gamma, 等)",
     lowerRoman: "小寫羅馬數字 (i, ii, iii, iv, v 等)",
     none: "無",
-    notset: "\x3c未設定\x3e",
+    notset: "<未設定>",
     numberedTitle: "編號清單屬性",
     square: "方塊",
     start: "開始",

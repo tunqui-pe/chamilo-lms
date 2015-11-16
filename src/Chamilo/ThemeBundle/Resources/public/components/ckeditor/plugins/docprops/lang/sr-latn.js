@@ -12,6 +12,6 @@
     metaCopyright: "Autorska prava",
     metaDescription: "Opis dokumenta",
     metaKeywords: "Ključne reci za indeksiranje dokumenta (razdvojene zarezima)",
-    other: "\x3cостало\x3e",
-    previewHtml: '\x3cp\x3eThis is some \x3cstrong\x3esample text\x3c/strong\x3e. You are using \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<остало>",
+    previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>',
 title:"Osobine dokumenta",txtColor:"Boja teksta",xhtmlDec:"Ukljuci XHTML deklaracije"});

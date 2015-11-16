@@ -11,8 +11,7 @@
         checkboxTitle: "Žymimojo langelio savybės",
         radioTitle: "Žymimosios akutės savybės",
         value: "Reikšmė",
-        selected: "Pažymėtas",
-        required: "Required"
+        selected: "Pažymėtas"
     },
     form: {
         title: "Formos savybės",
@@ -30,7 +29,6 @@
         size: "Dydis",
         lines: "eilučių",
         chkMulti: "Leisti daugeriopą atranką",
-        required: "Required",
         opText: "Tekstas",
         opValue: "Reikšmė",
         btnAdd: "Įtraukti",
@@ -47,7 +45,6 @@
         value: "Reikšmė",
         charWidth: "Ilgis simboliais",
         maxChars: "Maksimalus simbolių skaičius",
-        required: "Required",
         type: "Tipas",
         typeText: "Tekstas",
         typePass: "Slaptažodis",

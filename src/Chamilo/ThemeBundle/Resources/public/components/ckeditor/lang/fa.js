@@ -214,6 +214,7 @@ CKEDITOR.lang['fa'] = {
     },
     "indent": {"indent": "افزایش تورفتگی", "outdent": "کاهش تورفتگی"},
     "image": {
+        "alertUrl": "لطفا URL تصویر را بنویسید",
         "alt": "متن جایگزین",
         "border": "لبه",
         "btnUpload": "به سرور بفرست",

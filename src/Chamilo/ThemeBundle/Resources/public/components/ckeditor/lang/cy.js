@@ -217,6 +217,7 @@ CKEDITOR.lang['cy'] = {
         "outdent": "Lleihau'r Mewnoliad"
     },
     "image": {
+        "alertUrl": "Rhowch URL y ddelwedd",
         "alt": "Testun Amgen",
         "border": "Ymyl",
         "btnUpload": "Anfon i'r Gweinydd",

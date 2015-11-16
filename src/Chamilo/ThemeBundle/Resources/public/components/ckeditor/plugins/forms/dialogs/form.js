@@ -20,7 +20,6 @@ CKEDITOR.dialog.add("form",function(a){var d={action:1,id:1,method:1,enctype:1,t
         title: a.lang.forms.form.title,
         elements: [{
             id: "txtName",
-            bidi: !0,
             type: "text",
             label: a.lang.common.name,
             "default": "",
@@ -29,8 +28,8 @@ CKEDITOR.dialog.add("form",function(a){var d={action:1,id:1,method:1,enctype:1,t
                 this.setValue(a.data("cke-saved-name") || a.getAttribute("name") || "")
             },
             commit: function (a) {
-                this.getValue() ? a.data("cke-saved-name", this.getValue()) :
-                    (a.data("cke-saved-name", !1), a.removeAttribute("name"))
+                this.getValue() ? a.data("cke-saved-name", this.getValue()) : (a.data("cke-saved-name",
+                    !1), a.removeAttribute("name"))
             }
         }, {
             id: "action",

@@ -11,8 +11,7 @@
         checkboxTitle: "ලකුණු කිරීමේ කොටුවේ ලක්ෂණ",
         radioTitle: "Radio Button Properties",
         value: "Value",
-        selected: "Selected",
-        required: "Required"
+        selected: "Selected"
     },
     form: {
         title: "පෝරමයේ ",
@@ -30,7 +29,6 @@
         size: "විශාලත්වය",
         lines: "lines",
         chkMulti: "Allow multiple selections",
-        required: "Required",
         opText: "Text",
         opValue: "Value",
         btnAdd: "Add",
@@ -47,7 +45,6 @@
         value: "Value",
         charWidth: "Character Width",
         maxChars: "Maximum Characters",
-        required: "Required",
         type: "වර්ගය",
         typeText: "Text",
         typePass: "Password",

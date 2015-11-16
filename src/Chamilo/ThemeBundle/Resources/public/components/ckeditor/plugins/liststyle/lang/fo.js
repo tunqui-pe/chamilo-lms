@@ -10,5 +10,5 @@
     lowerGreek: "Grikskt við lítlum (alpha, beta, gamma, etc.)",
     lowerRoman: "Lítil rómaratøl (i, ii, iii, iv, v, etc.)",
     none: "Einki",
-    notset: "\x3cikki sett\x3e",
+    notset: "<ikki sett>",
 numberedTitle:"Eginleikar fyri lista við tølum",square:"Fýrkantur",start:"Byrjan",type:"Slag",upperAlpha:"Stórir bókstavir (A, B, C, D, E, etc.)",upperRoman:"Stór rómaratøl (I, II, III, IV, V, etc.)",validateStartNumber:"Byrjunartalið fyri lista má vera eitt heiltal."});

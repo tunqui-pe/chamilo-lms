@@ -11,11 +11,11 @@ CKEDITOR.dialog.add("hiddenfield", function (d) {
         onShow: function () {
             delete this.hiddenField;
             var a = this.getParentEditor(), b = a.getSelection(), c = b.getSelectedElement();
-            c && c.data("cke-real-element-type") && "hiddenfield" == c.data("cke-real-element-type") && (this.hiddenField = c, c = a.restoreRealElement(this.hiddenField), this.setupContent(c), b.selectElement(this.hiddenField))
+            c && (c.data("cke-real-element-type") && "hiddenfield" == c.data("cke-real-element-type")) && (this.hiddenField = c, c = a.restoreRealElement(this.hiddenField), this.setupContent(c), b.selectElement(this.hiddenField))
         },
         onOk: function () {
             var a = this.getValueOf("info", "_cke_saved_name"),
-                b = this.getParentEditor(), a = CKEDITOR.env.ie && 8 > CKEDITOR.document.$.documentMode ? b.document.createElement('\x3cinput name\x3d"' + CKEDITOR.tools.htmlEncode(a) + '"\x3e') : b.document.createElement("input");
+                b = this.getParentEditor(), a = CKEDITOR.env.ie && 8 > CKEDITOR.document.$.documentMode ? b.document.createElement('<input name="' + CKEDITOR.tools.htmlEncode(a) + '">') : b.document.createElement("input");
             a.setAttribute("type", "hidden");
             this.commitContent(a);
             a = b.createFakeElement(a, "cke_hidden", "hiddenfield");

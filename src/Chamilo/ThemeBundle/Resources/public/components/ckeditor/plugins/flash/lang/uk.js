@@ -14,6 +14,6 @@
     title: "Властивості Flash",
     vSpace: "Верт. відступ",
     validateHSpace: "Гориз. відступ повинен бути цілим числом.",
-    validateSrc: "URL посилання не може бути порожнім.",
+    validateSrc: "Будь ласка, вкажіть URL посилання",
     validateVSpace: "Верт. відступ повинен бути цілим числом.",
 windowMode:"Віконний режим",windowModeOpaque:"Непрозорість",windowModeTransparent:"Прозорість",windowModeWindow:"Вікно"});

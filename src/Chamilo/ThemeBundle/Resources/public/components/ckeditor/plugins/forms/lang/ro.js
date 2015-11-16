@@ -11,8 +11,7 @@
         checkboxTitle: "Proprietăţi bifă (Checkbox)",
         radioTitle: "Proprietăţi buton radio (Radio Button)",
         value: "Valoare",
-        selected: "Selectat",
-        required: "Required"
+        selected: "Selectat"
     },
     form: {
         title: "Proprietăţi formular (Form)",
@@ -22,8 +21,8 @@
         encoding: "Encodare"
     },
     hidden: {
-        title: "Proprietăţi câmp ascuns (Hidden Field)",
-        name: "Nume", value: "Valoare"
+        title: "Proprietăţi câmp ascuns (Hidden Field)", name: "Nume",
+        value: "Valoare"
     },
     select: {
         title: "Proprietăţi câmp selecţie (Selection Field)",
@@ -33,7 +32,6 @@
         size: "Mărime",
         lines: "linii",
         chkMulti: "Permite selecţii multiple",
-        required: "Required",
         opText: "Text",
         opValue: "Valoare",
         btnAdd: "Adaugă",
@@ -54,7 +52,6 @@
         value: "Valoare",
         charWidth: "Lărgimea caracterului",
         maxChars: "Caractere maxime",
-        required: "Required",
         type: "Tip",
         typeText: "Text",
         typePass: "Parolă",

@@ -9,21 +9,21 @@ CKEDITOR.plugins.setLang("a11yhelp", "ro", {
         name: "General",
         items: [{
             name: "Editează bara instrumente.",
-            legend: "Apasă ${toolbarFocus} pentru a naviga prin bara de instrumente. Pentru a te mișca prin grupurile de instrumente folosește tastele TAB și SHIFT+TAB. Pentru a te mișca intre diverse instrumente folosește tastele SĂGEATĂ DREAPTA sau SĂGEATĂ STÂNGA. Apasă butonul SPAȚIU sau ENTER pentru activarea instrumentului."
+            legend: "Apasă ${toolbarFocus} pentru a naviga prin bara de instrumente. Pentru a te mișca prin grupurile de instrumente folosește tastele TAB și SHIFT-TAB. Pentru a te mișca intre diverse instrumente folosește tastele SĂGEATĂ DREAPTA sau SĂGEATĂ STÂNGA. Apasă butonul SPAȚIU sau ENTER pentru activarea instrumentului."
         },
             {
                 name: "Dialog editor",
-                legend: "Inside a dialog, press TAB to navigate to the next dialog element, press SHIFT+TAB to move to the previous dialog element, press ENTER to submit the dialog, press ESC to cancel the dialog. When a dialog has multiple tabs, the tab list can be reached either with ALT+F10 or with TAB as part of the dialog tabbing order. With tab list focused, move to the next and previous tab with RIGHT and LEFT ARROW, respectively."
-            }, {
-                name: "Editor meniu contextual",
-                legend: "Apasă ${contextMenu} sau TASTA MENIU pentru a deschide meniul contextual. Treci la următoarea opțiune din meniu cu TAB sau SĂGEATĂ JOS. Treci la opțiunea anterioară cu  SHIFT+TAB sau SĂGEATĂ SUS. Apasă SPAȚIU sau ENTER pentru a selecta opțiunea din meniu. Deschide sub-meniul opțiunii curente cu SPAȚIU sau ENTER sau SĂGEATĂ DREAPTA. Revino la elementul din meniul părinte cu ESC sau SĂGEATĂ STÂNGA. Închide meniul de context cu ESC."
+                legend: "Într-un dialog, apasă TAB pentru a naviga spre câmpul următor de dialog, apasă SHIFT + TAB pentru a te duce la câmpul anterior, apasă ENTER pentru a trimite dialogul, apasă ESC pentru a anula dialogul. Pentru dialoguri care au mai multe subferestre, apasă ALT + F10 pentr a naviga în lista de subferestre. Treci la subferestrea următoare cu TAB sau SĂGEATĂ DREAPTA. Treci la subfereastra anterioară cu SHIFT + TAB sau SĂGEATĂ STÂNGA. Apasă SPAȚIU sau ENTER pentru a selecta subfereastra."
             },
             {
+                name: "Editor meniu contextual",
+                legend: "Apasă ${contextMenu} sau TASTA MENIU pentru a deschide meniul contextual. Treci la următoarea opțiune din meniu cu TAB sau SĂGEATĂ JOS. Treci la opțiunea anterioară cu  SHIFT+TAB sau SĂGEATĂ SUS. Apasă SPAȚIU sau ENTER pentru a selecta opțiunea din meniu. Deschide sub-meniul opțiunii curente cu SPAȚIU sau ENTER sau SĂGEATĂ DREAPTA. Revino la elementul din meniul părinte cu ESC sau SĂGEATĂ STÂNGA. Închide meniul de context cu ESC."
+            }, {
                 name: "Editor Casetă Listă",
-                legend: "În interiorul unei liste, treci la următorull element cu TAB sau SĂGEATĂ JOS. Treci la elementul anterior din listă cu SHIFT+TAB sau SĂGEATĂ SUS. Apasă SPAȚIU sau ENTER pentru a selecta opțiunea din listă. Apasă ESC pentru a închide lista."
+                legend: "În interiorul unei liste, treci la următorull element cu TAB sau SĂGEATĂ JOS. Treci la elementul anterior din listă cu SHIFT + TAB sau SĂGEATĂ SUS. Apasă SPAȚIU sau ENTER pentru a selecta opțiunea din listă. Apasă ESC pentru a închide lista."
             }, {
                 name: "Editor Element Path Bar",
-                legend: "Press ${elementsPathFocus} to navigate to the elements path bar. Move to next element button with TAB or RIGHT ARROW. Move to previous button with SHIFT+TAB or LEFT ARROW. Press SPACE or ENTER to select the element in editor."
+                legend: "Press ${elementsPathFocus} to navigate to the elements path bar. Move to next element button with TAB or RIGHT ARROW. Move to previous button with  SHIFT+TAB or LEFT ARROW. Press SPACE or ENTER to select the element in editor."
             }]
     },
 {name:"Comenzi",items:[{name:" Undo command",legend:"Apasă ${undo}"},{name:"Comanda precedentă",legend:"Apasă ${redo}"},{name:"Comanda Îngroșat",legend:"Apasă ${bold}"},{name:"Comanda Inclinat",legend:"Apasă ${italic}"},{name:"Comanda Subliniere",legend:"Apasă ${underline}"},{name:"Comanda Legatură",legend:"Apasă ${link}"},{name:" Toolbar Collapse command",legend:"Press ${toolbarCollapse}"},{name:" Access previous focus space command",legend:"Press ${accessPreviousSpace} to access the closest unreachable focus space before the caret, for example: two adjacent HR elements. Repeat the key combination to reach distant focus spaces."},

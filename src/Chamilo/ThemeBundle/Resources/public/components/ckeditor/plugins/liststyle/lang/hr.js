@@ -10,5 +10,5 @@
     lowerGreek: "Grčka numeracija mala slova (alfa, beta, gama, itd).",
     lowerRoman: "Romanska numeracija mala slova (i, ii, iii, iv, v, itd.)",
     none: "Bez",
-    notset: "\x3cnije određen\x3e",
+    notset: "<nije određen>",
 numberedTitle:"Svojstva brojčane liste",square:"Kvadrat",start:"Početak",type:"Vrsta",upperAlpha:"Znakovi velika slova (A, B, C, D, E, itd.)",upperRoman:"Romanska numeracija velika slova (I, II, III, IV, V, itd.)",validateStartNumber:"Početak brojčane liste mora biti cijeli broj."});

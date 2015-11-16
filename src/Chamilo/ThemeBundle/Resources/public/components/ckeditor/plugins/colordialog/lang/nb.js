@@ -2,6 +2,6 @@
     clear: "Tøm",
     highlight: "Merk",
     options: "Alternativer for farge",
-    selected: "Valgt farge",
+    selected: "Valgt",
     title: "Velg farge"
 });

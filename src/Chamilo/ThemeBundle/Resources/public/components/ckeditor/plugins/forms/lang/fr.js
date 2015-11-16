@@ -11,8 +11,7 @@
         checkboxTitle: "Propriétés de la case à cocher",
         radioTitle: "Propriétés du bouton Radio",
         value: "Valeur",
-        selected: "Sélectionné",
-        required: "Requis"
+        selected: "Sélectionné"
     },
     form: {
         title: "Propriétés du formulaire",
@@ -22,8 +21,8 @@
         encoding: "Encodage"
     },
     hidden: {
-        title: "Propriétés du champ caché",
-        name: "Nom", value: "Valeur"
+        title: "Propriétés du champ caché", name: "Nom",
+        value: "Valeur"
     },
     select: {
         title: "Propriétés du menu déroulant",
@@ -33,7 +32,6 @@
         size: "Taille",
         lines: "Lignes",
         chkMulti: "Permettre les sélections multiples",
-        required: "Requis",
         opText: "Texte",
         opValue: "Valeur",
         btnAdd: "Ajouter",
@@ -54,7 +52,6 @@
         value: "Valeur",
         charWidth: "Taille des caractères",
         maxChars: "Nombre maximum de caractères",
-        required: "Requis",
         type: "Type",
         typeText: "Texte",
         typePass: "Mot de passe",

@@ -12,7 +12,7 @@
     metaDescription: "Description",
     metaKeywords: "Mots-clés (séparés par des virgules)",
     other: "Autre...",
-    previewHtml: '\x3cp\x3eVoici un \x3cstrong\x3eexample de texte\x3c/strong\x3e. Vous utilisez \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    previewHtml: '<p>Voici un <strong>example de texte</strong>. Vous utilisez <a href="javascript:void(0)">CKEditor</a>.</p>',
     title: "Propriétés du document",
     txtColor: "Couleur de caractère",
     xhtmlDec: "Inclure les déclarations XHTML"

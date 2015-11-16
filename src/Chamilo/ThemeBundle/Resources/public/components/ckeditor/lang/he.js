@@ -208,6 +208,7 @@ CKEDITOR.lang['he'] = {
     },
     "indent": {"indent": "הגדלת הזחה", "outdent": "הקטנת הזחה"},
     "image": {
+        "alertUrl": "יש להקליד את כתובת התמונה",
         "alt": "טקסט חלופי",
         "border": "מסגרת",
         "btnUpload": "שליחה לשרת",

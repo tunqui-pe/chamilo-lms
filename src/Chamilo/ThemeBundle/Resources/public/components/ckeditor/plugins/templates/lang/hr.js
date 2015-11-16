@@ -3,6 +3,6 @@
     emptyListMsg: "(Nema definiranih predložaka)",
     insertOption: "Zamijeni trenutne sadržaje",
     options: "Opcije predložaka",
-    selectPromptMsg: "Molimo odaberite predložak koji želite otvoriti\x3cbr\x3e(stvarni sadržaj će biti izgubljen):",
+    selectPromptMsg: "Molimo odaberite predložak koji želite otvoriti<br>(stvarni sadržaj će biti izgubljen):",
     title: "Predlošci sadržaja"
 });

@@ -1,4 +1,4 @@
 ﻿CKEDITOR.plugins.setLang("bidi", "ro", {
-    ltr: "Direcția textului de la stânga la dreapta",
-    rtl: "Direcția textului de la dreapta la stânga"
+    ltr: "Text direction from left to right",
+    rtl: "Text direction from right to left"
 });

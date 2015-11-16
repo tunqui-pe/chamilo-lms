@@ -155,8 +155,30 @@ $visibleResults = array(
 );
 $form->addElement('select', 'visible_results', get_lang('ResultsVisibility'), $visibleResults);
 //$defaults['visible_results'] = 0;
-$form->addElement('html_editor', 'survey_introduction', get_lang('SurveyIntroduction'), null, array('ToolbarSet' => 'Survey', 'Width' => '100%', 'Height' => '130', 'ToolbarStartExpanded' => false));
-$form->addElement('html_editor', 'survey_thanks', get_lang('SurveyThanks'), null, array('ToolbarSet' => 'Survey', 'Width' => '100%', 'Height' => '130', 'ToolbarStartExpanded' => false));
+$form->addHtmlEditor(
+    'survey_introduction',
+    get_lang('SurveyIntroduction'),
+    false,
+    false,
+    array(
+        'ToolbarSet' => 'Survey',
+        'Width' => '100%',
+        'Height' => '130',
+        'ToolbarStartExpanded' => false,
+    )
+);
+$form->addHtmlEditor(
+    'survey_thanks',
+    get_lang('SurveyThanks'),
+    false,
+    false,
+    array(
+        'ToolbarSet' => 'Survey',
+        'Width' => '100%',
+        'Height' => '130',
+        'ToolbarStartExpanded' => false,
+    )
+);
 
 // Additional Parameters
 $form->addButtonAdvancedSettings('advanced_params');

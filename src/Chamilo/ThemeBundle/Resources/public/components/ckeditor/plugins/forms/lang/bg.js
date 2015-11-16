@@ -11,8 +11,7 @@
         checkboxTitle: "Checkbox Properties",
         radioTitle: "Настройки на радиобутон",
         value: "Стойност",
-        selected: "Избрано",
-        required: "Required"
+        selected: "Избрано"
     },
     form: {
         title: "Настройки на формата",
@@ -30,7 +29,6 @@
         size: "Размер",
         lines: "линии",
         chkMulti: "Allow multiple selections",
-        required: "Required",
         opText: "Текст",
         opValue: "Стойност",
         btnAdd: "Добави",
@@ -51,7 +49,6 @@
         value: "Стойност",
         charWidth: "Ширина на знаците",
         maxChars: "Макс. знаци",
-        required: "Required",
         type: "Тип",
         typeText: "Текст",
         typePass: "Парола",

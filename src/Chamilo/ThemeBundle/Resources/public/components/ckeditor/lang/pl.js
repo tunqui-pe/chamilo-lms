@@ -214,6 +214,7 @@ CKEDITOR.lang['pl'] = {
     },
     "indent": {"indent": "Zwiększ wcięcie", "outdent": "Zmniejsz wcięcie"},
     "image": {
+        "alertUrl": "Podaj adres obrazka.",
         "alt": "Tekst zastępczy",
         "border": "Obramowanie",
         "btnUpload": "Wyślij",

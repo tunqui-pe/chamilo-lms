@@ -14,5 +14,5 @@
     metaDescription: "Document Description",
     metaKeywords: "Document Indexing Keywords (comma separated)",
     other: "Other...",
-    previewHtml: '\x3cp\x3eThis is some \x3cstrong\x3esample text\x3c/strong\x3e. You are using \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>',
 title:"Document Properties",txtColor:"Text Color",xhtmlDec:"Include XHTML Declarations"});

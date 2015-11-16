@@ -962,7 +962,15 @@ function add_edit_template() {
     $form->addText('title', get_lang('Title'), false);
 
     // Setting the form elements: the content of the template (wysiwyg editor).
-    $form->addElement('html_editor', 'template_text', get_lang('Text'), null, array('ToolbarSet' => 'AdminTemplates', 'Width' => '100%', 'Height' => '400'));
+    $form->addHtmlEditor(
+        'template_text',
+        get_lang('Text'),
+        array(
+            'ToolbarSet' => 'AdminTemplates',
+            'Width' => '100%',
+            'Height' => '400',
+        )
+    );
 
     // Setting the form elements: the form to upload an image to be used with the template.
     $form->addElement('file','template_image',get_lang('Image'),'');

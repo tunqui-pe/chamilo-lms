@@ -11,8 +11,7 @@
         checkboxTitle: "Thuộc tính nút kiểm",
         radioTitle: "Thuộc tính nút chọn",
         value: "Giá trị",
-        selected: "Được chọn",
-        required: "Required"
+        selected: "Được chọn"
     },
     form: {
         title: "Thuộc tính biểu mẫu",
@@ -30,7 +29,6 @@
         size: "Kích cỡ",
         lines: "dòng",
         chkMulti: "Cho phép chọn nhiều",
-        required: "Required",
         opText: "Văn bản",
         opValue: "Giá trị",
         btnAdd: "Thêm",
@@ -51,7 +49,6 @@
         value: "Giá trị",
         charWidth: "Độ rộng của ký tự",
         maxChars: "Số ký tự tối đa",
-        required: "Required",
         type: "Kiểu",
         typeText: "Ký tự",
         typePass: "Mật khẩu",

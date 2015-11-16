@@ -11,8 +11,7 @@
         checkboxTitle: "チェックボックスのプロパティ",
         radioTitle: "ラジオボタンのプロパティ",
         value: "値",
-        selected: "選択済み",
-        required: "Required"
+        selected: "選択済み"
     },
     form: {
         title: "フォームのプロパティ",
@@ -30,7 +29,6 @@
         size: "サイズ",
         lines: "行",
         chkMulti: "複数選択を許可",
-        required: "Required",
         opText: "選択項目名",
         opValue: "値",
         btnAdd: "追加",
@@ -47,7 +45,6 @@
         value: "値",
         charWidth: "サイズ",
         maxChars: "最大長",
-        required: "Required",
         type: "タイプ",
         typeText: "テキスト",
         typePass: "パスワード入力",

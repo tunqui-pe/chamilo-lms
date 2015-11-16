@@ -10,5 +10,5 @@
     lowerGreek: "Greco minuscolo (alpha, beta, gamma, ecc.)",
     lowerRoman: "Numerazione Romana minuscola (i, ii, iii, iv, v, ecc.)",
     none: "Nessuno",
-    notset: "\x3cnon impostato\x3e",
+    notset: "<non impostato>",
 numberedTitle:"Proprietà liste numerate",square:"Quadrato",start:"Inizio",type:"Tipo",upperAlpha:"Alfabetico maiuscolo (A, B, C, D, E, ecc.)",upperRoman:"Numerazione Romana maiuscola (I, II, III, IV, V, ecc.)",validateStartNumber:"Il numero di inizio di una lista numerata deve essere un numero intero."});

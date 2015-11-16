@@ -214,6 +214,7 @@ CKEDITOR.lang['da'] = {
     },
     "indent": {"indent": "Forøg indrykning", "outdent": "Formindsk indrykning"},
     "image": {
+        "alertUrl": "Indtast stien til billedet",
         "alt": "Alternativ tekst",
         "border": "Ramme",
         "btnUpload": "Upload fil til serveren",

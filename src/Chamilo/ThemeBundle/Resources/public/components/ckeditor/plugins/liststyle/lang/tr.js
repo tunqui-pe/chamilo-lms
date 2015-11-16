@@ -10,6 +10,6 @@
     lowerGreek: "Küçük Greek (alpha, beta, gamma, vs.)",
     lowerRoman: "Küçük Roman (i, ii, iii, iv, v, vs.)",
     none: "Yok",
-    notset: "\x3cayarlanmamış\x3e",
+    notset: "<ayarlanmamış>",
     numberedTitle: "Sayılandırılmış Liste Özellikleri",
 square:"Kare",start:"Başla",type:"Tipi",upperAlpha:"Büyük Alpha (A, B, C, D, E, vs.)",upperRoman:"Büyük Roman (I, II, III, IV, V, vs.)",validateStartNumber:"Liste başlangıcı tam sayı olmalıdır."});

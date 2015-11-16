@@ -19,7 +19,7 @@ divide:"Anglosaski znak dzielenia",oslash:"Mała litera o z przekreśleniem",ugr
     bull: "Punktor",
     rarr: "Strzałka w prawo",
     rArr: "Podwójna strzałka w prawo",
-    hArr: "Podwójna strzałka obustronna",
+    hArr: "Podwójna strzałka w lewo",
     diams: "Czarny znak karo",
     asymp: "Znak prawie równe"
 });

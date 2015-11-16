@@ -5,7 +5,7 @@
     metaDescription: "文件描述",
     metaKeywords: "文件索引關鍵字 (以逗號分隔)",
     other: "其他…",
-    previewHtml: '\x3cp\x3e此為簡短的\x3cstrong\x3e範例文字\x3c/strong\x3e。您正在使用 \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e。\x3c/p\x3e',
+    previewHtml: '<p>此為簡短的<strong>範例文字</strong>。您正在使用 <a href="javascript:void(0)">CKEditor</a>。</p>',
     title: "文件屬性",
     txtColor: "文字顏色",
     xhtmlDec: "包含 XHTML 宣告"

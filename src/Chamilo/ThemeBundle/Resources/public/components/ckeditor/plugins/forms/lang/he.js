@@ -11,8 +11,7 @@
         checkboxTitle: "מאפייני תיבת סימון",
         radioTitle: "מאפייני לחצן אפשרויות",
         value: "ערך",
-        selected: "מסומן",
-        required: "Required"
+        selected: "מסומן"
     },
     form: {
         title: "מאפיני טופס",
@@ -30,7 +29,6 @@
         size: "גודל",
         lines: "שורות",
         chkMulti: "איפשור בחירות מרובות",
-        required: "Required",
         opText: "טקסט",
         opValue: "ערך",
         btnAdd: "הוספה",
@@ -47,7 +45,6 @@
         value: "ערך",
         charWidth: "רוחב לפי תווים",
         maxChars: "מקסימום תווים",
-        required: "Required",
         type: "סוג",
         typeText: "טקסט",
         typePass: "סיסמה",

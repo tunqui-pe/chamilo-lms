@@ -5,25 +5,25 @@
 (function () {
     CKEDITOR.plugins.add("language", {
         requires: "menubutton",
-        lang: "ar,bg,ca,cs,cy,da,de,el,en,en-gb,eo,es,eu,fa,fi,fo,fr,gl,he,hr,hu,id,it,ja,km,ko,ku,nb,nl,no,pl,pt,pt-br,ru,sk,sl,sq,sv,tr,tt,ug,uk,vi,zh,zh-cn",
+        lang: "ar,ca,cs,cy,da,de,el,en,en-gb,eo,es,fa,fi,fr,gl,he,hr,hu,it,ja,km,ku,nb,nl,no,pl,pt,pt-br,ru,sk,sl,sq,sv,tr,tt,uk,vi,zh,zh-cn",
         icons: "language",
         hidpi: !0,
         init: function (a) {
-            var b = a.config.language_list || ["ar:Arabic:rtl", "fr:French", "es:Spanish"], c = this, d = a.lang.language, e = {}, g, h, k, f;
+            var b = a.config.language_list || ["ar:Arabic:rtl", "fr:French", "es:Spanish"], c = this, d = a.lang.language, e = {}, g, h, i, f;
             a.addCommand("language", {
                 allowedContent: "span[!lang,!dir]",
                 requiredContent: "span[lang,dir]",
                 contextSensitive: !0,
                 exec: function (a, b) {
-                    var c =
-                        e["language_" + b];
+                    var c = e["language_" +
+                    b];
                     if (c)a[c.style.checkActive(a.elementPath(), a) ? "removeStyle" : "applyStyle"](c.style)
                 },
                 refresh: function (a) {
                     this.setState(c.getCurrentLangElement(a) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF)
                 }
             });
-            for (f = 0; f < b.length; f++)g = b[f].split(":"), h = g[0], k = "language_" + h, e[k] = {
+            for (f = 0; f < b.length; f++)g = b[f].split(":"), h = g[0], i = "language_" + h, e[i] = {
                 label: g[1],
                 langId: h,
                 group: "language",
@@ -33,10 +33,10 @@
                     a.execCommand("language", this.langId)
                 },
                 role: "menuitemcheckbox"
-            }, e[k].style = new CKEDITOR.style({
+            }, e[i].style = new CKEDITOR.style({
                 element: "span", attributes: {
-                    lang: h,
-                    dir: e[k].ltr ? "ltr" : "rtl"
+                    lang: h, dir: e[i].ltr ?
+                        "ltr" : "rtl"
                 }
             });
             e.language_remove = {
@@ -59,8 +59,8 @@
                 toolbar: "bidi,30",
                 command: "language",
                 onMenu: function () {
-                    var b =
-                    {}, d = c.getCurrentLangElement(a), f;
+                    var b = {}, d = c.getCurrentLangElement(a),
+                        f;
                     for (f in e)b[f] = CKEDITOR.TRISTATE_OFF;
                     b.language_remove = d ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
                     d && (b["language_" + d.getAttribute("lang")] = CKEDITOR.TRISTATE_ON);
@@ -69,10 +69,8 @@
             })
         },
         getCurrentLangElement: function (a) {
-            var b = a.elementPath();
-            a = b && b.elements;
-            var c;
-            if (b)for (var d = 0; d < a.length; d++)b = a[d], !c && "span" == b.getName() && b.hasAttribute("dir") && b.hasAttribute("lang") && (c = b);
+            var b = a.elementPath(), a = b && b.elements, c;
+            if (b)for (var d = 0; d < a.length; d++)b = a[d], !c && ("span" == b.getName() && b.hasAttribute("dir") && b.hasAttribute("lang")) && (c = b);
             return c
         }
     })

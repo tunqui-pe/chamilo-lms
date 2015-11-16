@@ -15,9 +15,32 @@
     a.addCommand("removediv", {
         requiredContent: "div", exec: function (a) {
             function c(b) {
-                (b = CKEDITOR.plugins.div.getSurroundDiv(a, b)) && !b.data("cke-div-added") && (f.push(b), b.data("cke-div-added"))
+                if ((b = CKEDITOR.plugins.div.getSurroundDiv(a, b)) && !b.data("cke-div-added"))f.push(b), b.data("cke-div-added")
             }
 
             for (var b = a.getSelection(),
-g=b&&b.getRanges(),e,h=b.createBookmarks(),f=[],d=0; d<g.length; d++)e=g[d],e.collapsed?c(b.getStartElement()):(e=new CKEDITOR.dom.walker(e),e.evaluator=c,e.lastForward());for(d=0;d<f.length;d++)f[d].remove(!0);b.selectBookmarks(h)}});a.ui.addButton&&a.ui.addButton("CreateDiv",{label:c.toolbar,command:"creatediv",toolbar:"blocks,50"});a.addMenuItems&&(a.addMenuItems({editdiv:{label:c.edit,command:"editdiv",group:"div",order:1},removediv:{label:c.remove,command:"removediv",group:"div",order:5}}),a.contextMenu&&
+                     g = b && b.getRanges(), e, h = b.createBookmarks(), f = [], d = 0; d < g.length; d++)e = g[d], e.collapsed ? c(b.getStartElement()) : (e = new CKEDITOR.dom.walker(e), e.evaluator = c, e.lastForward());
+            for (d = 0; d < f.length; d++)f[d].remove(!0);
+            b.selectBookmarks(h)
+        }
+    });
+    a.ui.addButton && a.ui.addButton("CreateDiv", {
+        label: c.toolbar,
+        command: "creatediv",
+        toolbar: "blocks,50"
+    });
+    a.addMenuItems && (a.addMenuItems({
+        editdiv: {
+            label: c.edit,
+            command: "editdiv",
+            group: "div",
+            order: 1
+        },
+        removediv: {
+            label: c.remove,
+            command: "removediv",
+            group: "div",
+            order: 5
+        }
+    }), a.contextMenu &&
 a.contextMenu.addListener(function(b){return!b||b.isReadOnly()?null:CKEDITOR.plugins.div.getSurroundDiv(a)?{editdiv:CKEDITOR.TRISTATE_OFF,removediv:CKEDITOR.TRISTATE_OFF}:null}));CKEDITOR.dialog.add("creatediv",this.path+"dialogs/div.js");CKEDITOR.dialog.add("editdiv",this.path+"dialogs/div.js")}}});CKEDITOR.plugins.div={getSurroundDiv:function(a,c){var b=a.elementPath(c);return a.elementPath(b.blockLimit).contains(function(a){return a.is("div")&&!a.isReadOnly()},1)}}})();

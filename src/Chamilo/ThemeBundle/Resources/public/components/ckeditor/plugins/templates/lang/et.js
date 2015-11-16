@@ -3,6 +3,6 @@
     emptyListMsg: "(Ühtegi malli ei ole defineeritud)",
     insertOption: "Praegune sisu asendatakse",
     options: "Malli valikud",
-    selectPromptMsg: "Palun vali mall, mis avada redaktoris\x3cbr /\x3e(praegune sisu läheb kaotsi):",
+    selectPromptMsg: "Palun vali mall, mis avada redaktoris<br />(praegune sisu läheb kaotsi):",
     title: "Sisumallid"
 });

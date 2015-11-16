@@ -214,6 +214,7 @@ CKEDITOR.lang['lv'] = {
     },
     "indent": {"indent": "Palielināt atkāpi", "outdent": "Samazināt atkāpi"},
     "image": {
+        "alertUrl": "Lūdzu norādīt attēla hipersaiti",
         "alt": "Alternatīvais teksts",
         "border": "Rāmis",
         "btnUpload": "Nosūtīt serverim",
@@ -288,7 +289,7 @@ CKEDITOR.lang['lv'] = {
         "userGuide": "CKEditor Lietotāja pamācība"
     },
     "editor": "Bagātinātā teksta redaktors",
-    "editorPanel": "Bagātinātā teksta redaktora panelis",
+    "editorPanel": "Rich Text Editor panel",
     "common": {
         "editorHelp": "Palīdzībai, nospiediet ALT 0 ",
         "browseServer": "Skatīt servera saturu",
@@ -348,7 +349,7 @@ CKEDITOR.lang['lv'] = {
         "alignTop": "Augšā",
         "alignMiddle": "Vertikāli centrēts",
         "alignBottom": "Apakšā",
-        "alignNone": "Nekas",
+        "alignNone": "None",
         "invalidValue": "Nekorekta vērtība",
         "invalidHeight": "Augstumam jābūt skaitlim.",
         "invalidWidth": "Platumam jābūt skaitlim",

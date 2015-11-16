@@ -10,7 +10,7 @@
     lowerGreek: "小写希腊字母(alpha, beta, gamma, 等)",
     lowerRoman: "小写罗马数字(i, ii, iii, iv, v, 等)",
     none: "无标记",
-    notset: "\x3c没有设置\x3e",
+    notset: "<没有设置>",
     numberedTitle: "编号列表属性",
     square: "实心方块",
     start: "开始序号",

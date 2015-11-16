@@ -46,7 +46,9 @@
     "jquery.ui.touch": "*",
     "jsplumb": "2.0.4",
     "jqgrid": "4.7.0",
-    "adminlte": "*"
+    "adminlte": "*",
+    "jquery-file-upload": "*",
+    "blueimp-load-image": "*"
   },
   "resolutions": {
     "jquery": "2.1.4"

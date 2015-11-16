@@ -211,7 +211,8 @@ CKEDITOR.lang['hu'] = {
     },
     "indent": {"indent": "Behúzás növelése", "outdent": "Behúzás csökkentése"},
     "image": {
-        "alt": "Alternatív szöveg",
+        "alertUrl": "Töltse ki a kép webcímét",
+        "alt": "Buborék szöveg",
         "border": "Keret",
         "btnUpload": "Küldés a szerverre",
         "button2Img": "A kiválasztott képgombból sima képet szeretne csinálni?",

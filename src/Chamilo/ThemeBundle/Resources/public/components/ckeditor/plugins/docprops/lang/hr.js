@@ -12,6 +12,6 @@
     metaCopyright: "Autorska prava",
     metaDescription: "Opis dokumenta",
     metaKeywords: "Ključne riječi dokumenta (odvojene zarezom)",
-    other: "\x3cdrugi\x3e",
-    previewHtml: '\x3cp\x3eOvo je neki \x3cstrong\x3eprimjer teksta\x3c/strong\x3e. Vi koristite \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<drugi>",
+    previewHtml: '<p>Ovo je neki <strong>primjer teksta</strong>. Vi koristite <a href="javascript:void(0)">CKEditor</a>.</p>',
 title:"Svojstva dokumenta",txtColor:"Boja teksta",xhtmlDec:"Ubaci XHTML deklaracije"});

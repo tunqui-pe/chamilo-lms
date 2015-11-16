@@ -12,8 +12,8 @@
     metaCopyright: "কপীরাইট",
     metaDescription: "ডক্যূমেন্ট বর্ণনা",
     metaKeywords: "ডক্যুমেন্ট ইন্ডেক্স কিওয়ার্ড (কমা দ্বারা বিচ্ছিন্ন)",
-    other: "\x3cother\x3e",
-    previewHtml: '\x3cp\x3eThis is some \x3cstrong\x3esample text\x3c/strong\x3e. You are using \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<other>",
+    previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>',
     title: "ডক্যুমেন্ট প্রোপার্টি",
     txtColor: "টেক্স্ট রং",
     xhtmlDec: "XHTML ডেক্লারেশন যুক্ত কর"

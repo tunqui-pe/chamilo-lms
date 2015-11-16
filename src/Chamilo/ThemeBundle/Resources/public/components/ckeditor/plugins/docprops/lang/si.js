@@ -12,7 +12,7 @@
     metaDescription: "ලිපිගොනු ",
     metaKeywords: "ලිපිගොනු පෙලගේසමේ විශේෂ වචන (කොමා වලින් වෙන්කරන ලද)",
     other: "අනෙකුත්",
-    previewHtml: '\x3cp\x3eThis is some \x3cstrong\x3esample text\x3c/strong\x3e. You are using \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>',
     title: "පෝරමයේ ගුණ/",
     txtColor: "අක්ෂර වර්ණ",
     xhtmlDec: "Include XHTML Declarations"

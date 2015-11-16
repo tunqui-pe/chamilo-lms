@@ -3,10 +3,10 @@
  For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang("codesnippet", "bg", {
-    button: "Въвеждане на блок с код",
-    codeContents: "Съдържание на кода",
-    emptySnippetError: "Блока с код не може да бъде празен.",
-    language: "Език",
-    title: "Блок с код",
-    pathName: "блок с код"
+    button: "Въведете кода",
+    codeContents: "Code content",
+    emptySnippetError: "A code snippet cannot be empty.",
+    language: "Language",
+    title: "Code snippet",
+    pathName: "code snippet"
 });

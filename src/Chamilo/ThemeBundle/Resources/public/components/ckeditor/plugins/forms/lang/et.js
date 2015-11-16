@@ -11,8 +11,7 @@
         checkboxTitle: "Märkeruudu omadused",
         radioTitle: "Raadionupu omadused",
         value: "Väärtus",
-        selected: "Märgitud",
-        required: "Required"
+        selected: "Märgitud"
     },
     form: {
         title: "Vormi omadused",
@@ -30,7 +29,6 @@
         size: "Suurus",
         lines: "ridu",
         chkMulti: "Võimalik mitu valikut",
-        required: "Required",
         opText: "Tekst",
         opValue: "Väärtus",
         btnAdd: "Lisa",
@@ -47,7 +45,6 @@
         value: "Väärtus",
         charWidth: "Laius (tähemärkides)",
         maxChars: "Maksimaalselt tähemärke",
-        required: "Required",
         type: "Liik",
         typeText: "Tekst",
         typePass: "Parool",

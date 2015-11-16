@@ -134,7 +134,7 @@ CKEDITOR.lang['uk'] = {
         "btn_options": "Опції",
         "text_title": "Перефірка орфографії по мірі набору"
     },
-    "removeformat": {"toolbar": "Видалити форматування"},
+    "removeformat": {"toolbar": "Очистити форматування"},
     "pastetext": {
         "button": "Вставити тільки текст",
         "title": "Вставити тільки текст"
@@ -214,6 +214,7 @@ CKEDITOR.lang['uk'] = {
     },
     "indent": {"indent": "Збільшити відступ", "outdent": "Зменшити відступ"},
     "image": {
+        "alertUrl": "Будь ласка, вкажіть URL зображення",
         "alt": "Альтернативний текст",
         "border": "Рамка",
         "btnUpload": "Надіслати на сервер",

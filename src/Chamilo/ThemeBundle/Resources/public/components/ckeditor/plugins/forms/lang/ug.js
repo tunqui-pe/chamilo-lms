@@ -11,8 +11,7 @@
         checkboxTitle: "كۆپ تاللاش خاسلىقى",
         radioTitle: "تاق تاللاش توپچا خاسلىقى",
         value: "تاللىغان قىممەت",
-        selected: "تاللانغان",
-        required: "زۆرۈر"
+        selected: "تاللانغان"
     },
     form: {
         title: "جەدۋەل خاسلىقى",
@@ -34,7 +33,6 @@
         size: "ئېگىزلىكى",
         lines: "قۇر",
         chkMulti: "كۆپ تاللاشچان",
-        required: "زۆرۈر",
         opText: "تاللانما تېكىستى",
         opValue: "تاللانما قىممىتى",
         btnAdd: "قوش",
@@ -55,7 +53,6 @@
         value: "دەسلەپكى قىممىتى",
         charWidth: "ھەرپ كەڭلىكى",
         maxChars: "ئەڭ كۆپ ھەرپ سانى",
-        required: "زۆرۈر",
         type: "تىپى",
         typeText: "تېكىست",
         typePass: "ئىم",

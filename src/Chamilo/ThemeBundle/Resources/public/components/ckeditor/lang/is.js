@@ -211,6 +211,7 @@ CKEDITOR.lang['is'] = {
     },
     "indent": {"indent": "Minnka inndrátt", "outdent": "Auka inndrátt"},
     "image": {
+        "alertUrl": "Sláðu inn slóðina að myndinni",
         "alt": "Baklægur texti",
         "border": "Rammi",
         "btnUpload": "Hlaða upp",

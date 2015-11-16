@@ -2,7 +2,7 @@
     alt: "替代文字",
     btnUpload: "傳送至伺服器",
     captioned: "已加標題之圖片",
-    captionPlaceholder: "標題",
+    captionPlaceholder: "Caption",
     infoTab: "影像資訊",
     lockRatio: "固定比例",
     menu: "影像屬性",

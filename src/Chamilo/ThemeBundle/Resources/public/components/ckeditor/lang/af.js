@@ -214,6 +214,7 @@ CKEDITOR.lang['af'] = {
     },
     "indent": {"indent": "Vergroot inspring", "outdent": "Verklein inspring"},
     "image": {
+        "alertUrl": "Gee URL van afbeelding.",
         "alt": "Alternatiewe teks",
         "border": "Rand",
         "btnUpload": "Stuur na bediener",

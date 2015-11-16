@@ -3,6 +3,6 @@
  For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang("language", "de", {
-    button: "Sprache festlegen",
+    button: "Sprache stellen",
     remove: "Sprache entfernen"
 });

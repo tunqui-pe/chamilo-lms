@@ -11,6 +11,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     border: solid 1px #ddd;
     padding: 5px;
     background-color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px
 }
 
@@ -27,55 +29,16 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     border-bottom: 1px solid #eee
 }
 
-.cke_dialog_spinner {
-    border-radius: 50%;
-    width: 12px;
-    height: 12px;
-    overflow: hidden;
-    text-indent: -9999em;
-    border-top: 2px solid rgba(102, 102, 102, 0.2);
-    border-right: 2px solid rgba(102, 102, 102, 0.2);
-    border-bottom: 2px solid rgba(102, 102, 102, 0.2);
-    border-left: 2px solid rgba(102, 102, 102, 1);
-    -webkit-animation: dialog_spinner 1s infinite linear;
-    animation: dialog_spinner 1s infinite linear
-}
-
-.cke_browser_ie8 .cke_dialog_spinner, .cke_browser_ie9 .cke_dialog_spinner {
-    background: url(images/spinner.gif) center top no-repeat;
-    width: 16px;
-    height: 16px;
-    border: 0
-}
-
-@-webkit-keyframes dialog_spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg)
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg)
-    }
-}
-
-@keyframes dialog_spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg)
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg)
-    }
-}
-
 .cke_dialog_contents {
     background-color: #ebebeb;
     border: solid 1px #fff;
     border-bottom: 0;
     overflow: auto;
     padding: 17px 10px 5px 10px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     margin-top: 22px
@@ -92,6 +55,10 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     background-color: #ebebeb;
     border: solid 1px #fff;
     border-bottom: 0;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px
 }
@@ -182,7 +149,7 @@ a.cke_dialog_tab_disabled {
     margin-top: 10px
 }
 
-a.cke_dialog_close_button {
+.cke_dialog_close_button {
     background-image: url(images/sprites.png);
     background-repeat: no-repeat;
     background-position: 0 -1022px;
@@ -275,6 +242,8 @@ div.cke_dialog_ui_input_textarea {
 a.cke_dialog_ui_button {
     border-collapse: separate;
     cursor: default;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px;
     background: transparent url(images/sprites.png) repeat-x scroll 0 -1069px;
     text-align: center;

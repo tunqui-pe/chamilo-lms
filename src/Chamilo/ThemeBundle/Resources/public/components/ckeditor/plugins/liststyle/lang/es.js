@@ -10,5 +10,5 @@
     lowerGreek: "Letras griegas (alpha, beta, gamma, etc.)",
     lowerRoman: "Números romanos en minúsculas (i, ii, iii, iv, v, etc.)",
     none: "Ninguno",
-    notset: "\x3csin establecer\x3e",
+    notset: "<sin establecer>",
 numberedTitle:"Propiedades de lista numerada",square:"Cuadrado",start:"Inicio",type:"Tipo",upperAlpha:"Alfabeto en mayúsculas  (A, B, C, D, E, etc.)",upperRoman:"Números romanos en mayúsculas (I, II, III, IV, V, etc.)",validateStartNumber:"El Inicio debe ser un número entero."});

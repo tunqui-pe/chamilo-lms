@@ -214,6 +214,7 @@ CKEDITOR.lang['ms'] = {
     },
     "indent": {"indent": "Tambahkan Inden", "outdent": "Kurangkan Inden"},
     "image": {
+        "alertUrl": "Sila taip URL untuk fail gambar",
         "alt": "Text Alternatif",
         "border": "Border",
         "btnUpload": "Hantar ke Server",

@@ -12,6 +12,6 @@
     metaCopyright: "Autoriõigus",
     metaDescription: "Dokumendi kirjeldus",
     metaKeywords: "Dokumendi võtmesõnad (eraldatud komadega)",
-    other: "\x3cmuu\x3e",
-    previewHtml: '\x3cp\x3eSee on \x3cstrong\x3enäidistekst\x3c/strong\x3e. Sa kasutad \x3ca href\x3d"javascript:void(0)"\x3eCKEditori\x3c/a\x3e.\x3c/p\x3e',
+    other: "<muu>",
+    previewHtml: '<p>See on <strong>näidistekst</strong>. Sa kasutad <a href="javascript:void(0)">CKEditori</a>.</p>',
 title:"Dokumendi omadused",txtColor:"Teksti värv",xhtmlDec:"Arva kaasa XHTML deklaratsioonid"});

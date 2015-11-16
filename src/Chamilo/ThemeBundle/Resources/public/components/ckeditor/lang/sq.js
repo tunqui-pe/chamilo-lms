@@ -214,6 +214,7 @@ CKEDITOR.lang['sq'] = {
     },
     "indent": {"indent": "Rrite Identin", "outdent": "Zvogëlo Identin"},
     "image": {
+        "alertUrl": "Ju lutemi shkruani URL-në e fotos",
         "alt": "Tekst Alternativ",
         "border": "Korniza",
         "btnUpload": "Dërgo në server",

@@ -12,7 +12,7 @@
     metaDescription: "សេចក្តីអត្ថាធិប្បាយអំពីឯកសារ",
     metaKeywords: "ពាក្យនៅក្នុងឯកសារ (ផ្តាច់ពីគ្នាដោយក្បៀស)",
     other: "ដទៃ​ទៀត...",
-    previewHtml: '\x3cp\x3eនេះ​គឺ​ជា\x3cstrong\x3eអក្សរ​គំរូ\x3c/strong\x3e​ខ្លះៗ។ អ្នក​កំពុង​ប្រើ \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e។\x3c/p\x3e',
+    previewHtml: '<p>នេះ​គឺ​ជា<strong>អក្សរ​គំរូ</strong>​ខ្លះៗ។ អ្នក​កំពុង​ប្រើ <a href="javascript:void(0)">CKEditor</a>។</p>',
     title: "ការកំណត់ ឯកសារ",
     txtColor: "ពណ៌អក្សរ",
     xhtmlDec: "បញ្ជូល XHTML"

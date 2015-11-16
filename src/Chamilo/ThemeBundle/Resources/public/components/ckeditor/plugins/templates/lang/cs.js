@@ -3,6 +3,6 @@
     emptyListMsg: "(Není definována žádná šablona)",
     insertOption: "Nahradit aktuální obsah",
     options: "Nastavení šablon",
-    selectPromptMsg: "Prosím zvolte šablonu pro otevření v editoru\x3cbr\x3e(aktuální obsah editoru bude ztracen):",
+    selectPromptMsg: "Prosím zvolte šablonu pro otevření v editoru<br>(aktuální obsah editoru bude ztracen):",
     title: "Šablony obsahu"
 });

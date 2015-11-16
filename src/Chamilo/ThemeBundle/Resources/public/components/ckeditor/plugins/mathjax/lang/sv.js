@@ -4,6 +4,6 @@
     dialogInput: "Skriv din TeX här",
     docUrl: "http://en.wikibooks.org/wiki/LaTeX/Mathematics",
     docLabel: "TeX dokumentation",
-    loading: "laddar...",
+    loading: "laddar",
     pathName: "matte"
 });

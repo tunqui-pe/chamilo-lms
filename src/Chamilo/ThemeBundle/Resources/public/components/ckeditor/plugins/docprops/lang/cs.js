@@ -12,8 +12,8 @@
     metaCopyright: "Autorská práva",
     metaDescription: "Popis dokumentu",
     metaKeywords: "Klíčová slova (oddělená čárkou)",
-    other: "\x3cjiný\x3e",
-    previewHtml: '\x3cp\x3eToto je \x3cstrong\x3eukázkový text\x3c/strong\x3e. Používáte \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<jiný>",
+    previewHtml: '<p>Toto je <strong>ukázkový text</strong>. Používáte <a href="javascript:void(0)">CKEditor</a>.</p>',
     title: "Vlastnosti dokumentu",
     txtColor: "Barva textu",
     xhtmlDec: "Zahrnout deklarace XHTML"

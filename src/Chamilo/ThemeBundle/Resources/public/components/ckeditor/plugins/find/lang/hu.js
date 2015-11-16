@@ -1,10 +1,10 @@
 ﻿CKEDITOR.plugins.setLang("find", "hu", {
     find: "Keresés",
-    findOptions: "Beállítások",
+    findOptions: "Find Options",
     findWhat: "Keresett szöveg:",
-    matchCase: "Kis- és nagybetű megkülönböztetése",
+    matchCase: "kis- és nagybetű megkülönböztetése",
     matchCyclic: "Ciklikus keresés",
-    matchWord: "Csak ha ez a teljes szó",
+    matchWord: "csak ha ez a teljes szó",
     notFoundMsg: "A keresett szöveg nem található.",
     replace: "Csere",
     replaceAll: "Az összes cseréje",

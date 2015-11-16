@@ -11,8 +11,7 @@
         checkboxTitle: "Egenskaper for avmerkingsboks",
         radioTitle: "Egenskaper for alternativknapp",
         value: "Verdi",
-        selected: "Valgt",
-        required: "Påkrevd"
+        selected: "Valgt"
     },
     form: {
         title: "Egenskaper for skjema",
@@ -30,7 +29,6 @@
         size: "Størrelse",
         lines: "Linjer",
         chkMulti: "Tillat flervalg",
-        required: "Påkrevd",
         opText: "Tekst",
         opValue: "Verdi",
         btnAdd: "Legg til",
@@ -51,7 +49,6 @@
         value: "Verdi",
         charWidth: "Tegnbredde",
         maxChars: "Maks antall tegn",
-        required: "Påkrevd",
         type: "Type",
         typeText: "Tekst",
         typePass: "Passord",

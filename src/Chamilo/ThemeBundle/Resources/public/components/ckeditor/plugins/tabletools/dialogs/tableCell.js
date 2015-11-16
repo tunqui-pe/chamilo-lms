@@ -9,19 +9,19 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                 c = null;
                 break
             }
-            "undefined" != typeof c && (this.setValue(c), CKEDITOR.env.gecko && "select" == this.type && !c && (this.getInputElement().$.selectedIndex = -1))
+            "undefined" != typeof c && (this.setValue(c), CKEDITOR.env.gecko && ("select" == this.type && !c) && (this.getInputElement().$.selectedIndex = -1))
         }
     }
 
-    function l(a) {
-        if (a = n.exec(a.getStyle("width") || a.getAttribute("width")))return a[2]
+    function j(a) {
+        if (a = l.exec(a.getStyle("width") || a.getAttribute("width")))return a[2]
     }
 
-    var h = g.lang.table, c = h.cell, e = g.lang.common, k = CKEDITOR.dialog.validate, n = /^(\d+(?:\.\d+)?)(px|%)$/, f = {
+    var h = g.lang.table, c = h.cell, e = g.lang.common, i = CKEDITOR.dialog.validate, l = /^(\d+(?:\.\d+)?)(px|%)$/, f = {
         type: "html",
-        html: "\x26nbsp;"
-    }, p = "rtl" ==
-        g.lang.dir, m = g.plugins.colordialog;
+        html: "&nbsp;"
+    }, m = "rtl" ==
+        g.lang.dir, k = g.plugins.colordialog;
     return {
         title: c.title,
         minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 450 : 410,
@@ -35,19 +35,18 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                             id: "width",
                             width: "100px",
                             label: e.width,
-                            validate: k.number(c.invalidWidth),
+                            validate: i.number(c.invalidWidth),
                             onLoad: function () {
                                 var a = this.getDialog().getContentElement("info",
                                     "widthType").getElement(), b = this.getInputElement(), c = b.getAttribute("aria-labelledby");
                                 b.setAttribute("aria-labelledby", [c, a.$.id].join(" "))
                             },
                             setup: d(function (a) {
-                                var b = parseInt(a.getAttribute("width"), 10);
-                                a = parseInt(a.getStyle("width"), 10);
-                                return isNaN(a) ? isNaN(b) ? "" : b : a
+                                var b = parseInt(a.getAttribute("width"), 10), a = parseInt(a.getStyle("width"), 10);
+                                return !isNaN(a) ? a : !isNaN(b) ? b : ""
                             }),
                             commit: function (a) {
-                                var b = parseInt(this.getValue(), 10), c = this.getDialog().getValueOf("info", "widthType") || l(a);
+                                var b = parseInt(this.getValue(), 10), c = this.getDialog().getValueOf("info", "widthType") || j(a);
                                 isNaN(b) ? a.removeStyle("width") : a.setStyle("width", b + c);
                                 a.removeAttribute("width")
                             },
@@ -59,7 +58,7 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                             labelStyle: "visibility:hidden",
                             "default": "px",
                             items: [[h.widthPx, "px"], [h.widthPc, "%"]],
-                            setup: d(l)
+                            setup: d(j)
                         }]
                     }, {
                         type: "hbox", widths: ["70%", "30%"], children: [{
@@ -68,16 +67,15 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                             label: e.height,
                             width: "100px",
                             "default": "",
-                            validate: k.number(c.invalidHeight),
+                            validate: i.number(c.invalidHeight),
                             onLoad: function () {
                                 var a = this.getDialog().getContentElement("info", "htmlHeightType").getElement(), b = this.getInputElement(), c = b.getAttribute("aria-labelledby");
                                 b.setAttribute("aria-labelledby", [c, a.$.id].join(" "))
                             },
                             setup: d(function (a) {
                                 var b =
-                                    parseInt(a.getAttribute("height"), 10);
-                                a = parseInt(a.getStyle("height"), 10);
-                                return isNaN(a) ? isNaN(b) ? "" : b : a
+                                    parseInt(a.getAttribute("height"), 10), a = parseInt(a.getStyle("height"), 10);
+                                return !isNaN(a) ? a : !isNaN(b) ? b : ""
                             }),
                             commit: function (a) {
                                 var b = parseInt(this.getValue(), 10);
@@ -87,7 +85,7 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                         }, {
                             id: "htmlHeightType",
                             type: "html",
-                            html: "\x3cbr /\x3e" + h.widthPx
+                            html: "<br />" + h.widthPx
                         }]
                     }, f, {
                         type: "select",
@@ -97,8 +95,8 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                         items: [[c.yes, "yes"], [c.no, "no"]],
                         setup: d(function (a) {
                             var b = a.getAttribute("noWrap");
-                            if ("nowrap" ==
-                                a.getStyle("white-space") || b)return "no"
+                            if ("nowrap" == a.getStyle("white-space") ||
+                                b)return "no"
                         }),
                         commit: function (a) {
                             "no" == this.getValue() ? a.setStyle("white-space", "nowrap") : a.removeStyle("white-space");
@@ -116,8 +114,7 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                         }),
                         commit: function (a) {
                             var b = this.getValue();
-                            b ? a.setStyle("text-align",
-                                b) : a.removeStyle("text-align");
+                            b ? a.setStyle("text-align", b) : a.removeStyle("text-align");
                             a.removeAttribute("align")
                         }
                     }, {
@@ -127,8 +124,7 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                         "default": "",
                         items: [[e.notSet, ""], [e.alignTop, "top"], [e.alignMiddle, "middle"], [e.alignBottom, "bottom"], [c.alignBaseline, "baseline"]],
                         setup: d(function (a) {
-                            var b = a.getAttribute("vAlign");
-                            a = a.getStyle("vertical-align");
+                            var b = a.getAttribute("vAlign"), a = a.getStyle("vertical-align");
                             switch (a) {
                                 case "top":
                                 case "middle":
@@ -146,105 +142,106 @@ CKEDITOR.dialog.add("cellProperties", function (g) {
                             a.removeAttribute("vAlign")
                         }
                     }]
-                }, f, {
-                    type: "vbox",
-                    padding: 0,
-                    children: [{
-                        type: "select",
-                        id: "cellType",
-                        label: c.cellType,
-                        "default": "td",
-                        items: [[c.data, "td"], [c.header, "th"]],
-                        setup: d(function (a) {
-                            return a.getName()
-                        }),
-                        commit: function (a) {
-                            a.renameNode(this.getValue())
-                        }
-                    }, f, {
-                        type: "text",
-                        id: "rowSpan",
-                        label: c.rowSpan,
-                        "default": "",
-                        validate: k.integer(c.invalidRowSpan),
-                        setup: d(function (a) {
-                            if ((a = parseInt(a.getAttribute("rowSpan"), 10)) && 1 != a)return a
-                        }),
-                        commit: function (a) {
-                            var b = parseInt(this.getValue(), 10);
-                            b && 1 != b ? a.setAttribute("rowSpan",
-                                this.getValue()) : a.removeAttribute("rowSpan")
-                        }
-                    }, {
-                        type: "text",
-                        id: "colSpan",
-                        label: c.colSpan,
-                        "default": "",
-                        validate: k.integer(c.invalidColSpan),
-                        setup: d(function (a) {
-                            if ((a = parseInt(a.getAttribute("colSpan"), 10)) && 1 != a)return a
-                        }),
-                        commit: function (a) {
-                            var b = parseInt(this.getValue(), 10);
-                            b && 1 != b ? a.setAttribute("colSpan", this.getValue()) : a.removeAttribute("colSpan")
-                        }
-                    }, f, {
-                        type: "hbox",
+                },
+                    f, {
+                        type: "vbox",
                         padding: 0,
-                        widths: ["60%", "40%"],
                         children: [{
-                            type: "text",
-                            id: "bgColor",
-                            label: c.bgColor,
-                            "default": "",
+                            type: "select",
+                            id: "cellType",
+                            label: c.cellType,
+                            "default": "td",
+                            items: [[c.data, "td"], [c.header, "th"]],
                             setup: d(function (a) {
-                                var b = a.getAttribute("bgColor");
-                                return a.getStyle("background-color") || b
+                                return a.getName()
                             }),
                             commit: function (a) {
-                                this.getValue() ? a.setStyle("background-color", this.getValue()) : a.removeStyle("background-color");
-                                a.removeAttribute("bgColor")
+                                a.renameNode(this.getValue())
                             }
-                        }, m ? {
-                            type: "button",
-                            id: "bgColorChoose",
-                            "class": "colorChooser",
-                            label: c.chooseColor,
-                            onLoad: function () {
-                                this.getElement().getParent().setStyle("vertical-align", "bottom")
-                            },
-                            onClick: function () {
-                                g.getColorFromDialog(function (a) {
-                                    a && this.getDialog().getContentElement("info", "bgColor").setValue(a);
-                                    this.focus()
-                                }, this)
+                        }, f, {
+                            type: "text",
+                            id: "rowSpan",
+                            label: c.rowSpan,
+                            "default": "",
+                            validate: i.integer(c.invalidRowSpan),
+                            setup: d(function (a) {
+                                if ((a = parseInt(a.getAttribute("rowSpan"), 10)) && 1 != a)return a
+                            }),
+                            commit: function (a) {
+                                var b = parseInt(this.getValue(), 10);
+                                b && 1 != b ? a.setAttribute("rowSpan", this.getValue()) :
+                                    a.removeAttribute("rowSpan")
                             }
-                        } : f]
-                    }, f,
-                        {
+                        }, {
+                            type: "text",
+                            id: "colSpan",
+                            label: c.colSpan,
+                            "default": "",
+                            validate: i.integer(c.invalidColSpan),
+                            setup: d(function (a) {
+                                if ((a = parseInt(a.getAttribute("colSpan"), 10)) && 1 != a)return a
+                            }),
+                            commit: function (a) {
+                                var b = parseInt(this.getValue(), 10);
+                                b && 1 != b ? a.setAttribute("colSpan", this.getValue()) : a.removeAttribute("colSpan")
+                            }
+                        }, f, {
                             type: "hbox",
                             padding: 0,
                             widths: ["60%", "40%"],
                             children: [{
                                 type: "text",
-                                id: "borderColor",
-                                label: c.borderColor,
+                                id: "bgColor",
+                                label: c.bgColor,
                                 "default": "",
                                 setup: d(function (a) {
-                                    var b = a.getAttribute("borderColor");
-                                    return a.getStyle("border-color") || b
+                                    var b = a.getAttribute("bgColor");
+                                    return a.getStyle("background-color") || b
                                 }),
                                 commit: function (a) {
-                                    this.getValue() ? a.setStyle("border-color", this.getValue()) : a.removeStyle("border-color");
-                                    a.removeAttribute("borderColor")
+                                    this.getValue() ? a.setStyle("background-color", this.getValue()) : a.removeStyle("background-color");
+                                    a.removeAttribute("bgColor")
                                 }
-                            }, m ? {
+                            }, k ? {
                                 type: "button",
-                                id: "borderColorChoose",
+                                id: "bgColorChoose",
                                 "class": "colorChooser",
                                 label: c.chooseColor,
-                                style: (p ? "margin-right" : "margin-left") + ": 10px",
                                 onLoad: function () {
-                                    this.getElement().getParent().setStyle("vertical-align",
+                                    this.getElement().getParent().setStyle("vertical-align", "bottom")
+                                },
+                                onClick: function () {
+                                    g.getColorFromDialog(function (a) {
+                                        a && this.getDialog().getContentElement("info", "bgColor").setValue(a);
+                                        this.focus()
+                                    }, this)
+                                }
+                            } : f]
+                        }, f,
+                            {
+                                type: "hbox",
+                                padding: 0,
+                                widths: ["60%", "40%"],
+                                children: [{
+                                    type: "text",
+                                    id: "borderColor",
+                                    label: c.borderColor,
+                                    "default": "",
+                                    setup: d(function (a) {
+                                        var b = a.getAttribute("borderColor");
+                                        return a.getStyle("border-color") || b
+                                    }),
+                                    commit: function (a) {
+                                        this.getValue() ? a.setStyle("border-color", this.getValue()) : a.removeStyle("border-color");
+                                        a.removeAttribute("borderColor")
+                                    }
+                                }, k ? {
+                                    type: "button",
+                                    id: "borderColorChoose",
+                                    "class": "colorChooser",
+                                    label: c.chooseColor,
+                                    style: (m ? "margin-right" : "margin-left") + ": 10px",
+                                    onLoad: function () {
+                                        this.getElement().getParent().setStyle("vertical-align",
 "bottom")},onClick:function(){g.getColorFromDialog(function(a){a&&this.getDialog().getContentElement("info","borderColor").setValue(a);this.focus()},this)}}:f]}]}]}]}],onShow:function(){this.cells=CKEDITOR.plugins.tabletools.getSelectedCells(this._.editor.getSelection());this.setupContent(this.cells)},onOk:function(){for(var a=this._.editor.getSelection(),b=a.createBookmarks(),c=this.cells,d=0;d<c.length;d++)this.commitContent(c[d]);this._.editor.forceNextSelectionCheck();a.selectBookmarks(b);this._.editor.selectionChange()},
 onLoad:function(){var a={};this.foreach(function(b){b.setup&&b.commit&&(b.setup=CKEDITOR.tools.override(b.setup,function(c){return function(){c.apply(this,arguments);a[b.id]=b.getValue()}}),b.commit=CKEDITOR.tools.override(b.commit,function(c){return function(){a[b.id]!==b.getValue()&&c.apply(this,arguments)}}))})}}});

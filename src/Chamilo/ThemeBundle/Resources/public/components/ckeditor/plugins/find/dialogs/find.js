@@ -3,65 +3,65 @@
  For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 (function () {
-    function C(c) {
-        return c.type == CKEDITOR.NODE_TEXT && 0 < c.getLength() && (!r || !c.isReadOnly())
+    function y(c) {
+        return c.type == CKEDITOR.NODE_TEXT && 0 < c.getLength() && (!o || !c.isReadOnly())
     }
 
-    function w(c) {
+    function s(c) {
         return !(c.type == CKEDITOR.NODE_ELEMENT && c.isBlockBoundary(CKEDITOR.tools.extend({}, CKEDITOR.dtd.$empty, CKEDITOR.dtd.$nonEditable)))
     }
 
-    function q(c, g) {
-        function n(a, b) {
+    function n(c, g) {
+        function l(a, b) {
             var d = this, c = new CKEDITOR.dom.walker(a);
-            c.guard = b ? w : function (a) {
-                !w(a) && (d._.matchBoundary = !0)
+            c.guard = b ? s : function (a) {
+                !s(a) && (d._.matchBoundary = !0)
             };
-            c.evaluator = C;
+            c.evaluator = y;
             c.breakOnFalse = 1;
             a.startContainer.type == CKEDITOR.NODE_TEXT && (this.textNode = a.startContainer, this.offset = a.startOffset -
                 1);
             this._ = {matchWord: b, walker: c, matchBoundary: !1}
         }
 
-        function q(a, b) {
+        function n(a, b) {
             var d = c.createRange();
             d.setStart(a.textNode, b ? a.offset : a.offset + 1);
             d.setEndAt(c.editable(), CKEDITOR.POSITION_BEFORE_END);
             return d
         }
 
-        function t(a) {
-            var b = c.getSelection().getRanges()[0], d = c.editable();
-            b && !a ? (a = b.clone(), a.collapse(!0)) : (a = c.createRange(), a.setStartAt(d, CKEDITOR.POSITION_AFTER_START));
+        function p(a) {
+            var b = c.getSelection(), d = c.editable();
+            b && !a ? (a = b.getRanges()[0].clone(), a.collapse(!0)) : (a = c.createRange(), a.setStartAt(d, CKEDITOR.POSITION_AFTER_START));
             a.setEndAt(d, CKEDITOR.POSITION_BEFORE_END);
             return a
         }
 
-        var x = new CKEDITOR.style(CKEDITOR.tools.extend({
+        var t = new CKEDITOR.style(CKEDITOR.tools.extend({
             attributes: {"data-cke-highlight": 1}, fullMatch: 1,
             ignoreReadonly: 1, childRule: function () {
                 return 0
             }
         }, c.config.find_highlight, !0));
-        n.prototype = {
+        l.prototype = {
             next: function () {
                 return this.move()
             }, back: function () {
                 return this.move(!0)
             }, move: function (a) {
                 var b = this.textNode;
-                if (null === b)return y.call(this);
+                if (null === b)return u.call(this);
                 this._.matchBoundary = !1;
                 if (b && a && 0 < this.offset)this.offset--; else if (b && this.offset < b.getLength() - 1)this.offset++; else {
                     for (b = null; !b && !(b = this._.walker[a ? "previous" : "next"].call(this._.walker), this._.matchWord && !b || this._.walker._.end););
                     this.offset = (this.textNode = b) ?
                         a ? b.getLength() - 1 : 0 : 0
                 }
-                return y.call(this)
+                return u.call(this)
             }
         };
-        var u = function (a, b) {
+        var q = function (a, b) {
             this._ = {
                 walker: a,
                 cursors: [],
@@ -70,7 +70,7 @@
                 isMatched: 0
             }
         };
-        u.prototype = {
+        q.prototype = {
             toDomRange: function () {
                 var a = c.createRange(), b = this._.cursors;
                 if (1 > b.length) {
@@ -79,7 +79,7 @@
                 } else d = b[0], b = b[b.length - 1], a.setStart(d.textNode, d.offset), a.setEnd(b.textNode, b.offset + 1);
                 return a
             }, updateFromDomRange: function (a) {
-                var b = new n(a);
+                var b = new l(a);
                 this._.cursors = [];
                 do a = b.next(), a.character && this._.cursors.push(a);
                 while (a.character);
@@ -94,7 +94,7 @@
                 if (!(1 > this._.cursors.length)) {
                     this._.highlightRange && this.removeHighlight();
                     var a = this.toDomRange(), b = a.createBookmark();
-                    x.applyToRange(a, c);
+                    t.applyToRange(a, c);
                     a.moveToBookmark(b);
                     this._.highlightRange = a;
                     b = a.startContainer;
@@ -106,13 +106,13 @@
             removeHighlight: function () {
                 if (this._.highlightRange) {
                     var a = this._.highlightRange.createBookmark();
-                    x.removeFromRange(this._.highlightRange, c);
+                    t.removeFromRange(this._.highlightRange, c);
                     this._.highlightRange.moveToBookmark(a);
                     this.updateFromDomRange(this._.highlightRange);
                     this._.highlightRange = null
                 }
             }, isReadOnly: function () {
-                return this._.highlightRange ? this._.highlightRange.startContainer.isReadOnly() : 0
+                return !this._.highlightRange ? 0 : this._.highlightRange.startContainer.isReadOnly()
             }, moveBack: function () {
                 var a = this._.walker.back(), b = this._.cursors;
                 a.hitMatchBoundary && (this._.cursors = b = []);
@@ -132,57 +132,58 @@
             }, getNextCharacterRange: function (a) {
                 var b, d;
                 d = this._.cursors;
-                d = (b = d[d.length - 1]) && b.textNode ? new n(q(b)) : this._.walker;
-                return new u(d, a)
+                d = (b = d[d.length - 1]) && b.textNode ? new l(n(b)) : this._.walker;
+                return new q(d, a)
             }, getCursors: function () {
                 return this._.cursors
             }
         };
-        var z = function (a, b) {
+        var v = function (a, b) {
             var d = [-1];
             b && (a = a.toLowerCase());
             for (var c = 0; c < a.length; c++)for (d.push(d[c] + 1); 0 < d[c + 1] && a.charAt(c) != a.charAt(d[c + 1] - 1);)d[c + 1] = d[d[c + 1] - 1] + 1;
             this._ = {overlap: d, state: 0, ignoreCase: !!b, pattern: a}
         };
-        z.prototype = {
+        v.prototype = {
             feedCharacter: function (a) {
                 for (this._.ignoreCase && (a = a.toLowerCase()); ;) {
                     if (a == this._.pattern.charAt(this._.state))return this._.state++, this._.state == this._.pattern.length ? (this._.state = 0, 2) : 1;
                     if (this._.state)this._.state = this._.overlap[this._.state]; else return 0
                 }
+                return null
             }, reset: function () {
                 this._.state = 0
             }
         };
-        var D = /[.,"'?!;: \u0085\u00a0\u1680\u280e\u2028\u2029\u202f\u205f\u3000]/,
-            A = function (a) {
+        var z = /[.,"'?!;: \u0085\u00a0\u1680\u280e\u2028\u2029\u202f\u205f\u3000]/,
+            w = function (a) {
                 if (!a)return !0;
                 var b = a.charCodeAt(0);
-                return 9 <= b && 13 >= b || 8192 <= b && 8202 >= b || D.test(a)
+                return 9 <= b && 13 >= b || 8192 <= b && 8202 >= b || z.test(a)
             }, e = {
                 searchRange: null,
                 matchRange: null,
-                find: function (a, b, d, f, e, E) {
-                    this.matchRange ? (this.matchRange.removeHighlight(), this.matchRange = this.matchRange.getNextCharacterRange(a.length)) : this.matchRange = new u(new n(this.searchRange), a.length);
-                    for (var k = new z(a, !b), l = 0, m = "%"; null !== m;) {
-                        for (this.matchRange.moveNext(); m = this.matchRange.getEndCharacter();) {
-                            l = k.feedCharacter(m);
-                            if (2 == l)break;
+                find: function (a, b, d, f, e, A) {
+                    this.matchRange ? (this.matchRange.removeHighlight(), this.matchRange = this.matchRange.getNextCharacterRange(a.length)) : this.matchRange = new q(new l(this.searchRange), a.length);
+                    for (var i = new v(a, !b), j = 0, k = "%"; null !== k;) {
+                        for (this.matchRange.moveNext(); k = this.matchRange.getEndCharacter();) {
+                            j = i.feedCharacter(k);
+                            if (2 == j)break;
                             this.matchRange.moveNext().hitMatchBoundary &&
-                            k.reset()
+                            i.reset()
                         }
-                        if (2 == l) {
+                        if (2 == j) {
                             if (d) {
-                                var h = this.matchRange.getCursors(), p = h[h.length - 1], h = h[0], g = c.createRange();
+                                var h = this.matchRange.getCursors(), m = h[h.length - 1], h = h[0], g = c.createRange();
                                 g.setStartAt(c.editable(), CKEDITOR.POSITION_AFTER_START);
                                 g.setEnd(h.textNode, h.offset);
                                 h = g;
-                                p = q(p);
+                                m = n(m);
                                 h.trim();
-                                p.trim();
-                                h = new n(h, !0);
-                                p = new n(p, !0);
-                                if (!A(h.back().character) || !A(p.next().character))continue
+                                m.trim();
+                                h = new l(h, !0);
+                                m = new l(m, !0);
+                                if (!w(h.back().character) || !w(m.next().character))continue
                             }
                             this.matchRange.setMatched();
                             !1 !== e && this.matchRange.highlight();
@@ -191,32 +192,32 @@
                     }
                     this.matchRange.clearMatched();
                     this.matchRange.removeHighlight();
-                    return f && !E ? (this.searchRange = t(1), this.matchRange = null,
+                    return f && !A ? (this.searchRange = p(1), this.matchRange = null,
                         arguments.callee.apply(this, Array.prototype.slice.call(arguments).concat([!0]))) : !1
                 },
                 replaceCounter: 0,
-                replace: function (a, b, d, f, e, g, k) {
-                    r = 1;
+                replace: function (a, b, d, f, e, g, i) {
+                    o = 1;
                     a = 0;
                     if (this.matchRange && this.matchRange.isMatched() && !this.matchRange._.isReplaced && !this.matchRange.isReadOnly()) {
                         this.matchRange.removeHighlight();
                         b = this.matchRange.toDomRange();
                         d = c.document.createText(d);
-                        if (!k) {
-                            var l = c.getSelection();
-                            l.selectRanges([b]);
+                        if (!i) {
+                            var j = c.getSelection();
+                            j.selectRanges([b]);
                             c.fire("saveSnapshot")
                         }
                         b.deleteContents();
                         b.insertNode(d);
-                        k || (l.selectRanges([b]), c.fire("saveSnapshot"));
+                        i || (j.selectRanges([b]), c.fire("saveSnapshot"));
                         this.matchRange.updateFromDomRange(b);
-                        k || this.matchRange.highlight();
+                        i || this.matchRange.highlight();
                         this.matchRange._.isReplaced = !0;
                         this.replaceCounter++;
                         a = 1
-                    } else a = this.find(b, f, e, g, !k);
-                    r = 0;
+                    } else a = this.find(b, f, e, g, !i);
+                    o = 0;
                     return a
                 }
             }, f = c.lang.find;
@@ -311,7 +312,7 @@
                         onClick: function () {
                             var a = this.getDialog();
                             e.replaceCounter = 0;
-                            e.searchRange = t(1);
+                            e.searchRange = p(1);
                             e.matchRange && (e.matchRange.removeHighlight(), e.matchRange = null);
                             for (c.fire("saveSnapshot"); e.replace(a, a.getValueOf("replace", "txtFindReplace"), a.getValueOf("replace", "txtReplace"), a.getValueOf("replace", "txtReplaceCaseChk"), a.getValueOf("replace", "txtReplaceWordChk"), !1, !0););
                             e.replaceCounter ? (alert(f.replaceSuccessMsg.replace(/%1/, e.replaceCounter)), c.fire("saveSnapshot")) : alert(f.notFoundMsg)
@@ -355,22 +356,20 @@
                     return function (e) {
                         f.call(a,
                             e);
-                        var g = a._.tabs[e], k;
-                        k = "find" === e ? "txtFindWordChk" : "txtReplaceWordChk";
+                        var g = a._.tabs[e], i;
+                        i = "find" === e ? "txtFindWordChk" : "txtReplaceWordChk";
                         b = a.getContentElement(e, "find" === e ? "txtFindFind" : "txtFindReplace");
-                        a.getContentElement(e, k);
+                        a.getContentElement(e, i);
                         g.initialized || (CKEDITOR.document.getById(b._.inputId), g.initialized = !0);
                         if (c) {
-                            var l;
-                            e = "find" === e ? 1 : 0;
-                            var g = 1 - e, m, h = v.length;
-                            for (m = 0; m < h; m++)k = this.getContentElement(B[e], v[m][e]), l = this.getContentElement(B[g], v[m][g]), l.setValue(k.getValue())
+                            var j, e = "find" === e ? 1 : 0, g = 1 - e, k, h = r.length;
+                            for (k = 0; k < h; k++)i = this.getContentElement(x[e], r[k][e]), j = this.getContentElement(x[g], r[k][g]), j.setValue(i.getValue())
                         }
                     }
                 })
             },
             onShow: function () {
-                e.searchRange = t();
+                e.searchRange = p();
                 var a = this.getParentEditor().getSelection().getSelectedText(),
                     b = this.getContentElement(g, "find" == g ? "txtFindFind" : "txtFindReplace");
                 b.setValue(a);
@@ -390,18 +389,18 @@
         }
     }
 
-    var r, y = function () {
+    var o, u = function () {
         return {
             textNode: this.textNode,
             offset: this.offset,
             character: this.textNode ? this.textNode.getText().charAt(this.offset) : null,
             hitMatchBoundary: this._.matchBoundary
         }
-    }, B = ["find", "replace"], v = [["txtFindFind", "txtFindReplace"], ["txtFindCaseChk", "txtReplaceCaseChk"], ["txtFindWordChk", "txtReplaceWordChk"], ["txtFindCyclic", "txtReplaceCyclic"]];
+    }, x = ["find", "replace"], r = [["txtFindFind", "txtFindReplace"], ["txtFindCaseChk", "txtReplaceCaseChk"], ["txtFindWordChk", "txtReplaceWordChk"], ["txtFindCyclic", "txtReplaceCyclic"]];
     CKEDITOR.dialog.add("find", function (c) {
-        return q(c, "find")
+        return n(c, "find")
     });
     CKEDITOR.dialog.add("replace", function (c) {
-        return q(c, "replace")
+        return n(c, "replace")
     })
 })();

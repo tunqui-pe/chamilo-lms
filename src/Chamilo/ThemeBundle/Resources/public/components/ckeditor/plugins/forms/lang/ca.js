@@ -11,8 +11,7 @@
         checkboxTitle: "Propietats de la casella de verificació",
         radioTitle: "Propietats del botó d'opció",
         value: "Valor",
-        selected: "Seleccionat",
-        required: "Required"
+        selected: "Seleccionat"
     },
     form: {
         title: "Propietats del formulari",
@@ -33,7 +32,6 @@
         size: "Mida",
         lines: "Línies",
         chkMulti: "Permet múltiples seleccions",
-        required: "Required",
         opText: "Text",
         opValue: "Valor",
         btnAdd: "Afegeix",
@@ -54,7 +52,6 @@
         value: "Valor",
         charWidth: "Amplada",
         maxChars: "Nombre màxim de caràcters",
-        required: "Required",
         type: "Tipus",
         typeText: "Text",
         typePass: "Contrasenya",

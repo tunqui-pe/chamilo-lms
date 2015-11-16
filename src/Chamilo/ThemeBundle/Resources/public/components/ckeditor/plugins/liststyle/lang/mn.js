@@ -10,6 +10,6 @@
     lowerGreek: "Lower Greek (alpha, beta, gamma, etc.)",
     lowerRoman: "Lower Roman (i, ii, iii, iv, v, etc.)",
     none: "None",
-    notset: "\x3cnot set\x3e",
+    notset: "<not set>",
     numberedTitle: "Numbered List Properties",
 square:"Square",start:"Start",type:"Төрөл",upperAlpha:"Upper Alpha (A, B, C, D, E, etc.)",upperRoman:"Upper Roman (I, II, III, IV, V, etc.)",validateStartNumber:"List start number must be a whole number."});

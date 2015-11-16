@@ -9,11 +9,12 @@
             title: f.title, minWidth: 350, minHeight: 260, onShow: function () {
                 this.fakeImage = this.iframeNode = null;
                 var a = this.getSelectedElement();
-                a && a.data("cke-real-element-type") && "iframe" == a.data("cke-real-element-type") && (this.fakeImage = a, this.iframeNode = a = b.restoreRealElement(a), this.setupContent(a))
+                a && (a.data("cke-real-element-type") && "iframe" == a.data("cke-real-element-type")) && (this.fakeImage = a, this.iframeNode = a = b.restoreRealElement(a), this.setupContent(a))
             }, onOk: function () {
                 var a;
                 a = this.fakeImage ? this.iframeNode : new CKEDITOR.dom.element("iframe");
-                var c = {}, d = {};
+                var c = {}, d =
+                {};
                 this.commitContent(a, c, d);
                 a = b.createFakeElement(a, "cke_iframe", "iframe", !0);
                 a.setAttributes(d);

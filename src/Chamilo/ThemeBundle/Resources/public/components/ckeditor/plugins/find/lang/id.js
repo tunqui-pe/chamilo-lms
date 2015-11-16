@@ -5,7 +5,7 @@
     matchCase: "Match case",
     matchCyclic: "Match cyclic",
     matchWord: "Match whole word",
-    notFoundMsg: "Teks yang dipilih tidak ditemukan",
+    notFoundMsg: "The specified text was not found.",
     replace: "Ganti",
     replaceAll: "Ganti Semua",
     replaceSuccessMsg: "%1 occurrence(s) replaced.",

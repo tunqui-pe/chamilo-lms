@@ -12,6 +12,6 @@
     metaCopyright: "Upphavsrættindi",
     metaDescription: "Dokumentlýsing",
     metaKeywords: "Dokument index lyklaorð (sundurbýtt við komma)",
-    other: "\x3cannað\x3e",
-    previewHtml: '\x3cp\x3eHetta er ein \x3cstrong\x3eroyndartekstur\x3c/strong\x3e. Tygum brúka \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<annað>",
+    previewHtml: '<p>Hetta er ein <strong>royndartekstur</strong>. Tygum brúka <a href="javascript:void(0)">CKEditor</a>.</p>',
 title:"Eginleikar fyri dokument",txtColor:"Tekstlitur",xhtmlDec:"Viðfest XHTML deklaratiónir"});

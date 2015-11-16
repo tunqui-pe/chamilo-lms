@@ -2,9 +2,6 @@
     fontSize: {
         label: "Größe",
         voiceLabel: "Schrifgröße",
-        panelTitle: "Schriftgröße"
-    },
-    label: "Schriftart",
-    panelTitle: "Schriftartname",
-    voiceLabel: "Schriftart"
+        panelTitle: "Größe"
+    }, label: "Schriftart", panelTitle: "Schriftart", voiceLabel: "Schriftart"
 });

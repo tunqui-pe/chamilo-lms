@@ -14,5 +14,5 @@
     metaDescription: "Descripció del document",
     metaKeywords: "Paraules clau per a indexació (separats per coma)",
     other: "Altre...",
-    previewHtml: '\x3cp\x3eAquest és un \x3cstrong\x3etext d\'exemple\x3c/strong\x3e. Estàs utilitzant \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    previewHtml: '<p>Aquest és un <strong>text d\'exemple</strong>. Estàs utilitzant <a href="javascript:void(0)">CKEditor</a>.</p>',
 title:"Propietats del document",txtColor:"Color de Text",xhtmlDec:"Incloure declaracions XHTML"});

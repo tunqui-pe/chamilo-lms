@@ -1,66 +1,64 @@
 ﻿CKEDITOR.plugins.setLang("forms", "eu", {
     button: {
-        title: "Botoiaren ezaugarriak",
-        text: "Testua (balioa)",
+        title: "Botoiaren Ezaugarriak",
+        text: "Testua (Balorea)",
         type: "Mota",
         typeBtn: "Botoia",
         typeSbm: "Bidali",
-        typeRst: "Berrezarri"
+        typeRst: "Garbitu"
     },
     checkboxAndRadio: {
-        checkboxTitle: "Kontrol-laukiaren propietateak",
-        radioTitle: "Aukera-botoiaren propietateak",
-        value: "Balioa",
-        selected: "Hautatuta",
-        required: "Beharrezkoa"
+        checkboxTitle: "Kontrol-laukiko Ezaugarriak",
+        radioTitle: "Aukera-botoiaren Ezaugarriak",
+        value: "Balorea",
+        selected: "Hautatuta"
     },
     form: {
-        title: "Formularioaren propietateak",
-        menu: "Formularioaren propietateak",
+        title: "Formularioaren Ezaugarriak",
+        menu: "Formularioaren Ezaugarriak",
         action: "Ekintza",
         method: "Metodoa",
         encoding: "Kodeketa"
     },
     hidden: {
-        title: "Ezkutuko eremuaren propietateak",
-        name: "Izena", value: "Balioa"
+        title: "Ezkutuko Eremuaren Ezaugarriak",
+        name: "Izena",
+        value: "Balorea"
     },
     select: {
-        title: "Hautespen eremuaren propietateak",
-        selectInfo: "Hautatu informazioa",
-        opAvail: "Erabilgarri dauden aukerak",
-        value: "Balioa",
+        title: "Hautespen Eremuaren Ezaugarriak",
+        selectInfo: "Informazioa",
+        opAvail: "Aukera Eskuragarriak",
+        value: "Balorea",
         size: "Tamaina",
-        lines: "lerro kopurua",
-        chkMulti: "baimendu hautapen anitzak",
-        required: "Beharrezkoa",
+        lines: "lerro kopurura",
+        chkMulti: "Hautaketa anitzak baimendu",
         opText: "Testua",
-        opValue: "Balioa",
+        opValue: "Balorea",
         btnAdd: "Gehitu",
         btnModify: "Aldatu",
         btnUp: "Gora",
         btnDown: "Behera",
-        btnSetValue: "Ezarri hautatutako balio bezala",
+        btnSetValue: "Aukeratutako balorea ezarri",
         btnDelete: "Ezabatu"
     },
     textarea: {
-        title: "Testu-arearen propietateak",
+        title: "Testu-arearen Ezaugarriak",
         cols: "Zutabeak",
-        rows: "Errenkadak"
+        rows: "Lerroak"
     },
     textfield: {
-        title: "Testu-eremuaren propietateak",
+        title: "Testu Eremuaren Ezaugarriak",
         name: "Izena",
-        value: "Balioa",
-        charWidth: "Karaktere-zabalera",
-        maxChars: "Gehienezko karaktereak",
-        required: "Beharrezkoa",
+        value: "Balorea",
+        charWidth: "Zabalera",
+        maxChars: "Zenbat karaktere gehienez",
         type: "Mota",
         typeText: "Testua",
         typePass: "Pasahitza",
         typeEmail: "E-posta",
         typeSearch: "Bilatu",
-        typeTel: "Telefono zenbakia",
-        typeUrl: "URLa"
+        typeTel: "Telefono Zenbakia",
+        typeUrl: "URL"
     }
 });

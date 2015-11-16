@@ -11,8 +11,7 @@
         checkboxTitle: "Checkbox Properties",
         radioTitle: "Radio Button Properties",
         value: "Value",
-        selected: "Selected",
-        required: "Required"
+        selected: "Selected"
     },
     form: {
         title: "Form Properties",
@@ -30,7 +29,6 @@
         size: "Size",
         lines: "lines",
         chkMulti: "Allow multiple selections",
-        required: "Required",
         opText: "Text",
         opValue: "Value",
         btnAdd: "Add",
@@ -47,7 +45,6 @@
         value: "Value",
         charWidth: "Character Width",
         maxChars: "Maximum Characters",
-        required: "Required",
         type: "Type",
         typeText: "Text",
         typePass: "Password",

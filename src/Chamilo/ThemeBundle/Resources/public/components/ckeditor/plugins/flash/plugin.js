@@ -17,7 +17,7 @@ CKEDITOR.dialog.isTabEnabled(a,"flash","advanced")&&(b+=";object[id]{*}; embed[b
             elements: {
                 "cke:object": function (b) {
                     var c = b.attributes;
-                    if (!(c.classid && String(c.classid).toLowerCase() || d(b))) {
+                    if ((!c.classid || !("" + c.classid).toLowerCase()) && !d(b)) {
                         for (c = 0; c < b.children.length; c++)if ("cke:embed" == b.children[c].name) {
                             if (!d(b.children[c]))break;
                             return e(a, b)
@@ -26,7 +26,7 @@ CKEDITOR.dialog.isTabEnabled(a,"flash","advanced")&&(b+=";object[id]{*}; embed[b
                     }
                     return e(a, b)
                 }, "cke:embed": function (b) {
-                    return d(b) ? e(a, b) : null
+                    return !d(b) ? null : e(a, b)
                 }
             }
         }, 5)

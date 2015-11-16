@@ -11,8 +11,7 @@
         checkboxTitle: "Onay Kutusu Özellikleri",
         radioTitle: "Seçenek Düğmesi Özellikleri",
         value: "Değer",
-        selected: "Seçili",
-        required: "Zorunlu"
+        selected: "Seçili"
     },
     form: {
         title: "Form Özellikleri",
@@ -30,7 +29,6 @@
         size: "Boyut",
         lines: "satır",
         chkMulti: "Çoklu seçime izin ver",
-        required: "Zorunlu",
         opText: "Metin",
         opValue: "Değer",
         btnAdd: "Ekle",
@@ -51,7 +49,6 @@
         value: "Değer",
         charWidth: "Karakter Genişliği",
         maxChars: "En Fazla Karakter",
-        required: "Zorunlu",
         type: "Tür",
         typeText: "Metin",
         typePass: "Şifre",

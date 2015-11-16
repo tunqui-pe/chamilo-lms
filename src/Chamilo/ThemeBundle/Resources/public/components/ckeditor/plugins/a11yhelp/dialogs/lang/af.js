@@ -9,21 +9,21 @@ CKEDITOR.plugins.setLang("a11yhelp", "af", {
         name: "Algemeen",
         items: [{
             name: "Bewerker balk",
-            legend: "Druk ${toolbarFocus} om op die werkbalk te land. Beweeg na die volgende en voorige wekrbalkgroep met TAB and SHIFT+TAB. Beweeg na die volgende en voorige werkbalkknop met die regter of linker pyl. Druk SPASIE of ENTER om die knop te bevestig."
+            legend: "Druk ${toolbarFocus} om op die werkbalk te land. Beweeg na die volgende en voorige wekrbalkgroep met TAB and SHIFT-TAB. Beweeg na die volgende en voorige werkbalkknop met die regter of linker pyl. Druk SPASIE of ENTER om die knop te bevestig."
         }, {
             name: "Bewerker dialoog",
-            legend: "Inside a dialog, press TAB to navigate to the next dialog element, press SHIFT+TAB to move to the previous dialog element, press ENTER to submit the dialog, press ESC to cancel the dialog. When a dialog has multiple tabs, the tab list can be reached either with ALT+F10 or with TAB as part of the dialog tabbing order. With tab list focused, move to the next and previous tab with RIGHT and LEFT ARROW, respectively."
+            legend: "In 'n dialoog, druk TAB vir die volgende dialoog veld, SHIFT + TAB vir die vorige dialoog veld, ENTER om te bevestig enESC om die dialoog af te breek. Vir 'n dialoog met meer as een leisie, druk ALT + F10 om die leisielys te wys. Beweeg dan met TAB of Regter pyl na die volgende leise of SHIFT + TAB of Linker pyl na die voorige leisie. Druk SPACE of ENTER om na die leisie bladsy toe te gaan."
         },
             {
                 name: "Bewerkerinhoudmenu",
                 legend: "Press ${contextMenu} or APPLICATION KEY to open context-menu. Then move to next menu option with TAB or DOWN ARROW. Move to previous option with SHIFT+TAB or UP ARROW. Press SPACE or ENTER to select the menu option. Open sub-menu of current option with SPACE or ENTER or RIGHT ARROW. Go back to parent menu item with ESC or LEFT ARROW. Close context menu with ESC."
             }, {
                 name: "Editor List Box",
-                legend: "Inside a list-box, move to next list item with TAB OR DOWN ARROW. Move to previous list item with SHIFT+TAB or UP ARROW. Press SPACE or ENTER to select the list option. Press ESC to close the list-box."
+                legend: "Inside a list-box, move to next list item with TAB OR DOWN ARROW. Move to previous list item with SHIFT + TAB or UP ARROW. Press SPACE or ENTER to select the list option. Press ESC to close the list-box."
             },
             {
                 name: "Editor Element Path Bar",
-                legend: "Press ${elementsPathFocus} to navigate to the elements path bar. Move to next element button with TAB or RIGHT ARROW. Move to previous button with SHIFT+TAB or LEFT ARROW. Press SPACE or ENTER to select the element in editor."
+                legend: "Press ${elementsPathFocus} to navigate to the elements path bar. Move to next element button with TAB or RIGHT ARROW. Move to previous button with  SHIFT+TAB or LEFT ARROW. Press SPACE or ENTER to select the element in editor."
             }]
     }, {
         name: "Commands",

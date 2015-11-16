@@ -3,8 +3,8 @@
  For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang("uicolor", "de", {
-    title: "UI-Farbpipette",
+    title: "UI Pipette",
     preview: "Live-Vorschau",
-    config: "Fügen Sie diese Zeichenfolge in die Datei config.js ein.",
+    config: "Fügen Sie diese Zeichenfolge in die 'config.js' Datei.",
     predefined: "Vordefinierte Farbsätze"
 });

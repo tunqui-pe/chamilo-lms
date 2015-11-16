@@ -30,8 +30,8 @@
     metaCopyright: "Direitos de Autor",
     metaDescription: "Descrição do Documento",
     metaKeywords: "Palavras de Indexação do Documento (separadas por virgula)",
-    other: "\x3coutro\x3e",
-    previewHtml: '\x3cp\x3eIsto é algum \x3cstrong\x3etexto amostra\x3c/strong\x3e. Está a usar o \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<outro>",
+    previewHtml: '<p>Isto é algum <strong>texto amostra</strong>. Está a usar o <a href="javascript:void(0)">CKEditor</a>.</p>',
     title: "Propriedades do documento",
     txtColor: "Cor do Texto",
     xhtmlDec: "Incluir Declarações XHTML"

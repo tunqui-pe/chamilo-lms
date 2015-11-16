@@ -11,8 +11,7 @@
         checkboxTitle: "Ciri-ciri Checkbox",
         radioTitle: "Ciri-ciri Butang Radio",
         value: "Nilai",
-        selected: "Dipilih",
-        required: "Required"
+        selected: "Dipilih"
     },
     form: {
         title: "Ciri-ciri Borang",
@@ -34,7 +33,6 @@
         size: "Saiz",
         lines: "garisan",
         chkMulti: "Benarkan pilihan pelbagai",
-        required: "Required",
         opText: "Teks",
         opValue: "Nilai",
         btnAdd: "Tambah Pilihan",
@@ -51,7 +49,6 @@
         value: "Nilai",
         charWidth: "Lebar isian",
         maxChars: "Isian Maksimum",
-        required: "Required",
         type: "Jenis",
         typeText: "Teks",
         typePass: "Kata Laluan",

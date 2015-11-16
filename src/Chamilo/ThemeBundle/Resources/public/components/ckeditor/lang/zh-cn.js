@@ -208,6 +208,7 @@ CKEDITOR.lang['zh-cn'] = {
     },
     "indent": {"indent": "增加缩进量", "outdent": "减少缩进量"},
     "image": {
+        "alertUrl": "请输入图像地址",
         "alt": "替换文本",
         "border": "边框大小",
         "btnUpload": "上传到服务器",

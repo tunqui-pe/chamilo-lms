@@ -8,8 +8,8 @@
     metaCopyright: "文書の著作権",
     metaDescription: "文書の概要",
     metaKeywords: "文書のキーワード(カンマ区切り)",
-    other: "\x3cその他の\x3e",
-    previewHtml: '\x3cp\x3eこれは\x3cstrong\x3eテキストサンプル\x3c/strong\x3eです。 あなたは、\x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3eを使っています。\x3c/p\x3e',
+    other: "<その他の>",
+    previewHtml: '<p>これは<strong>テキストサンプル</strong>です。 あなたは、<a href="javascript:void(0)">CKEditor</a>を使っています。</p>',
     title: "文書 プロパティ",
     txtColor: "テキスト色",
     xhtmlDec: "XHTML宣言をインクルード"

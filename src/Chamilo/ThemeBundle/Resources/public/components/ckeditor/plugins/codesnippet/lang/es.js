@@ -4,9 +4,9 @@
 */
 CKEDITOR.plugins.setLang("codesnippet", "es", {
     button: "Insertar fragmento de código",
-    codeContents: "Contenido del código",
-    emptySnippetError: "Un fragmento de código no puede estar vacío.",
-    language: "Lenguaje",
-    title: "Fragmento de código",
-    pathName: "fragmento de código"
+    codeContents: "Code content",
+    emptySnippetError: "A code snippet cannot be empty.",
+    language: "Language",
+    title: "Code snippet",
+    pathName: "code snippet"
 });

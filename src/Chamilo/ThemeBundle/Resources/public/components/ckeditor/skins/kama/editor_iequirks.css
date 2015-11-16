@@ -12,11 +12,16 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     height: auto;
     vertical-align: baseline;
     box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
     position: static;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
     transition: none
 }
 
-.cke_reset_all, .cke_reset_all *, .cke_reset_all a, .cke_reset_all textarea {
+.cke_reset_all, .cke_reset_all * {
     margin: 0;
     padding: 0;
     border: 0;
@@ -26,15 +31,19 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     height: auto;
     vertical-align: baseline;
     box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
     position: static;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
     transition: none;
     border-collapse: collapse;
     font: normal normal normal 12px Arial, Helvetica, Tahoma, Verdana, Sans-Serif;
     color: #000;
     text-align: left;
     white-space: nowrap;
-    cursor: auto;
-    float: none
+    cursor: auto
 }
 
 .cke_reset_all .cke_rtl * {
@@ -63,7 +72,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 }
 
 .cke_reset_all select {
-    box-sizing: border-box
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box
 }
 
 .cke_reset_all table {
@@ -72,6 +83,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 .cke_chrome {
     display: block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #d3d3d3;
     padding: 5px
@@ -83,10 +96,17 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 .cke_inner {
     display: block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     -webkit-touch-callout: none;
     border-radius: 5px;
     background: #d3d3d3 url(images/sprites.png) repeat-x 0 -1950px;
-    background: linear-gradient(to bottom, #fff -15px, #d3d3d3 40px);
+    background: -webkit-gradient(linear, 0 -15, 0 40, from(#fff), to(#d3d3d3));
+    background: -moz-linear-gradient(top, #fff -15px, #d3d3d3 40px);
+    background: -webkit-linear-gradient(top, #fff -15px, #d3d3d3 40px);
+    background: -o-linear-gradient(top, #fff -15px, #d3d3d3 40px);
+    background: -ms-linear-gradient(top, #fff -15px, #d3d3d3 40px);
+    background: linear-gradient(top, #fff -15px, #d3d3d3 40px);
     padding: 5px
 }
 
@@ -160,6 +180,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     overflow: auto;
     padding: 0 8px;
     outline-style: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box
 }
 
@@ -170,6 +192,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     width: 120px;
     height: 100px;
     overflow: hidden;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
     border-radius: 3px
 }
 
@@ -180,6 +204,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 .cke_combopanel {
     border: 1px solid #8f8f73;
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
     border-top-left-radius: 0;
     width: 150px;
     height: 170px
@@ -320,12 +346,19 @@ a:hover.cke_colorauto, a:hover.cke_colormore, a:focus.cke_colorauto, a:focus.cke
 }
 
 .cke_toolgroup {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px;
     float: left;
     margin: 0 6px 5px 0;
     padding: 2px;
     background: url(images/sprites.png) repeat-x 0 -500px;
-    background: linear-gradient(to bottom, #fff, #d3d3d3 100px)
+    background: -webkit-gradient(linear, 0 0, 0 100, from(#fff), to(#d3d3d3));
+    background: -moz-linear-gradient(top, #fff, #d3d3d3 100px);
+    background: -webkit-linear-gradient(top, #fff, #d3d3d3 100px);
+    background: -o-linear-gradient(top, #fff, #d3d3d3 100px);
+    background: -ms-linear-gradient(top, #fff, #d3d3d3 100px);
+    background: linear-gradient(top, #fff, #d3d3d3 100px)
 }
 
 .cke_hc .cke_toolgroup {
@@ -348,6 +381,8 @@ a.cke_button {
     display: inline-block;
     height: 18px;
     padding: 2px 4px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
     border-radius: 3px;
     outline: 0;
     cursor: default;
@@ -369,7 +404,7 @@ a.cke_button {
     margin: -2px -2px 0 4px
 }
 
-a.cke_button_on {
+.cke_button_on {
     background-color: #a3d7ff
 }
 
@@ -378,11 +413,11 @@ a.cke_button_on {
     padding: 1px 3px
 }
 
-a.cke_button_off {
+.cke_button_off {
     opacity: .7
 }
 
-a.cke_button_disabled {
+.cke_button_disabled {
     opacity: .3
 }
 
@@ -497,7 +532,7 @@ a.cke_button_off:hover, a.cke_button_off:focus, a.cke_button_off:active {
     clear: right
 }
 
-a.cke_toolbox_collapser {
+.cke_toolbox_collapser {
     width: 12px;
     height: 11px;
     float: right;
@@ -678,15 +713,18 @@ a.cke_toolbox_collapser {
     margin-right: 0
 }
 
-a.cke_combo_button {
+.cke_combo_button {
     display: inline-block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px;
     background: url(images/sprites.png) 0 -100px repeat-x;
     float: left;
     padding: 2px 4px 2px 6px;
     height: 22px;
     margin: 0 5px 5px 0;
-    background: linear-gradient(to top, #fff, #d3d3d3 100px)
+    background: -moz-linear-gradient(bottom, #fff, #d3d3d3 100px);
+    background: -webkit-gradient(linear, left bottom, left -100, from(#fff), to(#d3d3d3))
 }
 
 .cke_combo_off .cke_combo_button:hover, .cke_combo_off .cke_combo_button:focus, .cke_combo_off .cke_combo_button:active {
@@ -771,7 +809,7 @@ a.cke_combo_button {
     float: left
 }
 
-a.cke_path_item, span.cke_path_empty {
+.cke_path_item, .cke_path_empty {
     display: inline-block;
     float: left;
     padding: 1px 4px 0;
@@ -804,123 +842,15 @@ a.cke_path_item:hover, a.cke_path_item:focus, a.cke_path_item:active {
     width: 120px
 }
 
-textarea.cke_source {
+.cke_source {
     font-family: 'Courier New', Monospace;
     font-size: small;
     background-color: #fff;
-    white-space: pre-wrap;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    display: block
+    white-space: pre-wrap
 }
 
 .cke_wysiwyg_frame, .cke_wysiwyg_div {
     background-color: #fff
-}
-
-.cke_notifications_area {
-    pointer-events: none
-}
-
-.cke_notification {
-    pointer-events: auto;
-    position: relative;
-    margin: 10px;
-    width: 300px;
-    color: #222;
-    border-radius: 5px;
-    text-align: center;
-    opacity: .95;
-    filter: alpha(opacity=95);
-    -webkit-animation: fadeIn .7s;
-    animation: fadeIn .7s
-}
-
-.cke_notification_message a {
-    color: #12306f
-}
-
-@-webkit-keyframes fadeIn {
-    from {
-        opacity: .4
-    }
-    to {
-        opacity: .95
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: .4
-    }
-    to {
-        opacity: .95
-    }
-}
-
-.cke_notification_success {
-    background: #96ca0a;
-    border: 1px solid #96ca0a
-}
-
-.cke_notification_warning {
-    background: #fd7c44;
-    border: 1px solid #fd7c44
-}
-
-.cke_notification_info {
-    background: #54d3ec;
-    border: 1px solid #01b2d2
-}
-
-.cke_notification_info span.cke_notification_progress {
-    background-color: #01b2d2;
-    display: block;
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    z-index: 1
-}
-
-.cke_notification_message {
-    position: relative;
-    margin: 4px 23px 3px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    z-index: 4;
-    text-overflow: ellipsis;
-    overflow: hidden
-}
-
-.cke_notification_close {
-    background-image: url(images/sprites.png);
-    background-repeat: no-repeat;
-    background-position: 0 -1022px;
-    position: absolute;
-    cursor: pointer;
-    text-align: center;
-    height: 20px;
-    width: 20px;
-    top: 2px;
-    right: 3px;
-    padding: 0;
-    margin: 0;
-    z-index: 5;
-    opacity: .6;
-    filter: alpha(opacity=60)
-}
-
-.cke_notification_close:hover {
-    opacity: 1;
-    filter: alpha(opacity=100)
-}
-
-.cke_notification_close span {
-    display: none
 }
 
 .cke_chrome {
@@ -1283,40 +1213,32 @@ legend.cke_voice_label {
     background: url(icons.png) no-repeat 0 -2064px !important
 }
 
-.cke_button__embed_icon {
+.cke_rtl .cke_button__textfield_icon, .cke_mixed_dir_content .cke_rtl .cke_button__textfield_icon {
     background: url(icons.png) no-repeat 0 -2088px !important
 }
 
-.cke_button__embedsemantic_icon {
+.cke_button__language_icon {
     background: url(icons.png) no-repeat 0 -2112px !important
 }
 
-.cke_rtl .cke_button__textfield_icon, .cke_mixed_dir_content .cke_rtl .cke_button__textfield_icon {
+.cke_button__mathjax_icon {
     background: url(icons.png) no-repeat 0 -2136px !important
 }
 
-.cke_button__language_icon {
+.cke_rtl .cke_button__sourcedialog_icon, .cke_mixed_dir_content .cke_rtl .cke_button__sourcedialog_icon {
     background: url(icons.png) no-repeat 0 -2160px !important
 }
 
-.cke_button__mathjax_icon {
+.cke_ltr .cke_button__sourcedialog_icon {
     background: url(icons.png) no-repeat 0 -2184px !important
 }
 
-.cke_rtl .cke_button__sourcedialog_icon, .cke_mixed_dir_content .cke_rtl .cke_button__sourcedialog_icon {
+.cke_button__uicolor_icon {
     background: url(icons.png) no-repeat 0 -2208px !important
 }
 
-.cke_ltr .cke_button__sourcedialog_icon {
-    background: url(icons.png) no-repeat 0 -2232px !important
-}
-
-.cke_button__uicolor_icon {
-    background: url(icons.png) no-repeat 0 -2256px !important
-}
-
 .cke_button__simplebox_icon {
-    background: url(icons.png) no-repeat 0 -2280px !important
+    background: url(icons.png) no-repeat 0 -2232px !important
 }
 
 .cke_hidpi .cke_button__about_icon {
@@ -1668,48 +1590,38 @@ legend.cke_voice_label {
     background-size: 16px !important
 }
 
-.cke_hidpi .cke_button__embed_icon {
+.cke_rtl.cke_hidpi .cke_button__textfield_icon, .cke_hidpi .cke_mixed_dir_content .cke_rtl .cke_button__textfield_icon {
     background: url(icons_hidpi.png) no-repeat 0 -2088px !important;
     background-size: 16px !important
 }
 
-.cke_hidpi .cke_button__embedsemantic_icon {
+.cke_hidpi .cke_button__language_icon {
     background: url(icons_hidpi.png) no-repeat 0 -2112px !important;
     background-size: 16px !important
 }
 
-.cke_rtl.cke_hidpi .cke_button__textfield_icon, .cke_hidpi .cke_mixed_dir_content .cke_rtl .cke_button__textfield_icon {
+.cke_hidpi .cke_button__mathjax_icon {
     background: url(icons_hidpi.png) no-repeat 0 -2136px !important;
     background-size: 16px !important
 }
 
-.cke_hidpi .cke_button__language_icon {
+.cke_rtl.cke_hidpi .cke_button__sourcedialog_icon, .cke_hidpi .cke_mixed_dir_content .cke_rtl .cke_button__sourcedialog_icon {
     background: url(icons_hidpi.png) no-repeat 0 -2160px !important;
     background-size: 16px !important
 }
 
-.cke_hidpi .cke_button__mathjax_icon {
+.cke_hidpi .cke_ltr .cke_button__sourcedialog_icon, .cke_ltr.cke_hidpi .cke_button__sourcedialog_icon {
     background: url(icons_hidpi.png) no-repeat 0 -2184px !important;
     background-size: 16px !important
 }
 
-.cke_rtl.cke_hidpi .cke_button__sourcedialog_icon, .cke_hidpi .cke_mixed_dir_content .cke_rtl .cke_button__sourcedialog_icon {
+.cke_hidpi .cke_button__uicolor_icon {
     background: url(icons_hidpi.png) no-repeat 0 -2208px !important;
     background-size: 16px !important
 }
 
-.cke_hidpi .cke_ltr .cke_button__sourcedialog_icon, .cke_ltr.cke_hidpi .cke_button__sourcedialog_icon {
-    background: url(icons_hidpi.png) no-repeat 0 -2232px !important;
-    background-size: 16px !important
-}
-
-.cke_hidpi .cke_button__uicolor_icon {
-    background: url(icons_hidpi.png) no-repeat 0 -2256px !important;
-    background-size: 16px !important
-}
-
 .cke_hidpi .cke_button__simplebox_icon {
-    background: url(icons_hidpi.png) no-repeat 0 -4560px !important
+    background: url(icons_hidpi.png) no-repeat 0 -4464px !important
 }
 
 .cke_button_off {

@@ -13,5 +13,5 @@
     metaDescription: "Documentbeschrijving",
     metaKeywords: "Trefwoorden voor indexering (komma-gescheiden)",
     other: "Anders...",
-    previewHtml: '\x3cp\x3eDit is \x3cstrong\x3evoorbeeld tekst\x3c/strong\x3e. Je gebruikt \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    previewHtml: '<p>Dit is <strong>voorbeeld tekst</strong>. Je gebruikt <a href="javascript:void(0)">CKEditor</a>.</p>',
 title:"Documenteigenschappen",txtColor:"Tekstkleur",xhtmlDec:"XHTML declaratie invoegen"});

@@ -11,8 +11,7 @@
         checkboxTitle: "चॅक बॉक्स प्रॉपर्टीज़",
         radioTitle: "रेडिओ बटन प्रॉपर्टीज़",
         value: "वैल्यू",
-        selected: "सॅलॅक्टॅड",
-        required: "Required"
+        selected: "सॅलॅक्टॅड"
     },
     form: {
         title: "फ़ॉर्म प्रॉपर्टीज़",
@@ -30,7 +29,6 @@
         size: "साइज़",
         lines: "पंक्तियाँ",
         chkMulti: "एक से ज्यादा विकल्प चुनने दें",
-        required: "Required",
         opText: "टेक्स्ट",
         opValue: "वैल्यू",
         btnAdd: "जोड़ें",
@@ -51,7 +49,6 @@
         value: "वैल्यू",
         charWidth: "करॅक्टर की चौढ़ाई",
         maxChars: "अधिकतम करॅक्टर",
-        required: "Required",
         type: "टाइप",
         typeText: "टेक्स्ट",
         typePass: "पास्वर्ड",

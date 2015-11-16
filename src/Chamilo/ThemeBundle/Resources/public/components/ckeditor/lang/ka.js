@@ -211,6 +211,7 @@ CKEDITOR.lang['ka'] = {
     },
     "indent": {"indent": "მეტად შეწევა", "outdent": "ნაკლებად შეწევა"},
     "image": {
+        "alertUrl": "აკრიფეთ სურათის URL",
         "alt": "სანაცვლო ტექსტი",
         "border": "ჩარჩო",
         "btnUpload": "სერვერისთვის გაგზავნა",

@@ -26,9 +26,8 @@
                     style: "width:150px",
                     items: [[b.notset, ""], [b.circle, "circle"], [b.disc, "disc"], [b.square, "square"]],
                     setup: function (a) {
-                        a =
-                            a.getStyle("list-style-type") || h[a.getAttribute("type")] || a.getAttribute("type") || "";
-                        this.setValue(a)
+                        this.setValue(a.getStyle("list-style-type") ||
+                            h[a.getAttribute("type")] || a.getAttribute("type") || "")
                     },
                     commit: function (a) {
                         var b = this.getValue();
@@ -44,8 +43,8 @@
             }
         };
         if ("numberedListStyle" == e) {
-            var g = [[b.notset, ""], [b.lowerRoman, "lower-roman"], [b.upperRoman, "upper-roman"], [b.lowerAlpha,
-                "lower-alpha"], [b.upperAlpha, "upper-alpha"], [b.decimal, "decimal"]];
+            var g = [[b.notset, ""], [b.lowerRoman, "lower-roman"], [b.upperRoman, "upper-roman"], [b.lowerAlpha, "lower-alpha"], [b.upperAlpha, "upper-alpha"],
+                [b.decimal, "decimal"]];
             (!CKEDITOR.env.ie || 7 < CKEDITOR.env.version) && g.concat([[b.armenian, "armenian"], [b.decimalLeadingZero, "decimal-leading-zero"], [b.georgian, "georgian"], [b.lowerGreek, "lower-greek"]]);
             return {
                 title: b.numberedTitle,
@@ -59,9 +58,8 @@
                             id: "start",
                             validate: CKEDITOR.dialog.validate.integer(b.validateStartNumber),
                             setup: function (a) {
-                                a =
-                                    a.getFirst(f).getAttribute("value") || a.getAttribute("start") || 1;
-                                this.setValue(a)
+                                this.setValue(a.getFirst(f).getAttribute("value") ||
+                                    a.getAttribute("start") || 1)
                             },
                             commit: function (a) {
                                 var b = a.getFirst(f), c = b.getAttribute("value") || a.getAttribute("start") || 1;
@@ -79,9 +77,8 @@
                             style: "width: 100%;",
                             items: g,
                             setup: function (a) {
-                                a =
-                                    a.getStyle("list-style-type") || h[a.getAttribute("type")] || a.getAttribute("type") || "";
-                                this.setValue(a)
+                                this.setValue(a.getStyle("list-style-type") || h[a.getAttribute("type")] ||
+                                    a.getAttribute("type") || "")
                             },
                             commit: function (a) {
                                 var b = this.getValue();

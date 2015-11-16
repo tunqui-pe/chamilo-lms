@@ -211,6 +211,7 @@ CKEDITOR.lang['hi'] = {
     },
     "indent": {"indent": "इन्डॅन्ट बढ़ायें", "outdent": "इन्डॅन्ट कम करें"},
     "image": {
+        "alertUrl": "तस्वीर का URL टाइप करें ",
         "alt": "वैकल्पिक टेक्स्ट",
         "border": "बॉर्डर",
         "btnUpload": "इसे सर्वर को भेजें",

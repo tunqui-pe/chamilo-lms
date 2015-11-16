@@ -11,8 +11,7 @@
         checkboxTitle: "คุณสมบัติของ เช็คบ๊อก",
         radioTitle: "คุณสมบัติของ เรดิโอบัตตอน",
         value: "ค่าตัวแปร",
-        selected: "เลือกเป็นค่าเริ่มต้น",
-        required: "Required"
+        selected: "เลือกเป็นค่าเริ่มต้น"
     },
     form: {
         title: "คุณสมบัติของ แบบฟอร์ม",
@@ -22,7 +21,8 @@
         encoding: "Encoding"
     },
     hidden: {
-        title: "คุณสมบัติของ ฮิดเดนฟิลด์", name: "ชื่อ",
+        title: "คุณสมบัติของ ฮิดเดนฟิลด์",
+        name: "ชื่อ",
         value: "ค่าตัวแปร"
     },
     select: {
@@ -33,7 +33,6 @@
         size: "ขนาด",
         lines: "บรรทัด",
         chkMulti: "เลือกหลายค่าได้",
-        required: "Required",
         opText: "ข้อความ",
         opValue: "ค่าตัวแปร",
         btnAdd: "เพิ่ม",
@@ -50,7 +49,6 @@
         value: "ค่าตัวแปร",
         charWidth: "ความกว้าง",
         maxChars: "จำนวนตัวอักษรสูงสุด",
-        required: "Required",
         type: "ชนิด",
         typeText: "ข้อความ",
         typePass: "รหัสผ่าน",

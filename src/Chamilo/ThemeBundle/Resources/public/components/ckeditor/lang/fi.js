@@ -211,6 +211,7 @@ CKEDITOR.lang['fi'] = {
         "outdent": "Pienennä sisennystä"
     },
     "image": {
+        "alertUrl": "Kirjoita kuvan osoite (URL)",
         "alt": "Vaihtoehtoinen teksti",
         "border": "Kehys",
         "btnUpload": "Lähetä palvelimelle",

@@ -10,6 +10,6 @@
     lowerGreek: "លេខ​ក្រិក​តូច (alpha, beta, gamma, ...)",
     lowerRoman: "លេខ​រ៉ូម៉ាំង​តូច (i, ii, iii, iv, v, ...)",
     none: "គ្មាន",
-    notset: "\x3cnot set\x3e",
+    notset: "<not set>",
     numberedTitle: "លក្ខណៈ​សម្បត្តិ​បញ្ជី​ជា​លេខ",
 square:"ការេ",start:"ចាប់​ផ្ដើម",type:"ប្រភេទ",upperAlpha:"អក្សរ​ធំ (A, B, C, D, E, ...)",upperRoman:"លេខ​រ៉ូម៉ាំង​ធំ (I, II, III, IV, V, ...)",validateStartNumber:"លេខ​ចាប់​ផ្ដើម​បញ្ជី ត្រូវ​តែ​ជា​តួ​លេខ​ពិត​ប្រាកដ។"});

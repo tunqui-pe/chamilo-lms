@@ -1,7 +1,7 @@
 ﻿CKEDITOR.plugins.setLang("iframe", "id", {
-    border: "Tampilkan Batas Bingkai",
+    border: "Show frame border",
     noUrl: "Please type the iframe URL",
-    scrolling: "Aktifkan Scrollbar",
+    scrolling: "Enable scrollbars",
     title: "IFrame Properties",
     toolbar: "IFrame"
 });

@@ -11,8 +11,7 @@
         checkboxTitle: "ویژگی​های خانهٴ گزینه​ای",
         radioTitle: "ویژگی​های دکمهٴ رادیویی",
         value: "مقدار",
-        selected: "برگزیده",
-        required: "Required"
+        selected: "برگزیده"
     },
     form: {
         title: "ویژگی​های فرم",
@@ -30,7 +29,6 @@
         size: "اندازه",
         lines: "خطوط",
         chkMulti: "گزینش چندگانه فراهم باشد",
-        required: "Required",
         opText: "متن",
         opValue: "مقدار",
         btnAdd: "افزودن",
@@ -47,7 +45,6 @@
         value: "مقدار",
         charWidth: "پهنای نویسه",
         maxChars: "بیشینهٴ نویسه​ها",
-        required: "Required",
         type: "نوع",
         typeText: "متن",
         typePass: "گذرواژه",

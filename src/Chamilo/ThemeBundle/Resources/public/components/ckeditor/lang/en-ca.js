@@ -214,6 +214,7 @@ CKEDITOR.lang['en-ca'] = {
     },
     "indent": {"indent": "Increase Indent", "outdent": "Decrease Indent"},
     "image": {
+        "alertUrl": "Please type the image URL",
         "alt": "Alternative Text",
         "border": "Border",
         "btnUpload": "Send it to the Server",

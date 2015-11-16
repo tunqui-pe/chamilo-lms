@@ -1,7 +1,7 @@
 ﻿CKEDITOR.plugins.setLang("font", "id", {
     fontSize: {
         label: "Ukuran",
-        voiceLabel: "Ukuran Huruf",
-        panelTitle: "Ukuran Huruf"
-    }, label: "Huruf", panelTitle: "Font Name", voiceLabel: "Huruf"
+        voiceLabel: "Font Size",
+        panelTitle: "Font Size"
+    }, label: "Font", panelTitle: "Font Name", voiceLabel: "Font"
 });

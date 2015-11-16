@@ -11,8 +11,7 @@
         checkboxTitle: "ચેક બોક્સ ગુણ",
         radioTitle: "રેડિઓ બટનના ગુણ",
         value: "વૅલ્યૂ",
-        selected: "સિલેક્ટેડ",
-        required: "Required"
+        selected: "સિલેક્ટેડ"
     },
     form: {
         title: "ફૉર્મ/પત્રકના ગુણ",
@@ -30,7 +29,6 @@
         size: "સાઇઝ",
         lines: "લીટીઓ",
         chkMulti: "એકથી વધારે પસંદ કરી શકો",
-        required: "Required",
         opText: "ટેક્સ્ટ",
         opValue: "વૅલ્યૂ",
         btnAdd: "ઉમેરવું",
@@ -51,7 +49,6 @@
         value: "વૅલ્યૂ",
         charWidth: "કેરેક્ટરની પહોળાઈ",
         maxChars: "અધિકતમ કેરેક્ટર",
-        required: "Required",
         type: "ટાઇપ",
         typeText: "ટેક્સ્ટ",
         typePass: "પાસવર્ડ",

@@ -29,16 +29,16 @@ CKEDITOR.lang['sv'] = {
         "toolbarExpand": "Visa verktygsfält",
         "toolbarGroups": {
             "document": "Dokument",
-            "clipboard": "Urklipp/ångra",
-            "editing": "Redigering",
-            "forms": "Formulär",
-            "basicstyles": "Basstilar",
-            "paragraph": "Paragraf",
-            "links": "Länkar",
-            "insert": "Infoga",
-            "styles": "Stilar",
-            "colors": "Färger",
-            "tools": "Verktyg"
+            "clipboard": "Clipboard/Undo",
+            "editing": "Editing",
+            "forms": "Forms",
+            "basicstyles": "Basic Styles",
+            "paragraph": "Paragraph",
+            "links": "Links",
+            "insert": "Insert",
+            "styles": "Styles",
+            "colors": "Colors",
+            "tools": "Tools"
         },
         "toolbars": "Redigera verktygsfält"
     },
@@ -147,10 +147,7 @@ CKEDITOR.lang['sv'] = {
     },
     "maximize": {"maximize": "Maximera", "minimize": "Minimera"},
     "magicline": {"title": "Infoga paragraf här"},
-    "list": {
-        "bulletedlist": "Infoga/ta bort punktlista",
-        "numberedlist": "Infoga/ta bort numrerad lista"
-    },
+    "list": {"bulletedlist": "Punktlista", "numberedlist": "Numrerad lista"},
     "link": {
         "acccessKey": "Behörighetsnyckel",
         "advanced": "Avancerad",
@@ -214,6 +211,7 @@ CKEDITOR.lang['sv'] = {
     },
     "indent": {"indent": "Öka indrag", "outdent": "Minska indrag"},
     "image": {
+        "alertUrl": "Var god och ange bildens URL",
         "alt": "Alternativ text",
         "border": "Kant",
         "btnUpload": "Skicka till server",

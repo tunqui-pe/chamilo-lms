@@ -11,8 +11,8 @@
     metaCopyright: "Avtorske pravice",
     metaDescription: "Opis strani",
     metaKeywords: "Ključne besede (ločene z vejicami)",
-    other: "\x3cdrug\x3e",
-    previewHtml: '\x3cp\x3eTole je\x3cstrong\x3eprimer besedila\x3c/strong\x3e. Uporabljate \x3ca href\x3d"javascript:void(0)"\x3eCKEditor\x3c/a\x3e.\x3c/p\x3e',
+    other: "<drug>",
+    previewHtml: '<p>Tole je<strong>primer besedila</strong>. Uporabljate <a href="javascript:void(0)">CKEditor</a>.</p>',
     title: "Lastnosti dokumenta",
     txtColor: "Barva besedila",
     xhtmlDec: "Vstavi XHTML deklaracije"
