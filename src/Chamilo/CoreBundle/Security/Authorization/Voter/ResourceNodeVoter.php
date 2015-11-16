@@ -229,12 +229,12 @@ class ResourceNodeVoter extends AbstractVoter
 
         foreach ($user->getRoles() as $role) {
             if ($acl->isAllowed($role, $resource, $askedMask)) {
-                dump('passed');
+                //dump('passed');
                 return true;
             }
         }
 
-        dump('not allowed to '.$attribute);
+        //dump('not allowed to '.$attribute);
 
         return false;
     }
