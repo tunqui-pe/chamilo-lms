@@ -6710,11 +6710,11 @@ function api_get_jquery_libraries_js($libraries) {
     }
 
     //Document multiple upload funcionality
-    if (in_array('jquery-upload', $libraries)) {
-        $js .= api_get_js('jquery-upload/jquery.fileupload.js');
-        $js .= api_get_js('jquery-upload/jquery.fileupload-ui.js');
-        $js .= api_get_css($js_path.'jquery-upload/jquery.fileupload-ui.css');
-    }
+    /*    if (in_array('jquery-upload', $libraries)) {
+            $js .= api_get_js('jquery-upload/jquery.fileupload.js');
+            $js .= api_get_js('jquery-upload/jquery.fileupload-ui.js');
+            $js .= api_get_css($js_path.'jquery-upload/jquery.fileupload-ui.css');
+        }*/
 
     // jquery datepicker
     if (in_array('datepicker', $libraries)) {

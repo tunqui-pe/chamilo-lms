@@ -39,6 +39,9 @@ assetic:
                 - bundles/chamilotheme/components/jqgrid/css/ui.jqgrid.css
                 - bundles/chamilotheme/components/select2/dist/css/select2.css
 
+                - bundles/chamilotheme/components/jquery-file-upload/css/jquery.fileupload.css
+                - bundles/chamilotheme/components/jquery-file-upload/css/jquery.fileupload-ui.css
+
 #                - bundles/chamilotheme/components/select2/select2-bootstrap.css
 #                - bundles/chamilotheme/components/adminlte/css/jvectormap/*
 #                - bundles/chamilotheme/components/adminlte/css/morris/*
@@ -71,6 +74,17 @@ assetic:
                 - bundles/chamilotheme/components/mediaelement/build/mediaelement-and-player.js
                 - bundles/chamilocore/js/upload.js
                 - bundles/chamilotheme/components/image-map-resizer/js/imageMapResizer.js
+
+                - bundles/chamilotheme/components/blueimp-load-image/js/load-image.all.min.js
+                - bundles/chamilotheme/components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.iframe-transport.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-process.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-image.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-audio.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-video.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-validate.js
+                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-ui.js
 
 #                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
 
