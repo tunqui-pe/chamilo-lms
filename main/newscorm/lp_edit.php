@@ -256,8 +256,9 @@ if ($_SESSION['oLP']->get_hide_toc_frame() == 1) {
     $form -> display();
     echo '</div>';
     echo '<div class="col-md-4" align="center">';
-    echo '<img src="../img/course_setting_layout.png" />';
+    echo Display::return_icon(
+        'course_setting_layout.png'
+    );//'<img src="../img/course_setting_layout.png" />';
     echo '</div>';
 }
 echo '</div>';
-Display::display_footer();

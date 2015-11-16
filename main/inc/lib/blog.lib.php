@@ -999,7 +999,8 @@ class Blog
             $blog_post_actions .= '<a href="blog.php?action=edit_post&blog_id='.$blog_id.'&post_id='.$post_id.'&article_id='.$blog_post['post_id'].'&task_id='.$task_id.'" title="'.get_lang(
                     'EditThisPost'
                 ).'">
-			<img src="../img/edit.gif" /></a>';
+			'.Display::return_icon('edit.png').'
+			</a>';
 
 		if (api_is_allowed('BLOG_' . $blog_id, 'article_delete', $task_id))
             $blog_post_actions .= '<a href="blog.php?action=view_post&blog_id='.$blog_id.'&post_id='.$post_id.'&do=delete_article&article_id='.$blog_post['post_id'].'&task_id='.$task_id.'" title="'.get_lang(
@@ -1011,7 +1012,9 @@ class Blog
                         $charset
                     )
                 ).'\')) return false;">
-			<img src="../img/delete.gif" border="0" /></a>';
+
+			'.Display::return_icon('delete.png').'
+			</a>';
 
 		if(api_is_allowed('BLOG_' . $blog_id, 'article_rate'))
 			$rating_select = Blog::display_rating_form('post',$blog_id,$post_id);
