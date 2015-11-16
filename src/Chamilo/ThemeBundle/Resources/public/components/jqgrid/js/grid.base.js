@@ -2,10 +2,12 @@
 // @compilation_level SIMPLE_OPTIMIZATIONS
 
 /**
- * @license Guriddo jqGrid JS 4.7.1 (2014-12-16)
+ * @license jqGrid  4.7.0 - jQuery Grid
  * Copyright (c) 2008, Tony Tomov, tony@trirand.com
- * 
- * License: http://guriddo.net/?page_id=103334
+ * Dual licensed under the MIT and GPL licenses
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ * Date: 2014-12-08
  */
 //jsHint options
 /*jshint evil:true, eqeqeq:false, eqnull:true, devel:true */
@@ -15,7 +17,7 @@
 "use strict";
 $.jgrid = $.jgrid || {};
 $.extend($.jgrid,{
-	version : "4.7.1",
+	version : "4.7.0",
 	htmlDecode : function(value){
 		if(value && (value==='&nbsp;' || value==='&#160;' || (value.length===1 && value.charCodeAt(0)===160))) { return "";}
 		return !value ? value : String(value).replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&amp;/g, "&");		
@@ -2980,9 +2982,7 @@ $.fn.jqGrid = function( pin ) {
 			}
 		} else {
 			$(grid.cDiv).hide();
-			if(!ts.p.toppager) {
-				$(grid.hDiv).addClass('ui-corner-top');
-			}
+			$(grid.hDiv).addClass('ui-corner-top');
 		}
 		$(grid.hDiv).after(grid.bDiv)
 		.mousemove(function (e) {

@@ -1,17 +1,15 @@
 {
-  "name": "Holder",
-  "version": "2.4.1",
+  "name": "holderjs",
+  "officialName": "Holder",
+  "version": "2.9.0",
   "summary": "client side image placeholders",
   "description": "Holder uses SVG to render image placeholders entirely in browser.",
   "author": {
     "name": "Ivan Malopinsky",
     "url": "http://imsky.co"
   },
-  "homepage": "http://imsky.github.io/holder",
-  "license": {
-    "type": "MIT",
-    "url": "http://opensource.org/licenses/MIT"
-  },
+  "homepage": "http://holderjs.com",
+  "license": "MIT",
   "keywords": [
     "images",
     "placeholders",
@@ -30,13 +28,27 @@
     "url": "https://github.com/imsky/holder/issues"
   },
   "devDependencies": {
-    "moment": "^2.6.0",
-    "gulp": "~3",
-    "gulp-uglify": "^0.3.0",
+    "component-type": "^1.1.0",
+    "gulp": "^3.9.0",
     "gulp-concat": "^2.2.0",
     "gulp-header": "^1.0.2",
+    "gulp-jsbeautifier": "0.0.5",
     "gulp-jshint": "^1.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
     "gulp-todo": "^0.3.8",
-    "gulp-util": "~3"
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "~3",
+    "moment": "^2.6.0",
+    "node-http-server": "^3.0.0",
+    "trim": "0.0.1",
+    "webdriverio": "^2.4.5",
+    "webpack-stream": "^2.1.1"
+  },
+  "scripts": {
+    "test": "node test/index"
+  },
+  "dependencies": {
+    "shaven": "^0.7.3"
   }
 }

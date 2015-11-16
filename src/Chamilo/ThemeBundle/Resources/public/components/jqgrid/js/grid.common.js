@@ -1,6 +1,14 @@
 /*jshint eqeqeq:false */
 /*global jQuery */
 (function($){
+	/*
+	 * jqGrid common function
+	 * Tony Tomov tony@trirand.com
+	 * http://trirand.com/blog/
+	 * Dual licensed under the MIT and GPL licenses:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 * http://www.gnu.org/licenses/gpl-2.0.html
+	 */
 "use strict";
 $.extend($.jgrid,{
 // Modal functions
@@ -419,7 +427,7 @@ $.extend($.jgrid,{
 						ovm = $.map(ovm,function(n){return $.trim(n);});
 					}
 					if(typeof options.value === 'function') { options.value = options.value(); }
-					var so,sv, ov, 
+					var so,sv, ov,
 					sep = options.separator === undefined ? ":" : options.separator,
 					delim = options.delimiter === undefined ? ";" : options.delimiter;
 					if(typeof options.value === 'string') {

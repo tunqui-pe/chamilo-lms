@@ -13,7 +13,7 @@
     "moment": "*",
     "backbone": "*",
     "underscore": "*",
-    "modernizr": "*",
+    "modernizr": "2.8.*",
     "spinjs": "*",
     "marionette": "*",
     "pickadate": "*",
@@ -23,7 +23,6 @@
     "fontawesome": "*",
     "ionicons": "*",
     "fullcalendar": "*",
-    "jqgrid": "*",
     "select2": "4.0",
     "chosen-bower": "*",
     "ckeditor": "*",
@@ -46,7 +45,9 @@
     "xcolor": "*",
     "jquery.ui.touch": "*",
     "jsplumb": "2.0.4",
-    "jqgrid": "4.7.0"
+    "jqgrid": "4.7.0",
+    "adminlte": "*"
+
   },
   "resolutions": {
     "jquery": "2.1.4"

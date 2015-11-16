@@ -1,0 +1,18 @@
+{
+  "name": "aAnyTabs",
+  "version": "1.0.2",
+  "main": "./jquery.aCollapTable.js",
+  "dependencies": {
+    "jquery": "1.9.*"
+  },
+  "homepage": "https://github.com/alvaroveliz/aCollapTable",
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.2",
+    "commit": "3de9d860496d2c7a0b44161773c03edc418610ca"
+  },
+  "_source": "git://github.com/alvaroveliz/aCollapTable.git",
+  "_target": "1.0.*",
+  "_originalSource": "aCollapTable"
+}

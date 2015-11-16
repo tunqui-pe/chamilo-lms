@@ -1,6 +1,6 @@
 {
   "name": "jqGrid",
-  "version": "4.7.1",
+  "version": "4.7.0",
   "main": [
     "js/i18n/grid.locale-en.js",
     "js/jquery.jqGrid.js",
@@ -10,13 +10,13 @@
     "jquery": ">=1.7.0"
   },
   "homepage": "https://github.com/tonytomov/jqGrid",
-  "_release": "4.7.1",
+  "_release": "4.7.0",
   "_resolution": {
     "type": "version",
-    "tag": "v4.7.1",
-    "commit": "035ea928ad878cead80d7880f5d8b0ebf20534c3"
+    "tag": "v4.7.0",
+    "commit": "88e12ebeaa3866e7f2d60c6870b865e8902a7f0a"
   },
   "_source": "git://github.com/tonytomov/jqGrid.git",
-  "_target": "*",
+  "_target": "4.7.0",
   "_originalSource": "jqgrid"
 }
