@@ -1,5 +1,5 @@
 assetic:
-    debug:          true # %kernel.debug%
+    debug:          %kernel.debug%
     use_controller: false
     read_from:      %kernel.root_dir%/../web
     write_to:       %kernel.root_dir%/../web
@@ -38,6 +38,7 @@ assetic:
                 - bundles/chamilotheme/components/bootflat/css/bootflat.css
                 - bundles/chamilotheme/components/jqgrid/css/ui.jqgrid.css
                 - bundles/chamilotheme/components/select2/dist/css/select2.css
+
 #                - bundles/chamilotheme/components/select2/select2-bootstrap.css
 #                - bundles/chamilotheme/components/adminlte/css/jvectormap/*
 #                - bundles/chamilotheme/components/adminlte/css/morris/*
@@ -51,6 +52,8 @@ assetic:
 #                - bundles/chamilotheme/components/adminlte/css/timepicker/bootstrap-timepicker.css
                 - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css
 #                - bundles/chamilotheme/components/adminlte/css/AdminLTE.css
+            filters:
+                - cssrewrite
             output: js/chamilo.css
 
         chamilo_js:
