@@ -6597,16 +6597,25 @@ function api_get_asset($file) {
     return '<script type="text/javascript" src="'.api_get_path(WEB_PATH).'web/assets/'.$file.'"></script>'."\n";
 }
 
-function api_get_bundle_asset($file)
+function api_get_bundle_asset($file, $justPath = false)
 {
     $path = str_replace('/chamilocore/img', '', api_get_path(WEB_IMG_PATH));
+
+    if ($justPath) {
+        return $path;
+    }
 
     return '<script type="text/javascript" src="'.$path.'/'.$file.'"></script>'."\n";
 }
 
-function api_get_theme_asset($file)
+/**
+ * chamilotheme/components/
+ * @param string $file
+ * @return string
+ */
+function api_get_theme_asset($file, $justPath = false)
 {
-    return api_get_bundle_asset('chamilotheme/components/'.$file);
+    return api_get_bundle_asset('chamilotheme/components/'.$file, $justPath);
 }
 
 function api_get_theme_asset_css($file)
@@ -6638,7 +6647,8 @@ function api_get_jquery_js()
  */
 function api_get_jquery_web_path()
 {
-    return api_get_path(WEB_PATH).'web/assets/jquery/dist/jquery.min.js';
+    return api_get_theme_asset('jquery/dist/jquery.min.js', true);
+    //return api_get_path(WEB_).'web/assets/jquery/dist/jquery.min.js';
 }
 
 /**

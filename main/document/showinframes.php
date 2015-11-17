@@ -192,7 +192,7 @@ $js_glossary_in_documents =	'
         { type:"script", id:"_fr4", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/jquery-ui.min.js"},
         { type:"stylesheet", id:"_fr5", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/jquery-ui.min.css"},
         { type:"stylesheet", id:"_fr6", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/theme.css"},
-        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.highlight.js"},
+        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.highlight.js"},
         { type:"script", id:"_fr3", src:"'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php"}
     ]
   });';
@@ -310,7 +310,9 @@ if (!$jplayer_supported && $execute_iframe) {
         var jQueryFrameReadyConfigPath = \''.api_get_jquery_web_path().'\';
     -->
     </script>';
-    $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.frameready.js"></script>';
+    $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(
+            WEB_LIBRARY_JS_PATH
+        ).'jquery.frameready.js"></script>';
     $htmlHeadXtra[] = '<script>
         var updateContentHeight = function() {
             my_iframe = document.getElementById("mainFrame");

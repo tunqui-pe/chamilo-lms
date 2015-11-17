@@ -47,7 +47,7 @@ if ($origin == 'learnpath') {
 }
 if ($showGlossary) {
     $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php?add_ready=1"></script>';
-    $htmlHeadXtra[] = api_get_js('jquery.highlight.js');
+    $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.highlight.js"></script>';
 }
 
 $htmlHeadXtra[] = api_get_theme_asset('jsplumb/dist/js/jsPlumb-2.0.4.js');
