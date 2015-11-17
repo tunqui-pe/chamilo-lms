@@ -2788,7 +2788,8 @@ class DocumentManager
         $unzip = 0,
         $if_exists = null,
         $index_document = false,
-        $show_output = false
+        $show_output = false,
+        $fileKey = 'file'
     ) {
         $course_info = api_get_course_info();
         $sessionId = api_get_session_id();
@@ -2796,14 +2797,14 @@ class DocumentManager
         $sys_course_path = api_get_path(SYS_COURSE_PATH);
         $base_work_dir = $sys_course_path . $course_dir;
 
-        if (isset($files['file'])) {
-            $upload_ok = process_uploaded_file($files['file'], $show_output);
+        if (isset($files[$fileKey])) {
+            $upload_ok = process_uploaded_file($files[$fileKey], $show_output);
 
             if ($upload_ok) {
                 // File got on the server without problems, now process it
                 $new_path = handle_uploaded_document(
                     $course_info,
-                    $files['file'],
+                    $files[$fileKey],
                     $base_work_dir,
                     $path,
                     api_get_user_id(),
@@ -2889,11 +2890,13 @@ class DocumentManager
                             false,
                             $sessionId
                         );
+
                         return $documentData;
                     }
                 }
             }
         }
+
         return false;
     }
 

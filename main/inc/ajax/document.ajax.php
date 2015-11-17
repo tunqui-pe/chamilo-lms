@@ -33,34 +33,61 @@ switch ($action) {
         //$ifExists = isset($_POST['if_exists']) ? $_POST['if_exists'] : $defaultFileExistsOption;
 
         if (!empty($_FILES)) {
-            $file = $_FILES['file'];
-            $result = DocumentManager::upload_document(
-                $_FILES,
-                $_POST['curdirpath'],
-                $file['name'],
-                '', // comment
-                0,
-                $defaultFileExistsOption,
-                false,
-                false
-            );
-
-            $json = array();
-            $json['name'] = Display::url(
-                api_htmlentities($result['title']),
-                api_htmlentities($result['url']),
-                array('target'=>'_blank')
-            );
-
-            $json['type'] = api_htmlentities($file['type']);
-            $json['size'] = format_file_size($file['size']);
-            if (!empty($result) && is_array($result)) {
-                $json['result'] = Display::return_icon('accept.png', get_lang('Uploaded'));
-            } else {
-                $json['result'] = Display::return_icon('exclamation.png', get_lang('Error'));
+            $files = $_FILES['files'];
+            $fileList = [];
+            foreach ($files as $name => $array) {
+                $counter = 0;
+                foreach ($array as $data) {
+                    $fileList[$counter][$name] = $data;
+                    $counter++;
+                }
             }
-            echo json_encode($json);
+
+            $resultList = [];
+            foreach ($fileList as $file) {
+                $globalFile = [];
+                $globalFile['files'] = $file;
+                $result = DocumentManager::upload_document(
+                    $globalFile,
+                    $_REQUEST['curdirpath'],
+                    $file['name'],
+                    '', // comment
+                    0,
+                    $defaultFileExistsOption,
+                    false,
+                    false,
+                    'files'
+                );
+
+                $json = array();
+                $json['name'] = Display::url(
+                    api_htmlentities($result['title']),
+                    api_htmlentities($result['url']),
+                    array('target' => '_blank')
+                );
+
+                $json['url'] = $result['url'];
+
+                $json['size'] = format_file_size($file['size']);
+                $json['type'] = api_htmlentities($file['type']);
+
+                if (!empty($result) && is_array($result)) {
+                    $json['result'] = Display::return_icon(
+                        'accept.png',
+                        get_lang('Uploaded')
+                    );
+                } else {
+                    $json['result'] = Display::return_icon(
+                        'exclamation.png',
+                        get_lang('Error')
+                    );
+                }
+                $resultList[] = $json;
+            }
+
+            echo json_encode(['files' => $resultList]);
         }
+        exit;
         break;
     case 'document_preview':
         $course_info = api_get_course_info_by_id($_REQUEST['course_id']);

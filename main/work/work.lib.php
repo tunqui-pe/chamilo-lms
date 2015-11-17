@@ -2106,7 +2106,7 @@ function get_work_user_list(
                     $correction .= "
                         <script>
                         $(document).ready(function() {
-                            $('#file_upload_".$item_id."').fileUploadUI({
+                            $('#file_upload_".$item_id."').fileupload({
                                 uploadTable: $('.files'),
                                 downloadTable: $('.files'),
                                 buildUploadRow: function (files, index) {

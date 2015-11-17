@@ -52,9 +52,21 @@ $htmlHeadXtra[] = "
 <script>
 $(function () {
     setFocus();
-    $('#file_upload').fileUploadUI({
-        uploadTable:   $('.files'),
-        downloadTable: $('.files'),
+    $('#file_upload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#files .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        },
         buildUploadRow: function (files, index) {
             $('.files').closest('.control-group').show();
             return $('<tr><td>' + files[index].name + '<\/td>' +
@@ -5431,8 +5443,8 @@ function getAttachmentAjaxForm($forumId, $threadId, $postId)
     $url = api_get_path(WEB_AJAX_PATH).'forum.ajax.php?'.api_get_cidreq().'&forum=' . $forumId . '&thread=' . $threadId . '&postId=' . $postId . '&a=upload_file';
     // Form
     $formFileUpload = '<div class="form-ajax">
-        <form id="file_upload" action="'.$url.'" method="POST" enctype="multipart/form-data">
-            <input type="file" name="user_upload" multiple>
+        <form action="'.$url.'" method="POST" enctype="multipart/form-data">
+            <input id="file_upload" type="file" name="user_upload[]" multiple>
             <button type="submit">Upload</button>
             <div class="button-load">
                 '.get_lang('UploadFiles').'

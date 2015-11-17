@@ -84,7 +84,6 @@ assetic:
                 - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-audio.js
                 - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-video.js
                 - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-validate.js
-                - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-ui.js
 
 #                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
 
