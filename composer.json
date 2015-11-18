@@ -149,7 +149,8 @@
         "alchemy/zippy": "^0.2.1",
         "hwi/oauth-bundle": "^0.3.9",
         "genemu/form-bundle": "2.2.*",
-        "oneup/flysystem-bundle": "@stable"
+        "oneup/flysystem-bundle": "@stable",
+        "sonata-project/seo-bundle": "^2.0"
     },
     "require-dev": {
         "jjanvier/crowdin-bundle": "*@dev",

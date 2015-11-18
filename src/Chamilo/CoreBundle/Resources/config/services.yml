@@ -205,12 +205,12 @@ services:
 #            - { name: sonata.block }
 
     # Breadcrumb
-#    chamilo_core.block.breadcrumb:
-#        class: Chamilo\CoreBundle\Block\DefaultBreadcrumbBlockService
-#        arguments: ["default", "chamilo_core.block.breadcrumb", @templating, @knp_menu.menu_provider, @knp_menu.factory]
-#        tags:
-#            - { name: sonata.block }
-#            - { name: sonata.breadcrumb }
+    chamilo_core.block.breadcrumb:
+        class: Chamilo\CoreBundle\Block\DefaultBreadcrumbBlockService
+        arguments: ["default", "chamilo_core.block.breadcrumb", @templating, @knp_menu.menu_provider, @knp_menu.factory]
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }
 
     # Platform settings
     chamilo_core.settings_schema.admin:

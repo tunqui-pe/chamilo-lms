@@ -16,6 +16,12 @@ imports:
 
   # Sonata Core Bundles
     - { resource: sonata/sonata_block.yml }
+#    - { resource: sonata/sonata_formatter.yml }
+#    - { resource: sonata/sonata_cache.yml }
+    - { resource: sonata/sonata_seo.yml }
+#    - { resource: sonata/sonata_timeline.yml }
+#    - { resource: sonata/sonata_intl.yml }
+    - { resource: sonata/sonata_core.yml }
 #    - { resource: sonata/sonata_user.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -247,37 +253,4 @@ ivory_ck_editor:
 #            excluded_dirs: [cache, data, logs]
 ##            extractors: [alias_of_the_extractor]
 
-sonata_core:
-    flashmessage:
-        success:
-            types:
-                - { type: my_custom_bundle_success }
-                - { type: my_other_bundle_success }
-
-        warning:
-            types:
-                - { type: my_custom_bundle_warning }
-                - { type: my_other_bundle_warning }
-        error:
-            css_class: danger # optionally, a CSS class can be defined
-            types:
-                - { type: my_custom_bundle }
-
-        confirmation: # You can add custom types too
-            types:
-                - { type: custom_bundle_type }
-
-        confirmation: # You can add custom types too
-            types:
-                - { type: custom_bundle_type }
-
-        confirm: # You can add custom types too
-            types:
-                - { type: custom_bundle_type }
-        normal:
-            types:
-                - { type: custom_bundle_type }
-        success: # You can add custom types too
-            types:
-                - { type: custom_bundle_type }
 

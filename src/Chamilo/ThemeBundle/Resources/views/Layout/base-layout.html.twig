@@ -15,22 +15,21 @@
 <html lang="{{ app.request.locale }}" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="">
-    <meta name="keywords" content="">
-
     <link href="https://chamilo.org/chamilo-lms/" rel="help"/>
     <link href="https://chamilo.org/the-association/" rel="author"/>
     <link href="https://chamilo.org/the-association/" rel="copyright"/>
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    {#<meta name="Generator" content="{{ _s.software_name }} {{ _s.system_version|slice(0,1) }}" />#}
 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    {#<meta name="Generator" content="{{ _s.software_name }} {{ _s.system_version|slice(0,1) }}" />#}
     <title>
         {% block title %}
             {{ chamilo_settings_get('platform.institution') }} - {{ chamilo_settings_get('platform.site_name') }}
         {% endblock %}
     </title>
+
+    {# Check settings in app/config/sonata/sonata_seo.yml #}
+    {{ sonata_seo_metadatas() }}
+
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     {%- stylesheets '@chamilo_css' -%}
@@ -99,6 +98,7 @@
             <div class="clear-header"></div>
         {% endif %}
     {% endblock %}
+
     <header>
         <div class="extra-header">{{ header_extra_content }}</div>
         <section id="main" class="container">
@@ -183,6 +183,20 @@
 {% block chamilo_content %}
     {# Flash messages #}
     {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+
+    {#Check sonata_block.yml settings#}
+    {#{% include 'SonataSeoBundle:Block:_facebook_sdk.html.twig' %}#}
+    {#{% include 'SonataSeoBundle:Block:_twitter_sdk.html.twig' %}#}
+    {#{% include 'SonataSeoBundle:Block:_pinterest_sdk.html.twig' %}#}
+    {% if course is not defined %}
+        {% set course = '' %}
+    {% endif %}
+    {{ sonata_block_render_event('breadcrumb',
+    {
+        'context': 'default',
+        'course': course,
+        'current_uri': app.request.requestUri
+    }) }}
 
     {% block page_content %}
     {% endblock %}

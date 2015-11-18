@@ -3,8 +3,10 @@
 
 namespace Chamilo\CoreBundle\Block;
 
+use Chamilo\CoreBundle\Entity\Course;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class DefaultBreadcrumbBlockService
@@ -12,6 +14,21 @@ use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
  */
 class DefaultBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultSettings($resolver);
+
+        $resolver->setDefaults(
+            array(
+                'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
+                'include_homepage_link' => false,
+            )
+        );
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -26,8 +43,24 @@ class DefaultBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
     protected function getMenu(BlockContextInterface $blockContext)
     {
         $menu = $this->getRootMenu($blockContext);
+        //$menu = parent::getMenu($blockContext);
 
-        $menu->addChild('root');
+        $menu->addChild('home', ['route' => 'home']);
+
+        // Add course
+        /** @var Course $course */
+        if ($course = $blockContext->getBlock()->getSetting('course')) {
+            $menu->addChild(
+                $course->getTitle(),
+                array(
+                    'route' => 'course_home',
+                    'routeParameters' => array(
+                        'course' => $course->getCode(),
+                    ),
+                )
+            );
+        }
+
 
         return $menu;
     }

@@ -62,6 +62,8 @@ class LegacyController extends ToolBaseController
         //Container::$configDir = $this->container->get('kernel')->getConfigDir();
         $this->container->get('twig')->addGlobal('show_header', true);
 
+        //$breadcrumb = $this->container->get('chamilo_core.block.breadcrumb');
+
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
         ) {
