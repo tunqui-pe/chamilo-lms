@@ -1,0 +1,19 @@
+{% extends "@ChamiloTheme/Layout/base-layout.html.twig" %}
+
+{% block chamilo_wrap %}
+    {% if js is defined %}
+        {% autoescape false %}
+            {% for item in js %}
+                {{ item }}
+            {% endfor %}
+        {% endautoescape %}
+    {% endif %}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            {% autoescape false %}
+                {{ content }}
+            {% endautoescape %}
+        </div>
+    </div>
+{% endblock %}
+

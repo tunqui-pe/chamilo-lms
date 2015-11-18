@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This script contains the server part of the xajax interaction process. The client part is located
  * in lp_api.php or other api's.
@@ -234,3 +236,5 @@ echo switch_item_details(
     $_REQUEST['iid'],
     $_REQUEST['next']
 );
+
+Container::$legacyTemplate = 'layout_empty.html.twig';

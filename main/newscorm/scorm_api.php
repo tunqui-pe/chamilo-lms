@@ -22,8 +22,8 @@
 
 // Flag to allow for anonymous user - needs to be set before global.inc.php.
 $use_anonymous = true;
-
 //require_once '../inc/global.inc.php';
+\Chamilo\CoreBundle\Framework\Container::$legacyTemplate = 'layout_empty.html.twig';
 
 $file   = (empty($_SESSION['file'])?'':$_SESSION['file']);
 /** @var learnpath $oLP */

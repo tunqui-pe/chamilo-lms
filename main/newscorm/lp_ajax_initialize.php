@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This script contains the server part of the xajax interaction process.
  * This script, in particular, enables the process of SCO's initialization. It
@@ -38,7 +40,9 @@ function initialize_item($lp_id, $user_id, $view_id, $next_item) {
     if ($debug > 1) { error_log('In initialize_item() - new item is '.$next_item, 0); }
     $mylp->start_current_item(true);
 
-    if (is_object($mylp->items[$next_item])) {
+    if (isset($mylp->items[$next_item]) &&
+        is_object($mylp->items[$next_item])
+    ) {
         if ($debug > 1) { error_log('In initialize_item - recovering existing item object '.$next_item, 0); }
         $mylpi = $mylp->items[$next_item];
     } else {
@@ -168,4 +172,17 @@ function initialize_item($lp_id, $user_id, $view_id, $next_item) {
     if ($debug > 1) { error_log("return = $return "); }
     return $return;
 }
-echo initialize_item($_POST['lid'], $_POST['uid'], $_POST['vid'], $_POST['iid']);
+
+$lId = isset($_POST['lid']) ? $_POST['lid'] : '';
+$userId = isset($_POST['uid']) ? $_POST['uid'] : '';
+$vId = isset($_POST['vid']) ? $_POST['vid'] : '';
+$iId = isset($_POST['iid']) ? $_POST['iid'] : '';
+
+echo initialize_item(
+    $lId,
+    $userId,
+    $vId,
+    $iId
+);
+
+Container::$legacyTemplate = 'layout_empty.html.twig';

@@ -743,7 +743,11 @@ function api_get_path($path_type, $path = null)
     static $server_base_sys; // No trailing slash.
     static $root_rel;
 
-    $root_web = Container::getUrlGenerator()->generate('home');
+    $root_web = Container::getUrlGenerator()->generate(
+        'home',
+        [],
+        \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL
+    );
     $rootDir = Container::getRootDir();
 
     // Configuration data for already installed system.

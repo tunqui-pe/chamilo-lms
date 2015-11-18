@@ -61,6 +61,8 @@ core_tool_document:
     pattern: /courses/{course}/document/{file}
     defaults:
         _controller: ChamiloCoreBundle:Index:getDocument
+    requirements:
+        file: .+ # allow "/" in {file}
 
 # redirects /url/ to /url
 remove_trailing_slash:

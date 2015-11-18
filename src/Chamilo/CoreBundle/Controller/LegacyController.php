@@ -95,11 +95,15 @@ class LegacyController extends ToolBaseController
             // $interbreadcrumb is loaded in the require_once file.
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
 
+            $template = Container::$legacyTemplate;
+            $defaultLayout = 'layout_one_col.html.twig';
+            if (!empty($template)) {
+                $defaultLayout = $template;
+            }
 
             return $this->render(
-                'ChamiloCoreBundle::layout_one_col.html.twig',
+                'ChamiloCoreBundle::'.$defaultLayout,
                 array(
-                    //'show_header' => true,
                     'content' => $out,
                     'js' => $js,
                     'menu' => ''

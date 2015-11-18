@@ -3620,7 +3620,10 @@ class learnpathItem
         }
 
         //Step 2.1 : if normal mode total_time = total_time + total_sec
-        if (api_get_setting('scorm_cumulative_session_time') != 'false') {
+        if (api_get_setting(
+                'course.scorm_cumulative_session_time'
+            ) != 'false'
+        ) {
             $total_time += $total_sec;
             //$this->last_scorm_session_time = $total_sec;
         } else {

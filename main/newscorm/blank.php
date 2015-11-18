@@ -1,18 +1,22 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+use ChamiloSession as Session;
+
 /**
  * Script that displays a blank page (with later a message saying why)
  * @package chamilo.learnpath
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
 // Flag to allow for anonymous user - needs to be set before global.inc.php.
+Container::$legacyTemplate = 'layout_empty.html.twig';
 $use_anonymous = true;
 $htmlHeadXtra[] = "
 <style>
 body { background: none;}
 </style>
 ";
-//Display::display_reduced_header();
 
 if (isset($_GET['error'])) {
     switch ($_GET['error']){
@@ -33,8 +37,9 @@ if (isset($_GET['error'])) {
             Display::display_warning_message(get_lang('ReachedOneAttempt'));
             break;
         case 'x_frames_options':
-            if (isset($_SESSION['x_frame_source'])) {
-                $src = $_SESSION['x_frame_source'];
+            $frameSource = Session::read('x_frame_source');
+            if (!empty($frameSource)) {
+                $src = $frameSource;
                 $icon = '<em class="icon-play-sign icon-2x"></em>&nbsp;';
 
                 echo Display::return_message(
@@ -42,7 +47,7 @@ if (isset($_GET['error'])) {
                     'normal',
                     false
                 );
-                unset($_SESSION['x_frame_source']);
+                Session::erase('x_frame_source');
             }
             break;
         default:

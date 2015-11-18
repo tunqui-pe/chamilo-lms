@@ -56,7 +56,6 @@
 
     <link rel="stylesheet" href="{{ asset('bundles/chamilocore/css/base.css') }}"/>
     <link rel="stylesheet" media="print" href="{{ asset('bundles/chamilocore/css/print.css') }}"/>
-
     <link rel="stylesheet" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/default.css') }}"/>
     <link rel="stylesheet" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/learnpath.css') }}"/>
     <link rel="stylesheet" media="print" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/print.css') }}"/>
@@ -71,10 +70,6 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-    <script>
-
-    </script>
-
     {% block chamilo_header_js %}
         {% include '@ChamiloTheme/Layout/header.js.twig' %}
     {% endblock %}
@@ -82,11 +77,12 @@
 <body class="{{ admin_skin|default('skin-blue')}}">
 <noscript>{{ "NoJavascript" | trans }}</noscript>
 
-{% if show_header is not defined %}
-    {% set show_header = true %}
-{% endif %}
+{#{% if show_header is not defined %}#}
+    {#{% set show_header = true %}#}
+{#{% endif %}#}
 
-{% if show_header == true %}
+{#{% if show_header == true %}#}
+{% block chamilo_wrap %}
 <div id="page-wrap"><!-- page section -->
     {# Bug and help notifications #}
     {% block help_notifications %}
@@ -168,9 +164,9 @@
 <div id="top_main_content" class="container">
 {# course navigation links/shortcuts need to be activated by the admin #}
     {% include "@template_style/layout/course_navigation.html.twig" %}
-{% endif %}
+{#{% endif %}#}
 
-    {% block chamilo_header %}
+{% block chamilo_header %}
     {#<header class="header">#}
         {#{% block chamilo_logo %}#}
         {#<a href="#" class="logo">#}
@@ -232,9 +228,9 @@
 {% endblock %}
 </div>
 
-    {% block chamilo_footer_js %}
-        {% include '@ChamiloTheme/Layout/footer.js.twig' %}
-    {% endblock %}
-
+{% block chamilo_footer_js %}
+    {% include '@ChamiloTheme/Layout/footer.js.twig' %}
+{% endblock %}
+{% endblock %}
 </body>
 </html>

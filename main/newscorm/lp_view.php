@@ -128,14 +128,14 @@ $htmlHeadXtra[] = '<script>
 chamilo_courseCode = "' . $course_code . '";
 </script>';
 // Document API
-$htmlHeadXtra[] = '<script src="js/documentapi.js" type="text/javascript" language="javascript"></script>';
+//$htmlHeadXtra[] = '<script src="js/documentapi.js" type="text/javascript" language="javascript"></script>';
 // Storage API
 $htmlHeadXtra[] = '<script>
 var sv_user = \'' . api_get_user_id() . '\';
 var sv_course = chamilo_courseCode;
 var sv_sco = \'' . intval($_REQUEST['lp_id']) . '\';
 </script>'; // FIXME fetch sco and userid from a more reliable source directly in sotrageapi.js
-$htmlHeadXtra[] = '<script type="text/javascript" src="js/storageapi.js"></script>';
+//$htmlHeadXtra[] = '<script type="text/javascript" src="js/storageapi.js"></script>';
 
 /**
  * Get a link to the corresponding document.
@@ -549,4 +549,5 @@ echo $content;
 $_setting['show_navigation_menu'] = $save_setting;
 
 // Hide headers
-Container::getTwig()->addGlobal('show_header', false);
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
+

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Script opened in an iframe and containing the
  * learning path's navigation and progress bar
@@ -50,6 +52,8 @@ if (isset($_SESSION['lpobject'])) {
     $navigation_bar = $_SESSION['oLP']->get_navigation_bar();
     $mediaplayer 	= $_SESSION['oLP']->get_mediaplayer($autostart);
 }
+Container::$legacyTemplate = 'layout_empty.html.twig';
+
 session_write_close();
 ?>
 <script type="text/javascript">

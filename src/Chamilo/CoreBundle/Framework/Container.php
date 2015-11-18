@@ -46,6 +46,7 @@ class Container
     public static $htmlEditor;
     public static $twig;
     public static $roles;
+    public static $legacyTemplate;
 
     /**
      * @param ContainerInterface $container
@@ -288,7 +289,7 @@ class Container
     }
 
     /**
-     * @return \Symfony\Cmf\Component\Routing\ChainRouter
+     * @return \Symfony\Bundle\FrameworkBundle\Routing\Router
      */
     public static function getRouter()
     {

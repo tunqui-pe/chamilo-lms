@@ -113,17 +113,26 @@ $recordVoiceForm = Display::page_subheader(get_lang('RecordYourVoice'));
 
 $page .= '<div id="doc_form" class="col-md-8">';
 
-$tpl = new Template(null);
-$tpl->assign('unique_file_id', api_get_unique_id());
-$tpl->assign('course_code', api_get_course_id());
-$tpl->assign('php_session_id', session_id());
-$tpl->assign('filename', $lp_item->get_title().'_nano.wav');
-$tpl->assign('enable_nanogong', api_get_setting('document.enable_nanogong') == 'true' ? 1 : 0);
-$tpl->assign('enable_wami', api_get_setting('document.enable_wami_record') == 'true' ? 1 : 0);
-$tpl->assign('cur_dir_path', '/audio');
-$tpl->assign('lp_item_id', $lp_item_id);
-$tpl->assign('lp_dir', api_remove_trailing_slash($lpPathInfo['dir']));
-$recordVoiceForm .= $tpl->fetch('default/learnpath/record_voice.tpl');
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$tpl->addGlobal('unique_file_id', api_get_unique_id());
+$tpl->addGlobal('course_code', api_get_course_id());
+$tpl->addGlobal('php_session_id', session_id());
+$tpl->addGlobal('filename', $lp_item->get_title().'_nano.wav');
+$tpl->addGlobal(
+    'enable_nanogong',
+    api_get_setting('document.enable_nanogong') == 'true' ? 1 : 0
+);
+$tpl->addGlobal(
+    'enable_wami',
+    api_get_setting('document.enable_wami_record') == 'true' ? 1 : 0
+);
+$tpl->addGlobal('cur_dir_path', '/audio');
+$tpl->addGlobal('lp_item_id', $lp_item_id);
+$tpl->addGlobal('lp_dir', api_remove_trailing_slash($lpPathInfo['dir']));
+$recordVoiceForm .= $tpl->render(
+    '@template_style/learnpath/record_voice.html.twig'
+);
+
 $form->addElement('header', get_lang('Or'));
 $form->addElement('header', get_lang('AudioFile'));
 $form->addElement('html', sprintf(get_lang('AudioFileForItemX'), $lp_item->get_title()));
@@ -157,12 +166,11 @@ $documentTree = DocumentManager::get_document_preview(
 );
 
 $page .= $recordVoiceForm;
-$page .= $form->return_form();
+$page .= $form->returnForm();
 $page .= '<legend>'.get_lang('SelectAnAudioFileFromDocuments').'</legend>';
 $page .= $documentTree;
 $page .= '</div>';
 $page .= '</div>';
 
-$tpl->assign('content', $page);
-$content = $tpl->fetch('default/learnpath/lp_upload_audio.tpl');
-$tpl->display_one_col_template();
+echo $page;
+

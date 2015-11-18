@@ -1,14 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This script contains the server part of the AJAX interaction process.
  * The client part is located * in lp_api.php or other api's.
  * @package chamilo.learnpath
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
-
-use ChamiloSession as Session;
 
 // Flag to allow for anonymous user - needs to be set before global.inc.php.
 $use_anonymous = true;
@@ -82,7 +83,7 @@ function save_item(
     $prerequisitesCheck = $myLP->prerequisites_match($item_id);
 
     /** @var learnpathItem $myLPI */
-    $myLPI = $myLP->items[$item_id];
+    $myLPI = isset($myLP->items[$item_id]) ? $myLP->items[$item_id] : '';
 
     if (empty($myLPI)) {
         if ($debug > 0) {
@@ -504,3 +505,5 @@ echo save_item(
     (empty($_REQUEST['userNavigatesAway']) ? 0 : 1),
     (empty($_REQUEST['statusSignalReceived']) ? 0 : 1)
 );
+
+Container::$legacyTemplate = 'layout_empty.html.twig';

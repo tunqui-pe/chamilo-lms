@@ -1634,6 +1634,7 @@ function rl_get_resource_link_for_learnpath($course_id, $learnpath_id, $id_in_pa
     $main_dir_path = api_get_path(WEB_CODE_PATH);
     $main_course_path = api_get_path(WEB_COURSE_PATH).$course_info['directory'].'/';
     $link = '';
+
     switch ($type) {
         case 'dokeos_chapter':
             $link .= $main_dir_path.'newscorm/blank.php';
@@ -1706,6 +1707,7 @@ function rl_get_resource_link_for_learnpath($course_id, $learnpath_id, $id_in_pa
             $result = Database::query($sql);
             $myrow = Database::fetch_array($result);
             $docurl = str_replace('%2F', '/', urlencode($myrow['path']));
+
             $link .= $main_course_path.'document'.$docurl.'?cidReq='.$course_code.'&id_session='.$session_id;
             $openmethod = 2;
             $officedoc = false;

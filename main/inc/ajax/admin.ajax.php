@@ -5,7 +5,7 @@
  */
 //require_once '../global.inc.php';
 
-\Chamilo\CoreBundle\Framework\Container::getTwig()->addGlobal('show_header', false);
+\Chamilo\CoreBundle\Framework\Container::$legacyTemplate = 'layout_empty.html.twig';
 
 api_protect_admin_script();
 

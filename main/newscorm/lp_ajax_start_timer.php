@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * @package chamilo.learnpath
  * @author Yannick Warnier <ywarnier@beeznest.org>
@@ -16,3 +18,4 @@ function start_timer() {
     return $time; //"olms.asset_timer='$time'; olms.asset_timer_total = 0;";
 }
 echo start_timer();
+Container::$legacyTemplate = 'layout_empty.html.twig';
