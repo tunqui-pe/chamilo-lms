@@ -73,8 +73,8 @@ twig:
     globals:
           show_toolbar: true
           show_footer: true
-          software_name:
-          version:
+          software_name: Chamilo
+          version: 2
           session_teachers: 1
           teachers: 1
           news_counter:

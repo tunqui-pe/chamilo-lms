@@ -3,7 +3,6 @@
         {% block right_column %}
 
             <section id="page_wrapper">
-
                 {#  Plugin bottom  #}
                 {% if plugin_content_top %}
                     <div id="plugin_content_top">
@@ -21,9 +20,6 @@
                         </div>
                     </div>
                 {% endif %}
-
-                {#  ??  #}
-                {{ sniff_notification }}
 
                 {% include "@template_style/layout/page_body.tpl" %}
 
@@ -63,8 +59,7 @@
             </section>
         {% endblock %}
 
-
         {# Footer #}
-        {% include "@template_style/layout/footer.tpl" %}
+        {% include "@template_style/layout/footer.html.twig" %}
     </div>
 {% endblock %}

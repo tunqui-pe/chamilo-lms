@@ -161,7 +161,9 @@
             </div>
         </section>
     </header>
+
 <div id="top_main_content" class="container">
+
 {# course navigation links/shortcuts need to be activated by the admin #}
     {% include "@template_style/layout/course_navigation.html.twig" %}
 {#{% endif %}#}
@@ -248,9 +250,16 @@
 {% endblock %}
 </div>
 
+    {% block chamilo_footer %}
+        {% include "@template_style/layout/footer.html.twig" %}
+    {% endblock %}
+
+
 {% block chamilo_footer_js %}
     {% include '@ChamiloTheme/Layout/footer.js.twig' %}
 {% endblock %}
-{% endblock %}
+
+
+    {% endblock %}
 </body>
 </html>

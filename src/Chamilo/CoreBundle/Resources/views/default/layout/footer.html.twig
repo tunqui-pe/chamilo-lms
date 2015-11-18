@@ -1,4 +1,3 @@
-{% if show_footer == true %}
 <footer{% block footer_open_attributes %}{% endblock footer_open_attributes %}>
     <!-- start of #footer section -->
     <div class="container">
@@ -43,8 +42,9 @@
                 {% endif %}
 
                 <div id="software_name">
-                    {{ "Platform"|trans }} <a href="{{ url('index') }}" target="_blank">
-                        {{ software_name }} {{ version }}
+                    {{ "Platform"|trans }} <a href="{{ url('home') }}"
+                                              target="_blank">
+                        {{ software_name }}
                     </a>
                     &copy; {{ "now"|date("Y") }}
                 </div>
@@ -61,5 +61,3 @@
 </footer>
 
 {{ footer_extra_content }}
-
-{% endif %}
