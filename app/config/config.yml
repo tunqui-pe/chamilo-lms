@@ -212,13 +212,18 @@ liip_theme:
 
 oneup_flysystem:
     adapters:
-        my_adapter:
+        local.adapter:
             local:
                 directory: %kernel.root_dir%/courses
+#        s3.adapter:
+#              awss3v3:
+#                  client: s3_client # add service "s3_client"
+#                  bucket: ~
+#                  prefix: ~
 
     filesystems:
         course:
-            adapter: my_adapter
+            adapter: local.adapter
             cache: ~
             alias: ~
             mount: ~
