@@ -61,6 +61,10 @@ class AppKernel extends Kernel
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
 
+            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
+
+            //new Sonata\FormatterBundle\SonataFormatterBundle(),
+
             // Extra
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             //new JMS\TranslationBundle\JMSTranslationBundle(),

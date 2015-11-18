@@ -204,6 +204,19 @@ liip_theme:
     active_theme: 'web'
     assetic_integration: true
 
+oneup_flysystem:
+    adapters:
+        my_adapter:
+            local:
+                directory: %kernel.root_dir%/courses
+
+    filesystems:
+        course:
+            adapter: my_adapter
+            cache: ~
+            alias: ~
+            mount: ~
+
 ivory_ck_editor:
     autoload: false
     base_path: "bundles/ivoryckeditor"
@@ -267,3 +280,4 @@ sonata_core:
         success: # You can add custom types too
             types:
                 - { type: custom_bundle_type }
+

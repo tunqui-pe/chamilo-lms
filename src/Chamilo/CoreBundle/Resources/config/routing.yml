@@ -21,7 +21,7 @@ legacy_javascript:
 
 # Legacy routes
 main:
-    path:     /main/{name}
+    path: /main/{name}
     defaults: { _controller: ChamiloCoreBundle:Legacy:classic }
     requirements:
       name: .+
@@ -56,9 +56,13 @@ core_tool:
     type: annotation
     prefix: /courses/{course}/
 
+
+core_tool_document:
+    pattern: /courses/{course}/document/{file}
+    defaults:
+        _controller: ChamiloCoreBundle:Index:getDocument
+
 # redirects /url/ to /url
-
-
 remove_trailing_slash:
     path: /{url}
     defaults: { _controller: ChamiloCoreBundle:Redirecting:removeTrailingSlash }

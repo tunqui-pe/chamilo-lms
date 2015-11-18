@@ -8,8 +8,11 @@ use Chamilo\CoreBundle\Framework\PageController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Chamilo\CoreBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Finder\Finder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -195,7 +198,7 @@ class IndexController extends BaseController
      * @param Application $app
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getDocumentTemplateAction(Application $app)
+    /*public function getDocumentTemplateAction(Application $app)
     {
         try {
             $file = $app['request']->get('file');
@@ -204,23 +207,34 @@ class IndexController extends BaseController
         } catch (\InvalidArgumentException $e) {
             return $app->abort(404, 'File not found');
         }
-    }
+    }*/
 
     /**
-     * Gets a document from the data/courses/MATHS/document/file.jpg to the user
+     * Gets a document from the courses/MATHS/document/file.jpg to the user
      * @todo check permissions
-     * @param Application $app
-     * @param string $courseCode
+     * @param string $course
      * @param string $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
+     * @return \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function getDocumentAction(Application $app, $courseCode, $file)
+    public function getDocumentAction($course, $file)
     {
         try {
-            $file = $app['chamilo.filesystem']->getCourseDocument($courseCode, $file);
-            return $app->sendFile($file->getPathname());
+            $fs = $this->container->get('oneup_flysystem.course_filesystem');
+            $path = $course.'/document/'.$file;
+
+            if (!$fs->has($path)) {
+                return $this->abort();
+            }
+            //$file = $app['chamilo.filesystem']->getCourseDocument($course, $file);
+
+            /** @var \League\Flysystem\Adapter\Local $adapter */
+            $adapter = $fs->getAdapter();
+            $filePath = $adapter->getPathPrefix().$path;
+
+            return new BinaryFileResponse($filePath);
+
         } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
+            return $this->abort();
         }
     }
 
