@@ -75,8 +75,8 @@ twig:
           show_footer: true
           software_name: Chamilo
           version: 2
-          session_teachers: 1
-          teachers: 1
+          session_teachers:
+          teachers:
           news_counter:
           news_list:
           messages_count:
