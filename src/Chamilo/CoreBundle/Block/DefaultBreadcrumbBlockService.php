@@ -61,6 +61,24 @@ class DefaultBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
             );
         }
 
+        // Load legacy breadcrumbs
+        $oldBreadCrumb = $blockContext->getBlock()->getSetting(
+            'legacy_breadcrumb'
+        );
+
+        if ($oldBreadCrumb) {
+            foreach ($oldBreadCrumb as $data) {
+                if (empty($data['name'])) {
+                    continue;
+                }
+                $url = $data['url'];
+                if ($url == '#') {
+                    $menu->addChild($data['name']);
+                } else {
+                    $menu->addChild($data['name'], ['uri' => $url]);
+                }
+            }
+        }
 
         return $menu;
     }

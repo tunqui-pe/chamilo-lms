@@ -73,19 +73,28 @@ $condition_session = api_get_session_condition($session_id, true, true);
 
 if ($action == 'addlink') {
     $nameTools = '';
-    $interbreadcrumb[] = array('url' => 'link.php', 'name' => get_lang('Links'));
+    $interbreadcrumb[] = array(
+        'url' => 'link.php?'.api_get_cidreq(),
+        'name' => get_lang('Links'),
+    );
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('AddLink'));
 }
 
 if ($action == 'addcategory') {
     $nameTools = '';
-    $interbreadcrumb[] = array('url' => 'link.php', 'name' => get_lang('Links'));
+    $interbreadcrumb[] = array(
+        'url' => 'link.php?'.api_get_cidreq(),
+        'name' => get_lang('Links'),
+    );
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('AddCategory'));
 }
 
 if ($action == 'editlink') {
     $nameTools = '';
-    $interbreadcrumb[] = array('url' => 'link.php', 'name' => get_lang('Links'));
+    $interbreadcrumb[] = array(
+        'url' => 'link.php?'.api_get_cidreq(),
+        'name' => get_lang('Links'),
+    );
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('EditLink'));
 }
 

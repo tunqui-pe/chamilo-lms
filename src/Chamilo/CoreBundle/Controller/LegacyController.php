@@ -103,9 +103,11 @@ class LegacyController extends ToolBaseController
                 $defaultLayout = $template;
             }
 
+
             return $this->render(
                 'ChamiloCoreBundle::'.$defaultLayout,
                 array(
+                    'legacy_breadcrumb' => $interbreadcrumb,
                     'content' => $out,
                     'js' => $js,
                     'menu' => ''
