@@ -153,7 +153,6 @@
         "sonata-project/seo-bundle": "^2.0"
     },
     "require-dev": {
-        "jjanvier/crowdin-bundle": "*@dev",
         "behat/behat": "2.5.*@stable",
         "behat/mink": "1.7.*@stable",
         "behat/mink-extension": "*",
