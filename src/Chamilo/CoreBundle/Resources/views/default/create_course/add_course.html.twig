@@ -25,7 +25,8 @@
         <div class="thumbnail">
             <img src="{{ asset('bundles/chamilocore/img/icons/64/user.png') }} "/>
             <div class="caption">
-            <a href="{{ url('home') }}main/user/subscribe_user.php?cidReq={{ course_id }}" class="btn">
+                <a href="{{ url('web.main') }}user/subscribe_user.php?cidReq={{ course_id }}"
+                   class="btn">
                 {{ 'SubscribeUserToCourse'|trans }}
             </a>
             </div>
@@ -37,7 +38,7 @@
         <div class="thumbnail">
             <img src="{{ asset('bundles/chamilocore/img/icons/64/info.png') }} "/>
             <div class="caption">
-                <a href="course_description/index.php?cidReq={{ course_id }}"
+                <a href="{{ url('web.main') }}course_description/index.php?cidReq={{ course_id }}"
                    class="btn">
                 {{'AddCourseDescription'|trans}}
             </a>
@@ -48,7 +49,8 @@
         <div class="thumbnail">
             <img src="{{ asset('bundles/chamilocore/img/icons/64/reference.png') }} "/>
             <div class="caption">
-            <a href="course_info/infocours.php?cidReq={{ course_id }}" class="btn">
+                <a href="{{ url('web.main') }}course_info/infocours.php?cidReq={{ course_id }}"
+                   class="btn">
                 {{ 'ModifInfo' | trans }}
             </a>
             </div>
