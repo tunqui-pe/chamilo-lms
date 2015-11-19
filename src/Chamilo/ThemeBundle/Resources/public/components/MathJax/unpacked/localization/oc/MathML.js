@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("oc", "MathML", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/oc/MathML.js");

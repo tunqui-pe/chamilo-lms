@@ -39,45 +39,68 @@ CKEDITOR.dialog.add("textfield", function (b) {
             id: "info",
             label: b.lang.forms.textfield.title,
             title: b.lang.forms.textfield.title,
-elements:[{type:"hbox",widths:["50%","50%"],children:[{id:"_cke_saved_name",type:"text",label:b.lang.forms.textfield.name,"default":"",accessKey:"N",setup:function(a){this.setValue(a.data("cke-saved-name")||a.getAttribute("name")||"")},commit:function(a){a=a.element;this.getValue()?a.data("cke-saved-name",this.getValue()):(a.data("cke-saved-name",!1),a.removeAttribute("name"))}},{id:"value",type:"text",label:b.lang.forms.textfield.value,"default":"",accessKey:"V",commit:function(a){if(CKEDITOR.env.ie&& !this.getValue()) {
-    var c = a.element, d = new CKEDITOR.dom.element("input", b.document);
-    c.copyAttributes(d, {value: 1});
-    d.replace(c);
-    a.element = d
-} else e.call(this, a)
-}
-}]
-}, {
-    type: "hbox",
-    widths: ["50%", "50%"],
-    children: [{
-        id: "size",
-        type: "text",
-        label: b.lang.forms.textfield.charWidth,
-        "default": "",
-        accessKey: "C",
-        style: "width:50px",
-        validate: CKEDITOR.dialog.validate.integer(b.lang.common.validateNumberFailed)
-    }, {
-        id: "maxLength",
-        type: "text",
-        label: b.lang.forms.textfield.maxChars,
-        "default": "",
-        accessKey: "M",
-        style: "width:50px",
+            elements: [{
+                type: "hbox",
+                widths: ["50%", "50%"],
+                children: [{
+                    id: "_cke_saved_name",
+                    type: "text",
+                    label: b.lang.forms.textfield.name,
+                    "default": "",
+                    accessKey: "N",
+                    setup: function (a) {
+                        this.setValue(a.data("cke-saved-name") || a.getAttribute("name") || "")
+                    },
+                    commit: function (a) {
+                        a = a.element;
+                        this.getValue() ? a.data("cke-saved-name", this.getValue()) : (a.data("cke-saved-name", !1), a.removeAttribute("name"))
+                    }
+                }, {
+                    id: "value",
+                    type: "text",
+                    label: b.lang.forms.textfield.value,
+                    "default": "",
+                    accessKey: "V",
+                    commit: function (a) {
+                        if (CKEDITOR.env.ie && !this.getValue()) {
+                            var c = a.element, d = new CKEDITOR.dom.element("input", b.document);
+                            c.copyAttributes(d, {value: 1});
+                            d.replace(c);
+                            a.element = d
+                        } else e.call(this, a)
+                    }
+                }]
+            }, {
+                type: "hbox",
+                widths: ["50%", "50%"],
+                children: [{
+                    id: "size",
+                    type: "text",
+                    label: b.lang.forms.textfield.charWidth,
+                    "default": "",
+                    accessKey: "C",
+                    style: "width:50px",
+                    validate: CKEDITOR.dialog.validate.integer(b.lang.common.validateNumberFailed)
+                }, {
+                    id: "maxLength",
+                    type: "text",
+                    label: b.lang.forms.textfield.maxChars,
+                    "default": "",
+                    accessKey: "M",
+                    style: "width:50px",
 validate:CKEDITOR.dialog.validate.integer(b.lang.common.validateNumberFailed)}],onLoad:function(){CKEDITOR.env.ie7Compat&&this.getElement().setStyle("zoom","100%")}},{id:"type",type:"select",label:b.lang.forms.textfield.type,"default":"text",accessKey:"M",items:[[b.lang.forms.textfield.typeEmail,"email"],[b.lang.forms.textfield.typePass,"password"],[b.lang.forms.textfield.typeSearch,"search"],[b.lang.forms.textfield.typeTel,"tel"],[b.lang.forms.textfield.typeText,"text"],[b.lang.forms.textfield.typeUrl,
-    "url"]],
-    setup: function (a) {
-        this.setValue(a.getAttribute("type"))
-    },
-    commit: function (a) {
-        var c = a.element;
-        if (CKEDITOR.env.ie) {
-            var d = c.getAttribute("type"), e = this.getValue();
-            d != e && (d = CKEDITOR.dom.element.createFromHtml('<input type="' + e + '"></input>', b.document), c.copyAttributes(d, {type: 1}), d.replace(c), a.element = d)
-        } else c.setAttribute("type", this.getValue())
-    }
-}]
+                "url"]],
+                setup: function (a) {
+                    this.setValue(a.getAttribute("type"))
+                },
+                commit: function (a) {
+                    var c = a.element;
+                    if (CKEDITOR.env.ie) {
+                        var d = c.getAttribute("type"), e = this.getValue();
+                        d != e && (d = CKEDITOR.dom.element.createFromHtml('<input type="' + e + '"></input>', b.document), c.copyAttributes(d, {type: 1}), d.replace(c), a.element = d)
+                    } else c.setAttribute("type", this.getValue())
+                }
+            }]
         }]
     }
 });

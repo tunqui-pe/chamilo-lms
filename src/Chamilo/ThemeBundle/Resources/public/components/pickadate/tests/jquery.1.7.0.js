@@ -151,7 +151,7 @@
                                     selector = [document.createElement(ret[1])];
                                     jQuery.fn.attr.call(selector, context, true);
 
-                                } else {
+                        } else {
                                     selector = [doc.createElement(ret[1])];
                                 }
 
@@ -173,17 +173,17 @@
                                 // by name instead of ID
                                 if (elem.id !== match[2]) {
                                     return rootjQuery.find(selector);
-                                }
+                        }
 
                                 // Otherwise, we inject the element directly into the jQuery object
                                 this.length = 1;
                                 this[0] = elem;
-                            }
+                    }
 
                             this.context = document;
                             this.selector = selector;
                             return this;
-                        }
+                }
 
                         // HANDLE: $(expr, $(...))
                     } else if (!context || context.jquery) {
@@ -370,7 +370,7 @@
 
                             } else {
                                 clone = src && jQuery.isPlainObject(src) ? src : {};
-                            }
+                    }
 
                             // Never move original objects, clone them
                             target[name] = jQuery.extend(deep, clone, copy);
@@ -378,8 +378,8 @@
                             // Don't bring in undefined values
                         } else if (copy !== undefined) {
                             target[name] = copy;
-                        }
-                    }
+                }
+            }
                 }
             }
 
@@ -638,7 +638,7 @@
                         for (name in object) {
                             if (callback.apply(object[name], args) === false) {
                                 break;
-                            }
+                    }
                         }
                     } else {
                         for (; i < length;) {
@@ -654,8 +654,8 @@
                         for (name in object) {
                             if (callback.call(object[name], name, object[name]) === false) {
                                 break;
-                            }
-                        }
+                    }
+                }
                     } else {
                         for (; i < length;) {
                             if (callback.call(object[i], i, object[i++]) === false) {
@@ -719,7 +719,7 @@
                         // Skip accessing in sparse arrays
                         if (i in array && array[i] === elem) {
                             return i;
-                        }
+                }
                     }
                 }
 
@@ -787,7 +787,7 @@
 
                         if (value != null) {
                             ret[ret.length] = value;
-                        }
+                }
                     }
                 }
 
@@ -935,7 +935,7 @@
                 if (document.readyState === "complete") {
                     document.detachEvent("onreadystatechange", DOMContentLoaded);
                     jQuery.ready();
-                }
+        }
             };
         }
 
@@ -989,7 +989,7 @@
         flags = flags.split(/\s+/);
         for (i = 0, length = flags.length; i < length; i++) {
             object[flags[i]] = true;
-        }
+    }
         return object;
     }
 
@@ -1052,8 +1052,8 @@
                         // Add if not in unique mode and callback is not in
                         if (!flags.unique || !self.has(elem)) {
                             list.push(elem);
-                        }
                     }
+                }
                 }
             },
         // Fire callbacks
@@ -1068,7 +1068,7 @@
                     if (list[firingIndex].apply(context, args) === false && flags.stopOnFalse) {
                         memory = true; // Mark as halted
                         break;
-                    }
+                }
                 }
                 firing = false;
                 if (list) {
@@ -1076,12 +1076,12 @@
                         if (stack && stack.length) {
                             memory = stack.shift();
                             self.fireWith(memory[0], memory[1]);
-                        }
+                    }
                     } else if (memory === true) {
                         self.disable();
                     } else {
                         list = [];
-                    }
+                }
                 }
             },
         // Actual Callbacks object
@@ -1101,7 +1101,7 @@
                         } else if (memory && memory !== true) {
                             firingStart = length;
                             fire(memory[0], memory[1]);
-                        }
+                    }
                     }
                     return this;
                 },
@@ -1120,9 +1120,9 @@
                                             firingLength--;
                                             if (i <= firingIndex) {
                                                 firingIndex--;
-                                            }
                                         }
                                     }
+                                }
                                     // Remove the element
                                     list.splice(i--, 1);
                                     // If we have some unicity property then
@@ -1130,9 +1130,9 @@
                                     if (flags.unique) {
                                         break;
                                     }
-                                }
                             }
                         }
+                    }
                     }
                     return this;
                 },
@@ -1144,8 +1144,8 @@
                         for (; i < length; i++) {
                             if (fn === list[i]) {
                                 return true;
-                            }
                         }
+                    }
                     }
                     return false;
                 },
@@ -1181,11 +1181,11 @@
                         if (firing) {
                             if (!flags.once) {
                                 stack.push([context, args]);
-                            }
+                        }
                         } else if (!( flags.once && memory )) {
                             fire(context, args);
-                        }
                     }
+                }
                     return this;
                 },
                 // Call all the callbacks with the given arguments
@@ -1259,7 +1259,7 @@
                                     });
                                 } else {
                                     deferred[handler](newDefer[action]);
-                                }
+                            }
                             });
                         }).promise();
                     },
@@ -1271,8 +1271,8 @@
                         } else {
                             for (var key in promise) {
                                 obj[key] = promise[key];
-                            }
                         }
+                    }
                         return obj;
                     }
                 },
@@ -1318,7 +1318,7 @@
                     args[i] = arguments.length > 1 ? sliceDeferred.call(arguments, 0) : value;
                     if (!( --count )) {
                         deferred.resolveWith(deferred, args);
-                    }
+                }
                 };
             }
 
@@ -1335,14 +1335,14 @@
                         args[i].promise().then(resolveFunc(i), deferred.reject, progressFunc(i));
                     } else {
                         --count;
-                    }
                 }
+            }
                 if (!count) {
                     deferred.resolveWith(deferred, args);
                 }
             } else if (deferred !== firstParam) {
                 deferred.resolveWith(deferred, length ? [firstParam] : []);
-            }
+        }
             return promise;
         }
     });
@@ -1595,9 +1595,9 @@
                 if (!isSupported) {
                     div.setAttribute(eventName, "return;");
                     isSupported = ( typeof div[eventName] === "function" );
-                }
-                support[i + "Bubbles"] = isSupported;
             }
+                support[i + "Bubbles"] = isSupported;
+        }
         }
 
         // Run fixed position tests at doc ready to avoid a crash
@@ -1733,7 +1733,7 @@
                     elem[jQuery.expando] = id = ++jQuery.uuid;
                 } else {
                     id = jQuery.expando;
-                }
+            }
             }
 
             if (!cache[id]) {
@@ -1743,7 +1743,7 @@
                 // is serialized using JSON.stringify
                 if (!isNode) {
                     cache[id].toJSON = jQuery.noop;
-                }
+            }
             }
 
             // An object can be passed to jQuery.data instead of a key/value pair; this gets
@@ -1753,7 +1753,7 @@
                     cache[id] = jQuery.extend(cache[id], name);
                 } else {
                     cache[id].data = jQuery.extend(cache[id].data, name);
-                }
+            }
             }
 
             privateCache = thisCache = cache[id];
@@ -1764,7 +1764,7 @@
             if (!pvt) {
                 if (!thisCache.data) {
                     thisCache.data = {};
-                }
+            }
 
                 thisCache = thisCache.data;
             }
@@ -1791,7 +1791,7 @@
 
                     // Try to find the camelCased property
                     ret = thisCache[jQuery.camelCase(name)];
-                }
+            }
             } else {
                 ret = thisCache;
             }
@@ -1842,7 +1842,7 @@
                             name = [name];
                         } else {
                             name = name.split(" ");
-                        }
+                    }
                     }
 
                     for (i = 0, l = name.length; i < l; i++) {
@@ -1853,8 +1853,8 @@
                     // and let the cache object itself get destroyed
                     if (!( pvt ? isEmptyDataObject : jQuery.isEmptyObject )(thisCache)) {
                         return;
-                    }
                 }
+            }
             }
 
             // See jQuery.data for more information
@@ -1865,7 +1865,7 @@
                 // had been the only thing left in it
                 if (!isEmptyDataObject(cache[id])) {
                     return;
-                }
+            }
             }
 
             // Browsers that fail expando deletion also refuse to delete expandos on
@@ -1888,9 +1888,9 @@
                     delete elem[jQuery.expando];
                 } else if (elem.removeAttribute) {
                     elem.removeAttribute(jQuery.expando);
-                } else {
+            } else {
                     elem[jQuery.expando] = null;
-                }
+            }
             }
         },
 
@@ -1906,8 +1906,8 @@
 
                 if (match) {
                     return !(match === true || elem.getAttribute("classid") !== match);
-                }
             }
+        }
 
             return true;
         }
@@ -1931,11 +1931,11 @@
                                 name = jQuery.camelCase(name.substring(5));
 
                                 dataAttr(this[0], name, data[name]);
-                            }
                         }
-                        jQuery._data(this[0], "parsedAttrs", true);
                     }
+                        jQuery._data(this[0], "parsedAttrs", true);
                 }
+            }
 
                 return data;
 
@@ -1955,7 +1955,7 @@
                 if (data === undefined && this.length) {
                     data = jQuery.data(this[0], key);
                     data = dataAttr(this[0], key, data);
-                }
+            }
 
                 return data === undefined && parts[1] ?
                     this.data(parts[0]) :
@@ -1969,8 +1969,8 @@
                     $this.triggerHandler("setData" + parts[1] + "!", args);
                     jQuery.data(this, key, value);
                     $this.triggerHandler("changeData" + parts[1] + "!", args);
-                });
-            }
+            });
+        }
         },
 
         removeData: function (key) {
@@ -2006,7 +2006,7 @@
             } else {
                 data = undefined;
             }
-        }
+    }
 
         return data;
     }
@@ -2018,11 +2018,11 @@
             // if the public data object is empty, the private is still empty
             if (name === "data" && jQuery.isEmptyObject(obj[name])) {
                 continue;
-            }
+        }
             if (name !== "toJSON") {
                 return false;
             }
-        }
+    }
 
         return true;
     }
@@ -2042,7 +2042,7 @@
                 if (!jQuery._data(elem, queueDataKey) && !jQuery._data(elem, markDataKey)) {
                     jQuery.removeData(elem, deferDataKey, true);
                     defer.fire();
-                }
+            }
             }, 0);
         }
     }
@@ -2063,7 +2063,7 @@
                 force = false;
             }
             if (elem) {
-                type = type || "fx";
+            type = type || "fx";
                 var key = type + "mark",
                     count = force ? 0 : ( (jQuery._data(elem, key) || 1) - 1 );
                 if (count) {
@@ -2088,7 +2088,7 @@
                     } else {
                         q.push(data);
                     }
-                }
+            }
                 return q || [];
             }
         },
@@ -2103,14 +2103,14 @@
             // If the fx queue is dequeued, always remove the progress sentinel
             if (fn === "inprogress") {
                 fn = queue.shift();
-            }
+        }
 
             if (fn) {
                 // Add a progress sentinel to prevent the fx queue from being
                 // automatically dequeued
                 if (type === "fx") {
                     queue.unshift("inprogress");
-                }
+            }
 
                 jQuery._data(elem, type + ".run", hooks);
                 fn.call(elem, function () {
@@ -2140,7 +2140,7 @@
 
                 if (type === "fx" && queue[0] !== "inprogress") {
                     jQuery.dequeue(this, type);
-                }
+            }
             });
         },
         dequeue: function (type) {
@@ -2184,8 +2184,8 @@
             function resolve() {
                 if (!( --count )) {
                     defer.resolveWith(elements, [elements]);
-                }
             }
+        }
 
             while (i--) {
                 if (( tmp = jQuery.data(elements[i], deferDataKey, undefined, true) ||
@@ -2265,12 +2265,12 @@
                             for (c = 0, cl = classNames.length; c < cl; c++) {
                                 if (!~setClass.indexOf(" " + classNames[c] + " ")) {
                                     setClass += classNames[c] + " ";
-                                }
                             }
-                            elem.className = jQuery.trim(setClass);
                         }
+                            elem.className = jQuery.trim(setClass);
                     }
                 }
+            }
             }
 
             return this;
@@ -2296,14 +2296,14 @@
                             className = (" " + elem.className + " ").replace(rclass, " ");
                             for (c = 0, cl = classNames.length; c < cl; c++) {
                                 className = className.replace(" " + classNames[c] + " ", " ");
-                            }
+                        }
                             elem.className = jQuery.trim(className);
 
                         } else {
                             elem.className = "";
-                        }
                     }
                 }
+            }
             }
 
             return this;
@@ -2332,17 +2332,17 @@
                         // check each className given, space seperated list
                         state = isBool ? state : !self.hasClass(className);
                         self[state ? "addClass" : "removeClass"](className);
-                    }
+                }
 
                 } else if (type === "undefined" || type === "boolean") {
                     if (this.className) {
                         // store className if set
                         jQuery._data(this, "__className__", this.className);
-                    }
+                }
 
                     // toggle whole className
                     this.className = this.className || value === false ? "" : jQuery._data(this, "__className__") || "";
-                }
+            }
             });
         },
 
@@ -2369,7 +2369,7 @@
 
                     if (hooks && "get" in hooks && (ret = hooks.get(elem, "value")) !== undefined) {
                         return ret;
-                    }
+                }
 
                     ret = elem.value;
 
@@ -2378,7 +2378,7 @@
                         ret.replace(rreturn, "") :
                         // handle cases where value is null/undef or number
                         ret == null ? "" : ret;
-                }
+            }
 
                 return undefined;
             }
@@ -2458,11 +2458,11 @@
                             // We don't need an array for one selects
                             if (one) {
                                 return value;
-                            }
+                        }
 
                             // Multi-Selects return an array
                             values.push(value);
-                        }
+                    }
                     }
 
                     // Fixes Bug #2551 -- select.val() broken in IE after form.reset()
@@ -2482,9 +2482,9 @@
 
                     if (!values.length) {
                         elem.selectedIndex = -1;
-                    }
-                    return values;
                 }
+                    return values;
+            }
             }
         },
 
@@ -2533,9 +2533,9 @@
                     return undefined;
 
                 } else if (hooks && "set" in hooks && notxml && (ret = hooks.set(elem, value, name)) !== undefined) {
-                    return ret;
+                return ret;
 
-                } else {
+            } else {
                     elem.setAttribute(name, "" + value);
                     return value;
                 }
@@ -2573,8 +2573,8 @@
                     // Set corresponding property to false for boolean attributes
                     if (rboolean.test(name) && propName in elem) {
                         elem[propName] = false;
-                    }
                 }
+            }
             }
         },
 
@@ -2592,9 +2592,9 @@
                         elem.setAttribute("type", value);
                         if (val) {
                             elem.value = val;
-                        }
-                        return value;
                     }
+                        return value;
+                }
                 }
             },
             // Use the value property for back compat
@@ -2607,14 +2607,14 @@
                     return name in elem ?
                         elem.value :
                         null;
-                },
+            },
                 set: function (elem, value, name) {
                     if (nodeHook && jQuery.nodeName(elem, "button")) {
                         return nodeHook.set(elem, value, name);
-                    }
+                }
                     // Does not return so that setAttribute is also used
                     elem.value = value;
-                }
+            }
             }
         },
 
@@ -2654,7 +2654,7 @@
                 if (hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined) {
                     return ret;
 
-                } else {
+            } else {
                     return ( elem[name] = value );
                 }
 
@@ -2664,7 +2664,7 @@
 
                 } else {
                     return elem[name];
-                }
+            }
             }
         },
 
@@ -2680,8 +2680,8 @@
                         rfocusable.test(elem.nodeName) || rclickable.test(elem.nodeName) && elem.href ?
                             0 :
                             undefined;
-                }
             }
+        }
         }
     });
 
@@ -2711,10 +2711,10 @@
                 if (propName in elem) {
                     // Only set the IDL specifically if it already exists on the element
                     elem[propName] = true;
-                }
+            }
 
                 elem.setAttribute(name, name.toLowerCase());
-            }
+        }
             return name;
         }
     };
@@ -2743,7 +2743,7 @@
                 if (!ret) {
                     ret = document.createAttribute(name);
                     elem.setAttributeNode(ret);
-                }
+            }
                 return ( ret.nodeValue = value + "" );
             }
         };
@@ -2759,9 +2759,9 @@
                     if (value === "") {
                         elem.setAttribute(name, "auto");
                         return value;
-                    }
                 }
-            });
+                }
+        });
         });
 
         // Set contenteditable to false on removals(#10429)
@@ -2771,7 +2771,7 @@
             set: function (elem, value, name) {
                 if (value === "") {
                     value = "false";
-                }
+            }
                 nodeHook.set(elem, value, name);
             }
         };
@@ -2786,7 +2786,7 @@
                     var ret = elem.getAttribute(name, 2);
                     return ret === null ? undefined : ret;
                 }
-            });
+        });
         });
     }
 
@@ -2816,8 +2816,8 @@
                     // Make sure that it also works with optgroups, see #5701
                     if (parent.parentNode) {
                         parent.parentNode.selectedIndex;
-                    }
                 }
+            }
                 return null;
             }
         });
@@ -2835,9 +2835,9 @@
                 get: function (elem) {
                     // Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
                     return elem.getAttribute("value") === null ? "on" : elem.value;
-                }
+            }
             };
-        });
+    });
     }
     jQuery.each(["radio", "checkbox"], function () {
         jQuery.valHooks[this] = jQuery.extend(jQuery.valHooks[this], {
@@ -2961,7 +2961,7 @@
                     handleObj.quick = quickParse(selector);
                     if (!handleObj.quick && jQuery.expr.match.POS.test(selector)) {
                         handleObj.isPositional = true;
-                    }
+                }
                 }
 
                 // Init the event handler queue if we're the first
@@ -2978,8 +2978,8 @@
 
                         } else if (elem.attachEvent) {
                             elem.attachEvent("on" + type, eventHandle);
-                        }
                     }
+                }
                 }
 
                 if (special.add) {
@@ -2987,7 +2987,7 @@
 
                     if (!handleObj.handler.guid) {
                         handleObj.handler.guid = handler.guid;
-                    }
+                }
                 }
 
                 // Add to the element's handler list, delegates in front
@@ -2995,7 +2995,7 @@
                     handlers.splice(handlers.delegateCount++, 0, handleObj);
                 } else {
                     handlers.push(handleObj);
-                }
+            }
 
                 // Keep track of which events have ever been used, for event optimization
                 jQuery.event.global[type] = true;
@@ -3030,7 +3030,7 @@
                     namespaces = namespaces ? "." + namespaces : "";
                     for (j in events) {
                         jQuery.event.remove(elem, j + namespaces, handler, selector);
-                    }
+                }
                     return;
                 }
 
@@ -3052,28 +3052,28 @@
 
                                     if (handleObj.selector) {
                                         eventType.delegateCount--;
-                                    }
+                                }
                                     if (special.remove) {
                                         special.remove.call(elem, handleObj);
                                     }
-                                }
                             }
                         }
                     }
+                }
                 } else {
                     // Removing all events
                     eventType.length = 0;
-                }
+            }
 
                 // Remove generic event handler if we removed something and no more handlers exist
                 // (avoids potential for endless recursion during removal of special event handlers)
                 if (eventType.length === 0 && origCount !== eventType.length) {
                     if (!special.teardown || special.teardown.call(elem, namespaces) === false) {
                         jQuery.removeEvent(elem, type, elemData.handle);
-                    }
+                }
 
                     delete events[type];
-                }
+            }
             }
 
             // Remove the expando if it's no longer used
@@ -3081,7 +3081,7 @@
                 handle = elemData.handle;
                 if (handle) {
                     handle.elem = null;
-                }
+            }
 
                 // removeData also checks for emptiness and clears the expando if empty
                 // so use it instead of delete
@@ -3155,8 +3155,8 @@
                 for (i in cache) {
                     if (cache[i].events && cache[i].events[type]) {
                         jQuery.event.trigger(event, data, cache[i].handle.elem, true);
-                    }
                 }
+            }
                 return;
             }
 
@@ -3191,7 +3191,7 @@
                 // Only add window if we got to document (e.g., not plain obj or detached DOM)
                 if (old && old === elem.ownerDocument) {
                     eventPath.push([old.defaultView || old.parentWindow || window, bubbleType]);
-                }
+            }
             }
 
             // Fire handlers on the event path
@@ -3211,7 +3211,7 @@
 
                 if (event.isPropagationStopped()) {
                     break;
-                }
+            }
             }
             event.type = type;
 
@@ -3240,9 +3240,9 @@
 
                         if (old) {
                             elem[ontype] = old;
-                        }
                     }
                 }
+            }
             }
 
             return event.result;
@@ -3282,15 +3282,15 @@
                             hit = ( hit || (selMatch[sel] = jQuery(sel)) ).index(cur) >= 0;
                         } else if (hit === undefined) {
                             hit = selMatch[sel] = ( handleObj.quick ? quickIs(cur, handleObj.quick) : jQuery(cur).is(sel) );
-                        }
+                    }
                         if (hit) {
                             matches.push(handleObj);
-                        }
                     }
+                }
                     if (matches.length) {
                         handlerQueue.push({elem: cur, matches: matches});
                     }
-                }
+            }
             }
 
             // Add the remaining (directly-bound) handlers
@@ -3323,10 +3323,10 @@
                             if (ret === false) {
                                 event.preventDefault();
                                 event.stopPropagation();
-                            }
                         }
                     }
                 }
+            }
             }
 
             return event.result;
@@ -3345,7 +3345,7 @@
                 // Add which for key events
                 if (event.which == null) {
                     event.which = original.charCode != null ? original.charCode : original.keyCode;
-                }
+            }
 
                 return event;
             }
@@ -3371,13 +3371,13 @@
                 // Add relatedTarget, if necessary
                 if (!event.relatedTarget && fromElement) {
                     event.relatedTarget = fromElement === event.target ? original.toElement : fromElement;
-                }
+            }
 
                 // Add which for click: 1 === left; 2 === middle; 3 === right
                 // Note: button is not normalized, so don't use it
                 if (!event.which && button !== undefined) {
                     event.which = ( button & 1 ? 1 : ( button & 2 ? 3 : ( button & 4 ? 2 : 0 ) ) );
-                }
+            }
 
                 return event;
             }
@@ -3423,7 +3423,7 @@
             ready: {
                 // Make sure the ready event is setup
                 setup: jQuery.bindReady
-            },
+        },
 
             focus: {
                 delegateType: "focusin",
@@ -3440,13 +3440,13 @@
                     if (jQuery.isWindow(this)) {
                         this.onbeforeunload = eventHandle;
                     }
-                },
+            },
 
                 teardown: function (namespaces, eventHandle) {
                     if (this.onbeforeunload === eventHandle) {
                         this.onbeforeunload = null;
-                    }
                 }
+            }
             }
         },
 
@@ -3461,13 +3461,13 @@
                     type: type,
                     isSimulated: true,
                     originalEvent: {}
-                }
+            }
             );
             if (bubble) {
                 jQuery.event.trigger(e, null, elem);
             } else {
                 jQuery.event.dispatch.call(elem, e);
-            }
+        }
             if (e.isDefaultPrevented()) {
                 event.preventDefault();
             }
@@ -3482,12 +3482,12 @@
         function (elem, type, handle) {
             if (elem.removeEventListener) {
                 elem.removeEventListener(type, handle, false);
-            }
+        }
         } :
         function (elem, type, handle) {
             if (elem.detachEvent) {
                 elem.detachEvent("on" + type, handle);
-            }
+        }
         };
 
     jQuery.Event = function (src, props) {
@@ -3509,12 +3509,12 @@
             // Event type
         } else {
             this.type = src;
-        }
+    }
 
         // Put explicitly provided properties onto the event object
         if (props) {
             jQuery.extend(this, props);
-        }
+    }
 
         // Create a timestamp if incoming event doesn't have one
         this.timeStamp = src && src.timeStamp || jQuery.now();
@@ -3598,7 +3598,7 @@
                     event.type = handleObj.origType;
                     ret = handleObj.handler.apply(this, arguments);
                     event.type = oldType;
-                }
+            }
                 return ret;
             }
         };
@@ -3627,7 +3627,7 @@
                             }
                         });
                         form._submit_attached = true;
-                    }
+                }
                 });
                 // return undefined since we don't need an event listener
             },
@@ -3636,7 +3636,7 @@
                 // Only need this for delegated form submit events
                 if (jQuery.nodeName(this, "form")) {
                     return false;
-                }
+            }
 
                 // Remove delegated handlers; cleanData eventually reaps submit handlers attached above
                 jQuery.event.remove(this, "._submit");
@@ -3667,7 +3667,7 @@
                                 jQuery.event.simulate("change", this, event, true);
                             }
                         });
-                    }
+                }
                     return false;
                 }
                 // Delegated event; lazy-add a change handler on descendant inputs
@@ -3681,7 +3681,7 @@
                             }
                         });
                         elem._change_attached = true;
-                    }
+                }
                 });
             },
 
@@ -3691,7 +3691,7 @@
                 // Swallow native change events from checkbox/radio, we already triggered them above
                 if (this !== elem || event.isSimulated || event.isTrigger || (elem.type !== "radio" && elem.type !== "checkbox")) {
                     return event.handleObj.handler.apply(this, arguments);
-                }
+            }
             },
 
             teardown: function () {
@@ -3710,19 +3710,19 @@
             var attaches = 0,
                 handler = function (event) {
                     jQuery.event.simulate(fix, event.target, jQuery.event.fix(event), true);
-                };
+            };
 
             jQuery.event.special[fix] = {
                 setup: function () {
                     if (attaches++ === 0) {
                         document.addEventListener(orig, handler, true);
-                    }
+                }
                 },
                 teardown: function () {
                     if (--attaches === 0) {
                         document.removeEventListener(orig, handler, true);
-                    }
                 }
+            }
             };
         });
     }
@@ -3739,10 +3739,10 @@
                     // ( types-Object, data )
                     data = selector;
                     selector = undefined;
-                }
+            }
                 for (type in types) {
                     this.on(type, selector, data, types[type], one);
-                }
+            }
                 return this;
             }
 
@@ -3759,8 +3759,8 @@
                     // ( types, data, fn )
                     fn = data;
                     data = selector;
-                    selector = undefined;
-                }
+                selector = undefined;
+            }
             }
             if (fn === false) {
                 fn = returnFalse;
@@ -3794,14 +3794,14 @@
                     handleObj.selector,
                     handleObj.handler
                 );
-                return this;
+            return this;
             }
             if (typeof types === "object") {
                 // ( types-object [, selector] )
                 for (var type in types) {
                     this.off(type, selector, types[type]);
                 }
-                return this;
+            return this;
             }
             if (selector === false || typeof selector === "function") {
                 // ( types [, fn] )
@@ -3872,7 +3872,7 @@
             toggler.guid = guid;
             while (i < args.length) {
                 args[i++].guid = guid;
-            }
+        }
 
             return this.click(toggler);
         },
@@ -3891,7 +3891,7 @@
             if (fn == null) {
                 fn = data;
                 data = null;
-            }
+        }
 
             return arguments.length > 0 ?
                 this.bind(name, data, fn) :
@@ -3991,7 +3991,7 @@
 
                         if (Expr.relative[selector]) {
                             selector += parts.shift();
-                        }
+                }
 
                         set = posProcess(selector, set, seed);
                     }
@@ -4031,16 +4031,16 @@
 
                         if (!Expr.relative[cur]) {
                             cur = "";
-                        } else {
+                } else {
                             pop = parts.pop();
-                        }
+                }
 
                         if (pop == null) {
                             pop = context;
                         }
 
                         Expr.relative[cur](checkSet, pop, contextXML);
-                    }
+            }
 
                 } else {
                     checkSet = parts = [];
@@ -4064,14 +4064,14 @@
                         if (checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && Sizzle.contains(context, checkSet[i]))) {
                             results.push(set[i]);
                         }
-                    }
+            }
 
                 } else {
                     for (i = 0; checkSet[i] != null; i++) {
                         if (checkSet[i] && checkSet[i].nodeType === 1) {
                             results.push(set[i]);
                         }
-                    }
+            }
                 }
 
             } else {
@@ -4095,8 +4095,8 @@
                     for (var i = 1; i < results.length; i++) {
                         if (results[i] === results[i - 1]) {
                             results.splice(i--, 1);
-                        }
-                    }
+                }
+            }
                 }
             }
 
@@ -4132,8 +4132,8 @@
                         if (set != null) {
                             expr = expr.replace(Expr.match[type], "");
                             break;
-                        }
-                    }
+                }
+            }
                 }
             }
 
@@ -4196,15 +4196,15 @@
 
                                         } else {
                                             curLoop[i] = false;
-                                        }
+                                }
 
                                     } else if (pass) {
                                         result.push(item);
                                         anyFound = true;
-                                    }
-                                }
                             }
                         }
+                    }
+                }
 
                         if (found !== undefined) {
                             if (!inplace) {
@@ -4215,10 +4215,10 @@
 
                             if (!anyFound) {
                                 return [];
-                            }
+                    }
 
                             break;
-                        }
+                }
                     }
                 }
 
@@ -4229,7 +4229,7 @@
 
                     } else {
                         break;
-                    }
+            }
                 }
 
                 old = expr;
@@ -4263,8 +4263,8 @@
                         // Traverse it's children
                         for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
                             ret += getText(elem);
-                        }
-                    }
+                }
+            }
                 } else if (nodeType === 3 || nodeType === 4) {
                     return elem.nodeValue;
                 }
@@ -4329,7 +4329,7 @@
                             checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
                             elem || false :
                             elem === part;
-                        }
+                }
                     }
 
                     if (isPartStrNotTag) {
@@ -4352,7 +4352,7 @@
                             if (elem) {
                                 var parent = elem.parentNode;
                                 checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
-                            }
+                    }
                         }
 
                     } else {
@@ -4419,8 +4419,8 @@
                         for (var i = 0, l = results.length; i < l; i++) {
                             if (results[i].getAttribute("name") === match[1]) {
                                 ret.push(results[i]);
-                            }
-                        }
+                    }
+                }
 
                         return ret.length === 0 ? null : ret;
                     }
@@ -4445,12 +4445,12 @@
                             if (not ^ (elem.className && (" " + elem.className + " ").replace(/[\t\n\r]/g, " ").indexOf(match) >= 0)) {
                                 if (!inplace) {
                                     result.push(elem);
-                                }
+                        }
 
                             } else if (inplace) {
                                 curLoop[i] = false;
-                            }
-                        }
+                    }
+                }
                     }
 
                     return false;
@@ -4519,7 +4519,7 @@
 
                             if (!inplace) {
                                 result.push.apply(result, ret);
-                            }
+                    }
 
                             return false;
                         }
@@ -4678,7 +4678,7 @@
                             if (not[j] === elem) {
                                 return false;
                             }
-                        }
+                }
 
                         return true;
 
@@ -4700,12 +4700,12 @@
                             while ((node = node.previousSibling)) {
                                 if (node.nodeType === 1) {
                                     return false;
-                                }
+                        }
                             }
 
                             if (type === "first") {
-                                return true;
-                            }
+                        return true;
+                    }
 
                             node = elem;
 
@@ -4735,7 +4735,7 @@
                                 for (node = parent.firstChild; node; node = node.nextSibling) {
                                     if (node.nodeType === 1) {
                                         node.nodeIndex = ++count;
-                                    }
+                            }
                                 }
 
                                 parent[expando] = doneName;
@@ -4748,7 +4748,7 @@
 
                             } else {
                                 return ( diff % first === 0 && diff / first >= 0 );
-                            }
+                    }
                     }
                 },
 
@@ -4807,7 +4807,7 @@
 
                     if (filter) {
                         return filter(elem, i, match, array);
-                    }
+            }
                 }
             }
         };
@@ -4853,14 +4853,14 @@
                     if (typeof array.length === "number") {
                         for (var l = array.length; i < l; i++) {
                             ret.push(array[i]);
-                        }
+                }
 
                     } else {
                         for (; array[i]; i++) {
                             ret.push(array[i]);
                         }
                     }
-                }
+        }
 
                 return ret;
             };
@@ -4956,7 +4956,7 @@
                     }
 
                     cur = cur.nextSibling;
-                }
+        }
 
                 return 1;
             };
@@ -4987,7 +4987,7 @@
                                 [m] :
                                 undefined :
                             [];
-                    }
+            }
                 };
 
                 Expr.filter.ID = function (elem, match) {
@@ -5023,11 +5023,11 @@
                         for (var i = 0; results[i]; i++) {
                             if (results[i].nodeType === 1) {
                                 tmp.push(results[i]);
-                            }
+                    }
                         }
 
                         results = tmp;
-                    }
+            }
 
                     return results;
                 };
@@ -5099,7 +5099,7 @@
                                     // by name instead of ID
                                     if (elem.id === match[3]) {
                                         return makeArray([elem], extra);
-                                    }
+                            }
 
                                 } else {
                                     return makeArray([], extra);
@@ -5134,7 +5134,7 @@
                             try {
                                 if (!relativeHierarchySelector || hasParent) {
                                     return makeArray(context.querySelectorAll("[id='" + nid + "'] " + query), extra);
-                                }
+                        }
 
                             } catch (pseudoError) {
                             } finally {
@@ -5142,7 +5142,7 @@
                                     oldContext.removeAttribute("id");
                                 }
                             }
-                        }
+                }
                     }
 
                     return oldSizzle(query, context, extra, seed);
@@ -5150,7 +5150,7 @@
 
                 for (var prop in oldSizzle) {
                     Sizzle[prop] = oldSizzle[prop];
-                }
+        }
 
                 // release memory in IE
                 div = null;
@@ -5191,11 +5191,11 @@
                                         // fragment in IE 9, so check for that
                                     node.document && node.document.nodeType !== 11) {
                                     return ret;
-                                }
-                            }
-                        } catch (e) {
                         }
                     }
+                        } catch (e) {
+                        }
+            }
 
                     return Sizzle(expr, null, null, [node]).length > 0;
                 };
@@ -5254,13 +5254,13 @@
                         if (elem.nodeName.toLowerCase() === cur) {
                             match = elem;
                             break;
-                        }
+                }
 
                         elem = elem[dir];
-                    }
+            }
 
                     checkSet[i] = match;
-                }
+        }
             }
         }
 
@@ -5289,19 +5289,19 @@
                                 if (elem === cur) {
                                     match = true;
                                     break;
-                                }
+                        }
 
                             } else if (Sizzle.filter(cur, [elem]).length > 0) {
                                 match = elem;
                                 break;
-                            }
-                        }
+                    }
+                }
 
                         elem = elem[dir];
-                    }
+            }
 
                     checkSet[i] = match;
-                }
+        }
             }
         }
 
@@ -5392,7 +5392,7 @@
                     for (i = 0, l = self.length; i < l; i++) {
                         if (jQuery.contains(self[i], this)) {
                             return true;
-                        }
+                    }
                     }
                 });
             }
@@ -5411,10 +5411,10 @@
                             if (ret[r] === ret[n]) {
                                 ret.splice(n--, 1);
                                 break;
-                            }
                         }
                     }
                 }
+            }
             }
 
             return ret;
@@ -5426,7 +5426,7 @@
                 for (var i = 0, l = targets.length; i < l; i++) {
                     if (jQuery.contains(this, targets[i])) {
                         return true;
-                    }
+                }
                 }
             });
         },
@@ -5466,12 +5466,12 @@
                                 elem: cur,
                                 level: level
                             });
-                        }
                     }
+                }
 
                     cur = cur.parentNode;
                     level++;
-                }
+            }
 
                 return ret;
             }
@@ -5493,9 +5493,9 @@
                         cur = cur.parentNode;
                         if (!cur || !cur.ownerDocument || cur === context || cur.nodeType === 11) {
                             break;
-                        }
                     }
                 }
+            }
             }
 
             ret = ret.length > 1 ? jQuery.unique(ret) : ret;
@@ -5630,7 +5630,7 @@
             while (cur && cur.nodeType !== 9 && (until === undefined || cur.nodeType !== 1 || !jQuery(cur).is(until))) {
                 if (cur.nodeType === 1) {
                     matched.push(cur);
-                }
+            }
                 cur = cur[dir];
             }
             return matched;
@@ -5643,7 +5643,7 @@
             for (; cur; cur = cur[dir]) {
                 if (cur.nodeType === 1 && ++num === result) {
                     break;
-                }
+            }
             }
 
             return cur;
@@ -5655,8 +5655,8 @@
             for (; n; n = n.nextSibling) {
                 if (n.nodeType === 1 && n !== elem) {
                     r.push(n);
-                }
             }
+        }
 
             return r;
         }
@@ -5689,8 +5689,8 @@
                 return jQuery.filter(qualifier, filtered, !keep);
             } else {
                 qualifier = jQuery.filter(qualifier, filtered);
-            }
         }
+    }
 
         return jQuery.grep(elements, function (elem, i) {
             return ( jQuery.inArray(elem, qualifier) >= 0 ) === keep;
@@ -5707,8 +5707,8 @@
                 safeFrag.createElement(
                     list.pop()
                 );
-            }
         }
+    }
         return safeFrag;
     }
 
@@ -5778,14 +5778,14 @@
 
                 if (this[0].parentNode) {
                     wrap.insertBefore(this[0]);
-                }
+            }
 
                 wrap.map(function () {
                     var elem = this;
 
                     while (elem.firstChild && elem.firstChild.nodeType === 1) {
                         elem = elem.firstChild;
-                    }
+                }
 
                     return elem;
                 }).append(this);
@@ -5810,7 +5810,7 @@
 
                 } else {
                     self.append(html);
-                }
+            }
             });
         },
 
@@ -5824,7 +5824,7 @@
             return this.parent().each(function () {
                 if (!jQuery.nodeName(this, "body")) {
                     jQuery(this).replaceWith(this.childNodes);
-                }
+            }
             }).end();
         },
 
@@ -5848,7 +5848,7 @@
             if (this[0] && this[0].parentNode) {
                 return this.domManip(arguments, false, function (elem) {
                     this.parentNode.insertBefore(elem, this);
-                });
+            });
             } else if (arguments.length) {
                 var set = jQuery(arguments[0]);
                 set.push.apply(set, this.toArray());
@@ -5860,7 +5860,7 @@
             if (this[0] && this[0].parentNode) {
                 return this.domManip(arguments, false, function (elem) {
                     this.parentNode.insertBefore(elem, this.nextSibling);
-                });
+            });
             } else if (arguments.length) {
                 var set = this.pushStack(this, "after", arguments);
                 set.push.apply(set, jQuery(arguments[0]).toArray());
@@ -5875,11 +5875,11 @@
                     if (!keepData && elem.nodeType === 1) {
                         jQuery.cleanData(elem.getElementsByTagName("*"));
                         jQuery.cleanData([elem]);
-                    }
+                }
 
                     if (elem.parentNode) {
                         elem.parentNode.removeChild(elem);
-                    }
+                }
                 }
             }
 
@@ -5891,12 +5891,12 @@
                 // Remove element nodes and prevent memory leaks
                 if (elem.nodeType === 1) {
                     jQuery.cleanData(elem.getElementsByTagName("*"));
-                }
+            }
 
                 // Remove any remaining nodes
                 while (elem.firstChild) {
                     elem.removeChild(elem.firstChild);
-                }
+            }
             }
 
             return this;
@@ -5930,19 +5930,19 @@
                             jQuery.cleanData(this[i].getElementsByTagName("*"));
                             this[i].innerHTML = value;
                         }
-                    }
+                }
 
                     // If using innerHTML throws an exception, use the fallback method
                 } catch (e) {
                     this.empty().append(value);
-                }
+            }
 
             } else if (jQuery.isFunction(value)) {
                 this.each(function (i) {
                     var self = jQuery(this);
 
                     self.html(value.call(this, i, self.html()));
-                });
+            });
 
             } else {
                 this.empty().append(value);
@@ -5959,12 +5959,12 @@
                     return this.each(function (i) {
                         var self = jQuery(this), old = self.html();
                         self.replaceWith(value.call(this, i, old));
-                    });
+                });
                 }
 
                 if (typeof value !== "string") {
                     value = jQuery(value).detach();
-                }
+            }
 
                 return this.each(function () {
                     var next = this.nextSibling,
@@ -5976,7 +5976,7 @@
                         jQuery(next).before(value);
                     } else {
                         jQuery(parent).append(value);
-                    }
+                }
                 });
             } else {
                 return this.length ?
@@ -6018,7 +6018,7 @@
 
                 } else {
                     results = jQuery.buildFragment(args, this, scripts);
-                }
+            }
 
                 fragment = results.fragment;
 
@@ -6047,16 +6047,16 @@
                                 jQuery.clone(fragment, true, true) :
                                 fragment
                         );
-                    }
                 }
+            }
 
                 if (scripts.length) {
                     jQuery.each(scripts, evalScript);
                 }
-            }
+        }
 
             return this;
-        }
+    }
     });
 
     function root(elem, cur) {
@@ -6084,14 +6084,14 @@
             for (type in events) {
                 for (i = 0, l = events[type].length; i < l; i++) {
                     jQuery.event.add(dest, type + ( events[type][i].namespace ? "." : "" ) + events[type][i].namespace, events[type][i], events[type][i].data);
-                }
             }
+        }
         }
 
         // make the cloned public data object a copy from the original
         if (curData.data) {
             curData.data = jQuery.extend({}, curData.data);
-        }
+    }
     }
 
     function cloneFixAttributes(src, dest) {
@@ -6134,7 +6134,7 @@
             // checkbox/radio button to an empty string instead of "on"
             if (dest.value !== src.value) {
                 dest.value = src.value;
-            }
+        }
 
             // IE6-8 fails to return the selected option to the default selected
             // state when cloning options
@@ -6145,7 +6145,7 @@
             // cloning other types of input fields
         } else if (nodeName === "input" || nodeName === "textarea") {
             dest.defaultValue = src.defaultValue;
-        }
+    }
 
         // Event data gets referenced instead of copied if the expando
         // gets copied too
@@ -6185,7 +6185,7 @@
             cacheresults = jQuery.fragments[first];
             if (cacheresults && cacheresults !== 1) {
                 fragment = cacheresults;
-            }
+        }
         }
 
         if (!fragment) {
@@ -6223,7 +6223,7 @@
                     var elems = ( i > 0 ? this.clone(true) : this ).get();
                     jQuery(insert[i])[original](elems);
                     ret = ret.concat(elems);
-                }
+            }
 
                 return this.pushStack(ret, name, insert.selector);
             }
@@ -6239,16 +6239,15 @@
 
         } else {
             return [];
-        }
+    }
     }
 
 // Used in clean, fixes the defaultChecked property
     function fixDefaultChecked(elem) {
         if (elem.type === "checkbox" || elem.type === "radio") {
             elem.defaultChecked = elem.checked;
-        }
     }
-
+    }
 // Finds all inputs and passes them to fixDefaultChecked
     function findInputs(elem) {
         var nodeName = ( elem.nodeName || "" ).toLowerCase();
@@ -6257,7 +6256,7 @@
             // Skip scripts, get other children
         } else if (nodeName !== "script" && typeof elem.getElementsByTagName !== "undefined") {
             jQuery.grep(elem.getElementsByTagName("input"), fixDefaultChecked);
-        }
+    }
     }
 
     jQuery.extend({
@@ -6289,8 +6288,8 @@
                     // Ensure that the destination node is not null; Fixes #9587
                     if (destElements[i]) {
                         cloneFixAttributes(srcElements[i], destElements[i]);
-                    }
                 }
+            }
             }
 
             // Copy the events from the original to the clone
@@ -6303,8 +6302,8 @@
 
                     for (i = 0; srcElements[i]; ++i) {
                         cloneCopyEvent(srcElements[i], destElements[i]);
-                    }
                 }
+            }
             }
 
             srcElements = destElements = null;
@@ -6328,7 +6327,7 @@
             for (var i = 0, elem; (elem = elems[i]) != null; i++) {
                 if (typeof elem === "number") {
                     elem += "";
-                }
+            }
 
                 if (!elem) {
                     continue;
@@ -6352,7 +6351,7 @@
                         if (context === document) {
                             // Use the fragment we've already created for this document
                             safeFragment.appendChild(div);
-                        } else {
+                    } else {
                             // Use a fragment created with the owner document
                             createSafeFragment(context).appendChild(div);
                         }
@@ -6381,17 +6380,17 @@
                             for (j = tbody.length - 1; j >= 0; --j) {
                                 if (jQuery.nodeName(tbody[j], "tbody") && !tbody[j].childNodes.length) {
                                     tbody[j].parentNode.removeChild(tbody[j]);
-                                }
                             }
                         }
+                    }
 
                         // IE completely kills leading whitespace when innerHTML is used
                         if (!jQuery.support.leadingWhitespace && rleadingWhitespace.test(elem)) {
                             div.insertBefore(context.createTextNode(rleadingWhitespace.exec(elem)[0]), div.firstChild);
-                        }
+                    }
 
                         elem = div.childNodes;
-                    }
+                }
                 }
 
                 // Resets defaultChecked for any radios and checkboxes
@@ -6402,10 +6401,10 @@
                         for (j = 0; j < len; j++) {
                             findInputs(elem[j]);
                         }
-                    } else {
+                } else {
                         findInputs(elem);
-                    }
                 }
+            }
 
                 if (elem.nodeType) {
                     ret.push(elem);
@@ -6427,10 +6426,10 @@
                             var jsTags = jQuery.grep(ret[i].getElementsByTagName("script"), checkScriptType);
 
                             ret.splice.apply(ret, [i + 1, 0].concat(jsTags));
-                        }
-                        fragment.appendChild(ret[i]);
                     }
+                        fragment.appendChild(ret[i]);
                 }
+            }
             }
 
             return ret;
@@ -6460,13 +6459,13 @@
                                 // This is a shortcut to avoid jQuery.event.remove's overhead
                             } else {
                                 jQuery.removeEvent(elem, type, data.handle);
-                            }
                         }
+                    }
 
                         // Null the DOM reference to avoid IE6/7/8 leak (#7054)
                         if (data.handle) {
                             data.handle.elem = null;
-                        }
+                    }
                     }
 
                     if (deleteExpando) {
@@ -6474,11 +6473,11 @@
 
                     } else if (elem.removeAttribute) {
                         elem.removeAttribute(jQuery.expando);
-                    }
+                }
 
                     delete cache[id];
-                }
             }
+        }
         }
     });
 
@@ -6495,7 +6494,7 @@
 
         if (elem.parentNode) {
             elem.parentNode.removeChild(elem);
-        }
+    }
     }
 
 
@@ -6545,8 +6544,8 @@
 
                     } else {
                         return elem.style.opacity;
-                    }
                 }
+            }
             }
         },
 
@@ -6617,7 +6616,7 @@
                 // If a hook was provided get the non-computed value from there
                 if (hooks && "get" in hooks && (ret = hooks.get(elem, false, extra)) !== undefined) {
                     return ret;
-                }
+            }
 
                 // Otherwise just get the value from the style object
                 return style[name];
@@ -6662,7 +6661,7 @@
             // Revert the old values
             for (name in options) {
                 elem.style[name] = old[name];
-            }
+        }
         }
     });
 
@@ -6681,7 +6680,7 @@
                         jQuery.swap(elem, cssShow, function () {
                             val = getWH(elem, name, extra);
                         });
-                    }
+                }
 
                     return val;
                 }
@@ -6694,11 +6693,11 @@
 
                     if (value >= 0) {
                         return value + "px";
-                    }
+                }
 
                 } else {
                     return value;
-                }
+            }
             }
         };
     });
@@ -6733,7 +6732,7 @@
                     // if there there is no filter style applied in a css rule, we are done
                     if (currentStyle && !currentStyle.filter) {
                         return;
-                    }
+                }
                 }
 
                 // otherwise, set new filter values
@@ -6761,9 +6760,9 @@
                         }
                     });
                     return ret;
-                }
-            };
-        }
+            }
+        };
+    }
     });
 
     if (document.defaultView && document.defaultView.getComputedStyle) {
@@ -6780,7 +6779,7 @@
                 ret = computedStyle.getPropertyValue(name);
                 if (ret === "" && !jQuery.contains(elem.ownerDocument.documentElement, elem)) {
                     ret = jQuery.style(elem, name);
-                }
+            }
             }
 
             return ret;
@@ -6821,7 +6820,7 @@
                 style.left = left;
                 if (rsLeft) {
                     elem.runtimeStyle.left = rsLeft;
-                }
+            }
             }
 
             return ret === "" ? "auto" : ret;
@@ -6841,17 +6840,17 @@
                 jQuery.each(which, function () {
                     if (!extra) {
                         val -= parseFloat(jQuery.css(elem, "padding" + this)) || 0;
-                    }
+                }
                     if (extra === "margin") {
                         val += parseFloat(jQuery.css(elem, extra + this)) || 0;
                     } else {
                         val -= parseFloat(jQuery.css(elem, "border" + this + "Width")) || 0;
-                    }
-                });
-            }
-
-            return val + "px";
+                }
+            });
         }
+
+        return val + "px";
+    }
 
         // Fall back to computed then uncomputed css if necessary
         val = curCSS(elem, name, name);
@@ -6872,7 +6871,7 @@
                     val += parseFloat(jQuery.css(elem, extra + this)) || 0;
                 }
             });
-        }
+    }
 
         return val + "px";
     }
@@ -6980,11 +6979,11 @@
                     placeBefore = /^\+/.test(dataType);
                     if (placeBefore) {
                         dataType = dataType.substr(1) || "*";
-                    }
+                }
                     list = structure[dataType] = structure[dataType] || [];
                     // then we add to the structure accordingly
                     list[placeBefore ? "unshift" : "push"](func);
-                }
+            }
             }
         };
     }
@@ -7015,9 +7014,9 @@
                     options.dataTypes.unshift(selection);
                     selection = inspectPrefiltersOrTransports(
                         structure, options, originalOptions, jqXHR, selection, inspected);
-                }
             }
         }
+    }
         // If we're only executing or nothing was selected
         // we try the catchall dataType if not done already
         if (( executeOnly || !selection ) && !inspected["*"]) {
@@ -7038,8 +7037,8 @@
         for (key in src) {
             if (src[key] !== undefined) {
                 ( flatOptions[key] ? target : ( deep || ( deep = {} ) ) )[key] = src[key];
-            }
         }
+    }
         if (deep) {
             jQuery.extend(true, target, deep);
         }
@@ -7076,7 +7075,7 @@
                 } else if (typeof params === "object") {
                     params = jQuery.param(params, jQuery.ajaxSettings.traditional);
                     type = "POST";
-                }
+            }
             }
 
             var self = this;
@@ -7115,7 +7114,7 @@
 
                     if (callback) {
                         self.each(callback, [responseText, status, jqXHR]);
-                    }
+                }
                 }
             });
 
@@ -7258,7 +7257,7 @@
 
                 // Parse text as xml
                 "text xml": jQuery.parseXML
-            },
+        },
 
             // For options that shouldn't be deep extended:
             // you can add your own custom options here if
@@ -7348,8 +7347,8 @@
                                 responseHeaders = {};
                                 while (( match = rheaders.exec(responseHeadersString) )) {
                                     responseHeaders[match[1].toLowerCase()] = match[2];
-                                }
                             }
+                        }
                             match = responseHeaders[key.toLowerCase()];
                         }
                         return match === undefined ? null : match;
@@ -7368,7 +7367,7 @@
                         statusText = statusText || "abort";
                         if (transport) {
                             transport.abort(statusText);
-                        }
+                    }
                         done(0, statusText);
                         return this;
                     }
@@ -7418,7 +7417,7 @@
 
                         if (( lastModified = jqXHR.getResponseHeader("Last-Modified") )) {
                             jQuery.lastModified[ifModifiedKey] = lastModified;
-                        }
+                    }
                         if (( etag = jqXHR.getResponseHeader("Etag") )) {
                             jQuery.etag[ifModifiedKey] = etag;
                         }
@@ -7441,7 +7440,7 @@
                             // We have a parsererror
                             statusText = "parsererror";
                             error = e;
-                        }
+                    }
                     }
                 } else {
                     // We extract error from statusText
@@ -7451,8 +7450,8 @@
                         statusText = "error";
                         if (status < 0) {
                             status = 0;
-                        }
                     }
+                }
                 }
 
                 // Set data for the fake xhr object
@@ -7483,8 +7482,8 @@
                     // Handle the global AJAX counter
                     if (!( --jQuery.active )) {
                         jQuery.event.trigger("ajaxStop");
-                    }
                 }
+            }
             }
 
             // Attach deferreds
@@ -7500,11 +7499,11 @@
                     if (state < 2) {
                         for (tmp in map) {
                             statusCode[tmp] = [statusCode[tmp], map[tmp]];
-                        }
+                    }
                     } else {
                         tmp = map[jqXHR.status];
                         jqXHR.then(tmp, tmp);
-                    }
+                }
                 }
                 return this;
             };
@@ -7576,7 +7575,7 @@
 
                     // if nothing was replaced, add timestamp to the end
                     s.url = ret + ( ( ret === s.url ) ? ( rquery.test(s.url) ? "&" : "?" ) + "_=" + ts : "" );
-                }
+            }
             }
 
             // Set the correct header, if data is being sent
@@ -7589,7 +7588,7 @@
                 ifModifiedKey = ifModifiedKey || s.url;
                 if (jQuery.lastModified[ifModifiedKey]) {
                     jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[ifModifiedKey]);
-                }
+            }
                 if (jQuery.etag[ifModifiedKey]) {
                     jqXHR.setRequestHeader("If-None-Match", jQuery.etag[ifModifiedKey]);
                 }
@@ -7650,8 +7649,8 @@
                         // Simply rethrow otherwise
                     } else {
                         jQuery.error(e);
-                    }
                 }
+            }
             }
 
             return jqXHR;
@@ -7684,8 +7683,8 @@
                 // did it), otherwise encode params recursively.
                 for (var prefix in a) {
                     buildParams(prefix, a[prefix], traditional, add);
-                }
             }
+        }
 
             // Return the resulting serialization
             return s.join("&").replace(r20, "+");
@@ -7709,19 +7708,19 @@
                     // deserialization algorithm or to provide an option or flag
                     // to force array serialization to be shallow.
                     buildParams(prefix + "[" + ( typeof v === "object" || jQuery.isArray(v) ? i : "" ) + "]", v, traditional, add);
-                }
+            }
             });
 
         } else if (!traditional && obj != null && typeof obj === "object") {
             // Serialize object item.
             for (var name in obj) {
                 buildParams(prefix + "[" + name + "]", obj[name], traditional, add);
-            }
+        }
 
         } else {
             // Serialize scalar item.
             add(prefix, obj);
-        }
+    }
     }
 
 // This is still on the jQuery object... for now
@@ -7756,7 +7755,7 @@
         for (type in responseFields) {
             if (type in responses) {
                 jqXHR[responseFields[type]] = responses[type];
-            }
+        }
         }
 
         // Remove auto dataType and get content-type in the process
@@ -7764,7 +7763,7 @@
             dataTypes.shift();
             if (ct === undefined) {
                 ct = s.mimeType || jqXHR.getResponseHeader("content-type");
-            }
+        }
         }
 
         // Check if we're dealing with a known content-type
@@ -7773,8 +7772,8 @@
                 if (contents[type] && contents[type].test(ct)) {
                     dataTypes.unshift(type);
                     break;
-                }
             }
+        }
         }
 
         // Check to see if we have a response for the expected dataType
@@ -7786,11 +7785,11 @@
                 if (!dataTypes[0] || s.converters[type + " " + dataTypes[0]]) {
                     finalDataType = type;
                     break;
-                }
+            }
                 if (!firstDataType) {
                     firstDataType = type;
                 }
-            }
+        }
             // Or just use first one
             finalDataType = finalDataType || firstDataType;
         }
@@ -7801,9 +7800,9 @@
         if (finalDataType) {
             if (finalDataType !== dataTypes[0]) {
                 dataTypes.unshift(finalDataType);
-            }
-            return responses[finalDataType];
         }
+            return responses[finalDataType];
+    }
     }
 
 // Chain conversions given the request and the original response
@@ -7840,8 +7839,8 @@
                 for (key in s.converters) {
                     if (typeof key === "string") {
                         converters[key.toLowerCase()] = s.converters[key];
-                    }
                 }
+            }
             }
 
             // Get the dataTypes
@@ -7871,12 +7870,12 @@
                                     conv = conv2;
                                 } else if (conv2 === true) {
                                     conv = conv1;
-                                }
-                                break;
                             }
+                                break;
                         }
                     }
                 }
+            }
                 // If we found no converter, dispatch an error
                 if (!( conv || conv2 )) {
                     jQuery.error("No conversion from " + conversion.replace(" ", " to "));
@@ -7886,8 +7885,8 @@
                     // Convert with 1 or 2 converters accordingly
                     response = conv ? conv(response) : conv2(conv1(response));
                 }
-            }
         }
+    }
         return response;
     }
 
@@ -7926,12 +7925,12 @@
                 if (s.url === url) {
                     if (inspectData) {
                         data = data.replace(jsre, replace);
-                    }
+                }
                     if (s.data === data) {
                         // Add callback manually
                         url += (/\?/.test(url) ? "&" : "?") + s.jsonp + "=" + jsonpCallback;
                     }
-                }
+            }
             }
 
             s.url = url;
@@ -7981,7 +7980,7 @@
             "text script": function (text) {
                 jQuery.globalEval(text);
                 return text;
-            }
+        }
         }
     });
 
@@ -8038,8 +8037,8 @@
                             // Callback if not abort
                             if (!isAbort) {
                                 callback(200, "success");
-                            }
                         }
+                    }
                     };
                     // Use insertBefore instead of appendChild  to circumvent an IE6 bug.
                     // This arises when a base node is used (#2709 and #4378).
@@ -8049,7 +8048,7 @@
                 abort: function () {
                     if (script) {
                         script.onload(0, 1);
-                    }
+                }
                 }
             };
         }
@@ -8061,7 +8060,7 @@
             // Abort all pending requests
             for (var key in xhrCallbacks) {
                 xhrCallbacks[key](0, 1);
-            }
+        }
         } : false,
         xhrId = 0,
         xhrCallbacks;
@@ -8133,7 +8132,7 @@
                         if (s.xhrFields) {
                             for (i in s.xhrFields) {
                                 xhr[i] = s.xhrFields[i];
-                            }
+                        }
                         }
 
                         // Override mime type if needed
@@ -8154,7 +8153,7 @@
                         try {
                             for (i in headers) {
                                 xhr.setRequestHeader(i, headers[i]);
-                            }
+                        }
                         } catch (_) {
                         }
 
@@ -8188,7 +8187,7 @@
                                         xhr.onreadystatechange = jQuery.noop;
                                         if (xhrOnUnloadAbort) {
                                             delete xhrCallbacks[handle];
-                                        }
+                                    }
                                     }
 
                                     // If it's an abort
@@ -8228,19 +8227,19 @@
                                             // IE - #1450: sometimes returns 1223 when it should be 204
                                         } else if (status === 1223) {
                                             status = 204;
-                                        }
                                     }
                                 }
+                            }
                             } catch (firefoxAccessException) {
                                 if (!isAbort) {
                                     complete(-1, firefoxAccessException);
-                                }
+                            }
                             }
 
                             // Call complete if needed
                             if (responses) {
                                 complete(status, statusText, responses, responseHeaders);
-                            }
+                        }
                         };
 
                         // if we're in sync mode or it's in cache
@@ -8259,9 +8258,9 @@
                                 }
                                 // Add to list of active xhrs callbacks
                                 xhrCallbacks[handle] = callback;
-                            }
-                            xhr.onreadystatechange = callback;
                         }
+                            xhr.onreadystatechange = callback;
+                    }
                     },
 
                     abort: function () {
@@ -8308,7 +8307,7 @@
                         // being hidden by cascaded rules or not
                         if (!jQuery._data(elem, "olddisplay") && display === "none") {
                             display = elem.style.display = "";
-                        }
+                    }
 
                         // Set elements which have been overridden with display: none
                         // in a stylesheet to whatever the default browser style is
@@ -8316,7 +8315,7 @@
                         if (display === "" && jQuery.css(elem, "display") === "none") {
                             jQuery._data(elem, "olddisplay", defaultDisplay(elem.nodeName));
                         }
-                    }
+                }
                 }
 
                 // Set the display of most of the elements in a second loop
@@ -8329,9 +8328,9 @@
 
                         if (display === "" || display === "none") {
                             elem.style.display = jQuery._data(elem, "olddisplay") || "";
-                        }
                     }
                 }
+            }
 
                 return this;
             }
@@ -8353,8 +8352,8 @@
 
                         if (display !== "none" && !jQuery._data(elem, "olddisplay")) {
                             jQuery._data(elem, "olddisplay", display);
-                        }
                     }
+                }
                 }
 
                 // Set the display of the elements in a second loop
@@ -8363,7 +8362,7 @@
                     if (this[i].style) {
                         this[i].style.display = "none";
                     }
-                }
+            }
 
                 return this;
             }
@@ -8466,9 +8465,9 @@
 
                             } else {
                                 this.style.zoom = 1;
-                            }
                         }
                     }
+                }
                 }
 
                 if (opt.overflow != null) {
@@ -8487,7 +8486,7 @@
                         if (method) {
                             jQuery._data(this, "toggle" + p, method === "show" ? "hide" : "show");
                             e[method]();
-                        } else {
+                    } else {
                             e[val]();
                         }
 
@@ -8509,15 +8508,15 @@
                             // If a +=/-= token was provided, we're doing a relative animation
                             if (parts[1]) {
                                 end = ( (parts[1] === "-=" ? -1 : 1) * end ) + start;
-                            }
+                        }
 
                             e.custom(start, end, unit);
 
                         } else {
                             e.custom(start, val, "");
-                        }
                     }
                 }
+            }
 
                 // For JS strict compliance
                 return true;
@@ -8559,8 +8558,8 @@
                     for (i in data) {
                         if (data[i].stop && i.indexOf(".run") === i.length - 4) {
                             stopQueue(this, data, i);
-                        }
                     }
+                }
                 } else if (data[i = type + ".run"] && data[i].stop) {
                     stopQueue(this, data, i);
                 }
@@ -8573,10 +8572,10 @@
                             timers[i](true);
                         } else {
                             timers[i].saveState();
-                        }
+                    }
                         hadTimers = true;
                         timers.splice(i, 1);
-                    }
+                }
                 }
 
                 // start the next in the queue if the last step wasn't forced
@@ -8632,7 +8631,7 @@
                 jQuery.isFunction(speed) && speed,
                 duration: speed,
                 easing: fn && easing || easing && !jQuery.isFunction(easing) && easing
-            };
+        };
 
             opt.duration = jQuery.fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
                 opt.duration in jQuery.fx.speeds ? jQuery.fx.speeds[opt.duration] : jQuery.fx.speeds._default;
@@ -8648,7 +8647,7 @@
             opt.complete = function (noUnmark) {
                 if (jQuery.isFunction(opt.old)) {
                     opt.old.call(this);
-                }
+            }
 
                 if (opt.queue) {
                     jQuery.dequeue(this, opt.queue);
@@ -8663,7 +8662,7 @@
         easing: {
             linear: function (p, n, firstNum, diff) {
                 return firstNum + diff * p;
-            },
+        },
             swing: function (p, n, firstNum, diff) {
                 return ( ( -Math.cos(p * Math.PI) / 2 ) + 0.5 ) * diff + firstNum;
             }
@@ -8686,7 +8685,7 @@
         update: function () {
             if (this.options.step) {
                 this.options.step.call(this.elem, this.now, this);
-            }
+        }
 
             ( jQuery.fx.step[this.prop] || jQuery.fx.step._default )(this);
         },
@@ -8725,7 +8724,7 @@
             t.saveState = function () {
                 if (self.options.hide && jQuery._data(self.elem, "fxshow" + self.prop) === undefined) {
                     jQuery._data(self.elem, "fxshow" + self.prop, self.start);
-                }
+            }
             };
 
             if (t() && jQuery.timers.push(t) && !timerId) {
@@ -8782,7 +8781,7 @@
                 for (p in options.animatedProperties) {
                     if (options.animatedProperties[p] !== true) {
                         done = false;
-                    }
+                }
                 }
 
                 if (done) {
@@ -8806,7 +8805,7 @@
                             jQuery.removeData(elem, "fxshow" + p, true);
                             // Toggle data is no longer needed
                             jQuery.removeData(elem, "toggle" + p, true);
-                        }
+                    }
                     }
 
                     // Execute the complete function
@@ -8818,7 +8817,7 @@
 
                         options.complete = false;
                         complete.call(elem);
-                    }
+                }
                 }
 
                 return false;
@@ -8827,17 +8826,17 @@
                 // classical easing cannot be used with an Infinity duration
                 if (options.duration == Infinity) {
                     this.now = t;
-                } else {
+            } else {
                     n = t - this.startTime;
                     this.state = n / options.duration;
 
                     // Perform the easing function, defaults to swing
                     this.pos = jQuery.easing[options.animatedProperties[this.prop]](this.state, n, 0, 1, options.duration);
                     this.now = this.start + ( (this.end - this.start) * this.pos );
-                }
+            }
                 // Perform the next step of the animation
                 this.update();
-            }
+        }
 
             return true;
         }
@@ -8854,7 +8853,7 @@
                 // Checks the timer has not already been removed
                 if (!timer() && timers[i] === timer) {
                     timers.splice(i--, 1);
-                }
+            }
             }
 
             if (!timers.length) {
@@ -8886,8 +8885,8 @@
                     fx.elem.style[fx.prop] = fx.now + fx.unit;
                 } else {
                     fx.elem[fx.prop] = fx.now;
-                }
             }
+        }
         }
     });
 
@@ -8943,11 +8942,11 @@
 
                 display = jQuery.css(elem, "display");
                 body.removeChild(iframe);
-            }
+        }
 
             // Store the correct default display
             elemdisplay[nodeName] = display;
-        }
+    }
 
         return elemdisplay[nodeName];
     }
@@ -9044,16 +9043,16 @@
                     if (jQuery.support.doesNotAddBorder && !(jQuery.support.doesAddBorderForTableAndCells && rtable.test(elem.nodeName))) {
                         top += parseFloat(computedStyle.borderTopWidth) || 0;
                         left += parseFloat(computedStyle.borderLeftWidth) || 0;
-                    }
+                }
 
                     prevOffsetParent = offsetParent;
                     offsetParent = elem.offsetParent;
-                }
+            }
 
                 if (jQuery.support.subtractsBorderForOverflowNotVisible && computedStyle.overflow !== "visible") {
                     top += parseFloat(computedStyle.borderTopWidth) || 0;
                     left += parseFloat(computedStyle.borderLeftWidth) || 0;
-                }
+            }
 
                 prevComputedStyle = computedStyle;
             }
@@ -9113,7 +9112,7 @@
 
             if (jQuery.isFunction(options)) {
                 options = options.call(elem, i, curOffset);
-            }
+        }
 
             if (options.top != null) {
                 props.top = ( options.top - curOffset.top ) + curTop;
@@ -9191,7 +9190,7 @@
 
                 if (!elem) {
                     return null;
-                }
+            }
 
                 win = getWindow(elem);
 

@@ -1066,21 +1066,21 @@
       this.options = options || {};
       this.el = this.getOption('el');
 
-      // Handle when this.el is passed in as a $ wrapped element.
+          // Handle when this.el is passed in as a $ wrapped element.
       this.el = this.el instanceof Backbone.$ ? this.el[0] : this.el;
 
-      if (!this.el) {
+          if (!this.el) {
         throw new Marionette.Error({
           name: 'NoElError',
           message: 'An "el" must be specified for a region.'
         });
       }
 
-      this.$el = this.getEl(this.el);
+          this.$el = this.getEl(this.el);
       Marionette.Object.call(this, options);
     },
 
-    // Displays a backbone view instance inside of the region.
+        // Displays a backbone view instance inside of the region.
     // Handles calling the `render` method for you. Reads content
     // directly from the `el` attribute. Also calls an optional
     // `onShow` and `onDestroy` method on your view, just after showing
@@ -1094,7 +1094,7 @@
         return;
       }
 
-      this._ensureViewIsIntact(view);
+          this._ensureViewIsIntact(view);
           Marionette.MonitorDOMRefresh(view);
 
       var showOptions     = options || {};
@@ -1102,110 +1102,110 @@
       var preventDestroy  = !!showOptions.preventDestroy;
       var forceShow       = !!showOptions.forceShow;
 
-      // We are only changing the view if there is a current view to change to begin with
+          // We are only changing the view if there is a current view to change to begin with
       var isChangingView = !!this.currentView;
 
-      // Only destroy the current view if we don't want to `preventDestroy` and if
+          // Only destroy the current view if we don't want to `preventDestroy` and if
       // the view given in the first argument is different than `currentView`
       var _shouldDestroyView = isDifferentView && !preventDestroy;
 
-      // Only show the view given in the first argument if it is different than
+          // Only show the view given in the first argument if it is different than
       // the current view or if we want to re-show the view. Note that if
       // `_shouldDestroyView` is true, then `_shouldShowView` is also necessarily true.
       var _shouldShowView = isDifferentView || forceShow;
 
-      if (isChangingView) {
+          if (isChangingView) {
         this.triggerMethod('before:swapOut', this.currentView, this, options);
       }
 
-      if (this.currentView) {
+          if (this.currentView) {
         delete this.currentView._parent;
       }
 
-      if (_shouldDestroyView) {
+          if (_shouldDestroyView) {
         this.empty();
 
-      // A `destroy` event is attached to the clean up manually removed views.
+            // A `destroy` event is attached to the clean up manually removed views.
       // We need to detach this event when a new view is going to be shown as it
       // is no longer relevant.
       } else if (isChangingView && _shouldShowView) {
         this.currentView.off('destroy', this.empty, this);
       }
 
-      if (_shouldShowView) {
+          if (_shouldShowView) {
 
-        // We need to listen for if a view is destroyed
+            // We need to listen for if a view is destroyed
         // in a way other than through the region.
         // If this happens we need to remove the reference
         // to the currentView since once a view has been destroyed
         // we can not reuse it.
         view.once('destroy', this.empty, this);
 
-        this._renderView(view);
+            this._renderView(view);
 
-        view._parent = this;
+            view._parent = this;
 
-        if (isChangingView) {
+            if (isChangingView) {
           this.triggerMethod('before:swap', view, this, options);
         }
 
-        this.triggerMethod('before:show', view, this, options);
+            this.triggerMethod('before:show', view, this, options);
         Marionette.triggerMethodOn(view, 'before:show', view, this, options);
 
-        if (isChangingView) {
+            if (isChangingView) {
           this.triggerMethod('swapOut', this.currentView, this, options);
         }
 
-        // An array of views that we're about to display
+            // An array of views that we're about to display
         var attachedRegion = Marionette.isNodeAttached(this.el);
 
-        // The views that we're about to attach to the document
+            // The views that we're about to attach to the document
         // It's important that we prevent _getNestedViews from being executed unnecessarily
         // as it's a potentially-slow method
         var displayedViews = [];
 
-        var attachOptions = _.extend({
+            var attachOptions = _.extend({
           triggerBeforeAttach: this.triggerBeforeAttach,
           triggerAttach: this.triggerAttach
         }, showOptions);
 
-        if (attachedRegion && attachOptions.triggerBeforeAttach) {
+            if (attachedRegion && attachOptions.triggerBeforeAttach) {
           displayedViews = this._displayedViews(view);
           this._triggerAttach(displayedViews, 'before:');
         }
 
-        this.attachHtml(view);
+            this.attachHtml(view);
         this.currentView = view;
 
-        if (attachedRegion && attachOptions.triggerAttach) {
+            if (attachedRegion && attachOptions.triggerAttach) {
           displayedViews = this._displayedViews(view);
           this._triggerAttach(displayedViews);
         }
 
-        if (isChangingView) {
+            if (isChangingView) {
           this.triggerMethod('swap', view, this, options);
         }
 
-        this.triggerMethod('show', view, this, options);
+            this.triggerMethod('show', view, this, options);
         Marionette.triggerMethodOn(view, 'show', view, this, options);
 
-        return this;
+            return this;
       }
 
-      return this;
+          return this;
     },
 
-    triggerBeforeAttach: true,
+        triggerBeforeAttach: true,
     triggerAttach: true,
 
-    _triggerAttach: function(views, prefix) {
+        _triggerAttach: function(views, prefix) {
       var eventName = (prefix || '') + 'attach';
       _.each(views, function(view) {
         Marionette.triggerMethodOn(view, eventName, view, this);
       }, this);
     },
 
-    _displayedViews: function(view) {
+        _displayedViews: function(view) {
       return _.union([view], _.result(view, '_getNestedViews') || []);
     },
 
@@ -1225,7 +1225,7 @@
         this.el = this.$el[0];
       }
 
-      if (!this.$el || this.$el.length === 0) {
+          if (!this.$el || this.$el.length === 0) {
         if (this.getOption('allowMissingEl')) {
           return false;
         } else {
@@ -1235,7 +1235,7 @@
       return true;
     },
 
-    _ensureViewIsIntact: function(view) {
+        _ensureViewIsIntact: function(view) {
       if (!view) {
         throw new Marionette.Error({
           name: 'ViewNotValid',
@@ -1243,7 +1243,7 @@
         });
       }
 
-      if (view.isDestroyed) {
+          if (view.isDestroyed) {
         throw new Marionette.Error({
           name: 'ViewDestroyedError',
           message: 'View (cid: "' + view.cid + '") has already been destroyed and cannot be used.'
@@ -1251,14 +1251,14 @@
       }
     },
 
-    // Override this method to change how the region finds the DOM
+        // Override this method to change how the region finds the DOM
     // element that it manages. Return a jQuery selector object scoped
     // to a provided parent el or the document if none exists.
     getEl: function(el) {
       return Backbone.$(el, Marionette._getValue(this.options.parentEl, this));
     },
 
-    // Override this method to change how the new view is
+        // Override this method to change how the new view is
     // appended to the `$el` that the region is managing
     attachHtml: function(view) {
       this.$el.contents().detach();
@@ -1266,7 +1266,7 @@
       this.el.appendChild(view.el);
     },
 
-    // Destroy the current view, if there is one. If there is no
+        // Destroy the current view, if there is one. If there is no
     // current view, it does nothing and returns immediately.
         empty: function (options) {
       var view = this.currentView;
@@ -1277,14 +1277,14 @@
       // we should not remove anything
       if (!view) { return; }
 
-      view.off('destroy', this.empty, this);
+          view.off('destroy', this.empty, this);
       this.triggerMethod('before:empty', view);
           if (!preventDestroy) {
             this._destroyView();
           }
       this.triggerMethod('empty', view);
 
-      // Remove region pointer to the currentView
+          // Remove region pointer to the currentView
       delete this.currentView;
 
           if (preventDestroy) {
@@ -1294,7 +1294,7 @@
       return this;
     },
 
-    // call 'destroy' or 'remove', depending on which is found
+        // call 'destroy' or 'remove', depending on which is found
     // on the view (if showing a raw Backbone view or a Marionette View)
     _destroyView: function() {
       var view = this.currentView;
@@ -1319,7 +1319,7 @@
       }
     },
 
-    // Attach an existing view to the region. This
+        // Attach an existing view to the region. This
     // will not call `render` or `onShow` for the new view,
     // and will not replace the current HTML for the `el`
     // of the region.
@@ -1332,14 +1332,14 @@
       return this;
     },
 
-    // Checks whether a view is currently present within
+        // Checks whether a view is currently present within
     // the region. Returns `true` if there is and `false` if
     // no view is present.
     hasView: function() {
       return !!this.currentView;
     },
 
-    // Reset the region by destroying any existing view and
+        // Reset the region by destroying any existing view and
     // clearing out the cached `$el`. The next time a view
     // is shown via this region, the region will re-query the
     // DOM for the region's `el`.
@@ -1354,9 +1354,9 @@
       return this;
     }
 
-  },
+      },
 
-  // Static Methods
+      // Static Methods
   {
 
     // Build an instance of a region by passing in a configuration object

@@ -38,7 +38,7 @@ MathJax.Localization.addTranslation("tr", null, {
                 ProcessMath: "Matematik i\u015Fleme: %%%1",
                 MathJaxNotSupported: "Taray\u0131c\u0131n\u0131z MathJax'i desteklemiyor"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

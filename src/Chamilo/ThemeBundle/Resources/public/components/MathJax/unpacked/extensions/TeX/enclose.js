@@ -32,65 +32,65 @@
  */
 
 MathJax.Extension["TeX/enclose"] = {
-    version: "2.5.0",
+  version: "2.5.0",
 
-    //
-    //  The attributes allowed in \enclose{notation}[attributes]{math}
-    //
-    ALLOWED: {
-        arrow: 1,
-        color: 1, mathcolor: 1,
-        background: 1, mathbackground: 1,
-        padding: 1,
-        thickness: 1
-    }
+  //
+  //  The attributes allowed in \enclose{notation}[attributes]{math}
+  //
+  ALLOWED: {
+    arrow: 1,
+    color: 1, mathcolor: 1,
+    background: 1, mathbackground: 1,
+    padding: 1,
+    thickness: 1
+  }
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
-    var TEX = MathJax.InputJax.TeX,
-        MML = MathJax.ElementJax.mml,
-        ALLOW = MathJax.Extension["TeX/enclose"].ALLOWED;
+  var TEX = MathJax.InputJax.TeX,
+      MML = MathJax.ElementJax.mml,
+      ALLOW = MathJax.Extension["TeX/enclose"].ALLOWED;
 
-    //
-    //  Set up macro
-    //
-    TEX.Definitions.Add({macros: {enclose: 'Enclose'}}, null, true);
+  //
+  //  Set up macro
+  //
+  TEX.Definitions.Add({macros: {enclose: 'Enclose'}}, null, true);
 
-    TEX.Parse.Augment({
-        //
-        //  Implement \enclose{notation}[attr]{math}
-        //    (create <menclose notation="notation">math</menclose>)
-        //
-        Enclose: function (name) {
-            var notation = this.GetArgument(name),
-                attr = this.GetBrackets(name),
-                math = this.ParseArg(name);
-            var def = {notation: notation.replace(/,/g, " ")};
-            if (attr) {
-                attr = attr.replace(/ /g, "").split(/,/);
-                for (var i = 0, m = attr.length; i < m; i++) {
-                    var keyvalue = attr[i].split(/[:=]/);
-                    if (ALLOW[keyvalue[0]]) {
-                        keyvalue[1] = keyvalue[1].replace(/^"(.*)"$/, "$1");
-                        if (keyvalue[1] === "true") {
-                            keyvalue[1] = true
-                        }
-                        if (keyvalue[1] === "false") {
-                            keyvalue[1] = false
-                        }
-                        if (keyvalue[0] === "arrow" && keyvalue[1]) {
-                            def.notation = def.notation + " updiagonalarrow"
-                        } else {
-                            def[keyvalue[0]] = keyvalue[1]
-                        }
-                    }
-                }
+  TEX.Parse.Augment({
+    //
+    //  Implement \enclose{notation}[attr]{math}
+    //    (create <menclose notation="notation">math</menclose>)
+    //
+    Enclose: function (name) {
+      var notation = this.GetArgument(name),
+          attr = this.GetBrackets(name),
+          math = this.ParseArg(name);
+      var def = {notation: notation.replace(/,/g, " ")};
+      if (attr) {
+        attr = attr.replace(/ /g, "").split(/,/);
+        for (var i = 0, m = attr.length; i < m; i++) {
+          var keyvalue = attr[i].split(/[:=]/);
+          if (ALLOW[keyvalue[0]]) {
+            keyvalue[1] = keyvalue[1].replace(/^"(.*)"$/, "$1");
+            if (keyvalue[1] === "true") {
+              keyvalue[1] = true
             }
-            this.Push(MML.menclose(math).With(def));
+            if (keyvalue[1] === "false") {
+              keyvalue[1] = false
+            }
+            if (keyvalue[0] === "arrow" && keyvalue[1]) {
+              def.notation = def.notation + " updiagonalarrow"
+            } else {
+              def[keyvalue[0]] = keyvalue[1]
+            }
+          }
         }
-    });
+      }
+      this.Push(MML.menclose(math).With(def));
+    }
+  });
 
-    MathJax.Hub.Startup.signal.Post("TeX enclose Ready");
+  MathJax.Hub.Startup.signal.Post("TeX enclose Ready");
 
 });
 

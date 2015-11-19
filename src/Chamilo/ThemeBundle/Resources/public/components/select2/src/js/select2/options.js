@@ -1,122 +1,122 @@
 define([
-    'require',
-    'jquery',
-    './defaults',
-    './utils'
+  'require',
+  'jquery',
+  './defaults',
+  './utils'
 ], function (require, $, Defaults, Utils) {
-    function Options(options, $element) {
-        this.options = options;
+  function Options(options, $element) {
+    this.options = options;
 
-        if ($element != null) {
-            this.fromElement($element);
-        }
-
-        this.options = Defaults.apply(this.options);
-
-        if ($element && $element.is('input')) {
-            var InputCompat = require(this.get('amdBase') + 'compat/inputData');
-
-            this.options.dataAdapter = Utils.Decorate(
-                this.options.dataAdapter,
-                InputCompat
-            );
-        }
+    if ($element != null) {
+      this.fromElement($element);
     }
 
-    Options.prototype.fromElement = function ($e) {
-        var excludedData = ['select2'];
+    this.options = Defaults.apply(this.options);
 
-        if (this.options.multiple == null) {
-            this.options.multiple = $e.prop('multiple');
-        }
+    if ($element && $element.is('input')) {
+      var InputCompat = require(this.get('amdBase') + 'compat/inputData');
 
-        if (this.options.disabled == null) {
-            this.options.disabled = $e.prop('disabled');
-        }
+      this.options.dataAdapter = Utils.Decorate(
+          this.options.dataAdapter,
+          InputCompat
+      );
+    }
+  }
 
-        if (this.options.language == null) {
-            if ($e.prop('lang')) {
-                this.options.language = $e.prop('lang').toLowerCase();
-            } else if ($e.closest('[lang]').prop('lang')) {
-                this.options.language = $e.closest('[lang]').prop('lang');
-            }
-        }
+  Options.prototype.fromElement = function ($e) {
+    var excludedData = ['select2'];
 
-        if (this.options.dir == null) {
-            if ($e.prop('dir')) {
-                this.options.dir = $e.prop('dir');
-            } else if ($e.closest('[dir]').prop('dir')) {
-                this.options.dir = $e.closest('[dir]').prop('dir');
-            } else {
-                this.options.dir = 'ltr';
-            }
-        }
+    if (this.options.multiple == null) {
+      this.options.multiple = $e.prop('multiple');
+    }
 
-        $e.prop('disabled', this.options.disabled);
-        $e.prop('multiple', this.options.multiple);
+    if (this.options.disabled == null) {
+      this.options.disabled = $e.prop('disabled');
+    }
 
-        if ($e.data('select2Tags')) {
-            if (this.options.debug && window.console && console.warn) {
-                console.warn(
-                    'Select2: The `data-select2-tags` attribute has been changed to ' +
-                    'use the `data-data` and `data-tags="true"` attributes and will be ' +
-                    'removed in future versions of Select2.'
-                );
-            }
+    if (this.options.language == null) {
+      if ($e.prop('lang')) {
+        this.options.language = $e.prop('lang').toLowerCase();
+      } else if ($e.closest('[lang]').prop('lang')) {
+        this.options.language = $e.closest('[lang]').prop('lang');
+      }
+    }
 
-            $e.data('data', $e.data('select2Tags'));
-            $e.data('tags', true);
-        }
+    if (this.options.dir == null) {
+      if ($e.prop('dir')) {
+        this.options.dir = $e.prop('dir');
+      } else if ($e.closest('[dir]').prop('dir')) {
+        this.options.dir = $e.closest('[dir]').prop('dir');
+      } else {
+        this.options.dir = 'ltr';
+      }
+    }
 
-        if ($e.data('ajaxUrl')) {
-            if (this.options.debug && window.console && console.warn) {
-                console.warn(
-                    'Select2: The `data-ajax-url` attribute has been changed to ' +
-                    '`data-ajax--url` and support for the old attribute will be removed' +
-                    ' in future versions of Select2.'
-                );
-            }
+    $e.prop('disabled', this.options.disabled);
+    $e.prop('multiple', this.options.multiple);
 
-            $e.attr('ajax--url', $e.data('ajaxUrl'));
-            $e.data('ajax--url', $e.data('ajaxUrl'));
-        }
+    if ($e.data('select2Tags')) {
+      if (this.options.debug && window.console && console.warn) {
+        console.warn(
+            'Select2: The `data-select2-tags` attribute has been changed to ' +
+            'use the `data-data` and `data-tags="true"` attributes and will be ' +
+            'removed in future versions of Select2.'
+        );
+      }
 
-        var dataset = {};
+      $e.data('data', $e.data('select2Tags'));
+      $e.data('tags', true);
+    }
 
-        // Prefer the element's `dataset` attribute if it exists
-        // jQuery 1.x does not correctly handle data attributes with multiple dashes
-        if ($.fn.jquery && $.fn.jquery.substr(0, 2) == '1.' && $e[0].dataset) {
-            dataset = $.extend(true, {}, $e[0].dataset, $e.data());
-        } else {
-            dataset = $e.data();
-        }
+    if ($e.data('ajaxUrl')) {
+      if (this.options.debug && window.console && console.warn) {
+        console.warn(
+            'Select2: The `data-ajax-url` attribute has been changed to ' +
+            '`data-ajax--url` and support for the old attribute will be removed' +
+            ' in future versions of Select2.'
+        );
+      }
 
-        var data = $.extend(true, {}, dataset);
+      $e.attr('ajax--url', $e.data('ajaxUrl'));
+      $e.data('ajax--url', $e.data('ajaxUrl'));
+    }
 
-        data = Utils._convertData(data);
+    var dataset = {};
 
-        for (var key in data) {
-            if ($.inArray(key, excludedData) > -1) {
-                continue;
-            }
+    // Prefer the element's `dataset` attribute if it exists
+    // jQuery 1.x does not correctly handle data attributes with multiple dashes
+    if ($.fn.jquery && $.fn.jquery.substr(0, 2) == '1.' && $e[0].dataset) {
+      dataset = $.extend(true, {}, $e[0].dataset, $e.data());
+    } else {
+      dataset = $e.data();
+    }
 
-            if ($.isPlainObject(this.options[key])) {
-                $.extend(this.options[key], data[key]);
-            } else {
-                this.options[key] = data[key];
-            }
-        }
+    var data = $.extend(true, {}, dataset);
 
-        return this;
-    };
+    data = Utils._convertData(data);
 
-    Options.prototype.get = function (key) {
-        return this.options[key];
-    };
+    for (var key in data) {
+      if ($.inArray(key, excludedData) > -1) {
+        continue;
+      }
 
-    Options.prototype.set = function (key, val) {
-        this.options[key] = val;
-    };
+      if ($.isPlainObject(this.options[key])) {
+        $.extend(this.options[key], data[key]);
+      } else {
+        this.options[key] = data[key];
+      }
+    }
 
-    return Options;
+    return this;
+  };
+
+  Options.prototype.get = function (key) {
+    return this.options[key];
+  };
+
+  Options.prototype.set = function (key, val) {
+    this.options[key] = val;
+  };
+
+  return Options;
 });

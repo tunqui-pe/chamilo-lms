@@ -41,7 +41,7 @@ MathJax.Localization.addTranslation("sco", null, {
                 Typesetting: "Typesettin",
                 MathJaxNotSupported: "Yer brouser disna support MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

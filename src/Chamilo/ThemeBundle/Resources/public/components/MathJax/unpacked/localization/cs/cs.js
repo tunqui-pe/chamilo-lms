@@ -42,7 +42,7 @@ MathJax.Localization.addTranslation("cs", null, {
                 Typesetting: "S\u00E1z\u00ED se",
                 MathJaxNotSupported: "V\u00E1\u0161 prohl\u00ED\u017Ee\u010D nepodporuje MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

@@ -42,7 +42,7 @@ MathJax.Localization.addTranslation("ru", null, {
                 Typesetting: "\u0412\u0451\u0440\u0441\u0442\u043A\u0430",
                 MathJaxNotSupported: "\u0412\u0430\u0448 \u0431\u0440\u0430\u0443\u0437\u0435\u0440 \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

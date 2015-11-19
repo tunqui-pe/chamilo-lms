@@ -42,7 +42,7 @@ MathJax.Localization.addTranslation("mk", null, {
                 Typesetting: "\u0421\u043B\u043E\u0436\u0443\u0432\u0430\u043C \u0438\u0441\u043F\u0438\u0441",
                 MathJaxNotSupported: "\u0412\u0430\u0448\u0438\u043E\u0442 \u043F\u0440\u0435\u0431\u0430\u0440\u0443\u0432\u0430\u0447 \u043D\u0435 \u0433\u043E \u043F\u043E\u0434\u0434\u0440\u0436\u0443\u0432\u0430 MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

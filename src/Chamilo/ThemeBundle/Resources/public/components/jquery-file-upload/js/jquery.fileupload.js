@@ -926,9 +926,9 @@
                                     if (that._getDeferredState(nextSlot) === 'pending') {
                                         nextSlot.resolve();
                                         break;
-                                    }
-                                    nextSlot = that._slots.shift();
                                 }
+                                    nextSlot = that._slots.shift();
+                            }
                             }
                             if (that._active === 0) {
                                 // The stop callback is triggered when all uploads have
