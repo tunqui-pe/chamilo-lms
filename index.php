@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+die('Use web/app_dev.php');
+
 /**
  * @package chamilo.main
  */
@@ -71,7 +73,7 @@ if (isset($_GET['submitAuth']) && $_GET['submitAuth'] == 1) {
 }
 
 // Delete session item necessary to check for legal terms
-if (api_get_setting('allow_terms_conditions') == 'true') {
+if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     Session::erase('term_and_condition');
 }
 //If we are not logged in and customapages activated
@@ -137,7 +139,7 @@ $announcements_block = null;
 
 
 // Display the Site Use Cookie Warning Validation
-$useCookieValidation = api_get_setting('cookie_warning');
+$useCookieValidation = api_get_setting('platform.cookie_warning');
 if ($useCookieValidation === 'true') {
     if (isset($_POST['acceptCookies'])) {
         api_set_site_use_cookie_warning_cookie();
@@ -154,7 +156,7 @@ if ($useCookieValidation === 'true') {
 // When loading a chamilo page do not include the hot courses and news
 
 if (!isset($_REQUEST['include'])) {
-    if (api_get_setting('show_hot_courses') == 'true') {
+    if (api_get_setting('display.show_hot_courses') == 'true') {
         $hot_courses = $controller->return_hot_courses();
     }
     $announcements_block = $controller->return_announcements();
