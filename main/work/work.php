@@ -128,7 +128,7 @@ switch ($action) {
                 $_POST['show_score'],
                 $_POST['student_delete_own_publication']
             );
-            Session::write('message', Display::return_message(get_lang('Saved'), 'success'));
+            Display::return_message(get_lang('Saved'));
             header('Location: '.$currentUrl);
             exit;
         }
@@ -168,12 +168,11 @@ switch ($action) {
             );
 
             if ($result) {
-                $message = Display::return_message(get_lang('DirectoryCreated'), 'success');
+                Display::return_message(get_lang('DirectoryCreated'), 'success');
             } else {
-                $message = Display::return_message(get_lang('CannotCreateDir'), 'error');
+                Display::return_message(get_lang('CannotCreateDir'), 'error');
             }
 
-            Session::write('message', $message);
             header('Location: '.$currentUrl);
             exit;
         } else {
@@ -185,11 +184,10 @@ switch ($action) {
             $work_to_delete = get_work_data_by_id($_REQUEST['id']);
             $result = deleteDirWork($_REQUEST['id']);
             if ($result) {
-                $message = Display::return_message(
+                Display::return_message(
                     get_lang('DirDeleted') . ': ' . $work_to_delete['title'],
                     'success'
                 );
-                Session::write('message', $message);
             }
             header('Location: '.$currentUrl);
             exit;
@@ -238,14 +236,13 @@ switch ($action) {
                         $user_id
                     );
 
-                    $message = Display::return_message(get_lang('DirMv'), 'success');
+                    Display::return_message(get_lang('DirMv'), 'success');
                 } else {
-                    $message = Display::return_message(get_lang('Impossible'), 'error');
+                    Display::return_message(get_lang('Impossible'), 'error');
                 }
             } else {
-                $message = Display::return_message(get_lang('Impossible'), 'error');
+                Display::return_message(get_lang('Impossible'), 'error');
             }
-            Display::addFlash($message);
             header('Location: '.$currentUrl);
             exit;
         }
@@ -267,11 +264,10 @@ switch ($action) {
             null,
             $session_id
         );
-        Display::addFlash(
-            Display::return_message(
-                get_lang('VisibilityChanged'),
-                'confirmation'
-            )
+
+        Display::return_message(
+            get_lang('VisibilityChanged'),
+            'confirmation'
         );
 
         header('Location: '.$currentUrl);
@@ -296,11 +292,9 @@ switch ($action) {
             $session_id
         );
 
-        Display::addFlash(
-            Display::return_message(
-                get_lang('VisibilityChanged'),
-                'confirmation'
-            )
+        Display::return_message(
+            get_lang('VisibilityChanged'),
+            'confirmation'
         );
 
         header('Location: '.$currentUrl);
@@ -318,14 +312,16 @@ switch ($action) {
             // Work list
 
             $content .= '<div class="row">';
-            $content .= '<div class="col-md-12">';
-            $content .= '<div class="table-responsive">';
-            $content .= Display::panel(showTeacherWorkGrid());
-            $content .= '</div>';
-            $content .= '</div>';
-            $content .= '<div id="student-list-work" style="display: none" class="table-responsive">';
-            $content .= '<div class="toolbar"><a id="closed-view-list" href="#"><em class="fa fa-times-circle"></em> ' .get_lang('Close'). '</a></div>';
-            $content .= showStudentList($work_id);
+                $content .= '<div class="col-md-12">';
+                    $content .= '<div class="table-responsive">';
+                    $content .= Display::panel(showTeacherWorkGrid());
+                    $content .= '</div>';
+                $content .= '</div>';
+
+                $content .= '<div id="student-list-work" style="display: none" class="table-responsive">';
+                $content .= '<div class="toolbar"><a id="closed-view-list" href="#"><em class="fa fa-times-circle"></em> ' .get_lang('Close'). '</a></div>';
+                $content .= showStudentList($work_id);
+                $content .= '</div>';
             $content .= '</div>';
         } else {
             $content .= Display::panel(showStudentWorkGrid());
@@ -333,7 +329,6 @@ switch ($action) {
         break;
 }
 
-Display :: display_header(null);
 Display::display_introduction_section(TOOL_STUDENTPUBLICATION);
 
 if ($origin == 'learnpath') {
@@ -342,9 +337,4 @@ if ($origin == 'learnpath') {
 
 display_action_links($work_id, $curdirpath, $action);
 
-$message = Session::read('message');
-echo $message;
-Session::erase('message');
 echo $content;
-
-Display::display_footer();

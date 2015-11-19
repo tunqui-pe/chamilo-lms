@@ -2160,8 +2160,8 @@ HTML;
             return '-';
         }
 
-        $max_note = api_get_setting('exercise_max_score');
-        $min_note = api_get_setting('exercise_min_score');
+        $max_note = api_get_setting('exercise.exercise_max_score');
+        $min_note = api_get_setting('exercise.exercise_min_score');
 
         if ($use_platform_settings) {
             if ($max_note != '' && $min_note != '') {

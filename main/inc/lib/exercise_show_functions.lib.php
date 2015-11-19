@@ -241,34 +241,34 @@ class ExerciseShowFunctions
         $ans,
         $in_results_disabled
     ) {
-
         $hide_expected_answer = false;
         if ($feedback_type == 0 && $in_results_disabled == 2) {
             $hide_expected_answer = true;
         }
-		?>
-		<tr>
-		<td width="5%">
-			<img src="../img/<?php echo (in_array($answerType, array(UNIQUE_ANSWER, UNIQUE_ANSWER_NO_OPTION))) ? 'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif"
-			border="0" alt="" />
-		</td>
-		<td width="5%">
-            <?php if (!$hide_expected_answer) { ?>
-			    <img src="../img/<?php echo (in_array($answerType, array(UNIQUE_ANSWER, UNIQUE_ANSWER_NO_OPTION))) ? 'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0" alt=" " />
-            <?php }
-            else {
-                echo "-";
-            }?>
-		</td>
-		<td width="40%">
-			<?php
-			echo $answer;
-			?>
-		</td>
+        echo '<tr><td width="5%">';
+        $type = in_array($answerType, array(UNIQUE_ANSWER, UNIQUE_ANSWER_NO_OPTION)) ? 'radio' : 'checkbox';
 
-		<?php if ($feedback_type != EXERCISE_FEEDBACK_TYPE_EXAM) { ?>
-		<td width="20%">
-			<?php
+        $file = $type.($studentChoice ? '_on' : '_off');
+        $file .= '.gif';
+        echo Display::return_icon($file);
+        echo '</td>';
+        echo '<td width="5%">';
+
+        $file = $type.($answerCorrect ? '_on' : '_off');
+        $file .= '.gif';
+
+        if (!$hide_expected_answer) {
+            echo Display::return_icon($file);
+        } else {
+            echo "-";
+        }
+		echo '</td>';
+		echo '<td width="40%">';
+        echo $answer;
+		echo '</td>';
+
+        if ($feedback_type != EXERCISE_FEEDBACK_TYPE_EXAM) {
+		    echo '<td width="20%">';
             if ($studentChoice) {
 				if ($answerCorrect) {
                     $color = 'green';
@@ -286,18 +286,14 @@ class ExerciseShowFunctions
                     //echo '<span style="font-weight: normal; color: #000;">'.nl2br($answerComment).'</span>';
 				}
 			}
-			?>
-		</td>
-			<?php
+		    echo '</td>';
 		    if ($ans==1) {
 		        $comm = Event::get_comments($id,$questionId);
 			}
-		    ?>
-		 <?php } else { ?>
-			<td>&nbsp;</td>
-		<?php } ?>
-		</tr>
-		<?php
+        } else {
+			echo '<td>&nbsp;</td>';
+		}
+		echo '</tr>';
 	}
 
     /**
