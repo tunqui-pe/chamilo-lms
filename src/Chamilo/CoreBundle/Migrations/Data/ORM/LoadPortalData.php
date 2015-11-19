@@ -70,7 +70,7 @@ class LoadPortalData extends AbstractFixture implements
     public function load(ObjectManager $manager)
     {
         /** @var HttpKernelInterface $kernel */
-        $kernel = $this->container->get('kernel');
+        //$kernel = $this->container->get('kernel');
 
         $courseCategory = new CourseCategory();
         $courseCategory->setName('Language skills');
@@ -125,8 +125,8 @@ class LoadPortalData extends AbstractFixture implements
         $this->setReference('access_url', $accessUrl);
 
         $accessUrlRelUser = new AccessUrlRelUser();
-        $accessUrlRelUser->setUserId($adminUserId);
-        $accessUrlRelUser->setAccessUrlId($accessUrlId);
+        $accessUrlRelUser->setUser($adminUser);
+        $accessUrlRelUser->setPortal($accessUrl);
         $manager->persist($accessUrlRelUser);
 
         /*$systemTemplate = new SystemTemplate();
@@ -245,7 +245,6 @@ class LoadPortalData extends AbstractFixture implements
         $tool->setName('glossary');
         $manager->persist($tool);*/
 
-
         $languages = Intl::getLocaleBundle()->getLocaleNames('en');
 
         // Getting po files inside the path
@@ -266,7 +265,8 @@ class LoadPortalData extends AbstractFixture implements
             );
             $availableIsoCode[] = $isoCodeInFolder;
         }*/
-        // use this just for now
+
+        // @todo use this languages just for now
         $availableIsoCode = ['en', 'es', 'fr', 'nl', 'ru', 'se'];
         foreach ($languages as $code => $languageName) {
             if (!in_array($code, $availableIsoCode)) {

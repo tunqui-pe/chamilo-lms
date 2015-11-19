@@ -1,10 +1,12 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @todo fix in migration
  * AccessUrlRelUser
  *
  * @ORM\Table(name="access_url_rel_user", indexes={@ORM\Index(name="idx_access_url_rel_user_user", columns={"user_id"}), @ORM\Index(name="idx_access_url_rel_user_access_url", columns={"access_url_id"}), @ORM\Index(name="idx_access_url_rel_user_access_url_user", columns={"user_id", "access_url_id"})})
@@ -15,18 +17,10 @@ class AccessUrlRelUser
     /**
      * @var integer
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\Column(name="access_url_id", type="integer")
+     * @ORM\GeneratedValue
+     * @ORM\Column(name="id", type="integer")
      */
-    private $accessUrlId;
-
-    /**
-     * @var integer
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\Column(name="user_id", type="integer")
-     */
-    private $userId;
+    private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Chamilo\UserBundle\Entity\User")
@@ -41,48 +35,34 @@ class AccessUrlRelUser
     protected $portal;
 
     /**
-     * Set accessUrlId
-     *
-     * @param integer $accessUrlId
-     * @return AccessUrlRelUser
+     * @return mixed
      */
-    public function setAccessUrlId($accessUrlId)
+    public function getUser()
     {
-        $this->accessUrlId = $accessUrlId;
-
-        return $this;
+        return $this->user;
     }
 
     /**
-     * Get accessUrlId
-     *
-     * @return integer
+     * @param mixed $user
      */
-    public function getAccessUrlId()
+    public function setUser($user)
     {
-        return $this->accessUrlId;
+        $this->user = $user;
     }
 
     /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return AccessUrlRelUser
+     * @return mixed
      */
-    public function setUserId($userId)
+    public function getPortal()
     {
-        $this->userId = $userId;
-
-        return $this;
+        return $this->portal;
     }
 
     /**
-     * Get userId
-     *
-     * @return integer
+     * @param mixed $portal
      */
-    public function getUserId()
+    public function setPortal($portal)
     {
-        return $this->userId;
+        $this->portal = $portal;
     }
 }
