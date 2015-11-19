@@ -90,7 +90,7 @@ class GradeModel extends Model
             false,
             false,
             array(
-                'ToolbarSet' => 'careers',
+                'ToolbarSet' => 'Careers',
                 'Width' => '100%',
                 'Height' => '250'
             )

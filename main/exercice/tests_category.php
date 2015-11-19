@@ -82,7 +82,7 @@ function edit_category_form($action) {
             get_lang('CategoryDescription'),
             false,
             false,
-            array('ToolbarSet' => 'test_category', 'Height' => '200')
+            array('ToolbarSet' => 'TestQuestionDescription', 'Height' => '200')
         );
         $form->addButtonSave(get_lang('ModifyCategory'), 'SubmitNote');
 
@@ -144,7 +144,8 @@ function delete_category_form($action) {
  * @todo move to TestCategory.class.php
  * @param string $action
  */
-function add_category_form($action) {
+function add_category_form($action)
+{
     $action = Security::remove_XSS($action);
     // initiate the object
     $form = new FormValidator('note', 'post', api_get_self() . '?action=' . $action);
@@ -156,7 +157,7 @@ function add_category_form($action) {
         get_lang('CategoryDescription'),
         false,
         false,
-        array('ToolbarSet' => 'test_category', 'Height' => '200')
+        array('ToolbarSet' => 'TestQuestionDescription', 'Height' => '200')
     );
     $form->addButtonCreate(get_lang('AddTestCategory'), 'SubmitNote');
     // setting the rules

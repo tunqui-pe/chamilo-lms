@@ -266,7 +266,13 @@ if ($action == 'thematic_list') {
     }
 
     $form->addText('title', get_lang('Title'), true, array('size'=>'50'));
-    $form->addHtmlEditor('content', get_lang('Content'), false, false, array('ToolbarSet' => 'TrainingDescription', 'Height' => '150'));
+    $form->addHtmlEditor(
+        'content',
+        get_lang('Content'),
+        false,
+        false,
+        array('ToolbarSet' => 'TrainingDescription', 'Height' => '150')
+    );
     $form->addButtonSave(get_lang('Save'));
 
     $show_form = true;

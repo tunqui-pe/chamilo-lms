@@ -233,22 +233,62 @@ if ($user_already_registered_show_terms == false) {
     if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true'
     ) {
-        $form->addHtmlEditor('competences', get_lang('MyCompetences'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
+        $form->addHtmlEditor(
+            'competences',
+            get_lang('MyCompetences'),
+            false,
+            false,
+            array(
+                'ToolbarSet' => 'Register',
+                'Width' => '100%',
+                'Height' => '130',
+            )
+        );
     }
     if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'mydiplomas') == 'true'
     ) {
-        $form->addHtmlEditor('diplomas', get_lang('MyDiplomas'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
+        $form->addHtmlEditor(
+            'diplomas',
+            get_lang('MyDiplomas'),
+            false,
+            false,
+            array(
+                'ToolbarSet' => 'Register',
+                'Width' => '100%',
+                'Height' => '130',
+            )
+        );
     }
     if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'myteach') == 'true'
     ) {
-        $form->addHtmlEditor('teach', get_lang('MyTeach'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
+        $form->addHtmlEditor(
+            'teach',
+            get_lang('MyTeach'),
+            false,
+            false,
+            array(
+                'ToolbarSet' => 'Register',
+                'Width' => '100%',
+                'Height' => '130',
+            )
+        );
     }
     if (api_get_setting('profile.extended_profile') == 'true' &&
         api_get_setting('extendedprofile_registration', 'mypersonalopenarea') == 'true'
     ) {
-        $form->addHtmlEditor('openarea', get_lang('MyPersonalOpenArea'), false, false, array('ToolbarSet' => 'register', 'Width' => '100%', 'Height' => '130'));
+        $form->addHtmlEditor(
+            'openarea',
+            get_lang('MyPersonalOpenArea'),
+            false,
+            false,
+            array(
+                'ToolbarSet' => 'Register',
+                'Width' => '100%',
+                'Height' => '130',
+            )
+        );
     }
     if (api_get_setting('profile.extended_profile') == 'true') {
         if (api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true' &&

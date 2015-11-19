@@ -744,7 +744,7 @@ class Wiki
                 false,
                 false,
                 array(
-                    'ToolbarSet' => 'wiki_task',
+                    'ToolbarSet' => 'WikiTask',
                     'Width' => '100%',
                     'Height' => '200',
                 )
