@@ -110,15 +110,19 @@ if (empty($new_member_list) > 0) {
     $social_right_content = Display :: return_message(get_lang('ThereAreNotUsersInTheWaitingList'));
 }
 
-$tpl = new Template(null);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
-SocialManager::setSocialUserBlock($tpl, $user_id, 'groups', $group_id);
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'groups', $group_id);
+
 $social_menu_block = SocialManager::show_social_menu('member_list', $group_id);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->setHelp('Groups');
-$tpl->assign('members', $new_member_list);
-$tpl->assign('social_right_content', $social_right_content);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+//$tpl->setHelp('Groups');
+$tpl->addGlobal('members', $new_member_list);
+$tpl->addGlobal('social_right_content', $social_right_content);
+$tpl->addGlobal('social_auto_extend_link', '');
+$tpl->addGlobal('social_right_information', '');
 
-$social_layout = $tpl->get_template('social/group_waiting_list.tpl');
-$tpl->display($social_layout);
+
+echo $tpl->render('@template_style/social/group_waiting_list.html.twig');
+
 

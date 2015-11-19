@@ -1,6 +1,5 @@
-{% extends template ~ "/layout/layout_1_col.tpl" %}
-
 {% block content %}
+    {% autoescape false %}
     <div class="row">
         <div class="col-md-3">
             <div class="social-network-menu">
@@ -9,7 +8,8 @@
             </div>
         </div>
         <div class="col-md-9">
-            {{ social_right_content }}
+            {{ social_invitations_block }}
         </div>
     </div>
+    {% endautoescape %}
 {% endblock %}

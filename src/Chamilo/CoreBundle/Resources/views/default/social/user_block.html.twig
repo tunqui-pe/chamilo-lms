@@ -1,3 +1,4 @@
+{% autoescape false %}
 <div class="sidebar-avatar">
     <div class="panel-group" id="sn-avatar" role="tablist"
          aria-multiselectable="true">
@@ -23,7 +24,7 @@
                         </li>
                         {% if vcard_user_link %}
                             <li class="item">
-                                <a href="{{ _p.web }}main/messages/new_message.php">
+                                <a href="{{ url('web.main') }}messages/new_message.php">
                                     <img src="{{ "instant_message.png" | icon }}"
                                          alt="{{ "Email" | trans }}">
                                     {{ user.email }}
@@ -75,5 +76,4 @@
         </div>
     </div>
 </div>
-
-
+{% endautoescape %}

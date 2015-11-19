@@ -29,7 +29,7 @@ if ($action == 'preview') {
     );
 }
 
-if (api_get_setting('allow_global_chat') == 'false') {
+if (api_get_setting('chat.allow_global_chat') == 'false') {
     exit;
 }
 

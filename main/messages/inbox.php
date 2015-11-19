@@ -44,7 +44,6 @@ function hide_icon_edit(element_html)  {
  */
 $nameTools = get_lang('Messages');
 $request = api_is_xml_http_request();
-$show_message = null;
 if (isset($_GET['form_reply']) || isset($_GET['form_delete'])) {
     $info_reply = array();
     $info_delete = array();
@@ -81,12 +80,14 @@ if (isset($_GET['form_reply']) || isset($_GET['form_delete'])) {
         }
         if (isset($user_reply) && !is_null($user_id_by_email) && strlen($info_reply[0]) > 0) {
             MessageManager::send_message($user_id_by_email, $title, $content);
-            $show_message .= MessageManager::return_message($user_id_by_email, 'confirmation');
+            Display::addFlash(
+                MessageManager::return_message($user_id_by_email, 'confirmation')
+            );
             $social_right_content .= MessageManager::inbox_display();
             exit;
         } elseif (is_null($user_id_by_email)) {
             $message_box = get_lang('ErrorSendingMessage');
-            $show_message .= Display::return_message(api_xml_http_response_encode($message_box), 'error');
+            Display::return_message(api_xml_http_response_encode($message_box), 'error');
             $social_right_content .= MessageManager::inbox_display();
             exit;
         }
@@ -95,7 +96,7 @@ if (isset($_GET['form_reply']) || isset($_GET['form_delete'])) {
             MessageManager::delete_message_by_user_receiver(api_get_user_id(), $info_delete[$i]);
         }
         $message_box = get_lang('SelectedMessagesDeleted');
-        $show_message .= Display::return_message(api_xml_http_response_encode($message_box));
+        Display::return_message(api_xml_http_response_encode($message_box));
         $social_right_content .= MessageManager::inbox_display();
         exit;
     }
@@ -164,7 +165,9 @@ if (!isset($_GET['del_msg'])) {
     for ($i = 0; $i < $num_msg; $i++) {
         if ($_POST[$i]) {
             //the user_id was necesarry to delete a message??
-            $show_message .= MessageManager::delete_message_by_user_receiver(api_get_user_id(), $_POST['_'.$i]);
+            Display::addFlash(
+                MessageManager::delete_message_by_user_receiver(api_get_user_id(), $_POST['_'.$i])
+            );
         }
     }
     $social_right_content .= MessageManager::inbox_display();
@@ -174,18 +177,15 @@ if (api_get_setting('social.allow_social_tool') == 'true') {
     $social_right_content .= '</div>';
 }
 
-$tpl = new Template(null);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 // Block Social Avatar
-SocialManager::setSocialUserBlock($tpl, $user_id, 'messages');
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'messages');
 if (api_get_setting('social.allow_social_tool') == 'true') {
-    $tpl->assign('social_menu_block', $social_menu_block);
-    $tpl->assign('social_right_content', $social_right_content);
-    $social_layout = $tpl->get_template('social/inbox.tpl');
-    $tpl->display($social_layout);
+    $tpl->addGlobal('social_menu_block', $social_menu_block);
+    $tpl->addGlobal('social_right_content', $social_right_content);
+    echo $tpl->render('@template_style/social/inbox.html.twig');
 } else {
     $content = $social_right_content;
-    $tpl->assign('actions', $actions);
-    $tpl->assign('message', $show_message);
-    $tpl->assign('content', $content);
-    $tpl->display_one_col_template();
+    echo $actions;
+    echo $content;
 }

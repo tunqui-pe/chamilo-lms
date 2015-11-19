@@ -18,8 +18,8 @@ class MessageManager
     public static function get_online_user_list($current_user_id)
     {
         //@todo this is a bad idea to parse all users online
-        $count = who_is_online_count();
-        $userlist = who_is_online(0, $count, null, null, 30, true);
+        $count = UserManager::whoIsOnlineCount();
+        $userlist = UserManager::whoIsOnline(0, $count, null, null, 30, true);
         $online_user_list = array();
         foreach ($userlist as $user_id) {
             $online_user_list[$user_id] = GetFullUserName($user_id).($current_user_id == $user_id ? ("&nbsp;(".get_lang('Myself').")") : (""));
@@ -86,8 +86,15 @@ class MessageManager
      */
     public static function users_connected_by_id()
     {
-        $count = who_is_online_count();
-        $user_connect = who_is_online(0, $count, null, null, 30, true);
+        $count = UserManager::whoIsOnlineCount();
+        $user_connect = UserManager::whoIsOnline(
+            0,
+            $count,
+            null,
+            null,
+            30,
+            true
+        );
         $user_id_list = array();
         for ($i = 0; $i < count($user_connect); $i++) {
             $user_id_list[$i] = $user_connect[$i][0];
@@ -238,10 +245,15 @@ class MessageManager
         if (empty($subject) && empty($group_id)) {
             Display::addFlash(Display::return_message(get_lang('YouShouldWriteASubject'), 'warning'));
             return false;
-        } else if ($total_filesize > intval(api_get_setting('message_max_upload_filesize'))) {
+        } else if ($total_filesize > intval(
+                api_get_setting('message.message_max_upload_filesize')
+            )
+        ) {
             $warning = sprintf(
                 get_lang("FilesSizeExceedsX"),
-                format_file_size(api_get_setting('message_max_upload_filesize'))
+                format_file_size(
+                    api_get_setting('message.message_max_upload_filesize')
+                )
             );
 
             Display::addFlash(Display::return_message($warning , 'warning'));

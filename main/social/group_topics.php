@@ -212,12 +212,13 @@ $social_right_content .= MessageManager::display_message_for_group(
 
 $social_menu_block = SocialManager::show_social_menu('member_list', $group_id);
 
-$tpl = new Template(null);
-$tpl->setHelp('Groups');
+//$tpl = new Template(null);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+//$tpl->setHelp('Groups');
 // Block Social Avatar
 SocialManager::setSocialUserBlock($tpl, $user_id, 'groups', $group_id);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_right_content', $social_right_content);
-$tpl->assign('content', $content);
-$social_layout = $tpl->get_template('social/home.tpl');
-$tpl->display($social_layout);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_right_content', $social_right_content);
+$tpl->addGlobal('content', $content);
+echo $tpl->render('@template_style/social/home.html.twig');
+

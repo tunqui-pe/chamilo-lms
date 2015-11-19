@@ -11,6 +11,7 @@ $language_file = array('userInfo');
 //require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
+$join_url = '';
 
 if (api_get_setting('social.allow_social_tool') != 'true') {
     api_not_allowed();
@@ -153,7 +154,6 @@ foreach ($results as $result) {
     $html .= '</div>';
     $html .= '</div>';
 
-
     $grid_item_2 = $html;
 
     $grid_newest_groups[]= array($grid_item_2);
@@ -223,7 +223,10 @@ if (isset($_GET['view']) && in_array($_GET['view'], $allowed_views)) {
             if (count($grid_my_groups) > 0) {
                 $my_group_content = Display::return_sortable_grid('mygroups', array(), $grid_my_groups, array('hide_navigation'=>true, 'per_page' => 2), $query_vars, false, array(true, true, true,false));
             }
-            if (api_get_setting('allow_students_to_create_groups_in_social') == 'true') {
+            if (api_get_setting(
+                    'social.allow_students_to_create_groups_in_social'
+                ) == 'true'
+            ) {
                 $create_group_item =  '<a class="btn btn-default" href="'.api_get_path(WEB_PATH).'main/social/group_add.php">'.
                     get_lang('CreateASocialGroup').'</a>';
             } else {
@@ -251,7 +254,10 @@ if (isset($_GET['view']) && in_array($_GET['view'], $allowed_views)) {
     } else {
         $my_group_content = '<span class="muted">'.get_lang('GroupNone').'</span>';
     }
-    if (api_get_setting('allow_students_to_create_groups_in_social') == 'true') {
+    if (api_get_setting(
+            'social.allow_students_to_create_groups_in_social'
+        ) == 'true'
+    ) {
         $create_group_item =  '<a class="btn btn-default" href="'.api_get_path(WEB_PATH).'main/social/group_add.php">'.
             get_lang('CreateASocialGroup').'</a>';
     } else {
@@ -277,26 +283,23 @@ if (!empty($create_group_item)) {
 $headers = array(get_lang('Newest'), get_lang('Popular'), get_lang('MyGroups'));
 $social_right_content .= Display::tabs($headers, array($newest_content, $popular_content, $my_group_content),'tab_browse');
 
-$show_message = null;
 if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'show_message' && isset($_REQUEST['msg']) && $_REQUEST['msg'] == 'topic_deleted') {
-    $show_message = Display::return_message(get_lang('Deleted'), 'success');
+    Display::return_message(get_lang('Deleted'), 'success');
 }
 
-$tpl = new Template(null);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
 // Block Social Avatar
-SocialManager::setSocialUserBlock($tpl, $user_id, $show_menu);
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), $show_menu);
 $show_menu = 'browse_groups';
 if (isset($_GET['view']) && $_GET['view'] == 'mygroups') {
     $show_menu = $_GET['view'];
 }
 
 $social_menu_block = SocialManager::show_social_menu($show_menu);
-$templateName = 'social/groups.tpl';
 
-$tpl->setHelp('Groups');
-$tpl->assign('message', $show_message);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_right_content', $social_right_content);
-$social_layout = $tpl->get_template($templateName);
-$tpl->display($social_layout);
+//$tpl->setHelp('Groups');
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_right_content', $social_right_content);
+echo $tpl->render('@template_style/social/groups.html.twig');
+

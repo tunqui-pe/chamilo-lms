@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Class SocialManager
  *
@@ -591,7 +593,7 @@ class SocialManager extends UserManager
             'browse_groups'
         );
 
-        $template = new Template(null, false, false, false, false, false);
+        $template = Container::getTwig();
 
         if (in_array($show, $show_groups) && !empty($group_id)) {
             // Group image
@@ -606,11 +608,11 @@ class SocialManager extends UserManager
                 GROUP_IMAGE_SIZE_BIG
             );
 
-            $template->assign('show_group', true);
-            $template->assign('group_id', $group_id);
-            $template->assign('user_group_image', $userGroupImage);
-            $template->assign('user_group', $group_info);
-            $template->assign(
+            $template->addGlobal('show_group', true);
+            $template->addGlobal('group_id', $group_id);
+            $template->addGlobal('user_group_image', $userGroupImage);
+            $template->addGlobal('user_group', $group_info);
+            $template->addGlobal(
                 'user_is_group_admin',
                 $userGroup->is_group_admin(
                     $group_id,
@@ -618,8 +620,9 @@ class SocialManager extends UserManager
                 )
             );
         } else {
-            $template->assign('show_user', true);
-            $template->assign(
+            $template->addGlobal('show_group', false);
+            $template->addGlobal('show_user', true);
+            $template->addGlobal(
                 'user_image',
                 [
                     'big' => UserManager::getUserPicture(
@@ -634,10 +637,11 @@ class SocialManager extends UserManager
             );
         }
 
-        $skillBlock = $template->get_template('social/avatar_block.tpl');
+        $content = $template->render(
+            '@template_style/social/avatar_block.html.twig'
+        );
 
-
-        return $template->fetch($skillBlock);
+        return $content;
     }
 
     /**
@@ -1697,7 +1701,9 @@ class SocialManager extends UserManager
         $templateName = $template->render('@template_style/social/user_block.html.twig');
 
         if (in_array($groupBlock, ['groups', 'group_edit', 'member_list'])) {
-            $templateName = $template->renders('@template_style/social/group_block.html.twig');
+            $templateName = $template->render(
+                '@template_style/social/group_block.html.twig'
+            );
         }
 
         $template->addGlobal(

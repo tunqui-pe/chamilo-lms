@@ -73,18 +73,19 @@ if (!empty($message)) {
 } else {
     api_not_allowed();
 }
-$tpl = new Template(get_lang('View'));
-// Block Social Avatar
-SocialManager::setSocialUserBlock($tpl, $user_id, $show_menu);
+//$tpl = new Template(get_lang('View'));
 
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+// Block Social Avatar
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), $show_menu);
 if (api_get_setting('social.allow_social_tool') == 'true') {
-    $tpl->assign('social_menu_block', $social_menu_block);
-    $tpl->assign('social_right_content', $social_right_content);
-    $social_layout = $tpl->get_template('social/inbox.tpl');
-    $tpl->display($social_layout);
+    $tpl->addGlobal('social_menu_block', $social_menu_block);
+    $tpl->addGlobal('social_right_content', $social_right_content);
+    echo $tpl->render('@template_style/social/inbox.html.twig');
 } else {
     $content = $social_right_content;
-
-    $tpl->assign('content', $content);
-    $tpl->display_one_col_template();
+    echo $actions;
+    echo $content;
 }
+
+

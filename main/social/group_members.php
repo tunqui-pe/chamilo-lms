@@ -171,10 +171,14 @@ foreach ($users as $user) {
             break;
     }
 
-    $userPicture = UserManager::getUserPicture($user['user_id']);
-    $user['image'] = '<img src="' . $userPicture . '"  width="50px" height="50px"  />';
+    if (isset($user['user_id'])) {
+        $userPicture = UserManager::getUserPicture($user['user_id']);
+        $user['image'] = '<img src="'.$userPicture.'"  width="50px" height="50px"  />';
+    }
     $new_member_list[] = $user;
 }
+
+
 if (count($new_member_list) > 0) {
     $social_right_content .= Display::return_sortable_grid(
         'list_members',
@@ -187,11 +191,16 @@ if (count($new_member_list) > 0) {
     );
 }
 
-$tpl = new Template(null);
-$tpl->setHelp('Groups');
-$tpl->assign('social_avatar_block', $social_avatar_block);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_right_content', $social_right_content);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+//$tpl->setHelp('Groups');
+$tpl->addGlobal('social_avatar_block', $social_avatar_block);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_right_content', $social_right_content);
+$tpl->addGlobal('social_search_block', '');
+$tpl->addGlobal('social_skill_block', '');
+$tpl->addGlobal('social_group_block', '');
+$tpl->addGlobal('social_auto_extend_link', '');
+$tpl->addGlobal('social_friend_block', '');
 
-$social_layout = $tpl->get_template('social/home.tpl');
-$tpl->display($social_layout);
+echo $tpl->render('@template_style/social/home.html.twig');
+

@@ -286,17 +286,19 @@ if ($is_group_member || $group_info['visibility'] == GROUP_PERMISSION_OPEN) {
     }
 }
 
-$tpl = new Template(null);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
 // Block Social Avatar
-SocialManager::setSocialUserBlock($tpl, $user_id, 'groups', $group_id);
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'groups', $group_id);
 //Block Social Menu
 $social_menu_block = SocialManager::show_social_menu('groups', $group_id);
-$tpl->setHelp('Groups');
-$tpl->assign('create_link', $create_thread_link);
-$tpl->assign('is_group_member', $is_group_member);
-$tpl->assign('group_info', $group_info);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_right_content', $social_right_content);
-$social_layout = $tpl->get_template('social/group_view.tpl');
-$tpl->display($social_layout);
+//$tpl->setHelp('Groups');
+$tpl->addGlobal('create_link', $create_thread_link);
+$tpl->addGlobal('social_auto_extend_link', '');
+
+$tpl->addGlobal('is_group_member', $is_group_member);
+$tpl->addGlobal('group_info', $group_info);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_right_content', $social_right_content);
+echo $tpl->render('@template_style/social/group_view.html.twig');
+

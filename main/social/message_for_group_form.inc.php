@@ -8,6 +8,7 @@
 
 $cidReset = true;
 //require_once '../inc/global.inc.php';
+\Chamilo\CoreBundle\Framework\Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
 
 api_block_anonymous_users();
 if (api_get_setting('social.allow_social_tool') != 'true') {
@@ -64,14 +65,18 @@ $anchor_topic  = isset($_GET['anchor_topic']) ? Security::remove_XSS($_GET['anch
 
 $url = api_get_path(WEB_CODE_PATH).'social/group_topics.php?id='.$group_id.'&anchor_topic='.$anchor_topic.'&topics_page_nr='.$page_topic.$param_item_page;
 
-$form = new FormValidator('form', 'post', $url, null, array('enctype' => 'multipart/form-data'));
+$form = new FormValidator(
+    'form',
+    'post',
+    $url,
+    null,
+    array('enctype' => 'multipart/form-data')
+);
 $form->addElement('hidden', 'action', $allowed_action);
 $form->addElement('hidden', 'group_id', $group_id);
 $form->addElement('hidden', 'parent_id', $message_id);
 $form->addElement('hidden', 'message_id', $message_id);
 $form->addElement('hidden', 'token', $tok);
-
-$tpl = new Template(get_lang('Groups'));
 
 if (api_get_setting('message.allow_message_tool') == 'true') {
     // Normal message
@@ -101,11 +106,13 @@ if (api_get_setting('message.allow_message_tool') == 'true') {
         'file',
         'attach_1',
         sprintf(get_lang('MaximunFileSizeX'),
-        format_file_size(api_get_setting('message_max_upload_filesize')))
+            format_file_size(
+                api_get_setting('message.message_max_upload_filesize')
+            )
+        )
     );
     $form->addButtonSend(get_lang('SendMessage'));
 
     $form->setDefaults(['content' => $message, 'title' => $subject]);
     $form->display();
 }
-$tpl->display_blank_template();

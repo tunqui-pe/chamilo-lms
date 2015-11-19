@@ -218,6 +218,8 @@ $tpl->addGlobal('sessionList', $social_session_block);
 $tpl->addGlobal('social_search_block', $social_search_block);
 $tpl->addGlobal('social_skill_block', SocialManager::getSkillBlock($user_id));
 $tpl->addGlobal('social_group_block', $social_group_block);
+$tpl->addGlobal('social_right_content', '');
+$tpl->addGlobal('social_auto_extend_link', '');
 
 echo $tpl->render('@template_style/social/home.html.twig');
 

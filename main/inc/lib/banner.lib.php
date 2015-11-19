@@ -218,7 +218,7 @@ function return_notification_menu()
         (api_get_setting('showonline', 'users') == 'true' && $user_id) ||
         (api_get_setting('showonline', 'course') == 'true' && $user_id && $course_id)
     ) {
-        $number = who_is_online_count(
+        $number = UserManager::whoIsOnlineCount(
             api_get_setting('display.time_limit_whosonline')
         );
 

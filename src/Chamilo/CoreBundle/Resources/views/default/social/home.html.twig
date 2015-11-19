@@ -1,6 +1,5 @@
-{% extends template ~ "/layout/layout_1_col.tpl" %}
-
 {% block content %}
+    {% autoescape false %}
     <div class="row">
         <div class="col-md-3">
             {{ social_avatar_block }}
@@ -45,7 +44,7 @@
             </div>
 
             <!-- Block session list -->
-            {% if sessionList != null %}
+            {% if sessionList is defined %}
                 <div class="panel-group" id="session-block" role="tablist"
                      aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -81,4 +80,5 @@
 
         </div>
     </div>
+    {% endautoescape %}
 {% endblock %}

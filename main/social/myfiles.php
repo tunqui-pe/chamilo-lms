@@ -98,14 +98,15 @@ if (isset($_GET['cidReq'])) {
             ) . ')'
         ) . '</a>';
 }
-$tpl = new Template();
-SocialManager::setSocialUserBlock($tpl, $user_id, 'myfiles');
+
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'myfiles');
 $editor = new \Chamilo\CoreBundle\Component\Editor\Editor();
-$editor = $tpl->fetch('default/'.$editor->getEditorStandAloneTemplate());
+$editor = $tpl->render('default/'.$editor->getEditorStandAloneTemplate());
 
-$tpl->assign('social_right_content', $editor);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('actions', $actions);
+$tpl->addGlobal('social_right_content', $editor);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('actions', $actions);
 
-$social_layout = $tpl->get_template('social/myfiles.tpl');
-$tpl->display($social_layout);
+echo $tpl->render('@template_style/social/myfiles.html.twig');
+

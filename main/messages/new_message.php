@@ -195,7 +195,13 @@ function manage_form($default, $select_from_user_list = null, $sent_to = null)
                 </div>'
         );
 
-        $form->addElement('label', '', '<span id="link-more-attach"><a href="javascript://" onclick="return add_image_form()">'.get_lang('AddOneMoreFile').'</a></span>&nbsp;('.sprintf(get_lang('MaximunFileSizeX'),format_file_size(api_get_setting('message_max_upload_filesize'))).')');
+        $form->addElement(
+            'label',
+            '',
+            '<span id="link-more-attach"><a href="javascript://" onclick="return add_image_form()">'.
+            get_lang('AddOneMoreFile').'</a></span>&nbsp;('.
+            sprintf(get_lang('MaximunFileSizeX'), format_file_size(api_get_setting('message.message_max_upload_filesize'))).')'
+        );
     }
 
     $form->addButtonSend(get_lang('SendMessage'), 'compose');
@@ -363,19 +369,18 @@ if (api_get_setting('social.allow_social_tool') == 'true') {
     $social_right_content .=  '</div>';
 }
 
-$tpl = new Template(get_lang('ComposeMessage'));
+//$tpl = new Template(get_lang('ComposeMessage'));
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 // Block Social Avatar
-SocialManager::setSocialUserBlock($tpl, $user_id, 'messages');
 
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'messages');
 if (api_get_setting('social.allow_social_tool') == 'true') {
-    $tpl->assign('social_menu_block', $social_menu_block);
-    $tpl->assign('social_right_content', $social_right_content);
-    $social_layout = $tpl->get_template('social/inbox.tpl');
-    $tpl->display($social_layout);
+    $tpl->addGlobal('social_menu_block', $social_menu_block);
+    $tpl->addGlobal('social_right_content', $social_right_content);
+    echo $tpl->render('@template_style/social/inbox.html.twig');
 } else {
     $content = $social_right_content;
-    //$tpl->assign('actions', $actions);
-    //$tpl->assign('message', $show_message);
-    $tpl->assign('content', $content);
-    $tpl->display_one_col_template();
+    echo $actions;
+    echo $content;
 }
+

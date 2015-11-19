@@ -18,6 +18,7 @@ if (api_get_setting('social.allow_social_tool') != 'true') {
 
 $this_section = SECTION_SOCIAL;
 $tool_name = get_lang('Search');
+$user_id = api_get_user_id();
 $interbreadcrumb[] = array('url' => 'profile.php', 'name' => get_lang('SocialNetwork'));
 
 $query = isset($_GET['q']) ? Security::remove_XSS($_GET['q']): null;
@@ -221,22 +222,26 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
         $totalGroups
     );
 
-    $block_search .= Display:: panelCollapse(get_lang('Groups'), $block_groups, 'search-groups', null, 'groups-acorderon', 'groups-collapse');
+    $block_search .= Display:: panelCollapse(
+        get_lang('Groups'),
+        $block_groups,
+        'search-groups',
+        null,
+        'groups-acorderon',
+        'groups-collapse'
+    );
 }
 
-$tpl = new Template($tool_name);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 // Block Social Avatar
-SocialManager::setSocialUserBlock($tpl, $user_id, 'search');
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_search', $block_search);
-$tpl->assign('search_form', $searchForm);
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'search');
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_search', $block_search);
+$tpl->addGlobal('search_form', $searchForm);
+$tpl->addGlobal(
+    'invitation_form',
+    MessageManager::generate_invitation_form('send_invitation')
+);
 
-$formModalTpl =  new Template();
-//$formModalTpl->assign('message_form', MessageManager::generate_message_form('send_message'));
-$formModalTpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
-$formModals = $formModalTpl->fetch('default/social/form_modals.tpl');
+echo $tpl->render('@template_style/social/search.html.twig');
 
-$tpl->assign('form_modals', $formModals);
-
-$social_layout = $tpl->get_template('social/search.tpl');
-$tpl->display($social_layout);

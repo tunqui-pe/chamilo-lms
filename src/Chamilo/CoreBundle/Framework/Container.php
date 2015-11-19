@@ -46,6 +46,7 @@ class Container
     public static $htmlEditor;
     public static $twig;
     public static $roles;
+    /** @var  string  */
     public static $legacyTemplate;
 
     /**

@@ -156,11 +156,14 @@ if (count($friends) == 0) {
 }
 $social_right_content .= '</div>';
 
-$tpl = new Template(get_lang('Social'));
-SocialManager::setSocialUserBlock($tpl, $user_id, 'friends');
+//$tpl = new Template(get_lang('Social'));
 
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_right_content', $social_right_content);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'friends');
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_right_content', $social_right_content);
+$tpl->addGlobal('social_auto_extend_link', '');
+$tpl->addGlobal('social_right_information', '');
 
-$social_layout = $tpl->get_template('social/friends.tpl');
-$tpl->display($social_layout);
+
+echo $tpl->render('@template_style/social/friends.html.twig');

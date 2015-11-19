@@ -405,7 +405,7 @@ function show_form_send_ticket()
     $form->addElement('html', '<span id="link-more-attach" >');
     $form->addElement('html', '<span class="label label-info" onclick="return add_image_form()">' . get_lang('AddOneMoreFile') . '</span>');
     $form->addElement('html', '</span>');
-    $form->addElement('html', '(' . sprintf(get_lang('MaximunFileSizeX'), format_file_size(api_get_setting('message_max_upload_filesize'))) . ')');
+    $form->addElement('html', '(' . sprintf(get_lang('MaximunFileSizeX'), format_file_size(api_get_setting('message.message_max_upload_filesize'))) . ')');
 
     $form->addElement('html', '<br/>');
     $form->addElement(

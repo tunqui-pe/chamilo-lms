@@ -15,7 +15,7 @@ switch($action) {
         $images_to_show = 9;
 
         $page = intval($_REQUEST['online_page_nr']);
-        $max_page = ceil(who_is_online_count()/$images_to_show);
+        $max_page = ceil(UserManager::whoIsOnlineCount() / $images_to_show);
         $page_rows = ($page-1)*9;
 
         if (!empty($max_page) && $page <= $max_page) {
@@ -28,7 +28,10 @@ switch($action) {
                     $_GET['cidReq']
                 );
             } else {
-                $user_list = who_is_online($page_rows, $images_to_show);
+                $user_list = UserManager::whoIsOnline(
+                    $page_rows,
+                    $images_to_show
+                );
             }
             if (!empty($user_list)) {
                 echo SocialManager::display_user_list($user_list, false);

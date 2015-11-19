@@ -182,11 +182,11 @@ if (count($pending_invitations) > 0) {
     $socialInvitationsBlock .= Display::panel($waitingInvitation, get_lang('GroupsWaitingApproval'));
 }
 
-$tpl = new Template(null);
-SocialManager::setSocialUserBlock($tpl, $user_id, 'invitations');
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_invitations_block',$socialInvitationsBlock);
-$tpl->assign('message', $show_message);
-$tpl->assign('content', $content);
-$social_layout = $tpl->get_template('social/invitations.tpl');
-$tpl->display($social_layout);
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'invitations');
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_invitations_block', $socialInvitationsBlock);
+$tpl->addGlobal('message', $show_message);
+$tpl->addGlobal('content', $content);
+echo $tpl->render('@template_style/social/invitations.html.twig');
+

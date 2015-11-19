@@ -7048,7 +7048,7 @@ function api_is_global_chat_enabled()
 {
     return
         !api_is_anonymous() &&
-        api_get_setting('allow_global_chat') == 'true' &&
+        api_get_setting('chat.allow_global_chat') == 'true' &&
         api_get_setting('social.allow_social_tool') == 'true';
 }
 
