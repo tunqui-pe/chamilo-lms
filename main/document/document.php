@@ -1978,7 +1978,7 @@ if (count($documentAndFolders) > 1) {
     }
 }
 
-Display::display_header('', 'Doc');
+//Display::display_header('', 'Doc');
 
 /* Introduction section (editable by course admins) */
 
@@ -2030,6 +2030,7 @@ echo '
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">' . get_lang('Convert') . '</h4>
+                </div>
             </div>
             <div class="modal-body">
               <form action="#" class="form-horizontal">
@@ -2059,7 +2060,5 @@ echo '
               <button type="button" class="btn btn-default" data-dismiss="modal">' . get_lang('Close') . '</button>
             </div>
         </div>
-    </div>';
-
-// Footer
-Display::display_footer();
+    </div>
+';

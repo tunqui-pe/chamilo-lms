@@ -512,13 +512,13 @@ if ($form->validate()) {
 
 	if ($fp = @fopen($filepath.$filename.'.'.$extension, 'w')) {
 		//$courseUrl = \Chamilo\CoreBundle\Framework\Container::getUrlGenerator()->generate('course_url').'/';
-		$content = str_replace(api_get_path(WEB_COURSE_PATH), $_configuration['url_append'].'/courses/', $content);
+        //var_dump($courseUrl );exit;
+        //$content = str_replace(api_get_path(WEB_COURSE_PATH), $_configuration['url_append'].'/courses/', $content);
 		//$content = str_replace($courseUrl, $content);
 
 		fputs($fp, $content);
 		fclose($fp);
 		chmod($filepath.$filename.'.'.$extension, api_get_permissions_for_new_files());
-
 
 		$file_size = filesize($filepath.$filename.'.'.$extension);
 		$save_file_path = $dir.$filename.'.'.$extension;
