@@ -171,12 +171,21 @@ class HomeController extends ToolBaseController
         );
     }
 
-    private function return_block($title, $content)
+    /**
+     * @param string $title
+     * @param string $content
+     * @param string $class
+     * @return string
+     */
+    private function return_block($title, $content, $class = null)
     {
-        $html = '<div class="page-header">
-                <h3>'.$title.'</h3>
+        $html = '<div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="title-tools">'.$title.'</div>
+                </div>
             </div>
-            '.$content.'</div>';
+            <div class="row '.$class.'">'.$content.'</div>';
+
         return $html;
     }
 
@@ -212,6 +221,7 @@ class HomeController extends ToolBaseController
             $totalList = array_merge($totalList, $list);
             $result = CourseHome::show_tools_category($urlGenerator, $list);
             $totalList = array_merge($totalList, $result['tool_list']);
+
             $content .= $this->return_block(get_lang('Administration'), $result['content']);
 
         } elseif (api_is_coach()) {

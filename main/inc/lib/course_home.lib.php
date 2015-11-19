@@ -647,16 +647,16 @@ class CourseHome
 
     /**
      * Displays the tools of a certain category.
-     * @param array $all_tools_list List of tools as returned by get_tools_category()
+     * @param $urlGenerator
+     * @param array $toolList List of tools as returned by get_tools_category()
      * @param bool  $rows
      *
-     * @return void
+     * @return array
      */
     public static function show_tools_category($urlGenerator, $toolList, $rows = false)
     {
-        $rowDiv =  '<div class="row">';
+        $rowDiv = '<div class="row">';
         $theme = api_get_setting('course.homepage_view');
-        $theme = 'activity_big';
 
         if ($theme == 'vertical_activity') {
             //ordering by get_lang name
@@ -703,7 +703,6 @@ class CourseHome
 
                 // Re-writing URL for new tools
                 $newTools = array(TOOL_CURRICULUM);
-
                 $toolName = isset($tool['name']) ? $tool['name'] : null;
                 if (in_array($toolName, $newTools)) {
                     $tool['link'] = $courseInfo['course_web_public_url'].$tool['name'].'/';
@@ -755,7 +754,13 @@ class CourseHome
                             $lnk[] = $link;
                         }
                         if ($tool['visibility'] == '0' && $tool['admin'] != '1') {
-                            $link['name'] = Display::return_icon('invisible.gif', get_lang('Activate'), array('id' => 'linktool_'.$tool['id']), ICON_SIZE_MEDIUM, false);
+                            $link['name'] = Display::return_icon(
+                                'invisible.gif',
+                                get_lang('Activate'),
+                                array('id' => 'linktool_'.$tool['id']),
+                                ICON_SIZE_MEDIUM,
+                                false
+                            );
                             if (!empty($tool['id'])) {
                                 $link['cmd'] = $urlGenerator->generate(
                                     'chamilo_course_home_home_showicon',
@@ -894,7 +899,11 @@ class CourseHome
                         array('class' => 'tool-icon', 'id' => 'toolimage_'.$tool['id'])
                     );
                 } else {
-                    $image = (substr($tool['image'], 0, strpos($tool['image'], '.'))).'.png';
+                    $image = substr(
+                            $tool['image'],
+                            0,
+                            strpos($tool['image'], '.')
+                        ).'.png';
 
                     $icon = Display::return_icon(
                         $image,
@@ -911,11 +920,19 @@ class CourseHome
                 // Validation when belongs to a session
                 $session_img = api_get_session_image($tool['session_id'], $userStatus);
                 $item['url_params'] = $tool_link_params;
-                $item['icon']       = Display::url($icon, $tool_link_params['href'], $tool_link_params);
-                $item['tool']       = $tool;
-                $item['name']       = $tool_name;
+                $item['icon'] = Display::url(
+                    $icon,
+                    $tool_link_params['href'],
+                    $tool_link_params
+                );
+                $item['tool'] = $tool;
+                $item['name'] = $tool_name;
                 $tool_link_params['id'] = 'is'.$tool_link_params['id'];
-                $item['link']       = Display::url($tool_name.$session_img, $tool_link_params['href'], $tool_link_params);
+                $item['link'] = Display::url(
+                    $tool_name.$session_img,
+                    $tool_link_params['href'],
+                    $tool_link_params
+                );
                 $items[] = $item;
             } // end of foreach
         }
@@ -929,11 +946,12 @@ class CourseHome
                 switch ($theme) {
                     case 'activity_big':
                         $data = '';
-                        if ($counter == 0) {
-                            $html .=  $rowDiv;
-                        }
-                        $html .=  '<div class="col-xs-4 col-md-4 course-tool">';
-                        $image = (substr($item['tool']['image'], 0, strpos($item['tool']['image'], '.'))).'.png';
+                        $html .= '<div class="col-xs-6 col-md-3 course-tool">';
+                        $image = substr(
+                                $item['tool']['image'],
+                                0,
+                                strpos($item['tool']['image'], '.')
+                            ).'.png';
 
                         if (!empty($item['tool']['custom_icon'])) {
                             $original_image = Display::img(
@@ -974,33 +992,15 @@ class CourseHome
                         $html .= Display::div($data, array('class'=>'big_icon')); //box-image reflection
                         $html .= Display::div('<h4>'.$item['visibility'].$item['extra'].$item['link'].'</h4>', array('class'=>'content'));
                         $html .=  '</div>';
-
-                        if ($counter == 2) {
-                            $html .=  '</div>';
-                            $counter = -1;
-                        }
-                        $counter++;
-
                         break;
                     case 'activity':
-                        if ($counter == 0) {
-                            $html .=  $rowDiv;
-                        }
-
-                        $html .=  '<div class="col-md-6 course-tool">';
+                        $html .= '<div class="offset2 col-md-4 course-tool">';
                         $content =  $item['extra'];
                         $content .=  $item['visibility'];
                         $content .=  $item['icon'];
                         $content .=  $item['link'];
                         $html .= Display::div($content, array('class'=>'activity_content'));
                         $html .=  '</div>';
-
-
-                        if ($counter == 1) {
-                            $html .=  '</div>';
-                            $counter = -1;
-                        }
-                        $counter++;
                         break;
                     case 'vertical_activity':
                         if ($i == 0) {
