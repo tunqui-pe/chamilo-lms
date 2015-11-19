@@ -42,7 +42,7 @@ MathJax.Localization.addTranslation("pt-br", null, {
                 Typesetting: "Realizando a Diagrama\u00E7\u00E3o",
                 MathJaxNotSupported: "Seu navegador n\u00E3o suporta MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

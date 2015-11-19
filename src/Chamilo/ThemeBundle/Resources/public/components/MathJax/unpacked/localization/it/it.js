@@ -42,7 +42,7 @@ MathJax.Localization.addTranslation("it", null, {
                 Typesetting: "Composizione",
                 MathJaxNotSupported: "Il tuo browser non supporta MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

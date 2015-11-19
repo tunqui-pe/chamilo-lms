@@ -219,10 +219,10 @@
                                                 if (year % 100 === 0)
                                                     if (year % 400 === 0)
                                                         isValid = true;
-                                                    else isValid = false;
+                                            else isValid = false;
                                                 else isValid = true;
                                             else isValid = false;
-                                        }
+                                }
                                     } else isValid = false;
                                     if (isValid) {
                                         buffer[pos - 1] = yearPrefix[0];
@@ -230,7 +230,7 @@
                                         buffer[pos++] = chrs[0];
                                         return {"pos": pos};
                                     }
-                                }
+                        }
                                 return isValid;
                             }, cardinality: 2
                         },

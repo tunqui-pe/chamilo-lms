@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("fi", "HelpDialog", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/fi/HelpDialog.js");

@@ -468,13 +468,11 @@ var wysihtml5 = {
 
     function RangePrototype() {
     }
-
     api.RangePrototype = RangePrototype;
     api.rangePrototype = new RangePrototype();
 
     function SelectionPrototype() {
     }
-
     api.selectionPrototype = new SelectionPrototype();
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -4221,7 +4219,7 @@ wysihtml5.browser = (function () {
 
         if (re && re.exec(navigator.userAgent) != null) {
             rv = parseFloat(RegExp.$1);
-        }
+    }
 
         if (rv === -1) {
             return false;
@@ -4720,7 +4718,7 @@ wysihtml5.browser = (function () {
             while (idx < max) {
                 if (!wysihtml5.lang.array(vals).contains(arr[idx])) {
                     vals.push(arr[idx]);
-                }
+        }
                 idx++;
             }
             return vals;
@@ -4891,7 +4889,7 @@ wysihtml5.browser = (function () {
                     by: function (replace) {
                         return str.split(search).join(replace);
                     }
-                };
+        };
             },
 
             /**
@@ -4911,7 +4909,7 @@ wysihtml5.browser = (function () {
                 }
                 return html;
             }
-        };
+    };
     };
 })();
 ;/**
@@ -4927,7 +4925,7 @@ wysihtml5.browser = (function () {
 (function (wysihtml5) {
     var /**
          * Don't auto-link urls that are contained in the following elements:
-         */
+       */
         IGNORE_URLS_IN = wysihtml5.lang.array(["CODE", "PRE", "A", "SCRIPT", "HEAD", "TITLE", "STYLE"]),
         /**
          * revision 1:
@@ -4951,7 +4949,7 @@ wysihtml5.browser = (function () {
 
         if (element === element.ownerDocument.documentElement) {
             element = element.ownerDocument.body;
-        }
+    }
 
         return _parseNode(element, ignoreInClasses);
     }
@@ -4992,7 +4990,7 @@ wysihtml5.browser = (function () {
         var tempElement = context._wysihtml5_tempElement;
         if (!tempElement) {
             tempElement = context._wysihtml5_tempElement = context.createElement("div");
-        }
+    }
         return tempElement;
     }
 
@@ -5012,7 +5010,7 @@ wysihtml5.browser = (function () {
         while (tempElement.firstChild) {
             // inserts tempElement.firstChild before textNode
             parentNode.insertBefore(tempElement.firstChild, textNode);
-        }
+    }
         parentNode.removeChild(textNode);
     }
 
@@ -5027,9 +5025,9 @@ wysihtml5.browser = (function () {
             if (IGNORE_URLS_IN.contains(nodeName)) {
                 return true;
             } else if (nodeName === "body") {
-                return false;
+        return false;
             }
-        }
+    }
         return false;
     }
 
@@ -5053,7 +5051,7 @@ wysihtml5.browser = (function () {
 
         for (; i < childNodesLength; i++) {
             _parseNode(childNodes[i], ignoreInClasses);
-        }
+    }
 
         return element;
     }
@@ -5153,7 +5151,7 @@ wysihtml5.dom.convertToList = (function () {
         if (element.nodeName === "UL" || element.nodeName === "OL" || element.nodeName === "MENU") {
             // Already a list
             return element;
-        }
+    }
 
         var doc = element.ownerDocument,
             list = _createList(doc, listType),
@@ -5176,7 +5174,7 @@ wysihtml5.dom.convertToList = (function () {
                 if (wysihtml5.dom.getStyle("display").from(parentNode) === "block") {
                     parentNode.removeChild(lineBreak);
                     break;
-                }
+        }
                 wysihtml5.dom.insert(lineBreak).after(lineBreak.parentNode);
             }
         }
@@ -5210,7 +5208,7 @@ wysihtml5.dom.convertToList = (function () {
 
         if (childNodes.length === 0) {
             _createListItem(doc, list);
-        }
+    }
 
         element.parentNode.replaceChild(list, element);
         return list;
@@ -5248,7 +5246,7 @@ wysihtml5.dom.copyAttributes = function (attributesToCopy) {
                         }
                     }
                     return {andTo: arguments.callee};
-                }
+        }
             };
         }
     };
@@ -5305,7 +5303,7 @@ wysihtml5.dom.copyAttributes = function (attributesToCopy) {
             from: function (element) {
                 if (shouldIgnoreBoxSizingBorderBox(element)) {
                     stylesToCopy = wysihtml5.lang.array(stylesToCopy).without(BOX_SIZING_PROPERTIES);
-                }
+        }
 
                 var cssText = "",
                     length = stylesToCopy.length,
@@ -5314,16 +5312,16 @@ wysihtml5.dom.copyAttributes = function (attributesToCopy) {
                 for (; i < length; i++) {
                     property = stylesToCopy[i];
                     cssText += property + ":" + dom.getStyle(property).from(element) + ";";
-                }
+        }
 
-                return {
-                    to: function (element) {
-                        dom.setStyles(cssText).on(element);
-                        return {andTo: arguments.callee};
-                    }
-                };
+        return {
+            to: function (element) {
+                dom.setStyles(cssText).on(element);
+                return {andTo: arguments.callee};
             }
         };
+            }
+    };
     };
 })(wysihtml5.dom);
 ;/**
@@ -5402,7 +5400,8 @@ wysihtml5.dom.copyAttributes = function (attributesToCopy) {
             }
 
 
-        };
+
+    };
     };
 })(wysihtml5);
 ;/**
@@ -5492,13 +5491,13 @@ wysihtml5.dom.getParentElement = (function () {
     function _isSameNodeName(nodeName, desiredNodeNames) {
         if (!desiredNodeNames || !desiredNodeNames.length) {
             return true;
-        }
+    }
 
         if (typeof(desiredNodeNames) === "string") {
             return nodeName === desiredNodeNames;
         } else {
             return wysihtml5.lang.array(desiredNodeNames).contains(nodeName);
-        }
+    }
     }
 
     function _isElement(node) {
@@ -5509,7 +5508,7 @@ wysihtml5.dom.getParentElement = (function () {
         var classNames = (element.className || "").match(classRegExp) || [];
         if (!className) {
             return !!classNames.length;
-        }
+    }
         return classNames[classNames.length - 1] === className;
     }
 
@@ -5517,7 +5516,7 @@ wysihtml5.dom.getParentElement = (function () {
         var styles = (element.getAttribute('style') || "").match(styleRegExp) || [];
         if (!cssStyle) {
             return !!styles.length;
-        }
+    }
         return styles[styles.length - 1] === cssStyle;
     }
 
@@ -5609,7 +5608,7 @@ wysihtml5.dom.getStyle = (function () {
                     return returnValue;
                 }
             }
-        };
+    };
     };
 })();
 ;wysihtml5.dom.getTextNodes = function (node, ingoreEmpty) {
@@ -5621,7 +5620,7 @@ wysihtml5.dom.getStyle = (function () {
             }
         } else {
             all = all.concat(wysihtml5.dom.getTextNodes(node, ingoreEmpty));
-        }
+    }
     }
     return all;
 };
@@ -5648,7 +5647,7 @@ wysihtml5.dom.hasElementWithTagName = (function () {
             cacheEntry = LIVE_CACHE[key];
         if (!cacheEntry) {
             cacheEntry = LIVE_CACHE[key] = doc.getElementsByTagName(tagName);
-        }
+    }
 
         return cacheEntry.length > 0;
     };
@@ -5676,7 +5675,7 @@ wysihtml5.dom.hasElementWithTagName = (function () {
         // but is sometimes mocked via library code (which then doesn't return live node lists)
         if (!wysihtml5.browser.supportsNativeGetElementsByClassName()) {
             return !!doc.querySelector("." + className);
-        }
+    }
 
         var key = _getDocumentIdentifier(doc) + ":" + className,
             cacheEntry = LIVE_CACHE[key];
@@ -5724,7 +5723,7 @@ wysihtml5.dom.hasElementWithTagName = (function () {
                 var head = doc.querySelector("head");
                 if (head) {
                     head.appendChild(styleElement);
-                }
+        }
             }
         }
     };
@@ -5788,7 +5787,7 @@ wysihtml5.dom.hasElementWithTagName = (function () {
                     previousSibling.parentNode.removeChild(previousSibling);
                 }
             }
-        };
+    };
     };
 })(wysihtml5);
 ;/**
@@ -5813,7 +5812,7 @@ wysihtml5.dom.observe = function (element, eventNames, handler) {
             handlerWrapper = function (event) {
                 if (!("target" in event)) {
                     event.target = event.srcElement;
-                }
+        }
                 event.preventDefault = event.preventDefault || function () {
                         this.returnValue = false;
                     };
@@ -5823,7 +5822,7 @@ wysihtml5.dom.observe = function (element, eventNames, handler) {
                 handler.call(element, event);
             };
             element.attachEvent("on" + eventName, handlerWrapper);
-        }
+    }
     }
 
     return {
@@ -5837,7 +5836,7 @@ wysihtml5.dom.observe = function (element, eventNames, handler) {
                     element.removeEventListener(eventName, handler, false);
                 } else {
                     element.detachEvent("on" + eventName, handlerWrapper);
-                }
+        }
             }
         }
     };
@@ -5962,7 +5961,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
             for (var n = txtnodes.length; n--;) {
                 txtnodes[n].nodeValue = txtnodes[n].nodeValue.replace(/([\S\u00A0])\u00A0/gi, "$1 ");
             }
-        }
+    }
 
         // Clear element contents
         element.innerHTML = "";
@@ -5998,19 +5997,19 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
 
                 for (i = oldChildsLength; i--;) {
                     if (oldChilds[i]) {
-                        newChild = _convert(oldChilds[i], cleanUp, clearInternals, uneditableClass);
-                        if (newChild) {
-                            if (oldChilds[i] === newChild) {
-                                i--;
-                            }
-                            fragment.insertBefore(newChild, fragment.firstChild);
-                        }
+                newChild = _convert(oldChilds[i], cleanUp, clearInternals, uneditableClass);
+                if (newChild) {
+                    if (oldChilds[i] === newChild) {
+                        i--;
                     }
+                    fragment.insertBefore(newChild, fragment.firstChild);
                 }
+                    }
+            }
 
                 if (wysihtml5.dom.getStyle("display").from(oldNode) === "block") {
                     fragment.appendChild(oldNode.ownerDocument.createElement("br"));
-                }
+            }
 
                 // TODO: try to minimize surplus spaces
                 if (wysihtml5.lang.array([
@@ -6027,14 +6026,14 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     }
                 }
 
-                if (fragment.normalize) {
-                    fragment.normalize();
-                }
-                return fragment;
+            if (fragment.normalize) {
+                fragment.normalize();
+            }
+            return fragment;
             } else {
                 // Remove
                 return null;
-            }
+        }
         }
 
         // Converts all childnodes
@@ -6046,9 +6045,9 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                         i--;
                     }
                     newNode.appendChild(newChild);
-                }
-            }
         }
+            }
+    }
 
         // Cleanup senseless <span> elements
         if (cleanUp &&
@@ -6068,7 +6067,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
 
         if (newNode.normalize) {
             newNode.normalize();
-        }
+    }
         return newNode;
     }
 
@@ -6081,11 +6080,11 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     method = selectorRules[sel];
                 } else if (typeof(selectorRules[sel]) === "string" && elementHandlingMethods[selectorRules[sel]]) {
                     method = elementHandlingMethods[selectorRules[sel]];
-                }
+        }
                 els = element.querySelectorAll(sel);
                 for (var i = els.length; i--;) {
                     method(els[i]);
-                }
+        }
             }
         }
     }
@@ -6157,11 +6156,11 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     renameTag = rule.remove_action_rename_to || DEFAULT_NODE_NAME;
                 } else {
                     return null;
-                }
+        }
             } else {
                 return null;
             }
-        }
+    }
 
         newNode = oldNode.ownerDocument.createElement(renameTag || rule.rename_tag || nodeName);
         _handleAttributes(oldNode, newNode, rule, clearInternals);
@@ -6181,16 +6180,16 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
         // do not interfere with placeholder span or pasting caret position is not maintained
         if (oldNode.nodeName === "SPAN" && !clearInternals && (oldNode.className === "_wysihtml5-temp-placeholder" || oldNode.className === "rangySelectionBoundary")) {
             return true;
-        }
+    }
 
         for (type in types) {
             if (types.hasOwnProperty(type) && rules.type_definitions && rules.type_definitions[type]) {
                 definition = rules.type_definitions[type];
                 if (_testType(oldNode, definition)) {
                     return true;
-                }
-            }
         }
+            }
+    }
         return false;
     }
 
@@ -6218,7 +6217,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     if (typeCeckMethods[m](oldNode)) {
                         return true;
                     }
-                }
+        }
             }
         }
 
@@ -6229,7 +6228,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
             for (var i = 0; i < classesLength; i++) {
                 if (definition.classes[nodeClasses[i]]) {
                     return true;
-                }
+        }
             }
         }
 
@@ -6246,9 +6245,9 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                             if (definition.styles[s] === true || definition.styles[s] === 1 || wysihtml5.lang.array(definition.styles[s]).contains(styleProp[1].replace(/\s/g, '').toLowerCase())) {
                                 return true;
                             }
-                        }
+            }
                     }
-                }
+        }
             }
         }
 
@@ -6260,11 +6259,11 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     if (typeof(attr) === "string") {
                         if (attr.search(definition.attrs[a]) > -1) {
                             return true;
-                        }
                     }
                 }
             }
         }
+    }
         return false;
     }
 
@@ -6284,7 +6283,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     } else if (oldNode.style[s]) {
                         newNode.style[s] = v;
                     }
-                }
+        }
             }
         }
     };
@@ -6295,7 +6294,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
             if (attributes.hasOwnProperty(attr) && attr.indexOf(beginning) === 0) {
                 returnAttributes.push(attr);
             }
-        }
+    }
         return returnAttributes;
     }
 
@@ -6308,9 +6307,9 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 newAttributeValue = method(attributeValue);
                 if (typeof(newAttributeValue) === "string") {
                     return newAttributeValue;
-                }
-            }
         }
+            }
+    }
 
         return false;
     }
@@ -6339,7 +6338,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     attributes[attributeName] = newValue;
                 }
             }
-        }
+    }
 
         return attributes;
     }
@@ -6380,7 +6379,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 method = addClassMethods[addClass[attributeName]];
                 if (!method) {
                     continue;
-                }
+        }
                 newClass = method(wysihtml5.dom.getAttribute(oldNode, attributeName));
                 if (typeof(newClass) === "string") {
                     classes.push(newClass);
@@ -6393,12 +6392,12 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 method = addStyleMethods[addStyle[attributeName]];
                 if (!method) {
                     continue;
-                }
+        }
 
                 newStyle = method(wysihtml5.dom.getAttribute(oldNode, attributeName));
                 if (typeof(newStyle) === "string") {
                     styles.push(newStyle);
-                }
+        }
             }
         }
 
@@ -6408,7 +6407,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 oldClasses = oldNode.getAttribute("class");
                 if (oldClasses) {
                     classes = classes.concat(oldClasses.split(WHITE_SPACE_REG_EXP));
-                }
+        }
 
                 classesLength = classes.length;
                 for (; i < classesLength; i++) {
@@ -6416,11 +6415,11 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                     if (!currentRules.classes_blacklist[currentClass]) {
                         newClasses.push(currentClass);
                     }
-                }
+        }
 
                 if (newClasses.length) {
                     attributes["class"] = wysihtml5.lang.array(newClasses).unique().join(" ");
-                }
+        }
 
             } else {
                 attributes["class"] = oldNode.getAttribute("class");
@@ -6443,13 +6442,13 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 currentClass = classes[i];
                 if (allowedClasses[currentClass]) {
                     newClasses.push(currentClass);
-                }
+        }
             }
 
             if (newClasses.length) {
                 attributes["class"] = wysihtml5.lang.array(newClasses).unique().join(" ");
             }
-        }
+    }
 
         // remove table selection class if present
         if (attributes["class"] && clearInternals) {
@@ -6461,7 +6460,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
 
         if (styles.length) {
             attributes["style"] = wysihtml5.lang.array(styles).unique().join(" ");
-        }
+    }
 
         // set attributes on newNode
         for (attributeName in attributes) {
@@ -6472,7 +6471,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 newNode.setAttribute(attributeName, attributes[attributeName]);
             } catch (e) {
             }
-        }
+    }
 
         // IE8 sometimes loses the width/height attributes when those are set before the "src"
         // so we make sure to set them again
@@ -6664,7 +6663,7 @@ wysihtml5.dom.parse = function (elementOrHtml_current, config_current) {
                 // try to measure dimesions in last resort. (can find only of elements in dom)
                 if (el.offsetWidth && el.offsetWidth > 0 && el.offsetHeight && el.offsetHeight > 0) {
                     return true;
-                }
+        }
 
                 return false;
             };
@@ -6699,7 +6698,7 @@ wysihtml5.dom.removeEmptyTextNodes = function (node) {
         childNode = childNodes[i];
         if (childNode.nodeType === wysihtml5.TEXT_NODE && childNode.data === "") {
             childNode.parentNode.removeChild(childNode);
-        }
+    }
     }
 };
 ;/**
@@ -6806,7 +6805,7 @@ wysihtml5.dom.replaceWithChildNodes = function (node) {
     function resolveList(list, useLineBreaks) {
         if (!list.nodeName.match(/^(MENU|UL|OL)$/)) {
             return;
-        }
+    }
 
         var doc = list.ownerDocument,
             fragment = doc.createDocumentFragment(),
@@ -6844,16 +6843,16 @@ wysihtml5.dom.replaceWithChildNodes = function (node) {
                     while (firstChild = listItem.firstChild) {
                         fragment.appendChild(firstChild);
                     }
-                } else {
+        } else {
                     paragraph = doc.createElement("p");
                     while (firstChild = listItem.firstChild) {
                         paragraph.appendChild(firstChild);
                     }
                     fragment.appendChild(paragraph);
-                }
+        }
                 listItem.parentNode.removeChild(listItem);
             }
-        }
+    }
 
         list.parentNode.replaceChild(fragment, list);
     }
@@ -7194,7 +7193,7 @@ wysihtml5.dom.replaceWithChildNodes = function (node) {
             // TODO: figure out and bind the errors logic for contenteditble mode
             /*iframeWindow.onerror = function(errorMessage, fileName, lineNumber) {
              throw new Error("wysihtml5.Sandbox: " + errorMessage, fileName, lineNumber);
-             }
+        }
              */
             this.loaded = true;
             // Trigger the callback
@@ -7214,13 +7213,13 @@ wysihtml5.dom.replaceWithChildNodes = function (node) {
         "className": "class"
     };
     wysihtml5.dom.setAttributes = function (attributes) {
-        return {
-            on: function (element) {
-                for (var i in attributes) {
-                    element.setAttribute(mapping[i] || i, attributes[i]);
-                }
-            }
-        };
+    return {
+        on: function (element) {
+            for (var i in attributes) {
+                element.setAttribute(mapping[i] || i, attributes[i]);
+        }
+        }
+    };
     };
 })();
 ;wysihtml5.dom.setStyles = function (styles) {
@@ -7269,7 +7268,7 @@ wysihtml5.dom.replaceWithChildNodes = function (node) {
                             var sel = view.selection.getSelection();
                             if (!sel.focusNode || !sel.anchorNode) {
                                 view.selection.selectNode(view.element.firstChild || view.element);
-                            }
+                }
                         }, 0);
                     }
                 }
@@ -7381,9 +7380,9 @@ wysihtml5.dom.getAttributes = function (node) {
                     }
                 } else {
                     attributes[node.attributes[attr].name] = node.attributes[attr].value;
-                }
-            }
         }
+            }
+    }
     }
     return attributes;
 };
@@ -7398,7 +7397,7 @@ wysihtml5.dom.isLoadedImage = function (node) {
     } catch (e) {
         if (node.complete && node.readyState === "complete") {
             return true;
-        }
+    }
     }
 };
 ;(function (wysihtml5) {
@@ -8285,6 +8284,7 @@ wysihtml5.dom.isLoadedImage = function (node) {
     };
 
 
+
 })(wysihtml5);
 ;// does a selector query on element or array of elements
 
@@ -8360,7 +8360,7 @@ wysihtml5.dom.query = function (elements, query) {
                     else {
                         return 4; //Node.DOCUMENT_POSITION_FOLLOWING;
                     }
-                }
+        }
                 previous = point;
                 point = point.parentNode;
             }
@@ -8372,7 +8372,7 @@ wysihtml5.dom.query = function (elements, query) {
     if (node.parentNode) {
         while (node.lastChild) {
             wysihtml5.dom.insert(node.lastChild).after(node);
-        }
+    }
         node.parentNode.removeChild(node);
     }
 };
@@ -8391,7 +8391,7 @@ wysihtml5.dom.getPastedHtml = function (event) {
             html = event.clipboardData.getData('text/html');
         } else if (wysihtml5.lang.array(event.clipboardData.types).contains('text/plain')) {
             html = wysihtml5.lang.string(event.clipboardData.getData('text/plain')).escapeHTML(true, true);
-        }
+    }
     }
     return html;
 };
@@ -8445,9 +8445,9 @@ wysihtml5.quirks.cleanPastedHTML = (function () {
                             if (exceptStyles[style]) {
                                 newRules.tags[tag].keep_styles[style] = styleToRegex(exceptStyles[style]);
                             }
-                        }
+            }
                     }
-                }
+        }
             }
         }
 
@@ -8649,7 +8649,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                 if (select.end !== oldEnd) {
                     editor.fire("tableselectchange").fire("tableselectchange:composer");
                 }
-            }
+        }
         }
     }
 
@@ -8789,7 +8789,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                 top += element.offsetTop || 0;
                 element = element.offsetParent;
             } while (element);
-        }
+    }
         return top;
     }
 
@@ -8819,7 +8819,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             if (start_depth > end_depth) {
                 range.setStartBefore(range.startContainer);
                 start_depth = getDepth(common, range.startContainer);
-            }
+        }
             else {
                 range.setEndAfter(range.endContainer);
                 end_depth = getDepth(common, range.endContainer);
@@ -9556,7 +9556,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                                             // in all other cases uneditable does not touch selection. dont modify
                                             tmpRanges.push(ranges[j]);
                                     }
-                                }
+                }
                                 ranges = tmpRanges;
                             }
                         }
@@ -9652,7 +9652,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
     function hasClass(el, cssClass, regExp) {
         if (!el.className) {
             return false;
-        }
+    }
 
         var matchingClassNames = el.className.match(regExp) || [];
         return matchingClassNames[matchingClassNames.length - 1] === cssClass;
@@ -9661,7 +9661,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
     function hasStyleAttr(el, regExp) {
         if (!el.getAttribute || !el.getAttribute('style')) {
             return false;
-        }
+    }
         var matchingStyles = el.getAttribute('style').match(regExp);
         return (el.getAttribute('style').match(regExp)) ? true : false;
     }
@@ -9676,7 +9676,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             }
         } else {
             el.setAttribute('style', cssStyle);
-        }
+    }
     }
 
     function addClass(el, cssClass, regExp) {
@@ -9685,13 +9685,13 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             el.className += " " + cssClass;
         } else {
             el.className = cssClass;
-        }
+    }
     }
 
     function removeClass(el, regExp) {
         if (el.className) {
             el.className = el.className.replace(regExp, "");
-        }
+    }
     }
 
     function removeStyle(el, regExp) {
@@ -9702,14 +9702,14 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             for (var i = s.length; i--;) {
                 if (!s[i].match(regExp) && !(/^\s*$/).test(s[i])) {
                     s2.push(s[i]);
-                }
+        }
             }
             if (s2.length) {
                 el.setAttribute('style', s2.join(';'));
             } else {
                 el.removeAttribute('style');
             }
-        }
+    }
     }
 
     function getMatchingStyleRegexp(el, style) {
@@ -9724,14 +9724,14 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             for (var i = sSplit.length; i-- > 0;) {
                 if (!(/^\s*$/).test(sSplit[i])) {
                     regexes.push(new RegExp("(^|\\s|;)" + sSplit[i].replace(/\s/gi, '').replace(/([\(\)])/gi, "\\$1").toLowerCase().replace(";", ";?").replace(/rgb\\\((\d+),(\d+),(\d+)\\\)/gi, "\\s?rgb\\($1,\\s?$2,\\s?$3\\)"), "gi"));
-                }
+        }
             }
             for (var j = 0, jmax = regexes.length; j < jmax; j++) {
                 if (elStyle.match(regexes[j])) {
                     return regexes[j];
                 }
             }
-        }
+    }
 
         return false;
     }
@@ -9743,7 +9743,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             return wysihtml5.dom.hasClass(node, className);
         } else {
             return rangy.dom.arrayContains(tags, node.tagName.toLowerCase());
-        }
+    }
     }
 
     function areMatchingAllready(nodes, tags, style, className) {
@@ -9751,7 +9751,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             if (!isMatchingAllready(nodes[i], tags, style, className)) {
                 return false;
             }
-        }
+    }
         return nodes.length ? true : false;
     }
 
@@ -9766,7 +9766,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             // adding new style value changes value
             addStyle(el, style, regExp);
             return "change";
-        }
+    }
     }
 
     function hasSameClasses(el1, el2) {
@@ -9777,7 +9777,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
         var parent = el.parentNode;
         while (el.firstChild) {
             parent.insertBefore(el.firstChild, el);
-        }
+    }
         parent.removeChild(el);
     }
 
@@ -9792,10 +9792,10 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                 attr2 = el2.attributes.getNamedItem(name);
                 if (attr1.specified != attr2.specified) {
                     return false;
-                }
+        }
                 if (attr1.specified && attr1.nodeValue !== attr2.nodeValue) {
                     return false;
-                }
+        }
             }
         }
         return true;
@@ -9808,9 +9808,9 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             } else if (offset == node.length) {
                 return !!node.nextSibling;
             } else {
-                return true;
+        return true;
             }
-        }
+    }
 
         return offset > 0 && offset < node.childNodes.length;
     }
@@ -9827,22 +9827,22 @@ wysihtml5.quirks.ensureProperClearing = (function () {
             } else {
                 newNode = rangy.dom.splitDataNode(descendantNode, descendantOffset);
             }
-        }
+    }
         if (!newNode) {
             if (!container || descendantNode !== container) {
 
                 newNode = descendantNode.cloneNode(false);
                 if (newNode.id) {
                     newNode.removeAttribute("id");
-                }
+        }
                 var child;
                 while ((child = descendantNode.childNodes[descendantOffset])) {
                     newNode.appendChild(child);
-                }
+        }
                 rangy.dom.insertAfter(newNode, descendantNode);
 
             }
-        }
+    }
         return (descendantNode == node) ? newNode : splitNodeAt(node, newNode.parentNode, rangy.dom.getNodeIndex(newNode), container);
     }
 
@@ -9864,7 +9864,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                     if (!parent.hasChildNodes()) {
                         parent.parentNode.removeChild(parent);
                     }
-                }
+        }
             }
             this.firstTextNode.data = text = textBits.join("");
             return text;
@@ -9884,7 +9884,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                 textBits[i] = "'" + this.textNodes[i].data + "'";
             }
             return "[Merge(" + textBits.join(",") + ")]";
-        }
+    }
     };
 
     function HTMLApplier(tagNames, cssClass, similarClassRegExp, normalize, cssStyle, similarStyleRegExp, container) {
@@ -10122,7 +10122,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                         textNode = textNodes[i];
                         if (!this.getMatchingAncestor(textNode).element) {
                             this.applyToTextNode(textNode);
-                        }
+                }
                     }
 
                     range[ri].setStart(textNodes[0], 0);
@@ -10132,7 +10132,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                     if (this.normalize) {
                         this.postApply(textNodes, range[ri]);
                     }
-                }
+            }
 
             }
         },
@@ -10175,7 +10175,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
 
                     if (this.normalize) {
                         this.postApply(textNodes, range[ri]);
-                    }
+            }
                 }
 
             }
@@ -10241,7 +10241,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                             appliedType = "full";
                         } else if (appliedType === "full") {
                             appliedType = "inline";
-                        }
+            }
                     } else if (!ancestor) {
                         appliedType = "partial";
                     }
@@ -10274,7 +10274,7 @@ wysihtml5.quirks.ensureProperClearing = (function () {
                         this.undoToRange(range);
                     }
                     this.applyToRange(range);
-                }
+        }
             } else {
                 this.applyToRange(range);
             }
@@ -10424,7 +10424,7 @@ wysihtml5.Commands = Base.extend(
                 // Do not set attribute "text" as it is meant for setting string value if created link has no textual data
                 if (j !== "text") {
                     anchor.setAttribute(j, attributes[j]);
-                }
+        }
             }
         }
 
@@ -10440,7 +10440,7 @@ wysihtml5.Commands = Base.extend(
                 dom.insert(whiteSpace).after(anchor);
                 elementToSetCaretAfter = whiteSpace;
             }
-        }
+    }
         composer.selection.setAfter(elementToSetCaretAfter);
     }
 
@@ -10459,10 +10459,10 @@ wysihtml5.Commands = Base.extend(
             for (var j in attributes) {
                 if (attributes.hasOwnProperty(j)) {
                     anchors[a].setAttribute(j, attributes[j]);
-                }
+        }
             }
 
-        }
+    }
     }
 
     wysihtml5.commands.createLink = {
@@ -10519,7 +10519,7 @@ wysihtml5.Commands = Base.extend(
             } else {
                 dom.replaceWithChildNodes(anchor);
             }
-        }
+    }
     }
 
     wysihtml5.commands.removeLink = {
@@ -10591,7 +10591,7 @@ wysihtml5.Commands = Base.extend(
                 styleStr = st.getAttribute('style');
                 if (styleStr) {
                     return wysihtml5.quirks.styleParser.parseFontSize(styleStr);
-                }
+        }
             }
             return false;
         }
@@ -10656,7 +10656,7 @@ wysihtml5.Commands = Base.extend(
                         val = wysihtml5.quirks.styleParser.parseColor(colorStr, "color");
                         return wysihtml5.quirks.styleParser.unparseColor(val, props);
                     }
-                }
+        }
             }
             return false;
         }
@@ -10699,7 +10699,7 @@ wysihtml5.Commands = Base.extend(
                 if (colorStr) {
                     val = wysihtml5.quirks.styleParser.parseColor(colorStr, "background-color");
                     return wysihtml5.quirks.styleParser.unparseColor(val, props);
-                }
+        }
             }
             return false;
         }
@@ -10723,7 +10723,7 @@ wysihtml5.Commands = Base.extend(
             element.className = wysihtml5.lang.string(element.className + " " + className).trim();
         } else {
             element.className = className;
-        }
+    }
     }
 
     function _addStyle(element, cssStyle, styleRegExp) {
@@ -10732,7 +10732,7 @@ wysihtml5.Commands = Base.extend(
             element.setAttribute('style', wysihtml5.lang.string(element.getAttribute('style') + " " + cssStyle).trim());
         } else {
             element.setAttribute('style', cssStyle);
-        }
+    }
     }
 
     function _removeClass(element, classRegExp) {
@@ -10740,7 +10740,7 @@ wysihtml5.Commands = Base.extend(
         element.className = element.className.replace(classRegExp, "");
         if (wysihtml5.lang.string(element.className).trim() == '') {
             element.removeAttribute('class');
-        }
+    }
         return ret;
     }
 
@@ -10749,7 +10749,7 @@ wysihtml5.Commands = Base.extend(
         element.setAttribute('style', (element.getAttribute('style') || "").replace(styleRegExp, ""));
         if (wysihtml5.lang.string(element.getAttribute('style') || "").trim() == '') {
             element.removeAttribute('style');
-        }
+    }
         return ret;
     }
 
@@ -10757,7 +10757,7 @@ wysihtml5.Commands = Base.extend(
         var lastChild = node.lastChild;
         if (lastChild && _isLineBreak(lastChild)) {
             lastChild.parentNode.removeChild(lastChild);
-        }
+    }
     }
 
     function _isLineBreak(node) {
@@ -10792,19 +10792,19 @@ wysihtml5.Commands = Base.extend(
             if (eventListener) {
                 eventListener.stop();
             }
-        }
+    }
     }
 
     function _selectionWrap(composer, options) {
         if (composer.selection.isCollapsed()) {
             composer.selection.selectLine();
-        }
+    }
 
         var surroundedNodes = composer.selection.surround(options);
         for (var i = 0, imax = surroundedNodes.length; i < imax; i++) {
             wysihtml5.dom.lineBreaks(surroundedNodes[i]).remove();
             _removeLastChildIfLineBreak(surroundedNodes[i]);
-        }
+    }
 
         // rethink restoring selection
         // composer.selection.selectNode(element, wysihtml5.browser.displaysCaretInEmptyContentEditableCorrectly());
@@ -10840,7 +10840,7 @@ wysihtml5.Commands = Base.extend(
                         if ((styleRemoveAction || classRemoveAction) && nodeName === null && blockElements[b].nodeName != defaultNodeName) {
                             // dont rename or remove element when just setting block formating class or style
                             return;
-                        }
+            }
 
                         var hasClasses = _hasClasses(blockElements[b]),
                             hasStyles = _hasStyles(blockElements[b]);
@@ -10875,7 +10875,7 @@ wysihtml5.Commands = Base.extend(
                             // Rename current block element to new block element and add class
                             if (nodeName) {
                                 blockElement = dom.renameElement(blockElement, nodeName);
-                            }
+                }
                             if (className) {
                                 _addClass(blockElement, className, classRegExp);
                             }
@@ -10883,7 +10883,7 @@ wysihtml5.Commands = Base.extend(
                                 _addStyle(blockElement, cssStyle, styleRegExp);
                             }
                             blockRenameFound = true;
-                        }
+            }
                     }
 
                 });
@@ -10918,7 +10918,7 @@ wysihtml5.Commands = Base.extend(
                 });
                 if (parent && wysihtml5.lang.array(parents).indexOf(parent) == -1) {
                     parents.push(parent);
-                }
+        }
             }
             if (parents.length == 0) {
                 return false;
@@ -10976,7 +10976,7 @@ wysihtml5.commands.formatCode = {
             return selectedNode;
         } else {
             return wysihtml5.dom.getParentElement(selectedNode, {nodeName: "CODE"}) && wysihtml5.dom.getParentElement(selectedNode, {nodeName: "PRE"});
-        }
+    }
     }
 };
 ;/**
@@ -11032,14 +11032,14 @@ wysihtml5.commands.formatCode = {
 
         if (className) {
             identifier += ":" + className;
-        }
+    }
         if (cssStyle) {
             identifier += ":" + cssStyle;
         }
 
         if (!htmlApplier[identifier]) {
             htmlApplier[identifier] = new wysihtml5.selection.HTMLApplier(_getTagNames(tagName), className, classRegExp, true, cssStyle, styleRegExp, container);
-        }
+    }
 
         return htmlApplier[identifier];
     }
@@ -11140,7 +11140,7 @@ wysihtml5.commands.formatCode = {
                         wysihtml5.dom.lineBreaks(state).add();
                     }
                     wysihtml5.dom.unwrap(state);
-                } else {
+        } else {
                     if (composer.selection.isCollapsed()) {
                         composer.selection.selectLine();
                     }
@@ -11152,15 +11152,15 @@ wysihtml5.commands.formatCode = {
                     } else {
                         composer.selection.surround({nodeName: "blockquote"});
                     }
-                }
+        }
             });
-        },
+    },
         state: function (composer, command) {
             var selectedNode = composer.selection.getSelectedNode(),
                 node = wysihtml5.dom.getParentElement(selectedNode, {nodeName: "BLOCKQUOTE"}, false, composer.element);
 
             return (node) ? node : false;
-        }
+    }
     };
 
 })(wysihtml5);
@@ -11284,15 +11284,15 @@ wysihtml5.commands.formatCode = {
                 composer.doc.execCommand(command, false, null);
                 if (!wysihtml5.browser.autoScrollsToCaret()) {
                     composer.selection.scrollIntoView();
-                }
+        }
             } else {
                 composer.commands.exec("insertHTML", LINE_BREAK);
             }
-        },
+    },
 
         state: function () {
             return false;
-        }
+    }
     };
 })(wysihtml5);
 ;wysihtml5.commands.insertOrderedList = {
@@ -11323,7 +11323,7 @@ wysihtml5.commands.formatCode = {
             for (var n = name.length; n--;) {
                 if (node.nodeName === name[n]) {
                     return true;
-                }
+        }
             }
         }
         return false;
@@ -11354,7 +11354,7 @@ wysihtml5.commands.formatCode = {
                         el: parentLi.parentNode,
                         other: true
                     };
-                }
+        }
             }
         }
 
@@ -11378,7 +11378,7 @@ wysihtml5.commands.formatCode = {
             if (otherLists.length) {
                 for (var l = otherLists.length; l--;) {
                     wysihtml5.dom.renameElement(otherLists[l], nodeName.toLowerCase());
-                }
+        }
             } else {
                 innerLists = getListsInSelection(['OL', 'UL'], composer);
                 for (var i = innerLists.length; i--;) {
@@ -11438,7 +11438,7 @@ wysihtml5.commands.formatCode = {
                 list = wysihtml5.dom.convertToList(tempElement, nodeName.toLowerCase(), composer.parent.config.uneditableContainerClassname);
                 if (isEmpty) {
                     composer.selection.selectNode(list.querySelector("li"), true);
-                }
+        }
             }
         });
     };
@@ -11461,14 +11461,14 @@ wysihtml5.commands.formatCode = {
             } else {
                 handleSameTypeList(list.el, nodeName, composer);
             }
-        },
+    },
 
         state: function (composer, command, nodeName) {
             var selectedNode = composer.selection.getSelectedNode(),
                 list = findListEl(selectedNode, nodeName, composer);
 
             return (list.el && !list.other) ? list.el : false;
-        }
+    }
     };
 
 })(wysihtml5);
@@ -11830,7 +11830,7 @@ wysihtml5.commands.formatCode = {
                         // cleanup
                         if (listNode.childNodes.length === 0) {
                             listNode.parentNode.removeChild(listNode);
-                        }
+            }
                     }
                 }
             }
@@ -11845,7 +11845,7 @@ wysihtml5.commands.formatCode = {
 
         while (liNode.nextSibling) {
             newList.appendChild(liNode.nextSibling);
-        }
+    }
         return newList;
     }
 
@@ -11870,7 +11870,7 @@ wysihtml5.commands.formatCode = {
         var tempElement;
         while (tempElement = doc.querySelector("._wysihtml5-temp")) {
             tempElement.parentNode.removeChild(tempElement);
-        }
+    }
     }
 
     wysihtml5.UndoManager = wysihtml5.lang.Dispatcher.extend(
@@ -12401,7 +12401,7 @@ wysihtml5.views.View = Base.extend(
                                 for (var i = uneditables.length; i--;) {
                                     if (wysihtml5.dom.contains(uneditables[i], endContainer)) {
                                         isInUneditable = true;
-                                    }
+                }
                                 }
 
                                 if (!isInUneditable) dom.autoLink(endContainer.parentNode, [that.config.uneditableContainerClassname]);
@@ -12575,7 +12575,7 @@ wysihtml5.views.View = Base.extend(
 
                             if (keyCode === wysihtml5.ENTER_KEY && blockElement.nodeName.match(/^H[1-6]$/)) {
                                 adjust(selectedNode);
-                            }
+            }
                         }, 0);
                         return;
                     }
@@ -12833,7 +12833,7 @@ wysihtml5.views.View = Base.extend(
                     while (curNode.firstChild) {
                         uneditable.parentNode.insertBefore(curNode.firstChild, uneditable);
                     }
-                }
+        }
                 if (curNode.parentNode) {
                     curNode.parentNode.removeChild(curNode);
                 }
@@ -12874,14 +12874,14 @@ wysihtml5.views.View = Base.extend(
                         range.collapse(false);
                         selection.setSelection(range);
                     }
-                }
+        }
 
                 var beforeUneditable = selection.caretIsBeforeUneditable();
                 // Do a special delete if caret would delete uneditable
                 if (beforeUneditable) {
                     event.preventDefault();
                     deleteAroundEditable(selection, beforeUneditable, element);
-                }
+        }
             }
         } else {
             if (selection.containsUneditable()) {
@@ -12921,8 +12921,8 @@ wysihtml5.views.View = Base.extend(
         if (!browser.supportsMutationEvents()) {
             var domNodeRemovedInterval = setInterval(function () {
                 if (!dom.contains(document.documentElement, container)) {
-                    clearInterval(domNodeRemovedInterval);
-                    that.parent.fire("destroy:composer");
+            clearInterval(domNodeRemovedInterval);
+            that.parent.fire("destroy:composer");
                 }
             }, 250);
         }
@@ -12949,7 +12949,7 @@ wysihtml5.views.View = Base.extend(
                         that.doc.execCommand("enableObjectResizing", false, "false");
                         that.doc.execCommand("enableInlineTableEditing", false, "false");
                     }, 0);
-                }
+        }
             }
             this.tableSelection = wysihtml5.quirks.tableCellsSelection(element, that.parent);
         }
@@ -12994,7 +12994,7 @@ wysihtml5.views.View = Base.extend(
                 if (event.clipboardData) {
                     event.clipboardData.setData("text/html", that.config.copyedFromMarking + that.selection.getHtml());
                     event.preventDefault();
-                }
+        }
                 that.parent.fire(event.type, event).fire(event.type + ":composer", event);
             });
         }
@@ -13023,7 +13023,7 @@ wysihtml5.views.View = Base.extend(
 
                 if (target.nodeName === "IMG" && wysihtml5.lang.array(myImages).contains(target)) {
                     that.selection.selectNode(target);
-                }
+        }
             });
         }
 
@@ -13040,7 +13040,7 @@ wysihtml5.views.View = Base.extend(
             dom.observe(element, "keydown", function (event) {
                 if (!event.metaKey && !event.ctrlKey) {
                     return;
-                }
+        }
 
                 var keyCode = event.keyCode,
                     win = element.ownerDocument.defaultView,
@@ -13051,13 +13051,13 @@ wysihtml5.views.View = Base.extend(
                         selection.modify("extend", "left", "lineboundary");
                         if (!event.shiftKey) {
                             selection.collapseToStart();
-                        }
+            }
                     }
                     if (keyCode === 39) {
                         selection.modify("extend", "right", "lineboundary");
                         if (!event.shiftKey) {
                             selection.collapseToEnd();
-                        }
+            }
                     }
                     event.preventDefault();
                 }
@@ -13123,7 +13123,7 @@ wysihtml5.views.View = Base.extend(
         var titlePrefixes = {
             IMG: "Image: ",
             A: "Link: "
-        };
+    };
 
         dom.observe(element, "mouseover", function (event) {
             var target = event.target,
@@ -13293,7 +13293,7 @@ wysihtml5.views.View = Base.extend(
                 eventMapping = {
                     focusin: "focus",
                     focusout: "blur"
-                },
+        },
                 /**
                  * Calling focus() or blur() on an element doesn't synchronously trigger the attached focus/blur events
                  * This is the case for focusin and focusout, so let's use them whenever possible, kkthxbai
@@ -13311,7 +13311,7 @@ wysihtml5.views.View = Base.extend(
                         parent.fire("paste").fire("paste:textarea");
                     }, 0);
                 });
-            });
+    });
         }
     });
 ;/**
@@ -13540,9 +13540,9 @@ wysihtml5.views.View = Base.extend(
                         wysihtml5.dom.getPastedHtmlWithDiv(that.composer, function (pastedHTML) {
                             if (pastedHTML) {
                                 that._cleanAndPaste(pastedHTML);
-                            }
+            }
                         });
-                    });
+        });
 
                 }
             },
@@ -13985,7 +13985,7 @@ wysihtml5.views.View = Base.extend(
                             dialogContainer: dialogElement,
                             commandLink: link
                         });
-                    });
+        });
                 }
                 return dialog;
             },
@@ -14027,8 +14027,8 @@ wysihtml5.views.View = Base.extend(
                             editor.fire("change_view", "composer");
                         } else {
                             editor.fire("change_view", "textarea");
-                        }
-                    }
+            }
+        }
                 }
                 if (action == "showSource") {
                     editor.fire("showSource");
@@ -14053,7 +14053,7 @@ wysihtml5.views.View = Base.extend(
                         }).on(links[i]);
                     } else {
                         dom.setAttributes({unselectable: "on"}).on(links[i]);
-                    }
+        }
                 }
 
                 // Needed for opera and chrome
@@ -14104,7 +14104,7 @@ wysihtml5.views.View = Base.extend(
                                 dom.removeClass(container, CLASS_NAME_COMMANDS_DISABLED);
                             }
                         }, 0);
-                    }
+        }
                 });
             },
 
@@ -14134,10 +14134,10 @@ wysihtml5.views.View = Base.extend(
                         if (command.group) {
                             dom.removeClass(command.group, CLASS_NAME_COMMAND_DISABLED);
                         }
-                    }
+        }
                     if (command.state === state) {
                         continue;
-                    }
+        }
 
                     command.state = state;
                     if (state) {
@@ -14159,7 +14159,7 @@ wysihtml5.views.View = Base.extend(
                                 command.dialog.show(state);
                             } else {
                                 command.dialog.hide();
-                            }
+            }
                         }
                     } else {
                         dom.removeClass(command.link, CLASS_NAME_COMMAND_ACTIVE);
@@ -14169,7 +14169,7 @@ wysihtml5.views.View = Base.extend(
                         if (command.dialog) {
                             command.dialog.hide();
                         }
-                    }
+        }
                 }
 
                 for (i in actionMapping) {
@@ -14182,7 +14182,7 @@ wysihtml5.views.View = Base.extend(
                         } else {
                             dom.removeClass(action.link, CLASS_NAME_ACTION_ACTIVE);
                         }
-                    }
+        }
                 }
             },
 
@@ -14192,7 +14192,7 @@ wysihtml5.views.View = Base.extend(
 
             hide: function () {
                 this.container.style.display = "none";
-            }
+    }
         });
 
 })(wysihtml5);
@@ -14242,7 +14242,7 @@ wysihtml5.views.View = Base.extend(
                 // Never change elements where the user is currently typing in
                 if (field === focusedElement) {
                     continue;
-                }
+        }
                 // Don't update hidden fields3
                 if (avoidHiddenFields && field.type === "hidden") {
                     continue;
@@ -14259,7 +14259,7 @@ wysihtml5.views.View = Base.extend(
                     }
                 }
             }
-        }
+    }
 
     });
 })(wysihtml5);
@@ -14285,7 +14285,7 @@ wysihtml5.views.View = Base.extend(
             if (field && field !== focusedElement && size && !(/^\s*$/).test(size)) {
                 field.value = size;
             }
-        }
+    }
 
     });
 })(wysihtml5);
@@ -15224,7 +15224,7 @@ this["wysihtml5"]["tpl"]["lists"] = Handlebars.template(function (Handlebars, de
                     for (var eventName in options.events) {
                         if (options.events.hasOwnProperty(eventName)) {
                             editor.on(eventName, options.events[eventName]);
-                        }
+            }
                     }
                 }
 
@@ -15239,7 +15239,7 @@ this["wysihtml5"]["tpl"]["lists"] = Handlebars.template(function (Handlebars, de
                         context: this,
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
-                        },
+            },
                         success: function (parserRules) {
                             this.config.parserRules = parserRules;
                             console.log('parserrules loaded');
@@ -15254,7 +15254,7 @@ this["wysihtml5"]["tpl"]["lists"] = Handlebars.template(function (Handlebars, de
                         context: this,
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
-                        },
+            },
                         success: function (pasteParserRulesets) {
                             this.config.pasteParserRulesets = pasteParserRulesets;
                         }
@@ -15338,7 +15338,7 @@ this["wysihtml5"]["tpl"]["lists"] = Handlebars.template(function (Handlebars, de
                             commandObj.dialog.show();
                         } else {
                             wysihtml5.commands[command].exec(editor.composer, command);
-                        }
+            }
                         event.preventDefault();
                     }
                 });
@@ -15447,25 +15447,25 @@ this["wysihtml5"]["tpl"]["lists"] = Handlebars.template(function (Handlebars, de
                     'a': {
                         'check_attributes': {
                             'href': 'url'
-                        },
+            },
                         'set_attributes': {
                             'target': '_blank',
                             'rel': 'nofollow'
-                        }
+            }
                     },
                     'span': 1,
                     'div': 1,
                     'small': 1,
                     'code': 1,
                     'pre': 1
-                }
+        }
             },
             locale: 'en',
             shortcuts: {
                 '83': 'small',// S
                 '75': 'createLink'// K
             }
-        };
+    };
 
         if (typeof $.fn.wysihtml5.defaultOptionsCache === 'undefined') {
             $.fn.wysihtml5.defaultOptionsCache = $.extend(true, {}, $.fn.wysihtml5.defaultOptions);

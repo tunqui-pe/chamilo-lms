@@ -227,7 +227,7 @@
         if ($('body').hasClass('fixed') && cls == 'fixed') {
             AdminLTE.pushMenu.expandOnHover();
             AdminLTE.layout.activate();
-        }
+    }
         AdminLTE.controlSidebar._fix($(".control-sidebar-bg"));
         AdminLTE.controlSidebar._fix($(".control-sidebar"));
     }
@@ -259,7 +259,7 @@
             localStorage.setItem(name, val);
         } else {
             window.alert('Please use a modern browser to properly view this template!');
-        }
+    }
     }
 
     /**
@@ -273,7 +273,7 @@
             return localStorage.getItem(name);
         } else {
             window.alert('Please use a modern browser to properly view this template!');
-        }
+    }
     }
 
     /**
@@ -326,7 +326,7 @@
         // Reset options
         if ($('body').hasClass('fixed')) {
             $("[data-layout='fixed']").attr('checked', 'checked');
-        }
+    }
         if ($('body').hasClass('layout-boxed')) {
             $("[data-layout='layout-boxed']").attr('checked', 'checked');
         }

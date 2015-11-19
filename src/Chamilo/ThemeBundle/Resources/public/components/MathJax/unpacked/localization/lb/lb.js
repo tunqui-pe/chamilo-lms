@@ -37,7 +37,7 @@ MathJax.Localization.addTranslation("lb", null, {
                 Processing: "Verschaffen",
                 MathJaxNotSupported: "\u00C4re browser \u00EBnnerst\u00EBtzt MathJax net"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

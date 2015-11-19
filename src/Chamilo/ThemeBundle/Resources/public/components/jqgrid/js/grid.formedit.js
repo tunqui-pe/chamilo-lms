@@ -93,7 +93,7 @@ $.jgrid.extend({
 				showFilter($("#fbox_"+$.jgrid.jqID(+$t.p.id)));
 			} else {
 				var fil = $("<div><div id='"+fid+"' class='searchFilter' style='overflow:auto'></div></div>").insertBefore("#gview_"+$.jgrid.jqID($t.p.id)),
-				align = "left", butleft ="";
+					align = "left", butleft = "";
 				if($t.p.direction === "rtl") {
 					align = "right";
 					butleft = " style='text-align:left'";
@@ -373,7 +373,7 @@ $.jgrid.extend({
 			var $t = this;
 			if (!$t.grid || !rowid) {return;}
 			var gID = $t.p.id,
-			frmgr = "FrmGrid_"+gID, frmtborg = "TblGrid_"+gID, frmtb = "#"+$.jgrid.jqID(frmtborg),
+				frmgr = "FrmGrid_" + gID, frmtborg = "TblGrid_" + gID, frmtb = "#" + $.jgrid.jqID(frmtborg),
 			IDs = {themodal:'editmod'+gID,modalhead:'edithd'+gID,modalcontent:'editcnt'+gID, scrollelm : frmgr},
 			onBeforeShow = $.isFunction(rp_ge[$t.p.id].beforeShowForm) ? rp_ge[$t.p.id].beforeShowForm : false,
 			onAfterShow = $.isFunction(rp_ge[$t.p.id].afterShowForm) ? rp_ge[$t.p.id].afterShowForm : false,
@@ -684,7 +684,7 @@ $.jgrid.extend({
 				setNulls();
 				if(ret[0]) {
 					onCS = $($t).triggerHandler("jqGridAddEditClickSubmit", [rp_ge[$t.p.id], postdata, frmoper]);
-					if( onCS === undefined && $.isFunction( rp_ge[$t.p.id].onclickSubmit)) {
+					if (onCS === undefined && $.isFunction(rp_ge[$t.p.id].onclickSubmit)) {
 						onCS = rp_ge[$t.p.id].onclickSubmit.call($t, rp_ge[$t.p.id], postdata, frmoper) || {};
 					}
 					ret = $($t).triggerHandler("jqGridAddEditBeforeSubmit", [postdata, $("#"+frmgr), frmoper]);
@@ -841,7 +841,7 @@ $.jgrid.extend({
 					}
 					if (ret[0]) {
 						if (rp_ge[$t.p.id].useDataProxy) {
-							var dpret = $t.p.dataProxy.call($t, ajaxOptions, "set_"+$t.p.id);
+							var dpret = $t.p.dataProxy.call($t, ajaxOptions, "set_" + $t.p.id);
 							if(dpret === undefined) {
 								dpret = [true, ""];
 							}
@@ -1085,9 +1085,9 @@ $.jgrid.extend({
 			$("#"+$.jgrid.jqID(IDs.themodal)).data("onClose",rp_ge[$t.p.id].onClose);
 			$.jgrid.viewModal("#"+$.jgrid.jqID(IDs.themodal),{
 				gbox:"#gbox_"+$.jgrid.jqID(gID),
-				jqm:p.jqModal,
+				jqm: p.jqModal,
 				overlay: p.overlay,
-				modal:p.modal,
+				modal: p.modal,
 				overlayClass: p.overlayClass,
 				onHide :  function(h) {
 					var fh = $('#editmod'+gID)[0].style.height;
@@ -1686,7 +1686,7 @@ $.jgrid.extend({
 						}
 						if (ret[0]) {
 							if (rp_ge[$t.p.id].useDataProxy) {
-								var dpret = $t.p.dataProxy.call($t, ajaxOptions, "del_"+$t.p.id);
+								var dpret = $t.p.dataProxy.call($t, ajaxOptions, "del_" + $t.p.id);
 								if(dpret === undefined) {
 									dpret = [true, ""];
 								}
@@ -1785,7 +1785,7 @@ $.jgrid.extend({
 						left:o.alertleft,
 						width:o.alertwidth,
 						height: o.alertheight,
-						closeOnEscape:o.closeOnEscape,
+						closeOnEscape: o.closeOnEscape,
 						zIndex: o.alertzIndex
 					},
 					"#gview_"+$.jgrid.jqID($t.p.id),

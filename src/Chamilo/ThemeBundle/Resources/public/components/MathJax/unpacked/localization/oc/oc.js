@@ -41,7 +41,7 @@ MathJax.Localization.addTranslation("oc", null, {
                 Typesetting: "Composicion",
                 MathJaxNotSupported: "V\u00F2stre navigador sup\u00F2rta pas MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

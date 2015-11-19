@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("tr", "FontWarnings", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/tr/FontWarnings.js");

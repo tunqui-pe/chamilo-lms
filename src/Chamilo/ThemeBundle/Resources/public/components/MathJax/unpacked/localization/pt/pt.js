@@ -41,7 +41,7 @@ MathJax.Localization.addTranslation("pt", null, {
                 Typesetting: "Formatando",
                 MathJaxNotSupported: "O seu navegador n\u00E3o suporta MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

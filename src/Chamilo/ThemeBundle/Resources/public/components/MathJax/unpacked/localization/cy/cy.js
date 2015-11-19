@@ -41,7 +41,7 @@ MathJax.Localization.addTranslation("cy", null, {
                 Typesetting: "Yn gosod fformat",
                 MathJaxNotSupported: "'Dyw eich porwr ddim yn cynnal MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

@@ -54,6 +54,7 @@ body {
     z-index: 100;
 }
 
+
 .jtk-demo-dataset {
     text-align: left;
     max-height: 600px;
@@ -137,7 +138,6 @@ li {
         margin-top: 7px;
         width: 67px;
     }
-
     .jtk-demo-canvas {
         margin-left: 0;
         margin-top: 10px;

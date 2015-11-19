@@ -20,7 +20,6 @@
             el = null;
             return isSupported;
         }
-
         function resolveAlias(aliasStr, options, opts) {
             var aliasDefinition = opts.aliases[aliasStr];
             if (aliasDefinition) {
@@ -31,7 +30,6 @@
             }
             return false;
         }
-
         function generateMaskSets(opts) {
             var ms = [];
             var genmasks = []; //used to keep track of the masks that where processed, to avoid duplicates
@@ -77,7 +75,6 @@
                     "greedy": greedy
                 };
             }
-
             //test definition => {fn: RegExp/function, cardinality: int, optionality: bool, newBlockMarker: bool, offset: int, casing: null/upper/lower, def: definitionSymbol}
             function getTestingChain(mask) {
                 if (opts.numericInput) {
@@ -148,11 +145,9 @@
                     }
                 });
             }
-
             function markOptional(maskPart) { //needed for the clearOptionalTail functionality
                 return opts.optionalmarker.start + maskPart + opts.optionalmarker.end;
             }
-
             function splitFirstOptionalEndPart(maskPart) {
                 var optionalStartMarkers = 0, optionalEndMarkers = 0, mpl = maskPart.length;
                 for (var i = 0; i < mpl; i++) {
@@ -171,7 +166,6 @@
                 }
                 return maskParts;
             }
-
             function splitFirstOptionalStartPart(maskPart) {
                 var mpl = maskPart.length;
                 for (var i = 0; i < mpl; i++) {
@@ -185,7 +179,6 @@
                 }
                 return maskParts;
             }
-
             function generateMask(maskPrefix, maskPart, metadata) {
                 var maskParts = splitFirstOptionalEndPart(maskPart);
                 var newMask, maskTemplate;
@@ -1481,7 +1474,6 @@
                 }
             }
         }
-
         $.inputmask = {
             //options default
             defaults: {

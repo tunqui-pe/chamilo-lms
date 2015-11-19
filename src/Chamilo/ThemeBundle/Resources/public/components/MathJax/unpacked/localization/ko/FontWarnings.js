@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("ko", "FontWarnings", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/ko/FontWarnings.js");

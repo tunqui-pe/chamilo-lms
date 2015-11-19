@@ -34,7 +34,7 @@ function SimpleWebRTC(opts) {
             autoplay: true,
             mirror: true,
             muted: true
-        }
+            }
     };
     var item, connection;
 

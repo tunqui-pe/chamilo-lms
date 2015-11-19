@@ -101,8 +101,8 @@ $.jgrid.extend({
 						if(typeof o.focusField === 'number' && parseInt(o.focusField,10) <= cm.length) {
 							focus = o.focusField;
 						}
-						setTimeout(function(){
-							var fe = $("td:eq("+focus+") :input:visible",ind).not(":disabled");
+						setTimeout(function () {
+							var fe = $("td:eq(" + focus + ") :input:visible", ind).not(":disabled");
 							if(fe.length > 0) {
 								fe.focus();
 							}
@@ -191,7 +191,7 @@ $.jgrid.extend({
 							if(cm.editoptions ) {
 								cbv = cm.editoptions.value.split(":");
 							}
-							tmp[nm]=  $("input",this).is(":checked") ? cbv[0] : cbv[1];
+							tmp[nm] = $("input", this).is(":checked") ? cbv[0] : cbv[1];
 							break;
 						case 'text':
 						case 'password':
@@ -321,7 +321,9 @@ $.jgrid.extend({
 							var ret = true, sucret, k;
 							sucret = $($t).triggerHandler("jqGridInlineSuccessSaveRow", [res, rowid, o]);
 							if (!$.isArray(sucret)) {sucret = [true, tmp];}
-							if (sucret[0] && $.isFunction(o.successfunc)) {sucret = o.successfunc.call($t, res);}
+							if (sucret[0] && $.isFunction(o.successfunc)) {
+								sucret = o.successfunc.call($t, res);
+							}
 							if($.isArray(sucret)) {
 								// expect array - status, data, rowid
 								ret = sucret[0];
@@ -556,7 +558,11 @@ $.jgrid.extend({
 							$("#"+gID+"_iladd").addClass('ui-state-disabled');
 							$("#"+gID+"_iledit").addClass('ui-state-disabled');
 						} else {
-							$.jgrid.viewModal("#alertmod",{gbox:"#gbox_"+gID,jqm:true});$("#jqg_alrt").focus();
+							$.jgrid.viewModal("#alertmod", {
+								gbox: "#gbox_" + gID,
+								jqm: true
+							});
+							$("#jqg_alrt").focus();
 						}
 					}
 				});
@@ -585,7 +591,11 @@ $.jgrid.extend({
 								$($t).jqGrid('showAddEditButtons');
 							}
 						} else {
-							$.jgrid.viewModal("#alertmod",{gbox:"#gbox_"+gID,jqm:true});$("#jqg_alrt").focus();
+							$.jgrid.viewModal("#alertmod", {
+								gbox: "#gbox_" + gID,
+								jqm: true
+							});
+							$("#jqg_alrt").focus();
 						}
 					}
 				});
@@ -606,7 +616,11 @@ $.jgrid.extend({
 							$($t).jqGrid('restoreRow', sr, cancelPrm);
 							$($t).jqGrid('showAddEditButtons');
 						} else {
-							$.jgrid.viewModal("#alertmod",{gbox:"#gbox_"+gID,jqm:true});$("#jqg_alrt").focus();
+							$.jgrid.viewModal("#alertmod", {
+								gbox: "#gbox_" + gID,
+								jqm: true
+							});
+							$("#jqg_alrt").focus();
 						}
 					}
 				});

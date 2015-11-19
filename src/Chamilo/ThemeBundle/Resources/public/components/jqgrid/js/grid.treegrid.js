@@ -369,7 +369,7 @@ $.jgrid.extend({
 			var parent = $(this).jqGrid("getNodeParent",rc);
 			while (parent) {
 				ancestors.push(parent);
-				parent = $(this).jqGrid("getNodeParent",parent);
+				parent = $(this).jqGrid("getNodeParent", parent);
 			}
 		});
 		return ancestors;
@@ -441,7 +441,13 @@ $.jgrid.extend({
 					if(this.p.treeGridModel === 'nested') {
 						$(this).jqGrid("setGridParam",{postData:{nodeid:'',n_left:'',n_right:'',n_level:''}});
 					} else {
-						$(this).jqGrid("setGridParam",{postData:{nodeid:'',parentid:'',n_level:''}});
+						$(this).jqGrid("setGridParam", {
+							postData: {
+								nodeid: '',
+								parentid: '',
+								n_level: ''
+							}
+						});
 					}
 				}
 			}
@@ -495,7 +501,7 @@ $.jgrid.extend({
 			for (i = 0, len = children.length; i < len; i++) {
 				child = children[i];
 				records.push(child);
-				$(this).jqGrid("collectChildrenSortTree",records, child, sortname, newDir, st, datefmt);
+				$(this).jqGrid("collectChildrenSortTree", records, child, sortname, newDir, st, datefmt);
 			}
 		});
 	},

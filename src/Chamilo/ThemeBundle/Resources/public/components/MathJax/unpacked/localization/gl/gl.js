@@ -42,7 +42,7 @@ MathJax.Localization.addTranslation("gl", null, {
                 Typesetting: "Compo\u00F1endo",
                 MathJaxNotSupported: "O seu navegador non soporta MathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

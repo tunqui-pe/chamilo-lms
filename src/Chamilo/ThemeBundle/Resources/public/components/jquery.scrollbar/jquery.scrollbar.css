@@ -29,7 +29,6 @@
 .scroll-element {
     display: none;
 }
-
 .scroll-element, .scroll-element div {
     box-sizing: content-box;
 }
@@ -48,11 +47,9 @@
     border: 1px solid #cccccc;
     border-top-color: #999999;
 }
-
 .scroll-textarea > .scroll-content {
     overflow: hidden !important;
 }
-
 .scroll-textarea > .scroll-content > textarea {
     border: none !important;
     box-sizing: border-box;
@@ -67,7 +64,6 @@
     top: 0;
     width: 100% !important;
 }
-
 .scroll-textarea > .scroll-content > textarea::-webkit-scrollbar {
     height: 0;
     width: 0;
@@ -234,6 +230,7 @@
     background-color: #919191;
 }
 
+
 /* scrollbar height/width & offset from container borders */
 
 .scrollbar-outer > .scroll-content.scroll-scrolly_visible {
@@ -253,6 +250,7 @@
 .scrollbar-outer > .scroll-element.scroll-y .scroll-bar {
     min-height: 10px;
 }
+
 
 /* update scrollbar offset if both scrolls are visible */
 
@@ -295,7 +293,6 @@
 .scrollbar-macosx > .scroll-element .scroll-element_track {
     display: none;
 }
-
 .scrollbar-macosx > .scroll-element .scroll-bar {
     background-color: #6C6E71;
     display: block;
@@ -314,13 +311,13 @@
     -ms-transition: opacity 0.2s linear;
     transition: opacity 0.2s linear;
 }
-
 .scrollbar-macosx:hover > .scroll-element .scroll-bar,
 .scrollbar-macosx > .scroll-element.scroll-draggable .scroll-bar {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
     filter: alpha(opacity=70);
     opacity: 0.7;
 }
+
 
 .scrollbar-macosx > .scroll-element.scroll-x {
     bottom: 0px;
@@ -689,7 +686,6 @@
     -moz-border-radius: 12px;
     border-radius: 12px;
 }
-
 .scrollbar-dynamic > .scroll-element .scroll-element_size {
     background-color: #cccccc;
     opacity: 0;
@@ -721,7 +717,6 @@
     min-width: 24px;
     top: auto;
 }
-
 .scrollbar-dynamic > .scroll-element.scroll-y .scroll-bar {
     left: auto;
     min-height: 24px;
@@ -761,6 +756,7 @@
     top: -4px;
 }
 
+
 /* update scrollbar offset if both scrolls are visible */
 
 .scrollbar-dynamic > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size {
@@ -770,6 +766,7 @@
 .scrollbar-dynamic > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size {
     top: -11px;
 }
+
 
 /* hover & drag */
 
@@ -781,12 +778,10 @@
     filter: alpha(opacity=70);
     opacity: 0.7;
 }
-
 .scrollbar-dynamic > .scroll-element:hover .scroll-element_outer .scroll-element_size,
 .scrollbar-dynamic > .scroll-element.scroll-draggable .scroll-element_outer .scroll-element_size {
     opacity: 1;
 }
-
 .scrollbar-dynamic > .scroll-element:hover .scroll-element_outer .scroll-bar,
 .scrollbar-dynamic > .scroll-element.scroll-draggable .scroll-element_outer .scroll-bar {
     height: 100%;
@@ -802,7 +797,6 @@
     height: 20px;
     min-height: 7px;
 }
-
 .scrollbar-dynamic > .scroll-element.scroll-y:hover .scroll-element_outer,
 .scrollbar-dynamic > .scroll-element.scroll-y.scroll-draggable .scroll-element_outer {
     min-width: 7px;

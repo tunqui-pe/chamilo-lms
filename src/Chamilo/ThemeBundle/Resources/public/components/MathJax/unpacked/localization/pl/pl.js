@@ -41,8 +41,8 @@ MathJax.Localization.addTranslation("pl", null, {
                 TypesetMath: "Przetwarzam wzory matematyczne: %1%%",
                 Typesetting: "Przetwarzam",
                 MathJaxNotSupported: "Twoja przegl\u0105darka nie obs\u0142uguje MathJax"
-            }
-        },
+        }
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

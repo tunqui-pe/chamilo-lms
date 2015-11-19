@@ -124,6 +124,7 @@
     white-space: nowrap;
 }
 
+
 .irs-grid {
     position: absolute;
     display: none;
@@ -132,7 +133,6 @@
     width: 100%;
     height: 20px;
 }
-
 .irs-with-grid .irs-grid {
     display: block;
 }
@@ -173,7 +173,6 @@
     background: rgba(0, 0, 0, 0.0);
     z-index: 2;
 }
-
 .irs-disabled {
     opacity: 0.4;
 }

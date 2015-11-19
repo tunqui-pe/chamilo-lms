@@ -1,118 +1,118 @@
 define([
-    'jquery'
+  'jquery'
 ], function ($) {
-    function Tags(decorated, $element, options) {
-        var tags = options.get('tags');
+  function Tags(decorated, $element, options) {
+    var tags = options.get('tags');
 
-        var createTag = options.get('createTag');
+    var createTag = options.get('createTag');
 
-        if (createTag !== undefined) {
-            this.createTag = createTag;
-        }
-
-        decorated.call(this, $element, options);
-
-        if ($.isArray(tags)) {
-            for (var t = 0; t < tags.length; t++) {
-                var tag = tags[t];
-                var item = this._normalizeItem(tag);
-
-                var $option = this.option(item);
-
-                this.$element.append($option);
-            }
-        }
+    if (createTag !== undefined) {
+      this.createTag = createTag;
     }
 
-    Tags.prototype.query = function (decorated, params, callback) {
-        var self = this;
+    decorated.call(this, $element, options);
 
-        this._removeOldTags();
+    if ($.isArray(tags)) {
+      for (var t = 0; t < tags.length; t++) {
+        var tag = tags[t];
+        var item = this._normalizeItem(tag);
 
-        if (params.term == null || params.page != null) {
-            decorated.call(this, params, callback);
-            return;
+        var $option = this.option(item);
+
+        this.$element.append($option);
+      }
+    }
+  }
+
+  Tags.prototype.query = function (decorated, params, callback) {
+    var self = this;
+
+    this._removeOldTags();
+
+    if (params.term == null || params.page != null) {
+      decorated.call(this, params, callback);
+      return;
+    }
+
+    function wrapper(obj, child) {
+      var data = obj.results;
+
+      for (var i = 0; i < data.length; i++) {
+        var option = data[i];
+
+        var checkChildren = (
+            option.children != null && !wrapper({
+              results: option.children
+            }, true)
+        );
+
+        var checkText = option.text === params.term;
+
+        if (checkText || checkChildren) {
+          if (child) {
+            return false;
+          }
+
+          obj.data = data;
+          callback(obj);
+
+          return;
         }
+      }
 
-        function wrapper(obj, child) {
-            var data = obj.results;
+      if (child) {
+        return true;
+      }
 
-            for (var i = 0; i < data.length; i++) {
-                var option = data[i];
+      var tag = self.createTag(params);
 
-                var checkChildren = (
-                    option.children != null && !wrapper({
-                        results: option.children
-                    }, true)
-                );
+      if (tag != null) {
+        var $option = self.option(tag);
+        $option.attr('data-select2-tag', true);
 
-                var checkText = option.text === params.term;
+        self.addOptions([$option]);
 
-                if (checkText || checkChildren) {
-                    if (child) {
-                        return false;
-                    }
+        self.insertTag(data, tag);
+      }
 
-                    obj.data = data;
-                    callback(obj);
+      obj.results = data;
 
-                    return;
-                }
-            }
+      callback(obj);
+    }
 
-            if (child) {
-                return true;
-            }
+    decorated.call(this, params, wrapper);
+  };
 
-            var tag = self.createTag(params);
+  Tags.prototype.createTag = function (decorated, params) {
+    var term = $.trim(params.term);
 
-            if (tag != null) {
-                var $option = self.option(tag);
-                $option.attr('data-select2-tag', true);
+    if (term === '') {
+      return null;
+    }
 
-                self.addOptions([$option]);
-
-                self.insertTag(data, tag);
-            }
-
-            obj.results = data;
-
-            callback(obj);
-        }
-
-        decorated.call(this, params, wrapper);
+    return {
+      id: term,
+      text: term
     };
+  };
 
-    Tags.prototype.createTag = function (decorated, params) {
-        var term = $.trim(params.term);
+  Tags.prototype.insertTag = function (_, data, tag) {
+    data.unshift(tag);
+  };
 
-        if (term === '') {
-            return null;
-        }
+  Tags.prototype._removeOldTags = function (_) {
+    var tag = this._lastTag;
 
-        return {
-            id: term,
-            text: term
-        };
-    };
+    var $options = this.$element.find('option[data-select2-tag]');
 
-    Tags.prototype.insertTag = function (_, data, tag) {
-        data.unshift(tag);
-    };
+    $options.each(function () {
+      if (this.selected) {
+        return;
+      }
 
-    Tags.prototype._removeOldTags = function (_) {
-        var tag = this._lastTag;
+      $(this).remove();
+    });
+  };
 
-        var $options = this.$element.find('option[data-select2-tag]');
-
-        $options.each(function () {
-            if (this.selected) {
-                return;
-            }
-
-            $(this).remove();
-        });
-    };
-
-    return Tags;
+  return Tags;
 });

@@ -1,3 +1,4 @@
+
 /*jshint
  debug: true,
  devel: true,
@@ -14,6 +15,7 @@ var $DOM = $('#qunit-fixture'),
     isInteger = function (value) {
         return {}.toString.call(value).indexOf('Number') > -1 && value % 1 === 0
     }
+
 
 
 /* ==========================================================================

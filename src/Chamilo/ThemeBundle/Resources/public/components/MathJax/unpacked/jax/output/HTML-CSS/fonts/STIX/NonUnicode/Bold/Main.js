@@ -19,14 +19,14 @@
  */
 
 MathJax.OutputJax['HTML-CSS'].FONTDATA.FONTS['STIXNonUnicode-bold'] = {
-    directory: 'NonUnicode/Bold',
-    family: 'STIXNonUnicode',
-    weight: 'bold',
-    Ranges: [
-        [0x20, 0x20, "All"],
-        [0xA0, 0xA0, "All"],
-        [0xE000, 0xF8FF, "PrivateUse"]
-    ]
+  directory: 'NonUnicode/Bold',
+  family: 'STIXNonUnicode',
+  weight: 'bold',
+  Ranges: [
+    [0x20, 0x20, "All"],
+    [0xA0, 0xA0, "All"],
+    [0xE000, 0xF8FF, "PrivateUse"]
+  ]
 
 };
 

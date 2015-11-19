@@ -55,9 +55,9 @@
                     return name;
                 } else if (message) {
                     return message;
-                } else {
+            } else {
                     return "Error";
-                }
+            }
             } else {
                 return errorString;
             }
@@ -78,7 +78,7 @@
                 if (hasOwn.call(obj, key)) {
                     val = obj[key];
                     vals[key] = val === Object(val) ? objectValues(val) : val;
-                }
+            }
             }
             return vals;
         };
@@ -122,8 +122,8 @@
                         failed: config.moduleStats.bad,
                         passed: config.moduleStats.all - config.moduleStats.bad,
                         total: config.moduleStats.all
-                    });
-                }
+                });
+            }
                 config.previousModule = this.module;
                 config.moduleStats = {all: 0, bad: 0};
                 runLoggingCallbacks("moduleStart", QUnit, {
@@ -201,7 +201,7 @@
                 // Restart the tests if they're blocking
                 if (config.blocking) {
                     QUnit.start();
-                }
+            }
             }
         },
         teardown: function () {
@@ -209,7 +209,7 @@
             if (config.notrycatch) {
                 if (typeof this.callbackRuntime === "undefined") {
                     this.callbackRuntime = +new Date() - this.callbackStarted;
-                }
+            }
                 this.testEnvironment.teardown.call(this.testEnvironment);
                 return;
             } else {
@@ -217,7 +217,7 @@
                     this.testEnvironment.teardown.call(this.testEnvironment);
                 } catch (e) {
                     QUnit.pushFailure("Teardown failed on " + this.testName + ": " + ( e.message || e ), extractStacktrace(e, 1));
-                }
+            }
             }
             checkPollution();
         },
@@ -259,7 +259,7 @@
                         bad++;
                         config.stats.bad++;
                         config.moduleStats.bad++;
-                    }
+                }
                 }
 
                 // store result when possible
@@ -268,7 +268,7 @@
                         sessionStorage.setItem("qunit-test-" + this.module + "-" + this.testName, bad);
                     } else {
                         sessionStorage.removeItem("qunit-test-" + this.module + "-" + this.testName);
-                    }
+                }
                 }
 
                 if (bad === 0) {
@@ -316,8 +316,8 @@
                         bad++;
                         config.stats.bad++;
                         config.moduleStats.bad++;
-                    }
                 }
+            }
             }
 
             runLoggingCallbacks("testDone", QUnit, {
@@ -345,7 +345,7 @@
                 // each of these can by async
                 synchronize(function () {
                     test.setup();
-                });
+            });
                 synchronize(function () {
                     test.run();
                 });
@@ -365,7 +365,7 @@
                 run();
             } else {
                 synchronize(run, true);
-            }
+        }
         }
     };
 
@@ -437,7 +437,7 @@
                     // This is triggered at the top of QUnit.load, push start() to the event loop, to allow QUnit.load to finish first
                     setTimeout(function () {
                         QUnit.start(count);
-                    });
+                });
                 });
                 return;
             }
@@ -463,7 +463,7 @@
                         clearTimeout(config.timeout);
                     }
 
-                    config.blocking = false;
+                config.blocking = false;
                     process(true);
                 }, 13);
             } else {
@@ -483,7 +483,7 @@
                     config.semaphore = 1;
                     QUnit.start();
                 }, config.testTimeout);
-            }
+        }
         }
     };
 
@@ -511,8 +511,8 @@
                 details = {
                     module: config.current.module,
                     name: config.current.testName,
-                    result: result,
-                    message: msg
+                result: result,
+                message: msg
                 };
 
             msg = escapeText(msg || (result ? "okay" : "failed" ));
@@ -639,12 +639,12 @@
                 } else if (expected.call({}, actual) === true) {
                     expectedOutput = null;
                     ok = true;
-                }
+            }
 
                 QUnit.push(ok, actual, expectedOutput, message);
             } else {
                 QUnit.pushFailure(message, null, 'No exception was thrown.');
-            }
+        }
         }
     };
 
@@ -762,7 +762,7 @@
                 // allow just a key to turn on a flag, e.g., test.html?noglobals
                 current[1] = current[1] ? decodeURIComponent(current[1]) : true;
                 urlParams[current[0]] = current[1];
-            }
+        }
         }
 
         QUnit.urlParams = urlParams;
@@ -931,7 +931,7 @@
                 if (source) {
                     details.source = source;
                     output += "<tr class='test-source'><th>Source: </th><td><pre>" + escapeText(source) + "</pre></td></tr>";
-                }
+            }
 
                 output += "</table>";
             }
@@ -990,7 +990,7 @@
             for (key in params) {
                 if (!hasOwn.call(params, key)) {
                     continue;
-                }
+            }
                 querystring += encodeURIComponent(key) + "=" +
                     encodeURIComponent(params[key]) + "&";
             }
@@ -1066,7 +1066,7 @@
                     label: val,
                     tooltip: "[no tooltip available]"
                 };
-            }
+        }
             config[val.id] = QUnit.urlParams[val.id];
             urlConfigHtml += "<input id='qunit-urlconfig-" + escapeText(val.id) +
                 "' name='" + escapeText(val.id) +
@@ -1086,7 +1086,7 @@
                 moduleFilterHtml += "<option value='" + escapeText(encodeURIComponent(i)) + "' " +
                     ( config.module === i ? "selected='selected'" : "" ) +
                     ">" + escapeText(i) + "</option>";
-            }
+        }
         }
         moduleFilterHtml += "</select>";
 
@@ -1125,12 +1125,12 @@
                     ol.className = tmp.replace(/ hidepass /, " ");
                 }
                 if (defined.sessionStorage) {
-                    if (filter.checked) {
-                        sessionStorage.setItem("qunit-filter-passed-tests", "true");
-                    } else {
-                        sessionStorage.removeItem("qunit-filter-passed-tests");
-                    }
+                if (filter.checked) {
+                    sessionStorage.setItem("qunit-filter-passed-tests", "true");
+                } else {
+                    sessionStorage.removeItem("qunit-filter-passed-tests");
                 }
+            }
             });
 
             if (config.hidepassed || defined.sessionStorage && sessionStorage.getItem("qunit-filter-passed-tests")) {
@@ -1174,7 +1174,7 @@
                     window.location = QUnit.url({module: ( selectedModule === "" ) ? undefined : selectedModule});
                 });
                 toolbar.appendChild(moduleFilter);
-            }
+        }
         }
 
         // `main` initialized at top of scope
@@ -1209,13 +1209,13 @@
             if (QUnit.config.current) {
                 if (QUnit.config.current.ignoreGlobalErrors) {
                     return true;
-                }
+            }
                 QUnit.pushFailure(error, filePath + ":" + linerNr);
             } else {
                 QUnit.test("global failure", extend(function () {
                     QUnit.pushFailure(error, filePath + ":" + linerNr);
                 }, {validTest: validTest}));
-            }
+        }
             return false;
         }
 
@@ -1277,14 +1277,14 @@
                 key = sessionStorage.key(i++);
                 if (key.indexOf("qunit-test-") === 0) {
                     sessionStorage.removeItem(key);
-                }
             }
+        }
         }
 
         // scroll back to top to show results
         if (window.scrollTo) {
             window.scrollTo(0, 0);
-        }
+    }
 
         runLoggingCallbacks("done", QUnit, {
             failed: config.stats.bad,
@@ -1327,7 +1327,7 @@
         // If the filter matches, we need to honour include
         if (fullName.indexOf(filter) !== -1) {
             return include;
-        }
+    }
 
         // Otherwise, do the opposite
         return !include;
@@ -1355,13 +1355,13 @@
                 for (i = offset; i < stack.length; i++) {
                     if (stack[i].indexOf(fileName) !== -1) {
                         break;
-                    }
-                    include.push(stack[i]);
                 }
+                    include.push(stack[i]);
+            }
                 if (include.length) {
                     return include.join("\n");
-                }
             }
+        }
             return stack[offset];
         } else if (e.sourceURL) {
             // Safari, PhantomJS
@@ -1369,10 +1369,10 @@
             // exclude useless self-reference for generated Error objects
             if (/qunit.js$/.test(e.sourceURL)) {
                 return;
-            }
+        }
             // for actual exceptions, this is useful
             return e.sourceURL + ":" + e.line;
-        }
+    }
     }
 
     function sourceFromStacktrace(offset) {
@@ -1389,7 +1389,7 @@
     function escapeText(s) {
         if (!s) {
             return "";
-        }
+    }
         s = s + "";
         // Both single quotes and double quotes (for attributes)
         return s.replace(/['"<>&]/g, function (s) {
@@ -1413,7 +1413,7 @@
 
         if (config.autorun && !config.blocking) {
             process(last);
-        }
+    }
     }
 
     function process(last) {
@@ -1430,8 +1430,8 @@
             } else {
                 window.setTimeout(next, 13);
                 break;
-            }
         }
+    }
         config.depth--;
         if (last && !config.blocking && !config.queue.length && config.depth === 0) {
             done();
@@ -1446,10 +1446,10 @@
                 // in Opera sometimes DOM element ids show up here, ignore them
                 if (!hasOwn.call(window, key) || /^qunit-test-output/.test(key)) {
                     continue;
-                }
-                config.pollution.push(key);
             }
+                config.pollution.push(key);
         }
+    }
     }
 
     function checkPollution() {
@@ -1467,7 +1467,7 @@
         deletedGlobals = diff(old, config.pollution);
         if (deletedGlobals.length > 0) {
             QUnit.pushFailure("Deleted global variable(s): " + deletedGlobals.join(", "));
-        }
+    }
     }
 
 // returns a new Array with the elements that are in a but not in b
@@ -1481,9 +1481,9 @@
                     result.splice(i, 1);
                     i--;
                     break;
-                }
             }
         }
+    }
         return result;
     }
 
@@ -1495,8 +1495,8 @@
                 // Avoid "Member not found" error in IE8 caused by setting window.constructor
             } else if (prop !== "constructor" || a !== window) {
                 a[prop] = b[prop];
-            }
         }
+    }
 
         return a;
     }
@@ -1513,7 +1513,7 @@
             // IE
         } else {
             elem.attachEvent("on" + type, fn);
-        }
+    }
     }
 
     /**
@@ -1525,7 +1525,7 @@
         var i = elems.length;
         while (i--) {
             addEvent(elems[i], type, fn);
-        }
+    }
     }
 
     function hasClass(elem, name) {
@@ -1535,7 +1535,7 @@
     function addClass(elem, name) {
         if (!hasClass(elem, name)) {
             elem.className += (elem.className ? " " : "") + name;
-        }
+    }
     }
 
     function removeClass(elem, name) {
@@ -1543,7 +1543,7 @@
         // Class name may appear multiple times
         while (set.indexOf(" " + name + " ") > -1) {
             set = set.replace(" " + name + " ", " ");
-        }
+    }
         // If possible, trim it for prettiness, but not neccecarily
         elem.className = window.jQuery ? jQuery.trim(set) : ( set.trim ? set.trim() : set );
     }
@@ -1568,8 +1568,8 @@
             callbacks = config[key];
             for (i = 0; i < callbacks.length; i++) {
                 callbacks[i].call(scope, args);
-            }
         }
+    }
     }
 
 // Test for equality any JavaScript type.
@@ -1584,8 +1584,8 @@
                     return callbacks[prop].apply(callbacks, args);
                 } else {
                     return callbacks[prop]; // or undefined
-                }
             }
+        }
         }
 
         // the real equiv function
@@ -1611,7 +1611,7 @@
                         return a == b;
                     } else {
                         return a === b;
-                    }
+                }
                 }
 
                 return {
@@ -1670,8 +1670,8 @@
                             for (j = 0; j < parents.length; j++) {
                                 if (parents[j] === a[i]) {
                                     loop = true;// dont rewalk array
-                                }
                             }
+                        }
                             if (!loop && !innerEquiv(a[i], b[i])) {
                                 parents.pop();
                                 return false;
@@ -1696,7 +1696,7 @@
                             if (!(( getProto(a) === null && getProto(b) === Object.prototype ) ||
                                 ( getProto(b) === null && getProto(a) === Object.prototype ) )) {
                                 return false;
-                            }
+                        }
                         }
 
                         // stack constructor before traversing properties
@@ -1711,14 +1711,14 @@
                                 if (parents[j] === a[i]) {
                                     // don't go down the same path twice
                                     loop = true;
-                                }
                             }
+                        }
                             aProperties.push(i); // collect a's properties
 
                             if (!loop && !innerEquiv(a[i], b[i])) {
                                 eq = false;
                                 break;
-                            }
+                        }
                         }
 
                         callers.pop(); // unstack, we are done
@@ -1726,7 +1726,7 @@
 
                         for (i in b) {
                             bProperties.push(i); // collect b's properties
-                        }
+                    }
 
                         // Ensures identical properties name
                         return eq && innerEquiv(aProperties.sort(), bProperties.sort());
@@ -1783,10 +1783,10 @@
                 inner = jsDump.indent(1);
             if (arr.join) {
                 arr = arr.join("," + s + inner);
-            }
+        }
             if (!arr) {
                 return pre + post;
-            }
+        }
             return [pre, inner + arr, base + post].join(s);
         }
 
@@ -1795,7 +1795,7 @@
             this.up();
             while (i--) {
                 ret[i] = this.parse(arr[i], undefined, stack);
-            }
+        }
             this.down();
             return join("[", ret, "]");
         }
@@ -1900,12 +1900,12 @@
 
                         if (name) {
                             ret += " " + name;
-                        }
+                    }
                         ret += "( ";
 
                         ret = [ret, QUnit.jsDump.parse(fn, "functionArgs"), "){"].join("");
                         return join(ret, QUnit.jsDump.parse(fn, "functionCode"), "}");
-                    },
+                },
                     array: array,
                     nodelist: array,
                     "arguments": array,
@@ -1915,16 +1915,16 @@
                         keys = [];
                         for (key in map) {
                             keys.push(key);
-                        }
+                    }
                         keys.sort();
                         for (i = 0; i < keys.length; i++) {
                             key = keys[i];
                             val = map[key];
                             ret.push(QUnit.jsDump.parse(key, "key") + ": " + QUnit.jsDump.parse(val, undefined, stack));
-                        }
+                    }
                         QUnit.jsDump.down();
                         return join("{", ret, "}");
-                    },
+                },
                     node: function (node) {
                         var len, i, val,
                             open = QUnit.jsDump.HTML ? "&lt;" : "<",
@@ -1940,8 +1940,8 @@
                                 // Those have values like undefined, null, 0, false, "" or "inherit".
                                 if (val && val !== "inherit") {
                                     ret += " " + attrs[i].nodeName + "=" + QUnit.jsDump.parse(val, "attribute");
-                                }
                             }
+                        }
                         }
                         ret += close;
 
@@ -1967,7 +1967,7 @@
                             args[l] = String.fromCharCode(97 + l);
                         }
                         return " " + args.join(", ") + " ";
-                    },
+                },
                     // object calls it internally, the key part of an item in a map
                     key: quote,
                     // function calls it internally, it's the content of the function
@@ -2000,8 +2000,8 @@
         for (var i = 0, length = array.length; i < length; i++) {
             if (array[i] === elem) {
                 return i;
-            }
         }
+    }
 
         return -1;
     }
@@ -2033,7 +2033,7 @@
                         rows: [],
                         o: null
                     };
-                }
+            }
                 ns[n[i]].rows.push(i);
             }
 
@@ -2043,14 +2043,14 @@
                         rows: [],
                         n: null
                     };
-                }
+            }
                 os[o[i]].rows.push(i);
             }
 
             for (i in ns) {
                 if (!hasOwn.call(ns, i)) {
                     continue;
-                }
+            }
                 if (ns[i].rows.length === 1 && hasOwn.call(os, i) && os[i].rows.length === 1) {
                     n[ns[i].rows[0]] = {
                         text: n[ns[i].rows[0]],
@@ -2075,7 +2075,7 @@
                         text: o[n[i].row + 1],
                         row: i + 1
                     };
-                }
+            }
             }
 
             for (i = n.length - 1; i > 0; i--) {
@@ -2090,8 +2090,8 @@
                         text: o[n[i].row - 1],
                         row: i - 1
                     };
-                }
             }
+        }
 
             return {
                 o: o,
@@ -2126,29 +2126,29 @@
             if (out.n.length === 0) {
                 for (i = 0; i < out.o.length; i++) {
                     str += "<del>" + out.o[i] + oSpace[i] + "</del>";
-                }
+            }
             }
             else {
                 if (out.n[0].text == null) {
                     for (n = 0; n < out.o.length && out.o[n].text == null; n++) {
                         str += "<del>" + out.o[n] + oSpace[n] + "</del>";
                     }
-                }
+            }
 
                 for (i = 0; i < out.n.length; i++) {
                     if (out.n[i].text == null) {
                         str += "<ins>" + out.n[i] + nSpace[i] + "</ins>";
-                    }
+                }
                     else {
                         // `pre` initialized at top of scope
                         pre = "";
 
                         for (n = out.n[i].row + 1; n < out.o.length && out.o[n].text == null; n++) {
                             pre += "<del>" + out.o[n] + oSpace[n] + "</del>";
-                        }
-                        str += " " + out.n[i].text + nSpace[i] + pre;
                     }
+                        str += " " + out.n[i].text + nSpace[i] + pre;
                 }
+            }
             }
 
             return str;

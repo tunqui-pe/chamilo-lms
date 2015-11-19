@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("cy", "HelpDialog", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/cy/HelpDialog.js");

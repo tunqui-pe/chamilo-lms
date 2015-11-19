@@ -18,15 +18,15 @@
  */
 
 MathJax.OutputJax['HTML-CSS'].FONTDATA.FONTS['NeoEulerMathJax_Arrows'] = {
-    directory: 'Arrows/Regular',
-    family: 'NeoEulerMathJax_Arrows',
-    testString: '\u00A0\u21A4\u27FB\u27FD\u27FE',
-    0x20: [0, 0, 333, 0, 0],
-    0xA0: [0, 0, 333, 0, 0],
-    0x21A4: [500, 0, 1000, 56, 944],
-    0x27FB: [500, 0, 1690, 56, 1634],
-    0x27FD: [598, 98, 1700, 76, 1643],
-    0x27FE: [598, 98, 1700, 75, 1643]
+  directory: 'Arrows/Regular',
+  family: 'NeoEulerMathJax_Arrows',
+  testString: '\u00A0\u21A4\u27FB\u27FD\u27FE',
+  0x20: [0, 0, 333, 0, 0],
+  0xA0: [0, 0, 333, 0, 0],
+  0x21A4: [500, 0, 1000, 56, 944],
+  0x27FB: [500, 0, 1690, 56, 1634],
+  0x27FD: [598, 98, 1700, 76, 1643],
+  0x27FE: [598, 98, 1700, 75, 1643]
 };
 
 MathJax.Callback.Queue(

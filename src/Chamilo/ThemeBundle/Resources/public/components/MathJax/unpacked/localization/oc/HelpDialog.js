@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("oc", "HelpDialog", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/oc/HelpDialog.js");

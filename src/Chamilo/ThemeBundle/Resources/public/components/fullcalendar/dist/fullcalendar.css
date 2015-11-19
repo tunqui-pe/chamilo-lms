@@ -552,6 +552,7 @@ temporary rendered events).
 	z-index: 3;
 }
 
+
 /* Horizontal Events
 --------------------------------------------------------------------------------------------------*/
 
@@ -606,6 +607,7 @@ temporary rendered events).
 	left: auto; /* ignore the left and only use the right */
 	cursor: e-resize;
 }
+
 
 /* DayGrid events
 ----------------------------------------------------------------------------------------------------

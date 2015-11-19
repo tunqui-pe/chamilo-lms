@@ -14,18 +14,18 @@ program
 
 
 if (program.patch) {
-    bumpVersion('patch')
-    return
+  bumpVersion('patch')
+  return
 }
 
 if (program.minor) {
-    bumpVersion('minor')
-    return
+  bumpVersion('minor')
+  return
 }
 
 if (program.major) {
-    bumpVersion('major')
-    return
+  bumpVersion('major')
+  return
 }
 
 grunt.fail.fatal('No release type specified')
@@ -33,46 +33,46 @@ return
 
 
 function bumpVersion(release) {
-    grunt.log.writeln('Bumping package version by a ' + release)
-    var version = readPackageVersion()
-    grunt.log.writeln('Current package version: ' + version)
-    version = semver.inc(version, release)
-    grunt.log.writeln('Updated package version: ' + version)
-    writePackageVersion(version)
-    grunt.log.writeln('Done updating the package version')
-    updateLibraryFiles(version)
-    grunt.log.writeln('Done updating the library files')
+  grunt.log.writeln('Bumping package version by a ' + release)
+  var version = readPackageVersion()
+  grunt.log.writeln('Current package version: ' + version)
+  version = semver.inc(version, release)
+  grunt.log.writeln('Updated package version: ' + version)
+  writePackageVersion(version)
+  grunt.log.writeln('Done updating the package version')
+  updateLibraryFiles(version)
+  grunt.log.writeln('Done updating the library files')
 }
 
 
 function readPackageVersion() {
-    var pkg = require('./package')
-    return pkg.version
+  var pkg = require('./package')
+  return pkg.version
 }
 
 
 function writePackageVersion(version) {
-    var pkg = require('./package')
-    pkg.version = version
-    grunt.file.write('./package.json', JSON.stringify(pkg, null, '  '))
+  var pkg = require('./package')
+  pkg.version = version
+  grunt.file.write('./package.json', JSON.stringify(pkg, null, '  '))
 }
 
 
 function updateLibraryFiles(version) {
 
-    var versionRegex = /^(\s*\/\*![^\/]+?v)(\d+\.\d+\.\d+)(([^\n]+?)(\d+\/\d+\/\d+))?/
-    var today = grunt.template.today('yyyy/mm/dd')
-    var files = glob('lib/*.js')
+  var versionRegex = /^(\s*\/\*![^\/]+?v)(\d+\.\d+\.\d+)(([^\n]+?)(\d+\/\d+\/\d+))?/
+  var today = grunt.template.today('yyyy/mm/dd')
+  var files = glob('lib/*.js')
 
-    files.forEach(updateLibraryFile)
+  files.forEach(updateLibraryFile)
 
-    function updateLibraryFile(filePath) {
-        var content = grunt.file.read(filePath)
-        if (versionRegex.test(content)) {
-            content = content.split(versionRegex)
-            content = content[1] + version + (content[4] || '') + (content[5] ? today : '') + (content[6] || '')
-        }
-        grunt.file.write(filePath, content)
+  function updateLibraryFile(filePath) {
+    var content = grunt.file.read(filePath)
+    if (versionRegex.test(content)) {
+      content = content.split(versionRegex)
+      content = content[1] + version + (content[4] || '') + (content[5] ? today : '') + (content[6] || '')
     }
+    grunt.file.write(filePath, content)
+  }
 
 }

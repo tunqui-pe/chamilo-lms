@@ -28,7 +28,6 @@
                             this.isQuantifier = false;
                             this.isLiteral = false;
                         }
-
                         function analyseRegex() {
                             var currentToken = new regexToken(), match, m, opengroups = [];
 
@@ -91,7 +90,6 @@
                             if (currentToken.matches.length > 0)
                                 opts.regexTokens.push(currentToken);
                         }
-
                         function validateRegexToken(token, fromGroup) {
                             var isvalid = false;
                             if (fromGroup) {

@@ -353,7 +353,6 @@
             return leftZeroFill(func.call(this, a), count);
         };
     }
-
     function ordinalizeToken(func, period) {
         return function (a) {
             return this.localeData().ordinal(func.call(this, a), period);
@@ -1160,7 +1159,7 @@
                 return strict ? parseTokenSixDigits : parseTokenOneToSixDigits;
             case 'S':
                 if (strict) {
-                    return parseTokenOneDigit;
+                return parseTokenOneDigit;
                 }
             /* falls through */
             case 'SS':
@@ -1369,7 +1368,7 @@
             case 'GGGGG':
                 token = token.substr(0, 2);
                 if (input) {
-                    config._w = config._w || {};
+                config._w = config._w || {};
                     config._w[token] = toInt(input);
                 }
                 break;
@@ -2485,7 +2484,7 @@
                 } else {
                     return -this.utcOffset();
                 }
-            }
+                }
         ),
 
         // keepLocalTime = true means only change the timezone, without

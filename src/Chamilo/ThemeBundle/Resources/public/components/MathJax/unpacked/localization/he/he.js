@@ -43,7 +43,7 @@ MathJax.Localization.addTranslation("he", null, {
                 Typesetting: "\u05E1\u05D3\u05B7\u05E8",
                 MathJaxNotSupported: "\u05D4\u05D3\u05E4\u05D3\u05E4\u05DF \u05E9\u05DC\u05DA \u05D0\u05D9\u05E0\u05D5 \u05EA\u05D5\u05DE\u05DA \u05D1\u05BEMathJax"
             }
-        },
+    },
         "FontWarnings": {},
         "HTML-CSS": {},
         "HelpDialog": {},

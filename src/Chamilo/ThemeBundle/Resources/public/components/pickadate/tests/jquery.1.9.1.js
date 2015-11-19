@@ -162,8 +162,8 @@
                                     // ...and otherwise set as attributes
                                 } else {
                                     this.attr(match, context[match]);
-                                }
                             }
+                        }
                         }
 
                         return this;
@@ -179,17 +179,17 @@
                             // by name instead of ID
                             if (elem.id !== match[2]) {
                                 return rootjQuery.find(selector);
-                            }
+                        }
 
                             // Otherwise, we inject the element directly into the jQuery object
                             this.length = 1;
                             this[0] = elem;
-                        }
+                    }
 
                         this.context = document;
                         this.selector = selector;
                         return this;
-                    }
+                }
 
                     // HANDLE: $(expr, $(...))
                 } else if (!context || context.jquery) {
@@ -199,7 +199,7 @@
                     // (which is just equivalent to: $(context).find(expr)
                 } else {
                     return this.constructor(context).find(selector);
-                }
+            }
 
                 // HANDLE: $(DOMElement)
             } else if (selector.nodeType) {
@@ -362,7 +362,7 @@
 
                         } else {
                             clone = src && jQuery.isPlainObject(src) ? src : {};
-                        }
+                    }
 
                         // Never move original objects, clone them
                         target[name] = jQuery.extend(deep, clone, copy);
@@ -370,9 +370,9 @@
                         // Don't bring in undefined values
                     } else if (copy !== undefined) {
                         target[name] = copy;
-                    }
                 }
             }
+        }
         }
 
         // Return the modified object
@@ -477,8 +477,8 @@
             try {
                 // Not own constructor property must be Object
                 if (obj.constructor && !core_hasOwn.call(obj, "constructor") && !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
-                    return false;
-                }
+                return false;
+            }
             } catch (e) {
                 // IE8,9 Will throw exceptions on certain host objects #9897
                 return false;
@@ -557,8 +557,8 @@
                             .replace(rvalidbraces, ""))) {
 
                         return ( new Function("return " + data) )();
-                    }
                 }
+            }
             }
 
             jQuery.error("Invalid JSON: " + data);
@@ -578,7 +578,7 @@
                     xml = new ActiveXObject("Microsoft.XMLDOM");
                     xml.async = "false";
                     xml.loadXML(data);
-                }
+            }
             } catch (e) {
                 xml = undefined;
             }
@@ -629,7 +629,7 @@
 
                         if (value === false) {
                             break;
-                        }
+                    }
                     }
                 } else {
                     for (i in obj) {
@@ -637,8 +637,8 @@
 
                         if (value === false) {
                             break;
-                        }
                     }
+                }
                 }
 
                 // A special, fast, case for the most common use of each
@@ -649,7 +649,7 @@
 
                         if (value === false) {
                             break;
-                        }
+                    }
                     }
                 } else {
                     for (i in obj) {
@@ -657,9 +657,9 @@
 
                         if (value === false) {
                             break;
-                        }
                     }
                 }
+            }
             }
 
             return obj;
@@ -692,7 +692,7 @@
                     );
                 } else {
                     core_push.call(ret, arr);
-                }
+            }
             }
 
             return ret;
@@ -713,8 +713,8 @@
                     // Skip accessing in sparse arrays
                     if (i in arr && arr[i] === elem) {
                         return i;
-                    }
                 }
+            }
             }
 
             return -1;
@@ -728,7 +728,7 @@
             if (typeof l === "number") {
                 for (; j < l; j++) {
                     first[i++] = second[j];
-                }
+            }
             } else {
                 while (second[j] !== undefined) {
                     first[i++] = second[j++];
@@ -753,7 +753,7 @@
                 retVal = !!callback(elems[i], i);
                 if (inv !== retVal) {
                     ret.push(elems[i]);
-                }
+            }
             }
 
             return ret;
@@ -774,7 +774,7 @@
 
                     if (value != null) {
                         ret[ret.length] = value;
-                    }
+                }
                 }
 
                 // Go through every key on the object,
@@ -784,8 +784,8 @@
 
                     if (value != null) {
                         ret[ret.length] = value;
-                    }
                 }
+            }
             }
 
             // Flatten any nested arrays
@@ -858,14 +858,14 @@
                         fn = function (elem, key, value) {
                             return bulk.call(jQuery(elem), value);
                         };
-                    }
+                }
                 }
 
                 if (fn) {
                     for (; i < length; i++) {
                         fn(elems[i], key, raw ? value : value.call(elems[i], i, fn(elems[i], key)));
-                    }
                 }
+            }
             }
 
             return chainable ?
@@ -938,8 +938,8 @@
                             jQuery.ready();
                         }
                     })();
-                }
             }
+        }
         }
         return readyList.promise(obj);
     };
@@ -959,7 +959,7 @@
 
         if (obj.nodeType === 1 && length) {
             return true;
-        }
+    }
 
         return type === "array" || type !== "function" &&
             ( length === 0 ||
@@ -1038,19 +1038,19 @@
                     if (list[firingIndex].apply(data[0], data[1]) === false && options.stopOnFalse) {
                         memory = false; // To prevent further calls using add
                         break;
-                    }
+                }
                 }
                 firing = false;
                 if (list) {
                     if (stack) {
                         if (stack.length) {
                             fire(stack.shift());
-                        }
+                    }
                     } else if (memory) {
                         list = [];
                     } else {
                         self.disable();
-                    }
+                }
                 }
             },
         // Actual Callbacks object
@@ -1066,12 +1066,12 @@
                                 if (type === "function") {
                                     if (!options.unique || !self.has(arg)) {
                                         list.push(arg);
-                                    }
+                                }
                                 } else if (arg && arg.length && type !== "string") {
                                     // Inspect recursively
                                     add(arg);
-                                }
-                            });
+                            }
+                        });
                         })(arguments);
                         // Do we need to add the callbacks to the
                         // current firing batch?
@@ -1082,7 +1082,7 @@
                         } else if (memory) {
                             firingStart = start;
                             fire(memory);
-                        }
+                    }
                     }
                     return this;
                 },
@@ -1102,7 +1102,7 @@
                                         firingIndex--;
                                     }
                                 }
-                            }
+                        }
                         });
                     }
                     return this;
@@ -1147,8 +1147,8 @@
                             stack.push(args);
                         } else {
                             fire(args);
-                        }
                     }
+                }
                     return this;
                 },
                 // Call all the callbacks with the given arguments
@@ -1199,11 +1199,11 @@
                                     } else {
                                         newDefer[action + "With"](this === promise ? newDefer.promise() : this, fn ? [returned] : arguments);
                                     }
-                                });
+                            });
                             });
                             fns = null;
                         }).promise();
-                    },
+                },
                     // Get a promise for this deferred
                     // If obj is provided, the promise aspect is added to the object
                     promise: function (obj) {
@@ -1293,14 +1293,14 @@
                             .progress(updateFunc(i, progressContexts, progressValues));
                     } else {
                         --remaining;
-                    }
                 }
+            }
             }
 
             // if we're not waiting on anything, resolve the master
             if (!remaining) {
                 deferred.resolveWith(resolveContexts, resolveValues);
-            }
+        }
 
             return deferred.promise();
         }
@@ -1530,12 +1530,12 @@
                     // Prevent IE from shrinking the body in IE 7 mode #12869
                     // Support: IE<8
                     body.style.zoom = 1;
-                }
+            }
             }
 
             body.removeChild(container);
 
-            // Null elements to avoid leaks in IE
+        // Null elements to avoid leaks in IE
             container = div = tds = marginDiv = null;
         });
 
@@ -1582,7 +1582,7 @@
                 elem[internalKey] = id = core_deletedIds.pop() || jQuery.guid++;
             } else {
                 id = internalKey;
-            }
+        }
         }
 
         if (!cache[id]) {
@@ -1592,7 +1592,7 @@
             // is serialized using JSON.stringify
             if (!isNode) {
                 cache[id].toJSON = jQuery.noop;
-            }
+        }
         }
 
         // An object can be passed to jQuery.data instead of a key/value pair; this gets
@@ -1602,7 +1602,7 @@
                 cache[id] = jQuery.extend(cache[id], name);
             } else {
                 cache[id].data = jQuery.extend(cache[id].data, name);
-            }
+        }
         }
 
         thisCache = cache[id];
@@ -1613,7 +1613,7 @@
         if (!pvt) {
             if (!thisCache.data) {
                 thisCache.data = {};
-            }
+        }
 
             thisCache = thisCache.data;
         }
@@ -1637,7 +1637,7 @@
             }
         } else {
             ret = thisCache;
-        }
+    }
 
         return ret;
     }
@@ -1680,8 +1680,8 @@
                             name = [name];
                         } else {
                             name = name.split(" ");
-                        }
                     }
+                }
                 } else {
                     // If "name" is an array of keys...
                     // When data is initially created, via ("key", "val") signature,
@@ -1694,14 +1694,14 @@
 
                 for (i = 0, l = name.length; i < l; i++) {
                     delete thisCache[name[i]];
-                }
+            }
 
                 // If there is no data left in the cache, we want to continue
                 // and let the cache object itself get destroyed
                 if (!( pvt ? isEmptyDataObject : jQuery.isEmptyObject )(thisCache)) {
-                    return;
-                }
+                return;
             }
+        }
         }
 
         // See jQuery.data for more information
@@ -1712,8 +1712,8 @@
             // had been the only thing left in it
             if (!isEmptyDataObject(cache[id])) {
                 return;
-            }
         }
+    }
 
         // Destroy the cache
         if (isNode) {
@@ -1772,7 +1772,7 @@
             // Do not set data on non-element because it will not be cleared (#8335).
             if (elem.nodeType && elem.nodeType !== 1 && elem.nodeType !== 9) {
                 return false;
-            }
+        }
 
             var noData = elem.nodeName && jQuery.noData[elem.nodeName.toLowerCase()];
 
@@ -1802,11 +1802,11 @@
                                 name = jQuery.camelCase(name.slice(5));
 
                                 dataAttr(elem, name, data[name]);
-                            }
                         }
-                        jQuery._data(elem, "parsedAttrs", true);
                     }
+                        jQuery._data(elem, "parsedAttrs", true);
                 }
+            }
 
                 return data;
             }
@@ -1827,7 +1827,7 @@
 
                 this.each(function () {
                     jQuery.data(this, key, value);
-                });
+            });
             }, null, value, arguments.length > 1, null, true);
         },
 
@@ -1865,7 +1865,7 @@
             } else {
                 data = undefined;
             }
-        }
+    }
 
         return data;
     }
@@ -1878,11 +1878,11 @@
             // if the public data object is empty, the private is still empty
             if (name === "data" && jQuery.isEmptyObject(obj[name])) {
                 continue;
-            }
+        }
             if (name !== "toJSON") {
                 return false;
             }
-        }
+    }
 
         return true;
     }
@@ -1901,8 +1901,8 @@
                         queue = jQuery._data(elem, type, jQuery.makeArray(data));
                     } else {
                         queue.push(data);
-                    }
                 }
+            }
                 return queue || [];
             }
         },
@@ -1931,7 +1931,7 @@
                 // automatically dequeued
                 if (type === "fx") {
                     queue.unshift("inprogress");
-                }
+            }
 
                 // clear up the last queue stop function
                 delete hooks.stop;
@@ -1940,7 +1940,7 @@
 
             if (!startLength && hooks) {
                 hooks.empty.fire();
-            }
+        }
         },
 
         // not intended for public consumption - generates a queueHooks object, or returns the current one
@@ -1980,7 +1980,7 @@
                     if (type === "fx" && queue[0] !== "inprogress") {
                         jQuery.dequeue(this, type);
                     }
-                });
+            });
         },
         dequeue: function (type) {
             return this.each(function () {
@@ -2014,7 +2014,7 @@
                 resolve = function () {
                     if (!( --count )) {
                         defer.resolveWith(elements, [elements]);
-                    }
+                }
                 };
 
             if (typeof type !== "string") {
@@ -2028,8 +2028,8 @@
                 if (tmp && tmp.empty) {
                     count++;
                     tmp.empty.add(resolve);
-                }
             }
+        }
             resolve();
             return defer.promise(obj);
         }
@@ -2099,12 +2099,12 @@
                         while ((clazz = classes[j++])) {
                             if (cur.indexOf(" " + clazz + " ") < 0) {
                                 cur += clazz + " ";
-                            }
                         }
+                    }
                         elem.className = jQuery.trim(cur);
 
-                    }
                 }
+            }
             }
 
             return this;
@@ -2138,11 +2138,11 @@
                             // Remove *all* instances
                             while (cur.indexOf(" " + clazz + " ") >= 0) {
                                 cur = cur.replace(" " + clazz + " ", " ");
-                            }
                         }
-                        elem.className = value ? jQuery.trim(cur) : "";
                     }
+                        elem.className = value ? jQuery.trim(cur) : "";
                 }
+            }
             }
 
             return this;
@@ -2171,21 +2171,21 @@
                         // check each className given, space separated list
                         state = isBool ? state : !self.hasClass(className);
                         self[state ? "addClass" : "removeClass"](className);
-                    }
+                }
 
                     // Toggle whole class name
                 } else if (type === core_strundefined || type === "boolean") {
                     if (this.className) {
                         // store className if set
                         jQuery._data(this, "__className__", this.className);
-                    }
+                }
 
                     // If the element has a class name or if we're passed "false",
                     // then remove the whole classname (if there was one, the above saved it).
                     // Otherwise bring back whatever was previously saved (if anything),
                     // falling back to the empty string if nothing was stored.
                     this.className = this.className || value === false ? "" : jQuery._data(this, "__className__") || "";
-                }
+            }
             });
         },
 
@@ -2212,7 +2212,7 @@
 
                     if (hooks && "get" in hooks && (ret = hooks.get(elem, "value")) !== undefined) {
                         return ret;
-                    }
+                }
 
                     ret = elem.value;
 
@@ -2221,7 +2221,7 @@
                         ret.replace(rreturn, "") :
                         // handle cases where value is null/undef or number
                         ret == null ? "" : ret;
-                }
+            }
 
                 return;
             }
@@ -2301,11 +2301,11 @@
                             // We don't need an array for one selects
                             if (one) {
                                 return value;
-                            }
+                        }
 
                             // Multi-Selects return an array
                             values.push(value);
-                        }
+                    }
                     }
 
                     return values;
@@ -2320,9 +2320,9 @@
 
                     if (!values.length) {
                         elem.selectedIndex = -1;
-                    }
-                    return values;
                 }
+                    return values;
+            }
             }
         },
 
@@ -2355,9 +2355,9 @@
                     jQuery.removeAttr(elem, name);
 
                 } else if (hooks && notxml && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined) {
-                    return ret;
+                return ret;
 
-                } else {
+            } else {
                     elem.setAttribute(name, value + "");
                     return value;
                 }
@@ -2371,7 +2371,7 @@
                 // Support: IE9+
                 if (typeof elem.getAttribute !== core_strundefined) {
                     ret = elem.getAttribute(name);
-                }
+            }
 
                 // Non-existent attributes return null, we normalize to undefined
                 return ret == null ?
@@ -2396,17 +2396,17 @@
                         if (!getSetAttribute && ruseDefault.test(name)) {
                             elem[jQuery.camelCase("default-" + name)] =
                                 elem[propName] = false;
-                        } else {
+                    } else {
                             elem[propName] = false;
-                        }
+                    }
 
                         // See #9699 for explanation of this approach (setting first, then removal)
                     } else {
                         jQuery.attr(elem, name, "");
-                    }
+                }
 
                     elem.removeAttribute(getSetAttribute ? name : propName);
-                }
+            }
             }
         },
 
@@ -2420,10 +2420,10 @@
                         elem.setAttribute("type", value);
                         if (val) {
                             elem.value = val;
-                        }
-                        return value;
                     }
+                        return value;
                 }
+            }
             }
         },
 
@@ -2463,7 +2463,7 @@
                 if (hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined) {
                     return ret;
 
-                } else {
+            } else {
                     return ( elem[name] = value );
                 }
 
@@ -2473,7 +2473,7 @@
 
                 } else {
                     return elem[name];
-                }
+            }
             }
         },
 
@@ -2489,8 +2489,8 @@
                         rfocusable.test(elem.nodeName) || rclickable.test(elem.nodeName) && elem.href ?
                             0 :
                             undefined;
-                }
             }
+        }
         }
     });
 
@@ -2531,7 +2531,7 @@
                 // Use defaultChecked and defaultSelected for oldIE
             } else {
                 elem[jQuery.camelCase("default-" + name)] = elem[name] = true;
-            }
+        }
 
             return name;
         }
@@ -2556,7 +2556,7 @@
                 } else {
                     // Use nodeHook if defined (#1954); otherwise setAttribute is fine
                     return nodeHook && nodeHook.set(elem, value, name);
-                }
+            }
             }
         };
     }
@@ -2608,9 +2608,9 @@
                     if (value === "") {
                         elem.setAttribute(name, "auto");
                         return value;
-                    }
                 }
-            });
+                }
+        });
         });
     }
 
@@ -2624,7 +2624,7 @@
                     var ret = elem.getAttribute(name, 2);
                     return ret == null ? undefined : ret;
                 }
-            });
+        });
         });
 
         // href/src property should get the full normalized URL (#10299/#12915)
@@ -2632,8 +2632,8 @@
             jQuery.propHooks[name] = {
                 get: function (elem) {
                     return elem.getAttribute(name, 4);
-                }
-            };
+            }
+        };
         });
     }
 
@@ -2664,8 +2664,8 @@
                     // Make sure that it also works with optgroups, see #5701
                     if (parent.parentNode) {
                         parent.parentNode.selectedIndex;
-                    }
                 }
+            }
                 return null;
             }
         });
@@ -2683,9 +2683,9 @@
                 get: function (elem) {
                     // Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
                     return elem.getAttribute("value") === null ? "on" : elem.value;
-                }
+            }
             };
-        });
+    });
     }
     jQuery.each(["radio", "checkbox"], function () {
         jQuery.valHooks[this] = jQuery.extend(jQuery.valHooks[this], {
@@ -2800,8 +2800,8 @@
 
                         } else if (elem.attachEvent) {
                             elem.attachEvent("on" + type, eventHandle);
-                        }
                     }
+                }
                 }
 
                 if (special.add) {
@@ -2809,7 +2809,7 @@
 
                     if (!handleObj.handler.guid) {
                         handleObj.handler.guid = handler.guid;
-                    }
+                }
                 }
 
                 // Add to the element's handler list, delegates in front
@@ -2817,7 +2817,7 @@
                     handlers.splice(handlers.delegateCount++, 0, handleObj);
                 } else {
                     handlers.push(handleObj);
-                }
+            }
 
                 // Keep track of which events have ever been used, for event optimization
                 jQuery.event.global[type] = true;
@@ -2851,7 +2851,7 @@
                 if (!type) {
                     for (type in events) {
                         jQuery.event.remove(elem, type + types[t], handler, selector, true);
-                    }
+                }
                     continue;
                 }
 
@@ -2873,12 +2873,12 @@
 
                         if (handleObj.selector) {
                             handlers.delegateCount--;
-                        }
+                    }
                         if (special.remove) {
                             special.remove.call(elem, handleObj);
-                        }
                     }
                 }
+            }
 
                 // Remove generic event handler if we removed something and no more handlers exist
                 // (avoids potential for endless recursion during removal of special event handlers)
@@ -2888,7 +2888,7 @@
                     }
 
                     delete events[type];
-                }
+            }
             }
 
             // Remove the expando if it's no longer used
@@ -2963,7 +2963,7 @@
                 bubbleType = special.delegateType || type;
                 if (!rfocusMorph.test(bubbleType + type)) {
                     cur = cur.parentNode;
-                }
+            }
                 for (; cur; cur = cur.parentNode) {
                     eventPath.push(cur);
                     tmp = cur;
@@ -2993,7 +2993,7 @@
                 handle = ontype && cur[ontype];
                 if (handle && jQuery.acceptData(cur) && handle.apply && handle.apply(cur, data) === false) {
                     event.preventDefault();
-                }
+            }
             }
             event.type = type;
 
@@ -3026,9 +3026,9 @@
 
                         if (tmp) {
                             elem[ontype] = tmp;
-                        }
                     }
                 }
+            }
             }
 
             return event.result;
@@ -3079,10 +3079,10 @@
                             if ((event.result = ret) === false) {
                                 event.preventDefault();
                                 event.stopPropagation();
-                            }
                         }
                     }
                 }
+            }
             }
 
             // Call the postDispatch hook for the mapped type
@@ -3120,16 +3120,16 @@
                                 matches[sel] = handleObj.needsContext ?
                                 jQuery(sel, this).index(cur) >= 0 :
                                     jQuery.find(sel, this, null, [cur]).length;
-                            }
+                        }
                             if (matches[sel]) {
                                 matches.push(handleObj);
-                            }
                         }
+                    }
                         if (matches.length) {
                             handlerQueue.push({elem: cur, handlers: matches});
                         }
-                    }
                 }
+            }
             }
 
             // Add the remaining (directly-bound) handlers
@@ -3201,7 +3201,7 @@
                 // Add which for key events
                 if (event.which == null) {
                     event.which = original.charCode != null ? original.charCode : original.keyCode;
-                }
+            }
 
                 return event;
             }
@@ -3233,7 +3233,7 @@
                 // Note: button is not normalized, so don't use it
                 if (!event.which && button !== undefined) {
                     event.which = ( button & 1 ? 1 : ( button & 2 ? 3 : ( button & 4 ? 2 : 0 ) ) );
-                }
+            }
 
                 return event;
             }
@@ -3259,14 +3259,14 @@
                     if (this !== document.activeElement && this.focus) {
                         try {
                             this.focus();
-                            return false;
+                        return false;
                         } catch (e) {
                             // Support: IE<9
                             // If we error on focus to hidden element (#1486, #12518),
                             // let .trigger() run the handlers
-                        }
                     }
-                },
+                }
+            },
                 delegateType: "focusin"
             },
             blur: {
@@ -3275,7 +3275,7 @@
                         this.blur();
                         return false;
                     }
-                },
+            },
                 delegateType: "focusout"
             },
 
@@ -3285,8 +3285,8 @@
                     // Even when returnValue equals to undefined Firefox will still show alert
                     if (event.result !== undefined) {
                         event.originalEvent.returnValue = event.result;
-                    }
                 }
+            }
             }
         },
 
@@ -3301,13 +3301,13 @@
                     type: type,
                     isSimulated: true,
                     originalEvent: {}
-                }
+            }
             );
             if (bubble) {
                 jQuery.event.trigger(e, null, elem);
             } else {
                 jQuery.event.dispatch.call(elem, e);
-            }
+        }
             if (e.isDefaultPrevented()) {
                 event.preventDefault();
             }
@@ -3329,10 +3329,10 @@
                 // detachEvent needed property on element, by name of that event, to properly expose it to GC
                 if (typeof elem[name] === core_strundefined) {
                     elem[name] = null;
-                }
+            }
 
                 elem.detachEvent(name, handle);
-            }
+        }
         };
 
     jQuery.Event = function (src, props) {
@@ -3399,7 +3399,7 @@
             this.isPropagationStopped = returnTrue;
             if (!e) {
                 return;
-            }
+        }
             // If stopPropagation exists, run it on the original event
             if (e.stopPropagation) {
                 e.stopPropagation();
@@ -3436,7 +3436,7 @@
                     event.type = handleObj.origType;
                     ret = handleObj.handler.apply(this, arguments);
                     event.type = fix;
-                }
+            }
                 return ret;
             }
         };
@@ -3462,7 +3462,7 @@
                             event._submit_bubble = true;
                         });
                         jQuery._data(form, "submitBubbles", true);
-                    }
+                }
                 });
                 // return undefined since we don't need an event listener
             },
@@ -3473,7 +3473,7 @@
                     delete event._submit_bubble;
                     if (this.parentNode && !event.isTrigger) {
                         jQuery.event.simulate("submit", this.parentNode, event, true);
-                    }
+                }
                 }
             },
 
@@ -3481,7 +3481,7 @@
                 // Only need this for delegated form submit events
                 if (jQuery.nodeName(this, "form")) {
                     return false;
-                }
+            }
 
                 // Remove delegated handlers; cleanData eventually reaps submit handlers attached above
                 jQuery.event.remove(this, "._submit");
@@ -3513,7 +3513,7 @@
                             // Allow triggered, simulated change events (#11500)
                             jQuery.event.simulate("change", this, event, true);
                         });
-                    }
+                }
                     return false;
                 }
                 // Delegated event; lazy-add a change handler on descendant inputs
@@ -3527,7 +3527,7 @@
                             }
                         });
                         jQuery._data(elem, "changeBubbles", true);
-                    }
+                }
                 });
             },
 
@@ -3537,7 +3537,7 @@
                 // Swallow native change events from checkbox/radio, we already triggered them above
                 if (this !== elem || event.isSimulated || event.isTrigger || (elem.type !== "radio" && elem.type !== "checkbox")) {
                     return event.handleObj.handler.apply(this, arguments);
-                }
+            }
             },
 
             teardown: function () {
@@ -3556,19 +3556,19 @@
             var attaches = 0,
                 handler = function (event) {
                     jQuery.event.simulate(fix, event.target, jQuery.event.fix(event), true);
-                };
+            };
 
             jQuery.event.special[fix] = {
                 setup: function () {
                     if (attaches++ === 0) {
                         document.addEventListener(orig, handler, true);
-                    }
+                }
                 },
                 teardown: function () {
                     if (--attaches === 0) {
                         document.removeEventListener(orig, handler, true);
-                    }
                 }
+            }
             };
         });
     }
@@ -3585,10 +3585,10 @@
                     // ( types-Object, data )
                     data = data || selector;
                     selector = undefined;
-                }
+            }
                 for (type in types) {
                     this.on(type, selector, data, types[type], one);
-                }
+            }
                 return this;
             }
 
@@ -3605,8 +3605,8 @@
                     // ( types, data, fn )
                     fn = data;
                     data = selector;
-                    selector = undefined;
-                }
+                selector = undefined;
+            }
             }
             if (fn === false) {
                 fn = returnFalse;
@@ -3647,7 +3647,7 @@
                 // ( types-object [, selector] )
                 for (type in types) {
                     this.off(type, selector, types[type]);
-                }
+            }
                 return this;
             }
             if (selector === false || typeof selector === "function") {
@@ -3687,7 +3687,7 @@
             var elem = this[0];
             if (elem) {
                 return jQuery.event.trigger(type, data, elem, true);
-            }
+        }
         }
     });
     /*!
@@ -3835,7 +3835,7 @@
                     results = [];
                 while ((elem = this[i++])) {
                     results.push(elem);
-                }
+        }
                 return results;
             };
         }
@@ -3863,7 +3863,7 @@
                 if (keys.push(key += " ") > Expr.cacheLength) {
                     // Only keep the most recent entries
                     delete cache[keys.shift()];
-                }
+        }
                 return (cache[key] = value);
             });
         }
@@ -3930,18 +3930,18 @@
                                 if (elem.id === m) {
                                     results.push(elem);
                                     return results;
-                                }
+                        }
                             } else {
-                                return results;
+                        return results;
                             }
                         } else {
                             // Context is not a document
                             if (context.ownerDocument && (elem = context.ownerDocument.getElementById(m)) &&
                                 contains(context, elem) && elem.id === m) {
                                 results.push(elem);
-                                return results;
-                            }
-                        }
+                        return results;
+                    }
+                }
 
                         // Speed-up: Sizzle("TAG")
                     } else if (match[2]) {
@@ -3973,7 +3973,7 @@
                             nid = old.replace(rescape, "\\$&");
                         } else {
                             context.setAttribute("id", nid);
-                        }
+                }
                         nid = "[id='" + nid + "'] ";
 
                         i = groups.length;
@@ -3982,7 +3982,7 @@
                         }
                         newContext = rsibling.test(selector) && context.parentNode || context;
                         newSelector = groups.join(",");
-                    }
+            }
 
                     if (newSelector) {
                         try {
@@ -3997,7 +3997,7 @@
                             }
                         }
                     }
-                }
+        }
             }
 
             // All others
@@ -4108,7 +4108,7 @@
                         // Check parentNode to catch when Blackberry 4.6 returns
                         // nodes that are no longer in the document #6963
                         return m && m.parentNode ? [m] : [];
-                    }
+            }
                 };
                 Expr.filter["ID"] = function (id) {
                     var attrId = id.replace(runescape, funescape);
@@ -4155,7 +4155,7 @@
                         while ((elem = results[i++])) {
                             if (elem.nodeType === 1) {
                                 tmp.push(elem);
-                            }
+                    }
                         }
 
                         return tmp;
@@ -4224,7 +4224,7 @@
                     // IE8 throws error here and will not see later tests
                     if (!div.querySelectorAll(":enabled").length) {
                         rbuggyQSA.push(":enabled", ":disabled");
-                    }
+            }
 
                     // Opera 10-11 does not throw on post-comma invalid pseudos
                     div.querySelectorAll("*,:x");
@@ -4271,7 +4271,7 @@
                         while ((b = b.parentNode)) {
                             if (b === a) {
                                 return true;
-                            }
+                    }
                         }
                     }
                     return false;
@@ -4386,7 +4386,7 @@
                             // fragment in IE 9
                         elem.document && elem.document.nodeType !== 11) {
                         return ret;
-                    }
+            }
                 } catch (e) {
                 }
             }
@@ -4443,7 +4443,7 @@
                 for (; (elem = results[i]); i++) {
                     if (elem === results[i - 1]) {
                         j = duplicates.push(i);
-                    }
+            }
                 }
                 while (j--) {
                     results.splice(duplicates[j], 1);
@@ -4467,8 +4467,8 @@
                 while ((cur = cur.nextSibling)) {
                     if (cur === b) {
                         return -1;
-                    }
-                }
+            }
+        }
             }
 
             return a ? 1 : -1;
@@ -4534,7 +4534,7 @@
                     // Traverse its children
                     for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
                         ret += getText(elem);
-                    }
+            }
                 }
             } else if (nodeType === 3 || nodeType === 4) {
                 return elem.nodeValue;
@@ -4714,8 +4714,8 @@
                                         while ((node = node[dir])) {
                                             if (ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1) {
                                                 return false;
-                                            }
-                                        }
+                                    }
+                                }
                                         // Reverse direction for :only-* (if we haven't yet done so)
                                         start = dir = type === "only" && !start && "nextSibling";
                                     }
@@ -4763,15 +4763,15 @@
 
                                             if (node === elem) {
                                                 break;
-                                            }
-                                        }
                                     }
+                                }
+                            }
                                 }
 
                                 // Incorporate the offset, then check against cycle size
                                 diff -= last;
                                 return diff === first || ( diff % first === 0 && diff / first >= 0 );
-                            }
+                    }
                         };
                 },
 
@@ -4834,7 +4834,7 @@
                                 if ((elem = unmatched[i])) {
                                     seed[i] = !(matches[i] = elem);
                                 }
-                            }
+                    }
                         }) :
                         function (elem, context, xml) {
                             input[0] = elem;
@@ -4982,7 +4982,7 @@
                     var i = 0;
                     for (; i < length; i += 2) {
                         matchIndexes.push(i);
-                    }
+            }
                     return matchIndexes;
                 }),
 
@@ -5006,7 +5006,7 @@
                     var i = argument < 0 ? argument + length : argument;
                     for (; ++i < length;) {
                         matchIndexes.push(i);
-                    }
+            }
                     return matchIndexes;
                 })
             }
@@ -5046,7 +5046,7 @@
                     if (match) {
                         // Don't consume trailing commas as valid
                         soFar = soFar.slice(match[0].length) || soFar;
-                    }
+            }
                     groups.push(tokens = []);
                 }
 
@@ -5061,7 +5061,7 @@
                         type: match[0].replace(rtrim, " ")
                     });
                     soFar = soFar.slice(matched.length);
-                }
+        }
 
                 // Filters
                 for (type in Expr.filter) {
@@ -5074,8 +5074,8 @@
                             matches: match
                         });
                         soFar = soFar.slice(matched.length);
-                    }
-                }
+            }
+        }
 
                 if (!matched) {
                     break;
@@ -5129,7 +5129,7 @@
                             if (elem.nodeType === 1 || checkNonElements) {
                                 if (matcher(elem, context, xml)) {
                                     return true;
-                                }
+                        }
                             }
                         }
                     } else {
@@ -5139,15 +5139,15 @@
                                 if ((cache = outerCache[dir]) && cache[0] === dirkey) {
                                     if ((data = cache[1]) === true || data === cachedruns) {
                                         return data === true;
-                                    }
+                            }
                                 } else {
                                     cache = outerCache[dir] = [dirkey];
                                     cache[1] = matcher(elem, context, xml) || cachedruns;
                                     if (cache[1] === true) {
                                         return true;
                                     }
-                                }
-                            }
+                        }
+                    }
                         }
                     }
                 };
@@ -5180,9 +5180,9 @@
                         newUnmatched.push(elem);
                         if (mapped) {
                             map.push(i);
-                        }
-                    }
                 }
+            }
+        }
             }
 
             return newUnmatched;
@@ -5249,10 +5249,10 @@
                                 if ((elem = matcherOut[i])) {
                                     // Restore matcherIn since elem is not yet a final match
                                     temp.push((matcherIn[i] = elem));
-                                }
-                            }
-                            postFinder(null, (matcherOut = []), temp, xml);
                         }
+                    }
+                            postFinder(null, (matcherOut = []), temp, xml);
+                }
 
                         // Move matched elements from seed to results to keep them synchronized
                         i = matcherOut.length;
@@ -5261,8 +5261,8 @@
                                 (temp = postFinder ? indexOf.call(seed, elem) : preMap[i]) > -1) {
 
                                 seed[temp] = !(results[temp] = elem);
-                            }
-                        }
+                    }
+                }
                     }
 
                     // Add elements to results, through postFinder if defined
@@ -5277,7 +5277,7 @@
                     } else {
                         push.apply(results, matcherOut);
                     }
-                }
+        }
             });
         }
 
@@ -5315,8 +5315,8 @@
                         for (; j < len; j++) {
                             if (Expr.relative[tokens[j].type]) {
                                 break;
-                            }
-                        }
+                    }
+                }
                         return setMatcher(
                             i > 1 && elementMatcher(matchers),
                             i > 1 && toSelector(tokens.slice(0, i - 1)).replace(rtrim, "$1"),
@@ -5325,9 +5325,9 @@
                             j < len && matcherFromTokens((tokens = tokens.slice(j))),
                             j < len && toSelector(tokens)
                         );
-                    }
+            }
                     matchers.push(matcher);
-                }
+        }
             }
 
             return elementMatcher(matchers);
@@ -5365,7 +5365,7 @@
                                 if (matcher(elem, context, xml)) {
                                     results.push(elem);
                                     break;
-                                }
+                        }
                             }
                             if (outermost) {
                                 dirruns = dirrunsUnique;
@@ -5383,7 +5383,7 @@
                             // Lengthen the array for every element, matched or not
                             if (seed) {
                                 unmatched.push(elem);
-                            }
+                    }
                         }
                     }
 
@@ -5401,9 +5401,9 @@
                                 while (i--) {
                                     if (!(unmatched[i] || setMatched[i])) {
                                         setMatched[i] = pop.call(results);
-                                    }
-                                }
                             }
+                        }
+                    }
 
                             // Discard index placeholder values to get only actual matches
                             setMatched = condense(setMatched);
@@ -5417,17 +5417,17 @@
                             ( matchedCount + setMatchers.length ) > 1) {
 
                             Sizzle.uniqueSort(results);
-                        }
+                }
                     }
 
                     // Override manipulation of globals by nested matchers
                     if (outermost) {
                         dirruns = dirrunsUnique;
                         outermostContext = contextBackup;
-                    }
+            }
 
                     return unmatched;
-                };
+        };
 
             return bySet ?
                 markFunction(superMatcher) :
@@ -5452,8 +5452,8 @@
                         setMatchers.push(cached);
                     } else {
                         elementMatchers.push(cached);
-                    }
-                }
+            }
+        }
 
                 // Cache the compiled function
                 cached = compilerCache(selector, matcherFromGroupMatchers(elementMatchers, setMatchers));
@@ -5514,13 +5514,13 @@
                                 if (!selector) {
                                     push.apply(results, slice.call(seed, 0));
                                     return results;
-                                }
+                        }
 
                                 break;
-                            }
-                        }
                     }
                 }
+            }
+        }
             }
 
             // Compile and execute a filtering function
@@ -5583,7 +5583,7 @@
                     for (i = 0; i < len; i++) {
                         if (jQuery.contains(self[i], this)) {
                             return true;
-                        }
+                    }
                     }
                 }));
             }
@@ -5608,7 +5608,7 @@
                 for (i = 0; i < len; i++) {
                     if (jQuery.contains(this, targets[i])) {
                         return true;
-                    }
+                }
                 }
             });
         },
@@ -5648,9 +5648,9 @@
                     if (pos ? pos.index(cur) > -1 : jQuery.find.matchesSelector(cur, selectors)) {
                         ret.push(cur);
                         break;
-                    }
-                    cur = cur.parentNode;
                 }
+                    cur = cur.parentNode;
+            }
             }
 
             return this.pushStack(ret.length > 1 ? jQuery.unique(ret) : ret);
@@ -5748,7 +5748,7 @@
 
             if (!runtil.test(name)) {
                 selector = until;
-            }
+        }
 
             if (selector && typeof selector === "string") {
                 ret = jQuery.filter(selector, ret);
@@ -5782,7 +5782,7 @@
             while (cur && cur.nodeType !== 9 && (until === undefined || cur.nodeType !== 1 || !jQuery(cur).is(until))) {
                 if (cur.nodeType === 1) {
                     matched.push(cur);
-                }
+            }
                 cur = cur[dir];
             }
             return matched;
@@ -5794,8 +5794,8 @@
             for (; n; n = n.nextSibling) {
                 if (n.nodeType === 1 && n !== elem) {
                     r.push(n);
-                }
             }
+        }
 
             return r;
         }
@@ -5828,8 +5828,8 @@
                 return jQuery.filter(qualifier, filtered, !keep);
             } else {
                 qualifier = jQuery.filter(qualifier, filtered);
-            }
         }
+    }
 
         return jQuery.grep(elements, function (elem) {
             return ( jQuery.inArray(elem, qualifier) >= 0 ) === keep;
@@ -5845,8 +5845,8 @@
                 safeFrag.createElement(
                     list.pop()
                 );
-            }
         }
+    }
         return safeFrag;
     }
 
@@ -5911,14 +5911,14 @@
 
                 if (this[0].parentNode) {
                     wrap.insertBefore(this[0]);
-                }
+            }
 
                 wrap.map(function () {
                     var elem = this;
 
                     while (elem.firstChild && elem.firstChild.nodeType === 1) {
                         elem = elem.firstChild;
-                    }
+                }
 
                     return elem;
                 }).append(this);
@@ -5943,7 +5943,7 @@
 
                 } else {
                     self.append(html);
-                }
+            }
             });
         },
 
@@ -6004,15 +6004,15 @@
                 if (!selector || jQuery.filter(selector, [elem]).length > 0) {
                     if (!keepData && elem.nodeType === 1) {
                         jQuery.cleanData(getAll(elem));
-                    }
+                }
 
                     if (elem.parentNode) {
                         if (keepData && jQuery.contains(elem.ownerDocument, elem)) {
                             setGlobalEval(getAll(elem, "script"));
-                        }
-                        elem.parentNode.removeChild(elem);
                     }
+                        elem.parentNode.removeChild(elem);
                 }
+            }
             }
 
             return this;
@@ -6037,7 +6037,7 @@
                 // Support: IE<9
                 if (elem.options && jQuery.nodeName(elem, "select")) {
                     elem.options.length = 0;
-                }
+            }
             }
 
             return this;
@@ -6078,8 +6078,8 @@
                             if (elem.nodeType === 1) {
                                 jQuery.cleanData(getAll(elem, false));
                                 elem.innerHTML = value;
-                            }
                         }
+                    }
 
                         elem = 0;
 
@@ -6090,7 +6090,7 @@
 
                 if (elem) {
                     this.empty().append(value);
-                }
+            }
             }, null, value, arguments.length);
         },
 
@@ -6138,7 +6138,7 @@
                     var self = set.eq(index);
                     if (isFunction) {
                         args[0] = value.call(this, index, table ? self.html() : undefined);
-                    }
+                }
                     self.domManip(args, table, callback);
                 });
             }
@@ -6168,7 +6168,7 @@
                             if (hasScripts) {
                                 jQuery.merge(scripts, getAll(node, "script"));
                             }
-                        }
+                    }
 
                         callback.call(
                             table && jQuery.nodeName(this[i], "table") ?
@@ -6202,18 +6202,18 @@
                                     });
                                 } else {
                                     jQuery.globalEval(( node.text || node.textContent || node.innerHTML || "" ).replace(rcleanScript, ""));
-                                }
                             }
                         }
                     }
+                }
 
                     // Fix #11809: Avoid leaking memory
                     fragment = first = null;
                 }
-            }
+        }
 
             return this;
-        }
+    }
     });
 
     function findOrAppend(elem, tag) {
@@ -6233,7 +6233,7 @@
             elem.type = match[1];
         } else {
             elem.removeAttribute("type");
-        }
+    }
         return elem;
     }
 
@@ -6243,7 +6243,7 @@
             i = 0;
         for (; (elem = elems[i]) != null; i++) {
             jQuery._data(elem, "globalEval", !refElements || jQuery._data(refElements[i], "globalEval"));
-        }
+    }
     }
 
     function cloneCopyEvent(src, dest) {
@@ -6264,14 +6264,14 @@
             for (type in events) {
                 for (i = 0, l = events[type].length; i < l; i++) {
                     jQuery.event.add(dest, type, events[type][i]);
-                }
             }
+        }
         }
 
         // make the cloned public data object a copy from the original
         if (curData.data) {
             curData.data = jQuery.extend({}, curData.data);
-        }
+    }
     }
 
     function fixCloneNodeIssues(src, dest) {
@@ -6290,7 +6290,7 @@
 
             for (e in data.events) {
                 jQuery.removeEvent(dest, e, data.handle);
-            }
+        }
 
             // Event data gets referenced instead of copied if the expando gets copied too
             dest.removeAttribute(jQuery.expando);
@@ -6327,7 +6327,7 @@
             // checkbox/radio button to an empty string instead of "on"
             if (dest.value !== src.value) {
                 dest.value = src.value;
-            }
+        }
 
             // IE6-8 fails to return the selected option to the default selected
             // state when cloning options
@@ -6338,7 +6338,7 @@
             // cloning other types of input fields
         } else if (nodeName === "input" || nodeName === "textarea") {
             dest.defaultValue = src.defaultValue;
-        }
+    }
     }
 
     jQuery.each({
@@ -6380,9 +6380,9 @@
                     found.push(elem);
                 } else {
                     jQuery.merge(found, getAll(elem, tag));
-                }
             }
         }
+    }
 
         return tag === undefined || tag && jQuery.nodeName(context, tag) ?
             jQuery.merge([context], found) :
@@ -6393,7 +6393,7 @@
     function fixDefaultChecked(elem) {
         if (manipulation_rcheckableType.test(elem.type)) {
             elem.defaultChecked = elem.checked;
-        }
+    }
     }
 
     jQuery.extend({
@@ -6422,8 +6422,8 @@
                     // Ensure that the destination node is not null; Fixes #9587
                     if (destElements[i]) {
                         fixCloneNodeIssues(node, destElements[i]);
-                    }
                 }
+            }
             }
 
             // Copy the events from the original to the clone
@@ -6434,10 +6434,10 @@
 
                     for (i = 0; (node = srcElements[i]) != null; i++) {
                         cloneCopyEvent(node, destElements[i]);
-                    }
+                }
                 } else {
                     cloneCopyEvent(elem, clone);
-                }
+            }
             }
 
             // Preserve script evaluation history
@@ -6513,8 +6513,8 @@
                             while (j--) {
                                 if (jQuery.nodeName((tbody = elem.childNodes[j]), "tbody") && !tbody.childNodes.length) {
                                     elem.removeChild(tbody);
-                                }
                             }
+                        }
                         }
 
                         jQuery.merge(nodes, tmp.childNodes);
@@ -6525,12 +6525,12 @@
                         // Fix #12392 for oldIE
                         while (tmp.firstChild) {
                             tmp.removeChild(tmp.firstChild);
-                        }
+                    }
 
                         // Remember the top-level container for proper cleanup
                         tmp = safe.lastChild;
-                    }
                 }
+            }
             }
 
             // Fix #11356: Clear elements from fragment
@@ -6569,9 +6569,9 @@
                     while ((elem = tmp[j++])) {
                         if (rscriptType.test(elem.type || "")) {
                             scripts.push(elem);
-                        }
                     }
                 }
+            }
             }
 
             tmp = null;
@@ -6603,8 +6603,8 @@
                                     // This is a shortcut to avoid jQuery.event.remove's overhead
                                 } else {
                                     jQuery.removeEvent(elem, type, data.handle);
-                                }
                             }
+                        }
                         }
 
                         // Remove cache only if it was not already removed by jQuery.event.remove
@@ -6623,13 +6623,13 @@
 
                             } else {
                                 elem[internalKey] = null;
-                            }
+                        }
 
                             core_deletedIds.push(id);
-                        }
                     }
                 }
             }
+        }
         }
     });
     var iframe, getStyles, curCSS,
@@ -6674,8 +6674,8 @@
         while (i--) {
             name = cssPrefixes[i] + capName;
             if (name in style) {
-                return name;
-            }
+            return name;
+        }
         }
 
         return origName;
@@ -6714,7 +6714,7 @@
                 // for such an element
                 if (elem.style.display === "" && isHidden(elem)) {
                     values[index] = jQuery._data(elem, "olddisplay", css_defaultDisplay(elem.nodeName));
-                }
+            }
             } else {
 
                 if (!values[index]) {
@@ -6722,9 +6722,9 @@
 
                     if (display && display !== "none" || !hidden) {
                         jQuery._data(elem, "olddisplay", hidden ? display : jQuery.css(elem, "display"));
-                    }
                 }
             }
+        }
         }
 
         // Set the display of most of the elements in a second loop
@@ -6733,11 +6733,11 @@
             elem = elements[index];
             if (!elem.style) {
                 continue;
-            }
+        }
             if (!show || elem.style.display === "none" || elem.style.display === "") {
                 elem.style.display = show ? values[index] || "" : "none";
             }
-        }
+    }
 
         return elements;
     }
@@ -6755,7 +6755,7 @@
 
                     for (; i < len; i++) {
                         map[name[i]] = jQuery.css(elem, name[i], false, styles);
-                    }
+                }
 
                     return map;
                 }
@@ -6794,8 +6794,8 @@
                         // We should always get a number back from opacity
                         var ret = curCSS(elem, "opacity");
                         return ret === "" ? "1" : ret;
-                    }
                 }
+            }
             }
         },
 
@@ -6879,7 +6879,7 @@
                 // If a hook was provided get the non-computed value from there
                 if (hooks && "get" in hooks && (ret = hooks.get(elem, false, extra)) !== undefined) {
                     return ret;
-                }
+            }
 
                 // Otherwise just get the value from the style object
                 return style[name];
@@ -6936,7 +6936,7 @@
             // Revert the old values
             for (name in options) {
                 elem.style[name] = old[name];
-            }
+        }
 
             return ret;
         }
@@ -6982,7 +6982,7 @@
                     style.width = width;
                     style.minWidth = minWidth;
                     style.maxWidth = maxWidth;
-                }
+            }
             }
 
             return ret;
@@ -7029,7 +7029,7 @@
                 style.left = left;
                 if (rsLeft) {
                     rs.left = rsLeft;
-                }
+            }
             }
 
             return ret === "" ? "auto" : ret;
@@ -7063,7 +7063,7 @@
                 // border-box includes padding, so remove it if we want content
                 if (extra === "content") {
                     val -= jQuery.css(elem, "padding" + cssExpand[i], true, styles);
-                }
+            }
 
                 // at this point, extra isn't border nor margin, so remove border
                 if (extra !== "margin") {
@@ -7076,9 +7076,9 @@
                 // at this point, extra isn't content nor padding, so add border
                 if (extra !== "padding") {
                     val += jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);
-                }
             }
         }
+    }
 
         return val;
     }
@@ -7104,7 +7104,7 @@
             // Computed unit is not pixels. Stop here and return.
             if (rnumnonpx.test(val)) {
                 return val;
-            }
+        }
 
             // we need the check for style in case a browser which returns unreliable values
             // for getComputedStyle silently falls back to the reliable elem.style
@@ -7112,7 +7112,7 @@
 
             // Normalize "", auto, and prepare for extra
             val = parseFloat(val) || 0;
-        }
+    }
 
         // use the active box-sizing model to add/subtract irrelevant styles
         return ( val +
@@ -7149,11 +7149,11 @@
 
                 display = actualDisplay(nodeName, doc);
                 iframe.detach();
-            }
+        }
 
             // Store the correct default display
             elemdisplay[nodeName] = display;
-        }
+    }
 
         return display;
     }
@@ -7177,7 +7177,7 @@
                             return getWidthOrHeight(elem, name, extra);
                         }) :
                         getWidthOrHeight(elem, name, extra);
-                }
+            }
             },
 
             set: function (elem, value, extra) {
@@ -7228,7 +7228,7 @@
                     // if there is no filter style applied in a css rule or unset inline opacity, we are done
                     if (value === "" || currentStyle && !currentStyle.filter) {
                         return;
-                    }
+                }
                 }
 
                 // otherwise, set new filter values
@@ -7251,9 +7251,9 @@
                         return jQuery.swap(elem, {"display": "inline-block"},
                             curCSS, [elem, "marginRight"]);
                     }
-                }
-            };
-        }
+            }
+        };
+    }
 
         // Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
         // getComputedStyle returns percent when specified for top/left/bottom/right
@@ -7268,9 +7268,9 @@
                             return rnumnonpx.test(computed) ?
                             jQuery(elem).position()[prop] + "px" :
                                 computed;
-                        }
                     }
-                };
+                }
+            };
             });
         }
 
@@ -7306,10 +7306,10 @@
                 for (; i < 4; i++) {
                     expanded[prefix + cssExpand[i] + suffix] =
                         parts[i] || parts[i - 2] || parts[0];
-                }
+            }
 
                 return expanded;
-            }
+        }
         };
 
         if (!rmargin.test(prefix)) {
@@ -7384,7 +7384,7 @@
             // did it), otherwise encode params recursively.
             for (prefix in a) {
                 buildParams(prefix, a[prefix], traditional, add);
-            }
+        }
         }
 
         // Return the resulting serialization
@@ -7404,14 +7404,14 @@
                 } else {
                     // Item is non-scalar (array or object), encode its numeric index.
                     buildParams(prefix + "[" + ( typeof v === "object" ? i : "" ) + "]", v, traditional, add);
-                }
+            }
             });
 
         } else if (!traditional && jQuery.type(obj) === "object") {
             // Serialize object item.
             for (name in obj) {
                 buildParams(prefix + "[" + name + "]", obj[name], traditional, add);
-            }
+        }
 
         } else {
             // Serialize scalar item.
@@ -7428,7 +7428,7 @@
             return arguments.length > 0 ?
                 this.on(name, null, data, fn) :
                 this.trigger(name);
-        };
+    };
     });
 
     jQuery.fn.hover = function (fnOver, fnOut) {
@@ -7515,8 +7515,8 @@
                         // Otherwise append
                     } else {
                         (structure[dataType] = structure[dataType] || []).push(func);
-                    }
                 }
+            }
             }
         };
     }
@@ -7541,7 +7541,7 @@
                 }
             });
             return selected;
-        }
+    }
 
         return inspect(options.dataTypes[0]) || !inspected["*"] && inspect("*");
     }
@@ -7556,7 +7556,7 @@
         for (key in src) {
             if (src[key] !== undefined) {
                 ( flatOptions[key] ? target : ( deep || (deep = {}) ) )[key] = src[key];
-            }
+        }
         }
         if (deep) {
             jQuery.extend(true, target, deep);
@@ -7568,7 +7568,7 @@
     jQuery.fn.load = function (url, params, callback) {
         if (typeof url !== "string" && _load) {
             return _load.apply(this, arguments);
-        }
+    }
 
         var selector, response, type,
             self = this,
@@ -7626,7 +7626,7 @@
     jQuery.each(["ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend"], function (i, type) {
         jQuery.fn[type] = function (fn) {
             return this.on(type, fn);
-        };
+    };
     });
 
     jQuery.each(["get", "post"], function (i, method) {
@@ -7711,7 +7711,7 @@
 
                 // Parse text as xml
                 "text xml": jQuery.parseXML
-            },
+        },
 
             // For options that shouldn't be deep extended:
             // you can add your own custom options here if
@@ -7800,8 +7800,8 @@
                                 responseHeaders = {};
                                 while ((match = rheaders.exec(responseHeadersString))) {
                                     responseHeaders[match[1].toLowerCase()] = match[2];
-                                }
                             }
+                        }
                             match = responseHeaders[key.toLowerCase()];
                         }
                         return match == null ? null : match;
@@ -7838,11 +7838,11 @@
                                 for (code in map) {
                                     // Lazy-add the new callback in a way that preserves old ones
                                     statusCode[code] = [statusCode[code], map[code]];
-                                }
+                            }
                             } else {
                                 // Execute the appropriate callbacks
                                 jqXHR.always(map[jqXHR.status]);
-                            }
+                        }
                         }
                         return this;
                     },
@@ -7852,7 +7852,7 @@
                         var finalText = statusText || strAbort;
                         if (transport) {
                             transport.abort(finalText);
-                        }
+                    }
                         done(0, finalText);
                         return this;
                     }
@@ -7935,17 +7935,17 @@
 
                         // Otherwise add one to the end
                     cacheURL + ( ajax_rquery.test(cacheURL) ? "&" : "?" ) + "_=" + ajax_nonce++;
-                }
+            }
             }
 
             // Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
             if (s.ifModified) {
                 if (jQuery.lastModified[cacheURL]) {
                     jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);
-                }
+            }
                 if (jQuery.etag[cacheURL]) {
                     jqXHR.setRequestHeader("If-None-Match", jQuery.etag[cacheURL]);
-                }
+            }
             }
 
             // Set the correct header, if data is being sent
@@ -8010,8 +8010,8 @@
                         // Simply rethrow otherwise
                     } else {
                         throw e;
-                    }
                 }
+            }
             }
 
             // Callback for when everything is done
@@ -8055,7 +8055,7 @@
                         modified = jqXHR.getResponseHeader("Last-Modified");
                         if (modified) {
                             jQuery.lastModified[cacheURL] = modified;
-                        }
+                    }
                         modified = jqXHR.getResponseHeader("etag");
                         if (modified) {
                             jQuery.etag[cacheURL] = modified;
@@ -8073,7 +8073,7 @@
                         statusText = "notmodified";
 
                         // If we have data, let's convert it
-                    } else {
+                } else {
                         isSuccess = ajaxConvert(s, response);
                         statusText = isSuccess.state;
                         success = isSuccess.data;
@@ -8088,8 +8088,8 @@
                         statusText = "error";
                         if (status < 0) {
                             status = 0;
-                        }
                     }
+                }
                 }
 
                 // Set data for the fake xhr object
@@ -8120,8 +8120,8 @@
                     // Handle the global AJAX counter
                     if (!( --jQuery.active )) {
                         jQuery.event.trigger("ajaxStop");
-                    }
                 }
+            }
             }
 
             return jqXHR;
@@ -8151,7 +8151,7 @@
         for (type in responseFields) {
             if (type in responses) {
                 jqXHR[responseFields[type]] = responses[type];
-            }
+        }
         }
 
         // Remove auto dataType and get content-type in the process
@@ -8159,7 +8159,7 @@
             dataTypes.shift();
             if (ct === undefined) {
                 ct = s.mimeType || jqXHR.getResponseHeader("Content-Type");
-            }
+        }
         }
 
         // Check if we're dealing with a known content-type
@@ -8168,8 +8168,8 @@
                 if (contents[type] && contents[type].test(ct)) {
                     dataTypes.unshift(type);
                     break;
-                }
             }
+        }
         }
 
         // Check to see if we have a response for the expected dataType
@@ -8181,11 +8181,11 @@
                 if (!dataTypes[0] || s.converters[type + " " + dataTypes[0]]) {
                     finalDataType = type;
                     break;
-                }
+            }
                 if (!firstDataType) {
                     firstDataType = type;
                 }
-            }
+        }
             // Or just use first one
             finalDataType = finalDataType || firstDataType;
         }
@@ -8196,9 +8196,9 @@
         if (finalDataType) {
             if (finalDataType !== dataTypes[0]) {
                 dataTypes.unshift(finalDataType);
-            }
-            return responses[finalDataType];
         }
+            return responses[finalDataType];
+    }
     }
 
 // Chain conversions given the request and the original response
@@ -8219,7 +8219,7 @@
         if (dataTypes[1]) {
             for (conv in s.converters) {
                 converters[conv.toLowerCase()] = s.converters[conv];
-            }
+        }
         }
 
         // Convert to each sequential dataType, tolerating list modification
@@ -8254,12 +8254,12 @@
                                     } else if (converters[conv2] !== true) {
                                         current = tmp[0];
                                         dataTypes.splice(i--, 0, current);
-                                    }
+                                }
 
                                     break;
-                                }
                             }
                         }
+                    }
                     }
 
                     // Apply converter (if not an equivalence)
@@ -8276,19 +8276,18 @@
                                     state: "parsererror",
                                     error: conv ? e : "No conversion from " + prev + " to " + current
                                 };
-                            }
                         }
                     }
                 }
+            }
 
                 // Update prev for next iteration
                 prev = current;
             }
-        }
+    }
 
         return {state: "success", data: response};
     }
-
 // Install script dataType
     jQuery.ajaxSetup({
         accepts: {
@@ -8301,7 +8300,7 @@
             "text script": function (text) {
                 jQuery.globalEval(text);
                 return text;
-            }
+        }
         }
     });
 
@@ -8358,7 +8357,7 @@
                             // Callback if not abort
                             if (!isAbort) {
                                 callback(200, "success");
-                            }
+                        }
                         }
                     };
 
@@ -8370,7 +8369,7 @@
                 abort: function () {
                     if (script) {
                         script.onload(undefined, true);
-                    }
+                }
                 }
             };
         }
@@ -8416,7 +8415,7 @@
             s.converters["script json"] = function () {
                 if (!responseContainer) {
                     jQuery.error(callbackName + " was not called");
-                }
+            }
                 return responseContainer[0];
             };
 
@@ -8529,7 +8528,7 @@
                         if (s.xhrFields) {
                             for (i in s.xhrFields) {
                                 xhr[i] = s.xhrFields[i];
-                            }
+                        }
                         }
 
                         // Override mime type if needed
@@ -8550,7 +8549,7 @@
                         try {
                             for (i in headers) {
                                 xhr.setRequestHeader(i, headers[i]);
-                            }
+                        }
                         } catch (err) {
                         }
 
@@ -8579,7 +8578,7 @@
                                         xhr.onreadystatechange = jQuery.noop;
                                         if (xhrOnUnloadAbort) {
                                             delete xhrCallbacks[handle];
-                                        }
+                                    }
                                     }
 
                                     // If it's an abort
@@ -8618,19 +8617,19 @@
                                             // IE - #1450: sometimes returns 1223 when it should be 204
                                         } else if (status === 1223) {
                                             status = 204;
-                                        }
                                     }
                                 }
+                            }
                             } catch (firefoxAccessException) {
                                 if (!isAbort) {
                                     complete(-1, firefoxAccessException);
-                                }
+                            }
                             }
 
                             // Call complete if needed
                             if (responses) {
                                 complete(status, statusText, responses, responseHeaders);
-                            }
+                        }
                         };
 
                         if (!s.async) {
@@ -8651,9 +8650,9 @@
                                 }
                                 // Add to list of active xhrs callbacks
                                 xhrCallbacks[handle] = callback;
-                            }
-                            xhr.onreadystatechange = callback;
                         }
+                            xhr.onreadystatechange = callback;
+                    }
                     },
 
                     abort: function () {
@@ -8703,7 +8702,7 @@
                             // Update scale, tolerating zero or NaN from tween.cur()
                             // And breaking the loop if scale is unchanged or perfect, or if we've just had enough
                         } while (scale !== (scale = tween.cur() / target) && scale !== 1 && --maxIterations);
-                    }
+                }
 
                     tween.unit = unit;
                     tween.start = start;
@@ -8732,7 +8731,7 @@
 
                     // we're done with this property
                     return;
-                }
+            }
             }
         });
     }
@@ -8785,15 +8784,15 @@
                         animation.opts.specialEasing[prop] || animation.opts.easing);
                     animation.tweens.push(tween);
                     return tween;
-                },
+            },
                 stop: function (gotoEnd) {
                     var index = 0,
                     // if we are going to the end, we want to run all the tweens
                     // otherwise we skip this part
                         length = gotoEnd ? animation.tweens.length : 0;
                     if (stopped) {
-                        return this;
-                    }
+                    return this;
+                }
                     stopped = true;
                     for (; index < length; index++) {
                         animation.tweens[index].run(1);
@@ -8807,7 +8806,7 @@
                         deferred.rejectWith(elem, [animation, gotoEnd]);
                     }
                     return this;
-                }
+            }
             }),
             props = animation.props;
 
@@ -8817,14 +8816,14 @@
             result = animationPrefilters[index].call(animation, elem, props, animation.opts);
             if (result) {
                 return result;
-            }
+        }
         }
 
         createTweens(animation, props);
 
         if (jQuery.isFunction(animation.opts.start)) {
             animation.opts.start.call(elem, animation);
-        }
+    }
 
         jQuery.fx.timer(
             jQuery.extend(tick, {
@@ -8870,12 +8869,12 @@
                     if (!( index in props )) {
                         props[index] = value[index];
                         specialEasing[index] = easing;
-                    }
                 }
+            }
             } else {
                 specialEasing[name] = easing;
-            }
         }
+    }
     }
 
     jQuery.Animation = jQuery.extend(Animation, {
@@ -8904,7 +8903,7 @@
                 animationPrefilters.unshift(callback);
             } else {
                 animationPrefilters.push(callback);
-            }
+        }
         }
     });
 
@@ -8941,7 +8940,7 @@
                     if (!jQuery.queue(elem, "fx").length) {
                         hooks.empty.fire();
                     }
-                });
+            });
             });
         }
 
@@ -8965,8 +8964,8 @@
 
                 } else {
                     style.zoom = 1;
-                }
             }
+        }
         }
 
         if (opts.overflow) {
@@ -8977,7 +8976,7 @@
                     style.overflowX = opts.overflow[1];
                     style.overflowY = opts.overflow[2];
                 });
-            }
+        }
         }
 
 
@@ -8989,9 +8988,9 @@
                 toggle = toggle || value === "toggle";
                 if (value === ( hidden ? "hide" : "show" )) {
                     continue;
-                }
-                handled.push(index);
             }
+                handled.push(index);
+        }
         }
 
         length = handled.length;
@@ -9010,7 +9009,7 @@
             } else {
                 anim.done(function () {
                     jQuery(elem).hide();
-                });
+            });
             }
             anim.done(function () {
                 var prop;
@@ -9029,10 +9028,10 @@
                     if (hidden) {
                         tween.end = tween.start;
                         tween.start = prop === "width" || prop === "height" ? 1 : 0;
-                    }
                 }
             }
         }
+    }
     }
 
     function Tween(elem, options, prop, end, easing) {
@@ -9080,7 +9079,7 @@
                 hooks.set(this);
             } else {
                 Tween.propHooks._default.set(this);
-            }
+        }
             return this;
         }
     };
@@ -9114,8 +9113,8 @@
                     jQuery.style(tween.elem, tween.prop, tween.now + tween.unit);
                 } else {
                     tween.elem[tween.prop] = tween.now;
-                }
             }
+        }
         }
     };
 
@@ -9126,7 +9125,7 @@
         set: function (tween) {
             if (tween.elem.nodeType && tween.elem.parentNode) {
                 tween.elem[tween.prop] = tween.now;
-            }
+        }
         }
     };
 
@@ -9136,7 +9135,7 @@
             return speed == null || typeof speed === "boolean" ?
                 cssFn.apply(this, arguments) :
                 this.animate(genFx(name, true), speed, easing, callback);
-        };
+    };
     });
 
     jQuery.fn.extend({
@@ -9156,7 +9155,7 @@
                     var anim = Animation(this, jQuery.extend({}, prop), optall);
                     doAnimation.finish = function () {
                         anim.stop(true);
-                    };
+                };
                     // Empty animations, or finishing resolves immediately
                     if (empty || jQuery._data(this, "finish")) {
                         anim.stop(true);
@@ -9193,13 +9192,13 @@
                 if (index) {
                     if (data[index] && data[index].stop) {
                         stopQueue(data[index]);
-                    }
+                }
                 } else {
                     for (index in data) {
                         if (data[index] && data[index].stop && rrun.test(index)) {
                             stopQueue(data[index]);
-                        }
                     }
+                }
                 }
 
                 for (index = timers.length; index--;) {
@@ -9207,8 +9206,8 @@
                         timers[index].anim.stop(gotoEnd);
                         dequeue = false;
                         timers.splice(index, 1);
-                    }
                 }
+            }
 
                 // start the next in the queue if the last step wasn't forced
                 // timers currently will call their complete callbacks, which will dequeue
@@ -9245,14 +9244,14 @@
                     if (timers[index].elem === this && timers[index].queue === type) {
                         timers[index].anim.stop(true);
                         timers.splice(index, 1);
-                    }
+                }
                 }
 
                 // look for any animations in the old queue and finish them
                 for (index = 0; index < length; index++) {
                     if (queue[index] && queue[index].finish) {
                         queue[index].finish.call(this);
-                    }
+                }
                 }
 
                 // turn off finishing flag
@@ -9277,7 +9276,7 @@
 
         if (includeWidth) {
             attrs.opacity = attrs.width = type;
-        }
+    }
 
         return attrs;
     }
@@ -9322,8 +9321,8 @@
 
             if (opt.queue) {
                 jQuery.dequeue(this, opt.queue);
-            }
-        };
+        }
+    };
 
         return opt;
     };
@@ -9351,7 +9350,7 @@
             // Checks the timer has not already been removed
             if (!timer() && timers[i] === timer) {
                 timers.splice(i--, 1);
-            }
+        }
         }
 
         if (!timers.length) {
@@ -9403,7 +9402,7 @@
                 this.each(function (i) {
                     jQuery.offset.setOffset(this, options, i);
                 });
-        }
+    }
 
         var docElem, win,
             box = {top: 0, left: 0},
@@ -9430,7 +9429,7 @@
         return {
             top: box.top + ( win.pageYOffset || docElem.scrollTop ) - ( docElem.clientTop || 0 ),
             left: box.left + ( win.pageXOffset || docElem.scrollLeft ) - ( docElem.clientLeft || 0 )
-        };
+    };
     };
 
     jQuery.offset = {
@@ -9475,7 +9474,7 @@
                 options.using.call(elem, props);
             } else {
                 curElem.css(props);
-            }
+        }
         }
     };
 
@@ -9503,12 +9502,12 @@
                 offset = this.offset();
                 if (!jQuery.nodeName(offsetParent[0], "html")) {
                     parentOffset = offsetParent.offset();
-                }
+            }
 
                 // Add offsetParent borders
                 parentOffset.top += jQuery.css(offsetParent[0], "borderTopWidth", true);
                 parentOffset.left += jQuery.css(offsetParent[0], "borderLeftWidth", true);
-            }
+        }
 
             // Subtract parent offsets and element margins
             // note: when an element has margin: auto the offsetLeft and marginLeft
@@ -9568,7 +9567,6 @@
             elem.defaultView || elem.parentWindow :
                 false;
     }
-
 // Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
     jQuery.each({Height: "height", Width: "width"}, function (name, type) {
         jQuery.each({
@@ -9612,7 +9610,7 @@
                         jQuery.style(elem, type, value, extra);
                 }, type, chainable ? margin : undefined, chainable, null);
             };
-        });
+    });
     });
 // Limit scope pollution from any deprecated API
 // (function() {

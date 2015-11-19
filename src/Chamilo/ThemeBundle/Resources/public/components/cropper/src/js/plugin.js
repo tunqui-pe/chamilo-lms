@@ -7,21 +7,21 @@ $.fn.cropper = function (options) {
     var result;
 
     this.each(function () {
-        var $this = $(this);
-        var data = $this.data(NAMESPACE);
-        var fn;
+      var $this = $(this);
+      var data = $this.data(NAMESPACE);
+      var fn;
 
-        if (!data) {
-            if (/destroy/.test(options)) {
-                return;
-            }
-
-            $this.data(NAMESPACE, (data = new Cropper(this, options)));
+      if (!data) {
+        if (/destroy/.test(options)) {
+          return;
         }
 
-        if (typeof options === 'string' && $.isFunction(fn = data[options])) {
-            result = fn.apply(data, args);
-        }
+        $this.data(NAMESPACE, (data = new Cropper(this, options)));
+      }
+
+      if (typeof options === 'string' && $.isFunction(fn = data[options])) {
+        result = fn.apply(data, args);
+      }
     });
 
     return isUndefined(result) ? this : result;

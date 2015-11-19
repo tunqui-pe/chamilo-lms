@@ -22,9 +22,9 @@
  */
 
 MathJax.Localization.addTranslation("oc", "HTML-CSS", {
-    version: "2.5.0",
-    isLoaded: true,
-    strings: {}
+        version: "2.5.0",
+        isLoaded: true,
+        strings: {}
 });
 
 MathJax.Ajax.loadComplete("[MathJax]/localization/oc/HTML-CSS.js");
