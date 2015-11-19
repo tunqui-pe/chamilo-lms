@@ -25,6 +25,3 @@ parameters:
     sylius.cache:
         type: file_system
 
-    jjanvier_crowdin.api_key: ~
-
-

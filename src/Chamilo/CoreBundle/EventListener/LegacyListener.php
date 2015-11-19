@@ -59,42 +59,45 @@ class LegacyListener
         \CourseManager::setCourseSettingsManager($container->get('chamilo_course.settings.manager'));
 
         // Legacy way of detect current access_url
-
-        $access_urls = api_get_access_urls();
-        $root_rel = api_get_self();
-        $root_rel = substr($root_rel, 1);
-        $pos = strpos($root_rel, '/');
-        $root_rel = substr($root_rel, 0, $pos);
-        $protocol = ((!empty($_SERVER['HTTPS']) && strtoupper(
-                    $_SERVER['HTTPS']
-                ) != 'OFF') ? 'https' : 'http').'://';
-        //urls with subdomains (HTTP_HOST is preferred - see #6764)
-        if (empty($_SERVER['HTTP_HOST'])) {
-            if (empty($_SERVER['SERVER_NAME'])) {
-                $request_url_root = $protocol.'localhost/';
-            } else {
-                $request_url_root = $protocol.$_SERVER['SERVER_NAME'].'/';
-            }
-        } else {
-            $request_url_root = $protocol.$_SERVER['HTTP_HOST'].'/';
-        }
-        //urls with subdirs
-        $request_url_sub = $request_url_root.$root_rel.'/';
-
-        // You can use subdirs as multi-urls, but in this case none of them can be
-        // the root dir. The admin portal should be something like https://host/adm/
-        // At this time, subdirs will still hold a share cookie, so not ideal yet
-        // see #6510
+        $installed = $this->container->getParameter('installed');
         $urlId = 1;
-        foreach ($access_urls as $details) {
-            if ($request_url_sub == $details['url']) {
-                $urlId = $details['id'];
-                break; //found one match with subdir, get out of foreach
+        if (!empty($installed)) {
+            $access_urls = api_get_access_urls();
+            $root_rel = api_get_self();
+            $root_rel = substr($root_rel, 1);
+            $pos = strpos($root_rel, '/');
+            $root_rel = substr($root_rel, 0, $pos);
+            $protocol = ((!empty($_SERVER['HTTPS']) && strtoupper(
+                        $_SERVER['HTTPS']
+                    ) != 'OFF') ? 'https' : 'http').'://';
+            //urls with subdomains (HTTP_HOST is preferred - see #6764)
+            if (empty($_SERVER['HTTP_HOST'])) {
+                if (empty($_SERVER['SERVER_NAME'])) {
+                    $request_url_root = $protocol.'localhost/';
+                } else {
+                    $request_url_root = $protocol.$_SERVER['SERVER_NAME'].'/';
+                }
+            } else {
+                $request_url_root = $protocol.$_SERVER['HTTP_HOST'].'/';
             }
-            // Didn't find any? Now try without subdirs
-            if ($request_url_root == $details['url']) {
-                $urlId = $details['id'];
-                break; //found one match, get out of foreach
+            //urls with subdirs
+            $request_url_sub = $request_url_root.$root_rel.'/';
+
+            // You can use subdirs as multi-urls, but in this case none of them can be
+            // the root dir. The admin portal should be something like https://host/adm/
+            // At this time, subdirs will still hold a share cookie, so not ideal yet
+            // see #6510
+            $urlId = 1;
+            foreach ($access_urls as $details) {
+                if ($request_url_sub == $details['url']) {
+                    $urlId = $details['id'];
+                    break; //found one match with subdir, get out of foreach
+                }
+                // Didn't find any? Now try without subdirs
+                if ($request_url_root == $details['url']) {
+                    $urlId = $details['id'];
+                    break; //found one match, get out of foreach
+                }
             }
         }
 
