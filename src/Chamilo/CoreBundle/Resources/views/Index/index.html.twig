@@ -1,8 +1,10 @@
-{% extends "ChamiloCoreBundle::layout_one_col.html.twig" %}
+{% extends "ChamiloCoreBundle::layout_two_col.html.twig" %}
 
-{% block page_content %}
+{% block chamilo_right_column %}
     {% autoescape false %}
-    {{ content }}
-    {% include "@template_style/layout/hot_courses.tpl" %}
+        {{ content }}
+
+        {{ sonata_block_render({'type': 'chamilo_core.block.course'}) }}
+
     {% endautoescape %}
 {% endblock %}

@@ -20,7 +20,7 @@ sonata_block:
         #    contexts:   [admin]
 
         # Chamilo blocks
-        chamilo.corebundle.block.course:
+        chamilo_core.block.course: ~
         chamilo.corebundle.block.breadcrumb:
         chamilo.corebundle.block.main_menu:
 

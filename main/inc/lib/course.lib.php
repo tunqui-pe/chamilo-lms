@@ -4631,9 +4631,9 @@ class CourseManager
      */
     public static function return_hot_courses($days = 30, $limit = 5)
     {
-        if (api_is_invitee()) {
+        /*if (api_is_invitee()) {
             return array();
-        }
+        }*/
 
         $limit = intval($limit);
 
@@ -4645,12 +4645,12 @@ class CourseManager
             $my_course_code_list[$course['real_id']] = $course['real_id'];
         }
 
-        if (api_is_drh()) {
+        /*if (api_is_drh()) {
             $courses = CourseManager::get_courses_followed_by_drh(api_get_user_id());
             foreach ($courses as $course) {
                 $my_course_code_list[$course['real_id']] = $course['real_id'];
             }
-        }
+        }*/
 
         $table_course_access = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
         $table_course = Database::get_main_table(TABLE_MAIN_COURSE);

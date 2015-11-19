@@ -172,7 +172,7 @@ services:
     # Course block
     chamilo_core.block.course:
         class: Chamilo\CoreBundle\Block\CourseBlockService
-        arguments: ["course_block", @templating ]
+        arguments: [chamilo_core.block.course, @templating ]
         tags:
             - { name: sonata.block }
 

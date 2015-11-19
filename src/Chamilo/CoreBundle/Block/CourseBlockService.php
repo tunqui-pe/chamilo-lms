@@ -44,16 +44,25 @@ class CourseBlockService extends BaseBlockService
     {
     }
 
+    /**
+     * @param BlockContextInterface $blockContext
+     * @param Response|null $response
+     * @return Response
+     */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         // merge settings
         $settings = $blockContext->getSettings();
         $hotCourses = \CourseManager::return_hot_courses();
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
-            'hot_courses' => $hotCourses,
-            'block'     => $blockContext->getBlock(),
-            'settings'  => $settings
-        ), $response);
+        return $this->renderResponse(
+            $blockContext->getTemplate(),
+            array(
+                'hot_courses' => $hotCourses,
+                'block' => $blockContext->getBlock(),
+                'settings' => $settings,
+            ),
+            $response
+        );
     }
 }

@@ -4,7 +4,7 @@
     <div class="row">
         {#  Right column #}
         <div class="col-md-3 menu-column">
-            {% block chamilo_sidebar %}
+            {% block chamilo_left_column %}
                 {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
                     {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}
                     {{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}
@@ -15,9 +15,11 @@
         </div>
         {#  Left column #}
         <div class="col-md-9">
+            {% block chamilo_right_column %}
             {% autoescape false %}
                 {{ content }}
             {% endautoescape %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}
