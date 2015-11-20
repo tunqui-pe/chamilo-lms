@@ -121,7 +121,9 @@ if (!empty($user_course_categories)) {
 
                     <div style="float:left;width:110px;">
                     <?php
-                        if (api_get_setting('show_courses_descriptions_in_catalog') == 'true') {
+                    if (api_get_setting(
+                        'course.show_courses_descriptions_in_catalog'
+                    ) == 'true') {
                             $icon_title = get_lang('CourseDetails') . ' - ' . $course['title'];
                     ?>
                     <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>inc/ajax/course_home.ajax.php?a=show_course_information&code=<?php echo $course['code'] ?>" data-title="<?php echo $icon_title ?>" title="<?php echo $icon_title ?>" class="ajax">
@@ -220,7 +222,10 @@ if (!empty($courses_without_category)) {
 
             <div style="float:left; width:110px">
             <?php
-            if (api_get_setting('show_courses_descriptions_in_catalog') == 'true') {
+            if (api_get_setting(
+                    'course.show_courses_descriptions_in_catalog'
+                ) == 'true'
+            ) {
             $icon_title = get_lang('CourseDetails') . ' - ' . $course['title'];
             ?>
             <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>inc/ajax/course_home.ajax.php?a=show_course_information&code=<?php echo $course['code'] ?>" data-title="<?php echo $icon_title ?>" title="<?php echo $icon_title ?>" class="ajax">

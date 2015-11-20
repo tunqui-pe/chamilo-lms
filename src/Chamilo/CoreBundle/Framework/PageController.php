@@ -537,7 +537,7 @@ class PageController
                 $show_menu        = true;
                 $show_course_link = true;
             } else {
-                if (api_get_setting('allow_students_to_browse_courses') == 'true') {
+                if (api_get_setting('display.allow_students_to_browse_courses') == 'true') {
                     $show_menu        = true;
                     $show_course_link = true;
                 }

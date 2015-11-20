@@ -23,7 +23,7 @@ $limit = CourseCategoryManager::getLimitArray();
 // Section for the tabs.
 $this_section = SECTION_COURSES;
 
-if (api_get_setting('course_catalog_published') !== 'true') {
+if (api_get_setting('course.course_catalog_published') !== 'true') {
     // Access rights: anonymous users can't do anything useful here.
     api_block_anonymous_users();
 }
@@ -31,7 +31,7 @@ if (api_get_setting('course_catalog_published') !== 'true') {
 $user_can_view_page = false;
 
 //For students
-if (api_get_setting('allow_students_to_browse_courses') == 'false') {
+if (api_get_setting('display.allow_students_to_browse_courses') == 'false') {
     $user_can_view_page = false;
 } else {
     $user_can_view_page = true;

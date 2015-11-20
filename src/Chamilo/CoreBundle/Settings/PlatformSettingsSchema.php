@@ -35,7 +35,13 @@ class PlatformSettingsSchema implements SchemaInterface
                     'gamification_mode' => ' ',
                     'order_user_list_by_official_code' => '',
                     'cookie_warning' => '',
-                    'donotlistcampus' => ''
+                    'donotlistcampus' => '',
+                    'catalog_show_courses_sessions' => '',
+                    'course_catalog_hide_private' => ''
+                    //
+//('catalog_show_courses_sessions', '0', 'CatalogueShowOnlyCourses'),
+//('catalog_show_courses_sessions', '1', 'CatalogueShowOnlySessions'),
+//('catalog_show_courses_sessions', '2', 'CatalogueShowCoursesAndSessions'),
                 )
             )
             ->setAllowedTypes(
@@ -76,6 +82,8 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('order_user_list_by_official_code', 'yes_no')
             ->add('cookie_warning', 'yes_no')
             ->add('donotlistcampus', 'yes_no')
+            ->add('course_catalog_hide_private', 'yes_no')
+            ->add('catalog_show_courses_sessions')
 
 
         ;

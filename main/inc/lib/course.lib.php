@@ -1985,7 +1985,7 @@ class CourseManager
                     }
                     $html .= '</ul>';
                 }else{
-                    $html .= array_to_string($list, $separator);
+                    $html .= ArrayClass::array_to_string($list, $separator);
                 }
             }
         }
@@ -2086,9 +2086,11 @@ class CourseManager
                     }
                 $html .= '</ul>';
             } else {
-                $coaches_to_string = array_to_string($course_coachs, $separator);
+                $coaches_to_string = ArrayClass::array_to_string(
+                    $course_coachs,
+                    $separator
+                );
             }
-
         }
 
         return $html;
@@ -4862,7 +4864,7 @@ class CourseManager
 
         $visibilityCondition = null;
 
-        $hidePrivate = api_get_setting('course_catalog_hide_private');
+        $hidePrivate = api_get_setting('platform.course_catalog_hide_private');
         if ($hidePrivate === 'true') {
             $courseInfo = api_get_course_info();
             $courseVisibility = $courseInfo['visibility'];

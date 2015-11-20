@@ -304,7 +304,7 @@ function return_thumbnail($course, $icon_title)
     // course image
 
     $html .= '<div class="items-course-image">';
-    if (api_get_setting('show_courses_descriptions_in_catalog') == 'true') {
+    if (api_get_setting('course.show_courses_descriptions_in_catalog') == 'true') {
         $html .= '<a class="ajax" href="'.api_get_path(WEB_CODE_PATH).'inc/ajax/course_home.ajax.php?a=show_course_information&code='.$course['code'].'" title="'.$icon_title.'" rel="gb_page_center[778]">';
         $html .= '<img class="img-responsive" src="'.$course_medium_image.'" alt="'.api_htmlentities($title).'" />';
         $html .= '</a>';
@@ -344,7 +344,7 @@ function return_description_button($course, $icon_title)
 {
     $title = $course['title'];
     $html = '';
-    if (api_get_setting('show_courses_descriptions_in_catalog') == 'true') {
+    if (api_get_setting('course.show_courses_descriptions_in_catalog') == 'true') {
         $html = '<a data-title="' . $title . '" class="ajax btn btn-default btn-sm" href="'.api_get_path(WEB_CODE_PATH).'inc/ajax/course_home.ajax.php?a=show_course_information&code='.$course['code'].'" title="' . get_lang('Description') . '">' .
         Display::returnFontAwesomeIcon('info-circle') . '</a>';
     }

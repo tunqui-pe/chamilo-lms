@@ -674,7 +674,7 @@ class CourseCategoryManager
         }
 
         $visibilityCondition = null;
-        $hidePrivate = api_get_setting('course_catalog_hide_private');
+        $hidePrivate = api_get_setting('platform.course_catalog_hide_private');
         if ($hidePrivate === 'true') {
             $courseInfo = api_get_course_info();
             $courseVisibility = $courseInfo['visibility'];
@@ -754,7 +754,7 @@ class CourseCategoryManager
                 ).')';
         }
         $visibilityCondition = null;
-        $hidePrivate = api_get_setting('course_catalog_hide_private');
+        $hidePrivate = api_get_setting('platform.course_catalog_hide_private');
         if ($hidePrivate === 'true') {
             $courseInfo = api_get_course_info();
             $courseVisibility = $courseInfo['visibility'];
