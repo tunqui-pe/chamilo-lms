@@ -146,7 +146,7 @@ class CourseCategoryManager
         $params = [
             'name' => $name,
             'code' => $code,
-            'parent_id' => empty($parent_id) ? '' : $parent_id,
+            'parent_id' => empty($parent_id) ? null : $parent_id,
             'tree_pos' => $tree_pos,
             'children_count' => 0,
             'auth_course_child' => $canHaveCourses,
