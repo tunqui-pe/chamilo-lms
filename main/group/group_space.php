@@ -421,7 +421,7 @@ function get_group_user_data($from, $number_of_items, $column, $direction)
     } else {
         if (api_is_allowed_to_edit()) {
             $sql = "SELECT DISTINCT
-						u.user_id 	AS col0,
+						u.id 	AS col0,
 						".(api_is_western_name_order() ?
                     "u.firstname 	AS col1,
 						u.lastname 	AS col2,"
@@ -436,7 +436,7 @@ function get_group_user_data($from, $number_of_items, $column, $direction)
             $sql .= " LIMIT $from,$number_of_items";
         } else {
             $sql = "SELECT DISTINCT
-						user.user_id 	AS col0,
+						user.id 	AS col0,
 						". (api_is_western_name_order() ?
                     "user.firstname 	AS col1,
 						user.lastname 	AS col2 "
@@ -445,7 +445,7 @@ function get_group_user_data($from, $number_of_items, $column, $direction)
 						user.firstname 	AS col2 "
                 )."
 						FROM ".$table_user." user, ".$table_group_user." group_rel_user
-						WHERE group_rel_user.c_id = $course_id AND  group_rel_user.user_id = user.user_id
+						WHERE group_rel_user.c_id = $course_id AND  group_rel_user.user_id = user.id
 						AND group_rel_user.group_id = '".Database::escape_string($current_group['id'])."'";
             $sql .= " ORDER BY col$column $direction ";
             $sql .= " LIMIT $from,$number_of_items";

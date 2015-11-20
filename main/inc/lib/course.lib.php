@@ -1315,6 +1315,7 @@ class CourseManager
         if (!empty($session_id) || !empty($sessionIdList)) {
             $sql = 'SELECT DISTINCT
                         user.user_id,
+                        user.email,
                         session_course_user.status as status_session,
                         session_id,
                         user.*,
@@ -1368,12 +1369,14 @@ class CourseManager
                                 course.code,
                                 course_rel_user.status as status_rel,
                                 user.user_id,
+                                user.email,
                                 course_rel_user.is_tutor,
                                 user.*  ';
                 } else {
                     $sql = 'SELECT DISTINCT
                                 course_rel_user.status as status_rel,
                                 user.user_id,
+                                user.email,
                                 course_rel_user.is_tutor,
                                 user.*  ';
                 }
@@ -1573,6 +1576,7 @@ class CourseManager
                         $sessionName = !empty($sessionId) ? ' - '.$user['session_name'] : '';
                         $report_info['course'] = $user['title'].$sessionName;
                         $report_info['user'] = api_get_person_name($user['firstname'], $user['lastname']);
+                        $report_info['email'] = $user['email'];
                         $report_info['time'] = api_time_to_hms(
                             Tracking::get_time_spent_on_the_course(
                                 $user['user_id'],

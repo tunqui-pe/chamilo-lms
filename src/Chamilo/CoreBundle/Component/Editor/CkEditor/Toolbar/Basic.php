@@ -113,7 +113,7 @@ class Basic extends Toolbar
 
         if (api_get_setting('editor.enabled_wiris') == 'true') {
             // Commercial plugin
-            //$plugins[] = 'ckeditor_wiris';
+            $plugins[] = 'ckeditor_wiris';
         }
 
         if (api_get_setting('editor.enabled_imgmap') == 'true') {
@@ -211,6 +211,7 @@ class Basic extends Toolbar
             ['BulletedList', 'NumberedList', 'HorizontalRule'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
+            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
             ['Toolbarswitch']
         ];
     }
@@ -252,6 +253,7 @@ class Basic extends Toolbar
             ],
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['PageBreak', 'ShowBlocks', 'Source'],
+            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
             ['Toolbarswitch'],
         ];
     }
