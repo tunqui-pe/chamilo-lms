@@ -2,10 +2,10 @@
     <div class="openbadges-tabs">
         <ul class="nav nav-tabs">
             <li>
-                <a href="{{ _p.web_main }}admin/skill_badge.php">{{ 'Home' | get_lang }}</a>
+                <a href="{{ url('web.main') }}admin/skill_badge.php">{{ 'Home' | trans }}</a>
             </li>
             <li class="active">
-                <a href="{{ _p.web_main }}admin/skill_badge_list.php">{{ "CurrentBadges" | get_lang }}</a>
+                <a href="{{ url('web.main') }}admin/skill_badge_list.php">{{ "CurrentBadges" | trans }}</a>
             </li>
         </ul>
     </div>
@@ -21,9 +21,9 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>{{ 'Name' | get_lang }}</th>
-                                <th>{{ 'Description' | get_lang }}</th>
-                                <th>{{ 'Actions' | get_lang }}</th>
+                                <th>{{ 'Name' | trans }}</th>
+                                <th>{{ 'Description' | trans }}</th>
+                                <th>{{ 'Actions' | trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,8 +40,11 @@
                                 </td>
                                 <td>{{ skill.description }}</td>
                                 <td>
-                                    <a href="{{ _p.web_main }}admin/skill_badge_create.php?id={{ skill.id }}" title="{{ 'Edit' | get_lang }}">
-                                        <img src="{{ 'edit.png' | icon(22) }}" width="22" height="22" alt="{{ 'Edit' | get_lang }}">
+                                    <a href="{{ url('web.main') }}admin/skill_badge_create.php?id={{ skill.id }}"
+                                       title="{{ 'Edit' | trans }}">
+                                        <img src="{{ 'edit.png' | icon(22) }}"
+                                             width="22" height="22"
+                                             alt="{{ 'Edit' | trans }}">
                                     </a>
                                 </td>
                             </tr>

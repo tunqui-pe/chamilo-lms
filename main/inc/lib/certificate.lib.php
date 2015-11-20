@@ -377,7 +377,7 @@ class Certificate extends Model
         // Special rules for anonymous users
         $failed = false;
         if (api_is_anonymous()) {
-            if (api_get_setting('allow_public_certificates') != 'true') {
+            if (api_get_setting('course.allow_public_certificates') != 'true') {
                 // The "non-public" setting is set, so do not print
                 $failed = true;
             } else {

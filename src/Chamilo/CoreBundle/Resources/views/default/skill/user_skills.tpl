@@ -1,11 +1,11 @@
 {% if skills is not empty %}
 <ul class="skill-winner">
-    {%for skill in skills %}        
+    {% for skill in skills %}
         <li>
             <a class="" rel="{{ skill.id}}" href="#">{{ skill.name }}</a>
-        </li>        
+        </li>
     {% endfor %}
-</ul>    
+</ul>
 {% else %}
-    {{ 'YouHaveNotYetAchievedSkills' | get_lang }}
+    {{ 'YouHaveNotYetAchievedSkills' | trans }}
 {% endif %}

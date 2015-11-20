@@ -30,16 +30,22 @@ class CourseMenuBuilder extends ContainerAware
         return $menu;
     }
 
+    /**
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface
+     */
     public function skillsMenu(FactoryInterface $factory, array $options)
     {
         $security = $this->container->get('security.context');
+        $translator = $this->container->get('translator');
         $menu = $factory->createItem('root');
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
 
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
 
             $menu->addChild(
-                'My certificates',
+                $translator->trans('MyCertificates'),
                 [
                     'route' => 'main',
                     'routeParameters' => ['name' => 'gradebook/my_certificates.php'],
@@ -47,34 +53,26 @@ class CourseMenuBuilder extends ContainerAware
             );
 
             $menu->addChild(
-                'My certificates',
+                $translator->trans('Search'),
                 [
                     'route' => 'main',
-                    'routeParameters' => ['name' => 'gradebook/my_certificates.php'],
+                    'routeParameters' => ['name' => 'grgradebook/search.phpadebook/search.php'],
                 ]
             );
 
             $menu->addChild(
-                'Search',
+                $translator->trans('MySkills'),
                 [
                     'route' => 'main',
-                    'routeParameters' => ['name' => 'gradebook/my_certificates.php'],
+                    'routeParameters' => ['name' => 'social/my_skills_report.php'],
                 ]
             );
 
             $menu->addChild(
-                'My skills',
+                $translator->trans('ManageSkills'),
                 [
                     'route' => 'main',
-                    'routeParameters' => ['name' => 'gradebook/my_certificates.php'],
-                ]
-            );
-
-            $menu->addChild(
-                'Manage skills',
-                [
-                    'route' => 'main',
-                    'routeParameters' => ['name' => 'gradebook/my_certificates.php'],
+                    'routeParameters' => ['name' => 'admin/skills_wheel.php'],
                 ]
             );
         }

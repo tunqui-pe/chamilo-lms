@@ -24,11 +24,18 @@ $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
 
 $tableRows = array();
 
-$tpl = new Template(get_lang('Skills'));
+//$tpl = new Template(get_lang('Skills'));
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 $tplPath = null;
 
-$tpl->assign('allowSkillsTool', api_get_setting('skill.allow_skills_tool') == 'true');
-$tpl->assign('allowDrhSkillsManagement', api_get_setting('allow_hr_skills_management') == 'true');
+$tpl->addGlobal(
+    'allowSkillsTool',
+    api_get_setting('skill.allow_skills_tool') == 'true'
+);
+$tpl->addGlobal(
+    'allowDrhSkillsManagement',
+    api_get_setting('gradebook.allow_hr_skills_management') == 'true'
+);
 
 if ($isStudent) {
     $sql = "SELECT s.name, sru.acquired_skill_at, c.title, c.directory
@@ -63,7 +70,7 @@ if ($isStudent) {
         $tableRows[] = $tableRow;
     }
 
-    $tplPath = 'skill/student_report.tpl';
+    $tplPath = 'skill/student_report.html.twig';
 } else if ($isStudentBoss) {
     $selectedStudent = isset($_REQUEST['student']) ? intval($_REQUEST['student']) : 0;
     $tableRows = array();
@@ -109,9 +116,9 @@ if ($isStudent) {
         }
     }
 
-    $tplPath = 'skill/student_boss_report.tpl';
-    $tpl->assign('followedStudents', $followedStudents);
-    $tpl->assign('selectedStudent', $selectedStudent);
+    $tplPath = 'skill/student_boss_report.html.twig';
+    $tpl->addGlobal('followedStudents', $followedStudents);
+    $tpl->addGlobal('selectedStudent', $selectedStudent);
 } else if ($isDRH) {
     $selectedCourse = isset($_REQUEST['course']) ? intval($_REQUEST['course']) : null;
     $selectedSkill = isset($_REQUEST['skill']) ? intval($_REQUEST['skill']) : 0;
@@ -175,19 +182,19 @@ if ($isStudent) {
         }
     }
 
-    $tplPath = 'skill/drh_report.tpl';
+    $tplPath = 'skill/drh_report.html.twig';
 
-    $tpl->assign('action', $action);
-    $tpl->assign('courses', $courses);
-    $tpl->assign('skills', $skills);
-    $tpl->assign('selectedCourse', $selectedCourse);
-    $tpl->assign('selectedSkill', $selectedSkill);
-    $tpl->assign('reportTitle', $reportTitle);
+    $tpl->addGlobal('action', $action);
+    $tpl->addGlobal('courses', $courses);
+    $tpl->addGlobal('skills', $skills);
+    $tpl->addGlobal('selectedCourse', $selectedCourse);
+    $tpl->addGlobal('selectedSkill', $selectedSkill);
+    $tpl->addGlobal('reportTitle', $reportTitle);
 }
 
-$tpl->assign('rows', $tableRows);
+$tpl->addGlobal('rows', $tableRows);
 
-$contentTemplate = $tpl->fetch("default/" . $tplPath);
+echo $tpl->render("@template_style/".$tplPath);
 
-$tpl->assign('content', $contentTemplate);
-$tpl->display_one_col_template();
+
+

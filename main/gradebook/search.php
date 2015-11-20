@@ -12,11 +12,9 @@ $cidReset = true;
 
 //require_once '../inc/global.inc.php';
 
-if (api_get_setting('allow_public_certificates') != 'true') {
-    api_not_allowed(
-        true,
-        Display::return_message(get_lang('CertificatesNotPublic'), 'warning')
-    );
+if (api_get_setting('course.allow_public_certificates') != 'true') {
+    Display::return_message(get_lang('CertificatesNotPublic'), 'warning');
+    api_not_allowed();
 }
 
 $userId = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -70,17 +68,15 @@ if ($searchForm->validate()) {
     }
 }
 
-$template = new Template(get_lang('SearchCertificates'));
+//$template = new Template(get_lang('SearchCertificates'));
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
-$template->assign('search_form', $searchForm->returnForm());
-$template->assign('user_list', $userList);
-$template->assign('user_info', $userInfo);
-$template->assign('course_list', $courseList);
-$template->assign('session_list', $sessionList);
+$template->addGlobal('search_form', $searchForm->returnForm());
+$template->addGlobal('user_list', $userList);
+$template->addGlobal('user_info', $userInfo);
+$template->addGlobal('course_list', $courseList);
+$template->addGlobal('session_list', $sessionList);
+$template->addGlobal('header', get_lang('SearchCertificates'));
 
-$content = $template->fetch('default/gradebook/search.tpl');
+echo $template->render('@template_style/gradebook/search.html.twig');
 
-$template->assign('header', get_lang('SearchCertificates'));
-$template->assign('content', $content);
-
-$template->display_one_col_template();

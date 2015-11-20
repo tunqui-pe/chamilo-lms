@@ -25,14 +25,16 @@ if (empty($courseList) && empty($sessionList)) {
     );
 }
 
-$template = new Template(get_lang('MyCertificates'));
+//$template = new Template(get_lang('MyCertificates'));
 
-$template->assign('course_list', $courseList);
-$template->assign('session_list', $sessionList);
-$content = $template->fetch('default/gradebook/my_certificates.tpl');
+$template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
-if (api_get_setting('allow_public_certificates') == 'true') {
-    $template->assign(
+$template->addGlobal('course_list', $courseList);
+$template->addGlobal('session_list', $sessionList);
+
+
+if (api_get_setting('course.allow_public_certificates') == 'true') {
+    $template->addGlobal(
         'actions',
         Display::toolbarButton(
             get_lang('SearchCertificates'),
@@ -43,5 +45,5 @@ if (api_get_setting('allow_public_certificates') == 'true') {
     );
 }
 
-$template->assign('content', $content);
-$template->display_one_col_template();
+echo $template->render('@template_style/gradebook/my_certificates.html.twig');
+

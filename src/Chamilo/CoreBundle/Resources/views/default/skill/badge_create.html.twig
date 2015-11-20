@@ -45,13 +45,13 @@
     <div class="openbadges-tabs">
         <ul class="nav nav-tabs">
             <li>
-                <a href="{{ _p.web_main }}admin/skill_badge.php">{{ 'Home' | get_lang }}</a>
+                <a href="{{ url('web.main') }}admin/skill_badge.php">{{ 'Home' | trans }}</a>
             </li>
             <li>
-                <a href="{{ _p.web_main }}admin/skill_badge_list.php">{{ "CurrentBadges" | get_lang }}</a>
+                <a href="{{ url('web.main') }}admin/skill_badge_list.php">{{ "CurrentBadges" | trans }}</a>
             </li>
             <li class="active">
-                <a href="#">{{ 'Edit' | get_lang }}</a>
+                <a href="#">{{ 'Edit' | trans }}</a>
             </li>
         </ul>
     </div>
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-edit">
-                            <div class="block-title">{{ 'SkillInfo' | get_lang }}</div>
+                            <div class="block-title">{{ 'SkillInfo' | trans }}</div>
                         </div>
                     </div>
                 </div>
@@ -72,25 +72,35 @@
                             <fieldset>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="name">{{ 'Name' | get_lang }}</label>
+                                    <label class="col-sm-2 control-label"
+                                           for="name">{{ 'Name' | trans }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="name" id="name" class="form-control" value="{{ skill.name }}">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="name">{{ 'Description' | get_lang }}</label>
+                                    <label class="col-sm-2 control-label"
+                                           for="name">{{ 'Description' | trans }}</label>
                                     <div class="col-sm-10">
                                         <textarea name="description" id="description" class="form-control" rows="4">{{ skill.description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="image">{{ 'Image' | get_lang }}</label>
+                                    <label class="col-sm-2 control-label"
+                                           for="image">{{ 'Image' | trans }}</label>
                                     <div class="col-sm-10">
-                                        <input data-placement="left" data-toggle="tooltip" title="{{ "BadgeMeasuresXPixelsInPNG" | get_lang }}" type="file" name="image" id="image" class="help-badges-img" accept="image/*">
+                                        <input data-placement="left"
+                                               data-toggle="tooltip"
+                                               title="{{ "BadgeMeasuresXPixelsInPNG" | trans }}"
+                                               type="file" name="image"
+                                               id="image"
+                                               class="help-badges-img"
+                                               accept="image/*">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="criteria">{{ 'CriteriaToEarnTheBadge' | get_lang }}</label>
+                                    <label class="col-sm-2 control-label"
+                                           for="criteria">{{ 'CriteriaToEarnTheBadge' | trans }}</label>
                                     <div class="col-sm-10">
                                         <textarea name="criteria" id="criteria" class="form-control" rows="10">{{ skill.criteria }}</textarea>
                                     </div>
@@ -98,20 +108,30 @@
                             </fieldset>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary btn-large"><em class="fa fa-floppy-o"></em> {{ 'SaveBadge'| get_lang }}</button>
+                                    <button type="submit"
+                                            class="btn btn-primary btn-large">
+                                        <em class="fa fa-floppy-o"></em> {{ 'SaveBadge'| trans }}
+                                    </button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-md-3">
                         <div class="create-openbadges">
-                            <button id="btn-open-designer" class="help-badges btn btn-primary btn-large btn-block" data-toggle="tooltip" data-placement="bottom" title="{{ 'DesignANewBadgeComment' | get_lang }}" type="button">
-                                <em class="fa fa-plus"></em> {{ 'DesignNewBadge' | get_lang }}
+                            <button id="btn-open-designer"
+                                    class="help-badges btn btn-primary btn-large btn-block"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="{{ 'DesignANewBadgeComment' | trans }}"
+                                    type="button">
+                                <em class="fa fa-plus"></em> {{ 'DesignNewBadge' | trans }}
                             </button>
                         </div>
-                        <p class="openbadges-text">{{'BadgePreview' | get_lang }}</p>
+                        <p class="openbadges-text">{{ 'BadgePreview' | trans }}</p>
                         <div class="openbadges-img {{ skill.icon ? '' : 'hide' }}" id="badge-container">
-                            <img id="badge-preview" alt="{{ 'BadgePreview' | get_lang }}" src="{{ skill.icon ? skill.web_icon_path : '' }}">
+                            <img id="badge-preview"
+                                 alt="{{ 'BadgePreview' | trans }}"
+                                 src="{{ skill.icon ? skill.web_icon_path : '' }}">
                         </div>
                     </div>
                 </div>

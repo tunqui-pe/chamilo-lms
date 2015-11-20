@@ -335,7 +335,7 @@ class IndexManager
 
         $searchItem = null;
 
-        if (api_get_setting('allow_public_certificates') == 'true') {
+        if (api_get_setting('course.allow_public_certificates') == 'true') {
             $searchItem = Display::tag(
                 'li',
                 Display::url(Display::return_icon('search_graduation.png',get_lang('Search'),null,ICON_SIZE_SMALL).

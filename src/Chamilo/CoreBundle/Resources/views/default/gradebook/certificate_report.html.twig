@@ -12,7 +12,7 @@
             }, function (courseList) {
                 $('<option>', {
                     value: 0,
-                    text: "{{ 'Select' | get_lang }}"
+                    text: "{{ 'Select' | trans }}"
                 }).appendTo($selectCourse);
 
                 if (courseList.length > 0) {
@@ -24,7 +24,7 @@
                     });
                 }
             }, 'json');
-        });
+    });
     });
 </script>
 
@@ -39,11 +39,11 @@
 {% endif %}
 
 {% if not certificateStudents is empty %}
-    <h2 class="page-header">{{ "GradebookListOfStudentsCertificates" | get_lang }}</h2>
+    <h2 class="page-header">{{ "GradebookListOfStudentsCertificates" | trans }}</h2>
     {% if not exportAllLink is null %}
         <div class="actions">
             <a href="{{ exportAllLink }}" class="btn btn-info">
-                <em class="fa fa-check"></em> {{ 'ExportAllCertificatesToPDF' | get_lang }}
+                <em class="fa fa-check"></em> {{ 'ExportAllCertificatesToPDF' | trans }}
             </a>
         </div>
     {% endif %}
@@ -51,20 +51,20 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>{{ 'Student' | get_lang }}</th>
-                <th>{{ 'Sesion' | get_lang }}</th>
-                <th>{{ 'Course' | get_lang }}</th>
-                <th>{{ 'Date' | get_lang }}</th>
-                <th>{{ 'Certificate' | get_lang }}</th>
+                <th>{{ 'Student' | trans }}</th>
+                <th>{{ 'Sesion' | trans }}</th>
+                <th>{{ 'Course' | trans }}</th>
+                <th>{{ 'Date' | trans }}</th>
+                <th>{{ 'Certificate' | trans }}</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>{{ 'Student' | get_lang }}</th>
-                <th>{{ 'Sesion' | get_lang }}</th>
-                <th>{{ 'Course' | get_lang }}</th>
-                <th>{{ 'Date' | get_lang }}</th>
-                <th>{{ 'Certificate' | get_lang }}</th>
+                <th>{{ 'Student' | trans }}</th>
+                <th>{{ 'Sesion' | trans }}</th>
+                <th>{{ 'Course' | trans }}</th>
+                <th>{{ 'Date' | trans }}</th>
+                <th>{{ 'Certificate' | trans }}</th>
             </tr>
         </tfoot>
         <tbody>
@@ -80,7 +80,10 @@
                     </td>
                     <td>
                         {% for certificate in student.certificates %}
-                            <a href="{{ _p.web }}certificates/index.php?id={{ certificate.id }}" class="btn btn-default"><em class="fa fa-floppy-o"></em> {{ 'Certificate' | get_lang }}</a>
+                            <a href="{{ _p.web }}certificates/index.php?id={{ certificate.id }}"
+                               class="btn btn-default"><em
+                                        class="fa fa-floppy-o"></em> {{ 'Certificate' | trans }}
+                            </a>
                         {% endfor %}
                     </td>
                 </tr>
@@ -88,5 +91,5 @@
         </tbody>
     </table>
 {% else %}
-    <p class="alert alert-info">{{ 'NoResults' | get_lang }}</p>
+    <p class="alert alert-info">{{ 'NoResults' | trans }}</p>
 {% endif %}
