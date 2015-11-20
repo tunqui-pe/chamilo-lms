@@ -2,15 +2,18 @@
 <!-- Sidebar user panel -->
 <div class="user-panel">
     <div class="pull-left image">
-    {{ macro_image.avatar(user.avatar, user.username)  }}
+    {{ macro_image.avatar(user.avatarOrAnonymous, user.username)  }}
     </div>
     <div class="pull-left info">
         <p>{{ 'Hello, %user%'| trans( {'%user%': user.username }, 'ChamiloThemeBundle') }}</p>
-        <a href="#"><i
-                    class="fa fa-circle text-success"></i> {{ 'Online' | trans }}
+        <a href="#">
+            <i class="fa fa-circle text-success"></i> {{ 'Online' | trans }}
         </a>
     </div>
+
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-        <a href="{{ path('home', {'_switch_user': '_exit'}) }}">{{ 'Exit impersonation' | trans }}</a>
+    <a href="{{ path('home', {'_switch_user': '_exit'}) }}">
+        {{ 'Exit impersonation' | trans }}
+    </a>
     {% endif %}
 </div>

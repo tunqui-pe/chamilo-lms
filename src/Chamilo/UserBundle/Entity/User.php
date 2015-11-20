@@ -16,6 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
+use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
+
 //use Chamilo\CoreBundle\Component\Auth;
 //use FOS\MessageBundle\Model\ParticipantInterface;
 //use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
@@ -60,7 +62,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * })
  *
  */
-class User extends BaseUser //implements ParticipantInterface, ThemeUser
+class User extends BaseUser implements ThemeUser
 {
     const COURSE_MANAGER = 1;
     const TEACHER = 1;
@@ -1339,6 +1341,18 @@ class User extends BaseUser //implements ParticipantInterface, ThemeUser
     public function getAvatar()
     {
         return $this->getPictureUri();
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarOrAnonymous()
+    {
+        $avatar = $this->getAvatar();
+
+        if (empty($avatar)) {
+            return 'bundles/chamilocore/img/unknown.jpg';
+        }
     }
 
     /**

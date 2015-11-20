@@ -7,11 +7,14 @@
 
 namespace Chamilo\ThemeBundle\Event;
 
-
 use Chamilo\ThemeBundle\Model\UserInterface;
 
-class ShowUserEvent extends  ThemeEvent {
-
+/**
+ * Class ShowUserEvent
+ * @package Chamilo\ThemeBundle\Event
+ */
+class ShowUserEvent extends ThemeEvent
+{
     /**
      * @var UserInterface
      */
@@ -25,6 +28,7 @@ class ShowUserEvent extends  ThemeEvent {
     public function setUser($user)
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -35,6 +39,4 @@ class ShowUserEvent extends  ThemeEvent {
     {
         return $this->user;
     }
-
-
 }
