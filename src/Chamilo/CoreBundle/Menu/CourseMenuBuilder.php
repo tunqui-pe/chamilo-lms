@@ -12,20 +12,46 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  */
 class CourseMenuBuilder extends ContainerAware
 {
+    /**
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface
+     */
     public function courseMenu(FactoryInterface $factory, array $options)
     {
-        $security = $this->container->get('security.context');
+        $security = $this->container->get('security.authorization_checker');
         $menu = $factory->createItem('root');
+        $translator = $this->container->get('translator');
+
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
 
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
 
             $menu->addChild(
-                'Create course',
+                $translator->trans('CreateCourse'),
                 ['route' => 'main', 'routeParameters' => ['name'=> 'create_course/add_course.php']]
             );
-            //$menu->addChild('Catalog', array('route' => 'logout'));
-            //$menu->addChild('History', array('route' => 'logout'));
+
+            $menu->addChild(
+                $translator->trans('AddSession'),
+                [
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'session/session_add.php'],
+                ]
+            );
+
+            /*$menu->addChild(
+                $translator->trans('History'),
+                ['route' => 'main', 'routeParameters' => ['name'=> 'auth/courses.php?action=sortmycourses']]
+            );*/
+
+            $menu->addChild(
+                $translator->trans('CourseCatalog'),
+                [
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/courses.php'],
+                ]
+            );
         }
         return $menu;
     }
@@ -37,7 +63,7 @@ class CourseMenuBuilder extends ContainerAware
      */
     public function skillsMenu(FactoryInterface $factory, array $options)
     {
-        $security = $this->container->get('security.context');
+        $security = $this->container->get('security.authorization_checker');
         $translator = $this->container->get('translator');
         $menu = $factory->createItem('root');
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -56,7 +82,7 @@ class CourseMenuBuilder extends ContainerAware
                 $translator->trans('Search'),
                 [
                     'route' => 'main',
-                    'routeParameters' => ['name' => 'grgradebook/search.phpadebook/search.php'],
+                    'routeParameters' => ['name' => 'gradebook/search.php'],
                 ]
             );
 
