@@ -54,7 +54,9 @@ assetic:
 #                - bundles/chamilotheme/components/adminlte/css/ionslider/ion.rangeSlider.css
 #                - bundles/chamilotheme/components/adminlte/css/timepicker/bootstrap-timepicker.css
                 - bundles/chamilotheme/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css
-#                - bundles/chamilotheme/components/adminlte/css/AdminLTE.css
+
+                - bundles/chamilotheme/components/adminlte/dist/css/skins/_all-skins.min.css
+                - bundles/chamilotheme/components/adminlte/dist/css/AdminLTE.css
             filters:
                 - cssrewrite
             output: js/chamilo.css
@@ -84,8 +86,8 @@ assetic:
                 - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-audio.js
                 - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-video.js
                 - bundles/chamilotheme/components/jquery-file-upload/js/jquery.fileupload-validate.js
-
+                - bundles/chamilotheme/components/adminlte/dist/js/app.js
 #                - bundles/chamilotheme/components/adminlte/js/plugins/daterangepicker/daterangepicker.js
 
-#                - @ChamiloCoreBundle/Resources/public/js/app.js
+
             output: js/chamilo.js

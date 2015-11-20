@@ -169,20 +169,6 @@ services:
         class: Chamilo\CourseBundle\Entity\CourseManager
         arguments: [@doctrine]
 
-    # Course block
-    chamilo_core.block.course:
-        class: Chamilo\CoreBundle\Block\CourseBlockService
-        arguments: [chamilo_core.block.course, @templating ]
-        tags:
-            - { name: sonata.block }
-
-    # Course block
-    chamilo_core.block.header:
-        class: Chamilo\CoreBundle\Block\CourseBlockService
-        arguments: ["header", @templating ]
-        tags:
-            - { name: sonata.block }
-
     # Menus
     chamilo_core.menu.simple_menu:
         class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
@@ -203,6 +189,22 @@ services:
 #        arguments: ["chamilo_core.block.menu.main_menu", @templating, @knp_menu.menu_provider, @chamilo_core.menu.menu.main_menu_builder ]
 #        tags:
 #            - { name: sonata.block }
+
+
+    # Course block
+    chamilo_core.block.course:
+        class: Chamilo\CoreBundle\Block\CourseBlockService
+        arguments: [chamilo_core.block.course, @templating ]
+        tags:
+            - { name: sonata.block }
+
+    # Skill block
+    chamilo_core.block.skill:
+        class: Chamilo\CoreBundle\Block\SkillBlockService
+        arguments: [chamilo_core.block.skill, @templating ]
+        tags:
+            - { name: sonata.block }
+
 
     # Breadcrumb
     chamilo_core.block.breadcrumb:
@@ -357,3 +359,27 @@ services:
         class: Chamilo\CoreBundle\Settings\TrackingSettingsSchema
         tags:
             - { name: sylius.settings_schema, namespace: tracking }
+
+
+    # Form types
+
+    chamilo_user.registration.form.type:
+        class: Chamilo\UserBundle\Form\RegistrationType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: chamilo_sonata_user_registration }
+
+
+    chamilo_user.profile.form.type:
+        class: Chamilo\UserBundle\Form\ProfileType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: chamilo_sonata_user_profile }
+
+
+    chamilo_user.fos_profile.form.type:
+        class: Chamilo\UserBundle\Form\ProfileFosUserType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: chamilo_fos_user_profile }
+

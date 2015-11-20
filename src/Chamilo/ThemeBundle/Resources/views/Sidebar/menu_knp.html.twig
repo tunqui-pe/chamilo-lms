@@ -1,17 +1,19 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 {% import "ChamiloThemeBundle:Macros:box.html.twig" as macro %}
 
-{#<ul class="sidebar-menu">#}
-    {#{{ knp_menu_render(menu) }}#}
-
-    {#&#123;&#35;{% for item in menu %}&#35;&#125;#}
-        {#&#123;&#35;{{ macro.menu_item(item) }}&#35;&#125;#}
-    {#&#123;&#35;{% endfor %}&#35;&#125;#}
-{#</ul>#}
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true}) }}
-    {{ mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:courseMenu', {'automenu': 'pills', 'stacked':true}) }}
+    {{ macro.panel(
+    'Profile' | trans,
+    mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true})) }}
+
+    {{ macro.panel(
+    'Courses' | trans,
+    mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:courseMenu', {'automenu': 'pills', 'stacked':true})) }}
+
+    {{ macro.panel(
+    'Skills' | trans,
+    mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:skillsMenu', {'automenu': 'pills', 'stacked':true})) }}
 
 {% else %}
     <div class="user-panel">

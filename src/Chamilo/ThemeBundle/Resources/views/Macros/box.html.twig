@@ -25,9 +25,6 @@
     </div>
 {% endmacro %}
 
-
-
-
 {% macro menu_item(item) %}
     <li id="{{ item.identifier }}" class=" {{ item.isActive ? 'active' : '' }} {{ item.hasChildren? 'treeview' : '' }}">
         <a href="{{ item.hasChildren ? '#': '/' in item.route ? item.route : path(item.route, item.routeArgs) }}">
@@ -51,4 +48,20 @@
             </ul>
         {% endif %}
     </li>
+{% endmacro %}
+
+
+{% macro panel(title, content) %}
+    {% autoescape false %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h4> {{ title }} </h4>
+                </div>
+            </div>
+            <div class="panel-body">
+                {{ content }}
+            </div>
+        </div>
+    {% endautoescape %}
 {% endmacro %}

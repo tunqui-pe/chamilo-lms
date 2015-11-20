@@ -22,7 +22,16 @@ imports:
 #    - { resource: sonata/sonata_timeline.yml }
 #    - { resource: sonata/sonata_intl.yml }
     - { resource: sonata/sonata_core.yml }
+    - { resource: sonata/sonata_user.yml }
+
+  # Sonata Feature Bundles
+#    - { resource: sonata/sonata_admin.yml }
+#    - { resource: sonata/sonata_page.yml }
+#    - { resource: sonata/sonata_media.yml }
+#    - { resource: sonata/sonata_news.yml }
 #    - { resource: sonata/sonata_user.yml }
+#    - { resource: sonata/sonata_notification.yml }
+#    - { resource: sonata/sonata_classification.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration

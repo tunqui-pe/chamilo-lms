@@ -8,11 +8,20 @@
         {% endfor %}
         {% endautoescape %}
     {% endif %}
+
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            {% autoescape false %}
-                {{ content }}
-            {% endautoescape %}
+            {% block chamilo_right_column %}
+                {% include '@ChamiloCore/breadcrumb.html.twig' %}
+                <section class="content">
+                    {# Flash messages #}
+                    {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+
+                    {% autoescape false %}
+                        {{ content }}
+                    {% endautoescape %}
+                </section>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

@@ -6,12 +6,13 @@ sonata_seo:
         title: Chamilo
         metas:
             name:
-                keywords: 'key'
-                description: 'descr'
+                keywords: 'chamilo e-learning'
+                description: 'chamilo e-learning'
                 robots: index, follow
                 viewport: width=device-width,initial-scale=1
                 apple-mobile-web-app-capable: yes
                 author: chamilo
+                Generator: Chamilo 2
 
             property:
                 # Facebook application settings

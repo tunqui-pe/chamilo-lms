@@ -9,6 +9,12 @@ sonata_block:
         #"SonataDemoBundle:Builder:mainMenu": "Main Menu"
 
     blocks:
+        # Chamilo blocks
+        chamilo_core.block.course: ~
+        chamilo_core.block.skill: ~
+        chamilo.corebundle.block.breadcrumb:
+        chamilo.corebundle.block.main_menu:
+
         sonata.admin.block.admin_list:
             contexts:   [admin]
         sonata.timeline.block.timeline:
@@ -19,10 +25,6 @@ sonata_block:
         #sonata.admin_doctrine_orm.block.audit:
         #    contexts:   [admin]
 
-        # Chamilo blocks
-        chamilo_core.block.course: ~
-        chamilo.corebundle.block.breadcrumb:
-        chamilo.corebundle.block.main_menu:
 
         # Builtin Block
         sonata.block.service.text:
@@ -50,8 +52,6 @@ sonata_block:
         sonata.news.block.recent_posts:
 
         # TimelineBundle's Blocks
-
-        sonata.timeline.block.timeline:
         sonata.timeline.block.timeline:
             contexts:   [admin]
 
@@ -76,8 +76,6 @@ sonata_block:
         sonata.seo.block.twitter.hashtag_button:
         sonata.seo.block.twitter.mention_button:
         sonata.seo.block.twitter.embed:
-
-        sonata.demo.block.newsletter:
 
 
         # Formatter

@@ -15,29 +15,30 @@
 <html lang="{{ app.request.locale }}" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
+
+    {# Check settings in app/config/sonata/sonata_seo.yml #}
+    {{ sonata_seo_metadatas() }}
+
     <link href="https://chamilo.org/chamilo-lms/" rel="help"/>
     <link href="https://chamilo.org/the-association/" rel="author"/>
     <link href="https://chamilo.org/the-association/" rel="copyright"/>
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
-    {#<meta name="Generator" content="{{ _s.software_name }} {{ _s.system_version|slice(0,1) }}" />#}
     <title>
         {% block title %}
             {{ chamilo_settings_get('platform.institution') }} - {{ chamilo_settings_get('platform.site_name') }}
         {% endblock %}
     </title>
 
-    {# Check settings in app/config/sonata/sonata_seo.yml #}
-    {{ sonata_seo_metadatas() }}
-
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
+    {# Check chamilo_css key in assetic.yml #}
     {%- stylesheets '@chamilo_css' -%}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    {# Chamilo base #}
+    {# Chamilo theme #}
     {% set theme = chamilo_settings_get('platform.theme') %}
+
 
     {% set bug_notification_link = '' %}
     {% set help_content = '' %}
@@ -60,6 +61,8 @@
     <link rel="stylesheet" media="print" href="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/print.css') }}"/>
 
     <script src="{{ asset('bundles/chamilotheme/components/modernizr/modernizr.js') }}"></script>
+
+    {# Check chamilo_js key in assetic.yml #}
     {% block javascripts %}
     {%- javascripts '@chamilo_js' -%}
     <script src="{{ asset_url }}"></script>
@@ -73,29 +76,44 @@
         {% include '@ChamiloTheme/Layout/header.js.twig' %}
     {% endblock %}
 </head>
-<body class="{{ admin_skin|default('skin-blue')}}">
-<noscript>{{ "NoJavascript" | trans }}</noscript>
+{#<body class="{{ admin_skin|default('skin-blue')}}">#}
+<body class="skin-blue-light layout-boxed">
+<style>
+    .layout-boxed .wrapper {
+        box-shadow: none;
+    }
 
-{#{% if show_header is not defined %}#}
-    {#{% set show_header = true %}#}
-{#{% endif %}#}
+    .layout-boxed {
+        background: none;
+    }
+
+    .main-sidebar, .left-side {
+        padding-top: 130px;
+    }
+
+    .content-wrapper, .right-side {
+        background: none;
+    }
+</style>
+<noscript>{{ "NoJavascript" | trans }}</noscript>
 
 {#{% if show_header == true %}#}
 {% block chamilo_wrap %}
-<div id="page-wrap"><!-- page section -->
+<div id="page-wrap">
+    <!-- page section -->
     {# Bug and help notifications #}
-    {% block help_notifications %}
-        <ul id="navigation" class="notification-panel">
-            {{ help_content }}
-            {{ bug_notification_link }}
-        </ul>
-    {% endblock %}
+    {#{% block help_notifications %}#}
+    {#<ul id="navigation" class="notification-panel">#}
+    {#{{ help_content }}#}
+    {#{{ bug_notification_link }}#}
+    {#</ul>#}
+    {#{% endblock %}#}
 
     {# topbar #}
     {% block topbar %}
         {% include "@template_style/layout/topbar.html.twig" %}
         {% if show_toolbar == 1 %}
-            <div class="clear-header"></div>
+            {#<div class="clear-header"></div>#}
         {% endif %}
     {% endblock %}
 
@@ -146,20 +164,21 @@
                 </div>
             </div>
         </section>
+
         <section id="menu-bar">
             {# menu #}
             {% block menu %}
                 {% include "@template_style/layout/menu.html.twig" %}
             {% endblock %}
         </section>
-        <section id="breadcrumb-bar">
-            <div class="container">
-                {# breadcrumb #}
-                {% block breadcrumb %}
-                    {{ breadcrumb }}
-                {% endblock %}
-            </div>
-        </section>
+        {#<section id="breadcrumb-bar">#}
+        {#<div class="container">#}
+        {#&#123;&#35; breadcrumb &#35;&#125;#}
+        {#{% block breadcrumb %}#}
+        {#{{ breadcrumb }}#}
+        {#{% endblock %}#}
+        {#</div>#}
+        {#</section>#}
     </header>
 
 <div id="top_main_content" class="container">
@@ -183,44 +202,13 @@
 {% endblock %}
 
 {% block chamilo_content %}
-    {# Flash messages #}
-    {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
-
     {#Check sonata_block.yml settings#}
     {#{% include 'SonataSeoBundle:Block:_facebook_sdk.html.twig' %}#}
     {#{% include 'SonataSeoBundle:Block:_twitter_sdk.html.twig' %}#}
     {#{% include 'SonataSeoBundle:Block:_pinterest_sdk.html.twig' %}#}
-    {% if course is not defined %}
-        {% set course = '' %}
-    {% endif %}
-
-    {% if legacy_breadcrumb is not defined %}
-        {% set legacy_breadcrumb = '' %}
-    {% endif %}
-
-    {{ sonata_block_render_event('breadcrumb',
-    {
-        'context': 'default',
-        'course': course,
-        'legacy_breadcrumb': legacy_breadcrumb,
-        'current_uri': app.request.requestUri
-    }) }}
-
     {% block page_content %}
     {% endblock %}
-
 {% endblock %}
-
-{#<div class="col-md-3 menu-column">#}
-    {#{% block chamilo_sidebar %}#}
-        {#{% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}#}
-            {#{{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}#}
-            {#{{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}#}
-        {#{% endif %}#}
-        {#&#123;&#35; Sidebar menu &#35;&#125;#}
-        {#{{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request })) }}#}
-    {#{% endblock %}#}
-{#</div>#}
 
 {#<!-- Right side column. Contains the navbar and content of the page -->#}
 {#<div class="col-md-9">#}
@@ -251,17 +239,16 @@
 {% endblock %}
 </div>
 </div>
+{# End wrapper div #}
 
-    {% block chamilo_footer %}
-        {% include "@template_style/layout/footer.html.twig" %}
-    {% endblock %}
-
+{% block chamilo_footer %}
+    {% include "@template_style/layout/footer.html.twig" %}
+{% endblock %}
 
 {% block chamilo_footer_js %}
     {% include '@ChamiloTheme/Layout/footer.js.twig' %}
 {% endblock %}
 
-
-    {% endblock %}
+{% endblock %} {# End wrapper block#}
 </body>
 </html>
