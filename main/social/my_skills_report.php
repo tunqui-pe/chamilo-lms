@@ -62,7 +62,7 @@ if ($isStudent) {
 
             if (!file_exists($thumbSysPath)) {
                 $courseImageThumb = new Image($imageSysPath);
-                $courseImageThumb->resize(32, 32, 0);
+                $courseImageThumb->resize(32);
                 $courseImageThumb->send_image($thumbSysPath);
             }
             $tableRow['courseImage'] = $thumbWebPath;
@@ -107,7 +107,7 @@ if ($isStudent) {
 
                 if (!file_exists($thumbSysPath)) {
                     $courseImageThumb = new Image($imageSysPath);
-                    $courseImageThumb->resize(32, 32, 0);
+                    $courseImageThumb->resize(32);
                     $courseImageThumb->send_image($thumbSysPath);
                 }
                 $tableRow['courseImage'] = $thumbWebPath;
@@ -174,7 +174,7 @@ if ($isStudent) {
 
             if (!file_exists($thumbSysPath)) {
                 $courseImageThumb = new Image($imageSysPath);
-                $courseImageThumb->resize(32, 32, 0);
+                $courseImageThumb->resize(32);
                 $courseImageThumb->send_image($thumbSysPath);
             }
 
