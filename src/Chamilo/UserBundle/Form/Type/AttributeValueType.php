@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\UserBundle\Form\Type;
 
@@ -56,25 +57,28 @@ class AttributeValueType extends AbstractResourceType
             );
 
         $prototypes = array();
-        /** @var \Chamilo\CoreBundle\Entity\UserField $attribute */
-        foreach ($this->getAttributes($builder) as $attribute) {
+        $attributes = $this->getAttributes($builder);
 
-            $configuration = $attribute->getConfiguration();
-            $type = $attribute->getFieldTypeToString();
+        if ($attributes) {
+            /** @var \Chamilo\CoreBundle\Entity\ExtraField $attribute */
+            foreach ($attributes as $attribute) {
+                $configuration = $attribute->getConfiguration();
+                $type = $attribute->getTypeToString();
 
-            if (!is_array($configuration)) {
-                $configuration = array();
+                if (!is_array($configuration)) {
+                    $configuration = array();
+                }
+
+                if (empty($type)) {
+                    continue;
+                }
+
+                $prototypes[] = $builder->create(
+                    'value',
+                    $type,
+                    $configuration
+                )->getForm();
             }
-
-            if (empty($type)) {
-                continue;
-            }
-
-            $prototypes[] = $builder->create(
-                'value',
-                $type,
-                $configuration
-            )->getForm();
         }
 
         $builder->setAttribute('prototypes', $prototypes);
@@ -104,6 +108,8 @@ class AttributeValueType extends AbstractResourceType
     public function getName()
     {
         //return 'chamilo_user_extra_field_value';
+        //var_dump(sprintf('chamilo_%s_extra_field_value', $this->subjectName));
+
         return sprintf('chamilo_%s_extra_field_value', $this->subjectName);
     }
 
@@ -116,8 +122,13 @@ class AttributeValueType extends AbstractResourceType
      */
     private function getAttributes(FormBuilderInterface $builder)
     {
-        return $builder->get('extraField')->getOption(
-            'choice_list'
-        )->getChoices();
+        /** @var \Symfony\Component\Form\FormBuilder $extraField */
+        $extraField = $builder->get('extraField');
+
+        if ($extraField->hasOption('choice_list')) {
+            return $extraField->getOption('choice_list')->getChoices();
+        }
+
+        return null;
     }
 }

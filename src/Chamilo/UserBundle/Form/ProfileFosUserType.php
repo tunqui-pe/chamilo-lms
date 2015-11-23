@@ -27,29 +27,8 @@ class ProfileFosUserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('email', 'email');
-
-        /*$constraint = new UserPassword();
-
-        $builder->add('current_password', 'password', array(
-            'label' => 'form.current_password',
-            'translation_domain' => 'FOSUserBundle',
-            'mapped' => false,
-            'constraints' => $constraint,
-        ));*/
-
-        // Update Author id
-        /*$builder->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($currentUser) {
-                // @var User $user
-                $user = $event->getData();
-                $extraFields = $user->getExtrafields();
-                foreach ($extraFields as $extraField) {
-                    $extraField->setAuthor($currentUser);
-                }
-            }
-        );*/
+            ->add('email', 'email')
+        ;
     }
 
     /**

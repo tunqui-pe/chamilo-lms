@@ -65,7 +65,6 @@ class ExtraFieldValues extends BaseAttributeValue
      */
     protected $comment;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Chamilo\UserBundle\Entity\User", cascade={"persist"}, inversedBy="extraFields")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
@@ -73,12 +72,51 @@ class ExtraFieldValues extends BaseAttributeValue
     protected $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", cascade={"persist"}, inversedBy="extraFields")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
+     */
+    //protected $course;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->getExtraField()->getTypeToString();
+    }
+
+    /**
+     * @return ExtraField
+     */
+    public function getExtraField()
+    {
+        return $this->getField();
+    }
+
+    /**
+     * @param mixed $field
+     *
+     * @return ExtraFieldValues
+     */
+    public function setExtraField(ExtraField $field)
+    {
+        $this->setField($field);
+
+        return $this;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
 
     /**
      * @return mixed

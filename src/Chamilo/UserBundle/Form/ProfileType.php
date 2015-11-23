@@ -123,10 +123,13 @@ class ProfileType extends AbstractType
                 'collection',
                 array(
                     'required' => false,
-                    'type' => 'chamilo_user_extra_field_value',
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'type' => 'chamilo_user_extra_field_value',
                     'by_reference' => false,
+                    //'prototype' => true,
+                    //'widget_add_btn' => array('label' => "add email"),
+                    //'widget_remove_btn' => array('label' => "remove email")
                 )
             )
             //->add('save', 'submit', array('label' => 'Update')            )

@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\UserBundle\Form\EventListener;
 
@@ -40,8 +41,9 @@ class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListene
      */
     public function buildForm(FormEvent $event)
     {
-        /** @var \Chamilo\CoreBundle\Entity\UserFieldValues $attributeValue */
+        /** @var \Chamilo\CoreBundle\Entity\ExtraFieldValues $attributeValue */
         $attributeValue = $event->getData();
+
         $form = $event->getForm();
 
         if (null === $attributeValue) {
@@ -89,7 +91,6 @@ class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListene
     protected function verifyValue(AttributeValueInterface $attributeValue)
     {
         switch ($attributeValue->getType()) {
-
             case AttributeTypes::CHECKBOX:
                 if (!is_bool($attributeValue->getValue())) {
                     $attributeValue->setValue(false);
