@@ -261,7 +261,7 @@ if (api_is_allowed_to_edit(null, true)) {
                         $data[] = $user;
                         if ($_GET['format'] == 'pdf') {
                             $user_info = api_get_user_info($user['user_id']);
-                            $user_image = '<img src="'.$user_info['avatar_no_query'].'" width ="'.$user_image_pdf_size.'px" />';
+                            $user_image = '<img src="'.$user_info['avatar'].'" width ="'.$user_image_pdf_size.'px" />';
                             if ($is_western_name_order) {
                                 $user_pdf = array(
                                     $counter,
@@ -347,11 +347,7 @@ if (api_is_allowed_to_edit(null, true)) {
                         }
                         if ($_GET['format'] == 'pdf') {
                             $user_info = api_get_user_info($user['user_id']);
-                            $user_image = Display::img(
-                                $user_info['avatar_no_query'],
-                                null,
-                                array('width' => $user_image_pdf_size.'px')
-                            );
+                            $user_image = '<img src="'.$user_info['avatar'].'" width ="'.$user_image_pdf_size.'px" />';
 
                             if ($is_western_name_order) {
                                 $user_pdf = array(
@@ -702,7 +698,6 @@ function get_user_data($from, $number_of_items, $column, $direction)
             } else {
                 $userInfo = api_get_user_info($user_id);
                 $userPicture = $userInfo['avatar'];
-
                 $photo= '<img src="'.$userPicture.'" alt="'.$userInfo['complete_name'].'" width="22" height="22" title="'.$userInfo['complete_name'].'" />';
 
                 $temp[] = $user_id;
