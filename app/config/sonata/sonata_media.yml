@@ -1,8 +1,10 @@
-#
-# more information can be found here http://sonata-project.org/bundles/media
-#
+
 sonata_media:
-    db_driver:       doctrine_orm # | doctrine_mongodb
+    class:
+        media: Chamilo\MediaBundle\Entity\Media
+        gallery: Chamilo\MediaBundle\Entity\Gallery
+        gallery_has_media: Chamilo\MediaBundle\Entity\GalleryHasMedia
+    db_driver: doctrine_orm # | doctrine_mongodb
     default_context: default
     contexts:
         default:  # the default context is mandatory
@@ -55,7 +57,7 @@ sonata_media:
                 preview: { width: 100, quality: 100}
                 wide:    { width: 820, quality: 100}
 
-        user_image:
+        user:
             providers:
               - sonata.media.provider.image
 
@@ -181,10 +183,10 @@ sonata_media:
 #                thumbnail: { size: [820, 70], mode: outbound }
 
 # Enable Doctrine to map the provided entities
-doctrine:
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    ApplicationSonataMediaBundle: ~
-                    SonataMediaBundle: ~
+#doctrine:
+#    orm:
+#        entity_managers:
+#            default:
+#                mappings:
+#                    ChamiloMediaBundle: ~
+#                    SonataMediaBundle: ~

@@ -22,7 +22,7 @@ use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
 //use FOS\MessageBundle\Model\ParticipantInterface;
 //use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
 //use Vich\UploaderBundle\Mapping\Annotation as Vich;
-//use Application\Sonata\MediaBundle\Entity\Media;
+use Chamilo\MediaBundle\Entity\Media;
 //use Chamilo\UserBundle\Model\UserInterface as UserInterfaceModel;
 
 //use Sylius\Component\Attribute\Model\AttributeValueInterface as BaseAttributeValueInterface;
@@ -170,13 +170,13 @@ class User extends BaseUser implements ThemeUser
      * @var string
      * @ORM\Column(name="picture_uri", type="string", length=250, nullable=true, unique=false)
      */
-    private $pictureUri;
+    //private $pictureUri;
 
     /**
-     * ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"all"} )
+     * @ORM\ManyToOne(targetEntity="Chamilo\MediaBundle\Entity\Media", cascade={"all"} )
      * @ORM\JoinColumn(name="picture_uri", referencedColumnName="id")
      */
-    //protected $pictureUri;
+    protected $pictureUri;
 
     /**
      * @var integer
@@ -376,7 +376,7 @@ class User extends BaseUser implements ThemeUser
 
     /**
      * @var ArrayCollection
-     * ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\UserFieldValues", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\ExtraFieldValues", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      **/
     protected $extraFields;
 

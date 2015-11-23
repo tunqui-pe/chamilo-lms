@@ -50,7 +50,6 @@ class CourseSettingsSchema implements SchemaInterface
                     'hide_scorm_copy_link' => '',
                     'hide_scorm_pdf_link' => '',
                     'course_catalog_published' => '',
-
                 )
             )
             ->setAllowedTypes(
@@ -189,6 +188,7 @@ class CourseSettingsSchema implements SchemaInterface
             ->add('hide_scorm_export_link', 'yes_no')
             ->add('hide_scorm_copy_link', 'yes_no')
             ->add('hide_scorm_pdf_link', 'yes_no')
-            ->add('course_catalog_published', 'yes_no');
+            ->add('course_catalog_published', 'yes_no')
+        ;
     }
 }

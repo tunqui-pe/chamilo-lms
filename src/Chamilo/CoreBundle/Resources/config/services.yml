@@ -71,11 +71,18 @@ services:
         tags:
             - { name: form.type, alias: yes_no }
 
-#    chamilo_user.form.type.attribute_value_type:
-#        class: Chamilo\UserBundle\Form\Type\AttributeValueType
-#        arguments: [Chamilo\CoreBundle\Entity\UserFieldValues, ["registration"], 'user']
-#        tags:
-#            - { name: form.type }
+    chamilo_user.form.type.attribute_value_type:
+        class: Chamilo\UserBundle\Form\Type\AttributeValueType
+        arguments: [Chamilo\CoreBundle\Entity\ExtraFieldValues, ["registration"], "user"]
+        tags:
+            - { name: form.type, alias: chamilo_user_extra_field_value }
+
+
+    chamilo_user.form.type.attribute_choice_type:
+        class: Chamilo\UserBundle\Form\Type\AttributeEntityChoiceType
+        arguments: ['user', Chamilo\CoreBundle\Entity\ExtraField]
+        tags:
+            - { name: form.type, alias: chamilo_user_extra_field_choice }
 
     chamilo_user.form.type.attribute_entity_choice_type:
         class: Chamilo\UserBundle\Form\Type\AttributeEntityChoiceType

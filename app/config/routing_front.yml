@@ -30,14 +30,14 @@ sonata_user_change_password:
 #    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
 #    prefix: /page
 
-#sonata_media_gallery:
-#    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
-#    prefix: /media/gallery
-#
-#sonata_media_media:
-#    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
-#    prefix: /media
-#
+sonata_media_gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
+
+sonata_media_media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media
+
 #sonata_customer:
 #    resource: @SonataCustomerBundle/Resources/config/routing/customer.xml
 #    prefix: /shop/user

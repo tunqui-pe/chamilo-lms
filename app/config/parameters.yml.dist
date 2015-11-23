@@ -25,3 +25,4 @@ parameters:
     sylius.cache:
         type: file_system
 
+    sonata_media.cdn.host: /uploads/media

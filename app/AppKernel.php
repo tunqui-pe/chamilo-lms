@@ -26,6 +26,9 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
+            //new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+
             new Sp\BowerBundle\SpBowerBundle(),
             new Oro\Bundle\MigrationBundle\OroMigrationBundle(),
 
@@ -35,9 +38,10 @@ class AppKernel extends Kernel
             // Sonata
             //new Sonata\PageBundle\SonataPageBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
-            //new Sonata\MediaBundle\SonataMediaBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
 
@@ -62,6 +66,7 @@ class AppKernel extends Kernel
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
+            new Chamilo\MediaBundle\ChamiloMediaBundle(),
 
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
 

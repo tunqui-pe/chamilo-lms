@@ -111,6 +111,14 @@ class ExtraField extends BaseAttribute
     protected $createdAt;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getName();
+    }
+
+    /**
      * Get id
      *
      * @return integer

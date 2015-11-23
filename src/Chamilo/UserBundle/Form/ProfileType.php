@@ -27,19 +27,6 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add(
-                'gender',
-                'sonata_user_gender',
-                array(
-                    'label' => 'form.label_gender',
-                    'required' => true,
-                    'translation_domain' => 'SonataUserBundle',
-                    'choices' => array(
-                        UserInterface::GENDER_FEMALE => 'gender_female',
-                        UserInterface::GENDER_MALE => 'gender_male',
-                    ),
-                )
-            )
-            ->add(
                 'firstname',
                 null,
                 array(
@@ -55,6 +42,26 @@ class ProfileType extends AbstractType
                     'required' => false,
                 )
             )
+            ->add('official_code', 'text')
+            //->add('groups')
+            ->add(
+                'locale',
+                'locale',
+                array('preferred_choices' => array('en', 'fr', 'es', ''))
+            )
+            /*->add(
+                'gender',
+                'sonata_user_gender',
+                array(
+                    'label' => 'form.label_gender',
+                    'required' => true,
+                    'translation_domain' => 'SonataUserBundle',
+                    'choices' => array(
+                        UserInterface::GENDER_FEMALE => 'gender_female',
+                        UserInterface::GENDER_MALE => 'gender_male',
+                    ),
+                )
+            )*/
             ->add(
                 'dateOfBirth',
                 'birthday',
@@ -90,6 +97,7 @@ class ProfileType extends AbstractType
                 array(
                     'label' => 'form.label_timezone',
                     'required' => false,
+                    //'preferred_choices' => array('Europe/Paris', 'America/Lima'),
                 )
             )
             ->add(
@@ -99,36 +107,28 @@ class ProfileType extends AbstractType
                     'label' => 'form.label_phone',
                     'required' => false,
                 )
-            );
-
-        $builder
-            ->add('official_code', 'text')
-            //->add('groups')
-            ->add(
-                'locale',
-                'locale',
-                array('preferred_choices' => array('en', 'fr', 'es'))
             )
-            /*->add(
+            ->add(
                 'picture_uri',
                 'sonata_media_type',
                 array(
                     'provider' => 'sonata.media.provider.image',
-                    'context' => 'user_image',
+                    'context' => 'user',
                     'required' => false,
+                    'data_class' => 'Chamilo\MediaBundle\Entity\Media',
                 )
-            )*/
-            /*->add(
+            )
+            ->add(
                 'extraFields',
                 'collection',
                 array(
                     'required' => false,
-                    'type' => 'chamilo_user.form.type.attribute_value_type',
+                    'type' => 'chamilo_user_extra_field_value',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,
                 )
-            )*/
+            )
             //->add('save', 'submit', array('label' => 'Update')            )
         ;
 

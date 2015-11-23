@@ -102,8 +102,12 @@
         "sonata-project/intl-bundle": "dev-master",
         "sonata-project/datagrid-bundle": "dev-master",
         "sonata-project/formatter-bundle": "dev-master",
+        "sonata-project/classification-bundle": "~2.2@dev",
         "sonata-project/seo-bundle": "^2.0",
         "sonata-project/media-bundle": "^2.3",
+        "sonata-project/easy-extends-bundle": "^2.1",
+
+        "jms/serializer-bundle": "~0.12",
 
         "mopa/bootstrap-bundle": "v3.0.0-beta3",
         "twbs/bootstrap": "v3.0.0",

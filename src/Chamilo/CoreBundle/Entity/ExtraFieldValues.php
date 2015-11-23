@@ -65,6 +65,13 @@ class ExtraFieldValues extends BaseAttributeValue
      */
     protected $comment;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Chamilo\UserBundle\Entity\User", cascade={"persist"}, inversedBy="extraFields")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
+     */
+    protected $user;
+
     /**
      * Constructor
      */
