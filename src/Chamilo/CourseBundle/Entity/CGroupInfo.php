@@ -4,6 +4,7 @@
 namespace Chamilo\CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Chamilo\CoreBundle\Entity\Course;
 
 /**
  * CGroupInfo
@@ -593,5 +594,4 @@ class CGroupInfo
 
         return $this;
     }
-
 }
