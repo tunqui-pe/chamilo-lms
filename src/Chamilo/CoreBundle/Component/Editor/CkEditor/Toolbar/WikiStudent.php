@@ -70,7 +70,12 @@ class WikiStudent extends Basic
             ],
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['PageBreak', 'ShowBlocks'],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
             ['Toolbarswitch']
         ];
     }
@@ -120,7 +125,12 @@ class WikiStudent extends Basic
                 'TextColor',
                 'BGColor'
             ],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
             ['ShowBlocks']
         ];
     }
@@ -138,7 +148,12 @@ class WikiStudent extends Basic
             ['BulletedList', 'NumberedList', 'HorizontalRule'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyBlock'],
             ['Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor'],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
             ['Toolbarswitch']
         ];
     }

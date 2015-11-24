@@ -87,7 +87,12 @@ class Documents extends Basic
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['Bold', 'Italic', 'Underline'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : ['']
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
         ];
     }
 
@@ -124,7 +129,12 @@ class Documents extends Basic
                 'BGColor',
                 'Source',
             ],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
             ['Toolbarswitch']
         ];
     }

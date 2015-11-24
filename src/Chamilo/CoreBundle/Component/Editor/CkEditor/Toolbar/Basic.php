@@ -211,7 +211,12 @@ class Basic extends Toolbar
             ['BulletedList', 'NumberedList', 'HorizontalRule'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
             ['Toolbarswitch']
         ];
     }
@@ -253,7 +258,12 @@ class Basic extends Toolbar
             ],
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['PageBreak', 'ShowBlocks', 'Source'],
-            api_get_setting('enabled_wiris') == 'true' ? ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_CAS'] : [''],
+            api_get_setting(
+                'editor.enabled_wiris'
+            ) == 'true' ? [
+                'ckeditor_wiris_formulaEditor',
+                'ckeditor_wiris_CAS',
+            ] : [''],
             ['Toolbarswitch'],
         ];
     }
