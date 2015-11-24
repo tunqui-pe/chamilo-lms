@@ -47,7 +47,6 @@
     {# Chamilo theme #}
     {% set theme = chamilo_settings_get('platform.theme') %}
 
-
     {% set bug_notification_link = '' %}
     {% set help_content = '' %}
     {% set header_extra_content = '' %}
@@ -84,7 +83,6 @@
         {% include '@ChamiloTheme/Layout/header.js.twig' %}
     {% endblock %}
 
-
     {% javascripts
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
@@ -96,24 +94,7 @@
 
 </head>
 {#<body class="{{ admin_skin|default('skin-blue')}}">#}
-<body class="skin-blue-light layout-boxed">
-<style>
-    .layout-boxed .wrapper {
-        box-shadow: none;
-    }
-
-    .layout-boxed {
-        background: none;
-    }
-
-    .main-sidebar, .left-side {
-        padding-top: 130px;
-    }
-
-    .content-wrapper, .right-side {
-        background: none;
-    }
-</style>
+<body>
 <noscript>{{ "NoJavascript" | trans }}</noscript>
 
 {#{% if show_header == true %}#}
@@ -137,7 +118,10 @@
     {% endblock %}
 
     <header>
-        <div class="extra-header">{{ header_extra_content }}</div>
+        <div class="extra-header">
+            {{ header_extra_content }}
+        </div>
+
         <section id="main" class="container">
             {% if plugin_header_main %}
                 <div class="row">
@@ -149,7 +133,9 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="logo">
+                        <a href="{{ url('home') }}">
                         <img src="{{ asset('bundles/chamilocore/css/themes/'~ theme ~'/images/header-logo.png') }}"/>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -187,7 +173,16 @@
         <section id="menu-bar">
             {# menu #}
             {% block menu %}
-                {% include "@template_style/layout/menu.html.twig" %}
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        {{ mopa_bootstrap_menu('ChamiloCoreBundle:NavBuilder:leftMenu', {'automenu': 'navbar', 'stacked':true}) }}
+                        <div style="float:right">
+                            {{ mopa_bootstrap_menu('ChamiloCoreBundle:NavBuilder:rightMenu', {'automenu': 'navbar'} ) }}
+                        </div>
+
+                    </div>
+                </nav>
+                {#{% include "@template_style/layout/menu.html.twig" %}#}
             {% endblock %}
         </section>
         {#<section id="breadcrumb-bar">#}

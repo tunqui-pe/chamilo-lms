@@ -3,17 +3,16 @@ sonata_block:
     default_contexts: [cms, sonata_page_bundle]
 
     http_cache:
-            listener: true
-    menus:
-        "ChamiloCoreBundle:MainMenuBuilder:mainMenu": "Main Menu"
-        #"SonataDemoBundle:Builder:mainMenu": "Main Menu"
+        listener: true
+#    menus:
+#        "ChamiloCoreBundle:MainMenuBuilder:mainMenu": "Main Menu"
+#        #"SonataDemoBundle:Builder:mainMenu": "Main Menu"
 
     blocks:
         # Chamilo blocks
+        chamilo_core.block.breadcrumb: ~
         chamilo_core.block.course: ~
         chamilo_core.block.skill: ~
-        chamilo.corebundle.block.breadcrumb:
-        chamilo.corebundle.block.main_menu:
 
         sonata.admin.block.admin_list:
             contexts:   [admin]
@@ -76,9 +75,6 @@ sonata_block:
         sonata.seo.block.twitter.hashtag_button:
         sonata.seo.block.twitter.mention_button:
         sonata.seo.block.twitter.embed:
-
-
         # Formatter
         sonata.formatter.block.formatter:
-
         sonata.seo.block.breadcrumb.homepage:

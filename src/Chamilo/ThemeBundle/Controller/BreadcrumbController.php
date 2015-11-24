@@ -1,12 +1,7 @@
 <?php
-/**
- * BreadcrumbController.php
- * avanzu-admin
- * Date: 23.02.14
- */
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\ThemeBundle\Controller;
-
 
 use Chamilo\ThemeBundle\Event\SidebarMenuEvent;
 use Chamilo\ThemeBundle\Event\SidebarMenuKnpEvent;

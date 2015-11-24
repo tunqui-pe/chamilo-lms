@@ -1,12 +1,7 @@
 <?php
-/**
- * NavbarController.php
- * avanzu-admin
- * Date: 23.02.14
- */
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\ThemeBundle\Controller;
-
 
 use Chamilo\ThemeBundle\Event\MessageListEvent;
 use Chamilo\ThemeBundle\Event\NotificationListEvent;
@@ -28,10 +23,8 @@ class NavbarController extends Controller
         return $this->get('event_dispatcher');
     }
 
-
     public function notificationsAction($max = 5)
     {
-
         if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_NOTIFICATIONS)) {
             return new Response();
         }
@@ -39,11 +32,11 @@ class NavbarController extends Controller
         $listEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_NOTIFICATIONS, new NotificationListEvent());
 
         return $this->render(
-                    'ChamiloThemeBundle:Navbar:notifications.html.twig',
-                        array(
-                            'notifications' => $listEvent->getNotifications(),
-                            'total'         => $listEvent->getTotal()
-                        )
+            'ChamiloThemeBundle:Navbar:notifications.html.twig',
+            array(
+                'notifications' => $listEvent->getNotifications(),
+                'total' => $listEvent->getTotal(),
+            )
         );
 
     }
@@ -58,11 +51,11 @@ class NavbarController extends Controller
         $listEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_MESSAGES, new MessageListEvent());
 
         return $this->render(
-                    'ChamiloThemeBundle:Navbar:messages.html.twig',
-                        array(
-                            'messages' => $listEvent->getMessages(),
-                            'total'    => $listEvent->getTotal()
-                        )
+            'ChamiloThemeBundle:Navbar:messages.html.twig',
+            array(
+                'messages' => $listEvent->getMessages(),
+                'total' => $listEvent->getTotal(),
+            )
         );
     }
 
@@ -75,11 +68,11 @@ class NavbarController extends Controller
         $listEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_TASKS, new TaskListEvent());
 
         return $this->render(
-                    'ChamiloThemeBundle:Navbar:tasks.html.twig',
-                        array(
-                            'tasks' => $listEvent->getTasks(),
-                            'total' => $listEvent->getTotal()
-                        )
+            'ChamiloThemeBundle:Navbar:tasks.html.twig',
+            array(
+                'tasks' => $listEvent->getTasks(),
+                'total' => $listEvent->getTotal(),
+            )
         );
     }
 
@@ -92,10 +85,10 @@ class NavbarController extends Controller
         $userEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_NAVBAR_USER, new ShowUserEvent());
 
         return $this->render(
-                    'ChamiloThemeBundle:Navbar:user.html.twig',
-                        array(
-                            'user' => $userEvent->getUser()
-                        )
+            'ChamiloThemeBundle:Navbar:user.html.twig',
+            array(
+                'user' => $userEvent->getUser(),
+            )
         );
     }
 

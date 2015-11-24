@@ -2,10 +2,9 @@
 
 {% block page_content %}
     {#  Left column #}
-
-    <div class="col-md-3 menu-column">
+    <div class="col-md-3">
         {% block chamilo_left_column %}
-
+            <section class="left_column">
             {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}
                 {#{{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}#}
@@ -16,7 +15,7 @@
 
             {# Skill block see SkillBlockService.php #}
             {#{{ sonata_block_render({'type': 'chamilo_core.block.skill'}) }}#}
-
+            </section>
         {% endblock %}
     </div>
 
@@ -24,14 +23,13 @@
     <div class="col-md-9">
         {% block chamilo_right_column %}
             {% include '@ChamiloCore/breadcrumb.html.twig' %}
-
-            <section class="content">
+            <section class="right_column">
                 {# Flash messages #}
                 {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
 
-            {% autoescape false %}
-                {{ content }}
-            {% endautoescape %}
+                {% autoescape false %}
+                    {{ content }}
+                {% endautoescape %}
             </section>
         {% endblock %}
     </div>

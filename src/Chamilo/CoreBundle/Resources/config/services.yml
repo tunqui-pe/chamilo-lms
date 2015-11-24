@@ -177,26 +177,23 @@ services:
         arguments: [@doctrine]
 
     # Menus
+
+    # Side bar menu
     chamilo_core.menu.simple_menu:
         class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
         arguments: [@service_container]
 
-    chamilo_core.menu.menu.main_menu_builder:
-        class: Chamilo\CoreBundle\Menu\MainMenuBuilder
+    # Main nav bar
+    chamilo_core.menu.nav_builder:
+        class: Chamilo\CoreBundle\Menu\NavBuilder
         arguments: [@knp_menu.factory, @router]
+        tags:
+         - { name: mopa_bootstrap.menu, alias: chamilo_core.menu.nav }
 
-    chamilo_core.menu.menu.course_menu_builder:
+
+    chamilo_core.menu.course_menu_builder:
         class: Chamilo\CoreBundle\Menu\CourseMenuBuilder
         arguments: [@knp_menu.factory, @chamilo_course.entity.course, @router]
-
-    # Blocks
-
-#    chamilo_core.block.main_menu:
-#        class: Chamilo\CoreBundle\Block\MainMenuBlockService
-#        arguments: ["chamilo_core.block.menu.main_menu", @templating, @knp_menu.menu_provider, @chamilo_core.menu.menu.main_menu_builder ]
-#        tags:
-#            - { name: sonata.block }
-
 
     # Course block
     chamilo_core.block.course:
@@ -212,11 +209,10 @@ services:
         tags:
             - { name: sonata.block }
 
-
-    # Breadcrumb
+    # Breadcrumb block
     chamilo_core.block.breadcrumb:
-        class: Chamilo\CoreBundle\Block\DefaultBreadcrumbBlockService
-        arguments: ["default", "chamilo_core.block.breadcrumb", @templating, @knp_menu.menu_provider, @knp_menu.factory]
+        class: Chamilo\CoreBundle\Block\BreadcrumbBlockService
+        arguments: ["chamilo_core.block.breadcrumb", "breadcrumb", @templating, @knp_menu.menu_provider, @knp_menu.factory]
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }

@@ -3,7 +3,7 @@
 {% block chamilo_right_column %}
     {% autoescape false %}
         {{ content }}
-
+        {# See CourseBlockService.php #}
         {{ sonata_block_render({'type': 'chamilo_core.block.course'}) }}
 
     {% endautoescape %}

@@ -30,10 +30,6 @@ class MenuListener
     public function onSetupMenu(SidebarMenuKnpEvent $event)
     {
         $request = $event->getRequest();
-
-        /*foreach ($this->getMenu($request) as $item) {
-            $event->addItem($item);
-        }*/
         $event->setMenu($this->getMenu($request));
     }
 
@@ -68,9 +64,6 @@ class MenuListener
                 if ($item->isCurrent()) {
                     $item->setCurrent(true);
                 }
-                /*if ($item->getRoute() == $route) {
-                    $item->setIsActive(true);
-                }*/
             }
         }
 

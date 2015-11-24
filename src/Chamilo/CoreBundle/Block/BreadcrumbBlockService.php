@@ -9,11 +9,19 @@ use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class DefaultBreadcrumbBlockService
- * @package Sonata\ProductBundle\Block
+ * Class BreadcrumbBlockService
+ * @package Chamilo\CoreBundle\Block
  */
-class DefaultBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
+class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'chamilo_core.block.breadcrumb';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -32,18 +40,9 @@ class DefaultBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
     /**
      * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'chamilo.corebundle.block.breadcrumb';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function getMenu(BlockContextInterface $blockContext)
     {
         $menu = $this->getRootMenu($blockContext);
-        //$menu = parent::getMenu($blockContext);
 
         $menu->addChild('home', ['route' => 'home']);
 
