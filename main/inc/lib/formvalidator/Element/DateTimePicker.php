@@ -39,13 +39,10 @@ class DateTimePicker extends HTML_QuickForm_text
         }
 
         return $this->getElementJS() . '
-            <div class="input-group">
-                <span class="input-group-addon">
                     <input ' . $this->_getAttrString($this->_attributes) . '>
-                </span>
-                <input class="form-control" type="text" readonly id="' . $id . '_alt" value="' . $value . '">
-            </div>
+
         ';
+        //<input class="form-control" type="text" readonly id="' . $id . '_alt" value="' . $value . '">
     }
 
     /**
@@ -72,7 +69,7 @@ class DateTimePicker extends HTML_QuickForm_text
         //timeFormat: 'hh:mm'
         $js .= "<script>
             $(function() {
-                $('#$id').hide().datetimepicker({
+                /*$('#$id').hide().datetimepicker({
                     defaultDate: '" . $this->getValue() . "',
                     dateFormat: 'yy-mm-dd',
                     timeFormat: 'HH:mm',
@@ -87,6 +84,11 @@ class DateTimePicker extends HTML_QuickForm_text
                     buttonText: '" . get_lang('SelectDate') . "',
                     changeMonth: true,
                     changeYear: true
+                });*/
+
+                $('#$id').datetimepicker({
+                    defaultDate: '".$this->getValue()."',
+                    format: 'YYYY-MM-DD HH:mm'
                 });
             });
         </script>";

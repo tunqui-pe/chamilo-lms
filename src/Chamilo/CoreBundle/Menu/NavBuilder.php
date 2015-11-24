@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Menu;
 
+use Chamilo\UserBundle\Entity\User;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -132,16 +133,21 @@ class NavBuilder extends ContainerAware
     public function rightMenu(FactoryInterface $factory, array $options)
     {
         $checker = $this->container->get('security.authorization_checker');
+
         $translator = $this->container->get('translator');
         $menu = $factory->createItem('root');
 
         // <nav class="navbar navbar-default">
         if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
 
+            $token = $this->container->get('security.token_storage');
+            /** @var User $user */
+            $user = $token->getToken()->getUser();
+
             $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
 
             $dropdown = $menu->addChild(
-                $translator->trans('User')
+                $user->getUsername()
             )->setAttribute('dropdown', true);
 
             $dropdown->addChild(

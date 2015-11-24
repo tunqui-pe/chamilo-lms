@@ -1,14 +1,4 @@
 <script>
-    $("form").on("click", ' .advanced_parameters', function() {
-        /*var id = $(this).attr('id') + '_options';
-         console.log(id);
-         $("#"+id).toggleClass('active');
-         var button = $(this);
-         $("#"+id).toggle(function() {
-         $("#"+id).toggleClass('active');
-         });*/
-    });
-
     /* Makes row highlighting possible */
     $(document).ready( function() {
         // Date time settings.
@@ -19,9 +9,9 @@
         // Chosen select
         $(".chzn-select").chosen({
             disable_search_threshold: 10,
-        no_results_text: '{{ 'SearchNoResultsFound' | trans }}',
-        placeholder_text_multiple: '{{ 'SelectSomeOptions' | trans }}',
-        placeholder_text_single: '{{ 'SelectAnOption' | trans }}',
+            no_results_text: '{{ 'SearchNoResultsFound' | trans }}',
+            placeholder_text_multiple: '{{ 'SelectSomeOptions' | trans }}',
+            placeholder_text_single: '{{ 'SelectAnOption' | trans }}',
             width: "100%"
         });
 
@@ -105,7 +95,4 @@
         };
         $('.boot-tooltip').tooltip(tip_options);
     });
-
-
-
 </script>
