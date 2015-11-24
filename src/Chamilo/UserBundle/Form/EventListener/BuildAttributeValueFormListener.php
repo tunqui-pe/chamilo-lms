@@ -55,7 +55,6 @@ class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListene
                     array('auto_initialize' => false)
                 )
             );
-
             return;
         }
 
@@ -77,7 +76,6 @@ class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListene
         $this->verifyValue($attributeValue);
 
         // If we're editing the attribute value, let's just render the value field, not full selection.
-
         $form
             ->remove('extraField')
             ->add($this->factory->createNamed('value', $type, null, $options));

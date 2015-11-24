@@ -84,6 +84,11 @@ class ExtraFieldValues extends BaseAttributeValue
     {
     }
 
+    public function getName()
+    {
+        return $this->getExtraField()->getDisplayText();
+    }
+
     /**
      * @return string
      */

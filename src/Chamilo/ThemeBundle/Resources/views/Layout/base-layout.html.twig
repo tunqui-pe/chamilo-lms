@@ -36,6 +36,14 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
+    {% stylesheets
+    '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+    '@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'
+    %}
+
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+
     {# Chamilo theme #}
     {% set theme = chamilo_settings_get('platform.theme') %}
 
@@ -75,6 +83,17 @@
     {% block chamilo_header_js %}
         {% include '@ChamiloTheme/Layout/header.js.twig' %}
     {% endblock %}
+
+
+    {% javascripts
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
 </head>
 {#<body class="{{ admin_skin|default('skin-blue')}}">#}
 <body class="skin-blue-light layout-boxed">

@@ -1,4 +1,6 @@
 sonata_core:
+    form_type: horizontal
+
     flashmessage:
         success:
             types:

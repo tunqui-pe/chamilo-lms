@@ -94,10 +94,7 @@ class AttributeValueType extends AbstractResourceType
     ) {
         $view->vars['prototypes'] = array();
 
-        foreach ($form->getConfig()->getAttribute(
-            'prototypes',
-            array()
-        ) as $name => $prototype) {
+        foreach ($form->getConfig()->getAttribute('prototypes', array()) as $name => $prototype) {
             $view->vars['prototypes'][$name] = $prototype->createView($view);
         }
     }
@@ -107,9 +104,6 @@ class AttributeValueType extends AbstractResourceType
      */
     public function getName()
     {
-        //return 'chamilo_user_extra_field_value';
-        //var_dump(sprintf('chamilo_%s_extra_field_value', $this->subjectName));
-
         return sprintf('chamilo_%s_extra_field_value', $this->subjectName);
     }
 

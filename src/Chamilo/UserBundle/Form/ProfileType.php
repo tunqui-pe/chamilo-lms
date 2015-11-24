@@ -47,7 +47,15 @@ class ProfileType extends AbstractType
             ->add(
                 'locale',
                 'locale',
-                array('preferred_choices' => array('en', 'fr', 'es', ''))
+                array(
+                    'preferred_choices' => array(
+                        'en',
+                        'fr',
+                        'es',
+                        'pt',
+                        'nl',
+                    ),
+                )
             )
             /*->add(
                 'gender',
@@ -118,6 +126,7 @@ class ProfileType extends AbstractType
                     'data_class' => 'Chamilo\MediaBundle\Entity\Media',
                 )
             )
+            //see mopa_bootstrap config values
             ->add(
                 'extraFields',
                 'collection',
@@ -127,9 +136,12 @@ class ProfileType extends AbstractType
                     'allow_delete' => true,
                     'type' => 'chamilo_user_extra_field_value',
                     'by_reference' => false,
-                    //'prototype' => true,
-                    //'widget_add_btn' => array('label' => "add email"),
-                    //'widget_remove_btn' => array('label' => "remove email")
+                    'prototype' => true,
+                    'widget_add_btn' => ['label' => 'Add'],
+                    'options' => array( // options for collection fields
+                        'widget_remove_btn' => array('label' => 'Remove'),
+                        'label_render' => false,
+                    ),
                 )
             )
             //->add('save', 'submit', array('label' => 'Update')            )
