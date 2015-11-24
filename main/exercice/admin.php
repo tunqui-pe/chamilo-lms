@@ -344,9 +344,9 @@ $htmlHeadXtra[] = $template->render(
     'ChamiloCoreBundle:default/exercise:submit.html.twig',
     ['shuffle_answers' => $objExercise->getShuffle()]
 );
-$htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
-
-$htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"../plugin/hotspot/JavaScriptFlashGateway.js\"></script>
+$htmlHeadXtra[] = api_get_theme_asset('xcolor/jquery.xcolor.js');
+$htmlHeadXtra2 = array();
+$htmlHeadXtra2[] = "<script type=\"text/javascript\" src=\"../plugin/hotspot/JavaScriptFlashGateway.js\"></script>
 <script src=\"../plugin/hotspot/hotspot.js\" type=\"text/javascript\"></script>
 <script language=\"JavaScript\" type=\"text/javascript\">
 <!--
