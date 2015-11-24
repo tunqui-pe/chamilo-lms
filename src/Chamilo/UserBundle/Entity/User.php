@@ -1345,6 +1345,8 @@ class User extends BaseUser implements ThemeUser
         if (empty($avatar)) {
             return 'bundles/chamilocore/img/unknown.jpg';
         }
+
+        return $avatar;
     }
 
     /**

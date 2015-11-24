@@ -990,7 +990,10 @@ class CourseHome
 
                         $data .= Display::url($image, $item['url_params']['href'], $item['url_params']);
                         $html .= Display::div($data, array('class'=>'big_icon')); //box-image reflection
-                        $html .= Display::div('<h4>'.$item['visibility'].$item['extra'].$item['link'].'</h4>', array('class'=>'content'));
+                        $html .= Display::div(
+                            '<h4>'.$item['visibility'].$item['extra'].$item['link'].'</h4>',
+                            array('class' => 'tool_content')
+                        );
                         $html .=  '</div>';
                         break;
                     case 'activity':
