@@ -30,7 +30,7 @@ class SessionSettingsSchema implements SchemaInterface
                     'hide_courses_in_sessions' => '',
                     'allow_session_admins_to_manage_all_sessions' => '',
                     'session_tutor_reports_visibility' => '',
-                    'session_page_enabled' => '',
+                    'session_page_enabled' => 'true',
                     'allow_teachers_to_create_sessions' => '',
                     'prevent_session_admins_to_manage_all_users' => '',
                     'session_course_ordering' => '',

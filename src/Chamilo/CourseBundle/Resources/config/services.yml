@@ -27,6 +27,8 @@ services:
         class: Chamilo\CourseBundle\EventListener\CourseAccessListener
         arguments:
             - @doctrine.orm.entity_manager
+        calls:
+            - [setRequest, [@request_stack]]
         tags:
             - { name: kernel.event_listener, event: chamilo_course.course.access, method: onCourseAccessEvent }
 

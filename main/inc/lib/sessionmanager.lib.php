@@ -16,6 +16,13 @@ use Chamilo\CoreBundle\Entity\SessionRelCourseRelUser;
  */
 class SessionManager
 {
+    //See BT#4871
+    CONST SESSION_CHANGE_USER_REASON_SCHEDULE = 1;
+    CONST SESSION_CHANGE_USER_REASON_CLASSROOM = 2;
+    CONST SESSION_CHANGE_USER_REASON_LOCATION = 3;
+    CONST SESSION_CHANGE_USER_REASON_ENROLLMENT_ANNULATION = 4;
+    CONST DEFAULT_VISIBILITY = 4;  //SESSION_AVAILABLE
+
     public static $_debug = false;
 
     /**
@@ -6645,7 +6652,6 @@ class SessionManager
                 )
             );
         } else {
-
             $sql = "SELECT COUNT(1) FROM $tbl_user WHERE status = 1";
             $rs = Database::query($sql);
             $countUsers = Database::result($rs, 0, 0);
@@ -6653,6 +6659,9 @@ class SessionManager
             if (intval($countUsers) < 50) {
                 $orderClause = "ORDER BY ";
                 $orderClause .= api_sort_by_first_name() ? "firstname, lastname, username" : "lastname, firstname, username";
+
+                /*$repo = UserManager::getRepository();
+                $users = $repo->findByRole('ROLE_TEACHER');*/
 
                 $sql = "SELECT user_id, lastname, firstname, username
                         FROM $tbl_user
@@ -7797,8 +7806,38 @@ class SessionManager
             $htmlRes .= $htmlCourse.'<div style="display:none" id="course-'.$courseCode.'">'.$htmlCatSessions.'</div></div>';
         }
 
-
-
         return $htmlRes;
     }
+
+    /**
+     * @todo Add constatns in a DB table
+     */
+    static function get_session_change_user_reasons()
+    {
+        return array(
+            self::SESSION_CHANGE_USER_REASON_SCHEDULE => get_lang(
+                'ScheduleChanged'
+            ),
+            self::SESSION_CHANGE_USER_REASON_CLASSROOM => get_lang(
+                'ClassRoomChanged'
+            ),
+            self::SESSION_CHANGE_USER_REASON_LOCATION => get_lang(
+                'LocationChanged'
+            ),
+            //self::SESSION_CHANGE_USER_REASON_ENROLLMENT_ANNULATION => get_lang('EnrollmentAnnulation'),
+        );
+    }
+
+    /**
+     * Gets the reason name
+     * @param int $id reason id
+     */
+    static function get_session_change_user_reason($id)
+    {
+        $reasons = self::get_session_change_user_reasons();
+
+        return isset($reasons[$id]) ? $reasons[$id] : null;
+    }
+
+
 }

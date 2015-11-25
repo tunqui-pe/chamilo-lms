@@ -43,10 +43,9 @@ class HomeController extends ToolBaseController
         }*/
 
         $courseCode = $course->getId();
+
         $sessionId = api_get_session_id();
         $sessionHandler = $request->getSession();
-
-        $coursesAlreadyVisited = $sessionHandler->get('coursesAlreadyVisited');
 
         $result = $this->autoLaunch();
 
@@ -54,11 +53,17 @@ class HomeController extends ToolBaseController
         $showAutoLaunchExerciseWarning = $result['show_autolaunch_exercise_warning'];
 
         if ($showAutoLaunchLpWarning) {
-            $this->addFlash('warning', 'TheLPAutoLaunchSettingIsONStudentsWillBeRedirectToAnSpecificLP');
+            $this->addFlash(
+                'warning',
+                $this->trans('TheLPAutoLaunchSettingIsONStudentsWillBeRedirectToAnSpecificLP')
+            );
         }
 
         if ($showAutoLaunchExerciseWarning) {
-            $this->addFlash('warning', 'TheExerciseAutoLaunchSettingIsONStudentsWillBeRedirectToAnSpecificExercise');
+            $this->addFlash(
+                'warning',
+                $this->trans('TheExerciseAutoLaunchSettingIsONStudentsWillBeRedirectToAnSpecificExercise')
+            );
         }
 
         if (true) {
@@ -73,14 +78,12 @@ class HomeController extends ToolBaseController
             );
         }
 
-        // Course access events
-        $dispatcher = $this->container->get('event_dispatcher');
-        $dispatcher->dispatch('chamilo_course.course.access',
-            new CourseAccess($this->getUser(), $course)
-        );
+        $coursesAlreadyVisited = $sessionHandler->get('coursesAlreadyVisited');
 
         if (!isset($coursesAlreadyVisited[$courseCode])) {
+            // Course access events
             $dispatcher = $this->container->get('event_dispatcher');
+
             if (empty($sessionId)) {
                 $dispatcher->dispatch(
                     'chamilo_course.course.access',
@@ -98,8 +101,6 @@ class HomeController extends ToolBaseController
 
         $sessionHandler->remove('toolgroup');
         $sessionHandler->remove('_gid');
-
-        //is_courseMember
 
         $isSpecialCourse = \CourseManager::isSpecialCourse($courseCode);
 

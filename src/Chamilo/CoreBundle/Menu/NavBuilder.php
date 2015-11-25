@@ -76,7 +76,7 @@ class NavBuilder extends ContainerAware
                 array(
                     'route' => 'main',
                     'routeParameters' => array(
-                        'name' => 'calendar/agenda_js.php?type=personal',
+                        'name' => 'calendar/agenda_js.php',
                     ),
                 )
             );
@@ -86,7 +86,7 @@ class NavBuilder extends ContainerAware
                 array(
                     'route' => 'main',
                     'routeParameters' => array(
-                        'name' => 'mySpace',
+                        'name' => 'mySpace/index.php',
                     ),
                 )
             );

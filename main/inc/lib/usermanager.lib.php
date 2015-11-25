@@ -2283,129 +2283,241 @@ class UserManager
     /**
      * Gives a list of [session_category][session_id] for the current user.
      * @param integer $user_id
-     * @param boolean whether to fill the first element or not (to give space for courses out of categories)
-     * @param boolean  optional true if limit time from session is over, false otherwise
+     * @param boolean optional true if we want to see expired sessions, false otherwise
+     * @param boolean Whether to return only a count (true) or the full result (false)
+     * @param boolean Whether to order by alphabetical order (false) or reverse-alphabetical (used in history to show latest sessions on top)
      * @return array  list of statuses [session_category][session_id]
      * @todo ensure multiple access urls are managed correctly
      */
     public static function get_sessions_by_category(
         $user_id,
-        $is_time_over = true,
+        $is_time_over = false,
+        $get_count = false,
+        $reverse_order = false,
+        $start = 0,
+        $maxPerPage = null,
+        $categoryFilter = null,
         $ignore_visibility_for_admins = false
     ) {
         // Database Table Definitions
         $tbl_session = Database :: get_main_table(TABLE_MAIN_SESSION);
         $tbl_session_course_user = Database :: get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
+        $tbl_session_user = Database:: get_main_table(TABLE_MAIN_SESSION_USER);
         $tbl_session_category = Database :: get_main_table(TABLE_MAIN_SESSION_CATEGORY);
 
         if ($user_id != strval(intval($user_id))) {
             return array();
         }
 
-        // Get the list of sessions per user
-        $now = api_get_utc_datetime();
-
-        $sql = "SELECT DISTINCT
-                    session.id,
-                    session.name,
-                    session.access_start_date,
-                    session.access_end_date,
-                    session_category_id,
-                    session_category.name as session_category_name,
-                    session_category.date_start session_category_date_start,
-                    session_category.date_end session_category_date_end,
-                    coach_access_start_date,
-                    coach_access_end_date
-              FROM $tbl_session as session
-                  LEFT JOIN $tbl_session_category session_category
-                  ON (session_category_id = session_category.id)
-                  LEFT JOIN $tbl_session_course_user as session_rel_course_user
-                  ON (session_rel_course_user.session_id = session.id)
-              WHERE (
-                    session_rel_course_user.user_id = $user_id OR
-                    session.id_coach = $user_id
-              )
-              ORDER BY session_category_name, name";
-
-        $result = Database::query($sql);
         $categories = array();
 
-        if (Database::num_rows($result) > 0) {
-            while ($row = Database::fetch_array($result, 'ASSOC')) {
+        $now = api_get_utc_datetime();
 
-                // User portal filters:
-                if ($is_time_over) {
-                    // History
-                    if (empty($row['access_end_date']) || $row['access_end_date'] == '0000-00-00 00:00:00') {
-                        continue;
+        // Get the list of sessions per user
+        $condition_date_start1 = null;
+        $condition_date_start2 = null;
+        $condition_date_end1 = null;
+        $condition_date_end2 = null;
+
+        $order = ' ORDER BY name ';
+        if ($reverse_order) {
+            $order = ' ORDER BY name DESC ';
+        }
+
+        if ($is_time_over) {
+            $condition_date_end1 = " AND ((session.access_end_date < '$now' AND access_end_date IS NOT NULL AND session.access_end_date != '0000-00-00 00:00:00' AND session.access_end_date != '' ) OR moved_to <> 0) ";
+            $condition_date_end2 = " AND ((session.access_end_date < '$now' AND access_end_date IS NOT NULL AND session.access_end_date != '0000-00-00 00:00:00' AND session.access_end_date != '') ) ";
+        } else {
+            if (api_is_allowed_to_create_course()) {
+                //Teachers can access the session depending in the access_coach date
+                //$condition_date_start1 = " AND (session.coach_access_start_date <= '$now' OR session.coach_access_start_date = '0000-00-00 00:00:00') ";
+                //$condition_date_start2 = " AND (session.coach_access_start_date <= '$now' OR session.coach_access_start_date = '0000-00-00 00:00:00') ";
+            } else {
+                //Student can't access before the start date or after the end date
+                //$condition_date_start1 = " AND (session.access_start_date <= '$now' OR session.access_start_date = '0000-00-00 00:00:00') ";
+                //$condition_date_start2 = " AND (session.access_start_date <= '$now' OR session.access_start_date = '0000-00-00 00:00:00') ";
+                $condition_date_end1 = " AND (session.access_end_date >= '$now' OR session.access_end_date = '0000-00-00 00:00:00' OR session.access_end_date IS NULL ) ";
+                $condition_date_end2 = " AND (session.access_end_date >= '$now' OR session.access_end_date = '0000-00-00 00:00:00' OR session.access_end_date IS NULL ) ";
+            }
+        }
+
+        $select = "SELECT DISTINCT ".
+            " session.id, ".
+            " session.name, ".
+            " access_start_date, ".
+            " access_end_date, ".
+            " coach_access_start_date, ".
+            " coach_access_end_date, ".
+            " display_start_date, ".
+            " display_end_date, ".
+            " session_category_id, ".
+            " session_category.name as session_category_name, ".
+            " session_category.date_start session_category_date_start, ".
+            " session_category.date_end session_category_date_end, ".
+            " id_coach ";
+        $select_1 = ", moved_to, ".
+            " moved_status, ".
+            " scu.user_id ";
+
+        if ($get_count) {
+            $select = "SELECT count(session.id) as total_rows ";
+        }
+
+        $select1 = " $select ".($get_count ? '' : $select_1)."
+                    FROM $tbl_session as session
+                    LEFT JOIN $tbl_session_category session_category
+                    ON (session_category_id = session_category.id) ";
+
+        $sql1 = $select1." INNER JOIN $tbl_session_course_user as scu
+                ON (scu.session_id = session.id and scu.user_id = $user_id)
+                LEFT JOIN $tbl_session_user su
+                ON su.session_id = session.id AND su.user_id = scu.user_id
+                WHERE scu.user_id = $user_id $condition_date_end1";
+
+        // This is bad because we asumme the user is a coach which is not the case
+        // Select specific to session coaches
+        $select2 = "
+            $select FROM $tbl_session as session
+            LEFT JOIN $tbl_session_category session_category
+            ON (session_category_id = session_category.id)
+        ";
+
+        $sql2 = $select2." WHERE session.id_coach = $user_id $condition_date_end2 ";
+
+        if (isset($categoryFilter) && $categoryFilter != '') {
+            switch ($categoryFilter) {
+                case 'no_category':
+                    $sql1 .= "AND (session_category_id = 0 OR session_category_id IS NULL)";
+                    $sql2 .= "AND (session_category_id = 0 OR session_category_id IS NULL)";
+                    break;
+                case 'with_category':
+                    $sql1 .= "AND (session_category_id <> 0 AND session_category_id IS NOT NULL) ";
+                    $sql2 .= "AND (session_category_id <> 0 AND session_category_id IS NOT NULL)";
+                    break;
+                default:
+                    if (!empty($categoryFilter) && is_numeric(
+                            $categoryFilter
+                        )
+                    ) {
+                        $categoryFilter = intval($categoryFilter);
+                        $sql1 .= "AND session_category_id = $categoryFilter";
+                        $sql2 .= "AND session_category_id = $categoryFilter";
                     }
+                    break;
+            }
+        }
 
-                    if (isset($row['access_end_date'])) {
-                        if ($row['access_end_date'] > $now) {
-                            continue;
+        $sql3 = null;
+
+        if ($get_count) {
+            //$sql3 = $sql2;
+            $sql3 = $sql1;
+        } else {
+            $sql1 .= $order;
+            $sql2 .= $order;
+        }
+
+        if (isset($start) && isset($maxPerPage)) {
+            $start = intval($start);
+            $maxPerPage = intval($maxPerPage);
+            $limitCondition = " LIMIT $start, $maxPerPage";
+
+            $sql1 .= $limitCondition;
+            $sql2 .= $limitCondition;
+        }
+
+        $join = array();
+        $ordered_join = array();
+        $ids = array();
+
+        if ($get_count) {
+            $result3 = Database::query($sql3);
+            $row = Database::fetch_array($result3);
+
+            return $row['total_rows'];
+        } else {
+            $result1 = Database::query($sql1);
+            $result2 = Database::query($sql2);
+        }
+
+        if (Database::num_rows($result2) > 0) {
+            // First take $row2, as it contains less data and this data is enough
+            while ($row2 = Database::fetch_array($result2)) {
+                $join[] = $row2;
+                $ordered_join[] = $row2;
+                $ids[] = $row2['id'];
+            }
+        }
+
+        if (Database::num_rows($result1) > 0) {
+            // Now add the diff with $row1, ordering elements as planned by query
+
+            $i = 0;
+            while ($row1 = Database::fetch_array($result1)) {
+                if (!in_array($row1['id'], $ids)) {
+                    if ($reverse_order) {
+                        while (isset($join[$i]) && strcmp(
+                                $row1['session_category_name'],
+                                $join[$i]['session_category_name']
+                            ) <= 0) {
+                            $ordered_join[] = $join[$i];
+                            $i++;
                         }
-
-                    }
-                } else {
-                    // Current user portal
-                    if (api_is_allowed_to_create_course()) {
-                        // Teachers can access the session depending in the access_coach date
                     } else {
-                        if (isset($row['access_end_date']) && $row['access_end_date'] != '0000-00-00 00:00:00') {
-                            if ($row['access_end_date'] <= $now) {
-                                continue;
+                        while (isset($join[$i]) && strcmp(
+                                $row1['session_category_name'],
+                                $join[$i]['session_category_name']
+                            ) > 0) {
+                            $ordered_join[] = $join[$i];
+                            $i++;
+                        }
+                        if (isset($join[$i]) && strcmp(
+                                $row1['session_category_name'],
+                                $join[$i]['session_category_name']
+                            ) === 0
+                        ) {
+                            while (isset($join[$i]) && isset($row1['short_name']) && strcmp(
+                                    $row1['short_name'],
+                                    $join[$i]['short_name']
+                                ) > 0) {
+                                $ordered_join[] = $join[$i];
+                                $i++;
                             }
                         }
                     }
+                    $ordered_join[] = $row1;
+                    $join[] = $row1;
                 }
+            }
+        }
 
-                $categories[$row['session_category_id']]['session_category'] = array(
-                    'id' => $row['session_category_id'],
-                    'name' => $row['session_category_name'],
-                    'date_start' => $row['session_category_date_start'],
-                    'date_end' => $row['session_category_date_end']
-                );
+        if (count($ordered_join) == 0) {
+            $ordered_join = $join;
+        }
+
+        if (count($ordered_join) > 0) {
+            foreach ($ordered_join as $row) {
+                if ($get_count) {
+                    return $row['total_rows'];
+                }
+                $categories[$row['session_category_id']]['session_category']['id'] = $row['session_category_id'];
+                $categories[$row['session_category_id']]['session_category']['name'] = $row['session_category_name'];
+                $categories[$row['session_category_id']]['session_category']['date_start'] = $row['session_category_date_start'];
+                $categories[$row['session_category_id']]['session_category']['date_end'] = $row['session_category_date_end'];
 
                 $session_id = $row['id'];
+                // The only usage of $session_info is to call
+                // api_get_session_date_validation, which only needs id and
+                // dates from the session itself, so really no need to query
+                // the session table again
+                $session_info = $row;
 
-                $courseList = UserManager::get_courses_list_by_session(
-                    $user_id,
-                    $row['id']
-                );
-
-                // Session visibility.
+                // Checking session visibility
                 $visibility = api_get_session_visibility(
                     $session_id,
                     null,
                     $ignore_visibility_for_admins
                 );
-
-                // Course Coach session visibility.
-                $blockedCourseCount = 0;
-                $closedVisibilityList = array(
-                    COURSE_VISIBILITY_CLOSED,
-                    COURSE_VISIBILITY_HIDDEN
-                );
-
-                foreach ($courseList as $course) {
-                    // Checking session visibility
-                    $visibility = api_get_session_visibility(
-                        $session_id,
-                        $course['real_id'],
-                        $ignore_visibility_for_admins
-                    );
-
-                    $courseIsVisible = !in_array($course['visibility'], $closedVisibilityList);
-
-                    if ($courseIsVisible == false || $visibility == SESSION_INVISIBLE) {
-                        $blockedCourseCount++;
-                    }
-                }
-
-                // If all courses are blocked then no show in the list.
-                if ($blockedCourseCount == count($courseList)) {
-                    $visibility = SESSION_INVISIBLE;
-                }
 
                 switch ($visibility) {
                     case SESSION_VISIBLE_READ_ONLY:
@@ -2416,18 +2528,67 @@ class UserManager
                         continue(2);
                 }
 
-                $categories[$row['session_category_id']]['sessions'][$row['id']] = array(
-                    'session_name' => $row['name'],
-                    'session_id' => $row['id'],
-                    'access_start_date' => $row['access_start_date'],
-                    'access_end_date' => $row['access_end_date'],
-                    'coach_access_start_date' => $row['coach_access_start_date'],
-                    'coach_access_end_date' => $row['coach_access_end_date'],
-                    'courses' => $courseList
+                if ($is_time_over == false) {
+                    $date_validation = api_get_session_date_validation(
+                        $session_info,
+                        null,
+                        false,
+                        false
+                    );
+                    if (!$date_validation) {
+                        continue;
+                    }
+                }
+
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['session_name'] = $row['name'];
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['session_id'] = $row['id'];
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['id_coach'] = $row['id_coach'];
+
+                if (isset($row['id_coach']) && !empty($row['id_coach'])) {
+                    $user_info = api_get_user_info($row['id_coach']);
+                    $categories[$row['session_category_id']]['sessions'][$row['id']]['coach_info'] = $user_info;
+                }
+
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['access_start_date'] = $row['access_start_date'];
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['access_end_date'] = $row['access_end_date'];
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['coach_access_start_date'] = $row['coach_access_start_date'];
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['coach_access_end_date'] = $row['coach_access_end_date'];
+
+                $date_message = SessionManager::parseSessionDates($row);
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['date_message'] = $date_message;
+
+                $courses = UserManager::get_courses_list_by_session(
+                    $user_id,
+                    $row['id']
                 );
+                $course_list = array();
+
+                foreach ($courses as $course) {
+
+                    // Checking course session visibility
+                    $visibility = api_get_session_visibility(
+                        $session_id,
+                        $course['real_id']
+                    );
+
+                    if ($visibility == SESSION_INVISIBLE) {
+                        continue;
+                    }
+
+                    $user_status_in_course = CourseManager::get_user_in_course_status(
+                        $user_id,
+                        $course['code']
+                    );
+
+                    $course['user_status_in_course'] = $user_status_in_course;
+                    $course_list[] = $course;
+                }
+
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['courses'] = $course_list;
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['moved_to'] = isset($row['moved_to']) ? $row['moved_to'] : null;
+                $categories[$row['session_category_id']]['sessions'][$row['id']]['moved_status'] = isset($row['moved_status']) ? $row['moved_status'] : null;
             }
         }
-
         return $categories;
     }
 
@@ -2680,7 +2841,8 @@ class UserManager
 
         $sql = "SELECT DISTINCT
                     c.visibility,
-                    c.id as real_id
+                    c.id as real_id,
+                    c.code
                 FROM $tbl_session_course_user as scu
                 INNER JOIN $tbl_session_course sc
                 ON (scu.session_id = sc.session_id AND scu.c_id = sc.c_id)
@@ -2707,7 +2869,9 @@ class UserManager
 
         if (api_is_allowed_to_create_course()) {
             $sql = "SELECT DISTINCT
-                        c.visibility, c.id as real_id
+                        c.visibility,
+                        c.id as real_id,
+                        c.code
                     FROM $tbl_session_course_user as scu
                     INNER JOIN $tbl_session as s
                     ON (scu.session_id = s.id)
@@ -5287,6 +5451,106 @@ SQL;
         } else {
             return false;
         }
+    }
+
+    /**
+     * @param int $user_id
+     * @param bool $is_time_over
+     * @param bool $get_count
+     * @param bool $reverse_order
+     * @param int $start
+     * @param null $maxPerPage
+     * @param null $categoryFilter
+     * @return array
+     */
+    public static function getCategories(
+        $user_id,
+        $is_time_over = false,
+        $get_count = false,
+        $reverse_order = false,
+        $start = 0,
+        $maxPerPage = null,
+        $categoryFilter = null
+    ) {
+        $tableSessionCategory = Database:: get_main_table(
+            TABLE_MAIN_SESSION_CATEGORY
+        );
+        $tableSession = Database:: get_main_table(TABLE_MAIN_SESSION);
+        $tableSessionUser = Database:: get_main_table(TABLE_MAIN_SESSION_USER);
+        $tableSessionCourseUser = Database:: get_main_table(
+            TABLE_MAIN_SESSION_COURSE_USER
+        );
+
+        $select = " DISTINCT sc.id, sc.name  ";
+        if ($get_count) {
+            $select = " COUNT(DISTINCT(sc.id)) as total";
+        }
+
+        $sql = "SELECT $select
+                FROM $tableSessionCategory sc
+                INNER JOIN $tableSession s ON (sc.id = s.session_category_id)
+                INNER JOIN (
+                    (
+                        SELECT DISTINCT session_id as sessionID FROM $tableSessionUser
+                        WHERE user_id = $user_id AND relation_type <> ".SESSION_RELATION_TYPE_RRHH."
+                    )
+                    UNION
+                    (
+                        SELECT DISTINCT s.id
+                        FROM $tableSession s
+                        WHERE (id_coach = $user_id)
+                    )
+                    UNION
+                    (
+                        SELECT DISTINCT s.id
+                        FROM $tableSessionUser su INNER JOIN $tableSession s
+                        ON (su.session_id = s.id)
+                        INNER JOIN $tableSessionCourseUser scu
+                        ON (scu.session_id = s.id)
+                        WHERE (scu.user_id = $user_id)
+                    )
+                ) as t ON (t.sessionId = sc.id)
+        ";
+
+        if ($get_count) {
+            $result = Database::query($sql);
+            $row = Database::fetch_array($result);
+
+            return $row['total'];
+        }
+
+        $order = ' ORDER BY sc.name';
+        if ($reverse_order) {
+            $order = ' ORDER BY sc.name DESC ';
+        }
+
+        $sql .= $order;
+
+        if (isset($start) && isset($maxPerPage)) {
+            $start = intval($start);
+            $maxPerPage = intval($maxPerPage);
+            $limitCondition = " LIMIT $start, $maxPerPage";
+            $sql .= $limitCondition;
+        }
+
+        $result = Database::query($sql);
+        $sessionsCategories = array();
+        if (Database::num_rows($result)) {
+            while ($sessionCategory = Database::fetch_array($result, 'ASSOC')) {
+                $sessions = self::get_sessions_by_category(
+                    $user_id,
+                    $is_time_over,
+                    false,
+                    $reverse_order,
+                    null,
+                    null,
+                    $sessionCategory['id']
+                );
+                $sessionsCategories[$sessionCategory['id']] = $sessions[$sessionCategory['id']];
+            }
+        }
+
+        return $sessionsCategories;
     }
 
 

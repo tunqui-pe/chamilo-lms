@@ -110,7 +110,6 @@ twig:
           actions:
           header:
           message:
-          welcome_to_course_block:
 
 # Assetic Configuration
 assetic:
@@ -171,7 +170,6 @@ doctrine_migrations:
     name: Chamilo Migrations
 
 # Platform settings
-
 sylius_settings:
     driver: doctrine/orm
     classes:

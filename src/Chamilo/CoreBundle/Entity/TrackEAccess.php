@@ -18,6 +18,15 @@ class TrackEAccess
     /**
      * @var integer
      *
+     * @ORM\Column(name="access_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $accessId;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="access_user_id", type="integer", nullable=true)
      */
     private $accessUserId;
@@ -56,15 +65,6 @@ class TrackEAccess
      * @ORM\Column(name="user_ip", type="string", length=39, nullable=false)
      */
     private $userIp;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="access_id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $accessId;
 
     /**
      * TrackEAccess constructor.

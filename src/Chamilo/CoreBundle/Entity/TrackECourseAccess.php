@@ -24,6 +24,15 @@ class TrackECourseAccess
     /**
      * @var integer
      *
+     * @ORM\Column(name="course_access_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $courseAccessId;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="c_id", type="integer", nullable=false)
      */
     private $cId;
@@ -71,15 +80,13 @@ class TrackECourseAccess
     private $userIp;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="course_access_id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * TrackEAccess constructor.
      */
-    private $courseAccessId;
-
-
+    public function __construct()
+    {
+        $this->loginCourseDate = new \DateTime();
+        $this->counter = 0;
+    }
 
     /**
      * Set cId
@@ -108,6 +115,7 @@ class TrackECourseAccess
      * Set userId
      *
      * @param integer $userId
+     *
      * @return TrackECourseAccess
      */
     public function setUserId($userId)

@@ -3,18 +3,24 @@
 
 namespace Chamilo\CourseBundle\EventListener;
 
+use Chamilo\CoreBundle\Entity\TrackECourseAccess;
 use Chamilo\CourseBundle\Event\CourseAccess;
 use Doctrine\ORM\EntityManager;
-use Chamilo\CoreBundle\Entity\TrackEAccess;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class CourseAccessListener
+ * In and outs of a course
  * This listeners is always called when user enters the course home
  * @package Chamilo\CourseBundle\EventListener
  */
 class CourseAccessListener
 {
     protected $em;
+    /**
+     * @var \Symfony\Component\HttpFoundation\Request
+     */
+    protected $request;
 
     /**
      * @param EntityManager $em
@@ -25,20 +31,39 @@ class CourseAccessListener
     }
 
     /**
+     * @param RequestStack $requestStack
+     */
+    public function setRequest(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+    }
+
+    /**
      * @param CourseAccess $event
      */
     public function onCourseAccessEvent(CourseAccess $event)
     {
         $user = $event->getUser();
         $course = $event->getCourse();
+        $session = $course->getCurrentSession();
+
+        $sessionId = 0;
+        if ($session) {
+            $sessionId = $session->getId();
+        }
+
+        $ip = $this->request->getClientIp();
 
         if ($user && $course) {
-            $trackAccess = new TrackEAccess();
-            $trackAccess->setCId($course->getId());
-            $trackAccess->setAccessUserId($user->getId());
-            $trackAccess->setAccessSessionId(0);
+            $access = new TrackECourseAccess();
+            $access
+                ->setCId($course->getId())
+                ->setUserId($user->getId())
+                ->setSessionId($sessionId)
+                ->setUserIp($ip)
+            ;
 
-            $this->em->persist($trackAccess);
+            $this->em->persist($access);
             $this->em->flush();
         }
     }

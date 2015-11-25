@@ -1,5 +1,5 @@
+{% autoescape false %}
 {% if hot_courses is not null and hot_courses is not empty %}
-
 <script>
 $(document).ready( function() {
     $('.star-rating li a').on('click', function(event) {
@@ -23,7 +23,7 @@ $(document).ready( function() {
 <div id="hot_courses">
     <div class="row">
         <div class="col-md-12">
-            {% if _u.is_admin %}
+            {% if is_granted('ROLE_ADMIN') %}
             <span class="pull-right">
                 <a
                     title = "{{ "Hide"|trans }}"
@@ -36,7 +36,8 @@ $(document).ready( function() {
             {% endif %}
             <h1>{{ "HottestCourses" | display_page_subheader }}</h1>
         </div>
-        {% include '@template_style/layout/hot_course_item.tpl' %}
+        {% include '@template_style/layout/hot_course_item.html.twig' %}
     </div>
 </div>
 {% endif %}
+{% endautoescape %}

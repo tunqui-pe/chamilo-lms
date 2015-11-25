@@ -66,6 +66,7 @@ class LoadAdminUserData extends AbstractFixture implements
 
         $admin->setUsername('admin');
         $admin->setUserId(1);
+        $admin->setStatus(1); // teacher
         $admin->setFirstname('Jane');
         $admin->setLastname('Doe');
         $admin->setEmail($faker->safeEmail);

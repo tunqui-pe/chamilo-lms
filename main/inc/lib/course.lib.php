@@ -3557,16 +3557,23 @@ class CourseManager
                                 array('class' => 'item_closed'));
                     }
 
-                    if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+                    if (api_get_setting(
+                            'course.display_coursecode_in_courselist'
+                        ) == 'true'
+                    ) {
                         $course_title .= ' (' . $course_info['visual_code'] . ') ';
                     }
-                    if (api_get_setting('display_teacher_in_courselist') == 'true') {
+                    if (api_get_setting(
+                            'course.display_teacher_in_courselist'
+                        ) == 'true'
+                    ) {
                         $params['teachers'] = CourseManager::getTeacherListFromCourseToString(
                             $course['real_id'],
                             self::USER_SEPARATOR,
                             true
                         );
                     }
+
                     $course_title .= '&nbsp;';
                     $course_title .= Display::return_icon('klipper.png', get_lang('CourseAutoRegister'));
 
@@ -3794,11 +3801,17 @@ class CourseManager
             }
 
             // Start displaying the course block itself
-            if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+            if (api_get_setting(
+                    'course.display_coursecode_in_courselist'
+                ) == 'true'
+            ) {
                 $course_title .= ' (' . $course_info['visual_code'] . ') ';
             }
 
-            if (api_get_setting('display_teacher_in_courselist') == 'true') {
+            if (api_get_setting(
+                    'course.display_teacher_in_courselist'
+                ) == 'true'
+            ) {
                 $teachers = CourseManager::getTeacherListFromCourseToString(
                     $course['real_id'],
                     self::USER_SEPARATOR,
@@ -4053,11 +4066,14 @@ class CourseManager
             }
         }
 
-        if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+        if (api_get_setting(
+                'course.display_coursecode_in_courselist'
+            ) == 'true'
+        ) {
             $session_title .= ' (' . $course_info['visual_code'] . ') ';
         }
 
-        if (api_get_setting('display_teacher_in_courselist') == 'true') {
+        if (api_get_setting('course.display_teacher_in_courselist') == 'true') {
 
             $teacher_list = CourseManager::getTeacherListFromCourseToString(
                 $course_info['real_id'],
@@ -4635,7 +4651,7 @@ class CourseManager
      * @param   int $limit number of hottest courses
      * @return array
      */
-    public static function return_hot_courses($days = 30, $limit = 5)
+    public static function returnHotCourses($days = 30, $limit = 5)
     {
         /*if (api_is_invitee()) {
             return array();
@@ -4674,7 +4690,8 @@ class CourseManager
                     u.access_url_id = " . api_get_current_access_url_id() . " AND
                     login_course_date <= '$now' AND
                     login_course_date > DATE_SUB('$now', INTERVAL $days DAY) AND
-                    visibility <> '" . COURSE_VISIBILITY_CLOSED . "' AND visibility <> '" . COURSE_VISIBILITY_HIDDEN . "'
+                    visibility <> '".COURSE_VISIBILITY_CLOSED."' AND
+                    visibility <> '".COURSE_VISIBILITY_HIDDEN."'
                 GROUP BY a.c_id
                 ORDER BY course_count DESC
                 LIMIT $limit
@@ -5871,11 +5888,14 @@ class CourseManager
         }
 
         // Start displaying the course block itself
-        if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+        if (api_get_setting(
+                'course.display_coursecode_in_courselist'
+            ) == 'true'
+        ) {
             $course_title .= ' ('.$course_info['visual_code'].') ';
         }
         $teachers = '';
-        if (api_get_setting('display_teacher_in_courselist') == 'true') {
+        if (api_get_setting('course.display_teacher_in_courselist') == 'true') {
             $teachers = CourseManager::getTeacherListFromCourseToString(
                 $course['real_id'],
                 self::USER_SEPARATOR,

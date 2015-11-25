@@ -3,6 +3,11 @@ index:
     type:     annotation
     prefix:   /
 
+userportal:
+    resource: "@ChamiloCoreBundle/Controller/UserPortalController.php"
+    type:     annotation
+    prefix:   /userportal
+
 user:
     resource: "@ChamiloCoreBundle/Controller/User/UserController.php"
     type:     annotation

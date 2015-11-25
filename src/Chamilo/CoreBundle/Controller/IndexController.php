@@ -68,128 +68,19 @@ class IndexController extends BaseController
         if (api_is_platform_admin() || api_is_drh()) {
             $pageController->returnSkillsLinks();
         }*/
-        $hotCourses = '';
-        if (api_get_setting('display.show_hot_courses') == 'true') {
-            $hotCourses = $pageController->returnHotCourses();
-        }
+
+        $sessionHandler = $request->getSession();
+        $sessionHandler->remove('coursesAlreadyVisited');
 
         $announcementsBlock = $pageController->getAnnouncements();
+
         return $this->render(
             '@ChamiloCore/Index/index.html.twig',
             array(
-                'content' => 'Check IndexController::indexAction',
-                'hot_courses' => $hotCourses,
+                'content' => '',
                 'announcements_block' => $announcementsBlock
                 //'home_page_block' => $pageController->returnHomePage()
             )
-        );
-    }
-
-    /**
-     * @Route("/userportal", name="userportal")
-     * @Method({"GET"})
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @param string $type courses|sessions|mycoursecategories
-     * @param string $filter for the userportal courses page. Only works when setting 'history'
-     * @param int $page
-     *
-     * @return Response
-     */
-    public function userPortalAction(
-        $type = 'courses',
-        $filter = 'current',
-        $coursePage = 1,
-        Request $request
-    ) {
-
-        /** @var \Application\Sonata\PageBundle\Entity\Site $site */
-        /*$site = $this->get('sonata.page.site.selector')->retrieve();
-        $site->getId();*/
-
-        //$settingsManager = $this->get('chamilo.settings.manager');
-        //$setting = $settingsManager->getSetting('platform.institution');
-
-        /*$settingsManagerCourse = $this->get('chamilo_course.settings.manager');
-        $course = $this->getDoctrine()->getRepository('ChamiloCoreBundle:Course')->find(1);
-        if ($course) {
-            $settingsManagerCourse->setCourse($course);
-            $agenda = $settingsManagerCourse->getSetting(
-                'calendar_event.enabled'
-            );
-        }*/
-
-        $user = $this->getUser();
-        $pageController = new \Chamilo\CoreBundle\Framework\PageController();
-        $items = null;
-        $page = $coursePage;
-
-        if (!empty($user)) {
-            $userId = $user->getId();
-
-            // Main courses and session list
-            $type = str_replace('/', '', $type);
-
-            switch ($type) {
-                case 'sessions':
-                    $items = $pageController->returnSessions(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'sessioncategories':
-                    $items = $pageController->returnSessionsCategories(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'courses':
-                    $items = $pageController->returnCourses(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'mycoursecategories':
-                    $items = $pageController->returnMyCourseCategories(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'specialcourses':
-                    $items = $pageController->returnSpecialCourses(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-            }
-        }
-
-        $template = $this->getTemplate();
-
-        // Show the chamilo mascot
-        if (empty($items) && empty($filter)) {
-            $pageController->return_welcome_to_course_block($template);
-        }
-        /** @var \Chamilo\SettingsBundle\Manager\SettingsManager $settingManager */
-        $settingManager = $this->get('chamilo.settings.manager');
-        /*var_dump($settingManager->getSetting('platform.institution'));
-        $settings = $settingManager->loadSettings('platform');
-        var_dump($settings->get('institution'));
-        var_dump(api_get_setting('platform.institution'));*/
-
-        $pageController->returnSkillsLinks();
-
-        // Deleting the session_id.
-        $request->getSession()->remove('session_id');
-
-        return $this->render(
-            'ChamiloCoreBundle:Index:userportal.html.twig',
-            array('content' => $items, 'page_title' => 'dsqd')
         );
     }
 

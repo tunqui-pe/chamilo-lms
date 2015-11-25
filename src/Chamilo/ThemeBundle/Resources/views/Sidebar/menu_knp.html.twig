@@ -1,11 +1,10 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 {% import "ChamiloThemeBundle:Macros:box.html.twig" as macro %}
-
-
+{% autoescape false %}
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {{ macro.panel(
-    'Profile' | trans,
-    mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true})) }}
+    {#{{ macro.panel(#}
+    {#'Profile' | trans,#}
+    {#mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true})) }}#}
 
     {{ macro.panel(
     'Courses' | trans,
@@ -33,3 +32,5 @@
     {{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:notLoginMenu', {'automenu': 'pills', 'stacked':true}) }}
 {% endif %}
 {#{{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:helpMenu', {'automenu': 'pills', 'stacked':true}) }}#}
+
+{% endautoescape %}

@@ -56,7 +56,6 @@ class CourseListener
      */
     public function onKernelController(FilterControllerEvent $event)
     {
-        //dump('CourseListener.php');
         $controllerList = $event->getController();
 
         if (!is_array($controllerList)) {
@@ -129,6 +128,7 @@ class CourseListener
                                 'session_name',
                                 $session->getName()
                             );
+
                             $request->getSession()->set(
                                 'id_session',
                                 $session->getId()
@@ -167,8 +167,6 @@ class CourseListener
                             );
                         }
                     }
-
-
 
                     // Example 'chamilo_notebook.controller.notebook:indexAction'
                     $controllerAction = $request->get('_controller');

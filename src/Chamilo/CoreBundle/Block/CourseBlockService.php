@@ -53,7 +53,7 @@ class CourseBlockService extends BaseBlockService
     {
         // merge settings
         $settings = $blockContext->getSettings();
-        $hotCourses = \CourseManager::return_hot_courses();
+        $hotCourses = \CourseManager::returnHotCourses();
 
         return $this->renderResponse(
             $blockContext->getTemplate(),

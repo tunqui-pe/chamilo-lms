@@ -132,7 +132,7 @@ class Event
     }
 
     /**
-     * @param tool name of the tool (name in mainDb.accueil table)
+     * @param string $tool of the tool
      * @author Sebastien Piraux <piraux_seb@hotmail.com>
      * @desc Record information for access event for tools
      *
@@ -145,7 +145,7 @@ class Event
      *
      * 	Functionality for "what's new" notification is added by Toon Van Hoecke
      */
-    public static function event_access_tool($tool, $id_session = 0)
+    public static function event_access_tool($tool)
     {
         if (empty($tool)) {
             return false;
@@ -166,10 +166,10 @@ class Event
         //if( eregi($_configuration['root_web'].$_cid,$_SERVER['HTTP_REFERER'] ) )
         //$pos = strpos($_SERVER['HTTP_REFERER'],$_configuration['root_web'].$_cid);
         $coursePath = isset($_course['path']) ? $_course['path'] : null;
-
         $pos = isset($_SERVER['HTTP_REFERER']) ? strpos(strtolower($_SERVER['HTTP_REFERER']), strtolower(api_get_path(WEB_COURSE_PATH).$coursePath)) : false;
         // added for "what's new" notification
         $pos2 = isset($_SERVER['HTTP_REFERER']) ? strpos(strtolower($_SERVER['HTTP_REFERER']), strtolower(api_get_path(WEB_PATH)."index")) : false;
+
         // end "what's new" notification
         if ($pos !== false || $pos2 !== false) {
             $sql = "INSERT INTO ".$TABLETRACK_ACCESS."

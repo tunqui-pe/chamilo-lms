@@ -33,11 +33,13 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-                    'ChamiloThemeBundle:Security:login.html.twig',
-                        array(
-                            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                            'error'         => $error,
-                        )
+            'ChamiloThemeBundle:Security:login.html.twig',
+            array(
+                'last_username' => $session->get(
+                    SecurityContext::LAST_USERNAME
+                ),
+                'error' => $error,
+            )
         );
     }
 

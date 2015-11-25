@@ -7,9 +7,6 @@
 
 $cidReset = true;
 
-// including the global Chamilo file
-////require_once '../inc/global.inc.php';
-
 $xajax = new xajax();
 $xajax->registerFunction('search_coachs');
 

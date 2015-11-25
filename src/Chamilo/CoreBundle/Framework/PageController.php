@@ -203,17 +203,6 @@ class PageController
     }
 
     /**
-     * Returns a list of the most popular courses of the moment (also called
-     * "hot courses").
-     * @uses CourseManager::returnHotCourses() in fact, the current method is only a bypass to this method
-     * @return string HTML <div> with the most popular courses
-     */
-    public function returnHotCourses()
-    {
-        return CourseManager::returnHotCourses();
-    }
-
-    /**
      * Returns an online help block read from the home/home_menu_[lang].html
      * file
      * @return string HTML block
@@ -864,6 +853,13 @@ class PageController
         return $result;
     }
 
+    /**
+     * @param int $user_id
+     * @param string $filter
+     * @param int $page
+     *
+     * @return bool
+     */
     public function returnMyCourseCategories($user_id, $filter, $page)
     {
         if (empty($user_id)) {
@@ -1041,7 +1037,10 @@ class PageController
                     $html_courses_session = '';
                     $count                = 0;
                     foreach ($session['courses'] as $course) {
-                        if (api_get_setting('hide_courses_in_sessions') == 'false') {
+                        if (api_get_setting(
+                                'session.hide_courses_in_sessions'
+                            ) == 'false'
+                        ) {
                             $html_courses_session .= CourseManager::get_logged_user_course_html($course, $session_id);
                         }
                         $count_courses_session++;
@@ -1061,7 +1060,10 @@ class PageController
                         $session_link   = $session['session_name'];
                         $params['link'] = null;
 
-                        if (api_get_setting('session_page_enabled') == 'true' && !api_is_drh()) {
+                        if (api_get_setting(
+                                'session.session_page_enabled'
+                            ) == 'true' && !api_is_drh()
+                        ) {
                             //session name with link
                             $session_link   = Display::tag(
                                 'a',
@@ -1073,7 +1075,9 @@ class PageController
 
                         $params['title'] = $session_link;
 
-                        $moved_status = SessionManager::get_session_change_user_reason($session['moved_status']);
+                        $moved_status = \SessionManager::get_session_change_user_reason(
+                            $session['moved_status']
+                        );
                         $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
 
                         $params['subtitle'] = isset($session['coach_info']) ? $session['coach_info']['complete_name'] : null.$moved_status;
@@ -1081,8 +1085,8 @@ class PageController
 
                         if (api_is_platform_admin()) {
                             $params['right_actions'] = '<a href="'.api_get_path(
-                                WEB_CODE_PATH
-                            ).'admin/resume_session.php?id_session='.$session_id.'">'.Display::return_icon(
+                                    WEB_CODE_PATH
+                                ).'session/resume_session.php?id_session='.$session_id.'">'.Display::return_icon(
                                 'edit.png',
                                 get_lang('Edit'),
                                 array('align' => 'absmiddle'),
@@ -1174,11 +1178,10 @@ class PageController
         if (empty($user_id)) {
             return false;
         }
-        $app = $this->app;
 
         $loadHistory = (isset($filter) && $filter == 'history') ? true : false;
 
-        $app['session_menu'] = function ($app) use ($loadHistory) {
+        /*$app['session_menu'] = function ($app) use ($loadHistory) {
             $menu = $app['knp_menu.factory']->createItem(
                 'root',
                 array(
@@ -1217,16 +1220,16 @@ class PageController
             }
 
             return $menu;
-        };
+        };*/
 
         //@todo move this in template
-        $app['knp_menu.menus'] = array('actions_menu' => 'session_menu');
+        //$app['knp_menu.menus'] = array('actions_menu' => 'session_menu');
 
         $start = ($page - 1) * $this->maxPerPage;
 
         if ($loadHistory) {
             // Load sessions in category in *history*.
-            $nbResults          = (int)UserManager::get_sessions_by_category(
+            $nbResults = (int)UserManager::get_sessions_by_category(
                 $user_id,
                 true,
                 true,
@@ -1235,6 +1238,7 @@ class PageController
                 null,
                 'no_category'
             );
+
             $session_categories = UserManager::get_sessions_by_category(
                 $user_id,
                 true,
@@ -1244,6 +1248,7 @@ class PageController
                 $this->maxPerPage,
                 'no_category'
             );
+
         } else {
             // Load sessions in category.
             $nbResults = (int)UserManager::get_sessions_by_category(
@@ -1305,7 +1310,10 @@ class PageController
 
                             foreach ($session['courses'] as $course) {
                                 //Read only and accessible
-                                if (api_get_setting('hide_courses_in_sessions') == 'false') {
+                                if (api_get_setting(
+                                        'session.hide_courses_in_sessions'
+                                    ) == 'false'
+                                ) {
                                     $html_courses_session .= CourseManager::get_logged_user_course_html(
                                         $course,
                                         $session_id,
@@ -1316,8 +1324,9 @@ class PageController
                             }
 
                             if ($count_courses_session > 0) {
-                                $params               = array();
-                                $params['icon']       = Display::return_icon(
+                                $params = array();
+
+                                $params['icon'] = Display::return_icon(
                                     'window_list.png',
                                     $session['session_name'],
                                     array('id' => 'session_img_'.$session_id),
@@ -1328,7 +1337,10 @@ class PageController
                                 $session_link   = $session['session_name'];
                                 $params['link'] = null;
 
-                                if (api_get_setting('session_page_enabled') == 'true' && !api_is_drh()) {
+                                if (api_get_setting(
+                                        'session.session_page_enabled'
+                                    ) == 'true' && !api_is_drh()
+                                ) {
                                     //session name with link
                                     $session_link   = Display::tag(
                                         'a',
@@ -1346,7 +1358,7 @@ class PageController
 
                                 $params['title'] = $session_link;
 
-                                $moved_status = SessionManager::get_session_change_user_reason(
+                                $moved_status = \SessionManager::get_session_change_user_reason(
                                     $session['moved_status']
                                 );
                                 $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
@@ -1357,8 +1369,8 @@ class PageController
                                 $params['right_actions'] = '';
                                 if (api_is_platform_admin()) {
                                     $params['right_actions'] .= '<a href="'.api_get_path(
-                                        WEB_CODE_PATH
-                                    ).'admin/resume_session.php?id_session='.$session_id.'">';
+                                            WEB_CODE_PATH
+                                        ).'session/resume_session.php?id_session='.$session_id.'">';
                                     $params['right_actions'] .= Display::return_icon(
                                         'edit.png',
                                         get_lang('Edit'),
@@ -1367,7 +1379,10 @@ class PageController
                                     ).'</a>';
                                 }
 
-                                if (api_get_setting('hide_courses_in_sessions') == 'false') {
+                                if (api_get_setting(
+                                        'session.hide_courses_in_sessions'
+                                    ) == 'false'
+                                ) {
                                     //    $params['extra'] .=  $html_courses_session;
                                 }
                                 $sessions_with_no_category .= CourseManager::course_item_parent(
@@ -1380,7 +1395,7 @@ class PageController
                 }
             }
 
-            $adapter    = new FixedAdapter($nbResults, array());
+            /*$adapter = new FixedAdapter($nbResults, array());
             $pagerfanta = new Pagerfanta($adapter);
             $pagerfanta->setMaxPerPage($this->maxPerPage); // 10 by default
             $pagerfanta->setCurrentPage($page); // 1 by default
@@ -1391,7 +1406,7 @@ class PageController
                 'type'   => 'sessions',
                 'page'   => $page
             );
-            $this->app['template']->assign('pagination', $pagerfanta);
+            $this->app['template']->assign('pagination', $pagerfanta);*/
         }
 
         return $sessions_with_no_category;
@@ -1440,5 +1455,4 @@ class PageController
             $this->show_right_block(get_lang('MainNavigation'), null, 'navigation_block', array('content' => $content));
         }
     }
-
 }

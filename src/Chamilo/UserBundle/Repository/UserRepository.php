@@ -24,7 +24,6 @@ use \Chamilo\UserBundle\Entity\User;
  */
 class UserRepository extends EntityRepository
 {
-
     /**
     * @param string $keyword
      *
@@ -49,6 +48,23 @@ class UserRepository extends EntityRepository
         $query = $qb->getQuery();
 
         return $query->execute();
+    }
+
+    /**
+     * @param string $role
+     * @return array
+     */
+    public function findByRole($role)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('u')
+            ->from($this->_entityName, 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%');
+
+        return $qb->getQuery()->getResult();
     }
 
     /**

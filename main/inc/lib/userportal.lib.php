@@ -565,10 +565,16 @@ class IndexManager
                         $courses_list_string .= "<li>";
                         $courses_list_string .= '<a href="'.$web_course_path.$course['directory'].'/">'.$course['title'].'</a><br />';
                         $course_details = array();
-                        if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+                        if (api_get_setting(
+                                'course.display_coursecode_in_courselist'
+                            ) == 'true'
+                        ) {
                             $course_details[] = $course['visual_code'];
                         }
-                        if (api_get_setting('display_teacher_in_courselist') == 'true') {
+                        if (api_get_setting(
+                                'course.display_teacher_in_courselist'
+                            ) == 'true'
+                        ) {
                             $course_details[] = CourseManager::getTeacherListFromCourseToString(
                                 $course['real_id']
                             );
@@ -613,13 +619,19 @@ class IndexManager
                         $courses_list_string .= '</a><br />';
                     }
                     $course_details = array();
-                    if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+                    if (api_get_setting(
+                            'course.display_coursecode_in_courselist'
+                        ) == 'true'
+                    ) {
                         $course_details[] = $course['visual_code'];
                     }
-//                        if (api_get_setting('display_coursecode_in_courselist') == 'true' && api_get_setting('display_teacher_in_courselist') == 'true') {
+//                        if (api_get_setting('course.display_coursecode_in_courselist') == 'true' && api_get_setting('course.display_teacher_in_courselist') == 'true') {
 //                        $courses_list_string .= ' - ';
 //                }
-                    if (api_get_setting('display_teacher_in_courselist') == 'true') {
+                    if (api_get_setting(
+                            'course.display_teacher_in_courselist'
+                        ) == 'true'
+                    ) {
                         if (!empty($course['tutor_name'])) {
                             $course_details[] = $course['tutor_name'];
                         }
@@ -1148,7 +1160,10 @@ class IndexManager
                                 // Read only and accessible.
                                 $atLeastOneCourseIsVisible = true;
 
-                                if (api_get_setting('hide_courses_in_sessions') == 'false') {
+                                if (api_get_setting(
+                                        'session.hide_courses_in_sessions'
+                                    ) == 'false'
+                                ) {
                                     $courseUserHtml = CourseManager::get_logged_user_course_html(
                                         $course,
                                         $session_id,
@@ -1193,7 +1208,10 @@ class IndexManager
                             $params['subtitle'] = $extra_info;
                             $params['show_actions'] = api_is_platform_admin() ? true : false;
 
-                            if (api_get_setting('hide_courses_in_sessions') == 'false') {
+                            if (api_get_setting(
+                                    'session.hide_courses_in_sessions'
+                                ) == 'false'
+                            ) {
                                 // $params['extra'] .=  $html_courses_session;
                             }
 
@@ -1283,7 +1301,10 @@ class IndexManager
                                     $session_now > $allowed_time //&&
                                     //$coachAccessEndDate > $dif_time_after - 1
                                 ) {
-                                    if (api_get_setting('hide_courses_in_sessions') == 'false') {
+                                    if (api_get_setting(
+                                            'session.hide_courses_in_sessions'
+                                        ) == 'false'
+                                    ) {
                                         $c = CourseManager:: get_logged_user_course_html(
                                             $course,
                                             $session_id,
@@ -1400,14 +1421,6 @@ class IndexManager
         $this->tpl->assign('count_courses', $count_courses);
 
         return $this->tpl->fetch($tpl);
-    }
-
-    /**
-     * @return array
-     */
-    public function return_hot_courses()
-    {
-        return CourseManager::return_hot_courses(30, 6);
     }
 
     /**

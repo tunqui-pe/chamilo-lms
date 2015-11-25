@@ -1,3 +1,4 @@
+{% autoescape false %}
 {% for hot_course in hot_courses %}
     {% if hot_course.extra_info.title %}
         <div class="col-md-12 hot-course-box">
@@ -25,3 +26,5 @@
         </div>
     {% endif %}
 {% endfor %}
+
+{% endautoescape %}

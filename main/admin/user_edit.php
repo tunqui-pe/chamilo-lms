@@ -5,7 +5,6 @@
 *	@package chamilo.admin
 */
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 
 $this_section = SECTION_PLATFORM_ADMIN;
 

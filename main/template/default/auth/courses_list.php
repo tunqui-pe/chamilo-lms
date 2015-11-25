@@ -85,17 +85,17 @@ if (!empty($user_course_categories)) {
                     <a name="course<?php echo $course['code']; ?>"></a>
                     <strong><?php echo $course['title']; ?></strong><br />
                     <?php
-                    if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+                    if (api_get_setting('course.display_coursecode_in_courselist') == 'true') {
                         echo $course['visual_code'];
                     }
 
-                    if (api_get_setting('display_coursecode_in_courselist') == 'true' &&
-                        api_get_setting('display_teacher_in_courselist') == 'true'
+                    if (api_get_setting('course.display_coursecode_in_courselist') == 'true' &&
+                        api_get_setting('course.display_teacher_in_courselist') == 'true'
                     ) {
                         echo " - ";
                     }
 
-                    if (api_get_setting('display_teacher_in_courselist') == 'true') {
+                    if (api_get_setting('course.display_teacher_in_courselist') == 'true') {
                         echo $course['tutor'];
                     }
                     ?>
@@ -194,9 +194,9 @@ if (!empty($courses_without_category)) {
             <a name="course<?php echo $course['code']; ?>"></a>
             <strong><?php echo $course['title']; ?></strong><br />
             <?php
-            if (api_get_setting('display_coursecode_in_courselist') == 'true') { echo $course['visual_code']; }
-            if (api_get_setting('display_coursecode_in_courselist') == 'true' && api_get_setting('display_teacher_in_courselist') == 'true') { echo " - "; }
-            if (api_get_setting('display_teacher_in_courselist') == 'true') { echo $course['tutor']; }
+            if (api_get_setting('course.display_coursecode_in_courselist') == 'true') { echo $course['visual_code']; }
+            if (api_get_setting('course.display_coursecode_in_courselist') == 'true' && api_get_setting('course.display_teacher_in_courselist') == 'true') { echo " - "; }
+            if (api_get_setting('course.display_teacher_in_courselist') == 'true') { echo $course['tutor']; }
             ?>
         </td>
         <td valign="top">

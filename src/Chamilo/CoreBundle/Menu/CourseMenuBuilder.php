@@ -27,9 +27,26 @@ class CourseMenuBuilder extends ContainerAware
 
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
 
+
+            $menu->addChild(
+                $translator->trans('MyCourses'),
+                [
+                    'route' => 'userportal',
+                    'routeParameters' => ['type' => 'courses'],
+                ]
+            );
+
+            $menu->addChild(
+                $translator->trans('MySessions'),
+                [
+                    'route' => 'userportal',
+                    'routeParameters' => ['type' => 'sessions'],
+                ]
+            );
+
             $menu->addChild(
                 $translator->trans('CreateCourse'),
-                ['route' => 'main', 'routeParameters' => ['name'=> 'create_course/add_course.php']]
+                ['route' => 'add_course']
             );
 
             $menu->addChild(
@@ -40,10 +57,27 @@ class CourseMenuBuilder extends ContainerAware
                 ]
             );
 
-            /*$menu->addChild(
+            $link = $this->container->get('router')->generate('web.main');
+
+            $menu->addChild(
+                $translator->trans('ManageCourses'),
+                [
+                    'uri' => $link.'auth/courses.php?action=sortmycourses',
+                ]
+            );
+
+
+            /** @var \Knp\Menu\MenuItem $menu */
+            $menu->addChild(
                 $translator->trans('History'),
-                ['route' => 'main', 'routeParameters' => ['name'=> 'auth/courses.php?action=sortmycourses']]
-            );*/
+                [
+                    'route' => 'userportal',
+                    'routeParameters' => [
+                        'type' => 'sessions',
+                        'filter' => 'history',
+                    ],
+                ]
+            );
 
             $menu->addChild(
                 $translator->trans('CourseCatalog'),
