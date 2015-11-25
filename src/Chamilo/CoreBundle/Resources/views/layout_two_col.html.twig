@@ -21,12 +21,17 @@
 
     {#  Right column #}
     <div class="col-md-9">
-        {% block chamilo_right_column %}
+        {% block chamilo_breadcrumb %}
             {% include '@ChamiloCore/breadcrumb.html.twig' %}
-            <section class="right_column">
-                {# Flash messages #}
-                {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+        {% endblock %}
 
+        {% block chamilo_messages %}
+            {# Flash messages #}
+            {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+        {% endblock %}
+
+        {% block chamilo_right_column %}
+            <section class="right_column">
                 {% autoescape false %}
                     {{ content }}
                 {% endautoescape %}

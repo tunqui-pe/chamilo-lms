@@ -99,17 +99,19 @@ class SettingsManager extends SyliusSettingsManager
         } else {
             $parameters = $this->getParameters($namespace);
         }*/
+
         $parameters = $this->getParameters($namespace);
+
         $schema = $this->schemaRegistry->getSchema($namespace);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
+
         foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
             if (array_key_exists($parameter, $parameters)) {
                 $parameters[$parameter] = $transformer->reverseTransform($parameters[$parameter]);
             }
         }
-
         $parameters = $settingsBuilder->resolve($parameters);
 
         return $this->resolvedSettings[$namespace] = new Settings($parameters);
@@ -138,7 +140,10 @@ class SettingsManager extends SyliusSettingsManager
             $this->resolvedSettings[$namespace]->setParameters($parameters);
         }
 
-        $persistedParameters = $this->parameterRepository->findBy(array('category' => $namespace));
+        $persistedParameters = $this->parameterRepository->findBy(
+            array('category' => $namespace)
+        );
+
         $persistedParametersMap = array();
 
         foreach ($persistedParameters as $parameter) {
@@ -149,6 +154,7 @@ class SettingsManager extends SyliusSettingsManager
             SettingsEvent::PRE_SAVE,
             new SettingsEvent($namespace, $settings, $parameters)
         );
+
         $url = $event->getArgument('url');
 
         foreach ($parameters as $name => $value) {
@@ -199,8 +205,25 @@ class SettingsManager extends SyliusSettingsManager
     private function getParameters($namespace)
     {
         $parameters = array();
-
         foreach ($this->parameterRepository->findBy(array('category' => $namespace)) as $parameter) {
+            $parameters[$parameter->getName()] = $parameter->getValue();
+        }
+
+        return $parameters;
+    }
+
+    public function getParametersFromKeyword($namespace, $keyword = '')
+    {
+        $criteria = array('category' => $namespace);
+        if (!empty($keyword)) {
+            $criteria['variable'] = $keyword;
+        }
+
+        $parametersFromDb = $this->parameterRepository->findBy($criteria);
+
+        $parameters = array();
+        /** @var \Chamilo\CoreBundle\Entity\SettingsCurrent $parameter */
+        foreach ($parametersFromDb as $parameter) {
             $parameters[$parameter->getName()] = $parameter->getValue();
         }
 

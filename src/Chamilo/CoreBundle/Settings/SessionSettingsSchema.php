@@ -44,7 +44,8 @@ class SessionSettingsSchema implements SchemaInterface
                 array(
                     'add_users_by_coach' => array('string'),
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -70,10 +71,6 @@ class SessionSettingsSchema implements SchemaInterface
             ->add('allow_tutors_to_assign_students_to_session', 'yes_no')
             ->add('drh_can_access_all_session_content', 'yes_no')
             ->add('catalog_allow_session_auto_subscription', 'yes_no')
-
-
-
-
         ;
     }
 }

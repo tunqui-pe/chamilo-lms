@@ -11,12 +11,17 @@
 
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            {% block chamilo_right_column %}
-                {% include '@ChamiloCore/breadcrumb.html.twig' %}
-                <section class="one_column">
-                    {# Flash messages #}
-                    {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+            {% block chamilo_breadcrumb %}
+            {% include '@ChamiloCore/breadcrumb.html.twig' %}
+            {% endblock %}
 
+            {% block chamilo_messages %}
+            {# Flash messages #}
+            {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+            {% endblock %}
+
+            {% block chamilo_right_column %}
+                <section class="one_column">
                     {% autoescape false %}
                         {{ content }}
                     {% endautoescape %}

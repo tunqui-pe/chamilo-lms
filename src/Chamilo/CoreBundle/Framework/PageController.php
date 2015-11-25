@@ -1004,8 +1004,15 @@ class PageController
 
         $start = ($page - 1) * $this->maxPerPage;
 
-        $nbResults          = UserManager::getCategories($user_id, false, true, true);
-        $session_categories = UserManager::getCategories($user_id, false, false, true, $start, $this->maxPerPage);
+        $nbResults = UserManager::getCategories($user_id, false, true, true);
+        $session_categories = UserManager::getCategories(
+            $user_id,
+            false,
+            false,
+            true,
+            $start,
+            $this->maxPerPage
+        );
 
         $html = null;
         //Showing history title
@@ -1025,7 +1032,7 @@ class PageController
 
                 // All sessions included in
                 $count_courses_session = 0;
-                $html_sessions         = '';
+                $html_sessions = '';
                 foreach ($session_category['sessions'] as $session) {
                     $session_id = $session['session_id'];
 
@@ -1037,10 +1044,7 @@ class PageController
                     $html_courses_session = '';
                     $count                = 0;
                     foreach ($session['courses'] as $course) {
-                        if (api_get_setting(
-                                'session.hide_courses_in_sessions'
-                            ) == 'false'
-                        ) {
+                        if (api_get_setting('session.hide_courses_in_sessions') == 'false') {
                             $html_courses_session .= CourseManager::get_logged_user_course_html($course, $session_id);
                         }
                         $count_courses_session++;
@@ -1060,12 +1064,9 @@ class PageController
                         $session_link   = $session['session_name'];
                         $params['link'] = null;
 
-                        if (api_get_setting(
-                                'session.session_page_enabled'
-                            ) == 'true' && !api_is_drh()
-                        ) {
+                        if (api_get_setting('session.session_page_enabled') == 'true' && !api_is_drh()) {
                             //session name with link
-                            $session_link   = Display::tag(
+                            $session_link = Display::tag(
                                 'a',
                                 $session['session_name'],
                                 array('href' => api_get_path(WEB_CODE_PATH).'session/index.php?session_id='.$session_id)
@@ -1084,9 +1085,7 @@ class PageController
                         $params['dates']    = $session['date_message'];
 
                         if (api_is_platform_admin()) {
-                            $params['right_actions'] = '<a href="'.api_get_path(
-                                    WEB_CODE_PATH
-                                ).'session/resume_session.php?id_session='.$session_id.'">'.Display::return_icon(
+                            $params['right_actions'] = '<a href="'.api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.$session_id.'">'.Display::return_icon(
                                 'edit.png',
                                 get_lang('Edit'),
                                 array('align' => 'absmiddle'),
@@ -1098,7 +1097,7 @@ class PageController
                 }
 
                 if ($count_courses_session > 0) {
-                    $params         = array();
+                    $params = array();
                     $params['icon'] = Display::return_icon(
                         'folder_blue.png',
                         $session_category['session_category']['name'],

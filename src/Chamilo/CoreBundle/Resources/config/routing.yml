@@ -69,7 +69,7 @@ core_tool_document:
     requirements:
         file: .+ # allow "/" in {file}
 
-# redirects /url/ to /url
+# Redirects /url/ to /url
 remove_trailing_slash:
     path: /{url}
     defaults: { _controller: ChamiloCoreBundle:Redirecting:removeTrailingSlash }
@@ -77,20 +77,21 @@ remove_trailing_slash:
         url: .*/$
         _method: GET
 
-## Portal settings
+# Settings list
 chamilo_platform_settings_list:
     pattern: /settings
     defaults:
         _controller: ChamiloSettingsBundle:Settings:index
         template: ChamiloSettingsBundle:Settings:index.html.twig
-#
+
+# Setting form
 chamilo_platform_settings:
     pattern: /settings/{namespace}
     defaults:
-        _controller: ChamiloSettingsBundle:Settings:update
+        _controller: ChamiloSettingsBundle:Settings:updateSetting
         template: ChamiloSettingsBundle:Settings:default.html.twig
-#
-## Course settings
+
+# Course settings
 chamilo_course_settings:
     pattern: /courses/{course}/settings/{namespace}
     defaults:

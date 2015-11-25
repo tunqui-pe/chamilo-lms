@@ -36,13 +36,41 @@ class SettingsController extends SyliusSettingsController
      * Edit configuration with given namespace.
      * @Security("has_role('ROLE_ADMIN')")
      * @param Request $request
-     * @param string  $namespace
+     * @param string $namespace
      *
      * @return Response
      */
-    public function updateAction(Request $request, $namespace)
+    public function updateSettingAction(Request $request, $namespace)
     {
         $manager = $this->getSettingsManager();
+
+        $builder = $this->container->get('form.factory')->createNamedBuilder(
+            'search'
+        );
+        $builder->add('keyword', 'text');
+        $builder->add('search', 'submit');
+        $searchForm = $builder->getForm();
+
+        $keyword = '';
+        if ($searchForm->handleRequest($request)->isValid()) {
+            $values = $searchForm->getData();
+            $keyword = $values['keyword'];
+            $settingsFromKeyword = $manager->getParametersFromKeyword(
+                $namespace,
+                $keyword
+            );
+        }
+
+        $keywordFromGet = $request->query->get('keyword');
+        if ($keywordFromGet) {
+            $keyword = $keywordFromGet;
+            $searchForm->setData(['keyword' => $keyword]);
+            $settingsFromKeyword = $manager->getParametersFromKeyword(
+                $namespace,
+                $keywordFromGet
+            );
+        }
+
         $settings = $manager->loadSettings($namespace);
 
         $form = $this
@@ -50,7 +78,19 @@ class SettingsController extends SyliusSettingsController
             ->create($namespace)
         ;
 
+        //$form->add('keyword', 'hidden', ['data' => $keyword]);
+
+        if (!empty($keyword)) {
+            $params = $settings->getParameters();
+            foreach ($params as $name => $value) {
+                if (!in_array($name, array_keys($settingsFromKeyword))) {
+                    $form->remove($name);
+                }
+            }
+        }
+
         $form->setData($settings);
+
         if ($form->handleRequest($request)->isValid()) {
             $messageType = 'success';
             try {
@@ -60,17 +100,21 @@ class SettingsController extends SyliusSettingsController
                 $message = $this->getTranslator()->trans($exception->getMessage(), array(), 'validators');
                 $messageType = 'error';
             }
-            $request->getSession()->getBag('flashes')->add($messageType, $message);
 
-            if ($request->headers->has('referer')) {
+            $this->addFlash($messageType, $message);
+
+            /*if ($request->headers->has('referer')) {
                 return $this->redirect($request->headers->get('referer'));
-            }
+            }*/
         }
+
         return $this->render(
             'ChamiloSettingsBundle:Settings:default.html.twig',
             array(
                 'settings' => $settings,
-                'form'     => $form->createView()
+                'form' => $form->createView(),
+                'keyword' => $keyword,
+                'search_form' => $searchForm->createView(),
             )
         );
     }
