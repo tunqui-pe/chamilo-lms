@@ -8,13 +8,10 @@
             {% endfor %}
         {% endautoescape %}
     {% endif %}
-    <div class="row">
-        <div class="col-xs-12 col-md-12">
-            {% autoescape false %}
-                {{ content }}
-            {% endautoescape %}
-        </div>
-    </div>
+
+    {% autoescape false %}
+        {{ content }}
+    {% endautoescape %}
 {% endblock %}
 
 {% block chamilo_footer %}

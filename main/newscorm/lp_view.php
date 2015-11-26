@@ -85,6 +85,7 @@ $htmlHeadXtra[] = '<script type="text/javascript">
 var jQueryFrameReadyConfigPath = \''.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.min.js\';
 -->
 </script>';
+/*
 $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(
         WEB_LIBRARY_JS_PATH
     ).'jquery.frameready.js"></script>';
@@ -98,7 +99,7 @@ $(document).ready(function() {
     });
 });
 var chamilo_xajax_handler = window.oxajax;
-</script>';
+</script>';*/
 
 if ($learnPath->mode == 'embedframe' || $learnPath->get_hide_toc_frame() == 1) {
     $htmlHeadXtra[] = 'hello';
