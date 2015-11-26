@@ -7,8 +7,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Doctrine\ORM\EntityManager;
-
 use Chamilo\CoreBundle\Framework\Container;
 
 /**
@@ -34,7 +32,6 @@ class LegacyListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        //$kernel = $event->getKernel();
         $request = $event->getRequest();
         $session = $request->getSession();
         /** @var ContainerInterface $container */
@@ -42,9 +39,6 @@ class LegacyListener
 
         // Setting container
         Container::setContainer($container);
-
-        // Setting session.
-        Container::setSession($session);
 
         // Setting database.
         $connection = $container->get('database_connection');

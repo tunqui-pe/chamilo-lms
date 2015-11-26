@@ -1592,7 +1592,7 @@ class DocumentManager
         if (Database::num_rows($result) > 0) {
             $row = Database::fetch_array($result, 'ASSOC');
             if ($row['visibility'] == 1) {
-                $is_visible = $_SESSION['is_allowed_in_course'] || api_is_platform_admin();
+                $is_visible = api_is_allowed_in_course() || api_is_platform_admin();
             }
         }
 
@@ -3392,12 +3392,13 @@ class DocumentManager
 
         $return = '';
         if ($lp_id) {
+            $learnPath = learnpath::getCurrentLpFromSession();
             if ($folderId === false) {
                 $return .= '<div class="lp_resource_element">';
                 $return .= Display::return_icon('new_doc.gif', '', array(), ICON_SIZE_SMALL);
                 $return .= Display::url(
                     get_lang('NewDocument'),
-                    api_get_self().'?'.api_get_cidreq().'&action=add_item&type='.TOOL_DOCUMENT.'&lp_id='.$_SESSION['oLP']->lp_id
+                    api_get_self().'?'.api_get_cidreq().'&action=add_item&type='.TOOL_DOCUMENT.'&lp_id='.$learnPath->lp_id
                 );
                 $return .= '</div>';
             }

@@ -1,5 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
+use ChamiloSession as Session;
+
 /**
  * Copy resources from one course in a session to another one.
  *
@@ -218,7 +220,7 @@ function searchCourses($idSession, $type)
                 $course['title'] . ' (' . $course['visual_code'] . ')</option>';
         }
         $return .= '</select>';
-        $_SESSION['course_list_destination'] = $course_list_destination;
+        Session::write('course_list_destination', $course_list_destination);
 
         // Send response by ajax
         $xajaxResponse->addAssign(

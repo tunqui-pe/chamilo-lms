@@ -113,8 +113,9 @@ if (empty($document_data['parents'])) {
         $interbreadcrumb[] = array('url' => $document_sub_data['document_url'], 'name' => $document_sub_data['title']);
     }
 }
+$rights = Session::read('group_member_with_upload_rights');
 
-$is_allowedToEdit = api_is_allowed_to_edit(null, true) || $_SESSION['group_member_with_upload_rights'] ||
+$is_allowedToEdit = api_is_allowed_to_edit(null, true) || $rights ||
 	DocumentManager::is_my_shared_folder(api_get_user_id(), $dir, $current_session_id);
 
 if (!$is_allowedToEdit) {

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
+
 /**
 * Exercise preview
 *
@@ -8,14 +10,11 @@
 * @author Julio Montoya <gugli100@gmail.com>
 */
 
-use \ChamiloSession as Session;
-
-////require_once '../inc/global.inc.php';
-
 $current_course_tool  = TOOL_QUIZ;
 
 // Clear the exercise session just in case
-if (isset($_SESSION['objExercise'])) {
+$exerciseFromSession = Session::read('objExercise');
+if (isset($exerciseFromSession)) {
     Session::erase('objExercise');
 }
 

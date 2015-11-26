@@ -82,9 +82,11 @@ if (isset($_REQUEST['updateaudio'])) {
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('BasicOverview'));
 }
 
+$learnpath = learnpath::getCurrentLpFromSession();
+
 // Theme calls.
 $show_learn_path = true;
-$lp_theme_css = $_SESSION['oLP']->get_theme();
+$lp_theme_css = $learnpath->get_theme();
 
 /* DISPLAY SECTION */
 
@@ -93,7 +95,7 @@ $lp_theme_css = $_SESSION['oLP']->get_theme();
 if (isset($_POST['save_audio'])) {
 
     //Updating the lp.modified_on
-    $_SESSION['oLP']->set_modified_on();
+    $learnpath->set_modified_on();
 
     // Deleting the audio fragments.
     foreach ($_POST as $key => $value) {
@@ -158,7 +160,9 @@ if (isset($_POST['save_audio'])) {
         }
     }
     //Display::display_confirmation_message(get_lang('ItemUpdated'));
-    $url = api_get_self().'?action=add_item&type=step&lp_id='.intval($_SESSION['oLP']->lp_id);
+    $url = api_get_self().'?action=add_item&type=step&lp_id='.intval(
+            $learnpath->lp_id
+        );
     header('Location: '.$url);
     exit;
 }
@@ -277,11 +281,11 @@ function confirmation(name) {
 </script>
 <?php
 
-echo $_SESSION['oLP']->build_action_menu();
+echo $learnpath->build_action_menu();
 
 echo '<div class="row">';
 echo '<div class="col-md-4">';
-echo $_SESSION['oLP']->return_new_tree(null, true);
+echo $learnpath->return_new_tree(null, true);
 echo '</div>';
 
 echo '<div class="col-md-8">';
@@ -290,7 +294,7 @@ switch ($_GET['action']) {
         if (isset($is_success) && $is_success === true) {
             Display::display_confirmation_message(get_lang('LearnpathItemEdited'));
         } else {
-            echo $_SESSION['oLP']->display_edit_item($_GET['id']);
+            echo $learnpath->display_edit_item($_GET['id']);
         }
         break;
     case 'delete_item':
@@ -301,11 +305,10 @@ switch ($_GET['action']) {
 }
 if (!empty($_GET['updateaudio'])) {
     // list of items to add audio files
-    echo $_SESSION['oLP']->overview();
+    echo $learnpath->overview();
 }
 
 echo '</div>';
 echo '</div>';
 
-/* FOOTER */
-Display::display_footer();
+$learnpath->updateCurrentLpFromSession();

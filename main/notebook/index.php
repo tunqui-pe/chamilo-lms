@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  * @package chamilo.notebook
  * @author Christian Fasanando, initial version
@@ -61,7 +64,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'addnote') {
 		exit;
 	}
 
-	$_SESSION['notebook_view'] = 'creation_date';
+    Session::write('notebook_view', 'creation_date');
 
     $form = new FormValidator(
         'note',
@@ -193,7 +196,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'addnote') {
             }
             break;
     }
-    $_SESSION['notebook_view'] = $_GET['view'];
+    Session::write('notebook_view', $_GET['view']);
     NotebookManager::display_notes();
 } else {
     NotebookManager::display_notes();

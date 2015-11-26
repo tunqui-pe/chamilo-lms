@@ -20,7 +20,7 @@ api_protect_course_script();
 include 'learnpath_functions.inc.php';
 include 'resourcelinker.inc.php';
 /** @var learnpath $learnPath */
-$learnPath = $_SESSION['oLP'];
+$learnPath = learnpath::getCurrentLpFromSession();
 
 $htmlHeadXtra[] = '<script>'.
 

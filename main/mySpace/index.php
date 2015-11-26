@@ -11,8 +11,6 @@ $cidReset = true;
 $htmlHeadXtra[] = api_get_jqgrid_js();
 // the section (for the tabs)
 $this_section = SECTION_TRACKING;
-//for HTML editor repository
-unset($_SESSION['this_section']);
 
 ob_start();
 

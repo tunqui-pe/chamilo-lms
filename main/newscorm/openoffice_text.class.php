@@ -156,7 +156,7 @@ class OpenofficeText extends OpenofficeDocument {
                     TOOL_DOCUMENT,
                     $document_id,
                     'DocumentAdded',
-                    $_SESSION['_uid'],
+                    api_get_user_id(),
                     0,
                     0,
                     null,
@@ -226,7 +226,7 @@ class OpenofficeText extends OpenofficeDocument {
                     TOOL_DOCUMENT,
                     $document_id,
                     'DocumentAdded',
-                    $_SESSION['_uid'],
+                    api_get_user_id(),
                     0,
                     0,
                     null,
@@ -236,7 +236,14 @@ class OpenofficeText extends OpenofficeDocument {
 
                 $infos = pathinfo($this->filepath);
                 $slide_name = 'Page '.str_repeat('0', 2 - strlen($key)).$key;
-                $previous = learnpath::add_item(0, $previous, 'document', $document_id, $slide_name, '');
+                $previous = learnpath::add_item(
+                    0,
+                    $previous,
+                    'document',
+                    $document_id,
+                    $slide_name,
+                    ''
+                );
                 if ($this->first_item == 0) {
                     $this->first_item = $previous;
                 }

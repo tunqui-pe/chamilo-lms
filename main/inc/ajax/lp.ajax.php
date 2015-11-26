@@ -39,14 +39,15 @@ switch ($action) {
         break;
     case 'add_lp_item':
         if (api_is_allowed_to_edit(null, true)) {
-            if ($_SESSION['oLP']) {
+            $learnPath = learnPath::getCurrentLpFromSession();
+            if ($learnPath) {
                 // Updating the lp.modified_on
-                $_SESSION['oLP']->set_modified_on();
+                $learnPath->set_modified_on();
                 $title = $_REQUEST['title'];
                 if ($_REQUEST['type'] == TOOL_QUIZ) {
                     $title = Exercise::format_title_variable($title);
                 }
-                echo $_SESSION['oLP']->add_item(
+                echo $learnPath->add_item(
                     $_REQUEST['parent_id'],
                     $_REQUEST['previous_id'],
                     $_REQUEST['type'],
@@ -54,6 +55,7 @@ switch ($action) {
                     $title,
                     null
                 );
+                $learnPath->updateCurrentLpFromSession();
             }
         }
         break;
@@ -122,11 +124,9 @@ switch ($action) {
         if (api_is_allowed_to_edit(null, true) == false) {
             exit;
         }
-        /** @var Learnpath $lp */
-        $lp = isset($_SESSION['oLP']) ? $_SESSION['oLP'] : null;
+        $learnPath = learnPath::getCurrentLpFromSession();
         $course_info = api_get_course_info();
-
-        $lpPathInfo = $lp->generate_lp_folder($course_info);
+        $lpPathInfo = $learnPath->generate_lp_folder($course_info);
 
         if (empty($lpPathInfo)) {
             exit;
@@ -160,7 +160,7 @@ switch ($action) {
                     $newDocId = $result['id'];
                     $courseId = $result['c_id'];
 
-                    $lp->set_modified_on();
+                    $learnPath->set_modified_on();
 
                     $lpItem = new learnpathItem($_REQUEST['lp_item_id']);
                     $lpItem->add_audio_from_documents($newDocId);
@@ -173,7 +173,7 @@ switch ($action) {
 
         break;
     case 'update_gamification':
-        $lp = isset($_SESSION['oLP']) ? $_SESSION['oLP'] : null;
+        $lp = learnpath::getCurrentLpFromSession();
 
         $jsonGamification = [
             'stars' => 0,

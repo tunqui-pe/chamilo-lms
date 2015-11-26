@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 require_once 'Resource.class.php';
 require_once 'Course.class.php';
 require_once 'Event.class.php';
@@ -575,36 +577,39 @@ class CourseRestorer
 									$orig_base_path   = $course_path.$document_path[0].'/'.$document_path[1];
 
 									if (is_dir($orig_base_path)) {
-
 										$new_base_foldername = $orig_base_folder;
 										$new_base_path = $orig_base_path;
-
-										if ($_SESSION['orig_base_foldername'] != $new_base_foldername) {
-											unset($_SESSION['new_base_foldername']);
-											unset($_SESSION['orig_base_foldername']);
-											unset($_SESSION['new_base_path']);
+                                        $originalFolderName = Session::read('orig_base_foldername');
+										if ($originalFolderName != $new_base_foldername) {
+                                            Session::erase('new_base_foldername');
+                                            Session::erase('orig_base_foldername');
+                                            Session::erase('new_base_path');
 										}
 
 										$folder_exists = file_exists($new_base_path);
 										if ($folder_exists) {
-											$_SESSION['orig_base_foldername'] = $new_base_foldername; 		// e.g: carpeta1 in session
+											//$_SESSION['orig_base_foldername'] = $new_base_foldername; 		// e.g: carpeta1 in session
+                                            Session::write('orig_base_foldername', $new_base_foldername);
 											$x = '';
 											while ($folder_exists) {
 												$x = $x + 1;
 												$new_base_foldername = $document_path[1].'_'.$x;
 												$new_base_path = $orig_base_path.'_'.$x;
-                                                if ($_SESSION['new_base_foldername'] == $new_base_foldername) {
+                                                $baseFolder = Session::read('new_base_foldername');
+                                                if ($baseFolder == $new_base_foldername) {
                                                     break;
                                                 }
 												$folder_exists = file_exists($new_base_path);
 											}
-											$_SESSION['new_base_foldername'] = $new_base_foldername;
-											$_SESSION['new_base_path'] = $new_base_path;
+                                            Session::write('new_base_foldername', $new_base_foldername);
+                                            Session::write('new_base_path', $new_base_path);
 										}
 
-										if (isset($_SESSION['new_base_foldername']) && isset($_SESSION['new_base_path'])) {
-											$new_base_foldername = $_SESSION['new_base_foldername'];
-											$new_base_path = $_SESSION['new_base_path'];
+                                        $sessionVar1 = Session::read('new_base_foldername');
+                                        $sessionVar2 = Session::read('new_base_path');
+										if (isset($sessionVar) && isset($sessionVar2)) {
+											$new_base_foldername = Session::read('new_base_foldername');
+											$new_base_path = Session::read('new_base_path');
 										}
 
 										$dest_document_path = $new_base_path.'/'.$document_path[2];		// e.g: "/var/www/wiener/courses/CURSO4/document/carpeta1_1/subcarpeta1/collaborative.png"
@@ -866,9 +871,9 @@ class CourseRestorer
 			} // end for each
 
     		// Delete sessions for the copy the new folder in session
-    		unset($_SESSION['new_base_foldername']);
-    		unset($_SESSION['orig_base_foldername']);
-    		unset($_SESSION['new_base_path']);
+            Session::erase('new_base_foldername');
+            Session::erase('orig_base_foldername');
+            Session::erase('new_base_path');
 		}
 	}
 

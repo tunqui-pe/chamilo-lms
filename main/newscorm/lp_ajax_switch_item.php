@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Framework\Container;
+use ChamiloSession as Session;
 
 /**
  * This script contains the server part of the xajax interaction process. The client part is located
@@ -224,8 +225,8 @@ function switch_item_details($lp_id, $user_id, $view_id, $current_item, $next_it
         error_log('Prereq_match() returned '.htmlentities($mylp->error), 0);
     }
     // Save the new item ID for the exercise tool to use.
-    $_SESSION['scorm_item_id'] = $new_item_id;
-    $_SESSION['lpobject']      = serialize($mylp);
+    Session::write('scorm_item_id', $new_item_id);
+    Session::write('lpobject', serialize($mylp));
     return $return;
 }
 

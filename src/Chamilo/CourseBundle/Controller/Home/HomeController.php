@@ -34,17 +34,11 @@ class HomeController extends ToolBaseController
      */
     public function indexAction(Request $request)
     {
+        $sessionId = api_get_session_id();
         $course = $this->getCourse();
         $session = $this->getSession();
 
-        // Already added in the listener.
-        /*if (false === $this->isGranted('view', $course)) {
-            throw new AccessDeniedException('Unauthorised access!');
-        }*/
-
         $courseCode = $course->getId();
-
-        $sessionId = api_get_session_id();
         $sessionHandler = $request->getSession();
 
         $result = $this->autoLaunch();
@@ -196,6 +190,7 @@ class HomeController extends ToolBaseController
     private function renderActivityView()
     {
         $session_id = api_get_session_id();
+
         $urlGenerator = $this->get('router');
 
         $content = '';
@@ -229,7 +224,7 @@ class HomeController extends ToolBaseController
 
             $content .=  '<div class="row">';
             $list = CourseHome::get_tools_category(TOOL_STUDENT_VIEW);
-            $content .= CourseHome::show_tools_category($urlGenerator, $result['content']);
+            $result = CourseHome::show_tools_category($urlGenerator, $list);
             $totalList = array_merge($totalList, $result['tool_list']);
             $content .= '</div>';
         } else {

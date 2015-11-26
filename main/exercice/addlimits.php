@@ -50,7 +50,7 @@ if (empty ($nbrQuestions)) {
 $questionList = Session::read('questionList');
 
 if (empty ($objExercise)) {
-    $objExercise = $_SESSION['objExercise'];
+    $objExercise = Session::read('objExercise');
 }
 $exercise_id = intval($_GET['exercise_id']);
 $is_allowedToEdit = $is_courseAdmin;

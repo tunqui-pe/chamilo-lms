@@ -72,7 +72,7 @@ $interbreadcrumb[] = array(
 // Theme calls.
 $show_learn_path = true;
 /** @var learnpath $lp */
-$lp = $_SESSION['oLP'];
+$lp = learnpath::getCurrentLpFromSession();
 $lp_theme_css = $lp->get_theme();
 
 Display::display_header(get_lang('LearnpathPrerequisites'), 'Path');
@@ -115,5 +115,3 @@ if (isset($is_success) && $is_success == true) {
     echo $lp->display_item_prerequisites_form($_GET['id']);
 }
 echo '</div>';
-
-Display::display_footer();

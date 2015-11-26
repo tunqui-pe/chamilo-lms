@@ -28,14 +28,14 @@ services:
         tags:
             - { name: twig.extension }
 
-    ## Security
+    # Security
 
     # Chamilo custom password encoder
     chamilo_user.security.encoder:
         class: Chamilo\UserBundle\Security\Encoder
         arguments: ['%password_encryption%']
 
-    # Course voter checks if a user has permissions to do actions
+    # Course voter checks if a user has permissions to do actions in a course
     chamilo_core.security.authorization.voter.course_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\CourseVoter
         arguments: [ @doctrine.orm.entity_manager, @chamilo_core.manager.course, @service_container]
@@ -43,7 +43,7 @@ services:
         tags:
            - { name: security.voter }
 
-    # Session voter, checks if a user has permissions to do actions
+    # Session voter, checks if a user has permissions to do actions in a session
     chamilo_core.security.authorization.voter.session_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\SessionVoter
         arguments: [ @doctrine.orm.entity_manager, @chamilo_core.manager.course, @service_container]
@@ -60,8 +60,8 @@ services:
 #            - { name: security.voter }
 
     # User image naming
-    chamilo_core.naming.user_image:
-        class: Chamilo\CoreBundle\Naming\UserImage
+#    chamilo_core.naming.user_image:
+#        class: Chamilo\CoreBundle\Naming\UserImage
 
     # Form types
 
@@ -71,12 +71,12 @@ services:
         tags:
             - { name: form.type, alias: yes_no }
 
+    # Extra field attribute services
     chamilo_user.form.type.attribute_value_type:
         class: Chamilo\UserBundle\Form\Type\AttributeValueType
         arguments: [Chamilo\CoreBundle\Entity\ExtraFieldValues, ["registration"], "user"]
         tags:
             - { name: form.type, alias: chamilo_user_extra_field_value }
-
 
     chamilo_user.form.type.attribute_choice_type:
         class: Chamilo\UserBundle\Form\Type\AttributeEntityChoiceType
@@ -89,7 +89,8 @@ services:
         arguments: ['user', Chamilo\CoreBundle\Entity\UserField]
         tags:
             - { name: form.type }
-#
+
+    # html editor
     chamilo_core.html_editor:
         class: Chamilo\CoreBundle\Component\Editor\CkEditor\CkEditor
         arguments: [@translator.default, @router]
@@ -120,7 +121,7 @@ services:
         class: Chamilo\CoreBundle\EventListener\LegacyListener
         arguments: [@service_container]
         tags:
-          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 10 }
+          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 100 }
           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
           - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
@@ -131,7 +132,7 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    # Setting user/system locale
+    # Settings listener
     chamilo_core.listener.settings:
         class: Chamilo\CoreBundle\EventListener\SettingListener
         arguments: [@service_container]
@@ -161,12 +162,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: theme.messages, method: onListMessages }
 
-    # When user logins
+    # Login listener - When user logs in
     chamilo_core.listener.login_success_handler:
         class: Chamilo\CoreBundle\EventListener\LoginSuccessHandler
         arguments:  [@router, @security.authorization_checker]
 
-    # When user logouts
+    # Logout listener - When user logs out
     chamilo_core.listener.logout_success_handler:
         class: Chamilo\CoreBundle\EventListener\LogoutSuccessHandler
         arguments:  [@router, @security.authorization_checker]
@@ -189,7 +190,6 @@ services:
         arguments: [@knp_menu.factory, @router]
         tags:
          - { name: mopa_bootstrap.menu, alias: chamilo_core.menu.nav }
-
 
     chamilo_core.menu.course_menu_builder:
         class: Chamilo\CoreBundle\Menu\CourseMenuBuilder
@@ -363,22 +363,18 @@ services:
         tags:
             - { name: sylius.settings_schema, namespace: tracking }
 
-
     # Form types
-
     chamilo_user.registration.form.type:
         class: Chamilo\UserBundle\Form\RegistrationType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: chamilo_sonata_user_registration }
 
-
     chamilo_user.profile.form.type:
         class: Chamilo\UserBundle\Form\ProfileType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: chamilo_sonata_user_profile }
-
 
     chamilo_user.fos_profile.form.type:
         class: Chamilo\UserBundle\Form\ProfileFosUserType

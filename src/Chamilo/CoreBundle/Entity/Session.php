@@ -809,7 +809,7 @@ class Session
     /**
      * Get id
      *
-     * @return integer
+     * @return User
      */
     public function getGeneralCoach()
     {

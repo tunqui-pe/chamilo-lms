@@ -74,6 +74,8 @@ class IndexController extends BaseController
 
         $announcementsBlock = $pageController->getAnnouncements();
 
+        $this->get('session')->remove('id_session');
+
         return $this->render(
             '@ChamiloCore/Index/index.html.twig',
             array(

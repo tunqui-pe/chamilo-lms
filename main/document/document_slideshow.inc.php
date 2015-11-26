@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  *	This is a plugin for the documents tool. It looks for .jpg, .jpeg, .gif, .png
  *	files (since these are the files that can be viewed in a browser) and creates
@@ -29,7 +32,7 @@ $accepted_extensions = array('.jpg', '.jpeg', '.gif', '.png', '.bmp','.svg');
 
 // Resetting the images of the slideshow = destroying the slideshow
 if (isset($_GET['action']) && $_GET['action'] == 'exit_slideshow') {
-	$_SESSION['image_files_only'] = null;
+    Session::write('image_files_only', null);
 	unset($image_files_only);
 }
 
@@ -69,7 +72,7 @@ if ($tablename_column == 0) {
 $tablename_direction = isset($_GET['tablename_direction']) ? Security::remove_XSS($_GET['tablename_direction']) : 'ASC';
 
 $image_files_only = sort_files($array_to_search);
-$_SESSION['image_files_only'] = $image_files_only;
+Session::write('image_files_only', $image_files_only);
 
 function sort_files($table)
 {

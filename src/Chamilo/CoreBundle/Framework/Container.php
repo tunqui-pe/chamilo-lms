@@ -171,15 +171,7 @@ class Container
      */
     public static function getSession()
     {
-        return self::$session;
-    }
-
-    /**
-     * @param SessionInterface $session
-     */
-    public static function setSession($session)
-    {
-        self::$session = $session;
+        return self::$container->get('session');
     }
 
     /**

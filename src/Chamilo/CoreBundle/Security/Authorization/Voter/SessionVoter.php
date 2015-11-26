@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class CourseVoter
+ * Class SessionVoter
  * @package Chamilo\CoreBundle\Security\Authorization\Voter
  */
 class SessionVoter extends AbstractVoter
@@ -74,6 +74,8 @@ class SessionVoter extends AbstractVoter
     }
 
     /**
+     * Check if user has access to a session
+     *
      * @param string $attribute
      * @param Session $session
      * @param User $user
@@ -85,10 +87,12 @@ class SessionVoter extends AbstractVoter
         if (!$user instanceof UserInterface) {
             return false;
         }
+
         // Checks if the current user was set up
         $course = $session->getCurrentCourse();
 
         if ($course == false) {
+
             return false;
         }
 
@@ -96,10 +100,12 @@ class SessionVoter extends AbstractVoter
 
         // Admins have access to everything
         if ($authChecker->isGranted('ROLE_ADMIN')) {
-            // return true;
+
+            return true;
         }
 
         if (!$session->isActive()) {
+
             return false;
         }
 
@@ -107,19 +113,38 @@ class SessionVoter extends AbstractVoter
             case self::VIEW:
                 if (!$session->hasUserInCourse($user, $course)) {
                     $user->addRole('ROLE_CURRENT_SESSION_COURSE_STUDENT');
+
                     return true;
                 }
 
                 break;
             case self::EDIT:
             case self::DELETE:
+
+                // General coach check
+                $generalCoach = $session->getGeneralCoach();
+                if ($generalCoach) {
+                    $coachId = $generalCoach->getId();
+                    $userId = $user->getId();
+                    if ($coachId == $userId) {
+                        $user->addRole('ROLE_CURRENT_SESSION_COURSE_TEACHER');
+
+                        return true;
+                    }
+                }
+
+                // Course session coach check
                 if (!$session->hasCoachInCourseWithStatus($user, $course)) {
+
                     $user->addRole('ROLE_CURRENT_SESSION_COURSE_TEACHER');
+
                     return true;
                 }
                 break;
         }
-        dump("You don't have access to this session!!");
+
+        // User don't have access to the session
         return false;
     }
 }
+

@@ -101,8 +101,10 @@ class UniqueAnswerNoOption extends Question
             $new_list = array();
             $count = 1;
             if (isset($_POST['lessAnswers'])) {
-                if (!isset($_SESSION['less_answer'])) {
-                    $_SESSION['less_answer'] = $this->id;
+                $lessFromSession = Session::read('less_answer');
+                if (!isset($lessFromSession)) {
+                    Session::write('less_answer', $this->id);
+                    //$_SESSION['less_answer'] = $this->id;
                     $nb_answers--;
                 }
             }

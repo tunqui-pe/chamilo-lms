@@ -59,8 +59,8 @@ $visibility = api_get_item_visibility(
 if (!api_is_allowed_to_edit(false, true, false, false) && intval($visibility) == 0) {
     api_not_allowed(true);
 }
-
-if (empty($_SESSION['oLP'])) {
+$learnPath = learnpath::getCurrentLpFromSession();
+if (empty($learnPath)) {
     api_not_allowed(true);
 }
 
@@ -70,9 +70,9 @@ if ($debug) {
     error_log('------ Entering lp_view.php -------');
 }
 
-$_SESSION['oLP']->error = '';
-$lp_item_id = $_SESSION['oLP']->get_current_item_id();
-$lpType = $_SESSION['oLP']->get_type();
+$learnPath->error = '';
+$lp_item_id = $learnPath->get_current_item_id();
+$lpType = $learnPath->get_type();
 
 $course_code = api_get_course_id();
 $course_id = api_get_course_int_id();
@@ -100,24 +100,25 @@ $(document).ready(function() {
 var chamilo_xajax_handler = window.oxajax;
 </script>';
 
-if ($_SESSION['oLP']->mode == 'embedframe' || $_SESSION['oLP']->get_hide_toc_frame() == 1) {
+if ($learnPath->mode == 'embedframe' || $learnPath->get_hide_toc_frame() == 1) {
     $htmlHeadXtra[] = 'hello';
 }
 
 //Impress js
-if ($_SESSION['oLP']->mode == 'impress') {
-    $lp_id = $_SESSION['oLP']->get_id();
+if ($learnPath->mode == 'impress') {
+    $lp_id = $learnPath->get_id();
     $url = api_get_path(WEB_CODE_PATH) . "newscorm/lp_impress.php?lp_id=$lp_id&" . api_get_cidreq();
     header("Location: $url");
     exit;
 }
 
 // Prepare variables for the test tool (just in case) - honestly, this should disappear later on.
-$_SESSION['scorm_view_id'] = $_SESSION['oLP']->get_view_id();
-$_SESSION['scorm_item_id'] = $lp_item_id;
+Session::write('scorm_view_id', $learnPath->get_view_id());
+Session::write('scorm_item_id', $lp_item_id);
 
+$exerciseFromSession = Session::read('exerciseResult');
 // Reinit exercises variables to avoid spacename clashes (see exercise tool)
-if (isset($exerciseResult) || isset($_SESSION['exerciseResult'])) {
+if (isset($exerciseResult) || isset($exerciseFromSession)) {
     Session::erase('exerciseResult');
     Session::erase('objExercise');
     Session::erase('questionList');
@@ -145,8 +146,8 @@ if ($debug) {
     error_log(" lp_type: $lpType ");
 }
 
-$get_toc_list = $_SESSION['oLP']->get_toc();
-$get_teacher_buttons = $_SESSION['oLP']->get_teacher_toc_buttons();
+$get_toc_list = $learnPath->get_toc();
+$get_teacher_buttons = $learnPath->get_teacher_toc_buttons();
 
 $type_quiz = false;
 foreach ($get_toc_list as $toc) {
@@ -159,11 +160,11 @@ if (!isset($src)) {
     $src = null;
     switch ($lpType) {
         case 1:
-            $_SESSION['oLP']->stop_previous_item();
+            $learnPath->stop_previous_item();
             $htmlHeadXtra[] = '<script src="scorm_api.php" type="text/javascript" language="javascript"></script>';
-            $preReqCheck = $_SESSION['oLP']->prerequisites_match($lp_item_id);
+            $preReqCheck = $learnPath->prerequisites_match($lp_item_id);
             if ($preReqCheck === true) {
-                $src = $_SESSION['oLP']->get_link(
+                $src = $learnPath->get_link(
                     'http',
                     $lp_item_id,
                     $get_toc_list
@@ -182,37 +183,41 @@ if (!isset($src)) {
                     $src = api_get_path(WEB_CODE_PATH).'newscorm/lp_view_item.php?lp_item_id='.$lp_item_id.'&'.api_get_cidreq();
                 }
 
-                $src = $_SESSION['oLP']->fixBlockedLinks($src);
+                $src = $learnPath->fixBlockedLinks($src);
 
-                $_SESSION['oLP']->start_current_item(); // starts time counter manually if asset
+                $learnPath->start_current_item(
+                ); // starts time counter manually if asset
             } else {
                 $src = 'blank.php?error=prerequisites';
             }
             break;
         case 2:
             // save old if asset
-            $_SESSION['oLP']->stop_previous_item(); // save status manually if asset
+            $learnPath->stop_previous_item(); // save status manually if asset
             $htmlHeadXtra[] = '<script src="scorm_api.php" type="text/javascript" language="javascript"></script>';
-            $preReqCheck = $_SESSION['oLP']->prerequisites_match($lp_item_id);
+            $preReqCheck = $learnPath->prerequisites_match($lp_item_id);
             if ($preReqCheck === true) {
-                $src = $_SESSION['oLP']->get_link('http', $lp_item_id, $get_toc_list);
-                $_SESSION['oLP']->start_current_item(); // starts time counter manually if asset
+                $src = $learnPath->get_link('http', $lp_item_id, $get_toc_list);
+                $learnPath->start_current_item(
+                ); // starts time counter manually if asset
             } else {
                 $src = 'blank.php?error=prerequisites';
             }
             break;
         case 3:
             // aicc
-            $_SESSION['oLP']->stop_previous_item(); // save status manually if asset
-            $htmlHeadXtra[] = '<script src="' . $_SESSION['oLP']->get_js_lib().'" type="text/javascript" language="javascript"></script>';
-            $preReqCheck = $_SESSION['oLP']->prerequisites_match($lp_item_id);
+            $learnPath->stop_previous_item(); // save status manually if asset
+            $htmlHeadXtra[] = '<script src="'.$learnPath->get_js_lib(
+                ).'" type="text/javascript" language="javascript"></script>';
+            $preReqCheck = $learnPath->prerequisites_match($lp_item_id);
             if ($preReqCheck === true) {
-                $src = $_SESSION['oLP']->get_link(
+                $src = $learnPath->get_link(
                     'http',
                     $lp_item_id,
                     $get_toc_list
                 );
-                $_SESSION['oLP']->start_current_item(); // starts time counter manually if asset
+                $learnPath->start_current_item(
+                ); // starts time counter manually if asset
             } else {
                 $src = 'blank.php';
             }
@@ -238,7 +243,7 @@ if (
     isset($_GET['lp_item_id'])
 ) {
     global $src;
-    $_SESSION['oLP']->items[$_SESSION['oLP']->current]->write_to_db();
+    $learnPath->items[$learnPath->current]->write_to_db();
 
     $TBL_TRACK_EXERCICES = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
     $TBL_LP_ITEM_VIEW = Database::get_course_table(TABLE_LP_ITEM_VIEW);
@@ -273,7 +278,7 @@ if (
                 WHERE
                     c_id = $course_id AND
                     lp_item_id = '$safe_item_id' AND
-                    lp_view_id = '" . $_SESSION['oLP']->lp_view_id . "'
+                    lp_view_id = '".$learnPath->lp_view_id."'
                 ORDER BY id DESC
                 LIMIT 1";
         $res_last_attempt = Database::query($sql);
@@ -328,17 +333,17 @@ if (
     $autostart = 'false';
 }
 
-$_SESSION['oLP']->set_previous_item($lp_item_id);
-$nameTools = Security::remove_XSS($_SESSION['oLP']->get_name());
+$learnPath->set_previous_item($lp_item_id);
+$nameTools = Security::remove_XSS($learnPath->get_name());
 
 $save_setting = api_get_setting('course.show_navigation_menu');
 global $_setting;
 $_setting['show_navigation_menu'] = 'false';
 $scorm_css_header = true;
-$lp_theme_css = $_SESSION['oLP']->get_theme();
+$lp_theme_css = $learnPath->get_theme();
 // Sets the css theme of the LP this call is also use at the frames (toc, nav, message).
 
-if ($_SESSION['oLP']->mode == 'fullscreen') {
+if ($learnPath->mode == 'fullscreen') {
     $htmlHeadXtra[] = "<script>window.open('$src','content_id','toolbar=0,location=0,status=0,scrollbars=1,resizable=1');</script>";
 }
 
@@ -351,16 +356,16 @@ if (isset($_SESSION['status']) && $_SESSION['status'][$course_code] == 5) {
 }
 
 // Set flag to ensure lp_header.php is loaded by this script (flag is unset in lp_header.php).
-$_SESSION['loaded_lp_view'] = true;
+Session::write('loaded_lp_view', true);
 
 $display_none = '';
 $margin_left = '340px';
 
 //Media player code
 
-$display_mode = $_SESSION['oLP']->mode;
+$display_mode = $learnPath->mode;
 $scorm_css_header = true;
-$lp_theme_css = $_SESSION['oLP']->get_theme();
+$lp_theme_css = $learnPath->get_theme();
 
 // Setting up the CSS theme if exists.
 if (!empty($lp_theme_css) && !empty($mycourselptheme) && $mycourselptheme != -1 && $mycourselptheme == 1) {
@@ -371,17 +376,20 @@ if (!empty($lp_theme_css) && !empty($mycourselptheme) && $mycourselptheme != -1 
 
 $progress_bar = "";
 if (!api_is_invitee()) {
-    $progress_bar = $_SESSION['oLP']->getProgressBar();
+    $progress_bar = $learnPath->getProgressBar();
 }
-$navigation_bar = $_SESSION['oLP']->get_navigation_bar();
-$navigation_bar_bottom = $_SESSION['oLP']->get_navigation_bar("control-bottom", "display:none");
-$mediaplayer = $_SESSION['oLP']->get_mediaplayer($autostart);
+$navigation_bar = $learnPath->get_navigation_bar();
+$navigation_bar_bottom = $learnPath->get_navigation_bar(
+    "control-bottom",
+    "display:none"
+);
+$mediaplayer = $learnPath->get_mediaplayer($autostart);
 
 $tbl_lp_item = Database::get_course_table(TABLE_LP_ITEM);
 $show_audioplayer = false;
 // Getting all the information about the item.
 $sql = "SELECT audio FROM " . $tbl_lp_item . "
-        WHERE c_id = $course_id AND lp_id = '" . $_SESSION['oLP']->lp_id . "'";
+        WHERE c_id = $course_id AND lp_id = '".$learnPath->lp_id."'";
 $res_media = Database::query($sql);
 
 if (Database::num_rows($res_media) > 0) {
@@ -404,8 +412,9 @@ if ($is_allowed_to_edit) {
         'name' => get_lang('LearningPaths')
     );
     $interbreadcrumb[] = array(
-        'url' => api_get_self() . "?action=add_item&type=step&lp_id={$_SESSION['oLP']->lp_id}&isStudentView=false",
-        'name' => $_SESSION['oLP']->get_name()
+        'url' => api_get_self(
+            )."?action=add_item&type=step&lp_id={$learnPath->lp_id}&isStudentView=false",
+        'name' => $learnPath->get_name(),
     );
     $interbreadcrumb[] = array(
         'url' => '#',
@@ -434,11 +443,11 @@ if (api_get_course_setting('lp_return_link') == 1) {
 }
 
 $lpPreviewImagePath = api_get_path(WEB_IMG_PATH).'icons/64/unknown.png';
-if ($_SESSION['oLP']->get_preview_image()) {
-    $lpPreviewImagePath = $_SESSION['oLP']->get_preview_image_path();
+if ($learnPath->get_preview_image()) {
+    $lpPreviewImagePath = $learnPath->get_preview_image_path();
 }
 
-if ($_SESSION['oLP']->current == $_SESSION['oLP']->get_last()) {
+if ($learnPath->current == $learnPath->get_last()) {
     $categories = Category::load(null, null, $course_code, null, null, $sessionId);
 
     if (!empty($categories)) {
@@ -449,7 +458,7 @@ if ($_SESSION['oLP']->current == $_SESSION['oLP']->get_last()) {
             count($gradebookEvaluations) === 0 &&
             count($gradebookLinks) === 1 &&
             $gradebookLinks[0]->get_type() == LINK_LEARNPATH &&
-            $gradebookLinks[0]->get_ref_id() == $_SESSION['oLP']->lp_id
+            $gradebookLinks[0]->get_ref_id() == $learnPath->lp_id
         ) {
             $gradebookMinScore = $categories[0]->get_certificate_min_score();
             $userScore = $gradebookLinks[0]->calc_score($user_id, 'best');
@@ -482,7 +491,7 @@ $template->addGlobal(
 // If the global gamification mode is enabled...
 $gamificationMode = api_get_setting('platform.gamification_mode');
 // ...AND this learning path is set in gamification mode, then change the display
-$gamificationMode = $gamificationMode && $_SESSION['oLP']->seriousgame_mode;
+$gamificationMode = $gamificationMode && $learnPath->seriousgame_mode;
 
 $template->addGlobal(
     'show_glossary_in_documents',
@@ -511,11 +520,11 @@ $template->addGlobal('navigation_bar_bottom', $navigation_bar_bottom);
 if ($gamificationMode == 1) {
     $template->addGlobal(
         'gamification_stars',
-        $_SESSION['oLP']->getCalculateStars($sessionId)
+        $learnPath->getCalculateStars($sessionId)
     );
     $template->addGlobal(
         'gamification_points',
-        $_SESSION['oLP']->getCalculateScore($sessionId)
+        $learnPath->getCalculateScore($sessionId)
     );
 }
 
@@ -523,23 +532,23 @@ $template->addGlobal(
     'lp_preview_image',
     Display::img(
         $lpPreviewImagePath,
-        $_SESSION['oLP']->name,
+        $learnPath->name,
         array('class' => 'img-circle'),
         ICON_SIZE_BIG
     )
 );
 
-$template->addGlobal('lp_author', $_SESSION['oLP']->get_author());
-$template->addGlobal('lp_mode', $_SESSION['oLP']->mode);
-$template->addGlobal('lp_title_scorm', $_SESSION['oLP']->name);
+$template->addGlobal('lp_author', $learnPath->get_author());
+$template->addGlobal('lp_mode', $learnPath->mode);
+$template->addGlobal('lp_title_scorm', $learnPath->name);
 $template->addGlobal(
     'lp_html_toc',
-    $_SESSION['oLP']->get_html_toc($get_toc_list)
+    $learnPath->get_html_toc($get_toc_list)
 );
-$template->addGlobal('lp_id', $_SESSION['oLP']->lp_id);
+$template->addGlobal('lp_id', $learnPath->lp_id);
 $template->addGlobal(
     'lp_current_item_id',
-    $_SESSION['oLP']->get_current_item_id()
+    $learnPath->get_current_item_id()
 );
 
 $content = $template->render('@template_style/learnpath/view.html.twig');
@@ -551,3 +560,4 @@ $_setting['show_navigation_menu'] = $save_setting;
 // Hide headers
 Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
 
+$learnPath->updateCurrentLpFromSession();

@@ -18,18 +18,12 @@ use ChamiloSession as Session;
 //require_once '../inc/global.inc.php';
 
 api_protect_course_script();
-
+$learnPath = learnpath::getCurrentLpFromSession();
 if (isset($_GET['lp_item_id'])) {
 
     // Get parameter only came from lp_view.php.
     $lp_item_id  = intval($_GET['lp_item_id']);
-    if (isset($_SESSION['lpobject'])) {
-        $oLP = unserialize($_SESSION['lpobject']);
-    }
-    if (is_object($oLP)) {
-        $src = $oLP->get_link('http', $lp_item_id);
-    }
-
+    $src = $learnPath->get_link('http', $lp_item_id);
     $url_info 		= parse_url($src);
     $real_url_info	= parse_url(api_get_path(WEB_PATH));
 
@@ -48,8 +42,8 @@ $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : 'fullpage';
 
 /* INIT SECTION */
 Session::write('whereami', 'lp/build');
-if (isset($_SESSION['oLP']) && isset($_GET['id'])) {
-    $_SESSION['oLP']->current = intval($_GET['id']);
+if (isset($learnPath) && isset($_GET['id'])) {
+    $learnPath->current = intval($_GET['id']);
 }
 $this_section = SECTION_COURSES;
 /* Header and action code */
@@ -103,8 +97,8 @@ $interbreadcrumb[] = array(
 
 // Theme calls
 $show_learn_path = true;
-if (isset($_SESSION['oLP']) && is_object($_SESSION['oLP'])) {
-	$lp_theme_css = $_SESSION['oLP']->get_theme();
+if (isset($learnPath) && is_object($learnPath)) {
+    $lp_theme_css = $learnPath->get_theme();
 }
 
 if ($mode == 'fullpage') {
@@ -135,23 +129,24 @@ function confirmation(name) {
 <?php
 
 $id = (isset($new_item_id)) ? $new_item_id : $_GET['id'];
-if (is_object($_SESSION['oLP'])) {
+if (is_object($learnPath)) {
     switch ($mode) {
         case 'fullpage':
-            echo $_SESSION['oLP']->build_action_menu();
+            echo $learnPath->build_action_menu();
             echo '<div class="row">';
             echo '<div class="col-md-3">';
-            echo $_SESSION['oLP']->return_new_tree();
+            echo $learnPath->return_new_tree();
             echo '</div>';
             echo '<div class="col-md-9">';
-                echo $_SESSION['oLP']->display_item($id);
+            echo $learnPath->display_item($id);
             echo '</div>';
             echo '</div>';
             Display::display_footer();
             break;
         case 'preview_document':
-            echo $_SESSION['oLP']->display_item($id, null, false);
+            echo $learnPath->display_item($id, null, false);
             break;
     }
-
 }
+
+$learnPath->updateCurrentLpFromSession();

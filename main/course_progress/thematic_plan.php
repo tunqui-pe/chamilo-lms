@@ -79,10 +79,6 @@ if ($action == 'thematic_plan_list') {
     } else {
         $header_form = $default_thematic_plan_title[$description_type];
     }
-    if (!$error) {
-        $token = md5(uniqid(rand(),TRUE));
-        $_SESSION['thematic_plan_token'] = $token;
-    }
 
     // display form
     $form = new FormValidator(

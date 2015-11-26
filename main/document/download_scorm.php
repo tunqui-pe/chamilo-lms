@@ -20,10 +20,9 @@ if (!isset($_course)) {
     api_not_allowed(true);
 }
 
+$obj = learnpath::getCurrentLpFromSession();
 // If LP obj exists
-if (isset($_SESSION['oLP'])) {
-    $obj = $_SESSION['oLP'];
-} else {
+if (empty($obj)) {
     api_not_allowed();
 }
 

@@ -24,13 +24,16 @@ if (api_is_in_gradebook()) {
     );
 }
 
+$learnpath = learnpath::getCurrentLpFromSession();
+
 $interbreadcrumb[] = array(
     'url' => 'lp_controller.php?action=list&'.api_get_cidreq(),
     'name' => get_lang('LearningPaths'),
 );
 $interbreadcrumb[] = array(
-    'url' => api_get_self()."?action=build&lp_id=".$_SESSION['oLP']->get_id().'&'.api_get_cidreq(),
-    'name' => $_SESSION['oLP']->get_name()
+    'url' => api_get_self()."?action=build&lp_id=".$learnpath->get_id(
+        ).'&'.api_get_cidreq(),
+    'name' => $learnpath->get_name(),
 );
 
 $htmlHeadXtra[] = '<script>
@@ -71,7 +74,7 @@ $form->addElement('select', 'category_id', get_lang('Category'), $items);
 // Origin
 /*
 $origin_select = $form->addElement('select', 'lp_maker', get_lang('Origin'));
-$lp_orig = $_SESSION['oLP']->get_maker();
+$lp_orig = $learnpath->get_maker();
 
 include 'content_makers.inc.php';
 foreach ($content_origins as $origin) {
@@ -83,7 +86,7 @@ foreach ($content_origins as $origin) {
 
 // Content proximity
 $content_proximity_select = $form->addElement('select', 'lp_proximity', get_lang('ContentProximity'));
-$lp_prox = $_SESSION['oLP']->get_proximity();
+$lp_prox = $learnpath->get_proximity();
 if ($lp_prox != 'local') {
     $s_selected_proximity = 'remote';
 } else {
@@ -107,7 +110,7 @@ if (api_get_setting('course.allow_course_theme') == 'true') {
         $theme_select = $form->addElement('SelectTheme', 'lp_theme', get_lang('Theme'));
         $form->applyFilter('lp_theme', 'trim');
 
-        $s_theme = $_SESSION['oLP']->get_theme();
+        $s_theme = $learnpath->get_theme();
         $theme_select ->setSelected($s_theme); //default
     }
 }
@@ -128,12 +131,17 @@ $form->applyFilter('lp_author', 'html_filter');
 
 // LP image
 $form->add_progress_bar();
-if (strlen($_SESSION['oLP']->get_preview_image()) > 0) {
-    $show_preview_image='<img src='.api_get_path(WEB_COURSE_PATH).api_get_course_path().'/upload/learning_path/images/'.$_SESSION['oLP']->get_preview_image().'>';
+if (strlen($learnpath->get_preview_image()) > 0) {
+    $show_preview_image = '<img src='.api_get_path(
+            WEB_COURSE_PATH
+        ).api_get_course_path(
+        ).'/upload/learning_path/images/'.$learnpath->get_preview_image().'>';
     $form->addElement('label', get_lang('ImagePreview'), $show_preview_image);
     $form->addElement('checkbox', 'remove_picture', null, get_lang('DelImage'));
 }
-$label = ($_SESSION['oLP']->get_preview_image() != '' ? get_lang('UpdateImage') : get_lang('AddImage'));
+$label = ($learnpath->get_preview_image() != '' ? get_lang(
+    'UpdateImage'
+) : get_lang('AddImage'));
 $form->addElement('file', 'lp_preview_image', array($label, get_lang('ImageWillResizeMsg')));
 
 $form->addRule('lp_preview_image', get_lang('OnlyImagesAllowed'), 'filetype', array ('jpg', 'jpeg', 'png', 'gif'));
@@ -150,7 +158,7 @@ if (api_get_setting('search.search_enabled') === 'true') {
         $filter = array(
             'c_id' => "'".api_get_course_int_id()."'",
             'field_id' => $specific_field['id'],
-            'ref_id' => $_SESSION['oLP']->lp_id,
+            'ref_id' => $learnpath->lp_id,
             'tool_id' => '\''.TOOL_LEARNPATH.'\'',
         );
         $values = get_specific_field_values_list($filter, array('value'));
@@ -164,18 +172,20 @@ if (api_get_setting('search.search_enabled') === 'true') {
     }
 }
 
-$defaults['lp_encoding'] = Security::remove_XSS($_SESSION['oLP']->encoding);
-$defaults['lp_name'] = Security::remove_XSS($_SESSION['oLP']->get_name());
-$defaults['lp_author'] = Security::remove_XSS($_SESSION['oLP']->get_author());
-$defaults['hide_toc_frame'] = Security::remove_XSS($_SESSION['oLP']->get_hide_toc_frame());
-$defaults['category_id'] = intval($_SESSION['oLP']->getCategoryId());
+$defaults['lp_encoding'] = Security::remove_XSS($learnpath->encoding);
+$defaults['lp_name'] = Security::remove_XSS($learnpath->get_name());
+$defaults['lp_author'] = Security::remove_XSS($learnpath->get_author());
+$defaults['hide_toc_frame'] = Security::remove_XSS(
+    $learnpath->get_hide_toc_frame()
+);
+$defaults['category_id'] = intval($learnpath->getCategoryId());
 
-$expired_on = $_SESSION['oLP']->expired_on;
-$publicated_on = $_SESSION['oLP']->publicated_on;
+$expired_on = $learnpath->expired_on;
+$publicated_on = $learnpath->publicated_on;
 
 // Prerequisites
 $form->addElement('html','<div class="form-group">');
-$items = $_SESSION['oLP']->display_lp_prerequisites_list();
+$items = $learnpath->display_lp_prerequisites_list();
 $form->addElement('html','<label class="col-md-2">'.get_lang('LearnpathPrerequisites').'</label>');
 $form->addElement('html','<div class="col-md-10">');
 $form->addElement('html',$items);
@@ -207,7 +217,7 @@ $form->addElement('html','</div>');
 
 if (api_is_platform_admin()) {
     $form->addElement('checkbox', 'use_max_score', null, get_lang('UseMaxScore100'));
-    $defaults['use_max_score'] = $_SESSION['oLP']->use_max_score;
+    $defaults['use_max_score'] = $learnpath->use_max_score;
 }
 
 $form->addElement('checkbox', 'subscribe_users', null, get_lang('SubscribeUsersToLp'));
@@ -216,7 +226,7 @@ $enableLpExtraFields = false;
 
 if ($enableLpExtraFields) {
     $extraField = new ExtraField('lp');
-    $extra = $extraField->addElements($form, $_SESSION['oLP']->get_id());
+    $extra = $extraField->addElements($form, $learnpath->get_id());
 }
 
 // Submit button
@@ -224,7 +234,7 @@ $form->addButtonSave(get_lang('SaveLPSettings'));
 
 // Hidden fields
 $form->addElement('hidden', 'action', 'update_lp');
-$form->addElement('hidden', 'lp_id', $_SESSION['oLP']->get_id());
+$form->addElement('hidden', 'lp_id', $learnpath->get_id());
 
 if ($enableLpExtraFields) {
     $htmlHeadXtra[] = '<script>
@@ -237,17 +247,17 @@ if ($enableLpExtraFields) {
 
 $defaults['publicated_on']  = ($publicated_on!='0000-00-00 00:00:00' && !empty($publicated_on))? api_get_local_time($publicated_on) : date('Y-m-d 12:00:00');
 $defaults['expired_on']     = ($expired_on   !='0000-00-00 00:00:00' && !empty($expired_on) )? api_get_local_time($expired_on): date('Y-m-d 12:00:00',time()+84600);
-//$defaults['max_attempts'] = $_SESSION['oLP']->get_max_attempts();
-$defaults['subscribe_users'] = $_SESSION['oLP']->getSubscribeUsers();
+//$defaults['max_attempts'] = $learnpath->get_max_attempts();
+$defaults['subscribe_users'] = $learnpath->getSubscribeUsers();
 $form->setDefaults($defaults);
 
 Display::display_header(get_lang('CourseSettings'), 'Path');
 
-echo $_SESSION['oLP']->build_action_menu();
+echo $learnpath->build_action_menu();
 
 echo '<div class="row">';
 
-if ($_SESSION['oLP']->get_hide_toc_frame() == 1) {
+if ($learnpath->get_hide_toc_frame() == 1) {
     echo '<div class="col-md-12">';
     $form -> display();
     echo '</div>';
@@ -262,3 +272,5 @@ if ($_SESSION['oLP']->get_hide_toc_frame() == 1) {
     echo '</div>';
 }
 echo '</div>';
+
+$learnpath->updateCurrentLpFromSession();

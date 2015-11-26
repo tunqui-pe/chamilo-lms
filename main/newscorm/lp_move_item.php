@@ -15,13 +15,15 @@ $this_section = SECTION_COURSES;
 
 api_protect_course_script();
 
+$learnPath = learnpath::getCurrentLpFromSession();
+
 include 'learnpath_functions.inc.php';
 //include '../resourcelinker/resourcelinker.inc.php';
 include 'resourcelinker.inc.php';
 
 /* Header and action code */
 $htmlHeadXtra[] = '<script type="text/javascript">'.
-$_SESSION['oLP']->get_js_dropdown_array() .
+    $learnPath->get_js_dropdown_array().
 'function load_cbo(id){' ."\n" .
   'if (!id) {return false;}'.
   'var cbo = document.getElementById(\'previous\');' .
@@ -100,7 +102,7 @@ $interbreadcrumb[] = array(
 
 // Theme calls
 $show_learn_path = true;
-$lp_theme_css = $_SESSION['oLP']->get_theme();
+$lp_theme_css = $learnPath->get_theme();
 
 Display::display_header(get_lang('Move'), 'Path');
 
@@ -130,10 +132,10 @@ function confirmation(name)
 </script>
 <?php
 
-echo $_SESSION['oLP']->build_action_menu();
+echo $learnPath->build_action_menu();
 echo '<div class="row">';
 echo '<div class="col-md-3">';
-    echo $_SESSION['oLP']->return_new_tree();
+echo $learnPath->return_new_tree();
 echo '</div>';
 
 echo '<div class="col-md-9">';
@@ -142,13 +144,10 @@ if (isset($is_success) && $is_success === true) {
     $msg = '<div class="lp_message" style="margin-bottom:10px;">';
     $msg .= 'The item has been moved.';
     $msg .= '</div>';
-    echo $_SESSION['oLP']->display_item($_GET['id'], $msg);
+    echo $learnPath->display_item($_GET['id'], $msg);
 } else {
-    echo $_SESSION['oLP']->display_move_item($_GET['id']);
+    echo $learnPath->display_move_item($_GET['id']);
 }
 echo '</div>';
 echo '</div>';
 
-/* FOOTER */
-
-Display::display_footer();

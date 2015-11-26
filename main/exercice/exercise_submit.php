@@ -98,9 +98,9 @@ if (api_is_allowed_to_edit(null, true) && isset($_GET['preview']) && $_GET['prev
 }
 
 // 1. Loading the $objExercise variable
-
-if (!isset($_SESSION['objExercise']) ||
-    $_SESSION['objExercise']->id != $_REQUEST['exerciseId']
+$exerciseFromSession = Session::read('objExercise');
+if (!isset($exerciseFromSession) ||
+    $exerciseFromSession->id != $_REQUEST['exerciseId']
 ) {
     // Construction of Exercise
     $objExercise = new Exercise();
@@ -125,7 +125,8 @@ if (!isset($_SESSION['objExercise']) ||
 }
 
 //2. Checking if $objExercise is set
-if (!isset($objExercise) && isset($_SESSION['objExercise'])) {
+$exerciseFromSession = Session::read('objExercise');
+if (!isset($objExercise) && !empty($exerciseFromSession)) {
 	if ($debug) { error_log('2. Loading $objExercise from session'); };
     $objExercise = Session::read('objExercise');
 }
@@ -160,7 +161,11 @@ if ($objExercise->expired_time != 0) {
 // Generating the time control key for the user
 $current_expired_time_key = ExerciseLib::get_time_control_key($objExercise->id, $learnpath_id, $learnpath_item_id);
 
-$_SESSION['duration_time'][$current_expired_time_key] = $current_timestamp;
+//$_SESSION['duration_time'][$current_expired_time_key] = $current_timestamp;
+Session::write(
+    'duration_time',
+    [$current_expired_time_key => $current_timestamp]
+);
 
 if ($time_control) {
 	// Get the expired time of the current exercise in track_e_exercises
@@ -278,8 +283,12 @@ if (empty($exercise_stat_info)) {
 		if ($debug) error_log('5.3. $expected_time '.$clock_expired_time);
 
 		//Sessions  that contain the expired time
-		$_SESSION['expired_time'][$current_expired_time_key] 	 = $clock_expired_time;
-		if ($debug) { error_log('5.4. Setting the $_SESSION[expired_time]: '.$_SESSION['expired_time'][$current_expired_time_key] ); };
+        //$_SESSION['expired_time'][$current_expired_time_key] 	 = $clock_expired_time;
+        Session::write(
+            'expired_time',
+            [$current_expired_time_key => $clock_expired_time]
+        );
+        //if ($debug) { error_log('5.4. Setting the $_SESSION[expired_time]: '.$_SESSION['expired_time'][$current_expired_time_key] ); };
 	}
 
     $exe_id = $objExercise->save_stat_track_exercise_info(
@@ -348,9 +357,9 @@ if ($reminder == 2 && empty($my_remind_list)) {
 if ($time_control) {
 	if ($debug) error_log('7.1. Time control is enabled');
 	if ($debug) error_log('7.2. $current_expired_time_key  '.$current_expired_time_key);
-	if ($debug) error_log('7.3. $_SESSION[expired_time][$current_expired_time_key]  '.$_SESSION['expired_time'][$current_expired_time_key]);
-
-    if (!isset($_SESSION['expired_time'][$current_expired_time_key])) {
+    //if ($debug) error_log('7.3. $_SESSION[expired_time][$current_expired_time_key]  '.$_SESSION['expired_time'][$current_expired_time_key]);
+    $expiredTimeFromSession = Session::read('expired_time');
+    if (!isset($expiredTimeFromSession[$current_expired_time_key])) {
         //Timer - Get expired_time for a student
         if (!empty($exercise_stat_info)) {
         	if ($debug) {error_log('7.4 Seems that the session ends and the user want to retake the exam'); };
@@ -394,11 +403,16 @@ if ($time_control) {
 	        Database::query($sql);
 
 	        //Sessions  that contain the expired time
-	        $_SESSION['expired_time'][$current_expired_time_key] = $clock_expired_time;
-	        if ($debug) {error_log('7.11. Setting the $_SESSION[expired_time]: '.$_SESSION['expired_time'][$current_expired_time_key] ); };
+//	        $_SESSION['expired_time'][$current_expired_time_key] = $clock_expired_time;
+            Session::write(
+                'expired_time',
+                [$current_expired_time_key => $clock_expired_time]
+            );
+            //if ($debug) {error_log('7.11. Setting the $_SESSION[expired_time]: '.$_SESSION['expired_time'][$current_expired_time_key] ); };
         }
     } else {
-        $clock_expired_time =  $_SESSION['expired_time'][$current_expired_time_key];
+        $expiredTimeFromSession = Session::read('expired_time');
+        $clock_expired_time = $expiredTimeFromSession[$current_expired_time_key];
     }
 } else {
     if ($debug) { error_log("7 No time control"); };
@@ -421,8 +435,9 @@ $exercise_title			= $objExercise->selectTitle();
 $exercise_sound 		= $objExercise->selectSound();
 
 //in LP's is enabled the "remember question" feature?
+$questionListFromSession = Session::read('questionList');
 
-if (!isset($_SESSION['questionList'])) {
+if (!isset($questionListFromSession)) {
     // selects the list of question ID
     $questionList = $objExercise->get_validated_question_list();
     if ($objExercise->isRandom() && !empty($exercise_stat_info['data_tracking'])) {
@@ -431,7 +446,8 @@ if (!isset($_SESSION['questionList'])) {
     Session::write('questionList', $questionList);
     if ($debug > 0) { error_log('$_SESSION[questionList] was set'); }
 } else {
-	if (isset($objExercise) && isset($_SESSION['objExercise'])) {
+    $exerciseFromSession = Session::read('objExercise');
+    if (isset($objExercise) && isset($exerciseFromSession)) {
     	$questionList = Session::read('questionList');
 	}
 }

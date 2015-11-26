@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class CourseAccessListener
 {
     protected $em;
+
     /**
      * @var \Symfony\Component\HttpFoundation\Request
      */
@@ -41,17 +42,11 @@ class CourseAccessListener
     /**
      * @param CourseAccess $event
      */
-    public function onCourseAccessEvent(CourseAccess $event)
+    public function onCourseAccessEvent($event)
     {
+        // CourseAccess
         $user = $event->getUser();
         $course = $event->getCourse();
-        $session = $course->getCurrentSession();
-
-        $sessionId = 0;
-        if ($session) {
-            $sessionId = $session->getId();
-        }
-
         $ip = $this->request->getClientIp();
 
         if ($user && $course) {
@@ -59,7 +54,7 @@ class CourseAccessListener
             $access
                 ->setCId($course->getId())
                 ->setUserId($user->getId())
-                ->setSessionId($sessionId)
+                ->setSessionId(0)
                 ->setUserIp($ip)
             ;
 

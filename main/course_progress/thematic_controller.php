@@ -294,32 +294,31 @@ class ThematicController
         if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
             if (isset($_POST['action']) && ($_POST['action'] == 'thematic_plan_add' || $_POST['action'] == 'thematic_plan_edit')) {
                 if (isset($_POST['title'])) {
-                    if ($_POST['thematic_plan_token'] == $_SESSION['thematic_plan_token']) {
-                        if (api_is_allowed_to_edit(null, true)) {
-                            $title_list = $_REQUEST['title'];
-                            $description_list = $_REQUEST['description'];
-                            $description_type = $_REQUEST['description_type'];
-                            for ($i = 1; $i < count($title_list) + 1; $i++) {
-                                $thematic->set_thematic_plan_attributes(
-                                    $_REQUEST['thematic_id'],
-                                    $title_list[$i],
-                                    $description_list[$i],
-                                    $description_type[$i]
-                                );
-                                $thematic->thematic_plan_save();
-                            }
-                            unset($_SESSION['thematic_plan_token']);
-                            $data['message'] = 'ok';
-
-                            $saveRedirect = api_get_path(WEB_PATH) . 'main/course_progress/index.php?';
-                            $saveRedirect.= api_get_cidreq() . '&';
-                            $saveRedirect.= 'thematic_plan_save_message=ok';
-
-                            header("Location: $saveRedirect");
-                            exit;
+                    if (api_is_allowed_to_edit(null, true)) {
+                        $title_list = $_REQUEST['title'];
+                        $description_list = $_REQUEST['description'];
+                        $description_type = $_REQUEST['description_type'];
+                        for ($i = 1; $i < count($title_list) + 1; $i++) {
+                            $thematic->set_thematic_plan_attributes(
+                                $_REQUEST['thematic_id'],
+                                $title_list[$i],
+                                $description_list[$i],
+                                $description_type[$i]
+                            );
+                            $thematic->thematic_plan_save();
                         }
-                        $data['action'] = 'thematic_plan_list';
+
+                        $data['message'] = 'ok';
+
+                        $saveRedirect = api_get_path(WEB_PATH) . 'main/course_progress/index.php?';
+                        $saveRedirect.= api_get_cidreq() . '&';
+                        $saveRedirect.= 'thematic_plan_save_message=ok';
+
+                        header("Location: $saveRedirect");
+                        exit;
                     }
+                    $data['action'] = 'thematic_plan_list';
+
                 } else {
                     $error = true;
                     $action = $_POST['action'];

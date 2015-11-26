@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Sylius\Bundle\SettingsBundle\Event\SettingsEvent;
 
 /**
- * Class LocaleListener
+ * Class SettingListener
  * @package Chamilo\CoreBundle\EventListener
  */
 class SettingListener

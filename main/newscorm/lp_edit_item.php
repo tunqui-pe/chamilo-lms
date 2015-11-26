@@ -24,8 +24,10 @@ include 'resourcelinker.inc.php';
 
 /* Header and action code */
 
+$learnpath = learnpath::getCurrentLpFromSession();
+
 $htmlHeadXtra[] = '
-<script>'.$_SESSION['oLP']->get_js_dropdown_array().'
+<script>'.$learnpath->get_js_dropdown_array().'
 
 $(document).on("ready", function() {
     CKEDITOR.on("instanceReady", function (e) {
@@ -89,7 +91,7 @@ $interbreadcrumb[] = array(
 
 // Theme calls.
 $show_learn_path = true;
-$lp_theme_css = $_SESSION['oLP']->get_theme();
+$lp_theme_css = $learnpath->get_theme();
 
 Display::display_header(get_lang('Edit'),'Path');
 $suredel = trim(get_lang('AreYouSureToDeleteJS'));
@@ -116,7 +118,7 @@ function confirmation(name) {
 <?php
 
 /* DISPLAY SECTION */
-echo $_SESSION['oLP']->build_action_menu();
+echo $learnpath->build_action_menu();
 
 echo '<div class="row">';
 echo '<div class="col-md-3">';
@@ -132,12 +134,12 @@ $path_file = Database::result($res_doc, 0, 0);
 $path_parts = pathinfo($path_file);
 
 if (Database::num_rows($res_doc) > 0 && $path_parts['extension'] == 'html') {
-    echo $_SESSION['oLP']->return_new_tree();
+    echo $learnpath->return_new_tree();
 
     // Show the template list
     echo '<div id="frmModel" class="lp-add-item"></div>';
 } else {
-    echo $_SESSION['oLP']->return_new_tree();
+    echo $learnpath->return_new_tree();
 }
 
 echo '</div>';
@@ -147,13 +149,12 @@ if (isset($is_success) && $is_success === true) {
     $msg = '<div class="lp_message" style="margin-bottom:10px;">';
     $msg .= 'The item has been edited.';
     $msg .= '</div>';
-    echo $_SESSION['oLP']->display_item($_GET['id'], $msg);
+    echo $learnpath->display_item($_GET['id'], $msg);
 } else {
-    echo $_SESSION['oLP']->display_edit_item($_GET['id']);
+    echo $learnpath->display_edit_item($_GET['id']);
 }
 
 echo '</div>';
 echo '</div>';
 
-/* FOOTER */
-Display::display_footer();
+$learnpath->updateCurrentLpFromSession();

@@ -2109,7 +2109,8 @@ class Blog
 				$row[] = Display::icon_mailto_link($a_infosUser["email"]);
 
 				//Link to register users
-				if ($a_infosUser["user_id"] != $_SESSION['_user']['user_id']){
+				$currentUserId = api_get_user_id();
+				if ($a_infosUser["user_id"] != $currentUserId) {
 					$row[] = "<a class=\"btn btn-primary \" href=\"" .api_get_self()."?action=manage_members&blog_id=$blog_id&register=yes&user_id=" . $a_infosUser["user_id"]."\">" . get_lang('Register')."</a>";
 				} else {
 					$row[] = '';

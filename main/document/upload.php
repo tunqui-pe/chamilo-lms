@@ -259,7 +259,7 @@ if (isset($_REQUEST['certificate'])) {
 // Breadcrumbs
 if ($is_certificate_mode) {
     $interbreadcrumb[] = array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'url' => '../gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('Gradebook'),
     );
 } else {

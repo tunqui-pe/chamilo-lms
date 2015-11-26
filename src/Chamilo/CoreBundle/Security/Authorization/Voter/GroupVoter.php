@@ -108,7 +108,7 @@ class GroupVoter extends AbstractVoter
         // Admins have access to everything
         if ($authChecker->isGranted('ROLE_ADMIN')) {
 
-            //return true;
+            return true;
         }
 
         $groupInfo = [
@@ -117,7 +117,9 @@ class GroupVoter extends AbstractVoter
             'status' => $group->getStatus(),
         ];
 
+        // Legacy
         return \GroupManager::userHasAccessToBrowse($user->getId(), $groupInfo);
+
 
         switch ($attribute) {
             case self::VIEW:

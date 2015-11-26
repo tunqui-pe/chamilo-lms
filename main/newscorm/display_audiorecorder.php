@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Script opened in an iframe and containing the learning path's table of contents
  * @package chamilo.learnpath
@@ -11,25 +13,26 @@
 // Flag to allow for anonymous user - needs to be set before global.inc.php.
 $use_anonymous = true;
 
-//require_once '../inc/global.inc.php';
+$lpFromSession = Session::read('lpobject');
 
-if (isset($_SESSION['lpobject'])) {
-    $oLP = unserialize($_SESSION['lpobject']);
+if (isset($lpFromSession)) {
+    /** @var learnpath $oLP */
+    $oLP = unserialize($lpFromSession);
     if (is_object($oLP)) {
-        $_SESSION['oLP'] = $oLP;
+        Session::write('oLP', $oLP);
     } else {
         die('Could not instanciate lp object.');
     }
 }
 
-$lp_theme_css = $_SESSION['oLP']->get_theme();
+$lp_theme_css = $oLP->get_theme();
 $scorm_css_header = true;
 Display::display_reduced_header();
 
 echo '<body dir="'.api_get_text_direction().'">';
 echo '<div id="audiorecorder">	';
 $audio_recorder_studentview = 'true';
-$audio_recorder_item_id = $_SESSION['oLP']->current;
+$audio_recorder_item_id = $oLP->current;
 if (api_get_setting('service_visio', 'active') == 'true') {
     require_once 'audiorecorder.inc.php';
 }

@@ -18,6 +18,8 @@ $this_section = SECTION_COURSES;
 
 api_protect_course_script();
 
+$learnPath = learnpath::getCurrentLpFromSession();
+
 include 'learnpath_functions.inc.php';
 include 'resourcelinker.inc.php';
 
@@ -80,7 +82,7 @@ $interbreadcrumb[] = array(
 $interbreadcrumb[] = array('url' => '#', "name" => $therow['name']);
 
 // Theme calls.
-$lp_theme_css=$_SESSION['oLP']->get_theme();
+$lp_theme_css = $learnPath->get_theme();
 $show_learn_path = true;
 Display::display_header('', 'Path');
 $suredel = trim(get_lang('AreYouSureToDeleteJS'));
@@ -108,12 +110,12 @@ function confirmation(name) {
 
 /* DISPLAY SECTION */
 
-echo $_SESSION['oLP']->build_action_menu();
+echo $learnPath->build_action_menu();
 
 echo '<div class="row">';
 echo '<div class="col-md-4">';
 // Build the tree with the menu items in it.
-echo $_SESSION['oLP']->return_new_tree();
+echo $learnPath->return_new_tree();
 echo '</div>';
 echo '<div class="col-md-8">';
 
@@ -125,9 +127,21 @@ if (isset($is_success) && $is_success === true) {
     }
     echo Display::page_subheader(get_lang('LearnPathAddedTitle'));
     echo '<ul id="lp_overview" class="thumbnails">';
-    echo show_block('lp_controller.php?'.api_get_cidreq().'&action=add_item&type=step&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("NewStep"), get_lang('NewStepComment'), 'tools.png');
+    echo show_block(
+        'lp_controller.php?'.api_get_cidreq(
+        ).'&action=add_item&type=step&lp_id='.$learnPath->lp_id,
+        get_lang("NewStep"),
+        get_lang('NewStepComment'),
+        'tools.png'
+    );
 //    echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=admin_view&updateaudio=true&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("BasicOverview"), get_lang('BasicOverviewComment'), 'audio.png');
-    echo show_block('lp_controller.php?'.api_get_cidreq().'&action=view&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Display"), get_lang('DisplayComment'), 'view.png');
+    echo show_block(
+        'lp_controller.php?'.api_get_cidreq(
+        ).'&action=view&lp_id='.$learnPath->lp_id,
+        get_lang("Display"),
+        get_lang('DisplayComment'),
+        'view.png'
+    );
     //echo show_block('lp_controller.php?'.api_get_cidreq().'&gradebook='.$gradebook.'&action=edit&lp_id=' . $_SESSION['oLP']->lp_id, get_lang("Settings"), null, 'reference.png');
     echo '</ul>';
 }

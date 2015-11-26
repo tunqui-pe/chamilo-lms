@@ -7,6 +7,7 @@
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
 
+$learnPath = learnpath::getCurrentLpFromSession();
 /**
  * Initialization is to be done by lp_controller.php.
  */
@@ -25,7 +26,7 @@ error_log('New LP - Loaded lp_save : '.$_SERVER['REQUEST_URI'].' from '.$_SERVER
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo api_get_system_encoding(); ?>" />
 <script language='javascript'>
 <?php
-if ($_SESSION['oLP']->mode != 'fullscreen') {
+if ($learnPath->mode != 'fullscreen') {
 }
 ?>
 </script>

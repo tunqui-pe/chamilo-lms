@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	API event handler functions for AICC / CMIv4 in HACP communication mode
  *
@@ -31,9 +33,6 @@
  * Only suspend_data and core.lesson_location should be sent updated to a late GetParam
  * request. All other params should be as when the AU was launched.
  */
-
-/* INIT SECTION */
-
 $debug = 0;
 
 // Flag to allow for anonymous user - needs to be set before global.inc.php.
@@ -53,8 +52,8 @@ if ($debug > 2) { error_log('New LP - '.__FILE__.','.__LINE__.' - Current sessio
 
 // Is this needed? This is probabaly done in the header file.
 //$_user							= $_SESSION['_user'];
-$file = $_SESSION['file'];
-$oLP = unserialize($_SESSION['lpobject']);
+$file = Session::read('file');
+$oLP = unserialize(Session::read('lpobject'));
 $oItem =& $oLP->items[$oLP->current];
 if (!is_object($oItem)) {
     error_log('New LP - aicc_hacp - Could not load oItem item', 0);
@@ -258,8 +257,9 @@ if (!empty($_REQUEST['command'])) {
             $result = $s_ec.$error_code.$crlf.$s_et.$error_text.$crlf;
     }
 }
-$_SESSION['lpobject'] = serialize($oLP);
-session_write_close();
+
+Session::write('lpobject', serialize($oLP));
+
 // Content type must be text/plain.
 header('Content-type: text/plain');
 echo $result;

@@ -3247,7 +3247,7 @@ function api_is_allowed_to_edit($tutor = false, $coach = false, $session_coach =
             $is_allowed_coach_to_edit = false;
         }
 
-        if (api_get_setting('allow_coach_to_edit_course_session') == 'true') {
+        if (api_get_setting('session.allow_coach_to_edit_course_session') == 'true') {
             // Check if coach is allowed to edit a course.
             $is_courseAdmin = $is_courseAdmin || $is_allowed_coach_to_edit;
         } else {
@@ -3267,7 +3267,7 @@ function api_is_allowed_to_edit($tutor = false, $coach = false, $session_coach =
                 $is_allowed_coach_to_edit = false;
             }
 
-            if (api_get_setting('allow_coach_to_edit_course_session') == 'true') {
+            if (api_get_setting('session.allow_coach_to_edit_course_session') == 'true') {
                 // Check if coach is allowed to edit a course.
                 $is_allowed = $is_allowed_coach_to_edit;
             } else {
@@ -4451,7 +4451,6 @@ function api_get_languages() {
     $result = Database::query($sql);
     $language_list = array();
     while ($row = Database::fetch_array($result)) {
-        //var_dump($row);
         $language_list[$row['isocode']] = $row['original_name'];
     }
     return $language_list;

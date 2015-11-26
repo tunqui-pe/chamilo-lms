@@ -60,8 +60,9 @@ if (empty($exerciseId)) {
 }
 
 if (empty($objExercise)) {
-    if (!empty($_SESSION['objExercise'])) {
-        $objExercise = Session::read('objExercise');
+    $exerciseFromSession = Session::read('objExercise');
+    if (!empty($exerciseFromSession)) {
+        $objExercise = $exerciseFromSession;
     } else {
         $objExercise = null;
     }

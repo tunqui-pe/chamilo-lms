@@ -41,11 +41,12 @@ $dir         = $document_data['path'];
 $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
 
 //path for pixlr save
-$_SESSION['paint_dir']=Security::remove_XSS($dir);
-if ($_SESSION['paint_dir']=='/'){
-	$_SESSION['paint_dir']='';
+Session::write('paint_dir', Security::remove_XSS($dir));
+$paintDirInSession = Session::read('paint_dir');
+if ($paintDirInSession == '/') {
+	Session::write('paint_dir', '');
 }
-$_SESSION['paint_file']=get_lang('NewImage');
+Session::write('paint_file', get_lang('NewImage'));
 
 // Please, do not modify this dirname formatting
 
@@ -89,9 +90,14 @@ $interbreadcrumb[] = array ("url" => "./document.php?curdirpath=".urlencode($dir
 if (!$is_allowed_in_course) {
 	api_not_allowed(true);
 }
-
-if (!($is_allowed_to_edit || $_SESSION['group_member_with_upload_rights'] ||
-	DocumentManager::is_my_shared_folder($_user['user_id'], Security::remove_XSS($dir),api_get_session_id()))) {
+$rights = Session::read('group_member_with_upload_rights');
+if (!($is_allowed_to_edit || $rights ||
+	DocumentManager::is_my_shared_folder(
+		api_get_user_id(),
+		$dir,
+		api_get_session_id()
+	))
+) {
 	api_not_allowed(true);
 }
 
@@ -132,7 +138,8 @@ $langpixlr = isset($pixlr_code_translation_table[$langpixlr]) ? $pixlredit_code_
 $loc=$langpixlr;// deprecated ?? TODO:check pixlr read user browser
 
 $exit_path=api_get_path(WEB_CODE_PATH).'document/exit_pixlr.php';
-$_SESSION['exit_pixlr']=$document_data['path'];
+Session::write('exit_pixlr', $document_data['path']);
+
 $referrer="Chamilo";
 $target_path=api_get_path(WEB_CODE_PATH).'document/save_pixlr.php';
 $target=$target_path;

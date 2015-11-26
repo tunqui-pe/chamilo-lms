@@ -3,9 +3,10 @@
 
 namespace Chamilo\CourseBundle\EventListener;
 
+use Chamilo\CoreBundle\Entity\TrackECourseAccess;
 use Chamilo\CourseBundle\Event\SessionAccess;
 use Doctrine\ORM\EntityManager;
-use Chamilo\CoreBundle\Entity\TrackEAccess;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class SessionAccessListener
@@ -14,6 +15,19 @@ use Chamilo\CoreBundle\Entity\TrackEAccess;
 class SessionAccessListener
 {
     protected $em;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\Request
+     */
+    protected $request;
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function setRequest(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+    }
 
     /**
      * @param EntityManager $em
@@ -31,13 +45,16 @@ class SessionAccessListener
         $user = $event->getUser();
         $course = $event->getCourse();
         $session = $event->getSession();
+        $ip = $this->request->getClientIp();
 
-        $trackAccess = new TrackEAccess();
-        $trackAccess->setCId($course->getId());
-        $trackAccess->setAccessUserId($user->getId());
-        $trackAccess->setAccessSessionId($session->getId());
+        $access = new TrackECourseAccess();
+        $access
+            ->setCId($course->getId())
+            ->setUserId($user->getId())
+            ->setSessionId($session->getId())
+            ->setUserIp($ip);
 
-        $this->em->persist($trackAccess);
+        $this->em->persist($access);
         $this->em->flush();
     }
 }

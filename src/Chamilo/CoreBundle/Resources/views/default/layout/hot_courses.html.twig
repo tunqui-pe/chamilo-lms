@@ -1,3 +1,5 @@
+{% import '@ChamiloTheme/Macros/headers.html.twig' as macro_headers %}
+
 {% autoescape false %}
 {% if hot_courses is not null and hot_courses is not empty %}
 <script>
@@ -34,7 +36,7 @@ $(document).ready( function() {
                 </a>
             </span>
             {% endif %}
-            <h1>{{ "HottestCourses" | display_page_subheader }}</h1>
+            <h1>{{ macro_headers.header("HottestCourses" | trans) }}</h1>
         </div>
         {% include '@template_style/layout/hot_course_item.html.twig' %}
     </div>

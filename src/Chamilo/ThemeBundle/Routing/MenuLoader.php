@@ -21,7 +21,6 @@ class MenuLoader extends Loader {
      */
     public function load($resource, $type = null)
     {
-        var_dump($resource);
     }
 
     /**

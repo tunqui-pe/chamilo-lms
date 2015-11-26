@@ -40,7 +40,8 @@ if (!api_is_allowed_to_edit(null, true) && intval($visibility) == 0 ) {
      api_not_allowed();
 }
 
-if (empty($_SESSION['oLP'])) {
+$learnPath = learnpath::getCurrentLpFromSession();
+if (empty($learnPath)) {
     api_not_allowed(true);
 }
 
@@ -52,7 +53,7 @@ $course_code    = api_get_course_id();
 $course_id      = api_get_course_int_id();
 $htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/impress/impress-demo.css');
 
-$list = $_SESSION['oLP']->get_toc();
+$list = $learnPath->get_toc();
 
 $is_allowed_to_edit = api_is_allowed_to_edit(null, true, false, false);
 if ($is_allowed_to_edit) {
@@ -63,8 +64,9 @@ if ($is_allowed_to_edit) {
         'name' => get_lang('LearningPaths'),
     );
     $interbreadcrumb[] = array(
-        'url' => api_get_self()."?action=add_item&type=step&lp_id=".$_SESSION['oLP']->lp_id."&isStudentView=false",
-        'name' => $_SESSION['oLP']->get_name(),
+        'url' => api_get_self(
+            )."?action=add_item&type=step&lp_id=".$learnPath->lp_id."&isStudentView=false",
+        'name' => $learnPath->get_name(),
     );
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('Preview'));
     echo return_breadcrumb($interbreadcrumb, null, null);
@@ -77,7 +79,7 @@ foreach ($list as $toc) {
     $x = 1000*$step;
     $html .= '<div id="step-'.$step.'" class="step slide" data-x="'.$x.'" data-y="-1500"  >';
     $html .= '<div class="impress-content">';
-    $src = $_SESSION['oLP']->get_link('http', $toc['id']);
+    $src = $learnPath->get_link('http', $toc['id']);
     if ($toc['type'] !== 'dokeos_chapter') {
         //just showing the src in a iframe ...
         $html .= '<h2>'.$toc['title'].'</h2>';

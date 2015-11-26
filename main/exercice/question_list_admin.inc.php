@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
+
 /**
  *	Code library for HotPotatoes integration.
  *	@package chamilo.exercise
@@ -130,7 +132,8 @@ echo '<div style="clear:both;"></div>';
 echo '<div id="message"></div>';
 $token = Security::get_token();
 //deletes a session when using don't know question type (ugly fix)
-unset($_SESSION['less_answer']);
+
+Session::erase('less_answer');
 
 // If we are in a test
 $inATest = isset($exerciseId) && $exerciseId > 0;

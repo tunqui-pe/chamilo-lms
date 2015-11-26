@@ -30,7 +30,7 @@ class Session implements \ArrayAccess
 
         // Check if the value exists in the $_SESSION array
         if (empty($result)) {
-            return isset($_SESSION[$variable]) ? $_SESSION[$variable] : $default;
+            return $default;
         } else {
             return $result;
         }

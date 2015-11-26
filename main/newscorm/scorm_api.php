@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * API event handler functions for Scorm 1.1 and 1.2 and 1.3 (latter not fully supported)
  * This script is divided into three sections.
@@ -25,9 +27,9 @@ $use_anonymous = true;
 //require_once '../inc/global.inc.php';
 \Chamilo\CoreBundle\Framework\Container::$legacyTemplate = 'layout_empty.html.twig';
 
-$file   = (empty($_SESSION['file'])?'':$_SESSION['file']);
+$file = Session::read('file');
 /** @var learnpath $oLP */
-$oLP = unserialize($_SESSION['lpobject']);
+$oLP = learnpath::getCurrentLpFromSession();
 /** @var learnpathItem $oItem */
 $oItem = isset($oLP->items[$oLP->current]) ? $oLP->items[$oLP->current] : null;
 

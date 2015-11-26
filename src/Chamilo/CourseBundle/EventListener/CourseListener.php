@@ -7,7 +7,7 @@ use Chamilo\CoreBundle\Controller\LegacyController;
 use Chamilo\CoreBundle\Security\Authorization\Voter\CourseVoter;
 use Chamilo\CoreBundle\Security\Authorization\Voter\SessionVoter;
 use Chamilo\CoreBundle\Security\Authorization\Voter\GroupVoter;
-
+use Chamilo\CoreBundle\Framework\Container;
 use Doctrine\ORM\EntityManager;
 use Chamilo\UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -72,9 +72,9 @@ class CourseListener
 
             //if ($controller[0] instanceof ToolBaseController) {
             //$token = $event->getRequest()->query->get('token');
-
-            $kernel = $event->getKernel();
+            //$kernel = $event->getKernel();
             $request = $event->getRequest();
+            $sessionHandler = $this->container->get('session');
 
             /** @var ContainerInterface $container */
             $container = $this->container;
@@ -95,7 +95,7 @@ class CourseListener
             $securityChecker = $container->get('security.authorization_checker');
             $tokenStorage = $container->get('security.token_storage');
             $token = $tokenStorage->getToken();
-            $user = $token->getUser();
+            //$user = $token->getUser();
 
             if (!empty($courseCode)) {
                 /** @var Course $course */
@@ -103,9 +103,10 @@ class CourseListener
 
                 if ($course) {
                     // Session
-                    $sessionId = $request->get('id_session');
+                    $sessionId = intval($request->get('id_session'));
+
                     // Group
-                    $groupId = $request->get('gidReq');
+                    $groupId = intval($request->get('gidReq'));
                     if (empty($sessionId)) {
                         // Check if user is allowed to this course
                         // See CourseVoter.php
@@ -190,11 +191,13 @@ class CourseListener
 
                     $courseInfo = api_get_course_info($course->getCode());
                     $container->get('twig')->addGlobal('course', $course);
-                    $request->getSession()->set('_real_cid', $course->getId());
-                    $request->getSession()->set('_cid', $course->getCode());
-                    $request->getSession()->set('_course', $courseInfo);
-                    $request->getSession()->set('_gid', $groupId);
-                    $request->getSession()->set('is_allowed_in_course', true);
+
+                    $sessionHandler->set('_real_cid', $course->getId());
+                    $sessionHandler->set('_cid', $course->getCode());
+                    $sessionHandler->set('_course', $courseInfo);
+                    $sessionHandler->set('_gid', $groupId);
+                    $sessionHandler->set('is_allowed_in_course', true);
+                    $sessionHandler->set('id_session', $sessionId);
 
                     // Sets the controller course in order to use $this->getCourse()
                     $controller->setCourse($course);

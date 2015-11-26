@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * @package chamilo.glossary
  * @author Christian Fasanando, initial version
@@ -92,15 +94,16 @@ Display::display_header($tool_name);
 Display::display_introduction_section(TOOL_GLOSSARY);
 
 if (isset($_GET['action']) && $_GET['action'] == 'changeview' && in_array($_GET['view'], array('list','table'))) {
-    $_SESSION['glossary_view'] = $_GET['view'];
+    Session::write('glossary_view', $_GET['view']);
 } else {
-    if (!isset($_SESSION['glossary_view'])) {
-        $_SESSION['glossary_view'] = 'table';//Default option
+    $viewFromSession = Session::read('glossary_view');
+    if (!isset($viewFromSession)) {
+        // Default option
+        Session::write('glossary_view', 'table');
     }
 }
 
 if (api_is_allowed_to_edit(null, true)) {
-
     switch ($action) {
         case 'addglossary':
             $form = new FormValidator(

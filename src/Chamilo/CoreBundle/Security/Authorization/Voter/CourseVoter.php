@@ -72,6 +72,8 @@ class CourseVoter extends AbstractVoter
     }
 
     /**
+     * Check if a user has permissions in a course
+     *
      * @param string $attribute
      * @param Course $course
      * @param User $user
@@ -84,19 +86,16 @@ class CourseVoter extends AbstractVoter
             return false;
         }
 
-        //dump('Course voter');
-
         $authChecker = $this->container->get('security.authorization_checker');
 
         // Admins have access to everything
         if ($authChecker->isGranted('ROLE_ADMIN')) {
-            //dump('Im admin');
+
             return true;
         }
 
-        // Is an active course
+        // Course is active?
         if (!$course->isActive()) {
-            //dump('Course is not active');
 
             return false;
         }
@@ -105,14 +104,13 @@ class CourseVoter extends AbstractVoter
             case self::VIEW:
                 // "Open to the world" no need to check if user is registered
                 if ($course->isPublic()) {
-                    //dump('Course is public');
 
                     return true;
                 }
 
                 // User is subscribed in the course no matter if is teacher/student
                 if ($course->hasUser($user)) {
-                    //dump('User is subscribed in course');
+
                     $user->addRole(ResourceNodeVoter::ROLE_CURRENT_COURSE_STUDENT);
 
                     return true;
@@ -129,7 +127,6 @@ class CourseVoter extends AbstractVoter
                 }
                 break;
         }
-        //dump("You don't have access to this course!");
 
         return false;
     }

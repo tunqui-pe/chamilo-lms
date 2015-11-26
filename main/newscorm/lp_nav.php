@@ -23,16 +23,12 @@ $navigation_bar = '';
 $display_mode = '';
 $autostart = 'true';
 
-if (isset($_SESSION['lpobject'])) {
-    $oLP = unserialize($_SESSION['lpobject']);
-    if (is_object($oLP)) {
-        $_SESSION['oLP'] = $oLP;
-    } else {
-        die('Could not instanciate lp object');
-    }
-    $display_mode = $_SESSION['oLP']->mode;
+$learnPath = learnpath::getCurrentLpFromSession();
+
+if (isset($learnPath)) {
+    $display_mode = $learnPath->mode;
     $scorm_css_header = true;
-    $lp_theme_css = $_SESSION['oLP']->get_theme();
+    $lp_theme_css = $learnPath->get_theme();
 
     $my_style = api_get_visual_theme();
 
@@ -48,9 +44,9 @@ if (isset($_SESSION['lpobject'])) {
         $lp_theme_css = $my_style;
     }
 
-    $progress_bar 	= $_SESSION['oLP']->getProgressBar();
-    $navigation_bar = $_SESSION['oLP']->get_navigation_bar();
-    $mediaplayer 	= $_SESSION['oLP']->get_mediaplayer($autostart);
+    $progress_bar = $learnPath->getProgressBar();
+    $navigation_bar = $learnPath->get_navigation_bar();
+    $mediaplayer = $learnPath->get_mediaplayer($autostart);
 }
 Container::$legacyTemplate = 'layout_empty.html.twig';
 

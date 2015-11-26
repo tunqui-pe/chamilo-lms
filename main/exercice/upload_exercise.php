@@ -533,12 +533,13 @@ function lp_upload_quiz_action_handling() {
                 }
             }
         }
+        $lpFromSession = Session::read('lpobject');
 
-        if (isset($_SESSION['lpobject'])) {
+        if (isset($lpFromSession)) {
             if ($debug > 0) {
                 error_log('New LP - SESSION[lpobject] is defined', 0);
             }
-            $oLP = unserialize($_SESSION['lpobject']);
+            $oLP = unserialize($lpFromSession);
             if (is_object($oLP)) {
                 if ($debug > 0) {
                     error_log('New LP - oLP is object', 0);
@@ -551,21 +552,31 @@ function lp_upload_quiz_action_handling() {
                     Session::erase('oLP');
                     Session::erase('lpobject');
                 } else {
-                    $_SESSION['oLP'] = $oLP;
+                    Session::write('oLP', $oLP);
                 }
             }
         }
-
-        if (isset($_SESSION['oLP']) && isset($_GET['lp_id'])) {
-            $previous = $_SESSION['oLP']->select_previous_item_id();
+        /** @var learnpath $lpFromSession */
+        $lpFromSession = Session::read('oLP');
+        if (isset($lpFromSession) && isset($_GET['lp_id'])) {
+            $previous = $lpFromSession->select_previous_item_id();
             $parent = 0;
             // Add a Quiz as Lp Item
-            $_SESSION['oLP']->add_item($parent, $previous, TOOL_QUIZ, $quiz_id, $quiz_title, '');
+            $lpFromSession->add_item(
+                $parent,
+                $previous,
+                TOOL_QUIZ,
+                $quiz_id,
+                $quiz_title,
+                ''
+            );
             // Redirect to home page for add more content
-            header('location: ../newscorm/lp_controller.php?'.api_get_cidreq().'&action=add_item&type=step&lp_id='.Security::remove_XSS($_GET['lp_id']));
+            header(
+                'location: ../newscorm/lp_controller.php?'.api_get_cidreq(
+                ).'&action=add_item&type=step&lp_id='.intval($_GET['lp_id'])
+            );
             exit;
         } else {
-            //  header('location: exercise.php?' . api_get_cidreq());
             echo '<script>window.location.href = "'.api_get_path(WEB_CODE_PATH).'exercice/admin.php?'.api_get_cidReq().'&exerciseId='.$quiz_id.'&session_id='.api_get_session_id().'"</script>';
         }
     }

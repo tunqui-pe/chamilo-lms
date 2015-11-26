@@ -46,7 +46,6 @@ class LegacyController extends ToolBaseController
         $fileToLoad = $mainPath.$name;
 
         // Setting legacy values inside the container
-        Container::setSession($request->getSession());
 
         /** @var Connection $dbConnection */
         $dbConnection = $this->container->get('database_connection');

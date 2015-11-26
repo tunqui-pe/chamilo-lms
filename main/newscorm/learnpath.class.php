@@ -2185,22 +2185,40 @@ class learnpath
     }
 
     /**
+     * @return learnpath
+     */
+    public static function getCurrentLpFromSession()
+    {
+        return Session::read('oLP');
+    }
+
+    /**
+     * Update oLP session value
+     */
+    public function updateCurrentLpFromSession()
+    {
+        Session::write('oLP', $this);
+    }
+
+    /**
      * Returns the HTML necessary to print a mediaplayer block inside a page
      * @return string	The mediaplayer HTML
      */
     public function get_mediaplayer($autostart = 'true')
     {
+        $learnPath = self::getCurrentLpFromSession();
+
         $course_id = api_get_course_int_id();
         $_course = api_get_course_info();
-        $tbl_lp_item 		= Database :: get_course_table(TABLE_LP_ITEM);
-        $tbl_lp_item_view 	= Database :: get_course_table(TABLE_LP_ITEM_VIEW);
+        $tbl_lp_item = Database:: get_course_table(TABLE_LP_ITEM);
+        $tbl_lp_item_view = Database:: get_course_table(TABLE_LP_ITEM_VIEW);
 
         // Getting all the information about the item.
         $sql = "SELECT * FROM ".$tbl_lp_item." as lp
                 INNER JOIN ".$tbl_lp_item_view." as lp_view
                 ON lp.id = lp_view.lp_item_id
                 WHERE
-                    lp.id = '".$_SESSION['oLP']->current."' AND
+                    lp.id = '".$learnPath->current."' AND
                     lp.c_id = $course_id AND
                     lp_view.c_id = $course_id";
         $result = Database::query($sql);
@@ -2209,17 +2227,17 @@ class learnpath
 
         if (!empty ($row['audio'])) {
 
-            $list = $_SESSION['oLP']->get_toc();
+            $list = $learnPath->get_toc();
             $type_quiz = false;
 
             foreach($list as $toc) {
-                if ($toc['id'] == $_SESSION['oLP']->current && ($toc['type']=='quiz') ) {
+                if ($toc['id'] == $learnPath->current && ($toc['type'] == 'quiz')) {
                     $type_quiz = true;
                 }
             }
 
             if ($type_quiz) {
-                if ($_SESSION['oLP']->prevent_reinit == 1) {
+                if ($learnPath->prevent_reinit == 1) {
                     $row['status'] === 'completed' ? $autostart_audio = 'false' : $autostart_audio = 'true';
                 } else {
                     $autostart_audio = $autostart;
@@ -2229,14 +2247,15 @@ class learnpath
             }
 
             $courseInfo = api_get_course_info();
-
             $audio = $row['audio'];
 
             $file = api_get_path(SYS_COURSE_PATH).$courseInfo['path'].'/document/audio/'.$audio;
             $url = api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document/audio/'.$audio.'?'.api_get_cidreq();
 
             if (!file_exists($file)) {
-                $lpPathInfo = $_SESSION['oLP']->generate_lp_folder(api_get_course_info());
+                $lpPathInfo = $learnPath->generate_lp_folder(
+                    api_get_course_info()
+                );
                 $file = api_get_path(SYS_COURSE_PATH).$_course['path'].'/document'.$lpPathInfo['dir'].$audio;
                 $url = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$lpPathInfo['dir'].$audio.'?'.api_get_cidreq();
             }
@@ -5466,6 +5485,7 @@ class learnpath
      */
     public function overview()
     {
+        $learnPath = self::getCurrentLpFromSession();
         if ($this->debug > 0) {
             error_log('New LP - In learnpath::overview()', 0);
         }
@@ -5475,7 +5495,13 @@ class learnpath
 
         // we need to start a form when we want to update all the mp3 files
         if ($update_audio == 'true') {
-            $return .= '<form action="' . api_get_self() . '?cidReq=' . Security :: remove_XSS($_GET['cidReq']) . '&updateaudio=' . Security :: remove_XSS($_GET['updateaudio']) .'&action=' . Security :: remove_XSS($_GET['action']) . '&lp_id=' . $_SESSION['oLP']->lp_id . '" method="post" enctype="multipart/form-data" name="updatemp3" id="updatemp3">';
+            $return .= '<form action="'.api_get_self().
+                '?cidReq='.Security:: remove_XSS($_GET['cidReq']).
+                '&updateaudio='.Security:: remove_XSS($_GET['updateaudio']).
+                '&action='.Security:: remove_XSS($_GET['action']).
+                '&lp_id='.$learnPath->lp_id.'"
+                method="post" enctype="multipart/form-data" name="updatemp3" id="updatemp3"
+            >';
         }
         $return .= '<div id="message"></div>';
         if (count($this->items) == 0) {
@@ -5799,18 +5825,39 @@ class learnpath
      */
     public function build_action_menu($returnContent = false)
     {
+        $learnPath = self::getCurrentLpFromSession();
         $return = '<div class="actions">';
-        $return .=  '<a href="lp_controller.php?'.api_get_cidreq().'&action=view&lp_id=' . $_SESSION['oLP']->lp_id . '&isStudentView=true">' . Display :: return_icon('preview_view.png', get_lang('Display'),'',ICON_SIZE_MEDIUM).'</a> ';
-        $return .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=admin_view&lp_id=' . $_SESSION['oLP']->lp_id . '&updateaudio=true">' . Display :: return_icon('upload_audio.png', get_lang('UpdateAllAudioFragments'),'',ICON_SIZE_MEDIUM).'</a>';
-        $return .= '<a href="lp_controller.php?'.api_get_cidreq().'&action=edit&lp_id=' . $_SESSION['oLP']->lp_id . '">' . Display :: return_icon('settings.png', get_lang('CourseSettings'),'',ICON_SIZE_MEDIUM).'</a>';
+        $return .= '<a href="lp_controller.php?'.api_get_cidreq(
+            ).'&action=view&lp_id='.$learnPath->lp_id.'&isStudentView=true">'.Display:: return_icon(
+                'preview_view.png',
+                get_lang('Display'),
+                '',
+                ICON_SIZE_MEDIUM
+            ).'</a> ';
+        $return .= '<a href="'.api_get_self().'?'.api_get_cidreq(
+            ).'&action=admin_view&lp_id='.$learnPath->lp_id.'&updateaudio=true">'.Display:: return_icon(
+                'upload_audio.png',
+                get_lang('UpdateAllAudioFragments'),
+                '',
+                ICON_SIZE_MEDIUM
+            ).'</a>';
+        $return .= '<a href="lp_controller.php?'.api_get_cidreq(
+            ).'&action=edit&lp_id='.$learnPath->lp_id.'">'.Display:: return_icon(
+                'settings.png',
+                get_lang('CourseSettings'),
+                '',
+                ICON_SIZE_MEDIUM
+            ).'</a>';
         $buttons = array(
             array(
                 'title' => get_lang('SetPrerequisiteForEachItem'),
-                'href' => 'lp_controller.php?'.api_get_cidreq().'&action=set_previous_step_as_prerequisite&lp_id=' . $_SESSION['oLP']->lp_id,
+                'href' => 'lp_controller.php?'.api_get_cidreq(
+                    ).'&action=set_previous_step_as_prerequisite&lp_id='.$learnPath->lp_id,
             ),
             array(
                 'title' => get_lang('ClearAllPrerequisites'),
-                'href' => 'lp_controller.php?'.api_get_cidreq().'&action=clear_prerequisites&lp_id=' . $_SESSION['oLP']->lp_id,
+                'href' => 'lp_controller.php?'.api_get_cidreq(
+                    ).'&action=clear_prerequisites&lp_id='.$learnPath->lp_id,
             ),
         );
         $return .= Display::group_button(get_lang('PrerequisitesOptions'), $buttons);
@@ -6255,6 +6302,7 @@ class learnpath
      */
     public function display_resources()
     {
+        $learnPath = self::getCurrentLpFromSession();
         $course_code = api_get_course_id();
 
         // Get all the docs.
@@ -6281,7 +6329,11 @@ class learnpath
         );
 
         echo Display::display_normal_message(get_lang('ClickOnTheLearnerViewToSeeYourLearningPath'));
-        $chapter = $_SESSION['oLP']->display_item_form('chapter', get_lang('EnterDataNewChapter'), 'add_item');
+        $chapter = $learnPath->display_item_form(
+            'chapter',
+            get_lang('EnterDataNewChapter'),
+            'add_item'
+        );
         echo Display::tabs(
             $headers,
             array($documents, $exercises, $links, $works, $forums, $chapter), 'resource_tab'

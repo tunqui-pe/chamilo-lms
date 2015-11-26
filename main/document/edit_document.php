@@ -141,7 +141,9 @@ if ($is_certificate_mode) {
     $editorConfig['BaseHref']             = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$dir;
 }
 
-$is_allowed_to_edit = api_is_allowed_to_edit(null, true) || $_SESSION['group_member_with_upload_rights']||
+$rights = Session::read('group_member_with_upload_rights');
+
+$is_allowed_to_edit = api_is_allowed_to_edit(null, true) || $rights ||
 	DocumentManager::is_my_shared_folder(api_get_user_id(), $dir, $sessionId);
 $noPHP_SELF = true;
 
@@ -165,7 +167,10 @@ if (!$is_certificate_mode) {
         "name" => get_lang('Documents'),
     );
 } else {
-    $interbreadcrumb[]= array('url' => '../gradebook/'.$_SESSION['gradebook_dest'], 'name' => get_lang('Gradebook'));
+    $interbreadcrumb[] = array(
+        'url' => '../gradebook/index.php?'.api_get_cidreq(),
+        'name' => get_lang('Gradebook'),
+    );
 }
 
 // Interbreadcrumb for the current directory root path
