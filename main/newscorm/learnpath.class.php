@@ -1922,63 +1922,28 @@ class learnpath
         $lp_id = $this->lp_id;
         $mycurrentitemid = $this->get_current_item_id();
 
-        if ($this->mode == 'fullscreen') {
+         if ($this->mode == 'fullscreen') {
             $navbar = '
                   <div id="'.$idBar.'" class="buttons well" style="'.$display.'">
-                    <a href="lp_controller.php?action=stats&'.api_get_cidreq(
-                    true
-                ).'&lp_id='.$lp_id.'" onClick="window.parent.API.save_asset();return true;" target="content_name_blank" title="stats" id="stats_link">
-                    '.Display::return_icon(
-                    'btn_stats.png',
-                    get_lang('Reporting')
-                ).'
-                    </a>
-                    <a id="scorm-previous" href="" onClick="switch_item('.$mycurrentitemid.',\'previous\');return false;" title="previous">
-                    '.Display::return_icon(
-                    'btn_previous.png',
-                    get_lang('ScormPrevious')
-                ).'
-                    </a>
-
-                    <a id="scorm-next" href="" onClick="switch_item('.$mycurrentitemid.',\'next\');return false;" title="next"  >
-                    '.Display::return_icon(
-                    'btn_next.png',
-                    get_lang('ScormNext')
-                ).'
-                    </a>
-                    <a href="lp_controller.php?action=mode&mode=embedded" target="_top" title="embedded mode">
-                    '.Display::return_icon(
-                    'view_choose.gif',
-                    get_lang('ScormExitFullScreen')
-                ).'
-                    </a>
-
+                    <a href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name_blank" title="stats" id="stats_link"><img border="0" src="../img/btn_stats.png" title="' . get_lang('Reporting') . '"></a>
+                    <a id="scorm-previous" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'previous\');return false;" title="previous"><img border="0" src="../img/btn_previous.png" title="' . get_lang('ScormPrevious') . '"></a>
+                    <a id="scorm-next" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'next\');return false;" title="next"  ><img border="0" src="../img/btn_next.png" title="' . get_lang('ScormNext') . '"></a>.
+                    <a href="lp_controller.php?action=mode&mode=embedded" target="_top" title="embedded mode"><img border="0" src="../img/view_choose.gif" title="'.get_lang('ScormExitFullScreen').'"></a>
                   </div>';
 
         } else {
             $navbar = '
-                  <div id="'.$idBar.'" class="buttons well" style="'.$display.'">
-                    <a href="lp_controller.php?action=stats&'.api_get_cidreq(
-                    true
-                ).'&lp_id='.$lp_id.'" onClick="window.parent.API.save_asset();return true;" target="content_name" title="stats" id="stats_link">
-                    '.Display::return_icon(
-                    'btn_stats.png',
-                    get_lang('Reporting')
-                ).'
+                <span id="'.$idBar.'" class="buttons text-right">
+                    <a class="btn btn-xs btn-link" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="stats" id="stats_link">
+                        <span class="fa fa-info-circle fa-3x"></span><span class="sr-only">' . get_lang('Reporting') . '</span>
                     </a>
-                    <a id="scorm-previous" href="" onClick="switch_item('.$mycurrentitemid.',\'previous\');return false;" title="previous">
-                    '.Display::return_icon(
-                    'btn_previous.png',
-                    get_lang('ScormPrevious')
-                ).'
+                    <a class="btn btn-xs btn-link" id="scorm-previous" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'previous\');return false;" title="previous">
+                        <span class="fa fa-chevron-circle-left fa-3x"></span><span class="sr-only">' . get_lang('ScormPrevious') . '</span>
                     </a>
-                    <a id="scorm-next" href="" onClick="switch_item('.$mycurrentitemid.',\'next\');return false;" title="next">
-                    '.Display::return_icon(
-                    'btn_next.png',
-                    get_lang('ScormNext')
-                ).'
+                    <a class="btn btn-xs btn-link" id="scorm-next" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'next\');return false;" title="next">
+                        <span class="fa fa-chevron-circle-right fa-3x"></span><span class="sr-only">' . get_lang('ScormNext') . '</span>
                     </a>
-                  </div>';
+                </span>';
         }
 
         return $navbar;
@@ -3287,7 +3252,7 @@ class learnpath
 
         if ($is_allowed_to_edit && $hide_teacher_icons_lp == false) {
             if ($this->get_lp_session_id() == api_get_session_id()) {
-                $html .= '<div id="actions_lp" class="actions_lp">';
+                $html .= '<div id="actions_lp" class="actions_lp"><hr>';
                 $html .= '<div class="btn-group">';
                 $html .= "<a class='btn btn-sm btn-default' href='lp_controller.php?" . api_get_cidreq()."&action=build&lp_id=" . $this->lp_id . "' target='_parent'>" .
                     Display::returnFontAwesomeIcon('street-view') . get_lang('Overview') . "</a>";

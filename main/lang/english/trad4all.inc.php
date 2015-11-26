@@ -7579,4 +7579,7 @@ $AverageRatingX = "Average rating %s";
 $AverageRating = "Average rating";
 $GradebookTeacherResultsNotShown = "Teachers results are not shown nor taken into account in the gradebook.";
 $SocialWallWriteNewPostToFriend = "Write something on your friend's wall";
+$EmptyTemplate = "Blank template";
+$BaseCourse = "Base course";
+$BaseCourses = "Base courses";
 ?>
