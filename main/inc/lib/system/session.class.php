@@ -15,15 +15,19 @@ use Chamilo\CoreBundle\Framework\Container;
  */
 class Session implements \ArrayAccess
 {
-
+    /**
+     * @param string $variable
+     * @param null $default
+     * @return mixed|null
+     */
     static function read($variable, $default = null)
     {
-        //return isset($_SESSION[$variable]) ? $_SESSION[$variable] : $default;
         $session = Container::getSession();
         $result = null;
         if (isset($session)) {
             $result = $session->get($variable);
         }
+
         // Check if the value exists in the $_SESSION array
         if (empty($result)) {
             return isset($_SESSION[$variable]) ? $_SESSION[$variable] : $default;
@@ -32,6 +36,10 @@ class Session implements \ArrayAccess
         }
     }
 
+    /**
+     * @param string $variable
+     * @param mixed $value
+     */
     static function write($variable, $value)
     {
         //$_SESSION[$variable] = $value;
@@ -41,6 +49,9 @@ class Session implements \ArrayAccess
         $session->set($variable, $value);
     }
 
+    /**
+     * @param string $variable
+     */
     static function erase($variable)
     {
         $variable = (string) $variable;
@@ -59,18 +70,26 @@ class Session implements \ArrayAccess
      * Returns true if session has variable set up, false otherwise.
      *
      * @param string $variable
+     *
+     * @return bool
      */
     static function has($variable)
     {
         return isset($_SESSION[$variable]);
     }
 
+    /**
+     * Clear
+     */
     static function clear()
     {
         $session = Container::getSession();
         $session->clear();
     }
 
+    /**
+     * Destroy
+     */
     static function destroy()
     {
         $session = Container::getSession();
@@ -80,7 +99,6 @@ class Session implements \ArrayAccess
     /*
      * ArrayAccess
      */
-
     public function offsetExists($offset)
     {
         return isset($_SESSION[$offset]);
@@ -145,5 +163,4 @@ class Session implements \ArrayAccess
     {
         self::write($name, $value);
     }
-
 }

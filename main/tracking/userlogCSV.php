@@ -71,7 +71,7 @@ $sql = "SELECT 1
             AND ((access_start_date <= '$now'
             AND access_end_date >= '$now')
             OR (access_start_date='0000-00-00' AND access_end_date='0000-00-00'))
-        WHERE session_id='" . $_SESSION['id_session'] . "' AND c_id = $courseId";
+        WHERE session_id='".api_get_session_id()."' AND c_id = $courseId";
 //echo $sql;
 $result = Database::query($sql);
 if (!Database::num_rows($result)) {

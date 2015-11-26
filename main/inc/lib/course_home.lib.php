@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class CourseHome
  */
@@ -438,11 +440,11 @@ class CourseHome
         $session_id = api_get_session_id();
         $course_id = api_get_course_int_id();
         $condition_session = api_get_session_condition($session_id, true, true, 't.session_id');
-
+        $studentView = Session::read('studentview');
         switch ($course_tool_category) {
             case TOOL_STUDENT_VIEW:
                 $conditions = ' WHERE visibility = 1 AND (category = "authoring" OR category = "interaction" OR category = "plugin") ';
-                if ((api_is_coach() || api_is_course_tutor()) && $_SESSION['studentview'] != 'studentview') {
+                if ((api_is_coach() || api_is_course_tutor()) && $studentView != 'studentview') {
                     $conditions = ' WHERE (visibility = 1 AND (category = "authoring" OR category = "interaction" OR category = "plugin") OR (name = "'.TOOL_TRACKING.'") )   ';
                 }
                 $sql = "SELECT *

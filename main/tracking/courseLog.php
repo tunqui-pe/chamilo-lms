@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	@package chamilo.tracking
  */
@@ -82,7 +84,7 @@ require_once api_get_path(SYS_CODE_PATH).'resourcelinker/resourcelinker.inc.php'
 
 if ($export_csv) {
     if (!empty($session_id)) {
-        $_SESSION['id_session'] = $session_id;
+        Session::write('id_session', $session_id);
     }
     ob_start();
 }
