@@ -92,7 +92,7 @@ class SessionVoter extends AbstractVoter
         $course = $session->getCurrentCourse();
 
         if ($course == false) {
-
+            error_log('sss');
             return false;
         }
 

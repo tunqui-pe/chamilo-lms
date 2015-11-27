@@ -78,6 +78,7 @@ class CourseListener
 
             /** @var ContainerInterface $container */
             $container = $this->container;
+            $translator = $this->container->get('translator.default');
 
             // Course
             // The 'course' variable example "123" for this URL: courses/123/
@@ -111,7 +112,11 @@ class CourseListener
                         // Check if user is allowed to this course
                         // See CourseVoter.php
                         if (false === $securityChecker->isGranted(CourseVoter::VIEW, $course)) {
-                            throw new AccessDeniedException('Unauthorised access to course!');
+                            throw new AccessDeniedException(
+                                $translator->trans(
+                                    'Unauthorised access to course!'
+                                )
+                            );
                         }
                     } else {
                         $session = $em->getRepository('ChamiloCoreBundle:Session')->find($sessionId);
@@ -122,7 +127,9 @@ class CourseListener
                             // Check if user is allowed to this course-session
                             // See SessionVoter.php
                             if (false === $securityChecker->isGranted(SessionVoter::VIEW, $session)) {
-                                throw new AccessDeniedException('Unauthorised access to session!');
+                                throw new AccessDeniedException(
+                                    $translator->trans('Unauthorised access to session!')
+                                );
                             }
 
                             $request->getSession()->set(
@@ -136,7 +143,7 @@ class CourseListener
                             );
 
                         } else {
-                            throw new NotFoundHttpException('Session not found');
+                            throw new NotFoundHttpException($translator->trans('Session not found'));
                         }
                     }
 
@@ -154,17 +161,17 @@ class CourseListener
                                     )
                                 ) {
                                     throw new AccessDeniedException(
-                                        'Unauthorised access to group!'
+                                        $translator->trans('Unauthorised access to group')
                                     );
                                 }
                             } else {
                                 throw new NotFoundHttpException(
-                                    'Group not found'
+                                    $translator->trans('Group not found')
                                 );
                             }
                         } else {
                             throw new AccessDeniedException(
-                                'Group does not exist in course'
+                                $translator->trans('Group does not exist in course')
                             );
                         }
                     }
@@ -202,7 +209,9 @@ class CourseListener
                     // Sets the controller course in order to use $this->getCourse()
                     $controller->setCourse($course);
                 } else {
-                    throw new NotFoundHttpException('Course not found');
+                    throw new NotFoundHttpException(
+                        $translator->trans('CourseDoesNotExist')
+                    );
                 }
             }
         }

@@ -182,6 +182,7 @@ class CourseManager
                             );
                         }
                     }
+
                     // If parameter defined, copy the contents from a specific
                     // template course into this new course
                     $template = api_get_setting(

@@ -2957,7 +2957,7 @@ function api_is_coach($session_id = 0, $courseId = null, $check_student_view = t
         }
     }
 
-    return (count($sessionIsCoach) > 0);
+    return count($sessionIsCoach) > 0;
 }
 
 /**
@@ -8018,7 +8018,6 @@ function api_mail_html(
     $embedded_image = false,
     $additionalParameters = array()
 ) {
-
     // Default values
     $notification = new Notification();
     $defaultEmail = $notification->getDefaultPlatformSenderEmail();

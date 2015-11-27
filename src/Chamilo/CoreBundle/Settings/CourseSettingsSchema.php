@@ -3,6 +3,8 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CourseBundle\Tool\BaseTool;
+use Chamilo\CourseBundle\ToolChain;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,16 +17,44 @@ use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 class CourseSettingsSchema implements SchemaInterface
 {
     /**
+     * @var ToolChain
+     */
+    protected $toolChain;
+
+    public function setToolChain(ToolChain $tools)
+    {
+        $this->toolChain = $tools;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProcessedToolChain()
+    {
+        $tools = [];
+        /** @var BaseTool $tool */
+        foreach ($this->toolChain->getTools() as $tool) {
+            $name = $tool->getName();
+            //$key = $tool->getName();
+            $tools[$name] = $name;
+        }
+
+        return $tools;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildSettings(SettingsBuilderInterface $builder)
     {
+        $tools = $this->getProcessedToolChain();
+
         $builder
             ->setDefaults(
                 array(
                     'homepage_view' => 'activity_big',
                     'show_tool_shortcuts' => '',
-                    'active_tools_on_create' => [],
+                    'active_tools_on_create' => $tools,
                     'display_coursecode_in_courselist' => '',
                     'display_teacher_in_courselist' => '',
                     'student_view_enabled' => '',
@@ -78,30 +108,7 @@ class CourseSettingsSchema implements SchemaInterface
      */
     public function buildForm(FormBuilderInterface $builder)
     {
-        $tools = array(
-            'course_progress',
-            'attendances',
-            'notebook',
-            'glossary',
-            'survey',
-            'gradebook',
-            'course_description',
-            'agenda',
-            'documents',
-            'learning_path',
-            'links',
-            'announcements',
-            'forums',
-            'dropbox',
-            'quiz',
-            'users',
-            'groups',
-            'chat',
-            'online_conference',
-            'student_publications',
-            'wiki',
-        );
-
+        $tools = $this->getProcessedToolChain();
         $builder
             ->add(
                 'homepage_view',

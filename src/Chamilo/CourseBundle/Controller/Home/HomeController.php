@@ -198,7 +198,10 @@ class HomeController extends ToolBaseController
         // Start of tools for CourseAdmins (teachers/tutors)
         $totalList = array();
 
-        if ($session_id == 0 && api_is_course_admin() && api_is_allowed_to_edit(null, true)) {
+        if ($session_id == 0 &&
+            api_is_course_admin() &&
+            api_is_allowed_to_edit(null, true)
+        ) {
             $list = CourseHome::get_tools_category(TOOL_AUTHORING);
             $result = CourseHome::show_tools_category($urlGenerator, $list);
             $content .= $this->return_block(get_lang('Authoring'), $result['content']);
@@ -221,10 +224,10 @@ class HomeController extends ToolBaseController
             $content .= $this->return_block(get_lang('Administration'), $result['content']);
 
         } elseif (api_is_coach()) {
-
             $content .=  '<div class="row">';
             $list = CourseHome::get_tools_category(TOOL_STUDENT_VIEW);
             $result = CourseHome::show_tools_category($urlGenerator, $list);
+            $content .= $result['content'];
             $totalList = array_merge($totalList, $result['tool_list']);
             $content .= '</div>';
         } else {

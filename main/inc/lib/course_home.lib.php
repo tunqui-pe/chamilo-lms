@@ -451,19 +451,20 @@ class CourseHome
                         FROM $course_tool_table t
                         $conditions AND
                         c_id = $course_id $condition_session
-                        ORDER BY id";
+                        ORDER BY iid";
+
                 $result = Database::query($sql);
                 break;
             case TOOL_AUTHORING:
                 $sql = "SELECT * FROM $course_tool_table t
                         WHERE category = 'authoring' AND c_id = $course_id $condition_session
-                        ORDER BY id";
+                        ORDER BY iid";
                 $result = Database::query($sql);
                 break;
             case TOOL_INTERACTION:
                 $sql = "SELECT * FROM $course_tool_table t
                         WHERE category = 'interaction' AND c_id = $course_id $condition_session
-                        ORDER BY id";
+                        ORDER BY iid";
                 $result = Database::query($sql);
                 break;
             case TOOL_ADMIN_VISIBLE:
@@ -475,13 +476,13 @@ class CourseHome
             case TOOL_ADMIN_PLATFORM:
                 $sql = "SELECT * FROM $course_tool_table t
                         WHERE category = 'admin' AND c_id = $course_id $condition_session
-                        ORDER BY id";
+                        ORDER BY iid";
                 $result = Database::query($sql);
                 break;
             case TOOL_DRH:
                 $sql = "SELECT * FROM $course_tool_table t
                         WHERE name IN ('tracking') AND c_id = $course_id $condition_session
-                        ORDER BY id";
+                        ORDER BY iid";
                 $result = Database::query($sql);
                 break;
             case TOOL_COURSE_PLUGIN:

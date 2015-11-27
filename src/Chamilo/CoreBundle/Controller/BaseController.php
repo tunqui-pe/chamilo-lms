@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Controller;
 
+use Chamilo\CoreBundle\Entity\Course;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -221,7 +222,7 @@ abstract class BaseController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return Course
      */
     public function getCourse()
     {

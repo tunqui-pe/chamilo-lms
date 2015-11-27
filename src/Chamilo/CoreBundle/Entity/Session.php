@@ -965,9 +965,10 @@ class Session
     public function setCurrentCourse(Course $course)
     {
         // If the session is registered in the course session list.
-        if ($this->getCourses()->contains($course->getId())) {
+        if ($this->hasCourse($course)) {
             $this->currentCourse = $course;
         }
+
         return $this;
     }
 
