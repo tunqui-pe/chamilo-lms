@@ -10,6 +10,7 @@ use Chamilo\UserBundle\Entity\User;
  * @author Olivier Cauberghe <olivier.cauberghe@UGent.be>, Ghent University
  * @author Julio Montoya <gugli100@gmail.com>
  * @package chamilo.login
+ * @deprecated
  */
 class Login
 {

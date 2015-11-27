@@ -925,7 +925,7 @@ function api_get_path($path_type, $path = null)
     }
 
     // Detection of the input path type. Conversion to semi-absolute type ( /chamilo/main/inc/.... ).
-
+    $courseCode = api_get_course_id();
     if (preg_match(VALID_WEB_PATH, $path)) {
 
         // A special case: When a URL points to the document download script directly, without
@@ -939,8 +939,8 @@ function api_get_path($path_type, $path = null)
             $path = urldecode($path);
             if (preg_match('/(.*)main\/document\/download.php\?doc_url=\/(.*)&cDir=\/(.*)?/', $path, $matches)) {
                 $sys_course_code =
-                    isset($_SESSION['_course']['sysCode'])  // User is inside a course?
-                        ? $_SESSION['_course']['sysCode']   // Yes, then use course's directory name.
+                    isset($courseCode)  // User is inside a course?
+                        ? $courseCode   // Yes, then use course's directory name.
                         : '{SYS_COURSE_CODE}';              // No, then use a fake code, it may be processed later.
                 $path = $matches[1].'courses/'.$sys_course_code.'/document/'.str_replace('//', '/', $matches[3].'/'.$matches[2]);
             }

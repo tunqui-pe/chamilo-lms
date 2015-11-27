@@ -329,7 +329,7 @@ switch ($action) {
                 }
                 exit;
             } else {
-                $_SESSION['exe_id'] = $exe_id;
+                Session::write('exe_id', $exe_id);
             }
 
             // Getting the total weight if the request is simple

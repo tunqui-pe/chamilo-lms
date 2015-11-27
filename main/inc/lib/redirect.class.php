@@ -4,6 +4,7 @@
 /**
  * Send a redirect to the user agent and exist
  * @author Laurent Opprecht <laurent@opprecht.info> for the Univesity of Geneva
+ * @deprecated
  */
 class Redirect
 {

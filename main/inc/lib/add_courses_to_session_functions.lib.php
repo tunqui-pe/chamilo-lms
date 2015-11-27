@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class AddCourseToSession
  */
@@ -121,7 +123,7 @@ class AddCourseToSession
 				$xajax_response -> addAssign('ajax_list_courses_multiple','innerHTML',api_utf8_encode($return));
 			}
 		}
-		$_SESSION['course_list'] = $course_list;
+		Session::write('course_list', $course_list);
 
 		return $xajax_response;
 	}

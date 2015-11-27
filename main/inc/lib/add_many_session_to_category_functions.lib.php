@@ -1,11 +1,11 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  * Definition of the AddManySessionToCategoryFunctions class
  * @package chamilo.library
- */
-/**
- * Requires
  */
 require_once ('xajax/xajax.inc.php');
 /**
@@ -45,7 +45,9 @@ class AddManySessionToCategoryFunctions
 			$return .= '</select>';
 			$xajax_response -> addAssign('ajax_list_courses_multiple','innerHTML',api_utf8_encode($return));
 		}
-		$_SESSION['course_list'] = $course_list;
+
+		Session::write('course_list', $course_list);
+
 		return $xajax_response;
 	}
 }

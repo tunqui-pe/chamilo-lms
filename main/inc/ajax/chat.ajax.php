@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Responses to AJAX calls
  */
@@ -34,14 +36,16 @@ if (api_get_setting('chat.allow_global_chat') == 'false') {
 }
 
 $to_user_id = isset($_REQUEST['to']) ? $_REQUEST['to'] : null;
-$message	= isset($_REQUEST['message']) ? $_REQUEST['message'] : null;
-
-if (!isset($_SESSION['chatHistory'])) {
-    $_SESSION['chatHistory'] = array();
+$message = isset($_REQUEST['message']) ? $_REQUEST['message'] : null;
+$chatHistory = Session::read('chatHistory');
+if (!isset($chatHistory)) {
+    Session::write('chatHistory', []);
 }
 
-if (!isset($_SESSION['openChatBoxes'])) {
-    $_SESSION['openChatBoxes'] = array();
+$chatBox = Session::read('openChatBoxes');
+
+if (!isset($chatBox)) {
+    Session::write('openChatBoxes', []);
 }
 
 $chat = new Chat();

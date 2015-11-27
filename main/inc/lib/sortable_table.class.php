@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This class allows you to display a sortable data-table. It is possible to
  * split the data in several pages.
@@ -131,9 +133,12 @@ class SortableTable extends HTML_Table
         $this->additional_parameters = array();
         $this->param_prefix = $table_name.'_';
 
-        $this->page_nr = isset($_SESSION[$this->param_prefix.'page_nr']) ? intval($_SESSION[$this->param_prefix.'page_nr']) : 1;
+        $this->page_nr = Session::read($this->param_prefix.'page_nr', 1);
         $this->page_nr = isset($_GET[$this->param_prefix.'page_nr']) ? intval($_GET[$this->param_prefix.'page_nr']) : $this->page_nr;
-        $this->column  = isset($_SESSION[$this->param_prefix.'column']) ? intval($_SESSION[$this->param_prefix.'column']) : $default_column;
+        $this->column = Session::read(
+            $this->param_prefix.'column',
+            $default_column
+        );
         $this->column  = isset($_GET[$this->param_prefix.'column']) ? intval($_GET[$this->param_prefix.'column']) : $this->column;
 
         // Default direction.
@@ -142,8 +147,9 @@ class SortableTable extends HTML_Table
             $this->direction = $default_order_direction;
         }
 
-        if (isset($_SESSION[$this->param_prefix.'direction'])) {
-            $my_session_direction = $_SESSION[$this->param_prefix.'direction'];
+        $directionFromSession = Session::read($this->param_prefix.'direction');
+        if (isset($directionFromSession)) {
+            $my_session_direction = $directionFromSession;
             if (!in_array($my_session_direction, array('ASC', 'DESC'))) {
                 $this->direction = 'ASC';
             } else {
@@ -169,26 +175,30 @@ class SortableTable extends HTML_Table
         }
 
         // Allow to change paginate in multiples tabs
-        unset($_SESSION[$this->param_prefix.'per_page']);
+        Session::erase($this->param_prefix.'per_page');
 
-        $this->per_page = isset($_SESSION[$this->param_prefix.'per_page']) ? intval($_SESSION[$this->param_prefix.'per_page']) : $default_items_per_page;
+        $this->per_page = Session::read(
+            $this->param_prefix.'per_page',
+            $default_items_per_page
+        );
         $this->per_page = isset($_GET[$this->param_prefix.'per_page']) ? intval($_GET[$this->param_prefix.'per_page']) : $this->per_page;
 
-        $_SESSION[$this->param_prefix.'per_page']  = $this->per_page;
-        $_SESSION[$this->param_prefix.'direction'] = $this->direction ;
-        $_SESSION[$this->param_prefix.'page_nr']   = $this->page_nr;
-        $_SESSION[$this->param_prefix.'column']    = $this->column;
-        $this->pager                               = null;
-        $this->default_items_per_page              = $default_items_per_page;
-        $this->total_number_of_items               = -1;
-        $this->get_total_number_function           = $get_total_number_function;
-        $this->get_data_function                   = $get_data_function;
-        $this->column_filters                      = array();
-        $this->form_actions                        = array();
-        $this->checkbox_name                       = null;
-        $this->td_attributes                       = array();
-        $this->th_attributes                       = array();
-        $this->other_tables                        = array();
+        Session::write($this->param_prefix.'per_page', $this->per_page);
+        Session::write($this->param_prefix.'direction', $this->direction);
+        Session::write($this->param_prefix.'page_nr', $this->page_nr);
+        Session::write($this->param_prefix.'column', $this->column);
+
+        $this->pager = null;
+        $this->default_items_per_page = $default_items_per_page;
+        $this->total_number_of_items = -1;
+        $this->get_total_number_function = $get_total_number_function;
+        $this->get_data_function = $get_data_function;
+        $this->column_filters = array();
+        $this->form_actions = array();
+        $this->checkbox_name = null;
+        $this->td_attributes = array();
+        $this->th_attributes = array();
+        $this->other_tables = array();
     }
 
     /**

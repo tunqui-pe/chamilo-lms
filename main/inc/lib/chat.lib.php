@@ -21,7 +21,10 @@ class Chat extends Model
     public function __construct()
     {
         $this->table = Database::get_main_table(TABLE_MAIN_CHAT);
-        $this->window_list = $_SESSION['window_list'] = isset($_SESSION['window_list']) ? $_SESSION['window_list'] : array();
+        $this->window_list = Session::write(
+            'window_list',
+            Session::read('window_list', [])
+        );
     }
 
     /**
@@ -57,10 +60,7 @@ class Chat extends Model
      */
     public function startSession()
     {
-        $items = array();
-        if (isset($_SESSION['chatHistory'])) {
-            $items = $_SESSION['chatHistory'];
-        }
+        $items = Session::read('chatHistory', []);
         $return = array(
             'user_status' => $this->get_user_status(),
             'me' => get_lang('Me'),

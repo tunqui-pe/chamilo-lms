@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class MessageManager
  *
@@ -34,14 +36,10 @@ class MessageManager
      */
     public static function display_success_message($uid)
     {
-        if (isset($_SESSION['social_exist']) &&
-            $_SESSION['social_exist'] === true
-        ) {
-            if (api_get_setting(
-                    'social.allow_social_tool'
-                ) == 'true' && api_get_setting(
-                    'message.allow_message_tool'
-                ) == 'true'
+        $socialExist = Session::read('social_exist');
+        if (isset($socialExist) && $socialExist === true) {
+            if (api_get_setting('social.allow_social_tool') == 'true' &&
+                api_get_setting('message.allow_message_tool') == 'true'
             ) {
                 $success = get_lang('MessageSentTo').
                     "&nbsp;<b>".

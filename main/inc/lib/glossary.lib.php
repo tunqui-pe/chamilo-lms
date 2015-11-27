@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class GlossaryManager
  * This library provides functions for the glossary tool.
@@ -136,7 +138,10 @@ class GlossaryManager
                 );
             }
 
-            $_SESSION['max_glossary_display'] = GlossaryManager::get_max_glossary_item();
+            Session::write(
+                'max_glossary_display',
+                GlossaryManager::get_max_glossary_item()
+            );
             // display the feedback message
             if ($message) {
                 Display::display_confirmation_message(get_lang('TermAdded'));
@@ -321,9 +326,12 @@ class GlossaryManager
 
         // reorder the remaining terms
         GlossaryManager::reorder_glossary();
-        $_SESSION['max_glossary_display'] = GlossaryManager::get_max_glossary_item();
-        if ($message)
-            Display::display_confirmation_message(get_lang('TermDeleted'));
+        Session::write(
+            'max_glossary_display',
+            GlossaryManager::get_max_glossary_item()
+        );
+        Display::display_confirmation_message(get_lang('TermDeleted'));
+
         return true;
     }
 
@@ -340,9 +348,11 @@ class GlossaryManager
     {
         // This function should always be called with the corresponding
         // parameter for view type. Meanwhile, use this cheap trick.
-        if (empty($_SESSION['glossary_view'])) {
-            $_SESSION['glossary_view'] = $view;
+        $glossaryView = Session::read('glossary_view');
+        if (empty($glossaryView)) {
+            Session::write('glossary_view', $view);
         }
+
         // action links
         echo '<div class="actions">';
 
@@ -361,7 +371,7 @@ class GlossaryManager
         echo '<a href="index.php?'.api_get_cidreq().'&action=export_to_pdf">'.
             Display::return_icon('pdf.png',get_lang('ExportToPDF'),'', ICON_SIZE_MEDIUM).'</a>';
 
-        if ((isset($_SESSION['glossary_view']) && $_SESSION['glossary_view'] == 'table') or (!isset($_SESSION['glossary_view']))){
+        if ((isset($glossaryView) && $glossaryView == 'table') or (!isset($glossaryView))) {
             echo '<a href="index.php?'.api_get_cidreq().'&action=changeview&view=list">'.
                 Display::return_icon('view_detailed.png',get_lang('ListView'),'',ICON_SIZE_MEDIUM).'</a>';
         } else {
@@ -369,7 +379,7 @@ class GlossaryManager
                 Display::return_icon('view_text.png',get_lang('TableView'),'',ICON_SIZE_MEDIUM).'</a>';
         }
         echo '</div>';
-        if (!$_SESSION['glossary_view'] || $_SESSION['glossary_view'] == 'table') {
+        if (!$glossaryView || $glossaryView == 'table') {
             $table = new SortableTable(
                 'glossary',
                 array('GlossaryManager', 'get_number_glossary_terms'),
@@ -385,7 +395,7 @@ class GlossaryManager
             }
             $table->display();
         }
-        if ($_SESSION['glossary_view'] == 'list') {
+        if ($glossaryView == 'list') {
             GlossaryManager::display_glossary_list();
         }
     }
@@ -455,6 +465,8 @@ class GlossaryManager
         $t_glossary = Database :: get_course_table(TABLE_GLOSSARY);
         $t_item_propery = Database :: get_course_table(TABLE_ITEM_PROPERTY);
 
+        $glossaryView = Session::read('glossary_view');
+
         if (api_is_allowed_to_edit(null,true)) {
             $col2 = " glossary.glossary_id	as col2, ";
         } else {
@@ -498,7 +510,7 @@ class GlossaryManager
             $session_img = api_get_session_image($data['session_id'], $_user['status']);
             $array[0] = $data[0] . $session_img;
 
-            if (!$_SESSION['glossary_view'] || $_SESSION['glossary_view'] == 'table') {
+            if (!$glossaryView || $glossaryView == 'table') {
                 $array[1] = str_replace(array('<p>','</p>'),array('','<br />'),$data[1]);
             } else {
                 $array[1] = $data[1];

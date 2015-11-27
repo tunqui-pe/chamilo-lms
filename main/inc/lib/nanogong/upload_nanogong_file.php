@@ -51,8 +51,7 @@ if (!empty($documentData)) {
 
     if (isset($_REQUEST['lp_item_id']) && !empty($_REQUEST['lp_item_id'])) {
         $lpItemId = $_REQUEST['lp_item_id'];
-        /** @var learnpath $lp */
-        $lp = isset($_SESSION['oLP']) ? $_SESSION['oLP'] : null;
+        $lp = learnpath::getCurrentLpFromSession();
 
         if (!empty($lp)) {
             $lp->set_modified_on();
