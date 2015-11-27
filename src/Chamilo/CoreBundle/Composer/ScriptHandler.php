@@ -48,6 +48,7 @@ class ScriptHandler
             __DIR__.'/../../../../main/inc/lib/javascript/fullcalendar',
             __DIR__.'/../../../../main/inc/lib/javascript/jquery-ui',
             __DIR__.'/../../../../main/inc/lib/fckeditor',
+            __DIR__.'/../../../../main/inc/lib/elfinder',
             __DIR__.'/../../../../main/inc/lib/mpdf/',
             __DIR__.'/../../../../main/inc/lib/symfony/',
             __DIR__.'/../../../../main/inc/lib/system/media/renderer',

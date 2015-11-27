@@ -1,13 +1,23 @@
-{% set finderFolder = _p.web ~ 'vendor/barryvdh/elfinder-builds/' %}
+{% set finderFolder = asset('assets/elfinder/dist/') %}
 <!-- elFinder CSS (REQUIRED) -->
-<link rel="stylesheet" type="text/css" media="screen" href="{{ finderFolder }}css/elfinder.full.css">
+<link rel="stylesheet" type="text/css" media="screen"
+      href="{{ asset('assets/jquery-ui/themes/smoothness/jquery-ui.min.css') }}">
+<link rel="stylesheet" type="text/css" media="screen"
+      href="{{ finderFolder }}css/elfinder.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="{{ finderFolder }}css/theme.css">
 
+
 <!-- elFinder JS (REQUIRED) -->
-<script type="text/javascript" src="{{ finderFolder }}js/elfinder.full.js"></script>
+
+<script type="text/javascript"
+        src="{{ asset('assets/jquery/jquery.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('assets/jquery-ui/jquery-ui.js') }}"></script>
+<script type="text/javascript"
+        src="{{ finderFolder }}js/elfinder.min.js"></script>
 
 <!-- elFinder translation (OPTIONAL) -->
-<script type="text/javascript" src="{{ finderFolder }}js/i18n/elfinder.ru.js"></script>
+{#<script type="text/javascript" src="{{ finderFolder }}js/i18n/elfinder.ru.js"></script>#}
 
 <script type="text/javascript" charset="utf-8">
     // Helper function to get parameters from the query string.
@@ -20,7 +30,7 @@
     $().ready(function() {
         var funcNum = getUrlParam('CKEditorFuncNum');
         var elf = $('#elfinder').elfinder({
-            url : '{{ _p.web_lib ~ 'elfinder/connectorAction.php' }}',  // connector URL (REQUIRED)
+            url: '{{ url('editor_connector') }}',  // connector URL (REQUIRED)
             getFileCallback : function(file) {
                 window.opener.CKEDITOR.tools.callFunction(funcNum, file.url);
                 window.close();

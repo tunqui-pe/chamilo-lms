@@ -14,14 +14,14 @@ use ChamiloSession as Session;
 Session::write('whereami', 'document/create');
 $this_section = SECTION_COURSES;
 
+$hideIcon = Display::return_icon('hide2.png', '', [], ICON_SIZE_SMALL,false, true);
 $htmlHeadXtra[] = '
 <script>
-
 var hide_bar = function() {
     $("#template_col").hide();
     $("#doc_form").removeClass("col-md-9");
     $("#doc_form").addClass("col-md-11");
-    $("#hide_bar_template").css({"background-image" : \'url("../img/hide2.png")\'})
+    $("#hide_bar_template").css({"background-image" : \'url("'.$hideIcon.'")\'})
 }
 
 $(document).ready(function() {

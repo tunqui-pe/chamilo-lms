@@ -47,6 +47,7 @@ class AppKernel extends Kernel
 
             new Liip\ThemeBundle\LiipThemeBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new FM\ElfinderBundle\FMElfinderBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             // User

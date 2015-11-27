@@ -1,4 +1,3 @@
-
 /* Ckeditor global configuration file */
 
 CKEDITOR.editorConfig = function (config) {
@@ -17,7 +16,7 @@ CKEDITOR.editorConfig = function (config) {
     config.removeDialogTabs = 'image:advanced;link:advanced';
 
     config.templates_files  = [
-        '{{ url('home') ~ 'inc/lib/elfinder/templates.php'}}'
+'{{ url('editor_templates') }}'
     ];
 
     {% if more_buttons_in_max_mode %}
@@ -27,7 +26,7 @@ CKEDITOR.editorConfig = function (config) {
     {% endif %}
 
     // File manager (elFinder)
-    config.filebrowserBrowseUrl = '{{ url('home') ~ 'elfinder/filemanager.php' }}';
+config.filebrowserBrowseUrl = '{{ url('editor_filemanager') }}';
 
     // Allows to use "class" attribute inside divs and spans.
     config.allowedContent = true;

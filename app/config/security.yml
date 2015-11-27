@@ -1,6 +1,10 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    access_control:
+        - { path: ^/efconnect, role: ROLE_USER }
+        - { path: ^/elfinder, role: ROLE_USER }
+
     encoders:
        FOS\UserBundle\Model\UserInterface:
            id: chamilo_user.security.encoder

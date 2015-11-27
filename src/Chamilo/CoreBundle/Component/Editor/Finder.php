@@ -3,6 +3,8 @@
 
 namespace Chamilo\CoreBundle\Component\Editor;
 
+use FM\ElFinderPHP\ElFinder;
+
 /**
  * Class Finder
  *
@@ -12,7 +14,7 @@ namespace Chamilo\CoreBundle\Component\Editor;
  *
  * @package Chamilo\CoreBundle\Component\Editor
  */
-class Finder extends \elFinder
+class Finder extends ElFinder
 {
 
     /**
@@ -35,10 +37,7 @@ class Finder extends \elFinder
         $this->callbackWindowURL = (isset($opts['callbackWindowURL']) ? $opts['callbackWindowURL'] : '');
 
         // setlocale and global locale regists to elFinder::locale
-        self::$locale = !empty($opts['locale']) ? $opts['locale'] : 'en_US.UTF-8';
-        if (false === @setlocale(LC_ALL, self::$locale)) {
-            self::$locale = setlocale(LC_ALL, '');
-        }
+        setlocale(LC_ALL, !empty($opts['locale']) ? $opts['locale'] : 'en_US.UTF-8');
 
         // bind events listeners
         if (!empty($opts['bind']) && is_array($opts['bind'])) {

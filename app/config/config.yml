@@ -240,6 +240,10 @@ ivory_ck_editor:
     base_path: "bundles/ivoryckeditor"
     js_path:   "bundles/ivoryckeditor/ckeditor.js"
     default_config: default
+    configs:
+        default:
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
     plugins:
         wordcount:
             path:     "/bundles/chamilocore/ckeditor/plugins/wordcount"
@@ -265,4 +269,34 @@ ivory_ck_editor:
 #            excluded_dirs: [cache, data, logs]
 ##            extractors: [alias_of_the_extractor]
 
-
+fm_elfinder:
+    assets_path: /chamilo_master/web/assets
+    instances:
+        default:
+            locale: %locale% # defaults to current request locale
+            editor: ckeditor # other options are tinymce, tinymce4, form, custom and simple
+            fullscreen: true # defaults true, applies to simple and ckeditor editors
+            theme: smoothness # jquery theme
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false # defaults to false
+                roots:       # at least one root must be defined
+#                    uploads:
+#                        show_hidden: false # defaults to false
+#                        driver: LocalFileSystem
+#                        path: uploads
+#                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+#                        upload_deny: ['all']
+#                        upload_max_size: 2M
+                    local:
+                        driver: Flysystem
+                        path: uploads
+                        flysystem:
+                            type: local
+                            options:
+                              local:
+                                  path: %kernel.root_dir%/../web/media/
+                        upload_allow: ['all']
+                        #upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        #upload_deny: ['all']
+                        upload_max_size: 2M

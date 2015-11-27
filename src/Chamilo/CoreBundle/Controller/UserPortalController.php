@@ -487,7 +487,7 @@ class UserPortalController extends BaseController
             'ChamiloCoreBundle:Index:userportal.html.twig',
             array(
                 'content' => $items,
-                'count_courses' => $countCourses,
+                'count_courses' => $countCourses
             )
         );
     }

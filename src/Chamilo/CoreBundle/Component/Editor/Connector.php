@@ -58,7 +58,7 @@ class Connector
             //'sys_log_path' => $app['path.logs']
         );
         $this->entityManager = $entityManager;
-        $this->paths = $paths;
+        //$this->paths = $paths;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->security = $security;

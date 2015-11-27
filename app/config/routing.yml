@@ -14,6 +14,9 @@ chamilo_course:
 _front:
     resource: routing_front.yml
 
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"
+
 chamilo_installer:
     resource: "@ChamiloInstallerBundle/Resources/config/routing.yml"
 

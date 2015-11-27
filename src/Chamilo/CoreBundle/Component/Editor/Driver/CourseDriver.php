@@ -79,7 +79,7 @@ class CourseDriver extends Driver implements DriverInterface
             //$translator = $this->connector->translator;
             //$code = $this->connector->course->getCode();
             $courseCode = $this->connector->course['code'];
-            $alias = $courseCode.' '.get_lang('Documents');
+            $alias = $courseCode.' - '.get_lang('Documents');
 
             return array(
                 'driver' => 'CourseDriver',
