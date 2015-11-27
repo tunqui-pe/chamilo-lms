@@ -84,11 +84,12 @@ services:
             - @validator
             - @event_dispatcher
 
-    # Course tool container
+    # Tool chain loads the list of tool services with the tag "chamilo_course.tool"
+    # Tool chain is filled in file DependencyInjection/Compiler/ToolCompilerClass.php
     chamilo_course.tool_chain:
         class: %chamilo_course.tool_chain.class%
 
-    # Course tool list
+    # Agenda tool
     chamilo_course.tool.agenda:
         class: Chamilo\CourseBundle\Tool\Agenda
         arguments:
@@ -100,12 +101,13 @@ services:
         tags:
             - { name: chamilo_course.tool }
 
-    # Course settings
+    # Agenda tool settings
     chamilo_course.course_settings_schema.agenda:
         class: Chamilo\CourseBundle\Settings\AgendaCourseSettingsSchema
         tags:
             - { name: chamilo_course.settings_schema, namespace: calendar_event }
 
+    # Announcement tool
     chamilo_course.tool.announcement:
         class: Chamilo\CourseBundle\Tool\Announcement
         arguments:
@@ -117,7 +119,7 @@ services:
         tags:
             - { name: chamilo_course.tool }
 
-    # Course settings
+    # Announcement tool settings
     chamilo_course.course_settings_schema.announcement:
         class: Chamilo\CourseBundle\Settings\AnnouncementCourseSettingsSchema
         tags:
@@ -297,7 +299,6 @@ services:
         class: Chamilo\CourseBundle\Settings\ForumCourseSettingsSchema
         tags:
             - { name: chamilo_course.settings_schema, namespace: forum }
-
 
     chamilo_course.tool.glossary:
         class: Chamilo\CourseBundle\Tool\Glossary
