@@ -8,10 +8,11 @@
             {% endfor %}
         {% endautoescape %}
     {% endif %}
-
+    {% block content %}
     {% autoescape false %}
         {{ content }}
     {% endautoescape %}
+    {% endblock %}
 {% endblock %}
 
 {% block chamilo_footer %}

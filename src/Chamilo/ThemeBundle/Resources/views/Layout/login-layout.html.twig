@@ -10,46 +10,32 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{% block title %}Chamilo Admin!{% endblock %}</title>
+    <title>
+        {% block title %}
+            {{ chamilo_settings_get('platform.institution') }} - {{ chamilo_settings_get('platform.site_name') }}
+        {% endblock %}
+    </title>
 
-    {# -------------------------------------------------------------------------------------------------- STYLESHEETS #}
-    {% block stylesheets %}
-        {#{% stylesheets '@admin_lte_all_css' filter="cssrewrite" %}#}
-        {#<link rel="stylesheet" href="{{ asset_url }}" />#}
-        {#{% endstylesheets %}#}
-    {% endblock %}
+    {# Check chamilo_css key in assetic.yml #}
+    {%- stylesheets '@chamilo_css' -%}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 
-
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
-    {# --------------------------------------------------------------------------------------------- JAVASCRIPTS_HEAD #}
-    {%  block javascripts_head %}
-
-        <!--[if lt IE 9]>
-
-        <![endif]-->
-
+    {% block javascripts %}
+    {%- javascripts '@chamilo_js' -%}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     {% endblock %}
 
 </head>
-<body class="bg-black">
+<body class="hold-transition login-page">
 
-<div class="form-box" id="login-box">
+<div class="login-box">
+    <div class="login-logo">
+        Chamilo
+    </div>
     {% block page_content %}{% endblock %}
 </div>
 
-
-
-{# ------------------------------------------------------------------------------------------------------ JAVASCRIPTS #}
-{% block javascripts %}
-
-    {% javascripts '@admin_lte_all' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
-
-{# ----------------------------------------------------------------------------------------------- JAVASCRIPTS_INLINE #}
-{% block javascripts_inline %}
-{% endblock %}
 </body>
 </html>
