@@ -6228,7 +6228,9 @@ function api_check_term_condition($user_id)
 function api_get_tool_information($tool_id) {
     $t_tool = Database::get_course_table(TABLE_TOOL_LIST);
     $course_id = api_get_course_int_id();
-    $sql = "SELECT * FROM $t_tool WHERE c_id = $course_id AND id = ".intval($tool_id);
+    $sql = "SELECT * FROM $t_tool WHERE c_id = $course_id AND iid = ".intval(
+            $tool_id
+        );
     $rs  = Database::query($sql);
     return Database::fetch_array($rs);
 }

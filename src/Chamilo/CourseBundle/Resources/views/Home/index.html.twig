@@ -10,8 +10,6 @@
                 $(".make_visible_and_invisible").attr("href", "javascript:void(0);");
                 $(".make_visible_and_invisible > img").click(function () {
 
-                    var make_visible = "visible.gif";
-                    var make_invisible = "invisible.gif";
                     var path_name = $(this).attr("src");
                     var list_path_name = path_name.split("/");
                     var image_link = list_path_name[list_path_name.length - 1];
@@ -31,7 +29,7 @@
                         success: function (data) {
                             eval("var info=" + data);
                             var new_current_tool_image = info.image;
-                            var new_current_view = "{{ path('web.img') }}" + info.view;
+                            var new_current_view = "{{ asset('bundles/chamilocore/img/') }}" + info.view;
                             // Eyes
                             $("#" + tool_id).attr("src", new_current_view);
 
@@ -53,20 +51,20 @@
                                 message = "{{ 'ToolIsNowVisible' | trans }}";
                             } else {
                                 message = "{{ 'ToolIsNowHidden' | trans }}";
-                    }
+                            }
                             $(".normal-message").hide();
                             $("#id_confirmation_message").html(message);
                             $("#id_confirmation_message").show();
                         }
-            });
         });
+                });
             });
 
             /* toogle for post-it in course home */
             $(function () {
                 $(".thematic-postit-head").click(function () {
                     $(".thematic-postit-center").slideToggle("fast");
-        });
+                });
             });
         </script>
 
@@ -83,7 +81,6 @@
                          id="id_confirmation_message" style="display:none">
                     </div>
         </div>
-
                 {% if session_info %}
                     <div class="courseadminview">
                         <span class="viewcaption">{{ 'SessionData' | trans }}</span>
@@ -100,8 +97,8 @@
 
                 <div id="course_tools">
                     {{ icons }}
-                </div>
-    </div>
+        </div>
+            </div>
         </div>
     {% endautoescape %}
 {% endblock %}

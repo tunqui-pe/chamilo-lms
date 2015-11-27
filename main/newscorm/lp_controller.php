@@ -1317,8 +1317,9 @@ switch ($action) {
         }
 
         $selectedItem = null;
+        $lp = learnpath::getCurrentLpFromSession();
 
-        foreach ($_SESSION['oLP']->items as $item) {
+        foreach ($lp->items as $item) {
             if ($item->db_id == $_GET['id']) {
                 $selectedItem = $item;
             }
@@ -1326,8 +1327,8 @@ switch ($action) {
 
         if (!empty($selectedItem)) {
             $forumThread = $selectedItem->getForumThread(
-                $_SESSION['oLP']->course_int_id,
-                $_SESSION['oLP']->lp_session_id
+                $lp->course_int_id,
+                $lp->lp_session_id
             );
 
             if (empty($forumThread)) {
@@ -1335,8 +1336,8 @@ switch ($action) {
 
                 $forumCategory = getForumCategoryByTitle(
                     get_lang('LearningPaths'),
-                    $_SESSION['oLP']->course_int_id,
-                    $_SESSION['oLP']->lp_session_id
+                    $lp->course_int_id,
+                    $lp->lp_session_id
                 );
 
                 $forumCategoryId = !empty($forumCategory) ? $forumCategory['cat_id']: 0;
@@ -1354,14 +1355,14 @@ switch ($action) {
                 }
 
                 if (!empty($forumCategoryId)) {
-                    $forum = $_SESSION['oLP']->getForum(
-                        $_SESSION['oLP']->lp_session_id
+                    $forum = $lp->getForum(
+                        $lp->lp_session_id
                     );
 
                     $forumId = !empty($forum) ? $forum['forum_id'] : 0;
 
                     if (empty($forumId)) {
-                        $forumId = $_SESSION['oLP']->createForum($forumCategoryId);
+                        $forumId = $lp->createForum($forumCategoryId);
                     }
 
                     if (!empty($forumId)) {
@@ -1374,7 +1375,7 @@ switch ($action) {
         header('Location:' . api_get_path(WEB_PATH) . api_get_self() . '?' . http_build_query([
             'action' => 'add_item',
             'type' => 'step',
-            'lp_id' => $_SESSION['oLP']->lp_id
+            'lp_id' => $lp->lp_id
         ]));
 
         break;

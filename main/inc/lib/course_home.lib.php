@@ -680,21 +680,23 @@ class CourseHome
             }
         }
         $courseInfo = api_get_course_info();
-        $web_code_path      = api_get_path(WEB_CODE_PATH);
+        $web_code_path = api_get_path(WEB_CODE_PATH);
         $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
-        $is_platform_admin  = api_is_platform_admin();
+        $is_platform_admin = api_is_platform_admin();
 
         $session_id = api_get_session_id();
 
         $items = array();
         $app_plugin = new AppPlugin();
 
+
         if (isset($toolList)) {
-            $lnk = '';
             foreach ($toolList as & $tool) {
+                $lnk = [];
                 $item = array();
                 $tool['admin'] = isset($tool['admin']) ? $tool['admin'] : null;
-                $tool['id'] = isset($tool['id']) ? $tool['id'] : null;
+                //$tool['id'] = isset($tool['id']) ? $tool['id'] : null;
+                $tool['id'] = isset($tool['iid']) ? $tool['iid'] : null;
                 $tool['target'] = isset($tool['target']) ? $tool['target'] : null;
 
                 if (isset($tool['link_id'])) {
@@ -730,12 +732,10 @@ class CourseHome
 
                 // This part displays the links to hide or remove a tool.
                 // These links are only visible by the course manager.
-                unset($lnk);
 
                 $item['extra'] = null;
 
                 if ($is_allowed_to_edit && !api_is_coach()) {
-
                     if (empty($session_id)) {
                         if ($tool['visibility'] == '1' && $tool['admin'] != '1') {
                             $link['name'] = Display::return_icon(
@@ -795,7 +795,8 @@ class CourseHome
                 if (isset($lnk) && is_array($lnk)) {
                     foreach ($lnk as $this_link) {
                         if (empty($tool['adminlink'])) {
-                            $item['visibility'] .=  '<a class="make_visible_and_invisible" href="'.$this_link['cmd'].'">'.$this_link['name'].'</a>';
+                            $commandLink = isset($this_link['cmd']) ? $this_link['cmd'] : '#';
+                            $item['visibility'] .= '<a class="make_visible_and_invisible" href="'.$commandLink.'">'.$this_link['name'].'</a>';
                         }
                     }
                 } else {

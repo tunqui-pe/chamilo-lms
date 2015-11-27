@@ -15,7 +15,7 @@ switch ($action) {
             $tool_visibility = $tool_info['visibility'];
             $tool_image = $tool_info['image'];
 
-            if (api_get_setting('homepage_view') != 'activity_big') {
+            if (api_get_setting('course.homepage_view') != 'activity_big') {
                 $tool_image = Display::return_icon($tool_image, null, null, null, null, true);
                 $na_image = str_replace('.gif', '_na.gif', $tool_image);
             } else {
@@ -34,8 +34,8 @@ switch ($action) {
 
             if (isset($tool_info['custom_icon']) && !empty($tool_info['custom_icon'])) {
                 $tool_image = CourseHome::getCustomWebIconPath().$tool_info['custom_icon'];
-                $na_image = CourseHome::getCustomWebIconPath().
-                    CourseHome::getDisableIcon($tool_info['custom_icon']);
+                $na_image = CourseHome::getCustomWebIconPath(
+                    ).CourseHome::getDisableIcon($tool_info['custom_icon']);
             }
 
             $requested_image = ($tool_visibility == 0 ) ? $tool_image : $na_image;
@@ -51,7 +51,9 @@ switch ($action) {
             if ($_GET["id"] == strval(intval($_GET["id"]))) {
                 $sql = "UPDATE $tool_table SET
                         visibility = $requested_visible
-                        WHERE c_id = $course_id AND id='" . intval($_GET['id']) . "'";
+                        WHERE c_id = $course_id AND iid ='".intval(
+                        $_GET['id']
+                    )."'";
                 Database::query($sql);
             }
             $response_data = array(
@@ -131,10 +133,16 @@ switch ($action) {
         $temp = array();
         foreach ($course_list as $item) {
             $list = new LearnpathList(api_get_user_id(), $item['code'], $session_id);
-            $flat_list          = $list->get_flat_list();
+            $flat_list = $list->get_flat_list();
             $lps[$item['code']] = $flat_list;
-            $course_url         = api_get_path(WEB_COURSE_PATH).$item['directory'].'/?id_session='.$session_id;
-            $item['title']      = Display::url($item['title'], $course_url, array('target' => SESSION_LINK_TARGET));
+            $course_url = api_get_path(
+                    WEB_COURSE_PATH
+                ).$item['directory'].'/?id_session='.$session_id;
+            $item['title'] = Display::url(
+                $item['title'],
+                $course_url,
+                array('target' => SESSION_LINK_TARGET)
+            );
 
             foreach ($flat_list as $lp_id => $lp_item) {
                 $temp[$count]['id']= $lp_id;
@@ -156,11 +164,11 @@ switch ($action) {
                 if ($lp_item['modified_on'] == '0000-00-00 00:00:00' || empty($lp_item['modified_on'])) {
                     $lp_date = api_get_local_time($lp_item['created_on']);
                     $image = 'new.gif';
-                    $label      = get_lang('LearnpathAdded');
+                    $label = get_lang('LearnpathAdded');
                 } else {
-                    $lp_date    = api_get_local_time($lp_item['modified_on']);
-                    $image      = 'moderator_star.png';
-                    $label      = get_lang('LearnpathUpdated');
+                    $lp_date = api_get_local_time($lp_item['modified_on']);
+                    $image = 'moderator_star.png';
+                    $label = get_lang('LearnpathUpdated');
                 }
 
                 $icons = '';
