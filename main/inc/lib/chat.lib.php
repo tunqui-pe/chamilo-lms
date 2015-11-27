@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class Chat
  *
@@ -272,7 +274,7 @@ class Chat extends Model
 
         return $text;
     }
-    
+
     /**
      * SET Disable Chat
      * @param boolean status to disable chat
@@ -280,9 +282,9 @@ class Chat extends Model
      */
     public static function setDisableChat($status = true)
     {
-        $_SESSION['disable_chat'] = $status;
+        Session::write('disable_chat', $status);
     }
-    
+
     /**
      * Disable Chat - disable the chat
      * @return boolean - return true if setDisableChat status is true
@@ -296,10 +298,10 @@ class Chat extends Model
                 return true;
             }
         }
-         
-         return false;
+
+        return false;
     }
-    
+
     public function is_chat_blocked_by_exercises()
     {
         if (isset($_SESSION['current_exercises'])) {

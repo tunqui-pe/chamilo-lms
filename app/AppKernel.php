@@ -148,11 +148,30 @@ class AppKernel extends Kernel
     }
 
     /**
+     * If Chamilo is installed in my.chamilo.net return ''
+     * If Chamilo is installed in my.chamilo.net/chamilo return 'chamilo'
+     * @return string
+     */
+    public function getUrlAppend()
+    {
+        return $this->getContainer()->getParameter('url_append');
+    }
+
+    /**
      * @return string
      */
     public function getConfigurationFile()
     {
         return $this->getRealRootDir().'app/config/configuration.php';
+    }
+
+    /**
+     * Check if system is installed
+     * @return bool
+     */
+    public function isInstalled()
+    {
+        return !empty($this->getContainer()->getParameter('installed'));
     }
 }
 

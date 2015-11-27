@@ -770,43 +770,14 @@ function api_get_path($path_type, $path = null)
     }
 
     if (!$is_this_function_initialized) {
-        global $_configuration;
-
-        $root_rel = $_configuration['url_append'];
-
-        // Support for the installation process.
-        // Developers might use the function api_get_path() directly or indirectly (this is difficult to be traced), at the moment when
-        // configuration has not been created yet. This is why this function should be upgraded to return correct results in this case.
-
-        if (defined('SYSTEM_INSTALLATION') && SYSTEM_INSTALLATION) {
-            if (($pos = strpos(($requested_page_rel = api_get_self()), 'main/install')) !== false) {
-                $root_rel = substr($requested_page_rel, 0, $pos);
-                // See http://www.mediawiki.org/wiki/Manual:$wgServer
-                $server_protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
-                $server_name =
-                    isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME']
-                    : (isset($_SERVER['HOSTNAME']) ? $_SERVER['HOSTNAME']
-                    : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']
-                    : (isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR']
-                    : 'localhost')));
-                if (isset($_SERVER['SERVER_PORT']) && !strpos($server_name, ':')
-                    && (($server_protocol == 'http'
-                    && $_SERVER['SERVER_PORT'] != 80 ) || ($server_protocol == 'https' && $_SERVER['SERVER_PORT'] != 443 ))) {
-                    $server_name .= ":" . $_SERVER['SERVER_PORT'];
-                }
-                $root_web = $server_protocol.'://'.$server_name.$root_rel;
-                $root_sys = str_replace('\\', '/', realpath(__DIR__.'/../../../')).'/';
-                $code_folder = 'main/';
-            }
-            // Here we give up, so we don't touch anything.
-        }
+        $root_rel = Container::getUrlAppend();
 
         // Dealing with trailing slashes.
-        $root_web       = api_add_trailing_slash($root_web);
-        $root_sys       = api_add_trailing_slash($root_sys);
-        $root_rel       = api_add_trailing_slash($root_rel);
-        $code_folder    = api_add_trailing_slash($code_folder);
-        $course_folder  = api_add_trailing_slash($course_folder);
+        $root_web = api_add_trailing_slash($root_web);
+        $root_sys = api_add_trailing_slash($root_sys);
+        $root_rel = api_add_trailing_slash($root_rel);
+        $code_folder = api_add_trailing_slash($code_folder);
+        $course_folder = api_add_trailing_slash($course_folder);
 
         // Web server base and system server base.
         $server_base_web = preg_replace('@'.$root_rel.'$@', '', $root_web); // No trailing slash.
@@ -849,8 +820,6 @@ function api_get_path($path_type, $path = null)
 
         $bundleWebPath = Container::getAsset()->getUrl('bundles/chamilocore/');
         $paths[WEB_IMG_PATH] = $bundleWebPath.'img/';
-
-
         $paths[SYS_IMG_PATH] = $paths[SYS_PATH].$paths[SYS_IMG_PATH];
         $paths[WEB_LIBRARY_PATH]        = $paths[WEB_CODE_PATH].$paths[WEB_LIBRARY_PATH];
         $paths[WEB_LIBRARY_JS_PATH] = $bundleWebPath.'js/';
@@ -870,9 +839,6 @@ function api_get_path($path_type, $path = null)
         $paths[CONFIGURATION_PATH]      = $paths[SYS_PATH].$paths[CONFIGURATION_PATH];
 
         $paths[SYS_COURSE_PATH]         = Container::getCourseDir();
-        /*$paths[SYS_LOG_PATH]            = Container::getLogDir();
-        $paths[SYS_CONFIG_PATH]         = Container::getConfigDir();
-        */
 
         $is_this_function_initialized = true;
     } else {
@@ -1970,7 +1936,7 @@ function api_format_course_array($course_data)
     if (array_key_exists('add_teachers_to_sessions_courses', $course_data)) {
         $_course['add_teachers_to_sessions_courses'] = $course_data['add_teachers_to_sessions_courses'];
     }
-    
+
     if (file_exists(api_get_path(SYS_COURSE_PATH).$course_data['directory'].'/course-pic85x85.png')) {
         $url_image = api_get_path(WEB_COURSE_PATH).$course_data['directory'].'/course-pic85x85.png';
     } else {

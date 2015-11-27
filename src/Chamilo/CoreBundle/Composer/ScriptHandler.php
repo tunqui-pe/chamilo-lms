@@ -91,6 +91,7 @@ class ScriptHandler
             __DIR__.'/../../../../main/inc/lib/item_property.class.php',
             __DIR__.'/../../../../main/inc/lib/chamilo.class.php',
             __DIR__.'/../../../../main/inc/lib/events.lib.inc.php',
+            __DIR__.'/../../../../main/inc/lib/fileDisplay.lib.php',
             __DIR__.'/../../../../main/inc/lib/current_user.class.php',
             __DIR__.'/../../../../main/inc/lib/current_course.class.php',
             __DIR__.'/../../../../main/inc/lib/response.class.php',

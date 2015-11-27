@@ -165,6 +165,8 @@ class CourseDriver extends Driver implements DriverInterface
     {
         $this->setConnectorFromPlugin();
 
+        $sessionId = api_get_session_id();
+
         if ($this->allow()) {
 
             // upload file by elfinder.
@@ -190,13 +192,27 @@ class CourseDriver extends Driver implements DriverInterface
 
                 // Removing course path
                 $realPath = str_replace($realPathRoot, '/', $realPath);
-                add_document(
+                $documentId = add_document(
                     $this->connector->course,
                     $realPath,
                     'file',
                     intval($result['size']),
                     $result['name']
                 );
+
+                api_item_property_update(
+                    $this->connector->course,
+                    TOOL_DOCUMENT,
+                    $documentId,
+                    'DocumentAdded',
+                    api_get_user_id(),
+                    null,
+                    null,
+                    null,
+                    null,
+                    $sessionId
+                );
+
             }
             //error_log(print_r($this->error(),1));
 

@@ -21,6 +21,7 @@ use Chamilo\CoreBundle\Component\Editor\Finder;
 class FrontController extends Controller
 {
     /**
+     * Get templates (left column when creating a document)
      * @Route("/editor/templates", name="editor_templates")
      * @Method({"GET"})
      */
@@ -53,7 +54,7 @@ class FrontController extends Controller
 
     /**
      * @Route("/editor/connector", name="editor_connector")
-     * @Method({"GET"})
+     * @Method({"GET|POST"})
      */
     public function editorConnector()
     {

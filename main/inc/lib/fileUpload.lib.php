@@ -11,27 +11,6 @@
  *	@todo test and reorganise
  */
 
-/**
- * Changes the file name extension from .php to .phps
- * Useful for securing a site.
- *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - file_name (string) name of a file
- * @return - the filenam phps'ized
- */
-function php2phps($file_name) {
-    return preg_replace('/\.(php.?|phtml.?)(\.){0,1}.*$/i', '.phps', $file_name);
-}
-
-/**
- * Renames .htaccess & .HTACCESS to htaccess.txt
- *
- * @param string $filename
- * @return string
- */
-function htaccess2txt($filename) {
-    return str_replace(array('.htaccess', '.HTACCESS'), array('htaccess.txt', 'htaccess.txt'), $filename);
-}
 
 /**
  * This function executes our safety precautions
@@ -44,29 +23,6 @@ function htaccess2txt($filename) {
  */
 function disable_dangerous_file($filename) {
     return htaccess2txt(php2phps($filename));
-}
-
-/**
- * This function generates a unique name for a file on a given location
- * file names are changed to name_#.ext
- *
- * @param string $path
- * @param string $name
- *
- * @deprecated
- *
- * @return string new unique name
- */
-function unique_name($path, $name)
-{
-    $ext = substr(strrchr($name, '.'), 0);
-    $name_no_ext = substr($name, 0, strlen($name) - strlen(strstr($name, $ext)));
-    $n = 0;
-    $unique = '';
-    while (file_exists($path . $name_no_ext . $unique . $ext)) {
-        $unique = '_' . ++$n;
-    }
-    return $name_no_ext . $unique . $ext;
 }
 
 /**
