@@ -31,7 +31,7 @@ abstract class ToolBaseController extends BaseController implements ToolInterfac
     }
 
     /**
-     * @inheritdoc
+     * @return Course
      */
     public function getCourse()
     {

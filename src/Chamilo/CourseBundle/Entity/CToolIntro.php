@@ -62,6 +62,7 @@ class CToolIntro
         return $this->iid;
     }
 
+
     /**
      * Set introText
      *

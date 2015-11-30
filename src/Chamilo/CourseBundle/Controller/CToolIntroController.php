@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
 
 
 /**
@@ -37,6 +38,38 @@ class CToolIntroController extends ToolBaseController
         // Attach the source to the grid
         $grid->setSource($source);
 
+
+        $rowUpdateAction = new RowAction(
+            $this->trans('Update'),
+            'chamilo_course_ctoolintro_update',
+            false,
+            '_self',
+            ['class' => 'btn'],
+            null//$role
+        );
+
+        $rowUpdateAction->setRouteParameters(
+            ['iid', 'course' => $this->getCourse()->getCode()]
+        );
+
+        $rowAction = new RowAction(
+            $this->trans('Delete'),
+            'chamilo_course_ctoolintro_delete',
+            true,
+            '_self',
+            ['class' => 'btn'],
+            null//$role
+        );
+
+        $rowAction->setRouteParameters(
+            ['iid', 'course' => $this->getCourse()->getCode()]
+        );
+
+
+        //$rowAction->setRouteParametersMapping(array('iid' => 'iid'));
+        $grid->addRowAction($rowUpdateAction);
+        $grid->addRowAction($rowAction);
+
         // Return the response of the grid to the template
         return $grid->getGridResponse(
             'ChamiloCourseBundle:CToolIntro:grid.html.twig'
@@ -51,11 +84,17 @@ class CToolIntroController extends ToolBaseController
     public function createAction(Request $request, $tool)
     {
         $course = $this->getCourse();
+        $session = $this->getSession();
+
         $toolIntro = new CToolIntro();
         $toolIntro
             ->setSessionId(0)
             ->setTool($tool)
             ->setCId($course->getId());
+
+        if ($session) {
+            $toolIntro->setSessionId($session->getId());
+        }
 
         $form = $this->createForm(new CToolIntroType(), $toolIntro);
 
@@ -69,7 +108,7 @@ class CToolIntroController extends ToolBaseController
 
             return $this->redirectToRoute(
                 'chamilo_course_ctoolintro_update',
-                ['course' => $course->getCode(), 'tool' => $tool]
+                ['course' => $course->getCode(), 'iid' => $toolIntro->getId()]
             );
         }
 
@@ -77,36 +116,37 @@ class CToolIntroController extends ToolBaseController
     }
 
     /**
-     * @Route("/update/{tool}/{id}")
+     * @Route("/{iid}/update/")
      * @Method({"GET|POST"})
      * @Template("ChamiloCourseBundle:Introduction:index.html.twig")
-     * @param string $tool
+     *
      * @return Response
      */
-    public function updateAction($tool, $id, Request $request)
+    public function updateAction($iid, Request $request)
     {
         $course = $this->getCourse();
 
         $em = $this->get('doctrine')->getManager();
         $criteria = [
-            'iid' => $id,
+            'iid' => $iid,
         ];
+
         $toolIntro = $em->getRepository(
             'ChamiloCourseBundle:CToolIntro'
         )->findOneBy($criteria);
         $form = $this->createForm(new CToolIntroType(), $toolIntro);
-
+        $tool = $toolIntro->getTool();
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($toolIntro);
             $em->flush();
-            $this->addFlash('success', $this->trans('Saved'));
+            $this->addFlash('success', $this->trans('Updated'));
 
             return $this->redirectToRoute(
                 'chamilo_course_ctoolintro_update',
-                ['course' => $course->getCode(), 'tool' => $tool, 'id' => $id]
+                ['course' => $course->getCode(), 'tool' => $tool, 'iid' => $iid]
             );
         }
 
@@ -117,22 +157,18 @@ class CToolIntroController extends ToolBaseController
     }
 
     /**
-     * @Route("/delete/{tool}")
+     * @Route("/{iid}/delete")
      * @Method({"GET"})
-     *
-     * @param string $tool
+     * @param int $id
      * @param Request $request
+     *
      * @return Response
      *
      */
-    public function deleteAction($tool, Request $request)
+    public function deleteAction($iid, Request $request)
     {
-        $courseId = $this->getCourse()->getId();
-        $sessionId = $request->get('sessionId');
         $criteria = array(
-            'sessionId' => intval($sessionId),
-            'id' => $tool,
-            'cId' => $courseId,
+            'iid' => $iid,
         );
 
         $doctrine = $this->getDoctrine();
@@ -142,7 +178,6 @@ class CToolIntroController extends ToolBaseController
         if ($toolIntro) {
             $doctrine->getManager()->remove($toolIntro);
             $doctrine->getManager()->flush();
-
             $this->addFlash('success', $this->trans("IntroductionTextDeleted"));
         }
 

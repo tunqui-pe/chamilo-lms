@@ -176,16 +176,18 @@ class Display
             $course_id = api_get_course_int_id();
 
             /* Retrieves the module introduction text, if exist */
-            $sql = "SELECT intro_text FROM $TBL_INTRODUCTION
+            $sql = "SELECT iid, intro_text FROM $TBL_INTRODUCTION
                     WHERE
                         c_id = $course_id AND
-                        id='".Database::escape_string($tool)."' AND
+                        tool ='".Database::escape_string($tool)."' AND
                         session_id = '".intval($session_id)."'";
             $intro_dbQuery = Database::query($sql);
             $introContent = null;
+            $toolId = null;
             if (Database::num_rows($intro_dbQuery) > 0) {
                 $row = Database::fetch_array($intro_dbQuery);
                 $introContent = $row['intro_text'];
+                $toolId = $row['iid'];
             }
 
             $introContent = CourseHome::replaceTextWithToolUrls($introContent, $toolList);
@@ -279,7 +281,7 @@ class Display
                             array(
                                 'tool' => $toolIntro->getTool(),
                                 'course' => api_get_course_id(),
-                                'id' => $toolIntro->getId(),
+                                'iid' => $toolIntro->getId(),
                             )
                         );
                     } else {
@@ -302,8 +304,12 @@ class Display
                     // Displays "edit intro && delete intro" commands
                     $introduction_section .=  '<div id="introduction_block_action" class="col-md-2 col-md-offset-10">';
                     $url = $urlGenerator->generate(
-                        'chamilo_course_introduction_introduction_edit',
-                        array('tool' => $tool, 'course' => api_get_course_id())
+                        'chamilo_course_ctoolintro_update',
+                        array(
+                            'tool' => $tool,
+                            'iid' => $toolId,
+                            'course' => api_get_course_id(),
+                        )
                     );
 
                     $introduction_section .=  "<a href=\"".$url."?".api_get_cidreq()."\">";
@@ -311,8 +317,8 @@ class Display
                     $introduction_section .=  "</a>";
 
                     $url = $urlGenerator->generate(
-                        'chamilo_course_introduction_introduction_delete',
-                        array('tool' => $tool, 'course' => api_get_course_id())
+                        'chamilo_course_ctoolintro_delete',
+                        array('iid' => $toolId, 'course' => api_get_course_id())
                     );
 
                     $introduction_section .=  "<a onclick=\"javascript:if(!confirm('".addslashes(api_htmlentities(get_lang('ConfirmYourChoice')))."')) return false;\" href=\"".$url."?".api_get_cidreq()."\">";

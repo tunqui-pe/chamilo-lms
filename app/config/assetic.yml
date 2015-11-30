@@ -42,6 +42,8 @@ assetic:
                 - bundles/chamilotheme/components/jquery-file-upload/css/jquery.fileupload.css
                 - bundles/chamilotheme/components/jquery-file-upload/css/jquery.fileupload-ui.css
 
+                - bundles/chamilocore/css/grid.css
+
 #                - bundles/chamilotheme/components/select2/select2-bootstrap.css
 #                - bundles/chamilotheme/components/adminlte/css/jvectormap/*
 #                - bundles/chamilotheme/components/adminlte/css/morris/*
