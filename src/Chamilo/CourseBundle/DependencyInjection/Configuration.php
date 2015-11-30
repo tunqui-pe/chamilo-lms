@@ -50,6 +50,9 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('model')->defaultValue('Sylius\Bundle\SettingsBundle\Model\Parameter')->cannotBeEmpty()->end()
             ->scalarNode('controller')->defaultValue('Sylius\Bundle\ResourceBundle\Controller\ResourceController')->end()
             ->scalarNode('repository')->cannotBeEmpty()->end()
+            ->scalarNode('form')->defaultValue(
+                'MyApp\MyCustomBundle\Form\Type\MyformType'
+            )->end()
             ->end()
             ->end()
             ->end()

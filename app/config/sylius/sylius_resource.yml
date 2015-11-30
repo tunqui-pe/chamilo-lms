@@ -1,0 +1,14 @@
+#sylius_resource:
+#    resources:
+#        chamilo_course.c_tool_intro:
+#            driver: doctrine/orm
+#            object_manager: default
+#            templates: ChamiloCourseBundle:CToolIntro
+#            classes:
+#                model: Chamilo\CourseBundle\Entity\CToolIntro
+##                interface: MyApp\Entity\EntityNameInterface
+#                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+##                repository:  Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+#                repository:  Chamilo\CourseBundle\Entity\Repository\CToolIntroRepository
+#
+#

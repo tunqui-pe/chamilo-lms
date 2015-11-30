@@ -1,6 +1,7 @@
 {% extends "@ChamiloTheme/Layout/base-layout.html.twig" %}
 
 {% block page_content %}
+
     {% if js is defined %}
         {% autoescape false %}
         {% for item in js %}
@@ -11,6 +12,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-md-12">
+            {# Breadcrumb #}
             {% block chamilo_breadcrumb %}
             {% include '@ChamiloCore/breadcrumb.html.twig' %}
             {% endblock %}
@@ -20,12 +22,13 @@
             {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
             {% endblock %}
 
-            {% block chamilo_right_column %}
-                <section class="one_column">
-                    {% autoescape false %}
-                        {{ content }}
-                    {% endautoescape %}
-                </section>
+            {# Content #}
+            {% block content %}
+            <section class="main_content">
+                {% autoescape false %}
+                    {{ content }}
+                {% endautoescape %}
+            </section>
             {% endblock %}
         </div>
     </div>

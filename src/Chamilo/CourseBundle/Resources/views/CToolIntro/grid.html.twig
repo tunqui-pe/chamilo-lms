@@ -4,11 +4,5 @@
 {#{% block page_subtitle %}{{ course.code }}{% endblock %}#}
 
 {% block content %}
-    {% autoescape false %}
-        {{ title }}
-        {{ form_errors(form) }}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    {% endautoescape %}
+    {{ grid(grid) }}
 {% endblock %}

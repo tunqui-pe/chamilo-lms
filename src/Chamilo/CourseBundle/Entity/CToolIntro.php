@@ -4,9 +4,11 @@
 namespace Chamilo\CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CToolIntro
+ * @GRID\Source(columns="iid, tool, introText")
  *
  * @ORM\Table(
  *  name="c_tool_intro",
@@ -37,9 +39,9 @@ class CToolIntro
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="string", nullable=false)
+     * @ORM\Column(name="tool", type="string", nullable=false)
      */
-    private $id;
+    private $tool;
 
     /**
      * @var string
@@ -54,6 +56,11 @@ class CToolIntro
      * @ORM\Column(name="session_id", type="integer")
      */
     private $sessionId;
+
+    public function getId()
+    {
+        return $this->iid;
+    }
 
     /**
      * Set introText
@@ -76,29 +83,6 @@ class CToolIntro
     public function getIntroText()
     {
         return $this->introText;
-    }
-
-    /**
-     * Set id
-     *
-     * @param string $id
-     * @return CToolIntro
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -145,5 +129,23 @@ class CToolIntro
     public function getSessionId()
     {
         return $this->sessionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTool()
+    {
+        return $this->tool;
+    }
+
+    /**
+     * @param string $tool
+     */
+    public function setTool($tool)
+    {
+        $this->tool = $tool;
+
+        return $this;
     }
 }

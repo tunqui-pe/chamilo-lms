@@ -31,11 +31,13 @@
         {% endblock %}
 
         {% block chamilo_right_column %}
+            {% block content %}
             <section class="right_column">
                 {% autoescape false %}
                     {{ content }}
                 {% endautoescape %}
             </section>
+            {% endblock %}
         {% endblock %}
     </div>
 {% endblock %}

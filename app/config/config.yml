@@ -33,6 +33,9 @@ imports:
 #    - { resource: sonata/sonata_notification.yml }
 #    - { resource: sonata/sonata_classification.yml }
 
+  # Sylius
+    - { resource: sylius/sylius_resource.yml }
+
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
@@ -68,7 +71,7 @@ twig:
 
     form:
         resources:
-#            - 'bootstrap_3_layout.html.twig'
+            - 'bootstrap_3_layout.html.twig'
 #            - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'

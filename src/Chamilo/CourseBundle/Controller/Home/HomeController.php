@@ -502,8 +502,6 @@ class HomeController extends ToolBaseController
      */
     public function iconListAction(Request $request)
     {
-        //$this->getSecurity()->isGranted('');
-
         $em = $this->getDoctrine()->getManager();
         $repo = $this->getDoctrine()->getRepository(
             'ChamiloCourseBundle:CTool'
@@ -512,7 +510,6 @@ class HomeController extends ToolBaseController
         $sessionId = intval($request->get('id_session'));
         $itemsFromSession = array();
         if (!empty($sessionId)) {
-
             $query = $repo->createQueryBuilder('a');
             $query->select('s');
             $query->from('Chamilo\CourseBundle\Entity\CTool', 's');
@@ -549,12 +546,13 @@ class HomeController extends ToolBaseController
             $itemsFromCourse = $repo->findBy($criteria);
         }
 
+
         return $this->render(
-            $this->getTemplatePath().'tool/list.tpl',
+            '@ChamiloCourse/Home/list.html.twig',
             [
                 'items_from_course' => $itemsFromCourse,
                 'items_from_session' => $itemsFromSession,
-                'links' => $this->generateLinks(),
+                'links' => '',
             ]
         );
     }
@@ -618,7 +616,8 @@ class HomeController extends ToolBaseController
         $this->getTemplate()->assign('item', $item);
         $this->getTemplate()->assign('form', $form->createView());
         $this->getTemplate()->assign('links', $this->generateLinks());
-        return $this->get('template')->render_template($this->getTemplatePath().'tool/add.tpl');
+
+        return $this->render('@ChamiloCourse/Home/add.html.twig');
 
     }
 
@@ -659,7 +658,8 @@ class HomeController extends ToolBaseController
         $this->getTemplate()->assign('item', $item);
         $this->getTemplate()->assign('form', $form->createView());
         $this->getTemplate()->assign('links', $this->generateLinks());
-        return $this->get('template')->render_template($this->getTemplatePath().'tool/edit.tpl');
+
+        return $this->render('@ChamiloCourse/Home/edit.html.twig');
     }
 
     /**

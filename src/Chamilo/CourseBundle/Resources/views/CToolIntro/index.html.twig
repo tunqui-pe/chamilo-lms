@@ -4,11 +4,9 @@
 {#{% block page_subtitle %}{{ course.code }}{% endblock %}#}
 
 {% block content %}
-    {% autoescape false %}
-        {{ title }}
-        {{ form_errors(form) }}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    {% endautoescape %}
+    {% for tool in tools %}
+        {{ tool.id }}
+    {% endfor %}
+
+    {{ sylius_resource_paginate(tools) }}
 {% endblock %}

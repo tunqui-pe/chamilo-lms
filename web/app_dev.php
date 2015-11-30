@@ -26,6 +26,8 @@ require_once __DIR__.'/legacy.php';
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
+
+Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

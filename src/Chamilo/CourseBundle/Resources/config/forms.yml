@@ -1,0 +1,5 @@
+services:
+    chamilo_course.form.type.c_tool_intro:
+        class: Chamilo\CourseBundle\Form\Type\CToolIntroType
+        tags:
+            - { name: form.type, alias: chamilo_course_c_tool_intro }

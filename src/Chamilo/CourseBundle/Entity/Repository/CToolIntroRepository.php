@@ -6,10 +6,13 @@ namespace Chamilo\CourseBundle\Entity\Repository;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
 /**
- * Class CCourseSettingRepository
+ * Class CToolIntroRepository
  * @package Chamilo\CourseBundle\Entity\Repository
  */
-class ToolRepository extends EntityRepository
+class CToolIntroRepository extends EntityRepository
 {
+    public function createNewWithCourse()
+    {
 
+    }
 }

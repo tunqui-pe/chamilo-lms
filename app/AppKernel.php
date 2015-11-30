@@ -26,7 +26,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
-            //new FOS\RestBundle\FOSRestBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
 
             new Sp\BowerBundle\SpBowerBundle(),
@@ -34,6 +34,8 @@ class AppKernel extends Kernel
 
             // KNP HELPER BUNDLES
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+
+            new APY\DataGridBundle\APYDataGridBundle(),
 
             // Sonata
             //new Sonata\PageBundle\SonataPageBundle(),
@@ -60,6 +62,8 @@ class AppKernel extends Kernel
             //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 
             // Chamilo
             new Chamilo\InstallerBundle\ChamiloInstallerBundle(),

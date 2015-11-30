@@ -264,10 +264,33 @@ class Display
                     // Displays "Add intro" commands
                     $introduction_section .=  '<div id="introduction_block_action" class="col-md-2 col-md-offset-10">';
 
-                    $url = $urlGenerator->generate(
-                        'chamilo_course_introduction_introduction_edit',
-                        array('tool' => $tool, 'course' => api_get_course_id())
-                    );
+                    $em = Database::getManager();
+                    $criteria = [
+                        'tool' => $tool,
+                        'cId' => api_get_course_int_id(),
+                    ];
+
+                    $toolIntro = $em->getRepository(
+                        'ChamiloCourseBundle:CToolIntro'
+                    )->findOneBy($criteria);
+                    if ($toolIntro) {
+                        $url = $urlGenerator->generate(
+                            'chamilo_course_ctoolintro_update',
+                            array(
+                                'tool' => $toolIntro->getTool(),
+                                'course' => api_get_course_id(),
+                                'id' => $toolIntro->getId(),
+                            )
+                        );
+                    } else {
+                        $url = $urlGenerator->generate(
+                            'chamilo_course_ctoolintro_create',
+                            array(
+                                'tool' => $tool,
+                                'course' => api_get_course_id(),
+                            )
+                        );
+                    }
 
                     $introduction_section .=  "<a href=\"".$url."?".api_get_cidreq()."\">";
                     $introduction_section .=  Display::return_icon('introduction_add.gif', get_lang('AddIntro')).' ';
