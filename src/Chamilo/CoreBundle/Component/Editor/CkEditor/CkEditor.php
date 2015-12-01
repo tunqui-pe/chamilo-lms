@@ -71,6 +71,26 @@ class CkEditor extends Editor
     }
 
     /**
+     * @param string $toolBarSet
+     *
+     * @return Toolbar\Basic
+     */
+    public function createToolBar($toolBarSet)
+    {
+        $toolbar = new Toolbar\Basic(
+            $this->urlGenerator,
+            $toolBarSet,
+            $this->config,
+            'CkEditor'
+        );
+
+        $toolbar->setLanguage($this->getLocale());
+        //$config = $toolbar->getConfig();
+
+        return $toolbar;
+    }
+
+    /**
      * @return string
      */
     public function editorReplace()
@@ -212,6 +232,13 @@ class CkEditor extends Editor
         return $templateList;
     }
 
+    /**
+     * @param int $userId
+     * @return array
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
     private function getPersonalTemplates($userId = 0)
     {
         if (empty($userId)) {

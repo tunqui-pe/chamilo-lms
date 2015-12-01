@@ -65,8 +65,6 @@ class CToolIntroController extends ToolBaseController
             ['iid', 'course' => $this->getCourse()->getCode()]
         );
 
-
-        //$rowAction->setRouteParametersMapping(array('iid' => 'iid'));
         $grid->addRowAction($rowUpdateAction);
         $grid->addRowAction($rowAction);
 
@@ -118,7 +116,7 @@ class CToolIntroController extends ToolBaseController
     /**
      * @Route("/{iid}/update/")
      * @Method({"GET|POST"})
-     * @Template("ChamiloCourseBundle:Introduction:index.html.twig")
+     * @Template("ChamiloCourseBundle:CToolIntro:create.html.twig")
      *
      * @return Response
      */
@@ -131,10 +129,12 @@ class CToolIntroController extends ToolBaseController
             'iid' => $iid,
         ];
 
+        $formService = $this->get('chamilo_course.form.type.c_tool_intro');
+
         $toolIntro = $em->getRepository(
             'ChamiloCourseBundle:CToolIntro'
         )->findOneBy($criteria);
-        $form = $this->createForm(new CToolIntroType(), $toolIntro);
+        $form = $this->createForm($formService, $toolIntro);
         $tool = $toolIntro->getTool();
         $form->handleRequest($request);
 
@@ -150,10 +150,10 @@ class CToolIntroController extends ToolBaseController
             );
         }
 
-        return array(
-            'title' => $tool,
+        return [
+            'tool' => $tool,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**

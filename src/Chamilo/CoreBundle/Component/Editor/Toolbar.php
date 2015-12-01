@@ -123,6 +123,31 @@ class Toolbar
     }
 
     /**
+     * This config settings are specialized use when using symfony2 forms
+     * @return array
+     */
+    public function getNamedToolBarConfig()
+    {
+        $config = $this->config;
+        $namedToolBar = [];
+        $counter = 0;
+        foreach ($config['toolbar'] as $toolBarList) {
+            if ($toolBarList == '/') {
+                $namedToolBar[] = '/';
+                continue;
+            }
+            $namedToolBar[] = [
+                'name' => 'named_'.$counter,
+                'items' => $toolBarList,
+            ];
+            $counter++;
+        }
+        $config['toolbar'] = $namedToolBar;
+
+        return $config;
+    }
+
+    /**
      * @param string $variable
      *
      * @return array

@@ -1,5 +1,7 @@
 services:
     chamilo_course.form.type.c_tool_intro:
         class: Chamilo\CourseBundle\Form\Type\CToolIntroType
+        calls:
+            - [setToolBar, ["@chamilo_core.html_editor"]]
         tags:
             - { name: form.type, alias: chamilo_course_c_tool_intro }
