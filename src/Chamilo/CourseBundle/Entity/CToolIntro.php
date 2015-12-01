@@ -8,7 +8,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CToolIntro
- * @GRID\Source(columns="iid, tool, introText")
+ * @GRID\Source(columns="iid, tool, introText", filterable=false)
  *
  * @ORM\Table(
  *  name="c_tool_intro",
@@ -45,7 +45,7 @@ class CToolIntro
 
     /**
      * @var string
-     *
+     * @GRID\Column(type="text")
      * @ORM\Column(name="intro_text", type="text", nullable=false)
      */
     private $introText;

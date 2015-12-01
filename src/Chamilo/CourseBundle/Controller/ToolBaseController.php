@@ -217,11 +217,14 @@ abstract class ToolBaseController extends BaseController implements ToolInterfac
         }
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectCourseHome()
     {
         $url = $this->generateUrl(
             'course_home',
-            ['course' => $this->getCourse()]
+            ['course' => $this->getCourse()->getCode()]
         );
 
         return $this->redirect($url);

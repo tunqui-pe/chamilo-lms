@@ -29,6 +29,9 @@ class CToolIntroController extends ToolBaseController
      */
     public function indexAction()
     {
+        $breadCrumb = $this->get('chamilo_core.block.breadcrumb');
+        $breadCrumb->addChild($this->trans('Introduction'));
+
         // Creates a simple grid based on your entity (ORM)
         $source = new Entity('ChamiloCourseBundle:CToolIntro');
 
@@ -37,7 +40,6 @@ class CToolIntroController extends ToolBaseController
 
         // Attach the source to the grid
         $grid->setSource($source);
-
 
         $rowUpdateAction = new RowAction(
             $this->trans('Update'),
@@ -81,6 +83,19 @@ class CToolIntroController extends ToolBaseController
      */
     public function createAction(Request $request, $tool)
     {
+        // Breadcrumb
+        $breadCrumb = $this->get('chamilo_core.block.breadcrumb');
+        $breadCrumb->addChild(
+            $this->trans('Introduction'),
+            [
+                'route' => 'chamilo_course_ctoolintro_index',
+                'routeParameters' => [
+                    'course' => $this->getCourse()->getCode(),
+                ],
+            ]
+        );
+        $breadCrumb->addChild($this->trans('Create'));
+
         $course = $this->getCourse();
         $session = $this->getSession();
 
@@ -94,7 +109,9 @@ class CToolIntroController extends ToolBaseController
             $toolIntro->setSessionId($session->getId());
         }
 
-        $form = $this->createForm(new CToolIntroType(), $toolIntro);
+        $formService = $this->get('chamilo_course.form.type.c_tool_intro');
+
+        $form = $this->createForm($formService, $toolIntro);
 
         $form->handleRequest($request);
 
@@ -122,6 +139,19 @@ class CToolIntroController extends ToolBaseController
      */
     public function updateAction($iid, Request $request)
     {
+        // Breadcrumb
+        $breadCrumb = $this->get('chamilo_core.block.breadcrumb');
+        $breadCrumb->addChild(
+            $this->trans('Introduction'),
+            [
+                'route' => 'chamilo_course_ctoolintro_index',
+                'routeParameters' => [
+                    'course' => $this->getCourse()->getCode(),
+                ],
+            ]
+        );
+        $breadCrumb->addChild($this->trans('Update'));
+
         $course = $this->getCourse();
 
         $em = $this->get('doctrine')->getManager();
@@ -159,7 +189,7 @@ class CToolIntroController extends ToolBaseController
     /**
      * @Route("/{iid}/delete")
      * @Method({"GET"})
-     * @param int $id
+     * @param int $iid
      * @param Request $request
      *
      * @return Response
@@ -183,33 +213,4 @@ class CToolIntroController extends ToolBaseController
 
         return $this->redirectCourseHome();
     }
-
-    /**
-     *
-     * @param string $url
-     * @param string $tool
-     * @return \Symfony\Component\Form\Form
-     */
-    public function getFormValidator($url, $tool)
-    {
-        $form = $this->createFormBuilder(null, ['action' => $url]);
-
-        $toolbar = new Introduction('');
-        $config = $toolbar->getConfig();
-        $form->add('content', 'ckeditor');
-
-        //$form = new \FormValidator('form', 'post', $url);
-        //$form->addHtmlEditor('content', null, null, false, $config);
-        if ($tool == 'course_homepage') {
-            /*$form->add(get_lang('YouCanUseAllTheseTags'),
-                ''
-                '(('.implode(')) <br /> ((', \CourseHome::availableTools()).'))'
-            );*/
-        }
-        $form->add('save', 'submit', ['label' => get_lang('SaveIntroText')]);
-
-        return $form->getForm();
-    }
-
-
 }

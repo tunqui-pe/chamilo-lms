@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {
+    protected $extraChildren;
+
     /**
      * {@inheritdoc}
      */
@@ -38,6 +40,15 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
     }
 
     /**
+     * @param string $title
+     * @param array $params
+     */
+    public function addChild($title, $params = [])
+    {
+        $this->extraChildren[] = ['title' => $title, 'params' => $params];
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getMenu(BlockContextInterface $blockContext)
@@ -58,6 +69,16 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                     ),
                 )
             );
+        }
+
+        if (!empty($this->extraChildren)) {
+            foreach ($this->extraChildren as $item) {
+                $params = isset($item['params']) ? $item['params'] : [];
+                $menu->addChild(
+                    $item['title'],
+                    $params
+                );
+            }
         }
 
         // Load legacy breadcrumbs
