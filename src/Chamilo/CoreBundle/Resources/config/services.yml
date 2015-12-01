@@ -132,6 +132,13 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    chamilo_core.listener.user_locale_listener:
+        class: Chamilo\CoreBundle\EventListener\UserLocaleListener
+        arguments: ["@session", "@chamilo.settings.manager"]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }
+            - { name: kernel.event_listener, event: kernel.request, method: setLocaleForUnauthenticatedUser }
+
     # Settings listener
     chamilo_core.listener.settings:
         class: Chamilo\CoreBundle\EventListener\SettingListener
