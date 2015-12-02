@@ -245,7 +245,6 @@ services:
         tags:
             - { name: chamilo_course.settings_schema, namespace: document }
 
-
     chamilo_course.tool.dropbox:
         class: Chamilo\CourseBundle\Tool\Dropbox
         arguments:

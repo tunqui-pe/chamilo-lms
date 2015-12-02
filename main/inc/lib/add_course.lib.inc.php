@@ -89,7 +89,6 @@ class AddCourse
         $htmlpage = "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Not authorized</title>\n  </head>\n  <body>\n  </body>\n</html>";
         $cp = api_get_path(SYS_COURSE_PATH) . $course_repository;
 
-        var_dump($cp);
         //Creating document folder
         mkdir($cp, $perm);
         mkdir($cp . '/document', $perm);

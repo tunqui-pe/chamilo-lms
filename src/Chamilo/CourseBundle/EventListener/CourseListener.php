@@ -259,6 +259,16 @@ class CourseListener
 
             if ($course) {
                 $controller->setCourse($course);
+
+                // Legacy code
+                $courseCode = $course->getCode();
+
+                $courseInfo = api_get_course_info($courseCode);
+                $container->get('twig')->addGlobal('course', $course);
+
+                $sessionHandler->set('_real_cid', $course->getId());
+                $sessionHandler->set('_cid', $course->getCode());
+                $sessionHandler->set('_course', $courseInfo);
             }
 
             if ($session) {
@@ -285,15 +295,6 @@ class CourseListener
             $container->get('twig')->addGlobal('tool.name', $toolName);
             $container->get('twig')->addGlobal('tool.action', $toolAction);
 
-            // Legacy code
-            $courseCode = $course->getCode();
-
-            $courseInfo = api_get_course_info($courseCode);
-            $container->get('twig')->addGlobal('course', $course);
-
-            $sessionHandler->set('_real_cid', $course->getId());
-            $sessionHandler->set('_cid', $course->getCode());
-            $sessionHandler->set('_course', $courseInfo);
             $sessionHandler->set('_gid', $groupId);
             $sessionHandler->set('is_allowed_in_course', true);
             $sessionHandler->set('id_session', $sessionId);

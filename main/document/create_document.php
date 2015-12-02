@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  *	This file allows creating new html documents with an online WYSIWYG html editor.
@@ -9,7 +10,6 @@ use ChamiloSession as Session;
  *	@package chamilo.document
  */
 
-////require_once '../inc/global.inc.php';
 
 Session::write('whereami', 'document/create');
 $this_section = SECTION_COURSES;
@@ -519,9 +519,7 @@ if ($form->validate()) {
 
 	if ($fp = @fopen($filepath.$filename.'.'.$extension, 'w')) {
 		//$courseUrl = \Chamilo\CoreBundle\Framework\Container::getUrlGenerator()->generate('course_url').'/';
-        //var_dump($courseUrl );exit;
-        //$content = str_replace(api_get_path(WEB_COURSE_PATH), $_configuration['url_append'].'/courses/', $content);
-		//$content = str_replace($courseUrl, $content);
+        $content = str_replace(api_get_path(WEB_COURSE_PATH), Container::getUrlAppend().'/courses/', $content);
 
 		fputs($fp, $content);
 		fclose($fp);

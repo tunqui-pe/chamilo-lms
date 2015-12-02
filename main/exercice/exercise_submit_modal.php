@@ -437,7 +437,6 @@ if (!empty($choice_value)) {
 		<td><div style="color:'.$missing_color.'">'.(($final_missing < 0)?0:intval($final_missing)).'</div></td>
 	</tr>
 	</table>';
-	//var_dump($final_overlap, $threadhold1 , $final_missing, $threadhold2 , $final_excess, $threadhold3);
 }
 $_SESSION['newquestionList'] = $newquestionList;
 

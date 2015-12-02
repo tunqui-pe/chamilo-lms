@@ -50,11 +50,12 @@ class SettingsManager extends ChamiloSettingsManager
             return $this->resolvedSettings[$namespace];
         }
 
-        if ($this->cache->contains($namespace)) {
+        /*if ($this->cache->contains($namespace)) {
             $parameters = $this->cache->fetch($namespace);
         } else {
             $parameters = $this->getParameters($namespace);
-        }
+        }*/
+        $parameters = $this->getParameters($namespace);
 
         $schema = $this->schemaRegistry->getSchema($namespace);
 
