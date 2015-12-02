@@ -10,8 +10,6 @@ if ($type == 'personal') {
     $cidReset = true; // fixes #5162
 }
 
-//require_once '../global.inc.php';
-
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 $group_id = api_get_group_id();
 

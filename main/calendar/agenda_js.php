@@ -24,7 +24,6 @@ if ($type == 'personal') {
 $current_course_tool = TOOL_CALENDAR_EVENT;
 $this_section = SECTION_MYAGENDA;
 
-//$htmlHeadXtra[] = api_get_jquery_libraries_js(array('jquery-ui', 'jquery-ui-i18n'));
 //$htmlHeadXtra[] = api_get_js('qtip2/jquery.qtip.min.js');
 $htmlHeadXtra[] = api_get_theme_asset('fullcalendar/dist/fullcalendar.min.js');
 $htmlHeadXtra[] = api_get_theme_asset('fullcalendar/dist/gcal.js');
@@ -201,6 +200,11 @@ if (!empty($userId)) {
 if (isset($_GET['session_id'])) {
     $agenda_ajax_url .= '&session_id='.intval($_GET['session_id']);
 }
+
+if ($type == 'course') {
+    $agenda_ajax_url .= '&'.api_get_cidreq();
+}
+
 
 $tpl->addGlobal('web_agenda_ajax_url', $agenda_ajax_url);
 $course_code = api_get_course_id();
