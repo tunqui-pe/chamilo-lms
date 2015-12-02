@@ -79,6 +79,8 @@ class CourseListener
                 // Session
                 $sessionId = intval($request->get('id_session'));
 
+                $session = null;
+
                 // Group
                 $groupId = intval($request->get('gidReq'));
                 if (empty($sessionId)) {
@@ -185,17 +187,6 @@ class CourseListener
                 throw new NotFoundHttpException(
                     $translator->trans('CourseDoesNotExist')
                 );
-            }
-        }
-
-        $course = $sessionHandler->get('courseObj');
-
-        if ($course) {
-            $courseLanguage = $course->getCourseLanguage();
-
-            if (!empty($courseLanguage)) {
-                $request->setLocale($courseLanguage);
-                $sessionHandler->set('_locale', $courseLanguage);
             }
         }
     }
