@@ -243,13 +243,13 @@ ivory_ck_editor:
             path:     "/bundles/chamilocore/ckeditor/plugins/wordcount"
             filename: "plugin.js"
 #        adobeair:
-#            path:     "/bundles/chamilotheme/components/ckeditor/plugins/adobeair"
+#            path:     "/bundles/chamilocore/components/ckeditor/plugins/adobeair"
 #            filename: "plugin.js"
 #        iframedialog:
-#            path:     "/bundles/chamilotheme/components/ckeditor/plugins/iframedialog"
+#            path:     "/bundles/chamilocore/components/ckeditor/plugins/iframedialog"
 #            filename: "plugin.js"
 #        docprops:
-#            path:     "/bundles/chamilotheme/components/ckeditor/plugins/docprops"
+#            path:     "/bundles/chamilocore/components/ckeditor/plugins/docprops"
 #            filename: "plugin.js"
 #
 

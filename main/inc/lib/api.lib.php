@@ -6587,13 +6587,13 @@ function api_get_bundle_asset($file, $justPath = false)
  */
 function api_get_theme_asset($file, $justPath = false)
 {
-    return api_get_bundle_asset('chamilotheme/components/'.$file, $justPath);
+    return api_get_bundle_asset('chamilocore/components/'.$file, $justPath);
 }
 
 function api_get_theme_asset_css($file)
 {
     $path = str_replace('/chamilocore/img', '', api_get_path(WEB_IMG_PATH));
-    $file = $path.'chamilotheme/components/'.$file;
+    $file = $path.'chamilocore/components/'.$file;
 
     return api_get_css($file, 'screen');
 }
