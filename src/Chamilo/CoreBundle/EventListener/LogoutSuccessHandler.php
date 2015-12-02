@@ -35,7 +35,10 @@ class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
     public function onLogoutSuccess(Request $request)
     {
         // Chamilo logout
-        //$userId = api_get_user_id();
+
+        $request->getSession()->remove('_locale');
+        $request->getSession()->remove('_locale_user');
+
         $login = $this->router->generate('home');
         $response = new RedirectResponse($login);
 

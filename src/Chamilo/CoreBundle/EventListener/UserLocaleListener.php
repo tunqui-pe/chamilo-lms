@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\EventListener;
 
+use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\SettingsBundle\Manager\SettingsManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -14,6 +15,9 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
  *
  * Stores the locale of the user in the session after the
  * login. This can be used by the LocaleListener afterwards.
+ *
+ * Priority order: platform -> user
+ * Priority order: platform -> user -> course
  *
  * @package Chamilo\CoreBundle\EventListener
  */
@@ -42,33 +46,7 @@ class UserLocaleListener
 
         if (null !== $user->getLocale()) {
             $this->session->set('_locale', $user->getLocale());
+            $this->session->set('_locale_user', $user->getLocale());
         }
-    }
-
-    /**
-     * @param GetResponseEvent $event
-     */
-    public function setLocaleForUnauthenticatedUser(GetResponseEvent $event)
-    {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
-            return;
-        }
-
-        $request = $event->getRequest();
-        // Getting setting from DB
-        $chamiloLocale = $this->settings->getSetting(
-            'language.platform_language'
-        );
-
-        if (empty($chamiloLocale)) {
-            $chamiloLocale = $request->getPreferredLanguage();
-        }
-
-        if ('undefined' == $request->getLocale()) {
-            //$request->setLocale($request->getPreferredLanguage());
-            //$request->setLocale($chamiloLocale);
-        }
-
-        $request->setLocale($chamiloLocale);
     }
 }

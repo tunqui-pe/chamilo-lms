@@ -34,6 +34,7 @@ class LegacyListener
     {
         $request = $event->getRequest();
         $session = $request->getSession();
+
         /** @var ContainerInterface $container */
         $container = $this->container;
 
@@ -105,50 +106,10 @@ class LegacyListener
         \CourseManager::setCourseManager(
             $container->get('chamilo_core.manager.course')
         );
-        //\CourseManager::setCourseSettingsManager($container->get('chamilo_course.settings.manager'));
 
         // Setting legacy properties.
         Container::$dataDir = $container->get('kernel')->getDataDir();
         Container::$courseDir = $container->get('kernel')->getDataDir();
-
-        /*if (!defined('DEFAULT_DOCUMENT_QUOTA')) {
-            $default_quota = api_get_setting('document.default_document_quotum');
-
-            // Just in case the setting is not correctly set
-            if (empty($default_quota)) {
-                $default_quota = 100000000;
-            }
-
-            define('DEFAULT_DOCUMENT_QUOTA', $default_quota);
-        }*/
-
-        // Access URL (multiple URL)
-        /** @var \Sonata\PageBundle\Model\SnapshotPageProxy $page */
-        /*$page = $request->get('page');
-        if (isset($page) && !is_numeric($page)) {
-            //$siteId = $page->getSite()->getId();
-            //$request->getSession()->set('url_info', $page->getSite());
-        } else {
-            $siteId = 1;
-        }
-        $request->getSession()->set('url_id', $siteId);*/
-
-/*
-        // Loading portal settings from DB.
-        $settingsRefreshInfo = $em->getRepository('ChamiloCoreBundle:SettingsCurrent')->findOneByVariable('settings_latest_update');
-        $settingsLatestUpdate = !empty($settingsRefreshInfo) ? $settingsRefreshInfo->getSelectedValue() : null;
-
-        $settings = $session->get('_setting');
-
-        if (empty($settings)) {
-            api_set_settings_and_plugins();
-        } else {
-            if (isset($settings['settings_latest_update']) &&
-                $settings['settings_latest_update'] != $settingsLatestUpdate
-            ) {
-                api_set_settings_and_plugins();
-            }
-        }*/
     }
 
     /**

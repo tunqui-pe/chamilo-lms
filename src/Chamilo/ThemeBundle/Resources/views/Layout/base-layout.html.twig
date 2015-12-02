@@ -34,7 +34,7 @@
 
     {# Check chamilo_css key in assetic.yml #}
     {%- stylesheets '@chamilo_css' -%}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url | replace({'/app_dev.php': ''}) }}" />
     {% endstylesheets %}
 
     {% stylesheets
@@ -42,7 +42,7 @@
     '@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'
     %}
 
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    <link href="{{ asset_url | replace({'/app_dev.php': ''}) }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
 
     {# Chamilo theme #}
@@ -78,12 +78,12 @@
     {# Check chamilo_js key in assetic.yml #}
     {% block javascripts %}
     {%- javascripts '@chamilo_js' -%}
-    <script src="{{ asset_url }}"></script>
+    <script src="{{ asset_url | replace({'/app_dev.php': ''}) }} "></script>
     {% endjavascripts %}
 
     <script src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) | replace({'/app_dev.php': ''}) }}"></script>
 
     {% block chamilo_header_js %}
         {% include '@ChamiloTheme/Layout/header.js.twig' %}
@@ -94,7 +94,7 @@
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
     %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset_url | replace({'/app_dev.php': ''}) }}"></script>
     {% endjavascripts %}
 
 

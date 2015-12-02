@@ -12,8 +12,7 @@ use Chamilo\CourseBundle\Entity\CTool;
 use Display;
 use CourseHome;
 use Symfony\Component\HttpFoundation\Request;
-use Chamilo\CourseBundle\Event\CourseAccess;
-use Chamilo\CourseBundle\Event\SessionAccess;
+
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -36,11 +35,7 @@ class HomeController extends ToolBaseController
     {
         $sessionId = api_get_session_id();
         $course = $this->getCourse();
-        $session = $this->getSession();
-
         $courseCode = $course->getId();
-        $sessionHandler = $request->getSession();
-
         $result = $this->autoLaunch();
 
         $showAutoLaunchLpWarning = $result['show_autolaunch_lp_warning'];
@@ -71,30 +66,6 @@ class HomeController extends ToolBaseController
                 )
             );
         }
-
-        $coursesAlreadyVisited = $sessionHandler->get('coursesAlreadyVisited');
-
-        if (!isset($coursesAlreadyVisited[$courseCode])) {
-            // Course access events
-            $dispatcher = $this->container->get('event_dispatcher');
-
-            if (empty($sessionId)) {
-                $dispatcher->dispatch(
-                    'chamilo_course.course.access',
-                    new CourseAccess($this->getUser(), $course)
-                );
-            } else {
-                $dispatcher->dispatch(
-                    'chamilo_course.course.access',
-                    new SessionAccess($this->getUser(), $course, $session)
-                );
-            }
-            $coursesAlreadyVisited[$courseCode] = 1;
-            $sessionHandler->set('coursesAlreadyVisited', $coursesAlreadyVisited);
-        }
-
-        $sessionHandler->remove('toolgroup');
-        $sessionHandler->remove('_gid');
 
         $isSpecialCourse = \CourseManager::isSpecialCourse($courseCode);
 
@@ -136,20 +107,6 @@ class HomeController extends ToolBaseController
         if (api_get_setting('session.show_session_data') == 'true' && $sessionId) {
             $sessionInfo = CourseHome::show_session_data($sessionId);
         }
-
-        /*$response = $this->render(
-            'ChamiloCoreBundle:Tool:Home/index.html.twig',
-            array(
-                'session_info' => $sessionInfo,
-                'icons' => $result['content'],
-                'edit_icons' => $editIcons,
-                'introduction_text' => $introduction,
-                'exercise_warning' => null,
-                'lp_warning' => null
-            )
-        );
-
-        return new Response($response, 200, array());*/
 
         return $this->render(
             'ChamiloCourseBundle:Home:index.html.twig',
