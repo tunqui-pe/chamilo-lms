@@ -69,7 +69,8 @@ assetic:
 #                - @bootstrap_js
                 - bundles/chamilocore/components/bootstrap/dist/js/bootstrap.min.js
                 - bundles/chamilocore/components/chosen-bower/chosen.jquery.js
-                - @moment_js
+#                - @moment_js
+                - bundles/chamilocore/components/moment/moment.js
                 - bundles/chamilocore/components/fullcalendar/dist/fullcalendar.min.js
                 - bundles/chamilocore/components/jqgrid/js/jquery.jqGrid.js
                 - bundles/chamilocore/components/select2/dist/js/select2.js
