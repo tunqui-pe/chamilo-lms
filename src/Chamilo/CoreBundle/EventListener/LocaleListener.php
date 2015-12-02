@@ -59,9 +59,11 @@ class LocaleListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        $sessionHandler = $event->getRequest()->getSession();
-        $translator = $this->container->get('translator.default');
         $container = $this->container;
+        $installed = $container->get('kernel')->isInstalled();
+        if (!$installed) {
+            return;
+        }
 
         $courseCode = $request->get('course');
 
