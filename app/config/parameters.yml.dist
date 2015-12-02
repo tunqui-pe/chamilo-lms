@@ -28,3 +28,10 @@ parameters:
     url_append: ''
     sonata_media.cdn.host: /uploads/media
 
+
+    # If you installed in http://localhost/chamilo_master you need to setup like this:
+
+    # url_append: '/chamilo_master/web/'
+    # sonata_media.cdn.host: /chamilo_master/web/uploads/media
+
+
