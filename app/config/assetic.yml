@@ -66,7 +66,8 @@ assetic:
             inputs:
                 - bundles/chamilocore/components/jquery/dist/jquery.js
                 - bundles/chamilocore/components/jquery-ui/jquery-ui.min.js
-                - @bootstrap_js
+#                - @bootstrap_js
+                - bundles/chamilocore/components/bootstrap/dist/js/bootstrap.min.js
                 - bundles/chamilocore/components/chosen-bower/chosen.jquery.js
                 - @moment_js
                 - bundles/chamilocore/components/fullcalendar/dist/fullcalendar.min.js
