@@ -165,7 +165,7 @@ function saveMessage($message, $userId, $_course, $session_id, $group_id, $previ
 
     if (!api_is_anonymous()) {
         if (!empty($message)) {
-            Emojione\Emojione::$imagePathPNG = api_get_path(WEB_LIBRARY_PATH).'javascript/emojione/png/';
+            Emojione\Emojione::$imagePathPNG = api_get_path(WEB_LIBRARY_JS_PATH).'emojione/png/';
             Emojione\Emojione::$ascii = true;
 
             // Parsing emojis

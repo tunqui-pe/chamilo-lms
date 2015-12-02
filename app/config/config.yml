@@ -8,7 +8,7 @@ imports:
     - { resource: mopa/mopa_bootstrap.yml }
 
     # FriendOfSymfony Bundles
-    #- { resource: fos/fos_comment.yml }
+    #- { resource: fos/fos_comment.yml }r
 #    - { resource: fos/fos_rest.yml }
     - { resource: fos/fos_user.yml }
     #- { resource: fos/fos_elastica.yml }
@@ -195,15 +195,6 @@ doctrine_cache:
         chamilo_settings:
             type: file_system
 
-# Bower configuration
-sp_bower:
-    bin: "%sp_bower_bin%" # Optional
-    assetic: true
-    install_on_warmup: false
-    bundles:
-        ChamiloThemeBundle:
-            cache:
-                directory: %kernel.root_dir%/cache/public/components/cache
 
 stof_doctrine_extensions:
     default_locale: "%locale%"

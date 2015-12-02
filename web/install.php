@@ -120,13 +120,13 @@ function iterateRequirements(array $collection, $translator)
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css"
-          href="bundles/chamilotheme/components/bootstrap/dist/css/bootstrap.css"/>
+          href="bundles/chamilocore/components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css"
-          href="bundles/chamilotheme/components/fontawesome/css/font-awesome.css"/>
+          href="bundles/chamilocore/components/fontawesome/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css"
           href="bundles/chamiloinstaller/css/install.css"/>
     <script type="text/javascript"
-            src="bundles/chamilotheme/components/jquery/dist/jquery.min.js"></script>
+            src="bundles/chamilocore/components/jquery/dist/jquery.min.js"></script>
 
     <script type="text/javascript">
         $(function () {
