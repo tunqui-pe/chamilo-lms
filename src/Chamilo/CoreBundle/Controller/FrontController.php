@@ -8,6 +8,7 @@ use FM\ElFinderPHP\Connector\ElFinderConnector;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Chamilo\CoreBundle\Component\Editor\Connector;
@@ -43,12 +44,18 @@ class FrontController extends Controller
      * @Route("/editor/filemanager", name="editor_filemanager")
      * @Method({"GET"})
      */
-    public function editorFileManager()
+    public function editorFileManager(Request $request)
     {
         \Chat::setDisableChat();
 
+        $courseId = $request->get('course_id');
+        $sessionId = $request->get('session_id');
+
         return $this->render(
-            '@ChamiloCore/default/javascript/editor/ckeditor/elfinder.html.twig'
+            '@ChamiloCore/default/javascript/editor/ckeditor/elfinder.html.twig', [
+                'course_id' => $courseId,
+                'session_id' => $sessionId
+            ]
         );
     }
 
@@ -56,9 +63,16 @@ class FrontController extends Controller
      * @Route("/editor/connector", name="editor_connector")
      * @Method({"GET|POST"})
      */
-    public function editorConnector()
+    public function editorConnector(Request $request)
     {
         error_reporting(-1);
+        $courseId = $request->get('course_id');
+        $sessionId = $request->get('session_id');
+
+        $courseInfo = [];
+        if (!empty($courseId)) {
+            $courseInfo = api_get_course_info_by_id($courseId);
+        }
 
         /** @var Connector $connector */
         $connector = new Connector(
@@ -67,7 +81,8 @@ class FrontController extends Controller
             $this->container->get('router'),
             $this->container->get('translator.default'),
             $this->container->get('security.context'),
-            $this->getUser()
+            $this->getUser(),
+            $courseInfo
         );
 
         $driverList = array(

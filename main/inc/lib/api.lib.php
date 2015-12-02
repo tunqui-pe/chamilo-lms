@@ -1834,7 +1834,6 @@ function api_get_course_info($course_code = null, $strict = false)
         return $courseInfo;
     }
 
-
     $_course = Session::read('_course');
     if ($_course == '-1') {
         $_course = array();

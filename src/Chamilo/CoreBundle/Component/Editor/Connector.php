@@ -62,8 +62,8 @@ class Connector
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->security = $security;
-        $this->user = api_get_user_info();
-        $this->course = api_get_course_info();
+        $this->user = empty($user) ? api_get_user_info() : $user;
+        $this->course = empty($course) ? api_get_course_info() : $course;
         $this->driverList = $this->getDefaultDriverList();
     }
 

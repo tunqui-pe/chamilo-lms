@@ -327,6 +327,7 @@ class CourseListener
         $sessionHandler->remove('_gid');
         $sessionHandler->remove('is_allowed_in_course');
         $sessionHandler->remove('_real_cid');
+        $sessionHandler->remove('_cid');
         $sessionHandler->remove('_course');
         $sessionHandler->remove('id_session');
         $sessionHandler->remove('_locale_course');

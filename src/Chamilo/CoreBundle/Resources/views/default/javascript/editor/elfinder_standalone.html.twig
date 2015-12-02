@@ -1,3 +1,4 @@
+{% autoescape false %}
 {% set finderFolder = asset('assets/elfinder/dist/') %}
 <!-- elFinder CSS (REQUIRED) -->
 <link rel="stylesheet" type="text/css" media="screen"
@@ -6,9 +7,7 @@
       href="{{ finderFolder }}css/elfinder.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="{{ finderFolder }}css/theme.css">
 
-
 <!-- elFinder JS (REQUIRED) -->
-
 <script type="text/javascript"
         src="{{ asset('assets/jquery/jquery.js') }}"></script>
 <script type="text/javascript"
@@ -30,7 +29,7 @@
     $().ready(function() {
         var funcNum = getUrlParam('CKEditorFuncNum');
         var elf = $('#elfinder').elfinder({
-            url: '{{ url('editor_connector') }}',  // connector URL (REQUIRED)
+            url: '{{ url('editor_connector', {'course_id': course_id , 'session_id': session_id}) }}',  // connector URL (REQUIRED)
             getFileCallback : function(file) {
                 window.opener.CKEDITOR.tools.callFunction(funcNum, file.url);
                 window.close();
@@ -40,6 +39,4 @@
     });
 </script>
 <div id="elfinder"></div>
-
-
-
+{% endautoescape %}

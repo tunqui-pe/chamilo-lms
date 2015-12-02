@@ -34,7 +34,7 @@
 
     {# Check chamilo_css key in assetic.yml #}
     {%- stylesheets '@chamilo_css' -%}
-    <link rel="stylesheet" href="{{ asset_url | replace({'/app_dev.php': ''}) }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
     {% stylesheets
