@@ -77,7 +77,7 @@ if (!empty($groupId)) {
 }
 
 if (empty($open_chat_window)) {
-    Display::display_header($tool_name, 'Chat');
+    //Display::display_header($tool_name, 'Chat');
 }
 
 $url = api_get_path(WEB_CODE_PATH).'chat/';
@@ -98,3 +98,6 @@ echo '</html>';
 
 // Hide headers
 Container::getTwig()->addGlobal('show_header', false);
+
+// Hide headers
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';

@@ -126,16 +126,20 @@ header('Content-Type: text/html; charset=UTF-8');
 <head>
 <meta charset="UTF-8" />
 <title>Chat</title>
-<link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_PATH); ?>web/assets/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/jquery-emojiarea/jquery.emojiarea.css">
-<link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_CSS_PATH); ?>chat.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(
+        WEB_PATH
+    ); ?>web/bundles/chamilocore/css/chat.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>/javascript/jquery-scrollbar/jquery.scrollbar.css">
-<link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_CSS_PATH); ?>markdown.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(
+        WEB_PATH
+    ); ?>web/bundles/chamilocore/css/markdown.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/jquery-textcomplete/jquery.textcomplete.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/emojione/css/emojione.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/emojione/css/autocomplete.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/highlight/styles/github.css">
 <?php echo api_get_jquery_js(); ?>
+    <?php echo api_get_theme_asset_css('bootstrap/dist/css/bootstrap.css'); ?>
 <?php echo api_get_theme_asset('bootstrap/dist/js/bootstrap.min.js'); ?>
 <?php echo api_get_js('highlight/highlight.pack.js'); ?>
 <?php echo api_get_js('jquery-textcomplete/jquery.textcomplete.js'); ?>
@@ -277,4 +281,4 @@ header('Content-Type: text/html; charset=UTF-8');
 <body <?php echo $bodyXtra; ?> >
 <?php
 // Hide headers
-Container::getTwig()->addGlobal('show_header', false);
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';

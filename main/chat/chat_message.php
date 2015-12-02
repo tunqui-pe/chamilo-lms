@@ -130,4 +130,4 @@ if ($sent) {
 
 require 'footer_frame.inc.php';
 // Hide headers
-Container::getTwig()->addGlobal('show_header', false);
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
