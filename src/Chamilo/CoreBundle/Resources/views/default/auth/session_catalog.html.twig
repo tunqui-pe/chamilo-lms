@@ -13,7 +13,7 @@
         <div class="row">
             {% if show_courses %}
                 <div class="col-md-4">
-                    <div class="section-title-catalog">{{ 'Courses'|get_lang }}</div>
+                    <div class="section-title-catalog">{{ 'Courses'| trans }}</div>
                     {% if not hidden_links %}
                         <form class="form-horizontal" method="post"
                               action="{{ course_url }}">
@@ -29,7 +29,7 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-default"
                                                     type="submit"><em
-                                                        class="fa fa-search"></em> {{ 'Search'|get_lang }}
+                                                        class="fa fa-search"></em> {{ 'Search'| trans }}
                                             </button>
                                         </span>
                                     </div>
@@ -42,14 +42,14 @@
 
             <div class="col-md-8">
                 {% if show_sessions %}
-                    <div class="section-title-catalog">{{ 'Sessions'|get_lang }}</div>
+                    <div class="section-title-catalog">{{ 'Sessions'| trans }}</div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <form class="form-horizontal" method="post"
                                   action="{{ _p.web_self }}?action=display_sessions">
                                 <div class="form-group">
-                                    <label class="col-sm-3">{{ "ByDate"|get_lang }}</label>
+                                    <label class="col-sm-3">{{ "ByDate"| trans }}</label>
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <input type="date" name="date"
@@ -60,7 +60,7 @@
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default"
                                                         type="submit"><em
-                                                            class="fa fa-search"></em> {{ 'Search'|get_lang }}
+                                                            class="fa fa-search"></em> {{ 'Search'| trans }}
                                                 </button>
                                             </span>
                                         </div>
@@ -72,7 +72,7 @@
                             <form class="form-horizontal" method="post"
                                   action="{{ _p.web_self }}?action=search_tag">
                                 <div class="form-group">
-                                    <label class="col-sm-4">{{ "ByTag"|get_lang }}</label>
+                                    <label class="col-sm-4">{{ "ByTag"| trans }}</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" name="search_tag"
@@ -81,7 +81,7 @@
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default"
                                                         type="submit"><em
-                                                            class="fa fa-search"></em> {{ 'Search'|get_lang }}
+                                                            class="fa fa-search"></em> {{ 'Search'| trans }}
                                                 </button>
                                             </span>
                                         </div>
@@ -131,14 +131,14 @@
                                         <p>
                                             <a class="btn btn-info btn-block btn-sm"
                                                href="{{ "#{_p.web}session/#{session.id}/about/" }}"
-                                               title="{{ session.name }}">{{ 'SeeCourseInformationAndRequirements'|get_lang }}</a>
+                                               title="{{ session.name }}">{{ 'SeeCourseInformationAndRequirements'| trans }}</a>
                                         </p>
                                     {% else %}
                                         <p>
                                             <a class="btn btn-info btn-block btn-sm"
                                                role="button"
                                                data-toggle="popover"
-                                               id="session-{{ session.id }}-sequences">{{ 'SeeSequences'|get_lang }}</a>
+                                               id="session-{{ session.id }}-sequences">{{ 'SeeSequences'| trans }}</a>
                                         </p>
                                         <p class="buttom-subscribed">
                                             {% if session.is_subscribed %}
@@ -165,7 +165,7 @@
                                             content += '<p class="lead">{{ sequence.name }}</p>';
 
                                             {% if sequence.requirements %}
-                                            content += '<p><em class="fa fa-sort-amount-desc"></em> {{ 'RequiredSessions'|get_lang }}</p>';
+                                            content += '<p><em class="fa fa-sort-amount-desc"></em> {{ 'RequiredSessions'| trans }}</p>';
                                             content += '<ul>';
 
                                             {% for requirement in sequence.requirements %}
@@ -178,7 +178,7 @@
                                             {% endif %}
 
                                             {% if sequence.dependencies %}
-                                            content += '<p><em class="fa fa-sort-amount-desc"></em> {{ 'DependentSessions'|get_lang }}</p>';
+                                            content += '<p><em class="fa fa-sort-amount-desc"></em> {{ 'DependentSessions'| trans }}</p>';
                                             content += '<ul>';
 
                                             {% for dependency in sequence.dependencies %}
@@ -195,7 +195,7 @@
                                             {% endif %}
                                             {% endfor %}
                                             {% else %}
-                                            content = "{{ 'NoDependencies'|get_lang }}";
+                                            content = "{{ 'NoDependencies'| trans }}";
                                             {% endif %}
 
                                             return content;
@@ -208,7 +208,7 @@
                 {% else %}
                     <div class="col-xs-12">
                         <div class="alert alert-warning">
-                            {{ 'NoResults'|get_lang }}
+                            {{ 'NoResults'| trans }}
                         </div>
                     </div>
                 {% endfor %}

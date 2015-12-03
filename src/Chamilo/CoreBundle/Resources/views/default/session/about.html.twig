@@ -191,7 +191,7 @@
                     {{ subscribe_button }}
                 </div>
             {% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
-                {% if 'allow_registration'|get_setting == 'true' %}
+                {% if chamilo_settings_get('allow_registration') == 'true' %}
                     <a href="{{ _p.web_main ~ 'auth/inscription.php' }}" class="btn btn-info btn-lg">
                         <em class="fa fa-sign-in fa-fw"></em> {{ 'SignUp'|trans }}
                     </a>
