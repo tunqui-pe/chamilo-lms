@@ -106,17 +106,24 @@ foreach ($list as $mail) {
                 null,
                 $l
             )."\n\n".get_lang('Formula', null, $l).",\n\n".api_get_person_name(
-                api_get_setting('platform.administrator_name'),
-                api_get_setting('platform.administrator_surname')
+                api_get_setting('admin.administrator_name'),
+                api_get_setting('admin.administrator_surname')
             )."\n".get_lang('Manager', null, $l)." ".api_get_setting(
                 'platform.site_name'
-            )."\nT. ".api_get_setting('platform.administrator_phone')."\n".get_lang(
+            )."\nT. ".api_get_setting(
+                'admin.administrator_phone'
+            )."\n".get_lang(
                 'Email',
                 null,
                 $l
-            )." : ".api_get_setting('platform.administrator_email')."";
-        $sender_name = api_get_person_name(api_get_setting('platform.administrator_name'), api_get_setting('platform.administrator_surname'), null, PERSON_NAME_EMAIL_ADDRESS);
-        $email_admin = api_get_setting('platform.administrator_email');
+            )." : ".api_get_setting('admin.administrator_email')."";
+        $sender_name = api_get_person_name(
+            api_get_setting('admin.administrator_name'),
+            api_get_setting('admin.administrator_surname'),
+            null,
+            PERSON_NAME_EMAIL_ADDRESS
+        );
+        $email_admin = api_get_setting('admin.administrator_email');
         @api_mail_html(
             $recipient_name,
             $user['Email'],

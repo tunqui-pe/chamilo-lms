@@ -66,10 +66,10 @@ class RegistrationSettingsSchema implements SchemaInterface
                 array(
                     'multiple' => true,
                     'choices' => array(
-                        'officialcode',
-                        'email',
-                        'language',
-                        'phone',
+                        'officialcode' => 'officialcode',
+                        'email' => 'email',
+                        'language' => 'language',
+                        'phone' => 'phone',
                     ),
                 )
             )

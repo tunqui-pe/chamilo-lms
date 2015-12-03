@@ -69,10 +69,10 @@ class Notification extends Model
 
         // If no-reply email doesn't exist use the admin name/email
         if (empty($this->adminEmail)) {
-            $this->adminEmail = api_get_setting('platform.administrator_email');
+            $this->adminEmail = api_get_setting('admin.administrator_email');
             $this->adminName = api_get_person_name(
-                api_get_setting('platform.administrator_name'),
-                api_get_setting('platform.administrator_surname'),
+                api_get_setting('admin.administrator_name'),
+                api_get_setting('admin.administrator_surname'),
                 null,
                 PERSON_NAME_EMAIL_ADDRESS
             );

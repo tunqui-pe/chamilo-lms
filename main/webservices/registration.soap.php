@@ -970,7 +970,7 @@ function WSCreateUsersPasswordCrypted($params)
     return $output;
 }
 // Subscribe / Unsubscribe Teacher to Session Course
-// 
+//
 // Prepare Input params for Subscribe Teacher to SC
 $server->wsdl->addComplexType(
     'SubscribeTeacherToSessionCourse',
@@ -1032,18 +1032,18 @@ $server->register(
     function WSSubscribeTeacherToSessionCourse($params)
     {
         global $debug;
-        
+
         if ($debug) error_log('WSSubscribeTeacherToSessionCourse');
         if ($debug) error_log('Params '. print_r($params, 1));
-        
+
         if (!WSHelperVerifyKey($params)) {
             return return_error(WS_ERROR_SECRET_KEY);
         }
-        
+
         $userId = $params['userId']; // Chamilo user Id
         $sessionId = $params['sessionId']; // Current Session course ID
         $courseId = $params['courseId']; // Course Real Id
-        
+
         return (SessionManager::set_coach_to_course_session($userId, $sessionId, $courseId));
     }
 
@@ -1056,20 +1056,20 @@ $server->register(
     function WSUnsubscribeTeacherFromSessionCourse($params)
     {
         global $debug;
-        
+
         if ($debug) error_log('WSSubscribeTeacherToSessionCourse');
         if ($debug) error_log('Params '. print_r($params, 1));
-        
+
         if (!WSHelperVerifyKey($params)) {
             return return_error(WS_ERROR_SECRET_KEY);
         }
-        
+
         $userId = $params['userId']; // Chamilo user Id
         $sessionId = $params['sessionId']; // Current Session course ID
         $courseId = $params['courseId']; // Course Real Id
-        
+
         return (SessionManager::removeUsersFromCourseSession($userId, $sessionId, $courseId));
-        
+
     }
 
 
@@ -2916,8 +2916,8 @@ function WSCreateCourseByTitle($params)
         $title = $course_param['title'];
         $category_code = 'LANG'; // TODO: A hard-coded value.
         $wanted_code = '';
-        $tutor_firstname = api_get_setting('platform.administrator_name');
-        $tutor_lastname = api_get_setting('platform.administrator_surname');
+        $tutor_firstname = api_get_setting('admin.administrator_name');
+        $tutor_lastname = api_get_setting('admin.administrator_surname');
         $course_language = 'spanish'; // TODO: Incorrect default value, it should 'english'.
         if (!empty($course_param['course_language'])) {
             $course_language = $course_param['course_language'];

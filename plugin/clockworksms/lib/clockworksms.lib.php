@@ -44,12 +44,12 @@ class Clockworksms implements SmsPluginLibraryInterface
             } else {
                 $this->api = new Clockwork(' ');
                 $recipient_name = api_get_person_name(
-                    api_get_setting('platform.administrator_name'),
-                    api_get_setting('platform.administrator_surname'),
+                    api_get_setting('admin.administrator_name'),
+                    api_get_setting('admin.administrator_surname'),
                     null,
                     PERSON_NAME_EMAIL_ADDRESS
                 );
-                $email_form = api_get_setting('platform.administrator_email');
+                $email_form = api_get_setting('admin.administrator_email');
                 $emailsubject = 'Clockworksms error';
                 $emailbody = 'Key cannot be blank';
                 $sender_name = $recipient_name;

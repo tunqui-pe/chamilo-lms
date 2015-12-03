@@ -125,11 +125,11 @@ switch ($action) {
                             'platform.site_name'
                         );
                     $email_admin = api_get_setting(
-                        'platform.administrator_email'
+                        'admin.administrator_email'
                     );
                     $sender_name = api_get_person_name(
-                        api_get_setting('platform.administrator_name'),
-                        api_get_setting('platform.administrator_surname'),
+                        api_get_setting('admin.administrator_name'),
+                        api_get_setting('admin.administrator_surname'),
                         null,
                         PERSON_NAME_EMAIL_ADDRESS
                     );
@@ -145,8 +145,8 @@ switch ($action) {
                     $emailbody.=get_lang('HaveFun')."\n\n";
                     //$emailbody.=get_lang('Problem'). "\n\n". get_lang('SignatureFormula');
                     $emailbody .= api_get_person_name(
-                            api_get_setting('platform.administrator_name'),
-                            api_get_setting('platform.administrator_surname')
+                            api_get_setting('admin.administrator_name'),
+                            api_get_setting('admin.administrator_surname')
                         )."\n".get_lang('Manager')." ".api_get_setting(
                             'platform.site_name'
                         )."\nT. ".api_get_setting(

@@ -35,25 +35,25 @@ class EventsMail
 
         // common variable for every mail sent
         $sender_name = api_get_person_name(
-            api_get_setting('platform.administrator_name'),
-            api_get_setting('platform.administrator_surname'),
+            api_get_setting('admin.administrator_name'),
+            api_get_setting('admin.administrator_surname'),
             null,
             PERSON_NAME_EMAIL_ADDRESS
         );
-        $email_admin = api_get_setting('platform.administrator_email');
+        $email_admin = api_get_setting('admin.administrator_email');
         // basic  keys
         $event_data["sitename"] = api_get_setting('platform.site_name');
         $event_data["administrator_name"] = api_get_setting(
-            'platform.administrator_name'
+            'admin.administrator_name'
         );
         $event_data["administrator_surname"] = api_get_setting(
-            'platform.administrator_surname'
+            'admin.administrator_surname'
         );
         $event_data["administrator_phone"] = api_get_setting(
-            'platform.administrator_phone'
+            'admin.administrator_phone'
         );
         $event_data["administrator_email"] = api_get_setting(
-            'platform.administrator_email'
+            'admin.administrator_email'
         );
         $event_data["portal"] = api_get_path(WEB_PATH);
 

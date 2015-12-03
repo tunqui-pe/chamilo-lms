@@ -2601,16 +2601,16 @@ class MySpace
                     get_lang('Problem')."\n\n".
                     get_lang('SignatureFormula').",\n\n".
                     api_get_person_name(
-                        api_get_setting('platform.administrator_name'),
-                        api_get_setting('platform.administrator_surname')
+                        api_get_setting('admin.administrator_name'),
+                        api_get_setting('admin.administrator_surname')
                     )."\n".
                     get_lang('Manager')." ".api_get_setting(
                         'platform.site_name'
                     )."\nT. ".
                     api_get_setting(
-                        'platform.administrator_phone'
+                        'admin.administrator_phone'
                     )."\n".get_lang('Email')." : ".api_get_setting(
-                        'platform.administrator_email'
+                        'admin.administrator_email'
                     );
 
                 api_mail_html(

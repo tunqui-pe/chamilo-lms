@@ -993,10 +993,10 @@ class Template
         if (api_get_setting('show_administrator_data') == 'true') {
             // Administrator name
             $administrator_data = get_lang('Manager').' : '.Display::encrypted_mailto_link(
-                    api_get_setting('platform.administrator_email'),
+                    api_get_setting('admin.administrator_email'),
                     api_get_person_name(
-                        api_get_setting('platform.administrator_name'),
-                        api_get_setting('platform.administrator_surname')
+                        api_get_setting('admin.administrator_name'),
+                        api_get_setting('admin.administrator_surname')
                     )
                 );
             $this->assign('administrator_name', $administrator_data);
@@ -1305,10 +1305,10 @@ class Template
     private function setAdministratorParams()
     {
         $_admin = [
-            'email' => api_get_setting('platform.administrator_email'),
-            'surname' => api_get_setting('platform.administrator_surname'),
-            'name' => api_get_setting('platform.administrator_name'),
-            'telephone' => api_get_setting('platform.administrator_phone'),
+            'email' => api_get_setting('admin.administrator_email'),
+            'surname' => api_get_setting('admin.administrator_surname'),
+            'name' => api_get_setting('admin.administrator_name'),
+            'telephone' => api_get_setting('admin.administrator_phone'),
         ];
 
         $this->assign('_admin', $_admin);

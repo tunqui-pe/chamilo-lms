@@ -24,10 +24,10 @@ class PlatformSettingsSchema implements SchemaInterface
                     'institution' => 'Chamilo.org',
                     'institution_url' => 'http://www.chamilo.org',
                     'site_name' => 'Chamilo site',
-                    'administrator_email' => 'admin@example.org',
-                    'administrator_name' => 'Jane',
-                    'administrator_surname' => 'Doe',
-                    'administrator_phone' => '123456',
+//                    'administrator_email' => 'admin@example.org',
+//                    'administrator_name' => 'Jane',
+//                    'administrator_surname' => 'Doe',
+//                    'administrator_phone' => '123456',
                     'timezone' => 'Europe/Paris',
                     'theme' => 'chamilo',
                     'gravatar_enabled' => 'false',
@@ -49,10 +49,10 @@ class PlatformSettingsSchema implements SchemaInterface
                     'institution' => array('string'),
                     'institution_url' => array('string'),
                     'site_name' => array('string'),
-                    'administrator_email' => array('string'),
-                    'administrator_name' => array('string'),
-                    'administrator_surname' => array('string'),
-                    'administrator_phone' => array('string'),
+//                    'administrator_email' => array('string'),
+//                    'administrator_name' => array('string'),
+//                    'administrator_surname' => array('string'),
+//                    'administrator_phone' => array('string'),
                     'timezone' => array('string'),
                     'gravatar_enabled' => array('string'),
                     'gravatar_type' => array('string'),
@@ -70,10 +70,10 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('institution')
             ->add('institution_url', 'url')
             ->add('site_name')
-            ->add('administrator_email', 'email')
-            ->add('administrator_name')
-            ->add('administrator_surname')
-            ->add('administrator_phone')
+//            ->add('administrator_email', 'email')
+//            ->add('administrator_name')
+//            ->add('administrator_surname')
+//            ->add('administrator_phone')
             ->add('timezone', 'timezone')
             ->add('theme')
             ->add('gravatar_enabled', 'yes_no')
@@ -84,8 +84,6 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('donotlistcampus', 'yes_no')
             ->add('course_catalog_hide_private', 'yes_no')
             ->add('catalog_show_courses_sessions')
-
-
         ;
     }
 }

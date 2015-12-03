@@ -1643,10 +1643,10 @@ class SessionManager
                     $subject,
                     $content,
                     api_get_person_name(
-                        api_get_setting('platform.administrator_name'),
-                        api_get_setting('platform.administrator_surname')
+                        api_get_setting('admin.administrator_name'),
+                        api_get_setting('admin.administrator_surname')
                     ),
-                    api_get_setting('platform.administrator_email')
+                    api_get_setting('admin.administrator_email')
                 );
             }
         }

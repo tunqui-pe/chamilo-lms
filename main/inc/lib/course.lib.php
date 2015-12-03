@@ -2535,12 +2535,12 @@ class CourseManager
             $recipient_name = api_get_person_name($tutor['firstname'], $tutor['lastname'], null,
                 PERSON_NAME_EMAIL_ADDRESS);
             $sender_name = api_get_person_name(
-                api_get_setting('platform.administrator_name'),
-                api_get_setting('platform.administrator_surname'),
+                api_get_setting('admin.administrator_name'),
+                api_get_setting('admin.administrator_surname'),
                 null,
                 PERSON_NAME_EMAIL_ADDRESS
             );
-            $email_admin = api_get_setting('platform.administrator_email');
+            $email_admin = api_get_setting('admin.administrator_email');
 
             $additionalParameters = array(
                 'smsType' => SmsPlugin::NEW_USER_SUBSCRIBED_COURSE,

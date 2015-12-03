@@ -133,7 +133,8 @@ function check_system_version()
         $data = array(
             'url' => api_get_path(WEB_PATH),
             'campus' => api_get_setting('platform.site_name'),
-            'contact' => api_get_setting('platform.administrator_email'), // the admin's e-mail, with the only purpose of being able to contact admins to inform about critical security issues
+            'contact' => api_get_setting('admin.administrator_email'),
+            // the admin's e-mail, with the only purpose of being able to contact admins to inform about critical security issues
             'version' => $system_version,
             'numberofcourses' => $number_of_courses, // to sum up into non-personal statistics - see https://version.chamilo.org/stats/
             'numberofusers' => $number_of_users, // to sum up into non-personal statistics
@@ -144,7 +145,10 @@ function check_system_version()
             'donotlistcampus' => api_get_setting('platform.donotlistcampus'),
             'organisation' => api_get_setting('platform.institution'),
             'language' => api_get_setting('language.platform_language'), //helps us know the spread of language usage for campuses, by main language
-            'adminname' => api_get_setting('platform.administrator_name').' '.api_get_setting('platform.administrator_surname'), //not sure this is necessary...
+            'adminname' => api_get_setting(
+                    'admin.administrator_name'
+                ).' '.api_get_setting('admin.administrator_surname'),
+            //not sure this is necessary...
             'ip' => $_SERVER['REMOTE_ADDR'], //the admin's IP address, with the only purpose of trying to geolocate portals around the globe to draw a map
         );
         $version = null;

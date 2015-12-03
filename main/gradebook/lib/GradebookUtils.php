@@ -1462,7 +1462,7 @@ class GradebookUtils
             <textarea rows="5" cols="100" ></textarea>';
 
         $address = api_get_setting('institution_address');
-        $phone = api_get_setting('platform.administrator_phone');
+        $phone = api_get_setting('admin.administrator_phone');
         $address = str_replace('\n', '<br />', $address);
 
         $pdf->custom_header = array('html' => "<h5 align='right'>$address <br />$phone</h5>");

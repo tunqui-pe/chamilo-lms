@@ -48,7 +48,7 @@ switch ($action) {
         $objTemplate->assign('user', api_get_user_info());
         $mailTemplate = $objTemplate->get_template('mail/subscribe_me_to_session.tpl');
 
-        $emailDest = api_get_setting('platform.administrator_email');
+        $emailDest = api_get_setting('admin.administrator_email');
         $emailTitle = get_lang('SubscribeToSessionRequest');
         $emailText = $objTemplate->fetch($mailTemplate);
         break;

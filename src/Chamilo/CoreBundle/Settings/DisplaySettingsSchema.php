@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\CoreBundle\Settings;
 
@@ -21,7 +22,7 @@ class DisplaySettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'enable_help_link' => '',
-                    'show_administrator_data' => '',
+                    'show_administrator_data' => 'true',
                     'show_tutor_data' => '',
                     'show_teacher_data' => '',
                     'showonline' => '',
@@ -68,8 +69,11 @@ class DisplaySettingsSchema implements SchemaInterface
                 'showonline',
                 'choice',
                 array(
-                    'choices' =>
-                        array('course', 'users', 'world'),
+                    'choices' => array(
+                        'course' => 'course',
+                        'users' => 'users',
+                        'world' => 'world',
+                    ),
                 )
             )
             ->add('allow_user_headings', 'yes_no')

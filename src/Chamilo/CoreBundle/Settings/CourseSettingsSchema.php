@@ -72,7 +72,8 @@ class CourseSettingsSchema implements SchemaInterface
                     'course_validation_terms_and_conditions_url' => '',
                     'course_hide_tools' => [],
                     'scorm_cumulative_session_time' => '',
-                    'courses_default_creation_visibility' => '',
+                    'courses_default_creation_visibility' => '2',
+                    //COURSE_VISIBILITY_OPEN_PLATFORM
                     'allow_public_certificates' => '',
                     'allow_lp_return_link' => '',
                     'course_creation_use_template' => '',

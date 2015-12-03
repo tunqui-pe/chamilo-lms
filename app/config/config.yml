@@ -94,7 +94,6 @@ twig:
           messages_count:
           message_link:
           is_profile_editable:
-          administrator_name:
           plugin_footer_left:
           plugin_footer_center:
           plugin_content_bottom:

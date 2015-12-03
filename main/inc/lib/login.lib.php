@@ -103,22 +103,22 @@ class Login
         $email_body = get_lang('YourAccountParam') . " " . $portal_url . "\n\n$user_account_list";
         // SEND MESSAGE
         $sender_name = api_get_person_name(
-            api_get_setting('platform.administrator_name'),
-            api_get_setting('platform.administrator_surname'),
+            api_get_setting('admin.administrator_name'),
+            api_get_setting('admin.administrator_surname'),
             null,
             PERSON_NAME_EMAIL_ADDRESS
         );
-        $email_admin = api_get_setting('platform.administrator_email');
+        $email_admin = api_get_setting('admin.administrator_email');
 
         if (api_mail_html('', $email_to, $email_subject, $email_body, $sender_name, $email_admin) == 1) {
 
             return get_lang('YourPasswordHasBeenReset');
         } else {
             $admin_email = Display:: encrypted_mailto_link(
-                api_get_setting('platform.administrator_email'),
+                api_get_setting('admin.administrator_email'),
                 api_get_person_name(
-                    api_get_setting('platform.administrator_name'),
-                    api_get_setting('platform.administrator_surname')
+                    api_get_setting('admin.administrator_name'),
+                    api_get_setting('admin.administrator_surname')
                 )
             );
 
@@ -158,7 +158,7 @@ class Login
         $email_body .= "\n\n".get_lang(
                 'SignatureFormula'
             ).",\n".api_get_setting(
-                'platform.administrator_name'
+                'admin.administrator_name'
             )." ".api_get_setting(
                 'administratorSurname'
             )."\n".get_lang('PlataformAdmin')." - ".api_get_setting(
@@ -166,12 +166,12 @@ class Login
             );
 
         $sender_name = api_get_person_name(
-            api_get_setting('platform.administrator_name'),
-            api_get_setting('platform.administrator_surname'),
+            api_get_setting('admin.administrator_name'),
+            api_get_setting('admin.administrator_surname'),
             null,
             PERSON_NAME_EMAIL_ADDRESS
         );
-        $email_admin = api_get_setting('platform.administrator_email');
+        $email_admin = api_get_setting('admin.administrator_email');
 
         $result = @api_mail_html(
             '',
@@ -186,10 +186,10 @@ class Login
             return get_lang('YourPasswordHasBeenEmailed');
         } else {
             $admin_email = Display:: encrypted_mailto_link(
-                api_get_setting('platform.administrator_email'),
+                api_get_setting('admin.administrator_email'),
                 api_get_person_name(
-                    api_get_setting('platform.administrator_name'),
-                    api_get_setting('platform.administrator_surname')
+                    api_get_setting('admin.administrator_name'),
+                    api_get_setting('admin.administrator_surname')
                 )
             );
             $message = sprintf(get_lang('ThisPlatformWasUnableToSendTheEmailPleaseContactXForMoreInformation'), $admin_email);

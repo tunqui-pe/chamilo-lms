@@ -3605,10 +3605,10 @@ function sendAlertToUsers($workId, $courseInfo, $session_id)
     }
 
     if ($send) {
-        $senderEmail = api_get_setting('platform.administrator_email');
+        $senderEmail = api_get_setting('admin.administrator_email');
         $senderName = api_get_person_name(
-            api_get_setting('platform.administrator_name'),
-            api_get_setting('platform.administrator_surname'),
+            api_get_setting('admin.administrator_name'),
+            api_get_setting('admin.administrator_surname'),
             null,
             PERSON_NAME_EMAIL_ADDRESS
         );

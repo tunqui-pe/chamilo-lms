@@ -70,10 +70,11 @@ class SetupStep extends AbstractStep
             );
         }
 
+
         $form = $this->createSetupForm();
         $form->get('admin')->setData($adminUser);
 
-        $form->handleRequest($this->getRequest());
+        $form->handleRequest($context->getRequest());
 
         if ($form->isValid()) {
             // pass "load demo fixtures" flag to the next step
@@ -98,14 +99,19 @@ class SetupStep extends AbstractStep
                 )->getData(),
                 'site_name' => $form->get('portal')->get('site_name')->getData(
                 ),
-                'administrator_email' => $adminUser->getEmail(),
-                'administrator_name' => $adminUser->getFirstName(),
-                'administrator_surname' => $adminUser->getLastName(),
-                'administrator_phone' => $adminUser->getPhone(),
                 'timezone' => $form->get('portal')->get('timezone')->getData(),
             );
             $settings->setParameters($parameters);
             $settingsManager->saveSettings('platform', $settings);
+
+            $parameters = array(
+                'administrator_email' => $adminUser->getEmail(),
+                'administrator_name' => $adminUser->getFirstName(),
+                'administrator_surname' => $adminUser->getLastName(),
+                'administrator_phone' => $adminUser->getPhone(),
+            );
+            $settings->setParameters($parameters);
+            $settingsManager->saveSettings('admin', $settings);
 
             /*$defaultCompanyName  = $configManager->get('oro_ui.application_name');
             $defaultCompanyTitle = $configManager->get('oro_ui.application_title');

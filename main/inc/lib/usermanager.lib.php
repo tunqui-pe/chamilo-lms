@@ -292,12 +292,12 @@ class UserManager
                 );
                 $emailSubject = $tplSubject->fetch($layoutSubject);
                 $sender_name = api_get_person_name(
-                    api_get_setting('platform.administrator_name'),
-                    api_get_setting('platform.administrator_surname'),
+                    api_get_setting('admin.administrator_name'),
+                    api_get_setting('admin.administrator_surname'),
                     null,
                     PERSON_NAME_EMAIL_ADDRESS
                 );
-                $email_admin = api_get_setting('platform.administrator_email');
+                $email_admin = api_get_setting('admin.administrator_email');
 
                 if (api_is_multiple_url_enabled()) {
                     $access_url_id = api_get_current_access_url_id();
@@ -834,12 +834,12 @@ class UserManager
                     'platform.site_name'
                 );
             $sender_name = api_get_person_name(
-                api_get_setting('platform.administrator_name'),
-                api_get_setting('platform.administrator_surname'),
+                api_get_setting('admin.administrator_name'),
+                api_get_setting('admin.administrator_surname'),
                 null,
                 PERSON_NAME_EMAIL_ADDRESS
             );
-            $email_admin = api_get_setting('platform.administrator_email');
+            $email_admin = api_get_setting('admin.administrator_email');
 
             if (api_is_multiple_url_enabled()) {
                 $access_url_id = api_get_current_access_url_id();
@@ -866,8 +866,8 @@ class UserManager
                         )."\n\n".get_lang(
                             'SignatureFormula'
                         ).",\n\n".api_get_person_name(
-                            api_get_setting('platform.administrator_name'),
-                            api_get_setting('platform.administrator_surname')
+                            api_get_setting('admin.administrator_name'),
+                            api_get_setting('admin.administrator_surname')
                         )."\n".get_lang('Manager')." ".api_get_setting(
                             'platform.site_name'
                         )."\nT. ".api_get_setting(
@@ -896,8 +896,8 @@ class UserManager
                     )."\n\n".get_lang(
                         'SignatureFormula'
                     ).",\n\n".api_get_person_name(
-                        api_get_setting('platform.administrator_name'),
-                        api_get_setting('platform.administrator_surname')
+                        api_get_setting('admin.administrator_name'),
+                        api_get_setting('admin.administrator_surname')
                     )."\n".get_lang('Manager')." ".api_get_setting(
                         'platform.site_name'
                     )."\nT. ".api_get_setting(

@@ -1459,11 +1459,11 @@ class AddCourse
                 if ($send_mail_to_admin == 'true') {
                     $siteName = api_get_setting('platform.site_name');
                     $recipient_email = api_get_setting(
-                        'platform.administrator_email'
+                        'admin.administrator_email'
                     );
                     $recipient_name = api_get_person_name(
-                        api_get_setting('platform.administrator_name'),
-                        api_get_setting('platform.administrator_surname')
+                        api_get_setting('admin.administrator_name'),
+                        api_get_setting('admin.administrator_surname')
                     );
                     $iname = api_get_setting('platform.institution');
                     $subject = get_lang('NewCourseCreatedIn') . ' ' . $siteName . ' - ' . $iname;
