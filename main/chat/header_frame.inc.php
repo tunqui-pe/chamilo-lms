@@ -139,13 +139,15 @@ header('Content-Type: text/html; charset=UTF-8');
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/emojione/css/autocomplete.css">
 <link rel="stylesheet" type="text/css" href="<?php echo api_get_path(WEB_LIBRARY_PATH); ?>javascript/highlight/styles/github.css">
 <?php echo api_get_jquery_js(); ?>
-    <?php echo api_get_theme_asset_css('bootstrap/dist/css/bootstrap.css'); ?>
-<?php echo api_get_theme_asset('bootstrap/dist/js/bootstrap.min.js'); ?>
-<?php echo api_get_js('highlight/highlight.pack.js'); ?>
-<?php echo api_get_js('jquery-textcomplete/jquery.textcomplete.js'); ?>
-<?php echo api_get_js('emojione/js/emojione.min.js'); ?>
-<?php echo api_get_js('jquery-emojiarea/jquery.emojiarea.js'); ?>
-<?php echo api_get_js('jquery-scrollbar/jquery.scrollbar.min.js'); ?>
+    <?php echo api_get_css('components/bootstrap/dist/css/bootstrap.css'); ?>
+    <?php echo api_get_js('components/bootstrap/dist/js/bootstrap.min.js'); ?>
+    <?php echo api_get_js('js/highlight/highlight.pack.js'); ?>
+    <?php echo api_get_js(
+        'components/jquery-textcomplete/jquery.textcomplete.js'
+    ); ?>
+    <?php echo api_get_js('components/emojione/js/emojione.min.js'); ?>
+    <?php echo api_get_js('js/jquery-emojiarea/jquery.emojiarea.js'); ?>
+    <?php echo api_get_js('js/jquery-scrollbar/jquery.scrollbar.min.js'); ?>
 <?php // echo api_get_js('jquery.tinyscrollbar.js'); ?>
 <script type="text/javascript">
     hljs.initHighlightingOnLoad();

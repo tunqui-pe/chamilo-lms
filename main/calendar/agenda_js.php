@@ -25,10 +25,12 @@ $current_course_tool = TOOL_CALENDAR_EVENT;
 $this_section = SECTION_MYAGENDA;
 
 //$htmlHeadXtra[] = api_get_js('qtip2/jquery.qtip.min.js');
-$htmlHeadXtra[] = api_get_theme_asset('fullcalendar/dist/fullcalendar.min.js');
-$htmlHeadXtra[] = api_get_theme_asset('fullcalendar/dist/gcal.js');
-$htmlHeadXtra[] = api_get_theme_asset_css(
-    'fullcalendar/dist/fullcalendar.min.css'
+$htmlHeadXtra[] = api_get_js(
+    'components/fullcalendar/dist/fullcalendar.min.js'
+);
+$htmlHeadXtra[] = api_get_js('components/fullcalendar/dist/gcal.js');
+$htmlHeadXtra[] = api_get_css(
+    'components/fullcalendar/dist/fullcalendar.min.css'
 );
 //$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/qtip2/jquery.qtip.min.css');
 

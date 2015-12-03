@@ -50,16 +50,18 @@ if ($showGlossary) {
     $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.highlight.js"></script>';
 }
 
-$htmlHeadXtra[] = api_get_theme_asset('jsplumb/dist/js/jsPlumb-2.0.4.js');
-$htmlHeadXtra[] = api_get_theme_asset('jquery.ui.touch/jquery.ui.touch.js');
-$htmlHeadXtra[] = api_get_theme_asset('xcolor/jquery.xcolor.js');
+$htmlHeadXtra[] = api_get_js('components/jsplumb/dist/js/jsPlumb-2.0.4.js');
+$htmlHeadXtra[] = api_get_js('components/jquery.ui.touch/jquery.ui.touch.js');
+$htmlHeadXtra[] = api_get_js('components/xcolor/jquery.xcolor.js');
 
 //This library is necessary for the time control feature
 //tmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/epiclock/stylesheet/jquery.epiclock.css');
-$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/epiclock/renderers/minute/epiclock.minute.css');
-$htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.dateformat.min.js');
-$htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.epiclock.min.js');
-$htmlHeadXtra[] = api_get_js('epiclock/renderers/minute/epiclock.minute.js');
+$htmlHeadXtra[] = api_get_css(
+    'js/epiclock/renderers/minute/epiclock.minute.css'
+);
+$htmlHeadXtra[] = api_get_js('js/epiclock/javascript/jquery.dateformat.min.js');
+$htmlHeadXtra[] = api_get_js('js/epiclock/javascript/jquery.epiclock.min.js');
+$htmlHeadXtra[] = api_get_js('js/epiclock/renderers/minute/epiclock.minute.js');
 
 $template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 

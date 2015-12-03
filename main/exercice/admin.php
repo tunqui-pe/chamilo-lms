@@ -335,8 +335,8 @@ function multiple_answer_true_false_onchange(variable) {
 
 </script>';
 
-$htmlHeadXtra[] = api_get_theme_asset('jsplumb/dist/js/jsPlumb-2.0.4.js');
-$htmlHeadXtra[] = api_get_theme_asset('jquery.ui.touch/jquery.ui.touch.js');
+$htmlHeadXtra[] = api_get_css('components/jsplumb/dist/js/jsPlumb-2.0.4.js');
+$htmlHeadXtra[] = api_get_js('components/jquery.ui.touch/jquery.ui.touch.js');
 
 $template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
@@ -344,7 +344,7 @@ $htmlHeadXtra[] = $template->render(
     'ChamiloCoreBundle:default/exercise:submit.html.twig',
     ['shuffle_answers' => $objExercise->getShuffle()]
 );
-$htmlHeadXtra[] = api_get_theme_asset('xcolor/jquery.xcolor.js');
+$htmlHeadXtra[] = api_get_js('components/xcolor/jquery.xcolor.js');
 $htmlHeadXtra2 = array();
 $htmlHeadXtra2[] = "<script type=\"text/javascript\" src=\"../plugin/hotspot/JavaScriptFlashGateway.js\"></script>
 <script src=\"../plugin/hotspot/hotspot.js\" type=\"text/javascript\"></script>

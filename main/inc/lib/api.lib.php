@@ -2650,7 +2650,8 @@ function api_delete_settings_params($params) {
  */
 function api_get_self() {
     //return htmlentities($_SERVER['PHP_SELF']);
-    return htmlentities(Container::getRequest()->getUri());
+    return htmlentities(Container::getRequest()->server->get('PHP_SELF'));
+    //return htmlentities(Container::getRequest()->getUri());
 }
 
 /* USER PERMISSIONS */
@@ -6557,61 +6558,33 @@ function api_check_browscap() {
 }
 
 /**
- * Returns the <script> HTML tag
+ * Returns the js header to include the jquery library
  */
-function api_get_js($file) {
-    return '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_PATH).'javascript/'.$file.'"></script>'."\n";
-}
-
-/**
- * Returns the <script> HTML tag
- */
-function api_get_asset($file) {
-    return '<script type="text/javascript" src="'.api_get_path(WEB_PATH).'web/assets/'.$file.'"></script>'."\n";
-}
-
-function api_get_bundle_asset($file, $justPath = false)
+function api_get_jquery_js()
 {
-    $path = str_replace('/chamilocore/img', '', api_get_path(WEB_IMG_PATH));
-
-    if ($justPath) {
-        return $path;
-    }
-
-    return '<script type="text/javascript" src="'.$path.'/'.$file.'"></script>'."\n";
+    return api_get_js('components/jquery/dist/jquery.min.js');
 }
 
 /**
- * chamilotheme/components/
- * @param string $file
+ * Returns the <script> HTML tag
+ *
  * @return string
  */
-function api_get_theme_asset($file, $justPath = false)
+function api_get_js($file)
 {
-    return api_get_bundle_asset('chamilocore/components/'.$file, $justPath);
-}
+    $url = Container::getAsset()->getUrl("bundles/chamilocore/".$file);
 
-function api_get_theme_asset_css($file)
-{
-    $path = str_replace('/chamilocore/img', '', api_get_path(WEB_IMG_PATH));
-    $file = $path.'chamilocore/components/'.$file;
-
-    return api_get_css($file, 'screen');
+    return '<script type="text/javascript" src="'.$url.'"></script>'."\n";
 }
 
 /**
  * Returns the <link> HTML tag
  */
-function api_get_css($file, $media = 'screen') {
-    return '<link href="'.$file.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
-}
-
-/**
- * Returns the js header to include the jquery library
- */
-function api_get_jquery_js()
+function api_get_css($file, $media = 'screen')
 {
-    return api_get_asset('jquery/dist/jquery.min.js');
+    $url = Container::getAsset()->getUrl("bundles/chamilocore/".$file);
+
+    return '<link href="'.$url.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
 }
 
 /**
@@ -6620,8 +6593,9 @@ function api_get_jquery_js()
  */
 function api_get_jquery_web_path()
 {
-    return api_get_theme_asset('jquery/dist/jquery.min.js', true);
-    //return api_get_path(WEB_).'web/assets/jquery/dist/jquery.min.js';
+    return Container::getAsset()->getUrl(
+        "bundles/chamilocore/components/jquery/dist/jquery.min.js"
+    );
 }
 
 /**
@@ -6629,7 +6603,9 @@ function api_get_jquery_web_path()
  */
 function api_get_jquery_ui_js_web_path()
 {
-    return api_get_path(WEB_PATH).'web/assets/jquery-ui/jquery-ui.min.js';
+    return Container::getAsset()->getUrl(
+        "bundles/chamilocore/components/jquery-ui/jquery-ui.min.js"
+    );
 }
 
 /**
@@ -6637,7 +6613,9 @@ function api_get_jquery_ui_js_web_path()
  */
 function api_get_jquery_ui_css_web_path()
 {
-    return api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/jquery-ui.min.css';
+    return Container::getAsset()->getUrl(
+        "bundles/chamilocore/components/jquery-ui/themes/smoothness/jquery-ui.min.css"
+    );
 }
 
 /**
@@ -6658,7 +6636,6 @@ function api_get_jqgrid_js() {
     return api_get_jquery_libraries_js(array('jqgrid'));
 }
 
-
 /**
  * Returns the jquery library js and css headers
  *
@@ -6669,7 +6646,6 @@ function api_get_jqgrid_js() {
  */
 function api_get_jquery_libraries_js($libraries) {
     $js = '';
-    $js_path = api_get_path(WEB_LIBRARY_PATH).'javascript/';
 
     //jqgrid js and css
     if (in_array('jqgrid', $libraries)) {
@@ -6685,11 +6661,11 @@ function api_get_jquery_libraries_js($libraries) {
             $languaje = $platform_isocode;
         }
         //$js .= '<link rel="stylesheet" href="'.$js_path.'jqgrid/css/ui.jqgrid.css" type="text/css">';
-        $js .= api_get_theme_asset_css('jqgrid/css/ui.jqgrid.css');
-        $js .= api_get_theme_asset(
-            'jqgrid/js/i18n/grid.locale-'.$languaje.'.js'
+        $js .= api_get_css('components/jqgrid/css/ui.jqgrid.css');
+        $js .= api_get_css(
+            'components/jqgrid/js/i18n/grid.locale-'.$languaje.'.js'
         );
-        $js .= api_get_theme_asset('jqgrid/js/minified/jquery.jqGrid.min.js');
+        $js .= api_get_js('components/jqgrid/js/minified/jquery.jqGrid.min.js');
     }
 
     //Document multiple upload funcionality
@@ -6712,7 +6688,7 @@ function api_get_jquery_libraries_js($libraries) {
             $languaje = $platform_isocode;
         }
 
-        $js .= api_get_js('jquery-ui/jquery-ui-i18n.min.js');
+        $js .= api_get_js('components/jquery-ui/jquery-ui-i18n.min.js');
         $script = '<script>
         $(function(){
             $.datepicker.setDefaults($.datepicker.regional["'.$languaje.'"]);
@@ -7245,10 +7221,6 @@ function api_coach_can_edit_view_results($courseId = null, $session_id = null)
     }
 }
 
-function api_get_js_simple($file) {
-    return '<script type="text/javascript" src="'.$file.'"></script>'."\n";
-}
-
 function api_set_settings_and_plugins() {
     global $_configuration;
     $_setting = array();
@@ -7439,7 +7411,7 @@ function api_get_password_checker_js($usernameInputId, $passwordInputid)
         get_lang('PasswordStrong'),
         get_lang('PasswordVeryStrong'),
     );
-    $js = api_get_js('strength/strength.js');
+    $js = api_get_js('js/strength/strength.js');
     $js .=  "<script>
 
     var verdicts = ['".implode("','", $verdicts)."'];

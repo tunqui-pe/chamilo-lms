@@ -405,7 +405,10 @@ if (isset($_GET['action'])) {
             $message = Display::return_message(get_lang('UserUnsubscribed'));
             break;
         case 'export':
-            Export :: arrayToCsv($csvContent, 'user_information_'.$user);
+            Export::arrayToCsv(
+                $csvContent,
+                'user_information_'.$user['username']
+            );
             exit;
             break;
     }

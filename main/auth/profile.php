@@ -30,8 +30,8 @@ if (!(isset($_user['user_id']) && $_user['user_id']) || api_is_anonymous($_user[
 }
 
 $htmlHeadXtra[] = api_get_password_checker_js('#username', '#password1');
-$htmlHeadXtra[] = api_get_theme_asset_css('cropper/dist/cropper.min.css');
-$htmlHeadXtra[] = api_get_theme_asset('cropper/dist/cropper.min.js');
+$htmlHeadXtra[] = api_get_css('components/cropper/dist/cropper.min.css');
+$htmlHeadXtra[] = api_get_js('components/cropper/dist/cropper.min.js');
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     var $image = $("#previewImage");
@@ -522,7 +522,7 @@ if ($form->validate()) {
     if ($user &&
         (!empty($user_data['password0']) &&
         !empty($user_data['password1'])) ||
-        (!empty($user_data['password0']) && 
+        (!empty($user_data['password0']) &&
         api_get_setting('profile', 'email') == 'true')
     ) {
         $passwordWasChecked = true;

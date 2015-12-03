@@ -50,6 +50,7 @@ class Export
         $writer->setStream(fopen($filePath, 'w'));
 
         foreach ($data as $item) {
+            $item = is_array($item) ? $item : (array)$item;
             $writer->writeItem($item);
         }
         $writer->finish();

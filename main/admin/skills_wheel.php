@@ -17,9 +17,9 @@ if (api_get_setting('skill.allow_skills_tool') != 'true') {
 }
 
 //Adds the JS needed to use the jqgrid
-$htmlHeadXtra[] = api_get_js('d3/d3.v3.5.4.min.js');
-$htmlHeadXtra[] = api_get_js('d3/colorbrewer.js');
-$htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
+$htmlHeadXtra[] = api_get_js('js/d3/d3.v3.5.4.min.js');
+$htmlHeadXtra[] = api_get_js('js/d3/colorbrewer.js');
+$htmlHeadXtra[] = api_get_js('js/d3/jquery.xcolor.js');
 
 $tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 

@@ -46,9 +46,8 @@ if (!$is_allowedToEdit) {
     api_not_allowed(true);
 }
 
-$htmlHeadXtra[] = api_get_theme_asset_css('cropper/dist/cropper.min.css');
-$htmlHeadXtra[] = api_get_theme_asset('cropper/dist/cropper.min.js');
-
+$htmlHeadXtra[] = api_get_css('components/cropper/dist/cropper.min.css');
+$htmlHeadXtra[] = api_get_js('components/cropper/dist/cropper.min.js');
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     var $image = $("#previewImage");

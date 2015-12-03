@@ -241,11 +241,9 @@ if (isset($document_data['parents']) && isset($document_data['parents'][0])) {
 }
 
 if ($isChatFolder) {
-    $htmlHeadXtra[] = api_get_js('highlight/highlight.pack.js');
-    $htmlHeadXtra[] = api_get_css(api_get_path(WEB_CSS_PATH).'chat.css');
-    $htmlHeadXtra[] = api_get_css(
-        api_get_path(WEB_LIBRARY_PATH) . 'javascript/highlight/styles/github.css'
-    );
+    $htmlHeadXtra[] = api_get_js('js/highlight/highlight.pack.js');
+    $htmlHeadXtra[] = api_get_css('css/chat.css');
+    $htmlHeadXtra[] = api_get_css('js/highlight/styles/github.css');
     $htmlHeadXtra[] = '
     <script>
         hljs.initHighlightingOnLoad();

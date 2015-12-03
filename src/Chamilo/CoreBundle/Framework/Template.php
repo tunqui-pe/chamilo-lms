@@ -560,7 +560,7 @@ class Template
                 case 'js':
                     if ($this->disableJsAndCss == false) {
                         foreach ($resources as $resource) {
-                            $resourceToString .= api_get_js_simple($resource);
+                            //$resourceToString .= api_get_js_simple($resource);
                         }
                     }
                     break;

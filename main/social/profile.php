@@ -152,12 +152,14 @@ $javascriptDir = api_get_path(LIBRARY_PATH) . 'javascript/';
 api_block_anonymous_users();
 $locale = api_get_language_isocode();
 // Add Jquery scroll pagination plugin
-$htmlHeadXtra[] = api_get_js('jscroll/jquery.jscroll.js');
+$htmlHeadXtra[] = api_get_js('components/jscroll/jquery.jscroll.js');
 // Add Jquery Time ago plugin
-$htmlHeadXtra[] = api_get_asset('jquery-timeago/jquery.timeago.js');
+$htmlHeadXtra[] = api_get_js('components/jquery-timeago/jquery.timeago.js');
 $timeAgoLocaleDir = $javascriptDir . 'jquery-timeago/locales/jquery.timeago.' . $locale . '.js';
 if (file_exists($timeAgoLocaleDir)) {
-    $htmlHeadXtra[] = api_get_js('jquery-timeago/locales/jquery.timeago.' . $locale . '.js');
+    $htmlHeadXtra[] = api_get_js(
+        'js/jquery-timeago/locales/jquery.timeago.'.$locale.'.js'
+    );
 }
 
 $htmlHeadXtra[] = '<script>

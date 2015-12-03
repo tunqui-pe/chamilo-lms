@@ -315,4 +315,3 @@ if ($show_announcement_list) {
     $table->display();
 }
 
-Display :: display_footer();

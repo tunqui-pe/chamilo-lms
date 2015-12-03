@@ -871,7 +871,7 @@ EOT;
         $this->addElement('html', $xajax_upload->getJavascript(api_get_path(WEB_LIBRARY_PATH) . 'xajax'));
 
         // Get the upload code
-        $this->addElement('html', '<script language="javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'javascript/upload.js" type="text/javascript"></script>');
+        $this->addElement('html', api_get_js('js/upload.js'));
         $this->addElement('html', '<script type="text/javascript">var myUpload = new upload(' . (abs(intval($delay)) * 1000) . ');</script>');
 
         if (!$wait_after_upload) {

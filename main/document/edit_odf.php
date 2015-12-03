@@ -41,9 +41,9 @@ $file_url_web = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$head
 
 if ($show_web_odf) {
     //$htmlHeadXtra[] = api_get_js('webodf/webodf.js');
-    $htmlHeadXtra[] = api_get_js('wodotexteditor/wodotexteditor.js');
-    $htmlHeadXtra[] = api_get_js('wodotexteditor/localfileeditor.js');
-    $htmlHeadXtra[] = api_get_js('wodotexteditor/FileSaver.js');
+    $htmlHeadXtra[] = api_get_js('js/wodotexteditor/wodotexteditor.js');
+    $htmlHeadXtra[] = api_get_js('js/wodotexteditor/localfileeditor.js');
+    $htmlHeadXtra[] = api_get_js('js/wodotexteditor/FileSaver.js');
     //$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/webodf/webodf.css');
     /*$htmlHeadXtra[] = '
     <script type="text/javascript" charset="utf-8">
