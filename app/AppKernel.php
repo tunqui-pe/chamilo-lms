@@ -93,7 +93,7 @@ class AppKernel extends Kernel
         }
 
         if (in_array($this->getEnvironment(), array('test'))) {
-            $bundles[] = new Sp\BowerBundle\SpBowerBundle();
+            //$bundles[] = new Sp\BowerBundle\SpBowerBundle();
         }
 
         return $bundles;
