@@ -1282,7 +1282,7 @@ class AddCourse
 
         if (!isset($params['visibility'])) {
             $default_course_visibility = api_get_setting('course.courses_default_creation_visibility');
-            if (isset($default_course_visibility)) {
+            if ($default_course_visibility != '') {
                 $visibility = $default_course_visibility;
             } else {
                 $visibility = COURSE_VISIBILITY_OPEN_PLATFORM;

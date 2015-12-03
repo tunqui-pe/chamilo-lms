@@ -36,21 +36,19 @@ class UserPortalController extends BaseController
         // "Course validation" feature. This value affects the way of a new course creation:
         // true  - the new course is requested only and it is created after approval;
         // false - the new course is created immediately, after filling this form.
-        $course_validation_feature = false;
-        if (api_get_setting(
-                'course.course_validation'
-            ) == 'true' && !api_is_platform_admin()
+        $courseValidation = false;
+        if (api_get_setting('course.course_validation') == 'true' &&
+            !api_is_platform_admin()
         ) {
-            $course_validation_feature = true;
+            $courseValidation = true;
         }
 
         // Displaying the header.
-        $tool_name = $course_validation_feature ? get_lang(
+        $tool_name = $courseValidation ? get_lang(
             'CreateCourseRequest'
         ) : get_lang('CreateSite');
 
-        if (
-            api_get_setting(
+        if (api_get_setting(
                 'course.allow_users_to_create_courses'
             ) == 'false' &&
             !api_is_platform_admin()
@@ -61,11 +59,11 @@ class UserPortalController extends BaseController
         // Check access rights.
         if (!api_is_allowed_to_create_course()) {
             api_not_allowed(true);
-            exit;
         }
 
+        $url = $this->generateUrl('add_course');
         // Build the form.
-        $form = new \FormValidator('add_course');
+        $form = new \FormValidator('add_course', 'post', $url);
 
         // Form title
         $form->addElement('header', $tool_name);
@@ -127,7 +125,7 @@ class UserPortalController extends BaseController
         // The teacher
         //array(get_lang('Professor'), null), null, array('size' => '60', 'disabled' => 'disabled'));
         $titular = &$form->addElement('hidden', 'tutor_name', '');
-        if ($course_validation_feature) {
+        if ($courseValidation) {
 
             // Description of the requested course.
             $form->addElement(
@@ -172,7 +170,7 @@ class UserPortalController extends BaseController
             get_lang('FillWithExemplaryContent')
         );
 
-        if ($course_validation_feature) {
+        if ($courseValidation) {
 
             // A special URL to terms and conditions that is set
             // in the platform settings page.
@@ -209,13 +207,13 @@ class UserPortalController extends BaseController
                 );
                 // Link to terms and conditions.
                 $link_terms_and_conditions = '
-            <script>
-            function MM_openBrWindow(theURL, winName, features) { //v2.0
-                window.open(theURL,winName,features);
-            }
-            </script>
-        ';
-                $link_terms_and_conditions .= Display::url(
+                    <script>
+                    function MM_openBrWindow(theURL, winName, features) { //v2.0
+                        window.open(theURL,winName,features);
+                    }
+                    </script>
+                ';
+                $link_terms_and_conditions .= \Display::url(
                     get_lang('ReadTermsAndConditions'),
                     '#',
                     ['onclick' => "javascript:MM_openBrWindow('$terms_and_conditions_url', 'Conditions', 'scrollbars=yes, width=800');"]
@@ -231,7 +229,7 @@ class UserPortalController extends BaseController
 
         // Submit button.
         $form->addButtonCreate(
-            $course_validation_feature ? get_lang(
+            $courseValidation ? get_lang(
                 'CreateThisCourseRequest'
             ) : get_lang('CreateCourseArea')
         );
@@ -261,7 +259,7 @@ class UserPortalController extends BaseController
             $course_language = $course_values['course_language'];
             $exemplary_content = !empty($course_values['exemplary_content']);
 
-            if ($course_validation_feature) {
+            if ($courseValidation) {
                 $description = $course_values['description'];
                 $objetives = $course_values['objetives'];
                 $target_audience = $course_values['target_audience'];
@@ -278,7 +276,7 @@ class UserPortalController extends BaseController
             }
 
             // Check whether the requested course code has already been occupied.
-            if (!$course_validation_feature) {
+            if (!$courseValidation) {
                 $course_code_ok = !\CourseManager::course_code_exists(
                     $wanted_code
                 );
@@ -289,7 +287,7 @@ class UserPortalController extends BaseController
             }
 
             if ($course_code_ok) {
-                if (!$course_validation_feature) {
+                if (!$courseValidation) {
 
                     $params = array();
                     $params['title'] = $title;
@@ -310,10 +308,9 @@ class UserPortalController extends BaseController
                         header('Location: '.$url);
                         exit;
                     } else {
-                        $message = Display::return_message(
-                            get_lang('CourseCreationFailed'),
+                        $this->addFlash(
                             'error',
-                            false
+                            $this->trans('CourseCreationFailed')
                         );
                         // Display the form.
                         $content = $form->returnForm();
@@ -375,7 +372,7 @@ class UserPortalController extends BaseController
                 $content = $form->returnForm();
             }
         } else {
-            if (!$course_validation_feature) {
+            if (!$courseValidation) {
                 $this->addFlash('warning', get_lang('Explanation'));
             }
             // Display the form.

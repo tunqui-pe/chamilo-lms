@@ -7,7 +7,6 @@ use Chamilo\CoreBundle\Framework\Container;
  *	@package chamilo.admin
  */
 $cidReset = true;
-////require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -155,7 +154,7 @@ $values['disk_quota'] = round(
 
 $default_course_visibility = api_get_setting('course.courses_default_creation_visibility');
 
-if (isset($default_course_visibility)) {
+if ($default_course_visibility != '') {
     $values['visibility'] = $default_course_visibility;
 } else {
     $values['visibility'] = COURSE_VISIBILITY_OPEN_PLATFORM;

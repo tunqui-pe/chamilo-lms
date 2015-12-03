@@ -2649,7 +2649,8 @@ function api_delete_settings_params($params) {
  * @return string   Escaped version of $_SERVER['PHP_SELF']
  */
 function api_get_self() {
-    return htmlentities($_SERVER['PHP_SELF']);
+    //return htmlentities($_SERVER['PHP_SELF']);
+    return htmlentities(Container::getRequest()->getUri());
 }
 
 /* USER PERMISSIONS */
