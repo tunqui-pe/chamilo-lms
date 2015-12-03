@@ -14,3 +14,14 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+
+# Bower configuration
+sp_bower:
+    bin: "%sp_bower_bin%" # Optional
+    assetic: true
+    install_on_warmup: false
+    bundles:
+        ChamiloCoreBundle:
+            cache:
+                directory: %kernel.root_dir%/cache/public/components/cache
