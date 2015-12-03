@@ -53,6 +53,14 @@ class Version20 implements Migration, OrderedMigrationInterface
             'ALTER TABLE fos_group CHANGE roles roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\''
         );
 
+        $queries->addQuery(
+            'ALTER TABLE c_tool_intro DROP COLUMN id'
+        );
+
+        $queries->addQuery(
+            'ALTER TABLE c_tool_intro ADD COLUMN tool VARCHAR(255)'
+        );
+
         $sql = "UPDATE user SET emailCanonical = email";
         $queries->addQuery($sql);
 
@@ -61,6 +69,57 @@ class Version20 implements Migration, OrderedMigrationInterface
 
         $sql = "UPDATE user SET username_canonical = username;";
         $queries->addQuery($sql);
+
+        // Update settings
+
+        $settings = [
+            'Institution' => 'institution',
+            'SiteName' => 'site_name',
+            'InstitutionUrl' => 'institution_url',
+            'registration' => 'required_profile_fields',
+            'profile' => 'changeable_options',
+            'timezone_value' => 'timezone',
+            'stylesheets' => 'theme',
+            'platformLanguage' => 'platform_language',
+            'languagePriority1' => 'language_priority_1',
+            'languagePriority2' => 'language_priority_2',
+            'languagePriority3' => 'language_priority_3',
+            'languagePriority4' => 'language_priority_4',
+            'gradebook_score_display_coloring' => 'my_display_coloring',
+            'document_if_file_exists_option' => 'if_file_exists_option',
+            'ProfilingFilterAddingUsers' => 'profiling_filter_adding_users',
+            'course_create_active_tools' => 'active_tools_on_create',
+            'EmailAdministrator' => 'administrator_email',
+            'administratorSurname' => 'administrator_surname',
+            'administratorName' => 'administrator_name',
+            'administratorTelephone' => 'administrator_phone',
+        ];
+
+        foreach ($settings as $oldSetting => $newSetting) {
+            $sql = "UPDATE settings_current SET variable = '$newSetting'
+                    WHERE variable = $oldSetting";
+            $queries->addQuery($sql);
+        }
+
+        $settings = [
+            'cookie_warning' => 'platform',
+            'donotlistcampus' => 'platform',
+            'administrator_email' => 'admin',
+            'administrator_surname' => 'admin',
+            'administrator_name' => 'admin',
+            'administrator_phone' => 'admin',
+        ];
+
+        foreach ($settings as $variable => $category) {
+            $sql = "UPDATE settings_current SET category = '$newSetting'
+                    WHERE variable = '$variable'";
+            $queries->addQuery($sql);
+        }
+
+        $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
+        $queries->addQuery($sql);
+
+
     }
 
     /**
