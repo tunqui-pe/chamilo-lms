@@ -730,6 +730,7 @@ if ($origin!='learnpath' || ($origin == 'learnpath' && isset($_GET['fb_type'])))
 	    if ($objExercise->selectPropagateNeg() == 0 && $my_total_score_temp < 0) {
 	        $my_total_score_temp = 0;
 	    }
+
         $total_score_text .= ExerciseLib::get_question_ribbon(
             $objExercise,
             $my_total_score_temp,

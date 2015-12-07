@@ -25,7 +25,8 @@ class ChamiloExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array();
+        return array(
+        );
     }
 
     /**

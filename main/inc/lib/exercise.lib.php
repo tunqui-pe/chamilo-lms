@@ -3700,6 +3700,7 @@ HOTSPOT;
         }
         $ribbon .= '<h3>' . get_lang('YourTotalScore') . ":&nbsp;";
         $ribbon .= self::show_score($score, $weight, false, true);
+
         $ribbon .= '</h3>';
         $ribbon .= '</div>';
         if ($check_pass_percentage) {

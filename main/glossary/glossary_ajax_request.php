@@ -1,13 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /* @todo move this file in the inc/ajax/ folder */
 /**
  * Glossary ajax request code
  * @package chamilo.glossary
  */
-
-//require_once '../inc/global.inc.php';
 
 /**
  * Search a term and return description from a glossary.
@@ -66,3 +66,5 @@ if (isset($_POST['glossary_id']) &&
 } else {
     echo api_xml_http_response_encode(get_lang('NoResults'));
 }
+
+Container::$legacyTemplate = 'layout_empty.html.twig';

@@ -54,7 +54,7 @@ class LegacyController extends ToolBaseController
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
         //Container::$configDir = $this->container->get('kernel')->getConfigDir();
-        $this->container->get('twig')->addGlobal('show_header', true);
+        $this->container->get('twig')->addGlobal('api_get_cidreq', api_get_cidreq());
 
         //$breadcrumb = $this->container->get('chamilo_core.block.breadcrumb');
 

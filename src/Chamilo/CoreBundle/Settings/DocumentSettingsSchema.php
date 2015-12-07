@@ -31,7 +31,7 @@ class DocumentSettingsSchema implements SchemaInterface
                     'upload_extensions_replace_by' => '',
                     'permissions_for_new_directories' => '',
                     'permissions_for_new_files' => '',
-                    'show_glossary_in_documents' => '',
+                    'show_glossary_in_documents' => 'none',
                     'students_download_folders' => '',
                     'users_copy_files' => '',
                     'pdf_export_watermark_enable' => '',
@@ -85,7 +85,17 @@ class DocumentSettingsSchema implements SchemaInterface
             ->add('upload_extensions_replace_by', 'textarea')
             ->add('permissions_for_new_directories')
             ->add('permissions_for_new_files')
-            ->add('show_glossary_in_documents', 'yes_no')
+            ->add(
+                'show_glossary_in_documents',
+                'choice',
+                [
+                    'choices' => [
+                        'none' => 'none',
+                        'ismanual' => 'ismanual',
+                        'isautomatic' => 'isautomatic',
+                    ]
+                ]
+            )
             ->add('students_download_folders', 'yes_no')
             ->add('users_copy_files', 'yes_no')
             ->add('pdf_export_watermark_enable', 'yes_no')

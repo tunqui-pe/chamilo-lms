@@ -1,16 +1,18 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-//require_once '../inc/global.inc.php';
+use Chamilo\CoreBundle\Framework\Container;
 
-$tpl = new Template();
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 
-$templateName = 'glossary/glossary_auto.js.tpl';
+$templateName = 'glossary/glossary_auto.js.twig';
 if (api_get_setting('document.show_glossary_in_documents') == 'ismanual') {
-    $templateName = 'glossary/glossary_manual.js.tpl';
+    $templateName = 'glossary/glossary_manual.js.twig';
 }
 
 $addReady = isset($_GET['add_ready']) ? true : false;
-$tpl->assign('add_ready', $addReady);
-$contentTemplate = $tpl->get_template($templateName);
-$tpl->display($contentTemplate);
+$tpl->addGlobal('add_ready', $addReady);
+echo $tpl->render('@template_style/'.$templateName);
+
+// Hide headers
+Container::$legacyTemplate = 'layout_empty.html.twig';
