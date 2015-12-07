@@ -93,9 +93,7 @@ if (empty($deleteQuestion)) {
     $deleteQuestion = isset($_GET['deleteQuestion']) ? $_GET['deleteQuestion'] : 0;
 }
 $clone_question = isset($_REQUEST['clone_question']) ? $_REQUEST['clone_question'] : 0;
-if (empty($questionId)) {
 
-}
 $questionId = Session::read('questionId');
 
 if (empty($modifyExercise)) {
