@@ -1840,9 +1840,12 @@ HTML;
         $teacher_list = CourseManager::getTeacherListFromCourse(
             api_get_course_int_id()
         );
+
         $teacher_id_list = array();
-        foreach ($teacher_list as $teacher) {
-            $teacher_id_list[] = $teacher['user_id'];
+        if (!empty($teacher_list)) {
+            foreach ($teacher_list as $teacher) {
+                $teacher_id_list[] = $teacher['user_id'];
+            }
         }
 
         $list_info = array();
@@ -2024,9 +2027,9 @@ HTML;
                                     date('Y-m-d h:i:s'),
                                     false
                                 );
-                                $actions .= '<a href="http://www.whatsmyip.org/ip-geo-location/?ip=' . $ip . '" target="_blank"><img src="' . api_get_path(
-                                        WEB_CODE_PATH
-                                    ) . 'img/icons/22/info.png" title="' . $ip . '" /></a>';
+                                $actions .= '<a href="http://www.whatsmyip.org/ip-geo-location/?ip=' . $ip . '" target="_blank">';
+                                $actions .= Display::return_icon('info.png', $ip, ['title' => $ip]);
+                                $actions .= '</a>';
 
                                 $delete_link = '<a href="exercise_report.php?' . api_get_cidreq(
                                     ) . '&filter_by_user=' . intval(

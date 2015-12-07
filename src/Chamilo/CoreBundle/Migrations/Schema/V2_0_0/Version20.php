@@ -108,6 +108,7 @@ class Version20 implements Migration, OrderedMigrationInterface
             'administrator_surname' => 'admin',
             'administrator_name' => 'admin',
             'administrator_phone' => 'admin',
+            'exercise_max_ckeditors_in_page' => 'exercise'
         ];
 
         foreach ($settings as $variable => $category) {
