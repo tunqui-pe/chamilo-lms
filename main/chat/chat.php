@@ -97,7 +97,4 @@ if (empty($open_chat_window)) {
 echo '</html>';
 
 // Hide headers
-Container::getTwig()->addGlobal('show_header', false);
-
-// Hide headers
 Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';

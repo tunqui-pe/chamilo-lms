@@ -126,11 +126,13 @@ $form->addHtmlEditor(
     'survey_title',
     get_lang('SurveyTitle'),
     null,
+    null,
     array('ToolbarSet' => 'Survey', 'Width' => '100%', 'Height' => '200')
 );
 $form->addHtmlEditor(
     'survey_subtitle',
     get_lang('SurveySubTitle'),
+    null,
     null,
     array(
         'ToolbarSet' => 'Survey',
@@ -144,13 +146,14 @@ $form->addHtmlEditor(
 $form->addElement('hidden', 'survey_language');
 $form->addElement('date_picker', 'start_date', get_lang('StartDate'));
 $form->addElement('date_picker', 'end_date', get_lang('EndDate'));
-
 $form->addElement('checkbox', 'anonymous', null, get_lang('Anonymous'));
+
 $visibleResults = array(
     SURVEY_VISIBLE_TUTOR => get_lang('Coach'),
     SURVEY_VISIBLE_TUTOR_STUDENT => get_lang('CoachAndStudent'),
     SURVEY_VISIBLE_PUBLIC => get_lang('Everyone')
 );
+
 $form->addElement('select', 'visible_results', get_lang('ResultsVisibility'), $visibleResults);
 //$defaults['visible_results'] = 0;
 $form->addHtmlEditor(
@@ -165,6 +168,7 @@ $form->addHtmlEditor(
         'ToolbarStartExpanded' => false,
     )
 );
+
 $form->addHtmlEditor(
     'survey_thanks',
     get_lang('SurveyThanks'),

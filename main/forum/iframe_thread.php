@@ -102,6 +102,4 @@ while ($row = Database::fetch_array($result)) {
 echo "</table>";
 
 // Hide headers
-Container::getTwig()->addGlobal('show_header', false);
-
-?>
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';

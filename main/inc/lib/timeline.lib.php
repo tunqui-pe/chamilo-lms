@@ -152,7 +152,6 @@ class Timeline extends Model
         $form->addRule('headline', get_lang('ThisFieldIsRequired'), 'required');
         $form->addRule('start_date', get_lang('ThisFieldIsRequired'), 'required');
 
-
         //$form->addHtmlEditor('description', get_lang('Description'), false, false, array('ToolbarSet' => 'Careers','Width' => '100%', 'Height' => '250'));
 
         if ($action == 'edit') {

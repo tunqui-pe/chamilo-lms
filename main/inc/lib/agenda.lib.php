@@ -2126,6 +2126,7 @@ class Agenda
             'content',
             get_lang('Description'),
             null,
+            null,
             array('ToolbarSet' => $toolbar, 'Width' => '100%', 'Height' => '200')
         );
 

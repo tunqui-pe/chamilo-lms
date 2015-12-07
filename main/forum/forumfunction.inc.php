@@ -301,6 +301,7 @@ function show_add_forum_form($inputvalues = array(), $lp_id)
         'forum_comment',
         get_lang('Description'),
         null,
+        null,
         array('ToolbarSet' => 'Forum', 'Width' => '98%', 'Height' => '200')
     );
 
@@ -493,6 +494,7 @@ function show_edit_forumcategory_form($inputvalues = array())
     $form->addHtmlEditor(
         'forum_category_comment',
         get_lang('Comment'),
+        null,
         null,
         array('ToolbarSet' => 'Forum', 'Width' => '98%', 'Height' => '200')
     );
@@ -2610,6 +2612,7 @@ function show_add_post_form($current_forum, $forum_setting, $action = '', $id = 
         'post_text',
         get_lang('Text'),
         true,
+        null,
         api_is_allowed_to_edit(null, true) ? array(
             'ToolbarSet' => 'Forum',
             'Width' => '100%',
@@ -3219,6 +3222,7 @@ function show_edit_post_form(
     $form->addHtmlEditor(
         'post_text',
         get_lang('Text'),
+        null,
         null,
         api_is_allowed_to_edit(null, true) ? array(
             'ToolbarSet' => 'Forum',
@@ -4361,6 +4365,7 @@ function display_forum_search_results($search_term)
     $forum_list = get_forums();
 
     $result = Database::query($sql);
+    $search_results = [];
     while ($row = Database::fetch_array($result, 'ASSOC')) {
         $display_result = false;
         /*

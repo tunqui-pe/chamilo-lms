@@ -82,8 +82,8 @@ if (empty($document_data)) {
 }
 $group_properties = array();
 
-$url = api_get_path(WEB_AJAX_PATH).'document.ajax.php?'.api_get_cidreq(
-    ).'&a=upload_file&curdirpath='.$path;
+$url = api_get_path(WEB_AJAX_PATH).'document.ajax.php?'.api_get_cidreq().'&a=upload_file&curdirpath='.$path;
+
 $htmlHeadXtra[] = '<script>
 
 function check_unzip() {
