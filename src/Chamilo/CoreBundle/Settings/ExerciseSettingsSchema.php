@@ -22,7 +22,7 @@ class ExerciseSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'exercise_min_score' => '0',
-                    'exercise_max_score' => '0',
+                    'exercise_max_score' => '20',
                     'enable_quiz_scenario' => '',
                     'allow_coach_feedback_exercises' => '',
                     'show_official_code_exercise_result_list' => '',
