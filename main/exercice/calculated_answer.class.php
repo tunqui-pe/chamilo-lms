@@ -123,15 +123,20 @@ class CalculatedAnswer extends Question
 
         // answer
         $form->addElement('label', null, '<br /><br />'.get_lang('TypeTextBelow').', '.get_lang('And').' '.get_lang('UseTagForBlank'));
-        $form->addElement(
-            'html_editor',
+        $form->addHtmlEditor(
             'answer',
-            '<img src="../img/fill_field.png">',
+            Display::return_icon('fill_field.png'),
+            false,
             array(
                 'id' => 'answer',
                 'onkeyup' => 'javascript: updateBlanks(this);'
             ),
-            array('ToolbarSet' => 'TestQuestionDescription', 'Width' => '100%', 'Height' => '350'));
+            array(
+                'ToolbarSet' => 'TestQuestionDescription',
+                'Width' => '100%',
+                'Height' => '350'
+            )
+        );
 
         $form->addRule('answer', get_lang('GiveText'),'required');
         $form->addRule('answer', get_lang('DefineBlanks'),'regex','/\[.*\]/');

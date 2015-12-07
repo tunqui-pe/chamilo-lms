@@ -182,6 +182,7 @@ if ($relative_url== '') {
 $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
 
 $editorConfig = array(
+	'FullPage' = true,
     'ToolbarSet' => ($is_allowed_to_edit ? 'Documents' : 'DocumentsStudent'),
     'Width' => '100%',
     'Height' => '400',
@@ -320,7 +321,7 @@ $form->addRule('title', get_lang('ThisFieldIsRequired'), 'required');
 $form->addRule('title', get_lang('FileExists'), 'callback', 'document_exists');
 
 $current_session_id = api_get_session_id();
-$form->addHtmlEditor('content','', true, true, $editorConfig, true);
+$form->addHtmlEditor('content','', true, false, $editorConfig);
 
 // Comment-field
 $folders = DocumentManager::get_all_document_folders($_course, $to_group_id, $is_allowed_to_edit);

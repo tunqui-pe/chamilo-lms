@@ -58,8 +58,11 @@ class HTML_QuickForm_textarea extends HTML_QuickForm_element
      * @access    public
      * @return    void
      */
-    public function __construct($elementName=null, $elementLabel=null, $attributes=null)
+    public function __construct($elementName = null, $elementLabel = null, $attributes = [])
     {
+        if (empty($attributes) || (isset($attributes) && !is_array($attributes))) {
+            $attributes = [];
+        }
         $attributes['class'] = isset($attributes['class']) ? $attributes['class'] : 'form-control';
         $columnsSize = isset($attributes['cols-size']) ? $attributes['cols-size'] : null;
         $this->setColumnsSize($columnsSize);

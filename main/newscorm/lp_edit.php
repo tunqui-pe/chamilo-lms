@@ -116,8 +116,7 @@ if (api_get_setting('course.allow_course_theme') == 'true') {
 }
 
 // Author
-$form->addElement(
-    'html_editor',
+$form->addHtmlEditor(
     'lp_author',
     get_lang('Author'),
     array('size' => 80),

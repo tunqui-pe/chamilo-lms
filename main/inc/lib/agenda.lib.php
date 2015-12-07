@@ -2122,8 +2122,7 @@ class Agenda
             $toolbar = 'Agenda';
         }
 
-        $form->addElement(
-            'html_editor',
+        $form->addHtmlEditor(
             'content',
             get_lang('Description'),
             null,

@@ -147,13 +147,12 @@ class MultipleAnswerTrueFalse extends Question
                 get_lang('ThisFieldIsRequired'),
                 true,
                 true,
-                ['ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100']
+                ['FullPage' => true, 'ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100']
             );
 
             // show comment when feedback is enable
             if ($obj_ex->selectFeedbackType() != EXERCISE_FEEDBACK_TYPE_EXAM) {
-                $form->addElement(
-                    'html_editor',
+                $form->addHtmlEditor(
                     'comment[' . $i . ']',
                     null,
                     array(),

@@ -40,6 +40,7 @@ class UniqueAnswer extends Question
         $obj_ex = Session::read('objExercise');
 
         $editor_config = array(
+            'FullPage' => true,
             'ToolbarSet' => 'TestProposedAnswer',
             'Width' => '100%',
             'Height' => '125'

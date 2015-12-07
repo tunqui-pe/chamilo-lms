@@ -30,7 +30,7 @@ class UniqueAnswerNoOption extends Question
 
 	/**
      * function which redifines Question::createAnswersForm
-     * @param the formvalidator instance
+     * @param FormValidator $form
      * @param the answers number to display
      */
     function createAnswersForm($form)
@@ -196,9 +196,9 @@ class UniqueAnswerNoOption extends Question
 
 
             $form->addElement('radio', 'correct', null, null, $i, 'class="checkbox" style="margin-left: 0em;"');
-            $form->addElement('html_editor', 'answer[' . $i . ']', null, array(), $editor_config);
+            $form->addHtmlEditor('answer[' . $i . ']', null, array(), false, $editor_config);
 
-            $form->addElement('html_editor', 'comment[' . $i . ']', null, array(), $editor_config);
+            $form->addHtmlEditor('comment[' . $i . ']', null, array(), false, $editor_config);
             $form->addElement('text', 'weighting[' . $i . ']', null, array('style' => 'width: 60px;', 'value' => '0'));
             $form->addElement('html', '</tr>');
             $i++;
@@ -245,10 +245,10 @@ class UniqueAnswerNoOption extends Question
         $form->addElement('hidden', 'position[' . $i . ']', '666');
 
         $form->addElement('radio', 'correct', null, null, $i, 'class="checkbox" style="margin-left: 0em;"');
-        $form->addElement('html_editor', 'answer[' . $i . ']', null, array(), $editor_config);
+        $form->addHtmlEditor('answer[' . $i . ']', null, array(), false, $editor_config);
 
         $form->addRule('answer[' . $i . ']', get_lang('ThisFieldIsRequired'), 'required');
-        $form->addElement('html_editor', 'comment[' . $i . ']', null, array(), $editor_config);
+        $form->addHtmlEditor('comment[' . $i . ']', null, array(), false, $editor_config);
 
         //$form->addElement('select', 'destination'.$i, get_lang('SelectQuestion').' : ',$select_question,'multiple');
 

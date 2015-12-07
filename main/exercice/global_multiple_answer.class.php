@@ -109,10 +109,10 @@ class GlobalMultipleAnswer extends Question
             $form->addElement('checkbox', 'correct[' . $i . ']', null, null, 'class="checkbox"');
             $boxes_names[] = 'correct[' . $i . ']';
 
-            $form->addHtmlEditor('answer[' . $i . ']', null, array('ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100'));
+            $form->addHtmlEditor('answer[' . $i . ']', null, null, array('ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100'));
             $form->addRule('answer[' . $i . ']', get_lang('ThisFieldIsRequired'), 'required');
 
-            $form->addHtmlEditor('comment[' . $i . ']', null, array('ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100'));
+            $form->addHtmlEditor('comment[' . $i . ']', null, null, array('ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100'));
 
             $form->addElement('html', '</tr>');
         }

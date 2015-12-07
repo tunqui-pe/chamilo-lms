@@ -122,15 +122,13 @@ if ($_GET['action'] == 'edit') {
     $form->applyFilter('survey_code', 'api_strtoupper');
 }
 
-$form->addElement(
-    'html_editor',
+$form->addHtmlEditor(
     'survey_title',
     get_lang('SurveyTitle'),
     null,
     array('ToolbarSet' => 'Survey', 'Width' => '100%', 'Height' => '200')
 );
-$form->addElement(
-    'html_editor',
+$form->addHtmlEditor(
     'survey_subtitle',
     get_lang('SurveySubTitle'),
     null,

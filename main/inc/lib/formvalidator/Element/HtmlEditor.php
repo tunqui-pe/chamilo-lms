@@ -28,8 +28,8 @@ class HtmlEditor extends HTML_QuickForm_textarea
     public function __construct(
         $name = null,
         $elementLabel = null,
-        $attributes = null,
-        $config = array()
+        $attributes = [],
+        $config = []
     ) {
         if (empty($name)) {
             return false;
@@ -44,7 +44,7 @@ class HtmlEditor extends HTML_QuickForm_textarea
         if ($editor) {
             $this->editor = $editor;
             $this->editor->setName($name);
-            $this->editor->processConfig($attributes);
+            $this->editor->processConfig($config);
         }
     }
 

@@ -893,8 +893,8 @@ switch ($action) {
 
 		if ($action == 'edit_link' && (empty($link_url) || $link_url == 'http://' || $link_url == 'https://')) {
 			$default['link_html'] = isset($_POST['link_html']) ? $_POST['link_html'] : $link_html;
-			$form->addHtmlEditor('link_html', get_lang('Content'), false, false, array('ToolbarSet' => 'PortalHomePage', 'Width' => '100%', 'Height' => '400'));
-            $form->addButtonSave(get_lang('Save'),'submit');
+			$form->addHtmlEditor('link_html', get_lang('Content'), false, [], array('ToolbarSet' => 'PortalHomePage', 'Width' => '100%', 'Height' => '400'));
+			$form->addButtonSave(get_lang('Save'),'submit');
 
 		} else {
 			if (in_array($action, array('edit_tabs','insert_tabs'))) {

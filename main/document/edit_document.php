@@ -125,6 +125,7 @@ for ($i = 0; $i < ($count_dir); $i++) {
 }
 
 $editorConfig = array(
+	'FullPage' => true,
     'ToolbarSet' => (api_is_allowed_to_edit(null, true) ? 'Documents' :'DocumentsStudent'),
     'Width' => '100%',
     'Height' => '400',
@@ -472,7 +473,7 @@ if ($owner_id == api_get_user_id() ||
 
 	if (($extension == 'htm' || $extension == 'html') && $condition) {
 		if (empty($readonly) && $readonly == 0) {
-            $form->addHtmlEditor('content', '', true, true, $editorConfig);
+            $form->addHtmlEditor('content', '', true, $editorConfig);
 		}
 	}
 

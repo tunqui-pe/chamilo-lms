@@ -590,8 +590,7 @@ foreach ($questionList as $questionId) {
 			$default = array('comments_'.$questionId =>  $comnt);
 
             if ($useAdvancedEditor) {
-                $feedback_form->addElement(
-                    'html_editor',
+                $feedback_form->addHtmlEditor(
                     'comments_' . $questionId,
                     null,
                     null,

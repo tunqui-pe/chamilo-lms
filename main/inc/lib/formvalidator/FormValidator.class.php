@@ -759,12 +759,12 @@ EOT;
      * @param array  $config (optional) Configuration settings for the online editor.
      * @param bool   $style
      */
-    public function addHtmlEditor($name, $label, $required = true, $fullPage = false, $config = array(), $style = false)
+    public function addHtmlEditor($name, $label, $required = true, $attributes = [], $config = [])
     {
         $config['rows'] = isset($config['rows']) ? $config['rows'] : 15;
         $config['cols'] = isset($config['cols']) ? $config['cols'] : 80;
 
-        $this->addElement('html_editor', $name, $label, $config, $style);
+        $this->addElement('html_editor', $name, $label, $attributes, $config);
         $this->applyFilter($name, 'trim');
         if ($required) {
             $this->addRule($name, get_lang('ThisFieldIsRequired'), 'required');
@@ -772,9 +772,11 @@ EOT;
 
         /** @var HtmlEditor $element */
         $element = $this->getElement($name);
-        if ($style) {
-            $config['style'] = true;
+        $fullPage = false;
+        if (isset($config['FullPage'])) {
+            $fullPage = true;
         }
+
         if ($fullPage) {
             $config['fullPage'] = true;
         }

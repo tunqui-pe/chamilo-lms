@@ -965,6 +965,8 @@ function add_edit_template() {
     $form->addHtmlEditor(
         'template_text',
         get_lang('Text'),
+        false,
+        false,
         array(
             'ToolbarSet' => 'AdminTemplates',
             'Width' => '100%',

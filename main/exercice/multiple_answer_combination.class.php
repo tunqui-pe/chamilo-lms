@@ -121,8 +121,7 @@ class MultipleAnswerCombination extends Question
             );
             $boxes_names[] = 'correct[' . $i . ']';
 
-            $form->addElement(
-                'html_editor',
+            $form->addHtmlEditor(
                 'answer[' . $i . ']',
                 null,
                 array(),
@@ -130,8 +129,7 @@ class MultipleAnswerCombination extends Question
             );
             $form->addRule('answer[' . $i . ']', get_lang('ThisFieldIsRequired'), 'required');
 
-            $form->addElement(
-                'html_editor',
+            $form->addHtmlEditor(
                 'comment[' . $i . ']',
                 null,
                 array(),

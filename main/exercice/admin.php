@@ -241,7 +241,7 @@ if ($cancelQuestion) {
     // if we are creating a new question from the question pool
     if (!$exerciseId && !$questionId) {
         // goes back to the question pool
-        header('Location: question_pool.php');
+        header('Location: question_pool.php?'.api_get_cidreq());
         exit();
     } else {
         // goes back to the question viewing
@@ -289,9 +289,9 @@ if (api_is_in_gradebook()) {
     );
 }
 
-$interbreadcrumb[] = array("url" => "exercise.php","name" => get_lang('Exercises'));
+$interbreadcrumb[] = array("url" => "exercise.php?".api_get_cidreq(),"name" => get_lang('Exercises'));
 if (isset($_GET['newQuestion']) || isset($_GET['editQuestion']) ) {
-    $interbreadcrumb[] = array("url" => "admin.php?exerciseId=".$objExercise->id, "name" => $objExercise->name);
+    $interbreadcrumb[] = array("url" => "admin.php?exerciseId=".$objExercise->id.'&'.api_get_cidreq(), "name" => $objExercise->name);
 } else {
     $interbreadcrumb[] = array("url" => "#", "name" => $objExercise->name);
 }
