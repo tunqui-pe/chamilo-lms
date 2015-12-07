@@ -330,33 +330,31 @@ if ((!$is_allowed_in_course || !$is_course_member) && !api_is_allowed_to_edit(nu
 }
 
 /*	BREADCRUMBS */
-
 if ($view == 'received') {
-	$interbreadcrumb[] = array('url' => '../dropbox/index.php', 'name' => get_lang('Dropbox', ''));
+	$interbreadcrumb[] = array('url' => '../dropbox/index.php?'.api_get_cidreq(), 'name' => get_lang('Dropbox', ''));
 	$nameTools = get_lang('ReceivedFiles');
 
 	if ($action == 'addreceivedcategory') {
-		$interbreadcrumb[] = array('url' => '../dropbox/index.php?view=received', 'name' => get_lang('ReceivedFiles'));
+		$interbreadcrumb[] = array('url' => '../dropbox/index.php?view=received&'.api_get_cidreq(), 'name' => get_lang('ReceivedFiles'));
 		$nameTools = get_lang('AddNewCategory');
 	}
 }
 
 if ($view == 'sent' || empty($view)) {
-	$interbreadcrumb[] = array('url' => '../dropbox/index.php', 'name' => get_lang('Dropbox', ''));
+	$interbreadcrumb[] = array('url' => '../dropbox/index.php?'.api_get_cidreq(), 'name' => get_lang('Dropbox', ''));
 	$nameTools = get_lang('SentFiles');
 
 	if ($action == 'addsentcategory') {
-		$interbreadcrumb[] = array('url' => '../dropbox/index.php?view=sent', 'name' => get_lang('SentFiles'));
+		$interbreadcrumb[] = array('url' => '../dropbox/index.php?view=sent&'.api_get_cidreq(), 'name' => get_lang('SentFiles'));
 		$nameTools = get_lang('AddNewCategory');
 	}
 	if ($action == 'add') {
-		$interbreadcrumb[] = array ('url' => '../dropbox/index.php?view=sent', 'name' => get_lang('SentFiles'));
+		$interbreadcrumb[] = array ('url' => '../dropbox/index.php?view=sent&'.api_get_cidreq(), 'name' => get_lang('SentFiles'));
 		$nameTools = get_lang('UploadNewFile');
 	}
 }
 
 /*	HEADER & TITLE */
-
 if (isset($origin) && $origin == 'learnpath') {
     $htmlHeadXtra[] = $javascript;
 	Display::display_reduced_header($nameTools, 'Dropbox');

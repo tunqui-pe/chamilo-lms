@@ -189,7 +189,7 @@ function display_move_form($part, $id, $target = array(), $extra_params = array(
     $form = new FormValidator(
         'form1',
         'post',
-        api_get_self().'?view_received_category='.$viewReceivedCategory.'&view_sent_category='.$viewSentCategory.'&view='.$view.'&'.$extra_params
+        api_get_self().'?'.api_get_cidreq().'&view_received_category='.$viewReceivedCategory.'&view_sent_category='.$viewSentCategory.'&view='.$view.'&'.$extra_params
     );
     $form->addElement('header', get_lang('MoveFileTo'));
     $form->addElement('hidden', 'id', intval($id));
@@ -499,7 +499,7 @@ function display_addcategory_form($category_name = '', $id = '', $action)
         $text = get_lang('CreateCategory');
     }
 
-    $form = new FormValidator('add_new_category', 'post', api_get_self().'?view='.Security::remove_XSS($_GET['view']));
+    $form = new FormValidator('add_new_category', 'post', api_get_self().'?'.api_get_cidreq().'&view='.Security::remove_XSS($_GET['view']));
     $form->addElement('header', $title);
 
     if (isset($id) AND $id != '') {

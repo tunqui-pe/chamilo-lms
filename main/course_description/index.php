@@ -42,7 +42,7 @@ if (isset($_GET['isStudentView']) && $_GET['isStudentView'] == 'true') {
 }
 
 // interbreadcrumb
-$interbreadcrumb[] = array ("url" => "index.php", "name" => get_lang('CourseProgram'));
+$interbreadcrumb[] = array ("url" => "index.php?".api_get_cidreq(), "name" => get_lang('CourseProgram'));
 if ($description_type == 1) $interbreadcrumb[] = array ("url" => "#", "name" => get_lang('GeneralDescription'));
 if ($description_type == 2) $interbreadcrumb[] = array ("url" => "#", "name" => get_lang('Objectives'));
 if ($description_type == 3) $interbreadcrumb[] = array ("url" => "#", "name" => get_lang('Topics'));
