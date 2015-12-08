@@ -243,6 +243,7 @@ function get_work_data_by_id($id, $courseId = null, $sessionId = null)
         $work['download_url'] = api_get_path(WEB_CODE_PATH).'work/download.php?id='.$work['id'].'&'.api_get_cidreq();
         $work['view_url'] = api_get_path(WEB_CODE_PATH).'work/view.php?id='.$work['id'].'&'.api_get_cidreq();
         $work['show_url'] = api_get_path(WEB_CODE_PATH).'work/show_file.php?id='.$work['id'].'&'.api_get_cidreq();
+        $work['show_content'] = '';
         if ($work['contains_file']) {
             $fileInfo = pathinfo($work['title']);
             if (is_array($fileInfo) &&
@@ -3682,7 +3683,6 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
     if (empty($title)) {
         $title = get_lang('Untitled');
     }
-
     if ($saveWork) {
         $active = '1';
         $params = [

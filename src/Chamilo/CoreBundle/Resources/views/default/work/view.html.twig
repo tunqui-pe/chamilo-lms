@@ -1,3 +1,4 @@
+{% autoescape false %}
 <div class="page-header">
     <h2>
         {{ work.title }}
@@ -6,7 +7,7 @@
 
 {% if work.description %}
 <h3>
-    {{ 'Description' | get_lang }}
+    {{ 'Description' | trans }}
 </h3>
 <p>
     {{ work.description }}
@@ -15,11 +16,12 @@
 
 {% if work.contains_file and work.show_content %}
 <h3>
-    {{ 'Content' | get_lang }}
+    {{ 'Content' | trans }}
 </h3>
 <p>
     {{ work.show_content }}
 </p>
 {% endif %}
 
-{% include template ~ '/work/comments.tpl' %}
+{% include '@template_style/work/comments.html.twig' %}
+{% endautoescape %}

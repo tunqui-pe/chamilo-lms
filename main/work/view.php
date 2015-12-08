@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 //require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_STUDENTPUBLICATION;
 
@@ -17,7 +19,7 @@ if ($work['active'] != 1) {
     api_not_allowed(true);
 }
 
-$interbreadcrumb[] = array ('url' => 'work.php', 'name' => get_lang('StudentPublications'));
+$interbreadcrumb[] = array ('url' => 'work.php?'.api_get_cidreq(), 'name' => get_lang('StudentPublications'));
 
 $my_folder_data = get_work_data_by_id($work['parent_id']);
 $courseInfo = api_get_course_info();
@@ -37,9 +39,9 @@ if ((user_is_author($id) || $isDrhOfCourse || (api_is_allowed_to_edit() || api_i
     )
 ) {
     if ((api_is_allowed_to_edit() || api_is_coach()) || api_is_drh()) {
-        $url_dir = 'work_list_all.php?id='.$my_folder_data['id'];
+        $url_dir = 'work_list_all.php?id='.$my_folder_data['id'].'&'.api_get_cidreq();
     } else {
-        $url_dir = 'work_list.php?id='.$my_folder_data['id'];
+        $url_dir = 'work_list.php?id='.$my_folder_data['id'].'&'.api_get_cidreq();
     }
 
     $userInfo = api_get_user_info($work['user_id']);
@@ -98,9 +100,9 @@ if ((user_is_author($id) || $isDrhOfCourse || (api_is_allowed_to_edit() || api_i
         $comments = getWorkComments($work);
         $commentForm = getWorkCommentForm($work);
 
-        $tpl = new Template();
-        $tpl->assign('work', $work);
-        $tpl->assign('comments', $comments);
+        $tpl = Container::getTwig();
+        $tpl->addGlobal('work', $work);
+        $tpl->addGlobal('comments', $comments);
 
         $actions = '';
         if (isset($work['contains_file'])) {
@@ -129,16 +131,12 @@ if ((user_is_author($id) || $isDrhOfCourse || (api_is_allowed_to_edit() || api_i
             }
         }
 
-        $tpl->assign('actions', $actions);
+        $tpl->addGlobal('actions', $actions);
         if (api_is_allowed_to_session_edit()) {
-            $tpl->assign('form', $commentForm);
+            $tpl->addGlobal('form', $commentForm);
         }
-        $tpl->assign('is_allowed_to_edit', api_is_allowed_to_edit());
-
-        $template = $tpl->get_template('work/view.tpl');
-        $content  = $tpl->fetch($template);
-        $tpl->assign('content', $content);
-        $tpl->display_one_col_template();
+        $tpl->addGlobal('is_allowed_to_edit', api_is_allowed_to_edit());
+        echo Container::getTwig()->render('@template_style/work/view.html.twig');
     } else {
         api_not_allowed(true);
     }

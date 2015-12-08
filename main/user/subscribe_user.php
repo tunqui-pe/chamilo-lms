@@ -1,12 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt*/
 
+use ChamiloSession as Session;
+
 /**
 * This script allows teachers to subscribe existing users
 * to their course.
 * @package chamilo.user
 */
-use ChamiloSession as Session;
 
 $current_course_tool  = TOOL_USER;
 
@@ -241,11 +242,11 @@ $actionsLeft = Display::url(
 );
 
 if (isset($keyword)) {
-    $actionsLeft .= '<a href="subscribe_user.php?type='.$type.'&">'.
+    $actionsLeft .= '<a href="subscribe_user.php?type='.$type.'&'.api_get_cidreq().'">'.
         Display::return_icon('clean_group.gif').' '.get_lang('ClearSearchResults').'</a>';
 }
-if (isset($_GET['subscribe_user_filter_value']) AND !empty($_GET['subscribe_user_filter_value'])) {
-    $actionsLeft .= '<a href="subscribe_user.php?type='.$type.'">'.
+if (isset($_GET['subscribe_user_filter_value']) && !empty($_GET['subscribe_user_filter_value'])) {
+    $actionsLeft .= '<a href="subscribe_user.php?type='.$type.'&'.api_get_cidreq().'">'.
         Display::return_icon('clean_group.gif').' '.get_lang('ClearFilterResults').'</a>';
 }
 if (api_get_setting('profile.profiling_filter_adding_users') == 'true') {
@@ -253,11 +254,21 @@ if (api_get_setting('profile.profiling_filter_adding_users') == 'true') {
 }
 
 // Build search-form
-$form = new FormValidator('search_user', 'get', '', '', null, FormValidator::LAYOUT_INLINE);
+$form = new FormValidator(
+	'search_user',
+	'get',
+	api_get_self().'?'.api_get_cidreq(),
+	'',
+	null,
+	FormValidator::LAYOUT_INLINE
+);
 $form->addText('keyword', '', false);
 $form->addElement('hidden', 'type', $type);
 $form->addButtonSearch(get_lang('Search'));
-echo Display::toolbarAction('toolbar-subscriber', array(0 => $actionsLeft, 1 => $form->returnForm()));
+echo Display::toolbarAction(
+	'toolbar-subscriber',
+	array(0 => $actionsLeft, 1 => $form->returnForm())
+);
 
 $option = $type == COURSEMANAGER ? 2 : 1;
 echo UserManager::getUserSubscriptionTab($option);
@@ -265,7 +276,6 @@ echo UserManager::getUserSubscriptionTab($option);
 // Display table
 $table->display();
 
-Display::display_footer();
 
 /*		SHOW LIST OF USERS  */
 
@@ -778,7 +788,8 @@ function reg_filter($user_id) {
     } else {
         $type = STUDENT;
     }
-	$result = '<a class="btn btn-small btn-primary" href="'.api_get_self().'?register=yes&type='.$type.'&user_id='.$user_id.'">'.get_lang("reg").'</a>';
+	$result = '<a class="btn btn-small btn-primary" href="'.api_get_self().'?'.api_get_cidreq().'&register=yes&type='.$type.'&user_id='.$user_id.'">'.
+        get_lang("reg").'</a>';
 	return $result;
 }
 

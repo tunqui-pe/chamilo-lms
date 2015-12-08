@@ -1,15 +1,15 @@
-{# "UpdatedBy"|get_lang|format(comment.username) #}
-
+{# "UpdatedBy"|trans|format(comment.username) #}
+{% autoescape false %}
 <hr>
 <h3>
-    {{ 'Comments' | get_lang }}
+    {{ 'Comments' | trans }}
 </h3>
 <hr>
 <ul>
     {% for comment in comments %}
         <li>
             <div class="page-header">
-                <a href="{{ _p.web_code }}">
+                <a href="#">
                     <img height="24" src="{{ comment.picture }}"/> {{ comment.username }}
                 </a>- {{ comment.sent_at | api_get_local_time }}
             </div>
@@ -17,7 +17,7 @@
                 {% if comment.comment is not empty %}
                     {{ comment.comment }}
                 {% else %}
-                    {{ 'HereIsYourFeedback' | get_lang }}
+                    {{ 'HereIsYourFeedback' | trans }}
                 {% endif %}
             </p>
             {% if comment.file_url is not empty %}
@@ -40,3 +40,4 @@
 <hr>
 {{ form }}
 
+{% endautoescape %}

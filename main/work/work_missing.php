@@ -79,7 +79,7 @@ if (!empty($group_id)) {
         'name' => get_lang('Groups'),
     );
     $interbreadcrumb[] = array(
-        'url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?gidReq='.$group_id,
+        'url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?'.api_get_cidreq(),
         'name' => get_lang('GroupSpace').' '.$group_properties['name']
     );
 }

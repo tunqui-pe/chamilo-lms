@@ -54,12 +54,18 @@ if (!empty($group_id)) {
         api_not_allowed();
     }
 
-    $interbreadcrumb[] = array ('url' => api_get_path(WEB_CODE_PATH).'group/group.php', 'name' => get_lang('Groups'));
-    $interbreadcrumb[] = array ('url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?gidReq='.$group_id, 'name' => get_lang('GroupSpace').' '.$group_properties['name']);
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(),
+        'name' => get_lang('Groups')
+    );
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?'.api_get_cidreq(),
+        'name' => get_lang('GroupSpace').' '.$group_properties['name']
+    );
 }
 
-$interbreadcrumb[] = array ('url' => api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq(), 'name' => get_lang('StudentPublications'));
-$interbreadcrumb[] = array ('url' => api_get_path(WEB_CODE_PATH).'work/work_list_others.php?'.api_get_cidreq().'&id='.$workId, 'name' =>  $my_folder_data['title']);
+$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq(), 'name' => get_lang('StudentPublications'));
+$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'work/work_list_others.php?'.api_get_cidreq().'&id='.$workId, 'name' =>  $my_folder_data['title']);
 
 Display :: display_header(null);
 
@@ -115,7 +121,7 @@ $extra_params = array();
 $extra_params['autowidth'] = 'true';
 $extra_params['height'] = 'auto';
 $extra_params['sortname'] = 'firstname';
-$url = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_work_user_list_others&work_id='.$workId.'&type='.$type;
+$url = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_work_user_list_others&work_id='.$workId.'&type='.$type.'&'.api_get_cidreq();
 ?>
     <script>
         $(function() {

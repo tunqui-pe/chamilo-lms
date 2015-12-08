@@ -306,7 +306,7 @@ if ($form->validate()) {
 
 $htmlHeadXtra[] = to_javascript_work();
 
-$tpl = new Template();
+$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
 $content = null;
 if (!empty($work_id)) {
     if ($is_allowed_to_edit) {
@@ -315,18 +315,18 @@ if (!empty($work_id)) {
         } else {
 
             $comments = getWorkComments($work_item);
-
-            $template = $tpl->get_template('work/comments.tpl');
-            $tpl->assign('comments', $comments);
+            $tpl->addGlobal('comments', $comments);
 
             $commentForm = getWorkCommentForm($work_item, 'edit');
-
+            $tpl->addGlobal('form', '');
             if (api_is_allowed_to_session_edit()) {
-                $tpl->assign('form', $commentForm);
+                $tpl->addGlobal('form', $commentForm);
             }
 
+            $commentContent = $tpl->render('@template_style/work/comments.html.twig');
+
             $content .= $form->returnForm();
-            $content .= $tpl->fetch($template);
+            $content .= $commentContent;
         }
     } elseif ($is_author) {
         if (empty($work_item['qualificator_id']) || $work_item['qualificator_id'] == 0) {
@@ -335,7 +335,7 @@ if (!empty($work_id)) {
             $content .= Display::return_message(get_lang('ActionNotAllowed'), 'error');
         }
     } elseif ($student_can_edit_in_session && $has_ended == false) {
-        $content .= $form->return_form();
+        $content .= $form->returnForm();
     } else {
         $content .= Display::return_message(get_lang('ActionNotAllowed'), 'error');
     }
@@ -343,5 +343,4 @@ if (!empty($work_id)) {
     $content .= Display::return_message(get_lang('ActionNotAllowed'), 'error');
 }
 
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+echo $content;
