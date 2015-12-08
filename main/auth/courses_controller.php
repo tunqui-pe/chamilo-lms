@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
 use Chamilo\CoreBundle\Entity\SequenceResource;
 
 /**
@@ -684,27 +685,24 @@ class CoursesController
         $sessions = $this->model->browseSessionsByTags($searchTag, $limit);
         $sessionsBlocks = $this->getFormatedSessionsBlock($sessions);
 
-        $tpl = new Template();
-
-        $tpl->assign('show_courses', CoursesAndSessionsCatalog::showCourses());
-        $tpl->assign('show_sessions', CoursesAndSessionsCatalog::showSessions());
-        $tpl->assign(
-            'show_tutor',
-            (api_get_setting(
-                'session.show_session_coach'
-            ) === 'true' ? true : false)
+        echo Container::getTemplating()->render(
+            '@template_style/auth/session_catalog.html.twig',
+            [
+                'show_courses' => CoursesAndSessionsCatalog::showCourses(),
+                'show_sessions' => CoursesAndSessionsCatalog::showSessions(),
+                'show_tutor' => (api_get_setting('session.show_session_coach') === 'true' ? true : false),
+                'course_url' => $courseUrl,
+                'already_subscribed_label' => $this->getAlreadyRegisteredInSessionLabel(),
+                'hidden_links' => $hiddenLinks,
+                'search_token' => Security::get_token(),
+                'search_date' => Security::remove_XSS($searchDate),
+                'search_tag' => Security::remove_XSS($searchTag),
+                'sessions' => $sessionsBlocks
+            ]
         );
-        $tpl->assign('course_url', $courseUrl);
-        $tpl->assign('already_subscribed_label', $this->getAlreadyRegisteredInSessionLabel());
-        $tpl->assign('hidden_links', $hiddenLinks);
-        $tpl->assign('search_token', Security::get_token());
-        $tpl->assign('search_date', Security::remove_XSS($searchDate));
-        $tpl->assign('search_tag', Security::remove_XSS($searchTag));
-        $tpl->assign('sessions', $sessionsBlocks);
 
-        $contentTemplate = $tpl->get_template('auth/session_catalog.tpl');
 
-        $tpl->display($contentTemplate);
+
     }
 
     /**
@@ -721,26 +719,21 @@ class CoursesController
         $sessions = $this->model->browseSessionsBySearch($q, $limit);
         $sessionsBlocks = $this->getFormatedSessionsBlock($sessions);
 
-        $tpl = new Template();
-        $tpl->assign('show_courses', CoursesAndSessionsCatalog::showCourses());
-        $tpl->assign('show_sessions', CoursesAndSessionsCatalog::showSessions());
-        $tpl->assign(
-            'show_tutor',
-            (api_get_setting(
-                'session.show_session_coach'
-            ) === 'true' ? true : false)
+        echo Container::getTemplating()->render(
+            '@temaplte_style/auth/session_catalog.html.twig',
+            [
+                'show_courses' => CoursesAndSessionsCatalog::showCourses(),
+                'show_sessions' => CoursesAndSessionsCatalog::showSessions(),
+                'show_tutor' => (api_get_setting('session.show_session_coach') === 'true' ? true : false),
+                'course_url' => $courseUrl,
+                'already_subscribed_label' =>  $this->getAlreadyRegisteredInSessionLabel(),
+                'hidden_links' => $hiddenLinks,
+                'search_token' => Security::get_token(),
+                'search_date' => Security::remove_XSS($searchDate),
+                'search_tag' => Security::remove_XSS($q),
+                'sessions' => $sessionsBlocks
+            ]
         );
-        $tpl->assign('course_url', $courseUrl);
-        $tpl->assign('already_subscribed_label', $this->getAlreadyRegisteredInSessionLabel());
-        $tpl->assign('hidden_links', $hiddenLinks);
-        $tpl->assign('search_token', Security::get_token());
-        $tpl->assign('search_date', Security::remove_XSS($searchDate));
-        $tpl->assign('search_tag', Security::remove_XSS($q));
-        $tpl->assign('sessions', $sessionsBlocks);
-
-        $contentTemplate = $tpl->get_template('auth/session_catalog.tpl');
-
-        $tpl->display($contentTemplate);
     }
 
     /**

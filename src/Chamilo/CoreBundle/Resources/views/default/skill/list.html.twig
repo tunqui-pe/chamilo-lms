@@ -58,7 +58,7 @@
                                 <em class="fa fa-check-circle-o fa-fw"></em>
                             </a>
                         {% else %}
-                            <a href="{{ _p.web_self ~ '?' ~ {"action": "disable", "id": skill.id, "view": "list"}|url_encode() }}" class="btn btn-danger btn-sm" title="{{ 'Disable' }}">
+                            <a href="{{ url('web.main') ~ 'admin/skill_list.php?' ~ {"action": "disable", "id": skill.id, "view": "list"}|url_encode() }}" class="btn btn-danger btn-sm" title="{{ 'Disable' }}">
                                 <em class="fa fa-ban fa-fw"></em>
                             </a>
                         {% endif %}

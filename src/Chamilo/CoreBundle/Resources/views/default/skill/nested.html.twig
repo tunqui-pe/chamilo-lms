@@ -1,4 +1,4 @@
-{% macro nested_skills(skills, _p) %}
+{% macro nested_skills(skills) %}
     {% import _self as macros %}
     {% for skill in skills %}
         {% if skill.parent_id == 0 %}
@@ -7,11 +7,11 @@
         <tr data-id="{{ skill.id }}" data-parent="{{ skill.parent_id }}">
         {% endif %}
             <td width="50">
-                {% if skill.icon is empty %}
-                    <img src="{{ 'badges-default.png' | icon(32) }}" width="32" height="32" alt="{{ skill.name }}">
-                {% else %}
-                    <img src="{{ skill.web_icon_path }}" width="32" height="32" alt="{{ skill.name }}">
-                {% endif %}
+            {% if skill.icon is empty %}
+                <img src="{{ 'badges-default.png' | icon(32) }}" width="32" height="32" alt="{{ skill.name }}">
+            {% else %}
+                <img src="{{ skill.web_icon_path }}" width="32" height="32" alt="{{ skill.name }}">
+            {% endif %}
             </td>
             <td width="200">{{ skill.name }}</td>
             <td class="text-center">{{ skill.short_code }}</td>
@@ -33,18 +33,18 @@
                 </a>
 
                 {% if skill.status == 0 %}
-                    <a href="{{ _p.web_self ~ '?' ~ {"action": "enable", "id": skill.id, "view": "nested"}|url_encode() }}" class="btn btn-success btn-sm" title="{{ 'Enable' }}">
+                    <a href="{{ url('web.main') ~ 'admin/skill_list.php?' ~ {"action": "enable", "id": skill.id, "view": "nested"}|url_encode() }}" class="btn btn-success btn-sm" title="{{ 'Enable' }}">
                         <em class="fa fa-check-circle-o fa-fw"></em>
                     </a>
                 {% else %}
-                    <a href="{{ _p.web_self ~ '?' ~ {"action": "disable", "id": skill.id, "view": "nested"}|url_encode() }}" class="btn btn-danger btn-sm" title="{{ 'Disable' }}">
+                    <a href="{{ url('web.main') ~ 'admin/skill_list.php?' ~ {"action": "disable", "id": skill.id, "view": "nested"}|url_encode() }}" class="btn btn-danger btn-sm" title="{{ 'Disable' }}">
                         <em class="fa fa-ban fa-fw"></em>
                     </a>
                 {% endif %}
             </td>
         </tr>
         {% if skill.children %}
-            {{ macros.nested_skills(skill.children, _p, padd) }}
+            {{ macros.nested_skills(skill.children) }}
         {% endif %}
     {% endfor %}
 {% endmacro %}
@@ -75,7 +75,7 @@
             </tr>
         </tfoot>
         <tbody>
-            {{ macros.nested_skills(skills, _p) }}
+            {{ macros.nested_skills(skills) }}
         </tbody>
     </table>
 </div>

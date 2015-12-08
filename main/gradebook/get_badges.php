@@ -46,7 +46,7 @@ foreach ($userSkills as $skill) {
 
 $backpack = 'https://backpack.openbadges.org/';
 
-$configBackpack = api_get_setting('openbadges_backpack');
+$configBackpack = api_get_setting('gradebook.openbadges_backpack');
 if (strcmp($backpack, $configBackpack) !== 0) {
     $backpack = $configBackpack;
 }

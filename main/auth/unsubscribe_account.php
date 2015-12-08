@@ -13,7 +13,7 @@ $message = Display::return_message(get_lang('UnsubscribeFromPlatform'), 'warning
 
 $form = new FormValidator('user_add');
 $form->addElement('button', 'submit', get_lang('Unsubscribe'), array('onclick' => "javascript:if(!confirm('".addslashes(api_htmlentities(get_lang("UnsubscribeFromPlatformConfirm")))."')) return false;"));
-$content = $form->return_form();
+$content = $form->returnForm();
 
 if ($form->validate()) {
     $user_info = api_get_user_info();
@@ -26,8 +26,8 @@ if ($form->validate()) {
     }
 }
 
-$tpl = new Template($tool_name);
-$tpl->assign('actions', $actions);
-$tpl->assign('message', $message);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+//$tpl = new Template($tool_name);
+echo $actions;
+echo $message;
+echo $content;
+

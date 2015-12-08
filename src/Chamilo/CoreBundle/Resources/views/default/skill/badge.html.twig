@@ -12,9 +12,10 @@
     <div class="tab-content">
         <div class="tab-pane active">
             <div class="openbadges-introduction">
-                <h1 class="title"><img src="{{ 'badges.png' | icon(64) }}"
-                                       width="64"
-                                       height="64">{{ 'OpenBadgesTitle' | trans }}
+                <h1 class="title">
+                    <img src="{{ 'badges.png' | icon(64) }}"
+                       width="64"
+                       height="64">{{ 'OpenBadgesTitle' | trans }}
                 </h1>
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
@@ -34,8 +35,8 @@
                 <div class="block-content">
                     <div class="block-title">{{ 'IssuerDetails' | trans }}</div>
 
-                    <p>{{ 'Name' | trans }} : {{ _s.institution }}</p>
-                    <p>{{ 'URL' | trans }} : {{ _p.web }}</p>
+                    <p>{{ 'Name' | trans }} : {{ chamilo_settings_get('platform.institution') }}</p>
+                    <p>{{ 'URL' | trans }} : {{ url('home') }}</p>
 
                     <div class="block-title">{{ 'BackpackDetails' | trans }}</div>
 

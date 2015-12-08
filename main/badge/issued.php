@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Show information about the issued badge
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
@@ -93,7 +96,7 @@ $allowExport = api_get_user_id() == $user->getId();
 if ($allowExport) {
     $backpack = 'https://backpack.openbadges.org/';
 
-    $configBackpack = api_get_setting('openbadges_backpack');
+    $configBackpack = api_get_setting('gradebook.openbadges_backpack');
 
     if (strcmp($backpack, $configBackpack) !== 0) {
         $backpack = $configBackpack;
@@ -102,19 +105,16 @@ if ($allowExport) {
     $htmlHeadXtra[] = '<script src="' . $backpack . 'issuer.js"></script>';
 }
 
-$template = new Template('');
-$template->assign('skill_info', $skillInfo);
-$template->assign('user_info', $userInfo);
-$template->assign('allow_export', $allowExport);
+echo Container::getTemplating()->render(
+    '@template_style/skill/issued.html.twig',
+    [
+        'assertions' => $badgeAssertions,
+        'skill_info' => $skillInfo,
+        'user_info' => $userInfo,
+        'allow_export' => $allowExport,
 
-if ($allowExport) {
-    $template->assign('assertions', $badgeAssertions);
-}
-
-$content = $template->fetch(
-    $template->get_template('skill/issued.tpl')
+    ]
 );
 
-$template->assign('header', get_lang('IssuedBadgeInformation'));
-$template->assign('content', $content);
-$template->display_one_col_template();
+//$template->assign('header', get_lang('IssuedBadgeInformation'));
+

@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Show information about Mozilla OpenBadges
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
@@ -19,7 +22,7 @@ if (!api_is_platform_admin() || api_get_setting(
 }
 $backpack = 'https://backpack.openbadges.org/';
 
-$configBackpack = api_get_setting('openbadges_backpack');
+$configBackpack = api_get_setting('gradebook.openbadges_backpack');
 if (strcmp($backpack, $configBackpack) !== 0) {
     $backpack = $configBackpack;
 }
@@ -39,10 +42,13 @@ $toolbar = Display::toolbarButton(
     ['title' => get_lang('ManageSkills')]
 );
 
-$tpl = new Template(get_lang('Badges'));
-$tpl->assign('backpack', $backpack);
-$contentTemplate = $tpl->fetch('default/skill/badge.tpl');
+//$tpl = new Template(get_lang('Badges'));
 
-$tpl->assign('actions', $toolbar);
-$tpl->assign('content', $contentTemplate);
-$tpl->display_one_col_template();
+echo $toolbar;
+echo Container::getTemplating()->render(
+    '@template_style/skill/badge.html.twig',
+    [
+        'backpack' => $backpack
+    ]
+);
+

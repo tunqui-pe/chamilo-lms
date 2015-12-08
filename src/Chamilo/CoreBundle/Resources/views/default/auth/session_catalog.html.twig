@@ -1,6 +1,4 @@
-{% extends template ~ "/layout/main.tpl" %}
-
-{% block body %}
+{% block page_content %}
     <script type="text/javascript">
         $(document).ready(function () {
             $('#date').datepicker({
@@ -28,8 +26,8 @@
                                                class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default"
-                                                    type="submit"><em
-                                                        class="fa fa-search"></em> {{ 'Search'| trans }}
+                                                    type="submit">
+                                                <em class="fa fa-search"></em> {{ 'Search'| trans }}
                                             </button>
                                         </span>
                                     </div>

@@ -1,7 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use \Chamilo\CoreBundle\Entity\SequenceResource;
+use Chamilo\CoreBundle\Framework\Container;
+use Chamilo\CoreBundle\Entity\SequenceResource;
 
 /**
 * Template (front controller in MVC pattern) used for distpaching
@@ -250,12 +251,12 @@ switch ($action) {
         }
 
         if (!$confirmed) {
-            $template = new Template(null, false, false, false, false, false);
-            $template->assign('session_id', $sessionId);
-
-            $layout = $template->get_template('auth/confirm_session_subscription.tpl');
-
-            echo $template->fetch($layout);
+            echo Container::getTemplating()->render(
+                '@template_style/auth/confirm_session_subscription.html.twig',
+                [
+                    'session_id' => $sessionId
+                ]
+            );
             exit;
         }
 

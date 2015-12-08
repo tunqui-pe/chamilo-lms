@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  This script displays a form for registering new users.
  *  @package    chamilo.auth
@@ -806,14 +808,15 @@ if ($form->validate()) {
             array('info' => $text_after_registration)
         );
     } else {
-
-        $tpl = new Template($tool_name);
-
-        $tpl->assign('inscription_content', $content);
-        $tpl->assign('text_after_registration', $text_after_registration);
-        $tpl->assign('hide_header', $hideHeaders);
-        $inscription = $tpl->get_template('auth/inscription.tpl');
-        $tpl->display($inscription);
+        //$tpl = new Template($tool_name);
+        echo Container::getTemplating()->render(
+            '@template_style/auth/inscription.html.twig',
+            [
+                'inscription_content' => $content,
+                'text_after_registration' => $text_after_registration,
+                'hide_header' => $hideHeaders,
+            ]
+        );
     }
 } else {
     // Custom pages
@@ -846,14 +849,17 @@ if ($form->validate()) {
             CourseManager::redirectToCourse([]);
         }
 
-        $tpl = new Template($tool_name);
+        //$tpl = new Template($tool_name);
 
-        $tpl->assign('inscription_header', Display::page_header($tool_name));
-        $tpl->assign('inscription_content', $content);
-        $tpl->assign('form', $form->returnForm());
-        $tpl->assign('hide_header', $hideHeaders);
+        echo Container::getTemplating()->render(
+            '@template_style/auth/inscription.html.twig',
+            [
+                'inscription_header' =>Display::page_header($tool_name),
+                'inscription_content' => $content,
+                'hide_header' => $hideHeaders,
+                'form', $form->returnForm()
+            ]
+        );
 
-        $inscription = $tpl->get_template('auth/inscription.tpl');
-        $tpl->display($inscription);
     }
 }

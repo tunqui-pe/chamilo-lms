@@ -1,11 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Skill edit form
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.admin
  */
-use ChamiloSession as Session;
 
 $cidReset = true;
 
@@ -83,22 +86,15 @@ if ($editForm->validate()) {
     $updated = $objSkill->edit($editForm->getSubmitValues());
 
     if ($updated) {
-        Session::write(
-            'message',
-            Display::return_message(get_lang('TheSkillHasBeenUpdated'), 'success')
-        );
+        Display::return_message(get_lang('TheSkillHasBeenUpdated'), 'success');
     } else {
-        Session::write(
-            'message',
-            Display::return_message(get_lang('CannotUpdateSkill'), 'error')
-        );
+        Display::return_message(get_lang('CannotUpdateSkill'), 'error');
     }
 
     header('Location: '.api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php');
     exit;
 }
 
-/* view */
-$tpl = new Template(get_lang('SkillEdit'));
-$tpl->assign('content', $editForm->returnForm());
-$tpl->display_one_col_template();
+
+//$tpl = new Template(get_lang('SkillEdit'));
+echo $editForm->returnForm();

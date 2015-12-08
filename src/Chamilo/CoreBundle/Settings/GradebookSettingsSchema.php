@@ -37,6 +37,7 @@ class GradebookSettingsSchema implements SchemaInterface
                     'my_display_coloring' => '',
                     'student_publication_to_take_in_gradebook' => '',
                     'gradebook_detailed_admin_view' => '',
+                    'openbadges_backpack' => 'https://backpack.openbadges.org/'
                 )
             )
             ->setAllowedTypes(
@@ -72,6 +73,8 @@ class GradebookSettingsSchema implements SchemaInterface
             ->add('gradebook_show_percentage_in_rep')
             ->add('my_display_coloring')
             ->add('student_publication_to_take_in_gradebook')
-            ->add('gradebook_detailed_admin_view');
+            ->add('gradebook_detailed_admin_view')
+            ->add('openbadges_backpack')
+        ;
     }
 }

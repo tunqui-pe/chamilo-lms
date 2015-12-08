@@ -10,8 +10,8 @@
             $('#btn-open-designer').on('click', function (e) {
                 e.preventDefault();
 
-                var designerUrl = 'https://www.openbadges.me/designer.html?origin={{ _p.web }}';
-                designerUrl = designerUrl + '&email={{ platformAdminEmail }}';
+                var designerUrl = 'https://www.openbadges.me/designer.html?origin={{ url('home') }}';
+                designerUrl = designerUrl + '&email={{ chamilo_settings_get('admin.administrator_email') }}';
                 designerUrl = designerUrl + '&close=true';
                 designerUrl = designerUrl + '&hidePublish=true';
 
@@ -70,7 +70,6 @@
                     <div class="col-md-9">
                         <form action="{{ _p.web_self_query_vars }}" class="form-horizontal" method="post" enctype="multipart/form-data">
                             <fieldset>
-
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label"
                                            for="name">{{ 'Name' | trans }}</label>

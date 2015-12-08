@@ -1,11 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Skill list for management
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.admin
  */
-use ChamiloSession as Session;
 
 $cidReset = true;
 
@@ -116,8 +119,8 @@ switch ($action) {
 
 switch ($view) {
     case 'nested':
-        $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
-        $message = Session::has('message') ? Session::read('message') : null;
+        $interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+
         $toolbar = Display::toolbarButton(
             get_lang('CreateSkill'),
             api_get_path(WEB_CODE_PATH) . 'admin/skill_create.php',
@@ -165,21 +168,20 @@ switch ($view) {
         $allSkills = $skill->get_all();
         //order the skill list by a nested view array
         $skillList = $skill->get_nested_skill_view($allSkills);
-        $tpl = new Template(get_lang('ManageSkills'));
-        $tpl->assign('message', $message);
-        $tpl->assign('skills', $skillList);
-        $content = $tpl->fetch('default/skill/nested.tpl');
-        $tpl->assign('actions', $toolbar);
-        $tpl->assign('content', $content);
-        $tpl->display_one_col_template();
-        Session::erase('message');
+
+        //$tpl = new Template(get_lang('ManageSkills'));
+        echo $toolbar;
+        echo Container::getTemplating()->render(
+            '@template_style/skill/nested.html.twig',
+            [
+                'skills' => $skillList
+            ]
+        );
         break;
     case 'list':
         //no break
     default:
         $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
-
-        $message = Session::has('message') ? Session::read('message') : null;
 
         $toolbar = Display::toolbarButton(
             get_lang('CreateSkill'),
@@ -203,7 +205,7 @@ switch ($view) {
             ['title' => get_lang('BadgesManagement')]
         );
 
-    $toolbar .= Display::toolbarButton(
+        $toolbar .= Display::toolbarButton(
             get_lang('NestedView'),
             api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php?view=nested',
             'eye',
@@ -215,16 +217,14 @@ switch ($view) {
         $skill = new Skill();
         $skillList = $skill->get_all();
 
-        $tpl = new Template(get_lang('ManageSkills'));
-        $tpl->assign('message', $message);
-        $tpl->assign('skills', $skillList);
+        //$tpl = new Template(get_lang('ManageSkills'));
 
-        $content = $tpl->fetch('default/skill/list.tpl');
-
-        $tpl->assign('actions', $toolbar);
-        $tpl->assign('content', $content);
-        $tpl->display_one_col_template();
-
-        Session::erase('message');
+        echo $toolbar;
+        echo Container::getTemplating()->render(
+            '@template_style/skill/list.html.twig',
+            [
+                'skills' => $skillList
+            ]
+        );
         break;
 }

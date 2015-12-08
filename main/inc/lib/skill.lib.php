@@ -686,6 +686,7 @@ class Skill extends Model
                 //Do the recursive iteration
                 $children = $this->get_nested_skill_view($skills, $skill['id']);
                 //insert the children in the current parent
+                $skill['children'] = '';
                 if ($children) {
                     $skill['children'] = $children;
                 }
@@ -917,9 +918,15 @@ class Skill extends Model
                 }
             }
 
-            $skill_rel_gradebook->update_gradebooks_by_skill($skill_id, $params['gradebook_id']);
+            $gradeBookId = isset($params['gradebook_id']) ? $params['gradebook_id'] : null;
+            $skill_rel_gradebook->update_gradebooks_by_skill(
+                $skill_id,
+                $gradeBookId
+            );
+
             return $skill_id;
         }
+
         return null;
     }
 

@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Show information about Mozilla OpenBadges
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
@@ -98,15 +101,13 @@ $toolbar = Display::toolbarButton(
     ['title' => get_lang('ManageSkills')]
 );
 
-$tpl = new Template(get_lang('CreateBadge'));
-$tpl->assign(
-    'platformAdminEmail',
-    api_get_setting('admin.administrator_email')
+//$tpl = new Template(get_lang('CreateBadge'));
+
+echo $toolbar;
+echo Container::getTemplating()->render(
+    '@template_style/skill/badge_create.html.twig',
+    [
+        'skill' => $skill
+    ]
 );
-$tpl->assign('skill', $skill);
 
-$contentTemplate = $tpl->fetch('default/skill/badge_create.tpl');
-
-$tpl->assign('actions', $toolbar);
-$tpl->assign('content', $contentTemplate);
-$tpl->display_one_col_template();

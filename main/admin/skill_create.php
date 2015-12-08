@@ -1,11 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Create skill form
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.admin
  */
-use ChamiloSession as Session;
 
 $cidReset = true;
 
@@ -79,22 +82,14 @@ if ($createForm->validate()) {
     $created = $objSkill->add($createForm->getSubmitValues());
 
     if ($created) {
-        Session::write(
-            'message',
-            Display::return_message(get_lang('TheSkillHasBeenCreated'), 'success')
-        );
+        Display::return_message(get_lang('TheSkillHasBeenCreated'), 'success');
     } else {
-        Session::write(
-            'message',
-            Display::return_message(get_lang('CannotCreateSkill'), 'error')
-        );
+        Display::return_message(get_lang('CannotCreateSkill'), 'error');
     }
 
     header('Location: '.api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php');
     exit;
 }
 
-/* view */
-$tpl = new Template(get_lang('CreateSkill'));
-$tpl->assign('content', $createForm->returnForm());
-$tpl->display_one_col_template();
+//$tpl = new Template(get_lang('CreateSkill'));
+echo $createForm->returnForm();

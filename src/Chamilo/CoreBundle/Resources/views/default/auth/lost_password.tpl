@@ -2,6 +2,6 @@
 
 {% block content %}
 
-    {{ form }}
+{{ form }}
 
 {% endblock %}

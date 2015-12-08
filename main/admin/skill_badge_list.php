@@ -1,31 +1,26 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Show information about Mozilla OpenBadges
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.admin.openbadges
  */
-use ChamiloSession as Session;
 
 $cidReset = true;
 
 //require_once '../inc/global.inc.php';
 
-if (!api_is_platform_admin() || api_get_setting(
-        'skill.allow_skills_tool'
-    ) !== 'true'
+if (!api_is_platform_admin() ||
+    api_get_setting('skill.allow_skills_tool') !== 'true'
 ) {
     api_not_allowed(true);
 }
 
 $this_section = SECTION_PLATFORM_ADMIN;
-
-$errorMessage = null;
-
-if (Session::has('errorMessage')) {
-    $errorMessage = Session::read('errorMessage');
-}
 
 $objSkill = new Skill();
 $skills = $objSkill->get_all();
@@ -49,14 +44,14 @@ $toolbar = Display::toolbarButton(
     ['title' => get_lang('ManageSkills')]
 );
 
-$tpl = new Template(get_lang('Skills'));
-$tpl->assign('errorMessage', $errorMessage);
-$tpl->assign('skills', $skills);
+//$tpl = new Template(get_lang('Skills'));
 
-$contentTemplate = $tpl->fetch('default/skill/badge_list.tpl');
 
-$tpl->assign('actions', $toolbar);
-$tpl->assign('content', $contentTemplate);
-$tpl->display_one_col_template();
+echo $toolbar;
+echo Container::getTemplating()->render(
+    '@template_style/skill/badge_list.html.twig',
+    [
+        'skills' => $skills
+    ]
+);
 
-Session::erase('errorMessage');

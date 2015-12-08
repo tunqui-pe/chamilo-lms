@@ -1,7 +1,10 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
- * Show information about OpenBadge citeria
+ * Show information about OpenBadge criteria
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.badge
  */
@@ -27,12 +30,9 @@ $skillInfo = [
     'badge_image' => $skill->getWebIconPath()
 ];
 
-$template = new Template();
-$template->assign('skill_info', $skillInfo);
-
-$content = $template->fetch(
-    $template->get_template('skill/criteria.tpl')
+echo Container::getTemplating()->render(
+    '@template_style/skill/criteria.html.twig',
+    [
+        'skill_info' => $skillInfo
+    ]
 );
-
-$template->assign('content', $content);
-$template->display_one_col_template();
