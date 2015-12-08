@@ -3636,7 +3636,7 @@ function get_whats_new()
                     access_tool='".Database::escape_string($tool)."'";
         $result = Database::query($sql);
         $row = Database::fetch_array($result);
-        $_SESSION['last_forum_access'] = $row['access_date'];
+        Session::write('last_forum_access', $row['access_date']);
     }
 
     $whatsNew = Session::read('whatsnew_post_info');
@@ -3644,10 +3644,11 @@ function get_whats_new()
     if (!$whatsNew) {
         if ($lastForumAccess != '') {
             $whatsnew_post_info = array();
+            $access = Session::read('last_forum_access');
             $sql = "SELECT * FROM $table_posts
                     WHERE
                         c_id = $course_id AND
-                        post_date >'".Database::escape_string($_SESSION['last_forum_access'])."'"; // note: check the performance of this query.
+                        post_date >'".Database::escape_string($access)."'"; // note: check the performance of this query.
             $result = Database::query($sql);
             while ($row = Database::fetch_array($result)) {
                 $whatsnew_post_info[$row['forum_id']][$row['thread_id']][$row['post_id']] = $row['post_date'];
