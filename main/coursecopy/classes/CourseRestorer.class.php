@@ -588,8 +588,7 @@ class CourseRestorer
 
 										$folder_exists = file_exists($new_base_path);
 										if ($folder_exists) {
-											//$_SESSION['orig_base_foldername'] = $new_base_foldername; 		// e.g: carpeta1 in session
-                                            Session::write('orig_base_foldername', $new_base_foldername);
+											Session::write('orig_base_foldername', $new_base_foldername);
 											$x = '';
 											while ($folder_exists) {
 												$x = $x + 1;

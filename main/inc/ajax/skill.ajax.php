@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Responses to AJAX calls
  */
@@ -11,6 +14,8 @@ $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 if (api_get_setting('skill.allow_skills_tool') != 'true') {
     exit;
 }
+
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
 
 api_block_anonymous_users();
 
@@ -307,7 +312,6 @@ switch ($action) {
         if (api_is_platform_admin() || api_is_drh()) {
             $skill_profile = new SkillProfile();
             $params = $_REQUEST;
-            //$params['skills'] = isset($_SESSION['skills']) ? $_SESSION['skills'] : null;
             $params['skills'] = $params['skill_id'];
             $profileId = isset($_REQUEST['profile']) ? intval($_REQUEST['profile']) : null;
             if ($profileId > 0) {

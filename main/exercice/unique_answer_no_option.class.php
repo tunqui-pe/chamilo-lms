@@ -104,7 +104,6 @@ class UniqueAnswerNoOption extends Question
                 $lessFromSession = Session::read('less_answer');
                 if (!isset($lessFromSession)) {
                     Session::write('less_answer', $this->id);
-                    //$_SESSION['less_answer'] = $this->id;
                     $nb_answers--;
                 }
             }

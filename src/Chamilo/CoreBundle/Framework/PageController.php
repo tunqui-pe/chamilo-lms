@@ -3,7 +3,6 @@
 
 namespace Chamilo\CoreBundle\Framework;
 
-use Chamilo\CoreBundle\Framework\Application;
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\TwitterBootstrapView;

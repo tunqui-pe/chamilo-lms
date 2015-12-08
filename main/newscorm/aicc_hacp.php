@@ -51,7 +51,6 @@ if (!empty($_REQUEST['aicc_sid'])) {
 if ($debug > 2) { error_log('New LP - '.__FILE__.','.__LINE__.' - Current session ID: '.session_id(), 0); }
 
 // Is this needed? This is probabaly done in the header file.
-//$_user							= $_SESSION['_user'];
 $file = Session::read('file');
 $oLP = unserialize(Session::read('lpobject'));
 $oItem =& $oLP->items[$oLP->current];

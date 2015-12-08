@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 use Chamilo\UserBundle\Entity\User;
 
 /**
@@ -131,6 +132,8 @@ class SkillRelProfile extends Model
     /**
     * This function is for getting profile info from profile_id.
     * @param int $profileId
+     *
+     * @return array
     */
 
     public function getProfileInfo($profileId)

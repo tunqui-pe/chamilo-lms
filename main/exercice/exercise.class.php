@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class Exercise
  *
@@ -2861,7 +2863,10 @@ class Exercise
                     break;
                 // for calculated answer
                 case CALCULATED_ANSWER:
-                    $answer = $objAnswerTmp->selectAnswer($_SESSION['calculatedAnswerId'][$questionId]);
+                    $calculatedAnswer = Session::read('calculatedAnswerId');
+                    $answer = $objAnswerTmp->selectAnswer(
+                        $calculatedAnswer[$questionId]
+                    );
                     $preArray = explode('@@', $answer);
                     $last = count($preArray) - 1;
                     $answer = '';

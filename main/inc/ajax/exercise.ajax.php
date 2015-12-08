@@ -462,8 +462,10 @@ switch ($action) {
                     $exercise_stat_info['orig_lp_item_id']
                 );
 
-                if (isset($_SESSION['duration_time'][$key]) && !empty($_SESSION['duration_time'][$key])) {
-                    $duration = $now - $_SESSION['duration_time'][$key];
+                $sessionDurationTime = Session::read('duration_time', []);
+
+                if (isset($sessionDurationTime[$key]) && !empty($sessionDurationTime[$key])) {
+                    $duration = $now - $sessionDurationTime[$key];
                     if (!empty($exercise_stat_info['exe_duration'])) {
                         $duration += $exercise_stat_info['exe_duration'];
                     }
@@ -474,7 +476,8 @@ switch ($action) {
                     }
                 }
 
-                $_SESSION['duration_time'][$key] = time();
+                $sessionDurationTime[$key] = time();
+                Session::write('duration_time', $durationTime);
 
                 Event::update_event_exercice(
                     $exe_id,
