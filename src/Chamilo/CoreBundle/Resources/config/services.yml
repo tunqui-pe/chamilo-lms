@@ -178,7 +178,7 @@ services:
     # Logout listener - When user logs out
     chamilo_core.listener.logout_success_handler:
         class: Chamilo\CoreBundle\EventListener\LogoutSuccessHandler
-        arguments:  [@router, @security.authorization_checker]
+        arguments:  [@router, @security.authorization_checker, @security.token_storage]
 
     # ORMs
     chamilo_course.entity.course:

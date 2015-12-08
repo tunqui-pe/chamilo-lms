@@ -128,7 +128,7 @@ function online_logout($user_id = null, $logout_redirect = false)
         Database::query($sql);
     }
 
-    LoginDelete($user_id); //from inc/lib/online.inc.php - removes the "online" status
+    //LoginDelete($user_id); //from inc/lib/online.inc.php - removes the "online" status
 
     //the following code enables the use of an external logout function.
     //example: define a $extAuthSource['ldap']['logout']="file.php" in configuration.php
@@ -158,22 +158,6 @@ function online_logout($user_id = null, $logout_redirect = false)
         return;
     }
 }
-
-/**
- * Remove all login records from the track_e_online stats table, for the given user ID.
- * @param int User ID
- * @return void
- */
-function LoginDelete($user_id)
-{
-	$online_table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ONLINE);
-    $user_id = intval($user_id);
-	$query = "DELETE FROM " . $online_table . " WHERE login_user_id = $user_id";
-	Database::query($query);
-}
-
-
-
 
 /**
 * Returns a list (array) of users who are online and in this course.
@@ -248,25 +232,6 @@ function who_is_online_in_this_course_count($uid, $time_limit, $coursecode=null)
 	}
 }
 
-/**
- * Gets the full user name for a given user ID
- * @param   int User ID
- * @return  string  The full username, elements separated by an HTML space
- * @deprecated user api_get_user_info($user_id)
- */
-function GetFullUserName($uid) {
-	$uid = (int) $uid;
-	$uid = intval($uid);
-	$user_table = Database::get_main_table(TABLE_MAIN_USER);
-	$query = "SELECT firstname, lastname FROM ".$user_table." WHERE id=$uid";
-	$result = @Database::query($query);
-	if (count($result)>0) {
-		while(list($firstname,$lastname)= Database::fetch_array($result)) {
-			$str = str_replace(' ', '&nbsp;', api_get_person_name($firstname, $lastname));
-			return $str;
-		}
-	}
-}
 
 /**
  * Gets a list of chat calls made by others to the current user (info kept in main.user table)
@@ -301,8 +266,9 @@ function chatcall() {
 	$limittime = mktime(date("H"),date("i")-$minute_passed,date("s"),date("m"),date("d"),date("Y"));
 
 	if (($row['chatcall_user_id']) and ($calltime>$limittime)) {
-		$webpath=api_get_path(WEB_CODE_PATH);
-		$message=get_lang('YouWereCalled').' : '.GetFullUserName($row['chatcall_user_id'],'').'<br>'.get_lang('DoYouAccept')
+		$webpath = api_get_path(WEB_CODE_PATH);
+        $userInfo = api_get_user_info($row['chatcall_user_id']);
+		$message=get_lang('YouWereCalled').' : '.$userInfo['complete_name'].'<br>'.get_lang('DoYouAccept')
 							."<p>"
 				."<a href=\"".$webpath."chat/chat.php?cidReq=".$_cid."&origin=whoisonlinejoin\">"
 				. get_lang("Yes")

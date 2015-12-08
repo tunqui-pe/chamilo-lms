@@ -17,12 +17,6 @@ class TestOnline extends UnitTestCase {
 		$this->assertTrue(is_null($res));
 	}
 
-	function testLoginDelete() {
-		$user_id=1;
-		$res=LoginDelete($user_id);
-		$this->assertTrue(is_null($res));
-	}
-
 	function testonline_logout(){
 		global $_configuration, $extAuthSource;		
 		$res=online_logout(null, true);
