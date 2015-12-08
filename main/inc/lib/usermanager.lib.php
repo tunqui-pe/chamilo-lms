@@ -286,11 +286,11 @@ class UserManager
                     null,
                     PERSON_NAME_EMAIL_ADDRESS
                 );
-                $tplSubject = new Template(null, false, false, false, false, false);
-                $layoutSubject = $tplSubject->get_template(
-                    'mail/subject_registration_platform.tpl'
+
+                $emailSubject = Container::getTemplating()->render(
+                    '@template_style/mail/subject_registration_platform.html.twig'
                 );
-                $emailSubject = $tplSubject->fetch($layoutSubject);
+
                 $sender_name = api_get_person_name(
                     api_get_setting('admin.administrator_name'),
                     api_get_setting('admin.administrator_surname'),
@@ -299,23 +299,25 @@ class UserManager
                 );
                 $email_admin = api_get_setting('admin.administrator_email');
 
+                $url = api_get_path(WEB_PATH);
+
                 if (api_is_multiple_url_enabled()) {
                     $access_url_id = api_get_current_access_url_id();
                     if ($access_url_id != -1) {
                         $url = api_get_access_url($access_url_id);
                     }
-                } else {
-                    $url = $_configuration['root_web'];
                 }
-                $tplContent = new Template(null, false, false, false, false, false);
-                // variables for the default template
-                $tplContent->assign('complete_name', stripslashes(api_get_person_name($firstName, $lastName)));
-                $tplContent->assign('login_name', $loginName);
-                $tplContent->assign('original_password', stripslashes($original_password));
-                $tplContent->assign('mailWebPath', $url);
 
-                $layoutContent = $tplContent->get_template('mail/content_registration_platform.tpl');
-                $emailBody = $tplContent->fetch($layoutContent);
+                $emailBody = Container::getTemplating()->render(
+                    '@template_style/mail/content_registration_platform.html.twig',
+                    [
+                        'complete_name' => stripslashes(api_get_person_name($firstName, $lastName)),
+                        'login_name' => $loginName,
+                        'original_password' => stripslashes($original_password),
+                        'mail_web_path' => $url
+                    ]
+                );
+
                 /* MANAGE EVENT WITH MAIL */
                 if (EventsMail::check_if_using_class('user_registration')) {
                     $values["about_user"] = $return;
