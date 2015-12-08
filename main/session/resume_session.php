@@ -1,13 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Entity\Repository\SequenceRepository;
+use Chamilo\CoreBundle\Entity\SequenceResource;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	@author Bart Mollet, Julio Montoya lot of fixes
 *	@package chamilo.admin
 */
-
-use Chamilo\CoreBundle\Entity\Repository\SequenceRepository;
-use Chamilo\CoreBundle\Entity\SequenceResource;
 
 $cidReset = true;
 //require_once '../inc/global.inc.php';
@@ -374,7 +375,7 @@ if (!empty($requirementAndDependencies['dependencies'])) {
 }
 
 //$tpl = new Template(get_lang('Session'));
-$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$tpl = Container::getTwig();
 $tpl->addGlobal('session_header', $sessionHeader);
 $tpl->addGlobal('title', $sessionTitle);
 $tpl->addGlobal('general_coach', $generalCoach);

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * @package chamilo.social
  * @author Julio Montoya <gugli100@gmail.com>
@@ -94,9 +96,9 @@ $jqgrid = Display::grid_js(
 );
 $content = Display::grid_html('skill_ranking');
 
-$tpl = new Template(get_lang('Ranking'));
-$tpl->assign('jqgrid_html', $jqgrid);
-$content .= $tpl->fetch('default/skill/skill_ranking.tpl');
-$tpl->assign('content', $content);
+//$tpl = new Template(get_lang('Ranking'));
+$tpl = Container::getTwig();
+$tpl->addGlobal('jqgrid_html', $jqgrid);
+$content .= $tpl->render('@template_style/skill/skill_ranking.html.twig');
+echo $content;
 
-$tpl->display_one_col_template();

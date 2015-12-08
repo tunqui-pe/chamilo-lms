@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Entity\SessionRelCourseRelUser;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class SessionManager
@@ -1613,29 +1614,19 @@ class SessionManager
                     continue;
                 }
 
-                $tplSubject = new Template(null, false, false, false, false, false);
-                $layoutSubject = $tplSubject->get_template(
-                    'mail/subject_subscription_to_session_confirmation.tpl'
+                $subject = Container::getTemplating()->render(
+                    '@template_style/mail/subject_subscription_to_session_confirmation.html.twig'
                 );
-                $subject = $tplSubject->fetch($layoutSubject);
 
                 $user_info = api_get_user_info($user_id);
-
-                $tplContent = new Template(null, false, false, false, false, false);
-                // Variables for default template
-                $tplContent->assign(
-                    'complete_name',
-                    stripslashes($user_info['complete_name'])
+                $content = Container::getTemplating()->render(
+                    '@template_style/mail/content_subscription_to_session_confirmation.html.twig',
+                    [
+                        'complete_name' => stripslashes($user_info['complete_name']),
+                        'session_name' => $session->getName(),
+                        'session_coach' => $session->getGeneralCoach()->getCompleteName()
+                    ]
                 );
-                $tplContent->assign('session_name', $session->getName());
-                $tplContent->assign(
-                    'session_coach',
-                    $session->getGeneralCoach()->getCompleteName()
-                );
-                $layoutContent = $tplContent->get_template(
-                    'mail/content_subscription_to_session_confirmation.tpl'
-                );
-                $content = $tplContent->fetch($layoutContent);
 
                 api_mail_html(
                     $user_info['complete_name'],

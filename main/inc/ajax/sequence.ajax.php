@@ -9,6 +9,7 @@ use Chamilo\CoreBundle\Entity\Sequence;
 use Chamilo\CoreBundle\Entity\SequenceResource;
 use Fhaculty\Graph\Graph;
 use Fhaculty\Graph\Vertex;
+use Chamilo\CoreBundle\Framework\Container;
 
 //require_once '../global.inc.php';
 
@@ -315,26 +316,26 @@ switch ($action) {
 
                 $courseController = new CoursesController();
 
-                $view = new Template(null, false, false, false, false, false);
-                $view->assign('sequences', $sequenceList);
-                $view->assign('allow_subscription', $allowSubscription);
-
+                $subscribeButton = '';
                 if ($allowSubscription) {
-                    $view->assign(
-                        'subscribe_button',
+                    $subscribeButton =
                         $courseController->getRegisteredInSessionButton(
                             $session['id'],
                             $session['name'],
                             false
                         )
-                    );
+                    ;
                 }
 
-                $template = $view->get_template(
-                    'sequence_resource/session_requirements.tpl'
+                echo Container::getTemplating()->render(
+                    '@template_style/sequence_resource/session_requirements.html.twig',
+                    [
+                        'sequences' => $sequenceList,
+                        'allow_subscription' => $allowSubscription,
+                        'subscribe_button' => $subscribeButton
+                    ]
                 );
 
-                $view->display($template);
                 break;
         }
         break;

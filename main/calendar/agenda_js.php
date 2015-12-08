@@ -1,12 +1,12 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * @package chamilo.calendar
  */
-
-use ChamiloSession as Session;
-use Chamilo\CoreBundle\Framework\Container;
 
 $tpl = Container::getTwig();
 
@@ -117,7 +117,6 @@ switch ($type) {
         break;
 }
 
-
 //Setting translations
 $day_short = api_get_week_days_short();
 $days = api_get_week_days_long();
@@ -207,7 +206,6 @@ if ($type == 'course') {
     $agenda_ajax_url .= '&'.api_get_cidreq();
 }
 
-
 $tpl->addGlobal('web_agenda_ajax_url', $agenda_ajax_url);
 $course_code = api_get_course_id();
 
@@ -218,7 +216,6 @@ $form = new FormValidator(
     null,
     array('id' => 'add_event_form')
 );
-
 
 $form->addElement('html', '<span id="calendar_course_info"></span><div id="visible_to_input">');
 

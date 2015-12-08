@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /*
  * Report from students for learning path
  */
@@ -90,7 +93,6 @@ $actions = Display::url(
     api_get_path(WEB_CODE_PATH) . 'newscorm/lp_controller.php?' . api_get_cidreq()
 );
 
-//$template = new Template(get_lang('StudentScore'));
 $template = \Chamilo\CoreBundle\Framework\Container::getTwig();
 $template->addGlobal('user_list', $userList);
 $template->addGlobal('session_id', api_get_session_id());

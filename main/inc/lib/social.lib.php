@@ -1910,17 +1910,14 @@ class SocialManager extends UserManager
         $ranking = $skill->get_user_skill_ranking($userId);
         $skills = $skill->get_user_skills($userId, true);
 
-        $template = new Template(null, false, false, false, false, false);
-        $template->assign('ranking', $ranking);
-        $template->assign('skills', $skills);
-        $template->assign('user_id', $userId);
-        $template->assign(
-            'show_skills_report_link',
-            api_is_student() || api_is_student_boss() || api_is_drh()
+        return Container::getTemplating()->render(
+            '@template_style/social/skills_block.html.twig',
+            [
+                'ranking' => $ranking,
+                'skills' => $skills,
+                'user_id' => $userId,
+                'show_skills_report_link' => api_is_student() || api_is_student_boss() || api_is_drh()
+            ]
         );
-
-        $skillBlock = $template->get_template('social/skills_block.tpl');
-
-        return $template->fetch($skillBlock);
     }
 }

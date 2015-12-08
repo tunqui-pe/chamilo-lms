@@ -1,11 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+use ChamiloSession as Session;
+
 /**
  * List all certificates filtered by session/course and month/year
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.gradebook
  */
-use ChamiloSession as Session;
 
 $cidReset = true;
 
@@ -44,7 +47,7 @@ foreach ($sessionsList as $session) {
 
 if ($selectedSession > 0) {
     if (!SessionManager::isValidId($selectedSession)) {
-        Session::write('reportErrorMessage', get_lang('NoSession'));
+        Display::return_message(get_lang('NoSession'));
 
         header("Location: $selfUrl");
         exit;
@@ -96,7 +99,7 @@ if ($searchSessionAndCourse || $searchCourseOnly) {
     $selectedCourseInfo = api_get_course_info_by_id($selectedCourse);
 
     if (empty($selectedCourseInfo)) {
-        Session::write('reportErrorMessage', get_lang('NoCourse'));
+        Display::return_message(get_lang('NoCourse'));
 
         header("Location: $selfUrl");
         exit;
@@ -185,7 +188,7 @@ if ($searchSessionAndCourse || $searchCourseOnly) {
     $selectedStudentInfo = api_get_user_info($selectedStudent);
 
     if (empty($selectedStudentInfo)) {
-        Session::write('reportErrorMessage', get_lang('NoUser'));
+        Display::return_message(get_lang('NoUser'));
 
         header('Location: '.$selfUrl);
         exit;
@@ -241,11 +244,8 @@ if ($searchSessionAndCourse || $searchCourseOnly) {
 }
 
 /* View */
-$template = new Template(get_lang('GradebookListOfStudentsCertificates'));
-
-if (Session::has('reportErrorMessage')) {
-    $template->assign('errorMessage', Session::read('reportErrorMessage'));
-}
+//$template = new Template(get_lang('GradebookListOfStudentsCertificates'));
+$template = Container::getTwig();
 
 $searchBySessionCourseDateForm = new FormValidator(
     'certificate_report_form',
@@ -275,6 +275,7 @@ $searchBySessionCourseDateForm->setDefaults([
     'year' => $selectedYear
 ]);
 
+$form = '';
 if (api_is_student_boss()) {
     foreach ($userList as $studentId) {
         $students[$studentId] = api_get_user_info($studentId)['complete_name_with_username'];
@@ -291,19 +292,18 @@ if (api_is_student_boss()) {
         'student' => $selectedStudent
     ]);
 
-    $template->assign('searchByStudentForm', $searchByStudentForm->returnForm());
+    $form = $searchByStudentForm->returnForm();
 }
 
-$template->assign('searchBySessionCourseDateForm', $searchBySessionCourseDateForm->returnForm());
-$template->assign('sessions', $sessions);
-$template->assign('courses', $courses);
-$template->assign('months', $months);
-$template->assign('exportAllLink', $exportAllLink);
-$template->assign('certificateStudents', $certificateStudents);
-$content = $template->fetch("default/gradebook/certificate_report.tpl");
-
-$template->assign('content', $content);
-
-$template->display_one_col_template();
-
-Session::erase('reportErrorMessage');
+echo $template->render(
+    '@template_style/gradebook/certificate_report.html.twig',
+    [
+        'search_by_session_course_date_form' => $searchBySessionCourseDateForm->returnForm(),
+        'sessions' => $sessions,
+        'courses' => $courses,
+        'months' => $months,
+        'export_all_link' => $exportAllLink,
+        'certificate_students' => $certificateStudents,
+        'search_by_student_form' => $form
+    ]
+);

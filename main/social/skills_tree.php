@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
@@ -28,11 +30,10 @@ $type = 'read'; //edit
 $tree = $skill->get_skills_tree(api_get_user_id(), null, true);
 $skill_visualizer = new SkillVisualizer($tree, $type);
 $url = api_get_path(WEB_AJAX_PATH).'skill.ajax.php?1=1';
-$tpl = new Template(null, false, false);
+$tpl = Container::getTwig();
 
-$tpl->assign('url', $url);
-$tpl->assign('skill_visualizer', $skill_visualizer);
+$tpl->addGlobal('url', $url);
+$tpl->addGlobal('skill_visualizer', $skill_visualizer);
 
-$content = $tpl->fetch('default/skill/skill_tree_student.tpl');
-$tpl->assign('content', $content);
-$tpl->display_no_layout_template();
+$content = $tpl->render('@template_style/skill/skill_tree_student.html.twig');
+echo $content;

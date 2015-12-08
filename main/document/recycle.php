@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 //require_once '../inc/global.inc.php';
 
 api_protect_admin_script();
@@ -54,12 +56,13 @@ $interbreadcrumb[] = array(
     "url" => api_get_path(WEB_CODE_PATH).'document/document.php?'.api_get_cidreq(),
     "name" => get_lang('Documents'),
 );
-$template = new Template(get_lang('DeletedDocuments'));
-$template->assign('files', $files);
-$template->assign('actions', $actions);
-$template->assign('web_cid_query', api_get_cidreq());
+//$template = new Template(get_lang('DeletedDocuments'));
+$template = Container::getTwig();
 
-$content = $template->fetch('default/document/recycle.tpl');
-$template->assign('content', $content);
-$template->display_one_col_template();
-
+echo $template->render(
+    '@template_style/document/recycle.html.twig',
+    [
+        'files' => $files,
+        'actions' => $actions,
+    ]
+);

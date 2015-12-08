@@ -94,7 +94,6 @@ $form->setDefaults(['user_name' => $user->getCompleteName()]);
 $form->freeze(['user_name']);
 
 //View
-$template = new Template('');
-$template->assign('header', get_lang('AssignSkill'));
-$template->assign('content', $form->returnForm());
-$template->display_one_col_template();
+echo get_lang('AssignSkill');
+echo $form->returnForm();
+

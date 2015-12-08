@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * Special report for corporate users
  * @package chamilo.reporting
@@ -130,6 +131,5 @@ $content .= '</div>';
 $content .= '<h1 class="page-header">' . get_lang('CompanyReportResumed') . '</h1>';
 $content .= Display::grid_html('user_course_report');
 
-$tpl = new Template($tool_name);
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+//$tpl = new Template($tool_name);
+echo $content;

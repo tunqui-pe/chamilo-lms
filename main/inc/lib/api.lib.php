@@ -3443,7 +3443,8 @@ function api_is_anonymous($user_id = null, $db_check = false) {
  */
 function api_not_allowed($print_headers = false, $message = null)
 {
-    throw new Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+    $message = get_lang('NotAllowed');
+    throw new Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException($message);
 
     if (api_get_setting('sso_authentication') === 'true') {
         global $osso;

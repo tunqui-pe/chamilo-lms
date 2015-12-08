@@ -53,13 +53,10 @@ if (strcmp($backpack, $configBackpack) !== 0) {
 
 $htmlHeadXtra[] = '<script src="' . $backpack . 'issuer.js"></script>';
 
-$tpl = new Template(get_lang('Badges'), false, false);
+//$tpl = new Template(get_lang('Badges'), false, false);
 
-$tpl->assign(
-    'content',
+echo
     "<script>"
     . "$(document).on('ready', function (){ OpenBadges.issue_no_modal(" . json_encode($assertions) . "); });"
     . "</script>"
-);
-
-$tpl->display_one_col_template();
+;

@@ -1,0 +1,10 @@
+<p>{{ 'Dear'|trans }} {{ complete_name }},</p>
+<p>{{ 'YouAreRegisterToSessionX'|trans|format(session_name) }}</p>
+<p>{{ 'Address'|trans }}  {{ chamilo_settings_get('platform.site_name') }} {{ 'Is'|trans }}
+    : {{ _p.web }}</p>
+<p>{{ 'Problem'|trans }}</p>
+<p>{{ 'SignatureFormula'|trans }}</p>
+<p>{{ chamilo_settings_get('admin.administrator_name') }} {{ chamilo_settings_get('admin.administrator_surname') }}<br>
+    {{ 'Manager'|trans }} {{ chamilo_settings_get('platform.site_name') }}<br>
+    {{ chamilo_settings_get('admin.administrator_phone') ? 'T. ' ~ chamilo_settings_get('admin.administrator_phone') }}<br>
+    {{ chamilo_settings_get('admin.administrator_email') ? 'Email'|trans ~ ': ' ~ chamilo_settings_get('admin.administrator_email') }}</p>

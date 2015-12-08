@@ -172,10 +172,7 @@ function getCustomWebIconPath()
 
     return $dir;
 }
-$tpl = new Template($toolName);
-
-$tpl->assign('content', $content);
-$template = $tpl->get_template('layout/layout_1_col.tpl');
-$tpl->display($template);
+//$tpl = new Template($toolName);
+echo $content;
 
 

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Class SystemAnnouncementManager
  */
@@ -781,10 +783,12 @@ class SystemAnnouncementManager
             return null;
         }
 
-        $template = new Template(null, false, false);
-        $template->assign('announcements', $announcements);
-
-        return $template->fetch('default/announcement/slider.tpl');
+        return Container::getTemplating()->render(
+            '@template_style/announcement/slider.html.twig',
+            [
+                'announcements' => $announcements
+            ]
+        );
     }
 
     /**
@@ -831,9 +835,12 @@ class SystemAnnouncementManager
             ], 'first'
         );
 
-        $template = new Template(null, false, false);
-        $template->assign('announcement', $announcement);
+        return Container::getTemplating()->render(
+            '@template_style/announcement/view.html.twig',
+            [
+                'announcement' => $announcement
+            ]
+        );
 
-        return $template->fetch('default/announcement/view.tpl');
     }
 }

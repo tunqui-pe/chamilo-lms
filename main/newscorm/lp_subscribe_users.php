@@ -3,6 +3,7 @@
 
 use Chamilo\CourseBundle\Entity\CItemProperty;
 use Chamilo\UserBundle\Entity\User;
+use Chamilo\CoreBundle\Framework\Container;
 
 //require_once '../inc/global.inc.php';
 
@@ -120,7 +121,7 @@ if (!empty($selectedGroupChoices)) {
 }
 $form->setDefaults($defaults);
 
-$tpl = new Template();
+$tpl = Container::getTwig();
 
 $currentUser = $em->getRepository('ChamiloUserBundle:User')->find(api_get_user_id());
 
@@ -164,8 +165,8 @@ if ($form->validate()) {
 } else {
     $headers = [get_lang('SubscribeUsersToLp'), get_lang('SubscribeGroupsToLp')];
     $tabs = Display::tabs($headers, [$formUsers->toHtml(),$form->toHtml()]);
-    $tpl->assign('tabs', $tabs);
+    $tpl->addGlobal('tabs', $tabs);
 }
 
-$layout = $tpl->get_template('learnpath/subscribe_users.tpl');
-$tpl->display($layout);
+echo $tpl->render('@template_style/learnpath/subscribe_users.html.twig');
+

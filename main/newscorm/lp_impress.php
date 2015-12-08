@@ -2,7 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
-
+use Chamilo\CoreBundle\Framework\Container;
 /**
 *
 * @package chamilo.learnpath
@@ -97,8 +97,9 @@ foreach ($list as $toc) {
 }
 
 //Setting the template
-$tpl = new Template($tool_name, false, false, true);
-$tpl->assign('html', $html);
-$content = $tpl->fetch('default/learnpath/impress.tpl');
-$tpl->assign('content', $content);
-$tpl->display_one_col_template();
+$tpl = Container::getTwig();
+$tpl->addGlobal('html', $html);
+echo $tpl->render('@template_style/learnpath/impress.html.twig');
+
+// Hide headers
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
