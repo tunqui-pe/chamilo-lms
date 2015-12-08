@@ -356,9 +356,14 @@ class IndexManager
         }
 
         if (api_get_setting('skill.allow_skills_tool') == 'true') {
-
-            $content .= Display::tag('li', Display::url(Display::return_icon('skill-badges.png',get_lang('MySkills'),null,ICON_SIZE_SMALL).get_lang('MySkills'), api_get_path(WEB_CODE_PATH).'social/my_skills_report.php'));
-            $allowSkillsManagement = api_get_setting('allow_hr_skills_management') == 'true';
+            $content .= Display::tag(
+                'li',
+                Display::url(
+                    Display::return_icon('skill-badges.png',get_lang('MySkills'), null, ICON_SIZE_SMALL).
+                    get_lang('MySkills'), api_get_path(WEB_CODE_PATH).'social/my_skills_report.php'
+                )
+            );
+            $allowSkillsManagement = api_get_setting('skill.allow_hr_skills_management') == 'true';
             if (($allowSkillsManagement && api_is_drh()) || api_is_platform_admin()) {
                 $content .= Display::tag('li',
                     Display::url(Display::return_icon('edit-skill.png', get_lang('MySkills'), null,

@@ -34,7 +34,7 @@ $tpl->addGlobal(
 );
 $tpl->addGlobal(
     'allowDrhSkillsManagement',
-    api_get_setting('gradebook.allow_hr_skills_management') == 'true'
+    api_get_setting('skill.allow_hr_skills_management') == 'true'
 );
 
 if ($isStudent) {

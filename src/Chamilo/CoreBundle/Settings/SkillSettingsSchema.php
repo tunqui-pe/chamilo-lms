@@ -22,6 +22,7 @@ class SkillSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'allow_skills_tool' => '',
+                    'allow_hr_skills_management' => '',
                 )
             )
             ->setAllowedTypes(
@@ -37,6 +38,8 @@ class SkillSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_skills_tool', 'yes_no');
+            ->add('allow_skills_tool', 'yes_no')
+            ->add('allow_hr_skills_management', 'yes_no')
+        ;
     }
 }

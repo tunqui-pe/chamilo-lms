@@ -26,7 +26,6 @@ class GradebookSettingsSchema implements SchemaInterface
                     'gradebook_score_display_colorsplit' => '',
                     'gradebook_score_display_upperlimit' => '',
                     'gradebook_number_decimals' => '0',
-                    'allow_hr_skills_management' => '',
                     'teachers_can_change_score_settings' => '',
                     'teachers_can_change_grade_model_settings' => '',
                     'gradebook_enable_grade_model' => '',
@@ -63,7 +62,6 @@ class GradebookSettingsSchema implements SchemaInterface
             ->add('gradebook_score_display_colorspl')
             ->add('gradebook_score_display_upperlim', 'yes_no')
             ->add('gradebook_number_decimals')
-            ->add('allow_hr_skills_management', 'yes_no')
             ->add('teachers_can_change_score_settin', 'yes_no')
             ->add('gradebook_enable_grade_model', 'yes_no')
             ->add('teachers_can_change_grade_model_', 'yes_no')

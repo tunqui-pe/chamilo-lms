@@ -54,7 +54,7 @@
                         </a>
 
                         {% if skill.status == 0 %}
-                            <a href="{{ _p.web_self ~ '?' ~ {"action": "enable", "id": skill.id, "view": "list"}|url_encode() }}" class="btn btn-success btn-sm" title="{{ 'Enable' }}">
+                            <a href="{{ app.request.uri ~ '?' ~ {"action": "enable", "id": skill.id, "view": "list"}|url_encode() }}" class="btn btn-success btn-sm" title="{{ 'Enable' }}">
                                 <em class="fa fa-check-circle-o fa-fw"></em>
                             </a>
                         {% else %}
