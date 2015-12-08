@@ -101,7 +101,8 @@ function show_compose_reply_to_message($message_id, $receiver_id)
 }
 
 function show_compose_to_user ($receiver_id) {
-	$html = get_lang('To').':&nbsp;<strong>'.GetFullUserName($receiver_id).'</strong>';
+    $userInfo = api_get_user_info($receiver_id);
+	$html = get_lang('To').':&nbsp;<strong>'.$userInfo['complete_name'].'</strong>';
 	$default['title'] = api_xml_http_response_encode(get_lang('EnterTitle'));
 	$default['users'] = array($receiver_id);
 	$html .= manage_form($default);
