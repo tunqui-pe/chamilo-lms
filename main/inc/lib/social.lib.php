@@ -486,7 +486,7 @@ class SocialManager extends UserManager
 
         //$valor = api_get_settings_params();
         $course_path = api_get_path(SYS_COURSE_PATH).$course_directory;   // course path
-        if (api_get_setting('course_images_in_courses_list') === 'true') {
+        if (api_get_setting('course.course_images_in_courses_list') === 'true') {
             if (file_exists($course_path.'/course-pic85x85.png')) {
                 $image = $my_course['course_info']['course_image'];
                 $imageCourse = Display::img($image, $course_title, array('class'=>'img-course'));
@@ -499,7 +499,7 @@ class SocialManager extends UserManager
         }
 
         //display course entry
-        if (api_get_setting('course_images_in_courses_list') === 'true') {
+        if (api_get_setting('course.course_images_in_courses_list') === 'true') {
             $result .= '<li id="course_'.$count.'" class="list-group-item" style="min-height:65px;">';
         } else {
             $result .= '<li id="course_'.$count.'" class="list-group-item" style="min-height:44px;">';
@@ -1656,8 +1656,7 @@ class SocialManager extends UserManager
         $groupBlock = '',
         $groupId = 0,
         $show_full_profile = true
-    )
-    {
+    ) {
         if (api_get_setting('social.allow_social_tool') != 'true') {
             return '';
         }

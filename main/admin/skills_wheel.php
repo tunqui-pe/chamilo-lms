@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
@@ -21,7 +23,7 @@ $htmlHeadXtra[] = api_get_js('js/d3/d3.v3.5.4.min.js');
 $htmlHeadXtra[] = api_get_js('js/d3/colorbrewer.js');
 $htmlHeadXtra[] = api_get_js('js/d3/jquery.xcolor.js');
 
-$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$tpl = Container::getTwig();
 
 $load_user = 0;
 if (isset($_GET['load_user'])) {

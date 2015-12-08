@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
@@ -20,8 +22,6 @@ api_block_anonymous_users();
 $htmlHeadXtra[] = api_get_js('js/d3/d3.v3.5.4.min.js');
 $htmlHeadXtra[] = api_get_js('js/d3/colorbrewer.js');
 $htmlHeadXtra[] = api_get_js('js/d3/jquery.xcolor.js');
-
-$tpl = new Template(null, false, false);
 
 $userId = api_get_user_id();
 $userInfo = api_get_user_info();
@@ -52,18 +52,18 @@ $dialogForm->addLabel(
     Display::tag('p', null, ['id' => 'description', 'class' => 'form-control-static'])
 );
 
-$tpl->assign('dialogForm', $dialogForm->returnForm());
-
-$url = api_get_path(WEB_AJAX_PATH)."skill.ajax.php?a=get_skills_tree_json&load_user=$userId";
-$tpl->assign('wheel_url', $url);
-
+$wheelUrl = api_get_path(WEB_AJAX_PATH)."skill.ajax.php?a=get_skills_tree_json&load_user=$userId";
 $url  = api_get_path(WEB_AJAX_PATH).'skill.ajax.php?1=1';
-$tpl->assign('url', $url);
 
-$tpl->assign('user_info', $userInfo);
-$tpl->assign('ranking', $ranking);
-$tpl->assign('skills', $skills);
-
-$content = $tpl->fetch('default/skill/skill_wheel_student.tpl');
-$tpl->assign('content', $content);
-$tpl->display_no_layout_template();
+echo Container::getTemplating()->render(
+    '@template_style/skill/skill_wheel_student.html.twig',
+    [
+        'skill_id_to_load' => 0,
+        'url' => $url,
+        'wheel_url' => $wheelUrl,
+        'dialogForm' => $dialogForm->returnForm(),
+        'user_info' => $userInfo,
+        'ranking' => $ranking,
+        'skills' => $skills
+    ]
+);

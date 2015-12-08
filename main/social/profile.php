@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This is the profile social main page
  * @author Julio Montoya <gugli100@gmail.com>
@@ -141,8 +143,6 @@ if ($user_info['user_id'] == api_get_user_id()) {
 } else {
     $isSelfUser = false;
 }
-$userIsOnline = user_is_online($user_id);
-
 $libpath = api_get_path(LIBRARY_PATH);
 
 require_once $libpath.'magpierss/rss_fetch.inc';
@@ -679,29 +679,30 @@ if ($show_full_profile) {
     }
 }
 
-$tpl = new Template(get_lang('Social'));
+//$tpl = new Template(get_lang('Social'));
+$tpl = Container::getTwig();
 // Block Avatar Social
 SocialManager::setSocialUserBlock($tpl, $user_id, 'shared_profile', 0, $show_full_profile);
 
-$tpl->assign('social_friend_block', $friend_html);
-$tpl->assign('social_menu_block', $social_menu_block);
-$tpl->assign('social_wall_block', $social_wall_block);
-$tpl->assign('social_post_wall_block', $social_post_wall_block);
-$tpl->assign('social_extra_info_block', $social_extra_info_block);
-$tpl->assign('social_course_block', $social_course_block);
-$tpl->assign('social_group_info_block', $social_group_info_block);
-$tpl->assign('social_rss_block', $social_rss_block);
-$tpl->assign('social_skill_block', SocialManager::getSkillBlock($my_user_id));
-$tpl->assign('sessionList', $social_session_block);
-$tpl->assign('social_right_information', $socialRightInformation);
-$tpl->assign('social_auto_extend_link', $socialAutoExtendLink);
+$tpl->addGlobal('social_friend_block', $friend_html);
+$tpl->addGlobal('social_menu_block', $social_menu_block);
+$tpl->addGlobal('social_wall_block', $social_wall_block);
+$tpl->addGlobal('social_post_wall_block', $social_post_wall_block);
+$tpl->addGlobal('social_extra_info_block', $social_extra_info_block);
+$tpl->addGlobal('social_course_block', $social_course_block);
+$tpl->addGlobal('social_group_info_block', $social_group_info_block);
+$tpl->addGlobal('social_rss_block', $social_rss_block);
+$tpl->addGlobal('social_skill_block', SocialManager::getSkillBlock($my_user_id));
+$tpl->addGlobal('sessionList', $social_session_block);
+$tpl->addGlobal('social_right_information', $socialRightInformation);
+$tpl->addGlobal('social_auto_extend_link', $socialAutoExtendLink);
 
-$formModalTpl =  new Template();
-//$formModalTpl->assign('messageForm', MessageManager::generate_message_form('send_message'));
-$formModalTpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
-$formModals = $formModalTpl->fetch('default/social/form_modals.tpl');
+$formModals = Container::getTemplating()->render(
+    '@template_style/social/form_modals.html.twig',
+    [
+        'invitation_form' => MessageManager::generate_invitation_form('send_invitation')
+    ]
+);
 
-$tpl->assign('form_modals', $formModals);
-$social_layout = $tpl->get_template('social/profile.tpl');
-$tpl->display($social_layout);
-
+$tpl->addGlobal('form_modals', $formModals);
+echo $tpl->render('@template_style/social/profile.html.twig');

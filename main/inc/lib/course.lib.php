@@ -3710,7 +3710,7 @@ class CourseManager
         $html = '';
 
         $course_list = array();
-        $showCustomIcon = api_get_setting('course_images_in_courses_list');
+        $showCustomIcon = api_get_setting('course.course_images_in_courses_list');
         $courseCount = 0;
         // Browse through all courses.
         while ($course = Database::fetch_array($result)) {
@@ -4035,7 +4035,7 @@ class CourseManager
             $session_title = $course_info['name'];
         }
 
-        $showCustomIcon = api_get_setting('course_images_in_courses_list');
+        $showCustomIcon = api_get_setting('course.course_images_in_courses_list');
         $iconName = basename($course_info['course_image']);
         if ($showCustomIcon === 'true' && $iconName != 'course.png') {
             $params['icon'] = Display::img(
