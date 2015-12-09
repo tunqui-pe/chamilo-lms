@@ -113,14 +113,20 @@ if (api_strlen(strip_tags($survey_data['title'])) > 40) {
 }
 
 // Breadcrumbs
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php', 'name' => get_lang('SurveyList'));
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id, 'name' => $urlname);
+$interbreadcrumb[] = array(
+    'url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php?'.api_get_cidreq(),
+    'name' => get_lang('SurveyList')
+);
+$interbreadcrumb[] = array(
+    'url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?'.api_get_cidreq().'&survey_id='.$survey_id,
+    'name' => $urlname
+);
 
 if (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] == 'overview') {
     $tool_name = get_lang('Reporting');
 } else {
     $interbreadcrumb[] = array(
-        'url' => api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.$survey_id,
+        'url' => api_get_path(WEB_CODE_PATH).'survey/reporting.php?'.api_get_cidreq().'&survey_id='.$survey_id,
         'name' => get_lang('Reporting')
     );
     switch ($_GET['action']) {
@@ -148,7 +154,7 @@ SurveyUtil::handle_reporting_actions($survey_data, $people_filled);
 
 // Actions bar
 echo '<div class="actions">';
-echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id.'">'.
+echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/survey.php?'.api_get_cidreq().'&survey_id='.$survey_id.'">'.
     Display::return_icon('back.png', get_lang('BackToSurvey'),'',ICON_SIZE_MEDIUM).'</a>';
 echo '</div>';
 
@@ -169,6 +175,3 @@ if (!isset($_GET['action']) ||
     echo '<div class="sectiontitle"><a href="reporting.php?action=completereport&amp;survey_id='.$myweb_survey_id.'&'.$cidReq.'">'.
         Display::return_icon('survey_reporting_complete.gif',get_lang('CompleteReport')).' '.get_lang('CompleteReport').'</a></div><div class="sectioncomment">'.get_lang('CompleteReportDetail').'</div>';
 }
-
-// Footer
-Display :: display_footer();
