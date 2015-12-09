@@ -33,6 +33,10 @@ $interbreadcrumb = array(
     array(
         'url' => api_get_path(WEB_CODE_PATH) . 'admin/skill_badge.php',
         'name' => get_lang('Badges')
+    ),
+    array(
+        'url' => '#',
+        'name' => get_lang('Skills')
     )
 );
 
@@ -43,9 +47,6 @@ $toolbar = Display::toolbarButton(
     'primary',
     ['title' => get_lang('ManageSkills')]
 );
-
-//$tpl = new Template(get_lang('Skills'));
-
 
 echo $toolbar;
 echo Container::getTemplating()->render(

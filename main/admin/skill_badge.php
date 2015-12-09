@@ -34,6 +34,13 @@ $interbreadcrumb = array(
     )
 );
 
+$interbreadcrumb[] =
+    array(
+        'url' => '#',
+        'name' => get_lang('Badges')
+    )
+;
+
 $toolbar = Display::toolbarButton(
     get_lang('ManageSkills'),
     api_get_path(WEB_CODE_PATH) . 'admin/skill_list.php',

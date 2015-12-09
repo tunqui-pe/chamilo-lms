@@ -102,8 +102,7 @@ class LegacyController extends ToolBaseController
                 array(
                     'legacy_breadcrumb' => $interbreadcrumb,
                     'content' => $out,
-                    'js' => $js,
-                    'menu' => ''
+                    'js' => $js
                 )
             );
         } else {

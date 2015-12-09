@@ -120,6 +120,7 @@ switch ($action) {
 switch ($view) {
     case 'nested':
         $interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+        $interbreadcrumb[] = array("url" => '#', "name" => get_lang('ManageSkills'));
 
         $toolbar = Display::toolbarButton(
             get_lang('CreateSkill'),
@@ -182,6 +183,7 @@ switch ($view) {
         //no break
     default:
         $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+        $interbreadcrumb[] = array("url" => '#', "name" => get_lang('ManageSkills'));
 
         $toolbar = Display::toolbarButton(
             get_lang('CreateSkill'),
@@ -216,8 +218,6 @@ switch ($view) {
         /* List View */
         $skill = new Skill();
         $skillList = $skill->get_all();
-
-        //$tpl = new Template(get_lang('ManageSkills'));
 
         echo $toolbar;
         echo Container::getTemplating()->render(

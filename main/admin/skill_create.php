@@ -24,6 +24,7 @@ if (api_get_setting('skill.allow_skills_tool') != 'true') {
 
 $interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'skill_list.php', 'name' => get_lang('ManageSkills'));
+$interbreadcrumb[] = array('url' => '#', 'name' => get_lang('CreateSkill'));
 
 /* Process data */
 $skillParentId = isset($_GET['parent']) ? intval($_GET['parent']) : 0;
@@ -75,7 +76,6 @@ $createForm->addSelect(
 $createForm->addTextarea('description', get_lang('Description'), ['id' => 'description', 'rows' => 7]);
 $createForm->addButtonSave(get_lang('Save'));
 $createForm->addHidden('id', null);
-
 $createForm->setDefaults($formDefaultValues);
 
 if ($createForm->validate()) {

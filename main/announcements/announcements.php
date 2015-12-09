@@ -66,6 +66,13 @@ $announcement_number = AnnouncementManager::getNumberAnnouncements();
 $homeUrl = api_get_self().'?action=list&'.api_get_cidreq();
 $content = null;
 
+if (!empty($group_id)) {
+    $group_properties  = GroupManager :: get_group_properties($group_id);
+    $interbreadcrumb[] = array("url" => "../group/group.php?".api_get_cidreq(), "name" => get_lang('Groups'));
+    $interbreadcrumb[] = array("url"=>"../group/group_space.php?".api_get_cidreq(), "name"=> get_lang('GroupSpace').' '.$group_properties['name']);
+}
+$interbreadcrumb[] = array("url"=>'announcements.php?'.api_get_cidreq(), "name"=> get_lang('Announcements'));
+
 switch ($action) {
     case 'move':
         /* Move announcement up/down */
@@ -193,6 +200,16 @@ switch ($action) {
         break;
     case 'add':
     case 'modify':
+
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        if (empty($id)) {
+            $form_name = get_lang('AddAnnouncement');
+        } else {
+            $form_name = get_lang('ModifyAnnouncement');
+        }
+
+        $interbreadcrumb[] = array("url"=>'#', "name"=> $form_name);
+
         if (api_get_session_id() != 0 &&
             api_is_allowed_to_session_edit(false, true) == false
         ) {
@@ -200,7 +217,7 @@ switch ($action) {
         }
 
         // DISPLAY ADD ANNOUNCEMENT COMMAND
-        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
         $url = api_get_self().'?action='.$action.'&id=' . $id . '&' . api_get_cidreq();
 
         $form = new FormValidator(
@@ -211,11 +228,6 @@ switch ($action) {
             array('enctype' => 'multipart/form-data')
         );
 
-        if (empty($id)) {
-            $form_name = get_lang('AddAnnouncement');
-        } else {
-            $form_name = get_lang('ModifyAnnouncement');
-        }
         $form->addElement('header', $form_name);
 
         if (empty($group_id)) {
@@ -343,7 +355,7 @@ switch ($action) {
 
             if (isset($id) && $id) {
                 // there is an Id => the announcement already exists => update mode
-                if ($ctok == $_POST['sec_token']) {
+                if (true) {
                     $file_comment = $_POST['file_comment'];
                     $file = $_FILES['user_upload'];
 
@@ -377,7 +389,7 @@ switch ($action) {
                 }
             } else {
                 // Insert mode
-                if ($ctok == $_POST['sec_token']) {
+                if (true) {
                     $file = $_FILES['user_upload'];
                     $file_comment = $data['file_comment'];
 
@@ -430,11 +442,6 @@ if (!empty($_GET['remind_inactive'])) {
     $to[] = 'USER:'.intval($_GET['remind_inactive']);
 }
 
-if (!empty($group_id)) {
-    $group_properties  = GroupManager :: get_group_properties($group_id);
-    $interbreadcrumb[] = array("url" => "../group/group.php?".api_get_cidreq(), "name" => get_lang('Groups'));
-    $interbreadcrumb[] = array("url"=>"../group/group_space.php?".api_get_cidreq(), "name"=> get_lang('GroupSpace').' '.$group_properties['name']);
-}
 
 if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {
     //we are not in the learning path

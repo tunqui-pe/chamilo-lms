@@ -76,5 +76,6 @@ $saveProfileForm->addTextarea('description', get_lang('Description'), ['id' => '
 $tpl->addGlobal('saveProfileForm', $saveProfileForm->returnForm());
 
 echo $tpl->render('@template_style/skill/skill_wheel.html.twig');
+Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
 
 

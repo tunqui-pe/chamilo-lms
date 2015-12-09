@@ -2,10 +2,12 @@
     <div class="openbadges-tabs">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="{{ url('web.main') }}admin/skill_badge.php">{{ 'Home' | trans }}</a>
+                <a href="{{ url('web.main') }}admin/skill_badge.php">
+                    {{ 'Home' | trans }}</a>
             </li>
             <li>
-                <a href="{{ url('web.main') }}admin/skill_badge_list.php">{{ "CurrentBadges" | trans }}</a>
+                <a href="{{ url('web.main') }}admin/skill_badge_list.php">
+                    {{ "CurrentBadges" | trans }}</a>
             </li>
         </ul>
     </div>
@@ -37,13 +39,9 @@
 
                     <p>{{ 'Name' | trans }} : {{ chamilo_settings_get('platform.institution') }}</p>
                     <p>{{ 'URL' | trans }} : {{ url('home') }}</p>
-
                     <div class="block-title">{{ 'BackpackDetails' | trans }}</div>
-
                     <p>{{ 'URL' | trans }} : {{ backpack }}</p>
-
                     <p>{{ 'TheBadgesWillBeSentToThatBackpack' | trans }}</p>
-
                 </div>
             </div>
         </div>

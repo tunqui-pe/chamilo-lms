@@ -24,6 +24,7 @@ if (api_get_setting('skill.allow_skills_tool') != 'true') {
 
 $interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'skill_list.php', 'name' => get_lang('ManageSkills'));
+$interbreadcrumb[] = array('url' => '#', 'name' => get_lang('SkillEdit'));
 
 /* Process data */
 $skillId = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
@@ -95,6 +96,4 @@ if ($editForm->validate()) {
     exit;
 }
 
-
-//$tpl = new Template(get_lang('SkillEdit'));
 echo $editForm->returnForm();

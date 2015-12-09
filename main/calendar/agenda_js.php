@@ -71,6 +71,11 @@ if (!empty($group_id)) {
     );
 }
 
+$interbreadcrumb[] = array(
+    "url" => '#',
+    "name" => get_lang('Agenda')
+);
+
 $tpl->addGlobal('use_google_calendar', 0);
 
 $can_add_events = 0;
@@ -255,12 +260,5 @@ if ($agenda->type == 'course') {
 }
 
 $tpl->addGlobal('form_add', $form->returnForm());
-
-$message = Session::read('message');
-$tpl->addGlobal('message', $message);
-
-Session::erase('message');
-
-//$tpl->addGlobal('content', $content);
 
 echo $tpl->render('ChamiloCoreBundle:Calendar:month.html.twig');

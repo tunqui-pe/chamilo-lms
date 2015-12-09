@@ -55,7 +55,7 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
     {
         $menu = $this->getRootMenu($blockContext);
 
-        $menu->addChild('home', ['route' => 'home']);
+        $menu->addChild('Home', ['route' => 'home']);
 
         // Add course
         /** @var Course $course */
