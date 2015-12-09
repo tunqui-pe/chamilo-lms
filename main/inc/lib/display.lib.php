@@ -169,7 +169,9 @@ class Display
         $courseInfo = api_get_course_info();
         $introduction_section = null;
 
-        if (api_get_setting('course.enable_tool_introduction') == 'true' || $tool == TOOL_COURSE_HOMEPAGE) {
+        if (api_get_setting('course.enable_tool_introduction') == 'true' ||
+            $tool == TOOL_COURSE_HOMEPAGE
+        ) {
             $introduction_section = null;
             $TBL_INTRODUCTION = Database::get_course_table(TABLE_TOOL_INTRO);
             $session_id = api_get_session_id();

@@ -245,18 +245,6 @@ $tool_table = Database::get_course_table(TABLE_TOOL_LIST);
 $temps = time();
 $reqdate = "&reqdate=$temps";
 
-/*	MAIN CODE */
-
-/*	Introduction section (editable by course admins) */
-/*$content = Display::return_introduction_section(
-    TOOL_COURSE_HOMEPAGE,
-    array(
-		'CreateDocumentWebDir' => api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document/',
-		'CreateDocumentDir'    => 'document/',
-		'BaseHref'             => api_get_path(WEB_COURSE_PATH).api_get_course_path().'/'
-	)
-);*/
-
 /*	SWITCH TO A DIFFERENT HOMEPAGE VIEW
 	the setting homepage_view is adjustable through
 	the platform administration section */

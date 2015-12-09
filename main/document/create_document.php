@@ -182,25 +182,12 @@ if ($relative_url== '') {
 $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
 
 $editorConfig = array(
-	'FullPage' = true,
+	'FullPage' => true,
     'ToolbarSet' => ($is_allowed_to_edit ? 'Documents' : 'DocumentsStudent'),
     'Width' => '100%',
     'Height' => '400',
-    'cols-size' => [2, 10, 0],
-    'FullPage' => true,
-    'InDocument' => true,
-	'CreateDocumentDir'    => $relative_url,
-	'CreateDocumentWebDir' => (empty($group_properties['directory']))
-                        		? api_get_path(WEB_COURSE_PATH).$_course['path'].'/document/'
-                        		: api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document'.$group_properties['directory'].'/',
-	'BaseHref'             => api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$dir
+    'cols-size' => [2, 10, 0]
 );
-
-if ($is_certificate_mode) {
-    $editorConfig['CreateDocumentDir'] = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document/';
-    $editorConfig['CreateDocumentWebDir'] = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document/';
-    $editorConfig['BaseHref'] = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$dir;
-}
 
 $filepath = api_get_path(SYS_COURSE_PATH).$_course['path'].'/document';
 

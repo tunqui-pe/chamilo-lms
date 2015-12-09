@@ -7339,10 +7339,7 @@ class learnpath
                 'ToolbarSet' => 'LearningPathDocuments',
                 'Width' => '100%',
                 'Height' => '500',
-                'FullPage' => true,
-                'CreateDocumentDir' => $relative_prefix,
-                'CreateDocumentWebDir' => api_get_path(WEB_COURSE_PATH).api_get_course_path().'/scorm/',
-                'BaseHref' => api_get_path(WEB_COURSE_PATH).api_get_course_path().$item_path_fck
+                'FullPage' => true
             );
 
             $form->addHtmlEditor(
@@ -7352,7 +7349,7 @@ class learnpath
                 false,
                 $editor_config
             );
-            $content_path = (api_get_path(SYS_COURSE_PATH).api_get_course_path().$item_path_fck);
+            $content_path = api_get_path(SYS_COURSE_PATH).api_get_course_path().$item_path_fck;
             //$defaults['content_lp'] = file_get_contents($item_path);
             $defaults['content_lp'] = file_get_contents($content_path);
         }
@@ -7640,9 +7637,6 @@ class learnpath
                             'Width' 				=> '100%',
                             'Height' 				=> '500',
                             'FullPage' 				=> true,
-                            'CreateDocumentDir' 	=> $relative_prefix,
-                            'CreateDocumentWebDir' 	=> api_get_path(WEB_COURSE_PATH) . api_get_course_path().'/document/',
-                            'BaseHref' 				=> api_get_path(WEB_COURSE_PATH) . api_get_course_path().'/document/'.$relative_path
                         );
 
                         if ($_GET['action'] == 'add_item') {
