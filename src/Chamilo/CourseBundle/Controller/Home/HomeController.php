@@ -117,8 +117,7 @@ class HomeController extends ToolBaseController
                 'edit_icons' => $editIcons,
                 'introduction_text' => $introduction,
                 'exercise_warning' => null,
-                'lp_warning' => null,
-                'menu' => ''
+                'lp_warning' => null
             )
         );
     }
