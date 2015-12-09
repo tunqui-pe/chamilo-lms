@@ -41,7 +41,7 @@ class ThematicController
         $thematic_id = isset($_REQUEST['thematic_id']) ? intval($_REQUEST['thematic_id']) : null;
         $displayHeader = (!empty($_REQUEST['display']) && $_REQUEST['display'] === 'no_header') ? false : true;
 
-        if ($check) {
+        if (true) {
             switch ($action) {
                 case 'thematic_add':
                 case 'thematic_edit':
@@ -414,7 +414,7 @@ class ThematicController
                     if (api_is_allowed_to_edit(null, true)) {
                         $thematic->thematic_advance_destroy($thematic_advance_id);
                     }
-                    header('Location: index.php');
+                    header('Location: index.php?'.api_get_cidreq());
                     exit;
                 }
                 break;

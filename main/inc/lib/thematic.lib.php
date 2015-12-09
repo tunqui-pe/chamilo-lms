@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Provides functions for thematic option inside attendance tool.
  * It's also used like model to thematic_controller (MVC pattern)
@@ -469,12 +471,13 @@ class Thematic
      */
     public static function get_number_of_thematic_advances()
     {
-        global $thematic_id;
+        $thematicId = intval(Session::read('thematic_id'));
         $tbl_thematic_advance = Database :: get_course_table(TABLE_THEMATIC_ADVANCE);
         $course_id = api_get_course_int_id();
 
-        $sql = "SELECT COUNT(id) AS total_number_of_items FROM $tbl_thematic_advance
-                WHERE c_id = $course_id AND thematic_id = $thematic_id ";
+        $sql = "SELECT COUNT(id) AS total_number_of_items
+                FROM $tbl_thematic_advance
+                WHERE c_id = $course_id AND thematic_id = $thematicId ";
         $res = Database::query($sql);
         $obj = Database::fetch_object($res);
 
@@ -492,7 +495,7 @@ class Thematic
      */
     public static function get_thematic_advance_data($from, $number_of_items, $column, $direction)
     {
-        global $thematic_id;
+        $thematic_id = Session::read('thematic_id');
         $tbl_thematic_advance = Database :: get_course_table(TABLE_THEMATIC_ADVANCE);
         $column = intval($column);
         $from   = intval($from);
