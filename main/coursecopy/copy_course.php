@@ -42,12 +42,11 @@ echo Display::page_header(get_lang('CopyCourse'));
 /* MAIN CODE */
 
 // If a CourseSelectForm is posted or we should copy all resources, then copy them
-if (Security::check_token('post') && (
-        (
-            isset($_POST['action']) &&
-            $_POST['action'] == 'course_select_form') || (
-                isset($_POST['copy_option']) && $_POST['copy_option'] == 'full_copy'
-        )
+if (
+    (
+    isset($_POST['action']) &&
+    $_POST['action'] == 'course_select_form') || (
+        isset($_POST['copy_option']) && $_POST['copy_option'] == 'full_copy'
     )
 ) {
     // Clear token
@@ -66,10 +65,9 @@ if (Security::check_token('post') && (
         get_lang('CopyFinished').': <a href="'.api_get_course_url($_POST['destination_course']).'">'.$_POST['destination_course'].'</a>',
         false
     );
-} elseif (Security::check_token('post') && (
-        isset ($_POST['copy_option']) &&
-        $_POST['copy_option'] == 'select_items'
-    )
+} elseif (
+    isset ($_POST['copy_option']) &&
+    $_POST['copy_option'] == 'select_items'
 ) {
     // Clear token
     Security::clear_token();
@@ -133,4 +131,3 @@ if (Security::check_token('post') && (
     }
 }
 
-Display::display_footer();

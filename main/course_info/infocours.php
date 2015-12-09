@@ -279,8 +279,6 @@ if (api_get_setting('document.documents_default_visibility_defined_in_course') =
     );
     $form->addGroup($group, '', array(get_lang("DocumentsDefaultVisibility")), '');
     $form->addButtonSave(get_lang('SaveSettings'),'submit_save');
-
-
     $form->addElement('html', '</div></div>');
 }
 
@@ -570,7 +568,7 @@ if ($form->validate() && is_settings_editable()) {
 
     // Insert/Updates course_settings table
     foreach ($courseSettings as $setting) {
-        $value = isset($updateValues[$setting]) ? $updateValues[$setting] : null;
+        $value = isset($updateValues[$setting]) ? $updateValues[$setting] : '';
         CourseManager::saveCourseConfigurationSetting(
             $appPlugin,
             $setting,
