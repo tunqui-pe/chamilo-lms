@@ -69,8 +69,8 @@ class PlatformUpdateCommand extends ContainerAwareCommand
                     array('--process-isolation' => true)
                 )
                 //->runCommand('oro:navigation:init', array('--process-isolation' => true))
-                //  ->runCommand('assets:install')
-                //  ->runCommand('assetic:dump')
+                ->runCommand('assets:install')
+                ->runCommand('assetic:dump')
             ;
             //->runCommand('fos:js-routing:dump', array('--target' => 'web/js/routes.js'))
             //->runCommand('oro:localization:dump')
