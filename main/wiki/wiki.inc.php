@@ -242,9 +242,9 @@ class Wiki
                 // note: checkreflink checks if the link is still free. If it is not used then it returns true, if it is used, then it returns false. Now the title may be different
                 if (self::checktitle(strtolower(str_replace(' ','_',$link)))) {
                     $link = api_html_entity_decode($link);
-                    $input_array[$key]='<a href="'.api_get_path(WEB_PATH).'main/wiki/index.php?'.api_get_cidreq().'&action=addnew&amp;title='.Security::remove_XSS($link).'&group_id='.$groupId.'" class="new_wiki_link">'.$title.'</a>';
+                    $input_array[$key]='<a href="'.api_get_path(WEB_PATH).'main/wiki/index.php?'.api_get_cidreq().'&action=addnew&title='.Security::remove_XSS($link).'&group_id='.$groupId.'" class="new_wiki_link">'.$title.'</a>';
                 } else {
-                    $input_array[$key]='<a href="'.api_get_path(WEB_PATH).'main/wiki/index.php?'.api_get_cidreq().'&action=showpage&amp;title='.urlencode(strtolower(str_replace(' ','_',$link))).'&group_id='.$groupId.'" class="wiki_link">'.$title.'</a>';
+                    $input_array[$key]='<a href="'.api_get_path(WEB_PATH).'main/wiki/index.php?'.api_get_cidreq().'&action=showpage&title='.urlencode(strtolower(str_replace(' ','_',$link))).'&group_id='.$groupId.'" class="wiki_link">'.$title.'</a>';
                 }
                 unset($input_array[$key-1]);
                 unset($input_array[$key+1]);
@@ -434,7 +434,7 @@ class Wiki
             $userId,
             $groupId
         );
-        self::check_emailcue($_clean['reflink'], 'P', $time, $userId);
+        self::check_emailcue($values['reflink'], 'P', $time, $userId);
         $this->setWikiData($id);
 
         return get_lang('Saved');
@@ -641,7 +641,7 @@ class Wiki
             $group_id = intval($_GET['group_id']);
             if (!self::checktitle($var)) {
                 return get_lang('WikiPageTitleExist').
-                '<a href="index.php?action=edit&amp;title='.$var.'&group_id='.$group_id.'">'.
+                '<a href="index.php?action=edit&title='.$var.'&group_id='.$group_id.'&'.api_get_cidreq().'">'.
                 $values['title'].'</a>';
             } else {
                 $dtime = api_get_utc_datetime();
@@ -3405,7 +3405,8 @@ class Wiki
                     }
                 }
                 echo '<span style="float:right">';
-                echo '<a href="index.php?action=discuss&actionpage='.$lock_unlock_disc.'&title='.api_htmlentities(urlencode($page)).'">'.$addlock_disc.'</a>';
+                echo '<a href="index.php?'.api_get_cidreq().'&action=discuss&actionpage='.$lock_unlock_disc.'&title='.api_htmlentities(urlencode($page)).'">'.
+                    $addlock_disc.'</a>';
                 echo '</span>';
 
                 // discussion action: visibility.  Show discussion to students if isn't hidden. Show page to all teachers if is hidden.
@@ -3422,7 +3423,7 @@ class Wiki
                     }
                 }
                 echo '<span style="float:right">';
-                echo '<a href="index.php?action=discuss&amp;actionpage='.$hide_show_disc.'&amp;title='.api_htmlentities(urlencode($page)).'">'.$visibility_disc.'</a>';
+                echo '<a href="index.php?'.api_get_cidreq().'&action=discuss&actionpage='.$hide_show_disc.'&title='.api_htmlentities(urlencode($page)).'">'.$visibility_disc.'</a>';
                 echo '</span>';
 
                 //discussion action: check add rating lock. Show/Hide list to rating for all student
@@ -3439,7 +3440,8 @@ class Wiki
                 }
 
                 echo '<span style="float:right">';
-                echo '<a href="index.php?action=discuss&amp;actionpage='.$lock_unlock_rating_disc.'&amp;title='.api_htmlentities(urlencode($page)).'">'.$ratinglock_disc.'</a>';
+                echo '<a href="index.php?'.api_get_cidreq().'&action=discuss&actionpage='.$lock_unlock_rating_disc.'&title='.api_htmlentities(urlencode($page)).'">'.
+                    $ratinglock_disc.'</a>';
                 echo '</span>';
 
                 //discussion action: email notification
@@ -3451,7 +3453,7 @@ class Wiki
                     $lock_unlock_notify_disc='locknotifydisc';
                 }
                 echo '<span style="float:right">';
-                echo '<a href="index.php?action=discuss&amp;actionpage='.$lock_unlock_notify_disc.'&amp;title='.api_htmlentities(urlencode($page)).'">'.$notify_disc.'</a>';
+                echo '<a href="index.php?'.api_get_cidreq().'&action=discuss&actionpage='.$lock_unlock_notify_disc.'&title='.api_htmlentities(urlencode($page)).'">'.$notify_disc.'</a>';
                 echo '</span>';
 
                 echo $icon_assignment.'&nbsp;&nbsp;&nbsp;'.api_htmlentities($row['title']);
@@ -3749,7 +3751,8 @@ class Wiki
         }
 
         echo '<div class="actions"><span style="float: right;">';
-        echo '<a href="index.php?action=recentchanges&amp;actionpage='.$lock_unlock_notify_all.'&amp;title='.api_htmlentities(urlencode($page)).'">'.$notify_all.'</a>';
+        echo '<a href="index.php?'.api_get_cidreq().'&action=recentchanges&actionpage='.$lock_unlock_notify_all.'&title='.api_htmlentities(urlencode($page)).'">'.
+            $notify_all.'</a>';
         echo '</span>'.get_lang('RecentChanges').'</div>';
 
         if (api_is_allowed_to_edit(false,true) || api_is_platform_admin()) { //only by professors if page is hidden
@@ -3798,7 +3801,7 @@ class Wiki
                 $row = array();
                 $row[] = api_get_local_time($obj->dtime, null, date_default_timezone_get());
                 $row[] = $ShowAssignment.$icon_task;
-                $row[] = '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=showpage&title='.api_htmlentities(urlencode($obj->reflink)).'&amp;view='.$obj->id.'&session_id='.api_get_session_id().'&group_id='.api_get_group_id().'">'.
+                $row[] = '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=showpage&title='.api_htmlentities(urlencode($obj->reflink)).'&view='.$obj->id.'&session_id='.api_get_session_id().'&group_id='.api_get_group_id().'">'.
                     api_htmlentities($obj->title).'</a>';
                 $row[] = $obj->version>1 ? get_lang('EditedBy') : get_lang('AddedBy');
                 if ($obj->user_id <> 0 ) {
@@ -4270,7 +4273,7 @@ class Wiki
                                 $current_row['version'],
                                 $last_row['version'],
                                 $current_row['linksto']
-                            ).': <a href="index.php?cidReq='.$_course['code'].'&action=showpage&amp;title='.api_htmlentities(urlencode($last_row['reflink'])).'&session_id='.$last_row['session_id'].'&group_id='.$last_row['group_id'].'">'.
+                            ).': <a href="index.php?cidReq='.$_course['code'].'&action=showpage&title='.api_htmlentities(urlencode($last_row['reflink'])).'&session_id='.$last_row['session_id'].'&group_id='.$last_row['group_id'].'">'.
                             api_htmlentities($last_row['title']).'</a>',
                             false,
                             true
@@ -4330,13 +4333,13 @@ class Wiki
 
             $message = '<center>'.get_lang('NoAreSeeingTheLastVersion').'<br />
             '.get_lang("Version").' (
-            <a href="index.php?cidReq='.$_course['code'].'&action=showpage&amp;title='.api_htmlentities(urlencode($current_row['reflink'])).'&group_id='.$current_row['group_id'].'&session_id='.$current_row['session_id'].'&view='.api_htmlentities($_GET['view']).'" title="'.get_lang('CurrentVersion').'">
+            <a href="index.php?cidReq='.$_course['code'].'&action=showpage&title='.api_htmlentities(urlencode($current_row['reflink'])).'&group_id='.$current_row['group_id'].'&session_id='.$current_row['session_id'].'&view='.api_htmlentities($_GET['view']).'" title="'.get_lang('CurrentVersion').'">
             '.$current_row['version'].'
             </a> /
-            <a href="index.php?cidReq='.$_course['code'].'&action=showpage&amp;title='.api_htmlentities(urlencode($last_row['reflink'])).'&group_id='.$last_row['group_id'].'&session_id='.$last_row['session_id'].'" title="'.get_lang('LastVersion').'">
+            <a href="index.php?cidReq='.$_course['code'].'&action=showpage&title='.api_htmlentities(urlencode($last_row['reflink'])).'&group_id='.$last_row['group_id'].'&session_id='.$last_row['session_id'].'" title="'.get_lang('LastVersion').'">
             '.$last_row['version'].'
             </a>) <br />'.get_lang("ConvertToLastVersion").':
-            <a href="index.php?cidReq='.$_course['id'].'&action=restorepage&amp;title='.api_htmlentities(urlencode($last_row['reflink'])).'&group_id='.$last_row['group_id'].'&session_id='.$last_row['session_id'].'&view='.api_htmlentities($_GET['view']).'">'.
+            <a href="index.php?cidReq='.$_course['id'].'&action=restorepage&title='.api_htmlentities(urlencode($last_row['reflink'])).'&group_id='.$last_row['group_id'].'&session_id='.$last_row['session_id'].'&view='.api_htmlentities($_GET['view']).'">'.
                 get_lang("Restore").'</a></center>';
             self::setMessage(Display::display_warning_message($message, false, true));
         }
@@ -4583,7 +4586,8 @@ class Wiki
         foreach ($wanted as $wanted_show) {
             $row = array();
             $wanted_show = Security::remove_XSS($wanted_show);
-            $row[] = '<a href="'.api_get_path(WEB_PATH).'main/wiki/index.php?cidReq=&action=addnew&title='.str_replace('_',' ',$wanted_show).'&session_id='.api_htmlentities($_GET['session_id']).'&group_id='.api_htmlentities($_GET['group_id']).'" class="new_wiki_link">'.str_replace('_',' ',$wanted_show).'</a>';//meter un remove xss en lugar de htmlentities
+            $row[] = '<a href="'.api_get_path(WEB_PATH).'main/wiki/index.php?cidReq=&action=addnew&title='.str_replace('_',' ',$wanted_show).'&session_id='.api_htmlentities($_GET['session_id']).'&group_id='.api_htmlentities($_GET['group_id']).'" class="new_wiki_link">'.
+                str_replace('_',' ',$wanted_show).'</a>';//meter un remove xss en lugar de htmlentities
             $rows[] = $row;
         }
 
@@ -4715,7 +4719,7 @@ class Wiki
             Display::return_icon('search.png', get_lang('SearchPages'), '', ICON_SIZE_MEDIUM).'</a></li>';
 
         ///menu more
-        $actionsLeft .= '<a href="index.php?action=more&amp;title='.api_htmlentities(urlencode($page)).'"'.self::is_active_navigation_tab('more').'>'.
+        $actionsLeft .= '<a href="index.php?action=morectitle='.api_htmlentities(urlencode($page)).'"'.self::is_active_navigation_tab('more').'>'.
             Display::return_icon('stats.png', get_lang('Statistics'), '', ICON_SIZE_MEDIUM).'</a></li>';
 
         // menu all pages
@@ -5208,7 +5212,7 @@ class Wiki
                     ($counter==1) ? $oldchecked=' checked':$oldchecked='';
                     echo '<input name="old" value="'.$row['id'].'" type="radio" '.$oldstyle.' '.$oldchecked.'/> ';
                     echo '<input name="new" value="'.$row['id'].'" type="radio" '.$newstyle.' '.$newchecked.'/> ';
-                    echo '<a href="'.api_get_self().'?action=showpage&amp;title='.api_htmlentities(urlencode($page)).'&amp;view='.$row['id'].'">';
+                    echo '<a href="'.api_get_self().'?action=showpage&title='.api_htmlentities(urlencode($page)).'&view='.$row['id'].'">';
                     echo '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=showpage&title='.api_htmlentities(urlencode($page)).'&view='.$row['id'].'">';
                     echo api_get_local_time($row['dtime'], null, date_default_timezone_get());
                     echo '</a>';

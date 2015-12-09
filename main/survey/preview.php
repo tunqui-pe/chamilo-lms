@@ -63,8 +63,8 @@ if (empty($survey_data)) {
 $urlname = strip_tags($survey_data['title']);
 if (api_is_allowed_to_edit()) {
 	// Breadcrumbs
-	$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php', 'name' => get_lang('SurveyList'));
-	$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id, 'name' => $urlname);
+	$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php?'.api_get_cidreq(), 'name' => get_lang('SurveyList'));
+	$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id.'&'.api_get_cidreq(), 'name' => $urlname);
 }
 $courseCode = isset($_GET['cidReq']) ? $_GET['cidReq'] : null;
 $surveyAnonymous = SurveyManager::get_survey($survey_id, 0, $courseCode);
@@ -102,7 +102,8 @@ if (api_is_course_admin() ||
 	// Displaying the survey introduction
 	if (!isset($_GET['show'])) {
         if (!empty($survey_data['survey_introduction'])) {
-            echo '<div id="survey_content" class="survey_content">'.$survey_data['survey_introduction'].'</div>';
+            echo '<div id="survey_content" class="survey_content">'.
+				$survey_data['survey_introduction'].'</div>';
         }
 		$limit = 0;
 	}
@@ -202,7 +203,7 @@ if (api_is_course_admin() ||
 		$show = 0;
 	}
 
-	$url = api_get_self().'?survey_id='.Security::remove_XSS($survey_id).'&show='.$show;
+	$url = api_get_self().'?survey_id='.Security::remove_XSS($survey_id).'&show='.$show.'&'.api_get_cidreq();
 	$form = new FormValidator('question', 'post', $url);
 
 	if (is_array($questions) && count($questions) > 0) {
@@ -234,6 +235,3 @@ if (api_is_course_admin() ||
 } else {
 	Display :: display_error_message(get_lang('NotAllowed'), false);
 }
-
-// Footer
-Display :: display_footer();

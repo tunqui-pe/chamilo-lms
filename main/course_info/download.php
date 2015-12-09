@@ -8,7 +8,7 @@
 
 ////require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
-
+$_cid = false;
 if (isset($_GET['session']) && $_GET['session']) {
 	$archive_path = api_get_path(SYS_ARCHIVE_PATH).'temp/';
 	$_cid = true;
