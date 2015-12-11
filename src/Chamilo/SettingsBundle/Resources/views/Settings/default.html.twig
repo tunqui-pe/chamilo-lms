@@ -7,9 +7,9 @@
     <h3>{{ namespace }} {{ 'Settings' | trans }}</h3>
 
     <form
-            class="form-horizontal"
-            action="{{ path('chamilo_platform_settings', { 'namespace': namespace }) }}"
-            method="post"
+        class="form-horizontal"
+        action="{{ path('chamilo_platform_settings', { 'namespace': namespace }) }}"
+        method="post"
     >
         {{ form_widget(search_form) }}
     </form>
@@ -20,13 +20,13 @@
                 <div class="box-body">
                     {{ form_errors(form) }}
                     <form
-                            class="form-horizontal"
-                            action="{{ path('chamilo_platform_settings', { 'namespace': namespace , 'keyword': keyword } ) }}"
-                            method="post"
-                            novalidate
+                        class="form-horizontal"
+                        action="{{ path('chamilo_platform_settings', { 'namespace': namespace , 'keyword': keyword } ) }}"
+                        method="post"
+                        novalidate
                     >
-                        {{ form_rest(form) }}
-                        {{ update() }}
+                    {{ form_rest(form) }}
+                    {{ update() }}
                     </form>
                 </div>
             </div>

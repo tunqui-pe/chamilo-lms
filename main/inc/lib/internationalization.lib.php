@@ -389,12 +389,12 @@ function _api_get_timezone()
     // First, get the default timezone of the server
     $to_timezone = date_default_timezone_get();
     // Second, see if a timezone has been chosen for the platform
-    $timezone_value = api_get_setting('timezone_value', 'timezones');
+    $timezone_value = api_get_setting('timezone');
     if ($timezone_value != null) {
         $to_timezone = $timezone_value;
     }
     // If allowed by the administrator
-    $use_users_timezone = api_get_setting('use_users_timezone', 'timezones');
+    $use_users_timezone = api_get_setting('profile.use_users_timezone');
 
     if ($use_users_timezone == 'true') {
         $userId = api_get_user_id();
