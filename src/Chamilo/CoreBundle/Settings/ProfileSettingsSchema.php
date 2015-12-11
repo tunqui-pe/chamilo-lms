@@ -42,7 +42,8 @@ class ProfileSettingsSchema implements SchemaInterface
             ->setTransformer(
                 'changeable_options',
                 new ArrayToIdentifierTransformer()
-            );
+            )
+        ;
     }
 
     /**

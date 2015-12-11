@@ -233,7 +233,7 @@ if ($user_already_registered_show_terms == false) {
 
     // EXTENDED FIELDS
     if (api_get_setting('profile.extended_profile') == 'true' &&
-        api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true'
+        api_get_setting_in_list('registration.extendedprofile_registration', 'mycomptetences') == 'true'
     ) {
         $form->addHtmlEditor(
             'competences',
@@ -248,7 +248,7 @@ if ($user_already_registered_show_terms == false) {
         );
     }
     if (api_get_setting('profile.extended_profile') == 'true' &&
-        api_get_setting('extendedprofile_registration', 'mydiplomas') == 'true'
+        api_get_setting_in_list('registration.extendedprofile_registration', 'mydiplomas') == 'true'
     ) {
         $form->addHtmlEditor(
             'diplomas',
@@ -263,7 +263,7 @@ if ($user_already_registered_show_terms == false) {
         );
     }
     if (api_get_setting('profile.extended_profile') == 'true' &&
-        api_get_setting('extendedprofile_registration', 'myteach') == 'true'
+        api_get_setting_in_list('registration.extendedprofile_registration', 'myteach') == 'true'
     ) {
         $form->addHtmlEditor(
             'teach',
@@ -278,7 +278,7 @@ if ($user_already_registered_show_terms == false) {
         );
     }
     if (api_get_setting('profile.extended_profile') == 'true' &&
-        api_get_setting('extendedprofile_registration', 'mypersonalopenarea') == 'true'
+        api_get_setting_in_list('registration.extendedprofile_registration', 'mypersonalopenarea') == 'true'
     ) {
         $form->addHtmlEditor(
             'openarea',
@@ -293,23 +293,23 @@ if ($user_already_registered_show_terms == false) {
         );
     }
     if (api_get_setting('profile.extended_profile') == 'true') {
-        if (api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true' &&
-            api_get_setting('extendedprofile_registrationrequired', 'mycomptetences') == 'true'
+        if (api_get_setting_in_list('registration.extendedprofile_registration', 'mycomptetences') == 'true' &&
+            api_get_setting_in_list('registration.extendedprofile_registrationrequired', 'mycomptetences') == 'true'
         ) {
             $form->addRule('competences', get_lang('ThisFieldIsRequired'), 'required');
         }
-        if (api_get_setting('extendedprofile_registration', 'mydiplomas') == 'true' &&
-            api_get_setting('extendedprofile_registrationrequired', 'mydiplomas') == 'true'
+        if (api_get_setting_in_list('registration.extendedprofile_registration', 'mydiplomas') == 'true' &&
+            api_get_setting_in_list('registration.extendedprofile_registrationrequired', 'mydiplomas') == 'true'
         ) {
             $form->addRule('diplomas', get_lang('ThisFieldIsRequired'), 'required');
         }
-        if (api_get_setting('extendedprofile_registration', 'myteach') == 'true' &&
-            api_get_setting('extendedprofile_registrationrequired', 'myteach') == 'true'
+        if (api_get_setting_in_list('registration.extendedprofile_registration', 'myteach') == 'true' &&
+            api_get_setting_in_list('registration.extendedprofile_registrationrequired', 'myteach') == 'true'
         ) {
             $form->addRule('teach', get_lang('ThisFieldIsRequired'), 'required');
         }
-        if (api_get_setting('extendedprofile_registration', 'mypersonalopenarea') == 'true' &&
-            api_get_setting('extendedprofile_registrationrequired', 'mypersonalopenarea') == 'true'
+        if (api_get_setting_in_list('registration.extendedprofile_registration', 'mypersonalopenarea') == 'true' &&
+            api_get_setting_in_list('registration.extendedprofile_registrationrequired', 'mypersonalopenarea') == 'true'
         ) {
             $form->addRule('openarea', get_lang('ThisFieldIsRequired'), 'required');
         }
@@ -570,28 +570,28 @@ if ($form->validate()) {
             $sql = "UPDATE ".Database::get_main_table(TABLE_MAIN_USER)." SET ";
 
             if (api_get_setting('profile.extended_profile') == 'true' &&
-                api_get_setting('extendedprofile_registration', 'mycomptetences') == 'true'
+                api_get_setting_in_list('extendedprofile_registration', 'mycomptetences') == 'true'
             ) {
                 $sql_set[] = "competences = '".Database::escape_string($values['competences'])."'";
                 $store_extended = true;
             }
 
             if (api_get_setting('profile.extended_profile') == 'true' &&
-                api_get_setting('extendedprofile_registration', 'mydiplomas') == 'true'
+                api_get_setting_in_list('extendedprofile_registration', 'mydiplomas') == 'true'
             ) {
                 $sql_set[] = "diplomas = '".Database::escape_string($values['diplomas'])."'";
                 $store_extended = true;
             }
 
             if (api_get_setting('profile.extended_profile') == 'true' &&
-                api_get_setting('extendedprofile_registration', 'myteach') == 'true'
+                api_get_setting_in_list('extendedprofile_registration', 'myteach') == 'true'
             ) {
                 $sql_set[] = "teach = '".Database::escape_string($values['teach'])."'";
                 $store_extended = true;
             }
 
             if (api_get_setting('profile.extended_profile') == 'true' &&
-                api_get_setting('extendedprofile_registration', 'mypersonalopenarea') == 'true'
+                api_get_setting_in_list('extendedprofile_registration', 'mypersonalopenarea') == 'true'
             ) {
                 $sql_set[] = "openarea = '".Database::escape_string($values['openarea'])."'";
                 $store_extended = true;

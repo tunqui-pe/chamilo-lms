@@ -29,7 +29,8 @@ class ForumSettingsSchema implements SchemaInterface
                 array(
                     'default_forum_view' => array('string'),
                 )
-            );
+            )
+        ;
     }
 
     /**

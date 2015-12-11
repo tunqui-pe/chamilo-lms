@@ -33,11 +33,11 @@ class PlatformSettingsSchema implements SchemaInterface
                     'gravatar_enabled' => 'false',
                     'gravatar_type' => 'mm',
                     'gamification_mode' => ' ',
-                    'order_user_list_by_official_code' => '',
-                    'cookie_warning' => '',
-                    'donotlistcampus' => '',
-                    'catalog_show_courses_sessions' => '',
-                    'course_catalog_hide_private' => ''
+                    'order_user_list_by_official_code' => 'false',
+                    'cookie_warning' => 'false',
+                    'donotlistcampus' => 'false',
+                    'catalog_show_courses_sessions' => '0',
+                    'course_catalog_hide_private' => 'false'
                     //
 //('catalog_show_courses_sessions', '0', 'CatalogueShowOnlyCourses'),
 //('catalog_show_courses_sessions', '1', 'CatalogueShowOnlySessions'),

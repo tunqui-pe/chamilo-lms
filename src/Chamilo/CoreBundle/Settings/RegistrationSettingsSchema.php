@@ -27,7 +27,8 @@ class RegistrationSettingsSchema implements SchemaInterface
                     'allow_registration_as_teacher' => 'false',
                     'allow_lostpassword' => 'true',
                     'page_after_login' => 'user_portal.php',
-                    'extendedprofile_registration' => '', //@todo
+                    'extendedprofile_registration' => [],
+                    'extendedprofile_registrationrequired' => [],
                     'allow_terms_conditions' => 'false',
                     'student_page_after_login' => '',
                     'teacher_page_after_login' => '',
@@ -37,12 +38,14 @@ class RegistrationSettingsSchema implements SchemaInterface
                     'teacher_autosubscribe' => '',
                     'drh_autosubscribe' => '',
                     'sessionadmin_autosubscribe' => '',
-                    'platform_unsubscribe_allowed' => '',
+                    'platform_unsubscribe_allowed' => 'false',
                 )
             )
             ->setAllowedTypes(
                 array(
                     'required_profile_fields' => array('array'),
+                    'extendedprofile_registration' => array('array'),
+                    'extendedprofile_registrationrequired' => array('array'),
                     'allow_registration' => array('string'),
                     'allow_registration_as_teacher' => array('string'),
                     'allow_lostpassword' => array('string'),
@@ -51,7 +54,16 @@ class RegistrationSettingsSchema implements SchemaInterface
             ->setTransformer(
                 'required_profile_fields',
                 new ArrayToIdentifierTransformer()
-            );
+            )
+            ->setTransformer(
+                'extendedprofile_registration',
+                new ArrayToIdentifierTransformer()
+            )
+            ->setTransformer(
+                'extendedprofile_registrationrequired',
+                new ArrayToIdentifierTransformer()
+            )
+        ;
     }
 
     /**
@@ -59,6 +71,13 @@ class RegistrationSettingsSchema implements SchemaInterface
      */
     public function buildForm(FormBuilderInterface $builder)
     {
+        $extendedProfileOptions = [
+            'mycompetences' => 'MyCompetences',
+            'mydiplomas' => 'MyDiplomas',
+            'myteach' => 'MyTeach',
+            'mypersonalopenarea' => 'MyPersonalOpenArea',
+        ];
+
         $builder
             ->add(
                 'required_profile_fields',
@@ -97,7 +116,24 @@ class RegistrationSettingsSchema implements SchemaInterface
                     ),
                 )
             )
-            //->add('extendedprofile_registration', '') // ?
+            ->add('extendedprofile_registration',
+                'choice',
+                [
+                    'multiple' => true,
+                    'choices' => $extendedProfileOptions,
+                    'label' => 'ExtendedProfileRegistrationTitle',
+                    'help_block' => 'ExtendedProfileRegistrationComment'
+                ]
+            )
+            ->add('extendedprofile_registrationrequired',
+                'choice',
+                [
+                    'multiple' => true,
+                    'choices' => $extendedProfileOptions,
+                    'label' => 'ExtendedProfileRegistrationRequiredTitle',
+                    'help_block' => 'ExtendedProfileRegistrationRequiredComment'
+                ]
+            )
             ->add('allow_terms_conditions', 'yes_no')
             ->add('student_page_after_login')
             ->add('teacher_page_after_login')
@@ -107,6 +143,7 @@ class RegistrationSettingsSchema implements SchemaInterface
             ->add('teacher_autosubscribe')// ?
             ->add('drh_autosubscribe')//?
             ->add('sessionadmin_autosubscribe')// ?
-            ->add('platform_unsubscribe_allowed', 'yes_no');
+            ->add('platform_unsubscribe_allowed', 'yes_no')
+        ;
     }
 }

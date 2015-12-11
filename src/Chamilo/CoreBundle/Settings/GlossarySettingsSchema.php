@@ -26,7 +26,7 @@ class GlossarySettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'show_glossary_in_extra_tools' => array('string'),
+                    'show_glossary_in_extra_tools' => array('array'),
                 )
             );
     }
@@ -37,6 +37,18 @@ class GlossarySettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('show_glossary_in_extra_tools', 'yes_no');
+            ->add(
+                'show_glossary_in_extra_tools',
+                'choice',
+                [
+                    'choices' => [
+                        'none' => 'None',
+                        'exercise' => 'Exercise',
+                        'lp' => 'LearningPath',
+                        'exercise_and_lp' => 'ExerciseAndLearningPath'
+                    ]
+                ]
+            )
+        ;
     }
 }
