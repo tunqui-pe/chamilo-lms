@@ -30,7 +30,7 @@ class ProfileSettingsSchema implements SchemaInterface
                     'use_users_timezone' => 'true',
                     'allow_users_to_change_email_with_no_password' => 'false',
                     'login_is_email' => 'false',
-                    //'profiling_filter_adding_users' => ''
+                    'profiling_filter_adding_users' => ''
                 )
             )
             ->setAllowedTypes(
@@ -81,7 +81,7 @@ class ProfileSettingsSchema implements SchemaInterface
             ->add('use_users_timezone', 'yes_no')
             ->add('allow_users_to_change_email_with_no_password', 'yes_no')
             ->add('login_is_email', 'yes_no', ['label' => 'LoginIsEmailTitle'])
-            //->add('profiling_filter_adding_users', 'yes_no')
+            ->add('profiling_filter_adding_users', 'yes_no')
         ;
     }
 }

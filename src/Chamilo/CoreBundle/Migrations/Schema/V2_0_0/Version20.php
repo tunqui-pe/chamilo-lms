@@ -123,8 +123,7 @@ class Version20 implements Migration, OrderedMigrationInterface
 
         $settings = [
             'session_page_enabled',
-            'session_tutor_reports_visibility',
-            'profiling_filter_adding_users'
+            'session_tutor_reports_visibility'
         ];
 
         foreach ($settings as $setting) {
