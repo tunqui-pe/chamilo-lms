@@ -6051,3 +6051,17 @@ th div {
 .grid-search select, .grid-search .grid-filter-input-query input {
     width: 150px;
 }
+
+/* bootstrap-datetimepicker fixes */
+.bootstrap-datetimepicker-widget {
+    background: white  !important;
+}
+
+.bootstrap-datetimepicker-widget a {
+    color: #337ab7;
+}
+
+.bootstrap-datetimepicker-widget a span {
+    color: #337ab7;
+    background: white;
+}
