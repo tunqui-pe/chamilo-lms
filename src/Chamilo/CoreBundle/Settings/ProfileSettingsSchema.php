@@ -23,14 +23,14 @@ class ProfileSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'changeable_options' => [],
-                    'extended_profile' => '',
+                    'extended_profile' => 'false',
                     'account_valid_duration' => '3660',
-                    'split_users_upload_directory' => '',
-                    'user_selected_theme' => '',
-                    'use_users_timezone' => '',
-                    'allow_users_to_change_email_with_no_password' => '',
-                    'login_is_email' => '',
-                    'profiling_filter_adding_users' => ''
+                    'split_users_upload_directory' => 'true',
+                    'user_selected_theme' => 'false',
+                    'use_users_timezone' => 'true',
+                    'allow_users_to_change_email_with_no_password' => 'false',
+                    'login_is_email' => 'false',
+                    //'profiling_filter_adding_users' => ''
                 )
             )
             ->setAllowedTypes(
@@ -71,14 +71,17 @@ class ProfileSettingsSchema implements SchemaInterface
                     )
                 )
             )
-            ->add('extended_profile', 'yes_no')
+            ->add('extended_profile',
+                'yes_no',
+                ['label' => 'ExtendedProfileTitle', 'help_block'=> 'ExtendedProfileComment']
+            )
             ->add('account_valid_duration')
             ->add('split_users_upload_directory', 'yes_no')
             ->add('user_selected_theme', 'yes_no')
             ->add('use_users_timezone', 'yes_no')
             ->add('allow_users_to_change_email_with_no_password', 'yes_no')
             ->add('login_is_email', 'yes_no', ['label' => 'LoginIsEmailTitle'])
-            ->add('profiling_filter_adding_users', 'yes_no')
+            //->add('profiling_filter_adding_users', 'yes_no')
         ;
     }
 }

@@ -47,7 +47,7 @@ class ExerciseSettingsSchema implements SchemaInterface
         $builder
             ->add('exercise_min_score')
             ->add('exercise_max_score')
-            ->add('enable_quiz_scenario')
+            ->add('enable_quiz_scenario', 'yes_no')
             ->add('allow_coach_feedback_exercises', 'yes_no')
             ->add('show_official_code_exercise_result_list', 'yes_no')
             ->add('email_alert_manager_on_new_quiz', 'yes_no')

@@ -22,16 +22,14 @@ class SecuritySettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'filter_terms' => '',
-                    'allow_browser_sniffer' => '',
+                    'allow_browser_sniffer' => 'false',
                     'admins_can_set_users_pass' => '', // ?
-                    'allow_strength_pass_checker' => '',
+                    'allow_strength_pass_checker' => 'true',
                 )
             )
             ->setAllowedTypes(
                 array(
-                    'filter_terms' => array('string'),
                     'allow_browser_sniffer' => array('string'),
-                    'admins_can_set_users_pass' => array('string'),
                     'allow_strength_pass_checker' => array('string'),
                 )
             );
@@ -45,7 +43,7 @@ class SecuritySettingsSchema implements SchemaInterface
         $builder
             ->add('filter_terms', 'textarea')
             ->add('allow_browser_sniffer', 'yes_no')
-            ->add('admins_can_set_users_pass')
+            ->add('admins_can_set_users_pass', 'yes_no')
             ->add('allow_strength_pass_checker', 'yes_no');
     }
 }

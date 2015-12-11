@@ -23,12 +23,12 @@ class RegistrationSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'required_profile_fields' => [],
-                    'allow_registration' => '',
-                    'allow_registration_as_teacher' => '',
-                    'allow_lostpassword' => '',
-                    'page_after_login' => '',
-                    'extendedprofile_registration' => '',
-                    'allow_terms_conditions' => '',
+                    'allow_registration' => 'false',
+                    'allow_registration_as_teacher' => 'false',
+                    'allow_lostpassword' => 'true',
+                    'page_after_login' => 'user_portal.php',
+                    'extendedprofile_registration' => '', //@todo
+                    'allow_terms_conditions' => 'false',
                     'student_page_after_login' => '',
                     'teacher_page_after_login' => '',
                     'drh_page_after_login' => '',
@@ -91,9 +91,9 @@ class RegistrationSettingsSchema implements SchemaInterface
                 'choice',
                 array(
                     'choices' => array(
-                        'index.php' => 'Homepage',
-                        'user_portal.php' => 'My courses',
-                        'main/auth/courses.php' => 'Course catalog',
+                        'index.php' => 'CampusHomepage',
+                        'user_portal.php' => 'MyCourses',
+                        'main/auth/courses.php' => 'CourseCatalog',
                     ),
                 )
             )

@@ -21,9 +21,9 @@ class SearchSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'search_enabled' => '',
+                    'search_enabled' => 'false',
                     'search_prefilter_prefix' => '',
-                    'search_show_unlinked_results' => '',
+                    'search_show_unlinked_results' => 'true',
                     'number_of_upcoming_events' => '0',
                 )
             )
@@ -48,8 +48,8 @@ class SearchSettingsSchema implements SchemaInterface
                 'choice',
                 array(
                     'choices' => array(
-                        'search_show_unlinked_results',
-                        'search_show_unlinked_results',
+                        'true' =>  'SearchShowUnlinkedResults',
+                        'false' =>  'SearchHideUnlinkedResults',
                     ),
                 )
             )
