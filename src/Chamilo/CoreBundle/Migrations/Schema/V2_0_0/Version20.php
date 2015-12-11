@@ -121,6 +121,16 @@ class Version20 implements Migration, OrderedMigrationInterface
         $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
         $queries->addQuery($sql);
 
+        $settings = [
+            'session_page_enabled',
+            'session_tutor_reports_visibility',
+            'profiling_filter_adding_users'
+        ];
+
+        foreach ($settings as $setting) {
+            $sql = "DELETE FROM settings_current WHERE variable = $setting";
+            $queries->addQuery($sql);
+        }
 
     }
 
