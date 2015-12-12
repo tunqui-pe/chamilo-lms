@@ -21,15 +21,16 @@ class GroupSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'allow_group_categories' => '',
-                    'hide_course_group_if_no_tools_available' => '',
+                    'allow_group_categories' => 'false',
+                    'hide_course_group_if_no_tools_available' => 'false',
                 )
             )
             ->setAllowedTypes(
                 array(
                     'allow_group_categories' => array('string'),
                 )
-            );
+            )
+        ;
     }
 
     /**

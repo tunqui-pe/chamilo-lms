@@ -477,7 +477,7 @@ switch ($action) {
                 }
 
                 $sessionDurationTime[$key] = time();
-                Session::write('duration_time', $durationTime);
+                Session::write('duration_time', $sessionDurationTime);
 
                 Event::update_event_exercice(
                     $exe_id,

@@ -32,13 +32,7 @@ class PptToLpSettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'active' => array('string'),
-                    'size' => array('string'),
-                    'host' => array('string'),
-                    'port' => array('string'),
-                    'user' => array('string'),
-                    'ftp_password' => array('string'),
-                    'path_to_lzx' => array('string'),
+
                 )
             );
     }

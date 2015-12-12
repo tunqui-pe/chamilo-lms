@@ -529,8 +529,11 @@ if (!empty($student_id)) {
             // Display timezone if the user selected one and if the admin allows the use of user's timezone
             $timezone = null;
             $timezone_user = UserManager::get_extra_user_data_by_field($user_info['user_id'],'timezone');
-            $use_users_timezone = api_get_setting('use_users_timezone', 'timezones');
-            if ($timezone_user['timezone'] != null && $use_users_timezone == 'true') {
+            $use_users_timezone = api_get_setting('profile.use_users_timezone');
+            if (isset($timezone_user['timezone']) &&
+                !empty($timezone_user['timezone']) &&
+                $use_users_timezone == 'true'
+            ) {
                 $timezone = $timezone_user['timezone'];
             }
             if ($timezone !== null) {
@@ -693,7 +696,17 @@ if (!empty($student_id)) {
 
                         $scoretotal_display = '0/0 (0%)';
                         if (!empty($scoretotal)) {
-                            $scoretotal_display =  round($scoretotal[0],1).'/'.round($scoretotal[1],1).' ('.round(($scoretotal[0] / $scoretotal[1]) * 100,2) . ' %)';
+
+                            if (empty($scoretotal[1]))  {
+                                $scoretotal_display = '0';
+                            } else {
+                                $scoretotal_display =
+                                round($scoretotal[0],1).
+                                '/'.
+                                round($scoretotal[1],1).
+                                ' ('.round(($scoretotal[0] / $scoretotal[1]) * 100,2) . ' %)'
+                                ;
+                            }
                         }
 
                         $progress = Tracking::get_avg_student_progress($user_info['user_id'], $course_code, null, $sessionId);

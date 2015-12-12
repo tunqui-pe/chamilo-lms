@@ -45,12 +45,7 @@ class DatePicker extends HTML_QuickForm_text
         }
 
         return $this->getElementJS() . '
-            <div class="input-group">
-                <span class="input-group-addon">
                     <input ' . $this->_getAttrString($this->_attributes) . '>
-                </span>
-                <input class="form-control" type="text" readonly id="' . $id . '_alt" value="' . $value . '">
-            </div>
         ';
     }
 
@@ -78,7 +73,7 @@ class DatePicker extends HTML_QuickForm_text
 
         $js .= "<script>
             $(function() {
-                $('#$id').hide().datepicker({
+                /*$('#$id').hide().datepicker({
                     defaultDate: '" . $this->getValue() . "',
                     dateFormat: 'yy-mm-dd',
                     altField: '#{$id}_alt',
@@ -90,7 +85,13 @@ class DatePicker extends HTML_QuickForm_text
                     changeMonth: true,
                     changeYear: true,
                     yearRange: 'c-60y:c+5y'
+                });*/
+
+                 $('#$id').datetimepicker({
+                    defaultDate: '".$this->getValue()."',
+                    format: 'YYYY-MM-DD'
                 });
+
             });
         </script>";
 

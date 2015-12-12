@@ -33,11 +33,11 @@ class PlatformSettingsSchema implements SchemaInterface
                     'gravatar_enabled' => 'false',
                     'gravatar_type' => 'mm',
                     'gamification_mode' => ' ',
-                    'order_user_list_by_official_code' => '',
-                    'cookie_warning' => '',
-                    'donotlistcampus' => '',
-                    'catalog_show_courses_sessions' => '',
-                    'course_catalog_hide_private' => ''
+                    'order_user_list_by_official_code' => 'false',
+                    'cookie_warning' => 'false',
+                    'donotlistcampus' => 'false',
+                    'catalog_show_courses_sessions' => '0',
+                    'course_catalog_hide_private' => 'false'
                     //
 //('catalog_show_courses_sessions', '0', 'CatalogueShowOnlyCourses'),
 //('catalog_show_courses_sessions', '1', 'CatalogueShowOnlySessions'),
@@ -56,7 +56,7 @@ class PlatformSettingsSchema implements SchemaInterface
                     'timezone' => array('string'),
                     'gravatar_enabled' => array('string'),
                     'gravatar_type' => array('string'),
-                    'gamification_mode' => array('string'),
+                    //'gamification_mode' => array('string'),
                 )
             );
     }
@@ -83,7 +83,15 @@ class PlatformSettingsSchema implements SchemaInterface
             ->add('cookie_warning', 'yes_no')
             ->add('donotlistcampus', 'yes_no')
             ->add('course_catalog_hide_private', 'yes_no')
-            ->add('catalog_show_courses_sessions')
+            ->add(
+                'catalog_show_courses_sessions',
+                'choice',
+                ['choices' => [
+                    '0' => 'CatalogueShowOnlyCourses',
+                    '1' => 'CatalogueShowOnlySessions',
+                    '2' => 'CatalogueShowCoursesAndSessions',
+                ]]
+            )
         ;
     }
 }

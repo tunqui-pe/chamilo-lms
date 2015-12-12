@@ -1004,11 +1004,21 @@ if (api_is_allowed_to_edit(null, true)) {
     echo '</div>';
     echo '<div class="col-md-6">';
     echo '<div class="pull-right">';
-        // Build search-form
-        $form = new FormValidator('search_user', 'get', '', '', null, FormValidator::LAYOUT_INLINE);
-        $form->addText('keyword', '', false);
-        $form->addButtonSearch(get_lang('SearchButton'));
-        $form->display();
+    // Build search-form
+    $form = new FormValidator(
+        'search_user',
+        'get',
+        api_get_self().'?'.api_get_cidreq(),
+        '',
+        null,
+        FormValidator::LAYOUT_INLINE
+    );
+
+    $form->addHidden('cidReq', api_get_course_id());
+    $form->addHidden('id_session', api_get_session_id());
+    $form->addText('keyword', '', false);
+    $form->addButtonSearch(get_lang('SearchButton'));
+    $form->display();
     echo '</div>';
     echo '</div>';
     echo '</div>';

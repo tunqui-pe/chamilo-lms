@@ -28,8 +28,9 @@ class TrackingSettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'header_extra_content' => array('string'),
-                    'footer_extra_content' => array('string'),
+                    // commenting this line allows setting to be null
+                    //'header_extra_content' => array('string'),
+                    //'footer_extra_content' => array('string'),
                 )
             );
     }

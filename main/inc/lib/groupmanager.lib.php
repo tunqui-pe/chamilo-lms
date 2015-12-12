@@ -2830,8 +2830,12 @@ class GroupManager
             array('class' => 'form-search'),
             FormValidator::LAYOUT_INLINE
         );
+
+        $form->addHidden('cidReq', api_get_course_id());
+        $form->addHidden('id_session', api_get_session_id());
         $form->addElement('text', 'keyword');
         $form->addButtonSearch();
+
         return $form->toHtml();
     }
 

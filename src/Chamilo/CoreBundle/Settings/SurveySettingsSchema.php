@@ -21,14 +21,14 @@ class SurveySettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'survey_email_sender_noreply' => '',
-                    'extend_rights_for_coach_on_survey' => '',
+                    'survey_email_sender_noreply' => 'coach',
+                    'extend_rights_for_coach_on_survey' => 'true',
 
                 )
             )
             ->setAllowedTypes(
                 array(
-                    'survey_email_sender_noreply' => array('string'),
+                    //'survey_email_sender_noreply' => array('string'),
                 )
             );
     }
@@ -44,8 +44,8 @@ class SurveySettingsSchema implements SchemaInterface
                 'choice',
                 array(
                     'choices' => array(
-                        'coach' => 'Coach email address',
-                        'noreply' => 'No reply address',
+                        'coach' => 'CourseCoachEmailSender',
+                        'noreply' => 'NoReplyEmailSender',
                     ),
                 )
             )

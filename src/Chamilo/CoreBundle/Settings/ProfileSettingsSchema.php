@@ -23,13 +23,13 @@ class ProfileSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'changeable_options' => [],
-                    'extended_profile' => '',
+                    'extended_profile' => 'false',
                     'account_valid_duration' => '3660',
-                    'split_users_upload_directory' => '',
-                    'user_selected_theme' => '',
-                    'use_users_timezone' => '',
-                    'allow_users_to_change_email_with_no_password' => '',
-                    'login_is_email' => '',
+                    'split_users_upload_directory' => 'true',
+                    'user_selected_theme' => 'false',
+                    'use_users_timezone' => 'true',
+                    'allow_users_to_change_email_with_no_password' => 'false',
+                    'login_is_email' => 'false',
                     'profiling_filter_adding_users' => ''
                 )
             )
@@ -42,7 +42,8 @@ class ProfileSettingsSchema implements SchemaInterface
             ->setTransformer(
                 'changeable_options',
                 new ArrayToIdentifierTransformer()
-            );
+            )
+        ;
     }
 
     /**
@@ -71,7 +72,10 @@ class ProfileSettingsSchema implements SchemaInterface
                     )
                 )
             )
-            ->add('extended_profile', 'yes_no')
+            ->add('extended_profile',
+                'yes_no',
+                ['label' => 'ExtendedProfileTitle', 'help_block'=> 'ExtendedProfileComment']
+            )
             ->add('account_valid_duration')
             ->add('split_users_upload_directory', 'yes_no')
             ->add('user_selected_theme', 'yes_no')

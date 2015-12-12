@@ -22,9 +22,9 @@ class LanguageSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'platform_language' => 'en',
-                    'allow_use_sub_language' => '',
-                    'auto_detect_language_custom_pages' => '',
-                    'show_different_course_language' => '',
+                    'allow_use_sub_language' => 'false',
+                    'auto_detect_language_custom_pages' => 'true',
+                    'show_different_course_language' => 'true',
                     'language_priority_1' => '',
                     'language_priority_2' => '',
                     'language_priority_3' => '',
@@ -36,11 +36,7 @@ class LanguageSettingsSchema implements SchemaInterface
                     'platform_language' => array('string'),
                     'allow_use_sub_language' => array('string'),
                     'auto_detect_language_custom_pages' => array('string'),
-                    'show_different_course_language' => array('string'),
-                    'language_priority_1' => array('string'),
-                    'language_priority_2' => array('string'),
-                    'language_priority_3' => array('string'),
-                    'language_priority_4' => array('string'),
+                    'show_different_course_language' => array('string')
                 )
             );
     }
