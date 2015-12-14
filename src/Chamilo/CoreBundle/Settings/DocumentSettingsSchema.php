@@ -46,7 +46,7 @@ class DocumentSettingsSchema implements SchemaInterface
                     'show_documents_preview' => 'false',
                     'enable_wami_record' => 'false',
                     'enable_webcam_clip' => 'false',
-                    'tool_visible_by_default_at_creation' => '',
+                    'tool_visible_by_default_at_creation' => [],
                     'documents_default_visibility_defined_in_course' => 'false', // ?
                     'allow_personal_user_files' => '', // ?
                     'if_file_exists_option' => 'rename'
@@ -57,7 +57,6 @@ class DocumentSettingsSchema implements SchemaInterface
                     'default_document_quotum' => array('string'),
                     'default_group_quotum' => array('string'),
                     'permanently_remove_deleted_files' => array('string'),
-                    'tool_visible_by_default_at_creation' => ['array']
                 )
             )
             ->setTransformer(
@@ -97,9 +96,9 @@ class DocumentSettingsSchema implements SchemaInterface
                 'choice',
                 [
                     'choices' => [
-                        'none' => 'none',
-                        'ismanual' => 'ismanual',
-                        'isautomatic' => 'isautomatic',
+                        'none' => 'ShowGlossaryInDocumentsIsNone',
+                        'ismanual' => 'ShowGlossaryInDocumentsIsManual',
+                        'isautomatic' => 'ShowGlossaryInDocumentsIsAutomatic',
                     ]
                 ]
             )
@@ -119,14 +118,16 @@ class DocumentSettingsSchema implements SchemaInterface
             ->add(
                 'tool_visible_by_default_at_creation',
                 'choice',
-                ['choices' => [
-                    'documents' => 'Documents',
-                    'learning_path' => 'LearningPath',
-                    'links' => 'Links',
-                    'announcements' => 'Announcements',
-                    'forums' => 'Forums',
-                    'quiz' => 'Quiz',
-                    'gradebook' => 'Gradebook'
+                [
+                    'multiple' => true,
+                    'choices' => [
+                        'documents' => 'Documents',
+                        'learning_path' => 'LearningPath',
+                        'links' => 'Links',
+                        'announcements' => 'Announcements',
+                        'forums' => 'Forums',
+                        'quiz' => 'Quiz',
+                        'gradebook' => 'Gradebook'
                     ]
                 ]
             )
@@ -137,8 +138,9 @@ class DocumentSettingsSchema implements SchemaInterface
                     'choices' => [
                         'rename' => 'Rename',
                         'overwrite' => 'Overwrite',
-
-            ]])
+                    ]
+                ]
+            )
         ;
     }
 }

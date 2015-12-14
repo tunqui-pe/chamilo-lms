@@ -112,7 +112,6 @@ $categoryId = isset($_REQUEST['category_id']) ? intval($_REQUEST['category_id'])
 $linkListUrl = api_get_self().'?'.api_get_cidreq().'&category_id='.$categoryId.'&show='.$show;
 
 $content = null;
-
 switch ($action) {
     case 'addlink':
         if (api_is_allowed_to_edit(null, true)) {
@@ -205,11 +204,9 @@ switch ($action) {
         break;
 }
 
-Display::display_header($nameTools, 'Links');
+//Display::display_header($nameTools, 'Links');
 
 /*	Introduction section */
 Display::display_introduction_section(TOOL_LINK);
 
 echo $content;
-
-Display::display_footer();

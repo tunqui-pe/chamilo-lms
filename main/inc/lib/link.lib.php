@@ -153,9 +153,6 @@ class Link extends Model
      */
     public static function addlinkcategory($type)
     {
-        global $catlinkstatus;
-        global $msgErr;
-
         $ok = true;
         $_course = api_get_course_info();
         $course_id = $_course['real_id'];
@@ -213,9 +210,8 @@ class Link extends Model
                     'target' => $target,
                     'session_id' => $session_id,
                 ];
-                $link_id = $link->save($params);
 
-                $catlinkstatus = get_lang('LinkAdded');
+                $link_id = $link->save($params);
 
                 if ((api_get_setting('search.search_enabled') == 'true') &&
                     $link_id && extension_loaded('xapian')
@@ -329,13 +325,13 @@ class Link extends Model
             $description = trim($_POST['description']);
 
             if (empty($category_title)) {
-                $msgErr = get_lang('GiveCategoryName');
                 Display:: display_error_message(get_lang('GiveCategoryName'));
                 $ok = false;
             } else {
                 // Looking for the largest order number for this category.
                 $result = Database:: query(
-                    "SELECT MAX(display_order) FROM  $tbl_categories
+                    "SELECT MAX(display_order)
+                    FROM  $tbl_categories
                     WHERE c_id = $course_id "
                 );
                 list ($orderMax) = Database:: fetch_row($result);
@@ -1542,6 +1538,7 @@ class Link extends Model
         }
 
         $categories = Link::getLinkCategories($course_id, $session_id);
+
         $count = count($categories);
         if (!empty($count)) {
             echo '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=list&show=none">';
