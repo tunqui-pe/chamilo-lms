@@ -21,31 +21,31 @@ class DisplaySettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'enable_help_link' => '',
+                    'enable_help_link' => 'true',
                     'show_administrator_data' => 'true',
-                    'show_tutor_data' => '',
-                    'show_teacher_data' => '',
-                    'showonline' => '',
-                    'allow_user_headings' => '',
+                    'show_tutor_data' => 'true',
+                    'show_teacher_data' => 'true',
+                    'showonline' => 'world',
+                    'allow_user_headings' => 'false',
                     'time_limit_whosonline' => '30',
-                    'show_email_addresses' => '',
-                    'show_number_of_courses' => '',
-                    'show_empty_course_categories' => '',
-                    'show_back_link_on_top_of_tree' => '',
-                    'show_different_course_language' => '',
-                    'display_categories_on_homepage' => '',
-                    'show_closed_courses' => '',
-                    'allow_students_to_browse_courses' => '',
-                    'show_link_bug_notification' => '',
-                    'accessibility_font_resize' => '',
-                    'show_admin_toolbar' => '',
-                    'show_hot_courses' => '',
+                    'show_email_addresses' => 'false',
+                    'show_number_of_courses' => 'false',
+                    'show_empty_course_categories' => 'true',
+                    'show_back_link_on_top_of_tree' => 'false',
+                    'show_different_course_language' => 'true',
+                    'display_categories_on_homepage' => 'false',
+                    'show_closed_courses' => 'false',
+                    'allow_students_to_browse_courses' => 'true',
+                    'show_link_bug_notification' => 'true',
+                    'accessibility_font_resize' => 'false',
+                    'show_admin_toolbar' => 'show_to_admin',
+                    'show_hot_courses' => 'true',
                     'user_name_order' => '', // ?
                     'user_name_sort_by' => '', // ?
-                    'use_virtual_keyboard' => '',
-                    'disable_copy_paste' => '',
-                    'breadcrumb_navigation_display' => '',
-                    'bug_report_link' => '',
+                    'use_virtual_keyboard' => '', //?
+                    'disable_copy_paste' => '',//?
+                    'breadcrumb_navigation_display' => '',//?
+                    'bug_report_link' => '', //?
                 )
             )
             ->setAllowedTypes(
@@ -70,9 +70,9 @@ class DisplaySettingsSchema implements SchemaInterface
                 'choice',
                 array(
                     'choices' => array(
-                        'course' => 'course',
-                        'users' => 'users',
-                        'world' => 'world',
+                        'course' => 'Course',
+                        'users' => 'Users',
+                        'world' => 'World',
                     ),
                 )
             )
@@ -89,7 +89,17 @@ class DisplaySettingsSchema implements SchemaInterface
             ->add('allow_students_to_browse_courses', 'yes_no')
             ->add('show_link_bug_notification', 'yes_no')
             ->add('accessibility_font_resize', 'yes_no')
-            ->add('show_admin_toolbar', 'yes_no')
+            ->add(
+                'show_admin_toolbar',
+                'choice',
+                [
+                    'choices' => [
+                        'do_not_show' => 'DoNotShow',
+                        'show_to_admin' => 'ShowToAdminsOnly',
+                        'show_to_admin_and_teachers' => 'ShowToAdminsAndTeachers',
+                        'show_to_all' => 'ShowToAllUsers'
+                    ]
+                ])
             ->add('show_hot_courses', 'yes_no')
             ->add('use_virtual_keyboard', 'yes_no')
             ->add('disable_copy_paste', 'yes_no')

@@ -21,8 +21,8 @@ class ForumSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'default_forum_view' => '',
-                    'display_groups_forum_in_general_tool' => '',
+                    'default_forum_view' => 'flat',
+                    'display_groups_forum_in_general_tool' => 'true',
                 )
             )
             ->setAllowedTypes(

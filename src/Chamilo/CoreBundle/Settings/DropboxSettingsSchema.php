@@ -21,13 +21,12 @@ class DropboxSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'dropbox_allow_overwrite' => '',
-                    'dropbox_max_filesize' => '',
-                    'dropbox_allow_just_upload' => '',
-                    'dropbox_allow_student_to_student' => '',
-                    'dropbox_allow_group' => '',
-                    'dropbox_allow_mailing' => '',
-
+                    'dropbox_allow_overwrite' => 'true',
+                    'dropbox_max_filesize' => '100000000',
+                    'dropbox_allow_just_upload' => 'true',
+                    'dropbox_allow_student_to_student' => 'true',
+                    'dropbox_allow_group' => 'true',
+                    'dropbox_allow_mailing' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -48,6 +47,7 @@ class DropboxSettingsSchema implements SchemaInterface
             ->add('dropbox_allow_just_upload', 'yes_no')
             ->add('dropbox_allow_student_to_student', 'yes_no')
             ->add('dropbox_allow_group', 'yes_no')
-            ->add('dropbox_allow_mailing', 'yes_no');
+            ->add('dropbox_allow_mailing', 'yes_no')
+        ;
     }
 }

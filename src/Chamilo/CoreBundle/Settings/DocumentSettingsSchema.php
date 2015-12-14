@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,32 +24,32 @@ class DocumentSettingsSchema implements SchemaInterface
                 array(
                     'default_document_quotum' => '100000000',
                     'default_group_quotum' => '100000000',
-                    'permanently_remove_deleted_files' => '',
-                    'upload_extensions_list_type' => '',
+                    'permanently_remove_deleted_files' => 'false',
+                    'upload_extensions_list_type' => 'blacklist',
                     'upload_extensions_blacklist' => '',
-                    'upload_extensions_whitelist' => '',
-                    'upload_extensions_skip' => '',
-                    'upload_extensions_replace_by' => '',
-                    'permissions_for_new_directories' => '',
-                    'permissions_for_new_files' => '',
+                    'upload_extensions_whitelist' => 'htm;html;jpg;jpeg;gif;png;swf;avi;mpg;mpeg;mov;flv;doc;docx;xls;xlsx;ppt;pptx;odt;odp;ods;pdf',
+                    'upload_extensions_skip' => 'true',
+                    'upload_extensions_replace_by' => 'dangerous',
+                    'permissions_for_new_directories' => '0777',
+                    'permissions_for_new_files' => '0666',
                     'show_glossary_in_documents' => 'none',
-                    'students_download_folders' => '',
-                    'users_copy_files' => '',
-                    'pdf_export_watermark_enable' => '',
-                    'pdf_export_watermark_by_course' => '',
+                    'students_download_folders' => 'true',
+                    'users_copy_files' => 'true',
+                    'pdf_export_watermark_enable' => 'false',
+                    'pdf_export_watermark_by_course' => 'false',
                     'pdf_export_watermark_text' => '',
-                    'students_export2pdf' => '',
-                    'show_users_folders' => '',
-                    'show_default_folders' => '',
-                    'enabled_text2audio' => '',
-                    'enable_nanogong' => '',
-                    'show_documents_preview' => '',
-                    'enable_wami_record' => '',
-                    'enable_webcam_clip' => '',
-                    'tool_visible_by_default_at_creation' => '',// documents ?
-                    'documents_default_visibility_defined_in_course' => '', // ?
+                    'students_export2pdf' => 'true',
+                    'show_users_folders' => 'true',
+                    'show_default_folders' => 'true',
+                    'enabled_text2audio' => 'false',
+                    'enable_nanogong' => 'false',
+                    'show_documents_preview' => 'false',
+                    'enable_wami_record' => 'false',
+                    'enable_webcam_clip' => 'false',
+                    'tool_visible_by_default_at_creation' => '',
+                    'documents_default_visibility_defined_in_course' => 'false', // ?
                     'allow_personal_user_files' => '', // ?
-                    'if_file_exists_option' => ''
+                    'if_file_exists_option' => 'rename'
                 )
             )
             ->setAllowedTypes(
@@ -56,8 +57,14 @@ class DocumentSettingsSchema implements SchemaInterface
                     'default_document_quotum' => array('string'),
                     'default_group_quotum' => array('string'),
                     'permanently_remove_deleted_files' => array('string'),
+                    'tool_visible_by_default_at_creation' => ['array']
                 )
-            );
+            )
+            ->setTransformer(
+                'tool_visible_by_default_at_creation',
+                new ArrayToIdentifierTransformer()
+            )
+        ;
     }
 
     /**
@@ -74,8 +81,8 @@ class DocumentSettingsSchema implements SchemaInterface
                 'choice',
                 array(
                     'choices' => array(
-                        'blacklist' => 'blacklist',
-                        'whitelist' => 'whitelist',
+                        'blacklist' => 'Blacklist',
+                        'whitelist' => 'Whitelist',
                     ),
                 )
             )
@@ -109,8 +116,29 @@ class DocumentSettingsSchema implements SchemaInterface
             ->add('show_documents_preview', 'yes_no')
             ->add('enable_wami_record', 'yes_no')
             ->add('enable_webcam_clip', 'yes_no')
-            ->add('tool_visible_by_default_at_creation', 'yes_no')
-            ->add('if_file_exists_option')
+            ->add(
+                'tool_visible_by_default_at_creation',
+                'choice',
+                ['choices' => [
+                    'documents' => 'Documents',
+                    'learning_path' => 'LearningPath',
+                    'links' => 'Links',
+                    'announcements' => 'Announcements',
+                    'forums' => 'Forums',
+                    'quiz' => 'Quiz',
+                    'gradebook' => 'Gradebook'
+                    ]
+                ]
+            )
+            ->add(
+                'if_file_exists_option',
+                'choice',
+                [
+                    'choices' => [
+                        'rename' => 'Rename',
+                        'overwrite' => 'Overwrite',
+
+            ]])
         ;
     }
 }
