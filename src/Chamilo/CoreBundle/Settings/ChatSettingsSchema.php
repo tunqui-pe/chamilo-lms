@@ -21,8 +21,8 @@ class ChatSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'show_chat_folder' => '',
-                    'allow_global_chat' => '',
+                    'show_chat_folder' => 'true',
+                    'allow_global_chat' => 'true',
                 )
             )
             ->setAllowedTypes(
@@ -38,6 +38,8 @@ class ChatSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_global_chat', 'yes_no');
+            ->add('allow_global_chat', 'yes_no')
+            ->add('show_chat_folder', 'yes_no')
+        ;
     }
 }

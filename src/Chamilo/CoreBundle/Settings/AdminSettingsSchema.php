@@ -32,7 +32,6 @@ class AdminSettingsSchema implements SchemaInterface
                     'administrator_email' => array('string'),
                     'administrator_name' => array('string'),
                     'administrator_surname' => array('string'),
-                    'administrator_phone' => array('string'),
                 )
             );
     }
@@ -46,9 +45,7 @@ class AdminSettingsSchema implements SchemaInterface
             ->add('administrator_name')
             ->add('administrator_surname')
             ->add('administrator_email', 'email')
-            ->add(
-                'administrator_phone'
-            )//->add('default_calendar_view', 'yes_no')
+            ->add('administrator_phone')
         ;
     }
 }
