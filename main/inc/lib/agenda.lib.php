@@ -2061,11 +2061,7 @@ class Agenda
         }
 
         if ($isSubEventEdition) {
-            $form->addElement(
-                'label',
-                null,
-                Display::return_message(get_lang('EditingThisEventWillRemoveItFromTheSerie'), 'warning')
-            );
+            Display::return_message(get_lang('EditingThisEventWillRemoveItFromTheSerie'), 'warning');
         }
 
         $form->addElement('text', 'title', get_lang('ItemTitle'));
@@ -2121,7 +2117,6 @@ class Agenda
         } else {
             $toolbar = 'Agenda';
         }
-
         $form->addHtmlEditor(
             'content',
             get_lang('Description'),
@@ -2159,7 +2154,6 @@ class Agenda
                 get_lang('AddAnnouncement').'&nbsp('.get_lang('SendMail').')'
             );
         }
-
 
         if ($id) {
             $form->addButtonUpdate(get_lang('ModifyEvent'));

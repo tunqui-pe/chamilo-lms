@@ -34,7 +34,7 @@ if (empty($action)) {
 
 /* 	Resource linker */
 Session::write('source_type', 'Agenda');
-require_once '../resourcelinker/resourcelinker.inc.php';
+//require_once '../resourcelinker/resourcelinker.inc.php';
 $group_id = api_get_group_id();
 $eventId = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
 $type = $event_type = isset($_GET['type']) ? $_GET['type'] : null;
@@ -85,7 +85,6 @@ if ($event_type == 'course') {
 $course_info = api_get_course_info();
 $agenda->type = $event_type;
 
-$message = null;
 $content = null;
 
 if (api_is_allowed_to_edit(false, true) ||
@@ -139,11 +138,10 @@ if (api_is_allowed_to_edit(false, true) ||
                         $values['users_to_send']
                     );
                 }
-                $message = Display::return_message(get_lang('AddSuccess'), 'confirmation');
+                Display::return_message(get_lang('AddSuccess'), 'confirmation');
                 if ($sendEmail) {
-                    $message .= Display::return_message(get_lang('AdditionalMailWasSentToSelectedUsers'), 'confirmation');
+                    Display::return_message(get_lang('AdditionalMailWasSentToSelectedUsers'), 'confirmation');
                 }
-                Session::write('message', $message);
                 header("Location: $agendaUrl");
                 exit;
             } else {
@@ -194,8 +192,8 @@ if (api_is_allowed_to_edit(false, true) ||
                         $comment
                     );
 
-                    $message = Display::return_message(get_lang('Updated'), 'confirmation');
-                    Session::write('message', $message);
+                    Display::return_message(get_lang('Updated'), 'confirmation');
+
                     header("Location: $agendaUrl");
                     exit;
                 }
@@ -234,8 +232,7 @@ if (api_is_allowed_to_edit(false, true) ||
                     );
                 }
 
-                $message = Display::return_message(get_lang('Updated'), 'confirmation');
-                Session::write('message', $message);
+                Display::return_message(get_lang('Updated'), 'confirmation');
                 header("Location: $agendaUrl");
                 exit;
             } else {
@@ -260,19 +257,20 @@ if (api_is_allowed_to_edit(false, true) ||
                 }
 
                 if (!$is_ical) {
-                    $message = Display::return_message(get_lang('IsNotiCalFormatFile'), 'error');
+                    Display::return_message(get_lang('IsNotiCalFormatFile'), 'error');
                     $form = $agenda->getImportCalendarForm();
                     $content = $form->return_form();
                     break;
                 } else {
-                    $message = Display::return_message(get_lang('AddSuccess'), 'error');
+                    Display::return_message(get_lang('AddSuccess'), 'error');
                     $content = $result;
                 }
-                Session::write('message', $message);
             }
             break;
         case "delete":
-            if (!(api_is_course_coach() && !api_is_element_in_the_session(TOOL_AGENDA, $eventId) )) {
+            if (!(api_is_course_coach() &&
+                !api_is_element_in_the_session(TOOL_AGENDA, $eventId))
+            ) {
                 // a coach can only delete an element belonging to his session
                 $content = $agenda->delete_event($eventId);
             }
@@ -301,12 +299,5 @@ if (!empty($actionName)) {
 // Tool introduction
 $introduction = Display::return_introduction_section(TOOL_CALENDAR_EVENT);
 
-$message = Session::read('message');
-Session::erase('message');
-
-$tpl = new Template($actionName);
-$tpl->assign('content', $content);
-$tpl->assign('actions', $actions);
-
-// Loading main Chamilo 1 col template
-$tpl->display_one_col_template();
+echo $actions;
+echo $content;

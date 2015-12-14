@@ -894,7 +894,7 @@ function display_extra_profile_fields_filter()
 {
 	// getting all the additional user profile fields
 	$extra = UserManager::get_extra_fields(0,50,5,'ASC');
-
+	$type = isset($_REQUEST['type']) ? Security::remove_XSS($_REQUEST['type'])  : '';
 	$return='<option value="">'.get_lang('SelectFilter').'</option>';
 
 	// looping through the additional user profile fields
@@ -925,7 +925,7 @@ function display_extra_profile_fields_filter()
 	}
 
 	echo '<form id="subscribe_user_filter" name="subscribe_user_filter" method="get" action="'.api_get_self().'?api_get_cidreq" style="float:left;">';
-	echo '	<input type="hidden" name="type" id="type" value="'.Security::remove_XSS($_REQUEST['type']).'" />';
+	echo '	<input type="hidden" name="type" id="type" value="'.$type.'" />';
 	echo   '<select name="subscribe_user_filter_value" id="subscribe_user_filter_value">'.$return.'</select>';
 	echo   '<button type="submit" name="submit_filter" id="submit_filter" value="" class="search">'.get_lang('Filter').'</button>';
 	echo '</form>';

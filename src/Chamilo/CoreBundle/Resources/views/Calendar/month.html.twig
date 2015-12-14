@@ -402,7 +402,7 @@
                                 {% endif %}
 
                                 '{{ "Edit"|trans }}': function () {
-                                    url = "{{ path('web.main') }}calendar/agenda.php?action=edit&type=fromjs&id=" + calEvent.id + '&course_id=' + calEvent.course_id + "";
+                                    url = "{{ path('web.main') }}calendar/agenda.php?action=edit&type=fromjs&id=" + calEvent.id + '&course_id=' + calEvent.course_id + "&{{ api_get_cidreq }}";
                                     window.location.href = url;
                                     $("#dialog-form").dialog("close");
                                 },
