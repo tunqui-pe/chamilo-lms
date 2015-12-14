@@ -25,7 +25,7 @@ class AgendaSettingsSchema implements SchemaInterface
                     //'display_mini_month_calendar' => '', ??
                     'display_upcoming_events' => '', // ??
                     //'number_of_upcoming_events' => '0',
-                    //'default_calendar_view' => '',
+                    'default_calendar_view' => 'month',
                 )
             )
             ->setAllowedTypes(
@@ -34,9 +34,10 @@ class AgendaSettingsSchema implements SchemaInterface
                     //'display_mini_month_calendar' => array('string'),
                     'display_upcoming_events' => array('string'),
                     //'number_of_upcoming_events' => array('string'),
-                    //'default_calendar_view' => array('string'),
+                    'default_calendar_view' => array('string'),
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -49,7 +50,16 @@ class AgendaSettingsSchema implements SchemaInterface
             //->add('display_mini_month_calendar', 'yes_no')
             ->add('display_upcoming_events', 'yes_no')
             //->add('number_of_upcoming_events')
-            //->add('default_calendar_view', 'yes_no')
+            ->add(
+                'default_calendar_view',
+                'choice',
+                [
+                    'choices' => [
+                        'month' => 'Month',
+                        'week' => 'Week'
+                    ]
+                ]
+            )
 
         ;
     }
