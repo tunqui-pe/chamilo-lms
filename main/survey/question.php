@@ -63,18 +63,18 @@ if ($surveyData['survey_type'] == 1) {
         Display::addFlash(
             Display::return_message(get_lang('YouNeedToCreateGroups'))
         );
-		header('Location: '.api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.(int)$_GET['survey_id']);
+		header('Location: '.api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.(int)$_GET['survey_id'].'&'.api_get_cidreq());
 		exit;
 	}
 }
 
 // Breadcrumbs
 $interbreadcrumb[] = array(
-    'url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php',
+    'url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php?'.api_get_cidreq(),
     'name' => get_lang('SurveyList'),
 );
 $interbreadcrumb[] = array(
-    'url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.intval($_GET['survey_id']),
+    'url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq(),
     'name' => strip_tags($urlname),
 );
 
@@ -102,7 +102,7 @@ $possible_types = array(
 
 // Actions
 $actions = '<div class="actions">';
-$actions .= '<a href="'.api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.intval($_GET['survey_id']).'">'.
+$actions .= '<a href="'.api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">'.
 	Display::return_icon('back.png', get_lang('BackToSurvey'),'',ICON_SIZE_MEDIUM).'</a>';
 $actions .= '</div>';
 // Checking if it is a valid type

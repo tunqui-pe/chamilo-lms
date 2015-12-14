@@ -30,17 +30,22 @@ if ($hash_is_valid && $course_info) {
     $invitation_code = api_get_unique_id();
 
     $params = array(
-            'c_id' => $_REQUEST['c'],
-            'session_id' => $_REQUEST['s'],
-            'user' => $invitation_code,
-            'survey_code' => $survey_data['code'],
-            'invitation_code' => $invitation_code,
-            'invitation_date' => api_get_utc_datetime()
+        'c_id' => $_REQUEST['c'],
+        'session_id' => $_REQUEST['s'],
+        'user' => $invitation_code,
+        'survey_code' => $survey_data['code'],
+        'invitation_code' => $invitation_code,
+        'invitation_date' => api_get_utc_datetime()
     );
     $invitation_id = SurveyUtil::save_invitation($params);
 
     if ($invitation_id) {
-        $link = api_get_path(WEB_CODE_PATH).'survey/fillsurvey.php?invitationcode='.$invitation_code.'&course='.$course_info['code'];
+        $link = api_get_path(WEB_CODE_PATH).
+            'survey/fillsurvey.php
+            ?invitationcode='.$invitation_code.
+            '&course='.$course_info['code'].
+            'cidReq='.$course_info['code']
+        ;
         header('Location: '.$link);
         exit;
     }

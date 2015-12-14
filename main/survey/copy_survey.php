@@ -15,7 +15,10 @@ if (!api_is_allowed_to_edit()) {
 }
 
 // Breadcrumbs
-$interbreadcrumb[] = array('url' => '../course_info/maintenance.php', 'name' => get_lang('Maintenance'));
+$interbreadcrumb[] = array(
+    'url' => '../course_info/maintenance.php?'.api_get_cidreq(),
+    'name' => get_lang('Maintenance')
+);
 
 // The section (for the tabs)
 $this_section = SECTION_COURSES;

@@ -55,24 +55,30 @@ if (api_strlen(strip_tags($survey_data['title'])) > 40) {
 }
 
 // Breadcrumbs
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php', 'name' => get_lang('SurveyList'));
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id, 'name' => $urlname);
+$interbreadcrumb[] = array(
+	'url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php?'.api_get_cidreq(),
+	'name' => get_lang('SurveyList')
+);
 
+$interbreadcrumb[] = array(
+	'url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id.'&'.api_get_cidreq(),
+	'name' => $urlname
+);
 
 // Displaying the header
 Display::display_header($tool_name);
 
 // Checking the parameters
 if (!is_numeric($survey_id)) {
-	Display::display_error_message(get_lang('Error'), false);
-	Display::display_footer();
-	exit;
+    api_not_allowed(true, get_lang('Error'));
 }
 
 // Getting all the people who have filled this survey
 $answered_data = SurveyManager::get_people_who_filled_survey($survey_id);
 if ($survey_data['anonymous'] == 1) {
-	Display::display_normal_message(get_lang('AnonymousSurveyCannotKnowWhoAnswered').' '.count($answered_data).' '.get_lang('PeopleAnswered'));
+	Display::display_normal_message(
+        get_lang('AnonymousSurveyCannotKnowWhoAnswered').' '.count($answered_data).' '.get_lang('PeopleAnswered')
+    );
 	$answered_data = array();
 }
 
@@ -141,6 +147,3 @@ while ($row = Database::fetch_assoc($res)) {
 
 // Closing the table
 echo '</table>';
-
-// Footer
-Display :: display_footer();

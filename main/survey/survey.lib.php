@@ -1989,12 +1989,12 @@ class SurveyUtil
 
         // Actions bar
         echo '<div class="actions">';
-        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.Security::remove_XSS($_GET['survey_id']).'">'.
+        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">'.
             Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('ReportingOverview'),'',ICON_SIZE_MEDIUM).'</a>';
         if (isset($_GET['user'])) {
             if (api_is_allowed_to_edit()) {
                 // The delete link
-                echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?action=deleteuserreport&survey_id='.Security::remove_XSS($_GET['survey_id']).'&user='.Security::remove_XSS($_GET['user']).'" >'.
+                echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?action=deleteuserreport&survey_id='.intval($_GET['survey_id']).'&user='.Security::remove_XSS($_GET['user']).'&'.api_get_cidreq().'" >'.
                     Display::return_icon('delete.png', get_lang('Delete'),'',ICON_SIZE_MEDIUM).'</a>';
             }
 
@@ -2003,15 +2003,15 @@ class SurveyUtil
                 Display::return_icon('export_csv.png', get_lang('ExportAsCSV'),'',ICON_SIZE_MEDIUM).'</a> ';
             echo '<a href="javascript: void(0);" onclick="document.form1b.submit();">'.
                 Display::return_icon('export_excel.png', get_lang('ExportAsXLS'),'',ICON_SIZE_MEDIUM).'</a> ';
-            echo '<form id="form1a" name="form1a" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.Security::remove_XSS($_GET['survey_id']).'&user_id='.Security::remove_XSS($_GET['user']).'">';
+            echo '<form id="form1a" name="form1a" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&user_id='.Security::remove_XSS($_GET['user']).'&'.api_get_cidreq().'">';
             echo '<input type="hidden" name="export_report" value="export_report">';
             echo '<input type="hidden" name="export_format" value="csv">';
             echo '</form>';
-            echo '<form id="form1b" name="form1b" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.Security::remove_XSS($_GET['survey_id']).'&user_id='.Security::remove_XSS($_GET['user']).'">';
+            echo '<form id="form1b" name="form1b" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&user_id='.Security::remove_XSS($_GET['user']).'&'.api_get_cidreq().'">';
             echo '<input type="hidden" name="export_report" value="export_report">';
             echo '<input type="hidden" name="export_format" value="xls">';
             echo '</form>';
-            echo '<form id="form2" name="form2" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.Security::remove_XSS($_GET['survey_id']).'">';
+            echo '<form id="form2" name="form2" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">';
         }
         echo '</div>';
 
@@ -2177,8 +2177,8 @@ class SurveyUtil
         $action = Security::remove_XSS($_GET['action']);
 
         echo '<div class="actions">';
-        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.$surveyId.'">'.
-            Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('ReportingOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.$surveyId.'&'.api_get_cidreq().'">'.
+            Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('ReportingOverview'), '', ICON_SIZE_MEDIUM).'</a>';
         echo '</div>';
 
         if ($survey_data['number_of_questions'] > 0) {
@@ -2188,7 +2188,7 @@ class SurveyUtil
                 /* echo '<ul><li class="disabled"><a href="#">'.get_lang('Question').'</a></li>'; */
 
                 if ($currentQuestion != 0) {
-                    echo '<li><a href="' . api_get_path(WEB_CODE_PATH) . 'survey/reporting.php?action=' . $action . '&' . api_get_cidreq() . '&survey_id=' . $surveyId . '&question=' . ($offset - 1) . '">' . get_lang('PreviousQuestion') . '</a></li>';
+                    echo '<li><a href="' . api_get_path(WEB_CODE_PATH).'survey/reporting.php?action=' . $action . '&' . api_get_cidreq() . '&survey_id=' . $surveyId . '&question=' . ($offset - 1) . '">' . get_lang('PreviousQuestion') . '</a></li>';
                 }
 
                 for ($i = 1; $i <= $survey_data['number_of_questions']; $i++) {
@@ -2505,25 +2505,25 @@ class SurveyUtil
 
         // Actions bar
         echo '<div class="actions">';
-        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.Security::remove_XSS($_GET['survey_id']).'">
-		'.Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('ReportingOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">
+		'.Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('ReportingOverview'), '', ICON_SIZE_MEDIUM).'</a>';
         echo '<a class="survey_export_link" href="javascript: void(0);" onclick="document.form1a.submit();">
-		'.Display::return_icon('export_csv.png',get_lang('ExportAsCSV'),'',ICON_SIZE_MEDIUM).'</a>';
+		'.Display::return_icon('export_csv.png', get_lang('ExportAsCSV'), '', ICON_SIZE_MEDIUM).'</a>';
         echo '<a class="survey_export_link" href="javascript: void(0);" onclick="document.form1b.submit();">
-		'.Display::return_icon('export_excel.png',get_lang('ExportAsXLS'),'',ICON_SIZE_MEDIUM).'</a>';
+		'.Display::return_icon('export_excel.png', get_lang('ExportAsXLS'), '', ICON_SIZE_MEDIUM).'</a>';
         echo '</div>';
 
         // The form
-        echo '<form id="form1a" name="form1a" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.Security::remove_XSS($_GET['survey_id']).'">';
+        echo '<form id="form1a" name="form1a" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">';
         echo '<input type="hidden" name="export_report" value="export_report">';
         echo '<input type="hidden" name="export_format" value="csv">';
         echo '</form>';
-        echo '<form id="form1b" name="form1b" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.Security::remove_XSS($_GET['survey_id']).'">';
+        echo '<form id="form1b" name="form1b" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">';
         echo '<input type="hidden" name="export_report" value="export_report">';
         echo '<input type="hidden" name="export_format" value="xls">';
         echo '</form>';
 
-        echo '<form id="form2" name="form2" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.Security::remove_XSS($_GET['survey_id']).'">';
+        echo '<form id="form2" name="form2" method="post" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">';
 
         // The table
         echo '<br /><table class="data_table" border="1">';
@@ -3318,7 +3318,7 @@ class SurveyUtil
 
         // Actions bar
         echo '<div class="actions">';
-        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.intval($_GET['survey_id']).'">'.
+        echo '<a href="'.api_get_path(WEB_CODE_PATH).'survey/reporting.php?survey_id='.intval($_GET['survey_id']).'&'.api_get_cidreq().'">'.
                 Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('ReportingOverview'),'',ICON_SIZE_MEDIUM).'</a>';
         echo '</div>';
 
@@ -3329,7 +3329,7 @@ class SurveyUtil
         echo '<form id="form1" name="form1" method="get" action="'.api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&survey_id='.intval($_GET['survey_id']).'&xaxis='.Security::remove_XSS($_GET['xaxis']).'&y='.Security::remove_XSS($_GET['yaxis']).'">';
         // Survey_id
         echo '<input type="hidden" name="action" value="'.Security::remove_XSS($_GET['action']).'"/>';
-        echo '<input type="hidden" name="survey_id" value="'.Security::remove_XSS($_GET['survey_id']).'"/>';
+        echo '<input type="hidden" name="survey_id" value="'.intval($_GET['survey_id']).'"/>';
         // X axis
         echo get_lang('SelectXAxis').': ';
         echo '<select name="xaxis">';
@@ -3898,7 +3898,7 @@ class SurveyUtil
         $sender_user_id = api_get_user_id();
 
         $replyto = array();
-        if (api_get_setting('survey_email_sender_noreply') == 'noreply') {
+        if (api_get_setting('survey.survey_email_sender_noreply') == 'noreply') {
             $noreply = api_get_setting('mail.noreply_email_address');
             if (!empty($noreply)) {
                 $replyto['Reply-to'] = $noreply;

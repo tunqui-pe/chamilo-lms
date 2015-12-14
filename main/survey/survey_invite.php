@@ -18,10 +18,7 @@
 $this_section = SECTION_COURSES;
 
 if (!api_is_allowed_to_edit(false, true)) {
-	Display :: display_header(get_lang('ToolSurvey'));
-	Display :: display_error_message(get_lang('NotAllowed'), false);
-	Display :: display_footer();
-	exit;
+	api_not_allowed(true);
 }
 
 // Database table definitions
@@ -37,10 +34,7 @@ $course_id = api_get_course_int_id();
 $survey_id = Security::remove_XSS($_GET['survey_id']);
 $survey_data = SurveyManager::get_survey($survey_id);
 if (empty($survey_data)) {
-	Display :: display_header(get_lang('ToolSurvey'));
-	Display :: display_error_message(get_lang('InvallidSurvey'), false);
-	Display :: display_footer();
-	exit;
+	api_not_allowed(true, get_lang('InvallidSurvey'));
 }
 
 $urlname = strip_tags(api_substr(api_html_entity_decode($survey_data['title'], ENT_QUOTES), 0, 40));
@@ -49,7 +43,7 @@ if (api_strlen(strip_tags($survey_data['title'])) > 40) {
 }
 
 // Breadcrumbs
-$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php', 'name' => get_lang('SurveyList'));
+$interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'survey/survey_list.php?'.api_get_cidreq(), 'name' => get_lang('SurveyList'));
 if (api_is_course_admin()) {
     $interbreadcrumb[] = array(
         'url' => api_get_path(WEB_CODE_PATH).'survey/survey.php?survey_id='.$survey_id.'&'.api_get_cidreq(),
@@ -77,7 +71,9 @@ $(function() {
 // Checking if there is another survey with this code.
 // If this is the case there will be a language choice
 $sql = "SELECT * FROM $table_survey
-		WHERE c_id = $course_id AND code='".Database::escape_string($survey_data['code'])."'";
+		WHERE
+		  c_id = $course_id AND
+		  code='".Database::escape_string($survey_data['code'])."'";
 $result = Database::query($sql);
 if (Database::num_rows($result) > 1) {
 	Display::display_warning_message(get_lang('IdenticalSurveycodeWarning'));
@@ -98,7 +94,7 @@ $form = new FormValidator(
 	'post',
 	api_get_self().'?survey_id='.$survey_id.'&'.api_get_cidReq()
 );
-$form->addElement('header', '', $tool_name);
+$form->addElement('header', $tool_name);
 
 // Course users
 $complete_user_list = CourseManager::get_user_list_from_course_code(
@@ -111,7 +107,6 @@ $possible_users = array();
 foreach ($complete_user_list as & $user) {
 	$possible_users[$user['user_id']] = api_get_person_name($user['firstname'], $user['lastname']);
 }
-
 
 CourseManager::addUserGroupMultiSelect($form, array());
 
@@ -144,6 +139,7 @@ $form->addHtmlEditor(
 	'mail_text',
 	array(get_lang('MailText'), get_lang('UseLinkSyntax')),
 	false,
+    [],
 	array('ToolbarSet' => 'Survey', 'Height' => '150')
 );
 $form->addElement('html', '</div>');
