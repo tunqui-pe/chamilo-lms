@@ -53,34 +53,34 @@ class CourseSettingsSchema implements SchemaInterface
             ->setDefaults(
                 array(
                     'homepage_view' => 'activity_big',
-                    'show_tool_shortcuts' => '',
+                    'show_tool_shortcuts' => '', //?
                     'active_tools_on_create' => $tools,
-                    'display_coursecode_in_courselist' => '',
-                    'display_teacher_in_courselist' => '',
-                    'student_view_enabled' => '',
-                    'go_to_course_after_login' => '',
-                    'show_navigation_menu' => '',
-                    'enable_tool_introduction' => '',
-                    'breadcrumbs_course_homepage' => '',
-                    'example_material_course_creation' => '',
-                    'allow_course_theme' => '',
-                    'allow_users_to_create_courses' => '',
-                    'show_courses_descriptions_in_catalog' => '',
-                    'send_email_to_admin_when_create_course' => '',
-                    'allow_user_course_subscription_by_course_admin' => '',
-                    'course_validation' => '',
+                    'display_coursecode_in_courselist' => 'false',
+                    'display_teacher_in_courselist' => 'true',
+                    'student_view_enabled' => 'true',
+                    'go_to_course_after_login' => 'false',
+                    'show_navigation_menu' => 'false',
+                    'enable_tool_introduction' => 'false',
+                    'breadcrumbs_course_homepage' => 'course_title',
+                    'example_material_course_creation' => 'true',
+                    'allow_course_theme' => 'true',
+                    'allow_users_to_create_courses' => 'true',
+                    'show_courses_descriptions_in_catalog' => 'true',
+                    'send_email_to_admin_when_create_course' => 'false',
+                    'allow_user_course_subscription_by_course_admin' => 'true',
+                    'course_validation' => 'false',
                     'course_validation_terms_and_conditions_url' => '',
                     'course_hide_tools' => [],
-                    'scorm_cumulative_session_time' => '',
+                    'scorm_cumulative_session_time' => 'true',
                     'courses_default_creation_visibility' => '2',
                     //COURSE_VISIBILITY_OPEN_PLATFORM
-                    'allow_public_certificates' => '',
-                    'allow_lp_return_link' => '',
+                    'allow_public_certificates' => 'false',
+                    'allow_lp_return_link' => 'true',
                     'course_creation_use_template' => '',
-                    'hide_scorm_export_link' => '',
-                    'hide_scorm_copy_link' => '',
-                    'hide_scorm_pdf_link' => '',
-                    'course_catalog_published' => '',
+                    'hide_scorm_export_link' => 'false',
+                    'hide_scorm_copy_link' => 'false',
+                    'hide_scorm_pdf_link' => 'false',
+                    'course_catalog_published' => 'false',
                     'course_images_in_courses_list' => 'false'
                 )
             )
@@ -142,9 +142,9 @@ class CourseSettingsSchema implements SchemaInterface
                 array(
                     'choices' => array(
                         'false' => 'No',
-                        'icons' => 'Icons',
-                        'text' => 'text',
-                        'iconstext' => 'iconstext',
+                        'icons' => 'IconsOnly',
+                        'text' => 'TextOnly',
+                        'iconstext' => 'IconsText',
                     ),
                 )
             )
@@ -154,10 +154,10 @@ class CourseSettingsSchema implements SchemaInterface
                 'choice',
                 array(
                     'choices' => array(
-                        'course_home' => 'Course home',
-                        'course_code' => 'Course code',
-                        'course_title' => 'Course title',
-                        'session_name_and_course_title' => 'Session and course name',
+                        'course_home' => 'CourseHomepage',
+                        'course_code' => 'CourseCode',
+                        'course_title' => 'CourseTitle',
+                        'session_name_and_course_title' => 'SessionNameAndCourseTitle',
                     ),
                 )
             )
