@@ -1782,6 +1782,7 @@ class DocumentManager
         }
         $sql = 'SELECT document_id FROM ' . $tbl_category . '
                 WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
+
         $rs = Database::query($sql);
         $num = Database::num_rows($rs);
         if ($num == 0) {
@@ -1796,16 +1797,22 @@ class DocumentManager
      * allow replace user info in file html
      * @param int $user_id
      * @param string $course_code
+     * @param int $sessionId
      * @param bool $is_preview
      * @return string The html content of the certificate
      */
-    public static function replace_user_info_into_html($user_id, $course_code, $is_preview = false)
+    public static function replace_user_info_into_html($user_id, $course_code, $sessionId, $is_preview = false)
     {
         $user_id = intval($user_id);
         $course_info = api_get_course_info($course_code);
         $tbl_document = Database::get_course_table(TABLE_DOCUMENT);
         $course_id = $course_info['real_id'];
-        $document_id = self::get_default_certificate_id($course_code);
+
+        $document_id = self::get_default_certificate_id(
+            $course_code,
+            $sessionId
+        );
+
         $my_content_html = null;
         if ($document_id) {
             $sql = "SELECT path FROM $tbl_document
@@ -1820,6 +1827,7 @@ class DocumentManager
                     $my_content_html = file_get_contents($filepath);
                 }
                 $all_user_info = self::get_all_info_to_certificate($user_id, $course_code, $is_preview);
+
                 $info_to_be_replaced_in_content_html = $all_user_info[0];
                 $info_to_replace_in_content_html = $all_user_info[1];
                 $new_content = str_replace(
@@ -1855,7 +1863,7 @@ class DocumentManager
         $organization_name = api_get_setting('platform.institution');
         $portal_name = api_get_setting('platform.site_name');
 
-        //Extra user data information
+        // Extra user data information
         $extra_user_info_data = UserManager::get_extra_user_data(
             $user_id,
             false,
@@ -1863,6 +1871,10 @@ class DocumentManager
             false,
             true
         );
+
+        // get extra fields
+        $extraField = new ExtraField('user');
+        $extraFields = $extraField->get_all(['filter = ? AND visible = ?' => [1, 1]]);
 
         //Student information
         $user_info = api_get_user_info($user_id);
@@ -1896,7 +1908,8 @@ class DocumentManager
         $url = api_get_path(WEB_PATH) . 'certificates/index.php?id=' . $info_grade_certificate['id'];
 
         //replace content
-        $info_to_replace_in_content_html = array($first_name,
+        $info_to_replace_in_content_html = array(
+            $first_name,
             $last_name,
             $organization_name,
             $portal_name,
@@ -1930,15 +1943,17 @@ class DocumentManager
             '((certificate_barcode))',
         );
 
-        if (!empty($extra_user_info_data)) {
-            foreach ($extra_user_info_data as $key_extra => $value_extra) {
-                $info_to_be_replaced_in_content_html[] = '((' . strtolower($key_extra) . '))';
-                $info_to_replace_in_content_html[] = $value_extra;
+        if (!empty($extraFields)) {
+            foreach ($extraFields as $extraField) {
+                $valueExtra = isset($extra_user_info_data[$extraField['variable']]) ? $extra_user_info_data[$extraField['variable']] : '';
+                $info_to_be_replaced_in_content_html[] = '((' . strtolower($extraField['variable']) . '))';
+                $info_to_replace_in_content_html[] = $valueExtra;
             }
         }
 
         $info_list[] = $info_to_be_replaced_in_content_html;
         $info_list[] = $info_to_replace_in_content_html;
+
         return $info_list;
     }
 

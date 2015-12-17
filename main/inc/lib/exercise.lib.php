@@ -1088,6 +1088,7 @@ HTML;
                 return $s;
             }
         } elseif ($answerType == HOT_SPOT || $answerType == HOT_SPOT_DELINEATION) {
+            global $exerciseId;
             // Question is a HOT_SPOT
             //checking document/images visibility
             if (api_is_platform_admin() || api_is_course_admin()) {
@@ -1115,7 +1116,19 @@ HTML;
             $questionDescription = $objQuestionTmp->selectDescription();
 
             if ($freeze) {
-                echo Display::img($objQuestionTmp->selectPicturePath());
+                echo "
+                    <script>
+                        $(document).on('ready', function () {
+                            new " . ($answerType == HOT_SPOT ?  "HotspotQuestion" : "DelineationQuestion" ) . "({
+                                questionId: $questionId,
+                                exerciseId: $exerciseId,
+                                selector: '#hotspot-preview-$questionId',
+                                for: 'preview'
+                            });
+                        });
+                    </script>
+                    <div id=\"hotspot-preview-$questionId\"></div>
+                ";
                 return;
             }
 
@@ -1177,22 +1190,24 @@ HOTSPOT;
 
             $canClick = isset($_GET['editQuestion']) ? '0' : (isset($_GET['modifyAnswers']) ? '0' : '1');
 
-            $s .= <<<HOTSPOT
-                            <div class="col-sm-8 col-md-9">
-                                <div class="hotspot-image"></div>
+            $s .= "
+                            <div class=\"col-sm-8 col-md-9\">
+                                <div class=\"hotspot-image\"></div>
                                 <script>
                                     $(document).on('ready', function () {
-                                        HotSpotUser.init({
+                                        new " . ($answerType == HOT_SPOT_DELINEATION ? 'DelineationQuestion' : 'HotspotQuestion') . "({
                                             questionId: $questionId,
-                                            selector: '#question_div_' + $questionId + ' .hotspot-image'
+                                            selector: '#question_div_' + $questionId + ' .hotspot-image',
+                                            for: 'user'
                                         });
                                     });
                                 </script>
                             </div>
-                            <div class="col-sm-4 col-md-3">
+                            <div class=\"col-sm-4 col-md-3\">
                                 $answerList
                             </div>
-HOTSPOT;
+            ";
+
             echo <<<HOTSPOT
                             $s
                         </div>

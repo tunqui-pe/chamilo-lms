@@ -1166,7 +1166,6 @@ function api_protect_course_script($print_headers = false, $allow_session_admins
     if (api_is_platform_admin($allow_session_admins)) {
         return true;
     }
-
     if (isset($course_info) && isset($course_info['visibility'])) {
         switch ($course_info['visibility']) {
             default:
@@ -8130,6 +8129,8 @@ function api_mail_html(
 
     $mailView = new Template(null, false, false, false, false, false, false);
     $mailView->assign('content', $message);
+    $link = $additionalParameters['link'];
+    $mailView->assign('link', $link);
     $layout = $mailView->get_template('mail/mail.tpl');
     $mail->Body = $mailView->fetch($layout);
 
@@ -8220,6 +8221,27 @@ function api_protect_course_group($tool, $showHeader = true)
             api_not_allowed($showHeader);
         }
     }
+}
+
+/**
+ * Eliminate the duplicates of a multidimensional array by sending the key
+ * @param array $array multidimensional array
+ * @param int $key key to find to compare
+ *
+ */
+function api_unique_multidim_array($array, $key){
+    $temp_array = array();
+    $i = 0;
+    $key_array = array();
+
+    foreach($array as $val){
+        if(!in_array($val[$key],$key_array)){
+            $key_array[$i] = $val[$key];
+            $temp_array[$i] = $val;
+        }
+        $i++;
+    }
+    return $temp_array;
 }
 
 /**

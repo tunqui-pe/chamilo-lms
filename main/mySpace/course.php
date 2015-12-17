@@ -272,7 +272,7 @@ function get_courses($from, $limit, $column, $direction)
             }
 
             $courseIcon = '<a href="'.api_get_path(WEB_CODE_PATH).'tracking/courseLog.php?cidReq='.$courseCode.'&id_session='.$sessionId.'">
-                        <img src="'.api_get_path(WEB_IMG_PATH).'2rightarrow.gif" border="0" />
+                        '.Display::return_icon('2rightarrow.png', get_lang('Details')).'
                       </a>';
             $title = Display::url(
                 $data['title'],
