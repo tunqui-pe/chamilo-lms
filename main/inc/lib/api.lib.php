@@ -8003,6 +8003,8 @@ function api_mail_html(
     $senderName = !empty($senderName) ? $senderName : $defaultName;
     $senderEmail = !empty($senderEmail) ? $senderEmail : $defaultEmail;
 
+    $link = isset($additionalParameters['link']) ? $additionalParameters['link'] : '';
+
     $swiftMessage = \Swift_Message::newInstance()
         ->setSubject($subject)
         ->setFrom($senderEmail, $senderName)
@@ -8010,7 +8012,7 @@ function api_mail_html(
         ->setBody(
             Container::getTemplating()->render(
                 'ChamiloCoreBundle:default/mail:mail.html.twig',
-                array('content' => $message)
+                array('content' => $message, 'link' => $link)
             ),
             'text/html'
         )/*
