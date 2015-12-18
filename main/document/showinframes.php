@@ -369,8 +369,8 @@ if ($jplayer_supported) {
 }
 
 if ($is_freemind_available) {
+    echo api_get_js('js/swfobject/swfobject.js');
     ?>
-    <script type="text/javascript" src="<?php echo api_get_path(WEB_LIBRARY_PATH) ?>swfobject/swfobject.js"></script>
     <style type="text/css">
         #flashcontent {
             height: 500px;

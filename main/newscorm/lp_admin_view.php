@@ -222,7 +222,10 @@ $(function() {
 		//Write the newOrderData string out to the listResults form element
 		//$("#listResults").val(newOrderData);
 		var order = "new_order="+ newOrderData + "&a=update_lp_item_order";
-		$.post("<?php echo api_get_path(WEB_AJAX_PATH)?>lp.ajax.php", order, function(reponse){
+        $.post("<?php echo api_get_path(
+            WEB_AJAX_PATH
+        )?>lp.ajax.php?<?php echo api_get_cidreq(
+        ) ?>", order, function (reponse) {
             $("#message").html(reponse);
         });
 

@@ -162,7 +162,8 @@ if (!isset($src)) {
     switch ($lpType) {
         case 1:
             $learnPath->stop_previous_item();
-            $htmlHeadXtra[] = '<script src="scorm_api.php" type="text/javascript" language="javascript"></script>';
+            $htmlHeadXtra[] = '<script src="scorm_api.php?'.api_get_cidreq(
+                ).'" type="text/javascript" language="javascript"></script>';
             $preReqCheck = $learnPath->prerequisites_match($lp_item_id);
             if ($preReqCheck === true) {
                 $src = $learnPath->get_link(
@@ -195,7 +196,8 @@ if (!isset($src)) {
         case 2:
             // save old if asset
             $learnPath->stop_previous_item(); // save status manually if asset
-            $htmlHeadXtra[] = '<script src="scorm_api.php" type="text/javascript" language="javascript"></script>';
+            $htmlHeadXtra[] = '<script src="scorm_api.php?'.api_get_cidreq(
+                ).'" type="text/javascript" language="javascript"></script>';
             $preReqCheck = $learnPath->prerequisites_match($lp_item_id);
             if ($preReqCheck === true) {
                 $src = $learnPath->get_link('http', $lp_item_id, $get_toc_list);

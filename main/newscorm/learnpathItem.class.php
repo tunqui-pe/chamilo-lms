@@ -3928,9 +3928,9 @@ class learnpathItem
                     Database::update($item_view_table, $params, $where);
                 } else {
                     // For all other content types...
+                    $my_status = ' ';
+                    $total_time = ' ';
                     if ($this->type == 'quiz') {
-                        $my_status = ' ';
-                        $total_time = ' ';
                         if (!empty($_REQUEST['exeId'])) {
                             $TBL_TRACK_EXERCICES = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
 

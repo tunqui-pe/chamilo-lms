@@ -47,11 +47,16 @@ switch ($action) {
                 if ($_REQUEST['type'] == TOOL_QUIZ) {
                     $title = Exercise::format_title_variable($title);
                 }
+                $parentId = isset($_REQUEST['parent_id']) ? $_REQUEST['parent_id'] : '';
+                $previousId = isset($_REQUEST['previous_id']) ? $_REQUEST['previous_id'] : '';
+                $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
+                $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+
                 echo $learnPath->add_item(
-                    $_REQUEST['parent_id'],
-                    $_REQUEST['previous_id'],
-                    $_REQUEST['type'],
-                    $_REQUEST['id'],
+                    $parentId,
+                    $previousId,
+                    $type,
+                    $id,
                     $title,
                     null
                 );

@@ -43,7 +43,7 @@ if (api_is_in_gradebook()) {
     );
 }
 
-$learnPath = self::getCurrentLpFromSession();
+$learnPath = learnpath::getCurrentLpFromSession();
 
 $interbreadcrumb[] = array(
     'url' => 'lp_controller.php?action=list?'.api_get_cidreq(),

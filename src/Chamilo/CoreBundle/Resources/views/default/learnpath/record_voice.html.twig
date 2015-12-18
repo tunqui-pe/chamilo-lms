@@ -1,7 +1,10 @@
 {# <script type="text/javascript" src="{{ _p.web_lib }}javascript/rtc/RecordRTC.js"></script> #}
-<script type="text/javascript" src="{{ _p.web_lib }}swfobject/swfobject.js"></script>
-<script type="text/javascript" src="{{ _p.web_lib }}wami-recorder/recorder.js"></script>
-<script type="text/javascript" src="{{ _p.web_lib }}wami-recorder/gui.js"></script>
+<script type="text/javascript"
+        src="{{ asset('js/swfobject/swfobject.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('js/wami-recorder/recorder.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('js/wami-recorder/gui.js') }}"></script>
 
 <div id="rtc">
     <audio class="skip" id="audio" autoplay="" loop="" controls=""></audio>
@@ -24,7 +27,9 @@
 </div>
 
 <div id="nanogong">
-    <applet id="nanogongApplet" archive="{{ _p.web_lib }}nanogong/nanogong.jar" code="gong.NanoGong" width="250" height="95">
+    <applet id="nanogongApplet"
+            archive="{{ asset('js/nanogong/nanogong.jar') }}"
+            code="gong.NanoGong" width="250" height="95">
         <param name="ShowTime" value="true" />
         <param name="AudioFormat" value="ImaADPCM" />
         <param name="ShowSpeedButton" value="false" />
@@ -79,7 +84,7 @@ function submitVoice() {
     var filename = "{{ filename }}"; //adding name file, tag and extension
     var filename = encodeURIComponent(filename);
     var fileInput = 'file';
-    var urlNanoGong = "{{ _p.web_lib }}nanogong/upload_nanogong_file.php?lp_item_id={{ lp_item_id }}&filename="+filename+"&file_field="+fileInput+"&cidReq={{ course_code }}&path={{ cur_dir_path }}";
+    var urlNanoGong = "{{ url('web.main') }}inc/lib/javascript/nanogong/upload_nanogong_file.php?lp_item_id={{ lp_item_id }}&filename=" + filename + "&file_field=" + fileInput + "&cidReq={{ course_code }}&path={{ cur_dir_path }}";
     var cookie= "ch_sid=" + "{{ php_session_id }}";
 
     // Check
@@ -111,7 +116,7 @@ function setupRecorder() {
     Wami.setup({
         id : "wami",
         onReady : setupGUI,
-        swfUrl : "{{ _p.web_lib }}wami-recorder/Wami.swf"
+        swfUrl: "{{ url('web.main') }}inc/lib/javascript/wami-recorder/Wami.swf"
     });
 }
 
@@ -120,9 +125,9 @@ function setupGUI() {
     var gui = new Wami.GUI({
         id : "wami-recorder",
         singleButton : true,
-        recordUrl : "{{ _p.web_lib }}wami-recorder/record_document.php?lp_item_id={{ lp_item_id }}&waminame="+uniq+"&wamidir={{ cur_dir_path }}&wamiuserid={{ _u.user_id }}",
-        buttonUrl : "{{ _p.web_lib }}wami-recorder/buttons.png",
-        buttonNoUrl : "{{ _p.web_img }}blank.gif",
+        recordUrl: "{{ url('web.main') }}inc/lib/javascript/wami-recorder/record_document.php?lp_item_id={{ lp_item_id }}&waminame=" + uniq + "&wamidir={{ cur_dir_path }}&wamiuserid={{ app.user.id }}",
+        buttonUrl: "{{ url('web.main') }}inc/lib/javascript/wami-recorder/buttons.png",
+        buttonNoUrl: "{{ asset('blank.gif') }}",
         onRecordStart : function() {
             $('#start-recording').show();
         },
@@ -188,7 +193,7 @@ $(document).ready(function() {
         // POST the Blob
 
         $.ajax({
-            url:'{{ _p.web_ajax }}lp.ajax.php?a=record_audio&lp_item_id={{ lp_item_id }}',
+            url: '{{ url('web.ajax') }}lp.ajax.php?{{ api_get_cidreq }}&a=record_audio&lp_item_id={{ lp_item_id }}',
             data: formData,
             processData: false,
             contentType: false,

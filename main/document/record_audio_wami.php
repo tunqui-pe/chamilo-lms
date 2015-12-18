@@ -126,15 +126,13 @@ Display :: display_header($nameTools, 'Doc');
 echo '<div class="actions">';
 		echo '<a href="document.php?id='.$document_id.'">'.Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
 echo '</div>';
+// <!-- swfobject is a commonly used library to embed Flash content https://ajax.googleapis.com/ajax/libs/swfobject/2.2/ -->
+echo api_get_js('js/swfobject/swfobject.js');
+//<!-- Setup the recorder interface -->
+echo api_get_js('js/wami-recorder/recorder.js');
+//<!-- GUI code... take it or leave it -->
+echo api_get_js('js/wami-recorder/gui.js');
 ?>
-<!-- swfobject is a commonly used library to embed Flash content https://ajax.googleapis.com/ajax/libs/swfobject/2.2/ -->
-<script type="text/javascript" src="<?php echo api_get_path(WEB_LIBRARY_PATH) ?>swfobject/swfobject.js"></script>
-
-<!-- Setup the recorder interface -->
-<script type="text/javascript" src="<?php echo api_get_path(WEB_LIBRARY_PATH) ?>wami-recorder/recorder.js"></script>
-
-<!-- GUI code... take it or leave it -->
-<script type="text/javascript" src="<?php echo api_get_path(WEB_LIBRARY_PATH) ?>wami-recorder/gui.js"></script>
 <script type="text/javascript">
 	function newNameRecord() {
 		location.reload(true)

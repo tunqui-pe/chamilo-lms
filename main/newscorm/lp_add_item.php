@@ -41,7 +41,8 @@ $learnPath->get_js_dropdown_array() .
   'cbo.options[k].selected = true;'."\n" .
    //'}'."\n" .
 
-   '$(\'#previous\').selectpicker(\'refresh\');' .
+    '//$(\'#previous\').selectpicker(\'refresh\');
+   '.
 '}
 
 $(function() {

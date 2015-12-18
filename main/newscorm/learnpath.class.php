@@ -5730,7 +5730,7 @@ class learnpath
             $list .= $tree;
         } else {
             if ($drop_element_here) {
-                $list .= Display::return_message(get_lang("DragAndDropAnElementHere"));
+                $list .= get_lang("DragAndDropAnElementHere");
             }
         }
         $list .= '</ul>';
@@ -6308,7 +6308,7 @@ class learnpath
 
     /**
      * Returns the extension of a document
-     * @param string filename
+     * @param string $filename
      * @return string Extension (part after the last dot)
      */
     public function get_extension($filename)
@@ -7262,7 +7262,16 @@ class learnpath
                 $form->addElement('hidden', 'title');
             }
 
-            $parent_select = $form->addElement('select', 'parent', get_lang('Parent'), '', array('id' => 'idParent', 'onchange' => "javascript: load_cbo(this.value);"));
+            $parent_select = $form->addElement(
+                'select',
+                'parent',
+                get_lang('Parent'),
+                '',
+                array(
+                    'id' => 'idParent',
+                    'onchange' => "javascript: load_cbo(this.value);",
+                )
+            );
 
             foreach ($arrHide as $key => $value) {
                 $parent_select->addOption($value['value'], $key, 'style="padding-left:' . $value['padding'] . 'px;"');
@@ -7333,8 +7342,6 @@ class learnpath
             $renderer = $form->defaultRenderer();
             $renderer->setElementTemplate('<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{label}<br />{element}', 'content_lp');
 
-            $relative_prefix = '';
-
             $editor_config = array(
                 'ToolbarSet' => 'LearningPathDocuments',
                 'Width' => '100%',
@@ -7350,7 +7357,6 @@ class learnpath
                 $editor_config
             );
             $content_path = api_get_path(SYS_COURSE_PATH).api_get_course_path().$item_path_fck;
-            //$defaults['content_lp'] = file_get_contents($item_path);
             $defaults['content_lp'] = file_get_contents($content_path);
         }
 

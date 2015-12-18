@@ -1374,7 +1374,9 @@ function update_progress_bar(nbr_complete, nbr_total, mode) {
  * Update the gamification values (number of stars and score)
  */
 function updateGamificationValues() {
-    var fetchValues = $.ajax('<?php echo api_get_path(WEB_AJAX_PATH) ?>lp.ajax.php', {
+var fetchValues = $.ajax('<?php echo api_get_path(
+    WEB_AJAX_PATH
+) ?>lp.ajax.php?<?php echo api_get_cidreq() ?>', {
         dataType: 'json',
         data: {
             a: 'update_gamification'
@@ -1685,7 +1687,9 @@ var loadForumThead = function(lpId, lpItemId) {
     var loadForum = $.getJSON('<?php echo api_get_path(WEB_AJAX_PATH) ?>lp.ajax.php', {
             a: 'get_forum_thread',
             lp: lpId,
-            lp_item: lpItemId
+lp_item: lpItemId,
+cidReq : '<?php echo api_get_course_id(); ?>',
+id_session: '<?php echo api_get_session_id(); ?>'
         }
     );
 
