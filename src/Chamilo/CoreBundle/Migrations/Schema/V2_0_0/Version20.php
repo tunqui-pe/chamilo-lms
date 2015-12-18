@@ -124,9 +124,10 @@ class Version20 implements Migration, OrderedMigrationInterface
         // Settings to delete
 
         $settings = [
-            'session_page_enabled',
-            'session_tutor_reports_visibility',
-            'display_mini_month_calendar'
+            //'session_page_enabled',
+            //'session_tutor_reports_visibility',
+            'display_mini_month_calendar',
+            'number_of_upcoming_events',
         ];
 
         foreach ($settings as $setting) {

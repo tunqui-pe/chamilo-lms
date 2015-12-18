@@ -2478,8 +2478,10 @@ class Blog
 		$startdayofweek = $dayone['wday'] <> 0 ? ($dayone['wday'] - 1) : 6;
 		$blogId = isset($_GET['blog_id']) ? intval($_GET['blog_id']) : null;
 		$filter = isset($_GET['filter']) ? Security::remove_XSS($_GET['filter']) : null;
-		$backwardsURL = api_get_self()."?blog_id=" . $blogId."&filter=" . $filter."&month=". ($month == 1 ? 12 : $month -1)."&year=". ($month == 1 ? $year -1 : $year);
-		$forewardsURL = api_get_self()."?blog_id=" . $blogId."&filter=" . $filter."&month=". ($month == 12 ? 1 : $month +1)."&year=". ($month == 12 ? $year +1 : $year);
+		$backwardsURL = api_get_self()."?".api_get_cidreq(
+			)."&blog_id=".$blogId."&filter=".$filter."&month=".($month == 1 ? 12 : $month - 1)."&year=".($month == 1 ? $year - 1 : $year);
+		$forewardsURL = api_get_self()."?".api_get_cidreq(
+			)."&blog_id=".$blogId."&filter=".$filter."&month=".($month == 12 ? 1 : $month + 1)."&year=".($month == 12 ? $year + 1 : $year);
 
 		// Get posts for this month
 		$sql = "SELECT post.*, DAYOFMONTH(date_creation) as post_day, user.lastname, user.firstname

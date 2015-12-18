@@ -29,8 +29,8 @@ class SessionSettingsSchema implements SchemaInterface
                     'show_groups_to_users' => 'false',
                     'hide_courses_in_sessions' => 'false',
                     'allow_session_admins_to_manage_all_sessions' => 'false',
-                    //'session_tutor_reports_visibility' => '',
-                    //'session_page_enabled' => 'true',
+                    'session_tutor_reports_visibility' => 'false',
+                    'session_page_enabled' => 'true',
                     'allow_teachers_to_create_sessions' => 'false',
                     'prevent_session_admins_to_manage_all_users' => 'false',
                     'session_course_ordering' => 'false',
@@ -69,8 +69,8 @@ class SessionSettingsSchema implements SchemaInterface
             ->add('show_groups_to_users', 'yes_no')
             ->add('hide_courses_in_sessions', 'yes_no')
             ->add('allow_session_admins_to_manage_all_sessions', 'yes_no')
-            //->add('session_tutor_reports_visibility', 'yes_no')
-            //->add('session_page_enabled', 'yes_no')
+            ->add('session_tutor_reports_visibility', 'yes_no')
+            ->add('session_page_enabled', 'yes_no')
             ->add('allow_teachers_to_create_sessions', 'yes_no')
             ->add('prevent_session_admins_to_manage_all_users', 'yes_no')
             ->add('session_course_ordering',
