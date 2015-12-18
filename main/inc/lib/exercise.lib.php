@@ -931,12 +931,16 @@ JAVASCRIPT;
                                 <td width="10%">
 HTML;
                         $selectedValue = 0;
+                        $selectedPosition = 0;
                         $questionOptions = [];
+
+                        $iTempt = 0;
 
                         foreach ($select_items as $key => $val) {
                             if ($debug_mark_answer) {
                                 if ($val['id'] == $answerCorrect) {
                                     $selectedValue = $val['id'];
+                                    $selectedPosition = $iTempt;
                                 }
                             }
 
@@ -945,9 +949,11 @@ HTML;
                                 $val['id'] == $user_choice[$matching_correct_answer]['answer']
                             ) {
                                 $selectedValue = $val['id'];
+                                $selectedPosition = $iTempt;
                             }
 
                             $questionOptions[$val['id']] = $val['letter'];
+                            $iTempt++;
                         }
 
                         $s .= Display::select(
@@ -963,21 +969,22 @@ HTML;
 
                         if (!empty($answerCorrect) && !empty($selectedValue)) {
                             // Show connect if is not freeze (question preview)
-
                             if (!$freeze) {
                                 $s .= <<<JAVASCRIPT
                                 <script>
-                                    jsPlumb.ready(function() {
-                                        jsPlumb.connect({
-                                            source: 'window_$windowId',
-                                            target: 'window_{$questionId}_{$selectedValue}_answer',
-                                            endpoint: ['Blank', {radius: 15}],
-                                            anchors: ['RightMiddle', 'LeftMiddle'],
-                                            paintStyle: {strokeStyle: '#8A8888', lineWidth: 8},
-                                            connector: [
-                                                MatchingDraggable.connectorType,
-                                                {curvines: MatchingDraggable.curviness}
-                                            ]
+                                    $(document).on('ready', function () {
+                                        jsPlumb.ready(function() {
+                                            jsPlumb.connect({
+                                                source: 'window_$windowId',
+                                                target: 'window_{$questionId}_{$selectedPosition}_answer',
+                                                endpoint: ['Blank', {radius: 15}],
+                                                anchors: ['RightMiddle', 'LeftMiddle'],
+                                                paintStyle: {strokeStyle: '#8A8888', lineWidth: 8},
+                                                connector: [
+                                                    MatchingDraggable.connectorType,
+                                                    {curvines: MatchingDraggable.curviness}
+                                                ]
+                                            });
                                         });
                                     });
                                 </script>
@@ -1088,7 +1095,7 @@ HTML;
                 return $s;
             }
         } elseif ($answerType == HOT_SPOT || $answerType == HOT_SPOT_DELINEATION) {
-            global $exerciseId;
+            global $exerciseId, $exe_id;
             // Question is a HOT_SPOT
             //checking document/images visibility
             if (api_is_platform_admin() || api_is_course_admin()) {
@@ -1197,6 +1204,7 @@ HOTSPOT;
                                     $(document).on('ready', function () {
                                         new " . ($answerType == HOT_SPOT_DELINEATION ? 'DelineationQuestion' : 'HotspotQuestion') . "({
                                             questionId: $questionId,
+                                            exerciseId: $exe_id,
                                             selector: '#question_div_' + $questionId + ' .hotspot-image',
                                             for: 'user'
                                         });
