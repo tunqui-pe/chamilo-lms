@@ -26,7 +26,7 @@ class GlossarySettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'show_glossary_in_extra_tools' => array('array'),
+                    'show_glossary_in_extra_tools' => array('string'),
                 )
             );
     }
