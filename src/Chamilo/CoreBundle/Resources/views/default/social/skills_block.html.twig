@@ -37,37 +37,41 @@
                 </div>
             </h4>
         </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('.scrollbar-inner').scrollbar();
+            });
+        </script>
         <div id="skillList" class="panel-collapse collapse in" role="tabpanel"
              aria-labelledby="headingOne">
             <div class="panel-body">
                 {% if skills %}
-                    <figure class="list-badges">
-                        {% for skill in skills %}
-                            <figure class="thumbnail">
-                                <a href="{{ skill.issue_url }}" target="_blank">
-                                    <img title="{{ skill.name }}"
-                                         class="img-responsive"
-                                         src="{{ skill.icon }}" width="64"
-                                         height="64" alt="{{ skill.name }}">
-                                </a>
-                                <figcaption class="caption text-center">
-                                    <a href="{{ skill.issue_url }}"
+
+                    <div class="scrollbar-inner badges-sidebar">
+                        <ul class="list-unstyled list-badges">
+                            {% for skill in skills %}
+                                <li class="thumbnail">
+                                    <a href="{{ url('web.main') }}badge/{{ skill.id }}/user/{{ user_id }}"
                                        target="_blank">
-                                        {{ skill.name }}
-                                        {% if skill.source_name %}
-                                            <br>
-                                            <small>{{ skill.source_name }}</small>
-                                        {% endif %}
+                                        <img title="{{ skill.name }}"
+                                             class="img-responsive"
+                                             src="{{ skill.icon ? skill.web_icon_thumb_path : 'badges-default.png'|icon(64) }}"
+                                             width="64" height="64"
+                                             alt="{{ skill.name }}">
+                                        <div class="caption">
+                                            <p class="text-center">{{ skill.name }}</p>
+                                        </div>
                                     </a>
-                                </figcaption>
-                            </figure>
-                        {% endfor %}
-                    </figure>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
                 {% else %}
                     <p>{{ 'WithoutAchievedSkills'|trans }}</p>
                     <p>
-                        <a href="{{ url('web.main') ~ 'social/skills_wheel.php' }}">
-                            {{ 'SkillsWheel'|trans }}</a>
+                        <a href="{{ url('web.main') ~ 'social/skills_wheel.php' }}">{{ 'SkillsWheel'|trans }}</a>
                     </p>
                 {% endif %}
             </div>
