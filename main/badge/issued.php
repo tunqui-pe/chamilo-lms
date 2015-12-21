@@ -105,6 +105,40 @@ if ($allowExport) {
     $htmlHeadXtra[] = '<script src="' . $backpack . 'issuer.js"></script>';
 }
 
+$objSkill = new Skill();
+$skills = $objSkill->get($skillId);
+$unbakedBadge = api_get_path(SYS_UPLOAD_PATH) . "badges/".$skills['icon'];
+
+$unbakedBadge = file_get_contents($unbakedBadge);
+$badgeInfoError = false;
+$personalBadge = "";
+$png = new PNGImageBaker($unbakedBadge);
+
+if ($png->checkChunks("tEXt", "openbadges")) {
+    $bakedInfo = $png->addChunk("tEXt", "openbadges", $assertionUrl);
+    $bakedBadge = UserManager::getUserPathById($userId, "system");
+    $bakedBadge = $bakedBadge.'badges';
+    if (!file_exists($bakedBadge)) {
+        mkdir($bakedBadge, api_get_permissions_for_new_directories(), true);
+    }
+    $skillRelUserId = $userSkills[0]->getId();
+    if (!file_exists($bakedBadge . "/badge_" . $skillRelUserId)) {
+        file_put_contents($bakedBadge . "/badge_" . $skillRelUserId . ".png", $bakedInfo);
+    }
+    
+    //Process to validate a baked badge
+    $badgeContent = file_get_contents($bakedBadge . "/badge_" . $skillRelUserId . ".png");
+    $verifyBakedBadge = $png->extractBadgeInfo($badgeContent);
+    if (!is_array($verifyBakedBadge)) {
+        $badgeInfoError = true;
+    }
+
+    if (!$badgeInfoError) {
+        $personalBadge = UserManager::getUserPathById($userId, "web");
+        $personalBadge = $personalBadge."badges/badge_" . $skillRelUserId . ".png";  
+    }
+}
+
 echo Container::getTemplating()->render(
     '@template_style/skill/issued.html.twig',
     [
@@ -112,7 +146,8 @@ echo Container::getTemplating()->render(
         'skill_info' => $skillInfo,
         'user_info' => $userInfo,
         'allow_export' => $allowExport,
-
+        'badge_error' => $badgeInfoError,
+        'personal_badge' => $personalBadge
     ]
 );
 

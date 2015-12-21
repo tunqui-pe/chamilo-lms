@@ -1713,7 +1713,7 @@ id_session: '<?php echo api_get_session_id(); ?>'
         var forumIframe = $('<iframe>').attr({
             width:'100%',
             frameborder:'0',
-            scrolling:'no',
+            scrolling:'yes',
             tabindex:'0',
             id:'chamilo-disqus',
             src: '<?php echo api_get_path(WEB_CODE_PATH) ?>forum/viewthread.php?<?php echo api_get_cidreq() ?>&' + $.param({

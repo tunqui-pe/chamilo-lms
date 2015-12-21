@@ -1751,7 +1751,9 @@ if (isset($documentAndFolders) && is_array($documentAndFolders)) {
 
             $path_info = pathinfo($document_data['path']);
 
-            if (isset($path_info['extension']) && in_array($path_info['extension'], array('ogg', 'mp3', 'wav'))) {
+            if (isset($path_info['extension']) &&
+                in_array($path_info['extension'], array('ogg', 'mp3', 'wav'))
+            ) {
                 $count++;
             }
 
