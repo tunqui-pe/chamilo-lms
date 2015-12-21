@@ -40,8 +40,8 @@
      inkscape:window-height="1056"
      id="namedview114"
      showgrid="false"
-     inkscape:zoom="16.365214"
-     inkscape:cx="107.42677"
+     inkscape:zoom="4.619068"
+     inkscape:cx="121.02268"
      inkscape:cy="45.773084"
      inkscape:window-x="65"
      inkscape:window-y="24"
@@ -139,6 +139,43 @@
          id="stop3409"
          stop-color="#620000"
          stop-opacity=".98431"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3356"
+       y2="278.1"
+       gradientUnits="userSpaceOnUse"
+       x2="661.55"
+       y1="212.51"
+       x1="575.89">
+      <stop
+         id="stop3360"
+         stop-color="#029831"
+         offset="0" />
+      <stop
+         id="stop3372"
+         stop-color="#006c02"
+         offset=".5" />
+      <stop
+         id="stop3362"
+         stop-color="#003b2d"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3370"
+       y2="279.26999"
+       gradientUnits="userSpaceOnUse"
+       x2="663.65002"
+       y1="279.26999"
+       x1="572.87"
+       xlink:href="#linearGradient3356">
+      <stop
+         id="stop3366"
+         stop-color="#2e6b01"
+         offset="0" />
+      <stop
+         id="stop3368"
+         stop-color="#152c28"
          offset="1" />
     </linearGradient>
     <linearGradient

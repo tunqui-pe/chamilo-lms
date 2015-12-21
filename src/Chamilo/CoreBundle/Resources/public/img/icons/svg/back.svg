@@ -14,8 +14,8 @@
    width="128"
    height="128"
    id="svg5550"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="back.svg">
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="Nuvola_apps_forward_arrow.svg">
   <metadata
      id="metadata50">
     <rdf:RDF>
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -37,14 +37,14 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1855"
-     inkscape:window-height="1056"
+     inkscape:window-width="1280"
+     inkscape:window-height="1000"
      id="namedview48"
      showgrid="false"
-     inkscape:zoom="6.5323486"
-     inkscape:cx="29.938744"
+     inkscape:zoom="1.84375"
+     inkscape:cx="64"
      inkscape:cy="64"
-     inkscape:window-x="65"
+     inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg5550" />
@@ -78,6 +78,15 @@
          style="stop-color:#74AEFF"
          id="midPointStop161" />
     </linearGradient>
+    <linearGradient
+       x1="62.342285"
+       y1="16.278811"
+       x2="62.342285"
+       y2="63.596096"
+       id="linearGradient5371"
+       xlink:href="#linearGradient4619"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,-1,1,0,228.41483,453.78825)" />
     <radialGradient
        cx="27.575684"
        cy="107.81738"
@@ -144,6 +153,16 @@
          style="stop-color:#0035ED"
          id="midPointStop146" />
     </radialGradient>
+    <radialGradient
+       cx="323.32462"
+       cy="388.16513"
+       r="49.621826"
+       fx="323.32462"
+       fy="388.16513"
+       id="radialGradient5369"
+       xlink:href="#radialGradient4602"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.372197,2.0980656,1.6241756,1.0622582,147.33183,-673.31104)" />
     <linearGradient
        x1="64"
        y1="-1.1782227"
@@ -173,6 +192,15 @@
          style="stop-color:#0053BD"
          id="midPointStop113" />
     </linearGradient>
+    <linearGradient
+       x1="64"
+       y1="-1.1782227"
+       x2="63.999996"
+       y2="99.457672"
+       id="linearGradient5367"
+       xlink:href="#XMLID_4_"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,-1,-1,0,356.41483,457.10368)" />
     <filter
        id="filter5198">
       <feGaussianBlur
@@ -180,6 +208,34 @@
          stdDeviation="1.1236084"
          inkscape:collect="always" />
     </filter>
+    <linearGradient
+       x1="62.342285"
+       y1="16.278811"
+       x2="62.342285"
+       y2="63.596096"
+       id="linearGradient5598"
+       xlink:href="#linearGradient4619"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.5603033,0.5603033,0,278.07652,319.13948)" />
+    <radialGradient
+       cx="323.32462"
+       cy="388.16513"
+       r="49.621826"
+       fx="323.32462"
+       fy="388.16513"
+       id="radialGradient5601"
+       xlink:href="#radialGradient4602"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.7688465,-1.1755531,0.9100309,-0.5951868,232.64545,950.65693)" />
+    <linearGradient
+       x1="64"
+       y1="-1.1782227"
+       x2="63.999996"
+       y2="99.457672"
+       id="linearGradient5604"
+       xlink:href="#XMLID_4_"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.5603033,-0.5603033,0,349.79535,317.28183)" />
     <linearGradient
        x1="64"
        y1="-1.1782227"
