@@ -3139,7 +3139,7 @@ class DocumentManager
      */
     static function generate_jplayer_jquery($params = array())
     {
-        $js_path = api_get_path(WEB_LIBRARY_PATH) . 'javascript/';
+        $js_path = api_get_js('jplayer/dist/jplayer/', true);
 
         $js = ' $("#jquery_jplayer_' . $params['count'] . '").jPlayer({
                     ready: function() {
@@ -3152,7 +3152,7 @@ class DocumentManager
                     },
                     //errorAlerts: true,
                     //warningAlerts: true,
-                    swfPath: "' . $js_path . 'jquery-jplayer/jplayer/",
+                    swfPath: "'.$js_path.'",
                     //supplied: "m4a, oga, mp3, ogg, wav",
                     supplied: "' . $params['extension'] . '",
                     wmode: "window",

@@ -254,9 +254,13 @@ $execute_iframe = true;
 
 if ($jplayer_supported) {
     $extension = api_strtolower($pathinfo['extension']);
-    $js_path = api_get_path(WEB_LIBRARY_PATH).'javascript/';
-    $htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css">';
-    $htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jplayer/jquery.jplayer.min.js"></script>';
+    $js_path = api_get_js('jplayer/dist/jplayer/', true);
+    $htmlHeadXtra[] = api_get_css(
+        'components/jplayer/skin/blue.monday/css/jplayer.blue.monday.'
+    );
+    $htmlHeadXtra[] = api_get_js(
+        'components/jplayer/dist/jplayer/jquery.jplayer.min.js'
+    );
 
     $jquery = ' $("#jquery_jplayer_1").jPlayer({
                     ready: function() {
@@ -266,7 +270,7 @@ if ($jplayer_supported) {
                     },
                     errorAlerts: false,
                     warningAlerts: false,
-                     swfPath: "'.$js_path.'jquery-jplayer/jplayer/",
+                    swfPath: "'.$js_path.'",
                     //supplied: "m4a, oga, mp3, ogg, wav",
                     supplied: "'.$extension.'",
                     //wmode: "window",

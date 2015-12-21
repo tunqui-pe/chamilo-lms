@@ -6568,12 +6568,17 @@ function api_get_jquery_js()
 
 /**
  * Returns the <script> HTML tag
- *
+ * @param string $file
+ * @param bool $getURL
  * @return string
  */
-function api_get_js($file)
+function api_get_js($file, $getURL = false)
 {
     $url = Container::getAsset()->getUrl("bundles/chamilocore/".$file);
+
+    if ($getURL) {
+        return $url;
+    }
 
     return '<script type="text/javascript" src="'.$url.'"></script>'."\n";
 }
