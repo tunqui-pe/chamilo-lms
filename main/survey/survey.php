@@ -8,8 +8,6 @@
  */
 
 use ChamiloSession as Session;
-// Including the global initialization file
-////require_once '../inc/global.inc.php';
 
 $this_section = SECTION_COURSES;
 $current_course_tool  = TOOL_SURVEY;

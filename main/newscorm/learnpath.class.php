@@ -488,12 +488,12 @@ class learnpath
         $prerequisites = 0,
         $max_time_allowed = 0
     ) {
-        $course_id = api_get_course_int_id();
+        $course_id = $this->course_info['real_id'];
         if ($this->debug > 0) {
             error_log('New LP - In learnpath::add_item(' . $parent . ',' . $previous . ',' . $type . ',' . $id . ',' . $title . ')', 0);
         }
         $tbl_lp_item = Database :: get_course_table(TABLE_LP_ITEM);
-        $_course = api_get_course_info();
+        $_course = $this->course_info;
         $parent = intval($parent);
         $previous = intval($previous);
         $id = intval($id);
@@ -567,7 +567,7 @@ class learnpath
             $max_score = Database :: result($rsQuiz, 0, 0);
 
             // Disabling the exercise if we add it inside a LP
-            $exercise = new Exercise();
+            $exercise = new Exercise($course_id);
             $exercise->read($id);
             $exercise->disable();
             $exercise->save();
@@ -710,7 +710,7 @@ class learnpath
      * @return	integer	The new learnpath ID on success, 0 on failure
      */
     public static function add_lp(
-        $course,
+        $courseCode,
         $name,
         $description = '',
         $learnpath = 'guess',
@@ -721,7 +721,15 @@ class learnpath
         $categoryId = 0
     ) {
         global $charset;
-        $course_id = api_get_course_int_id();
+
+        if (!empty($courseCode)) {
+            $courseInfo = api_get_course_info($courseCode);
+            $course_id = $courseInfo['real_id'];
+        } else {
+            $course_id = api_get_course_int_id();
+            $courseInfo = api_get_course_info();
+        }
+
         $tbl_lp = Database :: get_course_table(TABLE_LP_MAIN);
         // Check course code exists.
         // Check lp_name doesn't exist, otherwise append something.
@@ -819,16 +827,15 @@ class learnpath
                     $sql = "UPDATE $tbl_lp SET id = iid WHERE iid = $id";
                     Database::query($sql);
 
-                    $course_info = api_get_course_info();
                     // Insert into item_property.
                     api_item_property_update(
-                        $course_info,
+                        $courseInfo,
                         TOOL_LEARNPATH,
                         $id,
                         'LearnpathAdded',
                         api_get_user_id()
                     );
-                    api_set_default_visibility($id, TOOL_LEARNPATH);
+                    api_set_default_visibility($id, TOOL_LEARNPATH, 0, $courseInfo);
                     return $id;
                 }
                 break;
@@ -985,14 +992,17 @@ class learnpath
 
     /**
      * Static admin function allowing removal of a learnpath
-     * @param	string	Course code
+     * @param	array $courseInfo
      * @param	integer	Learnpath ID
      * @param	string	Whether to delete data or keep it (default: 'keep', others: 'remove')
      * @return	boolean	True on success, false on failure (might change that to return number of elements deleted)
      */
-    public function delete($course = null, $id = null, $delete = 'keep')
+    public function delete($courseInfo = null, $id = null, $delete = 'keep')
     {
         $course_id = api_get_course_int_id();
+        if (!empty($courseInfo)) {
+            $course_id = isset($courseInfo['real_id']) ? $courseInfo['real_id'] : $course_id;
+        }
 
         // TODO: Implement a way of getting this to work when the current object is not set.
         // In clear: implement this in the item class as well (abstract class) and use the given ID in queries.
@@ -5643,30 +5653,64 @@ class learnpath
                 // No edit for this item types
                 if (!in_array($arrLP[$i]['item_type'], array('sco', 'asset'))) {
                     if (!in_array($arrLP[$i]['item_type'], array('dokeos_chapter', 'dokeos_module'))) {
-                        $edit_icon .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=edit_item&view=build&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '&path_item=' . $arrLP[$i]['path'] . '">';
+                        $edit_icon .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=edit_item&view=build&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '&path_item=' . $arrLP[$i]['path'] . '" class="btn btn-default">';
                         $edit_icon .= Display::return_icon('edit.png', get_lang('LearnpathEditModule'), array(), ICON_SIZE_TINY);
                         $edit_icon .= '</a>';
+
+                        if (
+                        !in_array($arrLP[$i]['item_type'], ['forum', 'thread'])
+                        ) {
+                            if (
+                            $this->items[$arrLP[$i]['id']]->getForumThread(
+                                $this->course_int_id,
+                                $this->lp_session_id
+                            )
+                            ) {
+                                $forumIcon = Display::url(
+                                    Display::return_icon('forum.png', get_lang('CreateForum'), [], ICON_SIZE_TINY),
+                                    '#',
+                                    ['class' => 'btn btn-default disabled']
+                                );
                     } else {
-                        $edit_icon .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=edit_item&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '&path_item=' . $arrLP[$i]['path'] . '">';
+                                $forumIconUrl = api_get_self() . '?' . api_get_cidreq() . '&' . http_build_query([
+                                        'action' => 'create_forum',
+                                        'id' => $arrLP[$i]['id'],
+                                        'lp_id' => $this->lp_id
+                                    ]);
+                                $forumIcon = Display::url(
+                                    Display::return_icon('forum.png', get_lang('CreateForum'), [], ICON_SIZE_TINY),
+                                    $forumIconUrl,
+                                    ['class' => "btn btn-default"]
+                                );
+                            }
+                        }
+                    } else {
+                        $edit_icon .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=edit_item&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '&path_item=' . $arrLP[$i]['path'] . '" class="btn btn-default">';
                         $edit_icon .= Display::return_icon('edit.png', get_lang('LearnpathEditModule'), array(), ICON_SIZE_TINY);
                         $edit_icon .= '</a>';
                     }
                 }
 
-                $delete_icon .= ' <a href="'.api_get_self().'?'.api_get_cidreq().'&action=delete_item&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '" onClick="return confirmation(\'' . addslashes($title) . '\');">';
+                $delete_icon .= ' <a href="'.api_get_self().'?'.api_get_cidreq().'&action=delete_item&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '" onclick="return confirmation(\'' . addslashes($title) . '\');" class="btn btn-default">';
                 $delete_icon .= Display::return_icon('delete.png', get_lang('LearnpathDeleteModule'), array(), ICON_SIZE_TINY);
                 $delete_icon .= '</a>';
 
                 $url = api_get_self() . '?'.api_get_cidreq().'&view=build&id='.$arrLP[$i]['id'] .'&lp_id='.$this->lp_id;
 
                 if (!in_array($arrLP[$i]['item_type'], array('dokeos_chapter', 'dokeos_module', 'dir'))) {
-                    $prerequisities_icon = Display::url(Display::return_icon('accept.png', get_lang('LearnpathPrerequisites'), array(), ICON_SIZE_TINY), $url.'&action=edit_item_prereq');
-                    $move_item_icon = Display::url(Display::return_icon('move.png', get_lang('Move'), array(), ICON_SIZE_TINY), $url.'&action=move_item');
-                    $audio_icon = Display::url(Display::return_icon('audio.png', get_lang('UplUpload'), array(), ICON_SIZE_TINY), $url.'&action=add_audio');
+                    $prerequisities_icon = Display::url(Display::return_icon('accept.png', get_lang('LearnpathPrerequisites'), array(), ICON_SIZE_TINY), $url.'&action=edit_item_prereq', ['class' => 'btn btn-default']);
+                    $move_item_icon = Display::url(Display::return_icon('move.png', get_lang('Move'), array(), ICON_SIZE_TINY), $url.'&action=move_item', ['class' => 'btn btn-default']);
+                    $audio_icon = Display::url(Display::return_icon('audio.png', get_lang('UplUpload'), array(), ICON_SIZE_TINY), $url.'&action=add_audio', ['class' => 'btn btn-default']);
                 }
             }
             if ($update_audio != 'true') {
-                $row = $move_icon.' '.$icon.Display::span($title_cut).Display::span($audio.$edit_icon.$prerequisities_icon.$move_item_icon.$audio_icon.$delete_icon, array('class'=>'button_actions'));
+                $row = $move_icon . ' ' . $icon .
+                    Display::span($title_cut) .
+                    Display::tag(
+                        'div',
+                        "<div class=\"btn-group btn-group-xs\">$audio $edit_icon $forumIcon $prerequisities_icon $move_item_icon $audio_icon $delete_icon</div>",
+                        array('class'=>'btn-toolbar button_actions')
+                    );
             } else {
                 $row = Display::span($title.$icon).Display::span($audio, array('class'=>'button_actions'));
             }
@@ -5919,18 +5963,24 @@ class learnpath
 
     /**
      * Create a new document //still needs some finetuning
-     * @param array $_course
+     * @param array $courseInfo
+     * @param string $content
+     * @param string $title
+     * @param string $extension
+     *
      * @return string
      */
-    public function create_document($_course)
+    public function create_document($courseInfo, $content = '', $title = '', $extension = 'html')
     {
-        $course_id = api_get_course_int_id();
-        global $charset;
-        $dir = isset($_GET['dir']) ? $_GET['dir'] : '';
-        if (empty($dir)) {
-            $dir = isset($_POST['dir']) ? $_POST['dir'] : '';
+        if (!empty($courseInfo)) {
+            $course_id = $courseInfo['real_id'];
+        } else {
+            $course_id = api_get_course_int_id();
         }
 
+        global $charset;
+        $postDir = isset($_POST['dir']) ? $_POST['dir'] : '';
+        $dir = isset ($_GET['dir']) ? $_GET['dir'] : $postDir; // Please, do not modify this dirname formatting.
         // Please, do not modify this dirname formatting.
         if (strstr($dir, '..'))
             $dir = '/';
@@ -5943,35 +5993,43 @@ class learnpath
         if (isset($dir[strlen($dir) - 1]) && $dir[strlen($dir) - 1] != '/')
             $dir .= '/';
 
-        $filepath = api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/document' . $dir;
+        $filepath = api_get_path(SYS_COURSE_PATH) . $courseInfo['path'] . '/document' . $dir;
 
         if (empty($_POST['dir']) && empty($_GET['dir'])) {
             //Generates folder
-            $result     = $this->generate_lp_folder($_course);
+            $result = $this->generate_lp_folder($courseInfo);
             $dir 		= $result['dir'];
             $filepath 	= $result['filepath'];
         }
 
         if (!is_dir($filepath)) {
-            $filepath = api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/document/';
+            $filepath = api_get_path(SYS_COURSE_PATH) . $courseInfo['path'] . '/document/';
             $dir = '/';
         }
 
         // stripslashes() before calling api_replace_dangerous_char() because $_POST['title']
         // is already escaped twice when it gets here.
-        $title = api_replace_dangerous_char(stripslashes($_POST['title']));
+
+        $originalTitle = !empty($title) ? $title : $_POST['title'];
+        if (!empty($title)) {
+            $title = api_replace_dangerous_char(stripslashes($title));
+        } else {
+            $title = api_replace_dangerous_char(stripslashes($_POST['title']));
+        }
+
         $title = disable_dangerous_file($title);
 
         $filename = $title;
-        $content = $_POST['content_lp'];
+
+        $content = isset($content) ? $content : $_POST['content_lp'];
 
         $tmp_filename = $filename;
 
         $i = 0;
-        while (file_exists($filepath . $tmp_filename . '.html'))
+        while (file_exists($filepath . $tmp_filename . '.'.$extension))
             $tmp_filename = $filename . '_' . ++ $i;
 
-        $filename = $tmp_filename . '.html';
+        $filename = $tmp_filename . '.'.$extension;
         $content = stripslashes($content);
 
         $content = str_replace(api_get_path(WEB_COURSE_PATH), api_get_path(REL_PATH).'courses/', $content);
@@ -5979,9 +6037,9 @@ class learnpath
         // Change the path of mp3 to absolute.
 
         // The first regexp deals with :// urls.
-        $content = preg_replace("|(flashvars=\"file=)([^:/]+)/|", "$1" . api_get_path(REL_COURSE_PATH) . $_course['path'] . '/document/', $content);
+        $content = preg_replace("|(flashvars=\"file=)([^:/]+)/|", "$1" . api_get_path(REL_COURSE_PATH) . $courseInfo['path'] . '/document/', $content);
         // The second regexp deals with audio/ urls.
-        $content = preg_replace("|(flashvars=\"file=)([^/]+)/|", "$1" . api_get_path(REL_COURSE_PATH) . $_course['path'] . '/document/$2/', $content);
+        $content = preg_replace("|(flashvars=\"file=)([^/]+)/|", "$1" . api_get_path(REL_COURSE_PATH) . $courseInfo['path'] . '/document/$2/', $content);
         // For flv player: To prevent edition problem with firefox, we have to use a strange tip (don't blame me please).
         $content = str_replace('</body>', '<style type="text/css">body{}</style></body>', $content);
 
@@ -5994,7 +6052,7 @@ class learnpath
                 $save_file_path = $dir.$filename;
 
                 $document_id = add_document(
-                    $_course,
+                    $courseInfo,
                     $save_file_path,
                     'file',
                     $file_size,
@@ -6003,7 +6061,7 @@ class learnpath
 
                 if ($document_id) {
                     api_item_property_update(
-                        $_course,
+                        $courseInfo,
                         TOOL_DOCUMENT,
                         $document_id,
                         'DocumentAdded',
@@ -6016,7 +6074,7 @@ class learnpath
                     );
 
                     $new_comment = (isset($_POST['comment'])) ? trim($_POST['comment']) : '';
-                    $new_title = (isset($_POST['title'])) ? trim($_POST['title']) : '';
+                    $new_title = $originalTitle;
 
                     if ($new_comment || $new_title) {
                         $tbl_doc = Database :: get_course_table(TABLE_DOCUMENT);
@@ -7381,7 +7439,7 @@ class learnpath
         $tbl_doc = Database :: get_course_table(TABLE_DOCUMENT);
 
         $no_display_edit_textarea = false;
-
+        $item_description = '';
         //If action==edit document
         //We don't display the document form if it's not an editable document (html or txt file)
         if ($action == "edit") {
@@ -7915,8 +7973,6 @@ class learnpath
             $item_title = get_lang('Student_publication');
         }
 
-        $legend = '<legend>';
-
         if ($id != 0 && is_array($extra_info)) {
             $parent = $extra_info['parent_item_id'];
         } else {
@@ -7950,73 +8006,102 @@ class learnpath
         $arrLP = isset($this->arrMenu) ? $this->arrMenu : null;
         unset ($this->arrMenu);
 
+        $form = new FormValidator('frm_student_publication', 'post', '#');
+
         if ($action == 'add') {
-            $legend .= get_lang('Student_publication') . '&nbsp;:' . "\n";
+            $form->addHeader(get_lang('Student_publication'));
         } elseif ($action == 'move') {
-            $legend .= get_lang('MoveCurrentStudentPublication') . '&nbsp;:' . "\n";
+            $form->addHeader(get_lang('MoveCurrentStudentPublication'));
         } else {
-            $legend .= get_lang('EditCurrentStudentPublication') . '&nbsp;:' . "\n";
+            $form->addHeader(get_lang('EditCurrentStudentPublication'));
         }
-        $legend .= '</legend>';
 
-        $return = '<div class="sectioncomment">';
-        $return .= '<form method="POST">';
-        $return .= $legend;
-        $return .= '<table class="lp_form">';
         if ($action != 'move') {
-            $return .= '<tr>';
-            $return .= '<td class="label"><label for="idTitle">' . get_lang('Title') . '</label></td>';
-            $return .= '<td class="input"><input id="idTitle" name="title" size="44" type="text" value="' . $item_title . '" class="learnpath_item_form" /></td>';
-            $return .= '</tr>';
+            $form->addText('title', get_lang('Title'), true, ['class' => 'learnpath_item_form', 'id' => 'idTitle']);
         }
-        $return .= '<tr>';
-        $return .= '<td class="label"><label for="idParent">' . get_lang('Parent') . '</label></td>';
-        $return .= '<td class="input">';
-        $return .= '<select id="idParent" name="parent" style="width:100%;" onChange="javascript: load_cbo(this.value);" class="learnpath_item_form" size="1">';
 
-        $return .= '<option class="top" value="0">' . $this->name . '</option>';
+        $parentSelect = $form->addSelect(
+            'parent',
+            get_lang('Parent'),
+            ['0' => $this->name],
+            [
+                'onchange' => 'javascript: load_cbo(this.value);',
+                'class' => 'learnpath_item_form',
+                'id' => 'idParent'
+            ]
+        );
+
         $arrHide = array (
             $id
         );
 
         for ($i = 0; $i < count($arrLP); $i++) {
             if ($action != 'add') {
-                if (($arrLP[$i]['item_type'] == 'dokeos_module' || $arrLP[$i]['item_type'] == 'dokeos_chapter' || $arrLP[$i]['item_type'] == 'dir') && !in_array($arrLP[$i]['id'], $arrHide) && !in_array($arrLP[$i]['parent_item_id'], $arrHide)) {
-                    $return .= '<option ' . (($parent == $arrLP[$i]['id']) ? 'selected="selected" ' : '') . 'style="padding-left:' . ($arrLP[$i]['depth'] * 10) . 'px;" value="' . $arrLP[$i]['id'] . '">' . $arrLP[$i]['title'] . '</option>';
+                if (
+                    (
+                        $arrLP[$i]['item_type'] == 'dokeos_module' ||
+                        $arrLP[$i]['item_type'] == 'dokeos_chapter' ||
+                        $arrLP[$i]['item_type'] == 'dir'
+                    ) &&
+                    !in_array($arrLP[$i]['id'], $arrHide) &&
+                    !in_array($arrLP[$i]['parent_item_id'], $arrHide)
+                ) {
+                    $parentSelect->addOption(
+                        $arrLP[$i]['title'],
+                        $arrLP[$i]['id'],
+                        ['style' => 'padding-left: ' . (($arrLP[$i]['depth'] * 10) + 20) . 'px;']
+                    );
+
+                    if ($parent == $arrLP[$i]['id']) {
+                        $parentSelect->setSelected($arrLP[$i]['id']);
+                    }
                 } else {
                     $arrHide[] = $arrLP[$i]['id'];
                 }
             } else {
-                if ($arrLP[$i]['item_type'] == 'dokeos_module' || $arrLP[$i]['item_type'] == 'dokeos_chapter' || $arrLP[$i]['item_type'] == 'dir')
-                    $return .= '<option ' . (($parent == $arrLP[$i]['id']) ? 'selected="selected" ' : '') . 'style="padding-left:' . ($arrLP[$i]['depth'] * 10) . 'px;" value="' . $arrLP[$i]['id'] . '">' . $arrLP[$i]['title'] . '</option>';
+                if (
+                    $arrLP[$i]['item_type'] == 'dokeos_module' ||
+                    $arrLP[$i]['item_type'] == 'dokeos_chapter' || $arrLP[$i]['item_type'] == 'dir'
+                ) {
+                    $parentSelect->addOption(
+                        $arrLP[$i]['title'],
+                        $arrLP[$i]['id'],
+                        ['style' => 'padding-left: ' . (($arrLP[$i]['depth'] * 10) + 20) . 'px;']
+                    );
+
+                    if ($parent == $arrLP[$i]['id']) {
+                        $parentSelect->setSelected($arrLP[$i]['id']);
+                    }
+                }
             }
         }
 
         if (is_array($arrLP)) {
             reset($arrLP);
         }
-        $return .= '</select>';
-        $return .= '</td>';
-        $return .= '</tr>';
-        $return .= '<tr>';
-        $return .= '<td class="label"><label for="previous">' . get_lang('Position') . '</label></td>';
-        $return .= '<td class="input">';
-        $return .= '<select id="previous" name="previous" style="width:100%;" size="1" class="learnpath_item_form">';
-        $return .= '<option class="top" value="0">' . get_lang('FirstPosition') . '</option>';
+
+        $previousSelect = $form->addSelect(
+            'previous',
+            get_lang('Position'),
+            ['0' => get_lang('FirstPosition')],
+            ['id' => 'previous', 'class' => 'learnpath_item_form']
+        );
+
         for ($i = 0; $i < count($arrLP); $i++) {
             if ($arrLP[$i]['parent_item_id'] == $parent && $arrLP[$i]['id'] != $id) {
-                if ($extra_info['previous_item_id'] == $arrLP[$i]['id'])
-                    $selected = 'selected="selected" ';
-                elseif ($action == 'add') $selected = 'selected="selected" ';
-                else
-                    $selected = '';
+                $previousSelect->addOption(
+                    get_lang('After') . ' "' . $arrLP[$i]['title'] . '"',
+                    $arrLP[$i]['id']
+                );
 
-                $return .= '<option ' . $selected . 'value="' . $arrLP[$i]['id'] . '">' . get_lang('After') . ' "' . $arrLP[$i]['title'] . '"</option>';
+                if ($extra_info['previous_item_id'] == $arrLP[$i]['id']) {
+                    $previousSelect->setSelected($arrLP[$i]['id']);
+                } elseif ($action == 'add') {
+                    $previousSelect->setSelected($arrLP[$i]['id']);
+                }
             }
         }
-        $return .= '</select>';
-        $return .= '</td>';
-        $return .= '</tr>';
+
         if ($action != 'move') {
             $id_prerequisite = 0;
             if (is_array($arrLP)) {
@@ -8037,31 +8122,31 @@ class learnpath
 
                 }
             }
-            $return .= '</tr>';
         }
 
-        $return .= '<tr>';
         if ($action == 'add') {
-            $return .= '<td>&nbsp</td><td><button class="btn btn-primary" name="submit_button" type="submit">' . get_lang('AddAssignmentToCourse') . '</button></td>';
+            $form->addButtonCreate(get_lang('AddAssignmentToCourse'), 'submit_button');
         } else {
-            $return .= '<td>&nbsp</td><td><button class="btn btn-primary" name="submit_button" type="submit">' . get_lang('EditCurrentStudentPublication') . '</button></td>';
+            $form->addButtonCreate(get_lang('EditCurrentStudentPublication'), 'submit_button');
         }
-        $return .= '</tr>';
-        $return .= '</table>';
 
         if ($action == 'move') {
-            $return .= '<input name="title" type="hidden" value="' . $item_title . '" />';
-            $return .= '<input name="description" type="hidden" value="' . $item_description . '" />';
+            $form->addHidden('title', $item_title);
+            $form->addHidden('description', $item_description);
         }
 
         if (is_numeric($extra_info)) {
-            $return .= '<input name="path" type="hidden" value="' . $extra_info . '" />';
+            $form->addHidden('path', $extra_info);
         } elseif (is_array($extra_info)) {
-            $return .= '<input name="path" type="hidden" value="' . $extra_info['path'] . '" />';
+            $form->addHidden('path', $extra_info['path']);
         }
-        $return .= '<input name="type" type="hidden" value="' . TOOL_STUDENTPUBLICATION . '" />';
-        $return .= '<input name="post_time" type="hidden" value="' . time() . '" />';
-        $return .= '</form>';
+
+        $form->addHidden('type', TOOL_STUDENTPUBLICATION);
+        $form->addHidden('post_time', time());
+        $form->setDefaults(['title' => $item_title]);
+
+        $return = '<div class="sectioncomment">';
+        $return .= $form->returnForm();
         $return .= '</div>';
 
         return $return;
