@@ -107,7 +107,7 @@ if (!api_is_allowed_to_edit() && !$is_visible) {
 }
 
 $pathinfo = pathinfo($header_file);
-$jplayer_supported_files = array('mp4', 'ogv','flv');
+$jplayer_supported_files = array('mp4', 'ogv', 'flv', 'm4v');
 $jplayer_supported = false;
 
 if (in_array(strtolower($pathinfo['extension']), $jplayer_supported_files)) {
@@ -254,6 +254,9 @@ $execute_iframe = true;
 
 if ($jplayer_supported) {
     $extension = api_strtolower($pathinfo['extension']);
+    if ($extension == 'mp4')  {
+        $extension = 'm4v';
+    }
     $js_path = api_get_js('jplayer/dist/jplayer/', true);
     $htmlHeadXtra[] = api_get_css(
         'components/jplayer/skin/blue.monday/css/jplayer.blue.monday.'
@@ -366,9 +369,11 @@ if ($show_web_odf) {
 echo '</div>';
 
 if ($jplayer_supported) {
-    echo '<br /><div class="span12" style="margin:0 auto; width:100%; text-align:center;">';
+    echo '<br />';
+    echo '<div class="col-md-3 col-md-offset-3">';
     echo DocumentManager::generate_video_preview($document_data);
     echo '</div>';
+    //Display::$global_template->assign('show_media_element', 0);
 }
 
 if ($is_freemind_available) {
