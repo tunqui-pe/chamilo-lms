@@ -41,7 +41,7 @@
                         {% endif %}
                         {% if chat_enabled == 1 %}
                             <li class="item">
-                                {% if user.id == _u.id %}
+                                {% if user.id == app.user.id %}
                                     <img src="{{ "online.png" | icon }}"
                                          alt="{{ "Online" | trans }}">
                                     {{ "Chat" | trans }} ({{ "Online" | trans }})

@@ -56,7 +56,8 @@ class SelectAjax extends HTML_QuickForm_select
         }
         //$iso = Container
         $url = $this->getAttribute('url');
-        //$languageCondition = "language: '$iso',";
+        $iso = api_get_language_isocode();
+        $languageCondition = "language: '$iso',";
         if (!$url) {
             $url = $this->getAttribute('url_function');
         } else {
