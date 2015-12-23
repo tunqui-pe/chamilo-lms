@@ -207,7 +207,7 @@ class EventsMail
         if (api_get_setting('mail.activate_email_template') === 'false') {
             return false;
         }
-        $current_language = api_get_interface_language();
+        $current_language = api_get_language_isocode();
 
         $sql = 'SELECT COUNT(*) as total
                 FROM ' . Database::get_main_table(TABLE_EVENT_EMAIL_TEMPLATE) . ' em
@@ -215,7 +215,7 @@ class EventsMail
                 ON em.language_id = l.id
                 WHERE
                     em.event_type_name = "' . $event_name . '" and
-                    l.dokeos_folder = "'.$current_language.'" and
+                    l.isocode = "'.$current_language.'" and
                     em.activated = 1';
 
         $exists = Database::store_result(Database::query($sql), 'ASSOC');

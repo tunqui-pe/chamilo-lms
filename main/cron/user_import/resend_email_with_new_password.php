@@ -60,10 +60,6 @@ foreach ($list as $mail) {
             'Password' => $pass,
             'Email' => $mail,
         );
-        $l = api_get_interface_language();
-        if (!empty($row['language'])) {
-            $l = $row['language'];
-        }
         //This comes from main/admin/user_import.php::save_data() slightly modified
         $recipient_name = api_get_person_name(
             $user['FirstName'],
@@ -72,50 +68,32 @@ foreach ($list as $mail) {
             PERSON_NAME_EMAIL_ADDRESS
         );
         $emailsubject = '['.api_get_setting('platform.site_name').'] '.get_lang(
-                'YourReg',
-                null,
-                $l
+                'YourReg'
             ).' '.api_get_setting('platform.site_name');
-        $emailbody = get_lang('Dear', null, $l).' '.api_get_person_name(
+        $emailbody = get_lang('Dear').' '.api_get_person_name(
                 $user['FirstName'],
                 $user['LastName']
-            ).",\n\n".get_lang('YouAreReg', null, $l)." ".api_get_setting(
+            ).",\n\n".get_lang('YouAreReg')." ".api_get_setting(
                 'platform.site_name'
-            )." ".get_lang(
-                'WithTheFollowingSettings',
-                null,
-                $l
-            )."\n\n".get_lang(
-                'Username',
-                null,
-                $l
+            )." ".get_lang('WithTheFollowingSettings')."\n\n".get_lang(
+                'Username'
             )." : ".$user['UserName']."\n".get_lang(
-                'Pass',
-                null,
-                $l
+                'Pass'
             )." : ".$user['Password']."\n\n".get_lang(
-                'Address',
-                null,
-                $l
+                'Address'
             )." ".api_get_setting('platform.site_name')." ".get_lang(
-                'Is',
-                null,
-                $l
+                'Is'
             )." : ".api_get_path(WEB_PATH)." \n\n".get_lang(
-                'Problem',
-                null,
-                $l
-            )."\n\n".get_lang('Formula', null, $l).",\n\n".api_get_person_name(
+                'Problem'
+            )."\n\n".get_lang('Formula').",\n\n".api_get_person_name(
                 api_get_setting('admin.administrator_name'),
                 api_get_setting('admin.administrator_surname')
-            )."\n".get_lang('Manager', null, $l)." ".api_get_setting(
+            )."\n".get_lang('Manager')." ".api_get_setting(
                 'platform.site_name'
             )."\nT. ".api_get_setting(
                 'admin.administrator_phone'
             )."\n".get_lang(
-                'Email',
-                null,
-                $l
+                'Email'
             )." : ".api_get_setting('admin.administrator_email')."";
         $sender_name = api_get_person_name(
             api_get_setting('admin.administrator_name'),

@@ -3,7 +3,6 @@
 
 /**
  * File: internationalization.lib.php
- * Internationalization library for Chamilo 1.8.7 LMS
  * A library implementing internationalization related functions.
  * License: GNU General Public License Version 3 (Free Software Foundation)ww
  * @author Ivan Tcholakov, <ivantcholakov@gmail.com>, 2009, 2010
@@ -13,6 +12,8 @@
 
 use Patchwork\Utf8;
 use Chamilo\CoreBundle\Framework\Container;
+use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 
 /**
  * Constants
@@ -112,153 +113,6 @@ function get_lang($variable, $reserved = null, $language = null)
     }
 
     return $translated;
-
-    global
-        // For serving some old hacks:
-        // By manipulating this global variable the translation may be done in different languages too (not the elegant way).
-        $language_interface,
-        // Because of possibility for manipulations of the global variable $language_interface, we need its initial value.
-        $language_interface_initial_value;
-
-    global $used_lang_vars, $_configuration;
-    // add language_measure_frequency to your main/inc/conf/configuration.php in order to generate language
-    // variables frequency measurements (you can then see them trhough main/cron/lang/langstats.php)
-    // The $langstats object is instanciated at the end of main/inc/global.inc.php
-    if (isset($_configuration['language_measure_frequency']) &&
-        $_configuration['language_measure_frequency'] == 1
-    ) {
-      require_once api_get_path(SYS_CODE_PATH).'/cron/lang/langstats.class.php';
-      global $langstats;
-      $langstats->add_use($variable,'');
-    }
-
-    if (!isset($used_lang_vars)) {
-    	$used_lang_vars = array();
-    }
-
-    // Caching results from some API functions, for speed.
-    static $initialized, $encoding, $langpath, $test_server_mode, $show_special_markup;
-    if (!isset($initialized)) {
-        $langpath = api_get_path(SYS_LANG_PATH);
-        $test_server_mode = api_get_setting('server_type') == 'test';
-        $show_special_markup = api_get_setting('hide_dltt_markup') != 'true' || $test_server_mode;
-        $initialized = true;
-    }
-
-    // Combining both ways for requesting specific language.
-    if (empty($language)) {
-        $language = $language_interface;
-    }
-    $lang_postfix = isset($is_interface_language) && $is_interface_language ? '' : '('.$language.')';
-
-    $is_interface_language = $language == $language_interface_initial_value;
-
-    // This is a cache for already translated language variables. By using it, we avoid repetitive translations, gaining speed.
-    static $cache;
-
-    // Looking up into the cache for existing translation.
-    if (isset($cache[$language][$variable])) {
-        // There is a previously saved translation, returning it.
-        //return $cache[$language][$variable];
-        $ret = $cache[$language][$variable];
-        $used_lang_vars[$variable.$lang_postfix] = $ret;
-        return $ret;
-    }
-
-    // There is no cached translation, we have to retrieve it:
-    // - from a global variable (the faster way) - on production server mode;
-    // - from a local variable after reloading the language files - on test server mode or when requested language
-    // is different than the genuine interface language.
-    $read_global_variables = $is_interface_language;
-
-    if ($read_global_variables) {
-        if (isset($GLOBALS[$variable])) {
-            $langvar = $GLOBALS[$variable];
-        } elseif (isset($GLOBALS["lang$variable"])) {
-            $langvar = $GLOBALS["lang$variable"];
-        } else {
-            $langvar = $show_special_markup ? SPECIAL_OPENING_TAG.$variable.SPECIAL_CLOSING_TAG : $variable;
-        }
-    } else {
-        /*if (isset($$variable)) {
-            $langvar = $$variable;
-        } elseif (isset(${"lang$variable"})) {
-            $langvar = ${"lang$variable"};
-        } else {
-            $langvar = $show_special_markup ? SPECIAL_OPENING_TAG.$variable.SPECIAL_CLOSING_TAG : $variable;
-        }*/
-    }
-    if (empty($langvar) || !is_string($langvar)) {
-        $langvar = $show_special_markup ? SPECIAL_OPENING_TAG.$variable.SPECIAL_CLOSING_TAG : $variable;
-    }
-    $ret = $cache[$language][$variable] = $langvar;
-    $used_lang_vars[$variable.$lang_postfix] = $ret;
-
-    return $ret;
-}
-
-/**
- * Gets the current interface language.
- * @param bool $purified (optional)	When it is true, a purified (refined)
- * language value will be returned, for example 'french' instead of 'french_unicode'.
- * @return string					The current language of the interface.
- */
-function api_get_interface_language($purified = false, $check_sub_language = false)
-{
-    global $language_interface;
-
-    if (empty($language_interface)) {
-        return 'english';
-    }
-
-    if ($check_sub_language) {
-        static $parent_language_name = null;
-
-        if (!isset($parent_language_name)) {
-            // 2. The current language is a sub language so we grab the father's
-            // setting according to the internalization_database/name_order_convetions.php file
-            $language_id = api_get_language_id($language_interface);
-            $language_info = api_get_language_info($language_id);
-
-            if (
-                !empty($language_id) &&
-                !empty($language_info)
-            ) {
-                if (!empty($language_info['parent_id'])) {
-                    $language_info = api_get_language_info($language_info['parent_id']);
-                    $parent_language_name = $language_info['english_name'];
-
-                    if (!empty($parent_language_name)) {
-                        return $parent_language_name;
-                    }
-                }
-
-                return $language_info['english_name'];
-            }
-
-            return 'english';
-        } else {
-            return $parent_language_name;
-        }
-    } else {
-        // 2. Normal way
-        $interface_language = $purified ? api_purify_language_id($language_interface) : $language_interface;
-    }
-
-    return $interface_language;
-}
-
-/**
- * Returns a purified language id, without possible suffixes that will disturb language identification in certain cases.
- * @param string $language	The input language identificator, for example 'french_unicode'.
- * @param string			The same purified or filtered language identificator, for example 'french'.
- */
-function api_purify_language_id($language) {
-    static $purified = array();
-    if (!isset($purified[$language])) {
-        $purified[$language] = trim(str_replace(array('_unicode', '_latin', '_corporate', '_org', '_km'), '', strtolower($language)));
-    }
-    return $purified[$language];
 }
 
 /**
@@ -273,31 +127,9 @@ function api_purify_language_id($language) {
  *    and the ISO 3166 two-letter territory codes (pt-BR, ...)
  * -  ISO 639-2 : Alpha-3 code (three-letters code - ast, fur, ...)
  */
-function api_get_language_isocode($language = null, $default_code = 'en')
+function api_get_language_isocode()
 {
     return Container::getTranslator()->getLocale();
-
-    static $iso_code = array();
-    if (empty($language)) {
-        $language = api_get_interface_language(false, true);
-    }
-    if (!isset($iso_code[$language])) {
-        if (!class_exists('Database')) {
-            return $default_code; // This might happen, in case of calling this function early during the global initialization.
-        }
-        $sql_result = Database::query("SELECT isocode FROM ".Database::get_main_table(TABLE_MAIN_LANGUAGE)." WHERE dokeos_folder = '$language'");
-        if (Database::num_rows($sql_result)) {
-            $result = Database::fetch_array($sql_result);
-            $iso_code[$language] = trim($result['isocode']);
-        } else {
-            $language_purified_id = api_purify_language_id($language);
-            $iso_code[$language] = isset($iso_code[$language_purified_id]) ? $iso_code[$language_purified_id] : null;
-        }
-        if (empty($iso_code[$language])) {
-            $iso_code[$language] = $default_code;
-        }
-    }
-    return $iso_code[$language];
 }
 
 /**
@@ -309,7 +141,10 @@ function api_get_language_isocode($language = null, $default_code = 'en')
 function api_get_platform_isocodes()
 {
     $iso_code = array();
-    $sql_result = Database::query("SELECT isocode FROM ".Database::get_main_table(TABLE_MAIN_LANGUAGE)." ORDER BY isocode ");
+    $sql = "SELECT isocode
+            FROM ".Database::get_main_table(TABLE_MAIN_LANGUAGE)."
+            ORDER BY isocode ";
+    $sql_result = Database::query($sql);
     if (Database::num_rows($sql_result)) {
         while ($row = Database::fetch_array($sql_result)) {;
             $iso_code[] = trim($row['isocode']);
@@ -326,35 +161,32 @@ function api_get_platform_isocodes()
  * If $language is omitted, interface language is assumed then.
  * @return string			The correspondent to the language text direction ('ltr' or 'rtl').
  */
-function api_get_text_direction($language = null)
+function api_get_text_direction($language = '')
 {
-    static $text_direction = array();
+    static $textDirection = array();
 
     if (empty($language)) {
-    	$language = api_get_interface_language();
+        $language = api_get_language_isocode();
     }
-    if (!isset($text_direction[$language])) {
-        $text_direction[$language] = in_array(api_purify_language_id($language),
-            array(
-                'arabic',
-                'ar',
-                'dari',
-                'prs',
-                'hebrew',
-                'he',
-                'iw',
-                'pashto',
-                'ps',
-                'persian',
-                'fa',
-                'ur',
-                'yiddish',
-                'yid'
-            )
+
+    if (!isset($textDirection[$language])) {
+        $langList = array(
+            'ar',
+            'he',
+            'iw',
+            'ps',
+            'fa',
+            'ur',
+            'yi',
+        );
+
+        $textDirection[$language] = in_array(
+            $language,
+            $langList
         ) ? 'rtl' : 'ltr';
     }
 
-    return $text_direction[$language];
+    return $textDirection[$language];
 }
 
 /**
@@ -384,15 +216,8 @@ function api_get_timezones()
  */
 function _api_get_timezone()
 {
-    return date_default_timezone_get();
+    $timezone = api_get_setting('platform.timezone');
 
-    // First, get the default timezone of the server
-    $to_timezone = date_default_timezone_get();
-    // Second, see if a timezone has been chosen for the platform
-    $timezone_value = api_get_setting('timezone');
-    if ($timezone_value != null) {
-        $to_timezone = $timezone_value;
-    }
     // If allowed by the administrator
     $use_users_timezone = api_get_setting('profile.use_users_timezone');
 
@@ -401,11 +226,11 @@ function _api_get_timezone()
         // Get the timezone based on user preference, if it exists
         $timezone_user = UserManager::get_extra_user_data_by_field($userId,'timezone');
         if (isset($timezone_user['timezone']) && $timezone_user['timezone'] != null) {
-            $to_timezone = $timezone_user['timezone'];
+            $timezone = $timezone_user['timezone'];
         }
     }
 
-    return $to_timezone;
+    return $timezone;
 }
 
 /**
@@ -551,117 +376,110 @@ function api_format_date($time, $format = null, $language = null)
     if (is_int($format)) {
         switch ($format) {
             case DATE_FORMAT_ONLY_DAYNAME:
-                $date_format = get_lang('dateFormatOnlyDayName', '', $language);
+                //$date_format = get_lang('dateFormatOnlyDayName', '', $language);
                 if (INTL_INSTALLED) {
         			$datetype = IntlDateFormatter::SHORT;
         			$timetype = IntlDateFormatter::NONE;
         		}
                 break;
             case DATE_FORMAT_NUMBER_NO_YEAR:
-                $date_format = get_lang('dateFormatShortNumberNoYear', '', $language);
+                //$date_format = get_lang('dateFormatShortNumberNoYear', '', $language);
         		if (INTL_INSTALLED) {
         			$datetype = IntlDateFormatter::SHORT;
         			$timetype = IntlDateFormatter::NONE;
         		}
                 break;
         	case DATE_FORMAT_NUMBER:
-        		$date_format = get_lang('dateFormatShortNumber', '', $language);
+                //$date_format = get_lang('dateFormatShortNumber', '', $language);
         		if (INTL_INSTALLED) {
         			$datetype = IntlDateFormatter::SHORT;
         			$timetype = IntlDateFormatter::NONE;
         		}
         		break;
             case TIME_NO_SEC_FORMAT:
-                $date_format = get_lang('timeNoSecFormat', '', $language);
+                //$date_format = get_lang('timeNoSecFormat', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::NONE;
                     $timetype = IntlDateFormatter::SHORT;
                 }
                 break;
             case DATE_FORMAT_SHORT:
-                $date_format = get_lang('dateFormatShort', '', $language);
+                //$date_format = get_lang('dateFormatShort', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::LONG;
                     $timetype = IntlDateFormatter::NONE;
                 }
                 break;
             case DATE_FORMAT_LONG:
-                $date_format = get_lang('dateFormatLong', '', $language);
+                //$date_format = get_lang('dateFormatLong', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::NONE;
                 }
                 break;
             case DATE_TIME_FORMAT_LONG:
-                $date_format = get_lang('dateTimeFormatLong', '', $language);
+                //$date_format = get_lang('dateTimeFormatLong', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::SHORT;
                 }
                 break;
             case DATE_FORMAT_LONG_NO_DAY:
-                $date_format = get_lang('dateFormatLongNoDay', '', $language);
+                //$date_format = get_lang('dateFormatLongNoDay', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::SHORT;
                 }
                 break;
 			case DATE_TIME_FORMAT_SHORT:
-                $date_format = get_lang('dateTimeFormatShort', '', $language);
+                //$date_format = get_lang('dateTimeFormatShort', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::SHORT;
                 }
                 break;
 			case DATE_TIME_FORMAT_SHORT_TIME_FIRST:
-                $date_format = get_lang('dateTimeFormatShortTimeFirst', '', $language);
+                //$date_format = get_lang('dateTimeFormatShortTimeFirst', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::SHORT;
                 }
                 break;
             case DATE_TIME_FORMAT_LONG_24H:
-                $date_format = get_lang('dateTimeFormatLong24H', '', $language);
+                //$date_format = get_lang('dateTimeFormatLong24H', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::SHORT;
                 }
                 break;
             default:
-                $date_format = get_lang('dateTimeFormatLong', '', $language);
+                //$date_format = get_lang('dateTimeFormatLong', '', $language);
                 if (INTL_INSTALLED) {
                     $datetype = IntlDateFormatter::FULL;
                     $timetype = IntlDateFormatter::SHORT;
                 }
         }
-    } else {
-        $date_format = $format;
     }
 
-    if (0) {
-        //if using PHP 5.3 format dates like: $dateFormatShortNumber, can't be used
-        //
-        // Use ICU
-        if (is_null($language)) {
-            $language = api_get_language_isocode();
-        }
-        $date_formatter = new IntlDateFormatter($language, $datetype, $timetype, date_default_timezone_get());
-        //$date_formatter->setPattern($date_format);
-        $formatted_date = api_to_system_encoding($date_formatter->format($time), 'UTF-8');
-
-    } else {
-        // We replace %a %A %b %B masks of date format with translated strings
-        $translated = &_api_get_day_month_names($language);
-        $date_format = str_replace(array('%A', '%a', '%B', '%b'),
-        array($translated['days_long'][(int)strftime('%w', $time )],
-            $translated['days_short'][(int)strftime('%w', $time)],
-            $translated['months_long'][(int)strftime('%m', $time) - 1],
-            $translated['months_short'][(int)strftime('%m', $time) - 1]),
-        $date_format);
-        $formatted_date = api_to_system_encoding(strftime($date_format, $time), 'UTF-8');
+    // Use ICU
+    if (is_null($language)) {
+        $language = api_get_language_isocode();
     }
+
+    $dateFormatter = new IntlDateFormatter(
+        $language,
+        $datetype,
+        $timetype,
+        date_default_timezone_get()
+    );
+    //$date_formatter->setPattern($date_format);
+    $formattedDate = api_to_system_encoding(
+        $dateFormatter->format($time),
+        'UTF-8'
+    );
     date_default_timezone_set($system_timezone);
-    return $formatted_date;
+
+    return $formattedDate;
 }
 
 /**
@@ -895,7 +713,7 @@ function api_get_person_name(
     //We check if the language is supported, otherwise we check the interface language of the parent language of sublanguage
 
     if (empty($language)) {
-        $language = api_get_interface_language(false, true);
+        $language = api_get_language_isocode();
     }
 
     if (!isset($valid[$format][$language])) {
@@ -980,7 +798,7 @@ function api_is_western_name_order($format = null, $language = null)
     }
 
     if (empty($language)) {
-        $language = api_get_interface_language(false, true);
+        $language = api_get_language_isocode();
     }
     if (!isset($order[$format][$language])) {
         $test_name = api_get_person_name('%f', '%l', '%t', $format, $language);
@@ -1007,7 +825,7 @@ function api_sort_by_first_name($language = null) {
     static $sort_by_first_name = array();
 
     if (empty($language)) {
-        $language = api_get_interface_language(false, true);
+        $language = api_get_language_isocode();
     }
     if (!isset($sort_by_first_name[$language])) {
         $sort_by_first_name[$language] = _api_get_person_name_convention($language, 'sort_by');
@@ -1076,10 +894,15 @@ function api_utf8_decode($string, $to_encoding = null)
  * @param bool $check_utf8_validity (optional)	A flag for UTF-8 validity check as condition for making conversion.
  * @return string								Returns the converted string.
  */
-function api_to_system_encoding($string, $from_encoding = null, $check_utf8_validity = false)
+function api_to_system_encoding(
+    $string,
+    $fromFencoding = null,
+    $check_utf8_validity = false
+)
 {
-    $system_encoding = api_get_system_encoding();
-    return api_convert_encoding($string, $system_encoding, $from_encoding);
+    $systemEncoding = api_get_system_encoding();
+
+    return api_convert_encoding($string, $systemEncoding, $fromFencoding);
 }
 
 /**
@@ -1123,17 +946,17 @@ function api_html_entity_decode($string, $quote_style = ENT_COMPAT, $encoding = 
     if (empty($encoding)) {
         $encoding = _api_mb_internal_encoding();
     }
-    if (api_is_encoding_supported($encoding)) {
-        if (!api_is_utf8($encoding)) {
-            $string = api_utf8_encode($string, $encoding);
-        }
-        $string = html_entity_decode($string, $quote_style, 'UTF-8');
-        if (!api_is_utf8($encoding)) {
-            return api_utf8_decode($string, $encoding);
-        }
-        return $string;
+
+    if (!api_is_utf8($encoding)) {
+        $string = api_utf8_encode($string, $encoding);
     }
-    return $string; // Here the function gives up.
+    $string = html_entity_decode($string, $quote_style, 'UTF-8');
+    if (!api_is_utf8($encoding)) {
+        return api_utf8_decode($string, $encoding);
+    }
+
+    return $string;
+
 }
 
 /**
@@ -1145,7 +968,9 @@ function api_html_entity_decode($string, $quote_style = ENT_COMPAT, $encoding = 
  */
 function api_xml_http_response_encode($string, $from_encoding = 'UTF8')
 {
-    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+    ) {
         if (empty($from_encoding)) {
             $from_encoding = _api_mb_internal_encoding();
         }
@@ -1697,78 +1522,15 @@ function api_natrsort(&$array, $language = null, $encoding = null)
 }
 
 /**
- * Encoding management functions
- */
-
-/**
- * This function unifies the encoding identificators, so they could be compared.
- * @param string/array $encoding	The specified encoding.
- * @return string					Returns the encoding identificator modified in suitable for comparison way.
- */
-function api_refine_encoding_id($encoding) {
-    if (is_array($encoding)){
-        return array_map('api_refine_encoding_id', $encoding);
-    }
-    return strtoupper(str_replace('_', '-', $encoding));
-}
-
-/**
- * This function checks whether two $encoding are equal (same, equvalent).
- * @param string/array $encoding1		The first encoding
- * @param string/array $encoding2		The second encoding
- * @param bool $strict					When this parameter is TRUE the comparison ignores aliases of encodings.
- * When the parameter is FALSE, aliases are taken into account.
- * @return bool							Returns TRUE if the encodings are equal, FALSE otherwise.
- */
-function api_equal_encodings($encoding1, $encoding2, $strict = false) {
-    static $equal_encodings = array();
-    if (is_array($encoding1)) {
-        foreach ($encoding1 as $encoding) {
-            if (api_equal_encodings($encoding, $encoding2, $strict)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    elseif (is_array($encoding2)) {
-        foreach ($encoding2 as $encoding) {
-            if (api_equal_encodings($encoding1, $encoding, $strict)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    if (!isset($equal_encodings[$encoding1][$encoding2][$strict])) {
-        $encoding_1 = api_refine_encoding_id($encoding1);
-        $encoding_2 = api_refine_encoding_id($encoding2);
-        if ($encoding_1 == $encoding_2) {
-            $result = true;
-        } else {
-            if ($strict) {
-                $result = false;
-            } else {
-                $alias1 = _api_get_character_map_name($encoding_1);
-                $alias2 = _api_get_character_map_name($encoding_2);
-                $result = !empty($alias1) && !empty($alias2) && $alias1 == $alias2;
-            }
-        }
-        $equal_encodings[$encoding1][$encoding2][$strict] = $result;
-    }
-    return $equal_encodings[$encoding1][$encoding2][$strict];
-}
-
-/**
  * This function checks whether a given encoding is UTF-8.
  * @param string $encoding		The tested encoding.
  * @return bool					Returns TRUE if the given encoding id means UTF-8, otherwise returns false.
  */
 function api_is_utf8($encoding)
 {
-    static $result = array();
-    if (!isset($result[$encoding])) {
-        $result[$encoding] = api_equal_encodings($encoding, 'UTF-8');
-    }
-    return $result[$encoding];
+    $encoding = strtolower($encoding);
+
+    return $encoding == 'utf-8';
 }
 
 /**
@@ -1781,19 +1543,6 @@ function api_is_utf8($encoding)
 function api_get_system_encoding()
 {
     return 'UTF-8';
-}
-
-/**
- * Checks whether a specified encoding is supported by this API.
- * @param string $encoding	The specified encoding.
- * @return bool				Returns TRUE when the specified encoding is supported, FALSE othewise.
- */
-function api_is_encoding_supported($encoding) {
-    static $supported = array();
-    if (!isset($supported[$encoding])) {
-        $supported[$encoding] = _api_mb_supports($encoding) || _api_iconv_supports($encoding) || _api_convert_encoding_supports($encoding);
-    }
-    return $supported[$encoding];
 }
 
 /**
@@ -1867,7 +1616,7 @@ function get_plugin_lang($variable, $pluginName) {
 function &_api_get_day_month_names($language = null) {
     static $date_parts = array();
     if (empty($language)) {
-        $language = api_get_interface_language();
+        $language = api_get_language_isocode();
     }
     if (!isset($date_parts[$language])) {
         $week_day = array(
@@ -1902,12 +1651,13 @@ function &_api_get_day_month_names($language = null) {
             $date_parts[$language]['months_long'][] = get_lang($month[$i].'Long', '', $language);
         }
     }
+
     return $date_parts[$language];
 }
 
 /**
  * Returns returns person name convention for a given language.
- * @param string $language	The input language.
+ * @param string $isoCode
  * @param string $type		The type of the requested convention.
  * It may be 'format' for name order convention or 'sort_by' for name sorting convention.
  * @return mixed Depending of the requested type,
@@ -1916,14 +1666,14 @@ function &_api_get_day_month_names($language = null) {
 function _api_get_person_name_convention($language, $type)
 {
     static $conventions;
-    $language = api_purify_language_id($language);
+
     if (!isset($conventions)) {
         $file = dirname(__FILE__).'/internationalization_database/name_order_conventions.php';
         if (file_exists($file)) {
-            $conventions = include ($file);
+            $conventions = include($file);
         } else {
             $conventions = array(
-                'english' => array(
+                'en' => array(
                     'format' => 'title first_name last_name',
                     'sort_by' => 'first_name'
                 )
@@ -1944,7 +1694,19 @@ function _api_get_person_name_convention($language, $type)
         $replacement2 = array('%f', '%l', '%t');
         foreach (array_keys($conventions) as $key) {
             $conventions[$key]['format'] = str_replace($search1, $replacement1, $conventions[$key]['format']);
-            $conventions[$key]['format'] = _api_validate_person_name_format(_api_clean_person_name(str_replace('%', ' %', str_ireplace($search2, $replacement2, $conventions[$key]['format']))));
+            $conventions[$key]['format'] = _api_validate_person_name_format(
+                _api_clean_person_name(
+                    str_replace(
+                        '%',
+                        ' %',
+                        str_ireplace(
+                            $search2,
+                            $replacement2,
+                            $conventions[$key]['format']
+                        )
+                    )
+                )
+            );
             $conventions[$key]['sort_by'] = strtolower($conventions[$key]['sort_by']) != 'last_name' ? true : false;
         }
     }
@@ -1997,25 +1759,6 @@ function _api_convert_encoding(&$string, $to_encoding, $from_encoding)
 }
 
 /**
- * This function determines the name of corresponding to a given encoding conversion table.
- * It is able to deal with some aliases of the encoding.
- * @param string $encoding		The given encoding identificator, for example 'WINDOWS-1252'.
- * @return string				Returns the name of the corresponding conversion table, for the same example - 'CP1252'.
- */
-function _api_get_character_map_name($encoding) {
-    static $character_map_selector;
-    if (!isset($character_map_selector)) {
-        $file = dirname(__FILE__).'/internationalization_database/conversion/character_map_selector.php';
-        if (file_exists($file)) {
-            $character_map_selector = include ($file);
-        } else {
-            $character_map_selector = array();
-        }
-    }
-    return isset($character_map_selector[$encoding]) ? $character_map_selector[$encoding] : '';
-}
-
-/**
  * Appendix to "String comparison"
  */
 
@@ -2042,55 +1785,3 @@ function _api_mb_internal_encoding($encoding = 'UTF-8')
     return mb_internal_encoding($encoding);
 }
 
-/**
- * Checks whether the specified encoding is supported by the PHP mbstring extension.
- * @param string $encoding	The specified encoding.
- * @return bool				Returns TRUE when the specified encoding is supported, FALSE othewise.
- */
-function _api_mb_supports($encoding) {
-    static $supported = array();
-    if (!isset($supported[$encoding])) {
-        if (MBSTRING_INSTALLED) {
-            $supported[$encoding] = api_equal_encodings($encoding, mb_list_encodings(), true);
-        } else {
-            $supported[$encoding] = false;
-        }
-    }
-    return $supported[$encoding];
-}
-
-/**
- * Checks whether the specified encoding is supported by the PHP iconv extension.
- * @param string $encoding	The specified encoding.
- * @return bool				Returns TRUE when the specified encoding is supported, FALSE othewise.
- */
-function _api_iconv_supports($encoding) {
-    static $supported = array();
-    if (!isset($supported[$encoding])) {
-        if (ICONV_INSTALLED) {
-            $enc = api_refine_encoding_id($encoding);
-            if ($enc != 'HTML-ENTITIES') {
-                $test_string = '';
-                for ($i = 32; $i < 128; $i++) {
-                    $test_string .= chr($i);
-                }
-                $supported[$encoding] = (@iconv_strlen($test_string, $enc)) ? true : false;
-            } else {
-                $supported[$encoding] = false;
-            }
-        } else {
-            $supported[$encoding] = false;
-        }
-    }
-    return $supported[$encoding];
-}
-
-// This function checks whether the function _api_convert_encoding() (the php-
-// implementation) is able to convert from/to a given encoding.
-function _api_convert_encoding_supports($encoding) {
-    static $supports = array();
-    if (!isset($supports[$encoding])) {
-        $supports[$encoding] = _api_get_character_map_name(api_refine_encoding_id($encoding)) != '';
-    }
-    return $supports[$encoding];
-}

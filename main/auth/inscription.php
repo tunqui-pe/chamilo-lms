@@ -357,7 +357,7 @@ if (!CustomPages::enabled()) {
         $get = array_keys($_GET);
         if (isset($get)) {
             if (isset($get[0]) && $get[0] == 'legal') {
-                $language = api_get_interface_language();
+                $language = api_get_language_isocode();
                 $language = api_get_language_id($language);
                 $term_preview = LegalManager::get_last_condition($language);
                 if (!$term_preview) {
@@ -429,7 +429,7 @@ if (!CustomPages::enabled()) {
 
 // Terms and conditions
 if (api_get_setting('registration.allow_terms_conditions') == 'true') {
-    $language = api_get_interface_language();
+    $language = api_get_language_isocode();
     $language = api_get_language_id($language);
     $term_preview = LegalManager::get_last_condition($language);
 
@@ -517,7 +517,8 @@ if ($form->validate()) {
 
         $status = isset($values['status']) ? $values['status'] : STUDENT;
         $phone = isset($values['phone']) ? $values['phone'] : null;
-        $values['language'] = isset($values['language']) ? $values['language'] : api_get_interface_language();
+        $values['language'] = isset($values['language']) ? $values['language'] : api_get_language_isocode(
+        );
         // Creates a new user
         $user_id = UserManager::create_user(
             $values['firstname'],

@@ -79,7 +79,7 @@ echo Display::actions($action_array);
     var usersList = <?php echo json_encode($new_user_list) ?>;
     var eventTypes = <?php echo json_encode($ets) ?>;
     var eventsConfig = <?php echo json_encode($event_config) ?>;
-    var currentLanguage = <?php echo json_encode(api_get_interface_language()) ?>;
+    var currentLanguage = <?php echo json_encode(api_get_language_isocode()) ?>;
     var flagContentHasChanged = false;
     var key_lang = "<?php echo $key_lang ?>";
     var event_type_name = "<?php echo $event_name ?>";
@@ -345,7 +345,9 @@ echo Display::actions($action_array);
     <select id="languages" name="languages" style="margin-top:20px;" onclick='confirmMessage(this.name); return false;'>
 <?php foreach ($languages["name"] as $key => $value) {
     $english_name = $languages['folder'][$key]; ?>
-            <option value="<?php echo $english_name; ?>" <?php echo ($english_name == api_get_interface_language()) ? "selected=selected" : ""; ?>><?php echo $value; ?></option>
+    <option
+        value="<?php echo $english_name; ?>" <?php echo ($english_name == api_get_language_isocode(
+        )) ? "selected=selected" : ""; ?>><?php echo $value; ?></option>
 <?php } ?>
     </select>
 

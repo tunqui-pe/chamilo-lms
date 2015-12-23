@@ -4468,19 +4468,19 @@ class learnpath
         }
 
         $course_id = api_get_course_int_id();
-        $enc = api_refine_encoding_id($enc);
         if (empty($enc)) {
             $enc = api_get_system_encoding();
         }
-        if (api_is_encoding_supported($enc)) {
-            $lp = $this->get_id();
-            if ($lp != 0) {
-                $tbl_lp = Database :: get_course_table(TABLE_LP_MAIN);
-                $sql = "UPDATE $tbl_lp SET default_encoding = '$enc' WHERE c_id = ".$course_id." AND id = " . $lp;
-                $res = Database::query($sql);
-                return $res;
-            }
+
+        $lp = $this->get_id();
+        if ($lp != 0) {
+            $tbl_lp = Database:: get_course_table(TABLE_LP_MAIN);
+            $sql = "UPDATE $tbl_lp SET default_encoding = '$enc' WHERE c_id = ".$course_id." AND id = ".$lp;
+            $res = Database::query($sql);
+
+            return $res;
         }
+
         return false;
     }
 

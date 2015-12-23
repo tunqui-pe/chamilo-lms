@@ -555,46 +555,6 @@ class TestInternationalization extends UnitTestCase {
 		//var_dump($res);
 	}
 
-	/**
-	 * ----------------------------------------------------------------------------
-	 * Encoding management functions
-	 * ----------------------------------------------------------------------------
-	 */
-
-	public function test_api_refine_encoding_id() {
-		$encoding = 'koI8-r';
-		$res = api_refine_encoding_id($encoding);
-		$this->assertTrue($res);
-		$this->assertTrue(is_string($res));
-		$this->assertTrue($res == 'KOI8-R');
-		//var_dump($res);
-	}
-
-	public function test_api_equal_encodings() {
-		$encoding1 = 'cp65001';
-		$encoding2 = 'utf-8';
-		$encoding3 = 'WINDOWS-1251';
-		$encoding4 = 'WINDOWS-1252';
-		$encoding5 = 'win-1250';
-		$encoding6 = 'windows-1250';
-		$res1 = api_equal_encodings($encoding1, $encoding2);
-		$res2 = api_equal_encodings($encoding3, $encoding4);
-		$res3 = api_equal_encodings($encoding5, $encoding6);
-		$res4 = api_equal_encodings($encoding5, $encoding6, true);
-		$this->assertTrue(is_bool($res1));
-		$this->assertTrue(is_bool($res2));
-		$this->assertTrue(is_bool($res3));
-		$this->assertTrue(is_bool($res4));
-		$this->assertTrue($res1);
-		$this->assertTrue(!$res2);
-		$this->assertTrue($res3);
-		$this->assertTrue(!$res4);
-		//var_dump($res1);
-		//var_dump($res2);
-		//var_dump($res3);
-		//var_dump($res4);
-	}
-
 	public function test_api_is_utf8() {
 		$encoding = 'cp65001'; // This an alias of UTF-8.
 		$res = api_is_utf8($encoding);
@@ -607,26 +567,6 @@ class TestInternationalization extends UnitTestCase {
 		$res = api_get_system_encoding();
 		$this->assertTrue(is_string($res));
 		$this->assertTrue($res);
-		//var_dump($res);
-	}
-
-	public function test_api_is_encoding_supported() {
-		$encoding1 = 'UTF-8';
-		$encoding2 = 'XXXX#%#%VR^%BBDNdjlrsg;d';
-		$res1 = api_is_encoding_supported($encoding1);
-		$res2 = api_is_encoding_supported($encoding2);
-		$this->assertTrue(is_bool($res1) && is_bool($res2));
-		$this->assertTrue($res1 && !$res2);
-		//var_dump($res1);
-		//var_dump($res2);
-	}
-
-	public function test_api_get_non_utf8_encoding() {
-		$language = 'bulgarian';
-		$res = api_get_non_utf8_encoding($language);
-		$this->assertTrue($res);
-		$this->assertTrue(is_string($res));
-		$this->assertTrue($res == 'WINDOWS-1251');
 		//var_dump($res);
 	}
 
@@ -811,7 +751,7 @@ class TestInternationalization extends UnitTestCase {
 		$enabled_languages_info = api_get_languages();
 		$enabled_languages = $enabled_languages_info['folder'];
 		$language = array();
-		$language[] = '   '.strtoupper(api_get_interface_language()).'    ';
+		$language[] = '   '.strtoupper(api_get_language_isocode()).'    ';
 		$language[] = " \t   ".strtoupper(api_get_setting('language.platform_language'))."   \t ";
 		$language[] = 'xxxxxxxxxxxxxx';
 		$language[] = '   \t'.strtoupper('bulgarian').'    ';
@@ -834,14 +774,6 @@ class TestInternationalization extends UnitTestCase {
 		}
 		//var_dump($res);
 		//var_dump($expected);
-	}
-
-	public function test_api_purify_language_id() {
-		$language = 'english_org';
-		$res = api_purify_language_id($language);
-		$this->assertTrue(is_string($res));
-		$this->assertTrue($res == 'english');
-		//var_dump($res);
 	}
 
 	function test_api_get_language_isocode() {

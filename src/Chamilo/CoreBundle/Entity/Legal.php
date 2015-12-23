@@ -16,6 +16,15 @@ class Legal
     /**
      * @var integer
      *
+     * @ORM\Column(name="legal_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $legalId;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="date", type="integer", nullable=false)
      */
     private $date;
@@ -51,22 +60,11 @@ class Legal
     /**
      * @var integer
      *
-     * @ORM\Column(name="legal_id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $legalId;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="language_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $languageId;
-
-
 
     /**
      * Set date

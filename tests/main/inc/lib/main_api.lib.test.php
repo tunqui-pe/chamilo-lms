@@ -283,17 +283,6 @@ class TestMainApi extends UnitTestCase {
    		ob_end_clean();
    	}
 
-   	function testApiGetInterfaceLanguage(){
-		global $language_interface;
-		$language_interface=false;
-		ob_start();
-		$res = api_get_interface_language();
-		$res = ob_get_contents();
-		$this->assertTrue(is_string($res));
-		$this->assertTrue(isset($language_interface));
-		ob_end_clean();
-		//var_dump($res);
-   	}
 */
    	function testApiIsPlatformAdmin(){
    		ob_start();

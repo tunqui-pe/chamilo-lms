@@ -215,10 +215,6 @@ class Course
      */
     public function to_system_encoding()
     {
-        if (api_equal_encodings($this->encoding, api_get_system_encoding())) {
-            return;
-        }
-
         foreach ($this->resources as $type => & $resources) {
             if (count($resources) > 0) {
                 foreach ($resources as & $resource) {

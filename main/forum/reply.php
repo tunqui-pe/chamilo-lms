@@ -193,7 +193,7 @@ if (!empty($values) && isset($_POST['SubmitPost'])) {
 
     $url = 'viewthread.php?' . http_build_query([
         'forum' => $current_thread['forum_id'],
-        'gradebook' => $gradebook,
+            //'gradebook' => $gradebook,
         'thread' => intval($_GET['thread']),
         'gidReq' => api_get_group_id(),
         'origin' => $origin,

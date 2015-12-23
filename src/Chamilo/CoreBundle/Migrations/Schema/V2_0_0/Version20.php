@@ -121,6 +121,10 @@ class Version20 implements Migration, OrderedMigrationInterface
         $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
         $queries->addQuery($sql);
 
+        $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
+        $queries->addQuery($sql);
+
+
         // Settings to delete
 
         $settings = [
@@ -134,7 +138,6 @@ class Version20 implements Migration, OrderedMigrationInterface
             $sql = "DELETE FROM settings_current WHERE variable = $setting";
             $queries->addQuery($sql);
         }
-
     }
 
     /**

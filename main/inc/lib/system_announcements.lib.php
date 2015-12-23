@@ -19,7 +19,7 @@ class SystemAnnouncementManager
 	 */
 	public static function display_announcements($visible, $id = -1)
     {
-		$user_selected_language = api_get_interface_language();
+		$user_selected_language = api_get_language_isocode();
 		$db_table = Database :: get_main_table(TABLE_MAIN_SYSTEM_ANNOUNCEMENTS);
         $tbl_announcement_group = Database :: get_main_table(TABLE_MAIN_SYSTEM_ANNOUNCEMENTS_GROUPS);
 		$userGroup = new UserGroup();
@@ -108,7 +108,7 @@ class SystemAnnouncementManager
      */
     public static function display_all_announcements($visible, $id = -1, $start = 0,$user_id='')
     {
-		$user_selected_language = api_get_interface_language();
+		$user_selected_language = api_get_language_isocode();
 		$start	= intval($start);
         $userGroup = new UserGroup();
 	    $tbl_announcement_group = Database :: get_main_table(TABLE_MAIN_SYSTEM_ANNOUNCEMENTS_GROUPS);
@@ -235,7 +235,7 @@ class SystemAnnouncementManager
     {
 		$start = intval($start);
 		$visibility = api_is_allowed_to_create_course() ? self::VISIBLE_TEACHER : self::VISIBLE_STUDENT;
-		$user_selected_language = api_get_interface_language();
+		$user_selected_language = api_get_language_isocode();
 		$db_table = Database :: get_main_table(TABLE_MAIN_SYSTEM_ANNOUNCEMENTS);
 		$sql = 'SELECT id FROM '.$db_table.'
 		        WHERE (lang="'.$user_selected_language.'" OR lang IS NULL) ';
@@ -722,7 +722,9 @@ class SystemAnnouncementManager
      */
     public static function display_announcements_slider($visible, $id = null)
     {
-        $user_selected_language = Database::escape_string(api_get_interface_language());
+		$user_selected_language = Database::escape_string(
+			api_get_language_isocode()
+		);
         $table = Database :: get_main_table(TABLE_MAIN_SYSTEM_ANNOUNCEMENTS);
 
         $cut_size = 500;
@@ -799,7 +801,9 @@ class SystemAnnouncementManager
      */
     public static function displayAnnouncement($announcementId, $visibility)
     {
-        $selectedUserLanguage = Database::escape_string(api_get_interface_language());
+		$selectedUserLanguage = Database::escape_string(
+			api_get_language_isocode()
+		);
         $announcementTable = Database :: get_main_table(TABLE_MAIN_SYSTEM_ANNOUNCEMENTS);
 
         $now = api_get_utc_datetime();

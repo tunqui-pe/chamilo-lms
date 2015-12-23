@@ -88,7 +88,7 @@ function api_html_to_text($string)
 function api_detect_encoding_html($string) {
     if (@preg_match('/<head.*(<meta[^>]*content=[^>]*>).*<\/head>/si', $string, $matches)) {
         if (@preg_match('/<meta[^>]*charset=(.*)["\';][^>]*>/si', $matches[1], $matches)) {
-            return api_refine_encoding_id(trim($matches[1]));
+            return trim($matches[1]);
         }
     }
     return api_detect_encoding(api_html_to_text($string));
@@ -153,7 +153,7 @@ define('_PCRE_XML_ENCODING', '/<\?xml.*encoding=[\'"](.*?)[\'"].*\?>/m');
  */
 function api_detect_encoding_xml($string, $default_encoding = null) {
     if (preg_match(_PCRE_XML_ENCODING, $string, $matches)) {
-        return api_refine_encoding_id($matches[1]);
+        return $matches[1];
     }
     if (api_is_valid_utf8($string)) {
         return 'UTF-8';
@@ -161,7 +161,8 @@ function api_detect_encoding_xml($string, $default_encoding = null) {
     if (empty($default_encoding)) {
         $default_encoding = _api_mb_internal_encoding();
     }
-    return api_refine_encoding_id($default_encoding);
+
+    return $default_encoding;
 }
 
 
@@ -207,7 +208,7 @@ function _api_convert_encoding_xml(&$string, $to_encoding, $from_encoding) {
     if (empty($from_encoding)) {
         $from_encoding = api_detect_encoding_xml($string);
     }
-    $to_encoding = api_refine_encoding_id($to_encoding);
+
     if (!preg_match('/<\?xml.*\?>/m', $string, $matches)) {
         return api_convert_encoding('<?xml version="1.0" encoding="'.$to_encoding.'"?>'."\n".$string, $to_encoding, $from_encoding);
     }
@@ -221,7 +222,7 @@ function _api_convert_encoding_xml(&$string, $to_encoding, $from_encoding) {
         return api_convert_encoding(str_replace($matches[0], $replace, $string), $to_encoding, $from_encoding);
     }
     global $_api_encoding;
-    $_api_encoding = api_refine_encoding_id($to_encoding);
+    $_api_encoding = $to_encoding;
     return api_convert_encoding(preg_replace_callback(_PCRE_XML_ENCODING, '_api_convert_encoding_xml_callback', $string), $to_encoding, $from_encoding);
 }
 

@@ -209,7 +209,7 @@ class PageController
     public function returnHelp()
     {
         $home                   = api_get_home_path();
-        $user_selected_language = api_get_interface_language();
+        $user_selected_language = api_get_language_isocode();
         $sys_path               = api_get_path(SYS_PATH);
         $platformLanguage = api_get_setting('language.platform_language');
 
@@ -260,7 +260,7 @@ class PageController
     public function returnNotice()
     {
         $sys_path               = api_get_path(SYS_PATH);
-        $user_selected_language = api_get_interface_language();
+        $user_selected_language = api_get_language_isocode();
         $home                   = api_get_home_path();
 
         // Notice

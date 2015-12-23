@@ -275,7 +275,7 @@ class IndexManager
     function return_notice()
     {
         $sys_path = api_get_path(SYS_PATH);
-        $user_selected_language = api_get_interface_language();
+        $user_selected_language = api_get_language_isocode();
 
         $html = '';
         // Notice
@@ -294,7 +294,7 @@ class IndexManager
 
     function return_help()
     {
-        $user_selected_language = api_get_interface_language();
+        $user_selected_language = api_get_language_isocode();
         $sys_path               = api_get_path(SYS_PATH);
         $platformLanguage = api_get_setting('language.platform_language');
 

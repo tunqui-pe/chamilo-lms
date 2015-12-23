@@ -975,7 +975,7 @@ switch ($action) {
 		$form->addElement('checkbox', 'all_langs', null, get_lang('ApplyAllLanguages'),array('id' => 'all_langs'));
 		$form->addElement('html','<table id="table_langs" style="margin-left:5px;"><tr>');
 
-		$currentLanguage = api_get_interface_language();
+		$currentLanguage = api_get_language_isocode();
 		$i = 0;
 		foreach ($_languages['name'] as $key => $value) {
 			$lang_name = $_languages['folder'][$key];
