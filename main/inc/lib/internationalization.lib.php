@@ -13,7 +13,6 @@
 use Patchwork\Utf8;
 use Chamilo\CoreBundle\Framework\Container;
 use Symfony\Component\Intl\Intl;
-use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 
 /**
  * Constants
