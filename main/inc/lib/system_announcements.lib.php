@@ -653,10 +653,9 @@ class SystemAnnouncementManager
 	 */
 	public static function send_system_announcement_by_email($title, $content, $teacher, $student, $language = null, $sendEmailTest = false)
     {
-		global $charset;
-
-        $title = api_html_entity_decode(stripslashes($title), ENT_QUOTES, $charset);
-        $content = api_html_entity_decode(stripslashes(str_replace(array('\r\n', '\n', '\r'),'', $content)), ENT_QUOTES, $charset);
+		$content = stripslashes(
+			str_replace(array('\r\n', '\n', '\r'), '', $content)
+		);
         $now = api_get_utc_datetime();
 
         if ($sendEmailTest) {
