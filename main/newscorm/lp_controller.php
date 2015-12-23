@@ -1332,7 +1332,7 @@ switch ($action) {
             );
 
             if (empty($forumThread)) {
-                require '../forum/forumfunction.inc.php';
+                require api_get_path(SYS_CODE_PATH) . 'forum/forumfunction.inc.php';
 
                 $forumCategory = getForumCategoryByTitle(
                     get_lang('LearningPaths'),
@@ -1372,13 +1372,16 @@ switch ($action) {
             }
         }
 
-        header('Location:' . api_get_path(WEB_PATH) . api_get_self() . '?' . http_build_query([
+        $learnPath->updateCurrentLpFromSession();
+        Session::write('lpobject', serialize($learnPath));
+
+        header('Location:' . api_get_self() . '?' . http_build_query([
             'action' => 'add_item',
             'type' => 'step',
             'lp_id' => $lp->lp_id
         ]));
 
-        break;
+        exit;
     case 'report':
         require 'lp_report.php';
         break;
@@ -1414,12 +1417,15 @@ switch ($action) {
             }
         }
 
-        header('Location:' . api_get_path(WEB_PATH) . api_get_self() . '?' . http_build_query([
+        $learnPath->updateCurrentLpFromSession();
+        Session::write('lpobject', serialize($learnPath));
+
+        header('Location:' . api_get_self() . '?' . http_build_query([
             'action' => 'add_item',
             'type' => 'step',
             'lp_id' => $_SESSION['oLP']->lp_id
         ]));
-        break;
+        exit;
     default:
         if ($debug > 0) error_log('New LP - default action triggered', 0);
         require 'lp_list.php';
