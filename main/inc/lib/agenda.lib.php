@@ -156,12 +156,9 @@ class Agenda
                     'text' => $content,
                     'date' => $start,
                     'enddate' => $end,
-                    'all_day' => $allDay
+                    'all_day' => $allDay,
+                    'color' => $color
                 );
-
-                if ($this->allowEventColoring) {
-                    $attributes['color'] = $color;
-                }
 
                 $id = Database::insert(
                     $this->tbl_personal_agenda,
