@@ -7307,7 +7307,7 @@ class learnpath
 
         $form = new FormValidator('form', 'POST',  $url);
 
-        $defaults['title'] = api_html_entity_decode($item_title, ENT_QUOTES, $charset);
+        $defaults['title'] = !empty($item_title) ? api_html_entity_decode($item_title, ENT_QUOTES, $charset) : '';
         $defaults['description'] = $item_description;
 
         $form->addElement('header', $title);
