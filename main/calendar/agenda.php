@@ -70,8 +70,8 @@ $actions = $agenda->displayActions('calendar');
 
 if ($type == 'fromjs') {
     $id_list = explode('_', $eventId);
-    $eventId = $id_list[1];
-    $event_type = $id_list[0];
+    $eventId = isset($id_list[1]) ? $id_list[1] : '';
+    $event_type = isset($id_list[0]) ? $id_list[0] : '';
 }
 
 if (!api_is_allowed_to_edit(null, true) && $event_type == 'course') {
