@@ -87,164 +87,20 @@ class IndexController extends BaseController
     }
 
     /**
-     * @todo move all this getDocument* actions into another controller
-     * @param Application $app
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    /*public function getDocumentTemplateAction(Application $app)
-    {
-        try {
-            $file = $app['request']->get('file');
-            $file = $app['chamilo.filesystem']->get('document_templates/'.$file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }*/
-
-    /**
-     * Gets a document from the courses/MATHS/document/file.jpg to the user
-     * @todo check permissions
-     * @param string $course
-     * @param string $file
-     * @return \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    public function getDocumentAction($course, $file)
-    {
-        try {
-            $fs = $this->container->get('oneup_flysystem.course_filesystem');
-            $path = $course.'/document/'.$file;
-
-            if (!$fs->has($path)) {
-                return $this->abort();
-            }
-            //$file = $app['chamilo.filesystem']->getCourseDocument($course, $file);
-
-            /** @var \League\Flysystem\Adapter\Local $adapter */
-            $adapter = $fs->getAdapter();
-            $filePath = $adapter->getPathPrefix().$path;
-
-            return new BinaryFileResponse($filePath);
-
-        } catch (\InvalidArgumentException $e) {
-            return $this->abort();
-        }
-    }
-
-    /**
-     * Gets a document from the data/courses/MATHS/document/file.jpg to the user
-     * @todo check permissions
-     * @param Application $app
-     * @param string $courseCode
-     * @param string $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    public function getCourseUploadFileAction(Application $app, $courseCode, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->getCourseUploadFile($courseCode, $file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-    /**
-     * Gets a document from the data/courses/MATHS/scorm/file.jpg to the user
-     * @todo check permissions
-     * @param Application $app
-     * @param string $courseCode
-     * @param string $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    public function getScormDocumentAction(Application $app, $courseCode, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->getCourseScormDocument($courseCode, $file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-    /**
-     * Gets a document from the data/default_platform_document/* folder
-     * @param Application $app
-     * @param string $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    public function getDefaultPlatformDocumentAction(Application $app, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->get('default_platform_document/'.$file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-     /**
-     * Gets a document from the data/default_platform_document/* folder
-     * @param Application $app
-     * @param string $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    public function getDefaultCourseDocumentAction(Application $app, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->get('default_course_document/'.$file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-    /**
-     * @param Application $app
-     * @param $groupId
-     * @param $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    public function getGroupFile(Application $app, $groupId, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->get('upload/groups/'.$groupId.'/'.$file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-    /**
-     * @param Application $app
-     * @param $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
-    public function getUserFile(Application $app, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->get('upload/users/'.$file);
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-    /**
      * Toggle the student view action
      *
      * @Route("/toggle_student_view")
      * @Security("has_role('ROLE_TEACHER')")
      * @Method({"GET"})
+     * @param Request $request
      *
      * @return Response
      */
-    public function toggleStudentViewAction()
+    public function toggleStudentViewAction(Request $request)
     {
         if (!api_is_allowed_to_edit(false, false, false, false)) {
             return '';
         }
-        $request = $this->getRequest();
         $studentView = $request->getSession()->get('studentview');
         if (empty($studentView) || $studentView == 'studentview') {
             $request->getSession()->set('studentview', 'teacherview');

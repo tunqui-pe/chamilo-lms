@@ -69,7 +69,7 @@ core_tool:
 core_tool_document:
     pattern: /courses/{course}/document/{file}
     defaults:
-        _controller: ChamiloCoreBundle:Index:getDocument
+        _controller: ChamiloCoreBundle:Resource:getDocument
     requirements:
         file: .+ # allow "/" in {file}
 
