@@ -46,9 +46,9 @@
         "ext-xml": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-
-        "symfony/symfony": "2.7.*",
+      "symfony/symfony": "~2.7",
         "doctrine/doctrine-bundle": "~1.4",
+      "symfony/intl": "^3.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
@@ -82,6 +82,9 @@
         "doctrine/doctrine-migrations-bundle": "*@dev",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "doctrine/data-fixtures": "~1.0@dev",
+      "jackalope/jackalope-doctrine-dbal": "1.2.*",
+      "doctrine/phpcr-odm": "1.2.*",
+      "doctrine/phpcr-bundle": "1.2.*",
 
         "ircmaxell/password-compat": "~1.0.4",
         "gedmo/doctrine-extensions": "~2.3",
@@ -138,7 +141,7 @@
         "oneup/flysystem-bundle": "@stable",
         "intervention/image": "^2.3",
         "apy/datagrid-bundle": "^2.2",
-        "symfony/intl": "^3.0"
+      "sonata-project/doctrine-phpcr-admin-bundle": "^1.2"
     },
     "require-dev": {
         "behat/behat": "2.5.*@stable",
