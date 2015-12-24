@@ -60,38 +60,33 @@ class LoadUserData extends AbstractFixture implements
         $studentGroup = $groupManager->findGroupByName('students');
         $teacherGroup = $groupManager->findGroupByName('teachers');
 
-        // Creating student user.
+        // Loading test users
+        // @todo add setting in installer to load sample content
 
-        $user = $manager->createUser();
-        $user->setUserId(2);
-        $user->setFirstname('student');
-        $user->setLastname('student');
-        //$user->setPhone($faker->phoneNumber);
-        $user->setUsername('student');
-        $user->setEmail($faker->safeEmail);
-        $user->setPlainPassword('student');
-        $user->setEnabled(true);
-        $user->setLocked(false);
-        $user->addGroup($studentGroup);
-        $manager->updateUser($user);
+        $root = $this->container->get('kernel')->getRealRootDir();
+        $users = require $root.'/tests/datafiller/data_users.php';
 
-        // Creating teacher.
+        foreach ($users as $userData) {
+            $user = $manager->createUser();
 
-        $user = $manager->createUser();
-        $user->setUserId(3);
-        $user->setFirstname('teacher');
-        $user->setLastname('teacher');
-        //$user->setPhone($faker->phoneNumber);
-        $user->setUsername('teacher');
-        $user->setEmail($faker->safeEmail);
-        $user->setPlainPassword('teacher');
-        $user->setEnabled(true);
-        $user->setLocked(false);
-        $user->addGroup($teacherGroup);
+            $user->setFirstname($userData['firstname']);
+            $user->setLastname($userData['lastname']);
+            $user->setUsername($userData['username']);
+            $user->setEmail($userData['email']);
+            $user->setPlainPassword($userData['pass']);
+            $user->setEnabled(true);
+            $user->setLocked(false);
 
-        $manager->updateUser($user);
+            if ($userData['status'] == 5) {
+                $user->addGroup($studentGroup);
+            } else {
+                $user->addGroup($teacherGroup);
+            }
+            $manager->updateUser($user);
+        }
 
-        // Creating random student users.
+        // Creating random student users using faker
+        /*
         foreach (range(3, 100) as $id) {
             $user = $manager->createUser();
             $user->setUserId($id);
@@ -105,7 +100,7 @@ class LoadUserData extends AbstractFixture implements
             $user->setLocked(false);
             $user->addGroup($studentGroup);
             $manager->updateUser($user);
-        }
+        }*/
     }
 
     /**
