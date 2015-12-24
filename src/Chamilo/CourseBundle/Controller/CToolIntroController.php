@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
 
-
 /**
  * Class CToolIntroController
  * @package Chamilo\CourseBundle\Controller

@@ -5,7 +5,7 @@
     <div class="col-md-3">
         {% block chamilo_left_column %}
             <section class="left_column">
-            {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}
                 {#{{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}#}
             {% endif %}

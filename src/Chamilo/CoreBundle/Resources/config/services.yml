@@ -52,12 +52,12 @@ services:
            - { name: security.voter }
 
     # Resource node voter, checks if a user has permissions to do actions
-#    chamilo_core.security.authorization.voter.resource_node_voter:
-#        class: Chamilo\CoreBundle\Security\Authorization\Voter\ResourceNodeVoter
-#        public: false
-#        arguments: [ @service_container ]
-#        tags:
-#            - { name: security.voter }
+    chamilo_core.security.authorization.voter.resource_node_voter:
+        class: Chamilo\CoreBundle\Security\Authorization\Voter\ResourceNodeVoter
+        public: false
+        arguments: [ @service_container ]
+        tags:
+            - { name: security.voter }
 
     # User image naming
 #    chamilo_core.naming.user_image:
