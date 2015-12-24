@@ -61,6 +61,8 @@ class Version20 implements Migration, OrderedMigrationInterface
             'ALTER TABLE c_tool_intro ADD COLUMN tool VARCHAR(255)'
         );
 
+        $queries->addQuery("ALTER TABLE resource_link ADD start_visibility_at DATETIME DEFAULT NULL, ADD end_visibility_at DATETIME DEFAULT NULL;");
+
         $sql = "UPDATE user SET emailCanonical = email";
         $queries->addQuery($sql);
 
@@ -124,9 +126,7 @@ class Version20 implements Migration, OrderedMigrationInterface
         $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
         $queries->addQuery($sql);
 
-
         // Settings to delete
-
         $settings = [
             //'session_page_enabled',
             //'session_tutor_reports_visibility',
