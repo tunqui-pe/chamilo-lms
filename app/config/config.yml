@@ -4,6 +4,9 @@ imports:
     - { resource: assetic.yml }
     - { resource: services.yml }
 
+#    - { resource: @ChamiloCoreBundle/Resources/config/admin.yml }
+#    - { resource: @ChamiloNotebookBundle/Resources/config/admin.yml }
+
     # Mopa Bootstrap
     - { resource: mopa/mopa_bootstrap.yml }
 
@@ -20,7 +23,7 @@ imports:
 #    - { resource: sonata/sonata_cache.yml }
     - { resource: sonata/sonata_seo.yml }
 #    - { resource: sonata/sonata_timeline.yml }
-#    - { resource: sonata/sonata_intl.yml }
+    - { resource: sonata/sonata_intl.yml }
     - { resource: sonata/sonata_core.yml }
     - { resource: sonata/sonata_user.yml }
 
@@ -195,7 +198,10 @@ doctrine_cache:
         chamilo_settings:
             type: file_system
 
-
+# Grid default template
+#apy_data_grid:
+#    theme: ChamiloCoreBundle::grid.html.twig
+#
 stof_doctrine_extensions:
     default_locale: "%locale%"
     translation_fallback: true
@@ -263,6 +269,29 @@ ivory_ck_editor:
 #            excluded_dirs: [cache, data, logs]
 ##            extractors: [alias_of_the_extractor]
 
+#doctrine_phpcr:
+#    session:
+#            backend:
+#                type: doctrinedbal
+#                # connection: default
+#
+#                # requires DoctrineCacheBundle
+#                # caches:
+#                #     meta: doctrine_cache.providers.phpcr_meta
+#                #     nodes: doctrine_cache.providers.phpcr_nodes
+#                # enable logging
+#                logging: true
+#                # enable profiling in the debug toolbar.
+#                profiling: true
+#            workspace: default
+#            username: admin
+#            password: admin
+#    odm:
+#        auto_mapping: true
+#        mappings:
+#            SonataMediaBundle:
+#                prefix: Sonata\MediaBundle\PHPCR
+
 fm_elfinder:
     assets_path: /chamilo_master/web/assets
     instances:
@@ -294,3 +323,13 @@ fm_elfinder:
                         #upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
                         #upload_deny: ['all']
                         upload_max_size: 2M
+
+sylius_resource:
+    resources:
+        chamilo_notebook.notebook:
+            driver: doctrine/orm
+            templates: ChamiloNotebookBundle:Notebook
+            classes:
+                model: Chamilo\NotebookBundle\Entity\CNotebook
+                controller: Chamilo\NotebookBundle\Controller\NotebookController
+                repository: Chamilo\NotebookBundle\Entity\NotebookRepository

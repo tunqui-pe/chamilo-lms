@@ -23,7 +23,6 @@ course:
     type:     annotation
     prefix:   /course
 
-
 legacy_javascript:
     resource: "@ChamiloCoreBundle/Controller/JavascriptLegacyController.php"
     type:     annotation
@@ -97,8 +96,6 @@ core_tool_document:
 #    methods: [GET]
 #    defaults:
 #        _controller: chamilo_course.controller.tool:indexAction
-
-
 
 # Redirects /url/ to /url
 remove_trailing_slash:

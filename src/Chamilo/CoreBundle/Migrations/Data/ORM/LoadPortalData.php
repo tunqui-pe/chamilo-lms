@@ -4,7 +4,6 @@
 namespace Chamilo\CoreBundle\Migrations\Data\ORM;
 
 use Chamilo\CoreBundle\Entity\CourseCategory;
-use Chamilo\CoreBundle\Entity\CourseField;
 use Chamilo\CoreBundle\Entity\Language;
 use Chamilo\CoreBundle\Entity\AccessUrl;
 use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
@@ -72,6 +71,8 @@ class LoadPortalData extends AbstractFixture implements
         /** @var HttpKernelInterface $kernel */
         //$kernel = $this->container->get('kernel');
 
+        // Create course categories
+
         $courseCategory = new CourseCategory();
         $courseCategory->setName('Language skills');
         $courseCategory->setCode('LANG');
@@ -112,7 +113,7 @@ class LoadPortalData extends AbstractFixture implements
 
         $adminUser = $this->getUserManager()->findUserByUsername('admin');
 
-        // Ids used
+        // Create first portal (multiple url feature)
         $adminUserId = $adminUser->getId();
         $accessUrlId = 1;
 
@@ -124,6 +125,7 @@ class LoadPortalData extends AbstractFixture implements
         $manager->persist($accessUrl);
         $this->setReference('access_url', $accessUrl);
 
+        // Add admin user to portal 1
         $accessUrlRelUser = new AccessUrlRelUser();
         $accessUrlRelUser->setUser($adminUser);
         $accessUrlRelUser->setPortal($accessUrl);
@@ -134,6 +136,8 @@ class LoadPortalData extends AbstractFixture implements
         $systemTemplate->setComment('');
         $systemTemplate->setImage('');
         $systemTemplate->setContent('');*/
+
+        // Create social network relations
 
         $userFriendRelationType = new UserFriendRelationType();
         $userFriendRelationType->setId(1);
@@ -165,6 +169,8 @@ class LoadPortalData extends AbstractFixture implements
         $userFriendRelationType->setTitle('SocialDeleted');
         $manager->persist($userFriendRelationType);
 
+        // Create default skills
+
         $skill = new Skill();
 
         $skill->setName('Root');
@@ -191,6 +197,8 @@ class LoadPortalData extends AbstractFixture implements
         $courseType->setName('Entry exam');
         $manager->persist($courseType);
 
+        // Branch
+
         $branch = new BranchSync();
         $branch->setAccessUrlId($accessUrlId);
         $branch->setBranchName('Local');
@@ -213,61 +221,17 @@ class LoadPortalData extends AbstractFixture implements
         $branchTransactionStatus->setTitle('Execution failed');
         $manager->persist($branchTransactionStatus);
 
-        //$toolChain = $this->container->get('chamilo_course.tool_chain');
-        //$toolChain->createTools($manager);
+        // Tools
 
-        /*
-        $tool = new Tool();
-        $tool->setName('agenda');
-        $manager->persist($tool);
+        // Tool chain contains all tools (services with tag "chamilo_course.tool" )
+        $toolChain = $this->container->get('chamilo_course.tool_chain');
+        $toolChain->createTools($manager);
 
-        $tool = new Tool();
-        $tool->setName('announcements');
-        $manager->persist($tool);
-
-        $tool = new Tool();
-        $tool->setName('exercise');
-        $manager->persist($tool);
-
-        $tool = new Tool();
-        $tool->setName('document');
-        $manager->persist($tool);
-
-        $tool = new Tool();
-        $tool->setName('link');
-        $manager->persist($tool);
-
-        $tool = new Tool();
-        $tool->setName('forum');
-        $manager->persist($tool);
-
-        $tool = new Tool();
-        $tool->setName('glossary');
-        $manager->persist($tool);*/
+        // Fill the language table
 
         $languages = Intl::getLocaleBundle()->getLocaleNames('en');
-
-        // Getting po files inside the path
-        // Check path to get po files
-        /*$translationPath = $kernel->locateResource('@ChamiloCoreBundle/Resources/translations');
-
-        $finder = new Finder();
-        $finder->files()->in($translationPath);
-        $avoidIsoCodeList = array('AvanzuAdminTheme.en.po');
-        $availableIsoCode = array();
-        foreach ($finder as $file) {
-            $fileName = $file->getRelativePathname();
-            if (in_array($fileName, $avoidIsoCodeList)) {
-                continue;
-            }
-            $isoCodeInFolder = str_replace(
-                array('all.', '.po'), '', $fileName
-            );
-            $availableIsoCode[] = $isoCodeInFolder;
-        }*/
-
-        // @todo use this languages just for now
-        $availableIsoCode = ['en', 'es', 'fr', 'nl', 'ru', 'se'];
+        // @todo use this iso languages just for now
+        $availableIsoCode = ['en', 'es', 'fr', 'nl', 'ru', 'de'];
         foreach ($languages as $code => $languageName) {
             if (!in_array($code, $availableIsoCode)) {
                 continue;
@@ -277,10 +241,12 @@ class LoadPortalData extends AbstractFixture implements
             $localeName = Intl::getLocaleBundle()->getLocaleName($code);
 
             $lang = new Language();
-            $lang->setAvailable(1);
-            $lang->setIsocode($code);
-            $lang->setOriginalName($localeName);
-            $lang->setEnglishName($languageName);
+            $lang
+                ->setAvailable(1)
+                ->setIsocode($code)
+                ->setOriginalName($localeName)
+                ->setEnglishName($languageName)
+            ;
             $manager->persist($lang);
         }
 

@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CNotebook
  *
- * @ORM\Table(
+ * ORM\Table(
  *  name="c_notebook",
  *  indexes={
- *      @ORM\Index(name="course", columns={"c_id"})
+ *      ORM\Index(name="course", columns={"c_id"})
  *  }
  * )
- * @ORM\Entity
+ * ORM\Entity
  */
 class CNotebook
 {

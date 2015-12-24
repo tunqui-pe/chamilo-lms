@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
+            //new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
 
@@ -40,9 +42,13 @@ class AppKernel extends Kernel
             //new Sonata\PageBundle\SonataPageBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
+
+//            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+//            new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
 
@@ -71,6 +77,10 @@ class AppKernel extends Kernel
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
             new Chamilo\MediaBundle\ChamiloMediaBundle(),
+
+
+            // Chamilo course tool
+            new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
 
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
 

@@ -11,6 +11,9 @@ chamilo_course:
     resource: "@ChamiloCourseBundle/Resources/config/routing.yml"
     prefix:   /
 
+_courses:
+    resource: routing_courses.yml
+
 _front:
     resource: routing_front.yml
 
@@ -31,3 +34,4 @@ liip_theme:
 # app/config/routing.yml
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
