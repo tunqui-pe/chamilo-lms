@@ -18,10 +18,6 @@ use Symfony\Component\Intl\Intl;
  * Constants
  */
 
-// Special tags for marking untranslated variables.
-define('SPECIAL_OPENING_TAG', '[=');
-define('SPECIAL_CLOSING_TAG', '=]');
-
 // Predefined date formats in Chamilo provided by the language sub-system.
 // To be used as a parameter for the function api_format_date()
 
@@ -115,16 +111,9 @@ function get_lang($variable, $reserved = null, $language = null)
 }
 
 /**
- * Gets language isocode column from the language table, taking the given language as a query parameter.
- * @param string $language		This is the name of the folder containing translations for the corresponding language (e.g arabic, english).
- * @param string $default_code	This is the value to be returned if there was no code found corresponding to the given language.
- * If $language is omitted, interface language is assumed then.
- * @return string			The found isocode or null on error.
- * Returned codes are according to the following standards (in order of preference):
- * -  ISO 639-1 : Alpha-2 code (two-letters code - en, fr, es, ...)
- * -  RFC 4646  : five-letter code based on the ISO 639 two-letter language codes
- *    and the ISO 3166 two-letter territory codes (pt-BR, ...)
- * -  ISO 639-2 : Alpha-3 code (three-letters code - ast, fur, ...)
+ * Gets current language iso code
+ *
+ * @return string
  */
 function api_get_language_isocode()
 {
@@ -132,9 +121,9 @@ function api_get_language_isocode()
 }
 
 /**
- * Gets language isocode column from the language table
+ * Gets language iso code column from the language table
  *
- * @return array    An array with the current isocodes
+ * @return array    An array with the current iso codes
  *
  * */
 function api_get_platform_isocodes()
@@ -264,7 +253,9 @@ function api_get_utc_datetime($time = null, $return_null_if_invalid_date = false
         $date = new DateTime($time, new DateTimezone($from_timezone));
         $date->setTimezone(new DateTimeZone($to_timezone));
         return $date->format('Y-m-d H:i:s');
+
     } catch (Exception $e) {
+
         return null;
     }
 }
@@ -313,7 +304,9 @@ function api_get_local_time($time = null, $to_timezone = null, $from_timezone = 
         $date = new DateTime($time, new DateTimezone($from_timezone));
         $date->setTimezone(new DateTimeZone($to_timezone));
         return $date->format('Y-m-d H:i:s');
+
     } catch (Exception $e) {
+
         return null;
     }
 }
@@ -328,7 +321,8 @@ function api_get_local_time($time = null, $to_timezone = null, $from_timezone = 
  *
  * @author Guillaume Viguier <guillaume.viguier@beeznest.com>
  */
-function api_strtotime($time, $timezone = null) {
+function api_strtotime($time, $timezone = null)
+{
     $system_timezone = date_default_timezone_get();
     if (!empty($timezone)) {
         date_default_timezone_set($timezone);
@@ -622,7 +616,11 @@ function date_to_str_ago($date)
  *
  * @author Guillaume Viguier <guillaume.viguier@beeznest.com>
  */
-function api_convert_and_format_date($time = null, $format = null, $from_timezone = null) {
+function api_convert_and_format_date(
+    $time = null,
+    $format = null,
+    $from_timezone = null
+) {
     // First, convert the datetime to the right timezone
     $time = api_get_local_time($time, null, $from_timezone);
     // Second, localize the date
@@ -634,9 +632,10 @@ function api_convert_and_format_date($time = null, $format = null, $from_timezon
  * @param string $language (optional)	Language id. If it is omitted, the current interface language is assumed.
  * @return string						Returns an array of week days (short names).
  * Example: api_get_week_days_short('english') means array('Sun', 'Mon', ... 'Sat').
- * Note: For all languges returned days are in the English order.
+ * Note: For all languages returned days are in the English order.
  */
-function api_get_week_days_short($language = null) {
+function api_get_week_days_short($language = null)
+{
     $days = &_api_get_day_month_names($language);
     return $days['days_short'];
 }
@@ -646,9 +645,11 @@ function api_get_week_days_short($language = null) {
  * @param string $language (optional)	Language id. If it is omitted, the current interface language is assumed.
  * @return string						Returns an array of week days.
  * Example: api_get_week_days_long('english') means array('Sunday, 'Monday', ... 'Saturday').
- * Note: For all languges returned days are in the English order.
+ * Note: For all languages returned days are in the English order.
+ * @deprecated
  */
-function api_get_week_days_long($language = null) {
+function api_get_week_days_long($language = null)
+{
     $days = &_api_get_day_month_names($language);
     return $days['days_long'];
 }
@@ -897,8 +898,7 @@ function api_to_system_encoding(
     $string,
     $fromFencoding = null,
     $check_utf8_validity = false
-)
-{
+) {
     $systemEncoding = api_get_system_encoding();
 
     return api_convert_encoding($string, $systemEncoding, $fromFencoding);
@@ -926,9 +926,6 @@ function api_htmlentities($string, $quote_style = ENT_COMPAT, $encoding = 'UTF-8
     }
 
     return mb_convert_encoding($string, 'HTML-ENTITIES', 'UTF-8');
-/*
-    return html_entity_decode($string, $quote_style, $encoding);
-    return mb_convert_encoding($string, 'HTML-ENTITIES', 'UTF-8');*/
 }
 
 /**
@@ -1656,7 +1653,7 @@ function &_api_get_day_month_names($language = null) {
 
 /**
  * Returns returns person name convention for a given language.
- * @param string $isoCode
+ * @param string $language
  * @param string $type		The type of the requested convention.
  * It may be 'format' for name order convention or 'sort_by' for name sorting convention.
  * @return mixed Depending of the requested type,
