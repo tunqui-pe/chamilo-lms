@@ -81,6 +81,17 @@ class ResourceLink implements ResourceInterface
      */
     protected $public;
 
+
+    /**
+     * @ORM\Column(name="start_visibility_at", type="datetime", nullable=true)
+     */
+    protected $startVisibilityAt;
+
+    /**
+     * @ORM\Column(name="end_visibility_at", type="datetime", nullable=true)
+     */
+    protected $endVisibilityAt;
+
     /**
      * Constructor
      */
@@ -88,6 +99,45 @@ class ResourceLink implements ResourceInterface
     {
         $this->rights = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStartVisibilityAt()
+    {
+        return $this->startVisibilityAt;
+    }
+
+    /**
+     * @param mixed $startVisibilityAt
+     * @return ResourceLink
+     */
+    public function setStartVisibilityAt($startVisibilityAt)
+    {
+        $this->startVisibilityAt = $startVisibilityAt;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndVisibilityAt()
+    {
+        return $this->endVisibilityAt;
+    }
+
+    /**
+     * @param mixed $endVisibilityAt
+     * @return ResourceLink
+     */
+    public function setEndVisibilityAt($endVisibilityAt)
+    {
+        $this->endVisibilityAt = $endVisibilityAt;
+
+        return $this;
+    }
+
 
     /**
      * @return string
