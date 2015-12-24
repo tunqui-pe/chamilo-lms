@@ -50,13 +50,6 @@ class NotebookController extends ToolBaseCrudController
         /* @var $grid \APY\DataGridBundle\Grid\Grid */
         $grid = $this->get('grid');
 
-        /*$tableAlias = $source->getTableAlias();
-        $source->manipulateQuery(function (QueryBuilder $query) use ($tableAlias, $course) {
-                $query->andWhere($tableAlias . '.cId = '.$course->getId());
-                //$query->resetDQLPart('orderBy');
-            }
-        );*/
-
         /** @var NotebookRepository $repository */
         $repository = $this->getRepository();
         $resources = $repository->getResourceByCourse($course);
@@ -68,18 +61,7 @@ class NotebookController extends ToolBaseCrudController
         $grid->setLimits(5);
         //$grid->isReadyForRedirect();
 
-        //$grid->setMaxResults(1);
-        //$grid->setLimits(2);
-        /*$grid->getColumn('id')->manipulateRenderCell(
-            function ($value, $row, $router) use ($course) {
-                //$router = $this->get('router');
-                return $router->generate(
-                    'chamilo_notebook_show',
-                    array('id' => $row->getField('id'), 'course' => $course)
-                );
-            }
-        );*/
-
+        // Delete Mass
         if ($this->isGranted(ResourceNodeVoter::ROLE_CURRENT_COURSE_TEACHER)) {
             $deleteMassAction = new MassAction(
                 'Delete',
@@ -90,6 +72,7 @@ class NotebookController extends ToolBaseCrudController
             $grid->addMassAction($deleteMassAction);
         }
 
+        // Show
         $myRowAction = new RowAction(
             $this->trans('View'),
             'chamilo_notebook_show',
@@ -101,7 +84,7 @@ class NotebookController extends ToolBaseCrudController
         $grid->addRowAction($myRowAction);
 
         if ($this->isGranted(ResourceNodeVoter::ROLE_CURRENT_COURSE_TEACHER)) {
-
+            // Edit
             $myRowAction = new RowAction(
                 $this->trans('Edit'),
                 'chamilo_notebook_edit',
@@ -112,6 +95,7 @@ class NotebookController extends ToolBaseCrudController
             $myRowAction->setRouteParameters(array('course' => $course, 'id'));
             $grid->addRowAction($myRowAction);
 
+            // Delete
             $myRowAction = new RowAction(
                 $this->trans('Delete'),
                 'chamilo_notebook_delete',
@@ -123,6 +107,7 @@ class NotebookController extends ToolBaseCrudController
             $grid->addRowAction($myRowAction);
         }
 
+        // Exports
         $grid->addExport(
             new CSVExport(
                 $this->trans('CSV Export'), 'export', array('course' => $course)

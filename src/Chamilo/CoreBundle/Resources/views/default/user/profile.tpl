@@ -117,13 +117,13 @@
         <ul class="nav nav-pills nav-stacked">
             <li>
                 <a href="javascript:void(0);"
-                   onclick="javascript:send_message_to_user('{{ user.user_id }}');">
+                   onclick="javascript:send_message_to_user('{{ user.id }}');">
                     {{ 'SendMessage' | trans }}
                 </a>
             </li>
             <li>
                 <a href="javascript:void(0);"
-                   onclick="javascript:send_invitation_to_user('{{ user.user_id }}');">
+                   onclick="javascript:send_invitation_to_user('{{ user.id }}');">
                     {{ 'SendInvitation' | trans }}
                 </a>
             </li>
