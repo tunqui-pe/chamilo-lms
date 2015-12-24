@@ -83,7 +83,7 @@ class NotebookController extends ToolBaseCrudController
         if ($this->isGranted(ResourceNodeVoter::ROLE_CURRENT_COURSE_TEACHER)) {
             $deleteMassAction = new MassAction(
                 'Delete',
-                'chamilo.controller.notebook:deleteMassAction',
+                'chamilo_notebook.controller.notebook:deleteMassAction',
                 true,
                 array('course' => $request->get('course'))
             );
