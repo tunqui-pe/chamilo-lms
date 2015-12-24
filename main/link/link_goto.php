@@ -8,7 +8,7 @@
 * - It calls the event function
 * - It redirects the user to the linked page
 *
-* Need the liens.id, user.user_id et cours.code when called
+ * Need the liens.id, user.id et cours.code when called
 * ?link_id=$myrow[0]&link_url=$myrow[1]
 * url is given to avoid a new select
 *
