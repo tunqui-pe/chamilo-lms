@@ -1674,7 +1674,7 @@ class SocialManager extends UserManager
 
         $vCardUserLink = Display::getVCardUserLink($userId);
 
-        $userInfo = api_get_user_info($userId, true, false, true);
+        $userInfo = api_get_user_info($userId, true, false, true, true);
 
         $template->addGlobal('user', $userInfo);
         $template->addGlobal('social_avatar_block', $socialAvatarBlock);
