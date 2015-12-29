@@ -23,7 +23,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
-            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             //new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
@@ -39,13 +38,25 @@ class AppKernel extends Kernel
             new APY\DataGridBundle\APYDataGridBundle(),
 
             // Sonata
-            //new Sonata\PageBundle\SonataPageBundle(),
-            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+            // SONATA CORE & HELPER BUNDLES
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\IntlBundle\SonataIntlBundle(),
+            //new Sonata\FormatterBundle\SonataFormatterBundle(),
+            new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
-            new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
+            new Sonata\ClassificationBundle\SonataClassificationBundle(),
+            new Sonata\NotificationBundle\SonataNotificationBundle(),
+            new Sonata\DatagridBundle\SonataDatagridBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Sonata\PageBundle\SonataPageBundle(),
+
+            // CMF Integration
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+
+            //new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
 
 //            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
 //            new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
@@ -77,7 +88,7 @@ class AppKernel extends Kernel
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
             new Chamilo\MediaBundle\ChamiloMediaBundle(),
-
+            new Chamilo\PageBundle\ChamiloPageBundle(),
 
             // Chamilo course tool
             new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
