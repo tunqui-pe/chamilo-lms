@@ -20,12 +20,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-
             //new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
 
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
@@ -34,12 +34,10 @@ class AppKernel extends Kernel
 
             // KNP HELPER BUNDLES
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-
+            // Data grid
             new APY\DataGridBundle\APYDataGridBundle(),
 
             // Sonata
-            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            // SONATA CORE & HELPER BUNDLES
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\IntlBundle\SonataIntlBundle(),
@@ -53,13 +51,14 @@ class AppKernel extends Kernel
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\PageBundle\SonataPageBundle(),
 
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
 
-            //new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
-
-//            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
-//            new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
+            ///new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+            //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
 
@@ -87,15 +86,17 @@ class AppKernel extends Kernel
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
+
+            // Based in Sonata
+            new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
             new Chamilo\MediaBundle\ChamiloMediaBundle(),
             new Chamilo\PageBundle\ChamiloPageBundle(),
 
             // Chamilo course tool
             new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
 
+            // Data
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
-
-            //new Sonata\FormatterBundle\SonataFormatterBundle(),
 
             // Extra
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),

@@ -18,17 +18,17 @@ sonata_user_change_password:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
     prefix: /profile
 
-#sonata_cache_cache:
-#    resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
-#    prefix: /
-#
-#sonata_page_cache:
-#    resource: '@SonataPageBundle/Resources/config/routing/cache.xml'
-#    prefix: /
-#
-#sonata_page_exceptions:
-#    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
-#    prefix: /page
+sonata_cache_cache:
+    resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
+    prefix: /
+
+sonata_page_cache:
+    resource: '@SonataPageBundle/Resources/config/routing/cache.xml'
+    prefix: /
+
+sonata_page_exceptions:
+    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
+    prefix: /page
 
 sonata_media_gallery:
     resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'

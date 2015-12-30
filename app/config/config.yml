@@ -34,7 +34,7 @@ imports:
 #    - { resource: sonata/sonata_news.yml }
 #    - { resource: sonata/sonata_user.yml }
 #    - { resource: sonata/sonata_notification.yml }
-#    - { resource: sonata/sonata_classification.yml }
+    - { resource: sonata/sonata_classification.yml }
 
   # Sylius
     - { resource: sylius/sylius_resource.yml }
@@ -324,6 +324,18 @@ fm_elfinder:
                         #upload_deny: ['all']
                         upload_max_size: 2M
 
+#doctrine_phpcr:
+#    session:
+#        backend:
+#            type: doctrinedbal
+#            # connection: default
+#        workspace: default
+#        username: admin
+#        password: admin
+#
+#    odm:
+#            auto_mapping: true
+
 sylius_resource:
     resources:
         chamilo_notebook.notebook:
@@ -333,3 +345,5 @@ sylius_resource:
                 model: Chamilo\NotebookBundle\Entity\CNotebook
                 controller: Chamilo\NotebookBundle\Controller\NotebookController
                 repository: Chamilo\NotebookBundle\Entity\NotebookRepository
+
+
