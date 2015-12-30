@@ -1,3 +1,20 @@
+chamilo_cms:
+    resource: "@ChamiloCmsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /administration
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /administration
+
+cmf_tree:
+    resource: .
+    type: 'cmf_tree'
+
 #index:
 #    path: /
 
@@ -6,6 +23,9 @@
 
 logout:
     path: /logout
+
+sonata_user_admin_security_logout:
+  path: /logout
 
 chamilo_course:
     resource: "@ChamiloCourseBundle/Resources/config/routing.yml"

@@ -24,16 +24,16 @@ Debug::enable();
 require_once __DIR__.'/../app/AppKernel.php';
 require_once __DIR__.'/legacy.php';
 
-use Sonata\PageBundle\Request\RequestFactory;
+/*use Sonata\PageBundle\Request\RequestFactory;
 
 $request = RequestFactory::createFromGlobals('host_with_path_by_locale');
-$request->enableHttpMethodParameterOverride();
+$request->enableHttpMethodParameterOverride();*/
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 
 //Request::enableHttpMethodParameterOverride();
-//$request = Request::createFromGlobals();
+$request = Request::createFromGlobals();
 
 $response = $kernel->handle($request);
 $response->send();

@@ -13,8 +13,8 @@
             association mapping  : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/association-mapping/en
     -->
 
-    <document name="Chamilo\MediaBundle\Document\Media"
-              repository-class="Chamilo\MediaBundle\Document\MediaRepository">
+    <document name="Chamilo\MediaBundle\PHPCR\Media"
+              repository-class="Chamilo\MediaBundle\PHPCR\MediaRepository">
 
         <id name="id" type="id">
             <generator strategy="repository"/>

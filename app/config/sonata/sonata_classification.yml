@@ -1,10 +1,10 @@
-sonata_classification:
-    class:
-        tag:          Chamilo\ClassificationBundle\Entity\Tag
-        category:     Chamilo\ClassificationBundle\Entity\Category
-        collection:   Chamilo\ClassificationBundle\Entity\Collection
-        media:        Chamilo\MediaBundle\Entity\Media
-        context:      Chamilo\ClassificationBundle\Entity\Context
+#sonata_classification:
+#    class:
+#        tag:          Chamilo\ClassificationBundle\Entity\Tag
+#        category:     Chamilo\ClassificationBundle\Entity\Category
+#        collection:   Chamilo\ClassificationBundle\Entity\Collection
+#        media:        Chamilo\MediaBundle\Entity\Media
+#        context:      Chamilo\ClassificationBundle\Entity\Context
 
 #doctrine:
 #    orm:

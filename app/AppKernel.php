@@ -24,7 +24,7 @@ class AppKernel extends Kernel
 
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-            //new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+            new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
 
             new FOS\RestBundle\FOSRestBundle(),
@@ -45,19 +45,25 @@ class AppKernel extends Kernel
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
-            new Sonata\ClassificationBundle\SonataClassificationBundle(),
+            //new Sonata\ClassificationBundle\SonataClassificationBundle(),
             new Sonata\NotificationBundle\SonataNotificationBundle(),
             new Sonata\DatagridBundle\SonataDatagridBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
-            new Sonata\PageBundle\SonataPageBundle(),
+            //new Sonata\PageBundle\SonataPageBundle(),
+
+            new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(
+            ),
 
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
-
-            ///new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+            new Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle(),
+            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+            new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
+            new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
@@ -88,9 +94,9 @@ class AppKernel extends Kernel
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
 
             // Based in Sonata
-            new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
+            //new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
             new Chamilo\MediaBundle\ChamiloMediaBundle(),
-            new Chamilo\PageBundle\ChamiloPageBundle(),
+            //new Chamilo\PageBundle\ChamiloPageBundle(),
 
             // Chamilo course tool
             new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
@@ -104,6 +110,7 @@ class AppKernel extends Kernel
             //new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             //new JMS\AopBundle\JMSAopBundle(),
             new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
+            new Chamilo\CmsBundle\ChamiloCmsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

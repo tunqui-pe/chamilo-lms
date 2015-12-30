@@ -1,0 +1,9 @@
+{% extends "@ChamiloCore/layout_one_col.html.twig" %}
+{% block content %}
+
+    {{ knp_menu_render('main') }}
+
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content|raw }}</p>
+
+{% endblock %}
