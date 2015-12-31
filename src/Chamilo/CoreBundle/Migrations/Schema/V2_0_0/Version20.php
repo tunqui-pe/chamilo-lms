@@ -79,6 +79,9 @@ class Version20 implements Migration, OrderedMigrationInterface
         $this->addSql('ALTER TABLE media__gallery_media ADD CONSTRAINT FK_80D4C541EA9FDD75 FOREIGN KEY (media_id) REFERENCES media__media (id)');
 
 
+        $this->addSql('CREATE TABLE notification__message (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, body LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', state INT NOT NULL, restart_count INT DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, started_at DATETIME DEFAULT NULL, completed_at DATETIME DEFAULT NULL, INDEX idx_state (state), INDEX idx_created_at (created_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+
+
         $queries->addQuery("ALTER TABLE resource_link ADD start_visibility_at DATETIME DEFAULT NULL, ADD end_visibility_at DATETIME DEFAULT NULL;");
 
         $sql = "UPDATE user SET emailCanonical = email";
@@ -177,5 +180,7 @@ class Version20 implements Migration, OrderedMigrationInterface
         $this->addSql('DROP TABLE phpcr_type_nodes');
         $this->addSql('DROP TABLE phpcr_type_props');
         $this->addSql('DROP TABLE phpcr_type_childs');
+        $this->addSql('DROP TABLE notification__message');
+
     }
 }
