@@ -19,17 +19,20 @@ class LoadPageData implements FixtureInterface
             );
         }
 
-        $parent = $dm->find(null, '/cms/pages');
-
         $localePreferences = array(
             'en' => array('es'),
             'es' => array('en'),
         );
 
-
         $dm->setLocaleChooserStrategy(
             new LocaleChooser($localePreferences, 'en')
         );
+
+        $parent = $dm->find(null, '/cms/pages');
+
+
+
+
 
         $rootPage = new Page();
         $rootPage->setTitle('main');
@@ -46,12 +49,11 @@ HERE
         );
 
         $dm->persist($page);
-        $dm->bindTranslation($page, 'en');
+        //$dm->bindTranslation($page, 'en');
 
-        $page->setTitle('Inicio');
-        $page->setContent('Bienvenido!');
-        $dm->bindTranslation($page, 'es');
-
+        //$page->setTitle('Inicio');
+        //$page->setContent('Bienvenido!');
+        //$dm->bindTranslation($page, 'es');
 
         $page = new Page();
         $page->setTitle('About');

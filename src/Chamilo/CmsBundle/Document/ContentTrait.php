@@ -7,12 +7,6 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 trait ContentTrait
 {
     /**
-     * The language this document currently is in
-     * @PHPCR\Locale
-     */
-    private $locale;
-
-    /**
      * @PHPCR\Id()
      */
     protected $id;
@@ -31,6 +25,12 @@ trait ContentTrait
      * @PHPCR\String(nullable=true, translated=true)
      */
     protected $content;
+
+    /**
+     * The language this document currently is in
+     * @PHPCR\Locale
+     */
+    private $locale;
 
     /**
      * @PHPCR\Referrers(

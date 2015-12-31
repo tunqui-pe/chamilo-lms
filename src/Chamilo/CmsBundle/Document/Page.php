@@ -11,8 +11,7 @@ use Knp\Menu\NodeInterface;
 /**
  * @PHPCR\Document(
  *     translator="attribute",
- *     referenceable=true,
- *     versionable="full"
+ *     referenceable=true
  * )
  */
 class Page implements RouteReferrersReadInterface, NodeInterface, TranslatableInterface

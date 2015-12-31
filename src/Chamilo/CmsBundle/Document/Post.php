@@ -9,8 +9,7 @@ use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 /**
  * @PHPCR\Document(
  *     translator="attribute",
- *     referenceable=true,
- *     versionable="full"
+ *     referenceable=true
  * )
  */
 class Post implements RouteReferrersReadInterface, TranslatableInterface

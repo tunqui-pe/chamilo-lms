@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Chamilo\CmsBundle\Document\Post;
+use Doctrine\ODM\PHPCR\Translation\LocaleChooser\LocaleChooser;
 
 class LoadPostData implements FixtureInterface
 {
@@ -20,6 +21,16 @@ class LoadPostData implements FixtureInterface
 
         $parent = $dm->find(null, '/cms/posts');
 
+        $localePreferences = array(
+            'en' => array('es'),
+            'es' => array('en'),
+        );
+
+        $dm->setLocaleChooserStrategy(
+            new LocaleChooser($localePreferences, 'en')
+        );
+
+
         foreach (array('First', 'Second', 'Third', 'Fourth') as $title) {
             $post = new Post();
             $post->setTitle(sprintf('My %s Post', $title));
@@ -31,6 +42,9 @@ HERE
             );
 
             $dm->persist($post);
+            //$dm->bindTranslation($post, 'en');
+            //$post->setContent('Contenido');
+            //$dm->bindTranslation($post, 'es');
         }
 
         $dm->flush();
