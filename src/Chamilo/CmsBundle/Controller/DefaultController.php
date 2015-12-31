@@ -5,6 +5,7 @@ namespace Chamilo\CmsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Chamilo\CmsBundle\Document\Page;
+use Chamilo\CmsBundle\Document\Post;
 
 /**
  * Class DefaultController
@@ -24,10 +25,11 @@ class DefaultController extends Controller
      * @param Page $contentDocument
      *
      * @Template()
+     *
+     * @return array
      */
     public function pageAction($contentDocument)
     {
-        echo $contentDocument->getLocale();
         $dm = $this->get('doctrine_phpcr')->getManager();
         $posts = $dm->getRepository('ChamiloCmsBundle:Post')->findAll();
 
@@ -38,7 +40,10 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param Post $contentDocument
      * @Template()
+     *
+     * @return array
      */
     public function postAction($contentDocument)
     {

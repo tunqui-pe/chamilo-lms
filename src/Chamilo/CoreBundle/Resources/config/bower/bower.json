@@ -52,7 +52,8 @@
     "jquery-emojiarea": "*",
     "jquery-textcomplete": "*",
     "impress.js": "*",
-    "jscroll": "*"
+    "jscroll": "*",
+    "bootstrap-language": "*"
   },
   "resolutions": {
     "jquery": "2.1.4"
