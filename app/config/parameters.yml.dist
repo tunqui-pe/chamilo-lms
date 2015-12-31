@@ -42,3 +42,4 @@ parameters:
     phpcr_workspace: default
     phpcr_user: admin
     phpcr_pass: admin
+    locales: [en, fr, es]

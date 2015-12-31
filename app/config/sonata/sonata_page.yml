@@ -1,6 +1,5 @@
 # more information can be found here http://sonata-project.org/bundles/page
 
-
 cmf_routing:
     chain:
         routers_by_id:
@@ -9,7 +8,9 @@ cmf_routing:
     dynamic:
         enabled: true
         persistence:
-            phpcr: true
+            phpcr:
+                use_sonata_admin: auto #hide routes in sonata
+                content_basepath: ~
 
         controllers_by_class:
             Chamilo\CmsBundle\Document\Page: Chamilo\CmsBundle\Controller\DefaultController::pageAction
@@ -20,6 +21,9 @@ cmf_routing_auto:
         phpcr:
             enabled: true
 
+cmf_core:
+    multilang:
+        locales: "%locales%"
 
 #cmf_routing:
 #    chain:

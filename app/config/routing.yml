@@ -2,14 +2,35 @@ chamilo_cms:
     resource: "@ChamiloCmsBundle/Resources/config/routing.yml"
     prefix:   /
 
+admin_dashboard:
+    pattern: /{_locale}/administration/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: sonata_admin_dashboard
+        permanent: true # this for 301
+
+admin_without_locale:
+    pattern: /administration
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: sonata_admin_dashboard
+        permanent: true # this for 301
+
+admin_dashboard_without_locale:
+    pattern: /administration/dashboard
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: sonata_admin_dashboard
+        permanent: true
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /administration
+    prefix: /{_locale}/administration
 
 _sonata_admin:
     resource: .
     type: sonata_admin
-    prefix: /administration
+    prefix: /{_locale}/administration
 
 cmf_tree:
     resource: .

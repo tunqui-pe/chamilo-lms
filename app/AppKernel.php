@@ -49,6 +49,7 @@ class AppKernel extends Kernel
             new Sonata\NotificationBundle\SonataNotificationBundle(),
             new Sonata\DatagridBundle\SonataDatagridBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
+            //new Sonata\TranslationBundle\SonataTranslationBundle(),
             //new Sonata\PageBundle\SonataPageBundle(),
 
             new Sonata\jQueryBundle\SonatajQueryBundle(),
@@ -92,6 +93,8 @@ class AppKernel extends Kernel
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
+            new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
+            new Chamilo\AdminBundle\ChamiloAdminBundle(),
 
             // Based in Sonata
             //new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
@@ -111,6 +114,7 @@ class AppKernel extends Kernel
             //new JMS\AopBundle\JMSAopBundle(),
             new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
             new Chamilo\CmsBundle\ChamiloCmsBundle(),
+            new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
