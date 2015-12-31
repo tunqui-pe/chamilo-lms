@@ -3,41 +3,33 @@
 namespace Chamilo\CmsBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
+use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
 /**
  * @PHPCR\Document(
  *     translator="attribute",
- *     referenceable=true
+ *     referenceable=true,
+ *     versionable="full"
  * )
  */
-class Post implements RouteReferrersReadInterface, TranslatableInterface
+class Post implements
+    RouteReferrersReadInterface,
+    TranslatableInterface,
+    PublishableInterface,
+    PublishTimePeriodInterface
 {
     use ContentTrait;
-
-    /**
-     * @PHPCR\Date()
-     */
-    protected $date;
 
     /**
      * @PHPCR\PrePersist()
      */
     public function updateDate()
     {
-        if (!$this->date) {
-            $this->date = new \DateTime();
+        if (!$this->publishStartDate) {
+            $this->publishStartDate = new \DateTime();
         }
-    }
-
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTime $date)
-    {
-        $this->date = $date;
     }
 }

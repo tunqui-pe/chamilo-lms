@@ -30,7 +30,6 @@ class LoadPostData implements FixtureInterface
             new LocaleChooser($localePreferences, 'en')
         );
 
-
         foreach (array('First', 'Second', 'Third', 'Fourth') as $title) {
             $post = new Post();
             $post->setTitle(sprintf('My %s Post', $title));

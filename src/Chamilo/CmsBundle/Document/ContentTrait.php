@@ -1,8 +1,10 @@
 <?php
-// src/Acme/BasicCmsBundle/Document/ContentTrait.php
+
 namespace Chamilo\CmsBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 trait ContentTrait
 {
@@ -17,6 +19,7 @@ trait ContentTrait
     protected $parent;
 
     /**
+     * @Assert\NotBlank
      * @PHPCR\Nodename()
      */
     protected $title;
@@ -25,6 +28,16 @@ trait ContentTrait
      * @PHPCR\String(nullable=true, translated=true)
      */
     protected $content;
+
+    /**
+     * @var \DateTime
+     */
+    protected $publishStartDate;
+
+    /**
+     * @var \DateTime
+     */
+    protected $publishEndDate;
 
     /**
      * The language this document currently is in
@@ -39,6 +52,17 @@ trait ContentTrait
      * )
      */
     protected $routes;
+
+    /** @PHPCR\VersionName */
+    private $versionName;
+
+    /** @PHPCR\VersionCreated */
+    private $versionCreated;
+
+    /**
+     * @var @PHPCR\Boolean
+     */
+    protected $publishable = true;
 
     public function getId()
     {
@@ -99,4 +123,67 @@ trait ContentTrait
         return $this;
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isPublishable()
+    {
+        return $this->publishable;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPublishable($publishable)
+    {
+        $this->publishable = $publishable;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublishStartDate()
+    {
+        return $this->publishStartDate;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPublishStartDate(\DateTime $publishStartDate = null)
+    {
+        $this->publishStartDate = $publishStartDate;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublishEndDate()
+    {
+        return $this->publishEndDate;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPublishEndDate(\DateTime $publishEndDate = null)
+    {
+        $this->publishEndDate = $publishEndDate;
+    }
+
+    /**
+     * Get the "date" of this page, which is the publishStartDate.
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->getPublishStartDate();
+    }
+
+    public function setDate(\DateTime $date)
+    {
+        $this->setPublishStartDate($date);
+    }
 }

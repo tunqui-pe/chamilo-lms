@@ -21,6 +21,8 @@ class PageAdmin extends Admin
             ->with('form.group_general')
             ->add('title', 'text')
             ->add('content', 'textarea')
+            ->add('publish_start_date', 'date')
+            ->add('publish_end_date', 'date')
             ->end();
     }
 

@@ -43,3 +43,9 @@ services:
             - [setRequest, ["@?request="]]
         tags:
             - { name: knp_menu.provider }
+
+#
+#    chamilo_cms.security.publishable_voter:
+#        class: "%chamilo_cms.security.publishable_voter.class%"
+#        tags:
+#            - { name: cmf_published_voter, priority: 30 }

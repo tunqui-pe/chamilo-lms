@@ -30,10 +30,6 @@ class LoadPageData implements FixtureInterface
 
         $parent = $dm->find(null, '/cms/pages');
 
-
-
-
-
         $rootPage = new Page();
         $rootPage->setTitle('main');
         $rootPage->setParentDocument($parent);
@@ -43,26 +39,19 @@ class LoadPageData implements FixtureInterface
         $page->setTitle('Home');
         $page->setParentDocument($rootPage);
         $page->setContent(
-            <<<HERE
-            Welcome to the homepage of this really basic CMS.
-HERE
+            'Welcome to the homepage of this really basic CMS.'
         );
 
         $dm->persist($page);
         //$dm->bindTranslation($page, 'en');
 
-        //$page->setTitle('Inicio');
-        //$page->setContent('Bienvenido!');
-        //$dm->bindTranslation($page, 'es');
+        /*$page->setContent('Bienvenido!');
+        $dm->bindTranslation($page, 'es');*/
 
         $page = new Page();
         $page->setTitle('About');
         $page->setParentDocument($rootPage);
-        $page->setContent(
-            <<<HERE
-            This page explains what its all about.
-HERE
-        );
+        $page->setContent('This page explains what its all about.');
         $dm->persist($page);
 
         $dm->flush();
