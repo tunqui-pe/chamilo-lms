@@ -111,7 +111,7 @@
         "sonata-project/intl-bundle": "~2.2@dev",
         "sonata-project/admin-bundle": "2.2.*",
         "sonata-project/doctrine-orm-admin-bundle": "2.2.*",
-        "sonata-project/notification-bundle": "~2.2@dev",
+        "sonata-project/notification-bundle": "^2.3",
         "sonata-project/block-bundle": "2.2.*",
         "sonata-project/media-bundle": "~2.3@dev",
         "sonata-project/user-bundle": "~2.2@dev",
@@ -179,7 +179,9 @@
         "oneup/flysystem-bundle": "@stable",
         "intervention/image": "^2.3",
         "apy/datagrid-bundle": "^2.2",
-        "stephpy/timeline-bundle": "~2.0"
+        "stephpy/timeline-bundle": "~2.0",
+        "sonata-project/translation-bundle": "^1.0",
+        "lunetics/locale-bundle": "^2.4"
     },
     "require-dev": {
         "behat/behat": "2.5.*@stable",
