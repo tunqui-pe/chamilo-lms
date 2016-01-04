@@ -760,10 +760,10 @@ class CourseHome
                     if (empty($session_id)) {
                         if ($tool['visibility'] == '1' && $tool['admin'] != '1') {
                             $link['name'] = Display::return_icon(
-                                'visible.gif',
+                                'visible.png',
                                 get_lang('Deactivate'),
                                 array('id' => 'linktool_'.$tool['id']),
-                                ICON_SIZE_MEDIUM,
+                                ICON_SIZE_SMALL,
                                 false
                             );
                             if (!empty($tool['id'])) {
@@ -779,10 +779,10 @@ class CourseHome
                         }
                         if ($tool['visibility'] == '0' && $tool['admin'] != '1') {
                             $link['name'] = Display::return_icon(
-                                'invisible.gif',
+                                'invisible.png',
                                 get_lang('Activate'),
                                 array('id' => 'linktool_'.$tool['id']),
-                                ICON_SIZE_MEDIUM,
+                                ICON_SIZE_SMALL,
                                 false
                             );
                             if (!empty($tool['id'])) {
@@ -1096,7 +1096,11 @@ class CourseHome
                     <td>'.get_lang('GeneralCoach').': '.'<b>'.$coachInfo['complete_name'].'</b></td></tr>';
         $output .= '<tr>
                         <td>'.get_lang('SessionIdentifier').': '.
-                            Display::return_icon('star.png', ' ', array('align' => 'absmiddle')).'
+            Display::return_icon(
+                'star.png',
+                ' ',
+                array('align' => 'absmiddle')
+            ).'
                         </td>
                         <td>'.get_lang('Date').': '.'<b>'.$msgDate.'</b>
                         </td>
