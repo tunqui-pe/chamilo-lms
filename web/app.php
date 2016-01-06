@@ -20,10 +20,6 @@ $loader->unregister();
 $apcLoader->register(true);
 */
 
-use Sonata\PageBundle\Request\RequestFactory;
-
-$request = RequestFactory::createFromGlobals('host_with_path_by_locale');
-$request->enableHttpMethodParameterOverride();
 
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
@@ -34,8 +30,8 @@ $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 
 // When using the HttpCache, you need to call the method in your front controller instead of relying on the configuration parameter
-//Request::enableHttpMethodParameterOverride();
-//$request = Request::createFromGlobals();
+Request::enableHttpMethodParameterOverride();
+$request = Request::createFromGlobals();
 
 $response = $kernel->handle($request);
 $response->send();
