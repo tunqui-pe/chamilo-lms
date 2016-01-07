@@ -39,6 +39,9 @@ imports:
   # Sylius
     - { resource: sylius/sylius_resource.yml }
 
+#    - { resource: @CmfBlogBundle/Resources/config/cmf_routing_auto.xml }
+#    - { resource: @CmfBlogBundle/Resources/config/admin.yml }
+
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
@@ -393,9 +396,8 @@ sonata_doctrine_phpcr_admin:
                 - all
         Chamilo\CmsBundle\Document\Page:
             valid_children:
-                - Chamilo\CmsBundle\Document\Post
-        Chamilo\CmsBundle\Document\Post:
-            valid_children: []
+                - all
+
 knp_menu:
     twig: true
 

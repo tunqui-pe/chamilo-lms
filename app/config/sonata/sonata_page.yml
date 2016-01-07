@@ -1,4 +1,18 @@
 # more information can be found here http://sonata-project.org/bundles/page
+#
+#cmf_blog:
+#    persistence:
+#        phpcr:
+#            enabled:          true
+#    sonata_admin:
+#        enabled: true
+
+
+#    class:
+#        blog_admin: Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin # Optional
+#        post_admin: Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin # Optional
+#        blog: Symfony\Cmf\Bundle\BlogBundle\Document\Blog # Optional
+#        post: Symfony\Cmf\Bundle\BlogBundle\Document\Post # Optional
 
 cmf_routing:
     chain:
@@ -13,8 +27,10 @@ cmf_routing:
                 content_basepath: ~
 
         controllers_by_class:
-            Chamilo\CmsBundle\Document\Page: Chamilo\CmsBundle\Controller\DefaultController::pageAction
-            Chamilo\CmsBundle\Document\Post: Chamilo\CmsBundle\Controller\DefaultController::postAction
+#            Chamilo\CmsBundle\Document\Page: Chamilo\CmsBundle\Controller\DefaultController::pageAction
+#            Chamilo\CmsBundle\Document\Post: Chamilo\CmsBundle\Controller\DefaultController::postAction
+#            Symfony\Cmf\Bundle\BlogBundle\Document\Blog: cmf_blog.blog_controller:listAction
+#            Symfony\Cmf\Bundle\BlogBundle\Document\Post: cmf_blog.blog_controller:viewPostAction
 
 cmf_routing_auto:
     persistence:
@@ -24,6 +40,18 @@ cmf_routing_auto:
 cmf_core:
     multilang:
         locales: "%locales%"
+
+#cmf_search:
+#    show_paging: false
+#    persistence:
+#        phpcr:
+#            enabled:              true
+#            search_basepath:      /cms/page
+#            manager_registry:     doctrine_phpcr
+#            manager_name:         ~
+#            translation_strategy: ~
+#            search_fields:        []
+##            max_results:          ~
 
 #cmf_routing:
 #    chain:

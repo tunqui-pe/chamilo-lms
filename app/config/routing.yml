@@ -36,6 +36,11 @@ cmf_tree:
     resource: .
     type: 'cmf_tree'
 
+#cmf_search:
+#    resource: "@CmfSearchBundle/Resources/config/routing/phpcr/search.xml"
+
+
+
 #index:
 #    path: /
 
@@ -76,3 +81,7 @@ liip_theme:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
+blog_list:
+    pattern: /blogs
+    defaults:
+        _controller: cmf_blog.blog_controller:listAction

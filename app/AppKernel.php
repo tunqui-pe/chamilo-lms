@@ -61,10 +61,13 @@ class AppKernel extends Kernel
 
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+
             new Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle(),
             new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
             new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
             new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
+            //new Symfony\Cmf\Bundle\SearchBundle\CmfSearchBundle(),
+            //new Symfony\Cmf\Bundle\BlogBundle\CmfBlogBundle(),
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
