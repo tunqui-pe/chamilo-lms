@@ -1129,7 +1129,6 @@ class DocumentManager
         if (empty($base_work_dir)) {
             return false;
         }
-
         if (empty($documentId)) {
             $documentId = self::get_document_id($_course, $path, $sessionId);
             $docInfo = self::get_document_data_by_id(
@@ -1157,14 +1156,12 @@ class DocumentManager
         if (empty($path) || empty($docInfo) || empty($documentId)) {
             return false;
         }
-
         $itemInfo = api_get_item_property_info(
             $_course['real_id'],
             TOOL_DOCUMENT,
             $documentId,
             $sessionId
         );
-
 
         if (empty($itemInfo)) {
             return false;
@@ -4686,7 +4683,7 @@ class DocumentManager
         $fileFullPath = "{$filePath}/{$fileName}.html";
         $fileSize = 0;
         $fileType = 'file';
-        $templateContent = file_get_contents(api_get_path(SYS_CODE_PATH) . 'gradebook/certificate_template/template.html');
+        $templateContent = file_get_contents(api_get_path(SYS_CODE_PATH).'gradebook/certificate_template/template.html');
 
         $search = array('{CSS}', '{IMG_DIR}', '{REL_CODE_PATH}', '{COURSE_DIR}');
         $replace = array($css.$js, $img_dir, $codePath, $default_course_dir);
@@ -6236,5 +6233,61 @@ class DocumentManager
             @unlink($tempZipFile);
             exit;
         }
+    }
+
+    /**
+     *
+     * Delete documents from a session in a course.
+     * @param array $courseInfo
+     * @param int $sessionId
+     *
+     * @return bool
+     */
+    public function deleteDocumentsFromSession($courseInfo, $sessionId)
+    {
+        if (empty($courseInfo)) {
+            return false;
+        }
+
+        if (empty($sessionId)) {
+            return false;
+        }
+
+        $itemPropertyTable = Database::get_course_table(TABLE_ITEM_PROPERTY);
+        $documentTable = Database::get_course_table(TABLE_DOCUMENT);
+
+        $conditionSession = api_get_session_condition($sessionId, true, false, 'd.session_id');
+
+        //get invisible folders
+        $sql = "SELECT DISTINCT d.id, path
+                FROM $itemPropertyTable i
+                INNER JOIN $documentTable d
+                ON (i.c_id = d.c_id)
+                WHERE
+                    d.id = i.ref AND
+                    i.tool = '" . TOOL_DOCUMENT . "'
+                    $conditionSession AND
+                    i.c_id = {$courseInfo['real_id']} AND
+                    d.c_id = {$courseInfo['real_id']} ";
+
+        $result = Database::query($sql);
+        $documents = Database::store_result($result, 'ASSOC');
+        if ($documents) {
+            $course_dir = $courseInfo['directory'] . '/document';
+            $sys_course_path = api_get_path(SYS_COURSE_PATH);
+            $base_work_dir = $sys_course_path . $course_dir;
+
+            foreach ($documents as $document) {
+                $documentId = $document['id'];
+                DocumentManager::delete_document(
+                    $courseInfo,
+                    null,
+                    $base_work_dir,
+                    $sessionId,
+                    $documentId
+                );
+            }
+        }
+
     }
 }

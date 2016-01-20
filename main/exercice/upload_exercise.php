@@ -35,7 +35,10 @@ $(document).ready( function(){
 // Action handling
 lp_upload_quiz_action_handling();
 
-$interbreadcrumb[]= array ("url"=>"exercise.php", "name"=> get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    "name" => get_lang('Exercises'),
+);
 
 Display::display_header(get_lang('ImportExcelQuiz'), 'Exercises');
 
@@ -53,7 +56,8 @@ echo '</div>';
 // the main content
 lp_upload_quiz_main();
 
-function lp_upload_quiz_actions() {
+function lp_upload_quiz_actions()
+{
     $return = '<a href="exercise.php?'.api_get_cidReq().'">'.
         Display::return_icon('back.png', get_lang('BackToExercisesList'),'',ICON_SIZE_MEDIUM).'</a>';
     return $return;
@@ -84,6 +88,30 @@ function lp_upload_quiz_main() {
     $link = '<a href="../exercice/quiz_template.xls">'.
         Display::return_icon('export_excel.png', get_lang('DownloadExcelTemplate')).get_lang('DownloadExcelTemplate').'</a>';
     $form->addElement('label', '', $link);
+    
+$table = new HTML_Table(array('class' => 'table'));
+
+    $tableList = array(
+        UNIQUE_ANSWER => get_lang('UniqueSelect'),
+        MULTIPLE_ANSWER => get_lang('MultipleSelect'),
+        FILL_IN_BLANKS => get_lang('FillBlanks'),
+        MATCHING => get_lang('Matching'),
+        FREE_ANSWER => get_lang('FreeAnswer'),
+        GLOBAL_MULTIPLE_ANSWER => get_lang('GlobalMultipleAnswer')
+    );
+
+    $table->setHeaderContents(0, 0, get_lang('QuestionType'));
+    $table->setHeaderContents(0, 1, '#');
+
+    $row = 1;
+    foreach ($tableList as $key => $label ) {
+        $table->setCellContents($row, 0, $label);
+        $table->setCellContents($row, 1, $key);
+        $row++;
+    }
+    $table = $table->toHtml();
+
+    $form->addElement('label', get_lang('QuestionType'), $table);
     $form->addElement('checkbox', 'user_custom_score', null, get_lang('UseCustomScoreForAllQuestions'), array('id'=> 'user_custom_score'));
     $form->addElement('html', '<div id="options" style="display:none">');
     $form->addElement('text', 'correct_score', get_lang('CorrectScore'));
@@ -93,7 +121,7 @@ function lp_upload_quiz_main() {
     $form->addRule('user_upload_quiz', get_lang('ThisFieldIsRequired'), 'required');
 
     $form->add_progress_bar();
-    $form->addButtonUpload(get_lang('Send'), 'submit_upload_quiz');
+    $form->addButtonUpload(get_lang('Upload'), 'submit_upload_quiz');
 
     // Display the upload field
     $form->display();
@@ -150,6 +178,7 @@ function lp_upload_quiz_action_handling() {
     $noNegativeScoreIndex = array();
     $questionTypeList = array();
     $questionTypeIndex = array();
+    $categoryList = array();
 
     // Reading all the first column items sequentially to create breakpoints
     for ($i = 1; $i <= $data->sheets[0]['numRows']; $i++) {
@@ -214,6 +243,9 @@ function lp_upload_quiz_action_handling() {
                 $myData = isset($data->sheets[0]['cells'][$i + $counter]) ? $data->sheets[0]['cells'][$i + $counter] : null;
                 if (isset($myData[1]) && $myData[1] == 'QuestionType') {
                     $questionTypeList[$k] = $myData[3];
+                }
+                if (isset($myData[1]) && $myData[1] == 'Category') {
+                    $categoryList[$k] = $myData[2];
                 }
             }
 
@@ -306,6 +338,15 @@ function lp_upload_quiz_action_handling() {
                 // Question name
                 $question_title = $question[$i][2];
                 $description = isset($question_description[$i][2]) ? $question_description[$i][2] : '';
+                $categoryId = null;
+                if (isset($categoryList[$i]) && !empty($categoryList[$i])) {
+                    $categoryName = $categoryList[$i];
+                    $categoryId = Testcategory::get_category_id_for_title($categoryName, $courseId);
+                    if (empty($categoryId)) {
+                        $category = new TestCategory(null, $categoryName, '');
+                        $categoryId = $category->addCategoryInBDD();
+                    }
+                }
 
                 $question_description_text = "<p></p>";
                 if (!empty($description)) {
@@ -359,6 +400,13 @@ function lp_upload_quiz_action_handling() {
                         0, // max score
                         $answer->type
                     );
+                    if (!empty($categoryId)) {
+                        TestCategory::add_category_for_question_id(
+                            $categoryId,
+                            $question_id,
+                            $courseId
+                        );
+                    }
                 }
 
                 switch ($detectQuestionType) {

@@ -125,6 +125,7 @@ class Blog
         if ($info_count == 0) {
 			// Create the blog
             $params = [
+				'blog_id' => 0,
                 'c_id' => $course_id,
                 'blog_name' => $title,
                 'blog_subtitle' =>  $subtitle,
@@ -152,6 +153,7 @@ class Blog
 			// Make first post. :)
 
             $params = [
+				'post_id' => 0,
                 'c_id' => $course_id,
                 'title' => get_lang("Welcome"),
                 'full_text' => get_lang('FirstPostText'),

@@ -1195,10 +1195,17 @@ function generate_settings_form($settings, $settings_by_access_list)
     $default_values = array();
     $url_info = api_get_access_url($url_id);
     $i = 0;
+    $addedSettings = [];
     foreach ($settings as $row) {
         if (in_array($row['variable'], array_keys($settings_to_avoid))) {
             continue;
         }
+
+        if (in_array($row['variable'], $addedSettings)) {
+            continue;
+        }
+
+        $addedSettings[] = $row['variable'];
 
         if (!empty($_configuration['multiple_access_urls'])) {
             if (api_is_global_platform_admin()) {
@@ -1466,7 +1473,7 @@ function search_setting($search)
     }
     $table_settings_current = Database :: get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
     $sql = "SELECT * FROM $table_settings_current
-            WHERE category <> 'Plugins' GROUP BY variable ORDER BY id ASC ";
+            WHERE category <> 'Plugins' ORDER BY id ASC ";
     $result = Database::store_result(Database::query($sql), 'ASSOC');
     $settings = array();
 

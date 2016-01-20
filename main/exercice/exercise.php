@@ -217,7 +217,13 @@ if ($is_allowedToEdit) {
                         if (empty($sessionId)) {
                             $objExerciseTmp->enable();
                             $objExerciseTmp->save();
+                        } else {
+                            if (!empty($objExerciseTmp->sessionId)) {
+                                $objExerciseTmp->enable();
+                                $objExerciseTmp->save();
+                            }
                         }
+
                         api_item_property_update(
                             $courseInfo,
                             TOOL_QUIZ,
@@ -233,7 +239,14 @@ if ($is_allowedToEdit) {
                         if (empty($sessionId)) {
                             $objExerciseTmp->disable();
                             $objExerciseTmp->save();
+                        } else {
+                            // Only change active if it belongs to a session
+                            if (!empty($objExerciseTmp->sessionId)) {
+                                $objExerciseTmp->disable();
+                                $objExerciseTmp->save();
+                            }
                         }
+
                         api_item_property_update(
                             $courseInfo,
                             TOOL_QUIZ,
@@ -593,9 +606,19 @@ if (!empty($exercise_list)) {
                 );
 
                 if (!empty($sessionId)) {
-                    if ($visibility == 0) {
-                        continue;
+                    $setting = api_get_configuration_value('show_hidden_exercise_added_to_lp');
+                    if ($setting) {
+                        if ($exercise_obj->exercise_was_added_in_lp == false) {
+                            if ($visibility == 0) {
+                                continue;
+                            }
+                        }
+                    } else {
+                        if ($visibility == 0) {
+                            continue;
+                        }
                     }
+
                     $visibility = api_get_item_visibility(
                         $courseInfo,
                         TOOL_QUIZ,

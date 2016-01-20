@@ -518,7 +518,7 @@ class AddCourse
 
         /* course_setting table (courseinfo tool)   */
         $settings = [
-            'email_alert_manager_on_new_doc' => ['default' => 0, 'category' => 'work'],
+            'email_alert_manager_on_new_doc' => ['title' => '', 'default' => 0, 'category' => 'work'],
             'email_alert_on_new_doc_dropbox' => ['default' => 0, 'category' => 'dropbox'],
             'allow_user_edit_agenda' => ['default' => 0, 'category' => 'agenda'],
             'allow_user_edit_announcement' => ['default' => 0, 'category' => 'announcement'],
@@ -1170,6 +1170,7 @@ class AddCourse
                                 status          = '1',
                                 is_tutor        = '0',
                                 sort            = '" . ($i_course_sort) . "',
+                                relation_type = 0,
                                 user_course_cat = '0'";
                         Database::query($sql);
                     }
@@ -1193,6 +1194,7 @@ class AddCourse
                             status          = '1',
                             is_tutor        = '0',
                             sort            = '" . ($sort + 1) . "',
+                            relation_type = 0,
                             user_course_cat = '0'";
                         Database::query($sql);
                     }

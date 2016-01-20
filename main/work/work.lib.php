@@ -3790,14 +3790,16 @@ function addDir($formValues, $user_id, $courseInfo, $group_id, $session_id)
             'filetype' => 'folder',
             'post_group_id' => $group_id,
             'sent_date' => $today,
-            'qualification' => $formValues['qualification'] != '' ? $formValues['qualification'] : '',
-            'parent_id' => '',
-            'qualificator_id' => '',
-            'weight' => $formValues['weight'],
+            'qualification' => $formValues['qualification'] != '' ? $formValues['qualification'] : 0,
+            'parent_id' => 0,
+            'qualificator_id' => 0,
+            'weight' => !empty($formValues['weight']) ? $formValues['weight'] : 0,
             'session_id' => $session_id,
             'allow_text_assignment' => $formValues['allow_text_assignment'],
             'contains_file' => 0,
             'user_id' => $user_id,
+            'has_properties' => 0,
+            'document_id' => 0
         ];
         $id = Database::insert($work_table, $params);
 

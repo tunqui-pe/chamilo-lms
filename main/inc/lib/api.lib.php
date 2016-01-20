@@ -5492,7 +5492,7 @@ function & api_get_settings($cat = null, $ordering = 'list', $access_url = 1, $u
         $sql .= " AND category='$cat' ";
     }
     if ($ordering == 'group') {
-        $sql .= " GROUP BY variable ORDER BY id ASC";
+        $sql .= " ORDER BY id ASC";
     } else {
         $sql .= " ORDER BY 1,2 ASC";
     }
@@ -7018,11 +7018,12 @@ function api_is_global_chat_enabled()
  * @param int $group_id
  * @param array $courseInfo
  */
-function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseInfo = array())
+function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseInfo = array(), $sessionId = null)
 {
     $courseInfo = empty($courseInfo) ? api_get_course_info() : $courseInfo;
     $courseId = $courseInfo['real_id'];
     $courseCode = $courseInfo['code'];
+    $sessionId = empty($sessionId) ? api_get_session_id() : $sessionId;
 
     $original_tool_id = $tool_id;
 
@@ -7052,50 +7053,51 @@ function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseIn
 
     $setting = api_get_setting('document.tool_visible_by_default_at_creation');
 
-    $visibility = 'invisible';
-
-    if (empty($group_id)) {
-        $group_id = api_get_group_id();
-    }
-
     if (isset($setting[$tool_id])) {
+        $visibility = 'invisible';
         if ($setting[$tool_id] == 'true') {
             $visibility = 'visible';
         }
-    }
 
-    // Read the portal and course default visibility
-    if ($tool_id == 'documents') {
-        $visibility = DocumentManager::getDocumentDefaultVisibility($courseCode);
-    }
+        if (empty($group_id)) {
+            $group_id = api_get_group_id();
+        }
 
-    api_item_property_update(
-        $courseInfo,
-        $original_tool_id,
-        $item_id,
-        $visibility,
-        api_get_user_id(),
-        $group_id,
-        null,
-        null,
-        null,
-        api_get_session_id()
-    );
+        // Read the portal and course default visibility
+        if ($tool_id == 'documents') {
+            $visibility = DocumentManager::getDocumentDefaultVisibility($courseCode);
+        }
 
-    // Fixes default visibility for tests
+        api_item_property_update(
+            $courseInfo,
+            $original_tool_id,
+            $item_id,
+            $visibility,
+            api_get_user_id(),
+            $group_id,
+            null,
+            null,
+            null,
+            api_get_session_id()
+        );
 
-    switch ($original_tool_id) {
-        case TOOL_QUIZ:
-            $objExerciseTmp = new Exercise($courseId);
-            $objExerciseTmp->read($item_id);
-            if ($visibility == 'visible') {
-                $objExerciseTmp->enable();
-                $objExerciseTmp->save();
-            } else {
-                $objExerciseTmp->disable();
-                $objExerciseTmp->save();
-            }
-            break;
+        // Fixes default visibility for tests
+
+        switch ($original_tool_id) {
+            case TOOL_QUIZ:
+                if (empty($sessionId)) {
+                    $objExerciseTmp = new Exercise($courseId);
+                    $objExerciseTmp->read($item_id);
+                    if ($visibility == 'visible') {
+                        $objExerciseTmp->enable();
+                        $objExerciseTmp->save();
+                    } else {
+                        $objExerciseTmp->disable();
+                        $objExerciseTmp->save();
+                    }
+                }
+                break;
+        }
     }
 }
 

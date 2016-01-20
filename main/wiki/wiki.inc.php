@@ -283,7 +283,7 @@ class Wiki
             'max_text' => '',
             'max_version' => '',
             'delayedsubmit' => '',
-            'assignment' => ''
+            'assignment' => 0
         );
 
         $pageId = intval($values['page_id']);
@@ -334,7 +334,7 @@ class Wiki
             $_clean['max_version'] = $values['max_version'];
         }
 
-        $values['assignment'] = isset($values['assignment']) ? $values['assignment'] : '';
+        $values['assignment'] = isset($values['assignment']) ? $values['assignment'] : 0;
         $values['page_id'] = isset($values['page_id']) ? $values['page_id'] : 0;
 
         $params = [
@@ -358,7 +358,9 @@ class Wiki
             'linksto' => $linkTo,
             'user_ip' => $_SERVER['REMOTE_ADDR'],
             'session_id' => $session_id,
-            'page_id' => $values['page_id']
+            'page_id' => $values['page_id'],
+            'editlock' => 0,
+            'is_editing' => 0
         ];
 
         $id = Database::insert($tbl_wiki, $params);

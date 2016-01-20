@@ -368,7 +368,12 @@ function handle_uploaded_document(
                                 );
 
                                 // Redo visibility
-                                api_set_default_visibility(TOOL_DOCUMENT, $documentId, null, $courseInfo);
+                                api_set_default_visibility(
+                                    $documentId,
+                                    TOOL_DOCUMENT,
+                                    null,
+                                    $courseInfo
+                                );
                             } else {
                                 // There might be cases where the file exists on disk but there is no registration of that in the database
                                 // In this case, and if we are in overwrite mode, overwrite and create the db record
@@ -401,7 +406,7 @@ function handle_uploaded_document(
                                     );
 
                                     // Redo visibility
-                                    api_set_default_visibility(TOOL_DOCUMENT, $documentId, null, $courseInfo);
+                                    api_set_default_visibility($documentId, TOOL_DOCUMENT, null, $courseInfo);
                                 }
                             }
 
@@ -448,7 +453,7 @@ function handle_uploaded_document(
                                 );
 
                                 // Redo visibility
-                                api_set_default_visibility(TOOL_DOCUMENT, $documentId, null, $courseInfo);
+                                api_set_default_visibility($documentId, TOOL_DOCUMENT, null, $courseInfo);
                             }
                             // If the file is in a folder, we need to update all parent folders
                             item_property_update_on_folder($courseInfo, $uploadPath, $userId);
@@ -525,7 +530,7 @@ function handle_uploaded_document(
                             );
 
                             // Redo visibility
-                            api_set_default_visibility(TOOL_DOCUMENT, $documentId, null, $courseInfo);
+                            api_set_default_visibility($documentId, TOOL_DOCUMENT, null, $courseInfo);
                         }
 
                         // If the file is in a folder, we need to update all parent folders
@@ -587,7 +592,7 @@ function handle_uploaded_document(
                                     $sessionId
                                 );
                                 // Redo visibility
-                                api_set_default_visibility(TOOL_DOCUMENT, $documentId, null, $courseInfo);
+                                api_set_default_visibility($documentId, TOOL_DOCUMENT, null, $courseInfo);
                             }
 
                             // If the file is in a folder, we need to update all parent folders
@@ -1187,7 +1192,6 @@ function add_document(
     $table_document = Database::get_course_table(TABLE_DOCUMENT);
 
     $params = [
-        'id' => '',
         'c_id' => $c_id,
         'path' => $path,
         'filetype' => $filetype,

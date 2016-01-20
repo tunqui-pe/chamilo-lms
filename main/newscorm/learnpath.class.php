@@ -216,9 +216,15 @@ class learnpath
                 error_log('New LP - learnpath::__construct() ' . __LINE__ . ' - NOT Found previous view', 0);
             }
             $this->attempt = 1;
-            $sql = "INSERT INTO $lp_table (c_id, lp_id, user_id, view_count, session_id)
-                    VALUES ($course_id, $lp_id, $user_id, 1, $session_id)";
-            Database::query($sql);
+            $params = [
+                'c_id' => $course_id,
+                'lp_id' => $lp_id,
+                'user_id' => $user_id,
+                'view_count' => 1,
+                'session_id' => $session_id,
+                'last_item' => 0
+            ];
+            Database::insert($lp_table, $params);
             $this->lp_view_id = Database::insert_id();
 
             if ($this->debug > 2) {
@@ -376,8 +382,8 @@ class learnpath
                             }
 
                             // Add that row to the lp_item_view table so that we have something to show in the stats page.
-                            $sql = "INSERT INTO $lp_item_view_table (c_id, lp_item_id, lp_view_id, view_count, status)
-                                    VALUES ($course_id, ".$item_id.",".$this->lp_view_id.", 1, 'not attempted')";
+                            $sql = "INSERT INTO $lp_item_view_table (c_id, lp_item_id, lp_view_id, view_count, status, start_time, total_time, score)
+                                    VALUES ($course_id, ".$item_id.",".$this->lp_view_id.", 1, 'not attempted', '".time()."', 0, 0)";
 
                             if ($this->debug > 2) {
                                 error_log(
@@ -594,7 +600,9 @@ class learnpath
             "next_item_id" => $next,
             "display_order" => $display_order +1,
             "prerequisite" => $prerequisites,
-            "max_time_allowed" => $max_time_allowed
+            "max_time_allowed" => $max_time_allowed,
+            'min_score' => 0,
+            'launch_data' => ''
         );
 
         if ($prerequisites != 0) {
@@ -821,9 +829,22 @@ class learnpath
                     'js_lib' => '',
                     'session_id' => $session_id,
                     'created_on' => api_get_utc_datetime(),
+                    'modified_on'  => api_get_utc_datetime(),
                     'publicated_on' => $publicated_on,
                     'expired_on' => $expired_on,
-                    'category_id' => $categoryId
+                    'category_id' => $categoryId,
+                    'force_commit' => 0,
+                    'content_license' => '',
+                    'debug' => 0,
+                    'theme' => '',
+                    'preview_image' => '',
+                    'author' => '',
+                    'prerequisite' => 0,
+                    'hide_toc_frame' => 0,
+                    'seriousgame_mode' => 0,
+                    'autolaunch' => 0,
+                    'max_attempts' => 0,
+                    'subscribe_users' => 0
                 ];
 
                 $id = Database::insert($tbl_lp, $params);
@@ -3230,7 +3251,7 @@ class learnpath
                 $html .= '<div class="'.$style_item.' scorm_section_level_'.$item['level'].'" title="'.$description.'" >';
             } else {
                 $html .= '<div class="'.$style_item.' scorm_item_level_'.$item['level'].' scorm_type_'.learnpath::format_scorm_type_item($item['type']).'" title="'.$description.'" >';
-                $html .= '<a name="atoc_'.$item['id'].'" />';
+                $html .= '<a name="atoc_'.$item['id'].'"></a>';
             }
 
             if (in_array($item['type'], $dirTypes)) {
@@ -3239,7 +3260,7 @@ class learnpath
                 $html .= stripslashes($title);
             } else {
                 $this->get_link('http', $item['id'], $toc_list);
-                $html .= '<a class="items-list" href="" onClick="switch_item(' .$mycurrentitemid . ',' .$item['id'] . ');' .'return false;" >' . stripslashes($title) . '</a>';
+                $html .= '<a class="items-list" href="#" onclick="switch_item(' .$mycurrentitemid . ',' .$item['id'] . ');' .'return false;" >' . stripslashes($title) . '</a>';
             }
             $html .= "</div>";
 

@@ -244,6 +244,8 @@ class IndexManager
                 );
             }
 
+            $home_top_temp = '';
+
             // Try language specific home
             if (file_exists($this->home.'home_top_'.$user_selected_language.'.html')) {
                 $home_top_temp = file_get_contents($this->home.'home_top_'.$user_selected_language.'.html');

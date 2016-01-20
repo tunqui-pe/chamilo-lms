@@ -208,7 +208,7 @@ class UserManager
         if (!empty($currentUserId)) {
             $creator_id = $currentUserId;
         } else {
-            $creator_id = '';
+            $creator_id = 0;
         }
 
         // First check wether the login already exists
@@ -2287,6 +2287,7 @@ class UserManager
 
     /**
      * Gives a list of [session_category][session_id] for the current user.
+     * @todo check with 1.10
      * @param integer $user_id
      * @param boolean optional true if we want to see expired sessions, false otherwise
      * @param boolean Whether to return only a count (true) or the full result (false)
