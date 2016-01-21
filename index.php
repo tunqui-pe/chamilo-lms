@@ -1,7 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-die('Use web/app_dev.php');
+header('Location: web/app_dev.php');
+exit;
 
 /**
  * @package chamilo.main
