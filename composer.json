@@ -70,7 +70,6 @@
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "doctrine/data-fixtures": "~1.0@dev",
 
-
         "knplabs/gaufrette": "~0.1.6",
 
         "michelf/php-markdown": "~1.4",

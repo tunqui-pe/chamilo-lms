@@ -181,18 +181,20 @@ doctrine_migrations:
 # Platform settings
 sylius_settings:
     driver: doctrine/orm
-    classes:
+    resources:
         parameter:
-            model: Chamilo\CoreBundle\Entity\SettingsCurrent
-            repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
+            classes:
+                model: Chamilo\CoreBundle\Entity\SettingsCurrent
+                repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
 
 # Course settings
 chamilo_course:
     driver: doctrine/orm
-    classes:
+    resources:
         parameter:
-            model: Chamilo\CourseBundle\Entity\CCourseSetting
-            repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
+            classes:
+                model: Chamilo\CourseBundle\Entity\CCourseSetting
+                repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
 
 doctrine_cache:
     providers:
