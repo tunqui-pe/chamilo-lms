@@ -163,7 +163,7 @@ class SettingsManager extends SyliusSettingsManager
                 $persistedParametersMap[$name]->setValue($value);
             } else {
                 /** @var SettingsCurrent $parameter */
-                $parameter = $this->parameterRepository->createNew();
+                $parameter = $this->parameterFactory->createNew();
 
                 $parameter
                     ->setNamespace($namespace)
