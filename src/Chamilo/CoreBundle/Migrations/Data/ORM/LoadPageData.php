@@ -1336,7 +1336,7 @@ CONTENT
         $text->setType('sonata.block.service.text');
         $text->setSetting(
             'content',
-            '<h2>Sonata Demo</h2><p class="handcraft">HANDCRAFTED IN PARIS<br />WITH MIXED HERITAGE</p><p><a href="http://twitter.com/sonataproject" target="_blank">Follow Sonata on Twitter</a></p>'
+            '<h2>Chamilo Demo</h2>'
         );
 
         $text->setPosition(1);
@@ -1350,11 +1350,11 @@ CONTENT
         $text->setSetting(
             'content',
             <<<CONTENT
-           <h4>PRODUCT</h4>
+           <h4>Content 1</h4>
 <ul class="links">
-    <li><a href="/bundles">Sonata</a></li>
-    <li><a href="/api-landing">API</a></li>
-    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/bundles">sub content 1</a></li>
+    <li><a href="/api-landing">sub content 2</a></li>
+    <li><a href="/faq">sub content 3</a></li>
 </ul>
 CONTENT
         );
@@ -1372,7 +1372,7 @@ CONTENT
             <<<CONTENT
            <h4>ABOUT</h4>
 <ul class="links">
-    <li><a href="http://www.sonata-project.org/about" target="_blank">About Sonata</a></li>
+    <li><a href="http://www.sonata-project.org/about" target="_blank">About</a></li>
     <li><a href="/legal-notes">Legal notes</a></li>
     <li><a href="/shop/payment/terms-and-conditions">Terms</a></li>
 </ul>
