@@ -29,11 +29,15 @@ require_once __DIR__.'/legacy.php';
 $request = RequestFactory::createFromGlobals('host_with_path_by_locale');
 $request->enableHttpMethodParameterOverride();*/
 
+$request = Sonata\PageBundle\Request\RequestFactory::createFromGlobals(
+    'host_with_path_by_locale'
+);
+
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 
 //Request::enableHttpMethodParameterOverride();
-$request = Request::createFromGlobals();
+//$request = Request::createFromGlobals();
 
 $response = $kernel->handle($request);
 $response->send();

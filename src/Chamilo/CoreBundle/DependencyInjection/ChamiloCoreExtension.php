@@ -24,6 +24,7 @@ class ChamiloCoreExtension extends Extension
             $container,
             new FileLocator(__DIR__ . '/../Resources/config')
         );
+
         $loader->load('services.yml');
         //$loader->load('admin.yml');
     }

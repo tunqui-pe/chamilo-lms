@@ -4,6 +4,7 @@
 namespace Chamilo\CourseBundle\DependencyInjection;
 
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
+//use Sylius\Bundle\ResourceBundle\DependencyInjection\AbstractResourceExtension; old
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;

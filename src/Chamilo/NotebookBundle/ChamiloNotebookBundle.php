@@ -18,4 +18,12 @@ class ChamiloNotebookBundle extends AbstractResourceBundle
             SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
         );
     }
+
+    /**
+     *
+     */
+    public function getBundlePrefix()
+    {
+        parent::getBundlePrefix();
+    }
 }

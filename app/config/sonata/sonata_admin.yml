@@ -29,21 +29,21 @@ sonata_admin:
         user_block: ChamiloCoreBundle:Admin:admin_topnav.html.twig
 
     extensions:
-        cmf_core.admin_extension.translatable:
-            implements:
-                - Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface
-
-        cmf_core.admin_extension.publish_workflow.publishable:
-            implements:
-                - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
-        cmf_core.admin_extension.publish_workflow.time_period:
-            implements:
-                - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
+#        cmf_core.admin_extension.translatable:
+#            implements:
+#                - Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface
+#
+#        cmf_core.admin_extension.publish_workflow.publishable:
+#            implements:
+#                - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
+#        cmf_core.admin_extension.publish_workflow.time_period:
+#            implements:
+#                - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
 
     dashboard:
-        blocks:
-            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
-            - { position: right, type: sonata.admin.block.admin_list }
+#        blocks:
+#            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
+#            - { position: right, type: sonata.admin.block.admin_list }
 
 #            - { position: left, type: sonata.admin.block.admin_list }
 #            - { position: right, type: sonata.admin_doctrine_orm.block.audit}
