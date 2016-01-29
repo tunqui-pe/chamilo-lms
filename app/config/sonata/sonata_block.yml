@@ -1,6 +1,6 @@
 sonata_block:
-#    context_manager: sonata.page.block.context_manager
-    default_contexts: [cms, sonata_page_bundle]
+    context_manager: sonata.page.block.context_manager
+    default_contexts: [sonata_page_bundle]
 
     http_cache:
         listener: true
@@ -9,12 +9,13 @@ sonata_block:
 #        #"SonataDemoBundle:Builder:mainMenu": "Main Menu"
 
     blocks:
-
         # Chamilo blocks
         chamilo_core.block.breadcrumb: ~
         chamilo_core.block.course: ~
         chamilo_core.block.skill: ~
 
+        sonata.admin.block.stats:
+            contexts:   [admin]
         sonata.admin.block.admin_list:
             contexts:   [admin]
         sonata.timeline.block.timeline:
@@ -76,6 +77,7 @@ sonata_block:
         sonata.seo.block.twitter.hashtag_button:
         sonata.seo.block.twitter.mention_button:
         sonata.seo.block.twitter.embed:
+
         # Formatter
         sonata.formatter.block.formatter:
         sonata.seo.block.breadcrumb.homepage:

@@ -64,16 +64,16 @@ sonata_page:
 
     assets:
         stylesheets:
-            #- assetic/sonata_front_css.css
+            - assetic/sonata_front_css.css
 
         javascripts:
-            #- assetic/sonata_front_js.js
+            - assetic/sonata_front_js.js
 
     default_template: default
     templates:
         default:
-            #path: 'ApplicationSonataPageBundle::demo_layout.html.twig'
-            path: '::layout.html.twig'
+            path: 'ChamiloPageBundle::demo_layout.html.twig'
+#            path: '::layout.html.twig'
             name: 'default'
             containers:
                  header:
@@ -102,8 +102,8 @@ sonata_page:
                      F: footer
 
         2columns:
-            #path: 'ApplicationSonataPageBundle::default_2columns_layout.html.twig'
-            path: '::layout.html.twig'
+            path: 'ChamiloPageBundle::default_2columns_layout.html.twig'
+#            path: '::layout.html.twig'
             name: '2 columns layout'
             containers:
                  header:

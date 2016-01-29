@@ -1,6 +1,3 @@
-#chamilo_cms:
-#    resource: "@ChamiloCmsBundle/Resources/config/routing.yml"
-#    prefix:   /
 
 admin_dashboard:
     pattern: /{_locale}/administration/
@@ -27,10 +24,7 @@ admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /{_locale}/administration
 
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /{_locale}/administration
+
 
 #cmf_search:
 #    resource: "@CmfSearchBundle/Resources/config/routing/phpcr/search.xml"
@@ -58,6 +52,16 @@ _courses:
 
 _front:
     resource: routing_front.yml
+
+_admin:
+    resource: routing_admin.yml
+    prefix:   /administration
+
+#_api:
+#    resource: routing_api.yml
+#    prefix:   /api
+
+
 
 elfinder:
      resource: "@FMElfinderBundle/Resources/config/routing.yml"
