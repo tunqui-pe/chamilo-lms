@@ -28,14 +28,14 @@ class InstallationStep extends AbstractStep
         $action = $this->getRequest()->query->get('action');
         switch ($action) {
             case 'pages':
-                /*$this->handleAjaxAction(
+                $this->handleAjaxAction(
                     'sonata:page:update-core-routes',
                     array('--site' => array('all'))
                 );
                 return $this->handleAjaxAction(
                     'sonata:page:create-snapshots',
                     array('--site' => array('all'))
-                );*/
+                );
             case 'fixtures':
                 return $this->handleAjaxAction(
                     'oro:migration:data:load',

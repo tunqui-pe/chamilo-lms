@@ -58,7 +58,6 @@ class LoadPageData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        return;
         $site = $this->createSite();
         $this->createGlobalPage($site);
         error_log('sonata.page.route.page.generator');
@@ -110,8 +109,6 @@ class LoadPageData extends AbstractFixture implements
      */
     public function createSite()
     {
-        return;
-
         $site = $this->getSiteManager()->create();
 
         $site->setHost('localhost');
@@ -1163,7 +1160,6 @@ CONTENT
      */
     public function createGlobalPage(SiteInterface $site)
     {
-        return;
         $pageManager = $this->getPageManager();
         $blockManager = $this->getBlockManager();
         $blockInteractor = $this->getBlockInteractor();

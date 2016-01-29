@@ -1,0 +1,51 @@
+#sylius_resource:
+#    resources:
+#        chamilo_course.c_tool_intro:
+#            driver: doctrine/orm
+#            object_manager: default
+#            templates: ChamiloCourseBundle:CToolIntro
+#            classes:
+#                model: Chamilo\CourseBundle\Entity\CToolIntro
+##                interface: MyApp\Entity\EntityNameInterface
+#                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+##                repository:  Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+#                repository:  Chamilo\CourseBundle\Entity\Repository\CToolIntroRepository
+#
+#
+
+# Platform settings (new)
+sylius_settings:
+    driver: doctrine/orm
+    resources:
+        parameter:
+            classes:
+                model: Chamilo\CoreBundle\Entity\SettingsCurrent
+                repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
+
+
+sylius_resource:
+    resources:
+        chamilo_notebook.notebook:
+            driver: doctrine/orm
+            templates: ChamiloNotebookBundle:Notebook
+            classes:
+                model: Chamilo\NotebookBundle\Entity\CNotebook
+                controller: Chamilo\NotebookBundle\Controller\NotebookController
+                repository: Chamilo\NotebookBundle\Entity\NotebookRepository
+
+# Course settings
+chamilo_course:
+    driver: doctrine/orm
+    resources:
+        parameter:
+            classes:
+                model: Chamilo\CourseBundle\Entity\CCourseSetting
+                repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
+
+doctrine_cache:
+    providers:
+        sylius_settings:
+            type: file_system
+        chamilo_settings:
+            type: file_system
+

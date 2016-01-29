@@ -9,11 +9,6 @@ sonata_block:
 #        #"SonataDemoBundle:Builder:mainMenu": "Main Menu"
 
     blocks:
-#        sonata_admin_doctrine_phpcr.tree_block:
-#            settings:
-#                id: '/cms'
-#            contexts: [admin]
-
 
         # Chamilo blocks
         chamilo_core.block.breadcrumb: ~

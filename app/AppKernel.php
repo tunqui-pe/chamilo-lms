@@ -45,14 +45,13 @@ class AppKernel extends Kernel
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\SeoBundle\SonataSeoBundle(),
-            //new Sonata\ClassificationBundle\SonataClassificationBundle(),
+            new Sonata\ClassificationBundle\SonataClassificationBundle(),
             new Sonata\NotificationBundle\SonataNotificationBundle(),
             new Sonata\DatagridBundle\SonataDatagridBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
             //new Sonata\TranslationBundle\SonataTranslationBundle(),
             new Sonata\PageBundle\SonataPageBundle(),
 
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -101,7 +100,7 @@ class AppKernel extends Kernel
             new Chamilo\AdminBundle\ChamiloAdminBundle(),
 
             // Based in Sonata
-            //new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
+            new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
             new Chamilo\MediaBundle\ChamiloMediaBundle(),
             new Chamilo\PageBundle\ChamiloPageBundle(),
 
