@@ -1,6 +1,6 @@
-chamilo_cms:
-    resource: "@ChamiloCmsBundle/Resources/config/routing.yml"
-    prefix:   /
+#chamilo_cms:
+#    resource: "@ChamiloCmsBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 admin_dashboard:
     pattern: /{_locale}/administration/

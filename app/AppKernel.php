@@ -116,7 +116,7 @@ class AppKernel extends Kernel
             //new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             //new JMS\AopBundle\JMSAopBundle(),
             new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
-            new Chamilo\CmsBundle\ChamiloCmsBundle(),
+            //new Chamilo\CmsBundle\ChamiloCmsBundle(),
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
         );
 
