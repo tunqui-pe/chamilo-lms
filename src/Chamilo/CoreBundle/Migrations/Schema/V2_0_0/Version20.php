@@ -296,14 +296,6 @@ class Version20 implements Migration, OrderedMigrationInterface
 
 
 
-
-
-
-
-
-
-
-
         $queries->addQuery("ALTER TABLE resource_link ADD start_visibility_at DATETIME DEFAULT NULL, ADD end_visibility_at DATETIME DEFAULT NULL;");
 
         $sql = "UPDATE user SET emailCanonical = email";
@@ -315,7 +307,14 @@ class Version20 implements Migration, OrderedMigrationInterface
         $sql = "UPDATE user SET username_canonical = username;";
         $queries->addQuery($sql);
 
-        // Update settings
+        // Update iso
+        $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
+        $queries->addQuery($sql);
+
+        $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
+        $queries->addQuery($sql);
+
+        // Update settings variable
 
         $settings = [
             'Institution' => 'institution',
@@ -346,6 +345,7 @@ class Version20 implements Migration, OrderedMigrationInterface
             $queries->addQuery($sql);
         }
 
+        // Update settings category
         $settings = [
             'cookie_warning' => 'platform',
             'donotlistcampus' => 'platform',
@@ -363,13 +363,18 @@ class Version20 implements Migration, OrderedMigrationInterface
             $queries->addQuery($sql);
         }
 
-        $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
-        $queries->addQuery($sql);
+        // Update settings value
+        $settings = [
+            'upload_extensions_whitelist' => 'htm;html;jpg;jpeg;gif;png;swf;avi;mpg;mpeg;mov;flv;doc;docx;xls;xlsx;ppt;pptx;odt;odp;ods;pdf;webm;oga;ogg;ogv;h264',
+        ];
 
-        $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
-        $queries->addQuery($sql);
+        foreach ($settings as $variable => $value) {
+            $sql = "UPDATE settings_current SET selected_value = '$value'
+                    WHERE variable = '$variable'";
+            $queries->addQuery($sql);
+        }
 
-        // Settings to delete
+        // Delete settings
         $settings = [
             //'session_page_enabled',
             //'session_tutor_reports_visibility',

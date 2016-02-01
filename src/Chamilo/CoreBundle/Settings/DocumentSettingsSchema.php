@@ -27,7 +27,7 @@ class DocumentSettingsSchema implements SchemaInterface
                     'permanently_remove_deleted_files' => 'false',
                     'upload_extensions_list_type' => 'blacklist',
                     'upload_extensions_blacklist' => '',
-                    'upload_extensions_whitelist' => 'htm;html;jpg;jpeg;gif;png;swf;avi;mpg;mpeg;mov;flv;doc;docx;xls;xlsx;ppt;pptx;odt;odp;ods;pdf',
+                    'upload_extensions_whitelist' => 'htm;html;jpg;jpeg;gif;png;swf;avi;mpg;mpeg;mov;flv;doc;docx;xls;xlsx;ppt;pptx;odt;odp;ods;pdf;webm;oga;ogg;ogv;h264',
                     'upload_extensions_skip' => 'true',
                     'upload_extensions_replace_by' => 'dangerous',
                     'permissions_for_new_directories' => '0777',
