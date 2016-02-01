@@ -1,0 +1,9 @@
+imports:
+#    - { resource: custom.yml }
+
+parameters:
+    software_name: Chamilo
+    system_stable: false
+    system_version: '2.0'
+    database_manager_enabled: false
+

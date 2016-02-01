@@ -1028,7 +1028,7 @@ class AddCourse
      */
     public static function register_course($params)
     {
-        global $error_msg, $firstExpirationDelay;
+        global $error_msg;
 
         $title = $params['title'];
         $code = $params['code'];
@@ -1096,7 +1096,7 @@ class AddCourse
 
         if (empty($expiration_date)) {
             $expiration_date = api_get_utc_datetime(
-                time() + $firstExpirationDelay
+                time() + FIRST_EXPIRATION_DELAY
             );
         } else {
             $expiration_date = api_get_utc_datetime($expiration_date);

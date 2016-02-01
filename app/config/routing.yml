@@ -24,18 +24,13 @@ admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /{_locale}/administration
 
-
-
-#cmf_search:
-#    resource: "@CmfSearchBundle/Resources/config/routing/phpcr/search.xml"
-
-
-
-#index:
-#    path: /
-
-#login:
-#    path: /login
+#hwi_oauth_redirect:
+#    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+#    prefix:   /connect
+#
+#hwi_oauth_login:
+#    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+#    prefix:   /login
 
 logout:
     path: /logout

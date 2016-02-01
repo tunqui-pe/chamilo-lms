@@ -2921,7 +2921,7 @@ $server->register('WSCreateCourseByTitle',                     // method name
 // Define the method WSCreateCourseByTitle
 function WSCreateCourseByTitle($params)
 {
-    global $firstExpirationDelay, $_configuration;
+    global $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
         return return_error(WS_ERROR_SECRET_KEY);
