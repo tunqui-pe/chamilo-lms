@@ -137,8 +137,8 @@ assetic:
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/jqueryui/ui/jquery.ui.tooltip.js
   #                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/jqueryui/ui/i18n/jquery-ui-i18n.js
 
-            filters:
-                - yui_js
+#            filters:
+#                - yui_js
 
         sonata_jqueryui_css:
             inputs:
@@ -146,7 +146,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - yui_css
+#                - yui_css
 
         sonata_formatter_js:
             inputs:
@@ -157,8 +157,8 @@ assetic:
                 - %kernel.root_dir%/../web/bundles/sonataformatter/markitup/sets/html/set.js
                 - %kernel.root_dir%/../web/bundles/sonataformatter/markitup/sets/textile/set.js
 
-            filters:
-                - yui_js
+#            filters:
+#                - yui_js
 
         sonata_formatter_css:
             inputs:
@@ -169,7 +169,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - yui_css
+#                - yui_css
 
         sonata_admin_js:
             inputs:
@@ -192,8 +192,8 @@ assetic:
                 - %kernel.root_dir%/../web/bundles/sonataadmin/Admin.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/treeview.js
 
-            filters:
-                - yui_js
+#            filters:
+#                - yui_js
 
         sonata_admin_css:
             inputs:
@@ -214,7 +214,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - yui_css
+#                - yui_css
 
         sonata_front_js:
             inputs:
@@ -225,8 +225,8 @@ assetic:
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/select2/select2.min.js
 #                - %kernel.root_dir%/../web/bundles/sonatademo/js/demo.js
 
-            filters:
-                - yui_js
+#            filters:
+#                - yui_js
 
         sonata_front_css:
             inputs:
@@ -237,4 +237,4 @@ assetic:
 
             filters:
                 - cssrewrite
-                - yui_css
+#                - yui_css
