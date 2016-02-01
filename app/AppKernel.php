@@ -71,6 +71,11 @@ class AppKernel extends Kernel
             //new Symfony\Cmf\Bundle\BlogBundle\CmfBlogBundle(),
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
+            // Oauth
+            //new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
 
             new Liip\ThemeBundle\LiipThemeBundle(),
