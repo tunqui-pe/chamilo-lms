@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class ScoreDisplay
@@ -172,23 +173,32 @@ class ScoreDisplay
      */
     private function get_current_gradebook_category_id()
     {
-        $tbl_gradebook_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $curr_course_code = api_get_course_id();
+        $curr_course_id = api_get_course_int_id();
         $curr_session_id = api_get_session_id();
 
+        $em = Database::getManager();
+        $criteria = Criteria::create();
+        $criteria->where(
+            Criteria::expr()->eq('course', $curr_course_id)
+        );
+
         if (empty($curr_session_id)) {
-            $session_condition = ' AND session_id is null ';
+            $criteria->andWhere(
+                Criteria::expr()->isNull('sessionId')
+            );
         } else {
-            $session_condition = ' AND session_id = '.$curr_session_id;
+            $criteria->andWhere(
+                Criteria::expr()->eq('sessionId', $curr_session_id)
+            );
         }
 
-        $sql = 'SELECT id FROM '.$tbl_gradebook_category.'
-                WHERE course_code = "'.$curr_course_code.'" '. $session_condition;
-        $rs  = Database::query($sql);
+        $rs = $em
+            ->getRepository('ChamiloCoreBundle:GradebookCategory')
+            ->matching($criteria);
         $category_id = 0;
-        if (Database::num_rows($rs) > 0) {
-            $row = Database::fetch_row($rs);
-            $category_id = $row[0];
+        if ($rs->count() > 0) {
+            $row = $rs->current();
+            $category_id = $row->getId();
         }
 
         return $category_id;

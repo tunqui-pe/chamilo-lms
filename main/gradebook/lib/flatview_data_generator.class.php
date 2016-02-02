@@ -157,7 +157,7 @@ class FlatViewDataGenerator
             null,
             $course_code,
             $session_id,
-            'ORDER BY id'
+            ['id' => 'ASC']
         );
 
         $evaluationsAdded = array();
@@ -436,7 +436,7 @@ class FlatViewDataGenerator
                 null,
                 $course_code,
                 $session_id,
-                'ORDER BY id'
+                ['id' => 'ASC']
             );
 
             $evaluationsAdded = array();
@@ -840,7 +840,7 @@ class FlatViewDataGenerator
 
             $course_code = api_get_course_id();
             $session_id = api_get_session_id();
-            $allcat = $this->category->get_subcategories(null, $course_code, $session_id, 'ORDER BY id');
+            $allcat = $this->category->get_subcategories(null, $course_code, $session_id, ['id' => 'ASC']);
             $parent_id = $this->category->get_parent_id();
 
             if ($parent_id == 0 && !empty($allcat)) {

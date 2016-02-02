@@ -55,7 +55,7 @@ $my_category = array();
 $cat = new Category();
 $my_category = $cat->shows_all_information_an_category($my_selectcat);
 
-$original_total = $my_category['weight'];
+$original_total = $my_category->getWeight();
 $masked_total = $parent_cat[0]->get_weight();
 
 $sql = 'SELECT * FROM '.$table_link.' WHERE category_id = '.$my_selectcat;
@@ -127,7 +127,7 @@ foreach ($evaluations as $evaluationRow) {
 
 $my_api_cidreq = api_get_cidreq();
 if ($my_api_cidreq == '') {
-    $my_api_cidreq = 'cidReq='.$my_category['course_code'];
+    $my_api_cidreq = 'cidReq='.$my_category->getCourse()->getCode();
 }
 
 $currentUrl = api_get_self().'?'.api_get_cidreq().'&selectcat='.$my_selectcat;

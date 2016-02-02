@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class GradebookUtils
@@ -792,17 +793,36 @@ class GradebookUtils
                 $course_code = api_get_course_id();
             }
             $session_id = api_get_session_id();
+            $courseId = api_get_course_int_id($course_code);
 
-            $t = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $sql = "SELECT * FROM $t WHERE course_code = '" . Database::escape_string($course_code) . "' ";
+            $em = Database::getManager();
+            $criteria = Criteria::create();
+
+            $criteria->where(
+                Criteria::expr()->eq('course', $courseId)
+            );
+
             if (!empty($session_id)) {
-                $sql .= " AND session_id = " . (int) $session_id;
+                $criteria->andWhere(
+                    Criteria::expr()->eq('sessionId', $session_id)
+                );
             } else {
-                $sql .= " AND (session_id IS NULL OR session_id = 0) ";
+                $criteria->andWhere(
+                    Criteria::expr()->orX(
+                        Criteria::expr()->isNull('sessionId'),
+                        Criteria::expr()->eq('sessionId', 0)
+                    )
+                );
             }
-            $sql .= " ORDER BY id";
-            $res = Database::query($sql);
-            if (Database::num_rows($res) < 1) {
+            $criteria->orderBy([
+                'id' => Criteria::ASC
+            ]);
+
+            $res = $em
+                ->getRepository('ChamiloCoreBundle:GradebookCategory')
+                ->matching($criteria);
+
+            if ($res->count() < 1) {
                 //there is no unique category for this course+session combination,
                 $cat = new Category();
                 if (!empty($session_id)) {
@@ -831,8 +851,8 @@ class GradebookUtils
                 $category_id = $cat->get_id();
                 unset($cat);
             } else {
-                $row = Database::fetch_array($res);
-                $category_id = $row['id'];
+                $row = $res->current();
+                $category_id = $row->getId();
             }
         }
 

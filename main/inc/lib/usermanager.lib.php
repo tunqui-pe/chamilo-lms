@@ -4416,6 +4416,7 @@ class UserManager
         $tbl_grade_certificate = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
         $tbl_grade_category = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $session_id = api_get_session_id();
+        $courseId = api_get_course_int_id($course_code);
 
         if (empty($session_id)) {
             $session_condition = ' AND (session_id = "" OR session_id = 0 OR session_id IS NULL )';
@@ -4425,7 +4426,7 @@ class UserManager
 
         $sql = 'SELECT * FROM '.$tbl_grade_certificate.' WHERE cat_id = (SELECT id FROM '.$tbl_grade_category.'
                 WHERE
-                    course_code = "'.Database::escape_string($course_code).'" '.$session_condition.' LIMIT 1 ) AND
+                    c_id = ' . $courseId . ' '.$session_condition.' LIMIT 1 ) AND
                     user_id='.intval($user_id);
 
         $rs = Database::query($sql);
@@ -4466,13 +4467,15 @@ class UserManager
         } else {
             $sql_session = '';
         }
-        $sql = "SELECT tc.path_certificate,tc.cat_id,tgc.course_code,tgc.name
+        $sql = "SELECT tc.path_certificate,tc.cat_id,tgc.c_id,tgc.name
                 FROM $table_certificate tc, $table_gradebook_category tgc
                 WHERE tgc.id = tc.cat_id AND tc.user_id = $user_id
                 ORDER BY tc.date_certificate DESC limit 5";
 
         $rs = Database::query($sql);
         while ($row = Database::fetch_array($rs)) {
+            $courseInfo = api_get_course_info_by_id();
+            $row['course_code'] = $courseInfo['code'];
             $my_certificate[] = $row;
         }
         return $my_certificate;

@@ -288,12 +288,18 @@ class Course
     protected $issuedSkills;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:GradebookCategory", mappedBy="course")
+     */
+    protected $gradebookCategories;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->creationDate = new \DateTime();
         $this->users = new ArrayCollection();
+        $this->gradebookCategories = new ArrayCollection();
     }
 
     /**

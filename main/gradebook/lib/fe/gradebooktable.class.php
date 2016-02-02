@@ -241,7 +241,7 @@ class GradebookTable extends SortableTable
             null,
             null,
             $session_id,
-            'ORDER BY id'
+            ['id' => 'ASC']
         );
         $total_categories_weight = 0;
         $scoredisplay = ScoreDisplay :: instance();

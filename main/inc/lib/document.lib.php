@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  *  Class DocumentManager
@@ -1737,22 +1738,34 @@ class DocumentManager
      */
     public static function attach_gradebook_certificate($course_id, $document_id, $session_id = 0)
     {
-        $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $session_id = intval($session_id);
         if (empty($session_id)) {
             $session_id = api_get_session_id();
         }
 
+        $courseId = api_get_course_int_id($course_id);
+
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $queryParams = [];
+
+        $dql = '
+            UPDATE ChamiloCoreBundle:GradebookCategory gc SET gc.documentId = :document
+            WHERE gc.course = :course
+        ';
+        $queryParams['document'] = $document_id;
+        $queryParams['course'] = $courseId;
+
         if (empty($session_id)) {
-            $sql_session = 'AND (session_id = 0 OR isnull(session_id)) ';
+            $dql .= 'AND (gc.sessionId = 0 OR gc.sessionId IS NULL) ';
         } elseif ($session_id > 0) {
-            $sql_session = 'AND session_id=' . intval($session_id);
-        } else {
-            $sql_session = '';
+            $dql .= 'AND gc.sessionId = :session ';
+            $queryParams['session'] = $session_id;
         }
-        $sql = 'UPDATE ' . $tbl_category . ' SET document_id="' . intval($document_id) . '"
-                WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
-        Database::query($sql);
+
+        $query
+            ->setDQL($dql)
+            ->execute($queryParams);
     }
 
     /**
@@ -1764,30 +1777,40 @@ class DocumentManager
      */
     public static function get_default_certificate_id($course_id, $session_id = 0)
     {
-        $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $session_id = intval($session_id);
         if (empty($session_id)) {
             $session_id = api_get_session_id();
         }
 
-        if (empty($session_id)) {
-            $sql_session = 'AND (session_id = 0 OR isnull(session_id)) ';
-        } elseif ($session_id > 0) {
-            $sql_session = 'AND session_id=' . intval($session_id);
-        } else {
-            $sql_session = '';
-        }
-        $sql = 'SELECT document_id FROM ' . $tbl_category . '
-                WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
+        $courseId = api_get_course_int_id($course_id);
 
-        $rs = Database::query($sql);
-        $num = Database::num_rows($rs);
-        if ($num == 0) {
+        $em = Database::getManager();
+        $criteria = Criteria::create();
+        $criteria->where(
+            Criteria::expr()->eq('course', $courseId)
+        );
+
+        if (empty($session_id)) {
+            $criteria->andWhere(
+                Criteria::expr()->orX(
+                    Criteria::expr()->eq('sessionId', 0),
+                    Criteria::expr()->isNull('sessionId')
+                )
+            );
+        } elseif ($session_id > 0) {
+            $criteria->andWhere(
+                Criteria::expr()->eq('sessionId', $session_id)
+            );
+        }
+
+        $rs = $em->getRepository('ChamiloCoreBundle:GradebookCategory')->matching($criteria);
+        $num = $rs->count();
+        if (!$num) {
             return null;
         }
-        $row = Database::fetch_array($rs);
+        $row = $rs->current();
 
-        return $row['document_id'];
+        return $row->getDocumentId();
     }
 
     /**
@@ -1967,23 +1990,33 @@ class DocumentManager
         }
 
         $default_certificate = self::get_default_certificate_id($course_id);
-        if ((int) $default_certificate == (int) $default_certificate_id) {
-            $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $session_id = api_get_session_id();
-            if ($session_id == 0 || is_null($session_id)) {
-                $sql_session = 'AND (session_id=' . intval($session_id) . ' OR isnull(session_id)) ';
-            } elseif ($session_id > 0) {
-                $sql_session = 'AND session_id=' . intval($session_id);
-            } else {
-                $sql_session = '';
-            }
-
-            $sql = 'UPDATE ' . $tbl_category . ' SET document_id=null
-                    WHERE
-                        course_code = "' . Database::escape_string($course_id) . '" AND
-                        document_id="' . $default_certificate_id . '" ' . $sql_session;
-            Database::query($sql);
+        if ((int) $default_certificate !== (int) $default_certificate_id) {
+            return false;
         }
+
+        $courseId = api_get_course_int_id($course_id);
+
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $dql = '
+            UPDATE ChamiloCoreBundle:GradebookCategory gc
+            SET gc.documentId = NULL
+            WHERE gc.course = :course AND gc.documentId = :document
+        ';
+        $queryParam = [
+            'course' => $courseId,
+            'document' => $default_certificate_id
+        ];
+
+        $session_id = api_get_session_id();
+        if ($session_id == 0 || is_null($session_id)) {
+            $dql .= 'AND (gc.sessionId = 0 OR gc.sessionId IS NULL) ';
+        } elseif ($session_id > 0) {
+            $dql .= 'AND gc.sessionId = :session ';
+            $queryParam['session'] = $session_id;
+        }
+
+        $query->setDQL($dql)->execute($queryParam);
     }
 
     /**
