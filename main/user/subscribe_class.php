@@ -46,16 +46,14 @@ if (isset($_POST['action'])) {
  */
 function get_number_of_classes()
 {
+    $em = Database::getManager();
     $class_table = Database :: get_main_table(TABLE_MAIN_CLASS);
-    $course_class_table = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
-    $courseCode = api_get_course_id();
+    $courseId = api_get_course_int_id();
 
-    $sql = "SELECT * FROM $course_class_table
-            WHERE course_code = '" . $courseCode. "'";
-    $res = Database::query($sql);
+    $res = $em->getRepository('ChamiloCoreBundle:CourseRelClass')->findBy(['courseId' => $courseId]);
     $subscribed_classes = array();
-    while ($obj = Database::fetch_object($res)) {
-        $subscribed_classes[] = $obj->class_id;
+    foreach ($res as $obj) {
+        $subscribed_classes[] = $obj->getClassId();
     }
     $sql = "SELECT c.id	FROM $class_table c WHERE 1 = 1";
     if (isset($_GET['keyword'])) {
@@ -77,15 +75,15 @@ function get_number_of_classes()
 function get_class_data($from, $number_of_items, $column, $direction)
 {
     $class_table = Database :: get_main_table(TABLE_MAIN_CLASS);
-    $course_class_table = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
     $class_user_table = Database :: get_main_table(TABLE_MAIN_CLASS_USER);
-    $courseCode = api_get_course_id();
+    $courseId = api_get_course_int_id();
 
-    $sql = "SELECT * FROM $course_class_table WHERE course_code = '" . $courseCode . "'";
-    $res = Database::query($sql);
+    $em = Database::getManager();
+
+    $res = $em->getRepository('ChamiloCoreBundle:CourseRelClass')->findBy(['courseId' => $courseId]);
     $subscribed_classes = array();
-    while ($obj = Database::fetch_object($res)) {
-        $subscribed_classes[] = $obj->class_id;
+    foreach ($res as  $obj) {
+        $subscribed_classes[] = $obj->getClassId();
     }
     $sql = "SELECT
                 c.id AS col0,
