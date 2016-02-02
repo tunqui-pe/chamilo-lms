@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use \Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Evaluation
@@ -218,56 +219,86 @@ class Evaluation implements GradebookItem
 		$visible = null,
 		$locked = null
 	) {
-		$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
-		$sql = 'SELECT * FROM '.$tbl_grade_evaluations;
-		$paramcount = 0;
+        $em = Database::getManager();
+        $criteria = Criteria::create();
 
 		if (isset ($id)) {
-			$sql.= ' WHERE id = '.intval($id);
-			$paramcount ++;
+            $criteria->andWhere(
+                Criteria::expr()->eq('id', $id)
+            );
 		}
 
 		if (isset ($user_id)) {
-			if ($paramcount != 0) $sql .= ' AND';
-			else $sql .= ' WHERE';
-			$sql .= ' user_id = '.intval($user_id);
-			$paramcount ++;
+            $user_id = intval($user_id);
+            $criteria->andWhere(
+                Criteria::expr()->eq('userId', $user_id)
+            );
 		}
 
 		if (isset ($course_code) && $course_code <> '-1') {
-			if ($paramcount != 0) $sql .= ' AND';
-			else $sql .= ' WHERE';
-			$sql .= " course_code = '".Database::escape_string($course_code)."'";
-			$paramcount ++;
+            $courseId = api_get_course_int_id($course_code);
+            $criteria->andWhere(
+                Criteria::expr()->eq('course', $courseId)
+            );
 		}
 
 		if (isset ($category_id)) {
-			if ($paramcount != 0) $sql .= ' AND';
-			else $sql .= ' WHERE';
-			$sql .= ' category_id = '.intval($category_id);
-			$paramcount ++;
+            $category_id = intval($category_id);
+            $criteria->andWhere(
+                Criteria::expr()->eq('categoryId', $category_id)
+            );
 		}
 
 		if (isset ($visible)) {
-			if ($paramcount != 0) $sql .= ' AND';
-			else $sql .= ' WHERE';
-			$sql .= ' visible = '.intval($visible);
-			$paramcount ++;
+            $visible = intval($visible);
+            $criteria->andWhere(
+                Criteria::expr()->eq('visible', $visible)
+            );
 		}
 
 		if (isset ($locked)) {
-			if ($paramcount != 0) $sql .= ' AND';
-			else $sql .= ' WHERE';
-			$sql .= ' locked = '.intval($locked);
+            $locked = intval($locked);
+            $criteria->andWhere(
+                Criteria::expr()->eq('locked', $locked)
+            );
 		}
 
-		$result = Database::query($sql);
-		$alleval = Evaluation::create_evaluation_objects_from_sql_result($result);
+		$result = $em->getRepository('ChamiloCoreBundle:GradebookEvaluation')->matching($criteria);
+        $alleval = Evaluation::createEvaluationObjectsFromEntities($result);
 
 		return $alleval;
 	}
 
+    /**
+     * Get an Evaluation array from an \Chamilo\CoreBundle\Entity\GradebookEvaluation collection
+     * @param \Doctrine\Common\Collections\ArrayCollection|array $entities
+     * @return array
+     */
+    private static function createEvaluationObjectsFromEntities($entities)
+    {
+        $alleval = array();
 
+        foreach ($entities as $gradebookEvaluation) {
+            $eval= new Evaluation();
+            $eval->set_id($gradebookEvaluation->getId());
+            $eval->set_name($gradebookEvaluation->getName());
+            $eval->set_description($gradebookEvaluation->getDescription());
+            $eval->set_user_id($gradebookEvaluation->getUserId());
+            $eval->set_course_code($gradebookEvaluation->getCourse()->getCode());
+            $eval->set_category_id($gradebookEvaluation->getCategoryId());
+            $eval->set_date(api_get_local_time($gradebookEvaluation->getCreatedAt()));
+            $eval->set_weight($gradebookEvaluation->getWeight());
+            $eval->set_max($gradebookEvaluation->getMax());
+            $eval->set_visible($gradebookEvaluation->getVisible());
+            $eval->set_type($gradebookEvaluation->getType());
+            $eval->set_locked($gradebookEvaluation->getLocked());
+            $eval->setSessionId(api_get_session_id());
+
+            $alleval[] = $eval;
+        }
+
+        return $alleval;
+    }
 
 	/**
 	 * @param array $result
@@ -311,44 +342,40 @@ class Evaluation implements GradebookItem
 			isset ($this->eval_max) &&
 			isset($this->visible)
 		) {
-			$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
+            $em = Database::getManager();
 
-			$sql = 'INSERT INTO '.$tbl_grade_evaluations
-				.' (name, user_id, weight, max, visible';
+            $createdAt = new DateTime(api_get_utc_datetime(), 'UTC');
+
+            $gradebookEvaluation = new \Chamilo\CoreBundle\Entity\GradebookEvaluation();
+            $gradebookEvaluation
+                ->setName($this->get_name())
+                ->setUserId($this->get_user_id())
+                ->setWeight($this->get_weight())
+                ->setMax($this->get_max())
+                ->setVisible($this->is_visible())
+                ->setCreatedAt($createdAt);
+
 			if (isset($this->description)) {
-				$sql .= ',description';
+                $gradebookEvaluation->setDescription($this->get_description());
 			}
 			if (isset($this->course_code)) {
-				$sql .= ', course_code';
+                $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy([
+                    'code' => $this->get_course_code()
+                ]);
+                $gradebookEvaluation->setCourse($course);
 			}
 			if (isset($this->category)) {
-				$sql .= ', category_id';
-			}
-			$sql .= ', created_at';
-			$sql .= ',type';
-			$sql .= ") VALUES ('".Database::escape_string($this->get_name())."'"
-				.','.intval($this->get_user_id())
-				.','.floatval($this->get_weight())
-				.','.intval($this->get_max())
-				.','.intval($this->is_visible());
-			if (isset($this->description)) {
-				$sql .= ",'".Database::escape_string($this->get_description())."'";
-			}
-			if (isset($this->course_code)) {
-				$sql .= ",'".Database::escape_string($this->get_course_code())."'";
-			}
-			if (isset($this->category)) {
-				$sql .= ','.intval($this->get_category_id());
+                $gradebookEvaluation->setCategoryId($this->get_category_id());
 			}
 			if (empty($this->type)) {
 				$this->type = 'evaluation';
+                $gradebookEvaluation->setType($this->get_type());
 			}
-			$sql .= ", '".api_get_utc_datetime()."'";
-			$sql .= ',\''.Database::escape_string($this->type).'\'';
-			$sql .= ")";
 
-			Database::query($sql);
-			$this->set_id(Database::insert_id());
+            $em->persist($gradebookEvaluation);
+            $em->flush();
+
+			$this->set_id($gradebookEvaluation->getId());
 		} else {
 			die('Error in Evaluation add: required field empty');
 		}
@@ -360,23 +387,21 @@ class Evaluation implements GradebookItem
 	public function add_evaluation_log($idevaluation)
 	{
 		if (!empty($idevaluation)) {
-			$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
+            $em = Database::getManager();
+
 			$tbl_grade_linkeval_log = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINKEVAL_LOG);
 			$eval = new Evaluation();
 			$dateobject = $eval->load($idevaluation,null,null,null,null);
 			$arreval = get_object_vars($dateobject[0]);
 			if (!empty($arreval['id'])) {
-				$sql = 'SELECT weight from '.$tbl_grade_evaluations.'
-                        WHERE id='.$arreval['id'];
-                $rs = Database::query($sql);
-                $row_old_weight = Database::fetch_array($rs, 'ASSOC');
+                $row_old_weight = $em->find('ChamiloCoreBundle:GradebookEvaluation', $arreval['id']);
                 $current_date = api_get_utc_datetime();
                 $params = [
                     'id_linkeval_log' => $arreval['id'],
                     'name' => $arreval['name'],
                     'description' => $arreval['description'],
                     'created_at' => $current_date,
-                    'weight' => $row_old_weight['weight'],
+                    'weight' => $row_old_weight->getWeight(),
                     'visible' => $arreval['visible'],
                     'type' => 'evaluation',
                     'user_id_log' => api_get_user_id()
@@ -391,37 +416,40 @@ class Evaluation implements GradebookItem
 	 */
 	public function save()
 	{
-		$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
-		$sql = 'UPDATE '.$tbl_grade_evaluations
-			." SET name = '".Database::escape_string($this->get_name())."'"
-			.', description = ';
+        $em = Database::getManager();
+        $gradebookEvaluation = $em->find('ChamiloCoreBundle:GradebookEvaluation', $this->id);
+
+        if ($gradebookEvaluation) {
+            return;
+        }
+
+        $gradebookEvaluation->setName($this->get_name())
+            ->setUserId($this->get_user_id())
+            ->setWeight($this->get_weight())
+            ->setMax($this->get_max())
+            ->setVisible($this->is_visible());
+
 		if (isset($this->description)) {
-			$sql .= "'".Database::escape_string($this->get_description())."'";
-		}else {
-			$sql .= 'null';
+            $gradebookEvaluation->setDescription($this->get_description());
 		}
-		$sql .= ', user_id = '.intval($this->get_user_id())
-			.', course_code = ';
+
 		if (isset($this->course_code)) {
-			$sql .= "'".Database::escape_string($this->get_course_code())."'";
-		} else {
-			$sql .= 'null';
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy([
+                'code' => $this->get_course_code()
+            ]);
+            $gradebookEvaluation->setCourse($course);
 		}
-		$sql .= ', category_id = ';
+
 		if (isset($this->category)) {
-			$sql .= intval($this->get_category_id());
-		} else {
-			$sql .= 'null';
+            $gradebookEvaluation->setCategoryId($this->get_category_id());
 		}
-		$sql .= ', weight = "'.Database::escape_string($this->get_weight()).'" '
-			.', max = '.intval($this->get_max())
-			.', visible = '.intval($this->is_visible())
-			.' WHERE id = '.intval($this->id);
 		//recorded history
 
 		$eval_log = new Evaluation();
 		$eval_log->add_evaluation_log($this->id);
-		Database::query($sql);
+
+        $em->persist($gradebookEvaluation);
+        $em->flush();
 	}
 
 	/**
@@ -429,9 +457,11 @@ class Evaluation implements GradebookItem
 	 */
 	public function delete()
 	{
-		$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
-		$sql = 'DELETE FROM '.$tbl_grade_evaluations.' WHERE id = '.intval($this->id);
-		Database::query($sql);
+        $em = Database::getManager();
+        $gradebookEvaluation = $em->find('ChamiloCoreBundle:GradebookEvaluation', $this->id);
+
+        $em->remove($gradebookEvaluation);
+        $em->flush();
 	}
 
 	/**
@@ -691,25 +721,29 @@ class Evaluation implements GradebookItem
 	 */
 	public static function get_evaluations_with_result_for_student($cat_id = null, $stud_id)
 	{
-		$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
-		$tbl_grade_results = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_RESULT);
+        $em = Database::getManager();
+        $query = $em->createQuery();
 
-		$sql = 'SELECT * FROM '.$tbl_grade_evaluations.'
-				WHERE id IN (
-					SELECT evaluation_id FROM '.$tbl_grade_results.'
-					WHERE user_id = '.intval($stud_id).' AND score IS NOT NULL
-				)';
+        $dql = '
+            SELECT ge FROM ChamiloCoreBundle:GradebookEvaluation ge
+            WHERE gc IN (
+                SELECT gr.evaluationId FROM ChamiloCoreBundle:GradebookResult gr
+                WHERE gr.userId = :user AND gr.score IS NOT NULL
+            )
+        ';
+        $queryParams = ['user' => intval($stud_id)];
 		if (!api_is_allowed_to_edit()) {
-			$sql .= ' AND visible = 1';
+            $dql .= 'AND ge.visible = 1 ';
 		}
 		if (isset($cat_id)) {
-			$sql .= ' AND category_id = '.intval($cat_id);
+            $dql .= 'AND ge.categoryId = :category ';
+            $queryParams['category'] = intval($cat_id);
 		} else {
-			$sql .= ' AND category_id >= 0';
+            $dql .= 'AND ge.categoryId >= 0 ';
 		}
 
-		$result = Database::query($sql);
-		$alleval = Evaluation::create_evaluation_objects_from_sql_result($result);
+        $result = $query->setParameters($queryParams)->getResult();
+        $alleval = Evaluation::createEvaluationObjectsFromEntities($result);
 
 		return $alleval;
 	}
@@ -773,9 +807,16 @@ class Evaluation implements GradebookItem
 	 **/
 	function lock($locked)
 	{
-		$table_evaluation = Database::get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
-		$sql = "UPDATE $table_evaluation SET locked = '".intval($locked)."' WHERE id='".intval($this->id)."'";
-		Database::query($sql);
+        $em = Database::getManager();
+
+        $gradebookEvaluation = $em->find('ChamiloCoreBundle:GradebookEvaluation', $this->id);
+
+        if ($gradebookEvaluation) {
+            $gradebookEvaluation->setLocked($locked);
+
+            $em->persist($gradebookEvaluation);
+            $em->flush();
+        }
 	}
 
 	function check_lock_permissions()

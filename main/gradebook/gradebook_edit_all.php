@@ -26,10 +26,11 @@ if (empty($my_selectcat)) {
     api_not_allowed();
 }
 
+$em = Database::getManager();
+
 $course_id = GradebookUtils::get_course_id_by_link_id($my_selectcat);
 
 $table_link = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-$table_evaluation = Database::get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
 $tbl_forum_thread = Database:: get_course_table(TABLE_FORUM_THREAD);
 $tbl_work = Database:: get_course_table(TABLE_STUDENT_PUBLICATION);
 $tbl_attendance = Database:: get_course_table(TABLE_ATTENDANCE);
@@ -98,16 +99,18 @@ foreach ($links as &$row) {
                </td></tr>';
 }
 
-$sql = 'SELECT * FROM '.$table_evaluation.' WHERE category_id = '.$my_selectcat;
-$result = Database::query($sql);
-$evaluations = Database::store_result($result);
+$evaluations = $em
+    ->getRepository('ChamiloCoreBundle:GradebookEvaluation')
+    ->findBy([
+        'categoryId' => $my_selectcat
+    ]);
 foreach ($evaluations as $evaluationRow) {
-    $item_weight = $evaluationRow['weight'];
+    $item_weight = $evaluationRow->getWeight();
     // update only if value changed
-    if (isset($_POST['evaluation'][$evaluationRow['id']])) {
-        $new_weight = trim($_POST['evaluation'][$evaluationRow['id']]);
+    if (isset($_POST['evaluation'][$evaluationRow->getId()])) {
+        $new_weight = trim($_POST['evaluation'][$evaluationRow->getId()]);
         GradebookUtils::updateEvaluationWeight(
-            $evaluationRow['id'],
+            $evaluationRow->getId(),
             $new_weight
         );
 
@@ -116,12 +119,12 @@ foreach ($evaluations as $evaluationRow) {
 
     $output .= '<tr>
                 <td>'.GradebookUtils::build_type_icon_tag('evalnotempty').'</td>
-                <td>'.$evaluationRow['name'].' '.Display::label(
+                <td>'.$evaluationRow->getName().' '.Display::label(
             get_lang('Evaluation')
         ).'</td>';
     $output .= '<td>
-                    <input type="hidden" name="eval_'.$evaluationRow['id'].'" value="'.$evaluationRow['name'].'" />
-                    <input type="text" size="10" name="evaluation['.$evaluationRow['id'].']" value="'.$item_weight.'"/>
+                    <input type="hidden" name="eval_'.$evaluationRow->getId().'" value="'.$evaluationRow->getName().'" />
+                    <input type="text" size="10" name="evaluation['.$evaluationRow->getId().']" value="'.$item_weight.'"/>
                 </td></tr>';
 }
 
