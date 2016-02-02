@@ -34,5 +34,3 @@ $tool_rights[TOOL_USER]=array("View","Add","Edit","Delete");
 
 // this value can be checkbox or image
 $setting_visualisation='image';
-
-?>

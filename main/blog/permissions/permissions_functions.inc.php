@@ -456,7 +456,7 @@ function display_role_list($current_course_roles, $current_platform_roles)
 		}
 
 
-		echo $row['role_name']." <a href=\"../permissions/roles.php?role_id=".$row['role_id']."&amp;scope=course\"><img src=\"../img/edit.gif\" /></a><br />\n";
+		echo $row['role_name']." <a href=\"../blog/permissions/roles.php?role_id=".$row['role_id']."&amp;scope=course\"><img src=\"../img/edit.gif\" /></a><br />\n";
 		echo $row['role_comment']."<br />\n";
 	}
 }

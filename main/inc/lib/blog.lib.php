@@ -2385,7 +2385,7 @@ class Blog
 		echo '<br />';
 
 		// Integration of patricks permissions system.
-		require_once api_get_path(SYS_CODE_PATH).'permissions/blog_permissions.inc.php';
+		require_once api_get_path(SYS_CODE_PATH).'blog/permissions/blog_permissions.inc.php';
 	}
 
 	/**
