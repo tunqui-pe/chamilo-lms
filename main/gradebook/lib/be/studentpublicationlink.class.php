@@ -79,7 +79,7 @@ class StudentPublicationLink extends AbstractLink
 			.' pup WHERE c_id = '.$this->course_id.' AND has_properties != '."''".' AND id NOT IN'
 			.' (SELECT ref_id FROM '.$tbl_grade_links
 			.' WHERE type = '.LINK_STUDENTPUBLICATION
-			." AND course_code = '".Database::escape_string($this->get_course_code())."'"
+			." AND c_id = '".intval($this->course_id)."'"
 			.') AND pub.session_id='.api_get_session_id().'';
 
 		$result = Database::query($sql);

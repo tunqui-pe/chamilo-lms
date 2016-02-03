@@ -1113,8 +1113,8 @@ class learnpath
         );
 
         $link_info = GradebookUtils::is_resource_in_course_gradebook(api_get_course_id(), 4 , $id, api_get_session_id());
-        if ($link_info !== false) {
-            GradebookUtils::remove_resource_from_course_gradebook($link_info['id']);
+        if ($link_info) {
+            GradebookUtils::remove_resource_from_course_gradebook($link_info->getId());
         }
 
         if (api_get_setting('search.search_enabled') == 'true') {

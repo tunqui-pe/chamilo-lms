@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class AbstractLink
@@ -164,8 +165,7 @@ abstract class AbstractLink implements GradebookItem
     public function set_course_code($course_code)
     {
         $this->course_code = $course_code;
-        $course_info = api_get_course_info($course_code);
-        $this->course_id = $course_info['real_id'];
+        $this->course_id = api_get_course_int_id($course_code);
     }
 
     public function getStudentList()
@@ -227,92 +227,88 @@ abstract class AbstractLink implements GradebookItem
         $category_id = null,
         $visible = null
     ) {
+        $em = Database::getManager();
+        $criteria = \Doctrine\Common\Collections\Criteria::create();
         $tbl_grade_links = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
         $sql = 'SELECT * FROM '.$tbl_grade_links;
         $paramcount = 0;
         if (isset ($id)) {
-            $sql.= ' WHERE id = '.intval($id);
-            $paramcount ++;
+            $id = intval($id);
+            $criteria->andWhere(
+                Criteria::expr()->eq('id', $id)
+            );
         }
         if (isset ($type)) {
-            if ($paramcount != 0) $sql .= ' AND';
-            else $sql .= ' WHERE';
-            $sql .= ' type = '.intval($type);
-            $paramcount ++;
+            $type = intval($type);
+            $criteria->andWhere(
+                Criteria::expr()->eq('type', $type)
+            );
         }
         if (isset ($ref_id)) {
-            if ($paramcount != 0) $sql .= ' AND';
-            else $sql .= ' WHERE';
-            $sql .= ' ref_id = '.intval($ref_id);
-            $paramcount ++;
+            $ref_id = intval($ref_id);
+            $criteria->andWhere(
+                Criteria::expr()->eq('refId', $ref_id)
+            );
         }
         if (isset ($user_id)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            }else {
-                $sql .= ' WHERE';
-            }
-            $sql .= ' user_id = '.intval($user_id);
-            $paramcount ++;
+            $user_id = intval($user_id);
+            $criteria->andWhere(
+                Criteria::expr()->eq('userId', $user_id)
+            );
         }
         if (isset ($course_code)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            } else {
-                $sql .= ' WHERE';
-            }
-            $sql .= " course_code = '".Database::escape_string($course_code)."'";
-            $paramcount ++;
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
+            $criteria->andWhere(
+                Criteria::expr()->eq('course', $course->getId())
+            );
         }
         if (isset ($category_id)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            }else {
-                $sql .= ' WHERE';
-            }
-            $sql .= ' category_id = '.intval($category_id);
-            $paramcount ++;
+            $category_id = intval($category_id);
+            $criteria->andWhere(
+                Criteria::expr()->eq('categoryId', $category_id)
+            );
         }
         if (isset ($visible)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            } else {
-                $sql .= ' WHERE';
-            }
-            $sql .= ' visible = '.intval($visible);
+            $visible = intval($visible);
+            $criteria->andWhere(
+                Criteria::expr()->eq('visible', $visible)
+            );
         }
-        $result = Database::query($sql);
-        $links = AbstractLink::create_objects_from_sql_result($result);
+        $result = $em->getRepository('ChamiloCoreBundle:GradebookLink')->matching($criteria);
+        $links = AbstractLink::createObjectsFromEntities($result);
 
         return $links;
     }
 
     /**
-     * @param $result
+     * Create an AbsctrackLink array from GradebookLink \Doctrine\Common\Collections\ArrayCollection or array
+     * @param \Doctrine\Common\Collections\ArrayCollection|array $entities
      * @return array
      */
-    private static function create_objects_from_sql_result($result)
+    private static function createObjectsFromEntities($entities)
     {
-        $links = array();
-        while ($data = Database::fetch_array($result)) {
-            $link = LinkFactory::create($data['type']);
-            $link->set_id($data['id']);
-            $link->set_type($data['type']);
-            $link->set_ref_id($data['ref_id']);
-            $link->set_user_id($data['user_id']);
-            $link->set_course_code($data['course_code']);
-            $link->set_category_id($data['category_id']);
-            $link->set_date($data['created_at']);
-            $link->set_weight($data['weight']);
-            $link->set_visible($data['visible']);
-            $link->set_locked($data['locked']);
+        $links = [];
+
+        foreach ($entities as $gradebookLink) {
+            $link = LinkFactory::create($gradebookLink->getType());
+            $link->set_id($gradebookLink->getId());
+            $link->set_type($gradebookLink->getType());
+            $link->set_ref_id($gradebookLink->getRefId());
+            $link->set_user_id($gradebookLink->getUserId());
+            $link->set_course_code($gradebookLink->getCourse()->getCode());
+            $link->set_category_id($gradebookLink->getCategoryId());
+            $link->set_date($gradebookLink->getCreatedAt()->format('Y-m-d h:m:i'));
+            $link->set_weight($gradebookLink->getWeight());
+            $link->set_visible($gradebookLink->getVisible());
+            $link->set_locked($gradebookLink->getLocked());
 
             //session id should depend of the category --> $data['category_id']
             $session_id = api_get_session_id();
 
             $link->set_session_id($session_id);
-            $links[]=$link;
+            $links[] = $link;
         }
+
         return $links;
     }
 
@@ -330,30 +326,41 @@ abstract class AbstractLink implements GradebookItem
             isset($this->weight) &&
             isset($this->visible)
         ) {
-            $tbl_grade_links = Database:: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-            $sql = "SELECT count(*) FROM ".$tbl_grade_links."
-                    WHERE
-                        ref_id=".$this->get_ref_id()." AND
-                        category_id =  ".$this->category->get_id()." AND
-                        course_code = '".$this->course_code."' AND
-                        type =  ".$this->type." ";
+            $em = Database::getManager();
 
-            $result = Database::query($sql);
-            $row_testing = Database::fetch_array($result);
+            $row_testing = $em
+                ->createQuery('
+                    SELECT COUNT(gl) FROM ChamiloCoreBundle:GradebookLink gl
+                    WHERE gl.refId = :reference AND gl.categoryId = :category AND
+                        gl.course = :course AND gl.type = :type
+                ')
+                ->setParameters([
+                    'reference' => $this->get_ref_id(),
+                    'category' => $this->category->get_id(),
+                    'course' => $this->course_id,
+                    'type' => $this->type
+                ])
+                ->getSingleScalarResult();
 
-            if ($row_testing[0] == 0) {
-                $params = [
-                    'type' => $this->get_type(),
-                    'ref_id' => $this->get_ref_id(),
-                    'user_id' => $this->get_user_id(),
-                    'course_code' => $this->get_course_code(),
-                    'category_id' => $this->get_category_id(),
-                    'weight' => $this->get_weight(),
-                    'visible' => $this->is_visible(),
-                    'created_at' => api_get_utc_datetime(),
-                    'locked' => 0
-                ];
-                $inserted_id = Database::insert($tbl_grade_links, $params);
+            if ($row_testing == 0) {
+                $createdAt = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+                $course = $em->find('ChamiloCoreBundle:Course', $this->course_id);
+                $gradebookLink = new \Chamilo\CoreBundle\Entity\GradebookLink();
+                $gradebookLink
+                    ->setType($this->get_type())
+                    ->setRefId($this->get_ref_id())
+                    ->setUserId($this->get_user_id())
+                    ->setCourse($course)
+                    ->setCategoryId($this->get_category_id())
+                    ->setWeight($this->get_weight())
+                    ->setVisible($this->is_visible())
+                    ->setCreatedAt($createdAt)
+                    ->setLocked(0);
+
+                $em->persist($gradebookLink);
+                $em->flush();
+
+                $inserted_id = $gradebookLink->getId();
                 $this->set_id($inserted_id);
 
                 return $inserted_id;
@@ -369,18 +376,24 @@ abstract class AbstractLink implements GradebookItem
     public function save()
     {
         $this->save_linked_data();
-        $table = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
+        
+        $em = Database::getManager();
+        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $this->id);
 
-        $params = [
-            'type' => $this->get_type(),
-            'ref_id' => $this->get_ref_id(),
-            'user_id' => $this->get_user_id(),
-            'course_code' => $this->get_course_code(),
-            'category_id' => $this->get_category_id(),
-            'weight' => $this->get_weight(),
-            'visible' => $this->is_visible(),
-        ];
-        Database::update($table, $params, ['id = ?' => $this->id]);
+        if ($gradebookLink) {
+            $course = $em->find('ChamiloCoreBundle:Course', $this->course_id);
+            $gradebookLink
+                ->setType($this->get_type())
+                ->setRefId($this->get_ref_id())
+                ->setUserId($this->get_user_id())
+                ->setCourse($course)
+                ->setCategoryId($this->get_category_id())
+                ->setWeight($this->get_weight())
+                ->setVisible($this->is_visible());
+
+            $em->persist($gradebookLink);
+            $em->flush();
+        }
 
         AbstractLink::add_link_log($this->id);
 
@@ -427,10 +440,14 @@ abstract class AbstractLink implements GradebookItem
     public function delete()
     {
         $this->delete_linked_data();
-        $tbl_grade_links = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = 'DELETE FROM '.$tbl_grade_links.'
-                WHERE id = '.intval($this->id);
-        Database::query($sql);
+        
+        $em = Database::getManager();
+        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $this->id);
+
+        if ($gradebookLink) {
+            $em->remove($gradebookLink);
+            $em->flush();
+        }
     }
 
     /**
@@ -584,10 +601,16 @@ abstract class AbstractLink implements GradebookItem
      * */
     public function lock($locked)
     {
-        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = "UPDATE $table SET locked = '".intval($locked)."'
-                WHERE id='".$this->id."'";
-        Database::query($sql);
+        $locked = intval($locked);
+        $em = Database::getManager();
+        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $this->id);
+
+        if ($gradebookLink) {
+            $gradebookLink->setLocked($locked);
+
+            $em->persist($gradebookLink);
+            $em->flush();
+        }
     }
 
     /**

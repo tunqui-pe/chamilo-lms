@@ -494,9 +494,6 @@ class AddCourse
         $TABLEFORUMS = Database::get_course_table(TABLE_FORUM);
         $TABLEFORUMTHREADS = Database::get_course_table(TABLE_FORUM_THREAD);
         $TABLEFORUMPOSTS = Database::get_course_table(TABLE_FORUM_POST);
-        $TABLEGRADEBOOKLINK = Database::get_main_table(
-            TABLE_MAIN_GRADEBOOK_LINK
-        );
         $TABLEGRADEBOOKCERT = Database::get_main_table(
             TABLE_MAIN_GRADEBOOK_CERTIFICATE
         );
@@ -974,10 +971,22 @@ class AddCourse
             $manager->flush();
 
             $gbid = $gradebookCategory->getId();
-            Database::query(
-                "INSERT INTO $TABLEGRADEBOOKLINK (type, ref_id, user_id, course_code, category_id, created_at, weight, visible, locked)
-                VALUES (1,$exercise_id,1,'$course_code',$gbid,'$now',100,1,0)"
-            );
+
+            $createdAt = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+            $gradebookLink = new \Chamilo\CoreBundle\Entity\GradebookLink();
+            $gradebookLink
+                ->setType(1)
+                ->setRefId($exercise_id)
+                ->setUserId(1)
+                ->setCourse($course)
+                ->setCategoryId($gbid)
+                ->setCreatedAt($createdAt)
+                ->setWeight(100)
+                ->setVisible(1)
+                ->setLocked(0);
+
+            $manager->persist($gradebookLink);
+            $manager->flush();
         }
 
         //Installing plugins in course

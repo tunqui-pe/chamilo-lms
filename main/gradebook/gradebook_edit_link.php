@@ -9,9 +9,9 @@
 
 api_block_anonymous_users();
 GradebookUtils::block_students();
-$tbl_grade_links = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 //selected name of database
 $course_id              = GradebookUtils::get_course_id_by_link_id($_GET['editlink']);
+$em = Database::getManager();
 $tbl_forum_thread 		= Database :: get_course_table(TABLE_FORUM_THREAD);
 $tbl_work 				= Database :: get_course_table(TABLE_STUDENT_PUBLICATION);
 $tbl_attendance 		= Database :: get_course_table(TABLE_ATTENDANCE);
@@ -56,35 +56,31 @@ if ($form->validate()) {
     $link->save();
 
     //Update weight for attendance
-    $sql = 'SELECT ref_id FROM '.$tbl_grade_links.'
-            WHERE id = '.intval($_GET['editlink']).' AND type='.LINK_ATTENDANCE;
-    $rs_attendance  = Database::query($sql);
-    if (Database::num_rows($rs_attendance) > 0) {
-        $row_attendance = Database::fetch_array($rs_attendance);
-        $attendance_id  = $row_attendance['ref_id'];
-        $sql = 'UPDATE '.$tbl_attendance.' SET
-                    attendance_weight ='.floatval($final_weight).'
-                WHERE c_id = '.$course_id.' AND id = '.intval($attendance_id);
+    $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', intval($_GET['editlink']));
+
+    if ($gradebookLink && $gradebookLink->getType() == LINK_ATTENDANCE) {
+        $sql = '
+            UPDATE ' . $tbl_attendance . ' SET attendance_weight =' . floatval($final_weight) . '
+            WHERE c_id = '.$course_id.' AND id = ' . $gradebookLink->getRefId();
         Database::query($sql);
     }
 
     //Update weight into forum thread
-    $sql_t = 'UPDATE '.$tbl_forum_thread.' SET thread_weight='.$final_weight.'
-			  WHERE c_id = '.$course_id.' AND thread_id=(
-                    SELECT ref_id FROM '.$tbl_grade_links.'
-			        WHERE id='.intval($_GET['editlink']).' and type=5
-              ) ';
-    Database::query($sql_t);
+    if ($gradebookLink && $gradebookLink->getType() == LINK_FORUM_THREAD) {
+        $sql_t = '
+            UPDATE ' . $tbl_forum_thread . ' SET thread_weight=' . $final_weight . '
+            WHERE c_id = ' . $course_id . ' AND thread_id = ' . $gradebookLink->getRefId();
+        Database::query($sql_t);
+    }
 
     //Update weight into student publication(work)
-    $sql_t = 'UPDATE '.$tbl_work.' SET
-              weight='.$final_weight.'
-			  WHERE c_id = '.$course_id.' AND id = (
-			    SELECT ref_id FROM '.$tbl_grade_links.'
-			    WHERE id='.intval($_GET['editlink'] ).' AND type=3
-              )';
+    if ($gradebookLink && $gradebookLink->getType() == LINK_STUDENTPUBLICATION) {
+        $sql_t = '
+            UPDATE ' . $tbl_work . ' SET weight=' . $final_weight . '
+            WHERE c_id = ' . $course_id . ' AND id = ' . $gradebookLink->getRefId();
+        Database::query($sql_t);
+    }
 
-    Database::query($sql_t);
     header('Location: '.$_SESSION['gradebook_dest'].'?linkedited=&selectcat=' . $link->get_category_id().'&'.api_get_cidreq());
     exit;
 }

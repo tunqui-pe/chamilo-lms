@@ -298,6 +298,11 @@ class Course
     protected $gradebookEvaluations;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:GradebookLink", mappedBy="course")
+     */
+    protected $gradebookLinks;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -306,6 +311,7 @@ class Course
         $this->users = new ArrayCollection();
         $this->gradebookCategories = new ArrayCollection();
         $this->gradebookEvaluations = new ArrayCollection();
+        $this->gradebookLinks = new ArrayCollection();
     }
 
     /**

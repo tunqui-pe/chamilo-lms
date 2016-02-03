@@ -16,8 +16,9 @@ GradebookUtils::block_students();
 $courseCode = isset($_GET['course_code']) ? Security::remove_XSS($_GET['course_code']) : null;
 $course_info = api_get_course_info($courseCode);
 
+$em = Database::getManager();
+
 $tbl_forum_thread = Database :: get_course_table(TABLE_FORUM_THREAD);
-$tbl_link = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 
 $session_id = api_get_session_id();
 $typeSelected = isset($_GET['typeselected']) ? intval($_GET['typeselected']) : null;
@@ -105,12 +106,12 @@ if (isset($typeSelected) && $typeSelected != '0') {
 					 WHERE c_id = '.$course_info['real_id'].' AND thread_id='.$addvalues['select_link'];
             $res1 = Database::query($sql1);
             $rowtit = Database::fetch_row($res1);
-            $course_id = api_get_course_id();
-            $sql_l = 'SELECT count(*) FROM '.$tbl_link.'
-                      WHERE ref_id='.$addvalues['select_link'].' and course_code="'.$course_id.'" and type=5;';
-            $res_l = Database::query($sql_l);
-            $row = Database::fetch_row($res_l);
-            if ($row[0] == 0) {
+            $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
+
+            $countLinks = $em
+                ->getRepository('ChamiloCoreBundle:GradebookLink')
+                ->getLinksByCourseAndReferenceAndType($course, $addvalues['select_link'], 5);
+            if ($countLinks->count() === 0) {
                 $link->add();
                 $sql = 'UPDATE '.$tbl_forum_thread.' SET
                             thread_qualify_max='.$addvalues['weight'].',

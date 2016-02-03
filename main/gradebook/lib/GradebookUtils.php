@@ -76,13 +76,26 @@ class GradebookUtils
     public static function update_resource_from_course_gradebook($link_id, $course_code, $weight)
     {
         $course_code = Database::escape_string($course_code);
-        if (!empty($link_id)) {
-            $link_id = intval($link_id);
-            $sql = 'UPDATE ' . Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK) . '
-                    SET weight = ' . "'" . Database::escape_string((float) $weight) . "'" . '
-                    WHERE course_code = "' . $course_code . '" AND id = ' . $link_id;
-            Database::query($sql);
+        if (empty($link_id)) {
+            return false;
         }
+
+        $link_id = intval($link_id);
+        $weight = floatval($weight);
+        $courseId = api_get_course_int_id($course_code);
+
+        $em = Database::getManager();
+        $em
+            ->createQuery('
+                UPDATE ChamiloCoreBundle:GradebookLink gl
+                SET gl.weight = :weight
+                WHERE gl.course = :course AND gl = :id
+            ')
+            ->execute([
+                'weight' => $weight,
+                'course' => $courseId,
+                'id' => $link_id
+            ]);
 
         return true;
     }
@@ -99,9 +112,14 @@ class GradebookUtils
         }
 
         // TODO find the corresponding category (the first one for this course, ordered by ID)
-        $l = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = "DELETE FROM $l WHERE id = ".(int)$link_id;
-        Database::query($sql);
+        $em = Database::getManager();
+
+        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', intval($link_id));
+
+        if ($gradebookLink) {
+            $em->remove($gradebookLink);
+            $em->flush();
+        }
 
         return true;
     }
@@ -390,20 +408,22 @@ class GradebookUtils
      */
     public static function is_resource_in_course_gradebook($course_code, $resource_type, $resource_id, $session_id = 0)
     {
-        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
         $course_code = Database::escape_string($course_code);
-        $sql = "SELECT * FROM $table l
-                WHERE
-                    course_code = '$course_code' AND
-                    type = ".(int)$resource_type . " AND
-                    ref_id = " . (int)$resource_id;
-        $res = Database::query($sql);
 
-        if (Database::num_rows($res) < 1) {
+        $em = Database::getManager();
+
+        $course = $em
+            ->getRepository('ChamiloCoreBundle:Course')
+            ->findOneBy(['code' => $course_code]);
+        $gradebookLinks = $em
+            ->getRepository('ChamiloCoreBundle:GradebookLink')
+            ->getLinksByCourseAndReferenceAndType($course, $resource_id, $resource_type);
+
+        if ($gradebookLinks->count() < 1) {
             return false;
         }
-        $row = Database::fetch_array($res, 'ASSOC');
-        return $row;
+
+        return $gradebookLinks->current();
     }
 
     /**
@@ -416,15 +436,13 @@ class GradebookUtils
         if (empty($link_id)) {
             return false;
         }
+
+        $em = Database::getManager();
+
         // TODO find the corresponding category (the first one for this course, ordered by ID)
-        $l = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = "SELECT * FROM $l WHERE id = " . (int) $link_id;
-        $res = Database::query($sql);
-        $row = array();
-        if (Database::num_rows($res) > 0) {
-            $row = Database::fetch_array($res, 'ASSOC');
-        }
-        return $row;
+        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $link_id);
+
+        return $gradebookLink;
     }
 
     /**
@@ -434,15 +452,27 @@ class GradebookUtils
      */
     public static function get_course_id_by_link_id($id_link)
     {
-        $course_table = Database::get_main_table(TABLE_MAIN_COURSE);
-        $tbl_grade_links = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = 'SELECT c.id FROM ' . $course_table . ' c
-                INNER JOIN ' . $tbl_grade_links . ' l
-                ON c.code = l.course_code
-                WHERE l.id=' . intval($id_link) . ' OR l.category_id=' . intval($id_link);
-        $res = Database::query($sql);
-        $array = Database::fetch_array($res, 'ASSOC');
-        return $array['id'];
+        $id_link = intval($id_link);
+
+        $em = Database::getManager();
+        $criteria = Criteria::create();
+        $criteria
+            ->where(
+                Criteria::expr()->eq('id', $id_link)
+            )
+            ->orWhere(
+                Criteria::expr()->eq('categoryId', $id_link)
+            );
+
+        $result = $em->getRepository('ChamiloCoreBundle:GradebookLink')->matching($criteria);
+
+        if ($result->count() === 0) {
+            return false;
+        }
+
+        $array = $result->current();
+
+        return $array->getCourse()->Id();
     }
 
     /**
@@ -1220,46 +1250,61 @@ class GradebookUtils
         $course_id = api_get_course_int_id();
 
         AbstractLink::add_link_log($linkId, $name);
-        $table_link = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
+        $em = Database::getManager();
 
-        $tbl_forum_thread = Database:: get_course_table(TABLE_FORUM_THREAD);
-        $tbl_work = Database:: get_course_table(TABLE_STUDENT_PUBLICATION);
-        $tbl_attendance = Database:: get_course_table(TABLE_ATTENDANCE);
+        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $linkId);
 
-        $sql = 'UPDATE '.$table_link.' SET weight = '."'".Database::escape_string($weight)."'".'
-                WHERE id = '.$linkId;
+        if (!$gradebookLink) {
+            return false;
+        }
+        
+        $gradebookLink->setWeight($weight);
 
-        Database::query($sql);
+        $em->persist($gradebookLink);
+        $em->flush();
 
         // Update weight for attendance
-        $sql = 'SELECT ref_id FROM '.$table_link.'
-                WHERE id = '.$linkId.' AND type='.LINK_ATTENDANCE;
-
-        $rs_attendance  = Database::query($sql);
-        if (Database::num_rows($rs_attendance) > 0) {
-            $row_attendance = Database::fetch_array($rs_attendance);
-            $sql = 'UPDATE '.$tbl_attendance.' SET attendance_weight ='.$weight.'
-                    WHERE c_id = '.$course_id.' AND  id = '.intval($row_attendance['ref_id']);
-            Database::query($sql);
+        if ($gradebookLink->getType() == LINK_ATTENDANCE) {
+            $em
+                ->createQuery('
+                    UPDATE ChamiloCourseBundle:CAttendance ca
+                    SET ca.attendanceWeight = :weight
+                    WHERE ca.cId = :course AND ca.id = :reference
+                ')
+                ->execute([
+                    'weight' => $weight,
+                    'course' => $course_id,
+                    'reference' => $gradebookLink->getRefId()
+                ]);
         }
         // Update weight into forum thread
-        $sql = 'UPDATE '.$tbl_forum_thread.' SET thread_weight='.$weight.'
-                WHERE
-                    c_id = '.$course_id.' AND
-                    thread_id = (
-                        SELECT ref_id FROM '.$table_link.'
-                        WHERE id='.$linkId.' AND type='.LINK_FORUM_THREAD.'
-                    )
-                ';
-        Database::query($sql);
+        if ($gradebookLink->getType() == LINK_FORUM_THREAD) {
+            $em
+                ->createQuery('
+                    UPDATE ChamiloCourseBundle:CForumThread cft
+                    SET cft.threadWeight = :weight
+                    WHERE cft.cId = :course AND cft.threadId = :reference
+                ')
+                ->execute([
+                    'weight' => $weight,
+                    'course' => $course_id,
+                    'reference' => $gradebookLink->getRefId()
+                ]);
+        }
         //Update weight into student publication(work)
-        $sql = 'UPDATE '.$tbl_work.' SET weight='.$weight.'
-                WHERE
-                    c_id = '.$course_id.' AND id = (
-                    SELECT ref_id FROM '.$table_link.'
-                    WHERE id='.$linkId.' AND type = '.LINK_STUDENTPUBLICATION.'
-                ) ';
-        Database::query($sql);
+        if ($gradebookLink->getType() == LINK_STUDENTPUBLICATION) {
+            $em
+                ->createQuery('
+                    UPDATE ChamiloCourseBundle:CStudentPublication csp
+                    SET csp.weight = :weight
+                    WHERE csp.cId = :course AND csp.id = :reference
+                ')
+                ->execute([
+                    'weight' => $weight,
+                    'course' => $course_id,
+                    'reference' => $gradebookLink->getRefId()
+                ]);
+        }
     }
 
     /**

@@ -470,7 +470,7 @@ class SurveyManager
             $session_id
         );
 
-        $gradebook_link_id = isset($link_info['id']) ? $link_info['id'] : false;
+        $gradebook_link_id = $link_info ? $link_info->getId() : false;
 
         if ($gradebook_option) {
             if ($survey_id > 0) {

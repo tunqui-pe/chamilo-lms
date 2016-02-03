@@ -56,8 +56,8 @@ if (Gradebook::is_active()) {
         $workId
     );
     if (!empty($link_info)) {
-        $defaults['weight'] = $link_info['weight'];
-        $defaults['category_id'] = $link_info['category_id'];
+        $defaults['weight'] = $link_info->getWeight();
+        $defaults['category_id'] = $link_info->getCategoryId();
         $defaults['make_calification'] = 1;
     }
 } else {

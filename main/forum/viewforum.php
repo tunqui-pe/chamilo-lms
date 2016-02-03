@@ -187,8 +187,8 @@ if (
             intval($_GET['id']),
             api_get_session_id()
         );
-        $link_id = $link_info['id'];
-        if ($link_info !== false) {
+        $link_id = $link_info->getId();
+        if ($link_info) {
             GradebookUtils::remove_resource_from_course_gradebook($link_id);
         }
     }
