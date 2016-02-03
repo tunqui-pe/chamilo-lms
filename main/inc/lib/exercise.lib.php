@@ -150,12 +150,12 @@ class ExerciseLib
                 $user_choice_array_position = array();
                 if (!empty($user_choice)) {
                     foreach ($user_choice as $item) {
-                        $user_choice_array_position[$item['position']] = $item['answer'];
+                        $user_choice_array_position[$item->getPosition()] = $item->getAnswer();
                     }
                 }
                 $num_suggestions = ($nbrAnswers - $x) + 1;
             } elseif ($answerType == FREE_ANSWER) {
-                $fck_content = isset($user_choice[0]) && !empty($user_choice[0]['answer']) ? $user_choice[0]['answer'] : null;
+                $fck_content = isset($user_choice[0]) && !empty($user_choice[0]->getAnswer()) ? $user_choice[0]->getAnswer() : null;
 
                 $form = new FormValidator('free_choice_'.$questionId);
                 $config = array(
@@ -258,7 +258,7 @@ class ExerciseLib
             $user_choice_array = array();
             if (!empty($user_choice)) {
                 foreach ($user_choice as $item) {
-                    $user_choice_array[] = $item['answer'];
+                    $user_choice_array[] = $item->getAnswer();
                 }
             }
 
@@ -273,7 +273,7 @@ class ExerciseLib
                 // Unique answer
                 if (in_array($answerType, [UNIQUE_ANSWER, UNIQUE_ANSWER_NO_OPTION, UNIQUE_ANSWER_IMAGE])) {
                     $input_id = 'choice-' . $questionId . '-' . $answerId;
-                    if (isset($user_choice[0]['answer']) && $user_choice[0]['answer'] == $numAnswer) {
+                    if (isset($user_choice[0]->getAnswer()) && $user_choice[0]->getAnswer() == $numAnswer) {
                         $attributes = array(
                             'id' => $input_id,
                             'checked' => 1,
@@ -558,8 +558,8 @@ class ExerciseLib
 
                     //Student's answer
                     $studentAnswerList = array();
-                    if (isset($user_choice[0]['answer'])) {
-                        $arrayStudentAnswer = FillBlanks::getAnswerInfo($user_choice[0]['answer'], true);
+                    if (isset($user_choice[0]->getAnswer())) {
+                        $arrayStudentAnswer = FillBlanks::getAnswerInfo($user_choice[0]->getAnswer(), true);
                         $studentAnswerList = $arrayStudentAnswer['studentanswer'];
                     }
 
@@ -654,7 +654,7 @@ class ExerciseLib
                         $correctAnswerList
                     );
                     // get student answer to display it if student go back to previous calculated answer question in a test
-                    if (isset($user_choice[0]['answer'])) {
+                    if (isset($user_choice[0]->getAnswer())) {
                         api_preg_match_all(
                             '/\[[^]]+\]/',
                             $answer,
@@ -850,7 +850,7 @@ class ExerciseLib
 
                             if (
                                 isset($user_choice[$matching_correct_answer]) &&
-                                $val['id'] == $user_choice[$matching_correct_answer]['answer']
+                                $val['id'] == $user_choice[$matching_correct_answer]->getAnswer()
                             ) {
                                 $selectedValue = $val['id'];
                             }
@@ -946,7 +946,7 @@ HTML;
 
                             if (
                                 isset($user_choice[$matching_correct_answer]) &&
-                                $val['id'] == $user_choice[$matching_correct_answer]['answer']
+                                $val['id'] == $user_choice[$matching_correct_answer]->getAnswer()
                             ) {
                                 $selectedValue = $val['id'];
                                 $selectedPosition = $iTempt;
@@ -3290,6 +3290,7 @@ HOTSPOT;
 
         $exercise_id = intval($exercise_id);
         $course_code = Database::escape_string($course_code);
+        $courseId = api_get_course_int_id($course_code);
         $session_id = intval($session_id);
 
         $sql = "SELECT DISTINCT exe_user_id
@@ -3297,7 +3298,7 @@ HOTSPOT;
     		INNER JOIN $track_attempt a ON (a.exe_id = e.exe_id)
     		WHERE
     		    exe_exo_id 	 = $exercise_id AND
-    			course_code  = '$course_code' AND
+    			a.c_id  = $courseId AND
     			e.session_id = $session_id AND
     			status = ''";
         $result = Database::query($sql);

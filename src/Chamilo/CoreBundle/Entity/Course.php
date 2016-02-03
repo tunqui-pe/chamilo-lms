@@ -308,6 +308,11 @@ class Course
     protected $trackEHotspots;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:TrackEAttempt", mappedBy="course")
+     */
+    protected $trackEAttempts;
+
+    /**
      * Constructor
      */
     public function __construct()

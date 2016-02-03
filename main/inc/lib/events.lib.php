@@ -2,6 +2,7 @@
 /* See license terms in /license.txt */
 
 //use Chamilo\UserBundle\Entity\User;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Event
@@ -1646,17 +1647,26 @@ class Event
      */
     public static function getAllExerciseEventByExeId($exe_id)
     {
-        $table_track_attempt = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
         $exe_id = intval($exe_id);
         $list = array();
 
-        $sql = "SELECT * FROM $table_track_attempt
-                WHERE exe_id = $exe_id
-                ORDER BY position";
-        $res_question = Database::query($sql);
-        if (Database::num_rows($res_question)) {
-            while ($row = Database::fetch_array($res_question, 'ASSOC')) {
-                $list[$row['question_id']][] = $row;
+        $em = Database::getManager();
+        $criteria = Criteria::create();
+        $criteria
+            ->where(
+                Criteria::expr()->eq('exeId', $exe_id)
+            )
+            ->orderBy([
+                'position' => Criteria::ASC
+            ]);
+
+        $res_question = $em
+            ->getRepository('ChamiloCoreBundle:TrackeEAttempt')
+            ->matching($criteria);
+
+        if ($res_question->count()) {
+            foreach ($res_question as $row) {
+                $list[$row->getQuestionId()][] = $row;
             }
         }
         return $list;
@@ -1672,22 +1682,27 @@ class Event
      */
     public static function delete_attempt($exe_id, $user_id, $courseId, $session_id, $question_id)
     {
-        $table_track_attempt = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
-
         $exe_id = intval($exe_id);
         $user_id = intval($user_id);
         $courseId = intval($courseId);
         $session_id = intval($session_id);
         $question_id = intval($question_id);
 
-        $sql = "DELETE FROM $table_track_attempt
-                WHERE
-                    exe_id = $exe_id AND
-                    user_id = $user_id AND
-                    c_id = $courseId AND
-                    session_id = $session_id AND
-                    question_id = $question_id ";
-        Database::query($sql);
+        $em = Database::getManager();
+
+        $em
+            ->createQuery('
+                DELETE FROM ChamiloCoreBundle:TrackEAttempt tea
+                WHERE tea.exeId = :exe AND tea.userId = :user AND
+                    tea.course = :course AND tea.sessionId = :session AND tea.questionId = :question
+            ')
+            ->execute([
+                'exe' => $exe_id,
+                'user' => $user_id,
+                'course' => $courseId,
+                'session' => $session_id,
+                'question' => $question_id
+            ]);
 
         Event::addEvent(
             LOG_QUESTION_RESULT_DELETE,

@@ -320,7 +320,7 @@ if (empty($exercise_stat_info)) {
             $attemptQuestionList = explode(',', $exercise_stat_info['data_tracking']);
             $count = 1;
             foreach ($attemptQuestionList as $question) {
-                if ($last['question_id'] == $question) {
+                if ($last->getQuestionId() == $question) {
                     break;
                 }
                 $count++;

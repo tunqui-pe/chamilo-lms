@@ -1693,7 +1693,8 @@ class Exercise
     public function clean_results($cleanLpTests = false, $cleanResultBeforeDate = null)
     {
         $table_track_e_exercises = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-        $table_track_e_attempt   = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
+
+        $em = Database::getManager();
 
         $sql_where = '  AND
                         orig_lp_id = 0 AND
@@ -1732,9 +1733,14 @@ class Exercise
         $i = 0;
         if (is_array($exe_list) && count($exe_list) > 0) {
             foreach ($exe_list as $item) {
-                $sql = "DELETE FROM $table_track_e_attempt
-                        WHERE exe_id = '".$item['exe_id']."'";
-                Database::query($sql);
+                $em
+                    ->createQuery('
+                        DELETE FROM ChamiloCoreBundle:TrackEAttempt tea
+                        WHERE tea.exeId = :exe
+                    ')
+                    ->execute([
+                        'exe' => $item['exe_id']
+                    ]);
                 $i++;
             }
         }

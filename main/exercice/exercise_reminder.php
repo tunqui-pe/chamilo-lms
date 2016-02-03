@@ -187,16 +187,19 @@ $exercise_result    = array();
 
 foreach ($attempt_list as $question_id => $options) {
     foreach ($options as $item) {
-        $question_obj = Question::read($item['question_id']);
+        $question_obj = Question::read($item->getQuestionId());
+        $itemAnswer = null;
         switch ($question_obj->type) {
             case FILL_IN_BLANKS:
-                $item['answer'] = $objExercise->fill_in_blank_answer_to_string($item['answer']);
+                $item->setAnswer(
+                    $objExercise->fill_in_blank_answer_to_string($item->getAnswer())
+                );
                 break;
             case HOT_SPOT:
                 break;
         }
 
-        if ($item['answer'] != '0' && !empty($item['answer'])) {
+        if ($item->getAnswer() != '0' && !empty($item->getAnswer())) {
             $exercise_result[] = $question_id;
             break;
         }

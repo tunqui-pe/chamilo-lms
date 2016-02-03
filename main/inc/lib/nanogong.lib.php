@@ -241,7 +241,7 @@ class Nanogong
                             user_id = ".$this->params['user_id']." AND
                             question_id = ".$this->params['question_id']." AND
                             session_id 	= ".$this->params['session_id']." AND
-                            course_code = '".$this->course_info['code']."'
+                            c_id = '".$this->course_id."'
                         LIMIT 1";
 				$result = Database::query($sql);
 				$result = Database::fetch_row($result,'ASSOC');

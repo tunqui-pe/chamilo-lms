@@ -65,18 +65,10 @@ class TrackEAttempt
     private $marks;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="course_code", type="string", length=40, nullable=false)
+     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="trackEAttempts")
+     * @JoinColumn(name="c_id", referencedColumnName="id")
      */
-    private $courseCode;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="c_id", type="integer", nullable=false)
-     */
-    private $cId;
+    private $course;
 
     /**
      * @var integer
@@ -256,49 +248,24 @@ class TrackEAttempt
     }
 
     /**
-     * Set courseCode
-     *
-     * @param string $courseCode
-     * @return TrackEAttempt
+     * Set course
+     * @param \Chamilo\CoreBundle\Entity\Course $course
+     * @return \Chamilo\CoreBundle\Entity\TrackEAttempt
      */
-    public function setCourseCode($courseCode)
+    public function setCourse(Course $course)
     {
-        $this->courseCode = $courseCode;
+        $this->course = $course;
 
         return $this;
     }
 
     /**
-     * Get courseCode
-     *
-     * @return string
+     * Get course
+     * @return \Chamilo\CoreBundle\Entity\Course
      */
-    public function getCourseCode()
+    public function getCourse()
     {
-        return $this->courseCode;
-    }
-
-    /**
-     * Set cId
-     *
-     * @param integer $cId
-     * @return TrackEAttempt
-     */
-    public function setCId($cId)
-    {
-        $this->cId = $cId;
-
-        return $this;
-    }
-
-    /**
-     * Get cId
-     *
-     * @return integer
-     */
-    public function getCId()
-    {
-        return $this->cId;
+        return $this->course;
     }
 
     /**
