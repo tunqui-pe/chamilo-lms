@@ -2237,6 +2237,22 @@ class CourseManager
 
             $course_tables = AddCourse::get_course_tables();
 
+            // Cleaning group categories
+            $groupCategories = GroupManager::get_categories($course['code']);
+
+            if (!empty($groupCategories)) {
+                foreach ($groupCategories as $category) {
+                    GroupManager::delete_category($category['id'], $course['code']);
+                }
+            }
+
+            // Cleaning groups
+            $groups = GroupManager::get_groups();
+            if (!empty($groups)) {
+                $groupList = array_column($groups, 'id');
+                GroupManager::delete_groups($groupList);
+            }
+
             // Cleaning c_x tables
             if (!empty($courseId)) {
                 foreach ($course_tables as $table) {
@@ -2277,23 +2293,6 @@ class CourseManager
                 Database::query($sql);
             }
 
-            // Cleaning group categories
-            $groupCategories = GroupManager::get_categories($course['code']);
-
-            if (!empty($groupCategories)) {
-                foreach ($groupCategories as $category) {
-                    GroupManager::delete_category($category['id'], $course['code']);
-                }
-            }
-
-            // Cleaning groups
-            $groups = GroupManager::get_groups();
-            if (!empty($groups)) {
-                $groupList = array_column($groups, 'id');
-                GroupManager::delete_groups($groupList);
-            }
-
-
             // Delete the course from the stats tables
 
             $sql = "DELETE FROM $table_stats_hotpots WHERE c_id = $courseId";
@@ -2325,8 +2324,6 @@ class CourseManager
             // Delete the course from the database
             $sql = "DELETE FROM $table_course WHERE code = '" . $codeFiltered . "'";
             Database::query($sql);
-
-
 
             // delete extra course fields
             $extraFieldValues = new ExtraFieldValue('course');
@@ -6082,6 +6079,28 @@ class CourseManager
     }
 
     /**
+     * Get the course id based on the original id and field name in the extra fields.
+     * Returns 0 if course was not found
+     *
+     * @param string $original_course_id_value Original course id
+     * @param string $original_course_id_name Original field name
+     * @return int Course id
+     */
+    public static function get_course_id_from_original_id($original_course_id_value, $original_course_id_name)
+    {
+        $extraFieldValue = new ExtraFieldValue('course');
+        $value = $extraFieldValue->get_item_id_from_field_variable_and_field_value(
+            $original_course_id_name,
+            $original_course_id_value
+        );
+
+        if ($value) {
+            return $value['item_id'];
+        }
+        return 0;
+    }
+
+    /**
      * @param ToolChain $toolList
      */
     public static function setToolList($toolList)
@@ -6096,4 +6115,6 @@ class CourseManager
     {
         return self::$toolList;
     }
+
+
 }

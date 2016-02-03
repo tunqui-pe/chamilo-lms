@@ -975,54 +975,91 @@ function WSCreateUsersPasswordCrypted($params)
 //
 // Prepare Input params for Subscribe Teacher to SC
 $server->wsdl->addComplexType(
-    'SubscribeTeacherToSessionCourse',
+    'TeacherToSessionCourse',
     'complexType',
     'struct',
     'all',
     '',
     array(
-        'userId'       => array('name' => 'course',     'type' => 'xsd:string'), // Chamilo user Id
-        'sessionId'      => array('name' => 'user_id',    'type' => 'xsd:string'), // Current Session course ID
-        'courseId'      =>array('name' => 'courseId',      'type' => 'xsd:string'), // Course Real Id
-        'secret_key'   => array('name' => 'secret_key', 'type' => 'xsd:string')
+        'user_id' => array('name' => 'course',     'type' => 'xsd:string'), // Chamilo user Id
+        'session_id' => array('name' => 'user_id',    'type' => 'xsd:string'), // Current Session course ID
+        'course_id' =>array('name' => 'courseId',      'type' => 'xsd:string'), // Course Real Id
+        'secret_key' => array('name' => 'secret_key', 'type' => 'xsd:string'),
+
+        // optional
+        'original_user_id_name' => array('name' => 'original_user_id_name', 'type' => 'xsd:string'),
+        'original_user_id_value' => array('name' => 'original_user_id_value', 'type' => 'xsd:string'),
+        'original_course_id_name' => array('name' => 'original_course_id_name', 'type' => 'xsd:string'),
+        'original_course_id_value' => array('name' => 'original_course_id_value', 'type' => 'xsd:string'),
+        'original_session_id_name' => array('name' => 'original_session_id_name', 'type' => 'xsd:string'),
+        'original_session_id_value' => array('name' => 'original_session_id_value', 'type' => 'xsd:string')
     )
 );
 
+function parseCourseSessionUserParams($params)
+{
+    global $debug;
+
+    $userId = isset($params['user_id']) ? $params['user_id'] : 0; // Chamilo user Id
+    $sessionId = isset($params['session_id']) ? $params['session_id'] : 0; // Current Session course ID
+    $courseId = isset($params['course_id']) ? $params['course_id'] : 0; // Course Real Id
+
+    if (empty($userId) && empty($sessionId) && empty($courseId)) {
+        // try original values
+
+        if ($debug) error_log('try original values');
+
+        $userIdName = isset($params['original_user_id_name']) ? $params['original_user_id_name'] : 0;
+        $userIdValue = isset($params['original_user_id_value']) ? $params['original_user_id_value'] : 0;
+        $courseIdName = isset($params['original_course_id_name']) ? $params['original_course_id_name'] : 0;
+        $courseIdValue = isset($params['original_course_id_value']) ? $params['original_course_id_value'] : 0;
+        $sessionIdName = isset($params['original_session_id_name']) ? $params['original_session_id_name'] : 0;
+        $sessionIdValue = isset($params['original_session_id_value']) ? $params['original_session_id_value'] : 0;
+
+        // Check if exits x_user_id into user_field_values table.
+        $userId = UserManager::get_user_id_from_original_id(
+            $userIdValue,
+            $userIdName
+        );
+
+        // Check whether exits $x_course_code into user_field_values table.
+        $courseInfo = CourseManager::getCourseInfoFromOriginalId(
+            $courseIdValue,
+            $courseIdName
+        );
+
+        $courseId = 0;
+        if ($courseInfo) {
+            $courseId = $courseInfo['real_id'];
+        }
+
+
+        $sessionId = SessionManager::getSessionIdFromOriginalId(
+            $sessionIdValue,
+            $sessionIdName
+        );
+    }
+
+    if ($debug) error_log('$userId found: '. $userId);
+    if ($debug) error_log('$courseId found: '. $courseId);
+    if ($debug) error_log('$sessionId found: '. $sessionId);
+
+    return [
+        'user_id' => $userId,
+        'course_id' => $courseId,
+        'session_id' => $sessionId,
+    ];
+}
+
 $server->register(
     'WSSubscribeTeacherToSessionCourse',
-    array('SubscribeTeacherToSessionCourse' => 'tns:SubscribeTeacherToSessionCourse'),
+    array('SubscribeTeacherToSessionCourse' => 'tns:TeacherToSessionCourse'),
     array('return' => 'xsd:string'),
     'urn:WSRegistration',
     'urn:WSRegistration#WSSubscribeTeacherToSessionCourse',
     'rpc',
     'encoded',
     'This webservice subscribe a teacher to a session course'
-);
-
-// Prepare Input params for Unsubscribe Teacher from SC
-$server->wsdl->addComplexType(
-    'UnsubscribeTeacherFromSessionCourse',
-    'complexType',
-    'struct',
-    'all',
-    '',
-    array(
-        'userId'       => array('name' => 'course',     'type' => 'xsd:string'), // Chamilo user Id
-        'sessionId'      => array('name' => 'user_id',    'type' => 'xsd:string'), // Current Session course ID
-        'courseId'      =>array('name' => 'courseId',      'type' => 'xsd:string'), // Course Real Id
-        'secret_key'   => array('name' => 'secret_key', 'type' => 'xsd:string')
-    )
-);
-
-$server->register(
-    'WSUnsubscribeTeacherFromSessionCourse',
-    array('UnsubscribeTeacherFromSessionCourse' => 'tns:UnsubscribeTeacherFromSessionCourse'),
-    array('return' => 'xsd:string'),
-    'urn:WSRegistration',
-    'urn:WSRegistration#WSUnsubscribeTeacherFromSessionCourse',
-    'rpc',
-    'encoded',
-    'This webservice unsubscribe a teacher from a session course'
 );
 
 /**
@@ -1042,12 +1079,25 @@ function WSSubscribeTeacherToSessionCourse($params)
         return return_error(WS_ERROR_SECRET_KEY);
     }
 
-    $userId = $params['userId']; // Chamilo user Id
-    $sessionId = $params['sessionId']; // Current Session course ID
-    $courseId = $params['courseId']; // Course Real Id
+    $params = parseCourseSessionUserParams($params);
 
-    return (SessionManager::set_coach_to_course_session($userId, $sessionId, $courseId));
+    $userId = $params['user_id'];
+    $courseId = $params['course_id'];
+    $sessionId = $params['session_id'];
+
+    return intval(SessionManager::set_coach_to_course_session($userId, $sessionId, $courseId));
 }
+
+$server->register(
+    'WSUnsubscribeTeacherFromSessionCourse',
+    array('UnsubscribeTeacherFromSessionCourse' => 'tns:TeacherToSessionCourse'),
+    array('return' => 'xsd:string'),
+    'urn:WSRegistration',
+    'urn:WSRegistration#WSUnsubscribeTeacherFromSessionCourse',
+    'rpc',
+    'encoded',
+    'This webservice unsubscribe a teacher from a session course'
+);
 
 /**
  * Subscribe teacher to a session course
@@ -1066,14 +1116,14 @@ function WSUnsubscribeTeacherFromSessionCourse($params)
         return return_error(WS_ERROR_SECRET_KEY);
     }
 
-    $userId = $params['userId']; // Chamilo user Id
-    $sessionId = $params['sessionId']; // Current Session course ID
-    $courseId = $params['courseId']; // Course Real Id
+    $params = parseCourseSessionUserParams($params);
 
-    return (SessionManager::removeUsersFromCourseSession($userId, $sessionId, $courseId));
+    $userId = $params['user_id'];
+    $courseId = $params['course_id'];
+    $sessionId = $params['session_id'];
 
+    return intval(SessionManager::removeUsersFromCourseSession($userId, $sessionId, $courseId));
 }
-
 
 /* Register WSCreateUserPasswordCrypted function */
 // Register the data structures used by the service
@@ -3849,16 +3899,15 @@ function WSCreateSession($params)
             } else {
                 $coachStartDate = '';
                 if ($date_start) {
-
                     $startDate = new DateTime($date_start);
-                    $diffStart = new DateInterval($nb_days_access_before);
+                    $diffStart = new DateInterval("P".$nb_days_access_before."D");
                     $coachStartDate = $startDate->sub($diffStart);
                     $coachStartDate = $coachStartDate->format('Y-m-d H:i:s');
                 }
                 $coachEndDate = '';
                 if ($date_end) {
                     $endDate = new DateTime($date_end);
-                    $diffEnd = new DateInterval($nb_days_access_after);
+                    $diffEnd = new DateInterval("P".$nb_days_access_after."D");
                     $coachEndDate = $endDate->add($diffEnd);
                     $coachEndDate = $coachEndDate->format('Y-m-d H:i:s');
                 }
@@ -3872,7 +3921,7 @@ function WSCreateSession($params)
                     $coachEndDate,
                     $id_coach,
                     0,
-                    0,
+                    1,
                     false,
                     null,
                     null,
@@ -4090,13 +4139,20 @@ function WSEditSession($params)
             $results[] = 0; //StartDateShouldBeBeforeEndDate
             continue;
         } else {
-            $startDate = new DateTime($date_start);
-            $endDate = new DateTime($date_end);
-            $diffStart = new DateInterval($nb_days_access_before);
-            $diffEnd = new DateInterval($nb_days_access_after);
-            $coachStartDate = $startDate->sub($diffStart);
-            $coachEndDate = $endDate->add($diffEnd);
-
+            $coachStartDate = '';
+            if ($date_start) {
+                $startDate = new DateTime($date_start);
+                $diffStart = new DateInterval("P".$nb_days_access_before."D");
+                $coachStartDate = $startDate->sub($diffStart);
+                $coachStartDate = $coachStartDate->format('Y-m-d H:i:s');
+            }
+            $coachEndDate = '';
+            if ($date_end) {
+                $endDate = new DateTime($date_end);
+                $diffEnd = new DateInterval("P".$nb_days_access_after."D");
+                $coachEndDate = $endDate->add($diffEnd);
+                $coachEndDate = $coachEndDate->format('Y-m-d H:i:s');
+            }
             $sessionInfo = api_get_session_info($id);
 
             SessionManager::edit_session(
@@ -4106,8 +4162,8 @@ function WSEditSession($params)
                 $date_end,
                 $date_start,
                 $date_end,
-                $coachStartDate->format('Y-m-d H:i:s'),
-                $coachEndDate->format('Y-m-d H:i:s'),
+                $coachStartDate,
+                $coachEndDate,
                 $id_coach,
                 $sessionInfo['session_category_id'],
                 $sessionInfo['visibility'],
@@ -4123,7 +4179,7 @@ function WSEditSession($params)
                     $extra_field_name = $extra['field_name'];
                     $extra_field_value = $extra['field_value'];
                     // Save the external system's id into session_field_value table.
-                    $res = SessionManager::update_session_extra_field_value(
+                    SessionManager::update_session_extra_field_value(
                         $id,
                         $extra_field_name,
                         $extra_field_value
@@ -4400,10 +4456,12 @@ function WSSubscribeUserToCourse($params) {
             $resultValue = 0;
         } else {
             // User was found
-            $courseCode = CourseManager::get_course_id_from_original_id(
+            $courseInfo = CourseManager::getCourseInfoFromOriginalId(
                 $original_course_id['original_course_id_value'],
                 $original_course_id['original_course_id_name']
             );
+
+            $courseCode = $courseInfo['code'];
 
             if (empty($courseCode)) {
                 // Course was not found
@@ -4853,10 +4911,12 @@ function WSUnSubscribeUserFromCourseSimple($params)
             error_log("Course $original_course_id_value, $original_course_id_name found");
         }
 
-        $courseCode = CourseManager::get_course_id_from_original_id(
+        $courseInfo = CourseManager::getCourseInfoFromOriginalId(
             $original_course_id_value,
             $original_course_id_name
         );
+
+        $courseCode = $courseInfo['code'];
 
         if (empty($courseCode)) {
             // Course was not found
@@ -4878,10 +4938,6 @@ function WSUnSubscribeUserFromCourseSimple($params)
 
     return $result;
 }
-
-
-
-
 
 $server->wsdl->addComplexType(
     'subscribeUserToCourseParams',
@@ -5001,20 +5057,18 @@ $server->register('WSSuscribeUsersToSession',                          // method
 function WSSuscribeUsersToSession($params)
 {
     global $debug;
+
     if (!WSHelperVerifyKey($params)) {
         return return_error(WS_ERROR_SECRET_KEY);
     }
     $user_table = Database::get_main_table(TABLE_MAIN_USER);
-    $tbl_session_rel_course = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
-    $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
-    $tbl_session_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_USER);
-    $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
-
     $userssessions_params = $params['userssessions'];
 
     if ($debug) {
+        error_log('WSSuscribeUsersToSession');
         error_log(print_r($params, 1));
     }
+
     $results = array();
     $orig_user_id_value = array();
     $orig_session_id_value = array();
@@ -5035,17 +5089,16 @@ function WSSuscribeUsersToSession($params)
             continue;
         }
 
-        $usersList = array();
         foreach ($original_user_id_values as $key => $row_original_user_list) {
             $user_id = UserManager::get_user_id_from_original_id(
                 $row_original_user_list['original_user_id_value'],
                 $original_user_id_name
             );
 
-
             if ($debug) {
-                error_log(" User to subscribe: $user_id");
+                error_log("User to subscribe: $user_id");
             }
+
             if ($user_id == 0) {
                 continue; // user_id doesn't exist.
             } else {
@@ -5056,95 +5109,15 @@ function WSSuscribeUsersToSession($params)
                 if (!empty($r_check_user[0])) {
                     continue; // user_id is not active.
                 }
+
+                SessionManager::suscribe_users_to_session($sessionId, $user_id);
+                $orig_user_id_value[] = $row_original_user_list['original_user_id_value'];
+                $orig_session_id_value[] = $original_session_id_value;
+                $results[] = 1;
+
+                if ($debug) error_log("subscribe user:$user_id to session $sessionId");
             }
-            $usersList[] = $user_id;
         }
-
-        if (empty($usersList)) {
-            $results[] = 0;
-            continue;
-        }
-
-        $orig_user_id_value[] = implode(',', $usersList);
-
-        if ($sessionId != strval(intval($sessionId))) {
-            $results[] = 0;
-            continue;
-        }
-
-        $sql = "SELECT user_id FROM $tbl_session_rel_user
-                WHERE session_id='$sessionId' AND relation_type<>".SESSION_RELATION_TYPE_RRHH."";
-        $result = Database::query($sql);
-        $existingUsers = array();
-        while($row = Database::fetch_array($result)){
-            $existingUsers[] = $row['user_id'];
-        }
-        $sql = "SELECT c_id FROM $tbl_session_rel_course WHERE session_id='$sessionId'";
-        $result=Database::query($sql);
-        $CourseList = array();
-
-        while ($row = Database::fetch_array($result)) {
-            $CourseList[] = $row['c_id'];
-        }
-
-        foreach ($CourseList as $enreg_course) {
-            // For each course in the session...
-            $nbr_users = 0;
-            $enreg_course = Database::escape_string($enreg_course);
-
-            // insert new users into session_rel_course_rel_user and ignore if they already exist
-            foreach ($usersList as $enreg_user) {
-                if (!in_array($enreg_user, $existingUsers)) {
-                    $enreg_user = Database::escape_string($enreg_user);
-                    $sql = "INSERT IGNORE INTO $tbl_session_rel_course_rel_user(session_id, c_id, user_id)
-                            VALUES('$sessionId', '$enreg_course', '$enreg_user')";
-                    $result = Database::query($sql);
-
-                    Event::addEvent(
-                        LOG_SESSION_ADD_USER_COURSE,
-                        LOG_USER_ID,
-                        $enreg_user,
-                        api_get_utc_datetime(),
-                        api_get_user_id(),
-                        $enreg_course,
-                        $sessionId
-                    );
-
-                    if (Database::affected_rows($result)) {
-                        $nbr_users++;
-                    }
-                }
-            }
-            // count users in this session-course relation
-            $sql = "SELECT COUNT(user_id) as nbUsers
-                    FROM $tbl_session_rel_course_rel_user
-                    WHERE session_id = '$sessionId' AND c_id='$enreg_course'";
-            $rs = Database::query($sql);
-            list($nbr_users) = Database::fetch_array($rs);
-            // update the session-course relation to add the users total
-            $update_sql = "UPDATE $tbl_session_rel_course SET nbr_users=$nbr_users
-                           WHERE session_id='$sessionId' AND c_id='$enreg_course'";
-            Database::query($update_sql);
-        }
-
-        // insert missing users into session
-        $nbr_users = 0;
-        foreach ($usersList as $enreg_user) {
-            $enreg_user = Database::escape_string($enreg_user);
-            $nbr_users++;
-            $sql = "INSERT IGNORE INTO $tbl_session_rel_user(session_id, user_id, registered_at)
-                    VALUES ('$sessionId','$enreg_user', '" . api_get_utc_datetime() . "')";
-            Database::query($sql);
-        }
-
-        // update number of users in the session
-        $nbr_users = count($usersList);
-        $sql = "UPDATE $tbl_session SET nbr_users= $nbr_users WHERE id='$sessionId' ";
-        $result = Database::query($sql);
-        Database::affected_rows($result);
-        $results[] = 1;
-        continue;
-
     } // end principal foreach
 
     $count_results = count($results);
@@ -5309,17 +5282,19 @@ $server->register('WSUnsuscribeUsersFromSession',                              /
 );
 
 // define the method WSUnsuscribeUsersFromSession
-function WSUnsuscribeUsersFromSession($params) {
-
-    if(!WSHelperVerifyKey($params)) {
+function WSUnsuscribeUsersFromSession($params)
+{
+    if (!WSHelperVerifyKey($params)) {
         return return_error(WS_ERROR_SECRET_KEY);
     }
 
+    global $debug;
+
+    if ($debug) {
+        error_log('WSUnsuscribeUsersFromSession with params=[' . serialize($params). ']');
+    }
+
     $user_table = Database::get_main_table(TABLE_MAIN_USER);
-    $tbl_session_rel_course = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
-    $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
-    $tbl_session_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_USER);
-    $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
 
     $userssessions_params = $params['userssessions'];
     $results = array();
@@ -5344,12 +5319,12 @@ function WSUnsuscribeUsersFromSession($params) {
             continue;
         }
 
-        $usersList = array();
         foreach ($original_user_id_values as $key => $row_original_user_list) {
             $user_id = UserManager::get_user_id_from_original_id(
-                $original_user_id_values[$key],
-                $original_user_id_name[$key]
+                $row_original_user_list['original_user_id_value'],
+                $original_user_id_name
             );
+
             if ($user_id == 0) {
                 continue; // user_id doesn't exist.
             } else {
@@ -5360,103 +5335,19 @@ function WSUnsuscribeUsersFromSession($params) {
                 if (!empty($r_check_user[0])) {
                     continue; // user_id is not active.
                 }
+
+                SessionManager::unsubscribe_user_from_session(
+                    $id_session,
+                    $user_id
+                );
+
+                $orig_user_id_value[] = $row_original_user_list['original_user_id_value'];
+                $orig_session_id_value[] = $original_session_id_value;
+                $results[] = 1;
+
+                if ($debug) error_log("Unsubscribe user:$user_id to session:$id_session");
             }
-            $usersList[] = $user_id;
         }
-
-        if (empty($usersList)) {
-            $results[] = 0;
-            continue;
-        }
-
-        $orig_user_id_value[] = implode(',', $usersList);
-
-        if ($id_session!= strval(intval($id_session))) {
-            $results[] = 0;
-            continue;
-        }
-
-        $sql = "SELECT user_id FROM $tbl_session_rel_user
-                WHERE session_id ='$id_session' AND relation_type<>".SESSION_RELATION_TYPE_RRHH."";
-        $result = Database::query($sql);
-        $existingUsers = array();
-        while($row = Database::fetch_array($result)){
-            $existingUsers[] = $row['user_id'];
-        }
-        $sql = "SELECT c_id FROM $tbl_session_rel_course WHERE session_id='$id_session'";
-        $result = Database::query($sql);
-        $CourseList = array();
-        while ($row = Database::fetch_array($result)) {
-            $CourseList[] = $row['c_id'];
-        }
-
-        foreach ($CourseList as $enreg_course) {
-            // for each course in the session
-            $nbr_users = 0;
-            $enreg_course = Database::escape_string($enreg_course);
-
-            foreach ($existingUsers as $existing_user) {
-                if (!in_array($existing_user, $usersList)) {
-                    $sql = "DELETE FROM $tbl_session_rel_course_rel_user
-                            WHERE session_id ='$id_session' AND c_id='$enreg_course' AND user_id='$existing_user'";
-                    $result = Database::query($sql);
-
-                    if (Database::affected_rows($result)) {
-                        $nbr_users--;
-                    }
-                }
-            }
-            // Count users in this session-course relation.
-            $sql = "SELECT COUNT(user_id) as nbUsers
-                    FROM $tbl_session_rel_course_rel_user
-                    WHERE session_id = '$id_session' AND c_id='$enreg_course'";
-            $rs = Database::query($sql);
-            list($nbr_users) = Database::fetch_array($rs);
-            // update the session-course relation to add the users total
-            $update_sql = "UPDATE $tbl_session_rel_course SET nbr_users=$nbr_users
-                           WHERE session_id ='$id_session' AND c_id ='$enreg_course'";
-            Database::query($update_sql);
-        }
-
-        // Insert missing users into session.
-        foreach ($usersList as $enreg_user) {
-            $enreg_user = Database::escape_string($enreg_user);
-            $delete_sql = "DELETE FROM $tbl_session_rel_user
-                           WHERE
-                                session_id = '$id_session' AND
-                                user_id = '$enreg_user' AND
-                                relation_type<>".SESSION_RELATION_TYPE_RRHH."";
-
-            $result = Database::query($delete_sql);
-
-            Event::addEvent(
-                LOG_SESSION_DELETE_USER,
-                LOG_USER_ID,
-                $enreg_user,
-                api_get_utc_datetime(),
-                api_get_user_id(),
-                0,
-                $id_session
-            );
-
-            $return = Database::affected_rows($result);
-        }
-        $nbr_users = 0;
-        $sql = "SELECT nbr_users FROM $tbl_session WHERE id = '$id_session'";
-        $res_nbr_users = Database::query($sql);
-        $row_nbr_users = Database::fetch_row($res_nbr_users);
-
-        if (Database::num_rows($res_nbr_users) > 0) {
-            $nbr_users = ($row_nbr_users[0] - $return);
-        }
-
-        // Update number of users in the session.
-        $update_sql = "UPDATE $tbl_session SET nbr_users= $nbr_users WHERE id='$id_session' ";
-        $result = Database::query($update_sql);
-        $return = Database::affected_rows($result);
-        $results[] = 1;
-        continue;
-
     } // end principal foreach
 
     $count_results = count($results);
@@ -5485,8 +5376,6 @@ array(),
 array(array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'string[]')),
 'xsd:string'
 );*/
-
-
 $server->wsdl->addComplexType(
     'course_code_type',
     'complexType',
@@ -5605,13 +5494,6 @@ function WSSuscribeCoursesToSession($params) {
 
     if ($debug) error_log('WSSuscribeCoursesToSession: '.print_r($params, 1));
 
-    // initialisation
-    $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
-    $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
-    $tbl_session_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_USER);
-    $tbl_session_rel_course = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
-    $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
-
     $coursessessions_params = $params['coursessessions'];
     $results = array();
     $orig_course_id_value = array();
@@ -5624,27 +5506,15 @@ function WSSuscribeCoursesToSession($params) {
         $original_course_id_values = $coursesession_param['original_course_id_values'];
         $orig_session_id_value[] = $original_session_id_value;
 
-        $id_session = SessionManager::getSessionIdFromOriginalId(
+        $sessionId = SessionManager::getSessionIdFromOriginalId(
             $original_session_id_value,
             $original_session_id_name
         );
 
-        if (empty($id_session)) {
-            $results[] = 0;
-            continue;
-        }
-
         // Get course list from row_original_course_id_values
-        $course_list = [];
-        $courseCodeList = [];
         foreach ($original_course_id_values as $row_original_course_list) {
-
-            $course_code = Database::escape_string($row_original_course_list['course_code']);
-            $courseInfo = api_get_course_info($course_code);
-            $courseId = $courseInfo['real_id'];
-
             $courseInfo = CourseManager::getCourseInfoFromOriginalId(
-                $course_code,
+                $row_original_course_list['course_code'],
                 $original_course_id_name
             );
 
@@ -5653,111 +5523,20 @@ function WSSuscribeCoursesToSession($params) {
             ) {
                 $results[] = 0;
                 continue; // Original_course_id_value doesn't exist.
-            }
-
-            $courseCodeList[] = $courseInfo['code'];
-            $course_list[] = $courseInfo['real_id'];
-        }
-
-        if (empty($course_list)) {
-            $results[] = 0;
-            continue;
-        }
-
-        $orig_course_id_value[] = implode(',', $courseCodeList);
-
-        // Get general coach ID
-        $sql = "SELECT id_coach FROM $tbl_session WHERE id='$id_session'";
-        $id_coach = Database::query($sql);
-        $id_coach = Database::fetch_array($id_coach);
-        $id_coach = $id_coach[0];
-
-        // get list of courses subscribed to this session
-        $sql = "SELECT c_id FROM $tbl_session_rel_course WHERE session_id ='$id_session'";
-
-        $rs = Database::query($sql);
-        $existingCourses = Database::store_result($rs);
-        $nbr_courses = count($existingCourses);
-
-        // get list of users subscribed to this session
-        $sql= "SELECT user_id FROM $tbl_session_rel_user
-               WHERE session_id = '$id_session' AND relation_type<>".SESSION_RELATION_TYPE_RRHH."";
-        $result = Database::query($sql);
-        $user_list = Database::store_result($result);
-
-        $course_directory = array();
-        // Pass through the courses list we want to add to the session.
-        foreach ($course_list as $enreg_course) {
-            $enreg_course = Database::escape_string($enreg_course);
-            $exists = false;
-
-            // Check if the course we want to add is already subscribed.
-            foreach ($existingCourses as $existingCourse) {
-                if ($enreg_course == $existingCourse['c_id']) {
-                    $exists = true;
-                }
-            }
-
-            if (!$exists) {
-                // if the course isn't subscribed yet
-                $sql = "INSERT INTO $tbl_session_rel_course (session_id, c_id)
-                        VALUES ('$id_session','$enreg_course')";
-                Database::query($sql);
-
-                Event::addEvent(
-                    LOG_SESSION_ADD_COURSE,
-                    LOG_COURSE_ID,
-                    $enreg_course,
-                    api_get_utc_datetime(),
-                    api_get_user_id(),
-                    $enreg_course,
-                    $id_session
+            } else {
+                $courseCode = $courseInfo['code'];
+                SessionManager::add_courses_to_session(
+                    $sessionId,
+                    array($courseCode),
+                    false
                 );
+                if ($debug) error_log("add_courses_to_session: course:$courseCode to session:$sessionId");
 
-                // We add the current course in the existing courses array,
-                // to avoid adding another time the current course
-                $existingCourses[] = array('c_id' => $enreg_course);
-                $nbr_courses++;
-
-                // subscribe all the users from the session to this course inside the session
-                $nbr_users = 0;
-
-                foreach ($user_list as $enreg_user) {
-                    $enreg_user_id = Database::escape_string($enreg_user['user_id']);
-                    $sql = "INSERT IGNORE INTO $tbl_session_rel_course_rel_user (session_id, c_id, user_id)
-                            VALUES ('$id_session','$enreg_course','$enreg_user_id')";
-
-                    Event::addEvent(
-                        LOG_SESSION_ADD_USER_COURSE,
-                        LOG_USER_ID,
-                        $enreg_user_id,
-                        api_get_utc_datetime(),
-                        api_get_user_id(),
-                        $enreg_course,
-                        $id_session
-                    );
-
-                    $result = Database::query($sql);
-                    if (Database::affected_rows($result)) {
-                        $nbr_users++;
-                    }
-                }
-                $sql = "UPDATE $tbl_session_rel_course SET
-                            nbr_users = $nbr_users
-                        WHERE session_id='$id_session' AND c_id='$enreg_course'";
-                Database::query($sql);
-                $sql_directory = "SELECT directory FROM $tbl_course WHERE id = '$enreg_course'";
-                $res_directory = Database::query($sql_directory);
-                $row_directory = Database::fetch_row($res_directory);
-                $course_directory[] = $row_directory[0];
+                $results[] = 1;
+                $orig_course_id_value[] = $original_session_id_value;
+                $orig_session_id_value[] = $row_original_course_list['course_code'];
             }
         }
-        Database::query("UPDATE $tbl_session SET nbr_courses=$nbr_courses WHERE id='$id_session'");
-        $course_directory[] = $id_session;
-        $cad_course_directory = implode(',', $course_directory);
-
-        $results[] = $cad_course_directory;
-        continue;
     }
 
     $count_results = count($results);
@@ -5769,6 +5548,7 @@ function WSSuscribeCoursesToSession($params) {
             'result' => $results[$i]
         );
     }
+
     return $output;
 }
 

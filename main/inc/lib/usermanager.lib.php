@@ -559,8 +559,25 @@ class UserManager
         $sql = "DELETE FROM $table_work WHERE user_id = $user_id AND c_id <> 0";
         Database::query($sql);
 
+        $sql = "UPDATE c_item_property SET to_user_id = NULL
+                WHERE to_user_id = '".$user_id."'";
+        Database::query($sql);
+
+        $sql = "UPDATE c_item_property SET insert_user_id = NULL
+                WHERE insert_user_id = '".$user_id."'";
+        Database::query($sql);
+
+        $sql = "UPDATE c_item_property SET lastedit_user_id = NULL
+                WHERE lastedit_user_id = '".$user_id."'";
+        Database::query($sql);
+
+        // Delete user from database
+        $sql = "DELETE FROM $table_user WHERE id = '".$user_id."'";
+        Database::query($sql);
+
         // Add event to system log
         $user_id_manager = api_get_user_id();
+
         Event::addEvent(
             LOG_USER_DELETE,
             LOG_USER_ID,
@@ -568,6 +585,7 @@ class UserManager
             api_get_utc_datetime(),
             $user_id_manager
         );
+
         Event::addEvent(
             LOG_USER_DELETE,
             LOG_USER_OBJECT,
@@ -575,6 +593,7 @@ class UserManager
             api_get_utc_datetime(),
             $user_id_manager
         );
+
         return true;
     }
 
@@ -4098,12 +4117,8 @@ class UserManager
         }
 
         if (!empty($lastConnectionDate)) {
-            if (isset($_configuration['save_user_last_login']) &&
-                $_configuration['save_user_last_login']
-            ) {
-                $lastConnectionDate = Database::escape_string($lastConnectionDate);
-                $userConditions .=  " AND u.last_login <= '$lastConnectionDate' ";
-            }
+            $lastConnectionDate = Database::escape_string($lastConnectionDate);
+            $userConditions .=  " AND u.last_login <= '$lastConnectionDate' ";
         }
 
         $courseConditions = null;

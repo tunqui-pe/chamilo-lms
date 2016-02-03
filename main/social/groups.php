@@ -16,6 +16,7 @@ $join_url = '';
 if (api_get_setting('social.allow_social_tool') != 'true') {
     api_not_allowed();
 }
+$join_url = '';
 
 $this_section = SECTION_SOCIAL;
 $allowed_views = array('mygroups','newest','pop');
