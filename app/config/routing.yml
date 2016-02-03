@@ -56,8 +56,6 @@ _admin:
 #    resource: routing_api.yml
 #    prefix:   /api
 
-
-
 elfinder:
      resource: "@FMElfinderBundle/Resources/config/routing.yml"
 

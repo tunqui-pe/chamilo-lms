@@ -6,14 +6,14 @@
                 class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-{% for locale in locales %}
-    <li>
-    <a href="{{ locale.link }}"
-       title="{{ locale.locale_target_language }}">
-        <span class="lang-sm lang-lbl-full" lang="{{ locale.locale }}"></span>
-        {{ locale.locale_target_language }}
-    </a>
-    </li>
-{% endfor %}
+    {% for locale in locales %}
+        <li>
+        <a href="{{ locale.link }}"
+           title="{{ locale.locale_target_language }}">
+            <span class="lang-sm lang-lbl-full" lang="{{ locale.locale }}"></span>
+            {{ locale.locale_target_language }}
+        </a>
+        </li>
+    {% endfor %}
     </ul>
 </div>

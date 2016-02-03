@@ -1,6 +1,6 @@
 <script>
-    // External plugins not part of the default Ckeditor package.
-    var plugins = [
+// External plugins not part of the default Ckeditor package.
+var plugins = [
     'asciimath',
     'asciisvg',
     'audio',
@@ -18,14 +18,14 @@
     'wikilink',
     'wordcount',
     'youtube'
-    ];
+];
 
-    plugins.forEach(function (plugin) {
-        CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
-        });
+plugins.forEach(function (plugin) {
+    CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
+});
 
-    // basic plugins
-    plugins = [
+// basic plugins
+plugins = [
     'adobeair',
     'ajax',
     'docprops',
@@ -38,19 +38,18 @@
     'widget',
     'tableresize',
     'xml'
-    ];
+];
 
-    plugins.forEach(function (plugin) {
-        CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/components/ckeditor/plugins/') }}' + plugin + '/');
-        });
+plugins.forEach(function (plugin) {
+    CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/components/ckeditor/plugins/') }}' + plugin + '/');
+});
 
-    /* Global chat variables */
-    var ajax_url = '{{ url('web.ajax') }}chat.ajax.php';
-    var online_button = '{{ asset('bundles/chamilocore/img/statusonline.png') }}';
-    var offline_button =
-    '{{ asset('bundles/chamilocore/img/statusoffline.png') }}';
-    var connect_lang = '{{ "ChatConnected"|trans }}';
-    var disconnect_lang = '{{ "ChatDisconnected"|trans }}';
+/* Global chat variables */
+var ajax_url = '{{ url('web.ajax') }}chat.ajax.php';
+var online_button = '{{ asset('bundles/chamilocore/img/statusonline.png') }}';
+var offline_button = '{{ asset('bundles/chamilocore/img/statusoffline.png') }}';
+var connect_lang = '{{ "ChatConnected"|trans }}';
+var disconnect_lang = '{{ "ChatDisconnected"|trans }}';
 
 /**
  * Function use to load templates in a div
@@ -97,10 +96,11 @@ var showTemplates = function (ckeditorName) {
     });
 };
 
-    $(document).ready(function() {
+$(document).ready(function() {
     $("#open-view-list").click(function(){
         $("#student-list-work").fadeIn(300);
     });
+
     $("#closed-view-list").click(function(){
         $("#student-list-work").fadeOut(300);
     });

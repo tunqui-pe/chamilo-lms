@@ -1,17 +1,22 @@
 {% extends "@ChamiloTheme/Layout/base-layout.html.twig" %}
 
+{% set pathInfo = path(
+    app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params'))
+%}
+
 {% block page_content %}
     {#  Left column #}
     <div class="col-md-3">
         {% block chamilo_left_column %}
             <section class="left_column">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel')) }}
+                {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel', {'pathInfo': pathInfo })) }}
                 {#{{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}#}
             {% endif %}
 
             {# Sidebar menu #}
-            {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request })) }}
+            {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request, pathInfo: pathInfo })) }}
 
             {# Skill block see SkillBlockService.php #}
             {#{{ sonata_block_render({'type': 'chamilo_core.block.skill'}) }}#}
