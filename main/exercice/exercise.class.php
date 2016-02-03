@@ -2185,6 +2185,8 @@ class Exercise
 
         $questionId = intval($questionId);
         $exeId = intval($exeId);
+
+        $em = Database::getManager();
         $TBL_TRACK_ATTEMPT = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
         $table_ans = Database::get_course_table(TABLE_QUIZ_ANSWER);
 
@@ -3028,15 +3030,14 @@ class Exercise
                     }
                 case HOT_SPOT:
                     if ($from_database) {
-                        $TBL_TRACK_HOTSPOT = Database::get_main_table(TABLE_STATISTIC_TRACK_E_HOTSPOT);
-                        $sql = "SELECT hotspot_correct
-                                FROM $TBL_TRACK_HOTSPOT
-                                WHERE
-                                    hotspot_exe_id = '".$exeId."' AND
-                                    hotspot_question_id= '".$questionId."' AND
-                                    hotspot_answer_id = ".intval($answerAutoId)."";
-                        $result = Database::query($sql);
-                        $studentChoice = Database::result($result, 0, "hotspot_correct");
+                        $studentChoice = $em
+                            ->getRepository('ChamiloCoreBundle:TrackEHotspot')
+                            ->findOneBy([
+                                'hotspotExeId' => $exeId,
+                                'hotspotQuestionId' => $questionId,
+                                'hotspotAnswerId' => $answerAutoId
+                            ]);
+                        $studentChoice = $studentChoice->getHotspotCorrect();
 
                         if ($studentChoice) {
                             $questionScore  += $answerWeighting;
@@ -3099,19 +3100,16 @@ class Exercise
                 case HOT_SPOT_DELINEATION :
                     if ($from_database) {
                         // getting the user answer
-                        $TBL_TRACK_HOTSPOT = Database::get_main_table(TABLE_STATISTIC_TRACK_E_HOTSPOT);
-                        $query   = "SELECT hotspot_correct, hotspot_coordinate
-                                    FROM $TBL_TRACK_HOTSPOT
-                                    WHERE
-                                        hotspot_exe_id = '".$exeId."' AND
-                                        hotspot_question_id= '".$questionId."' AND
-                                        hotspot_answer_id='1'";
-                        //by default we take 1 because it's a delineation
-                        $resq = Database::query($query);
-                        $row = Database::fetch_array($resq,'ASSOC');
+                        $row = $em
+                            ->getRepository('ChamiloCoreBundle:TrackEHotspot')
+                            ->findOneBy([
+                                'hotspotExeId' => $exeId,
+                                'hotspotQuestionId' => $questionId,
+                                'hotspotAnswerId' => 1
+                            ]);
 
-                        $choice = $row['hotspot_correct'];
-                        $user_answer = $row['hotspot_coordinate'];
+                        $choice = $row->getHotspotCorrect();
+                        $user_answer = $row->getHotspotCoordinate();
 
                         // THIS is very important otherwise the poly_compile will throw an error!!
                         // round-up the coordinates
@@ -4082,16 +4080,16 @@ class Exercise
                 $answer = [];
 
                 if (isset($exerciseResultCoordinates[$questionId]) && !empty($exerciseResultCoordinates[$questionId])) {
-                    Database::delete(
-                        Database::get_main_table(TABLE_STATISTIC_TRACK_E_HOTSPOT),
-                        [
-                            'hotspot_exe_id = ? AND hotspot_question_id = ? AND c_id = ?' => [
-                                $exeId,
-                                $questionId,
-                                api_get_course_int_id()
-                            ]
-                        ]
-                    );
+                    $em
+                        ->createQuery('
+                            DELETE FROM ChamiloCoreBundle:TrackEHotspot teh
+                            WHERE teh.hotspotExeId = :exe AND teh.hotspotQuestionId = :question AND teh.course = :course
+                        ')
+                        ->execute([
+                            'exe' => $exeId,
+                            'question' => $questionId,
+                            'course' => api_get_course_int_id()
+                        ]);
 
                     foreach ($exerciseResultCoordinates[$questionId] as $idx => $val) {
                         $answer[] = $val;

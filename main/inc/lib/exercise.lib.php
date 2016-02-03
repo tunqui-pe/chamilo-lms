@@ -2999,6 +2999,7 @@ HOTSPOT;
         $answer_id = intval($answer_id);
         $exercise_id = intval($exercise_id);
         $course_code = Database::escape_string($course_code);
+        $courseId = api_get_course_int_id($course_code);
         $session_id = intval($session_id);
 
         if (empty($session_id)) {
@@ -3022,7 +3023,7 @@ HOTSPOT;
     		$courseCondition
     		WHERE
     		    exe_exo_id              = $exercise_id AND
-                a.hotspot_course_code 	= '$course_code' AND
+                a.c_id = $courseId AND
                 e.session_id            = $session_id AND
                 hotspot_answer_id       = $answer_id AND
                 hotspot_question_id     = $question_id AND

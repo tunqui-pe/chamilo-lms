@@ -589,41 +589,49 @@ class Event
     {
         global $safe_lp_id, $safe_lp_item_id;
 
+        $em = Database::getManager();
+
         if ($updateResults == false) {
             // Validation in case of fraud with activated control time
             if (!ExerciseLib::exercise_time_control_is_valid($exerciseId, $safe_lp_id, $safe_lp_item_id)) {
                 $correct = 0;
             }
         }
-        $tbl_track_e_hotspot = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_HOTSPOT);
-        if ($updateResults) {
-            $params = array(
-                'hotspot_correct' => $correct,
-                'hotspot_coordinate' => $coords
-            );
-            Database::update($tbl_track_e_hotspot, $params,
-                array('hotspot_user_id = ? AND hotspot_exe_id = ? AND hotspot_question_id = ? AND hotspot_answer_id = ? ' => array(
-                    api_get_user_id(),
-                    $exe_id,
-                    $question_id,
-                    $answer_id,
-                    $answer_id
-                )));
 
+        if ($updateResults) {
+            $em
+                ->createQuery('
+                    UPDATE ChamiloCoreBundle:TrackEHotspot teh
+                    SET teh.hotspotCorrect = :correct,
+                        teh.hotspotCoordinate = :coords
+                    WHERE teh.hotspotUserId = :user AND teh.hotspotExeId = :exe AND
+                        teh.hotspotQuestionId = :question AND teh.hotspotAnswerId = :answer
+                ')
+                ->execute([
+                    'correct' => $correct,
+                    'coords' => $coords,
+                    'user' => api_get_user_id(),
+                    'exe' => $exe_id,
+                    'question' => $question_id,
+                    'answer' => $answer_id
+                ]);
         } else {
-            return Database::insert(
-                $tbl_track_e_hotspot,
-                [
-                    'hotspot_course_code' => api_get_course_id(),
-                    'hotspot_user_id' => api_get_user_id(),
-                    'c_id' => api_get_course_int_id(),
-                    'hotspot_exe_id' => $exe_id,
-                    'hotspot_question_id' => $question_id,
-                    'hotspot_answer_id' => $answer_id,
-                    'hotspot_correct' => $correct,
-                    'hotspot_coordinate' => $coords
-                ]
-            );
+            $course = $em->find('ChamiloCoreBundle:', api_get_course_int_id());
+
+            $trackEHotspot = new \Chamilo\CoreBundle\Entity\TrackEHotspot();
+            $trackEHotspot
+                ->setCourse($course)
+                ->setHotspotUserId(api_get_user_id())
+                ->setHotspotExeId($exe_id)
+                ->setHotspotQuestionId($question_id)
+                ->setHotspotAnswerId($answer_id)
+                ->setHotspotCorrect($correct)
+                ->setHotspotCoordinate($coords);
+
+            $em->persist($trackEHotspot);
+            $em->flush();
+
+            return $trackEHotspot->getHotspotId();
         }
     }
 
@@ -1711,12 +1719,21 @@ class Event
             $sessionId = api_get_session_id();
         }
 
-        $sql = "DELETE FROM $table_track_attempt
-                WHERE   hotspot_exe_id = $exe_id AND
-                        hotspot_user_id = $user_id AND
-                        c_id = $courseId AND
-                        hotspot_question_id = $question_id ";
-        Database::query($sql);
+        $em = Database::getManager();
+
+        $em
+            ->createQuery('
+                DELETE FROM ChamiloCoreBundle:TrackEHotspot teh
+                WHERE teh.hotspotExeId = :exe AND teh.hotspotUserId = :user AND
+                    teh.course = :course AND teh.hotspotQuestionId = :question
+            ')
+            ->execute([
+                'exe' => $exe_id,
+                'user' => $user_id,
+                'course' => $courseId,
+                'question' => $question_id
+            ]);
+
         Event::addEvent(
             LOG_QUESTION_RESULT_DELETE,
             LOG_EXERCISE_ATTEMPT_QUESTION_ID,
