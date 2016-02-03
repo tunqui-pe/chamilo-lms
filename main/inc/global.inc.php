@@ -294,25 +294,6 @@ $this_section = SECTION_GLOBAL;
 $administrator['email'] = isset($administrator['email']) ? $administrator['email'] : 'admin@example.com';
 $administrator['name'] = isset($administrator['name']) ? $administrator['name'] : 'Admin';
 
-// Including configuration files
-$configurationFiles = array(
-    'mail.conf.php',
-    'profile.conf.php',
-    'course_info.conf.php',
-    'add_course.conf.php',
-    'events.conf.php',
-    'auth.conf.php',
-    'portfolio.conf.php'
-);
-
-foreach ($configurationFiles as $file) {
-    $file = api_get_path(CONFIGURATION_PATH).$file;
-    if (file_exists($file)) {
-        require_once $file;
-    }
-}
-
-
 /*  LOAD LANGUAGE FILES SECTION */
 
 // if we use the javascript version (without go button) we receive a get
