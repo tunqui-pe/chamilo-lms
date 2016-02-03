@@ -1,6 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+// This file is not used anymore
 return;
+
+
+
+
+
+
 /**
  * It is recommended that ALL Chamilo scripts include this important file.
  * This script manages
@@ -287,12 +295,6 @@ require_once $libraryPath.'formvalidator/Rule/allowed_tags.inc.php';
 // Before we call local.inc.php, let's define a global $this_section variable
 // which will then be usable from the banner and header scripts
 $this_section = SECTION_GLOBAL;
-
-// Include Chamilo Mail conf this is added here because the api_get_setting works
-
-// Fixes bug in Chamilo 1.8.7.1 array was not set
-$administrator['email'] = isset($administrator['email']) ? $administrator['email'] : 'admin@example.com';
-$administrator['name'] = isset($administrator['name']) ? $administrator['name'] : 'Admin';
 
 /*  LOAD LANGUAGE FILES SECTION */
 

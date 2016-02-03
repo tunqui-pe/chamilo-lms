@@ -25,6 +25,108 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class UserPortalController extends BaseController
 {
     /**
+     * @Route("/{type}/{filter}", name="userportal")
+     * @Method({"GET"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param string $type courses|sessions|mycoursecategories
+     * @param string $filter history|current for the userportal courses page
+     * @param int $page
+     *
+     * @return Response
+     */
+    public function indexAction(
+        $type = 'courses',
+        $filter = 'current',
+        $coursePage = 1,
+        Request $request
+    ) {
+        //$settingsManager = $this->get('chamilo.settings.manager');
+        //$setting = $settingsManager->getSetting('platform.institution');
+
+        /*$settingsManagerCourse = $this->get('chamilo_course.settings.manager');
+        $course = $this->getDoctrine()->getRepository('ChamiloCoreBundle:Course')->find(1);
+        if ($course) {
+            $settingsManagerCourse->setCourse($course);
+            $agenda = $settingsManagerCourse->getSetting(
+                'calendar_event.enabled'
+            );
+        }*/
+
+        $user = $this->getUser();
+        $pageController = new \Chamilo\CoreBundle\Framework\PageController();
+        $items = null;
+        $page = $coursePage;
+
+        if (!empty($user)) {
+            $userId = $user->getId();
+
+            // Main courses and session list
+            $type = str_replace('/', '', $type);
+
+            switch ($type) {
+                case 'sessions':
+                    $items = $pageController->returnSessions(
+                        $userId,
+                        $filter,
+                        $page
+                    );
+                    break;
+                case 'sessioncategories':
+                    $items = $pageController->returnSessionsCategories(
+                        $userId,
+                        $filter,
+                        $page
+                    );
+                    break;
+                case 'courses':
+                    $items = $pageController->returnCourses(
+                        $userId,
+                        $filter,
+                        $page
+                    );
+                    break;
+                case 'mycoursecategories':
+                    $items = $pageController->returnMyCourseCategories(
+                        $userId,
+                        $filter,
+                        $page
+                    );
+                    break;
+                case 'specialcourses':
+                    $items = $pageController->returnSpecialCourses(
+                        $userId,
+                        $filter,
+                        $page
+                    );
+                    break;
+            }
+        }
+
+        /** @var \Chamilo\SettingsBundle\Manager\SettingsManager $settingManager */
+        $settingManager = $this->get('chamilo.settings.manager');
+        /*var_dump($settingManager->getSetting('platform.institution'));
+        $settings = $settingManager->loadSettings('platform');
+        var_dump($settings->get('institution'));
+        var_dump(api_get_setting('platform.institution'));*/
+
+        $pageController->returnSkillsLinks();
+
+        // Deleting the session_id.
+        $request->getSession()->remove('session_id');
+
+        $countCourses = \CourseManager::count_courses();
+
+        return $this->render(
+            'ChamiloCoreBundle:Index:userportal.html.twig',
+            array(
+                'content' => $items,
+                'count_courses' => $countCourses
+            )
+        );
+    }
+
+    /**
      * @Route("/add_course", name="add_course")
      * @Method({"GET|POST"})
      * @Security("has_role('ROLE_USER')")
@@ -383,108 +485,6 @@ class UserPortalController extends BaseController
             'ChamiloCoreBundle:Index:userportal.html.twig',
             array(
                 'content' => $content,
-            )
-        );
-    }
-
-    /**
-     * @Route("/{type}/{filter}", name="userportal")
-     * @Method({"GET"})
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @param string $type courses|sessions|mycoursecategories
-     * @param string $filter history|current for the userportal courses page
-     * @param int $page
-     *
-     * @return Response
-     */
-    public function indexAction(
-        $type = 'courses',
-        $filter = 'current',
-        $coursePage = 1,
-        Request $request
-    ) {
-        //$settingsManager = $this->get('chamilo.settings.manager');
-        //$setting = $settingsManager->getSetting('platform.institution');
-
-        /*$settingsManagerCourse = $this->get('chamilo_course.settings.manager');
-        $course = $this->getDoctrine()->getRepository('ChamiloCoreBundle:Course')->find(1);
-        if ($course) {
-            $settingsManagerCourse->setCourse($course);
-            $agenda = $settingsManagerCourse->getSetting(
-                'calendar_event.enabled'
-            );
-        }*/
-
-        $user = $this->getUser();
-        $pageController = new \Chamilo\CoreBundle\Framework\PageController();
-        $items = null;
-        $page = $coursePage;
-
-        if (!empty($user)) {
-            $userId = $user->getId();
-
-            // Main courses and session list
-            $type = str_replace('/', '', $type);
-
-            switch ($type) {
-                case 'sessions':
-                    $items = $pageController->returnSessions(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'sessioncategories':
-                    $items = $pageController->returnSessionsCategories(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'courses':
-                    $items = $pageController->returnCourses(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'mycoursecategories':
-                    $items = $pageController->returnMyCourseCategories(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-                case 'specialcourses':
-                    $items = $pageController->returnSpecialCourses(
-                        $userId,
-                        $filter,
-                        $page
-                    );
-                    break;
-            }
-        }
-
-        /** @var \Chamilo\SettingsBundle\Manager\SettingsManager $settingManager */
-        $settingManager = $this->get('chamilo.settings.manager');
-        /*var_dump($settingManager->getSetting('platform.institution'));
-        $settings = $settingManager->loadSettings('platform');
-        var_dump($settings->get('institution'));
-        var_dump(api_get_setting('platform.institution'));*/
-
-        $pageController->returnSkillsLinks();
-
-        // Deleting the session_id.
-        $request->getSession()->remove('session_id');
-
-        $countCourses = \CourseManager::count_courses();
-
-        return $this->render(
-            'ChamiloCoreBundle:Index:userportal.html.twig',
-            array(
-                'content' => $items,
-                'count_courses' => $countCourses
             )
         );
     }

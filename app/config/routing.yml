@@ -76,7 +76,3 @@ liip_theme:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-blog_list:
-    pattern: /blogs
-    defaults:
-        _controller: cmf_blog.blog_controller:listAction
