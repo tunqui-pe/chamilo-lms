@@ -31,6 +31,7 @@ sonata_page:
         - ^/userportal
         - ^/userportal/(.*)
         - ^/js/(.*)
+        - ^/courses/(.*)
 
     ignore_route_patterns:
         - (.*)administration(.*)     # ignore admin route, ie route containing 'admin'  # sonata admin
@@ -40,6 +41,7 @@ sonata_page:
 
     ignore_routes:
         - home
+        - elfinder
         - login
         - fos_js_routing_js
         - _settings

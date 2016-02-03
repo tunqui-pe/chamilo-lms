@@ -111,7 +111,8 @@ class SettingsManager extends ChamiloSettingsManager
                 $persistedParametersMap[$name]->setValue($value);
             } else {
                 /** @var CCourseSetting $parameter */
-                $parameter = $this->parameterFactory->createNew();
+                //$parameter = $this->parameterFactory->createNew();
+                $parameter = new CCourseSetting();
                 $parameter
                     ->setNamespace($namespace)
                     ->setName($name)

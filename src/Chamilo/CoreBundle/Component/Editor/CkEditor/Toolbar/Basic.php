@@ -80,10 +80,7 @@ class Basic extends Toolbar
         // Adding plugins depending of platform conditions
         $plugins = array();
 
-        if (api_get_setting(
-                'document.show_glossary_in_documents'
-            ) == 'ismanual'
-        ) {
+        if (api_get_setting('document.show_glossary_in_documents') == 'ismanual') {
             $plugins[] = 'glossary';
         }
 

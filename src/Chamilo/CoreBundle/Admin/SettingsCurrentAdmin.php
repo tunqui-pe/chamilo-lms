@@ -32,7 +32,7 @@ class SettingsCurrentAdmin extends Admin
             ->add('category')
             ->add('selectedValue')
             ->add('comment', 'ckeditor')
-            ->add('url')
+            ->add('accessUrl')
         ;
     }
 
@@ -45,6 +45,7 @@ class SettingsCurrentAdmin extends Admin
             ->add('title')
             ->add('variable')
             ->add('category')
+            ->add('accessUrl')
         ;
     }
 
@@ -54,10 +55,9 @@ class SettingsCurrentAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
-            ->add('category')
             ->addIdentifier('variable')
-            ->addIdentifier('selected_value')
+            ->add('selected_value')
+            ->add('category')
         ;
     }
 }
