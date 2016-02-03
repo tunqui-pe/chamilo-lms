@@ -26,7 +26,7 @@ class ChamiloCoreExtension extends Extension
         );
 
         $loader->load('services.yml');
-        //$loader->load('admin.yml');
+        $loader->load('admin.yml');
     }
 
     /**
