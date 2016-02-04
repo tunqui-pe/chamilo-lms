@@ -328,6 +328,11 @@ class Course
     protected $specificFieldValues;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:SharedSurvey", mappedBy="course")
+     */
+    protected $sharedSurveys;
+
+    /**
      * Constructor
      */
     public function __construct()

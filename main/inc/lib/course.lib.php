@@ -2281,7 +2281,7 @@ class CourseManager
             $sql = "DELETE FROM $table_course_rel_url WHERE c_id = '" . $courseId. "'";
             Database::query($sql);
 
-            $sql = 'SELECT survey_id FROM ' . $table_course_survey . ' WHERE course_code="' . $codeFiltered . '"';
+            $sql = 'SELECT survey_id FROM ' . $table_course_survey . ' WHERE c_id ="' . $courseId . '"';
             $result_surveys = Database::query($sql);
             while ($surveys = Database::fetch_array($result_surveys)) {
                 $survey_id = $surveys[0];
