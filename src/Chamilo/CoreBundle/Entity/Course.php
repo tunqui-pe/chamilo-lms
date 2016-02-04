@@ -342,6 +342,12 @@ class Course
         $this->gradebookCategories = new ArrayCollection();
         $this->gradebookEvaluations = new ArrayCollection();
         $this->gradebookLinks = new ArrayCollection();
+        $this->trackEHotspots = new ArrayCollection();
+        $this->trackEAttempts = new ArrayCollection();
+        $this->searchEngineRefs = new ArrayCollection();
+        $this->templates = new ArrayCollection();
+        $this->specificFieldValues = new ArrayCollection();
+        $this->sharedSurveys = new ArrayCollection();
     }
 
     /**
