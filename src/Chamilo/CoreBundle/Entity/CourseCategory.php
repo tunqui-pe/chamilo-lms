@@ -2,6 +2,7 @@
 
 namespace Chamilo\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +23,15 @@ use Doctrine\ORM\Mapping as ORM;
 class CourseCategory
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue()
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
@@ -36,11 +46,15 @@ class CourseCategory
     private $code;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="parent_id", type="string", length=40, nullable=true)
+     * @ORM\OneToMany(targetEntity="CourseCategory", mappedBy="parent")
      */
-    private $parentId;
+    protected $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CourseCategory", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
 
     /**
      * @var integer
@@ -71,15 +85,64 @@ class CourseCategory
     private $authCatChild;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * Constructor
      */
-    private $id;
+    public function __construct()
+    {
+        $this->childrenCount = 0;
+        $this->children = new ArrayCollection();
+    }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getName();
+    }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return CourseCategory
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param CourseCategory $child
+     */
+    public function addChild(CourseCategory $child)
+    {
+        $this->children[] = $child;
+        $child->setParent($this);
+    }
+
+    /**
+     * @param CourseCategory $parent
+     */
+    public function setParent(CourseCategory $parent)
+    {
+        $this->parent = $parent;
+    }
 
     /**
      * Set name
@@ -240,15 +303,5 @@ class CourseCategory
     public function getAuthCatChild()
     {
         return $this->authCatChild;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

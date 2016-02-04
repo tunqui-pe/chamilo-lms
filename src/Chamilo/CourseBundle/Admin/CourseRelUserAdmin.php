@@ -35,7 +35,7 @@ class CourseRelUserAdmin extends Admin
     {
         $formMapper
             ->add('user')
-            ->add('group')
+            //->add('group', 'text')
             ->add('status', 'choice', array(
                     'choices' => CourseRelUser::getStatusList()
                 )
@@ -67,7 +67,7 @@ class CourseRelUserAdmin extends Admin
         $listMapper
             ->addIdentifier('user')
             ->addIdentifier('course')
-            ->addIdentifier('group')
+            //->addIdentifier('group')
             ->add('status', 'sonata_type_translatable_choice', array(
                     'choices' => CourseRelUser::getStatusList()
                 )
