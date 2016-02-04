@@ -1500,7 +1500,10 @@ class Exercise
         if ($_POST['index_document'] != 1) {
             return;
         }
-        $course_id = api_get_course_id();
+
+        $em = Database::getManager();
+
+        $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
 
         require_once api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php';
         require_once api_get_path(LIBRARY_PATH) . 'search/IndexableChunk.class.php';
@@ -1518,7 +1521,7 @@ class Exercise
                     $sterms = explode(',', $sterms);
                     foreach ($sterms as $sterm) {
                         $ic_slide->addTerm(trim($sterm), $specific_field['code']);
-                        add_specific_field_value($specific_field['id'], $course_id, TOOL_QUIZ, $this->id, $sterm);
+                        add_specific_field_value($specific_field['id'], $course->getCode(), TOOL_QUIZ, $this->id, $sterm);
                     }
                 }
             }
@@ -1526,10 +1529,10 @@ class Exercise
 
         // build the chunk to index
         $ic_slide->addValue("title", $this->exercise);
-        $ic_slide->addCourseId($course_id);
+        $ic_slide->addCourseId($course->getCode());
         $ic_slide->addToolId(TOOL_QUIZ);
         $xapian_data = array(
-            SE_COURSE_ID => $course_id,
+            SE_COURSE_ID => $course->getCode(),
             SE_TOOL_ID => TOOL_QUIZ,
             SE_DATA => array('type' => SE_DOCTYPE_EXERCISE_EXERCISE, 'exercise_id' => (int)$this->id),
             SE_USER => (int)api_get_user_id(),
@@ -1547,11 +1550,15 @@ class Exercise
         $did = $di->index();
         if ($did) {
             // save it to db
-            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'INSERT INTO %s (id, course_code, tool_id, ref_id_high_level, search_did)
-			    VALUES (NULL , \'%s\', \'%s\', %s, %s)';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id, $did);
-            Database::query($sql);
+            $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+            $searchEngineRef
+                ->setCourse($course)
+                ->setToolId(TOOL_QUIZ)
+                ->setRefIdHighLevel($this->id)
+                ->setSearchDid($did);
+
+            $em->persist($searchEngineRef);
+            $em->flush();
         }
     }
 
@@ -1562,45 +1569,59 @@ class Exercise
                 'search.search_enabled'
             ) == 'true' && extension_loaded('xapian')
         ) {
-            $course_id = api_get_course_id();
+            $em = Database::getManager();
+
+            $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
 
             // actually, it consists on delete terms from db,
             // insert new ones, create a new search engine document, and remove the old one
             // get search_did
-            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
-            $res = Database::query($sql);
+            $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $course,
+                    'toolId' => TOOL_QUIZ,
+                    'refIdHighLevel' => $this->id
+                ]);
 
-            if (Database::num_rows($res) > 0) {
+            if ($se_ref) {
                 require_once(api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php');
                 require_once(api_get_path(LIBRARY_PATH) . 'search/IndexableChunk.class.php');
                 require_once(api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php');
 
-                $se_ref = Database::fetch_array($res);
                 $specific_fields = get_specific_field_list();
                 $ic_slide = new IndexableChunk();
 
                 $all_specific_terms = '';
                 foreach ($specific_fields as $specific_field) {
-                    delete_all_specific_field_value($course_id, $specific_field['id'], TOOL_QUIZ, $this->id);
+                    delete_all_specific_field_value(
+                        $course->getCode(),
+                        $specific_field['id'],
+                        TOOL_QUIZ,
+                        $this->id
+                    );
                     if (isset($_REQUEST[$specific_field['code']])) {
                         $sterms = trim($_REQUEST[$specific_field['code']]);
                         $all_specific_terms .= ' '. $sterms;
                         $sterms = explode(',', $sterms);
                         foreach ($sterms as $sterm) {
                             $ic_slide->addTerm(trim($sterm), $specific_field['code']);
-                            add_specific_field_value($specific_field['id'], $course_id, TOOL_QUIZ, $this->id, $sterm);
+                            add_specific_field_value(
+                                $specific_field['id'],
+                                $course->getCode(),
+                                TOOL_QUIZ,
+                                $this->id,
+                                $sterm
+                            );
                         }
                     }
                 }
 
                 // build the chunk to index
                 $ic_slide->addValue("title", $this->exercise);
-                $ic_slide->addCourseId($course_id);
+                $ic_slide->addCourseId($course->getCode());
                 $ic_slide->addToolId(TOOL_QUIZ);
                 $xapian_data = array(
-                    SE_COURSE_ID => $course_id,
+                    SE_COURSE_ID => $course->getCode(),
                     SE_TOOL_ID => TOOL_QUIZ,
                     SE_DATA => array('type' => SE_DOCTYPE_EXERCISE_EXERCISE, 'exercise_id' => (int)$this->id),
                     SE_USER => (int)api_get_user_id(),
@@ -1612,20 +1633,27 @@ class Exercise
                 $di = new ChamiloIndexer();
                 isset($_POST['language'])? $lang=Database::escape_string($_POST['language']): $lang = 'english';
                 $di->connectDb(NULL, NULL, $lang);
-                $di->remove_document((int)$se_ref['search_did']);
+                $di->remove_document($se_ref->getSearchDid());
                 $di->addChunk($ic_slide);
 
                 //index and return search engine document id
                 $did = $di->index();
                 if ($did) {
                     // save it to db
-                    $sql = 'DELETE FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=\'%s\'';
-                    $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
-                    Database::query($sql);
-                    $sql = 'INSERT INTO %s (id, course_code, tool_id, ref_id_high_level, search_did)
-                        VALUES (NULL , \'%s\', \'%s\', %s, %s)';
-                    $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id, $did);
-                    Database::query($sql);
+                    $em->createQuery('
+                        delete from ChamiloCoreBundle:SearchEngineRef ser
+                        where ser.course = ?1 and ser.toolId = ?2 and ser.refIdHighLevel = ?3
+                    ')->execute([1 => $course, 2 => TOOL_QUIZ, 3 => $this->id]);
+
+                    $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                    $searchEngineRef
+                        ->setCourse($course)
+                        ->setToolId(TOOL_QUIZ)
+                        ->setRefIdHighLevel($this->id)
+                        ->setSearchDid($did);
+
+                    $em->persist($searchEngineRef);
+                    $em->flush();
                 }
             } else {
                 $this->search_engine_save();
@@ -1641,16 +1669,22 @@ class Exercise
                 'search.search_enabled'
             ) == 'true' && extension_loaded('xapian')
         ) {
-            $course_id = api_get_course_id();
-            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level IS NULL LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
-            $res = Database::query($sql);
-            if (Database::num_rows($res) > 0) {
-                $row = Database::fetch_array($res);
+            $em = Database::getManager();
+
+            $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
+
+            $res = $em->createQuery('
+                    SELECT ser FROM ChamiloCoreBundle:SearchEngineRef ser
+                    WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdHighLevel = ?3 AND ser.refIdSecondLevel IS NULL
+                ')
+                ->setMaxResults(1)
+                ->execute([1 => $course, 2 => TOOL_QUIZ, 3 => $this->id]);
+
+            if (count($res) > 0) {
+                $row = current($res);
                 require_once(api_get_path(LIBRARY_PATH) .'search/ChamiloIndexer.class.php');
                 $di = new ChamiloIndexer();
-                $di->remove_document((int)$row['search_did']);
+                $di->remove_document($row->getSearchDid());
                 unset($di);
                 $tbl_quiz_question = Database::get_course_table(TABLE_QUIZ_QUESTION);
                 foreach ( $this->questionList as $question_i) {
@@ -1666,13 +1700,19 @@ class Exercise
                     }
                 }
             }
-            $sql = 'DELETE FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level IS NULL LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
-            Database::query($sql);
+
+            $em
+                ->createQuery('
+                    DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                    WHERE ser.course = ?1 AND ser.toolId = ?2 AND
+                        ser.refIdHighLevel = ?3 AND ser.refIdSecondLevel IS NULL
+                ')
+                ->setMaxResults(1)
+                ->execute([1 => $course, 2 => TOOL_QUIZ, 3 => $this->id]);
 
             // remove terms from db
             require_once api_get_path(LIBRARY_PATH) .'specific_fields_manager.lib.php';
-            delete_all_values_for_item($course_id, TOOL_QUIZ, $this->id);
+            delete_all_values_for_item($course->getCode(), TOOL_QUIZ, $this->id);
         }
     }
 

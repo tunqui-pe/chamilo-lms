@@ -313,6 +313,11 @@ class Course
     protected $trackEAttempts;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:SearchEngineRef", mappedBy="course")
+     */
+    protected $searchEngineRefs;
+
+    /**
      * Constructor
      */
     public function __construct()

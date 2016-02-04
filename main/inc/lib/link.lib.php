@@ -154,8 +154,9 @@ class Link extends Model
     public static function addlinkcategory($type)
     {
         $ok = true;
-        $_course = api_get_course_info();
-        $course_id = $_course['real_id'];
+        $em = Database::getManager();
+
+        $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
         $session_id = api_get_session_id();
 
         if ($type == 'link') {
@@ -201,7 +202,7 @@ class Link extends Model
 
                 $link = new Link();
                 $params = [
-                    'c_id' => $course_id,
+                    'c_id' => $course->getId(),
                     'url' => $urllink,
                     'title' => $title,
                     'description' => $description ,
@@ -220,8 +221,8 @@ class Link extends Model
                     require_once api_get_path(LIBRARY_PATH) . 'search/IndexableChunk.class.php';
                     require_once api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php';
 
-                    $course_int_id = $_course['real_id'];
-                    $courseCode = $_course['code'];
+                    $course_int_id = $course->getId();
+                    $courseCode = $course->getCode();
                     $specific_fields = get_specific_field_list();
                     $ic_slide = new IndexableChunk();
 
@@ -299,21 +300,15 @@ class Link extends Model
                     $did = $di->index();
                     if ($did) {
                         // Save it to db.
-                        $tbl_se_ref = Database:: get_main_table(
-                            TABLE_MAIN_SEARCH_ENGINE_REF
-                        );
-                        $sql = 'INSERT INTO %s (id, course_code, tool_id, ref_id_high_level, search_did)
-                                VALUES (NULL , \'%s\', \'%s\', %s, %s)';
-                        $sql = sprintf(
-                            $sql,
-                            $tbl_se_ref,
-                            $course_int_id,
-                            $courseCode,
-                            TOOL_LINK,
-                            $link_id,
-                            $did
-                        );
-                        Database:: query($sql);
+                        $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                        $searchEngineRef
+                            ->setCourse($course)
+                            ->setToolId(TOOL_LINK)
+                            ->setRefIdHighLevel($link_id)
+                            ->setSearchDid($did);
+
+                        $em->persist($searchEngineRef);
+                        $em->flush();
                     }
                 }
                 Display::addFlash(Display::return_message(get_lang('LinkAdded')));
@@ -332,7 +327,7 @@ class Link extends Model
                 $result = Database:: query(
                     "SELECT MAX(display_order)
                     FROM  $tbl_categories
-                    WHERE c_id = $course_id "
+                    WHERE c_id = " . $course->getId()
                 );
                 list ($orderMax) = Database:: fetch_row($result);
                 $order = $orderMax + 1;
@@ -340,7 +335,7 @@ class Link extends Model
                 $session_id = api_get_session_id();
 
                 $params = [
-                    'c_id' => $course_id,
+                    'c_id' => $course->getId(),
                     'category_title' => $category_title,
                     'description' => $description,
                     'display_order' => $order,
@@ -445,27 +440,36 @@ class Link extends Model
     {
         // Remove from search engine if enabled.
         if (api_get_setting('search.search_enabled') == 'true') {
-            $tbl_se_ref = Database:: get_main_table(
-                TABLE_MAIN_SEARCH_ENGINE_REF
-            );
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_LINK, $link_id);
-            $res = Database:: query($sql);
-            if (Database:: num_rows($res) > 0) {
-                $row = Database:: fetch_array($res);
+            $em = Database::getManager();
+
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy([
+                'code' => $course_id
+            ]);
+
+            $row = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $course,
+                    'toolId' => TOOL_LINK,
+                    'refIdHighLevel' => $link_id
+                ]);
+
+            if ($row) {
                 require_once api_get_path(
                         LIBRARY_PATH
                     ) . 'search/ChamiloIndexer.class.php';
                 $di = new ChamiloIndexer();
-                $di->remove_document((int)$row['search_did']);
+                $di->remove_document($row->getSearchDid());
             }
-            $sql = 'DELETE FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_LINK, $link_id);
-            Database:: query($sql);
+            $em->createQuery('
+                    DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                    WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdHighLevel = ?3
+                ')
+                ->setMaxResults(1)
+                ->execute([1 => $course, 2 => TOOL_LINK, 3 => $link_id]);
 
             // Remove terms from db.
             require_once api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php';
-            delete_all_values_for_item($course_id, TOOL_DOCUMENT, $link_id);
+            delete_all_values_for_item($course->getCode(), TOOL_DOCUMENT, $link_id);
         }
     }
 
@@ -496,9 +500,12 @@ class Link extends Model
      */
     public static function editLink($id, $values = array())
     {
+        $em = Database::getManager();
+
         $tbl_link = Database:: get_course_table(TABLE_LINK);
+        $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
         $_course = api_get_course_info();
-        $course_id = $_course['real_id'];
+        $course_id = $course->getId();
 
         $values['url'] = trim($values['url']);
         $values['title'] = trim($values['title']);
@@ -568,20 +575,14 @@ class Link extends Model
             // Actually, it consists on delete terms from db,
             // insert new ones, create a new search engine document, and remove the old one.
             // Get search_did.
-            $tbl_se_ref = Database:: get_main_table(
-                TABLE_MAIN_SEARCH_ENGINE_REF
-            );
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf(
-                $sql,
-                $tbl_se_ref,
-                $course_id,
-                TOOL_LINK,
-                $id
-            );
-            $res = Database:: query($sql);
+            $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $course,
+                    'toolId' => TOOL_LINK,
+                    'refIdHighLevel' => $id
+                ]);
 
-            if (Database:: num_rows($res) > 0) {
+            if ($se_ref) {
                 require_once api_get_path(
                         LIBRARY_PATH
                     ).'search/ChamiloIndexer.class.php';
@@ -592,7 +593,6 @@ class Link extends Model
                         LIBRARY_PATH
                     ).'specific_fields_manager.lib.php';
 
-                $se_ref = Database:: fetch_array($res);
                 $specific_fields = get_specific_field_list();
                 $ic_slide = new IndexableChunk();
 
@@ -670,37 +670,28 @@ class Link extends Model
                 $di = new ChamiloIndexer();
                 isset ($_POST['language']) ? $lang = Database:: escape_string($_POST['language']) : $lang = 'english';
                 $di->connectDb(null, null, $lang);
-                $di->remove_document((int)$se_ref['search_did']);
+                $di->remove_document($se_ref->getSearchDid());
                 $di->addChunk($ic_slide);
 
                 // Index and return search engine document id.
                 $did = $di->index();
                 if ($did) {
                     // Save it to db.
-                    $sql = 'DELETE FROM %s
-                            WHERE course_code=\'%s\'
-                            AND tool_id=\'%s\'
-                            AND ref_id_high_level=\'%s\'';
-                    $sql = sprintf(
-                        $sql,
-                        $tbl_se_ref,
-                        $course_id,
-                        TOOL_LINK,
-                        $id
-                    );
-                    Database:: query($sql);
-                    $sql = 'INSERT INTO %s (c_id, id, course_code, tool_id, ref_id_high_level, search_did)
-                            VALUES (NULL , \'%s\', \'%s\', %s, %s)';
-                    $sql = sprintf(
-                        $sql,
-                        $tbl_se_ref,
-                        $course_int_id,
-                        $course_id,
-                        TOOL_LINK,
-                        $id,
-                        $did
-                    );
-                    Database:: query($sql);
+                    $em->createQuery('
+                            DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                            WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdHighLevel = ?3
+                        ')
+                        ->execute([1 => $course, 2 => TOOL_LINK, 3 => $id]);
+
+                    $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                    $searchEngineRef
+                        ->setCourse($course)
+                        ->setToolId(TOOL_LINK)
+                        ->setRefIdHighLevel($id)
+                        ->setSearchDid($did);
+
+                    $em->persist($searchEngineRef);
+                    $em->flush();
                 }
             }
         }

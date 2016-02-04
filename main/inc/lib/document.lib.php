@@ -1306,23 +1306,33 @@ class DocumentManager
     {
         // remove from search engine if enabled
         if (api_get_setting('search.search_enabled') == 'true') {
-            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_DOCUMENT, $document_id);
-            $res = Database::query($sql);
-            if (Database::num_rows($res) > 0) {
-                $row2 = Database::fetch_array($res);
+            $em = Database::getManager();
+
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_id]);
+
+            $res = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $course,
+                    'toolId' => TOOL_DOCUMENT,
+                    'refIdHighLevel' => $document_id
+                ]);
+
+            if ($res) {
                 require_once api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php';
                 $di = new ChamiloIndexer();
-                $di->remove_document((int) $row2['search_did']);
+                $di->remove_document($res->getSearchDid());
             }
-            $sql = 'DELETE FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_DOCUMENT, $document_id);
-            Database::query($sql);
+
+            $em->createQuery('
+                    DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                    WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdHighLevel = ?3
+                ')
+                ->setMaxResults(1)
+                ->execute([1 => $course, 2 => TOOL_DOCUMENT, 3 => $document_id]);
 
             // remove terms from db
             require_once api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php';
-            delete_all_values_for_item($course_id, TOOL_DOCUMENT, $document_id);
+            delete_all_values_for_item($course->getCode(), TOOL_DOCUMENT, $document_id);
         }
     }
 
@@ -3917,15 +3927,17 @@ class DocumentManager
         if (empty($session_id)) {
             $session_id = api_get_session_id();
         }
+
+        $em = Database::getManager();
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
         $course_info = api_get_course_info($course_code);
         $course_dir = $course_info['path'] . '/document';
         $sys_course_path = api_get_path(SYS_COURSE_PATH);
         $base_work_dir = $sys_course_path . $course_dir;
 
-        $course_id = $course_info['real_id'];
         $table_document = Database::get_course_table(TABLE_DOCUMENT);
 
-        $qry = "SELECT path, title FROM $table_document WHERE c_id = $course_id AND id = '$docid' LIMIT 1";
+        $qry = "SELECT path, title FROM $table_document WHERE c_id = {$course->getId()} AND id = '$docid' LIMIT 1";
         $result = Database::query($qry);
         if (Database::num_rows($result) == 1) {
             $row = Database::fetch_array($result);
@@ -3993,16 +4005,16 @@ class DocumentManager
                     // insert new ones, create a new search engine document,
                     // and remove the old one
                     // Get search_did
-                    $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                    $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-                    $sql = sprintf($sql, $tbl_se_ref, $course_code, TOOL_DOCUMENT, $docid);
+                    $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                        ->findOneBy([
+                            'course' => $course,
+                            'toolId' => TOOL_DOCUMEMT,
+                            'refIdHighLevel' => $docid
+                        ]);
 
-                    $res = Database::query($sql);
-
-                    if (Database::num_rows($res) > 0) {
-                        $se_ref = Database::fetch_array($res);
+                    if ($se_ref) {
                         if (!$simulation) {
-                            $di->remove_document($se_ref['search_did']);
+                            $di->remove_document($se_ref->getSearchDid());
                         }
                         $all_specific_terms = '';
                         foreach ($specific_fields as $specific_field) {
@@ -4039,10 +4051,13 @@ class DocumentManager
 
                             if ($did) {
                                 // update the search_did on db
-                                $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                                $sql = 'UPDATE %s SET search_did=%d WHERE id=%d LIMIT 1';
-                                $sql = sprintf($sql, $tbl_se_ref, (int) $did, (int) $se_ref['id']);
-                                Database::query($sql);
+                                $em->createQuery('
+                                        UPDATE ChamiloCoreBundle:SearchEngineRef ser
+                                        SET ser.searchDid = ?1
+                                        WHERE id = ?2
+                                    ')
+                                    ->setMaxResults(1)
+                                    ->execute([1 => $did, 2 => $se_ref->getId()]);
                             }
                         }
                     }
@@ -4075,11 +4090,15 @@ class DocumentManager
                         $did = $di->index();
                         if ($did) {
                             // Save it to db
-                            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                            $sql = 'INSERT INTO %s (id, course_code, tool_id, ref_id_high_level, search_did)
-                            VALUES (NULL , \'%s\', \'%s\', %s, %s)';
-                            $sql = sprintf($sql, $tbl_se_ref, $course_code, TOOL_DOCUMENT, $docid, $did);
-                            Database::query($sql);
+                            $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                            $searchEngineRef
+                                ->setCourse($course)
+                                ->setToolId(TOOL_DOCUMENT)
+                                ->setRefIdHighLevel($docid)
+                                ->setSearchDid($did);
+
+                            $em->persist($searchEngineRef);
+                            $em->flush();
                         } else {
                             return false;
                         }

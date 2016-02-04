@@ -13,11 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class SearchEngineRef
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="course_code", type="string", length=40, nullable=false)
+     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="searchEngineRefs")
+     * @JoinColumn(name="c_id", referencedColumnName="id")
      */
-    private $courseCode;
+    private $course;
 
     /**
      * @var string
@@ -59,26 +58,24 @@ class SearchEngineRef
 
 
     /**
-     * Set courseCode
-     *
-     * @param string $courseCode
-     * @return SearchEngineRef
+     * Set course
+     * @param \Chamilo\CoreBundle\Entity\Course $course
+     * @return \Chamilo\CoreBundle\Entity\SearchEngineRef
      */
-    public function setCourseCode($courseCode)
+    public function setCourse(Course $course)
     {
-        $this->courseCode = $courseCode;
+        $this->course = $course;
 
         return $this;
     }
 
     /**
-     * Get courseCode
-     *
-     * @return string
+     * Get course
+     * @return \Chamilo\CoreBundle\Entity\Course
      */
-    public function getCourseCode()
+    public function getCourse()
     {
-        return $this->courseCode;
+        return $this->course;
     }
 
     /**
