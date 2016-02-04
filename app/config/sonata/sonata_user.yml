@@ -9,12 +9,13 @@ doctrine:
                     SonataUserBundle: ~
 sonata_user:
     admin:
-      user:
-        class: Chamilo\UserBundle\Admin\UserAdmin
+        user:
+            class: Chamilo\UserBundle\Admin\UserAdmin
 
-    class:                  # Entity Classes
-        user:               Chamilo\UserBundle\Entity\User
-        group:              Chamilo\UserBundle\Entity\Group
+    class:
+        # Entity Classes
+        user: Chamilo\UserBundle\Entity\User
+        group: Chamilo\UserBundle\Entity\Group
 
     security_acl:             false
     table:

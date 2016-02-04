@@ -23,7 +23,6 @@ class Version20151019163400 implements Migration, OrderedMigrationInterface
         return 2;
     }
 
-
     /**
      * @param Schema $schema
      */

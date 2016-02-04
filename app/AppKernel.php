@@ -53,6 +53,11 @@ class AppKernel extends Kernel
             //new Sonata\TranslationBundle\SonataTranslationBundle(),
             new Sonata\PageBundle\SonataPageBundle(),
 
+            new Spy\TimelineBundle\SpyTimelineBundle(),
+            new Sonata\TimelineBundle\SonataTimelineBundle(),
+
+            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
+
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -104,6 +109,7 @@ class AppKernel extends Kernel
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
             new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
             new Chamilo\AdminBundle\ChamiloAdminBundle(),
+            new Chamilo\TimelineBundle\ChamiloTimelineBundle(),
 
             // Based in Sonata
             new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),

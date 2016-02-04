@@ -36,7 +36,7 @@ imports:
 #    - { resource: sonata/sonata_user.yml }
 #    - { resource: sonata/sonata_notification.yml }
     - { resource: sonata/sonata_classification.yml }
-
+    - { resource: sonata/sonata_timeline.yml }
   # Sylius
     - { resource: sylius.yml }
 
@@ -176,8 +176,8 @@ swiftmailer:
     spool:     { type: memory }
 
 doctrine_migrations:
-    dir_name: %kernel.root_dir%/Migrations/Schema/V20/
-    namespace: Application\Migrations\Schema\V20
+    dir_name: %kernel.root_dir%/../src/Chamilo/CoreBundle/Migrations/Schema/V2_0_0
+    namespace: Chamilo\CoreBundle\Migrations\Schema\V_2_0_0
     table_name: version
     name: Chamilo Migrations
 
@@ -278,3 +278,18 @@ knp_menu:
 #            client_secret:       <client_secret>
 
 gregwar_captcha: ~
+
+# Doctrine audit
+sonata_doctrine_orm_admin:
+    audit:
+        force: false
+
+simple_things_entity_audit:
+    global_ignore_columns:
+        - created_at
+        - updated_at
+
+#simple_things_entity_audit:
+#    audited_entities:
+#        - Chamilo\CoreBundle\Entity\Course
+#        - Chamilo\CoreBundle\Entity\Session

@@ -134,41 +134,42 @@ class UserAdmin extends BaseUserAdmin
             ->add('twoStepVerificationCode', null, array('required' => false))
             ->end()
             ->end();
-        $formMapper
-            ->tab('ExtraFields')
-            ->with('ExtraFields')
-            ->add(
-                'extraFields',
-                'sonata_type_collection',
-                array(
-                    'cascade_validation' => true,
-                    /*'type_options' => array(
-                        // Prevents the "Delete" option from being displayed
-                        'delete' => false,
-                        'delete_options' => array(
-                            // You may otherwise choose to put the field but hide it
-                            'type'         => 'hidden',
-                            // In that case, you need to fill in the options as well
-                            'type_options' => array(
-                                'mapped'   => false,
-                                'required' => false,
-                            )
-                        )
-                    )*/
-                ),
-                array(
-                    'allow_delete' => true,
-                    'by_reference' => false,
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'admin_code' => 'sonata.admin.user_field_values'
-                    /* 'edit' => 'inline',
-                     'inline' => 'table',
-                     'sortable' => 'position',*/
-                )
-            )
-            ->end()
-            ->end();
+//
+//        $formMapper
+//            ->tab('ExtraFields')
+//            ->with('ExtraFields')
+//            ->add(
+//                'extraFields',
+//                'sonata_type_collection',
+//                array(
+//                    'cascade_validation' => true,
+//                    /*'type_options' => array(
+//                        // Prevents the "Delete" option from being displayed
+//                        'delete' => false,
+//                        'delete_options' => array(
+//                            // You may otherwise choose to put the field but hide it
+//                            'type'         => 'hidden',
+//                            // In that case, you need to fill in the options as well
+//                            'type_options' => array(
+//                                'mapped'   => false,
+//                                'required' => false,
+//                            )
+//                        )
+//                    )*/
+//                ),
+//                array(
+//                    'allow_delete' => true,
+//                    'by_reference' => false,
+//                    'edit' => 'inline',
+//                    'inline' => 'table',
+//                    'admin_code' => 'sonata.admin.user_field_values'
+//                    /* 'edit' => 'inline',
+//                     'inline' => 'table',
+//                     'sortable' => 'position',*/
+//                )
+//            )
+//            ->end()
+//            ->end();
 
     }
 

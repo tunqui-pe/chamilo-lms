@@ -2,7 +2,7 @@ services:
     sonata.admin.session:
         class: Chamilo\CoreBundle\Admin\SessionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "LMS", label: "Session" }
+            - { name: sonata.admin, manager_type: orm, audit: true, group: "LMS", label: "Session" }
         arguments:
             - ~
             - Chamilo\CoreBundle\Entity\Session
