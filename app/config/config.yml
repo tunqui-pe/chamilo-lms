@@ -43,6 +43,8 @@ imports:
 #    - { resource: @CmfBlogBundle/Resources/config/cmf_routing_auto.xml }
 #    - { resource: @CmfBlogBundle/Resources/config/admin.yml }
 
+    - { resource: ivory_ckeditor.yml }
+
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
@@ -75,16 +77,16 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14
 
     form:
         resources:
             - 'bootstrap_3_layout.html.twig'
-#            - 'SonataFormatterBundle:Form:formatter.html.twig'
+            - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'
-#            - 'ChamiloCoreBundle:Form:fields.html.twig'
 
-#    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
     paths:
           "%kernel.root_dir%/../src/Chamilo/CoreBundle/Resources/views/default": template_style
@@ -215,30 +217,6 @@ oneup_flysystem:
             cache: ~
             alias: ~
             mount: ~
-
-ivory_ck_editor:
-    autoload: false
-    base_path: "bundles/ivoryckeditor"
-    js_path:   "bundles/ivoryckeditor/ckeditor.js"
-    default_config: default
-    configs:
-        default:
-            filebrowserBrowseRoute: elfinder
-            filebrowserBrowseRouteParameters: []
-    plugins:
-        wordcount:
-            path:     "/bundles/chamilocore/ckeditor/plugins/wordcount"
-            filename: "plugin.js"
-#        adobeair:
-#            path:     "/bundles/chamilocore/components/ckeditor/plugins/adobeair"
-#            filename: "plugin.js"
-#        iframedialog:
-#            path:     "/bundles/chamilocore/components/ckeditor/plugins/iframedialog"
-#            filename: "plugin.js"
-#        docprops:
-#            path:     "/bundles/chamilocore/components/ckeditor/plugins/docprops"
-#            filename: "plugin.js"
-#
 
 #jms_translation:
 #    configs:

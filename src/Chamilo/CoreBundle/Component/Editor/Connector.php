@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Chamilo\UserBundle\Entity\User;
 use Chamilo\CoreBundle\Entity\Course;
 
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Routing\Router;
 use Chamilo\CoreBundle\Component\Editor\Driver\Driver;
@@ -43,7 +44,7 @@ class Connector
     public function __construct(
         EntityManager $entityManager,
         array $paths,
-        Router $urlGenerator,
+        RouterInterface $urlGenerator,
         Translator $translator,
         SecurityContext $security,
         $user,

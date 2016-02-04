@@ -32,6 +32,7 @@ sonata_page:
         - ^/userportal/(.*)
         - ^/js/(.*)
         - ^/courses/(.*)
+        - front/editor
 
     ignore_route_patterns:
         - (.*)administration(.*)     # ignore admin route, ie route containing 'admin'  # sonata admin

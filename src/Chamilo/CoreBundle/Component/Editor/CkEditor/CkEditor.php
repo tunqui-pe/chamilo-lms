@@ -169,7 +169,7 @@ class CkEditor extends Editor
         return [[
             'title' => get_lang('EmptyTemplate'),
             'description' => null,
-            'image' => api_get_path(WEB_APP_PATH) . 'home/default_platform_document/template_thumb/empty.gif',
+            'image' => api_get_path(WEB_IMG_PATH) . 'home/default_platform_document/template_thumb/empty.gif',
             'html' => '
                 <!DOCYTPE html>
                 <html>
@@ -210,7 +210,7 @@ class CkEditor extends Editor
         foreach ($systemTemplates as $template) {
             $image = $template->getImage();
             $image = !empty($image) ? $image : 'empty.gif';
-            $image = api_get_path(WEB_APP_PATH) . 'home/default_platform_document/template_thumb/' . $image;
+            $image = api_get_path(WEB_IMG_PATH) . 'home/default_platform_document/template_thumb/' . $image;
 
             /*$image = $this->urlGenerator->generate(
                 'get_document_template_action',
@@ -266,8 +266,7 @@ class CkEditor extends Editor
             $templateItem = [];
             $templateItem['title'] = $template->getTitle();
             $templateItem['description'] = $template->getDescription();
-            $templateItem['image'] = api_get_path(WEB_APP_PATH)
-                . 'home/default_platform_document/template_thumb/noimage.gif';
+            $templateItem['image'] = api_get_path(WEB_IMG_PATH). 'home/default_platform_document/template_thumb/noimage.gif';
             $templateItem['html'] = file_get_contents(api_get_path(SYS_COURSE_PATH)
                 . $courseDirectory . '/document' . $templateData['path']);
 

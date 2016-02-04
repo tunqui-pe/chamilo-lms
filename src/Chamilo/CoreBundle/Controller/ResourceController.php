@@ -93,25 +93,6 @@ class ResourceController extends BaseController
      * @param string $file
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getDefaultPlatformDocumentAction(Application $app, $file)
-    {
-        try {
-            $file = $app['chamilo.filesystem']->get(
-                'default_platform_document/'.$file
-            );
-
-            return $app->sendFile($file->getPathname());
-        } catch (\InvalidArgumentException $e) {
-            return $app->abort(404, 'File not found');
-        }
-    }
-
-    /**
-     * Gets a document from the data/default_platform_document/* folder
-     * @param Application $app
-     * @param string $file
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
-     */
     public function getDefaultCourseDocumentAction(Application $app, $file)
     {
         try {
