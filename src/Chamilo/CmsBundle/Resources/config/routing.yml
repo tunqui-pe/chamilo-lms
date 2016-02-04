@@ -1,3 +1,0 @@
-#chamilo_cms_homepage:
-#    path:     /hello/{name}
-#    defaults: { _controller: ChamiloCmsBundle:Default:index }
