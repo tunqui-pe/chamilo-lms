@@ -42,7 +42,7 @@
     '@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'
     %}
 
-    <link href="{{ asset_url | replace({'/app_dev.php': ''}) }}" type="text/css" rel="stylesheet" media="screen" />
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
 
     {# Chamilo theme #}
@@ -75,7 +75,7 @@
     {# Check chamilo_js key in assetic.yml #}
     {% block javascripts %}
     {%- javascripts '@chamilo_js' -%}
-    <script src="{{ asset_url | replace({'/app_dev.php': ''}) }} "></script>
+    <script src="{{ asset_url }} "></script>
     {% endjavascripts %}
 
     <script src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}" type="text/javascript"></script>
