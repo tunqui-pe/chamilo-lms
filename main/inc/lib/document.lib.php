@@ -547,6 +547,9 @@ class DocumentManager
         $TABLE_ITEMPROPERTY = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $TABLE_DOCUMENT = Database::get_course_table(TABLE_DOCUMENT);
 
+        $em = Database::getManager();
+
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $_course['code']]);
         $userGroupFilter = '';
         if (!is_null($to_user_id)) {
             $to_user_id = intval($to_user_id);
@@ -650,14 +653,14 @@ class DocumentManager
                     pathinfo($row['path'], PATHINFO_EXTENSION) == 'html'
                 ) {
                     // Templates management
-                    $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
-                    $sql = "SELECT id FROM $table_template
-                            WHERE
-                                course_code = '" . $_course['code'] . "' AND
-                                user_id = '".api_get_user_id()."' AND
-                                ref_doc = '".$row['id']."'";
-                    $template_result = Database::query($sql);
-                    $row['is_template'] = (Database::num_rows($template_result) > 0) ? 1 : 0;
+                    $template_result = $em
+                        ->getRepository('ChamiloCoreBudle:Templates')
+                        ->findBy([
+                            'course' => $course,
+                            'userId' => api_get_course_id(),
+                            'refDoc' => $row['id']
+                        ]);
+                    $row['is_template'] = !empty($template_result) ? 1 : 0;
                 }
                 // Just filling $document_data.
                 $document_data[$row['id']] = $row;
@@ -1490,17 +1493,22 @@ class DocumentManager
      */
     public static function set_document_as_template($title, $description, $document_id_for_template, $course_code, $user_id, $image)
     {
-        // Database table definition
-        $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
-        $params = [
-            'title' => $title,
-            'description' => $description,
-            'course_code' => $course_code,
-            'user_id' => $user_id,
-            'ref_doc' => $document_id_for_template,
-            'image' => $image,
-        ];
-        Database::insert($table_template, $params);
+        $em = Database::getManager();
+
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
+
+        $template = new \Chamilo\CoreBundle\Entity\Templates();
+        $template
+            ->setTitle($title)
+            ->setDescription($description)
+            ->setCourse($course)
+            ->setUserId($user_id)
+            ->setRefDoc($document_id_for_template)
+            ->setImage($image);
+
+        $em->persist($template);
+        $em->flush();
+
         return true;
     }
 
@@ -1513,28 +1521,36 @@ class DocumentManager
      */
     public static function unset_document_as_template($document_id, $course_code, $user_id)
     {
-        $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
-        $course_code = Database::escape_string($course_code);
+        $em = Database::getManager();
+
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
         $user_id = intval($user_id);
         $document_id = intval($document_id);
 
-        $sql = 'SELECT id FROM ' . $table_template . '
-                WHERE
-                    course_code="' . $course_code . '" AND
-                    user_id="' . $user_id . '" AND
-                    ref_doc="' . $document_id . '"';
-        $result = Database::query($sql);
-        $template_id = Database::result($result, 0, 0);
+        $template = $em
+            ->getRepository('ChamiloCoreBundle:Templates')
+            ->findOneBy([
+                'course' => $course,
+                'userId' => $user_id,
+                'refDoc' => $document_id
+            ]);
 
-        my_delete(api_get_path(SYS_CODE_PATH) . 'upload/template_thumbnails/' . $template_id . '.jpg');
+        if (!$template) {
+            return;
+        }
 
-        $sql = 'DELETE FROM ' . $table_template . '
-                WHERE
-                    course_code="' . $course_code . '" AND
-                    user_id="' . $user_id . '" AND
-                    ref_doc="' . $document_id . '"';
+        my_delete(api_get_path(SYS_CODE_PATH) . 'upload/template_thumbnails/' . $template->getId() . '.jpg');
 
-        Database::query($sql);
+        $em
+            ->createQuery('
+                DELETE FROM ChamiloCoreBundle:Templates t
+                WHERE t.course = :course AND t.userId = :user AND t.refDoc = :refdoc
+            ')
+            ->execute([
+                'course' => $course,
+                'user' => $user_id,
+                'refDoc' => $document_id
+            ]);
     }
 
     /**

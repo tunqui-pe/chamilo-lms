@@ -318,6 +318,11 @@ class Course
     protected $searchEngineRefs;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:Templates", mappedBy="course")
+     */
+    protected $templates;
+
+    /**
      * Constructor
      */
     public function __construct()
