@@ -323,6 +323,11 @@ class Course
     protected $templates;
 
     /**
+     * @OneToMany(targetEntity="ChamiloCoreBundle:SpecificFieldValues", mappedBy="course")
+     */
+    protected $specificFieldValues;
+
+    /**
      * Constructor
      */
     public function __construct()

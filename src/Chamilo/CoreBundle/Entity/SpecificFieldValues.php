@@ -20,6 +20,12 @@ class SpecificFieldValues
     private $courseCode;
 
     /**
+     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="specificFieldValues")
+     * @JoinColumn(name="c_id", referencedColumnName="id")
+     */
+    private $course;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="tool_id", type="string", length=100, nullable=false)
@@ -56,7 +62,26 @@ class SpecificFieldValues
      */
     private $id;
 
+    /**
+     * Set course
+     * @param \Chamilo\CoreBundle\Entity\Course $course
+     * @return \Chamilo\CoreBundle\Entity\SpecificFieldValues
+     */
+    public function setCourse(Course $course)
+    {
+        $this->course = $course;
 
+        return $this;
+    }
+
+    /**
+     * Get course
+     * @return \Chamilo\CoreBundle\Entity\Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
 
     /**
      * Set courseCode
