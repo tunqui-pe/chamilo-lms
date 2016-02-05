@@ -58,13 +58,6 @@ class PersonalAgenda
     private $enddate;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="course", type="string", length=255, nullable=true)
-     */
-    private $course;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="parent_event_id", type="integer", nullable=true)
@@ -199,29 +192,6 @@ class PersonalAgenda
     public function getEnddate()
     {
         return $this->enddate;
-    }
-
-    /**
-     * Set course
-     *
-     * @param string $course
-     * @return PersonalAgenda
-     */
-    public function setCourse($course)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return string
-     */
-    public function getCourse()
-    {
-        return $this->course;
     }
 
     /**

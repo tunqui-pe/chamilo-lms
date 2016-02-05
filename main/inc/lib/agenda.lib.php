@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Agenda
@@ -26,7 +27,6 @@ class Agenda
     {
         //Table definitions
         $this->tbl_global_agenda = Database::get_main_table(TABLE_MAIN_SYSTEM_CALENDAR);
-        $this->tbl_personal_agenda = Database::get_main_table(TABLE_PERSONAL_AGENDA);
         $this->tbl_course_agenda = Database::get_course_table(TABLE_AGENDA);
         $this->table_repeat = Database::get_course_table(TABLE_AGENDA_REPEAT);
 
@@ -141,6 +141,7 @@ class Agenda
         $eventComment = '',
         $color = ''
     ) {
+        $em = Database::getManager();
         $start = api_get_utc_datetime($start);
         $end = api_get_utc_datetime($end);
         $allDay = isset($allDay) && $allDay == 'true' ? 1 : 0;
@@ -150,20 +151,20 @@ class Agenda
 
         switch ($this->type) {
             case 'personal':
-                $attributes = array(
-                    'user' => api_get_user_id(),
-                    'title' => $title,
-                    'text' => $content,
-                    'date' => $start,
-                    'enddate' => $end,
-                    'all_day' => $allDay,
-                    'color' => $color
-                );
+                $personalAgenda = new Chamilo\CoreBundle\Entity\PersonalAgenda();
+                $personalAgenda
+                    ->setUser(api_get_user_id())
+                    ->setTitle($title)
+                    ->setText($content)
+                    ->setDate($start)
+                    ->setEnddate($end)
+                    ->setAllDay($allDay)
+                    ->setColor($color);
 
-                $id = Database::insert(
-                    $this->tbl_personal_agenda,
-                    $attributes
-                );
+                $em->persist($personalAgenda);
+                $em->flush();
+
+                $id = $personalAgenda->getId();
                 break;
             case 'course':
                 $attributes = array(
@@ -575,6 +576,7 @@ class Agenda
         $comment = '',
         $color = ''
     ) {
+        $em = Database::getManager();
         $start = api_get_utc_datetime($start);
         $end = api_get_utc_datetime($end);
         $allDay = isset($allDay) && $allDay == 'true' ? 1 : 0;
@@ -587,19 +589,17 @@ class Agenda
                 if ($eventInfo['user'] != api_get_user_id()) {
                     break;
                 }
-                $attributes = array(
-                    'title' => $title,
-                    'text' => $content,
-                    'date' => $start,
-                    'enddate' => $end,
-                    'all_day' => $allDay,
-                    'color' => $color
-                );
-                Database::update(
-                    $this->tbl_personal_agenda,
-                    $attributes,
-                    array('id = ?' => $id)
-                );
+                $personalAgenda = $em->find('ChamiloCoreBundle:PersonalAgenda', $id);
+                $personalAgenda
+                    ->setTitle($title)
+                    ->setText($content)
+                    ->setDate($start)
+                    ->setEnddate($end)
+                    ->setAllDay($allDay)
+                    ->setColor($color);
+
+                $em->persist($personalAgenda);
+                $em->flush();
                 break;
             case 'course':
                 $eventInfo = $this->get_event($id);
@@ -815,14 +815,15 @@ class Agenda
      */
     public function delete_event($id, $deleteAllItemsFromSerie = false)
     {
+        $em = Database::getManager();
         switch ($this->type) {
             case 'personal':
                 $eventInfo = $this->get_event($id);
                 if ($eventInfo['user'] == api_get_user_id()) {
-                    Database::delete(
-                        $this->tbl_personal_agenda,
-                        array('id = ?' => $id)
-                    );
+                    $personalAgenda = $em->find('ChamiloCoreBundle:PersonalAgenda', $id);
+
+                    $em->remove($personalAgenda);
+                    $em->flush();
                 }
                 break;
             case 'course':
@@ -1080,6 +1081,7 @@ class Agenda
      */
     public function resize_event($id, $day_delta, $minute_delta)
     {
+        $em = Database::getManager();
         // we convert the hour delta into minutes and add the minute delta
         $delta = ($day_delta * 60 * 24) + $minute_delta;
         $delta = intval($delta);
@@ -1088,10 +1090,19 @@ class Agenda
         if (!empty($event)) {
             switch ($this->type) {
                 case 'personal':
-                    $sql = "UPDATE $this->tbl_personal_agenda SET
-                            all_day = 0, enddate = DATE_ADD(enddate, INTERVAL $delta MINUTE)
-							WHERE id=".intval($id);
-                    Database::query($sql);
+                    $personalAgenda = $em->find('ChamiloCoreBundle:PersonalAgenda', $id);
+
+                    if ($personalAgenda) {
+                        $newEndDate = $personalAgenda->getEnddate();
+                        $newEndDate->add(new DateInterval("PT" . $delta . "M"));
+
+                        $personalAgenda
+                            ->setAllDay(0)
+                            ->setEnddate($newEndDate);
+
+                        $em->persist($newEndDate);
+                        $em->flush();
+                    }
                     break;
                 case 'course':
                     $sql = "UPDATE $this->tbl_course_agenda SET
@@ -1118,6 +1129,7 @@ class Agenda
      */
     public function move_event($id, $day_delta, $minute_delta)
     {
+        $em = Database::getManager();
         // we convert the hour delta into minutes and add the minute delta
         $delta = ($day_delta * 60 * 24) + $minute_delta;
         $delta = intval($delta);
@@ -1132,11 +1144,23 @@ class Agenda
         if (!empty($event)) {
             switch ($this->type) {
                 case 'personal':
-                    $sql = "UPDATE $this->tbl_personal_agenda SET
-                            all_day = $allDay, date = DATE_ADD(date, INTERVAL $delta MINUTE),
-                            enddate = DATE_ADD(enddate, INTERVAL $delta MINUTE)
-							WHERE id=".intval($id);
-                    Database::query($sql);
+                    $personalAgenda = $em->find('ChamiloCoreBundle:PersonalAgenda', $id);
+                    $personalAgenda = new Chamilo\CoreBundle\Entity\PersonalAgenda();
+
+                    if ($personalAgenda) {
+                        $newDate = $personalAgenda->getDate();
+                        $newDate->add(new DateInterval("PT" . $delta . "M"));
+                        $newEndDate = $personalAgenda->getEnddate();
+                        $newEndDate->add(new DateInterval("PT" . $delta . "M"));
+
+                        $personalAgenda
+                            ->setAllDay($allDay)
+                            ->setDate($newDate)
+                            ->setEnddate($newEndDate);
+
+                        $em->persist($personalAgenda);
+                        $em->flush();
+                    }
                     break;
                 case 'course':
                     $sql = "UPDATE $this->tbl_course_agenda SET
@@ -1169,17 +1193,28 @@ class Agenda
         // make sure events of the personal agenda can only be seen by the user himself
         $id = intval($id);
         $event = null;
+        $em = Database::getManager();
         switch ($this->type) {
             case 'personal':
-                $sql = "SELECT * FROM ".$this->tbl_personal_agenda."
-                        WHERE id = $id AND user = ".api_get_user_id();
-                $result = Database::query($sql);
-                if (Database::num_rows($result)) {
-                    $event = Database::fetch_array($result, 'ASSOC');
-                    $event['description'] = $event['text'];
-                    $event['content'] = $event['text'];
-                    $event['start_date'] = $event['date'];
-                    $event['end_date'] = $event['enddate'];
+                $personalAgenda = $em->find('ChamiloCoreBundle:PersonalAgenda', $id);
+
+                if ($personalAgenda) {
+                    $event = [
+                        'id' => $personalAgenda->getId(),
+                        'user' => $personalAgenda->getUser(),
+                        'title' => $personalAgenda->getTitle(),
+                        'text' => $personalAgenda->getText(),
+                        'date' => $personalAgenda->getDate(),
+                        'enddate' => $personalAgenda->getEnddate(),
+                        'course' => $personalAgenda->getCourse()->getCode(),
+                        'parent_event_id' => $personalAgenda->getParentEventId(),
+                        'all_day' => $personalAgenda->getAllDay(),
+                        'color' => $personalAgenda->getColor(),
+                        'description' => $personalAgenda->getText(),
+                        'content' => $personalAgenda->getText(),
+                        'start_date' => $personalAgenda->getDate(),
+                        'end_date' => $personalAgenda->getEnddate()
+                    ];
                 }
                 break;
             case 'course':
@@ -1234,48 +1269,59 @@ class Agenda
      */
     public function getPersonalEvents($start, $end)
     {
+        $em = Database::getManager();
+
         $start = intval($start);
         $end = intval($end);
-        $startCondition = '';
-        $endCondition = '';
-
-        if ($start !== 0) {
-            $start = api_get_utc_datetime($start);
-            $startCondition = "AND date >= '".$start."'";
-        }
-        if ($start !== 0) {
-            $end = api_get_utc_datetime($end);
-            $endCondition = "AND (enddate <= '".$end."' OR enddate IS NULL)";
-        }
         $user_id = api_get_user_id();
 
-        $sql = "SELECT * FROM ".$this->tbl_personal_agenda."
-                WHERE user = $user_id $startCondition $endCondition";
+        $criteria = Criteria::create();
+        $criteria->where(
+            Criteria::expr()->eq('user', $user_id)
+        );
 
-        $result = Database::query($sql);
+        if ($start !== 0) {
+            $start = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+
+            $criteria->andWhere(
+                Criteria::expr()->gte('date', $start)
+            );
+        }
+        if ($start !== 0) {
+            $end = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+
+            $criteria->andWhere(
+                Criteria::expr()->orX(
+                    Criteria::expr()->lte('enddate', $end),
+                    Criteria::expr()->isNull('enddate')
+                )
+            );
+        }
+
+        $result = $em->getRepository('ChamiloCoreBundle:PersonalAgenda')->matching($criteria);
         $my_events = array();
-        if (Database::num_rows($result)) {
-            while ($row = Database::fetch_array($result, 'ASSOC')) {
+        if ($result->count()) {
+            foreach ($result as $row) {
                 $event = array();
-                $event['id'] = 'personal_'.$row['id'];
-                $event['title'] = $row['title'];
+                $event['id'] = 'personal_' . $row->getId();
+                $event['title'] = $row->getTitle();
                 $event['className'] = 'personal';
                 $event['borderColor'] = $event['backgroundColor'] = $this->event_personal_color;
                 $event['editable'] = true;
                 $event['sent_to'] = get_lang('Me');
                 $event['type'] = 'personal';
 
-                if (!empty($row['date']) && $row['date'] != '0000-00-00 00:00:00') {
-                    $event['start'] = $this->formatEventDate($row['date']);
-                    $event['start_date_localtime'] = api_get_local_time($row['date']);
+                if (!empty($row->getDate())) {
+                    $event['start'] = $this->formatEventDate($row->getDate());
+                    $event['start_date_localtime'] = api_get_local_time($row->getDate());
                 }
 
-                if (!empty($row['enddate']) && $row['enddate'] != '0000-00-00 00:00:00') {
-                    $event['end'] = $this->formatEventDate($row['enddate']);
-                    $event['end_date_localtime'] = api_get_local_time($row['enddate']);
+                if (!empty($row->getEnddate())) {
+                    $event['end'] = $this->formatEventDate($row->getEnddate());
+                    $event['end_date_localtime'] = api_get_local_time($row->getEnddate());
                 }
-                $event['description'] = $row['text'];
-                $event['allDay'] = isset($row['all_day']) && $row['all_day'] == 1 ? $row['all_day'] : 0;
+                $event['description'] = $row->getText();
+                $event['allDay'] = $row->getAllDay();
 
                 $event['parent_event_id'] = 0;
                 $event['has_children'] = 0;
@@ -3079,12 +3125,12 @@ class Agenda
             }
 
             // if the student has specified a course we a add a link to that course
-            if ($item['course'] <> "") {
+            /*if ($item['course'] <> "") {
                 $url = api_get_path(WEB_CODE_PATH)."calendar/agenda.php?cidReq=".urlencode($item['course'])."&day=$day&month=$month&year=$year#$day"; // RH  //Patrick Cool: to highlight the relevant agenda item
                 $course_link = "<a href=\"$url\" title=\"".$item['course']."\">".$item['course']."</a>";
             } else {
                 $course_link = "";
-            }
+            }*/
             // Creating the array that will be returned. If we have week or month view we have an array with the date as the key
             // if we have a day_view we use a half hour as index => key 33 = 16h30
             if ($type !== "day_view") {
