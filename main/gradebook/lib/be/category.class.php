@@ -1,6 +1,5 @@
 <?php
 /* For licensing terms, see /license.txt */
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Category
@@ -394,31 +393,34 @@ class Category implements GradebookItem
         }
 
         $em = Database::getManager();
-        $criteria = Criteria::create();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gc')
+            ->from('ChamiloCoreBundle:GradebookCategory', 'gc');
 
         if (isset($id)) {
             $id = intval($id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('id', $id)
+            $qb->andWhere(
+                $qb->expr()->eq('gc.id', $id)
             );
         }
 
         if (isset($user_id)) {
             $user_id = intval($user_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('userId', $user_id)
+            $qb->andWhere(
+                $qb->expr()->eq('gc.userId', $user_id)
             );
         }
 
         if (isset($course_code)) {
             if ($course_code == '0') {
-                $criteria->andWhere(
-                    Criteria::expr()->isNull('course')
+                $qb->andWhere(
+                    $qb->expr()->isNull('gc.course')
                 );
             } else {
                 $courseId = api_get_course_int_id($course_code);
-                $criteria->andWhere(
-                    Criteria::expr()->eq('course', $courseId)
+                $qb->andWhere(
+                    $qb->expr()->eq('gc.course', $courseId)
                 );
             }
 
@@ -429,16 +431,16 @@ class Category implements GradebookItem
                 $sql .= " AND (session_id IS NULL OR session_id = 0) ";
             } else {*/
             if (empty($session_id)) {
-                $criteria->andWhere(
-                    Criteria::expr()->orX(
-                        Criteria::expr()->isNull('sessionId'),
-                        Criteria::expr()->eq('sessionId', 0)
+                $qb->andWhere(
+                    $qb->expr()->orX(
+                        $qb->expr()->isNull('gc.sessionId'),
+                        $qb->expr()->eq('gc.sessionId', 0)
                     )
                 );
             } else {
                 $session_id = intval($session_id);
-                $criteria->andWhere(
-                    Criteria::expr()->eq('sessionId', $session_id)
+                $qb->andWhere(
+                    $qb->expr()->eq('gc.sessionId', $session_id)
                 );
             }
             //}
@@ -446,29 +448,29 @@ class Category implements GradebookItem
 
         if (isset($parent_id)) {
             $parent_id = intval($parent_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('parentId', $parent_id)
+            $qb->andWhere(
+                $qb->expr()->eq('gc.parentId', $parent_id)
             );
         }
 
         if (isset($visible)) {
             $visible = intval($visible);
-            $criteria->andWhere(
-                Criteria::expr()->eq('visible', $visible)
+            $qb->andWhere(
+                $qb->expr()->eq('gc.visible', $visible)
             );
         }
 
         if (!empty($order_by) && is_array($order_by)) {
-            $criteria->orderBy([$order_by]);
+            foreach ($order_by as $sort => $order) {
+                $qb->orderBy("gc.$sort", $order);
+            }
         }
 
-        $result = $em
-            ->getRepository('ChamiloCoreBundle:GradebookCategory')
-            ->matching($criteria);
+        $result = $qb->getQuery()->getResult();
 
         $categories = array();
 
-        if ($result->count() > 0) {
+        if (count($result) > 0) {
             $categories = Category::createCategoryObjectsFromEntities($result);
         }
 
@@ -590,7 +592,7 @@ class Category implements GradebookItem
             $course = $em
                 ->getRepository('ChamiloCoreBundle:Course')
                 ->findOneBy([
-                    'course' => $this->course_code
+                    'code' => $this->course_code
                 ]);
 
             $category = new \Chamilo\CoreBundle\Entity\GradebookCategory();
@@ -797,7 +799,7 @@ class Category implements GradebookItem
         $num = $em
             ->createQuery('
                 SELECT COUNT(gc) FROM ChamiloCoreBundle:GradebookCategory gc
-                WHERE course = :course AND visible = 3
+                WHERE gc.course = :course AND gc.visible = 3
             ')
             ->setParameter('course', $courseId)
             ->getSingleScalarResult();

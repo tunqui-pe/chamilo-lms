@@ -2,7 +2,6 @@
 /* See license terms in /license.txt */
 
 //use Chamilo\UserBundle\Entity\User;
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Event
@@ -1651,20 +1650,18 @@ class Event
         $list = array();
 
         $em = Database::getManager();
-        $criteria = Criteria::create();
-        $criteria
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('tea')
+            ->from('ChamiloCoreBundle:TrackEAttempt')
             ->where(
-                Criteria::expr()->eq('exeId', $exe_id)
+                $qb->expr()->eq('tea.exeId', $exe_id)
             )
-            ->orderBy([
-                'position' => Criteria::ASC
-            ]);
+            ->orderBy('tea.position', 'ASC');
 
-        $res_question = $em
-            ->getRepository('ChamiloCoreBundle:TrackeEAttempt')
-            ->matching($criteria);
+        $res_question = $qb->getQuery()->getResult();
 
-        if ($res_question->count()) {
+        if (count($res_question)) {
             foreach ($res_question as $row) {
                 $list[$row->getQuestionId()][] = $row;
             }

@@ -1,6 +1,5 @@
 <?php
 /* For licensing terms, see /license.txt */
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class GradebookUtils
@@ -455,24 +454,26 @@ class GradebookUtils
         $id_link = intval($id_link);
 
         $em = Database::getManager();
-        $criteria = Criteria::create();
-        $criteria
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gl')
+            ->from('ChamiloCoreBundle:GradebookLink', 'gl')
             ->where(
-                Criteria::expr()->eq('id', $id_link)
+                $qb->expr()->eq('gl.id', $id_link)
             )
             ->orWhere(
-                Criteria::expr()->eq('categoryId', $id_link)
+                $qb->expr()->eq('gl.categoryId', $id_link)
             );
 
-        $result = $em->getRepository('ChamiloCoreBundle:GradebookLink')->matching($criteria);
+        $result = $qb->getQuery()->getResult();
 
-        if ($result->count() === 0) {
+        if (count($result) === 0) {
             return false;
         }
 
-        $array = $result->current();
+        $array = current($result);
 
-        return $array->getCourse()->Id();
+        return $array->getCourse()->getId();
     }
 
     /**
@@ -826,33 +827,32 @@ class GradebookUtils
             $courseId = api_get_course_int_id($course_code);
 
             $em = Database::getManager();
-            $criteria = Criteria::create();
+            $qb = $em->createQueryBuilder();
+            $qb
+                ->select('gc')
+                ->from('ChamiloCoreBundle:GradebookCategory', 'gc');
 
-            $criteria->where(
-                Criteria::expr()->eq('course', $courseId)
+            $qb->where(
+                $qb->expr()->eq('gc.course', $courseId)
             );
 
             if (!empty($session_id)) {
-                $criteria->andWhere(
-                    Criteria::expr()->eq('sessionId', $session_id)
+                $qb->andWhere(
+                    $qb->expr()->eq('gc.sessionId', $session_id)
                 );
             } else {
-                $criteria->andWhere(
-                    Criteria::expr()->orX(
-                        Criteria::expr()->isNull('sessionId'),
-                        Criteria::expr()->eq('sessionId', 0)
+                $qb->andWhere(
+                    $qb->expr()->orX(
+                        $qb->expr()->isNull('gc.sessionId'),
+                        $qb->expr()->eq('gc.sessionId', 0)
                     )
                 );
             }
-            $criteria->orderBy([
-                'id' => Criteria::ASC
-            ]);
+            $qb->orderBy('gc.id', 'ASC');
 
-            $res = $em
-                ->getRepository('ChamiloCoreBundle:GradebookCategory')
-                ->matching($criteria);
+            $res = $qb->getQuery()->getResult();
 
-            if ($res->count() < 1) {
+            if (count($res) < 1) {
                 //there is no unique category for this course+session combination,
                 $cat = new Category();
                 if (!empty($session_id)) {
@@ -881,7 +881,7 @@ class GradebookUtils
                 $category_id = $cat->get_id();
                 unset($cat);
             } else {
-                $row = $res->current();
+                $row = current($res);
                 $category_id = $row->getId();
             }
         }

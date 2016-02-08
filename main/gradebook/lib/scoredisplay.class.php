@@ -1,6 +1,5 @@
 <?php
 /* For licensing terms, see /license.txt */
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class ScoreDisplay
@@ -177,27 +176,28 @@ class ScoreDisplay
         $curr_session_id = api_get_session_id();
 
         $em = Database::getManager();
-        $criteria = Criteria::create();
-        $criteria->where(
-            Criteria::expr()->eq('course', $curr_course_id)
-        );
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gc')
+            ->from('ChamiloCoreBundle:GradebookCategory')
+            ->where(
+                Criteria::expr()->eq('course', $curr_course_id)
+            );
 
         if (empty($curr_session_id)) {
-            $criteria->andWhere(
-                Criteria::expr()->isNull('sessionId')
+            $qb->andWhere(
+                $qb->expr()->isNull('sessionId')
             );
         } else {
-            $criteria->andWhere(
-                Criteria::expr()->eq('sessionId', $curr_session_id)
+            $qb->andWhere(
+                $qb->expr()->eq('sessionId', $curr_session_id)
             );
         }
 
-        $rs = $em
-            ->getRepository('ChamiloCoreBundle:GradebookCategory')
-            ->matching($criteria);
+        $rs = $qb->getQuery()->getResult();
         $category_id = 0;
-        if ($rs->count() > 0) {
-            $row = $rs->current();
+        if (count($rs) > 0) {
+            $row = current($rs);
             $category_id = $row->getId();
         }
 

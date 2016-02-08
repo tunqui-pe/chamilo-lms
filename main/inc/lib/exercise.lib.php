@@ -273,7 +273,7 @@ class ExerciseLib
                 // Unique answer
                 if (in_array($answerType, [UNIQUE_ANSWER, UNIQUE_ANSWER_NO_OPTION, UNIQUE_ANSWER_IMAGE])) {
                     $input_id = 'choice-' . $questionId . '-' . $answerId;
-                    if (isset($user_choice[0]->getAnswer()) && $user_choice[0]->getAnswer() == $numAnswer) {
+                    if (isset($user_choice[0]) && $user_choice[0]->getAnswer() == $numAnswer) {
                         $attributes = array(
                             'id' => $input_id,
                             'checked' => 1,
@@ -558,7 +558,7 @@ class ExerciseLib
 
                     //Student's answer
                     $studentAnswerList = array();
-                    if (isset($user_choice[0]->getAnswer())) {
+                    if (isset($user_choice[0])) {
                         $arrayStudentAnswer = FillBlanks::getAnswerInfo($user_choice[0]->getAnswer(), true);
                         $studentAnswerList = $arrayStudentAnswer['studentanswer'];
                     }
@@ -654,7 +654,7 @@ class ExerciseLib
                         $correctAnswerList
                     );
                     // get student answer to display it if student go back to previous calculated answer question in a test
-                    if (isset($user_choice[0]->getAnswer())) {
+                    if (isset($user_choice[0])) {
                         api_preg_match_all(
                             '/\[[^]]+\]/',
                             $answer,

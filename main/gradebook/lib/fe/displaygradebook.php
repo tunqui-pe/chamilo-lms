@@ -613,7 +613,7 @@ class DisplayGradebook
                     );
                     if (api_get_setting(
                             'gradebook.teachers_can_change_score_settings'
-                        ) == 'true' && $score_display_custom['my_display_custom'] == 'true'
+                        ) == 'true' && $score_display_custom !== 'false' && $score_display_custom['my_display_custom'] == 'true'
                     ) {
                         $actionsRight .= '<a href="gradebook_scoring_system.php?' . $my_api_cidreq . '&selectcat=' . $catobj->get_id() . '">' .
                             Display::return_icon('ranking.png', get_lang('ScoreEdit'), '', ICON_SIZE_MEDIUM) . '</a>';

@@ -1,6 +1,5 @@
 <?php
 /* For licensing terms, see /license.txt */
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class AbstractLink
@@ -228,53 +227,54 @@ abstract class AbstractLink implements GradebookItem
         $visible = null
     ) {
         $em = Database::getManager();
-        $criteria = \Doctrine\Common\Collections\Criteria::create();
-        $tbl_grade_links = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = 'SELECT * FROM '.$tbl_grade_links;
-        $paramcount = 0;
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gl')
+            ->from('ChamiloCoreBundle:GradebookLink', 'gl');
+
         if (isset ($id)) {
             $id = intval($id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('id', $id)
+            $qb->andWhere(
+                $qb->expr()->eq('gl.id', $id)
             );
         }
         if (isset ($type)) {
             $type = intval($type);
-            $criteria->andWhere(
-                Criteria::expr()->eq('type', $type)
+            $qb->andWhere(
+                $qb->expr()->eq('gl.type', $type)
             );
         }
         if (isset ($ref_id)) {
             $ref_id = intval($ref_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('refId', $ref_id)
+            $qb->andWhere(
+                $qb->expr()->eq('gl.refId', $ref_id)
             );
         }
         if (isset ($user_id)) {
             $user_id = intval($user_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('userId', $user_id)
+            $qb->andWhere(
+                $qb->expr()->eq('gl.userId', $user_id)
             );
         }
         if (isset ($course_code)) {
             $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
-            $criteria->andWhere(
-                Criteria::expr()->eq('course', $course->getId())
+            $qb->andWhere(
+                $qb->expr()->eq('gl.course', $course->getId())
             );
         }
         if (isset ($category_id)) {
             $category_id = intval($category_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('categoryId', $category_id)
+            $qb->andWhere(
+                $qb->expr()->eq('gl.categoryId', $category_id)
             );
         }
         if (isset ($visible)) {
             $visible = intval($visible);
-            $criteria->andWhere(
-                Criteria::expr()->eq('visible', $visible)
+            $qb->andWhere(
+                $qb->expr()->eq('gl.visible', $visible)
             );
         }
-        $result = $em->getRepository('ChamiloCoreBundle:GradebookLink')->matching($criteria);
+        $result = $qb->getQuery()->getResult();
         $links = AbstractLink::createObjectsFromEntities($result);
 
         return $links;

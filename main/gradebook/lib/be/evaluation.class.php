@@ -2,7 +2,6 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
-use \Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Evaluation
@@ -220,50 +219,53 @@ class Evaluation implements GradebookItem
 		$locked = null
 	) {
         $em = Database::getManager();
-        $criteria = Criteria::create();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('ge')
+            ->from('ChamiloCoreBundle:GradebookEvaluation', 'ge');
 
 		if (isset ($id)) {
-            $criteria->andWhere(
-                Criteria::expr()->eq('id', $id)
+            $qb->andWhere(
+                $qb->expr()->eq('ge.id', $id)
             );
 		}
 
 		if (isset ($user_id)) {
             $user_id = intval($user_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('userId', $user_id)
+            $qb->andWhere(
+                $qb->expr()->eq('ge.userId', $user_id)
             );
 		}
 
 		if (isset ($course_code) && $course_code <> '-1') {
             $courseId = api_get_course_int_id($course_code);
-            $criteria->andWhere(
-                Criteria::expr()->eq('course', $courseId)
+            $qb->andWhere(
+                $qb->expr()->eq('ge.course', $courseId)
             );
 		}
 
 		if (isset ($category_id)) {
             $category_id = intval($category_id);
-            $criteria->andWhere(
-                Criteria::expr()->eq('categoryId', $category_id)
+            $qb->andWhere(
+                $qb->expr()->eq('ge.categoryId', $category_id)
             );
 		}
 
 		if (isset ($visible)) {
             $visible = intval($visible);
-            $criteria->andWhere(
-                Criteria::expr()->eq('visible', $visible)
+            $qb->andWhere(
+                $qb->expr()->eq('ge.visible', $visible)
             );
 		}
 
 		if (isset ($locked)) {
             $locked = intval($locked);
-            $criteria->andWhere(
-                Criteria::expr()->eq('locked', $locked)
+            $qb->andWhere(
+                $qb->expr()->eq('ge.locked', $locked)
             );
 		}
 
-		$result = $em->getRepository('ChamiloCoreBundle:GradebookEvaluation')->matching($criteria);
+		$result = $qb->getQuery()->getResult();
         $alleval = Evaluation::createEvaluationObjectsFromEntities($result);
 
 		return $alleval;
@@ -344,7 +346,7 @@ class Evaluation implements GradebookItem
 		) {
             $em = Database::getManager();
 
-            $createdAt = new DateTime(api_get_utc_datetime(), 'UTC');
+            $createdAt = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
 
             $gradebookEvaluation = new \Chamilo\CoreBundle\Entity\GradebookEvaluation();
             $gradebookEvaluation
@@ -353,7 +355,8 @@ class Evaluation implements GradebookItem
                 ->setWeight($this->get_weight())
                 ->setMax($this->get_max())
                 ->setVisible($this->is_visible())
-                ->setCreatedAt($createdAt);
+                ->setCreatedAt($createdAt)
+                ->setLocked(false);
 
 			if (isset($this->description)) {
                 $gradebookEvaluation->setDescription($this->get_description());
@@ -419,11 +422,15 @@ class Evaluation implements GradebookItem
         $em = Database::getManager();
         $gradebookEvaluation = $em->find('ChamiloCoreBundle:GradebookEvaluation', $this->id);
 
-        if ($gradebookEvaluation) {
+        if (!$gradebookEvaluation) {
             return;
         }
 
-        $gradebookEvaluation->setName($this->get_name())
+        $eval_log = new Evaluation();
+		$eval_log->add_evaluation_log($this->id);
+
+        $gradebookEvaluation
+            ->setName($this->get_name())
             ->setUserId($this->get_user_id())
             ->setWeight($this->get_weight())
             ->setMax($this->get_max())
@@ -444,9 +451,6 @@ class Evaluation implements GradebookItem
             $gradebookEvaluation->setCategoryId($this->get_category_id());
 		}
 		//recorded history
-
-		$eval_log = new Evaluation();
-		$eval_log->add_evaluation_log($this->id);
 
         $em->persist($gradebookEvaluation);
         $em->flush();

@@ -274,7 +274,7 @@ class CalculatedAnswer extends Question
             ->getRepository('ChamiloCoreBundle:TrackEAttempt')
             ->findOneBy([
             'questionId' => $this->id,
-            'cId' => $this->course['real_id']
+            'course' => $this->course['real_id']
         ]);
 
         return $attempt ? true : false;

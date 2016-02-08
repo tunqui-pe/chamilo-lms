@@ -28,7 +28,7 @@ $linkedit = isset($_GET['editlink']) ? Security::remove_XSS($_GET['editlink']):'
 
 $session_id = api_get_session_id();
 if ($session_id == 0) {
-    $cats = Category :: load(null, null, $course_code, null, null, $session_id, false); //already init
+    $cats = Category :: load(null, null, api_get_course_id(), null, null, $session_id, false); //already init
 } else {
     $cats = Category :: load_session_categories(null, $session_id);
 }

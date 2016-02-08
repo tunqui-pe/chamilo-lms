@@ -1,6 +1,5 @@
 <?php
 /* For licensing terms, see /license.txt */
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class Agenda
@@ -1275,32 +1274,35 @@ class Agenda
         $end = intval($end);
         $user_id = api_get_user_id();
 
-        $criteria = Criteria::create();
-        $criteria->where(
-            Criteria::expr()->eq('user', $user_id)
-        );
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('pa')
+            ->from('ChamiloCoreBundle:PersonalAgenda', 'pa')
+            ->where(
+                $qb->expr()->eq('pa.user', $user_id)
+            );
 
         if ($start !== 0) {
             $start = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
 
-            $criteria->andWhere(
-                Criteria::expr()->gte('date', $start)
+            $qb->andWhere(
+                $qb->expr()->gte('pa.date', $start)
             );
         }
         if ($start !== 0) {
             $end = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
 
-            $criteria->andWhere(
-                Criteria::expr()->orX(
-                    Criteria::expr()->lte('enddate', $end),
-                    Criteria::expr()->isNull('enddate')
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->lte('pa.enddate', $end),
+                    $qb->expr()->isNull('pa.enddate')
                 )
             );
         }
 
-        $result = $em->getRepository('ChamiloCoreBundle:PersonalAgenda')->matching($criteria);
+        $result = $qb->getQuery()->getResult();
         $my_events = array();
-        if ($result->count()) {
+        if (count($result)) {
             foreach ($result as $row) {
                 $event = array();
                 $event['id'] = 'personal_' . $row->getId();

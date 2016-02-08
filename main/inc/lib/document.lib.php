@@ -654,7 +654,7 @@ class DocumentManager
                 ) {
                     // Templates management
                     $template_result = $em
-                        ->getRepository('ChamiloCoreBudle:Templates')
+                        ->getRepository('ChamiloCoreBundle:Templates')
                         ->findBy([
                             'course' => $course,
                             'userId' => api_get_course_id(),
@@ -1811,30 +1811,33 @@ class DocumentManager
         $courseId = api_get_course_int_id($course_id);
 
         $em = Database::getManager();
-        $criteria = Criteria::create();
-        $criteria->where(
-            Criteria::expr()->eq('course', $courseId)
-        );
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gc')
+            ->from('ChamiloCoreBundle:GradebookCategory', 'gc')
+            ->where(
+                $qb->expr()->eq('gc.course', $courseId)
+            );
 
         if (empty($session_id)) {
-            $criteria->andWhere(
-                Criteria::expr()->orX(
-                    Criteria::expr()->eq('sessionId', 0),
-                    Criteria::expr()->isNull('sessionId')
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->eq('gc.sessionId', 0),
+                    $qb->expr()->isNull('gc.sessionId')
                 )
             );
         } elseif ($session_id > 0) {
-            $criteria->andWhere(
-                Criteria::expr()->eq('sessionId', $session_id)
+            $qb->andWhere(
+                $qb->expr()->eq('gc.sessionId', $session_id)
             );
         }
 
-        $rs = $em->getRepository('ChamiloCoreBundle:GradebookCategory')->matching($criteria);
-        $num = $rs->count();
-        if (!$num) {
+        $rs = $qb->getQuery()->getResult();
+
+        if (!count($rs)) {
             return null;
         }
-        $row = $rs->current();
+        $row = current($rs);
 
         return $row->getDocumentId();
     }
