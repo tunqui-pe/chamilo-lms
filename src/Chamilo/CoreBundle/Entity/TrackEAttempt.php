@@ -65,8 +65,8 @@ class TrackEAttempt
     private $marks;
 
     /**
-     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="trackEAttempts")
-     * @JoinColumn(name="c_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="trackEAttempts")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
     private $course;
 

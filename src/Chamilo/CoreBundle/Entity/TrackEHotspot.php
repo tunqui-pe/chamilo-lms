@@ -8,7 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TrackEHotspot
  *
- * @ORM\Table(name="track_e_hotspot", indexes={@ORM\Index(name="hotspot_course_code", columns={"hotspot_course_code"}), @ORM\Index(name="hotspot_user_id", columns={"hotspot_user_id"}), @ORM\Index(name="hotspot_exe_id", columns={"hotspot_exe_id"}), @ORM\Index(name="hotspot_question_id", columns={"hotspot_question_id"})})
+ * @ORM\Table(name="track_e_hotspot", indexes={
+ *  @ORM\Index(name="hotspot_user_id", columns={"hotspot_user_id"}),
+ *  @ORM\Index(name="hotspot_exe_id", columns={"hotspot_exe_id"}),
+ *  @ORM\Index(name="hotspot_question_id", columns={"hotspot_question_id"})
+ * })
  * @ORM\Entity
  */
 class TrackEHotspot
@@ -21,8 +25,8 @@ class TrackEHotspot
     private $hotspotUserId;
 
     /**
-     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="trackEHotspots")
-     * @JoinColumn(name="c_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="trackEHotspots")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
     private $course;
 

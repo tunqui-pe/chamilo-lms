@@ -44,8 +44,8 @@ class GradebookLink
     private $userId;
 
     /**
-     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="gradebookLinks")
-     * @JoinColumn(name="c_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="gradebookLinks")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
     private $course;
 

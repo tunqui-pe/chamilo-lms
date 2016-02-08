@@ -20,8 +20,8 @@ class SpecificFieldValues
     private $courseCode;
 
     /**
-     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="specificFieldValues")
-     * @JoinColumn(name="c_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="specificFieldValues")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
     private $course;
 

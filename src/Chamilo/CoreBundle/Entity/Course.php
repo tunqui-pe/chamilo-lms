@@ -288,47 +288,47 @@ class Course
     protected $issuedSkills;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:GradebookCategory", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\GradebookCategory", mappedBy="course")
      */
     protected $gradebookCategories;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:GradebookEvaluation", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\GradebookEvaluation", mappedBy="course")
      */
     protected $gradebookEvaluations;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:GradebookLink", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\GradebookLink", mappedBy="course")
      */
     protected $gradebookLinks;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:TrackEHotspot", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\TrackEHotspot", mappedBy="course")
      */
     protected $trackEHotspots;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:TrackEAttempt", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\TrackEAttempt", mappedBy="course")
      */
     protected $trackEAttempts;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:SearchEngineRef", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SearchEngineRef", mappedBy="course")
      */
     protected $searchEngineRefs;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:Templates", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\Templates", mappedBy="course")
      */
     protected $templates;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:SpecificFieldValues", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SpecificFieldValues", mappedBy="course")
      */
     protected $specificFieldValues;
 
     /**
-     * @OneToMany(targetEntity="ChamiloCoreBundle:SharedSurvey", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SharedSurvey", mappedBy="course")
      */
     protected $sharedSurveys;
 

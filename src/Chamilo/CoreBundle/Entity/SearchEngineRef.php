@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class SearchEngineRef
 {
     /**
-     * @ManyToOne(targetEntity="ChamiloCoreBundle:Course", inversedBy="searchEngineRefs")
-     * @JoinColumn(name="c_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="searchEngineRefs")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
     private $course;
 
