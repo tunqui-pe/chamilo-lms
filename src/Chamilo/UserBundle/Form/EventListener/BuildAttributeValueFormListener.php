@@ -3,35 +3,23 @@
 
 namespace Chamilo\UserBundle\Form\EventListener;
 
-use Sylius\Component\Attribute\Model\AttributeTypes;
 use Sylius\Component\Attribute\Model\AttributeValueInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
-use Sylius\Bundle\AttributeBundle\Form\EventListener\BuildAttributeValueFormListener as BaseBuildAttributeValueFormListener;
 
 /**
  * Class BuildAttributeValueFormListener
  * @package Chamilo\UserBundle\Form\EventListener
  */
-class BuildAttributeValueFormListener extends BaseBuildAttributeValueFormListener
+class BuildAttributeValueFormListener implements EventSubscriberInterface
 {
-    /**
-     * Form factory.
-     *
-     * @var FormFactoryInterface
-     */
-    protected $factory;
-
-    /**
-     * Constructor.
-     *
-     * @param FormFactoryInterface $factory
-     */
-    public function __construct(FormFactoryInterface $factory)
+    public static function getSubscribedEvents()
     {
-        $this->factory = $factory;
+        return array(
+            FormEvents::PRE_SET_DATA => 'onPreSetData',
+            FormEvents::PRE_SUBMIT   => 'onPreSubmit',
+        );
     }
 
     /**

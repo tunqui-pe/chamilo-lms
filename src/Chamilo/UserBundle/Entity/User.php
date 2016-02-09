@@ -6,15 +6,19 @@ namespace Chamilo\UserBundle\Entity;
 //use Chamilo\CoreBundle\Entity\UserFieldValues;
 use Chamilo\CoreBundle\Entity\ExtraFieldValues;
 use Chamilo\CoreBundle\Entity\UsergroupRelUser;
+use Chamilo\CoreBundle\Entity\Skill;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+use Sylius\Component\Attribute\Model\AttributeSubjectInterface;
+use Sylius\Component\Attribute\Model\AttributeValueInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Doctrine\Common\Collections\Collection;
 
 use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
 
@@ -62,7 +66,7 @@ use Chamilo\MediaBundle\Entity\Media;
  * })
  *
  */
-class User extends BaseUser implements ThemeUser
+class User extends BaseUser implements ThemeUser, AttributeSubjectInterface
 {
     const COURSE_MANAGER = 1;
     const TEACHER = 1;
@@ -369,9 +373,13 @@ class User extends BaseUser implements ThemeUser
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\ExtraFieldValues", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(
+     *     targetEntity="Chamilo\CoreBundle\Entity\ExtraFieldValues",
+     *     mappedBy="user",
+     *     orphanRemoval=true, cascade={"persist"}
+     * )
      **/
-    protected $extraFields;
+    protected $extraFieldValues;
 
     /**
      * ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\Resource\ResourceNode", mappedBy="creator")
@@ -404,7 +412,6 @@ class User extends BaseUser implements ThemeUser
         $this->salt = sha1(uniqid(null, true));
         $this->isActive = true;
         $this->active = 1;
-        $this->registrationDate = new \DateTime();
         $this->authSource = 'platform';
         $this->courses = new ArrayCollection();
         $this->items = new ArrayCollection();
@@ -415,8 +422,10 @@ class User extends BaseUser implements ThemeUser
         $this->dropBoxSentFiles = new ArrayCollection();
         $this->dropBoxReceivedFiles = new ArrayCollection();
         $this->chatcallUserId = 0;
-        $this->extraFields = new ArrayCollection();
+        $this->extraFieldValues = new ArrayCollection();
         $this->userId = 0;
+
+        $this->registrationDate = new \DateTime();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
@@ -426,7 +435,7 @@ class User extends BaseUser implements ThemeUser
      */
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getCompleteName();
     }
 
     /**
@@ -1418,38 +1427,24 @@ class User extends BaseUser implements ThemeUser
     /**
      * {@inheritdoc}
      */
-    public function getExtraFields()
+    public function getExtraFieldValues()
     {
         /** @var ExtraFieldValues $extraField */
         /*foreach ($this->extraFields as &$extraField) {
             $extraField->setUser($this);
         }*/
 
-        return $this->extraFields;
+        return $this->extraFieldValues;
     }
 
     /**
      * {@inheritdoc}
      */
-    /*public function setExtraFields($extraFields)
-    {
-        $this->extraFields = new ArrayCollection();
-        foreach ($extraFields as $extraField) {
-            var_dump($extraField);
-            $this->addExtraFields($extraField);
-        }
-
-        return $this;
-    }*/
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addExtraField(ExtraFieldValues $extraFieldValue)
+    public function addExtraFieldValue(ExtraFieldValues $extraFieldValue)
     {
         //if (!$this->hasExtraField($attribute)) {
         $extraFieldValue->setUser($this);
-        $this->extraFields->add($extraFieldValue);
+        $this->extraFieldValues->add($extraFieldValue);
         //$this->extraFields[] = $extraFieldValue;
         //}
 
@@ -1459,33 +1454,23 @@ class User extends BaseUser implements ThemeUser
     /**
      * {@inheritdoc}
      */
-    public function removeExtraField(ExtraFieldValues $attribute)
+    public function removeExtraFieldValue(ExtraFieldValues $attribute)
     {
         //if ($this->hasExtraField($attribute)) {
-        $this->extraFields->removeElement($attribute);
+        $this->extraFieldValue->removeElement($attribute);
             //$attribute->setUser($this);
         //}
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    /*public function hasExtraField($attribute)
-    {
-        if (!$this->extraFields) {
-            return false;
-        }
-        return $this->extraFields->contains($attribute);
-    }*/
 
     /**
      * {@inheritdoc}
      */
     public function hasExtraFieldByName($attributeName)
     {
-        foreach ($this->extraFields as $attribute) {
+        foreach ($this->extraFieldValues as $attribute) {
             if ($attribute->getName() === $attributeName) {
                 return true;
             }
@@ -1499,7 +1484,7 @@ class User extends BaseUser implements ThemeUser
      */
     public function getExtraFieldByName($attributeName)
     {
-        foreach ($this->extraFields as $attribute) {
+        foreach ($this->extraFieldValues as $attribute) {
             if ($attribute->getName() === $attributeName) {
                 return $attribute;
             }
@@ -1570,7 +1555,7 @@ class User extends BaseUser implements ThemeUser
      * @param \Chamilo\CoreBundle\Entity\Skill $skill The skill
      * @return boolean
      */
-    public function hasSkill(\Chamilo\CoreBundle\Entity\Skill $skill)
+    public function hasSkill(Skill $skill)
     {
         $achievedSkills = $this->getAchievedSkills();
 
@@ -1581,5 +1566,99 @@ class User extends BaseUser implements ThemeUser
 
             return true;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttributes()
+    {
+        return $this->extraFieldValues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setAttributes(Collection $attributes)
+    {
+        foreach ($attributes as $attribute) {
+            $this->addAttribute($attribute);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addAttribute(AttributeValueInterface $attribute)
+    {
+        if (!$this->hasAttribute($attribute)) {
+            /** @var ExtraFieldValues $attribute */
+            $attribute->setSubjectUser($this);
+            $this->extraFieldValues[] = $attribute;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeAttribute(AttributeValueInterface $attribute)
+    {
+        if ($this->hasAttribute($attribute)){
+            $attribute->setSubject(null);
+            $key = array_search($attribute, $this->extraFieldValues->toArray());
+            unset($this->extraFieldValues[$key]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasAttribute(AttributeValueInterface $attribute)
+    {
+        return in_array($attribute, $this->extraFieldValues->toArray());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasAttributeByName($attributeName)
+    {
+        foreach ($this->extraFieldValues as $attribute) {
+            if ($attribute->getName() === $attributeName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttributeByName($attributeName)
+    {
+        foreach ($this->extraFieldValues as $attribute) {
+            if ($attribute->getName() === $attributeName) {
+                return $attribute;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasAttributeByCode($attributeCode)
+    {
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttributeByCode($attributeCode)
+    {
+
     }
 }

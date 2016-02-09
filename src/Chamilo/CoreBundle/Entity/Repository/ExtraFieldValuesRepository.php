@@ -2,7 +2,8 @@
 /* For licensing terms, see /license.txt */
 namespace Chamilo\CoreBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
+//use Doctrine\ORM\EntityRepository;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use \Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -13,7 +14,6 @@ use \Doctrine\ORM\Query\Expr\Join;
  */
 class ExtraFieldValuesRepository extends EntityRepository
 {
-
     /**
      * Get the extra field values for visible extra fields 
      * @param int $extraFieldType The type of extra field

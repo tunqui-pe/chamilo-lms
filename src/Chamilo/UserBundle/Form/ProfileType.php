@@ -4,6 +4,7 @@
 namespace Chamilo\UserBundle\Form;
 
 use Chamilo\UserBundle\Entity\User;
+use Sonata\AdminBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -57,19 +58,6 @@ class ProfileType extends AbstractType
                     ),
                 )
             )
-            /*->add(
-                'gender',
-                'sonata_user_gender',
-                array(
-                    'label' => 'form.label_gender',
-                    'required' => true,
-                    'translation_domain' => 'SonataUserBundle',
-                    'choices' => array(
-                        UserInterface::GENDER_FEMALE => 'gender_female',
-                        UserInterface::GENDER_MALE => 'gender_male',
-                    ),
-                )
-            )*/
             ->add(
                 'dateOfBirth',
                 'birthday',
@@ -126,10 +114,9 @@ class ProfileType extends AbstractType
                     'data_class' => 'Chamilo\MediaBundle\Entity\Media',
                 )
             )
-            //see mopa_bootstrap config values
-            ->add(
-                'extraFields',
-                'collection',
+            /*->add(
+                'extraFieldValues',
+                CollectionType::class,
                 array(
                     'required' => false,
                     'allow_add' => true,
@@ -141,9 +128,9 @@ class ProfileType extends AbstractType
                     'options' => array( // options for collection fields
                         'widget_remove_btn' => array('label' => 'Remove'),
                         'label_render' => false,
-                    ),
+                    )
                 )
-            )
+            )*/
             //->add('save', 'submit', array('label' => 'Update')            )
         ;
 
@@ -166,10 +153,10 @@ class ProfileType extends AbstractType
      *
      * @deprecated Remove it when bumping requirements to Symfony 2.7+
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    /*public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $this->configureOptions($resolver);
-    }
+    }*/
 
     /**
      * {@inheritdoc}

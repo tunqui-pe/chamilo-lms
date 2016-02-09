@@ -639,11 +639,26 @@ class ExtraField extends Model
         if ($fieldInfo) {
             return $fieldInfo['id'];
         } else {
-            $id = parent::save($params, $show_query);
+            $extraField = new EntityExtraField();
+            $extraField
+                ->setExtraFieldType($params['extra_field_type']) // user
+                ->setFieldType($params['type'])
+                ->setVariable($params['variable'])
+                ->setVisible($params['visible'])
+                ->setDefaultValue($params['default_value'])
+                ->setChangeable($params['changeable'])
+                ->setDisplayText($params['display_text'])
+                ->setFilter($params['filter'])
+            ;
+
+            //$id = parent::save($params, $show_query);
+            Database::getManager()->persist($extraField);
+            Database::getManager()->flush();
+            $id = $extraField->getId();
             if ($id) {
-                $session_field_option = new ExtraFieldOption($this->type);
+                /*$session_field_option = new ExtraFieldOption($this->type);
                 $params['field_id'] = $id;
-                $session_field_option->save($params);
+                $session_field_option->save($params);*/
             }
 
             return $id;
@@ -657,14 +672,33 @@ class ExtraField extends Model
      */
     public function update($params)
     {
-        $params = self::clean_parameters($params);
-        if (isset($params['id'])) {
+        //$params = self::clean_parameters($params);
+
+        /*if (isset($params['id'])) {
             $field_option = new ExtraFieldOption($this->type);
             $params['field_id'] = $params['id'];
             $field_option->save($params);
-        }
+        }*/
 
-        parent::update($params);
+        $extraField = Database::getManager()->getRepository('ChamiloCoreBundle:ExtraField')->find($params['id']);
+
+        $extraField
+            //->setExtraFieldType($params['extra_field_type']) // user
+            ->setFieldType($params['type'])
+            ->setVariable($params['variable'])
+            ->setVisible($params['visible'])
+            ->setDefaultValue($params['default_value'])
+            ->setChangeable($params['changeable'])
+            ->setDisplayText($params['display_text'])
+            ->setFilter($params['filter'])
+        ;
+
+
+        Database::getManager()->persist($extraField);
+        Database::getManager()->flush();
+
+
+        //parent::update($params);
     }
 
     /**
@@ -1770,14 +1804,15 @@ EOF;
         $form->addGroup($group, '', get_lang('FieldLoggeable'), '', false);
         */
 
-        $form->addElement('text', 'field_order', get_lang('FieldOrder'), array('class' => 'span1'));
+        //$form->addElement('text', 'field_order', get_lang('FieldOrder'), array('class' => 'span1'));
 
         if ($action == 'edit') {
+            /*
             $option = new ExtraFieldOption($this->type);
             if ($defaults['field_type'] == ExtraField::FIELD_TYPE_DOUBLE_SELECT) {
                 $form->freeze('field_options');
             }
-            $defaults['field_options'] = $option->get_field_options_by_field_to_string($id);
+            $defaults['field_options'] = $option->get_field_options_by_field_to_string($id);*/
             $form->addButtonUpdate(get_lang('Modify'));
         } else {
             $defaults['visible'] = 0;

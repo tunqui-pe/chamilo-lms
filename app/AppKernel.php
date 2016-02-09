@@ -58,8 +58,6 @@ class AppKernel extends Kernel
 
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
 
-            //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
-
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
@@ -95,7 +93,7 @@ class AppKernel extends Kernel
 
             // Sylius
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
-            //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
+            new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),

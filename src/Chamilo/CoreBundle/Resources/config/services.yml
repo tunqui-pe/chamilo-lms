@@ -71,24 +71,26 @@ services:
         tags:
             - { name: form.type, alias: yes_no }
 
-    # Extra field attribute services
+#    # Extra field attribute services
     chamilo_user.form.type.attribute_value_type:
         class: Chamilo\UserBundle\Form\Type\AttributeValueType
-        arguments: [Chamilo\CoreBundle\Entity\ExtraFieldValues, ["registration"], "user"]
+        arguments: [Chamilo\CoreBundle\Entity\ExtraFieldValues, ["registration"], "user", @sylius.repository.subject_name_attribute_value]
         tags:
             - { name: form.type, alias: chamilo_user_extra_field_value }
+#
+
+    chamilo_user.form.type.attribute_type:
+        class: Chamilo\UserBundle\Form\Type\AttributeType
+        arguments: [Chamilo\CoreBundle\Entity\ExtraField, ["registration"], "user"]
+#        arguments: [%sylius.attribute.attribute_types%]
+        tags:
+            - { name: form.type, alias: chamilo_user_attribute_type }
 
     chamilo_user.form.type.attribute_choice_type:
-        class: Chamilo\UserBundle\Form\Type\AttributeEntityChoiceType
-        arguments: ['user', Chamilo\CoreBundle\Entity\ExtraField]
+        class: Chamilo\UserBundle\Form\Type\AttributeTypeChoiceType
+        arguments: [%sylius.attribute.attribute_types%]
         tags:
-            - { name: form.type, alias: chamilo_user_extra_field_choice }
-
-    chamilo_user.form.type.attribute_entity_choice_type:
-        class: Chamilo\UserBundle\Form\Type\AttributeEntityChoiceType
-        arguments: ['user', Chamilo\CoreBundle\Entity\UserField]
-        tags:
-            - { name: form.type }
+            - { name: form.type, alias: chamilo_user_attribute_choice }
 
     # html editor
     chamilo_core.html_editor:

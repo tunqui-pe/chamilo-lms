@@ -5,16 +5,17 @@ namespace Chamilo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Sylius\Component\Attribute\Model\AttributeValue as BaseAttributeValue;
+use Sylius\Component\Attribute\Model\AttributeInterface;
+use Sylius\Component\Attribute\Model\AttributeSubjectInterface;
+use Sylius\Component\Attribute\Model\AttributeValueInterface;
 
 /**
  * Class ExtraFieldValues
- *
+ * @todo change entity name to ExtraFieldValue
  * @ORM\Table(name="extra_field_values")
  * @ORM\Entity(repositoryClass="Chamilo\CoreBundle\Entity\Repository\ExtraFieldValuesRepository")
- * @ORM\MappedSuperclass
  */
-class ExtraFieldValues extends BaseAttributeValue
+class ExtraFieldValues implements AttributeValueInterface
 {
     /**
      * @var integer
@@ -38,26 +39,18 @@ class ExtraFieldValues extends BaseAttributeValue
     protected $field;
 
     /**
+     * @var ExtraField
+     *
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\ExtraField")
+     * @ORM\JoinColumn(name="field_id", referencedColumnName="id")
+     **/
+    protected $attribute;
+
+    /**
      * @var string
      * @ORM\Column(name="item_id", type="integer", nullable=false, unique=false)
      */
     protected $itemId;
-
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    protected $updatedAt;
 
     /**
      * @var string
@@ -78,10 +71,36 @@ class ExtraFieldValues extends BaseAttributeValue
     //protected $course;
 
     /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    protected $updatedAt;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getName()
@@ -121,7 +140,6 @@ class ExtraFieldValues extends BaseAttributeValue
     {
         $this->user = $user;
     }
-
 
     /**
      * @return mixed
@@ -227,13 +245,95 @@ class ExtraFieldValues extends BaseAttributeValue
         return $this->comment;
     }
 
+
     /**
-     * Get id
-     *
-     * @return integer
+     * @return AttributeSubjectInterface
      */
-    public function getId()
+    public function getSubject()
     {
-        return $this->id;
+        return $this->user;
     }
+
+    /**
+     * @param AttributeSubjectInterface|null $subject
+     */
+    public function setSubject(AttributeSubjectInterface $subject = null)
+    {
+        //$this->user = $subject;
+    }
+
+
+    /**
+     * @param AttributeSubjectInterface|null $subject
+     */
+    public function setSubjectUser(AttributeSubjectInterface $subject = null)
+    {
+        $this->user = $subject;
+    }
+
+    /**
+     * @param AttributeSubjectInterface|null $subject
+     */
+    public function setSubjectCourse(AttributeSubjectInterface $subject = null)
+    {
+        //$this->cours = $subject;
+    }
+
+    /**
+     * @param AttributeSubjectInterface|null $subject
+     */
+    public function setSubjectSession(AttributeSubjectInterface $subject = null)
+    {
+        //$this->user = $subject;
+    }
+
+    /**
+     * @return AttributeInterface
+     */
+    public function getAttribute()
+    {
+        return $this->attribute;
+    }
+
+    /**
+     * @param AttributeInterface $attribute
+     *
+     * @return $this
+     */
+    public function setAttribute(AttributeInterface $attribute)
+    {
+        $this->attribute = $attribute;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     * @return $this
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * Proxy method to access the code from real attribute.
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->attribute->getVariable();
+    }
+
+
 }

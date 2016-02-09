@@ -21,6 +21,7 @@ sonata_page:
 
     ignore_uri_patterns:
         - ^/administration(.*) # sonata admin
+        - ^/admin(.*) # chamilo admin
         - /(.*)/(.*)administration(.*)/
         - ^/api/(.*)
         - ^installer

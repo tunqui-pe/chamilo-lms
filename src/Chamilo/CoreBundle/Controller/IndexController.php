@@ -4,7 +4,14 @@
 namespace Chamilo\CoreBundle\Controller;
 
 //use Chamilo\CoreBundle\Admin\CourseAdmin;
+use Chamilo\CoreBundle\Entity\ExtraField;
+use Chamilo\CoreBundle\Entity\ExtraFieldValues;
 use Chamilo\CoreBundle\Framework\PageController;
+use Chamilo\UserBundle\Entity\User;
+use Doctrine\Common\Annotations\Annotation\Attribute;
+use Sylius\Component\Attribute\AttributeType\TextAttributeType;
+use Sylius\Component\Attribute\Model\AttributeValue;
+use Sylius\Component\Attribute\Model\AttributeValueInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Chamilo\CoreBundle\Controller\BaseController;
@@ -73,7 +80,43 @@ class IndexController extends BaseController
         $sessionHandler->remove('coursesAlreadyVisited');
 
         $announcementsBlock = $pageController->getAnnouncements();
+        /** @var User $user */
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->find(1);
 
+        //$attribute = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:ExtraField')->find(1);
+/*
+        $attribute = new ExtraField();
+        $attribute->setName('size');
+        $attribute->setVariable('size');
+        $attribute->setType(TextAttributeType::TYPE);
+        $attribute->setStorageType(AttributeValueInterface::STORAGE_TEXT);
+        $this->getDoctrine()->getManager()->persist($attribute);
+        $this->getDoctrine()->getManager()->flush();
+
+        $attributeColor = new ExtraField();
+        $attributeColor->setName('color');
+        $attributeColor->setVariable('color');
+        $attributeColor->setType(TextAttributeType::TYPE);
+        $attributeColor->setStorageType(AttributeValueInterface::STORAGE_TEXT);
+        $this->getDoctrine()->getManager()->persist($attributeColor);
+        $this->getDoctrine()->getManager()->flush();
+
+        $color = new ExtraFieldValues();
+        $color->setComment('lol');
+        $color->setAttribute($attributeColor);
+        $color->setValue('blue');
+
+        $user->addAttribute($color);
+
+        $smallSize = new ExtraFieldValues();
+        $smallSize->setComment('lol');
+        $smallSize->setAttribute($attribute);
+        $smallSize->setValue('S');
+
+        $user->addAttribute($smallSize);
+        $userManager->updateUser($user);
+*/
         $this->get('session')->remove('id_session');
 
         return $this->render(
