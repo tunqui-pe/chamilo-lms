@@ -107,14 +107,14 @@ remove_trailing_slash:
 
 # Settings list
 chamilo_platform_settings_list:
-    pattern: /settings
+    pattern: /admin/settings
     defaults:
         _controller: ChamiloSettingsBundle:Settings:index
         template: ChamiloSettingsBundle:Settings:index.html.twig
 
 # Setting form
 chamilo_platform_settings:
-    pattern: /settings/{namespace}
+    pattern: /admin/settings/{namespace}
     defaults:
         _controller: ChamiloSettingsBundle:Settings:updateSetting
         template: ChamiloSettingsBundle:Settings:default.html.twig
@@ -127,7 +127,7 @@ chamilo_course_settings:
         template: ChamiloCourseBundle:Settings:default.html.twig
 #
 chamilo_course_tool_index:
-    pattern: courses/{course}/tools
+    pattern: /courses/{course}/tools
     methods: [GET, POST, HEAD, DELETE]
     defaults:
         _controller: chamilo_course.controller.tool:indexAction
