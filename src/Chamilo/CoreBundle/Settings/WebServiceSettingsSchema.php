@@ -8,10 +8,10 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class AnnouncementSettingsSchema
+ * Class WebServiceSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class AnnouncementSettingsSchema implements SchemaInterface
+class WebServiceSettingsSchema implements SchemaInterface
 {
     /**
      * {@inheritdoc}
@@ -19,13 +19,16 @@ class AnnouncementSettingsSchema implements SchemaInterface
     public function buildSettings(SettingsBuilderInterface $builder)
     {
         $builder
-            ->setDefaults(array(
-                    'hide_global_announcements_when_not_connected' => 'false',
+            ->setDefaults(
+                array(
+                    'decode_utf8' => 'false',
                 )
             )
             ->setAllowedTypes(
                 array(
-                    'hide_global_announcements_when_not_connected' => array('string'),
+                    // commenting this line allows setting to be null
+                    //'header_extra_content' => array('string'),
+                    //'footer_extra_content' => array('string'),
                 )
             );
     }
@@ -36,7 +39,7 @@ class AnnouncementSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('hide_global_announcements_when_not_connected', 'yes_no')
+            ->add('decode_utf8', 'yes_no')
         ;
     }
 }

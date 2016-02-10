@@ -23,6 +23,7 @@ class PlatformSettingsSchema implements SchemaInterface
                 array(
                     'institution' => 'Chamilo.org',
                     'institution_url' => 'http://www.chamilo.org',
+                    'institution_address' => '',
                     'site_name' => 'Chamilo site',
 //                    'administrator_email' => 'admin@example.org',
 //                    'administrator_name' => 'Jane',
@@ -37,7 +38,9 @@ class PlatformSettingsSchema implements SchemaInterface
                     'cookie_warning' => 'false',
                     'donotlistcampus' => 'false',
                     'catalog_show_courses_sessions' => '0',
-                    'course_catalog_hide_private' => 'false'
+                    'course_catalog_hide_private' => 'false',
+                    'use_custom_pages' => 'false',
+                    'pdf_logo_header' => '',
                     //
 //('catalog_show_courses_sessions', '0', 'CatalogueShowOnlyCourses'),
 //('catalog_show_courses_sessions', '1', 'CatalogueShowOnlySessions'),
@@ -69,6 +72,7 @@ class PlatformSettingsSchema implements SchemaInterface
         $builder
             ->add('institution')
             ->add('institution_url', 'url')
+            ->add('institution_address')
             ->add('site_name')
 //            ->add('administrator_email', 'email')
 //            ->add('administrator_name')
@@ -92,6 +96,8 @@ class PlatformSettingsSchema implements SchemaInterface
                     '2' => 'CatalogueShowCoursesAndSessions',
                 ]]
             )
+            ->add('use_custom_pages', 'yes_no')
+            ->add('pdf_logo_header')
         ;
     }
 }

@@ -23,7 +23,7 @@ class CustomPages
      */
     public static function enabled()
     {
-        return api_get_setting('use_custom_pages') == 'true';
+        return api_get_setting('platform.use_custom_pages') == 'true';
     }
 
     /**

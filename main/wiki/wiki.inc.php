@@ -2013,7 +2013,7 @@ class Wiki
     public function export_to_pdf($id, $course_code)
     {
         if (!api_is_platform_admin()) {
-            if (api_get_setting('students_export2pdf') == 'true') {
+            if (api_get_setting('document.students_export2pdf') == 'true') {
                 return false;
             }
         }

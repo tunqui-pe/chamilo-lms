@@ -288,7 +288,7 @@ switch ($action) {
         exit;
         break;
     case 'downloadfolder':
-        if (api_get_setting('students_download_folders') == 'true'
+        if (api_get_setting('document.students_download_folders') == 'true'
             || api_is_allowed_to_edit()
             || api_is_platform_admin()
         ) {
@@ -328,7 +328,7 @@ switch ($action) {
         }
         break;
     case 'export_to_pdf':
-        if (api_get_setting('students_export2pdf') == 'true' || api_is_allowed_to_edit() || api_is_platform_admin()) {
+        if (api_get_setting('document.students_export2pdf') == 'true' || api_is_allowed_to_edit() || api_is_platform_admin()) {
             DocumentManager::export_to_pdf($document_id, $course_code);
         }
         break;
@@ -1838,7 +1838,7 @@ if (!is_null($documentAndFolders)) {
     // Show download zipped folder icon
     global $total_size;
     if (!$is_certificate_mode && $total_size != 0
-        && (api_get_setting('students_download_folders') == 'true'
+        && (api_get_setting('document.students_download_folders') == 'true'
         || api_is_allowed_to_edit()
         || api_is_platform_admin()
         )

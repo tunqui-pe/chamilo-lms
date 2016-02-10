@@ -46,6 +46,8 @@ class DisplaySettingsSchema implements SchemaInterface
                     'disable_copy_paste' => '',//?
                     'breadcrumb_navigation_display' => '',//?
                     'bug_report_link' => '', //?
+                    'hide_home_top_when_connected' => 'false',
+                    'hide_logout_button' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -104,6 +106,11 @@ class DisplaySettingsSchema implements SchemaInterface
             ->add('use_virtual_keyboard', 'yes_no')
             ->add('disable_copy_paste', 'yes_no')
             ->add('breadcrumb_navigation_display', 'yes_no')
-            ->add('bug_report_link', 'yes_no');
+            ->add('bug_report_link', 'yes_no')
+            ->add('hide_home_top_when_connected', 'yes_no')
+            ->add('hide_logout_button', 'yes_no')
+
+
+        ;
     }
 }

@@ -972,7 +972,7 @@ if (isset($first_time) && $first_time==1 && api_is_allowed_to_edit(null,true)) {
 
                     $pdf = new PDF('A4', $params['orientation'], $params);
 
-                    $address = api_get_setting('institution_address');
+                    $address = api_get_setting('platform.institution_address');
                     $phone = api_get_setting('admin.administrator_phone');
                     $address = str_replace('\n', '<br />', $address);
                     $pdf->custom_header = array('html' => "<h5  align='right'>$address <br />$phone</h5>");

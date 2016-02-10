@@ -1467,7 +1467,7 @@ class GradebookUtils
             '<br />'.get_lang('Feedback').'<br />
             <textarea rows="5" cols="100" ></textarea>';
 
-        $address = api_get_setting('institution_address');
+        $address = api_get_setting('platform.institution_address');
         $phone = api_get_setting('admin.administrator_phone');
         $address = str_replace('\n', '<br />', $address);
 

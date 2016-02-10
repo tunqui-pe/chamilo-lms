@@ -102,7 +102,7 @@ if ($session_id == 0 && api_is_course_admin() && api_is_allowed_to_edit(null, tr
     $content .= CourseHome::show_tools_category($my_list);
     $content .= '</div>';
 
-    $sessionsCopy = api_get_setting('allow_session_course_copy_for_teachers');
+    $sessionsCopy = api_get_setting('session.allow_session_course_copy_for_teachers');
     if ($sessionsCopy === 'true') {
         // Adding only maintenance for coaches.
         $myList = CourseHome::get_tools_category(TOOL_ADMIN_PLATFORM);

@@ -37,7 +37,12 @@ class SessionSettingsSchema implements SchemaInterface
                     'limit_session_admin_role' => 'false',
                     'allow_tutors_to_assign_students_to_session' => 'false',
                     'drh_can_access_all_session_content' => 'true',
-                    'catalog_allow_session_auto_subscription' => 'false'
+                    'catalog_allow_session_auto_subscription' => 'false',
+                    'allow_session_course_copy_for_teachers' => 'false',
+                    'my_courses_view_by_session' => 'false',
+                    'session_days_after_coach_access' => '',
+                    'session_days_before_coach_access' => '',
+                    'show_session_description' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -83,6 +88,11 @@ class SessionSettingsSchema implements SchemaInterface
             ->add('allow_tutors_to_assign_students_to_session', 'yes_no')
             ->add('drh_can_access_all_session_content', 'yes_no')
             ->add('catalog_allow_session_auto_subscription', 'yes_no')
+            ->add('allow_session_course_copy_for_teachers', 'yes_no')
+            ->add('my_courses_view_by_session', 'yes_no')
+            ->add('session_days_after_coach_access')
+            ->add('session_days_before_coach_access')
+            ->add('show_session_description', 'yes_no')
         ;
     }
 }

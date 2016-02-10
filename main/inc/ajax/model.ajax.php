@@ -418,7 +418,7 @@ switch ($action) {
         $keyword = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '';
 
         $description = '';
-        $setting = api_get_setting('show_session_description');
+        $setting = api_get_setting('session.show_session_description');
         if ($setting === 'true') {
             $description = $keyword;
         }

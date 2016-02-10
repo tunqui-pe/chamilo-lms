@@ -93,7 +93,7 @@ class Redirect
                         break;
                 }
             }
-            $redirect = api_get_setting('redirect_admin_to_courses_list');
+            $redirect = api_get_setting('admin.redirect_admin_to_courses_list');
             if ($redirect !== 'true') {
                 // If the user is a platform admin, redirect to the main admin page
                 if (api_is_multiple_url_enabled()) {

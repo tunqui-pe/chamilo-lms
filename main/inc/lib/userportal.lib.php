@@ -229,7 +229,7 @@ class IndexManager
             $html = api_to_system_encoding($open, api_detect_encoding(strip_tags($open)));
         } else {
             // Hiding home top when user not connected.
-            $hideTop = api_get_setting('hide_home_top_when_connected');
+            $hideTop = api_get_setting('display.hide_home_top_when_connected');
             if ($hideTop == 'true' && !empty($userId)) {
                 return $html;
             }

@@ -5228,7 +5228,7 @@ class DocumentManager
             if ($filetype == 'folder') {
                 if (api_is_allowed_to_edit() ||
                     api_is_platform_admin() ||
-                    api_get_setting('students_download_folders') == 'true'
+                    api_get_setting('document.students_download_folders') == 'true'
                 ) {
                     //filter when I am into shared folder, I can show for donwload only my shared folder
                     if (DocumentManager::is_shared_folder($curdirpath, $current_session_id)) {
@@ -5272,7 +5272,7 @@ class DocumentManager
             $pdf_icon = '';
             $extension = pathinfo($path, PATHINFO_EXTENSION);
             if (!api_is_allowed_to_edit() &&
-                api_get_setting('students_export2pdf') == 'true' &&
+                api_get_setting('document.students_export2pdf') == 'true' &&
                 $filetype == 'file' &&
                 in_array($extension, array('html', 'htm'))
             ) {

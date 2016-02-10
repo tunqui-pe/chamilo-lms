@@ -639,7 +639,7 @@ class Template
             $selectLink
         );
 
-        $viewBySession = api_get_setting('my_courses_view_by_session') === 'true';
+        $viewBySession = api_get_setting('session.my_courses_view_by_session') === 'true';
 
         if (api_is_global_chat_enabled() || $viewBySession) {
             // Do not include the global chat in LP

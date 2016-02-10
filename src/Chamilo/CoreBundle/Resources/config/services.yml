@@ -375,6 +375,11 @@ services:
         tags:
             - { name: sylius.settings_schema, namespace: tracking }
 
+    chamilo_core.settings_schema.webservice:
+        class: Chamilo\CoreBundle\Settings\WebServiceSettingsSchema
+        tags:
+            - { name: sylius.settings_schema, namespace: webservice }
+
     # Form types
     chamilo_user.registration.form.type:
         class: Chamilo\UserBundle\Form\RegistrationType

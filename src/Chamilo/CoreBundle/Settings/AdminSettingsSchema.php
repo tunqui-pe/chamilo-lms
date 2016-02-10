@@ -25,6 +25,7 @@ class AdminSettingsSchema implements SchemaInterface
                     'administrator_name' => '',
                     'administrator_surname' => '',
                     'administrator_phone' => '',
+                    'redirect_admin_to_courses_list' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -46,6 +47,8 @@ class AdminSettingsSchema implements SchemaInterface
             ->add('administrator_surname')
             ->add('administrator_email', 'email')
             ->add('administrator_phone')
+            ->add('redirect_admin_to_courses_list', 'yes_no')
+
         ;
     }
 }
