@@ -15,7 +15,7 @@ require_once __DIR__.'/../app/autoload.php';
 
 // check for installed system
 $paramFile = __DIR__.'/../app/config/parameters.yml';
-
+$upgrade = false;
 if (file_exists($paramFile)) {
     $data = Yaml::parse($paramFile);
     if (is_array($data)
@@ -23,18 +23,9 @@ if (file_exists($paramFile)) {
         && isset($data['parameters']['installed'])
         && false != $data['parameters']['installed']
     ) {
-        require_once __DIR__.'/app_dev.php';
-        exit;
-
-        require_once __DIR__.'/../app/AppKernel.php';
-
-        $kernel = new AppKernel('dev', false);
-        $kernel->loadClassCache();
-        $request = Request::createFromGlobals();
-        $response = $kernel->handle($request);
-        $response->send();
-        $kernel->terminate($request, $response);
-        exit;
+        $upgrade = true;
+        /*require_once __DIR__.'/app_dev.php';
+        exit;*/
     }
 }
 
@@ -69,13 +60,9 @@ function iterateRequirements(array $collection, $translator)
             <?php endif; ?>
             <?php echo $requirement->getTestMessage(); ?>
             </span>
-                        <?php if ($requirement instanceof CliRequirement && !$requirement->isFulfilled(
-                            )
-                        ) : ?>
-                            <pre
-                                class="output"><?php echo $requirement->getOutput(
-                                ); ?></pre>
-                        <?php endif; ?>
+            <?php if ($requirement instanceof CliRequirement && !$requirement->isFulfilled()) : ?>
+                <pre class="output"><?php echo $requirement->getOutput(); ?></pre>
+            <?php endif; ?>
             </td>
             <td>
                 <?php
@@ -103,6 +90,11 @@ function iterateRequirements(array $collection, $translator)
     endforeach;
 }
 
+$url = 'app_dev.php/installer/flow/chamilo_installer/welcome';
+if ($upgrade) {
+    $url = 'app_dev.php/upgrade/flow/chamilo_installer/welcome';
+}
+
 ?>
 <!doctype html>
 <!--[if IE 7 ]>
@@ -117,17 +109,11 @@ function iterateRequirements(array $collection, $translator)
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?php echo $translator->trans('title'); ?></title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"
-          href="bundles/chamilocore/components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="bundles/chamilocore/components/fontawesome/css/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="bundles/chamiloinstaller/css/install.css"/>
-    <script type="text/javascript"
-            src="bundles/chamilocore/components/jquery/dist/jquery.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="bundles/chamilocore/components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="bundles/chamilocore/components/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="bundles/chamiloinstaller/css/install.css"/>
+    <script type="text/javascript" src="bundles/chamilocore/components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.progress-bar li:last-child em.fix-bg').width($('.progress-bar li:last-child').width() / 2);
@@ -146,14 +132,13 @@ function iterateRequirements(array $collection, $translator)
                 if (!localStorage.getItem('oroInstallSplash')) {
                     splash.show().height(winHeight);
                     body.css({'overflow': 'hidden', 'height': winHeight});
-
                     localStorage.setItem('oroInstallSplash', true);
                 }
             }
 
             <?php if (!count($majorProblems)) : ?>
             // initiate application in background
-            $.get('app_dev.php/installer/flow/chamilo_installer/configure');
+//            $.get('app_dev.php/installer/flow/chamilo_installer/configure');
             <?php endif; ?>
         });
     </script>
@@ -163,98 +148,82 @@ function iterateRequirements(array $collection, $translator)
     <div class="page-header">
         <h1 class="logo"><?php echo $translator->trans('title'); ?></h1>
     </div>
+
     <div class="content">
         <div class="page-title">
-            <h2><?php echo $translator->trans(
-                    'process.step.check.header'
-                ); ?></h2>
-        </div>
-        <div>
-            <?php if (count($majorProblems)) : ?>
-                <div class="alert alert-warning" role="alert">
-                    <ul>
-                        <li><?php echo $translator->trans(
-                                'process.step.check.invalid'
-                            ); ?></li>
-                        <?php if ($collection->hasPhpIniConfigIssue()): ?>
-                            <li id="phpini">*
-                                <?php
-                                if ($collection->getPhpIniConfigPath()) :
-                                    echo $translator->trans(
-                                        'process.step.check.phpchanges',
-                                        array(
-                                            '%path%' => $collection->getPhpIniConfigPath(
-                                            ),
-                                        )
-                                    );
-                                else :
-                                    echo $translator->trans(
-                                        'process.step.check.phpchanges'
-                                    );
-                                endif;
-                                ?>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-            <?php endif; ?>
-
-            <?php
-            $requirements = array(
-                'mandatory' => $collection->getMandatoryRequirements(),
-                'php' => $collection->getPhpIniRequirements(),
-                'chamilo' => $collection->getChamiloRequirements(),
-                'cli' => $collection->getCliRequirements(),
-                'optional' => $collection->getRecommendations(),
-            );
-
-            foreach ($requirements as $type => $requirement) : ?>
-                <table class="table table-striped">
-                    <col width="75%" valign="top">
-                    <col width="25%" valign="top">
-                    <thead>
-                    <tr>
-                        <th><?php echo $translator->trans(
-                                'process.step.check.table.'.$type
-                            ); ?></th>
-                        <th><?php echo $translator->trans(
-                                'process.step.check.table.status'
-                            ); ?></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php iterateRequirements($requirement, $translator); ?>
-                    </tbody>
-                </table>
-            <?php endforeach; ?>
+            <h2><?php echo $translator->trans('process.step.check.header'); ?></h2>
         </div>
 
-        <hr/>
-        <br/>
+        <?php if (count($majorProblems)) : ?>
+        <div class="alert alert-warning" role="alert">
+            <ul>
+                <li><?php echo $translator->trans('process.step.check.invalid'); ?></li>
+                <?php if ($collection->hasPhpIniConfigIssue()): ?>
+                    <li id="phpini">*
+                        <?php
+                        if ($collection->getPhpIniConfigPath()) :
+                            echo $translator->trans(
+                                'process.step.check.phpchanges',
+                                array(
+                                    '%path%' => $collection->getPhpIniConfigPath(
+                                    ),
+                                )
+                            );
+                        else :
+                            echo $translator->trans(
+                                'process.step.check.phpchanges'
+                            );
+                        endif;
+                        ?>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
+        <?php
+        $requirements = array(
+            'mandatory' => $collection->getMandatoryRequirements(),
+            'php' => $collection->getPhpIniRequirements(),
+            'chamilo' => $collection->getChamiloRequirements(),
+            'cli' => $collection->getCliRequirements(),
+            'optional' => $collection->getRecommendations(),
+        );
 
-        <div class="install-form-actions">
-            <?php if (count($majorProblems) || count($minorProblems)): ?>
-                <a href="install.php" class="btn btn-default btn-lg">
-                    <i class="fa fa-refresh"></i> <?php echo $translator->trans(
-                        'process.button.refresh'
-                    ); ?>
-                </a>
-            <?php endif; ?>
-            <a href="<?php echo count(
-                $majorProblems
-            ) ? 'javascript: void(0);' : 'app_dev.php/installer/flow/chamilo_installer/welcome'; ?>"
-               class="btn btn-lg btn-primary <?php echo count(
-                   $majorProblems
-               ) ? 'disabled' : 'primary'; ?>">
-                <i class="fa fa-chevron-right"></i> <?php echo $translator->trans(
-                    'process.button.continue'
-                ); ?>
+        foreach ($requirements as $type => $requirement) : ?>
+            <table class="table table-striped">
+                <col width="75%" valign="top">
+                <col width="25%" valign="top">
+                <thead>
+                <tr>
+                    <th><?php echo $translator->trans('process.step.check.table.'.$type); ?></th>
+                    <th><?php echo $translator->trans('process.step.check.table.status'); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php iterateRequirements($requirement, $translator); ?>
+                </tbody>
+            </table>
+        <?php endforeach; ?>
+    </div>
+
+    <hr/>
+    <br/>
+    <div class="install-form-actions">
+        <?php if (count($majorProblems) || count($minorProblems)): ?>
+            <a href="install.php" class="btn btn-default btn-lg">
+                <i class="fa fa-refresh"></i>
+                <?php echo $translator->trans('process.button.refresh'); ?>
             </a>
-        </div>
+        <?php endif; ?>
+        <a href="<?php echo count($majorProblems) ? 'javascript: void(0);' : $url; ?>"
+           class="btn btn-lg btn-primary <?php echo count($majorProblems) ? 'disabled' : 'primary'; ?>">
+            <i class="fa fa-chevron-right"></i> <?php echo $translator->trans('process.button.continue'); ?>
+        </a>
     </div>
 </div>
 <hr/>
 <br/>
+
 <footer class="footer">
     <div class="container">
         <p class="text-muted">

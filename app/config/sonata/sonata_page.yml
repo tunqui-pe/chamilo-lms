@@ -26,6 +26,7 @@ sonata_page:
         - ^/api/(.*)
         - ^installer
         - ^/installer/(.*)
+        - ^/upgrade/(.*)
         - install.php
         - ^/bundles/(.*)
         - _wdt/(.*)
@@ -45,6 +46,7 @@ sonata_page:
         - home
         - elfinder
         - login
+        - logout
         - fos_js_routing_js
         - _settings
         - main
@@ -62,7 +64,6 @@ sonata_page:
         - sylius_flow_display
         - sylius_flow_forward
         - chamilo_core_user_user_mycourses
-        - home
 
     cache_invalidation:
         service:  sonata.page.cache.invalidation.simple

@@ -413,7 +413,7 @@ class SessionManager
         }
 
         if (!api_is_platform_admin() && api_is_teacher() &&
-            api_get_setting('allow_teachers_to_create_sessions') == 'true'
+            api_get_setting('session.allow_teachers_to_create_sessions') == 'true'
         ) {
             $where .=" AND s.id_coach = $user_id ";
         }
@@ -3883,7 +3883,7 @@ class SessionManager
         }
 
         if (api_is_teacher() &&
-            api_get_setting('allow_teachers_to_create_sessions') == 'true'
+            api_get_setting('session.allow_teachers_to_create_sessions') == 'true'
         ) {
             if ($sessionInfo['id_coach'] != $userId) {
                 return false;
@@ -3902,7 +3902,7 @@ class SessionManager
             return true;
         }
 
-        $setting = api_get_setting('allow_teachers_to_create_sessions');
+        $setting = api_get_setting('session.allow_teachers_to_create_sessions');
 
         if (api_is_teacher() && $setting == 'true') {
 

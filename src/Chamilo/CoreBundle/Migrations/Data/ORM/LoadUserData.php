@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Migrations\Data\ORM;
 
+use Chamilo\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -67,6 +68,7 @@ class LoadUserData extends AbstractFixture implements
         $users = require $root.'/tests/datafiller/data_users.php';
 
         foreach ($users as $userData) {
+            /** @var User $user */
             $user = $manager->createUser();
 
             $user->setFirstname($userData['firstname']);

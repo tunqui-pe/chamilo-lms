@@ -2,6 +2,15 @@ chamilo_installer_flow:
     pattern: /installer
     defaults: { _controller: sylius.controller.process:startAction, scenarioAlias: 'chamilo_installer' }
 
+chamilo_upgrade_flow:
+    pattern: /upgrade
+    defaults: { _controller: sylius.controller.process:startAction, scenarioAlias: 'chamilo_upgrade' }
+
 chamilo_flow_bundle:
     resource: @SyliusFlowBundle/Resources/config/routing.yml
     prefix: /installer
+
+chamilo_upgrade_flow_bundle:
+    resource: @SyliusFlowBundle/Resources/config/routing.yml
+    prefix: /upgrade
+

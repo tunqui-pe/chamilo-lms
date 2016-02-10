@@ -7,7 +7,6 @@ use Chamilo\InstallerBundle\CommandExecutor;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Console\Output\StreamOutput;
-
 use Sylius\Bundle\FlowBundle\Process\Step\AbstractControllerStep;
 
 /**
