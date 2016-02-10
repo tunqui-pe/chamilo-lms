@@ -959,7 +959,7 @@ class User extends BaseUser implements ThemeUser
     /**
      * Get pictureUri
      *
-     * @return Media
+     * @return string
      */
     public function getPictureUri()
     {
@@ -1565,6 +1565,25 @@ class User extends BaseUser implements ThemeUser
 
             return true;
         }
+    }
+
+    /**
+     * @return Media
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param mixed $picture
+     * @return User
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 
 //    /**

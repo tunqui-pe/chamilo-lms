@@ -105,7 +105,7 @@ class ProfileType extends AbstractType
                 )
             )
             ->add(
-                'picture_uri',
+                'picture',
                 'sonata_media_type',
                 array(
                     'provider' => 'sonata.media.provider.image',
