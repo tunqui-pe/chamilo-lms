@@ -3,9 +3,10 @@
 
 namespace Chamilo\CoreBundle\Migrations;
 
+use Oro\Bundle\MigrationBundle\Migration\Migration;
 use Chamilo\CoreBundle\Entity\SettingsCurrent;
 use Chamilo\CoreBundle\Entity\SettingsOptions;
-use Doctrine\DBAL\Migrations\AbstractMigration;
+//use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -13,9 +14,15 @@ use Doctrine\ORM\EntityManager;
  *
  * @package Chamilo\CoreBundle\Migrations
  */
-abstract class AbstractMigrationChamilo extends AbstractMigration
+abstract class AbstractMigrationChamilo implements Migration
 {
     private $manager;
+
+    public function isTransactional()
+    {
+        return true;
+    }
+
 
     /**
      * @param EntityManager $manager

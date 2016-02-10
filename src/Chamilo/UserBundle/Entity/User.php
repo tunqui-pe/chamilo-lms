@@ -66,7 +66,7 @@ use Chamilo\MediaBundle\Entity\Media;
  * })
  *
  */
-class User extends BaseUser implements ThemeUser, AttributeSubjectInterface
+class User extends BaseUser implements ThemeUser
 {
     const COURSE_MANAGER = 1;
     const TEACHER = 1;
@@ -161,19 +161,18 @@ class User extends BaseUser implements ThemeUser, AttributeSubjectInterface
      */
     //protected $phone;
 
-
     /**
      * @var string
      * @ORM\Column(name="picture_uri", type="string", length=250, nullable=true, unique=false)
      */
-    //private $pictureUri;
+    private $pictureUri;
 
     /**
      * Media type
      * @ORM\ManyToOne(targetEntity="Chamilo\MediaBundle\Entity\Media", cascade={"all"} )
-     * @ORM\JoinColumn(name="picture_uri", referencedColumnName="id")
+     * @ORM\JoinColumn(name="picture", referencedColumnName="id")
      */
-    protected $pictureUri;
+    protected $picture;
 
     /**
      * @var integer
@@ -1568,97 +1567,98 @@ class User extends BaseUser implements ThemeUser, AttributeSubjectInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getAttributes()
-    {
-        return $this->extraFieldValues;
-    }
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function getAttributes()
+//    {
+//        return $this->extraFieldValues;
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function setAttributes(Collection $attributes)
+//    {
+//        foreach ($attributes as $attribute) {
+//            $this->addAttribute($attribute);
+//        }
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function addAttribute(AttributeValueInterface $attribute)
+//    {
+//        if (!$this->hasAttribute($attribute)) {
+//            /** @var ExtraFieldValues $attribute */
+//            $attribute->setSubjectUser($this);
+//            $this->extraFieldValues[] = $attribute;
+//        }
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function removeAttribute(AttributeValueInterface $attribute)
+//    {
+//        if ($this->hasAttribute($attribute)){
+//            $attribute->setSubject(null);
+//            $key = array_search($attribute, $this->extraFieldValues->toArray());
+//            unset($this->extraFieldValues[$key]);
+//        }
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function hasAttribute(AttributeValueInterface $attribute)
+//    {
+//        return in_array($attribute, $this->extraFieldValues->toArray());
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function hasAttributeByName($attributeName)
+//    {
+//        foreach ($this->extraFieldValues as $attribute) {
+//            if ($attribute->getName() === $attributeName) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function getAttributeByName($attributeName)
+//    {
+//        foreach ($this->extraFieldValues as $attribute) {
+//            if ($attribute->getName() === $attributeName) {
+//                return $attribute;
+//            }
+//        }
+//
+//        return null;
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function hasAttributeByCode($attributeCode)
+//    {
+//
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function getAttributeByCode($attributeCode)
+//    {
+//
+//    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setAttributes(Collection $attributes)
-    {
-        foreach ($attributes as $attribute) {
-            $this->addAttribute($attribute);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addAttribute(AttributeValueInterface $attribute)
-    {
-        if (!$this->hasAttribute($attribute)) {
-            /** @var ExtraFieldValues $attribute */
-            $attribute->setSubjectUser($this);
-            $this->extraFieldValues[] = $attribute;
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeAttribute(AttributeValueInterface $attribute)
-    {
-        if ($this->hasAttribute($attribute)){
-            $attribute->setSubject(null);
-            $key = array_search($attribute, $this->extraFieldValues->toArray());
-            unset($this->extraFieldValues[$key]);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasAttribute(AttributeValueInterface $attribute)
-    {
-        return in_array($attribute, $this->extraFieldValues->toArray());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasAttributeByName($attributeName)
-    {
-        foreach ($this->extraFieldValues as $attribute) {
-            if ($attribute->getName() === $attributeName) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAttributeByName($attributeName)
-    {
-        foreach ($this->extraFieldValues as $attribute) {
-            if ($attribute->getName() === $attributeName) {
-                return $attribute;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasAttributeByCode($attributeCode)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAttributeByCode($attributeCode)
-    {
-
-    }
 }
