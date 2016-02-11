@@ -36,7 +36,7 @@
         </table>
 
         <div class="install-form-actions">
-            <a href="{{ path('sylius_flow_display', { scenarioAlias: 'chamilo_installer', stepName: 'configure' }) }}"
+            <a href="{{ path('sylius_flow_display', { scenarioAlias: 'chamilo_install', stepName: 'configure' }) }}"
                class="btn btn-lg btn-default back disabled">
                 {{ 'process.button.back'|trans }}
             </a>
@@ -55,7 +55,7 @@
         $(function () {
             ajaxQueue(
                     [{% for step in steps %}'{{ step }}'{{ loop.last ? '' : ', ' }}{% endfor %}],
-                    '{{ path('sylius_flow_forward', { scenarioAlias: 'chamilo_installer', stepName: 'schema' }) }}'
+                    '{{ path('sylius_flow_forward', { scenarioAlias: 'chamilo_install', stepName: 'schema' }) }}'
             );
         });
     </script>

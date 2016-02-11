@@ -11,7 +11,7 @@
 
 {% block content %}
     <div>
-        <form action="{{ path('sylius_flow_forward', { scenarioAlias: 'chamilo_installer', stepName: 'configure'}) }}"
+        <form action="{{ path('sylius_flow_forward', { scenarioAlias: 'chamilo_install', stepName: 'configure'}) }}"
               method="post">
             {{ form_errors(form) }}
             <div class="row">

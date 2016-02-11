@@ -1,13 +1,9 @@
 {% block _chamilo_installer_configuration_mailer_chamilo_installer_mailer_transport_row %}
-
     <script type="text/javascript">
         $(function () {
             var con = $('#chamilo_installer_configuration_mailer');
-
             checkTransport();
-
             con.find('.form-group:first select').change(checkTransport);
-
             function checkTransport() {
                 if (con.find('.form-group:first select').val() != 'smtp') {
                     con.find('.form-group:not(:first)').hide()

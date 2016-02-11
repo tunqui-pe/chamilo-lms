@@ -90,9 +90,9 @@ function iterateRequirements(array $collection, $translator)
     endforeach;
 }
 
-$url = 'app_dev.php/installer/flow/chamilo_installer/welcome';
+$url = 'app_dev.php/install/flow/chamilo_install/welcome';
 if ($upgrade) {
-    $url = 'app_dev.php/upgrade/flow/chamilo_installer/welcome';
+    $url = 'app_dev.php/install/flow/chamilo_upgrade/welcome';
 }
 
 ?>

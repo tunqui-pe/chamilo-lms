@@ -5,6 +5,7 @@ namespace Chamilo\InstallerBundle\Form\Type\Configuration;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,22 +14,23 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DatabaseType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             /*->add(
                 'chamilo_installer_database_driver',
-                'choice',
+                ChoiceType::class,
                 array(
-                    'label'       => 'form.configuration.database.driver',
-                    'choices'       => array(
-                        'pdo_mysql' => 'MySQL',
-                        'pdo_pgsql' => 'PostgreSQL',
+                    // 'label' => 'form.configuration.database.driver',
+                    'choices' => array(
+                        'MySQL' => 'pdo_mysql',
+                        //'pdo_pgsql' => 'PostgreSQL',
                     ),
+                    'choices_as_values' => true,
                     'constraints' => array(
-                        new Assert\NotBlank(),
-                        new ExtensionLoaded(),
-                    ),
+                        //new Assert\NotBlank(),
+                        //new ExtensionLoaded(),
+                    )
                 )
             )*/
             ->add(
@@ -91,6 +93,9 @@ class DatabaseType extends AbstractType
             );
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'chamilo_installer_configuration_database';

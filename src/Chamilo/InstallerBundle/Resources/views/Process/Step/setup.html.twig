@@ -15,7 +15,7 @@
                 <h2>{{ 'process.step.setup.header'|trans|raw }}</h2>
             </div>
 
-            <form action="{{ path('sylius_flow_forward', {'scenarioAlias': 'chamilo_installer', 'stepName': 'setup'}) }}"
+            <form action="{{ path('sylius_flow_forward', {'scenarioAlias': 'chamilo_install', 'stepName': 'setup'}) }}"
                   method="post">
                 {{ form_errors(form) }}
                 <div class="row">
@@ -32,7 +32,7 @@
                 </div>
                 {{ form_rest(form) }}
                 <div class="install-form-actions">
-                    <a href="{{ path('sylius_flow_display', {'scenarioAlias': 'chamilo_installer', 'stepName': 'configure'}) }}"
+                    <a href="{{ path('sylius_flow_display', {'scenarioAlias': 'chamilo_install', 'stepName': 'configure'}) }}"
                        class="btn btn-lg btn-default">
                         <i class="fa fa-chevron-left"></i>
                         {{ 'process.button.back'|trans }}

@@ -24,9 +24,8 @@ sonata_page:
         - ^/admin(.*) # chamilo admin
         - /(.*)/(.*)administration(.*)/
         - ^/api/(.*)
-        - ^installer
-        - ^/installer/(.*)
-        - ^/upgrade/(.*)
+        - ^install
+        - ^/install/(.*)
         - install.php
         - ^/bundles/(.*)
         - _wdt/(.*)

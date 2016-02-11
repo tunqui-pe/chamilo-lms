@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SystemType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,8 +29,7 @@ class SystemType extends AbstractType
                     'constraints' => array(
                         new Assert\NotBlank(),
                         new Assert\Locale(),
-                    ),
-                    //'client_validation'  => false,
+                    )
                 )
             )
             ->add(
@@ -39,9 +42,13 @@ class SystemType extends AbstractType
                         new Assert\NotBlank(),
                     ),
                 )
-            );
+            )
+        ;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'chamilo_installer_configuration_system';

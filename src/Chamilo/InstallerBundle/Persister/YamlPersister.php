@@ -1,9 +1,14 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\InstallerBundle\Persister;
 
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class YamlPersister
+ * @package Chamilo\InstallerBundle\Persister
+ */
 class YamlPersister
 {
     /**
@@ -28,6 +33,9 @@ class YamlPersister
         }
     }
 
+    /**
+     * @return array
+     */
     public function parse()
     {
         $data = Yaml::parse($this->paramFile);

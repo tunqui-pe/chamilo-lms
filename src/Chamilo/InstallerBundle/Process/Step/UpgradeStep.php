@@ -10,10 +10,10 @@ use Chamilo\InstallerBundle\CommandExecutor;
 use Chamilo\InstallerBundle\ScriptExecutor;
 
 /**
- * Class InstallationStep
+ * Class UpgradeStep
  * @package Chamilo\InstallerBundle\Process\Step
  */
-class InstallationStep extends AbstractStep
+class UpgradeStep extends AbstractStep
 {
     /**
      * @param ProcessContextInterface $context
@@ -21,12 +21,6 @@ class InstallationStep extends AbstractStep
      */
     public function displayAction(ProcessContextInterface $context)
     {
-        if ($this->container->hasParameter('installed') &&
-            $this->container->getParameter('installed')
-        ) {
-
-            return $this->redirect($this->generateUrl('home'));
-        }
         set_time_limit(900);
 
         $action = $this->getRequest()->query->get('action');

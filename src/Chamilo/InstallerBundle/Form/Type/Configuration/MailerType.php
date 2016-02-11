@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class MailerType
@@ -20,19 +21,19 @@ class MailerType extends AbstractType
         $builder
             ->add(
                 'chamilo_installer_mailer_transport',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'form.configuration.mailer.transport.header',
-                    'preferred_choices' => array('mail'),
+                    //'preferred_choices' => array('mail'),
                     'choices' => array(
-                        'mail' => 'PHP mail',
-                        'smtp' => 'SMTP',
+                        'PHP mail' => 'mail',
+                        'SMTP' => 'smtp',
                         'sendmail' => 'sendmail',
                     ),
+                    'choices_as_values' => true,
                     'constraints' => array(
                         new Assert\NotBlank(),
-                    ),
-                    //'client_validation' => false,
+                    )
                 )
             )
             ->add(
@@ -63,17 +64,17 @@ class MailerType extends AbstractType
             )
             ->add(
                 'chamilo_installer_mailer_encryption',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'form.configuration.mailer.encryption',
                     'required' => false,
                     'preferred_choices' => array(''),
                     'choices' => array(
-                        '' => 'None',
-                        'ssl' => 'SSL',
-                        'tls' => 'TLS',
+                        'None' => '',
+                        'SSL' => 'ssl',
+                        'TLS' => 'tls'
                     ),
-                    //'client_validation' => false,
+                    'choices_as_values' => true
                 )
             )
             ->add(
@@ -91,7 +92,8 @@ class MailerType extends AbstractType
                     'label' => 'form.configuration.mailer.password',
                     'required' => false,
                 )
-            );
+            )
+        ;
     }
 
     /**

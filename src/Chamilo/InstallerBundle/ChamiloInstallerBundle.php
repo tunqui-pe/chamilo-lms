@@ -10,6 +10,8 @@ use Chamilo\InstallerBundle\DependencyInjection\Compiler\InstallerPass;
 
 /**
  * Class ChamiloInstallerBundle
+ * Based in OroInstallerBundle
+ *
  * @package Chamilo\InstallerBundle
  */
 class ChamiloInstallerBundle extends Bundle
