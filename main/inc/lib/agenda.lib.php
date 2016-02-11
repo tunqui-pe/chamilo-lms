@@ -155,8 +155,12 @@ class Agenda
                     ->setUser(api_get_user_id())
                     ->setTitle($title)
                     ->setText($content)
-                    ->setDate($start)
-                    ->setEnddate($end)
+                    ->setDate(
+                        new DateTime($start, new DateTimeZone('UTC'))
+                    )
+                    ->setEnddate(
+                        new DateTime($end, new DateTimeZone('UTC'))
+                    )
                     ->setAllDay($allDay)
                     ->setColor($color);
 
@@ -1283,21 +1287,25 @@ class Agenda
             );
 
         if ($start !== 0) {
-            $start = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+            $start = new DateTime(api_get_utc_datetime($start), new DateTimeZone('UTC'));
 
-            $qb->andWhere(
-                $qb->expr()->gte('pa.date', $start)
-            );
+            $qb
+                ->andWhere(
+                    $qb->expr()->gte('pa.date', ':start')
+                )
+                ->setParameter('start', $start);
         }
         if ($start !== 0) {
-            $end = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+            $end = new DateTime(api_get_utc_datetime($end), new DateTimeZone('UTC'));
 
-            $qb->andWhere(
-                $qb->expr()->orX(
-                    $qb->expr()->lte('pa.enddate', $end),
-                    $qb->expr()->isNull('pa.enddate')
+            $qb
+                ->andWhere(
+                    $qb->expr()->orX(
+                        $qb->expr()->lte('pa.enddate', ':end'),
+                        $qb->expr()->isNull('pa.enddate')
+                    )
                 )
-            );
+                ->setParameter('end', $end);
         }
 
         $result = $qb->getQuery()->getResult();
@@ -1314,12 +1322,12 @@ class Agenda
                 $event['type'] = 'personal';
 
                 if (!empty($row->getDate())) {
-                    $event['start'] = $this->formatEventDate($row->getDate());
+                    $event['start'] = $this->formatEventDate($row->getDate()->format('Y-m-d h:i:s'));
                     $event['start_date_localtime'] = api_get_local_time($row->getDate());
                 }
 
                 if (!empty($row->getEnddate())) {
-                    $event['end'] = $this->formatEventDate($row->getEnddate());
+                    $event['end'] = $this->formatEventDate($row->getEnddate()->format('Y-m-d h:i:s'));
                     $event['end_date_localtime'] = api_get_local_time($row->getEnddate());
                 }
                 $event['description'] = $row->getText();
