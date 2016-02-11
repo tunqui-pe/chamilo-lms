@@ -26,10 +26,10 @@ if (empty($my_selectcat)) {
     api_not_allowed();
 }
 
+$em = Database::getManager();
+
 $course_id = GradebookUtils::get_course_id_by_link_id($my_selectcat);
 
-$table_link = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-$table_evaluation = Database::get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
 $tbl_forum_thread = Database:: get_course_table(TABLE_FORUM_THREAD);
 $tbl_work = Database:: get_course_table(TABLE_STUDENT_PUBLICATION);
 $tbl_attendance = Database:: get_course_table(TABLE_ATTENDANCE);
@@ -55,17 +55,20 @@ $my_category = array();
 $cat = new Category();
 $my_category = $cat->shows_all_information_an_category($my_selectcat);
 
-$original_total = $my_category['weight'];
+$original_total = $my_category->getWeight();
 $masked_total = $parent_cat[0]->get_weight();
 
-$sql = 'SELECT * FROM '.$table_link.' WHERE category_id = '.$my_selectcat;
-$result = Database::query($sql);
-$links = Database::store_result($result, 'ASSOC');
+$links = $em
+    ->getRepository('ChamiloCoreBundle:GradebookLink')
+    ->findBy([
+        'categoryId' => $my_selectcat
+    ]);
+$linksInfo = [];
 
-foreach ($links as &$row) {
-    $item_weight = $row['weight'];
-    $sql = 'SELECT * FROM '.GradebookUtils::get_table_type_course($row['type']).'
-            WHERE c_id = '.$course_id.' AND '.$table_evaluated[$row['type']][2].' = '.$row['ref_id'];
+foreach ($links as $row) {
+    $item_weight = $row->getWeight();
+    $sql = 'SELECT * FROM '.GradebookUtils::get_table_type_course($row->getType()).'
+            WHERE c_id = '.$course_id.' AND '.$table_evaluated[$row->getType()][2].' = '.$row->getRefId();
     $result = Database::query($sql);
     $resource_name = Database::fetch_array($result);
 
@@ -74,40 +77,45 @@ foreach ($links as &$row) {
     } else {
         $resource_name = $resource_name[3];
     }
-    $row['resource_name'] = $resource_name;
+    $linksInfo[] = [
+        'id' => $row->getId(),
+        'resource_name' => $resource_name
+    ];
 
     // Update only if value changed
-    if (isset($_POST['link'][$row['id']])) {
-        $new_weight = trim($_POST['link'][$row['id']]);
+    if (isset($_POST['link'][$row->getId()])) {
+        $new_weight = trim($_POST['link'][$row->getId()]);
         GradebookUtils::updateLinkWeight(
-            $row['id'],
+            $row->getId(),
             $resource_name,
             $new_weight
         );
         $item_weight = $new_weight;
     }
 
-    $output .= '<tr><td>'.GradebookUtils::build_type_icon_tag($row['type']).'</td>
+    $output .= '<tr><td>'.GradebookUtils::build_type_icon_tag($row->getType()).'</td>
                <td> '.$resource_name.' '.Display::label(
-            $table_evaluated[$row['type']][3],
+            $table_evaluated[$row->getType()][3],
             'info'
         ).' </td>';
     $output .= '<td>
-                    <input type="hidden" name="link_'.$row['id'].'" value="'.$resource_name.'" />
-                    <input size="10" type="text" name="link['.$row['id'].']" value="'.$item_weight.'"/>
+                    <input type="hidden" name="link_'.$row->getId().'" value="'.$resource_name.'" />
+                    <input size="10" type="text" name="link['.$row->getId().']" value="'.$item_weight.'"/>
                </td></tr>';
 }
 
-$sql = 'SELECT * FROM '.$table_evaluation.' WHERE category_id = '.$my_selectcat;
-$result = Database::query($sql);
-$evaluations = Database::store_result($result);
+$evaluations = $em
+    ->getRepository('ChamiloCoreBundle:GradebookEvaluation')
+    ->findBy([
+        'categoryId' => $my_selectcat
+    ]);
 foreach ($evaluations as $evaluationRow) {
-    $item_weight = $evaluationRow['weight'];
+    $item_weight = $evaluationRow->getWeight();
     // update only if value changed
-    if (isset($_POST['evaluation'][$evaluationRow['id']])) {
-        $new_weight = trim($_POST['evaluation'][$evaluationRow['id']]);
+    if (isset($_POST['evaluation'][$evaluationRow->getId()])) {
+        $new_weight = trim($_POST['evaluation'][$evaluationRow->getId()]);
         GradebookUtils::updateEvaluationWeight(
-            $evaluationRow['id'],
+            $evaluationRow->getId(),
             $new_weight
         );
 
@@ -116,18 +124,18 @@ foreach ($evaluations as $evaluationRow) {
 
     $output .= '<tr>
                 <td>'.GradebookUtils::build_type_icon_tag('evalnotempty').'</td>
-                <td>'.$evaluationRow['name'].' '.Display::label(
+                <td>'.$evaluationRow->getName().' '.Display::label(
             get_lang('Evaluation')
         ).'</td>';
     $output .= '<td>
-                    <input type="hidden" name="eval_'.$evaluationRow['id'].'" value="'.$evaluationRow['name'].'" />
-                    <input type="text" size="10" name="evaluation['.$evaluationRow['id'].']" value="'.$item_weight.'"/>
+                    <input type="hidden" name="eval_'.$evaluationRow->getId().'" value="'.$evaluationRow->getName().'" />
+                    <input type="text" size="10" name="evaluation['.$evaluationRow->getId().']" value="'.$item_weight.'"/>
                 </td></tr>';
 }
 
 $my_api_cidreq = api_get_cidreq();
 if ($my_api_cidreq == '') {
-    $my_api_cidreq = 'cidReq='.$my_category['course_code'];
+    $my_api_cidreq = 'cidReq='.$my_category->getCourse()->getCode();
 }
 
 $currentUrl = api_get_self().'?'.api_get_cidreq().'&selectcat='.$my_selectcat;
@@ -155,7 +163,7 @@ if ($form->validate()) {
     $total = 0;
     $diffApplied = false;
 
-    foreach ($links as $link) {
+    foreach ($linksInfo as $link) {
         $weightToApply = $weight;
         if ($diffApplied == false) {
             if (!empty($diff)) {

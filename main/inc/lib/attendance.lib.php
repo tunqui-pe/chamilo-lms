@@ -283,7 +283,6 @@ class Attendance
 	{
 		$_course = api_get_course_info();
 		$tbl_attendance	= Database :: get_course_table(TABLE_ATTENDANCE);
-		$table_link = Database:: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 		$session_id = api_get_session_id();
 		$user_id = api_get_user_id();
 		$course_code = $_course['code'];
@@ -291,6 +290,8 @@ class Attendance
 		$title_gradebook= $this->attendance_qualify_title;
 		$value_calification = 0;
 		$weight_calification = floatval($this->attendance_weight);
+
+        $em = Database::getManager();
 
 		$params = [
 			'c_id' => $course_id,
@@ -328,7 +329,7 @@ class Attendance
                 $last_id,
                 $session_id
             );
-			$link_id = $link_info['id'];
+			$link_id = $link_info->getId();
 			if (!$link_info) {
 				GradebookUtils::add_resource_to_course_gradebook(
 					$this->category_id,
@@ -343,7 +344,11 @@ class Attendance
 					$session_id
 				);
 			} else {
-				Database::query('UPDATE '.$table_link.' SET weight='.$weight_calification.' WHERE id='.$link_id.'');
+                $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $link_id);
+                $gradebookLink->setWeight($weight_calification);
+
+                $em->persist($gradebookLink);
+                $em-flush();
 			}
 		}
 		return $last_id;
@@ -359,7 +364,8 @@ class Attendance
 	{
 		$_course = api_get_course_info();
 		$tbl_attendance = Database:: get_course_table(TABLE_ATTENDANCE);
-		$table_link = Database:: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
+
+        $em = Database::getManager();
 
 		$session_id = api_get_session_id();
 		$user_id = api_get_user_id();
@@ -395,13 +401,13 @@ class Attendance
 			// add link to gradebook
 			if ($link_to_gradebook && !empty($this->category_id)) {
 				$description = '';
-				$link_info = GradebookUtils::is_resource_in_course_gradebook(
+				$link = GradebookUtils::is_resource_in_course_gradebook(
 					$course_code,
 					7,
 					$attendance_id,
 					$session_id
 				);
-				if (!$link_info) {
+				if (!$link) {
 					GradebookUtils::add_resource_to_course_gradebook(
 						$this->category_id,
 						$course_code,
@@ -415,7 +421,11 @@ class Attendance
 						$session_id
 					);
 				} else {
-					Database::query('UPDATE '.$table_link.' SET weight='.$weight_calification.' WHERE id='.$link_info['id'].'');
+                    $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $this->getId());
+                    $gradebookLink->setWeight($weight_calification);
+
+                    $em->persist($gradebookLink);
+                    $em->flush();
 				}
 			}
 			return $attendance_id;

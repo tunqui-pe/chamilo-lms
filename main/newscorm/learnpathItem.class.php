@@ -94,6 +94,8 @@ class learnpathItem
         $course_id = null,
         $item_content = null
     ) {
+        $em = Database::getManager();
+
         $items_table = Database::get_course_table(TABLE_LP_ITEM);
 
         // Get items table.
@@ -109,14 +111,17 @@ class learnpathItem
         }
         $id = intval($id);
 
+        if (empty($course_id)) {
+            $course_id = api_get_course_int_id();
+        } else {
+            $course_id = intval($course_id);
+        }
+
+        $course = $em->find('ChamiloCoreBundle:Course', $course_id);
+
         if (empty($item_content)) {
-            if (empty($course_id)) {
-                $course_id = api_get_course_int_id();
-            } else {
-                $course_id = intval($course_id);
-            }
             $sql = "SELECT * FROM $items_table
-                    WHERE c_id = $course_id AND id = $id";
+                    WHERE c_id = {$course->getId()} AND id = $id";
             $res = Database::query($sql);
             if (Database::num_rows($res) < 1) {
                 $this->error =
@@ -156,7 +161,7 @@ class learnpathItem
         // Load children list
         $sql = "SELECT id FROM $items_table
                 WHERE
-                    c_id = $course_id AND
+                    c_id = {$course->getId()} AND
                     lp_id = ".$this->lp_id." AND
                     parent_item_id = $id";
         $res = Database::query($sql);
@@ -173,33 +178,18 @@ class learnpathItem
 
         // Get search_did.
         if (api_get_setting('search.search_enabled') == 'true') {
-            $tbl_se_ref = Database::get_main_table(
-                TABLE_MAIN_SEARCH_ENGINE_REF
-            );
-            $sql = 'SELECT *
-                FROM %s
-                WHERE course_code=\'%s\'
-                    AND tool_id=\'%s\'
-                    AND ref_id_high_level=%s
-                    AND ref_id_second_level=%d
-                LIMIT 1';
-            // TODO: Verify if it's possible to assume the actual course instead
-            // of getting it from db.
-            $sql = sprintf(
-                $sql,
-                $tbl_se_ref,
-                api_get_course_id(),
-                TOOL_LEARNPATH,
-                $this->lp_id,
-                $id
-            );
-            if (self::debug > 0) {
-                error_log($sql);
-            };
-            $res = Database::query($sql);
-            if (Database::num_rows($res) > 0) {
-                $se_ref = Database::fetch_array($res);
-                $this->search_did = (int)$se_ref['search_did'];
+            $lpCourse = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
+
+            $searchEngineRef = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $lpCourse,
+                    'toolId' => TOOL_LEARNPATH,
+                    'refIdHighLevel' => $this->lp_id,
+                    'refIdSecondLevel' => $id
+                ]);
+
+            if ($searchEngineRef) {
+                $this->search_did = $searchEngineRef->getSearchDid();
             }
         }
         $this->audio = $row['audio'];

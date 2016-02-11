@@ -963,23 +963,30 @@ abstract class Question
                 'search.search_enabled'
             ) == 'true' && extension_loaded('xapian')
         ) {
-            $course_id = api_get_course_id();
+            $em = Database::getManager();
+
+            $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
+
             // get search_did
-            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
             if ($addQs || $rmQs) {
                 //there's only one row per question on normal db and one document per question on search engine db
-                $sql = 'SELECT * FROM %s
-                    WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_second_level=%s LIMIT 1';
-                $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
+                $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                    ->findOneBy([
+                        'course' => $course,
+                        'toolId' => TOOL_QUIZ,
+                        'refIdSecondLevel' => $this->id
+                    ]);
             } else {
-                $sql = 'SELECT * FROM %s
-                    WHERE course_code=\'%s\' AND tool_id=\'%s\'
-                    AND ref_id_high_level=%s AND ref_id_second_level=%s LIMIT 1';
-                $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $exerciseId, $this->id);
+                $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                    ->findOneBy([
+                        'course' => $course,
+                        'toolId' => TOOL_QUIZ,
+                        'refIdHighLevel' => $exerciseId,
+                        'refIdSecondLevel' => $this->id
+                    ]);
             }
-            $res = Database::query($sql);
 
-            if (Database::num_rows($res) > 0 || $addQs) {
+            if ($se_ref || $addQs) {
                 require_once(api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php');
                 require_once(api_get_path(LIBRARY_PATH) . 'search/IndexableChunk.class.php');
 
@@ -993,8 +1000,7 @@ abstract class Question
                 $di->connectDb(NULL, NULL, $lang);
 
                 // retrieve others exercise ids
-                $se_ref = Database::fetch_array($res);
-                $se_doc = $di->get_document((int)$se_ref['search_did']);
+                $se_doc = $di->get_document($se_ref->getSearchDid());
                 if ($se_doc !== FALSE) {
                     if (($se_doc_data = $di->get_document_data($se_doc)) !== FALSE) {
                         $se_doc_data = unserialize($se_doc_data);
@@ -1024,10 +1030,10 @@ abstract class Question
                 // build the chunk to index
                 $ic_slide = new IndexableChunk();
                 $ic_slide->addValue("title", $this->question);
-                $ic_slide->addCourseId($course_id);
+                $ic_slide->addCourseId($course->getCode());
                 $ic_slide->addToolId(TOOL_QUIZ);
                 $xapian_data = array(
-                    SE_COURSE_ID => $course_id,
+                    SE_COURSE_ID => $course->getCode(),
                     SE_TOOL_ID => TOOL_QUIZ,
                     SE_DATA => array(
                         'type' => SE_DOCTYPE_EXERCISE_QUESTION,
@@ -1041,7 +1047,7 @@ abstract class Question
 
                 //TODO: index answers, see also form validation on question_admin.inc.php
 
-                $di->remove_document((int)$se_ref['search_did']);
+                $di->remove_document($se_ref->getSearchDid());
                 $di->addChunk($ic_slide);
 
                 //index and return search engine document id
@@ -1052,48 +1058,46 @@ abstract class Question
                 if ($did || $rmQs) {
                     // save it to db
                     if ($addQs || $rmQs) {
-                        $sql = "DELETE FROM %s
-                            WHERE course_code = '%s' AND tool_id = '%s' AND ref_id_second_level = '%s'";
-                        $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
+                        $em->createQuery('
+                                DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                                WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdSecondLevel = ?3
+                            ')
+                            ->execute([1 => $course, 2 => TOOL_QUIZ, 3 => $this->id]);
                     } else {
-                        $sql = "DELETE FROM %S
-                            WHERE
-                                course_code = '%s'
-                                AND tool_id = '%s'
-                                AND tool_id = '%s'
-                                AND ref_id_high_level = '%s'
-                                AND ref_id_second_level = '%s'";
-                        $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $exerciseId, $this->id);
+                        $em->createQuery('
+                                DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                                WHERE ser.course = ?1 AND
+                                    ser.toolId = ?2 AND
+                                    ser.refIdHighLevel = ?3 AND
+                                    ser.refIdSecondLevel = ?4
+                            ')
+                            ->execute([1 => $course, 2 => TOOL_QUIZ, 3 => $exerciseId, 4 => $this->id]);
                     }
-                    Database::query($sql);
+
                     if ($rmQs) {
                         if (!empty($question_exercises)) {
-                            $sql = "INSERT INTO %s (
-                                    id, course_code, tool_id, ref_id_high_level, ref_id_second_level, search_did
-                                )
-                                VALUES (
-                                    NULL, '%s', '%s', %s, %s, %s
-                                )";
-                            $sql = sprintf(
-                                $sql,
-                                $tbl_se_ref,
-                                $course_id,
-                                TOOL_QUIZ,
-                                array_shift($question_exercises),
-                                $this->id,
-                                $did
-                            );
-                            Database::query($sql);
+                            $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                            $searchEngineRef
+                                ->setCourse($course)
+                                ->setToolId(TOOL_QUIZ)
+                                ->setRefIdHighLevel(array_shift($question_exercises))
+                                ->setRefIdSecondLevel($this->id)
+                                ->setSearchDid($did);
+
+                            $em->persist($searchEngineRef);
+                            $em->flush();
                         }
                     } else {
-                        $sql = "INSERT INTO %s (
-                                id, course_code, tool_id, ref_id_high_level, ref_id_second_level, search_did
-                            )
-                            VALUES (
-                                NULL , '%s', '%s', %s, %s, %s
-                            )";
-                        $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $exerciseId, $this->id, $did);
-                        Database::query($sql);
+                        $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                        $searchEngineRef
+                            ->setCourse($course)
+                            ->setToolId(TOOL_QUIZ)
+                            ->setRefIdHighLevel($exerciseId)
+                            ->setRefIdSecondLevel($this->id)
+                            ->setSearchDid($did);
+
+                        $em->persist($searchEngineRef);
+                        $em->flush();
                     }
                 }
 

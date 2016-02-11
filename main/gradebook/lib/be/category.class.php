@@ -328,29 +328,39 @@ class Category implements GradebookItem
             return $cats;
         }
 
-        $courseCode = api_get_course_info_by_id(api_get_course_int_id());
-        $courseCode = $courseCode['code'];
+        $courseId = (int) api_get_course_int_id();
         $session_id = intval($session_id);
 
-        if (!empty($session_id)) {
-            $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $sql = 'SELECT id, course_code
-                    FROM '.$tbl_grade_categories. '
-                    WHERE session_id = '.$session_id;
-            $result_session = Database::query($sql);
-            if (Database::num_rows($result_session) > 0) {
-                $categoryList = array();
-                while ($data_session = Database::fetch_array($result_session)) {
-                    $parent_id = $data_session['id'];
-                    if ($data_session['course_code'] == $courseCode) {
-                        $categories = Category::load($parent_id);
-                        $categoryList = array_merge($categoryList, $categories);
-                    }
-                }
+        $em = Database::getManager();
 
-                return $categoryList;
-            }
+        if (empty($session_id)) {
+            return [];
         }
+
+        $result_session = $em
+            ->getRepository('ChamiloCoreBundle:GradebookCategory')
+            ->findBy([
+                'sessionId' => $session_id
+            ]);
+
+        if (count($result_session) <= 0) {
+            return [];
+        }
+
+        $categoryList = array();
+
+        foreach ($result_session as $data_session) {
+            $parent_id = $data_session->getId();
+
+            if ($data_session->getCourse()->getId() !== $courseId) {
+                continue;
+            }
+
+            $categories = Category::load($parent_id);
+            $categoryList = array_merge($categoryList, $categories);
+        }
+
+        return $categoryList;
     }
 
     /**
@@ -382,36 +392,36 @@ class Category implements GradebookItem
             return $cats;
         }
 
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'SELECT * FROM '.$tbl_grade_categories;
-        $paramcount = 0;
+        $em = Database::getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gc')
+            ->from('ChamiloCoreBundle:GradebookCategory', 'gc');
+
         if (isset($id)) {
-            $sql.= ' WHERE id = '.intval($id);
-            $paramcount ++;
+            $id = intval($id);
+            $qb->andWhere(
+                $qb->expr()->eq('gc.id', $id)
+            );
         }
 
         if (isset($user_id)) {
             $user_id = intval($user_id);
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            } else {
-                $sql .= ' WHERE';
-            }
-            $sql .= ' user_id = '.intval($user_id);
-            $paramcount++;
+            $qb->andWhere(
+                $qb->expr()->eq('gc.userId', $user_id)
+            );
         }
 
         if (isset($course_code)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            } else {
-                $sql .= ' WHERE';
-            }
-
             if ($course_code == '0') {
-                $sql .= ' course_code is null ';
+                $qb->andWhere(
+                    $qb->expr()->isNull('gc.course')
+                );
             } else {
-                $sql .= " course_code = '".Database::escape_string($course_code)."'";
+                $courseId = api_get_course_int_id($course_code);
+                $qb->andWhere(
+                    $qb->expr()->eq('gc.course', $courseId)
+                );
             }
 
             /*if ($show_session_categories !== true) {
@@ -421,46 +431,47 @@ class Category implements GradebookItem
                 $sql .= " AND (session_id IS NULL OR session_id = 0) ";
             } else {*/
             if (empty($session_id)) {
-                $sql .= ' AND (session_id IS NULL OR session_id = 0) ';
+                $qb->andWhere(
+                    $qb->expr()->orX(
+                        $qb->expr()->isNull('gc.sessionId'),
+                        $qb->expr()->eq('gc.sessionId', 0)
+                    )
+                );
             } else {
-                $sql .= ' AND session_id = '.(int)$session_id.' ';
+                $session_id = intval($session_id);
+                $qb->andWhere(
+                    $qb->expr()->eq('gc.sessionId', $session_id)
+                );
             }
             //}
-            $paramcount ++;
         }
 
         if (isset($parent_id)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND ';
-            } else {
-                $sql .= ' WHERE ';
-            }
-            $sql .= ' parent_id = '.intval($parent_id);
-            $paramcount++;
+            $parent_id = intval($parent_id);
+            $qb->andWhere(
+                $qb->expr()->eq('gc.parentId', $parent_id)
+            );
         }
 
         if (isset($visible)) {
-            if ($paramcount != 0) {
-                $sql .= ' AND';
-            } else {
-                $sql .= ' WHERE';
-            }
-            $sql .= ' visible = '.intval($visible);
+            $visible = intval($visible);
+            $qb->andWhere(
+                $qb->expr()->eq('gc.visible', $visible)
+            );
         }
 
-        if (!empty($order_by)) {
-            if (!empty($order_by) && $order_by != '') {
-                $sql .= ' '.$order_by;
+        if (!empty($order_by) && is_array($order_by)) {
+            foreach ($order_by as $sort => $order) {
+                $qb->orderBy("gc.$sort", $order);
             }
         }
 
-        $result = Database::query($sql);
+        $result = $qb->getQuery()->getResult();
 
         $categories = array();
-        if (Database::num_rows($result) > 0) {
-            $categories = Category::create_category_objects_from_sql_result(
-                $result
-            );
+
+        if (count($result) > 0) {
+            $categories = Category::createCategoryObjectsFromEntities($result);
         }
 
         return $categories;
@@ -484,6 +495,23 @@ class Category implements GradebookItem
         $cat->setIsRequirement(false);
 
         return $cat;
+    }
+
+    /**
+     * Create an Category array
+     * from an Chamilo\CoreBundle\Entity\GradebookCategory array|\Doctrine\Common\Collections\ArrayCollection
+     * @param array|\Doctrine\Common\Collections\ArrayCollection $entities
+     * @return array
+     */
+    private static function createCategoryObjectsFromEntities($entities)
+    {
+        $categories = array();
+
+        foreach ($entities as $gradebookCategory) {
+            $categories[] = self::createCategoryObjectFromEntity($gradebookCategory);
+        }
+
+        return $categories;
     }
 
     /**
@@ -531,7 +559,7 @@ class Category implements GradebookItem
         $category->set_name($gradebookCategory->getName());
         $category->set_description($gradebookCategory->getDescription());
         $category->set_user_id($gradebookCategory->getUserId());
-        $category->set_course_code($gradebookCategory->getCourseCode());
+        $category->set_course_code($gradebookCategory->getCourse()->getCode());
         $category->set_parent_id($gradebookCategory->getParentId());
         $category->set_weight($gradebookCategory->getWeight());
         $category->set_visible($gradebookCategory->getVisible());
@@ -561,11 +589,17 @@ class Category implements GradebookItem
         if (isset($this->name) && isset($this->user_id)) {
             $em = Database::getManager();
 
+            $course = $em
+                ->getRepository('ChamiloCoreBundle:Course')
+                ->findOneBy([
+                    'code' => $this->course_code
+                ]);
+
             $category = new \Chamilo\CoreBundle\Entity\GradebookCategory();
             $category->setName($this->name);
             $category->setDescription($this->description);
             $category->setUserId($this->user_id);
-            $category->setCourseCode($this->course_code);
+            $category->setCourse($course);
             $category->setParentId($this->parent);
             $category->setWeight($this->weight);
             $category->setVisible($this->visible);
@@ -638,10 +672,14 @@ class Category implements GradebookItem
             return false;
         }
 
+        $course = $em
+            ->getRepository('ChamiloCoreBundle:Course')
+            ->findOneBy(['code' => $this->course_code]);
+
         $gradebookCategory->setName($this->name);
         $gradebookCategory->setDescription($this->description);
         $gradebookCategory->setUserId($this->user_id);
-        $gradebookCategory->setCourseCode($this->course_code);
+        $gradebookCategory->setCourse($course);
         $gradebookCategory->setParentId($this->parent);
         $gradebookCategory->setWeight($this->weight);
         $gradebookCategory->setVisible($this->visible);
@@ -723,9 +761,12 @@ class Category implements GradebookItem
      */
     public function delete()
     {
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'DELETE FROM '.$tbl_grade_categories.' WHERE id = '.intval($this->id);
-        Database::query($sql);
+        $em = Database::getManager();
+
+        $category = $em->find('ChamiloCoreBundle:GradebookCategory', $this->id);
+
+        $em->remove($category);
+        $em->flush();
     }
 
     /**
@@ -733,10 +774,18 @@ class Category implements GradebookItem
      */
     public function update_category_delete($course_id)
     {
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'UPDATE '.$tbl_grade_categories.' SET visible=3
-                WHERE course_code ="'.Database::escape_string($course_id).'"';
-        Database::query($sql);
+        $courseId = api_get_course_int_id($course_id);
+
+        $em = Database::getManager();
+
+        $em
+            ->createQuery('
+                UPDATE ChamiloCoreBundle:GradebookCategory gc
+                SET gc.visible = 3
+                WHERE gc.course = :course
+            ')
+            ->setParameter('course', $courseId)
+            ->execute();
     }
 
     /**
@@ -744,37 +793,42 @@ class Category implements GradebookItem
      */
     public function show_message_resource_delete($course_id)
     {
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'SELECT count(*) AS num from '.$tbl_grade_categories.'
-                WHERE
-                    course_code = "'.Database::escape_string($course_id).'" AND
-                    visible=3';
-        $res = Database::query($sql);
-        $option = Database::fetch_array($res, 'ASSOC');
-        if ($option['num']>=1) {
+        $courseId = api_get_course_int_id($course_id);
+        $em = Database::getManager();
+
+        $num = $em
+            ->createQuery('
+                SELECT COUNT(gc) FROM ChamiloCoreBundle:GradebookCategory gc
+                WHERE gc.course = :course AND gc.visible = 3
+            ')
+            ->setParameter('course', $courseId)
+            ->getSingleScalarResult();
+
+        if ($num >= 1) {
             return '&nbsp;&nbsp;<span class="resource-deleted">(&nbsp;'.get_lang('ResourceDeleted').'&nbsp;)</span>';
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
      * Shows all information of an category
+     * @param int $selectcat
+     * @return \Chamilo\CoreBundle\Entity\GradebookCategory
      */
     public function shows_all_information_an_category($selectcat = '')
     {
-        if ($selectcat == '') {
+        if (empty($selectcat)) {
             return null;
-        } else {
-            $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $sql = 'SELECT name,description,user_id,course_code,parent_id,weight,visible,certif_min_score,session_id, generate_certificates, is_requirement
-                    FROM '.$tbl_category.' c
-                    WHERE c.id='.intval($selectcat);
-            $result = Database::query($sql);
-            $row = Database::fetch_array($result, 'ASSOC');
-
-            return $row;
         }
+
+        $em = Database::getManager();
+        $id = intval($selectcat);
+
+        $row = $em
+            ->find('ChamiloCoreBundle:GradebookCategory', $id);
+
+        return $row;
     }
 
     /**
@@ -784,42 +838,55 @@ class Category implements GradebookItem
      */
     public function does_name_exist($name, $parent)
     {
+        $em = Database::getManager();
+        $query = $em->createQuery();
+
         if (!isset ($name)) {
             $name = $this->name;
             $parent = $this->parent;
         }
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'SELECT count(id) AS number'
-            .' FROM '.$tbl_grade_categories
-            ." WHERE name = '".Database::escape_string($name)."'";
+
+        $dql = '
+            SELECT COUNT(gc) FROM ChamiloCoreBundle:GradebookCategory gc
+            WHERE gc.name = :name
+        ';
+        $query->setParameter('name', $name);
 
         if (api_is_allowed_to_edit()) {
             $parent = Category::load($parent);
             $code = $parent[0]->get_course_code();
-            $courseInfo = api_get_course_info($code);
-            $courseId = $courseInfo['real_id'];
+            $courseId = api_get_course_int_id($code);
+
             if (isset($code) && $code != '0') {
-                $main_course_user_table = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
-                $sql .= ' AND user_id IN (
-                            SELECT user_id FROM '.$main_course_user_table.'
-                            WHERE c_id = '.$courseId.' AND status = '.COURSEMANAGER.'
-                        )';
+                $dql .= '
+                    AND gc.userId IN (
+                        SELECT user FROM ChamiloCoreBundle:CourseRelUser cu
+                        WHERE cu.course = :course AND cu.status = :status
+                    )
+                ';
+                $query->setParameter('course', $courseId);
+                $query->setParameter('status', COURSEMANAGER);
             } else {
-                $sql .= ' AND user_id = '.api_get_user_id();
+                $dql .= 'AND gc.userId = :user ';
+                $query->setParameter('user', api_get_user_id());
             }
 
         } else {
-            $sql .= ' AND user_id = '.api_get_user_id();
+            $dql .= 'AND gc.userId = :user ';
+            $query->setParameter('user', api_get_user_id());
         }
         if (!isset ($parent)) {
-            $sql.= ' AND parent_id is null';
+            $dql .= 'AND gc.parentId IS NULL ';
         } else {
-            $sql.= ' AND parent_id = '.intval($parent);
+            $dql .= 'AND gc.parentId = :parent ';
+            $query->setParameter('parent', $parent);
         }
 
-        $result = Database::query($sql);
-        $number = Database::fetch_row($result);
-        return ($number[0] != 0);
+        $number = $query
+            ->setDQL($dql)
+            ->getSingleScalarResult();
+
+        return ($number != 0);
     }
 
     /**
@@ -1125,35 +1192,42 @@ class Category implements GradebookItem
      */
     public function get_root_categories_for_student($stud_id, $course_code = null, $session_id = null)
     {
-        $main_course_user_table = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
-        $courseTable = Database :: get_main_table(TABLE_MAIN_COURSE);
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+        $courseId = api_get_course_int_id($course_code);
 
-        $sql = "SELECT * FROM $tbl_grade_categories WHERE parent_id = 0";
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $queryParams = [];
+
+        $dql = 'SELECT gc FROM ChamiloCoreBundle:GradebookCategory gc WHERE gc.parentId = 0 ';
 
         if (!api_is_allowed_to_edit()) {
-            $sql .= ' AND visible = 1';
+            $dql .= 'AND gc.visible = 1 ';
             //proceed with checks on optional parameters course & session
             if (!empty($course_code)) {
                 // TODO: considering it highly improbable that a user would get here
                 // if he doesn't have the rights to view this course and this
                 // session, we don't check his registration to these, but this
                 // could be an improvement
+                $dql .= 'AND gc.course = :course ';
+                $queryParams['course'] = $courseId;
+
                 if (!empty($session_id)) {
-                    $sql .= " AND course_code = '".Database::escape_string($course_code)."' AND session_id = ".(int)$session_id;
+                    $dql .= 'AND gc.sessionId = :session ';
+                    $queryParams['session'] = $session_id;
                 } else {
-                    $sql .= " AND course_code = '".Database::escape_string($course_code)."' AND session_id is null OR session_id=0";
+                    $dql .= 'AND gc.sessionId IS NULL OR sessionId = 0 ';
                 }
             } else {
                 //no optional parameter, proceed as usual
-                $sql .= ' AND course_code in
-                     (
-                        SELECT c.code
-                        FROM '.$main_course_user_table.' cu INNER JOIN '.$courseTable.' c
-                        ON (cu.c_id = c.id)
-                        WHERE cu.user_id = '.intval($stud_id).'
-                        AND cu.status = '.STUDENT.'
-                    )';
+                $dql .= '
+                    AND gc.course IN (
+                        SELECT c FROM ChamiloCourseBundle:CourseRelUser cu
+                        JOIN ChamiloCoreBudle:Course c WITH cu.course = c
+                        WHERE cu.user = :user AND cu.status = :status
+                    )
+                ';
+                $queryParams['user'] = intval($stud_id);
+                $queryParams['status'] = STUDENT;
             }
         } elseif (api_is_allowed_to_edit() && !api_is_platform_admin()) {
             //proceed with checks on optional parameters course & session
@@ -1161,33 +1235,40 @@ class Category implements GradebookItem
                 // TODO: considering it highly improbable that a user would get here
                 // if he doesn't have the rights to view this course and this
                 // session, we don't check his registration to these, but this
-                // could be an improvement
-                $sql .= " AND course_code  = '".Database::escape_string($course_code)."'";
+                // could be an improvement                
+                $dql .= 'AND gc.course = :course ';
+                $queryParams['course'] = $courseId;
+
                 if (!empty($session_id)) {
-                    $sql .= " AND session_id = ".(int)$session_id;
+                    $dql .= 'AND gc.sessionId = :session ';
+                    $queryParams['session'] = intval($session_id);
                 } else {
-                    $sql .="AND session_id IS NULL OR session_id=0";
+                    $dql .= 'AND gc.sessionId IS NULL or gc.sessionId = 0 ';
                 }
             } else {
-                $sql .= ' AND course_code IN
-                     (
-                        SELECT c.code
-                        FROM '.$main_course_user_table.' cu INNER JOIN '.$courseTable.' c
-                        ON (cu.c_id = c.id)
-                        WHERE
-                            cu.user_id = '.api_get_user_id().' AND
-                            cu.status = '.COURSEMANAGER.'
-                    )';
+                $dql .= '
+                    AND gc.course IN (
+                        SELECT c FROM ChamiloCoreBundle:CourseRelUser cu
+                        JOIN ChamiloCoreBundle:Course c WITH cu.course = c
+                        WHERE cu.user = :user AND cu.status = :status
+                    )
+                ';
+                $queryParams['user'] = api_get_user_id();
+                $queryParams['status'] = COURSEMANAGER;
             }
         }elseif (api_is_platform_admin()) {
             if (isset($session_id) && $session_id!=0) {
-                $sql.=' AND session_id='.intval($session_id);
+                $dql .= 'AND gc.sessionId = :session ';
+                $queryParams['session'] = intval($session_id);
             } else {
-                $sql.=' AND coalesce(session_id,0)=0';
+                $dql .= 'AND COALESCE (session_id, 0) = 0';
             }
         }
-        $result = Database::query($sql);
-        $cats = Category::create_category_objects_from_sql_result($result);
+        $result = $query
+            ->setDQL($dql)
+            ->execute($queryParams);
+
+        $cats = Category::createCategoryObjectsFromEntities($result);
 
         // course independent categories
         if (empty($course_code)) {
@@ -1209,29 +1290,37 @@ class Category implements GradebookItem
             return Category::load(null,null,$course_code,0,null,$session_id);
         }
 
-        $courseTable = Database :: get_main_table(TABLE_MAIN_COURSE);
-        $main_course_user_table = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+        $courseId = api_get_course_int_id($course_code);
 
-        $sql = 'SELECT * FROM '.$tbl_grade_categories.'
-                WHERE parent_id = 0';
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $queryParams = [];
+
+        $dql = 'SELECT gc FROM ChamiloCoreBundle:GradebookCategory gc WHERE gc.parentId = 0 ';
+
         if (!empty($course_code)) {
-            $sql .= " AND course_code = '".Database::escape_string($course_code)."' ";
+            $dql .= 'AND gc.course = :course ';
+            $queryParams['course'] = $courseId;
+
             if (!empty($session_id)) {
-                $sql .= " AND session_id = ".(int)$session_id;
+                $dql .= 'AND gc.sessionId = :session ';
+                $queryParams['session'] = intval($session_id);
             }
         } else {
-            $sql .= ' AND course_code in
-                 (
-                    SELECT c.code
-                    FROM '.$main_course_user_table.' cu
-                    INNER JOIN '.$courseTable.' c
-                    ON (cu.c_id = c.id)
-                    WHERE user_id = '.intval($user_id).'
-                )';
+            $dql .= '
+                AND gc.course IN (
+                    SELECT c FROM ChamiloCoreBundle:CourseRelUser cu
+                    JOIN ChamiloCoreBundle:Course c WITH cu.course = c
+                    WHERE cu.user = :user
+                )
+            ';
+            $queryParams['user'] = intval($user_id);
         }
-        $result = Database::query($sql);
-        $cats = Category::create_category_objects_from_sql_result($result);
+
+        $result = $query
+            ->setDQL($dql)
+            ->execute($queryParams);
+        $cats = Category::createCategoryObjectsFromEntities($result);
         // course independent categories
         if (isset($course_code)) {
             $indcats = Category::load(null,$user_id,$course_code,0,null,$session_id);
@@ -1420,28 +1509,33 @@ class Category implements GradebookItem
      */
     public function get_not_created_course_categories ($user_id)
     {
-        $tbl_main_courses = Database :: get_main_table(TABLE_MAIN_COURSE);
-        $tbl_main_course_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
-        $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $queryParams = [];
 
-        $sql = 'SELECT DISTINCT(code), title
-                FROM '.$tbl_main_courses.' cc, '.$tbl_main_course_user.' cu'
-            .' WHERE cc.id = cu.c_id '
-            .' AND cu.status = '.COURSEMANAGER;
+        $dql = '
+            SELECT DISTINCT(c.code) code, c.title
+            FROM ChamiloCoreBundle:Course c, ChamiloCoreBundle:CourseRelUser cu
+            WHERE c = cu.course AND cu.status = :status
+        ';
+        $queryParams['status'] = COURSEMANAGER;
+
         if (!api_is_platform_admin()) {
-            $sql .= ' AND cu.user_id = '.$user_id;
+            $dql .= 'AND cu.user = :user ';
+            $queryParams['user'] = $user_id;
         }
-        $sql .= ' AND cc.code NOT IN
-             (
-                SELECT course_code FROM '.$tbl_grade_categories.'
-                WHERE
-                    parent_id = 0 AND
-                    course_code IS NOT NULL
-                )';
-        $result = Database::query($sql);
+
+        $dql .= '
+            AND c NOT IN (
+                SELECT gc.course FROM ChamiloCoreBundle:GradebookCategory gc
+                WHERE gc.parentId = 0 AND gc.course IS NOT NULL
+            )
+        ';
+
+        $result = $query->setDQL($dql)->execute($queryParams);
 
         $cats=array();
-        while ($data=Database::fetch_array($result)) {
+        foreach ($result as $data) {
             $cats[] = array ($data['code'], $data['title']);
         }
 
@@ -1786,12 +1880,16 @@ class Category implements GradebookItem
      */
     public function getCategories($catId)
     {
-        $tblGradeCategories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'SELECT * FROM '.$tblGradeCategories.'
-                WHERE parent_id = '.intval($catId);
+        $catId = intval($catId);
 
-        $result = Database::query($sql);
-        $allcats = Category::create_category_objects_from_sql_result($result);
+        $em = Database::getManager();
+
+        $results = $em
+            ->getRepository('ChamiloCoreBundle:GradebookCategory')
+            ->findBy([
+                'parentId' => $catId
+            ]);
+        $allcats = Category::createCategoryObjectsFromEntities($results);
 
         return $allcats;
     }
@@ -1855,10 +1953,14 @@ class Category implements GradebookItem
      * */
     public function lock($locked)
     {
-        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = "UPDATE $table SET locked = '".intval($locked)."'
-                WHERE id='".intval($this->id)."'";
-        Database::query($sql);
+        $locked = intval($locked);
+        $em = Database::getManager();
+
+        $gradebookCategory = $em->find('ChamiloCoreBundle:GradebookCategory', $this->id);
+        $gradebookCategory->setLocked($locked);
+
+        $em->persist($gradebookCategory);
+        $em->flush();
     }
 
     /**

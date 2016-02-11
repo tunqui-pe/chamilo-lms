@@ -116,7 +116,6 @@ if (isset($_REQUEST['load_ajax'])) {
                 $course_id = $course_info['real_id'];
 
                 $TABLETRACK_EXERCICES       = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-                $TBL_TRACK_ATTEMPT          = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
                 $TBL_TRACK_E_COURSE_ACCESS  = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
                 $TBL_TRACK_E_LAST_ACCESS    = Database::get_main_table(TABLE_STATISTIC_TRACK_E_LASTACCESS);
 

@@ -304,7 +304,7 @@ class DisplayGradebook
 
         $my_category = $catobj->shows_all_information_an_category($catobj->get_id());
         $user_id = api_get_user_id();
-        $course_code = $my_category['course_code'];
+        $course_code = $my_category->getCourse()->getCode();
         $courseInfo = api_get_course_info($course_code);
         $courseId = $courseInfo['real_id'];
 
@@ -327,7 +327,7 @@ class DisplayGradebook
                 $my_category = $catobj->shows_all_information_an_category($catobj->get_id());
                 $my_api_cidreq = api_get_cidreq();
                 if ($my_api_cidreq == '') {
-                    $my_api_cidreq = 'cidReq=' . $my_category['course_code'];
+                    $my_api_cidreq = 'cidReq=' . $my_category->getCourse()->getcode();
                 }
                 if ($show_add_link && !$message_resource) {
                     //$header .= '<td><a href="gradebook_add_eval.php?'.$my_api_cidreq.'&selectcat=' . $catobj->get_id() . '" >'.Display::return_icon('new_evaluation.png', get_lang('NewEvaluation'),'',ICON_SIZE_MEDIUM).'</a>';
@@ -555,7 +555,7 @@ class DisplayGradebook
             } else {
                 $my_category = $catobj->shows_all_information_an_category($catobj->get_id());
                 if ($my_api_cidreq == '') {
-                    $my_api_cidreq = 'cidReq=' . $my_category['course_code'];
+                    $my_api_cidreq = 'cidReq=' . $my_category->getCourse()->getCode();
                 }
                 if ($show_add_link && !$message_resource) {
                    $actionsLeft .= '<a href="gradebook_add_eval.php?' . $my_api_cidreq . '&selectcat=' . $catobj->get_id() . '" >' .
@@ -575,7 +575,7 @@ class DisplayGradebook
                     $actionsLeft .= '<a href="gradebook_flatview.php?' . $my_api_cidreq . '&selectcat=' . $catobj->get_id() . '">' .
                         Display::return_icon('stats.png', get_lang('FlatView'), '', ICON_SIZE_MEDIUM) . '</a>';
 
-                    if ($my_category['generate_certificates'] == 1) {
+                    if ($my_category->getGenerateCertificates() == 1) {
                         $actionsLeft .= Display::url(
                                 Display::return_icon(
                                         'certificate_list.png',
@@ -613,7 +613,7 @@ class DisplayGradebook
                     );
                     if (api_get_setting(
                             'gradebook.teachers_can_change_score_settings'
-                        ) == 'true' && $score_display_custom['my_display_custom'] == 'true'
+                        ) == 'true' && $score_display_custom !== 'false' && $score_display_custom['my_display_custom'] == 'true'
                     ) {
                         $actionsRight .= '<a href="gradebook_scoring_system.php?' . $my_api_cidreq . '&selectcat=' . $catobj->get_id() . '">' .
                             Display::return_icon('ranking.png', get_lang('ScoreEdit'), '', ICON_SIZE_MEDIUM) . '</a>';

@@ -287,6 +287,8 @@ class scorm extends learnpath
             $userId = intval($userId);
         }
 
+        $em = Database::getManager();
+
         // Get table names.
         $new_lp = Database::get_course_table(TABLE_LP_MAIN);
         $new_lp_item = Database::get_course_table(TABLE_LP_ITEM);
@@ -476,12 +478,18 @@ class scorm extends learnpath
                     // Index and return search engine document id.
                     $did = $di->index();
                     if ($did) {
+                        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $courseCode]);
                         // Save it to db.
-                        $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                        $sql = 'INSERT INTO %s (id, course_code, tool_id, ref_id_high_level, ref_id_second_level, search_did)
-                                VALUES (NULL , \'%s\', \'%s\', %s, %s, %s)';
-                        $sql = sprintf($sql, $tbl_se_ref, $courseCode, TOOL_LEARNPATH, $lp_id, $previous, $did);
-                        Database::query($sql);
+                        $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                        $searchEngineRef
+                            ->setCourse($course)
+                            ->setToolId(TOOL_LEARNPATH)
+                            ->setRefIdHighLevel($lp_id)
+                            ->setRefIdSecondLevel($previous)
+                            ->setSearchDid($did);
+
+                        $em->persist($searchEngineRef);
+                        $em->flush();
                     }
                 }
             }

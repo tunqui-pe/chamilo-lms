@@ -6809,14 +6809,20 @@ function api_resource_is_locked_by_gradebook($item_id, $link_type, $course_code 
         if (empty($course_code)) {
             $course_code = api_get_course_id();
         }
-        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
+        $em = Database::getManager();
         $item_id = intval($item_id);
         $link_type = intval($link_type);
         $course_code = Database::escape_string($course_code);
-        $sql = "SELECT locked FROM $table
-                WHERE locked = 1 AND ref_id = $item_id AND type = $link_type AND course_code = '$course_code' ";
-        $result = Database::query($sql);
-        if (Database::num_rows($result)) {
+        $courseId = api_get_course_int_id($course_code);
+        $result = $em
+            ->getRepository('ChamiloCoreBundle:GradebookLink')
+            ->findBy([
+                'locked' => 1,
+                'refId' => $item_id,
+                'type' => $link_type,
+                'course' => $courseId
+            ]);
+        if (count($result)) {
             return true;
         }
     }

@@ -5,8 +5,6 @@
  */
 
 // Database table definitions
-$table_sf = Database :: get_main_table(TABLE_MAIN_SPECIFIC_FIELD);
-$table_sf_val = Database :: get_main_table(TABLE_MAIN_SPECIFIC_FIELD_VALUES);
 
 /**
  * Add a specific field
@@ -113,15 +111,9 @@ function get_specific_field_values_list(
     if (count($conditions) > 0) {
         $sql .= ' WHERE ';
 
-        //Fixing course id
-        if (isset($conditions['c_id'])) {
-            $course_info = api_get_course_info_by_id($conditions['c_id']);
-            $conditions['course_code'] = " '".$course_info['code']."' ";
-            unset($conditions['c_id']);
-        }
-        //If any course_code is provided try to insert the current course code
-        if (!isset($conditions['course_code'])) {
-            $conditions['course_code'] = " '".api_get_course_id()."' ";
+        //If any course_code nor c_id is provided try to insert the current course id
+        if (!isset($conditions['c_id']) && !isset($conditions['course_code'])) {
+            $conditions['c_id'] = " " . api_get_course_int_id();
         }
 
         $conditions_string_array = array();
@@ -154,21 +146,26 @@ function get_specific_field_values_list_by_prefix(
     $tool_id,
     $ref_id
 ) {
-    $table_sf = Database:: get_main_table(TABLE_MAIN_SPECIFIC_FIELD);
-    $table_sfv = Database:: get_main_table(TABLE_MAIN_SPECIFIC_FIELD_VALUES);
-    $sql = 'SELECT sfv.value FROM %s sf LEFT JOIN %s sfv ON sf.id = sfv.field_id'.
-        ' WHERE sf.code = \'%s\' AND sfv.c_id = \'%s\' AND tool_id = \'%s\' AND sfv.ref_id = %s';
-    $sql = sprintf(
-        $sql,
-        $table_sf,
-        $table_sfv,
-        $prefix,
-        $course_code,
-        $tool_id,
-        $ref_id
-    );
-    $sql_result = Database::query($sql);
-    while ($result = Database::fetch_array($sql_result)) {
+    $em = Database::getManager();
+
+    $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
+
+    $sql_result = $em
+        ->createQuery('
+            SELECT sfv.value
+            FROM ChamiloCoreBundle:SpecificField sf
+            LEFT JOIN ChamiloCoreBundle:SpecificFieldValues sfv WITH sf = sfv.fieldId
+            WHERE sf.code = :code AND sfv.course = :course AND sfv.toolId = :tool AND sfv.refI = :reference
+        ')
+        ->setParameters([
+            'code' => $prefix,
+            'course' => $course,
+            'tool' => $tool_id,
+            'reference' => $ref_id
+        ])
+        ->getResult();
+
+    foreach ($sql_result as $result) {
         $return_array[] = $result;
     }
 
@@ -190,29 +187,28 @@ function add_specific_field_value(
     $ref_id,
     $value
 ) {
-    $table_sf_values = Database:: get_main_table(
-        TABLE_MAIN_SPECIFIC_FIELD_VALUES
-    );
+    $em = Database::getManager();
+
     $value = trim($value);
     if (empty($value)) {
         return false;
     }
-    $sql = 'INSERT INTO %s(id, course_code, tool_id, ref_id, field_id, value) VALUES(NULL, \'%s\', \'%s\', %s, %s, \'%s\')';
-    $sql = sprintf(
-        $sql,
-        $table_sf_values,
-        $course_id,
-        $tool_id,
-        $ref_id,
-        $id_specific_field,
-        Database::escape_string($value)
-    );
-    $result = Database::query($sql);
-    if ($result) {
-        return Database::insert_id();
-    } else {
-        return false;
-    }
+
+    $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_id]);
+
+    $sfv = new \Chamilo\CoreBundle\Entity\SpecificFieldValues();
+    $sfv
+        ->setCourse($course)
+        ->setCourseCode($course->getCode())
+        ->setToolId($tool_id)
+        ->setRefId($ref_id)
+        ->setFieldId($id_specific_field)
+        ->setValue($value);
+
+    $em->persist($sfv);
+    $em->flush();
+
+    return $sfv->getId();
 }
 
 /**
@@ -223,10 +219,19 @@ function add_specific_field_value(
  * @param int $ref_id intern id inside specific tool table
  */
 function delete_all_specific_field_value($course_id, $id_specific_field, $tool_id, $ref_id) {
-    $table_sf_values = Database :: get_main_table(TABLE_MAIN_SPECIFIC_FIELD_VALUES);
-    $sql = 'DELETE FROM %s WHERE course_code = \'%s\' AND tool_id = \'%s\' AND ref_id = %s AND field_id = %s';
-    $sql = sprintf($sql, $table_sf_values, $course_id, $tool_id, $ref_id, $id_specific_field);
-    Database::query($sql);
+    $em = Database::getManager();
+
+    $em
+        ->createQuery('
+            DELETE FROM ChamiloCoreBundle:SpecificFieldValues sfv
+            WHERE sfv.courseCode = :course AND sfv.toolId = :tool AND sfv.refId = :ref AND sfv.fieldId = :field
+        ')
+        ->execute([
+            'course' => $course_id,
+            'tool' => $tool_id,
+            'ref' => $ref_id,
+            'field' => $id_specific_field
+        ]);
 }
 
 /**
@@ -237,10 +242,18 @@ function delete_all_specific_field_value($course_id, $id_specific_field, $tool_i
  * @param   int     Internal ID used in specific tool table
  */
 function delete_all_values_for_item($course_id, $tool_id, $ref_id) {
-  $table_sf_values = Database :: get_main_table(TABLE_MAIN_SPECIFIC_FIELD_VALUES);
-  $sql = 'DELETE FROM %s WHERE course_code = \'%s\' AND tool_id = \'%s\' AND ref_id = %s';
-  $sql = sprintf($sql, $table_sf_values, $course_id, $tool_id, $ref_id);
-  Database::query($sql);
+    $em = Database::getManager();
+
+    $em
+        ->createQuery('
+            DELETE FROM ChamiloCodeBundle:SpecificFieldValues sfv
+            WHERE svf.courseCode = :course AND svf.toolId = :tool AND sfv.refId = :ref
+        ')
+        ->execute([
+            'course' => $course_id,
+            'tool' => $tool_id,
+            'ref' => $ref_id
+        ]);
 }
 
 /**

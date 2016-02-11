@@ -35,9 +35,9 @@ $path = isset($_GET['path']) ? Security::remove_XSS($_GET['path']) : null;
 $is_allowedToEdit = api_is_allowed_to_edit(null, true) || api_is_drh() || api_is_student_boss();
 $is_tutor = api_is_allowed_to_edit(true);
 
+$em = Database::getManager();
 $TBL_QUESTIONS = Database :: get_course_table(TABLE_QUIZ_QUESTION);
 $TBL_TRACK_EXERCISES = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-$TBL_TRACK_ATTEMPT = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
 $TBL_TRACK_ATTEMPT_RECORDING = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT_RECORDING);
 $TBL_LP_ITEM_VIEW = Database :: get_course_table(TABLE_LP_ITEM_VIEW);
 
@@ -184,15 +184,18 @@ if (isset($_REQUEST['comments']) &&
         }
         $my_questionid = intval($array_content_id_exe[$i]);
 
-        $params = [
-            'marks' => $my_marks,
-            'teacher_comment' => $my_comments
-        ];
-        Database::update(
-            $TBL_TRACK_ATTEMPT,
-            $params,
-            ['question_id = ? AND exe_id = ?' => [$my_questionid, $id]]
-        );
+        $em
+            ->createQuery('
+                UPDATE ChamiloCoreBundle:TrackEAttempt tea
+                SET tea.marks = :marks, tea.teacherComment = :comment
+                WHERE tea.questionId = :question AND tea.exeId = :exe
+            ')
+            ->execute([
+                'marks' => $my_marks,
+                'comment' => $my_comments,
+                'question' => $my_questionid,
+                'exeId' => $id
+            ]);
 
         $params = [
             'exe_id' => $id,
@@ -205,12 +208,18 @@ if (isset($_REQUEST['comments']) &&
         Database::insert($TBL_TRACK_ATTEMPT_RECORDING, $params);
     }
 
-    $qry = 'SELECT DISTINCT question_id, marks
-            FROM '.$TBL_TRACK_ATTEMPT.' WHERE exe_id = '.$id.'
-            GROUP BY question_id';
-    $res = Database::query($qry);
+    $res = $em
+        ->createQuery('
+            SELECT DISTINCT tea.questionId, tea.marks
+            FROM ChamiloCoreBundle:TrackeEAttempt tea
+            WHERE tea.exeId = :exe
+            GROUP BY tea.questionId
+        ')
+        ->setParameter('exe', $id)
+        ->getResult();
+
     $tot = 0;
-    while ($row = Database :: fetch_array($res, 'ASSOC')) {
+    foreach ($res as $row) {
         $tot += $row['marks'];
     }
 
@@ -310,8 +319,12 @@ if (($is_allowedToEdit || $is_tutor || api_is_coach()) &&
     if (!empty($exe_id)) {
         $sql = 'DELETE FROM '.$TBL_TRACK_EXERCISES.' WHERE exe_id = '.$exe_id;
         Database::query($sql);
-        $sql = 'DELETE FROM '.$TBL_TRACK_ATTEMPT.' WHERE exe_id = '.$exe_id;
-        Database::query($sql);
+        $em
+            ->createQuery('DELETE FROM ChamiloCoreBundle:TrackEAttempt tea WHERE tea.exeId = :exe')
+            ->execute([
+                'exe' => $exe_id
+            ]);
+
         header('Location: exercise_report.php?'.api_get_cidreq().'&exerciseId='.$exercise_id);
         exit;
     }

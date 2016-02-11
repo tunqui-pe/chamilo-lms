@@ -8,7 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TrackEHotspot
  *
- * @ORM\Table(name="track_e_hotspot", indexes={@ORM\Index(name="hotspot_course_code", columns={"hotspot_course_code"}), @ORM\Index(name="hotspot_user_id", columns={"hotspot_user_id"}), @ORM\Index(name="hotspot_exe_id", columns={"hotspot_exe_id"}), @ORM\Index(name="hotspot_question_id", columns={"hotspot_question_id"})})
+ * @ORM\Table(name="track_e_hotspot", indexes={
+ *  @ORM\Index(name="hotspot_user_id", columns={"hotspot_user_id"}),
+ *  @ORM\Index(name="hotspot_exe_id", columns={"hotspot_exe_id"}),
+ *  @ORM\Index(name="hotspot_question_id", columns={"hotspot_question_id"})
+ * })
  * @ORM\Entity
  */
 class TrackEHotspot
@@ -21,18 +25,10 @@ class TrackEHotspot
     private $hotspotUserId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="hotspot_course_code", type="string", length=50, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="trackEHotspots")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
-    private $hotspotCourseCode;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="c_id", type="integer", nullable=true)
-     */
-    private $cId;
+    private $course;
 
     /**
      * @var integer
@@ -104,49 +100,24 @@ class TrackEHotspot
     }
 
     /**
-     * Set hotspotCourseCode
-     *
-     * @param string $hotspotCourseCode
-     * @return TrackEHotspot
+     * Set course
+     * @param \Chamilo\CoreBundle\Entity\Course $course
+     * @return \Chamilo\CoreBundle\Entity\TrackEHotspot
      */
-    public function setHotspotCourseCode($hotspotCourseCode)
+    public function setCourse(Course $course)
     {
-        $this->hotspotCourseCode = $hotspotCourseCode;
+        $this->course = $course;
 
         return $this;
     }
 
     /**
-     * Get hotspotCourseCode
-     *
-     * @return string
+     * Get course
+     * @param \Chamilo\CoreBundle\Entity\Course
      */
-    public function getHotspotCourseCode()
+    public function getCourse()
     {
-        return $this->hotspotCourseCode;
-    }
-
-    /**
-     * Set cId
-     *
-     * @param integer $cId
-     * @return TrackEHotspot
-     */
-    public function setCId($cId)
-    {
-        $this->cId = $cId;
-
-        return $this;
-    }
-
-    /**
-     * Get cId
-     *
-     * @return integer
-     */
-    public function getCId()
-    {
-        return $this->cId;
+        return $this->course;
     }
 
     /**

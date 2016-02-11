@@ -116,8 +116,8 @@ $attemptList = Event::getAllExerciseEventByExeId($exerciseId);
 if (!empty($attemptList)) {
     $questionAttempt = $attemptList[$questionId][0];
 
-    if (!empty($questionAttempt['answer'])) {
-        $coordinates = explode('|', $questionAttempt['answer']);
+    if (!empty($questionAttempt->getAnswer())) {
+        $coordinates = explode('|', $questionAttempt->getAnswer());
 
         foreach ($coordinates as $coordinate) {
             $data['answers'][] = Geometry::decodePoint($coordinate);

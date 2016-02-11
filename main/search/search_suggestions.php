@@ -12,22 +12,38 @@ function get_suggestions_from_search_engine($q)
 {
     if (strlen($q)<2) { return null;}
     global $charset;
-    $table_sfv     = Database :: get_main_table(TABLE_MAIN_SPECIFIC_FIELD_VALUES);
+
+    $em = Database::getManager();
+    $queryParams = [];
+
     $q = Database::escape_string($q);
-    $cid = api_get_course_id();
+    $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
+
     $sql_add = '';
-    if ($cid != -1) {
-        $sql_add = " AND course_code = '".$cid."' ";
+    if ($course) {
+        $sql_add = "AND sfv.course = :course ";
+        $queryParams['course'] = $course;
     }
-    $sql = "SELECT * FROM $table_sfv where value LIKE '%$q%'".$sql_add."
-            ORDER BY course_code, tool_id, ref_id, field_id";
-    $sql_result = Database::query($sql);
+
+    $dql = "
+        SELECT sfv FROM ChamiloCoreBundle:SpecificFieldValues sfv
+        WHERE sfv.value LIKE :q $sql_add
+        ORDER BY sfv.course, sfv.toolId, sfv.refId, sfv.fieldId
+    ";
+    $queryParams['q'] = "%$q%";
+
+    $sql_result = $em
+        ->createQuery($dql)
+        ->setParameters($queryParams)
+        ->getResult();
+
     $data = array();
     $i = 0;
-    while ($row = Database::fetch_array($sql_result)) {
-        echo api_convert_encoding($row['value'],'UTF-8',$charset)."| value\n";
-        if ($i<20) {
-            $data[ $row['course_code'] ] [ $row['tool_id'] ] [ $row['ref_id'] ] = 1;
+    foreach ($sql_result as $row) {
+        echo api_convert_encoding($row->getValue(), 'UTF-8', $charset) . "| value\n";
+
+        if ($i < 20) {
+            $data[$row->getCourse()->getCode()][$row->getToolId()][$row->getRefId()] = 1;
         }
         $i++;
     }
@@ -41,13 +57,20 @@ function get_suggestions_from_search_engine($q)
                 //natsort($item_ref_id);
                 $output = array();
                 $field_val = array();
-                $sql2 = "SELECT * FROM $table_sfv
-                         WHERE course_code = '$cc' AND tool_id = '$ti' AND ref_id = '$ri'
-                         ORDER BY field_id";
-                $res2 = Database::query($sql2);
+                $res2 = $em
+                    ->createQuery('
+                        SELECT sfv FROM ChamiloCoreBundle:SpecificFieldValues sfv
+                        WHERE sfv.courseCode = :course AND sfv.toolId = :tool AND sfv.refId = :ref
+                        ORDER BY sfv.fieldId
+                    ')
+                    ->execute([
+                        'course' => $cc,
+                        'tool' => $ti,
+                        'ref' => $ri
+                    ]);
                 // TODO this code doesn't manage multiple terms in one same field just yet (should duplicate results in this case)
                 $field_id = 0;
-                while ($row2 = Database::fetch_array($res2)) {
+                foreach ($res2 as $row2) {
                     //TODO : this code is not perfect yet. It overrides the
                     // first match set, so having 1:Yannick,Julio;2:Rectum;3:LASER
                     // will actually never return: Yannick - Rectum - LASER
@@ -55,7 +78,7 @@ function get_suggestions_from_search_engine($q)
                     // We should have recursivity here to avoid this problem!
                     //Store the new set of results (only one per combination
                     // of all fields)
-                    $field_val[$row2['field_id']] = $row2['value'];
+                    $field_val[$row2->getFieldId()] = $row2->getValue();
                     $current_field_val = '';
                     foreach ($field_val as $id => $val) {
                         $current_field_val .= $val.' - ';
@@ -63,7 +86,7 @@ function get_suggestions_from_search_engine($q)
                     //Check whether we have a field repetition or not. Results
                     // have been ordered by field_id, so we should catch them
                     // all here
-                    if ($field_id == $row2['field_id']) {
+                    if ($field_id == $row2->getFieldId()) {
                         //We found the same field id twice, split the output
                         // array to allow for two sets of results (copy all
                         // existing array elements into copies and update the
@@ -78,14 +101,14 @@ function get_suggestions_from_search_engine($q)
                         //no identical field id, continue as usual
                         $c = count($output);
                         if ($c == 0) {
-                            $output[] = $row2['value'].' - ';
+                            $output[] = $row2->getValue() . ' - ';
                         } else {
                             foreach ($output as $i=>$out) {
                                 //use the latest combination of fields
-                                $output[$i] .= $row2['value'].' - ';
+                                $output[$i] .= $row2->getValue().' - ';
                             }
                         }
-                        $field_id = $row2['field_id'];
+                        $field_id = $row2->getFieldId();
                     }
                 }
                 foreach ($output as $i=>$out) {

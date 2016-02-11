@@ -100,17 +100,18 @@ while ($hotspot = Database::fetch_array($result)) {
 
 $data['answers'] = [];
 
-$tbl_track_e_hotspot = Database::get_main_table(TABLE_STATISTIC_TRACK_E_HOTSPOT);
-$sql = "SELECT hotspot_coordinate
-        FROM $tbl_track_e_hotspot
-        WHERE   hotspot_question_id = $questionId AND
-                c_id = $course_id AND
-                hotspot_exe_id = $exe_id
-        ORDER by hotspot_id";
-$rs = Database::query($sql); // don't output error because we are in Flash execution.
+$em = Database::getManager();
 
-while($row = Database :: fetch_array($rs, 'ASSOC')) {
-    $data['answers'][] = $row['hotspot_coordinate'];
+$rs = $em
+    ->getRepository('ChamiloCoreBundle:TrackEHotspot')
+    ->findBy([
+        'hotspotQuestionId' => $questionId,
+        'course' => $course_id,
+        'hotspotExeId' => $exe_id
+    ]);
+
+foreach ($rs as $hotspotAnswer) {
+    $data['answers'][] = $hotspotAnswer->hotspotCoordinate();
 }
 
 $data['done'] = 'done';

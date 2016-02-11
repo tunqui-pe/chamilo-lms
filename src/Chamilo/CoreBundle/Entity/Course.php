@@ -288,12 +288,66 @@ class Course
     protected $issuedSkills;
 
     /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\GradebookCategory", mappedBy="course")
+     */
+    protected $gradebookCategories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\GradebookEvaluation", mappedBy="course")
+     */
+    protected $gradebookEvaluations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\GradebookLink", mappedBy="course")
+     */
+    protected $gradebookLinks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\TrackEHotspot", mappedBy="course")
+     */
+    protected $trackEHotspots;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\TrackEAttempt", mappedBy="course")
+     */
+    protected $trackEAttempts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SearchEngineRef", mappedBy="course")
+     */
+    protected $searchEngineRefs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\Templates", mappedBy="course")
+     */
+    protected $templates;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SpecificFieldValues", mappedBy="course")
+     */
+    protected $specificFieldValues;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SharedSurvey", mappedBy="course")
+     */
+    protected $sharedSurveys;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->creationDate = new \DateTime();
         $this->users = new ArrayCollection();
+        $this->gradebookCategories = new ArrayCollection();
+        $this->gradebookEvaluations = new ArrayCollection();
+        $this->gradebookLinks = new ArrayCollection();
+        $this->trackEHotspots = new ArrayCollection();
+        $this->trackEAttempts = new ArrayCollection();
+        $this->searchEngineRefs = new ArrayCollection();
+        $this->templates = new ArrayCollection();
+        $this->specificFieldValues = new ArrayCollection();
+        $this->sharedSurveys = new ArrayCollection();
     }
 
     /**

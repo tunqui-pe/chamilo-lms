@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  *  Class DocumentManager
@@ -546,6 +547,9 @@ class DocumentManager
         $TABLE_ITEMPROPERTY = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $TABLE_DOCUMENT = Database::get_course_table(TABLE_DOCUMENT);
 
+        $em = Database::getManager();
+
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $_course['code']]);
         $userGroupFilter = '';
         if (!is_null($to_user_id)) {
             $to_user_id = intval($to_user_id);
@@ -649,14 +653,14 @@ class DocumentManager
                     pathinfo($row['path'], PATHINFO_EXTENSION) == 'html'
                 ) {
                     // Templates management
-                    $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
-                    $sql = "SELECT id FROM $table_template
-                            WHERE
-                                course_code = '" . $_course['code'] . "' AND
-                                user_id = '".api_get_user_id()."' AND
-                                ref_doc = '".$row['id']."'";
-                    $template_result = Database::query($sql);
-                    $row['is_template'] = (Database::num_rows($template_result) > 0) ? 1 : 0;
+                    $template_result = $em
+                        ->getRepository('ChamiloCoreBundle:Templates')
+                        ->findBy([
+                            'course' => $course,
+                            'userId' => api_get_course_id(),
+                            'refDoc' => $row['id']
+                        ]);
+                    $row['is_template'] = !empty($template_result) ? 1 : 0;
                 }
                 // Just filling $document_data.
                 $document_data[$row['id']] = $row;
@@ -1305,23 +1309,33 @@ class DocumentManager
     {
         // remove from search engine if enabled
         if (api_get_setting('search.search_enabled') == 'true') {
-            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_DOCUMENT, $document_id);
-            $res = Database::query($sql);
-            if (Database::num_rows($res) > 0) {
-                $row2 = Database::fetch_array($res);
+            $em = Database::getManager();
+
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_id]);
+
+            $res = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $course,
+                    'toolId' => TOOL_DOCUMENT,
+                    'refIdHighLevel' => $document_id
+                ]);
+
+            if ($res) {
                 require_once api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php';
                 $di = new ChamiloIndexer();
-                $di->remove_document((int) $row2['search_did']);
+                $di->remove_document($res->getSearchDid());
             }
-            $sql = 'DELETE FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_DOCUMENT, $document_id);
-            Database::query($sql);
+
+            $em->createQuery('
+                    DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                    WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdHighLevel = ?3
+                ')
+                ->setMaxResults(1)
+                ->execute([1 => $course, 2 => TOOL_DOCUMENT, 3 => $document_id]);
 
             // remove terms from db
             require_once api_get_path(LIBRARY_PATH) . 'specific_fields_manager.lib.php';
-            delete_all_values_for_item($course_id, TOOL_DOCUMENT, $document_id);
+            delete_all_values_for_item($course->getCode(), TOOL_DOCUMENT, $document_id);
         }
     }
 
@@ -1479,17 +1493,22 @@ class DocumentManager
      */
     public static function set_document_as_template($title, $description, $document_id_for_template, $course_code, $user_id, $image)
     {
-        // Database table definition
-        $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
-        $params = [
-            'title' => $title,
-            'description' => $description,
-            'course_code' => $course_code,
-            'user_id' => $user_id,
-            'ref_doc' => $document_id_for_template,
-            'image' => $image,
-        ];
-        Database::insert($table_template, $params);
+        $em = Database::getManager();
+
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
+
+        $template = new \Chamilo\CoreBundle\Entity\Templates();
+        $template
+            ->setTitle($title)
+            ->setDescription($description)
+            ->setCourse($course)
+            ->setUserId($user_id)
+            ->setRefDoc($document_id_for_template)
+            ->setImage($image);
+
+        $em->persist($template);
+        $em->flush();
+
         return true;
     }
 
@@ -1502,28 +1521,36 @@ class DocumentManager
      */
     public static function unset_document_as_template($document_id, $course_code, $user_id)
     {
-        $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
-        $course_code = Database::escape_string($course_code);
+        $em = Database::getManager();
+
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
         $user_id = intval($user_id);
         $document_id = intval($document_id);
 
-        $sql = 'SELECT id FROM ' . $table_template . '
-                WHERE
-                    course_code="' . $course_code . '" AND
-                    user_id="' . $user_id . '" AND
-                    ref_doc="' . $document_id . '"';
-        $result = Database::query($sql);
-        $template_id = Database::result($result, 0, 0);
+        $template = $em
+            ->getRepository('ChamiloCoreBundle:Templates')
+            ->findOneBy([
+                'course' => $course,
+                'userId' => $user_id,
+                'refDoc' => $document_id
+            ]);
 
-        my_delete(api_get_path(SYS_CODE_PATH) . 'upload/template_thumbnails/' . $template_id . '.jpg');
+        if (!$template) {
+            return;
+        }
 
-        $sql = 'DELETE FROM ' . $table_template . '
-                WHERE
-                    course_code="' . $course_code . '" AND
-                    user_id="' . $user_id . '" AND
-                    ref_doc="' . $document_id . '"';
+        my_delete(api_get_path(SYS_CODE_PATH) . 'upload/template_thumbnails/' . $template->getId() . '.jpg');
 
-        Database::query($sql);
+        $em
+            ->createQuery('
+                DELETE FROM ChamiloCoreBundle:Templates t
+                WHERE t.course = :course AND t.userId = :user AND t.refDoc = :refdoc
+            ')
+            ->execute([
+                'course' => $course,
+                'user' => $user_id,
+                'refDoc' => $document_id
+            ]);
     }
 
     /**
@@ -1737,22 +1764,34 @@ class DocumentManager
      */
     public static function attach_gradebook_certificate($course_id, $document_id, $session_id = 0)
     {
-        $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $session_id = intval($session_id);
         if (empty($session_id)) {
             $session_id = api_get_session_id();
         }
 
+        $courseId = api_get_course_int_id($course_id);
+
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $queryParams = [];
+
+        $dql = '
+            UPDATE ChamiloCoreBundle:GradebookCategory gc SET gc.documentId = :document
+            WHERE gc.course = :course
+        ';
+        $queryParams['document'] = $document_id;
+        $queryParams['course'] = $courseId;
+
         if (empty($session_id)) {
-            $sql_session = 'AND (session_id = 0 OR isnull(session_id)) ';
+            $dql .= 'AND (gc.sessionId = 0 OR gc.sessionId IS NULL) ';
         } elseif ($session_id > 0) {
-            $sql_session = 'AND session_id=' . intval($session_id);
-        } else {
-            $sql_session = '';
+            $dql .= 'AND gc.sessionId = :session ';
+            $queryParams['session'] = $session_id;
         }
-        $sql = 'UPDATE ' . $tbl_category . ' SET document_id="' . intval($document_id) . '"
-                WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
-        Database::query($sql);
+
+        $query
+            ->setDQL($dql)
+            ->execute($queryParams);
     }
 
     /**
@@ -1764,30 +1803,43 @@ class DocumentManager
      */
     public static function get_default_certificate_id($course_id, $session_id = 0)
     {
-        $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $session_id = intval($session_id);
         if (empty($session_id)) {
             $session_id = api_get_session_id();
         }
 
-        if (empty($session_id)) {
-            $sql_session = 'AND (session_id = 0 OR isnull(session_id)) ';
-        } elseif ($session_id > 0) {
-            $sql_session = 'AND session_id=' . intval($session_id);
-        } else {
-            $sql_session = '';
-        }
-        $sql = 'SELECT document_id FROM ' . $tbl_category . '
-                WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
+        $courseId = api_get_course_int_id($course_id);
 
-        $rs = Database::query($sql);
-        $num = Database::num_rows($rs);
-        if ($num == 0) {
+        $em = Database::getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gc')
+            ->from('ChamiloCoreBundle:GradebookCategory', 'gc')
+            ->where(
+                $qb->expr()->eq('gc.course', $courseId)
+            );
+
+        if (empty($session_id)) {
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->eq('gc.sessionId', 0),
+                    $qb->expr()->isNull('gc.sessionId')
+                )
+            );
+        } elseif ($session_id > 0) {
+            $qb->andWhere(
+                $qb->expr()->eq('gc.sessionId', $session_id)
+            );
+        }
+
+        $rs = $qb->getQuery()->getResult();
+
+        if (!count($rs)) {
             return null;
         }
-        $row = Database::fetch_array($rs);
+        $row = current($rs);
 
-        return $row['document_id'];
+        return $row->getDocumentId();
     }
 
     /**
@@ -1967,23 +2019,33 @@ class DocumentManager
         }
 
         $default_certificate = self::get_default_certificate_id($course_id);
-        if ((int) $default_certificate == (int) $default_certificate_id) {
-            $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $session_id = api_get_session_id();
-            if ($session_id == 0 || is_null($session_id)) {
-                $sql_session = 'AND (session_id=' . intval($session_id) . ' OR isnull(session_id)) ';
-            } elseif ($session_id > 0) {
-                $sql_session = 'AND session_id=' . intval($session_id);
-            } else {
-                $sql_session = '';
-            }
-
-            $sql = 'UPDATE ' . $tbl_category . ' SET document_id=null
-                    WHERE
-                        course_code = "' . Database::escape_string($course_id) . '" AND
-                        document_id="' . $default_certificate_id . '" ' . $sql_session;
-            Database::query($sql);
+        if ((int) $default_certificate !== (int) $default_certificate_id) {
+            return false;
         }
+
+        $courseId = api_get_course_int_id($course_id);
+
+        $em = Database::getManager();
+        $query = $em->createQuery();
+        $dql = '
+            UPDATE ChamiloCoreBundle:GradebookCategory gc
+            SET gc.documentId = NULL
+            WHERE gc.course = :course AND gc.documentId = :document
+        ';
+        $queryParam = [
+            'course' => $courseId,
+            'document' => $default_certificate_id
+        ];
+
+        $session_id = api_get_session_id();
+        if ($session_id == 0 || is_null($session_id)) {
+            $dql .= 'AND (gc.sessionId = 0 OR gc.sessionId IS NULL) ';
+        } elseif ($session_id > 0) {
+            $dql .= 'AND gc.sessionId = :session ';
+            $queryParam['session'] = $session_id;
+        }
+
+        $query->setDQL($dql)->execute($queryParam);
     }
 
     /**
@@ -3884,15 +3946,17 @@ class DocumentManager
         if (empty($session_id)) {
             $session_id = api_get_session_id();
         }
+
+        $em = Database::getManager();
+        $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $course_code]);
         $course_info = api_get_course_info($course_code);
         $course_dir = $course_info['path'] . '/document';
         $sys_course_path = api_get_path(SYS_COURSE_PATH);
         $base_work_dir = $sys_course_path . $course_dir;
 
-        $course_id = $course_info['real_id'];
         $table_document = Database::get_course_table(TABLE_DOCUMENT);
 
-        $qry = "SELECT path, title FROM $table_document WHERE c_id = $course_id AND id = '$docid' LIMIT 1";
+        $qry = "SELECT path, title FROM $table_document WHERE c_id = {$course->getId()} AND id = '$docid' LIMIT 1";
         $result = Database::query($qry);
         if (Database::num_rows($result) == 1) {
             $row = Database::fetch_array($result);
@@ -3960,16 +4024,16 @@ class DocumentManager
                     // insert new ones, create a new search engine document,
                     // and remove the old one
                     // Get search_did
-                    $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                    $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s LIMIT 1';
-                    $sql = sprintf($sql, $tbl_se_ref, $course_code, TOOL_DOCUMENT, $docid);
+                    $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                        ->findOneBy([
+                            'course' => $course,
+                            'toolId' => TOOL_DOCUMEMT,
+                            'refIdHighLevel' => $docid
+                        ]);
 
-                    $res = Database::query($sql);
-
-                    if (Database::num_rows($res) > 0) {
-                        $se_ref = Database::fetch_array($res);
+                    if ($se_ref) {
                         if (!$simulation) {
-                            $di->remove_document($se_ref['search_did']);
+                            $di->remove_document($se_ref->getSearchDid());
                         }
                         $all_specific_terms = '';
                         foreach ($specific_fields as $specific_field) {
@@ -4006,10 +4070,13 @@ class DocumentManager
 
                             if ($did) {
                                 // update the search_did on db
-                                $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                                $sql = 'UPDATE %s SET search_did=%d WHERE id=%d LIMIT 1';
-                                $sql = sprintf($sql, $tbl_se_ref, (int) $did, (int) $se_ref['id']);
-                                Database::query($sql);
+                                $em->createQuery('
+                                        UPDATE ChamiloCoreBundle:SearchEngineRef ser
+                                        SET ser.searchDid = ?1
+                                        WHERE id = ?2
+                                    ')
+                                    ->setMaxResults(1)
+                                    ->execute([1 => $did, 2 => $se_ref->getId()]);
                             }
                         }
                     }
@@ -4042,11 +4109,15 @@ class DocumentManager
                         $did = $di->index();
                         if ($did) {
                             // Save it to db
-                            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-                            $sql = 'INSERT INTO %s (id, course_code, tool_id, ref_id_high_level, search_did)
-                            VALUES (NULL , \'%s\', \'%s\', %s, %s)';
-                            $sql = sprintf($sql, $tbl_se_ref, $course_code, TOOL_DOCUMENT, $docid, $did);
-                            Database::query($sql);
+                            $searchEngineRef = new \Chamilo\CoreBundle\Entity\SearchEngineRef();
+                            $searchEngineRef
+                                ->setCourse($course)
+                                ->setToolId(TOOL_DOCUMENT)
+                                ->setRefIdHighLevel($docid)
+                                ->setSearchDid($did);
+
+                            $em->persist($searchEngineRef);
+                            $em->flush();
                         } else {
                             return false;
                         }

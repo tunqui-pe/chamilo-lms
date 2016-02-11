@@ -2281,7 +2281,7 @@ class CourseManager
             $sql = "DELETE FROM $table_course_rel_url WHERE c_id = '" . $courseId. "'";
             Database::query($sql);
 
-            $sql = 'SELECT survey_id FROM ' . $table_course_survey . ' WHERE course_code="' . $codeFiltered . '"';
+            $sql = 'SELECT survey_id FROM ' . $table_course_survey . ' WHERE c_id ="' . $courseId . '"';
             $result_surveys = Database::query($sql);
             while ($surveys = Database::fetch_array($result_surveys)) {
                 $survey_id = $surveys[0];
@@ -5620,11 +5620,16 @@ class CourseManager
     public static function get_course_by_category($category_id)
     {
         $category_id = intval($category_id);
-        $info = Database::fetch_array(
-            Database::query('SELECT course_code FROM ' . Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY) . '
-            WHERE id=' . $category_id), 'ASSOC'
-        );
-        return $info ? $info['course_code'] : false;
+
+        $em = Database::getManager();
+
+        $gradebookCategory = $em->find('ChamiloCoreBundle:GradebookCategory', $category_id);
+
+        if (!$gradebookCategory) {
+            return false;
+        }
+
+        return $gradebookCategory->getCourse()->getCode();
     }
 
     /**
