@@ -27,11 +27,10 @@ class Templates
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="course_code", type="string", length=40, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="templates")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
-    private $courseCode;
+    private $course;
 
     /**
      * @var integer
@@ -112,26 +111,24 @@ class Templates
     }
 
     /**
-     * Set courseCode
-     *
-     * @param string $courseCode
-     * @return Templates
+     * Set course
+     * @param \Chamilo\CoreBundle\Entity\Course $courseCode
+     * @return \Chamilo\CoreBundle\Entity\Templates
      */
-    public function setCourseCode($courseCode)
+    public function setCourse(Course $courseCode)
     {
-        $this->courseCode = $courseCode;
+        $this->course = $courseCode;
 
         return $this;
     }
 
     /**
-     * Get courseCode
-     *
-     * @return string
+     * Get course
+     * @return \Chamilo\CoreBundle\Entity\Course
      */
-    public function getCourseCode()
+    public function getCourse()
     {
-        return $this->courseCode;
+        return $this->course;
     }
 
     /**

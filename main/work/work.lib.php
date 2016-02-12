@@ -342,7 +342,7 @@ function getWorkList($id, $my_folder_data, $add_in_where_query = null)
     );
 
     if ($linkInfo) {
-        $workInGradeBookLinkId = $linkInfo['id'];
+        $workInGradeBookLinkId = $linkInfo->getId();
         if ($workInGradeBookLinkId) {
             if ($is_allowed_to_edit) {
                 if (intval($my_folder_data['qualification']) == 0) {
@@ -853,8 +853,8 @@ function deleteDirWork($id)
                 $id,
                 api_get_session_id()
             );
-            $link_id = $link_info['id'];
-            if ($link_info !== false) {
+            $link_id = $link_info->getId();
+            if ($link_info) {
                 GradebookUtils::remove_resource_from_course_gradebook($link_id);
             }
             return true;
@@ -4010,7 +4010,7 @@ function updatePublicationAssignment($workId, $params, $courseInfo, $groupId)
 
         $linkId = null;
         if (!empty($link_info)) {
-            $linkId = $link_info['id'];
+            $linkId = $link_info->getId();
         }
 
         if (isset($params['make_calification']) &&

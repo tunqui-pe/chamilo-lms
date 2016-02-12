@@ -494,12 +494,6 @@ class AddCourse
         $TABLEFORUMS = Database::get_course_table(TABLE_FORUM);
         $TABLEFORUMTHREADS = Database::get_course_table(TABLE_FORUM_THREAD);
         $TABLEFORUMPOSTS = Database::get_course_table(TABLE_FORUM_POST);
-        $TABLEGRADEBOOK = Database::get_main_table(
-            TABLE_MAIN_GRADEBOOK_CATEGORY
-        );
-        $TABLEGRADEBOOKLINK = Database::get_main_table(
-            TABLE_MAIN_GRADEBOOK_LINK
-        );
         $TABLEGRADEBOOKCERT = Database::get_main_table(
             TABLE_MAIN_GRADEBOOK_CERTIFICATE
         );
@@ -942,20 +936,57 @@ class AddCourse
             /* Gradebook tool */
             $course_code = $courseInfo['code'];
             // father gradebook
-            Database::query(
-                "INSERT INTO $TABLEGRADEBOOK (name, description, user_id, course_code, parent_id, weight, visible, certif_min_score, session_id, document_id)
-                VALUES ('$course_code','',1,'$course_code',0,100,0,75,NULL,$example_cert_id)"
-            );
-            $gbid = Database:: insert_id();
-            Database::query(
-                "INSERT INTO $TABLEGRADEBOOK (name, description, user_id, course_code, parent_id, weight, visible, certif_min_score, session_id, document_id)
-                VALUES ('$course_code','',1,'$course_code',$gbid,100,1,75,NULL,$example_cert_id)"
-            );
-            $gbid = Database:: insert_id();
-            Database::query(
-                "INSERT INTO $TABLEGRADEBOOKLINK (type, ref_id, user_id, course_code, category_id, created_at, weight, visible, locked)
-                VALUES (1,$exercise_id,1,'$course_code',$gbid,'$now',100,1,0)"
-            );
+            $gradebookCategory = new Chamilo\CoreBundle\Entity\GradebookCategory();
+            $gradebookCategory
+                ->setName($course_code)
+                ->setDescription('')
+                ->setUserId(1)
+                ->setCourse($course)
+                ->setParentId(0)
+                ->setWeight(100)
+                ->setVisible(0)
+                ->setCertifMinScore(75)
+                ->setSessionId(null)
+                ->setDocumentId($example_cert_id);
+
+            $manager->persist($gradebookCategory);
+            $manager->flush();
+
+            $gbid = $gradebookCategory->getId();
+
+            $gradebookCategory = new Chamilo\CoreBundle\Entity\GradebookCategory();
+            $gradebookCategory
+                ->setName($course_code)
+                ->setDescription('')
+                ->setUserId(1)
+                ->setCourse($course)
+                ->setParentId($gbid)
+                ->setWeight(100)
+                ->setVisible(1)
+                ->setCertifMinScore(75)
+                ->setSessionId(null)
+                ->setDocumentId($example_cert_id);
+
+            $manager->persist($gradebookCategory);
+            $manager->flush();
+
+            $gbid = $gradebookCategory->getId();
+
+            $createdAt = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
+            $gradebookLink = new \Chamilo\CoreBundle\Entity\GradebookLink();
+            $gradebookLink
+                ->setType(1)
+                ->setRefId($exercise_id)
+                ->setUserId(1)
+                ->setCourse($course)
+                ->setCategoryId($gbid)
+                ->setCreatedAt($createdAt)
+                ->setWeight(100)
+                ->setVisible(1)
+                ->setLocked(0);
+
+            $manager->persist($gradebookLink);
+            $manager->flush();
         }
 
         //Installing plugins in course

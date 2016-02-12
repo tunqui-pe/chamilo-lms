@@ -206,8 +206,8 @@ if ($is_allowedToEdit) {
                         if ($exercise_action_locked == false) {
                             $objExerciseTmp->delete();
                             $link_info = GradebookUtils::is_resource_in_course_gradebook(api_get_course_id(), 1, $exerciseId, api_get_session_id());
-                            if ($link_info !== false) {
-                                GradebookUtils::remove_resource_from_course_gradebook($link_info['id']);
+                            if ($link_info) {
+                                GradebookUtils::remove_resource_from_course_gradebook($link_info->getId());
                             }
                             Display :: display_confirmation_message(get_lang('ExerciseDeleted'));
                         }

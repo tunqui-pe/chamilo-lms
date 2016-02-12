@@ -470,7 +470,7 @@ class SurveyManager
             $session_id
         );
 
-        $gradebook_link_id = isset($link_info['id']) ? $link_info['id'] : false;
+        $gradebook_link_id = $link_info ? $link_info->getId() : false;
 
         if ($gradebook_option) {
             if ($survey_id > 0) {
@@ -522,46 +522,51 @@ class SurveyManager
      */
     public function store_shared_survey($values)
     {
-        $_user = api_get_user_info();
-        $_course = api_get_course_info();
+        $em = Database::getManager();
 
-        // Table definitions
-        $table_survey	= Database :: get_main_table(TABLE_MAIN_SHARED_SURVEY);
+        $_user = api_get_user_info();
+        $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
 
         if (!$values['survey_id'] ||
             !is_numeric($values['survey_id']) ||
             $values['survey_share']['survey_share'] == 'true'
         ) {
-            $sql = "INSERT INTO $table_survey (code, title, subtitle, author, lang, template, intro, surveythanks, creation_date, course_code) VALUES (
-                    '".Database::escape_string($values['survey_code'])."',
-                    '".Database::escape_string($values['survey_title'])."',
-                    '".Database::escape_string($values['survey_subtitle'])."',
-                    '".intval($_user['user_id'])."',
-                    '".Database::escape_string($values['survey_language'])."',
-                    '".Database::escape_string('template')."',
-                    '".Database::escape_string($values['survey_introduction'])."',
-                    '".Database::escape_string($values['survey_thanks'])."',
-                    '".api_get_utc_datetime()."',
-                    '".$_course['id']."')";
-            Database::query($sql);
-            $return	= Database::insert_id();
+            $creationDate = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));
 
-            $sql = "UPDATE $table_survey SET survey_id = $return WHERE iid = $return";
-            Database::query($sql);
+            $sharedSurvey = new \Chamilo\CoreBundle\Entity\SharedSurvey();
+            $sharedSurvey
+                ->setCode($values['survey_code'])
+                ->setTitle($values['survey_title'])
+                ->setSubtitle($values['survey_subtitle'])
+                ->setAuthor(intval($_user['user_id']))
+                ->setLang($values['survey_language'])
+                ->setTemplate('template')
+                ->setIntro($values['survey_introduction'])
+                ->setSurveythanks($values['survey_thanks'])
+                ->setCreationDate($creationDate)
+                ->setCourse($course);
+
+            $em->persist($sharedSurvey);
+            $em->flush();
+
+            $return = $sharedSurvey->getSurveyId();
 
         } else {
-            $sql = "UPDATE $table_survey SET
-                        code 			= '".Database::escape_string($values['survey_code'])."',
-                        title 			= '".Database::escape_string($values['survey_title'])."',
-                        subtitle 		= '".Database::escape_string($values['survey_subtitle'])."',
-                        author 			= '".intval($_user['user_id'])."',
-                        lang 			= '".Database::escape_string($values['survey_language'])."',
-                        template 		= '".Database::escape_string('template')."',
-                        intro			= '".Database::escape_string($values['survey_introduction'])."',
-                        surveythanks	= '".Database::escape_string($values['survey_thanks'])."'
-					WHERE survey_id = '".Database::escape_string($values['survey_share']['survey_share'])."'";
-            Database::query($sql);
-            $return	= $values['survey_share']['survey_share'];
+            $sharedSurvey = $em->find('ChamiloCoreBundle:SharedSurvey', $values['survey_share']['survey_share']);
+            $sharedSurvey
+                ->setCode($values['survey_code'])
+                ->setTitle($values['survey_title'])
+                ->setSubtitle($values['survey_subtitle'])
+                ->setAuthor(intval($_user['user_id']))
+                ->setLang($values['survey_language'])
+                ->setTemplate('template')
+                ->setIntro($values['survey_introduction'])
+                ->setSurveythanks($values['survey_thanks']);
+
+            $em->persist($sharedSurvey);
+            $em->flush();
+
+            $return = $values['survey_share']['survey_share'];
         }
 
         return $return;
@@ -589,6 +594,8 @@ class SurveyManager
             return false;
         }
 
+        $em = Database::getManager();
+
         $course_info = api_get_course_info_by_id($course_id);
         $course_id   = $course_info['real_id'];
 
@@ -596,11 +603,13 @@ class SurveyManager
         $table_survey_question_group = Database :: get_course_table(TABLE_SURVEY_QUESTION_GROUP);
 
         if ($shared) {
-            $table_survey = Database :: get_main_table(TABLE_MAIN_SHARED_SURVEY);
             // Deleting the survey
-            $sql = "DELETE FROM $table_survey
-                    WHERE survey_id='".$survey_id."'";
-            Database::query($sql);
+            $sharedSurvey = $em->find('ChamiloCoreBundle:SharedSurvey', $survey_id);
+
+            if ($sharedSurvey) {
+                $em->remove($sharedSurvey);
+                $em->flush();
+            }
         } else {
             $sql = "DELETE FROM $table_survey
                     WHERE c_id = $course_id AND survey_id='".$survey_id."'";

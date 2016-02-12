@@ -1278,11 +1278,12 @@ class Skill extends Model
      */
     public function get_count_skills_by_course($course_code)
     {
+        $courseId = api_get_course_int_id($course_code);
         $sql = "SELECT count(skill_id) as count
                 FROM {$this->table_gradebook} g
                 INNER JOIN {$this->table_skill_rel_gradebook} sg
                 ON g.id = sg.gradebook_id
-                WHERE course_code = '$course_code'";
+                WHERE g.c_id = " . $courseId;
 
         $result = Database::query($sql);
         if (Database::num_rows($result)) {
@@ -1304,7 +1305,7 @@ class Skill extends Model
                 INNER JOIN {$this->table_skill_rel_gradebook} sg
                 ON g.id = sg.gradebook_id
                 INNER JOIN {$this->table_course} c
-                ON c.code = g.course_code
+                ON c.id = g.c_id
                 WHERE sg.skill_id = $skill_id
                 AND (g.session_id IS NULL OR g.session_id = 0)";
         $result   = Database::query($sql);

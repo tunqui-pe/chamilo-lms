@@ -59,13 +59,17 @@ class ClassManager
      */
     public static function delete_class($class_id) {
         $class_id = intval($class_id);
+
+        $em = Database::getManager();
         $table_class = Database :: get_main_table(TABLE_MAIN_CLASS);
-        $table_class_course = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
         $table_class_user = Database :: get_main_table(TABLE_MAIN_CLASS_USER);
         $sql = "DELETE FROM $table_class_user WHERE class_id = '".$class_id."'";
         Database::query($sql);
-        $sql = "DELETE FROM $table_class_course WHERE class_id = '".$class_id."'";
-        Database::query($sql);
+        $em
+            ->createQuery('DELETE FROM ChamiloCoreBundle:CourseRelClass cc WHERE cc.classId = :class')
+            ->execute([
+                'class' => $class_id
+            ]);
         $sql = "DELETE FROM $table_class WHERE id = '".$class_id."'";
         Database::query($sql);
     }
@@ -113,17 +117,32 @@ class ClassManager
         $class_id = intval($class_id);
         $user_id  = intval($user_id);
 
+        $em = Database::getManager();
+
         $table_class_user = Database :: get_main_table(TABLE_MAIN_CLASS_USER);
-        $table_course_class = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
         $courses = ClassManager :: get_courses($class_id);
         if (count($courses) != 0) {
             $course_codes = array ();
             foreach ($courses as $index => $course) {
                 $course_codes[] = $course['course_code'];
-                $sql = "SELECT DISTINCT user_id FROM $table_class_user t1, $table_course_class t2 WHERE t1.class_id=t2.class_id AND course_code = '".$course['course_code']."' AND user_id = $user_id AND t2.class_id<>'$class_id'";
-                $res = Database::query($sql);
-                if (Database::num_rows($res) == 0 && CourseManager :: get_user_in_course_status($user_id, $course['course_code']) == STUDENT)
-                {
+                $dql = '
+                    SELECT DISTICT cu.userId
+                    FROM ChamiloCoreBundle:ClassUser cu, ChamiloCoreBundle:CourseRelClass cc
+                    WHERE
+                        cu.classId = cc.classId AND
+                        cc.courseId = :course AND
+                        cu.userId = :user AND 
+                        cc.classId != :class
+                ';
+                $res = $em
+                    ->createQuery($dql)
+                    ->setParameters([
+                        'course' => $course['id'],
+                        'user' => $user_id,
+                        'class' => $class_id
+                    ])
+                    ->getResult();
+                if (count($res) === 0 && CourseManager :: get_user_in_course_status($user_id, $course['course_code']) == STUDENT) {
                     CourseManager :: unsubscribe_user($user_id, $course['course_code']);
                 }
             }
@@ -140,7 +159,10 @@ class ClassManager
         $class_id = intval($class_id);
         $table_class_course = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
         $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
-        $sql = "SELECT * FROM $table_class_course cc, $table_course c WHERE cc.class_id = '".$class_id."' AND cc.course_code = c.code";
+        $sql = "
+            SELECT *, c.code AS course_code FROM $table_class_course cc, $table_course c
+            WHERE cc.class_id = '".$class_id."' AND cc.c_id = c.id
+        ";
         $res = Database::query($sql);
         $courses = array ();
         while ($course = Database::fetch_array($res, 'ASSOC')) {
@@ -155,9 +177,14 @@ class ClassManager
      */
     public static function subscribe_to_course($class_id, $course_code)
     {
+        $courseId = api_get_course_int_id($course_code);
         $tbl_course_class = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
         $tbl_class_user = Database :: get_main_table(TABLE_MAIN_CLASS_USER);
-        $sql = "INSERT IGNORE INTO $tbl_course_class SET course_code = '".Database::escape_string($course_code)."', class_id = '".Database::escape_string($class_id)."'";
+        $sql = "
+            INSERT IGNORE INTO $tbl_course_class
+            SET c_id = " . $courseId . ",
+                class_id = '" . Database::escape_string($class_id) . "'
+        ";
         Database::query($sql);
         $sql = "SELECT user_id FROM $tbl_class_user WHERE class_id = '".intval($class_id)."'";
         $res = Database::query($sql);
@@ -174,9 +201,16 @@ class ClassManager
      */
     public static function unsubscribe_from_course($class_id, $course_code)
     {
+        $courseId = api_get_course_int_id($course_code);
         $tbl_course_class = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
         $tbl_class_user = Database :: get_main_table(TABLE_MAIN_CLASS_USER);
-        $sql = "SELECT cu.user_id,COUNT(cc.class_id) FROM $tbl_course_class cc, $tbl_class_user cu WHERE  cc.class_id = cu.class_id AND cc.course_code = '".Database::escape_string($course_code)."' GROUP BY cu.user_id HAVING COUNT(cc.class_id) = 1";
+        $sql = "
+            SELECT cu.user_id, COUNT(cc.class_id)
+            FROM $tbl_course_class cc, $tbl_class_user cu
+            WHERE cc.class_id = cu.class_id AND
+                cc.c_id = " . $courseId . "
+            GROUP BY cu.user_id HAVING COUNT(cc.class_id) = 1
+        ";
         $single_class_users = Database::query($sql);
         while ($single_class_user = Database::fetch_object($single_class_users))
         {
@@ -190,7 +224,10 @@ class ClassManager
                 }
             }
         }
-        $sql = "DELETE FROM $tbl_course_class WHERE course_code = '".Database::escape_string($course_code)."' AND class_id = '".Database::escape_string($class_id)."'";
+        $sql = "
+            DELETE FROM $tbl_course_class
+            WHERE c_id = " . $courseId . " AND class_id = '" . Database::escape_string($class_id) . "'
+        ";
         Database::query($sql);
     }
 
@@ -213,9 +250,13 @@ class ClassManager
      * @return array An array with all classes (keys: 'id','code','name')
      */
     public static function get_classes_in_course($course_code) {
+        $courseId = api_get_course_int_id($course_code);
         $table_class = Database :: get_main_table(TABLE_MAIN_CLASS);
         $table_course_class = Database :: get_main_table(TABLE_MAIN_COURSE_CLASS);
-        $sql = "SELECT cl.* FROM $table_class cl, $table_course_class cc WHERE cc.course_code = '".Database::escape_string($course_code)."' AND cc.class_id = cl.id";
+        $sql = "
+            SELECT cl.* FROM $table_class cl, $table_course_class cc
+            WHERE cc.c_id = " . $course_code . " AND cc.class_id = cl.id
+        ";
         $res = Database::query($sql);
         $classes = array ();
         while ($class = Database::fetch_array($res, 'ASSOC')) {

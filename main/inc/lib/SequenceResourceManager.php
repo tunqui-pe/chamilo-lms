@@ -67,7 +67,7 @@ class SequenceResourceManager
                     $course = $sessionCourse->getCourse();
 
                     $gradebooks = $gradebookCategoryRepo->findBy([
-                        'courseCode' => $course->getCode(),
+                        'course' => $course,
                         'sessionId' => $sessionRequired->getId(),
                         'isRequirement' => true
                     ]);

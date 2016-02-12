@@ -80,6 +80,6 @@ $link_info = GradebookUtils::is_resource_in_course_gradebook(
     $attendance_id,
     api_get_session_id()
 );
-$default['category_id'] = $link_info['category_id'];
+$default['category_id'] = $link_info->getCategoryId();
 $form->setDefaults($default);
 $form->display();

@@ -57,6 +57,8 @@ $current_post = get_post_information($_GET['post']);
 
 api_block_course_item_locked_by_gradebook($_GET['thread'], LINK_FORUM_THREAD);
 
+$em = Database::getManager();
+
 /* Header and Breadcrumbs */
 
 
@@ -81,8 +83,6 @@ if (!empty($groupId)) {
     $interbreadcrumb[] = array('url' => 'viewthread.php?'.api_get_cidreq().'&origin='.$origin.'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']), 'name' => prepare4display($current_thread['thread_title']));
     $interbreadcrumb[] = array('url' => 'javascript:void(0);', 'name' => get_lang('EditPost'));
 }
-
-$table_link = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 
 /* Header */
 $htmlHeadXtra[] = <<<JS
@@ -222,7 +222,7 @@ if (!empty($values) and isset($_POST['SubmitPost'])) {
             $id,
             $session_id
         );
-        $link_id = $link_info['id'];
+        $link_id = $link_info->getId();
 
         if (!$link_info) {
             GradebookUtils::add_resource_to_course_gradebook(
@@ -238,7 +238,11 @@ if (!empty($values) and isset($_POST['SubmitPost'])) {
                 api_get_session_id()
             );
         } else {
-            Database::query('UPDATE '.$table_link.' SET weight='.$weight_calification.' WHERE id='.$link_id.'');
+            $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $link_id);
+            $gradebookLink->setWeight($weight_calification);
+
+            $em->persist($gradebookLink);
+            $em->flush();
         }
     }
 }

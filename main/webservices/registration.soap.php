@@ -6298,11 +6298,12 @@ function WSCertificatesList($startingDate = '', $endingDate = '')
     $certificateTable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
     $userTable = Database::get_main_table(TABLE_MAIN_USER);
     $categoryTable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+    $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
 
     $query = "SELECT
                     certificate.id,
                     user.username,
-                    category.course_code,
+                    course.code,
                     category.session_id,
                     certificate.user_id,
                     certificate.cat_id,
@@ -6312,7 +6313,9 @@ function WSCertificatesList($startingDate = '', $endingDate = '')
                 JOIN $userTable AS user
                 ON certificate.user_id = user.user_id
                 JOIN $categoryTable AS category
-                ON certificate.cat_id = category.id";
+                ON certificate.cat_id = category.id
+                JOIN $courseTable AS course
+                ON category.c_id = course.id ";
 
     if (!empty($startingDate) && !empty($endingDate)) {
         $query .= " WHERE certificate.created_at BETWEEN '$startingDate' AND '$endingDate'";

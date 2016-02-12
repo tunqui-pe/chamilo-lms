@@ -10,25 +10,20 @@
 
 require_once __DIR__.'/../inc/global.inc.php';
 
-/**
- * Get all categories and users ids from gradebook
- * @return array Categories and users ids
- */
-function getAllCategoriesAndUsers() {
-    $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_RESULT);
-    $jointable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
-    $joinStatement = ' JOIN '.$jointable.' ON '.$table.'.evaluation_id = '.$jointable.'.id';
-    return Database::select(
-        'DISTINCT '.$jointable.'.category_id,'.$table.'.user_id',
-        $table.$joinStatement
-    );
-}
+$em = Database::getManager();
 
-if ($categoriesAndUsers = getAllCategoriesAndUsers()) {
-    foreach ($categoriesAndUsers as $categoryAndUser) {
-        Category::register_user_certificate(
-            $categoryAndUser['category_id'],
-            $categoryAndUser['user_id']
-        );
-    }
+// Get all categories and users ids from gradebook
+$categoriesAndUsers = $em
+    ->createQuery('
+        SELECT DISTINCT ge.categoryId, gr.userId
+        FROM ChamiloCoreBundle:GradebookResult gr
+        JOIN ChamiloCoreBundle:GradebookEvaluation ge WITH gr.evaluationId = ge
+    ')
+    ->getResult();
+
+foreach ($categoriesAndUsers as $categoryAndUser) {
+    Category::register_user_certificate(
+        $categoryAndUser['categoryId'],
+        $categoryAndUser['userId']
+    );
 }

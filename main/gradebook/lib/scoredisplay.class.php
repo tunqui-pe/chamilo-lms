@@ -172,23 +172,33 @@ class ScoreDisplay
      */
     private function get_current_gradebook_category_id()
     {
-        $tbl_gradebook_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $curr_course_code = api_get_course_id();
+        $curr_course_id = api_get_course_int_id();
         $curr_session_id = api_get_session_id();
 
+        $em = Database::getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('gc')
+            ->from('ChamiloCoreBundle:GradebookCategory')
+            ->where(
+                Criteria::expr()->eq('course', $curr_course_id)
+            );
+
         if (empty($curr_session_id)) {
-            $session_condition = ' AND session_id is null ';
+            $qb->andWhere(
+                $qb->expr()->isNull('sessionId')
+            );
         } else {
-            $session_condition = ' AND session_id = '.$curr_session_id;
+            $qb->andWhere(
+                $qb->expr()->eq('sessionId', $curr_session_id)
+            );
         }
 
-        $sql = 'SELECT id FROM '.$tbl_gradebook_category.'
-                WHERE course_code = "'.$curr_course_code.'" '. $session_condition;
-        $rs  = Database::query($sql);
+        $rs = $qb->getQuery()->getResult();
         $category_id = 0;
-        if (Database::num_rows($rs) > 0) {
-            $row = Database::fetch_row($rs);
-            $category_id = $row[0];
+        if (count($rs) > 0) {
+            $row = current($rs);
+            $category_id = $row->getId();
         }
 
         return $category_id;

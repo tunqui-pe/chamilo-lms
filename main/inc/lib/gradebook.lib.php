@@ -13,7 +13,7 @@ class Gradebook extends Model
         'id',
         'name',
         'description',
-        'course_code',
+        'c_id',
         'parent_id',
         'grade_model_id',
         'session_id',
@@ -79,9 +79,12 @@ class Gradebook extends Model
     {
         $gradebooks = parent::get_all($options);
         foreach ($gradebooks as &$gradebook) {
-            if (empty($gradebook['name'])) {
-                $gradebook['name'] = $gradebook['course_code'];
+            if (!empty($gradebook['name'])) {
+                continue;
             }
+
+            $courseInfo = api_get_course_info_by_id($gradebook['c_id']);
+            $gradebook['name'] = $courseInfo['code'];
         }
         return $gradebooks;
     }

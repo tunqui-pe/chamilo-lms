@@ -18,10 +18,10 @@
 $this_section = SECTION_COURSES;
 
 // Database table definitions
+$em = Database::getManager();
 $table_survey = Database :: get_course_table(TABLE_SURVEY);
 $table_user = Database :: get_main_table(TABLE_MAIN_USER);
 $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
-$table_gradebook_link = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 
 /** @todo this has to be moved to a more appropriate place (after the display_header of the code) */
 // If user is not teacher or if he's a coach trying to access an element out of his session
@@ -77,13 +77,15 @@ if ($_GET['action'] == 'edit' && isset($survey_id) && is_numeric($survey_id)) {
         $survey_id,
         $session_id
     );
-    $gradebook_link_id = $link_info['id'];
+    $gradebook_link_id = $link_info->getId();
 
     if ($link_info) {
-        $defaults['category_id'] = $link_info['category_id'];
-        if ($sql_result_array = Database::fetch_array(Database::query('SELECT weight FROM '.$table_gradebook_link.' WHERE id='.$gradebook_link_id))) {
+        $defaults['category_id'] = $link_info->getCategoryId();
+        $sql_result_array = $em->find('ChamiloCoreBundle:GradebookLink', $gradebook_link_id);
+
+        if ($sql_result_array) {
             $defaults['survey_qualify_gradebook'] = $gradebook_link_id;
-            $defaults['survey_weight'] = number_format($sql_result_array['weight'], 2, '.', '');
+            $defaults['survey_weight'] = number_format($sql_result_array->getWeight(), 2, '.', '');
         }
     }
 } else {

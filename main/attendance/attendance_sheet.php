@@ -292,9 +292,11 @@ if (api_is_allowed_to_edit(null, true) ||
 
                         if ($is_locked_attendance == false) {
                             if (api_is_allowed_to_edit(null, true)) {
-                                $result .= '<input type="checkbox" class="checkbox_head_'.$calendar['id'].'" id="checkbox_head_'.$calendar['id'].'" '.$disabled_check.' checked="checked" />'.$input_hidden.'</div></th>';
+                                $result .= '<input type="checkbox" class="checkbox_head_'.$calendar['id'].'" id="checkbox_head_'.$calendar['id'].'" '.$disabled_check.' checked="checked" />'.$input_hidden;
                             }
                         }
+                        $result .= '</div>';
+                        $result .= '</th>';
                     }
                 } else {
                     $result  = '<th width="2000px"><span><a href="index.php?'.api_get_cidreq().'&action=calendar_list&attendance_id='.$attendance_id.'">';
@@ -384,9 +386,11 @@ if (api_is_allowed_to_edit(null, true) ||
                         }
                         echo '<td class="'.$calendarClass.'">';
                         echo '<div>';
-                        echo '<center>&nbsp;</center>
-                        </div>
-                        </td>';
+                        echo '
+                                <center>&nbsp;</center>
+                                </div>
+                            </td>
+                        ';
                     }
                     echo '</tr>';
                     $i++ ;

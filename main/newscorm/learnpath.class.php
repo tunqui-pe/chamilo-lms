@@ -1113,8 +1113,8 @@ class learnpath
         );
 
         $link_info = GradebookUtils::is_resource_in_course_gradebook(api_get_course_id(), 4 , $id, api_get_session_id());
-        if ($link_info !== false) {
-            GradebookUtils::remove_resource_from_course_gradebook($link_info['id']);
+        if ($link_info) {
+            GradebookUtils::remove_resource_from_course_gradebook($link_info->getId());
         }
 
         if (api_get_setting('search.search_enabled') == 'true') {
@@ -1160,7 +1160,10 @@ class learnpath
      */
     public function delete_item($id, $remove = 'keep')
     {
-        $course_id = api_get_course_int_id();
+        $em = Database::getManager();
+
+        $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
+
         if ($this->debug > 0) {
             error_log('New LP - In learnpath::delete_item()', 0);
         }
@@ -1170,7 +1173,7 @@ class learnpath
         }
         // First select item to get previous, next, and display order.
         $lp_item = Database :: get_course_table(TABLE_LP_ITEM);
-        $sql_sel = "SELECT * FROM $lp_item WHERE c_id = ".$course_id." AND id = $id";
+        $sql_sel = "SELECT * FROM $lp_item WHERE c_id = " . $course->getId() . " AND id = $id";
         $res_sel = Database::query($sql_sel);
         if (Database :: num_rows($res_sel) < 1) {
             return false;
@@ -1187,42 +1190,51 @@ class learnpath
             error_log('New LP - learnpath::delete_item() - deleted ' . $num . ' children of element ' . $id, 0);
         }
         // Now delete the item.
-        $sql_del = "DELETE FROM $lp_item WHERE c_id = $course_id AND id = $id";
+        $sql_del = "DELETE FROM $lp_item WHERE c_id = {$course->getId()} AND id = $id";
         if ($this->debug > 2) {
             error_log('New LP - Deleting item: ' . $sql_del, 0);
         }
         Database::query($sql_del);
         // Now update surrounding items.
         $sql_upd = "UPDATE $lp_item SET next_item_id = $next
-                    WHERE c_id = ".$course_id." AND id = $previous";
+                    WHERE c_id = " . $course->getId() . " AND id = $previous";
         Database::query($sql_upd);
         $sql_upd = "UPDATE $lp_item SET previous_item_id = $previous
-                    WHERE c_id = ".$course_id." AND id = $next";
+                    WHERE c_id = " . $course->getId() . " AND id = $next";
         Database::query($sql_upd);
         // Now update all following items with new display order.
         $sql_all = "UPDATE $lp_item SET display_order = display_order-1
-                    WHERE c_id = ".$course_id." AND lp_id = $lp AND parent_item_id = $parent AND display_order > $display";
+                    WHERE c_id = " . $course->getId() . " AND lp_id = $lp AND parent_item_id = $parent AND display_order > $display";
         Database::query($sql_all);
 
         //Removing prerequisites since the item will not longer exist
-        $sql_all = "UPDATE $lp_item SET prerequisite = '' WHERE c_id = ".$course_id." AND prerequisite = $id";
+        $sql_all = "UPDATE $lp_item SET prerequisite = '' WHERE c_id = " . $course->getId() . " AND prerequisite = $id";
         Database::query($sql_all);
 
         // Remove from search engine if enabled.
         if (api_get_setting('search.search_enabled') == 'true') {
-            $tbl_se_ref = Database :: get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'SELECT * FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level=%d LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $this->cc, TOOL_LEARNPATH, $lp, $id);
-            $res = Database::query($sql);
-            if (Database :: num_rows($res) > 0) {
-                $row2 = Database :: fetch_array($res);
+            $lpCourse = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $this->cc]);
+            $row2 = $em
+                ->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $lpCourse,
+                    'toolId' => TOOL_LEARNPATH,
+                    'refIdHighLevel' => $lp,
+                    'refIdSecondLevel' => $id
+                ]);
+
+            if ($row2) {
                 require_once api_get_path(LIBRARY_PATH).'search/ChamiloIndexer.class.php';
                 $di = new ChamiloIndexer();
-                $di->remove_document((int) $row2['search_did']);
+                $di->remove_document($row2->getSearchDid());
             }
-            $sql = 'DELETE FROM %s WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level=%d LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $this->cc, TOOL_LEARNPATH, $lp, $id);
-            Database::query($sql);
+
+            $em->createQuery('
+                    DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
+                    WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdHighLevel = ?3 AND ser.refIdSecondLevel = ?4
+                ')
+                ->setMaxResults(1)
+                ->execute([1 => $lpCourse, 2 => TOOL_LEARNPATH, 3 => $lp, 4=> $id]);
         }
     }
 
@@ -4609,7 +4621,9 @@ class learnpath
      */
     public function set_terms_by_prefix($terms_string, $prefix)
     {
-        $course_id = api_get_course_int_id();
+        $em = Database::getManager();
+
+        $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
         if (api_get_setting('search.search_enabled') !== 'true')
             return false;
 
@@ -4635,25 +4649,24 @@ class learnpath
         $items_table = Database :: get_course_table(TABLE_LP_ITEM);
         // TODO: Make query secure agains XSS : use member attr instead of post var.
         $lp_id = intval($_POST['lp_id']);
-        $sql = "SELECT * FROM $items_table WHERE c_id = $course_id AND lp_id = $lp_id";
+        $sql = "SELECT * FROM $items_table WHERE c_id = {$course->getId()} AND lp_id = $lp_id";
         $result = Database::query($sql);
         $di = new ChamiloIndexer();
 
         while ($lp_item = Database :: fetch_array($result)) {
+            $lpCourse = $em->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $this->cc]);
             // Get search_did.
-            $tbl_se_ref = Database :: get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
-            $sql = 'SELECT * FROM %s
-                    WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_high_level=%s AND ref_id_second_level=%d
-                    LIMIT 1';
-            $sql = sprintf($sql, $tbl_se_ref, $this->cc, TOOL_LEARNPATH, $lp_id, $lp_item['id']);
+            $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
+                ->findOneBy([
+                    'course' => $lpCourse,
+                    'toolId' => TOOL_LEARNPATH,
+                    'refIdHighLevel' => $lp_id,
+                    'refIdSecondLevel' => $lp_item['id']
+                ]);
 
-            //echo $sql; echo '<br>';
-            $res = Database::query($sql);
-            if (Database::num_rows($res) > 0) {
-                $se_ref = Database :: fetch_array($res);
-
+            if ($se_ref) {
                 // Compare terms.
-                $doc = $di->get_document($se_ref['search_did']);
+                $doc = $di->get_document($se_ref->getSearchDid());
                 $xapian_terms = xapian_get_doc_terms($doc, $prefix);
                 $xterms = array();
                 foreach ($xapian_terms as $xapian_term) {
@@ -4672,7 +4685,7 @@ class learnpath
                 foreach ($deprecated_terms as $term) {
                     $doc->remove_term($prefix . $term);
                 }
-                $di->getDb()->replace_document((int) $se_ref['search_did'], $doc);
+                $di->getDb()->replace_document($se_ref->getSearchDid(), $doc);
                 $di->getDb()->flush();
             } else {
                 //@todo What we should do here?

@@ -38,7 +38,7 @@ class LearnpathLink extends AbstractLink
 				WHERE c_id = '.$this->course_id.' AND id NOT IN '
 			.' (SELECT ref_id FROM '.$tbl_grade_links
 			.' WHERE type = '.LINK_LEARNPATH
-			." AND course_code = '".$this->get_course_code()."'"
+			." AND c_id = '" . intval($this->course_id) . "'"
 			.') AND lp.session_id='.api_get_session_id().'';
 
 		$result = Database::query($sql);

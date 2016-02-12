@@ -268,20 +268,15 @@ class CalculatedAnswer extends Question
      */
     public function isAnswered()
     {
-        $table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
-        $result = Database::select(
-            'question_id',
-            $table,
-            array(
-                'where' => array(
-                    'question_id = ? AND c_id = ?' => array(
-                        $this->id,
-                        $this->course['real_id']
-                    )
-                )
-            )
-        );
+        $em = Database::getManager();
 
-        return empty($result) ? false : true;
+        $attempt = $em
+            ->getRepository('ChamiloCoreBundle:TrackEAttempt')
+            ->findOneBy([
+            'questionId' => $this->id,
+            'course' => $this->course['real_id']
+        ]);
+
+        return $attempt ? true : false;
     }
 }

@@ -13,13 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
 class CourseRelClass
 {
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="course_code", type="string", length=40)
+     * @ORM\Column(name="c_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $courseCode;
+    private $courseId;
 
     /**
      * @var integer
@@ -33,33 +33,33 @@ class CourseRelClass
 
 
     /**
-     * Set courseCode
+     * Set courseId
      *
-     * @param string $courseCode
-     * @return CourseRelClass
+     * @param integer $courseCode
+     * @return \Chamilo\CoreBundle\Entity\CourseRelClass
      */
-    public function setCourseCode($courseCode)
+    public function setCourseId($courseCode)
     {
-        $this->courseCode = $courseCode;
+        $this->courseId = $courseCode;
 
         return $this;
     }
 
     /**
-     * Get courseCode
+     * Get courseId
      *
-     * @return string
+     * @return integer
      */
-    public function getCourseCode()
+    public function getCourseId()
     {
-        return $this->courseCode;
+        return $this->courseId;
     }
 
     /**
      * Set classId
      *
      * @param integer $classId
-     * @return CourseRelClass
+     * @return \Chamilo\CoreBundle\Entity\CourseRelClass
      */
     public function setClassId($classId)
     {
