@@ -39,7 +39,7 @@ class UpgradeStep extends AbstractStep
                 // Means it comes from chamilo 2.x
                 return $this->handleAjaxAction(
                     'chamilo:platform:update',
-                    array('--force')
+                    array('--force' => true)
                 );
                 break;
             case 'pages':
@@ -52,6 +52,9 @@ class UpgradeStep extends AbstractStep
                     array('--site' => array('all'))
                 );
             case 'settings':
+
+                return new JsonResponse(array('result' => true, 'exitCode' => 0));
+
                 $settingsManager = $this->container->get(
                     'chamilo.settings.manager'
                 );
@@ -121,7 +124,7 @@ class UpgradeStep extends AbstractStep
         return $this->render(
             'ChamiloInstallerBundle:Process/Step:installation.html.twig',
             array(
-                'is_upgrade' => $this->isUpgrade(),
+                'is_upgrade' => $this->isCommonUpgrade(),
                 'scenario' => $this->getScenario(),
                 'loadFixtures' => false,
                 'installerScripts' => $scriptManager->getScriptLabels(),

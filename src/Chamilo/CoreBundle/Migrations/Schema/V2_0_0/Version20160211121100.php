@@ -6,6 +6,11 @@ use Chamilo\CoreBundle\Migrations\AbstractMigrationChamilo;
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 
+/**
+ * Class Version20160211121100
+ * @todo It seems that some changes are already added in 1.10
+ * @package Chamilo\CoreBundle\Migrations\Schema\V_2_0_0
+ */
 class Version20160211121100 extends AbstractMigrationChamilo
 {
     /**
@@ -15,12 +20,15 @@ class Version20160211121100 extends AbstractMigrationChamilo
     public function up(Schema $schema, QueryBag $queries)
     {
         $queries->addQuery("ALTER TABLE course_rel_class ADD c_id int NOT NULL");
+
         $queries->addQuery("
             UPDATE course_rel_class cc
             SET cc.c_id = (SELECT id FROM course WHERE code = cc.course_code)
         ");
-        $queries->addQuery("ALTER TABLE course_rel_class DROP INDEX PRIMARY");
         $queries->addQuery("ALTER TABLE course_rel_class DROP course_code");
+        $queries->addQuery("ALTER TABLE course_rel_class MODIFY COLUMN class_id INT DEFAULT NULL");
+        $queries->addQuery("ALTER TABLE course_rel_class DROP PRIMARY KEY");
+
         $queries->addQuery("ALTER TABLE course_rel_class ADD PRIMARY KEY (class_id, c_id)");
         $queries->addQuery("
             ALTER TABLE course_rel_class ADD FOREIGN KEY (c_id) REFERENCES course (id) ON DELETE RESTRICT
@@ -38,17 +46,23 @@ class Version20160211121100 extends AbstractMigrationChamilo
         ];
 
         foreach ($tables as $table) {
-            $queries->addQuery("ALTER TABLE $table ADD c_id int NOT NULL");
+            $tableObj = $schema->getTable($table);
+            if (!$tableObj->hasColumn('c_id')) {
+                $queries->addQuery("ALTER TABLE $table ADD c_id int NOT NULL");
+            }
             $queries->addQuery("
                 UPDATE $table t
                 SET t.c_id = (SELECT id FROM course WHERE code = t.course_code)
             ");
-            $queries->addQuery("ALTER TABLE $table DROP course_code");
-            $queries->addQuery("
-                ALTER TABLE $table ADD FOREIGN KEY (c_id) REFERENCES course (id) ON DELETE RESTRICT
-            ");
-        }
 
+            if ($tableObj->hasColumn('course_code')) {
+                $queries->addQuery("ALTER TABLE $table DROP course_code");
+            }
+            /*$queries->addQuery("
+                ALTER TABLE $table ADD FOREIGN KEY (c_id) REFERENCES course (id) ON DELETE RESTRICT
+            ");*/
+        }
+/*
         $queries->addQuery("ALTER TABLE personal_agenda DROP course");
 
         $queries->addQuery("
@@ -67,7 +81,7 @@ class Version20160211121100 extends AbstractMigrationChamilo
             SET teh.c_id = (SELECT id FROM course WHERE code = teh.hotspot_course_code)
             WHERE teh.hotspot_course_code != NULL OR hotspot_course_code != ''
         ");
-        $queries->addQuery("ALTER TABLE personal_agenda DROP hotspot_course_code");
+        $queries->addQuery("ALTER TABLE personal_agenda DROP hotspot_course_code");*/
     }
 
     /**
