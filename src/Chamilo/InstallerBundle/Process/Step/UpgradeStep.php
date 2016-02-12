@@ -22,13 +22,15 @@ class UpgradeStep extends AbstractStep
     public function displayAction(ProcessContextInterface $context)
     {
         set_time_limit(900);
+        $request = $context->getRequest();
+        $action = $request->query->get('action');
 
-        $action = $this->getRequest()->query->get('action');
         switch ($action) {
             case 'upgrade':
+                // Means it comes from chamilo 2.x
                 return $this->handleAjaxAction(
-                    'cache:clear',
-                    array('--env' => 'prod', '--no-debug' => true)
+                    'chamilo:platform:update',
+                    array('--force')
                 );
                 break;
             case 'pages':
@@ -40,25 +42,19 @@ class UpgradeStep extends AbstractStep
                     'sonata:page:create-snapshots',
                     array('--site' => array('all'))
                 );
-            case 'fixtures':
-                return $this->handleAjaxAction(
-                    'oro:migration:data:load',
-                    array('--fixtures-type' => 'demo')
+            case 'settings':
+                $settingsManager = $this->container->get(
+                    'chamilo.settings.manager'
                 );
+                $url = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:AccessUrl')->find(1);
+                $settingsManager->installSchemas($url);
+                return new JsonResponse(array('result' => true, 'exitCode' => 0));
+                break;
             case 'assets':
                 /*return $this->handleAjaxAction(
                     'oro:assets:install',
                     array('target' => './', '--exclude' => ['OroInstallerBundle'])
                 );*/
-
-                $settingsManager = $this->container->get(
-                    'chamilo.settings.manager'
-                );
-                $url = $this->container->get('doctrine')->getRepository(
-                    'ChamiloCoreBundle:AccessUrl'
-                )->find(1);
-                $settingsManager->installSchemas($url);
-
                 return $this->handleAjaxAction(
                     'assets:install',
                     array(

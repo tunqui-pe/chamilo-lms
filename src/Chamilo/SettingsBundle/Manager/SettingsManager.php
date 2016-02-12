@@ -47,7 +47,6 @@ class SettingsManager extends SyliusSettingsManager
     public function installSchemas(AccessUrl $url)
     {
         $this->url = $url;
-
         $schemas = $this->getSchemas();
         $schemas = array_keys($schemas);
         /**

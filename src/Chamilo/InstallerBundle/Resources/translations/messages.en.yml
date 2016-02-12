@@ -112,6 +112,7 @@ process:
             js-routing:    Dump JS routing
             pages:         Install pages
             upgrade:       Upgrade database
+            settings:      Install platform settings
             localization:  Dump localization
             assets:        Install assets
             assetic:       Dump assetic

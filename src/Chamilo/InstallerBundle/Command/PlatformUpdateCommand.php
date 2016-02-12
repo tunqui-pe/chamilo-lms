@@ -53,7 +53,6 @@ class PlatformUpdateCommand extends ContainerAwareCommand
                 $input->hasOption('env') ? $input->getOption('env') : null,
                 $output,
                 $this->getApplication()
-            //$this->getContainer()->get('oro_cache.oro_data_cache_manager')
             );
             $commandExecutor->setDefaultTimeout($input->getOption('timeout'));
 
@@ -64,13 +63,9 @@ class PlatformUpdateCommand extends ContainerAwareCommand
                 )
                 //->runCommand('oro:workflow:definitions:load', array('--process-isolation' => true))
                 //->runCommand('oro:process:configuration:load', array('--process-isolation' => true))
-                ->runCommand(
-                    'oro:migration:data:load',
-                    array('--process-isolation' => true)
-                )
                 //->runCommand('oro:navigation:init', array('--process-isolation' => true))
-                ->runCommand('assets:install')
-                ->runCommand('assetic:dump')
+                //->runCommand('assets:install')
+                //->runCommand('assetic:dump')
             ;
             //->runCommand('fos:js-routing:dump', array('--target' => 'web/js/routes.js'))
             //->runCommand('oro:localization:dump')
