@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Chamilo\InstallerBundle\InstallerEvents;
 use Chamilo\InstallerBundle\CommandExecutor;
 use Chamilo\InstallerBundle\ScriptExecutor;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class UpgradeStep
@@ -27,6 +28,15 @@ class UpgradeStep extends AbstractStep
 
         switch ($action) {
             case 'upgrade':
+
+                $configurationFile = $this->container->get('kernel')->getConfigurationFile();
+                // This comes from 1.10.x
+                if (file_exists($configurationFile)) {
+                    $fs = new Filesystem();
+                    $fs->rename($configurationFile, $configurationFile.".bak");
+
+                }
+
                 // Means it comes from chamilo 2.x
                 return $this->handleAjaxAction(
                     'chamilo:platform:update',

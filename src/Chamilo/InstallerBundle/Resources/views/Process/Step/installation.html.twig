@@ -2,7 +2,7 @@
 {#{% set step, platformSteps = 'administration', ['navigation', 'js-routing', 'localization', 'assets', 'assetic', 'translation', 'requirejs'] %}#}
 
 {% if is_upgrade %}
-    {% set step, platformSteps = 'upgrade', ['assets', 'assetic', 'upgrade'] %}
+    {% set step, platformSteps = 'upgrade', ['assets', 'assetic', 'settings', 'upgrade'] %}
 {% else %}
     {% set step, platformSteps = 'installation', ['assets', 'assetic', 'settings', 'fixtures', 'pages'] %}
 {% endif %}

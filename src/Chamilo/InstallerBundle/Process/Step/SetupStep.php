@@ -70,18 +70,12 @@ class SetupStep extends AbstractStep
             );
         }
 
-
         $form = $this->createSetupForm();
         $form->get('admin')->setData($adminUser);
 
         $form->handleRequest($context->getRequest());
 
         if ($form->isValid()) {
-            // pass "load demo fixtures" flag to the next step
-            /*$context->getStorage()->set(
-                'loadFixtures',
-                $form->has('loadFixtures') && $form->get('loadFixtures')->getData()
-            );*/
             $this->get('fos_user.user_manager')->updateUser($adminUser);
 
             // Setting portal parameters
@@ -91,14 +85,9 @@ class SetupStep extends AbstractStep
             $settings = $settingsManager->loadSettings('platform');
 
             $parameters = array(
-                'institution' => $form->get('portal')->get(
-                    'institution'
-                )->getData(),
-                'institution_url' => $form->get('portal')->get(
-                    'institution_url'
-                )->getData(),
-                'site_name' => $form->get('portal')->get('site_name')->getData(
-                ),
+                'institution' => $form->get('portal')->get('institution')->getData(),
+                'institution_url' => $form->get('portal')->get('institution_url')->getData(),
+                'site_name' => $form->get('portal')->get('site_name')->getData(),
                 'timezone' => $form->get('portal')->get('timezone')->getData(),
             );
             $settings->setParameters($parameters);
@@ -112,19 +101,6 @@ class SetupStep extends AbstractStep
             );
             $settings->setParameters($parameters);
             $settingsManager->saveSettings('admin', $settings);
-
-            /*$defaultCompanyName  = $configManager->get('oro_ui.application_name');
-            $defaultCompanyTitle = $configManager->get('oro_ui.application_title');
-            $companyName         = $form->get('company_name')->getData();
-            $companyTitle        = $form->get('company_title')->getData();
-            if (!empty($companyName) && $companyName !== $defaultCompanyName) {
-                $configManager->set('oro_ui.application_name', $companyName);
-            }
-            if (!empty($companyTitle) && $companyTitle !== $defaultCompanyTitle) {
-                $configManager->set('oro_ui.application_title', $companyTitle);
-            }
-            $configManager->flush();
-            */
 
             return $this->complete();
         }
