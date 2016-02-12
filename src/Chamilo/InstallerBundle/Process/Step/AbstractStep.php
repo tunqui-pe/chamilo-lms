@@ -151,10 +151,34 @@ abstract class AbstractStep extends AbstractControllerStep
     /**
      * @return bool
      */
+    public function isCommonUpgrade()
+    {
+        return $this->isUpgrade() || $this->isUpgradeFrom110();
+    }
+
+    /**
+     * @return bool
+     */
     public function isUpgrade()
     {
         if ($this->container->hasParameter('installed') &&
-            $this->container->getParameter('installed')
+            !empty($this->container->getParameter('installed'))
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUpgradeFrom110()
+    {
+        $confFile = $this->container->get('kernel')->getConfigurationFile();
+        if ($this->container->hasParameter('installed') &&
+            empty($this->container->getParameter('installed')) &&
+            file_exists($confFile)
         ) {
             return true;
         }
@@ -167,7 +191,7 @@ abstract class AbstractStep extends AbstractControllerStep
      */
     public function getScenario()
     {
-        if ($this->isUpgrade()) {
+        if ($this->isCommonUpgrade()) {
 
             return 'chamilo_upgrade';
         }

@@ -30,11 +30,10 @@ class UpgradeStep extends AbstractStep
             case 'upgrade':
 
                 $configurationFile = $this->container->get('kernel')->getConfigurationFile();
-                // This comes from 1.10.x
+                // If configuration.php exists then rename to configuratio.php.bak
                 if (file_exists($configurationFile)) {
                     $fs = new Filesystem();
                     $fs->rename($configurationFile, $configurationFile.".bak");
-
                 }
 
                 // Means it comes from chamilo 2.x

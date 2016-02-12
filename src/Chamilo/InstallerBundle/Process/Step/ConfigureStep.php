@@ -19,13 +19,13 @@ class ConfigureStep extends AbstractStep
     {
         $options = [];
         $upgrade = false;
-        if ($this->isUpgrade()) {
+        if ($this->isCommonUpgrade()) {
             $options['disabled'] = true;
             $upgrade = true;
             //return $this->redirect($this->generateUrl('home'));
         }
 
-        $form = $this->createConfigurationForm($options);
+        $form = $this->createConfigurationForm($options, $upgrade);
 
         return $this->render(
             'ChamiloInstallerBundle:Process/Step:configure.html.twig',
@@ -46,7 +46,7 @@ class ConfigureStep extends AbstractStep
         set_time_limit(600);
         $form = $this->createConfigurationForm();
         $request = $context->getRequest();
-        $upgrade = $this->isUpgrade();
+        $upgrade = $this->isCommonUpgrade();
 
         if ($upgrade) {
             return $this->complete();
@@ -81,9 +81,10 @@ class ConfigureStep extends AbstractStep
      * @param array $options
      * @return \Symfony\Component\Form\Form
      */
-    protected function createConfigurationForm($options = array())
+    protected function createConfigurationForm($options = array(), $upgrade = false)
     {
         $data = $this->get('chamilo_installer.yaml_persister')->parse();
+        $data['is_upgrade'] = $upgrade;
 
         return $this->createForm(
             'chamilo_installer_configuration',

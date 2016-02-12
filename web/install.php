@@ -15,6 +15,8 @@ require_once __DIR__.'/../app/autoload.php';
 
 // check for installed system
 $paramFile = __DIR__.'/../app/config/parameters.yml';
+$configFile = __DIR__.'/../app/config/configuration.php';
+
 $upgrade = false;
 if (file_exists($paramFile)) {
     $data = Yaml::parse($paramFile);
@@ -23,10 +25,18 @@ if (file_exists($paramFile)) {
         && isset($data['parameters']['installed'])
         && false != $data['parameters']['installed']
     ) {
-        $upgrade = true;
         /*require_once __DIR__.'/app_dev.php';
         exit;*/
     }
+}
+
+if (file_exists($paramFile) && file_exists($configFile)) {
+    $upgrade = true;
+}
+
+$url = 'app_dev.php/install/flow/chamilo_install/welcome';
+if ($upgrade) {
+    $url = 'app_dev.php/install/flow/chamilo_upgrade/welcome';
 }
 
 /**
@@ -88,11 +98,6 @@ function iterateRequirements(array $collection, $translator)
         </tr>
         <?php
     endforeach;
-}
-
-$url = 'app_dev.php/install/flow/chamilo_install/welcome';
-if ($upgrade) {
-    $url = 'app_dev.php/install/flow/chamilo_upgrade/welcome';
 }
 
 ?>

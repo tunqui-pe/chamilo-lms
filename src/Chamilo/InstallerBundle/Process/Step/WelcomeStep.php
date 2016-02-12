@@ -20,7 +20,7 @@ class WelcomeStep extends AbstractStep
         return $this->render(
             'ChamiloInstallerBundle:Process/Step:welcome.html.twig',
             [
-                'is_upgrade' => $this->isUpgrade(),
+                'is_upgrade' => $this->isCommonUpgrade(),
                 'scenario' => $this->getScenario()
             ]
         );

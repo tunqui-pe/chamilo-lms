@@ -10,43 +10,45 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <form action="{{ path('sylius_flow_forward', { scenarioAlias: scenario, stepName: 'configure'}) }}"
-              method="post">
-            {{ form_errors(form) }}
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3 class="sub-title">{{ form.database.vars.label|trans }}</h3>
-                    {{ form_widget(form.database) }}
-                </div>
+<div>
+    <form action="{{ path('sylius_flow_forward', { scenarioAlias: scenario, stepName: 'configure'}) }}"
+          method="post">
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="sub-title">{{ form.database.vars.label|trans }}</h3>
+                {{ form_widget(form.database) }}
+            </div>
+            {% if is_upgrade == false %}
                 <div class="col-sm-6">
                     <h3 class="sub-title">{{ form.mailer.vars.label|trans }}</h3>
                     {{ form_widget(form.mailer) }}
                 </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="sub-title">{{ form.system.vars.label|trans }}</h3>
+                {{ form_widget(form.system) }}
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h3 class="sub-title">{{ form.system.vars.label|trans }}</h3>
-                    {{ form_widget(form.system) }}
-                </div>
-                {{ form_rest(form) }}
-            </div>
+            {#{{ form_rest(form) }}#}
+        </div>
 
-            <div class="install-form-actions">
-                <a href="{{ app.request.basePath }}/install.php"
-                   class="btn btn-lg btn-default back">
-                    {{ 'process.button.back'|trans }}
-                </a>
-                <button class="btn btn-lg btn-primary button next"
-                        type="submit">
-                    <i class="fa fa-chevron-right"></i>
-                    {% if is_upgrade %}
-                        {{ 'process.button.upgrade'|trans }}
-                    {% else %}
-                        {{ 'process.button.next'|trans }}
-                    {% endif %}
-                </button>
-            </div>
-        </form>
-    </div>
+        <div class="install-form-actions">
+            <a href="{{ app.request.basePath }}/install.php"
+               class="btn btn-lg btn-default back">
+                {{ 'process.button.back'|trans }}
+            </a>
+            <button class="btn btn-lg btn-primary button next"
+                    type="submit">
+                <i class="fa fa-chevron-right"></i>
+                {% if is_upgrade %}
+                    {{ 'process.button.upgrade'|trans }}
+                {% else %}
+                    {{ 'process.button.next'|trans }}
+                {% endif %}
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}
