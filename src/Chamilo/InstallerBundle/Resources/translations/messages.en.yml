@@ -1,4 +1,5 @@
-title: Chamilo installation
+title: Chamilo Installation
+title_upgrade: Chamilo Upgrade
 
 flashes:
     installed: Chamilo has been successfully installed.
@@ -69,6 +70,7 @@ process:
         welcome:
             header: Welcome!
             content: <p>Welcome to the installer.</p>
+            content_upgrade: <p>Welcome to the upgrade process.</p>
         check:
             header: System requirements
             invalid: Some of the requirements are not met and the installation process cannot continue. Please check below for the minimum requirements to Install.
@@ -89,6 +91,8 @@ process:
                 danger: Danger
         configure:
             header: Configuration
+        upgrade:
+            header: Upgrade
         schema:
             header:        Database initialization
             cache:         Clear cache before database initialization
@@ -106,6 +110,8 @@ process:
             fixtures:      Load sample data
             navigation:    Init navigation
             js-routing:    Dump JS routing
+            pages:         Install pages
+            upgrade:       Upgrade database
             localization:  Dump localization
             assets:        Install assets
             assetic:       Dump assetic
@@ -120,6 +126,7 @@ process:
     button:
         back:              Back
         next:              Next
+        upgrade:           Upgrade
         install:           Install
         finish:            Launch application
         continue:          Continue

@@ -147,4 +147,31 @@ abstract class AbstractStep extends AbstractControllerStep
 
         return $this->output;
     }
+
+    /**
+     * @return bool
+     */
+    public function isUpgrade()
+    {
+        if ($this->container->hasParameter('installed') &&
+            $this->container->getParameter('installed')
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScenario()
+    {
+        if ($this->isUpgrade()) {
+
+            return 'chamilo_upgrade';
+        }
+
+        return 'chamilo_install';
+    }
 }

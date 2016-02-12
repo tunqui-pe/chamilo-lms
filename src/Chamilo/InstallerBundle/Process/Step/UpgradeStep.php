@@ -25,6 +25,12 @@ class UpgradeStep extends AbstractStep
 
         $action = $this->getRequest()->query->get('action');
         switch ($action) {
+            case 'upgrade':
+                return $this->handleAjaxAction(
+                    'cache:clear',
+                    array('--env' => 'prod', '--no-debug' => true)
+                );
+                break;
             case 'pages':
                 $this->handleAjaxAction(
                     'sonata:page:update-core-routes',
@@ -39,12 +45,6 @@ class UpgradeStep extends AbstractStep
                     'oro:migration:data:load',
                     array('--fixtures-type' => 'demo')
                 );
-            case 'navigation':
-                return $this->handleAjaxAction('oro:navigation:init');
-//            case 'js-routing':
-//                return $this->handleAjaxAction('fos:js-routing:dump', array('--target' => 'js/routes.js'));
-            case 'localization':
-                //return $this->handleAjaxAction('oro:localization:dump');
             case 'assets':
                 /*return $this->handleAjaxAction(
                     'oro:assets:install',
@@ -69,10 +69,6 @@ class UpgradeStep extends AbstractStep
                 );
             case 'assetic':
                 return $this->handleAjaxAction('assetic:dump');
-            case 'translation':
-                //return $this->handleAjaxAction('oro:translation:dump');
-            case 'requirejs':
-                //return $this->handleAjaxAction('oro:requirejs:build', array('--ignore-errors' => true));
             case 'finish':
                 $this->get('event_dispatcher')->dispatch(
                     InstallerEvents::FINISH
@@ -91,11 +87,10 @@ class UpgradeStep extends AbstractStep
                     'cache:clear',
                     array('--env' => 'prod', '--no-debug' => true)
                 );
-
         }
 
         // check if we have package installation step
-        if (strpos($action, 'installerScript-') !== false) {
+        /*if (strpos($action, 'installerScript-') !== false) {
             $scriptFile = $this->container->get(
                 'chamilo_installer.script_manager'
             )->getScriptFileByKey(
@@ -114,16 +109,17 @@ class UpgradeStep extends AbstractStep
             $scriptExecutor->runScript($scriptFile);
 
             return new JsonResponse(array('result' => true));
-        }
+        }*/
+
+        $scriptManager = $this->container->get('chamilo_installer.script_manager');
 
         return $this->render(
             'ChamiloInstallerBundle:Process/Step:installation.html.twig',
             array(
-                'loadFixtures' => $context->getStorage()->get('loadFixtures'),
-                'installerScripts' => $this
-                    ->container
-                    ->get('chamilo_installer.script_manager')
-                    ->getScriptLabels(),
+                'is_upgrade' => $this->isUpgrade(),
+                'scenario' => $this->getScenario(),
+                'loadFixtures' => false,
+                'installerScripts' => $scriptManager->getScriptLabels(),
             )
         );
     }

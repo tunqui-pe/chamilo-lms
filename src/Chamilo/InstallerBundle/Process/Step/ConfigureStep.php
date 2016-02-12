@@ -18,10 +18,10 @@ class ConfigureStep extends AbstractStep
     public function displayAction(ProcessContextInterface $context)
     {
         $options = [];
-        if ($this->container->hasParameter('installed') &&
-            $this->container->getParameter('installed')
-        ) {
+        $upgrade = false;
+        if ($this->isUpgrade()) {
             $options['disabled'] = true;
+            $upgrade = true;
             //return $this->redirect($this->generateUrl('home'));
         }
 
@@ -31,6 +31,8 @@ class ConfigureStep extends AbstractStep
             'ChamiloInstallerBundle:Process/Step:configure.html.twig',
             array(
                 'form' => $form->createView(),
+                'is_upgrade' => $upgrade,
+                'scenario' => $this->getScenario()
             )
         );
     }
@@ -44,10 +46,16 @@ class ConfigureStep extends AbstractStep
         set_time_limit(600);
         $form = $this->createConfigurationForm();
         $request = $context->getRequest();
+        $upgrade = $this->isUpgrade();
+
+        if ($upgrade) {
+            return $this->complete();
+        }
 
         $form->handleRequest($request);
-        //var_dump($context->getRequest()->get('chamilo_installer_configuration'));
+
         if ($form->isValid()) {
+
             $data = $form->getData();
             $context->getStorage()->set(
                 'fullDatabase',
@@ -64,6 +72,7 @@ class ConfigureStep extends AbstractStep
             'ChamiloInstallerBundle:Process/Step:configure.html.twig',
             array(
                 'form' => $form->createView(),
+                'is_upgrade' => $upgrade
             )
         );
     }

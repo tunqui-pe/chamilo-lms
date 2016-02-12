@@ -122,7 +122,13 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h1 class="logo">{{ 'title'|trans }}</h1>
+        <h1 class="logo">
+            {% if is_upgrade %}
+                {{ 'title_upgrade'|trans }}
+            {% else %}
+                {{ 'title'|trans }}
+            {% endif %}
+        </h1>
     </div>
     {% block progress %}{% endblock %}
     {% block content %}{% endblock %}

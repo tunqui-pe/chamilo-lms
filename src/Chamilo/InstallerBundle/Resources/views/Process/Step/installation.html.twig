@@ -1,6 +1,12 @@
 {% extends 'ChamiloInstallerBundle::layout.html.twig' %}
 {#{% set step, platformSteps = 'administration', ['navigation', 'js-routing', 'localization', 'assets', 'assetic', 'translation', 'requirejs'] %}#}
-{% set step, platformSteps = 'installation', ['assets', 'assetic', 'fixtures', 'pages'] %}
+
+{% if is_upgrade %}
+    {% set step, platformSteps = 'upgrade', ['assets', 'assetic', 'upgrade'] %}
+{% else %}
+    {% set step, platformSteps = 'installation', ['assets', 'assetic', 'fixtures', 'pages'] %}
+{% endif %}
+
 {% use 'ChamiloInstallerBundle::progress.html.twig' %}
 
 {% if loadFixtures %}
@@ -27,7 +33,6 @@
     <div class="page-title">
         <h2>{{ 'process.step.installation.header'|trans }}</h2>
     </div>
-
     <div>
         <table class="table table-striped">
             <col width="75%" valign="top">
@@ -65,9 +70,8 @@
             </tr>
             </tbody>
         </table>
-
         <div class="install-form-actions">
-            <a href="{{ path('sylius_flow_display', { scenarioAlias: 'chamilo_install', stepName: 'configure' }) }}"
+            <a href="{{ path('sylius_flow_display', { scenarioAlias: scenario, stepName: 'configure' }) }}"
                class="btn btn-lg btn-default back disabled">
                 <span>{{ 'process.button.back'|trans }}</span>
             </a>
@@ -82,12 +86,11 @@
 
 {% block javascript %}
     {{ parent() }}
-
     <script type="text/javascript">
         $(function () {
             ajaxQueue(
                 [{% for step in steps %}'{{ step }}'{{ loop.last ? '' : ', ' }}{% endfor %}],
-                '{{ path('sylius_flow_forward', { scenarioAlias: 'chamilo_install', stepName: 'installation' }) }}'
+                '{{ path('sylius_flow_forward', { scenarioAlias: scenario, stepName: step }) }}'
             );
         });
     </script>

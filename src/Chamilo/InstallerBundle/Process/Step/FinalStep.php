@@ -16,7 +16,10 @@ class FinalStep extends AbstractStep
         $this->complete();
 
         return $this->render(
-            'ChamiloInstallerBundle:Process/Step:final.html.twig'
+            'ChamiloInstallerBundle:Process/Step:final.html.twig',
+            [
+                'is_upgrade' => $this->isUpgrade(),
+            ]
         );
     }
 }

@@ -10,7 +10,7 @@ use Sylius\Bundle\FlowBundle\Process\Step\AbstractControllerStep;
  * Class WelcomeStep
  * @package Chamilo\InstallerBundle\Process\Step
  */
-class WelcomeStep extends AbstractControllerStep
+class WelcomeStep extends AbstractStep
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,11 @@ class WelcomeStep extends AbstractControllerStep
     public function displayAction(ProcessContextInterface $context)
     {
         return $this->render(
-            'ChamiloInstallerBundle:Process/Step:welcome.html.twig'
+            'ChamiloInstallerBundle:Process/Step:welcome.html.twig',
+            [
+                'is_upgrade' => $this->isUpgrade(),
+                'scenario' => $this->getScenario()
+            ]
         );
     }
 
