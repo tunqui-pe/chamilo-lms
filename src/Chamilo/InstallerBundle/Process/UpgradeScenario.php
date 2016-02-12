@@ -16,7 +16,7 @@ class UpgradeScenario extends ContainerAware implements ProcessScenarioInterface
         $builder
             ->add('welcome', new Step\WelcomeStep())
             ->add('configure', new Step\ConfigureStep())
-            ->add('setup', new Step\UpgradeStep())
+            ->add('upgrade', new Step\UpgradeStep())
             ->add('final', new Step\FinalStep())
             ->setRedirect('homepage')
         ;
