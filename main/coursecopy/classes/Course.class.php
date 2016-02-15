@@ -39,7 +39,7 @@ class Course
         foreach ($this->resources as $type => $resources) {
             if (is_array($resources)) {
                 foreach ($resources as $resource) {
-                    Coursecopy\Resource::setClassType($resource);
+                    Resource::setClassType($resource);
                     if ($resource->links_to($resource_to_check) ) {
                         return true;
                     }
