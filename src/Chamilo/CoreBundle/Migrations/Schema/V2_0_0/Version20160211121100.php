@@ -19,20 +19,26 @@ class Version20160211121100 extends AbstractMigrationChamilo
      */
     public function up(Schema $schema, QueryBag $queries)
     {
-        $queries->addQuery("ALTER TABLE course_rel_class ADD c_id int NOT NULL");
+        $table = $schema->getTable('course_rel_class');
 
-        $queries->addQuery("
-            UPDATE course_rel_class cc
-            SET cc.c_id = (SELECT id FROM course WHERE code = cc.course_code)
-        ");
-        $queries->addQuery("ALTER TABLE course_rel_class DROP course_code");
-        $queries->addQuery("ALTER TABLE course_rel_class MODIFY COLUMN class_id INT DEFAULT NULL");
-        $queries->addQuery("ALTER TABLE course_rel_class DROP PRIMARY KEY");
+        if (!$table->hasColumn('c_id')) {
+            $queries->addQuery("ALTER TABLE course_rel_class ADD c_id int NOT NULL");
+        }
 
-        $queries->addQuery("ALTER TABLE course_rel_class ADD PRIMARY KEY (class_id, c_id)");
-        $queries->addQuery("
-            ALTER TABLE course_rel_class ADD FOREIGN KEY (c_id) REFERENCES course (id) ON DELETE RESTRICT
-        ");
+        if ($table->hasColumn('course_code')) {
+            $queries->addQuery("
+                UPDATE course_rel_class cc
+                SET cc.c_id = (SELECT id FROM course WHERE code = cc.course_code)
+            ");
+
+            $queries->addQuery("ALTER TABLE course_rel_class DROP course_code");
+            $queries->addQuery("ALTER TABLE course_rel_class MODIFY COLUMN class_id INT DEFAULT NULL");
+            $queries->addQuery("ALTER TABLE course_rel_class DROP PRIMARY KEY");
+            $queries->addQuery("ALTER TABLE course_rel_class ADD PRIMARY KEY (class_id, c_id)");
+            $queries->addQuery("
+              ALTER TABLE course_rel_class ADD FOREIGN KEY (c_id) REFERENCES course (id) ON DELETE RESTRICT
+            ");
+        }
 
         $tables = [
             'gradebook_category',
@@ -49,15 +55,19 @@ class Version20160211121100 extends AbstractMigrationChamilo
             $tableObj = $schema->getTable($table);
             if (!$tableObj->hasColumn('c_id')) {
                 $queries->addQuery("ALTER TABLE $table ADD c_id int NOT NULL");
-            }
-            $queries->addQuery("
-                UPDATE $table t
-                SET t.c_id = (SELECT id FROM course WHERE code = t.course_code)
-            ");
 
-            if ($tableObj->hasColumn('course_code')) {
-                $queries->addQuery("ALTER TABLE $table DROP course_code");
+                if ($tableObj->hasColumn('course_code')) {
+                    $queries->addQuery("
+                      UPDATE $table t
+                      SET t.c_id = (SELECT id FROM course WHERE code = t.course_code)
+                    ");
+
+                    $queries->addQuery("ALTER TABLE $table DROP course_code");
+                }
             }
+
+
+
             /*$queries->addQuery("
                 ALTER TABLE $table ADD FOREIGN KEY (c_id) REFERENCES course (id) ON DELETE RESTRICT
             ");*/

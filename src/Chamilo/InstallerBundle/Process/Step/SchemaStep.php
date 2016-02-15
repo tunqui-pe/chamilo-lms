@@ -64,7 +64,11 @@ class SchemaStep extends AbstractStep
         }
 
         return $this->render(
-            'ChamiloInstallerBundle:Process/Step:schema.html.twig'
+            'ChamiloInstallerBundle:Process/Step:schema.html.twig',
+            [
+                'is_upgrade' => $this->isCommonUpgrade(),
+                'scenario' => $this->getScenario(),
+            ]
         );
     }
 }

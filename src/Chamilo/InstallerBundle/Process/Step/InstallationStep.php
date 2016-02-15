@@ -31,6 +31,9 @@ class InstallationStep extends AbstractStep
 
         $action = $this->getRequest()->query->get('action');
         switch ($action) {
+            case 'settings':
+
+                return new JsonResponse(array('result' => true, 'exitCode' => 0));
             case 'pages':
                 $this->handleAjaxAction(
                     'sonata:page:update-core-routes',
@@ -130,6 +133,8 @@ class InstallationStep extends AbstractStep
                     ->container
                     ->get('chamilo_installer.script_manager')
                     ->getScriptLabels(),
+                'is_upgrade' => $this->isCommonUpgrade(),
+                'scenario' => $this->getScenario(),
             )
         );
     }

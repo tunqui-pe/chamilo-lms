@@ -41,12 +41,14 @@ class UpgradeStep extends AbstractStep
                     'chamilo:platform:update',
                     array('--force' => true)
                 );
+
                 break;
             case 'pages':
                 $this->handleAjaxAction(
                     'sonata:page:update-core-routes',
                     array('--site' => array('all'))
                 );
+
                 return $this->handleAjaxAction(
                     'sonata:page:create-snapshots',
                     array('--site' => array('all'))

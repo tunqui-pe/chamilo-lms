@@ -58,27 +58,31 @@ class LoadPageData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        $site = $this->createSite();
-        $this->createGlobalPage($site);
-        error_log('sonata.page.route.page.generator');
-        $generator = $this->container->get('sonata.page.route.page.generator');
-        $output = new ConsoleOutput();
-        $generator->update($site, $output);
+        error_log('page');
+        $items = $this->getSiteManager()->findAll();
+        if (empty($items)) {
+            $site = $this->createSite();
+            $this->createGlobalPage($site);
+            error_log('sonata.page.route.page.generator');
+            $generator = $this->container->get('sonata.page.route.page.generator');
+            $output = new ConsoleOutput();
+            $generator->update($site, $output);
 
-        $this->container->get('sonata.notification.backend')
-            ->createAndPublish(
-                'sonata.page.create_snapshots',
-                array(
-                    'siteId' => $site->getId(),
-                    'mode' => 'normal',
+            $this->container->get('sonata.notification.backend')
+                ->createAndPublish(
+                    'sonata.page.create_snapshots',
+                    array(
+                        'siteId' => $site->getId(),
+                        'mode' => 'normal',
+                    )
                 )
-            );
+            ;
 
+            // app/console sonata:page:update-core-routes --site=all
+            // app/console sonata:page:create-snapshots --site=all
 
-        // app/console sonata:page:update-core-routes --site=all
-        // app/console sonata:page:create-snapshots --site=all
-
-        $this->createHomePage($site);
+            $this->createHomePage($site);
+        }
 
         /*
        $this->create404ErrorPage($site);

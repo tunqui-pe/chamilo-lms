@@ -6,6 +6,10 @@ use Chamilo\CoreBundle\Migrations\AbstractMigrationChamilo;
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 
+/**
+ * Class Version20160210103036
+ * @package Chamilo\CoreBundle\Migrations\Schema\V_2_0_0
+ */
 class Version20160210103036 extends AbstractMigrationChamilo
 {
     /**

@@ -69,7 +69,6 @@ class PlatformUpdateCommand extends ContainerAwareCommand
                         '--no-interaction' => true,
                     )
                 )
-
             ;
         } else {
             $output->writeln(

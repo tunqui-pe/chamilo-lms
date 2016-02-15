@@ -197,7 +197,6 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         }
 
         $queries->addQuery('UPDATE settings_current SET category = LOWER(category)');
-
     }
 
     /**
@@ -206,6 +205,5 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
      */
     public function down(Schema $schema, QueryBag $queries)
     {
-
     }
 }

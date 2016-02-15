@@ -26,17 +26,17 @@ class LoadGroupData extends AbstractFixture implements
     /**
      * {@inheritdoc}
      */
-    public function getOrder()
+    public function getVersion()
     {
-        return 1;
+        return '2.0.0';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getVersion()
+    public function getOrder()
     {
-        return '2.0.0';
+        return 1;
     }
 
     /**

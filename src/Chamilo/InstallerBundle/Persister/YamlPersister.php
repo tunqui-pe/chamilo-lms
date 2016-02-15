@@ -60,17 +60,22 @@ class YamlPersister
         return $parameters;
     }
 
+    /**
+     * @param array $data
+     */
     public function dump(array $data)
     {
         $parameters = array();
 
         foreach ($data as $section) {
-            foreach ($section as $key => $value) {
-                $parameters[str_replace(
-                    'chamilo_installer_',
-                    '',
-                    $key
-                )] = $value;
+            if (!empty($section)) {
+                foreach ($section as $key => $value) {
+                    $parameters[str_replace(
+                        'chamilo_installer_',
+                        '',
+                        $key
+                    )] = $value;
+                }
             }
         }
 
