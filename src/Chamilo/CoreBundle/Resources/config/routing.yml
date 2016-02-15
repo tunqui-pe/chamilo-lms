@@ -1,7 +1,6 @@
 index:
     resource: "@ChamiloCoreBundle/Controller/IndexController.php"
     type:     annotation
-    prefix:   /
 
 userportal:
     resource: "@ChamiloCoreBundle/Controller/UserPortalController.php"

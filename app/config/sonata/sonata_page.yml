@@ -1,13 +1,13 @@
 # more information can be found here http://sonata-project.org/bundles/page
-
 cmf_routing:
     chain:
         routers_by_id:
             # enable the DynamicRouter with high priority to allow overwriting configured routes with content
             #symfony_cmf_routing_extra.dynamic_router: 200
             # enable the symfony default router with a lower priority
-            sonata.page.router: 100
-            router.default: 150
+
+            router.default: 150 # First chamilo/symfony2 router
+            sonata.page.router: 100 # then the page router
 
 sonata_page:
     class:
@@ -22,18 +22,19 @@ sonata_page:
     ignore_uri_patterns:
         - ^/administration(.*) # sonata admin
         - ^/admin(.*) # chamilo admin
+        - ^/main(.*)
         - /(.*)/(.*)administration(.*)/
         - ^/api/(.*)
         - ^install
         - ^/install/(.*)
         - install.php
         - ^/bundles/(.*)
-        - _wdt/(.*)
+        - ^/_wdt/(.*)
         - ^/userportal
         - ^/userportal/(.*)
         - ^/js/(.*)
         - ^/courses/(.*)
-        - front/editor
+        - ^/front/editor
 
     ignore_route_patterns:
         - (.*)administration(.*)     # ignore admin route, ie route containing 'admin'  # sonata admin
@@ -143,7 +144,8 @@ sonata_page:
                      F: footer
 
     page_defaults:
-        homepage: { decorate: false, enabled: false}
+        homepage: { decorate: false, enabled: true }
+        home: { decorate: false, enabled: true }
 
     caches:
         esi:
