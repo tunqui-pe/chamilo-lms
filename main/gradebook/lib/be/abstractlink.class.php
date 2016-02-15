@@ -375,28 +375,31 @@ abstract class AbstractLink implements GradebookItem
      */
     public function save()
     {
-        $this->save_linked_data();
-        
         $em = Database::getManager();
-        $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $this->id);
 
-        if ($gradebookLink) {
-            $course = $em->find('ChamiloCoreBundle:Course', $this->course_id);
-            $gradebookLink
-                ->setType($this->get_type())
-                ->setRefId($this->get_ref_id())
-                ->setUserId($this->get_user_id())
-                ->setCourse($course)
-                ->setCategoryId($this->get_category_id())
-                ->setWeight($this->get_weight())
-                ->setVisible($this->is_visible());
+        $link = $em->find('ChamiloCoreBundle:GradebookLink', $this->id);
 
-            $em->persist($gradebookLink);
-            $em->flush();
+        if (!$link) {
+            return;
         }
 
         AbstractLink::add_link_log($this->id);
 
+        $this->save_linked_data();
+
+        $course = $em->find('ChamiloCoreBundle:Course', $this->course_id);
+
+        $link
+            ->setType($this->get_type())
+            ->setRefId($this->get_ref_id())
+            ->setUserId($this->get_user_id())
+            ->setCourse($course)
+            ->setCategoryId($this->get_category_id())
+            ->setWeight($this->get_weight())
+            ->setVisible($this->is_visible());
+
+        $em->merge($link);
+        $em->flush();
     }
 
     /**
