@@ -34,7 +34,7 @@ class LoadPageData extends AbstractFixture implements
      */
     public function getVersion()
     {
-        return '1.0';
+        return '2.0.0';
     }
 
     /**
