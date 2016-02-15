@@ -171,10 +171,8 @@ foreach ($users as $user) {
             break;
     }
 
-    if (isset($user['user_id'])) {
-        $userPicture = UserManager::getUserPicture($user['user_id']);
-        $user['image'] = '<img src="'.$userPicture.'"  width="50px" height="50px"  />';
-    }
+    $userPicture = UserManager::getUserPicture($user['id']);
+    $user['image'] = '<img src="' . $userPicture . '"  width="50px" height="50px"  />';
     $new_member_list[] = $user;
 }
 
