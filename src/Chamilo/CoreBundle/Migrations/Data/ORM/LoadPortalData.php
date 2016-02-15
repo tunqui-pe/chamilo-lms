@@ -72,30 +72,40 @@ class LoadPortalData extends AbstractFixture implements
         //$kernel = $this->container->get('kernel');
 
         // Create course categories
+        $repo = $manager->getRepository('ChamiloCoreBundle:CourseCategory');
 
-        $courseCategory = new CourseCategory();
-        $courseCategory->setName('Language skills');
-        $courseCategory->setCode('LANG');
-        $courseCategory->setTreePos(1);
-        $courseCategory->setAuthCatChild('TRUE');
-        $courseCategory->setAuthCourseChild('TRUE');
-        $manager->persist($courseCategory);
+        $courseCategory = $repo->findOneBy(['code' => 'LANG']);
+        if (empty($courseCategory)) {
+            $courseCategory = new CourseCategory();
+            $courseCategory->setName('Language skills');
+            $courseCategory->setCode('LANG');
+            $courseCategory->setTreePos(1);
+            $courseCategory->setAuthCatChild('TRUE');
+            $courseCategory->setAuthCourseChild('TRUE');
+            $manager->persist($courseCategory);
+        }
 
-        $courseCategory = new CourseCategory();
-        $courseCategory->setName('PC Skills');
-        $courseCategory->setCode('PC');
-        $courseCategory->setTreePos(2);
-        $courseCategory->setAuthCatChild('TRUE');
-        $courseCategory->setAuthCourseChild('TRUE');
-        $manager->persist($courseCategory);
+        $courseCategory = $repo->findOneBy(['code' => 'PC']);
+        if (empty($courseCategory)) {
+            $courseCategory = new CourseCategory();
+            $courseCategory->setName('PC Skills');
+            $courseCategory->setCode('PC');
+            $courseCategory->setTreePos(2);
+            $courseCategory->setAuthCatChild('TRUE');
+            $courseCategory->setAuthCourseChild('TRUE');
+            $manager->persist($courseCategory);
+        }
 
-        $courseCategory = new CourseCategory();
-        $courseCategory->setName('Projects');
-        $courseCategory->setCode('PROJ');
-        $courseCategory->setTreePos(3);
-        $courseCategory->setAuthCatChild('TRUE');
-        $courseCategory->setAuthCourseChild('TRUE');
-        $manager->persist($courseCategory);
+        $courseCategory = $repo->findOneBy(['code' => 'PROJ']);
+        if (empty($courseCategory)) {
+            $courseCategory = new CourseCategory();
+            $courseCategory->setName('Projects');
+            $courseCategory->setCode('PROJ');
+            $courseCategory->setTreePos(3);
+            $courseCategory->setAuthCatChild('TRUE');
+            $courseCategory->setAuthCourseChild('TRUE');
+            $manager->persist($courseCategory);
+        }
 
         /* $courseField = new CourseField();
          $courseField->setFieldType(13);
@@ -111,25 +121,32 @@ class LoadPortalData extends AbstractFixture implements
             the ChamiloCoreBundle/Resources/translations folder
         */
 
-        $adminUser = $this->getUserManager()->findUserByUsername('admin');
+        $repo = $manager->getRepository('ChamiloCoreBundle:AccessUrl');
+        $all = $repo->findAll();
 
-        // Create first portal (multiple url feature)
-        $adminUserId = $adminUser->getId();
         $accessUrlId = 1;
 
-        $accessUrl = new AccessUrl();
-        $accessUrl->setUrl('http://localhost/');
-        $accessUrl->setActive(1);
-        $accessUrl->setDescription(' ');
-        $accessUrl->setCreatedBy($adminUserId);
-        $manager->persist($accessUrl);
-        $this->setReference('access_url', $accessUrl);
+        if (empty($all)) {
+            //$adminUser = $this->getUserManager()->findUserByUsername('admin');
+            $adminUser = $this->getUserManager()->find(1);
 
-        // Add admin user to portal 1
-        $accessUrlRelUser = new AccessUrlRelUser();
-        $accessUrlRelUser->setUser($adminUser);
-        $accessUrlRelUser->setPortal($accessUrl);
-        $manager->persist($accessUrlRelUser);
+            // Create first portal (multiple url feature)
+            $adminUserId = $adminUser->getId();
+
+            $accessUrl = new AccessUrl();
+            $accessUrl->setUrl('http://localhost/');
+            $accessUrl->setActive(1);
+            $accessUrl->setDescription(' ');
+            $accessUrl->setCreatedBy($adminUserId);
+            $manager->persist($accessUrl);
+            $this->setReference('access_url', $accessUrl);
+
+            // Add admin user to portal 1
+            $accessUrlRelUser = new AccessUrlRelUser();
+            $accessUrlRelUser->setUser($adminUser);
+            $accessUrlRelUser->setPortal($accessUrl);
+            $manager->persist($accessUrlRelUser);
+        }
 
         /*$systemTemplate = new SystemTemplate();
         $systemTemplate->setTitle('');
@@ -139,87 +156,119 @@ class LoadPortalData extends AbstractFixture implements
 
         // Create social network relations
 
-        $userFriendRelationType = new UserFriendRelationType();
-        $userFriendRelationType->setId(1);
-        $userFriendRelationType->setTitle('SocialUnknow');
-        $manager->persist($userFriendRelationType);
+        $repo = $manager->getRepository('ChamiloCoreBundle:UserFriendRelationType');
 
-        $userFriendRelationType = new UserFriendRelationType();
-        $userFriendRelationType->setId(2);
-        $userFriendRelationType->setTitle('SocialParent');
-        $manager->persist($userFriendRelationType);
+        $userFriendRelationType = $repo->find(1);
+        if (empty($userFriendRelationType)) {
+            $userFriendRelationType = new UserFriendRelationType();
+            $userFriendRelationType->setId(1);
+            $userFriendRelationType->setTitle('SocialUnknow');
+            $manager->persist($userFriendRelationType);
+        }
 
-        $userFriendRelationType = new UserFriendRelationType();
-        $userFriendRelationType->setId(3);
-        $userFriendRelationType->setTitle('SocialFriend');
-        $manager->persist($userFriendRelationType);
+        $userFriendRelationType = $repo->find(2);
+        if (empty($userFriendRelationType)) {
+            $userFriendRelationType = new UserFriendRelationType();
+            $userFriendRelationType->setId(2);
+            $userFriendRelationType->setTitle('SocialParent');
+            $manager->persist($userFriendRelationType);
+        }
+        $userFriendRelationType = $repo->find(3);
+        if (empty($userFriendRelationType)) {
+            $userFriendRelationType = new UserFriendRelationType();
+            $userFriendRelationType->setId(3);
+            $userFriendRelationType->setTitle('SocialFriend');
+            $manager->persist($userFriendRelationType);
+        }
 
-        $userFriendRelationType = new UserFriendRelationType();
-        $userFriendRelationType->setId(4);
-        $userFriendRelationType->setTitle('SocialGoodFriend');
-        $manager->persist($userFriendRelationType);
+        $userFriendRelationType = $repo->find(4);
+        if (empty($userFriendRelationType)) {
+            $userFriendRelationType = new UserFriendRelationType();
+            $userFriendRelationType->setId(4);
+            $userFriendRelationType->setTitle('SocialGoodFriend');
+            $manager->persist($userFriendRelationType);
+        }
 
-        $userFriendRelationType = new UserFriendRelationType();
-        $userFriendRelationType->setId(5);
-        $userFriendRelationType->setTitle('SocialEnemy');
-        $manager->persist($userFriendRelationType);
+        $userFriendRelationType = $repo->find(5);
+        if (empty($userFriendRelationType)) {
+            $userFriendRelationType = new UserFriendRelationType();
+            $userFriendRelationType->setId(5);
+            $userFriendRelationType->setTitle('SocialEnemy');
+            $manager->persist($userFriendRelationType);
+        }
 
-        $userFriendRelationType = new UserFriendRelationType();
-        $userFriendRelationType->setId(6);
-        $userFriendRelationType->setTitle('SocialDeleted');
-        $manager->persist($userFriendRelationType);
+        $userFriendRelationType = $repo->find(6);
+        if (empty($userFriendRelationType)) {
+            $userFriendRelationType = new UserFriendRelationType();
+            $userFriendRelationType->setId(6);
+            $userFriendRelationType->setTitle('SocialDeleted');
+            $manager->persist($userFriendRelationType);
+        }
 
         // Create default skills
+        $repo = $manager->getRepository('ChamiloCoreBundle:Skill');
+        $skills = $repo->findAll();
 
-        $skill = new Skill();
+        if (empty($skills)) {
+            $skill = new Skill();
 
-        $skill->setName('Root');
-        $skill->setStatus(Skill::STATUS_ENABLED);
-        $skill->setDescription(' ');
-        $skill->setShortCode('root');
-        $skill->setIcon(' ');
-        $skill->setAccessUrlId($accessUrlId);
-        $manager->persist($skill);
+            $skill->setName('Root');
+            $skill->setStatus(Skill::STATUS_ENABLED);
+            $skill->setDescription(' ');
+            $skill->setShortCode('root');
+            $skill->setIcon(' ');
+            $skill->setAccessUrlId($accessUrlId);
+            $manager->persist($skill);
 
-        $skillRelSkill = new SkillRelSkill();
-        $skillRelSkill->setId(1);
-        $skillRelSkill->setSkillId(1);
-        $skillRelSkill->setParentId(0);
-        $skillRelSkill->setRelationType(0);
-        $skillRelSkill->setLevel(0);
-        $manager->persist($skillRelSkill);
+            $skillRelSkill = new SkillRelSkill();
+            $skillRelSkill->setId(1);
+            $skillRelSkill->setSkillId(1);
+            $skillRelSkill->setParentId(0);
+            $skillRelSkill->setRelationType(0);
+            $skillRelSkill->setLevel(0);
+            $manager->persist($skillRelSkill);
+        }
 
-        $courseType = new CourseType();
-        $courseType->setName('All Tools');
-        $manager->persist($courseType);
+        $repo = $manager->getRepository('ChamiloCoreBundle:CourseType');
+        $items = $repo->findAll();
+        if (empty($items)) {
 
-        $courseType = new CourseType();
-        $courseType->setName('Entry exam');
-        $manager->persist($courseType);
+            $courseType = new CourseType();
+            $courseType->setName('All Tools');
+            $manager->persist($courseType);
+
+            $courseType = new CourseType();
+            $courseType->setName('Entry exam');
+            $manager->persist($courseType);
+        }
 
         // Branch
 
-        $branch = new BranchSync();
-        $branch->setAccessUrlId($accessUrlId);
-        $branch->setBranchName('Local');
-        $branch->setBranchIp('127.0.0.1');
-        $manager->persist($branch);
+        $repo = $manager->getRepository('ChamiloCoreBundle:BranchSync');
+        $items = $repo->findAll();
+        if (empty($items)) {
+            $branch = new BranchSync();
+            $branch->setAccessUrlId($accessUrlId);
+            $branch->setBranchName('Local');
+            $branch->setBranchIp('127.0.0.1');
+            $manager->persist($branch);
 
-        $branchTransactionStatus = new BranchTransactionStatus();
-        $branchTransactionStatus->setTitle('To be executed');
-        $manager->persist($branchTransactionStatus);
+            $branchTransactionStatus = new BranchTransactionStatus();
+            $branchTransactionStatus->setTitle('To be executed');
+            $manager->persist($branchTransactionStatus);
 
-        $branchTransactionStatus = new BranchTransactionStatus();
-        $branchTransactionStatus->setTitle('Executed success');
-        $manager->persist($branchTransactionStatus);
+            $branchTransactionStatus = new BranchTransactionStatus();
+            $branchTransactionStatus->setTitle('Executed success');
+            $manager->persist($branchTransactionStatus);
 
-        $branchTransactionStatus = new BranchTransactionStatus();
-        $branchTransactionStatus->setTitle('Execution deprecated');
-        $manager->persist($branchTransactionStatus);
+            $branchTransactionStatus = new BranchTransactionStatus();
+            $branchTransactionStatus->setTitle('Execution deprecated');
+            $manager->persist($branchTransactionStatus);
 
-        $branchTransactionStatus = new BranchTransactionStatus();
-        $branchTransactionStatus->setTitle('Execution failed');
-        $manager->persist($branchTransactionStatus);
+            $branchTransactionStatus = new BranchTransactionStatus();
+            $branchTransactionStatus->setTitle('Execution failed');
+            $manager->persist($branchTransactionStatus);
+        }
 
         // Tools
 
@@ -228,7 +277,6 @@ class LoadPortalData extends AbstractFixture implements
         $toolChain->createTools($manager);
 
         // Fill the language table
-
         $languages = Intl::getLocaleBundle()->getLocaleNames('en');
         // @todo use this iso languages just for now
         $availableIsoCode = ['en', 'es', 'fr', 'nl', 'ru', 'de'];

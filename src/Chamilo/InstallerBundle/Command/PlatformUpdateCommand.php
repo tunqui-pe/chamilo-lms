@@ -57,20 +57,20 @@ class PlatformUpdateCommand extends ContainerAwareCommand
             $commandExecutor->setDefaultTimeout($input->getOption('timeout'));
 
             $commandExecutor
+                // Load migrations
                 ->runCommand(
                     'oro:migration:load',
                     array('--force' => true)
                 )
-                //->runCommand('oro:workflow:definitions:load', array('--process-isolation' => true))
-                //->runCommand('oro:process:configuration:load', array('--process-isolation' => true))
-                //->runCommand('oro:navigation:init', array('--process-isolation' => true))
-                //->runCommand('assets:install')
-                //->runCommand('assetic:dump')
+                // Load data migrations
+                ->runCommand(
+                    'oro:migration:data:load',
+                    array(
+                        '--no-interaction' => true,
+                    )
+                )
+
             ;
-            //->runCommand('fos:js-routing:dump', array('--target' => 'web/js/routes.js'))
-            //->runCommand('oro:localization:dump')
-            //->runCommand('oro:translation:dump')
-            //->runCommand('oro:requirejs:build', array('--ignore-errors' => true));
         } else {
             $output->writeln(
                 '<comment>ATTENTION</comment>: Database backup is highly recommended before executing this command.'

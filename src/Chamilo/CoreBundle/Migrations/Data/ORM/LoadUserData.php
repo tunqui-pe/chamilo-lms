@@ -65,27 +65,32 @@ class LoadUserData extends AbstractFixture implements
         // @todo add setting in installer to load sample content
 
         $root = $this->container->get('kernel')->getRealRootDir();
-        $users = require $root.'/tests/datafiller/data_users.php';
+        $dataUserFile = $root.'/tests/datafiller/data_users.php';
 
-        foreach ($users as $userData) {
-            /** @var User $user */
-            $user = $manager->createUser();
+        if (file_exists($dataUserFile)) {
+            $users = require $root . '/tests/datafiller/data_users.php';
 
-            $user->setFirstname($userData['firstname']);
-            $user->setLastname($userData['lastname']);
-            $user->setUsername($userData['username']);
-            $user->setEmail($userData['email']);
-            $user->setPlainPassword($userData['pass']);
-            $user->setEnabled(true);
-            $user->setLocked(false);
+            foreach ($users as $userData) {
+                /** @var User $user */
+                $user = $manager->createUser();
 
-            if ($userData['status'] == 5) {
-                $user->addGroup($studentGroup);
-            } else {
-                $user->addGroup($teacherGroup);
+                $user->setFirstname($userData['firstname']);
+                $user->setLastname($userData['lastname']);
+                $user->setUsername($userData['username']);
+                $user->setEmail($userData['email']);
+                $user->setPlainPassword($userData['pass']);
+                $user->setEnabled(true);
+                $user->setLocked(false);
+
+                if ($userData['status'] == 5) {
+                    $user->addGroup($studentGroup);
+                } else {
+                    $user->addGroup($teacherGroup);
+                }
+                $manager->updateUser($user);
             }
-            $manager->updateUser($user);
         }
+
 
         // Creating random student users using faker
         /*

@@ -58,22 +58,24 @@ class LoadAdminUserData extends AbstractFixture implements
     public function load(ObjectManager $manager)
     {
         $manager = $this->getUserManager();
-        $faker = $this->getFaker();
+        $admin = $manager->find(1);
 
-        // Creating admin user.
-        /** @var User $admin */
-        $admin = $manager->createUser();
+        if (empty($admin)) {
+            // Creating admin user.
+            /** @var User $admin */
+            $admin = $manager->createUser();
 
-        $admin->setUsername('admin');
-        $admin->setUserId(1);
-        $admin->setStatus(1); // teacher
-        $admin->setFirstname('Jane');
-        $admin->setLastname('Doe');
-        $admin->setEmail($faker->safeEmail);
-        $admin->setPlainPassword('admin');
-        $admin->setEnabled(true);
-        $admin->setSuperAdmin(true);
-        $admin->setLocked(false);
+            $admin->setUsername('admin');
+            $admin->setUserId(1);
+            $admin->setStatus(1); // teacher
+            $admin->setFirstname('Jane');
+            $admin->setLastname('Doe');
+            $admin->setEmail('admin@example.org');
+            $admin->setPlainPassword('admin');
+            $admin->setEnabled(true);
+            $admin->setSuperAdmin(true);
+            $admin->setLocked(false);
+        }
 
         // Reference added in LoadGroupData.php
         $group = $this->getReference('group_admin');
