@@ -159,12 +159,18 @@ class CourseManager
 
                 if (!empty($course_info)) {
                     AddCourse::prepare_course_repository($course_info['directory'], $course_info['code']);
-                    AddCourse::fill_db_course(
+                    /**
+                     * See CourseListener::prePersist();
+                     * The new tool creation is handle by the "tool chain"
+                     * The "tool chain" is hook when a new Course is created
+                     **/
+
+                    /*AddCourse::fill_db_course(
                         $course_id,
                         $course_info['directory'],
                         $course_info['course_language'],
                         $params['exemplary_content']
-                    );
+                    );*/
 
                     if (api_get_setting(
                             'gradebook.gradebook_enable_grade_model'

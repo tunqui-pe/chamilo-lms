@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CourseBundle\Entity\CTool;
+use Chamilo\CoreBundle\Entity\Course;
 
 /**
  * Class AddCourse
@@ -1127,10 +1128,12 @@ class AddCourse
 
         if (empty($expiration_date)) {
             $expiration_date = api_get_utc_datetime(
-                time() + FIRST_EXPIRATION_DELAY
+                time() + FIRST_EXPIRATION_DELAY,
+                false,
+                true
             );
         } else {
-            $expiration_date = api_get_utc_datetime($expiration_date);
+            $expiration_date = api_get_utc_datetime($expiration_date, false, true);
         }
 
         if ($visibility < 0 || $visibility > 4) {
@@ -1142,8 +1145,6 @@ class AddCourse
             $disk_quota = api_get_setting('document.default_document_quotum');
         }
 
-        $time = api_get_utc_datetime();
-
         if (stripos($department_url, 'http://') === false && stripos(
                 $department_url,
                 'https://'
@@ -1151,6 +1152,7 @@ class AddCourse
         ) {
             $department_url = 'http://' . $department_url;
         }
+
         //just in case
         if ($department_url == 'http://') {
             $department_url = '';
@@ -1159,29 +1161,31 @@ class AddCourse
 
         if ($ok_to_register_course) {
 
-            // Here we must add 2 fields.
-            $sql = "INSERT INTO " . $TABLECOURSE . " SET
-                        code = '".Database:: escape_string($code)."',
-                        directory = '".Database:: escape_string($directory)."',
-                        course_language = '".Database:: escape_string($course_language)."',
-                        title = '".Database:: escape_string($title)."',
-                        description = '".self::lang2db(get_lang('CourseDescription'))."',
-                        category_code = '".Database:: escape_string($category_code)."',
-                        visibility      = '" . $visibility . "',
-                        show_score      = '1',
-                        disk_quota      = '" . intval($disk_quota) . "',
-                        creation_date   = '$time',
-                        expiration_date = '" . $expiration_date . "',
-                        last_edit       = '$time',
-                        last_visit      = NULL,
-                        tutor_name = '" . Database:: escape_string($tutor_name) . "',
-                        department_name = '" . Database:: escape_string($department_name) . "',
-                        department_url = '" . Database:: escape_string($department_url) . "',
-                        subscribe = '" . intval($subscribe) . "',
-                        unsubscribe = '" . intval($unsubscribe) . "',
-                        visual_code = '" . Database:: escape_string($visual_code) . "'";
-            Database::query($sql);
-            $course_id = Database::insert_id();
+            $manager = Database::getManager();
+
+            $course = new Course();
+            $course
+                ->setCode($code)
+                ->setDirectory($directory)
+                ->setCourseLanguage($course_language)
+                ->setTitle($title)
+                ->setDescription(self::lang2db(get_lang('CourseDescription')))
+                ->setCategoryCode($category_code)
+                ->setVisibility($visibility)
+                ->setShowScore(1)
+                ->setExpirationDate($expiration_date)
+                ->setDiskQuota(intval($disk_quota))
+                ->setTutorName($tutor_name)
+                ->setDepartmentName($department_name)
+                ->setDepartmentUrl($department_url)
+                ->setSubscribe(intval($subscribe))
+                ->setVisualCode($visual_code)
+            ;
+
+            $manager->persist($course);
+            $manager->flush();
+
+            $course_id = $course->getId();
 
             if ($course_id) {
                 $sort = api_max_sort_value('0', api_get_user_id());
@@ -1211,6 +1215,7 @@ class AddCourse
                     if (!is_array($teachers)) {
                         $teachers = array($teachers);
                     }
+
                     foreach ($teachers as $key) {
                         //just in case
                         if ($key == $user_id) {
@@ -1244,6 +1249,7 @@ class AddCourse
 
                 // Add event to the system log.
                 $user_id = api_get_user_id();
+
                 Event::addEvent(
                     LOG_COURSE_CREATE,
                     LOG_COURSE_CODE,
@@ -1260,9 +1266,7 @@ class AddCourse
                 // @todo Improve code to send to all current portal administrators.
                 if ($send_mail_to_admin == 'true') {
                     $siteName = api_get_setting('platform.site_name');
-                    $recipient_email = api_get_setting(
-                        'admin.administrator_email'
-                    );
+                    $recipient_email = api_get_setting('admin.administrator_email');
                     $recipient_name = api_get_person_name(
                         api_get_setting('admin.administrator_name'),
                         api_get_setting('admin.administrator_surname')

@@ -14,6 +14,29 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Class ToolChain
+ *
+ * The course tools classes (agenda, blog, etc) are located in:
+ *
+ * src/Chamilo/CourseBundle/Tool
+ * All this classes are registered as a service with the tag "chamilo_course.tool" here:
+
+ * src/Chamilo/CourseBundle/Resources/config/services.yml
+
+ * The tool chain is just an array that includes all the tools registered in services.yml
+
+ * The tool chain is hook when a new course is created via a listener here:
+
+ * src/Chamilo/CoreBundle/Entity/Listener/CourseListener.php
+
+ * After a course is created this function is called: CourseListener::prePersist()
+ * This function includes the called to the function "addToolsInCourse" inside the tool chain.
+
+ * This allows to create tools more easily. Steps:
+
+ * 1. Create a new tool class here: src/Chamilo/CourseBundle/Tool
+ * 2. Add the class as a service here: src/Chamilo/CourseBundle/Resources/config/services.yml  (see examples there)
+ * 3. Create a new course. When you create a new course the new tool will be creat
+ *
  * @package Chamilo\CourseBundle
  */
 class ToolChain

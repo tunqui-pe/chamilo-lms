@@ -338,6 +338,9 @@ class Course
     public function __construct()
     {
         $this->creationDate = new \DateTime();
+        $this->lastVisit = new \DateTime();
+        $this->lastEdit = new \DateTime();
+
         $this->users = new ArrayCollection();
         $this->gradebookCategories = new ArrayCollection();
         $this->gradebookEvaluations = new ArrayCollection();

@@ -243,8 +243,9 @@ function api_get_utc_datetime($time = null, $return_null_if_invalid_date = false
         if ($return_null_if_invalid_date) {
             return null;
         }
+
         if ($returnObj) {
-            return $date = new DateTime(gmdate('Y-m-d H:i:s'));
+            return new DateTime(gmdate('Y-m-d H:i:s'));
         }
 
         return gmdate('Y-m-d H:i:s');
@@ -253,6 +254,10 @@ function api_get_utc_datetime($time = null, $return_null_if_invalid_date = false
     // If time is a timestamp, return directly in utc
     if (is_numeric($time)) {
         $time = intval($time);
+
+        if ($returnObj) {
+            return new DateTime(gmdate('Y-m-d H:i:s', $time));
+        }
 
         return gmdate('Y-m-d H:i:s', $time);
     }

@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Chamilo\UserBundle\Entity\User;
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Framework\Container;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Constants declaration
@@ -723,8 +724,8 @@ function api_get_path($path_type, $path = null)
         WEB_CODE_PATH           => '',
         SYS_CODE_PATH           => '',
         SYS_LANG_PATH           => 'lang/',
-        WEB_IMG_PATH => 'web/bundles/chamilocore/img/',
-        SYS_IMG_PATH => 'web/bundles/chamilocore/img/',
+        WEB_IMG_PATH            => 'web/bundles/chamilocore/img/',
+        SYS_IMG_PATH            => 'web/bundles/chamilocore/img/',
         WEB_CSS_PATH            => 'web/css/',
         SYS_CSS_PATH            => 'app/Resources/public/css/',
         SYS_PLUGIN_PATH         => 'plugin/',
@@ -739,7 +740,7 @@ function api_get_path($path_type, $path = null)
         LIBRARY_PATH            => 'inc/lib/',
         CONFIGURATION_PATH      => 'app/config/',
         WEB_LIBRARY_PATH        => 'inc/lib/',
-        WEB_LIBRARY_JS_PATH => 'web/bundles/chamilocore/js/',
+        WEB_LIBRARY_JS_PATH     => 'web/bundles/chamilocore/js/',
         WEB_AJAX_PATH           => 'inc/ajax/',
         SYS_TEST_PATH           => 'tests/',
         WEB_TEMPLATE_PATH       => 'template/',
@@ -764,11 +765,7 @@ function api_get_path($path_type, $path = null)
     static $server_base_sys; // No trailing slash.
     static $root_rel;
 
-    $root_web = Container::getUrlGenerator()->generate(
-        'home',
-        [],
-        \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL
-    );
+    $root_web = Container::getUrlGenerator()->generate('home', [], UrlGeneratorInterface::ABSOLUTE_URL);
     $rootDir = Container::getRootDir();
 
     // Configuration data for already installed system.
@@ -782,7 +779,7 @@ function api_get_path($path_type, $path = null)
 
     // To avoid that the api_get_access_url() function fails since global.inc.php also calls the main_api.lib.php
     if ($path_type == WEB_PATH) {
-        if (isset($_configuration['access_url']) &&  $_configuration['access_url'] != 1) {
+        if (isset($_configuration['access_url']) && $_configuration['access_url'] != 1) {
             //we look into the DB the function api_get_access_url
             $url_info = api_get_access_url($_configuration['access_url']);
             $root_web = $url_info['active'] == 1 ? $url_info['url'] : $_configuration['root_web'];
@@ -939,7 +936,7 @@ function api_get_path($path_type, $path = null)
 
     // Replacing Windows back slashes.
     $path = str_replace('\\', '/', $path);
-    // Query strings sometimes mighth wrongly appear in non-URLs.
+    // Query strings sometimes might wrongly appear in non-URLs.
     // Let us check remove them from all types of paths.
     if (($pos = strpos($path, '?')) !== false) {
         $path = substr($path, 0, $pos);
