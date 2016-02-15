@@ -656,6 +656,7 @@ require_once __DIR__.'/internationalization.lib.php';
  * The other configuration parameters have not been changed.
  *
  * This is how we can get most used paths, for common purpose:
+
  * api_get_path(REL_PATH)                       /chamilo/
  * api_get_path(REL_COURSE_PATH)                /chamilo/courses/
  * api_get_path(REL_CODE_PATH)                  /chamilo/main/
@@ -1456,7 +1457,8 @@ function _api_format_user($user, $add_password = false)
         'creator_id',
         'registration_date',
         'hr_dept_id',
-        'expiration_date'
+        'expiration_date',
+        'last_login'
     );
 
     foreach ($attributes as $attribute) {
@@ -1474,11 +1476,8 @@ function _api_format_user($user, $add_password = false)
     // Maintain the user_id index for backwards compatibility
     $result['user_id'] = $result['id'] = $user_id;
     $result['last_login'] = $user['last_login'];
-    // Kept for historical reasons
-    $result['lastLogin'] = $user['last_login'];
 
     // Getting user avatar.
-
     $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, $result);
     $smallFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_SMALL, $result);
 
@@ -2305,7 +2304,6 @@ function api_get_session_visibility(
             return SESSION_AVAILABLE;
         }
     }
-
 
     $now = time();
     if (!empty($session_id)) {

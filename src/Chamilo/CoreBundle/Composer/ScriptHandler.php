@@ -15,8 +15,9 @@ class ScriptHandler
      */
     public static function dumpCssFiles()
     {
-        $appCss = __DIR__.'/../../../../app/Resources/public/css';
-        $newPath = __DIR__.'/../../../../web/css';
+        $appCss = __DIR__.'/../../../../app/Resources/public';
+        $newPath = __DIR__.'/../../../../web';
+
         if (is_dir($appCss)) {
             $fs = new Filesystem();
             $fs->mirror($appCss, $newPath);

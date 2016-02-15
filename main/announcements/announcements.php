@@ -229,7 +229,7 @@ switch ($action) {
         );
 
         $form->addElement('header', $form_name);
-
+        $to = [];
         if (empty($group_id)) {
             if (isset($_GET['remind_inactive'])) {
                 $email_ann = '1';
@@ -323,6 +323,9 @@ switch ($action) {
             );
         } else {
             $defaults = array();
+            if (!empty($to)) {
+                $defaults['users'] = $to;
+            }
         }
 
         $form->addElement('text', 'title', get_lang('EmailTitle'));

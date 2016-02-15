@@ -4721,7 +4721,7 @@ class Wiki
             Display::return_icon('search.png', get_lang('SearchPages'), '', ICON_SIZE_MEDIUM).'</a></li>';
 
         ///menu more
-        $actionsLeft .= '<a href="index.php?action=morectitle='.api_htmlentities(urlencode($page)).'"'.self::is_active_navigation_tab('more').'>'.
+        $actionsLeft .= '<a href="index.php?action=more&title='.api_htmlentities(urlencode($page)).'"'.self::is_active_navigation_tab('more').'>'.
             Display::return_icon('stats.png', get_lang('Statistics'), '', ICON_SIZE_MEDIUM).'</a></li>';
 
         // menu all pages
@@ -5372,7 +5372,7 @@ class Wiki
             case 'export_to_pdf':
                 if (isset($_GET['wiki_id'])) {
                     self::export_to_pdf($_GET['wiki_id'], api_get_course_id());
-                    exit;
+                    break;
                 }
                 break;
             case 'export2doc':

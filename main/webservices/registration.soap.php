@@ -17,7 +17,8 @@ define('WS_ERROR_NOT_FOUND_RESULT', 2);
 define('WS_ERROR_INVALID_INPUT', 3);
 define('WS_ERROR_SETTING', 4);
 
-function return_error($code) {
+function returnError($code)
+{
     $fault = null;
     switch ($code) {
         case WS_ERROR_SECRET_KEY:
@@ -226,7 +227,7 @@ function WSCreateUsers($params) {
     global $_user;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $users_params = $params['users'];
@@ -458,7 +459,7 @@ function WSCreateUser($params) {
     global $_user, $_configuration, $debug;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $firstName = $params['firstname'];
@@ -727,7 +728,7 @@ function WSCreateUsersPasswordCrypted($params)
     global $_user, $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     // database table definition
@@ -1033,7 +1034,6 @@ function parseCourseSessionUserParams($params)
             $courseId = $courseInfo['real_id'];
         }
 
-
         $sessionId = SessionManager::getSessionIdFromOriginalId(
             $sessionIdValue,
             $sessionIdName
@@ -1073,19 +1073,33 @@ function WSSubscribeTeacherToSessionCourse($params)
     global $debug;
 
     if ($debug) error_log('WSSubscribeTeacherToSessionCourse');
-    if ($debug) error_log('Params '. print_r($params, 1));
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
+
+    if ($debug) error_log('Params '. print_r($params, 1));
 
     $params = parseCourseSessionUserParams($params);
 
     $userId = $params['user_id'];
     $courseId = $params['course_id'];
     $sessionId = $params['session_id'];
+    SessionManager::set_coach_to_course_session($userId, $sessionId, $courseId);
+    $coaches = SessionManager::getCoachesByCourseSession($sessionId, $courseId);
 
-    return intval(SessionManager::set_coach_to_course_session($userId, $sessionId, $courseId));
+    $result = 0;
+
+    if (!empty($coaches)) {
+        if ($debug) error_log('Coaches:  '. print_r($coaches, 1));
+        if (in_array($userId, $coaches)) {
+            $result = 1;
+        }
+    }
+
+    if ($debug) error_log('Result:  '. $result);
+
+    return $result;
 }
 
 $server->register(
@@ -1110,11 +1124,12 @@ function WSUnsubscribeTeacherFromSessionCourse($params)
     global $debug;
 
     if ($debug) error_log('WSSubscribeTeacherToSessionCourse');
-    if ($debug) error_log('Params '. print_r($params, 1));
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
+
+    if ($debug) error_log('Params '. print_r($params, 1));
 
     $params = parseCourseSessionUserParams($params);
 
@@ -1122,7 +1137,23 @@ function WSUnsubscribeTeacherFromSessionCourse($params)
     $courseId = $params['course_id'];
     $sessionId = $params['session_id'];
 
-    return intval(SessionManager::removeUsersFromCourseSession($userId, $sessionId, $courseId));
+    SessionManager::removeUsersFromCourseSession([$userId], $sessionId, $courseId);
+    $coaches = SessionManager::getCoachesByCourseSession($sessionId, $courseId);
+
+    $result = 0;
+
+    if (!empty($coaches)) {
+        if ($debug) error_log('Coaches:  ' . print_r($coaches, 1));
+        if (!in_array($userId, $coaches)) {
+            $result = 1;
+        }
+    } else {
+        $result = 1;
+    }
+
+    if ($debug) error_log('Final Result: '. $result);
+
+    return $result;
 }
 
 /* Register WSCreateUserPasswordCrypted function */
@@ -1176,7 +1207,7 @@ function WSCreateUserPasswordCrypted($params)
     if ($debug) error_log(print_r($params,1));
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     // Database table definition.
@@ -1473,7 +1504,7 @@ function WSEditUserCredentials($params)
     global $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $userManager = UserManager::getManager();
@@ -1578,7 +1609,7 @@ function WSEditUsers($params)
     global $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $userManager = UserManager::getManager();
@@ -1775,7 +1806,7 @@ function WSEditUser($params)
 {
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $userManager = UserManager::getManager();
@@ -1953,7 +1984,7 @@ function WSEditUserWithPicture($params)
     global $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $userManager = UserManager::getManager();
@@ -2185,7 +2216,7 @@ function WSEditUsersPasswordCrypted($params) {
     global $_configuration;
 
     if(!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     // get user id from id of remote system
@@ -2392,7 +2423,7 @@ function WSEditUserPasswordCrypted($params)
     global $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $table_user = Database::get_main_table(TABLE_MAIN_USER);
@@ -2565,7 +2596,7 @@ $server->wsdl->addComplexType(
 
 function WSHelperActionOnUsers($params, $type) {
     if(!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $original_user_ids = $params['ids'];
@@ -2727,7 +2758,7 @@ $server->register('WSCreateCourse',                // method name
 function WSCreateCourse($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
 
@@ -2974,7 +3005,7 @@ function WSCreateCourseByTitle($params)
     global $_configuration;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $table_course = Database::get_main_table(TABLE_MAIN_COURSE);
@@ -3211,8 +3242,8 @@ $server->register('WSEditCourse',                // method name
 function WSEditCourse($params){
 
     global $_configuration;
-    if(!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+    if (!WSHelperVerifyKey($params)) {
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $course_table = Database::get_main_table(TABLE_MAIN_COURSE);
@@ -3377,7 +3408,7 @@ $server->register('WSCourseDescription',                    // method name
 function WSCourseDescription($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $array_course_desc_id = array();
@@ -3680,7 +3711,7 @@ $server->register('WSDeleteCourse',                // method name
 function WSDeleteCourse($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
@@ -3815,7 +3846,7 @@ function WSCreateSession($params)
     $sessionAdminId = 1;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
@@ -4080,7 +4111,7 @@ function WSEditSession($params)
     global $_user;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $tbl_user = Database::get_main_table(TABLE_MAIN_USER);
@@ -4282,7 +4313,7 @@ $server->register('WSDeleteSession',                // method name
 function WSDeleteSession($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
@@ -4428,7 +4459,7 @@ $server->register('WSSubscribeUserToCourse',                            // metho
 function WSSubscribeUserToCourse($params) {
     global $debug;
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     if ($debug) error_log('WSSubscribeUserToCourse params: '.print_r($params,1));
 
@@ -4534,7 +4565,7 @@ function WSSubscribeUserToCourseSimple($params) {
     if ($debug) error_log('WSSubscribeUserToCourseSimple');
     if ($debug) error_log('Params '. print_r($params, 1));
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $result = array();
     $course_code  = $params['course']; //Course code
@@ -4618,7 +4649,7 @@ function WSGetUser($params) {
     if ($debug) error_log('$params: '.print_r($params, 1));
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $result = array();
@@ -4672,7 +4703,7 @@ function WSGetUserFromUsername($params) {
     if ($debug) error_log('$params: '.print_r($params, 1));
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $result = array();
@@ -4772,7 +4803,7 @@ $server->register('WSUnsubscribeUserFromCourse',                         // meth
 function WSUnsubscribeUserFromCourse($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $user_table = Database::get_main_table(TABLE_MAIN_USER);
@@ -4888,7 +4919,7 @@ function WSUnSubscribeUserFromCourseSimple($params)
     global $debug;
     error_log('WSUnSubscribeUserFromCourseSimple');
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $original_user_id_value = $params['original_user_id_value'];
@@ -5059,7 +5090,7 @@ function WSSuscribeUsersToSession($params)
     global $debug;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $user_table = Database::get_main_table(TABLE_MAIN_USER);
     $userssessions_params = $params['userssessions'];
@@ -5067,6 +5098,10 @@ function WSSuscribeUsersToSession($params)
     if ($debug) {
         error_log('WSSuscribeUsersToSession');
         error_log(print_r($params, 1));
+
+        if (empty($userssessions_params)) {
+            error_log('userssessions is empty');
+        }
     }
 
     $results = array();
@@ -5110,7 +5145,7 @@ function WSSuscribeUsersToSession($params)
                     continue; // user_id is not active.
                 }
 
-                SessionManager::suscribe_users_to_session($sessionId, $user_id);
+                SessionManager::suscribe_users_to_session($sessionId, array($user_id), SESSION_VISIBLE_READ_ONLY, false);
                 $orig_user_id_value[] = $row_original_user_list['original_user_id_value'];
                 $orig_session_id_value[] = $original_session_id_value;
                 $results[] = 1;
@@ -5165,7 +5200,7 @@ function WSSubscribeUserToSessionSimple($params) {
 
     // Check security key
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     // Get input parameters
@@ -5285,7 +5320,7 @@ $server->register('WSUnsuscribeUsersFromSession',                              /
 function WSUnsuscribeUsersFromSession($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     global $debug;
@@ -5489,7 +5524,7 @@ function WSSuscribeCoursesToSession($params) {
     global $debug;
 
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     if ($debug) error_log('WSSuscribeCoursesToSession: '.print_r($params, 1));
@@ -5527,7 +5562,7 @@ function WSSuscribeCoursesToSession($params) {
                 $courseCode = $courseInfo['code'];
                 SessionManager::add_courses_to_session(
                     $sessionId,
-                    array($courseCode),
+                    array($courseInfo['real_id']),
                     false
                 );
                 if ($debug) error_log("add_courses_to_session: course:$courseCode to session:$sessionId");
@@ -5632,7 +5667,7 @@ $server->register('WSUnsuscribeCoursesFromSession',                             
 function WSUnsuscribeCoursesFromSession($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     // Initialisation
@@ -5789,7 +5824,7 @@ $server->register('WSListCourses',                                              
 function WSListCourses($params)
 {
     if (!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $course_field_name = isset($params['original_course_id_name']) ? $params['original_course_id_name'] : '';
@@ -5869,7 +5904,7 @@ $server->register('WSUpdateUserApiKey',      // method name
 
 function WSUpdateUserApiKey($params) {
     if(!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $user_id = UserManager::get_user_id_from_original_id($params['original_user_id_value'], $params['original_user_id_name']);
@@ -5968,7 +6003,7 @@ $server->register('WSListSessions',           // method name
  */
 function WSListSessions($params) {
     if(!WSHelperVerifyKey($params)) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $sql_params = array();
     // Dates should be provided in YYYY-MM-DD format, UTC
@@ -6036,7 +6071,7 @@ function WSUserSubscribedInCourse($params)
     if ($debug) error_log('Params '. print_r($params, 1));
     if (!WSHelperVerifyKey($params)) {
 
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $courseCode  = $params['course']; //Course code
     $userId      = $params['user_id']; //chamilo user id
@@ -6152,7 +6187,7 @@ $server->register(
 function WSSearchSession($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $fieldsToInclude = array();
@@ -6212,7 +6247,7 @@ $server->register(
 function WSFetchSession($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $fieldsToInclude = explode(',', $params['extrafields']);
@@ -6228,7 +6263,7 @@ function WSFetchSession($params)
     $sessionData = SessionManager::fetch($params['id']);
 
     if ($sessionData === false) {
-        return return_error(WS_ERROR_INVALID_INPUT);
+        return returnError(WS_ERROR_INVALID_INPUT);
     }
 
     if (!empty($extraFields)) {
@@ -6366,7 +6401,7 @@ $server->register('WSCreateGroup',              // method name
 function WSCreateGroup($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $userGroup = new UserGroup();
     $params = [
@@ -6415,7 +6450,7 @@ $server->register('WSUpdateGroup',              // method name
 function WSUpdateGroup($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $params['allow_member_group_to_leave'] = null;
 
@@ -6466,7 +6501,7 @@ $server->register('WSDeleteGroup',              // method name
 function WSDeleteGroup($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $userGroup = new UserGroup();
 
@@ -6509,7 +6544,7 @@ $server->register('GroupBindToParent',                      // method name
 function GroupBindToParent($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $userGroup = new UserGroup();
 
@@ -6551,7 +6586,7 @@ $server->register('GroupUnbindFromParent',                          // method na
 function GroupUnbindFromParent($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $userGroup = new UserGroup();
     return $userGroup->set_parent_group($params['id'], 0);
@@ -6591,7 +6626,7 @@ $server->register('WSAddUserToGroup',                   // method name
 function WSAddUserToGroup($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $userGroup = new UserGroup();
@@ -6634,7 +6669,7 @@ $server->register('WSUpdateUserRoleInGroup',                        // method na
 function WSUpdateUserRoleInGroup($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $userGroup = new UserGroup();
 
@@ -6679,7 +6714,7 @@ $server->register('WSDeleteUserFromGroup',                      // method name
 function WSDeleteUserFromGroup($params)
 {
     if (!WSHelperVerifyKey($params['secret_key'])) {
-        return return_error(WS_ERROR_SECRET_KEY);
+        return returnError(WS_ERROR_SECRET_KEY);
     }
     $userGroup = new UserGroup();
 

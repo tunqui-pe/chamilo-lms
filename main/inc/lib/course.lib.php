@@ -5464,7 +5464,7 @@ class CourseManager
      * @param FormValidator $form
      * @param array $to_already_selected
      *
-     * @param HTML_QuickForm_element
+     * @return HTML_QuickForm_element
      */
     public static function addUserGroupMultiSelect(&$form, $to_already_selected)
     {
@@ -5532,7 +5532,6 @@ class CourseManager
     public static function addGroupMultiSelect($form, $group_id, $to = array())
     {
         $group_users = GroupManager::get_subscribed_users($group_id);
-
         $array = self::buildSelectOptions(null, $group_users, $to);
 
         $result = array();
