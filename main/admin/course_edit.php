@@ -324,7 +324,7 @@ if ($form->validate()) {
     $course['disk_quota'] = $course['disk_quota'] * 1024 * 1024;
     $disk_quota = $course['disk_quota'];
     $subscribe = $course['subscribe'];
-    $unsubscribe = $course['unsubscribe'];
+    $unsubscribe = isset($course['unsubscribe']) ? $course['unsubscribe'] : '';
     $course['course_code'] = $course_code;
 
     if (!stristr($department_url, 'http://')) {
