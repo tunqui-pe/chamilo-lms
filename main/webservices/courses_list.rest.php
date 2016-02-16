@@ -20,12 +20,12 @@
  * @param mixed  Array or string. Type of visibility of course (public, public-registered, private, closed)
  * @return array Courses list (code=>[title=>'title',url='http://...',teacher=>'...',language=>''],code=>[...],...)
  */
-function courses_list($security_key, $visibilities = 'public') {
-
-	global $_configuration;
+function courses_list($security_key, $visibilities = 'public')
+{
+	$securityFromConfiguration = api_get_configuration_value('security_key');
 
    	// Check if this script is launch by server and if security key is ok.
-   	if ($security_key != $_configuration['security_key']) {
+   	if ($security_key != $securityFromConfiguration) {
    		return array('error_msg' => 'Security check failed');
    	}
 
@@ -44,7 +44,12 @@ function courses_list($security_key, $visibilities = 'public') {
 		$courses_list_tmp = CourseManager::get_courses_list(null, null, null, null, $vis[$visibility]);
 		foreach ($courses_list_tmp as $index => $course) {
 			$course_info = CourseManager::get_course_information($course['code']);
-			$courses_list[$course['code']] = array('title' => api_utf8_encode($course_info['title']), 'url' => api_get_path(WEB_COURSE_PATH).$course_info['directory'].'/', 'teacher' => api_utf8_encode($course_info['tutor_name']), 'language' => $course_info['course_language']);
+			$courses_list[$course['code']] = array(
+				'title' => api_utf8_encode($course_info['title']),
+				'url' => api_get_path(WEB_COURSE_PATH) . $course_info['directory'] . '/',
+				'teacher' => api_utf8_encode($course_info['tutor_name']),
+				'language' => $course_info['course_language']
+			);
 		}
 	}
 	return $courses_list;

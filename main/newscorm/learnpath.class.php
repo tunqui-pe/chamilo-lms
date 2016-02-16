@@ -6175,7 +6175,8 @@ class learnpath
     public function edit_document($_course)
     {
         $course_id = api_get_course_int_id();
-        global $_configuration;
+        $urlAppend = api_get_configuration_value('url_append');
+
         // Please, do not modify this dirname formatting.
         $dir = isset($_GET['dir']) ? $_GET['dir'] : $_POST['dir'];
 
@@ -6209,7 +6210,7 @@ class learnpath
             $file = $filepath . $row['path'];
 
             if ($fp = @ fopen($file, 'w')) {
-                $content = str_replace(api_get_path(WEB_COURSE_PATH), $_configuration['url_append'] . '/courses/', $content);
+                $content = str_replace(api_get_path(WEB_COURSE_PATH), $urlAppend . '/courses/', $content);
 
                 // Change the path of mp3 to absolute.
                 // The first regexp deals with :// urls.

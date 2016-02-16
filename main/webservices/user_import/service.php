@@ -12,10 +12,8 @@ require_once '../../inc/global.inc.php';
  * @param  string Security key (as found in configuration file)
  * @return string Error message
  */
-function import_users_from_file($filepath, $security_key) {
-
-	global $_configuration;
-
+function import_users_from_file($filepath, $security_key)
+{
    	$errors_returned = array(
 	   	0 => 'success',
 	   	1 => 'file import does not exist',
@@ -24,8 +22,13 @@ function import_users_from_file($filepath, $security_key) {
 	   	4 => 'security error'
    	);
 
+	$security = api_get_configuration_value('security_key');
+
    	// Check whether this script is launch by server and security key is ok.
-   	if (empty($_SERVER['REMOTE_ADDR']) || $_SERVER['REMOTE_ADDR'] != $_SERVER['SERVER_ADDR'] || $security_key != $_configuration['security_key']) {
+   	if (empty($_SERVER['REMOTE_ADDR']) ||
+		$_SERVER['REMOTE_ADDR'] != $_SERVER['SERVER_ADDR'] ||
+		$security_key != $security
+	) {
    		return $errors_returned[4];
    	}
 

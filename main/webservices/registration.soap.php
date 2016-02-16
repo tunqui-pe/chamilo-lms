@@ -43,7 +43,10 @@ function returnError($code)
  */
 function WSHelperVerifyKey($params)
 {
-    global $_configuration, $debug;
+    global $debug;
+
+    $securityFromConfiguration = api_get_configuration_value('security_key');
+
     if (is_array($params)) {
         $secret_key = $params['secret_key'];
     } else {
@@ -80,9 +83,9 @@ function WSHelperVerifyKey($params)
     }
 
     if ($check_ip) {
-        $security_key = $_configuration['security_key'];
+        $security_key = $securityFromConfiguration;
     } else {
-        $security_key = $ip.$_configuration['security_key'];
+        $security_key = $ip.$securityFromConfiguration;
         //error_log($secret_key.'-'.$security_key);
     }
 
@@ -456,7 +459,7 @@ $server->register('WSCreateUser',                // method name
 
 // Define the method WSCreateUser
 function WSCreateUser($params) {
-    global $_user, $_configuration, $debug;
+    global $_user, $debug;
 
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);

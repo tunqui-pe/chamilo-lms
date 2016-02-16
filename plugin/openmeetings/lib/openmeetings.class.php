@@ -39,8 +39,6 @@ class OpenMeetings
      */
     public function __construct()
     {
-        global $_configuration;
-
         // initialize video server settings from global settings
         $plugin = \OpenMeetingsPlugin::create();
 
@@ -48,7 +46,7 @@ class OpenMeetings
         $om_host   = $plugin->get('host');
         $om_user   = $plugin->get('user');
         $om_pass   = $plugin->get('pass');
-        $accessUrl = api_get_access_url($_configuration['access_url']);
+        $accessUrl = api_get_access_url(api_get_current_access_url_id());
         $this->externalType = substr($accessUrl['url'], strpos($accessUrl['url'], '://')+3, -1);
         if (strcmp($this->externalType, 'localhost') == 0) {
             $this->externalType = substr(api_get_path(WEB_PATH), strpos(api_get_path(WEB_PATH), '://')+3, -1);
@@ -134,7 +132,6 @@ class OpenMeetings
     */
     public function createMeeting($params)
     {
-        global $_configuration;
         // First, try to see if there is an active room for this course and session.
         $roomId = null;
 
@@ -176,7 +173,7 @@ class OpenMeetings
             $room->SID = $this->sessionId;
             $room->name = $this->roomName;
             //$room->roomtypes_id = $room->roomtypes_id;
-            $room->comment = urlencode(get_lang('Course').': ' . $params['meeting_name'] . ' - '.$_configuration['software_name']);
+            $room->comment = urlencode(get_lang('Course').': ' . $params['meeting_name'] . ' - '.api_get_configuration_value('software_name'));
             //$room->numberOfPartizipants = $room->numberOfPartizipants;
             $room->ispublic = $room->getString('isPublic', 'false');
             //$room->appointment = $room->getString('appointment');
