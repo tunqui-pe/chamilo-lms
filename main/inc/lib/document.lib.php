@@ -331,13 +331,14 @@ class DocumentManager
         $len = filesize($full_file_name);
         // Fixing error when file name contains a ","
         $filename = str_replace(',', '', $filename);
-        global $_configuration;
+
+        $sendFileHeaders = api_get_configuration_value('enable_x_sendfile_headers');
 
         if ($forced) {
             // Force the browser to save the file instead of opening it
 
-            if (isset($_configuration['enable_x_sendfile_headers']) &&
-                !empty($_configuration['enable_x_sendfile_headers'])) {
+            if (isset($sendFileHeaders) &&
+                !empty($sendFileHeaders)) {
                 header("X-Sendfile: $filename");
             }
 
@@ -364,6 +365,7 @@ class DocumentManager
             //no forced download, just let the browser decide what to do according to the mimetype
 
             $content_type = self::file_get_mime_type($filename);
+            $lpFixedEncoding = api_get_configuration_value('lp_fixed_encoding');
 
             header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
             header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -372,7 +374,7 @@ class DocumentManager
             //header('Pragma: no-cache');
             switch ($content_type) {
                 case 'text/html':
-                    if (isset($_configuration['lp_fixed_encoding']) && $_configuration['lp_fixed_encoding'] === 'true') {
+                    if (isset($lpFixedEncoding) && $lpFixedEncoding === 'true') {
                         $content_type .= '; charset=UTF-8';
                     } else {
                         $encoding = @api_detect_encoding_html(file_get_contents($full_file_name));
@@ -382,7 +384,7 @@ class DocumentManager
                     }
                     break;
                 case 'text/plain':
-                    if (isset($_configuration['lp_fixed_encoding']) && $_configuration['lp_fixed_encoding'] === 'true') {
+                    if (isset($lpFixedEncoding) && $lpFixedEncoding === 'true') {
                         $content_type .= '; charset=UTF-8';
                     } else {
                         $encoding = @api_detect_encoding(strip_tags(file_get_contents($full_file_name)));

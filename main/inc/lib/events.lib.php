@@ -17,7 +17,6 @@ class Event
      */
     public static function event_open()
     {
-        global $_configuration;
         global $TABLETRACK_OPEN;
 
         // @getHostByAddr($_SERVER['REMOTE_ADDR']) : will provide host and country information
@@ -28,9 +27,8 @@ class Event
         } else {
             $referer = '';
         }
-        // record informations only if user comes from another site
-        //if(!eregi($_configuration['root_web'],$referer))
-        $pos = strpos($referer, $_configuration['root_web']);
+        // record information only if user comes from another site
+        $pos = strpos($referer, api_get_path(WEB_PATH));
         if ($pos === false && $referer != '') {
             $ip = api_get_real_ip();
             $remhost = @ getHostByAddr($ip);

@@ -83,7 +83,6 @@ function WSHelperVerifyKey($params)
         $security_key = $securityFromConfiguration;
     } else {
         $security_key = $ip.$securityFromConfiguration;
-        //error_log($secret_key.'-'.$security_key);
     }
 
     $result = api_is_valid_secret_key($secret_key, $security_key);
