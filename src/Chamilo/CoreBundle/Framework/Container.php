@@ -66,6 +66,20 @@ class Container
     }
 
     /**
+     * @param string $parameter
+     *
+     * @return mixed
+     */
+    public static function getParameter($parameter)
+    {
+        if (self::$container->hasParameter($parameter)) {
+            return self::$container->getParameter($parameter);
+        }
+
+        return false;
+    }
+
+    /**
      * @return string
      */
     public static function getEnvironment()
