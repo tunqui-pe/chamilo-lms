@@ -521,12 +521,6 @@ class TestMainApi extends UnitTestCase {
 		//var_dump($res);
 	}
 
-	function testApiGetVersion(){
-		global $_configuration;
-		$res = api_get_version();
-		$this->assertTrue($res);
-	}
-
 	function testApiStatusExists(){
 		$status_asked = 'user';
 		$res = api_status_exists($status_asked);

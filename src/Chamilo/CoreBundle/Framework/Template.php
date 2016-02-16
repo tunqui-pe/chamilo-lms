@@ -405,66 +405,6 @@ class Template
     }
 
     /**
-     * Set theme, include CSS files
-     */
-    private function setCssFiles()
-    {
-        $css = array();
-        $this->theme = api_get_visual_theme();
-        if (isset($_POST['style']) && api_is_platform_admin()) {
-            $this->preview_theme = $_POST['style'];
-        }
-        if (!empty($this->preview_theme)) {
-            $this->theme = $this->preview_theme;
-        }
-
-        $this->app['theme'] = $this->theme;
-
-        $cssPath = api_get_path(WEB_CSS_PATH);
-        $webLibraryPath = api_get_path(WEB_LIBRARY_JS_PATH);
-
-        // Loads only 1 css file
-        if ($this->app['assetic.enabled']) {
-            $css[] = $cssPath.'themes/'.$this->theme.'/style.css';
-        } else {
-            // Bootstrap
-            //api_get_path(WEB_LIBRARY_JS_PATH).
-            $css[] = $webLibraryPath.'bootstrap/css/bootstrap.css';
-
-            // Base CSS.
-            $css[] = $cssPath.'base.css';
-
-            // Extra CSS files.
-            if ($this->show_learnpath) {
-                //$css[] = $cssPath.$this->theme.'/learnpath.css';
-                //$css[] = $cssPath.$this->theme.'/scorm.css';
-            }
-
-            if (api_is_global_chat_enabled()) {
-                $css[] = $webLibraryPath.'chat/css/chat.css';
-            }
-
-            $css[] = $webLibraryPath.'jquery-ui/css/'.$this->jquery_ui_theme.'/jquery-ui-custom.css';
-        }
-
-        $css[] = $webLibraryPath.'font-awesome/css/font-awesome.css';
-        $css[] = $webLibraryPath.'thickbox.css';
-        $css[] = $webLibraryPath.'pace/pace.css';
-        $css[] = $webLibraryPath.'chosen/chosen.css';
-        $css[] = $webLibraryPath.'tag/style.css';
-
-        // Default theme CSS.
-        $css[] = api_get_cdn_path($cssPath.'themes/'.$this->theme.'/default.css');
-
-        $this->addResource($css, 'css');
-
-        if (!$this->disableJsAndCss) {
-            $style = api_get_css(api_get_cdn_path($cssPath.'themes/'.$this->theme.'/print.css'), 'print');
-            $this->addResource($style, 'no_js_css');
-        }
-    }
-
-    /**
      * Set js files
      */
     public function setJsFiles()
