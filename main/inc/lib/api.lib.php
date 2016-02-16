@@ -993,33 +993,6 @@ function api_get_path($path_type, $path = null)
 }
 
 /**
- * Gets a modified version of the path for the CDN, if defined in
- * configuration.php
- * @param string $web_path The path of the resource without CDN
- * @return string The path of the resource converted to CDN
- * @author Yannick Warnier <ywarnier@beeznst.org>
- */
-function api_get_cdn_path($web_path)
-{
-    global $_configuration;
-    $web_root = api_get_path(WEB_PATH);
-    $ext = substr($web_path,strrpos($web_path,'.'));
-    if (isset($ext[2])) { // faster version of strlen to check if len>2
-        // Check for CDN definitions
-        if (!empty($_configuration['cdn_enable']) && !empty($ext)) {
-            foreach ($_configuration['cdn'] as $host => $exts) {
-                if (in_array($ext,$exts)) {
-                    //Use host as defined in $_configuration['cdn'], without
-                    // trailing slash
-                    return str_replace($web_root,$host.'/',$web_path);
-                }
-            }
-        }
-    }
-    return $web_path;
-}
-
-/**
  * @return bool Return true if CAS authentification is activated
  *
  */
@@ -1034,15 +1007,6 @@ function api_is_cas_activated() {
 function api_is_ldap_activated() {
     global $extAuthSource;
     return is_array($extAuthSource[LDAP_AUTH_SOURCE]);
-}
-
-/**
- * @return bool     Return true if Facebook authentification is activated
- *
- */
-function api_is_facebook_auth_activated() {
-    global $_configuration;
-    return (isset($_configuration['facebook_auth']) && $_configuration['facebook_auth'] == 1);
 }
 
 /**
@@ -5099,16 +5063,6 @@ function parse_info_file($filename) {
     return $info;
 }
 
-
-/**
- * Gets Chamilo version from the configuration files
- * @return string   A string of type "1.8.4", or an empty string if the version could not be found
- */
-function api_get_version() {
-    global $_configuration;
-    return (string)$_configuration['system_version'];
-}
-
 /**
  * Gets the software name (the name/brand of the Chamilo-based customized system)
  * @return string
@@ -5400,13 +5354,9 @@ function api_get_access_urls($from = 0, $to = 1000000, $order = 'url', $directio
  */
 function api_get_access_url($id, $returnDefault = true)
 {
-    global $_configuration;
     $id = intval($id);
     // Calling the Database:: library dont work this is handmade.
-    //$table_access_url = Database::get_main_table(TABLE_MAIN_ACCESS_URL);
-    $table = 'access_url';
-    $database = $_configuration['main_database'];
-    $table_access_url = "" . $database . "." . $table . "";
+    $table_access_url = Database::get_main_table(TABLE_MAIN_ACCESS_URL);
     $sql = "SELECT url, description, active, created_by, tms
             FROM $table_access_url WHERE id = '$id' ";
     $res = Database::query($sql);
@@ -6743,18 +6693,16 @@ function api_get_course_url($course_code = null, $session_id = null)
  * @return bool true if multi site is enabled
  *
  * */
-function api_get_multiple_access_url() {
-    global $_configuration;
-    if (isset($_configuration['multiple_access_urls']) && $_configuration['multiple_access_urls']) {
-        return true;
-    }
-    return false;
+function api_get_multiple_access_url()
+{
+    return api_get_configuration_value('multiple_access_urls');
 }
 
 /**
  * @return bool
  */
-function api_is_multiple_url_enabled() {
+function api_is_multiple_url_enabled()
+{
     return api_get_multiple_access_url();
 }
 
@@ -7238,89 +7186,6 @@ function api_coach_can_edit_view_results($courseId = null, $session_id = null)
     }
 }
 
-function api_set_settings_and_plugins() {
-    global $_configuration;
-    $_setting = array();
-    $_plugins = array();
-
-    // access_url == 1 is the default chamilo location
-    $settings_by_access_list = array();
-    $access_url_id = api_get_current_access_url_id();
-    if ($access_url_id != 1) {
-        $url_info = api_get_access_url($_configuration['access_url']);
-        if ($url_info['active'] == 1) {
-            $settings_by_access = & api_get_settings(null, 'list', $_configuration['access_url'], 1);
-            foreach ($settings_by_access as & $row) {
-                if (empty($row['variable'])) {
-                    $row['variable'] = 0;
-                }
-                if (empty($row['subkey'])) {
-                    $row['subkey'] = 0;
-                }
-                if (empty($row['category'])) {
-                    $row['category'] = 0;
-                }
-                $settings_by_access_list[$row['variable']][$row['subkey']][$row['category']] = $row;
-            }
-        }
-    }
-
-    $result = api_get_settings(null, 'list', 1);
-
-    foreach ($result as & $row) {
-        if ($access_url_id != 1) {
-            if ($url_info['active'] == 1) {
-                $var = empty($row['variable']) ? 0 : $row['variable'];
-                $subkey = empty($row['subkey']) ? 0 : $row['subkey'];
-                $category = empty($row['category']) ? 0 : $row['category'];
-            }
-
-            if ($row['access_url_changeable'] == 1 && $url_info['active'] == 1) {
-                if (isset($settings_by_access_list[$var]) &&
-                    $settings_by_access_list[$var][$subkey][$category]['selected_value'] != '') {
-                    if ($row['subkey'] == null) {
-                        $_setting[$row['variable']] = $settings_by_access_list[$var][$subkey][$category]['selected_value'];
-                    } else {
-                        $_setting[$row['variable']][$row['subkey']] = $settings_by_access_list[$var][$subkey][$category]['selected_value'];
-                    }
-                } else {
-                    if ($row['subkey'] == null) {
-                        $_setting[$row['variable']] = $row['selected_value'];
-                    } else {
-                        $_setting[$row['variable']][$row['subkey']] = $row['selected_value'];
-                    }
-                }
-            } else {
-                if ($row['subkey'] == null) {
-                    $_setting[$row['variable']] = $row['selected_value'];
-                } else {
-                    $_setting[$row['variable']][$row['subkey']] = $row['selected_value'];
-                }
-            }
-        } else {
-            if ($row['subkey'] == null) {
-                $_setting[$row['variable']] = $row['selected_value'];
-            } else {
-                $_setting[$row['variable']][$row['subkey']] = $row['selected_value'];
-            }
-        }
-    }
-
-    $result = api_get_settings('Plugins', 'list', $access_url_id);
-    $_plugins = array();
-    foreach ($result as & $row) {
-        $key = & $row['variable'];
-        if (is_string($_setting[$key])) {
-            $_setting[$key] = array();
-        }
-        $_setting[$key][] = $row['selected_value'];
-        $_plugins[$key][] = $row['selected_value'];
-    }
-
-    $_SESSION['_setting'] = $_setting;
-    $_SESSION['_plugins'] = $_plugins;
-}
-
 function api_set_setting_last_update()
 {
     // Saving latest refresh.
@@ -7582,13 +7447,14 @@ function api_drh_can_access_all_session_content()
  */
 function api_get_default_tool_setting($tool, $setting, $defaultValue)
 {
-    global $_configuration;
-    if (isset($_configuration[$tool]) &&
-        isset($_configuration[$tool]['default_settings']) &&
-        isset($_configuration[$tool]['default_settings'][$setting])
+    $value = api_get_configuration_value($tool);
+    if (isset($value) &&
+        isset($value['default_settings']) &&
+        isset($value['default_settings'][$setting])
     ) {
-        return $_configuration[$tool]['default_settings'][$setting];
+        return $value['default_settings'][$setting];
     }
+
     return $defaultValue;
 
 }
@@ -7795,11 +7661,7 @@ function api_warn_hosting_contact($limitName)
  */
 function api_get_configuration_value($variable)
 {
-    global $_configuration;
-    if (isset($_configuration[$variable])) {
-        return $_configuration[$variable];
-    }
-    return false;
+    return Container::getParameter($variable);
 }
 
 /**
