@@ -32,13 +32,21 @@ class InstallationStep extends AbstractStep
         $action = $this->getRequest()->query->get('action');
         switch ($action) {
             case 'settings':
-
                 return new JsonResponse(array('result' => true, 'exitCode' => 0));
             case 'pages':
+                $this->handleAjaxAction(
+                    'sonata:classification:fix-context'
+                );
+
+                $this->handleAjaxAction(
+                    'sonata:media:fix-media-context'
+                );
+
                 $this->handleAjaxAction(
                     'sonata:page:update-core-routes',
                     array('--site' => array('all'))
                 );
+
                 return $this->handleAjaxAction(
                     'sonata:page:create-snapshots',
                     array('--site' => array('all'))
@@ -48,12 +56,6 @@ class InstallationStep extends AbstractStep
                     'oro:migration:data:load',
                     array('--fixtures-type' => 'demo')
                 );
-            case 'navigation':
-                return $this->handleAjaxAction('oro:navigation:init');
-//            case 'js-routing':
-//                return $this->handleAjaxAction('fos:js-routing:dump', array('--target' => 'js/routes.js'));
-            case 'localization':
-                //return $this->handleAjaxAction('oro:localization:dump');
             case 'assets':
                 /*return $this->handleAjaxAction(
                     'oro:assets:install',
@@ -80,8 +82,6 @@ class InstallationStep extends AbstractStep
                 return $this->handleAjaxAction('assetic:dump');
             case 'translation':
                 //return $this->handleAjaxAction('oro:translation:dump');
-            case 'requirejs':
-                //return $this->handleAjaxAction('oro:requirejs:build', array('--ignore-errors' => true));
             case 'finish':
                 $this->get('event_dispatcher')->dispatch(
                     InstallerEvents::FINISH
