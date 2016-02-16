@@ -23,8 +23,6 @@ if (!in_array($pluginName, $installedPlugins) || empty($pluginInfo)) {
     api_not_allowed(true);
 }
 
-global $_configuration;
-
 $message = null;
 $content = null;
 
@@ -72,7 +70,7 @@ if (isset($form)) {
                 null,
                 null,
                 null,
-                $_configuration['access_url'],
+                api_get_current_access_url_id(),
                 1
             );
         }

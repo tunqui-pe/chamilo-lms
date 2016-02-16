@@ -405,7 +405,7 @@ class PDF
         $fileToSave = null,
         $returnHtml = false
     ) {
-        global $_configuration;
+        $urlAppend = api_get_configuration_value('url_append');
 
         if (empty($document_html)) {
             return false;
@@ -430,7 +430,7 @@ class PDF
 
         $document_html= str_replace('../../','',$document_html);
         $document_html= str_replace('../','',$document_html);
-        $document_html= str_replace((empty($_configuration['url_append'])?'':$_configuration['url_append'].'/').'courses/'.$course_code.'/document/','',$document_html);
+        $document_html= str_replace((empty($urlAppend)?'':$urlAppend.'/').'courses/'.$course_code.'/document/','',$document_html);
 
         if (!empty($course_data['path'])) {
             $document_path = api_get_path(SYS_COURSE_PATH).$course_data['path'].'/document/';

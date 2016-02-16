@@ -5385,7 +5385,6 @@ class Tracking
     */
     public static function setUserSearchForm($form)
     {
-        global $_configuration;
         $form->addElement('text', 'keyword', get_lang('Keyword'));
         $form->addElement(
             'select',

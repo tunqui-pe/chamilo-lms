@@ -858,12 +858,13 @@ class IndexManager
      */
     public function return_profile_block()
     {
-        global $_configuration;
         $user_id = api_get_user_id();
 
         if (empty($user_id)) {
             return;
         }
+
+        $allowMyFileInHomepage = api_get_configuration_value('allow_my_files_link_in_homepage');
 
         $userGroup = new UserGroup();
 
@@ -899,8 +900,9 @@ class IndexManager
                 $profile_content .= '<li class="invitations-social"><a href="'.api_get_path(WEB_PATH).'main/social/invitations.php">'.Display::return_icon('invitations.png',get_lang('PendingInvitations'),null,ICON_SIZE_SMALL).get_lang('PendingInvitations').$total_invitations.'</a></li>';
             }
 
-            if (isset($_configuration['allow_my_files_link_in_homepage']) && $_configuration['allow_my_files_link_in_homepage']) {
-                $profile_content .= '<li class="myfiles-social"><a href="'.api_get_path(WEB_PATH).'main/social/myfiles.php">'.get_lang('MyFiles').'</a></li>';
+            if ($allowMyFileInHomepage) {
+                $profile_content .= '<li class="myfiles-social"><a href="'.api_get_path(WEB_PATH).'main/social/myfiles.php">'.
+                    get_lang('MyFiles').'</a></li>';
             }
         }
 
@@ -1049,11 +1051,8 @@ class IndexManager
      */
     public function returnCoursesAndSessions($user_id)
     {
-        global $_configuration;
-
-        $gamificationModeIsActive = api_get_setting(
-            'platform.gamification_mode'
-        );
+        $showSimpleSessionInfo = api_get_configuration_value('show_simple_session_info');
+        $gamificationModeIsActive = api_get_setting('platform.gamification_mode');
 
         $load_history = (isset($_GET['history']) && intval($_GET['history']) == 1) ? true : false;
         if ($load_history) {
@@ -1227,10 +1226,7 @@ class IndexManager
                             $params['courses'] = $html_courses_session;
                             $params['show_simple_session_info'] = false;
 
-                            if (
-                                isset($_configuration['show_simple_session_info']) &&
-                                $_configuration['show_simple_session_info']
-                            ) {
+                            if ($showSimpleSessionInfo) {
                                 $params['show_simple_session_info'] = true;
                             }
 
@@ -1338,10 +1334,7 @@ class IndexManager
                                 $sessionParams['courses'] = $html_courses_session;
                                 $sessionParams['show_simple_session_info'] = false;
 
-                                if (
-                                    isset($_configuration['show_simple_session_info']) &&
-                                    $_configuration['show_simple_session_info']
-                                ) {
+                                if ($showSimpleSessionInfo) {
                                     $sessionParams['show_simple_session_info'] = true;
                                 }
 

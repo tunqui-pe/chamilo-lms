@@ -390,10 +390,8 @@ class UserManager
      */
     public static function can_delete_user($user_id)
     {
-        global $_configuration;
-        if (isset($_configuration['deny_delete_users']) &&
-            $_configuration['deny_delete_users'] == true
-        ) {
+        $deny = api_get_configuration_value('deny_delete_users');
+        if (isset($deny) && $deny == true) {
             return false;
         }
         $table_course_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
@@ -750,7 +748,6 @@ class UserManager
         if (!empty($hook)) {
             $hook->notifyUpdateUser(HOOK_EVENT_TYPE_PRE);
         }
-        global $_configuration;
         $original_password = $password;
 
         if (empty($user_id)) {
@@ -915,9 +912,7 @@ class UserManager
                         'platform.site_name'
                     )." ".get_lang(
                         'Is'
-                    )." : ".$_configuration['root_web']."\n\n".get_lang(
-                        'Problem'
-                    )."\n\n".get_lang(
+                    )." : ".api_get_path(WEB_PATH)."\n\n".get_lang('Problem')."\n\n".get_lang(
                         'SignatureFormula'
                     ).",\n\n".api_get_person_name(
                         api_get_setting('admin.administrator_name'),

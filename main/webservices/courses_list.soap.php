@@ -75,7 +75,7 @@ $server->register('WSCourseList',         // method name
 function WSCourseList($username, $signature, $visibilities = 'public') {
     if (empty($username) or empty($signature)) { return -1; }
 
-    global $_configuration;
+    $securityFromConfiguration = api_get_configuration_value('security_key');
 
     $info = api_get_user_info_from_username($username);
     $user_id = $info['user_id'];
@@ -89,7 +89,7 @@ function WSCourseList($username, $signature, $visibilities = 'public') {
 
     $local_key = $username.$key;
 
-    if (!api_is_valid_secret_key($signature, $local_key) && !api_is_valid_secret_key($signature, $username.$_configuration['security_key'])) {
+    if (!api_is_valid_secret_key($signature, $local_key) && !api_is_valid_secret_key($signature, $username.$securityFromConfiguration)) {
         return -1; // The secret key is incorrect.
     }
     //public-registered = open

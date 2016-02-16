@@ -184,11 +184,3 @@ sonata_media:
 #            filters:
 #                thumbnail: { size: [820, 70], mode: outbound }
 
-# Enable Doctrine to map the provided entities
-#doctrine:
-#    orm:
-#        entity_managers:
-#            default:
-#                mappings:
-#                    ChamiloMediaBundle: ~
-#                    SonataMediaBundle: ~

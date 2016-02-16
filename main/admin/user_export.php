@@ -26,8 +26,6 @@ $courses = array ();
 $courses[''] = '--';
 $sql = "SELECT code,visual_code,title FROM $course_table ORDER BY visual_code";
 
-global $_configuration;
-
 if (api_is_multiple_url_enabled()) {
 	$tbl_course_rel_access_url= Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
 	$access_url_id = api_get_current_access_url_id();
@@ -55,6 +53,8 @@ $form->addElement('select', 'course_code', get_lang('OnlyUsersFromCourse'), $cou
 $form->addButtonExport(get_lang('Export'));
 $form->setDefaults(array('file_type' => 'csv'));
 
+$passwordEncryption = api_get_configuration_value('password_encryption');
+
 if ($form->validate()) {
 	$export = $form->exportValues();
 	$file_type = $export['file_type'];
@@ -68,7 +68,7 @@ if ($form->validate()) {
 				u.firstname 	AS FirstName,
 				u.email 		AS Email,
 				u.username	AS UserName,
-				".(($_configuration['password_encryption']!='none')?" ":"u.password AS Password, ")."
+				".(($passwordEncryption !='none')?" ":"u.password AS Password, ")."
 				u.auth_source	AS AuthSource,
 				u.status		AS Status,
 				u.official_code	AS OfficialCode,
@@ -100,7 +100,7 @@ if ($form->validate()) {
 	$data = array();
 	$extra_fields = UserManager::get_extra_fields(0, 0, 5, 'ASC',false);
 	if ($export['addcsvheader']=='1' AND $export['file_type']=='csv') {
-		if ($_configuration['password_encryption'] != 'none') {
+		if ($passwordEncryption != 'none') {
 			$data[] = array(
 				'UserId',
 				'LastName',

@@ -42,7 +42,7 @@ function return_error($code) {
  */
 function WSHelperVerifyKey($params)
 {
-    global $_configuration, $debug;
+    global $debug;
     if (is_array($params)) {
         $secret_key = $params['secret_key'];
     } else {
@@ -77,12 +77,12 @@ function WSHelperVerifyKey($params)
     if ($debug) {
         error_log("checkip " . intval($check_ip));
     }
+    $securityFromConfiguration = api_get_configuration_value('security_key');
 
     if ($check_ip) {
-        $security_key = $_configuration['security_key'];
+        $security_key = $securityFromConfiguration;
     } else {
-        $security_key = $ip.$_configuration['security_key'];
-        //error_log($secret_key.'-'.$security_key);
+        $security_key = $ip.$securityFromConfiguration;
     }
 
     $result = api_is_valid_secret_key($secret_key, $security_key);
