@@ -3,6 +3,7 @@
 
 /**
  * Class Template
+ * @deprecated
  *
  * @author Julio Montoya <gugli100@gmail.com>
  * @todo better organization of the class, methods and variables

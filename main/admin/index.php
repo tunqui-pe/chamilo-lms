@@ -1,5 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
+// Check function indexAction in:
+// src/Chamilo/CoreBundle/Controller/Admin/AdminController.php
+//
+exit;
 
 use Chamilo\CoreBundle\Framework\Container;
 

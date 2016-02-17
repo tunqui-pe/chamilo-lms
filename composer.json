@@ -50,7 +50,6 @@
         "twig/extensions": "~1.0",
 
         "symfony/symfony": "~2.7,>=2.7.2",
-        "doctrine/doctrine-bundle": "~1.5",
         "symfony/intl": "^3.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
@@ -64,6 +63,7 @@
         "jms/serializer-bundle": "~0.12",
         "doctrine/orm": "~2.4",
         "doctrine/dbal": "~2.4",
+        "doctrine/doctrine-bundle": "~1.5",
         "doctrine/migrations": "~1.0@dev",
         "doctrine/doctrine-migrations-bundle": "*@dev",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
