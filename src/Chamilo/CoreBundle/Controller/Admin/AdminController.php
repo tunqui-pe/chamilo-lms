@@ -414,12 +414,11 @@ class AdminController extends BaseController
                 'url' => $adminUrl.'special_exports.php',
                 'label' => get_lang('SpecialExports'),
             );
-            if (!empty($_configuration['db_admin_path'])) {
+            $dbPath = api_get_configuration_value('db_admin_path');
+            if (!empty($dbPath)) {
                 $items[] = array(
-                    'url' => $_configuration['db_admin_path'],
-                    'label' => get_lang('AdminDatabases').' ('.get_lang(
-                            'DBManagementOnlyForServerAdmin'
-                        ).') ',
+                    'url' => $dbPath,
+                    'label' => get_lang('AdminDatabases').' ('.get_lang('DBManagementOnlyForServerAdmin').') ',
                 );
             }
             $items[] = array(

@@ -21,9 +21,8 @@ $libpath = api_get_path(LIBRARY_PATH);
 $url = api_get_path(WEB_CODE_PATH)."webservices/registration.soap.php?wsdl";
 //$url = api_get_path(WEB_CODE_PATH)."webservices/access_url.php?wsdl";
 
-global $_configuration;
 // see the main/inc/configuration.php file to get this value
-$security_key = $_configuration['security_key'];
+$security_key = api_get_configuration_value('security_key');
 
 $client = new nusoap_client($url, true);
 /*$client->xml_encoding = 'UTF-8';

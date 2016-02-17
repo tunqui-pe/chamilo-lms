@@ -10,13 +10,12 @@
 exit; //remove to enable
 // Include the necessary files, assuming this script is located in main/newscorm/ or something like that
 //require_once '../inc/global.inc.php';
-global $_configuration;
 
 // First build the signature to use with the webservice. We assume
 // we are calling the webservice from the same server, so getting
 // the IP (part of the signature) can be done through $_SERVER['REMOTE_ADDR']
 $ip = trim($_SERVER['REMOTE_ADDR']);
-$signature = sha1($ip.$_configuration['security_key']);
+$signature = sha1($ip.api_get_configuration_value('security_key'));
 
 // Prepare the arguments to the webservice, based on the user ID (int), the course ID (int), the learnpath_id and the learnpath_item_id:
 $uid = 1; // set to your user ID

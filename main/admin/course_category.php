@@ -26,23 +26,15 @@ $action = isset($_GET['action']) ? $_GET['action'] : null;
 $errorMsg = '';
 if (!empty($action)) {
     if ($action == 'delete') {
-        if (api_get_multiple_access_url()) {
-            if (api_get_current_access_url_id() == 1 ||
-                (isset($_configuration['enable_multiple_url_support_for_course_category']) &&
-                $_configuration['enable_multiple_url_support_for_course_category'])
-            ) {
-                CourseCategoryManager::deleteNode($categoryId);
-                Display::addFlash(Display::return_message(get_lang('Deleted')));
-                header('Location: ' . api_get_self() . '?category=' . Security::remove_XSS($category));
-                exit();
-            }
-        } else {
+        if (api_get_current_access_url_id() == 1) {
             CourseCategoryManager::deleteNode($categoryId);
             Display::addFlash(Display::return_message(get_lang('Deleted')));
             header('Location: ' . api_get_self() . '?category=' . Security::remove_XSS($category));
             exit();
         }
-    } elseif (($action == 'add' || $action == 'edit') && isset($_POST['formSent']) && $_POST['formSent']) {
+    } elseif (($action == 'add' || $action == 'edit') &&
+        isset($_POST['formSent']) && $_POST['formSent']
+    ) {
         if ($action == 'add') {
             $ret = CourseCategoryManager::addNode(
                 $_POST['code'],
@@ -83,11 +75,7 @@ $interbreadcrumb[] = array(
 Display::display_header($tool_name);
 
 if ($action == 'add' || $action == 'edit') {
-    if ((api_get_multiple_access_url() && api_get_current_access_url_id() == 1) ||
-        !api_get_multiple_access_url() ||
-        (isset($_configuration['enable_multiple_url_support_for_course_category']) &&
-         $_configuration['enable_multiple_url_support_for_course_category'])
-    ) {
+    if (api_get_current_access_url_id() == 1) {
         echo '<div class="actions">';
         echo Display::url(
             Display::return_icon('folder_up.png', get_lang("Back"), '', ICON_SIZE_MEDIUM),

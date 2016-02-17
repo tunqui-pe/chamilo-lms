@@ -88,7 +88,8 @@ interface WSErrorHandler {
 /**
  * Main class of the webservice. Webservice classes extend this class
  */
-class WS {
+class WS
+{
 	/**
 	 * Chamilo configuration
 	 *
@@ -119,7 +120,7 @@ class WS {
 		}
 		$security_key = $ip.$this->_configuration['security_key'];
 
-		if(!api_is_valid_secret_key($secret_key, $security_key)) {
+		if (!api_is_valid_secret_key($secret_key, $security_key)) {
 			return new WSError(1, "API key is invalid");
 		} else {
 			return null;

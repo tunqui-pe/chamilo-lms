@@ -68,10 +68,11 @@ $server->register('WSCourseListOfUser',   // method name
  * @param string Signature (composed of the sha1(username+apikey)
  * @return array Courses list (code=>[title=>'title',url='http://...',teacher=>'...',language=>''],code=>[...],...)
  */
-function WSCourseListOfUser($username, $signature) {
-    if (empty($username) or empty($signature)) { return -1; }
-    global $_configuration;
-
+function WSCourseListOfUser($username, $signature)
+{
+    if (empty($username) or empty($signature)) {
+        return -1;
+    }
     $info = api_get_user_info_from_username($username);
     $user_id = $info['user_id'];
     $list = UserManager::get_api_keys($user_id, 'dokeos');
@@ -149,10 +150,11 @@ $server->register('WSEventsList',       // method name
  * @param int    End date, in YYYYMMDD format
  * @return array Events list
  */
-function WSEventsList($username, $signature, $datestart = 0, $dateend = 0) {
-
-    if (empty($username) or empty($signature)) { return -1; }
-    global $_configuration;
+function WSEventsList($username, $signature, $datestart = 0, $dateend = 0)
+{
+    if (empty($username) or empty($signature)) {
+        return -1;
+    }
 
     $info = api_get_user_info_from_username($username);
     $user_id = $info['user_id'];

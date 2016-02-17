@@ -9,7 +9,6 @@
  * @author Arnaud Ligot <arnaud@cblue.be>
  * @package chamilo.learnpath
  */
-global $_configuration;
 $web_path = api_get_path(WEB_CODE_PATH);
 $getid3_path = api_get_path(LIBRARY_PATH);
 
@@ -33,7 +32,7 @@ if ($audio_recorder_studentview == 'false') {
     $height= 90;
     $player = 'recorder2.swf';
     $server = (api_get_setting('service_visio', 'visio_use_rtmpt') == 'true' ? 'rtmpt://' : 'rtmp://').api_get_setting('service_visio', 'visio_host').':'.(api_get_setting('service_visio', 'visio_use_rtmpt') == 'true' ? '80' : api_get_setting('service_visio', 'visio_port')).'/recorder';
-    $post_uri = urlencode($web_path.'conference/audiopost.php?course_code='.api_get_course_id().'&user_id='.api_get_user_id().'&checker='.md5(api_get_course_id().api_get_user_id().gmdate('Ymd').$_configuration['security_key']));
+    $post_uri = urlencode($web_path.'conference/audiopost.php?course_code='.api_get_course_id().'&user_id='.api_get_user_id().'&checker='.md5(api_get_course_id().api_get_user_id().gmdate('Ymd')));
     $filename = 'lpi'.$audio_recorder_item_id.'-'.gmdate('YmdHis').api_get_user_id().'.flv'; // Using -z- as fields splitter.
     $path_to_lzx = $web_path.'conference/'.$player.'?server='.urlencode($server).'&postURI='.$post_uri.'&filename='.$filename;
 } else {

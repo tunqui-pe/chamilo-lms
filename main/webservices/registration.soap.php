@@ -728,7 +728,7 @@ $server->register('WSCreateUsersPasswordCrypted',                            // 
 // Define the method WSCreateUsersPasswordCrypted
 function WSCreateUsersPasswordCrypted($params)
 {
-    global $_user, $_configuration;
+    global $_user;
 
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
@@ -742,6 +742,8 @@ function WSCreateUsersPasswordCrypted($params)
     $users_params = $params['users'];
     $results = array();
     $orig_user_id_value = array();
+
+    $passwordEncryption = api_get_configuration_value('password_encryption');
 
     foreach ($users_params as $user_param) {
 
@@ -767,8 +769,8 @@ function WSCreateUsersPasswordCrypted($params)
         $extra_list = $user_param['extra'];
         $salt = '';
 
-        if (!empty($_configuration['password_encryption'])) {
-            if ($_configuration['password_encryption'] === $encrypt_method ) {
+        if (!empty($passwordEncryption)) {
+            if ($passwordEncryption === $encrypt_method ) {
                 if ($encrypt_method == 'md5' && !preg_match('/^[A-Fa-f0-9]{32}$/', $password)) {
                     $msg = "Encryption $encrypt_method is invalid";
                     $results[] = $msg;
@@ -1204,7 +1206,7 @@ $server->register('WSCreateUserPasswordCrypted',                            // m
 // Define the method WSCreateUserPasswordCrypted
 function WSCreateUserPasswordCrypted($params)
 {
-    global $_user, $_configuration, $debug;
+    global $_user, $debug;
     $debug = 1;
     if ($debug) error_log('WSCreateUserPasswordCrypted');
     if ($debug) error_log(print_r($params,1));
@@ -1212,6 +1214,8 @@ function WSCreateUserPasswordCrypted($params)
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
+
+    $passwordEncryption = api_get_configuration_value('password_encryption');
 
     // Database table definition.
     $table_user = Database::get_main_table(TABLE_MAIN_USER);
@@ -1239,8 +1243,8 @@ function WSCreateUserPasswordCrypted($params)
     $orig_user_id_value[] = $params['original_user_id_value'];
     $extra_list = isset($params['extra']) ? $params['extra'] : '';
 
-    if (!empty($_configuration['password_encryption'])) {
-        if ($_configuration['password_encryption'] === $encrypt_method ) {
+    if (!empty($passwordEncryption)) {
+        if ($passwordEncryption === $encrypt_method ) {
             if ($encrypt_method == 'md5' && !preg_match('/^[A-Fa-f0-9]{32}$/', $password)) {
                 $msg = "Encryption $encrypt_method is invalid";
                 if ($debug) error_log($msg);
@@ -1504,8 +1508,6 @@ $server->register('WSEditUserCredentials',                      // method name
 // Define the method WSEditUser
 function WSEditUserCredentials($params)
 {
-    global $_configuration;
-
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
@@ -1609,16 +1611,12 @@ $server->register('WSEditUsers',                // method name
 // Define the method WSEditUsers
 function WSEditUsers($params)
 {
-    global $_configuration;
-
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
 
     $userManager = UserManager::getManager();
     $userRepository = UserManager::getRepository();
-
-
     $table_user = Database :: get_main_table(TABLE_MAIN_USER);
 
     $users_params = $params['users'];
@@ -1984,8 +1982,6 @@ $server->register('WSEditUserWithPicture',              // method name
 // Define the method WSEditUserWithPicture
 function WSEditUserWithPicture($params)
 {
-    global $_configuration;
-
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
@@ -2215,10 +2211,11 @@ $server->register('WSEditUsersPasswordCrypted',                           // met
 );
 
 // Define the method WSEditUsersPasswordCrypted
-function WSEditUsersPasswordCrypted($params) {
-    global $_configuration;
+function WSEditUsersPasswordCrypted($params)
+{
+    $passwordEncryption = api_get_configuration_value('password_encryption');
 
-    if(!WSHelperVerifyKey($params)) {
+    if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
 
@@ -2255,7 +2252,7 @@ function WSEditUsersPasswordCrypted($params) {
 
             $password = $user_param['password'];
             $encrypt_method = $user_param['encrypt_method'];
-            if ($_configuration['password_encryption'] === $encrypt_method ) {
+            if ($passwordEncryption === $encrypt_method) {
                 if ($encrypt_method == 'md5' && !preg_match('/^[A-Fa-f0-9]{32}$/', $password)) {
                     $msg = "Encryption $encrypt_method is invalid";
                     $results[] = $msg;
@@ -2423,7 +2420,7 @@ $server->register('WSEditUserPasswordCrypted',                         // method
 // Define the method WSEditUserPasswordCrypted
 function WSEditUserPasswordCrypted($params)
 {
-    global $_configuration;
+    $passwordEncryption = api_get_configuration_value('password_encryption');
 
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
@@ -2451,10 +2448,9 @@ function WSEditUserPasswordCrypted($params)
     $extra_list = $params['extra'];
 
     if (!empty($params['password']) && !empty($params['encrypt_method'])) {
-
         $password = $params['password'];
         $encrypt_method = $params['encrypt_method'];
-        if ($_configuration['password_encryption'] === $encrypt_method ) {
+        if ($passwordEncryption === $encrypt_method) {
             if ($encrypt_method == 'md5' && !preg_match('/^[A-Fa-f0-9]{32}$/', $password)) {
                 $msg = "Encryption $encrypt_method is invalid";
                 return $msg;
@@ -3005,8 +3001,6 @@ $server->register('WSCreateCourseByTitle',                     // method name
 // Define the method WSCreateCourseByTitle
 function WSCreateCourseByTitle($params)
 {
-    global $_configuration;
-
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
@@ -3079,7 +3073,7 @@ function WSCreateCourseByTitle($params)
 
         $values['tutor_name'] = api_get_person_name($_user['firstName'], $_user['lastName'], null, null, $values['course_language']);
 
-        $keys = AddCourse::define_course_keys($wanted_code, '', $_configuration['db_prefix']);
+        AddCourse::define_course_keys($wanted_code, '');
 
         $sql_check = sprintf('SELECT * FROM '.$table_course.' WHERE visual_code = "%s"', Database :: escape_string($wanted_code));
         $result_check = Database::query($sql_check); // I don't know why this api function doesn't work...
@@ -3242,9 +3236,8 @@ $server->register('WSEditCourse',                // method name
 );
 
 // Define the method WSEditCourse
-function WSEditCourse($params){
-
-    global $_configuration;
+function WSEditCourse($params)
+{
     if (!WSHelperVerifyKey($params)) {
         return returnError(WS_ERROR_SECRET_KEY);
     }
@@ -3296,11 +3289,8 @@ function WSEditCourse($params){
         $res = Database::query($sql);
         $tutor_name = Database::fetch_row($res);
 
-        $dbnamelength = strlen($_configuration['db_prefix']);
-        $maxlength = 40 - $dbnamelength;
-
         if (empty($visual_code)) {
-            $visual_code = CourseManager::generate_course_code(substr($title, 0, $maxlength));
+            $visual_code = CourseManager::generate_course_code($title);
         }
         $tutor_name = $tutor_name[0];
         $sql = "UPDATE $course_table SET
@@ -6327,7 +6317,6 @@ $server->register(
 
 function WSCertificatesList($startingDate = '', $endingDate = '')
 {
-    global $_configuration;
     $certificatesCron = api_get_setting('add_gradebook_certificates_cron_task_enabled');
     if ($certificatesCron === 'true') {
         require_once api_get_path(SYS_CODE_PATH).'cron/add_gradebook_certificates.php';

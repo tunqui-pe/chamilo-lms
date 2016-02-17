@@ -43,12 +43,14 @@ class Room
     public $chamiloSessionId;
     private $table;
 
+    /**
+     * Room constructor.
+     */
     public function __construct()
     {
         $this->table = \Database::get_main_table('plugin_openmeetings');
-        global $_configuration;
         $this->name = 'C'.api_get_real_course_id().'-'.api_get_session_id();
-        $accessUrl = api_get_access_url($_configuration['access_url']);
+        $accessUrl = api_get_access_url(api_get_current_access_url_id());
         $this->externalRoomType = substr($accessUrl['url'], strpos($accessUrl['url'],'://')+3,-1);
         if (strcmp($this->externalRoomType, 'localhost') == 0) {
             $this->externalRoomType = substr(api_get_path(WEB_PATH), strpos(api_get_path(WEB_PATH),'://')+3, -1);

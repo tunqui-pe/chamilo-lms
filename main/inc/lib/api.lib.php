@@ -779,10 +779,11 @@ function api_get_path($path_type, $path = null)
 
     // To avoid that the api_get_access_url() function fails since global.inc.php also calls the main_api.lib.php
     if ($path_type == WEB_PATH) {
-        if (isset($_configuration['access_url']) && $_configuration['access_url'] != 1) {
+        $urlId = api_get_current_access_url_id();
+        if ($urlId != 1) {
             //we look into the DB the function api_get_access_url
-            $url_info = api_get_access_url($_configuration['access_url']);
-            $root_web = $url_info['active'] == 1 ? $url_info['url'] : $_configuration['root_web'];
+            $url_info = api_get_access_url($urlId);
+            $root_web = $url_info['active'] == 1 ? $url_info['url'] : $root_web;
             $load_new_config = true;
         }
     }

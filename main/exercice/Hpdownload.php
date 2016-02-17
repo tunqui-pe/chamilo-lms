@@ -70,12 +70,14 @@ header('Last-Modified: '.gmdate('D, d M Y H:i:s',time()+10).' GMT');
 if ($content_type == 'text/html') {
 	$directory_name = dirname($full_file_name);
 
-	$dir=str_replace(array('\\',$_configuration['root_sys']."courses/".$_course['path'].'/document'),array('/',''),$directory_name);
+	$dir = str_replace(
+		array('\\', api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/document'), array('/', ''),
+		$directory_name
+	);
 
-	if($dir[strlen($dir)-1] != '/') {
-		$dir.='/';
-	}
-
+    if ($dir[strlen($dir) - 1] != '/') {
+        $dir .= '/';
+    }
 
 	//Parse whole file at one
 	$fp = fopen($full_file_name, "r");

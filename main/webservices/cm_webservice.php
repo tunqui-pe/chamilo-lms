@@ -1,11 +1,12 @@
 <?php
-require_once(dirname(__FILE__).'/../inc/global.inc.php');
+
 $libpath = api_get_path(LIBRARY_PATH);
 
 /**
  * Error returned by one of the methods of the web service. Contains an error code and an error message
  */
-class WSCMError {
+class WSCMError
+{
 	/**
 	 * Error handler. This needs to be a class that implements the interface WSErrorHandler
 	 *
@@ -109,12 +110,12 @@ class WSCM {
 		// if we are behind a reverse proxy, assume it will send the
 		// HTTP_X_FORWARDED_FOR header and use this IP instead
 		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		  list($ip1,$ip2) = split(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
+		  list($ip1,$ip2) = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
 		  $ip = trim($ip1);
 		}
-		$security_key = $ip.$this->_configuration['security_key'];
+		$security_key = $ip.api_get_configuration_value('security_key');
 
-		if(!api_is_valid_secret_key($secret_key, $security_key)) {
+		if (!api_is_valid_secret_key($secret_key, $security_key)) {
 			return new WSCMError(1, "API key is invalid");
 		} else {
 			return null;

@@ -48,14 +48,13 @@ if (is_file(api_get_path(WEB_CODE_PATH) .'webservices/webservice-auth-ip.conf.ph
         $check_ip = true;
     }
 }
-
-global $_configuration;
+$securityKeyFromParam = api_get_configuration_value('security_key');
 if ($check_ip) {
-    $security_key = $_configuration['security_key'];
+    $security_key = $securityKeyFromParam;
 } else {
-    $security_key = $ip.$_configuration['security_key'];
-    //error_log($secret_key.'-'.$security_key);
+    $security_key = $ip.$securityKeyFromParam;
 }
+
 /**
  * End WSHelperVerifyKey
  */
