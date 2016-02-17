@@ -109,21 +109,21 @@ sonata_admin:
                     - sonata.admin.course_category
                     - sonata.admin.course_request
 #                    - sonata.admin.notebook
-#            sonata.admin.group.session:
-#                  label: Sessions
-#                  #icon:  '<i class="fa fa-play-circle"></i>'
-#                  label_catalogue: SonataAdminBundle
-#                  items:
-#                      - sonata.admin.session
-#                      - sonata.admin.session_category
-#                      - sonata.admin.career
-#                      - sonata.admin.promotion
-#            sonata.admin.group.url:
-#                  label: URLs
-#                  #icon:  '<i class="fa fa-play-circle"></i>'
-#                  label_catalogue: SonataAdminBundle
-#                  items:
-#                      - sonata.admin.access_url
+            sonata.admin.group.session:
+                  label: Sessions
+                  #icon:  '<i class="fa fa-play-circle"></i>'
+                  label_catalogue: SonataAdminBundle
+                  items:
+                      - sonata.admin.session
+                      - sonata.admin.session_category
+                      - sonata.admin.career
+                      - sonata.admin.promotion
+            sonata.admin.group.url:
+                  label: URLs
+                  #icon:  '<i class="fa fa-play-circle"></i>'
+                  label_catalogue: SonataAdminBundle
+                  items:
+                      - sonata.admin.access_url
 
     assets:
         stylesheets:
