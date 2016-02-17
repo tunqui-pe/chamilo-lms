@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Entity\Repository;
 
+use Chamilo\CoreBundle\Entity\AccessUrl;
 use Chamilo\CoreBundle\Entity\Course;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -84,6 +85,40 @@ class CourseRepository extends EntityRepository
         $queryBuilder = $this->getSubscribedUsers($course);
         //@todo add criterias
         return $queryBuilder;
+    }
+
+    /**
+     * Get number of courses in URL
+     * @param AccessUrl $url
+     *
+     * @return int
+     */
+    public function getCountCoursesByUrl(AccessUrl $url)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->innerJoin('c.urls', 'u')
+            ->where('u = :u')
+            ->setParameters(['u' => $url])
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Get number of active courses in URL
+     * @param AccessUrl $url
+     *
+     * @return int
+     */
+    public function getCountActiveCoursesByUrl(AccessUrl $url)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c)')
+            ->innerJoin('c.urls', 'u')
+            ->where('c.visibility <> :visibility AND u = :u')
+            ->setParameters(['visibility' => COURSE_VISIBILITY_HIDDEN, 'u' => $url])
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

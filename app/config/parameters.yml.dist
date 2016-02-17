@@ -54,3 +54,4 @@ parameters:
 
     # Hide fields in the main/user/user.php page
     # hide_user_field_from_list : ['username']
+    hosting_total_size_limit: 0

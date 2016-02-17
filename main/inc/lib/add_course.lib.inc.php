@@ -3,6 +3,7 @@
 
 use Chamilo\CourseBundle\Entity\CTool;
 use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Entity\AccessUrlRelCourse;
 
 /**
  * Class AddCourse
@@ -1162,6 +1163,10 @@ class AddCourse
         if ($ok_to_register_course) {
 
             $manager = Database::getManager();
+            $url = $manager->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
+
+            $accessRelCourse = new AccessUrlRelCourse();
+            $accessRelCourse->setUrl($url);
 
             $course = new Course();
             $course
@@ -1180,6 +1185,7 @@ class AddCourse
                 ->setDepartmentUrl($department_url)
                 ->setSubscribe(intval($subscribe))
                 ->setVisualCode($visual_code)
+                ->addUrls($accessRelCourse)
             ;
 
             $manager->persist($course);

@@ -66,24 +66,23 @@ class AccessUrlRelCourse
     }
 
     /**
-     * @return mixed
+     * @return AccessUrl
      */
     public function getUrl()
     {
         return $this->url;
     }
 
-
     /**
-     * @param $course
+     * @param Course $course
      */
-    public function setCourse($course)
+    public function setCourse(Course $course)
     {
         $this->course = $course;
     }
 
     /**
-     * @return mixed
+     * @return Course
      */
     public function getCourse()
     {

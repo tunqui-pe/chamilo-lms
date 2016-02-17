@@ -283,6 +283,11 @@ class Course
     protected $currentSession;
 
     /**
+     * @var AccessUrl
+     **/
+    protected $currentUrl;
+
+    /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SkillRelUser", mappedBy="course", cascade={"persist"})
      */
     protected $issuedSkills;
@@ -342,6 +347,7 @@ class Course
         $this->lastEdit = new \DateTime();
 
         $this->users = new ArrayCollection();
+        $this->urls = new ArrayCollection();
         $this->gradebookCategories = new ArrayCollection();
         $this->gradebookEvaluations = new ArrayCollection();
         $this->gradebookLinks = new ArrayCollection();
@@ -1266,11 +1272,49 @@ class Course
     public function setCurrentSession(Session $session)
     {
         // If the session is registered in the course session list.
-        if ($this->getSessions()->contains($session->getId())) {
+        /*if ($this->getSessions()->contains($session->getId())) {
             $this->currentSession = $session;
+        }*/
+
+        $list = $this->getSessions();
+        /** @var SessionRelCourse $item */
+        foreach ($list as $item) {
+            if ($item->getSession()->getId() == $session->getId()) {
+                $this->currentSession = $session;
+                break;
+            }
         }
+
         return $this;
     }
+
+    /**
+     * @param AccessUrl $url
+     *
+     * @return $this
+     */
+    public function setCurrentUrl(AccessUrl $url)
+    {
+        $urlList = $this->getUrls();
+        /** @var AccessUrlRelCourse $item */
+        foreach ($urlList as $item) {
+            if ($item->getUrl()->getId() == $url->getId()) {
+                $this->currentUrl = $url;
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return AccessUrl
+     */
+    public function getCurrentUrl()
+    {
+        return $this->currentUrl;
+    }
+
 
     /**
      * Get issuedSkills

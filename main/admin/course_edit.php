@@ -271,7 +271,6 @@ $form->setDefaults($courseInfo);
 // Validate form
 if ($form->validate()) {
     $course = $form->getSubmitValues();
-
     $visibility = $course['visibility'];
 
     global $_configuration;
@@ -331,21 +330,28 @@ if ($form->validate()) {
         $department_url = 'http://' . $department_url;
     }
 
-    Database::query($sql);
+    $manager = Database::getManager();
+    $courseObj = $manager->getRepository('ChamiloCoreBundle:Course')->find($courseId);
+    if ($courseObj) {
+        $url = $manager->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
 
-    $params = [
-        'course_language' => $course_language,
-        'title' => $title,
-        'category_code' => $category_code,
-        'visual_code' => $visual_code,
-        'department_name' => $department_name,
-        'department_url' => $department_url,
-        'disk_quota' => $disk_quota,
-        'visibility' => $visibility,
-        'subscribe' => $subscribe,
-        'unsubscribe' => $unsubscribe,
-    ];
-    Database::update($course_table, $params, ['id = ?' => $courseId]);
+        $courseObj
+            ->setTitle($title)
+            ->setCourseLanguage($course_language)
+            ->setCategoryCode($category_code)
+            ->setVisualCode($visual_code)
+            ->setDepartmentName($department_name)
+            ->setDepartmentUrl($department_url)
+            ->setDiskQuota(intval($disk_quota))
+            ->setVisibility($visibility)
+            ->setSubscribe(intval($subscribe))
+            ->setUnsubscribe(intval($unsubscribe))
+            ->setCurrentUrl($url)
+        ;
+
+        $manager->persist($courseObj);
+        $manager->flush();
+    }
 
     // update the extra fields
     $courseFieldValue = new ExtraFieldValue('course');

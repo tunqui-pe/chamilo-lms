@@ -24,10 +24,15 @@ class AccessUrlAdmin extends Admin
     {
         $formMapper
             ->add('url', 'url')
-            //->add('code') //if no type is specified, SonataAdminBundle tries to guess it
             ->add('description', 'ckeditor')
             ->add('active')
-            ->add('url_type', 'text')
+            ->add('limitCourses')
+            ->add('limitActiveCourses')
+            ->add('limitSessions')
+            ->add('limitUsers')
+            ->add('limitTeachers')
+            ->add('limitDiskSpace')
+            ->add('email', 'email')
         ;
     }
 
