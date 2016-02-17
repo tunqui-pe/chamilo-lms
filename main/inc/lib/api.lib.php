@@ -779,7 +779,8 @@ function api_get_path($path_type, $path = null)
 
     // To avoid that the api_get_access_url() function fails since global.inc.php also calls the main_api.lib.php
     if ($path_type == WEB_PATH) {
-        $urlId = api_get_current_access_url_id();
+        //$urlId = api_get_current_access_url_id();
+        $urlId = 1;
         if ($urlId != 1) {
             //we look into the DB the function api_get_access_url
             $url_info = api_get_access_url($urlId);
