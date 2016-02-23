@@ -183,11 +183,11 @@ if ($form->validate()) {
 
 // Display the form.
 $content = $form->returnForm();
-
+/*
 $repo = Database::getManager()->getRepository('ChamiloCoreBundle:Course');
 $url = Database::getManager()->getRepository('ChamiloCoreBundle:AccessUrlRelCourse')->find(1);
 $limit = $repo->getCountActiveCoursesByUrl($url);
-var_dump($limit );
+var_dump($limit );*/
 
 echo $content;
 
