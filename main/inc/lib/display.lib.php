@@ -136,6 +136,14 @@ class Display
         return null;
         echo self::$global_template->show_footer_template();
     }
+    
+    /**
+     * Display the page footer
+     */
+    public static function display_reduced_footer()
+    {
+        echo self::$global_template->show_footer_js_template();
+    }
 
     public static function page()
     {
