@@ -106,6 +106,7 @@ class ToolChain
     public function addToolsInCourse(Course $course)
     {
         $tools = $this->getTools();
+
         /** @var BaseTool $tool */
         foreach ($tools as $tool) {
             $toolEntity = new CTool();
@@ -113,6 +114,7 @@ class ToolChain
                 ->setCId($course->getId())
                 ->setImage($tool->getImage())
                 ->setName($tool->getName())
+                ->setVisibility(1)
                 ->setLink($tool->getLink())
                 ->setTarget($tool->getTarget())
                 ->setCategory($tool->getCategory());
