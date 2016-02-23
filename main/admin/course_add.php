@@ -186,8 +186,10 @@ $content = $form->returnForm();
 
 $repo = Database::getManager()->getRepository('ChamiloCoreBundle:Course');
 $url = Database::getManager()->getRepository('ChamiloCoreBundle:AccessUrlRelCourse')->find(1);
-$limit = $repo->getCountActiveCoursesByUrl($url);
-var_dump($limit );
+
+if ($url) {
+    $limit = $repo->getCountActiveCoursesByUrl($url->getUrl());
+}
 
 echo $content;
 
