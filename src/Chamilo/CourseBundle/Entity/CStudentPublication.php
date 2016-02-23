@@ -122,6 +122,13 @@ class CStudentPublication
     /**
      * @var integer
      *
+     * @ORM\Column(name="filesize", type="integer", nullable=true)
+     */
+    private $filesize;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="has_properties", type="integer", nullable=false)
      */
     private $hasProperties;
@@ -757,4 +764,26 @@ class CStudentPublication
     {
         $this->documentId = $documentId;
     }
+
+    /**
+     * @return int
+     */
+    public function getFilesize()
+    {
+        return $this->filesize;
+    }
+
+    /**
+     * @param int $filesize
+     *
+     * @return CStudentPublication
+     */
+    public function setFilesize($filesize)
+    {
+        $this->filesize = $filesize;
+
+        return $this;
+    }
+
+
 }

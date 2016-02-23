@@ -3543,6 +3543,7 @@ function uploadWork($my_folder_data, $_course, $isCorrection = false, $workInfo 
     return array(
         'url' => $url,
         'filename' => $filename,
+        'filesize' => $filesize,
         'error' => null
     );
 }
@@ -3667,6 +3668,7 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
     $message = null;
     $filename = null;
     $url = null;
+    $filesize = null;
 
     if ($values['contains_file']) {
         $result = uploadWork($workInfo, $courseInfo);
@@ -3678,6 +3680,8 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
         if (empty($title)) {
             $title = isset($result['title']) && !empty($result['title']) ? $result['title'] : get_lang('Untitled');
         }
+
+        $filesize = isset($result['filesize']) ? $result['filesize'] : null;
         $url = $result['url'];
     }
 
@@ -3699,7 +3703,8 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
             'sent_date'    =>  api_get_utc_datetime(),
             'parent_id'    =>  $workInfo['id'],
             'session_id'   => $sessionId,
-            'user_id'      => $userId
+            'user_id'      => $userId,
+            'filesize' => $filesize
         ];
         $workId = Database::insert($work_table, $params);
 
