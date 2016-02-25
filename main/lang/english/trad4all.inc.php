@@ -3169,7 +3169,7 @@ $ModifyQuestion = "Save the question";
 $Example = "Example";
 $CheckAll = "Check all";
 $NbAnnoucement = "Announcement";
-$OtherCourses = "other courses";
+$OtherCourses = "Other courses";
 $Doc = "Document";
 $PlataformAdmin = "Portal Admin";
 $Groups = "Groups";
@@ -7609,4 +7609,6 @@ $DissociateForumToLPItem = "Dissociate the forum of this learning path item";
 $AssociateForumToLPItem = "Associate a forum to this learning path item";
 $ForumDissociated = "Forum dissociated";
 $ClickOrDropOneFileHere = "Click or drop one file here";
+$ModuloPercentage = "Modulo:\t\t\t%";
+$LastXDays = "Last % days";
 ?>

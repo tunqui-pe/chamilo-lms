@@ -3697,8 +3697,7 @@ class Tracking
         $tbl_track_login = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
         $tbl_session_course_user = Database :: get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
         $table_course_rel_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
-        $tableCourse   = Database :: get_main_table(TABLE_MAIN_COURSE);
-        $inner = '';
+        $tableCourse = Database :: get_main_table(TABLE_MAIN_COURSE);
         $now = api_get_utc_datetime();
         $courseId = intval($courseId);
 
@@ -3706,37 +3705,57 @@ class Tracking
             return false;
         }
 
-        if ($session_id != 0) {
-            $inner = ' INNER JOIN '.$tbl_session_course_user.' session_course_user
-                    ON c.id = session_course_user.c_id
-                    AND session_course_user.session_id = '.intval($session_id).'
-                    AND session_course_user.user_id = stats_login.user_id ';
+        if (empty($session_id)) {
+            $inner = '
+                INNER JOIN '.$table_course_rel_user.' course_user
+                ON course_user.user_id = stats_login.user_id AND course_user.c_id = c.id
+            ';
+        } else {
+            $inner = '
+                    INNER JOIN '.$tbl_session_course_user.' session_course_user
+                    ON
+                        c.id = session_course_user.c_id AND
+                        session_course_user.session_id = '.intval($session_id).' AND
+                        session_course_user.user_id = stats_login.user_id ';
         }
 
         $sql = 'SELECT stats_login.user_id, MAX(login_course_date) max_date
-                FROM '.$tbl_track_login.' stats_login '.$inner.'
+                FROM '.$tbl_track_login.' stats_login
                 INNER JOIN '.$tableCourse.' c
                 ON (c.id = stats_login.c_id)
-                INNER JOIN '.$table_course_rel_user.' course_user
-                ON course_user.user_id = stats_login.user_id AND course_user.c_id = c.id
+                '.$inner.'
                 WHERE c.id = '.$courseId.'
-                GROUP BY user_id
+                GROUP BY stats_login.user_id
                 HAVING DATE_SUB( "' . $now . '", INTERVAL '.$since.' DAY) > max_date ';
 
         if ($since == 'never') {
-            $sql = 'SELECT course_user.user_id
-                    FROM '.$table_course_rel_user.' course_user
-                    LEFT JOIN '. $tbl_track_login.' stats_login
-                    ON course_user.user_id = stats_login.user_id AND
-                    relation_type<>'.COURSE_RELATION_TYPE_RRHH.'
-                    INNER JOIN '.$tableCourse.' c
-                    ON (c.id = stats_login.c_id)
-                    '.$inner.'
-                    WHERE
-                        course_user.c_id = '.$courseId.' AND
-                        stats_login.login_course_date IS NULL
-                    GROUP BY course_user.user_id';
+            if (empty($session_id)) {
+                $sql = 'SELECT course_user.user_id
+                        FROM ' . $table_course_rel_user . ' course_user
+                        LEFT JOIN ' . $tbl_track_login . ' stats_login
+                        ON course_user.user_id = stats_login.user_id AND
+                        relation_type<>' . COURSE_RELATION_TYPE_RRHH . '
+                        INNER JOIN ' . $tableCourse . ' c
+                        ON (c.id = course_user.c_id)
+                        WHERE
+                            course_user.c_id = ' . $courseId . ' AND
+                            stats_login.login_course_date IS NULL
+                        GROUP BY course_user.user_id';
+            } else {
+                $sql = 'SELECT session_course_user.user_id
+                        FROM '.$tbl_session_course_user.' session_course_user
+                        LEFT JOIN ' . $tbl_track_login . ' stats_login
+                        ON session_course_user.user_id = stats_login.user_id
+                        INNER JOIN ' . $tableCourse . ' c
+                        ON (c.id = session_course_user.c_id)
+                        WHERE
+                            session_course_user.c_id = ' . $courseId . ' AND
+                            stats_login.login_course_date IS NULL
+                        GROUP BY session_course_user.user_id';
+
+            }
         }
+
         $rs = Database::query($sql);
         $inactive_users = array();
         while($user = Database::fetch_array($rs)) {

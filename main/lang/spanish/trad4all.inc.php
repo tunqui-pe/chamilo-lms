@@ -3169,7 +3169,7 @@ $ModifyQuestion = "Modificar pregunta";
 $Example = "Ejemplo";
 $CheckAll = "comprobar";
 $NbAnnoucement = "Avisos";
-$OtherCourses = "otros cursos";
+$OtherCourses = "Otros cursos";
 $Doc = "documento";
 $PlataformAdmin = "Administración de la plataforma";
 $Groups = "Grupos";
@@ -7634,4 +7634,6 @@ $DissociateForumToLPItem = "Disociar el hilo de la conversación de este paso de
 $AssociateForumToLPItem = "Asociar un hilo de conversación de foro a este paso de la lección";
 $ForumDissociated = "Foro disociado";
 $ClickOrDropOneFileHere = "Suelte un archivo aquí o haga clic";
+$ModuloPercentage = "Módulo:\t\t\t%";
+$LastXDays = "Últimos %s días";
 ?>
