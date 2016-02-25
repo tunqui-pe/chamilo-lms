@@ -119,6 +119,11 @@ class AccessUrl
     protected $course;
 
     /**
+     * @ORM\OneToMany(targetEntity="AccessUrlRelSession", mappedBy="url", cascade={"persist"}, orphanRemoval=true)
+     **/
+    protected $session;
+
+    /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SettingsCurrent", mappedBy="url", cascade={"persist"}, orphanRemoval=true)
      **/
     protected $settings;

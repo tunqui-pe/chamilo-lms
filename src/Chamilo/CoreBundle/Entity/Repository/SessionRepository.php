@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Entity\Repository;
 
+use Chamilo\CoreBundle\Entity\AccessUrl;
 use Doctrine\ORM\EntityRepository;
 use Chamilo\CoreBundle\Entity\Session;
 use \Doctrine\ORM\Query\Expr\Join;
@@ -44,4 +45,20 @@ class SessionRepository extends EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    /**
+     * Get number of sessions in URL
+     * @param AccessUrl $url
+     *
+     * @return int
+     */
+    public function getCountSessionByUrl(AccessUrl $url)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->innerJoin('a.urls', 'u')
+            ->where('u.url = :u')
+            ->setParameters(['u' => $url])
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

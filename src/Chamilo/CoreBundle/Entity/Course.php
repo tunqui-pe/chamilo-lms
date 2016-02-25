@@ -1315,7 +1315,6 @@ class Course
         return $this->currentUrl;
     }
 
-
     /**
      * Get issuedSkills
      * @return ArrayCollection

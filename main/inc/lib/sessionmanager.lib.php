@@ -3,6 +3,7 @@
 
 use Chamilo\CoreBundle\Entity\SessionRelCourseRelUser;
 use Chamilo\CoreBundle\Framework\Container;
+use Chamilo\CoreBundle\Entity\Session;
 
 /**
  * Class SessionManager
@@ -97,15 +98,9 @@ class SessionManager
         $sessionAdminId = 0,
         $sendSubscritionNotification = false
     ) {
-        global $_configuration;
 
-        //Check portal limits
-        $access_url_id = 1;
-
-        if (api_get_multiple_access_url()) {
-            $access_url_id = api_get_current_access_url_id();
-        }
-
+        $em = Database::getManager();
+        /*
         if (is_array($_configuration[$access_url_id]) &&
             isset($_configuration[$access_url_id]['hosting_limit_sessions']) &&
             $_configuration[$access_url_id]['hosting_limit_sessions'] > 0
@@ -115,15 +110,11 @@ class SessionManager
                 api_warn_hosting_contact('hosting_limit_sessions');
                 return get_lang('PortalSessionsLimitReached');
             }
-        }
-
-        $name = Database::escape_string(trim($name));
+        }*/
+        $name = trim($name);
         $sessionCategoryId = intval($sessionCategoryId);
         $visibility = intval($visibility);
         $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
-
-        $startDate = Database::escape_string($startDate);
-        $endDate = Database::escape_string($endDate);
 
         if (empty($name)) {
             $msg = get_lang('SessionNameIsRequired');
@@ -161,64 +152,75 @@ class SessionManager
 
             if ($ready_to_create) {
                 $sessionAdminId = !empty($sessionAdminId) ? $sessionAdminId : api_get_user_id();
-                $values = array(
-                    'name' => $name,
-                    'id_coach' => $coachId,
-                    'session_admin_id' => $sessionAdminId,
-                    'visibility' => $visibility,
-                    'description' => $description,
-                    'show_description' => intval($showDescription),
-                    'send_subscription_notification' => $sendSubscritionNotification
-                );
+
+                $session = new Session();
+                $session
+                    ->setName($name)
+                    ->setVisibility($visibility)
+                    ->setDescription($description)
+                    ->setShowDescription($showDescription)
+                    ->setSendSubscriptionNotification($sendSubscritionNotification)
+                    ->setSessionAdminId($sessionAdminId)
+                ;
+
+                if (!empty($coachId)) {
+                    $coach = UserManager::getManager()->find($coachId);
+                    if ($coach) {
+                        $session->setGeneralCoach($coach);
+                    }
+                }
 
                 if (!empty($startDate)) {
-                    $values['access_start_date'] = api_get_utc_datetime($startDate);
+                    $session->setAccessStartDate(new \DateTime($startDate));
                 }
 
                 if (!empty($endDate)) {
-                    $values['access_end_date'] = api_get_utc_datetime($endDate);
+                    $session->setAccessEndDate(new \DateTime($endDate));
                 }
 
                 if (!empty($displayStartDate)) {
-                    $values['display_start_date'] = api_get_utc_datetime($displayStartDate);
+                    $session->setDisplayStartDate(new \DateTime($displayStartDate));
                 }
 
                 if (!empty($displayEndDate)) {
-                    $values['display_end_date'] = api_get_utc_datetime($displayEndDate);
+                    $session->setDisplayEndDate(new \DateTime($displayEndDate));
                 }
 
                 if (!empty($coachStartDate)) {
-                    $values['coach_access_start_date'] = api_get_utc_datetime($coachStartDate);
+                    $session->setCoachAccessStartDate(new \DateTime($coachStartDate));
                 }
                 if (!empty($coachEndDate)) {
-                    $values['coach_access_end_date'] = api_get_utc_datetime($coachEndDate);
+                    $session->setCoachAccessEndDate(new \DateTime($coachEndDate));
                 }
 
                 if (!empty($sessionCategoryId)) {
-                    $values['session_category_id'] = $sessionCategoryId;
+                    $session->setCategory($sessionCategoryId);
                 }
-
-                $session_id = Database::insert($tbl_session, $values);
-
                 $duration = intval($duration);
 
                 if (!empty($duration)) {
-                    $sql = "UPDATE $tbl_session SET
-                        access_start_date = NULL,
-                        access_end_date = NULL,
-                        display_start_date = NULL,
-                        display_end_date = NULL,
-                        coach_access_start_date = NULL,
-                        coach_access_end_date = NULL,
-                        duration = $duration
-                    WHERE id = $session_id";
-                    Database::query($sql);
+                    $session->setDuration($duration);
+                    $session->setAccessStartDate(null);
+                    $session->setAccessEndDate(null);
+                    $session->setDisplayStartDate(null);
+                    $session->setDisplayEndDate(null);
+                    $session->setCoachAccessStartDate(null);
+                    $session->setCoachAccessEndDate(null);
                 } else {
-                    $sql = "UPDATE $tbl_session
-                        SET duration = 0
-                        WHERE id = $session_id";
-                    Database::query($sql);
+                    $session->setDuration(0);
                 }
+
+                $url = $em->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
+
+                $accessRelSession = new \Chamilo\CoreBundle\Entity\AccessUrlRelSession();
+                $accessRelSession->setUrl($url);
+
+                $session->addUrls($accessRelSession);
+
+                $em->persist($session);
+                $em->flush();
+
+                $session_id = $session->getId();
 
                 if (!empty($session_id)) {
                     $extraFields['item_id'] = $session_id;

@@ -93,7 +93,7 @@ class CourseManager
      */
     public static function create_course($params, $extraFields = array())
     {
-        global $_configuration;
+        /*global $_configuration;
         // Check portal limits
         $access_url_id = 1;
         if (api_get_multiple_access_url()) {
@@ -126,7 +126,7 @@ class CourseManager
                     );
                 }
             }
-        }
+        }*/
 
         if (empty($params['title'])) {
             return false;
