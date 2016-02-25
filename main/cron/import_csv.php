@@ -1737,8 +1737,7 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\BufferHandler;
 
 $logger = new Logger('cron');
-$emails = isset($_configuration['cron_notification_mails']) ? $_configuration['cron_notification_mails'] : null;
-
+$emails = api_get_configuration_value('cron_notification_mails');
 $minLevel = Logger::DEBUG;
 
 if (!is_array($emails)) {
@@ -1758,15 +1757,12 @@ $stream = new StreamHandler(api_get_path(SYS_ARCHIVE_PATH).'import_csv.log', $mi
 $logger->pushHandler(new BufferHandler($stream, 0, $minLevel));
 $logger->pushHandler(new RotatingFileHandler('import_csv', 5, $minLevel));
 
-$cronImportCSVConditions = isset($_configuration['cron_import_csv_conditions']) ? $_configuration['cron_import_csv_conditions'] : null;
+$cronImportCSVConditions = api_get_configuration_value('cron_import_csv_conditions');
 
 echo 'See the error log here: '.api_get_path(SYS_ARCHIVE_PATH).'import_csv.log'."\n";
 
 $import = new ImportCsv($logger, $cronImportCSVConditions);
-
-if (isset($_configuration['default_admin_user_id_for_cron'])) {
-    $import->defaultAdminId = $_configuration['default_admin_user_id_for_cron'];
-}
+$import->defaultAdminId = api_get_configuration_value('default_admin_user_id_for_cron');
 // @todo in production disable the dump option
 $dump = false;
 
@@ -1774,26 +1770,26 @@ if (isset($argv[1]) && $argv[1] = '--dump') {
     $dump = true;
 }
 
-if (isset($_configuration['import_csv_disable_dump']) &&
-    $_configuration['import_csv_disable_dump'] == true
-) {
+$disableDump = api_get_configuration_value('import_csv_disable_dump');
+if (isset($disableDump) && $disableDump == true) {
     $import->setDumpValues(false);
 } else {
     $import->setDumpValues($dump);
 }
 
 // Do not moves the files to treated
-if (isset($_configuration['import_csv_test'])) {
-    $import->test = $_configuration['import_csv_test'];
+$importTest = api_get_configuration_value('import_csv_test');
+if (!empty($importTest) && $importTest) {
+    $import->test = $importTest;
 } else {
     $import->test = true;
 }
 
 $import->run();
 
-if (isset($_configuration['import_csv_fix_permissions']) &&
-    $_configuration['import_csv_fix_permissions'] == true
-) {
+$fixPermissions = api_get_configuration_value('import_csv_fix_permissions');
+
+if ($fixPermissions == true) {
     $command = "sudo find ".api_get_path(SYS_COURSE_PATH)." -type d -exec chmod 777 {} \; ";
     echo "Executing: ".$command.PHP_EOL;
     system($command);
