@@ -884,9 +884,11 @@ class GradebookUtils
                 $row = current($res);
                 $category_id = $row->getId();
             }
+            
+            return $category_id;
         }
 
-        return $category_id;
+        return false;
     }
 
     /**

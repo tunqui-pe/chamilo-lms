@@ -1824,7 +1824,7 @@ class UserManager
             'variable' => $variable,
             'value' => $value
         ];
-        $extraFieldValue->save($params);
+        return $extraFieldValue->save($params);
     }
 
     /**

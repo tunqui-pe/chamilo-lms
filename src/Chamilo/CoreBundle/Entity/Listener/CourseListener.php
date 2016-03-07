@@ -5,6 +5,7 @@ namespace Chamilo\CoreBundle\Entity\Listener;
 
 use Chamilo\CoreBundle\Entity\AccessUrl;
 use Chamilo\CoreBundle\Entity\AccessUrlRelCourse;
+use Chamilo\CoreBundle\Entity\Repository\CourseRepository;
 use Chamilo\CoreBundle\Entity\Tool;
 use Chamilo\CourseBundle\ToolChain;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class CourseListener
- * Course entity listener, when a course is created the tool chain is loaded.
+ * Course entity listener, when a course is created/edited and when the tool chain is loaded.
  * @package Chamilo\CoreBundle\EventListener
  */
 class CourseListener
@@ -46,25 +47,8 @@ class CourseListener
         $url = $urlRelCourse->getUrl();
 
         $repo = $args->getEntityManager()->getRepository('ChamiloCoreBundle:Course');
-        $limit = $url->getLimitCourses();
 
-        if (!empty($limit)) {
-            $count = $repo->getCountCoursesByUrl($url);
-            if ($count >= $limit) {
-                throw new \Exception('Limit courses reached');
-            }
-        }
-
-        if ($course->getVisibility() != COURSE_VISIBILITY_HIDDEN) {
-            $limit = $url->getLimitActiveCourses();
-
-            if (!empty($limit)) {
-                $count = $repo->getCountActiveCoursesByUrl($url);
-                if ($count >= $limit) {
-                    throw new \Exception('Limit active courses reached');
-                }
-            }
-        }
+        $this->checkLimit($repo, $course, $url);
 
         $this->toolChain->addToolsInCourse($course);
         /*
@@ -80,18 +64,39 @@ class CourseListener
      *
      * @param Course $course
      * @param LifecycleEventArgs $args
+     * @throws \Exception
      */
     public function preUpdate(Course $course, LifecycleEventArgs $args)
     {
         $url = $course->getCurrentUrl();
 
         $repo = $args->getEntityManager()->getRepository('ChamiloCoreBundle:Course');
+
+        $this->checkLimit($repo, $course, $url);
+
+        /*if ($eventArgs->getEntity() instanceof User) {
+            if ($eventArgs->hasChangedField('name') && $eventArgs->getNewValue('name') == 'Alice') {
+                $eventArgs->setNewValue('name', 'Bob');
+            }
+        }*/
+    }
+
+    /**
+     * @param CourseRepository $repo
+     * @param Course $course
+     * @param AccessUrl $url
+     * @throws \Exception
+     */
+    private function checkLimit($repo, Course $course, AccessUrl $url)
+    {
         $limit = $url->getLimitCourses();
 
         if (!empty($limit)) {
             $count = $repo->getCountCoursesByUrl($url);
             if ($count >= $limit) {
-                throw new \Exception('Limit courses reached');
+                api_warn_hosting_contact('hosting_limit_courses', $limit);
+
+                throw new \Exception('PortalCoursesLimitReached');
             }
         }
 
@@ -101,15 +106,11 @@ class CourseListener
             if (!empty($limit)) {
                 $count = $repo->getCountActiveCoursesByUrl($url);
                 if ($count >= $limit) {
-                    throw new \Exception('Limit active courses reached');
+                    api_warn_hosting_contact('hosting_limit_active_courses', $limit);
+
+                    throw new \Exception('PortalActiveCoursesLimitReached');
                 }
             }
         }
-
-        /*if ($eventArgs->getEntity() instanceof User) {
-            if ($eventArgs->hasChangedField('name') && $eventArgs->getNewValue('name') == 'Alice') {
-                $eventArgs->setNewValue('name', 'Bob');
-            }
-        }*/
     }
 }

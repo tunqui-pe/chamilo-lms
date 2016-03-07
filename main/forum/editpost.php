@@ -111,7 +111,7 @@ if (isset($_GET['origin'])) {
 if ($origin == 'learnpath') {
     Display::display_reduced_header();
 } else {
-    Display :: display_header(null);
+    Display::display_header();
 }
 /* Is the user allowed here? */
 
@@ -248,6 +248,8 @@ if (!empty($values) and isset($_POST['SubmitPost'])) {
 }
 
 // Footer
-if (isset($origin) && $origin != 'learnpath') {
-    Display :: display_footer();
+if ($origin == 'learnpath') {
+    Display::display_reduced_footer();
+} else {
+    Display::display_footer();
 }

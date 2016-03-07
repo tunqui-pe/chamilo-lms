@@ -6886,7 +6886,7 @@ function api_get_real_ip(){
     $ip = trim($_SERVER['REMOTE_ADDR']);
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         if (preg_match('/,/', $_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            list($ip1, $ip2) = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            @list($ip1, $ip2) = @explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
         } else {
             $ip1 = $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
@@ -7635,24 +7635,16 @@ function api_get_origin()
  * Warns an user that the portal reach certain limit.
  * @param string $limitName
  */
-function api_warn_hosting_contact($limitName)
+function api_warn_hosting_contact($limitName, $limit)
 {
-    $hostingParams = api_get_configuration_value(1);
-    $email = null;
-
-    if (!empty($hostingParams)) {
-        if (isset($hostingParams['hosting_contact_mail'])) {
-            $email = $hostingParams['hosting_contact_mail'];
-        }
-    }
+    $email = api_get_configuration_value('hosting_contact_mail');
 
     if (!empty($email)) {
         $subject = get_lang('HostingWarningReached');
         $body = get_lang('PortalName').': '.api_get_path(WEB_PATH)." \n ";
         $body .= get_lang('PortalLimitType').': '.$limitName." \n ";
-        if (isset($hostingParams[$limitName])) {
-            $body .= get_lang('Value') . ': ' . $hostingParams[$limitName];
-        }
+        $body .= get_lang('Value') . ': ' . $limit;
+
         api_mail_html(null, $email, $subject, $body);
     }
 }

@@ -97,8 +97,8 @@ class CourseRepository extends EntityRepository
     {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a)')
-            ->innerJoin('c.urls', 'u')
-            ->where('u = :u')
+            ->innerJoin('a.urls', 'u')
+            ->where('u.url = :u')
             ->setParameters(['u' => $url])
             ->getQuery()
             ->getSingleScalarResult();
@@ -115,7 +115,7 @@ class CourseRepository extends EntityRepository
         return $this->createQueryBuilder('c')
             ->select('COUNT(c)')
             ->innerJoin('c.urls', 'u')
-            ->where('c.visibility <> :visibility AND u = :u')
+            ->where('c.visibility <> :visibility AND u.url = :u')
             ->setParameters(['visibility' => COURSE_VISIBILITY_HIDDEN, 'u' => $url])
             ->getQuery()
             ->getSingleScalarResult();

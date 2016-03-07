@@ -116,7 +116,12 @@ services:
         arguments: [ "@chamilo_course.tool_chain" ]
         tags:
             - { name: doctrine.orm.entity_listener }
-#            - { name: doctrine.entity_listener } if using custom entity_listener_resolver
+
+    # When Session entity is loaded
+    chamilo_core.listener.session:
+        class: Chamilo\CoreBundle\Entity\Listener\SessionListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
 
     # Setting legacy variables
     chamilo_core.listener.legacy:

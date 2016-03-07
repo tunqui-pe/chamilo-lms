@@ -273,7 +273,7 @@ if ($form->validate()) {
     $course = $form->getSubmitValues();
     $visibility = $course['visibility'];
 
-    global $_configuration;
+    /*global $_configuration;
     $urlId = api_get_current_access_url_id();
     if (isset($_configuration[$urlId]) &&
         isset($_configuration[$urlId]['hosting_limit_active_courses']) &&
@@ -293,7 +293,7 @@ if ($form->validate()) {
                 exit;
             }
         }
-    }
+    }*/
 
     $visual_code = $course['visual_code'];
     $visual_code = CourseManager::generate_course_code($visual_code);

@@ -747,9 +747,9 @@ INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, v
 INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, created_at) VALUES (1, 1, 'rssfeeds','RSS',0,0, NOW());
 INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, created_at) VALUES (1, 1, 'dashboard', 'Dashboard', 0, 0, NOW());
 INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, created_at) VALUES (1, 11, 'timezone', 'Timezone', 0, 0, NOW());
-INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) values (1, 4, 'mail_notify_invitation',   'MailNotifyInvitation',1,1,'1', NOW());
-INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) values (1, 4, 'mail_notify_message',      'MailNotifyMessage',1,1,'1', NOW());
-INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) values (1, 4, 'mail_notify_group_message','MailNotifyGroupMessage',1,1,'1', NOW());
+INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) values (1, 4, 'mail_notify_invitation',   'MailNotifyInvitation',0,1,'1', NOW());
+INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) values (1, 4, 'mail_notify_message',      'MailNotifyMessage',0,1,'1', NOW());
+INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) values (1, 4, 'mail_notify_group_message','MailNotifyGroupMessage',0,1,'1', NOW());
 INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, created_at) VALUES (1, 1, 'user_chat_status','User chat status',0,0, NOW());
 INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, created_at) VALUES (1, 1, 'google_calendar_url','Google Calendar URL',0,0, NOW());
 INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible, changeable, default_value, created_at) VALUES (2, 13, 'special_course', 'Special course', 1 , 1, '', NOW());
@@ -1799,4 +1799,17 @@ VALUES
 ('show_full_skill_name_on_skill_wheel', 'true', 'Yes'),
 ('show_full_skill_name_on_skill_wheel', 'false', 'No');
 
-UPDATE settings_current SET selected_value = '1.10.0.51' WHERE variable = 'chamilo_database_version';
+-- Version 1.10.0.52
+
+INSERT INTO settings_current (variable, subkey, type, category, selected_value, title, comment, scope, subkeytext, access_url_changeable)
+VALUES
+('messaging_allow_send_push_notification', NULL, 'radio', 'WebServices', 'false', 'MessagingAllowSendPushNotificationTitle', 'MessagingAllowSendPushNotificationComment', NULL, NULL, 0),
+('messaging_gdc_project_number', NULL, 'textfield', 'WebServices', '', 'MessagingGDCProjectNumberTitle', 'MessagingGDCProjectNumberComment', NULL, NULL, 0),
+('messaging_gdc_api_key', NULL, 'textfield', 'WebServices', '', 'MessagingGDCApiKeyTitle', 'MessagingGDCApiKeyComment', NULL, NULL, 0);
+
+INSERT INTO settings_options (variable, value, display_text)
+VALUES
+('messaging_allow_send_push_notification', 'true', 'Yes'),
+('messaging_allow_send_push_notification', 'false', 'No');
+
+UPDATE settings_current SET selected_value = '1.10.0.52' WHERE variable = 'chamilo_database_version';

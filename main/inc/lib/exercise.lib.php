@@ -108,7 +108,7 @@ class ExerciseLib
                 if ($answerType == DRAGGABLE) {
                     $s .= '<div class="col-md-12 ui-widget ui-helper-clearfix">
                         <div class="clearfix">
-                        <ul class="exercise-draggable-answer ui-helper-reset ui-helper-clearfix">';
+                        <ul class="exercise-draggable-answer ui-helper-reset ui-helper-clearfix list-inline">';
                 } else {
                     $s .= '<div id="drag'.$questionId.'_question" class="drag_question">
                            <table class="data_table">';
@@ -835,7 +835,7 @@ class ExerciseLib
                             $parsed_answer,
                             [
                                 'id' => "window_$windowId",
-                                'class' => "window{$questionId}_question_draggable exercise-draggable-answer-option"
+                                'class' => "window{$questionId}_question_draggable exercise-draggable-answer-option btn btn-info"
                             ]
                         );
                         $selectedValue = 0;
@@ -1061,10 +1061,10 @@ HTML;
 
                     if ($answerCorrect) {
                         $s .= Display::div(
-                            $counterAnswer,
+                            '&nbsp;',
                             [
                                 'id' => "drop_$windowId",
-                                'class' => 'droppable col-md-2'
+                                'class' => 'col-md-2 droppable'
                             ]
                         );
 
@@ -1123,6 +1123,7 @@ HTML;
             $questionDescription = $objQuestionTmp->selectDescription();
 
             if ($freeze) {
+                $relPath = api_get_path(REL_PATH);
                 echo "
                     <script>
                         $(document).on('ready', function () {
@@ -1130,7 +1131,8 @@ HTML;
                                 questionId: $questionId,
                                 exerciseId: $exerciseId,
                                 selector: '#hotspot-preview-$questionId',
-                                for: 'preview'
+                                for: 'preview',
+                                relPath: '$relPath'
                             });
                         });
                     </script>
@@ -1196,7 +1198,7 @@ HOTSPOT;
             }
 
             $canClick = isset($_GET['editQuestion']) ? '0' : (isset($_GET['modifyAnswers']) ? '0' : '1');
-
+            $relPath = api_get_path(REL_PATH);
             $s .= "
                             <div class=\"col-sm-8 col-md-9\">
                                 <div class=\"hotspot-image\"></div>
@@ -1206,7 +1208,8 @@ HOTSPOT;
                                             questionId: $questionId,
                                             exerciseId: $exe_id,
                                             selector: '#question_div_' + $questionId + ' .hotspot-image',
-                                            for: 'user'
+                                            for: 'user',
+                                            relPath: '$relPath'
                                         });
                                     });
                                 </script>
@@ -2872,6 +2875,53 @@ HOTSPOT;
 
         return $return;
     }
+    
+    /**
+     * Get the correct answer count for a fill blanks question
+     * 
+     * @param int $question_id
+     * @param int $exercise_id
+     * @return int
+     */
+    public static function getNumberStudentsFillBlanksAnwserCount(
+        $question_id,
+        $exercise_id
+    ) {
+        $listStudentsId = [];
+            $listAllStudentInfo = CourseManager::get_student_list_from_course_code(
+                api_get_course_id(),
+                true
+            );
+            foreach ($listAllStudentInfo as $i => $listStudentInfo) {
+                $listStudentsId[] = $listStudentInfo['user_id'];
+            }
+
+            $listFillTheBlankResult = FillBlanks::getFillTheBlankTabResult(
+                $exercise_id,
+                $question_id,
+                $listStudentsId,
+                '1970-01-01',
+                '3000-01-01'
+            );
+
+            $arrayCount = [];
+
+            foreach ($listFillTheBlankResult as $resultCount) {
+                foreach ($resultCount as $index => $count) {
+                    //this is only for declare the array index per answer
+                    $arrayCount[$index] = 0;
+                }
+            }
+
+            foreach ($listFillTheBlankResult as $resultCount) {
+                foreach ($resultCount as $index => $count) {
+                    $count = ($count === 0) ? 1 : 0;
+                    $arrayCount[$index] += $count;
+                }
+            }
+            
+            return $arrayCount;
+    }
 
     /**
      * @param int $question_id
@@ -2915,7 +2965,7 @@ HOTSPOT;
                 $listStudentsId[] = $listStudentInfo['user_id'];
             }
 
-            $listFillTheBlankResult = getFillTheBlankTabResult(
+            $listFillTheBlankResult = FillBlanks::getFillTheBlankTabResult(
                 $exercise_id,
                 $question_id,
                 $listStudentsId,
@@ -2923,7 +2973,7 @@ HOTSPOT;
                 '3000-01-01'
             );
 
-            return getNbResultFillBlankAll($listFillTheBlankResult);
+            return FillBlanks::getNbResultFillBlankAll($listFillTheBlankResult);
         }
 
         if (empty($session_id)) {
@@ -3135,7 +3185,8 @@ HOTSPOT;
                     while ($row = Database::fetch_array($result, 'ASSOC')) {
                         $fill_blank = self::check_fill_in_blanks(
                             $correct_answer,
-                            $row['answer']
+                            $row['answer'],
+                            $current_answer
                         );
                         if (isset($fill_blank[$current_answer]) && $fill_blank[$current_answer] == 1) {
                             $good_answers++;
@@ -3160,7 +3211,7 @@ HOTSPOT;
      * @param string $user_answer
      * @return array
      */
-    public static function check_fill_in_blanks($answer, $user_answer)
+    public static function check_fill_in_blanks($answer, $user_answer, $current_answer)
     {
         // the question is encoded like this
         // [A] B [C] D [E] F::10,10,10@1
@@ -3217,10 +3268,28 @@ HOTSPOT;
 
             preg_match_all('#\[([^[]*)\]#', $str, $arr);
             $str = str_replace('\r\n', '', $str);
-            $choice = $arr[1];
-
+            $choices = $arr[1];
+            $choice = [];
+            $check = false;
+            $i = 0;
+            foreach ($choices as $item) {
+                if ($current_answer === $item) {
+                    $check = true;
+                }
+                if ($check) {
+                    $choice[] = $item;
+                    $i++;
+                }
+                if ($i == 3) {
+                    break;
+                }
+            }
             $tmp = api_strrpos($choice[$j], ' / ');
-            $choice[$j] = api_substr($choice[$j], 0, $tmp);
+            
+            if ($tmp !== false) {
+                $choice[$j] = api_substr($choice[$j], 0, $tmp);
+            }
+            
             $choice[$j] = trim($choice[$j]);
 
             //Needed to let characters ' and " to work as part of an answer

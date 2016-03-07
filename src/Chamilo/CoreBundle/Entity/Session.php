@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          @ORM\Index(name="idx_id_session_admin_id", columns={"session_admin_id"})
  *      }
  * )
+ * @ORM\EntityListeners({"Chamilo\CoreBundle\Entity\Listener\SessionListener"})
  * @ORM\Entity(repositoryClass="Chamilo\CoreBundle\Entity\Repository\SessionRepository")
  */
 class Session
@@ -208,11 +209,22 @@ class Session
     protected $issuedSkills;
 
     /**
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\AccessUrlRelSession", mappedBy="session", cascade={"persist"}, orphanRemoval=true)
+     **/
+    protected $urls;
+
+    /**
+     * @var AccessUrl
+     **/
+    protected $currentUrl;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->urls = new ArrayCollection();
 
         $this->nbrClasses = 0;
         $this->nbrUsers = 0;
@@ -258,11 +270,14 @@ class Session
     }
 
     /**
-     * @param string $showDescription
+     * @param $showDescription
+     * @return $this
      */
     public function setShowDescription($showDescription)
     {
         $this->showDescription = $showDescription;
+
+        return $this;
     }
 
     /**
@@ -301,6 +316,7 @@ class Session
 
     /**
      * @param $users
+     * @return $this
      */
     public function setUsers($users)
     {
@@ -309,6 +325,8 @@ class Session
         foreach ($users as $user) {
             $this->addUser($user);
         }
+
+        return $this;
     }
 
     /**
@@ -511,7 +529,7 @@ class Session
      * Set description
      *
      * @param string $description
-     * @return Groups
+     * @return Session
      */
     public function setDescription($description)
     {
@@ -818,10 +836,13 @@ class Session
 
     /**
      * @param $coach
+     * @return $this
      */
     public function setGeneralCoach($coach)
     {
         $this->generalCoach = $coach;
+
+        return $this;
     }
 
     /**
@@ -975,7 +996,7 @@ class Session
     /**
      * Set $sendSubscriptionNotification
      * @param boolean $sendNotification
-     * @return \Chamilo\CoreBundle\Entity\Session
+     * @return Session
      */
     public function setSendSubscriptionNotification($sendNotification)
     {
@@ -1019,5 +1040,61 @@ class Session
     public function getIssuedSkills()
     {
         return $this->issuedSkills;
+    }
+
+    /**
+     * @param AccessUrl $url
+     *
+     * @return $this
+     */
+    public function setCurrentUrl(AccessUrl $url)
+    {
+        $urlList = $this->getUrls();
+        /** @var AccessUrlRelCourse $item */
+        foreach ($urlList as $item) {
+            if ($item->getUrl()->getId() == $url->getId()) {
+                $this->currentUrl = $url;
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return AccessUrl
+     */
+    public function getCurrentUrl()
+    {
+        return $this->currentUrl;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUrls()
+    {
+        return $this->urls;
+    }
+
+    /**
+     * @param $urls
+     */
+    public function setUrls($urls)
+    {
+        $this->urls = new ArrayCollection();
+
+        foreach ($urls as $url) {
+            $this->addUrls($url);
+        }
+    }
+
+    /**
+     * @param AccessUrlRelSession $url
+     */
+    public function addUrls(AccessUrlRelSession $url)
+    {
+        $url->setSession($this);
+        $this->urls[] = $url;
     }
 }

@@ -496,29 +496,6 @@ if ($form->validate() && is_settings_editable()) {
         CourseManager::deleteCoursePicture($course_code);
     }
 
-    global $_configuration;
-    $urlId = api_get_current_access_url_id();
-    if (isset($_configuration[$urlId]) &&
-        isset($_configuration[$urlId]['hosting_limit_active_courses']) &&
-        $_configuration[$urlId]['hosting_limit_active_courses'] > 0
-    ) {
-        $courseInfo = api_get_course_info_by_id($courseId);
-
-        // Check if
-        if ($courseInfo['visibility'] == COURSE_VISIBILITY_HIDDEN &&
-            $visibility != $courseInfo['visibility']
-        ) {
-            $num = CourseManager::countActiveCourses($urlId);
-            if ($num >= $_configuration[$urlId]['hosting_limit_active_courses']) {
-                api_warn_hosting_contact('hosting_limit_active_courses');
-                api_set_failure(get_lang('PortalActiveCoursesLimitReached'));
-                $url = api_get_path(WEB_CODE_PATH).'course_info/infocours.php?action=course_active_warning&cidReq='.$course_code;
-                header("Location: $url");
-                exit;
-            }
-        }
-    }
-
     $pdf_export_watermark_path = isset($_FILES['pdf_export_watermark_path']) ? $_FILES['pdf_export_watermark_path'] : null;
 
     if (!empty($pdf_export_watermark_path['name'])) {
@@ -549,21 +526,25 @@ if ($form->validate() && is_settings_editable()) {
     $activeLegal = isset($updateValues['activate_legal']) ? $updateValues['activate_legal'] : '';
     $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
 
-    $params = [
-        'title' => $updateValues['title'],
-        'course_language' => $updateValues['course_language'],
-        'category_code' => $updateValues['category_code'],
-        'department_name' => $updateValues['department_name'],
-        'department_url' => $updateValues['department_url'],
-        'visibility' => $updateValues['visibility'],
-        'subscribe' => $updateValues['subscribe'],
-        'unsubscribe' => $updateValues['unsubscribe'],
-        'legal' => $updateValues['legal'],
-        'activate_legal' => $activeLegal,
-        'registration_code' => $updateValues['course_registration_password'],
-    ];
+    $em = Database::getManager();
+    /** @var \Chamilo\CoreBundle\Entity\Course $courseObj */
+    $courseObj = $em->getRepository('ChamiloCoreBundle:Course')->find($courseId);
+    $courseObj
+        ->setTitle($updateValues['title'])
+        ->setCourseLanguage($updateValues['course_language'])
+        ->setCategoryCode($updateValues['category_code'])
+        ->setDepartmentName($updateValues['department_name'])
+        ->setDepartmentUrl($updateValues['department_url'])
+        ->setVisibility($updateValues['visibility'])
+        ->setSubscribe($updateValues['subscribe'])
+        ->setUnsubscribe($updateValues['unsubscribe'])
+        ->setLegal($updateValues['legal'])
+        ->setActivateLegal($activeLegal)
+        ->setRegistrationCode($updateValues['course_registration_password'])
+    ;
 
-    Database::update($table_course, $params, ['id = ?' => $courseId]);
+    $em->merge($courseObj);
+    $em->flush();
 
     // Insert/Updates course_settings table
     foreach ($courseSettings as $setting) {

@@ -21,6 +21,7 @@ filter:
         - app/cache/*
         - app/logs/*
         - web/*
+        - vendor/*
 checks:
     php:
         code_rating: true
