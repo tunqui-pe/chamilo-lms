@@ -21,7 +21,7 @@ class SkillSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'allow_skills_tool' => 'false',
+                    'allow_skills_tool' => 'true',
                     'allow_hr_skills_management' => 'true',
                 )
             )

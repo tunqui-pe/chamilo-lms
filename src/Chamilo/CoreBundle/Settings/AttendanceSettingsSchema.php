@@ -21,7 +21,7 @@ class AttendanceSettingsSchema implements SchemaInterface
         $builder
             ->setDefaults(
                 array(
-                    'allow_delete_attendance' => 'false',
+                    'allow_delete_attendance' => 'true',
                 )
             )
             ->setAllowedTypes(

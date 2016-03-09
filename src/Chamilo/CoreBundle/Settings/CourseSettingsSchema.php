@@ -79,9 +79,9 @@ class CourseSettingsSchema implements SchemaInterface
                     'course_creation_use_template' => '',
                     'hide_scorm_export_link' => 'false',
                     'hide_scorm_copy_link' => 'false',
-                    'hide_scorm_pdf_link' => 'false',
+                    'hide_scorm_pdf_link' => 'true',
                     'course_catalog_published' => 'false',
-                    'course_images_in_courses_list' => 'false'
+                    'course_images_in_courses_list' => 'true'
                 )
             )
             ->setAllowedTypes(

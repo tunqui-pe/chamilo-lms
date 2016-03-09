@@ -23,7 +23,7 @@ class ExerciseSettingsSchema implements SchemaInterface
                 array(
                     'exercise_min_score' => '0',
                     'exercise_max_score' => '20',
-                    'enable_quiz_scenario' => 'false',
+                    'enable_quiz_scenario' => 'true',
                     'allow_coach_feedback_exercises' => 'true',
                     'show_official_code_exercise_result_list' => 'false',
                     'email_alert_manager_on_new_quiz' => 'true',

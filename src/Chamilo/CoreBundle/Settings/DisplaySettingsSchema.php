@@ -36,9 +36,9 @@ class DisplaySettingsSchema implements SchemaInterface
                     'display_categories_on_homepage' => 'false',
                     'show_closed_courses' => 'false',
                     'allow_students_to_browse_courses' => 'true',
-                    'show_link_bug_notification' => 'true',
+                    'show_link_bug_notification' => 'false',
                     'accessibility_font_resize' => 'false',
-                    'show_admin_toolbar' => 'show_to_admin',
+                    'show_admin_toolbar' => 'do_not_show',
                     'show_hot_courses' => 'true',
                     'user_name_order' => '', // ?
                     'user_name_sort_by' => '', // ?
