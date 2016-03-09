@@ -3,7 +3,7 @@
 
 use ChamiloSession as Session;
 
-//require_once '../inc/global.inc.php';
+require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_STUDENTPUBLICATION;
 
 api_protect_course_script(true);
@@ -48,10 +48,9 @@ Display :: display_header(null);
 $actionsLeft = '<a href="'.api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq().'&origin='.$origin.'">'.
     Display::return_icon('back.png', get_lang('BackToWorksList'),'',ICON_SIZE_MEDIUM).'</a>';
 
+$actionsRight = '';
 if (api_is_allowed_to_session_edit(false, true) && !empty($workId) && !api_is_invitee() ) {
     $url = api_get_path(WEB_CODE_PATH).'work/upload.php?'.api_get_cidreq().'&id='.$workId.'&origin='.$origin;
-    //$actionsRight .= Display::return_icon('upload_file.png', get_lang('UploadADocument'), '', ICON_SIZE_MEDIUM).' ' . get_lang('UploadADocument') . '</a>';
-
     $actionsRight = Display::toolbarButton(get_lang('UploadMyAssignment'), $url, 'upload', 'success');
 }
 echo Display::toolbarAction('toolbar-work', array(0 => $actionsLeft . $actionsRight));
@@ -70,7 +69,7 @@ if (!empty($my_folder_data['description'])) {
     $contentWork = Security::remove_XSS($my_folder_data['description']);
     $html = '';
     $html .= Display::panel($contentWork, get_lang('Description'));
-    echo $html;
+    echo $html;    
 }
 
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
@@ -149,10 +148,10 @@ if (!api_is_invitee()) {
             });
         </script>
     <?php
-
+    
     $html = '';
     $tableWork = Display::grid_html('results');
-    $html = Display::panel($tableWork);
+    $html = Display::panel($tableWork); 
     echo $html;
 }
 

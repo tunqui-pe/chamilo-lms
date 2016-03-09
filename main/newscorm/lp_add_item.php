@@ -196,11 +196,8 @@ $(document).ready(function() {
 /* DISPLAY SECTION */
 
 echo $learnPath->build_action_menu();
-
 echo '<div class="row" style="overflow:hidden">';
-
 echo '<div id="lp_sidebar" class="col-md-4">';
-
 echo $learnPath->return_new_tree(null, true);
 
 $message = isset($_REQUEST['message']) ? $_REQUEST['message'] : null;

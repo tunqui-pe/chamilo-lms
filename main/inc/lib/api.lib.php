@@ -2198,13 +2198,13 @@ function api_get_group_id()
     return Session::read('_gid', 0);
 }
 
-
 /**
  * Gets the current or given session name
  * @param   int     Session ID (optional)
  * @return  string  The session name, or null if unfound
  */
-function api_get_session_name($session_id) {
+function api_get_session_name($session_id = 0) 
+{
     if (empty($session_id)) {
         $session_id = api_get_session_id();
         if (empty($session_id)) { return null; }
@@ -4572,7 +4572,6 @@ function api_get_themes() {
 
     return array($list_dir, $list_name);
 }
-
 
 /**
  * Find the largest sort value in a given user_course_category

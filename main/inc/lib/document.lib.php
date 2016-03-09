@@ -2856,6 +2856,8 @@ class DocumentManager
      * @param string $if_exists overwrite, rename or warn (default)
      * @param bool $index_document index document (search xapian module)
      * @param bool $show_output print html messages
+     * @param string $fileKey
+     *
      * @return array|bool
      */
     public static function upload_document(
@@ -2895,6 +2897,21 @@ class DocumentManager
                     null,
                     $sessionId
                 );
+
+                // Showing message when sending zip files
+                if ($new_path === true && $unzip == 1) {
+                    if ($show_output) {
+                        Display::display_confirmation_message(
+                            get_lang('UplUploadSucceeded').'<br />',
+                            false
+                        );
+                    }
+
+                    return [
+                        'title' => $path,
+                        'url' => $path,
+                    ];
+                }
 
                 if ($new_path) {
                     $documentId = DocumentManager::get_document_id(
@@ -2942,13 +2959,6 @@ class DocumentManager
                         );
                     }
 
-                    // Showing message when sending zip files
-                    if ($new_path === true && $unzip == 1 && $show_output) {
-                        Display::display_confirmation_message(
-                            get_lang('UplUploadSucceeded') . '<br />',
-                            false
-                        );
-                    }
 
                     if ($index_document) {
                         self::index_document(
@@ -3178,8 +3188,8 @@ class DocumentManager
      * on the base of a maximum directory size allowed
      *
      * @author Bert Vanderkimpen
-     * @param  int file_size size of the file in byte
-     * @param  int max_dir_space maximum size
+     * @param  int $file_size size of the file in byte
+     * @param  int $max_dir_space maximum size
      * @return boolean true if there is enough space, false otherwise
      *
      * @see enough_space() uses  documents_total_space() function
@@ -3195,7 +3205,7 @@ class DocumentManager
     }
 
     /**
-     * @param array parameters: count, url, extension
+     * @param array $params count, url, extension
      * @return string
      */
     static function generate_jplayer_jquery($params = array())
@@ -3220,6 +3230,7 @@ class DocumentManager
                     solution: "flash, html",  // Do not change this setting
                     cssSelectorAncestor: "#jp_container_' . $params['count'] . '",
                 });  	 ' . "\n\n";
+
         return $js;
     }
 
@@ -3469,13 +3480,13 @@ class DocumentManager
         if ($lp_id) {
             $learnPath = learnpath::getCurrentLpFromSession();
             if ($folderId === false) {
-                $return .= '<div class="lp_resource_element">';
+                /*$return .= '<div class="lp_resource_element">';
                 $return .= Display::return_icon('new_doc.gif', '', array(), ICON_SIZE_SMALL);
                 $return .= Display::url(
                     get_lang('NewDocument'),
-                    api_get_self().'?'.api_get_cidreq().'&action=add_item&type='.TOOL_DOCUMENT.'&lp_id='.$learnPath->lp_id
+                    api_get_self().'?'.api_get_cidreq().'&action=add_item&type='.TOOL_DOCUMENT.'&lp_id='.$_SESSION['oLP']->lp_id
                 );
-                $return .= '</div>';
+                $return .= '</div>';*/
             }
         } else {
             $return .= Display::div(
@@ -3681,7 +3692,15 @@ class DocumentManager
 
         $link = Display::url(
             '<img alt="" src="' . $img . '" title="" />&nbsp;' . $my_file_title, $url,
-            array('target' => $target)
+            array('target' => $target, 'class' => 'moved')
+        );
+
+        $directUrl = $web_code_path . 'document/document.php?cidReq=' . $course_info['code'] . '&id_session=' . $session_id . '&id=' . $documentId;
+
+        $link .= Display::url(
+            Display::return_icon('preview_view.png', get_lang('Preview')),
+            $directUrl,
+            ['target' => '_blank']
         );
 
         $visibilityClass = null;
@@ -3956,6 +3975,7 @@ class DocumentManager
         $sys_course_path = api_get_path(SYS_COURSE_PATH);
         $base_work_dir = $sys_course_path . $course_dir;
 
+        $course_id = $course_info['real_id'];
         $table_document = Database::get_course_table(TABLE_DOCUMENT);
 
         $qry = "SELECT path, title FROM $table_document WHERE c_id = {$course->getId()} AND id = '$docid' LIMIT 1";
@@ -5109,8 +5129,14 @@ class DocumentManager
      * @todo this funcionality is really bad : jmontoya
      * @return string html form
      */
-    public static function build_directory_selector($folders, $document_id, $group_dir = '', $change_renderer = false)
-    {
+    public static function build_directory_selector(
+        $folders,
+        $document_id,
+        $group_dir = '',
+        $change_renderer = false,
+        & $form = null,
+        $selectName = 'id'
+    ) {
         $doc_table = Database::get_course_table(TABLE_DOCUMENT);
         $course_id = api_get_course_int_id();
         $folder_titles = array();
@@ -5131,9 +5157,18 @@ class DocumentManager
             }
         }
 
+        $attributes = [];
+        if (empty($form)) {
         $form = new FormValidator('selector', 'GET', api_get_self() . '?' . api_get_cidreq());
+            $attributes = array('onchange' => 'javascript: document.selector.submit();');
+        }
         $form->addElement('hidden', 'cidReq', api_get_course_id());
-        $parent_select = $form->addSelect('id', get_lang('CurrentDirectory'), '', array('onchange' => 'javascript: document.selector.submit();'));
+        $parent_select = $form->addSelect(
+            $selectName,
+            get_lang('CurrentDirectory'),
+            '',
+            $attributes
+        );
 
         if ($change_renderer) {
             $renderer = $form->defaultRenderer();
@@ -5180,6 +5215,7 @@ class DocumentManager
                 }
             }
         }
+
         $html = $form->toHtml();
 
         return $html;
@@ -5191,7 +5227,8 @@ class DocumentManager
      * @param array $document_data
      * @param int $show_as_icon - if it is true, only a clickable icon will be shown
      * @param int $visibility (1/0)
-     * @param int $show_as_icon - if it is true, only a clickable icon will be shown
+     * @param int $counter
+     *
      * @return string url
      */
     public static function create_document_link(
@@ -5333,8 +5370,13 @@ class DocumentManager
                 $copy_myfiles_link = ($filetype == 'file') ? api_get_self() . '?' . api_get_cidreq() . '&action=copytomyfiles&id=' . $document_data['id'] : api_get_self() . '?' . api_get_cidreq();
 
                 if ($filetype == 'file') {
+
                     $copy_to_myfiles = '<a href="' . $copy_myfiles_link . '" style="float:right"' . $prevent_multiple_click . '>' .
                         Display::return_icon('briefcase.png', get_lang('CopyToMyFiles'), array(), ICON_SIZE_SMALL) . '&nbsp;&nbsp;</a>';
+
+                    if (api_get_setting('allow_my_files') === 'false') {
+                        $copy_to_myfiles = '';
+                    }
                 }
 
                 if ($filetype == 'file') {
@@ -5872,6 +5914,8 @@ class DocumentManager
      * @param $curdirpath
      * @param $move_file
      * @param string $group_dir
+     * @param $form
+     *
      * @return string
      */
     public static function build_move_to_selector($folders, $curdirpath, $move_file, $group_dir = '')
@@ -6330,6 +6374,7 @@ class DocumentManager
         $documentTable = Database::get_course_table(TABLE_DOCUMENT);
 
         $conditionSession = api_get_session_condition($sessionId, true, false, 'd.session_id');
+        $courseId = $courseInfo['real_id'];
 
         //get invisible folders
         $sql = "SELECT DISTINCT d.id, path
@@ -6340,8 +6385,8 @@ class DocumentManager
                     d.id = i.ref AND
                     i.tool = '" . TOOL_DOCUMENT . "'
                     $conditionSession AND
-                    i.c_id = {$courseInfo['real_id']} AND
-                    d.c_id = {$courseInfo['real_id']} ";
+                    i.c_id = $courseId AND
+                    d.c_id = $courseId ";
 
         $result = Database::query($sql);
         $documents = Database::store_result($result, 'ASSOC');
@@ -6362,5 +6407,12 @@ class DocumentManager
             }
         }
 
+        $sql = "DELETE FROM $documentTable
+                WHERE c_id = $courseId AND session_id = $sessionId";
+        Database::query($sql);
+
+        $sql = "DELETE FROM $itemPropertyTable
+                WHERE c_id = $courseId AND session_id = $sessionId AND tool = '".TOOL_DOCUMENT."'";
+        Database::query($sql);
     }
 }

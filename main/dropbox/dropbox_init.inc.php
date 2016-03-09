@@ -113,11 +113,6 @@ Version 1.4 (Yannick Warnier)
  * @package chamilo.dropbox
  */
 
-/**
- * Code
- */
-/*	INIT SECTION */
-
 use ChamiloSession as Session;
 
 // including the basic Chamilo initialisation file
@@ -134,7 +129,6 @@ Session::write('dropbox_conf', $dropbox_cnf);
 
 // the dropbox file that contains additional functions
 require_once 'dropbox_functions.inc.php';
-
 
 // protecting the script
 api_protect_course_script();
@@ -182,7 +176,7 @@ if ($action == 'add') {
 }
 
 /*	Create javascript and htmlHeaders */
-$javascript = "<script type=\"text/javascript\">
+$javascript = "<script>
 	function confirmsend ()
 	{
 		if (confirm(\"".get_lang('MailingConfirmSend', '')."\")){
@@ -278,8 +272,7 @@ if (dropbox_cnf('allowOverwrite')) {
 $javascript .= "
 	</script>";
 $htmlHeadXtra[] = $javascript;
-$htmlHeadXtra[] =
-"<script type=\"text/javascript\">
+$htmlHeadXtra[] ="<script>
 function confirmation (name)
 {
 	if (confirm(\" ". get_lang("AreYouSureToDeleteJS") ." \"+ name + \" ?\"))
@@ -302,6 +295,7 @@ if (!$view || $view == 'received') {
 	$part = 'sent';
 } else {
 	header('location: index.php?view='.$view.'&error=Error');
+	exit;
 }
 
 if (($postAction == 'download_received' || $postAction == 'download_sent') and !$_POST['store_feedback']) {
@@ -329,26 +323,42 @@ if ((!$is_allowed_in_course || !$is_course_member) && !api_is_allowed_to_edit(nu
 }
 
 /*	BREADCRUMBS */
+
 if ($view == 'received') {
-	$interbreadcrumb[] = array('url' => '../dropbox/index.php?'.api_get_cidreq(), 'name' => get_lang('Dropbox', ''));
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'dropbox/index.php?'.api_get_cidreq(),
+        'name' => get_lang('Dropbox', ''),
+    );
 	$nameTools = get_lang('ReceivedFiles');
 
 	if ($action == 'addreceivedcategory') {
-		$interbreadcrumb[] = array('url' => '../dropbox/index.php?view=received&'.api_get_cidreq(), 'name' => get_lang('ReceivedFiles'));
+        $interbreadcrumb[] = array(
+            'url' => api_get_path(WEB_CODE_PATH).'dropbox/index.php?view=received&'.api_get_cidreq(),
+            'name' => get_lang('ReceivedFiles'),
+        );
 		$nameTools = get_lang('AddNewCategory');
 	}
 }
 
 if ($view == 'sent' || empty($view)) {
-	$interbreadcrumb[] = array('url' => '../dropbox/index.php?'.api_get_cidreq(), 'name' => get_lang('Dropbox', ''));
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'dropbox/index.php?'.api_get_cidreq(),
+		'name' => get_lang('Dropbox')
+    );
 	$nameTools = get_lang('SentFiles');
 
 	if ($action == 'addsentcategory') {
-		$interbreadcrumb[] = array('url' => '../dropbox/index.php?view=sent&'.api_get_cidreq(), 'name' => get_lang('SentFiles'));
+		$interbreadcrumb[] = array(
+			'url' => api_get_path(WEB_CODE_PATH).'dropbox/index.php?view=sent&'.api_get_cidreq(),
+			'name' => get_lang('SentFiles'),
+		);
 		$nameTools = get_lang('AddNewCategory');
 	}
 	if ($action == 'add') {
-		$interbreadcrumb[] = array ('url' => '../dropbox/index.php?view=sent&'.api_get_cidreq(), 'name' => get_lang('SentFiles'));
+		$interbreadcrumb[] = array(
+			'url' => api_get_path(WEB_CODE_PATH).'dropbox/index.php?view=sent&'.api_get_cidreq(),
+			'name' => get_lang('SentFiles'),
+		);
 		$nameTools = get_lang('UploadNewFile');
 	}
 }

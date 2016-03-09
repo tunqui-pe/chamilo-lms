@@ -12,19 +12,29 @@
 
 {% for lp_data in data %}
     <h3 class="page-header">
-        {% if (categories|length) > 1 %}
-            {% if lp_data.lp_list and lp_data.category.getId() != 0 %}
+        {% if is_allowed_to_edit %}
+            {% if (categories|length) > 1 %}
                 {{ lp_data.category.getName() }}
-            {% elseif lp_data.lp_list and lp_data.category.getId() == 0 %}
-                {{ lp_data.category.getName() }}
-            {% elseif not lp_data.lp_list and lp_data.category.getId() != 0 %}
-                {{ lp_data.category.getName() }}
+            {% endif %}
+        {% else %}
+            {% if (categories|length) > 1 %}
+                {% if lp_data.lp_list is not empty and lp_data.category.getId() != 0 %}
+                    {{ lp_data.category.getName() }}
+                {% elseif lp_data.lp_list is not empty and lp_data.category.getId() == 0 %}
+                    {{ lp_data.category.getName() }}
+                {% elseif lp_data.lp_list is not empty and lp_data.category.getId() != 0 %}
+                    {{ lp_data.category.getName() }}
+                {% endif %}
             {% endif %}
         {% endif %}
 
         {% if lp_data.category.getId() > 0 and is_allowed_to_edit %}
             <a href="{{ 'lp_controller.php?' ~ _p.web_cid_query ~ '&action=add_lp_category&id=' ~ lp_data.category.getId() }}" title="{{ "Edit"|get_lang }}">
                 <img src="{{ "edit.png"|icon }}" alt="{{ "Edit"|get_lang }}">
+            </a>
+
+            <a href="{{ 'lp_controller.php?' ~ _p.web_cid_query ~ '&action=add_users_to_category&id=' ~ lp_data.category.getId() }}" title="{{ "AddUser"|get_lang }}">
+                <img src="{{ "user.png"|icon }}" alt="{{ "AddUser"|get_lang }}">
             </a>
 
             {% if loop.index0 == 1 %}

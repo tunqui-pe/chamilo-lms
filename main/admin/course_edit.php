@@ -378,6 +378,9 @@ if ($form->validate()) {
     } else {
         // Normal behaviour
         CourseManager::updateTeachers($courseId, $teachers, true, false);
+
+        // Updating session coaches
+        $sessionCoaches = $course['session_coaches'];
         if (!empty($sessionCoaches)) {
             foreach ($sessionCoaches as $sessionId => $coachesToSubscribe) {
                 if (!empty($coachesToSubscribe)) {

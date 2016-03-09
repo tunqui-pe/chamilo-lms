@@ -65,31 +65,52 @@ if (!empty($group_id)) {
 
     $group_properties = GroupManager::get_group_properties($group_id);
 
-    $interbreadcrumb[] = array('url' => '../group/group.php?'.api_get_cidreq(), 'name' => get_lang('Groups'));
-    $interbreadcrumb[] = array('url' => '../group/group_space.php?'.api_get_cidreq(), 'name' => get_lang('GroupSpace').' '.$group_properties['name']);
-    $interbreadcrumb[] = array('url' =>'work.php?'.api_get_cidreq(),'name' => get_lang('StudentPublications'));
-    $url_dir = 'work.php?&id=' . $work_id.'&'.api_get_cidreq();
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(),
+        'name' => get_lang('Groups'),
+    );
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?'.api_get_cidreq(),
+        'name' => get_lang('GroupSpace').' '.$group_properties['name'],
+    );
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq(),
+        'name' => get_lang('StudentPublications'),
+    );
+    $url_dir = api_get_path(WEB_CODE_PATH).'work/work.php?&id=' . $work_id.'&'.api_get_cidreq();
     if (!empty($my_folder_data)) {
         $interbreadcrumb[] = array('url' => $url_dir, 'name' =>  $my_folder_data['title']);
     }
 
     if ($action == 'upload_form') {
-        $interbreadcrumb[] = array('url' => 'work.php?'.api_get_cidreq(),'name' => get_lang('UploadADocument'));
+        $interbreadcrumb[] = array(
+            'url' => api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq(),
+            'name' => get_lang('UploadADocument'),
+        );
     }
 
     if ($action == 'create_dir') {
-        $interbreadcrumb[] = array('url' => 'work.php?'.api_get_cidreq(),'name' => get_lang('CreateAssignment'));
+        $interbreadcrumb[] = array(
+            'url' => api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq(),
+            'name' => get_lang('CreateAssignment'),
+        );
     }
 } else {
     if ($origin != 'learnpath') {
         if (isset($_GET['id']) && !empty($_GET['id']) || $display_upload_form || $action == 'settings' || $action == 'create_dir') {
-            $interbreadcrumb[] = array('url' => 'work.php?'.api_get_cidreq(), 'name' => get_lang('StudentPublications'));
+            $interbreadcrumb[] = array(
+                'url' => api_get_path(WEB_CODE_PATH).'work/work.php?'.api_get_cidreq(),
+                'name' => get_lang('StudentPublications'),
+            );
         } else {
             $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('StudentPublications'));
         }
 
         if (!empty($my_folder_data)) {
-            $interbreadcrumb[] = array('url' => 'work.php?id=' . $work_id.'&'.api_get_cidreq(), 'name' =>  $my_folder_data['title']);
+            $interbreadcrumb[] = array(
+                'url' => api_get_path(WEB_CODE_PATH).'work/work.php?id='.$work_id.'&'.api_get_cidreq(),
+                'name' => $my_folder_data['title'],
+            );
         }
 
         if ($action == 'upload_form') {

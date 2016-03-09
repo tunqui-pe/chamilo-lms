@@ -56,6 +56,7 @@ $visibility = api_get_item_visibility(
     api_get_user_id(),
     $sessionId
 );
+
 if (!api_is_allowed_to_edit(false, true, false, false) && intval($visibility) == 0) {
     api_not_allowed(true);
 }
@@ -73,6 +74,24 @@ if ($debug) {
 $learnPath->error = '';
 $lp_item_id = $learnPath->get_current_item_id();
 $lpType = $learnPath->get_type();
+
+if (!$is_allowed_to_edit) {
+    $categoryId = $_SESSION['oLP']->getCategoryId();
+    $em = Database::getManager();
+    if (!empty($categoryId)) {
+        /** @var \Chamilo\CourseBundle\Entity\CLpCategory $category */
+        $category = $em->getRepository('ChamiloCourseBundle:CLpCategory')->find($categoryId);
+        if ($category) {
+            $users = $category->getUsers();
+            if (!empty($users) && $users->count() > 0) {
+                $user = UserManager::getRepository()->find($user_id);
+                if (!$category->hasUserAdded($user)) {
+                    api_not_allowed(true);
+                }
+            }
+        }
+    }
+}
 
 $course_code = api_get_course_id();
 $course_id = api_get_course_int_id();

@@ -10,6 +10,7 @@
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
 use ChamiloSession as Session;
+use Chamilo\CourseBundle\Entity\CLpCategory;
 
 $this_section = SECTION_COURSES;
 //@todo who turns on $lp_controller_touched?
@@ -106,7 +107,7 @@ $token = Security::get_token();
 /* DISPLAY SCORM LIST */
 
 $categoriesTempList = learnpath::getCategories(api_get_course_int_id());
-$categoryTest = new \Chamilo\CourseBundle\Entity\CLpCategory();
+$categoryTest = new CLpCategory();
 $categoryTest->setId(0);
 $categoryTest->setName(get_lang('WithOutCategory'));
 $categoryTest->setPosition(0);
@@ -125,11 +126,22 @@ $userInfo = api_get_user_info();
 $lpIsShown = false;
 
 $test_mode = api_get_setting('server_type');
+$user = UserManager::getRepository()->find($userId);
 
 $data = [];
-
+/** @var CLpCategory $item */
 foreach ($categories as $item) {
     $categoryId = $item->getId();
+
+    if (!$is_allowed_to_edit) {
+        $users = $item->getUsers();
+
+        if (!empty($users) && $users->count() > 0) {
+            if (!$item->hasUserAdded($user)) {
+                continue;
+            }
+        }
+    }
 
     $list = new LearnpathList(
         api_get_user_id(),

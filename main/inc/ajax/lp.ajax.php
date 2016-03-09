@@ -14,7 +14,7 @@ $tbl_lp_item = Database :: get_course_table(TABLE_LP_ITEM);
 $sessionId = api_get_session_id();
 
 switch ($action) {
-    case 'get_documents';
+    case 'get_documents':
         $courseInfo = api_get_course_info();
         $folderId = isset($_GET['folder_id']) ? $_GET['folder_id'] : null;
         if (empty($folderId)) {

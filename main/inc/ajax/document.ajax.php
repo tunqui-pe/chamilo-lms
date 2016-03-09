@@ -24,13 +24,29 @@ switch ($action) {
             exit;
         }
 
-        $fileExistsOption = api_get_setting('document.if_file_exists_option');
-        $defaultFileExistsOption = 'rename';
-        if (!empty($fileExistsOption)) {
-            $defaultFileExistsOption = $fileExistsOption;
+        $directoryParentId = isset($_POST['directory_parent_id']) ? $_POST['directory_parent_id'] : 0;
+        $currentDirectory = '';
+        if (empty($directoryParentId)) {
+            $currentDirectory = isset($_REQUEST['curdirpath']) ? $_REQUEST['curdirpath'] : '';
+        } else {
+            $documentData = DocumentManager::get_document_data_by_id($directoryParentId, api_get_course_id());
+            if ($documentData) {
+                $currentDirectory = $documentData['path'];
+            }
         }
 
-        //$ifExists = isset($_POST['if_exists']) ? $_POST['if_exists'] : $defaultFileExistsOption;
+        $ifExists = isset($_POST['if_exists']) ? $_POST['if_exists'] : '';
+        $unzip = isset($_POST['unzip']) ? 1 : 0;
+
+        if (empty($ifExists)) {
+            $fileExistsOption = api_get_setting('document_if_file_exists_option');
+            $defaultFileExistsOption = 'rename';
+            if (!empty($fileExistsOption)) {
+                $defaultFileExistsOption = $fileExistsOption;
+            }
+        } else {
+            $defaultFileExistsOption = $ifExists;
+        }
 
         if (!empty($_FILES)) {
             $files = $_FILES['files'];
@@ -49,10 +65,10 @@ switch ($action) {
                 $globalFile['files'] = $file;
                 $result = DocumentManager::upload_document(
                     $globalFile,
-                    $_REQUEST['curdirpath'],
+                    $currentDirectory,
                     $file['name'],
                     '', // comment
-                    0,
+                    $unzip,
                     $defaultFileExistsOption,
                     false,
                     false,
@@ -60,6 +76,7 @@ switch ($action) {
                 );
 
                 $json = array();
+                if (!empty($result) && is_array($result)) {
                 $json['name'] = Display::url(
                     api_htmlentities($result['title']),
                     api_htmlentities($result['url']),
@@ -67,20 +84,16 @@ switch ($action) {
                 );
 
                 $json['url'] = $result['url'];
-
                 $json['size'] = format_file_size($file['size']);
                 $json['type'] = api_htmlentities($file['type']);
 
-                if (!empty($result) && is_array($result)) {
                     $json['result'] = Display::return_icon(
                         'accept.png',
                         get_lang('Uploaded')
                     );
                 } else {
-                    $json['result'] = Display::return_icon(
-                        'exclamation.png',
-                        get_lang('Error')
-                    );
+                    $json['url'] = '';
+                    $json['error'] = get_lang('Error');
                 }
                 $resultList[] = $json;
             }

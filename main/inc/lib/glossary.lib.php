@@ -355,32 +355,54 @@ class GlossaryManager
         }
 
         // action links
-        echo '<div class="actions">';
-
+        //echo '<div class="actions">';
+        $actionsLeft = '';
         if (api_is_allowed_to_edit(null,true)) {
-            echo '<a href="index.php?'.api_get_cidreq().'&action=addglossary&msg=add?'.api_get_cidreq().'">'.
+            $actionsLeft .= '<a href="index.php?'.api_get_cidreq().'&action=addglossary&msg=add?'.api_get_cidreq().'">'.
                 Display::return_icon('new_glossary_term.png',get_lang('TermAddNew'),'', ICON_SIZE_MEDIUM).'</a>';
         }
 
-        echo '<a href="index.php?'.api_get_cidreq().'&action=export">'.
+        $actionsLeft .= '<a href="index.php?'.api_get_cidreq().'&action=export">'.
             Display::return_icon('export_csv.png',get_lang('ExportGlossaryAsCSV'),'',ICON_SIZE_MEDIUM).'</a>';
         if (api_is_allowed_to_edit(null,true)) {
-            echo '<a href="index.php?'.api_get_cidreq().'&action=import">'.
+            $actionsLeft .= '<a href="index.php?'.api_get_cidreq().'&action=import">'.
                 Display::return_icon('import_csv.png',get_lang('ImportGlossary'),'',ICON_SIZE_MEDIUM).'</a>';
         }
 
-        echo '<a href="index.php?'.api_get_cidreq().'&action=export_to_pdf">'.
+        $actionsLeft .= '<a href="index.php?'.api_get_cidreq().'&action=export_to_pdf">'.
             Display::return_icon('pdf.png',get_lang('ExportToPDF'),'', ICON_SIZE_MEDIUM).'</a>';
 
-        if ((isset($glossaryView) && $glossaryView == 'table') or (!isset($glossaryView))) {
-            echo '<a href="index.php?'.api_get_cidreq().'&action=changeview&view=list">'.
+        if ((isset($_SESSION['glossary_view']) && $_SESSION['glossary_view'] == 'table') or (!isset($_SESSION['glossary_view']))){
+            $actionsLeft .= '<a href="index.php?'.api_get_cidreq().'&action=changeview&view=list">'.
                 Display::return_icon('view_detailed.png',get_lang('ListView'),'',ICON_SIZE_MEDIUM).'</a>';
         } else {
-            echo '<a href="index.php?'.api_get_cidreq().'&action=changeview&view=table">'.
+            $actionsLeft .= '<a href="index.php?'.api_get_cidreq().'&action=changeview&view=table">'.
                 Display::return_icon('view_text.png',get_lang('TableView'),'',ICON_SIZE_MEDIUM).'</a>';
         }
-        echo '</div>';
-        if (!$glossaryView || $glossaryView == 'table') {
+
+        /* BUILD SEARCH FORM */
+        $form = new FormValidator(
+            'search',
+            'get',
+            api_get_self().'?'.api_get_cidreq(),
+            '',
+            array(),
+            FormValidator::LAYOUT_INLINE
+        );
+        $form->addText('keyword', '', false, array('class' => 'col-md-2'));
+        $form->addElement('hidden', 'cidReq', api_get_course_id());
+        $form->addElement('hidden', 'id_session', api_get_session_id());
+        $form->addButtonSearch(get_lang('Search'));
+        $actionsRight = $form->returnForm();
+
+        $toolbar = Display::toolbarAction(
+            'toolbar-document',
+            array(0 => $actionsLeft, 1 => $actionsRight)
+        );
+
+        echo $toolbar;
+
+        if ($glossaryView == 'table') {
             $table = new SortableTable(
                 'glossary',
                 array('GlossaryManager', 'get_number_glossary_terms'),
@@ -433,16 +455,25 @@ class GlossaryManager
         // Database table definition
         $t_glossary = Database :: get_course_table(TABLE_GLOSSARY);
         $course_id = api_get_course_int_id();
-
         $session_id = intval($session_id);
         $sql_filter = api_get_session_condition($session_id, true, true);
+
+        $keyword = isset($_GET['keyword']) ? Database::escape_string($_GET['keyword']) : '';
+        $keywordCondition = '';
+        if (!empty($keyword)) {
+            $keywordCondition = "AND (name LIKE '%$keyword%' OR description LIKE '%$keyword%')";
+        }
+
         $sql = "SELECT count(glossary_id) as total
-                FROM $t_glossary WHERE c_id = $course_id $sql_filter";
+                FROM $t_glossary
+                WHERE c_id = $course_id $sql_filter
+                $keywordCondition ";
         $res = Database::query($sql);
         if ($res === false) {
             return 0;
         }
         $obj = Database::fetch_object($res);
+
         return $obj->total;
     }
 
@@ -489,6 +520,11 @@ class GlossaryManager
         $from = intval($from);
         $number_of_items = intval($number_of_items);
 
+        $keyword = isset($_GET['keyword']) ? Database::escape_string($_GET['keyword']) : '';
+        $keywordCondition = '';
+        if (!empty($keyword)) {
+            $keywordCondition = "AND (glossary.name LIKE '%$keyword%' OR glossary.description LIKE '%$keyword%')";
+        }
         $sql = "SELECT
                     glossary.name 			as col0,
 					glossary.description 	as col1,
@@ -500,6 +536,7 @@ class GlossaryManager
 					tool = '".TOOL_GLOSSARY."' $condition_session AND
 					glossary.c_id = ".api_get_course_int_id()." AND
 					ip.c_id = ".api_get_course_int_id()."
+					$keywordCondition
 		        ORDER BY col$column $direction
 		        LIMIT $from,$number_of_items";
         $res = Database::query($sql);

@@ -597,7 +597,7 @@ class learnpath
             "max_score" => $max_score,
             "parent_item_id" => $parent,
             "previous_item_id" => $previous,
-            "next_item_id" => $next,
+            "next_item_id" => intval($next),
             "display_order" => $display_order +1,
             "prerequisite" => $prerequisites,
             "max_time_allowed" => $max_time_allowed,
@@ -3437,22 +3437,23 @@ class learnpath
             // @todo Use constants instead of int values.
             switch ($lp_type) {
                 case 1 :
-                    if ($lp_item_type == 'dokeos_chapter') {
-                        $file = 'lp_content.php?type=dir';
-                    } else {
                         require_once 'resourcelinker.inc.php';
                         $file = rl_get_resource_link_for_learnpath(
-                            $course_id,
-                            $this->get_id(),
-                            $item_id,
-                            $this->get_view_id()
-                        );
+                        $course_id,
+                        $this->get_id(),
+                        $item_id,
+                        $this->get_view_id()
+                    );
 
-                        if ($this->debug > 0) {
-                            error_log('rl_get_resource_link_for_learnpath - file: ' . $file, 0);
-                        }
+                    if ($this->debug > 0) {
+                        error_log('rl_get_resource_link_for_learnpath - file: ' . $file, 0);
+                    }
 
-                        if ($lp_item_type == 'link') {
+                    switch ($lp_item_type) {
+                        case 'dokeos_chapter':
+                            $file = 'lp_content.php?type=dir';
+                            break;
+                        case 'link':
                             if (Link::is_youtube_link($file)) {
                                 $src  = Link::get_youtube_video_id($file);
                                 $file = api_get_path(WEB_CODE_PATH).'newscorm/embed.php?type=youtube&source='.$src;
@@ -3469,11 +3470,14 @@ class learnpath
                                     $linkProtocol = substr($file, 0, 5);
                                     if ($linkProtocol === 'http:') {
                                         //this is the special intervention case
-                                        $file = api_get_path(WEB_CODE_PATH).'newscorm/embed.php?type=nonhttps&source=' .  urlencode($file);
+                                        $file = api_get_path(
+                                                WEB_CODE_PATH
+                                            ).'newscorm/embed.php?type=nonhttps&source='.urlencode($file);
                                     }
                                 }
                             }
-                        } else {
+                            break;
+                        case 'quiz':
                             // Check how much attempts of a exercise exits in lp
                             $lp_item_id = $this->get_current_item_id();
                             $lp_view_id = $this->get_view_id();
@@ -3509,26 +3513,27 @@ class learnpath
                                 $sql = "SELECT count(*) FROM $lp_item_view_table
                                         WHERE
                                             c_id = $course_id AND
-                                            lp_item_id='" . $lp_item_id . "' AND
-                                            lp_view_id ='" . $lp_view_id . "' AND
+                                            lp_item_id='".$lp_item_id."' AND
+                                            lp_view_id ='".$lp_view_id."' AND
                                             status='completed'";
                                 $result = Database::query($sql);
-                                $row_count = Database :: fetch_row($result);
-                                $count_item_view = (int) $row_count[0];
+                                $row_count = Database:: fetch_row($result);
+                                $count_item_view = (int)$row_count[0];
                                 $not_multiple_attempt = 0;
                                 if ($prevent_reinit === 1 && $count_item_view > 0) {
                                     $not_multiple_attempt = 1;
                                 }
-                                $file .= '&not_multiple_attempt=' . $not_multiple_attempt;
+                                $file .= '&not_multiple_attempt='.$not_multiple_attempt;
                             }
+                            break;
+                        }
 
                             $tmp_array = explode('/', $file);
                             $document_name = $tmp_array[count($tmp_array) - 1];
                             if (strpos($document_name, '_DELETED_')) {
                                 $file = 'blank.php?error=document_deleted';
                             }
-                        }
-                    }
+
                     break;
                 case 2 :
                     if ($this->debug > 2) {
@@ -4593,7 +4598,7 @@ class learnpath
         if (empty($name)) {
             return false;
         }
-        $this->name = $name;
+        $this->name = Database::escape_string($name);
         $lp_table = Database :: get_course_table(TABLE_LP_MAIN);
         $lp_id = $this->get_id();
         $course_id = $this->course_info['real_id'];
@@ -5571,7 +5576,7 @@ class learnpath
      */
     public function return_new_tree($update_audio = 'false', $drop_element_here = false)
     {
-        $return = '';
+    $return = '';
         $is_allowed_to_edit = api_is_allowed_to_edit(null,true);
 
         $course_id = api_get_course_int_id();
@@ -5618,18 +5623,15 @@ class learnpath
 
             $title_cut = cut($arrLP[$i]['title'], 25);
 
-            //Link for the documents
-            if ($arrLP[$i]['item_type'] == 'document') {
-                $url = api_get_self() . '?'.api_get_cidreq().'&action=view_item&mode=preview_document&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id;
-                $title_cut = Display::url(
-                    $title_cut,
-                    $url,
-                    array(
-                        'class' => 'ajax',
-                        'data-title' => $title_cut
-                    )
-                );
-            }
+            $url = api_get_self() . '?'.api_get_cidreq().'&action=view_item&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id;
+            $title_cut = Display::url(
+                $title_cut,
+                $url,
+                array(
+                    'class' => 'moved',
+                    'data-title' => $title_cut
+                )
+            );
 
             if (($i % 2) == 0) {
                 $oddClass = 'row_odd';
@@ -5640,14 +5642,11 @@ class learnpath
 
             $icon_name = str_replace(' ', '', $arrLP[$i]['item_type']);
 
-            $icon = '';
             if (file_exists('../img/lp_' . $icon_name . '.png')) {
-                //$icon = '<img src="../img/lp_' . $icon_name . '.png" />';
-                $icon = Display::return_icon('lp_'.$icon_name.'.png');
+                $icon = Display::return_icon('lp_' . $icon_name . '.png');
             } else {
                 if (file_exists('../img/lp_' . $icon_name . '.gif')) {
-                    //$icon = '<img src="../img/lp_' . $icon_name . '.gif"  />';
-                    $icon = Display::return_icon('lp_'.$icon_name.'.gif');
+                    $icon = Display::return_icon('lp_' . $icon_name . '.gif');
                 } else {
                     $icon = Display::return_icon('folder_document.gif');
                 }
@@ -5655,19 +5654,9 @@ class learnpath
 
             // The audio column.
             $return_audio  .= '<td align="left" style="padding-left:10px;">';
-
             $audio = '';
-
             if (!$update_audio || $update_audio <> 'true') {
                 if (!empty($arrLP[$i]['audio'])) {
-                    /*$audio .= '<span id="container'.$i.'"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this player.</span>';
-                    $audio .= '<script type="text/javascript" src="../inc/lib/mediaplayer/swfobject.js"></script>';
-                    $audio .= '<script type="text/javascript">
-                                    var s1 = new SWFObject("../inc/lib/mediaplayer/player.swf","ply","250","20","9","#FFFFFF");
-                                    s1.addParam("allowscriptaccess","always");
-                                    s1.addParam("flashvars","file=../../courses/' . $_course['path'] . '/document/audio/' . $arrLP[$i]['audio'] . '");
-                                    s1.write("container' . $i . '");
-                                </script>';*/
                 } else {
                     $audio .= '';
                 }
@@ -5681,6 +5670,7 @@ class learnpath
                     }
                 }
             }
+
             $return_audio .= Display::span($icon.' '.$title).Display::tag('td', $audio, array('style'=>''));
             $return_audio .= '</td>';
             $move_icon = '';
@@ -5689,6 +5679,8 @@ class learnpath
             $delete_icon = '';
             $audio_icon = '';
             $prerequisities_icon = '';
+            $forumIcon = '';
+            $previewIcon = '';
 
             if ($is_allowed_to_edit) {
                 if (!$update_audio || $update_audio <> 'true') {
@@ -5704,9 +5696,7 @@ class learnpath
                         $edit_icon .= Display::return_icon('edit.png', get_lang('LearnpathEditModule'), array(), ICON_SIZE_TINY);
                         $edit_icon .= '</a>';
 
-                        if (
-                        !in_array($arrLP[$i]['item_type'], ['forum', 'thread'])
-                        ) {
+                        if (!in_array($arrLP[$i]['item_type'], ['forum', 'thread'])) {
                             if (
                             $this->items[$arrLP[$i]['id']]->getForumThread(
                                 $this->course_int_id,
@@ -5714,21 +5704,21 @@ class learnpath
                             )
                             ) {
                                 $forumIconUrl = api_get_self() . '?' . api_get_cidreq() . '&' . http_build_query([
-                                        'action' => 'dissociate_forum',
-                                        'id' => $arrLP[$i]['id'],
-                                        'lp_id' => $this->lp_id
-                                    ]);
+                                    'action' => 'dissociate_forum',
+                                    'id' => $arrLP[$i]['id'],
+                                    'lp_id' => $this->lp_id
+                                ]);
                                 $forumIcon = Display::url(
                                     Display::return_icon('forum.png', get_lang('DissociateForumToLPItem'), [], ICON_SIZE_TINY),
                                     $forumIconUrl,
                                     ['class' => 'btn btn-default lp-btn-dissociate-forum']
                                 );
-                    } else {
+                            } else {
                                 $forumIconUrl = api_get_self() . '?' . api_get_cidreq() . '&' . http_build_query([
-                                        'action' => 'create_forum',
-                                        'id' => $arrLP[$i]['id'],
-                                        'lp_id' => $this->lp_id
-                                    ]);
+                                    'action' => 'create_forum',
+                                    'id' => $arrLP[$i]['id'],
+                                    'lp_id' => $this->lp_id
+                                ]);
                                 $forumIcon = Display::url(
                                     Display::return_icon('forum.png', get_lang('AssociateForumToLPItem'), [], ICON_SIZE_TINY),
                                     $forumIconUrl,
@@ -5749,10 +5739,38 @@ class learnpath
 
                 $url = api_get_self() . '?'.api_get_cidreq().'&view=build&id='.$arrLP[$i]['id'] .'&lp_id='.$this->lp_id;
 
+                if ($arrLP[$i]['item_type'] == 'document') {
+                    $urlPreviewLink = api_get_self().'?'.api_get_cidreq().'&action=view_item&mode=preview_document&id='.$arrLP[$i]['id'].'&lp_id='.$this->lp_id;
+                    $previewIcon = Display::url(
+                        Display::return_icon('preview_view.png', get_lang('Preview'), array(), ICON_SIZE_TINY),
+                        $urlPreviewLink,
+                        array(
+                            'class' => 'btn btn-default ajax',
+                            'data-title' => $arrLP[$i]['title']
+                        )
+                    );
+                } else {
+                    $previewIcon = Display::url(
+                        Display::return_icon('preview_view.png', get_lang('Preview'), array(), ICON_SIZE_TINY),
+                        $url.'&action=view_item', ['class' => 'btn btn-default']
+                    );
+                }
+
                 if (!in_array($arrLP[$i]['item_type'], array('dokeos_chapter', 'dokeos_module', 'dir'))) {
-                    $prerequisities_icon = Display::url(Display::return_icon('accept.png', get_lang('LearnpathPrerequisites'), array(), ICON_SIZE_TINY), $url.'&action=edit_item_prereq', ['class' => 'btn btn-default']);
-                    $move_item_icon = Display::url(Display::return_icon('move.png', get_lang('Move'), array(), ICON_SIZE_TINY), $url.'&action=move_item', ['class' => 'btn btn-default']);
-                    $audio_icon = Display::url(Display::return_icon('audio.png', get_lang('UplUpload'), array(), ICON_SIZE_TINY), $url.'&action=add_audio', ['class' => 'btn btn-default']);
+                    $prerequisities_icon = Display::url(
+                        Display::return_icon('accept.png', get_lang('LearnpathPrerequisites'), array(), ICON_SIZE_TINY),
+                        $url.'&action=edit_item_prereq', ['class' => 'btn btn-default']
+                    );
+                    $move_item_icon = Display::url(
+                        Display::return_icon('move.png', get_lang('Move'), array(), ICON_SIZE_TINY),
+                        $url.'&action=move_item',
+                        ['class' => 'btn btn-default']
+                    );
+                    $audio_icon = Display::url(
+                        Display::return_icon('audio.png', get_lang('UplUpload'), array(), ICON_SIZE_TINY),
+                        $url.'&action=add_audio',
+                        ['class' => 'btn btn-default']
+                    );
                 }
             }
             if ($update_audio != 'true') {
@@ -5760,14 +5778,14 @@ class learnpath
                     Display::span($title_cut) .
                     Display::tag(
                         'div',
-                        "<div class=\"btn-group btn-group-xs\">$audio $edit_icon $forumIcon $prerequisities_icon $move_item_icon $audio_icon $delete_icon</div>",
+                        "<div class=\"btn-group btn-group-xs\">$previewIcon $audio $edit_icon $forumIcon $prerequisities_icon $move_item_icon $audio_icon $delete_icon</div>",
                         array('class'=>'btn-toolbar button_actions')
                     );
             } else {
                 $row = Display::span($title.$icon).Display::span($audio, array('class'=>'button_actions'));
             }
-            $parent_id = $arrLP[$i]['parent_item_id'];
 
+            $parent_id = $arrLP[$i]['parent_item_id'];
             $default_data[$arrLP[$i]['id']] = $row;
             $default_content[$arrLP[$i]['id']] = $arrLP[$i];
 
@@ -5826,13 +5844,19 @@ class learnpath
             $list .= $tree;
         } else {
             if ($drop_element_here) {
-                $list .= get_lang("DragAndDropAnElementHere");
+                $list .= Display::return_message(get_lang("DragAndDropAnElementHere"));
             }
         }
         $list .= '</ul>';
 
-        //$return .= Display::panel($list, $this->name);
-        $return .= Display::panelCollapse($this->name, $list, 'scorm-list', null, 'scorm-list-accordion', 'scorm-list-collapse');
+        $return .= Display::panelCollapse(
+            $this->name,
+            $list,
+            'scorm-list',
+            null,
+            'scorm-list-accordion',
+            'scorm-list-collapse'
+        );
 
         if ($update_audio == 'true') {
             $return = $return_audio;
@@ -5867,7 +5891,7 @@ class learnpath
                 }
                 $return  .= Display::tag('li', Display::div($item['data'], array('class'=>"item_data $active")).$sub_list, array('id'=>$key, 'class'=>'record li_container'));
             } else {
-                //sections
+                // Sections
                 if (isset($item['children'])) {
                     $data = self::print_recursive($item['children'], $default_data, $default_content);
                 }

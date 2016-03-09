@@ -3461,25 +3461,30 @@ function setWorkUploadForm($form, $uploadFormType = 0)
  * @param array $_course
  * @param bool $isCorrection
  * @param array $workInfo
+ * @param array $file
  *
  * @return array
  */
-function uploadWork($my_folder_data, $_course, $isCorrection = false, $workInfo = [])
+function uploadWork($my_folder_data, $_course, $isCorrection = false, $workInfo = [], $file = [])
 {
-    if (empty($_FILES['file']['size'])) {
+    if (isset($_FILES['file']) && !empty($_FILES['file'])) {
+        $file = $_FILES['file'];
+    }
+
+    if (empty($file['size'])) {
         return array('error' => Display :: return_message(get_lang('UplUploadFailedSizeIsZero'), 'error'));
     }
     $updir = api_get_path(SYS_COURSE_PATH).$_course['path'].'/work/'; //directory path to upload
 
     // Try to add an extension to the file if it has'nt one
-    $filename = add_ext_on_mime(stripslashes($_FILES['file']['name']), $_FILES['file']['type']);
+    $filename = add_ext_on_mime(stripslashes($file['name']), $file['type']);
 
     // Replace dangerous characters
     $filename = api_replace_dangerous_char($filename);
 
     // Transform any .php file in .phps fo security
     $filename = php2phps($filename);
-    $filesize = filesize($_FILES['file']['tmp_name']);
+    $filesize = filesize($file['tmp_name']);
 
     if (empty($filesize)) {
         return array(
@@ -3523,7 +3528,7 @@ function uploadWork($my_folder_data, $_course, $isCorrection = false, $workInfo 
     // If we come from the group tools the groupid will be saved in $work_table
     if (is_dir($updir.$curdirpath) || empty($curdirpath)) {
         $result = move_uploaded_file(
-            $_FILES['file']['tmp_name'],
+            $file['tmp_name'],
             $updir.$curdirpath.'/'.$new_file_name
         );
     } else {
@@ -3649,9 +3654,11 @@ function sendAlertToUsers($workId, $courseInfo, $session_id)
  * @param int $sessionId
  * @param int $groupId
  * @param int $userId
+ * @param array $file
+ *
  * @return null|string
  */
-function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, $userId)
+function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, $userId, $file = [])
 {
     $work_table = Database :: get_course_table(TABLE_STUDENT_PUBLICATION);
 
@@ -3671,7 +3678,7 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
     $filesize = null;
 
     if ($values['contains_file']) {
-        $result = uploadWork($workInfo, $courseInfo);
+        $result = uploadWork($workInfo, $courseInfo, false, [], $file);
         if (isset($result['error'])) {
             $message = $result['error'];
             $saveWork = false;
@@ -3688,6 +3695,9 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
     if (empty($title)) {
         $title = get_lang('Untitled');
     }
+
+    $workData = [];
+
     if ($saveWork) {
         $active = '1';
         $params = [
@@ -3738,15 +3748,14 @@ function processWorkForm($workInfo, $values, $courseInfo, $sessionId, $groupId, 
             );
             sendAlertToUsers($workId, $courseInfo, $sessionId);
             Event::event_upload($workId);
-            $message = Display::return_message(get_lang('DocAdd'));
+            $workData = get_work_data_by_id($workId);
+            Display::addFlash(Display::return_message(get_lang('DocAdd')));
         }
     } else {
-        if (empty($message)) {
-            $message = Display::return_message(get_lang('IsNotPosibleSaveTheDocument'), 'error');
-        }
+        Display::addFlash(Display::return_message(get_lang('IsNotPosibleSaveTheDocument'), 'error'));
     }
 
-    return $message;
+    return $workData;
 }
 
 /**

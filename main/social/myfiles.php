@@ -14,6 +14,10 @@ if (api_get_setting('social.allow_social_tool') != 'true') {
     api_not_allowed();
 }
 
+if (api_get_setting('allow_my_files') === 'false') {
+    api_not_allowed(true);
+}
+
 $this_section = SECTION_SOCIAL;
 $_SESSION['this_section'] = $this_section;
 
