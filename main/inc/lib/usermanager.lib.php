@@ -4,6 +4,7 @@
 use Chamilo\CoreBundle\Entity\ExtraField as EntityExtraField;
 use Chamilo\UserBundle\Entity\User;
 use Chamilo\CoreBundle\Framework\Container;
+use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
 
 /**
  *
@@ -163,7 +164,7 @@ class UserManager
         if (api_get_multiple_access_url()) {
             $access_url_id = api_get_current_access_url_id();
         }
-
+        /*
         if (is_array($_configuration[$access_url_id]) &&
             isset($_configuration[$access_url_id]['hosting_limit_users']) &&
             $_configuration[$access_url_id]['hosting_limit_users'] > 0) {
@@ -188,7 +189,7 @@ class UserManager
 
                 return false;
             }
-        }
+        }*/
 
         if (empty($password)) {
             Display::addFlash(Display::return_message(get_lang('ThisFieldIsRequired').': '.get_lang('Password') , 'warning'));
@@ -238,6 +239,7 @@ class UserManager
             $expirationDate = new \DateTime($expirationDate, new DateTimeZone('UTC'));
         }
 
+        $em = Database::getManager();
         $userManager = self::getManager();
 
         /** @var User $user */
@@ -257,7 +259,14 @@ class UserManager
             ->setLanguage($language)
             ->setRegistrationDate($now)
             ->setHrDeptId($hr_dept_id)
-            ->setActive($active);
+            ->setActive($active)
+        ;
+
+        $url = $em->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
+
+        $accessRelUser = new AccessUrlRelUser();
+        $accessRelUser->setPortal($url);
+        $user->setPortal($accessRelUser);
 
         if (!empty($expirationDate)) {
             $user->setExpirationDate($expirationDate);
@@ -3508,8 +3517,8 @@ class UserManager
 
     /**
      * Deletes an user tag
-     * @param int user id
-     * @param int field id
+     * @param int $user_id
+     * @param int $field_id
      *
      */
     public static function delete_user_tags($user_id, $field_id)

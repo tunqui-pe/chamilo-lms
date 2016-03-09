@@ -3,6 +3,7 @@
 
 namespace Chamilo\UserBundle\Repository;
 
+use Chamilo\CoreBundle\Entity\AccessUrl;
 use Doctrine\ORM\EntityRepository;
 use \Doctrine\Common\Collections\Criteria;
 use \Chamilo\CoreBundle\Entity\Session;
@@ -130,6 +131,8 @@ class UserRepository extends EntityRepository
 
     /**
      * Get a filtered list of user by status and (optionally) access url
+     * @todo not use status
+     *
      * @param string $query The query to filter
      * @param int $status The status
      * @param int $accessUrlId The access URL ID
@@ -190,13 +193,6 @@ class UserRepository extends EntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
-
-    public function getGroupsByUser($userId)
-    {
-        $user = $this->find($userId);
-
-    }
-
 
     /**
      * Get course user relationship based in the course_rel_user table.
@@ -286,7 +282,8 @@ class UserRepository extends EntityRepository
             )
             ->andWhere(
                 $queryBuilder->expr()->eq('su.relationType', SESSION_RELATION_TYPE_RRHH)
-            );
+            )
+        ;
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -315,5 +312,43 @@ class UserRepository extends EntityRepository
             );
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Get number of users in URL
+     * @param AccessUrl $url
+     *
+     * @return int
+     */
+    public function getCountUsersByUrl(AccessUrl $url)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->innerJoin('a.portals', 'u')
+            ->where('u.portal = :u')
+            ->setParameters(['u' => $url])
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Get number of users in URL
+     * @param AccessUrl $url
+     *
+     * @return int
+     */
+    public function getCountTeachersByUrl(AccessUrl $url)
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        return $qb
+            ->select('COUNT(a)')
+            ->innerJoin('a.portals', 'u')
+            ->where('u.portal = :u and u.group = :g')
+            ->andWhere($qb->expr()->in('a.roles', ['ROLE_TEACHER']))
+            ->setParameters(['u' => $url, 'g' => $group])
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
     }
 }

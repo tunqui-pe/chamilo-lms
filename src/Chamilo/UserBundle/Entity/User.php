@@ -4,6 +4,8 @@
 namespace Chamilo\UserBundle\Entity;
 
 //use Chamilo\CoreBundle\Entity\UserFieldValues;
+use Chamilo\CoreBundle\Entity\AccessUrl;
+use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
 use Chamilo\CoreBundle\Entity\ExtraFieldValues;
 use Chamilo\CoreBundle\Entity\UsergroupRelUser;
 use Chamilo\CoreBundle\Entity\Skill;
@@ -45,6 +47,7 @@ use Chamilo\MediaBundle\Entity\Media;
  * //Vich\Uploadable
  * @UniqueEntity("username")
  * @ORM\Entity(repositoryClass="Chamilo\UserBundle\Repository\UserRepository")
+ * @ORM\EntityListeners({"Chamilo\UserBundle\Entity\Listener\UserListener"})
  *
  * @ORM\AttributeOverrides({
  *      @ORM\AttributeOverride(name="email",
@@ -287,6 +290,11 @@ class User extends BaseUser implements ThemeUser
     private $hrDeptId;
 
     /**
+     * @var AccessUrl
+     **/
+    protected $currentUrl;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     //protected $salt;
@@ -359,9 +367,10 @@ class User extends BaseUser implements ThemeUser
      **/
     protected $curriculumItems;
 
-    /*
-     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\AccessUrlRelUser", mappedBy="user")
+    /**
+     * @var ArrayCollection
      *
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\AccessUrlRelUser", mappedBy="user")
      */
     protected $portals;
 
@@ -1584,6 +1593,33 @@ class User extends BaseUser implements ThemeUser
         $this->picture = $picture;
 
         return $this;
+    }
+
+    /**
+     * @param AccessUrl $url
+     *
+     * @return $this
+     */
+    public function setCurrentUrl(AccessUrl $url)
+    {
+        $urlList = $this->getPortals();
+        /** @var AccessUrlRelUser $item */
+        foreach ($urlList as $item) {
+            if ($item->getPortal()->getId() == $url->getId()) {
+                $this->currentUrl = $url;
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return AccessUrl
+     */
+    public function getCurrentUrl()
+    {
+        return $this->currentUrl;
     }
 
 //    /**
