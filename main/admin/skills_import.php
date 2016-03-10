@@ -18,7 +18,6 @@ $cidReset = true;
 function validate_data($skills)
 {
     $errors = array();
-    $skills = array();
     // 1. Check if mandatory fields are set.
     $mandatory_fields = array('id', 'parent_id', 'name');
     foreach ($skills as $index => $skill) {
@@ -86,6 +85,7 @@ function parse_csv_data($file)
 	foreach ($skills as $index => $skill) {
 		$skills[$index] = $skill;
 	}
+
 	return $skills;
 }
 
@@ -194,7 +194,7 @@ if (!empty($_POST['formSent']) && $_FILES['import_file']['size'] !== 0) {
 		$error_kind_file = true;
 	}
 
-	// List skill id whith error.
+	// List skill id with error.
 	$skills_to_insert = $skill_id_error = array();
 	if (is_array($errors)) {
 		foreach ($errors as $my_errors) {

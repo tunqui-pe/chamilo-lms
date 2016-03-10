@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  * Template (front controller in MVC pattern) used for distpaching to the controllers depend on the current action
  * @author Christian Fasanando <christian1827@gmail.com>
@@ -7,9 +10,6 @@
  * @package chamilo.course_progress
  */
 
-use ChamiloSession as Session;
-
-////require_once '../inc/global.inc.php';
 require_once 'thematic_controller.php';
 
 // current section

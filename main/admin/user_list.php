@@ -2,9 +2,9 @@
 /* For licensing terms, see /license.txt */
 
 /**
-	@author Bart Mollet
-	@author Julio Montoya <gugli100@gmail.com> BeezNest 2011
-*	@package chamilo.admin
+ * @author Bart Mollet
+ * @author Julio Montoya <gugli100@gmail.com> BeezNest 2011
+ * @package chamilo.admin
 */
 
 use ChamiloSession as Session;
@@ -42,7 +42,8 @@ function load_course_list (div_course,my_user_id) {
 		}
 	});
 }
-function load_session_list (div_session,my_user_id) {
+
+function load_session_list(div_session, my_user_id) {
 	 $.ajax({
 		contentType: "application/x-www-form-urlencoded",
 		beforeSend: function(objeto) {
@@ -73,21 +74,21 @@ function active_user(element_div) {
 		 $.ajax({
 			contentType: "application/x-www-form-urlencoded",
 			beforeSend: function(objeto) {
-				$(ident).attr("src","'.api_get_path(WEB_IMG_PATH).'loading1.gif'.'"); }, //candy eye stuff
+				$(ident).attr("src","'.Display::returnIconPath('loading1.gif').'"); }, //candy eye stuff
 			type: "GET",
 			url: "'.api_get_path(WEB_AJAX_PATH).'user_manager.ajax.php?a=active_user",
 			data: "user_id="+user_id[1]+"&status="+status,
 			success: function(data) {
 				if (data == 1) {
-					$(ident).attr("src","'.api_get_path(WEB_IMG_PATH).'icons/16/accept.png'.'");
+					$(ident).attr("src", "'.Display::returnIconPath('accept.png').'");
 					$(ident).attr("title","'.get_lang('Lock').'");
 				}
                 if (data == 0) {
-					$(ident).attr("src","'.api_get_path(WEB_IMG_PATH).'icons/16/error.png'.'");
+					$(ident).attr("src","'.Display::returnIconPath('error.png').'");
 					$(ident).attr("title","'.get_lang('Unlock').'");
 				}
                 if (data == -1) {
-                    $(ident).attr("src","'.api_get_path(WEB_IMG_PATH).'icons/16/warning.png'.'");
+                    $(ident).attr("src", "'.Display::returnIconPath('warning.png').'");
 					$(ident).attr("title","'.get_lang('ActionNotAllowed').'");
                 }
 			}
@@ -157,7 +158,8 @@ api_protect_admin_script(true);
  * @param boolean $is_count Whether to count, or get data
  * @return string SQL query
  */
-function prepare_user_sql_query($is_count) {
+function prepare_user_sql_query($is_count)
+{
     $sql = "";
     $user_table = Database::get_main_table(TABLE_MAIN_USER);
     $admin_table = Database::get_main_table(TABLE_MAIN_ADMIN);
@@ -186,7 +188,7 @@ function prepare_user_sql_query($is_count) {
 
     // adding the filter to see the user's only of the current access_url
     if ((api_is_platform_admin() || api_is_session_admin()) && api_get_multiple_access_url()) {
-        $access_url_rel_user_table= Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
+        $access_url_rel_user_table = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
         $sql.= " INNER JOIN $access_url_rel_user_table url_rel_user ON (u.id=url_rel_user.user_id)";
     }
 
@@ -240,8 +242,8 @@ function prepare_user_sql_query($is_count) {
         if (isset($keywordListValues['keyword_status']) &&
             $keywordListValues['keyword_status'] == PLATFORM_ADMIN
         ) {
-           $query_admin_table = " , $admin_table a ";
-           $keyword_admin = ' AND a.user_id = u.id ';
+            $query_admin_table = " , $admin_table a ";
+            $keyword_admin = ' AND a.user_id = u.id ';
             $keywordListValues['keyword_status'] = '%';
         }
 
@@ -265,7 +267,7 @@ function prepare_user_sql_query($is_count) {
 
         if (isset($keyword_active) && !isset($keyword_inactive)) {
             $sql .= " AND u.active='1'";
-        } elseif(isset($keyword_inactive) && !isset($keyword_active)) {
+        } elseif (isset($keyword_inactive) && !isset($keyword_active)) {
             $sql .= " AND u.active='0'";
         }
         $sql .= " ) ";
@@ -282,14 +284,14 @@ function prepare_user_sql_query($is_count) {
 }
 
 /**
-*	Make sure this function is protected because it does NOT check password!
-*
-*	This function defines globals.
-*   @param  int     $userId
+ * Make sure this function is protected because it does NOT check password!
  *
-*   @return bool    False on failure, redirection on success
-*	@author Evie Embrechts
-*   @author Yannick Warnier <yannick.warnier@dokeos.com>
+ * This function defines globals.
+ * @param  int $userId
+ *
+ * @return bool    False on failure, redirection on success
+ * @author Evie Embrechts
+ * @author Yannick Warnier <yannick.warnier@dokeos.com>
 */
 function loginUser($userId)
 {
@@ -308,7 +310,7 @@ function loginUser($userId)
     $lastname = $userInfo['lastname'];
 
 	if (api_is_western_name_order()) {
-		$message = sprintf(get_lang('AttemptingToLoginAs'),$firstname,$lastname, $userId);
+		$message = sprintf(get_lang('AttemptingToLoginAs'),$firstname, $lastname, $userId);
 	} else {
 		$message = sprintf(get_lang('AttemptingToLoginAs'), $lastname, $firstname, $userId);
 	}
@@ -356,7 +358,8 @@ function loginUser($userId)
  * Get the total number of users on the platform
  * @see SortableTable#get_total_number_of_items()
  */
-function get_number_of_users() {
+function get_number_of_users()
+{
     $sql = prepare_user_sql_query(true);
 
     $res = Database::query($sql);
@@ -696,7 +699,7 @@ if (!empty($action)) {
 					}
 				}
 				break;
-            case 'delete' :
+            case 'delete':
 				if (api_is_platform_admin()) {
 					$number_of_selected_users = count($_POST['id']);
 					$number_of_deleted_users = 0;

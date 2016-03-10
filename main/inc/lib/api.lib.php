@@ -1874,17 +1874,14 @@ function api_format_course_array($course_data)
     $_course['language'] = $course_data['course_language'];
     $_course['extLink']['url'] = $course_data['department_url'];
     $_course['extLink']['name'] = $course_data['department_name'];
-
     $_course['categoryCode'] = $course_data['faCode'];
     $_course['categoryName'] = $course_data['faName'];
-
     $_course['visibility'] = $course_data['visibility'];
     $_course['subscribe_allowed'] = $course_data['subscribe'];
     $_course['subscribe'] = $course_data['subscribe'];
     $_course['unsubscribe'] = $course_data['unsubscribe'];
-
     $_course['course_language'] = $course_data['course_language'];
-    $_course['activate_legal'] = isset($course_data['activate_legal']) ? $course_data['activate_legal'] : false;;
+    $_course['activate_legal'] = isset($course_data['activate_legal']) ? $course_data['activate_legal'] : false;
     $_course['legal'] = $course_data['legal'];
     $_course['show_score'] = $course_data['show_score']; //used in the work tool
     $_course['department_name'] = $course_data['department_name'];
@@ -1909,7 +1906,7 @@ function api_format_course_array($course_data)
     if (file_exists(api_get_path(SYS_COURSE_PATH).$course_data['directory'].'/course-pic.png')) {
         $url_image = api_get_path(WEB_COURSE_PATH).$course_data['directory'].'/course-pic.png';
     } else {
-        $url_image = Display::return_icon('session_default.png',null,null,null,null,true);
+        $url_image = Display::returnIconPath('session_default.png');
     }
     $_course['course_image_large'] = $url_image;
 

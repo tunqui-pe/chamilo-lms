@@ -1512,6 +1512,7 @@ function getWorkListTeacher(
 
         if ($getCount) {
             $row = Database::fetch_array($result);
+
             return $row['count'];
         }
         $url = api_get_path(WEB_CODE_PATH).'work/work_list_all.php?'.api_get_cidreq();

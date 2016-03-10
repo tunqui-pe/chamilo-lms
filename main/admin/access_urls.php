@@ -65,7 +65,10 @@ if (isset ($_GET['action'])) {
                                 $url_str.=$my_url['url'].' <br />';
                             }
                         }
-                        Display :: display_normal_message(get_lang('AdminUserRegisteredToThisURL').': '.$url_str.'<br />',false);
+                        Display:: display_normal_message(
+                            get_lang('AdminUserRegisteredToThisURL').': '.$url_str.'<br />',
+                            false
+                        );
                     }
                 }
                 break;
@@ -76,8 +79,7 @@ if (isset ($_GET['action'])) {
 
 $parameters['sec_token'] = Security::get_token();
 
-// checking if the admin is registered in all sites
-
+// Checking if the admin is registered in all sites
 $url_string='';
 $my_user_url_list = api_get_access_url_from_user(api_get_user_id());
 foreach ($url_list as $my_url) {
@@ -106,10 +108,18 @@ if ($current_access_url_id==-1) {
 
 // action menu
 echo '<div class="actions">';
-echo Display::url(Display::return_icon('new_link.png',  get_lang('AddUrl'), array(), ICON_SIZE_MEDIUM),          api_get_path(WEB_CODE_PATH).'admin/access_url_edit.php');
-echo Display::url(Display::return_icon('user.png',      get_lang('ManageUsers'), array(), ICON_SIZE_MEDIUM),     api_get_path(WEB_CODE_PATH).'admin/access_url_edit_users_to_url.php');
-echo Display::url(Display::return_icon('course.png',    get_lang('ManageCourses'), array(), ICON_SIZE_MEDIUM),   api_get_path(WEB_CODE_PATH).'admin/access_url_edit_courses_to_url.php');
-//echo Display::url(Display::return_icon('session.png',   get_lang('ManageSessions'), array(), ICON_SIZE_MEDIUM), api_get_path(WEB_CODE_PATH).'admin/access_url_edit_sessions_to_url.php');
+echo Display::url(
+    Display::return_icon('new_link.png', get_lang('AddUrl'), array(), ICON_SIZE_MEDIUM),
+    api_get_path(WEB_CODE_PATH).'admin/access_url_edit.php'
+);
+echo Display::url(
+    Display::return_icon('user.png', get_lang('ManageUsers'), array(), ICON_SIZE_MEDIUM),
+    api_get_path(WEB_CODE_PATH).'admin/access_url_edit_users_to_url.php'
+);
+echo Display::url(
+    Display::return_icon('course.png', get_lang('ManageCourses'), array(), ICON_SIZE_MEDIUM),
+    api_get_path(WEB_CODE_PATH).'admin/access_url_edit_courses_to_url.php'
+);
 
 $userGroup = new UserGroup();
 if ($userGroup->getUseMultipleUrl()) {
@@ -166,8 +176,6 @@ foreach ($sortable_data as $row)  {
 
 $table = new SortableTableFromArrayConfig($urls, 2, 50, 'urls');
 $table->set_additional_parameters($parameters);
-
-//$table->set_header(0, '');
 $table->set_header(0, 'URL');
 $table->set_header(1, get_lang('Description'));
 $table->set_header(2, get_lang('Active'));

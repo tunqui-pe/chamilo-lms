@@ -1,10 +1,11 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *  @package chamilo.admin
  */
-use ChamiloSession as Session;
 
 $cidReset = true;
 
@@ -146,9 +147,15 @@ switch ($action) {
                 if ($res) {
                     Display::display_confirmation_message(get_lang('CareerUpdated'));
                     if ($values['status'] && !$old_status) {
-                        Display::display_confirmation_message(sprintf(get_lang('CareerXUnarchived'), $values['name']), false);
+                        Display::display_confirmation_message(
+                            sprintf(get_lang('CareerXUnarchived'), $values['name']),
+                            false
+                        );
                     } elseif (!$values['status'] && $old_status) {
-                        Display::display_confirmation_message(sprintf(get_lang('CareerXArchived'), $values['name']), false);
+                        Display::display_confirmation_message(
+                            sprintf(get_lang('CareerXArchived'), $values['name']),
+                            false
+                        );
                     }
                 }
             }

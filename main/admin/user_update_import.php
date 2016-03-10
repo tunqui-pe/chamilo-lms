@@ -418,7 +418,7 @@ if (isset($_POST['formSent']) && $_POST['formSent'] AND $_FILES['import_file']['
 Display :: display_header($tool_name);
 
 $form = new FormValidator('user_update_import', 'post', api_get_self());
-$form->addElement('header', '', $tool_name);
+$form->addElement('header', $tool_name);
 $form->addElement('hidden', 'formSent');
 $form->addElement('file', 'import_file', get_lang('ImportFileLocation'));
 
