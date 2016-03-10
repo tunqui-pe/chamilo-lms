@@ -420,9 +420,7 @@ switch ($action) {
                         );
                     }
 
-                    if (isset($attempt_list[$my_question_id]) &&
-                        isset($attempt_list[$my_question_id]->getMarks())
-                    ) {
+                    if (isset($attempt_list[$my_question_id])) {
                         $total_score -= $attempt_list[$my_question_id]->getMarks();
                     }
                 }

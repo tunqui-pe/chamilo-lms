@@ -1651,7 +1651,7 @@ class Event
         $qb = $em->createQueryBuilder();
         $qb
             ->select('tea')
-            ->from('ChamiloCoreBundle:TrackEAttempt')
+            ->from('ChamiloCoreBundle:TrackEAttempt', 'tea')
             ->where(
                 $qb->expr()->eq('tea.exeId', $exe_id)
             )
