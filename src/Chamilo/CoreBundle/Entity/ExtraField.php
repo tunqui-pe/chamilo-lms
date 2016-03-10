@@ -11,10 +11,7 @@ use Sylius\Component\Attribute\AttributeType\DatetimeAttributeType;
 use Sylius\Component\Attribute\AttributeType\IntegerAttributeType;
 use Sylius\Component\Attribute\AttributeType\TextareaAttributeType;
 use Sylius\Component\Attribute\AttributeType\TextAttributeType;
-use Sylius\Component\Attribute\Model\Attribute as BaseAttribute;
-use Sylius\Component\Attribute\Model\AttributeInterface;
 use Sylius\Component\Translation\Model\AbstractTranslatable;
-use Sylius\Component\Resource\Model\TimestampableTrait;
 
 /**
  * Class ExtraField
@@ -22,7 +19,8 @@ use Sylius\Component\Resource\Model\TimestampableTrait;
  * @ORM\Entity
  * @ORM\Table(name="extra_field")
  */
-class ExtraField implements AttributeInterface
+//implements AttributeInterface
+class ExtraField
 {
     const USER_FIELD_TYPE = 1;
     const COURSE_FIELD_TYPE = 2;
@@ -538,5 +536,7 @@ class ExtraField implements AttributeInterface
     {
         $this->updatedAt = $updatedAt;
     }
+
+
 
 }
