@@ -136,7 +136,7 @@ class Display
         return null;
         echo self::$global_template->show_footer_template();
     }
-    
+
     /**
      * Display the page footer
      */
@@ -892,25 +892,12 @@ class Display
         $return_only_path = false,
         $loadThemeIcon = true
     ) {
-        $code_path = api_get_path(SYS_IMG_PATH);
-        $w_code_path = api_get_path(WEB_CODE_PATH);
-        $alternateCssPath = api_get_path(SYS_CSS_PATH);
-        $alternateWebCssPath = api_get_path(WEB_CSS_PATH);
-
         $image = trim($image);
         $size_extra = '';
-
         if (isset($size)) {
-            $size = intval($size);
             $size_extra = $size . '/';
-        } else {
-            $size = ICON_SIZE_SMALL;
         }
-
-        // Checking the img/ folder
-        $icon = $w_code_path.'img/'.$image;
-
-        $theme = 'themes/chamilo/icons/';
+        /*$theme = 'themes/chamilo/icons/';
 
         if ($loadThemeIcon) {
             $theme = 'themes/' . api_get_visual_theme() . '/icons/';
@@ -921,34 +908,10 @@ class Display
             //Checking the main/img/icons/XXX/ folder
                 $icon = $w_code_path.'img/icons/'.$size_extra.$image;
             }
-        }
-
-        // Special code to enable SVG - refs #7359 - Needs more work
-        // The code below does something else to "test out" SVG: for each icon,
-        // it checks if there is an SVG version. If so, it uses it.
-        // When moving this to production, the return_icon() calls should
-        // ask for the SVG version directly
-        $testServer = api_get_setting('server_type');
-        /*if ($testServer == 'test' && $return_only_path == false) {
-            $svgImage = substr($image, 0, -3) . 'svg';
-            if (is_file($code_path . $theme . 'svg/' . $svgImage)) {
-                $icon = $w_code_path . $theme . 'svg/' . $svgImage;
-            } elseif (is_file($code_path . 'img/icons/svg/' . $svgImage)) {
-                $icon = $w_code_path . 'img/icons/svg/' . $svgImage;
-            }
-
-            if (empty($additional_attributes['height'])) {
-                $additional_attributes['height'] = $size;
-            }
-            if (empty($additional_attributes['width'])) {
-                $additional_attributes['width'] = $size;
-            }
         }*/
 
-        $icon = 'bundles/chamilocore/img/'.$icon;
+        $icon = 'bundles/chamilocore/img/icons/'.$size_extra.$image;
         $icon = Container::getAsset()->getUrl($icon);
-
-        //$icon = api_get_cdn_path($icon);
 
         if ($return_only_path) {
             return $icon;
