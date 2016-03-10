@@ -142,7 +142,7 @@ class AdminController extends BaseController
         if (api_is_platform_admin()) {
             /* Courses */
             $blocks['courses']['icon'] = \Display::return_icon(
-                'course.gif',
+                'course.png',
                 get_lang('Courses'),
                 array(),
                 ICON_SIZE_MEDIUM,
