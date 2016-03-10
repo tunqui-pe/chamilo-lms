@@ -41,6 +41,7 @@ class PlatformSettingsSchema implements SchemaInterface
                     'course_catalog_hide_private' => 'false',
                     'use_custom_pages' => 'false',
                     'pdf_logo_header' => '',
+                    'allow_my_files' => 'true'
                     //
 //('catalog_show_courses_sessions', '0', 'CatalogueShowOnlyCourses'),
 //('catalog_show_courses_sessions', '1', 'CatalogueShowOnlySessions'),
@@ -98,6 +99,7 @@ class PlatformSettingsSchema implements SchemaInterface
             )
             ->add('use_custom_pages', 'yes_no')
             ->add('pdf_logo_header')
+            ->add('allow_my_files', 'yes_no')
         ;
     }
 }

@@ -799,7 +799,7 @@ class SocialManager extends UserManager
                     </a>
                 </li>';
 
-            if (api_get_setting('allow_my_files') === 'false') {
+            if (api_get_setting('platform.allow_my_files') === 'false') {
                 $myFiles = '';
             }
             $links .= $myFiles;
@@ -881,7 +881,7 @@ class SocialManager extends UserManager
                         </a>
                     </li>';
 
-                if (api_get_setting('allow_my_files') === 'false') {
+                if (api_get_setting('platform.allow_my_files') === 'false') {
                     $myFiles = '';
                 }
                 $links .= $myFiles;

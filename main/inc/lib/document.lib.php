@@ -5374,7 +5374,7 @@ class DocumentManager
                     $copy_to_myfiles = '<a href="' . $copy_myfiles_link . '" style="float:right"' . $prevent_multiple_click . '>' .
                         Display::return_icon('briefcase.png', get_lang('CopyToMyFiles'), array(), ICON_SIZE_SMALL) . '&nbsp;&nbsp;</a>';
 
-                    if (api_get_setting('allow_my_files') === 'false') {
+                    if (api_get_setting('platform.allow_my_files') === 'false') {
                         $copy_to_myfiles = '';
                     }
                 }

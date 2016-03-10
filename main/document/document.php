@@ -389,7 +389,7 @@ switch ($action) {
                     'gidReq='.$gidReq.'&amp;parent_id='.$parent_id
             );
 
-            if (api_get_setting('allow_my_files') === 'false') {
+            if (api_get_setting('platform.allow_my_files') === 'false') {
                 $file_link = '';
             }
 
