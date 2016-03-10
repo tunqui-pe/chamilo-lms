@@ -3375,7 +3375,7 @@ function show_edit_post_form(
     $form = new FormValidator(
         'edit_post',
         'post',
-        api_get_self().'?'.api_get_cidreq().'&forum='.Security::remove_XSS($_GET['forum']).'&thread='.Security::remove_XSS($_GET['thread']).'&post='.Security::remove_XSS($_GET['post'])
+        api_get_self().'?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']).'&post='.intval($_GET['post'])
     );
     $form->addElement('header', get_lang('EditPost'));
     // Setting the form elements.
@@ -5628,7 +5628,9 @@ function editAttachedFile($array, $id, $courseId = null) {
  * @param int $forumId Forum ID from where the post are
  * @param int $threadId Thread ID where forum post are
  * @param int $postId Post ID to identify Post
+ * @deprecated this function seems to never been used
  * @return string The Forum Attachment Ajax Form
+ *
  */
 function getAttachmentAjaxForm($forumId, $threadId, $postId)
 {

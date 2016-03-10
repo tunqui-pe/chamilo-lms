@@ -117,14 +117,14 @@ if ($origin == 'learnpath') {
 
         if ($message <> 'PostDeletedSpecial') {
             if (isset($_GET['gradebook']) and $_GET['gradebook']=='view') {
-                $info_thread=get_thread_information(Security::remove_XSS($_GET['thread']));
+                $info_thread = get_thread_information($_GET['thread']);
                 $interbreadcrumb[] = array(
-                    "url" => "viewthread.php?".api_get_cidreq()."&forum=".$info_thread['forum_id']."&thread=".Security::remove_XSS($_GET['thread']),
+                    "url" => "viewthread.php?".api_get_cidreq()."&forum=".$info_thread['forum_id']."&thread=".intval($_GET['thread']),
                     "name" => prepare4display($currentThread['thread_title'])
                 );
             } else {
                 $interbreadcrumb[] = array(
-                    "url" => "viewthread.php?".api_get_cidreq()."&forum=".Security::remove_XSS($_GET['forum'])."&thread=".Security::remove_XSS($_GET['thread']),
+                    "url" => "viewthread.php?".api_get_cidreq()."&forum=".intval($_GET['forum'])."&thread=".intval($_GET['thread']),
                     "name" => prepare4display($currentThread['thread_title'])
                 );
             }

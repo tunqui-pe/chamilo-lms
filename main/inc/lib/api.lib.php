@@ -5380,6 +5380,7 @@ function api_get_access_url($id, $returnDefault = true)
             }
         }
     }
+
     return $result;
 }
 

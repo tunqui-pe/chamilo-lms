@@ -83,16 +83,16 @@ if (api_is_in_gradebook()) {
 }
 
 $interbreadcrumb[] = array(
-    'url' => 'lp_controller.php?action=list&'.api_get_cidreq(),
-    'name' => get_lang('LearningPaths'),
+    'url' => api_get_path(WEB_CODE_PATH).'newscorm/lp_controller.php?action=list&'.api_get_cidreq(),
+    'name' => get_lang('LearningPaths')
 );
 $interbreadcrumb[] = array(
     'url' => api_get_self()."?action=build&lp_id=$learnpath_id&".api_get_cidreq(),
-    'name' => $therow['name'],
+    'name' => $therow['name']
 );
 $interbreadcrumb[] = array(
     'url' => api_get_self()."?action=add_item&type=step&lp_id=$learnpath_id&".api_get_cidreq(),
-    'name' => get_lang('NewStep'),
+    'name' => get_lang('NewStep')
 );
 
 // Theme calls

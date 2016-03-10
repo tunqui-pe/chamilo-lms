@@ -64,7 +64,7 @@ if ($origin == 'learnpath') {
         'name' => prepare4display($current_forum_category['cat_title']),
     );
     $interbreadcrumb[] = array(
-        'url' => 'viewforum.php?'.api_get_cidreq().'&forum='.Security::remove_XSS($_GET['forum']).'&origin='.$origin.'&search='.Security::remove_XSS(urlencode($_GET['search'])),
+        'url' => 'viewforum.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&origin='.$origin.'&search='.Security::remove_XSS(urlencode($_GET['search'])),
         'name' => prepare4display($current_forum['forum_title']),
     );
 

@@ -12,8 +12,12 @@ api_protect_course_script(false);
 require_once api_get_path(LIBRARY_PATH).'geometry.lib.php';
 
 Display::display_reduced_header();
+
+echo '<div id="delineation-container">';
+
 $message = null;
 $dbg_local = 0;
+$gradebook = null;
 
 $final_overlap = null;
 $final_missing = null;
@@ -75,6 +79,8 @@ if (isset($_GET['hotspot'])) {
         }
     }
 }
+
+$choice_value = '';
 
 $user_array = substr($user_array,0,-1);
 
@@ -590,3 +596,6 @@ if ($links!='') {
    			//self.parent.tb_remove();
  	 	</script>';
 }
+
+echo '</div>';
+
