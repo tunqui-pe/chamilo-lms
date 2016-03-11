@@ -64,7 +64,8 @@ $action = isset($_GET['action']) ? Security::remove_XSS($_GET['action']) : 'list
 $announcement_number = AnnouncementManager::getNumberAnnouncements();
 
 $homeUrl = api_get_self().'?action=list&'.api_get_cidreq();
-$content = null;
+$content = '';
+$searchFormToString = '';
 
 if (!empty($group_id)) {
     $group_properties  = GroupManager :: get_group_properties($group_id);
@@ -139,8 +140,41 @@ switch ($action) {
 
         $htmlHeadXtra[] = api_get_jqgrid_js();
 
+        $searchForm = new FormValidator(
+            'search_simple',
+            'post',
+            api_get_self().'?'.api_get_cidreq(),
+            '',
+            array(),
+            FormValidator::LAYOUT_INLINE
+        );
+
+        $searchForm->addElement('text', 'keyword', get_lang('Title'));
+        $users = CourseManager::get_user_list_from_course_code(api_get_course_id(), api_get_session_id());
+        $userList = array('' => '');
+        if (!empty($users)) {
+            foreach ($users as $user) {
+                $userList[$user['user_id']] = api_get_person_name($user['firstname'], $user['lastname']);
+            }
+        }
+        $users = [];
+        $searchForm->addElement('select', 'user_id', get_lang('Users'), $userList);
+        $searchForm->addButtonSearch(get_lang('Search'));
+
+        $filterData = array();
+        $keyword = '';
+        $userIdToSearch = 0;
+
+        if ($searchForm->validate()) {
+            $filterData = $searchForm->getSubmitValues();
+            $keyword = $filterData['keyword'];
+            $userIdToSearch = $filterData['user_id'];
+        }
+
+        $searchFormToString = $searchForm->returnForm();
+
         // jqgrid will use this URL to do the selects
-        $url = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_course_announcements&'.api_get_cidreq();
+        $url = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_course_announcements&'.api_get_cidreq().'&title_to_search='.$keyword.'&user_id_to_search='.$userIdToSearch;
         $deleteUrl = api_get_path(WEB_AJAX_PATH).'announcement.ajax.php?a=delete_item&'.api_get_cidreq();
         $columns = array(get_lang('Title'), get_lang('By'), get_lang('LastUpdateDate'), get_lang('Actions'));
 
@@ -201,7 +235,16 @@ switch ($action) {
 
         $content = '<script>
         $(function() {'.
-        Display::grid_js('announcements', $url, $columns, $columnModel, $extra_params, array(), '', true).$editOptions.'
+            Display::grid_js(
+                'announcements',
+                $url,
+                $columns,
+                $columnModel,
+                $extra_params,
+                array(),
+                '',
+                true
+            ).$editOptions.'
         });
         </script>';
 
@@ -240,10 +283,8 @@ switch ($action) {
         }
 
         if (!api_is_course_coach() || api_is_element_in_the_session(TOOL_ANNOUNCEMENT, $id)) {
-
             AnnouncementManager::delete_announcement($_course, $id);
             Display::addFlash(Display::return_message(get_lang('AnnouncementDeleted')));
-
         }
         header('Location: '.$homeUrl);
         exit;
@@ -558,23 +599,23 @@ if (empty($_GET['origin']) || $_GET['origin'] !== 'learnpath') {
 
 // Actions
 $show_actions = false;
+$actionsLeft = '';
 if ((api_is_allowed_to_edit(false,true) ||
     (api_get_course_setting('announcement.allow_user_edit_announcement') && !api_is_anonymous())) &&
     (empty($_GET['origin']) || $_GET['origin'] !== 'learnpath')
 ) {
     echo '<div class="actions">';
     if (in_array($action, array('add', 'modify','view'))) {
-        echo "<a href='".api_get_self()."?".api_get_cidreq()."&origin=".$origin."'>".
+        $actionsLeft .= "<a href='".api_get_self()."?".api_get_cidreq()."&origin=".$origin."'>".
             Display::return_icon('back.png',get_lang('Back'),'',ICON_SIZE_MEDIUM)."</a>";
     } else {
-        echo "<a href='".api_get_self()."?".api_get_cidreq()."&action=add&origin=".$origin."'>".
+        $actionsLeft .= "<a href='".api_get_self()."?".api_get_cidreq()."&action=add&origin=".$origin."'>".
             Display::return_icon('new_announce.png',get_lang('AddAnnouncement'),'',ICON_SIZE_MEDIUM)."</a>";
     }
     $show_actions = true;
 } else {
     if (in_array($action, array('view'))) {
-        echo '<div class="actions">';
-        echo "<a href='".api_get_self()."?".api_get_cidreq()."&origin=".$origin."'>".
+        $actionsLeft .= "<a href='".api_get_self()."?".api_get_cidreq()."&origin=".$origin."'>".
             Display::return_icon('back.png',get_lang('Back'),'',ICON_SIZE_MEDIUM)."</a>";
         echo '</div>';
     }
@@ -582,17 +623,21 @@ if ((api_is_allowed_to_edit(false,true) ||
 
 if (api_is_allowed_to_edit() && $announcement_number > 1) {
     if (api_get_group_id() == 0 ) {
-        if (!$show_actions)
-            echo '<div class="actions">';
         if (!isset($_GET['action'])) {
-            echo "<a href=\"".api_get_self()."?".api_get_cidreq()."&action=delete_all\" onclick=\"javascript:if(!confirm('".get_lang("ConfirmYourChoice")."')) return false;\">".
-                Display::return_icon('delete_announce.png',get_lang('AnnouncementDeleteAll'),'',ICON_SIZE_MEDIUM)."</a>";
+            $actionsLeft .= "<a href=\"".api_get_self()."?".api_get_cidreq()."&action=delete_all\" onclick=\"javascript:if(!confirm('".get_lang("ConfirmYourChoice")."')) return false;\">".
+                Display::return_icon(
+                    'delete_announce.png',
+                    get_lang('AnnouncementDeleteAll'),
+                    '',
+                    ICON_SIZE_MEDIUM
+                )."</a>";
         }
     }
 }
 
-if ($show_actions)
-    echo '</div>';
+if ($show_actions) {
+    echo Display::toolbarAction('toolbar', array($actionsLeft, $searchFormToString), 2, false);
+}
 
 echo $content;
 

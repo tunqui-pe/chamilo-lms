@@ -21,6 +21,8 @@ $nameTools = get_lang('PhotoRetouching');
 
 api_protect_course_script();
 api_block_anonymous_users();
+$_course = api_get_course_info();
+
 if (api_get_setting('enabled_support_paint') == 'false') {
 	api_not_allowed(true);
 }
@@ -76,7 +78,10 @@ if (!is_dir($filepath)) {
 $groupId = api_get_group_id();
 
 if (!empty($groupId)) {
-	$interbreadcrumb[] = array ("url" => "../group/group_space.php?".api_get_cidreq(), "name" => get_lang('GroupSpace'));
+    $interbreadcrumb[] = array(
+        "url" => api_get_path(WEB_CODE_PATH)."group/group_space.php?".api_get_cidreq(),
+        "name" => get_lang('GroupSpace'),
+    );
 	$noPHP_SELF = true;
 	$group = GroupManager::get_group_properties($groupId);
 	$path = explode('/', $dir);
@@ -126,11 +131,11 @@ echo '<a href="document.php?id='.$document_id.'">'.
     Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
 echo '</div>';
 
-///pixlr
+// pixlr
 // max size 1 Mb ??
 $title = urlencode(utf8_encode(get_lang('NewImage')));//TODO:check
 //
-$image = api_get_path(WEB_IMG_PATH) . 'canvas1024x768.png';
+$image = Display::returnIconPath('canvas1024x768.png');
 //
 $pixlr_code_translation_table = array('' => 'en', 'pt' => 'pt-Pt', 'sr' => 'sr_latn');
 $langpixlr  = api_get_language_isocode();
@@ -164,7 +169,7 @@ if ($_SERVER['HTTP_HOST']=="localhost") {
 }
 $pixlr_url = api_get_protocol().'://pixlr.com/editor/?title='.$title.'&image='.$image.'&loc='.$loc.'&referrer='.$referrer.'&target='.$target.'&exit='.$exit_path.'&locktarget='.$locktarget.'&locktitle='.$locktitle.'&credentials='.$credentials;
 ?>
-<script type="text/javascript">
+<script>
 
 document.write ('<iframe id="frame" frameborder="0" scrolling="no" src="<?php echo  $pixlr_url; ?>" width="100%" height="100%"><noframes><p>Sorry, your browser does not handle frames</p></noframes></iframe></div>');
 function resizeIframe() {
@@ -177,9 +182,7 @@ function resizeIframe() {
 };
 document.getElementById('frame').onload = resizeIframe;
 window.onresize = resizeIframe;
-
 </script>
-
 <?php
 
 echo '<noscript>';

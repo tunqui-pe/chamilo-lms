@@ -148,7 +148,8 @@ class CourseHome
             }
 
             // Setting the actual image url
-            $tool['img'] = api_get_path(WEB_IMG_PATH).$tool['img'];
+            $tool['img'] = Display::returnIconPath($tool['img']);
+
             $courseCode = api_get_course_id();
 
             // VISIBLE
