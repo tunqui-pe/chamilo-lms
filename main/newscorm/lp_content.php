@@ -52,13 +52,13 @@ if ($dokeos_chapter) {
 
             if ($prereq_check === true) {
                 $src = $learnPath->get_link('http', $lp_item_id);
-                $learnPath->start_current_item(
-                ); // starts time counter manually if asset
+                $learnPath->start_current_item(); // starts time counter manually if asset
+                $src = $learnPath->fixBlockedLinks($src);
 
-            } else {
-                $src = 'blank.php?error=prerequisites';
+                break;
             }
-            $src = $learnPath->fixBlockedLinks($src);
+
+            $src = 'blank.php?error=prerequisites';
             break;
         case 2:
             $learnPath->stop_previous_item();
