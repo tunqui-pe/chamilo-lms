@@ -392,7 +392,7 @@ class aicc extends learnpath
             if (preg_match('~.(php.*|phtml)$~i', $thisContent['filename'])) {
                 // If a php file is found, do not authorize (security risk).
                 if ($this->debug > 1) {error_log('New LP - aicc::import_package() - Found unauthorized file: '.$thisContent['filename'], 0); }
-                return api_failure::set_failure('php_file_in_zip_file');
+                throw new \Exception('php_file_in_zip_file');
             } elseif (preg_match('?.*/aicc/$?', $thisContent['filename'])) {
                 // If a directory named 'aicc' is found, package type = aicc, but continue,
                 // because we need to find the right AICC files;
@@ -459,14 +459,12 @@ class aicc extends learnpath
             }
         }
 
-        if ($package_type == '' || !$mandatory)
-        // && defined('CHECK_FOR_AICC') && CHECK_FOR_AICC)
-        {
-            return api_failure::set_failure('not_aicc_content');
+        if ($package_type == '' || !$mandatory) {
+            throw new \Exception('not_aicc_content');
         }
 
         if (!enough_size($realFileSize, $course_sys_dir, $maxFilledSpace)) {
-            return api_failure::set_failure('not_enough_space');
+            throw new \Exception(get_lang('ScormNotEnoughSpaceInCourseToInstallPackage'));
         }
 
         // It happens on Linux that $new_dir sometimes doesn't start with '/'

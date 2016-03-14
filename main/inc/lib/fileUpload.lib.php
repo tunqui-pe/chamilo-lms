@@ -817,50 +817,6 @@ function add_ext_on_mime($file_name, $file_type)
 }
 
 /**
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- *
- * @param  array $uploaded_file - follows the $_FILES Structure
- * @param  string $base_work_dir - base working directory of the module
- * @param  string $upload_path  - destination of the upload.
- *                               This path is to append to $base_work_dir
- * @param  int $max_filled_space - amount of bytes to not exceed in the base
- *                               working directory
- *
- * @return boolean true if it succeds, false otherwise
- */
-function treat_uploaded_file($uploaded_file, $base_work_dir, $upload_path, $max_filled_space, $uncompress = '')
-{
-    $uploaded_file['name'] = stripslashes($uploaded_file['name']);
-
-    if (!enough_size($uploaded_file['size'], $base_work_dir, $max_filled_space)) {
-        return api_failure::set_failure('not_enough_space');
-    }
-
-    if ($uncompress == 'unzip' && preg_match('/.zip$/', strtolower($uploaded_file['name']))) {
-        return unzip_uploaded_file($uploaded_file, $upload_path, $base_work_dir, $max_filled_space);
-    } else {
-        $file_name = trim($uploaded_file['name']);
-
-        // CHECK FOR NO DESIRED CHARACTERS
-        $file_name = api_replace_dangerous_char($file_name, 'strict');
-
-        // TRY TO ADD AN EXTENSION TO FILES WITOUT EXTENSION
-        $file_name = add_ext_on_mime($file_name, $uploaded_file['type']);
-
-        // HANDLE PHP FILES
-        $file_name = ($file_name);
-
-        // COPY THE FILE TO THE DESIRED DESTINATION
-        if (move_uploaded_file($uploaded_file['tmp_name'], $base_work_dir.$upload_path.'/'.$file_name)) {
-            set_default_settings($upload_path, $file_name);
-        }
-
-        return true;
-    }
-}
-
-/**
  * Manages all the unzipping process of an uploaded file
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
@@ -885,7 +841,7 @@ function unzip_uploaded_file($uploaded_file, $upload_path, $base_work_dir, $max_
         $realFileSize = 0;
         foreach ($zip_content_array as & $this_content) {
             if (preg_match('~.(php.*|phtml)$~i', $this_content['filename'])) {
-                return api_failure::set_failure('php_file_in_zip_file');
+                throw new \Exception('php_file_in_zip_file');
             } elseif (stristr($this_content['filename'], 'imsmanifest.xml')) {
                 $ok_scorm = true;
             } elseif (stristr($this_content['filename'], 'LMS')) {
@@ -905,11 +861,11 @@ function unzip_uploaded_file($uploaded_file, $upload_path, $base_work_dir, $max_
         }
 
         if (!$ok_scorm && defined('CHECK_FOR_SCORM') && CHECK_FOR_SCORM) {
-            return api_failure::set_failure('not_scorm_content');
+            throw new \Exception(get_lang('ScormPackageFormatNotScorm'));
         }
 
         if (!enough_size($realFileSize, $base_work_dir, $max_filled_space)) {
-            return api_failure::set_failure('not_enough_space');
+            throw new \Exception(get_lang('ScormNotEnoughSpaceInCourseToInstallPackage'));
         }
 
         // It happens on Linux that $upload_path sometimes doesn't start with '/'

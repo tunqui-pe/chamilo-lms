@@ -157,39 +157,7 @@ class UserManager
         if (!empty($hook)) {
             $hook->notifyCreateUser(HOOK_EVENT_TYPE_PRE);
         }
-        global $_configuration;
         $original_password = $password;
-        $access_url_id = 1;
-
-        if (api_get_multiple_access_url()) {
-            $access_url_id = api_get_current_access_url_id();
-        }
-        /*
-        if (is_array($_configuration[$access_url_id]) &&
-            isset($_configuration[$access_url_id]['hosting_limit_users']) &&
-            $_configuration[$access_url_id]['hosting_limit_users'] > 0) {
-            $num = self::get_number_of_users();
-            if ($num >= $_configuration[$access_url_id]['hosting_limit_users']) {
-                api_warn_hosting_contact('hosting_limit_users');
-                Display::addFlash(Display::return_message(get_lang('PortalUsersLimitReached'), 'warning'));
-
-                return false;
-            }
-        }
-
-        if ($status === 1 &&
-            is_array($_configuration[$access_url_id]) &&
-            isset($_configuration[$access_url_id]['hosting_limit_teachers']) &&
-            $_configuration[$access_url_id]['hosting_limit_teachers'] > 0
-        ) {
-            $num = self::get_number_of_users(1);
-            if ($num >= $_configuration[$access_url_id]['hosting_limit_teachers']) {
-                Display::addFlash(Display::return_message(get_lang('PortalTeachersLimitReached'), 'warning'));
-                api_warn_hosting_contact('hosting_limit_teachers');
-
-                return false;
-            }
-        }*/
 
         if (empty($password)) {
             Display::addFlash(Display::return_message(get_lang('ThisFieldIsRequired').': '.get_lang('Password') , 'warning'));
@@ -214,7 +182,7 @@ class UserManager
 
         // First check wether the login already exists
         if (!self::is_username_available($loginName)) {
-            return api_set_failure('login-pass already taken');
+            throw new \Exception('Username already exists');
         }
 
         $currentDate = api_get_utc_datetime();
@@ -364,7 +332,7 @@ class UserManager
             }
             Event::addEvent(LOG_USER_CREATE, LOG_USER_ID, $return);
         } else {
-            return api_set_failure('error inserting in Database');
+            throw new \Exception('error inserting in Database');
         }
 
         if (is_array($extra) && count($extra) > 0) {

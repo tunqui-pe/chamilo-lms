@@ -205,18 +205,6 @@ class TestFileUpload extends UnitTestCase {
 			$this->assertTrue(is_bool($res));
 		}
 
-		function testtreat_uploaded_file() {
-			$uploadedFile['name']=stripslashes($uploadedFile['name']);
-			$uploadedFile='';
-			$baseWorkDir='';
-			$uploadPath='';
-			$maxFilledSpace='';
-			$uncompress= '';
-			$res= treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '');
-			$this->assertTrue(is_bool($res));
-			//var_dump($res);
-		}
-
 		function testhandle_uploaded_document() {
 			global $_course;
 			$uploaded_file='';

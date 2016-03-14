@@ -232,10 +232,6 @@ if ($refreshFromSession == 1) {
 
 if ($debug > 0) error_log('New LP - Passed refresh check', 0);
 
-if (!empty($_REQUEST['dialog_box'])) {
-    $dialog_box = stripslashes(urldecode($_REQUEST['dialog_box']));
-}
-
 $lp_controller_touched = 1;
 $lp_found = false;
 $lpId = isset($_REQUEST['lp_id']) ? $_REQUEST['lp_id'] : '';

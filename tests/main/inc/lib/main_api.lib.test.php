@@ -4,8 +4,8 @@ use ChamiloSession as Session;
 
 require_once(api_get_path(LIBRARY_PATH).'course.lib.php');
 
-class TestMainApi extends UnitTestCase {
-
+class TestMainApi extends UnitTestCase
+{
 	function TestMainApi() {
         	$this->UnitTestCase('Main API library - main/inc/lib/main_api.lib.test.php');
 	}
@@ -219,30 +219,15 @@ class TestMainApi extends UnitTestCase {
 		$this->assertTrue($res);
 	}
 
-	function testApiSetFailure(){
-		global $api_failureList;
-		$failureType=true;
-		$res = api_set_failure($failureType);
-		$this->assertTrue(is_bool($res));
-		$this->assertTrue($api_failureList);
-	}
-
 	function testApiSetAnonymous(){
 		$res = api_set_anonymous();
 		$this->assertTrue(is_bool($res));
 	}
 
-	function testApiGetLastFailure(){
-		$res= api_Get_last_failure();
-		$this->assertTrue($res);
-	}
-
 	function testApiGetSessionId(){
 		$res = api_get_session_id();
 		$this->assertTrue(is_numeric($res));
-		//var_dump($res);
     }
-
 
     function testApiGetSessionName(){
    		$session_id='';
@@ -265,25 +250,6 @@ class TestMainApi extends UnitTestCase {
     	//var_dump($res);
 	}
 
-/* function deprecated
-   	function testGetLang(){
-        global $language_interface, $language_interface_initial_value, $language_file,$variable;
-   	 	$res = get_lang($variable, $notrans = 'DLTT', $language = null);
-   	 	$this->assertTrue(is_string($res));
-   	 	//var_dump($res);
-   	}
-
-   	function testGetLangToSystemEncoding(){
-		global $language, $name;
-		$res=&get_lang_to_system_encoding(& $string, $language);
-		ob_start();
-		api_disp_html_area($name, $content ='', $height='', $width='100%', $optAttrib='');
-		$res = ob_get_contents();
-		$this->assertNotEqual($res,'');
-   		ob_end_clean();
-   	}
-
-*/
    	function testApiIsPlatformAdmin(){
    		ob_start();
 		global $_user;
@@ -756,4 +722,3 @@ class TestMainApi extends UnitTestCase {
 		}
 	}
 }
-?>

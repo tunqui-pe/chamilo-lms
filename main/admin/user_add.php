@@ -453,13 +453,7 @@ if ($form->validate()) {
 		Security::clear_token();
 		$tok = Security::get_token();
 		if ($user_id === false) {
-			//If any error ocurred during user creation, print it (api_failureList
-			// stores values as separate words, so rework it
-			$message = '';
-			$message_bits = explode(' ',api_get_last_failure());
-			foreach ($message_bits as $bit) {
-				$message .= ucfirst($bit);
-			}
+
 		} else {
  			if (!empty($picture['name'])) {
                 $picture_uri = UserManager::update_user_picture(

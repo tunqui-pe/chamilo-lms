@@ -61,26 +61,6 @@ $message = '';
 $actions = '';
 
 if ($is_allowed_to_edit) {
-    if (!empty($dialog_box)) {
-        switch ($_GET['dialogtype']) {
-            case 'confirmation':
-                $message = Display::return_message($dialog_box, 'success');
-                break;
-            case 'error':
-                $message = Display::return_message($dialog_box, 'danger');
-                break;
-            case 'warning':
-                $message = Display::return_message($dialog_box, 'warning');
-                break;
-            default:
-                $message = Display::return_message($dialog_box);
-                break;
-        }
-    }
-    if (api_failure::get_last_failure()) {
-        $message = Display::return_message(api_failure::get_last_failure());
-    }
-
     $actions .= Display::url(
         Display::return_icon('new_folder.png', get_lang('AddCategory'), array(), ICON_SIZE_MEDIUM),
         api_get_self().'?'.api_get_cidreq().'&action=add_lp_category'

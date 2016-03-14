@@ -27,7 +27,7 @@ $user_file = isset($_GET['user_file']) ? $_GET['user_file'] : array();
 $user_file = $user_file ? $user_file : array();
 $is_error = isset($user_file['error']) ? $user_file['error'] : false;
 if (isset($_POST) && $is_error) {
-    return api_failure::set_failure('upload_file_too_big');
+    throw new \Exception(get_lang('UplFileTooBig'));
     unset($_FILES['user_file']);
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_FILES) > 0 && !empty($_FILES['user_file']['name'])) {
 
@@ -61,8 +61,7 @@ if (isset($_POST) && $is_error) {
             $oScorm = new scorm();
             $manifest = $oScorm->import_package($_FILES['user_file'], $current_dir);
             if (!$manifest) {
-                //if api_set_failure
-                return api_failure::set_failure(api_failure::get_last_failure());
+                throw new \Exception('error import package');
             }
             if (!empty($manifest)) {
                 $oScorm->parse_manifest($manifest);
@@ -180,7 +179,7 @@ if (isset($_POST) && $is_error) {
             break;
         case '':
         default:
-            return api_failure::set_failure('not_a_learning_path');
+            throw new \Exception(get_lang('ScormUnknownPackageFormat'));
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // end if is_uploaded_file
@@ -204,7 +203,7 @@ if (isset($_POST) && $is_error) {
 
     $result = learnpath::verify_document_size($s);
     if ($result == true) {
-        return api_failure::set_failure('upload_file_too_big');
+        throw new \Exception(get_lang('UplFileTooBig'));
     }
     $type = learnpath::get_package_type($s, basename($s));
 
@@ -213,8 +212,8 @@ if (isset($_POST) && $is_error) {
             require_once 'scorm.class.php';
             $oScorm = new scorm();
             $manifest = $oScorm->import_local_package($s, $current_dir);
-            if ($manifest === false) { //if ap i_set_failure
-                return api_failure::set_failure(api_failure::get_last_failure());
+            if ($manifest === false) {
+                throw new \Exception('Error import local package');
             }
             if (!empty($manifest)) {
                 $oScorm->parse_manifest($manifest);
@@ -255,6 +254,7 @@ if (isset($_POST) && $is_error) {
             break;
         case '':
         default:
-            return api_failure::set_failure('not_a_learning_path');
+            throw new \Exception(get_lang('ScormUnknownPackageFormat'));
+
     }
 }

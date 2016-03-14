@@ -2067,28 +2067,6 @@ function get_status_from_code($status_code) {
  */
 
 /**
- * $api_failureList - array containing all the failure recorded in order of arrival.
- */
-$api_failureList = array();
-
-/**
- * Fills a global array called $api_failureList
- * This array collects all the failure occuring during the script runs
- * The main purpose is allowing to manage the display messages externaly
- * from the functions or objects. This strengthens encupsalation principle
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  string $failure_type - the type of failure
- * global: array $api_failureList
- * @return boolean false to stay consistent with the main script
- */
-function api_set_failure($failure_type) {
-    global $api_failureList;
-    $api_failureList[] = $failure_type;
-    return false;
-}
-
-/**
  * Sets the current user as anonymous if it hasn't been identified yet. This
  * function should be used inside a tool only. The function api_clear_anonymous()
  * acts in the opposite direction by clearing the anonymous user's data every
@@ -2115,69 +2093,6 @@ function api_set_anonymous() {
 }
 
 /**
- * Gets the last failure stored in $api_failureList;
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param void
- * @return string - the last failure stored
- */
-function api_get_last_failure() {
-    global $api_failureList;
-    return $api_failureList[count($api_failureList) - 1];
-}
-
-/**
- * Collects and manages failures occurring during script execution
- * The main purpose is allowing to manage the display messages externally
- * from functions or objects. This strengthens encapsulation principle
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @package chamilo.library
- */
-class api_failure {
-
-    // TODO: $api_failureList to be hidden from global scope and to be renamed according to our coding conventions.
-    /**
-     * IMPLEMENTATION NOTE : For now the $api_failureList list is set to the
-     * global scope, as PHP 4 is unable to manage static variable in class. But
-     * this feature is awaited in PHP 5. The class is already written to minize
-     * the change when static class variable will be possible. And the API won't
-     * change.
-     */
-    public $api_failureList = array();
-
-    /**
-     * Piles the last failure in the failure list
-     *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
-     * @param  string $failure_type - the type of failure
-     * @global array  $api_failureList
-     * @return bolean false to stay consistent with the main script
-     */
-    static function set_failure($failure_type) {
-        global $api_failureList;
-        $api_failureList[] = $failure_type;
-        return false;
-    }
-
-    /**
-     * Gets the last failure stored
-     *
-     * @author Hugues Peeters <hugues.peeters@claroline.net>
-     * @param void
-     * @return string - the last failure stored
-     */
-    static function get_last_failure() {
-        global $api_failureList;
-        if (count($api_failureList) == 0) { return ''; }
-        return $api_failureList[count($api_failureList) - 1];
-    }
-}
-
-
-/* CONFIGURATION SETTINGS */
-
-/**
  * Gets the current Chamilo (not PHP/cookie) session ID
  * @return  int     O if no active session, the session ID otherwise
  */
@@ -2200,7 +2115,7 @@ function api_get_group_id()
  * @param   int     Session ID (optional)
  * @return  string  The session name, or null if unfound
  */
-function api_get_session_name($session_id = 0) 
+function api_get_session_name($session_id = 0)
 {
     if (empty($session_id)) {
         $session_id = api_get_session_id();
