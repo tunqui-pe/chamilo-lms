@@ -38,7 +38,7 @@ class LoadUserData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 3;
+        return 6;
     }
 
     /**
@@ -56,10 +56,12 @@ class LoadUserData extends AbstractFixture implements
     {
         $manager = $this->getUserManager();
         $groupManager = $this->getGroupManager();
-        $faker = $this->getFaker();
+        //$faker = $this->getFaker();
 
-        $studentGroup = $groupManager->findGroupByName('students');
-        $teacherGroup = $groupManager->findGroupByName('teachers');
+        $criteria = ['code' => 'student'];
+        $studentGroup = $groupManager->findGroupBy($criteria);
+        $criteria = ['code' => 'teacher'];
+        $teacherGroup = $groupManager->findGroupBy($criteria);
 
         // Loading test users
         // @todo add setting in installer to load sample content
@@ -124,6 +126,14 @@ class LoadUserData extends AbstractFixture implements
     public function getGroupManager()
     {
         return $this->container->get('fos_user.group_manager');
+    }
+
+    /**
+     * @return \Chamilo\CoreBundle\Entity\Manager\AccessUrlManager
+     */
+    public function getAccessUrlManager()
+    {
+        return $this->container->get('chamilo_core.manager.access_url');
     }
 
     /**

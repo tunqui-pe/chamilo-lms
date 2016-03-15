@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Migrations\Data\ORM;
 
+use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
 use Chamilo\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -41,7 +42,7 @@ class LoadAdminUserData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 
     /**
@@ -64,6 +65,14 @@ class LoadAdminUserData extends AbstractFixture implements
             // Creating admin user.
             /** @var User $admin */
             $admin = $manager->createUser();
+
+            $accessUrl = $this->getAccessUrlManager()->find(1);
+
+            $accessUrlRelUser = new AccessUrlRelUser();
+            $accessUrlRelUser->setUser($admin);
+            $accessUrlRelUser->setPortal($accessUrl);
+
+            $admin->setPortal($accessUrlRelUser);
 
             $admin->setUsername('admin');
             $admin->setUserId(1);
@@ -98,6 +107,14 @@ class LoadAdminUserData extends AbstractFixture implements
     public function getGroupManager()
     {
         return $this->container->get('fos_user.group_manager');
+    }
+
+    /**
+     * @return \Chamilo\CoreBundle\Entity\Manager\AccessUrlManager
+     */
+    public function getAccessUrlManager()
+    {
+        return $this->container->get('chamilo_core.manager.access_url');
     }
 
     /**

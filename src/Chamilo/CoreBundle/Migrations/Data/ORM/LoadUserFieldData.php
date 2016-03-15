@@ -40,7 +40,7 @@ class LoadUserFieldData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 4;
+        return 7;
     }
 
     /**

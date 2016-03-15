@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Migrations\Data\ORM;
 
+use Chamilo\UserBundle\Entity\Group;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -36,7 +37,7 @@ class LoadGroupData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 
     /**
@@ -55,33 +56,49 @@ class LoadGroupData extends AbstractFixture implements
         $groupManager = $this->getGroupManager();
 
         // Creating groups
+        /** @var Group $group */
         $group = $groupManager->createGroup('Administrators');
         $group->addRole('ROLE_ADMIN');
+        $group->setCode('admin');
         $manager->persist($group);
+
         $groupManager->updateGroup($group);
         $this->setReference('group_admin', $group);
 
         $group = $groupManager->createGroup('Students');
         $group->addRole('ROLE_STUDENT');
+        $group->setCode('student');
         $groupManager->updateGroup($group);
         $this->setReference('group_student', $group);
 
         $group = $groupManager->createGroup('Teachers');
+        $group->setCode('teacher');
         $group->addRole('ROLE_TEACHER');
         $groupManager->updateGroup($group);
         $this->setReference('group_teacher', $group);
 
         $group = $groupManager->createGroup('Human resources manager');
         $group->addRole('ROLE_RRHH');
+        $group->setCode('drh');
         $groupManager->updateGroup($group);
         $this->setReference('group_drh', $group);
 
         $group = $groupManager->createGroup('Session manager');
+        $group->setCode('session_manager');
         $group->addRole('ROLE_SESSION_MANAGER');
         $groupManager->updateGroup($group);
 
         $group = $groupManager->createGroup('Question manager');
+        $group->setCode('question_manager');
         $group->addRole('ROLE_QUESTION_MANAGER');
+        $groupManager->updateGroup($group);
+
+        $group = $groupManager->createGroup('Student boss');
+        $group->setCode('student_boss');
+        $groupManager->updateGroup($group);
+
+        $group = $groupManager->createGroup('Invitee');
+        $group->setCode('invitee');
         $groupManager->updateGroup($group);
 
         $manager->flush();

@@ -42,7 +42,7 @@ class LoadPageData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 6;
+        return 3;
     }
 
     /**

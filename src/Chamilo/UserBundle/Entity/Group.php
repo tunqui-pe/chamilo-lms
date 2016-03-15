@@ -5,6 +5,7 @@ namespace Chamilo\UserBundle\Entity;
 
 use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Chamilo\UserBundle\Repository\GroupRepository")
@@ -28,6 +29,12 @@ class Group extends BaseGroup
     protected $users;
 
     /**
+     * @var string
+     * @ORM\Column(name="code", type="string", length=40, nullable=false, unique=true)
+     */
+    private $code;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -44,4 +51,25 @@ class Group extends BaseGroup
     {
         return $this->users;
     }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     * @return Group
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+
 }

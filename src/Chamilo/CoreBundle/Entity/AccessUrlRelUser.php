@@ -35,6 +35,14 @@ class AccessUrlRelUser
     protected $portal;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    /**
      * @return mixed
      */
     public function getUser()

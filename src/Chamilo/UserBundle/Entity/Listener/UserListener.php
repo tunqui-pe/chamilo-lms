@@ -35,11 +35,13 @@ class UserListener
     {
         /** @var AccessUrlRelUser $urlRelUser */
         $urlRelUser = $user->getPortals()->first();
-        $url = $urlRelUser->getPortal();
+        if ($urlRelUser) {
+            $url = $urlRelUser->getPortal();
 
-        $repo = $args->getEntityManager()->getRepository('ChamiloUserBundle:User');
+            $repo = $args->getEntityManager()->getRepository('ChamiloUserBundle:User');
 
-        $this->checkLimit($repo, $user, $url);
+            $this->checkLimit($repo, $user, $url);
+        }
     }
 
     /**
@@ -74,7 +76,7 @@ class UserListener
 
         $groups = $user->getGroups();
 
-        if (in_array('ROLE_USER', $roles)) {
+        /*if (in_array('ROLE_USER', $roles)) {
             $limit = $url->getLimitTeachers();
 
             if (!empty($limit)) {
@@ -86,6 +88,6 @@ class UserListener
                     throw new \Exception('PortalUsersLimitReached');
                 }
             }
-        }
+        }*/
     }
 }

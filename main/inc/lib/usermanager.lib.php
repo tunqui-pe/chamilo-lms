@@ -182,7 +182,7 @@ class UserManager
 
         // First check wether the login already exists
         if (!self::is_username_available($loginName)) {
-            throw new \Exception('Username already exists');
+            throw new \Exception("Username '$loginName' already exists");
         }
 
         $currentDate = api_get_utc_datetime();

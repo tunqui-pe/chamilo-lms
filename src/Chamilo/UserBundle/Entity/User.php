@@ -370,7 +370,7 @@ class User extends BaseUser implements ThemeUser
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\AccessUrlRelUser", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\AccessUrlRelUser", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
      */
     protected $portals;
 
@@ -1596,6 +1596,7 @@ class User extends BaseUser implements ThemeUser
     }
 
     /**
+     * Sets the AccessUrl for the current user in memory
      * @param AccessUrl $url
      *
      * @return $this

@@ -52,7 +52,7 @@ class LoadPortalData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 5;
+        return 1;
     }
 
     /**
@@ -128,24 +128,24 @@ class LoadPortalData extends AbstractFixture implements
 
         if (empty($all)) {
             //$adminUser = $this->getUserManager()->findUserByUsername('admin');
-            $adminUser = $this->getUserManager()->find(1);
+            //$adminUser = $this->getUserManager()->find(1);
 
             // Create first portal (multiple url feature)
-            $adminUserId = $adminUser->getId();
+//            $adminUserId = $adminUser->getId();
 
             $accessUrl = new AccessUrl();
             $accessUrl->setUrl('http://localhost/');
             $accessUrl->setActive(1);
             $accessUrl->setDescription(' ');
-            $accessUrl->setCreatedBy($adminUserId);
+            //$accessUrl->setCreatedBy($adminUserId);
             $manager->persist($accessUrl);
             $this->setReference('access_url', $accessUrl);
 
             // Add admin user to portal 1
-            $accessUrlRelUser = new AccessUrlRelUser();
+            /*$accessUrlRelUser = new AccessUrlRelUser();
             $accessUrlRelUser->setUser($adminUser);
             $accessUrlRelUser->setPortal($accessUrl);
-            $manager->persist($accessUrlRelUser);
+            $manager->persist($accessUrlRelUser);*/
         }
 
         /*$systemTemplate = new SystemTemplate();

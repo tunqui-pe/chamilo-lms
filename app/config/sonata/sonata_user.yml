@@ -11,6 +11,8 @@ sonata_user:
     admin:
         user:
             class: Chamilo\UserBundle\Admin\UserAdmin
+        group:
+            class: Chamilo\UserBundle\Admin\GroupAdmin
 
     class:
         # Entity Classes

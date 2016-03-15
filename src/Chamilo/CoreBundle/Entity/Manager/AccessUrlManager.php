@@ -5,10 +5,6 @@ namespace Chamilo\CoreBundle\Entity\Manager;
 
 use Sonata\CoreBundle\Model\BaseEntityManager;
 use Chamilo\CoreBundle\Entity\Course;
-use Chamilo\UserBundle\Entity\User;
-use Sonata\DatagridBundle\Pager\Doctrine\pager;
-use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class AccessUrlManager
