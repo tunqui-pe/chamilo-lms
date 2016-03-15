@@ -146,7 +146,7 @@ $course_id = api_get_course_int_id();
 
 if (!empty($group_id)) {
     $interbreadcrumb[] = array(
-        'url' => '../group/group_space.php?'.api_get_cidreq(),
+        'url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?'.api_get_cidreq(),
         'name' => get_lang('GroupSpace'),
     );
 	$group_document = true;
@@ -155,7 +155,7 @@ if (!empty($group_id)) {
 
 if (!$is_certificate_mode) {
     $interbreadcrumb[] = array(
-        "url" => "./document.php?curdirpath=".urlencode($currentDirPath).'&'.api_get_cidreq(),
+        "url" => api_get_path(WEB_CODE_PATH)."document/document.php?curdirpath=".urlencode($currentDirPath).'&'.api_get_cidreq(),
         "name" => get_lang('Documents'),
     );
 } else {
@@ -165,7 +165,6 @@ if (!$is_certificate_mode) {
     );
 }
 
-// Interbreadcrumb for the current directory root path
 if (empty($document_data['parents'])) {
     $interbreadcrumb[] = array('url' => '#', 'name' => $document_data['title']);
 } else {
