@@ -233,12 +233,47 @@ class UserManager
         $url = $em->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
 
         $accessRelUser = new AccessUrlRelUser();
+        $accessRelUser->setUser($user);
         $accessRelUser->setPortal($url);
+
         $user->setPortal($accessRelUser);
 
         if (!empty($expirationDate)) {
             $user->setExpirationDate($expirationDate);
         }
+
+        switch ($status) {
+            case STUDENT:
+                $group = 'student';
+                break;
+            case COURSEMANAGER:
+                $group = 'teacher';
+                break;
+            case DRH:
+                $group = 'drh';
+                break;
+            case SESSIONADMIN:
+                $group = 'session_manager';
+                break;
+            /*case QUESTION:
+                $group = 'question_manager';
+                break;*/
+            case STUDENT_BOSS:
+                $group = 'student_boss';
+                break;
+            case INVITEE:
+                $group = 'invitee';
+                break;
+        }
+
+        if ($isAdmin) {
+            $group = 'admin';
+        }
+
+        $criteria = ['code' => $group];
+        $group = $em->getRepository('ChamiloUserBundle:Group')->findOneBy($criteria);
+
+        $user->setGroups(array($group));
 
         $userManager->updateUser($user, true);
         $userId = $user->getId();

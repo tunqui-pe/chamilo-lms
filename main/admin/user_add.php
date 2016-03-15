@@ -7,7 +7,6 @@
 use Chamilo\CoreBundle\Framework\Container;
 $cidReset = true;
 
-////require_once '../inc/global.inc.php';
 $libpath = api_get_path(LIBRARY_PATH);
 
 // Section for the tabs
@@ -287,6 +286,13 @@ $status[SESSIONADMIN] = get_lang('SessionsAdmin');
 $status[STUDENT_BOSS] = get_lang('RoleStudentBoss');
 $status[INVITEE] = get_lang('Invitee');
 
+/*$groups = Container::getGroupManager()->findGroups();
+// @var \Chamilo\UserBundle\Entity\Group $group
+$statusList = [];
+foreach ($groups as $group) {
+    $statusList[$group->getId()] = get_lang($group->getName());
+}*/
+
 $form->addElement(
     'select',
     'status',
@@ -294,7 +300,7 @@ $form->addElement(
     $status,
     array(
         'id' => 'status_select',
-        'onchange' => 'javascript: display_drh_list();'
+        'onchange' => 'javascript: display_drh_list();',
     )
 );
 
@@ -340,7 +346,7 @@ $group[] = $form->createElement(
     'expiration_date',
     null,
     array(
-        'onchange' => 'javascript: enable_expiration_date();'
+        'onchange' => 'javascript: enable_expiration_date();',
     )
 );
 $form->addGroup($group, 'max_member_group', null, '', false);
