@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Migrations\Data\ORM;
 
+use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
 use Chamilo\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -69,12 +70,20 @@ class LoadUserData extends AbstractFixture implements
         $root = $this->container->get('kernel')->getRealRootDir();
         $dataUserFile = $root.'/tests/datafiller/data_users.php';
 
+        $accessUrl = $this->getAccessUrlManager()->find(1);
+
         if (file_exists($dataUserFile)) {
             $users = require $root . '/tests/datafiller/data_users.php';
 
             foreach ($users as $userData) {
                 /** @var User $user */
                 $user = $manager->createUser();
+
+                $accessUrlRelUser = new AccessUrlRelUser();
+                $accessUrlRelUser->setUser($user);
+                $accessUrlRelUser->setPortal($accessUrl);
+
+                $user->setPortal($accessUrlRelUser);
 
                 $user->setFirstname($userData['firstname']);
                 $user->setLastname($userData['lastname']);
