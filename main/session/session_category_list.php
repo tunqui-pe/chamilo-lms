@@ -7,8 +7,6 @@
 
 $cidReset = true;
 
-////require_once '../inc/global.inc.php';
-
 api_protect_admin_script(true);
 api_protect_limit_for_session_admin();
 
@@ -76,7 +74,7 @@ if (isset($_GET['search']) && $_GET['search'] == 'advanced') {
 
     $table_access_url_rel_session= Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_SESSION);
     $query = "SELECT sc.*, (
-                SELECT count(id) FROM $tbl_session s
+                SELECT count(s.id) FROM $tbl_session s
                 INNER JOIN $table_access_url_rel_session us
                 ON (s.id = us.session_id)
                 WHERE
