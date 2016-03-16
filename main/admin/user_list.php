@@ -1,20 +1,17 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+use ChamiloSession as Session;
+
 /**
  * @author Bart Mollet
  * @author Julio Montoya <gugli100@gmail.com> BeezNest 2011
  * @package chamilo.admin
 */
 
-use ChamiloSession as Session;
-use Chamilo\CoreBundle\Framework\Container;
-
 $cidReset = true;
-////require_once '../inc/global.inc.php';
-
 $current_access_url_id = api_get_current_access_url_id();
-
 $action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : null;
 
 // Blocks the possibility to delete a user
@@ -660,11 +657,11 @@ function status_filter($status) {
 }
 
 if (isset($_GET['keyword']) || isset($_GET['keyword_firstname'])) {
-    $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+    $interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
     $interbreadcrumb[] = array ("url" => 'user_list.php', "name" => get_lang('UserList'));
     $tool_name = get_lang('SearchUsers');
 } else {
-    $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+    $interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
     $tool_name = get_lang('UserList');
 }
 

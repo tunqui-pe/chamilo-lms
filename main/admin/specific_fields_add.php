@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Add form
  * @package chamilo.admin
@@ -7,9 +10,8 @@
 
 // Resetting the course id.
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
 $libpath = api_get_path(LIBRARY_PATH);
+
 require_once $libpath.'specific_fields_manager.lib.php';
 
 // section for the tabs
@@ -18,7 +20,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 // user permissions
 api_protect_admin_script();
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'settings.php?category=Search', 'name' => get_lang('PlatformConfigSettings'));
 $interbreadcrumb[] = array('url' => 'specific_fields.php', 'name' => get_lang('SpecificSearchFields'));
 if ($_GET['action']<>'edit') {

@@ -1,17 +1,20 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
+
 /**
  * This script allows a platform admin to add dummy content to a course.
  *
  * @author Bart Mollet <bart.mollet@hogent.be>
  * @package chamilo.admin
  */
-include ('../inc/global.inc.php');
 $this_section=SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
 $tool_name = get_lang('DummyCourseCreator');
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 Display::display_header($tool_name);
 //api_display_tool_title($tool_name);
 if (api_get_setting('server_type') != 'test') {

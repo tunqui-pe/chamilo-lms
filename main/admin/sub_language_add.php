@@ -18,7 +18,7 @@ api_protect_admin_script();
 $tool_name = get_lang('CreateSubLanguage');
 
 // setting breadcrumbs
-$interbreadcrumb[] = array ('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array ('url' => 'languages.php', 'name' => get_lang('PlatformLanguages'));
 
 /**

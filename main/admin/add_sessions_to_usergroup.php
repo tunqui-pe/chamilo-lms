@@ -1,13 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *   @package chamilo.admin
 */
 // resetting the course id
-$cidReset=true;
-
-// including some necessary files
-//require_once '../inc/global.inc.php';
+$cidReset = true;
 
 $xajax = new xajax();
 
@@ -21,7 +21,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 
 // setting breadcrumbs
-$interbreadcrumb[]=array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[]=array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[]=array('url' => 'usergroups.php','name' => get_lang('Classes'));
 
 // Database Table Definitions

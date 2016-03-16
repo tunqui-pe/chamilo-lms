@@ -1,16 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Management of legal conditions
  * @package chamilo.admin
  */
-/**
- * Code
- */
-$cidReset = true;
-//require_once '../inc/global.inc.php';
-$this_section = SECTION_PLATFORM_ADMIN;
 
+$cidReset = true;
+$this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
 
 // Create the form
@@ -169,7 +168,7 @@ if (isset($_POST['language'])) {
 }
 
 $tool_name = get_lang('AddTermsAndConditions');
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 Display :: display_header($tool_name);
 
 echo '<script>

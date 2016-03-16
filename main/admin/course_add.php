@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	@package chamilo.admin
  */
@@ -10,7 +12,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
 
 $tool_name = get_lang('AddCourse');
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'course_list.php', 'name' => get_lang('CourseList'));
 
 // Get all possible teachers.

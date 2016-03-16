@@ -1,13 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
 
 $cidReset = true;
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 api_protect_limit_for_session_admin();
@@ -15,7 +15,7 @@ api_protect_limit_for_session_admin();
 //Add the JS needed to use the jqgrid
 $htmlHeadXtra[] = api_get_jqgrid_js();
 // setting breadcrumbs
-$interbreadcrumb[] = array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 if ($action == 'add') {
     $interbreadcrumb[] = array('url' => 'usergroups.php','name' => get_lang('Classes'));
@@ -54,14 +54,21 @@ $columns = array(
     get_lang('Actions'),
 );
 
-//Column config
-$column_model   = array(
-    array('name'=>'name',           'index'=>'name',        'width'=>'35',  'align'=>'left'),
-    array('name'=>'users',    		'index'=>'users', 		'width'=>'15',  'align'=>'left'),
-    array('name'=>'courses',    	'index'=>'courses', 	'width'=>'15',  'align'=>'left'),
-    array('name'=>'sessions',    	'index'=>'sessions', 	'width'=>'15',  'align'=>'left'),
-    array('name'=>'group_type',    	'index'=>'group_type', 	'width'=>'15',  'align'=>'center'),
-    array('name'=>'actions',        'index'=>'actions',     'width'=>'20',  'align'=>'center', 'sortable'=>'false','formatter'=>'action_formatter'),
+// Column config
+$column_model = array(
+    array('name' => 'name', 'index' => 'name', 'width' => '35', 'align' => 'left'),
+    array('name' => 'users', 'index' => 'users', 'width' => '15', 'align' => 'left'),
+    array('name' => 'courses', 'index' => 'courses', 'width' => '15', 'align' => 'left'),
+    array('name' => 'sessions', 'index' => 'sessions', 'width' => '15', 'align' => 'left'),
+    array('name' => 'group_type', 'index' => 'group_type', 'width' => '15', 'align' => 'center'),
+    array(
+        'name' => 'actions',
+        'index' => 'actions',
+        'width' => '20',
+        'align' => 'center',
+        'sortable' => 'false',
+        'formatter' => 'action_formatter',
+    ),
 );
 
 //Autowidth

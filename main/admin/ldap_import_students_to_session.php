@@ -21,7 +21,7 @@ $annee_base=date('Y');
 
 $tool_name = get_lang('LDAPImport');
 // setting breadcrumbs
-$interbreadcrumb[]=array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[]=array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 
 $htmlHeadXtra[] = '<script language="JavaScript" type="text/javascript">
 var buttoncheck = 1;

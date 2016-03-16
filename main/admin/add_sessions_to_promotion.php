@@ -1,14 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *   @package chamilo.admin
 */
 // resetting the course id
 $cidReset = true;
-
-// including some necessary files
-//require_once '../inc/global.inc.php';
-
 $xajax = new xajax();
 $xajax->registerFunction ('search_sessions');
 
@@ -19,8 +18,11 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 
 // setting breadcrumbs
-$interbreadcrumb[]=array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
-$interbreadcrumb[]=array('url' => 'career_dashboard.php','name' => get_lang('CareersAndPromotions'));
+$interbreadcrumb[] = array(
+    'url' => Container::getRouter()->generate('administration'),
+    'name' => get_lang('PlatformAdmin'),
+);
+$interbreadcrumb[] = array('url' => 'career_dashboard.php', 'name' => get_lang('CareersAndPromotions'));
 
 // Setting the name of the tool
 $tool_name = get_lang('SubscribeSessionsToPromotions');

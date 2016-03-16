@@ -1,23 +1,21 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Generate a teacher time report in platform or sessions/courses
  *
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.admin
  */
-/* INIT SECTION */
 // Resetting the course id.
 $cidReset = true;
-
-// Including some necessary library files.
-//require_once '../inc/global.inc.php';
 
 // Setting the section (for the tabs).
 $this_section = SECTION_PLATFORM_ADMIN;
 
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 
 $toolName = get_lang('TeacherTimeReport');
 

@@ -30,7 +30,7 @@ if (($_GET['action']=="add_user") && ($_GET['id_session'] == strval(intval($_GET
 }
 */
 
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $tool_name = get_lang('SearchLDAPUsers');
 //Display :: display_header($tool_name); //cannot display now as we need to redirect
 //api_display_tool_title($tool_name);

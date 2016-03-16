@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
 use ChamiloSession as Session;
 
 /**
@@ -8,8 +9,6 @@ use ChamiloSession as Session;
  */
 
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
 
 $this_section = SECTION_PLATFORM_ADMIN;
 
@@ -20,7 +19,7 @@ $htmlHeadXtra[] = api_get_jqgrid_js();
 
 // setting breadcrumbs
 $interbreadcrumb[] = array(
-    'url' => 'index.php',
+    'url' => Container::getRouter()->generate('administration'),
     'name' => get_lang('PlatformAdmin'),
 );
 $interbreadcrumb[] = array(

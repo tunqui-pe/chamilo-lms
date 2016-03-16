@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *   @package chamilo.admin
 */
@@ -19,7 +22,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 
 // Setting breadcrumbs.
-$interbreadcrumb[] = array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'usergroups.php','name' => get_lang('Classes'));
 
 // Setting the name of the tool.

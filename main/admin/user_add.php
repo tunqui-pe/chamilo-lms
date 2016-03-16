@@ -1,14 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	@package chamilo.admin
 */
 
-use Chamilo\CoreBundle\Framework\Container;
 $cidReset = true;
-
 $libpath = api_get_path(LIBRARY_PATH);
-
 // Section for the tabs
 $this_section = SECTION_PLATFORM_ADMIN;
 
@@ -138,7 +138,7 @@ function display_drh_list(){
 }
 </script>';
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => 'user_list.php', "name" => get_lang('UserList'));
 $tool_name = get_lang('AddUsers');
 

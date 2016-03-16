@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	Index of the admin tools
 *
@@ -9,10 +11,6 @@
 
 // resetting the course id
 $cidReset = true;
-
-// including some necessary chamilo files
-////require_once '../inc/global.inc.php';
-
 // setting the section (for the tabs)
 $this_section = SECTION_PLATFORM_ADMIN;
 
@@ -22,7 +20,7 @@ api_protect_admin_script(true);
 $nameTools = get_lang('PlatformAdmin');
 
 // setting breadcrumbs
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => $nameTools);
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => $nameTools);
 
 // setting the name of the tool
 $nameTools = get_lang('DataFiller');

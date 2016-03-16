@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Frontend script for multiple access urls
  * @package chamilo.admin
@@ -7,10 +10,7 @@
  * @author Yannick Warnier <yannick.warnier@beeznest.com>
  */
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
-
-//api_protect_admin_script();
 api_protect_global_admin_script();
 
 if (!api_get_multiple_access_url()) {
@@ -19,7 +19,7 @@ if (!api_get_multiple_access_url()) {
 }
 
 $interbreadcrumb[] = array(
-    "url" => 'index.php',
+    "url" => Container::getRouter()->generate('administration'),
     'name' => get_lang('PlatformAdmin'),
 );
 $tool_name = get_lang('MultipleAccessURLs');

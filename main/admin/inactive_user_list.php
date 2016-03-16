@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
     @author Andre Boivin base code
 	@author Julio Montoya fixing lot of little details
@@ -9,8 +12,6 @@
 *	script pour effacer les user inactif depuis x temps
 */
 $cidReset = true;
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 

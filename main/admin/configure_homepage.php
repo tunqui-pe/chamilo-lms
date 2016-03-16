@@ -76,7 +76,7 @@ $tool_name = get_lang('ConfigureHomePage');
 $_languages = api_get_languages();
 $selfUrl =  api_get_self();
 $interbreadcrumb[] = array(
-	'url' => 'index.php',
+	'url' => Container::getRouter()->generate('administration'),
 	'name' => get_lang('PlatformAdmin')
 );
 
@@ -464,7 +464,7 @@ if (!empty($action)) {
 						}
 					}
 
-					
+
 					if (!$add_in_tab) {
 						$class_add_in_tab = 'class="hide_menu"';
 					}
@@ -472,7 +472,7 @@ if (!empty($action)) {
 					// If the requested action is to create a link, make some room
 					// for the new link in the home_menu array at the requested place
 					// and insert the new link there
-                    
+
 					if ($action == 'insert_link' || $action == 'insert_tabs') {
 						for ($i = sizeof($home_menu); $i; $i--) {
 							if ($i > $insert_where) {

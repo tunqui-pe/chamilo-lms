@@ -1,13 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
 
 $cidReset = true;
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -20,7 +20,7 @@ if (api_get_setting('gradebook.gradebook_enable_grade_model') != 'true') {
 $htmlHeadXtra[] = api_get_jqgrid_js();
 
 // setting breadcrumbs
-$interbreadcrumb[]=array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[]=array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 

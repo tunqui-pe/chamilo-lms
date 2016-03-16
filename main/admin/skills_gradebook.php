@@ -1,15 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
 
 $cidReset = true;
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
-
 api_protect_admin_script();
 
 if (api_get_setting('skill.allow_skills_tool') != 'true') {
@@ -25,7 +24,7 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'display';
 // setting breadcrumbs
 
 $tool_name = get_lang('SkillsAndGradebooks');
-$interbreadcrumb[]=array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[]=array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 if ($action == 'add_skill') {
     $interbreadcrumb[]=array('url' => 'skills_gradebook.php','name' => get_lang('SkillsAndGradebooks'));
     $tool_name = get_lang('Add');

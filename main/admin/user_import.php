@@ -1,12 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This tool allows platform admins to add users by uploading a CSV or XML file
  * @package chamilo.admin
  */
 
 $cidReset = true;
-//require '../inc/global.inc.php';
 
 // Set this option to true to enforce strict purification for usenames.
 $purification_option_for_usernames = false;
@@ -329,7 +331,7 @@ if (isset($extAuthSource) && is_array($extAuthSource)) {
 }
 
 $tool_name = get_lang('ImportUserListXMLCSV');
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 
 set_time_limit(0);
 $extra_fields = UserManager::get_extra_fields(0, 0, 5, 'ASC', true);

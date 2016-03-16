@@ -11,9 +11,6 @@ use Chamilo\CoreBundle\Framework\Container;
  */
 
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -22,7 +19,7 @@ if (api_get_setting('skill.allow_skills_tool') != 'true') {
     api_not_allowed();
 }
 
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'skill_list.php', 'name' => get_lang('ManageSkills'));
 $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('SkillEdit'));
 

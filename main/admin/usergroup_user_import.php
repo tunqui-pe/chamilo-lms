@@ -1,12 +1,12 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
- * 	@package chamilo.admin
- */
-/**
- * Code
  * This tool allows platform admins to update class-user relations by uploading
  * a CSV file
+ * 	@package chamilo.admin
  */
 
 /**
@@ -130,7 +130,7 @@ api_protect_admin_script(true);
 
 $tool_name = get_lang('AddUsersToAClass') . ' CSV';
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'usergroups.php', 'name' => get_lang('Classes'));
 
 // Set this option to true to enforce strict purification for usenames.

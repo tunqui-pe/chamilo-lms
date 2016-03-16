@@ -119,7 +119,7 @@ switch ($action) {
 
 switch ($view) {
     case 'nested':
-        $interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+        $interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
         $interbreadcrumb[] = array("url" => '#', "name" => get_lang('ManageSkills'));
 
         $toolbar = Display::toolbarButton(
@@ -182,7 +182,7 @@ switch ($view) {
     case 'list':
         //no break
     default:
-        $interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+        $interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
         $interbreadcrumb[] = array("url" => '#', "name" => get_lang('ManageSkills'));
 
         $toolbar = Display::toolbarButton(

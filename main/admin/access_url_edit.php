@@ -1,11 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * 	@package chamilo.admin
  * 	@author Julio Montoya <gugli100@gmail.com>
  */
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_global_admin_script();
@@ -138,7 +140,7 @@ if (!api_is_multiple_url_enabled()) {
 }
 
 $tool_name = get_lang('AddUrl');
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => 'access_urls.php', "name" => get_lang('MultipleAccessURLs'));
 
 Display :: display_header($tool_name);

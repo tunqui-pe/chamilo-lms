@@ -1,14 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	@package chamilo.admin
  *	@author Julio Montoya <gugli100@gmail.com>
  */
+
 // resetting the course id
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
-
 $xajax = new xajax();
 $xajax->registerFunction(
 	array('search_courses', 'Accessurleditcoursestourl', 'search_courses')
@@ -31,7 +32,7 @@ $tbl_access_url = Database :: get_main_table(TABLE_MAIN_ACCESS_URL);
 
 // setting breadcrumbs
 $tool_name = get_lang('EditCoursesToURL');
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'access_urls.php', 'name' => get_lang('MultipleAccessURLs'));
 
 $add_type = 'multiple';

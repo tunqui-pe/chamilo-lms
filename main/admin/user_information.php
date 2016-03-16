@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Script showing information about a user (name, e-mail, courses and sessions)
  * @author Bart Mollet
@@ -8,14 +10,13 @@
  */
 
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 require_once api_get_path(SYS_CODE_PATH).'forum/forumfunction.inc.php';
 require_once api_get_path(SYS_CODE_PATH).'work/work.lib.php';
 
 api_protect_admin_script();
 
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => 'user_list.php', "name" => get_lang('UserList'));
 if (!isset($_GET['user_id'])) {
     api_not_allowed();

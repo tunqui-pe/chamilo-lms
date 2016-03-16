@@ -1,12 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This script gives information about a course
  * @author Bart Mollet
  * @package chamilo.admin
  */
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -71,7 +73,7 @@ function get_course_usage($course_code, $session_id = 0)
 if (!isset ($_GET['code'])) {
     api_not_allowed();
 }
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => 'course_list.php', "name" => get_lang('Courses'));
 $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
 $code = Database::escape_string($_GET['code']);

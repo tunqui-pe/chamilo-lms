@@ -1,6 +1,7 @@
 <?php
-
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  *  @package chamilo.admin

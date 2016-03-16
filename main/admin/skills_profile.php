@@ -1,16 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
 
-use \ChamiloSession as Session;
-
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
-
 api_protect_admin_script();
 
 if (api_get_setting('skill.allow_skills_tool') != 'true') {
@@ -18,7 +17,7 @@ if (api_get_setting('skill.allow_skills_tool') != 'true') {
 }
 
 $interbreadcrumb[] = array(
-    'url' => 'index.php',
+    'url' => Container::getRouter()->generate('administration'),
     "name" => get_lang('PlatformAdmin'),
 );
 

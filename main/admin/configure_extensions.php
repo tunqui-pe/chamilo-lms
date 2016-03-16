@@ -8,7 +8,7 @@ $cidReset=true;
 //require_once '../inc/global.inc.php';
 $this_section=SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
-$interbreadcrumb[] = array ('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 // Database Table Definitions
 $tbl_settings_current = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
 $message = '';

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	This page allows the administrator to manage the system announcements.
  *	@package chamilo.admin.announcement
@@ -8,9 +10,6 @@
 
 // Resetting the course id.
 $cidReset = true;
-
-// Including the global initialization file.
-////require_once '../inc/global.inc.php';
 
 // Setting the section (for the tabs).
 $this_section = SECTION_PLATFORM_ADMIN;
@@ -24,7 +23,7 @@ api_protect_admin_script(true);
 
 // Setting breadcrumbs.
 $interbreadcrumb[] = array(
-    "url" => 'index.php',
+    'url' => Container::getRouter()->generate('administration') ,
     "name" => get_lang('PlatformAdmin'),
 );
 

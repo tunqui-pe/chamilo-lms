@@ -1,17 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	@package chamilo.admin
 */
 $cidReset = true;
-
 $this_section = SECTION_PLATFORM_ADMIN;
-
 api_protect_admin_script(true);
-
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : intval($_POST['user_id']);
-
 api_protect_super_admin($user_id, null, true);
 
 $is_platform_admin = api_is_platform_admin() ? 1 : 0;
@@ -122,7 +120,7 @@ $libpath = api_get_path(LIBRARY_PATH);
 $noPHP_SELF = true;
 $tool_name = get_lang('ModifyUserInfo');
 
-$interbreadcrumb[] = array('url' => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => "user_list.php", "name" => get_lang('UserList'));
 
 $table_user = Database::get_main_table(TABLE_MAIN_USER);

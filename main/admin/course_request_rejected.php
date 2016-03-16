@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * A list containing the rejected course requests
  * @package chamilo.admin
@@ -12,9 +14,6 @@
  */
 
 $cidReset = true;
-
-//require '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -164,7 +163,7 @@ function modify_filter($id) {
     return $result;
 }
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'course_list.php', 'name' => get_lang('CourseList'));
 
 

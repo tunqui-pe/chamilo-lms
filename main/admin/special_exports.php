@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Special exports
  *
@@ -11,11 +13,10 @@
 
 // including the global file
 $cidReset = true;
-//require_once  '../inc/global.inc.php';
 // setting the section (for the tabs)
 $this_section = SECTION_PLATFORM_ADMIN;
 // setting breadcrumbs
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 // Access restrictions
 api_protect_admin_script(true);
 $nameTools = get_lang('SpecialExports');

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  This tool allows platform admins to add classes by uploading a CSV file
  *  @todo Add some langvars to DLTT
@@ -83,7 +85,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
 
 // setting breadcrumbs
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'usergroups.php', 'name' => get_lang('Classes'));
 
 // Database Table Definitions

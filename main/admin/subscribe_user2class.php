@@ -40,7 +40,7 @@ $noPHP_SELF = true;
 
 $tool_name = get_lang('AddUsersToAClass') . ' (' . $class_name . ')';
 
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => "class_list.php?filtreCours=" . urlencode($course), "name" => get_lang('AdminClasses'));
 
 if ($_POST['formSent']) {

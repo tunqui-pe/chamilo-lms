@@ -1,6 +1,8 @@
 <?php
-
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This page allows the platform admin to decide which languages should
  * be available in the language selection menu in the login page. This can be
@@ -59,7 +61,7 @@ $htmlHeadXtra[] = '<script>
     if (msgLang == 1) {
         $("#id_content_message").html("<div class=\"warning-message alert alert-warning\">' . get_lang('ThereAreUsersUsingThisLanguagesDisableItManually') . ' </br> " + disabledLang + "</div");
     }
-    
+
     $("#disable_all_except_default").click(function () {
         if(confirm("'. get_lang('ConfirmYourChoice') .'")) {
             $.ajax({
@@ -75,8 +77,8 @@ $htmlHeadXtra[] = '<script>
                 }
             });
         }
-        
-        return false;  
+
+        return false;
     });
 
  	//$(window).load(function () {
@@ -187,11 +189,11 @@ if ($action == 'disable_all_except_default') {
             }
         }
     }
-    
+
     if ($checkFailed) {
         $_SESSION['disabled_languages'] = $failedDisabledLanguages;
     }
-    
+
 }
 
 if (isset($_POST['Submit']) && $_POST['Submit']) {
@@ -234,7 +236,7 @@ if (isset($_POST['Submit']) && $_POST['Submit']) {
 $tool_name = get_lang('PlatformLanguages');
 
 // setting breadcrumbs
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 
 // including the header file (which includes the banner itself)
 Display :: display_header($tool_name);

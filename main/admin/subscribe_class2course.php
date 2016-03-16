@@ -26,7 +26,7 @@ $tbl_class = Database :: get_main_table(TABLE_MAIN_CLASS);
 
 $tool_name = get_lang('AddClassesToACourse');
 
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 
 Display :: display_header($tool_name);
 

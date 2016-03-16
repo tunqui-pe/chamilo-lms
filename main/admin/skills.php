@@ -1,15 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_PLATFORM_ADMIN;
-
 api_protect_admin_script();
 
 if (api_get_setting('skill.allow_skills_tool') != 'true') {

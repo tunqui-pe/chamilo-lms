@@ -1,12 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Global events controller class
  * @package chamilo.admin
  */
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
 
 if (api_get_setting('mail.activate_email_template') != 'true') {
     api_not_allowed();
@@ -86,7 +87,7 @@ $(function() {
 });
 </script>';
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('Events'));
 
 $tpl = new Template($tool_name);

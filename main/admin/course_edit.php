@@ -1,11 +1,12 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * 	@package chamilo.admin
  */
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -26,7 +27,7 @@ if (empty($courseInfo)) {
 }
 
 $tool_name = get_lang('ModifyCourseInfo');
-$interbreadcrumb[] = array("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array("url" => "course_list.php", "name" => get_lang('CourseList'));
 
 // Get all course categories

@@ -42,7 +42,7 @@ if (api_get_setting('registration.allow_terms_conditions') == 'true') {
 
 $action = isset($_GET['action']) ? Security::remove_XSS($_GET['action']) : null;
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $tool_name = get_lang('ConfigureInscription');
 if (!empty($action)) {
     $interbreadcrumb[] = array('url' => 'configure_inscription.php', 'name' => get_lang('ConfigureInscription'));

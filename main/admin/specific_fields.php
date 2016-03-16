@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Manage specific fields
  *
@@ -7,15 +10,11 @@
  */
 // Resetting the course id.
 $cidReset = true;
-
-// Including some necessary chamilo files
-//require_once '../inc/global.inc.php';
-
 // User permissions
 api_protect_admin_script();
 
 // Breadcrumb
-$interbreadcrumb[] = array ('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array ('url' => 'settings.php?category=Search', 'name' => get_lang('PlatformConfigSettings'));
 $interbreadcrumb[] = array ('url' => 'specific_fields.php', 'name' => get_lang('SpecificSearchFields'));
 

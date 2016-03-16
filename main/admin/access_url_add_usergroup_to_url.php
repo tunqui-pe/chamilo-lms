@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	This script allows platform admins to add users to urls.
 *	It displays a list of users and a list of courses;
@@ -30,7 +33,7 @@ $tbl_user = Database:: get_main_table(TABLE_MAIN_USER);
 $tbl_course = Database:: get_main_table(TABLE_MAIN_COURSE);
 
 $tool_name = get_lang('AddUserGroupToURL');
-$interbreadcrumb[] = array ('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array ('url' => 'access_urls.php', 'name' => get_lang('MultipleAccessURLs'));
 
 Display::display_header($tool_name);

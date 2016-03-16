@@ -1,15 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	Interface for assigning users to Human Resources Manager
 *	@package chamilo.admin
 */
 // resetting the course id
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
-
 $ajax_search = false;
 // create an ajax object
 $xajax = new xajax();
@@ -22,7 +21,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 
 // setting breadcrumbs
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'user_list.php','name' => get_lang('UserList'));
 
 // Database Table Definitions
@@ -408,7 +407,7 @@ if(!empty($msg)) {
 <div class="row">
     <div class="col-md-4">
         <?php echo get_lang('UserListInPlatform') ?>
-       
+
         <div class="form-group">
             <div class="col-sm-12">
                 <div id="ajax_list_users_multiple">
@@ -452,7 +451,7 @@ if(!empty($msg)) {
                 <em class="fa fa-chevron-left"></em>
                 </button>
             </div>
-            
+
           <?php
           }
           ?>

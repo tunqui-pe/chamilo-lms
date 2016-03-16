@@ -46,7 +46,7 @@ if (isset($_POST['style'])) {
 $table_settings_current = Database :: get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
 
 // Setting breadcrumbs.
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 
 // Setting the name of the tool.
 $tool_name = get_lang('PlatformConfigSettings');

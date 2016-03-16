@@ -1,14 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *	Interface for assigning sessions to Human Resources Manager
  *	@package chamilo.admin
  */
 // resetting the course id
 $cidReset = true;
-
-//require_once '../inc/global.inc.php';
 
 // create an ajax object
 $xajax = new xajax();
@@ -21,7 +21,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script(true);
 
 // setting breadcrumbs
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'user_list.php','name' => get_lang('UserList'));
 
 // Database Table Definitions
@@ -207,11 +207,11 @@ $result	= Database::query($sql);
 ?>
     <form name="formulaire" method="post" action="<?php echo api_get_self(); ?>?user=<?php echo $user_id ?>" style="margin:0px;" <?php if($ajax_search){ echo ' onsubmit="valide();"';}?>>
         <input type="hidden" name="formSent" value="1" />
-        
+
         <div class="row">
             <div class="col-md-4">
                 <h5><?php echo get_lang('SessionsListInPlatform') ?> :</h5>
-                
+
                 <div id="ajax_list_sessions_multiple">
                     <select id="origin" name="NoAssignedSessionsList[]" multiple="multiple" size="20" style="width:340px;">
                         <?php
@@ -242,7 +242,7 @@ $result	= Database::query($sql);
                             <button class="btn btn-primary" type="button" onclick="remove_item(document.getElementById('destination'))">
                                 <em class="fa fa-arrow-left"></em>
                             </button>
-                        </div>    
+                        </div>
                     <?php
                     }
                     else
@@ -258,15 +258,15 @@ $result	= Database::query($sql);
                             <em class="fa fa-arrow-left"></em>
                         </button>
                     </div>
-                        
+
                     <?php
                     }
                     ?>
-                    
+
                     <?php
                     echo '<button class="btn btn-success" type="button" value="" onclick="valide()" >'.$tool_name.'</button>';
                     ?>
-                </div>        
+                </div>
             </div>
             <div class="col-md-4">
                 <h5><?php
@@ -292,7 +292,7 @@ $result	= Database::query($sql);
                     </select>
             </div>
         </div>
-        
+
     </form>
 
 <?php

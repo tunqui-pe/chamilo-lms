@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This script shows a list of courses and allows searching for courses codes
  * and names
@@ -297,7 +299,7 @@ $actions = '';
 
 if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
     // Get all course categories
-    $interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+    $interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
     $interbreadcrumb[] = array('url' => 'course_list.php', 'name' => get_lang('CourseList'));
     $tool_name = get_lang('SearchACourse');
 
@@ -342,7 +344,7 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
     $form->setDefaults($defaults);
     $content .= $form->returnForm();
 } else {
-    $interbreadcrumb[] = array ('url' => 'index.php', "name" => get_lang('PlatformAdmin'));
+    $interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration'), "name" => get_lang('PlatformAdmin'));
     $tool_name = get_lang('CourseList');
 
     if (isset($_GET['action'])) {

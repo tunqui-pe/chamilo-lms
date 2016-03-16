@@ -62,7 +62,7 @@ foreach ($users as $user) {
 /**
  * Header definition
  */
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 $interbreadcrumb[] = array('url' => 'event_controller.php', 'name' => get_lang('Events'));
 $tool_name = get_lang('EventMessageManagement');
 

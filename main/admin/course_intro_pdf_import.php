@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * This tool allows platform admins to upload a massive amount of PDFs to be
  * uploaded in each course
@@ -14,7 +17,7 @@ api_protect_admin_script();
 $subDir = '';
 $tool_name = get_lang('ImportPDFIntroToCourses');
 
-$interbreadcrumb[] = array('url' => 'index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
 
 set_time_limit(0);
 Display :: display_header($tool_name);

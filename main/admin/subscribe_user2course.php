@@ -31,7 +31,7 @@ $tbl_user 	= Database :: get_main_table(TABLE_MAIN_USER);
 
 /* Header */
 $tool_name = get_lang('AddUsersToACourse');
-$interbreadcrumb[] = array ("url" => 'index.php', "name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration') , "name" => get_lang('PlatformAdmin'));
 
 $htmlHeadXtra[] = '
 <script type="text/javascript">

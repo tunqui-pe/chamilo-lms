@@ -19,7 +19,7 @@ $this_section = SECTION_PLATFORM_ADMIN;
 api_protect_admin_script();
 
 // setting breadcrumbs
-$interbreadcrumb[]=array('url' => 'index.php',"name" => get_lang('PlatformAdmin'));
+$interbreadcrumb[]=array('url' => Container::getRouter()->generate('administration'),"name" => get_lang('PlatformAdmin'));
 $interbreadcrumb[]=array('url' => api_get_self(),"name" => get_lang('SessionsList'));
 
 // Database Table Definitions

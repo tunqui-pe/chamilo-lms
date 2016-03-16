@@ -1,15 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  *  @package chamilo.admin
  */
 
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 
 $this_section = SECTION_PLATFORM_ADMIN;
-
 $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
 
 api_protect_admin_script();
@@ -18,7 +18,7 @@ api_protect_admin_script();
 $htmlHeadXtra[] = api_get_jqgrid_js();
 
 // setting breadcrumbs
-$interbreadcrumb[]=array('url' => 'index.php','name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[]=array('url' => Container::getRouter()->generate('administration'),'name' => get_lang('PlatformAdmin'));
 
 $tool_name = null;
 
