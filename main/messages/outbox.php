@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	@package chamilo.messages
 */
@@ -59,7 +62,7 @@ if (isset($_GET['f']) && $_GET['f']=='social') {
 	$interbreadcrumb[]= array ('url' => '#','name' => get_lang('Outbox'));
 } else {
 	$this_section = SECTION_MYPROFILE;
-	$interbreadcrumb[]= array ('url' => api_get_path(WEB_PATH).'main/auth/profile.php','name' => get_lang('Profile'));
+	$interbreadcrumb[]= array ('url' => Container::getRouter()->generate('fos_user_profile_edit'), 'name' => get_lang('Profile'));
 	$interbreadcrumb[]= array ('url' => '#','name' => get_lang('Outbox'));
 }
 

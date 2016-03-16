@@ -1,10 +1,12 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	@package chamilo.messages
 */
 $cidReset= true;
-//require_once '../inc/global.inc.php';
 api_block_anonymous_users();
 if (api_get_setting('message.allow_message_tool') != 'true') {
 	api_not_allowed();
@@ -16,7 +18,7 @@ if (isset($_REQUEST['f']) && $_REQUEST['f'] == 'social') {
 	$interbreadcrumb[]= array ('url' => 'inbox.php?f=social','name' => get_lang('Inbox'));
 } else {
 	$this_section = SECTION_MYPROFILE;
-	$interbreadcrumb[]= array ('url' => api_get_path(WEB_PATH).'main/auth/profile.php','name' => get_lang('Profile'));
+	$interbreadcrumb[]= array ('url' => Container::getRouter()->generate('fos_user_profile_edit'),'name' => get_lang('Profile'));
 }
 
 $social_right_content = null;

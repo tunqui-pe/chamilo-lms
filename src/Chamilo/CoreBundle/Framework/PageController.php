@@ -11,6 +11,7 @@ use UserManager;
 use CourseManager;
 use ChamiloSession as Session;
 use Display;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class PageController
@@ -51,7 +52,7 @@ class PageController
                 $profile_content .= '<a style="text-align:center" href="'.api_get_path(WEB_CODE_PATH).'social/home.php">
                                     <img src="'.$img_array['file'].'"></a>';
             } else {
-                $profile_content .= '<a style="text-align:center"  href="'.api_get_path(WEB_CODE_PATH).'auth/profile.php">
+                $profile_content .= '<a style="text-align:center"  href="'.Container::getRouter()->generate('fos_user_profile_edit').'">
                                     <img title="'.get_lang('EditProfile').'" src="'.$img_array['file'].'"></a>';
             }
         }

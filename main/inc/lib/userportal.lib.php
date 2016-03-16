@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Class IndexManager
  */
@@ -839,7 +841,9 @@ class IndexManager
                 $content .= '<a style="text-align:center" href="' . api_get_path(WEB_PATH) . 'main/social/home.php">
                 <img class="img-circle" src="' . $userPicture . '" ></a>';
             } else {
-                $content .= '<a style="text-align:center" href="' . api_get_path(WEB_PATH) . 'main/auth/profile.php">
+                $edit = Container::getRouter()->generate('fos_user_profile_edit');
+
+                $content .= '<a style="text-align:center" href="' . $edit . '">
                 <img class="img-circle" title="' . get_lang('EditProfile') . '" src="' . $userPicture. '" ></a>';
             }
 

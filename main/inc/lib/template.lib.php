@@ -1108,7 +1108,7 @@ class Template
         $tpl = $this->get_template('layout/show_footer.tpl');
         $this->display($tpl);
     }
-    
+
     /**
      * Show footer js template.
      */
@@ -1162,12 +1162,6 @@ class Template
      */
     public function display($template, $clearFlashMessages = true)
     {
-        $this->assign('flash_messages', Display::getFlashToString());
-
-        if ($clearFlashMessages) {
-            Display::cleanFlashMessages();
-        }
-
         echo $this->twig->render($template, $this->params);
     }
 

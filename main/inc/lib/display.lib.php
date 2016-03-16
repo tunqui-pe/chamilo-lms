@@ -707,26 +707,6 @@ class Display
 
         Container::getSession()->getFlashBag()->add($type, $message);
         return '';
-/*
-        $class = "";
-        switch($type) {
-            case 'warning':
-               $class .= 'alert alert-warning';
-               break;
-            case 'error':
-               $class .= 'alert alert-danger';
-               break;
-            case 'confirmation':
-            case 'confirm':
-            case 'success':
-                $class .= 'alert alert-success';
-               break;
-            case 'normal':
-            default:
-                $class .= 'alert alert-info';
-        }
-
-        return self::div($message, array('class'=> $class));*/
     }
 
     /**
@@ -2186,38 +2166,6 @@ class Display
     }
 
     /**
-     * @return string
-     */
-    public static function getFlashToString()
-    {
-        $messages = Session::read('flash_messages');
-        $messageToString = '';
-        if (!empty($messages)) {
-            foreach ($messages as $message) {
-                $messageToString .= $message;
-            }
-        }
-
-        return $messageToString;
-    }
-
-    /**
-     * Shows the message from the session
-     */
-    public static function showFlash()
-    {
-        echo self::getFlashToString();
-    }
-
-    /**
-     * Destroys the message session
-     */
-    public static function cleanFlashMessages()
-    {
-        Session::erase('flash_messages');
-    }
-
-    /**
      * Get the profile edition link for a user
      * @param int $userId The user id
      * @param boolean $asAdmin Optional. Whether get the URL for the platform admin
@@ -2225,7 +2173,7 @@ class Display
      */
     public static function getProfileEditionLink($userId, $asAdmin = false)
     {
-        $editProfileUrl = api_get_path(WEB_CODE_PATH).'auth/profile.php';
+        $editProfileUrl = Container::getRouter()->generate('fos_user_profile_edit');
 
         if ($asAdmin) {
             $editProfileUrl = api_get_path(WEB_CODE_PATH)."admin/user_edit.php?user_id=".intval($userId);
@@ -2728,5 +2676,4 @@ HTML;
 
         return $html;
     }
-
 }

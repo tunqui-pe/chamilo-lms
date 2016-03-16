@@ -1,6 +1,7 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 {% import "ChamiloThemeBundle:Macros:box.html.twig" as macro %}
 {% autoescape false %}
+
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {#{{ macro.panel(#}
     {#'Profile' | trans,#}
@@ -15,7 +16,9 @@
     mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:skillsMenu', {'automenu': 'pills', 'stacked':true})) }}
 
 {% else %}
+    {{ locale_switcher(null, null, 'ChamiloCoreBundle:Admin:switcher_links.html.twig') }}
     <div class="user-panel">
+
     </div>
     <form action="{{ path("fos_user_security_check") }}" method="post" role="form" class="sidebar-form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
@@ -31,6 +34,5 @@
     </form>
     {{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:notLoginMenu', {'automenu': 'pills', 'stacked':true}) }}
 {% endif %}
-{#{{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:helpMenu', {'automenu': 'pills', 'stacked':true}) }}#}
 
 {% endautoescape %}

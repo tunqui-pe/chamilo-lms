@@ -1,5 +1,7 @@
 <?php
-/* For licensing terms, see /chamilo_license.txt */
+/* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * @package chamilo.social
@@ -17,7 +19,7 @@ unset($_SESSION['this_section']);
 
 api_block_anonymous_users();
 if (api_get_setting('social.allow_social_tool') != 'true') {
-    $url = api_get_path(WEB_CODE_PATH) . 'auth/profile.php';
+    $url = Container::getRouter()->generate('fos_user_profile_edit');
     header('Location: ' . $url);
     exit;
 }

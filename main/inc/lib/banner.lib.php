@@ -3,6 +3,7 @@
 /**
  * Code
  * @todo use globals or parameters or add this file in the template
+ * @deprecated
  * @package chamilo.include
  */
 

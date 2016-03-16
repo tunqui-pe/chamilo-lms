@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Notification class
  * This class provides methods for the Notification management.
@@ -412,7 +414,8 @@ class Notification extends Model
                 $linkToNewMessage = Display::url(get_lang('SeeMessage'), $group_url);
                 break;
         }
-        $preference_url = api_get_path(WEB_CODE_PATH).'auth/profile.php';
+
+        $preference_url = Container::getRouter()->generate('fos_user_profile_edit');
 
         // You have received a new message text
         if (!empty($newMessageText)) {

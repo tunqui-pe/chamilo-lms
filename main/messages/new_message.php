@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
 *	@package chamilo.messages
 */
@@ -266,7 +269,7 @@ if ($socialToolIsActive) {
 } else {
 	$this_section = SECTION_MYPROFILE;
     $interbreadcrumb[] = array(
-        'url' => api_get_path(WEB_PATH).'main/auth/profile.php',
+        'url' => Container::getRouter()->generate('fos_user_profile_edit'),
         'name' => get_lang('Profile'),
     );
 }
