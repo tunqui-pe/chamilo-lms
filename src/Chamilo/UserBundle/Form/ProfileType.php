@@ -3,20 +3,14 @@
 
 namespace Chamilo\UserBundle\Form;
 
-use Chamilo\UserBundle\Entity\User;
-use Sonata\AdminBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Sonata\UserBundle\Model\UserInterface;
-
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 /**
  * Class ProfileType
+ * Located in web/app_dev.php/profile/edit-profile
  * @package Chamilo\UserBundle\Form
  */
 class ProfileType extends AbstractType

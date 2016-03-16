@@ -387,7 +387,7 @@ services:
 
     # Form types
     chamilo_user.registration.form.type:
-        class: Chamilo\UserBundle\Form\RegistrationType
+        class: Chamilo\UserBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: chamilo_sonata_user_registration }
@@ -398,9 +398,4 @@ services:
         tags:
             - { name: form.type, alias: chamilo_sonata_user_profile }
 
-    chamilo_user.fos_profile.form.type:
-        class: Chamilo\UserBundle\Form\ProfileFosUserType
-        arguments: [%fos_user.model.user.class%]
-        tags:
-            - { name: form.type, alias: chamilo_fos_user_profile }
 

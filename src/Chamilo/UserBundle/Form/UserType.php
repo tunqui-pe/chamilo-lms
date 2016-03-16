@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormEvents;
 
 /**
  * Class UserType
+ * @deprecated
  * @package Chamilo\UserBundle\Form
  */
 class UserType extends AbstractType

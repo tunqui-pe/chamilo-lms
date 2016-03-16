@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-namespace Chamilo\UserBundle\Form;
+namespace Chamilo\UserBundle\Form\Type;
 
 use Chamilo\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
@@ -13,10 +13,11 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class RegistrationType
- * @package Chamilo\UserBundle\Form
+ * Class RegistrationFormType
+ * Form located in web/app_dev.php/register/
+ * @package Chamilo\UserBundle\Form\Type
  */
-class RegistrationType extends AbstractType
+class RegistrationFormType extends AbstractType
 {
     /**
      * @inheritdoc
@@ -32,6 +33,8 @@ class RegistrationType extends AbstractType
                     'translation_domain' => 'FOSUserBundle',
                 )
             )
+            ->add('firstname', 'text')
+            ->add('lastname', 'text')
             ->add(
                 'email',
                 'email',
@@ -39,11 +42,11 @@ class RegistrationType extends AbstractType
                     'label' => 'form.email',
                     'translation_domain' => 'FOSUserBundle',
                 )
-            );
+            )
+            ->add('captcha', 'Gregwar\CaptchaBundle\Type\CaptchaType');
+        ;
 
         //$builder
-        //->add('firstname', 'text')
-        //->add('lastname', 'text')
         /*->add('official_code', 'text')
         ->add('email', 'email')
         ->add('username', 'text')
@@ -103,7 +106,6 @@ class RegistrationType extends AbstractType
         $this->configureOptions($resolver);
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -116,12 +118,17 @@ class RegistrationType extends AbstractType
         );
     }
 
-    /*public function getParent()
+    /**
+     * @return string
+     */
+    public function getParent()
     {
-        return 'sonata.user.registration.form';
-    }*/
+        return 'fos_user_registration';
+    }
 
-
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'chamilo_sonata_user_registration';

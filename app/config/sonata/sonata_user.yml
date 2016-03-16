@@ -55,8 +55,9 @@ sonata_user:
 
         register:
             form:
-                type:                 sonata_user_registration
+                type:                 chamilo_sonata_user_registration
                 handler:              sonata.user.registration.form.handler.default
-                name:                 chamilo_sonata_registration_profile_form
+                name:                 chamilo_sonata_user_registration
                 validation_groups:
                   - Registration
+                  - Default

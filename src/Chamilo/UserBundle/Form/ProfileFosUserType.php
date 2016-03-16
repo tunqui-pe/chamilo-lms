@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 /**
  * Class ProfileType
+ * @deprecated is not being used
  * @package Chamilo\UserBundle\Form
  */
 class ProfileFosUserType extends AbstractType
