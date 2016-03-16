@@ -54,7 +54,7 @@ class UserPortalController extends BaseController
         }*/
 
         $user = $this->getUser();
-        $pageController = new \Chamilo\CoreBundle\Framework\PageController();
+        $pageController = new PageController();
         $items = null;
         $page = $coursePage;
 
