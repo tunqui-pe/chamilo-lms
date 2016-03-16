@@ -2291,7 +2291,9 @@ class Display
         $html .= '<div id="' . $id . '" class="actions">';
         $html .= '<div class="row">';
         if ($col > 4) {
-            $html = '<div class="alert alert-warning" role="alert">Action toolbar design does not work when exceeding four columns - check Display::toolbarAction()</div>';
+            $html = '<div class="alert alert-warning" role="alert">
+                     Action toolbar design does not work when exceeding four columns - check Display::toolbarAction()
+                     </div>';
         } else {
             for ( $i = 0; $i < $col; $i++ ) {
                 $html .= '<div class="col-md-' . $columns . '">';

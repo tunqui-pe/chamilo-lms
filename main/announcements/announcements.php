@@ -16,11 +16,6 @@
 // use anonymous mode when accessing this course tool
 $use_anonymous = true;
 
-// setting the global file that gets the general configuration, the databases, the languages, ...
-////require_once '../inc/global.inc.php';
-
-/*	Sessions */
-
 $ctok = Security::get_existing_token();
 $stok = Security::get_token();
 
@@ -37,10 +32,10 @@ $display_form = false;
 $display_title_list = true;
 
 // Maximum title messages to display
-$maximum 	= '12';
+$maximum = '12';
 
 // Length of the titles
-$length 	= '36';
+$length = '36';
 
 // Database Table Definitions
 $tbl_courses = Database::get_main_table(TABLE_MAIN_COURSE);
@@ -69,10 +64,10 @@ $searchFormToString = '';
 
 if (!empty($group_id)) {
     $group_properties  = GroupManager :: get_group_properties($group_id);
-    $interbreadcrumb[] = array("url" => "../group/group.php?".api_get_cidreq(), "name" => get_lang('Groups'));
-    $interbreadcrumb[] = array("url"=>"../group/group_space.php?".api_get_cidreq(), "name"=> get_lang('GroupSpace').' '.$group_properties['name']);
+    $interbreadcrumb[] = array("url" => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(), "name" => get_lang('Groups'));
+    $interbreadcrumb[] = array("url"=> api_get_path(WEB_CODE_PATH)."group/group_space.php?".api_get_cidreq(), "name"=> get_lang('GroupSpace').' '.$group_properties['name']);
 }
-$interbreadcrumb[] = array("url"=>'announcements.php?'.api_get_cidreq(), "name"=> get_lang('Announcements'));
+$interbreadcrumb[] = array("url" => 'announcements.php?'.api_get_cidreq(), "name" => get_lang('Announcements'));
 
 switch ($action) {
     case 'move':
@@ -326,14 +321,13 @@ switch ($action) {
                     Display::addFlash(Display::return_message(get_lang('VisibilityChanged')));
                     header('Location: '.$homeUrl);
                     exit;
-                    
+
                 }
             }
         }
         break;
     case 'add':
     case 'modify':
-
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         if (empty($id)) {
             $form_name = get_lang('AddAnnouncement');
@@ -463,14 +457,14 @@ switch ($action) {
 
         $form->addElement('text', 'title', get_lang('EmailTitle'));
         $form->addElement('hidden', 'id');
-        $htmlTags = "<b>".get_lang('Tags')."</b></br></br>";
+        $htmlTags = "<b>".get_lang('Tags')."</b><br /><br />";
         $tags = AnnouncementManager::get_tags();
-        
+
         foreach ($tags as $tag) {
             $htmlTags .= "<b>".$tag."</b></br>";
         }
-        
-        $form->addHtml("<div class='form-group'><div class='col-sm-2'></div><div class='col-sm-8'><div class='alert alert-info'>".$htmlTags."</div></div></div>");
+
+        $form->addLabel(null, "<div class='alert alert-info'>".$htmlTags."</div>");
         $form->addHtmlEditor(
             'content',
             get_lang('Description'),
@@ -604,7 +598,6 @@ if ((api_is_allowed_to_edit(false,true) ||
     (api_get_course_setting('announcement.allow_user_edit_announcement') && !api_is_anonymous())) &&
     (empty($_GET['origin']) || $_GET['origin'] !== 'learnpath')
 ) {
-    echo '<div class="actions">';
     if (in_array($action, array('add', 'modify','view'))) {
         $actionsLeft .= "<a href='".api_get_self()."?".api_get_cidreq()."&origin=".$origin."'>".
             Display::return_icon('back.png',get_lang('Back'),'',ICON_SIZE_MEDIUM)."</a>";
@@ -640,8 +633,3 @@ if ($show_actions) {
 }
 
 echo $content;
-
-if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {
-    //we are not in learnpath tool
-    Display::display_footer();
-}
