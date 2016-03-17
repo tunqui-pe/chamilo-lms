@@ -3983,11 +3983,16 @@ class SessionManager
     {
         $sessionCategories = UserManager::get_sessions_by_category(
             $user_id,
+            $ignoreTimeLimit,
             false,
+            null,
+            null,
+            null,
             $ignore_visibility_for_admins,
             $ignoreTimeLimit
         );
         $sessionArray = array();
+
         if (!empty($sessionCategories)) {
             foreach ($sessionCategories as $category) {
                 if (isset($category['sessions'])) {

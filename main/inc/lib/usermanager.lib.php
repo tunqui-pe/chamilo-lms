@@ -2373,23 +2373,22 @@ class UserManager
             }
         }
 
-        $select = "SELECT DISTINCT ".
-            " session.id, ".
-            " session.name, ".
-            " access_start_date, ".
-            " access_end_date, ".
-            " coach_access_start_date, ".
-            " coach_access_end_date, ".
-            " display_start_date, ".
-            " display_end_date, ".
-            " session_category_id, ".
-            " session_category.name as session_category_name, ".
-            " session_category.date_start session_category_date_start, ".
-            " session_category.date_end session_category_date_end, ".
-            " id_coach ";
-        $select_1 = ", moved_to, ".
-            " moved_status, ".
-            " scu.user_id ";
+        $select = "SELECT DISTINCT
+             session.id,
+             session.name,
+             access_start_date,
+             access_end_date,
+             coach_access_start_date,
+             coach_access_end_date,
+             display_start_date,
+             display_end_date,
+             session_category_id,
+             session_category.name as session_category_name,
+             session_category.date_start session_category_date_start,
+             session_category.date_end session_category_date_end,
+             id_coach ";
+
+        $select_1 = ", moved_to, moved_status, scu.user_id ";
 
         if ($get_count) {
             $select = "SELECT count(session.id) as total_rows ";
