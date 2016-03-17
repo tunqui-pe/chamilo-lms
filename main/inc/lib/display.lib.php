@@ -339,16 +339,8 @@ class Display
             }
             $introduction_section .=  '</div>';
         }
-        return $introduction_section;
 
-        /*$moduleId = $tool;
-        if (api_get_setting('course.enable_tool_introduction') == 'true' ||
-            $tool == TOOL_COURSE_HOMEPAGE
-        ) {
-            $introduction_section = null;
-            require api_get_path(INCLUDE_PATH).'introductionSection.inc.php';
-            return $introduction_section;
-        }*/
+        return $introduction_section;
     }
 
     /**
