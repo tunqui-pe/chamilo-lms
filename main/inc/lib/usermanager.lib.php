@@ -2340,9 +2340,6 @@ class UserManager
         if ($user_id != strval(intval($user_id))) {
             return array();
         }
-
-        $categories = array();
-
         $now = api_get_utc_datetime();
 
         // Get the list of sessions per user
@@ -2441,7 +2438,6 @@ class UserManager
         $sql3 = null;
 
         if ($get_count) {
-            //$sql3 = $sql2;
             $sql3 = $sql1;
         } else {
             $sql1 .= $order;
@@ -2526,6 +2522,8 @@ class UserManager
             $ordered_join = $join;
         }
 
+        $categories = array();
+
         if (count($ordered_join) > 0) {
             foreach ($ordered_join as $row) {
                 if ($get_count) {
@@ -2560,13 +2558,13 @@ class UserManager
                 }
 
                 if ($is_time_over == false) {
-                    $date_validation = api_get_session_date_validation(
+                    $dateValidation = api_get_session_date_validation(
                         $session_info,
                         null,
                         false,
                         false
                     );
-                    if (!$date_validation) {
+                    if (!$dateValidation) {
                         continue;
                     }
                 }

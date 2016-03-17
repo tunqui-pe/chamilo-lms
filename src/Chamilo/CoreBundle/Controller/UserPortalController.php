@@ -386,7 +386,8 @@ class UserPortalController extends BaseController
      *
      * @param string $type courses|sessions|mycoursecategories
      * @param string $filter history|current for the userportal courses page
-     * @param int $page
+     * @param int $coursePage
+     * @param Request $request
      *
      * @return Response
      */
@@ -418,7 +419,6 @@ class UserPortalController extends BaseController
 
             // Main courses and session list
             $type = str_replace('/', '', $type);
-
             switch ($type) {
                 case 'sessions':
                     $items = $pageController->returnSessions(

@@ -9,14 +9,15 @@ use Chamilo\CoreBundle\Entity\Session;
 use Chamilo\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class SessionVoter
  * @package Chamilo\CoreBundle\Security\Authorization\Voter
  */
-class SessionVoter extends AbstractVoter
+class SessionVoter extends Voter
 {
     const VIEW = 'VIEW';
     const EDIT = 'EDIT';
@@ -34,8 +35,7 @@ class SessionVoter extends AbstractVoter
         EntityManager $entityManager,
         CourseManager $courseManager,
         ContainerInterface $container
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->courseManager = $courseManager;
         $this->container = $container;
@@ -58,33 +58,27 @@ class SessionVoter extends AbstractVoter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    protected function getSupportedAttributes()
+    public function supports($attribute, $subject)
     {
-        return array(self::VIEW, self::EDIT, self::DELETE);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getSupportedClasses()
-    {
-        return array('Chamilo\CoreBundle\Entity\Session');
+        return $subject instanceof Session && in_array($attribute, array(
+            self::VIEW, self::EDIT, self::DELETE
+        ));
     }
 
     /**
      * Check if user has access to a session
      *
-     * @param string $attribute
-     * @param Session $session
-     * @param User $user
-     * @return bool
+     * @inheritdoc
      */
-    protected function isGranted($attribute, $session, $user = null)
+    protected function voteOnAttribute($attribute, $session, TokenInterface $token)
     {
+        $user = $token->getUser();
+
         // make sure there is a user object (i.e. that the user is logged in)
         if (!$user instanceof UserInterface) {
+
             return false;
         }
 
@@ -92,7 +86,8 @@ class SessionVoter extends AbstractVoter
         $course = $session->getCurrentCourse();
 
         if ($course == false) {
-            error_log('sss');
+
+            error_log('Current course not loaded');
             return false;
         }
 
@@ -111,12 +106,11 @@ class SessionVoter extends AbstractVoter
 
         switch ($attribute) {
             case self::VIEW:
-                if (!$session->hasUserInCourse($user, $course)) {
+                if ($session->hasUserInCourse($user, $course)) {
                     $user->addRole('ROLE_CURRENT_SESSION_COURSE_STUDENT');
 
                     return true;
                 }
-
                 break;
             case self::EDIT:
             case self::DELETE:
@@ -134,7 +128,7 @@ class SessionVoter extends AbstractVoter
                 }
 
                 // Course session coach check
-                if (!$session->hasCoachInCourseWithStatus($user, $course)) {
+                if ($session->hasCoachInCourseWithStatus($user, $course)) {
 
                     $user->addRole('ROLE_CURRENT_SESSION_COURSE_TEACHER');
 
@@ -145,6 +139,7 @@ class SessionVoter extends AbstractVoter
 
         // User don't have access to the session
         return false;
+
     }
 }
 

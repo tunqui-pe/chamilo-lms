@@ -8078,7 +8078,8 @@ function api_get_session_date_validation(
         // I don't care the field visibility because there are not limit dates.
         if (
             (empty($session_info['access_start_date']) && empty($session_info['access_end_date'])) ||
-            ($session_info['access_start_date'] == '0000-00-00 00:00:00' && $session_info['access_end_date'] == '0000-00-00 00:00:00')) {
+            ($session_info['access_start_date'] == '0000-00-00 00:00:00' && $session_info['access_end_date'] == '0000-00-00 00:00:00')
+        ) {
             return true;
         } else {
             $accessStart = true;
@@ -8111,13 +8112,17 @@ function api_get_session_date_validation(
 
         if ($check_coach_dates) {
 
-            //2. If I'm a coach
+            // 2. If I'm a coach
             $is_coach = api_is_coach($session_id, $course_code);
 
             if ($is_coach) {
-
-                if (isset($session_info['access_end_date']) && !empty($session_info['access_end_date']) && $session_info['access_end_date'] != '0000-00-00 00:00:00' &&
-                    isset($session_info['coach_access_end_date']) && !empty($session_info['coach_access_end_date']) && $session_info['coach_access_end_date'] != '0000-00-00 00:00:00') {
+                if (isset($session_info['access_end_date']) &&
+                    !empty($session_info['access_end_date']) &&
+                    $session_info['access_end_date'] != '0000-00-00 00:00:00' &&
+                    isset($session_info['coach_access_end_date']) &&
+                    !empty($session_info['coach_access_end_date']) &&
+                    $session_info['coach_access_end_date'] != '0000-00-00 00:00:00'
+                ) {
                     $end_date_extra_for_coach = api_strtotime($session_info['coach_access_end_date'], 'UTC');
 
                     if ($now <= $end_date_extra_for_coach) {
@@ -8127,7 +8132,7 @@ function api_get_session_date_validation(
                     }
                 }
 
-                //Test start date
+                // Test start date
                 if (isset($session_info['access_start_date']) && !empty($session_info['access_start_date']) && $session_info['access_start_date'] != '0000-00-00 00:00:00' &&
                     isset($session_info['coach_start_date']) && !empty($session_info['coach_start_date']) && $session_info['coach_start_date'] != '0000-00-00 00:00:00') {
                     $start_date_for_coach = api_strtotime($session_info['coach_start_date'], 'UTC');
@@ -8139,6 +8144,7 @@ function api_get_session_date_validation(
                 }
             }
         }
+
         return $access;
     }
 }

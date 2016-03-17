@@ -78,7 +78,6 @@ class CourseListener
 
                 // Session
                 $sessionId = intval($request->get('id_session'));
-
                 $session = null;
 
                 // Group
@@ -98,9 +97,7 @@ class CourseListener
                         );
                     }
                 } else {
-                    $session = $em->getRepository(
-                        'ChamiloCoreBundle:Session'
-                    )->find($sessionId);
+                    $session = $em->getRepository('ChamiloCoreBundle:Session')->find($sessionId);
                     if ($session) {
                         $sessionHandler->set('sessionObj', $session);
                         //$course->setCurrentSession($session);

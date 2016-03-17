@@ -1247,7 +1247,6 @@ class PageController
                 $this->maxPerPage,
                 'no_category'
             );
-
         } else {
             // Load sessions in category.
             $nbResults = (int)UserManager::get_sessions_by_category(
@@ -1282,11 +1281,9 @@ class PageController
         }
 
         $load_directories_preview = api_get_setting('document.show_documents_preview') == 'true' ? true : false;
-
         $sessions_with_no_category = $html;
 
         if (isset($session_categories) && !empty($session_categories)) {
-
             foreach ($session_categories as $session_category) {
                 $session_category_id = $session_category['session_category']['id'];
 
@@ -1296,7 +1293,6 @@ class PageController
                     // Independent sessions
                     if (isset($session_category['sessions'])) {
                         foreach ($session_category['sessions'] as $session) {
-
                             $session_id = $session['session_id'];
 
                             // Don't show empty sessions.
@@ -1304,20 +1300,38 @@ class PageController
                                 continue;
                             }
 
-                            $html_courses_session  = '';
+                            // Courses inside the current session.
+                            $date_session_start = $session['access_start_date'];
+                            $date_session_end = $session['access_end_date'];
+                            $coachAccessStartDate = $session['coach_access_start_date'];
+                            $coachAccessEndDate = $session['coach_access_end_date'];
+
+                            $session_now = time();
+                            $count_courses_session = 0;
                             $count_courses_session = 0;
 
+                            // Loop course content
+                            $html_courses_session = [];
+                            $atLeastOneCourseIsVisible = false;
+
                             foreach ($session['courses'] as $course) {
-                                //Read only and accessible
-                                if (api_get_setting(
-                                        'session.hide_courses_in_sessions'
-                                    ) == 'false'
-                                ) {
-                                    $html_courses_session .= CourseManager::get_logged_user_course_html(
+                                $is_coach_course = api_is_coach($session_id, $course['real_id']);
+                                $allowed_time = 0;
+
+                                // Read only and accessible
+                                if (api_get_setting('session.hide_courses_in_sessions') == 'false') {
+                                    $courseUserHtml = CourseManager::get_logged_user_course_html(
                                         $course,
                                         $session_id,
                                         $load_directories_preview
                                     );
+
+                                    if (isset($courseUserHtml[1])) {
+                                        $course_session = $courseUserHtml[1];
+                                        $course_session['skill'] = isset($courseUserHtml['skill']) ? $courseUserHtml['skill'] : '';
+                                        $html_courses_session[] = $course_session;
+                                    }
+
                                 }
                                 $count_courses_session++;
                             }
@@ -1336,23 +1350,16 @@ class PageController
                                 $session_link   = $session['session_name'];
                                 $params['link'] = null;
 
-                                if (api_get_setting(
-                                        'session.session_page_enabled'
-                                    ) == 'true' && !api_is_drh()
-                                ) {
+                                if (api_get_setting('session.session_page_enabled') == 'true' && !api_is_drh()) {
                                     //session name with link
-                                    $session_link   = Display::tag(
+                                    $session_link = Display::tag(
                                         'a',
                                         $session['session_name'],
                                         array(
-                                            'href' => api_get_path(
-                                                WEB_CODE_PATH
-                                            ).'session/index.php?session_id='.$session_id
+                                            'href' => api_get_path(WEB_CODE_PATH).'session/index.php?session_id='.$session_id
                                         )
                                     );
-                                    $params['link'] = api_get_path(
-                                        WEB_CODE_PATH
-                                    ).'session/index.php?session_id='.$session_id;
+                                    $params['link'] = api_get_path(WEB_CODE_PATH).'session/index.php?session_id='.$session_id;
                                 }
 
                                 $params['title'] = $session_link;
@@ -1363,30 +1370,28 @@ class PageController
                                 $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
 
                                 $params['subtitle'] = isset($session['coach_info']) ? $session['coach_info']['complete_name'] : null.$moved_status;
-                                $params['dates']    = $session['date_message'];
-
+                                $params['dates'] = $session['date_message'];
                                 $params['right_actions'] = '';
                                 if (api_is_platform_admin()) {
-                                    $params['right_actions'] .= '<a href="'.api_get_path(
-                                            WEB_CODE_PATH
-                                        ).'session/resume_session.php?id_session='.$session_id.'">';
-                                    $params['right_actions'] .= Display::return_icon(
-                                        'edit.png',
-                                        get_lang('Edit'),
-                                        array('align' => 'absmiddle'),
-                                        ICON_SIZE_SMALL
-                                    ).'</a>';
+                                    $params['right_actions'] .=
+                                        Display::url(
+                                            Display::return_icon(
+                                                'edit.png',
+                                                get_lang('Edit'),
+                                                array('align' => 'absmiddle'),
+                                                ICON_SIZE_SMALL
+                                            ),
+                                            api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.$session_id
+                                        );
                                 }
 
-                                if (api_get_setting(
-                                        'session.hide_courses_in_sessions'
-                                    ) == 'false'
-                                ) {
+                                if (api_get_setting('session.hide_courses_in_sessions') == 'false') {
                                     //    $params['extra'] .=  $html_courses_session;
                                 }
+                                $courseDataToString = CourseManager::parseCourseListData($html_courses_session);
                                 $sessions_with_no_category .= CourseManager::course_item_parent(
                                     CourseManager::course_item_html($params, true),
-                                    $html_courses_session
+                                    $courseDataToString
                                 );
                             }
                         }

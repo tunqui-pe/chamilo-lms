@@ -3416,9 +3416,16 @@ class CourseManager
                 $params['teachers'] . '</h5>';
         }
         if (!empty($params['coaches'])) {
+            $coaches = '';
+            if (is_array($params['coaches'])) {
+                foreach ($params['coaches'] as $coach) {
+                    $coaches .= $coach['full_name'];
+                }
+            }
             $html .= '<h5 class="course-items-session">' .
                 Display::return_icon('teacher.png', get_lang('Coach'), array(), ICON_SIZE_TINY) .
-                $params['coaches'] . '</h5>';
+                $coaches .
+                '</h5>';
         }
 
         $html .= '</div>';
@@ -3428,6 +3435,21 @@ class CourseManager
 
         $html .= '</div>';
         $html .= '</div>';
+
+        return $html;
+    }
+
+    /**
+     * @param $courses
+     * @return string
+     */
+    public function parseCourseListData($courses)
+    {
+        $html = '';
+        foreach ($courses as $course) {
+            $html .= self::course_item_html($course, true);
+        }
+
         return $html;
     }
 
@@ -4072,15 +4094,11 @@ class CourseManager
             }
         }
 
-        if (api_get_setting(
-                'course.display_coursecode_in_courselist'
-            ) == 'true'
-        ) {
+        if (api_get_setting('course.display_coursecode_in_courselist') == 'true') {
             $session_title .= ' (' . $course_info['visual_code'] . ') ';
         }
 
         if (api_get_setting('course.display_teacher_in_courselist') == 'true') {
-
             $teacher_list = CourseManager::getTeacherListFromCourseToString(
                 $course_info['real_id'],
                 self::USER_SEPARATOR,
@@ -4120,7 +4138,7 @@ class CourseManager
             if (!empty($course_info['session_name'])) {
 
                 // Request for the name of the general coach
-                $sql = 'SELECT lastname, firstname,sc.name
+                $sql = 'SELECT lastname, firstname, sc.name
                         FROM ' . $tbl_session . ' ts
                         LEFT JOIN ' . $main_user_table . ' tu
                         ON ts.id_coach = tu.user_id
@@ -4168,10 +4186,8 @@ class CourseManager
             );
 
             if (api_get_setting('skill.allow_skills_tool') === 'true') {
-                $skill = $entityManager
-                    ->getRepository('ChamiloCoreBundle:Skill')
-                    ->getLastByUser($objUser, $objCourse, $objSession);
-
+                /** @var \Chamilo\CoreBundle\Entity\Skill $skill */
+                $skill = $entityManager->getRepository('ChamiloCoreBundle:Skill')->getLastByUser($objUser, $objCourse, $objSession);
                 $output['skill'] = null;
 
                 if ($skill) {
@@ -4182,6 +4198,7 @@ class CourseManager
         } else {
             $output = array($course_info['user_course_cat'], $html);
         }
+
         return $output;
     }
 
