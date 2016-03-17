@@ -38,7 +38,7 @@ assetic:
                 - bundles/chamilocore/components/bootflat/css/bootflat.css
                 - bundles/chamilocore/components/jqgrid/css/ui.jqgrid.css
                 - bundles/chamilocore/components/select2/dist/css/select2.css
-
+                - bundles/chamilocore/js/tag/style.css
                 - bundles/chamilocore/components/jquery-file-upload/css/jquery.fileupload.css
                 - bundles/chamilocore/components/jquery-file-upload/css/jquery.fileupload-ui.css
                 - bundles/chamilocore/components/bootstrap-language/languages.css
@@ -84,6 +84,9 @@ assetic:
 
                 - bundles/chamilocore/components/blueimp-load-image/js/load-image.all.min.js
                 - bundles/chamilocore/components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js
+
+                - bundles/chamilocore/js/tag/jquery.fcbkcomplete.js
+
                 - bundles/chamilocore/components/jquery-file-upload/js/jquery.iframe-transport.js
                 - bundles/chamilocore/components/jquery-file-upload/js/jquery.fileupload.js
                 - bundles/chamilocore/components/jquery-file-upload/js/jquery.fileupload-process.js
