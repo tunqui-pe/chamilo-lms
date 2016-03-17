@@ -461,7 +461,7 @@ switch ($action) {
         $tags = AnnouncementManager::get_tags();
 
         foreach ($tags as $tag) {
-            $htmlTags .= "<b>".$tag."</b></br>";
+            $htmlTags .= "<b>".$tag."</b><br />";
         }
 
         $form->addLabel(null, "<div class='alert alert-info'>".$htmlTags."</div>");

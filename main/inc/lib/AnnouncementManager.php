@@ -1535,7 +1535,7 @@ class AnnouncementManager
             // STUDENT
             if (is_array($group_memberships) && count($group_memberships)>0) {
                 if ($allowUserEditSetting && !api_is_anonymous()) {
-                    if (api_get_group_id() == 0) {
+                    if ($group_id == 0) {
                         // No group
                         $cond_user_id = " AND (
                             ip.lastedit_user_id = '".$user_id."' OR (
@@ -1549,14 +1549,13 @@ class AnnouncementManager
                         )";
                     }
                 } else {
-
-                    if (api_get_group_id() == 0) {
+                    if ($group_id == 0) {
                         $cond_user_id = " AND (
-                            ip.to_user_id=$user_id OR (ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".implode(", ", $group_memberships)."))
+                            ip.to_user_id = $user_id AND (ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".implode(", ", $group_memberships)."))
                         ) ";
                     } else {
                        $cond_user_id = " AND (
-                            ip.to_user_id=$user_id OR (ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".api_get_group_id()."))
+                            ip.to_user_id = $user_id AND (ip.to_group_id IS NULL OR ip.to_group_id IN (0, ".$group_id."))
                         )";
                     }
                 }
@@ -1596,7 +1595,7 @@ class AnnouncementManager
     						$condition_session
     						$searchCondition
     						AND ip.visibility='1'
-    						AND announcement.session_id IN(0, ".api_get_session_id().")
+    						AND announcement.session_id IN(0, ".$session_id.")
 						ORDER BY display_order DESC";
 
                 } else {

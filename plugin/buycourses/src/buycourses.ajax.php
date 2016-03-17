@@ -167,7 +167,7 @@ switch ($action) {
             . '</ul>'
         . '</p>';
         $html .= '<p>'. get_plugin_lang("CautionThisProcessCantBeCanceled", "BuyCoursesPlugin") .'</p>';
-        $html .= '</br></br>';
+        $html .= '<br /><br />';
         $html .= '<div id="spinner" class="text-center"></div>';
 
         echo $html;
@@ -220,7 +220,7 @@ switch ($action) {
 
         } else {
 
-            echo Display::return_message('<b>'.$result['L_SEVERITYCODE0'].' '.$result['L_ERRORCODE0'].'</b> - '.$result['L_SHORTMESSAGE0'].'</br><ul><li>'. $result['L_LONGMESSAGE0'].'</li></ul>', 'error', false);
+            echo Display::return_message('<b>'.$result['L_SEVERITYCODE0'].' '.$result['L_ERRORCODE0'].'</b> - '.$result['L_SHORTMESSAGE0'].'<br /><ul><li>'. $result['L_LONGMESSAGE0'].'</li></ul>', 'error', false);
 
         }
 

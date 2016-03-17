@@ -5529,9 +5529,7 @@ class CourseManager
     }
 
     /**
-     * this function shows the form for sending a message to a specific group or user.
-     */
-    /**
+     * Shows the form for sending a message to a specific group or user.
      * @param FormValidator $form
      * @param int $group_id
      * @param array $to

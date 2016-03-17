@@ -165,7 +165,7 @@ function WSImportLP($params)
 
     $sessionId = 0;
     if (!empty($sessionIdName) && !empty($sessionIdValue)) {
-        $sessionId = SessionManager::get_session_id_from_original_id(
+        $sessionId = SessionManager::getSessionIdFromOriginalId(
             $sessionIdValue,
             $sessionIdName
         );

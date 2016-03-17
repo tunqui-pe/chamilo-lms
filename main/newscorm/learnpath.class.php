@@ -3320,9 +3320,10 @@ class learnpath
                 $html .= '</div>';
             }
         }
-        return $html;
 
+        return $html;
     }
+
     /**
      * Gets the learnpath maker name - generally the editor's name
      * @return	string	Learnpath maker name
@@ -6001,11 +6002,14 @@ class learnpath
         }
 
         $folder = self::generate_learning_path_folder($course);
+        // Limits title size
+        $title = api_substr(api_replace_dangerous_char($lp_name), 0 , 80);
+        $dir = $dir.$title;
+
         // Creating LP folder
+        $documentId = null;
+
         if ($folder) {
-            //Limits title size
-            $title = api_substr(api_replace_dangerous_char($lp_name), 0 , 80);
-            $dir   = $dir.$title;
             $filepath = api_get_path(SYS_COURSE_PATH) . $course['path'] . '/document';
             if (!is_dir($filepath.'/'.$dir)) {
                 $folderData = create_unexisting_directory(
@@ -6021,6 +6025,8 @@ class learnpath
                 if (!empty($folderData)) {
                     $folder = true;
                 }
+
+                $documentId = $folderData['id'];
             } else {
                 $folder = true;
             }
@@ -6029,11 +6035,19 @@ class learnpath
                 $filepath = api_get_path(SYS_COURSE_PATH) . $course['path'] . '/document'.$dir;
             }
         }
+
+        if (empty($documentId)) {
+            $dir = api_remove_trailing_slash($dir);
+            $documentId = DocumentManager::get_document_id($course, $dir, 0);
+        }
+
         $array = array(
             'dir' => $dir,
             'filepath' => $filepath,
-            'folder' => $folder
+            'folder' => $folder,
+            'id' => $documentId
         );
+
         return $array;
     }
 
@@ -6043,10 +6057,11 @@ class learnpath
      * @param string $content
      * @param string $title
      * @param string $extension
+     * @param int $parentId
      *
      * @return string
      */
-    public function create_document($courseInfo, $content = '', $title = '', $extension = 'html')
+    public function create_document($courseInfo, $content = '', $title = '', $extension = 'html', $parentId = 0)
     {
         if (!empty($courseInfo)) {
             $course_id = $courseInfo['real_id'];
@@ -6054,33 +6069,39 @@ class learnpath
             $course_id = api_get_course_int_id();
         }
 
-        global $charset;
-        $postDir = isset($_POST['dir']) ? $_POST['dir'] : '';
-        $dir = isset ($_GET['dir']) ? $_GET['dir'] : $postDir; // Please, do not modify this dirname formatting.
-        // Please, do not modify this dirname formatting.
-        if (strstr($dir, '..'))
+        //$dir = '/';
+        // Generates folder
+        $result = $this->generate_lp_folder($courseInfo);
+        $dir = $result['dir'];
+
+        if (empty($parentId)) {
+            $postDir = isset($_POST['dir']) ? $_POST['dir'] : '';
+            $dir = isset ($_GET['dir']) ? $_GET['dir'] : $postDir; // Please, do not modify this dirname formatting.
+            // Please, do not modify this dirname formatting.
+            if (strstr($dir, '..')) {
             $dir = '/';
-        if (isset($dir[0]) && $dir[0] == '.')
+            }
+            if (!empty($dir[0]) && $dir[0] == '.') {
             $dir = substr($dir, 1);
-
-        if (isset($dir[0]) && $dir[0] != '/')
+            }
+            if (!empty($dir[0]) && $dir[0] != '/') {
             $dir = '/' . $dir;
-
-        if (isset($dir[strlen($dir) - 1]) && $dir[strlen($dir) - 1] != '/')
+            }
+            if (isset($dir[strlen($dir) - 1]) && $dir[strlen($dir) - 1] != '/') {
             $dir .= '/';
+            }
+        } else {
+            $parentInfo = DocumentManager::get_document_data_by_id($parentId, $courseInfo['code']);
+            if (!empty($parentInfo)) {
+                $dir = $parentInfo['path'].'/';
+            }
+        }
 
         $filepath = api_get_path(SYS_COURSE_PATH) . $courseInfo['path'] . '/document' . $dir;
 
-        if (empty($_POST['dir']) && empty($_GET['dir'])) {
-            //Generates folder
-            $result = $this->generate_lp_folder($courseInfo);
-            $dir 		= $result['dir'];
-            $filepath 	= $result['filepath'];
-        }
-
         if (!is_dir($filepath)) {
-            $filepath = api_get_path(SYS_COURSE_PATH) . $courseInfo['path'] . '/document/';
             $dir = '/';
+            $filepath = api_get_path(SYS_COURSE_PATH) . $courseInfo['path'] . '/document'.$dir;
         }
 
         // stripslashes() before calling api_replace_dangerous_char() because $_POST['title']
@@ -6094,16 +6115,14 @@ class learnpath
         }
 
         $title = disable_dangerous_file($title);
-
         $filename = $title;
-
         $content = !empty($content) ? $content : $_POST['content_lp'];
-
         $tmp_filename = $filename;
 
         $i = 0;
-        while (file_exists($filepath . $tmp_filename . '.'.$extension))
+        while (file_exists($filepath . $tmp_filename . '.'.$extension)) {
             $tmp_filename = $filename . '_' . ++ $i;
+        }
 
         $filename = $tmp_filename . '.'.$extension;
         if ($extension == 'html') {
@@ -6179,7 +6198,7 @@ class learnpath
                         if ($new_comment)
                             $ct .= ", comment='" . Database::escape_string($new_comment). "'";
                         if ($new_title)
-                            $ct .= ", title='" . Database::escape_string(htmlspecialchars($new_title, ENT_QUOTES, $charset))."' ";
+                            $ct .= ", title='" . Database::escape_string($new_title)."' ";
 
                         $sql = "UPDATE ".$tbl_doc." SET ".substr($ct, 1)."
                                 WHERE c_id = ".$course_id." AND id = ".$document_id;
@@ -6291,6 +6310,11 @@ class learnpath
                             $exercise = new Exercise();
                             $exercise->read($row['path']);
                             $return .= $exercise->description.'<br />';
+                            $return .= Display::url(
+                                get_lang('GoToExercise'),
+                                api_get_path(WEB_CODE_PATH).'exercice/overview.php?'.api_get_cidreq().'&exerciseId='.$exercise->id,
+                                ['class' => 'btn btn-primary']
+                            );
                         }
                         break;
                     case TOOL_DOCUMENT:
@@ -7645,7 +7669,27 @@ class learnpath
         }
         $defaults['description'] = $item_description;
         $form->addElement('html', $return);
+
         if ($action != 'move') {
+            $data = $this->generate_lp_folder($_course);
+            $folders = DocumentManager::get_all_document_folders(
+                $_course,
+                0,
+                true
+            );
+            DocumentManager::build_directory_selector(
+                $folders,
+                '',
+                array(),
+                true,
+                $form,
+                'directory_parent_id'
+            );
+
+            if (isset($data['id'])) {
+                $defaults['directory_parent_id'] = $data['id'];
+            }
+
             $form->addElement('text', 'title', get_lang('Title'), array('id' => 'idTitle', 'class' => 'col-md-4'));
             $form->applyFilter('title', 'html_filter');
         }
@@ -7843,7 +7887,7 @@ class learnpath
         $form->addElement('hidden', 'post_time', time());
         $form->setDefaults($defaults);
 
-        return $form->return_form();
+        return $form->returnForm();
     }
 
     /**
@@ -8591,14 +8635,15 @@ class learnpath
             $icon_name = str_replace(' ', '', $item['item_type']);
 
             if (file_exists('../img/lp_' . $icon_name . '.png')) {
-                $return .= '<img alt="" src="../img/lp_' . $icon_name . '.png" style="margin-right:5px;" title="" />';
+                $return .= Display::return_icon('lp_' . $icon_name . '.png');
             } else {
                 if (file_exists('../img/lp_' . $icon_name . '.gif')) {
-                    $return .= '<img alt="" src="../img/lp_' . $icon_name . '.gif" style="margin-right:5px;" title="" />';
+                    $return .= Display::return_icon('lp_' . $icon_name . '.gif');
                 } else {
                     $return .= Display::return_icon('folder_document.gif','',array('style'=>'margin-right:5px;'));
                 }
             }
+
             $return .=  $item['title'] . '</label>';
             $return .= '</td>';
 
@@ -8688,7 +8733,7 @@ class learnpath
         $course_info = api_get_course_info();
         $sessionId = api_get_session_id();
 
-        $document_tree = DocumentManager::get_document_preview(
+        $documentTree = DocumentManager::get_document_preview(
             $course_info,
             $this->lp_id,
             null,
@@ -8700,7 +8745,55 @@ class learnpath
             true
         );
 
-        return $document_tree;
+        $headers = array(
+            get_lang('Files'),
+            get_lang('NewDocument'),
+            get_lang('Upload'),
+        );
+
+        $form = new FormValidator(
+            'form_upload',
+            'POST',
+            api_get_self().'?'.$_SERVER['QUERY_STRING'],
+            '',
+            array('enctype' => "multipart/form-data")
+        );
+
+        $folders = DocumentManager::get_all_document_folders(
+            api_get_course_info(),
+            0,
+            true
+        );
+
+        DocumentManager::build_directory_selector(
+            $folders,
+            '',
+            array(),
+            true,
+            $form,
+            'directory_parent_id'
+        );
+
+        $form->addElement('radio', 'if_exists', get_lang('UplWhatIfFileExists'), get_lang('UplDoNothing'), 'nothing');
+        $form->addElement('radio', 'if_exists', '', get_lang('UplOverwriteLong'), 'overwrite');
+        $form->addElement('radio', 'if_exists', '', get_lang('UplRenameLong'), 'rename');
+        $form->setDefaults(['if_exists' => 'rename']);
+
+        // Check box options
+        $form->addElement(
+            'checkbox',
+            'unzip',
+            get_lang('Options'),
+            get_lang('Uncompress')
+        );
+
+        $url = api_get_path(WEB_AJAX_PATH).'document.ajax.php?'.api_get_cidreq().'&a=upload_file&curdirpath=';
+        $form->addMultipleUpload($url);
+        $new = $this->display_document_form('add', 0);
+
+        $tabs = Display::tabs($headers, array($documentTree, $new, $form->returnForm()), 'subtab');
+
+        return $tabs;
     }
 
     /**
@@ -8719,8 +8812,15 @@ class learnpath
         $session_id = api_get_session_id();
         $condition_session = api_get_session_condition($session_id);
 
+        $setting = api_get_configuration_value('show_invisible_exercise_in_lp_list');
+
+        $activeCondition = " active <> -1 ";
+        if ($setting) {
+            $activeCondition = " active = 1 ";
+        }
+
         $sql_quiz = "SELECT * FROM $tbl_quiz
-                     WHERE c_id = $course_id AND active<>'-1' $condition_session
+                     WHERE c_id = $course_id AND $activeCondition $condition_session
                      ORDER BY title ASC";
 
         $sql_hot  = "SELECT * FROM $tbl_doc
@@ -8733,13 +8833,8 @@ class learnpath
         $return = '<ul class="lp_resource">';
 
         $return .= '<li class="lp_resource_element">';
-        $return .= Display::return_icon(
-            'new_test_small.gif',
-            '',
-            '',
-            'style="margin-right:5px;"'
-        );
-        $return .= '<a href="' . api_get_path(REL_CODE_PATH) . 'exercice/exercise_admin.php?'.api_get_cidreq().'&lp_id=' . $this->lp_id . '">' .
+        $return .= Display::return_icon('new_test_small.gif');
+        $return .= '<a href="' . api_get_path(WEB_CODE_PATH) . 'exercice/exercise_admin.php?'.api_get_cidreq().'&lp_id=' . $this->lp_id . '">' .
                     get_lang('NewExercise') . '</a>';
         $return .= '</li>';
 
@@ -8751,7 +8846,7 @@ class learnpath
             $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
             $return .= '</a> ';
 
-            $return .= '<img src="../img/hotpotatoes_s.png" style="margin-right:5px;" title="" width="16px" />';
+            $return .= Display::return_icon('hotpotatoes_s.png');
             $return .= '<a href="' . api_get_self() . '?' . api_get_cidreq().'&action=add_item&type=' . TOOL_HOTPOTATOES . '&file=' . $row_hot['id'] . '&lp_id=' . $this->lp_id . '">'.
                 ((!empty ($row_hot['comment'])) ? $row_hot['comment'] : Security :: remove_XSS($row_hot['title'])) . '</a>';
             $return .= '</li>';
@@ -8822,10 +8917,10 @@ class learnpath
             function toggle_tool(tool, id){
                 if(document.getElementById(tool+"_"+id+"_content").style.display == "none"){
                     document.getElementById(tool+"_"+id+"_content").style.display = "block";
-                    document.getElementById(tool+"_"+id+"_opener").src = "' . api_get_path(WEB_IMG_PATH) . 'remove.gif";
+                    document.getElementById(tool+"_"+id+"_opener").src = "' . Display::returnIconPath('remove.gif').'";
                 } else {
                     document.getElementById(tool+"_"+id+"_content").style.display = "none";
-                    document.getElementById(tool+"_"+id+"_opener").src = "' . api_get_path(WEB_IMG_PATH) . 'add.gif";
+                    document.getElementById(tool+"_"+id+"_opener").src = "'.Display::returnIconPath('add.gif').'";
                 }
             }
         </script>
@@ -8843,6 +8938,13 @@ class learnpath
         foreach ($categorizedLinks as $categoryId => $links) {
             $linkNodes = null;
             foreach ($links as $key => $title) {
+
+                $link = Display::url(
+                    Display::return_icon('preview_view.png', get_lang('Preview')),
+                    api_get_path(WEB_CODE_PATH).'link/link_goto.php?'.api_get_cidreq().'&link_id='.$key,
+                    ['target' => '_blank']
+                );
+
                 if (api_get_item_visibility($course, TOOL_LINK, $key, $session_id) != 2)  {
                     $linkNodes .=
                     '<li class="lp_resource_element" data_id="'.$key.
@@ -8851,7 +8953,7 @@ class learnpath
                             $moveEverywhereIcon.
                         '</a>
                         '.Display::return_icon(
-                        'lp_link.gif',
+                        'lp_link.png',
                         '',
                         array(),
                         ICON_SIZE_TINY
@@ -8865,9 +8967,8 @@ class learnpath
             }
             $linksHtmlCode .=
             '<li>
-                <a style="cursor:hand" onclick="javascript: toggle_tool(\''.TOOL_LINK.'\','.$categoryId.')"
-                style="vertical-align:middle">
-                    <img src="'.api_get_path(WEB_IMG_PATH).'add.gif" id="'.TOOL_LINK.'_'.$categoryId.'_opener"
+                <a style="cursor:hand" onclick="javascript: toggle_tool(\''.TOOL_LINK.'\','.$categoryId.')" style="vertical-align:middle">
+                    <img src="'.Display::returnIconPath('add.gif').'" id="'.TOOL_LINK.'_'.$categoryId.'_opener"
                     align="absbottom" />
                 </a>
                 <span style="vertical-align:middle">'.Security::remove_XSS($categories[$categoryId]).'</span>
@@ -8881,21 +8982,47 @@ class learnpath
 
     /**
      * Creates a list with all the student publications in it
-     * @return unknown
+     * @return string
      */
     public function get_student_publications()
     {
-        $return = '<div class="lp_resource" >';
-        $return .= '<div class="lp_resource_element">';
-        $return .= Display::return_icon(
-            'works_small.gif',
-            '',
-            array(),
-            ICON_SIZE_TINY
+        $return = '<ul class="lp_resource" >';
+        $return .= '<li class="lp_resource_element">';
+        $return .= Display::return_icon('works_new.gif');
+        $return .= ' <a href="' . api_get_self() . '?' . api_get_cidreq() . '&action=add_item&type=' . TOOL_STUDENTPUBLICATION . '&lp_id=' . $this->lp_id . '">' .
+            get_lang('AddAssignmentPage') . '</a>';
+        $return .= '</li>';
+        $sessionId = api_get_session_id();
+
+        if (empty($sessionId)) {
+            require_once api_get_path(SYS_CODE_PATH).'work/work.lib.php';
+            $works = getWorkListTeacher(0, 100, null, null, null);
+            if (!empty($works)) {
+                foreach ($works as $work) {
+
+                    $link = Display::url(
+                        Display::return_icon('preview_view.png', get_lang('Preview')),
+                        api_get_path(WEB_CODE_PATH).'work/work_list_all.php?'.api_get_cidreq().'&id='.$work['iid'],
+                        ['target' => '_blank']
         );
-        $return .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&action=add_item&type=' . TOOL_STUDENTPUBLICATION . '&lp_id=' . $this->lp_id . '">' . get_lang('AddAssignmentPage') . '</a>';
-        $return .= '</div>';
-        $return .= '</div>';
+
+                    $return .= '<li class="lp_resource_element" data_id="'.$work['iid'].'" data_type="'.TOOL_STUDENTPUBLICATION.'" title="'.Security :: remove_XSS(cut(strip_tags($work['title']), 80)).'">';
+                    $return .= '<a class="moved" href="#">';
+                    $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
+                    $return .= '</a> ';
+
+                    $return .= Display::return_icon('works.gif');
+                    $return .= ' <a class="moved" href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_STUDENTPUBLICATION . '&file=' . $work['iid'] . '&lp_id=' . $this->lp_id . '">' .
+                        Security :: remove_XSS(cut(strip_tags($work['title']), 80)).' '.$link.'
+                    </a>';
+
+                    $return .= '</li>';
+                }
+            }
+        }
+
+        $return .= '</ul>';
+
         return $return;
     }
 
@@ -8927,28 +9054,31 @@ class learnpath
                     function toggle_forum(forum_id){
                         if(document.getElementById("forum_"+forum_id+"_content").style.display == "none"){
                             document.getElementById("forum_"+forum_id+"_content").style.display = "block";
-                            document.getElementById("forum_"+forum_id+"_opener").src = "' . api_get_path(WEB_IMG_PATH) . 'remove.gif";
+                            document.getElementById("forum_"+forum_id+"_opener").src = "' . Display::returnIconPath('remove.gif').'";
                         } else {
                             document.getElementById("forum_"+forum_id+"_content").style.display = "none";
-                            document.getElementById("forum_"+forum_id+"_opener").src = "' . api_get_path(WEB_IMG_PATH) . 'add.gif";
+                            document.getElementById("forum_"+forum_id+"_opener").src = "' . Display::returnIconPath('add.gif').'";
                         }
                     }
                 </script>';
 
         foreach ($a_forums as $forum) {
             if (!empty($forum['forum_id'])) {
+
+                $link = Display::url(
+                    Display::return_icon('preview_view.png', get_lang('Preview')),
+                    api_get_path(WEB_CODE_PATH).'forum/viewforum.php?'.api_get_cidreq().'&forum='.$forum['forum_id'],
+                    ['target' => '_blank']
+                );
+
+
                 $return .= '<li class="lp_resource_element" data_id="'.$forum['forum_id'].'" data_type="'.TOOL_FORUM.'" title="'.$forum['forum_title'].'" >';
                 $return .= '<a class="moved" href="#">';
                 $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
                 $return .= ' </a>';
-                $return .= Display::return_icon(
-                    'lp_forum.gif',
-                    '',
-                    array(),
-                    ICON_SIZE_TINY
-                );
+                $return .= Display::return_icon('lp_forum.png', '', array(), ICON_SIZE_TINY);
                 $return .= '<a style="cursor:hand" onclick="javascript: toggle_forum(' . $forum['forum_id'] . ')" style="vertical-align:middle">
-                                <img src="' . api_get_path(WEB_IMG_PATH) . 'add.gif" id="forum_' . $forum['forum_id'] . '_opener" align="absbottom" />
+                                <img src="' . Display::returnIconPath('add.gif').'" id="forum_' . $forum['forum_id'] . '_opener" align="absbottom" />
                             </a>
                             <a href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_FORUM . '&forum_id=' . $forum['forum_id'] . '&lp_id=' . $this->lp_id . '" style="vertical-align:middle">' .
                     Security :: remove_XSS($forum['forum_title']) . '</a>';
@@ -8959,13 +9089,20 @@ class learnpath
                 $a_threads = get_threads($forum['forum_id']);
                 if (is_array($a_threads)) {
                     foreach ($a_threads as $thread) {
+
+                        $link = Display::url(
+                            Display::return_icon('preview_view.png', get_lang('Preview')),
+                            api_get_path(WEB_CODE_PATH).'forum/viewthread.php?'.api_get_cidreq().'&forum='.$forum['forum_id'].'&thread='.$thread['thread_id'],
+                            ['target' => '_blank']
+                        );
+
                         $return .= '<li class="lp_resource_element" data_id="'.$thread['thread_id'].'" data_type="'.TOOL_THREAD.'" title="'.$thread['thread_title'].'" >';
                         $return .= '&nbsp;<a class="moved" href="#">';
                         $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
                         $return .= ' </a>';
                         $return .= Display::return_icon('forumthread.png', get_lang('Thread'), array(), ICON_SIZE_TINY);
-                        $return .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=add_item&type=' . TOOL_THREAD . '&thread_id=' . $thread['thread_id'] . '&lp_id=' . $this->lp_id . '">' .
-                            Security :: remove_XSS($thread['thread_title']) . '</a>';
+                        $return .= '<a class="moved" href="'.api_get_self().'?'.api_get_cidreq().'&action=add_item&type=' . TOOL_THREAD . '&thread_id=' . $thread['thread_id'] . '&lp_id=' . $this->lp_id . '">' .
+                            Security :: remove_XSS($thread['thread_title']) . ' '.$link.'</a>';
                         $return .= '</li>';
                     }
                 }
@@ -10762,8 +10899,8 @@ EOD;
                     'ip.tool = ? AND ' => TOOL_FORUM,
                     'f.session_id = ? AND ' => $sessionId,
                     'f.c_id = ? AND ' => intval($this->course_int_id),
-                    'f.lp_id = ?' => intval($this->lp_id),
-                ],
+                    'f.lp_id = ?' => intval($this->lp_id)
+                ]
             ],
             'first'
         );
@@ -10794,7 +10931,7 @@ EOD;
                 'allow_new_threads_group' => ['allow_new_threads' => 0],
                 'default_view_type_group' => ['default_view_type' => 'flat'],
                 'group_forum' => 0,
-                'public_private_group_forum_group' => ['public_private_group_forum' => 'public'],
+                'public_private_group_forum_group' => ['public_private_group_forum' => 'public']
             ],
             [],
             true
