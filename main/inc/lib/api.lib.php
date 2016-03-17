@@ -6524,55 +6524,46 @@ function api_get_jquery_libraries_js($libraries) {
 
     //jqgrid js and css
     if (in_array('jqgrid', $libraries)) {
-        $languaje   = 'en';
-        $platform_isocode = strtolower(api_get_language_isocode());
+        $language   = 'en';
+        $isoCode = strtolower(api_get_language_isocode());
 
-        //languages supported by jqgrid see files in main/inc/lib/javascript/jqgrid/js/i18n
-        $jqgrid_langs = array(
+        // languages supported by jqgrid see files in main/inc/lib/javascript/jqgrid/js/i18n
+        $langs = array(
             'bg', 'bg1251', 'cat','cn','cs','da','de','el','en','es','fa','fi','fr','gl','he','hu','is','it','ja','nl','no','pl','pt-br','pt','ro','ru','sk','sr','sv','tr','ua'
         );
 
-        if (in_array($platform_isocode, $jqgrid_langs)) {
-            $languaje = $platform_isocode;
+        if (in_array($isoCode, $langs)) {
+            $language = $isoCode;
         }
-        //$js .= '<link rel="stylesheet" href="'.$js_path.'jqgrid/css/ui.jqgrid.css" type="text/css">';
         $js .= api_get_css('components/jqgrid/css/ui.jqgrid.css');
-        $js .= api_get_css(
-            'components/jqgrid/js/i18n/grid.locale-'.$languaje.'.js'
-        );
         $js .= api_get_js('components/jqgrid/js/minified/jquery.jqGrid.min.js');
+        $js .= api_get_js('components/jqgrid/js/i18n/grid.locale-'.$language.'.js');
     }
-
-    //Document multiple upload funcionality
-    /*    if (in_array('jquery-upload', $libraries)) {
-            $js .= api_get_js('jquery-upload/jquery.fileupload.js');
-            $js .= api_get_js('jquery-upload/jquery.fileupload-ui.js');
-            $js .= api_get_css($js_path.'jquery-upload/jquery.fileupload-ui.css');
-        }*/
 
     // jquery datepicker
     if (in_array('datepicker', $libraries)) {
-        $languaje   = 'en-GB';
-        $platform_isocode = strtolower(api_get_language_isocode());
+        $language   = 'en-GB';
+        $isoCode = strtolower(api_get_language_isocode());
 
         // languages supported by jqgrid see files in main/inc/lib/javascript/jqgrid/js/i18n
         $datapicker_langs = array(
             'af', 'ar', 'ar-DZ', 'az', 'bg', 'bs', 'ca', 'cs', 'cy-GB', 'da', 'de', 'el', 'en-AU', 'en-GB', 'en-NZ', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fo', 'fr', 'fr-CH', 'gl', 'he', 'hi', 'hr', 'hu', 'hy', 'id', 'is', 'it', 'ja', 'ka', 'kk', 'km', 'ko', 'lb', 'lt', 'lv', 'mk', 'ml', 'ms', 'nl', 'nl-BE', 'no', 'pl', 'pt', 'pt-BR', 'rm', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr', 'sr-SR', 'sv', 'ta', 'th', 'tj', 'tr', 'uk', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'
         );
-        if (in_array($platform_isocode, $datapicker_langs)) {
-            $languaje = $platform_isocode;
+        if (in_array($isoCode, $datapicker_langs)) {
+            $language = $isoCode;
         }
 
         $js .= api_get_js('components/jquery-ui/jquery-ui-i18n.min.js');
         $script = '<script>
         $(function(){
-            $.datepicker.setDefaults($.datepicker.regional["'.$languaje.'"]);
-            $.datepicker.regional["local"] = $.datepicker.regional["'.$languaje.'"];
+            $.datepicker.setDefaults($.datepicker.regional["'.$language.'"]);
+            $.datepicker.regional["local"] = $.datepicker.regional["'.$language.'"];
         });
         </script>
         ';
         $js .= $script;
     }
+
     return $js;
 }
 
