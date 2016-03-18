@@ -284,7 +284,8 @@ gregwar_captcha:
 # Doctrine audit
 sonata_doctrine_orm_admin:
     audit:
-        force: false
+        force: false # Audits are set in the admin.yml files with audit:true
+
 
 simple_things_entity_audit:
     global_ignore_columns:

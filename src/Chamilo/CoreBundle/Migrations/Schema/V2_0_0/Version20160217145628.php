@@ -25,7 +25,7 @@ class Version20160217145628 extends AbstractMigrationChamilo
         $queries->addQuery('ALTER TABLE access_url_rel_session ADD CONSTRAINT FK_6CBA5F5D73444FD5 FOREIGN KEY (access_url_id) REFERENCES access_url (id)');
         $queries->addQuery('CREATE INDEX IDX_6CBA5F5D613FECDF ON access_url_rel_session (session_id)');
         $queries->addQuery('CREATE INDEX IDX_6CBA5F5D73444FD5 ON access_url_rel_session (access_url_id)');
-
+        $queries->addQuery('CREATE TABLE c_group_info_audit (iid INT NOT NULL, rev INT NOT NULL, c_id INT DEFAULT NULL, id INT DEFAULT NULL, name VARCHAR(100) DEFAULT NULL, status TINYINT(1) DEFAULT NULL, category_id INT DEFAULT NULL, description LONGTEXT DEFAULT NULL, max_student INT DEFAULT NULL, doc_state TINYINT(1) DEFAULT NULL, calendar_state TINYINT(1) DEFAULT NULL, work_state TINYINT(1) DEFAULT NULL, announcements_state TINYINT(1) DEFAULT NULL, forum_state TINYINT(1) DEFAULT NULL, wiki_state TINYINT(1) DEFAULT NULL, chat_state TINYINT(1) DEFAULT NULL, secret_directory VARCHAR(255) DEFAULT NULL, self_registration_allowed TINYINT(1) DEFAULT NULL, self_unregistration_allowed TINYINT(1) DEFAULT NULL, session_id INT DEFAULT NULL, revtype VARCHAR(4) NOT NULL, PRIMARY KEY(iid, rev)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
     }
 
     /**
@@ -44,5 +44,6 @@ class Version20160217145628 extends AbstractMigrationChamilo
         $queries->addQuery('DROP INDEX IDX_6CBA5F5D73444FD5 ON access_url_rel_session');
         $queries->addQuery('ALTER TABLE access_url_rel_session DROP PRIMARY KEY');
         $queries->addQuery('ALTER TABLE access_url_rel_session DROP id, CHANGE session_id session_id INT NOT NULL, CHANGE access_url_id access_url_id INT NOT NULL');
+        $queries->addQuery('DROP TABLE c_group_info_audit');
     }
 }

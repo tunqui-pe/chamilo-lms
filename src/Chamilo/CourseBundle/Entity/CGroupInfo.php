@@ -3,12 +3,13 @@
 
 namespace Chamilo\CourseBundle\Entity;
 
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Chamilo\CoreBundle\Entity\Course;
 
 /**
  * CGroupInfo
- *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(
  *  name="c_group_info",
  *  indexes={
@@ -35,13 +36,6 @@ class CGroupInfo
      * @ORM\Column(name="id", type="integer", nullable=true)
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="c_id", type="integer")
-     */
-    private $cId;
 
     /**
      * @var string
@@ -160,6 +154,14 @@ class CGroupInfo
      * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
      */
     protected $course;
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getName();
+    }
 
     /**
      * Set name
@@ -543,6 +545,25 @@ class CGroupInfo
     }
 
     /**
+     * @return int
+     */
+    public function getIid()
+    {
+        return $this->iid;
+    }
+
+    /**
+     * @param int $iid
+     * @return CGroupInfo
+     */
+    public function setIid($iid)
+    {
+        $this->iid = $iid;
+
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -550,29 +571,6 @@ class CGroupInfo
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set cId
-     *
-     * @param integer $cId
-     * @return CGroupInfo
-     */
-    public function setCId($cId)
-    {
-        $this->cId = $cId;
-
-        return $this;
-    }
-
-    /**
-     * Get cId
-     *
-     * @return integer
-     */
-    public function getCId()
-    {
-        return $this->cId;
     }
 
     /**

@@ -193,6 +193,7 @@ if (!empty($category)) {
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $defaults['action'] = $action;
+
 if ($defaults['maximum_number_of_students'] == GroupManager::MEMBER_PER_GROUP_NO_LIMIT) {
     $defaults['max_member_no_limit'] = GroupManager::MEMBER_PER_GROUP_NO_LIMIT;
 } else {

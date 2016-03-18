@@ -190,7 +190,5 @@ class UserAdmin extends BaseUserAdmin
             )//->add('registrationDate', 'sonata_type_filter_datetime', array('input_type' => 'timestamp'))
         ;
     }
-
-
 }
 

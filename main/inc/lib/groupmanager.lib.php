@@ -1,6 +1,10 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+use Chamilo\CourseBundle\Entity\CGroupInfo;
+use Chamilo\CourseBundle\Entity\CGroupCategory;
+
 /**
  * This library contains some functions for group-management.
  * @author Bart Mollet
@@ -148,11 +152,11 @@ class GroupManager
      */
     public static function create_group($name, $category_id, $tutor, $places)
     {
+        $courseObj = api_get_user_course_entity();
         $_course = api_get_course_info();
         $session_id = api_get_session_id();
-        $course_id  = $_course['real_id'];
         $currentCourseRepository = $_course['path'];
-        $category = self :: get_category($category_id);
+        $category = self::get_category($category_id);
 
         $places = intval($places);
 
@@ -173,7 +177,7 @@ class GroupManager
             $wikiState = $category['wiki_state'];
             $chatState = $category['chat_state'];
             $selfRegAllowed = $category['self_reg_allowed'];
-            $selfUnregAllwoed = $category['self_unreg_allowed'];
+            $selfUnregAllowed = $category['self_unreg_allowed'];
 
         } else {
             $docState = self::TOOL_PRIVATE;
@@ -184,33 +188,38 @@ class GroupManager
             $wikiState = self::TOOL_PRIVATE;
             $chatState = self::TOOL_PRIVATE;
             $selfRegAllowed = 0;
-            $selfUnregAllwoed = 0;
+            $selfUnregAllowed = 0;
         }
 
-        $table_group = Database :: get_course_table(TABLE_GROUP);
-        $sql = "INSERT INTO ".$table_group." SET
-                c_id = $course_id,
-                status = 1,
-                category_id='".Database::escape_string($category_id)."',
-                max_student = '".$places."',
-                doc_state = '".$docState."',
-                calendar_state = '".$calendarState."',
-                work_state = '".$workState."',
-                announcements_state = '".$anonuncementState."',
-                forum_state = '".$forumState."',
-                wiki_state = '".$wikiState."',
-                chat_state = '".$chatState."',
-                self_registration_allowed = '".$selfRegAllowed."',
-                self_unregistration_allowed = '".$selfUnregAllwoed."',
-                session_id='".intval($session_id)."'";
+        $group = new CGroupInfo();
 
-        Database::query($sql);
-        $lastId = Database::insert_id();
+        $group
+            ->setName($name)
+            ->setStatus(1)
+            ->setDescription('')
+            ->setMaxStudent($places)
+            ->setAnnouncementsState($anonuncementState)
+            ->setDocState($docState)
+            ->setCalendarState($calendarState)
+            ->setChatState($chatState)
+            ->setForumState($forumState)
+            ->setWikiState($wikiState)
+            ->setWorkState($workState)
+            ->setSelfUnregistrationAllowed($selfUnregAllowed)
+            ->setSelfRegistrationAllowed($selfRegAllowed)
+            ->setSessionId($session_id)
+            ->setCourse($courseObj)
+            ->setCategoryId($category_id)
+            ->setDescription('')
+        ;
+
+        $em = Database::getManager();
+        $em->persist($group);
+        $em->flush();
+
+        $lastId = $group->getIid();
 
         if ($lastId) {
-            $sql = "UPDATE $table_group SET id = iid WHERE iid = $lastId";
-            Database::query($sql);
-
             $desired_dir_name= '/'.api_replace_dangerous_char($name).'_groupdocs';
             $my_path = api_get_path(SYS_COURSE_PATH) . $currentCourseRepository . '/document';
 
@@ -227,14 +236,12 @@ class GroupManager
             );
 
             $unique_name = $newFolderData['path'];
+            $group->setId($lastId);
+            $group->setSecretDirectory($unique_name);
+            $group->setName($name);
 
-            /* Stores the directory path into the group table */
-            $sql = "UPDATE ".$table_group." SET
-                        name = '".Database::escape_string($name)."',
-                        secret_directory = '".$unique_name."'
-                    WHERE c_id = $course_id AND id ='".$lastId."'";
-
-            Database::query($sql);
+            $em->merge($group);
+            $em->flush();
 
             // create a forum if needed
             if ($forumState >= 0) {

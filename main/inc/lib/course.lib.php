@@ -80,7 +80,7 @@ class CourseManager
     /**
      * @return Chamilo\CoreBundle\Entity\Manager\CourseManager
      */
-    public static function getCourseManager()
+    public static function getManager()
     {
         return self::$manager;
     }

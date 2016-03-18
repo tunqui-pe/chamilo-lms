@@ -43,3 +43,14 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ChamiloCoreBundle]]
+
+    sonata.admin.c_group_info:
+        class: Chamilo\CourseBundle\Admin\CGroupInfoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, audit: true, group: "LMS", label: "CGroupInfo" }
+        arguments:
+            - ~
+            - Chamilo\CourseBundle\Entity\CGroupInfo
+            - ~
+        calls:
+            - [ setTranslationDomain, [ChamiloCoreBundle]]

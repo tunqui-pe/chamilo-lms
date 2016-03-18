@@ -1549,6 +1549,19 @@ function api_get_user_entity($userId)
 }
 
 /**
+ * @param int $courseId
+ *
+ * @return Course
+ */
+function api_get_user_course_entity($courseId = null)
+{
+    if (empty($courseId)) {
+        $courseId = api_get_course_int_id();
+    }
+    return CourseManager::getManager()->find($courseId);
+}
+
+/**
  * Finds all the information about a user from username instead of user id
  * @param string $username
  * @return array $user_info array user_id, lastname, firstname, username, email
