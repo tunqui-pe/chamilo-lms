@@ -1984,10 +1984,10 @@ class learnpath
                     </a>
                     <a class="icon-toolbar" id="view-embedded" href="lp_controller.php?action=mode&mode=embedded" target="_top" title="embedded mode">
                         <span class="fa fa-columns"></span><span class="sr-only">' . get_lang('ScormExitFullScreen') . '</span>
-                    </a> 
+                    </a>
                   </span>';
 
-        } else { 
+        } else {
             $navbar = '
                 <span id="'.$idBar.'" class="buttons text-right">
                     <a class="icon-toolbar" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="stats" id="stats_link">
@@ -3200,7 +3200,6 @@ class learnpath
 
 
         $html .= '<div id="inner_lp_toc" class="inner_lp_toc scrollbar-light">';
-        require_once 'resourcelinker.inc.php';
 
         // Temporary variables.
         $mycurrentitemid = $this->get_current_item_id();
@@ -3255,7 +3254,7 @@ class learnpath
             // Learning path title
             $title = $item['title'];
             if (empty ($title)) {
-                $title = rl_get_resource_name(api_get_course_id(), $this->get_id(), $item['id']);
+                $title = self::rl_get_resource_name(api_get_course_id(), $this->get_id(), $item['id']);
             }
             $title = Security::remove_XSS($title);
 
@@ -3438,8 +3437,7 @@ class learnpath
             // @todo Use constants instead of int values.
             switch ($lp_type) {
                 case 1 :
-                        require_once 'resourcelinker.inc.php';
-                        $file = rl_get_resource_link_for_learnpath(
+                        $file = self::rl_get_resource_link_for_learnpath(
                         $course_id,
                         $this->get_id(),
                         $item_id,
@@ -3577,8 +3575,7 @@ class learnpath
                                 $decoded = html_entity_decode($lp_item_path);
                                 list ($decoded) = explode('?', $decoded);
                                 if (!is_file(realpath($sys_course_path . '/scorm/' . $lp_path . '/' . $decoded))) {
-                                    require_once 'resourcelinker.inc.php';
-                                    $file = rl_get_resource_link_for_learnpath(
+                                    $file = self::rl_get_resource_link_for_learnpath(
                                         $course_id,
                                         $this->get_id(),
                                         $item_id,
@@ -10939,6 +10936,270 @@ EOD;
 
         return $forumId;
     }
+
+    /**
+     * Returns an HTML-formatted link to a resource, to incorporate directly into
+     * the new learning path tool.
+     *
+     * The function is a big switch on tool type.
+     * In each case, we query the corresponding table for information and build the link
+     * with that information.
+     * @author	Yannick Warnier <ywarnier@beeznest.org> - rebranding based on previous work (display_addedresource_link_in_learnpath())
+     * @param	int	$course_id Course code
+     * @param	int $learnpath_id The learning path ID (in lp table)
+     * @param   int $id_in_path the unique index in the items table
+     * @param int $lpViewId
+     */
+    public static function rl_get_resource_link_for_learnpath($course_id, $learnpath_id, $id_in_path, $lpViewId)
+    {
+        $tbl_lp_item = Database::get_course_table(TABLE_LP_ITEM);
+        $course_info = api_get_course_info_by_id($course_id);
+        $course_id = $course_info['real_id'];
+        $course_code = $course_info['code'];
+        $session_id = api_get_session_id();
+        $learnpath_id = intval($learnpath_id);
+        $id_in_path = intval($id_in_path);
+        $lpViewId = intval($lpViewId);
+
+        $sql = "SELECT * FROM $tbl_lp_item
+             WHERE
+                c_id = $course_id AND
+                lp_id = $learnpath_id AND
+                id = $id_in_path
+            ";
+        $res_item = Database::query($sql);
+        if (Database::num_rows($res_item) < 1) {
+            return -1;
+        }
+        $row_item = Database::fetch_array($res_item, 'ASSOC');
+
+        $type = strtolower($row_item['item_type']);
+        $id = (strcmp($row_item['path'], '') == 0) ? '0' : $row_item['path'];
+        $origin = 'learnpath';
+        $main_dir_path = api_get_path(WEB_CODE_PATH);
+        $main_course_path = api_get_path(WEB_COURSE_PATH).$course_info['directory'].'/';
+        $link = '';
+
+        switch ($type) {
+            case 'dokeos_chapter':
+                $link .= $main_dir_path.'newscorm/blank.php';
+            case TOOL_CALENDAR_EVENT:
+                $link .= $main_dir_path.'calendar/agenda.php?origin='.$origin.'&agenda_id='.$id;
+                break;
+            case TOOL_ANNOUNCEMENT:
+                $link .= $main_dir_path.'announcements/announcements.php?origin='.$origin.'&ann_id='.$id;
+                break;
+            case TOOL_LINK:
+                $TABLETOOLLINK = Database::get_course_table(TABLE_LINK);
+                $result = Database::query("SELECT * FROM $TABLETOOLLINK WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $thelink = $myrow["url"];
+                $link .= $thelink;
+                break;
+            case TOOL_QUIZ:
+                if (!empty($id)) {
+                    $TBL_EXERCICES = Database::get_course_table(TABLE_QUIZ_TEST);
+                    $sql = "SELECT * FROM $TBL_EXERCICES WHERE c_id = $course_id AND id=$id";
+                    $result= Database::query($sql);
+                    $myrow=Database::fetch_array($result);
+                    if ($row_item['title'] != '') {
+                        $myrow['title'] = $row_item['title'];
+                    }
+                    $link .= $main_dir_path.'exercice/overview.php?cidReq='.$course_code.'&session_id='.$session_id.'&lp_init=1&origin='.$origin.'&learnpath_id='.$learnpath_id.'&learnpath_item_id='.$id_in_path.'&exerciseId='.$id;
+                }
+                break;
+            case 'hotpotatoes': //lowercase because of strtolower above
+                $TBL_DOCUMENT = Database::get_course_table(TABLE_DOCUMENT);
+                $result = Database::query("SELECT * FROM ".$TBL_DOCUMENT." WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $path = $myrow['path'];
+                $link .= $main_dir_path.'exercice/showinframes.php?file='.$path.'' .
+                    '&origin='.$origin.'&cid='.$course_code.'&uid='.api_get_user_id().'' .
+                    '&learnpath_id='.$learnpath_id.'&learnpath_item_id='.$id_in_path.'&lp_view_id='.$lpViewId;
+                break;
+            case TOOL_FORUM:
+                $link .= $main_dir_path.'forum/viewforum.php?forum='.$id.'&lp=true&origin=learnpath';
+                break;
+            case TOOL_THREAD:  //forum post
+                $tbl_topics = Database::get_course_table(TABLE_FORUM_THREAD);
+                if (!empty($id)) {
+                    $sql = "SELECT * FROM $tbl_topics WHERE c_id = $course_id AND thread_id=$id";
+                    $result = Database::query($sql);
+                    $myrow = Database::fetch_array($result);
+                    $link .= $main_dir_path.'forum/viewthread.php?origin=learnpath&thread='.$id.'' .
+                        '&forum='.$myrow['forum_id'].'&lp=true';
+                }
+                break;
+            case TOOL_POST:
+                $tbl_post = Database::get_course_table(TABLE_FORUM_POST);
+                $result = Database::query("SELECT * FROM $tbl_post WHERE c_id = $course_id AND post_id=$id");
+                $myrow = Database::fetch_array($result);
+                $title = $myrow['post_title'];
+                //$desc = $row_item['description'];
+                $posternom = $myrow['poster_name'];
+                $posttime = $myrow['post_date'];
+                $posttext = $myrow['post_text'];
+                $posttitle = $title;
+                $posttext = str_replace('"', "'", $posttext);
+
+                $link .= $main_dir_path.'forum/viewthread.php?post='.$id.'' .
+                    '&thread='.$myrow['thread_id'].'&forum='.$myrow['forum_id'].'' .
+                    '&lp=true';
+                break;
+            case TOOL_DOCUMENT:
+                $tbl_doc = Database::get_course_table(TABLE_DOCUMENT);
+                $sql = "SELECT * FROM $tbl_doc WHERE c_id = $course_id AND id = $id";
+                $result = Database::query($sql);
+                $myrow = Database::fetch_array($result);
+                $docurl = str_replace('%2F', '/', urlencode($myrow['path']));
+
+                $link .= $main_course_path.'document'.$docurl.'?cidReq='.$course_code.'&id_session='.$session_id;
+                $openmethod = 2;
+                $officedoc = false;
+                Session::write('openmethod',$openmethod);
+                Session::write('officedoc',$officedoc);
+                break;
+            case 'assignments':
+                $link .= $main_dir_path.'work/work.php?origin='.$origin;
+                break;
+            case TOOL_DROPBOX:
+                $link .= $main_dir_path.'dropbox/index.php?origin=learnpath';
+                break;
+            case 'introduction_text': //DEPRECATED
+                $link .= '';
+                break;
+            case TOOL_COURSE_DESCRIPTION:
+                $link .= $main_dir_path.'course_description?origin=learnpath';
+                break;
+            case TOOL_GROUP:
+                $link .= $main_dir_path.'group/group.php?origin='.$origin;
+                break;
+            case TOOL_USER:
+                $link .= $main_dir_path.'user/user.php?origin='.$origin;
+                break;
+            case TOOL_STUDENTPUBLICATION:
+                $link .= $main_dir_path.'work/work_list.php?'.api_get_cidreq().'&id='.$row_item['path'].'&origin=learnpath';
+                break;
+        } //end switch
+        return $link;
+    }
+
+
+    /**
+     * Gets the name of a resource (generally used in learnpath when no name is provided)
+     *
+     * @author Yannick Warnier <ywarnier@beeznest.org>, Dokeos - rebranding
+     * @param string 	Course code
+     * @param string 	The tool type (using constants declared in main_api.lib.php)
+     * @param integer 	The resource ID
+     */
+    public static function rl_get_resource_name($course_code, $learnpath_id, $id_in_path)
+    {
+        $_course = api_get_course_info($course_code);
+        $course_id = $_course['real_id'];
+        $tbl_lp_item = Database::get_course_table(TABLE_LP_ITEM);
+        $learnpath_id = intval($learnpath_id);
+        $id_in_path = intval($id_in_path);
+
+        $sql_item = "SELECT item_type, title, ref FROM $tbl_lp_item
+                 WHERE c_id = $course_id AND lp_id = $learnpath_id AND id = $id_in_path";
+        $res_item = Database::query($sql_item);
+
+        if (Database::num_rows($res_item) < 1) {
+            return '';
+        }
+        $row_item = Database::fetch_array($res_item);
+        $type = strtolower($row_item['item_type']);
+        $id = $row_item['ref'];
+        $output = '';
+
+        switch ($type) {
+            case TOOL_CALENDAR_EVENT:
+                $TABLEAGENDA = Database::get_course_table(TABLE_AGENDA);
+                $result = Database::query("SELECT * FROM $TABLEAGENDA WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $output = $myrow['title'];
+                break;
+            case TOOL_ANNOUNCEMENT:
+                $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
+                $result = Database::query("SELECT * FROM $tbl_announcement WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $output = $myrow['title'];
+                break;
+            case TOOL_LINK:
+                // Doesn't take $target into account.
+                $TABLETOOLLINK = Database::get_course_table(TABLE_LINK);
+                $result = Database::query("SELECT * FROM $TABLETOOLLINK WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $output = $myrow['title'];
+                break;
+            case TOOL_QUIZ:
+                $TBL_EXERCICES = Database::get_course_table(TABLE_QUIZ_TEST);
+                $result = Database::query("SELECT * FROM $TBL_EXERCICES WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $output = $myrow['title'];
+                break;
+            case TOOL_FORUM:
+                $TBL_FORUMS = Database::get_course_table(TABLE_FORUM);
+                $result = Database::query("SELECT * FROM $TBL_FORUMS WHERE c_id = $course_id AND forum_id=$id");
+                $myrow = Database::fetch_array($result);
+                $output = $myrow['forum_name'];
+                break;
+            case TOOL_THREAD:  //=topics
+                $tbl_post = Database::get_course_table(TABLE_FORUM_POST);
+                // Grabbing the title of the post.
+                $sql_title = "SELECT * FROM $tbl_post WHERE c_id = $course_id AND post_id=".$id;
+                $result_title = Database::query($sql_title);
+                $myrow_title = Database::fetch_array($result_title);
+                $output = $myrow_title['post_title'];
+                break;
+            case TOOL_POST:
+                $tbl_post = Database::get_course_table(TABLE_FORUM_POST);
+                //$tbl_post_text = Database::get_course_table(FORUM_POST_TEXT_TABLE);
+                $sql = "SELECT * FROM $tbl_post p WHERE c_id = $course_id AND p.post_id = $id";
+                $result = Database::query($sql);
+                $post = Database::fetch_array($result);
+                $output = $post['post_title'];
+                break;
+            case 'dokeos_chapter':
+                $title = $row_item['title'];
+                if (!empty($title)) {
+                    $output = $title;
+                } else {
+                    $output = '-';
+                }
+                break;
+            case TOOL_DOCUMENT:
+                $title = $row_item['title'];
+                if (!empty($title)) {
+                    $output = $title;
+                } else {
+                    $output = '-';
+                }
+                break;
+            case 'hotpotatoes':
+                $tbl_doc = Database::get_course_table(TABLE_DOCUMENT);
+                $result = Database::query("SELECT * FROM $tbl_doc WHERE c_id = $course_id AND id=$id");
+                $myrow = Database::fetch_array($result);
+                $pathname = explode('/', $myrow['path']); // Making a correct name for the link.
+                $last = count($pathname) - 1;  // Making a correct name for the link.
+                $filename = $pathname[$last];  // Making a correct name for the link.
+                $image = choose_image($filename);
+                $ext = explode('.', $filename);
+                $ext = strtolower($ext[sizeof($ext) - 1]);
+                $myrow['path'] = rawurlencode($myrow['path']);
+                $in_frames = in_array($ext, array('htm', 'html', 'gif', 'jpg', 'jpeg', 'png'));
+                $output = $filename;
+                break;
+            /*
+            case 'externallink':
+                $output = '<img src="../img/links.gif" align="middle" /> <a href="'.$id.'"'.$styling.' '.$target.'>'.$id."</a><br />\n";
+                break;
+            */
+        }
+        return stripslashes($output);
+    }
+
 }
 
 if (!function_exists('trim_value')) {

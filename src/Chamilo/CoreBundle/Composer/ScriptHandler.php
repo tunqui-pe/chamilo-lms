@@ -34,6 +34,7 @@ class ScriptHandler
             __DIR__.'/../../../../main/conference/',
             __DIR__.'/../../../../main/course_notice/',
             __DIR__.'/../../../../main/metadata/',
+            __DIR__.'/../../../../main/resourcelinker/',
             __DIR__.'/../../../../main/exercice/export/qti',
             __DIR__.'/../../../../main/glossary/resources',
             __DIR__.'/../../../../main/link/resources',

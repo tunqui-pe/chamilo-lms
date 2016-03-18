@@ -26,7 +26,6 @@ $courseId = api_get_course_int_id();
 $is_allowed = true;
 
 /* Libraries */
-require_once api_get_path(SYS_CODE_PATH) . 'resourcelinker/resourcelinker.inc.php';
 require_once api_get_path(SYS_CODE_PATH) . 'exercice/hotpotatoes.lib.php';
 
 /* Header */

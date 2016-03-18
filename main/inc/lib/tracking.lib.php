@@ -318,7 +318,7 @@ class Tracking
                     $title = $row['mytitle'];
 
                     if (empty($title)) {
-                        $title = rl_get_resource_name($courseInfo['code'], $lp_id, $row['myid']);
+                        $title = learnpath::rl_get_resource_name($courseInfo['code'], $lp_id, $row['myid']);
                     }
 
                     if (in_array($row['item_type'], $chapterTypes)) {
@@ -699,7 +699,7 @@ class Tracking
                     $time_for_total = $subtotal_time;
                     $time = learnpathItem::getScormTimeFromParameter('js', $subtotal_time);
                     if (empty($title)) {
-                        $title = rl_get_resource_name($courseInfo['code'], $lp_id, $row['myid']);
+                        $title = learnpath::rl_get_resource_name($courseInfo['code'], $lp_id, $row['myid']);
                     }
 
                     $action = null;

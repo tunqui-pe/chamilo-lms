@@ -79,9 +79,6 @@ if (api_is_drh()) {
     }
 }
 
-// Including additional libraries.
-require_once api_get_path(SYS_CODE_PATH).'resourcelinker/resourcelinker.inc.php';
-
 if ($export_csv) {
     if (!empty($session_id)) {
         Session::write('id_session', $session_id);

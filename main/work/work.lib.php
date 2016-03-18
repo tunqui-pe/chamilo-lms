@@ -3914,7 +3914,6 @@ function updatePublicationAssignment($workId, $params, $courseInfo, $groupId)
     $agendaId = 0;
 
     if (isset($params['add_to_calendar']) && $params['add_to_calendar'] == 1) {
-        require_once api_get_path(SYS_CODE_PATH).'resourcelinker/resourcelinker.inc.php';
 
         // Setting today date
         $date = $end_date = $time;

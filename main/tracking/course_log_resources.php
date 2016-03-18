@@ -28,9 +28,6 @@ if (!$is_allowedToTrack) {
     exit;
 }
 
-// Including additional libraries.
-require_once api_get_path(SYS_CODE_PATH).'resourcelinker/resourcelinker.inc.php';
-
 // Starting the output buffering when we are exporting the information.
 $export_csv = isset($_GET['export']) && $_GET['export'] == 'csv' ? true : false;
 $session_id = intval($_REQUEST['id_session']);
@@ -45,9 +42,18 @@ if (empty($session_id)) {
 
 // Breadcrumbs.
 if (isset($_GET['origin']) && $_GET['origin'] == 'resume_session') {
-    $interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'admin/index.php','name' => get_lang('PlatformAdmin'));
-    $interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'session/session_list.php','name' => get_lang('SessionList'));
-    $interbreadcrumb[] = array('url' => api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.api_get_session_id(), 'name' => get_lang('SessionOverview'));
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'admin/index.php',
+        'name' => get_lang('PlatformAdmin'),
+    );
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'session/session_list.php',
+        'name' => get_lang('SessionList'),
+    );
+    $interbreadcrumb[] = array(
+        'url' => api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.api_get_session_id(),
+        'name' => get_lang('SessionOverview'),
+    );
 }
 
 $nameTools = get_lang('Tracking');

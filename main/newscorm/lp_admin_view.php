@@ -22,10 +22,7 @@ api_protect_course_script();
 /* Libraries */
 
 include 'learnpath_functions.inc.php';
-//include '../resourcelinker/resourcelinker.inc.php';
-include 'resourcelinker.inc.php';
 /* Constants and variables */
-
 $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
 
 $tbl_lp      = Database::get_course_table(TABLE_LP_MAIN);

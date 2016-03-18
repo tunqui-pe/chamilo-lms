@@ -56,15 +56,11 @@ if ($view == "00000010")
 $interbreadcrumb[] = array("url" => api_get_self() . "?view=0000000", "name" => get_lang('ToolName'));
 
 include(api_get_path(LIBRARY_PATH) . "statsUtils.lib.inc.php");
-include("../resourcelinker/resourcelinker.inc.php");
-
 $is_allowedToTrack = $is_courseAdmin || $is_platformAdmin || api_is_drh();
 
 /* 	MAIN CODE */
 
 $title[0] = get_lang('StatsOfCourse') . " : " . $_course['official_code'];
-
-
 $courseInfo = api_get_course_info($_course['official_code']);
 $courseId = $courseInfo['real_id'];
 
