@@ -3,10 +3,13 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Entity\Manager\CourseManager;
 use Chamilo\CourseBundle\Tool\BaseTool;
 use Chamilo\CourseBundle\ToolChain;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
+use Sylius\Bundle\SettingsBundle\Transformer\ObjectToIdentifierTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 
@@ -21,9 +24,22 @@ class CourseSettingsSchema implements SchemaInterface
      */
     protected $toolChain;
 
+    /**
+     * @var CourseManager
+     */
+    protected $courseManager;
+
     public function setToolChain(ToolChain $tools)
     {
         $this->toolChain = $tools;
+    }
+
+    /**
+     * @param CourseManager $courseManager
+     */
+    public function setCourseManager($courseManager)
+    {
+        $this->courseManager = $courseManager;
     }
 
     /**
@@ -48,7 +64,6 @@ class CourseSettingsSchema implements SchemaInterface
     public function buildSettings(SettingsBuilderInterface $builder)
     {
         $tools = $this->getProcessedToolChain();
-
         $builder
             ->setDefaults(
                 array(
@@ -102,7 +117,13 @@ class CourseSettingsSchema implements SchemaInterface
             ->setTransformer(
                 'course_hide_tools',
                 new ArrayToIdentifierTransformer()
-            );
+            )
+            ->setTransformer(
+                'course_creation_use_template',
+                new ObjectToIdentifierTransformer($this->courseManager->getEntityManager()->getRepository('ChamiloCoreBundle:Course'))
+            )
+        ;
+
     }
 
     /**
@@ -111,6 +132,8 @@ class CourseSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $tools = $this->getProcessedToolChain();
+        $courses = $this->courseManager->findAll();
+
         $builder
             ->add(
                 'homepage_view',
@@ -193,13 +216,21 @@ class CourseSettingsSchema implements SchemaInterface
             )
             ->add('allow_public_certificates', 'yes_no')
             ->add('allow_lp_return_link', 'yes_no')
-            ->add('course_creation_use_template')
+            ->add(
+                'course_creation_use_template',
+                'entity',
+                array(
+                    //'choices' => $courses,
+                    'class' => 'Chamilo\CoreBundle\Entity\Course',
+                    'placeholder' => 'Choose ...',
+                    'empty_data'  => null
+                )
+            )
             ->add('hide_scorm_export_link', 'yes_no')
             ->add('hide_scorm_copy_link', 'yes_no')
             ->add('hide_scorm_pdf_link', 'yes_no')
             ->add('course_catalog_published', 'yes_no')
             ->add('course_images_in_courses_list', 'yes_no')
-
         ;
     }
 }

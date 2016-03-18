@@ -4,6 +4,7 @@
 namespace Chamilo\SettingsBundle\Manager;
 
 use Chamilo\CoreBundle\Entity\AccessUrl;
+use Chamilo\CoreBundle\Entity\Course;
 use Sylius\Bundle\SettingsBundle\Event\SettingsEvent;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -157,8 +158,10 @@ class SettingsManager extends SyliusSettingsManager
         $url = $event->getArgument('url');
 
         foreach ($parameters as $name => $value) {
-
             if (isset($persistedParametersMap[$name])) {
+                if ($value instanceof Course) {
+                    $value = $value->getId();
+                }
                 $persistedParametersMap[$name]->setValue($value);
             } else {
                 /** @var SettingsCurrent $parameter */

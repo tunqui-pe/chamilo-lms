@@ -261,7 +261,8 @@ services:
     chamilo_core.settings_schema.course:
         class: Chamilo\CoreBundle\Settings\CourseSettingsSchema
         calls:
-             - [ setToolChain, [@chamilo_course.tool_chain] ]
+             - [ setToolChain, [@chamilo_course.tool_chain]]
+             - [ setCourseManager, [@chamilo_core.manager.course]]
         tags:
             - { name: sylius.settings_schema, namespace: course }
 

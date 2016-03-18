@@ -78,8 +78,6 @@ class SettingsController extends SyliusSettingsController
             ->create($namespace)
         ;
 
-        //$form->add('keyword', 'hidden', ['data' => $keyword]);
-
         if (!empty($keyword)) {
             $params = $settings->getParameters();
             foreach ($params as $name => $value) {
