@@ -7,9 +7,6 @@
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
 
-//require_once '../inc/global.inc.php';
-
-$htmlHeadXtra[] = '<script language="javascript" src="../inc/lib/javascript/upload.js" type="text/javascript"></script>';
 $htmlHeadXtra[] = '<script type="text/javascript">
 	var myUpload = new upload(0);
 </script>';

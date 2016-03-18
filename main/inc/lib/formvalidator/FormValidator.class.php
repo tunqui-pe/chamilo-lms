@@ -855,7 +855,6 @@ EOT;
         }
         $this->with_progress_bar = true;
         $this->updateAttributes("onsubmit=\"javascript: myUpload.start('dynamic_div','".Display::returnIconPath('progress_bar.gif')."','" . $label . "','" . $this->getAttribute('id') . "')\"");
-        $this->addElement('html', '<script language="javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'javascript/upload.js" type="text/javascript"></script>');
         $this->addElement('html', '<script type="text/javascript">var myUpload = new upload(' . (abs(intval($delay)) * 1000) . ');</script>');
     }
 
@@ -908,7 +907,6 @@ EOT;
         $this->addElement('html', $xajax_upload->getJavascript(api_get_path(WEB_LIBRARY_PATH) . 'xajax'));
 
         // Get the upload code
-        $this->addElement('html', api_get_js('js/upload.js'));
         $this->addElement('html', '<script type="text/javascript">var myUpload = new upload(' . (abs(intval($delay)) * 1000) . ');</script>');
 
         if (!$wait_after_upload) {
