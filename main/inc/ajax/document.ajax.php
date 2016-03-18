@@ -39,7 +39,7 @@ switch ($action) {
         $unzip = isset($_POST['unzip']) ? 1 : 0;
 
         if (empty($ifExists)) {
-            $fileExistsOption = api_get_setting('document_if_file_exists_option');
+            $fileExistsOption = api_get_setting('document.if_file_exists_option');
             $defaultFileExistsOption = 'rename';
             if (!empty($fileExistsOption)) {
                 $defaultFileExistsOption = $fileExistsOption;
