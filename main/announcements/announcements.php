@@ -46,6 +46,7 @@ $tbl_item_property = Database::get_course_table(TABLE_ITEM_PROPERTY);
 $course_id = api_get_course_int_id();
 $_course = api_get_course_info_by_id($course_id);
 $group_id = api_get_group_id();
+$sessionId = api_get_session_id();
 
 api_protect_course_group(GroupManager::GROUP_TOOL_ANNOUNCEMENT);
 
@@ -61,13 +62,6 @@ $announcement_number = AnnouncementManager::getNumberAnnouncements();
 $homeUrl = api_get_self().'?action=list&'.api_get_cidreq();
 $content = '';
 $searchFormToString = '';
-
-if (!empty($group_id)) {
-    $group_properties  = GroupManager :: get_group_properties($group_id);
-    $interbreadcrumb[] = array("url" => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(), "name" => get_lang('Groups'));
-    $interbreadcrumb[] = array("url"=> api_get_path(WEB_CODE_PATH)."group/group_space.php?".api_get_cidreq(), "name"=> get_lang('GroupSpace').' '.$group_properties['name']);
-}
-$interbreadcrumb[] = array("url" => 'announcements.php?'.api_get_cidreq(), "name" => get_lang('Announcements'));
 
 switch ($action) {
     case 'move':
@@ -132,7 +126,6 @@ switch ($action) {
         $content = AnnouncementManager::display_announcement($announcement_id);
         break;
     case 'list':
-
         $htmlHeadXtra[] = api_get_jqgrid_js();
 
         $searchForm = new FormValidator(
@@ -145,7 +138,7 @@ switch ($action) {
         );
 
         $searchForm->addElement('text', 'keyword', get_lang('Title'));
-        $users = CourseManager::get_user_list_from_course_code(api_get_course_id(), api_get_session_id());
+        $users = CourseManager::get_user_list_from_course_code(api_get_course_id(), $sessionId);
         $userList = array('' => '');
         if (!empty($users)) {
             foreach ($users as $user) {
@@ -273,7 +266,7 @@ switch ($action) {
     case 'delete':
         /* Delete announcement */
         $id = intval($_GET['id']);
-        if (api_get_session_id()!=0 && api_is_allowed_to_session_edit(false, true) == false) {
+        if ($sessionId != 0 && api_is_allowed_to_session_edit(false, true) == false) {
             api_not_allowed();
         }
 
@@ -305,8 +298,9 @@ switch ($action) {
     case 'showhide':
         if (!isset($_GET['isStudentView']) || $_GET['isStudentView'] != 'false') {
             if (isset($_GET['id']) && $_GET['id']) {
-                if (api_get_session_id() != 0 &&
-                    api_is_allowed_to_session_edit(false, true) == false) {
+                if ($sessionId != 0 &&
+                    api_is_allowed_to_session_edit(false, true) == false
+                ) {
                     api_not_allowed();
                 }
 
@@ -328,23 +322,14 @@ switch ($action) {
         break;
     case 'add':
     case 'modify':
-        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-        if (empty($id)) {
-            $form_name = get_lang('AddAnnouncement');
-        } else {
-            $form_name = get_lang('ModifyAnnouncement');
-        }
-
-        $interbreadcrumb[] = array("url"=>'#', "name"=> $form_name);
-
-        if (api_get_session_id() != 0 &&
+        if ($sessionId != 0 &&
             api_is_allowed_to_session_edit(false, true) == false
         ) {
             api_not_allowed(true);
         }
 
         // DISPLAY ADD ANNOUNCEMENT COMMAND
-
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         $url = api_get_self().'?action='.$action.'&id=' . $id . '&' . api_get_cidreq();
 
         $form = new FormValidator(
@@ -355,6 +340,11 @@ switch ($action) {
             array('enctype' => 'multipart/form-data')
         );
 
+        if (empty($id)) {
+            $form_name = get_lang('AddAnnouncement');
+        } else {
+            $form_name = get_lang('ModifyAnnouncement');
+        }
         $form->addElement('header', $form_name);
         $to = [];
         if (empty($group_id)) {
@@ -377,7 +367,7 @@ switch ($action) {
                 $to = Tracking:: getInactiveStudentsInCourse(
                     api_get_course_int_id(),
                     $since,
-                    api_get_session_id()
+                    $sessionId
                 );
                 // setting the variables for the form elements: the users who need to receive the message
                 foreach ($to as &$user) {
@@ -477,7 +467,7 @@ switch ($action) {
         $form->addElement('textarea', 'file_comment', get_lang('FileComment'));
         $form->addElement('hidden', 'sec_token', $stok);
 
-        if (api_get_session_id() == 0) {
+        if (empty($sessionId)) {
             $form->addCheckBox('send_to_users_in_session', null, get_lang('SendToUsersInSessions'));
         }
 
@@ -538,6 +528,7 @@ switch ($action) {
                             $data['users'],
                             $file,
                             $file_comment,
+                            null,
                             $sendToUsersInSession
                         );
                     } else {
@@ -580,6 +571,17 @@ if (!empty($_GET['remind_inactive'])) {
     $to[] = 'USER:'.intval($_GET['remind_inactive']);
 }
 
+if (!empty($group_id)) {
+    $group_properties = GroupManager:: get_group_properties($group_id);
+    $interbreadcrumb[] = array(
+        "url" => api_get_path(WEB_CODE_PATH)."group/group.php?".api_get_cidreq(),
+        "name" => get_lang('Groups'),
+    );
+    $interbreadcrumb[] = array(
+        "url" => api_get_path(WEB_CODE_PATH)."group/group_space.php?".api_get_cidreq(),
+        "name" => get_lang('GroupSpace').' '.$group_properties['name'],
+    );
+}
 
 if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {
     //we are not in the learning path

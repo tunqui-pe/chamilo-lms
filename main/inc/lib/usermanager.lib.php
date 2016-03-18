@@ -475,11 +475,6 @@ class UserManager
             Database::query($sql);
         }
 
-        // Unsubscribe user from all classes
-        //Classes are not longer supported
-        /* $sql = "DELETE FROM $table_class_user WHERE user_id = '".$user_id."'";
-          Database::query($sql); */
-
         // Unsubscribe user from usergroup_rel_user
         $sql = "DELETE FROM $usergroup_rel_user WHERE user_id = '".$user_id."'";
         Database::query($sql);

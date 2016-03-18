@@ -266,7 +266,7 @@ class MessageManager
                 )
             );
 
-            Display::addFlash(Display::return_message($warning , 'warning'));
+            Display::addFlash(Display::return_message($warning, 'warning'));
 
             return false;
         }

@@ -20,10 +20,6 @@ api_protect_limit_for_session_admin();
 $formSent=0;
 $errorMsg='';
 
-/*$interbreadcrumb[] = array(
-    'url' => 'index.php',
-    'name' => get_lang('PlatformAdmin'),
-);*/
 $interbreadcrumb[] = array(
     'url' => 'session_list.php',
     'name' => get_lang('SessionList'),
@@ -161,8 +157,11 @@ if ($form->validate()) {
     $startDate = $params['access_start_date'];
     $endDate = $params['access_end_date'];
     $displayStartDate = $params['display_start_date'];
-    $displayendDate = $params['display_end_date'];
+    $displayEndDate = $params['display_end_date'];
     $coachStartDate = $params['coach_access_start_date'];
+    if (empty($coachStartDate)) {
+        $coachStartDate = $displayStartDate;
+    }
     $coachEndDate = $params['coach_access_end_date'];
     $coach_username = intval($params['coach_username']);
     $id_session_category = $params['session_category'];
@@ -170,7 +169,7 @@ if ($form->validate()) {
     $duration = isset($params['duration']) ? $params['duration'] : null;
     $description = $params['description'];
     $showDescription = isset($params['show_description']) ? 1: 0;
-    $sendSubscritionNotification = isset($params['send_subscription_notification']);
+    $sendSubscriptionNotification = isset($params['send_subscription_notification']);
 
     $extraFields = array();
     foreach ($params as $key => $value) {
@@ -184,7 +183,7 @@ if ($form->validate()) {
         $startDate,
         $endDate,
         $displayStartDate,
-        $displayendDate,
+        $displayEndDate,
         $coachStartDate,
         $coachEndDate,
         $coach_username,
@@ -196,7 +195,7 @@ if ($form->validate()) {
         $showDescription,
         $extraFields,
         null,
-        $sendSubscritionNotification
+        $sendSubscriptionNotification
     );
 
     if ($return == strval(intval($return))) {
