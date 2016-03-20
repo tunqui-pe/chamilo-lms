@@ -1,8 +1,8 @@
-# Chamilo 1.10.x
+# Chamilo
 
-[![Build Status](https://travis-ci.org/chamilo/chamilo-lms.svg?branch=1.10.x)](https://travis-ci.org/chamilo/chamilo-lms)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/badges/quality-score.png?b=1.10.x)](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/?branch=1.10.x)
-[![Code Coverage](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/badges/coverage.png?b=1.10.x)](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/?branch=1.10.x)
+[![Build Status](https://travis-ci.org/chamilo/chamilo-lms.svg?branch=master)](https://travis-ci.org/chamilo/chamilo-lms)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/?branch=master)
 [![Bountysource](https://www.bountysource.com/badge/team?team_id=12439&style=raised)](https://www.bountysource.com/teams/chamilo?utm_source=chamilo&utm_medium=shield&utm_campaign=raised)
 [![Code Consistency](https://squizlabs.github.io/PHP_CodeSniffer/analysis/chamilo/chamilo-lms/grade.svg)](http://squizlabs.github.io/PHP_CodeSniffer/analysis/chamilo/chamilo-lms/)
 
