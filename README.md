@@ -6,6 +6,8 @@
 [![Bountysource](https://www.bountysource.com/badge/team?team_id=12439&style=raised)](https://www.bountysource.com/teams/chamilo?utm_source=chamilo&utm_medium=shield&utm_campaign=raised)
 [![Code Consistency](https://squizlabs.github.io/PHP_CodeSniffer/analysis/chamilo/chamilo-lms/grade.svg)](http://squizlabs.github.io/PHP_CodeSniffer/analysis/chamilo/chamilo-lms/)
 
+This is the master branch of Chamilo, meaning that this is the most advanced development version of Chamilo, or the most far ahead in the future. It also means it is likely to be relatively unstable, so if you're looking for something to put in production at your organization, this is NOT the right branch. Look at the "branches" menu for any "a.b.x" branch instead.
+
 ## Installation
 
 This installation guide is for development environments only.
@@ -27,7 +29,7 @@ sudo apt-get install git
 
 ### Install Composer
 
-To run the development version 1.10.x, you need Composer, a libraries dependency management system that will update all the libraries you need for Chamilo to the latest available version.
+To run the development version, you need Composer, a libraries dependency management system that will update all the libraries you need for Chamilo to the latest available version.
 
 Make sure you have Composer installed. If you do, you should be able to launch "composer" on the command line and have the inline help of composer show a few subcommands. If you don't, please follow the installation guide at https://getcomposer.org/download/
 
@@ -36,16 +38,16 @@ Make sure you have Composer installed. If you do, you should be able to launch "
 Clone the repository
 
 ```
-sudo mkdir chamilo-1.10
-sudo chown -R `whoami` chamilo-1.10
-git clone -b 1.10.x --single-branch https://github.com/chamilo/chamilo-lms.git chamilo-1.10
+sudo mkdir chamilo
+sudo chown -R `whoami` chamilo
+git clone -b master --single-branch https://github.com/chamilo/chamilo-lms.git chamilo
 ```
 
-Checkout branch 1.10.x
+Checkout the master branch
 
 ```
-cd chamilo-1.10
-git checkout --track origin/1.10.x
+cd chamilo
+git checkout --track origin/master
 git config --global push.default current
 ```
 
@@ -73,7 +75,7 @@ generate the missing files.
 
 On a Debian-based system, launch:
 ```
-sudo chown -R www-data:www-data app main/default_course_document/images main/lang  
+sudo chown -R www-data:www-data app main/default_course_document/images main/lang  web
 ```
 
 ### Start the installer
@@ -83,38 +85,24 @@ to the installer. If not, add the "main/install/index.php" suffix manually in
 your browser address bar. The rest should be a matter of simple
  OK > Next > OK > Next...
 
-## Upgrade from 1.9.x
+## Upgrade from 1.11.x
 
-1.10.0 is a major version. It contains a series of new features, that
-also mean a series of new database changes in regards with versions 1.9.x. As 
+2.0 is a major version. It contains a series of new features, that
+also mean a series of new database changes in regards with version 1.11.x. As 
 such, it is necessary to go through an upgrade procedure when upgrading from 
-1.9.x to 1.10.x.
+1.11.x to 2.x.
 
-When we published 1.10.0, we didn't catch a series of important upgrade errors.
-We released a warning a few days later asking people not to upgrade from 1.9.x
-to 1.10.0 for the time being. Version 1.10.2 fixed that, and you can now
-safely upgrade from any 1.9.x version to any 1.10.x version higher than 1.10.0.
-
-The upgrade procedure is relatively straightforward. If you have a 1.9.x 
+The upgrade procedure is relatively straightforward. If you have a 1.11.x 
 initially installed with Git, here are the steps you should follow 
 (considering you are already inside the Chamilo folder):
 ```
 git fetch --all
-git checkout origin 1.10.x
+git checkout origin master
 ```
 
 Then load the Chamilo URL in your browser, adding "main/install/index.php" and 
-follow the upgrade instructions. Select the "Upgrade from 1.9.x" button to 
+follow the upgrade instructions. Select the "Upgrade from 1.11.x" button to 
 proceed.
-
-If you have previously updated database rows manually, you might face issue with
-FOREIGN KEYS during the upgrade process. Please make sure your database is
-consistent before upgrading. This usually means making sure that you have to delete
-rows from tables referring to rows which have been deleted from the user or access_url tables.
-Typically:
-<pre>
-    DELETE FROM access_url_rel_course WHERE access_url_id NOT IN (SELECT id FROM access_url);
-</pre>
 
 # For developers and testers only
 
@@ -124,10 +112,10 @@ need to update their Chamilo portal as described here.
 
 ## Updating code
 
-To update your code with the latest developments in the 1.10.x branch, go to
+To update your code with the latest developments in the master branch, go to
 your Chamilo folder and type:
 ```
-git pull origin 1.10.x
+git pull origin master
 ```
 If you have made customizations to your code before the update, you will have
 two options:
