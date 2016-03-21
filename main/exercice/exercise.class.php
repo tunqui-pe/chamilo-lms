@@ -2197,6 +2197,8 @@ class Exercise
         global $learnpath_id, $learnpath_item_id;
         require_once api_get_path(LIBRARY_PATH).'geometry.lib.php';
 
+        $em = Database::getManager();
+
         $feedback_type = $this->selectFeedbackType();
         $results_disabled = $this->selectResultsDisabled();
 
@@ -2333,6 +2335,20 @@ class Exercise
         if ($debug) error_log('Start answer loop ');
 
         $answer_correct_array = array();
+
+        $orderedHotspots = [];
+
+        if ($answerType == HOT_SPOT) {
+            $orderedHotspots = $em
+                ->getRepository('ChamiloCoreBundle:TrackEHotspot')
+                ->findBy([
+                        'hotspotQuestionId' => $questionId,
+                        'cId' => $course_id,
+                        'hotspotExeId' => $exeId
+                    ],
+                    ['hotspotId' => 'ASC']
+                );
+        }
 
         for ($answerId = 1; $answerId <= $nbrAnswers; $answerId++) {
             $answer = $objAnswerTmp->selectAnswer($answerId);
@@ -3284,13 +3300,20 @@ class Exercise
                             //}
                         } elseif ($answerType == HOT_SPOT) {
                             //if ($origin != 'learnpath') {
+                            foreach ($orderedHotspots as $correctAnswerId => $hotspot) {
+                                if ($hotspot->getHotspotAnswerId() == $answerAutoId) {
+                                    break;
+                                }
+                            }
+
                             ExerciseShowFunctions::display_hotspot_answer(
                                 $feedback_type,
-                                $answerId,
+                                ++$correctAnswerId,
                                 $answer,
                                 $studentChoice,
                                 $answerComment,
-                                $results_disabled
+                                $results_disabled,
+                                $answerId
                             );
                             //	}
                         } elseif ($answerType == HOT_SPOT_ORDER) {

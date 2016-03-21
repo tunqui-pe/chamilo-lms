@@ -1166,7 +1166,7 @@ HTML;
                 ';
 
                 if (!empty($answers_hotspot)) {
-                    ksort($answers_hotspot);
+                    Session::write('hotspot_ordered', array_keys($answers_hotspot));
 
                     $countAnswers = 1;
 
