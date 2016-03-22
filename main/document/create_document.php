@@ -308,7 +308,7 @@ $form->addRule('title', get_lang('ThisFieldIsRequired'), 'required');
 $form->addRule('title', get_lang('FileExists'), 'callback', 'document_exists');
 
 $current_session_id = api_get_session_id();
-$form->addHtmlEditor('content','', true, false, $editorConfig);
+$form->addHtmlEditor('content','', true, true, $editorConfig, true);
 
 // Comment-field
 $folders = DocumentManager::get_all_document_folders($_course, $to_group_id, $is_allowed_to_edit);

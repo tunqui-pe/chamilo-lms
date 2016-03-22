@@ -267,7 +267,7 @@ if ($learnpath->get_hide_toc_frame() == 1) {
     echo '<div class="col-md-4" align="center">';
     echo Display::return_icon(
         'course_setting_layout.png'
-    );//'<img src="../img/course_setting_layout.png" />';
+    );
     echo '</div>';
 }
 echo '</div>';

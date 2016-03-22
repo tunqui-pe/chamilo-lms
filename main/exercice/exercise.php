@@ -13,8 +13,6 @@
 
 use \ChamiloSession as Session;
 
-// including the global library
-////require_once '../inc/global.inc.php';
 $current_course_tool = TOOL_QUIZ;
 
 // Setting the tabs
@@ -1075,7 +1073,7 @@ if (isset($attribute['path']) && is_array($attribute['path'])) {
 
         // prof only
         if ($is_allowedToEdit) {
-            $item = Display::tag('td', '<img src="../img/hotpotatoes_s.png" alt="HotPotatoes" /> <a href="showinframes.php?file='.$path.'&cid='.api_get_course_id().'&uid='.$userId.'" '.(!$active ? 'class="invisible"' : '').' >'.$title.'</a> ');
+            $item = Display::tag('td', Display::return_icon('hotpotatoes_s.png', "HotPotatoes").'<a href="showinframes.php?file='.$path.'&cid='.api_get_course_id().'&uid='.$userId.'" '.(!$active ? 'class="invisible"' : '').' >'.$title.'</a> ');
             $item .= Display::tag('td', '-');
 
             $actions = Display::url(

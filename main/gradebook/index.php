@@ -10,7 +10,6 @@
 // basically, that we are inside a course, and many things depend from that
 //$cidReset = false;
 $_in_course = true;
-////require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_GRADEBOOK;
 
 api_protect_course_script(true);

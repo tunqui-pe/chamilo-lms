@@ -12,8 +12,8 @@ use Webit\Util\EvalMath\EvalMath;
  **/
 class CalculatedAnswer extends Question
 {
-    static $typePicture = 'calculated_answer.png';
-    static $explanationLangVar = 'CalculatedAnswer';
+    public static $typePicture = 'calculated_answer.png';
+    public static $explanationLangVar = 'CalculatedAnswer';
 
     /**
      * Constructor
@@ -29,7 +29,7 @@ class CalculatedAnswer extends Question
      * function which redefines Question::createAnswersForm
      * @param FormValidator $form
      */
-    function createAnswersForm($form)
+    public function createAnswersForm($form)
     {
         $defaults = array();
 

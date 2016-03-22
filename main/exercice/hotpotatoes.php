@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * Code for HotPotatoes integration.
  * @package chamilo.exercise
@@ -11,6 +12,7 @@ require_once 'hotpotatoes.lib.php';
 
 // Section (for the tabs).
 $this_section = SECTION_COURSES;
+$_course = api_get_course_info();
 
 // Access restriction: only teachers are allowed here.
 if (!api_is_allowed_to_edit(null, true)) {
@@ -25,12 +27,15 @@ if (api_is_in_gradebook()) {
 }
 
 // The breadcrumbs.
-$interbreadcrumb[] = array('url' => './exercise.php', 'name' => get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    'url' => api_get_path(WEB_CODE_PATH) . '.exercice/exercise.php?' . api_get_cidreq(),
+    'name' => get_lang('Exercises')
+);
 
 $is_allowedToEdit = api_is_allowed_to_edit(null, true);
 
 // Database table definitions.
-$dbTable        = Database::get_course_table(TABLE_DOCUMENT);
+$dbTable = Database::get_course_table(TABLE_DOCUMENT);
 $course_id = api_get_course_int_id();
 
 // Setting some variables.

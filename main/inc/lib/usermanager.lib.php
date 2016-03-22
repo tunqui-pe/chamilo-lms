@@ -489,36 +489,37 @@ class UserManager
 
         // If the user was added as a id_coach then set the current admin as coach see BT#
         $currentUserId = api_get_user_id();
-        $sql = "UPDATE $table_session SET id_coach = $currentUserId  WHERE id_coach = '".$user_id."'";
+        $sql = "UPDATE $table_session SET id_coach = $currentUserId
+                WHERE id_coach = '".$user_id."'";
         Database::query($sql);
 
-        $sql = "UPDATE $table_session SET id_coach = $currentUserId  WHERE session_admin_id = '".$user_id."'";
+        $sql = "UPDATE $table_session SET id_coach = $currentUserId
+                WHERE session_admin_id = '".$user_id."'";
         Database::query($sql);
 
         // Unsubscribe user from all sessions
-        $sql = "DELETE FROM $table_session_user WHERE user_id = '".$user_id."'";
+        $sql = "DELETE FROM $table_session_user
+                WHERE user_id = '".$user_id."'";
         Database::query($sql);
 
         // Delete user picture
         /* TODO: Logic about api_get_setting('split_users_upload_directory') == 'true'
         a user has 4 different sized photos to be deleted. */
         $user_info = api_get_user_info($user_id);
+
         if (strlen($user_info['picture_uri']) > 0) {
             $path = self::getUserPathById($user_id, 'system');
             $img_path = $path.$user_info['picture_uri'];
-            if (file_exists($img_path))
+            if (file_exists($img_path)) {
                 unlink($img_path);
+            }
         }
 
         // Delete the personal course categories
         $course_cat_table = Database::get_main_table(TABLE_USER_COURSE_CATEGORY);
         $sql = "DELETE FROM $course_cat_table WHERE user_id = '".$user_id."'";
         Database::query($sql);
-
-        // Delete user from database
-        $sql = "DELETE FROM $table_user WHERE id = '".$user_id."'";
-        Database::query($sql);
-
+  
         // Delete user from the admin table
         $sql = "DELETE FROM $table_admin WHERE user_id = '".$user_id."'";
         Database::query($sql);
@@ -1480,28 +1481,28 @@ class UserManager
         $pictureWebFile = $imageWebPath['file'];
         $pictureWebDir = $imageWebPath['dir'];
 
-        $pictureAnonymous = 'icons/128/unknown.png';
+        $pictureAnonymousSize = '128';
         $gravatarSize = 22;
         $realSizeName = 'small_';
 
         switch ($size) {
             case USER_IMAGE_SIZE_SMALL:
-                $pictureAnonymous = 'icons/22/unknown.png';
+                $pictureAnonymousSize = '22';
                 $realSizeName = 'small_';
                 $gravatarSize = 22;
                 break;
             case USER_IMAGE_SIZE_MEDIUM:
-                $pictureAnonymous = 'icons/64/unknown.png';
+                $pictureAnonymousSize = '64';
                 $realSizeName = 'medium_';
                 $gravatarSize = 50;
                 break;
             case USER_IMAGE_SIZE_ORIGINAL:
-                $pictureAnonymous = 'icons/128/unknown.png';
+                $pictureAnonymousSize = '128';
                 $realSizeName = '';
                 $gravatarSize = 108;
                 break;
             case USER_IMAGE_SIZE_BIG:
-                $pictureAnonymous = 'icons/128/unknown.png';
+                $pictureAnonymousSize = '128';
                 $realSizeName = 'big_';
                 $gravatarSize = 200;
                 break;
@@ -1509,7 +1510,7 @@ class UserManager
 
         $gravatarEnabled = api_get_setting('platform.gravatar_enabled');
 
-        $anonymousPath = api_get_path(WEB_IMG_PATH).$pictureAnonymous;
+        $anonymousPath = Display::returnIconPath('unknown.png', $pictureAnonymousSize);
 
         if ($pictureWebFile == 'unknown.jpg' || empty($pictureWebFile)) {
 
@@ -1745,12 +1746,12 @@ class UserManager
 
         $production_path = self::get_user_picture_path_by_id($user_id, 'web');
         $production_dir = $production_path['dir'];
-        $del_image = api_get_path(WEB_CODE_PATH).'img/delete.png';
-        $add_image = api_get_path(WEB_CODE_PATH).'img/archive.png';
+        $del_image = Display::returnIconPath('delete.png');
+        $add_image = Display::returnIconPath('archive.png');
         $del_text = get_lang('Delete');
         $production_list = '';
         if (count($productions) > 0) {
-            $production_list = '<div class="files-production"> <ul id="productions">';
+            $production_list = '<div class="files-production"><ul id="productions">';
             foreach ($productions as $file) {
                 $production_list .= '<li><img src="'.$add_image.'" /><a href="'.$production_dir.urlencode($file).'" target="_blank">'.htmlentities($file).'</a>';
                 if ($showdelete) {
@@ -1939,7 +1940,8 @@ class UserManager
 
         $path_info = self::get_user_picture_path_by_id($user_id, 'web');
         $path = $path_info['dir'];
-        $del_image = api_get_path(WEB_CODE_PATH).'img/delete.png';
+        $del_image = Display::returnIconPath('delete.png');
+
         $del_text = get_lang('Delete');
         $extra_file_list = '';
         if (count($extra_files) > 0) {

@@ -148,17 +148,20 @@ if (api_get_setting('social.allow_social_tool') == 'true') {
 
 //Right content
 $social_right_content = null;
-
-if (api_get_setting('social.allow_social_tool') == 'true') {
-    $social_right_content .= '<div class="col-md-12">';
-    $social_right_content .= '<div class="actions">';
-    $social_right_content .= '<a href="'.api_get_path(WEB_PATH).'main/messages/new_message.php?f=social">'.
+$keyword = '';
+if (api_get_setting('allow_social_tool') == 'true') {
+    $actionsLeft = '<a href="'.api_get_path(WEB_PATH).'main/messages/new_message.php?f=social">'.
         Display::return_icon('new-message.png', get_lang('ComposeMessage'), array(), 32).'</a>';
-    $social_right_content .= '<a href="'.api_get_path(WEB_PATH).'main/messages/outbox.php?f=social">'.
+    $actionsLeft .= '<a href="'.api_get_path(WEB_PATH).'main/messages/outbox.php?f=social">'.
         Display::return_icon('outbox.png', get_lang('Outbox'), array(), 32).'</a>';
-    $social_right_content .= '</div>';
-    $social_right_content .= '</div>';
-    $social_right_content .= '<div class="col-md-12">';
+
+    $form = MessageManager::getSearchForm(api_get_path(WEB_PATH).'main/messages/inbox.php');
+    if ($form->validate()) {
+        $values = $form->getSubmitValues();
+        $keyword = $values['keyword'];
+    }
+    $actionsRight = $form->returnForm();
+    $social_right_content .= Display::toolbarAction('toolbar', [$actionsLeft, $actionsRight]);
 }
 //MAIN CONTENT
 

@@ -885,19 +885,7 @@ class Display
         $size_extra = '';
         if (isset($size)) {
             $size_extra = $size . '/';
-        }
-        /*$theme = 'themes/chamilo/icons/';
-
-        if ($loadThemeIcon) {
-            $theme = 'themes/' . api_get_visual_theme() . '/icons/';
-            //Checking the theme icons folder example: app/Resources/public/css/themes/chamilo/icons/XXX
-            if (is_file($alternateCssPath.$theme.$size_extra.$image)) {
-                $icon = $alternateWebCssPath.$theme.$size_extra.$image;
-            } elseif (is_file($code_path.'img/icons/'.$size_extra.$image)) {
-            //Checking the main/img/icons/XXX/ folder
-                $icon = $w_code_path.'img/icons/'.$size_extra.$image;
-            }
-        }*/
+        }  
 
         $icon = 'bundles/chamilocore/img/icons/'.$size_extra.$image;
         $icon = Container::getAsset()->getUrl($icon);
@@ -907,7 +895,7 @@ class Display
         }
 
         $img = self::img($icon, $alt_text, $additional_attributes);
-        if (SHOW_TEXT_NEAR_ICONS == true and !empty($alt_text)) {
+        if (SHOW_TEXT_NEAR_ICONS == true && !empty($alt_text)) {
             if ($show_text) {
                 $img = "$img $alt_text";
             }
@@ -2172,25 +2160,6 @@ class Display
         if ($asAdmin) {
             $editProfileUrl = api_get_path(WEB_CODE_PATH)."admin/user_edit.php?user_id=".intval($userId);
         }
-
-        /*if (api_get_setting('sso_authentication') === 'true') {
-            $subSSOClass = api_get_setting('sso_authentication_subclass');
-
-            $objSSO = null;
-
-            if (!empty($subSSOClass)) {
-                require_once api_get_path(SYS_CODE_PATH)."auth/sso/sso.$subSSOClass.class.php";
-                $subSSOClass = 'sso'.$subSSOClass;
-                $objSSO = new $subSSOClass();
-            } else {
-                $objSSO = new sso();
-            }
-
-            $editProfileUrl = $objSSO->generateProfileEditingURL(
-                $userId,
-                $asAdmin
-            );
-        }*/
 
         return $editProfileUrl;
     }

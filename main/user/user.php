@@ -394,6 +394,7 @@ if (api_is_allowed_to_edit(null, true)) {
                             'pdf_title' => $pdfTitle,
                             'header_attributes' => $header_attributes
                         );
+
                         Export::export_table_pdf($a_users, $params);
                         exit;
                 }
@@ -771,8 +772,8 @@ function modify_filter($user_id, $row, $data)
     $result = "";
 
     if ($is_allowed_to_track) {
-        $result .= '<a href="../mySpace/myStudents.php?'.api_get_cidreq().'&student='.$user_id.'&details=true&course='.$_course['id'].'&origin=user_course&id_session='.api_get_session_id().'" title="'.get_lang('Tracking').'"  >
-            <img border="0" alt="'.get_lang('Tracking').'" src="../img/icons/22/stats.png" />
+        $result .= '<a href="../mySpace/myStudents.php?'.api_get_cidreq().'&student='.$user_id.'&details=true&course='.$_course['id'].'&origin=user_course&id_session='.api_get_session_id().'" title="'.get_lang('Tracking').'">
+            '.Display::return_icon('stats.png', get_lang('Tracking')).'
         </a>';
     }
 
@@ -948,7 +949,7 @@ if (isset($origin) && $origin == 'learnpath') {
 $is_allowed_to_track = ($is_courseAdmin || $is_courseTutor);
 
 // Tool introduction
-Display::display_introduction_section(TOOL_USER);
+Display::display_introduction_section(TOOL_USER, 'left');
 $actions = '';
 $selectedTab = 1;
 
