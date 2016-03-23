@@ -11,8 +11,9 @@
     <ul>
     {% for namespace in schemas|keys %}
         <li>
-            <a href="{{ path('chamilo_platform_settings', { 'namespace': namespace}) }}">
-            {{ namespace }}
+            <img src="{{ asset('bundles/chamilocore/img/icons/32/' ~ namespace ~'.png') }}" />
+            <a href="{{ path('chamilo_platform_settings', { 'namespace': namespace }) }}">
+            {{ namespace | capitalize | trans }}
             </a>
         </li>
     {% endfor %}
