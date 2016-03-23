@@ -131,8 +131,8 @@ class ResourceNodeVoter extends AbstractVoter
             if ($linkSession instanceof Session && !empty($sessionId) &&
                 $linkCourse instanceof Course && !empty($courseCode)
             ) {
-                $session = $this->container->get('chamilo_core.manager.session')->find($sessionId);
-                $course = $this->container->get('chamilo_core.manager.course')->findOneByCode($courseCode);
+                $session = $this->container->get('chamilo_core.entity.manager.session_manager')->find($sessionId);
+                $course = $this->container->get('chamilo_core.entity.manager.course_manager')->findOneByCode($courseCode);
                 if ($session instanceof Session &&
                     $course instanceof Course &&
                     $linkCourse->getCode() == $course->getCode() &&

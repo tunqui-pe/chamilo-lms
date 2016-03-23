@@ -26,8 +26,6 @@ class CourseMenuBuilder extends ContainerAware
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
 
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
-
-
             $menu->addChild(
                 $translator->trans('MyCourses'),
                 [
@@ -66,7 +64,6 @@ class CourseMenuBuilder extends ContainerAware
                 ]
             );
 
-
             /** @var \Knp\Menu\MenuItem $menu */
             $menu->addChild(
                 $translator->trans('History'),
@@ -87,6 +84,7 @@ class CourseMenuBuilder extends ContainerAware
                 ]
             );
         }
+
         return $menu;
     }
 

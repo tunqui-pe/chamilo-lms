@@ -5,6 +5,7 @@ namespace Chamilo\CoreBundle\Settings;
 
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Entity\Manager\CourseManager;
+use Chamilo\CoreBundle\Entity\Repository\CourseRepository;
 use Chamilo\CourseBundle\Tool\BaseTool;
 use Chamilo\CourseBundle\ToolChain;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
@@ -35,11 +36,11 @@ class CourseSettingsSchema implements SchemaInterface
     }
 
     /**
-     * @param CourseManager $courseManager
+     * @param CourseManager $manager
      */
-    public function setCourseManager($courseManager)
+    public function setCourseManager($manager)
     {
-        $this->courseManager = $courseManager;
+        $this->courseManager = $manager;
     }
 
     /**
@@ -64,6 +65,8 @@ class CourseSettingsSchema implements SchemaInterface
     public function buildSettings(SettingsBuilderInterface $builder)
     {
         $tools = $this->getProcessedToolChain();
+        $em = $this->courseManager->getEntityManager();
+
         $builder
             ->setDefaults(
                 array(
@@ -120,7 +123,7 @@ class CourseSettingsSchema implements SchemaInterface
             )
             ->setTransformer(
                 'course_creation_use_template',
-                new ObjectToIdentifierTransformer($this->courseManager->getEntityManager()->getRepository('ChamiloCoreBundle:Course'))
+                new ObjectToIdentifierTransformer($em->getRepository('ChamiloCoreBundle:Course'))
             )
         ;
 
@@ -132,7 +135,6 @@ class CourseSettingsSchema implements SchemaInterface
     public function buildForm(FormBuilderInterface $builder)
     {
         $tools = $this->getProcessedToolChain();
-        $courses = $this->courseManager->findAll();
 
         $builder
             ->add(

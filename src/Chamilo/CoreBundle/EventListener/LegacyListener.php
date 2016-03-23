@@ -104,7 +104,7 @@ class LegacyListener
         );
 
         \CourseManager::setCourseManager(
-            $container->get('chamilo_core.manager.course')
+            $container->get('chamilo_core.entity.manager.course_manager')
         );
 
         // Setting legacy properties.
