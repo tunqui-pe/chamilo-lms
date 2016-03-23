@@ -6,6 +6,7 @@ namespace Chamilo\CoreBundle\Component\Editor;
 use Chamilo\CoreBundle\Framework\Template;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class Editor
@@ -40,7 +41,7 @@ class Editor
      */
     public $config;
 
-    /** @var Translator */
+    /** @var TranslatorInterface */
     public $translator;
 
     /** @var RouterInterface */
@@ -51,11 +52,11 @@ class Editor
 
     /**
      * Editor constructor.
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * @param RouterInterface $urlGenerator
      */
     public function __construct(
-        Translator $translator,
+        TranslatorInterface $translator,
         RouterInterface $urlGenerator
     ) {
         $this->toolbarSet = 'Basic';

@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 use Chamilo\CoreBundle\Component\Editor\Editor;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class Container
@@ -213,11 +214,11 @@ class Container
     }
 
     /**
-     * @return Translator
+     * @return TranslatorInterface
      */
     public static function getTranslator()
     {
-        return self::$container->get('translator');
+        return self::$container->get('translator.default');
     }
 
     /**
