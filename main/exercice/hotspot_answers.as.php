@@ -112,13 +112,14 @@ $rs = $em
     ->findBy(
         [
             'hotspotQuestionId' => $questionId,
-            'course' => $course_id,
+            'cId' => $course_id,
             'hotspotExeId' => $exe_id
-        ]
+        ],
+        ['hotspotId' => 'ASC']
     );
 
-foreach ($rs as $hotspotAnswer) {
-    $data['answers'][] = $hotspotAnswer->getHotspotCoordinate();
+foreach ($rs as $row) {
+    $data['answers'][] = $row->getHotspotCoordinate();
 }
 
 $data['done'] = 'done';

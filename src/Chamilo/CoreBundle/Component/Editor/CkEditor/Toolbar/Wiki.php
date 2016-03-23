@@ -78,13 +78,9 @@ class Wiki extends Basic
                 '-',
                 'TextColor',
                 'BGColor',
-                api_get_setting(
-                    'editor.allow_spellcheck'
-                ) == 'true' ? 'Scayt' : '',
+                api_get_setting('editor.allow_spellcheck') == 'true' ? 'Scayt' : '',
             ],
-            api_get_setting(
-                'editor.enabled_wiris'
-            ) == 'true' ? [
+            api_get_setting('editor.enabled_wiris') == 'true' ? [
                 'ckeditor_wiris_formulaEditor',
                 'ckeditor_wiris_CAS',
             ] : [''],
@@ -104,10 +100,8 @@ class Wiki extends Basic
             ['Wikilink', 'Link', 'Image', 'Video', 'Flash', 'Audio', 'Table',  'Asciimath', 'Asciisvg'],
             ['BulletedList', 'NumberedList', 'HorizontalRule'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
-            api_get_setting(
-                'editor.enabled_wiris'
-            ) == 'true' ? [
+            ['Styles','Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
+            api_get_setting('editor.enabled_wiris') == 'true' ? [
                 'ckeditor_wiris_formulaEditor',
                 'ckeditor_wiris_CAS',
             ] : [''],

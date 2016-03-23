@@ -18,9 +18,10 @@ class Basic extends Toolbar
      * @var array
      */
     public $defaultPlugins = array(
-        'adobeair',
+       	'adobeair',
         'ajax',
         'audio',
+        'image2',
         'bidi',
         'colorbutton',
         'colordialog',
@@ -54,7 +55,7 @@ class Basic extends Toolbar
         'stylesheetparser',
         'tableresize',
         'templates',
-        //'uicolor',
+        'uicolor',
         'video',
         'widget',
         'wikilink',
@@ -208,7 +209,7 @@ class Basic extends Toolbar
             ['Link', 'Image', 'Video', 'Flash', 'Youtube', 'Audio', 'Table', 'Asciimath', 'Asciisvg'],
             ['BulletedList', 'NumberedList', 'HorizontalRule'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
+            ['Styles', 'Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'TextColor', 'BGColor', 'Source'],
             api_get_setting(
                 'editor.enabled_wiris'
             ) == 'true' ? [

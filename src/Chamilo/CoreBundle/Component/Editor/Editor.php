@@ -118,6 +118,7 @@ class Editor
            CKEDITOR.replace('".$this->name."',
                $javascript
            );
+           
            </script>";
 
         return $html;

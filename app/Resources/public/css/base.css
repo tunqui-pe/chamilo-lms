@@ -93,6 +93,9 @@ a.thumbnail:hover{
     position: relative;
     
 }
+.page-course{
+    padding: 2% 3%;
+}
 /*------------------------*/
 .cursor-pointer {
     cursor: pointer;
@@ -4715,6 +4718,9 @@ div#chat-remote-video video {
 }
 #children .parent .big-icon .sequence-deleted{
   font-size: 12px;
+}
+.form-search{
+    padding-bottom: 50px;
 }
 /* INSTALL CHAMILO */
 #page-install .logo{
