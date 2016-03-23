@@ -1,12 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * @author Juan Carlos Trabado herodoto@telefonica.net
  * @package chamilo.social
  */
 
 $cidReset = true;
-//require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 
@@ -14,7 +16,7 @@ if (api_get_setting('social.allow_social_tool') != 'true') {
     api_not_allowed();
 }
 
-if (api_get_setting('allow_my_files') === 'false') {
+if (api_get_setting('platform.allow_my_files') === 'false') {
     api_not_allowed(true);
 }
 
@@ -85,30 +87,20 @@ $social_menu_block = SocialManager::show_social_menu('myfiles');
 $actions = null;
 
 if (isset($_GET['cidReq'])) {
-    $actions = '<a href="' . api_get_path(
-            WEB_CODE_PATH
-        ) . 'document/document.php?cidReq=' . Security::remove_XSS(
+    $actions = '<a href="' . api_get_path(WEB_CODE_PATH) . 'document/document.php?cidReq=' . Security::remove_XSS(
             $_GET['cidReq']
-        ) . '&amp;id_session=' . Security::remove_XSS(
-            $_GET['id_session']
-        ) . '&amp;gidReq=' . Security::remove_XSS(
-            $_GET['gidReq']
-        ) . '&amp;id=' . Security::remove_XSS(
-            $_GET['parent_id']
-        ) . '">' . Display::return_icon(
+        ) . '&amp;id_session=' . intval($_GET['id_session']) . '&amp;gidReq=' . intval($_GET['gidReq']) . '&amp;id=' . intval($_GET['parent_id']) . '">' . Display::return_icon(
             'back.png',
-            get_lang('BackTo') . ' ' . get_lang('Documents') . ' (' . get_lang(
-                'Course'
-            ) . ')'
+            get_lang('BackTo') . ' ' . get_lang('Documents') . ' (' . get_lang('Course') . ')'
         ) . '</a>';
 }
 
-$tpl = \Chamilo\CoreBundle\Framework\Container::getTwig();
+$tpl = Container::getTwig();
 SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'myfiles');
-$editor = new \Chamilo\CoreBundle\Component\Editor\Editor();
-$editor = $tpl->render('default/'.$editor->getEditorStandAloneTemplate());
 
-$tpl->addGlobal('social_right_content', $editor);
+$tpl->addGlobal('course_id', '');
+$tpl->addGlobal('session_id', '');
+$tpl->addGlobal('social_right_content', '');
 $tpl->addGlobal('social_menu_block', $social_menu_block);
 $tpl->addGlobal('actions', $actions);
 

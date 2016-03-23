@@ -139,7 +139,7 @@ class Driver extends ElFinderVolumeLocalFileSystem
      * @return mixed
      * @author Naoki Sawada
      */
-    public function convEncIn($var, $restoreLocale = false, $unknown = '_')
+    public function convEncIn($var = null, $restoreLocale = false, $unknown = '_')
     {
         return (!$this->encoding) ? $var : $this->convEnc(
             $var,
@@ -160,7 +160,7 @@ class Driver extends ElFinderVolumeLocalFileSystem
      * @return mixed
      * @author Naoki Sawada
      */
-    public function convEncOut($var, $restoreLocale = true, $unknown = '_')
+    public function convEncOut($var = null, $restoreLocale = true, $unknown = '_')
     {
         return (!$this->encoding) ? $var : $this->convEnc(
             $var,
