@@ -7,35 +7,25 @@
  * @package chamilo.exercise
  * @author Toon Keppens, Julio Montoya adding hotspot "medical" support
  */
-
-include('../inc/global.inc.php');
+include '../inc/global.inc.php';
 
 // Set vars
-$questionId    = intval($_GET['modifyAnswers']);
-$exe_id        = intval($_GET['exe_id']);
-$objQuestion   = Question :: read($questionId);
-$TBL_ANSWERS   = Database::get_course_table(TABLE_QUIZ_ANSWER);
-$documentPath  = api_get_path(SYS_COURSE_PATH).$_course['path'].'/document';
+$questionId = intval($_GET['modifyAnswers']);
+$exe_id = intval($_GET['exe_id']);
 
-$picturePath   = $documentPath.'/images';
-$pictureName   = $objQuestion->selectPicture();
-$pictureSize   = getimagesize($picturePath.'/'.$objQuestion->selectPicture());
-$pictureWidth  = $pictureSize[0];
+$objQuestion = Question::read($questionId);
+$trackExerciseInfo = ExerciseLib::get_exercise_track_exercise_info($exe_id);
+$objExercise = new Exercise(api_get_course_int_id());
+$objExercise->read($trackExerciseInfo['exe_exo_id']);
+$em = Database::getManager();
+$documentPath = api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/document';
+$picturePath = $documentPath . '/images';
+$pictureName = $objQuestion->selectPicture();
+$pictureSize = getimagesize($picturePath . '/' . $objQuestion->selectPicture());
+$pictureWidth = $pictureSize[0];
 $pictureHeight = $pictureSize[1];
+$course_id = api_get_course_int_id();
 
-$answer_type   = $objQuestion->selectType();
-
-$course_id     = api_get_course_int_id();
-
-if ($answer_type == HOT_SPOT_DELINEATION) {
-	// Query db for answers
-	$sql = "SELECT id, answer, hotspot_coordinates, hotspot_type FROM $TBL_ANSWERS
-	        WHERE c_id = $course_id AND question_id = ".intval($questionId)." AND hotspot_type <> 'noerror' ORDER BY id";
-} else {
-	$sql = "SELECT id, answer, hotspot_coordinates, hotspot_type FROM $TBL_ANSWERS
-	        WHERE c_id = $course_id AND question_id = ".intval($questionId)." ORDER BY id";
-}
-$result = Database::query($sql);
 // Init
 $data = [];
 $data['type'] = 'solution';
@@ -64,54 +54,71 @@ $data['image_height'] = $pictureHeight;
 $data['courseCode'] = $_course['path'];
 $data['hotspots'] = [];
 
-while ($hotspot = Database::fetch_array($result)) {
-    $hotSpot = [];
-    $hotSpot['id'] = $hotspot['id'];
-    $hotSpot['answer'] = $hotspot['answer'];
+if ($objExercise->results_disabled != RESULT_DISABLE_SHOW_SCORE_ONLY) {
+    $qb = $em->createQueryBuilder();
+    $qb
+        ->select('a')
+        ->from('ChamiloCourseBundle:CQuizAnswer', 'a');
 
-	// Square or rectancle
-	if ($hotspot['hotspot_type'] == 'square' ) {
-        $hotSpot['type'] = 'square';
-	}
+    if ($objQuestion->selectType() == HOT_SPOT_DELINEATION) {
+        $qb
+            ->where($qb->expr()->eq('a.cId', $course_id))
+            ->andWhere($qb->expr()->eq('a.questionId', intval($questionId)))
+            ->andWhere($qb->expr()->neq('a.hotspotType', 'noerror'));
+    } else {
+        $qb
+            ->where($qb->expr()->eq('a.cId', $course_id))
+            ->andWhere($qb->expr()->eq('a.questionId', intval($questionId)));
+    }
 
-	// Circle or ovale
-	if ($hotspot['hotspot_type'] == 'circle') {
-        $hotSpot['type'] = 'circle';
-	}
+    $result = $qb
+        ->orderBy('a.id', 'ASC')
+        ->getQuery()
+        ->getResult();
 
-	// Polygon
-	if ($hotspot['hotspot_type'] == 'poly') {
-        $hotSpot['type'] = 'poly';
-	}
+    foreach ($result as $hotspotAnswer) {
+        $hotSpot = [];
+        $hotSpot['id'] = $hotspotAnswer->getId();
+        $hotSpot['answer'] = $hotspotAnswer->getAnswer();
 
-	// Delineation
-	if ($hotspot['hotspot_type'] == 'delineation') {
-        $hotSpot['type'] = 'delineation';
-	}
-	// oar
-	if ($hotspot['hotspot_type'] == 'oar') {
-        $hotSpot['type'] = 'delineation';
-	}
+        switch ($hotspotAnswer->getHotspotType()) {
+            case 'square':
+                $hotSpot['type'] = 'square';
+                break;
+            case 'circle':
+                $hotSpot['type'] = 'circle';
+                break;
+            case 'poly':
+                $hotSpot['type'] = 'poly';
+                break;
+            case 'delineation':
+                $hotSpot['type'] = 'delineation';
+                break;
+            case 'oar':
+                $hotSpot['type'] = 'delineation';
+                break;
+        }
 
-    $hotSpot['coord'] = $hotspot['hotspot_coordinates'];
+        $hotSpot['coord'] = $hotspotAnswer->getHotspotCoordinates();
 
-    $data['hotspots'][] = $hotSpot;
+        $data['hotspots'][] = $hotSpot;
+    }
 }
 
 $data['answers'] = [];
 
-$em = Database::getManager();
-
 $rs = $em
     ->getRepository('ChamiloCoreBundle:TrackEHotspot')
-    ->findBy([
-        'hotspotQuestionId' => $questionId,
-        'course' => $course_id,
-        'hotspotExeId' => $exe_id
-    ]);
+    ->findBy(
+        [
+            'hotspotQuestionId' => $questionId,
+            'course' => $course_id,
+            'hotspotExeId' => $exe_id
+        ]
+    );
 
 foreach ($rs as $hotspotAnswer) {
-    $data['answers'][] = $hotspotAnswer->hotspotCoordinate();
+    $data['answers'][] = $hotspotAnswer->getHotspotCoordinate();
 }
 
 $data['done'] = 'done';
