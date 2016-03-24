@@ -47,7 +47,8 @@ class ExtraField
     protected $extraFieldType;
 
     /**
-     * @var integer
+     * user/session/course etc
+     * @var string
      *
      * @ORM\Column(name="field_type", type="string", nullable=false, unique=false)
      */
@@ -175,7 +176,7 @@ class ExtraField
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getFieldType()
     {
@@ -183,7 +184,7 @@ class ExtraField
     }
 
     /**
-     * @param int $fieldType
+     * @param string $fieldType
      *
      * @return $this
      */

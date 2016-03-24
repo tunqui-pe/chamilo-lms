@@ -96,7 +96,7 @@ class ExtraFieldOptions
     }
 
     /**
-     * @return mixed
+     * @return ExtraField
      */
     public function getField()
     {
@@ -104,7 +104,7 @@ class ExtraFieldOptions
     }
 
     /**
-     * @param mixed $field
+     * @param ExtraField $field
      *
      * @return $this
      */
