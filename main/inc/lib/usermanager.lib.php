@@ -403,9 +403,11 @@ class UserManager
     public static function can_delete_user($user_id)
     {
         $deny = api_get_configuration_value('deny_delete_users');
-        if (isset($deny) && $deny == true) {
+
+        if ($deny) {
             return false;
         }
+
         $table_course_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
         if ($user_id != strval(intval($user_id))) {
             return false;
@@ -414,16 +416,18 @@ class UserManager
             return false;
         }
         $sql = "SELECT * FROM $table_course_user
-                WHERE status = '1' AND id = '".$user_id."'";
+                WHERE status = 1 AND user_id = ".$user_id;
         $res = Database::query($sql);
         while ($course = Database::fetch_object($res)) {
             $sql = "SELECT id FROM $table_course_user
-                    WHERE status='1' AND c_id ='".Database::escape_string($course->c_id)."'";
+                    WHERE status=1 AND c_id = " . intval($course->c_id);
             $res2 = Database::query($sql);
             if (Database::num_rows($res2) == 1) {
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -536,13 +540,7 @@ class UserManager
         $extraFieldValue = new ExtraFieldValue('user');
         $extraFieldValue->deleteValuesByItem($user_id);
 
-        if (api_get_multiple_access_url()) {
-            $url_id = api_get_current_access_url_id();
-            UrlManager::delete_url_rel_user($user_id, $url_id);
-        } else {
-            //we delete the user from the url_id =1
-            UrlManager::delete_url_rel_user($user_id, 1);
-        }
+        UrlManager::deleteUserFromAllUrls($user_id);
 
         if (api_get_setting('social.allow_social_tool') == 'true') {
             $userGroup = new UserGroup();
