@@ -111,6 +111,7 @@ class SetupStep extends AbstractStep
             'ChamiloInstallerBundle:Process/Step:setup.html.twig',
             array(
                 'form' => $form->createView(),
+                'is_upgrade' => $this->isCommonUpgrade(),
             )
         );
     }
