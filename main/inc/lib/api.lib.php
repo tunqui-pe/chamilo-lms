@@ -4192,7 +4192,7 @@ function api_get_languages_combo($name = 'language')
 
     $default = api_get_user_language();
 
-    $ret .= '<select name="' . $name . '" id="language_chosen">';
+    $ret .= '<select name="' . $name . '" id="language_chosen" class="selectpicker show-tick form-control">';
     foreach ($languages as $iso => $value) {
         if ($iso == $default) {
             $selected = ' selected="selected"';
