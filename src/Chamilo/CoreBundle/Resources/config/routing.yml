@@ -1,29 +1,29 @@
 index:
-    resource: "@ChamiloCoreBundle/Controller/IndexController.php"
+    resource: '@ChamiloCoreBundle/Controller/IndexController.php'
     type:     annotation
 
 userportal:
-    resource: "@ChamiloCoreBundle/Controller/UserPortalController.php"
+    resource: '@ChamiloCoreBundle/Controller/UserPortalController.php'
     type:     annotation
     prefix:   /userportal
 
 front:
-    resource: "@ChamiloCoreBundle/Controller/FrontController.php"
+    resource: '@ChamiloCoreBundle/Controller/FrontController.php'
     type:     annotation
     prefix:   /front
 
 user:
-    resource: "@ChamiloCoreBundle/Controller/User/UserController.php"
+    resource: '@ChamiloCoreBundle/Controller/User/UserController.php'
     type:     annotation
     prefix:   /user
 
 course:
-    resource: "@ChamiloCoreBundle/Controller/CourseController.php"
+    resource: '@ChamiloCoreBundle/Controller/CourseController.php'
     type:     annotation
     prefix:   /course
 
 legacy_javascript:
-    resource: "@ChamiloCoreBundle/Controller/JavascriptLegacyController.php"
+    resource: '@ChamiloCoreBundle/Controller/JavascriptLegacyController.php'
     type:     annotation
     prefix:   /js
 
@@ -45,22 +45,16 @@ web.img:
     path: bundles/chamilocore/img/
 
 # Core controllers
-
 core_admin:
-    resource: "@ChamiloCoreBundle/Controller/Admin"
+    resource: '@ChamiloCoreBundle/Controller/Admin'
     type: annotation
-    prefix:   /admin
-
-#core_app:
-#    resource: "@ChamiloCoreBundle/Controller/App"
-#    type: annotation
-#    prefix:   /app
+    prefix: /admin
 
 course_url:
     path: courses
 
 core_tool:
-    resource: "@ChamiloCourseBundle/Controller"
+    resource: '@ChamiloCourseBundle/Controller'
     type: annotation
     prefix: /courses/{course}/
 
@@ -104,19 +98,6 @@ remove_trailing_slash:
         url: .*/$
         _method: GET
 
-# Settings list
-chamilo_platform_settings_list:
-    pattern: /admin/settings
-    defaults:
-        _controller: ChamiloSettingsBundle:Settings:index
-        template: ChamiloSettingsBundle:Settings:index.html.twig
-
-# Setting form
-chamilo_platform_settings:
-    pattern: /admin/settings/{namespace}
-    defaults:
-        _controller: ChamiloSettingsBundle:Settings:updateSetting
-        template: ChamiloSettingsBundle:Settings:default.html.twig
 
 # Course settings
 chamilo_course_settings:

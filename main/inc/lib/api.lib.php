@@ -2497,6 +2497,7 @@ function api_get_setting($variable)
  */
 function api_get_plugin_setting($plugin, $variable)
 {
+    return '';
     $variableName = $plugin.'_'.$variable;
     $result = api_get_setting($variableName);
     if (isset($result[$plugin])) {

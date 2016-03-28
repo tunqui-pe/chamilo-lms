@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-namespace Chamilo\SettingsBundle\Controller;
+namespace Chamilo\CoreBundle\Controller\Admin;
 
 use Sylius\Bundle\SettingsBundle\Controller\SettingsController as SyliusSettingsController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,8 @@ class SettingsController extends SyliusSettingsController
 {
     /**
      * @Security("has_role('ROLE_ADMIN')")
-     * @Template
+     * @Route("/settings", name="admin_settings")
+     *
      * @return array
      */
     public function indexAction()
@@ -29,12 +30,20 @@ class SettingsController extends SyliusSettingsController
         $manager = $this->getSettingsManager();
         $schemas = $manager->getSchemas();
 
-        return array('schemas' => $schemas);
+        return $this->render(
+            '@ChamiloCore/Admin/Settings/index.html.twig',
+            array(
+                'schemas' => $schemas
+            )
+        );
     }
 
     /**
      * Edit configuration with given namespace.
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @Route("/settings/{namespace}", name="chamilo_platform_settings")
+     *
      * @param Request $request
      * @param string $namespace
      *
@@ -108,7 +117,7 @@ class SettingsController extends SyliusSettingsController
         $schemas = $manager->getSchemas();
 
         return $this->render(
-            'ChamiloSettingsBundle:Settings:default.html.twig',
+            '@ChamiloCore/Admin/Settings/default.html.twig',
             array(
                 'schemas' => $schemas,
                 'settings' => $settings,

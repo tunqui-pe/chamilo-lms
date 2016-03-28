@@ -9,14 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Class ProfileController
  * @package Chamilo\CoreBundle\Controller
  */
 class ProfileController extends BaseController
 {
-
     /**
      * My files
      * @Route("/{username}/files")

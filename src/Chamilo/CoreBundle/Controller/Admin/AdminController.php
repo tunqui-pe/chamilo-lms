@@ -247,7 +247,7 @@ class AdminController extends BaseController
             $items = array();
             $items[] = array(
                 'url' => $this->generateUrl(
-                    'chamilo_platform_settings_list'
+                    'admin_settings'
                 ),
                 'label' => get_lang('PlatformConfigSettings'),
             );
