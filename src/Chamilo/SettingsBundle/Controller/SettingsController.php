@@ -105,10 +105,12 @@ class SettingsController extends SyliusSettingsController
                 return $this->redirect($request->headers->get('referer'));
             }*/
         }
+        $schemas = $manager->getSchemas();
 
         return $this->render(
             'ChamiloSettingsBundle:Settings:default.html.twig',
             array(
+                'schemas' => $schemas,
                 'settings' => $settings,
                 'form' => $form->createView(),
                 'keyword' => $keyword,

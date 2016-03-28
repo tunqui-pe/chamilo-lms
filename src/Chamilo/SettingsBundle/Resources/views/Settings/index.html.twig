@@ -8,14 +8,11 @@
 {% endblock %}
 
 {% block page_content %}
-    <ul>
-    {% for namespace in schemas|keys %}
-        <li>
-            <img src="{{ asset('bundles/chamilocore/img/icons/32/' ~ namespace ~'.png') }}" />
-            <a href="{{ path('chamilo_platform_settings', { 'namespace': namespace }) }}">
-            {{ namespace | capitalize | trans }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-xs-3 col-md-3">
+        {% include '@ChamiloSettings/Settings/menu.html.twig' %}
+        </div>
+        <div class="col-xs-9 col-md-9">
+        </div>
+    </div>
 {% endblock%}
