@@ -10,12 +10,13 @@ require_once dirname(__FILE__) . '/../inc/global.inc.php';
 
 function get_suggestions_from_search_engine($q)
 {
-    if (strlen($q)<2) { return null;}
+//    if (strlen($q)<2) { return null;}
     global $charset;
 
     $em = Database::getManager();
     $queryParams = [];
 
+    $json = [];
     $q = Database::escape_string($q);
     $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
 
@@ -40,7 +41,12 @@ function get_suggestions_from_search_engine($q)
     $data = array();
     $i = 0;
     foreach ($sql_result as $row) {
-        echo api_convert_encoding($row->getValue(), 'UTF-8', $charset) . "| value\n";
+        $value = api_convert_encoding($row->getValue(), 'UTF-8', $charset);
+        $json[] = [
+            'id' => $value,
+            'value' => $value,
+            'label' => $value
+        ];
 
         if ($i < 20) {
             $data[$row->getCourse()->getCode()][$row->getToolId()][$row->getRefId()] = 1;
@@ -113,20 +119,24 @@ function get_suggestions_from_search_engine($q)
                 }
                 foreach ($output as $i=>$out) {
                     if (api_stristr($out,$q) === false) {continue;}
-                    $s = api_convert_encoding(substr($out,0,-3),'UTF-8',$charset) . "| value\n";
+                    $s = api_convert_encoding(substr($out, 0, -3), 'UTF-8', $charset);
                     if (!in_array($s,$more_sugg)) {
                         $more_sugg[] = $s;
+                        $json[] = [
+                            'id' => $s,
+                            'value' => $s,
+                            'label' => $s
+                        ];
                     }
                 }
             }
         }
     }
-    foreach ($more_sugg as $sugg) {
-        echo $sugg;
-    }
+
+    echo json_encode($json);
 }
 
-$q = strtolower($_GET["q"]);
+$q = strtolower($_GET["term"]);
 if (!$q) return;
 //echo $q . "| value\n";
 get_suggestions_from_search_engine($q);

@@ -20,7 +20,7 @@ require_once api_get_path(LIBRARY_PATH).'specific_fields_manager.lib.php';
  */
 function search_widget_prepare(&$htmlHeadXtra) {
     $htmlHeadXtra[] = '
-    <script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.autocomplete.js"></script>
+    <!-- script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.autocomplete.js"></script -->
     <script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_JS_PATH).'search/search_widget.js"></script>
     <link rel="stylesheet" type="text/css" href="'.api_get_path(
             WEB_LIBRARY_JS_PATH
