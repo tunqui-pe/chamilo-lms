@@ -103,7 +103,7 @@ class CoursesController
             if (!isset($category_code)) {
                 $category_code = $browse_course_categories[0][1]['code']; // by default first category
             }
-            $limit = isset($limit) ? $limit : CourseCategoryManager::getLimitArray();
+            $limit = isset($limit) ? $limit : CourseCategory::getLimitArray();
             $data['browse_courses_in_category'] = $this->model->browse_courses_in_category($category_code, null, $limit);
         }
 
@@ -159,7 +159,7 @@ class CoursesController
     public function search_courses($search_term, $message = '', $error = '', $content = null, $limit = array())
     {
         $data = array();
-        $limit = !empty($limit) ? $limit : CourseCategoryManager::getLimitArray();
+        $limit = !empty($limit) ? $limit : CourseCategory::getLimitArray();
 
         $browse_course_categories = $this->model->browse_course_categories();
         $data['countCoursesInCategory'] = $this->model->count_courses_in_category('ALL', $search_term);
@@ -386,7 +386,7 @@ class CoursesController
                     $html .= '</strong>';
                 } else {
                     if (!empty($categoryCourses)) {
-                        $html .= '<a href="' . CourseCategoryManager::getCourseCategoryUrl(
+                        $html .= '<a href="' . CourseCategory::getCourseCategoryUrl(
                                 1,
                                 $limit['length'],
                                 $categoryCode,
@@ -413,7 +413,7 @@ class CoursesController
                         if ($code == $subCategory1Code) {
                             $html .= "<strong>$subCategory1Name ($subCategory1Courses)</strong>";
                         } else {
-                            $html .= '<a href="' . CourseCategoryManager::getCourseCategoryUrl(
+                            $html .= '<a href="' . CourseCategory::getCourseCategoryUrl(
                                     1,
                                     $limit['length'],
                                     $categoryCode,
@@ -437,7 +437,7 @@ class CoursesController
                                 if ($code == $subCategory2Code) {
                                     $html .= "<strong>$subCategory2Name ($subCategory2Courses)</strong>";
                                 } else {
-                                    $html .= '<a href="' . CourseCategoryManager::getCourseCategoryUrl(
+                                    $html .= '<a href="' . CourseCategory::getCourseCategoryUrl(
                                             1,
                                             $limit['length'],
                                             $categoryCode,
@@ -461,7 +461,7 @@ class CoursesController
                                         if ($code == $subCategory3Code) {
                                             $html .= "<strong>$subCategory3Name ($subCategory3Courses)</strong>";
                                         } else {
-                                            $html .= '<a href="' . CourseCategoryManager::getCourseCategoryUrl(
+                                            $html .= '<a href="' . CourseCategory::getCourseCategoryUrl(
                                                     1,
                                                     $limit['length'],
                                                     $categoryCode,
@@ -529,9 +529,7 @@ class CoursesController
         $catalogSessionAutoSubscriptionAllowed = false;
 
         if (
-            api_get_setting(
-                'session.catalog_allow_session_auto_subscription'
-            ) === 'true'
+            api_get_setting('session.catalog_allow_session_auto_subscription') === 'true'
         ) {
             $catalogSessionAutoSubscriptionAllowed = true;
         }
@@ -621,7 +619,7 @@ class CoursesController
     {
         $date = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
         $hiddenLinks = isset($_GET['hidden_links']) ? intval($_GET['hidden_links']) == 1 : false;
-        $limit = isset($limit) ? $limit : CourseCategoryManager::getLimitArray();
+        $limit = isset($limit) ? $limit : CourseCategory::getLimitArray();
 
         $countSessions = $this->model->countSessions($date);
         $sessions = $this->model->browseSessions($date, $limit);
@@ -629,7 +627,7 @@ class CoursesController
         $pageTotal = intval(ceil(intval($countSessions) / $limit['length']));
         // Do NOT show pagination if only one page or less
         $cataloguePagination = $pageTotal > 1 ?
-            CourseCategoryManager::getCatalogPagination($limit['current'], $limit['length'], $pageTotal) :
+            CourseCategory::getCatalogPagination($limit['current'], $limit['length'], $pageTotal) :
             '';
         $sessionsBlocks = $this->getFormatedSessionsBlock($sessions);
 
@@ -680,7 +678,7 @@ class CoursesController
         $searchTag = isset($_POST['search_tag']) ? $_POST['search_tag'] : null;
         $searchDate = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
         $hiddenLinks = isset($_GET['hidden_links']) ? intval($_GET['hidden_links']) == 1 : false;
-        $courseUrl = CourseCategoryManager::getCourseCategoryUrl(1, $limit['length'], null, 0, 'subscribe');
+        $courseUrl = CourseCategory::getCourseCategoryUrl(1, $limit['length'], null, 0, 'subscribe');
 
         $sessions = $this->model->browseSessionsByTags($searchTag, $limit);
         $sessionsBlocks = $this->getFormatedSessionsBlock($sessions);
@@ -713,7 +711,7 @@ class CoursesController
     {
         $q = isset($_REQUEST['q']) ? Security::remove_XSS($_REQUEST['q']) : null;
         $hiddenLinks = isset($_GET['hidden_links']) ? intval($_GET['hidden_links']) == 1 : false;
-        $courseUrl = CourseCategoryManager::getCourseCategoryUrl(1, $limit['length'], null, 0, 'subscribe');
+        $courseUrl = CourseCategory::getCourseCategoryUrl(1, $limit['length'], null, 0, 'subscribe');
         $searchDate = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
 
         $sessions = $this->model->browseSessionsBySearch($q, $limit);

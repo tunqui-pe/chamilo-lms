@@ -2,28 +2,16 @@
 /* For licensing terms, see /license.txt */
 
 /**
- * Class CourseCategoryManager
+ * Class CourseCategory
  */
-class CourseCategoryManager
+class CourseCategory
 {
-    /**
-     * Returns whether we are in a mode where multiple URLs are configured to work
-     * with course categories
-     * @return bool
-     */
-    function isMultipleUrlSupport()
-    {
-        return api_get_configuration_value(
-            'enable_multiple_url_support_for_course_category'
-        );
-    }
-
     /**
      * Returns the category fields from the database from an int ID
      * @param int $categoryId The category ID
      * @return array
      */
-    function getCategoryById($categoryId)
+    public static function getCategoryById($categoryId)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $categoryId = intval($categoryId);
@@ -41,7 +29,7 @@ class CourseCategoryManager
      * @param string $category The literal category code
      * @return array
      */
-    function getCategory($category)
+    public static function getCategory($category)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $category = Database::escape_string($category);
@@ -59,7 +47,7 @@ class CourseCategoryManager
      *
      * @return array
      */
-    function getCategories($category)
+    public static function getCategories($category)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
@@ -67,14 +55,9 @@ class CourseCategoryManager
         $conditions = null;
         $whereCondition = '';
 
-        if (self::isMultipleUrlSupport()) {
-            $table = Database::get_main_table(
-                TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
-            );
+        $table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
             $conditions = " INNER JOIN $table a ON (t1.id = a.course_category_id)";
-            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id(
-                );
-        }
+        $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
 
         $parentIdCondition = " AND (t1.parent_id IS NULL OR t1.parent_id = '' )";
         if (!empty($category)) {
@@ -123,7 +106,7 @@ class CourseCategoryManager
      *
      * @return bool
      */
-    function addNode($code, $name, $canHaveCourses, $parent_id)
+    public static function addNode($code, $name, $canHaveCourses, $parent_id)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $code = trim($code);
@@ -156,10 +139,7 @@ class CourseCategoryManager
         $categoryId = Database::insert($tbl_category, $params);
 
         self::updateParentCategoryChildrenCount($parent_id, 1);
-
-        if (self::isMultipleUrlSupport()) {
-            self::addToUrl($categoryId);
-        }
+        self::addToUrl($categoryId);
 
         return $categoryId;
     }
@@ -169,7 +149,7 @@ class CourseCategoryManager
      * @param string $categoryId Category ID
      * @param    int $delta The number to add or delete (1 to add one, -1 to remove one)
      */
-    function updateParentCategoryChildrenCount($categoryId, $delta = 1)
+    public static function updateParentCategoryChildrenCount($categoryId, $delta = 1)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $categoryId = Database::escape_string($categoryId);
@@ -200,7 +180,7 @@ class CourseCategoryManager
     /**
      * @param string $node
      */
-    function deleteNode($node)
+    public static function deleteNode($node)
     {
         $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
@@ -234,7 +214,7 @@ class CourseCategoryManager
             Database::query("DELETE FROM $tbl_category WHERE code='$node'");
 
             if (!empty($row['parent_id'])) {
-                updateParentCategoryChildrenCount($row['parent_id'], -1);
+                self::updateParentCategoryChildrenCount($row['parent_id'], -1);
             }
         }
     }
@@ -246,7 +226,7 @@ class CourseCategoryManager
      * @param string $old_code
      * @return bool
      */
-    function editNode($code, $name, $canHaveCourses, $old_code)
+    public static function editNode($code, $name, $canHaveCourses, $old_code)
     {
         $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
@@ -283,7 +263,7 @@ class CourseCategoryManager
      *
      * @return bool
      */
-    function moveNodeUp($code, $tree_pos, $parent_id)
+    public static function moveNodeUp($code, $tree_pos, $parent_id)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $code = Database::escape_string($code);
@@ -337,7 +317,7 @@ class CourseCategoryManager
      * @param int $count The number of subcategories we counted this far
      * @return mixed The number of subcategories this category has
      */
-    function courseCategoryChildrenCount($categoryId)
+    public static function courseCategoryChildrenCount($categoryId)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $categoryId = intval($categoryId);
@@ -361,7 +341,7 @@ class CourseCategoryManager
      *
      * @return array
      */
-    function getChildren($categoryCode)
+    public static function getChildren($categoryCode)
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $categoryCode = Database::escape_string($categoryCode);
@@ -383,7 +363,7 @@ class CourseCategoryManager
      *
      * @return array
      */
-    function getParents($categoryCode)
+    public static function getParents($categoryCode)
     {
         if (empty($categoryCode)) {
             return array();
@@ -410,7 +390,7 @@ class CourseCategoryManager
      * @param string $categoryCode
      * @return null|string
      */
-    function getParentsToString($categoryCode)
+    public static function getParentsToString($categoryCode)
     {
         $parents = self::getParents($categoryCode);
 
@@ -433,7 +413,7 @@ class CourseCategoryManager
      *
      * @return string
      */
-    function listCategories($categorySource)
+    public static function listCategories($categorySource)
     {
         $categorySource = isset($categorySource) ? $categorySource : null;
         $categories = self::getCategories($categorySource);
@@ -521,7 +501,7 @@ class CourseCategoryManager
     /**
      * @return array
      */
-    function getCategoriesToDisplayInHomePage()
+    public static function getCategoriesToDisplayInHomePage()
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $sql = "SELECT name FROM $tbl_category
@@ -536,16 +516,9 @@ class CourseCategoryManager
      *
      * @return bool
      */
-    function addToUrl($id)
+    public static function addToUrl($id)
     {
-        if (!self::isMultipleUrlSupport()) {
-            return false;
-        }
-
-        UrlManager::addCourseCategoryListToUrl(
-            array($id),
-            array(api_get_current_access_url_id())
-        );
+        UrlManager::addCourseCategoryListToUrl(array($id), array(api_get_current_access_url_id()));
     }
 
     /**
@@ -553,17 +526,11 @@ class CourseCategoryManager
      *
      * @return array
      */
-    function getCategoriesCanBeAddedInCourse($categoryCode)
+    public static function getCategoriesCanBeAddedInCourse($categoryCode)
     {
-        $conditions = null;
-        $whereCondition = null;
-        if (self::isMultipleUrlSupport()) {
-            $table = Database::get_main_table(
-                TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
-            );
-            $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
-            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
-        }
+        $table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
+        $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
+        $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
 
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
         $sql = "SELECT code, name
@@ -588,20 +555,13 @@ class CourseCategoryManager
     /**
      * @return array
      */
-    function browseCourseCategories()
+    public static function browseCourseCategories()
     {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
-        $conditions = null;
-        $whereCondition = null;
+        $table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
+        $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
+        $whereCondition = " WHERE a.access_url_id = ".api_get_current_access_url_id();
 
-        if (self::isMultipleUrlSupport()) {
-            $table = Database::get_main_table(
-                TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
-            );
-            $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
-            $whereCondition = " WHERE a.access_url_id = ".api_get_current_access_url_id(
-                );
-        }
         $sql = "SELECT c.* FROM $tbl_category c
                 $conditions
                 $whereCondition
@@ -655,7 +615,7 @@ class CourseCategoryManager
      * @param string $searchTerm
      * @return int
      */
-    function countCoursesInCategory($category_code = "", $searchTerm = '')
+    public static function countCoursesInCategory($category_code = "", $searchTerm = '')
     {
         $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
         $categoryCode = Database::escape_string($category_code);
@@ -667,10 +627,7 @@ class CourseCategoryManager
 
         $without_special_courses = '';
         if (!empty($specialCourseList)) {
-            $without_special_courses = ' AND course.code NOT IN ('.implode(
-                    ',',
-                    $specialCourseList
-                ).')';
+            $without_special_courses = ' AND course.code NOT IN ("'.implode('","', $specialCourseList).'")';
         }
 
         $visibilityCondition = null;
@@ -709,9 +666,7 @@ class CourseCategoryManager
         if (api_is_multiple_url_enabled()) {
             $url_access_id = api_get_current_access_url_id();
             if ($url_access_id != -1) {
-                $tbl_url_rel_course = Database::get_main_table(
-                    TABLE_MAIN_ACCESS_URL_REL_COURSE
-                );
+                $tbl_url_rel_course = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
                 $sql = "SELECT * FROM $tbl_course as course
                         INNER JOIN $tbl_url_rel_course as url_rel_course
                         ON (url_rel_course.c_id = course.id)
@@ -737,21 +692,15 @@ class CourseCategoryManager
      * This array should contains 'start' and 'length' keys
      * @return array
      */
-    function browseCoursesInCategory(
-        $category_code,
-        $random_value = null,
-        $limit = array()
-    ) {
+    public static function browseCoursesInCategory($category_code, $random_value = null, $limit = array())
+    {
         $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
 
         $specialCourseList = CourseManager::get_special_course_list();
 
         $without_special_courses = '';
         if (!empty($specialCourseList)) {
-            $without_special_courses = ' AND course.code NOT IN ('.implode(
-                    ',',
-                    $specialCourseList
-                ).')';
+            $without_special_courses = ' AND course.code NOT IN ("'.implode('","', $specialCourseList).'")';
         }
         $visibilityCondition = null;
         $hidePrivate = api_get_setting('platform.course_catalog_hide_private');
@@ -770,9 +719,7 @@ class CourseCategoryManager
             if (api_is_multiple_url_enabled()) {
 
                 $url_access_id = api_get_current_access_url_id();
-                $tbl_url_rel_course = Database::get_main_table(
-                    TABLE_MAIN_ACCESS_URL_REL_COURSE
-                );
+                $tbl_url_rel_course = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
 
                 $sql = "SELECT COUNT(*) FROM $tbl_course course
                         INNER JOIN $tbl_url_rel_course as url_rel_course
@@ -835,9 +782,7 @@ class CourseCategoryManager
             //showing only the courses of the current Chamilo access_url_id
             if (api_is_multiple_url_enabled()) {
                 $url_access_id = api_get_current_access_url_id();
-                $tbl_url_rel_course = Database::get_main_table(
-                    TABLE_MAIN_ACCESS_URL_REL_COURSE
-                );
+                $tbl_url_rel_course = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
                 if ($category_code != "ALL") {
                     $sql = "SELECT * FROM $tbl_course as course
                             INNER JOIN $tbl_url_rel_course as url_rel_course
@@ -907,30 +852,18 @@ class CourseCategoryManager
      * @param string $parentCode the parent category of the categories added (default=null for root category)
      * @param string $padding the indent param (you shouldn't indicate something here)
      */
-    function setCategoriesInForm(
-        $element,
-        $defaultCode = null,
-        $parentCode = null,
-        $padding = null
-    ) {
+    public static function setCategoriesInForm($element, $defaultCode = null, $parentCode = null, $padding = null)
+    {
         $tbl_category = Database::get_main_table(TABLE_MAIN_CATEGORY);
-        $conditions = null;
-        $whereCondition = null;
-        if (self::isMultipleUrlSupport()) {
-            $table = Database::get_main_table(
-                TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
-            );
-            $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
-            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id(
-                );
-        }
+
+        $table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
+        $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
+        $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
 
         $sql = "SELECT code, name, auth_course_child, auth_cat_child
                 FROM ".$tbl_category." c
                 $conditions
-                WHERE parent_id ".(empty($parentCode) ? "IS NULL" : "='".Database::escape_string(
-                    $parentCode
-                )."'")."
+            WHERE parent_id ".(empty($parentCode) ? "IS NULL" : "='".Database::escape_string($parentCode)."'")."
                 $whereCondition
                 ORDER BY name,  code";
         $res = Database::query($sql);
@@ -956,7 +889,7 @@ class CourseCategoryManager
      * @param array $list
      * @return array
      */
-    function getCourseCategoryNotInList($list)
+    public static function getCourseCategoryNotInList($list)
     {
         $table = Database::get_main_table(TABLE_MAIN_CATEGORY);
         if (empty($list)) {
@@ -977,23 +910,17 @@ class CourseCategoryManager
      * @param string $keyword
      * @return array|null
      */
-    function searchCategoryByKeyword($keyword)
+    public static function searchCategoryByKeyword($keyword)
     {
         if (empty($keyword)) {
             return null;
         }
 
         $tableCategory = Database::get_main_table(TABLE_MAIN_CATEGORY);
-        $conditions = null;
-        $whereCondition = null;
-        if (self::isMultipleUrlSupport()) {
-            $table = Database::get_main_table(
-                TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
-            );
-            $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
-            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id(
-                );
-        }
+
+        $table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
+        $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
+        $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
 
         $keyword = Database::escape_string($keyword);
 
@@ -1014,7 +941,7 @@ class CourseCategoryManager
      * @param array $list
      * @return array
      */
-    function searchCategoryById($list)
+    public static function searchCategoryById($list)
     {
         if (empty($list)) {
             return array();
@@ -1024,16 +951,10 @@ class CourseCategoryManager
         }
 
         $tableCategory = Database::get_main_table(TABLE_MAIN_CATEGORY);
-        $conditions = null;
-        $whereCondition = null;
-        if (self::isMultipleUrlSupport()) {
-            $table = Database::get_main_table(
-                TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY
-            );
-            $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
-            $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id(
-                );
-        }
+
+        $table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
+        $conditions = " INNER JOIN $table a ON (c.id = a.course_category_id)";
+        $whereCondition = " AND a.access_url_id = ".api_get_current_access_url_id();
 
         $sql = "SELECT c.*, c.name as text FROM $tableCategory c $conditions
                 WHERE c.id IN $list $whereCondition";
@@ -1045,7 +966,7 @@ class CourseCategoryManager
     /**
      * @return array
      */
-    function getLimitArray()
+    public static function getLimitArray()
     {
         $pageCurrent = isset($_REQUEST['pageCurrent']) ?
             intval($_GET['pageCurrent']) :
@@ -1066,7 +987,7 @@ class CourseCategoryManager
      * @param array $limit
      * @return string
      */
-    function getLimitFilterFromArray($limit)
+    public static function getLimitFilterFromArray($limit)
     {
         $limitFilter = '';
         if (!empty($limit) && is_array($limit)) {
@@ -1085,7 +1006,7 @@ class CourseCategoryManager
      * @param $pageTotal
      * @return string
      */
-    function getCatalogPagination($pageCurrent, $pageLength, $pageTotal)
+    public static function getCatalogPagination($pageCurrent, $pageLength, $pageTotal)
     {
         // Start empty html
         $pageDiv = '';
@@ -1096,15 +1017,8 @@ class CourseCategoryManager
         if ($pageBottom > 1) {
             $pageDiv .= self::getPageNumberItem(1, $pageLength);
             if ($pageBottom > 2) {
-                $pageDiv .= self::getPageNumberItem(
-                    $pageBottom - 1,
-                    $pageLength,
-                    null,
-                    '...'
-                );
+                $pageDiv .= self::getPageNumberItem($pageBottom - 1, $pageLength, null, '...');
             }
-        } else {
-            // Nothing to do
         }
 
         // For each page add its page button to html
@@ -1137,8 +1051,6 @@ class CourseCategoryManager
 
         // Complete pagination html
         $pageDiv = Display::tag('ul', $pageDiv, array('class' => 'pagination'));
-
-
         $html .= '<nav>'.$pageDiv.'</nav>';
 
         return $html;
@@ -1153,22 +1065,16 @@ class CourseCategoryManager
      * @param string $action
      * @return string
      */
-    function getCourseCategoryUrl(
+    public static function getCourseCategoryUrl(
         $pageCurrent,
         $pageLength,
         $categoryCode = null,
         $hiddenLinks = null,
         $action = null
     ) {
-        $requestAction = isset($_REQUEST['action']) ? Security::remove_XSS(
-            $_REQUEST['action']
-        ) : null;
-        $action = isset($action) ? Security::remove_XSS(
-            $action
-        ) : $requestAction;
-        $searchTerm = isset($_REQUEST['search_term']) ? Security::remove_XSS(
-            $_REQUEST['search_term']
-        ) : null;
+        $requestAction = isset($_REQUEST['action']) ? Security::remove_XSS($_REQUEST['action']) : null;
+        $action = isset($action) ? Security::remove_XSS($action) : $requestAction;
+        $searchTerm = isset($_REQUEST['search_term']) ? Security::remove_XSS($_REQUEST['search_term']) : null;
 
         if ($action === 'subscribe_user_with_password') {
             $action = 'subscribe';
@@ -1177,16 +1083,10 @@ class CourseCategoryManager
         $categoryCodeRequest = isset($_REQUEST['category_code']) ? Security::remove_XSS(
             $_REQUEST['category_code']
         ) : null;
-        $categoryCode = isset($categoryCode) ? Security::remove_XSS(
-            $categoryCode
-        ) : $categoryCodeRequest;
+        $categoryCode = isset($categoryCode) ? Security::remove_XSS($categoryCode) : $categoryCodeRequest;
 
-        $hiddenLinksRequest = isset($_REQUEST['hidden_links']) ? Security::remove_XSS(
-            $_REQUEST['hidden_links']
-        ) : null;
-        $hiddenLinks = isset($hiddenLinks) ? Security::remove_XSS(
-            $hiddenLinksRequest
-        ) : $categoryCodeRequest;
+        $hiddenLinksRequest = isset($_REQUEST['hidden_links']) ? Security::remove_XSS($_REQUEST['hidden_links']) : null;
+        $hiddenLinks = isset($hiddenLinks) ? Security::remove_XSS($hiddenLinksRequest) : $categoryCodeRequest;
 
         // Start URL with params
         $pageUrl = api_get_self().
@@ -1208,7 +1108,6 @@ class CourseCategoryManager
                 // No break
             default :
                 break;
-
         }
 
         return $pageUrl;
@@ -1222,12 +1121,8 @@ class CourseCategoryManager
      * @param string $content
      * @return string
      */
-    function getPageNumberItem(
-        $pageNumber,
-        $pageLength,
-        $liAttributes = array(),
-        $content = ''
-    ) {
+    public static function getPageNumberItem($pageNumber, $pageLength, $liAttributes = array(), $content = '')
+    {
         // Get page URL
         $url = self::getCourseCategoryUrl(
             $pageNumber,
@@ -1235,10 +1130,7 @@ class CourseCategoryManager
         );
 
         // If is current page ('active' class) clear URL
-        if (isset($liAttributes) && is_array(
-                $liAttributes
-            ) && isset($liAttributes['class'])
-        ) {
+        if (isset($liAttributes) && is_array($liAttributes) && isset($liAttributes['class'])) {
             if (strpos('active', $liAttributes['class']) !== false) {
                 $url = '';
             }
@@ -1261,7 +1153,7 @@ class CourseCategoryManager
      * @param string $action
      * @return string
      */
-    function getCourseCatalogNameTools($action)
+    public static function getCourseCatalogNameTools($action)
     {
         $nameTools = get_lang('SortMyCourses');
         if (empty($action)) {
@@ -1293,8 +1185,4 @@ class CourseCategoryManager
 
         return $nameTools;
     }
-
-    /**
-     * CREATE TABLE IF NOT EXISTS access_url_rel_course_category (access_url_id int unsigned NOT NULL, course_category_id int unsigned NOT NULL, PRIMARY KEY (access_url_id, course_category_id));
-     */
 }

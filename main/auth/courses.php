@@ -64,9 +64,7 @@ if (isset($_GET['action']) && in_array($_GET['action'], $actions)) {
 }
 
 $categoryCode = isset($_GET['category_code']) ? $_GET['category_code'] : 'ALL';
-
-$nameTools = CourseCategoryManager::getCourseCatalogNameTools($action);
-
+$nameTools = CourseCategory::getCourseCatalogNameTools($action);
 if (empty($nameTools)) {
     $nameTools = get_lang('CourseManagement');
 } else {

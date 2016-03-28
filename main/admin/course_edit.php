@@ -184,7 +184,7 @@ $categorySelect = $form->addElement(
 );
 
 if (!empty($courseInfo['categoryCode'])) {
-    $data = CourseCategoryManager::getCategory($courseInfo['categoryCode']);
+    $data = CourseCategory::getCategory($courseInfo['categoryCode']);
     $categorySelect->addOption($data['name'], $data['code']);
 }
 
@@ -221,37 +221,9 @@ $form->addElement('text', 'disk_quota', array(get_lang('CourseQuota'), null, get
 $form->addRule('disk_quota', get_lang('ThisFieldIsRequired'), 'required');
 $form->addRule('disk_quota', get_lang('ThisFieldShouldBeNumeric'), 'numeric');
 
-$specialCourseField = new ExtraField('course');
-$specialCourseFieldInfo = $specialCourseField->get_handler_field_info_by_field_variable('special_course');
-
-if (!empty($specialCourseFieldInfo)) {
-    $specialCourseValue = new ExtraFieldValue('course');
-    $specialCourseValueInfo = $specialCourseValue->get_values_by_handler_and_field_variable(
-        $course_code,
-        'special_course'
-    );
-
-    $specialCourseAttributes = array();
-
-    if (!empty($specialCourseValueInfo) && $specialCourseValueInfo['value'] == 1) {
-        $specialCourseAttributes['checked'] = '';
-    }
-
-    $form->addElement(
-        'checkbox',
-        'extra_special_course',
-        array(
-            null,
-            get_lang('AllUsersAreAutomaticallyRegistered')
-        ),
-        get_lang('SpecialCourse'),
-        $specialCourseAttributes
-    );
-}
-
 //Extra fields
 $extra_field = new ExtraField('course');
-$extra = $extra_field->addElements($form, $courseId, ['special_course']);
+$extra = $extra_field->addElements($form, $courseId);
 
 $htmlHeadXtra[] = '
 <script>
@@ -273,28 +245,6 @@ $form->setDefaults($courseInfo);
 if ($form->validate()) {
     $course = $form->getSubmitValues();
     $visibility = $course['visibility'];
-
-    /*global $_configuration;
-    $urlId = api_get_current_access_url_id();
-    if (isset($_configuration[$urlId]) &&
-        isset($_configuration[$urlId]['hosting_limit_active_courses']) &&
-        $_configuration[$urlId]['hosting_limit_active_courses'] > 0
-    ) {
-        // Check if
-        if ($courseInfo['visibility'] == COURSE_VISIBILITY_HIDDEN &&
-            $visibility != $courseInfo['visibility']
-        ) {
-            $num = CourseManager::countActiveCourses($urlId);
-            if ($num >= $_configuration[$urlId]['hosting_limit_active_courses']) {
-                api_warn_hosting_contact('hosting_limit_active_courses');
-
-                api_set_failure(get_lang('PortalActiveCoursesLimitReached'));
-
-                header('Location: course_list.php?action=show_msg&warn=' . urlencode(get_lang('PortalActiveCoursesLimitReached')));
-                exit;
-            }
-        }
-    }*/
 
     $visual_code = $course['visual_code'];
     $visual_code = CourseManager::generate_course_code($visual_code);
@@ -363,7 +313,6 @@ if ($form->validate()) {
 
     // Updating teachers
     if ($addTeacherToSessionCourses) {
-        // Updating session coaches
         if (!empty($sessionCoaches)) {
             foreach ($sessionCoaches as $sessionId => $teacherInfo) {
                 $coachesToSubscribe = $teacherInfo['coaches_by_session'];

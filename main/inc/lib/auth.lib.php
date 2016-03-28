@@ -406,7 +406,7 @@ class Auth
         $extraFieldTable = Database :: get_main_table(TABLE_EXTRA_FIELD);
         $extraFieldValuesTable = Database :: get_main_table(TABLE_EXTRA_FIELD_VALUES);
 
-        $limitFilter = CourseCategoryManager::getLimitFilterFromArray($limit);
+        $limitFilter = CourseCategory::getLimitFilterFromArray($limit);
 
         // get course list auto-register
         $sql = "SELECT item_id
@@ -570,7 +570,7 @@ class Auth
      */
     public function count_courses_in_category($categoryCode, $searchTerm = '')
     {
-        return CourseCategoryManager::countCoursesInCategory($categoryCode, $searchTerm);
+        return CourseCategory::countCoursesInCategory($categoryCode, $searchTerm);
     }
 
     /**
@@ -579,7 +579,7 @@ class Auth
      */
     public function browse_course_categories()
     {
-        return CourseCategoryManager::browseCourseCategories();
+        return CourseCategory::browseCourseCategories();
     }
 
     /**
@@ -592,7 +592,7 @@ class Auth
      */
     public function browse_courses_in_category($categoryCode, $randomValue = null, $limit = array())
     {
-        return CourseCategoryManager::browseCoursesInCategory($categoryCode, $randomValue, $limit);
+        return CourseCategory::browseCoursesInCategory($categoryCode, $randomValue, $limit);
     }
 
     /**

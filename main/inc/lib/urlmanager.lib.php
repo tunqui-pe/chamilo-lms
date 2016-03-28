@@ -73,6 +73,25 @@ class UrlManager
     {
         $id = intval($id);
         $table = Database :: get_main_table(TABLE_MAIN_ACCESS_URL);
+        $tableUser = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
+        $tableCourse = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
+        $tableSession = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_SESSION);
+        $tableCourseCategory = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE_CATEGORY);
+        $tableGroup = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_USERGROUP);
+
+        $sql = "DELETE FROM $tableCourse WHERE access_url_id = ".$id;
+        $result = Database::query($sql);
+        /*
+        $sql = "DELETE FROM $tableCourseCategory WHERE access_url_id = ".$id;
+        $result = Database::query($sql);
+        */
+        $sql = "DELETE FROM $tableSession WHERE access_url_id = ".$id;
+        $result = Database::query($sql);
+        $sql = "DELETE FROM $tableGroup WHERE access_url_id = ".$id;
+        $result = Database::query($sql);
+        $sql = "DELETE FROM $tableUser WHERE access_url_id = ".$id;
+        $result = Database::query($sql);
+
         $sql= "DELETE FROM $table WHERE id = ".$id;
         $result = Database::query($sql);
 
@@ -987,8 +1006,8 @@ class UrlManager
 
         foreach ($list as $id) {
             UrlManager::addCourseCategoryToUrl($id, $urlId);
-            $categoryInfo = CourseCategoryManager::getCategoryById($id);
-            $children = CourseCategoryManager::getChildren($categoryInfo['code']);
+            $categoryInfo = CourseCategory::getCategoryById($id);
+            $children = CourseCategory::getChildren($categoryInfo['code']);
             if (!empty($children)) {
                 foreach ($children as $category) {
                     UrlManager::addCourseCategoryToUrl($category['id'], $urlId);
@@ -1000,8 +1019,9 @@ class UrlManager
         foreach ($existingItems as $id) {
             if (!in_array($id, $list)) {
                 UrlManager::deleteUrlRelCourseCategory($id, $urlId);
-                $categoryInfo = CourseCategoryManager::getCategoryById($id);
-                $children = CourseCategoryManager::getChildren($categoryInfo['code']);
+                $categoryInfo = CourseCategory::getCategoryById($id);
+
+                $children = CourseCategory::getChildren($categoryInfo['code']);
                 if (!empty($children)) {
                     foreach ($children as $category) {
                         UrlManager::deleteUrlRelCourseCategory($category['id'], $urlId);

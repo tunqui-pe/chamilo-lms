@@ -74,7 +74,7 @@ if (isset ($_GET['action'])) {
                 break;
         }
     }
-    Security::clear_token();
+
 }
 
 $parameters['sec_token'] = Security::get_token();
@@ -129,12 +129,10 @@ if ($userGroup->getUseMultipleUrl()) {
     );
 }
 
-if (CourseCategoryManager::isMultipleUrlSupport()) {
     echo Display::url(
         Display::return_icon('folder.png', get_lang('ManageCourseCategories'), array(), ICON_SIZE_MEDIUM),
         api_get_path(WEB_CODE_PATH).'admin/access_url_edit_course_category_to_url.php'
     );
-}
 echo '</div>';
 
 $sortable_data = UrlManager::get_url_data();
