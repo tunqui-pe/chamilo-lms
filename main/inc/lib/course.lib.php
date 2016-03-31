@@ -191,16 +191,26 @@ class CourseManager
 
                     // If parameter defined, copy the contents from a specific
                     // template course into this new course
-                    $template = api_get_setting(
-                        'course.course_creation_use_template'
-                    );
-                    if (!empty($template)) {
+                    $template = api_get_setting('course.course_creation_use_template');
+                    $teacherCanSelectCourseTemplate = api_get_setting('course.teacher_can_select_course_template') === 'true';
+                    $courseTemplate = isset($params['course_template']) ? intval($params['course_template']) : 0;
+
+                    $useTemplate = false;
+
+                    if ($teacherCanSelectCourseTemplate && $courseTemplate) {
+                        $useTemplate = true;
+                        $originCourse = api_get_course_info_by_id($courseTemplate);
+                    } elseif (!empty($template)) {
+                        $useTemplate = true;
+                        $originCourse = api_get_course_info_by_id($template->getId());
+                    }
+
+                    if ($useTemplate) {
                         // Include the necessary libraries to generate a course copy
                         require_once api_get_path(SYS_CODE_PATH) . 'coursecopy/classes/CourseBuilder.class.php';
                         require_once api_get_path(SYS_CODE_PATH) . 'coursecopy/classes/CourseRestorer.class.php';
                         require_once api_get_path(SYS_CODE_PATH) . 'coursecopy/classes/CourseSelectForm.class.php';
                         // Call the course copy object
-                        $originCourse = api_get_course_info_by_id($template);
                         $originCourse['official_code'] = $originCourse['code'];
                         $cb = new CourseBuilder(null, $originCourse);
                         $course = $cb->build(null, $originCourse['code']);
@@ -989,10 +999,11 @@ class CourseManager
 
     /**
      * @param int $user_id
+     * @param string $startsWith Optional
      * @return array An array with the course info of all the courses (real and virtual)
      * of which the current user is course admin.
      */
-    public static function get_course_list_of_user_as_course_admin($user_id)
+    public static function get_course_list_of_user_as_course_admin($user_id, $startsWith = null)
     {
         if ($user_id != strval(intval($user_id))) {
             return array();
@@ -1008,14 +1019,15 @@ class CourseManager
                     course.code,
                     course.title,
                     course.id,
-                    course.id as real_id
+                    course.id as real_id,
+                    course.category_code
                 FROM $tbl_course_user as course_rel_user
                 INNER JOIN $tbl_course as course
                 ON course.id = course_rel_user.c_id
                 WHERE
                     course_rel_user.user_id='$user_id' AND
                     course_rel_user.status='1'
-                ORDER BY course.title";
+        ";
 
         if (api_get_multiple_access_url()) {
             $tbl_course_rel_access_url = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
@@ -1036,9 +1048,17 @@ class CourseManager
                         access_url_id = $access_url_id  AND
                         course_rel_user.user_id = '$user_id' AND
                         course_rel_user.status = '1'
-                    ORDER BY course.title";
+                ";
             }
         }
+
+        if (!empty($startsWith)) {
+            $startsWith = Database::escape_string($startsWith);
+
+            $sql .= " AND (course.title LIKE '$startsWith%' OR course.code LIKE '$startsWith%')";
+        }
+
+        $sql .= ' ORDER BY course.title';
 
         $result_nb_cours = Database::query($sql);
         if (Database::num_rows($result_nb_cours) > 0) {

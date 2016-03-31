@@ -219,6 +219,19 @@ class UserPortalController extends BaseController
         $obj = new \GradeModel();
         $obj->fill_grade_model_select_in_form($form);
 
+        if (api_get_setting('course.teacher_can_select_course_template') === 'true') {
+            $form->addElement(
+                'select_ajax',
+                'course_template',
+                [
+                    get_lang('CourseTemplate'),
+                    get_lang('PickACourseAsATemplateForThisNewCourse'),
+                ],
+                null,
+                ['url' => api_get_path(WEB_AJAX_PATH) . 'course.ajax.php?a=search_course']
+            );
+        }
+
         $form->addElement('html', '</div>');
 
         // Submit button.
