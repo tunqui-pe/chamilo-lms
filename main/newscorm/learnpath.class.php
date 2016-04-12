@@ -9033,7 +9033,15 @@ class learnpath
             array(),
             ICON_SIZE_TINY
         );
-        $return .= '<a href="' . api_get_path(REL_CODE_PATH) . 'forum/index.php?' . api_get_cidreq() . '&action=add&content=forum&origin=learnpath&lp_id=' . $this->lp_id . '" title="' . get_lang('CreateANewForum') . '">' . get_lang('CreateANewForum') . '</a>';
+        $return .= Display::url(
+            get_lang('CreateANewForum'),
+            api_get_path(REL_CODE_PATH) . 'forum/index.php?' . api_get_cidreq() . '&' . http_build_query([
+                'action' => 'add',
+                'content' => 'forum',
+                'lp_id' => $this->lp_id
+            ]),
+            ['title' => get_lang('CreateANewForum')]
+        );
         $return .= '</li>';
 
         $return .= '<script>
