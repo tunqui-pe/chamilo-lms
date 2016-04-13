@@ -24,8 +24,34 @@ include 'learnpath_functions.inc.php';
 $learnpath = learnpath::getCurrentLpFromSession();
 
 $htmlHeadXtra[] = '
-<script>'.$learnpath->get_js_dropdown_array().'
+<script>'.$learnpath->get_js_dropdown_array().
+"
+    function load_cbo(id) {
+        if (!id) {
+            return false;
+        }
 
+        var cbo = document.getElementById('previous');
+
+        for(var i = cbo.length - 1; i > 0; i--) {
+            cbo.options[i] = null;
+        }
+
+        var k=0;
+
+        for(var i = 1; i <= child_name[id].length; i++){
+            var option = new Option(child_name[id][i - 1], child_value[id][i - 1]);
+            option.style.paddingLeft = '20px';
+
+            cbo.options[i] = option;
+            k = i;
+        }
+
+        cbo.options[k].selected = true;
+        $('#previous').selectpicker('refresh');
+    }
+" .
+'
 $(document).on("ready", function() {
     CKEDITOR.on("instanceReady", function (e) {
         showTemplates("content_lp");
