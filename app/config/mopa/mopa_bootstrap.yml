@@ -13,7 +13,6 @@ mopa_bootstrap:
           collection:
               widget_remove_btn:
                   icon: trash
-                  icon_color: white
                   attr:
                       class: btn btn-danger
               widget_add_btn:

@@ -152,7 +152,7 @@ class Template
 
         //Setting administrator variables
         $this->setAdministratorParams();
-        
+
         $this->setCSSEditor();
 
         //header and footer are showed by default
@@ -570,7 +570,7 @@ class Template
             if (is_file(api_get_path(SYS_CSS_PATH).'themes/'.$this->theme.'/editor.css')) {
                 $cssEditor = api_get_path(WEB_CSS_PATH).'themes/'.$this->theme.'/editor.css';
             }
-            
+
         $this->assign('cssEditor', $cssEditor);
     }
     /**
@@ -582,7 +582,7 @@ class Template
     {
         global $disable_js_and_css_files;
         // Base CSS
-        
+
         $css[] = api_get_cdn_path(api_get_path(WEB_CSS_PATH).'base.css');
 
         if ($this->show_learnpath) {
@@ -591,15 +591,15 @@ class Template
                 $css[] = api_get_path(WEB_CSS_PATH).'themes/'.$this->theme.'/learnpath.css';
             }
         }
-        
+
         if (is_file(api_get_path(SYS_CSS_PATH).'themes/'.$this->theme.'/editor.css')) {
             $css[] = api_get_path(WEB_CSS_PATH).'themes/'.$this->theme.'/editor.css';
         }else{
             $css[] = api_get_cdn_path(api_get_path(WEB_CSS_PATH).'editor.css');
         }
-        
+
         $css[] = api_get_cdn_path(api_get_path(WEB_CSS_PATH).'themes/'.$this->theme.'/default.css');
-        
+
         $css_file_to_string = null;
         foreach ($css as $file) {
             $css_file_to_string .= api_get_css($file);
@@ -853,8 +853,7 @@ class Template
 
         //If exist pick the current chamilo theme favicon
         if (is_file($favicoThemeUrl . 'favicon.ico')) {
-            $favico = '<link rel="shortcut icon" href="' . api_get_path(WEB_CSS_PATH)
-                . 'themes/' . $this->theme . '/images/favicon.ico" type="image/x-icon" />';
+            $favico = '<link rel="shortcut icon" href="' . api_get_path(WEB_CSS_PATH). 'themes/' . $this->theme . '/images/favicon.ico" type="image/x-icon" />';
         }
 
         if (api_is_multiple_url_enabled()) {

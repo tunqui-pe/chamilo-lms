@@ -279,6 +279,13 @@ define('VALID_WEB_PATH', '/https?:\/\/[^\/]*(\/.*)?/i');            // $is_valid
 define('VALID_WEB_SERVER_BASE', '/https?:\/\/[^\/]*/i');            // $new_path = preg_replace(VALID_WEB_SERVER_BASE, $new_base, $path);
 
 // Constants for api_get_path() and api_get_path_type(), etc. - registered path types.
+// Constants for api_get_path() and api_get_path_type(), etc. - registered path types.
+// basic (leaf elements)
+define('REL_CODE_PATH', 'REL_CODE_PATH');
+define('REL_COURSE_PATH', 'REL_COURSE_PATH');
+define('REL_HOME_PATH', 'REL_HOME_PATH');
+
+// Constants for api_get_path() and api_get_path_type(), etc. - registered path types.
 define('WEB_PATH', 'WEB_PATH');
 define('WEB_APP_PATH', 'WEB_APP_PATH');
 define('SYS_PATH', 'SYS_PATH');
@@ -304,11 +311,10 @@ define('WEB_CSS_PATH', 'WEB_CSS_PATH');
 define('WEB_PUBLIC_PATH', 'WEB_PUBLIC_PATH');
 define('SYS_CSS_PATH', 'SYS_CSS_PATH');
 define('SYS_PLUGIN_PATH', 'SYS_PLUGIN_PATH');
-define('PLUGIN_PATH', 'SYS_PLUGIN_PATH'); // deprecated ?
 define('WEB_PLUGIN_PATH', 'WEB_PLUGIN_PATH');
 define('SYS_ARCHIVE_PATH', 'SYS_ARCHIVE_PATH');
 define('WEB_ARCHIVE_PATH', 'WEB_ARCHIVE_PATH');
-define('INCLUDE_PATH', 'INCLUDE_PATH');
+define('SYS_INC_PATH', 'SYS_INC_PATH');
 define('LIBRARY_PATH', 'LIBRARY_PATH');
 define('CONFIGURATION_PATH', 'CONFIGURATION_PATH');
 define('WEB_LIBRARY_PATH', 'WEB_LIBRARY_PATH');
@@ -318,28 +324,14 @@ define('SYS_TEST_PATH', 'SYS_TEST_PATH');
 define('WEB_TEMPLATE_PATH', 'WEB_TEMPLATE_PATH');
 define('SYS_TEMPLATE_PATH', 'SYS_TEMPLATE_PATH');
 define('SYS_PUBLIC_PATH', 'SYS_PUBLIC_PATH');
-
+define('SYS_HOME_PATH', 'SYS_HOME_PATH');
+define('WEB_HOME_PATH', 'WEB_HOME_PATH');
 define('WEB_FONTS_PATH', 'WEB_FONTS_PATH');
 define('SYS_FONTS_PATH', 'SYS_FONTS_PATH');
 
 define('SYS_DEFAULT_COURSE_DOCUMENT_PATH', 'SYS_DEFAULT_COURSE_DOCUMENT_PATH');
 define('REL_DEFAULT_COURSE_DOCUMENT_PATH', 'REL_DEFAULT_COURSE_DOCUMENT_PATH');
 define('WEB_DEFAULT_COURSE_DOCUMENT_PATH', 'WEB_DEFAULT_COURSE_DOCUMENT_PATH');
-
-// Constants for requesting path conversion.
-define('TO_WEB', 'TO_WEB');
-define('TO_SYS', 'TO_SYS');
-define('TO_REL', 'TO_REL');
-
-// Paths to registered specific resource files (scripts, players, etc.)
-define('FLASH_PLAYER_AUDIO', '{FLASH_PLAYER_AUDIO}');
-define('FLASH_PLAYER_VIDEO', '{FLASH_PLAYER_VIDEO}');
-define('SCRIPT_SWFOBJECT', '{SCRIPT_SWFOBJECT}');
-define('SCRIPT_ASCIIMATHML', '{SCRIPT_ASCIIMATHML}');
-define('DRAWING_ASCIISVG', '{DRAWING_ASCIISVG}');
-
-// Forcing PclZip library to use a custom temporary folder.
-//define('PCLZIP_TEMPORARY_DIR', api_get_path(SYS_ARCHIVE_PATH));
 
 // Relations type with Course manager
 define('COURSE_RELATION_TYPE_COURSE_MANAGER', 1);
@@ -487,6 +479,22 @@ define('CALCULATED_ANSWER', 16);
 define('UNIQUE_ANSWER_IMAGE', 17);
 define('DRAGGABLE', 18);
 define('MATCHING_DRAGGABLE', 19);
+
+define('EXERCISE_CATEGORY_RANDOM_SHUFFLED', 1);
+define('EXERCISE_CATEGORY_RANDOM_ORDERED', 2);
+define('EXERCISE_CATEGORY_RANDOM_DISABLED', 0);
+
+// Question selection type
+define('EX_Q_SELECTION_ORDERED', 1);
+define('EX_Q_SELECTION_RANDOM', 2);
+define('EX_Q_SELECTION_CATEGORIES_ORDERED_QUESTIONS_ORDERED', 3);
+define('EX_Q_SELECTION_CATEGORIES_RANDOM_QUESTIONS_ORDERED', 4);
+define('EX_Q_SELECTION_CATEGORIES_ORDERED_QUESTIONS_RANDOM', 5);
+define('EX_Q_SELECTION_CATEGORIES_RANDOM_QUESTIONS_RANDOM', 6);
+define('EX_Q_SELECTION_CATEGORIES_RANDOM_QUESTIONS_ORDERED_NO_GROUPED', 7);
+define('EX_Q_SELECTION_CATEGORIES_RANDOM_QUESTIONS_RANDOM_NO_GROUPED', 8);
+define('EX_Q_SELECTION_CATEGORIES_ORDERED_BY_PARENT_QUESTIONS_ORDERED', 9);
+define('EX_Q_SELECTION_CATEGORIES_ORDERED_BY_PARENT_QUESTIONS_RANDOM', 10);
 
 // one big string with all question types, for the validator in pear/HTML/QuickForm/Rule/QuestionType
 define('QUESTION_TYPES',
@@ -732,11 +740,14 @@ function api_get_path($path_type, $path = null)
         WEB_PLUGIN_PATH         => 'plugin/',
         SYS_ARCHIVE_PATH        => 'app/cache/',
         WEB_ARCHIVE_PATH        => 'app/cache/',
+        SYS_HOME_PATH => 'app/home/',
+        WEB_HOME_PATH => 'app/home/',
+        REL_HOME_PATH => 'app/home/',
         SYS_APP_PATH            => 'app/',
         WEB_APP_PATH            => 'app/',
         SYS_UPLOAD_PATH         => 'app/upload/',
         REL_UPLOAD_PATH         => 'app/upload/',
-        INCLUDE_PATH            => 'inc/',
+        SYS_INC_PATH            => 'inc/',
         LIBRARY_PATH            => 'inc/lib/',
         CONFIGURATION_PATH      => 'app/config/',
         WEB_LIBRARY_PATH        => 'inc/lib/',
@@ -744,9 +755,9 @@ function api_get_path($path_type, $path = null)
         WEB_AJAX_PATH           => 'inc/ajax/',
         SYS_TEST_PATH           => 'tests/',
         WEB_TEMPLATE_PATH       => 'template/',
+        SYS_TEMPLATE_PATH => 'template/',
         WEB_UPLOAD_PATH         => 'app/upload/',
         WEB_PUBLIC_PATH         => 'web/',
-        SYS_TEMPLATE_PATH       => 'template/',
         SYS_PUBLIC_PATH         => 'web/',
         WEB_FONTS_PATH          => 'fonts/',
         SYS_FONTS_PATH          => 'fonts/',
@@ -907,27 +918,7 @@ function api_get_path($path_type, $path = null)
     if (empty($path_type)) {
         return null;
     }
-
-    // Retrieving a common-purpose path.
-    if (isset($paths[$path_type])) {
-        return $paths[$path_type];
-    }
-
-    // Retrieving a specific resource path.
-
-    if (isset($resource_paths[$path])) {
-        switch ($path_type) {
-            case TO_WEB:
-                return $paths[WEB_CODE_PATH].$resource_paths[$path];
-            case TO_SYS:
-                return $paths[SYS_CODE_PATH].$resource_paths[$path];
-            case TO_REL:
-                return $paths[REL_CODE_PATH].$resource_paths[$path];
-            default:
-                return null;
-        }
-    }
-
+  
     // Common-purpose paths as a second parameter - recognition.
 
     if (isset($paths[$path])) {
@@ -2041,7 +2032,8 @@ function api_check_password($password) {
  * @param bool      database check switch - passed to api_is_anonymous()
  * @return bool     true if succesfully unregistered, false if not anonymous.
  */
-function api_clear_anonymous($db_check = false) {
+function api_clear_anonymous($db_check = false)
+{
     global $_user;
     if (api_is_anonymous($_user['user_id'], $db_check)) {
         unset($_user['user_id']);
@@ -6647,7 +6639,8 @@ function api_get_unique_id() {
  */
 function api_get_home_path()
 {
-    $home = 'app/home/';
+    // FIX : Start the routing determination from central path definition
+    $home = api_get_path(SYS_HOME_PATH);
     if (api_get_multiple_access_url()) {
         $access_url_id = api_get_current_access_url_id();
         $url_info = api_get_access_url($access_url_id);
@@ -6655,10 +6648,10 @@ function api_get_home_path()
         $clean_url = api_replace_dangerous_char($url);
         $clean_url = str_replace('/', '-', $clean_url);
         $clean_url .= '/';
+        if ($clean_url != 'localhost/') {
 
-        $home = 'app/home/' . $clean_url;
-
-    }
+            return "{$home}{$clean_url}";
+    }    
 
     return $home;
 }
@@ -6893,12 +6886,13 @@ function api_is_global_chat_enabled()
  * @param int $group_id
  * @param array $courseInfo
  */
-function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseInfo = array(), $sessionId = null)
+function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseInfo = array(), $sessionId = 0, $userId = 0)
 {
     $courseInfo = empty($courseInfo) ? api_get_course_info() : $courseInfo;
     $courseId = $courseInfo['real_id'];
     $courseCode = $courseInfo['code'];
     $sessionId = empty($sessionId) ? api_get_session_id() : $sessionId;
+    $userId = empty($userId) ? api_get_user_id() : $userId;
 
     $original_tool_id = $tool_id;
 
@@ -6948,7 +6942,7 @@ function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseIn
             $original_tool_id,
             $item_id,
             $visibility,
-            api_get_user_id(),
+            $userId,
             $group_id,
             null,
             null,

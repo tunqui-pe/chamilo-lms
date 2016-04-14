@@ -32,6 +32,7 @@ imports:
     - { resource: sonata/sonata_admin.yml }
     - { resource: sonata/sonata_page.yml }
     - { resource: sonata/sonata_media.yml }
+    - { resource: sonata/sonata_translation.yml }
 #    - { resource: sonata/sonata_news.yml }
 #    - { resource: sonata/sonata_user.yml }
 #    - { resource: sonata/sonata_notification.yml }
@@ -259,14 +260,6 @@ fm_elfinder:
                         #upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
                         #upload_deny: ['all']
                         upload_max_size: 2M
-
-lunetics_locale:
-    guessing_order:
-        - query
-        - router
-        - session
-        #- browser
-    allowed_locales: "%locales%"
 
 knp_menu:
     twig: true

@@ -137,7 +137,7 @@ class Database
             array(
                 'ChamiloUserBundle' => 'Chamilo\UserBundle\Entity',
                 'ChamiloCoreBundle' => 'Chamilo\CoreBundle\Entity',
-                'ChamiloCourseBundle' => 'Chamilo\CourseBundle\Entity'
+                'ChamiloCourseBundle' => 'Chamilo\CourseBundle\Entity',
             )
         );
 
@@ -148,11 +148,11 @@ class Database
         // Registering Constraints
         AnnotationRegistry::registerAutoloadNamespace(
             'Symfony\Component\Validator\Constraint',
-            $sysPath."vendor/symfony/validator"
+            $sysPath."vendor/symfony/symfony/src"
         );
 
         AnnotationRegistry::registerFile(
-            $sysPath."vendor/symfony/doctrine-bridge/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntity.php"
+            $sysPath."vendor/symfony/symfony/src/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntity.php"
         );
 
         // Registering gedmo extensions
@@ -647,19 +647,27 @@ class Database
         $path = !empty($path) ? $path : api_get_path(SYS_PATH);
 
         $paths = array(
+            $path.'src/Chamilo/ClassificationBundle/Entity',
+            $path.'src/Chamilo/MediaBundle/Entity',
+            $path.'src/Chamilo/PageBundle/Entity',
             $path.'src/Chamilo/CoreBundle/Entity',
             $path.'src/Chamilo/UserBundle/Entity',
-            $path.'src/Chamilo/CourseBundle/Entity'
+            $path.'src/Chamilo/CourseBundle/Entity',
+            $path.'vendor/sonata-project/user-bundle/Entity',
+            $path.'vendor/sonata-project/user-bundle/Model',
+            $path.'vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Entity',
         );
 
         $proxyDir = $path.'app/cache/';
 
-        return \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
+        $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
             $paths,
             $isDevMode,
             $proxyDir,
             $cache,
             $isSimpleMode
         );
+
+        return $config;
     }
 }

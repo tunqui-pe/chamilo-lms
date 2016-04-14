@@ -37,6 +37,9 @@ class AppKernel extends Kernel
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             // Data grid
             new APY\DataGridBundle\APYDataGridBundle(),
+            new Chamilo\FaqBundle\ChamiloFaqBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
             // Sonata
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
@@ -50,7 +53,6 @@ class AppKernel extends Kernel
             new Sonata\NotificationBundle\SonataNotificationBundle(),
             new Sonata\DatagridBundle\SonataDatagridBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
-            //new Sonata\TranslationBundle\SonataTranslationBundle(),
             new Sonata\PageBundle\SonataPageBundle(),
 
             new Spy\TimelineBundle\SpyTimelineBundle(),
@@ -85,6 +87,7 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
 
             // User
             new FOS\UserBundle\FOSUserBundle(),

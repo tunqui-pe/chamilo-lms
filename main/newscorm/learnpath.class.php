@@ -482,6 +482,8 @@ class learnpath
      * @param string $description
      * @param int $prerequisites
      * @param int $max_time_allowed
+     * @param int $userId
+     *
      * @return int
      */
     public function add_item(
@@ -492,7 +494,8 @@ class learnpath
         $title,
         $description,
         $prerequisites = 0,
-        $max_time_allowed = 0
+        $max_time_allowed = 0,
+        $userId = 0
     ) {
         $course_id = $this->course_info['real_id'];
         if ($this->debug > 0) {
@@ -503,6 +506,8 @@ class learnpath
             $this->course_info = api_get_course_info($this->cc);
             $course_id = $this->course_info['real_id'];
         }
+        $userId = empty($userId) ? api_get_user_id() : $userId;
+        $sessionId = api_get_session_id();
         $tbl_lp_item = Database :: get_course_table(TABLE_LP_ITEM);
         $_course = $this->course_info;
         $parent = intval($parent);
@@ -656,31 +661,37 @@ class learnpath
                         '/audio',
                         'folder',
                         0,
-                        'audio'
+                        'audio',
+                        '',
+                        0,
+                        true,
+                        null,
+                        $sessionId,
+                        $userId
                     );
                     api_item_property_update(
                         $_course,
                         TOOL_DOCUMENT,
                         $audio_id,
                         'FolderCreated',
-                        api_get_user_id(),
+                        $userId,
                         null,
                         null,
                         null,
                         null,
-                        api_get_session_id()
+                        $sessionId
                     );
                     api_item_property_update(
                         $_course,
                         TOOL_DOCUMENT,
                         $audio_id,
                         'invisible',
-                        api_get_user_id(),
+                        $userId,
                         null,
                         null,
                         null,
                         null,
-                        api_get_session_id()
+                        $sessionId
                     );
                 }
 
@@ -689,7 +700,7 @@ class learnpath
                     $_FILES['mp3'],
                     api_get_path(SYS_COURSE_PATH) . $_course['path'] . '/document',
                     '/audio',
-                    api_get_user_id(),
+                    $userId,
                     '',
                     '',
                     '',
@@ -731,7 +742,8 @@ class learnpath
         $zipname = '',
         $publicated_on = '',
         $expired_on = '',
-        $categoryId = 0
+        $categoryId = 0,
+        $userId = 0
     ) {
         global $charset;
 
@@ -752,6 +764,8 @@ class learnpath
 
         // Session id.
         $session_id = api_get_session_id();
+
+        $userId = empty($userId) ? api_get_user_id() : $userId;
 
         $check_name = "SELECT * FROM $tbl_lp
                        WHERE c_id = $course_id AND name = '$name'";
@@ -859,9 +873,9 @@ class learnpath
                         TOOL_LEARNPATH,
                         $id,
                         'LearnpathAdded',
-                        api_get_user_id()
+                        $userId
                     );
-                    api_set_default_visibility($id, TOOL_LEARNPATH, 0, $courseInfo);
+                    api_set_default_visibility($id, TOOL_LEARNPATH, 0, $courseInfo, $session_id, $userId);
                     return $id;
                 }
                 break;
@@ -5615,7 +5629,7 @@ class learnpath
                 $title_cut,
                 $url,
                 array(
-                    'class' => 'moved',
+                    'class' => 'ajax moved',
                     'data-title' => $title_cut
                 )
             );
@@ -5944,18 +5958,22 @@ class learnpath
     /**
      * Creates the default learning path folder
      * @param array $course
+     * @param int $creatorId
+     *
      * @return bool
      */
-    public static function generate_learning_path_folder($course)
+    public static function generate_learning_path_folder($course, $creatorId = 0)
     {
         // Creating learning_path folder
         $dir = '/learning_path';
         $filepath = api_get_path(SYS_COURSE_PATH).$course['path'] . '/document';
+        $creatorId = empty($creatorId) ? api_get_user_id() : $creatorId;
+
         $folder = false;
         if (!is_dir($filepath.'/'.$dir)) {
             $folderData = create_unexisting_directory(
                 $course,
-                api_get_user_id(),
+                $creatorId,
                 api_get_session_id(),
                 0,
                 0,
@@ -5970,15 +5988,18 @@ class learnpath
         } else {
             $folder = true;
         }
+
         return $folder;
     }
 
     /**
      * @param array $course
      * @param string $lp_name
+     * @param int $creatorId
+     *
      * @return array
      */
-    public function generate_lp_folder($course, $lp_name = null)
+    public function generate_lp_folder($course, $lp_name = '', $creatorId = 0)
     {
         $filepath = '';
         $dir = '/learning_path/';
@@ -5986,8 +6007,10 @@ class learnpath
         if (empty($lp_name)) {
             $lp_name = $this->name;
         }
+        $creatorId = empty($creatorId) ? api_get_user_id() : $creatorId;
 
-        $folder = self::generate_learning_path_folder($course);
+        $folder = self::generate_learning_path_folder($course, $creatorId);
+
         // Limits title size
         $title = api_substr(api_replace_dangerous_char($lp_name), 0 , 80);
         $dir = $dir.$title;
@@ -6000,7 +6023,7 @@ class learnpath
             if (!is_dir($filepath.'/'.$dir)) {
                 $folderData = create_unexisting_directory(
                     $course,
-                    api_get_user_id(),
+                    $creatorId,
                     0,
                     0,
                     0,
@@ -6044,10 +6067,11 @@ class learnpath
      * @param string $title
      * @param string $extension
      * @param int $parentId
+     * @param int $creatorId creator id
      *
      * @return string
      */
-    public function create_document($courseInfo, $content = '', $title = '', $extension = 'html', $parentId = 0)
+    public function create_document($courseInfo, $content = '', $title = '', $extension = 'html', $parentId = 0, $creatorId = 0)
     {
         if (!empty($courseInfo)) {
             $course_id = $courseInfo['real_id'];
@@ -6055,6 +6079,8 @@ class learnpath
             $course_id = api_get_course_int_id();
         }
 
+       $creatorId = empty($creatorId) ? api_get_user_id() : $creatorId;
+       $sessionId = api_get_session_id();
         //$dir = '/';
         // Generates folder
         $result = $this->generate_lp_folder($courseInfo);
@@ -6158,7 +6184,13 @@ class learnpath
                     $save_file_path,
                     'file',
                     $file_size,
-                    $tmp_filename
+                    $tmp_filename,
+                    '',
+                    0, //readonly
+                    true,
+                    null,
+                    $sessionId,
+                    $creatorId
                 );
 
                 if ($document_id) {
@@ -6167,15 +6199,15 @@ class learnpath
                         TOOL_DOCUMENT,
                         $document_id,
                         'DocumentAdded',
-                        api_get_user_id(),
+                        $creatorId,
                         null,
                         null,
                         null,
                         null,
-                        api_get_session_id()
+                        $sessionId
                     );
 
-                    $new_comment = (isset($_POST['comment'])) ? trim($_POST['comment']) : '';
+                    $new_comment = isset($_POST['comment']) ? trim($_POST['comment']) : '';
                     $new_title = $originalTitle;
 
                     if ($new_comment || $new_title) {
@@ -6239,7 +6271,7 @@ class learnpath
             $file = $filepath . $row['path'];
 
             if ($fp = @ fopen($file, 'w')) {
-                $content = str_replace(api_get_path(WEB_COURSE_PATH), $urlAppend . '/courses/', $content);
+                $content = str_replace(api_get_path(WEB_COURSE_PATH), $_configuration['url_append'].api_get_path(REL_COURSE_PATH), $content);
 
                 // Change the path of mp3 to absolute.
                 // The first regexp deals with :// urls.
@@ -8403,7 +8435,7 @@ class learnpath
             $audio_player .= '<script>
                                 var s1 = new SWFObject("../inc/lib/mediaplayer/player.swf","ply","250","20","9","#FFFFFF");
                                 s1.addParam("allowscriptaccess","always");
-                                s1.addParam("flashvars","file=../../courses/' . $_course['path'] . '/document/audio/' . $row['audio'] . '&autostart=true");
+                s1.addParam("flashvars","file=../..'.api_get_path(REL_COURSE_PATH).$_course['path'] . '/document/audio/' . $row['audio'] . '&autostart=true");
                                 s1.write("container");
                             </script>';
         }
@@ -8974,7 +9006,7 @@ class learnpath
             array(),
             ICON_SIZE_TINY
         ).'
-                <a href="'.api_get_path(REL_CODE_PATH).'link/link.php?'.$courseIdReq.
+                <a href="'.api_get_path(WEB_CODE_PATH).'link/link.php?'.$courseIdReq.
                     '&action=addlink&lp_id='.$this->lp_id.'" title="'.get_lang('LinkAdd').'">'.get_lang('LinkAdd').'</a>
             </li>';
         foreach ($categorizedLinks as $categoryId => $links) {
@@ -9900,7 +9932,7 @@ class learnpath
                     $string = str_replace($old_new['orig'], $newDestination, $string);
 
                     //Add files inside the HTMLs
-                    $new_path = str_replace('/courses/', '', $old_new['orig']);
+                    $new_path = str_replace(api_get_path(REL_COURSE_PATH), '', $old_new['orig']);
                     $destinationFile = $archive_path.$temp_dir_short.'/'.$old_new['dest'];
                     if (file_exists($sys_course_path.$new_path)) {
                         copy($sys_course_path.$new_path, $destinationFile);
@@ -10899,8 +10931,8 @@ EOD;
                     'ip.visibility != ? AND ' => 2,
                     'ip.tool = ? AND ' => TOOL_FORUM,
                     'f.c_id = ? AND ' => intval($this->course_int_id),
-                    'f.lp_id = ?' => intval($this->lp_id),
-                ],
+                    'f.lp_id = ?' => intval($this->lp_id)
+                ]
             ],
             'first'
         );

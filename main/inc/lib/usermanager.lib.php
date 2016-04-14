@@ -37,7 +37,7 @@ class UserManager
     private static $encryptionMethod;
 
     /**
-     * The default constructor only instanciates an empty user object
+     * Constructor
      * @assert () === null
      */
     public function __construct()
@@ -228,6 +228,7 @@ class UserManager
             ->setRegistrationDate($now)
             ->setHrDeptId($hr_dept_id)
             ->setActive($active)
+            ->setEnabled($active)
         ;
 
         $url = $em->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
@@ -824,6 +825,7 @@ class UserManager
             ->setPictureUri($picture_uri)
             ->setExpirationDate($expiration_date)
             ->setActive($active)
+            ->setEnabled($active)
             ->setHrDeptId($hr_dept_id)
         ;
 
@@ -1448,9 +1450,6 @@ class UserManager
                 break;
             case 'web': // Base: absolute web path.
                 $userPath = api_get_path(WEB_UPLOAD_PATH).$userPath;
-                break;
-            case 'rel': // Relative to the document root (e.g. app/upload/users/1/13/)
-                $userPath = api_get_path(REL_UPLOAD_PATH).$userPath;
                 break;
             case 'last': // Only the last part starting with users/
                 break;
@@ -4885,7 +4884,7 @@ EOF;
     /**
      * @param User $user
      */
-    static function add_user_as_admin($user)
+    public static function add_user_as_admin($user)
     {
         $user->addRole('ROLE_ADMIN');
         self::getManager()->updateUser($user, true);

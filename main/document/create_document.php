@@ -25,7 +25,7 @@ var hide_bar = function() {
 }
 
 $(document).ready(function() {
-    $(".scrollbar-macosx").scrollbar();
+    $(".scrollbar-light").scrollbar();
 
     if ($(window).width() <= 785 ) {
         hide_bar();
@@ -638,7 +638,7 @@ if ($form->validate()) {
             <div id="template_col" class="col-md-2">
                 <div class="panel panel-default">
                 <div class="panel-body">
-                    <div id="frmModel" class="items-templates scrollbar-macosx"></div>
+                    <div id="frmModel" class="items-templates scrollbar-light"></div>
                 </div>
                 </div>
             </div>

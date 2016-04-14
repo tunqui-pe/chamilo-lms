@@ -229,7 +229,8 @@ class Notification extends Model
         $user_list,
         $title,
         $content,
-        $senderInfo = array()
+        $senderInfo = array(),
+        $attachments = array()
     ) {
         $this->type = intval($type);
         $content = $this->formatContent($content, $senderInfo);
@@ -309,7 +310,8 @@ class Notification extends Model
                                 Security::filter_terms($content),
                                 $this->adminName,
                                 $this->adminEmail,
-                                $extraHeaders
+                                $extraHeaders,
+                                $attachments
                             );
                         }
                         $sendDate = api_get_utc_datetime();

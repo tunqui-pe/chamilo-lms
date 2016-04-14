@@ -27,12 +27,21 @@ sonata_page:
         - ^/api/(.*)
         - ^install
         - ^/install/(.*)
+        - ^/packages/(.*)
+        - ^/package/(.*)
         - install.php
+        - install.php/(.*)
+        - install.php/packages/(.*)
+        - install.php/package/(.*)
+        - install.php/(.*)/(.*)
         - ^/bundles/(.*)
         - ^/_wdt/(.*)
+        - ^/_profiler/(.*)
         - ^/userportal
         - ^/userportal/(.*)
         - ^/js/(.*)
+        - ^/faq/(.*)
+        - ^/faq
         - ^/courses/(.*)
         - ^/front/editor
 

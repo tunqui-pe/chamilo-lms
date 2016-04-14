@@ -9,7 +9,7 @@ class SelectLanguage extends HTML_QuickForm_select
 	/**
 	 * Class constructor
 	 */
-    function SelectLanguage(
+    public function __construct(
         $elementName = null,
         $elementLabel = null,
         $options = null,

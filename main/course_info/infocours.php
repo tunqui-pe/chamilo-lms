@@ -186,19 +186,21 @@ $form->applyFilter('department_url', 'html_filter');
 
 // Picture
 $form->addElement('file', 'picture', get_lang('AddPicture'), array('id' => 'picture', 'class' => 'picture-form'));
-$form->addHtml(''
-            . '<div class="form-group">'
-                . '<label for="cropImage" id="labelCropImage" class="col-sm-2 control-label"></label>'
-                    . '<div class="col-sm-8">'
-                        . '<div id="cropImage" class="cropCanvas">'
-                            . '<img id="previewImage" >'
-                        . '</div>'
-                        . '<div>'
-                            . '<button class="btn btn-primary hidden" type="button" name="cropButton" id="cropButton"><em class="fa fa-crop"></em> '.get_lang('CropYourPicture').'</button>'
-                        . '</div>'
-                    . '</div>'
-            . '</div>'
-. '');
+$form->addHtml('
+<div class="form-group">
+    <label for="cropImage" id="labelCropImage" class="col-sm-2 control-label"></label>
+    <div class="col-sm-8">
+        <div id="cropImage" class="cropCanvas">
+            <img id="previewImage" />
+        </div>
+        <div>
+            <button class="btn btn-primary hidden" type="button" name="cropButton" id="cropButton">
+                <em class="fa fa-crop"></em> '.get_lang('CropYourPicture').'
+            </button>
+        </div>
+    </div>
+</div>
+');
 $form->addHidden('cropResult', '');
 $allowed_picture_types = array ('jpg', 'jpeg', 'png', 'gif');
 $form->addRule('picture', get_lang('OnlyImagesAllowed').' ('.implode(',', $allowed_picture_types).')', 'filetype', $allowed_picture_types);
@@ -233,7 +235,11 @@ $form->addElement('html', '</div></div>');
 
 // COURSE ACCESS
 
-$form->addElement('html', '<div> <h3>'.Display::return_icon('course.png', Security::remove_XSS(get_lang('CourseAccess')),'',ICON_SIZE_SMALL).' '.Security::remove_XSS(get_lang('CourseAccess')).'</h3><div>');
+$form->addElement(
+    'html',
+    '<div><h3>'.
+        Display::return_icon('course.png', Security::remove_XSS(get_lang('CourseAccess')),'',ICON_SIZE_SMALL).' '.Security::remove_XSS(get_lang('CourseAccess')).'</h3><div>'
+);
 
 $group = array();
 $group[]= $form->createElement('radio', 'visibility', get_lang("CourseAccess"), get_lang('OpenToTheWorld'), COURSE_VISIBILITY_OPEN_WORLD);
@@ -414,8 +420,6 @@ if ($exerciseInvisible === 'true' &&
     $form->addGroup($group, '', array(get_lang("ExerciseInvisibleInSession")), '');
 }
 
-
-
 if (is_settings_editable()) {
     $form->addButtonSave(get_lang('SaveSettings'), 'submit_save');
 } else {
@@ -469,6 +473,20 @@ if (api_get_setting('course.allow_public_certificates')=='true') {
 }
 
 // Plugin course settings
+$form->addElement(
+    'html',
+    '<div><h3>'.Display::return_icon('forum.png', Security::remove_XSS(get_lang('Forum')),'',ICON_SIZE_SMALL).' '.Security::remove_XSS(get_lang('Forum')).'</h3><div>'
+);
+
+$group = array(
+    $form->createElement('radio', 'enable_forum_auto_launch', null, get_lang('RedirectToForumList'), 1),
+    $form->createElement('radio', 'enable_forum_auto_launch', null, get_lang('Disabled'), 2),
+);
+$form->addGroup($group, '', array(get_lang('EnableForumAutoLaunch')), '');
+$form->addButtonSave(get_lang('SaveSettings'), 'submit_save');
+$form->addElement('html', '</div></div>');
+
+
 
 $appPlugin = new AppPlugin();
 $appPlugin->add_course_settings_form($form);

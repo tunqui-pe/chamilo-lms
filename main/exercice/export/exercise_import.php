@@ -5,14 +5,8 @@
  * @package chamilo.exercise
  * @author claro team <cvs@claroline.net>
  */
-/**
- * Code
- */
-
-require '../../inc/global.inc.php';
 
 //SECURITY CHECK
-
 if (api_is_platform_admin()) {
     api_not_allowed();
 }
@@ -30,13 +24,7 @@ $tbl_rel_exercise_question = Database::get_course_table(TABLE_QUIZ_TEST_QUESTION
 //Tool title
 
 $nameTools = get_lang('ImportExercise');
-
-//bredcrump
-
 $interbredcrump[] = array('url' => '../exercise.php', 'name' => get_lang('Exercises'));
-
-//----------------------------------
-// EXECUTE COMMAND
 //----------------------------------
 
 $cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : 'show_import');
@@ -75,17 +63,9 @@ switch ($cmd) {
         break;
 }
 
-//----------------------------------
-// FIND INFORMATION
-//----------------------------------
-
-//empty!
-
-//----------------------------------
 // DISPLAY
-//----------------------------------
 
-include api_get_path(INCLUDE_PATH) . '/header.inc.php';
+include api_get_path(SYS_INC_PATH) . '/header.inc.php';
 
 //display title
 
@@ -106,7 +86,4 @@ if (isset($display)) {
     echo $display;
 }
 
-//footer display
-
-include api_get_path(INCLUDE_PATH) . '/footer.inc.php';
-?>
+include api_get_path(SYS_INC_PATH) . '/footer.inc.php';
