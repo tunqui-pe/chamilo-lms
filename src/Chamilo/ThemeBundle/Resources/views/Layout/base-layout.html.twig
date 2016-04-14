@@ -47,6 +47,7 @@
 
     {# Chamilo theme #}
     {% set theme = chamilo_settings_get('platform.theme') %}
+    {% set theme = 'chamilo' %}
 
     {% set bug_notification_link = '' %}
     {% set help_content = '' %}
@@ -86,10 +87,11 @@
         {% include '@ChamiloTheme/Layout/header.js.twig' %}
     {% endblock %}
 
+    {#'@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'#}
+
     {% javascripts
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-    '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
     %}
     <script type="text/javascript" src="{{ asset_url | replace({'/app_dev.php': ''}) }}"></script>
     {% endjavascripts %}
@@ -120,7 +122,7 @@
 
     <header>
         <div class="extra-header">
-            {{ header_extra_content }}
+            {#{{ header_extra_content }}#}
         </div>
 
         <section id="main" class="container">
@@ -264,6 +266,6 @@
     {% include '@ChamiloTheme/Layout/footer.js.twig' %}
 {% endblock %}
 
-{% endblock %} {# End wrapper block#}
+{#{% endblock %} #}{# End wrapper block#}
 </body>
 </html>

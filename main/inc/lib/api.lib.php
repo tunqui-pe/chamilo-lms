@@ -676,7 +676,7 @@ require_once __DIR__.'/internationalization.lib.php';
  * api_get_path(SYS_COURSE_PATH)                /var/www/chamilo/app/courses/
  * api_get_path(SYS_CSS_PATH)                   /var/www/chamilo/app/Resources/public/css
  * api_get_path(SYS_CODE_PATH)                  /var/www/chamilo/main/
- * api_get_path(INCLUDE_PATH)                   /var/www/chamilo/main/inc/
+ * api_get_path(SYS_INC_PATH)                   /var/www/chamilo/main/inc/
  * api_get_path(LIBRARY_PATH)                   /var/www/chamilo/main/inc/lib/
  * api_get_path(CONFIGURATION_PATH)             /var/www/chamilo/main/inc/conf/
  * api_get_path(SYS_LANG_PATH)                  /var/www/chamilo/main/lang/
@@ -759,14 +759,6 @@ function api_get_path($path_type, $path = null)
         SYS_PUBLIC_PATH         => 'web/',
         WEB_FONTS_PATH          => 'fonts/',
         SYS_FONTS_PATH          => 'fonts/',
-    );
-
-    static $resource_paths = array(
-        FLASH_PLAYER_AUDIO      => 'inc/lib/mediaplayer/player.swf',
-        FLASH_PLAYER_VIDEO      => 'inc/lib/mediaplayer/player.swf',
-        SCRIPT_SWFOBJECT        => 'inc/lib/swfobject/swfobject.js',
-        SCRIPT_ASCIIMATHML      => 'inc/lib/javascript/asciimath/ASCIIMathML.js',
-        DRAWING_ASCIISVG        => 'inc/lib/javascript/asciimath/d.svg'
     );
 
     static $is_this_function_initialized;
@@ -863,7 +855,7 @@ function api_get_path($path_type, $path = null)
         $paths[WEB_UPLOAD_PATH]         = $paths[WEB_PATH].$paths[WEB_UPLOAD_PATH];
         $paths[WEB_PUBLIC_PATH]         = $paths[WEB_PATH].$paths[WEB_PUBLIC_PATH];
 
-        $paths[INCLUDE_PATH]            = $paths[SYS_CODE_PATH].$paths[INCLUDE_PATH];
+        $paths[SYS_INC_PATH]            = $paths[SYS_CODE_PATH].$paths[SYS_INC_PATH];
         $paths[LIBRARY_PATH]            = $paths[SYS_CODE_PATH].$paths[LIBRARY_PATH];
         $paths[CONFIGURATION_PATH]      = $paths[SYS_PATH].$paths[CONFIGURATION_PATH];
 

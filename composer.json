@@ -171,7 +171,7 @@
         "gregwar/captcha-bundle": "^2.0",
         "ornicar/gravatar-bundle": "^1.1",
         "a2lix/translation-form-bundle": "~2.0",
-        "knplabs/doctrine-behaviors": "~1.1",
+        "knplabs/doctrine-behaviors": "~1.1"
     },
     "require-dev": {
         "behat/behat": "@stable",
