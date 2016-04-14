@@ -30,7 +30,7 @@ services:
     chamilo_notebook.settings.notebook_settings_schema:
         class: Chamilo\NotebookBundle\Settings\NotebookSettingsSchema
         tags:
-            - { name: sylius.settings_schema, namespace: notebook }
+            - { name: sylius.settings_schema, alias: chamilo_notebook.settings.notebook_settings_schema, namespace: notebook }
 
     # Local course settings
     chamilo_notebook.settings.notebook_course_settings_schema:

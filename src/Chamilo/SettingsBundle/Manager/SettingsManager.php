@@ -9,6 +9,7 @@ use Sylius\Bundle\SettingsBundle\Event\SettingsEvent;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Bundle\SettingsBundle\Model\Settings;
+use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaRegistryInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilder;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -50,13 +51,14 @@ class SettingsManager extends SyliusSettingsManager
         $this->url = $url;
         $schemas = $this->getSchemas();
         $schemas = array_keys($schemas);
+
         /**
          * @var string $key
          * @var \Sylius\Bundle\SettingsBundle\Schema\SchemaInterface $schema
          */
         foreach ($schemas as $schema) {
-            $settings = $this->loadSettings($schema);
-            $this->saveSettings($schema, $settings);
+            $settings = $this->load($schema);
+            $this->save($schema, $settings);
         }
     }
 
@@ -65,7 +67,7 @@ class SettingsManager extends SyliusSettingsManager
      */
     public function getSchemas()
     {
-        return $this->schemaRegistry->getSchemas();
+        return $this->schemaRegistry->all();
     }
 
     /**
@@ -80,7 +82,7 @@ class SettingsManager extends SyliusSettingsManager
         }
 
         list($namespace, $name) = explode('.', $name);
-        $settings = $this->loadSettings($namespace);
+        $settings = $this->load($namespace);
 
         return $settings->get($name);
     }
@@ -88,21 +90,19 @@ class SettingsManager extends SyliusSettingsManager
     /**
      * {@inheritdoc}
      */
-    public function loadSettings($namespace)
+    public function load($schemaAlias, $namespace = null, $ignoreUnknown = true)
     {
-        if (isset($this->resolvedSettings[$namespace])) {
-            return $this->resolvedSettings[$namespace];
-        }
+        /*$schema = $this->schemaRegistry->get($schemaAlias);
+        $resolver = $this->resolverRegistry->get($schemaAlias);
 
-        /*if ($this->cache->contains($namespace)) {
-            $parameters = $this->cache->fetch($namespace);
-        } else {
-            $parameters = $this->getParameters($namespace);
-        }*/
+        // try to resolve settings for schema alias and namespace
+        $settings = $resolver->resolve($schemaAlias, $namespace);
+
+dump($settings);
 
         $parameters = $this->getParameters($namespace);
 
-        $schema = $this->schemaRegistry->getSchema($namespace);
+        $schema = $this->schemaRegistry->get($namespace);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
@@ -114,16 +114,57 @@ class SettingsManager extends SyliusSettingsManager
         }
         $parameters = $settingsBuilder->resolve($parameters);
 
-        return $this->resolvedSettings[$namespace] = new Settings($parameters);
+        return $this->resolvedSettings[$namespace] = new Settings($parameters);*/
+
+        /*$schema = $this->schemaRegistry->get($schemaAlias);
+        $resolver = $this->resolverRegistry->get($schemaAlias);
+
+        // try to resolve settings for schema alias and namespace
+        $settings = $resolver->resolve($schemaAlias, $namespace);
+
+        if (!$settings) {
+            $settings = $this->settingsFactory->createNew();
+            $settings->setSchemaAlias($schemaAlias);
+        }*/
+
+        $schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
+
+        $settings = $this->settingsFactory->createNew();
+        //$settings->setSchemaAlias($schemaAlias);
+
+        $parameters = $this->getParameters($schemaAlias);
+        $schema = $this->schemaRegistry->get($schemaAlias);
+
+        // We need to get a plain parameters array since we use the options resolver on it
+        //$parameters = $settings->getParameters();
+
+        $settingsBuilder = new SettingsBuilder();
+        $schema->buildSettings($settingsBuilder);
+
+        // Remove unknown settings' parameters (e.g. From a previous version of the settings schema)
+        if (true === $ignoreUnknown) {
+            foreach ($parameters as $name => $value) {
+                if (!$settingsBuilder->isDefined($name)) {
+                    unset($parameters[$name]);
+                }
+            }
+        }
+
+        $parameters = $settingsBuilder->resolve($parameters);
+        $settings->setParameters($parameters);
+
+        return $settings;
+
     }
 
     /**
      * {@inheritdoc}
      * @throws ValidatorException
      */
-    public function saveSettings($namespace, Settings $settings)
+    public function save(SettingsInterface $settings)
     {
-        $schema = $this->schemaRegistry->getSchema($namespace);
+        $schema = $this->schemaRegistry->get($settings->getSchemaAlias());
+        //$schema = $this->schemaRegistry->getSchema($namespace);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
@@ -206,8 +247,9 @@ class SettingsManager extends SyliusSettingsManager
      */
     private function getParameters($namespace)
     {
-        $parameters = array();
-        foreach ($this->parameterRepository->findBy(array('category' => $namespace)) as $parameter) {
+        $repo = $this->manager->getRepository('ChamiloCoreBundle:SettingsCurrent');
+        $parameters = [];
+        foreach ($repo->findBy(array('category' => $namespace)) as $parameter) {
             $parameters[$parameter->getName()] = $parameter->getValue();
         }
 

@@ -57,7 +57,7 @@
 sylius_settings:
     driver: doctrine/orm
     resources:
-        parameter:
+        settings:
             classes:
                 model: Chamilo\CoreBundle\Entity\SettingsCurrent
                 repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository

@@ -4,8 +4,8 @@
 namespace Chamilo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
-use Sylius\Bundle\SettingsBundle\Model\ParameterInterface;
 
 /**
  * SettingsCurrent
@@ -13,7 +13,7 @@ use Sylius\Bundle\SettingsBundle\Model\ParameterInterface;
  * @ORM\Table(name="settings_current", uniqueConstraints={@ORM\UniqueConstraint(name="unique_setting", columns={"variable", "subkey", "access_url"})}, indexes={@ORM\Index(name="access_url", columns={"access_url"})})
  * @ORM\Entity(repositoryClass="Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository")
  */
-class SettingsCurrent implements ParameterInterface
+class SettingsCurrent
 {
     /**
      * @var integer
@@ -113,6 +113,8 @@ class SettingsCurrent implements ParameterInterface
      * @ORM\JoinColumn(name="access_url", referencedColumnName="id")
      */
     protected $url;
+
+    private $parameters;
 
     /**
      * Constructor
@@ -447,6 +449,7 @@ class SettingsCurrent implements ParameterInterface
     public function setNamespace($namespace)
     {
         $this->setCategory($namespace);
+
         return $this;
     }
 
@@ -465,6 +468,7 @@ class SettingsCurrent implements ParameterInterface
     {
         $this->setTitle($name);
         $this->setVariable($name);
+
         return $this;
     }
 
@@ -482,7 +486,36 @@ class SettingsCurrent implements ParameterInterface
     public function setValue($value)
     {
         $this->setSelectedValue($value);
+
         return $this;
     }
+
+    public function getParameters()
+    {
+        return [];
+    }
+
+    public function setParameters(array $parameters)
+    {
+        $this->parameters = $parameters;
+    }
+
+    public function get($name)
+    {
+        if (!$this->has($name)) {
+            throw new ParameterNotFoundException($name);
+        }
+
+        return $this->parameters[$name];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function has($name)
+    {
+        return array_key_exists($name, $this->parameters);
+    }
+
 
 }

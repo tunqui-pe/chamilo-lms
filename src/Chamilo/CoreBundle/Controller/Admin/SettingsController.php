@@ -60,6 +60,8 @@ class SettingsController extends SyliusSettingsController
         $builder->add('search', 'submit');
         $searchForm = $builder->getForm();
 
+        $namespace = $namespace;
+
         $keyword = '';
         if ($searchForm->handleRequest($request)->isValid()) {
             $values = $searchForm->getData();
@@ -80,11 +82,11 @@ class SettingsController extends SyliusSettingsController
             );
         }
 
-        $settings = $manager->loadSettings($namespace);
+        $settings = $manager->load($namespace);
 
         $form = $this
             ->getSettingsFormFactory()
-            ->create($namespace)
+            ->create('chamilo_core.settings.'.$namespace)
         ;
 
         if (!empty($keyword)) {
@@ -101,7 +103,7 @@ class SettingsController extends SyliusSettingsController
         if ($form->handleRequest($request)->isValid()) {
             $messageType = 'success';
             try {
-                $manager->saveSettings($namespace, $form->getData());
+                $manager->save($namespace, $form->getData());
                 $message = $this->getTranslator()->trans('sylius.settings.update', array(), 'flashes');
             } catch (ValidatorException $exception) {
                 $message = $this->getTranslator()->trans($exception->getMessage(), array(), 'validators');

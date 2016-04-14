@@ -31,10 +31,9 @@ class SettingsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-             new \Twig_SimpleFunction('chamilo_settings_all', array($this,
-                     'getSettings')),
-             new \Twig_SimpleFunction('chamilo_settings_get', array($this,
-                     'getSettingsParameter')),
+             new \Twig_SimpleFunction('chamilo_settings_all', array($this, 'getSettings')),
+             new \Twig_SimpleFunction('chamilo_settings_get', array($this, 'getSettingsParameter')),
+             new \Twig_SimpleFunction('chamilo_settings_has', [$this, 'hasSettingsParameter']),
         );
     }
 
@@ -51,16 +50,15 @@ class SettingsExtension extends \Twig_Extension
     }
 
     /**
-     * Load settings parameter for given namespace and name.
-     *
-     * @param string $name
-     *
+     * @param $name
      * @return mixed
      */
     public function getSettingsParameter($name)
     {
         return $this->helper->getSettingsParameter($name);
+        //return $this->getSettingsParameter($name);
     }
+
 
     /**
      * {@inheritdoc}

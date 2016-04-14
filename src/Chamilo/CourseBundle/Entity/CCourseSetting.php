@@ -4,7 +4,6 @@
 namespace Chamilo\CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Bundle\SettingsBundle\Model\ParameterInterface;
 
 /**
  * CCourseSetting
@@ -17,7 +16,7 @@ use Sylius\Bundle\SettingsBundle\Model\ParameterInterface;
  * )
  * @ORM\Entity(repositoryClass="Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository")
  */
-class CCourseSetting implements ParameterInterface
+class CCourseSetting
 {
     /**
      * @var integer

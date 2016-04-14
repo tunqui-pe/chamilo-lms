@@ -15,4 +15,6 @@ class SettingsHelper extends SyliusHelper
     {
         return 'chamilo_settings';
     }
+
+    
 }

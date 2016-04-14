@@ -57,7 +57,7 @@ services:
     chamilo_course.controller.settings:
         class: "%chamilo_course.controller.settings.class%"
         calls:
-          - [setContainer, [@service_container]]
+          - [setContainer, [service_container]]
 
     chamilo_course.settings.schema_registry:
         class: %chamilo_course.settings.schema_registry.class%
@@ -74,21 +74,20 @@ services:
         factory_method: getRepository
         arguments: [ Chamilo\CourseBundle\Entity\CCourseSetting ]
 
+
     chamilo_course.settings.manager:
-        class: %chamilo_course.settings.manager.class%
+        class: '%chamilo_course.settings.manager.class%'
         arguments:
-            - @chamilo_course.settings.schema_registry
-            - @sylius.manager.parameter
-            - @chamilo_course.repository.parameter
-            - @sylius.factory.parameter
-            - @doctrine_cache.providers.chamilo_settings
-            - @validator
+            - @sylius.registry.settings_schema
+            - @sylius.registry.settings_resolver
+            - @sylius.manager.settings
+            - @sylius.factory.settings
             - @event_dispatcher
 
     # Tool chain loads the list of tool services with the tag "chamilo_course.tool"
     # Tool chain is filled in file DependencyInjection/Compiler/ToolCompilerClass.php
     chamilo_course.tool_chain:
-        class: %chamilo_course.tool_chain.class%
+        class: '%chamilo_course.tool_chain.class%'
 
     # Agenda tool
     chamilo_course.tool.agenda:
@@ -98,7 +97,7 @@ services:
             - authoring
             - calendar/agenda.php
             - agenda.gif
-            - @chamilo_course.settings.agenda
+            - chamilo_course.settings.agenda
         tags:
             - { name: chamilo_course.tool }
 
@@ -116,7 +115,7 @@ services:
             - authoring
             - announcements/announcements.php
             - valves.gif
-            - @chamilo_course.settings.announcement
+            - chamilo_course.settings.announcement
         tags:
             - { name: chamilo_course.tool }
 
