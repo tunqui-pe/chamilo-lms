@@ -75,7 +75,6 @@ define('COURSE_REQUEST_ACCEPTED', 1);
 define('COURSE_REQUEST_REJECTED', 2);
 define('DELETE_ACTION_ENABLED', false);
 
-
 // EMAIL SENDING RECIPIENT CONSTANTS
 define('SEND_EMAIL_EVERYONE', 1);
 define('SEND_EMAIL_STUDENTS', 2);
@@ -299,8 +298,7 @@ define('WEB_SERVER_ROOT_PATH', 'WEB_SERVER_ROOT_PATH');
 define('SYS_SERVER_ROOT_PATH', 'SYS_SERVER_ROOT_PATH');
 define('WEB_COURSE_PATH', 'WEB_COURSE_PATH');
 define('SYS_COURSE_PATH', 'SYS_COURSE_PATH');
-define('REL_COURSE_PATH', 'REL_COURSE_PATH');
-define('REL_CODE_PATH', 'REL_CODE_PATH');
+
 define('REL_UPLOAD_PATH', 'REL_UPLOAD_PATH');
 define('WEB_CODE_PATH', 'WEB_CODE_PATH');
 define('SYS_CODE_PATH', 'SYS_CODE_PATH');
@@ -918,7 +916,7 @@ function api_get_path($path_type, $path = null)
     if (empty($path_type)) {
         return null;
     }
-  
+
     // Common-purpose paths as a second parameter - recognition.
 
     if (isset($paths[$path])) {
@@ -1295,6 +1293,7 @@ function api_get_navigator() {
         $version = number_format(doubleval($version), 1);
     }
     $return = array('name' => $navigator, 'version' => $version);
+
     return $return;
 }
 
@@ -2048,7 +2047,8 @@ function api_clear_anonymous($db_check = false)
  * @author Noel Dieschburg
  * @param the int status code
  */
-function get_status_from_code($status_code) {
+function get_status_from_code($status_code)
+{
     switch ($status_code) {
         case STUDENT:
             return get_lang('Student', '');
@@ -2062,13 +2062,6 @@ function get_status_from_code($status_code) {
             return get_lang('Drh', '');
     }
 }
-
-/* FAILURE MANAGEMENT */
-
-/**
- * The Failure Management module is here to compensate
- * the absence of an 'exception' device in PHP 4.
- */
 
 /**
  * Sets the current user as anonymous if it hasn't been identified yet. This
@@ -2123,7 +2116,9 @@ function api_get_session_name($session_id = 0)
 {
     if (empty($session_id)) {
         $session_id = api_get_session_id();
-        if (empty($session_id)) { return null; }
+        if (empty($session_id)) {
+            return null;
+        }
     }
     $t = Database::get_main_table(TABLE_MAIN_SESSION);
     $s = "SELECT name FROM $t WHERE id = ".(int)$session_id;
@@ -2533,8 +2528,6 @@ function api_get_self() {
     //return htmlentities(Container::getRequest()->getUri());
 }
 
-/* USER PERMISSIONS */
-
 /**
  * Checks whether current user is a platform administrator
  * @param boolean Whether session admins should be considered admins or not
@@ -2564,6 +2557,7 @@ function api_is_platform_admin($allow_sessions_admins = false, $allow_drh = fals
         return true;
     }
     $_user = api_get_user_info();
+
     return
         isset($_user['status']) &&
         (
@@ -2631,7 +2625,8 @@ function api_get_user_status($user_id = null)
  * @return boolean True if the user has course creation rights,
  * false otherwise.
  */
-function api_is_allowed_to_create_course() {
+function api_is_allowed_to_create_course()
+{
     return Session::read('is_allowedCreateCourse');
 }
 
@@ -2639,7 +2634,8 @@ function api_is_allowed_to_create_course() {
  * Checks whether the current user is a course administrator
  * @return boolean True if current user is a course administrator
  */
-function api_is_course_admin() {
+function api_is_course_admin()
+{
     if (api_is_platform_admin()) {
         return true;
     }
@@ -2650,7 +2646,8 @@ function api_is_course_admin() {
  * Checks whether the current user is a course coach
  * @return bool     True if current user is a course coach
  */
-function api_is_course_coach() {
+function api_is_course_coach()
+{
     return Session::read('is_courseCoach');
 }
 
@@ -2658,7 +2655,8 @@ function api_is_course_coach() {
  * Checks whether the current user is a course tutor
  * @return bool     True if current user is a course tutor
  */
-function api_is_course_tutor() {
+function api_is_course_tutor()
+{
     return Session::read('is_courseTutor');
 }
 
@@ -2668,8 +2666,8 @@ function api_is_course_tutor() {
  * @return array
  */
 function api_get_user_platform_status($user_id = null) {
-    $status     = array();
-    $user_id    = intval($user_id);
+    $status = array();
+    $user_id = intval($user_id);
     if (empty($user_id)) {
         $user_id = api_get_user_id();
     }
@@ -6651,7 +6649,8 @@ function api_get_home_path()
         if ($clean_url != 'localhost/') {
 
             return "{$home}{$clean_url}";
-    }    
+        }
+    }
 
     return $home;
 }
@@ -6710,22 +6709,8 @@ function api_block_course_item_locked_by_gradebook($item_id, $link_type, $course
         api_not_allowed(true, $message);
     }
 }
-/**
- * Checks the PHP version installed is enough to run Chamilo
- * @param string Include path (used to load the error page)
- * @return void
- */
-function api_check_php_version($my_inc_path = null) {
-    if (!function_exists('version_compare') || version_compare( phpversion(), REQUIRED_PHP_VERSION, '<')) {
-        $global_error_code = 1;
-        // Incorrect PHP version
-        $global_page = $my_inc_path.'global_error_message.inc.php';
-        if (file_exists($global_page)) {
-            require $global_page;
-        }
-        exit;
-    }
-}
+
+
 /**
  * Checks whether the Archive directory is present and writeable. If not,
  * prints a warning message.
@@ -6736,6 +6721,7 @@ function api_check_archive_dir() {
         api_not_allowed(true, $message);
     }
 }
+
 /**
  * Returns an array of global configuration settings which should be ignored
  * when printing the configuration settings screens
@@ -7827,170 +7813,6 @@ function api_mail_html(
     Container::getMailer()->send($swiftMessage);
 
     return 1;
-
-    global $platform_email;
-
-    $mail = new PHPMailer();
-    $mail->Mailer = $platform_email['SMTP_MAILER'];
-    $mail->Host = $platform_email['SMTP_HOST'];
-    $mail->Port = $platform_email['SMTP_PORT'];
-    $mail->CharSet = $platform_email['SMTP_CHARSET'];
-    // Stay far below SMTP protocol 980 chars limit.
-    $mail->WordWrap = 200;
-
-    if ($platform_email['SMTP_AUTH']) {
-        $mail->SMTPAuth = 1;
-        $mail->Username = $platform_email['SMTP_USER'];
-        $mail->Password = $platform_email['SMTP_PASS'];
-    }
-
-    // 5 = low, 1 = high
-    $mail->Priority = 3;
-    $mail->SMTPKeepAlive = true;
-
-    // Default values
-    $notification = new Notification();
-    $defaultEmail = $notification->getDefaultPlatformSenderEmail();
-    $defaultName = $notification->getDefaultPlatformSenderName();
-
-    // Error to admin.
-    $mail->AddCustomHeader('Errors-To: '.$defaultEmail);
-
-    // If the parameter is set don't use the admin.
-    $senderName = !empty($senderName) ? $senderName : $defaultName;
-    $senderEmail = !empty($senderEmail) ? $senderEmail : $defaultEmail;
-
-    // Reply to first
-    if (isset($extra_headers['reply_to'])) {
-        $mail->AddReplyTo(
-            $extra_headers['reply_to']['mail'],
-            $extra_headers['reply_to']['name']
-        );
-        $mail->Sender = $extra_headers['reply_to']['mail'];
-        unset($extra_headers['reply_to']);
-    }
-    //If the SMTP configuration only accept one sender
-    if ($platform_email['SMTP_UNIQUE_SENDER']) {
-        $senderName = $platform_email['SMTP_FROM_NAME'];
-        $senderEmail = $platform_email['SMTP_FROM_EMAIL'];
-    }
-    $mail->SetFrom($senderEmail, $senderName);
-
-    $mail->Subject = $subject;
-    $mail->AltBody = strip_tags(
-        str_replace('<br />', "\n", api_html_entity_decode($message))
-    );
-
-    // Send embedded image.
-    if ($embedded_image) {
-        // Get all images html inside content.
-        preg_match_all("/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>/i", $message, $m);
-        // Prepare new tag images.
-        $new_images_html = array();
-        $i = 1;
-        if (!empty($m[1])) {
-            foreach ($m[1] as $image_path) {
-                $real_path = realpath($image_path);
-                $filename  = basename($image_path);
-                $image_cid = $filename.'_'.$i;
-                $encoding = 'base64';
-                $image_type = mime_content_type($real_path);
-                $mail->AddEmbeddedImage(
-                    $real_path,
-                    $image_cid,
-                    $filename,
-                    $encoding,
-                    $image_type
-                );
-                $new_images_html[] = '<img src="cid:'.$image_cid.'" />';
-                $i++;
-            }
-        }
-
-        // Replace origin image for new embedded image html.
-        $x = 0;
-        if (!empty($m[0])) {
-            foreach ($m[0] as $orig_img) {
-                $message = str_replace($orig_img, $new_images_html[$x], $message);
-                $x++;
-            }
-        }
-    }
-
-    $mailView = new Template(null, false, false, false, false, false, false);
-    $mailView->assign('content', $message);
-
-    if (isset($additionalParameters['link'])) {
-        $mailView->assign('link', $additionalParameters['link']);
-    }
-
-    $layout = $mailView->get_template('mail/mail.tpl');
-    $mail->Body = $mailView->fetch($layout);
-
-    // Attachment ...
-    if (!empty($data_file)) {
-        $mail->AddAttachment($data_file['path'], $data_file['filename']);
-    }
-
-    // Only valid addresses are accepted.
-    if (is_array($recipient_email)) {
-        foreach ($recipient_email as $dest) {
-            if (api_valid_email($dest)) {
-                $mail->AddAddress($dest, $recipient_name);
-            }
-        }
-    } else {
-        if (api_valid_email($recipient_email)) {
-            $mail->AddAddress($recipient_email, $recipient_name);
-        } else {
-            return 0;
-        }
-    }
-
-    if (is_array($extra_headers) && count($extra_headers) > 0) {
-        foreach ($extra_headers as $key => $value) {
-            switch (strtolower($key)) {
-                case 'encoding':
-                case 'content-transfer-encoding':
-                    $mail->Encoding = $value;
-                    break;
-                case 'charset':
-                    $mail->Charset = $value;
-                    break;
-                case 'contenttype':
-                case 'content-type':
-                    $mail->ContentType = $value;
-                    break;
-                default:
-                    $mail->AddCustomHeader($key.':'.$value);
-                    break;
-            }
-        }
-    } else {
-        if (!empty($extra_headers)) {
-            $mail->AddCustomHeader($extra_headers);
-        }
-    }
-
-    // WordWrap the html body (phpMailer only fixes AltBody) FS#2988
-    $mail->Body = $mail->WrapText($mail->Body, $mail->WordWrap);
-    // Send the mail message.
-    if (!$mail->Send()) {
-        error_log('ERROR: mail not sent to '.$recipient_name.' ('.$recipient_email.') because of '.$mail->ErrorInfo.'<br />');
-        return 0;
-    }
-
-    if (!empty($additionalParameters)) {
-        $plugin = new AppPlugin();
-        $smsPlugin = $plugin->getSMSPluginLibrary();
-        if ($smsPlugin) {
-            $smsPlugin->send($additionalParameters);
-        }
-    }
-
-    // Clear all the addresses.
-    $mail->ClearAddresses();
-    return 1;
 }
 
 /**
@@ -8022,7 +7844,8 @@ function api_protect_course_group($tool, $showHeader = true)
  * @param int $key key to find to compare
  *
  */
-function api_unique_multidim_array($array, $key){
+function api_unique_multidim_array($array, $key)
+{
     $temp_array = array();
     $i = 0;
     $key_array = array();
