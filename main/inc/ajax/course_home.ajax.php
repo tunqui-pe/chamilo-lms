@@ -71,11 +71,13 @@ switch ($action) {
 		$tbl_course_description = Database::get_course_table(TABLE_COURSE_DESCRIPTION);
 		$course_info = api_get_course_info($_GET['code']);
 
-		if ($course_info['visibility'] != COURSE_VISIBILITY_OPEN_WORLD) {
-			if (api_is_anonymous()) {
-				exit;
-			}
-		}
+        if (
+            api_get_setting('course_catalog_hide_private') === 'true' &&
+            $course_info['visibility'] == COURSE_VISIBILITY_REGISTERED
+        ) {
+            echo get_lang('PrivateAccess');
+            break;
+        }
 
 		$sql = "SELECT * FROM $tbl_course_description
 		        WHERE c_id = ".$course_info['real_id']." AND session_id = 0
