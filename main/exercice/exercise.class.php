@@ -35,6 +35,7 @@ class Exercise
     public $course;
     public $course_id;
     public $propagate_neg;
+    public $saveCorrectAnswers;
     public $review_answers;
     public $randomByCat;
     public $text_when_finished;
@@ -70,6 +71,7 @@ class Exercise
         $this->results_disabled = 1;
         $this->expired_time = '0000-00-00 00:00:00';
         $this->propagate_neg = 0;
+        $this->saveCorrectAnswers = 0;
         $this->review_answers = false;
         $this->randomByCat = 0;
         $this->text_when_finished = '';
@@ -125,6 +127,7 @@ class Exercise
             $this->attempts = $object->max_attempt;
             $this->feedback_type = $object->feedback_type;
             $this->propagate_neg = $object->propagate_neg;
+            $this->saveCorrectAnswers = $object->save_correct_answers;
             $this->randomByCat = $object->random_by_category;
             $this->text_when_finished = $object->text_when_finished;
             $this->display_category_name = $object->display_category_name;
@@ -1108,6 +1111,14 @@ class Exercise
     }
 
     /**
+     * @return int
+     */
+    public function selectSaveCorrectAnswers()
+    {
+        return $this->saveCorrectAnswers;
+    }
+
+    /**
      * Selects questions randomly in the question list
      *
      * @author Olivier Brouckaert
@@ -1247,6 +1258,14 @@ class Exercise
     public function updatePropagateNegative($value)
     {
         $this->propagate_neg = $value;
+    }
+
+    /**
+     * @param $value int
+     */
+    public function updateSaveCorrectAnswers($value)
+    {
+        $this->saveCorrectAnswers = $value;
     }
 
     /**
@@ -1497,6 +1516,7 @@ class Exercise
         $random_answers = $this->random_answers;
         $active = $this->active;
         $propagate_neg = $this->propagate_neg;
+        $saveCorrectAnswers = isset($this->saveCorrectAnswers) && $this->saveCorrectAnswers ? true : false;
         $review_answers = isset($this->review_answers) && $this->review_answers ? 1 : 0;
         $randomByCat = intval($this->randomByCat);
         $text_when_finished = $this->text_when_finished;
@@ -1547,6 +1567,7 @@ class Exercise
                     'max_attempt' => $attempts,
                     'expired_time' => $expired_time,
                     'propagate_neg' => $propagate_neg,
+                    'save_correct_answers' => $saveCorrectAnswers,
                     'review_answers' => $review_answers,
                     'random_by_category' => $randomByCat,
                     'text_when_finished' => $text_when_finished,
@@ -1617,7 +1638,8 @@ class Exercise
                 'random_by_category' => $randomByCat,
                 'text_when_finished' => $text_when_finished,
                 'display_category_name' => $display_category_name,
-                'pass_percentage' => $pass_percentage
+                'pass_percentage' => $pass_percentage,
+                'save_correct_answers' => $saveCorrectAnswers
             ];
 
             $this->id = Database::insert($TBL_EXERCISES, $params);
@@ -2114,6 +2136,11 @@ class Exercise
             //$check_option=$this->selectType();
             $diplay = 'block';
             $form->addElement('checkbox', 'propagate_neg', null, get_lang('PropagateNegativeResults'));
+            $form->addCheckBox(
+                'save_correct_answers',
+                null,
+                get_lang('Save the correct answers for the next attempt')
+            );
             $form->addElement('html','<div class="clear">&nbsp;</div>');
             $form->addElement('checkbox', 'review_answers', null, get_lang('ReviewAnswers'));
 
@@ -2235,6 +2262,7 @@ class Exercise
                 $defaults['exerciseFeedbackType'] = $this->selectFeedbackType();
                 $defaults['results_disabled'] = $this->selectResultsDisabled();
                 $defaults['propagate_neg'] = $this->selectPropagateNeg();
+                $defaults['save_correct_answers'] = $this->selectSaveCorrectAnswers();
                 $defaults['review_answers'] = $this->review_answers;
                 $defaults['randomByCat'] = $this->selectRandomByCat();
                 $defaults['text_when_finished'] = $this->selectTextWhenFinished();
@@ -2326,6 +2354,7 @@ class Exercise
         $this->updateResultsDisabled($form->getSubmitValue('results_disabled'));
         $this->updateExpiredTime($form->getSubmitValue('enabletimercontroltotalminutes'));
         $this->updatePropagateNegative($form->getSubmitValue('propagate_neg'));
+        $this->updateSaveCorrectAnswers($form->getSubmitValue('save_correct_answers'));
         $this->updateRandomByCat($form->getSubmitValue('randomByCat'));
         $this->updateTextWhenFinished($form->getSubmitValue('text_when_finished'));
         $this->updateDisplayCategoryName($form->getSubmitValue('display_category_name'));
