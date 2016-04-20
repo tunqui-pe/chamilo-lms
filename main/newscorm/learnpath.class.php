@@ -6309,7 +6309,7 @@ class learnpath
                 Session::write('parent_item_id', $valueId);
 
                 // Prevents wrong parent selection for document, see Bug#1251.
-                if ($row['item_type'] != 'dokeos_chapter' || $row['item_type'] != 'dokeos_module') {
+                if ($row['item_type'] != 'dokeos_chapter' && $row['item_type'] != 'dokeos_module') {
                     Session::write('parent_item_id', $row['parent_item_id']);
                 }
 
