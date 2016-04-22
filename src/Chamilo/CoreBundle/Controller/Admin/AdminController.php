@@ -77,9 +77,7 @@ class AdminController extends BaseController
         $blocks['users']['label'] = api_ucfirst(get_lang('Users'));
 
         if (api_is_platform_admin()) {
-            $search_form = $this->getSearchForm(
-                $adminUrl.'user_list.php'
-            )->return_form();
+            $search_form = $this->getSearchForm($adminUrl.'user_list.php')->return_form();
             $blocks['users']['search_form'] = $search_form;
             $items = array(
                 array(

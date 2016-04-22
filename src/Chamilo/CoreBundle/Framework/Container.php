@@ -109,7 +109,7 @@ class Container
      */
     public static function getTempDir()
     {
-        return self::$container->get('kernel')->getCacheDir();
+        return self::$container->get('kernel')->getCacheDir().'/';
     }
 
     /**
