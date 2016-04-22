@@ -715,7 +715,7 @@ require_once __DIR__.'/internationalization.lib.php';
  * api_get_path(TO_REL, __FILE__)
  * ...
  */
-function api_get_path($path_type, $path = null)
+function api_get_path($path)
 {
     static $paths = array(
         WEB_PATH                => '',
@@ -766,7 +766,11 @@ function api_get_path($path_type, $path = null)
     static $server_base_sys; // No trailing slash.
     static $root_rel;
 
-    $root_web = Container::getUrlGenerator()->generate('home', [], UrlGeneratorInterface::ABSOLUTE_URL);
+    $root_web = Container::getUrlGenerator()->generate(
+        'home',
+        []
+    );
+    //var_dump($root_web);
     $rootDir = Container::getRootDir();
 
     // Configuration data for already installed system.
@@ -779,7 +783,7 @@ function api_get_path($path_type, $path = null)
     $load_new_config = false;
 
     // To avoid that the api_get_access_url() function fails since global.inc.php also calls the main_api.lib.php
-    if ($path_type == WEB_PATH) {
+    if ($path == WEB_PATH) {
         //$urlId = api_get_current_access_url_id();
         $urlId = 1;
         if ($urlId != 1) {
@@ -790,7 +794,6 @@ function api_get_path($path_type, $path = null)
         }
     }
 
-    if (!$is_this_function_initialized) {
         $root_rel = Container::getUrlAppend();
 
         // Dealing with trailing slashes.
@@ -831,6 +834,7 @@ function api_get_path($path_type, $path = null)
 
         $paths[SYS_PLUGIN_PATH]         = $paths[SYS_PATH].$paths[SYS_PLUGIN_PATH];
         $paths[SYS_ARCHIVE_PATH] = Container::getTempDir();
+
         $paths[SYS_TEST_PATH]           = $paths[SYS_PATH].$paths[SYS_TEST_PATH];
         $paths[SYS_TEMPLATE_PATH]       = $paths[SYS_CODE_PATH].$paths[SYS_TEMPLATE_PATH];
         $paths[SYS_PUBLIC_PATH]         = $paths[SYS_PATH].$paths[SYS_PUBLIC_PATH];
@@ -862,52 +866,13 @@ function api_get_path($path_type, $path = null)
         $paths[SYS_COURSE_PATH]         = Container::getCourseDir();
 
         $is_this_function_initialized = true;
-    } else {
-        if ($load_new_config) {
-            //  Redefining variables to work well with the "multiple url" feature
 
-            // All web paths need to be here
-            $web_paths = array(
-                WEB_PATH                => '',
-                WEB_SERVER_ROOT_PATH    => '',
-                WEB_COURSE_PATH         => '',
-                WEB_CODE_PATH           => '',
-                WEB_IMG_PATH            => 'img/',
-                WEB_CSS_PATH            => 'web/css/',
-                WEB_PLUGIN_PATH         => 'plugin/',
-                WEB_ARCHIVE_PATH        => 'archive/',
-                WEB_LIBRARY_PATH        => 'inc/lib/',
-                WEB_AJAX_PATH           => 'inc/ajax/'
-            );
-
-            $root_web = api_add_trailing_slash($root_web);
-            // Web server base and system server base.
-            $server_base_web = preg_replace('@'.$root_rel.'$@', '', $root_web); // No trailing slash.
-
-            // Redefine root webs
-            $paths[WEB_PATH]                = $root_web;
-            $paths[WEB_SERVER_ROOT_PATH]    = $server_base_web.'/';
-            $paths[WEB_COURSE_PATH]         = $root_web.$course_folder;
-            $paths[WEB_CODE_PATH]           = $root_web.$code_folder;
-            $paths[WEB_IMG_PATH]            = $paths[WEB_CODE_PATH].$web_paths[WEB_IMG_PATH];
-
-            $paths[WEB_CSS_PATH]            = $paths[WEB_PATH].$web_paths[WEB_CSS_PATH];
-            $paths[WEB_PLUGIN_PATH]         = $paths[WEB_PATH].$web_paths[WEB_PLUGIN_PATH];
-            $paths[WEB_ARCHIVE_PATH]        = $paths[WEB_PATH].$web_paths[WEB_ARCHIVE_PATH];
-            $paths[WEB_LIBRARY_PATH]        = $paths[WEB_CODE_PATH].$web_paths[WEB_LIBRARY_PATH];
-            $paths[WEB_AJAX_PATH]           = $paths[WEB_CODE_PATH].$web_paths[WEB_AJAX_PATH];
-            $paths[WEB_FONTS_PATH]          = $paths[WEB_CODE_PATH].$paths[WEB_FONTS_PATH];
-        }
-    }
+    //}
 
     // Shallow purification and validation of input parameters.
 
-    $path_type = trim($path_type);
-    $path = trim($path);
 
-    if (empty($path_type)) {
-        return null;
-    }
+    $path = trim($path);
 
     // Common-purpose paths as a second parameter - recognition.
 
@@ -919,11 +884,6 @@ function api_get_path($path_type, $path = null)
 
     // Replacing Windows back slashes.
     $path = str_replace('\\', '/', $path);
-    // Query strings sometimes might wrongly appear in non-URLs.
-    // Let us check remove them from all types of paths.
-    if (($pos = strpos($path, '?')) !== false) {
-        $path = substr($path, 0, $pos);
-    }
 
     // Detection of the input path type. Conversion to semi-absolute type ( /chamilo/main/inc/.... ).
     $courseCode = api_get_course_id();
@@ -939,40 +899,19 @@ function api_get_path($path_type, $path = null)
         if (strpos($path, 'download.php') !== false) { // Fast detection first.
             $path = urldecode($path);
             if (preg_match('/(.*)main\/document\/download.php\?doc_url=\/(.*)&cDir=\/(.*)?/', $path, $matches)) {
-                $sys_course_code =
-                    isset($courseCode)  // User is inside a course?
+                // User is inside a course?
+                $sys_course_code = isset($courseCode)
                         ? $courseCode   // Yes, then use course's directory name.
-                        : '{SYS_COURSE_CODE}';              // No, then use a fake code, it may be processed later.
+                        : '{SYS_COURSE_CODE}';
+                // No, then use a fake code, it may be processed later.
                 $path = $matches[1].'courses/'.$sys_course_code.'/document/'.str_replace('//', '/', $matches[3].'/'.$matches[2]);
             }
         }
         // Replacement of the present web server base with a slash '/'.
         $path = preg_replace(VALID_WEB_SERVER_BASE, '/', $path);
-
-    } elseif (strpos($path, $server_base_sys) === 0) {
-        $path = preg_replace('@^'.$server_base_sys.'@', '', $path);
-    } elseif (strpos($path, '/') === 0) {
-        // Leading slash - we assume that this path is semi-absolute (REL),
-        // then path is left without furthes modifications.
-    } else {
-        return null; // Probably implementation of this case won't be needed.
     }
 
-    // Path now is semi-absolute. It is convenient at this moment repeated slashes to be removed.
-    $path = preg_replace(REPEATED_SLASHES_PURIFIER, '/', $path);
-
-    // Path conversion to the requested type.
-
-    switch ($path_type) {
-        case TO_WEB:
-            return $server_base_web.$path;
-        case TO_SYS:
-            return $server_base_sys.$path;
-        case TO_REL:
-            return $path;
-    }
-
-    return null;
+    return $path;
 }
 
 /**

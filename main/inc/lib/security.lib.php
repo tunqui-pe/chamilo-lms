@@ -327,6 +327,7 @@ class Security
         static $purifier = array();
         if (!isset($purifier[$user_status])) {
             $cache_dir = api_get_path(SYS_ARCHIVE_PATH).'Serializer';
+
             if (!file_exists($cache_dir)) {
                 mkdir($cache_dir, 0777);
             }
