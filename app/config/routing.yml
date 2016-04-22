@@ -42,6 +42,10 @@ chamilo_course:
     resource: "@ChamiloCourseBundle/Resources/config/routing.yml"
     prefix:   /
 
+chamilo_contact:
+    resource: "@ChamiloContactBundle/Resources/config/routing.yml"
+    prefix:   /contact
+
 _courses:
     resource: routing_courses.yml
 

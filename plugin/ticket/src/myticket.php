@@ -12,8 +12,8 @@ $course_plugin = 'ticket';
 require_once '../config.php';
 
 $plugin = TicketPlugin::create();
-$tool_name = $plugin->get_lang('LastEdit');
 
+$tool_name = $plugin->get_lang('LastEdit');
 api_block_anonymous_users();
 
 $libPath = api_get_path(LIBRARY_PATH);
@@ -194,7 +194,8 @@ if (isset($_GET['action'])) {
             break;
     }
 }
-//$nameTools = api_xml_http_response_encode($plugin->get_lang('MyTickets'));
+
+// $nameTools = api_xml_http_response_encode($plugin->get_lang('MyTickets'));
 $user_id = api_get_user_id();
 $isAdmin = api_is_platform_admin();
 
@@ -288,12 +289,22 @@ if ($isAdmin) {
 
     echo '<div class="actions" >';
     if (api_is_platform_admin()) {
-        echo '<span class="fleft">' .
+        echo '<span class="left">' .
                 '<a href="' . api_get_path(WEB_PLUGIN_PATH) . 'ticket/src/new_ticket.php">' .
                     Display::return_icon('add.png', $plugin->get_lang('TckNew'), '', '32') . '</a>' .
                 '<a href="' . api_get_self() . '?action=export' . $get_parameter . $get_parameter2 . '">' .
-                    Display::return_icon('export_excel.png', get_lang('Export'), '', '32') . '</a>' .
-             '</span>';
+                    Display::return_icon('export_excel.png', get_lang('Export'), '', '32') . '</a>';
+
+
+        if ($plugin->get('allow_category_edition')) {
+            echo Display::url(
+                Display::return_icon('folder_document.gif'),
+                api_get_path(WEB_PLUGIN_PATH) . 'ticket/src/categories.php'
+            );
+        }
+
+        echo '</span>';
+
     }
     $form->display();
     echo '</div>';
@@ -392,7 +403,6 @@ if ($isAdmin) {
     }
 }
 
-
 if ($isAdmin) {
     $table->set_header(0, $plugin->get_lang('TicketNum'), true);
     $table->set_header(1, $plugin->get_lang('Date'), true);
@@ -403,7 +413,6 @@ if ($isAdmin) {
     $table->set_header(6, $plugin->get_lang('Status'), true);
     $table->set_header(7, $plugin->get_lang('Message'), true);
     $table->set_header(8, get_lang('Actions'), true);
-    $table->set_header(9, get_lang('Description'), true, array("style" => "width:200px"));
 } else {
     echo '<center><h1>' . $plugin->get_lang('MyTickets') . '</h1></center>';
     echo '<center><p>' . $plugin->get_lang('MsgWelcome') . '</p></center>';
@@ -416,7 +425,7 @@ if ($isAdmin) {
     $table->set_header(3, $plugin->get_lang('Category'));
     $table->set_header(4, $plugin->get_lang('Status'), false);
     $table->set_header(5, get_lang('Actions'), false);
-}
+}       
 
 $table->display();
 Display::display_footer();

@@ -12,7 +12,7 @@ imports:
     - { resource: mopa/mopa_bootstrap.yml }
 
     # FriendOfSymfony Bundles
-    #- { resource: fos/fos_comment.yml }r
+    #- { resource: fos/fos_comment.yml }
 #    - { resource: fos/fos_rest.yml }
     - { resource: fos/fos_user.yml }
     #- { resource: fos/fos_elastica.yml }
@@ -82,7 +82,7 @@ twig:
 
     form:
         resources:
-            - 'bootstrap_3_layout.html.twig'
+            - 'bootstrap_3_horizontal_layout.html.twig'
             - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'

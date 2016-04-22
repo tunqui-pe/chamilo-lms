@@ -336,6 +336,8 @@ if (isset($_POST['title'])) {
     }
 }
 
+$redirectTo = null;
+
 switch ($action) {
     case 'add_item':
         if (!$is_allowed_to_edit) {
@@ -355,12 +357,20 @@ switch ($action) {
 
                 //Updating the lp.modified_on
                 $learnPath->set_modified_on();
-                $postTimeFromSession = Session::read('post_time');
+                $postTimeFromSession = Session::read('post_time');               
+          
                 if (isset($postTimeFromSession) && $postTimeFromSession == $_POST['post_time']) {
                     // Check post_time to ensure ??? (counter-hacking measure?)
                     require 'lp_add_item.php';
                 } else {
                     Session::write('post_time', $_POST['post_time']);
+
+                    $directoryParentId = isset($_POST['directory_parent_id']) ? $_POST['directory_parent_id'] : 0;
+
+                    if (empty($directoryParentId)) {
+                        $learnPath->generate_lp_folder($courseInfo);
+                    }
+
                     $parent = isset($_POST['parent']) ? $_POST['parent'] : '';
                     $previous = isset($_POST['previous']) ? $_POST['previous'] : '';
                     $type = isset($_POST['type']) ? $_POST['type'] : '';
@@ -374,7 +384,11 @@ switch ($action) {
                             $document_id = $_POST['path'];
                         } else {
                             $document_id = $learnPath->create_document(
-                                $_course
+                                $_course,
+                                $_POST['content_lp'],
+                                $_POST['title'],
+                                'html',
+                                $directoryParentId
                             );
                         }
                         $new_item_id = $learnPath->add_item(
@@ -1114,8 +1128,7 @@ switch ($action) {
         if (!$lp_found) {
             error_log('New LP - No learnpath given for content', 0);
             require 'lp_list.php';
-        }
-        else {
+        } else {
             $learnPath->save_last();
             $learnPath->set_current_item($_GET['item_id']);
             $learnPath->start_current_item();
@@ -1430,6 +1443,29 @@ switch ($action) {
             'lp_id' => $_SESSION['oLP']->lp_id
         ]));
         exit;
+        break;
+    case 'add_final_item':
+        if (!$lp_found) {
+            Display::addFlash(
+                Display::return_message(get_lang('NoLPFound'), 'error')
+            );
+            break;
+        }
+
+        Session::write('refresh', 1);
+
+        if (!isset($_POST['submit']) || empty($post_title)) {
+            break;
+        }
+
+        $learnPath->getFinalItemForm();
+
+        $redirectTo = api_get_self() . '?' . http_build_query([
+            'action' => 'add_item',
+            'type' => 'step',
+            'lp_id' => intval$learnPath->lp_id)
+        ]);
+        break;
     default:
         if ($debug > 0) error_log('New LP - default action triggered', 0);
         require 'lp_list.php';
@@ -1441,3 +1477,10 @@ if (!empty($learnPath)) {
     Session::write('lpobject', serialize($learnPath));
     if ($debug > 0) error_log('New LP - lpobject is serialized in session', 0);
 }
+
+
+if (!empty($redirectTo)) {
+    header("Location: $redirectTo");
+    exit;
+}
+

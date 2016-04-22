@@ -266,7 +266,9 @@ class learnpath
                             error_log(
                                 'New LP - learnpath::__construct() - ' .
                                 'aicc object with id ' . $my_item_id .
-                                ' set in items[]', 0);
+                                ' set in items[]',
+                                0
+                            );
                         }
                     }
                     break;
@@ -594,16 +596,16 @@ class learnpath
         $params = array(
             "c_id" => $course_id,
             "lp_id" => $this->get_id(),
-            "item_type" =>$typeCleaned ,
+            "item_type" => $typeCleaned,
             "ref" => '',
-            "title" =>$title ,
+            "title" => $title,
             "description" => $description,
             "path" => $id,
             "max_score" => $max_score,
             "parent_item_id" => $parent,
             "previous_item_id" => $previous,
             "next_item_id" => intval($next),
-            "display_order" => $display_order +1,
+            "display_order" => $display_order + 1,
             "prerequisite" => $prerequisites,
             "max_time_allowed" => $max_time_allowed,
             'min_score' => 0,
@@ -1127,7 +1129,7 @@ class learnpath
         );
 
         $link_info = GradebookUtils::is_resource_in_course_gradebook(api_get_course_id(), 4 , $id, api_get_session_id());
-        if ($link_info) {
+        if ($link_info !== false) {
             GradebookUtils::remove_resource_from_course_gradebook($link_info->getId());
         }
 
@@ -1957,7 +1959,7 @@ class learnpath
             error_log('New LP - In learnpath::get_last()', 0);
         }
         //This is just in case the lesson doesn't cointain a valid scheme, just to avoid "Notices"
-        if ($this->index > 0) {
+        if (count($this->ordered_items) > 0) {
             $this->index = count($this->ordered_items) - 1;
             return $this->ordered_items[$this->index];
         }
@@ -1984,7 +1986,7 @@ class learnpath
         $lp_id = $this->lp_id;
         $mycurrentitemid = $this->get_current_item_id();
 
-         if ($this->mode == 'fullscreen') {
+        if ($this->mode == 'fullscreen') {
             $navbar = '
                   <span id="'.$idBar.'" class="buttons">
                     <a class="icon-toolbar" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="stats" id="stats_link">
@@ -3427,7 +3429,7 @@ class learnpath
             }
 
             // Fixed issue BT#1272 - If the item type is a Chamilo Item (quiz, link, etc), then change the lp type to thread it as a normal Chamilo LP not a SCO.
-            if (in_array($lp_item_type, array('quiz', 'document', 'link', 'forum', 'thread', 'student_publication'))) {
+            if (in_array($lp_item_type, array('quiz', 'document', 'final_item', 'link', 'forum', 'thread', 'student_publication'))) {
                 $lp_type = 1;
             }
 
@@ -3457,10 +3459,10 @@ class learnpath
                             break;
                         case 'link':
                             if (Link::is_youtube_link($file)) {
-                                $src  = Link::get_youtube_video_id($file);
+                                $src = Link::get_youtube_video_id($file);
                                 $file = api_get_path(WEB_CODE_PATH).'newscorm/embed.php?type=youtube&source='.$src;
                             } elseif (Link::isVimeoLink($file)) {
-                                $src  = Link::getVimeoLinkId($file);
+                                $src = Link::getVimeoLinkId($file);
                                 $file = api_get_path(WEB_CODE_PATH).'newscorm/embed.php?type=vimeo&source='.$src;
                             } else {
                                 // If the current site is HTTPS and the link is
@@ -3530,11 +3532,11 @@ class learnpath
                             break;
                         }
 
-                            $tmp_array = explode('/', $file);
-                            $document_name = $tmp_array[count($tmp_array) - 1];
-                            if (strpos($document_name, '_DELETED_')) {
-                                $file = 'blank.php?error=document_deleted';
-                            }
+			$tmp_array = explode('/', $file);
+			$document_name = $tmp_array[count($tmp_array) - 1];
+			if (strpos($document_name, '_DELETED_')) {
+			    $file = 'blank.php?error=document_deleted';
+			}
 
                     break;
                 case 2 :
@@ -5577,7 +5579,7 @@ class learnpath
      */
     public function return_new_tree($update_audio = 'false', $drop_element_here = false)
     {
-    $return = '';
+        $return = '';
         $is_allowed_to_edit = api_is_allowed_to_edit(null,true);
 
         $course_id = api_get_course_int_id();
@@ -5634,6 +5636,11 @@ class learnpath
                 )
             );
 
+	        // Detect if type is FINAL_ITEM to set path_id to SESSION
+            if ($arrLP[$i]['item_type'] == TOOL_LP_FINAL_ITEM) {
+                $_SESSION['pathItem'] = $arrLP[$i]['path'];
+            }
+
             if (($i % 2) == 0) {
                 $oddClass = 'row_odd';
             } else {
@@ -5649,7 +5656,11 @@ class learnpath
                 if (file_exists('../img/lp_' . $icon_name . '.gif')) {
                     $icon = Display::return_icon('lp_' . $icon_name . '.gif');
                 } else {
-                    $icon = Display::return_icon('folder_document.gif');
+                    if ($arrLP[$i]['item_type'] === TOOL_LP_FINAL_ITEM) {
+                        $icon = Display::return_icon('certificate.png');
+                    } else {
+                        $icon = Display::return_icon('folder_document.gif');
+                    }
                 }
             }
 
@@ -5685,13 +5696,15 @@ class learnpath
 
             if ($is_allowed_to_edit) {
                 if (!$update_audio || $update_audio <> 'true') {
-                    $move_icon .= '<a class="moved" href="#">';
-                    $move_icon .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
-                    $move_icon .= '</a>';
+                    if ($arrLP[$i]['item_type'] !== TOOL_LP_FINAL_ITEM) {
+                        $move_icon .= '<a class="moved" href="#">';
+                        $move_icon .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
+                        $move_icon .= '</a>';
+                    }
                 }
 
                 // No edit for this item types
-                if (!in_array($arrLP[$i]['item_type'], array('sco', 'asset'))) {
+                if (!in_array($arrLP[$i]['item_type'], array('sco', 'asset', 'final_item'))) {
                     if (!in_array($arrLP[$i]['item_type'], array('dokeos_chapter', 'dokeos_module'))) {
                         $edit_icon .= '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=edit_item&view=build&id=' . $arrLP[$i]['id'] . '&lp_id=' . $this->lp_id . '&path_item=' . $arrLP[$i]['path'] . '" class="btn btn-default">';
                         $edit_icon .= Display::return_icon('edit.png', get_lang('LearnpathEditModule'), array(), ICON_SIZE_TINY);
@@ -5890,14 +5903,22 @@ class learnpath
                 if (isset($_REQUEST['id']) && $key == $_REQUEST['id']) {
                     $active = 'active';
                 }
-                $return  .= Display::tag('li', Display::div($item['data'], array('class'=>"item_data $active")).$sub_list, array('id'=>$key, 'class'=>'record li_container'));
+                $return  .= Display::tag(
+                    'li',
+                    Display::div($item['data'], array('class'=>"item_data $active")).$sub_list,
+                    array('id'=>$key, 'class'=>'record li_container')
+                );
             } else {
                 // Sections
                 if (isset($item['children'])) {
                     $data = self::print_recursive($item['children'], $default_data, $default_content);
                 }
                 $sub_list = Display::tag('ul', $sub_list.$data, array('id'=>'UL_'.$key, 'class'=>'record li_container'));
-                $return .= Display::tag('li', Display::div($item['data'], array('class'=>'item_data')).$sub_list, array('id'=>$key, 'class'=>'record li_container'));
+                $return .= Display::tag(
+                    'li',
+                    Display::div($item['data'], array('class'=>'item_data')).$sub_list,
+                    array('id'=>$key, 'class'=>'record li_container')
+                );
             }
         }
 
@@ -6081,7 +6102,6 @@ class learnpath
 
        $creatorId = empty($creatorId) ? api_get_user_id() : $creatorId;
        $sessionId = api_get_session_id();
-        //$dir = '/';
         // Generates folder
         $result = $this->generate_lp_folder($courseInfo);
         $dir = $result['dir'];
@@ -6091,16 +6111,16 @@ class learnpath
             $dir = isset ($_GET['dir']) ? $_GET['dir'] : $postDir; // Please, do not modify this dirname formatting.
             // Please, do not modify this dirname formatting.
             if (strstr($dir, '..')) {
-            $dir = '/';
+                $dir = '/';
             }
             if (!empty($dir[0]) && $dir[0] == '.') {
-            $dir = substr($dir, 1);
+                $dir = substr($dir, 1);
             }
             if (!empty($dir[0]) && $dir[0] != '/') {
-            $dir = '/' . $dir;
+                $dir = '/'.$dir;
             }
             if (isset($dir[strlen($dir) - 1]) && $dir[strlen($dir) - 1] != '/') {
-            $dir .= '/';
+                $dir .= '/';
             }
         } else {
             $parentInfo = DocumentManager::get_document_data_by_id($parentId, $courseInfo['code']);
@@ -6423,6 +6443,22 @@ class learnpath
                     $return .= $this->display_manipulate($item_id, $row['item_type']);
                     $return .= $this->display_link_form('edit', $item_id, $row);
                     break;
+                case TOOL_LP_FINAL_ITEM :
+                    $_SESSION['finalItem'] = true;
+                    $tbl_doc = Database :: get_course_table(TABLE_DOCUMENT);
+                    $sql = "SELECT lp.*, doc.path as dir
+                            FROM " . $tbl_lp_item . " as lp
+                            LEFT JOIN " . $tbl_doc . " as doc
+                            ON doc.id = lp.path
+                            WHERE
+                                lp.c_id = $course_id AND
+                                doc.c_id = $course_id AND
+                                lp.id = " . intval($item_id);
+                    $res_step = Database::query($sql);
+                    $row_step = Database :: fetch_array($res_step, 'ASSOC');
+                    $return .= $this->display_manipulate($item_id, $row['item_type']);
+                    $return .= $this->display_document_form('edit', $item_id, $row_step);
+                    break;
                 case 'dokeos_module' :
                     if (isset ($_GET['view']) && $_GET['view'] == 'build') {
                         $return .= $this->display_manipulate($item_id, $row['item_type']);
@@ -6475,11 +6511,14 @@ class learnpath
         // Get all the links.
         $links = $this->get_links();
 
-        // Get al the student publications.
+        // Get all the student publications.
         $works = $this->get_student_publications();
 
-        // Get al the forums.
+        // Get all the forums.
         $forums = $this->get_forums(null, $course_code);
+
+        // Get the final item form (see BT#11048).
+        $finish = $this->getFinalItemForm();
 
         $headers = array(
             Display::return_icon('folder_document.png', get_lang('Documents'), array(), ICON_SIZE_BIG),
@@ -6487,7 +6526,8 @@ class learnpath
             Display::return_icon('links.png', get_lang('Links'), array(), ICON_SIZE_BIG),
             Display::return_icon('works.png', get_lang('Works'), array(), ICON_SIZE_BIG),
             Display::return_icon('forum.png', get_lang('Forums'), array(), ICON_SIZE_BIG),
-            Display::return_icon('add_learnpath_section.png', get_lang('NewChapter'), array(), ICON_SIZE_BIG)
+            Display::return_icon('add_learnpath_section.png', get_lang('NewChapter'), array(), ICON_SIZE_BIG),
+            Display::return_icon('certificate.png', get_lang('Certificate'), [], ICON_SIZE_BIG),
         );
 
         echo Display::display_normal_message(get_lang('ClickOnTheLearnerViewToSeeYourLearningPath'));
@@ -6498,7 +6538,7 @@ class learnpath
         );
         echo Display::tabs(
             $headers,
-            array($documents, $exercises, $links, $works, $forums, $chapter), 'resource_tab'
+            array($documents, $exercises, $links, $works, $forums, $chapter, $finish), 'resource_tab'
         );
 
         return true;
@@ -7802,10 +7842,10 @@ class learnpath
 
         //POSITION
         for ($i = 0; $i < count($arrLP); $i++) {
-            if ($arrLP[$i]['parent_item_id'] == $parent && $arrLP[$i]['id'] != $id) {
-                if (isset($extra_info['previous_item_id']) && $extra_info['previous_item_id'] == $arrLP[$i]['id'])
+            if ($arrLP[$i]['parent_item_id'] == $parent && $arrLP[$i]['id'] != $id || $arrLP[$i]['item_type'] == TOOL_LP_FINAL_ITEM) {
+                if (isset($extra_info['previous_item_id']) && $extra_info['previous_item_id'] == $arrLP[$i]['id'] || $action == 'add') {
                     $s_selected_position = $arrLP[$i]['id'];
-                elseif ($action == 'add') $s_selected_position = $arrLP[$i]['id'];
+                }
                 $arrHide[$arrLP[$i]['id']]['value'] = get_lang('After') . ' "' . $arrLP[$i]['title'] . '"';
             }
         }
@@ -7817,6 +7857,7 @@ class learnpath
             $padding = isset($value['padding']) ? $value['padding']: 20;
             $position->addOption($value['value'], $key, 'style="padding-left:' . $padding . 'px;"');
         }
+
         $position->setSelected($s_selected_position);
 
         if (is_array($arrLP)) {
@@ -7835,7 +7876,6 @@ class learnpath
             }
 
             $arrHide = array();
-
             for ($i = 0; $i < count($arrLP); $i++) {
                 if ($arrLP[$i]['id'] != $id && $arrLP[$i]['item_type'] != 'dokeos_chapter') {
                     if (isset($extra_info['previous_item_id']) && $extra_info['previous_item_id'] == $arrLP[$i]['id'])
@@ -8395,7 +8435,7 @@ class learnpath
                 // Commented the message cause should not show it.
                 //$lang = get_lang('TitleManipulateModule');
                 break;
-
+            case TOOL_LP_FINAL_ITEM:
             case TOOL_DOCUMENT :
                 // Commented the message cause should not show it.
                 //$lang = get_lang('TitleManipulateDocument');
@@ -8469,7 +8509,7 @@ class learnpath
             $return .= get_lang('File').': '.$document_data['absolute_path_from_document'];
         }
 
-        if ($item_type == TOOL_DOCUMENT ) {
+        if ($item_type == TOOL_DOCUMENT || $item_type == TOOL_LP_FINAL_ITEM) {
             $document_data = DocumentManager::get_document_data_by_id($row['path'], $course_code);
             $return .= get_lang('File').': '.$document_data['absolute_path_from_document'];
         }
@@ -9078,7 +9118,7 @@ class learnpath
                         Display::return_icon('preview_view.png', get_lang('Preview')),
                         api_get_path(WEB_CODE_PATH).'work/work_list_all.php?'.api_get_cidreq().'&id='.$work['iid'],
                         ['target' => '_blank']
-        );
+                    );
 
                     $return .= '<li class="lp_resource_element" data_id="'.$work['iid'].'" data_type="'.TOOL_STUDENTPUBLICATION.'" title="'.Security :: remove_XSS(cut(strip_tags($work['title']), 80)).'">';
                     $return .= '<a class="moved" href="#">';
@@ -9123,7 +9163,7 @@ class learnpath
         );
         $return .= Display::url(
             get_lang('CreateANewForum'),
-            api_get_path(REL_CODE_PATH) . 'forum/index.php?' . api_get_cidreq() . '&' . http_build_query([
+            api_get_path(WEB_CODE_PATH) . 'forum/index.php?' . api_get_cidreq() . '&' . http_build_query([
                 'action' => 'add',
                 'content' => 'forum',
                 'lp_id' => $this->lp_id
@@ -9133,16 +9173,16 @@ class learnpath
         $return .= '</li>';
 
         $return .= '<script>
-                    function toggle_forum(forum_id){
-                        if(document.getElementById("forum_"+forum_id+"_content").style.display == "none"){
-                            document.getElementById("forum_"+forum_id+"_content").style.display = "block";
-                            document.getElementById("forum_"+forum_id+"_opener").src = "' . Display::returnIconPath('remove.gif').'";
-                        } else {
-                            document.getElementById("forum_"+forum_id+"_content").style.display = "none";
-                            document.getElementById("forum_"+forum_id+"_opener").src = "' . Display::returnIconPath('add.gif').'";
-                        }
-                    }
-                </script>';
+            function toggle_forum(forum_id){
+                if(document.getElementById("forum_"+forum_id+"_content").style.display == "none"){
+                    document.getElementById("forum_"+forum_id+"_content").style.display = "block";
+                    document.getElementById("forum_"+forum_id+"_opener").src = "' . Display::returnIconPath('remove.gif').'";
+                } else {
+                    document.getElementById("forum_"+forum_id+"_content").style.display = "none";
+                    document.getElementById("forum_"+forum_id+"_opener").src = "' . Display::returnIconPath('add.gif').'";
+                }
+            }
+        </script>';
 
         foreach ($a_forums as $forum) {
             if (!empty($forum['forum_id'])) {
@@ -11020,6 +11060,126 @@ EOD;
         );
 
         return $forumId;
+    }
+
+    /**
+     * Check and obtain the lp final item if exist
+     *
+     * @return array lp items
+     */
+    private function getFinalItem()
+    {
+
+        if (empty($this->items)) {
+            return null;
+        }
+
+        foreach ($this->items as $item) {
+            if ($item->type !== 'final_item') {
+                continue;
+            }
+
+            return $item;
+        }
+    }
+
+    /**
+    * Get the LP Final Item Template
+     *
+     * @return html
+     */
+    private function getFinalItemTemplate()
+    {
+        return file_get_contents(api_get_path(SYS_CODE_PATH) . 'newscorm/final_item_template/template.html');
+    }
+
+    /**
+     * Get the LP Final Item Url
+     *
+     * @return String
+     */
+    private function getSavedFinalItem()
+    {
+        $finalItem = $this->getFinalItem();
+        $doc = DocumentManager::get_document_data_by_id($finalItem->path, $this->cc);
+
+        return file_get_contents($doc['absolute_path']);
+    }
+
+    /**
+     * Get the LP Final Item form
+     *
+     * @return html
+     */
+    public function getFinalItemForm()
+    {
+        $finalItem = $this->getFinalItem();
+        $title = '';
+        $content = '';
+
+        if ($finalItem) {
+            $title = $finalItem->title;
+            $buttonText = get_lang('Save');
+            $content = $this->getSavedFinalItem();
+        } else {
+            $buttonText = get_lang('LPCreateDocument');
+            $content = $this->getFinalItemTemplate();
+        }
+
+        $courseInfo = api_get_course_info();
+        $result = $this->generate_lp_folder($courseInfo);
+        $relative_path = api_substr($result['dir'], 1, strlen($result['dir']));
+        $relative_prefix = '../../';
+
+        $editorConfig = [
+            'ToolbarSet' => 'LearningPathDocuments',
+            'Width' => '100%',
+            'Height' => '500',
+            'FullPage' => true,
+            'CreateDocumentDir' => $relative_prefix,
+            'CreateDocumentWebDir' => api_get_path(WEB_COURSE_PATH) . api_get_course_path() . '/document/',
+            'BaseHref' => api_get_path(WEB_COURSE_PATH) . api_get_course_path() . '/document/' . $relative_path
+        ];
+
+        $url = api_get_self() . '?' . api_get_cidreq() . '&' . http_build_query([
+            'type' => 'document',
+            'lp_id' => $this->lp_id
+        ]);
+
+        $form = new FormValidator('final_item', 'POST', $url);
+        $form->addText('title', get_lang('Title'));
+        $form->addButtonSave($buttonText);
+        $form->addHtml('<div class="alert alert-info">Variables :</br></br> <b>((certificate))</b> </br> <b>((skill))</b></div>');
+        $renderer = $form->defaultRenderer();
+        $renderer->setElementTemplate('<div class="editor-lp">&nbsp;{label}{element}</div>', 'content_lp');
+        $form->addHtmlEditor('content_lp', null, null, true, $editorConfig, true);
+        $form->addHidden('action', 'add_final_item');
+        $form->addHidden('path', isset($_SESSION['pathItem']) ? $_SESSION['pathItem'] : '');
+        $form->addHidden('previous', $this->get_last());
+
+        $form->setDefaults(['title' => $title, 'content_lp' => $content]);
+
+        if ($form->validate()) {
+            $values = $form->exportValues();
+
+            $lastItemId = $this->get_last();
+
+            if (!$finalItem) {
+                $documentId = $this->create_document($this->course_info, $values['content_lp'], $values['title']);
+                $this->add_item(
+                    0,
+                    $lastItemId,
+                    'final_item',
+                    $documentId,
+                    $values['title'],
+                    ''
+                );
+            } else {
+                $this->edit_document($this->course_info);
+            }
+        }
+
+        return $form->returnForm();
     }
 
     /**

@@ -51,9 +51,7 @@ switch ($action) {
             if ($_GET["id"] == strval(intval($_GET["id"]))) {
                 $sql = "UPDATE $tool_table SET
                         visibility = $requested_visible
-                        WHERE c_id = $course_id AND iid ='".intval(
-                        $_GET['id']
-                    )."'";
+                        WHERE c_id = $course_id AND iid ='".intval($_GET['id'])."'";
                 Database::query($sql);
             }
             $response_data = array(

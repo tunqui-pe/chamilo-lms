@@ -101,6 +101,7 @@ define('SURVEY_VISIBLE_PUBLIC', 2);
 // CONSTANTS defining all tools, using the english version
 /* When you add a new tool you must add it into function api_get_tools_lists() too */
 define('TOOL_DOCUMENT', 'document');
+define('TOOL_LP_FINAL_ITEM', 'final_item');
 define('TOOL_THUMBNAIL', 'thumbnail');
 define('TOOL_HOTPOTATOES', 'hotpotatoes');
 define('TOOL_CALENDAR_EVENT', 'calendar_event');
@@ -277,7 +278,6 @@ define('REPEATED_SLASHES_PURIFIER', '/\/{2,}/');                    // $path = p
 define('VALID_WEB_PATH', '/https?:\/\/[^\/]*(\/.*)?/i');            // $is_valid_path = preg_match(VALID_WEB_PATH, $path);
 define('VALID_WEB_SERVER_BASE', '/https?:\/\/[^\/]*/i');            // $new_path = preg_replace(VALID_WEB_SERVER_BASE, $new_base, $path);
 
-// Constants for api_get_path() and api_get_path_type(), etc. - registered path types.
 // Constants for api_get_path() and api_get_path_type(), etc. - registered path types.
 // basic (leaf elements)
 define('REL_CODE_PATH', 'REL_CODE_PATH');
