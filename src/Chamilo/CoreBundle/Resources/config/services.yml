@@ -102,7 +102,6 @@ services:
 #    chamilo.doctrine.entity_listener_resolver:
 #        class: Chamilo\CoreBundle\Doctrine\EntityListenerResolver
 #        arguments: [ "@service_container" ]
-
     # Check if users are online
 #    chamilo_core.listener.online:
 #        class: Chamilo\CoreBundle\EventListener\OnlineListener

@@ -20,7 +20,7 @@ class SettingsExtension extends \Twig_Extension
     /**
      * @param SettingsHelper $helper
      */
-    public function __construct(SettingsHelper $helper)
+    public function __construct($helper)
     {
         $this->helper = $helper;
     }

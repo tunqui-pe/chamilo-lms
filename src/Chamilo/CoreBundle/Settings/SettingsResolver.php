@@ -11,7 +11,7 @@ use Sylius\Bundle\SettingsBundle\Resolver\SettingsResolverInterface;
  * Class SessionSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SettingsResolver extends DefaultSettingsResolver
+class SettingsResolver implements SettingsResolverInterface
 {
     /**
      * @inheritdoc

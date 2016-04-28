@@ -241,7 +241,6 @@ class UserPortalController extends BaseController
             ) : get_lang('CreateCourseArea')
         );
 
-
         // Set default values.
         if (isset($_user['language']) && $_user['language'] != '') {
             $values['course_language'] = $_user['language'];

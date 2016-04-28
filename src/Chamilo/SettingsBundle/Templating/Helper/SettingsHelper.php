@@ -3,10 +3,14 @@
 
 namespace Chamilo\SettingsBundle\Templating\Helper;
 
-use Sylius\Bundle\SettingsBundle\Templating\Helper\SettingsHelper as
-    SyliusHelper;
+use Sylius\Bundle\SettingsBundle\Templating\Helper\SettingsHelperInterface;
+use Symfony\Component\Templating\Helper\Helper;
 
-class SettingsHelper extends SyliusHelper
+/**
+ * Class SettingsHelper
+ * @package Chamilo\SettingsBundle\Templating\Helper
+ */
+class SettingsHelper extends Helper implements SettingsHelperInterface
 {
     /**
      * {@inheritdoc}
@@ -16,5 +20,15 @@ class SettingsHelper extends SyliusHelper
         return 'chamilo_settings';
     }
 
-    
+    public function getSettings($schemaAlias)
+    {
+        return $this->settingsManager->load($schemaAlias);
+    }
+
+    public function getSettingsParameter($schemaAlias)
+    {
+        //return $this->settingsManager->load($schemaAlias);
+    }
+
+
 }

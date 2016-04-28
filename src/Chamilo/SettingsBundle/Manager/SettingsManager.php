@@ -8,6 +8,7 @@ use Chamilo\CoreBundle\Entity\Course;
 use Sylius\Bundle\SettingsBundle\Event\SettingsEvent;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Sylius\Bundle\SettingsBundle\Model\Settings;
 use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaRegistryInterface;
@@ -23,9 +24,55 @@ use Chamilo\CoreBundle\Entity\SettingsCurrent;
  * Class SettingsManager
  * @package Chamilo\SettingsBundle\Manager
  */
-class SettingsManager extends SyliusSettingsManager
+class SettingsManager implements SettingsManagerInterface
 {
     private $url;
+    /**
+     * @var ServiceRegistryInterface
+     */
+    private $schemaRegistry;
+
+    /**
+     * @var ServiceRegistryInterface
+     */
+    private $resolverRegistry;
+
+    /**
+     * @var ObjectManager
+     */
+    private $manager;
+
+    /**
+     * @var FactoryInterface
+     */
+    private $settingsFactory;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @param ServiceRegistryInterface $schemaRegistry
+     * @param ServiceRegistryInterface $resolverRegistry
+     * @param ObjectManager $manager
+     * @param FactoryInterface $settingsFactory
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(
+        $schemaRegistry,
+        $resolverRegistry,
+        ObjectManager $manager,
+         $settingsFactory,
+        $eventDispatcher
+    ) {
+        $this->schemaRegistry = $schemaRegistry;
+        $this->resolverRegistry = $resolverRegistry;
+        $this->manager = $manager;
+        $this->settingsFactory = $settingsFactory;
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
 
     /**
      * @return AccessUrl
