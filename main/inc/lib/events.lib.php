@@ -254,6 +254,7 @@ class Event
         $sql = "INSERT INTO ".$TABLETRACK_UPLOADS."
                     ( upload_user_id,
                       c_id,
+                      upload_cours_id,
                       upload_work_id,
                       upload_date,
                       upload_session_id
@@ -261,6 +262,7 @@ class Event
                     VALUES (
                      ".$user_id.",
                      '".$courseId."',
+                     '',
                      '".$doc_id."',
                      '".$reallyNow."',
                      '".api_get_session_id()."'

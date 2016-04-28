@@ -167,7 +167,8 @@ if ($add_type == 'multiple') {
     $link_add_type_multiple = Display::return_icon('multiple.gif').get_lang('SessionAddTypeMultiple');
 } else {
     $link_add_type_unique = Display::return_icon('single.gif').get_lang('SessionAddTypeUnique');
-    $link_add_type_multiple = '<a href="'.api_get_self().'?id_session='.$id_session.'&add='.Security::remove_XSS($_GET['add']).'&add_type=multiple">'.Display::return_icon('multiple.gif').get_lang('SessionAddTypeMultiple').'</a>';
+    $link_add_type_multiple = '<a href="'.api_get_self().'?add='.Security::remove_XSS($_GET['add']).'&add_type=multiple">'.
+        Display::return_icon('multiple.gif').get_lang('SessionAddTypeMultiple').'</a>';
 }
 
 echo '<div class="actions">';
@@ -180,33 +181,6 @@ echo '<div id="advancedSearch" style="display: none">'. get_lang('SearchSessions
 <form name="formulaire" method="post" action="<?php echo api_get_self(); ?>?id=<?php echo $id; if(!empty($_GET['add'])) echo '&add=true' ; ?>" style="margin:0px;" <?php if($ajax_search){echo ' onsubmit="valide();"';}?>>
 <?php
 echo '<legend>'.$data['name'].': '.$tool_name.'</legend>';
-
-if ($add_type=='multiple') {
-    if (is_array($extra_field_list)) {
-        if (is_array($new_field_list) && count($new_field_list)>0 ) {
-            echo '<h3>'.get_lang('FilterUsers').'</h3>';
-            foreach ($new_field_list as $new_field) {
-                echo $new_field['name'];
-                $varname = 'field_'.$new_field['variable'];
-                echo '&nbsp;<select name="'.$varname.'">';
-                echo '<option value="0">--'.get_lang('Select').'--</option>';
-                foreach ($new_field['data'] as $option) {
-                    $checked='';
-                    if (isset($_POST[$varname])) {
-                        if ($_POST[$varname]==$option[1]) {
-                            $checked = 'selected="true"';
-                        }
-                    }
-                    echo '<option value="'.$option[1].'" '.$checked.'>'.$option[1].'</option>';
-                }
-                echo '</select>';
-                echo '&nbsp;&nbsp;';
-            }
-            echo '<input type="button" value="'.get_lang('Filter').'" onclick="validate_filter()" />';
-            echo '<br /><br />';
-        }
-    }
-}
 echo Display::input('hidden','id',$id);
 echo Display::input('hidden','form_sent','1');
 echo Display::input('hidden','add_type',null);

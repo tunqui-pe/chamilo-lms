@@ -27,6 +27,7 @@ if (api_is_platform_admin()) {
     $interbreadcrumb[] = array('url' => "resume_session.php?id_session=".$id_session,"name" => get_lang('SessionOverview'));
 }
 $allowTutors = api_get_setting('session.allow_tutors_to_assign_students_to_session');
+$extra_field_list = [];
 if($allowTutors == 'true') {
     // Database Table Definitions
     $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);

@@ -404,7 +404,7 @@ if ($origin != 'learnpath') {
     if (!empty($descriptionForum)) {
         $html .= Display::tag(
             'p',
-            strip_tags($descriptionForum),
+            Security::remove_XSS($descriptionForum),
             array(
                 'class' => 'description',
             )

@@ -788,7 +788,7 @@ class learnpath
         }
 
         if ($expired_on == '0000-00-00 00:00:00' || empty($expired_on)) {
-            $expired_on = '';
+            $expired_on = null;
         } else {
             $expired_on = Database::escape_string(api_get_utc_datetime($expired_on));
         }
@@ -4916,17 +4916,18 @@ class learnpath
         if (!empty($expired_on)) {
             $this->expired_on = api_get_utc_datetime($expired_on);
         } else {
-            $this->expired_on = '';
+            $this->expired_on = null;
         }
         $lp_table = Database :: get_course_table(TABLE_LP_MAIN);
         $lp_id = $this->get_id();
-        $sql = "UPDATE $lp_table SET
-                expired_on = '" . Database::escape_string($this->expired_on) . "'
-                WHERE c_id = ".$course_id." AND id = '$lp_id'";
         if ($this->debug > 2) {
             error_log('New LP - lp updated with new expired_on : ' . $this->expired_on, 0);
         }
-        Database::query($sql);
+
+        $params = [
+            'expired_on' => $this->expired_on,
+        ];
+        Database::update($lp_table, $params, ['c_id = ? AND id = ?' => [$course_id, $lp_id]], true);
 
         return true;
     }
@@ -4979,6 +4980,7 @@ class learnpath
             error_log('New LP - lp updated with new expired_on : ' . $this->modified_on, 0);
         }
         Database::query($sql);
+
         return true;
     }
 
@@ -6505,6 +6507,7 @@ class learnpath
 
         // Get all the docs.
         $documents = $this->get_documents(true);
+
         // Get all the exercises.
         $exercises = $this->get_exercises();
 

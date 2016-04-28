@@ -614,7 +614,7 @@ class UserManager
      * @assert (-1) === false
      * @assert (array(-1)) === false
      */
-    static function delete_users($ids = array())
+    public static function delete_users($ids = array())
     {
         $result = false;
         $ids = is_array($ids) ? $ids : func_get_args();
@@ -639,7 +639,7 @@ class UserManager
      * @assert (null) === false
      * @assert (array(-1)) === false
      */
-    static function deactivate_users($ids = array())
+    public static function deactivate_users($ids = array())
     {
         if (empty($ids)) {
             return false;
@@ -669,7 +669,7 @@ class UserManager
      * @assert (null) === false
      * @assert (array(-1)) === false
      */
-    static function activate_users($ids = array())
+    public static function activate_users($ids = array())
     {
         if (empty($ids)) {
             return false;
@@ -1266,6 +1266,7 @@ class UserManager
         while ($row = Database::fetch_array($rs)) {
             $result[] = $row;
         }
+
         return $result;
     }
 
@@ -1446,7 +1447,7 @@ class UserManager
                 try {
                     mkdir($rootPath, $perm);
                 } catch (Exception $e) {
-                    //
+                    error_log($e->getMessage());
                 }
             }
         }
@@ -4890,7 +4891,7 @@ EOF;
     /**
      * @param User $user
      */
-    public static function add_user_as_admin($user)
+    public static function add_user_as_admin(User $user)
     {
         $user->addRole('ROLE_ADMIN');
         self::getManager()->updateUser($user, true);
@@ -4899,7 +4900,7 @@ EOF;
     /**
      * @param User $user
      */
-    public static function remove_user_admin($user)
+    public static function remove_user_admin(User $user)
     {
         $user->removeRole('ROLE_ADMIN');
 

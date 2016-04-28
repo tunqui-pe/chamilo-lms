@@ -413,10 +413,7 @@ switch ($action) {
                             $maxTimeAllowed
                         );
                     }
-                    $url = api_get_self(
-                        ).'?action=add_item&type=step&lp_id='.intval(
-                            $learnPath->lp_id
-                        );
+                    $url = api_get_self().'?action=add_item&type=step&lp_id='.intval($learnPath->lp_id).'&'.api_get_cidreq();
                     header('Location: '.$url);
                     exit;
                 }
@@ -612,7 +609,7 @@ switch ($action) {
             //require 'lp_build.php';
             $url = api_get_self().'?action=add_item&type=step&lp_id='.intval(
                     $learnPath->lp_id
-                );
+                ).'&'.api_get_cidreq();
             header('Location: '.$url);
             exit;
         }
@@ -659,10 +656,7 @@ switch ($action) {
                 }
                 $is_success = true;
                 $learnPath->updateCurrentLpFromSession();
-                $url = api_get_self(
-                    ).'?action=add_item&type=step&lp_id='.intval(
-                        $learnPath->lp_id
-                    );
+                $url = api_get_self().'?action=add_item&type=step&lp_id='.intval($learnPath->lp_id).'&'.api_get_cidReq();
                 header('Location: '.$url);
                 exit;
             }
@@ -731,7 +725,7 @@ switch ($action) {
                 $url = api_get_self(
                     ).'?action=add_item&type=step&lp_id='.intval(
                         $learnPath->lp_id
-                    );
+                    ).'&'.api_get_cidreq();
                 header('Location: '.$url);
             }
             if (isset($_GET['view']) && $_GET['view'] == 'build') {
@@ -1053,7 +1047,7 @@ switch ($action) {
                 $learnPath->delete_item($_REQUEST['id']);
                 $learnPath->updateCurrentLpFromSession();
             }
-            $url = api_get_self().'?action=add_item&type=step&lp_id='.intval($_REQUEST['lp_id']).api_get_cidreq();
+            $url = api_get_self().'?action=add_item&type=step&lp_id='.intval($_REQUEST['lp_id']).'&'.api_get_cidreq();
             header('Location: '.$url);
             exit;
         }
@@ -1297,7 +1291,8 @@ switch ($action) {
         $learnPath->updateCurrentLpFromSession();
         $url = api_get_self().'?action=add_item&type=step&lp_id='.intval(
                 $learnPath->lp_id
-            )."&message=ItemUpdated";
+            )."&".api_get_cidReq();
+        Display::addFlash(Display::return_message(get_lang('ItemUpdated')));
         header('Location: '.$url);
         break;
     case 'clear_prerequisites':
@@ -1305,7 +1300,8 @@ switch ($action) {
         $learnPath->updateCurrentLpFromSession();
         $url = api_get_self().'?action=add_item&type=step&lp_id='.intval(
                 $learnPath->lp_id
-            )."&message=ItemUpdated";
+            )."&".api_get_cidReq();
+        Display::addFlash(Display::return_message(get_lang('ItemUpdated')));
         header('Location: '.$url);
         break;
     case 'toggle_seriousgame': //activate/deactive seriousgame_mode
@@ -1478,9 +1474,7 @@ if (!empty($learnPath)) {
     if ($debug > 0) error_log('New LP - lpobject is serialized in session', 0);
 }
 
-
 if (!empty($redirectTo)) {
     header("Location: $redirectTo");
     exit;
 }
-

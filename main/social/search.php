@@ -7,8 +7,6 @@
  */
 $cidReset = true;
 
-//require_once '../inc/global.inc.php';
-require_once api_get_path(LIBRARY_PATH).'magpierss/rss_fetch.inc';
 $ajax_url = api_get_path(WEB_AJAX_PATH).'message.ajax.php';
 api_block_anonymous_users();
 
@@ -138,13 +136,10 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
                                 </div>
                             </div>
                       </div>';
-
-
         }
-        $results .= '</div></div>';
-
-
+        $results .= '</div>';
     }
+    $results .= '</div>';
 
     $visibility = array(true, true, true, true, true);
     $results .= Display::return_sortable_grid(
@@ -160,7 +155,14 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
         $totalUsers
     );
 
-    $block_search .= Display::panelCollapse(get_lang('Users'), $results, 'search-friends', null, 'friends-acorderon', 'friends-collapse');
+    $block_search .= Display::panelCollapse(
+        get_lang('Users'),
+        $results,
+        'search-friends',
+        null,
+        'friends-acorderon',
+        'friends-collapse'
+    );
 
     $grid_groups = array();
     $block_groups = '<div id="whoisonline">';
@@ -202,11 +204,10 @@ if ($query != '' || ($query_vars['search_type']=='1' && count($query_vars)>2) ) 
                         </div>
                     </div>
                 </div>';
-
         }
-        $block_groups .= '</div></div></div>';
-
+        $block_groups .= '</div>';
     }
+    $block_groups .= '</div>';
 
     $visibility = array(true, true, true, true, true);
     $block_groups .= Display::return_sortable_grid(

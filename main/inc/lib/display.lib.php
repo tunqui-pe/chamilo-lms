@@ -2015,7 +2015,9 @@ class Display
                 $html .= '</li>';
             }
             $html .= '</ul></div>';
+            $html .= '<br />';
         }
+
         return $html;
     }
 
@@ -2263,7 +2265,7 @@ class Display
         $link = Display::url($label.' ', $link_to_show, $linkAttributes);
         return  '<li class = "'.$class.'">'.$link.'</li>';
     }
-    
+
     /**
      * @param int $current
      * @param int $total

@@ -159,7 +159,7 @@ if (isset($_POST['save_audio'])) {
     //Display::display_confirmation_message(get_lang('ItemUpdated'));
     $url = api_get_self().'?action=add_item&type=step&lp_id='.intval(
             $learnpath->lp_id
-        );
+        ).'&'.api_get_cidreq();
     header('Location: '.$url);
     exit;
 }
@@ -219,10 +219,7 @@ $(function() {
 		//Write the newOrderData string out to the listResults form element
 		//$("#listResults").val(newOrderData);
 		var order = "new_order="+ newOrderData + "&a=update_lp_item_order";
-        $.post("<?php echo api_get_path(
-            WEB_AJAX_PATH
-        )?>lp.ajax.php?<?php echo api_get_cidreq(
-        ) ?>", order, function (reponse) {
+        $.post("<?php echo api_get_path(WEB_AJAX_PATH)?>lp.ajax.php?<?php echo api_get_cidreq() ?>", order, function (reponse) {
             $("#message").html(reponse);
         });
 

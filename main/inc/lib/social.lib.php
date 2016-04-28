@@ -2,6 +2,8 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Framework\Container;
+use Zend\Feed\Reader\Reader;
+use Zend\Feed\Reader\Entry\Rss;
 
 /**
  * Class SocialManager
@@ -207,6 +209,9 @@ class SocialManager extends UserManager
                 'send_date' => $now,
                 'title' => $message_title,
                 'content'  => $message_content,
+                'group_id' => 0,
+                'parent_id' => 0,
+                'update_date' => $now
             ];
             Database::insert($tbl_message, $params);
 
@@ -422,9 +427,6 @@ class SocialManager extends UserManager
      */
     public static function get_user_feeds($user, $limit = 5)
     {
-        if (!function_exists('fetch_rss')) {
-            return '';
-        }
         $feed = UserManager::get_extra_user_data_by_field($user, 'rssfeeds');
         if (empty($feed)) {
             return '';
@@ -434,13 +436,15 @@ class SocialManager extends UserManager
             return '';
         }
         $res = '';
+
         foreach ($feeds as $url) {
             if (empty($url)) {
                 continue;
             }
-            $rss = @fetch_rss($url);
+            $channel = Reader::import($url);
+
             $i = 1;
-            if (!empty($rss->items)) {
+            if (!empty($channel)) {
                 $icon_rss = '';
                 if (!empty($feed)) {
                     $icon_rss = Display::url(
@@ -450,20 +454,22 @@ class SocialManager extends UserManager
                     );
                 }
 
-                $res .= '<h3 class="title-rss">'.$icon_rss.' '.$rss->channel['title'].'</h3>';
+                $res .= '<h3 class="title-rss">'.$icon_rss.' '.$channel->getTitle().'</h3>';
                 $res .= '<div class="rss-items">';
-                foreach ($rss->items as $item) {
+                /** @var Rss $item */
+                foreach ($channel as $item) {
                     if ($limit >= 0 and $i > $limit) {
                         break;
                     }
-                    $res .= '<h4 class="rss-title"><a href="'.$item['link'].'">'.$item['title'].'</a></h4>';
-                    $res .= '<div class="rss-date">'.api_get_local_time($item['date_timestamp']).'</div>';
-                    $res .= '<div class="rss-content"><p>'.$item['description'].'</p></div>';
+                    $res .= '<h4 class="rss-title"><a href="'.$item->getLink().'">'.$item->getTitle().'</a></h4>';
+                    $res .= '<div class="rss-date">'.api_get_local_time($item->getDateCreated()).'</div>';
+                    $res .= '<div class="rss-content"><p>'.$item->getDescription().'</p></div>';
                     $i++;
                 }
                 $res .= '</div>';
             }
         }
+
         return $res;
     }
 
@@ -1251,15 +1257,18 @@ class SocialManager extends UserManager
 
         //Just in case we replace the and \n and \n\r while saving in the DB
         $messageContent = str_replace(array("\n", "\n\r"), '<br />', $messageContent);
+        $now = api_get_utc_datetime();
 
         $attributes = array(
             'user_sender_id' => $userId,
             'user_receiver_id' => $friendId,
             'msg_status' => $messageStatus,
-            'send_date' => api_get_utc_datetime(),
+            'send_date' => $now,
             'title' => '',
             'content' => $messageContent,
-            'parent_id' => $messageId
+            'parent_id' => $messageId,
+            'group_id' => 0,
+            'update_date' => $now
         );
 
         return Database::insert($tblMessage, $attributes);
@@ -1891,7 +1900,7 @@ class SocialManager extends UserManager
                 'social_wall_new_msg_main',
                 null,
                 [
-                        'placeholder' => $socialWallPlaceholder,
+                    'placeholder' => $socialWallPlaceholder,
                     'cols-size' => [1, 10, 1]
                 ]
             );

@@ -623,6 +623,8 @@ class ExtraField extends Model
         if (!isset($params['field_order'])) {
             $max_order = self::get_max_field_order();
             $params['field_order'] = $max_order;
+        } else {
+            $params['field_order'] = (int) $params['field_order'];
         }
 
         return $params;

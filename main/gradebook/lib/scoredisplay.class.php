@@ -153,7 +153,6 @@ class ScoreDisplay
      */
     public function get_custom_score_display_settings()
     {
-
         return $this->custom_display;
     }
 
@@ -573,7 +572,8 @@ class ScoreDisplay
      */
     private function sort_display($item1, $item2)
     {
-        if ($item1['score'] == $item2['score']) {
+        if ($item1['score'] === $item2['score']) {
+
             return 0;
         } else {
             return ($item1['score'] < $item2['score'] ? -1 : 1);

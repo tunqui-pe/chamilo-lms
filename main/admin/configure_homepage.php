@@ -141,7 +141,7 @@ if (!empty($_SESSION['user_language_choice'])) {
 $languageGet = isset($_GET['language']) ? Security::remove_XSS($_GET['language']) : $lang;
 
 // Ensuring availability of main files in the corresponding language
-$homePath = api_get_path(SYS_APP_PATH).'home/';
+$homePath = api_get_path(SYS_HOME_PATH);
 
 if (api_is_multiple_url_enabled()) {
 	$access_url_id = api_get_current_access_url_id();
@@ -222,6 +222,7 @@ if (!empty($action)) {
 			case 'edit_top':
 				// Filter
 				$home_top = trim(stripslashes($_POST['home_top']));
+
 
 				// Write
 				if (is_writable($homep)) {

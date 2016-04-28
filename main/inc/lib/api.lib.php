@@ -628,24 +628,11 @@ require_once __DIR__.'/internationalization.lib.php';
  * Also, this function provides conversion between path types, in this case the input path points inside the Chamilo area too.
  *
  * See $_configuration['course_folder'] in the configuration.php to alter the WEB_COURSE_PATH and SYS_COURSE_PATH parameters.
- * @param string $type              The requested path type (a defined constant), see the examples.
- * @param string $path (optional)   A path which type is to be converted. Also, it may be a defined constant for a path.
- * This parameter has meaning when $type parameter has one of the following values: TO_WEB, TO_SYS, TO_REL. Otherwise it is ignored.
+ * @param string $path              The requested path type (a defined constant), see the examples.
+ * @param array $configuration
+
  * @return string                   The requested path or the converted path.
  *
- * A terminology note:
- * The defined constants used by this function contain the abbreviations WEB, REL, SYS with the following meaning for types:
- * WEB - an absolute URL (we often call it web-path),
- * example: http://www.mychamilo.org/chamilo/courses/COURSE01/document/lesson01.html;
- *
- * REL - represents a semi-absolute URL - a web-path, which is relative to the root web-path of the server, without server's base,
- * example: /chamilo/courses/COURSE01/document/lesson01.html;
- *
- * SYS - represents an absolute path inside the scope of server's file system,
- * /var/www/chamilo/courses/COURSE01/document/lesson01.html or
- * C:/Inetpub/wwwroot/chamilo/courses/COURSE01/document/lesson01.html.
- *
- * In some abstract sense we can consider these three path types as absolute.
  *
  * Notes about the current behaviour model:
  * 1. Windows back-slashes are converted to slashes in the result.
@@ -657,13 +644,11 @@ require_once __DIR__.'/internationalization.lib.php';
  * It has not been identified as needed yet.
  * 4. Also, resolving the meta-symbols "." and ".." within paths has not been implemented, it is to be identified as needed.
  *
- * Example:
- * Assume that your server root is /var/www/ ,
- * Chamilo is installed in a sub folder chamilo/ and the URL of your campus is http://www.mychamilo.org
- * The other configuration parameters have not been changed.
+ * For examples go to: *
+ * See main/admin/system_status.php?section=paths
  *
- * This is how we can get most used paths, for common purpose:
-
+ * Vchamilo changes : allow using an alternate configuration
+ * to get vchamilo  instance paths
  * api_get_path(REL_PATH)                       /chamilo/
  * api_get_path(REL_COURSE_PATH)                /chamilo/courses/
  * api_get_path(REL_CODE_PATH)                  /chamilo/main/
@@ -699,20 +684,6 @@ require_once __DIR__.'/internationalization.lib.php';
  * api_get_path(WEB_TEMPLATE_PATH)              http://www.mychamilo.org/chamilo/main/template/
  * api_get_path(WEB_UPLOAD_PATH)                http://www.mychamilo.org/chamilo/app/upload/
  * api_get_path(WEB_PUBLIC_PATH)                http://www.mychamilo.org/chamilo/web/
- *
- * This is how we retrieve paths of "registered" resource files (scripts, players, etc.):
- * api_get_path(TO_WEB, FLASH_PLAYER_AUDIO)     http://www.mychamilo.org/chamilo/main/inc/lib/mediaplayer/player.swf
- * api_get_path(TO_WEB, FLASH_PLAYER_VIDEO)     http://www.mychamilo.org/chamilo/main/inc/lib/mediaplayer/player.swf
- * api_get_path(TO_SYS, SCRIPT_SWFOBJECT)       /var/www/chamilo/main/inc/lib/swfobject/swfobject.js
- * api_get_path(TO_REL, SCRIPT_ASCIIMATHML)     /chamilo/main/inc/lib/asciimath/ASCIIMathML.js
- * ...
- *
- * We can convert arbitrary paths, that are not registered (no defined constant).
- * For guaranteed result, these paths should point inside the system Chamilo.
- * Some random examples:
- * api_get_path(TO_WEB, $_SERVER['REQUEST_URI'])
- * api_get_path(TO_SYS, $_SERVER['PHP_SELF'])
- * api_get_path(TO_REL, __FILE__)
  * ...
  */
 function api_get_path($path)
@@ -6640,7 +6611,6 @@ function api_block_course_item_locked_by_gradebook($item_id, $link_type, $course
         api_not_allowed(true, $message);
     }
 }
-
 
 /**
  * Checks whether the Archive directory is present and writeable. If not,
