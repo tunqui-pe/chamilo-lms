@@ -4,6 +4,7 @@
 namespace Chamilo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 
@@ -13,7 +14,7 @@ use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
  * @ORM\Table(name="settings_current", uniqueConstraints={@ORM\UniqueConstraint(name="unique_setting", columns={"variable", "subkey", "access_url"})}, indexes={@ORM\Index(name="access_url", columns={"access_url"})})
  * @ORM\Entity(repositoryClass="Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository")
  */
-class SettingsCurrent
+class SettingsCurrent implements SettingsInterface
 {
     /**
      * @var integer
@@ -500,6 +501,71 @@ class SettingsCurrent
         $this->parameters = $parameters;
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSchemaAlias()
+    {
+        return $this->category;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSchemaAlias($schemaAlias)
+    {
+        if (null !== $this->category) {
+            throw new \LogicException('The schema alias of the settings model is immutable, instantiate a new object in order to use another schema.');
+        }
+
+        $this->category = $schemaAlias;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return $this->has($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->set($offset, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        $this->remove($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function count()
+    {
+        return count($this->parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function get($name)
     {
         if (!$this->has($name)) {
@@ -515,6 +581,26 @@ class SettingsCurrent
     public function has($name)
     {
         return array_key_exists($name, $this->parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set($name, $value)
+    {
+        $this->parameters[$name] = $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove($name)
+    {
+        if (!$this->has($name)) {
+            throw new ParameterNotFoundException($name);
+        }
+
+        unset($this->parameters[$name]);
     }
 
 

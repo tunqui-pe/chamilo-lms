@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\EventListener;
 
+use Chamilo\CoreBundle\Entity\SettingsCurrent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -33,13 +34,14 @@ class SettingListener
      */
     public function onSettingPreSave(SettingsEvent $event)
     {
-        $urlId = $this->container->get('request')->getSession()->get(
-            'access_url_id'
-        );
+        $urlId = $this->container->get('request')->getSession()->get('access_url_id');
 
-        $url = $this->container->get('doctrine')->getRepository(
-            'ChamiloCoreBundle:AccessUrl'
-        )->find($urlId);
-        $event->setArgument('url', $url);
+        $url = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:AccessUrl')->find($urlId);
+        /** @var SettingsCurrent $settings */
+        $settings = $event->getSettings();
+        $settings->setUrl($url);
+        $event->getSettings()->setAccessUrl($url);
+
+        //$event->setArgument('url', $url);
     }
 }

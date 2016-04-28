@@ -23,9 +23,9 @@ class SetupStep extends AbstractStep
     public function displayAction(ProcessContextInterface $context)
     {
         $form = $this->createSetupForm();
-
+        /** @var SettingsManager $settingsManager */
         $settingsManager = $this->get('chamilo.settings.manager');
-        $settings = $settingsManager->loadSettings('platform');
+        $settings = $settingsManager->load('platform');
 
         $form->get('portal')->get('institution')->setData(
             $settings->get('institution')
@@ -84,7 +84,7 @@ class SetupStep extends AbstractStep
             $settingsManager = $this->get('chamilo.settings.manager');
             $url = $this->get('chamilo_core.manager.access_url')->find(1);
             $settingsManager->setUrl($url);
-            $settings = $settingsManager->loadSettings('platform');
+            $settings = $settingsManager->load('platform');
 
             $parameters = array(
                 'institution' => $form->get('portal')->get('institution')->getData(),
@@ -93,7 +93,7 @@ class SetupStep extends AbstractStep
                 'timezone' => $form->get('portal')->get('timezone')->getData(),
             );
             $settings->setParameters($parameters);
-            $settingsManager->saveSettings('platform', $settings);
+            $settingsManager->save($settings);
 
             $parameters = array(
                 'administrator_email' => $adminUser->getEmail(),
@@ -102,7 +102,7 @@ class SetupStep extends AbstractStep
                 'administrator_phone' => $adminUser->getPhone(),
             );
             $settings->setParameters($parameters);
-            $settingsManager->saveSettings('admin', $settings);
+            $settingsManager->save($settings);
 
             return $this->complete();
         }

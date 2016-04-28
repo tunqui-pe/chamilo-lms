@@ -5,14 +5,19 @@ namespace Chamilo\SettingsBundle\Manager;
 
 use Chamilo\CoreBundle\Entity\AccessUrl;
 use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Settings\PlatformSettingsSchema;
+use Sylius\Bundle\ResourceBundle\Controller\EventDispatcherInterface;
 use Sylius\Bundle\SettingsBundle\Event\SettingsEvent;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Sylius\Bundle\SettingsBundle\Model\Settings;
 use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
+use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaRegistryInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilder;
+use Sylius\Component\Registry\ServiceRegistryInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -63,7 +68,7 @@ class SettingsManager implements SettingsManagerInterface
         $schemaRegistry,
         $resolverRegistry,
         ObjectManager $manager,
-         $settingsFactory,
+        $settingsFactory,
         $eventDispatcher
     ) {
         $this->schemaRegistry = $schemaRegistry;
@@ -72,7 +77,6 @@ class SettingsManager implements SettingsManagerInterface
         $this->settingsFactory = $settingsFactory;
         $this->eventDispatcher = $eventDispatcher;
     }
-
 
     /**
      * @return AccessUrl
@@ -177,9 +181,11 @@ dump($settings);
         $schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
 
         $settings = $this->settingsFactory->createNew();
-        //$settings->setSchemaAlias($schemaAlias);
+        $settings->setSchemaAlias($schemaAlias);
 
         $parameters = $this->getParameters($schemaAlias);
+
+        /** @var SchemaInterface $schema */
         $schema = $this->schemaRegistry->get($schemaAlias);
 
         // We need to get a plain parameters array since we use the options resolver on it
@@ -210,7 +216,11 @@ dump($settings);
      */
     public function save(SettingsInterface $settings)
     {
-        $schema = $this->schemaRegistry->get($settings->getSchemaAlias());
+        $schemaAlias = $settings->getSchemaAlias();
+        $schemaAliasChamilo = str_replace('chamilo_core.settings.', '', $schemaAlias);
+
+        $schema = $this->schemaRegistry->get($schemaAlias);
+
         //$schema = $this->schemaRegistry->getSchema($namespace);
 
         $settingsBuilder = new SettingsBuilder();
@@ -224,26 +234,16 @@ dump($settings);
             }
         }
 
-        if (isset($this->resolvedSettings[$namespace])) {
+        /*if (isset($this->resolvedSettings[$namespace])) {
             $this->resolvedSettings[$namespace]->setParameters($parameters);
-        }
-
-        $persistedParameters = $this->parameterRepository->findBy(
-            array('category' => $namespace)
-        );
-
-        $persistedParametersMap = array();
-
-        foreach ($persistedParameters as $parameter) {
-            $persistedParametersMap[$parameter->getName()] = $parameter;
-        }
-
+        }*/
+        /** @var \Sylius\Bundle\SettingsBundle\Event\SettingsEvent $event */
         $event = $this->eventDispatcher->dispatch(
             SettingsEvent::PRE_SAVE,
-            new SettingsEvent($namespace, $settings, $parameters)
+            new SettingsEvent($settings)
         );
-
-        $url = $event->getArgument('url');
+        /** @var \Chamilo\CoreBundle\Entity\SettingsCurrent $url */
+        $url = $event->getSettings()->getAccessUrl();
 
         foreach ($parameters as $name => $value) {
             if (isset($persistedParametersMap[$name])) {
@@ -252,37 +252,38 @@ dump($settings);
                 }
                 $persistedParametersMap[$name]->setValue($value);
             } else {
-                /** @var SettingsCurrent $parameter */
-                $parameter = $this->parameterFactory->createNew();
+                /** @var SettingsCurrent $setting */
+                $setting = $this->settingsFactory->createNew();
+                $setting->setSchemaAlias($schemaAlias);
 
-                $parameter
-                    ->setNamespace($namespace)
+                $setting
+                    ->setNamespace($schemaAliasChamilo)
                     ->setName($name)
                     ->setValue($value)
                     ->setUrl($url)
-                    ->setAccessUrl(1)
                     ->setAccessUrlLocked(0)
                     ->setAccessUrlChangeable(1)
                 ;
 
+
                 /* @var $errors ConstraintViolationListInterface */
-                $errors = $this->validator->validate($parameter);
+                /*$errors = $this->->validate($parameter);
                 if (0 < $errors->count()) {
                     throw new ValidatorException($errors->get(0)->getMessage());
-                }
-
-                $this->parameterManager->persist($parameter);
+                }*/
+                $this->manager->persist($setting);
+                $this->manager->flush();
             }
         }
+        /*$parameters = $settingsBuilder->resolve($settings->getParameters());
+        $settings->setParameters($parameters);
 
-        $this->parameterManager->flush();
+        $this->eventDispatcher->dispatch(SettingsEvent::PRE_SAVE, new SettingsEvent($settings));
 
-        $this->eventDispatcher->dispatch(
-            SettingsEvent::POST_SAVE,
-            new SettingsEvent($namespace, $settings, $parameters)
-        );
+        $this->manager->persist($settings);
+        $this->manager->flush();
 
-        $this->cache->save($namespace, $parameters);
+        $this->eventDispatcher->dispatch(SettingsEvent::POST_SAVE, new SettingsEvent($settings));*/
     }
 
     /**
