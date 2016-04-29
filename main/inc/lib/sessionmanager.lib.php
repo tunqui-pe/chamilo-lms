@@ -1506,7 +1506,7 @@ class SessionManager
 
             $res = $qb->getSingleScalarResult();
 
-            if ($res != $userId) {
+            if ($res != $userId && !api_is_platform_admin()) {
                 api_not_allowed(true);
             }
         }
