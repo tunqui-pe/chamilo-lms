@@ -115,7 +115,12 @@ class SettingsCurrent implements SettingsInterface
      */
     protected $url;
 
+
     private $parameters;
+    /**
+     * @var string
+     **/
+    private $schemaAlias;
 
     /**
      * Constructor
@@ -507,7 +512,15 @@ class SettingsCurrent implements SettingsInterface
      */
     public function getSchemaAlias()
     {
-        return $this->category;
+        return $this->schemaAlias;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceFromCategory()
+    {
+        return 'chamilo_core.settings.'.$this->category;
     }
 
     /**
@@ -515,11 +528,11 @@ class SettingsCurrent implements SettingsInterface
      */
     public function setSchemaAlias($schemaAlias)
     {
-        if (null !== $this->category) {
+        if (null !== $this->schemaAlias) {
             throw new \LogicException('The schema alias of the settings model is immutable, instantiate a new object in order to use another schema.');
         }
 
-        $this->category = $schemaAlias;
+        $this->schemaAlias = $schemaAlias;
     }
 
 

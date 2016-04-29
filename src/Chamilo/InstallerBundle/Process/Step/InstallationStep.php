@@ -62,12 +62,8 @@ class InstallationStep extends AbstractStep
                     array('target' => './', '--exclude' => ['OroInstallerBundle'])
                 );*/
 
-                $settingsManager = $this->container->get(
-                    'chamilo.settings.manager'
-                );
-                $url = $this->container->get('doctrine')->getRepository(
-                    'ChamiloCoreBundle:AccessUrl'
-                )->find(1);
+                $settingsManager = $this->container->get('chamilo.settings.manager');
+                $url = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:AccessUrl')->find(1);
                 $settingsManager->installSchemas($url);
 
                 return $this->handleAjaxAction(

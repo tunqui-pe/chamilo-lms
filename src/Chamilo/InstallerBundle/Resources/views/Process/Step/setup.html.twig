@@ -15,7 +15,7 @@
                 <h2>{{ 'process.step.setup.header'|trans|raw }}</h2>
             </div>
 
-            <form action="{{ path('sylius_flow_forward', {'scenarioAlias': 'chamilo_install', 'stepName': 'setup'}) }}"
+            <form class="form-horizontal"  action="{{ path('sylius_flow_forward', {'scenarioAlias': 'chamilo_install', 'stepName': 'setup'}) }}"
                   method="post">
                 {{ form_errors(form) }}
                 <div class="row">

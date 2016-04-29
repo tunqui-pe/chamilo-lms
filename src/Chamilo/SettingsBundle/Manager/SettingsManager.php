@@ -109,7 +109,7 @@ class SettingsManager implements SettingsManagerInterface
          */
         foreach ($schemas as $schema) {
             $settings = $this->load($schema);
-            $this->save($schema, $settings);
+            $this->save($settings);
         }
     }
 
@@ -133,7 +133,7 @@ class SettingsManager implements SettingsManagerInterface
         }
 
         list($namespace, $name) = explode('.', $name);
-        $settings = $this->load($namespace);
+        $settings = $this->load('chamilo_core.settings.'.$namespace);
 
         return $settings->get($name);
     }
@@ -178,7 +178,7 @@ dump($settings);
             $settings->setSchemaAlias($schemaAlias);
         }*/
 
-        $schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
+        //$schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
 
         $settings = $this->settingsFactory->createNew();
         $settings->setSchemaAlias($schemaAlias);
@@ -207,7 +207,6 @@ dump($settings);
         $settings->setParameters($parameters);
 
         return $settings;
-
     }
 
     /**
@@ -217,11 +216,10 @@ dump($settings);
     public function save(SettingsInterface $settings)
     {
         $schemaAlias = $settings->getSchemaAlias();
+
         $schemaAliasChamilo = str_replace('chamilo_core.settings.', '', $schemaAlias);
 
         $schema = $this->schemaRegistry->get($schemaAlias);
-
-        //$schema = $this->schemaRegistry->getSchema($namespace);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
@@ -234,14 +232,12 @@ dump($settings);
             }
         }
 
-        /*if (isset($this->resolvedSettings[$namespace])) {
-            $this->resolvedSettings[$namespace]->setParameters($parameters);
-        }*/
         /** @var \Sylius\Bundle\SettingsBundle\Event\SettingsEvent $event */
         $event = $this->eventDispatcher->dispatch(
             SettingsEvent::PRE_SAVE,
             new SettingsEvent($settings)
         );
+
         /** @var \Chamilo\CoreBundle\Entity\SettingsCurrent $url */
         $url = $event->getSettings()->getAccessUrl();
 
