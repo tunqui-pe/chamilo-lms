@@ -27,7 +27,9 @@ class ExerciseSettingsSchema implements SchemaInterface
                     'allow_coach_feedback_exercises' => 'true',
                     'show_official_code_exercise_result_list' => 'false',
                     'email_alert_manager_on_new_quiz' => 'true',
-                    'exercise_max_ckeditors_in_page' => '0'
+                    'exercise_max_ckeditors_in_page' => '0',
+                    'configure_exercise_visibility_in_course' => 'false',
+                    'exercise_invisible_in_session' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -53,6 +55,8 @@ class ExerciseSettingsSchema implements SchemaInterface
             ->add('show_official_code_exercise_result_list', 'yes_no')
             ->add('email_alert_manager_on_new_quiz', 'yes_no')
             ->add('exercise_max_ckeditors_in_page')
+            ->add('configure_exercise_visibility_in_course', 'yes_no')
+            ->add('exercise_invisible_in_session', 'yes_no')
         ;
     }
 }

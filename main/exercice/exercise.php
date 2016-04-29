@@ -493,11 +493,11 @@ while ($row = Database :: fetch_array($result, 'ASSOC')) {
 }
 
 if (!empty($exercise_list) &&
-    api_get_setting('exercise_invisible_in_session') === 'true'
+    api_get_setting('exercise.exercise_invisible_in_session') === 'true'
 ) {
     if (!empty($sessionId)) {
         $changeDefaultVisibility = true;
-        if (api_get_setting('configure_exercise_visibility_in_course') === 'true') {
+        if (api_get_setting('exercise.configure_exercise_visibility_in_course') === 'true') {
             if (api_get_course_setting('exercise_invisible_in_session') == 1) {
                 $changeDefaultVisibility = true;
             } else {
