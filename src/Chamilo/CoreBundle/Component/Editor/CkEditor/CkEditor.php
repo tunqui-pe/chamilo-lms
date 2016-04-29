@@ -40,6 +40,7 @@ class CkEditor extends Editor
         $html = '<textarea id="'.$this->getName().'" name="'.$this->getName().'" class="ckeditor">
                  '.$this->value.'
                  </textarea>';
+
         $html .= $this->editorReplace();
 
         return $html;
@@ -62,7 +63,7 @@ class CkEditor extends Editor
             }
             $style = '<link href="'.$cssFile.'" rel="stylesheet" media="screen" type="text/css" />';
         }
-        
+
         $html = '<textarea id="'.$this->getName().'" name="'.$this->getName().'" class="ckeditor">
                  '.$style.$this->value.'
                  </textarea>';
@@ -107,7 +108,7 @@ class CkEditor extends Editor
         $config = $toolbar->getConfig();
 
         $javascript = $this->toJavascript($config);
-        
+
         $html = "<script>
            CKEDITOR.replace('".$this->getName()."',
                $javascript

@@ -44,6 +44,7 @@ class TrainingDescription extends Basic
 
             $config['toolbar_maxToolbar'] = $this->getMaximizedToolbar();
         }
+        
         return $config;
     }
 

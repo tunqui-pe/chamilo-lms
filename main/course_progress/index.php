@@ -225,7 +225,6 @@ if ($action == 'thematic_advance_add' || $action == 'thematic_advance_edit') {
     $interbreadcrumb[] = array ('url' => 'index.php?'.api_get_cidreq().'&action=thematic_advance_list&thematic_id='.$thematic_id, 'name' => get_lang('ThematicAdvance').' ('.$thematic_data['title'].')');
     $interbreadcrumb[] = array ('url' => '#', 'name' => get_lang('NewThematicAdvance'));
 }
-
 // Distpacher actions to controller
 switch ($action) {
     case 'thematic_add':

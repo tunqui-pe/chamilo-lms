@@ -95,7 +95,7 @@ class Editor
     public function createHtml()
     {
         $html = '<textarea id="'.$this->getName().'" name="'.$this->getName().'">'.$this->value.'</textarea>';
-        //$html .= $this->editorReplace();
+        
         return $html;
     }
 

@@ -406,8 +406,8 @@ if ($allowLPReturnLink === 'true') {
     $form->addGroup($group, '', array(get_lang("LpReturnLink")), '');
 }
 
-$exerciseInvisible = api_get_setting('exercise_invisible_in_session');
-$configureExerciseVisibility = api_get_setting('configure_exercise_visibility_in_course');
+$exerciseInvisible = api_get_setting('exercise.exercise_invisible_in_session');
+$configureExerciseVisibility = api_get_setting('exercise.configure_exercise_visibility_in_course');
 
 if ($exerciseInvisible === 'true' &&
     $configureExerciseVisibility === 'true'
@@ -595,11 +595,15 @@ if ($form->validate() && is_settings_editable()) {
         ->setDepartmentUrl($updateValues['department_url'])
         ->setVisibility($updateValues['visibility'])
         ->setSubscribe($updateValues['subscribe'])
-        ->setUnsubscribe($updateValues['unsubscribe'])
+        ->setUnsubscribe(isset($updateValues['unsubscribe']) ? $updateValues['unsubscribe'] : 0)
         ->setLegal($updateValues['legal'])
         ->setActivateLegal($activeLegal)
         ->setRegistrationCode($updateValues['course_registration_password'])
     ;
+
+    $url = api_get_current_access_url_id();
+    $url = $em->getRepository('ChamiloCoreBundle:AccessUrl')->find($url);
+    $courseObj->setCurrentUrl($url);
 
     $em->merge($courseObj);
     $em->flush();
