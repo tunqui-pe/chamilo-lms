@@ -32,7 +32,7 @@ class HtmlEditor extends HTML_QuickForm_textarea
         $config = []
     ) {
         if (empty($name)) {
-            
+
             return false;
         }
 
@@ -105,7 +105,7 @@ class HtmlEditor extends HTML_QuickForm_textarea
             $this->editor->value = $this->getValue();
             $this->editor->setName($this->getName());
 
-            if ($style == true) {
+            if ($style === true) {
                 $result = $this->editor->createHtmlStyle();
             } else {
                 $result = $this->editor->createHtml();
