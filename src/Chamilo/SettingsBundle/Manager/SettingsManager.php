@@ -133,9 +133,14 @@ class SettingsManager implements SettingsManagerInterface
         }
 
         list($namespace, $name) = explode('.', $name);
-        $settings = $this->load('chamilo_core.settings.'.$namespace);
+        $settings = $this->load($this->convertNameSpaceToService($namespace));
 
         return $settings->get($name);
+    }
+    
+    public function convertNameSpaceToService($namespace) 
+    {
+        return 'chamilo_core.settings.'.$namespace;
     }
 
     /**
