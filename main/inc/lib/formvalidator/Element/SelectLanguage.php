@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 /**
+ * Class SelectLanguage
 * A dropdownlist with all languages to use with QuickForm
 */
 class SelectLanguage extends HTML_QuickForm_select

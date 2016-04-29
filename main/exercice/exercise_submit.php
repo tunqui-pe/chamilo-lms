@@ -144,7 +144,7 @@ if (!is_object($objExercise)) {
 // If reminder ends we jump to the exercise_reminder
 if ($objExercise->review_answers) {
     if ($remind_question_id == -1) {
-        header('Location: exercise_reminder.php?origin='.$origin.'&exerciseId='.$exerciseId);
+        header('Location: exercise_reminder.php?origin='.$origin.'&exerciseId='.$exerciseId.'&'.api_get_cidreq());
         exit;
     }
 }
