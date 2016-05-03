@@ -179,7 +179,7 @@ function handle_forum_and_forumcategories($lp_id = null)
 function show_add_forumcategory_form($inputvalues = array(), $lp_id)
 {
     // Initialize the object.
-    $form = new FormValidator('forumcategory', 'post', 'index.php?'.api_get_cidreq());
+    $form = new FormValidator('forumcategory', 'post', 'index.php?' . api_get_cidreq());
     // hidden field if from learning path
 
     $form->addElement('hidden', 'lp_id', $lp_id);
@@ -229,11 +229,7 @@ function show_add_forumcategory_form($inputvalues = array(), $lp_id)
 function show_add_forum_form($inputvalues = array(), $lp_id)
 {
     $_course = api_get_course_info();
-    $form = new FormValidator(
-        'forumcategory',
-        'post',
-        'index.php?'.api_get_cidreq()
-    );
+    $form = new FormValidator('forumcategory', 'post', 'index.php?' . api_get_cidreq());
 
     // The header for the form
     if (!empty($inputvalues)) {
