@@ -174,7 +174,8 @@
         "ornicar/gravatar-bundle": "^1.1",
         "a2lix/translation-form-bundle": "~2.0",
         "knplabs/doctrine-behaviors": "~1.1",
-	"jimmiw/php-time-ago": "^0.4.11"
+	"jimmiw/php-time-ago": "^0.4.11",
+        "phpoffice/phpword": "^0.12.1"
     },
     "require-dev": {
         "behat/behat": "@stable",
