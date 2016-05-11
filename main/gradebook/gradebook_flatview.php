@@ -254,8 +254,9 @@ if (!empty($_GET['export_report']) &&
                 ob_start();
                 $export = new GradeBookResult();
                 $export->exportCompleteReportDOC($printable_data);
+                $content = ob_get_contents();
                 ob_end_clean();
-                exit;
+                echo $content;
                 break;
             case 'csv':
             default:
