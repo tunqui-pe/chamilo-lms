@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Language
 {
     /**
-     * @var boolean
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -58,9 +58,9 @@ class Language
     private $available;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="parent_id", type="boolean", nullable=true)
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
     private $parentId;
 
