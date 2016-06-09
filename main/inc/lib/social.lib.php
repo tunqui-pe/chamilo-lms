@@ -1734,7 +1734,10 @@ class SocialManager extends UserManager
             $template->addGlobal('gamification_points', $gamificationPoints);
         }
         $chatEnabled = api_is_global_chat_enabled();
+
         $template->addGlobal('chat_enabled', $chatEnabled);
+        $template->assign('user_relation_type_friend', USER_RELATION_TYPE_FRIEND);
+        $template->assign('show_full_profile', $show_full_profile);
 
         $templateName = $template->render('@template_style/social/user_block.html.twig');
 
