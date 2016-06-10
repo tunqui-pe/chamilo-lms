@@ -220,7 +220,7 @@ class ExtraField
      */
     public function getDisplayText()
     {
-        return $this->displayText;
+        return \ExtraField::translateDisplayName($this->variable, $this->displayText);
     }
 
     /**
