@@ -37,7 +37,6 @@ class AppKernel extends Kernel
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             // Data grid
             new APY\DataGridBundle\APYDataGridBundle(),
-            new Chamilo\FaqBundle\ChamiloFaqBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
@@ -111,7 +110,10 @@ class AppKernel extends Kernel
             new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
             new Chamilo\AdminBundle\ChamiloAdminBundle(),
             new Chamilo\TimelineBundle\ChamiloTimelineBundle(),
-            new \Chamilo\ContactBundle\ChamiloContactBundle(),
+            new Chamilo\ContactBundle\ChamiloContactBundle(),
+            new Chamilo\SkillBundle\ChamiloSkillBundle(),
+            new Chamilo\FaqBundle\ChamiloFaqBundle(),
+            new Chamilo\TicketBundle\ChamiloTicketBundle(),
 
             // Based in Sonata
             new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
