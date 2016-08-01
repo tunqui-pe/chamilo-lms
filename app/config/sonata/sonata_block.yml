@@ -51,7 +51,6 @@ sonata_block:
 
         # TimelineBundle's Blocks
         sonata.timeline.block.timeline:
-            contexts:   [admin]
 
         # UserBundle's Blocks
         sonata.user.block.account:

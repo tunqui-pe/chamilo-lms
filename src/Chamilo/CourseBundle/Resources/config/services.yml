@@ -17,7 +17,7 @@ services:
     # Event Listeners
     chamilo_course.listener.course:
         class: Chamilo\CourseBundle\EventListener\CourseListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
@@ -27,9 +27,9 @@ services:
     chamilo_course.listener.course_access:
         class: Chamilo\CourseBundle\EventListener\CourseAccessListener
         arguments:
-            - @doctrine.orm.entity_manager
+            - '@doctrine.orm.entity_manager'
         calls:
-            - [setRequest, [@request_stack]]
+            - [setRequest, ['@request_stack']]
         tags:
             - { name: kernel.event_listener, event: chamilo_course.course.access, method: onCourseAccessEvent }
 
@@ -37,9 +37,9 @@ services:
     chamilo_course.listener.session_access:
         class: Chamilo\CourseBundle\EventListener\SessionAccessListener
         arguments:
-          - @doctrine.orm.entity_manager
+          - '@doctrine.orm.entity_manager'
         calls:
-                - [setRequest, [@request_stack]]
+                - [setRequest, ['@request_stack']]
         tags:
             - { name: kernel.event_listener, event: chamilo_course.course.session, method: onSessionAccessEvent }
 
@@ -48,7 +48,7 @@ services:
     # Group voter, checks if a user has permissions to do actions
     chamilo_course.security.authorization.voter.group_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\GroupVoter
-        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.entity.manager.course_manager, @chamilo_course.manager.group, @service_container ]
+        arguments: [ '@doctrine.orm.entity_manager', '@chamilo_core.entity.manager.course_manager', '@chamilo_course.manager.group', '@service_container' ]
         public: false
         tags:
            - { name: security.voter }
@@ -65,8 +65,8 @@ services:
     chamilo_course.settings.form_factory:
         class: %chamilo_course.settings.form_factory.class%
         arguments:
-            - @chamilo_course.settings.schema_registry
-            - @form.factory
+            - '@chamilo_course.settings.schema_registry'
+            - '@form.factory'
 
     chamilo_course.repository.parameter:
         class: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
@@ -83,12 +83,12 @@ services:
     chamilo_course.settings.manager:
         class: '%chamilo_course.settings.manager.class%'
         arguments:
-            - @sylius.settings.schema_registry
-            - @sylius.manager.parameter
-            - @sylius.repository.parameter
-            - @sylius.settings.cache
-            - @validator
-            - @event_dispatcher
+            - '@sylius.settings.schema_registry'
+            - '@sylius.manager.parameter'
+            - '@sylius.repository.parameter'
+            - '@sylius.settings.cache'
+            - '@validator'
+            - '@event_dispatcher'
 
     # Tool chain loads the list of tool services with the tag "chamilo_course.tool"
     # Tool chain is filled in file DependencyInjection/Compiler/ToolCompilerClass.php

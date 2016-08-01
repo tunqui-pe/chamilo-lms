@@ -29,9 +29,9 @@ assetic:
 
         chamilo_css:
             inputs:
-                - @chamilo_bootstrap_css
-                - @chamilo_font_awesome_css
-                - @chamilo_ionicons_css
+                - '@chamilo_bootstrap_css'
+                - '@chamilo_font_awesome_css'
+                - '@chamilo_ionicons_css'
                 - bundles/chamilocore/components/fullcalendar/dist/fullcalendar.min.css
                 - bundles/chamilocore/components/chosen-bower/chosen.css
                 - bundles/chamilocore/components/jquery-ui/themes/cupertino/jquery-ui.min.css
