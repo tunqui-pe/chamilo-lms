@@ -74,6 +74,11 @@ services:
         factory_method: getRepository
         arguments: [ Chamilo\CourseBundle\Entity\CCourseSetting ]
 
+    chamilo_settings.repository.parameter:
+        class: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Chamilo\CoreBundle\Entity\SettingsCurrent ]
 
     chamilo_course.settings.manager:
         class: '%chamilo_course.settings.manager.class%'

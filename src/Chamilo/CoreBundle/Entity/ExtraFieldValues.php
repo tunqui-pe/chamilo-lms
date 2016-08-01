@@ -335,5 +335,21 @@ class ExtraFieldValues implements AttributeValueInterface
         return $this->attribute->getVariable();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getPresentation()
+    {
+        // TODO: Implement getPresentation() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getConfiguration()
+    {
+        // TODO: Implement getConfiguration() method.
+    }
+
 
 }

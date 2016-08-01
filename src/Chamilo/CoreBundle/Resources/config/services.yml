@@ -38,7 +38,7 @@ services:
     # Course voter checks if a user has permissions to do actions in a course
     chamilo_core.security.authorization.voter.course_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\CourseVoter
-        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.entity.manager.course_manager, @service_container]
+        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.entity.manager.course_manager, '@service_container']
         public: false
         tags:
            - { name: security.voter }
@@ -46,7 +46,7 @@ services:
     # Session voter, checks if a user has permissions to do actions in a session
     chamilo_core.security.authorization.voter.session_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\SessionVoter
-        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.entity.manager.course_manager, @service_container]
+        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.entity.manager.course_manager, '@service_container']
         public: false
         tags:
            - { name: security.voter }
@@ -55,7 +55,7 @@ services:
     chamilo_core.security.authorization.voter.resource_node_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\ResourceNodeVoter
         public: false
-        arguments: [ @service_container ]
+        arguments: [ '@service_container' ]
         tags:
             - { name: security.voter }
 
@@ -125,7 +125,7 @@ services:
     # Setting legacy variables
     chamilo_core.listener.legacy:
         class: Chamilo\CoreBundle\EventListener\LegacyListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 100 }
           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
@@ -149,14 +149,14 @@ services:
     # Settings listener
     chamilo_core.listener.settings:
         class: Chamilo\CoreBundle\EventListener\SettingListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: kernel.event_listener, event: sylius.settings.pre_save, method: onSettingPreSave }
 
     # Menu
     chamilo_core.listener.navbar_menu_listener:
         class: Chamilo\CoreBundle\EventListener\MenuListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: kernel.event_listener, event: theme.sidebar_setup_menu_knp, method: onSetupMenu }
             - { name: kernel.event_listener, event: theme.breadcrumb, method: onSetupMenu }
@@ -164,7 +164,7 @@ services:
     # Show the user information in the topbar
     chamilo_core.listener.navbar_user_listener:
         class: Chamilo\CoreBundle\EventListener\ShowUserListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
             - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
@@ -172,7 +172,7 @@ services:
     # Loads the message notifications in the top bar
     chamilo_core.listener.message_listener:
         class: Chamilo\CoreBundle\EventListener\MessageListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: kernel.event_listener, event: theme.messages, method: onListMessages }
 
@@ -191,7 +191,7 @@ services:
     # Side bar menu
     chamilo_core.menu.simple_menu:
         class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
-        arguments: [@service_container]
+        arguments: ['@service_container']
 
     # Main nav bar
     chamilo_core.menu.nav_builder:

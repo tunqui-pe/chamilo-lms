@@ -10,7 +10,8 @@ use Symfony\Component\Templating\Helper\Helper;
  * Class SettingsHelper
  * @package Chamilo\SettingsBundle\Templating\Helper
  */
-class SettingsHelper extends Helper implements SettingsHelperInterface
+//class SettingsHelper extends Helper implements SettingsHelperInterface
+class SettingsHelper extends Helper
 {
     /**
      * {@inheritdoc}

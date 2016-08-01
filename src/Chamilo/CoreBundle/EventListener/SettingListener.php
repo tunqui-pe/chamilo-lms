@@ -38,10 +38,11 @@ class SettingListener
 
         $url = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:AccessUrl')->find($urlId);
         /** @var SettingsCurrent $settings */
-        $settings = $event->getSettings();
-        $settings->setUrl($url);
-        $event->getSettings()->setAccessUrl($url);
+        //$settings = $event->getSettings();
 
-        //$event->setArgument('url', $url);
+        //$settings->setUrl($url);
+        //$event->getSettings()->setAccessUrl($url);
+
+        $event->setArgument('url', $url);
     }
 }

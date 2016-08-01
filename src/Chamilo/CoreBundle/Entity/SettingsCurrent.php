@@ -4,7 +4,6 @@
 namespace Chamilo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 
@@ -14,7 +13,7 @@ use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
  * @ORM\Table(name="settings_current", uniqueConstraints={@ORM\UniqueConstraint(name="unique_setting", columns={"variable", "subkey", "access_url"})}, indexes={@ORM\Index(name="access_url", columns={"access_url"})})
  * @ORM\Entity(repositoryClass="Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository")
  */
-class SettingsCurrent implements SettingsInterface
+class SettingsCurrent
 {
     /**
      * @var integer
