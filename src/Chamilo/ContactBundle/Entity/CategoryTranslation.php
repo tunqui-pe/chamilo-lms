@@ -35,7 +35,7 @@ class CategoryTranslation
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -44,6 +44,7 @@ class CategoryTranslation
 
     /**
      * @param mixed $name
+     *
      * @return CategoryTranslation
      */
     public function setName($name)
