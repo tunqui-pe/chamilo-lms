@@ -273,8 +273,6 @@ dump($settings);
             new SettingsEvent($namespace, $settings, $parameters)
         );
 
-        var_dump($event);
-
         /** @var \Chamilo\CoreBundle\Entity\SettingsCurrent $url */
         $url = $event->getArgument('url');
 
