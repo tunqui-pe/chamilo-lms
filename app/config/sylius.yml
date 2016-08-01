@@ -56,11 +56,11 @@
 # Platform settings (new)
 sylius_settings:
     driver: doctrine/orm
-    resources:
-        settings:
-            classes:
-                model: Chamilo\CoreBundle\Entity\SettingsCurrent
-                repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
+#    resources:
+#        settings:
+#            classes:
+#                model: Chamilo\CoreBundle\Entity\SettingsCurrent
+#                repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
 
 
 sylius_resource:
