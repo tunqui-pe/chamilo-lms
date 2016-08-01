@@ -82,7 +82,7 @@ class SettingsController extends SyliusSettingsController
 
         $settings = $manager->load($manager->convertNameSpaceToService($namespace));
 
-        $form = $this->getSettingsFormFactory()->create('chamilo_core.settings.'.$namespace);
+        $form = $this->getSettingsFormFactory()->create($namespace);
 
         if (!empty($keyword)) {
             $params = $settings->getParameters();
@@ -98,7 +98,7 @@ class SettingsController extends SyliusSettingsController
         if ($form->handleRequest($request)->isValid()) {
             $messageType = 'success';
             try {
-                $manager->save($form->getData());
+                $manager->save($namespace, $form->getData());
                 $message = $this->getTranslator()->trans('sylius.settings.update', array(), 'flashes');
             } catch (ValidatorException $exception) {
                 $message = $this->getTranslator()->trans($exception->getMessage(), array(), 'validators');
