@@ -27,7 +27,6 @@
             "main/newscorm",
             "main/inc/lib",
             "plugin",
-            "main/inc/lib/getid3",
             "main/survey",
             "main/inc/lib/hook"
         ]
