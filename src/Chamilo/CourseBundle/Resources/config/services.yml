@@ -78,10 +78,11 @@ services:
     chamilo_course.settings.manager:
         class: '%chamilo_course.settings.manager.class%'
         arguments:
-            - @sylius.registry.settings_schema
-            - @sylius.registry.settings_resolver
-            - @sylius.manager.settings
-            - @sylius.factory.settings
+            - @sylius.settings.schema_registry
+            - @sylius.manager.parameter
+            - @sylius.repository.parameter
+            - @sylius.settings.cache
+            - @validator
             - @event_dispatcher
 
     # Tool chain loads the list of tool services with the tag "chamilo_course.tool"

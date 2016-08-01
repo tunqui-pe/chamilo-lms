@@ -17,7 +17,6 @@ use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaRegistryInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilder;
 use Sylius\Component\Registry\ServiceRegistryInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -29,18 +28,14 @@ use Chamilo\CoreBundle\Entity\SettingsCurrent;
  * Class SettingsManager
  * @package Chamilo\SettingsBundle\Manager
  */
-class SettingsManager implements SettingsManagerInterface
+class SettingsManager
 {
     private $url;
-    /**
-     * @var ServiceRegistryInterface
-     */
-    private $schemaRegistry;
 
     /**
      * @var ServiceRegistryInterface
      */
-    private $resolverRegistry;
+    private $schemaRegistry;
 
     /**
      * @var ObjectManager
@@ -57,24 +52,20 @@ class SettingsManager implements SettingsManagerInterface
      */
     private $eventDispatcher;
 
-    /**
-     * @param ServiceRegistryInterface $schemaRegistry
-     * @param ServiceRegistryInterface $resolverRegistry
-     * @param ObjectManager $manager
-     * @param FactoryInterface $settingsFactory
-     * @param EventDispatcherInterface $eventDispatcher
-     */
+
     public function __construct(
-        $schemaRegistry,
-        $resolverRegistry,
-        ObjectManager $manager,
-        $settingsFactory,
-        $eventDispatcher
+        SchemaRegistryInterface $schemaRegistry,
+        ObjectManager $parameterManager,
+        RepositoryInterface $parameterRepository,
+        Cache $cache,
+        ValidatorInterface $validator,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->schemaRegistry = $schemaRegistry;
-        $this->resolverRegistry = $resolverRegistry;
-        $this->manager = $manager;
-        $this->settingsFactory = $settingsFactory;
+        $this->parameterManager = $parameterManager;
+        $this->parameterRepository = $parameterRepository;
+        $this->cache = $cache;
+        $this->validator = $validator;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -137,8 +128,8 @@ class SettingsManager implements SettingsManagerInterface
 
         return $settings->get($name);
     }
-    
-    public function convertNameSpaceToService($namespace) 
+
+    public function convertNameSpaceToService($namespace)
     {
         return 'chamilo_core.settings.'.$namespace;
     }

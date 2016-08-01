@@ -15,13 +15,15 @@ use Symfony\Component\Validator\ValidatorInterface;
 use Chamilo\SettingsBundle\Manager\SettingsManager as ChamiloSettingsManager;
 use Chamilo\CourseBundle\Entity\CCourseSetting;
 use Chamilo\CoreBundle\Entity\Course;
+use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class SettingsManager
  * Course settings manager.
  * @package Chamilo\CourseBundle\Manager
  */
-class SettingsManager extends ChamiloSettingsManager
+class SettingsManager extends ChamiloSettingsManager implements SettingsManagerInterface
 {
     protected $course;
 
