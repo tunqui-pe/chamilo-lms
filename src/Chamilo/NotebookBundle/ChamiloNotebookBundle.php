@@ -12,7 +12,10 @@ use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
  */
 class ChamiloNotebookBundle extends AbstractResourceBundle
 {
-    public function getSupportedDrivers()
+    /**
+     * @inheritdoc
+     */
+    public static function getSupportedDrivers()
     {
         return array(
             SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
@@ -20,7 +23,7 @@ class ChamiloNotebookBundle extends AbstractResourceBundle
     }
 
     /**
-     *
+     * @inheritdoc
      */
     public function getBundlePrefix()
     {

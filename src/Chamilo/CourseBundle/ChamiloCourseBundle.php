@@ -18,9 +18,9 @@ use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
 class ChamiloCourseBundle extends AbstractResourceBundle
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function getSupportedDrivers()
+    public static function getSupportedDrivers()
     {
         return array(
             SyliusResourceBundle::DRIVER_DOCTRINE_ORM
@@ -28,7 +28,7 @@ class ChamiloCourseBundle extends AbstractResourceBundle
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function getBundlePrefix()
     {
