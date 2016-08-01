@@ -204,6 +204,12 @@ class Session
     private $sendSubscriptionNotification;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Chamilo\CourseBundle\Entity\CStudentPublication", mappedBy="session", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $studentPublications;
+
+    /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\SkillRelUser", mappedBy="session", cascade={"persist"})
      */
     protected $issuedSkills;
@@ -243,6 +249,7 @@ class Session
         $this->userCourseSubscriptions = new ArrayCollection();
         $this->showDescription = 0;
         $this->category = null;
+        $this->studentPublications = new ArrayCollection();
     }
 
     /**
@@ -270,7 +277,7 @@ class Session
     }
 
     /**
-     * @param $showDescription
+     * @param string $showDescription
      * @return $this
      */
     public function setShowDescription($showDescription)
@@ -1031,6 +1038,61 @@ class Session
             );
 
         return $this->userCourseSubscriptions->matching($criteria);
+    }
+
+    public function getBuyCoursePluginPrice()
+    {
+        // start buycourse validation
+        // display the course price and buy button if the buycourses plugin is enabled and this course is configured
+        $plugin = \BuyCoursesPlugin::create();
+        $isThisCourseInSale = $plugin->buyCoursesForGridCatalogVerificator($this->id, \BuyCoursesPlugin::PRODUCT_TYPE_SESSION);
+        $return = [];
+
+        if ($isThisCourseInSale) {
+            // set the Price label
+            $return['html'] = $isThisCourseInSale['html'];
+            // set the Buy button instead register.
+            if ($isThisCourseInSale['verificator']) {
+                $return['buy_button'] = $plugin->returnBuyCourseButton($this->id, \BuyCoursesPlugin::PRODUCT_TYPE_SESSION);
+            }
+        }
+        // end buycourse validation
+        return $return;
+    }
+
+    /**
+     * @param ArrayCollection $studentPublications
+     * @return Session
+     */
+    public function setStudentPublications(ArrayCollection $studentPublications)
+    {
+        $this->studentPublications = new ArrayCollection();
+
+        foreach ($studentPublications as $studentPublication) {
+            $this->addStudentPublication($studentPublication);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param CStudentPublication $studentPublication
+     * @return Session
+     */
+    public function addStudentPublication(CStudentPublication $studentPublication)
+    {
+        $this->studentPublications[] = $studentPublication;
+
+        return $this;
+    }
+
+    /**
+     * Get studentPublications
+     * @return ArrayCollection
+     */
+    public function getStudentPublications()
+    {
+        return $this->studentPublications;
     }
 
     /**

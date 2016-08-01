@@ -15,6 +15,15 @@ class UsergroupRelSession
     /**
      * @var integer
      *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="usergroup_id", type="integer", nullable=false)
      */
     private $usergroupId;
@@ -25,17 +34,6 @@ class UsergroupRelSession
      * @ORM\Column(name="session_id", type="integer", nullable=false)
      */
     private $sessionId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-
 
     /**
      * Set usergroupId

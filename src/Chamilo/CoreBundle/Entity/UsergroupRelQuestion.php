@@ -15,6 +15,15 @@ class UsergroupRelQuestion
     /**
      * @var integer
      *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="c_id", type="integer", nullable=false)
      */
     private $cId;
@@ -39,17 +48,6 @@ class UsergroupRelQuestion
      * @ORM\Column(name="coefficient", type="float", precision=6, scale=2, nullable=true)
      */
     private $coefficient;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-
 
     /**
      * Set cId
