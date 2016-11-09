@@ -29,57 +29,14 @@ if (!(isset($_user['user_id']) && $_user['user_id']) || api_is_anonymous($_user[
     api_not_allowed(true);
 }
 
+$userGeolocalization = api_get_setting('enable_profile_user_address_geolocalization') == 'true';
 $htmlHeadXtra[] = api_get_password_checker_js('#username', '#password1');
 $htmlHeadXtra[] = api_get_css('components/cropper/dist/cropper.min.css');
 $htmlHeadXtra[] = api_get_js('components/cropper/dist/cropper.min.js');
+$htmlHeadXtra[] = '<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=true" ></script>';
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
-    var $image = $("#previewImage");
-    var $input = $("[name=\'cropResult\']");
-    var $cropButton = $("#cropButton");
-    var canvas = "";
-    var imageWidth = "";
-    var imageHeight = "";
-
-    $("input:file").change(function() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("picture_form").files[0]);
-
-        oFReader.onload = function (oFREvent) {
-            $image.attr("src", this.result);
-            $("#labelCropImage").html("'.get_lang('Preview').'");
-            $("#cropImage").addClass("thumbnail");
-            $cropButton.removeClass("hidden");
-            // Destroy cropper
-            $image.cropper("destroy");
-
-            $image.cropper({
-                aspectRatio: 1 / 1,
-                responsive : true,
-                center : false,
-                guides : false,
-                movable: false,
-                zoomable: false,
-                rotatable: false,
-                scalable: false,
-                crop: function(e) {
-                    // Output the result data for cropping image.
-                    $input.val(e.x+","+e.y+","+e.width+","+e.height);
-                }
-            });
-        };
-    });
-
-    $("#cropButton").on("click", function() {
-        var canvas = $image.cropper("getCroppedCanvas");
-        var dataUrl = canvas.toDataURL();
-        $image.attr("src", dataUrl);
-        $image.cropper("destroy");
-        $cropButton.addClass("hidden");
-        return false;
-    });
-
-    $(\'#id_generate_api_key\').on(\'click\', function (e) {
+    $("id_generate_api_key").on("click", function (e) {
         e.preventDefault();
 
         $.ajax({
@@ -92,6 +49,7 @@ $(document).ready(function() {
             }
         });
     });
+
 });
 
 function confirmation(name) {
@@ -105,7 +63,6 @@ function show_image(image,width,height) {
     width = parseInt(width) + 20;
     height = parseInt(height) + 20;
     window_x = window.open(image,\'windowX\',\'width=\'+ width + \', height=\'+ height + \'\');
-
 }
 
 function hide_icon_edit(element_html)  {
@@ -146,6 +103,105 @@ $id_temp_key = UserManager::get_api_key_id(api_get_user_id(), 'dokeos');
 $value_array = $array_list_key[$id_temp_key];
 $user_data['api_key_generate'] = $value_array;
 
+if ($userGeolocalization) {
+    $htmlHeadXtra[] = '<script>
+    $(document).ready(function() {
+
+        var address = "' . $user_data['address'] . '";
+        initializeGeo(address, false);
+
+        $("#geolocalization").on("click", function() {
+            var address = $("#address").val();
+            initializeGeo(address, false);
+            return false;
+        });
+
+        $("#myLocation").on("click", function() {
+            myLocation();
+            return false;
+        });
+
+        $("#address").keypress(function (event) {
+            if (event.which == 13) {
+                $("#geolocalization").click();
+                return false;
+            }
+        });
+    });
+
+    function myLocation() {
+        if (navigator.geolocation) {
+            var geoPosition = function(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var latLng = new google.maps.LatLng(lat, lng);
+                initializeGeo(false, latLng)
+            };
+
+            var geoError = function(error) {
+                alert("Geocode ' . get_lang('Error') . ': " + error);
+            };
+
+            var geoOptions = {
+                enableHighAccuracy: true
+            };
+
+            navigator.geolocation.getCurrentPosition(geoPosition, geoError, geoOptions);
+        }
+    }
+
+    function initializeGeo(address, latLng) {
+        var geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+            zoom: 15,
+            center: latlng,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            navigationControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+        var parameter = address ? { "address": address } : latLng ? { "latLng": latLng } : false;
+
+        if (geocoder && parameter) {
+            geocoder.geocode(parameter, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                        map.setCenter(results[0].geometry.location);
+                        if (!address) {
+                            $("#address").val(results[0].formatted_address);
+                        }
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<b>" + $("#address").val() + "</b>",
+                            size: new google.maps.Size(150, 50)
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map,
+                            title: $("#address").val()
+                        });
+                        google.maps.event.addListener(marker, "click", function() {
+                            infowindow.open(map, marker);
+                        });
+                    } else {
+                        alert("' . get_lang("NotFound") . '");
+                    }
+
+                } else {
+                    alert("Geocode ' . get_lang('Error') . ': " + status);
+                }
+            });
+        }
+    }
+
+    </script>';
+}
 if ($user_data !== false) {
     if (api_get_setting('profile.login_is_email') == 'true') {
         $user_data['username'] = $user_data['email'];
@@ -268,35 +324,45 @@ $form->applyFilter('phone', 'stripslashes');
 $form->applyFilter('phone', 'trim');
 $form->applyFilter('phone', 'html_filter');
 
+if ($userGeolocalization) {
+    // Geolocation
+    $form->addElement('text', 'address', get_lang('AddressField'), ['id' => 'address']);
+    $form->addHtml('
+        <div class="form-group">
+            <label for="geolocalization" class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">
+                <button class="null btn btn-default " id="geolocalization" name="geolocalization" type="submit"><em class="fa fa-map-marker"></em> '.get_lang('Geolocalization').'</button>
+                <button class="null btn btn-default " id="myLocation" name="myLocation" type="submit"><em class="fa fa-crosshairs"></em> '.get_lang('MyLocation').'</button>
+            </div>
+        </div>
+    ');
+
+    $form->addHtml('
+        <div class="form-group">
+            <label for="map" class="col-sm-2 control-label">
+                '.get_lang('Map').'
+            </label>
+            <div class="col-sm-8">
+                <div name="map" id="map" style="width:100%; height:300px;">
+                </div>
+            </div>
+        </div>
+    ');
+}
 //  PICTURE
 if (is_profile_editable() && api_get_setting('profile', 'picture') == 'true') {
-    $form->addElement(
-        'file',
+    $form->addFile(
         'picture',
         ($user_data['picture_uri'] != '' ? get_lang('UpdateImage') : get_lang(
             'AddImage'
         )),
-        array('id' => 'picture_form', 'class' => 'picture-form')
+        array('id' => 'picture', 'class' => 'picture-form', 'crop_image' => true, 'crop_ratio' => '1 / 1')
     );
-    $form->addHtml(''
-                . '<div class="form-group">'
-                    . '<label for="cropImage" id="labelCropImage" class="col-sm-2 control-label"></label>'
-                        . '<div class="col-sm-8">'
-                            . '<div id="cropImage" class="cropCanvas">'
-                                . '<img id="previewImage" >'
-                            . '</div>'
-                            . '<div>'
-                                . '<button class="btn btn-primary hidden" name="cropButton" id="cropButton"><em class="fa fa-crop"></em> '.get_lang('CropYourPicture').'</button>'
-                            . '</div>'
-                        . '</div>'
-                . '</div>'
-    . '');
-    $form->addHidden('cropResult', '');
-    $form->add_progress_bar();
+    $form->addProgress();
     if (!empty($user_data['picture_uri'])) {
         $form->addElement('checkbox', 'remove_picture', null, get_lang('DelImage'));
     }
-    $allowed_picture_types = api_get_supported_image_extensions();
+    $allowed_picture_types = api_get_supported_image_extensions(false);
     $form->addRule(
         'picture',
         get_lang('OnlyImagesAllowed').' ('.implode(', ', $allowed_picture_types).')',
@@ -528,8 +594,9 @@ if ($form->validate()) {
     ) {
         $passwordWasChecked = true;
         $validPassword = UserManager::isPasswordValid(
+            $user->getPassword(),
             $user_data['password0'],
-            $user
+            $user->getSalt()
         );
 
         if ($validPassword) {
@@ -564,9 +631,7 @@ if ($form->validate()) {
                 $changeemail = $user_data['email'];
             }
 
-            if (!check_user_email($user_data['email']) &&
-                empty($user_data['password0'])
-            ){
+            if (!check_user_email($user_data['email']) && empty($user_data['password0'])) {
                 Display::addFlash(
                     Display:: return_message(
                         get_lang('ToChangeYourEmailMustTypeYourPassword'),
@@ -584,7 +649,7 @@ if ($form->validate()) {
             api_get_user_id(),
             $_FILES['picture']['name'],
             $_FILES['picture']['tmp_name'],
-            $user_data['cropResult']
+            $user_data['picture_crop_result']
         );
 
         if ($new_picture) {
@@ -696,7 +761,7 @@ if ($form->validate()) {
     //Fixing missing variables
     $available_values_to_modify = array_merge(
         $available_values_to_modify,
-        array('competences', 'diplomas', 'openarea', 'teach', 'openid')
+        array('competences', 'diplomas', 'openarea', 'teach', 'openid', 'address')
     );
 
     // build SQL query
@@ -704,7 +769,7 @@ if ($form->validate()) {
     unset($user_data['api_key_generate']);
 
     foreach ($user_data as $key => $value) {
-        if (substr($key, 0, 6) == 'extra_') { //an extra field
+        if (substr($key, 0, 6) === 'extra_') { //an extra field
            continue;
         } elseif (strpos($key, 'remove_extra_') !== false) {
         } else {
@@ -722,9 +787,6 @@ if ($form->validate()) {
         }
         if (isset($password) && in_array('password', $available_values_to_modify)) {
             $changePassword = true;
-            /*$password = api_get_encrypted_password($password);
-            $sql .= " password = '".Database::escape_string($password)."'";*/
-        } else {
             // remove trailing , from the query we have so far
             //$sql = rtrim($sql, ',');
         }
@@ -737,11 +799,6 @@ if ($form->validate()) {
                     $sql .= " email = '".Database::escape_string($changeemail)."' ";
                 }
                 $changePassword = true;
-                /*$password = api_get_encrypted_password($password);
-                $sql .= " password = '".Database::escape_string($password)."'";*/
-            } else {
-                // remove trailing , from the query we have so far
-                //$sql = rtrim($sql, ',');
             }
         }
     }

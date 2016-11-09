@@ -22,7 +22,7 @@ $ctok = Security::get_existing_token();
 $limit = CourseCategoryManager::getLimitArray();
 
 // Section for the tabs.
-$this_section = SECTION_COURSES;
+$this_section = SECTION_CATALOG;
 
 if (api_get_setting('course.course_catalog_published') !== 'true') {
     // Access rights: anonymous users can't do anything useful here.
@@ -63,7 +63,7 @@ if (isset($_GET['action']) && in_array($_GET['action'], $actions)) {
     $action = Security::remove_XSS($_GET['action']);
 }
 
-$categoryCode = isset($_GET['category_code']) ? $_GET['category_code'] : 'ALL';
+$categoryCode = isset($_GET['category_code']) && !empty($_GET['category_code']) ? $_GET['category_code'] : 'ALL';
 $nameTools = CourseCategory::getCourseCatalogNameTools($action);
 if (empty($nameTools)) {
     $nameTools = get_lang('CourseManagement');
@@ -74,7 +74,7 @@ if (empty($nameTools)) {
             'name' => get_lang('CourseManagement'),
         );
     }
-    if ($action == 'createcoursecategory') {
+    if ($action === 'createcoursecategory') {
         $interbreadcrumb[] = array(
             'url' => api_get_path(WEB_CODE_PATH).'auth/courses.php?action=sortmycourses',
             'name' => get_lang('SortMyCourses'),
@@ -144,7 +144,7 @@ if (isset($_POST['create_course_category']) &&
 // search courses
 if (isset($_REQUEST['search_course'])) {
     if ($ctok == $_REQUEST['sec_token']) {
-        $courses_controller->search_courses($_REQUEST['search_term'], null, null, null, $limit);
+        $courses_controller->search_courses($_REQUEST['search_term'], null, null, null, $limit, true);
     }
 }
 
@@ -203,6 +203,7 @@ switch ($action) {
             );
         } else {
             header('Location: ' . api_get_self());
+            exit;
         }
         break;
     case 'display_random_courses':
@@ -284,7 +285,7 @@ switch ($action) {
                 }
             }
 
-            SessionManager::suscribe_users_to_session(
+            SessionManager::subscribe_users_to_session(
                 $_GET['session_id'],
                 array($userId),
                 SESSION_VISIBLE_READ_ONLY,

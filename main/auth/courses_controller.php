@@ -34,6 +34,7 @@ class CoursesController
      * render to courses_list view
      * @param string   	action
      * @param string    confirmation message(optional)
+     * @param string $action
      */
     public function courses_list($action, $message = '')
     {
@@ -43,8 +44,7 @@ class CoursesController
         $data['user_courses'] = $this->model->get_courses_of_user($user_id);
         $data['user_course_categories'] = $this->model->get_user_course_categories();
         $data['courses_in_category'] = $this->model->get_courses_in_category();
-        $data['all_user_categories'] = $this->model->get_user_course_categories(
-        );
+        $data['all_user_categories'] = $this->model->get_user_course_categories();
         $data['action'] = $action;
         $data['message'] = $message;
 
@@ -80,7 +80,7 @@ class CoursesController
     /**
      * It's used for listing courses with categories,
      * render to courses_categories view
-     * @param $action
+     * @param string $action
      * @param string $category_code
      * @param string $message
      * @param string $error
@@ -90,14 +90,20 @@ class CoursesController
      * @internal param \action $string
      * @internal param \Category $string code (optional)
      */
-    public function courses_categories($action, $category_code = null, $message = '', $error = '', $content = null, $limit = array())
-    {
+    public function courses_categories(
+        $action,
+        $category_code = null,
+        $message = '',
+        $error = '',
+        $content = null,
+        $limit = array()
+    ) {
         $data = array();
         $browse_course_categories = $this->model->browse_course_categories();
         $data['countCoursesInCategory'] = $this->model->count_courses_in_category($category_code);
-        if ($action == 'display_random_courses') {
+        if ($action === 'display_random_courses') {
             // Random value is used instead limit filter
-            $data['browse_courses_in_category'] = $this->model->browse_courses_in_category(null, 10);
+            $data['browse_courses_in_category'] = $this->model->browse_courses_in_category(null, 12);
             $data['countCoursesInCategory'] = count($data['browse_courses_in_category']);
         } else {
             if (!isset($category_code)) {
@@ -155,15 +161,22 @@ class CoursesController
      * @param string $error
      * @param string $content
      * @param $limit
+     * @param boolean $justVisible Whether to search only in courses visibles in the catalogue
      */
-    public function search_courses($search_term, $message = '', $error = '', $content = null, $limit = array())
-    {
+    public function search_courses(
+        $search_term,
+        $message = '',
+        $error = '',
+        $content = null,
+        $limit = array(),
+        $justVisible = false
+    ) {
         $data = array();
         $limit = !empty($limit) ? $limit : CourseCategory::getLimitArray();
 
         $browse_course_categories = $this->model->browse_course_categories();
         $data['countCoursesInCategory'] = $this->model->count_courses_in_category('ALL', $search_term);
-        $data['browse_courses_in_category'] = $this->model->search_courses($search_term, $limit);
+        $data['browse_courses_in_category'] = $this->model->search_courses($search_term, $limit, $justVisible);
         $data['browse_course_categories']   = $browse_course_categories;
 
         $data['search_term'] = Security::remove_XSS($search_term); //filter before showing in template
@@ -255,8 +268,8 @@ class CoursesController
     /**
      * Change course category
      * render to listing view
-     * @param string    Course code
-     * @param int    Category id
+     * @param string    $course_code
+     * @param int    $category_id
      */
     public function change_course_category($course_code, $category_id)
     {
@@ -274,9 +287,9 @@ class CoursesController
     /**
      * Move up/down courses inside a category
      * render to listing view
-     * @param string    move to up or down
-     * @param string    Course code
-     * @param int    Category id
+     * @param string    $move move to up or down
+     * @param string    $course_code
+     * @param int    $category_id Category id
      */
     public function move_course($move, $course_code, $category_id)
     {
@@ -291,8 +304,8 @@ class CoursesController
     /**
      * Move up/down categories
      * render to listing view
-     * @param string    move to up or down
-     * @param int    Category id
+     * @param string    $move move to up or down
+     * @param int    $category_id Category id
      */
     public function move_category($move, $category_id)
     {
@@ -307,8 +320,8 @@ class CoursesController
     /**
      * Edit course category
      * render to listing view
-     * @param string Category title
-     * @param int    Category id
+     * @param string $title Category title
+     * @param int    $category Category id
      */
     public function edit_course_category($title, $category)
     {
@@ -338,7 +351,9 @@ class CoursesController
     /**
      * Unsubscribe user from a course
      * render to listing view
-     * @param string    Course code
+     * @param string $course_code
+     * @param string $search_term
+     * @param string $category_code
      */
     public function unsubscribe_user_from_course($course_code, $search_term = null, $category_code = null)
     {
@@ -502,8 +517,7 @@ class CoursesController
         $sessionId,
         $sessionName,
         $checkRequirements = false
-    )
-    {
+    ) {
         if ($checkRequirements) {
             $url = api_get_path(WEB_AJAX_PATH);
             $url .= 'sequence.ajax.php?';
@@ -514,14 +528,15 @@ class CoursesController
             ]);
 
             return Display::toolbarButton(
-                get_lang('CheckRequirements'),
+                null,
                 $url,
-                'check-circle',
-                'primary',
+                'shield',
+                'default',
                 [
-                    'class' => 'btn-lg btn-block ajax',
+                    'class' => 'btn-sm ajax',
                     'data-title' => get_lang('CheckRequirements'),
-                    'data-size' => 'md'
+                    'data-size' => 'md',
+                    'title' => get_lang('CheckRequirements')
                 ]
             );
         }
@@ -544,14 +559,15 @@ class CoursesController
             ]);
 
             $result = Display::toolbarButton(
-                get_lang('Subscribe'),
+                null,
                 $url,
-                'check-circle',
-                'primary',
+                'sign-in',
+                'success',
                 [
-                    'class' => 'btn-lg btn-block ajax',
+                    'class' => 'btn-sm ajax',
                     'data-title' => get_lang('AreYouSureToSubscribe'),
-                    'data-size' => 'md'
+                    'data-size' => 'md',
+                    'title' => get_lang('Subscribe')
                 ]
             );
         } else {
@@ -562,11 +578,11 @@ class CoursesController
             ]);
 
             $result = Display::toolbarButton(
-                get_lang('Subscribe'),
+                null,
                 $url,
-                'check-circle',
-                'primary',
-                ['class' => 'btn-lg btn-block']
+                'sign-in',
+                'success',
+                ['class' => 'btn-sm']
             );
         }
 
@@ -591,11 +607,11 @@ class CoursesController
      */
     public function getAlreadyRegisteredInSessionLabel()
     {
-        $icon = '<em class="fa fa-smile-o"></em>';
+        $icon = '<em class="fa fa-graduation-cap"></em>';
 
         return Display::div(
-            $icon . ' ' . get_lang("AlreadyRegisteredToSession"),
-            array('class' => 'info-catalog')
+            $icon,
+            array('class' => 'btn btn-default btn-sm registered', 'title' => get_lang("AlreadyRegisteredToSession"))
         );
     }
 
@@ -806,6 +822,22 @@ class CoursesController
                 $hasRequirements = true;
                 break;
             }
+            $cat = $session->getCategory();
+            if (empty($cat)) {
+                $cat = null;
+                $catName = '';
+            } else {
+                $catName = $cat->getName();
+            }
+
+            $coachId = $session->getGeneralCoach()->getId();
+            $coachName = $session->getGeneralCoach()->getCompleteName();
+            $actions = null;
+            if (api_is_platform_admin()) {
+                $actions = api_get_path(WEB_CODE_PATH) .'session/resume_session.php?id_session='.$session->getId();
+            }
+
+            $isThisSessionOnSale = $session->getBuyCoursePluginPrice();
 
             $sessionsBlock = array(
                 'id' => $session->getId(),
@@ -813,17 +845,24 @@ class CoursesController
                 'image' => isset($imageField['value']) ? $imageField['value'] : null,
                 'nbr_courses' => $session->getNbrCourses(),
                 'nbr_users' => $session->getNbrUsers(),
-                'coach_name' => $session->getGeneralCoach()->getCompleteName(),
+                'coach_id' => $coachId,
+                'coach_url' => api_get_path(WEB_AJAX_PATH) . 'user_manager.ajax.php?a=get_user_popup&user_id=' . $coachId,
+                'coach_name' => $coachName,
+                'coach_avatar' => UserManager::getUserPicture($coachId, USER_IMAGE_SIZE_SMALL),
                 'is_subscribed' => SessionManager::isUserSubscribedAsStudent($session->getId(), $userId),
                 'icon' => $this->getSessionIcon($session->getName()),
                 'date' => $sessionDates['display'],
-                'subscribe_button' => $this->getRegisteredInSessionButton(
+                'price' => (!empty($isThisSessionOnSale['html'])?$isThisSessionOnSale['html']:''),
+                'subscribe_button' => isset($isThisSessionOnSale['buy_button']) ? $isThisSessionOnSale['buy_button'] : $this->getRegisteredInSessionButton(
                     $session->getId(),
                     $session->getName(),
                     $hasRequirements
                 ),
                 'show_description' => $session->getShowDescription(),
+                'description' => $session->getDescription(),
+                'category' => $catName,
                 'tags' => $sessionCourseTags,
+                'edit_actions' => $actions
             );
 
             $sessionsBlock = array_merge($sessionsBlock, $sequences);

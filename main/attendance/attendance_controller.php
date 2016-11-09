@@ -50,11 +50,10 @@ class AttendanceController
         $attendance = new Attendance();
         $data = array();
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 
             if (!empty($_POST['title'])) {
                 $check = Security::check_token();
-                $last_id = null;
                 if ($check) {
                     $attendance->set_name($_POST['title']);
                     $attendance->set_description($_POST['description']);
@@ -96,7 +95,7 @@ class AttendanceController
         $data = array();
         $attendance_id = intval($attendance_id);
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 
             if (!empty($_POST['title'])) {
                 $check = Security::check_token();
@@ -216,7 +215,7 @@ class AttendanceController
 
     /**
      * Restores an attendance entry and fallback to attendances rendering
-     * @param int	$attendanceId
+     * @param int	$attendance_id
      */
     public function attendance_restore($attendance_id)
     {
@@ -233,8 +232,8 @@ class AttendanceController
     /**
      * Lock or unlock an attendance
      * render to attendance_list view
-     * @param string  action (lock_attendance or unlock_attendance)
-     * @param int     attendance id
+     * @param string  $action (lock_attendance or unlock_attendance)
+     * @param int     $attendance_id
      * render to attendance_list view
      */
     public function lock_attendance($action, $attendance_id)
@@ -311,7 +310,7 @@ class AttendanceController
         $data['next_attendance_calendar_id'] = $attendance->get_next_attendance_calendar_id($attendance_id);
         $data['next_attendance_calendar_datetime'] = $attendance->get_next_attendance_calendar_datetime($attendance_id);
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
             if (isset($_POST['hidden_input'])) {
                 foreach ($_POST['hidden_input'] as $cal_id) {
                     $users_present = array();
@@ -418,7 +417,7 @@ class AttendanceController
                     $action = 'calendar_list';
                 }
             }
-        } else if ($action == 'calendar_edit') {
+        } else if ($action === 'calendar_edit') {
             $data['calendar_id'] = $calendar_id;
             if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
                 if (!isset($_POST['cancel'])) {
@@ -541,12 +540,13 @@ class AttendanceController
                 $result['full_name'] = api_get_person_name($user['firstname'], $user['lastname']);
                 foreach ($data_array['attendant_calendar'] as $class_day) {
                     if ($class_day['done_attendance'] == 1) {
-                        if ($data_users_presence[$user['user_id']][$class_day['id']]['presence'] == 1)
+                        if ($data_users_presence[$user['user_id']][$class_day['id']]['presence'] == 1) {
                             $result[$class_day['id']] = get_lang('UserAttendedSymbol');
-                        else
+                        } else {
                             $result[$class_day['id']] = '<span style="color:red">'.get_lang('UserNotAttendedSymbol').'</span>';
+                        }
                     } else {
-                        $result[$class_day['id']] = " ";
+                        $result[$class_day['id']] = ' ';
                     }
                     $cols++;
                 }

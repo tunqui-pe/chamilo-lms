@@ -1,14 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
 use Chamilo\CoreBundle\Framework\Container;
 
 /**
  *  This script displays a form for registering new users.
  *  @package    chamilo.auth
  */
-
-use ChamiloSession as Session;
 
 //quick hack to adapt the registration form result to the selected registration language
 if (!empty($_POST['language'])) {
@@ -22,7 +21,8 @@ $allowedFields = [
     'phone',
     'status',
     'language',
-    'extra_fields'
+    'extra_fields',
+    'address'
 ];
 
 $allowedFieldsConfiguration = api_get_configuration_value('allow_fields_inscription');
@@ -30,14 +30,13 @@ $allowedFieldsConfiguration = api_get_configuration_value('allow_fields_inscript
 if ($allowedFieldsConfiguration !== false) {
     $allowedFields = $allowedFieldsConfiguration;
 }
+$userGeolocalization = api_get_setting('enable_profile_user_address_geolocalization') == 'true';
 
 $htmlHeadXtra[] = api_get_password_checker_js('#username', '#pass1');
 
 // User is not allowed if Terms and Conditions are disabled and
 // registration is disabled too.
-$isNotAllowedHere = api_get_setting(
-        'registration.allow_terms_conditions'
-    ) === 'false' &&
+$isNotAllowedHere = api_get_setting('registration.allow_terms_conditions') === 'false' &&
     api_get_setting('registration.allow_registration') === 'false';
 
 if ($isNotAllowedHere) {
@@ -51,13 +50,112 @@ if (!empty($_SESSION['user_language_choice'])) {
 } else {
     $user_selected_language = api_get_setting('language.platform_language');
 }
+$htmlHeadXtra[] = '<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=true" ></script>';
+
+if ($userGeolocalization) {
+    $htmlHeadXtra[] = '<script>
+    $(document).ready(function() {
+
+        initializeGeo(false, false);
+
+        $("#geolocalization").on("click", function() {
+            var address = $("#address").val();
+            initializeGeo(address, false);
+            return false;
+        });
+
+        $("#myLocation").on("click", function() {
+            myLocation();
+            return false;
+        });
+
+        $("#address").keypress(function (event) {
+            if (event.which == 13) {
+                $("#geolocalization").click();
+                return false;
+            }
+        });
+    });
+
+    function myLocation() {
+        if (navigator.geolocation) {
+            var geoPosition = function(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var latLng = new google.maps.LatLng(lat, lng);
+                initializeGeo(false, latLng)
+            };
+
+            var geoError = function(error) {
+                alert("Geocode ' . get_lang('Error') . ': " + error);
+            };
+
+            var geoOptions = {
+                enableHighAccuracy: true
+            };
+
+            navigator.geolocation.getCurrentPosition(geoPosition, geoError, geoOptions);
+        }
+    }
+
+    function initializeGeo(address, latLng) {
+        var geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-75.503, 22.921);
+        var myOptions = {
+            zoom: 15,
+            center: latlng,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            navigationControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+        var parameter = address ? { "address": address } : latLng ? { "latLng": latLng } : { "address": "Google" };
+
+        if (geocoder && parameter) {
+            geocoder.geocode(parameter, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                        map.setCenter(results[0].geometry.location);
+                        if (!address) {
+                            $("#address").val(results[0].formatted_address);
+                        }
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<b>" + $("#address").val() + "</b>",
+                            size: new google.maps.Size(150, 50)
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map,
+                            title: $("#address").val()
+                        });
+                        google.maps.event.addListener(marker, "click", function() {
+                            infowindow.open(map, marker);
+                        });
+                    } else {
+                        alert("' . get_lang("NotFound") . '");
+                    }
+
+                } else {
+                    alert("Geocode ' . get_lang('Error') . ': " + status);
+                }
+            });
+        }
+    }
+
+    </script>';
+}
 
 $form = new FormValidator('registration');
 
+$user_already_registered_show_terms = false;
 if (api_get_setting('registration.allow_terms_conditions') == 'true') {
     $user_already_registered_show_terms = isset($_SESSION['term_and_condition']['user_id']);
-} else {
-    $user_already_registered_show_terms = false;
 }
 
 // Direct Link Subscription feature #5299
@@ -69,7 +167,7 @@ if (!empty($course_code_redirect)) {
     Session::write('exercise_redirect', $exercise_redirect);
 }
 
-if ($user_already_registered_show_terms == false) {
+if ($user_already_registered_show_terms === false) {
     if (api_is_western_name_order()) {
         // FIRST NAME and LAST NAME
         $form->addElement('text', 'firstname', get_lang('FirstName'), array('size' => 40));
@@ -124,7 +222,15 @@ if ($user_already_registered_show_terms == false) {
 
     // USERNAME
     if (api_get_setting('profile.login_is_email') != 'true') {
-        $form->addElement('text', 'username', get_lang('UserName'), array('id' => 'username', 'size' => USERNAME_MAX_LENGTH));
+        $form->addText(
+            'username',
+            get_lang('UserName'),
+            array(
+                'id' => 'username',
+                'size' => USERNAME_MAX_LENGTH,
+                'autocomplete' => 'off'
+            )
+        );
         $form->applyFilter('username', 'trim');
         $form->addRule('username', get_lang('ThisFieldIsRequired'), 'required');
         $form->addRule('username', sprintf(get_lang('UsernameMaxXCharacters'), (string)USERNAME_MAX_LENGTH), 'maxlength', USERNAME_MAX_LENGTH);
@@ -133,21 +239,31 @@ if ($user_already_registered_show_terms == false) {
     }
 
     // PASSWORD
-    $form->addElement('password', 'pass1', get_lang('Pass'), array('id' => 'pass1', 'size' => 20, 'autocomplete' => 'off'));
+    $form->addElement(
+        'password',
+        'pass1',
+        get_lang('Pass'),
+        array('id' => 'pass1', 'size' => 20, 'autocomplete' => 'off')
+    );
 
     $checkPass = api_get_setting('security.allow_strength_pass_checker');
     if ($checkPass == 'true') {
         $form->addElement('label', null, '<div id="password_progress"></div>');
     }
 
-    $form->addElement('password', 'pass2', get_lang('Confirmation'), array('id' => 'pass2', 'size' => 20, 'autocomplete' => 'off'));
+    $form->addElement(
+        'password',
+        'pass2',
+        get_lang('Confirmation'),
+        array('id' => 'pass2', 'size' => 20, 'autocomplete' => 'off')
+    );
     $form->addRule('pass1', get_lang('ThisFieldIsRequired'), 'required');
     $form->addRule('pass2', get_lang('ThisFieldIsRequired'), 'required');
     $form->addRule(array('pass1', 'pass2'), get_lang('PassTwo'), 'compare');
 
     if (CHECK_PASS_EASY_TO_FIND) {
         $form->addRule(
-            'password1',
+            'pass1',
             get_lang('PassTooEasy') . ': ' . api_generate_password(),
             'callback',
             'api_check_password'
@@ -168,6 +284,33 @@ if ($user_already_registered_show_terms == false) {
                 get_lang('ThisFieldIsRequired'),
                 'required'
             );
+        }
+    }
+    if ($userGeolocalization) {
+        // Geolocation
+        if (in_array('address', $allowedFields)) {
+            $form->addElement('text', 'address', get_lang('AddressField'), ['id' => 'address']);
+            $form->addHtml('
+                <div class="form-group">
+                    <label for="geolocalization" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-8">
+                        <button class="null btn btn-default " id="geolocalization" name="geolocalization" type="submit"><em class="fa fa-map-marker"></em> ' . get_lang('Geolocalization') . '</button>
+                        <button class="null btn btn-default " id="myLocation" name="myLocation" type="submit"><em class="fa fa-crosshairs"></em> ' . get_lang('MyLocation') . '</button>
+                    </div>
+                </div>
+            ');
+
+            $form->addHtml('
+                <div class="form-group">
+                    <label for="map" class="col-sm-2 control-label">
+                        ' . get_lang('Map') . '
+                    </label>
+                    <div class="col-sm-8">
+                        <div name="map" id="map" style="width:100%; height:300px;">
+                        </div>
+                    </div>
+                </div>
+            ');
         }
     }
 
@@ -205,7 +348,7 @@ if ($user_already_registered_show_terms == false) {
     }
 
     $captcha = api_get_setting('allow_captcha');
-    $allowCaptcha = $captcha == 'true';
+    $allowCaptcha = $captcha === 'true';
 
     if ($allowCaptcha) {
         $ajax = api_get_path(WEB_AJAX_PATH).'form.ajax.php?a=get_captcha';
@@ -316,9 +459,10 @@ if ($user_already_registered_show_terms == false) {
     }
 
     // EXTRA FIELDS
-    if (in_array('extra_fields', $allowedFields)) {
+    if (array_key_exists('extra_fields', $allowedFields) || in_array('extra_fields', $allowedFields)) {
         $extraField = new ExtraField('user');
-        $returnParams = $extraField->addElements($form);
+        $extraFieldList = isset($allowedFields['extra_fields']) && is_array($allowedFields['extra_fields']) ? $allowedFields['extra_fields'] : [];
+        $returnParams = $extraField->addElements($form, 0, [], false, false, $extraFieldList);
     }
 }
 
@@ -429,6 +573,19 @@ if (!CustomPages::enabled()) {
 
 // Terms and conditions
 if (api_get_setting('registration.allow_terms_conditions') == 'true') {
+
+
+    if (!api_is_platform_admin()) {
+        if (api_get_setting('show_terms_if_profile_completed') === 'true') {
+            $userInfo = api_get_user_info();
+            if ($userInfo && $userInfo['status'] != ANONYMOUS) {
+                if ((int)$userInfo['profile_completed'] !== 1) {
+                    api_not_allowed(true);
+                }
+            }
+        }
+    }
+
     $language = api_get_language_isocode();
     $language = api_get_language_id($language);
     $term_preview = LegalManager::get_last_condition($language);
@@ -448,7 +605,7 @@ if (api_get_setting('registration.allow_terms_conditions') == 'true') {
 
     // Version and language
     $form->addElement('hidden', 'legal_accept_type', $term_preview['version'].':'.$term_preview['language_id']);
-    $form->addElement('hidden', 'legal_info', $term_preview['legal_id'].':'.$term_preview['language_id']);
+    $form->addElement('hidden', 'legal_info', $term_preview['id'].':'.$term_preview['language_id']);
 
     if ($term_preview['type'] == 1) {
         $form->addElement(
@@ -517,8 +674,8 @@ if ($form->validate()) {
 
         $status = isset($values['status']) ? $values['status'] : STUDENT;
         $phone = isset($values['phone']) ? $values['phone'] : null;
-        $values['language'] = isset($values['language']) ? $values['language'] : api_get_language_isocode(
-        );
+        $values['language'] = isset($values['language']) ? $values['language'] : api_get_interface_language();
+        $values['address'] = isset($values['address']) ? $values['address'] : '';
         // Creates a new user
         $user_id = UserManager::create_user(
             $values['firstname'],
@@ -537,12 +694,16 @@ if ($form->validate()) {
             0,
             $extras,
             null,
-            true
+            true,
+            false,
+            $values['address'],
+            false,
+            $form
         );
 
         //update the extra fields
         $count_extra_field = count($extras);
-        if ($count_extra_field > 0) {
+        if ($count_extra_field > 0 && is_integer($user_id)) {
             foreach ($extras as $key => $value) {
                 // For array $value -> if exists key 'tmp_name' then must not be empty
                 // This avoid delete from user field value table when doesn't upload a file
@@ -695,6 +856,28 @@ if ($form->validate()) {
                 $time = time();
                 $condition_to_save = intval($cond_array[0]).':'.intval($cond_array[1]).':'.$time;
                 UserManager::update_extra_field_value($user_id, 'legal_accept', $condition_to_save);
+                $bossList = UserManager::getStudentBossList($user_id);
+                if ($bossList) {
+                    $bossList = array_column($bossList, 'boss_id');
+                    $currentUserInfo = api_get_user_info($user_id);
+                    foreach ($bossList as $bossId) {
+                        $subjectEmail = sprintf(
+                            get_lang('UserXSignedTheAgreement'),
+                            $currentUserInfo['complete_name']
+                        );
+                        $contentEmail = sprintf(
+                            get_lang('UserXSignedTheAgreementTheY'),
+                            $currentUserInfo['complete_name'],
+                            api_get_local_time($time)
+                        );
+
+                        MessageManager::send_message_simple(
+                            $bossId,
+                            $subjectEmail,
+                            $contentEmail
+                        );
+                    }
+                }
             }
         }
         $values = api_get_user_info($user_id);
@@ -707,6 +890,7 @@ if ($form->validate()) {
     $_user['mail'] = $values['email'];
     $_user['language'] = $values['language'];
     $_user['user_id'] = $user_id;
+
     $is_allowedCreateCourse = isset($values['status']) && $values['status'] == 1;
     $usersCanCreateCourse = api_get_setting(
             'course.allow_users_to_create_courses'
@@ -729,18 +913,31 @@ if ($form->validate()) {
         get_lang('PersonalSettings',null,$_user['language']).".</p>";
 
     $form_data = array(
-        'button' => Display::button('next', get_lang('Next', null, $_user['language']), array('class' => 'btn btn-primary btn-large')),
-        'message' => null,
-        'action' => api_get_path(WEB_PATH).'user_portal.php'
+        'button' => Display::button(
+            'next',
+            get_lang('Next', null, $_user['language']),
+            array('class' => 'btn btn-primary btn-large')
+        ),
+        'message' => '',
+        'action' => api_get_path(WEB_PATH).'user_portal.php',
+        'go_button' => ''
     );
 
-    if (api_get_setting(
-            'registration.allow_terms_conditions'
-        ) == 'true' && $user_already_registered_show_terms
-    ) {
-        $form_data['action'] = api_get_path(WEB_PATH).'user_portal.php';
+    if (api_get_setting('registration.allow_terms_conditions') === 'true' && $user_already_registered_show_terms) {
+        if (api_get_setting('load_term_conditions_section') === 'login') {
+            $form_data['action'] = api_get_path(WEB_PATH).'user_portal.php';
     } else {
-
+        $courseInfo = api_get_course_info();
+            if (!empty($courseInfo)) {
+                $form_data['action'] = $courseInfo['course_public_url'].'?id_session='.api_get_session_id();
+                $cidReset = true;
+                Session::erase('_course');
+                Session::erase('_cid');
+            } else {
+                $form_data['action'] = api_get_path(WEB_PATH).'user_portal.php';
+            }
+        }
+    } else {
         if (!empty($values['email'])) {
             $text_after_registration.= '<p>'.get_lang('MailHasBeenSent', null, $_user['language']).'.</p>';
         }
@@ -749,9 +946,9 @@ if ($form->validate()) {
             if ($usersCanCreateCourse) {
                 $form_data['message'] = '<p>'. get_lang('NowGoCreateYourCourse', null, $_user['language']). "</p>";
             }
-            $form_data['action']  = '../create_course/add_course.php';
+            $form_data['action']  = api_get_path(WEB_CODE_PATH).'create_course/add_course.php';
 
-            if (api_get_setting('course.course_validation') == 'true') {
+            if (api_get_setting('course.course_validation') === 'true') {
                 $form_data['button'] = Display::button(
                     'next',
                     get_lang('CreateCourseRequest', null, $_user['language']),
@@ -764,13 +961,13 @@ if ($form->validate()) {
                     array('class' => 'btn btn-primary btn-large')
                 );
                 $form_data['go_button'] = '&nbsp;&nbsp;<a href="'.api_get_path(WEB_PATH).'index.php'.'">'.
-                    Display::span(get_lang('Next', null, $_user['language']), array('class' => 'btn btn-primary btn-large')).'</a>';
+                    Display::span(
+                        get_lang('Next', null, $_user['language']),
+                        array('class' => 'btn btn-primary btn-large')
+                    ).'</a>';
             }
         } else {
-            if (api_get_setting(
-                    'display.allow_students_to_browse_courses'
-                ) == 'true'
-            ) {
+            if (api_get_setting('display.allow_students_to_browse_courses') == 'true') {
                 $form_data['action'] = 'courses.php?action=subscribe';
                 $form_data['message'] = '<p>'. get_lang('NowGoChooseYourCourses', null, $_user['language']). ".</p>";
             } else {
