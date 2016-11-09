@@ -33,10 +33,6 @@ $interbreadcrumb = array(
     array(
         'url' => api_get_path(WEB_CODE_PATH) . 'admin/skill_badge.php',
         'name' => get_lang('Badges')
-    ),
-    array(
-        'url' => '#',
-        'name' => get_lang('Skills')
     )
 );
 

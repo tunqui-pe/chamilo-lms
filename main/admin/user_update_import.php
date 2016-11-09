@@ -129,7 +129,7 @@ function complete_missing_data($user)
 /**
  * Update users from the imported data
  * @param   array   $users List of users
- * @return  void
+ * @return  false|null
  * @uses global variable $inserted_in_course, which returns the list of courses the user was inserted in
  */
 
@@ -407,11 +407,11 @@ if (isset($_POST['formSent']) && $_POST['formSent'] AND $_FILES['import_file']['
     }
 
     // if the warning message is too long then we display the warning message trough a session
+    Display::addFlash(Display::return_message($warning_message, 'warning', false));
     if ($error_kind_file) {
-        Display::addFlash(Display::return_message(get_lang('YouMustImportAFileAccordingToSelectedOption')));
+        Display::addFlash(Display::return_message(get_lang('YouMustImportAFileAccordingToSelectedOption'), 'error', false));
     } else {
-        Display::addFlash(Display::return_message($see_message_import));
-        header('Location: '.api_get_path(WEB_CODE_PATH).'admin/user_list.php?&sec_token='.$tok);
+        header('Location: '.api_get_path(WEB_CODE_PATH).'admin/user_list.php?sec_token='.$tok);
         exit;
     }
 

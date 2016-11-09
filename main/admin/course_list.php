@@ -155,7 +155,7 @@ function get_course_data($from, $number_of_items, $column, $direction)
         $course[5] = $course[5] == SUBSCRIBE_ALLOWED ? get_lang('Yes') : get_lang('No');
         $course[6] = $course[6] == UNSUBSCRIBE_ALLOWED ? get_lang('Yes') : get_lang('No');
 
-        $language = isset($languages[$course['col3']]) ? $languages[$course['col3']] : $course['col3'];
+        $language = isset($languages[$course[3]]) ? $languages[$course[3]] : $course[3];
 
         $course_rem = array(
             $course[0],
@@ -231,9 +231,10 @@ function get_course_data_by_session($from, $number_of_items, $column, $direction
 /**
  * Filter to display the edit-buttons
  */
-function modify_filter($code)
+function modify_courses_filter($code)
 {
     $icourse = api_get_course_info($code);
+    $path = api_get_path(WEB_CODE_PATH);
 
     return
         '<a href="course_information.php?code='.$code.'">'.
@@ -242,13 +243,13 @@ function modify_filter($code)
         //Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>&nbsp;'. // This is not the preferable way to go to the homepage.
         '<a href="'.api_get_path(WEB_COURSE_PATH).$icourse['path'].'/index.php">'.
         Display::return_icon('course_home.gif', get_lang('CourseHomepage')).'</a>&nbsp;'.
-        '<a href="../tracking/courseLog.php?cidReq='.$code.'">'.
+        '<a href="'.$path.'tracking/courseLog.php?'.api_get_cidreq_params($code).'">'.
         Display::return_icon('statistics.gif', get_lang('Tracking')).'</a>&nbsp;'.
-        '<a href="course_edit.php?id='.$icourse['real_id'].'">'.
+        '<a href="'.$path.'admin/course_edit.php?id='.$icourse['real_id'].'">'.
         Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL).'</a>&nbsp;'.
-        '<a href="../coursecopy/create_backup.php?cidReq='.$code.'">'.
+        '<a href="'.$path.'coursecopy/create_backup.php?'.api_get_cidreq_params($code).'">'.
         Display::return_icon('backup.gif', get_lang('CreateBackup')).'</a>&nbsp;'.
-        '<a href="course_list.php?delete_course='.$code.'"  onclick="javascript: if (!confirm('."'".addslashes(api_htmlentities(get_lang('ConfirmYourChoice'), ENT_QUOTES))."'".')) return false;">'.
+        '<a href="'.$path.'admin/course_list.php?delete_course='.$code.'"  onclick="javascript: if (!confirm('."'".addslashes(api_htmlentities(get_lang('ConfirmYourChoice'), ENT_QUOTES))."'".')) return false;">'.
         Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
 }
 
@@ -297,7 +298,7 @@ $content = '';
 $message = '';
 $actions = '';
 
-if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
+if (isset ($_GET['search']) && $_GET['search'] === 'advanced') {
     // Get all course categories
     $interbreadcrumb[] = array('url' => Container::getRouter()->generate('administration'), 'name' => get_lang('PlatformAdmin'));
     $interbreadcrumb[] = array('url' => 'course_list.php', 'name' => get_lang('CourseList'));
@@ -347,20 +348,6 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
     $interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administration'), "name" => get_lang('PlatformAdmin'));
     $tool_name = get_lang('CourseList');
 
-    if (isset($_GET['action'])) {
-        switch ($_GET['action']) {
-            case 'show_msg':
-                if (!empty($_GET['warn'])) {
-                    $message = Display::return_message(urldecode($_GET['warn']), 'warning');
-                }
-                if (!empty($_GET['msg'])) {
-                    $message = Display::return_message(urldecode($_GET['msg']));
-                }
-                break;
-            default:
-                break;
-        }
-    }
     if (isset($_GET['delete_course'])) {
         CourseManager::delete_course($_GET['delete_course']);
         $obj_cat = new Category();
@@ -458,7 +445,7 @@ if (isset ($_GET['search']) && $_GET['search'] == 'advanced') {
 
     //$table->set_header(7, get_lang('Teacher'));
     $table->set_header(7, get_lang('Action'), false, null, array('class'=>'td_actions'));
-    $table->set_column_filter(7, 'modify_filter');
+    $table->set_column_filter(7, 'modify_courses_filter');
     $table->set_form_actions(array('delete_courses' => get_lang('DeleteCourse')), 'course');
     $content .= $table->return_table();
 }

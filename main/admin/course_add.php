@@ -100,8 +100,20 @@ $form->applyFilter('department_name', 'trim');
 $form->addText('department_url', get_lang('CourseDepartmentURL'), false, array ('size' => '60'));
 $form->applyFilter('department_url', 'html_filter');
 
-$form->addElement('select_language', 'course_language', get_lang('CourseLanguage'));
-$form->applyFilter('select_language', 'html_filter');
+$languages = api_get_languages();
+if (count($languages['name']) === 1) {
+    // If there's only one language available, there's no point in asking
+    $form->addElement('hidden', 'course_language', $languages['folder'][0]);
+} else {
+    $form->addElement(
+        'select_language',
+        'course_language',
+        get_lang('Ln'),
+        array(),
+        array('style' => 'width:150px')
+    );
+    $form->applyFilter('select_language', 'html_filter');
+}
 
 if (api_get_setting('course.teacher_can_select_course_template') === 'true') {
     $form->addElement(
@@ -125,17 +137,17 @@ $group[]= $form->createElement('radio', 'visibility', null, get_lang('Private'),
 $group[]= $form->createElement('radio', 'visibility', null, get_lang('CourseVisibilityClosed'), COURSE_VISIBILITY_CLOSED);
 $group[]= $form->createElement('radio', 'visibility', null, get_lang('CourseVisibilityHidden'), COURSE_VISIBILITY_HIDDEN);
 
-$form->addGroup($group,'', get_lang('CourseAccess'), '<br />');
+$form->addGroup($group,'', get_lang('CourseAccess'));
 
 $group = array();
 $group[]= $form->createElement('radio', 'subscribe', get_lang('Subscription'), get_lang('Allowed'), 1);
 $group[]= $form->createElement('radio', 'subscribe', null, get_lang('Denied'), 0);
-$form->addGroup($group,'', get_lang('Subscription'), '<br />');
+$form->addGroup($group,'', get_lang('Subscription'));
 
 $group = array();
 $group[]= $form->createElement('radio', 'unsubscribe', get_lang('Unsubscription'), get_lang('AllowedToUnsubscribe'), 1);
 $group[]= $form->createElement('radio', 'unsubscribe', null, get_lang('NotAllowedToUnsubscribe'), 0);
-$form->addGroup($group, '', get_lang('Unsubscription'), '<br />');
+$form->addGroup($group, '', get_lang('Unsubscription'));
 
 $form->addElement('text','disk_quota',array(get_lang('CourseQuota'), null, get_lang('MB')));
 $form->addRule('disk_quota', get_lang('ThisFieldShouldBeNumeric'), 'numeric');
@@ -155,7 +167,7 @@ $(function() {
 });
 </script>';
 
-$form->add_progress_bar();
+$form->addProgress();
 $form->addButtonCreate(get_lang('CreateCourse'));
 
 // Set some default values.
@@ -191,6 +203,18 @@ if ($form->validate()) {
     // Fixing category code
     $course['course_category'] = isset($course['category_code']) ? $course['category_code'] : '';
     $course_info = CourseManager::create_course($course);
+    if ($courseInfo && isset($courseInfo['course_public_url'])) {
+        Display::addFlash(
+            Display::return_message(
+                sprintf(
+                    get_lang('CourseXAdded'),
+                    Display::url($courseInfo['title'], $courseInfo['course_public_url'])
+                ),
+                'confirmation',
+                false
+            )
+        );
+    }
 
     header('Location: course_list.php');
     exit;

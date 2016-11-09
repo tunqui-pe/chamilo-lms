@@ -41,14 +41,43 @@ Display::display_header($tool_name);
 $url            = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_gradebooks';
 
 //The order is important you need to check the the $column variable in the model.ajax.php file
-$columns        = array(get_lang('Name'), get_lang('CertificatesFiles'), get_lang('Skills'), get_lang('Actions'));
+$columns = array(
+    get_lang('Name'),
+    get_lang('CertificatesFiles'),
+    get_lang('Skills'),
+    get_lang('Actions')
+);
 
 //Column config
 $column_model   = array(
-                        array('name'=>'name',           'index'=>'name',        'width'=>'150', 'align'=>'left'),
-                        array('name'=>'certificate',    'index'=>'certificate', 'width'=>'25', 'align'=>'left', 'sortable'=>'false'),
-                        array('name'=>'skills',         'index'=>'skills',      'width'=>'300', 'align'=>'left', 'sortable'=>'false'),
-                        array('name'=>'actions',        'index'=>'actions',     'width'=>'30', 'align'=>'left','formatter'=>'action_formatter','sortable'=>'false')
+    array(
+        'name' => 'name',
+        'index' => 'name',
+        'width' => '150',
+        'align' => 'left'
+    ),
+    array(
+        'name' => 'certificate',
+        'index' => 'certificate',
+        'width' => '25',
+        'align' => 'left',
+        'sortable' => 'false'
+    ),
+    array(
+        'name' => 'skills',
+        'index' => 'skills',
+        'width' => '300',
+        'align' => 'left',
+        'sortable' => 'false'
+    ),
+    array(
+        'name' => 'actions',
+        'index' => 'actions',
+        'width' => '30',
+        'align' => 'left',
+        'formatter' => 'action_formatter',
+        'sortable' => 'false'
+    )
                        );
 //Autowidth
 $extra_params['autowidth'] = 'true';

@@ -57,8 +57,23 @@ $new_field_list = array();
 if (is_array($extra_field_list)) {
     foreach ($extra_field_list as $extra_field) {
         //if is enabled to filter and is a "<select>" field type
-        if ($extra_field[8]==1 && $extra_field[2]==4 ) {
-            $new_field_list[] = array('name'=> $extra_field[3], 'variable'=>$extra_field[1], 'data'=> $extra_field[9]);
+        if ($extra_field[8] == 1 && $extra_field[2] == ExtraField::FIELD_TYPE_SELECT) {
+            $new_field_list[] = array(
+                'name' => $extra_field[3],
+                'type' => $extra_field[2],
+                'variable' => $extra_field[1],
+                'data' => $extra_field[9],
+            );
+        }
+        if ($extra_field[8] == 1 && $extra_field[2] == ExtraField::FIELD_TYPE_TAG) {
+            $options = UserManager::get_extra_user_data_for_tags($extra_field[1]);
+
+            $new_field_list[] = array(
+                'name' => $extra_field[3],
+                'type' => $extra_field[2],
+                'variable' => $extra_field[1],
+                'data' => $options['options'],
+            );
         }
     }
 }
@@ -116,6 +131,7 @@ if (empty($first_letter_user)) {
 
 $where_filter = null;
 
+$extra_field_result = [];
 //Filter by Extra Fields
 $use_extra_fields = false;
 if (is_array($extra_field_list)) {
@@ -123,13 +139,21 @@ if (is_array($extra_field_list)) {
         $result_list=array();
         foreach ($new_field_list as $new_field) {
             $varname = 'field_'.$new_field['variable'];
+            $fieldtype = $new_field['type'];
             if (UserManager::is_extra_field_available($new_field['variable'])) {
                 if (isset($_POST[$varname]) && $_POST[$varname]!='0') {
                     $use_extra_fields = true;
-                    $extra_field_result[]= UserManager::get_extra_user_data_by_value(
-                        $new_field['variable'],
-                        $_POST[$varname]
-                    );
+                    if ($fieldtype == ExtraField::FIELD_TYPE_TAG) {
+                        $extra_field_result[]= UserManager::get_extra_user_data_by_tags(
+                            intval($_POST['field_id']),
+                            $_POST[$varname]
+                        );
+                    } else {
+                        $extra_field_result[]= UserManager::get_extra_user_data_by_value(
+                            $new_field['variable'],
+                            $_POST[$varname]
+                        );
+                    }
                 }
             }
         }
@@ -186,7 +210,7 @@ if (api_is_multiple_url_enabled()) {
     $access_url_id = api_get_current_access_url_id();
     if ($access_url_id != -1){
         $sql = "SELECT u.user_id,lastname,firstname,username, official_code
-                FROM ".$tbl_user ." u
+                FROM $tbl_user u
                 INNER JOIN $tbl_user_rel_access_url user_rel_url
                 ON (user_rel_url.user_id = u.user_id)
                 WHERE
@@ -235,18 +259,30 @@ if (is_array($extra_field_list)) {
         foreach ($new_field_list as $new_field) {
             echo $new_field['name'];
             $varname = 'field_'.$new_field['variable'];
+            $fieldtype = $new_field['type'];
             echo '&nbsp;<select name="'.$varname.'">';
             echo '<option value="0">--'.get_lang('Select').'--</option>';
             foreach	($new_field['data'] as $option) {
                 $checked='';
+                if ($fieldtype == ExtraField::FIELD_TYPE_TAG) {
+                    if (isset($_POST[$varname])) {
+                        if ($_POST[$varname] == $option['tag']) {
+                            $checked = 'selected="true"';
+                        }
+                    }
+                    echo '<option value="'.$option['tag'].'" '.$checked.'>'.$option['tag'].'</option>';
+                } else {
                 if (isset($_POST[$varname])) {
                     if ($_POST[$varname]==$option[1]) {
                         $checked = 'selected="true"';
                     }
                 }
-                echo '<option value="'.$option[1].'" '.$checked.'>'.$option[1].'</option>';
+                    echo '<option value="'.$option[1].'" '.$checked.'>'.$option[2].'</option>';
+                }
             }
             echo '</select>';
+            $extraHidden = $fieldtype == ExtraField::FIELD_TYPE_TAG ? '<input type="hidden" name="field_id" value="'.$option['field_id'].'" />' : '';
+            echo $extraHidden;
             echo '&nbsp;&nbsp;';
         }
         echo '<input class="btn btn-primary" type="button" value="'.get_lang('Filter').'" onclick="validate_filter()" ></input>';
@@ -284,9 +320,7 @@ if (is_array($extra_field_list)) {
    <tr>
     <td width="40%" align="center">
      <select name="UserList[]" multiple="multiple" size="20" style="width:300px;">
-<?php
-    foreach ($db_users as $user) {
-?>
+    <?php foreach ($db_users as $user) { ?>
       <option value="<?php echo $user['user_id']; ?>" <?php if(in_array($user['user_id'],$users)) echo 'selected="selected"'; ?>>
       <?php
         $userName = api_get_person_name($user['firstname'], $user['lastname']).' ('.$user['username'].')';
@@ -299,9 +333,7 @@ if (is_array($extra_field_list)) {
         echo $userName;
       ?>
       </option>
-<?php
-}
-?>
+    <?php } ?>
     </select>
    </td>
    <td width="20%" valign="middle" align="center">
@@ -311,15 +343,11 @@ if (is_array($extra_field_list)) {
    </td>
    <td width="40%" align="center">
     <select name="CourseList[]" multiple="multiple" size="20" style="width:300px;">
-<?php
-    foreach ($db_courses as $course) {
-?>
+    <?php foreach ($db_courses as $course) { ?>
      <option value="<?php echo $course['code']; ?>" <?php if(in_array($course['code'],$courses)) echo 'selected="selected"'; ?>>
          <?php echo '('.$course['visual_code'].') '.$course['title']; ?>
      </option>
-<?php
-}
-?>
+    <?php } ?>
     </select>
    </td>
   </tr>

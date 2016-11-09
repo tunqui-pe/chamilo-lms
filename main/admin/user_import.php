@@ -150,6 +150,21 @@ function complete_missing_data($user)
         $user['ExpiryDate'] = '';
     }
 
+    if (!isset($user['OfficialCode'])) {
+        $user['OfficialCode'] = '';
+    }
+
+    if (!isset($user['language'])) {
+        $user['language'] = '';
+    }
+
+    if (!isset($user['PhoneNumber'])) {
+        $user['PhoneNumber'] = '';
+    }
+
+    if (!isset($user['OfficialCode'])) {
+        $user['OfficialCode'] = '';
+    }
     return $user;
 }
 
@@ -192,10 +207,7 @@ function save_data($users)
                 null,
                 $send_mail
             );
-            if (!is_array($user['Courses']) && !empty($user['Courses'])) {
-                $user['Courses'] = array($user['Courses']);
-            }
-            if (is_array($user['Courses'])) {
+            if (isset($user['Courses']) && is_array($user['Courses'])) {
                 foreach ($user['Courses'] as $course) {
                     if (CourseManager::course_exists($course)) {
                         CourseManager::subscribe_user($user_id, $course, $user['Status']);
@@ -237,6 +249,16 @@ function parse_csv_data($file)
     foreach ($users as $index => $user) {
         if (isset ($user['Courses'])) {
             $user['Courses'] = explode('|', trim($user['Courses']));
+        }
+        if (!isset($user['LastName']) || (isset($user['LastName']) && empty($user['LastName']))) {
+            unset($users[$index]);
+            continue;
+        }
+
+        // FirstName is needed.
+        if (!isset($user['FirstName']) || (isset($user['FirstName']) && empty($user['FirstName']))) {
+            unset($users[$index]);
+            continue;
         }
         $users[$index] = $user;
     }
@@ -416,8 +438,8 @@ if (isset($_POST['formSent']) && $_POST['formSent'] AND
                 '<strong>'.$error_user['UserName'].'</strong> - '.
                 api_get_person_name(
                     $error_user['FirstName'],
-                    $error_user['LastName']).'
-                '.$email;
+                    $error_user['LastName']
+                ).' '.$email;
             $warning_message .= '</li>';
         }
         $warning_message .= '</ul>';
@@ -425,22 +447,25 @@ if (isset($_POST['formSent']) && $_POST['formSent'] AND
 
     // if the warning message is too long then we display the warning message trough a session
 
-    $_SESSION['session_message_import_users'] = $warning_message;
-    $warning_message = 'session_message';
+    Display::addFlash(Display::return_message($warning_message, 'warning', false));
+    Display::addFlash(Display::return_message($see_message_import, 'confirmation', false));
 
     if ($error_kind_file) {
-        $error_message = get_lang('YouMustImportAFileAccordingToSelectedOption');
+        Display::addFlash(
+            Display::return_message(
+                get_lang('YouMustImportAFileAccordingToSelectedOption'),
+                'error',
+                false
+            )
+        );
     } else {
-        header('Location: '.api_get_path(WEB_CODE_PATH).'admin/user_list.php?action=show_message&warn='.urlencode($warning_message).'&message='.urlencode($see_message_import).'&sec_token='.$tok);
+        header('Location: '.api_get_path(WEB_CODE_PATH).'admin/user_list.php?sec_token='.$tok);
         exit;
     }
 }
 
 Display :: display_header($tool_name);
 
-if (!empty($error_message)) {
-    Display::display_error_message($error_message);
-}
 
 $form = new FormValidator('user_import', 'post', api_get_self());
 $form->addElement('header', '', $tool_name);
@@ -463,13 +488,13 @@ $group = array(
     )
 );
 
-$form->addGroup($group, '', get_lang('FileType'), '<br/>');
+$form->addGroup($group, '', get_lang('FileType'));
 
 $group = array(
     $form->createElement('radio', 'sendMail', '', get_lang('Yes'), 1),
     $form->createElement('radio', 'sendMail', null, get_lang('No'), 0)
 );
-$form->addGroup($group, '', get_lang('SendMailToUsers'), '<br/>');
+$form->addGroup($group, '', get_lang('SendMailToUsers'));
 
 $form->addElement(
     'checkbox',

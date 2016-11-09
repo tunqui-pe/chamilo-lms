@@ -75,8 +75,17 @@ function save_data($users_courses)
     $csv_data = array();
     $inserted_in_course = array();
 
+    $courseListCache = [];
+    $courseListById = [];
     foreach ($users_courses as $user_course) {
-        $csv_data[$user_course['UserName']][$user_course['CourseCode']] = $user_course['Status'];
+        if (!in_array($user_course['CourseCode'], array_keys($courseListCache))) {
+            $courseInfo = api_get_course_info($user_course['CourseCode']);
+            $courseListCache[$user_course['CourseCode']] = $courseInfo;
+        } else {
+            $courseInfo = $courseListCache[$user_course['CourseCode']];
+        }
+        $courseListById[$courseInfo['real_id']] = $courseInfo;
+        $csv_data[$user_course['UserName']][$courseInfo['real_id']] = $user_course['Status'];
     }
 
     foreach ($csv_data as $username => $csv_subscriptions) {
@@ -98,33 +107,22 @@ function save_data($users_courses)
 
         if ($_POST['subscribe']) {
             foreach ($to_subscribe as $courseId) {
-                $courseInfo = api_get_course_info_by_id($courseId);
-                $course_code = $courseInfo['code'];
-
-                if (CourseManager :: course_exists($course_code)) {
-                    CourseManager::subscribe_user(
-                        $user_id,
-                        $course_code,
-                        $csv_subscriptions[$course_code]
-                    );
-                    $course_info = CourseManager::get_course_information($course_code);
-                    $inserted_in_course[$course_code] = $course_info['title'];
-                    $inserted_in_course[$course_info['code']] = $course_info['title'];
-                }
+                $courseInfo = $courseListById[$courseId];
+                $courseCode = $courseInfo['code'];
+                CourseManager::subscribe_user(
+                    $user_id,
+                    $courseCode,
+                    $csv_subscriptions[$courseId]
+                );
+                $inserted_in_course[$courseInfo['code']] = $courseInfo['title'];
             }
         }
 
         if ($_POST['unsubscribe']) {
             foreach ($to_unsubscribe as $courseId) {
-                $courseInfo = api_get_course_info_by_id($courseId);
-                $course_code = $courseInfo['code'];
-
-                if (CourseManager :: course_exists($course_code)) {
-                    CourseManager::unsubscribe_user($user_id, $course_code);
-                    $course_info = CourseManager::get_course_information($course_code);
-                    CourseManager::unsubscribe_user($user_id, $course_code);
-                    $inserted_in_course[$course_info['code']] = $course_info['title'];
-                }
+                $courseInfo = $courseListById[$courseId];
+                $courseCode = $courseInfo['code'];
+                CourseManager::unsubscribe_user($user_id, $courseCode);
             }
         }
     }
@@ -191,10 +189,10 @@ if ($form->validate()) {
             $warn = get_lang('ErrorsWhenImportingFile');
         }
 
+        Display::addFlash(Display::return_message($warn));
         Security::clear_token();
         $tok = Security::get_token();
-        Display::addFlash(Display::return_message($warn));
-        header('Location: user_list.php?sec_token='.$tok);
+        header('Location: '.api_get_self());
         exit();
     }
 }

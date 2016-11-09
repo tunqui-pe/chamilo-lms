@@ -55,10 +55,10 @@ if ($form->validate()) {
         Session::write('skills', $skills);
 
     } else {
-        $skills = Session::read('skills', array());
+        $skills = Session::read('skills', []);
     }
 } else {
-    $skills = Session::read('skills', array());
+    $skills = Session::read('skills', []);
 }
 
 $user_list = array();

@@ -16,9 +16,7 @@ $tool_name = get_lang('CourseRequestEdit');
 api_protect_admin_script();
 
 // A check whether the course validation feature is enabled.
-$course_validation_feature = api_get_setting(
-        'course.course_validation'
-    ) == 'true';
+$course_validation_feature = api_get_setting('course.course_validation') == 'true';
 
 // Filltering passed to this page parameters.
 $id = intval($_GET['id']);

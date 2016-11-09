@@ -102,8 +102,7 @@ function search_courses($needle, $type)
 
 $xajax->processRequests();
 $htmlHeadXtra[] = $xajax->getJavascript('../inc/lib/xajax/');
-$htmlHeadXtra[] = '
-<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 function moveItem(origin , destination) {
 	for(var i = 0 ; i<origin.options.length ; i++) {
 		if(origin.options[i].selected) {
@@ -159,7 +158,7 @@ $UserList = array();
 
 $msg = '';
 if (isset($_POST['formSent']) && intval($_POST['formSent']) == 1) {
-    $courses_list = $_POST['CoursesList'];
+    $courses_list = isset($_POST['CoursesList']) ? $_POST['CoursesList'] : [];
     $affected_rows = CourseManager::subscribeCoursesToDrhManager($user_id, $courses_list);
     if ($affected_rows)	{
         $msg = get_lang('AssignedCoursesHaveBeenUpdatedSuccessfully');
@@ -171,12 +170,18 @@ Display::display_header($tool_name);
 
 // actions
 
-$actionsLeft = '<a href="dashboard_add_users_to_user.php?user='.$user_id.'">'.Display::return_icon('add-user.png', get_lang('AssignUsers'), null, ICON_SIZE_MEDIUM).'</a>';
-$actionsLeft .= '<a href="dashboard_add_sessions_to_user.php?user='.$user_id.'">'.Display::return_icon('session-add.png', get_lang('AssignSessions'), null, ICON_SIZE_MEDIUM).'</a>';
+$actionsLeft = '<a href="dashboard_add_users_to_user.php?user='.$user_id.'">'.
+    Display::return_icon('add-user.png', get_lang('AssignUsers'), null, ICON_SIZE_MEDIUM).'</a>';
+$actionsLeft .= '<a href="dashboard_add_sessions_to_user.php?user='.$user_id.'">'.
+    Display::return_icon('session-add.png', get_lang('AssignSessions'), null, ICON_SIZE_MEDIUM).'</a>';
 
 echo $html = Display::toolbarAction('toolbar-dashboard', array($actionsLeft));
 
-echo Display::page_header(sprintf(get_lang('AssignCoursesToX'), api_get_person_name($user_info['firstname'], $user_info['lastname'])), null, 'h3');
+echo Display::page_header(
+    sprintf(get_lang('AssignCoursesToX'), api_get_person_name($user_info['firstname'], $user_info['lastname'])),
+    null,
+    'h3'
+);
 
 $assigned_courses_to_hrm = CourseManager::get_courses_followed_by_drh($user_id);
 $assigned_courses_code = array_keys($assigned_courses_to_hrm);

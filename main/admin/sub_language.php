@@ -11,7 +11,7 @@ $this_script = 'sub_language';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
-$htmlHeadXtra[] ='<script type="text/javascript">
+$htmlHeadXtra[] ='<script>
  $(document).ready(function() {
 	$(".save").click(function() {
 		var button_name=$(this).attr("name");
@@ -99,14 +99,7 @@ echo $intro;
 echo '<br />';
 printf(get_lang('ParentLanguageX'), $language_name);
 echo '</div>';
-
-if (!empty($_SESSION['msg'])) {
-	echo $_SESSION['msg'];
-	unset($_SESSION['msg']);
-} else {
-	echo '<br />';
-}
-
+echo '<br />';
 
 $txt_search_word = (!empty($_REQUEST['txt_search_word']) ? Security::remove_XSS($_REQUEST['txt_search_word']) : '');
 $html ='<div style="float:left" class="actions">';
@@ -312,43 +305,6 @@ if (isset($_REQUEST['txt_search_word'])) {
 	}
 }
 
-if (
-    (isset($_GET['extra_field']) && !empty($_GET['extra_field'])) ||
-    (isset($_GET['extra_field_option']) && !empty($_GET['extra_field_option']))
-) {
-    if (isset($_GET['extra_field'])) {
-        $extraFieldInfo = ExtraField::getInfoById($_GET['extra_field'], false);
-        $variable_language = '$' . api_underscore_to_camel_case($extraFieldInfo['variable']);
-        $original_name = $extraFieldInfo['display_text'];
-    } elseif (isset($_GET['extra_field_option'])) {
-        $extraFieldOptionInfo = ExtraFieldOption::getInfoById($_GET['extra_field_option'], false);
-        $variable_language = '$' . api_underscore_to_camel_case($extraFieldOptionInfo['display_text']);
-        $original_name = $extraFieldOptionInfo['display_text'];
-    }
-
-    $platformLanguage = api_get_setting('platformLanguage');
-    $languageId = api_get_language_id($platformLanguage);
-    $languageInfo = api_get_language_info($languageId);
-    $translateUrl = api_get_path(WEB_CODE_PATH) . 'admin/sub_language_ajax.inc.php';
-
-    $form = new FormValidator('new_lang_variable', 'POST', $translateUrl);
-    $form->addHeader(get_lang('AddWordForTheSubLanguage'));
-    $form->addText('variable_language', get_lang('LanguageVariable'), false);
-    $form->addText('original_name', get_lang('OriginalName'), false);
-    $form->addText('new_language', get_lang('SubLanguage'));
-    $form->addHidden('file_id', 0);
-    $form->addHidden('id', $languageInfo['parent_id']);
-    $form->addHidden('sub', $languageInfo['id']);
-    $form->addHidden('sub_language_id', $languageInfo['id']);
-    $form->addHidden('redirect', true);
-    $form->addButtonSave(get_lang('Save'));
-    $form->setDefaults([
-        'variable_language' => $variable_language,
-        'original_name' => $original_name
-    ]);
-    $form->freeze(['variable_language', 'original_name']);
-    $form->display();
-}
 
 $parameters = array(
 	'id' => intval($_GET['id']),
@@ -361,8 +317,8 @@ $table->set_header(0, get_lang('LanguageFile'));
 $table->set_header(1, get_lang('LanguageVariable'));
 $table->set_header(2, get_lang('EnglishName'));
 $table->set_header(3, get_lang('OriginalName'));
-$table->set_header(4, get_lang('SubLanguage'),false);
-$table->set_header(5, get_lang('Edit'),false);
+$table->set_header(4, get_lang('Translation'),false);
+$table->set_header(5, get_lang('Action'),false);
 $table->display();
 
 Display :: display_footer();

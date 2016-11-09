@@ -109,7 +109,6 @@ foreach($session_list  as $session_item) {
                     </tr>';
         }
         $html .= '</table>';
-    } else {
     }
 }
 echo $html;

@@ -15,82 +15,6 @@ $message = '';
 
 if (isset($_POST['activeExtension'])) {
 	switch ($_POST['extension_code']) {
-		case 'visio' :
-			$sql = 'UPDATE '.$tbl_settings_current.' SET
-					selected_value="true"
-					WHERE variable="service_visio"
-					AND subkey="active"';
-			$rs = Database::query($sql);
-			if (Database::affected_rows($rs)>0) {
-				// select all the courses and insert the tool inside
-				$sql = 'SELECT id FROM '.Database::get_main_table(TABLE_MAIN_COURSE);
-				$rs = Database::query($sql);
-				while($row = Database::fetch_array($rs)){
-					if(!empty($_POST['visio_host'])) {
-						$tool_table = Database::get_course_table(TABLE_TOOL_LIST);
-						$select = "SELECT id FROM $tool_table WHERE c_id =".$row['id']." AND name='".TOOL_VISIO_CONFERENCE."'";
-						$selectres = Database::query($select);
-						if (Database::num_rows($selectres)<1) {
-							$sql = 'INSERT INTO '.$tool_table.' SET
-							        c_id =  '.$row['id'].',
-									name="'.TOOL_VISIO_CONFERENCE.'",
-									link="conference/index.php?type=conference",
-									image="visio.gif",
-									visibility="1",
-									admin="0",
-									address="squaregrey.gif",
-									target="_self",
-									category="interaction"';
-							Database::query($sql);
-						}
-						$select = "SELECT id FROM $tool_table WHERE c_id =".$row['id']." AND name='".TOOL_VISIO_CLASSROOM."'";
-						$selectres = Database::query($select);
-						if(Database::num_rows($selectres)<1) {
-							$sql = 'INSERT INTO '.$tool_table.' SET
-							        c_id =  '.$row['id'].',
-									name="'.TOOL_VISIO_CLASSROOM.'",
-									link="conference/index.php?type=classroom",
-									image="visio.gif",
-									visibility="1",
-									admin="0",
-									address="squaregrey.gif",
-									target="_self",
-									category="authoring"';
-							Database::query($sql);
-						}
-					}
-				}
-				$message = get_lang('ServiceActivated');
-
-			}
-			$sql = 'UPDATE '.$tbl_settings_current.' SET
-					selected_value="'.Database::escape_string($_POST['visio_host']).'"
-					WHERE variable="service_visio"
-					AND subkey="visio_host"';
-			$rs = Database::query($sql);
-
-			$sql = 'UPDATE '.$tbl_settings_current.' SET
-					selected_value="'.Database::escape_string($_POST['visio_port']).'"
-					WHERE variable="service_visio"
-					AND subkey="visio_port"';
-			$rs = Database::query($sql);
-
-			$sql = 'UPDATE '.$tbl_settings_current.' SET
-					selected_value="'.Database::escape_string($_POST['visio_pass']).'"
-					WHERE variable="service_visio"
-					AND subkey="visio_pass"';
-			$rs = Database::query($sql);
-
-			$sql = 'UPDATE '.$tbl_settings_current.' SET
-					selected_value="'.($_POST['visio_use_rtmpt']=='true'?'true':'false').'"
-					WHERE variable="service_visio"
-					AND subkey="visio_use_rtmpt"';
-			$rs = Database::query($sql);
-
-			if(empty($message)) {
-				$message = get_lang('ServiceReconfigured');
-			}
-			break;
 
 		case 'ppt2lp' :
 			$sql = 'UPDATE '.$tbl_settings_current.' SET
@@ -160,14 +84,11 @@ while($row = Database::fetch_array($rs)){
 // javascript to handle accordion behaviour
 $javascript_message = '';
 if(!empty($message)){
-	$javascript_message =
-	'
+	$javascript_message = '
 	document.getElementById("message").style.display = "block";
-	var timer = setTimeout(hideMessage,5000);
-	';
+	var timer = setTimeout(hideMessage, 5000);';
 }
-$htmlHeadXtra[]= '
-<script type="text/javascript">
+$htmlHeadXtra[]= '<script>
 var listeDiv;
 var extensionsHeader = new Array();
 var extensionsContent = new Array();

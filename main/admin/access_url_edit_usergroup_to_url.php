@@ -89,10 +89,12 @@ if (isset($_POST['form_sent']) && $_POST['form_sent']) {
 
     if ($form_sent == 1) {
         if ($access_url_id == 0) {
-            header('Location: access_url_edit_users_to_url.php?action=show_message&message='.get_lang('SelectURL'));
+            Display::addFlash(Display::return_message(get_lang('SelectURL')));
+            header('Location: access_url_edit_users_to_url.php');
         } elseif (is_array($course_list)) {
             UrlManager::update_urls_rel_usergroup($course_list, $access_url_id);
-            header('Location: access_urls.php?action=show_message&message='.get_lang('Updated'));
+            Display::addFlash(Display::return_message(get_lang('Updated')));
+            header('Location: access_urls.php');
         }
         exit;
     }
@@ -109,9 +111,6 @@ echo '</div>';
 
 api_display_tool_title($tool_name);
 
-if ($_GET['action'] == 'show_message') {
-    Display :: display_normal_message(Security::remove_XSS(stripslashes($_GET['message'])));
-}
 
 $noUserGroupList = $userGroupList = array();
 $ajax_search = $add_type == 'unique' ? true : false;
@@ -131,29 +130,58 @@ if ($ajax_search) {
     }
     $noUserGroupList = $userGroup->getUserGroupNotInList(array_keys($userGroupList));
 }
+$link_add_type_unique = ['class' => 'disabled'];
+$link_add_type_multiple = [];
 
 if ($add_type == 'multiple') {
-	$link_add_type_unique = '<a href="'.api_get_self().'?add_type=unique&access_url_id='.$access_url_id.'">'.get_lang('SessionAddTypeUnique').'</a>';
-	$link_add_type_multiple = get_lang('SessionAddTypeMultiple');
-} else {
-	$link_add_type_unique = get_lang('SessionAddTypeUnique');
-	$link_add_type_multiple = '<a href="'.api_get_self().'?add_type=multiple&access_url_id='.$access_url_id.'">'.get_lang('SessionAddTypeMultiple').'</a>';
+    $link_add_type_unique = [];
+    $link_add_type_multiple = ['class' => 'disabled'];
 }
 
+?>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <?php
+            echo Display::toolbarButton(
+                get_lang('SessionAddTypeUnique'),
+                api_get_self() . '?' . http_build_query([
+                    'add_type' => 'unique',
+                    'access_url_id' => $access_url_id
+                ]),
+                'file-o',
+                'default',
+                $link_add_type_unique
+            );
+            echo Display::toolbarButton(
+                get_lang('SessionAddTypeMultiple'),
+                api_get_self() . '?' . http_build_query([
+                    'add_type' => 'multiple',
+                    'access_url_id' => $access_url_id
+                ]),
+                'files-o',
+                'default',
+                $link_add_type_multiple
+            );
+            ?>
+        </div>
+    </div>
+<?php
 $url_list = UrlManager::get_url_data();
 ?>
-<div style="text-align: left;">
-	<?php echo $link_add_type_unique ?>&nbsp;|&nbsp;<?php echo $link_add_type_multiple ?>
-</div>
-<br /><br />
 <form
     name="formulaire"
     method="post"
     action="<?php echo api_get_self(); ?>"
-    style="margin:0px;" <?php if ($ajax_search){ echo ' onsubmit="valide();"'; } ?>
+        style="margin:0px;" <?php if ($ajax_search) {
+        echo ' onsubmit="valide();"';
+    } ?>
 >
-<?php echo get_lang('SelectUrl').' : '; ?>
-<select name="access_url_id" onchange="javascript:send();">
+        <div class="row">
+            <div class="col-xs-2">
+                <label for="access_url_id"><?php echo get_lang('SelectUrl') ?></label>
+            </div>
+            <div class="col-xs-5">
+                <select name="access_url_id" id="access_url_id" onchange="javascript:send();" class="form-control">
 <option value="0">-- <?php echo get_lang('SelectUrl')?> -- </option>
 	<?php
     $url_selected = '';
@@ -166,14 +194,16 @@ $url_list = UrlManager::get_url_data();
             }
         }
         if ($url_obj['active']==1) { ?>
-            <option <?php echo $checked;?> value="<?php echo $url_obj[0]; ?>"> <?php echo $url_obj[1]; ?>
+                            <option <?php echo $checked; ?>
+                                value="<?php echo $url_obj[0]; ?>"> <?php echo $url_obj[1]; ?>
             </option>
         <?php
         }
     }
 ?>
 </select>
-<br /><br />
+            </div>
+        </div>
 <input type="hidden" name="form_sent" value="1" />
 <input type="hidden" name="add_type" value = "<?php echo $add_type ?>" />
 
@@ -183,86 +213,61 @@ if (!empty($errorMsg)) {
 }
 ?>
 
-<table border="0" cellpadding="5" cellspacing="0" width="100%">
-<!-- Users -->
-<tr>
-  <td align="center"><b><?php echo get_lang('UserGroupListInPlatform') ?> :</b>
-  </td>
-  <td></td>
-  <td align="center"><b><?php printf(get_lang('UserGroupListInX'),$url_selected); ?></b></td>
-</tr>
-
-<tr>
-  <td align="center">
+        <div class="row">
+            <div class="col-sm-5">
+                <label for="<?php echo $ajax_search ? 'course_to_add' : 'origin_users' ?>"><?php echo get_lang('UserGroupListInPlatform') ?></label>
   <div id="content_source">
     <?php if ($ajax_search) { ?>
-		<input type="text" id="course_to_add" onkeyup="xajax_searchUserGroupAjax(this.value,document.formulaire.access_url_id.options[document.formulaire.access_url_id.selectedIndex].value)" />
+                        <input type="text" id="course_to_add" class="form-control"
+                               onkeyup="xajax_searchUserGroupAjax(this.value,document.formulaire.access_url_id.options[document.formulaire.access_url_id.selectedIndex].value)"/>
 		<div id="ajax_list_courses"></div>
     <?php } else { ?>
-	  <select id="origin_users" name="no_course_list[]" multiple="multiple" size="15" style="width:380px;">
-		<?php
-		foreach ($noUserGroupList as $noItem) {
-		?>
-			<option value="<?php echo $noItem['id']; ?>">
-                <?php echo $noItem['name']; ?>
-            </option>
-		<?php
-		}
-		?>
+                        <select id="origin_users" name="no_course_list[]" multiple="multiple" size="15" class="form-control">
+                            <?php foreach ($noUserGroupList as $noItem) { ?>
+                                <option value="<?php echo $noItem['id']; ?>"><?php echo $noItem['name']; ?></option>
+                            <?php } ?>
 	  </select>
-	<?php
-  	  }
-  	 ?>
+                    <?php } ?>
   </div>
-  </td>
-  <td width="10%" valign="middle" align="center">
-  <?php
-  if ($ajax_search) {
-	?>
-	<button class="btn btn-default" type="button" onclick="remove_item(document.getElementById('destination_users'))" >
+            </div>
+            <div class="col-sm-2 text-center">
+                <br><br><br><br>
+                <?php if ($ajax_search) { ?>
+                    <button class="btn btn-default" type="button"
+                            onclick="remove_item(document.getElementById('destination_users'))">
         <em class="fa fa-arrow-left"></em>
 	</button>
-  	<?php
-  } else {
-  	?>
-	<button class="btn btn-default" type="button" onclick="moveItem(document.getElementById('origin_users'), document.getElementById('destination_users'))" >
+                <?php } else { ?>
+                    <button class="btn btn-default" type="button"
+                            onclick="moveItem(document.getElementById('origin_users'), document.getElementById('destination_users'))">
         <em class="fa fa-arrow-right"></em>
 	</button>
 	<br /><br />
-	<button class="btn btn-default" type="button" onclick="moveItem(document.getElementById('destination_users'), document.getElementById('origin_users'))" >
+                    <button class="btn btn-default" type="button"
+                            onclick="moveItem(document.getElementById('destination_users'), document.getElementById('origin_users'))">
         <em class="fa fa-arrow-left"></em>
 	</button>
-	<?php
-  }
-  ?>
-	<br /><br /><br /><br /><br /><br />
-  </td>
-  <td align="center">
-  <select id="destination_users" name="course_list[]" multiple="multiple" size="15" style="width:380px;">
-<?php
-foreach($userGroupList as $item) {
-?>
+                <?php } ?>
+            </div>
+            <div class="col-sm-5">
+                <label for="destination_users"><?php printf(get_lang('UserGroupListInX'), $url_selected); ?></label>
+                <select id="destination_users" name="course_list[]" multiple="multiple" size="15" class="form-control">
+                    <?php foreach ($userGroupList as $item) { ?>
 	<option value="<?php echo $item['id']; ?>">
         <?php echo $item['name']; ?>
     </option>
-<?php
-}
-?>
+                    <?php } ?>
   </select>
-  </td>
-</tr>
-<tr>
-	<td colspan="3" align="center">
-		<br />
-		<?php
-		if(isset($_GET['add']))
-			echo '<button class="save" onclick="valide()" >'.get_lang('AddUserGroupToURL').'</button>';
-		else
-			echo '<button class="save" onclick="valide()" >'.get_lang('EditUserGroupToURL').'</button>';
-		?>
-	</td>
-</tr>
-</table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <button class="save btn btn-primary" onclick="valide()">
+                    <span class="fa fa-save fa-fw" aria-hidden="true"></span>
+                    <?php echo isset($_GET['add']) ? get_lang('AddUserGroupToURL') : get_lang('EditUserGroupToURL') ?>
+                </button>
+            </div>
+        </div>
 </form>
 <script>
 

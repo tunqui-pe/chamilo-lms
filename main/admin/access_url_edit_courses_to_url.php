@@ -79,7 +79,6 @@ function remove_item(origin) {
 </script>';
 
 $form_sent = 0;
-$errorMsg = '';
 $UserList = $SessionList = array();
 $users = $sessions = array();
 
@@ -93,24 +92,27 @@ if (isset($_POST['form_sent']) && $_POST['form_sent']) {
 
 	if ($form_sent == 1) {
 		if ($access_url_id==0) {
-			header('Location: access_url_edit_users_to_url.php?action=show_message&message='.get_lang('SelectURL'));
+            Display::addFlash(Display::return_message(get_lang('SelectURL')));
+            header('Location: access_url_edit_users_to_url.php?');
 		} elseif (is_array($course_list)) {
 			UrlManager::update_urls_rel_course($course_list, $access_url_id);
-			header('Location: access_urls.php?action=show_message&message='.get_lang('CoursesWereEdited'));
+            Display::addFlash(Display::return_message(get_lang('CoursesWereEdited')));
+            header('Location: access_urls.php?');
 		}
+        exit;
 	}
 }
 
 Display::display_header($tool_name);
 
 echo '<div class="actions">';
-echo Display::url( Display::return_icon('view_more_stats.gif', get_lang('AddUserToURL'),''), api_get_path(WEB_CODE_PATH).'admin/access_url_add_courses_to_url.php');
+echo Display::url(
+    Display::return_icon('view_more_stats.gif', get_lang('AddUserToURL')),
+    api_get_path(WEB_CODE_PATH).'admin/access_url_add_courses_to_url.php'
+);
 echo '</div>';
 
 api_display_tool_title($tool_name);
-
-if (isset($_GET['action']) && $_GET['action'] == 'show_message')
-	Display :: display_normal_message(Security::remove_XSS(stripslashes($_GET['message'])));
 
 $no_course_list = $course_list = array();
 $ajax_search = $add_type == 'unique' ? true : false;
@@ -181,11 +183,6 @@ $url_list = UrlManager::get_url_data();
 		<br /><br />
 		<input type="hidden" name="form_sent" value="1" />
 		<input type="hidden" name="add_type" value = "<?php echo $add_type ?>" />
-		<?php
-		if(!empty($errorMsg)) {
-			Display::display_normal_message($errorMsg); //main API
-		}
-		?>
 		<table border="0" cellpadding="5" cellspacing="0" width="100%">
 
 			<!-- Users -->
@@ -272,7 +269,7 @@ $url_list = UrlManager::get_url_data();
 		</table>
 	</form>
 
-	<script type="text/javascript">
+	<script>
 		function moveItem(origin , destination) {
 			for(var i = 0 ; i<origin.options.length ; i++) {
 				if(origin.options[i].selected) {

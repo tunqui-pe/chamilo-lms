@@ -56,7 +56,9 @@ if (!api_is_platform_admin() && !api_is_session_admin()) {
 
 function search_sessions($needle, $type)
 {
-    global $tbl_session_rel_access_url, $tbl_session, $user_id;
+    global $user_id;
+    $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
+    $tbl_session_rel_access_url = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_SESSION);
 
     $xajax_response = new xajaxResponse();
     $return = '';
@@ -72,8 +74,11 @@ function search_sessions($needle, $type)
 
         if (api_is_multiple_url_enabled()) {
             $sql 	= " SELECT s.id, s.name FROM $tbl_session s
-                        LEFT JOIN $tbl_session_rel_access_url a ON (s.id = a.session_id)
-                        WHERE  s.name LIKE '$needle%' $without_assigned_sessions AND access_url_id = ".api_get_current_access_url_id()."";
+                     LEFT JOIN $tbl_session_rel_access_url a 
+                     ON (s.id = a.session_id)
+                     WHERE  
+                        s.name LIKE '$needle%' $without_assigned_sessions AND 
+                        access_url_id = ".api_get_current_access_url_id();
         } else {
             $sql = "SELECT s.id, s.name FROM $tbl_session s
                     WHERE  s.name LIKE '$needle%' $without_assigned_sessions ";
@@ -151,7 +156,7 @@ $UserList = array();
 if (isset($_POST['formSent']) && intval($_POST['formSent']) == 1) {
     $sessions_list = $_POST['SessionsList'];
     $userInfo = api_get_user_info($user_id);
-    $affected_rows = SessionManager::suscribe_sessions_to_hr_manager(
+    $affected_rows = SessionManager::subscribeSessionsToDrh(
         $userInfo,
         $sessions_list
     );
@@ -168,14 +173,19 @@ Display::display_header($tool_name);
 // actions
 
 if ($user_info['status'] != SESSIONADMIN) {
-    $actionsLeft = '<a href="dashboard_add_users_to_user.php?user='.$user_id.'">' . Display::return_icon('add-user.png', get_lang('AssignUsers'), null, ICON_SIZE_MEDIUM ) . '</a>';
-    $actionsLeft .= '<a href="dashboard_add_courses_to_user.php?user='.$user_id.'">' . Display::return_icon('course-add.png', get_lang('AssignCourses'), null, ICON_SIZE_MEDIUM) . '</a>';
+    $actionsLeft = '<a href="dashboard_add_users_to_user.php?user='.$user_id.'">' .
+        Display::return_icon('add-user.png', get_lang('AssignUsers'), null, ICON_SIZE_MEDIUM ) . '</a>';
+    $actionsLeft .= '<a href="dashboard_add_courses_to_user.php?user='.$user_id.'">' .
+        Display::return_icon('course-add.png', get_lang('AssignCourses'), null, ICON_SIZE_MEDIUM) . '</a>';
 }
 
 
-echo Display::toolbarAction('toolbar-dashboard', array( 0 => $actionsLeft, 1 => ''));
-
-echo Display::page_header(sprintf(get_lang('AssignSessionsToX'), api_get_person_name($user_info['firstname'], $user_info['lastname'])), null, 'h3');
+echo Display::toolbarAction('toolbar-dashboard', array($actionsLeft));
+echo Display::page_header(
+    sprintf(get_lang('AssignSessionsToX'), api_get_person_name($user_info['firstname'], $user_info['lastname'])),
+    null,
+    'h3'
+);
 
 $assigned_sessions_to_hrm = SessionManager::get_sessions_followed_by_drh($user_id);
 $assigned_sessions_id = array_keys($assigned_sessions_to_hrm);
@@ -243,11 +253,7 @@ $result	= Database::query($sql);
                                 <em class="fa fa-arrow-left"></em>
                             </button>
                         </div>
-                    <?php
-                    }
-                    else
-                    {
-                        ?>
+                <?php } else { ?>
                     <div class="separate-action">
                         <button class="btn btn-primary" type="button" onclick="moveItem(document.getElementById('origin'), document.getElementById('destination'))" onclick="moveItem(document.getElementById('origin'), document.getElementById('destination'))">
                             <em class="fa fa-arrow-right"></em>
@@ -261,15 +267,13 @@ $result	= Database::query($sql);
 
                     <?php
                     }
-                    ?>
-
-                    <?php
                     echo '<button class="btn btn-success" type="button" value="" onclick="valide()" >'.$tool_name.'</button>';
                     ?>
                 </div>
             </div>
             <div class="col-md-4">
-                <h5><?php
+            <h5>
+                <?php
                         if (UserManager::is_admin($user_id)) {
                             echo get_lang('AssignedSessionsListToPlatformAdministrator');
                         } else if ($user_info['status'] == SESSIONADMIN) {

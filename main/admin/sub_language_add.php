@@ -28,9 +28,10 @@ $interbreadcrumb[] = array ('url' => 'languages.php', 'name' => get_lang('Platfo
  * @param   string  ISO code (fr_FR, ...)
  * @param   int     Whether the sublanguage is published (0=unpublished, 1=published)
  * @param   int     ID del idioma padre
- * @return  int     New sub language ID or false on error
+ * @return  false|string     New sub language ID or false on error
  */
-function add_sub_language ($original_name,$english_name,$isocode,$sublanguage_available,$parent_id) {
+function add_sub_language($original_name, $english_name, $isocode, $sublanguage_available, $parent_id)
+{
     $tbl_admin_languages    = Database :: get_main_table(TABLE_MAIN_LANGUAGE);
     $original_name          = Database::escape_string($original_name);
     $english_name           = Database::escape_string($english_name);
@@ -61,7 +62,8 @@ function add_sub_language ($original_name,$english_name,$isocode,$sublanguage_av
  * @todo This function is not transaction-safe and should probably be included
  *       inside the add_sub_language function.
  */
-function check_if_language_exist ($original_name, $english_name, $isocode, $sublanguage_available) {
+function check_if_language_exist($original_name, $english_name, $isocode, $sublanguage_available)
+{
 	$tbl_admin_languages 	= Database :: get_main_table(TABLE_MAIN_LANGUAGE);
 	$sql_original_name='SELECT count(*) AS count_original_name FROM '.$tbl_admin_languages.' WHERE original_name="'.Database::escape_string($original_name).'" ';
 	$sql_english_name='SELECT count(*) AS count_english_name FROM '.$tbl_admin_languages.' WHERE english_name="'.Database::escape_string($english_name).'" ';
@@ -108,7 +110,8 @@ function check_if_language_exist ($original_name, $english_name, $isocode, $subl
  * @return  bool
  * @todo    deprecate this function and use the static method directly
  */
-function check_if_exist_language_by_id ($language_id) {
+function check_if_exist_language_by_id($language_id)
+{
 	return SubLanguageManager::check_if_exist_language_by_id($language_id);
 }
 /**
@@ -116,7 +119,8 @@ function check_if_exist_language_by_id ($language_id) {
  * @param   int     Language ID of the presumed parent
  * @return  bool    True if this language has children, false otherwise
  */
-function ckeck_if_is_parent_of_sub_language ($parent_id) {
+function ckeck_if_is_parent_of_sub_language($parent_id)
+{
 	$sql='SELECT count(*) AS count FROM language WHERE parent_id= '.intval($parent_id).'';
 	$rs=Database::query($sql);
 	if (Database::num_rows($rs)>0 && Database::result($rs,0,'count')==1) {
@@ -131,7 +135,8 @@ function ckeck_if_is_parent_of_sub_language ($parent_id) {
  * @param   int     Child language ID
  * @return  array
  */
-function allow_get_all_information_of_sub_language ($parent_id,$sub_language_id) {
+function allow_get_all_information_of_sub_language($parent_id, $sub_language_id)
+{
 	return SubLanguageManager::get_all_information_of_sub_language($parent_id,$sub_language_id);
 }
 /*end declare functions*/
@@ -196,10 +201,12 @@ if (isset($_POST['SubmitAddNewLanguage'])) {
 	foreach ($check_information as $index_information => $value_information) {
 		$allow_insert_info=false;
 		if ($index_information=='original_name') {
-			$msg .= Display::return_message(get_lang('AlreadyExists').' "'.get_lang('OriginalName').'" '.'('.$original_name.')','error');
+            $msg .= Display::return_message(get_lang('AlreadyExists') . ' "' . get_lang('OriginalName') . '" ' . '(' . $original_name . ')',
+                'error');
 		}
 		if ($index_information=='english_name') {
-			$msg .= Display::return_message(get_lang('AlreadyExists').' "'.get_lang('EnglishName').'" '.'('.$english_name.')','error');
+            $msg .= Display::return_message(get_lang('AlreadyExists') . ' "' . get_lang('EnglishName') . '" ' . '(' . $english_name . ')',
+                'error');
 		}
 		if ($index_information=='isocode') {
 			$msg .= Display::return_message(get_lang('CodeDoesNotExists').': '.$isocode.'','error');
@@ -226,7 +233,7 @@ if (isset($_POST['SubmitAddNewLanguage'])) {
                                     $msg .= Display::return_message(get_lang('LanguageDirectoryNotWriteableContactAdmin'),'error');
                                 } else {
                                     // Here we build the confirmation message and we send the user to the sub language terms definition page, using a little hack - see #3712
-                                    $_SESSION['msg'] = Display::return_message(get_lang('TheNewSubLanguageHasBeenAdded').$str_info.'confirm',false);
+                                    Display::addFlash(Display::return_message(get_lang('TheNewSubLanguageHasBeenAdded') . $str_info, null, false));
                                     unset($interbreadcrumb);
                                     $_GET['sub_language_id'] = $_REQUEST['sub_language_id'] = $sl_id;
                                     require 'sub_language.php';

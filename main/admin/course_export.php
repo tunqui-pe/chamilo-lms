@@ -54,6 +54,7 @@ if (isset($_POST['formSent']) && $_POST['formSent']) {
             'Code',
             'Title',
             'CourseCategory',
+            'CourseCategoryName',
             'Teacher',
             'Language',
             'Users',
@@ -65,6 +66,12 @@ if (isset($_POST['formSent']) && $_POST['formSent']) {
             $dataToExport['code'] = str_replace(';',',',$course['code']);
             $dataToExport['title'] = str_replace(';',',',$course['title']);
             $dataToExport['category_code'] = str_replace(';',',',$course['category_code']);
+            $categoryInfo = CourseCategory::getCategory($course['category_code']);
+            if ($categoryInfo) {
+                $dataToExport['category_name'] = str_replace(';',',',$categoryInfo['name']);
+            } else {
+                $dataToExport['category_name'] = '';
+            }
             $dataToExport['tutor_name'] = str_replace(';',',',$course['tutor_name']);
             $dataToExport['course_language'] = str_replace(';',',',$course['course_language']);
 
@@ -73,12 +80,14 @@ if (isset($_POST['formSent']) && $_POST['formSent']) {
 
             $usersInCourse = CourseManager::get_user_list_from_course_code($course['code']);
 
-            foreach ($usersInCourse as $user) {
-                if ($user['status_rel'] == COURSEMANAGER) {
-                    $dataToExport['teachers'] .= $user['username'].'|';
-                } else {
-                    $dataToExport['students'] .= $user['username'].'|';
-                }
+            if (is_array($usersInCourse) && !empty($usersInCourse)) {
+                foreach ($usersInCourse as $user) {
+                    if ($user['status_rel'] == COURSEMANAGER) {
+                        $dataToExport['teachers'] .= $user['username'].'|';
+                    } else {
+                        $dataToExport['students'] .= $user['username'].'|';
+                        }
+                }                
             }
             $dataToExport['students'] = substr($dataToExport['students'], 0, -1);
             $dataToExport['teachers'] = substr($dataToExport['teachers'], 0, -1);

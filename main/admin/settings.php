@@ -85,7 +85,11 @@ $url_id = api_get_current_access_url_id();
 
 $settings = null;
 
-function get_settings($category = null)
+/**
+ * @param string $category
+ * @return array
+ */
+function get_settings($category = '')
 {
     $url_id = api_get_current_access_url_id();
     $settings_by_access_list = array();
@@ -96,10 +100,14 @@ function get_settings($category = null)
     } else {
         $url_info = api_get_access_url($url_id);
         if ($url_info['active'] == 1) {
+            $categoryToSearch = $category;
+            if ($category == 'search_setting') {
+                $categoryToSearch = '';
+            }
             // The default settings of Chamilo
-            $settings = api_get_settings($category, 'group', 1, 0);
+            $settings = api_get_settings($categoryToSearch, 'group', 1, 0);
             // The settings that are changeable from a particular site.
-            $settings_by_access = api_get_settings($category, 'group', $url_id, 1);
+            $settings_by_access = api_get_settings($categoryToSearch, 'group', $url_id, 1);
 
             foreach ($settings_by_access as $row) {
                 if (empty($row['variable'])) {
@@ -124,7 +132,7 @@ function get_settings($category = null)
 
     if (isset($category) && $category== 'search_setting') {
         if (!empty($_REQUEST['search_field'])) {
-            $settings = search_setting($_REQUEST['search_field']);
+            $settings = searchSetting($_REQUEST['search_field']);
         }
     }
 
@@ -142,7 +150,7 @@ if (!empty($_GET['category']) &&
     $settings_array = get_settings($my_category);
     $settings = $settings_array['settings'];
     $settings_by_access_list = $settings_array['settings_by_access_list'];
-    $form = generate_settings_form($settings, $settings_by_access_list);
+    $form = generateSettingsForm($settings, $settings_by_access_list);
 
     if ($form->validate()) {
         $values = $form->exportValues();
@@ -193,7 +201,7 @@ if (!empty($_GET['category']) &&
                 $settings_array = get_settings($my_category);
                 $settings = $settings_array['settings'];
                 $settings_by_access_list = $settings_array['settings_by_access_list'];
-                $form = generate_settings_form(
+                $form = generateSettingsForm(
                     $settings,
                     $settings_by_access_list
                 );
@@ -230,6 +238,9 @@ if (!empty($_GET['category']) &&
 
         foreach ($settings as $item) {
             $key = $item['variable'];
+            if ($key === 'prevent_multiple_simultaneous_login') {
+                Session::write('first_user_login', 1);
+            }
             if (in_array($key, $settings_to_avoid)) {
                 continue;
             }
@@ -360,8 +371,8 @@ if (!empty($_GET['category']) &&
 }
 
 $htmlHeadXtra[] = '<script>
-    var hide_icon = "'.api_get_path(WEB_IMG_PATH).'shared_setting_na.png";
-    var show_icon = "'.api_get_path(WEB_IMG_PATH).'shared_setting.png";
+    var hide_icon = "'.api_get_path(WEB_IMG_PATH).'/icons/32/shared_setting_na.png";
+    var show_icon = "'.api_get_path(WEB_IMG_PATH).'/icons/32/shared_setting.png";
     var url       = "'.api_get_path(WEB_AJAX_PATH).'admin.ajax.php?a=update_changeable_setting";
 
     $(function() {
@@ -469,7 +480,7 @@ echo $form_search_html;
 if (!empty($_GET['category'])) {
     switch ($_GET['category']) {
         case 'Regions':
-            handle_regions();
+            handleRegions();
             break;
         case 'Plugins':
             // Displaying the extensions: Plugins.
@@ -505,7 +516,7 @@ if (!empty($_GET['category'])) {
             echo '</ul>';
 
             echo '<div id="tabs-1">';
-            handle_plugins();
+            handlePlugins();
             echo '</div>';
 
             echo '<div id="tabs-2">';
@@ -513,30 +524,31 @@ if (!empty($_GET['category'])) {
             echo '</div>';
 
             echo '<div id="tabs-3">';
-            handle_extensions();
+            handleExtensions();
             echo '</div>';
             echo '</div>';
             break;
         case 'Stylesheets':
             // Displaying the extensions: Stylesheets.
-            handle_stylesheets();
+            handleStylesheets();
             break;
         case 'Search':
-            handle_search();
+            handleSearch();
             break;
         case 'Templates':
-            handle_templates();
+            handleTemplates();
             break;
         case 'search_setting':
             if (isset($_REQUEST['search_field'])) {
 
-                search_setting($_REQUEST['search_field']);
+                searchSetting($_REQUEST['search_field']);
                 $form->display();
             }
             break;
         default:
-            if (isset($form))
+            if (isset($form)) {
                 $form->display();
+            }
     }
 }
 

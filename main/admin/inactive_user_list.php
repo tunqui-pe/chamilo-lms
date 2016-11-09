@@ -6,7 +6,8 @@ use Chamilo\CoreBundle\Framework\Container;
 /**
     @author Andre Boivin base code
 	@author Julio Montoya fixing lot of little details
-	@todo this script is not ready for a production use that's why I'm commenting the function delete_inactive_student
+	@todo this script is not ready for a production use that's why
+   I'm commenting the function delete_inactive_student
 
 *	@package chamilo.admin
 *	script pour effacer les user inactif depuis x temps
@@ -20,9 +21,7 @@ api_protect_admin_script(true);
 *
 */
 
-/**		INIT SECTION
-*/
-Display :: display_header($tool_name, "");
+Display :: display_header($tool_name);
 
 //On sélectionne les user élèves
 $sql = "SELECT user_id FROM ".$table_user." user WHERE user.status= '5' ORDER by lastname " ;

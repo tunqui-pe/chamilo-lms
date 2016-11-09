@@ -23,8 +23,7 @@ if (!in_array($pluginName, $installedPlugins) || empty($pluginInfo)) {
     api_not_allowed(true);
 }
 
-$message = null;
-$content = null;
+$content = '';
 
 $currentUrl = api_get_self() . "?name=$pluginName";
 
@@ -38,7 +37,9 @@ if (isset($pluginInfo['settings_form'])) {
         $content .= $form->toHtml();
     }
 } else {
-    $message = Display::return_message(get_lang('NoConfigurationSettingsForThisPlugin'), 'warning');
+    Display::addFlash(
+        Display::return_message(get_lang('NoConfigurationSettingsForThisPlugin'), 'warning')
+    );
 }
 
 if (isset($form)) {
@@ -62,7 +63,8 @@ if (isset($form)) {
 
         foreach ($values as $key => $value) {
             api_add_setting(
-                $value, Database::escape_string($pluginName . '_' . $key),
+                $value,
+                Database::escape_string($pluginName . '_' . $key),
                 $pluginName,
                 'setting',
                 'Plugins',
@@ -79,21 +81,15 @@ if (isset($form)) {
             $objPlugin->manageTab($values['show_main_menu_tab']);
         }
 
-        $message = Display::return_message(get_lang('Updated'), 'success');
-
-        Session::write('message', $message);
+        Display::addFlash(Display::return_message(get_lang('Updated'), 'success'));
 
         header("Location: $currentUrl");
         exit;
     } else {
         foreach ($form->_errors as $error) {
-            $message .= Display::return_message($error, 'error');
+            Display::addFlash(Display::return_message($error, 'error'));
         }
     }
-}
-
-if (Session::has('message')) {
-    $message = Session::read('message');
 }
 
 $interbreadcrumb[] = array(
@@ -106,8 +102,6 @@ $interbreadcrumb[] = array(
 );
 
 $tpl = new Template($pluginName, true, true, false, true, false);
-$tpl->assign('message', $message);
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
 
-Session::erase('message');

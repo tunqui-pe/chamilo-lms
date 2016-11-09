@@ -5,12 +5,9 @@
  * @package chamilo.admin
  * Copyright (c) 2007 Mustapha Alouani (supervised by Michel Moreau-Belliard)
  */
-/**
- * Code
- */
 // resetting the course id
 $cidReset=true;
-require_once('../inc/global.inc.php');
+//require_once('../inc/global.inc.php');
 // setting the section (for the tabs)
 $this_section = SECTION_PLATFORM_ADMIN;
 

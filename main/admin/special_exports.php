@@ -2,6 +2,8 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Framework\Container;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseSelectForm;
 
 /**
  * Special exports
@@ -21,12 +23,6 @@ $interbreadcrumb[] = array ('url' => Container::getRouter()->generate('administr
 api_protect_admin_script(true);
 $nameTools = get_lang('SpecialExports');
 $export = '';
-
-// include additional libraries
-require_once __DIR__.'/../coursecopy/classes/CourseBuilder.class.php';
-require_once __DIR__.'/../coursecopy/classes/CourseArchiver.class.php';
-require_once __DIR__.'/../coursecopy/classes/CourseRestorer.class.php';
-require_once __DIR__.'/../coursecopy/classes/CourseSelectForm.class.php';
 
 if (function_exists('ini_set')) {
 	api_set_memory_limit('256M');
@@ -102,7 +98,7 @@ if ((isset($_POST['action']) && $_POST['action'] == 'course_select_form') ||
 				}
 
 				foreach ($Sessions as $IdSession => $value){
-					$session_id = Security::remove_XSS($IdSession);
+                    $session_id = (int) $IdSession;
 					//Add tem to the zip file session course
 					$sql_session_doc = "SELECT path FROM $tbl_document AS docs, $tbl_property AS props
 						WHERE props.tool='".TOOL_DOCUMENT."'
@@ -132,15 +128,6 @@ if ((isset($_POST['action']) && $_POST['action'] == 'course_select_form') ||
 	} else {
 		$name = fullexportspecial();
 	}
-?>
-<!-- Manual download <script language="JavaScript">
- // setTimeout(\'download_backup()\',2000);
- function download_backup()
- {
-	window.location="../course_info/download.php?archive=<?php echo $name; ?>&session=true";
- }
-</script> //-->
-<?php
 }
 
 if ($export && $name) {
@@ -166,7 +153,8 @@ if ($export && $name) {
 /* FOOTER */
 Display::display_footer();
 
-function form_special_export() {
+function form_special_export()
+{
     $form = new FormValidator('special_exports','post');
     $renderer = $form->defaultRenderer();
     $renderer->setCustomElementTemplate('<div>{element}</div> ');
@@ -174,15 +162,18 @@ function form_special_export() {
     $form->addElement('radio', 'backup_option', '',  get_lang('SpecialLetMeSelectItems'), 'select_items');
     $form->addElement('html','<br />');
     $form->addButtonExport(get_lang('CreateBackup'));
-    $form->add_progress_bar();
+    $form->addProgress();
     $values['backup_option'] = 'full_backup';
     $form->setDefaults($values);
     $form->display();
 }
 
-function create_zip(){
+function create_zip()
+{
     $path = '';
-    if(empty($path)) { $path='/'; }
+    if (empty($path)) {
+        $path = '/';
+    }
     $remove_dir = ($path!='/') ? substr($path,0,strlen($path) - strlen(basename($path))) : '/';
     $sys_archive_path = api_get_path(SYS_ARCHIVE_PATH);
     $sys_course_path = api_get_path(SYS_COURSE_PATH);
@@ -194,36 +185,47 @@ function create_zip(){
         while (false!==($file = readdir($handle))) {
             if ($file != "." && $file != "..") {
                 $Diff = (time() - filemtime("$temp_zip_dir/$file"))/60/60;  //the "age" of the file in hours
-                if ($Diff > 4) unlink("$temp_zip_dir/$file");   //delete files older than 4 hours
+                if ($Diff > 4) {
+                    unlink("$temp_zip_dir/$file");
+                }   //delete files older than 4 hours
             }
         }
         closedir($handle);
     }
     $temp_zip_file = $temp_zip_dir."/".md5(time()).".zip";  //create zipfile of given directory
-    return array('PATH' => $path,
-                 'PATH_TEMP_ARCHIVE' => $temp_zip_dir,
-                 'PATH_COURSE' => $sys_course_path,
-                 'TEMP_FILE_ZIP' => $temp_zip_file,
-                 'PATH_REMOVE' => $remove_dir);
+    return array(
+        'PATH' => $path,
+        'PATH_TEMP_ARCHIVE' => $temp_zip_dir,
+        'PATH_COURSE' => $sys_course_path,
+        'TEMP_FILE_ZIP' => $temp_zip_file,
+        'PATH_REMOVE' => $remove_dir
+    );
 }
 
-function rename_zip($FileZip) {
+function rename_zip($FileZip)
+{
     Event::event_download(($FileZip['PATH'] == '/')?'full_export_'.date('Ymd').'.zip (folder)': basename($FileZip['PATH']).'.zip (folder)');
     $name = ($FileZip['PATH']=='/')? 'full_export_'.date('Ymd').'.zip':basename($FileZip['PATH']).'.zip';
-    if(file_exists($FileZip['PATH_TEMP_ARCHIVE'].'/'.$name)){ unlink($FileZip['PATH_TEMP_ARCHIVE'].'/'.$name); }
+    if (file_exists($FileZip['PATH_TEMP_ARCHIVE'].'/'.$name)) {
+        unlink($FileZip['PATH_TEMP_ARCHIVE'].'/'.$name);
+    }
     if(file_exists($FileZip['TEMP_FILE_ZIP'])) {
-        rename($FileZip['TEMP_FILE_ZIP'], $FileZip['PATH_TEMP_ARCHIVE'].'/'.$name);
+        rename(
+            $FileZip['TEMP_FILE_ZIP'],
+            $FileZip['PATH_TEMP_ARCHIVE'].'/'.$name
+        );
         return $name;
-    } else { return false; }
+    } else {
+        return false;
+    }
 
 }
 
-function fullexportspecial(){
+function fullexportspecial()
+{
     global $tbl_session, $tbl_session_course, $export;
     $FileZip = create_zip();
     $to_group_id = 0;
-    $code_course = '';
-    $list_course = array();
     $zip_folder = new PclZip($FileZip['TEMP_FILE_ZIP']);
     $list_course = CourseManager::get_course_list();
 

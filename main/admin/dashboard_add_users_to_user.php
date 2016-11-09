@@ -175,8 +175,7 @@ function search_users($needle, $type)
 
 $xajax->processRequests();
 $htmlHeadXtra[] = $xajax->getJavascript('../inc/lib/xajax/');
-$htmlHeadXtra[] = '
-<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 function add_user_to_user (code, content) {
 	document.getElementById("user_to_add").value = "";
 	document.getElementById("ajax_list_users_single").innerHTML = "";
@@ -289,10 +288,10 @@ if (isset($_POST['formSent']) && intval($_POST['formSent']) == 1) {
         case DRH:
             //no break;
         case PLATFORM_ADMIN:
-            $affected_rows = UserManager::suscribe_users_to_hr_manager($user_id, $user_list);
+            $affected_rows = UserManager::subscribeUsersToHRManager($user_id, $user_list);
             break;
         case STUDENT_BOSS:
-            $affected_rows = UserManager::subscribeUsersToBoss($user_id, $user_list);
+            $affected_rows = UserManager::subscribeBossToUsers($user_id, $user_list);
             break;
         default:
             $affected_rows = 0;
@@ -308,19 +307,26 @@ Display::display_header($tool_name);
 
 // actions
 
+$actionsLeft = '';
 if ($userStatus != STUDENT_BOSS) {
     $actionsLeft = Display::url(
-        Display::return_icon('course-add.png', get_lang('AssignCourses'), null, ICON_SIZE_MEDIUM ), "dashboard_add_courses_to_user.php?user=$user_id"
+        Display::return_icon('course-add.png', get_lang('AssignCourses'), null, ICON_SIZE_MEDIUM),
+        "dashboard_add_courses_to_user.php?user=$user_id"
     );
 
     $actionsLeft .= Display::url(
-        Display::return_icon('session-add.png', get_lang('AssignSessions'), null, ICON_SIZE_MEDIUM ) , "dashboard_add_sessions_to_user.php?user=$user_id"
+        Display::return_icon('session-add.png', get_lang('AssignSessions'), null, ICON_SIZE_MEDIUM),
+        "dashboard_add_sessions_to_user.php?user=$user_id"
     );
 }
 
-$actionsRight = Display::url('<em class="fa fa-search"></em> ' . get_lang('AdvancedSearch'), '#', array('class' => 'btn btn-default advanced_options', 'id' => 'advanced_search'));
+$actionsRight = Display::url(
+    '<em class="fa fa-search"></em> ' . get_lang('AdvancedSearch'),
+    '#',
+    array('class' => 'btn btn-default advanced_options', 'id' => 'advanced_search')
+);
 
-$toolbar = Display::toolbarAction('toolbar-dashboard', $content = array( 0 => $actionsLeft, 1 => $actionsRight ));
+$toolbar = Display::toolbarAction('toolbar-dashboard', [$actionsLeft, $actionsRight]);
 echo $toolbar;
 
 echo '<div id="advanced_search_options" style="display:none">';
@@ -328,8 +334,12 @@ $searchForm->display();
 echo '</div>';
 
 echo Display::page_header(
-    sprintf(get_lang('AssignUsersToX'), api_get_person_name($user_info['firstname'], $user_info['lastname'])),
-        null, $size = 'h3'
+    sprintf(
+        get_lang('AssignUsersToX'),
+        api_get_person_name($user_info['firstname'], $user_info['lastname'])
+    ),
+    null,
+    'h3'
 );
 
 $assigned_users_to_hrm = array();
@@ -375,7 +385,8 @@ if (!empty($conditions)) {
 
 if (api_is_multiple_url_enabled()) {
 	$sql = "SELECT user.user_id, username, lastname, firstname
-	        FROM $tbl_user user  LEFT JOIN $tbl_access_url_rel_user au ON (au.user_id = user.user_id)
+	        FROM $tbl_user user  LEFT JOIN $tbl_access_url_rel_user au 
+	        ON (au.user_id = user.user_id)
 			WHERE
                 $without_assigned_users
                 user.user_id NOT IN ($user_anonymous, $current_user_id, $user_id) AND
@@ -412,7 +423,8 @@ if(!empty($msg)) {
             <div class="col-sm-12">
                 <div id="ajax_list_users_multiple">
                     <select id="origin" class="form-control" name="NoAssignedUsersList[]" multiple="multiple" size="15">
-                        <?php   while ($enreg = Database::fetch_array($result)) {
+                        <?php
+                            while ($enreg = Database::fetch_array($result)) {
                                 $person_name = api_get_person_name($enreg['firstname'], $enreg['lastname']); ?>
                                   <option value="<?php echo $enreg['user_id']; ?>" <?php echo 'title="'.htmlspecialchars($person_name,ENT_QUOTES).'"';?>>
                             <?php echo $person_name.' ('.$enreg['username'].')'; ?>

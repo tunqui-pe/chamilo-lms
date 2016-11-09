@@ -22,11 +22,6 @@ echo '<a href="'.api_get_path(WEB_CODE_PATH).'admin/legal_add.php">'.Display::re
 echo '</div>';
 
 // Actions
-if (isset ($_GET['action'])) {
-	if ($_GET['action'] == 'show_message')
-		Display :: display_normal_message(Security::remove_XSS(stripslashes($_GET['message'])));
-	Security::clear_token();
-}
 
 $legal_count = LegalManager::count();
 
@@ -50,10 +45,12 @@ $table->set_header(5, get_lang('Date'), false, 'width="50px"');
 $table->display();
 
 // this 2 "mask" function are here just because the SortableTable
-function get_legal_data_mask($id, $params=null, $row=null) {
+function get_legal_data_mask($id, $params = null, $row = null)
+{
 	return LegalManager::get_legal_data($id, $params, $row);
 }
-function count_mask() {
+function count_mask()
+{
 	return LegalManager::count();
 }
 Display :: display_footer();

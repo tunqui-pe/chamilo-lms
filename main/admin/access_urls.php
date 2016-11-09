@@ -31,50 +31,44 @@ $url_list = UrlManager::get_url_data();
 
 // Actions
 if (isset ($_GET['action'])) {
-    if ($_GET['action'] == 'show_message') {
-        Display :: display_normal_message(Security::remove_XSS(stripslashes($_GET['message'])));
-    }
-    if (1) {
-		$url_id = intval($_GET['url_id']);
+    $url_id = (empty($_GET['url_id']) ? 0 : intval($_GET['url_id']));
 
-        switch ($_GET['action']) {
-            case 'delete_url':
-                $result = UrlManager::delete($url_id);
-                if ($result) {
-                    Display :: display_normal_message(get_lang('URLDeleted'));
-                } else {
-                    Display :: display_error_message(get_lang('CannotDeleteURL'));
-                }
-                break;
-            case 'lock':
-                UrlManager::set_url_status('lock', $url_id);
-                Display::display_normal_message(get_lang('URLInactive'));
-                break;
-            case 'unlock':
-                UrlManager::set_url_status('unlock', $url_id);
-                Display::display_normal_message(get_lang('URLActive'));
-                break;
-            case 'register':
-                // we are going to register the admin
-                if (api_is_platform_admin()) {
-                    if ($current_access_url_id!=-1) {
-                        $url_str = '';
-                        foreach ($url_list as $my_url) {
-                            if (!in_array($my_url['id'], $my_user_url_list)) {
-                                UrlManager::add_user_to_url(api_get_user_id(), $my_url['id']);
-                                $url_str.=$my_url['url'].' <br />';
-                            }
+    switch ($_GET['action']) {
+        case 'delete_url':
+            $result = UrlManager::delete($url_id);
+            if ($result) {
+                Display :: display_normal_message(get_lang('URLDeleted'));
+            } else {
+                Display :: display_error_message(get_lang('CannotDeleteURL'));
+            }
+            break;
+        case 'lock':
+            UrlManager::set_url_status('lock', $url_id);
+            Display::display_normal_message(get_lang('URLInactive'));
+            break;
+        case 'unlock':
+            UrlManager::set_url_status('unlock', $url_id);
+            Display::display_normal_message(get_lang('URLActive'));
+            break;
+        case 'register':
+            // we are going to register the admin
+            if (api_is_platform_admin()) {
+                if ($current_access_url_id!=-1) {
+                    $url_str = '';
+                    foreach ($url_list as $my_url) {
+                        if (!in_array($my_url['id'], $my_user_url_list)) {
+                            UrlManager::add_user_to_url(api_get_user_id(), $my_url['id']);
+                            $url_str.=$my_url['url'].' <br />';
                         }
-                        Display:: display_normal_message(
-                            get_lang('AdminUserRegisteredToThisURL').': '.$url_str.'<br />',
-                            false
-                        );
                     }
+                    Display:: display_normal_message(
+                        get_lang('AdminUserRegisteredToThisURL').': '.$url_str.'<br />',
+                        false
+                    );
                 }
-                break;
-        }
+            }
+            break;
     }
-
 }
 
 $parameters['sec_token'] = Security::get_token();
@@ -99,8 +93,7 @@ if ($current_access_url_id==-1) {
     $quant= UrlManager::relation_url_user_exist(api_get_user_id(),$current_access_url_id);
     if ($quant==0) {
         Display :: display_warning_message(
-            '<a href="'.api_get_self().'?action=register&sec_token='.$parameters['sec_token'].'">'.
-            get_lang('ClickToRegisterAdmin').'</a>',
+            '<a href="'.api_get_self().'?action=register&sec_token='.$parameters['sec_token'].'">'.get_lang('ClickToRegisterAdmin').'</a>',
             false
         );
     }
@@ -156,17 +149,14 @@ foreach ($sortable_data as $row)  {
     if ($row['id']=='1') {
         $status = Display::return_icon($image.'.gif', get_lang(ucfirst($action)));
     } else {
-        $status = '<a href="access_urls.php?action='.$action.'&url_id='.$row['id'].'">'.
+        $status = '<a href="access_urls.php?action='.$action.'&amp;url_id='.$row['id'].'">'.
             Display::return_icon($image.'.gif', get_lang(ucfirst($action))).'</a>';
     }
     // Actions
     $url_id = $row['id'];
-    $actions = Display::url(
-        Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL),
-        "access_url_edit.php?url_id=$url_id"
-    );
+    $actions = Display::url(Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL), "access_url_edit.php?url_id=$url_id");
     if ($url_id != '1') {
-        $actions .= '<a href="access_urls.php?action=delete_url&url_id='.$url_id.'" onclick="javascript:if(!confirm('."'".addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset))."'".')) return false;">'.
+        $actions .= '<a href="access_urls.php?action=delete_url&amp;url_id='.$url_id.'" onclick="javascript:if(!confirm('."'".addslashes(api_htmlentities(get_lang("ConfirmYourChoice"),ENT_QUOTES,$charset))."'".')) return false;">'.
             Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL).'</a>';
     }
     $urls[] = array($url, $description, $status, $actions);

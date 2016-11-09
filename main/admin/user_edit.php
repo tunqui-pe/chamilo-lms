@@ -67,54 +67,7 @@ function confirmation(name) {
 
 $htmlHeadXtra[] = api_get_css('components/cropper/dist/cropper.min.css');
 $htmlHeadXtra[] = api_get_js('components/cropper/dist/cropper.min.js');
-$htmlHeadXtra[] = '<script>
-$(document).ready(function() {
-    var $image = $("#previewImage");
-    var $input = $("[name=\'cropResult\']");
-    var $cropButton = $("#cropButton");
-    var canvas = "";
-    var imageWidth = "";
-    var imageHeight = "";
 
-    $("input:file").change(function() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("picture").files[0]);
-
-        oFReader.onload = function (oFREvent) {
-            $image.attr("src", this.result);
-            $("#labelCropImage").html("'.get_lang('Preview').'");
-            $("#cropImage").addClass("thumbnail");
-            $cropButton.removeClass("hidden");
-            // Destroy cropper
-            $image.cropper("destroy");
-
-            $image.cropper({
-                aspectRatio: 1 / 1,
-                responsive : true,
-                center : false,
-                guides : false,
-                movable: false,
-                zoomable: false,
-                rotatable: false,
-                scalable: false,
-                crop: function(e) {
-                    // Output the result data for cropping image.
-                    $input.val(e.x+","+e.y+","+e.width+","+e.height);
-                }
-            });
-        };
-    });
-
-    $("#cropButton").on("click", function() {
-        var canvas = $image.cropper("getCroppedCanvas");
-        var dataUrl = canvas.toDataURL();
-        $image.attr("src", dataUrl);
-        $image.cropper("destroy");
-        $cropButton.addClass("hidden");
-        return false;
-    });
-});
-</script>';
 
 $libpath = api_get_path(LIBRARY_PATH);
 $noPHP_SELF = true;
@@ -143,6 +96,105 @@ $user_data['old_password'] = $user_data['password'];
 $user_data['registration_date'] = api_get_local_time($user_data['registration_date']);
 unset($user_data['password']);
 
+if ($userGeolocalization) {
+	$htmlHeadXtra[] = '<script>
+    $(document).ready(function() {
+
+        var address = "' . $user_data['address'] . '";
+        initializeGeo(address, false);
+
+        $("#geolocalization").on("click", function() {
+            var address = $("#address").val();
+            initializeGeo(address, false);
+            return false;
+        });
+
+        $("#myLocation").on("click", function() {
+            myLocation();
+            return false;
+        });
+
+        $("#address").keypress(function (event) {
+            if (event.which == 13) {
+                $("#geolocalization").click();
+                return false;
+            }
+        });
+    });
+
+    function myLocation() {
+        if (navigator.geolocation) {
+            var geoPosition = function(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var latLng = new google.maps.LatLng(lat, lng);
+                initializeGeo(false, latLng)
+            };
+
+            var geoError = function(error) {
+                alert("Geocode ' . get_lang('Error') . ': " + error);
+            };
+
+            var geoOptions = {
+                enableHighAccuracy: true
+            };
+
+            navigator.geolocation.getCurrentPosition(geoPosition, geoError, geoOptions);
+        }
+    }
+
+    function initializeGeo(address, latLng) {
+        var geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+            zoom: 15,
+            center: latlng,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            navigationControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+        var parameter = address ? { "address": address } : latLng ? { "latLng": latLng } : false;
+
+        if (geocoder && parameter) {
+            geocoder.geocode(parameter, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                        map.setCenter(results[0].geometry.location);
+                        if (!address) {
+                            $("#address").val(results[0].formatted_address);
+                        }
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<b>" + $("#address").val() + "</b>",
+                            size: new google.maps.Size(150, 50)
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map,
+                            title: $("#address").val()
+                        });
+                        google.maps.event.addListener(marker, "click", function() {
+                            infowindow.open(map, marker);
+                        });
+                    } else {
+                        alert("' . get_lang("NotFound") . '");
+                    }
+
+                } else {
+                    alert("Geocode ' . get_lang('Error') . ': " + status);
+                }
+            });
+        }
+    }
+
+    </script>';
+}
 // Create the form
 $form = new FormValidator(
     'user_edit',
@@ -202,24 +254,39 @@ if (api_get_setting('profile.login_is_email') == 'true') {
 // Phone
 $form->addElement('text', 'phone', get_lang('PhoneNumber'));
 
+if ($userGeolocalization) {
+	// Geolocation
+	$form->addElement('text', 'address', get_lang('AddressField'), ['id' => 'address']);
+	$form->addHtml('
+        <div class="form-group">
+            <label for="geolocalization" class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">
+                <button class="null btn btn-default " id="geolocalization" name="geolocalization" type="submit"><em class="fa fa-map-marker"></em> '.get_lang('Geolocalization').'</button>
+                <button class="null btn btn-default " id="myLocation" name="myLocation" type="submit"><em class="fa fa-crosshairs"></em> '.get_lang('MyLocation').'</button>
+            </div>
+        </div>
+    ');
+
+	$form->addHtml('
+        <div class="form-group">
+            <label for="map" class="col-sm-2 control-label">
+                '.get_lang('Map').'
+            </label>
+            <div class="col-sm-8">
+                <div name="map" id="map" style="width:100%; height:300px;">
+                </div>
+            </div>
+        </div>
+    ');
+}
+
 // Picture
-$form->addElement('file', 'picture', get_lang('AddPicture'), array('id' => 'picture', 'class' => 'picture-form'));
-$allowed_picture_types = array ('jpg', 'jpeg', 'png', 'gif');
-
-$form->addHtml('<div class="form-group">
-    <label for="cropImage" id="labelCropImage" class="col-sm-2 control-label"></label>
-    <div class="col-sm-8">
-        <div id="cropImage" class="cropCanvas">
-            <img id="previewImage" >
-        </div>
-        <div>
-        <button class="btn btn-primary hidden" name="cropButton" id="cropButton">
-        <em class="fa fa-crop"></em> '.get_lang('CropYourPicture').'</button>
-        </div>
-    </div>
-</div>');
-
-$form->addHidden('cropResult', '');
+$form->addFile(
+    'picture',
+    get_lang('AddImage'),
+    array('id' => 'picture', 'class' => 'picture-form', 'crop_image' => true, 'crop_ratio' => '1 / 1')
+);
+$allowed_picture_types = api_get_supported_image_extensions(false);
 
 $form->addRule(
 	'picture',
@@ -267,7 +334,7 @@ if (isset($extAuthSource) && !empty($extAuthSource) && count($extAuthSource) > 0
         $group[] = $form->createElement('radio', 'reset_password', null, get_lang('ExternalAuthentication').' ', 3);
         $group[] = $form->createElement('select', 'auth_source', null, $auth_sources);
         $group[] = $form->createElement('static', '', '', '<br />');
-        $form->addGroup($group, 'password', null, '', false);
+        $form->addGroup($group, 'password', null, null, false);
     }
 }
 $form->addElement('radio', 'reset_password', null, get_lang('AutoGeneratePassword'), 1);
@@ -279,7 +346,7 @@ $group[] = $form->createElement(
     null,
     array('onkeydown' => 'javascript: password_switch_radio_button();')
 );
-$form->addGroup($group, 'password', null, '', false);
+$form->addGroup($group, 'password', null, null, false);
 
 // Status
 $status = array();
@@ -323,7 +390,7 @@ $form->addElement('select_language', 'language', get_lang('Language'));
 $group = array();
 $group[] = $form->createElement('radio', 'send_mail', null, get_lang('Yes'), 1);
 $group[] = $form->createElement('radio', 'send_mail', null, get_lang('No'), 0);
-$form->addGroup($group, 'mail', get_lang('SendMailToNewUser'), '&nbsp;', false);
+$form->addGroup($group, 'mail', get_lang('SendMailToNewUser'), null, false);
 
 // Registration User and Date
 $creatorInfo = api_get_user_info($user_data['creator_id']);
@@ -336,12 +403,31 @@ if (!$user_data['platform_admin']) {
 	$group = array ();
 	$group[] = $form->createElement('radio', 'radio_expiration_date', null, get_lang('Enabled'), 1);
 	$group[] = $form->createElement('DateTimePicker', 'expiration_date', null, array('onchange' => 'javascript: enable_expiration_date();'));
-	$form->addGroup($group, 'max_member_group', null, '', false);
+	$form->addGroup($group, 'max_member_group', null, null, false);
 
 	// Active account or inactive account
 	$form->addElement('radio', 'active', get_lang('ActiveAccount'), get_lang('Active'), 1);
 	$form->addElement('radio', 'active', '', get_lang('Inactive'), 0);
 }
+$studentBossList = UserManager::getStudentBossList($user_data['user_id']);
+
+$conditions = ['status' => STUDENT_BOSS];
+$studentBoss = UserManager::get_user_list($conditions);
+$studentBossToSelect = [];
+
+if ($studentBoss) {
+    foreach ($studentBoss as $bossId => $userData) {
+        $bossInfo = api_get_user_info($userData['user_id']);
+        $studentBossToSelect[$bossInfo['user_id']] =  $bossInfo['complete_name_with_username'];
+    }
+}
+
+if ($studentBossList) {
+    $studentBossList = array_column($studentBossList, 'boss_id');
+}
+
+$user_data['student_boss'] = array_values($studentBossList);
+$form->addElement('advmultiselect', 'student_boss', get_lang('StudentBoss'), $studentBossToSelect);
 
 // EXTRA FIELDS
 $extraField = new ExtraField('user');
@@ -398,8 +484,7 @@ if ($form->validate()) {
                 $user_id,
                 $_FILES['picture']['name'],
                 $_FILES['picture']['tmp_name'],
-                $user['cropResult']
-
+                $user['picture_crop_result']
             );
 		}
 
@@ -455,19 +540,27 @@ if ($form->validate()) {
             $language,
             null,
             $send_mail,
-            $reset_password
+            $reset_password,
+			$user['address']
         );
 
-        /*if (api_get_setting('openid_authentication') == 'true' && !empty($user['openid'])) {
+        if (isset($user['student_boss'])) {
+            UserManager::subscribeUserToBossList($user_id, $user['student_boss']);
+        }
+
+		/*if (api_get_setting('openid_authentication') == 'true' && !empty($user['openid'])) {
             $up = UserManager::update_openid($user_id, $user['openid']);
-        }*/
+		}*/
         $currentUserId = api_get_user_id();
+        $userObj = api_get_user_entity($user_id);
+
+        UserManager::add_user_as_admin($userObj);
 		if ($user_id != $currentUserId) {
-            $userEntity = api_get_user_entity($user_id);
 			if ($platform_admin == 1) {
-                UserManager::add_user_as_admin($userEntity);
+				$userObj = api_get_user_entity($user_id);
+                UserManager::add_user_as_admin($userObj);
 			} else {
-                UserManager::remove_user_admin($userEntity);
+                UserManager::remove_user_admin($user_id);
 			}
 		}
 
@@ -481,10 +574,8 @@ if ($form->validate()) {
 	}
 }
 
-$message = null;
 if ($error_drh) {
-	$err_msg = get_lang('StatusCanNotBeChangedToHumanResourcesManager');
-	$message = Display::return_message($err_msg, 'error');
+    Display::addFlash(Display::return_message(get_lang('StatusCanNotBeChangedToHumanResourcesManager'), 'error'));
 }
 
 $content = null;

@@ -164,7 +164,9 @@ if (!empty($coursesInSession)) {
             'advmultiselect',
             $groupName,
             Display::url(
-                $session['name'], $sessionUrl, array('target' => '_blank')
+                $session['name'],
+                $sessionUrl,
+                array('target' => '_blank')
             ) . ' - ' . get_lang('Coaches'),
             $allTeachers
         );
@@ -205,17 +207,17 @@ $group[]= $form->createElement('radio', 'visibility', null, get_lang('OpenToTheP
 $group[]= $form->createElement('radio', 'visibility', null, get_lang('Private'), COURSE_VISIBILITY_REGISTERED);
 $group[]= $form->createElement('radio', 'visibility', null, get_lang('CourseVisibilityClosed'), COURSE_VISIBILITY_CLOSED);
 $group[]= $form->createElement('radio', 'visibility', null, get_lang('CourseVisibilityHidden'), COURSE_VISIBILITY_HIDDEN);
-$form->addGroup($group, '', get_lang('CourseAccess'), '<br />');
+$form->addGroup($group, '', get_lang('CourseAccess'));
 
 $group = array();
 $group[] = $form->createElement('radio', 'subscribe', get_lang('Subscription'), get_lang('Allowed'), 1);
 $group[] = $form->createElement('radio', 'subscribe', null, get_lang('Denied'), 0);
-$form->addGroup($group, '', get_lang('Subscription'), '<br />');
+$form->addGroup($group, '', get_lang('Subscription'));
 
 $group = array();
 $group[] = $form->createElement('radio', 'unsubscribe', get_lang('Unsubscription'), get_lang('AllowedToUnsubscribe'), 1);
 $group[] = $form->createElement('radio', 'unsubscribe', null, get_lang('NotAllowedToUnsubscribe'), 0);
-$form->addGroup($group, '', get_lang('Unsubscription'), '<br />');
+$form->addGroup($group, '', get_lang('Unsubscription'));
 
 $form->addElement('text', 'disk_quota', array(get_lang('CourseQuota'), null, get_lang('MB')));
 $form->addRule('disk_quota', get_lang('ThisFieldIsRequired'), 'required');
@@ -324,10 +326,10 @@ if ($form->validate()) {
                 );
             }
         }
-        CourseManager::updateTeachers($courseId, $teachers, true, true, false);
+        CourseManager::updateTeachers($courseInfo, $teachers, true, true, false);
     } else {
         // Normal behaviour
-        CourseManager::updateTeachers($courseId, $teachers, true, false);
+        CourseManager::updateTeachers($courseInfo, $teachers, true, false);
 
         // Updating session coaches
         $sessionCoaches = $course['session_coaches'];
@@ -357,7 +359,8 @@ if ($form->validate()) {
     Display::addFlash(Display::return_message(get_lang('ItemUpdated')));
 
     if ($visual_code_is_used) {
-        header('Location: course_list.php?action=show_msg&warn=' . urlencode($warn));
+        Display::addFlash(Display::return_message($warn));
+        header('Location: course_list.php');
     } else {
         header('Location: course_list.php');
     }

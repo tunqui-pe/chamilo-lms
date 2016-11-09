@@ -50,7 +50,16 @@ if ($skillParentId > 0) {
 $allSkills = $objSkill->get_all();
 $allGradebooks = $objGradebook->find('all');
 
-$skillList = [0 => get_lang('None')];
+$isAlreadyRootSkill = false;
+
+foreach ($allSkills as $checkedSkill) {
+    if (intval($checkedSkill['parent_id']) > 0) {
+        $isAlreadyRootSkill = true;
+        break;
+    }
+}
+
+$skillList = $isAlreadyRootSkill ? [] : [0 => get_lang('None')];
 $gradebookList = [];
 
 foreach ($allSkills as $skill) {
@@ -74,12 +83,29 @@ $createForm->addSelect(
     ['id' => 'gradebook_id', 'multiple' => 'multiple', 'size' => 10]
 );
 $createForm->addTextarea('description', get_lang('Description'), ['id' => 'description', 'rows' => 7]);
+$extraField = new ExtraField('skill');
+$returnParams = $extraField->addElements($createForm);
+$jquery_ready_content = $returnParams['jquery_ready_content'];
+
+// the $jquery_ready_content variable collects all functions that will be load in the $(document).ready javascript function
+if (!empty($jquery_ready_content)) {
+    $htmlHeadXtra[] = '<script>
+    $(document).ready(function(){
+        ' . $jquery_ready_content . '
+    });
+    </script>';
+}
 $createForm->addButtonSave(get_lang('Save'));
 $createForm->addHidden('id', null);
 $createForm->setDefaults($formDefaultValues);
 
 if ($createForm->validate()) {
-    $created = $objSkill->add($createForm->getSubmitValues());
+    $skillValues = $createForm->getSubmitValues();
+    $created = $objSkill->add($skillValues);
+
+    $skillValues['item_id'] = $created;
+    $extraFieldValue = new ExtraFieldValue('skill');
+    $extraFieldValue->saveFieldValues($skillValues);
 
     if ($created) {
         Display::return_message(get_lang('TheSkillHasBeenCreated'), 'success');

@@ -12,7 +12,7 @@ $cidReset = true;
 $xajax = new xajax();
 
 //$xajax->debugOn();
-$xajax->registerFunction('search_sessions');
+$xajax->registerFunction('search_usergroup_sessions');
 
 // setting the section (for the tabs)
 $this_section = SECTION_PLATFORM_ADMIN;
@@ -119,19 +119,13 @@ $ajax_search = $add_type == 'unique' ? true : false;
 
 //checking for extra field with filter on
 
-function search_sessions($needle,$type) {
+function search_usergroup_sessions($needle,$type) {
     global $elements_in;
     $xajax_response = new xajaxResponse();
     $return = '';
     if (!empty($needle) && !empty($type)) {
         if ($type == 'single') {
             // search users where username or firstname or lastname begins likes $needle
-          /*  $sql = 'SELECT user.user_id, username, lastname, firstname FROM '.$tbl_user.' user
-                    WHERE (username LIKE "'.$needle.'%"
-                    OR firstname LIKE "'.$needle.'%"
-                OR lastname LIKE "'.$needle.'%") AND user.user_id<>"'.$user_anonymous.'"   AND user.status<>'.DRH.''.
-                $order_clause.
-                ' LIMIT 11';*/
         } else if ($type == 'searchbox') {
             $session_list = SessionManager::get_sessions_list(
                 array('s.name' => array('operator' => 'LIKE', 'value' => "%$needle%"))
@@ -142,8 +136,7 @@ function search_sessions($needle,$type) {
             );
         }
         $i=0;
-        if ($type=='single') {
-        } else {
+        if ($type != 'single') {
             $return .= '<select id="elements_not_in" name="elements_not_in_name[]" multiple="multiple" size="15" style="width:360px;">';
 
             foreach ($session_list as $row ) {
@@ -162,12 +155,14 @@ $xajax->processRequests();
 
 Display::display_header($tool_name);
 
+$add = (empty($_GET['add']) ? '' : Security::remove_XSS($_GET['add']));
 if ($add_type == 'multiple') {
-    $link_add_type_unique = '<a href="'.api_get_self().'?id_session='.$id_session.'&add='.Security::remove_XSS($_GET['add']).'&add_type=unique">'.Display::return_icon('single.gif').get_lang('SessionAddTypeUnique').'</a>';
+    $link_add_type_unique = '<a href="' . api_get_self() . '?add=' . $add . '&add_type=unique">'.
+        Display::return_icon('single.gif').get_lang('SessionAddTypeUnique').'</a>';
     $link_add_type_multiple = Display::return_icon('multiple.gif').get_lang('SessionAddTypeMultiple');
 } else {
     $link_add_type_unique = Display::return_icon('single.gif').get_lang('SessionAddTypeUnique');
-    $link_add_type_multiple = '<a href="'.api_get_self().'?add='.Security::remove_XSS($_GET['add']).'&add_type=multiple">'.
+    $link_add_type_multiple = '<a href="' . api_get_self() . '?add=' . $add . '&add_type=multiple">'.
         Display::return_icon('multiple.gif').get_lang('SessionAddTypeMultiple').'</a>';
 }
 
@@ -176,7 +171,7 @@ echo '<a href="usergroups.php">'.Display::return_icon('back.png',get_lang('Back'
 echo '<a href="javascript://" class="advanced_parameters" style="margin-top: 8px" onclick="display_advanced_search();"><span id="img_plus_and_minus">&nbsp;'.Display::return_icon('div_show.gif',get_lang('Show'),array('style'=>'vertical-align:middle')).' '.get_lang('AdvancedSearch').'</span></a>';
 echo '</div>';
 echo '<div id="advancedSearch" style="display: none">'. get_lang('SearchSessions'); ?> :
-     <input name="SearchSession" onchange = "xajax_search_sessions(this.value,'searchbox')" onkeyup="this.onchange()">
+     <input name="SearchSession" onchange = "xajax_search_usergroup_sessions(this.value,'searchbox')" onkeyup="this.onchange()">
      </div>
 <form name="formulaire" method="post" action="<?php echo api_get_self(); ?>?id=<?php echo $id; if(!empty($_GET['add'])) echo '&add=true' ; ?>" style="margin:0px;" <?php if($ajax_search){echo ' onsubmit="valide();"';}?>>
 <?php
@@ -201,7 +196,7 @@ if(!empty($errorMsg)) {
 <tr>
 <td align="center">
 <?php echo get_lang('FirstLetterSessions'); ?> :
-     <select name="firstLetterUser" onchange = "xajax_search_sessions(this.value,'multiple')" >
+     <select name="firstLetterUser" onchange = "xajax_search_usergroup_sessions(this.value,'multiple')" >
       <option value = "%">--</option>
       <?php
         echo Display :: get_alphabet_options();

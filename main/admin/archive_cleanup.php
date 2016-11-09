@@ -21,7 +21,6 @@ $interbreadcrumb[] = array('url' => Container::getRouter()->generate('administra
 $form = new FormValidator('archive_cleanup_form', 'post', '', '', array(), FormValidator::LAYOUT_BOX);
 $form->addButtonSend(get_lang('ArchiveDirCleanupProceedButton'));
 
-$message = null;
 
 if ($form->validate()) {
 	$archive_path = api_get_path(SYS_ARCHIVE_PATH);
@@ -34,33 +33,17 @@ if ($form->validate()) {
 		@file_put_contents($archive_path.'/.htaccess', $htaccess);
 	}
 	if ($result) {
-		$message = 'ArchiveDirCleanupSucceeded';
-		$type = 'confirmation';
+        Display::addFlash(Display::return_message(get_lang('ArchiveDirCleanupSucceeded')));
 	} else {
-		$message = 'ArchiveDirCleanupFailed';
-		$type = 'error';
+        Display::addFlash(Display::return_message(get_lang('ArchiveDirCleanupFailed'), 'error'));
 	}
 
-	header('Location: '.api_get_self().'?msg='.$message.'&type='.$type);
+    header('Location: '.api_get_self());
 	exit;
 }
 
 Display::display_header(get_lang('ArchiveDirCleanup'));
 Display::display_warning_message(get_lang('ArchiveDirCleanupDescr'));
 
-if (isset($_GET['msg']) && isset($_GET['type'])) {
-	if (in_array($_GET['msg'], array('ArchiveDirCleanupSucceeded', 'ArchiveDirCleanupFailed')))
-	switch($_GET['type']) {
-		case 'error':
-			$message = Display::return_message(get_lang($_GET['msg']), 'error');
-			break;
-		case 'confirmation':
-			$message = Display::return_message(get_lang($_GET['msg']), 'confirm');
-	}
-}
-
-if (!empty($message)) {
-    echo $message;
-}
 $form->display();
 Display::display_footer();

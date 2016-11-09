@@ -94,7 +94,8 @@ if (isset($_POST['form_sent']) && $_POST['form_sent']) {
     }
     if ($form_sent == 1) {
         if ($access_url_id == 0) {
-            header('Location: access_url_edit_users_to_url.php?action=show_message&message=' . get_lang('SelectURL'));
+            Display::addFlash(Display::return_message(get_lang('SelectURL')));
+            header('Location: access_url_edit_users_to_url.php');
             exit;
         } elseif (is_array($UserList)) {
             $result = UrlManager::update_urls_rel_user($UserList, $access_url_id);
@@ -145,14 +146,13 @@ if (!empty($message)) {
 }
 
 echo '<div class="actions">';
-echo Display::url(Display::return_icon('view_more_stats.gif', get_lang('AddUserToURL'), ''), api_get_path(WEB_CODE_PATH) . 'admin/access_url_add_users_to_url.php');
+echo Display::url(
+    Display::return_icon('view_more_stats.gif', get_lang('AddUserToURL'), ''),
+    api_get_path(WEB_CODE_PATH) . 'admin/access_url_add_users_to_url.php'
+);
 echo '</div>';
 
 api_display_tool_title($tool_name);
-
-if (isset($_GET['action']) && $_GET['action'] == 'show_message') {
-    Display :: display_normal_message(Security::remove_XSS(stripslashes($_GET['message'])));
-}
 
 $nosessionUsersList = $sessionUsersList = array();
 $ajax_search = $add_type == 'unique' ? true : false;
