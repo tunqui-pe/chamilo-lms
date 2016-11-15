@@ -3,9 +3,7 @@
 
 /**
  * @package chamilo.calendar
- */
-
-use ChamiloSession as Session;
+*/
 
 // use anonymous mode when accessing this course tool
 $use_anonymous = true;
@@ -17,7 +15,6 @@ if (!empty($course_info)) {
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
-$origin = isset($_GET['origin']) ? $_GET['origin'] : null;
 
 $this_section = SECTION_COURSES;
 $url = null;
@@ -31,9 +28,9 @@ if (empty($action)) {
     exit;
 }
 
-/* 	Resource linker */
-Session::write('source_type', 'Agenda');
 $group_id = api_get_group_id();
+$groupInfo = GroupManager::get_group_properties($group_id);
+/* 	Resource linker */
 $eventId = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
 $type = $event_type = isset($_GET['type']) ? $_GET['type'] : null;
 
@@ -52,11 +49,10 @@ function plus_repeated_event() {
             $('#options2').show();
         }
     });
-</script>
-";
+</script>";
 
 
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 var counter_image = 1;
 function add_image_form() {
 	// Multiple filepaths for image form
@@ -93,16 +89,16 @@ $agenda = new Agenda();
 $agenda->type = $type;
 $actions = $agenda->displayActions('calendar');
 
-if ($type == 'fromjs') {
+if ($type === 'fromjs') {
     $id_list = explode('_', $eventId);
-    $eventId = isset($id_list[1]) ? $id_list[1] : '';
-    $event_type = isset($id_list[0]) ? $id_list[0] : '';
+    $eventId = $id_list[1];
+    $event_type = $id_list[0];
 }
 
-if (!api_is_allowed_to_edit(null, true) && $event_type == 'course') {
+if (!api_is_allowed_to_edit(null, true) && $event_type === 'course') {
     api_not_allowed(true);
 }
-if ($event_type == 'course') {
+if ($event_type === 'course') {
     $agendaUrl = api_get_path(WEB_CODE_PATH).'calendar/agenda_js.php?'.api_get_cidreq().'&type=course';
 } else {
     $agendaUrl = api_get_path(WEB_CODE_PATH).'calendar/agenda_js.php?&type='.$event_type;
@@ -116,8 +112,8 @@ if (api_is_allowed_to_edit(false, true) ||
     (api_get_course_setting('allow_user_edit_agenda') &&
     !api_is_anonymous() &&
     api_is_allowed_to_session_edit(false, true)) ||
-    GroupManager::user_has_access(api_get_user_id(), $group_id, GroupManager::GROUP_TOOL_CALENDAR) &&
-    GroupManager::is_tutor_of_group(api_get_user_id(), $group_id)
+    GroupManager::user_has_access(api_get_user_id(), $groupInfo['iid'], GroupManager::GROUP_TOOL_CALENDAR) &&
+    GroupManager::is_tutor_of_group(api_get_user_id(), $groupInfo['iid'])
 ) {
     switch ($action) {
         case 'add':
@@ -162,10 +158,11 @@ if (api_is_allowed_to_edit(false, true) ||
                         $values['users_to_send']
                     );
                 }
-                Display::return_message(get_lang('AddSuccess'), 'confirmation');
+                $message = Display::return_message(get_lang('AddSuccess'), 'confirmation');
                 if ($sendEmail) {
-                    Display::return_message(get_lang('AdditionalMailWasSentToSelectedUsers'), 'confirmation');
+                    $message .= Display::return_message(get_lang('AdditionalMailWasSentToSelectedUsers'), 'confirmation');
                 }
+                Display::addFlash($message);
                 header("Location: $agendaUrl");
                 exit;
             } else {
@@ -218,7 +215,8 @@ if (api_is_allowed_to_edit(false, true) ||
                         $comment
                     );
 
-                    Display::return_message(get_lang('Updated'), 'confirmation');
+                    $message = Display::return_message(get_lang('Updated'), 'confirmation');
+                    Display::addFlash($message);
 
                     header("Location: $agendaUrl");
                     exit;
@@ -264,7 +262,8 @@ if (api_is_allowed_to_edit(false, true) ||
                     }
                 }
 
-                Display::return_message(get_lang('Updated'), 'confirmation');
+                $message = Display::return_message(get_lang('Updated'), 'confirmation');
+                Display::addFlash($message);
                 header("Location: $agendaUrl");
                 exit;
             } else {

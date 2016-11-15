@@ -13,8 +13,8 @@
  *	@package chamilo.course_home
  */
 
-$hide = isset($_GET['hide']) && $_GET['hide'] == 'yes' ? 'yes' : null;
-$restore = isset($_GET['restore']) && $_GET['restore'] == 'yes' ? 'yes' : null;
+$hide = isset($_GET['hide']) && $_GET['hide'] === 'yes' ? 'yes' : null;
+$restore = isset($_GET['restore']) && $_GET['restore'] === 'yes' ? 'yes' : null;
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 $TBL_ACCUEIL = Database::get_course_table(TABLE_TOOL_LIST);
 $course_id = api_get_course_int_id();

@@ -73,7 +73,7 @@ $form = new FormValidator(
 	'index.php?action=edit&id='.$original_id.'&description_type='.$description_type.'&'.api_get_cidreq()
 );
 
-$form->addElement('header','',$header);
+$form->addElement('header', $header);
 $form->addElement('hidden', 'id', $original_id);
 $form->addElement('hidden', 'description_type',$description_type);
 $form->addElement('hidden', 'sec_token', $token);

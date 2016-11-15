@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  *	This script is about deleting a course.
  *	It displays a message box ('are you sure you wish to delete this course')
@@ -9,7 +11,6 @@
  *	@package chamilo.course_info
  */
 
-use \ChamiloSession as Session;
 
 ////require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
@@ -26,7 +27,7 @@ if (!api_is_allowed_to_edit()) {
 
 $tool_name = get_lang('DelCourse');
 
-    if (isset($_GET['delete']) && $_GET['delete'] == 'yes') {
+if (isset($_GET['delete']) && $_GET['delete'] === 'yes') {
     CourseManager::delete_course($_course['sysCode']);
     $obj_cat = new Category();
     $obj_cat->update_category_delete($_course['sysCode']);
@@ -37,9 +38,7 @@ $tool_name = get_lang('DelCourse');
     $noPHP_SELF = true;
     $message = '<h2>'.get_lang('Course').' : '.$current_course_name.' ('.$current_course_code.') </h2>';
     $message .=get_lang('HasDel');
-        $message .= '<br /><br /><a href="../../index.php">'.get_lang(
-                'BackHome'
-            ).' '.api_get_setting('platform.site_name').'</a>';
+    $message .= '<br /><br /><a href="../../index.php">'.get_lang('BackHome').'</a>';
 
 } else {
     $message = '<h3>'.get_lang('Course').' : '.$current_course_name.' ('.$current_course_code.') </h3>';

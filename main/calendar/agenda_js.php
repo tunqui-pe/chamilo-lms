@@ -12,9 +12,10 @@ $tpl = Container::getTwig();
 
 // use anonymous mode when accessing this course tool
 $use_anonymous = true;
+$typeList = array('personal', 'course', 'admin', 'platform');
 
 // Calendar type
-$type = isset($_REQUEST['type']) && in_array($_REQUEST['type'], array('personal', 'course', 'admin', 'platform')) ? $_REQUEST['type'] : 'personal';
+$type = isset($_REQUEST['type']) && in_array($_REQUEST['type'], $typeList) ? $_REQUEST['type'] : 'personal';
 $userId = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : null;
 
 if ($type == 'personal' || $type == 'admin') {
@@ -24,7 +25,14 @@ if ($type == 'personal' || $type == 'admin') {
 $current_course_tool = TOOL_CALENDAR_EVENT;
 $this_section = SECTION_MYAGENDA;
 
-//$htmlHeadXtra[] = api_get_js('qtip2/jquery.qtip.min.js');
+/*$htmlHeadXtra[] = api_get_jquery_libraries_js(array('jquery-ui', 'jquery-ui-i18n'));
+
+$htmlHeadXtra[] = api_get_asset('qtip2/jquery.qtip.min.js');
+$htmlHeadXtra[] = api_get_asset('fullcalendar/dist/fullcalendar.min.js');
+$htmlHeadXtra[] = api_get_asset('fullcalendar/dist/gcal.js');
+$htmlHeadXtra[] = api_get_css_asset('fullcalendar/dist/fullcalendar.min.css');
+$htmlHeadXtra[] = api_get_css_asset('qtip2/jquery.qtip.min.css');*/
+
 $htmlHeadXtra[] = api_get_js(
     'components/fullcalendar/dist/fullcalendar.min.js'
 );
@@ -59,8 +67,8 @@ $session_id = api_get_session_id();
 $group_id = api_get_group_id();
 
 if (!empty($group_id)) {
-    $is_group_tutor = GroupManager::is_tutor_of_group(api_get_user_id(), $group_id);
     $group_properties = GroupManager::get_group_properties($group_id);
+    $is_group_tutor = GroupManager::is_tutor_of_group(api_get_user_id(), $group_properties['iid']);
     $interbreadcrumb[] = array(
         "url" => api_get_path(WEB_CODE_PATH)."group/group.php?".api_get_cidreq(),
         "name" => get_lang('Groups')
@@ -222,7 +230,7 @@ $form = new FormValidator(
     array('id' => 'add_event_form')
 );
 
-$form->addElement('html', '<span id="calendar_course_info"></span><div id="visible_to_input">');
+$form->addHtml('<span id="calendar_course_info"></span><div id="visible_to_input">');
 
 $sendTo = $agenda->parseAgendaFilter($userId);
 $addOnlyItemsInSendTo = true;
@@ -232,11 +240,11 @@ if ($sendTo['everyone']) {
 }
 
 $agenda->showToForm($form, $sendTo, array(), $addOnlyItemsInSendTo);
-$form->addElement('html', '</div>');
+$form->addHtml('</div>');
 
-$form->addElement('html', '<div id="visible_to_read_only" style="display: none">');
+$form->addHtml('<div id="visible_to_read_only" style="display: none">');
 $form->addElement('label', get_lang('To'), '<div id="visible_to_read_only_users"></div>');
-$form->addElement('html', '</div>');
+$form->addHtml('</div>');
 
 $form->addElement('label', get_lang('Agenda'), '<div id ="color_calendar"></div>');
 $form->addElement('label', get_lang('Date'), '<span id="start_date"></span><span id="end_date"></span>');
@@ -252,10 +260,10 @@ $form->addHtmlEditor(
     ]
 );
 
-if ($agenda->type == 'course') {
-    $form->addElement('html', '<div id="add_as_announcement_div" style="display: none">');
+if ($agenda->type === 'course') {
+    $form->addHtml('<div id="add_as_announcement_div" style="display: none">');
     $form->addElement('checkbox', 'add_as_annonuncement', null, get_lang('AddAsAnnouncement'));
-    $form->addElement('html', '</div>');
+    $form->addHtml('</div>');
     $form->addElement('textarea', 'comment', get_lang('Comment'), array('id' => 'comment'));
 }
 

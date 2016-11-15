@@ -72,8 +72,6 @@ if (api_is_allowed_to_edit()) {
                 // Just needs course ID
                 $courseInfo = array('real_id' => intval($_GET['cid']));
                 $agenda->changeVisibility($_GET['id'], $_GET['visibility'], $courseInfo);
-            } else {
-                // personal and admin do not have visibility property
             }
         }
         header('Location: '. api_get_self());

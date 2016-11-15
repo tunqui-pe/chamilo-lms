@@ -35,7 +35,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : null;
 */
 
 $safe_post_file_comment = isset($_POST['post_file_comment']) ? Security::remove_XSS($_POST['post_file_comment']) : null;
-$safe_comment_text      = isset($_POST['comment_text']) ? Security::remove_XSS(stripslashes(api_html_entity_decode($_POST['comment_text'])), COURSEMANAGERLOWSECURITY) : null;
+$safe_comment_text      = isset($_POST['comment_text']) ? Security::remove_XSS($_POST['comment_text']) : null;
 $safe_comment_title     = isset($_POST['comment_title']) ? Security::remove_XSS($_POST['comment_title']) : null;
 $safe_task_name         = isset($_POST['task_name']) ? Security::remove_XSS($_POST['task_name']) : null;
 $safe_task_description  = isset($_POST['task_description']) ? Security::remove_XSS($_POST['task_description']) : null;
@@ -333,7 +333,9 @@ Display::display_introduction_section(TOOL_BLOGS);
                             <input type="hidden" name="action" value="view_search_result" />
                             <input type="text" class="form-control" size="20" name="q" value="<?php echo isset($_GET['q']) ? Security::remove_XSS($_GET['q']) : ''; ?>" />
                         </div>
-			<button class="btn btn-default btn-block" type="submit"><em class="fa fa-search"></em> <?php echo get_lang('Search'); ?></button>
+                    <button class="btn btn-default btn-block" type="submit">
+                        <em class="fa fa-search"></em> <?php echo get_lang('Search'); ?>
+                    </button>
                     </form>
                 </div>
             </div>
@@ -468,17 +470,17 @@ switch ($action) {
 			echo '<br /><br />';
 			Blog :: display_assigned_task_list($blog_id);
 			echo '<br /><br />';
+        } else {
+            api_not_allowed();
 		}
-		else
-			api_not_allowed();
 
 		break;
 	case 'execute_task' :
-		if (isset ($_GET['post_id']))
+        if (isset ($_GET['post_id'])) {
 			Blog :: display_post($blog_id, intval($_GET['post_id']));
-		else
+        } else {
 			Blog :: display_select_task_post($blog_id, intval($_GET['task_id']));
-
+        }
 		break;
 	case 'view_search_result' :
 		Blog :: display_search_results($blog_id, Database::escape_string($_GET['q']));
@@ -490,6 +492,7 @@ switch ($action) {
 		} else {
 			Blog :: display_blog_posts($blog_id);
 		}
+        break;
 }
 ?>
 </div>

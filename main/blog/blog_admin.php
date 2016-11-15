@@ -19,7 +19,7 @@ $blog_table_attachment = Database::get_course_table(TABLE_BLOGS_ATTACHMENT);
 api_protect_course_script(true);
 
 //	 ONLY USERS REGISTERED IN THE COURSE
-if (!$is_allowed_in_course && !api_is_allowed_to_edit()) {
+if ((!$is_allowed_in_course || !$is_courseMember) && !api_is_allowed_to_edit()) {
     api_not_allowed(true);//print headers/footers
 }
 
@@ -70,11 +70,6 @@ if (api_is_allowed_to_edit()) {
         Display::display_confirmation_message(get_lang('BlogDeleted'));
     }
 
-    /*
-        DISPLAY
-    */
-    //api_display_tool_title($nameTools);
-    //api_introductionsection(TOOL_BLOG);
     if (isset($_GET['action']) && $_GET['action'] == 'add') {
         // we show the form if
         // 1. no post data

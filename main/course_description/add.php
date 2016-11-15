@@ -49,9 +49,9 @@ $form = new FormValidator(
     'POST',
     'index.php?action=add&'.api_get_cidreq()
 );
-$form->addElement('header', '', $header);
+$form->addElement('header', $header);
 $form->addElement('hidden', 'description_type', $description_type);
-$form->addText('title', get_lang('Title'), true, array('size'=>'width: 350px;'));
+$form->addText('title', get_lang('Title'), true);
 $form->applyFilter('title','html_filter');
 $form->addHtmlEditor(
     'contentDescription',

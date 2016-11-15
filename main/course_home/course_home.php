@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
         HOME PAGE FOR EACH COURSE
 *
@@ -28,7 +30,6 @@
 *	@package chamilo.course_home
 */
 
-use ChamiloSession as Session;
 
 $use_anonymous = true;
 
@@ -193,7 +194,7 @@ if (!empty($auto_launch)) {
             $session_key = 'lp_autolaunch_'.$session_id.'_'.api_get_course_int_id().'_'.api_get_user_id();
             if (!isset($_SESSION[$session_key])) {
                 //redirecting to the LP
-                $url = api_get_path(WEB_CODE_PATH).'newscorm/lp_controller.php?'.api_get_cidreq().'&id_session='.$session_id;
+                $url = api_get_path(WEB_CODE_PATH) . 'lp/lp_controller.php?' . api_get_cidreq() . '&id_session=' . $session_id;
                 $_SESSION[$session_key] = true;
                 header("Location: $url");
                 exit;
@@ -230,7 +231,7 @@ if (!empty($auto_launch)) {
                     $session_key = 'lp_autolaunch_'.$session_id.'_'.api_get_course_int_id().'_'.api_get_user_id();
                     if (!isset($_SESSION[$session_key])) {
                         //redirecting to the LP
-                        $url = api_get_path(WEB_CODE_PATH).'newscorm/lp_controller.php?'.api_get_cidreq().'&action=view&lp_id='.$lp_data['id'];
+                        $url = api_get_path(WEB_CODE_PATH) . 'lp/lp_controller.php?' . api_get_cidreq() . '&action=view&lp_id=' . $lp_data['id'];
 
                         $_SESSION[$session_key] = true;
                         header("Location: $url");
@@ -265,6 +266,14 @@ if ($forumAutoLaunch == 1) {
 $tool_table = Database::get_course_table(TABLE_TOOL_LIST);
 $temps = time();
 $reqdate = "&reqdate=$temps";
+$content = Display::return_introduction_section(
+    TOOL_COURSE_HOMEPAGE,
+    array(
+        'CreateDocumentWebDir' => api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document/',
+        'CreateDocumentDir' => 'document/',
+        'BaseHref' => api_get_path(WEB_COURSE_PATH).api_get_course_path().'/',
+    )
+);
 
 /*	SWITCH TO A DIFFERENT HOMEPAGE VIEW
 	the setting homepage_view is adjustable through

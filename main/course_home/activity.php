@@ -39,7 +39,7 @@ if (api_is_platform_admin()) {
 // Course legal
 $enabled = api_get_plugin_setting('courselegal', 'tool_enable');
 $pluginExtra = null;
-if ($enabled == 'true') {
+if ($enabled === 'true') {
     require_once api_get_path(SYS_PLUGIN_PATH).'courselegal/config.php';
     $plugin = CourseLegalPlugin::create();
     $pluginExtra = $plugin->getTeacherLink();
@@ -48,7 +48,7 @@ if ($enabled == 'true') {
 //	COURSE ADMIN ONLY VIEW
 
 // Start of tools for CourseAdmins (teachers/tutors)
-if ($session_id == 0 && api_is_course_admin() && api_is_allowed_to_edit(null, true)) {
+if ($session_id === 0 && api_is_course_admin() && api_is_allowed_to_edit(null, true)) {
     $content .=  '<div class="alert alert-success" style="border:0px; margin-top: 0px;padding:0px;">
 		<div class="normal-message" id="id_normal_message" style="display:none">';
     $content .=  '<img src="'.api_get_path(WEB_PATH).'main/inc/lib/javascript/indicator.gif"/>&nbsp;&nbsp;';
@@ -88,7 +88,7 @@ if ($session_id == 0 && api_is_course_admin() && api_is_allowed_to_edit(null, tr
 
 } elseif (api_is_coach()) {
     $content .= $pluginExtra;
-    if (api_get_setting('show_session_data') == 'true' && $session_id > 0) {
+    if (api_get_setting('show_session_data') === 'true' && $session_id > 0) {
         $content .= '<div class="row">
             <div class="col-xs-12 col-md-12">
 			<span class="viewcaption">'.get_lang('SessionData').'</span>
@@ -109,7 +109,7 @@ if ($session_id == 0 && api_is_course_admin() && api_is_allowed_to_edit(null, tr
         $onlyMaintenanceList = array();
 
         foreach ($myList as $item) {
-            if ($item['name'] == 'course_maintenance') {
+            if ($item['name'] === 'course_maintenance') {
                 $item['link'] = 'course_info/maintenance_coach.php';
 
                 $onlyMaintenanceList[] = $item;
@@ -131,7 +131,7 @@ if ($session_id == 0 && api_is_course_admin() && api_is_allowed_to_edit(null, tr
     if ($isDrhOfCourse) {
         $addUserTool = true;
         foreach ($tools as $tool) {
-            if ($tool['name'] == 'user') {
+            if ($tool['name'] === 'user') {
                 $addUserTool = false;
                 break;
             }
