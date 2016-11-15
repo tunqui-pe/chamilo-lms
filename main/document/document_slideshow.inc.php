@@ -1,7 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use ChamiloSession as Session;
 
 /**
  *	This is a plugin for the documents tool. It looks for .jpg, .jpeg, .gif, .png

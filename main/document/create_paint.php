@@ -18,26 +18,27 @@ Session::write('whereami', 'document/createpaint');
 $this_section = SECTION_COURSES;
 
 $nameTools = get_lang('PhotoRetouching');
+$groupRights = Session::read('group_member_with_upload_rights');
 
 api_protect_course_script();
 api_block_anonymous_users();
 $_course = api_get_course_info();
 
-if (api_get_setting('enabled_support_paint') == 'false') {
+if (api_get_setting('enabled_support_paint') === 'false') {
 	api_not_allowed(true);
 }
 
 $document_data = DocumentManager::get_document_data_by_id($_GET['id'], api_get_course_id(), true);
 if (empty($document_data)) {
     if (api_is_in_group()) {
-        $group_properties   = GroupManager::get_group_properties(api_get_group_id());
-        $document_id        = DocumentManager::get_document_id(api_get_course_info(), $group_properties['directory']);
-        $document_data      = DocumentManager::get_document_data_by_id($document_id, api_get_course_id());
+        $group_properties = GroupManager::get_group_properties(api_get_group_id());
+        $document_id = DocumentManager::get_document_id(api_get_course_info(), $group_properties['directory']);
+        $document_data = DocumentManager::get_document_data_by_id($document_id, api_get_course_id());
     }
 }
 
 $document_id = $document_data['id'];
-$dir         = $document_data['path'];
+$dir = $document_data['path'];
 
 //$dir = isset($_GET['dir']) ? Security::remove_XSS($_GET['dir']) : Security::remove_XSS($_POST['dir']);
 $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
@@ -90,18 +91,16 @@ if (!empty($groupId)) {
 	}
 }
 
-$interbreadcrumb[] = array ("url" => "./document.php?curdirpath=".urlencode($dir)."&".api_get_cidreq(), "name" => get_lang('Documents'));
+$interbreadcrumb[] = array(
+    "url" => "./document.php?curdirpath=".urlencode($dir)."&".api_get_cidreq(),
+    "name" => get_lang('Documents'),
+);
 
 if (!$is_allowed_in_course) {
 	api_not_allowed(true);
 }
-$rights = Session::read('group_member_with_upload_rights');
-if (!($is_allowed_to_edit || $rights ||
-	DocumentManager::is_my_shared_folder(
-		api_get_user_id(),
-		$dir,
-		api_get_session_id()
-	))
+if (!($is_allowed_to_edit || $groupRights ||
+	DocumentManager::is_my_shared_folder($_user['user_id'], Security::remove_XSS($dir), api_get_session_id()))
 ) {
 	api_not_allowed(true);
 }
@@ -120,7 +119,7 @@ if (isset ($group)) {
 if (empty($document_data['parents'])) {
 	$interbreadcrumb[] = array('url' => '#', 'name' => $document_data['title']);
 } else {
-	foreach($document_data['parents'] as $document_sub_data) {
+    foreach ($document_data['parents'] as $document_sub_data) {
 		$interbreadcrumb[] = array('url' => $document_sub_data['document_url'], 'name' => $document_sub_data['title']);
 	}
 }
@@ -128,7 +127,7 @@ Display :: display_header($nameTools, 'Doc');
 
 echo '<div class="actions">';
 echo '<a href="document.php?id='.$document_id.'">'.
-    Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+    Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('DocumentsOverview'), '', ICON_SIZE_MEDIUM).'</a>';
 echo '</div>';
 
 // pixlr
@@ -163,9 +162,9 @@ if ($_SERVER['HTTP_HOST']=="localhost") {
 			</cross-domain-policy>';//more open domain="*"
 		@file_put_contents($path_and_file, $crossdomain);
 	}
-	$credentials="true";
+    $credentials = "true";
 } else {
-	$credentials="false";
+    $credentials = "false";
 }
 $pixlr_url = api_get_protocol().'://pixlr.com/editor/?title='.$title.'&image='.$image.'&loc='.$loc.'&referrer='.$referrer.'&target='.$target.'&exit='.$exit_path.'&locktarget='.$locktarget.'&locktitle='.$locktitle.'&credentials='.$credentials;
 ?>

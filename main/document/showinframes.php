@@ -194,8 +194,8 @@ $js_glossary_in_documents =	'
         { type:"script", id:"_fr4", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/jquery-ui.min.js"},
         { type:"stylesheet", id:"_fr5", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/jquery-ui.min.css"},
         { type:"stylesheet", id:"_fr6", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/theme.css"},
-        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.highlight.js"},
-        { type:"script", id:"_fr3", src:"'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php?'.api_get_cidreq().'"}
+        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.highlight.js"},
+        { type:"script", id:"_fr3", src:"'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php"}
     ]
   });';
 
@@ -273,15 +273,19 @@ if ($jplayer_supported) {
                             '.$extension.' : "'.$document_data['direct_url'].'"
                         });
                     },
+            cssSelectorAncestor: "#jp_container_1",
+            swfPath: "'.$js_path.'jquery-jplayer/jplayer/",
+            supplied: "'.$extension.'",
+            useStateClassSkin: true,
+            autoBlur: false,
+            keyEnabled: false,
+            remainingDuration: true,
+            toggleDuration: true,
+            solution: "html, flash",
                     errorAlerts: false,
-                    warningAlerts: false,
-                    swfPath: "'.$js_path.'",
-                    //supplied: "m4a, oga, mp3, ogg, wav",
-                    supplied: "'.$extension.'",
-                    //wmode: "window",
-                    solution: "flash, html",  // Do not change this setting
-                    cssSelectorAncestor: "#jp_container_1",
-                });';
+            warningAlerts: false
+        });
+    ';
 
     $htmlHeadXtra[] = '<script>
         $(document).ready( function() {
@@ -298,14 +302,6 @@ if ($show_web_odf) {
 
 $is_freemind_available = $pathinfo['extension']=='mm' && api_get_setting('enable_freemind') == 'true';
 if ($is_freemind_available) {
-    $execute_iframe = false;
-}
-
-$is_nanogong_available = $pathinfo['extension'] == 'wav' && preg_match(
-        '/_chnano_.wav/i',
-        $file_url_web
-    ) && api_get_setting('document.enable_nanogong') == 'true';
-if ($is_nanogong_available) {
     $execute_iframe = false;
 }
 
@@ -349,10 +345,8 @@ echo '<div class="text-center">';
 $file_url = api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document'.$header_file;
 $file_url_web = $file_url.'?'.api_get_cidreq();
 
-if (!$is_nanogong_available) {
-    if (in_array(strtolower($pathinfo['extension']) , array('html', "htm"))) {
-        echo '<a class="btn btn-default" href="'.$file_url_web.'" target="_blank">'.get_lang('CutPasteLink').'</a>';
-    }
+if (in_array(strtolower($pathinfo['extension']), array('html', "htm"))) {
+    echo '<a class="btn btn-default" href="' . $file_url_web . '" target="_blank">' . get_lang('CutPasteLink') . '</a>';
 }
 
 if ($show_web_odf) {
@@ -445,17 +439,6 @@ if ($is_freemind_available) {
         // ]]>
     </script>
 <?php
-}
-
-if ($is_nanogong_available) {
-    $file_url_web = DocumentManager::generateAudioTempFolder($file_url_sys);
-    echo '<div align="center">';
-    echo '<a class="btn btn-default" href="'.$file_url_web.'" target="_blank"><em class="fa fa-download"></em> '.get_lang('Download').'</a>';
-    echo '<br/>';
-    echo '<br/>';
-    echo DocumentManager::readNanogongFile($to_url);
-    // Erase temp file in tmp directory when return to documents
-    echo '</div>';
 }
 
 if ($execute_iframe) {

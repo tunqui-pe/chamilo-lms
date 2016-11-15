@@ -25,14 +25,14 @@ api_block_anonymous_users();
 $document_data = DocumentManager::get_document_data_by_id($_GET['id'], api_get_course_id(), true);
 if (empty($document_data)) {
     if (api_is_in_group()) {
-        $group_properties   = GroupManager::get_group_properties(api_get_group_id());
-        $document_id        = DocumentManager::get_document_id(api_get_course_info(), $group_properties['directory']);
-        $document_data      = DocumentManager::get_document_data_by_id($document_id, api_get_course_id());
+        $group_properties = GroupManager::get_group_properties(api_get_group_id());
+        $document_id = DocumentManager::get_document_id(api_get_course_info(), $group_properties['directory']);
+        $document_data = DocumentManager::get_document_data_by_id($document_id, api_get_course_id());
     }
 }
 
-$document_id   = $document_data['id'];
-$dir           = $document_data['path'];
+$document_id = $document_data['id'];
+$dir = $document_data['path'];
 
 /*	Constants and variables */
 
@@ -74,7 +74,10 @@ if (!is_dir($filepath)) {
 $groupId = api_get_group_id();
 
 if (!empty($groupId)) {
-	$interbreadcrumb[] = array ("url" => "../group/group_space.php?".api_get_cidreq(), "name" => get_lang('GroupSpace'));
+	$interbreadcrumb[] = array (
+        "url" => "../group/group_space.php?".api_get_cidreq(),
+        "name" => get_lang('GroupSpace')
+    );
 	$noPHP_SELF = true;
 	$group = GroupManager :: get_group_properties($groupId);
 	$path = explode('/', $dir);
@@ -83,16 +86,21 @@ if (!empty($groupId)) {
 	}
 }
 
-$interbreadcrumb[] = array ("url" => "./document.php?".api_get_cidreq(), "name" => get_lang('Documents'));
+$interbreadcrumb[] = array(
+	"url" => "./document.php?".api_get_cidreq(),
+	"name" => get_lang('Documents')
+);
 
 if (!$is_allowed_in_course) {
 	api_not_allowed(true);
 }
 
-$rights = Session::read('group_member_with_upload_rights');
-
-if (!($is_allowed_to_edit || $rights ||
-	DocumentManager::is_my_shared_folder(api_get_user_id(), Security::remove_XSS($dir), api_get_session_id()))) {
+if (!($is_allowed_to_edit || $groupRights ||
+	DocumentManager::is_my_shared_folder(
+		api_get_user_id(),
+		Security::remove_XSS($dir),
+		api_get_session_id()))
+) {
 	api_not_allowed(true);
 }
 
@@ -116,8 +124,11 @@ $array_len = count($dir_array);
 if (empty($document_data['parents'])) {
     $interbreadcrumb[] = array('url' => '#', 'name' => $document_data['title']);
 } else {
-    foreach($document_data['parents'] as $document_sub_data) {
-        $interbreadcrumb[] = array('url' => $document_sub_data['document_url'], 'name' => $document_sub_data['title']);
+    foreach ($document_data['parents'] as $document_sub_data) {
+        $interbreadcrumb[] = array(
+			'url' => $document_sub_data['document_url'],
+			'name' => $document_sub_data['title']
+		);
     }
 }
 Display :: display_header($nameTools, 'Doc');
@@ -131,10 +142,10 @@ if (api_browser_support('svg')) {
 
 	//automatic loading the course language
 	$svgedit_code_translation_table = array('' => 'en', 'pt' => 'pt-Pt', 'sr' => 'sr_latn');
-	$langsvgedit  = api_get_language_isocode();
+	$langsvgedit = api_get_language_isocode();
 	$langsvgedit = isset($svgedit_code_translation_table[$langsvgedit]) ? $svgedit_code_translation_table[$langsvgedit] : $langsvgedit;
-	$langsvgedit = file_exists(api_get_path(LIBRARY_PATH).'svg-edit/locale/lang.'.$langsvgedit.'.js') ? $langsvgedit : 'en';
-	$svg_url= api_get_path(WEB_LIBRARY_PATH).'svg-edit/svg-editor.php?lang='.$langsvgedit;
+	$langsvgedit = file_exists(api_get_path(LIBRARY_PATH).'javascript/svgedit/locale/lang.'.$langsvgedit.'.js') ? $langsvgedit : 'en';
+	$svg_url= api_get_path(WEB_LIBRARY_PATH).'javascript/svgedit/svg-editor.php?lang='.$langsvgedit;
 	?>
 	<script>
 		document.write ('<iframe id="frame" frameborder="0" scrolling="no" src="<?php echo  $svg_url; ?>" width="100%" height="100%"><noframes><p>Sorry, your browser does not handle frames</p></noframes></iframe>');

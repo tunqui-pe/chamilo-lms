@@ -28,26 +28,21 @@ use ChamiloSession as Session;
  */
 //require_once '../inc/global.inc.php';
 
+$groupRights = Session::read('group_member_with_upload_rights');
+
 // Template's javascript
 $htmlHeadXtra[] = '
 <script>
-var hide_bar = function() {
-    $("#template_col").hide();
-    $("#doc_form").removeClass("col-md-9");
-    $("#doc_form").addClass("col-md-11");
-    $("#hide_bar_template").css({"background-image" : \'url("'.Display::returnIconPath('hide.png').'")\'})
-}
 
 $(document).ready(function() {
     $(".scrollbar-light").scrollbar();
 
-    if ($(window).width() <= 785 ) {
-        hide_bar();
-    }
-
-    $("#hide_bar_template").click(function() {
-        $("#template_col").toggleClass("hide");
-        $("#hide_bar_template").toggleClass("hide_bar_template_not_hide");
+    expandColumnToogle("#hide_bar_template", {
+        selector: "#template_col",
+        width: 3
+    }, {
+        selector: "#doc_form",
+        width: 9
     });
 
     CKEDITOR.on("instanceReady", function (e) {
@@ -100,7 +95,7 @@ if (isset($_GET['id'])) {
 }
 
 if (empty($document_data)) {
-    api_not_allowed();
+    api_not_allowed(true);
 }
 
 $is_certificate_mode = DocumentManager::is_certificate_mode($dir);
@@ -126,16 +121,26 @@ for ($i = 0; $i < ($count_dir); $i++) {
 }
 
 $editorConfig = array(
-	'FullPage' => true,
     'ToolbarSet' => (api_is_allowed_to_edit(null, true) ? 'Documents' :'DocumentsStudent'),
     'Width' => '100%',
     'Height' => '400',
-    'cols-size' => [2, 10, 0]
+    'cols-size' => [2, 10, 0],
+    'FullPage' => true,
+    'InDocument' => true,
+    'CreateDocumentDir' => $relative_url,
+    'CreateDocumentWebDir' => (empty($group_properties['directory']))
+        ? api_get_path(WEB_COURSE_PATH).$_course['path'].'/document/'
+        : api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document'.$group_properties['directory'].'/',
+    'BaseHref' =>  api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$dir
 );
 
-$rights = Session::read('group_member_with_upload_rights');
+if ($is_certificate_mode) {
+	$editorConfig['CreateDocumentDir'] = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document/';
+	$editorConfig['CreateDocumentWebDir'] = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document/';
+	$editorConfig['BaseHref'] = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$dir;
+}
 
-$is_allowed_to_edit = api_is_allowed_to_edit(null, true) || $rights ||
+$is_allowed_to_edit = api_is_allowed_to_edit(null, true) || $groupRights ||
 	DocumentManager::is_my_shared_folder(api_get_user_id(), $dir, $sessionId);
 $noPHP_SELF = true;
 
@@ -159,10 +164,7 @@ if (!$is_certificate_mode) {
         "name" => get_lang('Documents'),
     );
 } else {
-    $interbreadcrumb[] = array(
-        'url' => '../gradebook/index.php?'.api_get_cidreq(),
-        'name' => get_lang('Gradebook'),
-    );
+    $interbreadcrumb[]= array('url' => '../gradebook/'.$_SESSION['gradebook_dest'], 'name' => get_lang('Gradebook'));
 }
 
 if (empty($document_data['parents'])) {
@@ -177,7 +179,7 @@ if (empty($document_data['parents'])) {
 }
 
 if (!($is_allowed_to_edit ||
-    $_SESSION['group_member_with_upload_rights'] ||
+    $groupRights ||
     DocumentManager::is_my_shared_folder($user_id, $dir, api_get_session_id()))
 ) {
     api_not_allowed(true);
@@ -417,12 +419,13 @@ if (!empty($sessionId)) {
 
 $owner_id = $document_info['insert_user_id'];
 $last_edit_date = $document_info['lastedit_date'];
+$groupInfo = GroupManager::get_group_properties(api_get_group_id());
 
 if ($owner_id == api_get_user_id() ||
     api_is_platform_admin() ||
     $is_allowed_to_edit || GroupManager:: is_user_in_group(
         api_get_user_id(),
-        api_get_group_id()
+        $groupInfo['iid']
     )
 ) {
 	$action = api_get_self().'?id='.$document_data['id'].'&'.api_get_cidreq();
@@ -530,21 +533,19 @@ if ($owner_id == api_get_user_id() ||
 	) {
 		Display::display_warning_message(get_lang('BrowserDontSupportsSVG'));
 	}
-    echo '<div class="row" style="overflow:hidden">
-            <div id="template_col" class="col-md-2">
+    echo '<div class="page-create">
+            <div class="row" style="overflow:hidden">
+            <div id="template_col" class="col-md-3">
                 <div class="panel panel-default">
                 <div class="panel-body">
                     <div id="frmModel" class="items-templates scrollbar-light"></div>
                 </div>
                 </div>
             </div>
-            <div class="col-md-1">
-                <div id="hide_bar_template"></div>
-            </div>
             <div id="doc_form" class="col-md-9">
 				'.$form->returnForm().'
             </div>
-          </div>';
+          </div></div>';
 }
 
 Display::display_footer();
@@ -582,35 +583,36 @@ function change_name($base_work_dir, $source_file, $rename_to, $dir, $doc)
 //return button back to
 function show_return($document_id, $path, $call_from_tool='', $slide_id=0, $is_certificate_mode=false)
 {
+    $actionsLeft = null;
     global $parent_id;
-	echo '<div class="actions">';
-    $selectCat = isset($_GET['selectcat']) ? intval($_GET['selectcat']) : '';
 
     $url = api_get_path(WEB_CODE_PATH).'document/document.php?'.api_get_cidreq().'&id='.$parent_id;
 
 	if ($is_certificate_mode) {
-        echo '<a href="document.php?curdirpath='.Security::remove_XSS(
-                $_GET['curdirpath']
-            ).'&selectcat='.$selectCat.'">'.
+		$selectedCategory = (isset($_GET['curdirpath']) ? Security::remove_XSS($_GET['curdirpath']) : '');
+		$actionsLeft .= '<a href="document.php?curdirpath='. $selectedCategory .'&selectcat=' . $selectedCategory .'">'.
             Display::return_icon('back.png',get_lang('Back').' '.get_lang('To').' '.get_lang('CertificateOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+        $actionsLeft .= '<a id="hide_bar_template" href="#" role="button">'.Display::return_icon('expand.png',get_lang('Expand'),array('id'=>'expand'),ICON_SIZE_MEDIUM).Display::return_icon('contract.png',get_lang('Collapse'),array('id'=>'contract', 'class'=>'hide'),ICON_SIZE_MEDIUM).'</a>';
 	} elseif($call_from_tool=='slideshow') {
-		echo '<a href="'.api_get_path(WEB_PATH).'main/document/slideshow.php?slide_id='.$slide_id.'&curdirpath='.Security::remove_XSS(urlencode($_GET['curdirpath'])).'">'.
+		$actionsLeft .= '<a href="'.api_get_path(WEB_PATH).'main/document/slideshow.php?slide_id='.$slide_id.'&curdirpath='.Security::remove_XSS(urlencode($_GET['curdirpath'])).'">'.
             Display::return_icon('slideshow.png', get_lang('BackTo').' '.get_lang('ViewSlideshow'),'',ICON_SIZE_MEDIUM).'</a>';
 	} elseif($call_from_tool=='editdraw') {
-		echo '<a href="'.$url.'">'.
+		$actionsLeft .= '<a href="'.$url.'">'.
             Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
-		echo '<a href="javascript:history.back(1)">'.Display::return_icon('draw.png', get_lang('BackTo').' '.get_lang('Draw'), array(), 32).'</a>';
+		$actionsLeft .= '<a href="javascript:history.back(1)">'.Display::return_icon('draw.png', get_lang('BackTo').' '.get_lang('Draw'), array(), 32).'</a>';
 	} elseif($call_from_tool=='editodf') {
-        echo '<a href="'.$url.'">'.
+        $actionsLeft .= '<a href="'.$url.'">'.
             Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
-        echo '<a href="javascript:history.back(1)">'.Display::return_icon('draw.png', get_lang('BackTo').' '.get_lang('Write'), array(), 32).'</a>';
+        $actionsLeft .= '<a href="javascript:history.back(1)">'.Display::return_icon('draw.png', get_lang('BackTo').' '.get_lang('Write'), array(), 32).'</a>';
+        $actionsLeft .= '<a id="hide_bar_template" href="#" role="button">'.Display::return_icon('expand.png',get_lang('Expand'),array('id'=>'expand'),ICON_SIZE_MEDIUM).Display::return_icon('contract.png',get_lang('Collapse'),array('id'=>'contract', 'class'=>'hide'),ICON_SIZE_MEDIUM).'</a>';
     } elseif($call_from_tool=='editpaint'){
-		echo '<a href="'.$url.'">'.
+		$actionsLeft .= '<a href="'.$url.'">'.
             Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('DocumentsOverview'), array(), ICON_SIZE_MEDIUM).'</a>';
-		echo '<a href="javascript:history.back(1)">'.Display::return_icon('paint.png', get_lang('BackTo').' '.get_lang('Paint'), array(), 32).'</a>';
+		$actionsLeft .= '<a href="javascript:history.back(1)">'.Display::return_icon('paint.png', get_lang('BackTo').' '.get_lang('Paint'), array(), 32).'</a>';
 	} else {
-		echo '<a href="'.$url.'">'.
+		$actionsLeft .= '<a href="'.$url.'">'.
             Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+        $actionsLeft .= '<a id="hide_bar_template" href="#" role="button">'.Display::return_icon('expand.png',get_lang('Expand'),array('id'=>'expand'),ICON_SIZE_MEDIUM).Display::return_icon('contract.png',get_lang('Collapse'),array('id'=>'contract', 'class'=>'hide'),ICON_SIZE_MEDIUM).'</a>';
 	}
-	echo '</div>';
+    echo $toolbar = Display::toolbarAction('actions-documents', array($actionsLeft));
 }

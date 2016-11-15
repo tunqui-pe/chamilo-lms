@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
 /**
  * @desc The dropbox is a personal (peer to peer) file exchange module that allows
  * you to send documents to a certain (group of) users.
@@ -35,11 +36,9 @@ Version 1.1
 - dropbox.inc.php: added $lang["lastUpdated"]
 - index.php: entries in received list show when file was last updated if it is updated
 - index.php: entries in sent list show when file was last resent if it was resent
-- dropbox_submit.php: add a unique id to every uploaded file
 - index.php: add POST-variable to the upload form with overwrite data when user decides to overwrite the previous sent file with new file
 - dropbox_submit.php: add sanity checks on POST['overwrite'] data
 - index.php: remove title field in upload form
-- dropbox_submit.php: remove use of POST['title'] variable
 - dropbox_init1.inc.php: added $dropbox_cnf["version"] variable
 - dropbox_class.inc.php: add $this->lastUploadDate to Dropbox_work class
 - dropbox.inc.php: added $lang['emptyTable']
@@ -113,7 +112,6 @@ Version 1.4 (Yannick Warnier)
  * @package chamilo.dropbox
  */
 
-use ChamiloSession as Session;
 
 // including the basic Chamilo initialisation file
 ////require_once '../inc/global.inc.php';
@@ -124,8 +122,6 @@ $is_courseAdmin = api_is_course_admin();
 $current_course_tool  = TOOL_DROPBOX;
 
 // the dropbox configuration parameters
-$dropbox_cnf = require_once 'dropbox_config.inc.php';
-Session::write('dropbox_conf', $dropbox_cnf);
 
 // the dropbox file that contains additional functions
 require_once 'dropbox_functions.inc.php';
@@ -161,7 +157,6 @@ if (empty($session_id)) {
     );
 }
 
-/*	Object Initialisation */
 
 // we need this here because the javascript to re-upload the file needs an array
 // off all the documents that have already been sent.
@@ -177,7 +172,7 @@ if ($action == 'add') {
 
 /*	Create javascript and htmlHeaders */
 $javascript = "<script>
-	function confirmsend ()
+function confirmsend()
 	{
 		if (confirm(\"".get_lang('MailingConfirmSend', '')."\")){
 			return true;
@@ -211,12 +206,12 @@ $javascript = "<script>
 	}
 ";
 
-if (dropbox_cnf('allowOverwrite')) {
+$allowOverwrite = api_get_setting('dropbox_allow_overwrite');
+if ($allowOverwrite == 'true') {
     //sentArray keeps list of all files still available in the sent files list
     //of the user.
     //This is used to show or hide the overwrite file-radio button of the upload form
-	$javascript .= "
-		var sentArray = new Array(";
+    $javascript .= " var sentArray = new Array(";
     if (isset($dropbox_person)) {
         for ($i = 0; $i < count($dropbox_person->sentWork); $i++) {
             if ($i > 0) {
@@ -282,12 +277,20 @@ function confirmation (name)
 }
 </script>";
 
-Session::write('javascript',$javascript);
+Session::write('javascript', $javascript);
 
 $htmlHeadXtra[] = '<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="expires" content="-1">';
 
+$htmlHeadXtra[] = api_get_jquery_libraries_js(array('jquery-ui', 'jquery-upload'));
+$htmlHeadXtra[] = "<script>
+$(function () {
+    $('#recipient_form').on('change', function() {
+        $('#multiple_form').show();
+    });
+});
+</script>";
 $checked_files = false;
 if (!$view || $view == 'received') {
 	$part = 'received';
@@ -301,7 +304,7 @@ if (!$view || $view == 'received') {
 if (($postAction == 'download_received' || $postAction == 'download_sent') and !$_POST['store_feedback']) {
     $checked_file_ids = $_POST['id'];
     if (!is_array($checked_file_ids) || count($checked_file_ids) == 0) {
-        header ('location: index.php?view='.$view.'&error=CheckAtLeastOneFile');
+        header('location: index.php?view='.$view.'&error=CheckAtLeastOneFile');
     } else {
         handle_multiple_actions();
     }

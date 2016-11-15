@@ -40,7 +40,7 @@ $doc_url = str_replace(' ', '+', $doc_url);
 
 $doc_url = str_replace(array('../', '\\..', '\\0', '..\\'), array('', '', '', ''), $doc_url); //echo $doc_url;
 
-if (strpos($doc_url,'../') OR strpos($doc_url,'/..')) {
+if (strpos($doc_url,'../') || strpos($doc_url,'/..')) {
     $doc_url = '';
 }
 
@@ -56,6 +56,9 @@ if (Security::check_abs_path($sys_course_path.$doc_url, $sys_course_path.'/')) {
     Event::event_download($doc_url);
 
     $fixLinks = api_get_configuration_value('lp_replace_http_to_https');
-    DocumentManager::file_send_for_download($full_file_name, false, '', $fixLinks);
+    $result = DocumentManager::file_send_for_download($full_file_name, false, '', $fixLinks);
+    if ($result === false) {
+        api_not_allowed(true);
+    }
 }
 exit;

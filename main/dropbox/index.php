@@ -21,6 +21,7 @@ $postAction = isset($_POST['action']) ? $_POST['action'] : null;
 $view = isset($_GET['view']) ? Security::remove_XSS($_GET['view']) : null;
 $viewReceivedCategory = isset($_GET['view_received_category']) ? Security::remove_XSS($_GET['view_received_category']) : null;
 $viewSentCategory = isset($_GET['view_sent_category']) ? Security::remove_XSS($_GET['view_sent_category']) : null;
+$showSentReceivedTabs = true;
 
 // Do the tracking
 Event::event_access_tool(TOOL_DROPBOX);
@@ -34,7 +35,7 @@ Display::display_introduction_section(TOOL_DROPBOX);
 // Build URL-parameters for table-sorting
 $sort_params = array();
 if (isset($_GET['dropbox_column'])) {
-    $sort_params[] = 'dropbox_column='.$_GET['dropbox_column'];
+    $sort_params[] = 'dropbox_column='.intval($_GET['dropbox_column']);
 }
 if (isset($_GET['dropbox_page_nr'])) {
     $sort_params[] = 'page_nr='.intval($_GET['page_nr']);
@@ -42,7 +43,7 @@ if (isset($_GET['dropbox_page_nr'])) {
 if (isset($_GET['dropbox_per_page'])) {
     $sort_params[] = 'dropbox_per_page='.intval($_GET['dropbox_per_page']);
 }
-if (isset($_GET['dropbox_direction'])) {
+if (isset($_GET['dropbox_direction']) && in_array($_GET['dropbox_direction'], ['ASC', 'DESC'])) {
     $sort_params[] = 'dropbox_direction='.$_GET['dropbox_direction'];
 }
 
@@ -204,7 +205,7 @@ if ($action != 'add') {
 	}
 
 	// ACTIONS
-	if ($view == 'received' || !$dropbox_cnf['sent_received_tabs']) {
+	if ($view == 'received' || !$showSentReceivedTabs) {
 		//echo '<h3>'.get_lang('ReceivedFiles').'</h3>';
 
 		// This is for the categories
@@ -241,7 +242,7 @@ if ($action != 'add') {
 		}
 	}
 
-	if (!$view || $view == 'sent' || !$dropbox_cnf['sent_received_tabs']) {
+	if (!$view || $view == 'sent' || !$showSentReceivedTabs) {
 		// This is for the categories
 		if (isset($viewSentCategory) AND $viewSentCategory != '') {
 			$view_dropbox_category_sent = $viewSentCategory;
@@ -280,7 +281,7 @@ if ($action != 'add') {
 		}
 	}
 	/*	THE MENU TABS */
-	if ($dropbox_cnf['sent_received_tabs']) {
+	if ($showSentReceivedTabs) {
 ?>
 <ul class="nav nav-tabs">
     <li <?php if (!$view || $view == 'sent') { echo 'class="active"'; } ?> >
@@ -296,7 +297,7 @@ if ($action != 'add') {
 <?php
 	}
     /*	RECEIVED FILES */
-	if ($view == 'received' || !$dropbox_cnf['sent_received_tabs']) {
+	if ($view == 'received' || !$showSentReceivedTabs) {
 		// This is for the categories
 		if (isset($viewReceivedCategory) AND $viewReceivedCategory != '') {
 			$view_dropbox_category_received = $viewReceivedCategory;
@@ -362,16 +363,26 @@ if ($action != 'add') {
                 // we only display the files that are in the category that we are in.
 				$dropbox_file_data[] = $dropbox_file->id;
 
-				if (!is_array($_SESSION['_seen'][$_course['id']][TOOL_DROPBOX])) {
+				if (isset($_SESSION['_seen']) && !is_array($_SESSION['_seen'][$_course['id']][TOOL_DROPBOX])) {
 					$_SESSION['_seen'][$_course['id']][TOOL_DROPBOX] = array();
 				}
 
 				// New icon
 				$new_icon = '';
+                if (isset($_SESSION['_seen'])) {
 				if ($dropbox_file->last_upload_date > $last_access &&
-                    !in_array($dropbox_file->id, $_SESSION['_seen'][$_course['id']][TOOL_DROPBOX])
+                        !in_array(
+                            $dropbox_file->id,
+                            $_SESSION['_seen'][$_course['id']][TOOL_DROPBOX]
+                        )
                 ) {
-					$new_icon = '&nbsp;'.Display::return_icon('new_dropbox_message.png', get_lang('New'),'',ICON_SIZE_SMALL);
+                        $new_icon = '&nbsp;'.Display::return_icon(
+                                'new_dropbox_message.png',
+                                get_lang('New'),
+                                '',
+                                ICON_SIZE_SMALL
+                            );
+                    }
 				}
 
 				$link_open = '<a href="'.api_get_path(WEB_CODE_PATH).'dropbox/dropbox_download.php?'.api_get_cidreq().'&id='.$dropbox_file->id.'">';
@@ -380,7 +391,12 @@ if ($action != 'add') {
                     Display::return_icon('save.png', get_lang('Download'), array('style' => 'float:right;'),ICON_SIZE_SMALL).'</a>'.$link_open.$dropbox_file->title.'</a>'.$new_icon.'<br />'.$dropbox_file->description;
 				$file_size = $dropbox_file->filesize;
 				$dropbox_file_data[] = format_file_size($file_size);
-				$dropbox_file_data[] = $dropbox_file->author;
+                $authorInfo = api_get_user_info($dropbox_file->uploader_id);
+                if ($authorInfo) {
+                    $dropbox_file_data[] = $authorInfo['complete_name'];
+                } else {
+                    $dropbox_file_data[] = '';
+                }
 
 				$last_upload_date = api_get_local_time($dropbox_file->last_upload_date);
 				$dropbox_file_data[] = date_to_str_ago($dropbox_file->last_upload_date).'<br /><span class="dropbox_date">'.
@@ -474,7 +490,7 @@ if ($action != 'add') {
 
 	/*	SENT FILES */
 
-	if (!$view || $view == 'sent' || !$dropbox_cnf['sent_received_tabs']) {
+	if (!$view || $view == 'sent' || !$showSentReceivedTabs) {
 		// This is for the categories
 		if (isset($viewSentCategory) AND $viewSentCategory != '') {
 			$view_dropbox_category_sent = $viewSentCategory;

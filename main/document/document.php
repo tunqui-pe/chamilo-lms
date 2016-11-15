@@ -30,6 +30,7 @@ use ChamiloSession as Session;
  */
 
 //require_once __DIR__.'/../inc/global.inc.php';
+$allowDownloadDocumentsByApiKey = api_get_setting('allow_download_documents_by_api_key') === 'true';
 
 $current_course_tool = TOOL_DOCUMENT;
 $this_section = SECTION_COURSES;
@@ -38,10 +39,32 @@ $parent_id = null;
 
 $lib_path = api_get_path(LIBRARY_PATH);
 $actionsRight = '';
-api_protect_course_script(true);
-api_protect_course_group(GroupManager::GROUP_TOOL_DOCUMENTS);
+$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
+
+$allowUseTool = false;
+
+if ($allowDownloadDocumentsByApiKey) {
+    try {
+        if ($action != 'download') {
+            throw new Exception(get_lang('SelectAnAction'));
+        }
+
+        $username = isset($_GET['username']) ? Security::remove_XSS($_GET['username']) : null;
+        $apiKey = isset($_GET['api_key']) ? Security::remove_XSS($_GET['api_key']) : null;
+
+        $restApi = Rest::validate($username, $apiKey);
+
+        $allowUseTool = $restApi ? true : false;
+    } catch (Exception $e) {
+        $allowUseTool = false;
+    }
+}
+
+if (!$allowUseTool) {
+    api_protect_course_script(true);
+    api_protect_course_group(GroupManager::GROUP_TOOL_DOCUMENTS);
+}
 DocumentManager::removeGeneratedAudioTempFile();
-$row = [];
 
 if (
     isset($_SESSION['temp_realpath_image']) &&
@@ -119,18 +142,20 @@ if (api_get_session_id() != 0) {
     $group_member_with_upload_rights = $group_member_with_upload_rights && api_is_allowed_to_session_edit(false, true);
 }
 
-$groupMemberWithEditRights = $is_allowed_to_edit || GroupManager::is_tutor_of_group($userId, $groupId, $courseId);
+$group_properties = GroupManager::get_group_properties($groupId);
+$groupIid = isset($group_properties['iid']) ? $group_properties['iid'] : 0;
+
+$groupMemberWithEditRights = $is_allowed_to_edit || GroupManager::is_tutor_of_group($userId, $group_properties['iid'], $courseId);
 
 // Setting group variables.
 if (!empty($groupId)) {
     // Get group info
-    $group_properties = GroupManager::get_group_properties($groupId);
     // Let's assume the user cannot upload files for the group
     $group_member_with_upload_rights = false;
 
     if ($group_properties['doc_state'] == 2) {
         // Documents are private
-        if ($is_allowed_to_edit || GroupManager::is_user_in_group($userId, $groupId)) {
+        if ($is_allowed_to_edit || GroupManager::is_user_in_group($userId, $group_properties['iid'])) {
             // Only courseadmin or group members (members + tutors) allowed
             $interbreadcrumb[] = array(
                 'url' => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(),
@@ -158,8 +183,8 @@ if (!empty($groupId)) {
 
         // Allowed to upload?
         if ($is_allowed_to_edit ||
-            GroupManager::is_subscribed($userId, $groupId) ||
-            GroupManager::is_tutor_of_group($userId, $groupId, $courseId)
+            GroupManager::is_subscribed($userId, $group_properties['iid']) ||
+            GroupManager::is_tutor_of_group($userId, $group_properties['iid'], $courseId)
         ) {
             // Only course admin or group members can upload
             $group_member_with_upload_rights = true;
@@ -176,7 +201,6 @@ if (!empty($groupId)) {
 // Actions.
 
 $document_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
-$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 
 $currentUrl = api_get_self().'?'.api_get_cidreq().'&id='.$document_id;
 
@@ -234,7 +258,7 @@ switch ($action) {
                         $base_work_dir,
                         $sessionId,
                         $_GET['deleteid'],
-                        $groupId
+                        $groupIid
                     );
 
                     if ($deleteDocument) {
@@ -290,7 +314,10 @@ switch ($action) {
         }
         $full_file_name = $base_work_dir.$document_data['path'];
         if (Security::check_abs_path($full_file_name, $base_work_dir.'/')) {
-            DocumentManager::file_send_for_download($full_file_name, true);
+            $result = DocumentManager::file_send_for_download($full_file_name, true);
+            if ($result === false) {
+                api_not_allowed(true);
+            }
         }
         exit;
         break;
@@ -384,9 +411,8 @@ switch ($action) {
             }
             $file_link = Display::url(
                 get_lang('SeeFile'),
-                api_get_path(WEB_CODE_PATH).'social/myfiles.php?'.
-                    'cidReq='.$cidReq.'&amp;id_session='.$id_session.'&amp;'.
-                    'gidReq='.$gidReq.'&amp;parent_id='.$parent_id
+                api_get_path(WEB_CODE_PATH).'social/myfiles.php?'.api_get_cidreq_params($cidReq, $id_session, $gidReq).
+                '&parent_id='.$parent_id
             );
 
             if (api_get_setting('platform.allow_my_files') === 'false') {
@@ -408,7 +434,7 @@ switch ($action) {
                 if (!isset($_GET['copy'])) {
                     Display::addFlash(Display::return_message($message, 'warning', false));
                 }
-                if (Security::remove_XSS($_GET['copy']) == 'yes') {
+                if ($_GET['copy'] === 'yes') {
                     if (!copy($file, $copyfile)) {
                         Display::addFlash(Display::return_message(get_lang('CopyFailed'), 'error'));
                     } else {
@@ -505,9 +531,7 @@ switch ($action) {
                     $file_link = Display::url(
                         get_lang('SeeFile'),
                         api_get_path(WEB_CODE_PATH) .
-                        'document/showinframes.php?' . 'cidReq=' . $cidReq .
-                        '&id_session=' . $id_session . '&' .
-                        'gidReq=' . $gidReq . '&id=' . current($result)
+                        'document/showinframes.php?'.api_get_cidreq_params($cidReq, $id_session, $gidReq).'&id=' . current($result)
                     );
                     Display::addFlash(Display::return_message(
                         get_lang('CopyMade') . ' ' . $file_link,
@@ -557,7 +581,7 @@ if (isset($document_id) && empty($action)) {
             api_get_course_id(),
             $sessionId,
             api_get_user_id(),
-            $groupId
+            $groupIid
         );
 
         if (!empty($document_data['filetype']) && $document_data['filetype'] == 'file') {
@@ -850,7 +874,10 @@ if ($is_certificate_mode) {
 // Interbreadcrumb for the current directory root path
 if (empty($document_data['parents'])) {
     if (isset($_GET['createdir'])) {
-        $interbreadcrumb[] = array('url' => $document_data['document_url'], 'name' => $document_data['title']);
+        $interbreadcrumb[] = array(
+            'url' => $document_data['document_url'],
+            'name' => $document_data['title'],
+        );
     } else {
         $interbreadcrumb[] = array('url' => '#', 'name' => $document_data['title']);
     }
@@ -867,7 +894,10 @@ if (empty($document_data['parents'])) {
         if (!isset($_GET['createdir']) && $document_sub_data['id'] == $document_data['id']) {
             $document_sub_data['document_url'] = '#';
         }
-        $interbreadcrumb[] = array('url' => $document_sub_data['document_url'], 'name' => $document_sub_data['title']);
+        $interbreadcrumb[] = array(
+            'url' => $document_sub_data['document_url'],
+            'name' => $document_sub_data['title'],
+        );
         $counter++;
     }
 }
@@ -878,18 +908,14 @@ if (isset($_GET['createdir'])) {
 
 $js_path = api_get_path(WEB_LIBRARY_PATH).'javascript/';
 
-$htmlHeadXtra[] = api_get_css(
-    'components/jplayer/skin/blue.monday/css/jplayer.blue.monday.css'
-);
-$htmlHeadXtra[] = api_get_js(
-    'components/jplayer/dist/jplayer/jquery.jplayer.min.js'
-);
+$htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skin/chamilo/jplayer.blue.monday.css" type="text/css">';
+$htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jplayer/jquery.jplayer.min.js"></script>';
 $mediaplayer_path = api_get_path(WEB_LIBRARY_PATH).'mediaplayer/player.swf';
 
 $documentAndFolders = DocumentManager::get_all_document_data(
     $courseInfo,
     $curdirpath,
-    $groupId,
+    $groupIid,
     null,
     $is_allowed_to_edit || $group_member_with_upload_rights,
     false
@@ -958,7 +984,7 @@ if ($groupId != 0) { // Add group name after for group documents
     $add_group_to_title = ' ('.$group_properties['name'].')';
 }
 
-$moveForm = null;
+$moveForm = '';
 
 /* 	MOVE FILE OR DIRECTORY */
 //Only teacher and all users into their group and each user into his/her shared folder
@@ -993,7 +1019,7 @@ if ($is_allowed_to_edit ||
         if (!empty($document_to_move)) {
             $folders = DocumentManager::get_all_document_folders(
                 $courseInfo,
-                $groupId,
+                $groupIid,
                 $is_allowed_to_edit || $group_member_with_upload_rights
             );
 
@@ -1061,7 +1087,7 @@ if ($is_allowed_to_edit ||
                 $fileExist = true;
             }
             if (move($base_work_dir.$document_to_move['path'], $base_work_dir.$moveTo)) {
-                update_db_info(
+                DocumentManager::updateDbInfo(
                     'update',
                     $document_to_move['path'],
                     $moveTo . '/' . basename($document_to_move['path'])
@@ -1077,7 +1103,7 @@ if ($is_allowed_to_edit ||
                         $doc_id,
                         'FolderMoved',
                         api_get_user_id(),
-                        $groupId,
+                        $groupIid,
                         null,
                         null,
                         null,
@@ -1091,7 +1117,7 @@ if ($is_allowed_to_edit ||
                         $doc_id,
                         'DocumentMoved',
                         api_get_user_id(),
-                        $groupId,
+                        $groupIid,
                         null,
                         null,
                         null,
@@ -1130,7 +1156,7 @@ if ($is_allowed_to_edit ||
     if (isset($_POST['action']) && isset($_POST['ids'])) {
         $files = $_POST['ids'];
         $readonlyAlreadyChecked = false;
-        $messages = null;
+        $messages = '';
         $items = array(
             '/audio',
             '/flash',
@@ -1161,12 +1187,10 @@ if ($is_allowed_to_edit ||
                             null,
                             $sessionId
                         )) {
-                            Display::addFlash(Display::return_message(get_lang('VisibilityChanged').': '.$data['title'], 'confirmation'));
+                            $messages .= Display::return_message(get_lang('VisibilityChanged').': '.$data['title'], 'confirmation');
                         } else {
-                            Display::addFlash(Display::return_message(get_lang('ViModProb'), 'error'));
+                            $messages .= Display::return_message(get_lang('ViModProb'), 'error');
                         }
-                        header('Location: '.$currentUrl);
-                        exit;
                         break;
                     case 'set_visible':
                         $visibilityCommand = 'visible';
@@ -1182,12 +1206,10 @@ if ($is_allowed_to_edit ||
                             null,
                             $sessionId
                         )) {
-                            Display::addFlash(Display::return_message(get_lang('VisibilityChanged').': '.$data['title'], 'confirmation'));
+                            $messages .= Display::return_message(get_lang('VisibilityChanged').': '.$data['title'], 'confirmation');
                         } else {
-                            Display::addFlash(Display::return_message(get_lang('ViModProb'), 'error'));
+                            $messages .=  Display::return_message(get_lang('ViModProb'), 'error');
                         }
-                        header('Location: '.$currentUrl);
-                        exit;
                         break;
                     case 'delete':
                         // Check all documents scheduled for deletion
@@ -1203,8 +1225,7 @@ if ($is_allowed_to_edit ||
                                         $id,
                                         false,
                                         $sessionId
-                                    )
-                                    ) {
+                                    )) {
                                         $messages .= Display::return_message(
                                             get_lang('CantDeleteReadonlyFiles'),
                                             'error'
@@ -1222,7 +1243,7 @@ if ($is_allowed_to_edit ||
                             $base_work_dir,
                             $sessionId,
                             $documentId,
-                            $groupId
+                            $groupIid
                         );
                         if (!empty($deleteDocument)) {
                             $messages .= Display::return_message(
@@ -1235,6 +1256,8 @@ if ($is_allowed_to_edit ||
             }
         } // endforeach
         Display::addFlash($messages);
+        header('Location: '.$currentUrl);
+        exit;
     }
 }
 
@@ -1497,7 +1520,7 @@ if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
     $documentAndFolders = DocumentManager::get_all_document_data(
         $courseInfo,
         $curdirpath,
-        $groupId,
+        $groupIid,
         null,
         $is_allowed_to_edit || $group_member_with_upload_rights,
         true
@@ -1506,7 +1529,7 @@ if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
     $documentAndFolders = DocumentManager::get_all_document_data(
         $courseInfo,
         $curdirpath,
-        $groupId,
+        $groupIid,
         null,
         $is_allowed_to_edit || $group_member_with_upload_rights,
         false
@@ -1516,20 +1539,20 @@ if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
 if ($groupId != 0) {
     $userAccess = GroupManager::user_has_access(
         api_get_user_id(),
-        $groupId,
+        $groupIid,
         GroupManager::GROUP_TOOL_DOCUMENTS
     );
     if ($userAccess) {
         $folders = DocumentManager::get_all_document_folders(
             $courseInfo,
-            $groupId,
+            $groupIid,
             $is_allowed_to_edit || $group_member_with_upload_rights
         );
     }
 } else {
     $folders = DocumentManager::get_all_document_folders(
         $courseInfo,
-        $groupId,
+        $groupIid,
         $is_allowed_to_edit || $group_member_with_upload_rights
     );
 }
@@ -1707,7 +1730,7 @@ if (isset($documentAndFolders) && is_array($documentAndFolders)) {
     if ($groupId == 0 ||
         GroupManager::user_has_access(
             $userId,
-            $groupId,
+            $groupIid,
             GroupManager::GROUP_TOOL_DOCUMENTS
         )
     ) {
@@ -1764,7 +1787,12 @@ if (isset($documentAndFolders) && is_array($documentAndFolders)) {
             }
 
             // Icons (clickable)
-            $row[] = DocumentManager::create_document_link($document_data, true, $count, $is_visible);
+            $row[] = DocumentManager::create_document_link(
+                $document_data,
+                true,
+                $count,
+                $is_visible
+            );
 
             $path_info = pathinfo($document_data['path']);
 
@@ -1802,7 +1830,8 @@ if (isset($documentAndFolders) && is_array($documentAndFolders)) {
             // Admins get an edit column
             if ($is_allowed_to_edit ||
                 $groupMemberWithEditRights ||
-                DocumentManager::is_my_shared_folder(api_get_user_id(), $curdirpath, $sessionId)
+                DocumentManager::is_my_shared_folder(api_get_user_id(), $curdirpath, $sessionId) ||
+                $document_data['insert_user_id'] == api_get_user_id()
             ) {
                 $is_template = isset($document_data['is_template']) ? $document_data['is_template'] : false;
                 // If readonly, check if it the owner of the file or if the user is an admin
@@ -1988,7 +2017,7 @@ if ($is_allowed_to_edit
 // TODO: Currently only delete action -> take only DELETE permission into account
 
 if (count($documentAndFolders) > 1) {
-    if ($is_allowed_to_edit || $group_member_with_upload_rights) {
+    if ($is_allowed_to_edit || $groupMemberWithEditRights) {
         $form_actions = array();
         $form_action['set_invisible'] = get_lang('SetInvisible');
         $form_action['set_visible'] = get_lang('SetVisible');
@@ -2054,7 +2083,6 @@ echo '
                 </button>
                 <h4 class="modal-title">' . get_lang('Convert') . '</h4>
                 </div>
-            </div>
             <div class="modal-body">
               <form action="#" class="form-horizontal">
                   <div class="form-group">
@@ -2083,5 +2111,7 @@ echo '
               <button type="button" class="btn btn-default" data-dismiss="modal">' . get_lang('Close') . '</button>
             </div>
         </div>
-    </div>
-';
+    </div>';
+
+// Footer
+Display::display_footer();

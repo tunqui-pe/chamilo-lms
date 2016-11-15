@@ -50,6 +50,6 @@ switch ($action) {
     case 'disable_block':
         $dashboard_controller->close_user_block($path);
         break;
-    default :
+    default:
         $dashboard_controller->display();
 }

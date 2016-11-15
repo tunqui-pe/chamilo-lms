@@ -17,10 +17,10 @@ $tool_name = get_lang('DocumentQuota');
 
 $interbreadcrumb[] = array('url' => 'document.php', 'name' => get_lang('Documents'));
 
-$htmlHeadXtra[] = api_get_js('js/jqplot/jquery.jqplot.js');
-$htmlHeadXtra[] = api_get_js('js/jqplot/plugins/jqplot.pieRenderer.js');
-$htmlHeadXtra[] = api_get_js('js/jqplot/plugins/jqplot.donutRenderer.js');
-$htmlHeadXtra[] = api_get_css('js/jqplot/jquery.jqplot.css');
+$htmlHeadXtra[] = api_get_js('jqplot/jquery.jqplot.js');
+$htmlHeadXtra[] = api_get_js('jqplot/plugins/jqplot.pieRenderer.js');
+$htmlHeadXtra[] = api_get_js('jqplot/plugins/jqplot.donutRenderer.js');
+$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/jqplot/jquery.jqplot.css');
 
 $course_code    = api_get_course_id();
 $course_id      = api_get_course_int_id();
@@ -94,8 +94,10 @@ if (is_array($document_list)) {
         if (!empty($course_list)) {
             $total_courses_quota = 0;
             $total_quota_bytes = 0;
-            foreach ($course_list as $course_data) {
-                $total_quota_bytes += DocumentManager::get_course_quota($course_data['id']);
+            if (is_array($course_list) && !empty($course_list)) {
+                foreach ($course_list as $course_data) {
+                    $total_quota_bytes += DocumentManager::get_course_quota($course_data['id']);
+                }
             }
             if ($quota_bytes != 0) {
                 $quota_percentage = round($quota_bytes/$total_quota_bytes, 2)*100;

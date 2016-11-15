@@ -29,7 +29,7 @@ class DashboardController
 
     /**
      * Display blocks from dashboard plugin paths
-     * @param string message (optional)
+     * @param string $msg (optional)
      * render to dashboard.php view
      */
     public function display($msg = false)
@@ -48,7 +48,9 @@ class DashboardController
             foreach ($dashboard_blocks as $block) {
 
                 // display only user blocks
-                if (!in_array($block['id'], $user_blocks_id)) continue;
+                if (!in_array($block['id'], $user_blocks_id)) {
+                    continue;
+                }
 
                 $path = $block['path'];
                 $controller_class = $block['controller'];
@@ -61,7 +63,9 @@ class DashboardController
                     // check if user is allowed to see the block
                     if (method_exists($obj, 'is_block_visible_for_user')) {
                         $is_block_visible_for_user = $obj->is_block_visible_for_user($user_id);
-                        if (!$is_block_visible_for_user) continue;
+                        if (!$is_block_visible_for_user) {
+                            continue;
+                        }
                     }
 
                     $data_block[$path] = $obj->get_block();

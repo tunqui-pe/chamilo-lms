@@ -13,6 +13,7 @@ use ChamiloSession as Session;
 Session::write('whereami', 'document/voicerecord');
 $this_section = SECTION_COURSES;
 
+$groupRights = Session::read('group_member_with_upload_rights');
 $nameTools = get_lang('VoiceRecord');
 
 api_protect_course_script();
@@ -31,9 +32,9 @@ $document_id = $document_data['id'];
 $dir = $document_data['path'];
 
 //make some vars
-$wamidir=$dir;
-if($wamidir=="/"){
-	$wamidir="";
+$wamidir = $dir;
+if ($wamidir == "/") {
+	$wamidir = "";
 }
 $wamiurlplay = api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document'.$wamidir."/";
 $groupId = api_get_group_id();
@@ -81,8 +82,7 @@ $interbreadcrumb[] = array("url" => "./document.php?id=".$document_id.'&'.api_ge
 if (!$is_allowed_in_course) {
 	api_not_allowed(true);
 }
-$rights = Session::read('group_member_with_upload_rights');
-if (!($is_allowed_to_edit || $rights ||
+if (!($is_allowed_to_edit || $groupRights ||
 	DocumentManager::is_my_shared_folder(api_get_user_id(), Security::remove_XSS($dir),api_get_session_id()))) {
 	api_not_allowed(true);
 }

@@ -21,7 +21,13 @@ if ($document_id) {
 
 //Check user visibility
 //$is_visible = DocumentManager::is_visible_by_id($document_id, $course_info, api_get_session_id(), api_get_user_id());
-$is_visible = DocumentManager::check_visibility_tree($document_id, api_get_course_id(), api_get_session_id(), api_get_user_id(), api_get_group_id());
+$is_visible = DocumentManager::check_visibility_tree(
+    $document_id,
+    api_get_course_id(),
+    api_get_session_id(),
+    api_get_user_id(),
+    api_get_group_id()
+);
 
 if (!api_is_allowed_to_edit() && !$is_visible) {
     api_not_allowed(true);
@@ -41,9 +47,9 @@ $file_url_web = api_get_path(WEB_COURSE_PATH).$_course['path'].'/document'.$head
 
 if ($show_web_odf) {
     //$htmlHeadXtra[] = api_get_js('webodf/webodf.js');
-    $htmlHeadXtra[] = api_get_js('js/wodotexteditor/wodotexteditor.js');
-    $htmlHeadXtra[] = api_get_js('js/wodotexteditor/localfileeditor.js');
-    $htmlHeadXtra[] = api_get_js('js/wodotexteditor/FileSaver.js');
+    $htmlHeadXtra[] = api_get_js('wodotexteditor/wodotexteditor.js');
+    $htmlHeadXtra[] = api_get_js('wodotexteditor/localfileeditor.js');
+    $htmlHeadXtra[] = api_get_js('wodotexteditor/FileSaver.js');
     //$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/webodf/webodf.css');
     /*$htmlHeadXtra[] = '
     <script type="text/javascript" charset="utf-8">

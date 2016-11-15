@@ -53,24 +53,28 @@ $base_work_dir = $sys_course_path.$courseDir;
 $sessionId = api_get_session_id();
 $selectcat = isset($_GET['selectcat']) ? Security::remove_XSS($_GET['selectcat']) : null;
 
-$document_data = DocumentManager::get_document_data_by_id(
-    $_REQUEST['id'],
-    api_get_course_id(),
-    true,
-    $sessionId
-);
+$document_data = [];
 
-if ($sessionId != 0 && !$document_data) {
+if (isset($_REQUEST['id'])) {
     $document_data = DocumentManager::get_document_data_by_id(
         $_REQUEST['id'],
         api_get_course_id(),
         true,
-        0
+        $sessionId
     );
+
+    if ($sessionId != 0 && !$document_data) {
+        $document_data = DocumentManager::get_document_data_by_id(
+            $_REQUEST['id'],
+            api_get_course_id(),
+            true,
+            0
+        );
+    }
 }
 
 if (empty($document_data)) {
-    $document_id  = $parent_id =  0;
+    $document_id = $parent_id =  0;
     $path = '/';
 } else {
     $document_id = $document_data['id'];
@@ -102,14 +106,16 @@ function setFocus(){
 </script>';
 
 
+$groupIid = 0;
 // This needs cleaning!
 if (!empty($groupId)) {
     // If the group id is set, check if the user has the right to be here
     // Get group info
     $group_properties = GroupManager::get_group_properties($groupId);
+    $groupIid = $group_properties['iid'];
 
     // Only courseadmin or group members allowed
-    if ($is_allowed_to_edit || GroupManager::is_user_in_group(api_get_user_id(), $groupId)) {
+    if ($is_allowed_to_edit || GroupManager::is_user_in_group(api_get_user_id(), $group_properties['iid'])) {
         $interbreadcrumb[] = array(
             'url' => api_get_path(WEB_CODE_PATH).'group/group_space.php?'.api_get_cidreq(),
             'name' => get_lang('GroupSpace'),
@@ -165,15 +171,17 @@ if ($is_certificate_mode) {
 }
 
 // Interbreadcrumb for the current directory root path
+if ($document_data) {
 if (empty($document_data['parents'])) {
     $interbreadcrumb[] = array('url' => '#', 'name' => $document_data['title']);
 } else {
     foreach ($document_data['parents'] as $document_sub_data) {
         $interbreadcrumb[] = array(
             'url' => $document_sub_data['document_url'],
-            'name' => $document_sub_data['title'],
+            'name' => $document_sub_data['title']
         );
     }
+}
 }
 
 $this_section = SECTION_COURSES;
@@ -197,24 +205,39 @@ if (!empty($_FILES)) {
         $index,
         true
     );
+    $redirectUrl = api_get_self() . '?' . api_get_cidreq();
+
+    if ($document_data) {
+        $redirectUrl .= '&' . http_build_query([
+            'id' => $document_data['iid']
+        ]);
 }
 
+    header("Location: $redirectUrl");
+    exit;
+}
+
+// Display the header
+Display::display_header($nameTools, 'Doc');
 // Actions
 
 // Link back to the documents overview
 if ($is_certificate_mode) {
     $actions = '<a href="document.php?id='.$document_id.'&selectcat=' . $selectcat.'&'.api_get_cidreq().'">'.
-            Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('CertificateOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+        Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('CertificateOverview'),'',ICON_SIZE_MEDIUM).'</a>';
 } else {
     $actions = '<a href="document.php?id='.$document_id.'&'.api_get_cidreq().'">'.
-            Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
+        Display::return_icon('back.png', get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
 }
 
 // Link to create a folder
+echo $toolbar = Display::toolbarAction('toolbar-upload', array($actions), 1);
 
-echo $toolbar = Display::toolbarAction('toolbar-upload', array( 0 => $actions), 1);
-// Form to select directory
-$folders = DocumentManager::get_all_document_folders($_course, $groupId, $is_allowed_to_edit);
+$folders = DocumentManager::get_all_document_folders(
+    $_course,
+    $groupIid,
+    $is_allowed_to_edit
+);
 if (!$is_certificate_mode) {
     echo DocumentManager::build_directory_selector(
         $folders,
@@ -278,7 +301,7 @@ $form->addElement('html', '</div>');
 
 // Button upload document
 $form->addButtonSend(get_lang('SendDocument'), 'submitDocument');
-$form->add_real_progress_bar('DocumentUpload', 'file');
+$form->addProgress('DocumentUpload', 'file');
 
 $fileExistsOption = api_get_setting('document.if_file_exists_option');
 
@@ -294,7 +317,6 @@ $defaults = array(
 
 $form->setDefaults($defaults);
 
-$simple_form = $form->returnForm();
 
 $url = api_get_path(WEB_AJAX_PATH).'document.ajax.php?'.api_get_cidreq().'&a=upload_file&curdirpath='.$path;
 
@@ -308,7 +330,7 @@ $multipleForm->addMultipleUpload($url);
 
     $headers = array(
         get_lang('Upload'),
-        get_lang('Upload').' ('.get_lang('Simple').')',
+        get_lang('Upload').' ('.get_lang('Simple').')'
     );
 
 echo Display::tabs($headers, array($multipleForm->returnForm(), $form->returnForm()), 'tabs');
