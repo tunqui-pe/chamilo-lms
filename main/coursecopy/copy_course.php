@@ -1,5 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use Chamilo\CourseBundle\Component\CourseCopy\CourseSelectForm;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseRestorer;
 /**
  * @package chamilo.backup
  */
@@ -10,9 +14,6 @@ $current_course_tool  = TOOL_COURSE_MAINTENANCE;
 api_protect_course_script(true);
 
 // Including additional libraries
-require_once 'classes/CourseBuilder.class.php';
-require_once 'classes/CourseRestorer.class.php';
-require_once 'classes/CourseSelectForm.class.php';
 
 // Notice for unauthorized people.
 if (!api_is_allowed_to_edit()) {
@@ -28,8 +29,8 @@ if (function_exists('ini_set')) {
 
 // Breadcrumbs
 $interbreadcrumb[] = array(
-    'url' => '../course_info/maintenance.php?'.api_get_cidreq(),
-    'name' => get_lang('Maintenance'),
+    'url' => api_get_path(WEB_CODE_PATH).'course_info/maintenance.php?'.api_get_cidreq(),
+    'name' => get_lang('Maintenance')
 );
 
 // The section (for the tabs)
@@ -62,7 +63,9 @@ if (
     $cr->set_file_option($_POST['same_file_name_option']);
     $cr->restore($_POST['destination_course']);
     Display::display_normal_message(
-        get_lang('CopyFinished').': <a href="'.api_get_course_url($_POST['destination_course']).'">'.$_POST['destination_course'].'</a>',
+        get_lang('CopyFinished').': <a href="'.api_get_course_url($_POST['destination_course']).'">'.
+        Security::remove_XSS($_POST['destination_course']).
+        '</a>',
         false
     );
 } elseif (
@@ -105,7 +108,11 @@ if (
             $options[$courseInfo['code']] = $obj->title.' ('.$obj->code.')';
         }
 
-        $form = new FormValidator('copy_course', 'post', 'copy_course.php?'.api_get_cidreq());
+        $form = new FormValidator(
+            'copy_course',
+            'post',
+            api_get_path(WEB_CODE_PATH).'coursecopy/copy_course.php?'.api_get_cidreq()
+        );
         $form->addElement('select', 'destination_course', get_lang('SelectDestinationCourse'), $options);
 
         $group = array();
@@ -118,7 +125,7 @@ if (
         $group[] = $form->createElement('radio', 'same_file_name_option', null, get_lang('SameFilenameRename'), FILE_RENAME);
         $group[] = $form->createElement('radio', 'same_file_name_option', null, get_lang('SameFilenameOverwrite'), FILE_OVERWRITE);
         $form->addGroup($group, '', get_lang('SameFilename'));
-        $form->add_progress_bar();
+        $form->addProgress();
         $form->addButtonSave(get_lang('CopyCourse'));
         $form->setDefaults(array('copy_option' =>'select_items','same_file_name_option' => FILE_OVERWRITE));
 

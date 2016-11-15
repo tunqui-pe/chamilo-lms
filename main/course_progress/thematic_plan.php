@@ -16,11 +16,12 @@ foreach($thematic_plan_data as $thematic_item) {
 }
 
 $new_id = ADD_THEMATIC_PLAN;
-if (!empty($thematic_simple_list))
-foreach($thematic_simple_list as $item) {
-    if ($item >= ADD_THEMATIC_PLAN) {
-        $new_id = $item + 1;
-        $default_thematic_plan_title[$item] = $new_thematic_plan_data[$item]['title'];
+if (!empty($thematic_simple_list)) {
+    foreach($thematic_simple_list as $item) {
+        if ($item >= ADD_THEMATIC_PLAN) {
+            $new_id = $item + 1;
+            $default_thematic_plan_title[$item] = $new_thematic_plan_data[$item]['title'];
+        }
     }
 }
 
@@ -33,7 +34,7 @@ if (isset($message) && $message == 'ok') {
     Display::display_normal_message(get_lang('ThematicSectionHasBeenCreatedSuccessfull'));
 }
 
-if ($action == 'thematic_plan_list') {
+if ($action === 'thematic_plan_list') {
     $form = new FormValidator(
         'thematic_plan_add',
         'POST',

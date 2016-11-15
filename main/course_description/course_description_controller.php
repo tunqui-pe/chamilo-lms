@@ -190,24 +190,22 @@ class CourseDescriptionController
         $data = array();
         if (strtoupper($_SERVER['REQUEST_METHOD']) == "POST") {
             if (!empty($_POST['title']) && !empty($_POST['contentDescription'])) {
+                $title = $_POST['title'];
+                $content = $_POST['contentDescription'];
+                $description_type = $_POST['description_type'];
+                if ($description_type >= ADD_BLOCK) {
+                    $course_description->set_description_type($description_type);
+                    $course_description->set_title($title);
+                    $course_description->set_content($content);
+                    $course_description->set_progress(0);
+                    $course_description->insert(api_get_course_int_id());
+                }
 
-                    $title = $_POST['title'];
-                    $content = $_POST['contentDescription'];
-                    $description_type = $_POST['description_type'];
-                    if ($description_type >= ADD_BLOCK) {
-                        $course_description->set_description_type($description_type);
-                        $course_description->set_title($title);
-                        $course_description->set_content($content);
-                        $course_description->set_progress(0);
-                        $course_description->insert(api_get_course_int_id());
-                    }
-
-                    Display::addFlash(
-                        Display::return_message(
-                            get_lang('CourseDescriptionUpdated')
-                        )
-                    );
-
+                Display::addFlash(
+                    Display::return_message(
+                        get_lang('CourseDescriptionUpdated')
+                    )
+                );
                 $this->listing(false);
             } else {
                 $data['error'] = 1;

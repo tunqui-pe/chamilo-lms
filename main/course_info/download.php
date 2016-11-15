@@ -1,12 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Component\CourseCopy\CourseArchiver;
+
 /**
  * Download script for course info
  * @package chamilo.course_info
  */
 
-////require_once '../inc/global.inc.php';
+//require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 $_cid = false;
 if (isset($_GET['session']) && $_GET['session']) {

@@ -20,9 +20,6 @@ $current_course_tool  = TOOL_COURSE_PROGRESS;
 // protect a course script
 api_protect_course_script(true);
 
-// defining constants
-define('ADD_THEMATIC_PLAN', 6);
-
 // get actions
 $actions = array(
     'thematic_details',
@@ -48,8 +45,8 @@ $actions = array(
 );
 
 $action  = 'thematic_details';
-if (isset($_GET['action']) && in_array($_GET['action'],$actions)) {
-    $action = $_GET['action'];
+if (isset($_REQUEST['action']) && in_array($_REQUEST['action'], $actions)) {
+    $action = $_REQUEST['action'];
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'thematic_delete_select') {
@@ -65,14 +62,10 @@ if ($action == 'thematic_details' || $action == 'thematic_list') {
 }
 
 // get thematic id
-if (isset($_GET['thematic_id'])) {
-    $thematic_id = intval($_GET['thematic_id']);
-}
+$thematic_id = isset($_GET['thematic_id']) ? (int) $_GET['thematic_id'] : 0;
 
 // get thematic plan description type
-if (isset($_GET['description_type'])) {
-    $description_type = intval($_GET['description_type']);
-}
+$description_type = isset($_GET['description_type']) ? (int) $_GET['description_type'] : 0;
 
 // instance thematic object for using like library here
 $thematic = new Thematic();
@@ -90,7 +83,7 @@ $default_thematic_plan_title = $thematic->get_default_thematic_plan_title();
 
 // Only when I see the 3 columns. Avoids double or triple click binding for onclick event
 
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     $(".thematic_advance_actions, .thematic_tools ").hide();
 	$(".thematic_content").mouseover(function() {
@@ -115,7 +108,7 @@ $(document).ready(function() {
 });
 </script>';
 
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 
 function datetime_by_attendance(attendance_id, thematic_advance_id) {
 	$.ajax({

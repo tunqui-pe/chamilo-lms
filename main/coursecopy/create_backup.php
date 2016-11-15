@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Component\CourseCopy\CourseSelectForm;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseArchiver;
 /**
  * Create a backup.
  *
@@ -31,7 +34,7 @@ $this_section = SECTION_COURSES;
 
 // Breadcrumbs
 $interbreadcrumb[] = array(
-    'url' => '../course_info/maintenance.php',
+    'url' => api_get_path(WEB_CODE_PATH).'course_info/maintenance.php',
     'name' => get_lang('Maintenance')
 );
 
@@ -40,10 +43,6 @@ $nameTools = get_lang('CreateBackup');
 Display::display_header($nameTools);
 
 // Include additional libraries
-require_once 'classes/CourseBuilder.class.php';
-require_once 'classes/CourseArchiver.class.php';
-require_once 'classes/CourseRestorer.class.php';
-require_once 'classes/CourseSelectForm.class.php';
 
 // Display the tool title
 echo Display::page_header($nameTools);
@@ -70,7 +69,7 @@ if (Security::check_token('post') && (
         $course = $cb->build();
     }
 
-    $zip_file = CourseArchiver::write_course($course);
+    $zip_file = CourseArchiver::createBackup($course);
     Display::display_confirmation_message(get_lang('BackupCreated'));
     echo '<br /><a class="btn btn-primary btn-large" href="' . api_get_path(WEB_CODE_PATH) . 'course_info/download.php?archive=' . $zip_file . '&' . api_get_cidreq() . '">
     ' . get_lang('Download') . '</a>';
@@ -95,12 +94,16 @@ if (Security::check_token('post') && (
     if (!$course->has_resources()) {
         echo get_lang('NoResourcesToBackup');
     } else {
-        $form = new FormValidator('create_backup_form', 'post', api_get_self() . '?' . api_get_cidreq());
+        $form = new FormValidator(
+            'create_backup_form',
+            'post',
+            api_get_self() . '?' . api_get_cidreq()
+        );
         $form->addElement('header', get_lang('SelectOptionForBackup'));
         $form->addElement('radio', 'backup_option', '', get_lang('CreateFullBackup'), 'full_backup');
         $form->addElement('radio', 'backup_option', '', get_lang('LetMeSelectItems'), 'select_items');
         $form->addButtonSave(get_lang('CreateBackup'));
-        $form->add_progress_bar();
+        $form->addProgress();
         // When progress bar appears we have to hide the title "Please select a backup-option".
         $form->updateAttributes(
             array(
@@ -119,7 +122,13 @@ if (Security::check_token('post') && (
         $form->addElement('hidden', 'sec_token');
         $form->setConstants(array('sec_token' => $token));
 
+        echo '<div class="row">';
+        echo '<div class="col-md-12">';
+        echo '<div class="tool-backup">';
         $form->display();
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
     }
 }
 

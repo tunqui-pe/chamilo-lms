@@ -1,7 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use ChamiloSession as Session;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseSelectForm;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseRestorer;
 
 /**
  * Copy resources from one course in a session to another one.
@@ -17,10 +19,6 @@ $current_course_tool  = TOOL_COURSE_MAINTENANCE;
 
 api_protect_global_admin_script();
 api_protect_limit_for_session_admin();
-
-require_once 'classes/CourseBuilder.class.php';
-require_once 'classes/CourseRestorer.class.php';
-require_once 'classes/CourseSelectForm.class.php';
 
 $xajax = new xajax();
 $xajax->registerFunction('search_courses');
@@ -38,7 +36,10 @@ if (function_exists('ini_set')) {
 $this_section = SECTION_PLATFORM_ADMIN;
 
 $nameTools = get_lang('CopyCourse');
-$interbreadcrumb[] = array('url' => '../admin/index.php', 'name' => get_lang('PlatformAdmin'));
+$interbreadcrumb[] = array(
+    'url' => api_get_path(WEB_CODE_PATH).'admin/index.php',
+    'name' => get_lang('PlatformAdmin')
+);
 
 // Database Table Definitions
 $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
@@ -95,7 +96,7 @@ function display_form()
         '</a>';
 
 
-    $html .= Display::toolbarAction('toolbar-copysession', array(0 => $actionsLeft));
+    $html .= Display::toolbarAction('toolbar-copysession', array($actionsLeft));
 
     $html .= Display::return_message(get_lang('CopyCourseFromSessionToSessionExplanation'), 'warning');
 
@@ -232,7 +233,7 @@ $xajax->processRequests();
 /* HTML head extra */
 
 $htmlHeadXtra[] = $xajax->getJavascript( api_get_path(WEB_LIBRARY_PATH).'xajax/');
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 function checkSelected(id_select,id_radio,id_title,id_destination) {
    var num=0;
    obj_origin = document.getElementById(id_select);

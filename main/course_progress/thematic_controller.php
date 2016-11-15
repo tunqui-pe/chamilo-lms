@@ -30,7 +30,7 @@ class ThematicController
 
     /**
      * This method is used for thematic control (update, insert or listing)
-     * @param 	string	Action
+     * @param 	string	$action
      * render to thematic.php
      */
     public function thematic($action)
@@ -39,7 +39,7 @@ class ThematicController
         $data = array();
         $check = Security::check_token('request');
         $thematic_id = isset($_REQUEST['thematic_id']) ? intval($_REQUEST['thematic_id']) : null;
-        $displayHeader = (!empty($_REQUEST['display']) && $_REQUEST['display'] === 'no_header') ? false : true;
+        $displayHeader = !empty($_REQUEST['display']) && $_REQUEST['display'] === 'no_header' ? false : true;
 
         if (true) {
             switch ($action) {
@@ -169,7 +169,15 @@ class ThematicController
                         $data = $thematic->get_thematic_plan_data($theme['id']);
                         if (!empty($data)) {
                             foreach ($data as $plan) {
-                                $csv[] = array('plan', $plan['title'], $plan['description']);
+                                if (empty($plan['description'])) {
+                                    continue;
+                                }
+
+                                $csv[] = [
+                                    'plan',
+                                    strip_tags($plan['title']),
+                                    strip_tags($plan['description'])
+                                ];
                             }
                         }
                         $data = $thematic->get_thematic_advance_by_thematic_id($theme['id']);
@@ -177,9 +185,9 @@ class ThematicController
                             foreach ($data as $advance) {
                                 $csv[] = array(
                                     'progress',
-                                    $advance['start_date'],
-                                    $advance['duration'],
-                                    $advance['content'],
+                                    strip_tags($advance['start_date']),
+                                    strip_tags($advance['duration']),
+                                    strip_tags($advance['content']),
                                 );
                             }
                         }
@@ -201,6 +209,9 @@ class ThematicController
                         $plan_html = null;
                         if (!empty($data)) {
                             foreach ($data as $plan) {
+                                if (empty($plan['description'])) {
+                                    continue;
+                                }
                                 $plan_html .= '<strong>' . $plan['title'] . '</strong><br /> ' . $plan['description'] . '<br />';
                             }
                         }
@@ -350,7 +361,7 @@ class ThematicController
         $description_type = isset($_GET['description_type']) ? intval($_GET['description_type']) : null;
 
         if (!empty($thematic_id) && !empty($description_type)) {
-            if ($action == 'thematic_plan_delete') {
+            if ($action === 'thematic_plan_delete') {
                 if (api_is_allowed_to_edit(null, true)) {
                     $thematic->thematic_plan_destroy($thematic_id, $description_type);
                 }
@@ -361,7 +372,7 @@ class ThematicController
             }
             $data['thematic_id'] = $thematic_id;
             $data['description_type'] = $description_type;
-        } else if (!empty($thematic_id) && $action == 'thematic_plan_list') {
+        } else if (!empty($thematic_id) && $action === 'thematic_plan_list') {
             $data['thematic_plan_data'] = $thematic->get_thematic_plan_data($thematic_id);
             $data['thematic_id'] = $thematic_id;
         }

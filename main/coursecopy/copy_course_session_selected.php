@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
-use ChamiloSession as Session;
+
+use Chamilo\CourseBundle\Component\CourseCopy\CourseSelectForm;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseRestorer;
 
 /**
  * Copy resources from one course in a session to another one.
@@ -15,10 +18,6 @@ use ChamiloSession as Session;
 $current_course_tool = TOOL_COURSE_MAINTENANCE;
 
 api_protect_course_script(true, true);
-
-require_once 'classes/CourseBuilder.class.php';
-require_once 'classes/CourseRestorer.class.php';
-require_once 'classes/CourseSelectForm.class.php';
 
 $xajax = new xajax();
 $xajax->registerFunction('searchCourses');
@@ -48,9 +47,7 @@ if (function_exists('ini_set')) {
 
 $this_section = SECTION_COURSES;
 $nameTools = get_lang('CopyCourse');
-$returnLink = api_get_path(
-        WEB_CODE_PATH
-    ) . 'course_info/maintenance_coach.php?' . api_get_cidreq();
+$returnLink = api_get_path(WEB_CODE_PATH) . 'course_info/maintenance_coach.php?' . api_get_cidreq();
 $interbreadcrumb[] = array(
     'url' => $returnLink,
     'name' => get_lang('Maintenance')
@@ -67,6 +64,9 @@ $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
 
 /* FUNCTIONS */
 
+/**
+ * @param string $name
+ */
 function make_select_session_list($name, $sessions, $attr = array())
 {
 
@@ -382,9 +382,11 @@ if ((isset($_POST['action']) && $_POST['action'] == 'course_select_form') ||
 
         echo '<div style="float:right"><a href="javascript:window.history.go(-1);">' .
             Display::return_icon(
-                'back.png', get_lang('Back') . ' ' . get_lang('To') . ' ' . get_lang(
+                'back.png',
+                get_lang('Back').' '.get_lang('To').' '.get_lang(
                     'PlatformAdmin'
-                ), array('style' => 'vertical-align:middle')
+                ),
+                array('style' => 'vertical-align:middle')
             ) .
             get_lang('Back') . '</a></div>';
     } else {

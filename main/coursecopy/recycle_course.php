@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Component\CourseCopy\CourseSelectForm;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
+use Chamilo\CourseBundle\Component\CourseCopy\CourseRecycler;
 /**
  * Delete resources from a course.
  *
@@ -30,11 +33,6 @@ $interbreadcrumb[] = array(
 $nameTools = get_lang('RecycleCourse');
 Display::display_header($nameTools);
 
-require_once 'classes/CourseBuilder.class.php';
-require_once 'classes/CourseArchiver.class.php';
-require_once 'classes/CourseRecycler.class.php';
-require_once 'classes/CourseSelectForm.class.php';
-
 // Display the tool title
 echo Display::page_header($nameTools);
 
@@ -58,7 +56,7 @@ if (Security::check_token('post') && (
         $cb = new CourseBuilder();
         $course = $cb->build();
     }
-    $recycle_type = "";
+    $recycle_type = '';
     if (isset($_POST['recycle_option']) && $_POST['recycle_option'] == 'full_backup') {
         $recycle_type = 'full_backup';
     } else if (isset($_POST['action']) && $_POST['action'] == 'course_select_form') {

@@ -11,7 +11,6 @@
  * "Course validation" feature, technical adaptation for Chamilo 1.8.8:
  * @author Ivan Tcholakov <ivantcholakov@gmail.com>
  */
-use \ChamiloSession as Session;
 
 // Flag forcing the "current course" reset.
 $cidReset = true;
@@ -20,6 +19,10 @@ $cidReset = true;
 require_once '../inc/global.inc.php';
 
 // Section for the tabs.
+if (!api_is_allowed_to_create_course()) {
+    api_not_allowed(true);
+    exit;
+}
 $this_section = SECTION_COURSES;
 
 // "Course validation" feature. This value affects the way of a new course creation:
@@ -30,7 +33,7 @@ if (api_get_setting('course_validation') == 'true' && !api_is_platform_admin()) 
     $course_validation_feature = true;
 }
 
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
     function setFocus(){
         $("#title").focus();
     }
@@ -48,19 +51,6 @@ $interbreadcrumb[] = array(
 $tool_name = $course_validation_feature ? get_lang('CreateCourseRequest') : get_lang('CreateSite');
 
 $tpl = new Template($tool_name);
-
-if (
-    api_get_setting('allow_users_to_create_courses') == 'false' &&
-    !api_is_platform_admin()
-) {
-    api_not_allowed(true);
-}
-
-// Check access rights.
-if (!api_is_allowed_to_create_course()) {
-    api_not_allowed(true);
-    exit;
-}
 
 // Build the form.
 $form = new FormValidator('add_course');
@@ -198,7 +188,8 @@ if ($course_validation_feature) {
             1
         );
         $form->addRule(
-            'legal', get_lang('YouHaveToAcceptTermsAndConditions'),
+            'legal',
+            get_lang('YouHaveToAcceptTermsAndConditions'),
             'required'
         );
         // Link to terms and conditions.
@@ -240,7 +231,7 @@ $form->addElement('html', '</div>');
 $form->addButtonCreate($course_validation_feature ? get_lang('CreateThisCourseRequest') : get_lang('CreateCourseArea'));
 
 // The progress bar of this form.
-$form->add_progress_bar();
+$form->addProgress();
 
 // Set default values.
 if (isset($_user['language']) && $_user['language'] != '') {
@@ -282,7 +273,6 @@ if ($form->validate()) {
 
     if ($course_code_ok) {
         if (!$course_validation_feature) {
-
             $params = array();
             $params['title'] = $title;
             $params['exemplary_content'] = $exemplary_content;
@@ -290,6 +280,7 @@ if ($form->validate()) {
             $params['course_category'] = $category_code;
             $params['course_language'] = $course_language;
             $params['gradebook_model_id'] = isset($course_values['gradebook_model_id']) ? $course_values['gradebook_model_id'] : null;
+            $params['course_template'] = $course_values['course_template'];
 
             $course_info = CourseManager::create_course($params);
 
@@ -308,12 +299,18 @@ if ($form->validate()) {
                 $add_course_tpl = $tpl->get_template('create_course/add_course.tpl');
                 $message = $tpl->fetch($add_course_tpl);*/
 
-                $url = api_get_path(WEB_CODE_PATH);
-                $url .= 'course_info/start.php?cidReq=';
-                $url .= $course_info['code'];
-                $url .= '&first=1';
-                header('Location: ' . $url);
-                exit;
+                $splash = api_get_setting('course_creation_splash_screen');
+                if ($splash === 'true') {
+                    $url = api_get_path(WEB_CODE_PATH);
+                    $url .= 'course_info/start.php?' . api_get_cidreq_params($course_info['code']);
+                    $url .= '&first=1';
+                    header('Location: ' . $url);
+                    exit;
+                } else {
+                    $url = api_get_path(WEB_COURSE_PATH) . $course_info['directory'] . '/';
+                    header('Location: ' . $url);
+                    exit;
+                }
             } else {
                 $message = Display::return_message(
                     get_lang('CourseCreationFailed'),
@@ -361,7 +358,7 @@ if ($form->validate()) {
                     false
                 );
                 // Display the form.
-                $content = $form->return_form();
+                $content = $form->returnForm();
             }
         }
     } else {
@@ -371,7 +368,7 @@ if ($form->validate()) {
             false
         );
         // Display the form.
-        $content = $form->return_form();
+        $content = $form->returnForm();
     }
 } else {
     if (!$course_validation_feature) {
