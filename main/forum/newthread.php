@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * These files are a complete rework of the forum. The database structure is
  * based on phpBB but all the code is rewritten. A lot of new functionalities
@@ -21,11 +23,6 @@
  *
  * @package chamilo.forum
  */
-
-use ChamiloSession as Session;
-
-// Including the global initialization file.
-//require_once '../inc/global.inc.php';
 
 // The section (tabs).
 $this_section = SECTION_COURSES;
@@ -121,14 +118,6 @@ if (!empty($groupId)) {
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('NewTopic'));
 }
 
-/* Resource Linker */
-if (isset($_POST['add_resources']) AND $_POST['add_resources'] == get_lang('Resources')) {
-    $_SESSION['formelements']	= $_POST;
-    $_SESSION['origin']			= $_SERVER['REQUEST_URI'];
-    $_SESSION['breadcrumbs']	= $interbreadcrumb;
-    header('Location: ../resourcelinker/resourcelinker.php');
-    exit;
-}
 
 $htmlHeadXtra[] = <<<JS
     <script>
@@ -147,6 +136,13 @@ $htmlHeadXtra[] = <<<JS
     </script>
 JS;
 
+$form = show_add_post_form(
+    $current_forum,
+    $forum_setting,
+    'newthread',
+    '',
+    isset($_SESSION['formelements']) ? $_SESSION['formelements'] : null
+);
 if ($origin == 'learnpath') {
     Display::display_reduced_header();
 } else {
@@ -164,17 +160,8 @@ echo '</div>';
 // Set forum attachment data into $_SESSION
 getAttachedFiles($current_forum['forum_id'], 0, 0);
 
-$values = show_add_post_form(
-    $current_forum,
-    $forum_setting,
-    'newthread',
-    '',
-    isset($_SESSION['formelements']) ? $_SESSION['formelements'] : null
-);
-
-if (!empty($values) && isset($values['SubmitPost'])) {
-    // Add new thread in table forum_thread.
-    store_thread($current_forum, $values);
+if ($form) {
+    $form->display();
 }
 
 if (isset($origin) && $origin == 'learnpath') {

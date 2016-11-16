@@ -35,7 +35,6 @@ $nameTools = get_lang('ToolForum');
 require 'forumconfig.inc.php';
 require_once 'forumfunction.inc.php';
 
-/* MAIN DISPLAY SECTION */
 
 /* Retrieving forum and forum categorie information */
 
@@ -43,6 +42,7 @@ require_once 'forumfunction.inc.php';
 // Note pcool: I tried to use only one sql statement (and function) for this,
 // but the problem is that the visibility of the forum AND forum cateogory are stored in the item_property table.
 $current_thread = get_thread_information(
+    $_GET['forum'],
     $_GET['thread']
 ); // Note: this has to be validated that it is an existing thread.
 $current_forum = get_forum_information($current_thread['forum_id']);

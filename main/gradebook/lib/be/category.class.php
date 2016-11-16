@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Entity\GradebookCategory;
+
 /**
  * Class Category
  * Defines a gradebook Category object
@@ -97,7 +99,7 @@ class Category implements GradebookItem
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function get_parent_id()
     {
@@ -105,7 +107,7 @@ class Category implements GradebookItem
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function get_weight()
     {
@@ -121,7 +123,7 @@ class Category implements GradebookItem
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function is_visible()
     {
@@ -244,7 +246,7 @@ class Category implements GradebookItem
     }
 
     /**
-     * @return null
+     * @return null|integer
      */
     public function get_grade_model_id()
     {

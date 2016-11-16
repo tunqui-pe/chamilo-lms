@@ -103,7 +103,7 @@ class ExerciseLink extends AbstractLink
                     ip.visibility='1'
                 ";
 
-        require_once api_get_path(SYS_CODE_PATH).'exercice/hotpotatoes.lib.php';
+        require_once api_get_path(SYS_CODE_PATH).'exercise/hotpotatoes.lib.php';
         $exerciseInLP = array();
         if (!$this->is_hp) {
             $result = Database::query($sql);
@@ -191,7 +191,7 @@ class ExerciseLink extends AbstractLink
         $tblDoc = Database::get_course_table(TABLE_DOCUMENT);
 
         /* the following query should be similar (in conditions) to the one used
-        in exercice/exercice.php, look for note-query-exe-results marker*/
+        in exercise/exercise.php, look for note-query-exe-results marker*/
         $session_id = $this->get_session_id();
         $courseId = $this->getCourseId();
 	    $exercise = new Exercise($courseId);
@@ -332,7 +332,7 @@ class ExerciseLink extends AbstractLink
     public function get_name()
     {
         $documentPath = api_get_path(SYS_COURSE_PATH).$this->course_code."/document";
-        require_once api_get_path(SYS_CODE_PATH).'exercice/hotpotatoes.lib.php';
+        require_once api_get_path(SYS_CODE_PATH).'exercise/hotpotatoes.lib.php';
         $data = $this->get_exercise_data();
         if ($this->is_hp == 1) {
             if (isset($data['path'])) {
@@ -372,12 +372,12 @@ class ExerciseLink extends AbstractLink
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     public function get_type_name()
     {
         if ($this->is_hp == 1) {
-            return get_lang('HotPotatoes');
+            return 'HotPotatoes';
         } else {
             return get_lang('Quiz');
         }

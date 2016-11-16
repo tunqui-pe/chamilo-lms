@@ -40,13 +40,15 @@ if (isset($_GET['origin'])) {
 require_once 'forumconfig.inc.php';
 require_once 'forumfunction.inc.php';
 
+$forumId = isset($_GET['forum']) ? (int)$_GET['forum'] : 0;
+$threadId = isset($_GET['thread']) ? (int)$_GET['thread'] : 0;
 /* MAIN DISPLAY SECTION */
 
 /* Retrieving forum and forum categorie information */
 // We are getting all the information about the current forum and forum category.
 // Note pcool: I tried to use only one sql statement (and function) for this,
 // but the problem is that the visibility of the forum AND forum cateogory are stored in the item_property table.
-$current_thread	= get_thread_information($_GET['thread']); // Note: This has to be validated that it is an existing thread.
+$current_thread	= get_thread_information($forumId, $threadId); // Note: This has to be validated that it is an existing thread.
 $current_forum	= get_forum_information($current_thread['forum_id']); // Note: This has to be validated that it is an existing forum.
 $current_forum_category = get_forumcategory_information(Security::remove_XSS($current_forum['forum_category']));
 
@@ -61,15 +63,15 @@ $current_forum_category = get_forumcategory_information(Security::remove_XSS($cu
 if (!api_is_allowed_to_edit(false, true) &&
     (($current_forum_category && $current_forum_category['visibility'] == 0) || $current_forum['visibility'] == 0)
 ) {
-    api_not_allowed();
+    api_not_allowed(true);
 }
 if (!api_is_allowed_to_edit(false, true) &&
     (($current_forum_category && $current_forum_category['locked'] <> 0) || $current_forum['locked'] <> 0 || $current_thread['locked'] <> 0)
 ) {
-    api_not_allowed();
+    api_not_allowed(true);
 }
 if (!$_user['user_id'] && $current_forum['allow_anonymous'] == 0) {
-    api_not_allowed();
+    api_not_allowed(true);
 }
 
 if ($current_forum['forum_of_group'] != 0) {
@@ -163,35 +165,13 @@ $my_action = isset($_GET['action']) ? Security::remove_XSS($_GET['action']) : ''
 $my_post = isset($_GET['post']) ? Security::remove_XSS($_GET['post']) : '';
 $my_elements = isset($_SESSION['formelements']) ? $_SESSION['formelements'] : '';
 
-$values = show_add_post_form(
+$form = show_add_post_form(
     $current_forum,
     $forum_setting,
     $my_action,
     $my_post,
     $my_elements
 );
-$form = '';
-if (is_object($values)) {
-    $form = $values->returnForm();
-} else {
-    if (!empty($values) && isset($_POST['SubmitPost'])) {
-        store_reply($current_forum, $values);
-        //@todo split the show_add_post_form function
-        $origin = isset($_GET['origin']) && $_GET['origin'] === 'learnpath' ? 'learnpath' : null;
-
-        $url = api_get_path(WEB_CODE_PATH).'forum/viewthread.php?'.http_build_query(
-            [
-                'forum' => $current_thread['forum_id'],
-                'gradebook' => $gradebook,
-                'thread' => intval($_GET['thread']),
-                'gidReq' => api_get_group_id(),
-                'origin' => $origin
-            ]
-        );
-        header('Location: '.$url);
-        exit;
-    }
-}
 
 if ($origin == 'learnpath') {
     Display::display_reduced_header();
@@ -210,13 +190,17 @@ if ($origin != 'learnpath') {
 }
 /*New display forum div*/
 echo '<div class="forum_title">';
-echo '<h1><a href="viewforum.php?&origin='.$origin.'&forum='.$current_forum['forum_id'].'" '.
-    class_visible_invisible($current_forum['visibility']).'>'.
-    prepare4display($current_forum['forum_title']).'</a></h1>';
+echo '<h1>';
+echo Display::url(
+    prepare4display($current_forum['forum_title']),
+    'viewforum.php?' . api_get_cidreq() . '&' . http_build_query(['forum' => $current_forum['forum_id']]),
+    ['class' => empty($current_forum['visibility']) ? 'text-muted' : null]
+);
+echo '</h1>';
 echo '<p class="forum_description">'.prepare4display($current_forum['forum_comment']).'</p>';
 echo '</div>';
 
-echo $form;
+$form->display();
 
 if ($origin == 'learnpath') {
     Display::display_reduced_footer();
