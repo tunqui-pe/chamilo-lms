@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Entity\ExtraField;
+
 /**
  * Class Auth
  * Auth can be used to instantiate objects or as a library to manage courses
@@ -31,7 +33,7 @@ class Auth
         $TABLE_COURSE_FIELD = Database::get_main_table(TABLE_EXTRA_FIELD);
         $TABLE_COURSE_FIELD_VALUE = Database::get_main_table(TABLE_EXTRA_FIELD_VALUES);
 
-        $extraFieldType = \Chamilo\CoreBundle\Entity\ExtraField::COURSE_FIELD_TYPE;
+        $extraFieldType = ExtraField::COURSE_FIELD_TYPE;
         // get course list auto-register
         $sql = "SELECT item_id FROM $TABLE_COURSE_FIELD_VALUE tcfv
                 INNER JOIN $TABLE_COURSE_FIELD tcf
@@ -63,6 +65,7 @@ class Auth
                     course.unsubscribe unsubscr,
                     course.title i,
                     course.tutor_name t,
+                    course.category_code cat,
                     course.directory dir,
                     course_rel_user.status status,
                     course_rel_user.sort sort,
@@ -85,6 +88,7 @@ class Auth
                 'status' => $row['status'],
                 'tutor' => $row['t'],
                 'subscribe' => $row['subscr'],
+                'category' => $row['cat'],
                 'unsubscribe' => $row['unsubscr'],
                 'sort' => $row['sort'],
                 'user_course_category' => $row['user_course_cat']
@@ -116,7 +120,7 @@ class Auth
 
     /**
      * This function get all the courses in the particular user category;
-     * @return string: the name of the user defined course category
+     * @return string The name of the user defined course category
      */
     public function get_courses_in_category()
     {
@@ -128,7 +132,7 @@ class Auth
         $TABLE_COURSE_FIELD = Database::get_main_table(TABLE_EXTRA_FIELD);
         $TABLE_COURSE_FIELD_VALUE = Database::get_main_table(TABLE_EXTRA_FIELD_VALUES);
 
-        $extraFieldType = \Chamilo\CoreBundle\Entity\ExtraField::COURSE_FIELD_TYPE;
+        $extraFieldType = ExtraField::COURSE_FIELD_TYPE;
 
         // get course list auto-register
         $sql = "SELECT item_id
@@ -166,7 +170,6 @@ class Auth
                     $without_special_courses
                 ORDER BY course_rel_user.user_course_cat, course_rel_user.sort ASC";
         $result = Database::query($sql);
-        $number_of_courses = Database::num_rows($result);
         $data = array();
         while ($course = Database::fetch_array($result)) {
             $data[$course['user_course_cat']][] = $course;
@@ -376,9 +379,11 @@ class Auth
         $TABLECOURSUSER = Database::get_main_table(TABLE_MAIN_COURSE_USER);
         $category_id = intval($category_id);
         $result = false;
-        $sql_delete = "DELETE FROM $tucc
-                      WHERE id='" . $category_id . "' and user_id='" . $current_user_id . "'";
-        $resultQuery = Database::query($sql_delete);
+        $sql = "DELETE FROM $tucc
+                WHERE 
+                    id='" . $category_id . "' AND 
+                    user_id='" . $current_user_id . "'";
+        $resultQuery = Database::query($sql);
        if (Database::affected_rows($resultQuery)) {
             $result = true;
         }
@@ -398,9 +403,10 @@ class Auth
      * The search is done on the code, title and tutor field of the course table.
      * @param string $search_term The string that the user submitted, what we are looking for
      * @param array $limit
+     * @param boolean $justVisible search only on visible courses in the catalogue
      * @return array An array containing a list of all the courses matching the the search term.
      */
-    public function search_courses($search_term, $limit)
+    public function search_courses($search_term, $limit, $justVisible = false)
     {
         $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
         $extraFieldTable = Database :: get_main_table(TABLE_EXTRA_FIELD);
@@ -428,6 +434,8 @@ class Auth
             $without_special_courses = ' AND course.code NOT IN (' . implode(',', $special_course_list) . ')';
         }
 
+        $visibilityCondition = $justVisible ? CourseManager::getCourseVisibilitySQLCondition('course') : '';
+
         $search_term_safe = Database::escape_string($search_term);
         $sql_find = "SELECT * FROM $courseTable
                     WHERE (
@@ -436,6 +444,7 @@ class Auth
                             tutor_name LIKE '%" . $search_term_safe . "%'
                         )
                         $without_special_courses
+                        $visibilityCondition
                     ORDER BY title, visual_code ASC
                     $limitFilter
                     ";
@@ -455,6 +464,7 @@ class Auth
                                     tutor_name LIKE '%" . $search_term_safe . "%'
                                 )
                                 $without_special_courses
+                                $visibilityCondition
                             ORDER BY title, visual_code ASC
                             $limitFilter
                             ";
@@ -493,7 +503,7 @@ class Auth
 
     /**
      * unsubscribe the user from a given course
-     * @param   string  Course code
+     * @param   string  $course_code
      * @return  bool    True if it success
      */
     public function remove_user_from_course($course_code)
@@ -523,6 +533,7 @@ class Auth
         }
 
         CourseManager::unsubscribe_user($current_user_id, $course_code);
+
         return $result;
     }
 
@@ -541,24 +552,31 @@ class Auth
         $result = false;
 
         // step 1: we determine the max value of the user defined course categories
-        $sql = "SELECT sort FROM $tucc WHERE user_id='" . $current_user_id . "' ORDER BY sort DESC";
+        $sql = "SELECT sort FROM $tucc 
+                WHERE user_id='" . $current_user_id . "' 
+                ORDER BY sort DESC";
         $rs_sort = Database::query($sql);
         $maxsort = Database::fetch_array($rs_sort);
         $nextsort = $maxsort['sort'] + 1;
 
         // step 2: we check if there is already a category with this name, if not we store it, else we give an error.
-        $sql = "SELECT * FROM $tucc WHERE user_id='" . $current_user_id . "' AND title='" . $category_title . "'ORDER BY sort DESC";
+        $sql = "SELECT * FROM $tucc 
+                WHERE 
+                    user_id='" . $current_user_id . "' AND 
+                    title='" . $category_title . "'
+                ORDER BY sort DESC";
         $rs = Database::query($sql);
         if (Database::num_rows($rs) == 0) {
-            $sql_insert = "INSERT INTO $tucc (user_id, title,sort)
+            $sql = "INSERT INTO $tucc (user_id, title,sort)
                            VALUES ('" . $current_user_id . "', '" . api_htmlentities($category_title, ENT_QUOTES, api_get_system_encoding()) . "', '" . $nextsort . "')";
-            $resultQuery = Database::query($sql_insert);
+            $resultQuery = Database::query($sql);
             if (Database::affected_rows($resultQuery)) {
                 $result = true;
             }
         } else {
             $result = false;
         }
+
         return $result;
     }
 
@@ -597,7 +615,7 @@ class Auth
 
     /**
      * Subscribe the user to a given course
-     * @param string Course code
+     * @param string $course_code Course code
      * @return string  Message about results
      */
     public function subscribe_user($course_code)
@@ -660,8 +678,7 @@ class Auth
         $em = Database::getManager();
         $qb = $em->createQueryBuilder();
 
-        $_sessions = $qb->select('s')
-            ->from('ChamiloCoreBundle:Session', 's');
+        $_sessions = $qb->select('s')->from('ChamiloCoreBundle:Session', 's');
 
         if (!empty($limit)) {
             $_sessions->setFirstResult($limit['start'])
@@ -696,7 +713,7 @@ class Auth
      * @param string $date in Y-m-d format
      * @return int
      */
-    function countSessions($date = null)
+    public function countSessions($date = null)
     {
         $count = 0;
         $sessionTable = Database::get_main_table(TABLE_MAIN_SESSION);
@@ -761,7 +778,7 @@ SQL;
                 $qb->expr()->like('t.tag', ":tag")
             )
             ->andWhere(
-                $qb->expr()->eq('f.extraFieldType', Chamilo\CoreBundle\Entity\ExtraField::COURSE_FIELD_TYPE)
+                $qb->expr()->eq('f.extraFieldType', ExtraField::COURSE_FIELD_TYPE)
             )
             ->setFirstResult($limit['start'])
             ->setMaxResults($limit['length'])
@@ -770,12 +787,10 @@ SQL;
             ->getResult();
 
         $sessionsToBrowse = [];
-
         foreach ($sessions as $session) {
             if ($session->getNbrCourses() === 0) {
                 continue;
             }
-
             $sessionsToBrowse[] = $session;
         }
 

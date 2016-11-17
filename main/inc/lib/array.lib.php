@@ -1,8 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 /**
- *    This is the array library for Chamilo.
- *    Include/require it in your code to use its functionality.
+*	This is the array library for Chamilo.
+*	Include/require it in your code to use its functionality.
  *
  * @package chamilo.library
  */

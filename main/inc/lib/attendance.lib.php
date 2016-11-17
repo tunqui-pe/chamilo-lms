@@ -58,8 +58,8 @@ class Attendance
 
     /**
      * Get attendance list only the id, name and attendance_qualify_max fields
-     * @param   string  course db name (optional)
-     * @param   int     session id (optional)
+     * @param   string  $course_id course db name (optional)
+     * @param   int     $session_id session id (optional)
      * @return  array	attendances list
      */
     public function get_attendances_list($course_id = '', $session_id = null)
@@ -82,7 +82,7 @@ class Attendance
                 WHERE c_id = $course_id AND active = 1 $condition_session ";
         $rs  = Database::query($sql);
         if (Database::num_rows($rs) > 0) {
-            while ($row = Database::fetch_array($rs,'ASSOC')) {
+            while ($row = Database::fetch_array($rs, 'ASSOC')) {
                 $data[$row['id']] = $row;
             }
         }
@@ -150,7 +150,6 @@ class Attendance
 				$session_star = api_get_session_image(api_get_session_id(), $user_info['status']);
 			}
 			if ($attendance[5] == 1) {
-
 				$isDrhOfCourse = CourseManager::isUserSubscribedInCourseAsDrh(
 					api_get_user_id(),
 					api_get_course_info()
@@ -248,6 +247,7 @@ class Attendance
 				$attendances[] = array($attendance[0], $attendance[1], $attendance[2], $attendance[3]);
 			}
 		}
+
 		return $attendances;
 	}
 
@@ -428,8 +428,10 @@ class Attendance
                     $em->flush();
 				}
 			}
+
 			return $attendance_id;
 		}
+
 		return null;
 	}
 
@@ -649,7 +651,8 @@ class Attendance
 		}
 
         if (!empty($groupId)) {
-            $students = GroupManager::getStudents($groupId);
+            $groupInfo = GroupManager::get_group_properties($groupId);
+            $students = GroupManager::getStudents($groupInfo['iid']);
             if (!empty($students)) {
                 foreach ($students as $student) {
                     $studentInGroup[$student['user_id']] = true;
@@ -986,6 +989,7 @@ class Attendance
 		$rs  = Database::query($sql);
 		$row = Database::fetch_array($rs);
 		$count = $row['count'];
+
 		return $count;
 	}
 
@@ -999,9 +1003,8 @@ class Attendance
 	 */
 	public function get_faults_of_user($user_id, $attendance_id, $groupId = null)
 	{
-		// initializing database table and variables
-		$user_id 		= intval($user_id);
-		$attendance_id 	= intval($attendance_id);
+        $user_id = intval($user_id);
+        $attendance_id = intval($attendance_id);
 		$results = array();
 		$calendar_count = self::get_number_of_attendance_calendar($attendance_id, $groupId, NULL, $user_id);
 		// $total_done_attendance 	= $attendance_data['attendance_qualify_max'];
@@ -1197,6 +1200,7 @@ class Attendance
 				}
 			}
 		}
+
 		return $data;
 	}
 
@@ -1224,6 +1228,7 @@ class Attendance
 			$row = Database::fetch_array($rs);
 			$next_calendar_id = $row['id'];
 		}
+
 		return $next_calendar_id;
 	}
 
@@ -1565,6 +1570,7 @@ class Attendance
 	{
 		//use gradebook lock
 		$result = api_resource_is_locked_by_gradebook($attendance_id, LINK_ATTENDANCE);
+
 		return $result;
 	}
 
@@ -1628,7 +1634,6 @@ class Attendance
         $table = Database::get_course_table(TABLE_ATTENDANCE_CALENDAR_REL_GROUP);
 
         foreach ($groupList as $groupId) {
-
             if (empty($groupId)) {
                 continue;
             }
@@ -1964,14 +1969,15 @@ class Attendance
 	 */
 	public function getAttendanceLogin($startDate, $endDate)
 	{
-		if (empty($startDate) || $startDate == '0000-00-00' ||
-			empty($endDate) || $endDate == '0000-00-00'
+        if (
+            empty($startDate) || $startDate == '0000-00-00' || $startDate == '0000-00-00 00:00:00' ||
+            empty($endDate) || $endDate == '0000-00-00' || $endDate == '0000-00-00 00:00:00'
 		) {
 			return false;
 		}
 
 		$sessionId = api_get_session_id();
-		$courseCode  = api_get_course_id();
+        $courseCode = api_get_course_id();
 		if (!empty($sessionId)) {
 			$users = CourseManager:: get_user_list_from_course_code(
 				$courseCode,
