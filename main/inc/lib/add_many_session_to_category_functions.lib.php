@@ -7,7 +7,8 @@ use ChamiloSession as Session;
  * Definition of the AddManySessionToCategoryFunctions class
  * @package chamilo.library
  */
-require_once ('xajax/xajax.inc.php');
+require_once 'xajax/xajax.inc.php';
+
 /**
  * AddManySessionToCategoryFunctions class
  */

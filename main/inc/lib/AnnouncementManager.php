@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Entity\CAnnouncement;
+use Chamilo\CourseBundle\Entity\CItemProperty;
+
 /**
  * Include file with functions for the announcements module.
  * @author jmontoya
@@ -14,7 +17,6 @@ class AnnouncementManager
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -30,7 +32,7 @@ class AnnouncementManager
             '((teacher_email))',
             '((course_title))',
             '((course_link))',
-            '((official_code))',
+            '((official_code))'
         );
     }
 
@@ -60,16 +62,16 @@ class AnnouncementManager
         }
 
         $courseLink = api_get_course_url($course_code, $session_id);
-
-        $data['user_name'] = $readerInfo['username'];
-        $data['user_firstname'] = $readerInfo['firstname'];
-        $data['user_lastname'] = $readerInfo['lastname'];
+        if (!empty($readerInfo)) {
+            $data['user_name'] = $readerInfo['username'];
+            $data['user_firstname'] = $readerInfo['firstname'];
+            $data['user_lastname'] = $readerInfo['lastname'];
+            $data['official_code'] = $readerInfo['official_code'];
+        }
         $data['teacher_name'] = $teacher_name;
         $data['teacher_email'] = $teacher_email;
         $data['course_title'] = $courseInfo['name'];
         $data['course_link'] = Display::url($courseLink, $courseLink);
-        $data['official_code'] = $readerInfo['official_code'];
-
         $content = str_replace(self::get_tags(), $data, $content);
 
         return $content;
@@ -152,11 +154,17 @@ class AnnouncementManager
     /**
      * Deletes an announcement
      * @param array $_course the course array
-     * @param int 	$id the announcement id
+     * @param int $id the announcement id
      */
     public static function delete_announcement($_course, $id)
     {
-        api_item_property_update($_course, TOOL_ANNOUNCEMENT, $id, 'delete', api_get_user_id());
+        api_item_property_update(
+            $_course,
+            TOOL_ANNOUNCEMENT,
+            $id,
+            'delete',
+            api_get_user_id()
+        );
     }
 
     /**
@@ -180,6 +188,77 @@ class AnnouncementManager
     }
 
     /**
+     * @param int $announcementId
+     * @param int $courseId
+     * @param int $userId
+     *
+     * @return array
+     */
+    public static function getAnnouncementInfoById($announcementId, $courseId, $userId)
+    {
+        if (api_is_allowed_to_edit(false, true) ||
+            (api_get_course_setting('allow_user_edit_announcement') && !api_is_anonymous())
+        ) {
+            $dql = "SELECT CA, IP
+                    FROM ChamiloCourseBundle:CAnnouncement CA, ChamiloCourseBundle:CItemProperty IP
+                    WHERE
+                        CA.id = IP.ref AND
+                        CA.id = :announcement AND
+                        IP.tool = 'announcement' AND
+                        CA.cId = IP.course AND
+                        CA.cId = :course
+                    ORDER BY CA.displayOrder DESC";
+        } else {
+            $group_list = GroupManager::get_group_ids($courseId, api_get_user_id());
+
+            if (empty($group_list)) {
+                $group_list[] = 0;
+            }
+
+            if (api_get_user_id() != 0) {
+                $dql = "SELECT CA, IP
+                    FROM ChamiloCourseBundle:CAnnouncement CA, ChamiloCourseBundle:CItemProperty IP
+                        WHERE
+                        CA.id = IP.ref AND
+                        CA.id = :announcement AND
+                        IP.tool='announcement' AND
+                            (
+                            IP.toUser = $userId OR
+                            IP.group IN ('0', '" . implode("', '", $group_list) . "') OR
+                            IP.group IS NULL
+                            ) AND
+                        IP.visibility = '1' AND
+                        CA.cId = IP.course AND
+                        IP.course = :course
+                    ORDER BY CA.displayOrder DESC";
+            } else {
+                $dql = "SELECT CA, IP
+                        FROM ChamiloCourseBundle:CAnnouncement CA, ChamiloCourseBundle:CItemProperty IP
+                        WHERE
+                            CA.id = IP.ref AND
+                            CA.id = :announcement AND
+                            IP.tool = 'announcement' AND
+                            (IP.group = '0' OR IP.group IS NULL) AND
+                            IP.visibility = '1' AND
+                            CA.cId = IP.course AND
+                            IP.course = :course";
+            }
+        }
+
+        $result = Database::getManager()
+            ->createQuery($dql)
+            ->execute([
+                'announcement' => $announcementId,
+                'course' => $courseId
+            ]);
+
+        return [
+            'announcement' => $result[0],
+            'item_property' => $result[1]
+        ];
+    }
+
+    /**
      * Displays one specific announcement
      * @param int $announcement_id, the id of the announcement you want to display
      */
@@ -190,66 +269,25 @@ class AnnouncementManager
         }
 
         global $charset;
-        $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
-        $tbl_item_property = Database::get_course_table(TABLE_ITEM_PROPERTY);
 
-        $course_id = api_get_course_int_id();
+        $html = '';
+        $result = self::getAnnouncementInfoById(
+            $announcement_id,
+            api_get_course_int_id(),
+            api_get_user_id()
+        );
+        /** @var CAnnouncement $announcement */
+        $announcement = $result['announcement'];
+        /** @var CItemProperty $itemProperty */
+        $itemProperty = $result['item_property'];
 
-        if (api_is_allowed_to_edit(false, true) || (api_get_course_setting(
-                    'announcement.allow_user_edit_announcement'
-                ) && !api_is_anonymous())
-        ) {
-            $sql = "SELECT announcement.*, toolitemproperties.*
-                    FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-                    WHERE
-                        announcement.id = toolitemproperties.ref AND
-                        announcement.id = '$announcement_id' AND
-                        toolitemproperties.tool='announcement' AND
-                        announcement.c_id = $course_id AND
-                        toolitemproperties.c_id = $course_id
-                    ORDER BY display_order DESC";
-        } else {
-            $group_list = GroupManager::get_group_ids($course_id, api_get_user_id());
-            if (empty($group_list)) {
-                $group_list[] = 0;
-            }
-            if (api_get_user_id() != 0) {
-                $sql = "SELECT announcement.*, toolitemproperties.*
-                        FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-                        WHERE
-                            announcement.id = toolitemproperties.ref AND
-                            announcement.id = '$announcement_id' AND
-                            toolitemproperties.tool='announcement' AND
-                            (
-                                toolitemproperties.to_user_id='" . api_get_user_id() . "' OR
-                                toolitemproperties.to_group_id IN ('0', '" . implode("', '", $group_list) . "') OR
-                                toolitemproperties.to_group_id IS NULL
-                            ) AND
-                            toolitemproperties.visibility='1' AND
-                            announcement.c_id = $course_id AND
-                            toolitemproperties.c_id = $course_id
-                        ORDER BY display_order DESC";
-            } else {
-                $sql = "SELECT announcement.*, toolitemproperties.*
-                        FROM $tbl_announcement announcement, $tbl_item_property toolitemproperties
-                        WHERE
-                            announcement.id = toolitemproperties.ref AND
-                            announcement.id = '$announcement_id' AND
-                            toolitemproperties.tool='announcement' AND
-                            (toolitemproperties.to_group_id='0' OR toolitemproperties.to_group_id IS NULL) AND
-                            toolitemproperties.visibility='1' AND
-                            announcement.c_id = $course_id AND
-                            toolitemproperties.c_id = $course_id
-                        ";
-            }
+        if (empty($announcement) || empty($itemProperty)) {
+            return '';
         }
 
-        $sql_result = Database::query($sql);
-        $html = null;
-        if (Database::num_rows($sql_result) > 0) {
-            $result = Database::fetch_array($sql_result, 'ASSOC');
-            $title = $result['title'];
-            $content = $result['content'];
+        $title = $announcement->getTitle();
+        $content = $announcement->getContent();
+
             $html .= "<table height=\"100\" width=\"100%\" cellpadding=\"5\" cellspacing=\"0\" class=\"data_table\">";
             $html .= "<tr><td><h2>" . $title . "</h2></td></tr>";
 
@@ -260,7 +298,7 @@ class AnnouncementManager
             ) {
                 $modify_icons = "<a href=\"" . api_get_self() . "?" . api_get_cidreq() . "&action=modify&id=" . $announcement_id . "\">" .
                     Display::return_icon('edit.png', get_lang('Edit'), '', ICON_SIZE_SMALL) . "</a>";
-                if ($result['visibility'] == 1) {
+                if ($itemProperty->getVisibility() === 1) {
                     $image_visibility = "visible";
                     $alt_visibility = get_lang('Hide');
                 } else {
@@ -269,7 +307,7 @@ class AnnouncementManager
                 }
                 global $stok;
 
-                $modify_icons .= "<a href=\"" . api_get_self() . "?" . api_get_cidreq() . "&origin=" . (!empty($_GET['origin']) ? Security::remove_XSS($_GET['origin']) : '') . "&action=showhide&id=" . $announcement_id . "&sec_token=" . $stok . "\">" .
+            $modify_icons .= "<a href=\"" . api_get_self() . "?" . api_get_cidreq() . "&action=showhide&id=" . $announcement_id . "&sec_token=" . $stok . "\">" .
                     Display::return_icon($image_visibility . '.png', $alt_visibility, '', ICON_SIZE_SMALL) . "</a>";
 
                 if (api_is_allowed_to_edit(false, true)) {
@@ -280,22 +318,34 @@ class AnnouncementManager
                 $html .= "<tr><th style='text-align:right'>$modify_icons</th></tr>";
             }
 
-            $content = self::parse_content($result['to_user_id'], $content, api_get_course_id(), api_get_session_id());
+        $toUser = $itemProperty->getToUser();
+        $toUserId = !empty($toUser) ? $toUser->getId() : 0;
+
+        $content = self::parse_content(
+            $toUserId,
+            $content,
+            api_get_course_id(),
+            api_get_session_id()
+        );
+
+        $lastEdit = $itemProperty->getLasteditDate();
 
             $html .= "<tr><td>$content</td></tr>";
-            $html .= "<tr><td class=\"announcements_datum\">" . get_lang('LastUpdateDate') . " : " . api_convert_and_format_date($result['insert_date'], DATE_TIME_FORMAT_LONG) . "</td></tr>";
+        $html .= "<tr><td class=\"announcements_datum\">" . get_lang('LastUpdateDate') . " : " .
+            Display::dateToStringAgoAndLongDate(
+                !empty($lastEdit) ? $lastEdit->format('Y-m-d h:i:s') : ''
+            ) . "</td></tr>";
 
-            // User or group icon
-            $sent_to_icon = '';
-            if ($result['to_group_id'] !== '0' and $result['to_group_id'] !== 'NULL') {
+        if ($itemProperty->getGroup() !== null) {
                 $sent_to_icon = Display::return_icon('group.gif', get_lang('AnnounceSentToUserSelection'));
             }
+
             if (api_is_allowed_to_edit(false, true)) {
                 $sent_to = self::sent_to('announcement', $announcement_id);
                 $sent_to_form = self::sent_to_form($sent_to);
                 $html .= Display::tag(
                     'td',
-                    get_lang('SentTo') . ' : ' . $sent_to_form,
+                get_lang('SentTo').': ' . $sent_to_form,
                     array('class' => 'announcements_datum')
                 );
             }
@@ -323,9 +373,6 @@ class AnnouncementManager
             return $html;
         }
 
-        return null;
-    }
-
     /**
      * @return int
      */
@@ -349,13 +396,13 @@ class AnnouncementManager
 
     /**
      * Store an announcement in the database (including its attached file if any)
-     * @param string    Announcement title (pure text)
-     * @param string    Content of the announcement (can be HTML)
-     * @param int       Display order in the list of announcements
-     * @param array     Array of users and groups to send the announcement to
-     * @param array	    uploaded file $_FILES
-     * @param string    Comment describing the attachment
-     * @param bool  $sendToUsersInSession
+     * @param string $emailTitle   Announcement title (pure text)
+     * @param string $newContent   Content of the announcement (can be HTML)
+     * @param array  $sentTo      Array of users and groups to send the announcement to
+     * @param array   $file     uploaded file $_FILES
+     * @param string  $file_comment  Comment describing the attachment
+     * @param string $end_date
+     * @param bool $sendToUsersInSession
      * @return int      false on failure, ID of the announcement on success
      */
     public static function add_announcement(
@@ -413,15 +460,18 @@ class AnnouncementManager
                     $_course,
                     TOOL_ANNOUNCEMENT,
                     $last_id,
-                    "AnnouncementAdded",
+                    'AnnouncementAdded',
                     api_get_user_id(),
                     '0'
                 );
             } else {
                 $send_to = CourseManager::separateUsersGroups($sentTo);
 
+                $batchSize = 20;
+                $em = Database::getManager();
                 // Storing the selected groups
                 if (is_array($send_to['groups']) && !empty($send_to['groups'])) {
+                    $counter = 1;
                     foreach ($send_to['groups'] as $group) {
                         api_item_property_update(
                             $_course,
@@ -431,11 +481,18 @@ class AnnouncementManager
                             api_get_user_id(),
                             $group
                         );
+
+                        if (($counter % $batchSize) === 0) {
+                             $em->flush();
+                             $em->clear();
+                        }
+                        $counter++;
                     }
                 }
 
                 // Storing the selected users
                 if (is_array($send_to['users'])) {
+                    $counter = 1;
                     foreach ($send_to['users'] as $user) {
                         api_item_property_update(
                             $_course,
@@ -446,6 +503,12 @@ class AnnouncementManager
                             '',
                             $user
                         );
+
+                        if (($counter % $batchSize) === 0) {
+                             $em->flush();
+                             $em->clear();
+                        }
+                        $counter++;
                     }
                 }
             }
@@ -494,7 +557,7 @@ class AnnouncementManager
             'title' => $emailTitle,
             'end_date' => $now,
             'display_order' => $order,
-            'session_id' => api_get_session_id(),
+            'session_id' => api_get_session_id()
         ];
 
         $last_id = Database::insert($tbl_announcement, $params);
@@ -531,19 +594,24 @@ class AnnouncementManager
                     }
                 }
             } else {
-                // the message is sent to everyone, so we set the group to 0
+                $send_to_groups = CourseManager::separateUsersGroups($to);
+                $send_to_users = CourseManager::separateUsersGroups($to_users);
+                $to_groups = $send_to_groups['groups'];
+                $to_users = $send_to_users['users'];
                 // storing the selected users
-                if (is_array($to_users)) {
+                if (is_array($to_users) && is_array($to_groups)) {
+                    foreach ($to_groups as $group) {
                     foreach ($to_users as $user) {
                         api_item_property_update(
                             $_course,
                             TOOL_ANNOUNCEMENT,
                             $last_id,
-                            "AnnouncementAdded",
+                            'AnnouncementAdded',
                             api_get_user_id(),
-                            '',
+                            $group,
                             $user
                         );
+                        }
                     }
                 }
             }
@@ -619,10 +687,8 @@ class AnnouncementManager
         }
 
         // store in item_property (first the groups, then the users
-
         if (!is_null($to)) {
             // !is_null($to): when no user is selected we send it to everyone
-
             $send_to = CourseManager::separateUsersGroups($to);
 
             // storing the selected groups
@@ -778,206 +844,6 @@ class AnnouncementManager
     }
 
     /**
-     * This function shows the form for sending a message to a specific group or user.
-     * @param $to_already_selected
-     */
-    public static function show_to_form($to_already_selected)
-    {
-        $userList = self::get_course_users();
-        $groupList = self::get_course_groups();
-
-        if ($to_already_selected == '' || $to_already_selected == 'everyone') {
-            $to_already_selected = array();
-        }
-
-        echo "<table id=\"recipient_list\" >";
-        echo '<tr>';
-        echo '<td>';
-        echo '<label><input type="checkbox" id="send_to_all_users">'.get_lang('SendToAllUsers') . "</label>";
-        echo "</td>";
-        echo '</tr>';
-        echo '<tr>';
-
-
-        // the form containing all the groups and all the users of the course
-        echo '<td>';
-        echo "<strong>" . get_lang('Users') . "</strong><br />";
-
-        self::construct_not_selected_select_form($groupList, $userList, $to_already_selected);
-        echo "</td>";
-
-        // the buttons for adding or removing groups/users
-        echo '<td valign="middle">';
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[1], this.form.elements[4])" onClick="javascript: move(this.form.elements[1], this.form.elements[4])"><em class="fa fa-arrow-right"></em></button>';
-        echo '<br /> <br />';
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[4], this.form.elements[1])" onClick="javascript: move(this.form.elements[4], this.form.elements[1])"><em class="fa fa-arrow-left"></em></button>';
-        echo "</td>";
-
-        echo "<td>";
-
-        // the form containing the selected groups and users
-        echo "<strong>" . get_lang('DestinationUsers') . "</strong><br />";
-        self::construct_selected_select_form($groupList, $userList, $to_already_selected);
-        echo "</td>";
-        echo "</tr>";
-        echo "</table>";
-    }
-
-    /**
-     * this function shows the form for sending a message to a specific group or user.
-     */
-    public static function show_to_form_group($group_id)
-    {
-        echo "<table id=\"recipient_list\" >";
-        echo "<tr>";
-        echo "<td>";
-        echo "<select id=\"not_selected_form\" name=\"not_selected_form[]\" size=5 style=\"width:200px\" multiple>";
-        $group_users = GroupManager::getStudentsAndTutors($group_id);
-        foreach ($group_users as $user) {
-            echo '<option value="' . $user['user_id'] . '" title="' . sprintf(get_lang('LoginX'), $user['username']) . '" >' .
-                api_get_person_name($user['firstname'], $user['lastname']) .
-                '</option>';
-        }
-        echo '</select>';
-        echo "</td>";
-
-        // the buttons for adding or removing groups/users
-        echo "<td valign=\"middle\">";
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[1], this.form.elements[4])" onClick="javascript: move(this.form.elements[1], this.form.elements[4])"><em class="fa fa-arrow-right"></em></button>';
-        echo '<br /> <br />';
-        echo '<button class="btn btn-default" type="button" onClick="javascript: move(this.form.elements[4], this.form.elements[1])" onClick="javascript: move(this.form.elements[4], this.form.elements[1])"><em class="fa fa-arrow-left"></em></button>';
-        echo "</td>";
-        echo "<td>";
-
-        echo "<select id=\"selectedform\" name=\"selectedform[]\" size=5 style=\"width:200px\" multiple>";
-        echo '</select>';
-
-        echo "</td>";
-        echo "</tr>";
-        echo "</table>";
-    }
-
-    /**
-     * Shows the form for sending a message to a specific group or user.
-     * @param array $groupList
-     * @param array $userList
-     * @param array $to_already_selected
-     */
-    public static function construct_not_selected_select_form(
-        $groupList = array(),
-        $userList = array(),
-        $to_already_selected = array()
-    ) {
-        echo '<select id="not_selected_form" name="not_selected_form[]" size="7" class="form-control" multiple>';
-        // adding the groups to the select form
-        if (!empty($groupList)) {
-            foreach ($groupList as $this_group) {
-                if (is_array($to_already_selected)) {
-                    if (!in_array("GROUP:" . $this_group['id'], $to_already_selected)) {
-                        // $to_already_selected is the array containing the groups (and users) that are already selected
-                        $user_label = ($this_group['userNb'] > 0) ? get_lang('Users') : get_lang('LowerCaseUser') ;
-                        $user_disabled = ($this_group['userNb'] > 0) ? "" : "disabled=disabled" ;
-                        echo "<option $user_disabled value=\"GROUP:" . $this_group['id'] . "\">",
-                        "G: ", $this_group['name'], " - " . $this_group['userNb'] . " " . $user_label .
-                            "</option>";
-                    }
-                }
-            }
-            // a divider
-            echo "<option value=\"\">---------------------------------------------------------</option>";
-        }
-
-        // adding the individual users to the select form
-
-        if (!empty($userList)) {
-            foreach ($userList as $user) {
-                if (is_array($to_already_selected)) {
-                    if (!in_array("USER:" . $user['user_id'], $to_already_selected)) {
-                        // $to_already_selected is the array containing the users (and groups) that are already selected
-                        echo "<option value=\"USER:" . $user['user_id'] . "\" title='" . sprintf(get_lang('LoginX'), $user['username']) . "'>",
-                        "", api_get_person_name($user['firstname'], $user['lastname']),
-                        "</option>";
-
-                        if (isset($user['drh_list']) && !empty($user['drh_list'])) {
-                            foreach ($user['drh_list'] as $drh) {
-                                echo "<option value=\"USER:" . $drh['user_id'] . "\" title='" . sprintf(get_lang('LoginX'), $drh['username']) . "'>&nbsp;&nbsp;&nbsp;&nbsp;",
-                                "", api_get_person_name($drh['firstname'], $drh['lastname']),
-                                "</option>";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        echo "</select>";
-    }
-
-    /**
-     * this function shows the form for sending a message to a specific group or user.
-     */
-    /**
-     * @param null $groupList
-     * @param null $userList
-     * @param $to_already_selected
-     */
-    public static function construct_selected_select_form($groupList = null, $userList = null, $to_already_selected = array())
-    {
-        // we load all the groups and all the users into a reference array that we use to search the name of the group / user
-        $ref_array_groups = self::get_course_groups();
-        $ref_array_users = self::get_course_users();
-
-        // we construct the form of the already selected groups / users
-        echo '<select id="selectedform" name="selectedform[]" size="7" multiple class="form-control">';
-        if (is_array($to_already_selected)) {
-            foreach ($to_already_selected as $groupuser) {
-                list($type, $id) = explode(":", $groupuser);
-                if ($type == "GROUP") {
-                    echo "<option value=\"" . $groupuser . "\">G: " . $ref_array_groups[$id]['name'] . "</option>";
-                } else {
-                    foreach ($ref_array_users as $key => $value) {
-                        if ($value['user_id'] == $id) {
-                            echo "<option value=\"" . $groupuser . "\" title='" . sprintf(get_lang('LoginX'), $value['username']) . "'>" .
-                                api_get_person_name($value['firstname'], $value['lastname']) . "</option>";
-
-                            if (isset($value['drh_list']) && !empty($value['drh_list'])) {
-                                foreach ($value['drh_list'] as $drh) {
-                                    echo "<option value=\"USER:" . $drh['user_id'] . "\" title='" . sprintf(get_lang('LoginX'), $drh['username']) . "'>&nbsp;&nbsp;&nbsp;&nbsp;",
-                                    "", api_get_person_name($drh['firstname'], $drh['lastname']),
-                                    "</option>";
-                                }
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            if ($to_already_selected == 'everyone') {
-                // adding the groups to the select form
-                if (is_array($ref_array_groups)) {
-                    foreach ($ref_array_groups as $this_group) {
-                        //api_display_normal_message("group " . $thisGroup[id] . $thisGroup[name]);
-                        if (!is_array($to_already_selected) || !in_array("GROUP:" . $this_group['id'], $to_already_selected)) { // $to_already_selected is the array containing the groups (and users) that are already selected
-                            echo "<option value=\"GROUP:" . $this_group['id'] . "\">",
-                            "G: ", $this_group['name'], " &ndash; " . $this_group['userNb'] . " " . get_lang('Users') .
-                                "</option>";
-                        }
-                    }
-                }
-                // adding the individual users to the select form
-                foreach ($ref_array_users as $this_user) {
-                    if (!is_array($to_already_selected) || !in_array("USER:" . $this_user['user_id'], $to_already_selected)) { // $to_already_selected is the array containing the users (and groups) that are already selected
-                        echo "<option value=\"USER:", $this_user['user_id'], "\"  title='" . sprintf(get_lang('LoginX'), $this_user['username']) . "'>",
-                        "", api_get_person_name($this_user['firstname'], $this_user['lastname']),
-                        "</option>";
-                    }
-                }
-            }
-        }
-        echo "</select>";
-    }
-
-    /**
      * Returns announcement info from its id
      *
      * @param int $course_id
@@ -1094,23 +960,6 @@ class AnnouncementManager
     }
 
     /**
-     * returns the javascript for setting a filter
-     * this goes into the $htmlHeadXtra[] array
-     */
-    public static function user_group_filter_javascript()
-    {
-        return "<script language=\"JavaScript\" type=\"text/JavaScript\">
-		<!--
-		function jumpMenu(targ,selObj,restore)
-		{
-		  eval(targ+\".location='\"+selObj.options[selObj.selectedIndex].value+\"'\");
-		  if (restore) selObj.selectedIndex=0;
-		}
-		//-->
-		</script>";
-    }
-
-    /**
      * constructs the form to display all the groups and users the message has been sent to
      * input: 	$sent_to_array is a 2 dimensional array containing the groups and the users
      * 			the first level is a distinction between groups and users:
@@ -1140,7 +989,6 @@ class AnnouncementManager
         // starting the form if there is more than one user/group
         $output = array();
         if ($total_numbers > 1) {
-            //$output.="<option>".get_lang("SentTo")."</option>";
             // outputting the name of the groups
             if (is_array($sent_to_array['groups'])) {
                 foreach ($sent_to_array['groups'] as $group_id) {
@@ -1184,8 +1032,6 @@ class AnnouncementManager
         }
     }
 
-
-
     /**
      * Returns all the users and all the groups a specific announcement item
      * has been sent to
@@ -1198,7 +1044,7 @@ class AnnouncementManager
         $tbl_item_property = Database::get_course_table(TABLE_ITEM_PROPERTY);
 
         $tool = Database::escape_string($tool);
-        $id = intval($id);
+        $id = (int) $id;
 
         $sent_to_group = array();
         $sent_to = array();
@@ -1210,14 +1056,16 @@ class AnnouncementManager
         $result = Database::query($sql);
 
         while ($row = Database::fetch_array($result)) {
+            // if to_user_id <> 0 then it is sent to a specific user
+            if ($row['to_user_id'] <> 0) {
+                $sent_to_user[] = $row['to_user_id'];
+                continue;
+            }
+
             // if to_group_id is null then it is sent to a specific user
             // if to_group_id = 0 then it is sent to everybody
             if ($row['to_group_id'] != 0) {
                 $sent_to_group[] = $row['to_group_id'];
-            }
-            // if to_user_id <> 0 then it is sent to a specific user
-            if ($row['to_user_id'] <> 0) {
-                $sent_to_user[] = $row['to_user_id'];
             }
         }
 
@@ -1234,19 +1082,19 @@ class AnnouncementManager
 
     /**
      * Show a list with all the attachments according to the post's id
-     * @param int announcement id
+     * @param int $announcementId
      * @return array with the post info
      * @author Arthur Portugal
      * @version November 2009, dokeos 1.8.6.2
      */
-    public static function get_attachment($announcement_id)
+    public static function get_attachment($announcementId)
     {
         $tbl_announcement_attachment = Database::get_course_table(TABLE_ANNOUNCEMENT_ATTACHMENT);
-        $announcement_id = intval($announcement_id);
+        $announcementId = intval($announcementId);
         $course_id = api_get_course_int_id();
         $row = array();
         $sql = 'SELECT id, path, filename, comment FROM ' . $tbl_announcement_attachment . '
-				WHERE c_id = ' . $course_id . ' AND announcement_id = ' . $announcement_id . '';
+				WHERE c_id = ' . $course_id . ' AND announcement_id = ' . $announcementId;
         $result = Database::query($sql);
         if (Database::num_rows($result) != 0) {
             $row = Database::fetch_array($result, 'ASSOC');
@@ -1286,7 +1134,9 @@ class AnnouncementManager
             } else {
                 $new_file_name = uniqid('');
                 $new_path = $updir . '/' . $new_file_name;
-                move_uploaded_file($file['tmp_name'], $new_path);
+
+                // This file is copy here but its cleaned in api_mail_html in api.lib.php
+                copy($file['tmp_name'], $new_path);
 
                 $params = [
                     'c_id' => $course_id,
@@ -1341,7 +1191,7 @@ class AnnouncementManager
             } else {
                 $new_file_name = uniqid('');
                 $new_path = $updir . '/' . $new_file_name;
-                @move_uploaded_file($file['tmp_name'], $new_path);
+                copy($file['tmp_name'], $new_path);
                 $safe_file_comment = Database::escape_string($file_comment);
                 $safe_file_name = Database::escape_string($file_name);
                 $safe_new_file_name = Database::escape_string($new_file_name);
@@ -1381,8 +1231,11 @@ class AnnouncementManager
      * @param bool $sendToUsersInSession
      * @param bool $sendToDrhUsers
      */
-    public static function send_email($id, $sendToUsersInSession = false, $sendToDrhUsers = false)
-    {
+    public static function send_email(
+        $id,
+        $sendToUsersInSession = false,
+        $sendToDrhUsers = false
+    ) {
         $email = AnnouncementEmail::create(null, $id);
         $email->send($sendToUsersInSession, $sendToDrhUsers);
     }
@@ -1397,7 +1250,9 @@ class AnnouncementManager
      * @param string $sord
      * @param string $titleToSearch
      * @param int $userIdToSearch
-     *
+     * @param int $userId
+     * @param int $courseId
+     * @param int $sessionId
      * @return array
      */
     public static function getAnnouncements(
@@ -1409,22 +1264,23 @@ class AnnouncementManager
         $sidx = '',
         $sord = '',
         $titleToSearch = '',
-        $userIdToSearch = 0
+        $userIdToSearch = 0,
+        $userId = 0,
+        $courseId = 0,
+        $sessionId = 0
     ) {
         $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
         $tbl_item_property = Database::get_course_table(TABLE_ITEM_PROPERTY);
 
-        $user_id = api_get_user_id();
+        $user_id = $userId ?: api_get_user_id();
         $group_id = api_get_group_id();
-        $session_id = api_get_session_id();
+        $session_id = $sessionId ?: api_get_session_id();
         $condition_session = api_get_session_condition($session_id, true, true, 'announcement.session_id');
-        $course_id = api_get_course_int_id();
+        $course_id = $courseId ?: api_get_course_int_id();
         $_course = api_get_course_info();
 
         $group_memberships = GroupManager::get_group_ids($course_id, api_get_user_id());
-        $allowUserEditSetting = api_get_course_setting(
-            'announcement.allow_user_edit_announcement'
-        );
+        $allowUserEditSetting = api_get_course_setting('announcement.allow_user_edit_announcement');
 
         $select = ' DISTINCT announcement.*, ip.visibility, ip.to_group_id, ip.insert_user_id, ip.insert_date';
         if ($getCount) {
@@ -1450,7 +1306,7 @@ class AnnouncementManager
 
             //if (!empty($user_id)) {
             if (0) {
-                if (is_array($group_memberships) && count($group_memberships) > 0 ) {
+                if (is_array($group_memberships) && count($group_memberships) > 0) {
                     $sql = "SELECT $select
                             FROM $tbl_announcement announcement, $tbl_item_property ip
                             WHERE
@@ -1497,7 +1353,6 @@ class AnnouncementManager
                         ORDER BY display_order DESC";
                 //GROUP BY ip.ref
             } else {
-
                 // A.3 you are a course admin without any group or user filter
                 // A.3.a you are a course admin without user or group filter but WITH studentview
                 // => see all the messages of all the users and groups without editing possibilities
@@ -1523,7 +1378,7 @@ class AnnouncementManager
                             ON (announcement.id = ip.ref AND ip.tool='announcement')
                             WHERE
                                 announcement.c_id = $course_id AND
-                                ip.c_id = $course_id AND
+                                ip.c_id = $course_id  AND
                                 (ip.visibility='0' or ip.visibility='1')
                                 $condition_session
                                 $searchCondition
@@ -1533,7 +1388,7 @@ class AnnouncementManager
             }
         } else {
             // STUDENT
-            if (is_array($group_memberships) && count($group_memberships)>0) {
+            if (is_array($group_memberships) && count($group_memberships) > 0) {
                 if ($allowUserEditSetting && !api_is_anonymous()) {
                     if ($group_id == 0) {
                         // No group
@@ -1597,7 +1452,6 @@ class AnnouncementManager
     						AND ip.visibility='1'
     						AND announcement.session_id IN(0, ".$session_id.")
 						ORDER BY display_order DESC";
-
                 } else {
                     if (($allowUserEditSetting && !api_is_anonymous())) {
                         $cond_user_id = " AND (
@@ -1639,8 +1493,6 @@ class AnnouncementManager
 
         $iterator = 1;
         $bottomAnnouncement = $announcement_number;
-        $origin = null;
-
         $displayed = [];
         $results = [];
         $actionUrl = api_get_path(WEB_CODE_PATH).'announcements/announcements.php?'.api_get_cidreq();
@@ -1651,8 +1503,8 @@ class AnnouncementManager
                 if ($myrow['email_sent'] == '1') {
                     $sent_to_icon = ' '.Display::return_icon('email.gif', get_lang('AnnounceSentByEmail'));
                 }
-
-                $title = $myrow['title'].$sent_to_icon;
+                $groupReference = ($myrow['to_group_id'] > 0) ? ' <span class="label label-info">' . get_lang('Group') . '</span> ' : '' ;
+                $title = $myrow['title'] . $groupReference . $sent_to_icon;
                 $item_visibility = api_get_item_visibility($_course, TOOL_ANNOUNCEMENT, $myrow['id'], $session_id);
                 $myrow['visibility'] = $item_visibility;
 
@@ -1688,7 +1540,7 @@ class AnnouncementManager
                         $image_visibility="invisible";
                         $alt_visibility=get_lang('Visible');
                     }
-                    $modify_icons .=  "<a href=\"".$actionUrl."&origin=".$origin."&action=showhide&id=".$myrow['id']."&sec_token=".$stok."\">".
+                    $modify_icons .=  "<a href=\"".$actionUrl."&action=showhide&id=".$myrow['id']."&sec_token=".$stok."\">".
                         Display::return_icon($image_visibility.'.png', $alt_visibility,'',ICON_SIZE_SMALL)."</a>";
 
                     // DISPLAY MOVE UP COMMAND only if it is not the top announcement
@@ -1739,7 +1591,7 @@ class AnnouncementManager
     public static function getNumberAnnouncements()
     {
         // Maximum title messages to display
-        $maximum 	= '12';
+        $maximum = '12';
         // Database Table Definitions
         $tbl_announcement = Database::get_course_table(TABLE_ANNOUNCEMENT);
         $tbl_item_property = Database::get_course_table(TABLE_ITEM_PROPERTY);
@@ -1755,7 +1607,7 @@ class AnnouncementManager
             if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {
 
                 if (api_get_group_id() == 0) {
-                    $group_condition = "";
+                    $group_condition = '';
                 } else {
                     $group_condition = " AND (ip.to_group_id='".api_get_group_id()."' OR ip.to_group_id = 0 OR ip.to_group_id IS NULL)";
                 }
@@ -1771,17 +1623,14 @@ class AnnouncementManager
                     $condition_session
 				GROUP BY ip.ref
 				ORDER BY display_order DESC
-				LIMIT 0,$maximum";
+				LIMIT 0, $maximum";
             }
         } else {
             // students only get to see the visible announcements
             if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {
                 $group_memberships = GroupManager::get_group_ids($_course['real_id'], $userId);
 
-                if ((api_get_course_setting(
-                        'announcement.allow_user_edit_announcement'
-                    ) && !api_is_anonymous())
-                ) {
+                if ((api_get_course_setting('announcement.allow_user_edit_announcement') && !api_is_anonymous())) {
 
                     if (api_get_group_id() == 0) {
                         $cond_user_id = " AND (
@@ -1815,7 +1664,8 @@ class AnnouncementManager
                     }
                 }
 
-                // the user is member of several groups => display personal announcements AND his group announcements AND the general announcements
+                // the user is member of several groups => display personal announcements AND
+                // his group announcements AND the general announcements
                 if (is_array($group_memberships) && count($group_memberships)>0) {
                     $sql = "SELECT announcement.*, ip.visibility, ip.to_group_id, ip.insert_user_id
                     FROM $tbl_announcement announcement, $tbl_item_property ip
@@ -1834,10 +1684,7 @@ class AnnouncementManager
                     // the user is not member of any group
                     // this is an identified user => show the general announcements AND his personal announcements
                     if ($userId) {
-                        if ((api_get_course_setting(
-                                'announcement.allow_user_edit_announcement'
-                            ) && !api_is_anonymous())
-                        ) {
+                        if ((api_get_course_setting('announcement.allow_user_edit_announcement') && !api_is_anonymous())) {
                             $cond_user_id = " AND (
                                 ip.lastedit_user_id = '".$userId."' OR
                                 ( ip.to_user_id='".$userId."' OR ip.to_group_id='0' OR ip.to_group_id IS NULL)
@@ -1860,9 +1707,7 @@ class AnnouncementManager
                             LIMIT 0, $maximum";
                     } else {
 
-                        if (api_get_course_setting(
-                            'announcement.allow_user_edit_announcement'
-                        )) {
+                        if (api_get_course_setting('announcement.allow_user_edit_announcement')) {
                             $cond_user_id = " AND (
                                 ip.lastedit_user_id = '".api_get_user_id()."' OR ip.to_group_id='0' OR ip.to_group_id IS NULL
                             ) ";
@@ -1871,7 +1716,7 @@ class AnnouncementManager
                         }
 
                         // the user is not identiefied => show only the general announcements
-                        $sql="SELECT announcement.*, ip.visibility, ip.to_group_id, ip.insert_user_id
+                        $sql = "SELECT announcement.*, ip.visibility, ip.to_group_id, ip.insert_user_id
                                 FROM $tbl_announcement announcement, $tbl_item_property ip
                                 WHERE
                                     announcement.c_id = $course_id AND

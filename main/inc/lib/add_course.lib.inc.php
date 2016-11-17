@@ -22,8 +22,14 @@ class AddCourse
      * @todo Eliminate the global variables.
      * @assert (null) === false
      */
-    public static function define_course_keys($wanted_code, $prefix_for_all = '', $prefix_for_base_name = '', $prefix_for_path = '', $add_unique_prefix = false, $use_code_indepedent_keys = true)
-    {
+    public static function define_course_keys(
+        $wanted_code,
+        $prefix_for_all = '',
+        $prefix_for_base_name = '',
+        $prefix_for_path = '',
+        $add_unique_prefix = false,
+        $use_code_indepedent_keys = true
+    ) {
         $course_table = Database :: get_main_table(TABLE_MAIN_COURSE);
         $wanted_code = CourseManager::generate_course_code($wanted_code);
         $keys_course_code = $wanted_code;
@@ -44,14 +50,14 @@ class AddCourse
         $try_new_fsc_id = $try_new_fsc_db = $try_new_fsc_dir = 0;
 
         while (!$keys_are_unique) {
-
             $keys_course_id = $prefix_for_all . $unique_prefix . $wanted_code . $final_suffix['CourseId'];
-            //$keys_course_db_name = $prefix_for_base_name . $unique_prefix . strtoupper($keys_course_id) . $final_suffix['CourseDb'];
             $keys_course_repository = $prefix_for_path . $unique_prefix . $wanted_code . $final_suffix['CourseDir'];
             $keys_are_unique = true;
 
             // Check whether they are unique.
-            $query = "SELECT 1 FROM ".$course_table." WHERE code='".$keys_course_id."' LIMIT 0,1";
+            $query = "SELECT 1 FROM $course_table 
+                      WHERE code='".$keys_course_id."' 
+                      LIMIT 0, 1";
             $result = Database::query($query);
 
             if (Database::num_rows($result)) {
@@ -193,20 +199,19 @@ class AddCourse
 
     /**
      * Gets an array with all the course tables (deprecated?)
-     * @return array
+     * @return string[]
      * @assert (null) !== null
      */
     public static function get_course_tables()
     {
         $tables = array();
-
+        $tables[] = 'item_property';
         $tables[] = 'tool';
         $tables[] = 'tool_intro';
         $tables[] = 'group_info';
         $tables[] = 'group_category';
         $tables[] = 'group_rel_user';
         $tables[] = 'group_rel_tutor';
-        $tables[] = 'item_property';
         $tables[] = 'userinfo_content';
         $tables[] = 'userinfo_def';
         $tables[] = 'course_description';
@@ -314,6 +319,8 @@ class AddCourse
      * @param string Complete path to directory we want to list
      * @param array A list of files to which we want to add the files found
      * @param string Type of base directory from which we want to recover the files
+     * @param string $path
+     * @param string $media
      * @return array
      * @assert (null,null,null) === false
      * @assert ('abc',array(),'') === array()
@@ -375,6 +382,7 @@ class AddCourse
      * Sorts pictures by type (used?)
      * @param array List of files (sthg like array(0=>array('png'=>1)))
      * @param string File type
+     * @param string $type
      * @return array The received array without files not matching type
      * @assert (array(),null) === array()
      */
@@ -390,26 +398,12 @@ class AddCourse
     }
 
     /**
-     * Function to convert a string from the language files to a string ready
-     * to insert into the database (escapes single quotes)
-     * @author Bart Mollet (bart.mollet@hogent.be)
-     * @param string $string The string to convert
-     * @return string The string converted to insert into the database
-     * @assert ('a\'b') === 'ab'
-     */
-    public static function lang2db($string)
-    {
-        $string = str_replace("\\'", "'", $string);
-        $string = Database::escape_string($string);
-        return $string;
-    }
-
-    /**
      * Fills the course database with some required content and example content.
      * @param int Course (int) ID
      * @param string Course directory name (e.g. 'ABC')
      * @param string Language used for content (e.g. 'spanish')
      * @param bool Whether to fill the course with example content
+     * @param int $authorId
      * @return bool False on error, true otherwise
      * @version 1.2
      * @assert (null, '', '', null) === false
@@ -420,7 +414,8 @@ class AddCourse
         $course_id,
         $course_repository,
         $language,
-        $fill_with_exemplary_content = null
+        $fill_with_exemplary_content = null,
+        $authorId = 0
     ) {
         if (is_null($fill_with_exemplary_content)) {
             $fill_with_exemplary_content = api_get_setting('course.example_material_course_creation') != 'false';
@@ -629,7 +624,7 @@ class AddCourse
                 $default_document_array[$folder] = $sorted_array;
             }
 
-            //Light protection (adding index.html in every document folder)
+            // Light protection (adding index.html in every document folder)
             $htmlpage = "<!DOCTYPE html>\n<html lang=\"en\">\n <head>\n <meta charset=\"utf-8\">\n <title>Not authorized</title>\n  </head>\n  <body>\n  </body>\n</html>";
 
             $example_cert_id = 0;
@@ -854,10 +849,9 @@ class AddCourse
             $manager = Database::getManager();
 
             /* Introduction text */
-
             $intro_text = '<p style="text-align: center;">
                             <img src="' . api_get_path(REL_CODE_PATH) . 'img/mascot.png" alt="Mr. Chamilo" title="Mr. Chamilo" />
-                            <h2>' . self::lang2db(get_lang('IntroductionText')) . '</h2>
+                            <h2>' . get_lang('IntroductionText') . '</h2>
                          </p>';
 
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
@@ -1018,8 +1012,6 @@ class AddCourse
         //Installing plugins in course
         $app_plugin = new AppPlugin();
         $app_plugin->install_course_plugins($course_id);
-
-        $language_interface = $language_interface_original;
         return true;
     }
 
@@ -1027,18 +1019,20 @@ class AddCourse
      * @param int $course_id
      * @param int $counter
      * @param array $file
+     * @param int $authorId
      */
-    public static function insertDocument($course_id, $counter, $file)
+    public static function insertDocument($course_id, $counter, $file, $authorId = 0)
     {
         $tableItem = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $tableDocument = Database::get_course_table(TABLE_DOCUMENT);
 
         $now = api_get_utc_datetime();
-
-        $sql = "INSERT INTO $tableDocument (id, c_id, path,title,filetype,size)
-                VALUES ($counter, $course_id, '".$file['path']."', '".$file['title']."', '".$file['filetype']."', '".$file['size']."')";
+        $sql = "INSERT INTO $tableDocument (id, c_id, path,title,filetype,size, readonly, session_id)
+                VALUES ($counter, $course_id, '".$file['path']."', '".$file['title']."', '".$file['filetype']."', '".$file['size']."', 0, 0)";
         Database::query($sql);
         $docId = Database:: insert_id();
+
+        $authorId = empty($authorId) ? api_get_user_id() : (int) $authorId;
 
         if ($docId) {
             $sql = "UPDATE $tableDocument SET id = iid WHERE iid = $docId";
@@ -1050,17 +1044,18 @@ class AddCourse
                     'id' => $counter,
                     'c_id' => $course_id,
                     'tool' => 'document',
-                    'insert_user_id' => api_get_user_id(),
+                    'insert_user_id' => $authorId,
                     'insert_date' => $now,
                     'lastedit_date' => $now,
                     'ref' => $docId,
                     'lastedit_type' => 'DocumentAdded',
-                    'lastedit_user_id' => api_get_user_id(),
+                    'lastedit_user_id' => $authorId,
                     'to_group_id' => null,
                     'to_user_id' =>  null,
                     'visibility' => 0
                 ]
             );
+
             if ($id) {
                 $sql = "UPDATE $tableItem SET id = iid WHERE iid = $id";
                 Database::query($sql);
@@ -1071,7 +1066,7 @@ class AddCourse
     /**
      * string2binary converts the string "true" or "false" to the boolean true false (0 or 1)
      * This is used for the Chamilo Config Settings as these store true or false as string
-     * and the api_get_setting('course.course_create_active_tools') should be 0 or 1 (used for
+     * and the api_get_setting('course_create_active_tools') should be 0 or 1 (used for
      * the visibility of the tool)
      * @param string $variable
      * @author Patrick Cool, patrick.cool@ugent.be
@@ -1104,8 +1099,6 @@ class AddCourse
         $visual_code = $params['visual_code'];
         $directory = $params['directory'];
         $tutor_name = isset($params['tutor_name']) ? $params['tutor_name'] : null;
-        //$description        = $params['description'];
-
         $category_code = isset($params['course_category']) ? $params['course_category'] : '';
         $course_language = isset($params['course_language']) && !empty($params['course_language']) ? $params['course_language'] : api_get_setting(
             'language.platform_language'
@@ -1139,6 +1132,7 @@ class AddCourse
         $teachers = isset($params['teachers']) ? $params['teachers'] : null;
         $status = isset($params['status']) ? $params['status'] : null;
 
+        $TABLECOURSE = Database:: get_main_table(TABLE_MAIN_COURSE);
         $TABLECOURSUSER = Database:: get_main_table(TABLE_MAIN_COURSE_USER);
 
         $ok_to_register_course = true;
@@ -1164,12 +1158,10 @@ class AddCourse
 
         if (empty($expiration_date)) {
             $expiration_date = api_get_utc_datetime(
-                time() + FIRST_EXPIRATION_DELAY,
-                false,
-                true
+                time() + $firstExpirationDelay
             );
         } else {
-            $expiration_date = api_get_utc_datetime($expiration_date, false, true);
+            $expiration_date = api_get_utc_datetime($expiration_date);
         }
 
         if ($visibility < 0 || $visibility > 4) {
@@ -1181,6 +1173,8 @@ class AddCourse
             $disk_quota = api_get_setting('document.default_document_quotum');
         }
 
+        $time = api_get_utc_datetime();
+
         if (stripos($department_url, 'http://') === false && stripos(
                 $department_url,
                 'https://'
@@ -1188,7 +1182,6 @@ class AddCourse
         ) {
             $department_url = 'http://' . $department_url;
         }
-
         //just in case
         if ($department_url == 'http://') {
             $department_url = '';
@@ -1238,7 +1231,6 @@ class AddCourse
                         $user_id,
                         $code
                     );
-
                     if (!empty($user_id)) {
                         $sql = "INSERT INTO " . $TABLECOURSUSER . " SET
                                 c_id     = '" . $course_id . "',
@@ -1256,7 +1248,6 @@ class AddCourse
                     if (!is_array($teachers)) {
                         $teachers = array($teachers);
                     }
-
                     foreach ($teachers as $key) {
                         //just in case
                         if ($key == $user_id) {
@@ -1290,7 +1281,6 @@ class AddCourse
 
                 // Add event to the system log.
                 $user_id = api_get_user_id();
-
                 Event::addEvent(
                     LOG_COURSE_CREATE,
                     LOG_COURSE_CODE,

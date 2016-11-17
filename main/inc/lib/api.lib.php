@@ -1,19 +1,22 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-/**
- * This is a code library for Chamilo.
- * It is included by default in every Chamilo file (through including the global.inc.php)
- *
- * @package chamilo.library
- */
-
 use ChamiloSession as Session;
+use Chamilo\CourseBundle\Entity\CItemProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Chamilo\UserBundle\Entity\User;
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Framework\Container;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+/**
+ * This is a code library for Chamilo.
+ * It is included by default in every Chamilo file (through including the global.inc.php)
+ * This library is in process of being transferred to src/Chamilo/CoreBundle/Component/Utils/ChamiloApi.
+ * Whenever a function is transferred to the ChamiloApi class, the places where it is used should include
+ * the "use Chamilo\CoreBundle\Component\Utils\ChamiloApi;" statement.
+ * @package chamilo.library
+ */
 
 /**
  * Constants declaration
@@ -39,8 +42,7 @@ define('ANONYMOUS', 6);
 /** global status of a user: low security, necessary for inserting data from
  * the teacher through HTMLPurifier */
 define('COURSEMANAGERLOWSECURITY', 10);
-
-//Soft user status
+// Soft user status
 define('PLATFORM_ADMIN', 11);
 define('SESSION_COURSE_COACH', 12);
 define('SESSION_GENERAL_COACH', 13);
@@ -127,7 +129,6 @@ define('TOOL_USER', 'user');
 define('TOOL_GROUP', 'group');
 define('TOOL_BLOGS', 'blog_management');
 define('TOOL_CHAT', 'chat');
-define('TOOL_CONFERENCE', 'conference');
 define('TOOL_STUDENTPUBLICATION', 'student_publication');
 define('TOOL_TRACKING', 'tracking');
 define('TOOL_HOMEPAGE_LINK', 'homepage_link');
@@ -139,9 +140,6 @@ define('TOOL_COURSE_HOMEPAGE', 'course_homepage');
 define('TOOL_COURSE_RIGHTS_OVERVIEW', 'course_rights');
 define('TOOL_UPLOAD', 'file_upload');
 define('TOOL_COURSE_MAINTENANCE', 'course_maintenance');
-define('TOOL_VISIO', 'visio');
-define('TOOL_VISIO_CONFERENCE', 'visio_conference');
-define('TOOL_VISIO_CLASSROOM', 'visio_classroom');
 define('TOOL_SURVEY', 'survey');
 define('TOOL_WIKI', 'wiki');
 define('TOOL_GLOSSARY', 'glossary');
@@ -153,6 +151,7 @@ define('TOOL_COURSE_PROGRESS', 'course_progress');
 // CONSTANTS defining Chamilo interface sections
 define('SECTION_CAMPUS', 'mycampus');
 define('SECTION_COURSES', 'mycourses');
+define('SECTION_CATALOG', 'catalog');
 define('SECTION_MYPROFILE', 'myprofile');
 define('SECTION_MYAGENDA', 'myagenda');
 define('SECTION_COURSE_ADMIN', 'course_admin');
@@ -255,6 +254,10 @@ define('LOG_EXERCISE_AND_USER_ID', 'exercise_and_user_id');
 define('LOG_LP_ID', 'lp_id');
 define('LOG_EXERCISE_ATTEMPT_QUESTION_ID', 'exercise_a_q_id');
 
+define('LOG_WORK_DIR_DELETE', 'work_dir_delete');
+define('LOG_WORK_FILE_DELETE', 'work_file_delete');
+define('LOG_WORK_DATA', 'work_data_array');
+
 define('LOG_MY_FOLDER_PATH', 'path');
 define('LOG_MY_FOLDER_NEW_PATH', 'new_path');
 
@@ -288,7 +291,6 @@ define('REL_HOME_PATH', 'REL_HOME_PATH');
 define('WEB_PATH', 'WEB_PATH');
 define('WEB_APP_PATH', 'WEB_APP_PATH');
 define('SYS_PATH', 'SYS_PATH');
-//define('SYS_LOG_PATH', 'SYS_LOG_PATH');
 define('SYS_APP_PATH', 'SYS_APP_PATH');
 define('SYS_UPLOAD_PATH', 'SYS_UPLOAD_PATH');
 define('WEB_UPLOAD_PATH', 'WEB_UPLOAD_PATH');
@@ -358,7 +360,6 @@ define('USER_RELATION_TYPE_BOSS', 8);
 
 // Gradebook link constants
 // Please do not change existing values, they are used in the database !
-
 define('GRADEBOOK_ITEM_LIMIT', 1000);
 
 define('LINK_EXERCISE', 1);
@@ -436,12 +437,10 @@ define('GROUP_IMAGE_SIZE_ORIGINAL', 1);
 define('GROUP_IMAGE_SIZE_BIG', 2);
 define('GROUP_IMAGE_SIZE_MEDIUM', 3);
 define('GROUP_IMAGE_SIZE_SMALL', 4);
-
 define('GROUP_TITLE_LENGTH', 50);
 
 // Exercise
 // @todo move into a class
-
 define('ALL_ON_ONE_PAGE', 1);
 define('ONE_PER_PAGE', 2);
 
@@ -453,6 +452,7 @@ define('RESULT_DISABLE_SHOW_SCORE_AND_EXPECTED_ANSWERS', 0); //show score and ex
 define('RESULT_DISABLE_NO_SCORE_AND_EXPECTED_ANSWERS', 1); //Do not show score nor answers
 define('RESULT_DISABLE_SHOW_SCORE_ONLY', 2); //Show score only
 define('RESULT_DISABLE_SHOW_FINAL_SCORE_ONLY_WITH_CATEGORIES', 3); //Show final score only with categories
+define('RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT', 4); //Show final score only with categories
 
 define('EXERCISE_MAX_NAME_SIZE', 80);
 
@@ -568,8 +568,8 @@ define('TIMELINE_STATUS_ACTIVE', '1');
 define('TIMELINE_STATUS_INACTIVE', '2');
 
 // Event email template class
-define ('EVENT_EMAIL_TEMPLATE_ACTIVE',  1);
-define ('EVENT_EMAIL_TEMPLATE_INACTIVE', 0);
+define('EVENT_EMAIL_TEMPLATE_ACTIVE',  1);
+define('EVENT_EMAIL_TEMPLATE_INACTIVE', 0);
 
 // Course home
 define('SHORTCUTS_HORIZONTAL', 0);
@@ -578,7 +578,51 @@ define('SHORTCUTS_VERTICAL', 1);
 // Image class
 define('IMAGE_PROCESSOR', 'gd'); // 'imagick' or 'gd' strings
 
-/*	Constants */
+// Course copy
+define('FILE_SKIP', 1);
+define('FILE_RENAME', 2);
+define('FILE_OVERWRITE', 3);
+define('UTF8_CONVERT', false); //false by default
+
+define('DOCUMENT','file');
+define('FOLDER','folder');
+
+define('RESOURCE_DOCUMENT', 'document');
+define('RESOURCE_GLOSSARY', 'glossary');
+define('RESOURCE_EVENT', 'calendar_event');
+define('RESOURCE_LINK', 'link');
+define('RESOURCE_COURSEDESCRIPTION', 'course_description');
+define('RESOURCE_LEARNPATH', 'learnpath');
+define('RESOURCE_ANNOUNCEMENT', 'announcement');
+define('RESOURCE_FORUM', 'forum');
+define('RESOURCE_FORUMTOPIC', 'thread');
+define('RESOURCE_FORUMPOST', 'post');
+define('RESOURCE_QUIZ', 'quiz');
+define('RESOURCE_TEST_CATEGORY', 'test_category');
+define('RESOURCE_QUIZQUESTION', 'Exercise_Question');
+define('RESOURCE_TOOL_INTRO', 'Tool introduction');
+define('RESOURCE_LINKCATEGORY', 'Link_Category');
+define('RESOURCE_FORUMCATEGORY', 'Forum_Category');
+define('RESOURCE_SCORM', 'Scorm');
+define('RESOURCE_SURVEY', 'survey');
+define('RESOURCE_SURVEYQUESTION', 'survey_question');
+define('RESOURCE_SURVEYINVITATION', 'survey_invitation');
+define('RESOURCE_WIKI', 'wiki');
+define('RESOURCE_THEMATIC', 'thematic');
+define('RESOURCE_ATTENDANCE', 'attendance');
+define('RESOURCE_WORK', 'work');
+define('RESOURCE_SESSION_COURSE', 'session_course');
+define('RESOURCE_GRADEBOOK', 'gradebook');
+define('ADD_THEMATIC_PLAN', 6);
+
+// Max online users to show per page (whoisonline)
+define('MAX_ONLINE_USERS', 12);
+
+// Make sure the CHAMILO_LOAD_WYSIWYG constant is defined
+// To remove CKeditor libs from HTML, set this constant to true before loading
+if (!defined('CHAMILO_LOAD_WYSIWYG')) {
+    define('CHAMILO_LOAD_WYSIWYG', true);
+}
 
 define('TOOL_PUBLIC', 'Public');
 define('TOOL_PUBLIC_BUT_HIDDEN', 'PublicButHide');
@@ -628,9 +672,9 @@ require_once __DIR__.'/internationalization.lib.php';
  * Also, this function provides conversion between path types, in this case the input path points inside the Chamilo area too.
  *
  * See $_configuration['course_folder'] in the configuration.php to alter the WEB_COURSE_PATH and SYS_COURSE_PATH parameters.
- * @param string $path              The requested path type (a defined constant), see the examples.
- * @param array $configuration
 
+ * @param string $path (optional)   A path which type is to be converted. Also, it may be a defined constant for a path.
+ * This parameter has meaning when $type parameter has one of the following values: TO_WEB, TO_SYS, TO_REL. Otherwise it is ignored.
  * @return string                   The requested path or the converted path.
  *
  *
@@ -649,42 +693,6 @@ require_once __DIR__.'/internationalization.lib.php';
  *
  * Vchamilo changes : allow using an alternate configuration
  * to get vchamilo  instance paths
- * api_get_path(REL_PATH)                       /chamilo/
- * api_get_path(REL_COURSE_PATH)                /chamilo/courses/
- * api_get_path(REL_CODE_PATH)                  /chamilo/main/
- * api_get_path(REL_UPLOAD_PATH)                /chamilo/app/upload/
- * api_get_path(SYS_SERVER_ROOT_PATH)           /var/www/ - This is the physical folder where the system Chamilo has been placed. It is not always equal to $_SERVER['DOCUMENT_ROOT'].
- * api_get_path(SYS_PATH)                       /var/www/chamilo/
- * api_get_path(SYS_APP_PATH)                   /var/www/chamilo/app/
- * api_get_path(SYS_UPLOAD_PATH)                /var/www/chamilo/app/upload/
- * api_get_path(SYS_ARCHIVE_PATH)               /var/www/chamilo/app/cache
- * api_get_path(SYS_COURSE_PATH)                /var/www/chamilo/app/courses/
- * api_get_path(SYS_CSS_PATH)                   /var/www/chamilo/app/Resources/public/css
- * api_get_path(SYS_CODE_PATH)                  /var/www/chamilo/main/
- * api_get_path(SYS_INC_PATH)                   /var/www/chamilo/main/inc/
- * api_get_path(LIBRARY_PATH)                   /var/www/chamilo/main/inc/lib/
- * api_get_path(CONFIGURATION_PATH)             /var/www/chamilo/main/inc/conf/
- * api_get_path(SYS_LANG_PATH)                  /var/www/chamilo/main/lang/
- * api_get_path(SYS_PLUGIN_PATH)                /var/www/chamilo/plugin/
- * api_get_path(SYS_TEST_PATH)                  /var/www/chamilo/tests/
- * api_get_path(SYS_TEMPLATE_PATH)              /var/www/chamilo/main/template/
- * api_get_path(SYS_PUBLIC_PATH)                /var/www/chamilo/web/
- *
- * api_get_path(WEB_SERVER_ROOT_PATH)           http://www.mychamilo.org/
- * api_get_path(WEB_PATH)                       http://www.mychamilo.org/chamilo/
- * api_get_path(WEB_COURSE_PATH)                http://www.mychamilo.org/chamilo/courses/
- * api_get_path(WEB_CODE_PATH)                  http://www.mychamilo.org/chamilo/main/
- * api_get_path(WEB_PLUGIN_PATH)                http://www.mychamilo.org/chamilo/plugin/
- * api_get_path(WEB_ARCHIVE_PATH)               http://www.mychamilo.org/chamilo/app/cache/
- * api_get_path(WEB_IMG_PATH)                   http://www.mychamilo.org/chamilo/web/bundles/chamilocore/img/
- * api_get_path(SYS_IMG_PATH)                   /var/www/chamilo/web/bundles/chamilocore/img/
- * api_get_path(WEB_CSS_PATH)                   http://www.mychamilo.org/chamilo/web/css/
- * api_get_path(WEB_LIBRARY_PATH)               http://www.mychamilo.org/chamilo/main/inc/lib/
- * api_get_path(WEB_LIBRARY_JS_PATH)            http://www.mychamilo.org/chamilo/web/bundles/chamilocore/js
- * api_get_path(WEB_TEMPLATE_PATH)              http://www.mychamilo.org/chamilo/main/template/
- * api_get_path(WEB_UPLOAD_PATH)                http://www.mychamilo.org/chamilo/app/upload/
- * api_get_path(WEB_PUBLIC_PATH)                http://www.mychamilo.org/chamilo/web/
- * ...
  */
 function api_get_path($path)
 {
@@ -983,27 +991,14 @@ function api_valid_url($url, $absolute = false) {
 
 /**
  * Checks whether a given string looks roughly like an email address.
- * Tries to use PHP built-in validator in the filter extension (from PHP 5.2), falls back to a reasonably competent regex validator.
- * Conforms approximately to RFC2822
- * @link http://www.hexillion.com/samples/#Regex Original pattern found here
- * This function is an adaptation from the method PHPMailer::ValidateAddress(), PHPMailer module.
- * @link http://phpmailer.worxware.com
+ *
  * @param string $address   The e-mail address to be checked.
  * @return mixed            Returns the e-mail if it is valid, FALSE otherwise.
  */
 function api_valid_email($address)
 {
     return filter_var($address, FILTER_VALIDATE_EMAIL);
-    /*
-    // disable for now because the results are incoherent - YW 20110926
-
-    if (function_exists('filter_var')) { // Introduced in PHP 5.2.
-        return filter_var($address, FILTER_VALIDATE_EMAIL);
-    } else {
-        return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address) ? $address : false;
-    }*/
 }
-
 
 /* PROTECTION FUNCTIONS
    Use these functions to protect your scripts. */
@@ -1041,6 +1036,7 @@ function api_protect_course_script($print_headers = false, $allow_session_admins
     if (api_is_platform_admin($allow_session_admins)) {
         return true;
     }
+
     if (isset($course_info) && isset($course_info['visibility'])) {
         switch ($course_info['visibility']) {
             default:
@@ -1083,7 +1079,7 @@ function api_protect_course_script($print_headers = false, $allow_session_admins
         }
     }
 
-    //Check session visibility
+    // Check session visibility
     $session_id = api_get_session_id();
 
     if (!empty($session_id)) {
@@ -1195,7 +1191,6 @@ function api_get_navigator() {
         $version = number_format(doubleval($version), 1);
     }
     $return = array('name' => $navigator, 'version' => $version);
-
     return $return;
 }
 
@@ -1275,7 +1270,6 @@ function _api_format_user($user, $add_password = false)
 
     $firstname = null;
     $lastname = null;
-
     if (isset($user['firstname']) && isset($user['lastname'])) {
         $firstname = $user['firstname'];
         $lastname = $user['lastname'];
@@ -1301,6 +1295,7 @@ function _api_format_user($user, $add_password = false)
 
     $attributes = array(
         'phone',
+        'address',
         'picture_uri',
         'official_code',
         'status',
@@ -1315,6 +1310,12 @@ function _api_format_user($user, $add_password = false)
         'expiration_date',
         'last_login'
     );
+    if (api_get_setting('extended_profile') === 'true') {
+        $attributes[] = 'competences';
+        $attributes[] = 'diplomas';
+        $attributes[] = 'teach';
+        $attributes[] = 'openarea';
+    }
 
     foreach ($attributes as $attribute) {
         $result[$attribute] = isset($user[$attribute]) ? $user[$attribute] : null;
@@ -1333,13 +1334,15 @@ function _api_format_user($user, $add_password = false)
     $result['last_login'] = $user['last_login'];
 
     // Getting user avatar.
-    $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, $result);
-    $smallFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_SMALL, $result);
+    $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, null, $result);
+    $smallFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_SMALL, null, $result);
+    $mediumFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_MEDIUM, null, $result);
 
     $result['avatar'] = $originalFile;
     $avatarString = explode('?', $originalFile);
     $result['avatar_no_query'] = reset($avatarString);
     $result['avatar_small'] = $smallFile;
+    $result['avatar_medium'] = $mediumFile;
 
     if (isset($user['user_is_online'])) {
         $result['user_is_online'] = $user['user_is_online'] == true ? 1 : 0;
@@ -1350,6 +1353,10 @@ function _api_format_user($user, $add_password = false)
 
     if ($add_password) {
         $result['password'] = $user['password'];
+    }
+
+    if (isset($result['profile_completed'])) {
+        $result['profile_completed'] = $user['profile_completed'];
     }
 
     $result['profile_url'] = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$user_id;
@@ -1535,7 +1542,6 @@ function api_get_course_int_id($code = null)
             return false;
         }
     }
-
     return Session::read('_real_cid', 0);
 }
 
@@ -1557,6 +1563,7 @@ function api_get_course_path($course_code = null)
  * Gets a course setting from the current course_setting table. Try always using integer values.
  * @param string    The name of the setting we want from the table
  * @param string    Optional: course code
+ * @param string $setting_name
  * @return mixed    The value of that setting in that table. Return -1 if not found.
  */
 function api_get_course_setting($setting_name, $course_code = null)
@@ -1600,19 +1607,39 @@ function api_get_anonymous_id()
 }
 
 /**
- * Returns the cidreq parameter name + current course id taken from
- * $GLOBALS['_cid'] and returns a string like 'cidReq=ABC&id_session=123
+ * @param string $courseCode
+ * @param int $sessionId
+ * @param int $groupId
+ * @return string
+ */
+function api_get_cidreq_params($courseCode, $sessionId = 0, $groupId = 0)
+{
+    $courseCode = !empty($courseCode) ? htmlspecialchars($courseCode) : '';
+    $sessionId = !empty($sessionId) ? (int) $sessionId : 0;
+    $groupId = !empty($groupId) ? (int) $groupId : 0;
+
+    $url = 'cidReq='.$courseCode;
+    $url .= '&id_session='.$sessionId;
+    $url .= '&gidReq='.$groupId;
+
+    return $url;
+}
+
+/**
+ * Returns the current course url part including session, group, and gradebook params
  *
  * @param bool $addSessionId
  * @param bool $addGroupId
+ * @param string $origin
+ *
  * @return  string  Course & session references to add to a URL
  *
  */
-function api_get_cidreq($addSessionId = true, $addGroupId = true)
+function api_get_cidreq($addSessionId = true, $addGroupId = true, $origin = '')
 {
     $courseCode = api_get_course_id();
     $url = empty($courseCode) ? '' : 'cidReq='.htmlspecialchars($courseCode);
-    $origin = api_get_origin();
+    $origin = empty($origin) ? api_get_origin() : Security::remove_XSS($origin);
 
     if ($addSessionId) {
         if (!empty($url)) {
@@ -1626,25 +1653,33 @@ function api_get_cidreq($addSessionId = true, $addGroupId = true)
         }
     }
 
-    $url .= '&gradebook='.intval(api_is_in_gradebook());
-    $url .= '&origin='.$origin;
+    if (!empty($url)) {
+        $url .= '&gradebook='.intval(api_is_in_gradebook());
+        $url .= '&origin='.$origin;
+    }
 
     return $url;
 }
 
 /**
- * @return bool
+ * get gradebook in session
  */
 function api_is_in_gradebook()
 {
     return Session::read('in_gradebook', false);
 }
 
+/**
+ * set gradebook session
+ */
 function api_set_in_gradebook()
 {
     Session::write('in_gradebook', true);
 }
 
+/**
+ * remove gradebook session
+ */
 function api_remove_in_gradebook()
 {
     Session::erase('in_gradebook');
@@ -1682,7 +1717,6 @@ function api_get_course_info($course_code = null, $strict = false)
                 WHERE course.id = $courseId";
         $result = Database::query($sql);
         $courseInfo = array();
-
         if (Database::num_rows($result) > 0) {
             $data = Database::fetch_array($result);
 
@@ -1803,7 +1837,7 @@ function api_format_course_array($course_data)
     if (file_exists(api_get_path(SYS_COURSE_PATH).$course_data['directory'].'/course-pic85x85.png')) {
         $url_image = api_get_path(WEB_COURSE_PATH).$course_data['directory'].'/course-pic85x85.png';
     } else {
-        $url_image = Display::return_icon('course.png', null, null, ICON_SIZE_BIG, null, true);
+        $url_image = Display::return_icon('course.png', null, null, ICON_SIZE_BIG, null, true, false);
     }
     $_course['course_image'] = $url_image;
 
@@ -1869,8 +1903,11 @@ function api_add_url_param($url, $param, $filter_xss = true) {
  * @param int $length, the length of the password
  * @return string the generated password
  */
-function api_generate_password($length = 8) {
+function api_generate_password($length = 8)
+{
     $characters = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    $numbers = '23456789';
+
     if ($length < 2) {
         $length = 2;
     }
@@ -1878,13 +1915,19 @@ function api_generate_password($length = 8) {
     for ($i = 0; $i < $length; $i ++) {
         $password .= $characters[rand() % strlen($characters)];
     }
+
+    // At least 2 digits
+    for ($i = 0; $i < 2; $i ++) {
+        $password .= $numbers[rand() % strlen($numbers)];
+    }
+
     return $password;
 }
 
 /**
  * Checks a password to see wether it is OK to use.
  * @param string $password
- * @return true if the password is acceptable, false otherwise
+ * @return boolean if the password is acceptable, false otherwise
  * Notes about what a password "OK to use" is:
  * 1. The password should be at least 5 characters long.
  * 2. Only English letters (uppercase or lowercase, it doesn't matter) and digits are allowed.
@@ -1978,7 +2021,6 @@ function api_set_anonymous() {
     if (!empty($_user['user_id'])) {
         return false;
     }
-
     $user_id = api_get_anonymous_id();
     if ($user_id == 0) {
         return false;
@@ -2041,19 +2083,7 @@ function api_get_session_name($session_id = 0)
  */
 function api_get_session_info($session_id)
 {
-    $data = array();
-    if (!empty($session_id)) {
-        $session_id = intval($session_id);
-        $tbl_session = Database::get_main_table(TABLE_MAIN_SESSION);
-        $sql = "SELECT * FROM $tbl_session WHERE id = $session_id";
-        $result = Database::query($sql);
-
-        if (Database::num_rows($result)>0) {
-            $data = Database::fetch_array($result, 'ASSOC');
-        }
-    }
-
-    return $data;
+    return SessionManager::fetch($session_id);
 }
 
 /**
@@ -2097,7 +2127,6 @@ function api_get_session_visibility(
 
             // I don't care the session visibility.
             if (empty($row['access_start_date']) && empty($row['access_end_date'])) {
-
                 // Session duration per student.
                 if (isset($row['duration']) && !empty($row['duration'])) {
                     $duration = $row['duration'] * 24 * 60 * 60;
@@ -2140,7 +2169,6 @@ function api_get_session_visibility(
 
                 return SESSION_AVAILABLE;
             } else {
-
                 // If start date was set.
                 if (!empty($row['access_start_date'])) {
                     if ($now > api_strtotime($row['access_start_date'], 'UTC')) {
@@ -2153,7 +2181,7 @@ function api_get_session_visibility(
                 // If the end date was set.
                 if (!empty($row['access_end_date'])) {
                     // Only if date_start said that it was ok
-                    if ($visibility == SESSION_AVAILABLE) {
+                    if ($visibility === SESSION_AVAILABLE) {
                         if ($now < api_strtotime($row['access_end_date'], 'UTC')) {
                             // Date still available
                             $visibility = SESSION_AVAILABLE;
@@ -2167,9 +2195,9 @@ function api_get_session_visibility(
 
             /* If I'm a coach the visibility can change in my favor depending in
              the coach dates */
-            $is_coach = api_is_coach($session_id, $courseId);
+            $isCoach = api_is_coach($session_id, $courseId);
 
-            if ($is_coach) {
+            if ($isCoach) {
                 // Test end date.
                 if (!empty($row['coach_access_end_date'])) {
                     $endDateCoach = api_strtotime($row['coach_access_end_date'], 'UTC');
@@ -2195,7 +2223,6 @@ function api_get_session_visibility(
             $visibility = SESSION_INVISIBLE;
         }
     }
-
     return $visibility;
 }
 
@@ -2414,20 +2441,18 @@ function api_delete_settings_params($params) {
  * @return string   Escaped version of $_SERVER['PHP_SELF']
  */
 function api_get_self() {
-    //return htmlentities($_SERVER['PHP_SELF']);
-    return htmlentities(Container::getRequest()->server->get('PHP_SELF'));
-    //return htmlentities(Container::getRequest()->getUri());
+    return htmlentities($_SERVER['PHP_SELF']);
 }
 
 /**
  * Checks whether current user is a platform administrator
- * @param boolean Whether session admins should be considered admins or not
- * @param boolean Whether HR directors should be considered admins or not
+ * @param boolean $allowSessionAdmins Whether session admins should be considered admins or not
+ * @param boolean $allowDrh Whether HR directors should be considered admins or not
  * @return boolean True if the user has platform admin rights,
  * false otherwise.
  * @see usermanager::is_admin(user_id) for a user-id specific function
  */
-function api_is_platform_admin($allow_sessions_admins = false, $allow_drh = false)
+function api_is_platform_admin($allowSessionAdmins = false, $allowDrh = false)
 {
     $checker = Container::getAuthorizationChecker();
     if ($checker) {
@@ -2491,8 +2516,8 @@ function api_is_platform_admin_by_id($user_id = null, $url = null)
 
 /**
  * Returns the user's numeric status ID from the users table
- * @param int $user_id. If none provided, will use current user
- * @result int User's status (1 for teacher, 5 for student, etc)
+ * @param int $user_id If none provided, will use current user
+ * @return int User's status (1 for teacher, 5 for student, etc)
  */
 function api_get_user_status($user_id = null)
 {
@@ -2518,6 +2543,19 @@ function api_get_user_status($user_id = null)
  */
 function api_is_allowed_to_create_course()
 {
+    if (api_is_platform_admin()) {
+        return true;
+    }
+
+    // Teachers can only create courses
+    if (api_is_teacher()) {
+        if (api_get_setting('allow_users_to_create_courses') === 'true') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     return Session::read('is_allowedCreateCourse');
 }
 
@@ -2549,94 +2587,6 @@ function api_is_course_coach()
 function api_is_course_tutor()
 {
     return Session::read('is_courseTutor');
-}
-
-/**
- * @param int $user_id
- *
- * @return array
- */
-function api_get_user_platform_status($user_id = null) {
-    $status = array();
-    $user_id = intval($user_id);
-    if (empty($user_id)) {
-        $user_id = api_get_user_id();
-    }
-
-    if (empty($user_id)) {
-        return false;
-    }
-    $group_id   = api_get_group_id();
-    $course_id  = api_get_course_int_id();
-    $course_code= api_get_course_id();
-    $session_id = api_get_session_id();
-
-    //Group (in course)
-    if ($group_id && $course_id) {
-        $group_status = array();
-        $is_subscribed = GroupManager::is_subscribed($user_id, $group_id);
-        if ($is_subscribed) {
-            $group_status = array('id'=> $group_id , 'status' => 'student');
-            $is_tutor = GroupManager::is_tutor_of_group($user_id, $group_id);
-            if ($is_tutor) {
-                $group_status['status'] = 'tutor';
-            } else {
-                $group_status['status'] = 'student';
-            }
-        }
-        $status['group'] = $group_status;
-    }
-
-    //Session
-    if ($session_id && $course_id) {
-        $session_status = array('id' => $session_id, 'course_id' => $course_id);
-        $session_user_status = SessionManager::get_user_status_in_course_session(
-            $user_id,
-            $course_id,
-            $session_id
-        );
-
-        switch ($session_user_status) {
-            case 0:
-                $session_status['status'] = 'student';
-               break;
-            case 2:
-                $session_status['status'] = 'coach';
-            break;
-        }
-        $is_general_coach = SessionManager::user_is_general_coach($user_id, $session_id);
-        if ($is_general_coach) {
-            $session_status['status'] = 'general_coach';
-        }
-        $status['session'] = $session_status;
-
-    } elseif($course_id) {
-        //Course
-        $course_status = array();
-        if ($course_id) {
-            $user_course_status = CourseManager::get_user_in_course_status($user_id, $course_code);
-
-            if ($user_course_status) {
-                $course_status = array('id'=> $course_id);
-                switch($user_course_status) {
-                    case 1;
-                        $course_status['status'] = 'teacher';
-                    break;
-                    case 5;
-                        $course_status['status'] = 'student';
-                        //check if tutor
-                        $tutor_course_status = CourseManager::get_tutor_in_course_status($user_id, $course_code);
-                        if ($tutor_course_status) {
-                            $course_status['status'] = 'tutor';
-                        }
-                    break;
-                }
-            }
-        }
-        $status['course'] = $course_status;
-    }
-
-    return $status;
 }
 
 /**
@@ -2716,7 +2666,7 @@ function api_is_coach($session_id = 0, $courseId = null, $check_student_view = t
     if (!empty($session_id)) {
         $sql = "SELECT DISTINCT id, name, access_start_date, access_end_date
                 FROM $session_table
-                WHERE session.id_coach =  '".$userId."' AND id = '$session_id'
+                WHERE session.id_coach = $userId AND id = $session_id
                 ORDER BY access_start_date, access_end_date, name";
         $result = Database::query($sql);
         if (!empty($sessionIsCoach)) {
@@ -2757,8 +2707,8 @@ function api_is_student()
 {
     $user = api_get_user_info();
     return isset($user['status']) && $user['status'] == STUDENT;
-
 }
+
 /**
  * Checks whether the current user has the status 'teacher'
  * @return boolean True if current user is a human resources manager
@@ -2810,9 +2760,6 @@ function api_is_session_in_category($session_id, $category_name)
         return false;
     }
 }
-
-/* DISPLAY OPTIONS
-   student view, title, message boxes,... */
 
 /**
  * Displays the title of a tool.
@@ -2892,12 +2839,12 @@ function api_display_tool_view_option() {
     }
 
     // Uncomment to remove student view link from document view page
-    if (strpos($_SERVER['REQUEST_URI'], 'newscorm/lp_header.php') !== false) {
+    if (strpos($_SERVER['REQUEST_URI'], 'lp/lp_header.php') !== false) {
         if (empty($_GET['lp_id'])) {
             return '';
         }
         $sourceurl = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?'));
-        $sourceurl = str_replace('newscorm/lp_header.php', 'newscorm/lp_controller.php?'.api_get_cidreq().'&action=view&lp_id='.intval($_GET['lp_id']).'&isStudentView='.($_SESSION['studentview']=='studentview' ? 'false' : 'true'), $sourceurl);
+        $sourceurl = str_replace('lp/lp_header.php', 'lp/lp_controller.php?'.api_get_cidreq().'&action=view&lp_id='.intval($_GET['lp_id']).'&isStudentView='.($_SESSION['studentview']=='studentview' ? 'false' : 'true'), $sourceurl);
         //showinframes doesn't handle student view anyway...
         //return '';
         $is_framed = true;
@@ -2909,7 +2856,6 @@ function api_display_tool_view_option() {
             $sourceurl = api_get_self().'?'.api_get_cidreq();
         } else {
             $sourceurl = $_SERVER['REQUEST_URI'];
-            //$sourceurl = str_replace('&', '&amp;', $sourceurl);
         }
     }
     $studentView = Session::read('studentview');
@@ -2920,17 +2866,18 @@ function api_display_tool_view_option() {
             // We have to remove the isStudentView=true from the $sourceurl
             $sourceurl = str_replace('&isStudentView=true', '', $sourceurl);
             $sourceurl = str_replace('&isStudentView=false', '', $sourceurl);
-            $output_string .= '<a class="btn btn-success btn-xs" href="'.$sourceurl.'&isStudentView=false" target="_self">'.get_lang('SwitchToTeacherView').'</a>';
+            $output_string .= '<a class="btn btn-primary btn-sm" href="'.$sourceurl.'&isStudentView=false" target="_self">'.Display::returnFontAwesomeIcon('eye').' '.get_lang('SwitchToTeacherView').'</a>';
         } elseif ($studentView == 'teacherview') {
             // Switching to teacherview
             $sourceurl = str_replace('&isStudentView=true', '', $sourceurl);
             $sourceurl = str_replace('&isStudentView=false', '', $sourceurl);
-            $output_string .= '<a class="btn btn-primary btn-xs" href="'.$sourceurl.'&isStudentView=true" target="_self">'.get_lang('SwitchToStudentView').'</a>';
+            $output_string .= '<a class="btn btn-default btn-sm" href="'.$sourceurl.'&isStudentView=true" target="_self">'.Display::returnFontAwesomeIcon('eye').' '.get_lang('SwitchToStudentView').'</a>';
         }
     } else {
-        $output_string .= '<a class="btn btn-primary btn-xs" href="'.$sourceurl.'&isStudentView=true" target="_self">'.get_lang('SwitchToStudentView').'</a>';
+        $output_string .= '<a class="btn btn-default btn-sm" href="'.$sourceurl.'&isStudentView=true" target="_self">'.Display::returnFontAwesomeIcon('eye').' '.get_lang('SwitchToStudentView').'</a>';
     }
-    return $output_string;
+    $html = Display::tag('div', $output_string, array('class'=>'view-options'));
+    return $html;
 }
 
 // TODO: This is for the permission section.
@@ -2949,11 +2896,15 @@ function api_display_tool_view_option() {
  * @author Patrick Cool
  * @author Julio Montoya
  * @version 1.1, February 2004
- * @return boolean, true: the user has the rights to edit, false: he does not
+ * @return boolean true: the user has the rights to edit, false: he does not
  */
 
-function api_is_allowed_to_edit($tutor = false, $coach = false, $session_coach = false, $check_student_view = true)
-{
+function api_is_allowed_to_edit(
+    $tutor = false,
+    $coach = false,
+    $session_coach = false,
+    $check_student_view = true
+) {
     $my_session_id = api_get_session_id();
     $is_allowed_coach_to_edit = api_is_coach(null, null, $check_student_view);
     $session_visibility = api_get_session_visibility($my_session_id);
@@ -3027,11 +2978,81 @@ function api_is_allowed_to_edit($tutor = false, $coach = false, $session_coach =
 }
 
 /**
+ * Returns true if user is a course coach of at least one course in session
+ * @param int $sessionId
+ * @return bool
+ */
+function api_is_coach_of_course_in_session($sessionId)
+{
+    if (api_is_platform_admin()) {
+        return true;
+    }
+
+    $userId = api_get_user_id();
+    $courseList = UserManager::get_courses_list_by_session(
+        $userId,
+        $sessionId
+    );
+
+    // Session visibility.
+    $visibility = api_get_session_visibility(
+        $sessionId,
+        null,
+        false
+    );
+
+    if ($visibility != SESSION_VISIBLE && !empty($courseList)) {
+        // Course Coach session visibility.
+        $blockedCourseCount = 0;
+        $closedVisibilityList = array(
+            COURSE_VISIBILITY_CLOSED,
+            COURSE_VISIBILITY_HIDDEN
+        );
+
+        foreach ($courseList as $course) {
+            // Checking session visibility
+            $sessionCourseVisibility = api_get_session_visibility(
+                $sessionId,
+                $course['real_id'],
+                $ignore_visibility_for_admins
+            );
+
+            $courseIsVisible = !in_array(
+                $course['visibility'],
+                $closedVisibilityList
+            );
+            if ($courseIsVisible === false || $sessionCourseVisibility == SESSION_INVISIBLE) {
+                $blockedCourseCount++;
+            }
+        }
+
+        // If all courses are blocked then no show in the list.
+        if ($blockedCourseCount === count($courseList)) {
+            $visibility = SESSION_INVISIBLE;
+        } else {
+            $visibility = SESSION_VISIBLE;
+        }
+    }
+
+    switch ($visibility) {
+        case SESSION_VISIBLE_READ_ONLY:
+        case SESSION_VISIBLE:
+        case SESSION_AVAILABLE:
+            return true;
+            break;
+        case SESSION_INVISIBLE:
+            return false;
+    }
+
+    return false;
+}
+
+/**
 * Checks if a student can edit contents in a session depending
 * on the session visibility
 * @param bool $tutor  Whether to check if the user has the tutor role
 * @param bool  $coach Whether to check if the user has the coach role
-* @return boolean, true: the user has the rights to edit, false: he does not
+* @return boolean true: the user has the rights to edit, false: he does not
 */
 function api_is_allowed_to_session_edit($tutor = false, $coach = false)
 {
@@ -3064,15 +3085,14 @@ function api_is_allowed_to_session_edit($tutor = false, $coach = false)
                 case SESSION_AVAILABLE:         //5
                     return true;
             }
-
         }
     }
 }
 
 /**
 * Checks whether the user is allowed in a specific tool for a specific action
-* @param $tool the tool we are checking if the user has a certain permission
-* @param $action the action we are checking (add, edit, delete, move, visibility)
+* @param string $tool the tool we are checking if the user has a certain permission
+* @param string $action the action we are checking (add, edit, delete, move, visibility)
 * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University
 * @author Julio Montoya
 * @version 1.0
@@ -3302,8 +3322,18 @@ function api_not_allowed($print_headers = false, $message = null)
             array(),
             FormValidator::LAYOUT_BOX_NO_LABEL
         );
-        $form->addElement('text', 'login', null, array('placeholder' => get_lang('UserName'), 'class' => 'autocapitalize_off'));
-        $form->addElement('password', 'password', null, array('placeholder' => get_lang('Password')));
+        $form->addElement(
+            'text',
+            'login',
+            null,
+            array('placeholder' => get_lang('UserName'), 'autocapitalize' => 'none')
+        );
+        $form->addElement(
+            'password',
+            'password',
+            null,
+            array('placeholder' => get_lang('Password'), 'autocapitalize' => 'none')
+        );
         $form->addButton('submitAuth', get_lang('LoginEnter'), '', 'primary');
 
         // see same text in auth/gotocourse.php and main_api.lib.php function api_not_allowed (above)
@@ -3321,7 +3351,7 @@ function api_not_allowed($print_headers = false, $message = null)
             $content .= "<div style='display:none;'>";
         }
         $content .= '<div class="well_login">';
-        $content .= $form->return_form();
+        $content .= $form->returnForm();
         $content .='</div>';
         if (api_is_cas_activated()) {
             $content .= "</div>";
@@ -3332,7 +3362,7 @@ function api_not_allowed($print_headers = false, $message = null)
                 get_lang('ReturnToCourseHomepage').'</a></p>';
         } else {
             $content .= '<hr/><p style="text-align:center"><a href="'.$home_url.'">'.
-                get_lang('CampusHomepage').'</a></p>';
+                get_lang('BackHome').'</a></p>';
         }
 
         $tpl->setLoginBodyClass();
@@ -3341,7 +3371,7 @@ function api_not_allowed($print_headers = false, $message = null)
         exit;
     }
 
-    if ($user_id !=0 && !api_is_anonymous()) {
+    if ($user_id != 0 && !api_is_anonymous()) {
         $tpl->display_one_col_template();
         exit;
     }
@@ -3350,20 +3380,22 @@ function api_not_allowed($print_headers = false, $message = null)
 
     // The session is over and we were not in a course,
     // or we try to get directly to a private course without being logged
-    if (!is_null(api_get_course_int_id())) {
+    $courseId = api_get_course_int_id();
+    if (!empty($courseId)) {
         api_set_firstpage_parameter(api_get_course_id());
         $tpl->setLoginBodyClass();
         $action = api_get_self().'?'.Security::remove_XSS($_SERVER['QUERY_STRING']);
         $action = str_replace('&amp;', '&', $action);
         $form = new FormValidator('formLogin', 'post', $action, null, array('class'=>'form-stacked'));
-        $form->addElement('text', 'login', null, array('placeholder' => get_lang('UserName'), 'class' => 'col-md-3 autocapitalize_off')); //new
+        $form->addElement('text', 'login', null, array('autocapitalize' => 'none', 'placeholder' => get_lang('UserName'), 'class' => 'col-md-3'));
         $form->addElement('password', 'password', null, array('placeholder' => get_lang('Password'), 'class' => 'col-md-3')); //new
         $form->addButtonNext(get_lang('LoginEnter'), 'submitAuth');
 
         // see same text in auth/gotocourse.php and main_api.lib.php function api_not_allowed (bellow)
         $msg = Display::return_message(get_lang('NotAllowed'), 'error', false);
         $msg .= '<h4>'.get_lang('LoginToGoToThisCourse').'</h4>';
-        if (api_is_cas_activated()) {
+        $casEnabled = api_is_cas_activated();
+        if ($casEnabled) {
             $msg .= Display::return_message(sprintf(get_lang('YouHaveAnInstitutionalAccount'), api_get_setting("Institution")), '', false);
             $msg .= Display::div("<br/><a href='".get_cas_direct_URL(api_get_course_int_id())."'>".getCASLogoHTML()." ".sprintf(get_lang('LoginWithYourAccount'), api_get_setting("Institution"))."</a><br/><br/>", array('align'=>'center'));
             $msg .= Display::return_message(get_lang('YouDontHaveAnInstitutionAccount'));
@@ -3371,16 +3403,15 @@ function api_not_allowed($print_headers = false, $message = null)
             $msg .= "<div style='display:none;'>";
         }
         $msg .= '<div class="well">';
-        $msg .= $form->return_form();
+        $msg .= $form->returnForm();
         $msg .='</div>';
-        if (api_is_cas_activated()) {
+        if ($casEnabled) {
             $msg .= "</div>";
         }
-        $msg .= '<hr/><p style="text-align:center"><a href="'.$home_url.'">'.get_lang('ReturnToCourseHomepage').'</a></p>';
     } else {
         // we were not in a course, return to home page
         $msg = Display::return_message(
-            get_lang('NotAllowed').'<br/><br/><a href="'.$home_url.'">'.get_lang('ReturnToCourseHomepage').'</a><br />',
+            get_lang('NotAllowed').'<br/><br/><a href="'.$home_url.'">'.get_lang('BackHome').'</a><br />',
             'error',
             false
         );
@@ -3391,15 +3422,10 @@ function api_not_allowed($print_headers = false, $message = null)
     exit;
 }
 
-
-/* WHAT'S NEW
-   functions for the what's new icons
-   in the user course list */
-
 /**
  * Gets a UNIX timestamp from a database (MySQL) datetime format string
  * @param $last_post_datetime standard output date in a sql query
- * @return unix timestamp
+ * @return integer timestamp
  * @author Toon Van Hoecke <Toon.VanHoecke@UGent.be>
  * @version October 2003
  * @desc convert sql date to unix timestamp
@@ -3409,16 +3435,6 @@ function convert_sql_date($last_post_datetime) {
     list ($year, $month, $day) = explode('-', $last_post_date);
     list ($hour, $min, $sec) = explode(':', $last_post_time);
     return mktime((int)$hour, (int)$min, (int)$sec, (int)$month, (int)$day, (int)$year);
-}
-
-/**
- * Gets a database (MySQL) datetime format string from a UNIX timestamp
- * @param   int     UNIX timestamp, as generated by the time() function. Will be generated if parameter not provided
- * @return  string  MySQL datetime format, like '2009-01-30 12:23:34'
- */
-function api_get_datetime($time = null) {
-    if (!isset($time)) { $time = time(); }
-    return date('Y-m-d H:i:s', $time);
 }
 
 /**
@@ -3432,6 +3448,9 @@ function api_get_datetime($time = null) {
  * @param string    Tool (learnpath, document, etc)
  * @param int       The item ID in the given tool
  * @param int       The session ID (optional)
+ * @param string $tool
+ * @param integer $user_id
+ * @param string $type
  * @return int      -1 on error, 0 if invisible, 1 if visible
  */
 function api_get_item_visibility(
@@ -3500,7 +3519,7 @@ function api_get_item_visibility(
  * @param int $userId
  * @param int $groupId
  * @param int $sessionId
- * @return void
+ * @return false|null
  */
 function api_item_property_delete(
     $courseInfo,
@@ -3536,15 +3555,17 @@ function api_item_property_delete(
     if (empty($userId)) {
         $userCondition = " AND (to_user_id is NULL OR to_user_id = 0) ";
     }
+    $sessionCondition = api_get_session_condition($sessionId, true, false, 'session_id');
     $sql = "DELETE FROM $table
             WHERE
                 c_id = $courseId AND
                 tool  = '$tool' AND
-                ref = $itemId AND
-                session_id = $sessionId
+                ref = $itemId
+                $sessionCondition
                 $userCondition
                 $groupCondition
             ";
+
     Database::query($sql);
 }
 
@@ -3554,15 +3575,15 @@ function api_item_property_delete(
  *
  * @param array $_course array with course properties
  * @param string $tool tool id, linked to 'rubrique' of the course tool_list (Warning: language sensitive !!)
- * @param int $item_id id of the item itself, linked to key of every tool ('id', ...), "*" = all items of the tool
- * @param string $lastedit_type add or update action
+ * @param int $item_id id of the item itself, linked to key of every tool ('id', ...)
+ * @param string $last_edit_type add or update action
  * (1) message to be translated (in trad4all) : e.g. DocumentAdded, DocumentUpdated;
  * (2) "delete"
  * (3) "visible"
  * (4) "invisible"
- * @param int $user_id : id of the editing/adding user
- * @param int $to_group_id : id of the intended group (0 = for everybody), only relevant for $type (1)
- * @param int $to_user_id : id of the intended user (always has priority over $to_group_id !), only relevant for $type (1)
+ * @param int $user_id id of the editing/adding user
+ * @param int $to_group_id group.iid
+ * @param int $to_user_id id of the intended user (always has priority over $to_group_id !), only relevant for $type (1)
  * @param string $start_visible 0000-00-00 00:00:00 format
  * @param string $end_visible 0000-00-00 00:00:00 format
  * @param int $session_id The session ID, if any, otherwise will default to 0
@@ -3592,6 +3613,8 @@ function api_item_property_update(
     if (empty($course_id)) {
         return false;
     }
+
+    $em = Database::getManager();
 
     // Definition of variables.
     $tool = Database::escape_string($tool);
@@ -3648,11 +3671,6 @@ function api_item_property_update(
     }
 
     $filter = " c_id = $course_id AND tool = '$tool' AND ref = $item_id $condition_session ";
-
-    if ($item_id === '*') {
-        // For all (not deleted) items of the tool
-        $filter = " c_id = $course_id  AND tool = '$tool' AND visibility <> 2 $condition_session";
-    }
 
     // Check whether $to_user_id and $to_group_id are passed in the function call.
     // If both are not passed (both are null) then it is a message for everybody and $to_group_id should be 0 !
@@ -3803,7 +3821,7 @@ function api_item_property_update(
                 $result = Database::query($sql);
             }
             break;
-        default : // The item will be added or updated.
+        default: // The item will be added or updated.
             $set_type = ", lastedit_type = '$last_edit_type' ";
             $visibility = '1';
             //$filter .= $to_filter; already added
@@ -3816,15 +3834,42 @@ function api_item_property_update(
     }
 
     // Insert if no entries are found (can only happen in case of $last_edit_type switch is 'default').
-    if (Database::affected_rows($result) == 0) {
-        $sessionCondition = empty($session_id) ? "NULL" : "'$session_id'";
-        $sql = "INSERT INTO $tableItemProperty (c_id, tool,ref,insert_date,insert_user_id,lastedit_date,lastedit_type, lastedit_user_id, $to_field, visibility, start_visible, end_visible, session_id)
-                VALUES ($course_id, '$tool', $item_id, '$time', $user_id, '$time', '$last_edit_type', $user_id, $toValueCondition, $visibility, $startVisible, $endVisible, $sessionCondition)";
-        Database::query($sql);
-        $id = Database::insert_id();
+    if ($result == false || Database::affected_rows($result) == 0) {
+        $objCourse = $em->find('ChamiloCoreBundle:Course', intval($course_id));
+        $objTime = new DateTime('now', new DateTimeZone('UTC'));
+        $objUser = $em->find('ChamiloUserBundle:User', intval($user_id));
+        $objGroup = $em->find('ChamiloCourseBundle:CGroupInfo', intval($to_group_id));
+        $objToUser = $em->find('ChamiloUserBundle:User', intval($to_user_id));
+        $objSession = $em->find('ChamiloCoreBundle:Session', intval($session_id));
+
+        $startVisibleDate = !empty($start_visible) ? new DateTime($start_visible, new DateTimeZone('UTC')) : null;
+        $endVisibleDate = !empty($endVisibleDate) ? new DateTime($endVisibleDate, new DateTimeZone('UTC')) : null;
+
+        $cItemProperty = new CItemProperty($objCourse);
+        $cItemProperty
+            ->setTool($tool)
+            ->setRef($item_id)
+            ->setInsertDate($objTime)
+            ->setInsertUser($objUser)
+            ->setLasteditDate($objTime)
+            ->setLasteditType($last_edit_type)
+            ->setGroup($objGroup)
+            ->setToUser($objToUser)
+            ->setVisibility($visibility)
+            ->setStartVisible($startVisibleDate)
+            ->setEndVisible($endVisibleDate)
+            ->setSession($objSession);
+
+        $em->persist($cItemProperty);
+        $em->flush();
+
+        $id = $cItemProperty->getIid();
+
         if ($id) {
-            $sql = "UPDATE $tableItemProperty SET id = iid WHERE iid = $id";
-            Database::query($sql);
+            $cItemProperty->setId($id);
+            $em->merge($cItemProperty);
+            $em->flush();
+
             return false;
         }
     }
@@ -3838,6 +3883,8 @@ function api_item_property_update(
  * @param string    tool name, linked to 'rubrique' of the course tool_list (Warning: language sensitive !!)
  * @param int       id of the item itself, linked to key of every tool ('id', ...), "*" = all items of the tool
  * @param int $session_id
+ * @param string $tool
+ * @param string $course_code
  * @return array All fields from c_item_property (all rows found) or empty array
  */
 function api_get_item_property_by_tool($tool, $course_code, $session_id = null)
@@ -3929,6 +3976,7 @@ function api_get_item_property_id($course_code, $tool, $ref, $sessionId = 0)
     // Definition of tables.
     $tableItemProperty = Database::get_course_table(TABLE_ITEM_PROPERTY);
     $course_id = $course_info['real_id'];
+    $sessionId = (int) $sessionId;
     $sessionCondition = " AND session_id = $sessionId ";
     if (empty($sessionId)) {
         $sessionCondition = " AND (session_id = 0 OR session_id IS NULL) ";
@@ -3960,7 +4008,7 @@ function api_get_item_property_id($course_code, $tool, $ref, $sessionId = 0)
 function api_track_item_property_update($tool, $ref, $title, $content, $progress)
 {
     $tbl_stats_item_property = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ITEM_PROPERTY);
-    $course_id = api_get_real_course_id(); //numeric
+    $course_id = api_get_course_int_id(); //numeric
     $course_code = api_get_course_id(); //alphanumeric
     $item_property_id = api_get_item_property_id($course_code, $tool, $ref);
     if (!empty($item_property_id)) {
@@ -3990,14 +4038,19 @@ function api_track_item_property_update($tool, $ref, $title, $content, $progress
 function api_get_track_item_property_history($tool, $ref)
 {
     $tbl_stats_item_property = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ITEM_PROPERTY);
-    $course_id = api_get_real_course_id(); //numeric
+    $course_id = api_get_course_int_id(); //numeric
     $course_code = api_get_course_id(); //alphanumeric
     $item_property_id = api_get_item_property_id($course_code, $tool, $ref);
     $sql = "SELECT * FROM $tbl_stats_item_property
             WHERE item_property_id = $item_property_id AND course_id = $course_id
             ORDER BY lastedit_date DESC";
     $result = Database::query($sql);
-    $result = Database::store_result($result,'ASSOC');
+    if ($result == false) {
+        $result = array();
+    } else {
+        $result = Database::store_result($result,'ASSOC');
+    }
+
     return $result;
 }
 
@@ -4060,10 +4113,10 @@ function api_get_item_property_info($course_id, $tool, $ref, $session_id = 0, $g
  * (in some cases, like the indexing language picker, it can alter the presentation)
  * @return string
  */
-
 function api_get_languages_combo($name = 'language')
 {
     $ret = '';
+    $platformLanguage = api_get_setting('platformLanguage');
 
     // Retrieve a complete list of all the languages.
     $languages = api_get_languages();
@@ -4191,7 +4244,8 @@ function api_get_language_selected_in_login()
  */
 function api_get_languages() {
     $tbl_language = Database::get_main_table(TABLE_MAIN_LANGUAGE);
-    $sql = "SELECT * FROM $tbl_language WHERE available='1' ORDER BY original_name ASC";
+    $sql = "SELECT * FROM $tbl_language WHERE available='1' 
+            ORDER BY original_name ASC";
     $result = Database::query($sql);
     $language_list = array();
     while ($row = Database::fetch_array($result)) {
@@ -4287,6 +4341,10 @@ function api_get_language_info($languageId) {
     $language = Database::getManager()
         ->find('ChamiloCoreBundle:Language', intval($languageId));
 
+    if (!$language) {
+        return [];
+    }
+
     return [
         'id' => $language->getId(),
         'original_name' => $language->getOriginalName(),
@@ -4303,11 +4361,13 @@ function api_get_language_info($languageId) {
  * The returned name depends on the platform, course or user -wide settings.
  * @return string   The visual theme's name, it is the name of a folder inside .../chamilo/main/css/
  */
-function api_get_visual_theme() {
+function api_get_visual_theme()
+{
     static $visual_theme;
     if (!isset($visual_theme)) {
 
         $platform_theme = api_get_setting('stylesheets');
+
         // Platform's theme.
         $visual_theme = $platform_theme;
 
@@ -4324,14 +4384,15 @@ function api_get_visual_theme() {
         }
 
         $course_id = api_get_course_id();
+
         if (!empty($course_id) && $course_id != -1) {
             if (api_get_setting('course.allow_course_theme') == 'true') {
                 $course_theme = api_get_course_setting('course_theme');
 
                 if (!empty($course_theme) && $course_theme != -1) {
                     if (!empty($course_theme)) {
-                        $visual_theme = $course_theme;
                         // Course's theme.
+                        $visual_theme = $course_theme;
                     }
                 }
 
@@ -4341,8 +4402,8 @@ function api_get_visual_theme() {
                     // These variables come from the file lp_controller.php.
                     if (!$lp_theme_config) {
                         if (!empty($lp_theme_css)) {
-                            $visual_theme = $lp_theme_css;
                             // LP's theme.
+                            $visual_theme = $lp_theme_css;
                         }
                     }
                 }
@@ -4401,13 +4462,13 @@ function api_get_themes() {
  * This function is used when we are moving a course to a different category
  * and also when a user subscribes to courses (the new course is added at the end of the main category
  * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University
- * @param int $user_course_category: the id of the user_course_category
+ * @param int $user_course_category the id of the user_course_category
+ * @param integer $user_id
  * @return int the value of the highest sort of the user_course_category
  */
 function api_max_sort_value($user_course_category, $user_id)
 {
     $tbl_course_user = Database::get_main_table(TABLE_MAIN_COURSE_USER);
-
     $sql = "SELECT max(sort) as max_sort FROM $tbl_course_user
             WHERE
                 user_id='".intval($user_id)."' AND
@@ -4422,43 +4483,11 @@ function api_max_sort_value($user_course_category, $user_id)
 }
 
 /**
- * This function converts the string "true" or "false" to a boolean true or false.
- * This function is in the first place written for the Chamilo Config Settings (also named AWACS)
- * @param string "true" or "false"
- * @return boolean true or false
- * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University
- */
-function api_string_2_boolean($string) {
-    if ($string == 'true') {
-        return true;
-    }
-    if ($string == 'false') {
-        return false;
-    }
-    return false;
-}
-
-/**
  * Determines the number of plugins installed for a given location
  */
 function api_number_of_plugins($location) {
     global $_plugins;
     return isset($_plugins[$location]) && is_array($_plugins[$location]) ? count($_plugins[$location]) : 0;
-}
-
-/**
- * Checks to see wether a certain plugin is installed.
- * @return boolean true if the plugin is installed, false otherwise.
- */
-function api_is_plugin_installed($plugin_list, $plugin_name) {
-    if (is_array($plugin_list)) {
-        foreach ($plugin_list as $plugin_location) {
-            if (array_search($plugin_name, $plugin_location) !== false) {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 /**
@@ -4615,6 +4644,8 @@ function rmdirr($dirname, $delete_only_content_in_folder = false, $strict = fals
  * @param the dest folder
  * @param an array of excluded file_name (without extension)
  * @param copied_files the returned array of copied files
+ * @param string $source
+ * @param string $dest
  */
 function copyr($source, $dest, $exclude = array(), $copied_files = array()) {
     if (empty($dest)) { return false; }
@@ -4654,6 +4685,11 @@ function copyr($source, $dest, $exclude = array(), $copied_files = array()) {
 }
 
 // TODO: Using DIRECTORY_SEPARATOR is not recommended, this is an obsolete approach. Documentation header to be added here.
+/**
+ * @param string $pathname
+ * @param string $base_path_document
+ * @param integer $session_id
+ */
 function copy_folder_course_session(
     $pathname,
     $base_path_document,
@@ -4739,6 +4775,9 @@ function copy_folder_course_session(
 }
 
 // TODO: chmodr() is a better name. Some corrections are needed. Documentation header to be added here.
+/**
+ * @param string $path
+ */
 function api_chmod_R($path, $filemode) {
     if (!is_dir($path)) {
         return chmod($path, $filemode);
@@ -4821,12 +4860,12 @@ function api_chmod_R($path, $filemode) {
  *   version = VERSION
  * @endverbatim
  * </code>
- * @param $filename
+ * @param string $filename
  *   The file we are parsing. Accepts file with relative or absolute path.
  * @return
  *   The info array.
  */
-function parse_info_file($filename) {
+function api_parse_info_file($filename) {
     $info = array();
 
     if (!file_exists($filename)) {
@@ -4888,6 +4927,15 @@ function parse_info_file($filename) {
 }
 
 /**
+ * Gets Chamilo version from the configuration files
+ * @return string   A string of type "1.8.4", or an empty string if the version could not be found
+ */
+function api_get_version()
+{
+    return (string) api_get_configuration_value('system_version');
+}
+
+/**
  * Gets the software name (the name/brand of the Chamilo-based customized system)
  * @return string
  */
@@ -4903,7 +4951,7 @@ function api_get_software_name() {
 /**
  * Checks whether status given in parameter exists in the platform
  * @param mixed the status (can be either int either string)
- * @return true if the status exists, else returns false
+ * @return boolean if the status exists, else returns false
  */
 function api_status_exists($status_asked) {
     global $_status_list;
@@ -4925,7 +4973,7 @@ function api_status_key($status) {
 
 /**
  * Gets the status langvars list
- * @return array the list of status with their translations
+ * @return string[] the list of status with their translations
  */
 function api_get_status_langvars() {
     return array(
@@ -5001,6 +5049,7 @@ function api_delete_setting_option($id) {
  * @param string    The sub-variable if any (in most cases, this will remain null)
  * @param string    The category if any (in most cases, this will remain null)
  * @param int       The access_url for which this parameter is valid
+ * @param string $cat
  */
 function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url = 1)
 {
@@ -5026,13 +5075,12 @@ function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url 
     } else {
         $select .= " AND access_url = 1 ";
     }
-
     $res = Database::query($select);
     if (Database::num_rows($res) > 0) {
         // Found item for this access_url.
         $row = Database::fetch_array($res);
         $sql = "UPDATE $t_settings SET selected_value = '$value'
-                WHERE id = ".$row['id'] ;
+                WHERE id = ".$row['id'];
         Database::query($sql);
     } else {
         // Item not found for this access_url, we have to check if it exist with access_url = 1
@@ -5047,7 +5095,6 @@ function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url 
                 $select .= " AND category = '$cat'";
             }
             $res = Database::query($select);
-
             if (Database::num_rows($res) > 0) {
                 // We have a setting for access_url 1, but none for the current one, so create one.
                 $row = Database::fetch_array($res);
@@ -5059,8 +5106,9 @@ function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url 
                         "".(!empty($row['comment']) ? "'".$row['comment']."'" : "NULL").",".(!empty($row['scope']) ? "'".$row['scope']."'" : "NULL")."," .
                         "".(!empty($row['subkeytext'])?"'".$row['subkeytext']."'":"NULL").",$access_url)";
                 Database::query($insert);
-            } else { // Such a setting does not exist.
-                error_log(__FILE__.':'.__LINE__.': Attempting to update setting '.$var.' ('.$subvar.') which does not exist at all', 0);
+            } else {
+                // Such a setting does not exist.
+                //error_log(__FILE__.':'.__LINE__.': Attempting to update setting '.$var.' ('.$subvar.') which does not exist at all', 0);
             }
         } else {
             // Other access url.
@@ -5072,7 +5120,8 @@ function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url 
             }
             $res = Database::query($select);
 
-            if (Database::num_rows($res) > 0) { // We have a setting for access_url 1, but none for the current one, so create one.
+            if (Database::num_rows($res) > 0) {
+                // We have a setting for access_url 1, but none for the current one, so create one.
                 $row = Database::fetch_array($res);
                 if ($row['access_url_changeable'] == 1) {
                     $insert = "INSERT INTO $t_settings (variable,subkey, type,category, selected_value,title, comment,scope, subkeytext,access_url, access_url_changeable) VALUES
@@ -5086,7 +5135,7 @@ function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url 
                     Database::query($insert);
                 }
             } else { // Such a setting does not exist.
-                error_log(__FILE__.':'.__LINE__.': Attempting to update setting '.$var.' ('.$subvar.') which does not exist at all. The access_url is: '.$access_url.' ',0);
+                //error_log(__FILE__.':'.__LINE__.': Attempting to update setting '.$var.' ('.$subvar.') which does not exist at all. The access_url is: '.$access_url.' ',0);
             }
         }
     }
@@ -5098,6 +5147,8 @@ function api_set_setting($var, $value, $subvar = null, $cat = null, $access_url 
  * @param string    Value
  * @param int       Access URL. Optional. Defaults to 1
  * @param array     Optional array of filters on field type
+ * @param string $category
+ * @param string $value
  */
 function api_set_settings_category($category, $value = null, $access_url = 1, $fieldtype = array())
 {
@@ -5164,7 +5215,6 @@ function api_get_access_urls($from = 0, $to = 1000000, $order = 'url', $directio
             ORDER BY $order $direction
             LIMIT $to OFFSET $from";
     $res = Database::query($sql);
-
     return Database::store_result($res);
 }
 
@@ -5208,34 +5258,6 @@ function api_get_access_url($id, $returnDefault = true)
 }
 
 /**
- * Adds an access URL into the database
- * @param string    URL
- * @param string    Description
- * @param int       Active (1= active, 0=disabled)
- * @return int      The new database id, or the existing database id if this url already exists
- */
-function api_add_access_url($u, $d = '', $a = 1) {
-    $t_au = Database::get_main_table(TABLE_MAIN_ACCESS_URL);
-    $u = Database::escape_string($u);
-    $d = Database::escape_string($d);
-    $a = (int) $a;
-    $sql = "SELECT id FROM $t_au WHERE url LIKE '$u'";
-    $res = Database::query($sql);
-    if ($res === false) {
-        // Problem querying the database - return false.
-        return false;
-    }
-    if (Database::num_rows($res) > 0) {
-        return Database::result($res, 0, 'id');
-    }
-    $ui = api_get_user_id();
-
-    $sql = "INSERT INTO $t_au (url,description,active,created_by,tms) VALUES ('$u','$d',$a,$ui,'')";
-    $res = Database::query($sql);
-    return ($res === false) ? false : Database::insert_id();
-}
-
-/**
  * Gets all the current settings for a specific access url
  * @param string    The category, if any, that we want to get
  * @param string    Whether we want a simple list (display a category) or
@@ -5243,7 +5265,7 @@ function api_add_access_url($u, $d = '', $a = 1) {
  * @param int       Access URL's ID. Optional. Uses 1 by default, which is the unique URL
  * @return array    Array of database results for the current settings of the current access URL
  */
-function & api_get_settings($cat = null, $ordering = 'list', $access_url = 1, $url_changeable = 0)
+function &api_get_settings($cat = null, $ordering = 'list', $access_url = 1, $url_changeable = 0)
 {
     $table = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
     $access_url = (int) $access_url;
@@ -5266,67 +5288,10 @@ function & api_get_settings($cat = null, $ordering = 'list', $access_url = 1, $u
     } else {
         $sql .= " ORDER BY 1,2 ASC";
     }
-    $result = Database::store_result(Database::query($sql));
+    $result = Database::query($sql);
+    $result = Database::store_result($result,'ASSOC');
+
     return $result;
-}
-
-/**
- * Gets the distinct settings categories
- * @param array     Array of strings giving the categories we want to excluded
- * @param int       Access URL. Optional. Defaults to 1
- * @return array    A list of categories
- */
-function & api_get_settings_categories($exceptions = array(), $access_url = 1) {
-    $access_url = (int) $access_url;
-    $t_cs = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
-    $list = "'".implode("','",$exceptions)."'";
-    $sql = "SELECT DISTINCT category FROM $t_cs WHERE category is NOT NULL ";
-    if ($list != "'',''" && $list != "''" && !empty($list)) {
-        $sql .= " AND category NOT IN ($list) ";
-    }
-    $result = Database::store_result(Database::query($sql));
-    return $result;
-}
-
-/**
- * Deletes a setting
- * @param string    Variable
- * @param string    Subkey
- * @param int       Access URL
- * @return boolean  False on failure, true on success
- */
-
-function api_delete_setting($v, $s = null, $a = 1) {
-    if (empty($v)) { return false; }
-    $t_cs = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
-    $v = Database::escape_string($v);
-    $a = (int) $a;
-    if (empty($a)) { $a = 1; }
-    if (!empty($s)) {
-        $s = Database::escape_string($s);
-        $sql = "DELETE FROM $t_cs WHERE variable = '$v' AND subkey = '$s' AND access_url = $a";
-        $r = Database::query($sql);
-        return $r;
-    }
-    $sql = "DELETE FROM $t_cs WHERE variable = '$v' AND access_url = $a";
-    $r = Database::query($sql);
-    return $r;
-}
-
-/**
- * Deletes all the settings from one category
- * @param string    Subkey
- * @param int       Access URL
- * @return boolean  False on failure, true on success
- */
-function api_delete_category_settings_by_subkey($subkey, $access_url_id = 1) {
-    if (empty($subkey)) { return false; }
-    $t_cs = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
-    $subkey = Database::escape_string($subkey);
-    $access_url_id = intval($access_url_id);
-    $sql = "DELETE FROM $t_cs WHERE subkey = '$subkey' AND access_url = $access_url_id";
-    $r = Database::query($sql);
-    return $r;
 }
 
 /**
@@ -5342,9 +5307,25 @@ function api_delete_category_settings_by_subkey($subkey, $access_url_id = 1) {
  * @param string    The subkey text
  * @param int       The access_url for which this parameter is valid
  * @param int       The changeability of this setting for non-master urls
+ * @param string $val
+ * @param string $var
+ * @param string $sk
+ * @param string $c
  * @return boolean  true on success, false on failure
  */
-function api_add_setting($val, $var, $sk = null, $type = 'textfield', $c = null, $title = '', $com = '', $sc = null, $skt = null, $a = 1, $v = 0) {
+function api_add_setting(
+    $val,
+    $var,
+    $sk = null,
+    $type = 'textfield',
+    $c = null,
+    $title = '',
+    $com = '',
+    $sc = null,
+    $skt = null,
+    $a = 1,
+    $v = 0
+) {
     if (empty($var) || !isset($val)) { return false; }
     $t_settings = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
     $var = Database::escape_string($var);
@@ -5437,7 +5418,7 @@ function api_add_setting($val, $var, $sk = null, $type = 'textfield', $c = null,
  * @return  bool
  */
 function api_is_course_visible_for_user($userid = null, $cid = null) {
-    if ($userid == null) {
+    if ($userid === null) {
         $userid = api_get_user_id();
     }
     if (empty($userid) || strval(intval($userid)) != $userid) {
@@ -5607,6 +5588,7 @@ function api_is_course_visible_for_user($userid = null, $cid = null) {
  * @param String the tool of the element
  * @param int the element id in database
  * @param int the session_id to compare with element session id
+ * @param string $tool
  * @return boolean true if the element is in the session, false else
  */
 function api_is_element_in_the_session($tool, $element_id, $session_id = null) {
@@ -5654,50 +5636,13 @@ function api_is_element_in_the_session($tool, $element_id, $session_id = null) {
  * Replaces "forbidden" characters in a filename string.
  *
  * @param string $filename
- * @param int $length
- * @param bool $file_name
+ * @param bool $treat_spaces_as_hyphens
  *
  * @return string
  */
-function api_replace_dangerous_char($filename)
+function api_replace_dangerous_char($filename, $treat_spaces_as_hyphens = true)
 {
-    return URLify::filter($filename, 250, '', true);
-
-    /*
-    // Safe replacements for some non-letter characters.
-    static $search  = array(',', "\0", ' ', "\t", "\n", "\r", "\x0B", '/', "\\", '"', "'", '?', '*', '>', '<', '|', ':', '$', '(', ')', '^', '[', ']', '#', '+', '&', '%');
-    static $replace = array('_', '', '_', '_', '_', '_', '_', '-', '-', '-', '_', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-');
-
-    // Encoding detection.
-    $encoding = api_detect_encoding($filename);
-    // Converting html-entities into encoded characters.
-    $filename = api_html_entity_decode($filename, ENT_QUOTES, $encoding);
-    // Transliteration to ASCII letters, they are not dangerous for filesystems.
-    $filename = api_transliterate($filename, 'x', $encoding);
-
-    // Trimming leading/trailing whitespace.
-    $filename = trim($filename);
-    // Trimming any leading/trailing dots.
-    $filename = trim($filename, '.');
-    $filename = trim($filename);
-
-    // Replacing remaining dangerous non-letter characters.
-    $filename = str_replace($search, $replace, $filename);
-    if ($strict == 'strict') {
-        //$filename = str_replace('-', '_', $filename); // See task #1848.
-        //$filename = preg_replace('/[^0-9A-Za-z_.\-]/', '', $filename);
-        //Removing "_" character see BT#3628
-        $filename = preg_replace('/[^0-9A-Za-z.\-_]/', '', $filename);
-    }
-
-    // Length is to be limited, so the file name to be acceptable by some operating systems.
-    $extension = (string)strrchr($filename, '.');
-    $extension_len = strlen($extension);
-    if ($extension_len > 0 && $extension_len < 250) {
-        $filename = substr($filename, 0, -$extension_len);
-        return substr($filename, 0, 250 - $extension_len).$extension;
-    }
-    return substr($filename, 0, 250);*/
+    return URLify::filter($filename, 250, '', true, true, false, false, $treat_spaces_as_hyphens);
 }
 
 /**
@@ -5784,7 +5729,6 @@ function api_get_status_of_user_in_course($user_id, $courseId)
     }
 }
 
-
 /**
  * Checks whether the curent user is in a group or not.
  *
@@ -5793,29 +5737,31 @@ function api_get_status_of_user_in_course($user_id, $courseId)
  * @return boolean
  * @author Ivan Tcholakov
  */
-function api_is_in_group($group_id = null, $course_code = null)
+function api_is_in_group($groupIdParam = null, $courseCodeParam = null)
 {
-    $courseCodeFromSession = api_get_course_id();
-    if (!empty($course_code)) {
-        if (isset($courseCodeFromSession)) {
-            if ($course_code != $courseCodeFromSession) {
+    if (!empty($courseCodeParam)) {
+        $courseCode = api_get_course_id();
+        if (!empty($courseCode)) {
+            if ($courseCodeParam != $courseCode) {
                 return false;
             }
         } else {
             return false;
         }
     }
-    $groupFromSession = api_get_group_id();
-    if (isset($groupFromSession) && $groupFromSession != '') {
-        if (!empty($group_id)) {
-            return $group_id == $groupFromSession;
+
+    $groupId = api_get_group_id();
+
+    if (isset($groupId) && $groupId != '') {
+        if (!empty($groupIdParam)) {
+            return $groupIdParam == $groupId;
         } else {
             return true;
         }
     }
+
     return false;
 }
-
 
 /**
  * Checks whether a secret key is valid
@@ -5881,6 +5827,7 @@ function api_is_xml_http_request() {
  * @link http://php.net/manual/en/function.getimagesize.php
  * @link http://www.dokeos.com/forum/viewtopic.php?t=12345
  * @link http://www.dokeos.com/forum/viewtopic.php?t=16355
+ * @return integer
  */
 function api_getimagesize($path) {
     $image = new Image($path);
@@ -5944,15 +5891,42 @@ function api_calculate_image_size($image_width, $image_height, $target_width, $t
  */
 function api_get_tools_lists($my_tool = null) {
     $tools_list = array(
-        TOOL_DOCUMENT, TOOL_THUMBNAIL, TOOL_HOTPOTATOES,
-        TOOL_CALENDAR_EVENT, TOOL_LINK, TOOL_COURSE_DESCRIPTION, TOOL_SEARCH,
-        TOOL_LEARNPATH, TOOL_ANNOUNCEMENT, TOOL_FORUM, TOOL_THREAD, TOOL_POST,
-        TOOL_DROPBOX, TOOL_QUIZ, TOOL_USER, TOOL_GROUP, TOOL_BLOGS, TOOL_CHAT,
-        TOOL_CONFERENCE, TOOL_STUDENTPUBLICATION, TOOL_TRACKING, TOOL_HOMEPAGE_LINK,
-        TOOL_COURSE_SETTING, TOOL_BACKUP, TOOL_COPY_COURSE_CONTENT, TOOL_RECYCLE_COURSE,
-        TOOL_COURSE_HOMEPAGE, TOOL_COURSE_RIGHTS_OVERVIEW, TOOL_UPLOAD, TOOL_COURSE_MAINTENANCE,
-        TOOL_VISIO, TOOL_VISIO_CONFERENCE, TOOL_VISIO_CLASSROOM, TOOL_SURVEY, TOOL_WIKI,
-        TOOL_GLOSSARY, TOOL_GRADEBOOK, TOOL_NOTEBOOK, TOOL_ATTENDANCE, TOOL_COURSE_PROGRESS
+        TOOL_DOCUMENT,
+        TOOL_THUMBNAIL,
+        TOOL_HOTPOTATOES,
+        TOOL_CALENDAR_EVENT,
+        TOOL_LINK,
+        TOOL_COURSE_DESCRIPTION,
+        TOOL_SEARCH,
+        TOOL_LEARNPATH,
+        TOOL_ANNOUNCEMENT,
+        TOOL_FORUM,
+        TOOL_THREAD,
+        TOOL_POST,
+        TOOL_DROPBOX,
+        TOOL_QUIZ,
+        TOOL_USER,
+        TOOL_GROUP,
+        TOOL_BLOGS,
+        TOOL_CHAT,
+        TOOL_STUDENTPUBLICATION,
+        TOOL_TRACKING,
+        TOOL_HOMEPAGE_LINK,
+        TOOL_COURSE_SETTING,
+        TOOL_BACKUP,
+        TOOL_COPY_COURSE_CONTENT,
+        TOOL_RECYCLE_COURSE,
+        TOOL_COURSE_HOMEPAGE,
+        TOOL_COURSE_RIGHTS_OVERVIEW,
+        TOOL_UPLOAD,
+        TOOL_COURSE_MAINTENANCE,
+        TOOL_SURVEY,
+        TOOL_WIKI,
+        TOOL_GLOSSARY,
+        TOOL_GRADEBOOK,
+        TOOL_NOTEBOOK,
+        TOOL_ATTENDANCE,
+        TOOL_COURSE_PROGRESS,
     );
     if (empty($my_tool)) {
         return $tools_list;
@@ -5970,6 +5944,7 @@ function api_check_term_condition($user_id)
     if (api_get_setting('registration.allow_terms_conditions') == 'true') {
         //check if exists terms and conditions
         if (LegalManager::count() == 0) {
+
             return true;
         }
 
@@ -6023,18 +5998,6 @@ function api_get_tool_information_by_name($name) {
 }
 
 /**
- * @deprecated use api_trunc_str() instead.
- */
-function shorten($input, $length = 15, $encoding = null) {
-    $length = intval($length);
-    if (!$length) {
-        $length = 15;
-    }
-    return api_trunc_str($input, $length, '...', false, $encoding);
-}
-
-
-/**
  * Function used to protect a "global" admin script.
  * The function blocks access when the user has no global platform admin rights.
  * Global admins are the admins that are registered in the main.admin table
@@ -6043,6 +6006,7 @@ function shorten($input, $length = 15, $encoding = null) {
  * with his user id and the access_url_id=1
  *
  * @author Julio Montoya
+ * @param integer $user_id
  */
 function api_is_global_platform_admin($user_id = null)
 {
@@ -6104,7 +6068,7 @@ function api_global_admin_can_edit_admin($admin_id_to_check, $my_user_id = null,
  * @param int $admin_id_to_check
  * @param int  $my_user_id
  * @param bool $allow_session_admin
- * @return bool
+ * @return boolean|null
  */
 function api_protect_super_admin($admin_id_to_check, $my_user_id = null, $allow_session_admin = false)
 {
@@ -6160,11 +6124,10 @@ function api_protect_global_admin_script() {
  * return the current browser and major ver when $format=check_browser
  * @param string $format
  *
- * @return bool, or return text array if $format=check_browser
+ * @return bool or return text array if $format=check_browser
  * @author Juan Carlos Raña Trabado
  */
-
-function api_browser_support($format = "")
+function api_browser_support($format = '')
 {
     $browser = new Browser();
     $current_browser = $browser->getBrowser();
@@ -6476,7 +6439,8 @@ function api_get_jquery_libraries_js($libraries) {
  * This function relies on api_get_course_info()
  * @param   string  The course code - optional (takes it from session if not given)
  * @param   int     The session id  - optional (takes it from session if not given)
- * @return  mixed   The URL of the course or null if something does not work
+ * @param integer $session_id
+ * @return  string|null   The URL of the course or null if something does not work
  * @author  Julio Montoya <gugli100@gmail.com>
  */
 function api_get_course_url($course_code = null, $session_id = null)
@@ -6547,7 +6511,7 @@ function api_get_home_path()
         $clean_url = str_replace('/', '-', $clean_url);
         $clean_url .= '/';
         if ($clean_url != 'localhost/') {
-
+            // means that the multiple URL was not well configured we don't rename the $home variable
             return "{$home}{$clean_url}";
         }
     }
@@ -6609,7 +6573,22 @@ function api_block_course_item_locked_by_gradebook($item_id, $link_type, $course
         api_not_allowed(true, $message);
     }
 }
-
+/**
+ * Checks the PHP version installed is enough to run Chamilo
+ * @param string Include path (used to load the error page)
+ * @return void
+ */
+function api_check_php_version($my_inc_path = null) {
+    if (!function_exists('version_compare') || version_compare( phpversion(), REQUIRED_PHP_VERSION, '<')) {
+        $global_error_code = 1;
+        // Incorrect PHP version
+        $global_page = $my_inc_path.'global_error_message.inc.php';
+        if (file_exists($global_page)) {
+            require $global_page;
+        }
+        exit;
+    }
+}
 /**
  * Checks whether the Archive directory is present and writeable. If not,
  * prints a warning message.
@@ -6631,8 +6610,7 @@ function api_get_locked_settings() {
         'server_type',
         'permanently_remove_deleted_files',
         'account_valid_duration',
-        //'service_visio',
-        // 'service_ppt2lp',
+        'service_ppt2lp',
         'wcag_anysurfer_public_pages',
         'upload_extensions_list_type',
         'upload_extensions_blacklist',
@@ -6644,7 +6622,6 @@ function api_get_locked_settings() {
         'permissions_for_new_directories',
         'permissions_for_new_files',
         'platform_charset',
-        'service_visio',
         'ldap_description',
         'cas_activate',
         'cas_server',
@@ -6667,7 +6644,7 @@ function api_get_locked_settings() {
  * false if he isn't. If the user ID is given and is an integer, then the same
  * ID is simply returned
  * @param  integer User ID
- * @return mixed Integer User ID is logged in, or false otherwise
+ * @return boolean Integer User ID is logged in, or false otherwise
  */
 function api_user_is_login($user_id = null) {
     $user_id = empty($user_id) ? api_get_user_id() : intval($user_id);
@@ -6702,6 +6679,7 @@ function api_get_real_ip(){
  * Checks whether an IP is included inside an IP range
  * @param string IP address
  * @param string IP range
+ * @param string $ip
  * @return bool True if IP is in the range, false otherwise
  * @author claudiu at cnixs dot com  on http://www.php.net/manual/fr/ref.network.php#55230
  * @author Yannick Warnier for improvements and managment of multiple ranges
@@ -6768,16 +6746,32 @@ function api_is_global_chat_enabled()
  *
  * @param int $item_id
  * @param int $tool_id
- * @param int $group_id
+ * @param int $group_id iid
  * @param array $courseInfo
  */
-function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseInfo = array(), $sessionId = 0, $userId = 0)
-{
+function api_set_default_visibility(
+    $item_id,
+    $tool_id,
+    $group_id = 0,
+    $courseInfo = array(),
+    $sessionId = 0,
+    $userId = 0
+) {
     $courseInfo = empty($courseInfo) ? api_get_course_info() : $courseInfo;
     $courseId = $courseInfo['real_id'];
     $courseCode = $courseInfo['code'];
     $sessionId = empty($sessionId) ? api_get_session_id() : $sessionId;
     $userId = empty($userId) ? api_get_user_id() : $userId;
+
+    if (empty($group_id)) {
+        $group_id = api_get_group_id();
+    }
+
+    $groupInfo = GroupManager::get_group_properties($group_id);
+    $groupIid = 0;
+    if ($groupInfo) {
+        $groupIid = $groupInfo['iid'];
+    }
 
     $original_tool_id = $tool_id;
 
@@ -6813,10 +6807,6 @@ function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseIn
             $visibility = 'visible';
         }
 
-        if (empty($group_id)) {
-            $group_id = api_get_group_id();
-        }
-
         // Read the portal and course default visibility
         if ($tool_id == 'documents') {
             $visibility = DocumentManager::getDocumentDefaultVisibility($courseCode);
@@ -6828,7 +6818,7 @@ function api_set_default_visibility($item_id, $tool_id, $group_id = 0, $courseIn
             $item_id,
             $visibility,
             $userId,
-            $group_id,
+            $groupIid,
             null,
             null,
             null,
@@ -6896,7 +6886,7 @@ function api_detect_user_roles($user_id, $courseId, $session_id = 0)
             if (CourseManager::is_course_teacher($user_id, $course_code)) {
                 $user_roles[] = COURSEMANAGER;
             }
-            if (CourseManager::get_tutor_in_course_status($user_id, $course_code)) {
+            if (CourseManager::get_tutor_in_course_status($user_id, $courseInfo['real_id'])) {
                 $user_roles[] = COURSE_TUTOR;
             }
 
@@ -6925,36 +6915,6 @@ function api_detect_user_roles($user_id, $courseId, $session_id = 0)
         }
     }
     return $user_roles;
-}
-
-function api_get_roles_to_string($roles) {
-    $role_names = array();
-    if (!empty($roles)) {
-        foreach ($roles as $role) {
-            $role_names[] = get_status_from_code($role);
-        }
-    }
-    if (!empty($role_names)) {
-        return implode(', ', $role_names);
-    }
-    return null;
-}
-
-function role_actions() {
-    return array(
-        'course' => array(
-            'create',
-            'read',
-            'edit',
-            'delete'
-        ),
-        'admin' => array(
-            'create',
-            'read',
-            'edit',
-            'delete'
-        )
-    );
 }
 
 /**
@@ -7000,6 +6960,7 @@ function api_set_setting_last_update()
 /**
  * Tries to set memory limit, if authorized and new limit is higher than current
  * @param string New memory limit
+ * @param string $mem
  * @return bool True on success, false on failure or current is higher than suggested
  * @assert (null) === false
  * @assert (-1) === false
@@ -7056,18 +7017,18 @@ function api_get_bytes_memory_limit($mem){
 
 /**
  * Finds all the information about a user from username instead of user id
- * @param string $username
  *
+ * @param string $officialCode
  * @return array $user_info user_id, lastname, firstname, username, email, ...
  * @author Yannick Warnier <yannick.warnier@beeznest.com>
  */
-function api_get_user_info_from_official_code($official_code = '')
+function api_get_user_info_from_official_code($officialCode)
 {
-    if (empty($official_code)) {
+    if (empty($officialCode)) {
         return false;
     }
     $sql = "SELECT * FROM ".Database :: get_main_table(TABLE_MAIN_USER)."
-            WHERE official_code ='".Database::escape_string($official_code)."'";
+            WHERE official_code ='".Database::escape_string($officialCode)."'";
     $result = Database::query($sql);
     if (Database::num_rows($result) > 0) {
         $result_array = Database::fetch_array($result);
@@ -7077,39 +7038,45 @@ function api_get_user_info_from_official_code($official_code = '')
 }
 
 /**
- *
- * @param string $inputId the jquery id example: #password
- *
- * @return string
+ * @param string $usernameInputId
+ * @param string $passwordInputId
+ * @return null|string
  */
-function api_get_password_checker_js($usernameInputId, $passwordInputid)
+function api_get_password_checker_js($usernameInputId, $passwordInputId)
 {
     $checkPass = api_get_setting('security.allow_strength_pass_checker');
-    $useStrengthPassChecker = $checkPass == 'true';
+    $useStrengthPassChecker = $checkPass === 'true';
 
-    if ($useStrengthPassChecker == false) {
+    if ($useStrengthPassChecker === false) {
         return null;
     }
 
-    $verdicts = array(
-        get_lang('PasswordWeak'),
-        get_lang('PasswordNormal'),
-        get_lang('PasswordMedium'),
-        get_lang('PasswordStrong'),
-        get_lang('PasswordVeryStrong'),
-    );
-    $js = api_get_js('js/strength/strength.js');
-    $js .=  "<script>
+    $translations = [
+        'wordLength' => get_lang('PasswordIsTooShort'),
+        'wordNotEmail' => get_lang('YourPasswordCannotBeTheSameAsYourEmail'),
+        'wordSimilarToUsername' => get_lang('YourPasswordCannotContainYourUsername'),
+        'wordTwoCharacterClasses' => get_lang('WordTwoCharacterClasses'),
+        'wordRepetitions' => get_lang('TooManyRepetitions'),
+        'wordSequences' => get_lang('YourPasswordContainsSequences'),
+        'errorList' => get_lang('ErrorsFound'),
+        'veryWeak' => get_lang('PasswordVeryWeak'),
+        'weak' => get_lang('PasswordWeak'),
+        'normal' => get_lang('PasswordNormal'),
+        'medium' => get_lang('PasswordMedium'),
+        'strong' => get_lang('PasswordStrong'),
+        'veryStrong' => get_lang('PasswordVeryStrong')
+    ];
 
-    var verdicts = ['".implode("','", $verdicts)."'];
+    $js = api_get_asset('pwstrength-bootstrap/dist/pwstrength-bootstrap.min.js');
+    $js .=  "<script>    
     var errorMessages = {
         password_to_short : \"" . get_lang('PasswordIsTooShort')."\",
         same_as_username : \"".get_lang('YourPasswordCannotBeTheSameAsYourUsername')."\"
     };
 
     $(document).ready(function() {
-        var options = {
-            verdicts: verdicts,
+        var lang = ".json_encode($translations).";     
+        var options = {        
             onLoad : function () {
                 //$('#messages').text('Start typing password');
             },
@@ -7124,24 +7091,17 @@ function api_get_password_checker_js($usernameInputId, $passwordInputid)
             },
             usernameField: '$usernameInputId'
         };
-        $('".$passwordInputid."').pwstrength(options);
+        options.i18n = {
+            t: function (key) {
+                var result = lang[key];
+                return result === key ? '' : result; // This assumes you return the                
+            }
+        };
+        $('".$passwordInputId."').pwstrength(options);
     });
     </script>";
-    return $js;
-}
 
-/**
- * Gets an array with "easy" passwords
- * @return array
- */
-function api_get_easy_password_list()
-{
-    $passwordList = array('123', '1234', '123456', 'admin', 'user', 'student', 'teacher');
-    $file = api_get_path(CONFIGURATION_PATH).'easy_password_list.php';
-    if (file_exists($file)) {
-        $passwordList = require_once $file;
-    }
-    return $passwordList;
+    return $js;
 }
 
 /**
@@ -7203,6 +7163,7 @@ function api_get_user_blocked_by_captcha($username)
 /**
  * Remove tags from HTML anf return the $in_number_char first non-HTML char
  * Postfix the text with "..." if it has been truncated.
+ * @param integer $in_number_char
  * @return string
  * @author hubert borderiou
  */
@@ -7240,14 +7201,15 @@ function api_remove_tags_with_space($in_html, $in_double_quote_replace = true) {
  */
 function api_drh_can_access_all_session_content()
 {
-    $a = api_get_setting('session.drh_can_access_all_session_content');
-    return $a == 'true';
+    $value = api_get_setting('drh_can_access_all_session_content');
+
+    return $value === 'true';
 }
 
 /**
  * @param string $tool
  * @param string $setting
- * @param mixed $defaultValue
+ * @param integer $defaultValue
  * @return string
  */
 function api_get_default_tool_setting($tool, $setting, $defaultValue)
@@ -7287,8 +7249,8 @@ function api_can_login_as($loginAsUserId, $userId = null)
     if ($loginAsUserId != strval(intval($loginAsUserId))) {
         return false;
     }
-    // Check if the user to login is an admin
 
+    // Check if the user to login is an admin
     if (api_is_platform_admin_by_id($loginAsUserId)) {
         // Only super admins can login to admin accounts
         if (!api_global_admin_can_edit_admin($loginAsUserId)) {
@@ -7303,8 +7265,10 @@ function api_can_login_as($loginAsUserId, $userId = null)
             if (api_drh_can_access_all_session_content()) {
                 $users = SessionManager::getAllUsersFromCoursesFromAllSessionFromStatus('drh_all', api_get_user_id());
                 $userList = array();
-                foreach ($users as $user) {
-                    $userList[] = $user['user_id'];
+                if (is_array($users)) {
+                    foreach ($users as $user) {
+                        $userList[] = $user['user_id'];
+                    }
                 }
                 if (in_array($loginAsUserId, $userList)) {
                     return true;
@@ -7330,37 +7294,13 @@ function api_is_allowed_in_course()
 }
 
 /**
- * Show a string in
- * @param string $string Some string to dump, removing tabs, spaces,
- * newlines, etc (usually most useful for SQL queries)
- * @param int $dump Set to 1 to use print_r()
- */
-function api_error_log($string, $dump = 0)
-{
-    // Clean query
-    $bt = debug_backtrace();
-    $caller = array_shift($bt);;
-    if ($dump == 1) {
-        $string = print_r($string, 1);
-    } else {
-        $string = str_replace(array("\r", "\n", "\t", "\10"), '', $string);
-        $string = str_replace('    ',' ', $string);
-    }
-
-    error_log("-------------------------------------");
-    error_log($string);
-    error_log("File: ".$caller['file']." +".$caller['line']);
-    error_log("-------------------------------------");
-}
-
-/**
  * Set the cookie to go directly to the course code $in_firstpage
  * after login
  * @param string $in_firstpage is the course code of the course to go
  */
 function api_set_firstpage_parameter($in_firstpage)
 {
-    setcookie("GotoCourse", $in_firstpage);
+    setcookie('GotoCourse', $in_firstpage);
 }
 
 /**
@@ -7369,11 +7309,11 @@ function api_set_firstpage_parameter($in_firstpage)
  */
 function api_delete_firstpage_parameter()
 {
-    setcookie("GotoCourse", "", time() - 3600);
+    setcookie('GotoCourse', '', time() - 3600);
 }
 
 /**
- * @return true if course_code for direct course access after login is set
+ * @return boolean if course_code for direct course access after login is set
  */
 function exist_firstpage_parameter()
 {
@@ -7415,7 +7355,8 @@ function api_get_protocol()
  * @param string $in_text
  * @return string
  */
-function convert_double_quote_to_single($in_text) {
+function convert_double_quote_to_single($in_text)
+{
     return api_preg_replace('/"/', "''", $in_text);
 }
 
@@ -7428,10 +7369,10 @@ function convert_double_quote_to_single($in_text) {
 function api_get_origin()
 {
     if (isset($_REQUEST['origin'])) {
-        return $_REQUEST['origin'] == 'learnpath' ? 'learnpath' : null;
+        return $_REQUEST['origin'] === 'learnpath' ? 'learnpath' : '';
     }
 
-    return null;
+    return '';
 }
 
 /**
@@ -7463,12 +7404,16 @@ function api_get_configuration_value($variable)
 
 /**
  * Returns supported image extensions in the portal
+ * @param   bool    $supportVectors Whether vector images should also be accepted or not
  * @return  array   Supported image extensions in the portal
  */
-function api_get_supported_image_extensions()
+function api_get_supported_image_extensions($supportVectors = true)
 {
     // jpg can also be called jpeg, jpe, jfif and jif. See https://en.wikipedia.org/wiki/JPEG#JPEG_filename_extensions
-    $supportedImageExtensions = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'jpe', 'jfif', 'jif');
+    $supportedImageExtensions = array('jpg', 'jpeg', 'png', 'gif', 'jpe', 'jfif', 'jif');
+    if ($supportVectors) {
+        array_push($supportedImageExtensions, 'svg');
+    }
     if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
         array_push($supportedImageExtensions, 'webp');
     }
@@ -7570,7 +7515,7 @@ function api_get_users_status_ignored_in_reports($format = 'array')
  */
 function api_set_site_use_cookie_warning_cookie()
 {
-    setcookie("ChamiloUsesCookies", "ok", time()+31556926);
+    setcookie('ChamiloUsesCookies', 'ok', time()+31556926);
 }
 
 /**
@@ -7594,6 +7539,12 @@ function api_format_time($time, $originFormat = 'php')
     $hours = $time / 3600;
     $mins = ($time % 3600) / 60;
     $secs = ($time % 60);
+
+    if ($time < 0) {
+        $hours = 0;
+        $mins = 0;
+        $secs = 0;
+    }
 
     if ($originFormat == 'js') {
         $formattedTime = trim(sprintf("%02d : %02d : %02d", $hours, $mins, $secs));
@@ -7651,9 +7602,9 @@ function api_create_protected_dir($name, $parentDirectory)
  * @param string    sender e-mail
  * @param array     extra headers in form $headers = array($name => $value) to allow parsing
  * @param array     data file (path and filename)
- * @param array     data to attach a file (optional)
  * @param bool      True for attaching a embedded file inside content html (optional)
- * @return          returns true if mail was sent
+ * @param array     Additional parameters
+ * @return          integer true if mail was sent
  * @see             class.phpmailer.php
  */
 function api_mail_html(
@@ -7723,11 +7674,12 @@ function api_protect_course_group($tool, $showHeader = true)
 {
     $userId = api_get_user_id();
     $groupId = api_get_group_id();
+    $groupInfo = GroupManager::get_group_properties($groupId);
 
-    if (!empty($groupId)) {
+    if (!empty($groupInfo)) {
         $allow = GroupManager::user_has_access(
             $userId,
-            $groupId,
+            $groupInfo['iid'],
             $tool
         );
 
@@ -7738,16 +7690,39 @@ function api_protect_course_group($tool, $showHeader = true)
 }
 
 /**
+ * Check if a date is in a date range
+ *
+ * @param datetime $startDate
+ * @param datetime $endDate
+ * @param datetime $currentDate
+ * @return bool true if date is in rage, false otherwise
+ */
+function api_is_date_in_date_range($startDate, $endDate, $currentDate = null)
+{
+    $startDate = strtotime(api_get_local_time($startDate));
+    $endDate = strtotime(api_get_local_time($endDate));
+    $currentDate = strtotime(api_get_local_time($currentDate));
+
+    if ($currentDate >= $startDate && $currentDate <= $endDate) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
  * Eliminate the duplicates of a multidimensional array by sending the key
+ *
  * @param array $array multidimensional array
  * @param int $key key to find to compare
+ * @return array
  *
  */
 function api_unique_multidim_array($array, $key)
 {
-    $temp_array = array();
+    $temp_array = [];
     $i = 0;
-    $key_array = array();
+    $key_array = [];
 
     foreach($array as $val){
         if(!in_array($val[$key],$key_array)){
@@ -7776,6 +7751,58 @@ function api_is_student_view_active()
     $studentView = Session::read('studentview');
 
     return $studentView == "studentview";
+}
+
+/**
+ * Adds a file inside the upload/$type/id
+ *
+ * @param string $type
+ * @param array $file
+ * @param int $itemId
+ * @param string $cropParameters
+ * @return array|bool
+ */
+function api_upload_file($type, $file, $itemId, $cropParameters = '')
+{
+    $upload = process_uploaded_file($file);
+    if ($upload) {
+        $name = api_replace_dangerous_char($file['name']);
+
+        // No "dangerous" files
+        $name = disable_dangerous_file($name);
+
+        $pathId = '/'.substr((string)$itemId, 0, 1).'/'.$itemId.'/';
+        $path = api_get_path(SYS_UPLOAD_PATH).$type.$pathId;
+
+        if (!is_dir($path)) {
+            mkdir($path, api_get_permissions_for_new_directories(), true);
+        }
+
+        $pathToSave = $path.$name;
+
+        $result = move_uploaded_file($file['tmp_name'], $pathToSave);
+        if ($result) {
+            if (!empty($cropParameters)) {
+                $image = new Image($pathToSave);
+                $image->crop($cropParameters);
+            }
+
+            return ['path_to_save' => $pathId.$name];
+        }
+        return false;
+    }
+}
+
+/**
+ * @param string $type
+ * @param string $file
+ */
+function api_remove_uploaded_file($type, $file)
+{
+    $path = api_get_path(SYS_UPLOAD_PATH).$type.'/'.$file;
+    if (file_exists($path)) {
+        unlink($path);
+    }
 }
 
 /**

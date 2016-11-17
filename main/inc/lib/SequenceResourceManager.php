@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 use \Chamilo\CoreBundle\Entity\SequenceResource;
 
 /**
@@ -42,7 +43,6 @@ class SequenceResourceManager
     private static function checkSessionRequirementsForUser(array $sequences, $userId = 0)
     {
         $sequenceList = [];
-
         $entityManager = Database::getManager();
 
         $gradebookCategoryRepo = $entityManager->getRepository(
@@ -67,7 +67,7 @@ class SequenceResourceManager
                     $course = $sessionCourse->getCourse();
 
                     $gradebooks = $gradebookCategoryRepo->findBy([
-                        'course' => $course,
+                        'courseCode' => $course->getCode(),
                         'sessionId' => $sessionRequired->getId(),
                         'isRequirement' => true
                     ]);

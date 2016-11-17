@@ -9,7 +9,6 @@
  */
 class GamificationUtils
 {
-
     /**
      * Get the calculated points on session with gamification mode
      * @param int $userId The user ID
@@ -76,10 +75,8 @@ class GamificationUtils
                     $learnPathId,
                     $userId
                 );
-
                 $score += $learnPath->getCalculateScore($sessionId);
             }
-
             $totalPoints += round($score / count($learnPaths), 2);
         }
 
@@ -182,7 +179,6 @@ class GamificationUtils
     public static function getTotalUserStars($userId, $userStatus)
     {
         $stars = 0;
-
         $sessions = SessionManager::getSessionsFollowedByUser(
             $userId,
             $userStatus
@@ -225,5 +221,4 @@ class GamificationUtils
 
         return round($progress / count($sessions), 2);
     }
-
 }
