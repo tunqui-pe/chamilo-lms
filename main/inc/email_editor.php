@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This script contains the code to edit and send an e-mail to one of
  * the platform's users.
@@ -10,9 +12,6 @@
  * @author Julio Montoya <gugli100@gmail.com> Updating form with formvalidator
  */
 
-use ChamiloSession as Session;
-
-//require_once '../inc/global.inc.php';
 
 if (empty($_user['user_id'])) {
     api_not_allowed(true);

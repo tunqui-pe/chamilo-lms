@@ -6,7 +6,7 @@
  */
 
 $this_section = SECTION_COURSES;
-$current_course_tool  = TOOL_GROUP;
+$current_course_tool = TOOL_GROUP;
 
 // Notice for unauthorized people.
 api_protect_course_script(true);
@@ -185,7 +185,12 @@ EOT;
 			if (api_get_setting('group.allow_group_categories') == 'true') {
 				$group_el[] = $form->createElement('select', 'group_'.$group_number.'_category', null, $cat_options, array('id' => 'category_'.$group_number));
 			}
-			$group_el[] = $form->createElement('text', 'group_'.$group_number.'_places', null, array('class' => 'span1', 'id' => 'places_'.$group_number));
+            $group_el[] = $form->createElement(
+                'text',
+                'group_'.$group_number.'_places',
+                null,
+                array('class' => 'span1', 'id' => 'places_'.$group_number)
+            );
 
 			if ($_POST['number_of_groups'] < 10000) {
 				if ($group_id < 10) {
@@ -232,7 +237,7 @@ EOT;
 		$base_group_options = array ();
 		$groups = GroupManager :: get_group_list();
 		foreach ($groups as $index => $group) {
-			$number_of_students = GroupManager :: number_of_students($group['id']);
+            $number_of_students = GroupManager :: number_of_students($group['iid']);
 			if ($number_of_students > 0) {
 				$base_group_options[$group['id']] = $group['name'].' ('.$number_of_students.' '.get_lang('Users').')';
 			}
@@ -248,7 +253,7 @@ EOT;
 			$group_el[] = $create_subgroups_form->createElement('static', null, null, get_lang('WithUsersFrom'));
 			$group_el[] = $create_subgroups_form->createElement('select', 'base_group', null, $base_group_options);
 			$group_el[] = $create_subgroups_form->createElement('button', 'submit', get_lang('Ok'));
-			$create_subgroups_form->addGroup($group_el, 'create_groups', null, ' ', false);
+            $create_subgroups_form->addGroup($group_el, 'create_groups', null, null, false);
 			$defaults = array();
 			$defaults['action'] = 'create_subgroups';
 			$create_subgroups_form->setDefaults($defaults);
@@ -259,7 +264,7 @@ EOT;
 	/*
 	 * Show form to generate groups from classes subscribed to the course
 	 */
-    $options['where'] = array(" usergroup.course_id = ? " =>  api_get_real_course_id());
+    $options['where'] = array(" usergroup.course_id = ? " =>  api_get_course_int_id());
     $obj = new UserGroup();
     $classes = $obj->getUserGroupInCourse($options);
 	if (count($classes) > 0) {

@@ -19,14 +19,12 @@
 
  */
 
-// Including libraries
-////require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_LINK;
 
 $this_section = SECTION_COURSES;
-api_protect_course_script();
+api_protect_course_script(true);
 
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
     $(document).ready( function() {
         for (i=0;i<$(".actions").length;i++) {
             if ($(".actions:eq("+i+")").html()=="<table border=\"0\"></table>" || $(".actions:eq("+i+")").html()=="" || $(".actions:eq("+i+")").html()==null) {
@@ -71,7 +69,7 @@ $course_id = api_get_course_int_id();
 $session_id = api_get_session_id();
 $condition_session = api_get_session_condition($session_id, true, true);
 
-if ($action == 'addlink') {
+if ($action === 'addlink') {
     $nameTools = '';
     $interbreadcrumb[] = array(
         'url' => 'link.php?'.api_get_cidreq(),
@@ -194,6 +192,16 @@ switch ($action) {
     case 'down':
         Link::movecatlink('down', $down);
         header('Location: '.$linkListUrl);
+        exit;
+        break;
+    case 'move_link_up':
+        Link::moveLinkUp($id);
+        header('Location: ' . $linkListUrl);
+        exit;
+        break;
+    case 'move_link_down':
+        Link::moveLinkDown($id);
+        header('Location: ' . $linkListUrl);
         exit;
         break;
     case 'list':
