@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * Responses to AJAX calls for the document upload
  */
@@ -13,12 +14,14 @@ switch ($action) {
         $is_allowed_to_edit = api_is_allowed_to_edit(null, true);
         // This needs cleaning!
         if (api_get_group_id()) {
+            $groupInfo = GroupManager::get_group_properties(api_get_group_id());
             // Only course admin or group members allowed
-            if ($is_allowed_to_edit || GroupManager::is_user_in_group(api_get_user_id(), api_get_group_id())) {
+            if ($is_allowed_to_edit || GroupManager::is_user_in_group(api_get_user_id(), $groupInfo['iid'])) {
             } else {
                 exit;
             }
         } elseif ($is_allowed_to_edit || DocumentManager::is_my_shared_folder(api_get_user_id(), $_POST['curdirpath'], api_get_session_id())) {
+            // ??
         } else {
             // No course admin and no group member...
             exit;
@@ -80,7 +83,7 @@ switch ($action) {
                 $json['name'] = Display::url(
                     api_htmlentities($result['title']),
                     api_htmlentities($result['url']),
-                    array('target' => '_blank')
+                    array('target'=>'_blank')
                 );
 
                 $json['url'] = $result['url'];

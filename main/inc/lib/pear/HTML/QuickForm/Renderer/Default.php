@@ -281,6 +281,8 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
         $name = $element->getName();
         $label = $element->getLabel();
         $labelForId = $element->getAttribute('id');
+        $extraLabelClass = $element->getAttribute('extra_label_class');
+
         $icon = $element->getIconToHtml();
 
         if (is_array($label)) {
@@ -301,6 +303,12 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
                     $template = $element->getTemplate(
                         $this->getForm()->getLayout()
                     );
+                    if ($element->isFrozen()) {
+                        $customFrozentemplate = $element->getCustomFrozenTemplate();
+                        if (!empty($customFrozentemplate)) {
+                            $template = $customFrozentemplate;
+                        }
+                    }
                 } else {
                     $template = $this->getForm()->getDefaultElementTemplate();
                 }
@@ -311,6 +319,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
         }
         $html = str_replace('{label-for}', $labelFor, $html);
         $html = str_replace('{icon}', $icon, $html);
+        $html = str_replace('{extra_label_class}', $extraLabelClass, $html);
 
         if ($required) {
             $html = str_replace('<!-- BEGIN required -->', '', $html);
@@ -339,6 +348,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
         if (strpos($html, '{label_')) {
             $html = preg_replace('/\s*<!-- BEGIN label_(\S+) -->.*<!-- END label_\1 -->\s*/is', '', $html);
         }
+
 
         return $html;
     } // end func _prepareTemplate

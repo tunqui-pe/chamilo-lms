@@ -7,9 +7,9 @@
 class SelectAjax extends HTML_QuickForm_select
 {
     /**
-     * Class constructor
+     * @inheritdoc
      */
-    public function __construct($elementName = null, $elementLabel = null, $options = null, $attributes = null)
+    public function __construct($elementName, $elementLabel = '', $options = null, $attributes = null)
     {
         parent::__construct($elementName, $elementLabel, $options, $attributes);
     }
@@ -20,6 +20,17 @@ class SelectAjax extends HTML_QuickForm_select
      */
     public function toHtml()
     {
+        $html = api_get_asset('select2/dist/js/select2.min.js');
+
+        $iso = api_get_language_isocode(api_get_interface_language());
+        $languageCondition = '';
+
+        if (file_exists(api_get_path(SYS_PATH) . "web/assets/select2/dist/js/i18n/$iso.js")) {
+            $html .= api_get_asset("select2/dist/js/i18n/$iso.js");
+            $languageCondition = "language: '$iso',";
+        }
+
+        $html .= api_get_css(api_get_path(WEB_PATH).'web/assets/select2/dist/css/select2.min.css');
 
         $formatResult = $this->getAttribute('formatResult');
 
@@ -54,7 +65,7 @@ class SelectAjax extends HTML_QuickForm_select
             $id = $this->getAttribute('name');
             $this->setAttribute('id', $id);
         }
-        //$iso = Container
+        // URL must return ajax json_encode arrady [items => [['id'=>1, 'text'='content']]
         $url = $this->getAttribute('url');
         $iso = api_get_language_isocode();
         $languageCondition = "language: '$iso',";
@@ -64,7 +75,19 @@ class SelectAjax extends HTML_QuickForm_select
             $url = "'$url'";
         }
 
-        $html = <<<JS
+        $tagsAttr = $this->getAttribute('tags');
+        $multipleAttr = $this->getAttribute('multiple');
+
+        $tags = !empty($tagsAttr) ? (bool) $tagsAttr : false;
+        $tags = $tags ? 'true' : 'false';
+
+        $multiple = !empty($multipleAttr) ? (bool) $multipleAttr : false;
+        $multiple = $multiple ? 'true' : 'false';
+
+        $max = $this->getAttribute('maximumSelectionLength');
+        $max = !empty($max) ? "maximumSelectionLength: $max, ": '';
+
+        $html .= <<<JS
             <script>
                 $(function(){
                     $('#{$this->getAttribute('id')}').select2({
@@ -73,6 +96,7 @@ class SelectAjax extends HTML_QuickForm_select
                         allowClear: true,
                         width: '$width',
                         minimumInputLength: '$minimumInputLength',
+                        tags: $tags,
                         ajax: {
                             url: $url,
                             dataType: 'json',
@@ -97,6 +121,8 @@ JS;
 
         $this->removeAttribute('formatResult');
         $this->removeAttribute('minimumInputLength');
+        $this->removeAttribute('maximumSelectionLength');
+        $this->removeAttribute('tags');
         $this->removeAttribute('placeholder');
         $this->removeAttribute('class');
         $this->removeAttribute('url');

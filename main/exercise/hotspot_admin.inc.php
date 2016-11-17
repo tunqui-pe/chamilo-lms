@@ -1,13 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
+
 /**
  * This script allows to manage answers. It is included from the
  * script admin.php
  * @package chamilo.exercise
  * @author Toon Keppens
  */
-use \ChamiloSession as Session;
 
 $modifyAnswers = intval($_GET['hotspotadmin']);
 
@@ -64,7 +65,7 @@ if ($modifyIn) {
     unset($buttonBack);
 }
 
-$hotspot_admin_url = api_get_path(WEB_CODE_PATH) . 'exercice/admin.php?' . api_get_cidreq() . '&exerciseId=' . $exerciseId;
+$hotspot_admin_url = api_get_path(WEB_CODE_PATH) . 'exercise/admin.php?' . api_get_cidreq() . '&exerciseId=' . $exerciseId;
 
 // the answer form has been submitted
 $submitAnswers = isset($_POST['submitAnswers']) ? true : false;
@@ -246,11 +247,11 @@ if ($submitAnswers || $buttonBack) {
         }  // end for()
 
         //now the noerror section
-        $selectQuestionNoError = $_POST['select_question_noerror'];
-        $lp_noerror = $_POST['lp_noerror'];
-        $try_noerror = isset($_POST['try_noerror']) ? $_POST['try_noerror'] : null;
-        $url_noerror = $_POST['url_noerror'];
-        $comment_noerror = $_POST['comment_noerror'];
+        $selectQuestionNoError = Security::remove_XSS($_POST['select_question_noerror']);
+        $lp_noerror = Security::remove_XSS($_POST['lp_noerror']);
+        $try_noerror = isset($_POST['try_noerror']) ? Security::remove_XSS($_POST['try_noerror']) : null;
+        $url_noerror = Security::remove_XSS($_POST['url_noerror']);
+        $comment_noerror = Security::remove_XSS($_POST['comment_noerror']);
         $threadhold_total = '0;0;0';
 
         if ($try_noerror == 'on') {
@@ -292,6 +293,7 @@ if ($submitAnswers || $buttonBack) {
                 if ($weighting[$i]) {
                     $questionWeighting+=$weighting[$i];
                 }
+
                 // creates answer
                 $objAnswer->createAnswer(
                     $reponse[$i],
@@ -324,7 +326,6 @@ if ($submitAnswers || $buttonBack) {
 
             $editQuestion = $questionId;
             unset($modifyAnswers);
-
             echo '<script type="text/javascript">window.location.href="' . $hotspot_admin_url . '&message=ItemUpdated"</script>';
         }
     }
@@ -366,8 +367,9 @@ if ($modifyAnswers) {
         if ($answerType == HOT_SPOT_DELINEATION) {
             // the magic happens here ...
             // we do this to not count the if no error section
-            if ($nbrAnswers >= 2)
+            if ($nbrAnswers >= 2) {
                 $nbrAnswers--;
+            }
         }
 
         $reponse = array();
@@ -572,7 +574,7 @@ if ($modifyAnswers) {
         Display::display_normal_message($msgErr); //main API
     }
 
-    $hotspot_admin_url = api_get_path(WEB_CODE_PATH) . 'exercice/admin.php?' . api_get_cidreq() . '&hotspotadmin=' . $modifyAnswers . '&exerciseId=' . $exerciseId . '&' . api_get_cidreq();
+    $hotspot_admin_url = api_get_path(WEB_CODE_PATH) . 'exercise/admin.php?' . api_get_cidreq() . '&hotspotadmin=' . $modifyAnswers . '&exerciseId=' . $exerciseId . '&' . api_get_cidreq();
     ?>
     <form method="post" action="<?php echo $hotspot_admin_url; ?>" class="form-horizontal" id="frm_exercise" name="frm_exercise">
         <div class="form-group">
@@ -605,19 +607,16 @@ if ($modifyAnswers) {
                         <tr>
                             <th width="5">&nbsp;</th>
                             <th> <?php echo get_lang('HotspotDescription'); ?> *</th>
-                            <?php
-                            if ($objExercise->selectFeedbackType() == EXERCISE_FEEDBACK_TYPE_DIRECT) {
-                                ?>
+                            <?php if ($objExercise->selectFeedbackType() == EXERCISE_FEEDBACK_TYPE_DIRECT) { ?>
                                 <th><?php echo get_lang('Comment'); ?></th>
                                 <?php
                                 if ($answerType == HOT_SPOT_DELINEATION) {
                                     echo '<th >' . get_lang('Scenario') . '</th>';
                                 }
-                                ?>
-                                <?php
-                            } else {
-                                ?>
-                                <th colspan="2"><?php echo get_lang('Comment'); ?></th>
+                            } else { ?>
+                                <th colspan="2">
+                                    <?php echo get_lang('Comment'); ?>
+                                </th>
                             <?php } ?>
                             <th><?php echo get_lang('QuestionWeighting'); ?> *</th>
                         </tr>
@@ -631,13 +630,11 @@ if ($modifyAnswers) {
                         for ($i = 1; $i <= $nbrAnswers; $i++) {
                             // is an delineation
                             if ($answerType == HOT_SPOT_DELINEATION) {
-                                $select_lp_id = array();
                                 $option_lp = '';
 
                                 // setting the LP
                                 $isSelected = false;
                                 foreach ($flat_list as $id => $details) {
-                                    $select_lp_id[$id] = $details['lp_name'];
                                     $selected = '';
                                     if ($id == $lp[$i]) {
                                         $isSelected = true;
@@ -676,10 +673,8 @@ if ($modifyAnswers) {
                                 }
 
                                 //-------- IF it is a delineation
-
                                 if ($_SESSION['tmp_answers']['hotspot_type'][$i] == 'delineation') {
                                     $option1 = $option2 = $option3 = '';
-
                                     for ($k = 1; $k <= 100; $k++) {
                                         $selected1 = $selected2 = $selected3 = '';
                                         if ($k == $threadhold1[$i])
@@ -935,12 +930,10 @@ if ($modifyAnswers) {
 
                         $list = new LearnpathList(api_get_user_id());
                         $flat_list = $list->get_flat_list();
-                        $select_lp_id = array();
                         $option_lp = '';
                         $isSelected = false;
                         foreach ($flat_list as $id => $details) {
                             $selected = '';
-                            $select_lp_id[$id] = $details['lp_name'];
                             if (isset($lp_noerror) && $id == $lp_noerror) {
                                 $selected = 'selected="selected"';
                                 $isSelected = true;
@@ -965,7 +958,6 @@ if ($modifyAnswers) {
                             $selected = '';
                             $question = Question::read($questionid);
                             $val = 'Q' . $key . ' :' . substrwords($question->selectTitle(), ICON_SIZE_SMALL);
-                            $select_lp_id[$id] = $details['lp_name'];
                             if ($questionid == $selectQuestionNoError) {
                                 $selected = 'selected="selected"';
                             }
@@ -1037,7 +1029,7 @@ if ($modifyAnswers) {
     <?php
     $swf_loaded = $answerType == HOT_SPOT_DELINEATION ? 'hotspot_delineation_admin' : 'hotspot_admin';
     $height = 450;
-    $relPath = api_get_path(REL_PATH);
+    $relPath = api_get_path(WEB_CODE_PATH);
     ?>
                 <div id="hotspot-container" class="center-block">
                 </div>

@@ -32,17 +32,25 @@ class DateTimePicker extends HTML_QuickForm_text
 
         $id = $this->getAttribute('id');
         $value = $this->getValue();
-        $label = $this->getLabel();
 
         if (!empty($value)) {
             $value = api_format_date($value, DATE_TIME_FORMAT_LONG_24H);
         }
 
-        return $this->getElementJS() . '
+        return '
+            <div class="input-group">
+                <span class="input-group-addon">
                     <input ' . $this->_getAttrString($this->_attributes) . '>
-
-        ';
-        //<input class="form-control" type="text" readonly id="' . $id . '_alt" value="' . $value . '">
+                </span>
+                <input class="form-control" type="text" readonly id="' . $id . '_alt" value="' . $value . '">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="fa fa-times text-danger" aria-hidden="true"></span>
+                        <span class="sr-only">' . get_lang('Reset') . '</span>
+                    </button>
+                </span>
+            </div>
+        ' .  $this->getElementJS();
     }
 
     /**
@@ -69,7 +77,12 @@ class DateTimePicker extends HTML_QuickForm_text
         //timeFormat: 'hh:mm'
         $js .= "<script>
             $(function() {
-                /*$('#$id').hide().datetimepicker({
+                var txtDateTime = $('#$id'),
+                    inputGroup = txtDateTime.parents('.input-group');
+
+                txtDateTime
+                    .hide()
+                    .datetimepicker({
                     defaultDate: '" . $this->getValue() . "',
                     dateFormat: 'yy-mm-dd',
                     timeFormat: 'HH:mm',
@@ -84,11 +97,14 @@ class DateTimePicker extends HTML_QuickForm_text
                     buttonText: '" . get_lang('SelectDate') . "',
                     changeMonth: true,
                     changeYear: true
-                });*/
+                    });
+
+                inputGroup
+                    .find('button')
+                    .on('click', function (e) {
+                        e.preventDefault();
 
                 $('#$id').datetimepicker({
-                    defaultDate: '".$this->getValue()."',
-                    format: 'YYYY-MM-DD HH:mm'
                 });
             });
         </script>";
@@ -147,7 +163,7 @@ class DateTimePicker extends HTML_QuickForm_text
             case FormValidator::LAYOUT_HORIZONTAL:
                 return '
                 <div class="form-group {error_class}">
-                    <label {label-for} class="col-sm-'.$size[0].' control-label" >
+                    <label {label-for} class="col-sm-'.$size[0].' control-label {extra_label_class}" >
                         <!-- BEGIN required --><span class="form_required">*</span><!-- END required -->
                         {label}
                     </label>

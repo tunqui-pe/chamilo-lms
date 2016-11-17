@@ -1,10 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 /**
+ * @deprecated?
  * @package chamilo.forum
  */
-
-//require_once '../inc/global.inc.php';
 
 // The section (tabs).
 $this_section = SECTION_COURSES;
@@ -38,7 +37,7 @@ if (isset($_GET['origin'])) {
 // We are getting all the information about the current forum and forum category.
 // Note pcool: I tried to use only one sql statement (and function) for this,
 // but the problem is that the visibility of the forum AND forum category are stored in the item_property table.
-$current_thread = get_thread_information($_GET['thread']); // Note: This has to be validated that it is an existing thread.
+$current_thread = get_thread_information($_GET['forum'], $_GET['thread']); // Note: This has to be validated that it is an existing thread.
 $current_forum = get_forum_information($current_thread['forum_id']); // Note: This has to be validated that it is an existing forum.
 $current_forum_category = get_forumcategory_information($current_forum['forum_category']);
 $whatsnew_post_info = $_SESSION['whatsnew_post_info'];
@@ -61,11 +60,11 @@ if ($origin == 'learnpath') {
     );
     $interbreadcrumb[] = array(
         'url' => 'viewforumcategory.php?'.api_get_cidreq().'&forumcategory='.$current_forum_category['cat_id'].'&search='.Security::remove_XSS(urlencode($_GET['search'])),
-        'name' => prepare4display($current_forum_category['cat_title']),
+        'name' => prepare4display($current_forum_category['cat_title'])
     );
     $interbreadcrumb[] = array(
-        'url' => 'viewforum.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&origin='.$origin.'&search='.Security::remove_XSS(urlencode($_GET['search'])),
-        'name' => prepare4display($current_forum['forum_title']),
+        'url' => 'viewforum.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&search='.Security::remove_XSS(urlencode($_GET['search'])),
+        'name' => prepare4display($current_forum['forum_title'])
     );
 
     // the last element of the breadcrumb navigation is already set in interbreadcrumb, so give empty string
@@ -117,10 +116,10 @@ if ($message != 'PostDeletedSpecial') {
     /* Action Links */
 
     echo '<div style="float:right;">';
-    $my_url = '<a href="viewthread.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']).'&origin='.$origin.'&search='.Security::remove_XSS(urlencode($_GET['search']));
-    echo $my_url.'&view=flat&origin='.$origin.'">'.get_lang('FlatView').'</a> | ';
-    echo $my_url.'&view=threaded&origin='.$origin.'">'.get_lang('ThreadedView').'</a> | ';
-    echo $my_url.'&view=nested&origin='.$origin.'">'.get_lang('NestedView').'</a>';
+    $my_url = '<a href="viewthread.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']).'&origin='.$origin.'&gradebook='.$gradebook.'&search='.Security::remove_XSS(urlencode($_GET['search']));
+    echo $my_url.'&view=flat">'.get_lang('FlatView').'</a> | ';
+    echo $my_url.'&view=threaded">'.get_lang('ThreadedView').'</a> | ';
+    echo $my_url.'&view=nested">'.get_lang('NestedView').'</a>';
     $my_url = null;
     echo '</div>';
     // The reply to thread link should only appear when the forum_category is
@@ -132,8 +131,7 @@ if ($message != 'PostDeletedSpecial') {
         // The link should only appear when the user is logged in or when anonymous posts are allowed.
         if ($_user['user_id'] || ($current_forum['allow_anonymous'] == 1 && !$_user['user_id'])) {
             // reply link
-            echo '<a href="reply.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']).'&action=replythread&origin='.$origin.'">'.
-                get_lang('ReplyToThread').'</a>';
+            echo '<a href="reply.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']).'&action=replythread&origin='.$origin.'">'.get_lang('ReplyToThread').'</a>';
 
             // new thread link
             if (api_is_allowed_to_edit(false, true) ||

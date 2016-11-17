@@ -20,9 +20,6 @@ use ChamiloSession as Session;
  * @package chamilo.forum
  */
 
-//require_once '../inc/global.inc.php';
-
-// The section (tabs).
 $this_section = SECTION_COURSES;
 
 // Notification for unauthorized people.
@@ -42,6 +39,7 @@ require_once 'forumfunction.inc.php';
 
 $forumId = isset($_GET['forum']) ? (int)$_GET['forum'] : 0;
 $threadId = isset($_GET['thread']) ? (int)$_GET['thread'] : 0;
+
 /* MAIN DISPLAY SECTION */
 
 /* Retrieving forum and forum categorie information */
@@ -59,7 +57,6 @@ $current_forum_category = get_forumcategory_information(Security::remove_XSS($cu
 // 3. if anonymous posts are not allowed
 // The only exception is the course manager
 // I have split this is several pieces for clarity.
-//if (!api_is_allowed_to_edit() AND (($current_forum_category['visibility'] == 0 OR $current_forum['visibility'] == 0) OR ($current_forum_category['locked'] <> 0 OR $current_forum['locked'] <> 0 OR $current_thread['locked'] <> 0))) {
 if (!api_is_allowed_to_edit(false, true) &&
     (($current_forum_category && $current_forum_category['visibility'] == 0) || $current_forum['visibility'] == 0)
 ) {
@@ -141,7 +138,6 @@ if (!empty($groupId)) {
 }
 
 /* Header */
-
 $htmlHeadXtra[] = <<<JS
     <script>
     $(document).on('ready', function() {
@@ -184,7 +180,7 @@ if ($origin == 'learnpath') {
 if ($origin != 'learnpath') {
     echo '<div class="actions">';
     echo '<span style="float:right;">'.search_link().'</span>';
-    echo '<a href="viewthread.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&thread='.intval($_GET['thread']).'&origin='.$origin.'">'.
+    echo '<a href="viewthread.php?'.api_get_cidreq().'&forum='.$forumId.'&gradebook='.$gradebook.'&thread='.$threadId.'">'.
         Display::return_icon('back.png', get_lang('BackToThread'), '', ICON_SIZE_MEDIUM).'</a>';
     echo '</div>';
 }

@@ -4,7 +4,6 @@
  * Script
  * @package chamilo.gradebook
  */
-//require_once '../inc/global.inc.php';
 api_block_anonymous_users();
 GradebookUtils::block_students();
 $select_eval=Security::remove_XSS($_GET['selecteval']);
@@ -57,6 +56,6 @@ $interbreadcrumb[]= array (
     'name' => get_lang('ViewResult')
 );
 Display :: display_header(get_lang('EditResult'));
-DisplayGradebook::display_header_result($evaluation[0],null,0,0);
+DisplayGradebook::display_header_result($evaluation[0], null, 0, 0);
 echo $table;
 Display :: display_footer();

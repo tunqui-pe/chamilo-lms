@@ -128,7 +128,7 @@ EOT;
     {
         return '
             <div class="form-group {error_class}">
-                <label {label-for} class="col-sm-2 control-label" >
+                <label {label-for} class="col-sm-2 control-label {extra_label_class}" >
                     <!-- BEGIN required --><span class="form_required">*</span><!-- END required -->
                     {label}
                 </label>
@@ -230,6 +230,27 @@ EOT;
     public function addSelectLanguage($name, $label, $options = [], $attributes = [])
     {
         return $this->addElement('SelectLanguage', $name, $label, $options, $attributes);
+    }
+
+    /**
+     * @param $name
+     * @param $label
+     * @param array $options
+     * @param array $attributes
+     * @throws
+     */
+    public function addSelectAjax($name, $label, $options = [], $attributes = [])
+    {
+        if (!isset($attributes['url'])) {
+            throw new \Exception('select_ajax needs an URL');
+        }
+        $this->addElement(
+            'select_ajax',
+            $name,
+            $label,
+            $options,
+            $attributes
+        );
     }
 
     /**
@@ -784,10 +805,34 @@ EOT;
      * @param string $name
      * @param string $label
      * @param array  $attributes
+     * @throws Exception if the file doesn't have an id
      */
     public function addFile($name, $label, $attributes = array())
     {
-        $this->addElement('file', $name, $label, $attributes);
+        $element = $this->addElement('file', $name, $label, $attributes);
+        if (isset($attributes['crop_image'])) {
+            $id = $element->getAttribute('id');
+            if (empty($id)) {
+                throw new Exception('If you use the crop functionality the element must have an id');
+            }
+            $this->addHtml('
+                <div class="form-group">
+                <label for="cropImage" id="'.$id.'_label_crop_image" class="col-sm-2 control-label"></label>
+                <div class="col-sm-8">
+                <div id="'.$id.'_crop_image" class="cropCanvas">
+                <img id="'.$id.'_preview_image">
+                </div>
+                <div>
+                <button class="btn btn-primary hidden" name="cropButton" id="'.$id.'_crop_button" >
+                    <em class="fa fa-crop"></em> '.
+                    get_lang('CropYourPicture').'
+                </button>
+                </div>
+                </div>
+                </div>'
+            );
+            $this->addHidden($id.'_crop_result', '');
+        }
     }
 
     /**
@@ -807,12 +852,11 @@ EOT;
      * @param array  $config (optional) Configuration settings for the online editor.
      * @param bool   $style
      */
-    public function addHtmlEditor($name, $label, $required = true, $attributes = [], $config = [])
+    public function addHtmlEditor($name, $label, $required = true, $fullPage = false, $config = array(), $style = false)
     {
         $config['rows'] = isset($config['rows']) ? $config['rows'] : 15;
         $config['cols'] = isset($config['cols']) ? $config['cols'] : 80;
-
-        $this->addElement('html_editor', $name, $label, $attributes, $config);
+        $this->addElement('html_editor', $name, $label, $config, $style);
         $this->applyFilter($name, 'trim');
         if ($required) {
             $this->addRule($name, get_lang('ThisFieldIsRequired'), 'required');
@@ -820,11 +864,10 @@ EOT;
 
         /** @var HtmlEditor $element */
         $element = $this->getElement($name);
-        $fullPage = false;
-        if (isset($config['FullPage'])) {
-            $fullPage = true;
-        }
 
+        if ($style) {
+            $config['style'] = true;
+        }
         if ($fullPage) {
             $config['fullPage'] = true;
         }
@@ -848,92 +891,26 @@ EOT;
     }
 
     /**
-     * Adds a progress bar to the form.
+     * Adds a progress loading image to the form.
      *
-     * Once the user submits the form, a progress bar (animated gif) is
-     * displayed. The progress bar will disappear once the page has been
-     * reloaded.
-     *
-     * @param int $delay (optional)	 The number of seconds between the moment the user
-     * @param string $label (optional)	Custom label to be shown
-     *
-     * submits the form and the start of the progress bar.
-     * @deprecated ?
      */
-    public function add_progress_bar($delay = 2, $label = '')
+    public function addProgress($delay = 2, $label = '')
     {
         if (empty($label)) {
             $label = get_lang('PleaseStandBy');
         }
         $this->with_progress_bar = true;
-        $this->updateAttributes("onsubmit=\"javascript: myUpload.start('dynamic_div','".Display::returnIconPath('progress_bar.gif')."','" . $label . "','" . $this->getAttribute('id') . "')\"");
-        $this->addElement('html', '<script type="text/javascript">var myUpload = new upload(' . (abs(intval($delay)) * 1000) . ');</script>');
-    }
+        $id = $this->getAttribute('id');
 
-    /**
-     * Uses new functions (php 5.2) for displaying real upload progress.
-     * @param string $upload_id							The value of the field UPLOAD_IDENTIFIER, the second parameter (XXX) of the $form->addElement('file', XXX) sentence
-     * @param string $element_after						The first element of the form (to place at first UPLOAD_IDENTIFIER)
-     * @param int $delay (optional)						The frequency of the xajax call
-     * @param bool $wait_after_upload (optional)
-     */
-    public function add_real_progress_bar($upload_id, $element_after, $delay = 2, $wait_after_upload = false)
-    {
-        if (!function_exists('uploadprogress_get_info')) {
-            $this->add_progress_bar($delay);
-            return;
-        }
-
-        $xajax_upload = new xajax(api_get_path(WEB_LIBRARY_PATH) . 'upload.xajax.php');
-
-        $xajax_upload->registerFunction('updateProgress');
-        // IMPORTANT : must be the first element of the form
-        $el = $this->insertElementBefore(FormValidator::createElement('html', '<input type="hidden" name="UPLOAD_IDENTIFIER" value="' . $upload_id . '" />'), $element_after);
-
-        $this->addElement('html', '<br />');
-
-        // Add div-element where the progress bar is to be displayed
-        $this->addElement('html', '
-                		<div id="dynamic_div_container" style="display:none">
-                			<div id="dynamic_div_label">' . get_lang('UploadFile') . '</div>
-                <div id="dynamic_div_frame" style="width:214px; height:12px; border:1px solid grey; background-image:url(' . Display::returnIconPath('real_upload_frame.gif').');">
-                    <div id="dynamic_div_filled" style="width:0%;height:100%;background-image:url(' . Display::returnIconPath('real_upload_step.gif').');background-repeat:repeat-x;background-position:center;"></div>
-                			</div>
-            </div>'
-        );
-
-        if ($wait_after_upload) {
-            $this->addElement('html', '
-			<div id="dynamic_div_waiter_container" style="display:none">
-				<div id="dynamic_div_waiter_label">
-					' . get_lang('SlideshowConversion') . '
-				</div>
-				<div id="dynamic_div_waiter_frame">
-					'.Display::return_icon('real_upload_frame.gif').'
-				</div>
-			</div>
-		');
-        }
-
-        // Get the xajax code
-        $this->addElement('html', $xajax_upload->getJavascript(api_get_path(WEB_LIBRARY_PATH) . 'xajax'));
-
-        // Get the upload code
-        $this->addElement('html', '<script type="text/javascript">var myUpload = new upload(' . (abs(intval($delay)) * 1000) . ');</script>');
-
-        if (!$wait_after_upload) {
-            $wait_after_upload = 0;
-        }
-
-        // Add the upload event
-        $this->updateAttributes("onsubmit=\"javascript: myUpload.startRealUpload('dynamic_div','" . $upload_id . "','" . $this->getAttribute('id') . "'," . $wait_after_upload . ")\"");
+        $this->updateAttributes("onsubmit=\"javascript: addProgress('" . $id . "')\"");
+        $this->addHtml('<script language="javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'javascript/upload.js" type="text/javascript"></script>');
     }
 
     /**
      * This function has been created for avoiding changes directly within QuickForm class.
      * When we use it, the element is threated as 'required' to be dealt during validation.
-     * @param array $element					The array of elements
-     * @param string $message					The message displayed
+     * @param array $element The array of elements
+     * @param string $message The message displayed
      */
     public function add_multiple_required_rule($elements, $message)
     {
@@ -970,8 +947,17 @@ EOT;
 
         $returnValue .= parent::toHtml();
         // Add div-element which is to hold the progress bar
+        $id = $this->getAttribute('id');
         if (isset($this->with_progress_bar) && $this->with_progress_bar) {
-            $returnValue .= '<div id="dynamic_div" style="display:block; margin-left:40%; margin-top:10px; height:50px;"></div>';
+            $icon = Display::return_icon('progress_bar.gif');
+
+            // @todo improve UI
+            $returnValue .= '<br />
+
+            <div id="loading_div_'.$id.'" class="loading_div" style="display:none;margin-left:40%; margin-top:10px; height:50px;">
+                '.$icon.'
+            </div>
+            ';
         }
 
         return $returnValue;
@@ -1330,11 +1316,11 @@ EOT;
      */
     private function addMultipleUploadJavascript($url, $inputName)
     {
+        $icon = Display::return_icon('file_txt.gif');
         $this->addHtml("
         <script>
         $(function () {
             'use strict';
-
             $('#".$this->getAttribute('id')."').submit(function(){
                 return false;
             });
@@ -1347,14 +1333,14 @@ EOT;
             var uploadButton = $('<button/>')
                 .addClass('btn btn-primary')
                 .prop('disabled', true)
-                .text('".get_lang('Loading')."')
+                .text('".addslashes(get_lang('Loading'))."')
                 .on('click', function () {
                     var \$this = $(this),
                     data = \$this.data();
 
                     \$this
                         .off('click')
-                        .text('".get_lang('Cancel')."')
+                        .text('".addslashes(get_lang('Cancel'))."')
                         .on('click', function () {
                             \$this.remove();
                             data.abort();
@@ -1377,30 +1363,25 @@ EOT;
                 previewCrop: true,
                 dropzone: $('#dropzone')
              }).on('fileuploadadd', function (e, data) {
-                data.context = $('<div/>').appendTo('#files');
+                data.context = $('<div class=\"row\" style=\"margin-bottom:35px\" />').appendTo('#files');
                 $.each(data.files, function (index, file) {
-                    var node = $('<p/>').append($('<span/>').text(file.name));
-                    /*if (!index) {
-                        node
-                            .append('<br>')
-                            .append(uploadButton.clone(true).data(data));
-                    }*/
+                    var node = $('<div class=\"col-sm-5\">').text(file.name);                    
                     node.appendTo(data.context);
                 }
             );
+            
             }).on('fileuploadprocessalways', function (e, data) {
                 var index = data.index,
                     file = data.files[index],
                     node = $(data.context.children()[index]);
                 if (file.preview) {
-                    node
-                        .prepend('<br>')
-                        .prepend(file.preview);
-                }
-                if (file.error) {
-                    node
-                        .append('<br>')
-                        .append($('<span class=\"text-danger\"/>').text(file.error));
+                    data.context
+                        .prepend($('<div class=\"col-sm-2\">').html(file.preview))
+                    ;
+                } else {
+                    data.context
+                        .prepend($('<div class=\"col-sm-2\">').html('".$icon."'))
+                    ;
                 }
                 if (index + 1 === data.files.length) {
                     data.context.find('button')
@@ -1414,27 +1395,25 @@ EOT;
                     progress + '%'
                 );
             }).on('fileuploaddone', function (e, data) {
-
                 $.each(data.result.files, function (index, file) {
                     if (file.url) {
                         var link = $('<a>')
                             .attr('target', '_blank')
                             .prop('href', file.url);
+                        $(data.context.children()[index]).parent().wrap(link);
 
-                        $(data.context.children()[index]).wrap(link);
+                        var successMessage = $('<div class=\"col-sm-3\">').html($('<span class=\"alert alert-success\"/>').text('" . addslashes(get_lang('UplUploadSucceeded')) . "'));
+                        $(data.context.children()[index]).parent().append(successMessage);
                     } else if (file.error) {
-                        var error = $('<span class=\"text-danger\"/>').text(file.error);
-                        $(data.context.children()[index])
-                            .append('<br>')
-                            .append(error);
+                        var error = $('<div class=\"col-sm-3\">').html($('<span class=\"alert alert-danger\"/>').text(file.error));
+                        $(data.context.children()[index]).parent().append(error);
                     }
                 });
             }).on('fileuploadfail', function (e, data) {
                 $.each(data.files, function (index) {
-                    var error = $('<span class=\"text-danger\"/>').text('".get_lang('Failed')."');
-                    $(data.context.children()[index])
-                        .append('<br>')
-                        .append(error);
+                    var failedMessage = '" . addslashes(get_lang('UplUploadFailed')) . "';
+                    var error = $('<div class=\"col-sm-3\">').html($('<span class=\"alert alert-danger\"/>').text(failedMessage));
+                    $(data.context.children()[index]).parent().append(error);
                 });
             }).prop('disabled', !$.support.fileInput)
                 .parent().addClass($.support.fileInput ? undefined : 'disabled');
@@ -1442,8 +1421,7 @@ EOT;
             $('.fileinput-button').hide();
 
         });
-        </script>"
-        );
+        </script>");
     }
 }
 

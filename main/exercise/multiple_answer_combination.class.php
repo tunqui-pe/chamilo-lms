@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use \ChamiloSession as Session;
+use ChamiloSession as Session;
 
 /**
  * Class MultipleAnswerCombination
@@ -15,8 +15,8 @@ use \ChamiloSession as Session;
  **/
 class MultipleAnswerCombination extends Question
 {
-    static $typePicture = 'mcmac.png';
-    static $explanationLangVar = 'MultipleSelectCombination';
+    public static $typePicture = 'mcmac.png';
+    public static $explanationLangVar = 'MultipleSelectCombination';
 
     /**
      * Constructor

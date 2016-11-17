@@ -19,6 +19,7 @@ switch ($action) {
         $courseInfo = api_get_course_info();
         $sessionId = api_get_session_id();
         $userId = api_get_user_id();
+        $groupId = api_get_group_id();
 
         if (!empty($_FILES)) {
             $files = $_FILES['files'];
@@ -41,7 +42,18 @@ switch ($action) {
                     'title' => $file['name'],
                     'description' => ''
                 ];
-                $result = processWorkForm($workInfo, $values, $courseInfo, $sessionId, 0, $userId, $file);
+
+                $result = processWorkForm(
+                    $workInfo,
+                    $values,
+                    $courseInfo,
+                    $sessionId,
+                    $groupId,
+                    $userId,
+                    $file,
+                    false,
+                    false
+                );
 
                 $json = array();
                 if (!empty($result) && is_array($result) && empty($result['error'])) {
@@ -60,7 +72,7 @@ switch ($action) {
                     );
                 } else {
                     $json['url'] = '';
-                    $json['error'] = get_lang('Error');
+                    $json['error'] = isset($result['error']) ? $result['error'] : get_lang('Error');
                 }
                 $resultList[] = $json;
             }
@@ -95,13 +107,15 @@ switch ($action) {
             $workInfo = get_work_data_by_id($itemId);
             $workInfoParent = get_work_data_by_id($workInfo['parent_id']);
             $resultUpload = uploadWork($workInfoParent, $courseInfo, true, $workInfo);
-
+            if (!$resultUpload) {
+                echo 'false';
+                break;
+            }
             $work_table = Database:: get_course_table(
                 TABLE_STUDENT_PUBLICATION
             );
 
             if (isset($resultUpload['url']) && !empty($resultUpload['url'])) {
-
                 $title = isset($resultUpload['filename']) && !empty($resultUpload['filename']) ? $resultUpload['filename'] : get_lang('Untitled');
                 $url = Database::escape_string($resultUpload['url']);
                 $title = Database::escape_string($title);
@@ -129,17 +143,22 @@ switch ($action) {
             if (isset($result['url'])) {
                 $json['result'] = Display::return_icon(
                     'accept.png',
-                    get_lang('Uploaded')
+                    get_lang('Uploaded'),
+                    [],
+                    ICON_SIZE_TINY
                 );
             } else {
                 $json['result'] = Display::return_icon(
                     'exclamation.png',
-                    get_lang('Error')
+                    get_lang('Error'),
+                    [],
+                    ICON_SIZE_TINY
                 );
             }
+
+            header('Content-Type: application/json');
             echo json_encode($json);
         }
-
         break;
     default:
         echo '';

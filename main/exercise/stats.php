@@ -1,8 +1,6 @@
 <?php
 /* See license terms in /license.txt */
 
-//require_once '../inc/global.inc.php';
-
 $this_section = SECTION_COURSES;
 
 $exercise_id = isset($_GET['exerciseId']) && !empty($_GET['exerciseId']) ? intval($_GET['exerciseId']) : 0;

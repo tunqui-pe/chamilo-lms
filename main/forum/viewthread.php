@@ -6,7 +6,6 @@
  * @package chamilo.forum
  */
 
-//require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_FORUM;
 
 $this_section = SECTION_COURSES;
@@ -26,6 +25,7 @@ if (isset($_GET['origin'])) {
     $origin =  Security::remove_XSS($_GET['origin']);
 }
 $my_search = null;
+$gradebook = null;
 
 /* MAIN DISPLAY SECTION */
 
@@ -35,28 +35,32 @@ $my_search = null;
 // Note pcool: I tried to use only one sql statement (and function) for this,
 // but the problem is that the visibility of the forum AND forum category are stored in the item_property table.
 // Note: This has to be validated that it is an existing thread
-$current_thread	= get_thread_information($_GET['thread']);
+$current_thread	= get_thread_information($_GET['forum'], $_GET['thread']);
 // Note: This has to be validated that it is an existing forum.
 $current_forum	= get_forum_information($current_thread['forum_id']);
 $current_forum_category	= get_forumcategory_information($current_forum['forum_category']);
 $whatsnew_post_info = isset($_SESSION['whatsnew_post_info']) ? $_SESSION['whatsnew_post_info'] : null;
-
 /* Header and Breadcrumbs */
 
-if (api_is_in_gradebook()) {
-    $interbreadcrumb[]= array(
-        'url' => api_get_path(WEB_CODE_PATH).'gradebook/index.php?'.api_get_cidreq(),
+if (!empty($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
+    $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
+    $gradebook = $_SESSION['gradebook'];
+}
+
+if (!empty($gradebook) && $gradebook == 'view') {
+    $interbreadcrumb[] = array (
+        'url' => '../gradebook/' . $_SESSION['gradebook_dest'],
         'name' => get_lang('ToolGradebook')
     );
 }
 
 $groupId = api_get_group_id();
+$group_properties = GroupManager::get_group_properties($groupId);
 $sessionId = api_get_session_id();
 
 if ($origin == 'group') {
-    $group_properties = GroupManager::get_group_properties($groupId);
     $interbreadcrumb[] = array(
-        'url' => '../group/group.php',
+        'url' => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(),
         'name' => get_lang('Groups')
     );
     $interbreadcrumb[] = array(
@@ -121,16 +125,14 @@ if (
     isset($_GET['content']) &&
     isset($_GET['id']) &&
     (api_is_allowed_to_edit(false, true) ||
-    GroupManager::is_tutor_of_group(api_get_user_id(), $groupId))
+        (isset($group_properties['iid']) && GroupManager::is_tutor_of_group(api_get_user_id(), $group_properties['iid'])))
 ) {
     $message = delete_post($_GET['id']);
 }
-if (
-    ($my_action == 'invisible' ||
-    $my_action == 'visible') &&
+if (($my_action == 'invisible' || $my_action == 'visible') &&
     isset($_GET['id']) &&
     (api_is_allowed_to_edit(false, true) ||
-    GroupManager::is_tutor_of_group(api_get_user_id(), $groupId))
+        (isset($group_properties['iid']) && GroupManager::is_tutor_of_group(api_get_user_id(), $group_properties['iid'])))
 ) {
     $message = approve_post($_GET['id'], $_GET['action']);
 }
@@ -218,7 +220,7 @@ if ($my_message != 'PostDeletedSpecial') {
 
     /* Display Forum Category and the Forum information */
 
-    if (!isset($_SESSION['view']))	{
+    if (!isset($_SESSION['view'])) {
         $viewMode = $current_forum['default_view'];
     } else {
         $viewMode = $_SESSION['view'];
@@ -233,20 +235,20 @@ if ($my_message != 'PostDeletedSpecial') {
         $viewMode = 'flat';
     }
 
-    if ($current_thread['thread_peer_qualify'] == 1 ) {
+    if ($current_thread['thread_peer_qualify'] == 1) {
         echo Display::return_message(get_lang('ForumThreadPeerScoringStudentComment'), 'info');
     }
 
     switch ($viewMode) {
-        case 'flat':
-            //no break
-        default:
-            include_once 'viewthread_flat.inc.php';
-            break;
         case 'threaded':
             //no break;
         case 'nested':
             include_once 'viewthread_nested.inc.php';
+            break;
+        case 'flat':
+            //no break
+        default:
+            include_once 'viewthread_flat.inc.php';
             break;
     }
 }

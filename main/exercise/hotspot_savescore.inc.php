@@ -10,20 +10,19 @@ use ChamiloSession as Session;
 * 	@version $Id: admin.php 10680 2007-01-11 21:26:23Z pcool $
 */
 //require_once '../inc/global.inc.php';
-$courseCode   = $_GET['coursecode'];
-$questionId   = $_GET['questionId'];
-$coordinates  = $_GET['coord'];
+$courseCode = $_GET['coursecode'];
+$questionId = $_GET['questionId'];
+$coordinates = $_GET['coord'];
 $objExercise = Session::read('objExercise');
 $exerciseId = $objExercise->selectId();
 // Save clicking order
 $answerOrderId = count($_SESSION['exerciseResult'][$questionId]['ids'])+1;
-if ($_GET['answerId'] == "0") // click is NOT on a hotspot
-{
+if ($_GET['answerId'] == "0") {
+    // click is NOT on a hotspot
 	$hit = 0;
-	$answerId = NULL;
-}
-else // user clicked ON a hotspot
-{
+    $answerId = null;
+} else {
+    // user clicked ON a hotspot
 	$hit = 1;
 	$answerId = api_substr($_GET['answerId'],22,2);
 	// Save into session

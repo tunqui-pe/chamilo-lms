@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
 *	Question Pool
 * 	This script allows administrators to manage questions and add them into their exercises.
@@ -10,8 +12,6 @@
 *   @author Julio Montoya adding support to query all questions from all session, courses, exercises
 *   @author Modify by hubert borderiou 2011-10-21 Question's category
 */
-
-use ChamiloSession as Session;
 
 //require_once '../inc/global.inc.php';
 

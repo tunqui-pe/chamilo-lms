@@ -1,12 +1,9 @@
 <?php
-
 /* For licensing terms, see /license.txt */
+
 /**
  *
  * @package chamilo.include.search
- */
-/**
- * Code
  */
 include_once dirname(__FILE__) . '/../../../global.inc.php';
 require_once dirname(__FILE__) . '/search_processor.class.php';
@@ -15,11 +12,12 @@ require_once dirname(__FILE__) . '/search_processor.class.php';
  * Process exercises before pass it to search listing scripts
  * @package chamilo.include.search
  */
-class quiz_processor extends search_processor {
-
+class quiz_processor extends search_processor
+{
     public $exercices = array();
 
-    function quiz_processor($rows) {
+    public function __construct($rows)
+    {
         $this->rows = $rows;
         // group by exercise
         foreach ($rows as $row_id => $row_val) {
@@ -55,10 +53,10 @@ class quiz_processor extends search_processor {
                     break;
             }
         }
-        //print_r($this->exercises);
     }
 
-    public function process() {
+    public function process()
+    {
         $results = array();
         foreach ($this->exercises as $courseid => $exercises) {
             $search_show_unlinked_results = (api_get_setting('search_show_unlinked_results') == 'true');
@@ -70,7 +68,7 @@ class quiz_processor extends search_processor {
                     $visibility = api_get_item_visibility(api_get_course_info($courseid), TOOL_QUIZ, $exercise_id);
                     if ($visibility) {
                         list($thumbnail, $image, $name, $author) = $this->get_information($courseid, $exercise_id);
-                        $url = api_get_path(WEB_PATH) . 'main/exercice/exercise_submit.php?cidReq=%s&exerciseId=%s';
+                        $url = api_get_path(WEB_CODE_PATH) . 'exercise/exercise_submit.php?cidReq=%s&exerciseId=%s';
                         $url = sprintf($url, $courseid, $exercise_id);
                         $result = array(
                             'toolid' => TOOL_QUIZ,

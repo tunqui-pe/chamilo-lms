@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use \ChamiloSession as Session;
+use ChamiloSession as Session;
 
 /**
 * Exercise preview
@@ -33,7 +33,8 @@ if (!$result) {
 
 $learnpath_id = isset($_REQUEST['learnpath_id']) ? intval($_REQUEST['learnpath_id']) : null;
 $learnpath_item_id = isset($_REQUEST['learnpath_item_id']) ? intval($_REQUEST['learnpath_item_id']) : null;
-$origin = isset($_REQUEST['origin']) ? Security::remove_XSS($_REQUEST['origin']) : null;
+$learnpathItemViewId = isset($_REQUEST['learnpath_item_view_id']) ? intval($_REQUEST['learnpath_item_view_id']) : null;
+$origin = api_get_origin();
 $interbreadcrumb[] = array(
     "url" => "exercise.php?".api_get_cidreq(),
     "name" => get_lang('Exercises'),
@@ -90,7 +91,7 @@ $edit_link = '';
 if ($is_allowed_to_edit && $objExercise->sessionId == $sessionId) {
     $edit_link = Display::url(
         Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL),
-        api_get_path(WEB_CODE_PATH).'exercice/admin.php?'.api_get_cidreq().'&id_session='.api_get_session_id().'&exerciseId='.$objExercise->id
+        api_get_path(WEB_CODE_PATH).'exercise/admin.php?'.api_get_cidreq().'&id_session='.api_get_session_id().'&exerciseId='.$objExercise->id
     );
 }
 $iconExercise = Display::return_icon('test-quiz.png', null, array(), ICON_SIZE_MEDIUM);
@@ -113,24 +114,24 @@ $exercise_stat_info = $objExercise->get_stat_track_exercise_info(
     0
 );
 
-$attempt_list = null;
+/*$attempt_list = null;
 if (isset($exercise_stat_info['exe_id'])) {
     $attempt_list = Event::getAllExerciseEventByExeId($exercise_stat_info['exe_id']);
-}
+}*/
 
 //1. Check if this is a new attempt or a previous
 $label = get_lang('StartTest');
-if ($time_control && !empty($clock_expired_time) || !empty($attempt_list)) {
+if ($time_control && !empty($clock_expired_time) || isset($exercise_stat_info['exe_id'])) {
     $label = get_lang('ContinueTest');
 }
 
-if (!empty($attempt_list)) {
+if (isset($exercise_stat_info['exe_id'])) {
     $message = Display::return_message(get_lang('YouTriedToResolveThisExerciseEarlier'));
 }
 
 // 2. Exercise button
 // Notice we not add there the lp_item_view_id because is not already generated
-$exercise_url = api_get_path(WEB_CODE_PATH).'exercice/exercise_submit.php?'.api_get_cidreq().'&exerciseId='.$objExercise->id.'&origin='.$origin.'&learnpath_id='.$learnpath_id.'&learnpath_item_id='.$learnpath_item_id.$extra_params;
+$exercise_url = api_get_path(WEB_CODE_PATH) . 'exercise/exercise_submit.php?'.api_get_cidreq().'&exerciseId='.$objExercise->id.'&origin='.$origin.'&learnpath_id='.$learnpath_id.'&learnpath_item_id='.$learnpath_item_id.'&learnpath_item_view_id='.$learnpathItemViewId.$extra_params;
 $exercise_url_button = Display::url(
     $label,
     $exercise_url,
@@ -181,15 +182,21 @@ if ($current_browser == 'Internet Explorer') {
     $btn_class = '';
 }
 
+$blockShowAnswers = false;
+if ($objExercise->results_disabled == RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT) {
+    if (count($attempts) < $objExercise->attempts) {
+        $blockShowAnswers = true;
+    }
+}
+
 if (!empty($attempts)) {
     $i = $counter;
     foreach ($attempts as $attempt_result) {
-
         $score = ExerciseLib::show_score(
             $attempt_result['exe_result'],
             $attempt_result['exe_weighting']
         );
-        $attempt_url = api_get_path(WEB_CODE_PATH) . 'exercice/result.php?';
+        $attempt_url = api_get_path(WEB_CODE_PATH) . 'exercise/result.php?';
         $attempt_url .= api_get_cidreq() . '&show_headers=1&';
         $attempt_url .= http_build_query([
             'id' => $attempt_result['exe_id']
@@ -225,7 +232,8 @@ if (!empty($attempts)) {
             array(
                 RESULT_DISABLE_SHOW_SCORE_AND_EXPECTED_ANSWERS,
                 RESULT_DISABLE_SHOW_SCORE_ONLY,
-                RESULT_DISABLE_SHOW_FINAL_SCORE_ONLY_WITH_CATEGORIES
+                RESULT_DISABLE_SHOW_FINAL_SCORE_ONLY_WITH_CATEGORIES,
+                RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT
             )
         )) {
             $row['result'] = $score;
@@ -235,23 +243,36 @@ if (!empty($attempts)) {
                 $objExercise->results_disabled,
                 array(
                     RESULT_DISABLE_SHOW_SCORE_AND_EXPECTED_ANSWERS,
-                    RESULT_DISABLE_SHOW_FINAL_SCORE_ONLY_WITH_CATEGORIES
+                    RESULT_DISABLE_SHOW_FINAL_SCORE_ONLY_WITH_CATEGORIES,
+                    RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT
                 )
             )
             || (
                 $objExercise->results_disabled == RESULT_DISABLE_SHOW_SCORE_ONLY &&
                 $objExercise->feedback_type == EXERCISE_FEEDBACK_TYPE_END)
         ) {
+            if ($blockShowAnswers) {
+                $attempt_link = '';
+            }
+
             $row['attempt_link'] = $attempt_link;
         }
         $my_attempt_array[] = $row;
         $i--;
     }
 
+    $header_names = [];
     $table = new HTML_Table(array('class' => 'table table-striped table-hover'));
 
-    //Hiding score and answer
+    // Hiding score and answer
     switch ($objExercise->results_disabled) {
+        case RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT:
+            if ($blockShowAnswers) {
+                $header_names = array(get_lang('Attempt'), get_lang('StartDate'), get_lang('IP'), get_lang('Score'));
+            } else {
+                $header_names = array(get_lang('Attempt'), get_lang('StartDate'), get_lang('IP'), get_lang('Score'), get_lang('Details'));
+            }
+            break;
         case RESULT_DISABLE_SHOW_SCORE_AND_EXPECTED_ANSWERS:
         case RESULT_DISABLE_SHOW_FINAL_SCORE_ONLY_WITH_CATEGORIES:
             $header_names = array(get_lang('Attempt'), get_lang('StartDate'), get_lang('IP'), get_lang('Score'), get_lang('Details'));
@@ -295,7 +316,7 @@ if ($objExercise->selectAttempts()) {
         $attempt_message = Display::return_message($attempt_message, 'info');
     }
     if ($visible_return['value'] == true) {
-        $message .=   $attempt_message;
+        $message .= $attempt_message;
     }
 }
 

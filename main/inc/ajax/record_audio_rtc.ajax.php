@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 require_once '../global.inc.php';
 
 // Add security from Chamilo
@@ -13,7 +15,7 @@ if (!isset($_FILES['audio_blob'], $_REQUEST['audio_dir'])) {
     api_not_allowed();
 }
 
-$file = $_FILES["audio_blob"];
+$file = $_FILES['audio_blob'];
 $audioDir = Security::remove_XSS($_REQUEST['audio_dir']);
 $userId = api_get_user_id();
 
@@ -54,9 +56,8 @@ if (!empty($result) && is_array($result)) {
     $courseId = $result['c_id'];
 
     /** @var learnpath $lp */
-    $lp = isset($_SESSION['oLP']) ? $_SESSION['oLP'] : null;
+    $lp = Session::read('oLP');
     $lpItemId = isset($_REQUEST['lp_item_id']) && !empty($_REQUEST['lp_item_id']) ? $_REQUEST['lp_item_id'] : null;
-
     if (!empty($lp) && empty($lpItemId)) {
         $lp->set_modified_on();
 
@@ -65,6 +66,10 @@ if (!empty($result) && is_array($result)) {
     }
 
     $data = DocumentManager::get_document_data_by_id($newDocId, $courseInfo['code']);
+
+    Display::addFlash(
+        Display::return_message(get_lang('DocumentCreated'), 'success')
+    );
 
     echo $data['document_url'];
     exit;

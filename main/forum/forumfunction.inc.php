@@ -179,10 +179,8 @@ function handle_forum_and_forumcategories($lp_id = null)
  */
 function show_add_forumcategory_form($inputvalues = array(), $lp_id)
 {
-    // Initialize the object.
     $form = new FormValidator('forumcategory', 'post', 'index.php?' . api_get_cidreq());
     // hidden field if from learning path
-
     $form->addElement('hidden', 'lp_id', $lp_id);
     // Setting the form elements.
     $form->addElement('header', get_lang('AddForumCategory'));
@@ -247,6 +245,7 @@ function show_add_forum_form($inputvalues = array(), $lp_id)
         $form->addElement('hidden', 'forum_id', $my_forum_id);
     }
     $lp_id = intval($lp_id);
+
     // hidden field if from learning path
     $form->addElement('hidden', 'lp_id', $lp_id);
 
@@ -280,6 +279,7 @@ function show_add_forum_form($inputvalues = array(), $lp_id)
 
     $form->addButtonAdvancedSettings('advanced_params');
     $form->addElement('html', '<div id="advanced_params_options" style="display:none">');
+
     $form->addDateTimePicker(
         'start_time',
         array(get_lang('ForumStartDate'), get_lang('ForumStartDateComment')),
@@ -524,7 +524,6 @@ function store_forumcategory($values, $courseInfo = array(), $showMessage = true
 {
     $courseInfo = empty($courseInfo) ? api_get_course_info() : $courseInfo;
     $course_id = $courseInfo['real_id'];
-
     $table_categories = Database::get_course_table(TABLE_FORUM_CATEGORY);
 
     // Find the max cat_order. The new forum category is added at the end => max cat_order + &
@@ -544,6 +543,7 @@ function store_forumcategory($values, $courseInfo = array(), $showMessage = true
             'cat_title' => $clean_cat_title,
             'cat_comment' => isset($values['forum_category_comment']) ? $values['forum_category_comment'] : '',
         ];
+
         Database::update(
             $table_categories,
             $params,
@@ -564,7 +564,6 @@ function store_forumcategory($values, $courseInfo = array(), $showMessage = true
         );
         $return_message = get_lang('ForumCategoryEdited');
     } else {
-
         $params = [
             'c_id' => $course_id,
             'cat_title' => $clean_cat_title,
@@ -577,7 +576,6 @@ function store_forumcategory($values, $courseInfo = array(), $showMessage = true
         $last_id = Database::insert($table_categories, $params);
 
         if ($last_id > 0) {
-
             $sql = "UPDATE $table_categories SET cat_id = $last_id WHERE iid = $last_id";
             Database::query($sql);
 
@@ -688,7 +686,6 @@ function store_forum($values, $courseInfo = array(), $returnId = false)
     }
 
     if (isset($values['forum_id'])) {
-
         // Storing after edition.
         $params = [
             'forum_title'=> $values['forum_title'],
@@ -708,6 +705,7 @@ function store_forum($values, $courseInfo = array(), $returnId = false)
             'session_id'=> $session_id,
             'lp_id' => isset($values['lp_id']) ? intval($values['lp_id']) : 0
         ];
+
         if (isset($upload_ok)) {
             if ($has_attachment) {
                 $params['forum_image'] = $new_file_name;
@@ -739,7 +737,6 @@ function store_forum($values, $courseInfo = array(), $returnId = false)
         if ($image_moved) {
             $new_file_name = isset($new_file_name) ? $new_file_name : '';
         }
-
         $params = [
             'c_id' => $course_id,
             'forum_title'=> $values['forum_title'],
@@ -766,7 +763,6 @@ function store_forum($values, $courseInfo = array(), $returnId = false)
 
         $last_id = Database::insert($table_forums, $params);
         if ($last_id > 0) {
-
             $sql = "UPDATE $table_forums SET forum_id = iid WHERE iid = $last_id";
             Database::query($sql);
 
@@ -788,7 +784,6 @@ function store_forum($values, $courseInfo = array(), $returnId = false)
         }
         $return_message = get_lang('ForumAdded');
         if ($returnId) {
-
             return $last_id;
         }
     }
@@ -1075,6 +1070,7 @@ function return_lock_unlock_icon($content, $id, $current_lock_status, $additiona
         $html .= 'action=lock&content=' . $content . '&id=' . $id . '">' .
             Display::return_icon('unlock.png', get_lang('Lock'), array(), ICON_SIZE_SMALL) . '</a>';
     }
+
     return $html;
 }
 
@@ -1353,7 +1349,7 @@ function get_forum_categories($id = '', $courseId = 0, $sessionId = 0)
                     forum_categories.cat_id = item_properties.ref AND 
                     item_properties.c_id = forum_categories.c_id
                 )
-                WHERE
+                WHERE                    
                     item_properties.visibility = 1 AND
                     item_properties.tool = '".TOOL_FORUM_CATEGORY."'
                     $condition_session
@@ -1366,7 +1362,7 @@ function get_forum_categories($id = '', $courseId = 0, $sessionId = 0)
                         forum_categories.cat_id = item_properties.ref AND 
                         item_properties.c_id = forum_categories.c_id
                     )
-                    WHERE
+                    WHERE                        
                         item_properties.visibility<>2 AND
                         item_properties.tool='".TOOL_FORUM_CATEGORY."'
                         $condition_session
@@ -1380,7 +1376,7 @@ function get_forum_categories($id = '', $courseId = 0, $sessionId = 0)
                     forum_categories.cat_id = item_properties.ref AND 
                     item_properties.c_id = forum_categories.c_id
                 )
-                WHERE
+                WHERE                    
                     item_properties.tool='".TOOL_FORUM_CATEGORY."' AND
                     forum_categories.cat_id = ".intval($id)."
                     $condition_session
@@ -1388,7 +1384,6 @@ function get_forum_categories($id = '', $courseId = 0, $sessionId = 0)
     }
     $result = Database::query($sql);
     $forum_categories_list = array();
-
     while ($row = Database::fetch_assoc($result)) {
         if (empty($id)) {
             $forum_categories_list[$row['cat_id']] = $row;
@@ -1486,6 +1481,7 @@ function get_forums(
         false,
         'item_properties.session_id'
     );
+
     $course_id = $course_info['real_id'];
 
     $forum_list = array();
@@ -1528,7 +1524,6 @@ function get_forums(
                     threads.c_id = $course_id AND
                     item_properties.c_id = $course_id
                 GROUP BY threads.forum_id";
-
 
         // Course Admin
         if (api_is_allowed_to_edit()) {
@@ -1595,7 +1590,6 @@ function get_forums(
     }
 
     // Handling all the forum information.
-
     $result = Database::query($sql);
     while ($row = Database::fetch_assoc($result)) {
         if ($id == '') {
@@ -1625,6 +1619,7 @@ function get_forums(
                     api_is_allowed_to_edit(),
                     $course_id
                 );
+
                 if ($last_post_info_of_forum) {
                     $forum_list[$key]['last_post_id'] = $last_post_info_of_forum['last_post_id'];
                     $forum_list[$key]['last_poster_id'] = $last_post_info_of_forum['last_poster_id'];
@@ -1736,7 +1731,7 @@ function get_last_post_information($forum_id, $show_invisibles = false, $course_
         $threads[] = $row[0];
     }
     $threadsList = implode(',', $threads);
-
+    // Now get the posts that are linked to these threads
     $sql = "SELECT
                 post.post_id,
                 post.forum_id,
@@ -1821,12 +1816,13 @@ function get_threads($forum_id, $courseId = null, $sessionId = null)
         $groupIid = $groupInfo['iid'];
         $groupCondition =  " AND item_properties.to_group_id = '$groupIid' ";
     }
-    // important note:  it might seem a little bit awkward that we have 'thread.locked as locked' in the sql statement
+
     $sessionCondition = api_get_session_condition($sessionId, true, false, 'item_properties.session_id');
+
+    // important note:  it might seem a little bit awkward that we have 'thread.locked as locked' in the sql statement
     // because we also have thread.* in it. This is because thread has a field locked and post also has the same field
     // since we are merging these we would have the post.locked value but in fact we want the thread.locked value
     // This is why it is added to the end of the field selection
-
     $sql = "SELECT DISTINCT
                 item_properties.*,
                 users.firstname,
@@ -1851,7 +1847,6 @@ function get_threads($forum_id, $courseId = null, $sessionId = null)
             ORDER BY thread.thread_sticky DESC, thread.thread_date DESC";
 
     if (api_is_allowed_to_edit()) {
-
         $sql = "SELECT DISTINCT
                     item_properties.*,
                     users.firstname,
@@ -1875,7 +1870,6 @@ function get_threads($forum_id, $courseId = null, $sessionId = null)
                     thread.c_id = $courseId 
                 ORDER BY thread.thread_sticky DESC, thread.thread_date DESC";
     }
-
     $result = Database::query($sql);
     $list = array();
     $alreadyAdded = array();
@@ -1935,7 +1929,6 @@ function getThreadInfo($threadId, $cId)
  */
 function getPosts($forumInfo, $threadId, $orderDirection = 'ASC', $recursive = false, $postId = null, $depth = -1)
 {
-
     $em = Database::getManager();
 
     if (api_is_allowed_to_edit(false, true)) {
@@ -1981,6 +1974,7 @@ function getPosts($forumInfo, $threadId, $orderDirection = 'ASC', $recursive = f
     $posts = $qb->getQuery()->getResult();
 
     $depth++;
+
     $list = [];
     /** @var CForumPost $post */
     foreach ($posts as $post) {
@@ -2001,6 +1995,7 @@ function getPosts($forumInfo, $threadId, $orderDirection = 'ASC', $recursive = f
             'status' => $post->getStatus(),
             'indent_cnt' => $depth
         ];
+
         $posterId = $post->getPosterId();
         if (!empty($posterId)) {
             $user = $em->find('ChamiloUserBundle:User', $posterId);
@@ -2079,7 +2074,6 @@ function get_thread_information($forumId, $thread_id, $sessionId = null)
     $table_item_property = Database :: get_course_table(TABLE_ITEM_PROPERTY);
     $table_threads = Database :: get_course_table(TABLE_FORUM_THREAD);
     $thread_id = intval($thread_id);
-
     $sessionId = $sessionId !== null ? intval($sessionId) : api_get_session_id();
     $sessionCondition = api_get_session_condition($sessionId, true, false, 'threads.session_id');
     $forumCondition = '';
@@ -2093,10 +2087,11 @@ function get_thread_information($forumId, $thread_id, $sessionId = null)
             ON (item_properties.ref = threads.thread_id AND threads.c_id = item_properties.c_id)
             WHERE
                 $forumCondition
-                item_properties.tool= '".TOOL_FORUM_THREAD."' AND
+                item_properties.tool= '".TOOL_FORUM_THREAD."' AND                
                 threads.thread_id = $thread_id 
                 $sessionCondition
             ";
+
     $result = Database::query($sql);
     $row = Database::fetch_assoc($result);
 
@@ -2512,6 +2507,7 @@ function store_thread($current_forum, $values, $courseInfo = array(), $showMessa
         $clean_post_title = $values['post_title'];
 
         // We first store an entry in the forum_thread table because the thread_id is used in the forum_post table.
+
         $lastThread = new CForumThread();
         $lastThread
             ->setCId($course_id)
@@ -2669,7 +2665,6 @@ function store_thread($current_forum, $values, $courseInfo = array(), $showMessa
     $message = get_lang('NewThreadStored');
     // Storing the attachments if any.
     if ($has_attachment) {
-
         // Try to add an extension to the file if it hasn't one.
         $new_file_name = add_ext_on_mime(
             stripslashes($_FILES['user_upload']['name']),
@@ -2723,6 +2718,7 @@ function store_thread($current_forum, $values, $courseInfo = array(), $showMessa
     Session::erase('breadcrumbs');
     Session::erase('addedresource');
     Session::erase('addedresourceid');
+
     if ($showMessage) {
         Display::addFlash(Display::return_message($message, 'success', false));
     }
@@ -2740,7 +2736,6 @@ function store_thread($current_forum, $values, $courseInfo = array(), $showMessa
  */
 function showUpdateThreadForm($currentForum, $forumSetting, $formValues = '')
 {
-    
     $myThread = isset($_GET['thread']) ? intval($_GET['thread']) : '';
     $myForum = isset($_GET['forum']) ? intval($_GET['forum']) : '';
     $myGradebook = isset($_GET['gradebook']) ? Security::remove_XSS($_GET['gradebook']) : '';
@@ -2854,8 +2849,6 @@ function showUpdateThreadForm($currentForum, $forumSetting, $formValues = '')
         $token = Security::get_token();
         $form->addElement('hidden', 'sec_token');
         $form->setConstants(array('sec_token' => $token));
-        
-        
         $form->display();
     }
 }
@@ -2881,6 +2874,7 @@ function show_add_post_form($current_forum, $forum_setting, $action, $id = '', $
     $forumId = isset($_GET['forum']) ? (int) $_GET['forum'] : '';
     $my_post = isset($_GET['post']) ? (int) $_GET['post'] : '';
     $my_gradebook = isset($_GET['gradebook']) ? Security::remove_XSS($_GET['gradebook']) : '';
+
     $url = api_get_self() . '?' . http_build_query([
         'action' => $action,
         'forum' => $forumId,
@@ -2888,11 +2882,13 @@ function show_add_post_form($current_forum, $forum_setting, $action, $id = '', $
         'thread' => $myThread,
         'post' => $my_post
     ]) . '&' . api_get_cidreq();
+
     $form = new FormValidator(
         'thread',
         'post',
         $url
     );
+
     $form->setConstants(array('forum' => '5'));
 
     // Setting the form elements.
@@ -2939,7 +2935,6 @@ function show_add_post_form($current_forum, $forum_setting, $action, $id = '', $
         $form->addElement('advanced_settings', 'advanced_params', get_lang('AdvancedParameters'));
         $form->addElement('html', '<div id="advanced_params_options" style="display:none">');
 
-
         // Thread qualify
         if (Gradebook::is_active()) {
             //Loading gradebook select
@@ -2956,10 +2951,8 @@ function show_add_post_form($current_forum, $forum_setting, $action, $id = '', $
         }
 
         $form->addElement('html', '<div id="options_field" style="display:none">');
-
         $form->addElement('text', 'numeric_calification', get_lang('QualificationNumeric'));
         $form->applyFilter('numeric_calification', 'html_filter');
-
         $form->addElement('text', 'calification_notebook_title', get_lang('TitleColumnGradebook'));
         $form->applyFilter('calification_notebook_title', 'html_filter');
 
@@ -2982,7 +2975,6 @@ function show_add_post_form($current_forum, $forum_setting, $action, $id = '', $
                 get_lang('ForumThreadPeerScoringComment'),
             ]
         );
-
         $form->addElement('html', '</div>');
         $form->addElement('html', '</div>');
     }
@@ -3029,7 +3021,6 @@ function show_add_post_form($current_forum, $forum_setting, $action, $id = '', $
 
     // If we are quoting a message we have to retrieve the information of the post we are quoting so that
     // we can add this as default to the textarea.
-
     if (($action == 'quote' || $action == 'replymessage') && isset($my_post)) {
         // We also need to put the parent_id of the post in a hidden form when
         // we are quoting or replying to a message (<> reply to a thread !!!)
@@ -3164,7 +3155,6 @@ function saveThreadScore(
         $res_string = Database::query($sql);
         $row_string = Database::fetch_array($res_string);
         if ($thread_qualify <= $row_string[0]) {
-
             if ($threadInfo['thread_peer_qualify'] == 0) {
                 $sql = "SELECT COUNT(*) FROM $table_threads_qualify
                         WHERE
@@ -3695,7 +3685,6 @@ function show_edit_post_form(
         $form->addElement('checkbox', 'thread_sticky', '', get_lang('StickyPost'));
         if ($current_thread['thread_sticky'] == 1) {
             $defaults['thread_sticky'] = true;
-            //edit_added_resources('forum_post', $current_post['post_id']);
         }
     }
 
@@ -3842,9 +3831,6 @@ function store_edit_post($forumInfo, $values)
         );
     }
 
-    // Storing the attachments if any.
-    //update_added_resources('forum_post', $values['post_id']);
-
     $message = get_lang('EditPostStored').'<br />';
     $message .= get_lang('ReturnTo').' <a href="viewforum.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&">'.get_lang('Forum').'</a><br />';
     $message .= get_lang('ReturnTo').' <a href="viewthread.php?'.api_get_cidreq().'&forum='.intval($_GET['forum']).'&gradebook='.$gradebook.'&thread='.$values['thread_id'].'&post='.Security::remove_XSS($_GET['post']).'">'.get_lang('Message').'</a>';
@@ -3973,7 +3959,6 @@ function get_whats_new()
     $table_posts = Database :: get_course_table(TABLE_FORUM_POST);
     $tracking_last_tool_access = Database::get_main_table(TABLE_STATISTIC_TRACK_E_LASTACCESS);
 
-    // Note: This has to be replaced by the tool constant later. But temporarily bb_forum is used since this is the only thing that is in the tracking currently.
     //$tool = TOOL_FORUM;
     $tool = TOOL_FORUM; //
     // to do: Remove this. For testing purposes only.
@@ -4433,7 +4418,6 @@ function store_move_post($values)
         Database::query($sql);
     } else {
         // Moving to the chosen thread.
-
         $sql = "SELECT thread_id FROM ".$table_posts."
                 WHERE c_id = $course_id AND post_id = '".$values['post_id']."' ";
         $result = Database::query($sql);
@@ -4599,7 +4583,6 @@ function prepare4display($input)
  */
 function forum_search()
 {
-    // Initialize the object.
     $form = new FormValidator('forumsearch', 'post', 'forumsearch.php?'.api_get_cidreq());
 
     // Setting the form elements.
@@ -4657,6 +4640,7 @@ function display_forum_search_results($search_term)
             posts.post_text LIKE '%".Database::escape_string(trim($value))."%' 
         )";
     }
+
     $sessionCondition = api_get_session_condition($session_id, true, false, 'item_property.session_id');
 
     $sql = "SELECT posts.*
@@ -4714,7 +4698,6 @@ function display_forum_search_results($search_term)
                 prepare4display($categoryName).'</a> &gt; ';
             $search_results_item .= '<a href="viewforum.php?'.api_get_cidreq().'&forum='.$forumId.'&search='.urlencode($search_term).'">'.
                 prepare4display($forum_list[$row['forum_id']]['forum_title']).'</a> &gt; ';
-            //$search_results_item .= '<a href="">THREAD</a> &gt; ';
             $search_results_item .= '<a href="viewthread.php?'.api_get_cidreq().'&forum='.$forumId.'&gradebook='.$gradebook.'&thread='.$row['thread_id'].'&search='.urlencode($search_term).'">'.
                 prepare4display($row['post_title']).'</a>';
             $search_results_item .= '<br />';
@@ -4782,14 +4765,12 @@ function add_forum_attachment_file($file_comment, $last_id)
     }
 
     $fileCount = count($_FILES['user_upload']['name']);
-
     $filesData = [];
 
     if (!is_array($_FILES['user_upload']['name'])) {
         $filesData[] = $_FILES['user_upload'];
     } else {
         $fileKeys = array_keys($_FILES['user_upload']);
-
         for ($i = 0; $i < $fileCount; $i++) {
             foreach ($fileKeys as $key) {
                 $filesData[$i][$key] = $_FILES['user_upload'][$key][$i];
@@ -4874,7 +4855,6 @@ function edit_forum_attachment_file($file_comment, $post_id, $id_attach)
     $course_id = api_get_course_int_id();
 
     $fileCount = count($_FILES['user_upload']['name']);
-
     $filesData = [];
 
     if (!is_array($_FILES['user_upload']['name'])) {
@@ -5117,7 +5097,6 @@ function get_forums_of_group($groupId)
     }
 
     // Handling all the forum information.
-
     $result = Database::query($sql);
     $forum_list = array();
     while ($row = Database::fetch_array($result, 'ASSOC')) {
@@ -5145,7 +5124,8 @@ function get_forums_of_group($groupId)
         }
     }
 
-    // Finding the last post information (last_post_id, last_poster_id, last_post_date, last_poster_name, last_poster_lastname, last_poster_firstname).
+    // Finding the last post information
+    // (last_post_id, last_poster_id, last_post_date, last_poster_name, last_poster_lastname, last_poster_firstname).
     if (!empty($forum_list)) {
         foreach ($forum_list as $key => $value) {
             $last_post_info_of_forum = get_last_post_information($key, api_is_allowed_to_edit());
@@ -5461,7 +5441,7 @@ function get_statistical_information($thread_id, $user_id, $course_id)
  *
  * @return  int the number of post inside a thread
  * @author Jhon Hinojosa <jhon.hinojosa@dokeos.com>,
- * @version octubre 2008, dokeos 1.8
+ * @version oct 2008, dokeos 1.8
  */
 function get_thread_user_post($course_code, $thread_id, $user_id)
 {
@@ -5819,6 +5799,7 @@ function getAttachmentsAjaxTable($postId = 0)
             }
         }
     }
+
     // Get data to fill into attachment files table
     if (!empty($_SESSION['forum']['upload_file'][$courseId]) &&
         is_array($_SESSION['forum']['upload_file'][$courseId])

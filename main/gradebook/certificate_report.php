@@ -12,7 +12,6 @@ use ChamiloSession as Session;
 
 $cidReset = true;
 
-//require_once '../inc/global.inc.php';
 
 $this_section = SECTION_TRACKING;
 
@@ -30,9 +29,8 @@ $selectedYear = isset($_POST['year']) && !empty($_POST['year']) ? trim($_POST['y
 $selectedStudent = isset($_POST['student']) && !empty($_POST['student']) ? intval($_POST['student']) : 0;
 
 $userId = api_get_user_id();
-
 $sessions = $courses = $months = $students = [0 => get_lang('Select')];
-
+$userList = [];
 if (api_is_student_boss()) {
     $userGroup = new UserGroup();
     $userList = $userGroup->getGroupUsersByUser($userId);
@@ -47,7 +45,7 @@ foreach ($sessionsList as $session) {
 
 if ($selectedSession > 0) {
     if (!SessionManager::isValidId($selectedSession)) {
-        Display::return_message(get_lang('NoSession'));
+        Display::addFlash(Display::return_message(get_lang('NoSession')));
 
         header("Location: $selfUrl");
         exit;
@@ -90,7 +88,6 @@ for ($key = 1; $key <= 12; $key++) {
 
 $exportAllLink = null;
 $certificateStudents = array();
-
 $searchSessionAndCourse = $selectedSession > 0 && $selectedCourse > 0;
 $searchCourseOnly = $selectedSession <= 0 && $selectedCourse > 0;
 $searchStudentOnly = $selectedStudent > 0;
@@ -99,7 +96,7 @@ if ($searchSessionAndCourse || $searchCourseOnly) {
     $selectedCourseInfo = api_get_course_info_by_id($selectedCourse);
 
     if (empty($selectedCourseInfo)) {
-        Display::return_message(get_lang('NoCourse'));
+        Display::addFlash(Display::return_message(get_lang('NoCourse')));
 
         header("Location: $selfUrl");
         exit;
@@ -188,7 +185,7 @@ if ($searchSessionAndCourse || $searchCourseOnly) {
     $selectedStudentInfo = api_get_user_info($selectedStudent);
 
     if (empty($selectedStudentInfo)) {
-        Display::return_message(get_lang('NoUser'));
+        Display::addFlash(Display::return_message(get_lang('NoUser')));
 
         header('Location: '.$selfUrl);
         exit;

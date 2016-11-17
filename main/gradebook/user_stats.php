@@ -5,7 +5,6 @@
  * Script
  * @package chamilo.gradebook
  */
-//require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 $isDrhOfCourse = CourseManager::isUserSubscribedInCourseAsDrh(
@@ -115,6 +114,6 @@ $actions.='</div>';
 
 Display :: display_header(get_lang('ResultsPerUser'));
 echo $actions;
-DisplayGradebook :: display_header_user($_GET['userid']);
+DisplayGradebook :: display_header_user($_GET['userid'], $category[0]->get_id());
 $user_table->display();
 Display :: display_footer();

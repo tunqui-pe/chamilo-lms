@@ -10,8 +10,8 @@
  **/
 class FillBlanks extends Question
 {
-    static $typePicture = 'fill_in_blanks.png';
-    static $explanationLangVar = 'FillBlanks';
+    public static $typePicture = 'fill_in_blanks.png';
+    public static $explanationLangVar = 'FillBlanks';
 
     const FILL_THE_BLANK_STANDARD = 0;
     const FILL_THE_BLANK_MENU = 1;
@@ -117,8 +117,11 @@ class FillBlanks extends Question
                         }
                         // get input size
                         var lainputsize = 200;
+                        var lainputsizetrue = 200;
                         if ($("#samplesize\\\["+i+"\\\]").width()) {
+                        // this is a weird patch to avoid to reduce the size of input blank when you are writing in the ckeditor.
                             lainputsize = $("#samplesize\\\["+i+"\\\]").width();
+                            lainputsizetrue = $("#samplesize\\\["+i+"\\\]").width() + 9;
                         }
 
                         if (document.getElementById("weighting["+i+"]")) {
@@ -132,7 +135,7 @@ class FillBlanks extends Question
                         fields += "<td>";
                         fields += "<input type=\"button\" value=\"-\" onclick=\"changeInputSize(-1, "+i+")\">";
                         fields += "<input type=\"button\" value=\"+\" onclick=\"changeInputSize(1, "+i+")\">";
-                        fields += "<input value=\""+blanks[i].substr(1, blanks[i].length - 2)+"\" style=\"width:"+lainputsize+"px\" disabled=disabled id=\"samplesize["+i+"]\"/>";
+                        fields += "<input value=\""+blanks[i].substr(1, blanks[i].length - 2)+"\" style=\"width:"+lainputsizetrue+"px\" disabled=disabled id=\"samplesize["+i+"]\"/>";
                         fields += "<input type=\"hidden\" id=\"sizeofinput["+i+"]\" name=\"sizeofinput["+i+"]\" value=\""+lainputsize+"\" \"/>";
                         fields += "</td>";
                         fields += "</tr>";
@@ -147,17 +150,12 @@ class FillBlanks extends Question
                 ';
 
         if (isset($listAnswersInfo) && count($listAnswersInfo["tabweighting"]) > 0) {
-
             foreach ($listAnswersInfo["tabweighting"] as $i => $weighting) {
-                if (!empty($i)) {
-                    echo 'document.getElementById("weighting['.$i.']").value = "'.$weighting.'";';
-                }
+                echo 'document.getElementById("weighting['.$i.']").value = "'.$weighting.'";';
             }
             foreach ($listAnswersInfo["tabinputsize"] as $i => $sizeOfInput) {
-                if (!empty($i)) {
-                    echo 'document.getElementById("sizeofinput['.$i.']").value = "'.$sizeOfInput.'";';
-                    echo '$("#samplesize\\\['.$i.'\\\]").width('.$sizeOfInput.');';
-                }
+                echo 'document.getElementById("sizeofinput['.$i.']").value = "'.$sizeOfInput.'";';
+                echo '$("#samplesize\\\['.$i.'\\\]").width('.$sizeOfInput.');';
             }
         }
 
@@ -311,7 +309,6 @@ class FillBlanks extends Question
         $answer = api_preg_replace("/\xc2\xa0/", " ", $answer);
 
         // start and end separator
-
         $blankStartSeparator = self::getStartSeparator($form->getSubmitValue('select_separator'));
         $blankEndSeparator = self::getEndSeparator($form->getSubmitValue('select_separator'));
         $blankStartSeparatorRegexp = self::escapeForRegexp($blankStartSeparator);
@@ -415,7 +412,7 @@ class FillBlanks extends Question
      * @param null $feedback_type
      * @param null $counter
      * @param null $score
-     * @return null|string
+     * @return string
      */
     public function return_header($feedback_type = null, $counter = null, $score = null)
     {
@@ -429,15 +426,16 @@ class FillBlanks extends Question
     }
 
     /**
-     * @param $separatorStartRegexp
-     * @param $separatorEndRegexp
-     * @param $correctItemRegexp
-     * @param $questionId
+     * @param string $separatorStartRegexp
+     * @param string $separatorEndRegexp
+     * @param string $correctItemRegexp
+     * @param integer $questionId
      * @param $correctItem
      * @param $attributes
-     * @param $answer
+     * @param string $answer
      * @param $listAnswersInfo
-     * @param $displayForStudent
+     * @param boolean $displayForStudent
+     * @param integer $inBlankNumber
      * @return string
      */
     public static function getFillTheBlankHtml(
@@ -457,9 +455,9 @@ class FillBlanks extends Question
         $inTeacherSolution = $inTabTeacherSolution[$inBlankNumber];
         switch (self::getFillTheBlankAnswerType($inTeacherSolution)) {
             case self::FILL_THE_BLANK_MENU:
-                $selected = "";
+                $selected = '';
                 // the blank menu
-                $optionMenu = "";
+                $optionMenu = '';
                 // display a menu from answer separated with |
                 // if display for student, shuffle the correct answer menu
                 $listMenu = self::getFillTheBlankMenuAnswers($inTeacherSolution, $displayForStudent);
@@ -736,11 +734,11 @@ class FillBlanks extends Question
     *  0  : student answer is correct
     * >0  : for fill the blank question with choice menu, is the index of the student answer (right answer indice is 0)
     *
-    * @param $testId
-    * @param $questionId
+    * @param integer $testId
+    * @param integer $questionId
     * @param $studentsIdList
-    * @param $startDate
-    * @param $endDate
+    * @param string $startDate
+    * @param string $endDate
     * @param bool $useLastAnswerredAttempt
     * @return array
     * (
@@ -752,14 +750,17 @@ class FillBlanks extends Question
     *         )
     * )
     */
-    public static function getFillTheBlankTabResult($testId, $questionId, $studentsIdList, $startDate, $endDate, $useLastAnswerredAttempt = true) {
-
+    public static function getFillTheBlankTabResult(
+        $testId,
+        $questionId,
+        $studentsIdList,
+        $startDate,
+        $endDate,
+        $useLastAnswerredAttempt = true
+    ) {
        $tblTrackEAttempt = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
        $tblTrackEExercise = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
        $courseId = api_get_course_int_id();
-
-       require_once api_get_path(SYS_PATH).'main/exercice/fill_blanks.class.php';
-
        // request to have all the answers of student for this question
        // student may have doing it several time
        // student may have not answered the bracket id, in this case, is result of the answer is empty
@@ -767,7 +768,6 @@ class FillBlanks extends Question
        // we got the less recent attempt first
        $sql = '
            SELECT * FROM '.$tblTrackEAttempt.' tea
-
            LEFT JOIN '.$tblTrackEExercise.' tee
            ON tee.exe_id = tea.exe_id
            AND tea.c_id = '.$courseId.'
@@ -798,7 +798,10 @@ class FillBlanks extends Question
                            // get the indice of the choosen answer in the menu
                            // we know that the right answer is the first entry of the menu, ie 0
                            // (remember, menu entries are shuffled when taking the test)
-                           $tabUserResult[$data['user_id']][$bracketNumber] = FillBlanks::getFillTheBlankMenuAnswerNum($tabAnswer['tabwords'][$bracketNumber], $tabAnswer['studentanswer'][$bracketNumber]);
+                           $tabUserResult[$data['user_id']][$bracketNumber] = FillBlanks::getFillTheBlankMenuAnswerNum(
+                               $tabAnswer['tabwords'][$bracketNumber],
+                               $tabAnswer['studentanswer'][$bracketNumber]
+                           );
                            break;
                        default :
                            if (FillBlanks::isGoodStudentAnswer($tabAnswer['studentanswer'][$bracketNumber], $tabAnswer['tabwords'][$bracketNumber])) {
@@ -820,13 +823,10 @@ class FillBlanks extends Question
                    }
                }
            }
-
-
        }
+
        return $tabUserResult;
     }
-
-
 
     /**
      * Return the number of student that give at leat an answer in the fill the blank test
@@ -917,7 +917,7 @@ class FillBlanks extends Question
      * return $text protected for use in regexp
      * @param string $text
      *
-     * @return mixed
+     * @return string
      */
     public static function getRegexpProtected($text)
     {
@@ -975,7 +975,7 @@ class FillBlanks extends Question
      * return the start separator for answer
      * @param string $number
      *
-     * @return mixed
+     * @return string
      */
     public static function getStartSeparator($number)
     {
@@ -988,7 +988,7 @@ class FillBlanks extends Question
      * return the end separator for answer
      * @param string $number
      *
-     * @return mixed
+     * @return string
      */
     public static function getEndSeparator($number)
     {
@@ -1039,13 +1039,22 @@ class FillBlanks extends Question
      * return the HTML display of the answer
      * @param string $answer
      * @param bool   $resultsDisabled
+     * @param bool $showTotalScoreAndUserChoices
      *
      * @return string
      */
-    public static function getHtmlDisplayForAnswer($answer, $resultsDisabled = false)
+    public static function getHtmlDisplayForAnswer($answer, $resultsDisabled = false, $showTotalScoreAndUserChoices = false)
     {
-        $result = "";
+        $result = '';
         $listStudentAnswerInfo = self::getAnswerInfo($answer, true);
+
+        if ($resultsDisabled == RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT) {
+            if ($showTotalScoreAndUserChoices) {
+                $resultsDisabled = true;
+            } else {
+                $resultsDisabled = false;
+            }
+        }
 
         // rebuild the answer with good HTML style
         // this is the student answer, right or wrong
@@ -1096,7 +1105,7 @@ class FillBlanks extends Question
         $type = FillBlanks::getFillTheBlankAnswerType($correct);
         switch ($type) {
             case self::FILL_THE_BLANK_MENU:
-                $correctAnswerHtml = "";
+                $correctAnswerHtml = '';
                 $listPossibleAnswers = FillBlanks::getFillTheBlankMenuAnswers($correct, false);
                 $correctAnswerHtml .= "<span style='color: green'>".$listPossibleAnswers[0]."</span>";
                 $correctAnswerHtml .= " <span style='font-weight:normal'>(";

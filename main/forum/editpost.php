@@ -72,7 +72,7 @@ if (api_is_in_gradebook()) {
 $groupId = api_get_group_id();
 if (!empty($groupId)) {
     $group_properties = GroupManager::get_group_properties($groupId);
-$interbreadcrumb[] = array(
+    $interbreadcrumb[] = array(
         'url' => api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq(),
         'name' => get_lang('Groups'),
     );
@@ -101,6 +101,7 @@ $interbreadcrumb[] = array(
     );
     $interbreadcrumb[] = array('url' => 'javascript: void (0);', 'name' => get_lang('EditPost'));
 }
+
 $table_link = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 
 /* Header */
@@ -169,7 +170,7 @@ $group_id = api_get_group_id();
 
 if (!api_is_allowed_to_edit(null, true) &&
     $current_forum['allow_edit'] == 0 &&
-    !GroupManager::is_tutor_of_group(api_get_user_id(), $group_id)
+    !GroupManager::is_tutor_of_group(api_get_user_id(), $group_properties['iid'])
 ) {
     $forum_allow = forum_not_allowed_here();
     if ($forum_allow === false) {
@@ -197,7 +198,16 @@ if ($origin != 'learnpath') {
 
 /*New display forum div*/
 echo '<div class="forum_title">';
-echo '<h1><a href="viewforum.php?&origin='.$origin.'&forum='.$current_forum['forum_id'].'" '.class_visible_invisible($current_forum['visibility']).'>'.prepare4display($current_forum['forum_title']).'</a></h1>';
+echo '<h1>';
+echo Display::url(
+    prepare4display($current_forum['forum_title']),
+    'viewforum.php?' . api_get_cidreq() . '&' . http_build_query([
+        'origin' => $origin,
+        'forum' => $current_forum['forum_id']
+    ]),
+    ['class' => empty($current_forum['visibility']) ? 'text-muted' : null]
+);
+echo '</h1>';
 echo '<p class="forum_description">'.prepare4display($current_forum['forum_comment']).'</p>';
 echo '</div>';
 /* End new display forum */
@@ -219,45 +229,6 @@ $values = show_edit_post_form(
 
 if (!empty($values) and isset($_POST['SubmitPost'])) {
     store_edit_post($current_forum, $values);
-
-    $option_chek = isset($values['thread_qualify_gradebook']) ? $values['thread_qualify_gradebook'] : null; // values 1 or 0
-    if (1 == $option_chek) {
-        $id = $values['thread_id'];
-        $title_gradebook = Security::remove_XSS(stripslashes($values['calification_notebook_title']));
-        $value_calification = $values['numeric_calification'];
-        $weight_calification = $values['weight_calification'];
-        $description = '';
-        $session_id = api_get_session_id();
-
-        $link_info = GradebookUtils::is_resource_in_course_gradebook(
-            api_get_course_id(),
-            5,
-            $id,
-            $session_id
-        );
-        $link_id = $link_info->getId();
-
-        if (!$link_info) {
-            GradebookUtils::add_resource_to_course_gradebook(
-                $values['category_id'],
-                api_get_course_id(),
-                5,
-                $id,
-                $title_gradebook,
-                $weight_calification,
-                $value_calification,
-                $description,
-                1,
-                api_get_session_id()
-            );
-        } else {
-            $gradebookLink = $em->find('ChamiloCoreBundle:GradebookLink', $link_id);
-            $gradebookLink->setWeight($weight_calification);
-
-            $em->persist($gradebookLink);
-            $em->flush();
-        }
-    }
 }
 
 // Footer

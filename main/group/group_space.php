@@ -22,11 +22,9 @@ require_once api_get_path(SYS_CODE_PATH).'forum/forumfunction.inc.php';
 require_once api_get_path(SYS_CODE_PATH).'forum/forumconfig.inc.php';
 
 /*	MAIN CODE */
-
 $group_id = api_get_group_id();
 $user_id = api_get_user_id();
 $current_group = GroupManager::get_group_properties($group_id);
-
 if (empty($current_group)) {
     api_not_allowed(true);
 }
@@ -153,8 +151,8 @@ if (api_is_allowed_to_edit(false, true) ||
             'content' => Display::return_icon('folder.png', get_lang('GroupDocument'), array(), 32)
         );
     }
-    if ($current_group['calendar_state'] != GroupManager::TOOL_NOT_AVAILABLE) {
 
+    if ($current_group['calendar_state'] != GroupManager::TOOL_NOT_AVAILABLE) {
         $groupFilter = null;
         if (!empty($group_id)) {
             $groupFilter = "&type=course&user_id=GROUP:$group_id";
@@ -165,6 +163,7 @@ if (api_is_allowed_to_edit(false, true) ||
             'content' => Display::return_icon('agenda.png', get_lang('GroupCalendar'), array(), 32)
         );
     }
+
     if ($current_group['work_state'] != GroupManager::TOOL_NOT_AVAILABLE) {
         // Link to the works area of this group
         $actions_array[] = array(
@@ -217,10 +216,10 @@ if (api_is_allowed_to_edit(false, true) ||
             );
         }
     }
+
     if (!empty($actions_array)) {
         echo Display::actions($actions_array);
     }
-
 } else {
     $actions_array = array();
 
@@ -254,7 +253,6 @@ if (api_is_allowed_to_edit(false, true) ||
             'url' => api_get_path(WEB_CODE_PATH).'calendar/agenda.php?'.api_get_cidreq(),
             'content' => Display::return_icon('agenda.png', get_lang('GroupCalendar'), array(), ICON_SIZE_MEDIUM)
         );
-
     }
 
     if ($current_group['work_state'] == GroupManager::TOOL_PUBLIC) {
@@ -349,6 +347,7 @@ $my_gidreq = isset($_GET['gidReq']) ? Security::remove_XSS($_GET['gidReq']) : ''
 $parameters = array('cidReq' => $my_cidreq, 'origin'=> $my_origin, 'gidReq' => $my_gidreq);
 $table->set_additional_parameters($parameters);
 $table->set_header(0, '');
+
 if (api_is_western_name_order()) {
     $table->set_header(1, get_lang('FirstName'));
     $table->set_header(2, get_lang('LastName'));
@@ -384,6 +383,7 @@ function get_number_of_group_users()
 {
     $groupInfo = GroupManager::get_group_properties(api_get_group_id());
     $course_id = api_get_course_int_id();
+
     if (empty($groupInfo) || empty($course_id)) {
         return 0;
     }

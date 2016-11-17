@@ -7,8 +7,7 @@
  * 	@author Istvan Mandak
  */
 
-//require_once '../inc/global.inc.php';
-require_once api_get_path(SYS_CODE_PATH).'exercice/hotpotatoes.lib.php';
+require_once api_get_path(SYS_CODE_PATH).'exercise/hotpotatoes.lib.php';
 $_course = api_get_course_info();
 
 $time = time();
@@ -38,9 +37,9 @@ if ($content == '') {
         if (SaveScoreVariable==0) {
             SaveScoreVariable = 1;
             if (C.ie) {
-                document.location.href = '".api_get_path(WEB_PATH)."main/exercice/savescores.php?lp_view_id=$lpViewId&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&time=".Security::remove_XSS($time)."&test=".$doc_url."&uid=".$user_id."&cid=".$cid."&score='+Score;
+                document.location.href = '" . api_get_path(WEB_CODE_PATH) . "exercise/savescores.php?lp_view_id=$lpViewId&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&time=".Security::remove_XSS($time)."&test=".$doc_url."&uid=".$user_id."&cid=".$cid."&score='+Score;
             } else {
-                window.location.href = '".api_get_path(WEB_PATH)."main/exercice/savescores.php?lp_view_id=$lpViewId&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&time=".Security::remove_XSS($time)."&test=".$doc_url."&uid=".$user_id."&cid=".$cid."&score='+Score;
+                window.location.href = '" . api_get_path(WEB_CODE_PATH) . "exercise/savescores.php?lp_view_id=$lpViewId&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&time=".Security::remove_XSS($time)."&test=".$doc_url."&uid=".$user_id."&cid=".$cid."&score='+Score;
             }
         }
     }
@@ -75,16 +74,17 @@ if ($title =='') {
 $nameTools = $title;
 $noPHP_SELF = true;
 
-$htmlHeadXtra[] = '
+$htmlHeadXtra[] = /** @lang HTML */<<<HTML
 <script>
-    $(document).ready( function(){
-        var height = $(this).innerHeight( - 20;
-        if (height < 0) {
-            height  = "95%";
-        }
-        $("#hotpotatoe").css("height", height);
+        $(document).on('ready', function () {
+            var iframe = document.getElementById('hotpotatoe');
+
+            iframe.onload = function () {
+                this.height = $(this.contentDocument.body).outerHeight(true)
+            };
     });
-</script>';
+    </script>
+HTML;
 
 $interbreadcrumb[]= array ("url"=>"./exercise.php", "name"=> get_lang('Exercises'));
 if ($origin == 'learnpath') {
@@ -93,6 +93,6 @@ if ($origin == 'learnpath') {
     Display::display_header($nameTools, "Exercise");
 }
 $url = $document_web_path.$doc_url.$user_id.'.t.html?time='.intval($time);
-echo '<iframe id="hotpotatoe" width="100%" frameborder="0" src="'.$url.'"></iframe>';
+echo '<iframe id="hotpotatoe" name="hotpotatoe" width="100%" height="100%" frameborder="0" src="'.$url.'"></iframe>';
 echo '</body></html>';
 exit;

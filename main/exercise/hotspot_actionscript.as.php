@@ -32,11 +32,11 @@ $course_id = api_get_course_int_id();
 
 // Query db for answers
 if ($answer_type==HOT_SPOT_DELINEATION) {
-	$sql = "SELECT id, answer, hotspot_coordinates, hotspot_type, ponderation FROM $TBL_ANSWERS
-	        WHERE c_id = $course_id AND question_id = ".intval($questionId)." AND hotspot_type = 'delineation' ORDER BY id";
+	$sql = "SELECT iid, id, answer, hotspot_coordinates, hotspot_type, ponderation FROM $TBL_ANSWERS
+	        WHERE c_id = $course_id AND question_id = ".intval($questionId)." AND hotspot_type = 'delineation' ORDER BY iid";
 } else {
-	$sql = "SELECT id, answer, hotspot_coordinates, hotspot_type, ponderation FROM $TBL_ANSWERS
-	        WHERE c_id = $course_id AND question_id = ".intval($questionId)." ORDER BY id";
+	$sql = "SELECT iid, id, answer, hotspot_coordinates, hotspot_type, ponderation FROM $TBL_ANSWERS
+	        WHERE c_id = $course_id AND question_id = ".intval($questionId)." ORDER BY iid";
 }
 $result = Database::query($sql);
 
@@ -74,6 +74,7 @@ while ($hotspot = Database::fetch_assoc($result))
 {
     $hotSpot = [];
     $hotSpot['id'] = $hotspot['id'];
+    $hotSpot['iid'] = $hotspot['iid'];
     $hotSpot['answer'] = $hotspot['answer'];
 
 	// Square or rectancle
@@ -116,13 +117,15 @@ while ($hotspot = Database::fetch_assoc($result))
 $attemptList = Event::getAllExerciseEventByExeId($exerciseId);
 
 if (!empty($attemptList)) {
-    $questionAttempt = $attemptList[$questionId][0];
+    if (isset($attemptList[$questionId])) {
+        $questionAttempt = $attemptList[$questionId][0];
 
-    if (!empty($questionAttempt->getAnswer())) {
-        $coordinates = explode('|', $questionAttempt->getAnswer());
+        if (!empty($questionAttempt->getAnswer())) {
+            $coordinates = explode('|', $questionAttempt->getAnswer());
 
-        foreach ($coordinates as $coordinate) {
-            $data['answers'][] = Geometry::decodePoint($coordinate);
+            foreach ($coordinates as $coordinate) {
+                $data['answers'][] = Geometry::decodePoint($coordinate);
+            }
         }
     }
 }

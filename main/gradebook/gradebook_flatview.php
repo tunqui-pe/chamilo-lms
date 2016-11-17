@@ -15,7 +15,6 @@ $studentView = Session::read('studentview');
 
 api_protect_course_script(true);
 api_block_anonymous_users();
-
 $isDrhOfCourse = CourseManager::isUserSubscribedInCourseAsDrh(
     api_get_user_id(),
     api_get_course_info()
@@ -71,7 +70,7 @@ if (isset($export_flatview_form) && (!$file_type == 'pdf')) {
 }
 
 if (isset($_GET['selectcat'])) {
-    $category_id = Security::remove_XSS($_GET['selectcat']);
+    $category_id = (int) $_GET['selectcat'];
 } else {
     $category_id = '';
 }

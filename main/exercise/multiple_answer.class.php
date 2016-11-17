@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use \ChamiloSession as Session;
+use ChamiloSession as Session;
 
 /**
  *	Class MultipleAnswer
@@ -14,8 +14,8 @@ use \ChamiloSession as Session;
  **/
 class MultipleAnswer extends Question
 {
-    static $typePicture = 'mcma.png';
-    static $explanationLangVar = 'MultipleSelect';
+    public static $typePicture = 'mcma.png';
+    public static $explanationLangVar = 'MultipleSelect';
 
     /**
      * Constructor
@@ -23,8 +23,8 @@ class MultipleAnswer extends Question
     public function __construct()
     {
         parent::__construct();
-        $this -> type = MULTIPLE_ANSWER;
-        $this -> isContent = $this-> getIsContent();
+        $this->type = MULTIPLE_ANSWER;
+        $this->isContent = $this->getIsContent();
     }
 
     /**

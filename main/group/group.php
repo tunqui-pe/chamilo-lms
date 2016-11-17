@@ -16,7 +16,6 @@ use ChamiloSession as Session;
  *	@author Isaac Flores, code cleaning and improvements
  *	@package chamilo.group
  */
-////require_once '../inc/global.inc.php';
 
 $is_allowed_in_course = api_is_allowed_in_course();
 $userId = api_get_user_id();
@@ -50,6 +49,7 @@ $my_get_id2 = isset($_GET['id2']) ? Security::remove_XSS($_GET['id2']) : null;
 $my_get_id  = isset($_GET['id']) ? Security::remove_XSS($_GET['id']) : null;
 
 $currentUrl = api_get_path(WEB_CODE_PATH).'group/group.php?'.api_get_cidreq();
+
 $groupInfo = GroupManager::get_group_properties($my_group_id);
 
 if (isset($_GET['action']) && $is_allowed_in_course) {
@@ -99,7 +99,6 @@ if (isset($_GET['action']) && $is_allowed_in_course) {
  */
 
 if (api_is_allowed_to_edit(false, true)) {
-
     // Post-actions
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
@@ -109,6 +108,7 @@ if (api_is_allowed_to_edit(false, true)) {
                         $groupInfo = GroupManager::get_group_properties($myGroupId);
                         GroupManager::delete_groups($groupInfo['iid']);
                     }
+
                     Display::addFlash(Display::return_message(get_lang('SelectedGroupsDeleted')));
                     header("Location: $currentUrl");
                     exit;
@@ -120,6 +120,7 @@ if (api_is_allowed_to_edit(false, true)) {
                         $groupInfo = GroupManager::get_group_properties($myGroupId);
                         GroupManager :: unsubscribe_all_users($groupInfo['iid']);
                     }
+
                     Display::addFlash(Display::return_message(get_lang('SelectedGroupsEmptied')));
                     header("Location: $currentUrl");
                     exit;
@@ -181,7 +182,6 @@ Display::display_introduction_section(TOOL_GROUP);
 $actionsLeft = '';
 
 if (api_is_allowed_to_edit(false, true)) {
-
     $actionsLeft .= '<a href="group_creation.php?'.api_get_cidreq().'">'.
         Display::return_icon('add-groups.png', get_lang('NewGroupCreate'), '', ICON_SIZE_MEDIUM).'</a>';
 
@@ -208,7 +208,6 @@ if (api_is_allowed_to_edit(false, true)) {
     $actionsLeft .= '<a href="group_overview.php?'.api_get_cidreq().'">'.
         Display::return_icon('group_summary.png', get_lang('GroupOverview'), '', ICON_SIZE_MEDIUM).'</a>';
 }
-
 
 $actionsRight = GroupManager::getSearchForm();
 $toolbar = Display::toolbarAction('toolbar-groups', $content = array($actionsLeft, $actionsRight));

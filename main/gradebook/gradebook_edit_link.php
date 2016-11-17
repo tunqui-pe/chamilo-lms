@@ -5,30 +5,38 @@
  * Script
  * @package chamilo.gradebook
  */
-//require_once '../inc/global.inc.php';
 
 api_block_anonymous_users();
 GradebookUtils::block_students();
+$tbl_grade_links = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
 //selected name of database
-$course_id              = GradebookUtils::get_course_id_by_link_id($_GET['editlink']);
+$course_id = GradebookUtils::get_course_id_by_link_id($_GET['editlink']);
+$tbl_forum_thread = Database:: get_course_table(TABLE_FORUM_THREAD);
+$tbl_attendance = Database:: get_course_table(TABLE_ATTENDANCE);
 $em = Database::getManager();
-$tbl_forum_thread 		= Database :: get_course_table(TABLE_FORUM_THREAD);
-$tbl_work 				= Database :: get_course_table(TABLE_STUDENT_PUBLICATION);
-$tbl_attendance 		= Database :: get_course_table(TABLE_ATTENDANCE);
 
-$linkarray 				= LinkFactory :: load($_GET['editlink']);
+$linkarray = LinkFactory :: load($_GET['editlink']);
 /** @var AbstractLink $link */
 $link = $linkarray[0];
 if ($link->is_locked() && !api_is_platform_admin()) {
     api_not_allowed();
 }
 
-$linkcat  = isset($_GET['selectcat']) ? Security::remove_XSS($_GET['selectcat']):'';
+$linkcat  = isset($_GET['selectcat']) ? (int) $_GET['selectcat'] : 0;
 $linkedit = isset($_GET['editlink']) ? Security::remove_XSS($_GET['editlink']):'';
-
+$course_code = api_get_course_id();
 $session_id = api_get_session_id();
+
 if ($session_id == 0) {
-    $cats = Category :: load(null, null, api_get_course_id(), null, null, $session_id, false); //already init
+    $cats = Category:: load(
+        null,
+        null,
+        $course_code,
+        null,
+        null,
+        $session_id,
+        false
+    ); //already init
 } else {
     $cats = Category :: load_session_categories(null, $session_id);
 }
@@ -44,9 +52,7 @@ $form = new LinkAddEditForm(
 if ($form->validate()) {
     $values = $form->exportValues();
     $parent_cat = Category :: load($values['select_gradebook']);
-
     $final_weight = $values['weight_mask'];
-
     $link->set_weight($final_weight);
 
     if (!empty($values['select_gradebook'])) {
@@ -90,7 +96,7 @@ $interbreadcrumb[] = array(
     'name' => get_lang('Gradebook')
 );
 
-$htmlHeadXtra[] = '<script type="text/javascript">
+$htmlHeadXtra[] = '<script>
 $(document).ready( function() {
     $("#hide_category_id").change(function() {
        $("#hide_category_id option:selected").each(function () {

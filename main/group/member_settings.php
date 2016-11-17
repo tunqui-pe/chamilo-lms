@@ -11,7 +11,6 @@
  *	@todo course admin functionality to create groups based on who is in which course (or class).
  */
 
-//require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 $current_course_tool  = TOOL_GROUP;
 
@@ -25,7 +24,7 @@ $nameTools = get_lang('EditGroup');
 $interbreadcrumb[] = array('url' => 'group.php', 'name' => get_lang('Groups'));
 $interbreadcrumb[] = array('url' => 'group_space.php?'.api_get_cidReq(), 'name' => $current_group['name']);
 
-$is_group_member = GroupManager::is_tutor_of_group(api_get_user_id(), $group_id);
+$is_group_member = GroupManager::is_tutor_of_group(api_get_user_id(), $current_group['iid']);
 
 if (!api_is_allowed_to_edit(false, true) && !$is_group_member) {
     api_not_allowed(true);
@@ -115,8 +114,6 @@ function check_group_members($value)
     return true;
 }
 
-/*	MAIN CODE */
-
 $htmlHeadXtra[] = '<script>
 $(document).ready( function() {
     $("#max_member").on("focus", function() {
@@ -129,7 +126,11 @@ $(document).ready( function() {
 $form = new FormValidator('group_edit', 'post', api_get_self().'?'.api_get_cidreq());
 $form->addElement('hidden', 'action');
 $form->addElement('hidden', 'max_student', $current_group['max_student']);
-$complete_user_list = GroupManager::fill_groups_list($current_group['id']);
+$complete_user_list = GroupManager::fill_groups_list($current_group['iid']);
+$subscribedTutors = GroupManager::getTutors($current_group['iid']);
+if ($subscribedTutors) {
+    $subscribedTutors = array_column($subscribedTutors, 'user_id');
+}
 
 $orderUserListByOfficialCode = api_get_setting(
     'platform.order_user_list_by_official_code'
@@ -140,6 +141,9 @@ $userGroup = new UserGroup();
 if (!empty($complete_user_list)) {
     usort($complete_user_list, 'sort_users');
     foreach ($complete_user_list as $index => $user) {
+        if (in_array($user['user_id'], $subscribedTutors)) {
+            continue;
+        }
         //prevent invitee users add to groups or tutors - see #8091
         if ($user['status'] != INVITEE) {
             $officialCode = !empty($user['official_code']) ? ' - '.$user['official_code'] : null;
@@ -156,7 +160,7 @@ if (!empty($complete_user_list)) {
 
             if ($orderUserListByOfficialCode === 'true') {
                 $officialCode = !empty($user['official_code']) ? $user['official_code']." - " : '? - ';
-                $name = $officialCode." ".api_get_person_name($user['firstname'], $user['lastname']).' ('.$user['username'].')';
+                $name = $officialCode.' '.api_get_person_name($user['firstname'], $user['lastname']).' ('.$user['username'].')';
             }
             $possible_users[$user['user_id']] = $name.$groupNameListToString;
         }
@@ -164,7 +168,7 @@ if (!empty($complete_user_list)) {
 }
 
 // Group members
-$group_member_list = GroupManager::get_subscribed_users($current_group['id']);
+$group_member_list = GroupManager::get_subscribed_users($current_group['iid']);
 
 $selected_users = array ();
 if (!empty($group_member_list)) {
@@ -189,16 +193,17 @@ if ($form->validate()) {
     $values = $form->exportValues();
 
     // Storing the users (we first remove all users and then add only those who were selected)
-    GroupManager:: unsubscribe_all_users($current_group['id']);
-    if (isset ($_POST['group_members']) && count($_POST['group_members']) > 0) {
+    GroupManager:: unsubscribe_all_users($current_group['iid']);
+
+    if (isset($_POST['group_members']) && count($_POST['group_members']) > 0) {
         GroupManager:: subscribe_users(
             $values['group_members'],
-            $current_group['id']
+            $current_group['iid']
         );
     }
 
     // Returning to the group area (note: this is inconsistent with the rest of chamilo)
-    $cat = GroupManager :: get_category_from_group($current_group['id']);
+    $cat = GroupManager :: get_category_from_group($current_group['iid']);
     if (isset($_POST['group_members']) &&
         count($_POST['group_members']) > $max_member &&
         $max_member != GroupManager::MEMBER_PER_GROUP_NO_LIMIT
@@ -216,7 +221,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : null;
 switch ($action) {
     case 'empty':
         if (api_is_allowed_to_edit(false, true)) {
-            GroupManager:: unsubscribe_all_users($group_id);
+            GroupManager:: unsubscribe_all_users($current_group['iid']);
             Display :: display_confirmation_message(get_lang('GroupEmptied'));
         }
         break;

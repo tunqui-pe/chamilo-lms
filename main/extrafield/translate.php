@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \Chamilo\CoreBundle\Entity\ExtraField;
+
 $cidReset = true;
 
 require_once '../inc/global.inc.php';
@@ -69,6 +71,7 @@ $form->setDefaults([
 ]);
 $form->addRule('sub_language', get_lang('Required'), 'required');
 $form->freeze(['variable_language', 'original_name']);
+
 $interbreadcrumb[] = ['url' => api_get_path(WEB_CODE_PATH) . 'admin', 'name' => get_lang('Administration')];
 
 switch ($extraField->getExtraFieldType()) {

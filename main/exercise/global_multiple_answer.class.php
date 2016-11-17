@@ -8,8 +8,8 @@ use ChamiloSession as Session;
  */
 class GlobalMultipleAnswer extends Question
 {
-    static $typePicture = 'mcmagl.png';
-    static $explanationLangVar = 'GlobalMultipleAnswer';
+    public static $typePicture = 'mcmagl.png';
+    public static $explanationLangVar = 'GlobalMultipleAnswer';
 
     /**
      * Constructor
@@ -127,7 +127,6 @@ class GlobalMultipleAnswer extends Question
         //only 1 answer the all deal ...
         $form->addElement('text', 'weighting[1]', get_lang('Score'));
 
-        global $pts;
         //--------- Creation coche pour ne pas prendre en compte les n�gatifs
         $form->addElement('checkbox', 'pts', '', get_lang('NoNegativeScore'));
         $form->addElement('html', '<br />');

@@ -26,7 +26,7 @@ $_user = api_get_user_info();
 $sortDirection = isset($_GET['posts_order']) && $_GET['posts_order'] === 'desc' ? 'DESC' : 'ASC';
 $rows = getPosts($current_forum, $_GET['thread'], $sortDirection, true);
 $sessionId = api_get_session_id();
-$currentThread = get_thread_information($_GET['thread']);
+$currentThread = get_thread_information($current_forum['forum_id'], $_GET['thread']);
 $post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
 $userId = api_get_user_id();
 
@@ -89,21 +89,24 @@ foreach ($rows as $post) {
             $counter == 1 AND !isset($_GET['post'])
         )
     ) {
-        $thread_structure .= '<strong>' .prepare4display($post['post_title']) . '</strong></div>';
+        $thread_structure .= '<strong>' .prepare4display($post['post_title']) . '</strong>';
         $prev_next_array[] = $post['post_id'];
     } else {
-        if ($post['visible'] == '0') {
-            $class = ' class="invisible"';
-        } else {
-            $class = '';
-        }
         $count_loop = ($count == 0) ? '&id=1' : '';
-        $thread_structure .= "<a href=\"viewthread.php?" . api_get_cidreq() .
-            "&forum=" . $forumId . "&thread=" . $threadId .
-            "&post=" . $post['post_id'] . "&origin=$origin$count_loop\"" .
-            "$class>" . prepare4display($post['post_title']) . "</a></div>";
+        $thread_structure .= Display::url(
+            prepare4display($post['post_title']),
+            'viewthread.php?' . api_get_cidreq() . "$count_loop&" . http_build_query([
+                'forum' => $forumId,
+                'thread' => $threadId,
+                'post' => $post['post_id']
+            ]),
+            ['class' => empty($post['visible']) ? 'text-muted' : null]
+        );
+
         $prev_next_array[] = $post['post_id'];
     }
+
+    $thread_structure .= '</div>';
     $count++;
 }
 
@@ -150,13 +153,13 @@ $class_next = '';
 // Links
 $first_href = $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
-    '&id=1&post=' . $prev_next_array[0];
+    '&gradebook=' . $gradebook . '&id=1&post=' . $prev_next_array[0];
 $last_href 	= $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
-    '&post=' . $prev_next_array[$max-1];
+    '&gradebook=' . $gradebook . '&post=' . $prev_next_array[$max-1];
 $prev_href	= $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
-    '&post=' . $prev_next_array[$prev_id];
+    '&gradebook=' . $gradebook . '&post=' . $prev_next_array[$prev_id];
 $next_href	= $forumUrl . 'viewthread.php?' . api_get_cidreq() .
     '&forum=' . $forumId . '&thread=' . $threadId .
     '&post=' . $prev_next_array[$next_id];
@@ -169,10 +172,10 @@ if (((int) $current_id) > 0) {
     echo '<a href="' . $prev_href . '" ' . $class_prev . ' title=' .
         $prev_message . '>' . $prev_img . ' ' . $prev_message . '</a>';
 } else {
-    echo '<b><span class="invisible">' .
-        $first_img . ' ' . $first_message . '</b></span>';
-    echo '<b><span class="invisible">' .
-        $prev_img . ' ' . $prev_message . '</b></span>';
+    echo '<strong class="text-muted">' .
+        $first_img . ' ' . $first_message . '</strong>';
+    echo '<strong class="text-muted">' .
+        $prev_img . ' ' . $prev_message . '</strong>';
 }
 
 // Current counter
@@ -183,8 +186,8 @@ if (($current_id + 1) < $max) {
     echo '<a href="' . $next_href . '" ' . $class_next . ' title=' . $next_message . '>' . $next_message . ' ' . $next_img . '</a>';
     echo '<a href="' . $last_href . '" ' . $class . ' title=' . $last_message . '>' . $last_message . ' ' . $last_img . '</a>';
 } else {
-    echo '<b><span class="invisible">' . $next_message . ' ' . $next_img . '</b></span>';
-    echo '<b><span class="invisible">' . $last_message . ' ' . $last_img . '</b></span>';
+    echo '<strong class="text-muted">' . $next_message . ' ' . $next_img . '</strong>';
+    echo '<strong class="text-muted">' . $last_message . ' ' . $last_img . '</strong>';
 }
 echo '</center>';
 
@@ -233,11 +236,12 @@ echo api_convert_and_format_date(
 // Get attach id
 $attachment_list = get_attachment($display_post_id);
 $id_attach = !empty($attachment_list) ? $attachment_list['id'] : '';
+$groupInfo = GroupManager::get_group_properties($groupId);
 
 // The user who posted it can edit his thread only if the course admin allowed this in the properties of the forum
 // The course admin him/herself can do this off course always
 if (
-    GroupManager::is_tutor_of_group(api_get_user_id(), $groupId) || (
+(isset($groupInfo['iid']) && GroupManager::is_tutor_of_group(api_get_user_id(), $groupInfo['iid'])) || (
         $current_forum['allow_edit'] == 1 &&
         $row['user_id'] == $_user['user_id']
     ) || (
@@ -277,7 +281,7 @@ if (!empty($my_post) && is_array($my_post)) {
 }
 
 if (
-    GroupManager::is_tutor_of_group(api_get_user_id(), $groupId) ||
+    (isset($groupInfo['iid']) && GroupManager::is_tutor_of_group(api_get_user_id(), $groupInfo['iid'])) ||
     api_is_allowed_to_edit(false, true) &&
     !(api_is_course_coach() && $current_forum['session_id'] != $sessionId)
 ) {
@@ -309,7 +313,7 @@ if (
     if (!isset($_GET['id']) && $post_id > $post_minor) {
         echo "<a href=\"viewthread.php?" . api_get_cidreq() .
             "&forum=" . $forumId . "&thread=" . $threadId .
-            "&origin=" . $origin . "&action=move&post=" .
+            "&action=move&post=" .
             $rows[$display_post_id]['post_id'] . "\">" .
             Display::return_icon(
                 'move.png',
@@ -363,7 +367,7 @@ if (($current_forum_category && $current_forum_category['locked'] == 0) &&
             echo '<a href="reply.php?' . api_get_cidreq() .
                 '&forum=' . $forumId . '&thread=' . $threadId .
                 '&post=' . $rows[$display_post_id]['post_id'] .
-                '&action=replymessage&origin=' . $origin . '">' .
+                '&action=replymessage">' .
                 Display::return_icon(
                     'message_reply_forum.png',
                     get_lang('ReplyToMessage')
@@ -371,7 +375,7 @@ if (($current_forum_category && $current_forum_category['locked'] == 0) &&
             echo '<a href="reply.php?' . api_get_cidreq() .
                 '&forum=' . $forumId . '&thread=' . $threadId .
                 '&post=' . $rows[$display_post_id]['post_id'] .
-                '&action=quote&origin=' . $origin . '">' .
+                '&action=quote">' .
                 Display::return_icon(
                     'quote.gif',
                     get_lang('QuoteMessage')
@@ -437,10 +441,7 @@ if (!empty($attachment_list) && is_array($attachment_list)) {
             (api_is_allowed_to_edit(false, true) && !(api_is_course_coach() && $current_forum['session_id'] != $sessionId))
         ) {
             echo '&nbsp;&nbsp;<a href="' . api_get_self() . '?' .
-                api_get_cidreq() . '&origin=' .
-                Security::remove_XSS($_GET['origin']) .
-                '&action=delete_attach&id_attach=' .
-                $attachment['id'] . '&forum=' . $forumId .
+                api_get_cidreq() . '&action=delete_attach&id_attach=' .$attachment['id'] . '&forum=' . $forumId .
                 '&thread=' . $threadId .
                 '" onclick="javascript:if(!confirm(\'' .
                 addslashes(api_htmlentities(

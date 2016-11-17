@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use \ChamiloSession as Session;
+use ChamiloSession as Session;
 
 /**
  * Class UniqueAnswerNoOption
@@ -14,15 +14,14 @@ use \ChamiloSession as Session;
  */
 class UniqueAnswerNoOption extends Question
 {
-	static $typePicture = 'mcuao.png';
-	static $explanationLangVar = 'UniqueAnswerNoOption';
+	public static $typePicture = 'mcuao.png';
+	public static $explanationLangVar = 'UniqueAnswerNoOption';
 
 	/**
 	 * Constructor
 	 */
 	public function __construct()
     {
-		//this is highly important
 		parent::__construct();
 		$this -> type = UNIQUE_ANSWER_NO_OPTION;
 		$this -> isContent = $this-> getIsContent();
@@ -30,16 +29,15 @@ class UniqueAnswerNoOption extends Question
 
 	/**
      * function which redifines Question::createAnswersForm
-     * @param FormValidator $form
+     * @param the formvalidator instance
      * @param the answers number to display
      */
-    function createAnswersForm($form)
+    public function createAnswersForm($form)
     {
         // getting the exercise list
         $obj_ex = Session::read('objExercise');
 
         $editor_config = array('ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '125');
-
         //this line define how many question by default appear when creating a choice question
         $nb_answers = isset($_POST['nb_answers']) ? (int) $_POST['nb_answers'] : 3;  // The previous default value was 2. See task #1759.
         $nb_answers += (isset($_POST['lessAnswers']) ? -1 : (isset($_POST['moreAnswers']) ? 1 : 0));
@@ -212,8 +210,9 @@ class UniqueAnswerNoOption extends Question
         $i = 666;
         $form->addHtml('<tr>');
 
+        $defaults["counter[$i]"] = '-';
         $defaults['answer[' . $i . ']'] = get_lang('DontKnow');
-        $defaults['weighting[' . $i . ']'] = 0;
+        $defaults['weighting[' . $i . ']'] = '0';
         $defaults['scenario'] = $temp_scenario;
         $renderer = & $form->defaultRenderer();
 

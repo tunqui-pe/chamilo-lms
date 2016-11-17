@@ -5,6 +5,7 @@
  */
 //require_once '../global.inc.php';
 $action = $_GET['a'];
+
 switch ($action) {
     case 'access_detail':
         $user_id = intval($_REQUEST['student']);
@@ -18,7 +19,7 @@ switch ($action) {
         if ($range == 1) {
             $start_date = Security::remove_XSS($_REQUEST['sd']);
             $end_date = Security::remove_XSS($_REQUEST['ed']);
-            $sql_result = get_connections_to_course_by_date(
+            $sql_result = MySpace::get_connections_to_course_by_date(
                 $user_id,
                 $courseId,
                 $start_date,
@@ -34,7 +35,6 @@ switch ($action) {
         echo $foo_print;
 
         break;
-
     case 'access_detail_by_date':
         $db = array('is_empty' => true);
         $start_date = isset($_REQUEST['startDate']) ? $_REQUEST['startDate'] : "";
@@ -45,7 +45,7 @@ switch ($action) {
         $courseInfo = api_get_course_info($course_code);
         $courseId = $courseInfo['real_id'];
 
-        $sql_result = get_connections_to_course_by_date(
+        $sql_result = MySpace::get_connections_to_course_by_date(
             $user_id,
             $courseId,
             $start_date,
@@ -55,7 +55,7 @@ switch ($action) {
         if (is_array($sql_result) && count($sql_result) > 0) {
             $db['is_empty'] = false;
             $db['result'] = convert_to_string($sql_result);
-            $rst = get_stats($user_id, $course_code, $start_date, $end_date);
+            $rst = get_stats($user_id, $courseId, $start_date, $end_date);
             $foo_stats = '<strong>' . get_lang('Total') . ': </strong>' . $rst['total'] . '<br />';
             $foo_stats .= '<strong>' . get_lang('Average') . ': </strong>' . $rst['avg'] . '<br />';
             $foo_stats .= '<strong>' . get_lang('Quantity') . ' : </strong>' . $rst['times'] . '<br />';

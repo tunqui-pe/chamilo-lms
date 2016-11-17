@@ -264,7 +264,7 @@ abstract class Question
     }
 
     /**
-     * @return bool|string
+     * @return string|false
      */
     public function selectPicturePath()
     {
@@ -272,7 +272,7 @@ abstract class Question
             return api_get_path(WEB_COURSE_PATH) . $this->course['path'] . '/document/images/' . $this->picture;
         }
 
-        return false;
+        return '';
     }
 
     /**
@@ -589,7 +589,7 @@ abstract class Question
      * @param string $Dimension - Resizing happens proportional according to given dimension: height|width|any
      * @param integer $Max - Maximum size
      *
-     * @return boolean - true if success, false if failed
+     * @return boolean|null - true if success, false if failed
      *
      * @author Toon Keppens
      */
@@ -750,6 +750,7 @@ abstract class Question
 
     /**
      * Sets extra info
+     * @param string $extra
      */
     public function setExtra($extra)
     {
@@ -794,6 +795,7 @@ abstract class Question
     {
         $TBL_EXERCISE_QUESTION = Database::get_course_table(TABLE_QUIZ_TEST_QUESTION);
         $TBL_QUESTIONS = Database::get_course_table(TABLE_QUIZ_QUESTION);
+        $em = Database::getManager();
 
         $id = $this->id;
         $question = $this->question;
@@ -891,47 +893,54 @@ abstract class Question
 
                 // If hotspot, create first answer
                 if ($type == HOT_SPOT || $type == HOT_SPOT_ORDER) {
-                    $TBL_ANSWERS = Database::get_course_table(
-                        TABLE_QUIZ_ANSWER
-                    );
-                    $params = [
-                        'c_id' => $c_id,
-                        'question_id' => $this->id,
-                        'answer' => '',
-                        'correct' => '',
-                        'comment' => '',
-                        'ponderation' => 10,
-                        'position' => 1,
-                        'hotspot_coordinates' => '0;0|0|0',
-                        'hotspot_type' => 'square',
-                    ];
-                    $id = Database::insert($TBL_ANSWERS, $params);
+                    $quizAnswer = new \Chamilo\CourseBundle\Entity\CQuizAnswer();
+                    $quizAnswer
+                        ->setCId($c_id)
+                        ->setQuestionId($this->id)
+                        ->setAnswer('')
+                        ->setPonderation(10)
+                        ->setPosition(1)
+                        ->setHotspotCoordinates('0;0|0|0')
+                        ->setHotspotType('square');
+
+                    $em->persist($quizAnswer);
+                    $em->flush();
+
+                    $id = $quizAnswer->getIid();
+
                     if ($id) {
-                        $sql = "UPDATE $TBL_ANSWERS SET id = iid, id_auto = iid WHERE iid = $id";
-                        Database::query($sql);
+                        $quizAnswer
+                            ->setId($id)
+                            ->setIdAuto($id);
+
+                        $em->merge($quizAnswer);
+                        $em->flush();
                     }
                 }
 
                 if ($type == HOT_SPOT_DELINEATION) {
-                    $TBL_ANSWERS = Database::get_course_table(
-                        TABLE_QUIZ_ANSWER
-                    );
-                    $params = [
-                        'c_id' => $c_id,
-                        'question_id' => $this->id,
-                        'answer' => '',
-                        'correct' => '',
-                        'comment' => '',
-                        'ponderation' => 10,
-                        'position' => 1,
-                        'hotspot_coordinates' => '0;0|0|0',
-                        'hotspot_type' => 'delineation',
-                    ];
-                    $id = Database::insert($TBL_ANSWERS, $params);
+                    $quizAnswer = new \Chamilo\CourseBundle\Entity\CQuizAnswer();
+                    $quizAnswer
+                        ->setCId($c_id)
+                        ->setQuestionId($this->id)
+                        ->setAnswer('')
+                        ->setPonderation(10)
+                        ->setPosition(1)
+                        ->setHotspotCoordinates('0;0|0|0')
+                        ->setHotspotType('delineation');
+
+                    $em->persist($quizAnswer);
+                    $em->flush();
+
+                    $id = $quizAnswer->getIid();
 
                     if ($id) {
-                        $sql = "UPDATE $TBL_ANSWERS SET id = iid, id_auto = iid WHERE iid = $id";
-                        Database::query($sql);
+                        $quizAnswer
+                            ->setId($id)
+                            ->setIdAuto($id);
+
+                        $em->merge($quizAnswer);
+                        $em->flush();
                     }
                 }
 
@@ -958,34 +967,24 @@ abstract class Question
     public function search_engine_edit($exerciseId, $addQs=false, $rmQs=false)
     {
         // update search engine and its values table if enabled
-        if (api_get_setting(
-                'search.search_enabled'
-            ) == 'true' && extension_loaded('xapian')
-        ) {
-            $em = Database::getManager();
-
-            $course = $em->find('ChamiloCoreBundle:Course', api_get_course_int_id());
-
+        if (api_get_setting('search_enabled')=='true' && extension_loaded('xapian')) {
+            $course_id = api_get_course_id();
             // get search_did
+            $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
             if ($addQs || $rmQs) {
                 //there's only one row per question on normal db and one document per question on search engine db
-                $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
-                    ->findOneBy([
-                        'course' => $course,
-                        'toolId' => TOOL_QUIZ,
-                        'refIdSecondLevel' => $this->id
-                    ]);
+                $sql = 'SELECT * FROM %s
+                    WHERE course_code=\'%s\' AND tool_id=\'%s\' AND ref_id_second_level=%s LIMIT 1';
+                $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
             } else {
-                $se_ref = $em->getRepository('ChamiloCoreBundle:SearchEngineRef')
-                    ->findOneBy([
-                        'course' => $course,
-                        'toolId' => TOOL_QUIZ,
-                        'refIdHighLevel' => $exerciseId,
-                        'refIdSecondLevel' => $this->id
-                    ]);
+                $sql = 'SELECT * FROM %s
+                    WHERE course_code=\'%s\' AND tool_id=\'%s\'
+                    AND ref_id_high_level=%s AND ref_id_second_level=%s LIMIT 1';
+                $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $exerciseId, $this->id);
             }
+            $res = Database::query($sql);
 
-            if ($se_ref || $addQs) {
+            if (Database::num_rows($res) > 0 || $addQs) {
                 require_once(api_get_path(LIBRARY_PATH) . 'search/ChamiloIndexer.class.php');
                 require_once(api_get_path(LIBRARY_PATH) . 'search/IndexableChunk.class.php');
 
@@ -999,7 +998,8 @@ abstract class Question
                 $di->connectDb(NULL, NULL, $lang);
 
                 // retrieve others exercise ids
-                $se_doc = $di->get_document($se_ref->getSearchDid());
+                $se_ref = Database::fetch_array($res);
+                $se_doc = $di->get_document((int)$se_ref['search_did']);
                 if ($se_doc !== FALSE) {
                     if (($se_doc_data = $di->get_document_data($se_doc)) !== FALSE) {
                         $se_doc_data = unserialize($se_doc_data);
@@ -1029,10 +1029,10 @@ abstract class Question
                 // build the chunk to index
                 $ic_slide = new IndexableChunk();
                 $ic_slide->addValue("title", $this->question);
-                $ic_slide->addCourseId($course->getCode());
+                $ic_slide->addCourseId($course_id);
                 $ic_slide->addToolId(TOOL_QUIZ);
                 $xapian_data = array(
-                    SE_COURSE_ID => $course->getCode(),
+                    SE_COURSE_ID => $course_id,
                     SE_TOOL_ID => TOOL_QUIZ,
                     SE_DATA => array(
                         'type' => SE_DOCTYPE_EXERCISE_QUESTION,
@@ -1046,7 +1046,7 @@ abstract class Question
 
                 //TODO: index answers, see also form validation on question_admin.inc.php
 
-                $di->remove_document($se_ref->getSearchDid());
+                $di->remove_document((int)$se_ref['search_did']);
                 $di->addChunk($ic_slide);
 
                 //index and return search engine document id
@@ -1057,11 +1057,9 @@ abstract class Question
                 if ($did || $rmQs) {
                     // save it to db
                     if ($addQs || $rmQs) {
-                        $em->createQuery('
-                                DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
-                                WHERE ser.course = ?1 AND ser.toolId = ?2 AND ser.refIdSecondLevel = ?3
-                            ')
-                            ->execute([1 => $course, 2 => TOOL_QUIZ, 3 => $this->id]);
+                        $sql = "DELETE FROM %s
+                            WHERE course_code = '%s' AND tool_id = '%s' AND ref_id_second_level = '%s'";
+                        $sql = sprintf($sql, $tbl_se_ref, $course_id, TOOL_QUIZ, $this->id);
                     } else {
                         $em->createQuery('
                                 DELETE FROM ChamiloCoreBundle:SearchEngineRef ser
@@ -1197,7 +1195,7 @@ abstract class Question
      * @author Olivier Brouckaert
      * @param integer $deleteFromEx - exercise ID if the question is only removed from one exercise
      */
-    function delete($deleteFromEx = 0)
+    public function delete($deleteFromEx = 0)
     {
         $course_id = api_get_course_int_id();
 
@@ -1206,7 +1204,7 @@ abstract class Question
         $TBL_REPONSES = Database::get_course_table(TABLE_QUIZ_ANSWER);
         $TBL_QUIZ_QUESTION_REL_CATEGORY = Database::get_course_table(TABLE_QUIZ_QUESTION_REL_CATEGORY);
 
-        $id = $this->id;
+        $id = intval($this->id);
 
         // if the question must be removed from all exercises
         if (!$deleteFromEx) {
@@ -1230,38 +1228,48 @@ abstract class Question
             }
 
             $sql = "DELETE FROM $TBL_EXERCISE_QUESTION
-                    WHERE c_id = $course_id AND question_id = " . intval($id) . "";
+                    WHERE c_id = $course_id AND question_id = " . $id;
             Database::query($sql);
 
             $sql = "DELETE FROM $TBL_QUESTIONS
-                    WHERE c_id = $course_id AND id = " . intval($id) . "";
+                    WHERE c_id = $course_id AND id = " . $id;
             Database::query($sql);
 
             $sql = "DELETE FROM $TBL_REPONSES
-                    WHERE c_id = $course_id AND question_id = " . intval($id) . "";
+                    WHERE c_id = $course_id AND question_id = " . $id;
             Database::query($sql);
 
             // remove the category of this question in the question_rel_category table
             $sql = "DELETE FROM $TBL_QUIZ_QUESTION_REL_CATEGORY
-                    WHERE c_id = $course_id AND question_id = " . intval($id) . " AND c_id=" . api_get_course_int_id();
+                    WHERE 
+                        c_id = $course_id AND 
+                        question_id = " . $id;
             Database::query($sql);
 
-            api_item_property_update($this->course, TOOL_QUIZ, $id, 'QuizQuestionDeleted', api_get_user_id());
+            api_item_property_update(
+                $this->course,
+                TOOL_QUIZ,
+                $id,
+                'QuizQuestionDeleted',
+                api_get_user_id()
+            );
             $this->removePicture();
 
-            // resets the object
-            $this->Question();
         } else {
             // just removes the exercise from the list
             $this->removeFromList($deleteFromEx);
-            if (api_get_setting(
-                    'search.search_enabled'
-                ) == 'true' && extension_loaded('xapian')
-            ) {
+            if (api_get_setting('search.search_enabled') == 'true' && extension_loaded('xapian')) {
                 // disassociate question with this exercise
                 $this->search_engine_edit($deleteFromEx, FALSE, TRUE);
             }
-            api_item_property_update($this->course, TOOL_QUIZ, $id, 'QuizQuestionDeleted', api_get_user_id());
+
+            api_item_property_update(
+                $this->course,
+                TOOL_QUIZ,
+                $id,
+                'QuizQuestionDeleted',
+                api_get_user_id()
+            );
         }
     }
 
@@ -1269,10 +1277,10 @@ abstract class Question
      * Duplicates the question
      *
      * @author Olivier Brouckaert
-     * @param  array   Course info of the destination course
-     * @return int     ID of the new question
+     * @param  array   $course_info Course info of the destination course
+     * @return false|string     ID of the new question
      */
-    public function duplicate($course_info = null)
+    public function duplicate($course_info = [])
     {
         if (empty($course_info)) {
             $course_info = $this->course;
@@ -1358,6 +1366,7 @@ abstract class Question
     public function get_question_type_name()
     {
         $key = self::$questionTypes[$this->type];
+
         return get_lang($key[1]);
     }
 
@@ -1367,10 +1376,7 @@ abstract class Question
      */
     public static function get_question_type($type)
     {
-        if ($type == ORAL_EXPRESSION && api_get_setting(
-                'document.enable_record_audio'
-            ) != 'true'
-        ) {
+        if ($type == ORAL_EXPRESSION && api_get_setting('enable_record_audio') !== 'true') {
             return null;
         }
         return self::$questionTypes[$type];
@@ -1613,14 +1619,19 @@ abstract class Question
             eval('$explanation = get_lang(' . $a_type[1] . '::$explanationLangVar);');
             echo '<li>';
             echo '<div class="icon-image">';
+
+            $icon = '<a href="admin.php?' . api_get_cidreq() . '&newQuestion=yes&answerType=' . $i . '">' .
+                Display::return_icon($img, $explanation, null, ICON_SIZE_BIG) . '</a>';
+
+            if ($objExercise->force_edit_exercise_in_lp === false) {
             if ($objExercise->exercise_was_added_in_lp == true) {
                 $img = pathinfo($img);
-                $img = $img['filename'] . '_na.' . $img['extension'];
-                echo Display::return_icon($img, $explanation, null, ICON_SIZE_BIG);
-            } else {
-                echo '<a href="admin.php?' . api_get_cidreq() . '&newQuestion=yes&answerType=' . $i . '">' .
-                Display::return_icon($img, $explanation, null, ICON_SIZE_BIG) . '</a>';
+                    $img = $img['filename'].'_na.'.$img['extension'];
+                    $icon = Display::return_icon($img, $explanation, null, ICON_SIZE_BIG);
             }
+            }
+            
+            echo $icon;
             echo '</div>';
             echo '</li>';
         }
@@ -1648,7 +1659,7 @@ abstract class Question
      * @param string $name
      * @param int $course_id
      * @param int $position
-     * @return bool|int
+     * @return false|string
      */
     static function saveQuestionOption($question_id, $name, $course_id, $position = 0)
     {
@@ -1787,6 +1798,7 @@ abstract class Question
      * @param   int     Maximum result for the question
      * @param   int     Type of question (see constants at beginning of question.class.php)
      * @param   int     Question level/category
+     * @param string $quiz_id
      */
     public function create_question(
         $quiz_id,
@@ -1869,6 +1881,7 @@ abstract class Question
     /**
      * Get course medias
      * @param int course id
+     * @param integer $course_id
      */
     static function get_course_medias(
         $course_id,
@@ -1934,7 +1947,7 @@ abstract class Question
     }
 
     /**
-     * @return array
+     * @return integer[]
      */
     public static function get_default_levels()
     {

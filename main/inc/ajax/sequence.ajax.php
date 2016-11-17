@@ -1,17 +1,15 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-/**
- * Responses to AJAX calls
- */
-
 use Chamilo\CoreBundle\Entity\Sequence;
 use Chamilo\CoreBundle\Entity\SequenceResource;
 use Fhaculty\Graph\Graph;
 use Fhaculty\Graph\Vertex;
 use Chamilo\CoreBundle\Framework\Container;
 
-//require_once '../global.inc.php';
+/**
+ * Responses to AJAX calls
+ */
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
@@ -40,7 +38,14 @@ switch ($action) {
                     $graph = $sequence->getUnSerializeGraph();
                     $graph->setAttribute('graphviz.node.fontname', 'arial');
                     $graphviz = new \Graphp\GraphViz\GraphViz();
-                    echo $graphviz->createImageHtml($graph);
+                    $graphImage = '';
+                    try {
+                        $graphImage = $graphviz->createImageHtml($graph);
+                    } catch (UnexpectedValueException $e) {
+                        error_log($e->getMessage() . ' - Graph could not be rendered in resources sequence because GraphViz command "dot" could not be executed - Make sure graphviz is installed.');
+                        $graphImage = '<p class="text-center"><small>'.get_lang('MissingChartLibraryPleaseCheckLog').'</small></p>';
+                    }
+                    echo $graphImage;
                 }
                 break;
         }
@@ -122,19 +127,82 @@ switch ($action) {
         if ($sequenceResource->getSequence()->hasGraph()) {
             $graph = $sequenceResource->getSequence()->getUnSerializeGraph();
             if ($graph->hasVertex($vertexId)) {
-                $vertex = $graph->getVertex($vertexId);
-                $vertex->destroy();
 
-                /** @var SequenceResource $sequenceResource */
-                $sequenceResourceToDelete = $repository->findOneBy(
+                $edgeIterator = $graph->getEdges()->getIterator();
+                $edgeToDelete = null;
+                foreach ($edgeIterator as $edge) {
+                    if ($edge->getVertexStart()->getId() == $vertexId && $edge->getVertexEnd()->getId() == $id) {
+                        $edgeToDelete = $edge;
+                        $vertexFromTo = null;
+                        $vertexToFrom = null;
+                        foreach ($edgeIterator as $edges) {
+                            if (intval($edges->getVertexEnd()->getId()) === intval($id)) {
+                                $vertexFromTo = $edges;
+                            }
+
+                            if (intval($edges->getVertexStart()->getId()) === intval($vertexId)) {
+                                $vertexToFrom = $edges;
+                            }
+                        }
+
+                        if ($vertexFromTo && !$vertexToFrom) {
+                            $_SESSION['sr_vertex'] = true;
+                            $vertex = $graph->getVertex($id);
+                            $vertex->destroy();
+                            $em->remove($sequenceResource);
+                        }
+
+                        if ($vertexToFrom && $vertexFromTo) {
+                            $vertex = $graph->getVertex($vertexId);
+                            $edgeToDelete->destroy();
+                        }
+
+                        if ($vertexToFrom && !$vertexFromTo) {
+                            $vertex = $graph->getVertex($vertexId);
+                            $vertex->destroy();
+                            $sequenceResourceToDelete = $repository->findOneBy(
+                                [
+                                    'resourceId' => $vertexId,
+                                    'type' => $type,
+                                    'sequence' => $sequence
+                                ]
+                            );
+                            $em->remove($sequenceResourceToDelete);
+                        }
+
+                        if (!$vertexToFrom && !$vertexFromTo) {
+                            $_SESSION['sr_vertex'] = true;
+                            $vertexTo = $graph->getVertex($id);
+                            $vertexFrom = $graph->getVertex($vertexId);
+                            if ($vertexTo->getVerticesEdgeFrom()->count() > 1) {
+                                $vertexFrom->destroy();
+                                $sequenceResourceToDelete = $repository->findOneBy(
                     [
                         'resourceId' => $vertexId,
                         'type' => $type,
                         'sequence' => $sequence
                     ]
                 );
-
                 $em->remove($sequenceResourceToDelete);
+                            } else {
+                                $vertexTo->destroy();
+                                $vertexFrom->destroy();
+                                $sequenceResourceToDelete = $repository->findOneBy(
+                                    [
+                                        'resourceId' => $vertexId,
+                                        'type' => $type,
+                                        'sequence' => $sequence
+                                    ]
+                                );
+                                $em->remove($sequenceResource);
+                                $em->remove($sequenceResourceToDelete);
+                            }
+
+                        }
+
+
+                    }
+                }
 
                 $sequence->setGraphAndSerialize($graph);
                 $em->merge($sequence);
@@ -217,6 +285,12 @@ switch ($action) {
 
         if (empty($sequence)) {
             exit;
+        }
+
+        if (isset($_SESSION['sr_vertex']) && $_SESSION['sr_vertex']) {
+            unset($_SESSION['sr_vertex']);
+            echo Display::return_message(get_lang('Saved'), 'success');
+            break;
         }
 
         $parents = str_replace($id, '', $parents);

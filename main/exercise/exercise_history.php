@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  *	Exercise list: This script shows the list of exercises for administrators and students.
  *	@package chamilo.exercise

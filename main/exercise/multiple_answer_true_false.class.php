@@ -1,7 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use \ChamiloSession as Session;
+use ChamiloSession as Session;
 
 /**
  * Class MultipleAnswerTrueFalse
@@ -13,8 +13,8 @@ use \ChamiloSession as Session;
  */
 class MultipleAnswerTrueFalse extends Question
 {
-    static $typePicture = 'mcmao.png';
-    static $explanationLangVar = 'MultipleAnswerTrueFalse';
+    public static $typePicture = 'mcmao.png';
+    public static $explanationLangVar = 'MultipleAnswerTrueFalse';
     public $options;
 
     /**
@@ -36,7 +36,7 @@ class MultipleAnswerTrueFalse extends Question
     {
         $nb_answers = isset($_POST['nb_answers']) ? $_POST['nb_answers'] : 4;
         // The previous default value was 2. See task #1759.
-        $nb_answers += isset($_POST['lessAnswers']) ? -1 : isset($_POST['moreAnswers']) ? 1 : 0;
+        $nb_answers += (isset($_POST['lessAnswers']) ? -1 : (isset($_POST['moreAnswers']) ? 1 : 0));
 
         $course_id = api_get_course_int_id();
         $obj_ex = Session::read('objExercise');
@@ -147,7 +147,7 @@ class MultipleAnswerTrueFalse extends Question
                 get_lang('ThisFieldIsRequired'),
                 true,
                 true,
-                ['FullPage' => true, 'ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100']
+                ['ToolbarSet' => 'TestProposedAnswer', 'Width' => '100%', 'Height' => '100']
             );
 
             // show comment when feedback is enable

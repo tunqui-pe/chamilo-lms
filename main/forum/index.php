@@ -59,7 +59,6 @@ if (api_is_in_gradebook()) {
     );
 }
 
-
 $search_forum = isset($_GET['search']) ? Security::remove_XSS($_GET['search']) : '';
 
 /* ACTIONS */
@@ -106,7 +105,6 @@ Display::display_introduction_section(TOOL_FORUM);
 $form_count = 0;
 
 if (api_is_allowed_to_edit(false, true)) {
-
     //if is called from a learning path lp_id
     $lp_id = isset($_REQUEST['lp_id']) ? intval($_REQUEST['lp_id']) : null;
     handle_forum_and_forumcategories($lp_id);
@@ -145,7 +143,7 @@ $forumCategories = get_forum_categories();
 // display group forum in general forum tool depending to configuration option
 $setting = api_get_setting('forum.display_groups_forum_in_general_tool');
 
-$forum_list = get_forums('', '', $setting == 'true');
+$forum_list = get_forums('', '', $setting === 'true');
 $user_id = api_get_user_id();
 
 /* RETRIEVING ALL GROUPS AND THOSE OF THE USER */
@@ -166,9 +164,7 @@ if (!api_is_anonymous()) {
 }
 
 /* ACTION LINKS */
-
 echo '<div class="actions">';
-
 //if is called from learning path
 if (!empty($_GET['lp_id']) || !empty($_POST['lp_id'])) {
     echo "<a href=\"../lp/lp_controller.php?"
@@ -398,7 +394,6 @@ if (is_array($forumCategories)) {
                         $imgForum = '';
                         // Showing the image
                         if (!empty($forum['forum_image'])) {
-
                             $image_path = api_get_path(WEB_COURSE_PATH). api_get_course_path(). '/upload/forum/images/'. $forum['forum_image'];
                             $image_size = api_getimagesize($image_path);
                             $img_attributes = '';
@@ -477,6 +472,7 @@ if (is_array($forumCategories)) {
                             null,
                             ICON_SIZE_MEDIUM
                         );
+
                         $linkForum = Display::tag(
                             'a',
                             $forum['forum_title'],
@@ -487,6 +483,7 @@ if (is_array($forumCategories)) {
                                 'class' => empty($forum['visibility']) ? 'text-muted' : null
                             ]
                         );
+
                         if (!empty($forum['start_time']) && !empty($forum['end_time'])) {
                             $res = api_is_date_in_date_range($forum['start_time'], $forum['end_time']);
                             if (!$res) {

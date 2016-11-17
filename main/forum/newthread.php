@@ -118,7 +118,6 @@ if (!empty($groupId)) {
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('NewTopic'));
 }
 
-
 $htmlHeadXtra[] = <<<JS
     <script>
     $(document).on('ready', function() {
@@ -143,6 +142,7 @@ $form = show_add_post_form(
     '',
     isset($_SESSION['formelements']) ? $_SESSION['formelements'] : null
 );
+
 if ($origin == 'learnpath') {
     Display::display_reduced_header();
 } else {

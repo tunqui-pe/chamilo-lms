@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use \ChamiloSession as Session;
+
 /**
 *	Exercise result
 *	This script gets information from the script "exercise_submit.php",
@@ -15,7 +16,6 @@ use \ChamiloSession as Session;
 *
 *	@todo	split more code up in functions, move functions to library?
 */
-
 
 $debug = false;
 
@@ -183,6 +183,7 @@ ExerciseLib::exercise_time_control_delete(
     $learnpath_id,
     $learnpath_item_id
 );
+
 ExerciseLib::delete_chat_exercise_session($exe_id);
 
 if ($origin != 'learnpath') {

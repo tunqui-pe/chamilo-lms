@@ -22,9 +22,6 @@
  * @package chamilo.forum
  */
 
-// Including the global initialization file.
-////require_once '../inc/global.inc.php';
-
 $htmlHeadXtra[] = '<script>
 $(document).ready(function(){
     $(\'.hide-me\').slideUp()
@@ -91,7 +88,7 @@ if (!empty($_GET['action']) && !empty($_GET['content'])) {
     );
 }
 
-if ($origin=='learnpath') {
+if ($origin == 'learnpath') {
     Display::display_reduced_header();
 } else {
     Display::display_header(null);
@@ -167,6 +164,7 @@ if ($action_forums != 'add') {
     /* Display Forum Categories and the Forums in it */
     $html = '';
     $html .= '<div class="category-forum">';
+
     if (
         (!isset($sessionId) || $sessionId == 0) &&
         !empty($forum_category['session_name'])
@@ -231,35 +229,19 @@ if ($action_forums != 'add') {
             $forumTitle,
             array(
                 'href'=>$linkForumCategory,
-                'class'=>return_visible_invisible(strval(intval($forum_category['visibility'])))
+                'class' => empty($forum_category['visibility']) ? 'text-muted' : null
             )
         ).$session_displayed.$session_img,
         null
     );
 
 
-    if ($descriptionCategory != '' && trim($descriptionCategory)!= '&nbsp;')
-    {
+    if ($descriptionCategory != '' && trim($descriptionCategory)!= '&nbsp;') {
         $html .= '<div class="forum-description">'.$descriptionCategory.'</div>';
     }
-    /* echo '<tr><th class="forum_head" '.(api_is_allowed_to_edit(null, true) ? 'colspan="5"' : 'colspan="6"').'>'; */
-
-
-    // Step 3: The interim headers (for the forum).
-    /*
-    echo '<tr class="forum_header">';
-    echo '<td colspan="2">'.get_lang('Forum').'</td>';
-    echo '<td>'.get_lang('ForumThreads').'</td>';
-    echo '<td>'.get_lang('Posts').'</td>';
-    echo '<td>'.get_lang('LastPosts').'</td>';
-    echo '<td>'.get_lang('Actions').'</td>';
-    echo '</tr>';
-    echo '</thead>';
-    */
 
     $html .= '</div>';
     echo $html;
-
     echo '<div class="forum_display">';
     // The forums in this category.
     $forums_in_category = get_forums_in_category($forum_category['cat_id']);
@@ -319,7 +301,6 @@ if ($action_forums != 'add') {
                 $html .= '<div class="panel-body">';
 
                 $my_whatsnew_post_info = isset($whatsnew_post_info[$forum['forum_id']]) ? $whatsnew_post_info[$forum['forum_id']] : null;
-
 
                 if ($forum['forum_of_group'] == '0') {
                     $forum_image = Display::return_icon(
@@ -382,9 +363,9 @@ if ($action_forums != 'add') {
                     $forum['forum_title'].$session_displayed,
                     array(
                         'href' => 'viewforum.php?' . api_get_cidreq()
-                            . "&gidReq={$forum['forum_of_group']}&forum={$forum['forum_id']}&origin=$origin&search="
+                            . "&gidReq={$forum['forum_of_group']}&forum={$forum['forum_id']}&search="
                             . Security::remove_XSS(urlencode(isset($_GET['search']) ? $_GET['search'] : '')),
-                        'class' => return_visible_invisible($forum['visibility'])
+                        'class' => empty($forum['visibility']) ? 'text-muted' : null
                     )
                 );
                 $html .= Display::tag(
@@ -409,7 +390,7 @@ if ($action_forums != 'add') {
 
                 // The number of topics and posts.
                 if ($forum['forum_of_group'] !== '0') {
-                    $newPost='';
+                    $newPost = '';
                     if (is_array($my_whatsnew_post_info) && !empty($my_whatsnew_post_info)) {
                         $newPost = ' ' . Display::return_icon('alert.png', get_lang('Forum'), null, ICON_SIZE_SMALL);
                     } else {
@@ -427,13 +408,16 @@ if ($action_forums != 'add') {
                 $html .= '<div class="col-md-2">';
                 $html .= $newPost . '</div>';
 
+                $poster_id = 0;
+                $name = '';
                 // the last post in the forum
-                if ($forum['last_poster_name'] != '') {
+                if (isset($forum['last_poster_name']) && $forum['last_poster_name'] != '') {
                     $name = $forum['last_poster_name'];
-                    $poster_id = 0;
                 } else {
+                    if (isset($forum['last_poster_lastname'])) {
                     $name = api_get_person_name($forum['last_poster_firstname'], $forum['last_poster_lastname']);
                     $poster_id = $forum['last_poster_id'];
+                }
                 }
                 $html .= '<div class="col-md-6">';
                 if (!empty($forum['last_post_id'])) {
@@ -445,7 +429,8 @@ if ($action_forums != 'add') {
                 $html .= '</div>';
                 $html .= '<div class="col-md-4">';
 
-                if (api_is_allowed_to_edit(false, true) &&
+                if (
+                    api_is_allowed_to_edit(false, true) &&
                     !($forum['session_id'] == 0 && $sessionId != 0)
                 ) {
                     $html .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&forumcategory='

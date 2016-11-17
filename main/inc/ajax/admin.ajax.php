@@ -29,11 +29,9 @@ switch ($action) {
             }
         }
         break;
-
     case 'version':
         echo version_check();
         break;
-
     case 'get_extra_content':
         $blockName = isset($_POST['block']) ? Security::remove_XSS($_POST['block']) : null;
 
@@ -51,7 +49,6 @@ switch ($action) {
             $urlInfo = api_get_access_url($accessUrlId);
             $url = api_remove_trailing_slash(preg_replace('/https?:\/\//i', '', $urlInfo['url']));
             $cleanUrl = str_replace('/', '-', $url);
-
             $newUrlDir = api_get_path(SYS_APP_PATH) . "home/$cleanUrl/admin/";
         } else {
             $newUrlDir = api_get_path(SYS_APP_PATH) . "home/admin/";
@@ -116,6 +113,7 @@ function version_check()
  */
 function check_system_version()
 {
+    // the chamilo version of your installation
     $system_version = trim(api_get_configuration_value('system_version'));
 
     if (ini_get('allow_url_fopen') == 1) {
@@ -128,6 +126,10 @@ function check_system_version()
 
         // The number of sessions
         $number_of_sessions = Statistics::countSessions();
+        $packager = api_get_configuration_value('packager');
+        if (empty($packager)) {
+            $packager = 'chamilo';
+        }
 
         $data = array(
             'url' => api_get_path(WEB_PATH),
@@ -149,6 +151,11 @@ function check_system_version()
                 ).' '.api_get_setting('admin.administrator_surname'),
             //not sure this is necessary...
             'ip' => $_SERVER['REMOTE_ADDR'], //the admin's IP address, with the only purpose of trying to geolocate portals around the globe to draw a map
+            // Reference to the packager system or provider through which
+            // Chamilo is installed/downloaded. Packagers can change this in
+            // the default config file (main/install/configuration.dist.php)
+            // or in the installed config file. The default value is 'chamilo'
+            'packager' => $packager,
         );
         $version = null;
         // version.php has been updated to include the version in an HTTP header
@@ -170,10 +177,12 @@ function check_system_version()
                 $version_info = $version;
             }
 
-            if ($system_version != $version_info) {
-                $output = '<br /><span style="color:red">' . get_lang('YourVersionNotUpToDate') . '. '.get_lang('LatestVersionIs').' <b>Chamilo '.$version_info.'</b>. '.get_lang('YourVersionIs').' <b>Chamilo '.$system_version. '</b>. '.str_replace('http://www.chamilo.org', '<a href="http://www.chamilo.org">http://www.chamilo.org</a>', get_lang('PleaseVisitOurWebsite')).'</span>';
+            if (version_compare($system_version, $version_info, '<=')) {
+                $output = '<span style="color:red">' . get_lang('YourVersionNotUpToDate') .'<br />
+                           '.get_lang('LatestVersionIs').' <b>Chamilo '.$version_info.'</b>.  <br />
+                           '.get_lang('YourVersionIs').' <b>Chamilo '.$system_version. '</b>.  <br />'.str_replace('http://www.chamilo.org', '<a href="http://www.chamilo.org">http://www.chamilo.org</a>', get_lang('PleaseVisitOurWebsite')).'</span>';
             } else {
-                $output = '<br /><span style="color:green">'.get_lang('VersionUpToDate').': Chamilo '.$version_info.'</span>';
+                $output = '<span style="color:green">'.get_lang('VersionUpToDate').': Chamilo '.$version_info.'</span>';
             }
         } else {
             $output = '<span style="color:red">' . get_lang('ImpossibleToContactVersionServerPleaseTryAgain') . '</span>';
@@ -187,13 +196,14 @@ function check_system_version()
 /**
  * Function to make an HTTP request through fsockopen (specialised for GET)
  * Derived from Jeremy Saintot: http://www.php.net/manual/en/function.fsockopen.php#101872
- * @param string IP or hostname
- * @param int    Target port
- * @param string URI (defaults to '/')
- * @param array  GET data
- * @param float  Timeout
- * @param bool   Include HTTP Request headers?
- * @param bool   Include HTTP Response headers?
+ * @param string $ip IP or hostname
+ * @param int    $port Target port
+ * @param string $uri URI (defaults to '/')
+ * @param array  $getdata GET data
+ * @param int    $timeout Timeout
+ * @param bool   $req_hdr Include HTTP Request headers?
+ * @param bool   $res_hdr Include HTTP Response headers?
+ * @return string
  */
 function _http_request($ip, $port = 80, $uri = '/', $getdata = array(), $timeout = 5, $req_hdr = false, $res_hdr = false)
 {

@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
 *	Exercise submission
 * 	This script allows to run an exercise. According to the exercise type, questions
@@ -26,9 +28,6 @@
 *   Modified by hubert.borderiou (2011-10-21 question category)
 */
 
-use ChamiloSession as Session;
-
-////require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_QUIZ;
 $this_section = SECTION_COURSES;
 $debug = false;
@@ -107,6 +106,7 @@ if (!isset($exerciseFromSession) ||
 ) {
     // Construction of Exercise
     $objExercise = new Exercise();
+
     Session::write('firstTime', true);
     if ($debug) {error_log('1. Setting the $objExercise variable'); };
     Session::erase('questionList');
@@ -126,7 +126,6 @@ if (!isset($exerciseFromSession) ||
 } else {
     Session::write('firstTime', false);
 }
-
 //2. Checking if $objExercise is set
 $exerciseFromSession = Session::read('objExercise');
 if (!isset($objExercise) && !empty($exerciseFromSession)) {
@@ -243,12 +242,14 @@ if ($objExercise->selectAttempts() > 0) {
 		if ($origin == 'learnpath') {
 			Display :: display_reduced_header();
 		} else {
-			Display :: display_header($nameTools,'Exercises');
+			Display :: display_header(get_lang('Exercises'));
 		}
 
 		echo $attempt_html;
-		if ($origin != 'learnpath')
-			Display :: display_footer();
+
+        if ($origin != 'learnpath') {
+            Display:: display_footer();
+        }
 		exit;
 	}
 }
@@ -467,9 +468,8 @@ if ($time_control) { //Sends the exercise form when the expired time is finished
 }
 
 // if the user has submitted the form
-
-$exercise_title			= $objExercise->selectTitle();
-$exercise_sound 		= $objExercise->selectSound();
+$exercise_title = $objExercise->selectTitle();
+$exercise_sound = $objExercise->selectSound();
 
 //in LP's is enabled the "remember question" feature?
 $questionListFromSession = Session::read('questionList');
@@ -495,6 +495,10 @@ if ($debug) error_log('8. Question list loaded '.print_r($questionList, 1));
 $question_count = 0;
 if (!empty($questionList)) {
 	$question_count = count($questionList);
+}
+
+if ($current_question > $question_count) {
+    $current_question = 0;
 }
 
 if ($formSent && isset($_POST)) {
@@ -536,12 +540,14 @@ if ($formSent && isset($_POST)) {
                 //saving each question
                 if ($objExercise->feedback_type != EXERCISE_FEEDBACK_TYPE_DIRECT) {
                     $nro_question = $current_question; // - 1;
-                 	$questionId   = $key;
+                 	$questionId = $key;
                     // gets the student choice for this question
                     $choice = $exerciseResult[$questionId];
                     if (isset($exe_id)) {
                     	// Manage the question and answer attempts
-                        if ($debug) { error_log('8.3. manage_answer exe_id: '.$exe_id.' - $questionId: '.$questionId.' Choice'.print_r($choice,1)); }
+                        if ($debug) {
+                            error_log('8.3. manage_answer exe_id: '.$exe_id.' - $questionId: '.$questionId.' Choice'.print_r($choice,1));
+                        }
                         $objExercise->manage_answer(
                             $exe_id,
                             $questionId,
@@ -1162,7 +1168,6 @@ if (!empty($error)) {
         // Showing the exercise description
         if (!empty($objExercise->description)){
             if ($objExercise->type == ONE_PER_PAGE || ($objExercise->type != ONE_PER_PAGE && $i==1)) {
-                //echo Display::panel($objExercise->description, get_lang('ExerciseDescriptionLabel'));
                 echo Display::panelCollapse('<span>'.
                     get_lang('ExerciseDescriptionLabel').'</span>',
                     $objExercise->description,
@@ -1231,7 +1236,7 @@ if (!empty($error)) {
     }
     // end foreach()
     if ($objExercise->type == ALL_ON_ONE_PAGE) {
-    	$exercise_actions = $objExercise->show_button($questionId, $current_question);
+    	$exercise_actions =  $objExercise->show_button($questionId, $current_question);
     	echo Display::div($exercise_actions, array('class'=>'exercise_actions'));
         echo '<br>';
     }

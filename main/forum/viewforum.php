@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * These files are a complete rework of the forum. The database structure is
  * based on phpBB but all the code is rewritten. A lot of new functionalities
@@ -22,10 +24,6 @@
  *  @package chamilo.forum
  */
 
-use ChamiloSession as Session;
-
-// Including the global initialization file.
-////require_once '../inc/global.inc.php';
 $current_course_tool  = TOOL_FORUM;
 
 // Notification for unauthorized people.
@@ -48,18 +46,28 @@ if (isset($_GET['origin'])) {
 require 'forumconfig.inc.php';
 require_once 'forumfunction.inc.php';
 
-$userid  = api_get_user_id();
+$userId = api_get_user_id();
 $sessionId = api_get_session_id();
 $groupId = api_get_group_id();
 $courseId = api_get_course_int_id();
+$groupInfo = GroupManager::get_group_properties($groupId);
 
-$isTutor = GroupManager::is_tutor_of_group($userId, $groupId, $courseId);
+$isTutor = GroupManager::is_tutor_of_group($userId, $groupInfo['iid'], $courseId);
 
 /* MAIN DISPLAY SECTION */
 
 $my_forum = isset($_GET['forum']) ? $_GET['forum'] : '';
 // Note: This has to be validated that it is an existing forum.
 $current_forum = get_forum_information($my_forum);
+$isForumOpenByDateAccess = api_is_date_in_date_range($current_forum['start_time'], $current_forum['end_time']);
+
+if (!$isForumOpenByDateAccess) {
+    if ($origin) {
+        api_not_allowed();
+    } else {
+        api_not_allowed(true);
+    }
+}
 
 if (empty($current_forum)) {
     api_not_allowed();
@@ -72,10 +80,17 @@ if (!empty($groupId)) {
     //Group info & group category info
     $group_properties = GroupManager::get_group_properties($groupId);
     //User has access in the group?
-    $user_has_access_in_group = GroupManager::user_has_access($userId, $groupId, GroupManager::GROUP_TOOL_FORUM);
-    $is_group_tutor = GroupManager::is_tutor_of_group(api_get_user_id(), $groupId);
+    $user_has_access_in_group = GroupManager::user_has_access(
+        $userId,
+        $group_properties['iid'],
+        GroupManager::GROUP_TOOL_FORUM
+    );
+    $is_group_tutor = GroupManager::is_tutor_of_group(
+        api_get_user_id(),
+        $group_properties['iid']
+    );
 
-    //Course
+    // Course
     if (
         !api_is_allowed_to_edit(false, true) &&  //is a student
         (($current_forum_category && $current_forum_category['visibility'] == 0) ||
@@ -179,21 +194,21 @@ if (
         $message = deleteForumCategoryThread($_GET['content'], $_GET['id']);
 
         // Delete link
-        $link_info = GradebookUtils::is_resource_in_course_gradebook(
+        $link_info = GradebookUtils::isResourceInCourseGradebook(
             api_get_course_id(),
             5,
             intval($_GET['id']),
             api_get_session_id()
         );
-        $link_id = $link_info->getId();
-        if ($link_info) {
+        $link_id = $link_info['id'];
+        if ($link_info !== false) {
             GradebookUtils::remove_resource_from_course_gradebook($link_id);
         }
     }
 }
 // Moving.
 if ($my_action == 'move' && isset($_GET['thread']) &&
-    api_is_allowed_to_edit(false, true ) &&
+    api_is_allowed_to_edit(false, true) &&
     api_is_allowed_to_session_edit(false, true)
 ) {
     $message = move_thread_form();
@@ -241,8 +256,7 @@ if (
     $table_list = Display::page_subheader(get_lang('ThreadUsersList') . ': ' . get_name_thread_by_id($_GET['id']));
 
     if ($nrorow3 > 0 || $nrorow3 == -2) {
-        $url = 'cidReq=' . Security::remove_XSS($_GET['cidReq']) .
-            '&forum=' . Security::remove_XSS($my_forum) . '&action='
+        $url = api_get_cidreq() .'&forum=' . intval($my_forum) . '&action='
             . Security::remove_XSS($_GET['action']) . '&content='
             . Security::remove_XSS($_GET['content'], STUDENT) . '&id=' . intval($_GET['id']);
         $tabs = array(
@@ -261,7 +275,7 @@ if (
         );
         $table_list .= Display::tabsOnlyLink($tabs, $active);
 
-        $icon_qualify = 'blog_new.gif';
+        $icon_qualify = 'quiz.png';
         $table_list .= '<center><br /><table class="data_table" style="width:50%">';
         // The column headers (TODO: Make this sortable).
         $table_list .= '<tr >';
@@ -300,16 +314,16 @@ if (
                     );
                     $table_list .= '<td>
                         <a href="' . $forumUrl . 'forumqualify.php?' . api_get_cidreq()
-                        . '&forum=' . Security::remove_XSS($my_forum) . '&thread='
-                        . Security::remove_XSS($_GET['id']) . '&user=' . $row_student_list['id']
+                        . '&forum=' . intval($my_forum) . '&thread='
+                        . intval($_GET['id']) . '&user=' . $row_student_list['id']
                         . '&user_id=' . $row_student_list['id'] . '&idtextqualify='
-                        . $current_qualify_thread . '&origin=' . $origin . '">'
+                        . $current_qualify_thread.'">'
                         . Display::return_icon($icon_qualify, get_lang('Qualify')) . '</a></td></tr>';
                 }
                 $counter_stdlist++;
             }
         } else {
-            if ($listType == 'qualify') {
+            if ($listType === 'qualify') {
                 $table_list .= '<tr><td colspan="2">' . get_lang('ThereIsNotQualifiedLearners') . '</td></tr>';
             } else {
                 $table_list .= '<tr><td colspan="2">' . get_lang('ThereIsNotUnqualifiedLearners') . '</td></tr>';
@@ -417,9 +431,7 @@ echo $html;
 
 // Getting al the threads
 $threads = get_threads($my_forum);
-
 $whatsnew_post_info = isset($_SESSION['whatsnew_post_info']) ? $_SESSION['whatsnew_post_info'] : null;
-
 $course_id = api_get_course_int_id();
 
 echo '<div class="forum_display">';
@@ -431,7 +443,6 @@ if (is_array($threads)) {
         if (api_is_allowed_to_edit(false, true) ||
             !($row['thread_replies'] == '0' && $row['visibility'] == '0')
         ) {
-
             $my_whatsnew_post_info = null;
 
             if (isset($whatsnew_post_info[$my_forum][$row['thread_id']])) {
@@ -469,8 +480,7 @@ if (is_array($threads)) {
             if ($origin != 'learnpath') {
                 $authorName = display_user_link(
                     $row['user_id'],
-                    api_get_person_name($row['firstname'],
-                    $row['lastname']),
+                    api_get_person_name($row['firstname'], $row['lastname']),
                     '',
                     $poster_username
                 );
@@ -557,7 +567,6 @@ if (is_array($threads)) {
                         . intval($row['thread_id'])
                         . '&id_attach=' . $id_attach . '">'
                         . Display::return_icon('edit.png', get_lang('Edit'), array(), ICON_SIZE_SMALL) . '</a>';
-
                     if (api_resource_is_locked_by_gradebook($row['thread_id'], LINK_FORUM_THREAD)) {
                         $iconsEdit .= Display::return_icon(
                             'delete_na.png',
@@ -614,16 +623,16 @@ if (is_array($threads)) {
             }
             $icon_liststd = 'user.png';
             if (!api_is_anonymous() && api_is_allowed_to_session_edit(false, true)) {
-                $iconsEdit .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&forum='
-                    . Security::remove_XSS($my_forum)
-                    . "&origin=$origin&action=notify&content=thread&id={$row['thread_id']}"
+                $iconsEdit .= '<a href="' . api_get_self() . '?' . $cidreq . '&forum='
+                    . intval($my_forum)
+                    . "&action=notify&content=thread&id={$row['thread_id']}"
                     . '">' . Display::return_icon($iconnotify, get_lang('NotifyMe')) . '</a>';
             }
 
-            if (api_is_allowed_to_edit(null,true) && $origin != 'learnpath') {
-                $iconsEdit .= '<a href="' . api_get_self() . '?' . api_get_cidreq() . '&forum='
-                    . Security::remove_XSS($my_forum)
-                    . "&origin=$origin&action=liststd&content=thread&id={$row['thread_id']}"
+            if (api_is_allowed_to_edit(null, true) && $origin != 'learnpath') {
+                $iconsEdit .= '<a href="' . api_get_self() . '?' . $cidreq . '&forum='
+                    . intval($my_forum)
+                    . "&action=liststd&content=thread&id={$row['thread_id']}"
                     . '">' . Display::return_icon($icon_liststd, get_lang('StudentList'), array(), ICON_SIZE_SMALL)
                     . '</a>';
             }

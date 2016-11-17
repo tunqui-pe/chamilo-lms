@@ -11,7 +11,6 @@
  *	@todo course admin functionality to create groups based on who is in which course (or class).
  */
 
-//require '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 $current_course_tool  = TOOL_GROUP;
 
@@ -179,6 +178,7 @@ $group_members_element = $form->addElement(
     $possible_users,
     'style="width: 280px;"'
 );
+
 $form->addFormRule('check_group_members');
 
 // Members per group

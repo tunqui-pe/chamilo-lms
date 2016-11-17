@@ -1,14 +1,13 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * Responses to AJAX calls
  */
-//require_once '../global.inc.php';
 $action = $_GET['a'];
 
 switch ($action) {
     case 'get_user_like':
-
         $query = $_REQUEST['q'];
         $conditions = [
             'username' => $query,
@@ -48,7 +47,6 @@ switch ($action) {
         echo '</div>';
 
         if (api_get_setting('message.allow_message_tool') == 'true') {
-
             echo '<script>';
             echo '
                 $("#send_message_link").on("click", function() {
@@ -124,7 +122,6 @@ switch ($action) {
         break;
     case 'active_user':
         if (api_is_platform_admin() && api_global_admin_can_edit_admin($_GET['user_id'])) {
-
             $user_id = intval($_GET['user_id']);
             $status  = intval($_GET['status']);
 

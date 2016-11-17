@@ -1,20 +1,21 @@
 <?php
-
 /* For licensing terms, see /license.txt */
+
+use \ChamiloSession as Session;
+
 /**
  * Search user certificates if them are publics
  * @author Angel Fernando Quiroz Campos <angel.quiroz@beeznest.com>
  * @package chamilo.gradebook
  */
-use \ChamiloSession as Session;
 
 $cidReset = true;
 
-//require_once '../inc/global.inc.php';
-
 if (api_get_setting('course.allow_public_certificates') != 'true') {
-    Display::return_message(get_lang('CertificatesNotPublic'), 'warning');
-    api_not_allowed();
+    api_not_allowed(
+        true,
+        Display::return_message(get_lang('CertificatesNotPublic'), 'warning')
+    );
 }
 
 $userId = isset($_GET['id']) ? intval($_GET['id']) : 0;

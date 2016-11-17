@@ -1,6 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Entity\CQuizAnswer;
+use Chamilo\CoreBundle\Entity\TrackEHotspot;
+
 /**
  * This file generates the ActionScript variables code used by the
  * HotSpot .swf
@@ -54,7 +57,44 @@ $data['image_height'] = $pictureHeight;
 $data['courseCode'] = $_course['path'];
 $data['hotspots'] = [];
 
-if ($objExercise->results_disabled != RESULT_DISABLE_SHOW_SCORE_ONLY) {
+$showTotalScoreAndUserChoicesInLastAttempt = true;
+
+if ($objExercise->selectResultsDisabled() == RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT) {
+    $showOnlyScore = true;
+    $showResults = true;
+    if ($objExercise->attempts > 0) {
+        $attempts = Event::getExerciseResultsByUser(
+            api_get_user_id(),
+            $objExercise->id,
+            api_get_course_int_id(),
+            api_get_session_id(),
+            $trackExerciseInfo['orig_lp_id'],
+            $trackExerciseInfo['orig_lp_item_id'],
+            'desc'
+        );
+        $numberAttempts = count($attempts);
+
+        $showTotalScoreAndUserChoicesInLastAttempt = false;
+
+        if ($numberAttempts >= $objExercise->attempts) {
+            $showResults = true;
+            $showOnlyScore = false;
+            $showTotalScoreAndUserChoicesInLastAttempt = true;
+        }
+    }
+}
+
+$hideExpectedAnswer = false;
+
+if ($objExercise->selectFeedbackType() == 0 && $objExercise->selectResultsDisabled() == 2) {
+    $hideExpectedAnswer = true;
+}
+
+if ($objExercise->selectResultsDisabled() == RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT) {
+    $hideExpectedAnswer = $showTotalScoreAndUserChoicesInLastAttempt ? false : true;
+}
+
+if (!$hideExpectedAnswer) {
     $qb = $em->createQueryBuilder();
     $qb
         ->select('a')
@@ -76,12 +116,13 @@ if ($objExercise->results_disabled != RESULT_DISABLE_SHOW_SCORE_ONLY) {
         ->getQuery()
         ->getResult();
 
-    foreach ($result as $hotspotAnswer) {
+    /** @var CQuizAnswer $hotSpotAnswer */
+    foreach ($result as $hotSpotAnswer) {
         $hotSpot = [];
-        $hotSpot['id'] = $hotspotAnswer->getId();
-        $hotSpot['answer'] = $hotspotAnswer->getAnswer();
+        $hotSpot['id'] = $hotSpotAnswer->getIid();
+        $hotSpot['answer'] = $hotSpotAnswer->getAnswer();
 
-        switch ($hotspotAnswer->getHotspotType()) {
+        switch ($hotSpotAnswer->getHotspotType()) {
             case 'square':
                 $hotSpot['type'] = 'square';
                 break;
@@ -99,8 +140,7 @@ if ($objExercise->results_disabled != RESULT_DISABLE_SHOW_SCORE_ONLY) {
                 break;
         }
 
-        $hotSpot['coord'] = $hotspotAnswer->getHotspotCoordinates();
-
+        $hotSpot['coord'] = $hotSpotAnswer->getHotspotCoordinates();
         $data['hotspots'][] = $hotSpot;
     }
 }
@@ -118,6 +158,7 @@ $rs = $em
         ['hotspotId' => 'ASC']
     );
 
+/** @var TrackEHotspot $row */
 foreach ($rs as $row) {
     $data['answers'][] = $row->getHotspotCoordinate();
 }

@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+
 /**
  *  Shows the exercise results
  *
@@ -166,6 +167,7 @@ function showfck(sid, marksid) {
 
 function getFCK(vals, marksid) {
     var f = document.getElementById('myform');
+
     var m_id = marksid.split(',');
     for (var i = 0; i < m_id.length; i++) {
         var oHidn = document.createElement("input");
@@ -342,7 +344,6 @@ if (!empty($maxEditors) && count($questionList) > $maxEditors) {
 }
 
 foreach ($questionList as $questionId) {
-
 	$choice = $exerciseResult[$questionId];
 	// destruction of the Question object
 	unset($objQuestionTmp);
@@ -358,6 +359,7 @@ foreach ($questionList as $questionId) {
     if ($answerType == MULTIPLE_ANSWER_COMBINATION_TRUE_FALSE) {
         $choice = array();
     }
+
     switch ($answerType) {
         case MULTIPLE_ANSWER_COMBINATION:
             //no break
@@ -450,7 +452,6 @@ foreach ($questionList as $questionId) {
         }
             break;
         case HOT_SPOT_DELINEATION:
-
         $question_result = $objExercise->manage_answer(
             $id,
             $questionId,
@@ -529,34 +530,34 @@ foreach ($questionList as $questionId) {
             </tr>
 
             <tr>
-                <td><b>'.get_lang('Excess').'</b></td>
-                <td>'.get_lang('Max').' '.$threadhold2.'</td>
-                <td><div style="color:'.$excess_color.'">'.(($final_excess < 0)?0:intval($final_excess)).'</div></td>
+                <td><b>' . get_lang('Excess') . '</b></td>
+                <td>' . get_lang('Max') . ' ' . $threadhold2 . '</td>
+                <td><div style="color:' . $excess_color . '">' . (($final_excess < 0) ? 0 : intval($final_excess)) . '</div></td>
             </tr>
 
             <tr class="row_even">
-                <td><b>'.get_lang('Missing').'</b></td>
-                <td>'.get_lang('Max').' '.$threadhold3.'</td>
-                <td><div style="color:'.$missing_color.'">'.(($final_missing < 0)?0:intval($final_missing)).'</div></td>
+                <td><b>' . get_lang('Missing') . '</b></td>
+                <td>' . get_lang('Max') . ' ' . $threadhold3 . '</td>
+                <td><div style="color:' . $missing_color . '">' . (($final_missing < 0) ? 0 : intval($final_missing)) . '</div></td>
             </tr></table>';
 
-            if ($answerType!= HOT_SPOT_DELINEATION) {
-                $item_list = explode('@@',$destination);
+            if ($answerType != HOT_SPOT_DELINEATION) {
+                $item_list = explode('@@', $destination);
 
                 $try = $item_list[0];
                 $lp = $item_list[1];
                 $destinationid = $item_list[2];
                 $url = $item_list[3];
-                $table_resume='';
+                    $table_resume = '';
             } else {
-                if ($next==0) {
+                if ($next == 0) {
                     $try = $try_hotspot;
                     $lp = $lp_hotspot;
-                    $destinationid= $select_question_hotspot;
-                    $url=$url_hotspot;
+                    $destinationid = $select_question_hotspot;
+                    $url = $url_hotspot;
                 } else {
                     //show if no error
-                    $comment=$answerComment = $objAnswerTmp->selectComment($nbrAnswers);
+                    $comment = $answerComment = $objAnswerTmp->selectComment($nbrAnswers);
                     $answerDestination = $objAnswerTmp->selectDestination($nbrAnswers);
                 }
             }
@@ -564,24 +565,24 @@ foreach ($questionList as $questionId) {
             echo '<h1><div style="color:#333;">'.get_lang('Feedback').'</div></h1>';
             if ($answerType == HOT_SPOT_DELINEATION) {
                 if ($organs_at_risk_hit > 0) {
-                    $message='<br />'.get_lang('ResultIs').' <b>'.$result_comment.'</b><br />';
-                    $message.='<p style="color:#DC0A0A;"><b>'.get_lang('OARHit').'</b></p>';
+                    $message = '<br />' . get_lang('ResultIs') . ' <b>' . $result_comment . '</b><br />';
+                    $message .= '<p style="color:#DC0A0A;"><b>' . get_lang('OARHit') . '</b></p>';
                 } else {
-                    $message='<p>'.get_lang('YourDelineation').'</p>';
-                    $message.=$table_resume;
-                    $message.='<br />'.get_lang('ResultIs').' <b>'.$result_comment.'</b><br />';
+                    $message = '<p>' . get_lang('YourDelineation') . '</p>';
+                    $message .= $table_resume;
+                    $message .= '<br />' . get_lang('ResultIs') . ' <b>' . $result_comment . '</b><br />';
                 }
-                $message.='<p>'.$comment.'</p>';
+                $message .= '<p>' . $comment . '</p>';
                 echo $message;
             } else {
-                echo '<p>'.$comment.'</p>';
+                    echo '<p>' . $comment . '</p>';
             }
 
             //showing the score
-            $queryfree = "select marks from ".$TBL_TRACK_ATTEMPT." WHERE exe_id = ".intval($id)." and question_id= ".intval($questionId)."";
+            $queryfree = "select marks from " . $TBL_TRACK_ATTEMPT . " WHERE exe_id = " . intval($id) . " and question_id= " . intval($questionId) . "";
             $resfree = Database::query($queryfree);
-            $questionScore= Database::result($resfree,0,"marks");
-            $totalScore+=$questionScore;
+            $questionScore = Database::result($resfree, 0, "marks");
+            $totalScore += $questionScore;
             $relPath = api_get_path(REL_PATH);
             echo '</table></td></tr>';
 

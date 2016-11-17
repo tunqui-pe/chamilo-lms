@@ -1,13 +1,14 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Shows the exercise results
  *
  * @author Julio Montoya - Simple exercise result page
  *
  */
-//require_once '../inc/global.inc.php';
 
 if (empty($origin)) {
     $origin = $_REQUEST['origin'];
@@ -28,10 +29,10 @@ if (empty($id)) {
 
 $is_allowedToEdit = api_is_allowed_to_edit(null,true) || $is_courseTutor;
 
-//Getting results from the exe_id. This variable also contain all the information about the exercise
+// Getting results from the exe_id. This variable also contain all the information about the exercise
 $track_exercise_info = ExerciseLib::get_exercise_track_exercise_info($id);
 
-//No track info
+// No track info
 if (empty($track_exercise_info)) {
     api_not_allowed($show_headers);
 }
@@ -59,19 +60,26 @@ $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'hotspot
 if ($show_headers) {
     $interbreadcrumb[] = array(
         "url" => "exercise.php?".api_get_cidreq(),
-        "name" => get_lang('Exercises'),
+        "name" => get_lang('Exercises')
     );
     $interbreadcrumb[] = array("url" => "#", "name" => get_lang('Result'));
 	$this_section = SECTION_COURSES;
 	Display::display_header();
 } else {
-    $htmlHeadXtra[] = "
-    <style>
+    $htmlHeadXtra[] = '<style>
     body { background: none;}
-    </style>
-    ";
+    </style>';
 	Display::display_reduced_header();
 }
+
+$message = Session::read('attempt_remaining');
+if (!empty($message)) {
+    Display::display_normal_message(
+        $message,
+        false
+    );
+}
+Session::erase('attempt_remaining');
 
 ExerciseLib::display_question_list_by_attempt($objExercise, $id, false);
 

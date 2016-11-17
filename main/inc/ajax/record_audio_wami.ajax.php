@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 require_once '../global.inc.php';
 
 // Add security from Chamilo

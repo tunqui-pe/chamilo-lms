@@ -101,7 +101,6 @@ if ($origin == 'learnpath') {
         Display :: display_header('');
         api_display_tool_title($nameTools);
     } else {
-
         $search = isset($_GET['search']) ? Security::remove_XSS(urlencode($_GET['search'])) : '';
         $info_thread = get_thread_information($currentForum['forum_id'], $_GET['thread']);
         $interbreadcrumb[] = array(
@@ -289,7 +288,6 @@ if ($allowToQualify) {
                 echo '<tr ><td height="50%">';
                 $realname = $attachment_list['path'];
                 $user_filename = $attachment_list['filename'];
-
                 echo Display::return_icon('attachment.gif', get_lang('Attachment'));
                 echo '<a href="download.php?file=';
                 echo $realname;

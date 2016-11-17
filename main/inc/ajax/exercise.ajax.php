@@ -120,7 +120,7 @@ switch ($action) {
             $results[] = $row;
         }
 
-        $oExe = new exercise();
+        $oExe = new Exercise();
         $oExe->read($exercise_id);
 
         $response = new stdClass();
@@ -230,7 +230,6 @@ switch ($action) {
 
         // Use have permissions?
         if (api_is_allowed_to_session_edit()) {
-
             // "all" or "simple" strings means that there's one or all questions exercise type
             $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
 
@@ -286,9 +285,7 @@ switch ($action) {
             $attempt_list = array();
 
             // First time here we create an attempt (getting the exe_id).
-            if (empty($exercise_stat_info)) {
-
-            } else {
+            if (!empty($exercise_stat_info)) {
                 // We know the user we get the exe_id.
                 $exe_id = $exercise_stat_info['exe_id'];
                 $total_score = $exercise_stat_info['exe_result'];
@@ -328,9 +325,9 @@ switch ($action) {
                     error_log("exe_id is empty");
                 }
                 exit;
-            } else {
-                Session::write('exe_id', $exe_id);
             }
+
+            Session::write('exe_id', $exe_id);
 
             // Getting the total weight if the request is simple
             $total_weight = 0;
@@ -410,7 +407,7 @@ switch ($action) {
                         $session_id,
                         $my_question_id
                     );
-                    if ($objQuestionTmp->type  == HOT_SPOT) {
+                    if ($objQuestionTmp->type == HOT_SPOT) {
                         Event::delete_attempt_hotspot(
                             $exe_id,
                             api_get_user_id(),
@@ -508,6 +505,42 @@ switch ($action) {
             exit;
         }
         echo 'ok';
+        break;
+    case 'show_question':
+        $isAllowedToEdit = api_is_allowed_to_edit(null, true, false, false);
+
+        if (!$isAllowedToEdit) {
+            api_not_allowed(true);
+            exit;
+        }
+
+        $questionId = isset($_GET['question']) ? intval($_GET['question']) : 0;
+        $exerciseId = isset($_REQUEST['exercise']) ? intval($_REQUEST['exercise']) : 0;
+
+        if (!$questionId || !$exerciseId) {
+            break;
+        }
+
+        $objExercise = new Exercise();
+        $objExercise->read($exerciseId);
+
+        $objQuestion = Question::read($questionId);
+        $objQuestion->get_question_type_name();
+
+        echo '<p class="lead">' . $objQuestion->get_question_type_name() . '</p>';
+        //echo get_lang('Level').': '.$objQuestionTmp->selectLevel();
+        ExerciseLib::showQuestion(
+            $questionId,
+            false,
+            null,
+            null,
+            false,
+            true,
+            false,
+            true,
+            $objExercise->feedback_type,
+            true
+        );
         break;
     default:
         echo '';
