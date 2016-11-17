@@ -7,21 +7,18 @@
  *	@author Denes Nagy, HotPotatoes integration
  *	@author Wolfgang Schneider, code/html cleanup
  */
-/**
- * Code
- */
-//require_once '../inc/global.inc.php';
 $this_section=SECTION_COURSES;
 api_protect_course_script(true);
 
-$show=(isset($_GET['show']) && $_GET['show'] == 'result')?'result':'test'; // moved down to fix bug: http://www.dokeos.com/forum/viewtopic.php?p=18609#18609
+// moved down to fix bug: http://www.dokeos.com/forum/viewtopic.php?p=18609#18609
+$show = (isset($_GET['show']) && $_GET['show'] == 'result') ? 'result' : 'test';
 
 /* 	Constants and variables */
 $is_allowedToEdit = api_is_allowed_to_edit(null,true);
 $is_tutor = api_is_allowed_to_edit(true);
 
 if (!$is_allowedToEdit){
-    header('Location: /main/exercice/exercise.php?cidReq='.Security::remove_XSS($_GET['cidReq']));
+    header('Location: ' . api_get_path(WEB_CODE_PATH) . 'exercise/exercise.php?' . api_get_cidreq());
     exit;
 }
 
@@ -64,7 +61,7 @@ $sql = "SELECT *, quiz_question.question, firstname, lastname FROM $TBL_TRACK_AT
 $query = Database::query($sql);
 while($row = Database::fetch_array($query)){
     echo '<tr';
-    if ($i%2==0) {
+    if ($i % 2 == 0) {
         echo 'class="row_odd"';
     } else {
         echo 'class="row_even"';

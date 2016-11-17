@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
 /**
  *  Shows the exercise results
  *
@@ -12,11 +13,8 @@
  *
  */
 
-use ChamiloSession as Session;
-
-////require_once '../inc/global.inc.php';
 $debug = false;
-if (empty($origin) ) {
+if (empty($origin)) {
     $origin = isset($_REQUEST['origin']) ? $_REQUEST['origin'] : null;
 }
 
@@ -27,25 +25,47 @@ if ($origin == 'learnpath') {
 }
 
 // Database table definitions
-$TBL_EXERCISE_QUESTION 	= Database::get_course_table(TABLE_QUIZ_TEST_QUESTION);
-$TBL_QUESTIONS         	= Database::get_course_table(TABLE_QUIZ_QUESTION);
-$TBL_TRACK_EXERCISES    = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-$TBL_TRACK_ATTEMPT		= Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
+$TBL_EXERCISE_QUESTION = Database::get_course_table(TABLE_QUIZ_TEST_QUESTION);
+$TBL_QUESTIONS = Database::get_course_table(TABLE_QUIZ_QUESTION);
+$TBL_TRACK_EXERCISES = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
+$TBL_TRACK_ATTEMPT = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
 
 // General parameters passed via POST/GET
-if ($debug) { error_log('Entered exercise_result.php: '.print_r($_POST,1)); }
+if ($debug) {
+    error_log('Entered exercise_result.php: ' . print_r($_POST, 1));
+}
 
-if (empty($formSent)) {            $formSent       = isset($_REQUEST['formSent']) ? $_REQUEST['formSent'] : null; }
-if (empty($questionId)) {          $questionId     = isset($_REQUEST['questionId']) ? $_REQUEST['questionId'] : null;}
-if (empty($choice)) {              $choice         = isset($_REQUEST['choice']) ? $_REQUEST['choice'] : null;}
-if (empty($questionNum)) {         $questionNum    = isset($_REQUEST['num']) ? $_REQUEST['num'] : null;}
-if (empty($nbrQuestions)) {        $nbrQuestions   = isset($_REQUEST['nbrQuestions']) ? $_REQUEST['nbrQuestions'] : null;}
-if (empty($exeId)) {               $exeId          = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;}
-if (empty($action)) {              $action         = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;}
+if (empty($formSent)) {
+    $formSent = isset($_REQUEST['formSent']) ? $_REQUEST['formSent'] : null;
+}
+if (empty($exerciseResult)) {
 
 $exerciseResult = Session::read('exerciseResult');
+}
+if (empty($questionId)) {
+    $questionId = isset($_REQUEST['questionId']) ? $_REQUEST['questionId'] : null;
+}
+if (empty($choice)) {
+    $choice = isset($_REQUEST['choice']) ? $_REQUEST['choice'] : null;
+}
+if (empty($questionNum)) {
+    $questionNum = isset($_REQUEST['num']) ? $_REQUEST['num'] : null;
+}
+if (empty($nbrQuestions)) {
+    $nbrQuestions = isset($_REQUEST['nbrQuestions']) ? $_REQUEST['nbrQuestions'] : null;
+}
+if (empty($questionList)) {
 $questionList = Session::read('questionList');
-$objExercise = Session::read('objExercise');
+}
+if (empty($objExercise)) {
+    $objExercise = Session::read('objExercise');
+}
+if (empty($exeId)) {
+    $exeId = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
+}
+if (empty($action)) {
+    $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
+}
 
 $id = intval($_REQUEST['id']); //exe id
 
@@ -78,13 +98,13 @@ if (empty($track_exercise_info)) {
     api_not_allowed(true);
 }
 
-$exercise_id        = $track_exercise_info['id'];
-$exercise_date      = $track_exercise_info['start_date'];
-$student_id         = $track_exercise_info['exe_user_id'];
-$learnpath_id       = $track_exercise_info['orig_lp_id'];
-$learnpath_item_id  = $track_exercise_info['orig_lp_item_id'];
-$lp_item_view_id    = $track_exercise_info['orig_lp_item_view_id'];
-$current_user_id    = api_get_user_id();
+$exercise_id = $track_exercise_info['id'];
+$exercise_date = $track_exercise_info['start_date'];
+$student_id = $track_exercise_info['exe_user_id'];
+$learnpath_id = $track_exercise_info['orig_lp_id'];
+$learnpath_item_id = $track_exercise_info['orig_lp_item_id'];
+$lp_item_view_id = $track_exercise_info['orig_lp_item_view_id'];
+$current_user_id = api_get_user_id();
 
 if (api_is_excluded_user_type(true, $student_id)) {
     api_not_allowed(true);
@@ -137,31 +157,30 @@ if ($origin != 'learnpath') {
 <script>
 var maxEditors = <?php echo intval($maxEditors); ?>;
 
-function showfck(sid,marksid) {
-	document.getElementById(sid).style.display='block';
-	document.getElementById(marksid).style.display='block';
-	var comment = 'feedback_'+sid;
-	document.getElementById(comment).style.display='none';
+function showfck(sid, marksid) {
+    document.getElementById(sid).style.display = 'block';
+    document.getElementById(marksid).style.display = 'block';
+    var comment = 'feedback_' + sid;
+    document.getElementById(comment).style.display = 'none';
 }
 
-function getFCK(vals,marksid) {
-	var f=document.getElementById('myform');
-
-	var m_id = marksid.split(',');
-	for(var i=0;i<m_id.length;i++){
-		var oHidn = document.createElement("input");
-		oHidn.type = "hidden";
-		var selname = oHidn.name = "marks_"+m_id[i];
-		var selid = document.forms['marksform_'+m_id[i]].marks.selectedIndex;
-		oHidn.value = document.forms['marksform_'+m_id[i]].marks.options[selid].text;
-		f.appendChild(oHidn);
-	}
+function getFCK(vals, marksid) {
+    var f = document.getElementById('myform');
+    var m_id = marksid.split(',');
+    for (var i = 0; i < m_id.length; i++) {
+        var oHidn = document.createElement("input");
+        oHidn.type = "hidden";
+        var selname = oHidn.name = "marks_" + m_id[i];
+        var selid = document.forms['marksform_' + m_id[i]].marks.selectedIndex;
+        oHidn.value = document.forms['marksform_' + m_id[i]].marks.options[selid].text;
+        f.appendChild(oHidn);
+    }
 
 	var ids = vals.split(',');
-	for(var k=0;k<ids.length;k++){
+    for (var k = 0; k < ids.length; k++) {
 		var oHidden = document.createElement("input");
 		oHidden.type = "hidden";
-		oHidden.name = "comments_"+ids[k];
+                oHidden.name = "comments_" + ids[k];
         if (CKEDITOR.instances[oHidden.name]) {
             oHidden.value = CKEDITOR.instances[oHidden.name].getData();
         } else {
@@ -174,28 +193,17 @@ function getFCK(vals,marksid) {
 <?php
 $show_results = true;
 $show_only_total_score = false;
+$showTotalScoreAndUserChoicesInLastAttempt = true;
 
 // Avoiding the "Score 0/0" message  when the exe_id is not set
 if (!empty($track_exercise_info)) {
     // if the results_disabled of the Quiz is 1 when block the script
     $result_disabled = $track_exercise_info['results_disabled'];
 
-    if (!(api_is_platform_admin() || api_is_course_admin() || api_is_course_coach()) ) {
-        if ($result_disabled == 1) {
+    if (true) {
+        if ($result_disabled == RESULT_DISABLE_NO_SCORE_AND_EXPECTED_ANSWERS) {
             $show_results = false;
-            if ($origin != 'learnpath') {
-                echo '<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td colspan="2">';
-                Display::display_warning_message(
-                    get_lang('ThankYouForPassingTheTest').'<br /><br /><a href="exercise.php">'.(get_lang('BackToExercisesList')).'</a>',
-                    false
-                );
-                echo '</td>
-                </tr>
-                </table>';
-            }
-        } elseif ($result_disabled == 2) {
+        } elseif ($result_disabled == RESULT_DISABLE_SHOW_SCORE_ONLY) {
             $show_results = false;
             $show_only_total_score = true;
             if ($origin != 'learnpath') {
@@ -207,6 +215,28 @@ if (!empty($track_exercise_info)) {
                 </tr>
                 </table>';
             }
+        } elseif ($result_disabled == RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT) {
+            $attempts = Event::getExerciseResultsByUser(
+                api_get_user_id(),
+                $objExercise->id,
+                api_get_course_int_id(),
+                api_get_session_id(),
+                $track_exercise_info['orig_lp_id'],
+                $track_exercise_info['orig_lp_item_id'],
+                'desc'
+            );
+            $numberAttempts = count($attempts);
+            if ($numberAttempts >= $track_exercise_info['max_attempt']) {
+                $show_results = true;
+                $show_only_total_score = true;
+                // Attempt reach max so show score/feedback now
+                $showTotalScoreAndUserChoicesInLastAttempt = true;
+            } else {
+                $show_results = true;
+                $show_only_total_score = true;
+                // Last attempt not reach don't show score/feedback
+                $showTotalScoreAndUserChoicesInLastAttempt = false;
+            }
         }
     }
 } else {
@@ -214,11 +244,15 @@ if (!empty($track_exercise_info)) {
 	$show_results = false;
 }
 
-if ($origin == 'learnpath' && !isset($_GET['fb_type']) ) {
+if ($origin == 'learnpath' && !isset($_GET['fb_type'])) {
 	$show_results = false;
 }
 
-if ($show_results || $show_only_total_score) {
+if ($is_allowedToEdit && in_array($action, ['qualify', 'edit'])) {
+    $show_results = true;
+}
+
+if ($show_results || $show_only_total_score || $showTotalScoreAndUserChoicesInLastAttempt) {
     $user_info = api_get_user_info($student_id);
     //Shows exercise header
     echo $objExercise->show_exercise_result_header(
@@ -232,29 +266,29 @@ if ($show_results || $show_only_total_score) {
 $i = $totalScore = $totalWeighting = 0;
 
 if ($debug > 0) {
-    error_log("ExerciseResult: ".print_r($exerciseResult, 1));
-    error_log("QuestionList: ".print_r($questionList, 1));
+    error_log("ExerciseResult: " . print_r($exerciseResult, 1));
+    error_log("QuestionList: " . print_r($questionList, 1));
 }
 
 $arrques = array();
-$arrans  = array();
+$arrans = array();
 
-$user_restriction = $is_allowedToEdit ? '' :  "AND user_id=".intval($student_id)." ";
+$user_restriction = $is_allowedToEdit ? '' : "AND user_id=" . intval($student_id) . " ";
 $sql = "SELECT attempts.question_id, answer
         FROM $TBL_TRACK_ATTEMPT as attempts
-        INNER JOIN ".$TBL_TRACK_EXERCISES." AS stats_exercises
+        INNER JOIN " . $TBL_TRACK_EXERCISES . " AS stats_exercises
         ON stats_exercises.exe_id=attempts.exe_id
         INNER JOIN $TBL_EXERCISE_QUESTION AS quizz_rel_questions
         ON
             quizz_rel_questions.exercice_id=stats_exercises.exe_exo_id AND
             quizz_rel_questions.question_id = attempts.question_id AND
-            quizz_rel_questions.c_id=".api_get_course_int_id()."
-        INNER JOIN ".$TBL_QUESTIONS." AS questions
+            quizz_rel_questions.c_id=" . api_get_course_int_id() . "
+        INNER JOIN " . $TBL_QUESTIONS . " AS questions
         ON
             questions.id=quizz_rel_questions.question_id AND
-            questions.c_id = ".api_get_course_int_id()."
+            questions.c_id = " . api_get_course_int_id() . "
         WHERE
-            attempts.exe_id = ".intval($id)." $user_restriction
+            attempts.exe_id = " . intval($id) . " $user_restriction
 		GROUP BY quizz_rel_questions.question_order, attempts.question_id";
 
 $result = Database::query($sql);
@@ -294,7 +328,7 @@ if (!empty($end_of_message) && ($origin == 'learnpath')) {
 $total_weighting = 0;
 foreach ($questionList as $questionId) {
     $objQuestionTmp = Question::read($questionId);
-    $total_weighting +=$objQuestionTmp->selectWeighting();
+    $total_weighting += $objQuestionTmp->selectWeighting();
 }
 
 $counter = 1;
@@ -314,33 +348,44 @@ foreach ($questionList as $questionId) {
 	unset($objQuestionTmp);
 
 	// creates a temporary Question object
-	$objQuestionTmp 	= Question::read($questionId);
-	$questionWeighting	= $objQuestionTmp->selectWeighting();
-	$answerType			= $objQuestionTmp->selectType();
+    $objQuestionTmp = Question::read($questionId);
+    $questionWeighting = $objQuestionTmp->selectWeighting();
+    $answerType = $objQuestionTmp->selectType();
 
 	// Start buffer
     ob_start();
 
-    /* Use switch
-    switch ($answerType) {
-    }*/
-
-	if ($answerType == MULTIPLE_ANSWER || $answerType == MULTIPLE_ANSWER_TRUE_FALSE) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-    } elseif ($answerType == MULTIPLE_ANSWER_COMBINATION || $answerType == MULTIPLE_ANSWER_COMBINATION_TRUE_FALSE) {
+    if ($answerType == MULTIPLE_ANSWER_COMBINATION_TRUE_FALSE) {
         $choice = array();
+    }
+    switch ($answerType) {
+        case MULTIPLE_ANSWER_COMBINATION:
+            //no break
+        case MULTIPLE_ANSWER_COMBINATION_TRUE_FALSE:
+            //no break
+        case UNIQUE_ANSWER:
+            //no break;
+        case UNIQUE_ANSWER_NO_OPTION:
+            //no break
+        case MULTIPLE_ANSWER:
+            //no break
+        case MULTIPLE_ANSWER_TRUE_FALSE:
+            //no break
+        case FILL_IN_BLANKS:
+            //no break
+        case CALCULATED_ANSWER:
+            //no break
+        case GLOBAL_MULTIPLE_ANSWER:
+            //no break
+        case FREE_ANSWER:
+            //no break
+        case ORAL_EXPRESSION:
+            //no break
+        case MATCHING:
+            //no break
+        case DRAGGABLE:
+            //no break
+        case MATCHING_DRAGGABLE:
         $question_result = $objExercise->manage_answer(
             $id,
             $questionId,
@@ -350,97 +395,15 @@ foreach ($questionList as $questionId) {
             false,
             true,
             $show_results,
-            $objExercise->selectPropagateNeg()
+                $objExercise->selectPropagateNeg(),
+                [],
+                $showTotalScoreAndUserChoicesInLastAttempt
         );
         $questionScore = $question_result['score'];
         $totalScore += $question_result['score'];
-    } elseif ($answerType == UNIQUE_ANSWER || $answerType == UNIQUE_ANSWER_NO_OPTION) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-        echo '</table>';
-    } elseif ($answerType == FILL_IN_BLANKS) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-    } elseif ($answerType == GLOBAL_MULTIPLE_ANSWER) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-    } elseif ($answerType == FREE_ANSWER) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-    } elseif ($answerType == ORAL_EXPRESSION) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-    } elseif (in_array($answerType, [MATCHING, DRAGGABLE, MATCHING_DRAGGABLE])) {
-        $question_result = $objExercise->manage_answer(
-            $id,
-            $questionId,
-            $choice,
-            'exercise_show',
-            array(),
-            false,
-            true,
-            $show_results,
-            $objExercise->selectPropagateNeg()
-        );
-        $questionScore = $question_result['score'];
-        $totalScore += $question_result['score'];
-	} elseif ($answerType == HOT_SPOT) {
-	    if ($show_results) {
+            break;
+        case HOT_SPOT:
+            if ($show_results || $showTotalScoreAndUserChoicesInLastAttempt) {
 		    echo '<table width="500" border="0"><tr>
                     <td valign="top" align="center" style="padding-left:0px;" >
                         <table border="1" bordercolor="#A4A4A4" style="border-collapse: collapse;" width="552">';
@@ -454,18 +417,20 @@ foreach ($questionList as $questionId) {
             false,
             true,
             $show_results,
-            $objExercise->selectPropagateNeg()
+                $objExercise->selectPropagateNeg(),
+                [],
+                $showTotalScoreAndUserChoicesInLastAttempt
         );
-        $questionScore  = $question_result['score'];
-        $totalScore    += $question_result['score'];
+            $questionScore = $question_result['score'];
+            $totalScore += $question_result['score'];
 
         if ($show_results) {
-            $relPath = api_get_path(REL_PATH);
+                $relPath = api_get_path(WEB_CODE_PATH);
             echo '</table></td></tr>';
             echo "
                     <tr>
                         <td colspan=\"2\">
-                            <div id=\"hotspot-solution\"></div>
+                                <div id=\"hotspot-solution-$questionId-$id\"></div>
                             <script>
                                 $(document).on('ready', function () {
                                     new HotspotQuestion({
@@ -483,7 +448,8 @@ foreach ($questionList as $questionId) {
                 <br>
             ";
         }
-	} else if($answerType == HOT_SPOT_DELINEATION) {
+            break;
+        case HOT_SPOT_DELINEATION:
 
         $question_result = $objExercise->manage_answer(
             $id,
@@ -495,7 +461,9 @@ foreach ($questionList as $questionId) {
             true,
             $show_results,
             $objExercise->selectPropagateNeg(),
-            'database'
+                'database',
+                [],
+                $showTotalScoreAndUserChoicesInLastAttempt
         );
 
         $questionScore = $question_result['score'];
@@ -516,20 +484,20 @@ foreach ($questionList as $questionId) {
         if ($show_results) {
 
             if ($overlap_color) {
-                $overlap_color='green';
+                    $overlap_color = 'green';
             } else {
-                $overlap_color='red';
+                    $overlap_color = 'red';
             }
 
             if ($missing_color) {
-                $missing_color='green';
+                    $missing_color = 'green';
             } else {
-                $missing_color='red';
+                    $missing_color = 'red';
             }
             if ($excess_color) {
-                $excess_color='green';
+                    $excess_color = 'green';
             } else {
-                $excess_color='red';
+                    $excess_color = 'red';
             }
 
             if (!is_numeric($final_overlap)) {
@@ -543,21 +511,21 @@ foreach ($questionList as $questionId) {
                 $final_excess = 0;
             }
 
-            if ($final_excess>100) {
+                if ($final_excess > 100) {
                 $final_excess = 100;
             }
 
-            $table_resume='<table class="data_table">
+                $table_resume = '<table class="data_table">
             <tr class="row_odd" >
             <td></td>
-            <td ><b>'.get_lang('Requirements').'</b></td>
-            <td><b>'.get_lang('YourAnswer').'</b></td>
+                <td ><b>' . get_lang('Requirements') . '</b></td>
+                <td><b>' . get_lang('YourAnswer') . '</b></td>
             </tr>
 
             <tr class="row_even">
-            <td><b>'.get_lang('Overlap').'</b></td>
-            <td>'.get_lang('Min').' '.$threadhold1.'</td>
-                <td><div style="color:'.$overlap_color.'">'.(($final_overlap < 0)?0:intval($final_overlap)).'</div></td>
+                    <td><b>' . get_lang('Overlap') . '</b></td>
+                    <td>' . get_lang('Min') . ' ' . $threadhold1 . '</td>
+                        <td><div style="color:' . $overlap_color . '">' . (($final_overlap < 0) ? 0 : intval($final_overlap)) . '</div></td>
             </tr>
 
             <tr>
@@ -637,12 +605,15 @@ foreach ($questionList as $questionId) {
                 </table>
             ";
         }
+        break;
 	}
 
-	if ($show_results) {
-	    if ($answerType != HOT_SPOT) {
-	        echo '</table>';
-	    }
+    if ($answerType == MULTIPLE_ANSWER_TRUE_FALSE) {
+        echo '</table>';
+    }
+
+    if ($show_results && $answerType != HOT_SPOT) {
+        echo '</table>';
 	}
 
 	$comnt = null;
@@ -663,42 +634,43 @@ foreach ($questionList as $questionId) {
         $marksname = '';
 
 		if ($isFeedbackAllowed) {
-			$name = "fckdiv".$questionId;
-			$marksname = "marksName".$questionId;
+            $name = "fckdiv" . $questionId;
+            $marksname = "marksName" . $questionId;
 			if (in_array($answerType, array(FREE_ANSWER, ORAL_EXPRESSION))) {
 				$url_name = get_lang('EditCommentsAndMarks');
 			} else {
-				if ($action=='edit') {
+                if ($action == 'edit') {
 					$url_name = get_lang('EditIndividualComment');
 				} else {
 					$url_name = get_lang('AddComments');
 				}
 			}
             echo '<br />';
-            echo Display::url($url_name, 'javascript://', array('class' => 'btn', 'onclick'=>"showfck('".$name."', '".$marksname."');"));
+            echo Display::url($url_name, 'javascript://', array('class' => 'btn', 'onclick' => "showfck('" . $name . "', '" . $marksname . "');"));
 			echo '<br />';
 
-            echo '<div id="feedback_'.$name.'" style="width:100%">';
+            echo '<div id="feedback_' . $name . '" style="width:100%">';
 			$comnt = trim(Event::get_comments($id, $questionId));
 			if (empty($comnt)) {
 				echo '<br />';
 			} else {
-				echo '<div id="question_feedback">'.$comnt.'</div>';
+                echo '<div id="question_feedback">' . $comnt . '</div>';
 			}
 			echo '</div>';
 
-            echo '<div id="'.$name.'" style="display:none">';
+            echo '<div id="' . $name . '" style="display:none">';
 			$arrid[] = $questionId;
-			$feedback_form = new FormValidator('frmcomments'.$questionId,'post','');
-			$feedback_form->addElement('html','<br>');
+            $feedback_form = new FormValidator('frmcomments' . $questionId, 'post', '');
+            $feedback_form->addElement('html', '<br>');
 			$renderer =& $feedback_form->defaultRenderer();
 			$renderer->setFormTemplate('<form{attributes}><div align="left">{content}</div></form>');
 			$renderer->setCustomElementTemplate('<div align="left">{element}</div>');
 			$comnt = Event::get_comments($id, $questionId);
-			$default = array('comments_'.$questionId =>  $comnt);
+            $default = array('comments_' . $questionId => $comnt);
 
             if ($useAdvancedEditor) {
-                $feedback_form->addHtmlEditor(
+                $feedback_form->addElement(
+                    'html_editor',
                     'comments_' . $questionId,
                     null,
                     null,
@@ -711,7 +683,7 @@ foreach ($questionList as $questionId) {
             } else {
                 $feedback_form->addElement('textarea', 'comments_' . $questionId);
             }
-			$feedback_form->addElement('html','<br>');
+            $feedback_form->addElement('html', '<br>');
 			$feedback_form->setDefaults($default);
 			$feedback_form->display();
 			echo '</div>';
@@ -720,33 +692,33 @@ foreach ($questionList as $questionId) {
 			$comnt = Event::get_comments($id, $questionId);
 			echo '<br />';
 			if (!empty($comnt)) {
-				echo '<b>'.get_lang('Feedback').'</b>';
-				echo '<div id="question_feedback">'.$comnt.'</div>';
+                echo '<b>' . get_lang('Feedback') . '</b>';
+                echo '<div id="question_feedback">' . $comnt . '</div>';
 			}
 		}
 
 		if ($is_allowedToEdit && $isFeedbackAllowed) {
 			if (in_array($answerType, array(FREE_ANSWER, ORAL_EXPRESSION))) {
-				$marksname = "marksName".$questionId;
-                echo '<div id="'.$marksname.'" style="display:none">';
-                echo '<form name="marksform_'.$questionId.'" method="post" action="">';
+                $marksname = "marksName" . $questionId;
+                echo '<div id="' . $marksname . '" style="display:none">';
+                echo '<form name="marksform_' . $questionId . '" method="post" action="">';
 				$arrmarks[] = $questionId;
 				echo get_lang("AssignMarks");
 				echo "&nbsp;<select name='marks' id='marks'>";
-				for ($i=0;$i<=$questionWeighting;$i++) {
-					echo '<option '.(($i==$questionScore)?"selected='selected'":'').'>'.$i.'</option>';
+                for ($i = 0; $i <= $questionWeighting; $i++) {
+                    echo '<option ' . (($i == $questionScore) ? "selected='selected'" : '') . '>' . $i . '</option>';
 				}
 				echo '</select>';
 				echo '</form><br /></div>';
 
-				if ($questionScore == -1 ) {
+                if ($questionScore == -1) {
 					$questionScore = 0;
 				  	echo Display::return_message(get_lang('notCorrectedYet'));
 				}
 			} else {
 				$arrmarks[] = $questionId;
-				echo '<div id="'.$marksname.'" style="display:none"><form name="marksform_'.$questionId.'" method="post" action="">
-					  <select name="marks" id="marks" style="display:none;"><option>'.$questionScore.'</option></select></form><br/ ></div>';
+                echo '<div id="' . $marksname . '" style="display:none"><form name="marksform_' . $questionId . '" method="post" action="">
+					  <select name="marks" id="marks" style="display:none;"><option>' . $questionScore . '</option></select></form><br/ ></div>';
 			}
 		} else {
 			if ($questionScore == -1) {
@@ -755,7 +727,7 @@ foreach ($questionList as $questionId) {
 		}
 	}
 
-    $my_total_score  = $questionScore;
+    $my_total_score = $questionScore;
 	$my_total_weight = $questionWeighting;
     $totalWeighting += $questionWeighting;
     $category_was_added_for_this_test = false;
@@ -775,7 +747,7 @@ foreach ($questionList as $questionId) {
     }
 
     if (isset($objQuestionTmp->category_list) && !empty($objQuestionTmp->category_list)) {
-        foreach($objQuestionTmp->category_list as $category_id) {
+        foreach ($objQuestionTmp->category_list as $category_id) {
             $category_list[$category_id]['score'] += $my_total_score;
             $category_list[$category_id]['total'] += $my_total_weight;
             $category_was_added_for_this_test = true;
@@ -802,10 +774,15 @@ foreach ($questionList as $questionId) {
 
     $score = array();
     if ($show_results) {
-		$score['result'] = get_lang('Score')." : ".ExerciseLib::show_score($my_total_score, $my_total_weight, false, false);
-        $score['pass']   = $my_total_score >= $my_total_weight ? true : false;
-        $score['type']   = $answerType;
-        $score['score']  = $my_total_score;
+        $score['result'] = get_lang('Score') . " : " . ExerciseLib::show_score(
+            $my_total_score,
+            $my_total_weight,
+            false,
+            false
+        );
+        $score['pass'] = $my_total_score >= $my_total_weight ? true : false;
+        $score['type'] = $answerType;
+        $score['score'] = $my_total_score;
         $score['weight'] = $my_total_weight;
         $score['comments'] = isset($comnt) ? $comnt : null;
     }
@@ -830,14 +807,13 @@ foreach ($questionList as $questionId) {
 $total_score_text = null;
 
 //Total score
-if ($origin!='learnpath' || ($origin == 'learnpath' && isset($_GET['fb_type']))) {
-	if ($show_results || $show_only_total_score) {
+if ($origin != 'learnpath' || ($origin == 'learnpath' && isset($_GET['fb_type']))) {
+    if ($show_results || $show_only_total_score || $showTotalScoreAndUserChoicesInLastAttempt) {
         $total_score_text .= '<div class="question_row">';
         $my_total_score_temp = $totalScore;
 	    if ($objExercise->selectPropagateNeg() == 0 && $my_total_score_temp < 0) {
 	        $my_total_score_temp = 0;
 	    }
-
         $total_score_text .= ExerciseLib::get_question_ribbon(
             $objExercise,
             $my_total_score_temp,
@@ -848,7 +824,7 @@ if ($origin!='learnpath' || ($origin == 'learnpath' && isset($_GET['fb_type'])))
 	}
 }
 
-if (!empty($category_list) && ($show_results || $show_only_total_score)) {
+if (!empty($category_list) && ($show_results || $show_only_total_score || $showTotalScoreAndUserChoicesInLastAttempt)) {
     // Adding total
     $category_list['total'] = array(
         'score' => $my_total_score_temp,
@@ -863,27 +839,49 @@ echo $total_score_text;
 
 if ($isFeedbackAllowed) {
     if (is_array($arrid) && is_array($arrmarks)) {
-        $strids = implode(",",$arrid);
-        $marksid = implode(",",$arrmarks);
+        $strids = implode(",", $arrid);
+        $marksid = implode(",", $arrmarks);
     }
 }
 
 if ($isFeedbackAllowed) {
-	if (in_array($origin, array('tracking_course','user_course','correct_exercise_in_lp'))) {
-		echo '<form name="myform" id="myform" action="'.api_get_path(WEB_CODE_PATH).'exercice/exercise_report.php?'.api_get_cidreq().'&exerciseId='.$exercise_id.'&filter=2&comments=update&exeid='.$id.'&origin='.$origin.'&details=true&course='.Security::remove_XSS($_GET['cidReq']).$fromlink.'" method="post">';
-		echo '<input type = "hidden" name="lp_item_id"       value="'.$learnpath_id.'">';
-		echo '<input type = "hidden" name="lp_item_view_id"  value="'.$lp_item_view_id.'">';
-		echo '<input type = "hidden" name="student_id"       value="'.$student_id.'">';
-		echo '<input type = "hidden" name="total_score"      value="'.$totalScore.'"> ';
-		echo '<input type = "hidden" name="my_exe_exo_id"    value="'.$exercise_id.'"> ';
+    if (in_array($origin, array('tracking_course', 'user_course', 'correct_exercise_in_lp'))) {
+        $formUrl = api_get_path(WEB_CODE_PATH) . 'exercise/exercise_report.php?' . api_get_cidreq() . '&';
+        $formUrl .= http_build_query([
+            'exerciseId' => $exercise_id,
+            'filter' => 2,
+            'comments' => 'update',
+            'exeid' => $id,
+            'origin' => $origin,
+            'details' => 'true',
+            'course' => Security::remove_XSS($_GET['cidReq'])
+        ]);
+        $formUrl .= $fromlink;
+
+        echo '<form name="myform" id="myform" action="' . $formUrl . '" method="post">';
+        echo '<input type = "hidden" name="lp_item_id"       value="' . $learnpath_id . '">';
+        echo '<input type = "hidden" name="lp_item_view_id"  value="' . $lp_item_view_id . '">';
+        echo '<input type = "hidden" name="student_id"       value="' . $student_id . '">';
+        echo '<input type = "hidden" name="total_score"      value="' . $totalScore . '"> ';
+        echo '<input type = "hidden" name="my_exe_exo_id"    value="' . $exercise_id . '"> ';
 	} else {
-		echo ' <form name="myform" id="myform" action="'.api_get_path(WEB_CODE_PATH).'exercice/exercise_report.php?'.api_get_cidreq().'&exerciseId='.$exercise_id.'&filter=1&comments=update&exeid='.$id.'" method="post">';
+        $formUrl = api_get_path(WEB_CODE_PATH) . 'exercise/exercise_report.php?' . api_get_cidreq() . '&';
+        $formUrl .= http_build_query([
+            'exerciseId' => $exercise_id,
+            'filter' => 1,
+            'comments' => 'update',
+            'exeid' => $id
+        ]);
+
+        echo ' <form name="myform" id="myform" action="' . $formUrl . '" method="post">';
 	}
-	if ($origin !='learnpath' && $origin!='student_progress') {
-        echo '<label><input type= "checkbox" name="send_notification"> '.get_lang('SendEmail').'</label>';
+
+    if ($origin != 'learnpath' && $origin != 'student_progress') {
+        echo '<label><input type= "checkbox" name="send_notification"> ' . get_lang('SendEmail') . '</label>';
 		?>
-        <br />
-        <button type="submit" class="btn btn-primary" value="<?php echo get_lang('Ok'); ?>" onclick="getFCK('<?php echo $strids; ?>','<?php echo $marksid; ?>');">
+        <br/>
+        <button type="submit" class="btn btn-primary" value="<?php echo get_lang('Ok'); ?>"
+                onclick="getFCK('<?php echo $strids; ?>','<?php echo $marksid; ?>');">
             <?php echo get_lang('CorrectTest'); ?>
         </button>
 		</form>
@@ -892,14 +890,16 @@ if ($isFeedbackAllowed) {
 }
 
 //Came from lpstats in a lp
-if ($origin =='student_progress') { ?>
-	<button type="button" class="back" onclick="window.history.go(-1);" value="<?php echo get_lang('Back'); ?>" >
-	<?php echo get_lang('Back');?></button>
+if ($origin == 'student_progress') { ?>
+    <button type="button" class="back" onclick="window.history.go(-1);" value="<?php echo get_lang('Back'); ?>">
+        <?php echo get_lang('Back'); ?></button>
 <?php
-} else if($origin=='myprogress') {
+} else if ($origin == 'myprogress') {
 ?>
-	<button type="button" class="save" onclick="top.location.href='../auth/my_progress.php?course=<?php echo api_get_course_id()?>'" value="<?php echo get_lang('Finish'); ?>" >
-        <?php echo get_lang('Finish');?>
+    <button type="button" class="save"
+            onclick="top.location.href='../auth/my_progress.php?course=<?php echo api_get_course_id() ?>'"
+            value="<?php echo get_lang('Finish'); ?>">
+        <?php echo get_lang('Finish'); ?>
     </button>
 <?php
 }
@@ -910,14 +910,21 @@ if ($origin != 'learnpath') {
 } else {
 	if (!isset($_GET['fb_type'])) {
 		$lp_mode =  Session::read('lp_mode');
-		$url = '../newscorm/lp_controller.php?'.api_get_cidreq().'&action=view&lp_id='.$learnpath_id.'&lp_item_id='.$learnpath_item_id.'&exeId='.$exeId.'&fb_type='.$feedback_type;
-		$href = ($lp_mode == 'fullscreen')?' window.opener.location.href="'.$url.'" ':' top.location.href="'.$url.'" ';
-		echo '<script type="text/javascript">'.$href.'</script>';
+		$url = '../lp/lp_controller.php?' . api_get_cidreq() . '&';
+        $url .= http_build_url([
+            'action' => 'view',
+            'lp_id' => $learnpath_id,
+            'lp_item_id' => $learnpath_item_id,
+            'exeId' => $exeId,
+            'fb_type' => $feedback_type
+        ]);
+        $href = ($lp_mode == 'fullscreen') ? ' window.opener.location.href="' . $url . '" ' : ' top.location.href="' . $url . '" ';
+        echo '<script type="text/javascript">' . $href . '</script>';
 		// Record the results in the learning path, using the SCORM interface (API)
 		echo "<script>window.parent.API.void_save_asset('$totalScore', '$totalWeighting', 0, 'completed'); </script>";
 		echo '</body></html>';
 	} else {
-		Display::display_normal_message(get_lang('ExerciseFinished').' '.get_lang('ToContinueUseMenu'));
+        Display::display_normal_message(get_lang('ExerciseFinished') . ' ' . get_lang('ToContinueUseMenu'));
         echo '<br />';
 	}
 }

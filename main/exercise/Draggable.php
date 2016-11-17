@@ -8,8 +8,8 @@
  */
 class Draggable extends Question
 {
-    static $typePicture = 'ordering.png';
-    static $explanationLangVar = 'Draggable';
+    public static $typePicture = 'ordering.png';
+    public static $explanationLangVar = 'Draggable';
 
     /**
      * Class constructor

@@ -75,28 +75,14 @@ if ($content_type == 'text/html') {
 		$directory_name
 	);
 
-    if ($dir[strlen($dir) - 1] != '/') {
-        $dir .= '/';
+	if($dir[strlen($dir)-1] != '/') {
+		$dir.='/';
     }
 
 	//Parse whole file at one
 	$fp = fopen($full_file_name, "r");
 	$file_content = fread ($fp, filesize ($full_file_name));
 	fclose($fp);
-	//$file_content = api_replace_parameter($dir, $file_content, "src");
-	//$file_content = api_replace_parameter($dir, $file_content, "href");
-
-	/*
-	//parse line per line
-	$file_content_array = file($full_file_name);
-
-	foreach($file_content_array as $line)
-	{
-		$line = api_replace_parameter($dir, $line, "src");
-		$line = api_replace_parameter($dir, $line, "href");
-		$file_content .= $line;
-	}
-	*/
 
 
     $exercisePath = api_get_self();
@@ -127,13 +113,16 @@ if ($content_type == 'text/html') {
 "// Must be included \n".
 "function Finish(){\n".
 " mySaveScore();";
-	$newcontent = str_replace($mit, $js_content, $content);
-	$prehref = "javascript:void(0);";
-	$posthref = api_get_path(WEB_CODE_PATH)."exercice/Hpdownload.php?doc_url=".$doc_url."&cid=".$cid."&uid=".$uid;
-	$newcontent = str_replace($prehref, $posthref, $newcontent);
-	$prehref = "class=\"GridNum\" onclick=";
-	$posthref = "class=\"GridNum\" onMouseover=";
-	$newcontent = str_replace($prehref, $posthref, $newcontent);
+	$newcontent = str_replace($mit,$js_content,$content);
+
+	$prehref="javascript:void(0);";
+	$posthref = api_get_path(WEB_CODE_PATH) . "main/exercise/Hpdownload.php?doc_url=".$doc_url."&cid=".$cid."&uid=".$uid;
+	$newcontent = str_replace($prehref,$posthref,$newcontent);
+
+
+	$prehref="class=\"GridNum\" onclick=";
+	$posthref="class=\"GridNum\" onMouseover=";
+	$newcontent = str_replace($prehref,$posthref,$newcontent);
 	header('Content-length: '.strlen($newcontent));
 	// Dipsp.
 	echo $newcontent;

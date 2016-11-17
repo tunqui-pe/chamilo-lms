@@ -10,14 +10,16 @@
 
 $this_section=SECTION_COURSES;
 
+$_course = api_get_course_info();
 if (isset($_REQUEST["cancel"])) {
     if ($_REQUEST["cancel"]==get_lang('Cancel')) {
         header("Location: exercise.php");
+        exit;
     }
 }
 
-$newName = (!empty($_REQUEST['newName'])?$_REQUEST['newName']:'');
-$hotpotatoesName = (!empty($_REQUEST['hotpotatoesName'])?$_REQUEST['hotpotatoesName']:'');
+$newName = !empty($_REQUEST['newName']) ? $_REQUEST['newName'] : '';
+$hotpotatoesName = !empty($_REQUEST['hotpotatoesName']) ? Security::remove_XSS($_REQUEST['hotpotatoesName']) : '';
 
 $is_allowedToEdit=api_is_allowed_to_edit(null,true);
 
@@ -52,7 +54,7 @@ $nameTools = get_lang('adminHP');
 Display::display_header($nameTools,"Exercise");
 
 /** @todo probably wrong !!!! */
-require_once(api_get_path(SYS_CODE_PATH).'/exercice/hotpotatoes.lib.php');
+require_once api_get_path(SYS_CODE_PATH).'/exercise/hotpotatoes.lib.php';
 
 ?>
 
@@ -74,12 +76,12 @@ echo "<input type=\"hidden\" name=\"hotpotatoesName\" value=\"$hotpotatoesName\"
 echo "<input type=\"text\" name=\"newName\" value=\"";
 
 
-$lstrComment = "";
+$lstrComment = '';
 $lstrComment = GetComment($hotpotatoesName);
-if ($lstrComment=="") {
+if ($lstrComment == '') {
     $lstrComment = GetQuizName($hotpotatoesName,$documentPath);
 }
-if ($lstrComment=="") {
+if ($lstrComment == '') {
     $lstrComment = basename($hotpotatoesName,$documentPath);
 }
 

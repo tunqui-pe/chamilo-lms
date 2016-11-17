@@ -21,8 +21,8 @@ class CalculatedAnswer extends Question
     public function __construct()
     {
         parent::__construct();
-        $this -> type = CALCULATED_ANSWER;
-        $this -> isContent = $this-> getIsContent();
+        $this->type = CALCULATED_ANSWER;
+        $this->isContent = $this->getIsContent();
     }
 
     /**
@@ -146,7 +146,7 @@ class CalculatedAnswer extends Question
 
         $notationListButton = Display::url(
             get_lang('NotationList'),
-            api_get_path(WEB_PATH).'main/exercice/evalmathnotation.php',
+            api_get_path(WEB_CODE_PATH).'exercise/evalmathnotation.php',
             array(
                 'class' => 'btn btn-info ajax',
                 'data-title' => get_lang('NotationList'),
@@ -154,8 +154,10 @@ class CalculatedAnswer extends Question
             )
         );
         $form->addElement(
-            'label', null,
-            $notationListButton);
+            'label',
+            null,
+            $notationListButton
+        );
 
         $form->addElement('label', null, get_lang('FormulaExample'));
 
@@ -186,7 +188,7 @@ class CalculatedAnswer extends Question
      * abstract function which creates the form to create / edit the answers of the question
      * @param FormValidator $form
      */
-    function processAnswersCreation($form)
+    public function processAnswersCreation($form)
     {
         if (!self::isAnswered()) {
             $table = Database::get_course_table(TABLE_QUIZ_ANSWER);
@@ -252,7 +254,7 @@ class CalculatedAnswer extends Question
      * @param null $score
      * @return null|string
      */
-    function return_header($feedback_type = null, $counter = null, $score = null)
+    public function return_header($feedback_type = null, $counter = null, $score = null)
     {
         $header = parent::return_header($feedback_type, $counter, $score);
         $header .= '<table class="'.$this->question_table_class .'">

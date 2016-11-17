@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use \ChamiloSession as Session;
 /**
 *	Exercise result
 *	This script gets information from the script "exercise_submit.php",
@@ -15,10 +16,8 @@
 *	@todo	split more code up in functions, move functions to library?
 */
 
-use \ChamiloSession as Session;
 
 $debug = false;
-////require_once '../inc/global.inc.php';
 
 $this_section = SECTION_COURSES;
 
@@ -119,6 +118,7 @@ if ($origin == 'learnpath') {
 }
 
 $i = $total_score = $max_score = 0;
+$remainingMessage = '';
 
 //We check if the user attempts before sending to the exercise_result.php
 if ($objExercise->selectAttempts() > 0) {
@@ -146,16 +146,19 @@ if ($objExercise->selectAttempts() > 0) {
         if ($remainingAttempts) {
             $attemptButton = Display::toolbarButton(
                 get_lang('AnotherAttempt'),
-                api_get_patth(WEB_CODE_PATH) . 'exercice/overview.php?' . api_get_cidreq() . '&' . http_build_query([
-                    'exerciseId' => $objExercise->id
+                api_get_path(WEB_CODE_PATH) . 'exercise/overview.php?' . api_get_cidreq() . '&' . http_build_query([
+                    'exerciseId' => $objExercise->id,
+                    'learnpath_id' => $learnpath_id,
+                    'learnpath_item_id' => $learnpath_item_id
                 ]),
                 'pencil-square-o',
                 'info'
             );
             $attemptMessage = sprintf(get_lang('RemainingXAttempts'), $remainingAttempts);
+            $remainingMessage = sprintf("<p>%s</p> %s", $attemptMessage, $attemptButton);
 
             Display::display_normal_message(
-                sprintf("<p>%s</p> %s", $attemptMessage, $attemptButton),
+                $remainingMessage,
                 false
             );
         }
@@ -169,7 +172,7 @@ if (!empty($exercise_stat_info)) {
 
 $max_score = $objExercise->get_max_score();
 
-Display :: display_normal_message(get_lang('Saved').'<br />',false);
+Display::display_normal_message(get_lang('Saved').'<br />',false);
 
 // Display and save questions
 ExerciseLib::display_question_list_by_attempt($objExercise, $exe_id, true);
@@ -199,13 +202,14 @@ if ($origin != 'learnpath') {
 	Display::display_footer();
 } else {
 	$lp_mode = Session::read('lp_mode');
-	$url = '../newscorm/lp_controller.php?cidReq='.api_get_course_id().'&action=view&lp_id='.$learnpath_id.'&lp_item_id='.$learnpath_item_id.'&exeId='.$exercise_stat_info['exe_id'].'&fb_type='.$objExercise->feedback_type;
+	$url = '../lp/lp_controller.php?cidReq='.api_get_course_id().'&action=view&lp_id='.$learnpath_id.'&lp_item_id='.$learnpath_item_id.'&exeId='.$exercise_stat_info['exe_id'].'&fb_type='.$objExercise->feedback_type;
 	$href = ($lp_mode == 'fullscreen')?' window.opener.location.href="'.$url.'" ':' top.location.href="'.$url.'"';
 
     if (api_is_allowed_to_session_edit()) {
         Session::erase('objExercise');
         Session::erase('exe_id');
     }
+    Session::write('attempt_remaining', $remainingMessage);
 
 	// Record the results in the learning path, using the SCORM interface (API)
 	echo "<script>window.parent.API.void_save_asset('$total_score', '$max_score', 0, 'completed');</script>";

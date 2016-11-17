@@ -40,3 +40,4 @@ RewriteRule ^session/(\d{1,})/about/?$ main/session/about.php?session_id=$1 [L]
 
 # Issued badges friendly URL
 RewriteRule ^badge/issue/(\d{1,})/user/(\d{1,})/? main/badge/issued.php?issue=$1&user=$2 [L]
+

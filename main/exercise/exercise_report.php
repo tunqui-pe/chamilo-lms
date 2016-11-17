@@ -29,6 +29,7 @@ $_course = api_get_course_info();
 // document path
 $documentPath = api_get_path(SYS_COURSE_PATH).$_course['path']."/document";
 $origin = isset($origin) ? $origin : null;
+$gradebook = isset($gradebook) ? $gradebook : null;
 $path = isset($_GET['path']) ? Security::remove_XSS($_GET['path']) : null;
 
 /* 	Constants and variables */
@@ -152,7 +153,7 @@ if (isset($_REQUEST['comments']) &&
         null,
         PERSON_NAME_EMAIL_ADDRESS
     );
-    $url = api_get_path(WEB_CODE_PATH).'exercice/result.php?id='.$track_exercise_info['exe_id'].'&'.api_get_cidreq().'&show_headers=1&id_session='.$session_id;
+    $url = api_get_path(WEB_CODE_PATH).'exercise/result.php?id='.$track_exercise_info['exe_id'].'&'.api_get_cidreq().'&show_headers=1&id_session='.$session_id;
 
     $my_post_info = array();
     $post_content_id = array();
@@ -176,7 +177,7 @@ if (isset($_REQUEST['comments']) &&
     }
 
     for ($i = 0; $i < $loop_in_track; $i++) {
-        $my_marks = $_POST['marks_'.$array_content_id_exe[$i]];
+        $my_marks = isset($_POST['marks_'.$array_content_id_exe[$i]]) ? $_POST['marks_'.$array_content_id_exe[$i]] : '';
         $contain_comments = $_POST['comments_'.$array_content_id_exe[$i]];
         if (isset($contain_comments)) {
             $my_comments = $_POST['comments_'.$array_content_id_exe[$i]];
@@ -271,7 +272,7 @@ if (isset($_REQUEST['comments']) &&
         Database::query($sql);
         if ($origin == 'tracking_course') {
             //Redirect to the course detail in lp
-            header('location: '.api_get_path(WEB_CODE_PATH).'exercice/exercise.php?course='.Security :: remove_XSS($_GET['course']));
+            header('location: '.api_get_path(WEB_CODE_PATH).'exercise/exercise.php?course='.Security :: remove_XSS($_GET['course']));
             exit;
         } else {
             // Redirect to the reporting
@@ -431,7 +432,7 @@ if ($is_allowedToEdit)
 
 echo $actions;
 
-$url = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_exercise_results&exerciseId='.$exercise_id.'&filter_by_user='.$filter_user.'&'.api_get_cidreq();
+$url = api_get_path(WEB_AJAX_PATH).'model.ajax.php?a=get_exercise_results&exerciseId='.$exercise_id.'&filter_by_user='.$filter_user;
 
 $action_links = '';
 
@@ -489,7 +490,7 @@ if ($is_allowedToEdit || $is_tutor) {
         array('name' => 'duration', 'index' => 'exe_duration', 'width' => '30', 'align' => 'left', 'search' => 'true'),
         array('name' => 'start_date', 'index' => 'start_date', 'width' => '60', 'align' => 'left', 'search' => 'true'),
         array('name' => 'exe_date', 'index' => 'exe_date', 'width' => '60', 'align' => 'left', 'search' => 'true'),
-        array('name' => 'score', 'index' => 'exe_result', 'width' => '50', 'align' => 'left', 'search' => 'true'),
+        array('name' => 'score', 'index' => 'exe_result', 'width' => '50', 'align' => 'center', 'search' => 'true'),
         array('name' => 'ip', 'index' => 'user_ip', 'width' => '40', 'align' => 'center', 'search' => 'true'),
         array('name' => 'status', 'index' => 'revised', 'width' => '40', 'align' => 'left', 'search' => 'true', 'stype' => 'select',
             //for the bottom bar
@@ -613,6 +614,21 @@ $extra_params['height'] = 'auto';
                 var sgrid = $("#results")[0];
                 sgrid.triggerToolbar();
 
+                $('#results').on('click', 'a.exercise-recalculate', function (e) {
+                    e.preventDefault();
+
+                    if (!$(this).data('user') || !$(this).data('exercise') || !$(this).data('id')) {
+                        return;
+                    }
+
+                    var url = '<?php echo api_get_path(WEB_CODE_PATH) ?>exercise/recalculate.php?<?php echo api_get_cidreq() ?>';
+
+                    var recalculateXhr = $.post(url, $(this).data());
+
+                    $.when(recalculateXhr).done(function (response) {
+                        $('#results').trigger('reloadGrid');
+                    });
+                });
         <?php } ?>
         });
 
