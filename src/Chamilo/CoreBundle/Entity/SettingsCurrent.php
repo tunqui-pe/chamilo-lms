@@ -107,6 +107,27 @@ class SettingsCurrent
     private $accessUrlLocked;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AccessUrl", inversedBy="settings", cascade={"persist"})
+     * @ORM\JoinColumn(name="access_url", referencedColumnName="id")
+     */
+    protected $url;
+
+
+    private $parameters;
+    /**
+     * @var string
+     **/
+    private $schemaAlias;
+
+    /**
+     * Constructor
+     */
+    public function __constructor()
+    {
+        $this->accessUrlLocked = 0;
+    }
+
+    /**
      * Set variable
      *
      * @param string $variable
