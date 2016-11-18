@@ -73,9 +73,9 @@ framework:
     fragments:       ~
     http_method_override: true
 
-theodo_evolution_session:
-    bag_manager_service: theodo_evolution.session.symfony1.bag_manager
-    bag_configuration_service: theodo_evolution.session.symfony1.bag_manager_configuration
+#theodo_evolution_session:
+#    bag_manager_service: theodo_evolution.session.symfony1.bag_manager
+#    bag_configuration_service: theodo_evolution.session.symfony1.bag_manager_configuration
 
 # Twig Configuration
 twig:

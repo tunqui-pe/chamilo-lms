@@ -53,7 +53,6 @@ class AppKernel extends Kernel
             new Sonata\DatagridBundle\SonataDatagridBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\PageBundle\SonataPageBundle(),
-            new Theodo\Evolution\Bundle\SessionBundle\TheodoEvolutionSessionBundle(),
 
             new Spy\TimelineBundle\SpyTimelineBundle(),
             new Sonata\TimelineBundle\SonataTimelineBundle(),
@@ -98,6 +97,7 @@ class AppKernel extends Kernel
             //new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
             new Chamilo\CoreBundle\ChamiloCoreBundle(),
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
+            new Chamilo\SkillBundle\ChamiloSkillBundle(),
             // new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
             //new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
@@ -211,6 +211,15 @@ class AppKernel extends Kernel
     public function setApi(array $configuration)
     {
         new ChamiloApi($configuration);
+    }
+
+    /**
+    * Check if system is installed
+    * @return bool
+    */
+    public function isInstalled()
+    {
+        return !empty($this->getContainer()->getParameter('installed'));
     }
 }
 
