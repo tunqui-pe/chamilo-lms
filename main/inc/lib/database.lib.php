@@ -156,10 +156,11 @@ class Database
         $entityManager = EntityManager::create($params, $config);
         $sysPath = !empty($sysPath) ? $sysPath : api_get_path(SYS_PATH);
 
+        //vendor/symfony/symfony/src/Symfony/Component/Validator/Constraint.php
         // Registering Constraints
         AnnotationRegistry::registerAutoloadNamespace(
             'Symfony\Component\Validator\Constraint',
-            $sysPath."vendor/symfony/validator"
+            $sysPath."vendor/symfony/symfony/src"
         );
 
         AnnotationRegistry::registerFile(
