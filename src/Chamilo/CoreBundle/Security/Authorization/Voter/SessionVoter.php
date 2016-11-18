@@ -1,0 +1,145 @@
+<?php
+/* For licensing terms, see /license.txt */
+
+namespace Chamilo\CoreBundle\Security\Authorization\Voter;
+
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Entity\Manager\CourseManager;
+use Chamilo\CoreBundle\Entity\Session;
+use Chamilo\UserBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+/**
+ * Class SessionVoter
+ * @package Chamilo\CoreBundle\Security\Authorization\Voter
+ */
+class SessionVoter extends Voter
+{
+    const VIEW = 'VIEW';
+    const EDIT = 'EDIT';
+    const DELETE = 'DELETE';
+
+    private $entityManager;
+    private $courseManager;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param CourseManager $courseManager
+     * @param ContainerInterface $container
+     */
+    public function __construct(
+        EntityManager $entityManager,
+        CourseManager $courseManager,
+        ContainerInterface $container
+    ) {
+        $this->entityManager = $entityManager;
+        $this->courseManager = $courseManager;
+        $this->container = $container;
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
+
+    /**
+     * @return CourseManager
+     */
+    public function getCourseManager()
+    {
+        return $this->courseManager;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function supports($attribute, $subject)
+    {
+        return $subject instanceof Session && in_array($attribute, array(
+            self::VIEW, self::EDIT, self::DELETE
+        ));
+    }
+
+    /**
+     * Check if user has access to a session
+     *
+     * @inheritdoc
+     */
+    protected function voteOnAttribute($attribute, $session, TokenInterface $token)
+    {
+        $user = $token->getUser();
+
+        // make sure there is a user object (i.e. that the user is logged in)
+        if (!$user instanceof UserInterface) {
+
+            return false;
+        }
+
+        // Checks if the current user was set up
+        $course = $session->getCurrentCourse();
+
+        if ($course == false) {
+
+            error_log('Current course not loaded');
+            return false;
+        }
+
+        $authChecker = $this->container->get('security.authorization_checker');
+
+        // Admins have access to everything
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+
+            return true;
+        }
+
+        if (!$session->isActive()) {
+
+            return false;
+        }
+
+        switch ($attribute) {
+            case self::VIEW:
+                if ($session->hasUserInCourse($user, $course)) {
+                    $user->addRole('ROLE_CURRENT_SESSION_COURSE_STUDENT');
+
+                    return true;
+                }
+                break;
+            case self::EDIT:
+            case self::DELETE:
+
+                // General coach check
+                $generalCoach = $session->getGeneralCoach();
+                if ($generalCoach) {
+                    $coachId = $generalCoach->getId();
+                    $userId = $user->getId();
+                    if ($coachId == $userId) {
+                        $user->addRole('ROLE_CURRENT_SESSION_COURSE_TEACHER');
+
+                        return true;
+                    }
+                }
+
+                // Course session coach check
+                if ($session->hasCoachInCourseWithStatus($user, $course)) {
+
+                    $user->addRole('ROLE_CURRENT_SESSION_COURSE_TEACHER');
+
+                    return true;
+                }
+                break;
+        }
+
+        // User don't have access to the session
+        return false;
+
+    }
+}
+
