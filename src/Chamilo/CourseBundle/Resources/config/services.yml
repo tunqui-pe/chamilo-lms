@@ -79,15 +79,14 @@ services:
         factory_method: getRepository
         arguments: [ Chamilo\CoreBundle\Entity\SettingsCurrent ]
 
-#    chamilo_course.settings.manager:
-#        class: '%chamilo_course.settings.manager.class%'
-#        arguments:
-#            - '@sylius.settings.schema_registry'
-#            - '@sylius.manager.parameter'
-#            - '@sylius.repository.parameter'
-#            - '@sylius.settings.cache'
-#            - '@validator'
-#            - '@event_dispatcher'
+    chamilo_course.settings.manager:
+        class: '%chamilo_course.settings.manager.class%'
+        arguments:
+            - '@sylius.registry.settings_schema'
+            - '@sylius.registry.settings_resolver'
+            - '@sylius.manager.settings'
+            - '@sylius.factory.settings'
+            - '@event_dispatcher'
 
     # Tool chain loads the list of tool services with the tag "chamilo_course.tool"
     # Tool chain is filled in file DependencyInjection/Compiler/ToolCompilerClass.php
