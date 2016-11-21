@@ -1,3 +1,4 @@
+# Settings parameters that will be used in the "services" section
 parameters:
     chamilo_core.entity.manager.course_manager.class: Chamilo\CoreBundle\Entity\Manager\CourseManager
     chamilo_core.entity.course: Chamilo\CoreBundle\Entity\Course
@@ -9,7 +10,7 @@ parameters:
     chamilo_core.entity.access_url: Chamilo\CoreBundle\Entity\AccessUrl
 
 services:
-    # Managers
+    # Entity managers
     chamilo_core.entity.manager.course_manager:
         class: %chamilo_core.entity.manager.course_manager.class%
         arguments: [%chamilo_core.entity.course%, '@doctrine']
@@ -28,30 +29,28 @@ services:
         tags:
             - { name: twig.extension }
 
-    # Security
-
-    # Chamilo custom password encoder
+    # Chamilo custom password encoder (depends on the password_encryption param)
     chamilo_user.security.encoder:
         class: Chamilo\UserBundle\Security\Encoder
         arguments: ['%password_encryption%']
-#
-#    # Course voter checks if a user has permissions to do actions in a course
+
+    # Course voter checks if a user has permissions to do actions in a course
     chamilo_core.security.authorization.voter.course_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\CourseVoter
         arguments: [ '@doctrine.orm.entity_manager', '@chamilo_core.entity.manager.course_manager', '@service_container']
         public: false
         tags:
            - { name: security.voter }
-#    chamilo_core.security.authorization.voter.course_voter:
-#        class: Chamilo\CoreBundle\Security\Authorization\Voter\CourseVoter
+
+    # Session voter checks if a user has permissions to do actions in a session
     chamilo_core.security.authorization.voter.session_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\SessionVoter
         arguments: [ '@doctrine.orm.entity_manager', '@chamilo_core.entity.manager.course_manager', '@service_container']
         public: false
         tags:
            - { name: security.voter }
-#        arguments: [ @doctrine.orm.entity_manager, @chamilo_core.entity.manager.course_manager, @service_container]
-#        public: false
+
+    # Resrouce voter checks if a user has permissions to do actions in a resource
     chamilo_core.security.authorization.voter.resource_node_voter:
         class: Chamilo\CoreBundle\Security\Authorization\Voter\ResourceNodeVoter
         public: false
@@ -65,7 +64,7 @@ services:
 
     # Form types
 
-    # Custom yes/no type, use in the platform settings
+    # Custom yes/no form type, use in the platform settings
     chamilo_core.form.type.yes_no:
         class: Chamilo\CoreBundle\Form\Type\YesNoType
         tags:
@@ -131,14 +130,12 @@ services:
           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
           - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
-
+    # Locale listener
     chamilo_core.listener.locale:
         class: Chamilo\CoreBundle\EventListener\LocaleListener
         arguments: ["%kernel.default_locale%", "@service_container"]
         tags:
             - { name: kernel.event_subscriber }
-
-
 
 #
 #    # Settings listener

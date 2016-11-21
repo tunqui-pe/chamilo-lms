@@ -29,6 +29,8 @@ use Chamilo\CourseBundle\Event\SessionAccess;
 
 /**
  * Class LocaleListener
+ * Checks the portal listener depending of different settings:
+ * platform, user, course
  * @package Chamilo\CoreBundle\EventListener
  */
 class LocaleListener implements EventSubscriberInterface
