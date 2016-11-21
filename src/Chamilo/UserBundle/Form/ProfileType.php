@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ProfileType extends AbstractType
 {
     /**
+     * @todo replace hardcode values of locale.preferred_choices
      * @inheritdoc
      **/
     public function buildForm(FormBuilderInterface $builder, array $options)
