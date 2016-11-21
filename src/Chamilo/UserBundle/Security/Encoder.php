@@ -44,7 +44,6 @@ class Encoder implements PasswordEncoderInterface
                 $defaultEncoder = new MessageDigestPasswordEncoder($this->method, false, 1);
                 break;
         }
-
         return $defaultEncoder->encodePassword($raw, $salt);
     }
 

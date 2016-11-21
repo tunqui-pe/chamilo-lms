@@ -3,8 +3,12 @@
 
 namespace Chamilo\UserBundle\Entity;
 
+//use Chamilo\CoreBundle\Entity\UserFieldValues;
+use Chamilo\CoreBundle\Entity\AccessUrl;
+use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
 use Chamilo\CoreBundle\Entity\ExtraFieldValues;
 use Chamilo\CoreBundle\Entity\UsergroupRelUser;
+use Chamilo\CoreBundle\Entity\Skill;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\GroupInterface;
-use Chamilo\CoreBundle\Entity\Skill;
+use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
 
 //use Chamilo\CoreBundle\Component\Auth;
 //use FOS\MessageBundle\Model\ParticipantInterface;
@@ -44,7 +48,7 @@ use Chamilo\CoreBundle\Entity\Skill;
  * @ORM\Entity(repositoryClass="Chamilo\UserBundle\Entity\Repository\UserRepository")
  *
  */
-class User implements UserInterface //implements ParticipantInterface, ThemeUser
+class User extends BaseUser implements ThemeUser
 {
     const COURSE_MANAGER = 1;
     const TEACHER = 1;
@@ -74,63 +78,63 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
      *
      * @ORM\Column(name="username", type="string", length=100, nullable=false, unique=true)
      */
-    protected $username;
+    //protected $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="username_canonical", type="string", length=100, nullable=false)
      */
-    protected $usernameCanonical;
+    //protected $usernameCanonical;
 
     /**
      * @var string
      * @ORM\Column(name="email_canonical", type="string", length=100, nullable=false, unique=false)
      */
-    protected $emailCanonical;
+    //protected $emailCanonical;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100, nullable=false, unique=false)
      */
-    protected $email;
+    //protected $email;
 
     /**
      * @var boolean
      * @ORM\Column(name="locked", type="boolean")
      */
-    protected $locked;
+    //protected $locked;
 
     /**
      * @var boolean
      * @ORM\Column(name="enabled", type="boolean")
      */
-    protected $enabled;
+    //protected $enabled;
 
     /**
      * @var boolean
      * @ORM\Column(name="expired", type="boolean")
      */
-    protected $expired;
+    //protected $expired;
 
     /**
      * @var boolean
      * @ORM\Column(name="credentials_expired", type="boolean")
      */
-    protected $credentialsExpired;
+    //protected $credentialsExpired;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true, unique=false)
      */
-    protected $credentialsExpireAt;
+    //protected $credentialsExpireAt;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="expires_at", type="datetime", nullable=true, unique=false)
      */
-    protected $expiresAt;
+    //protected $expiresAt;
 
     /**
      * @var string
@@ -151,7 +155,7 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false, unique=false)
      */
-    protected $password;
+    //protected $password;
 
     /**
      * @var string
@@ -301,16 +305,21 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
     private $hrDeptId;
 
     /**
+     * @var AccessUrl
+     **/
+    protected $currentUrl;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $salt;
+    //protected $salt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=true, unique=false)
      */
-    protected $lastLogin;
+    //protected $lastLogin;
 
     /**
      * @var \DateTime
@@ -330,14 +339,14 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
      * @var string
      * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
      */
-    protected $confirmationToken;
+    //protected $confirmationToken;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true, unique=false)
      */
-    protected $passwordRequestedAt;
+    //protected $passwordRequestedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Chamilo\CoreBundle\Entity\CourseRelUser", mappedBy="user")
@@ -367,7 +376,7 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
     /**
      * @ORM\Column(type="array")
      */
-    protected $roles;
+    //protected $roles;
 
     /**
      * @var boolean
@@ -440,6 +449,7 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
     public function __construct()
     {
         $this->status = self::STUDENT;
+        parent::__construct();
         $this->salt = sha1(uniqid(null, true));
         $this->active = 1;
         $this->registrationDate = new \DateTime();
@@ -468,7 +478,7 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
      */
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getCompleteName();
     }
 
     /**
@@ -1306,6 +1316,20 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
     public function getAvatar()
     {
         return $this->getPictureUri();
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarOrAnonymous()
+    {
+        $avatar = $this->getAvatar();
+
+        if (empty($avatar)) {
+            return 'bundles/chamilocore/img/unknown.jpg';
+        }
+
+        return $avatar;
     }
 
     /**
@@ -2234,7 +2258,7 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
      *
      * @return User
      */
-    public function setExpiresAt(\DateTime $date)
+    public function setExpiresAt(\DateTime $date = null)
     {
         $this->expiresAt = $date;
 
@@ -2432,5 +2456,34 @@ class User implements UserInterface //implements ParticipantInterface, ThemeUser
         $this->profileCompleted = $profileCompleted;
 
         return $this;
+    }
+
+
+    /**
+     * Sets the AccessUrl for the current user in memory
+     * @param AccessUrl $url
+     *
+     * @return $this
+     */
+    public function setCurrentUrl(AccessUrl $url)
+    {
+        $urlList = $this->getPortals();
+        /** @var AccessUrlRelUser $item */
+        foreach ($urlList as $item) {
+            if ($item->getPortal()->getId() == $url->getId()) {
+                $this->currentUrl = $url;
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return AccessUrl
+     */
+    public function getCurrentUrl()
+    {
+        return $this->currentUrl;
     }
 }

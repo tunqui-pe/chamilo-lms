@@ -62,7 +62,6 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
-
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
             //new Symfony\Cmf\Bundle\SearchBundle\CmfSearchBundle(),
@@ -84,11 +83,12 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Chamilo\UserBundle\ChamiloUserBundle(),
-            /*
+
             // Sylius
-            /*new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
-            //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
+            new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
+            new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
+                /*
             new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),*/
@@ -98,9 +98,9 @@ class AppKernel extends Kernel
             new Chamilo\CoreBundle\ChamiloCoreBundle(),
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SkillBundle\ChamiloSkillBundle(),
-            // new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
+            new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
             new Chamilo\ThemeBundle\ChamiloThemeBundle(),
-            //new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
+            new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
             new Chamilo\AdminBundle\ChamiloAdminBundle(),
             new Chamilo\TimelineBundle\ChamiloTimelineBundle(),
             new \Chamilo\ContactBundle\ChamiloContactBundle(),
