@@ -299,14 +299,6 @@ if (!$_POST) {
 } elseif (@$_POST['step6']) {
     $current_step = 7;
 }
-
-// Managing the $encryptPassForm
-if ($encryptPassForm == '1') {
-    $encryptPassForm = 'bcrypt';
-} elseif ($encryptPassForm == '0') {
-    $encryptPassForm = 'none';
-}
-
 ?>
 <!DOCTYPE html>
 <head>
