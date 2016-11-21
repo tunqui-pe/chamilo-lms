@@ -13,7 +13,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
-    password_encryption: sha1
+    password_encryption: bcrypt
 
     # Activation for multi-url access
     multiple_access_urls: false
