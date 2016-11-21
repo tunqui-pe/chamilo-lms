@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 define('USERNAME_MAX_LENGTH', 40);
 

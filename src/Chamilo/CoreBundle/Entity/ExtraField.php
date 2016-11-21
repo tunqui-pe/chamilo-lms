@@ -15,7 +15,7 @@ use Sylius\Component\Attribute\Model\Attribute as BaseAttribute;
  *
  * @ORM\MappedSuperclass
  */
-class ExtraField extends BaseAttribute
+ class ExtraField// extends BaseAttribute
 {
     const USER_FIELD_TYPE = 1;
     const COURSE_FIELD_TYPE = 2;
