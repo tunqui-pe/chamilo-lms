@@ -39,6 +39,11 @@ class SettingsManager implements SettingsManagerInterface
     private $schemaRegistry;
 
     /**
+     * @var ServiceRegistryInterface
+     */
+    private $resolverRegistry;
+
+    /**
      * @var ObjectManager
      */
     private $manager;
@@ -114,7 +119,7 @@ class SettingsManager implements SettingsManagerInterface
      */
     public function getSchemas()
     {
-        return $this->schemaRegistry->getSchemas();
+        return $this->schemaRegistry->all();
     }
 
     /**
@@ -136,8 +141,8 @@ class SettingsManager implements SettingsManagerInterface
 
     public function convertNameSpaceToService($namespace)
     {
-        //return 'chamilo_core.settings.'.$namespace;
-        return ''.$namespace;
+        return 'chamilo_core.settings.'.$namespace;
+        //return ''.$namespace;
     }
 
     /**
