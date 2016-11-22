@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Sylius\Bundle\SettingsBundle\Model\Settings;
 use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
+use Sylius\Bundle\SettingsBundle\Resolver\SettingsResolverInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaRegistryInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilder;
@@ -258,59 +259,50 @@ dump($settings);
         $persistedParametersMap = array();
 
         foreach ($persistedParameters as $parameter) {
-            $persistedParametersMap[$parameter->getName()] = $parameter;
+            $persistedParametersMap[$parameter->getTitle()] = $parameter;
         }
 
         /** @var SettingsEvent $event */
-        $event = $this->eventDispatcher->dispatch(
+        /*$event = $this->eventDispatcher->dispatch(
             SettingsEvent::PRE_SAVE,
             new SettingsEvent($settings, $parameters)
-        );
+        );*/
 
         /** @var \Chamilo\CoreBundle\Entity\SettingsCurrent $url */
         //$url = $event->getArgument('url');
         $url = $this->getUrl();
 
+        $simpleCategoryName = str_replace('chamilo_core.settings.', '', $namespace);
+
         foreach ($parameters as $name => $value) {
             if (isset($persistedParametersMap[$name])) {
                 $persistedParametersMap[$name]->setValue($value);
             } else {
-                $parameter = $this->parameterRepository->createNew();
+                $parameter = new SettingsCurrent();
 
                 $parameter
-                    ->setNamespace($namespace)
-                    ->setName($name)
-                    ->setValue($value)
+                    ->setVariable($name)
+                    ->setCategory($simpleCategoryName)
+                    ->setTitle($name)
+                    ->setSelectedValue($value)
                     ->setUrl($url)
                     ->setAccessUrlChangeable(1)
                     ->setAccessUrlLocked(1)
                 ;
 
                 /* @var $errors ConstraintViolationListInterface */
-                $errors = $this->validator->validate($parameter);
+                /*$errors = $this->validator->validate($parameter);
                 if (0 < $errors->count()) {
                     throw new ValidatorException($errors->get(0)->getMessage());
-                }
+                }*/
 
-                $this->parameterManager->persist($parameter);
+                $this->manager->persist($parameter);
             }
         }
 
-        $this->parameterManager->flush();
-
-        $this->eventDispatcher->dispatch(SettingsEvent::POST_SAVE, new SettingsEvent($namespace, $settings, $parameters));
-
-        $this->cache->save($namespace, $parameters);
-
-
+        $this->manager->flush();
 
         return;
-
-
-
-
-
-
 
         ////
         $schemaAlias = $settings->getSchemaAlias();
