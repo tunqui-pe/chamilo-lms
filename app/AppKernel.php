@@ -31,6 +31,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
 
+            new Oro\Bundle\MigrationBundle\OroMigrationBundle(),
+
             // KNP HELPER BUNDLES
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
@@ -88,13 +90,13 @@ class AppKernel extends Kernel
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
-                /*
+
             new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
-            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            /*  new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),*/
 
             // Chamilo
-            //new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
+            new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
             new Chamilo\CoreBundle\ChamiloCoreBundle(),
             new Chamilo\CourseBundle\ChamiloCourseBundle(),
             new Chamilo\SkillBundle\ChamiloSkillBundle(),

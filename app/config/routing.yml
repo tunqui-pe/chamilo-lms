@@ -47,24 +47,23 @@ logout:
 sonata_user_admin_security_logout:
   path: /logout
 
-#chamilo_course:
-#    resource: "@ChamiloCourseBundle/Resources/config/routing.yml"
-#    prefix:   /
+chamilo_course:
+    resource: "@ChamiloCourseBundle/Resources/config/routing.yml"
+    prefix:   /
 
 chamilo_contact:
     resource: "@ChamiloContactBundle/Resources/config/routing.yml"
     prefix:   /contact
 
-
-#_courses:
-#    resource: routing_courses.yml
+_courses:
+    resource: routing_courses.yml
 #
 _front:
     resource: routing_front.yml
 
 _admin:
     resource: routing_admin.yml
-    prefix:   /
+    prefix:   /administration
 
 #_api:
 #    resource: routing_api.yml
@@ -73,8 +72,8 @@ _admin:
 elfinder:
      resource: "@FMElfinderBundle/Resources/config/routing.yml"
 
-#chamilo_installer:
-#    resource: "@ChamiloInstallerBundle/Resources/config/routing.yml"
+chamilo_installer:
+    resource: "@ChamiloInstallerBundle/Resources/config/routing.yml"
 
 # Always at the end
 core_bundle:
