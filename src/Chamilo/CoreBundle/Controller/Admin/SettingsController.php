@@ -52,6 +52,10 @@ class SettingsController extends SyliusSettingsController
     public function updateSettingAction(Request $request, $namespace)
     {
         $manager = $this->getSettingsManager();
+        // @todo improve get the current url entity
+        $urlId = $request->getSession()->get('access_url_id');
+        $url = $this->getDoctrine()->getRepository('ChamiloCoreBundle:AccessUrl')->find($urlId);
+        $manager->setUrl($url);
 
         $schemaAlias = $manager->convertNameSpaceToService($namespace);
         $builder = $this->container->get('form.factory')->createNamedBuilder(
