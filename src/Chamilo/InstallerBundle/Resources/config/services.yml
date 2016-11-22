@@ -1,0 +1,39 @@
+parameters:
+    chamilo_installer.install.scenario.class: Chamilo\InstallerBundle\Process\InstallScenario
+    chamilo_installer.upgrade.scenario.class: Chamilo\InstallerBundle\Process\UpgradeScenario
+    chamilo_installer.yaml_persister.class:   Chamilo\InstallerBundle\Persister\YamlPersister
+    chamilo_installer.listener.request.class: Chamilo\InstallerBundle\EventListener\RequestListener
+    chamilo_installer.script_manager.class:   Chamilo\InstallerBundle\ScriptManager
+
+services:
+    chamilo_installer.install.scenario:
+        class: %chamilo_installer.install.scenario.class%
+        calls:
+          - [ setContainer, ["@service_container"] ]
+        tags:
+          - { name: sylius.process.scenario, alias: chamilo_install }
+
+    chamilo_installer.upgrade.scenario:
+        class: %chamilo_installer.upgrade.scenario.class%
+        calls:
+          - [ setContainer, ["@service_container"] ]
+        tags:
+          - { name: sylius.process.scenario, alias: chamilo_upgrade }
+
+    chamilo_installer.yaml_persister:
+        class: %chamilo_installer.yaml_persister.class%
+        arguments:
+            - %kernel.root_dir%/config
+            - %kernel.environment%
+
+    kernel.listener.install.event:
+        class: %chamilo_installer.listener.request.class%
+        arguments:
+            - "@router"
+            - %installed%
+            - %kernel.debug%
+
+    chamilo_installer.script_manager:
+        class: %chamilo_installer.script_manager.class%
+        arguments:
+            - @kernel
