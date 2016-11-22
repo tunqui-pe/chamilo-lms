@@ -199,10 +199,10 @@ stof_doctrine_extensions:
             sluggable: true
             sortable: true
 
-#liip_theme:
-#    themes: ['web', 'tablet', 'phone']
-#    active_theme: 'web'
-#    assetic_integration: true
+liip_theme:
+    themes: ['web', 'tablet', 'phone']
+    active_theme: 'web'
+    assetic_integration: true
 
 #oneup_flysystem:
 #    adapters:

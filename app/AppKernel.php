@@ -75,7 +75,7 @@ class AppKernel extends Kernel
 
             //new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            //new Liip\ThemeBundle\LiipThemeBundle(),
+            new Liip\ThemeBundle\LiipThemeBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
