@@ -123,7 +123,7 @@ use Sylius\Component\Attribute\Model\Attribute as BaseAttribute;
      */
     public function __construct()
     {
-        parent::__construct();
+        //parent::__construct();
         $this->visibleToOthers = 0;
         $this->visibleToSelf = 0;
     }
