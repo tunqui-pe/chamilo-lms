@@ -18,7 +18,7 @@ use Chamilo\CourseBundle\Entity\CItemProperty;
  */
 
 // PHP version requirement.
-define('REQUIRED_PHP_VERSION', '5.4');
+define('REQUIRED_PHP_VERSION', '7.0');
 define('REQUIRED_MIN_MEMORY_LIMIT', '128');
 define('REQUIRED_MIN_UPLOAD_MAX_FILESIZE', '10');
 define('REQUIRED_MIN_POST_MAX_SIZE', '10');
