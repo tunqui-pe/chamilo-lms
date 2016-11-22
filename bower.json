@@ -1,5 +1,5 @@
 {
-  "name": "ChamiloLMS",
+  "name": "chamilo",
   "ignore": [
     "**/.*",
     "node_modules",

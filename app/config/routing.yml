@@ -31,7 +31,7 @@ userportal:
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /administration
+    prefix: /{_locale}/administration
 
 #hwi_oauth_redirect:
 #    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
