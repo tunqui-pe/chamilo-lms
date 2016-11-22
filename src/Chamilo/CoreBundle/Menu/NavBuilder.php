@@ -68,12 +68,12 @@ class NavBuilder extends ContainerAware
         if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
 
             $menu->addChild(
-                $translator->trans('My courses'),
+                $translator->trans('MyCourses'),
                 array('route' => 'userportal')
             );
 
             $menu->addChild(
-                $translator->trans('Personal agenda'),
+                $translator->trans('Calendar'),
                 array(
                     'route' => 'main',
                     'routeParameters' => array(
@@ -93,7 +93,7 @@ class NavBuilder extends ContainerAware
             );
 
             $menu->addChild(
-                $translator->trans('Social network'),
+                $translator->trans('Social'),
                 array(
                     'route' => 'main',
                     'routeParameters' => array(
@@ -117,10 +117,7 @@ class NavBuilder extends ContainerAware
                 $menu->addChild(
                     $translator->trans('Administration'),
                     array(
-                        'route' => 'main',
-                        'routeParameters' => array(
-                            'name' => 'social/home.php',
-                        )
+                        'route' => 'administration',
                     )
                 );
             }
