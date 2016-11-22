@@ -93,8 +93,9 @@ class SetupStep extends AbstractStep
                 'timezone' => $form->get('portal')->get('timezone')->getData(),
             );
             $settings->setParameters($parameters);
-            $settingsManager->save('platform', $settings);
+            //$settingsManager->save($settings);
 
+            $settings = $settingsManager->load('admin');
             $parameters = array(
                 'administrator_email' => $adminUser->getEmail(),
                 'administrator_name' => $adminUser->getFirstName(),
@@ -102,7 +103,7 @@ class SetupStep extends AbstractStep
                 'administrator_phone' => $adminUser->getPhone(),
             );
             $settings->setParameters($parameters);
-            $settingsManager->save('admin', $settings);
+            //$settingsManager->save($settings);
 
             return $this->complete();
         }

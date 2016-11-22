@@ -62,14 +62,15 @@ class SettingsManager implements SettingsManagerInterface
 
     public function __construct(
         ServiceRegistryInterface $schemaRegistry,
-        ServiceRegistryInterface $parameterManager,
-        ObjectManager $parameterRepository,
-        FactoryInterface $cache,
+        ServiceRegistryInterface $resolverRegistry,
+        ObjectManager $manager,
+        FactoryInterface $settingsFactory,
         $eventDispatcher
     ) {
         $this->schemaRegistry = $schemaRegistry;
-        $this->parameterManager = $parameterManager;
-        $this->parameterRepository = $parameterRepository;
+        $this->resolverRegistry = $resolverRegistry;
+        $this->manager = $manager;
+        $this->settingsFactory = $settingsFactory;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -95,18 +96,17 @@ class SettingsManager implements SettingsManagerInterface
     public function installSchemas(AccessUrl $url)
     {
         $this->url = $url;
-        $schemas = $this->getSchemas();
-        $schemas = array_keys($schemas);
+        //$schemas = $this->getSchemas();
+        //$schemas = array_keys($schemas);
 
         /**
          * @var string $key
          * @var \Sylius\Bundle\SettingsBundle\Schema\SchemaInterface $schema
          */
-        foreach ($schemas as $schema) {
-
+        /*foreach ($schemas as $schema) {
             $settings = $this->load($schema);
             $this->save($schema, $settings);
-        }
+        }*/
     }
 
     /**
@@ -143,7 +143,7 @@ class SettingsManager implements SettingsManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function load($namespace, $namespace2 = null, $ignoreUnknown = true)
+    public function load($schemaAlias, $namespace = null, $ignoreUnknown = true)
     {
         /*$schema = $this->schemaRegistry->get($schemaAlias);
         $resolver = $this->resolverRegistry->get($schemaAlias);
@@ -182,39 +182,24 @@ dump($settings);
 
         //$schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
 
-
-        if (isset($this->resolvedSettings[$namespace])) {
-            return $this->resolvedSettings[$namespace];
-        }
-
-        if ($this->cache->contains($namespace)) {
-            $parameters = $this->cache->fetch($namespace);
-        } else {
-            $parameters = $this->getParameters($namespace);
-        }
-
-        $schema = $this->schemaRegistry->getSchema($namespace);
-
-        $settingsBuilder = new SettingsBuilder();
-        $schema->buildSettings($settingsBuilder);
-
-        $parameters = $this->transformParameters($settingsBuilder, $parameters);
-        $parameters = $settingsBuilder->resolve($parameters);
-
-        return $this->resolvedSettings[$namespace] = new Settings($parameters);
-
-
-
-        $settings = $this->settingsFactory->createNew();
-        $settings->setSchemaAlias($schemaAlias);
-
-        $parameters = $this->getParameters($schemaAlias);
+        $schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
 
         /** @var SchemaInterface $schema */
         $schema = $this->schemaRegistry->get($schemaAlias);
 
-        // We need to get a plain parameters array since we use the options resolver on it
-        //$parameters = $settings->getParameters();
+        /** @var SettingsResolverInterface $resolver */
+        $resolver = $this->resolverRegistry->get($schemaAlias);
+
+        // try to resolve settings for schema alias and namespace
+        $settings = $resolver->resolve($schemaAlias, $namespace);
+
+        if (!$settings) {
+            $settings = $this->settingsFactory->createNew();
+            $settings->setSchemaAlias($schemaAlias);
+        }
+
+         // We need to get a plain parameters array since we use the options resolver on it
+        $parameters = $settings->getParameters();
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
@@ -241,25 +226,30 @@ dump($settings);
     //public function save($namespace, $settings)
     public function save(SettingsInterface $settings)
     {
-        $schema = $this->schemaRegistry->getSchema($namespace);
+        $namespace = $settings->getSchemaAlias();
+
+        /** @var SchemaInterface $schema */
+        $schema = $this->schemaRegistry->get($settings->getSchemaAlias());
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
 
         $parameters = $settingsBuilder->resolve($settings->getParameters());
+        $settings->setParameters($parameters);
 
-        foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
+        /*foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
             if (array_key_exists($parameter, $parameters)) {
                 $parameters[$parameter] = $transformer->transform($parameters[$parameter]);
             }
-        }
+        }*/
 
-        if (isset($this->resolvedSettings[$namespace])) {
+        /*if (isset($this->resolvedSettings[$namespace])) {
             $transformedParameters = $this->transformParameters($settingsBuilder, $parameters);
             $this->resolvedSettings[$namespace]->setParameters($transformedParameters);
-        }
+        }*/
 
-        $persistedParameters = $this->parameterRepository->findBy(array('category' => $namespace));
+        $repo = $this->manager->getRepository('ChamiloCoreBundle:SettingsCurrent');
+        $persistedParameters = $repo->findBy(array('category' => $settings->getSchemaAlias()));
         $persistedParametersMap = array();
 
         foreach ($persistedParameters as $parameter) {
@@ -269,11 +259,12 @@ dump($settings);
         /** @var SettingsEvent $event */
         $event = $this->eventDispatcher->dispatch(
             SettingsEvent::PRE_SAVE,
-            new SettingsEvent($namespace, $settings, $parameters)
+            new SettingsEvent($settings, $parameters)
         );
 
         /** @var \Chamilo\CoreBundle\Entity\SettingsCurrent $url */
-        $url = $event->getArgument('url');
+        //$url = $event->getArgument('url');
+        $url = $this->getUrl();
 
         foreach ($parameters as $name => $value) {
             if (isset($persistedParametersMap[$name])) {
@@ -392,8 +383,8 @@ dump($settings);
      */
     private function getParameters($namespace)
     {
-        $repo = $this->parameterRepository;
-        //$repo = $this->manager->getRepository('ChamiloCoreBundle:SettingsCurrent');
+        //$repo = $this->parameterRepository;
+        $repo = $this->manager->getRepository('ChamiloCoreBundle:SettingsCurrent');
         $parameters = [];
         foreach ($repo->findBy(array('category' => $namespace)) as $parameter) {
             $parameters[$parameter->getName()] = $parameter->getValue();
