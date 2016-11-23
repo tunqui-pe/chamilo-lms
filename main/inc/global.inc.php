@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+return;
+
 /**
  * It is recommended that ALL Chamilo scripts include this important file.
  * This script manages
