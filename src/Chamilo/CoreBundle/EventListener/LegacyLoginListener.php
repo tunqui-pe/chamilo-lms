@@ -51,6 +51,7 @@ class LegacyLoginListener implements EventSubscriberInterface
         $token = $this->tokenStorage->getToken();
         if ($token) {
             $isGranted = $this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY');
+            dump($isGranted);
             if (!$isGranted) {
                 if (isset($_SESSION) && isset($_SESSION['_user'])) {
                     if ($_SESSION['_user']['active'] == 1) {

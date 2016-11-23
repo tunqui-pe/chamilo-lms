@@ -249,13 +249,7 @@ class NavBuilder extends ContainerAware
             $logoutLink = $menu->addChild(
                 $translator->trans('Logout'),
                 array(
-                    'route' => 'main',
-                    'routeParameters' => array(
-                        'name' => '../index.php',
-                        'logout' => 'logout',
-                        'uid' => $user->getId(),
-                    ),
-                    'query' => '1',
+                    'route' => 'logout',
                     'icon' => 'fa fa-sign-out'
                 )
             );

@@ -80,8 +80,8 @@ class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
         $query = "DELETE FROM " . $online_table . " WHERE login_user_id = $userId";
         Database::query($query);
 
-        require_once api_get_path(SYS_PATH) . 'main/chat/chat_functions.lib.php';
-        exit_of_chat($userId);
+        /*require_once api_get_path(SYS_PATH) . 'main/chat/chat_functions.lib.php';
+        exit_of_chat($userId);*/
 
         $login = $this->router->generate('home');
         $response = new RedirectResponse($login);
