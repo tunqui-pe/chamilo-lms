@@ -663,35 +663,16 @@ function api_get_path($path = '', $configuration = [])
     }
 
     $course_folder = 'courses/';
-    $root_sys = $_configuration['root_sys'];
+    $root_sys = Container::getRootDir();
 
     // Resolve master hostname.
     if (!empty($configuration) && array_key_exists('root_web', $configuration)) {
         $root_web = $configuration['root_web'];
     } else {
-        $root_web = '';
-        // Try guess it from server.
-        if (defined('SYSTEM_INSTALLATION') && SYSTEM_INSTALLATION) {
-            if (($pos = strpos(($requested_page_rel = api_get_self()), 'main/install')) !== false) {
-                $root_rel = substr($requested_page_rel, 0, $pos);
-                // See http://www.mediawiki.org/wiki/Manual:$wgServer
-                $server_protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
-                $server_name =
-                    isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME']
-                    : (isset($_SERVER['HOSTNAME']) ? $_SERVER['HOSTNAME']
-                    : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']
-                    : (isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR']
-                    : 'localhost')));
-                if (isset($_SERVER['SERVER_PORT']) && !strpos($server_name, ':')
-                    && (($server_protocol == 'http'
-                    && $_SERVER['SERVER_PORT'] != 80 ) || ($server_protocol == 'https' && $_SERVER['SERVER_PORT'] != 443 ))) {
-                    $server_name .= ":" . $_SERVER['SERVER_PORT'];
-                }
-                $root_web = $server_protocol.'://'.$server_name.$root_rel;
-                $root_sys = str_replace('\\', '/', realpath(__DIR__.'/../../../')).'/';
-            }
-            // Here we give up, so we don't touch anything.
-        }
+        $root_web = Container::getUrlGenerator()->generate(
+            'home',
+            []
+        );
     }
 
     if (isset($configuration['multiple_access_urls']) && $configuration['multiple_access_urls']) {
@@ -762,18 +743,14 @@ function api_get_path($path = '', $configuration = [])
     // Web server base and system server base.
     if (!array_key_exists($root_web, $isInitialized)) {
         // process absolute global roots
-        if (!empty($configuration)) {
-            $code_folder = 'main';
-        } else {
-            $code_folder = $paths[$root_web][REL_CODE_PATH];
-        }
-
+        $code_folder = 'main';
         // Support for the installation process.
         // Developers might use the function api_get_path() directly or indirectly (this is difficult to be traced), at the moment when
         // configuration has not been created yet. This is why this function should be upgraded to return correct results in this case.
 
         // Dealing with trailing slashes.
         $slashed_root_web = api_add_trailing_slash($root_web);
+
         $root_sys = api_add_trailing_slash($root_sys);
         $root_rel = api_add_trailing_slash($root_rel);
         $code_folder = api_add_trailing_slash($code_folder);
