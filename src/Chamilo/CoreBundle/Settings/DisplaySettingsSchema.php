@@ -47,7 +47,8 @@ class DisplaySettingsSchema implements SchemaInterface
                     'breadcrumb_navigation_display' => '',//?
                     'bug_report_link' => '', //?
                     'hide_home_top_when_connected' => 'false',
-                    'hide_logout_button' => 'false'
+                    'hide_logout_button' => 'false',
+                    'show_link_ticket_notification' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -109,8 +110,7 @@ class DisplaySettingsSchema implements SchemaInterface
             ->add('bug_report_link', 'yes_no')
             ->add('hide_home_top_when_connected', 'yes_no')
             ->add('hide_logout_button', 'yes_no')
-
-
+            ->add('show_link_ticket_notification', 'yes_no')
         ;
     }
 }

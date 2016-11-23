@@ -551,7 +551,10 @@ class SettingsManager implements SettingsManagerInterface
             'allow_coach_feedback_exercises' => 'exercise',
             'sessionadmin_autosubscribe' => 'registration',
             'sessionadmin_page_after_login' => 'registration',
-            'show_tutor_data' => 'display'
+            'show_tutor_data' => 'display',
+            'allow_social_tool' => 'social',
+            'allow_email_editor' => 'editor',
+            'show_link_ticket_notification' => 'display'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
