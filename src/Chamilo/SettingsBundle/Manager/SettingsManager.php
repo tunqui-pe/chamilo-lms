@@ -135,7 +135,7 @@ class SettingsManager implements SettingsManagerInterface
         }
 
         list($namespace, $name) = explode('.', $name);
-        $settings = $this->load($this->convertNameSpaceToService($namespace));
+        $settings = $this->load($namespace, $name);
 
         return $settings->get($name);
     }

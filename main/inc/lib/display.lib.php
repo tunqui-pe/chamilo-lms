@@ -3,6 +3,7 @@
 
 use ChamiloSession as Session;
 use Chamilo\CoreBundle\Entity\ExtraField;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class Display
@@ -728,73 +729,17 @@ class Display
         $return_only_path = false,
         $loadThemeIcon = true
     ) {
-        $code_path = api_get_path(SYS_CODE_PATH);
-        $w_code_path = api_get_path(WEB_CODE_PATH);
-        // The following path is checked to see if the file exist. It's
-        // important to use the public path (i.e. web/css/) rather than the
-        // internal path (/app/Resource/public/css/) because the path used
-        // in the end must be the public path
-        $alternateCssPath = api_get_path(SYS_PUBLIC_PATH) . 'css/';
-        $alternateWebCssPath = api_get_path(WEB_PUBLIC_PATH) . 'css/';
-
         $image = trim($image);
-
+        $size_extra = '';
         if (isset($size)) {
-            $size = intval($size);
-        } else {
-            $size = ICON_SIZE_SMALL;
-        }
-
         $size_extra = $size . '/';
+        }  
 
-        // Checking the img/ folder
-        $icon = $w_code_path.'img/'.$image;
-
-        $theme = 'themes/chamilo/icons/';
-
-        if ($loadThemeIcon) {
-            $theme = 'themes/' . api_get_visual_theme() . '/icons/';
-            // Checking the theme icons folder example: app/Resources/public/css/themes/chamilo/icons/XXX
-            if (is_file($alternateCssPath.$theme.$size_extra.$image)) {
-                $icon = $alternateWebCssPath.$theme.$size_extra.$image;
-            } elseif (is_file($code_path.'img/icons/'.$size_extra.$image)) {
-                //Checking the main/img/icons/XXX/ folder
-                $icon = $w_code_path.'img/icons/'.$size_extra.$image;
-            }
-        } else {
-            if (is_file($code_path.'img/icons/'.$size_extra.$image)) {
-                // Checking the main/img/icons/XXX/ folder
-                $icon = $w_code_path.'img/icons/'.$size_extra.$image;
-            }
-        }
-
-        // Special code to enable SVG - refs #7359 - Needs more work
-        // The code below does something else to "test out" SVG: for each icon,
-        // it checks if there is an SVG version. If so, it uses it.
-        // When moving this to production, the return_icon() calls should
-        // ask for the SVG version directly
-        $svgIcons = api_get_setting('icons_mode_svg');
-        if ($svgIcons == 'true' && $return_only_path == false) {
-            $svgImage = substr($image, 0, -3) . 'svg';
-            if (is_file($code_path . $theme . 'svg/' . $svgImage)) {
-                $icon = $w_code_path . $theme . 'svg/' . $svgImage;
-            } elseif (is_file($code_path . 'img/icons/svg/' . $svgImage)) {
-                $icon = $w_code_path . 'img/icons/svg/' . $svgImage;
-            }
-
-            if (empty($additional_attributes['height'])) {
-                $additional_attributes['height'] = $size;
-            }
-            if (empty($additional_attributes['width'])) {
-                $additional_attributes['width'] = $size;
-            }
-        }
-
-        $icon = api_get_cdn_path($icon);
+        $icon = 'bundles/chamilocore/img/icons/'.$size_extra.$image;
+        $icon = Container::getAsset()->getUrl($icon);
 
         if ($return_only_path) {
             return $icon;
-
         }
 
         $img = self::img($icon, $alt_text, $additional_attributes);
@@ -818,15 +763,6 @@ class Display
      */
     public static function img($image_path, $alt_text = '', $additional_attributes = array(), $filterPath = true)
     {
-        if (empty($image_path)) {
-            // For some reason, the call to img() happened without a proper
-            // image. Log the error and return an empty string to avoid
-            // breaking the HTML
-            $trace = debug_backtrace();
-            $caller = $trace[1];
-            error_log('No image provided in Display::img(). Caller info: '.print_r($caller, 1));
-            return '';
-        }
         // Sanitizing the parameter $image_path
         if ($filterPath) {
             $image_path = Security::filter_img_path($image_path);

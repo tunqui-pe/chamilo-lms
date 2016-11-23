@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\EventListener;
 
+use Chamilo\SettingsBundle\Manager\SettingsManager;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -92,6 +93,7 @@ class LocaleListener implements EventSubscriberInterface
             $locale = $this->defaultLocale;
 
             // 1. Check platform locale
+            /** @var SettingsManager $settings */
             $settings = $this->container->get('chamilo.settings.manager');
             $platformLocale = $settings->getSetting('language.platform_language');
             if (!empty($platformLocale)) {

@@ -3,6 +3,11 @@
 
 use ChamiloSession as Session;
 use Chamilo\CourseBundle\Entity\CItemProperty;
+use Symfony\Component\Validator\Constraints as Assert;
+use Chamilo\UserBundle\Entity\User;
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Framework\Container;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * This is a code library for Chamilo.
@@ -1349,6 +1354,7 @@ function _api_format_user($user, $add_password = false)
     $user_id = intval($user['user_id']);
     // Maintain the user_id index for backwards compatibility
     $result['user_id'] = $result['id'] = $user_id;
+    $result['last_login'] = $user['last_login'];
 
     // Getting user avatar.
     $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, null, $result);
@@ -1464,6 +1470,19 @@ function api_get_user_entity($userId)
     $repo = Database::getManager()->getRepository('ChamiloUserBundle:User');
 
     return $repo->find($userId);
+}
+
+/**
+ * @param int $courseId
+ *
+ * @return Course
+ */
+function api_get_user_course_entity($courseId = null)
+{
+    if (empty($courseId)) {
+        $courseId = api_get_course_int_id();
+    }
+    return CourseManager::getManager()->find($courseId);
 }
 
 /**
@@ -1723,7 +1742,7 @@ function api_get_course_info($course_code = null, $strict = false)
         return $courseInfo;
     }
 
-    global $_course;
+    $_course = Session::read('_course');
     if ($_course == '-1') {
         $_course = array();
     }
@@ -1835,6 +1854,11 @@ function api_format_course_array($course_data)
         $url_image = Display::returnIconPath('session_default.png');
     }
     $_course['course_image_large'] = $url_image;
+
+    $_course['extra_fields'] = isset($course_data['extra_fields']) ? $course_data['extra_fields'] : array();
+    $_course['settings'] = isset($course_data['settings']) ? $course_data['settings'] : array();
+    $_course['teacher_list'] = isset($course_data['teacher_list']) ? $course_data['teacher_list'] : array();
+    $_course['teacher_list_formatted'] = isset($course_data['teacher_list_formatted']) ? $course_data['teacher_list_formatted'] : array();
 
     return $_course;
 }
@@ -1975,7 +1999,8 @@ function api_clear_anonymous($db_check = false)
  * @author Noel Dieschburg
  * @param the int status code
  */
-function get_status_from_code($status_code) {
+function get_status_from_code($status_code)
+{
     switch ($status_code) {
         case STUDENT:
             return get_lang('Student', '');
@@ -2015,8 +2040,6 @@ function api_set_anonymous() {
     return true;
 }
 
-/* CONFIGURATION SETTINGS */
-
 /**
  * Gets the current Chamilo (not PHP/cookie) session ID
  * @return  int     O if no active session, the session ID otherwise
@@ -2040,10 +2063,13 @@ function api_get_group_id()
  * @param   int     Session ID (optional)
  * @return  string  The session name, or null if unfound
  */
-function api_get_session_name($session_id = 0) {
+function api_get_session_name($session_id = 0)
+{
     if (empty($session_id)) {
         $session_id = api_get_session_id();
-        if (empty($session_id)) { return null; }
+        if (empty($session_id)) {
+            return null;
+        }
     }
     $t = Database::get_main_table(TABLE_MAIN_SESSION);
     $s = "SELECT name FROM $t WHERE id = ".(int)$session_id;
@@ -2268,46 +2294,50 @@ function api_get_session_condition(
  * Returns the value of a setting from the web-adjustable admin config settings.
  *
  * WARNING true/false are stored as string, so when comparing you need to check e.g.
- * if (api_get_setting('show_navigation_menu') == 'true') //CORRECT
+ * if (api_get_setting('course.show_navigation_menu') == 'true') //CORRECT
  * instead of
- * if (api_get_setting('show_navigation_menu') == true) //INCORRECT
+ * if (api_get_setting('course.show_navigation_menu') == true) //INCORRECT
  * @param string    $variable The variable name
- * @param string    $key The subkey (sub-variable) if any. Defaults to NULL
  * @return string
- * @author René Haentjens
- * @author Bart Mollet
+ *
+ * @author Julio Montoya
  */
-function api_get_setting($variable, $key = null)
+function api_get_setting($variable)
 {
-    global $_setting;
-    if ($variable == 'header_extra_content') {
-        $filename = api_get_path(SYS_PATH).api_get_home_path().'header_extra_content.txt';
-        if (file_exists($filename)) {
-            $value = file_get_contents($filename);
-            return $value;
-        } else {
-            return '';
-        }
-    }
-    if ($variable == 'footer_extra_content') {
-        $filename = api_get_path(SYS_PATH).api_get_home_path().'footer_extra_content.txt';
-        if (file_exists($filename)) {
-            $value = file_get_contents($filename);
-            return $value;
-        } else {
-            return '';
-        }
-    }
-    $value = null;
-    if (is_null($key)) {
-        $value = ((isset($_setting[$variable]) && $_setting[$variable] != '') ? $_setting[$variable] : null);
-    } else {
-        if (isset($_setting[$variable][$key])) {
-            $value = $_setting[$variable][$key];
-        }
-    }
+    $variable = trim($variable);
 
-    return $value;
+    switch ($variable) {
+        case 'header_extra_content':
+            $filename = api_get_path(SYS_PATH).api_get_home_path().'header_extra_content.txt';
+            if (file_exists($filename)) {
+                $value = file_get_contents($filename);
+                    return $value ;
+            } else {
+                return '';
+            }
+            break;
+        case 'footer_extra_content':
+            $filename = api_get_path(SYS_PATH).api_get_home_path().'footer_extra_content.txt';
+            if (file_exists($filename)) {
+                $value = file_get_contents($filename);
+                    return $value ;
+            } else {
+                return '';
+            }
+            break;
+        case 'server_type':
+            $test = ['dev', 'test'];
+            $environment = Container::getEnvironment();
+            if (in_array($environment, $test)) {
+                return 'test';
+            }
+            return 'prod';
+        case 'stylesheets':
+            $variable = 'platform.theme';
+            break;
+        default:
+            return Container::getSettingsManager()->getSetting($variable);
+    }
 }
 
 /**
@@ -2358,8 +2388,6 @@ function api_get_self() {
     return htmlentities($_SERVER['PHP_SELF']);
 }
 
-/* USER PERMISSIONS */
-
 /**
  * Checks whether current user is a platform administrator
  * @param boolean $allowSessionAdmins Whether session admins should be considered admins or not
@@ -2370,24 +2398,39 @@ function api_get_self() {
  */
 function api_is_platform_admin($allowSessionAdmins = false, $allowDrh = false)
 {
-    $isAdmin = Session::read('is_platformAdmin');
-    if ($isAdmin) {
+    $checker = Container::getAuthorizationChecker();
+    if ($checker) {
+        if ($checker->isGranted('ROLE_ADMIN')) {
         return true;
     }
-    $user = api_get_user_info();
+        if ($allow_sessions_admins) {
+            if ($checker->isGranted('ROLE_SESSION_MANAGER')) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+
+    $isPlatformAdmin = Session::read('is_platformAdmin');
+    if ($isPlatformAdmin) {
+        return true;
+    }
+    $_user = api_get_user_info();
+
     return
-        isset($user['status']) &&
+        isset($_user['status']) &&
         (
-            ($allowSessionAdmins && $user['status'] == SESSIONADMIN) ||
-            ($allowDrh && $user['status'] == DRH)
+            ($allow_sessions_admins && $_user['status'] == SESSIONADMIN) ||
+            ($allow_drh && $_user['status'] == DRH)
         );
 }
 
 /**
  * Checks whether the user given as user id is in the admin table.
- * @param int $user_id If none provided, will use current user
+ * @param int $user_id. If none provided, will use current user
  * @param int $url URL ID. If provided, also check if the user is active on given URL
- * @return bool True if the user is admin, false otherwise
+ * @result bool True if the user is admin, false otherwise
  */
 function api_is_platform_admin_by_id($user_id = null, $url = null)
 {
@@ -2395,13 +2438,15 @@ function api_is_platform_admin_by_id($user_id = null, $url = null)
     if (empty($user_id)) {
         $user_id = api_get_user_id();
     }
-    $admin_table = Database::get_main_table(TABLE_MAIN_ADMIN);
-    $sql = "SELECT * FROM $admin_table WHERE user_id = $user_id";
-    $res = Database::query($sql);
-    $is_admin = Database::num_rows($res) === 1;
-    if (!$is_admin || !isset($url)) {
+
+    $em = Container::getEntityManager();
+    $user = $em->getRepository('ChamiloUserBundle:User')->find($user_id);
+    $is_admin = $user->hasRole('ROLE_ADMIN');
+
+    if (!$is_admin or !isset($url)) {
         return $is_admin;
     }
+
     // We get here only if $url is set
     $url = intval($url);
     $url_user_table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
@@ -4233,7 +4278,7 @@ function api_get_visual_theme()
         // Platform's theme.
         $visual_theme = $platform_theme;
 
-        if (api_get_setting('user_selected_theme') == 'true') {
+        if (api_get_setting('profile.user_selected_theme') == 'true') {
             $user_info = api_get_user_info();
             if (isset($user_info['theme'])) {
                 $user_theme = $user_info['theme'];
@@ -4248,7 +4293,7 @@ function api_get_visual_theme()
         $course_id = api_get_course_id();
 
         if (!empty($course_id) && $course_id != -1) {
-            if (api_get_setting('allow_course_theme') == 'true') {
+            if (api_get_setting('course.allow_course_theme') == 'true') {
                 $course_theme = api_get_course_setting('course_theme');
 
                 if (!empty($course_theme) && $course_theme != -1) {
