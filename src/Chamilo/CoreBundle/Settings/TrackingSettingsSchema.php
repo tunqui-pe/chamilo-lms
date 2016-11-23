@@ -23,6 +23,11 @@ class TrackingSettingsSchema implements SchemaInterface
                 array(
                     'header_extra_content' => '',
                     'footer_extra_content' => '',
+                    'meta_title' => '',
+                    'meta_description' => '',
+                    'meta_image_path' => '',
+                    'meta_twitter_site' => '',
+                    'meta_twitter_creator' => ''
 
                 )
             )
@@ -42,6 +47,13 @@ class TrackingSettingsSchema implements SchemaInterface
     {
         $builder
             ->add('header_extra_content', 'textarea')
-            ->add('footer_extra_content', 'textarea');
+            ->add('footer_extra_content', 'textarea')
+            ->add('meta_title', 'text')
+            ->add('meta_description', 'textarea')
+            ->add('meta_image_path', 'text')
+            ->add('meta_twitter_site', 'text')
+            ->add('meta_twitter_creator', 'text')
+        ;
+
     }
 }

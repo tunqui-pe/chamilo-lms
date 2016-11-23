@@ -553,6 +553,7 @@ class SettingsManager implements SettingsManagerInterface
             'sessionadmin_page_after_login' => 'registration',
             'show_tutor_data' => 'display',
             'allow_social_tool' => 'social',
+            'allow_message_tool' => 'message',
             'allow_email_editor' => 'editor',
             'show_link_ticket_notification' => 'display'
         ];
