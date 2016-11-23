@@ -244,6 +244,7 @@ function returnNotificationMenu()
  */
 function return_navigation_array()
 {
+    return ;
     $navigation = array();
     $menu_navigation = array();
     $possible_tabs = get_tabs();

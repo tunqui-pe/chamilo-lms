@@ -1403,7 +1403,7 @@ function api_get_user_info(
     if (Database::num_rows($result) > 0) {
         $result_array = Database::fetch_array($result);
         if ($checkIfUserOnline) {
-            $use_status_in_platform = user_is_online($user_id);
+            $use_status_in_platform = UserManager::user_is_online($user_id);
 
             $result_array['user_is_online'] = $use_status_in_platform;
             $user_online_in_chat = 0;
@@ -2380,7 +2380,7 @@ function api_is_platform_admin($allowSessionAdmins = false, $allowDrh = false)
         if ($checker->isGranted('ROLE_ADMIN')) {
         return true;
     }
-        if ($allow_sessions_admins) {
+        if ($allowSessionAdmins) {
             if ($checker->isGranted('ROLE_SESSION_MANAGER')) {
                 return true;
             }
@@ -2398,8 +2398,8 @@ function api_is_platform_admin($allowSessionAdmins = false, $allowDrh = false)
     return
         isset($_user['status']) &&
         (
-            ($allow_sessions_admins && $_user['status'] == SESSIONADMIN) ||
-            ($allow_drh && $_user['status'] == DRH)
+            ($allowSessionAdmins && $_user['status'] == SESSIONADMIN) ||
+            ($allowDrh && $_user['status'] == DRH)
         );
 }
 
@@ -5991,9 +5991,9 @@ function api_get_template($path_type = 'rel') {
         }
     }
     $actived_theme = 'default';
-    if (api_get_setting('active_template')) {
+    /*if (api_get_setting('active_template')) {
         $actived_theme = api_get_setting('active_template');
-    }
+    }*/
     $actived_theme_path = $template_path.$actived_theme.DIRECTORY_SEPARATOR;
     return $actived_theme_path;
 }

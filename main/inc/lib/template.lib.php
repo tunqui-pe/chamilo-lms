@@ -126,7 +126,7 @@ class Template
         $this->twig->addFilter('get_path', new Twig_Filter_Function('api_get_path'));
         $this->twig->addFilter('get_setting', new Twig_Filter_Function('api_get_setting'));
         $this->twig->addFilter('var_dump', new Twig_Filter_Function('var_dump'));
-        $this->twig->addFilter('return_logo', new Twig_Filter_Function('return_logo'));
+        //$this->twig->addFilter('return_logo', new Twig_Filter_Function('return_logo'));
         $this->twig->addFilter('return_message', new Twig_Filter_Function('Display::return_message_and_translate'));
         $this->twig->addFilter('display_page_header', new Twig_Filter_Function('Display::page_header_and_translate'));
         $this->twig->addFilter(
@@ -648,8 +648,8 @@ class Template
         }
 
         // Logo
-        $logo = return_logo($this->theme);
-        $this->assign('logo', $logo);
+        /*$logo = return_logo($this->theme);
+        $this->assign('logo', $logo);*/
 
         $this->assign('show_media_element', 1);
     }
@@ -786,12 +786,14 @@ class Template
      */
     private function set_header_parameters($sendHeaders)
     {
+
         global $httpHeadXtra, $interbreadcrumb, $language_file, $_configuration, $this_section;
         $_course = api_get_course_info();
         $help = $this->help;
         $nameTools = $this->title;
-        $navigation = return_navigation_array();
-        $this->menu_navigation = $navigation['menu_navigation'];
+        //$navigation = return_navigation_array();
+        $navigation = [];
+        //$this->menu_navigation = $navigation['menu_navigation'];
 
         $this->assign('system_charset', api_get_system_encoding());
 
@@ -921,8 +923,8 @@ class Template
 
         $this->assign('bug_notification', $rightFloatMenu);
 
-        $notification = returnNotificationMenu();
-        $this->assign('notification_menu', $notification);
+        //$notification = returnNotificationMenu();
+        $this->assign('notification_menu', '');
 
         $resize = '';
         if (api_get_setting('accessibility_font_resize') == 'true') {
@@ -986,8 +988,8 @@ class Template
         $this->assign('portal_name', $portal_name);
 
         //Menu
-        $menu = menuArray();
-        $this->assign('menu', $menu);
+        //$menu = menuArray();
+        $this->assign('menu', '');
 
         // Setting notifications
         $count_unread_message = 0;
@@ -1020,7 +1022,8 @@ class Template
 
 
         // Block Breadcrumb
-        $breadcrumb = return_breadcrumb($interbreadcrumb, $language_file, $nameTools);
+        //$breadcrumb = return_breadcrumb($interbreadcrumb, $language_file, $nameTools);
+        $breadcrumb  = '';
         $this->assign('breadcrumb', $breadcrumb);
 
         //Extra content
