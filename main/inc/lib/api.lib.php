@@ -2297,7 +2297,7 @@ function api_get_setting($variable)
             $filename = api_get_path(SYS_PATH).api_get_home_path().'footer_extra_content.txt';
             if (file_exists($filename)) {
                 $value = file_get_contents($filename);
-                    return $value ;
+                return $value ;
             } else {
                 return '';
             }

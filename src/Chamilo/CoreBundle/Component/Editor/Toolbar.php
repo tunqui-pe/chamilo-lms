@@ -3,7 +3,7 @@
 
 namespace Chamilo\CoreBundle\Component\Editor;
 
-//use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class Toolbar
@@ -17,11 +17,13 @@ class Toolbar
     public $defaultPlugins = array();
 
     /**
+     * @param RouterInterface $urlGenerator
      * @param string $toolbar
      * @param array  $config
      * @param string $prefix
      */
     public function __construct(
+        $urlGenerator,
         $toolbar = null,
         $config = array(),
         $prefix = null
@@ -29,7 +31,7 @@ class Toolbar
         if (!empty($toolbar)) {
             $class = __NAMESPACE__."\\".$prefix."\\Toolbar\\".$toolbar;
             if (class_exists($class)) {
-                $toolbarObj = new $class();
+                $toolbarObj = new $class($urlGenerator);
                 $this->setConfig($toolbarObj->getConfig());
             }
         }
@@ -37,7 +39,15 @@ class Toolbar
         if (!empty($config)) {
             $this->updateConfig($config);
         }
-        //$this->urlGenerator = $urlGenerator;
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * @return RouterInterface
+     */
+    public function getUrlGenerator()
+    {
+        return $this->urlGenerator;
     }
 
     /**
@@ -111,6 +121,31 @@ class Toolbar
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * This config settings are specialized use when using symfony2 forms
+     * @return array
+     */
+    public function getNamedToolBarConfig()
+    {
+        $config = $this->config;
+        $namedToolBar = [];
+        $counter = 0;
+        foreach ($config['toolbar'] as $toolBarList) {
+            if ($toolBarList == '/') {
+                $namedToolBar[] = '/';
+                continue;
+            }
+            $namedToolBar[] = [
+                'name' => 'named_'.$counter,
+                'items' => $toolBarList,
+            ];
+            $counter++;
+        }
+        $config['toolbar'] = $namedToolBar;
+
+        return $config;
     }
 
     /**

@@ -4,6 +4,7 @@
 namespace Chamilo\CoreBundle\Component\Editor\CkEditor\Toolbar;
 
 use Chamilo\CoreBundle\Component\Editor\Toolbar;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class Basic
@@ -20,7 +21,7 @@ class Basic extends Toolbar
         'adobeair',
         'ajax',
         'audio',
-        'image2',
+        //'image2',
         'bidi',
         'colorbutton',
         'colordialog',
@@ -54,7 +55,7 @@ class Basic extends Toolbar
         'stylesheetparser',
         'tableresize',
         'templates',
-        'uicolor',
+        //'uicolor',
         'video',
         'widget',
         'wikilink',
@@ -72,6 +73,7 @@ class Basic extends Toolbar
      * @inheritdoc
      */
     public function __construct(
+        $router,
         $toolbar = null,
         $config = array(),
         $prefix = null
@@ -79,11 +81,11 @@ class Basic extends Toolbar
         // Adding plugins depending of platform conditions
         $plugins = array();
 
-        if (api_get_setting('show_glossary_in_documents') == 'ismanual') {
+        if (api_get_setting('document.show_glossary_in_documents') == 'ismanual') {
             $plugins[] = 'glossary';
         }
 
-        if (api_get_setting('youtube_for_students') == 'true') {
+        if (api_get_setting('editor.youtube_for_students') == 'true') {
             $plugins[] = 'youtube';
         } else {
             if (api_is_allowed_to_edit() || api_is_platform_admin()) {
@@ -91,29 +93,29 @@ class Basic extends Toolbar
             }
         }
 
-        if (api_get_setting('enabled_googlemaps') == 'true') {
+        if (api_get_setting('editor.enabled_googlemaps') == 'true') {
             $plugins[] = 'leaflet';
         }
 
-        if (api_get_setting('math_asciimathML') == 'true') {
+        if (api_get_setting('editor.math_asciimathML') == 'true') {
             $plugins[] = 'asciimath';
         }
 
-        if (api_get_setting('enabled_mathjax') == 'true') {
+        if (api_get_setting('editor.enabled_mathjax') == 'true') {
             $plugins[] = 'mathjax';
             $config['mathJaxLib'] = api_get_path(WEB_PATH).'web/assets/MathJax/MathJax.js?config=AM_HTMLorMML';
         }
 
-        if (api_get_setting('enabled_asciisvg') == 'true') {
+        if (api_get_setting('editor.enabled_asciisvg') == 'true') {
             $plugins[] = 'asciisvg';
         }
 
-        if (api_get_setting('enabled_wiris') == 'true') {
+        if (api_get_setting('editor.enabled_wiris') == 'true') {
             // Commercial plugin
             $plugins[] = 'ckeditor_wiris';
         }
 
-        if (api_get_setting('enabled_imgmap') == 'true') {
+        if (api_get_setting('editor.enabled_imgmap') == 'true') {
             $plugins[] = 'mapping';
         }
 
@@ -121,16 +123,16 @@ class Basic extends Toolbar
             // Missing
         }*/
 
-        if (api_get_setting('more_buttons_maximized_mode') == 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
             $plugins[] = 'toolbarswitch';
         }
 
-        if (api_get_setting('allow_spellcheck') == 'true') {
+        if (api_get_setting('editor.allow_spellcheck') == 'true') {
             $plugins[] = 'scayt';
         }
 
         $this->defaultPlugins = array_merge($this->defaultPlugins, $plugins);
-        parent::__construct($toolbar, $config, $prefix);
+        parent::__construct($router, $toolbar, $config, $prefix);
     }
 
     /**
@@ -140,14 +142,17 @@ class Basic extends Toolbar
     public function getConfig()
     {
         $config = array();
-        if (api_get_setting('more_buttons_maximized_mode') === 'true') {
+        if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
             $config['toolbar_minToolbar'] = $this->getMinimizedToolbar();
-
             $config['toolbar_maxToolbar'] = $this->getMaximizedToolbar();
         }
 
-        $config['customConfig'] = api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/config_js.php';
-        $config['flash_flvPlayer'] = api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/plugins/flash/swf/player.swf';
+        /*$config['customConfig'] = api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/config_js.php';
+        $config['flash_flvPlayer'] = api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/plugins/flash/swf/player.swf';*/
+
+        $config['customConfig'] = $this->getUrlGenerator()->generate(
+            'config_editor'
+        );
 
         /*filebrowserFlashBrowseUrl
         filebrowserFlashUploadUrl
@@ -172,7 +177,7 @@ class Basic extends Toolbar
             'wordLimit' => 'unlimited'
         );*/
 
-        $config['skin'] = 'bootstrapck,' . api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/skins/bootstrapck/';
+        //$config['skin'] = 'bootstrapck,' . api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/skins/bootstrapck/';
 
         if (isset($this->config)) {
             $this->config = array_merge($config, $this->config);
