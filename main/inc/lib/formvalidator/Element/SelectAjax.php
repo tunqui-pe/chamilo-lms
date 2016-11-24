@@ -30,7 +30,7 @@ class SelectAjax extends HTML_QuickForm_select
             $languageCondition = "language: '$iso',";
         }
 
-        $html .= api_get_css(api_get_path(WEB_PATH).'web/assets/select2/dist/css/select2.min.css');
+        $html .= api_get_css_asset('select2/dist/css/select2.min.css');
 
         $formatResult = $this->getAttribute('formatResult');
 
