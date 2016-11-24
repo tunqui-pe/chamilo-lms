@@ -3477,6 +3477,103 @@ class CourseManager
         return $html;
     }
 
+     /**
+     * Builds the course block in user_portal.php
+     * @todo use Twig
+     * @param array $params
+     * @param bool|false $is_sub_content
+     * @return string
+     */
+    public static function course_item_html($params, $is_sub_content = false)
+    {
+        $html = '';
+        $class = "panel panel-default";
+        if ($is_sub_content) {
+            $class = "course_item";
+        }
+        $html .= '<div class="' . $class . '">';
+        $html .= '<div class="panel-body">';
+        $html .= '<div class="course-items">';
+        $html .= ' <div class="row">';
+        $html .= '<div class="col-md-2">';
+        if (!empty($params['link'])) {
+            $html .= '<a class="thumbnail" href="' . $params['link'] . '">';
+            $html .= $params['icon'];
+            $html .= '</a>';
+        } else {
+            $html .= '<div class="thumbnail">';
+            $html .= $params['icon'];
+            $html .= '</div>';
+        }
+        $html .= '</div>';
+        $notifications = isset($params['notifications']) ? $params['notifications'] : '';
+        $param_class = isset($params['class']) ? $params['class'] : '';
+        $params['right_actions'] = isset($params['right_actions']) ? $params['right_actions'] : '';
+
+        $html .= '<div class="col-md-10 ' . $param_class . '">';
+        $html .= '<div class="pull-right">' . $params['right_actions'] . '</div>';
+        $html .= '<h4 class="course-items-title">' . $params['title'] . $notifications . '</h4> ';
+
+        if (isset($params['show_description'], $params['description']) && $params['show_description'] == 1) {
+            $html .= '<p class="description-session">' . $params['description'] . '</p>';
+        }
+        if (!empty($params['subtitle'])) {
+            $html .= '<div class="subtitle-session">' . $params['subtitle'] . '</div>';
+        }
+        if (!empty($params['teachers'])) {
+            $html .= '<h5 class="course-items-session">' .
+                    Display::return_icon('teacher.png', get_lang('Teacher'), array(), ICON_SIZE_TINY) .
+                $params['teachers'] . '</h5>';
+        }
+        if (!empty($params['coaches'])) {
+            $coaches = '';
+            if (is_array($params['coaches'])) {
+                foreach ($params['coaches'] as $coach) {
+                    $coaches .= $coach['full_name'];
+                }
+            }
+            $html .= '<h5 class="course-items-session">' .
+                Display::return_icon('teacher.png', get_lang('Coach'), array(), ICON_SIZE_TINY) .
+                $coaches .
+                '</h5>';
+        }
+
+        $html .= '</div>';
+        $html .= '</div>';
+
+        $html .= '</div>';
+
+        $html .= '</div>';
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    /**
+     * @param $courses
+     * @return string
+     */
+    public function parseCourseListData($courses)
+    {
+        $html = '';
+        foreach ($courses as $course) {
+            $html .= self::course_item_html($course, true);
+        }
+
+        return $html;
+    }
+
+    /**
+     * @param string $main_content
+     * @param string $sub_content
+     * @param string $sub_sub_content
+     * @return string
+     */
+    public static function course_item_parent($main_content, $sub_content, $sub_sub_content = null)
+    {
+        return '<div class="panel panel-default">' . $main_content . $sub_content . $sub_sub_content . '</div>';
+    }
+
     /**
      * @param $params
      * @param bool|false $is_sub_content

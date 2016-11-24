@@ -527,6 +527,7 @@ class Template
      */
     public function setCssFiles()
     {
+        return;
         global $disable_js_and_css_files;
         $css = array();
 
@@ -577,6 +578,7 @@ class Template
      */
     public function setCSSEditor()
     {
+        return;
         $cssEditor = api_get_cdn_path(api_get_path(WEB_CSS_PATH).'editor.css');
         if (is_file(api_get_path(SYS_CSS_PATH).'themes/'.$this->theme.'/editor.css')) {
             $cssEditor = api_get_path(WEB_CSS_PATH).'themes/'.$this->theme.'/editor.css';
@@ -592,6 +594,7 @@ class Template
      */
     public function setCssCustomFiles()
     {
+        return;
         global $disable_js_and_css_files;
         // Base CSS
 

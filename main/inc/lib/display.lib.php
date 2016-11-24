@@ -59,6 +59,7 @@ class Display
      */
     public static function display_header($tool_name ='', $help = null, $page_header = null)
     {
+        return '';
         $origin = api_get_origin();
         $showHeader = true;
         if (isset($origin) && $origin == 'learnpath') {
@@ -134,6 +135,7 @@ class Display
      */
     public static function display_footer()
     {
+        return '';
         echo self::$global_template->show_footer_template();
     }
 
@@ -732,7 +734,7 @@ class Display
         $image = trim($image);
         $size_extra = '';
         if (isset($size)) {
-        $size_extra = $size . '/';
+            $size_extra = $size . '/';
         }
 
         $icon = 'img/icons/'.$size_extra.$image;
