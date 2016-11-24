@@ -555,7 +555,9 @@ class SettingsManager implements SettingsManagerInterface
             'allow_social_tool' => 'social',
             'allow_message_tool' => 'message',
             'allow_email_editor' => 'editor',
-            'show_link_ticket_notification' => 'display'
+            'show_link_ticket_notification' => 'display',
+            'permissions_for_new_directories' => 'document',
+            'enable_profile_user_address_geolocalization' => 'profile'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
