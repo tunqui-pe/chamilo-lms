@@ -2312,6 +2312,10 @@ function api_get_setting($variable)
         case 'stylesheets':
             $variable = 'platform.theme';
             break;
+        // deprecated settings
+        case 'openid_authentication':
+        case 'sso_authentication':
+            break;
         default:
             return Container::getSettingsManager()->getSetting($variable);
     }
@@ -6184,9 +6188,15 @@ function api_get_js($file) {
  * Returns the <script> HTML tag
  * @return string
  */
-function api_get_asset($file)
+function api_get_asset($file, $getURL = false)
 {
-    return '<script type="text/javascript" src="'.api_get_path(WEB_PATH).'web/assets/'.$file.'"></script>'."\n";
+    $url = Container::getAsset()->getUrl("assets/".$file);
+
+    if ($getURL) {
+        return $url;
+    }
+
+    return '<script type="text/javascript" src="'.$url.'"></script>'."\n";
 }
 
 /**
@@ -6195,7 +6205,8 @@ function api_get_asset($file)
  */
 function api_get_css_asset($file, $media = 'screen')
 {
-    return '<link href="'.api_get_path(WEB_PATH).'web/assets/'.$file.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
+    $url = Container::getAsset()->getUrl("assets/".$file);
+    return '<link href="'.$url.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
 }
 
 /**

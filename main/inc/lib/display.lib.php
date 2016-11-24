@@ -733,9 +733,9 @@ class Display
         $size_extra = '';
         if (isset($size)) {
         $size_extra = $size . '/';
-        }  
+        }
 
-        $icon = 'bundles/chamilocore/img/icons/'.$size_extra.$image;
+        $icon = 'img/icons/'.$size_extra.$image;
         $icon = Container::getAsset()->getUrl($icon);
 
         if ($return_only_path) {
