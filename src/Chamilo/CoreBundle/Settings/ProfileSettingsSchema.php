@@ -31,7 +31,10 @@ class ProfileSettingsSchema implements SchemaInterface
                     'allow_users_to_change_email_with_no_password' => 'false',
                     'login_is_email' => 'false',
                     'profiling_filter_adding_users' => '',
-                    'enable_profile_user_address_geolocalization' => ''
+                    'enable_profile_user_address_geolocalization' => '',
+                    'allow_show_skype_account' => '',
+                    'allow_show_linkedin_url' => '',
+
                 )
             )
             ->setAllowedTypes(
@@ -85,6 +88,9 @@ class ProfileSettingsSchema implements SchemaInterface
             ->add('login_is_email', 'yes_no', ['label' => 'LoginIsEmailTitle'])
             ->add('profiling_filter_adding_users', 'yes_no')
             ->add('enable_profile_user_address_geolocalization', 'yes_no')
+            ->add('allow_show_skype_account', 'yes_no')
+            ->add('allow_show_linkedin_url', 'yes_no')
+
 
         ;
     }

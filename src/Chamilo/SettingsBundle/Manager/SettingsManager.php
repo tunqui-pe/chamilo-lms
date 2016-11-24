@@ -419,7 +419,8 @@ class SettingsManager implements SettingsManagerInterface
             'enable_profile_user_address_geolocalization' => 'User',
             'show_official_code_whoisonline' => 'User',
             'icons_mode_svg' => 'Tuning',
-            'user_name_sort_by' => 'display'
+            'user_name_sort_by' => 'display',
+            'default_calendar_view' => 'agenda'
         ];
 
         return $oldItems;
@@ -557,7 +558,11 @@ class SettingsManager implements SettingsManagerInterface
             'allow_email_editor' => 'editor',
             'show_link_ticket_notification' => 'display',
             'permissions_for_new_directories' => 'document',
-            'enable_profile_user_address_geolocalization' => 'profile'
+            'enable_profile_user_address_geolocalization' => 'profile',
+            'allow_show_skype_account' => 'profile',
+            'allow_show_linkedin_url' => 'profile',
+            'allow_students_to_create_groups_in_social' => 'social',
+            'default_calendar_view' => 'agenda'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
