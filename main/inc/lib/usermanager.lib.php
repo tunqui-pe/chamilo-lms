@@ -5559,9 +5559,13 @@ SQL;
         return false;
     }
 
-
+    /**
+     * @param int $time_limit seconds
+     * @param bool $friends show friends (true) or show all users (false)
+     * @return bool
+     */
     public static function whoIsOnlineCount(
-        $time_limit = null,
+        $time_limit = 0,
         $friends = false
     ) {
         if (empty($time_limit)) {
