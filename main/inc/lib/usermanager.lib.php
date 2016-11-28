@@ -5561,7 +5561,7 @@ SQL;
 
     /**
      * @param int $time_limit seconds
-     * @param bool $friends show friends (true) or show all users (false)
+     * @param bool $friends show friends (true) or all users (false)
      * @return bool
      */
     public static function whoIsOnlineCount(
@@ -5640,14 +5640,21 @@ SQL;
 
     /**
      * Gives a list of people online now (and in the last $valid minutes)
-     * @return  array       For each line, a list of user IDs and login dates, or FALSE on error or empty results
+     *
+     * @param int $from
+     * @param int $number_of_items
+     * @param string $column
+     * @param string $direction
+     * @param int $time_limit in seconds
+     * @param bool $friends show friends (true) or all users (false)
+     * @return array|bool
      */
     public static function whoIsOnline(
         $from,
         $number_of_items,
-        $column = null,
-        $direction = null,
-        $time_limit = null,
+        $column = '',
+        $direction = '',
+        $time_limit = 0,
         $friends = false
     ) {
         // Time limit in seconds?
@@ -5741,9 +5748,7 @@ SQL;
         $result = Database::query($query);
         if ($result) {
             $users_online = array();
-            while (list($login_user_id, $login_date) = Database::fetch_row(
-                $result
-            )) {
+            while (list($login_user_id, $login_date) = Database::fetch_row($result)) {
                 $users_online[] = $login_user_id;
             }
 
