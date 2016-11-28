@@ -6186,6 +6186,9 @@ function api_get_js($file) {
 
 /**
  * Returns the <script> HTML tag
+ *
+ * @param string $file
+ * @param bool $getURL only returns the URL without the <script> tag
  * @return string
  */
 function api_get_asset($file, $getURL = false)
@@ -6200,7 +6203,11 @@ function api_get_asset($file, $getURL = false)
 }
 
 /**
- * Returns the <script> HTML tag
+ *
+ * Returns the <link> HTML tag
+ *
+ * @param $file
+ * @param string $media
  * @return string
  */
 function api_get_css_asset($file, $media = 'screen')
@@ -6211,9 +6218,14 @@ function api_get_css_asset($file, $media = 'screen')
 
 /**
  * Returns the <link> HTML tag
+ *
  * @param string $file
+ * @param string $media
+ *
+ * @return string
  */
-function api_get_css($file, $media = 'screen') {
+function api_get_css($file, $media = 'screen')
+{
     return '<link href="'.$file.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
 }
 
