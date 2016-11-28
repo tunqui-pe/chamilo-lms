@@ -4,9 +4,8 @@
 use Chamilo\CoreBundle\Component\Utils\ChamiloApi;
 
 /**
- * Code
- * @todo use globals or parameters or add this file in the template
- * @package chamilo.include
+ * @deprecated
+ *
  */
 
 /**
@@ -239,7 +238,9 @@ function returnNotificationMenu()
 }
 
 /**
- * Return an array with different navigation mennu elements
+ * Return an array with different navigation menu elements
+ * @deprecated Check src/Chamilo/CoreBundle/Menu/NavBuilder.php to handle
+ * Chamilo menus
  * @return array [menu_navigation[], navigation[], possible_tabs[]]
  */
 function return_navigation_array()
