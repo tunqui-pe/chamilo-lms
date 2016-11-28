@@ -5,7 +5,24 @@
  * Class Template
  *
  * @author Julio Montoya <gugli100@gmail.com>
- * @todo better organization of the class, methods and variables
+ *
+ * @deprecated
+ *
+ * In Chamilo 2 files inside main/ (classic chamilo files) are
+ * wrapped by a Symfony2 controller LegacyController::classicAction
+ * This controller will handle the breadcrumb, the template rendering
+ * and everything as a normal Symfony2 action.
+ *
+ * Example:
+ * Chamilo 1.x
+ * my.chamilo.net/main/admin/user_list.php
+ *
+ * Chamilo 2.x
+ * (dev mode)
+ * my.chamilo.net/web/app_dev.php/main/admin/user_list.php
+ * (prod mod)
+ * my.chamilo.net/web/main/admin/user_list.php
+ *
  *
  */
 class Template

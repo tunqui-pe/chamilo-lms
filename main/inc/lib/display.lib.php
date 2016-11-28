@@ -51,8 +51,11 @@ class Display
         );
     }
 
-     /**
+    /**
      * Displays the page header
+     *
+     * @deprecated See template.lib.php class documentation
+     *
      * @param string The name of the page (will be showed in the page title)
      * @param string Optional help file name
      * @param string $page_header
@@ -103,9 +106,11 @@ class Display
 
     /**
      * Displays the reduced page header (without banner)
+     * @deprecated See template.lib.php class documentation
      */
     public static function display_reduced_header()
     {
+        return '';
         global $show_learnpath, $tool_name;
         self::$global_template = new Template($tool_name, false, false, $show_learnpath);
         echo self::$global_template->show_header_template();
@@ -113,9 +118,11 @@ class Display
 
     /**
      * Display no header
+     * @deprecated
      */
     public static function display_no_header()
     {
+        return '';
         global $tool_name, $show_learnpath;
         $disable_js_and_css_files = true;
         self::$global_template = new Template($tool_name, false, false, $show_learnpath);
@@ -123,15 +130,18 @@ class Display
 
     /**
      * Displays the reduced page header (without banner)
+     * @deprecated See template.lib.php class documentation
      */
     public static function set_header()
     {
+        return '';
         global $show_learnpath, $tool_name;
         self::$global_template = new Template($tool_name, false, false, $show_learnpath);
     }
 
     /**
      * Display the page footer
+     * @deprecated  See template.lib.php class documentation
      */
     public static function display_footer()
     {
@@ -141,9 +151,11 @@ class Display
 
     /**
      * Display the page footer
+     * @deprecated See template.lib.php class documentation
      */
     public static function display_reduced_footer()
     {
+        return '';
         echo self::$global_template->show_footer_js_template();
         echo '</body></html>';
     }
