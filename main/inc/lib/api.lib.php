@@ -619,6 +619,19 @@ if (!defined('CHAMILO_LOAD_WYSIWYG')) {
     define('CHAMILO_LOAD_WYSIWYG', true);
 }
 
+define('TOOL_PUBLIC', 'Public');
+define('TOOL_PUBLIC_BUT_HIDDEN', 'PublicButHide');
+define('TOOL_COURSE_ADMIN', 'courseAdmin');
+define('TOOL_PLATFORM_ADMIN', 'platformAdmin');
+define('TOOL_AUTHORING', 'toolauthoring');
+define('TOOL_INTERACTION', 'toolinteraction');
+define('TOOL_COURSE_PLUGIN', 'toolcourseplugin'); //all plugins that can be enabled in courses
+define('TOOL_ADMIN', 'tooladmin');
+define('TOOL_ADMIN_PLATFORM', 'tooladminplatform');
+define('TOOL_DRH', 'tool_drh');
+define('TOOL_STUDENT_VIEW', 'toolstudentview');
+define('TOOL_ADMIN_VISIBLE', 'tooladminvisible');
+
 /**
  * Inclusion of internationalization libraries
  */
@@ -4120,9 +4133,8 @@ function api_get_languages() {
             ORDER BY original_name ASC";
     $result = Database::query($sql);
     $language_list = array();
-    while ($row = Database::fetch_array($result)) {
-        $language_list['name'][] = $row['original_name'];
-        $language_list['folder'][] = $row['dokeos_folder'];
+   while ($row = Database::fetch_array($result)) {
+        $language_list[$row['isocode']] = $row['original_name'];
     }
     return $language_list;
 }
