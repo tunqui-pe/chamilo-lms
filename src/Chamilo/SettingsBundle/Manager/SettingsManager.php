@@ -420,7 +420,9 @@ class SettingsManager implements SettingsManagerInterface
             'show_official_code_whoisonline' => 'User',
             'icons_mode_svg' => 'Tuning',
             'user_name_sort_by' => 'display',
-            'default_calendar_view' => 'agenda'
+            'default_calendar_view' => 'agenda',
+            'exercise_invisible_in_session' => 'exercise',
+            'configure_exercise_visibility_in_course' => 'exercise'
         ];
 
         return $oldItems;
@@ -562,7 +564,8 @@ class SettingsManager implements SettingsManagerInterface
             'allow_show_skype_account' => 'profile',
             'allow_show_linkedin_url' => 'profile',
             'allow_students_to_create_groups_in_social' => 'social',
-            'default_calendar_view' => 'agenda'
+            'default_calendar_view' => 'agenda',
+            'documents_default_visibility_defined_in_course' => 'document'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;

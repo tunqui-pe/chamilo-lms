@@ -4,7 +4,7 @@
     {% set namespace = namespace | replace({'chamilo_core.settings.' : ''}) %}
     <li class="{% if (current_namespace ==  namespace)  %} active {% endif %}">
         <a href="{{ path('chamilo_platform_settings', { 'namespace': namespace }) }}">
-            <img src="{{ asset('bundles/chamilocore/img/icons/32/' ~ namespace ~'.png') }}" />
+            <img src="{{ asset('img/icons/32/' ~ namespace ~'.png') }}" />
             {{ namespace | capitalize | trans }}
         </a>
     </li>
