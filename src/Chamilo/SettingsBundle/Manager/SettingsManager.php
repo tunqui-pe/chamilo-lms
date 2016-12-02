@@ -565,7 +565,8 @@ class SettingsManager implements SettingsManagerInterface
             'allow_show_linkedin_url' => 'profile',
             'allow_students_to_create_groups_in_social' => 'social',
             'default_calendar_view' => 'agenda',
-            'documents_default_visibility_defined_in_course' => 'document'
+            'documents_default_visibility_defined_in_course' => 'document',
+            'message_max_upload_filesize' => 'message',
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
