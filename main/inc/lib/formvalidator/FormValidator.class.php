@@ -1434,8 +1434,9 @@ EOT;
 function html_filter($html, $mode = NO_HTML)
 {
     $allowed_tags = HTML_QuickForm_Rule_HTML::get_allowed_tags($mode);
-    $cleaned_html = kses($html, $allowed_tags);
-    return $cleaned_html;
+    //@todo check kses support in Chamilo 2.0
+    //$cleaned_html = kses($html, $allowed_tags);
+    return $html;
 }
 
 function html_filter_teacher($html)
