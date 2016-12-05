@@ -17,8 +17,10 @@ class ChamiloExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('var_dump', 'var_dump'),
             new \Twig_SimpleFilter('icon', 'Template::get_icon_path'),
+            new \Twig_SimpleFilter('get_lang', 'get_lang'),
+            new \Twig_SimpleFilter('icon', 'Template::get_icon_path'),
+            new \Twig_SimpleFilter('img', 'Template::get_image'),
             new \Twig_SimpleFilter('api_get_local_time', 'api_get_local_time'),
-
         );
     }
 

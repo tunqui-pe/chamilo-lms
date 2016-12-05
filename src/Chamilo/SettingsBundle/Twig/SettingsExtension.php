@@ -38,6 +38,19 @@ class SettingsExtension extends \Twig_Extension
     }
 
     /**
+     *
+     * {@inheritdoc}
+     */
+    public function getFilters()
+    {
+        return array(
+             //new \Twig_SimpleFunction('chamilo_settings_all', array($this, 'getSettings')),
+             new \Twig_SimpleFilter('get_setting', array($this, 'getSettingsParameter')),
+             //new \Twig_SimpleFunction('chamilo_settings_has', [$this, 'hasSettingsParameter']),
+        );
+    }
+
+    /**
      * Load settings from given namespace.
      *
      * @param string $namespace
