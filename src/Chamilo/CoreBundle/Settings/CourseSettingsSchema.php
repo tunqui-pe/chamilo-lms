@@ -100,7 +100,8 @@ class CourseSettingsSchema implements SchemaInterface
                     'hide_scorm_pdf_link' => 'true',
                     'course_catalog_published' => 'false',
                     'course_images_in_courses_list' => 'true',
-                    'teacher_can_select_course_template' => 'true'
+                    'teacher_can_select_course_template' => 'true',
+                    'show_toolshortcuts' => ''
                 )
             )
             ->setAllowedTypes(
@@ -235,6 +236,7 @@ class CourseSettingsSchema implements SchemaInterface
             ->add('course_catalog_published', 'yes_no')
             ->add('course_images_in_courses_list', 'yes_no')
             ->add('teacher_can_select_course_template', 'yes_no')
+            ->add('show_toolshortcuts', 'yes_no')
         ;
     }
 }
