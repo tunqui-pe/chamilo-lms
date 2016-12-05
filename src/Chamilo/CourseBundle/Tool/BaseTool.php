@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 namespace Chamilo\CourseBundle\Tool;
+use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
@@ -27,7 +28,7 @@ abstract class BaseTool implements ToolInterface
      * @param string $image
      * @param $courseSettings
      */
-    public function __construct($name, $category, $link, $image, $courseSettings = null, $manager = null)
+    public function __construct($name, $category, $link, $image, $courseSettings, $manager = null)
     {
         $this->name = $name;
         $this->category = $category;
@@ -111,7 +112,7 @@ abstract class BaseTool implements ToolInterface
     }
 
     /**
-     * @return int
+     * @return SchemaInterface
      */
     public function getCourseSettings()
     {

@@ -32,32 +32,32 @@ use Chamilo\CoreBundle\Entity\SettingsCurrent;
  */
 class SettingsManager implements SettingsManagerInterface
 {
-    private $url;
+    protected $url;
 
     /**
      * @var ServiceRegistryInterface
      */
-    private $schemaRegistry;
+    protected $schemaRegistry;
 
     /**
      * @var ServiceRegistryInterface
      */
-    private $resolverRegistry;
+    protected $resolverRegistry;
 
     /**
      * @var ObjectManager
      */
-    private $manager;
+    protected $manager;
 
     /**
      * @var FactoryInterface
      */
-    private $settingsFactory;
+    protected $settingsFactory;
 
     /**
      * @var EventDispatcherInterface
      */
-    private $eventDispatcher;
+    protected $eventDispatcher;
 
     /**
      * Runtime cache for resolved parameters
@@ -66,6 +66,14 @@ class SettingsManager implements SettingsManagerInterface
      */
     protected $resolvedSettings = array();
 
+    /**
+     * SettingsManager constructor.
+     * @param ServiceRegistryInterface $schemaRegistry
+     * @param ServiceRegistryInterface $resolverRegistry
+     * @param ObjectManager $manager
+     * @param FactoryInterface $settingsFactory
+     * @param $eventDispatcher
+     */
     public function __construct(
         ServiceRegistryInterface $schemaRegistry,
         ServiceRegistryInterface $resolverRegistry,
@@ -422,7 +430,9 @@ class SettingsManager implements SettingsManagerInterface
             'user_name_sort_by' => 'display',
             'default_calendar_view' => 'agenda',
             'exercise_invisible_in_session' => 'exercise',
-            'configure_exercise_visibility_in_course' => 'exercise'
+            'configure_exercise_visibility_in_course' => 'exercise',
+            'permissions_for_new_files' => 'document',
+            'show_toolshortcuts' => 'Course'
         ];
 
         return $oldItems;
@@ -458,6 +468,7 @@ class SettingsManager implements SettingsManagerInterface
             'administratorName' => 'administrator_name',
             'administratorTelephone' => 'administrator_phone',
             'registration.soap.php.decode_utf8' => 'decode_utf8',
+
         ];
 
         return isset($list[$variable]) ? $list[$variable] : $variable;
@@ -567,6 +578,7 @@ class SettingsManager implements SettingsManagerInterface
             'default_calendar_view' => 'agenda',
             'documents_default_visibility_defined_in_course' => 'document',
             'message_max_upload_filesize' => 'message',
+            'course_create_active_tools' => 'course'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;

@@ -665,15 +665,21 @@ class CourseHome
 
     /**
      * Displays the tools of a certain category.
+     * @param $urlGenerator
      * @param array $all_tools_list List of tools as returned by get_tools_category()
      * @param bool  $rows
      *
      * @return string
      */
-    public static function show_tools_category($all_tools_list, $rows = false)
+    public static function show_tools_category($urlGenerator, $all_tools_list, $rows = false)
     {
         $_user = api_get_user_info();
+        $courseInfo = api_get_course_info();
+        $web_code_path = api_get_path(WEB_CODE_PATH);
+        $session_id = api_get_session_id();
+        $is_platform_admin = api_is_platform_admin();
         $theme = api_get_setting('homepage_view');
+
         if ($theme === 'vertical_activity') {
             //ordering by get_lang name
             $order_tool_list = array();
@@ -692,9 +698,6 @@ class CourseHome
                 $all_tools_list = array();
             }
         }
-        $web_code_path = api_get_path(WEB_CODE_PATH);
-        $session_id = api_get_session_id();
-        $is_platform_admin = api_is_platform_admin();
 
         if ($session_id == 0 ) {
             $is_allowed_to_edit = api_is_allowed_to_edit(null, true) && api_is_course_admin();
@@ -993,7 +996,10 @@ class CourseHome
             }
         }
 
-        return $html;
+         return array(
+            'content' => $html,
+            'tool_list' => $items
+        );
     }
 
     /**

@@ -8,6 +8,7 @@ use Chamilo\CourseBundle\ToolChain;
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
 use Chamilo\CourseBundle\Component\CourseCopy\CourseRestorer;
+use Chamilo\CourseBundle\Manager\SettingsManager;
 
 /**
  * Class CourseManager

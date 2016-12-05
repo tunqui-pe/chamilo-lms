@@ -127,6 +127,57 @@ class CTool
     private $customIcon;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Chamilo\CoreBundle\Entity\Course", inversedBy="tools")
+     * @ORM\JoinColumn(name="c_id", referencedColumnName="id")
+     */
+    private $course;
+
+    protected $originalImage;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        // Default values
+        $this->id = 0;
+        $this->sessionId = 0;
+        $this->address = 'squaregrey.gif';
+    }
+
+    /**
+     * @param Course $course
+     */
+    public function setCourse($course)
+    {
+        $this->course = $course;
+    }
+
+    /**
+     * @param ClassMetadata $metadata
+     */
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint(
+            'customIcon',
+            new Assert\File(array('mimeTypes' => array("image/png")))
+        );
+        $metadata->addPropertyConstraint(
+            'customIcon',
+            new Assert\Image(array('maxWidth' => 64, 'minHeight' => 64))
+        );
+        $metadata->addPropertyConstraint('cId', new Assert\NotBlank());
+    }
+
+    /**
+     * @return Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    /**
      * Set name
      *
      * @param string $name

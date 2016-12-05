@@ -231,6 +231,7 @@ services:
         tags:
             - { name: sylius.settings_schema, alias: chamilo_core.settings.admin, namespace: admin }
 #            - { name: kernel.event_listener, event: theme.messages, method: onListMessages }
+
     chamilo_core.settings.announcement:
         class: Chamilo\CoreBundle\Settings\AnnouncementSettingsSchema
         tags:
@@ -240,6 +241,7 @@ services:
         class: Chamilo\CoreBundle\Settings\AgendaSettingsSchema
         tags:
             - { name: sylius.settings_schema, alias: chamilo_core.settings.agenda, namespace: agenda }
+
     # Login listener - When user logs in
     chamilo_core.settings.attendance:
         class: Chamilo\CoreBundle\Settings\AttendanceSettingsSchema

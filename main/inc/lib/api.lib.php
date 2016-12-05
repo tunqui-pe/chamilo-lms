@@ -2281,6 +2281,19 @@ function api_get_session_condition(
 }
 
 /**
+ * @param string $variable
+ * @param string $option
+ * @return bool
+ */
+function api_get_setting_in_list($variable, $option)
+{
+    $value = api_get_setting($variable);
+
+    return in_array($option, $value);
+}
+
+
+/**
  * Returns the value of a setting from the web-adjustable admin config settings.
  *
  * WARNING true/false are stored as string, so when comparing you need to check e.g.
@@ -7966,3 +7979,5 @@ function api_remove_uploaded_file($type, $file)
         unlink($path);
     }
 }
+
+
