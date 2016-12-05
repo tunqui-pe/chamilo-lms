@@ -6,7 +6,6 @@
  *
  * @author Julio Montoya <gugli100@gmail.com>
  *
- * @deprecated
  *
  * In Chamilo 2 files inside main/ (classic chamilo files) are
  * wrapped by a Symfony2 controller LegacyController::classicAction
@@ -78,6 +77,8 @@ class Template
         $load_plugins = true,
         $sendHeaders = true
     ) {
+
+        return;
         // Page title
         $this->title = $title;
 
@@ -442,6 +443,22 @@ class Template
      */
     public function get_template($name)
     {
+        if ($name == 'layout/layout_1_col.tpl') {
+            $name = 'layout/layout_1_col.html.twig';
+        }
+
+        if ($name == 'layout/layout_2_col.tpl') {
+            $name = 'layout/layout_2_col.html.twig';
+        }
+
+        /**
+         * In Chamilo 1.x we use the tpl extension.
+         * In Chamilo 2.x we use twig but using the Symfony2 bridge
+         * In order to don't change all legacy main calls we just replace
+         * tpl with html.twig (the new template location should be:
+         * (src/Chamilo/CoreBundle/Resources/views/default/layout)
+         */
+        $name = str_replace('.tpl', '.html.twig');
         return $this->templateFolder.'/'.$name;
     }
 
@@ -535,6 +552,72 @@ class Template
             'gamification_mode' => api_get_setting('gamification_mode')
         );
         $this->assign('_s', $_s);
+    }
+
+    /**
+     * Set legacy twig globals in order to be hook in the LegacyListener.php
+     * @return array
+     */
+    public static function getGlobals()
+    {
+        $_p = array(
+            'web' => api_get_path(WEB_PATH),
+            'web_relative' => api_get_path(REL_PATH),
+            'web_course' => api_get_path(WEB_COURSE_PATH),
+            'web_main' => api_get_path(WEB_CODE_PATH),
+            'web_css' => api_get_path(WEB_CSS_PATH),
+            //'web_css_theme' => api_get_path(WEB_CSS_PATH) . 'themes/' . $this->theme . '/',
+            'web_ajax' => api_get_path(WEB_AJAX_PATH),
+            'web_img' => api_get_path(WEB_IMG_PATH),
+            'web_plugin' => api_get_path(WEB_PLUGIN_PATH),
+            'web_lib' => api_get_path(WEB_LIBRARY_PATH),
+            'web_upload' => api_get_path(WEB_UPLOAD_PATH),
+            'web_self' => api_get_self(),
+            'web_query_vars' => api_htmlentities($_SERVER['QUERY_STRING']),
+            'web_self_query_vars' => api_htmlentities($_SERVER['REQUEST_URI']),
+            'web_cid_query' => api_get_cidreq(),
+        );
+
+        $_s = array(
+            'software_name' => api_get_configuration_value('software_name'),
+            'system_version' => api_get_configuration_value('system_version'),
+            'site_name' => api_get_setting('siteName'),
+            'institution' => api_get_setting('Institution'),
+            'date' => api_format_date('now', DATE_FORMAT_LONG),
+            'timezone' => api_get_timezone(),
+            'gamification_mode' => api_get_setting('gamification_mode')
+        );
+
+        $user_info = array();
+        $user_info['logged'] = 0;
+        //$this->user_is_logged_in = false;
+        if (api_user_is_login()) {
+            $user_info = api_get_user_info(api_get_user_id(), true);
+            $user_info['logged'] = 1;
+            $user_info['is_admin'] = 0;
+            /*if (api_is_platform_admin()) {
+                $user_info['is_admin'] = 1;
+            }*/
+            //$user_info['messages_count'] = MessageManager::get_new_messages();
+
+        }
+
+        return [
+            '_p' => $_p,
+            '_s' => $_s,
+            '_u' => $user_info,
+            'plugin_main_top' => '',
+            'plugin_content_top' => '',
+            'plugin_content_bottom' => '',
+            'plugin_main_bottom' => '',
+            'plugin_main_top' => '',
+            'breadcrumb' => '',
+            'plugin_main_top' => '',
+            'plugin_main_top' => '',
+            'plugin_main_top' => '',
+            'plugin_main_top' => '',
+            'template' => 'default' // @todo setup template folder in config.yml;
+        ];
     }
 
     /**
@@ -1252,8 +1335,13 @@ class Template
      */
     public function fetch($template = null)
     {
-        $template = $this->twig->loadTemplate($template);
+        /*$template = $this->twig->loadTemplate($template);
+        return $template->render($this->params);*/
+        //
+
+        $template = \Chamilo\CoreBundle\Framework\Container::getTwig()->loadTemplate('ChamiloCoreBundle::'.$template);
         return $template->render($this->params);
+
     }
 
     /**
@@ -1278,7 +1366,9 @@ class Template
             Display::cleanFlashMessages();
         }
 
-        echo $this->twig->render($template, $this->params);
+        echo \Chamilo\CoreBundle\Framework\Container::getTwig()->render('ChamiloCoreBundle::'.$template, $this->params);
+
+        //echo $this->twig->render($template, $this->params);
     }
 
     /**
