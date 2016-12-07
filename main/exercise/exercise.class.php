@@ -690,9 +690,12 @@ class Exercise
 
         // Getting question list from the order (question list drag n drop interface ).
         $sql = "SELECT e.question_id
-                FROM $TBL_EXERCICE_QUESTION e INNER JOIN $TBL_QUESTIONS q
-                    ON (e.question_id= q.id)
-                WHERE e.c_id = {$this->course_id} AND e.exercice_id	= '".Database::escape_string($this->id)."'
+                FROM $TBL_EXERCICE_QUESTION e 
+                INNER JOIN $TBL_QUESTIONS q
+                ON (e.question_id= q.id AND e.c_id = q.c_id)
+                WHERE 
+                    e.c_id = {$this->course_id} AND 
+                    e.exercice_id	= '".Database::escape_string($this->id)."'
                 ORDER BY q.question";
         $result = Database::query($sql);
         $list = array();
@@ -1194,10 +1197,10 @@ class Exercise
             $randomLimit = null;
         }
 
-        // @todo improve this query
         $sql = "SELECT e.question_id
-                FROM $TBL_EXERCISE_QUESTION e INNER JOIN $TBL_QUESTIONS q
-                    ON (e.question_id= q.iid)
+                FROM $TBL_EXERCISE_QUESTION e 
+                INNER JOIN $TBL_QUESTIONS q
+                ON (e.question_id= q.iid AND e.c_id = q.c_id)
                 WHERE e.c_id = {$this->course_id} AND e.exercice_id	= '".Database::escape_string($this->id)."'
                 ORDER BY RAND()
                 $randomLimit ";
@@ -2658,7 +2661,7 @@ class Exercise
     public function clean_results($cleanLpTests = false, $cleanResultBeforeDate = null)
     {
         $table_track_e_exercises = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-        $table_track_e_attempt   = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
+        $table_track_e_attempt = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
 
         $sql_where = '  AND
                         orig_lp_id = 0 AND
@@ -3629,6 +3632,7 @@ class Exercise
                         $listCorrectAnswers = FillBlanks::getAnswerInfo(
                             $answer
                         );
+
                         $switchableAnswerSet = $listCorrectAnswers["switchable"];
                         $answerWeighting = $listCorrectAnswers["tabweighting"];
                         // user choices is an array $choice
@@ -3657,19 +3661,15 @@ class Exercise
 
                                 // This value is the user input, not escaped while correct answer is escaped by fckeditor
                                 // Works with cyrillic alphabet and when using ">" chars see #7718 #7610 #7618
-                                if (!$from_database) {
+                                /*if (!$from_database) {
                                     $studentAnswer = htmlentities(
                                         api_utf8_encode($studentAnswer)
                                     );
-                                }
+                                }*/
 
                                 $correctAnswer = $listCorrectAnswers['tabwords'][$i];
                                 $isAnswerCorrect = 0;
-                                if (FillBlanks::isGoodStudentAnswer(
-                                    $studentAnswer,
-                                    $correctAnswer
-                                )
-                                ) {
+                                if (FillBlanks::isGoodStudentAnswer($studentAnswer, $correctAnswer)) {
                                     // gives the related weighting to the student
                                     $questionScore += $answerWeighting[$i];
                                     // increments total score
@@ -8459,7 +8459,14 @@ class Exercise
         foreach ($attempts as $attempt) {
             foreach ($attempt['question_list'] as $answer) {
                 $objAnswer = new Answer($answer['question_id']);
-                $isCorrect = $objAnswer->isCorrectByAutoId($answer['answer']);
+
+                switch ($objAnswer->getQuestionType()) {
+                    case FILL_IN_BLANKS:
+                        $isCorrect = FillBlanks::isCorrect($answer['answer']);
+                        break;
+                    default:
+                        $isCorrect = $objAnswer->isCorrectByAutoId($answer['answer']);
+                }
 
                 if ($isCorrect) {
                     $corrects[$answer['question_id']][] = $answer;
