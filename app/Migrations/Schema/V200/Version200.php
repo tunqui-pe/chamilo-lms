@@ -145,14 +145,10 @@ class Version200 extends AbstractMigrationChamilo
         $this->addSql('UPDATE c_tool SET name = "settings" WHERE name = "course_setting" ');
 
 
-        //$this->addSql('UPDATE c_tool SET name = "blog" WHERE name = "blog_management" ');
-
-
-
-
-
-
-
+        $table = $schema->getTable('message');
+        if (!$table->hasIndex('idx_message_user_receiver_status')) {
+            $this->addSql('CREATE INDEX idx_message_user_receiver_status ON message (user_receiver_id, msg_status)');
+        }
     }
 
     /**
