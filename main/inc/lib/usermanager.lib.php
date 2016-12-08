@@ -2491,7 +2491,8 @@ class UserManager
         return $extraField->getFieldInfoByFieldId($fieldId);
     }
 
-    /** Get extra user data by value
+    /**
+     * Get extra user data by value
      * @param string $variable the internal variable name of the field
      * @param string $value the internal value of the field
      * @param bool $all_visibility
@@ -2549,12 +2550,12 @@ class UserManager
 
     /**
      * Get extra user data by field variable
-     * @param string    field variable
+     * @param string    $variable field variable
      * @return array    data
      */
-    public static function get_extra_user_data_by_field_variable($field_variable)
+    public static function get_extra_user_data_by_field_variable($variable)
     {
-        $extra_information_by_variable = self::get_extra_field_information_by_name($field_variable);
+        $extra_information_by_variable = self::get_extra_field_information_by_name($variable);
         $field_id = intval($extra_information_by_variable['id']);
 
         $extraField = new ExtraFieldValue('user');
@@ -2573,14 +2574,14 @@ class UserManager
     /**
      * Get extra user data tags by field variable
      *
-     * @param string    field variable
-     * @return array    data
+     * @param string $variable field variable
+     * @return array
      */
-    public static function get_extra_user_data_for_tags($field_variable)
+    public static function get_extra_user_data_for_tags($variable)
     {
-        $extra_information_by_variable = self::get_extra_field_tags_information_by_name($field_variable);
+        $data = self::get_extra_field_tags_information_by_name($variable);
 
-        return $extra_information_by_variable;
+        return $data;
     }
 
     /**
@@ -2662,11 +2663,14 @@ class UserManager
                 }
             }
 
+            $categoryStart = $row['session_category_date_start'] ? $row['session_category_date_start']->format('Y-m-d') : '';
+            $categoryEnd = $row['session_category_date_end'] ? $row['session_category_date_end']->format('Y-m-d') : '';
+
             $categories[$row['session_category_id']]['session_category'] = array(
                 'id' => $row['session_category_id'],
                 'name' => $row['session_category_name'],
-                'date_start' => $row['session_category_date_start'] ? $row['session_category_date_start']->format('Y-m-d H:i:s') : null,
-                'date_end' => $row['session_category_date_end'] ? $row['session_category_date_end']->format('Y-m-d H:i:s') : null
+                'date_start' => $categoryStart,
+                'date_end' => $categoryEnd
             );
 
             $session_id = $row['id'];
