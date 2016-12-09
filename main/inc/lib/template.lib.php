@@ -458,7 +458,7 @@ class Template
          * tpl with html.twig (the new template location should be:
          * (src/Chamilo/CoreBundle/Resources/views/default/layout)
          */
-        $name = str_replace('.tpl', '.html.twig');
+        $name = str_replace('.tpl', '.html.twig', $name);
         return $this->templateFolder.'/'.$name;
     }
 
