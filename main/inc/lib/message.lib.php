@@ -59,6 +59,7 @@ class MessageManager
                             msg_status = " . MESSAGE_STATUS_UNREAD;
         $result = Database::query($sql);
         $row = Database::fetch_assoc($result);
+
         return $row['count'];
     }
 
