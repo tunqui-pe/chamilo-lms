@@ -60,6 +60,7 @@ class Basic extends Toolbar
         'widget',
         'wikilink',
         'wordcount',
+        'inserthtml',
         'xml',
     );
 

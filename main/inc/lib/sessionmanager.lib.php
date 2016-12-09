@@ -947,17 +947,19 @@ class SessionManager
                     FROM $workTable w
                     LEFT JOIN $workTableAssignment a
                     ON (a.publication_id = w.id AND a.c_id = w.c_id)
-                    WHERE w.c_id = %s
-                    AND parent_id = 0
-                    AND active IN (1, 0)";
+                    WHERE 
+                        w.c_id = %s AND 
+                        parent_id = 0 AND 
+                        active IN (1, 0)";
         } else {
             $sql = "SELECT count(w.id) as count
                     FROM $workTable w
                     LEFT JOIN $workTableAssignment a
                     ON (a.publication_id = w.id AND a.c_id = w.c_id)
-                    WHERE w.c_id = %s
-                    AND parent_id = 0
-                    AND active IN (1, 0)";
+                    WHERE 
+                        w.c_id = %s AND 
+                        parent_id = 0 AND 
+                        active IN (1, 0)";
 
             if (empty($sessionId)) {
                 $sql .= ' AND w.session_id = NULL ';
@@ -3139,6 +3141,7 @@ class SessionManager
      * @param bool $getOnlySessionId
      * @param bool $getSql
      * @param string $orderCondition
+     * @param string $keyword
      * @param string $description
      *
      * @return array sessions
@@ -3265,7 +3268,6 @@ class SessionManager
         }
 
         $whereConditions .= $keywordCondition;
-
         $subQuery = $sessionQuery.$courseSessionQuery;
 
         $sql = " $select FROM $tbl_session s
@@ -3381,7 +3383,7 @@ class SessionManager
         $sql = "SELECT $sqlSelect
                 FROM $tbl_course c
                 INNER JOIN $tbl_session_rel_course src
-                ON c.id = src.c_id
+                ON (c.id = src.c_id)
 		        WHERE src.session_id = '$session_id' ";
 
         if (!empty($course_name)) {

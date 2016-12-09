@@ -2618,9 +2618,9 @@ class UserManager
                     sc.dateEnd AS session_category_date_end,
                     s.coachAccessStartDate AS coach_access_start_date,
                     s.coachAccessEndDate AS coach_access_end_date
-                FROM ChamiloCoreBundle:Session AS s
+                FROM ChamiloCoreBundle:Session AS s                                
+                INNER JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
                 LEFT JOIN ChamiloCoreBundle:SessionCategory AS sc WITH s.category = sc
-                LEFT JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
                 WHERE scu.user = :user OR s.generalCoach = :user
                 ORDER BY sc.name, s.name";
 
@@ -2994,7 +2994,6 @@ class UserManager
         /* This query is very similar to the query below, but it will check the
         session_rel_course_user table if there are courses registered
         to our user or not */
-
         $sql = "SELECT DISTINCT
                     c.visibility,
                     c.id as real_id,                    
@@ -3041,7 +3040,7 @@ class UserManager
                     WHERE
                       s.id = $session_id AND
                       (
-                        (scu.user_id = $user_id AND scu.status=2) OR
+                        (scu.user_id = $user_id AND scu.status = 2) OR
                         s.id_coach = $user_id
                       )
                     $where_access_url
@@ -3060,12 +3059,12 @@ class UserManager
         }
 
         if (api_is_drh()) {
-            $session_list = SessionManager::get_sessions_followed_by_drh($user_id);
-            $session_list = array_keys($session_list);
-            if (in_array($session_id, $session_list)) {
-                $course_list = SessionManager::get_course_list_by_session_id($session_id);
-                if (!empty($course_list)) {
-                    foreach ($course_list as $course) {
+            $sessionList = SessionManager::get_sessions_followed_by_drh($user_id);
+            $sessionList = array_keys($sessionList);
+            if (in_array($session_id, $sessionList)) {
+                $courseList = SessionManager::get_course_list_by_session_id($session_id);
+                if (!empty($courseList)) {
+                    foreach ($courseList as $course) {
                         if (!in_array($course['id'], $courses)) {
                             $personal_course_list[] = $course;
                         }
@@ -3076,9 +3075,9 @@ class UserManager
             //check if user is general coach for this session
             $sessionInfo = api_get_session_info($session_id);
             if ($sessionInfo['id_coach'] == $user_id) {
-                $course_list = SessionManager::get_course_list_by_session_id($session_id);
-                if (!empty($course_list)) {
-                    foreach ($course_list as $course) {
+                $courseList = SessionManager::get_course_list_by_session_id($session_id);
+                if (!empty($courseList)) {
+                    foreach ($courseList as $course) {
                         if (!in_array($course['id'], $courses)) {
                             $personal_course_list[] = $course;
                         }
