@@ -130,8 +130,25 @@ class Version200 extends AbstractMigrationChamilo
         $this->addSql('CREATE INDEX IDX_6CBA5F5D613FECDF ON access_url_rel_session (session_id);');
         $this->addSql('CREATE INDEX IDX_6CBA5F5D73444FD5 ON access_url_rel_session (access_url_id);');
 
+        $this->addSql('ALTER TABLE c_tool ADD CONSTRAINT FK_8456658091D79BD3 FOREIGN KEY (c_id) REFERENCES course (id)');
+
+        $this->addSql('CREATE INDEX notification_message_state_idx ON notification__message (state);');
+        $this->addSql('CREATE INDEX notification_message_created_at_idx ON notification__message (created_at);');
+        $this->addSql('DROP INDEX user_sco_course_sv ON track_stored_values;');
+        $this->addSql('DROP INDEX user_sco_course_sv_stack ON track_stored_values_stack;');
 
 
+        $this->addSql('UPDATE c_tool SET name = "blog" WHERE name = "blog_management" ');
+        $this->addSql('UPDATE c_tool SET name = "agenda" WHERE name = "calendar_event" ');
+        $this->addSql('UPDATE c_tool SET name = "maintenance" WHERE name = "course_maintenance" ');
+        $this->addSql('UPDATE c_tool SET name = "assignment" WHERE name = "student_publication" ');
+        $this->addSql('UPDATE c_tool SET name = "settings" WHERE name = "course_setting" ');
+
+
+        $table = $schema->getTable('message');
+        if (!$table->hasIndex('idx_message_user_receiver_status')) {
+            $this->addSql('CREATE INDEX idx_message_user_receiver_status ON message (user_receiver_id, msg_status)');
+        }
     }
 
     /**

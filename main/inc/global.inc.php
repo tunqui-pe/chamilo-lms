@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+return;
+
 /**
  * It is recommended that ALL Chamilo scripts include this important file.
  * This script manages
@@ -194,7 +196,7 @@ if (!empty($_configuration['multiple_access_urls'])) {
 
 $charset = 'UTF-8';
 
-// Enables the portablity layer and configures PHP for UTF-8
+// Enables the portability layer and configures PHP for UTF-8
 \Patchwork\Utf8\Bootup::initAll();
 
 // Start session after the internationalization library has been initialized.
@@ -285,6 +287,10 @@ if (api_get_setting('server_type') == 'test') {
     ini_set('display_errors', '1');
     ini_set('log_errors', '1');
     error_reporting(-1);
+
+    if (function_exists('opcache_reset')) {
+        opcache_reset();
+    }
 } else {
     error_reporting(E_COMPILE_ERROR | E_ERROR | E_CORE_ERROR);
 }

@@ -3,6 +3,11 @@
 
 use ChamiloSession as Session;
 use Chamilo\CourseBundle\Entity\CItemProperty;
+use Symfony\Component\Validator\Constraints as Assert;
+use Chamilo\UserBundle\Entity\User;
+use Chamilo\CoreBundle\Entity\Course;
+use Chamilo\CoreBundle\Framework\Container;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * This is a code library for Chamilo.
@@ -18,7 +23,7 @@ use Chamilo\CourseBundle\Entity\CItemProperty;
  */
 
 // PHP version requirement.
-define('REQUIRED_PHP_VERSION', '5.4');
+define('REQUIRED_PHP_VERSION', '7.0');
 define('REQUIRED_MIN_MEMORY_LIMIT', '128');
 define('REQUIRED_MIN_UPLOAD_MAX_FILESIZE', '10');
 define('REQUIRED_MIN_POST_MAX_SIZE', '10');
@@ -614,6 +619,19 @@ if (!defined('CHAMILO_LOAD_WYSIWYG')) {
     define('CHAMILO_LOAD_WYSIWYG', true);
 }
 
+define('TOOL_PUBLIC', 'Public');
+define('TOOL_PUBLIC_BUT_HIDDEN', 'PublicButHide');
+define('TOOL_COURSE_ADMIN', 'courseAdmin');
+define('TOOL_PLATFORM_ADMIN', 'platformAdmin');
+define('TOOL_AUTHORING', 'toolauthoring');
+define('TOOL_INTERACTION', 'toolinteraction');
+define('TOOL_COURSE_PLUGIN', 'toolcourseplugin'); //all plugins that can be enabled in courses
+define('TOOL_ADMIN', 'tooladmin');
+define('TOOL_ADMIN_PLATFORM', 'tooladminplatform');
+define('TOOL_DRH', 'tool_drh');
+define('TOOL_STUDENT_VIEW', 'toolstudentview');
+define('TOOL_ADMIN_VISIBLE', 'tooladminvisible');
+
 /**
  * Inclusion of internationalization libraries
  */
@@ -658,35 +676,16 @@ function api_get_path($path = '', $configuration = [])
     }
 
     $course_folder = 'courses/';
-    $root_sys = $_configuration['root_sys'];
+    $root_sys = Container::getRootDir();
 
     // Resolve master hostname.
     if (!empty($configuration) && array_key_exists('root_web', $configuration)) {
         $root_web = $configuration['root_web'];
     } else {
-        $root_web = '';
-        // Try guess it from server.
-        if (defined('SYSTEM_INSTALLATION') && SYSTEM_INSTALLATION) {
-            if (($pos = strpos(($requested_page_rel = api_get_self()), 'main/install')) !== false) {
-                $root_rel = substr($requested_page_rel, 0, $pos);
-                // See http://www.mediawiki.org/wiki/Manual:$wgServer
-                $server_protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
-                $server_name =
-                    isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME']
-                    : (isset($_SERVER['HOSTNAME']) ? $_SERVER['HOSTNAME']
-                    : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']
-                    : (isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR']
-                    : 'localhost')));
-                if (isset($_SERVER['SERVER_PORT']) && !strpos($server_name, ':')
-                    && (($server_protocol == 'http'
-                    && $_SERVER['SERVER_PORT'] != 80 ) || ($server_protocol == 'https' && $_SERVER['SERVER_PORT'] != 443 ))) {
-                    $server_name .= ":" . $_SERVER['SERVER_PORT'];
-                }
-                $root_web = $server_protocol.'://'.$server_name.$root_rel;
-                $root_sys = str_replace('\\', '/', realpath(__DIR__.'/../../../')).'/';
-            }
-            // Here we give up, so we don't touch anything.
-        }
+        $root_web = Container::getUrlGenerator()->generate(
+            'home',
+            []
+        );
     }
 
     if (isset($configuration['multiple_access_urls']) && $configuration['multiple_access_urls']) {
@@ -757,18 +756,14 @@ function api_get_path($path = '', $configuration = [])
     // Web server base and system server base.
     if (!array_key_exists($root_web, $isInitialized)) {
         // process absolute global roots
-        if (!empty($configuration)) {
-            $code_folder = 'main';
-        } else {
-            $code_folder = $paths[$root_web][REL_CODE_PATH];
-        }
-
+        $code_folder = 'main';
         // Support for the installation process.
         // Developers might use the function api_get_path() directly or indirectly (this is difficult to be traced), at the moment when
         // configuration has not been created yet. This is why this function should be upgraded to return correct results in this case.
 
         // Dealing with trailing slashes.
         $slashed_root_web = api_add_trailing_slash($root_web);
+
         $root_sys = api_add_trailing_slash($root_sys);
         $root_rel = api_add_trailing_slash($root_rel);
         $code_folder = api_add_trailing_slash($code_folder);
@@ -819,10 +814,12 @@ function api_get_path($path = '', $configuration = [])
 
         global $virtualChamilo;
         if (!empty($virtualChamilo)) {
-            $paths[$root_web][SYS_ARCHIVE_PATH] = $virtualChamilo[SYS_ARCHIVE_PATH].'/';
-            $paths[$root_web][SYS_HOME_PATH] = $virtualChamilo[SYS_HOME_PATH].'/';
-            $paths[$root_web][SYS_COURSE_PATH] = $virtualChamilo[SYS_COURSE_PATH].'/';
-            $paths[$root_web][SYS_UPLOAD_PATH] = $virtualChamilo[SYS_UPLOAD_PATH].'/';
+            $paths[$root_web][SYS_ARCHIVE_PATH] = api_add_trailing_slash($virtualChamilo[SYS_ARCHIVE_PATH]);
+            $paths[$root_web][SYS_HOME_PATH] = api_add_trailing_slash($virtualChamilo[SYS_HOME_PATH]);
+            $paths[$root_web][SYS_COURSE_PATH] = api_add_trailing_slash($virtualChamilo[SYS_COURSE_PATH]);
+            $paths[$root_web][SYS_UPLOAD_PATH] = api_add_trailing_slash($virtualChamilo[SYS_UPLOAD_PATH]);
+            //$paths[$root_web][REL_PATH] = $virtualChamilo[REL_PATH];
+            //$paths[$root_web][REL_COURSE_PATH] = $virtualChamilo[REL_COURSE_PATH];
         }
 
         $isInitialized[$root_web] = true;
@@ -1349,6 +1346,7 @@ function _api_format_user($user, $add_password = false)
     $user_id = intval($user['user_id']);
     // Maintain the user_id index for backwards compatibility
     $result['user_id'] = $result['id'] = $user_id;
+    $result['last_login'] = $user['last_login'];
 
     // Getting user avatar.
     $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, null, $result);
@@ -1420,7 +1418,7 @@ function api_get_user_info(
     if (Database::num_rows($result) > 0) {
         $result_array = Database::fetch_array($result);
         if ($checkIfUserOnline) {
-            $use_status_in_platform = user_is_online($user_id);
+            $use_status_in_platform = UserManager::user_is_online($user_id);
 
             $result_array['user_is_online'] = $use_status_in_platform;
             $user_online_in_chat = 0;
@@ -1464,6 +1462,19 @@ function api_get_user_entity($userId)
     $repo = Database::getManager()->getRepository('ChamiloUserBundle:User');
 
     return $repo->find($userId);
+}
+
+/**
+ * @param int $courseId
+ *
+ * @return Course
+ */
+function api_get_user_course_entity($courseId = null)
+{
+    if (empty($courseId)) {
+        $courseId = api_get_course_int_id();
+    }
+    return CourseManager::getManager()->find($courseId);
 }
 
 /**
@@ -1723,7 +1734,7 @@ function api_get_course_info($course_code = null, $strict = false)
         return $courseInfo;
     }
 
-    global $_course;
+    $_course = Session::read('_course');
     if ($_course == '-1') {
         $_course = array();
     }
@@ -1835,6 +1846,11 @@ function api_format_course_array($course_data)
         $url_image = Display::returnIconPath('session_default.png');
     }
     $_course['course_image_large'] = $url_image;
+
+    $_course['extra_fields'] = isset($course_data['extra_fields']) ? $course_data['extra_fields'] : array();
+    $_course['settings'] = isset($course_data['settings']) ? $course_data['settings'] : array();
+    $_course['teacher_list'] = isset($course_data['teacher_list']) ? $course_data['teacher_list'] : array();
+    $_course['teacher_list_formatted'] = isset($course_data['teacher_list_formatted']) ? $course_data['teacher_list_formatted'] : array();
 
     return $_course;
 }
@@ -1975,7 +1991,8 @@ function api_clear_anonymous($db_check = false)
  * @author Noel Dieschburg
  * @param the int status code
  */
-function get_status_from_code($status_code) {
+function get_status_from_code($status_code)
+{
     switch ($status_code) {
         case STUDENT:
             return get_lang('Student', '');
@@ -2015,8 +2032,6 @@ function api_set_anonymous() {
     return true;
 }
 
-/* CONFIGURATION SETTINGS */
-
 /**
  * Gets the current Chamilo (not PHP/cookie) session ID
  * @return  int     O if no active session, the session ID otherwise
@@ -2040,10 +2055,13 @@ function api_get_group_id()
  * @param   int     Session ID (optional)
  * @return  string  The session name, or null if unfound
  */
-function api_get_session_name($session_id = 0) {
+function api_get_session_name($session_id = 0)
+{
     if (empty($session_id)) {
         $session_id = api_get_session_id();
-        if (empty($session_id)) { return null; }
+        if (empty($session_id)) {
+            return null;
+        }
     }
     $t = Database::get_main_table(TABLE_MAIN_SESSION);
     $s = "SELECT name FROM $t WHERE id = ".(int)$session_id;
@@ -2265,49 +2283,70 @@ function api_get_session_condition(
 }
 
 /**
+ * @param string $variable
+ * @param string $option
+ * @return bool
+ */
+function api_get_setting_in_list($variable, $option)
+{
+    $value = api_get_setting($variable);
+
+    return in_array($option, $value);
+}
+
+
+/**
  * Returns the value of a setting from the web-adjustable admin config settings.
  *
  * WARNING true/false are stored as string, so when comparing you need to check e.g.
- * if (api_get_setting('show_navigation_menu') == 'true') //CORRECT
+ * if (api_get_setting('course.show_navigation_menu') == 'true') //CORRECT
  * instead of
- * if (api_get_setting('show_navigation_menu') == true) //INCORRECT
+ * if (api_get_setting('course.show_navigation_menu') == true) //INCORRECT
  * @param string    $variable The variable name
- * @param string    $key The subkey (sub-variable) if any. Defaults to NULL
  * @return string
- * @author René Haentjens
- * @author Bart Mollet
+ *
+ * @author Julio Montoya
  */
-function api_get_setting($variable, $key = null)
+function api_get_setting($variable)
 {
-    global $_setting;
-    if ($variable == 'header_extra_content') {
-        $filename = api_get_path(SYS_PATH).api_get_home_path().'header_extra_content.txt';
-        if (file_exists($filename)) {
-            $value = file_get_contents($filename);
-            return $value;
-        } else {
-            return '';
-        }
-    }
-    if ($variable == 'footer_extra_content') {
-        $filename = api_get_path(SYS_PATH).api_get_home_path().'footer_extra_content.txt';
-        if (file_exists($filename)) {
-            $value = file_get_contents($filename);
-            return $value;
-        } else {
-            return '';
-        }
-    }
-    $value = null;
-    if (is_null($key)) {
-        $value = ((isset($_setting[$variable]) && $_setting[$variable] != '') ? $_setting[$variable] : null);
-    } else {
-        if (isset($_setting[$variable][$key])) {
-            $value = $_setting[$variable][$key];
-        }
-    }
+    $variable = trim($variable);
 
-    return $value;
+    switch ($variable) {
+        case 'header_extra_content':
+            $filename = api_get_path(SYS_PATH).api_get_home_path().'header_extra_content.txt';
+            if (file_exists($filename)) {
+                $value = file_get_contents($filename);
+                    return $value ;
+            } else {
+                return '';
+            }
+            break;
+        case 'footer_extra_content':
+            $filename = api_get_path(SYS_PATH).api_get_home_path().'footer_extra_content.txt';
+            if (file_exists($filename)) {
+                $value = file_get_contents($filename);
+                return $value ;
+            } else {
+                return '';
+            }
+            break;
+        case 'server_type':
+            $test = ['dev', 'test'];
+            $environment = Container::getEnvironment();
+            if (in_array($environment, $test)) {
+                return 'test';
+            }
+            return 'prod';
+        case 'stylesheets':
+            $variable = 'platform.theme';
+            break;
+        // deprecated settings
+        case 'openid_authentication':
+        case 'sso_authentication':
+            break;
+        default:
+            return Container::getSettingsManager()->getSetting($variable);
+    }
 }
 
 /**
@@ -2358,8 +2397,6 @@ function api_get_self() {
     return htmlentities($_SERVER['PHP_SELF']);
 }
 
-/* USER PERMISSIONS */
-
 /**
  * Checks whether current user is a platform administrator
  * @param boolean $allowSessionAdmins Whether session admins should be considered admins or not
@@ -2370,24 +2407,39 @@ function api_get_self() {
  */
 function api_is_platform_admin($allowSessionAdmins = false, $allowDrh = false)
 {
-    $isAdmin = Session::read('is_platformAdmin');
-    if ($isAdmin) {
+    $checker = Container::getAuthorizationChecker();
+    if ($checker) {
+        if ($checker->isGranted('ROLE_ADMIN')) {
         return true;
     }
-    $user = api_get_user_info();
+        if ($allowSessionAdmins) {
+            if ($checker->isGranted('ROLE_SESSION_MANAGER')) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+
+    $isPlatformAdmin = Session::read('is_platformAdmin');
+    if ($isPlatformAdmin) {
+        return true;
+    }
+    $_user = api_get_user_info();
+
     return
-        isset($user['status']) &&
+        isset($_user['status']) &&
         (
-            ($allowSessionAdmins && $user['status'] == SESSIONADMIN) ||
-            ($allowDrh && $user['status'] == DRH)
+            ($allowSessionAdmins && $_user['status'] == SESSIONADMIN) ||
+            ($allowDrh && $_user['status'] == DRH)
         );
 }
 
 /**
  * Checks whether the user given as user id is in the admin table.
- * @param int $user_id If none provided, will use current user
+ * @param int $user_id. If none provided, will use current user
  * @param int $url URL ID. If provided, also check if the user is active on given URL
- * @return bool True if the user is admin, false otherwise
+ * @result bool True if the user is admin, false otherwise
  */
 function api_is_platform_admin_by_id($user_id = null, $url = null)
 {
@@ -2395,13 +2447,15 @@ function api_is_platform_admin_by_id($user_id = null, $url = null)
     if (empty($user_id)) {
         $user_id = api_get_user_id();
     }
-    $admin_table = Database::get_main_table(TABLE_MAIN_ADMIN);
-    $sql = "SELECT * FROM $admin_table WHERE user_id = $user_id";
-    $res = Database::query($sql);
-    $is_admin = Database::num_rows($res) === 1;
-    if (!$is_admin || !isset($url)) {
+
+    $em = Container::getEntityManager();
+    $user = $em->getRepository('ChamiloUserBundle:User')->find($user_id);
+    $is_admin = $user->hasRole('ROLE_ADMIN');
+
+    if (!$is_admin or !isset($url)) {
         return $is_admin;
     }
+
     // We get here only if $url is set
     $url = intval($url);
     $url_user_table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
@@ -3107,6 +3161,11 @@ function api_is_anonymous($user_id = null, $db_check = false)
  */
 function api_not_allowed($print_headers = false, $message = null)
 {
+    if (empty($message)) {
+        $message = get_lang('NotAllowed');
+    }
+    throw new Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException($message);
+
     if (api_get_setting('sso_authentication') === 'true') {
         global $osso;
         if ($osso) {
@@ -4089,9 +4148,8 @@ function api_get_languages() {
             ORDER BY original_name ASC";
     $result = Database::query($sql);
     $language_list = array();
-    while ($row = Database::fetch_array($result)) {
-        $language_list['name'][] = $row['original_name'];
-        $language_list['folder'][] = $row['dokeos_folder'];
+   while ($row = Database::fetch_array($result)) {
+        $language_list[$row['isocode']] = $row['original_name'];
     }
     return $language_list;
 }
@@ -4233,7 +4291,7 @@ function api_get_visual_theme()
         // Platform's theme.
         $visual_theme = $platform_theme;
 
-        if (api_get_setting('user_selected_theme') == 'true') {
+        if (api_get_setting('profile.user_selected_theme') == 'true') {
             $user_info = api_get_user_info();
             if (isset($user_info['theme'])) {
                 $user_theme = $user_info['theme'];
@@ -4248,7 +4306,7 @@ function api_get_visual_theme()
         $course_id = api_get_course_id();
 
         if (!empty($course_id) && $course_id != -1) {
-            if (api_get_setting('allow_course_theme') == 'true') {
+            if (api_get_setting('course.allow_course_theme') == 'true') {
                 $course_theme = api_get_course_setting('course_theme');
 
                 if (!empty($course_theme) && $course_theme != -1) {
@@ -5964,9 +6022,9 @@ function api_get_template($path_type = 'rel') {
         }
     }
     $actived_theme = 'default';
-    if (api_get_setting('active_template')) {
+    /*if (api_get_setting('active_template')) {
         $actived_theme = api_get_setting('active_template');
-    }
+    }*/
     $actived_theme_path = $template_path.$actived_theme.DIRECTORY_SEPARATOR;
     return $actived_theme_path;
 }
@@ -6155,27 +6213,46 @@ function api_get_js($file) {
 
 /**
  * Returns the <script> HTML tag
+ *
+ * @param string $file
+ * @param bool $getURL only returns the URL without the <script> tag
  * @return string
  */
-function api_get_asset($file)
+function api_get_asset($file, $getURL = false)
 {
-    return '<script type="text/javascript" src="'.api_get_path(WEB_PATH).'web/assets/'.$file.'"></script>'."\n";
+    $url = Container::getAsset()->getUrl("assets/".$file);
+
+    if ($getURL) {
+        return $url;
+    }
+
+    return '<script type="text/javascript" src="'.$url.'"></script>'."\n";
 }
 
 /**
- * Returns the <script> HTML tag
+ *
+ * Returns the <link> HTML tag
+ *
+ * @param $file
+ * @param string $media
  * @return string
  */
 function api_get_css_asset($file, $media = 'screen')
 {
-    return '<link href="'.api_get_path(WEB_PATH).'web/assets/'.$file.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
+    $url = Container::getAsset()->getUrl("assets/".$file);
+    return '<link href="'.$url.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
 }
 
 /**
  * Returns the <link> HTML tag
+ *
  * @param string $file
+ * @param string $media
+ *
+ * @return string
  */
-function api_get_css($file, $media = 'screen') {
+function api_get_css($file, $media = 'screen')
+{
     return '<link href="'.$file.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
 }
 
@@ -7624,7 +7701,7 @@ function api_mail_html(
     }
 
     //If the SMTP configuration only accept one sender
-    if ($platform_email['SMTP_UNIQUE_SENDER']) {
+    if (isset($platform_email['SMTP_UNIQUE_SENDER']) && $platform_email['SMTP_UNIQUE_SENDER']) {
         $senderName = $platform_email['SMTP_FROM_NAME'];
         $senderEmail = $platform_email['SMTP_FROM_EMAIL'];
     }
@@ -7904,3 +7981,5 @@ function api_remove_uploaded_file($type, $file)
         unlink($path);
     }
 }
+
+

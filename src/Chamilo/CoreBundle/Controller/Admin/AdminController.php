@@ -68,10 +68,10 @@ class AdminController extends BaseController
 
         /* Users */
         $blocks['users']['icon'] = \Display::return_icon(
-            'members.gif',
+            'members.png',
             get_lang('Users'),
             array(),
-            ICON_SIZE_SMALL,
+            ICON_SIZE_MEDIUM,
             false
         );
         $blocks['users']['label'] = api_ucfirst(get_lang('Users'));
@@ -321,7 +321,7 @@ class AdminController extends BaseController
             'session.png',
             get_lang('Sessions'),
             array(),
-            ICON_SIZE_SMALL,
+            ICON_SIZE_MEDIUM,
             false
         );
         $blocks['sessions']['label'] = api_ucfirst(get_lang('Sessions'));
@@ -402,7 +402,7 @@ class AdminController extends BaseController
                 'settings.png',
                 get_lang('System'),
                 array(),
-                ICON_SIZE_SMALL,
+                ICON_SIZE_MEDIUM,
                 false
             );
             $blocks['settings']['label'] = api_ucfirst(get_lang('System'));
@@ -443,10 +443,10 @@ class AdminController extends BaseController
             //Skills
             if (api_get_setting('skill.allow_skills_tool') == 'true') {
                 $blocks['skills']['icon'] = \Display::return_icon(
-                    'logo.png',
+                    'skill-badges.png',
                     get_lang('Skills'),
                     array(),
-                    ICON_SIZE_SMALL,
+                    ICON_SIZE_MEDIUM,
                     false
                 );
                 $blocks['skills']['label'] = get_lang('Skills');
@@ -478,12 +478,11 @@ class AdminController extends BaseController
             }
 
             /** Chamilo.org */
-
             $blocks['chamilo']['icon'] = \Display::return_icon(
-                'logo.png',
+                'platform.png',
                 'Chamilo.org',
                 array(),
-                ICON_SIZE_SMALL,
+                ICON_SIZE_MEDIUM,
                 false
             );
             $blocks['chamilo']['label'] = 'Chamilo.org';

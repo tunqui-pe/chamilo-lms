@@ -41,13 +41,13 @@ plugins = [
 ];
 
 plugins.forEach(function (plugin) {
-    CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/components/ckeditor/plugins/') }}' + plugin + '/');
+    CKEDITOR.plugins.addExternal(plugin, '{{ asset('assets/ckeditor/plugins/') }}' + plugin + '/');
 });
 
 /* Global chat variables */
 var ajax_url = '{{ url('web.ajax') }}chat.ajax.php';
-var online_button = '{{ asset('bundles/chamilocore/img/statusonline.png') }}';
-var offline_button = '{{ asset('bundles/chamilocore/img/statusoffline.png') }}';
+var online_button = '{{ asset('assets/img/statusonline.png') }}';
+var offline_button = '{{ asset('assets/img/statusoffline.png') }}';
 var connect_lang = '{{ "ChatConnected"|trans }}';
 var disconnect_lang = '{{ "ChatDisconnected"|trans }}';
 

@@ -64,12 +64,12 @@ security:
                 use_forward:    false
                 check_path:     /login_check
                 failure_path:   null
-                default_target_path: /administration
-#                success_handler: chamilo_core.listener.login_success_handler
+                default_target_path: /admin
+                success_handler: chamilo_core.listener.login_success_handler
             logout:
                 path:   /logout
                 target: /
-#                success_handler: chamilo_core.listener.logout_success_handler
+                success_handler: chamilo_core.listener.logout_success_handler
                 invalidate_session: false
 #                handlers: ['sonata.page.cms_manager_selector']
             anonymous: ~

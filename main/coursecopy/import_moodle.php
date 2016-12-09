@@ -8,7 +8,7 @@
  * @package chamilo.backup
  */
 
-require_once '../inc/global.inc.php';
+require_once __DIR__.'/../inc/global.inc.php';
 
 $current_course_tool = TOOL_COURSE_MAINTENANCE;
 api_protect_course_script(true);
@@ -40,14 +40,21 @@ $form->addButtonImport(get_lang('Import'));
 if ($form->validate()) {
     $file = $_FILES['moodle_file'];
     $moodleImport = new MoodleImport();
-    $responseImport = $moodleImport->readMoodleFile($file);
+    $responseImport = $moodleImport->import($file);
 
     Display::cleanFlashMessages();
 
     if ($responseImport) {
-        Display::addFlash(Display::return_message(get_lang('MoodleFileImportedSuccessfully'), 'success'));
+        Display::addFlash(
+            Display::return_message(
+                get_lang('MoodleFileImportedSuccessfully'),
+                'success'
+            )
+        );
     } else {
-        Display::addFlash(Display::return_message(get_lang('ErrorImportingFile'), 'error'));
+        Display::addFlash(
+            Display::return_message(get_lang('ErrorImportingFile'), 'error')
+        );
     }
 }
 

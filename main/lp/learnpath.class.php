@@ -2220,7 +2220,7 @@ class learnpath
         // Getting all the information about the item.
         $sql = "SELECT * FROM $tbl_lp_item as lp
                 INNER JOIN $tbl_lp_item_view as lp_view
-                ON lp.id = lp_view.lp_item_id
+                ON (lp.id = lp_view.lp_item_id AND lp.c_id = lp_view.c_id)
                 WHERE
                     lp.id = '".$_SESSION['oLP']->current."' AND
                     lp.c_id = $course_id AND
@@ -5922,7 +5922,7 @@ class learnpath
             $folderData = create_unexisting_directory(
                 $course,
                 $creatorId,
-                api_get_session_id(),
+                0,
                 0,
                 0,
                 $filepath,
@@ -7661,6 +7661,7 @@ class learnpath
 
         if ($action != 'move') {
             $data = $this->generate_lp_folder($_course);
+
             $folders = DocumentManager::get_all_document_folders(
                 $_course,
                 0,

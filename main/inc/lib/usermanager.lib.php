@@ -3,6 +3,8 @@
 
 use Chamilo\CoreBundle\Entity\ExtraField as EntityExtraField;
 use Chamilo\UserBundle\Entity\User;
+use Chamilo\CoreBundle\Framework\Container;
+use Chamilo\CoreBundle\Entity\AccessUrlRelUser;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
@@ -706,6 +708,11 @@ class UserManager
 
         $sql = "UPDATE c_item_property SET lastedit_user_id = NULL
                 WHERE lastedit_user_id = '".$user_id."'";
+        Database::query($sql);
+
+        // Skills
+        $table = Database::get_main_table(TABLE_MAIN_SKILL_REL_USER);
+        $sql = "DELETE FROM $table WHERE user_id = $user_id";
         Database::query($sql);
 
         // Delete user from database
@@ -2484,7 +2491,8 @@ class UserManager
         return $extraField->getFieldInfoByFieldId($fieldId);
     }
 
-    /** Get extra user data by value
+    /**
+     * Get extra user data by value
      * @param string $variable the internal variable name of the field
      * @param string $value the internal value of the field
      * @param bool $all_visibility
@@ -2542,12 +2550,12 @@ class UserManager
 
     /**
      * Get extra user data by field variable
-     * @param string    field variable
+     * @param string    $variable field variable
      * @return array    data
      */
-    public static function get_extra_user_data_by_field_variable($field_variable)
+    public static function get_extra_user_data_by_field_variable($variable)
     {
-        $extra_information_by_variable = self::get_extra_field_information_by_name($field_variable);
+        $extra_information_by_variable = self::get_extra_field_information_by_name($variable);
         $field_id = intval($extra_information_by_variable['id']);
 
         $extraField = new ExtraFieldValue('user');
@@ -2566,14 +2574,14 @@ class UserManager
     /**
      * Get extra user data tags by field variable
      *
-     * @param string    field variable
-     * @return array    data
+     * @param string $variable field variable
+     * @return array
      */
-    public static function get_extra_user_data_for_tags($field_variable)
+    public static function get_extra_user_data_for_tags($variable)
     {
-        $extra_information_by_variable = self::get_extra_field_tags_information_by_name($field_variable);
+        $data = self::get_extra_field_tags_information_by_name($variable);
 
-        return $extra_information_by_variable;
+        return $data;
     }
 
     /**
@@ -2610,9 +2618,9 @@ class UserManager
                     sc.dateEnd AS session_category_date_end,
                     s.coachAccessStartDate AS coach_access_start_date,
                     s.coachAccessEndDate AS coach_access_end_date
-                FROM ChamiloCoreBundle:Session AS s
+                FROM ChamiloCoreBundle:Session AS s                                
+                INNER JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
                 LEFT JOIN ChamiloCoreBundle:SessionCategory AS sc WITH s.category = sc
-                LEFT JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
                 WHERE scu.user = :user OR s.generalCoach = :user
                 ORDER BY sc.name, s.name";
 
@@ -2655,11 +2663,14 @@ class UserManager
                 }
             }
 
+            $categoryStart = $row['session_category_date_start'] ? $row['session_category_date_start']->format('Y-m-d') : '';
+            $categoryEnd = $row['session_category_date_end'] ? $row['session_category_date_end']->format('Y-m-d') : '';
+
             $categories[$row['session_category_id']]['session_category'] = array(
                 'id' => $row['session_category_id'],
                 'name' => $row['session_category_name'],
-                'date_start' => $row['session_category_date_start'] ? $row['session_category_date_start']->format('Y-m-d H:i:s') : null,
-                'date_end' => $row['session_category_date_end'] ? $row['session_category_date_end']->format('Y-m-d H:i:s') : null
+                'date_start' => $categoryStart,
+                'date_end' => $categoryEnd
             );
 
             $session_id = $row['id'];
@@ -2983,7 +2994,6 @@ class UserManager
         /* This query is very similar to the query below, but it will check the
         session_rel_course_user table if there are courses registered
         to our user or not */
-
         $sql = "SELECT DISTINCT
                     c.visibility,
                     c.id as real_id,                    
@@ -3030,7 +3040,7 @@ class UserManager
                     WHERE
                       s.id = $session_id AND
                       (
-                        (scu.user_id = $user_id AND scu.status=2) OR
+                        (scu.user_id = $user_id AND scu.status = 2) OR
                         s.id_coach = $user_id
                       )
                     $where_access_url
@@ -3049,12 +3059,12 @@ class UserManager
         }
 
         if (api_is_drh()) {
-            $session_list = SessionManager::get_sessions_followed_by_drh($user_id);
-            $session_list = array_keys($session_list);
-            if (in_array($session_id, $session_list)) {
-                $course_list = SessionManager::get_course_list_by_session_id($session_id);
-                if (!empty($course_list)) {
-                    foreach ($course_list as $course) {
+            $sessionList = SessionManager::get_sessions_followed_by_drh($user_id);
+            $sessionList = array_keys($sessionList);
+            if (in_array($session_id, $sessionList)) {
+                $courseList = SessionManager::get_course_list_by_session_id($session_id);
+                if (!empty($courseList)) {
+                    foreach ($courseList as $course) {
                         if (!in_array($course['id'], $courses)) {
                             $personal_course_list[] = $course;
                         }
@@ -3065,9 +3075,9 @@ class UserManager
             //check if user is general coach for this session
             $sessionInfo = api_get_session_info($session_id);
             if ($sessionInfo['id_coach'] == $user_id) {
-                $course_list = SessionManager::get_course_list_by_session_id($session_id);
-                if (!empty($course_list)) {
-                    foreach ($course_list as $course) {
+                $courseList = SessionManager::get_course_list_by_session_id($session_id);
+                if (!empty($courseList)) {
+                    foreach ($courseList as $course) {
                         if (!in_array($course['id'], $courses)) {
                             $personal_course_list[] = $course;
                         }
@@ -5516,4 +5526,340 @@ SQL;
             return Display::tabsOnlyLink($headers, $optionSelected);
         }
     }
+
+
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    public static function user_is_online($user_id)
+    {
+        $track_online_table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ONLINE);
+        $table_user = Database::get_main_table(TABLE_MAIN_USER);
+
+        $access_url_id = api_get_current_access_url_id();
+        $time_limit = api_get_setting('display.time_limit_whosonline');
+
+        $online_time = time() - $time_limit*60;
+        $limit_date = api_get_utc_datetime($online_time);
+        $user_id = intval($user_id);
+
+        $query = " SELECT login_user_id,login_date
+               FROM $track_online_table track
+               INNER JOIN $table_user u ON (u.id=track.login_user_id)
+               WHERE
+                    track.access_url_id =  $access_url_id AND
+                    login_date >= '".$limit_date."'  AND
+                    u.id =  $user_id
+               LIMIT 1 ";
+
+        $result = Database::query($query);
+        if (Database::num_rows($result)) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param int $time_limit seconds
+     * @param bool $friends show friends (true) or all users (false)
+     * @return bool
+     */
+    public static function whoIsOnlineCount(
+        $time_limit = 0,
+        $friends = false
+    ) {
+        if (empty($time_limit)) {
+            $time_limit = api_get_setting('display.time_limit_whosonline');
+        } else {
+            $time_limit = intval($time_limit);
+        }
+        $track_online_table = Database::get_main_table(
+            TABLE_STATISTIC_TRACK_E_ONLINE
+        );
+        $friend_user_table = Database::get_main_table(TABLE_MAIN_USER_REL_USER);
+        $table_user = Database::get_main_table(TABLE_MAIN_USER);
+        $online_time = time() - $time_limit * 60;
+        $current_date = api_get_utc_datetime($online_time);
+
+        if ($friends) {
+            // 	who friends from social network is online
+            $query = "SELECT DISTINCT count(login_user_id) as count
+				  FROM $track_online_table INNER JOIN $friend_user_table
+                  ON (friend_user_id = login_user_id)
+				  WHERE
+				        login_date >= '$current_date' AND
+				        friend_user_id <> '".api_get_user_id()."' AND
+				        relation_type='".USER_RELATION_TYPE_FRIEND."' AND
+				        user_id = '".api_get_user_id()."' ";
+        } else {
+            // All users online
+            $query = "SELECT count(login_id) as count
+                  FROM $track_online_table track INNER JOIN $table_user u
+                  ON (u.id=track.login_user_id)
+                  WHERE u.status != ".ANONYMOUS." AND login_date >= '$current_date'  ";
+        }
+
+        if (api_get_multiple_access_url()) {
+            $access_url_id = api_get_current_access_url_id();
+            if ($access_url_id != -1) {
+                if ($friends) {
+                    // 	friends from social network is online
+                    $query = "SELECT DISTINCT count(login_user_id) as count
+							FROM $track_online_table track
+							INNER JOIN $friend_user_table ON (friend_user_id = login_user_id)
+							WHERE
+							    track.access_url_id = $access_url_id AND
+							    login_date >= '".$current_date."' AND
+							    friend_user_id <> '".api_get_user_id()."' AND
+							    relation_type='".USER_RELATION_TYPE_FRIEND."'  ";
+                } else {
+                    // all users online
+                    $query = "SELECT count(login_id) as count FROM $track_online_table  track
+                          INNER JOIN $table_user u ON (u.id=track.login_user_id)
+						  WHERE
+						    u.status != ".ANONYMOUS." AND
+						    track.access_url_id =  $access_url_id AND
+						    login_date >= '$current_date' ";
+                }
+            }
+        }
+
+        // Dev purposes show all users online
+        /*$table_user = Database::get_main_table(TABLE_MAIN_USER);
+        $query = "SELECT count(*)  as count FROM ".$table_user;*/
+
+        $result = Database::query($query);
+        if (Database::num_rows($result) > 0) {
+            $row = Database::fetch_array($result);
+
+            return $row['count'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gives a list of people online now (and in the last $valid minutes)
+     *
+     * @param int $from
+     * @param int $number_of_items
+     * @param string $column
+     * @param string $direction
+     * @param int $time_limit in seconds
+     * @param bool $friends show friends (true) or all users (false)
+     * @return array|bool
+     */
+    public static function whoIsOnline(
+        $from,
+        $number_of_items,
+        $column = '',
+        $direction = '',
+        $time_limit = 0,
+        $friends = false
+    ) {
+        // Time limit in seconds?
+        if (empty($time_limit)) {
+            $time_limit = api_get_setting('display.time_limit_whosonline');
+        } else {
+            $time_limit = intval($time_limit);
+        }
+
+        $from = intval($from);
+        $number_of_items = intval($number_of_items);
+
+        if (empty($column)) {
+            $column = 'picture_uri';
+            if ($friends) {
+                $column = 'login_date';
+            }
+        }
+
+        if (empty($direction)) {
+            $direction = 'DESC';
+        } else {
+            if (!in_array(strtolower($direction), array('asc', 'desc'))) {
+                $direction = 'DESC';
+            }
+        }
+
+        $online_time = time() - $time_limit * 60;
+        $current_date = api_get_utc_datetime($online_time);
+        $track_online_table = Database::get_main_table(
+            TABLE_STATISTIC_TRACK_E_ONLINE
+        );
+        $friend_user_table = Database::get_main_table(TABLE_MAIN_USER_REL_USER);
+        $table_user = Database::get_main_table(TABLE_MAIN_USER);
+
+        if ($friends) {
+            // 	who friends from social network is online
+            $query = "SELECT DISTINCT login_user_id, login_date
+				  FROM $track_online_table INNER JOIN $friend_user_table
+				  ON (friend_user_id = login_user_id)
+				  WHERE
+				    login_date >= '".$current_date."' AND
+                    friend_user_id <> '".api_get_user_id()."' AND
+                    relation_type='".USER_RELATION_TYPE_FRIEND."' AND
+                    user_id = '".api_get_user_id()."'
+                  ORDER BY $column $direction
+                  LIMIT $from, $number_of_items";
+        } else {
+            $query = "SELECT DISTINCT login_user_id, login_date
+                    FROM ".$track_online_table." e
+		            INNER JOIN ".$table_user." u ON (u.id = e.login_user_id)
+                  WHERE u.status != ".ANONYMOUS." AND login_date >= '".$current_date."'
+                  ORDER BY $column $direction
+                  LIMIT $from, $number_of_items";
+        }
+
+        if (api_get_multiple_access_url()) {
+            $access_url_id = api_get_current_access_url_id();
+            if ($access_url_id != -1) {
+                if ($friends) {
+                    // 	friends from social network is online
+                    $query = "SELECT distinct login_user_id, login_date
+							FROM $track_online_table track INNER JOIN $friend_user_table
+							ON (friend_user_id = login_user_id)
+							WHERE   track.access_url_id =  $access_url_id AND
+                                    login_date >= '".$current_date."' AND
+                                    friend_user_id <> '".api_get_user_id()."' AND
+                                    relation_type='".USER_RELATION_TYPE_FRIEND."'
+                            ORDER BY $column $direction
+                            LIMIT $from, $number_of_items";
+                } else {
+                    // all users online
+                    $query = "SELECT login_user_id, login_date
+						  FROM ".$track_online_table." track
+                          INNER JOIN ".$table_user." u
+                          ON (u.id=track.login_user_id)
+						  WHERE u.status != ".ANONYMOUS." AND track.access_url_id =  $access_url_id AND
+                                login_date >= '".$current_date."'
+                          ORDER BY $column $direction
+                          LIMIT $from, $number_of_items";
+                }
+            }
+        }
+
+        //This query will show all registered users. Only for dev purposes.
+        /*$query = "SELECT DISTINCT u.id as login_user_id, login_date FROM ".$track_online_table ."  e , $table_user u
+                GROUP by u.id
+                ORDER BY $column $direction
+                LIMIT $from, $number_of_items";*/
+
+        $result = Database::query($query);
+        if ($result) {
+            $users_online = array();
+            while (list($login_user_id, $login_date) = Database::fetch_row($result)) {
+                $users_online[] = $login_user_id;
+            }
+
+            return $users_online;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param int $user_id
+     * @param bool $is_time_over
+     * @param bool $get_count
+     * @param bool $reverse_order
+     * @param int $start
+     * @param null $maxPerPage
+     * @param null $categoryFilter
+     * @return array
+     */
+    public static function getCategories(
+        $user_id,
+        $is_time_over = false,
+        $get_count = false,
+        $reverse_order = false,
+        $start = 0,
+        $maxPerPage = null,
+        $categoryFilter = null
+    ) {
+        $tableSessionCategory = Database:: get_main_table(
+            TABLE_MAIN_SESSION_CATEGORY
+        );
+        $tableSession = Database:: get_main_table(TABLE_MAIN_SESSION);
+        $tableSessionUser = Database:: get_main_table(TABLE_MAIN_SESSION_USER);
+        $tableSessionCourseUser = Database:: get_main_table(
+            TABLE_MAIN_SESSION_COURSE_USER
+        );
+
+        $select = " DISTINCT sc.id, sc.name  ";
+        if ($get_count) {
+            $select = " COUNT(DISTINCT(sc.id)) as total";
+        }
+
+        $sql = "SELECT $select
+                FROM $tableSessionCategory sc
+                INNER JOIN $tableSession s ON (sc.id = s.session_category_id)
+                INNER JOIN (
+                    (
+                        SELECT DISTINCT session_id as sessionID FROM $tableSessionUser
+                        WHERE user_id = $user_id AND relation_type <> ".SESSION_RELATION_TYPE_RRHH."
+                    )
+                    UNION
+                    (
+                        SELECT DISTINCT s.id
+                        FROM $tableSession s
+                        WHERE (id_coach = $user_id)
+                    )
+                    UNION
+                    (
+                        SELECT DISTINCT s.id
+                        FROM $tableSessionUser su INNER JOIN $tableSession s
+                        ON (su.session_id = s.id)
+                        INNER JOIN $tableSessionCourseUser scu
+                        ON (scu.session_id = s.id)
+                        WHERE (scu.user_id = $user_id)
+                    )
+                ) as t ON (t.sessionId = sc.id)
+        ";
+
+        if ($get_count) {
+            $result = Database::query($sql);
+            $row = Database::fetch_array($result);
+
+            return $row['total'];
+        }
+
+        $order = ' ORDER BY sc.name';
+        if ($reverse_order) {
+            $order = ' ORDER BY sc.name DESC ';
+        }
+
+        $sql .= $order;
+
+        if (isset($start) && isset($maxPerPage)) {
+            $start = intval($start);
+            $maxPerPage = intval($maxPerPage);
+            $limitCondition = " LIMIT $start, $maxPerPage";
+            $sql .= $limitCondition;
+        }
+
+        $result = Database::query($sql);
+        $sessionsCategories = array();
+        if (Database::num_rows($result)) {
+            while ($sessionCategory = Database::fetch_array($result, 'ASSOC')) {
+                $sessions = self::get_sessions_by_category(
+                    $user_id,
+                    $is_time_over,
+                    false,
+                    $reverse_order,
+                    null,
+                    null,
+                    $sessionCategory['id']
+                );
+                $sessionsCategories[$sessionCategory['id']] = $sessions[$sessionCategory['id']];
+            }
+        }
+
+        return $sessionsCategories;
+    }
+
+
 }

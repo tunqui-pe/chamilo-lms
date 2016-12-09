@@ -5,7 +5,7 @@
  *	@package chamilo.admin
  */
 $cidReset = true;
-require_once '../inc/global.inc.php';
+require_once __DIR__.'/../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script();
@@ -102,9 +102,10 @@ $form->applyFilter('department_url', 'html_filter');
 
 // Course language.
 $languages = api_get_languages();
-if (count($languages['name']) === 1) {
+// Changed in master
+if (count($languages) === 1) {
     // If there's only one language available, there's no point in asking
-    $form->addElement('hidden', 'course_language', $languages['folder'][0]);
+    $form->addElement('hidden', 'course_language', $languages[0]);
 } else {
     $form->addElement(
         'select_language',

@@ -6,7 +6,7 @@ define('CHAMILO_INTERNAL', true);
 
 global $plugin;
 
-require_once '../../../main/inc/global.inc.php';
+require_once __DIR__.'/../../../main/inc/global.inc.php';
 require_once api_get_path(SYS_PLUGIN_PATH).'vchamilo/views/editinstance_form.php';
 
 api_protect_admin_script();
@@ -39,8 +39,7 @@ if ($data = $form->get_data()) {
         case 'registerinstance':
             Virtual::addInstance($data);
             echo '<a class="btn btn-primary" href="'.api_get_path(WEB_PLUGIN_PATH).'vchamilo/views/manage.php'.'">Continue</a>';
-            // vchamilo_redirect(api_get_path(WEB_PLUGIN_PATH).'vchamilo/views/manage.php');
-            die;
+            exit;
             break;
         case 'updateinstance':
             unset($data->what);

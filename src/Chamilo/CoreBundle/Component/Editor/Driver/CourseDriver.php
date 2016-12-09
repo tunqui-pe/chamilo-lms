@@ -21,8 +21,8 @@ class CourseDriver extends Driver implements DriverInterface
     public function setup()
     {
         $userId = api_get_user_id();
-        $userInfo = api_get_user_info();
         $sessionId = api_get_session_id();
+        $userInfo = $this->connector->user;
         $courseInfo = $this->connector->course;
 
         if (!empty($courseInfo)) {
@@ -168,7 +168,7 @@ class CourseDriver extends Driver implements DriverInterface
      */
     public function getCourseDocumentSysPath()
     {
-        $url = null;
+        $url = '';
         if ($this->allow()) {
             $directory = $this->getCourseDirectory();
             $coursePath = $this->connector->paths['sys_course_path'];

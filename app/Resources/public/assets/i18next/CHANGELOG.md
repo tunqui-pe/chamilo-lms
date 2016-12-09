@@ -1,3 +1,35 @@
+### 4.1.1
+- remove subs array from logger - no longer keep changing debug flag on subs if changing on main
+
+### 4.1.0
+- Custom escape function, single-quotes in nested [#843](https://github.com/i18next/i18next/pull/843)
+
+### 4.0.0
+- [BREAKING; only webpack2-beta users] will add module entry point used by webpack2, this might break your current build with webpack2-beta if configured incorrectly, see: [#836](https://github.com/i18next/i18next/issues/836)
+
+### 3.5.2
+- remove the module entry point again will be added in 4.0.0
+
+### 3.5.1
+- fix build output add a test file to test the generated build
+
+### 3.5.0
+- Setting options on individual translations override, rather than merge global configs [#832](https://github.com/i18next/i18next/issues/832)
+- Create an new translator when cloning i18next instance [#834](https://github.com/i18next/i18next/pull/834)
+- allows fallbackLng to be an string, an array or an object defining fallbacks for lng, lng-region plus default, eg
+
+  fallbackLng: {
+    'de-CH': ['fr', 'it', 'en'],
+    'de': ['fr', 'en'],
+    'zh-Hans': ['zh-Hant', 'en'],
+    'zh-Hant': ['zh-Hans', 'en'],
+    'default': ['en']
+  }
+
+
+### 3.4.4
+- Fix Interpolator.escapeValue defaulting to undefined in some cases [#826](https://github.com/i18next/i18next/issues/826)
+
 ### 3.4.3
 - Fix Interpolator formatter exception error propagation due to not reset RegExp indices [#820](https://github.com/i18next/i18next/issues/820)
 

@@ -112,7 +112,6 @@ class SettingsCurrent
      */
     protected $url;
 
-
     private $parameters;
     /**
      * @var string
@@ -424,4 +423,25 @@ class SettingsCurrent
     {
         return $this->id;
     }
+
+    /**
+     * @return AccessUrl
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param AccessUrl $url
+     * @return SettingsCurrent
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+
 }

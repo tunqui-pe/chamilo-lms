@@ -3,7 +3,8 @@
 /**
  * Responses to AJAX calls
  */
-require_once '../global.inc.php';
+
+require_once __DIR__.'/../global.inc.php';
 
 api_protect_admin_script();
 
@@ -171,7 +172,7 @@ function check_system_version()
                 $version_info = $version;
             }
 
-            if (version_compare($system_version, $version_info, '<=')) {
+            if (version_compare($system_version, $version_info, '<')) {
                 $output = '<span style="color:red">' . get_lang('YourVersionNotUpToDate') .'<br />
                            '.get_lang('LatestVersionIs').' <b>Chamilo '.$version_info.'</b>.  <br />
                            '.get_lang('YourVersionIs').' <b>Chamilo '.$system_version. '</b>.  <br />'.str_replace('http://www.chamilo.org', '<a href="http://www.chamilo.org">http://www.chamilo.org</a>', get_lang('PleaseVisitOurWebsite')).'</span>';

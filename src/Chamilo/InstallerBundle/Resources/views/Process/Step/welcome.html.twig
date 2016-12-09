@@ -1,0 +1,26 @@
+{% extends 'ChamiloInstallerBundle::layout.html.twig' %}
+
+{% set step = 'welcome' %}
+{% use 'ChamiloInstallerBundle::progress.html.twig' %}
+
+{% block title %}
+    {% autoescape false %}
+        {{ 'process.step.welcome.header'|trans }} - {{ parent() }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        {% if is_upgrade %}
+            {{ 'process.step.welcome.content_upgrade'|trans|raw }}
+        {% else %}
+            {{ 'process.step.welcome.content' |trans|raw }}
+        {% endif %}
+    </div>
+    <div class="install-form-actions">
+        <a href="{{ path('sylius_flow_forward', {'scenarioAlias': scenario , 'stepName': 'welcome'}) }}"
+           class="btn btn-lg btn-primary">
+            <i class="fa fa-chevron-right"></i> {{ 'process.button.continue'|trans }}
+        </a>
+    </div>
+{% endblock %}

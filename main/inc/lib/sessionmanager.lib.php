@@ -457,19 +457,20 @@ class SessionManager
         $isMakingOrder = false;
 
         if ($get_count == true) {
-            $select = " SELECT count(*) as total_rows";
+            $select = " SELECT count(DISTINCT s.id) as total_rows";
         } else {
             $select =
-                "SELECT DISTINCT ".
-                " s.name, ".
-                " s.display_start_date, ".
-                " s.display_end_date, ".
-                " access_start_date, ".
-                " access_end_date, ".
-                " s.visibility, ".
-                " s.session_category_id, ".
-                " $inject_extra_fields ".
-                " s.id ";
+                "SELECT DISTINCT 
+                 s.name,
+                 s.display_start_date, 
+                 s.display_end_date, 
+                 access_start_date, 
+                 access_end_date, 
+                 s.visibility, 
+                 s.session_category_id, 
+                 $inject_extra_fields 
+                 s.id 
+             ";
 
             $isMakingOrder = strpos($options['order'], 'category_name') === 0;
         }
@@ -946,17 +947,19 @@ class SessionManager
                     FROM $workTable w
                     LEFT JOIN $workTableAssignment a
                     ON (a.publication_id = w.id AND a.c_id = w.c_id)
-                    WHERE w.c_id = %s
-                    AND parent_id = 0
-                    AND active IN (1, 0)";
+                    WHERE 
+                        w.c_id = %s AND 
+                        parent_id = 0 AND 
+                        active IN (1, 0)";
         } else {
             $sql = "SELECT count(w.id) as count
                     FROM $workTable w
                     LEFT JOIN $workTableAssignment a
                     ON (a.publication_id = w.id AND a.c_id = w.c_id)
-                    WHERE w.c_id = %s
-                    AND parent_id = 0
-                    AND active IN (1, 0)";
+                    WHERE 
+                        w.c_id = %s AND 
+                        parent_id = 0 AND 
+                        active IN (1, 0)";
 
             if (empty($sessionId)) {
                 $sql .= ' AND w.session_id = NULL ';
@@ -1177,10 +1180,12 @@ class SessionManager
      */
     public static function get_number_of_tracking_access_overview()
     {
-        // database table definition
-        $track_e_course_access = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
+        $table = Database :: get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
+        $sql = "SELECT COUNT(course_access_id) count FROM $table";
+        $result = Database::query($sql);
+        $row = Database::fetch_assoc($result);
 
-        return Database::count_rows($track_e_course_access);
+        return $row['count'];
     }
 
     /**
@@ -2543,7 +2548,7 @@ class SessionManager
             $msg = get_lang('InvalidStartDate');
             return $msg;
         } elseif (!$month_end && !$day_end && !$year_end) {
-            $date_end = "null";
+            $date_end = '';
         } elseif (!$month_end || !$day_end || !$year_end || !checkdate($month_end, $day_end, $year_end)) {
             $msg = get_lang('InvalidEndDate');
             return $msg;
@@ -2556,21 +2561,26 @@ class SessionManager
         $params = [
             'name' => $name,
             'date_start' => $date_start,
-            'date_end' => $date_end,
             'access_url_id' => $access_url_id
         ];
-        $id_session = Database::insert($tbl_session_category, $params);
+
+        if (!empty($date_end)) {
+            $params['date_end'] = $date_end;
+        }
+
+        $id = Database::insert($tbl_session_category, $params);
 
         // Add event to system log
         $user_id = api_get_user_id();
         Event::addEvent(
             LOG_SESSION_CATEGORY_CREATE,
             LOG_SESSION_CATEGORY_ID,
-            $id_session,
+            $id,
             api_get_utc_datetime(),
             $user_id
         );
-        return $id_session;
+
+        return $id;
     }
 
     /**
@@ -3131,6 +3141,7 @@ class SessionManager
      * @param bool $getOnlySessionId
      * @param bool $getSql
      * @param string $orderCondition
+     * @param string $keyword
      * @param string $description
      *
      * @return array sessions
@@ -3257,7 +3268,6 @@ class SessionManager
         }
 
         $whereConditions .= $keywordCondition;
-
         $subQuery = $sessionQuery.$courseSessionQuery;
 
         $sql = " $select FROM $tbl_session s
@@ -3373,7 +3383,7 @@ class SessionManager
         $sql = "SELECT $sqlSelect
                 FROM $tbl_course c
                 INNER JOIN $tbl_session_rel_course src
-                ON c.id = src.c_id
+                ON (c.id = src.c_id)
 		        WHERE src.session_id = '$session_id' ";
 
         if (!empty($course_name)) {
@@ -6263,10 +6273,20 @@ class SessionManager
     public static function getTotalUserCoursesInSession($sessionId)
     {
         $tableUser = Database::get_main_table(TABLE_MAIN_USER);
-        $tableSessionRelCourseRelUser = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
-        $sql = "SELECT COUNT(1) as count, u.id, scu.status status_in_session, u.status user_status
-                FROM $tableSessionRelCourseRelUser scu
-                INNER JOIN $tableUser u ON scu.user_id = u.id
+        $table = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
+
+        if (empty($sessionId)) {
+            return [];
+        }
+
+        $sql = "SELECT 
+                    COUNT(u.id) as count, 
+                    u.id, 
+                    scu.status status_in_session, 
+                    u.status user_status
+                FROM $table scu
+                INNER JOIN $tableUser u 
+                ON scu.user_id = u.id
                 WHERE scu.session_id = " . intval($sessionId) ."
                 GROUP BY u.id";
 
@@ -6290,9 +6310,12 @@ class SessionManager
      * @param array $extraFields A list of fields to be scanned and returned
      * @return mixed
      */
-    public static function getShortSessionListAndExtraByCategory($categoryId, $target, $extraFields = null, $publicationDate = null)
-    {
-        // Init variables
+    public static function getShortSessionListAndExtraByCategory(
+        $categoryId,
+        $target,
+        $extraFields = null,
+        $publicationDate = null
+    ) {
         $categoryId = (int) $categoryId;
         $sessionList = array();
         // Check if categoryId is valid
@@ -6502,13 +6525,13 @@ class SessionManager
                 }
                 // Query used to find course-coaches from sessions
                 $sql = "SELECT
-                        scu.session_id,
-                        c.id AS course_id,
-                        c.code AS course_code,
-                        c.title AS course_title,
-                        u.username AS coach_username,
-                        u.firstname AS coach_firstname,
-                        u.lastname AS coach_lastname
+                            scu.session_id,
+                            c.id AS course_id,
+                            c.code AS course_code,
+                            c.title AS course_title,
+                            u.username AS coach_username,
+                            u.firstname AS coach_firstname,
+                            u.lastname AS coach_lastname
                         FROM $courseTable c
                         INNER JOIN $sessionCourseUserTable scu ON c.id = scu.c_id
                         INNER JOIN $userTable u ON scu.user_id = u.user_id
@@ -6747,7 +6770,8 @@ class SessionManager
 
         $sql = "SELECT DISTINCT s.*
                 FROM $sessionTable s
-                INNER JOIN $sessionUserTable sru ON s.id = sru.id_session
+                INNER JOIN $sessionUserTable sru 
+                ON s.id = sru.id_session
                 WHERE
                     (sru.id_user IN (" . implode(', ', $userIdList) . ")
                     AND sru.relation_type = 0
@@ -6832,6 +6856,7 @@ class SessionManager
         }
         return $result;
     }
+
     /**
      * Returns a human readable string
      * @params array $sessionInfo An array with all the session dates
@@ -6976,9 +7001,14 @@ class SessionManager
         $form->addButtonAdvancedSettings('advanced_params');
         $form->addElement('html','<div id="advanced_params_options" style="display:none">');
 
-        $form->addSelect('session_category', get_lang('SessionCategory'), $categoriesOptions, array(
-            'id' => 'session_category'
-        ));
+        $form->addSelect(
+            'session_category',
+            get_lang('SessionCategory'),
+            $categoriesOptions,
+            array(
+                'id' => 'session_category',
+            )
+        );
 
         $form->addHtmlEditor(
             'description',
@@ -7394,7 +7424,6 @@ class SessionManager
         //for now only sessions
         $extra_field = new ExtraFieldModel('session');
         $double_fields = array();
-
         $extra_field_option = new ExtraFieldOption('session');
 
         if (isset($options['extra'])) {
@@ -7521,9 +7550,6 @@ class SessionManager
         if (!empty($options['order'])) {
             $query .= " ORDER BY ".$options['order'];
         }
-
-        //error_log($query);
-        //echo $query;
 
         $result = Database::query($query);
         $formatted_sessions = array();
@@ -7771,7 +7797,10 @@ class SessionManager
      */
     public static function getCoursesInSession($sessionId)
     {
-        $listResultsCourseId = array();
+        if (empty($sessionId)) {
+            return [];
+        }
+
         $tblSessionRelCourse = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
         $tblCourse = Database::get_main_table(TABLE_MAIN_COURSE);
 
@@ -7782,6 +7811,8 @@ class SessionManager
                 ON c.id = src.c_id
                 WHERE session_id = ".intval($sessionId);
         $res = Database::query($sql);
+
+        $listResultsCourseId = array();
         while ($data = Database::fetch_assoc($res)) {
             $listResultsCourseId[] = $data['id'];
         }
@@ -8018,8 +8049,6 @@ class SessionManager
             }
             $htmlRes .= $htmlCourse.'<div style="display:none" id="course-'.$courseCode.'">'.$htmlCatSessions.'</div></div>';
         }
-
-
 
         return $htmlRes;
     }

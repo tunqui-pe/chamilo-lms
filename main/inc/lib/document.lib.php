@@ -609,11 +609,12 @@ class DocumentManager
                 INNER JOIN $TABLE_DOCUMENT AS docs
                 ON (
                     docs.id = last.ref AND
-                    last.tool = '".TOOL_DOCUMENT."' AND
-                    docs.c_id = {$_course['real_id']} AND
-                    last.c_id = {$_course['real_id']}
+                    docs.c_id = last.c_id
                 )
-                WHERE
+                WHERE                                
+                    last.tool = '".TOOL_DOCUMENT."' AND 
+                    docs.c_id = {$_course['real_id']} AND
+                    last.c_id = {$_course['real_id']} AND
                     docs.path LIKE '" . Database::escape_string($path . $added_slash.'%'). "' AND
                     docs.path NOT LIKE '" . Database::escape_string($path . $added_slash.'%/%')."' AND
                     docs.path NOT LIKE '%_DELETED_%' AND
@@ -744,6 +745,7 @@ class DocumentManager
      * @param int $groupIid iid
      * @param boolean $can_see_invisible
      * @param boolean $getInvisibleList
+     * @param string $path current path
      *
      * @return array with paths
      */
@@ -751,7 +753,8 @@ class DocumentManager
         $_course,
         $groupIid = 0,
         $can_see_invisible = false,
-        $getInvisibleList = false
+        $getInvisibleList = false,
+        $path = ''
     ) {
         $TABLE_ITEMPROPERTY = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $TABLE_DOCUMENT = Database::get_course_table(TABLE_DOCUMENT);
@@ -763,8 +766,8 @@ class DocumentManager
             api_get_session_id()
         );
 
+        $conditionList = array();
         if (!empty($students)) {
-            $conditionList = array();
             foreach ($students as $studentId => $studentInfo) {
                 $conditionList[] = '/shared_folder/sf_user_' . $studentInfo['user_id'];
             }
@@ -783,7 +786,11 @@ class DocumentManager
         if ($can_see_invisible) {
             // condition for the session
             $session_id = api_get_session_id();
-            $condition_session = api_get_session_condition($session_id, true, false, 'docs.session_id');
+            //$condition_session = api_get_session_condition($session_id, true, false, 'docs.session_id');
+
+            $session_id = $session_id ?: api_get_session_id();
+            $condition_session = " AND (last.session_id = '$session_id' OR (last.session_id = '0' OR last.session_id IS NULL) )";
+            $condition_session .= self::getSessionFolderFilters($path, $session_id);
 
             if ($groupIid <> 0) {
                 $sql = "SELECT DISTINCT docs.id, path
@@ -5318,12 +5325,10 @@ class DocumentManager
             }
 
             // Copy files to users myfiles
-            if (api_get_setting('allow_social_tool') === 'true' &&
-                api_get_setting('users_copy_files') === 'true' &&
-                !api_is_anonymous()
+            if (api_get_setting('allow_my_files') === 'true' &&
+                api_get_setting('users_copy_files') === 'true'
             ) {
                 $copy_myfiles_link = ($filetype == 'file') ? api_get_self() . '?' . api_get_cidreq() . '&action=copytomyfiles&id=' . $document_data['id'] : api_get_self() . '?' . api_get_cidreq();
-
                 if ($filetype == 'file') {
 
                     $copy_to_myfiles = '<a href="' . $copy_myfiles_link . '" style="float:right"' . $prevent_multiple_click . '>' .

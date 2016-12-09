@@ -728,12 +728,13 @@ class Category implements GradebookItem
 
     /**
      * Not delete this category from the database,when visible=3 is category eliminated
+     * @param int $courseId
      */
-    public function update_category_delete($course_id)
+    public function update_category_delete($courseId)
     {
         $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $sql = 'UPDATE '.$tbl_grade_categories.' SET visible=3
-                WHERE course_code ="'.Database::escape_string($course_id).'"';
+                WHERE c_id ="'.intval($courseId).'"';
         Database::query($sql);
     }
 
@@ -1992,7 +1993,7 @@ class Category implements GradebookItem
         );
 
         if (empty($my_certificate)) {
-            GradebookUtils::register_user_info_about_certificate(
+            GradebookUtils::registerUserInfoAboutCertificate(
                 $category_id,
                 $user_id,
                 $my_score_in_gradebook,

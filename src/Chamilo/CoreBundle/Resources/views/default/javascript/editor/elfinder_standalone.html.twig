@@ -1,0 +1,42 @@
+{% autoescape false %}
+{% set finderFolder = asset('assets/elfinder/dist/') %}
+<!-- elFinder CSS (REQUIRED) -->
+<link rel="stylesheet" type="text/css" media="screen"
+      href="{{ asset('assets/jquery-ui/themes/smoothness/jquery-ui.min.css') }}">
+<link rel="stylesheet" type="text/css" media="screen"
+      href="{{ finderFolder }}css/elfinder.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ finderFolder }}css/theme.css">
+
+<!-- elFinder JS (REQUIRED) -->
+<script type="text/javascript"
+        src="{{ asset('assets/jquery/jquery.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('assets/jquery-ui/jquery-ui.js') }}"></script>
+<script type="text/javascript"
+        src="{{ finderFolder }}js/elfinder.min.js"></script>
+
+<!-- elFinder translation (OPTIONAL) -->
+{#<script type="text/javascript" src="{{ finderFolder }}js/i18n/elfinder.ru.js"></script>#}
+
+<script type="text/javascript" charset="utf-8">
+    // Helper function to get parameters from the query string.
+    function getUrlParam(paramName) {
+        var reParam = new RegExp('(?:[\?&]|&amp;)' + paramName + '=([^&]+)', 'i');
+        var match = window.location.search.match(reParam);
+        return (match && match.length > 1) ? match[1] : '';
+    }
+
+    $().ready(function() {
+        var funcNum = getUrlParam('CKEditorFuncNum');
+        var elf = $('#elfinder').elfinder({
+            url: '{{ url('editor_connector', {'course_id': course_id , 'session_id': session_id}) }}',  // connector URL (REQUIRED)
+            getFileCallback : function(file) {
+                window.opener.CKEDITOR.tools.callFunction(funcNum, file.url);
+                window.close();
+            },
+            resizable: false
+        }).elfinder('instance');
+    });
+</script>
+<div id="elfinder"></div>
+{% endautoescape %}

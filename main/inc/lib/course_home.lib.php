@@ -441,19 +441,21 @@ class CourseHome
     /**
      * Gets the tools of a certain category. Returns an array expected
      * by show_tools_category()
-     * @param string $course_tool_category	contains the category of tools to
+     * @param string $course_tool_category contains the category of tools to
      * display: "toolauthoring", "toolinteraction", "tooladmin", "tooladminplatform", "toolplugin"
+     * @param int $courseId Optional
+     * @param int $sessionId Optional
      * @return array
      */
-    public static function get_tools_category($course_tool_category)
+    public static function get_tools_category($course_tool_category, $courseId = 0, $sessionId = 0)
     {
         $course_tool_table = Database::get_course_table(TABLE_TOOL_LIST);
         $is_platform_admin = api_is_platform_admin();
         $all_tools_list = array();
 
         // Condition for the session
-        $session_id = api_get_session_id();
-        $course_id = api_get_course_int_id();
+        $session_id = $sessionId ?: api_get_session_id();
+        $course_id = $courseId ?: api_get_course_int_id();
         $condition_session = api_get_session_condition($session_id, true, true, 't.session_id');
 
         switch ($course_tool_category) {
@@ -663,15 +665,21 @@ class CourseHome
 
     /**
      * Displays the tools of a certain category.
+     * @param $urlGenerator
      * @param array $all_tools_list List of tools as returned by get_tools_category()
      * @param bool  $rows
      *
      * @return string
      */
-    public static function show_tools_category($all_tools_list, $rows = false)
+    public static function show_tools_category($urlGenerator, $all_tools_list, $rows = false)
     {
         $_user = api_get_user_info();
+        $courseInfo = api_get_course_info();
+        $web_code_path = api_get_path(WEB_CODE_PATH);
+        $session_id = api_get_session_id();
+        $is_platform_admin = api_is_platform_admin();
         $theme = api_get_setting('homepage_view');
+
         if ($theme === 'vertical_activity') {
             //ordering by get_lang name
             $order_tool_list = array();
@@ -690,9 +698,6 @@ class CourseHome
                 $all_tools_list = array();
             }
         }
-        $web_code_path = api_get_path(WEB_CODE_PATH);
-        $session_id = api_get_session_id();
-        $is_platform_admin = api_is_platform_admin();
 
         if ($session_id == 0 ) {
             $is_allowed_to_edit = api_is_allowed_to_edit(null, true) && api_is_course_admin();
@@ -991,7 +996,10 @@ class CourseHome
             }
         }
 
-        return $html;
+         return array(
+            'content' => $html,
+            'tool_list' => $items
+        );
     }
 
     /**

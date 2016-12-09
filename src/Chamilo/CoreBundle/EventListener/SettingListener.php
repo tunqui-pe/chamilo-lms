@@ -35,14 +35,13 @@ class SettingListener
     public function onSettingPreSave(SettingsEvent $event)
     {
         $urlId = $this->container->get('request')->getSession()->get('access_url_id');
-
         $url = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:AccessUrl')->find($urlId);
-        /** @var SettingsCurrent $settings */
-        //$settings = $event->getSettings();
+
+        $settings = $event->getSettings();
 
         //$settings->setUrl($url);
         //$event->getSettings()->setAccessUrl($url);
-
-        $event->setArgument('url', $url);
+        //$settings->setAccessUrl($url);
+        //$event->setArgument('url', $url);
     }
 }

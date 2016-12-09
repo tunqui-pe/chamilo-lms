@@ -29,7 +29,7 @@ use ChamiloSession as Session;
  * @package chamilo.document
  */
 
-require_once '../inc/global.inc.php';
+require_once __DIR__.'/../inc/global.inc.php';
 
 $allowDownloadDocumentsByApiKey = api_get_setting('allow_download_documents_by_api_key') === 'true';
 
@@ -367,7 +367,7 @@ switch ($action) {
         break;
     case 'copytomyfiles':
         // Copy a file to general my files user's
-        if (api_get_setting('allow_social_tool') == 'true' &&
+        if (api_get_setting('allow_my_files') == 'true' &&
             api_get_setting('users_copy_files') == 'true'
             && api_get_user_id() != 0
             && !api_is_anonymous()
@@ -573,6 +573,7 @@ if (isset($document_id) && empty($action)) {
         );
     }
     // If the document is not a folder we show the document.
+
     if ($document_data) {
         $parent_id = $document_data['parent_id'];
         $visibility = DocumentManager::check_visibility_tree(
@@ -645,7 +646,20 @@ if (isset($document_data) && $document_data['path'] == '/certificates') {
 }
 
 if (!$parent_id) {
+    $testParentId = 0;
+    // Get parent id from current path
+    if (!empty($document_data['path'])) {
+        $testParentId = DocumentManager::get_document_id(
+            api_get_course_info(),
+            dirname($document_data['path']),
+            0
+        );
+    }
+
     $parent_id = 0;
+    if (!empty($testParentId)) {
+        $parent_id = $testParentId;
+    }
 }
 
 $current_folder_id = $document_id;
@@ -1019,7 +1033,9 @@ if ($is_allowed_to_edit ||
             $folders = DocumentManager::get_all_document_folders(
                 $courseInfo,
                 $groupIid,
-                $is_allowed_to_edit || $group_member_with_upload_rights
+                $is_allowed_to_edit || $group_member_with_upload_rights,
+                false,
+                $curdirpath
             );
 
             // filter if is my shared folder. TODO: move this code to build_move_to_selector function
@@ -1547,14 +1563,18 @@ if ($groupId != 0) {
         $folders = DocumentManager::get_all_document_folders(
             $courseInfo,
             $groupIid,
-            $is_allowed_to_edit || $group_member_with_upload_rights
+            $is_allowed_to_edit || $group_member_with_upload_rights,
+            false,
+            $curdirpath
         );
     }
 } else {
     $folders = DocumentManager::get_all_document_folders(
         $courseInfo,
-        $groupIid,
-        $is_allowed_to_edit || $group_member_with_upload_rights
+        0,
+        $is_allowed_to_edit || $group_member_with_upload_rights,
+        false,
+        $curdirpath
     );
 }
 

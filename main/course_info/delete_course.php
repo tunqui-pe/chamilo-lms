@@ -11,7 +11,7 @@ use ChamiloSession as Session;
  *	@package chamilo.course_info
  */
 
-require_once '../inc/global.inc.php';
+require_once __DIR__.'/../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 $current_course_tool = TOOL_COURSE_MAINTENANCE;
 api_protect_course_script(true);
@@ -29,7 +29,7 @@ $tool_name = get_lang('DelCourse');
 if (isset($_GET['delete']) && $_GET['delete'] === 'yes') {
     CourseManager::delete_course($_course['sysCode']);
     $obj_cat = new Category();
-    $obj_cat->update_category_delete($_course['sysCode']);
+    $obj_cat->update_category_delete($_course['real_id']);
 
     // DELETE CONFIRMATION MESSAGE
     Session::erase('_cid');

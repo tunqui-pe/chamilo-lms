@@ -7,7 +7,7 @@
  * @package chamilo.social.skill
  */
 
-require_once '../inc/global.inc.php';
+require_once __DIR__.'/../inc/global.inc.php';
 
 $isStudent = api_is_student();
 $isStudentBoss = api_is_student_boss();
@@ -37,7 +37,7 @@ if ($isStudent) {
             FROM $skillTable s
             INNER JOIN $skillRelUserTable sru
             ON s.id = sru.skill_id
-            INNER JOIN $courseTable c
+            LEFT JOIN $courseTable c
             ON sru.course_id = c.id
             WHERE sru.user_id = $userId";
 
@@ -82,7 +82,7 @@ if ($isStudent) {
                 FROM $skillTable s
                 INNER JOIN $skillRelUserTable sru
                 ON s.id = sru.skill_id
-                INNER JOIN $courseTable c
+                LEFT JOIN $courseTable c
                 ON sru.course_id = c.id
                 WHERE sru.user_id = $selectedStudent
                 ";

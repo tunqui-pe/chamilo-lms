@@ -52,7 +52,12 @@ class SettingsController extends SyliusSettingsController
     public function updateSettingAction(Request $request, $namespace)
     {
         $manager = $this->getSettingsManager();
+        // @todo improve get the current url entity
+        $urlId = $request->getSession()->get('access_url_id');
+        $url = $this->getDoctrine()->getRepository('ChamiloCoreBundle:AccessUrl')->find($urlId);
+        $manager->setUrl($url);
 
+        $schemaAlias = $manager->convertNameSpaceToService($namespace);
         $builder = $this->container->get('form.factory')->createNamedBuilder(
             'search'
         );
@@ -65,7 +70,7 @@ class SettingsController extends SyliusSettingsController
             $values = $searchForm->getData();
             $keyword = $values['keyword'];
             $settingsFromKeyword = $manager->getParametersFromKeyword(
-                $namespace,
+                $schemaAlias,
                 $keyword
             );
         }
@@ -75,14 +80,14 @@ class SettingsController extends SyliusSettingsController
             $keyword = $keywordFromGet;
             $searchForm->setData(['keyword' => $keyword]);
             $settingsFromKeyword = $manager->getParametersFromKeyword(
-                $namespace,
+                $schemaAlias,
                 $keywordFromGet
             );
         }
 
-        $settings = $manager->load($manager->convertNameSpaceToService($namespace));
+        $settings = $manager->load($namespace);
 
-        $form = $this->getSettingsFormFactory()->create($namespace);
+        $form = $this->getSettingsFormFactory()->create($schemaAlias);
 
         if (!empty($keyword)) {
             $params = $settings->getParameters();
@@ -98,7 +103,7 @@ class SettingsController extends SyliusSettingsController
         if ($form->handleRequest($request)->isValid()) {
             $messageType = 'success';
             try {
-                $manager->save($namespace, $form->getData());
+                $manager->save($form->getData());
                 $message = $this->getTranslator()->trans('sylius.settings.update', array(), 'flashes');
             } catch (ValidatorException $exception) {
                 $message = $this->getTranslator()->trans($exception->getMessage(), array(), 'validators');

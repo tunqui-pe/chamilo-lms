@@ -4,8 +4,9 @@
 namespace Chamilo\CoreBundle\Component\Editor;
 
 use Chamilo\CoreBundle\Framework\Template;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\Translator;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class Editor
@@ -40,7 +41,7 @@ class Editor
      */
     public $config;
 
-    /** @var Translator */
+    /** @var TranslatorInterface */
     public $translator;
 
     /** @var RouterInterface */
@@ -50,18 +51,23 @@ class Editor
     public $template;
 
     /**
-     * Constructor
+     * Editor constructor.
+     * @param TranslatorInterface $translator
+     * @param RouterInterface $urlGenerator
      */
-    public function __construct()
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        RouterInterface $urlGenerator
+    ) {
         $this->toolbarSet = 'Basic';
         $this->value = '';
         $this->config = array();
         $this->setConfigAttribute('width', '100%');
         $this->setConfigAttribute('height', '200');
         $this->setConfigAttribute('fullPage', false);
-        /*$this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;*/
+
+        $this->translator = $translator;
+        $this->urlGenerator = $urlGenerator;
         //$this->course = $course;
     }
 
@@ -89,7 +95,7 @@ class Editor
     public function createHtml()
     {
         $html = '<textarea id="'.$this->getName().'" name="'.$this->getName().'">'.$this->value.'</textarea>';
-        //$html .= $this->editorReplace();
+        
         return $html;
     }
 
@@ -98,10 +104,16 @@ class Editor
      */
     public function editorReplace()
     {
-        $toolbar = new Toolbar($this->toolbarSet, $this->config);
+        $toolbar = new Toolbar(
+            $this->urlGenerator,
+            $this->toolbarSet,
+            $this->config
+        );
+
         $toolbar->setLanguage($this->getLocale());
         $config = $toolbar->getConfig();
         $javascript = $this->toJavascript($config);
+
         $html = "<script>
            CKEDITOR.replace('".$this->name."',
                $javascript
@@ -155,6 +167,7 @@ class Editor
                 foreach ($var as $k => $v) {
                     $output[] = $this->toJavascript(strval($k)).': '.$this->toJavascript($v);
                 }
+
                 return '{ '.implode(', ', $output).' }';
             default:
                 return 'null';
@@ -241,6 +254,6 @@ class Editor
      */
     public function getLocale()
     {
-        return api_get_language_isocode();
+        return $this->translator->getLocale();
     }
 }

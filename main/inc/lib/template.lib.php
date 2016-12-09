@@ -5,7 +5,23 @@
  * Class Template
  *
  * @author Julio Montoya <gugli100@gmail.com>
- * @todo better organization of the class, methods and variables
+ *
+ *
+ * In Chamilo 2 files inside main/ (classic chamilo files) are
+ * wrapped by a Symfony2 controller LegacyController::classicAction
+ * This controller will handle the breadcrumb, the template rendering
+ * and everything as a normal Symfony2 action.
+ *
+ * Example:
+ * Chamilo 1.x
+ * my.chamilo.net/main/admin/user_list.php
+ *
+ * Chamilo 2.x
+ * (dev mode)
+ * my.chamilo.net/web/app_dev.php/main/admin/user_list.php
+ * (prod mod)
+ * my.chamilo.net/web/main/admin/user_list.php
+ *
  *
  */
 class Template
@@ -61,6 +77,8 @@ class Template
         $load_plugins = true,
         $sendHeaders = true
     ) {
+
+        return;
         // Page title
         $this->title = $title;
 
@@ -126,7 +144,7 @@ class Template
         $this->twig->addFilter('get_path', new Twig_Filter_Function('api_get_path'));
         $this->twig->addFilter('get_setting', new Twig_Filter_Function('api_get_setting'));
         $this->twig->addFilter('var_dump', new Twig_Filter_Function('var_dump'));
-        $this->twig->addFilter('return_logo', new Twig_Filter_Function('return_logo'));
+        //$this->twig->addFilter('return_logo', new Twig_Filter_Function('return_logo'));
         $this->twig->addFilter('return_message', new Twig_Filter_Function('Display::return_message_and_translate'));
         $this->twig->addFilter('display_page_header', new Twig_Filter_Function('Display::page_header_and_translate'));
         $this->twig->addFilter(
@@ -137,6 +155,7 @@ class Template
         $this->twig->addFilter('img', new Twig_Filter_Function('Template::get_image'));
         $this->twig->addFilter('format_date', new Twig_Filter_Function('Template::format_date'));
         $this->twig->addFilter('api_get_local_time', new Twig_Filter_Function('api_get_local_time'));
+        $this->twig->addFilter('user_info', new Twig_Filter_Function('api_get_user_info'));
 
         /*
           $lexer = new Twig_Lexer($this->twig, array(
@@ -425,6 +444,22 @@ class Template
      */
     public function get_template($name)
     {
+        if ($name == 'layout/layout_1_col.tpl') {
+            $name = 'layout/layout_1_col.html.twig';
+        }
+
+        if ($name == 'layout/layout_2_col.tpl') {
+            $name = 'layout/layout_2_col.html.twig';
+        }
+
+        /**
+         * In Chamilo 1.x we use the tpl extension.
+         * In Chamilo 2.x we use twig but using the Symfony2 bridge
+         * In order to don't change all legacy main calls we just replace
+         * tpl with html.twig (the new template location should be:
+         * (src/Chamilo/CoreBundle/Resources/views/default/layout)
+         */
+        $name = str_replace('.tpl', '.html.twig', $name);
         return $this->templateFolder.'/'.$name;
     }
 
@@ -473,7 +508,7 @@ class Template
                 $user_info['is_admin'] = 1;
             }
 
-            $user_info['messages_count'] = MessageManager::get_new_messages();
+            $user_info['messages_count'] = MessageManager::getCountNewMessages();
             $this->user_is_logged_in = true;
         }
         // Setting the $_u array that could be use in any template
@@ -521,12 +556,79 @@ class Template
     }
 
     /**
+     * Set legacy twig globals in order to be hook in the LegacyListener.php
+     * @return array
+     */
+    public static function getGlobals()
+    {
+        $_p = array(
+            'web' => api_get_path(WEB_PATH),
+            'web_relative' => api_get_path(REL_PATH),
+            'web_course' => api_get_path(WEB_COURSE_PATH),
+            'web_main' => api_get_path(WEB_CODE_PATH),
+            'web_css' => api_get_path(WEB_CSS_PATH),
+            //'web_css_theme' => api_get_path(WEB_CSS_PATH) . 'themes/' . $this->theme . '/',
+            'web_ajax' => api_get_path(WEB_AJAX_PATH),
+            'web_img' => api_get_path(WEB_IMG_PATH),
+            'web_plugin' => api_get_path(WEB_PLUGIN_PATH),
+            'web_lib' => api_get_path(WEB_LIBRARY_PATH),
+            'web_upload' => api_get_path(WEB_UPLOAD_PATH),
+            'web_self' => api_get_self(),
+            'web_query_vars' => api_htmlentities($_SERVER['QUERY_STRING']),
+            'web_self_query_vars' => api_htmlentities($_SERVER['REQUEST_URI']),
+            'web_cid_query' => api_get_cidreq(),
+        );
+
+        $_s = array(
+            'software_name' => api_get_configuration_value('software_name'),
+            'system_version' => api_get_configuration_value('system_version'),
+            'site_name' => api_get_setting('siteName'),
+            'institution' => api_get_setting('Institution'),
+            'date' => api_format_date('now', DATE_FORMAT_LONG),
+            'timezone' => api_get_timezone(),
+            'gamification_mode' => api_get_setting('gamification_mode')
+        );
+
+        $user_info = array();
+        $user_info['logged'] = 0;
+        //$this->user_is_logged_in = false;
+        if (api_user_is_login()) {
+            $user_info = api_get_user_info(api_get_user_id(), true);
+            $user_info['logged'] = 1;
+            $user_info['is_admin'] = 0;
+            /*if (api_is_platform_admin()) {
+                $user_info['is_admin'] = 1;
+            }*/
+            //$user_info['messages_count'] = MessageManager::get_new_messages();
+
+        }
+
+        return [
+            '_p' => $_p,
+            '_s' => $_s,
+            '_u' => $user_info,
+            'plugin_main_top' => '',
+            'plugin_content_top' => '',
+            'plugin_content_bottom' => '',
+            'plugin_main_bottom' => '',
+            'plugin_main_top' => '',
+            'breadcrumb' => '',
+            'plugin_main_top' => '',
+            'plugin_main_top' => '',
+            'plugin_main_top' => '',
+            'plugin_main_top' => '',
+            'template' => 'default' // @todo setup template folder in config.yml;
+        ];
+    }
+
+    /**
      * Set theme, include mainstream CSS files
      * @return void
      * @see setCssCustomFiles() for additional CSS sheets
      */
     public function setCssFiles()
     {
+        return;
         global $disable_js_and_css_files;
         $css = array();
 
@@ -577,6 +679,7 @@ class Template
      */
     public function setCSSEditor()
     {
+        return;
         $cssEditor = api_get_cdn_path(api_get_path(WEB_CSS_PATH).'editor.css');
         if (is_file(api_get_path(SYS_CSS_PATH).'themes/'.$this->theme.'/editor.css')) {
             $cssEditor = api_get_path(WEB_CSS_PATH).'themes/'.$this->theme.'/editor.css';
@@ -592,6 +695,7 @@ class Template
      */
     public function setCssCustomFiles()
     {
+        return;
         global $disable_js_and_css_files;
         // Base CSS
 
@@ -648,8 +752,8 @@ class Template
         }
 
         // Logo
-        $logo = return_logo($this->theme);
-        $this->assign('logo', $logo);
+        /*$logo = return_logo($this->theme);
+        $this->assign('logo', $logo);*/
 
         $this->assign('show_media_element', 1);
     }
@@ -786,12 +890,14 @@ class Template
      */
     private function set_header_parameters($sendHeaders)
     {
+
         global $httpHeadXtra, $interbreadcrumb, $language_file, $_configuration, $this_section;
         $_course = api_get_course_info();
         $help = $this->help;
         $nameTools = $this->title;
-        $navigation = return_navigation_array();
-        $this->menu_navigation = $navigation['menu_navigation'];
+        //$navigation = return_navigation_array();
+        $navigation = [];
+        //$this->menu_navigation = $navigation['menu_navigation'];
 
         $this->assign('system_charset', api_get_system_encoding());
 
@@ -921,8 +1027,8 @@ class Template
 
         $this->assign('bug_notification', $rightFloatMenu);
 
-        $notification = returnNotificationMenu();
-        $this->assign('notification_menu', $notification);
+        //$notification = returnNotificationMenu();
+        $this->assign('notification_menu', '');
 
         $resize = '';
         if (api_get_setting('accessibility_font_resize') == 'true') {
@@ -986,8 +1092,8 @@ class Template
         $this->assign('portal_name', $portal_name);
 
         //Menu
-        $menu = menuArray();
-        $this->assign('menu', $menu);
+        //$menu = menuArray();
+        $this->assign('menu', '');
 
         // Setting notifications
         $count_unread_message = 0;
@@ -1020,7 +1126,8 @@ class Template
 
 
         // Block Breadcrumb
-        $breadcrumb = return_breadcrumb($interbreadcrumb, $language_file, $nameTools);
+        //$breadcrumb = return_breadcrumb($interbreadcrumb, $language_file, $nameTools);
+        $breadcrumb  = '';
         $this->assign('breadcrumb', $breadcrumb);
 
         //Extra content
@@ -1229,8 +1336,13 @@ class Template
      */
     public function fetch($template = null)
     {
-        $template = $this->twig->loadTemplate($template);
+        /*$template = $this->twig->loadTemplate($template);
+        return $template->render($this->params);*/
+        //
+
+        $template = \Chamilo\CoreBundle\Framework\Container::getTwig()->loadTemplate('ChamiloCoreBundle::'.$template);
         return $template->render($this->params);
+
     }
 
     /**
@@ -1255,7 +1367,9 @@ class Template
             Display::cleanFlashMessages();
         }
 
-        echo $this->twig->render($template, $this->params);
+        echo \Chamilo\CoreBundle\Framework\Container::getTwig()->render('ChamiloCoreBundle::'.$template, $this->params);
+
+        //echo $this->twig->render($template, $this->params);
     }
 
     /**

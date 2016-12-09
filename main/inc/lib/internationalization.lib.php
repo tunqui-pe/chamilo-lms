@@ -2,6 +2,8 @@
 /* For licensing terms, see /license.txt */
 
 use Patchwork\Utf8;
+use Chamilo\CoreBundle\Framework\Container;
+use Symfony\Component\Intl\Intl;
 
 /**
  * File: internationalization.lib.php
@@ -16,10 +18,6 @@ use Patchwork\Utf8;
 /**
  * Constants
  */
-
-// Special tags for marking untranslated variables.
-define('SPECIAL_OPENING_TAG', '[=');
-define('SPECIAL_CLOSING_TAG', '=]');
 
 // Predefined date formats in Chamilo provided by the language sub-system.
 // To be used as a parameter for the function api_format_date()
@@ -58,100 +56,38 @@ define('PERSON_NAME_EMAIL_ADDRESS', PERSON_NAME_WESTERN_ORDER);
 define('PERSON_NAME_DATA_EXPORT', PERSON_NAME_EASTERN_ORDER);
 
 /**
- * Returns a translated (localized) string, called by its identificator.
+ * Returns a translated (localized) string
  * @param string $variable				This is the identificator (name) of the translated string to be retrieved.
- * @param string $reserved				This parameter has been reserved for future use.
- * @param string $language (optional)	Language indentificator. If it is omited, the current interface language is assumed.
- *
+
  * @return string						Returns the requested string in the correspondent language.
- *
- * @author Roan Embrechts
- * @author Patrick Cool
- * @author Ivan Tcholakov, 2009-2010 (caching functionality, additional parameter $language, other adaptations).
- *
  * Notes:
  * 1. If the name of a given language variable has the prefix "lang" it may be omited, i.e. get_lang('Yes') == get_lang('Yes').
- * 2. Untranslated variables might be indicated by special opening and closing tags  -  [=  =]
- * The special tags do not show up in these two cases:
- * - when the system has been switched to "production server mode";
- * - when a special platform setting 'hide_dltt_markup' is set to "true" (the name of this setting comes from history);
- * 3. Translations are created many contributors through using a special tool: Chamilo Translation Application.
+ * 2. Translations are created many contributors through using a special tool: Chamilo Translation Application.
  * @link http://translate.chamilo.org/
  */
-function get_lang($variable, $reserved = null, $language = null) {
-    global
-        // For serving some old hacks:
-        // By manipulating this global variable the translation may be done in different languages too (not the elegant way).
-        $language_interface,
-        // Because of possibility for manipulations of the global variable $language_interface, we need its initial value.
-        $language_interface_initial_value;
+function get_lang($variable)
+{
+    $defaultDomain = 'messages';
+    $translated = Container::getTranslator()->trans(
+        $variable,
+        array(),
+        $defaultDomain
+    );
 
-    global $used_lang_vars, $_configuration;
-    // add language_measure_frequency to your main/inc/conf/configuration.php in order to generate language
-    // variables frequency measurements (you can then see them trhough main/cron/lang/langstats.php)
-    // The $langstats object is instanciated at the end of main/inc/global.inc.php
-    if (isset($_configuration['language_measure_frequency']) &&
-        $_configuration['language_measure_frequency'] == 1
-    ) {
-        require_once api_get_path(SYS_CODE_PATH).'/cron/lang/langstats.class.php';
-        global $langstats;
-        $langstats->add_use($variable, '');
+    if ($translated == $variable) {
+        // Check the langVariable for BC
+        $translated = Container::getTranslator()->trans(
+            "lang$variable",
+            array(),
+            $defaultDomain
+        );
+
+        if ($translated == "lang$variable") {
+            return $variable;
+    }
     }
 
-    if (!isset($used_lang_vars)) {
-    	$used_lang_vars = array();
-    }
-
-    // Caching results from some API functions, for speed.
-    static $initialized, $show_special_markup;
-    if (!isset($initialized)) {
-        $test_server_mode = api_get_setting('server_type') === 'test';
-        $show_special_markup = api_get_setting('hide_dltt_markup') != 'true' || $test_server_mode;
-        $initialized = true;
-    }
-
-    // Combining both ways for requesting specific language.
-    if (empty($language)) {
-        $language = $language_interface;
-    }
-    $lang_postfix = isset($is_interface_language) && $is_interface_language ? '' : '('.$language.')';
-
-    $is_interface_language = $language == $language_interface_initial_value;
-
-    // This is a cache for already translated language variables. By using it, we avoid repetitive translations, gaining speed.
-    static $cache;
-
-    // Looking up into the cache for existing translation.
-    if (isset($cache[$language][$variable])) {
-        // There is a previously saved translation, returning it.
-        //return $cache[$language][$variable];
-        $ret = $cache[$language][$variable];
-        $used_lang_vars[$variable.$lang_postfix] = $ret;
-        return $ret;
-    }
-
-    // There is no cached translation, we have to retrieve it:
-    // - from a global variable (the faster way) - on production server mode;
-    // - from a local variable after reloading the language files - on test server mode or when requested language
-    // is different than the genuine interface language.
-    $read_global_variables = $is_interface_language;
-
-    if ($read_global_variables) {
-        if (isset($GLOBALS[$variable])) {
-            $langvar = $GLOBALS[$variable];
-        } elseif (isset($GLOBALS["lang$variable"])) {
-            $langvar = $GLOBALS["lang$variable"];
-        } else {
-            $langvar = $show_special_markup ? SPECIAL_OPENING_TAG.$variable.SPECIAL_CLOSING_TAG : $variable;
-        }
-    }
-    if (empty($langvar) || !is_string($langvar)) {
-        $langvar = $show_special_markup ? SPECIAL_OPENING_TAG.$variable.SPECIAL_CLOSING_TAG : $variable;
-    }
-    $ret = $cache[$language][$variable] = $langvar;
-    $used_lang_vars[$variable.$lang_postfix] = $ret;
-
-    return $ret;
+    return $translated;
 }
 
 /**
@@ -795,10 +731,10 @@ function api_get_person_name(
             switch ($format) {
                 case PERSON_NAME_COMMON_CONVENTION:
                     $valid[$format][$language] = _api_get_person_name_convention($language, 'format');
-                    $usernameOrderFromDatabase = api_get_setting('user_name_order');
+                    /*$usernameOrderFromDatabase = api_get_setting('user_name_order');
                     if (isset($usernameOrderFromDatabase) && !empty($usernameOrderFromDatabase)) {
                         $valid[$format][$language] = $usernameOrderFromDatabase;
-                    }
+                    }*/
                     break;
                 case PERSON_NAME_WESTERN_ORDER:
                     $valid[$format][$language] = '%t %f %l';

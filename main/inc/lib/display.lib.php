@@ -3,6 +3,7 @@
 
 use ChamiloSession as Session;
 use Chamilo\CoreBundle\Entity\ExtraField;
+use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class Display
@@ -50,14 +51,18 @@ class Display
         );
     }
 
-     /**
+    /**
      * Displays the page header
+     *
+     * @deprecated See template.lib.php class documentation
+     *
      * @param string The name of the page (will be showed in the page title)
      * @param string Optional help file name
      * @param string $page_header
      */
     public static function display_header($tool_name ='', $help = null, $page_header = null)
     {
+        return '';
         $origin = api_get_origin();
         $showHeader = true;
         if (isset($origin) && $origin == 'learnpath') {
@@ -101,9 +106,11 @@ class Display
 
     /**
      * Displays the reduced page header (without banner)
+     * @deprecated See template.lib.php class documentation
      */
     public static function display_reduced_header()
     {
+        return '';
         global $show_learnpath, $tool_name;
         self::$global_template = new Template($tool_name, false, false, $show_learnpath);
         echo self::$global_template->show_header_template();
@@ -111,9 +118,11 @@ class Display
 
     /**
      * Display no header
+     * @deprecated
      */
     public static function display_no_header()
     {
+        return '';
         global $tool_name, $show_learnpath;
         $disable_js_and_css_files = true;
         self::$global_template = new Template($tool_name, false, false, $show_learnpath);
@@ -121,26 +130,32 @@ class Display
 
     /**
      * Displays the reduced page header (without banner)
+     * @deprecated See template.lib.php class documentation
      */
     public static function set_header()
     {
+        return '';
         global $show_learnpath, $tool_name;
         self::$global_template = new Template($tool_name, false, false, $show_learnpath);
     }
 
     /**
      * Display the page footer
+     * @deprecated  See template.lib.php class documentation
      */
     public static function display_footer()
     {
+        return '';
         echo self::$global_template->show_footer_template();
     }
 
     /**
      * Display the page footer
+     * @deprecated See template.lib.php class documentation
      */
     public static function display_reduced_footer()
     {
+        return '';
         echo self::$global_template->show_footer_js_template();
         echo '</body></html>';
     }
@@ -728,73 +743,17 @@ class Display
         $return_only_path = false,
         $loadThemeIcon = true
     ) {
-        $code_path = api_get_path(SYS_CODE_PATH);
-        $w_code_path = api_get_path(WEB_CODE_PATH);
-        // The following path is checked to see if the file exist. It's
-        // important to use the public path (i.e. web/css/) rather than the
-        // internal path (/app/Resource/public/css/) because the path used
-        // in the end must be the public path
-        $alternateCssPath = api_get_path(SYS_PUBLIC_PATH) . 'css/';
-        $alternateWebCssPath = api_get_path(WEB_PUBLIC_PATH) . 'css/';
-
         $image = trim($image);
-
+        $size_extra = '';
         if (isset($size)) {
-            $size = intval($size);
-        } else {
-            $size = ICON_SIZE_SMALL;
+            $size_extra = $size . '/';
         }
 
-        $size_extra = $size . '/';
-
-        // Checking the img/ folder
-        $icon = $w_code_path.'img/'.$image;
-
-        $theme = 'themes/chamilo/icons/';
-
-        if ($loadThemeIcon) {
-            $theme = 'themes/' . api_get_visual_theme() . '/icons/';
-            // Checking the theme icons folder example: app/Resources/public/css/themes/chamilo/icons/XXX
-            if (is_file($alternateCssPath.$theme.$size_extra.$image)) {
-                $icon = $alternateWebCssPath.$theme.$size_extra.$image;
-            } elseif (is_file($code_path.'img/icons/'.$size_extra.$image)) {
-                //Checking the main/img/icons/XXX/ folder
-                $icon = $w_code_path.'img/icons/'.$size_extra.$image;
-            }
-        } else {
-            if (is_file($code_path.'img/icons/'.$size_extra.$image)) {
-                // Checking the main/img/icons/XXX/ folder
-                $icon = $w_code_path.'img/icons/'.$size_extra.$image;
-            }
-        }
-
-        // Special code to enable SVG - refs #7359 - Needs more work
-        // The code below does something else to "test out" SVG: for each icon,
-        // it checks if there is an SVG version. If so, it uses it.
-        // When moving this to production, the return_icon() calls should
-        // ask for the SVG version directly
-        $svgIcons = api_get_setting('icons_mode_svg');
-        if ($svgIcons == 'true' && $return_only_path == false) {
-            $svgImage = substr($image, 0, -3) . 'svg';
-            if (is_file($code_path . $theme . 'svg/' . $svgImage)) {
-                $icon = $w_code_path . $theme . 'svg/' . $svgImage;
-            } elseif (is_file($code_path . 'img/icons/svg/' . $svgImage)) {
-                $icon = $w_code_path . 'img/icons/svg/' . $svgImage;
-            }
-
-            if (empty($additional_attributes['height'])) {
-                $additional_attributes['height'] = $size;
-            }
-            if (empty($additional_attributes['width'])) {
-                $additional_attributes['width'] = $size;
-            }
-        }
-
-        $icon = api_get_cdn_path($icon);
+        $icon = 'img/icons/'.$size_extra.$image;
+        $icon = Container::getAsset()->getUrl($icon);
 
         if ($return_only_path) {
             return $icon;
-
         }
 
         $img = self::img($icon, $alt_text, $additional_attributes);
@@ -818,15 +777,6 @@ class Display
      */
     public static function img($image_path, $alt_text = '', $additional_attributes = array(), $filterPath = true)
     {
-        if (empty($image_path)) {
-            // For some reason, the call to img() happened without a proper
-            // image. Log the error and return an empty string to avoid
-            // breaking the HTML
-            $trace = debug_backtrace();
-            $caller = $trace[1];
-            error_log('No image provided in Display::img(). Caller info: '.print_r($caller, 1));
-            return '';
-        }
         // Sanitizing the parameter $image_path
         if ($filterPath) {
             $image_path = Security::filter_img_path($image_path);
@@ -1336,10 +1286,11 @@ class Display
      * if the user never entered the course before, he will not see notification
      * icons. This function takes session ID into account (if any) and only shows
      * the corresponding notifications.
-     * @param array     Course information array, containing at least elements 'db' and 'k'
+     * @param array $course_info Course information array, containing at least elements 'db' and 'k'
+     * @param bool $loadAjax
      * @return string   The HTML link to be shown next to the course
      */
-    public static function show_notification($course_info)
+    public static function show_notification($course_info, $loadAjax = true)
     {
         if (empty($course_info)) {
             return '';
@@ -1351,8 +1302,20 @@ class Display
         $course_code = Database::escape_string($course_info['code']);
 
         $user_id = api_get_user_id();
-        $course_id = intval($course_info['real_id']);
-        $sessionId = intval($course_info['id_session']);
+        $course_id = (int) $course_info['real_id'];
+        $sessionId = (int) $course_info['id_session'];
+        $status = (int) $course_info['status'];
+
+        $loadNotificationsByAjax = api_get_configuration_value('user_portal_load_notification_by_ajax');
+
+        if ($loadNotificationsByAjax) {
+            if ($loadAjax) {
+                $id = 'notification_'.$course_id.'_'.$sessionId.'_'.$status;
+                Session::write($id, true);
+
+                return '<span id ="'.$id.'" class="course_notification"></span>';
+            }
+        }
 
         // Get the user's last access dates to all tools of this course
         $sql = "SELECT *
@@ -1408,12 +1371,11 @@ class Display
 
         $res = Database::query($sql);
         // Get the group_id's with user membership.
-        $group_ids = GroupManager :: get_group_ids($course_info['real_id'], $user_id);
+        $group_ids = GroupManager::get_group_ids($course_info['real_id'], $user_id);
         $group_ids[] = 0; //add group 'everyone'
         $notifications = array();
         // Filter all last edits of all tools of the course
         while ($res && ($item_property = Database::fetch_array($res, 'ASSOC'))) {
-
             // First thing to check is if the user never entered the tool
             // or if his last visit was earlier than the last modification.
             if ((!isset($lastTrackInCourseDate[$item_property['tool']])
@@ -1430,7 +1392,7 @@ class Display
                 )
                 // Take only what's visible or "invisible but where the user is a teacher" or where the visibility is unset.
                 && ($item_property['visibility'] == '1'
-                    || ($course_info['status'] == '1' && $item_property['visibility'] == '0')
+                    || ($status == '1' && $item_property['visibility'] == '0')
                     || !isset($item_property['visibility']))
             ) {
                 // Also drop announcements and events that are not for the user or his group.
