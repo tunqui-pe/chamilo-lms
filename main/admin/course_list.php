@@ -282,9 +282,12 @@ if (isset($_POST['action'])) {
             $course_codes = $_POST['course'];
             if (count($course_codes) > 0) {
                 foreach ($course_codes as $course_code) {
-                    CourseManager::delete_course($course_code);
-                    $obj_cat = new Category();
-                    $obj_cat->update_category_delete($course_code);
+                    $courseToDelete = api_get_course_info($course_code);
+                    if ($courseToDelete) {
+                        CourseManager::delete_course($course_code);
+                        $obj_cat = new Category();
+                        $obj_cat->update_category_delete($courseToDelete['real_id']);
+                    }
                 }
             }
             break;
@@ -344,9 +347,12 @@ if (isset ($_GET['search']) && $_GET['search'] === 'advanced') {
     $interbreadcrumb[] = array ('url' => 'index.php', "name" => get_lang('PlatformAdmin'));
     $tool_name = get_lang('CourseList');
     if (isset($_GET['delete_course'])) {
-        CourseManager::delete_course($_GET['delete_course']);
-        $obj_cat = new Category();
-        $obj_cat->update_category_delete($_GET['delete_course']);
+        $courseToDelete = api_get_course_info($_GET['delete_course']);
+        if ($courseToDelete) {
+            CourseManager::delete_course($_GET['delete_course']);
+            $obj_cat = new Category();
+            $obj_cat->update_category_delete($courseToDelete['real_id']);
+        }
 
     }
     // Create a search-box

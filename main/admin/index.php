@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * Index page of the admin tools
  * @package chamilo.admin
@@ -9,6 +10,9 @@ $cidReset = true;
 
 // Including some necessary chamilo files.
 require_once __DIR__.'/../inc/global.inc.php';
+
+header('Location: '.api_get_path(WEB_PATH).'admin');
+exit;
 
 // Setting the section (for the tabs).
 $this_section = SECTION_PLATFORM_ADMIN;
