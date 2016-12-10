@@ -25,6 +25,7 @@ class MessageManager
         }
         static $count;
         if (!isset($count)) {
+            $userId = api_get_user_id();
             $cacheEnabled = function_exists('apcu_exists');
             if ($cacheEnabled) {
                 $var = 'social_messages_unread_u_'.$userId;
