@@ -1,6 +1,10 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+// @todo change root .htaccess
+header('Location: web/app_dev.php');
+exit;
+
 use ChamiloSession as Session;
 
 /**
