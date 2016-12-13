@@ -137,13 +137,14 @@ class Version200 extends AbstractMigrationChamilo
         $this->addSql('DROP INDEX user_sco_course_sv ON track_stored_values;');
         $this->addSql('DROP INDEX user_sco_course_sv_stack ON track_stored_values_stack;');
 
-
         $this->addSql('UPDATE c_tool SET name = "blog" WHERE name = "blog_management" ');
         $this->addSql('UPDATE c_tool SET name = "agenda" WHERE name = "calendar_event" ');
         $this->addSql('UPDATE c_tool SET name = "maintenance" WHERE name = "course_maintenance" ');
         $this->addSql('UPDATE c_tool SET name = "assignment" WHERE name = "student_publication" ');
         $this->addSql('UPDATE c_tool SET name = "settings" WHERE name = "course_setting" ');
 
+        $this->addSql('UPDATE session_category SET date_start = NULL WHERE date_start = "0000-00-00"');
+        $this->addSql('UPDATE session_category SET date_end = NULL WHERE date_end = "0000-00-00"');
 
         $table = $schema->getTable('message');
         if (!$table->hasIndex('idx_message_user_receiver_status')) {
