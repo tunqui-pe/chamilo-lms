@@ -24,7 +24,8 @@ class WebServiceSettingsSchema implements SchemaInterface
                     'decode_utf8' => 'false',
                     'messaging_allow_send_push_notification' => 'false',
                     'messaging_gdc_project_number' => '',
-                    'messaging_gdc_api_key' => ''
+                    'messaging_gdc_api_key' => '',
+                    'allow_download_documents_by_api_key' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -48,6 +49,8 @@ class WebServiceSettingsSchema implements SchemaInterface
             ->add('messaging_allow_send_push_notification', 'yes_no')
             ->add('messaging_gdc_project_number')
             ->add('messaging_gdc_api_key')
+            ->add('decode_utf8', 'yes_no')
+            ->add('allow_download_documents_by_api_key', 'yes_no')
         ;
     }
 }

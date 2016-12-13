@@ -2343,6 +2343,7 @@ function api_get_setting($variable)
         // deprecated settings
         case 'openid_authentication':
         case 'sso_authentication':
+        case 'service_ppt2lp':
             break;
         default:
             return Container::getSettingsManager()->getSetting($variable);

@@ -432,7 +432,8 @@ class SettingsManager implements SettingsManagerInterface
             'exercise_invisible_in_session' => 'exercise',
             'configure_exercise_visibility_in_course' => 'exercise',
             'permissions_for_new_files' => 'document',
-            'show_toolshortcuts' => 'Course'
+            'show_toolshortcuts' => 'Course',
+            'allow_download_documents_by_api_key' => 'Webservices'
         ];
 
         return $oldItems;
@@ -578,7 +579,9 @@ class SettingsManager implements SettingsManagerInterface
             'default_calendar_view' => 'agenda',
             'documents_default_visibility_defined_in_course' => 'document',
             'message_max_upload_filesize' => 'message',
-            'course_create_active_tools' => 'course'
+            'course_create_active_tools' => 'course',
+            'allow_download_documents_by_api_key' => 'webservice',
+            'tool_visible_by_default_at_creation' => 'document'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
