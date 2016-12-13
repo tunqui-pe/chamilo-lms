@@ -20,12 +20,13 @@ class MessageManager
      */
     public static function getCountNewMessages()
     {
-        if (!api_get_user_id()) {
+        $userId = api_get_user_id();
+        if (empty($userId)) {
             return false;
         }
+
         static $count;
         if (!isset($count)) {
-            $userId = api_get_user_id();
             $cacheEnabled = function_exists('apcu_exists');
             if ($cacheEnabled) {
                 $var = 'social_messages_unread_u_'.$userId;
