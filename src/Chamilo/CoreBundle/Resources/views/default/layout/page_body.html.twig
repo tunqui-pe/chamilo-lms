@@ -1,6 +1,8 @@
 {% if actions != '' %}
     <div class="actions">
+        {% autoescape false %}
         {{ actions }}
+        {% endautoescape %}
     </div>
 {% endif %}
 {{ flash_messages }}
@@ -14,6 +16,8 @@
 {% endif %}
 {% if message != '' %}
     <section id="messages">
+        {% autoescape false %}
         {{ message}}
+        {% endautoescape %}
     </section>
 {% endif %}
