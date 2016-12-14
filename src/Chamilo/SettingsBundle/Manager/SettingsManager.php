@@ -589,7 +589,14 @@ class SettingsManager implements SettingsManagerInterface
             'enabled_support_pixlr' => 'editor',
             'enable_webcam_clip' => 'document',
             'enable_record_audio' => 'course',
-            'enabled_text2audio' => 'document'
+            'enabled_text2audio' => 'document',
+            'permanently_remove_deleted_files' => 'document',
+            'allow_delete_attendance' => 'attendance',
+            'display_groups_forum_in_general_tool' => 'forum',
+            'dropbox_allow_overwrite' => 'dropbox',
+            'allow_user_course_subscription_by_course_admin' => 'course',
+            'hide_course_group_if_no_tools_available' => 'group',
+            'extend_rights_for_coach_on_survey' => 'survey'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
