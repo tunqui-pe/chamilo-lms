@@ -411,9 +411,12 @@ class Category implements GradebookItem
             }
 
             if ($course_code == '0') {
-                $sql .= ' course_code is null ';
+                $sql .= ' c_id is null ';
             } else {
-                $sql .= " course_code = '".Database::escape_string($course_code)."'";
+                $courseInfo = api_get_course_info($course_code);
+                if ($courseInfo) {
+                    $sql .= " c_id = '".intval($courseInfo['real_id'])."'";
+                }
             }
 
             /*if ($show_session_categories !== true) {
@@ -560,11 +563,14 @@ class Category implements GradebookItem
         if (isset($this->name) && isset($this->user_id)) {
             $em = Database::getManager();
 
+            $courseInfo = api_get_course_info($this->course_code);
+            $course = api_get_user_course_entity($courseInfo['real_id']);
+
             $category = new GradebookCategory();
             $category->setName($this->name);
             $category->setDescription($this->description);
             $category->setUserId($this->user_id);
-            $category->setCourseCode($this->course_code);
+            $category->setCourse($course);
             $category->setParentId($this->parent);
             $category->setWeight($this->weight);
             $category->setVisible($this->visible);

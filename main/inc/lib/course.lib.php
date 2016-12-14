@@ -6336,10 +6336,10 @@ class CourseManager
     /**
      * Helper function to create a default gradebook (if necessary) upon course creation
      * @param   int     $modelId    The gradebook model ID
-     * @param   string  $courseCode Course code
+     * @param   int  $courseId Course code
      * @return  void
      */
-    public static function createDefaultGradebook($modelId, $courseCode)
+    public static function createDefaultGradebook($modelId, $courseId)
     {
         if (api_get_setting('gradebook_enable_grade_model') === 'true') {
             //Create gradebook_category for the new course and add
@@ -6348,8 +6348,8 @@ class CourseManager
                 !empty($modelId) &&
                 $modelId != '-1'
             ) {
-                GradebookUtils::create_default_course_gradebook(
-                    $courseCode,
+                GradebookUtils::createDefaultCourseGradebook(
+                    $courseId,
                     $modelId
                 );
             }
@@ -6469,7 +6469,7 @@ class CourseManager
         );
 
         if (isset($params['gradebook_model_id'])) {
-            CourseManager::createDefaultGradebook($params['gradebook_model_id'], $courseInfo['code']);
+            CourseManager::createDefaultGradebook($params['gradebook_model_id'], $courseInfo['real_id']);
         }
         // If parameter defined, copy the contents from a specific
         // template course into this new course

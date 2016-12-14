@@ -73,14 +73,14 @@ class GradebookUtils
      * @param float
      * @return   bool    false on error, true on success
      */
-    public static function update_resource_from_course_gradebook($link_id, $course_code, $weight)
+    public static function updateResourceFromCourseGradebook($link_id, $courseId, $weight)
     {
-        $course_code = Database::escape_string($course_code);
+        $courseId = (int) $courseId;
         if (!empty($link_id)) {
             $link_id = intval($link_id);
             $sql = 'UPDATE ' . Database :: get_main_table(TABLE_MAIN_GRADEBOOK_LINK) . '
                     SET weight = ' . "'" . Database::escape_string((float) $weight) . "'" . '
-                    WHERE course_code = "' . $course_code . '" AND id = ' . $link_id;
+                    WHERE c_id = "' . $courseId . '" AND id = ' . $link_id;
             Database::query($sql);
         }
 
@@ -432,7 +432,7 @@ class GradebookUtils
         $tbl_grade_links = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
         $sql = 'SELECT c.id FROM ' . $course_table . ' c
                 INNER JOIN ' . $tbl_grade_links . ' l
-                ON c.code = l.course_code
+                ON c.id = l.c_id
                 WHERE l.id=' . intval($id_link) . ' OR l.category_id=' . intval($id_link);
         $res = Database::query($sql);
         $array = Database::fetch_array($res, 'ASSOC');
@@ -734,20 +734,22 @@ class GradebookUtils
     }
 
     /**
-     * @param null $course_code
+     * @param int $courseId
      * @param int $gradebook_model_id
      * @return mixed
      */
-    public static function create_default_course_gradebook($course_code = null, $gradebook_model_id = 0)
+    public static function createDefaultCourseGradebook($courseId = 0, $gradebook_model_id = 0)
     {
         if (api_is_allowed_to_edit(true, true)) {
-            if (!isset($course_code) || empty($course_code)) {
-                $course_code = api_get_course_id();
+            if (!isset($courseId) || empty($courseId)) {
+                $courseId = api_get_course_int_id();
             }
+
+            $courseInfo = api_get_course_info_by_id($courseId);
             $session_id = api_get_session_id();
 
             $t = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $sql = "SELECT * FROM $t WHERE course_code = '" . Database::escape_string($course_code) . "' ";
+            $sql = "SELECT * FROM $t WHERE c_id = '" . Database::escape_string($courseId) . "' ";
             if (!empty($session_id)) {
                 $sql .= " AND session_id = " . (int) $session_id;
             } else {
@@ -755,6 +757,7 @@ class GradebookUtils
             }
             $sql .= " ORDER BY id";
             $res = Database::query($sql);
+            $course_code = $courseInfo['code'];
             if (Database::num_rows($res) < 1) {
                 //there is no unique category for this course+session combination,
                 $cat = new Category();
@@ -773,10 +776,8 @@ class GradebookUtils
                 $default_weight_setting = api_get_setting('gradebook_default_weight');
                 $default_weight = isset($default_weight_setting) && !empty($default_weight_setting) ? $default_weight_setting : 100;
                 $cat->set_weight($default_weight);
-
                 $cat->set_grade_model_id($gradebook_model_id);
                 $cat->set_certificate_min_score(75);
-
                 $cat->set_visible(0);
                 $cat->add();
                 $category_id = $cat->get_id();
@@ -800,7 +801,7 @@ class GradebookUtils
         $course_code = api_get_course_id();
         $session_id = api_get_session_id();
 
-        self::create_default_course_gradebook();
+        self::createDefaultCourseGradebook();
 
         // Cat list
         $all_categories = Category :: load(null, null, $course_code, null, null, $session_id, false);
@@ -847,11 +848,17 @@ class GradebookUtils
     ) {
 
         // Getting data
-        $printable_data = self::get_printable_data($cat[0], $users, $alleval, $alllinks, $params, $mainCourseCategory);
+        $printable_data = self::get_printable_data(
+            $cat[0],
+            $users,
+            $alleval,
+            $alllinks,
+            $params,
+            $mainCourseCategory
+        );
 
         // HTML report creation first
         $course_code = trim($cat[0]->get_course_code());
-
         $displayscore = ScoreDisplay :: instance();
         $customdisplays = $displayscore->get_custom_score_display_settings();
 
