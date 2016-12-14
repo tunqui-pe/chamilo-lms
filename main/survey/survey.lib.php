@@ -464,7 +464,7 @@ class SurveyManager
         $gradebook_link_type = 8;
 
         $link_info = GradebookUtils::isResourceInCourseGradebook(
-            $courseCode,
+            $course_id,
             $gradebook_link_type,
             $survey_id,
             $session_id

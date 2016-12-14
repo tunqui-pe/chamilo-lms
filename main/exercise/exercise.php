@@ -211,7 +211,7 @@ if ($is_allowedToEdit) {
                         if ($exercise_action_locked == false) {
                             $objExerciseTmp->delete();
                             $link_info = GradebookUtils::isResourceInCourseGradebook(
-                                api_get_course_id(),
+                                api_get_course_int_id(),
                                 1,
                                 $exerciseId,
                                 api_get_session_id()

@@ -374,20 +374,20 @@ class GradebookUtils
 
     /**
      * Checks if a resource is in the unique gradebook of a given course
-     * @param    string  $course_code Course code
+     * @param    int $courseId
      * @param    int     $resource_type Resource type (use constants defined in linkfactory.class.php)
      * @param    int     $resource_id Resource ID in the corresponding tool
      * @param    int     $session_id Session ID (optional -  0 if not defined)
      *
      * @return   array     false on error or array of resource
      */
-    public static function isResourceInCourseGradebook($course_code, $resource_type, $resource_id, $session_id = 0)
+    public static function isResourceInCourseGradebook($courseId, $resource_type, $resource_id, $session_id = 0)
     {
         $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $course_code = Database::escape_string($course_code);
+        $courseId = (int)$courseId;
         $sql = "SELECT * FROM $table l
                 WHERE
-                    course_code = '$course_code' AND
+                    c_id = '$courseId' AND
                     type = ".(int)$resource_type . " AND
                     ref_id = " . (int)$resource_id;
         $res = Database::query($sql);

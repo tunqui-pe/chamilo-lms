@@ -199,7 +199,7 @@ if (
 
         // Delete link
         $link_info = GradebookUtils::isResourceInCourseGradebook(
-            api_get_course_id(),
+            api_get_course_int_id(),
             5,
             intval($_GET['id']),
             api_get_session_id()

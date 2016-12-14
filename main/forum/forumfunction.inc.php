@@ -138,7 +138,7 @@ function handle_forum_and_forumcategories($lp_id = null)
         for ($i = 0; $i < count($list_threads); $i++) {
             deleteForumCategoryThread('thread', $list_threads[$i]['thread_id']);
             $link_info = GradebookUtils::isResourceInCourseGradebook(
-                api_get_course_id(),
+                api_get_course_int_id(),
                 5,
                 $list_threads[$i]['thread_id'],
                 api_get_session_id()
@@ -2414,7 +2414,7 @@ function updateThread($values)
             $courseId = api_get_course_id();
 
             $linkInfo = GradebookUtils::isResourceInCourseGradebook(
-                $courseId,
+                api_get_course_int_id(),
                 LINK_FORUM_THREAD,
                 $id,
                 $sessionId
@@ -3595,7 +3595,7 @@ function show_edit_post_form(
             $form->addElement('checkbox', 'thread_qualify_gradebook', '', get_lang('QualifyThreadGradebook'), 'onclick="javascript: if(this.checked){document.getElementById(\'options_field\').style.display = \'block\';}else{document.getElementById(\'options_field\').style.display = \'none\';}"');
 
             $link_info = GradebookUtils::isResourceInCourseGradebook(
-                api_get_course_id(),
+                api_get_course_int_id(),
                 5,
                 $_GET['thread'],
                 api_get_session_id()

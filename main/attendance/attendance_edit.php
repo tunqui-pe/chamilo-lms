@@ -92,7 +92,7 @@ $default['attendance_qualify_title'] = $attendance_qualify_title;
 $default['attendance_weight'] = $attendance_weight;
 
 $link_info = GradebookUtils::isResourceInCourseGradebook(
-    api_get_course_id(),
+    api_get_course_int_id(),
     7,
     $attendance_id,
     api_get_session_id()

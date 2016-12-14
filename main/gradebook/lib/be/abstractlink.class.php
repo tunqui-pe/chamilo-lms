@@ -341,11 +341,11 @@ abstract class AbstractLink implements GradebookItem
             isset($this->visible)
         ) {
             $tbl_grade_links = Database:: get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-            $sql = "SELECT count(*) FROM ".$tbl_grade_links."
+            $sql = "SELECT count(*) FROM $tbl_grade_links
                     WHERE
                         ref_id=".$this->get_ref_id()." AND
                         category_id =  ".$this->category->get_id()." AND
-                        course_code = '".$this->course_code."' AND
+                        c_id = '".$this->course_id."' AND
                         type =  ".$this->type." ";
 
             $result = Database::query($sql);
@@ -356,7 +356,7 @@ abstract class AbstractLink implements GradebookItem
                     'type' => $this->get_type(),
                     'ref_id' => $this->get_ref_id(),
                     'user_id' => $this->get_user_id(),
-                    'course_code' => $this->get_course_code(),
+                    'c_id' => $this->course_id,
                     'category_id' => $this->get_category_id(),
                     'weight' => $this->get_weight(),
                     'visible' => $this->is_visible(),
@@ -390,11 +390,13 @@ abstract class AbstractLink implements GradebookItem
 
         $this->save_linked_data();
 
+        $course = api_get_user_course_entity($this->getCourseId());
+
         $link
             ->setType($this->get_type())
             ->setRefId($this->get_ref_id())
             ->setUserId($this->get_user_id())
-            ->setCourseCode($this->get_course_code())
+            ->setCourse($course)
             ->setCategoryId($this->get_category_id())
             ->setWeight($this->get_weight())
             ->setVisible($this->is_visible());
