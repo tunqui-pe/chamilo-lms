@@ -1469,7 +1469,7 @@ function api_get_user_entity($userId)
  *
  * @return Course
  */
-function api_get_user_course_entity($courseId = null)
+function api_get_user_course_entity($courseId = 0)
 {
     if (empty($courseId)) {
         $courseId = api_get_course_int_id();
@@ -6346,9 +6346,11 @@ function api_get_jquery_libraries_js($libraries) {
         //$js .= '<link rel="stylesheet" href="'.$js_path.'jqgrid/css/ui.jqgrid.css" type="text/css">';
         /*$js .= api_get_css($js_path.'jqgrid/css/ui.jqgrid.css');
         $js .= api_get_js('jqgrid/js/i18n/grid.locale-'.$languaje.'.js');
-        $js .= api_get_js('jqgrid/js/jquery.jqGrid.min.js');*/
+        $j
 
-         $js .= api_get_css_asset('jqgrid/css/ui.jqgrid.css');
+        s .= api_get_js('jqgrid/js/jquery.jqGrid.min.js');*/
+
+        $js .= api_get_css_asset('jqgrid/css/ui.jqgrid.css');
         $js .= api_get_asset('jqgrid/js/minified/jquery.jqGrid.min.js');
         $js .= api_get_asset('jqgrid/js/i18n/grid.locale-'.$language.'.js');
     }
