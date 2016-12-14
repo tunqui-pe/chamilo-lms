@@ -6207,9 +6207,19 @@ function api_check_browscap() {
 
 /**
  * Returns the <script> HTML tag
+ * @param string $file
+ * @param bool $getURL
+ * @return string
  */
-function api_get_js($file) {
-    return '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_PATH).'javascript/'.$file.'"></script>'."\n";
+function api_get_js($file, $getURL = false)
+{
+    $url = Container::getAsset()->getUrl("assets/".$file);
+
+    if ($getURL) {
+        return $url;
+    }
+
+    return '<script type="text/javascript" src="'.$url.'"></script>'."\n";
 }
 
 /**
@@ -6322,7 +6332,7 @@ function api_get_jquery_libraries_js($libraries) {
 
     //jqgrid js and css
     if (in_array('jqgrid', $libraries)) {
-        $languaje   = 'en';
+        $language = 'en';
         $platform_isocode = strtolower(api_get_language_isocode());
 
         //languages supported by jqgrid see files in main/inc/lib/javascript/jqgrid/js/i18n
@@ -6331,12 +6341,16 @@ function api_get_jquery_libraries_js($libraries) {
         );
 
         if (in_array($platform_isocode, $jqgrid_langs)) {
-            $languaje = $platform_isocode;
+            $language = $platform_isocode;
         }
         //$js .= '<link rel="stylesheet" href="'.$js_path.'jqgrid/css/ui.jqgrid.css" type="text/css">';
-        $js .= api_get_css($js_path.'jqgrid/css/ui.jqgrid.css');
+        /*$js .= api_get_css($js_path.'jqgrid/css/ui.jqgrid.css');
         $js .= api_get_js('jqgrid/js/i18n/grid.locale-'.$languaje.'.js');
-        $js .= api_get_js('jqgrid/js/jquery.jqGrid.min.js');
+        $js .= api_get_js('jqgrid/js/jquery.jqGrid.min.js');*/
+
+         $js .= api_get_css_asset('jqgrid/css/ui.jqgrid.css');
+        $js .= api_get_asset('jqgrid/js/minified/jquery.jqGrid.min.js');
+        $js .= api_get_asset('jqgrid/js/i18n/grid.locale-'.$language.'.js');
     }
 
     //Document multiple upload funcionality

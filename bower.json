@@ -31,7 +31,10 @@
     "readmore-js": "2.1.0",
     "qtip2": "*",
     "ajaxQueue": "https://github.com/gnarf/jquery-ajaxQueue.git",
-    "moment": "*"
+    "moment": "*",
+    "jqgrid": "4.7.0",
+    "chosen" : "*",
+    "impress.js": "0.5.3"
   },
   "resolutions": {
     "jquery": "2.1.4"
