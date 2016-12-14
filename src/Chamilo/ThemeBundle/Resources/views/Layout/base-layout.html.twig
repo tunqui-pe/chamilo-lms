@@ -70,10 +70,7 @@
 
     <link rel="stylesheet" media="print" href="{{ asset('css/print.css') }}"/>
     <link rel="stylesheet" media="print" href="{{ asset('css/themes/'~ theme ~'/print.css') }}"/>
-
-
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/font-awesome.min.css') }}"/>
-
 
     <script src="{{ asset('assets/modernizr/modernizr.js') }}"></script>
     <script src="{{ asset('assets/moment/moment.js') }}"></script>
@@ -237,7 +234,9 @@
     {#</header>#}
 {% endblock %}
 
-    {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+{% autoescape false %}
+{% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+{% endautoescape %}
 
 {% block chamilo_content %}
     {#Check sonata_block.yml settings#}

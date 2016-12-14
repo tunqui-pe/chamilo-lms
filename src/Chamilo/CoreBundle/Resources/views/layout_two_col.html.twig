@@ -26,6 +26,7 @@
 
     {#  Right column #}
     <div class="col-md-9">
+        {% autoescape false %}
         {% block chamilo_breadcrumb %}
             {% include '@ChamiloCore/breadcrumb.html.twig' %}
         {% endblock %}
@@ -38,11 +39,10 @@
         {% block chamilo_right_column %}
             {% block content %}
             <section class="right_column">
-                {% autoescape false %}
-                    {{ content }}
-                {% endautoescape %}
+                {{ content }}
             </section>
             {% endblock %}
         {% endblock %}
+        {% endautoescape %}
     </div>
 {% endblock %}
