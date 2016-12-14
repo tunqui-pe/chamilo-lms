@@ -581,7 +581,15 @@ class SettingsManager implements SettingsManagerInterface
             'message_max_upload_filesize' => 'message',
             'course_create_active_tools' => 'course',
             'allow_download_documents_by_api_key' => 'webservice',
-            'tool_visible_by_default_at_creation' => 'document'
+            'tool_visible_by_default_at_creation' => 'document',
+            'show_users_folders' => 'document',
+            'show_default_folders' => 'document',
+            'show_chat_folder' => 'chat',
+            'enabled_support_svg' => 'editor',
+            'enabled_support_pixlr' => 'editor',
+            'enable_webcam_clip' => 'document',
+            'enable_record_audio' => 'course',
+            'enabled_text2audio' => 'document'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;

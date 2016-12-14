@@ -101,7 +101,8 @@ class CourseSettingsSchema implements SchemaInterface
                     'course_catalog_published' => 'false',
                     'course_images_in_courses_list' => 'true',
                     'teacher_can_select_course_template' => 'true',
-                    'show_toolshortcuts' => ''
+                    'show_toolshortcuts' => '',
+                    'enable_record_audio' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -237,6 +238,7 @@ class CourseSettingsSchema implements SchemaInterface
             ->add('course_images_in_courses_list', 'yes_no')
             ->add('teacher_can_select_course_template', 'yes_no')
             ->add('show_toolshortcuts', 'yes_no')
+            ->add('enable_record_audio', 'yes_no')
         ;
     }
 }
