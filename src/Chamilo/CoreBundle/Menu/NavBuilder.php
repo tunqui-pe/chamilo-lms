@@ -250,7 +250,7 @@ class NavBuilder extends ContainerAware
                 $translator->trans('Logout'),
                 array(
                     'route' => 'logout',
-                    'icon' => 'fa fa-sign-out'
+                    //'icon' => 'fa fa-sign-out'
                 )
             );
 

@@ -16,7 +16,6 @@
 <html lang="{{ app.request.locale }}" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-
     {# Check settings in app/config/sonata/sonata_seo.yml #}
     {{ sonata_seo_metadatas() }}
 
@@ -25,33 +24,26 @@
     <link href="https://chamilo.org/the-association/" rel="copyright"/>
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-
     <title>
-        {% block title %}
-            {#{{ chamilo_settings_get('platform.institution') }} - {{ chamilo_settings_get('platform.site_name') }}#}
-        {% endblock %}
+    {% block title %}
+        {#{{ chamilo_settings_get('platform.institution') }} - {{ chamilo_settings_get('platform.site_name') }}#}
+    {% endblock %}
     </title>
-
     {# Check chamilo_css key in assetic.yml #}
     {#{%- stylesheets '@chamilo_css' -%}#}
     {#<link rel="stylesheet" href="{{ asset_url }}"/>#}
     {#{% endstylesheets %}#}
-
     {#{% stylesheets#}
     {#'@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'#}
     {#'@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'#}
     {#%}#}
-
     {#<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />#}
     {#{% endstylesheets %}#}
-
     {# Chamilo theme #}
     {% set theme = 'chamilo' %}
-
     {% set bug_notification_link = '' %}
     {% set help_content = '' %}
     {% set header_extra_content = '' %}
-
     {% set template = 'default' %}
     {% set notification_menu = '' %}
     {% set accessibility = '' %}
@@ -71,6 +63,10 @@
     <link rel="stylesheet" media="print" href="{{ asset('css/print.css') }}"/>
     <link rel="stylesheet" media="print" href="{{ asset('css/themes/'~ theme ~'/print.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/jquery-ui/themes/smoothness/theme.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/jquery-ui/themes/smoothness/jquery-ui.min.css') }}"/>
+
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-daterangepicker/daterangepicker.css') }}"/>
 
     <script src="{{ asset('assets/modernizr/modernizr.js') }}"></script>
     <script src="{{ asset('assets/moment/moment.js') }}"></script>
