@@ -362,7 +362,7 @@ services:
         arguments:
             - learnpath
             - authoring
-            - newscorm/lp_controller.php
+            - lp/lp_controller.php
             - scorms.gif
             - '@chamilo_course.settings.learning_path'
         tags:
