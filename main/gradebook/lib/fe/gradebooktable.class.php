@@ -326,7 +326,7 @@ class GradebookTable extends SortableTable
             // Edit (for admins).
             if ($this->teacherView) {
                 $cat = new Category();
-                $show_message = $cat->show_message_resource_delete($item->get_course_code());
+                $show_message = $cat->show_message_resource_delete($item->getCourseId());
                 if ($show_message === false) {
                     $row[] = $this->build_edit_column($item);
                 }
@@ -481,7 +481,7 @@ class GradebookTable extends SortableTable
                             )
                         ) {
                             $cat = new Category();
-                            $show_message = $cat->show_message_resource_delete($item->get_course_code());
+                            $show_message = $cat->show_message_resource_delete($item->getCourseId());
                             if ($show_message === false) {
                                 if ($this->exportToPdf == false) {
                                     $row[] = $this->build_edit_column($item);
@@ -953,7 +953,7 @@ class GradebookTable extends SortableTable
                 }
 
                 $cat = new Category();
-                $show_message = $cat->show_message_resource_delete($item->get_course_code());
+                $show_message = $cat->show_message_resource_delete($item->getCourseId());
                 return '&nbsp;<a href="'.Security::remove_XSS($_SESSION['gradebook_dest']).$prms_uri.'">'
                 . $item->get_name()
                 . '</a>'
@@ -968,7 +968,7 @@ class GradebookTable extends SortableTable
                 if (api_is_allowed_to_edit() && $show_message===false) {
                     if ($item->get_type() == 'presence') {
                         return '&nbsp;'
-                        . '<a href="gradebook_view_result.php?cidReq='.$course_id.'&amp;selecteval=' . $item->get_id() . '">'
+                        . '<a href="gradebook_view_result.php?'.api_get_cidreq().'&selecteval=' . $item->get_id() . '">'
                         . $item->get_name()
                         . '</a>';
                     } else {

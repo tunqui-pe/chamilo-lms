@@ -15,6 +15,7 @@ class Category implements GradebookItem
     private $description;
     private $user_id;
     private $course_code;
+    private $courseId;
     private $parent;
     private $weight;
     private $visible;
@@ -35,7 +36,8 @@ class Category implements GradebookItem
         $this->name = null;
         $this->description = null;
         $this->user_id = 0;
-        $this->course_code = null;
+        $this->course_code = '';
+        $this->courseId = 0;
         $this->parent = 0;
         $this->weight = 0;
         $this->visible = false;
@@ -505,7 +507,8 @@ class Category implements GradebookItem
             $cat->set_name($data['name']);
             $cat->set_description($data['description']);
             $cat->set_user_id($data['user_id']);
-            $cat->set_course_code($data['course_code']);
+            //$cat->set_course_code($data['course_code']);
+            $cat->setCourseId($data['c_id']);
             $cat->set_parent_id($data['parent_id']);
             $cat->set_weight($data['weight']);
             $cat->set_visible($data['visible']);
@@ -745,14 +748,15 @@ class Category implements GradebookItem
     }
 
     /**
-     * Show message resource delete
+     * @param int $course_id
+     * @return bool|string
      */
     public function show_message_resource_delete($course_id)
     {
         $tbl_grade_categories = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
         $sql = 'SELECT count(*) AS num from '.$tbl_grade_categories.'
                 WHERE
-                    course_code = "'.Database::escape_string($course_id).'" AND
+                    c_id = "'.Database::escape_string($course_id).'" AND
                     visible=3';
         $res = Database::query($sql);
         $option = Database::fetch_array($res, 'ASSOC');
@@ -2317,4 +2321,24 @@ class Category implements GradebookItem
     {
         $this->studentList = $list;
     }
+
+    /**
+     * @return int
+     */
+    public function getCourseId()
+    {
+        return $this->courseId;
+    }
+
+    /**
+     * @param int $courseId
+     * @return Category
+     */
+    public function setCourseId($courseId)
+    {
+        $this->courseId = $courseId;
+
+        return $this;
+    }
+
 }

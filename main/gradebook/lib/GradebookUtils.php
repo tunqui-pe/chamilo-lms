@@ -186,7 +186,7 @@ class GradebookUtils
      */
     public static function build_edit_icons_cat($cat, $selectcat)
     {
-        $show_message = $cat->show_message_resource_delete($cat->get_course_code());
+        $show_message = $cat->show_message_resource_delete($cat->getCourseId());
         $grade_model_id = $selectcat->get_grade_model_id();
         $selectcat = $selectcat->get_id();
         $modify_icons = null;
@@ -295,7 +295,7 @@ class GradebookUtils
         $is_locked = $eval->is_locked();
         $eval->get_course_code();
         $cat = new Category();
-        $message_eval = $cat->show_message_resource_delete($eval->get_course_code());
+        $message_eval = $cat->show_message_resource_delete($eval->getCourseId());
         $courseParams = api_get_cidreq_params($eval->get_course_code(), $eval->getSessionId());
 
         if ($message_eval === false && api_is_allowed_to_edit(null, true)) {
@@ -333,7 +333,7 @@ class GradebookUtils
     public static function build_edit_icons_link($link, $selectcat)
     {
         $cat = new Category();
-        $message_link = $cat->show_message_resource_delete($link->get_course_code());
+        $message_link = $cat->show_message_resource_delete($link->getCourseId());
         $is_locked = $link->is_locked();
 
         $modify_icons = null;

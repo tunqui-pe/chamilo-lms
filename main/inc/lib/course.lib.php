@@ -5846,17 +5846,17 @@ class CourseManager
 
     /**
      * Returns course code from a given gradebook category's id
-     * @param int  Category ID
-     * @return string  Course code
+     * @param int  $category_id
+     * @return int course id
      */
     public static function get_course_by_category($category_id)
     {
         $category_id = intval($category_id);
         $info = Database::fetch_array(
-            Database::query('SELECT course_code FROM ' . Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY) . '
+            Database::query('SELECT c_id FROM ' . Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY) . '
             WHERE id=' . $category_id), 'ASSOC'
         );
-        return $info ? $info['course_code'] : false;
+        return $info ? $info['c_id'] : false;
     }
 
     /**
