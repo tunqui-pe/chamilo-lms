@@ -2863,11 +2863,8 @@ function api_is_allowed_to_edit(
 
     // Admins can edit anything.
     if (api_is_platform_admin(false)) {
-        //The student preview was on
-        if ($check_student_view &&
-            isset($_SESSION['studentview']) &&
-            $_SESSION['studentview'] == "studentview"
-        ) {
+        // The student preview was on
+        if ($check_student_view && api_is_student_view_active()) {
             return false;
         } else {
             return true;
