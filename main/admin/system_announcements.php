@@ -92,11 +92,12 @@ switch($action) {
         $values['action'] = 'add';
         // Set default time window: NOW -> NEXT WEEK
         $values['start'] = date('Y-m-d H:i:s', api_strtotime(api_get_local_time()));
-        $values['end']   = date('Y-m-d H:i:s', api_strtotime(api_get_local_time()) + (7 * 24 * 60 * 60));
+        $values['end'] = date('Y-m-d H:i:s', api_strtotime(api_get_local_time()) + (7 * 24 * 60 * 60));
 
         $values['range'] =
             substr(api_get_local_time(time()), 0, 16).' / '.
             substr(api_get_local_time(time() + (7 * 24 * 60 * 60)), 0, 16);
+
         $action_todo = true;
         break;
     case 'edit':
@@ -134,18 +135,9 @@ if ($action_todo) {
     $form = new FormValidator('system_announcement', 'post', $url);
     $form->addElement('header', '', $form_title);
     $form->addText('title', get_lang('Title'), true);
-    $language_list = api_get_languages();
-    $language_list_with_keys = array();
-    $language_list_with_keys['all'] = get_lang('All');
-    for ($i = 0; $i < count($language_list['name']); $i++) {
-        $language_list_with_keys[$language_list['folder'][$i]] = $language_list['name'][$i];
-    }
-
-    $form->addElement(
-        'select',
+    $form->addSelectLanguage(
         'lang',
-        get_lang('Language'),
-        $language_list_with_keys
+        get_lang('Language')
     );
     $form->addHtmlEditor(
         'content',

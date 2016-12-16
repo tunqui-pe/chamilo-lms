@@ -96,8 +96,7 @@ class DateRangePicker extends HTML_QuickForm_text
         // timeFormat: 'hh:mm'
         $js .= "<script>
             $(function() {
-                $('#$id').daterangepicker({
-                    format: '$format',
+                $('#$id').daterangepicker({                    
                     timePicker: $timePicker,
                     timePickerIncrement: 30,
                     timePicker12Hour: false,
@@ -109,9 +108,10 @@ class DateRangePicker extends HTML_QuickForm_text
                          '".addslashes(get_lang('ThisWeek'))."': [moment().weekday(1), moment().weekday(5)],
                          '".addslashes(get_lang('NextWeek'))."': [moment().weekday(8), moment().weekday(12)]
                     },
-                    //showDropdowns : true,
-                    separator: ' / ',
+                    //showDropdowns : true,                    
                     locale: {
+                        separator: ' / ',
+                        format: '$format',
                         applyLabel: '".addslashes(get_lang('Ok'))."',
                         cancelLabel: '".addslashes(get_lang('Cancel'))."',
                         fromLabel: '".addslashes(get_lang('From'))."',
@@ -148,7 +148,7 @@ class DateRangePicker extends HTML_QuickForm_text
     *
     * @return bool
     */
-    public function validateDates($dates, $format = null)
+    public function validateDates($dates, $format = '')
     {
         if (empty($dates['start']) || empty($dates['end'])) {
             return false;
