@@ -50,9 +50,9 @@ if ($showGlossary) {
     $htmlHeadXtra[] = api_get_js('jquery.highlight.js');
 }
 
-$htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
-$htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
-$htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
+$htmlHeadXtra[] = api_get_asset('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
+$htmlHeadXtra[] = api_get_js_plumb();
+$htmlHeadXtra[] = api_get_asset('xcolor/jquery.xcolor.js');
 
 //This library is necessary for the time control feature
 //tmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/epiclock/stylesheet/jquery.epiclock.css');

@@ -4872,7 +4872,7 @@ class SurveyUtil
     {
         $htmlChart = '';
         if (api_browser_support("svg")) {
-            $htmlChart .= api_get_js("d3/d3.v3.5.4.min.js");
+            $htmlChart .= api_get_asset('d3/d3.js');
             $htmlChart .= api_get_js("dimple.v2.1.2.min.js") . '
             <script type="text/javascript">
             var svg = dimple.newSvg("#'.$chartContainerId.'", "100%", 400);

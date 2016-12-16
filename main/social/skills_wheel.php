@@ -17,9 +17,9 @@ if (api_get_setting('allow_skills_tool') !== 'true') {
 api_block_anonymous_users();
 
 //Adds the JS needed to use the jqgrid
-$htmlHeadXtra[] = api_get_js('d3/d3.v3.5.4.min.js');
-$htmlHeadXtra[] = api_get_js('d3/colorbrewer.js');
-$htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
+$htmlHeadXtra[] = api_get_asset('d3/d3.js');
+$htmlHeadXtra[] = api_get_asset('colorbrewer/colorbrewer.js');
+$htmlHeadXtra[] = api_get_asset('xcolor/jquery.xcolor.js');
 
 $tpl = new Template(null, false, false);
 

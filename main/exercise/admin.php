@@ -336,14 +336,14 @@ function multiple_answer_true_false_onchange(variable) {
 
 </script>';
 
-$htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
-$htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
+$htmlHeadXtra[] = api_get_asset('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
+$htmlHeadXtra[] = api_get_js_plumb();
 
 $template = new Template();
 $template->assign('shuffle_answers', $objExercise->getShuffle());
 $templateName = $template->get_template('exercise/submit.html.twig');
 $htmlHeadXtra[] = $template->fetch($templateName);
-$htmlHeadXtra[] = api_get_js('d3/jquery.xcolor.js');
+$htmlHeadXtra[] = api_get_asset('xcolor/jquery.xcolor.js');
 
 $htmlHeadXtra[] = '<link rel="stylesheet" href="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'hotspot/css/hotspot.css">';
 $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'hotspot/js/hotspot.js"></script>';

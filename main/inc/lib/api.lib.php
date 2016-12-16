@@ -6238,6 +6238,15 @@ function api_get_asset($file, $getURL = false)
 }
 
 /**
+ * Get jsPlumb lib
+ * @return string
+ */
+function api_get_js_plumb()
+{
+    return api_get_asset('jsPlumb/build/1.3.7/js/jquery.jsPlumb-1.3.7-all.js');
+}
+
+/**
  *
  * Returns the <link> HTML tag
  *

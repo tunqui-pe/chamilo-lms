@@ -17,8 +17,8 @@ if (api_get_setting('allow_skills_tool') != 'true') {
 }
 
 //Adds the JS needed to use the jqgrid
-$htmlHeadXtra[] = api_get_js('jquery.jsPlumb.all.js');
-$htmlHeadXtra[] = api_get_js('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
+$htmlHeadXtra[] = api_get_js_plumb();
+$htmlHeadXtra[] = api_get_asset('jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
 $htmlHeadXtra[] = api_get_js('skills.js');
 
 $skill = new Skill();

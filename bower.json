@@ -35,7 +35,12 @@
     "moment": "*",
     "jqgrid": "4.7.0",
     "chosen" : "*",
-    "impress.js": "0.5.3"
+    "impress.js": "0.5.3",
+    "jqueryui-touch-punch": "*",
+    "jsPlumb" : "1.3.7",
+    "xcolor": "*",
+    "d3" : "3.5.4",
+    "colorbrewer" : "*"
   },
   "resolutions": {
     "jquery": "2.1.4"
