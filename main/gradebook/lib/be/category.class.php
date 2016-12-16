@@ -747,6 +747,18 @@ class Category implements GradebookItem
         Database::query($sql);
     }
 
+     /**
+     * Delete this category from the database
+     * @param int $courseId
+     */
+    public static function deleteCategoryFromCourse($courseId)
+    {
+        $table = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+        $sql = 'DELETE FROM '.$table.' 
+                WHERE c_id ="'.intval($courseId).'"';
+        Database::query($sql);
+    }
+
     /**
      * @param int $course_id
      * @return bool|string
@@ -776,7 +788,18 @@ class Category implements GradebookItem
             return null;
         } else {
             $tbl_category = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-            $sql = 'SELECT name,description,user_id,course_code,parent_id,weight,visible,certif_min_score,session_id, generate_certificates, is_requirement
+            $sql = 'SELECT 
+                        name,
+                        description,
+                        user_id,
+                        c_id,
+                        parent_id,
+                        weight,
+                        visible,
+                        certif_min_score,
+                        session_id, 
+                        generate_certificates, 
+                        is_requirement
                     FROM '.$tbl_category.' c
                     WHERE c.id='.intval($selectcat);
             $result = Database::query($sql);

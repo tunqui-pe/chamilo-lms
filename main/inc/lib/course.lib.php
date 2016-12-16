@@ -2342,7 +2342,6 @@ class CourseManager
             }
 
             // Delete the course from the stats tables
-
             $sql = "DELETE FROM $table_stats_hotpots WHERE c_id = $courseId";
             Database::query($sql);
             $sql = "DELETE FROM $table_stats_attempt WHERE c_id = $courseId";
@@ -2378,6 +2377,8 @@ class CourseManager
             $table = Database::get_main_table(TABLE_MAIN_SKILL_REL_USER);
             $sql = "DELETE FROM $table WHERE course_id = $courseId";
             Database::query($sql);
+
+            Category::deleteCategoryFromCourse($courseId);
 
             // Delete the course from the database
             $sql = "DELETE FROM $table_course WHERE code = '" . $codeFiltered . "'";

@@ -1759,7 +1759,7 @@ class DocumentManager
 
     /**
      * Allow attach a certificate to a course
-     * @param string $course_id
+     * @param int $course_id
      * @param int $document_id
      * @param int $session_id
      * @return void
@@ -1780,13 +1780,13 @@ class DocumentManager
             $sql_session = '';
         }
         $sql = 'UPDATE ' . $tbl_category . ' SET document_id="' . intval($document_id) . '"
-                WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
+                WHERE c_id ="' . Database::escape_string($course_id) . '" ' . $sql_session;
         Database::query($sql);
     }
 
     /**
      * get the document id of default certificate
-     * @param string $course_id
+     * @param int $course_id
      * @param int $session_id
      *
      * @return int The default certificate id
@@ -1807,7 +1807,7 @@ class DocumentManager
             $sql_session = '';
         }
         $sql = 'SELECT document_id FROM ' . $tbl_category . '
-                WHERE course_code="' . Database::escape_string($course_id) . '" ' . $sql_session;
+                WHERE c_id ="' . Database::escape_string($course_id) . '" ' . $sql_session;
 
         $rs = Database::query($sql);
         $num = Database::num_rows($rs);
@@ -1835,7 +1835,7 @@ class DocumentManager
         $course_id = $course_info['real_id'];
 
         $document_id = self::get_default_certificate_id(
-            $course_code,
+            $course_id,
             $sessionId
         );
 
@@ -1994,7 +1994,7 @@ class DocumentManager
 
     /**
      * Remove default certificate
-     * @param string $course_id The course code
+     * @param int $course_id
      * @param int $default_certificate_id The document id of the default certificate
      * @return void
      */
@@ -2018,7 +2018,7 @@ class DocumentManager
 
             $sql = 'UPDATE ' . $tbl_category . ' SET document_id=null
                     WHERE
-                        course_code = "' . Database::escape_string($course_id) . '" AND
+                        c_id = "' . Database::escape_string($course_id) . '" AND
                         document_id="' . $default_certificate_id . '" ' . $sql_session;
             Database::query($sql);
         }
@@ -4753,7 +4753,7 @@ class DocumentManager
         }
 
         if ($fromBaseCourse) {
-            $defaultCertificateId = self::get_default_certificate_id($courseData['code'], 0);
+            $defaultCertificateId = self::get_default_certificate_id($courseData['real_id'], 0);
 
             if (!empty($defaultCertificateId)) {
                 // We have a certificate from the course base
@@ -4807,12 +4807,12 @@ class DocumentManager
         );
 
         $defaultCertificateId = self::get_default_certificate_id(
-            $courseData['code'],
+            $courseData['real_id'],
             $sessionId
         );
 
         if (!isset($defaultCertificateId)) {
-            self::attach_gradebook_certificate($courseData['code'], $documentId, $sessionId);
+            self::attach_gradebook_certificate($courseData['real_id'], $documentId, $sessionId);
         }
     }
 
@@ -5762,7 +5762,7 @@ class DocumentManager
 
                 if (isset($_GET['curdirpath']) &&
                     $_GET['curdirpath'] == '/certificates' &&
-                    DocumentManager::get_default_certificate_id(api_get_course_id()) == $id
+                    DocumentManager::get_default_certificate_id(api_get_course_int_id()) == $id
                 ) {
                     $modify_icons .= '&nbsp;<a href="' . api_get_self() . '?' . api_get_cidreq() . '&amp;curdirpath=' . $curdirpath . '&action=delete_item&id='.$parent_id.'&deleteid='.$document_id.'&amp;' . $sort_params . 'delete_certificate_id=' . $id . '" onclick="return confirmation(\'' . $titleToShow . '\');">' .
                         Display::return_icon('delete.png', get_lang('Delete'), array(), ICON_SIZE_SMALL) . '</a>';
@@ -5813,7 +5813,7 @@ class DocumentManager
                 }
                 if (isset($_GET['curdirpath']) && $_GET['curdirpath'] == '/certificates') {//allow attach certificate to course
                     $visibility_icon_certificate = 'nocertificate';
-                    if (DocumentManager::get_default_certificate_id(api_get_course_id()) == $id) {
+                    if (DocumentManager::get_default_certificate_id(api_get_course_int_id()) == $id) {
                         $visibility_icon_certificate = 'certificate';
                         $certificate = get_lang('DefaultCertificate');
                         $preview = get_lang('PreviewCertificate');
