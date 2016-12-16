@@ -6435,12 +6435,9 @@ function api_get_course_url($course_code = null, $session_id = null)
  * @return bool true if multi site is enabled
  *
  **/
-function api_get_multiple_access_url() {
-    global $_configuration;
-    if (isset($_configuration['multiple_access_urls']) && $_configuration['multiple_access_urls']) {
-        return true;
-    }
-    return false;
+function api_get_multiple_access_url()
+{
+    return api_get_configuration_value('multiple_access_urls');
 }
 
 /**
@@ -7447,11 +7444,7 @@ function api_warn_hosting_contact($limitName)
  */
 function api_get_configuration_value($variable)
 {
-    global $_configuration;
-    if (isset($_configuration[$variable])) {
-        return $_configuration[$variable];
-    }
-    return false;
+    return Container::getParameter($variable);
 }
 
 /**
