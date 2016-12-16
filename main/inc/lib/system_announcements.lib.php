@@ -372,9 +372,9 @@ class SystemAnnouncementManager
             'content' => $content,
             'date_start' => $start,
             'date_end' => $end,
-            'visible_teacher' => $visible_teacher,
-            'visible_student' => $visible_student,
-            'visible_guest' => $visible_guest,
+            'visible_teacher' => (int) $visible_teacher,
+            'visible_student' => (int) $visible_student,
+            'visible_guest' => (int) $visible_guest,
             'lang' => $lang,
             'access_url_id' => $current_access_url_id
         ];
@@ -738,7 +738,7 @@ class SystemAnnouncementManager
             MessageManager::send_message_simple($row['user_id'], $title, $content);
             $message_sent = true;
 		}
-	    
+
 	    	// Minor validation to clean up the attachment files in the announcement
 		if (!empty($_FILES)) {
 		    $attachments = $_FILES;
