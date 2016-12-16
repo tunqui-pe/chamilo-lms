@@ -80,7 +80,7 @@ class LegacyController extends ToolBaseController
             ob_end_clean();
 
             // No browser cache when executing an exercise.
-            if ($name == 'exercice/exercise_submit.php') {
+            if ($name == 'exercise/exercise_submit.php') {
                 $responseHeaders = array(
                     'cache-control' => 'no-store, no-cache, must-revalidate'
                 );

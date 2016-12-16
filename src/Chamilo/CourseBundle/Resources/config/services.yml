@@ -272,7 +272,7 @@ services:
         arguments:
             - quiz
             - authoring
-            - exercice/exercice.php
+            - exercise/exercice.php
             - quiz.gif
             - '@chamilo_course.settings.exercise'
 

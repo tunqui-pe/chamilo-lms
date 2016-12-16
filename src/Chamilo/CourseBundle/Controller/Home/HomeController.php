@@ -146,9 +146,7 @@ class HomeController extends ToolBaseController
     private function renderActivityView()
     {
         $session_id = api_get_session_id();
-
         $urlGenerator = $this->get('router');
-
         $content = '';
 
         // Start of tools for CourseAdmins (teachers/tutors)
@@ -241,7 +239,7 @@ class HomeController extends ToolBaseController
                     $sessionData = Session::read($session_key);
                     if (!isset($sessionData)) {
                         //redirecting to the Exercise
-                        $url = api_get_path(WEB_CODE_PATH).'exercice/exercice.php?'.api_get_cidreq().'&id_session='.$session_id;
+                        $url = api_get_path(WEB_CODE_PATH).'exercise/exercice.php?'.api_get_cidreq().'&id_session='.$session_id;
                         $_SESSION[$session_key] = true;
 
                         header("Location: $url");
@@ -279,7 +277,7 @@ class HomeController extends ToolBaseController
                             $session_key = 'exercise_autolunch_'.$session_id.'_'.api_get_course_int_id().'_'.api_get_user_id();
                             if (!isset($_SESSION[$session_key])) {
                                 //redirecting to the LP
-                                $url = api_get_path(WEB_CODE_PATH).'exercice/overview.php?'.api_get_cidreq().'&exerciseId='.$data['iid'];
+                                $url = api_get_path(WEB_CODE_PATH).'exercise/overview.php?'.api_get_cidreq().'&exerciseId='.$data['iid'];
 
                                 $_SESSION[$session_key] = true;
                                 header("Location: $url");
