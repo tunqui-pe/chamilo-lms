@@ -674,7 +674,6 @@ class CourseHome
     public static function show_tools_category($urlGenerator, $all_tools_list, $rows = false)
     {
         $_user = api_get_user_info();
-        $courseInfo = api_get_course_info();
         $web_code_path = api_get_path(WEB_CODE_PATH);
         $session_id = api_get_session_id();
         $is_platform_admin = api_is_platform_admin();
@@ -709,12 +708,21 @@ class CourseHome
         $items = array();
         $app_plugin = new AppPlugin();
 
+        $toolChain = \Chamilo\CoreBundle\Framework\Container::getToolChain();
+
         if (isset($all_tools_list)) {
             $lnk = '';
 
             foreach ($all_tools_list as & $tool) {
                 $item = array();
                 $studentview = false;
+
+                // Using tool chain to load links instead of loading link from the database.
+                $toolObject = $toolChain->getToolFromName($tool['name']);
+                if ($toolObject) {
+                    $tool['link'] = $toolObject->getLink();
+                }
+
                 $tool['original_link'] = $tool['link'];
 
                 if ($tool['image'] == 'scormbuilder.gif') {
