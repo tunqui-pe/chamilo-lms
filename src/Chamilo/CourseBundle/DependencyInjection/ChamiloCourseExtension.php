@@ -37,14 +37,5 @@ class ChamiloCourseExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('admin.yml');
-
-//self::CONFIGURE_VALIDATORS
-
-        /*$this->configure(
-            $config,
-            new Configuration(),
-            $container,
-            self::CONFIGURE_LOADER | self::CONFIGURE_DATABASE | self::CONFIGURE_PARAMETERS | self::CONFIGURE_FORMS
-        );*/
     }
 }

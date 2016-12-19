@@ -319,4 +319,12 @@ class Container
     {
         return self::$container->get('router');
     }
+
+    /**
+     * @return \Chamilo\CourseBundle\ToolChain
+     */
+    public static function getToolChain()
+    {
+        return self::$container->get('chamilo_course.tool_chain');
+    }
 }

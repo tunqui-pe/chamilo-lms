@@ -19,8 +19,14 @@
  * Chamilo 2.x
  * (dev mode)
  * my.chamilo.net/web/app_dev.php/main/admin/user_list.php
- * (prod mod)
+ * (production mode)
  * my.chamilo.net/web/main/admin/user_list.php
+ *
+ * All twig settings are loaded as Twig Extensions and Listeners see:
+ *
+ * src/Chamilo/CoreBundle/Twig/Extension/ChamiloExtension.php
+ *
+ * src/Chamilo/CoreBundle/EventListener/LegacyListener.php
  *
  *
  */
@@ -60,6 +66,7 @@ class Template
     public $force_plugin_load = false;
 
     /**
+     *
      * @param string $title
      * @param bool $show_header
      * @param bool $show_footer
@@ -451,6 +458,8 @@ class Template
         if ($name == 'layout/layout_2_col.tpl') {
             $name = 'layout/layout_2_col.html.twig';
         }
+
+
 
         /**
          * In Chamilo 1.x we use the tpl extension.

@@ -18,12 +18,17 @@ use Doctrine\Common\Persistence\ObjectManager;
  * The course tools classes (agenda, blog, etc) are located in:
  *
  * src/Chamilo/CourseBundle/Tool
+ *
  * All this classes are registered as a service with the tag "chamilo_course.tool" here:
 
  * src/Chamilo/CourseBundle/Resources/config/services.yml
+ *
+ * The register process is made using the class ToolCompilerClass:
+ *
+ * src/Chamilo/CourseBundle/DependencyInjection/Compiler/ToolCompilerClass.php
 
  * The tool chain is just an array that includes all the tools registered in services.yml
-
+ *
  * The tool chain is hook when a new course is created via a listener here:
 
  * src/Chamilo/CoreBundle/Entity/Listener/CourseListener.php
@@ -31,11 +36,11 @@ use Doctrine\Common\Persistence\ObjectManager;
  * After a course is created this function is called: CourseListener::prePersist()
  * This function includes the called to the function "addToolsInCourse" inside the tool chain.
 
- * This allows to create tools more easily. Steps:
+ * This allows to create course tools more easily. Steps:
 
  * 1. Create a new tool class here: src/Chamilo/CourseBundle/Tool
  * 2. Add the class as a service here: src/Chamilo/CourseBundle/Resources/config/services.yml  (see examples there)
- * 3. Create a new course. When you create a new course the new tool will be creat
+ * 3. Create a new course. When you create a new course the new tool will be created
  *
  * @package Chamilo\CourseBundle
  */
@@ -52,11 +57,11 @@ class ToolChain
     }
 
     /**
-     * @param $tool
+     * @param BaseTool $tool
      */
-    public function addTool($tool)
+    public function addTool(BaseTool $tool)
     {
-        $this->tools[] = $tool;
+        $this->tools[$tool->getName()] = $tool;
     }
 
     /**
@@ -123,5 +128,20 @@ class ToolChain
         }
 
         return $course;
+    }
+
+    /**
+     * @param string $name
+     * @return BaseTool
+     */
+    public function getToolFromName($name)
+    {
+        $tools = $this->getTools();
+
+        if (array_key_exists($name, $tools)) {
+            return $tools[$name];
+        }
+
+        return false;
     }
 }

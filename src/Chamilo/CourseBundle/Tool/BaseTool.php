@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 namespace Chamilo\CourseBundle\Tool;
+
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sonata\CoreBundle\Model\BaseEntityManager;

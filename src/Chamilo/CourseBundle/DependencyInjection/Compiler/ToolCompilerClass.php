@@ -9,12 +9,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class ToolCompilerClass
- * Loads the services with tag "chamilo_course.tool" in order to be added
- * as a course tool (Documents, Notebook, etc)
+ *
+ * Loads the services with the tag "chamilo_course.tool" in order to be added
+ * as a course tool (Documents, Blog, Notebook, etc)
+ *
  * @package Chamilo\CourseBundle\DependencyInjection\Compiler
  */
 class ToolCompilerClass implements CompilerPassInterface
 {
+    /**
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('chamilo_course.tool_chain')) {

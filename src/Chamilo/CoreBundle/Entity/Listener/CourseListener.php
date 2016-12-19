@@ -35,6 +35,9 @@ class CourseListener
      * new object : prePersist
      * edited object: preUpdate
      *
+     * This function add the course tools to the current course entity
+     * thanks to the tool chain see src/Chamilo/CourseBundle/ToolChain.php
+     *
      * @param Course $course
      * @param LifecycleEventArgs $args
      *
