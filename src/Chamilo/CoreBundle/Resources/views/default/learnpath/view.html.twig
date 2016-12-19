@@ -1,3 +1,4 @@
+{% autoescape false %}
 <div id="learning_path_main" class="{{ is_allowed_to_edit ? 'lp-view-include-breadcrumb' }} {{ lp_mode == 'embedframe' ? 'lp-view-collapsed' }}">
     {% if is_allowed_to_edit %}
         <div id="learning_path_breadcrumb_zone" class="hidden-xs">
@@ -147,7 +148,7 @@
         </div>
         {# end right Zone #}
 </div>
-
+{% endautoescape %}
 <script>
 (function () {
     var LPViewUtils = {
@@ -300,3 +301,4 @@
     });
 })();
 </script>
+

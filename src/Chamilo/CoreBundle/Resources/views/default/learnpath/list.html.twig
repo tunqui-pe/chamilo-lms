@@ -8,6 +8,7 @@
     }
 </script>
 
+{% autoescape false %}
 {{ introduction_section }}
 
 {% for lp_data in data %}
@@ -145,9 +146,10 @@
         <h2>{{ "LearningPaths"|get_lang }}</h2>
         <img src="{{ "scorms.png"|icon(64) }}" width="64" height="64">
         <div class="controls">
-            <a href="{{ web_self ~ "?" ~ _p.web_cid_query ~ "&action=add_lp" }}" class="btn btn-default">
+            <a href="{{ _p.web_self ~ "?" ~ _p.web_cid_query ~ "&action=add_lp" }}" class="btn btn-default">
                 {{ "LearnpathAddLearnpath"|get_lang }}
             </a>
         </div>
     </div>
 {% endif %}
+{% endautoescape %}
