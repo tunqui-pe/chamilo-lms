@@ -632,6 +632,8 @@ define('TOOL_DRH', 'tool_drh');
 define('TOOL_STUDENT_VIEW', 'toolstudentview');
 define('TOOL_ADMIN_VISIBLE', 'tooladminvisible');
 
+define('FORUM_NEW_POST', 0);
+
 /**
  * Inclusion of internationalization libraries
  */
@@ -6334,8 +6336,6 @@ function api_get_jqgrid_js() {
  */
 function api_get_jquery_libraries_js($libraries) {
     $js = '';
-    $js_path = api_get_path(WEB_LIBRARY_PATH).'javascript/';
-
     //jqgrid js and css
     if (in_array('jqgrid', $libraries)) {
         $language = 'en';
@@ -6373,9 +6373,8 @@ function api_get_jquery_libraries_js($libraries) {
         $js .= api_get_asset('jquery-file-upload/js/jquery.fileupload-audio.js');
         $js .= api_get_asset('jquery-file-upload/js/jquery.fileupload-video.js');
         $js .= api_get_asset('jquery-file-upload/js/jquery.fileupload-validate.js');
-
-        $js .= api_get_css(api_get_path(WEB_PATH).'web/assets/jquery-file-upload/css/jquery.fileupload.css');
-        $js .= api_get_css(api_get_path(WEB_PATH).'web/assets/jquery-file-upload/css/jquery.fileupload-ui.css');
+        $js .= api_get_css_asset('jquery-file-upload/css/jquery.fileupload.css');
+        $js .= api_get_css_asset('jquery-file-upload/css/jquery.fileupload-ui.css');
     }
 
     // jquery datepicker

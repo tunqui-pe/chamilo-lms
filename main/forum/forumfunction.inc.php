@@ -27,8 +27,6 @@ use Chamilo\CourseBundle\Entity\CForumThread;
  * @todo complete the missing phpdoc the correct order should be
  */
 
-define('FORUM_NEW_POST', 0);
-
 get_notifications_of_user();
 
 $htmlHeadXtra[] = api_get_jquery_libraries_js(array('jquery-ui', 'jquery-upload'));
