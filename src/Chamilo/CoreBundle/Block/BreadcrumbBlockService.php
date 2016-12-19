@@ -5,6 +5,7 @@ namespace Chamilo\CoreBundle\Block;
 
 use Chamilo\CoreBundle\Entity\Course;
 use Sonata\BlockBundle\Block\BlockContextInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -24,19 +25,18 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         return 'chamilo_core.block.breadcrumb';
     }
 
-    /**
+     /**
      * {@inheritdoc}
      */
-    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    public function configureSettings(OptionsResolver $resolver)
     {
-        parent::setDefaultSettings($resolver);
+        parent::configureSettings($resolver);
 
-        $resolver->setDefaults(
-            array(
-                'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
-                'include_homepage_link' => false,
-            )
-        );
+        $resolver->setDefaults(array(
+            'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
+            'include_homepage_link' => false,
+            'context' => false,
+        ));
     }
 
     /**
