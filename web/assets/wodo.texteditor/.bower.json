@@ -1,0 +1,37 @@
+{
+  "name": "Wodo.TextEditor",
+  "description": "Editor component for text documents in the OpenDocument format (ODT). Done with just HTML, CSS, and JavaScript. Powered by WebODF",
+  "license": "AGPL-3.0",
+  "main": "wodotexteditor/wodotexteditor.js",
+  "ignore": [
+    "**/*.txt",
+    "docs",
+    "FileSaver.js",
+    "HOWTO.md",
+    "localfileeditor.html",
+    "localfileeditor.js",
+    "texteditor.html",
+    "welcome.odt"
+  ],
+  "keywords": [
+    "OpenDocument",
+    "ODF",
+    "Text",
+    "Document",
+    "ODT",
+    "OTT",
+    "FODT",
+    "Editor"
+  ],
+  "homepage": "http://webodf.org/",
+  "version": "0.5.9",
+  "_release": "0.5.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.5.9",
+    "commit": "e6525e9e3e6e2ebdda80696334d1933c19ec6edf"
+  },
+  "_source": "https://github.com/kogmbh/Wodo.TextEditor_release.git",
+  "_target": "0.5.*",
+  "_originalSource": "wodo.texteditor"
+}

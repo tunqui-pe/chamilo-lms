@@ -1,0 +1,38 @@
+{
+  "name": "webodf.js",
+  "description": "JavaScript Document Engine, for displaying and editing documents in the OpenDocument format",
+  "license": "AGPL-3.0",
+  "main": "webodf.js",
+  "ignore": [
+    "**/*.txt",
+    "docs",
+    "webodf-debug.js"
+  ],
+  "keywords": [
+    "OpenDocument",
+    "ODF",
+    "Text",
+    "Document",
+    "Slides",
+    "Presentation",
+    "ODT",
+    "OTT",
+    "FODT",
+    "ODP",
+    "OTP",
+    "FODP",
+    "Editor",
+    "Viewer"
+  ],
+  "homepage": "http://webodf.org/",
+  "version": "0.5.9",
+  "_release": "0.5.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.5.9",
+    "commit": "7ed3b1fb92b97d5953e093b79da101c7b9483d76"
+  },
+  "_source": "https://github.com/kogmbh/webodf.js_release.git",
+  "_target": "0.5.*",
+  "_originalSource": "webodf.js"
+}
