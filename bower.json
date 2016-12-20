@@ -44,7 +44,8 @@
     "emojione" : "2.2.*",
     "webodf.js" : "0.5.*",
     "wodo.texteditor" : "0.5.*",
-    "emojionearea" : "3.1.*"
+    "emojionearea" : "3.1.*",
+    "highlight.js.origin": "9.*"
   },
   "resolutions": {
     "jquery": "2.1.4"
