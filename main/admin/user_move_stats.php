@@ -554,7 +554,7 @@ $htmlHeadXtra[] = '<script type="text/javascript">
          $.ajax({
             contentType: "application/x-www-form-urlencoded",
             beforeSend: function(objeto) {
-            $("div#reponse_"+unique_id).html("<img src=\'../inc/lib/javascript/indicator.gif\' />"); },
+            $("div#reponse_"+unique_id).html("<img src=\''.Display::return_icon('indicator.gif', '', ICON_SIZE_SMALL, true, true).'\' />"); },
             type: "POST",
             url: "user_move_stats.php",
             data: "load_ajax=1"+"&unique_id="+unique_id+"&user_id="+user_id+"&session_id="+session_id,
@@ -569,7 +569,7 @@ $htmlHeadXtra[] = '<script type="text/javascript">
          $.ajax({
             contentType: "application/x-www-form-urlencoded",
             beforeSend: function(objeto) {
-            $("div#reponse_"+unique_id).html("<img src=\'../inc/lib/javascript/indicator.gif\' />"); },
+            $("div#reponse_"+unique_id).html("<img src=\''.Display::return_icon('indicator.gif', '', ICON_SIZE_SMALL, true, true).'\' />"); },
             type: "POST",
             url: "user_move_stats.php",
             data: "load_ajax=1&view_stat=1"+"&unique_id="+unique_id+"&user_id="+user_id+"&session_id="+session_id,

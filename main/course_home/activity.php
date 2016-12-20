@@ -51,9 +51,9 @@ if ($enabled === 'true') {
 if ($session_id === 0 && api_is_course_admin() && api_is_allowed_to_edit(null, true)) {
     $content .=  '<div class="alert alert-success" style="border:0px; margin-top: 0px;padding:0px;">
 		<div class="normal-message" id="id_normal_message" style="display:none">';
-    $content .=  '<img src="'.api_get_path(WEB_PATH).'main/inc/lib/javascript/indicator.gif"/>&nbsp;&nbsp;';
-    $content .=  get_lang('PleaseStandBy');
-    $content .=  '</div>
+    $content .= Display::return_icon('indicator.gif').'&nbsp;&nbsp;';
+    $content .= get_lang('PleaseStandBy');
+    $content .= '</div>
 		<div class="alert alert-success" id="id_confirmation_message" style="display:none"></div>
 	</div>';
 

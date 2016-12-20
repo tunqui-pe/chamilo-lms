@@ -11,7 +11,7 @@ api_block_anonymous_users();
 if (!isset($_SESSION['draw_dir'])) {
     die();
 }
-$svgEditPath = api_get_path(WEB_LIBRARY_PATH).'javascript/svgedit/';
+$svgEditPath = api_get_path(WEB_LIBRARY_JS_PATH).'svgedit/';
 ?>
 <!DOCTYPE html>
 <html>

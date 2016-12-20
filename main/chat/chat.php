@@ -1,43 +1,23 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-define('CHAMILO_LOAD_WYSIWYG', false);
-
 require_once __DIR__.'/../inc/global.inc.php';
 
 api_protect_course_script(true);
 
 Event::event_access_tool(TOOL_CHAT);
 
-// View
-$externalCSS = [
-    'jquery-emojiarea/jquery.emojiarea.css',
-    'jquery-textcomplete/jquery.textcomplete.css',
-    'emojione/css/emojione.min.css',
-    'emojione/css/autocomplete.css',
-    'highlight/styles/github.css'
-];
-
-foreach ($externalCSS as $css) {
-    $htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_JS_PATH) . $css);
-}
-
-$htmlHeadXtra[] = api_get_css(api_get_path(WEB_CSS_PATH) . 'chat.css');
-$htmlHeadXtra[] = api_get_css(api_get_path(WEB_CSS_PATH) . 'markdown.css');
-
-$externalJS = [
-    'highlight/highlight.pack.js',
-    'jquery-textcomplete/jquery.textcomplete.js',
-    'emojione/js/emojione.min.js',
-    'jquery-emojiarea/jquery.emojiarea.js'
-];
-
-foreach ($externalJS as $js) {
-    $htmlHeadXtra[] = api_get_js($js);
-}
+$htmlHeadXtra[] = api_get_css_asset('emojione/assets/css/emojione.min.css');
+$htmlHeadXtra[] = api_get_css_asset('jquery-emojiarea/jquery.emojiarea.css');
+$htmlHeadXtra[] = api_get_css_asset('highlight.js.origin/src/styles/github.css');
+$htmlHeadXtra[] = api_get_css('css/chat.css');
+$htmlHeadXtra[] = api_get_css('css/markdown.css');
+$htmlHeadXtra[] = api_get_asset('highlight.js.origin/src/highlight.js');
+$htmlHeadXtra[] = api_get_asset('jquery-textcomplete/dist/jquery.textcomplete.js');
+$htmlHeadXtra[] = api_get_asset('emojionearea/dist/emojionearea.js');
+$htmlHeadXtra[] = api_get_asset('emojione/lib/js/emojione.min.js');
 
 $iconList = [];
-
 foreach (Emojione\Emojione::$shortcode_replace as $key => $icon) {
     if (!in_array($key, CourseChatUtils::getEmojisToInclude())) {
         continue;

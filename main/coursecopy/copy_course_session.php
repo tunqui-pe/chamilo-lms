@@ -227,7 +227,7 @@ $xajax->processRequests();
 
 /* HTML head extra */
 
-$htmlHeadXtra[] = $xajax->getJavascript( api_get_path(WEB_LIBRARY_PATH).'xajax/');
+$htmlHeadXtra[] = $xajax->getJavascript();
 $htmlHeadXtra[] = '<script>
 function checkSelected(id_select,id_radio,id_title,id_destination) {
    var num=0;
