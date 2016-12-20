@@ -36,7 +36,8 @@ class GradebookSettingsSchema implements SchemaInterface
                     'my_display_coloring' => 'false',
                     'student_publication_to_take_in_gradebook' => 'first',
                     'gradebook_detailed_admin_view' => 'false',
-                    'openbadges_backpack' => 'https://backpack.openbadges.org/'
+                    'openbadges_backpack' => 'https://backpack.openbadges.org/',
+                    'hide_certificate_export_link' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -79,6 +80,8 @@ class GradebookSettingsSchema implements SchemaInterface
             )
             ->add('gradebook_detailed_admin_view')
             ->add('openbadges_backpack')
+            ->add('hide_certificate_export_link', 'yes_no')
+
         ;
     }
 }

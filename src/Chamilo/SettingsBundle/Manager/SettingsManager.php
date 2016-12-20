@@ -453,7 +453,6 @@ class SettingsManager implements SettingsManagerInterface
             'siteName' => 'site_name',
             'InstitutionUrl' => 'institution_url',
             'registration' => 'required_profile_fields',
-            'profile' => 'changeable_options',
             'stylesheets' => 'theme',
             'platformLanguage' => 'platform_language',
             'languagePriority1' => 'language_priority_1',
@@ -596,7 +595,18 @@ class SettingsManager implements SettingsManagerInterface
             'dropbox_allow_overwrite' => 'dropbox',
             'allow_user_course_subscription_by_course_admin' => 'course',
             'hide_course_group_if_no_tools_available' => 'group',
-            'extend_rights_for_coach_on_survey' => 'survey'
+            'extend_rights_for_coach_on_survey' => 'survey',
+            'show_official_code_exercise_result_list' => 'exercise',
+            'dropbox_max_filesize' => 'dropbox',
+            'dropbox_allow_just_upload' => 'dropbox',
+            'dropbox_allow_student_to_student' => 'dropbox',
+            'dropbox_allow_group' => 'dropbox',
+            'dropbox_allow_mailing' => 'dropbox',
+            'upload_extensions_list_type' => 'document',
+            'upload_extensions_blacklist' => 'document',
+            'upload_extensions_skip' => 'document',
+            'changeable_options' => 'profile'
+
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
