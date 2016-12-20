@@ -47,5 +47,4 @@ plugin/vchamilo/templates/*
 # Stuff updated through composer - Remove just before release
 composer.lock
 vendor
-web/assets/*
 

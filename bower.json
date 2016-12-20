@@ -40,7 +40,11 @@
     "jsPlumb" : "1.3.7",
     "xcolor": "*",
     "d3" : "3.5.4",
-    "colorbrewer" : "*"
+    "colorbrewer" : "*",
+    "emojione" : "2.2.*",
+    "webodf.js" : "0.5.*",
+    "wodo.texteditor" : "0.5.*",
+    "emojionearea" : "3.1.*"
   },
   "resolutions": {
     "jquery": "2.1.4"
