@@ -1,3 +1,4 @@
+{% autoescape false %}
 <div class="page-chat">
     <div class="row">
         <div class="col-sm-4 col-md-5 col-lg-4">
@@ -57,10 +58,11 @@
     </div>
 </div>
 <audio id="chat-alert">
-    <source src="{{ _p.web_main }}/chat/sound/notification.wav" type="audio/wav"></source>
+    <source src="{{ _p.web_main }}chat/sound/notification.wav" type="audio/wav"></source>
     <source src="{{ _p.web_main }}chat/sound/notification.ogg" type="audio/ogg"></source>
     <source src="{{ _p.web_main }}chat/sound/notification.mp3" type="audio/mpeg"></source>
 </audio>
+{% endautoescape %}
 <script>
     $(document).on('ready', function () {
         var ChChat = {
@@ -199,14 +201,17 @@
         hljs.initHighlightingOnLoad();
 
         emojione.ascii = true;
-        emojione.imagePathPNG = '{{ _p.web_lib }}javascript/emojione/png/';
-        emojione.imagePathSVG = '{{ _p.web_lib }}javascript/emojione/svg/';
-        emojione.imagePathSVGSprites = '{{ _p.web_lib }}javascript/emojione/sprites/';
+        emojione.imagePathPNG = '{{ asset('bundles/chamicore/js/emojione/png/') }}';
+        emojione.imagePathSVG = '{{ asset('bundles/chamicore/js/emojione/svg/') }}'; // '{{ _p.web_lib }}javascript/emojione/svg/';
+        emojione.imagePathSVGSprites = '{{ asset('bundles/chamicore/js/emojione/sprites/') }}'; // '{{ _p.web_lib }}javascript/emojione/sprites/';
 
+        {% autoescape false %}
         var emojiStrategy = {{ emoji_strategy|json_encode }};
-
+        {% endautoescape %}
         $.emojiarea.path = '{{ _p.web_lib }}javascript/emojione/png/';
+        {% autoescape false %}
         $.emojiarea.icons = {{ icons|json_encode }};
+        {% endautoescape %}
 
         $('body').on('click', '#chat-reset', ChChat.onResetListener);
 

@@ -22,7 +22,7 @@ var plugins = [
 ];
 
 plugins.forEach(function (plugin) {
-    CKEDITOR.plugins.addExternal(plugin, '{{ asset('bundles/chamilocore/ckeditor/plugins/') }}' + plugin + '/');
+    CKEDITOR.plugins.addExternal(plugin, '{{ asset('js/ckeditor/plugins/') }}' + plugin + '/');
 });
 
 // basic plugins
