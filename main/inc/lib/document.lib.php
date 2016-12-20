@@ -1915,7 +1915,7 @@ class DocumentManager
         $teacher_last_name = $teacher_info['lastname'];
 
         // info gradebook certificate
-        $info_grade_certificate = UserManager::get_info_gradebook_certificate($course_id, $user_id);
+        $info_grade_certificate = UserManager::getInfoGradeBookCertificate($course_info['real_id'], $user_id);
 
         $date_certificate = $info_grade_certificate['created_at'];
         $date_long_certificate = '';
@@ -3192,7 +3192,7 @@ class DocumentManager
      */
     public static function generate_jplayer_jquery($params = array())
     {
-        $js_path = api_get_path(WEB_LIBRARY_PATH) . 'javascript/';
+        $js_path = api_get_path(WEB_LIBRARY_JS_PATH);
 
         $js = '
             $("#jquery_jplayer_' . $params['count'] . '").jPlayer({
@@ -4432,7 +4432,7 @@ class DocumentManager
      */
     public static function readNanogongFile($file)
     {
-        $nanoGongJarFile = api_get_path(WEB_LIBRARY_PATH).'nanogong/nanogong.jar';
+        $nanoGongJarFile = api_get_path(WEB_LIBRARY_JS_PATH).'nanogong/nanogong.jar';
         $html = '<applet id="applet" archive="'.$nanoGongJarFile.'" code="gong.NanoGong" width="160" height="95">';
         $html .= '<param name="SoundFileURL" value="'.$file.'" />';
         $html .= '<param name="ShowSaveButton" value="false" />';
@@ -5532,7 +5532,7 @@ class DocumentManager
                 }
                 $icon = 'folder_users.png';
             } else {
-                $icon = 'folder_document.gif';
+                $icon = 'folder_document.png';
 
                 if ($path == '/audio') {
                     $icon = 'folder_audio.gif';

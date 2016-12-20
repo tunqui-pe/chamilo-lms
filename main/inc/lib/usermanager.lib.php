@@ -4579,11 +4579,11 @@ class UserManager
 
     /**
      * Gets the info about a gradebook certificate for a user by course
-     * @param string $course_code The course code
+     * @param int $courseId course id
      * @param int $user_id The user id
      * @return array  if there is not information return false
      */
-    public static function get_info_gradebook_certificate($course_code, $user_id)
+    public static function getInfoGradeBookCertificate($courseId, $user_id)
     {
         $tbl_grade_certificate = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
         $tbl_grade_category = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
@@ -4595,10 +4595,14 @@ class UserManager
             $session_condition = " AND session_id = $session_id";
         }
 
-        $sql = 'SELECT * FROM '.$tbl_grade_certificate.' WHERE cat_id = (SELECT id FROM '.$tbl_grade_category.'
-                WHERE
-                    course_code = "'.Database::escape_string($course_code).'" '.$session_condition.' LIMIT 1 ) AND
-                    user_id='.intval($user_id);
+        $sql = 'SELECT * FROM '.$tbl_grade_certificate.' 
+                WHERE cat_id = (
+                    SELECT id FROM '.$tbl_grade_category.'
+                    WHERE
+                        c_id = "'.Database::escape_string($courseId).'" '.$session_condition.' 
+                    LIMIT 1
+                 ) 
+                 AND user_id='.intval($user_id);
 
         $rs = Database::query($sql);
         if (Database::num_rows($rs) > 0) {
