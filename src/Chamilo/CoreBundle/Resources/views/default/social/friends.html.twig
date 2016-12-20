@@ -1,4 +1,4 @@
-{% extends template ~ "/layout/layout_1_col.tpl" %}
+{% extends "@ChamiloCore/layout_one_col.html.twig" %}
 
 {% block content %}
 <div class="row">
@@ -15,23 +15,9 @@
             </div>
         </div>
         <div class="row">
-            {{ social_right_content }}
-
-            {% for member in members %}
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="avatar">
-                    {{ member.image }}
-                    </div>
-                    <div class="content">
-                        {{ member.user_info.complete_name }}
-                        {{ member.link }}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            {{ social_right_content}}
         </div>
-        <div id="display_response_id" class="col-md-5"></div>
+        <div id="display_response_id" class="span5"></div>
         {{ social_auto_extend_link }}
     </div>
     <div class="col-md-4">
