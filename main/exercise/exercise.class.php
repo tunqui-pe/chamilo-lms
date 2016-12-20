@@ -7664,10 +7664,8 @@ class Exercise
             }
 
             $canClick = isset($_GET['editQuestion']) ? '0' : (isset($_GET['modifyAnswers']) ? '0' : '1');
-
-            $s .= ' <script type="text/javascript" src="../plugin/hotspot/JavaScriptFlashGateway.js"></script>
-                    <script src="../plugin/hotspot/hotspot.js" type="text/javascript" ></script>
-                    <script type="text/javascript">
+            $s .= api_get_js('js/hotspot/js/hotspot.js');
+            $s .= '<script>
                     <!--
                     // Globals
                     // Major version of Flash required

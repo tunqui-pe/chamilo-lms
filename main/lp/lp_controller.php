@@ -41,8 +41,8 @@ if ($showGlossary) {
         var jQueryFrameReadyConfigPath = \'' . api_get_jquery_web_path() . '\';
     -->
     </script>';
-    $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'javascript/jquery.frameready.js" type="text/javascript" language="javascript"></script>';
-    $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'javascript/jquery.highlight.js" type="text/javascript" language="javascript"></script>';
+    $htmlHeadXtra[] = api_get_js('js/jquery.frameready.js');
+    $htmlHeadXtra[] = api_get_js('js/jquery.highlight.js');
     }
 }
 

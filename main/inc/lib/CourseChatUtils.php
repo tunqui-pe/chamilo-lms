@@ -67,7 +67,7 @@ class CourseChatUtils
             return '';
         }
 
-        Emojione\Emojione::$imagePathPNG = api_get_path(WEB_LIBRARY_PATH) . 'javascript/emojione/png/';
+        Emojione\Emojione::$imagePathPNG = api_get_path(WEB_PUBLIC_PATH) . 'bundles/chamilocore/js/emojione/png/';
         Emojione\Emojione::$ascii = true;
 
         $message = trim($message);

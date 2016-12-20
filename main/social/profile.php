@@ -153,7 +153,7 @@ $libpath = api_get_path(LIBRARY_PATH);
 
 $ajax_url = api_get_path(WEB_AJAX_PATH).'message.ajax.php';
 $socialAjaxUrl = api_get_path(WEB_AJAX_PATH).'social.ajax.php';
-$javascriptDir = api_get_path(LIBRARY_PATH) . 'javascript/';
+$javascriptDir = api_get_path(WEB_LIBRARY_JS_PATH);
 api_block_anonymous_users();
 $locale = api_get_language_isocode();
 // Add Jquery scroll pagination plugin

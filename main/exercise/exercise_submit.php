@@ -55,19 +55,15 @@ $htmlHeadXtra[] = api_get_js_plumb();
 $htmlHeadXtra[] = api_get_asset('xcolor/jquery.xcolor.js');
 
 //This library is necessary for the time control feature
-//tmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/epiclock/stylesheet/jquery.epiclock.css');
-$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/epiclock/renderers/minute/epiclock.minute.css');
-$htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.dateformat.min.js');
-$htmlHeadXtra[] = api_get_js('epiclock/javascript/jquery.epiclock.min.js');
-$htmlHeadXtra[] = api_get_js('epiclock/renderers/minute/epiclock.minute.js');
-$htmlHeadXtra[] = '<link rel="stylesheet" href="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'hotspot/css/hotspot.css">';
-$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'hotspot/js/hotspot.js"></script>';
+$htmlHeadXtra[] = api_get_js_epiclock();
+$htmlHeadXtra[] = api_get_css('js/hotspot/css/hotspot.css');
+$htmlHeadXtra[] = api_get_js('js/hotspot/js/hotspot.js');
 
 if (api_get_setting('enable_record_audio') === 'true') {
-    $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'rtc/RecordRTC.js"></script>';
-    $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'wami-recorder/recorder.js"></script>';
-    $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'wami-recorder/gui.js"></script>';
-    $htmlHeadXtra[] = '<script type="text/javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'swfobject/swfobject.js"></script>';
+    $htmlHeadXtra[] = api_get_js('js/rtc/RecordRTC.js');
+    $htmlHeadXtra[] = api_get_js('js/wami-recorder/recorder.js');
+    $htmlHeadXtra[] = api_get_js('js/wami-recorder/gui.js');
+    $htmlHeadXtra[] = api_get_js('js/swfobject/swfobject.js');
 }
 
 $template = new Template();

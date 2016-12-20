@@ -903,7 +903,7 @@ EOT;
         $id = $this->getAttribute('id');
 
         $this->updateAttributes("onsubmit=\"javascript: addProgress('" . $id . "')\"");
-        $this->addHtml('<script language="javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'javascript/upload.js" type="text/javascript"></script>');
+        $this->addHtml('<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'upload.js" type="text/javascript"></script>');
     }
 
     /**

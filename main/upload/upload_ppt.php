@@ -11,9 +11,9 @@ use Chamilo\CoreBundle\Component\Utils\ChamiloApi;
 
 require_once __DIR__.'/../inc/global.inc.php';
 
-$htmlHeadXtra[] = '<script language="javascript" src="../inc/lib/javascript/upload.js" type="text/javascript"></script>';
-$htmlHeadXtra[] = '<script type="text/javascript">
-	var myUpload = new upload(0);
+$htmlHeadXtra[] = api_get_js('js/upload.js');
+$htmlHeadXtra[] = '<script>
+var myUpload = new upload(0);
 </script>';
 
 if (isset($_POST['convert'])) {

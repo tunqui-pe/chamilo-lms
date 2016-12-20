@@ -595,7 +595,7 @@ class ScormAnswerHotspot extends Answer
 	{
 		if ($this->standalone) {
 			$header = '<script>';
-			$header .= file_get_contents('../inc/lib/javascript/hotspot/js/hotspot.js');
+			$header .= file_get_contents(api_get_path(WEB_LIBRARY_JS_PATH).'hotspot/js/hotspot.js');
 			$header .= '</script>';
 			//because this header closes so many times the <script> tag, we have to reopen our own
 			$header .= '<script>';
@@ -1012,7 +1012,7 @@ class ScormSection
 	 */
 	public function common_js()
 	{
-		$js = file_get_contents('../inc/lib/javascript/hotspot/js/hotspot.js');
+		$js = file_get_contents(api_get_path(WEB_LIBRARY_JS_PATH).'hotspot/js/hotspot.js');
 
 		$js .= 'var questions = new Array();' . "\n";
 		$js .= 'var questions_answers = new Array();' . "\n";

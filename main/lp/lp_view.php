@@ -101,7 +101,7 @@ $htmlHeadXtra[] = '<script type="text/javascript">
 var jQueryFrameReadyConfigPath = \''.api_get_jquery_web_path().'\';
 -->
 </script>';
-$htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.frameready.js"></script>';
+$htmlHeadXtra[] = api_get_js('js/jquery.frameready.js');
 $htmlHeadXtra[] = '<script>
 $(document).ready(function() {
     $("div#log_content_cleaner").bind("click", function() {
@@ -139,14 +139,14 @@ $htmlHeadXtra[] = '<script>
 chamilo_courseCode = "' . $course_code . '";
 </script>';
 // Document API
-$htmlHeadXtra[] = '<script src="js/documentapi.js" type="text/javascript" language="javascript"></script>';
+$htmlHeadXtra[] = api_get_js('js/document/documentapi.js');
 // Storage API
 $htmlHeadXtra[] = '<script>
 var sv_user = \'' . api_get_user_id() . '\';
 var sv_course = chamilo_courseCode;
 var sv_sco = \'' . $lp_id . '\';
 </script>'; // FIXME fetch sco and userid from a more reliable source directly in sotrageapi.js
-$htmlHeadXtra[] = '<script type="text/javascript" src="js/storageapi.js"></script>';
+$htmlHeadXtra[] = api_get_js('js/document/storageapi.js');
 
 /**
  * Get a link to the corresponding document.
@@ -477,7 +477,7 @@ $template->assign('glossary_extra_tools', api_get_setting('show_glossary_in_extr
 $fixLinkSetting = api_get_configuration_value('lp_fix_embed_content');
 $fixLink = '';
 if ($fixLinkSetting) {
-    $fixLink = '{type:"script", id:"_fr10", src:"'.api_get_path(WEB_LIBRARY_PATH).'javascript/fixlinks.js"}';
+    $fixLink = '{type:"script", id:"_fr10", src:"'.api_get_path(WEB_LIBRARY_JS_PATH).'fixlinks.js"}';
 }
 
 $template->assign('fix_link', $fixLink);

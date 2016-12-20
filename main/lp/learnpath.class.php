@@ -5549,7 +5549,7 @@ class learnpath
                     if ($arrLP[$i]['item_type'] === TOOL_LP_FINAL_ITEM) {
                         $icon = Display::return_icon('certificate.png');
                     } else {
-                        $icon = Display::return_icon('folder_document.gif');
+                        $icon = Display::return_icon('folder_document.png');
                     }
                 }
             }
@@ -8347,9 +8347,9 @@ class learnpath
             $audio_player .= '<div class="lp_mediaplayer" id="container">
                               <a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this player.
                               </div>';
-            $audio_player .= '<script type="text/javascript" src="../inc/lib/mediaplayer/swfobject.js"></script>';
+            $audio_player .= api_get_js('mediaplayer/swfobject.js');
             $audio_player .= '<script>
-                var s1 = new SWFObject("../inc/lib/mediaplayer/player.swf","ply","250","20","9","#FFFFFF");
+                var s1 = new SWFObject("'.api_get_path(WEB_LIBRARY_JS_PATH).'mediaplayer/player.swf","ply","250","20","9","#FFFFFF");
                 s1.addParam("allowscriptaccess","always");
                 s1.addParam("flashvars","file=../..'.api_get_path(REL_COURSE_PATH).$_course['path'] . '/document/audio/' . $row['audio'] . '&autostart=true");
                 s1.write("container");
@@ -8627,7 +8627,7 @@ class learnpath
                 if (file_exists('../img/lp_' . $icon_name . '.gif')) {
                     $return .= Display::return_icon('lp_' . $icon_name . '.gif');
                 } else {
-                    $return .= Display::return_icon('folder_document.gif','',array('style'=>'margin-right:5px;'));
+                    $return .= Display::return_icon('folder_document.png','',array('style'=>'margin-right:5px;'));
                 }
             }
 

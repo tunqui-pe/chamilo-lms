@@ -20,19 +20,18 @@ $interbreadcrumb[] = array('url' => 'document.php', 'name' => get_lang('Document
 $htmlHeadXtra[] = api_get_js('jqplot/jquery.jqplot.js');
 $htmlHeadXtra[] = api_get_js('jqplot/plugins/jqplot.pieRenderer.js');
 $htmlHeadXtra[] = api_get_js('jqplot/plugins/jqplot.donutRenderer.js');
-$htmlHeadXtra[] = api_get_css(api_get_path(WEB_LIBRARY_PATH).'javascript/jqplot/jquery.jqplot.css');
-
-$course_code    = api_get_course_id();
-$course_id      = api_get_course_int_id();
-$session_id     = api_get_session_id();
-$group_id       = api_get_group_id();
-$user_id        = api_get_user_id();
-$user_info      = api_get_user_info($user_id);
+$htmlHeadXtra[] = api_get_css('jqplot/jquery.jqplot.css');
+$course_code = api_get_course_id();
+$course_id = api_get_course_int_id();
+$session_id = api_get_session_id();
+$group_id = api_get_group_id();
+$user_id = api_get_user_id();
+$user_info = api_get_user_info($user_id);
 
 $session = array();
 $user_name = $user_info['complete_name'];
 
-$course_list = SessionManager::get_course_list_by_session_id ($session_id);
+$course_list = SessionManager::get_course_list_by_session_id($session_id);
 $session_list = SessionManager::get_session_by_course($course_id);
 $total_quota_bytes = DocumentManager::get_course_quota();
 $quota_bytes = DocumentManager::documents_total_space($course_id, 0 , 0);

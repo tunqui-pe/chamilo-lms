@@ -5,14 +5,14 @@
  * @since 25/september/2010
  */
 
-require_once '../../../../inc/global.inc.php';//hack for Chamilo
+require_once __DIR__.'/../inc/global.inc.php';
 
 api_protect_course_script();
 api_block_anonymous_users();
 if (!isset($_SESSION['draw_dir'])) {
     die();
 }
-$svgEditPath = api_get_path(WEB_LIBRARY_PATH).'javascript/svgedit/';
+$svgEditPath = api_get_path(WEB_LIBRARY_JS_PATH).'svgedit/';
 ?>
 <!DOCTYPE html>
 <html>

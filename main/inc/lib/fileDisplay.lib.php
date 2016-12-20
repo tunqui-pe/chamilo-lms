@@ -135,7 +135,7 @@ function choose_image($file_name)
 
         $image['word'] = 'word.gif';
         $image['web'] = 'file_html.gif';
-        $image['image'] = 'file_image.gif';
+        $image['image'] = 'file_image.png';
         $image['image_vect'] = 'file_svg.png';
         $image['audio'] = 'file_sound.gif';
         $image['video'] = 'film.gif';
@@ -203,7 +203,7 @@ function chooseFolderIcon($folderPath)
             return 'folder_learningpath.gif';
     }
 
-    return 'folder_document.gif';
+    return 'folder_document.png';
 }
 
 /**

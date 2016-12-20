@@ -191,7 +191,7 @@ $js_glossary_in_documents =	'
         { type:"script", id:"_fr4", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/jquery-ui.min.js"},
         { type:"stylesheet", id:"_fr5", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/jquery-ui.min.css"},
         { type:"stylesheet", id:"_fr6", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/theme.css"},
-        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.highlight.js"},
+        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.highlight.js"},
         { type:"script", id:"_fr3", src:"'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php"}
     ]
   });';
@@ -240,11 +240,9 @@ if (isset($document_data['parents']) && isset($document_data['parents'][0])) {
 }
 
 if ($isChatFolder) {
-    $htmlHeadXtra[] = api_get_js('highlight/highlight.pack.js');
-    $htmlHeadXtra[] = api_get_css(api_get_path(WEB_CSS_PATH).'chat.css');
-    $htmlHeadXtra[] = api_get_css(
-        api_get_path(WEB_LIBRARY_PATH) . 'javascript/highlight/styles/github.css'
-    );
+    $htmlHeadXtra[] = api_get_asset('highlight.js.origin/src/highlight.js');
+    $htmlHeadXtra[] = api_get_css('css/chat.css');
+    $htmlHeadXtra[] = api_get_css_asset('highlight.js.origin/src/styles/github.css');
     $htmlHeadXtra[] = '
     <script>
         hljs.initHighlightingOnLoad();
@@ -257,7 +255,7 @@ if ($jplayer_supported) {
     if ($extension == 'mp4')  {
         $extension = 'm4v';
     }
-    $js_path = api_get_path(WEB_LIBRARY_PATH).'javascript/';
+    $js_path = api_get_path(WEB_LIBRARY_JS_PATH);
     $htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css">';
     $htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jplayer/jquery.jplayer.min.js"></script>';
 
@@ -307,7 +305,7 @@ if (!$jplayer_supported && $execute_iframe) {
         var jQueryFrameReadyConfigPath = \''.api_get_jquery_web_path().'\';
     -->
     </script>';
-    $htmlHeadXtra[] = '<script type="text/javascript" src="'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.frameready.js"></script>';
+    $htmlHeadXtra[] = api_get_js('js/jquery.frameready.js');
     $htmlHeadXtra[] = '<script>
         var updateContentHeight = function() {
             my_iframe = document.getElementById("mainFrame");
@@ -344,7 +342,7 @@ if (in_array(strtolower($pathinfo['extension']), array('html', "htm"))) {
 
 if ($show_web_odf) {
     $browser = api_get_navigator();
-    $pdfUrl = api_get_path(WEB_LIBRARY_PATH) . 'javascript/ViewerJS/index.html#' . $file_url;
+    $pdfUrl = api_get_path(WEB_LIBRARY_JS_PATH) . 'ViewerJS/index.html#' . $file_url;
     if ($browser['name'] == 'Mozilla' && preg_match('|.*\.pdf|i', $header_file)) {
         $pdfUrl = $file_url;
     }
@@ -371,7 +369,7 @@ if ($jplayer_supported) {
 
 if ($is_freemind_available) {
     ?>
-    <script type="text/javascript" src="<?php echo api_get_path(WEB_LIBRARY_PATH) ?>swfobject/swfobject.js"></script>
+    <script type="text/javascript" src="<?php echo api_get_path(WEB_LIBRARY_JS_PATH) ?>swfobject/swfobject.js"></script>
     <style type="text/css">
         #flashcontent {
             height: 500px;
@@ -398,7 +396,7 @@ if ($is_freemind_available) {
             }
             return result;
         }
-        var fo = new FlashObject("<?php echo api_get_path(WEB_LIBRARY_PATH); ?>freeMindFlashBrowser/visorFreemind.swf", "visorFreeMind", "100%", "100%", 6, "#ffffff");
+        var fo = new FlashObject("<?php echo api_get_path(WEB_LIBRARY_JS_PATH); ?>freeMindFlashBrowser/visorFreemind.swf", "visorFreeMind", "100%", "100%", 6, "#ffffff");
         fo.addParam("quality", "high");
         //fo.addParam("bgcolor", "#a0a0f0");
         fo.addVariable("openUrl", "_blank");//Default value "_self"

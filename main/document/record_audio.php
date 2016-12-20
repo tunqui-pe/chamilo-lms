@@ -120,9 +120,9 @@ if (isset($document_data['parents'])) {
 $wamiuserid = api_get_user_id();
 
 $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'rtc/RecordRTC.js"></script>';
-$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'wami-recorder/recorder.js"></script>';
-$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'wami-recorder/gui.js"></script>';
-$htmlHeadXtra[] = '<script type="text/javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'swfobject/swfobject.js"></script>';
+$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'wami-recorder/recorder.js"></script>';
+$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'wami-recorder/gui.js"></script>';
+$htmlHeadXtra[] = '<script type="text/javascript" src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'swfobject/swfobject.js"></script>';
 
 $actions = Display::toolbarButton(
 	get_lang('BackTo') . ' ' . get_lang('DocumentsOverview'),

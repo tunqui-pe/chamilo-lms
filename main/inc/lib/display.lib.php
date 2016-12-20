@@ -160,11 +160,6 @@ class Display
         echo '</body></html>';
     }
 
-    public static function page()
-    {
-        return new Page();
-    }
-
     /**
      * Displays the tool introduction of a tool.
      *
@@ -702,7 +697,7 @@ class Display
         $image,
         $alt_text = '',
         $additional_attributes = array(),
-        $size = null
+        $size = ICON_SIZE_SMALL
     ) {
         echo self::return_icon($image, $alt_text, $additional_attributes, $size);
     }
@@ -1977,8 +1972,8 @@ class Display
                 $class = isset($params['class']) ? ' class="'.$params['class'].'"' : null;
 
                 $html = '<audio id="'.$id.'" '.$class.' controls '.$autoplay.' '.$width.' src="'.$params['url'].'" >';
-                $html .= '<object width="'.$width.'" height="50" type="application/x-shockwave-flash" data="'.api_get_path(WEB_LIBRARY_PATH).'javascript/mediaelement/flashmediaelement.swf">
-                            <param name="movie" value="'.api_get_path(WEB_LIBRARY_PATH).'javascript/mediaelement/flashmediaelement.swf" />
+                $html .= '<object width="'.$width.'" height="50" type="application/x-shockwave-flash" data="'.api_get_path(WEB_LIBRARY_JS_PATH).'mediaelement/flashmediaelement.swf">
+                            <param name="movie" value="'.api_get_path(WEB_LIBRARY_JS_PATH).'mediaelement/flashmediaelement.swf" />
                             <param name="flashvars" value="controls=true&file='.$params['url'].'" />
                           </object>';
                 $html .= '</audio>';

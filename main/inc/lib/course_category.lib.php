@@ -438,7 +438,7 @@ class CourseCategory
                 $url = api_get_path(WEB_CODE_PATH).'admin/course_category.php?category='.$category['code'];
                 $title = Display::url(
                     Display::return_icon(
-                        'folder_document.gif',
+                        'folder_document.png',
                         get_lang('OpenNode'),
                         null,
                         ICON_SIZE_SMALL

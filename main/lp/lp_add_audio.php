@@ -109,9 +109,9 @@ $recordVoiceForm = Display::page_subheader(get_lang('RecordYourVoice'));
 $page .= '<div id="doc_form" class="col-md-8">';
 
 $htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'rtc/RecordRTC.js"></script>';
-$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'wami-recorder/recorder.js"></script>';
-$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_PATH) . 'wami-recorder/gui.js"></script>';
-$htmlHeadXtra[] = '<script type="text/javascript" src="' . api_get_path(WEB_LIBRARY_PATH) . 'swfobject/swfobject.js"></script>';
+$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'wami-recorder/recorder.js"></script>';
+$htmlHeadXtra[] = '<script src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'wami-recorder/gui.js"></script>';
+$htmlHeadXtra[] = '<script type="text/javascript" src="' . api_get_path(WEB_LIBRARY_JS_PATH) . 'swfobject/swfobject.js"></script>';
 
 $tpl = new Template(null);
 $tpl->assign('unique_file_id', api_get_unique_id());

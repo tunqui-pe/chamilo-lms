@@ -721,7 +721,7 @@ function api_get_path($path = '', $configuration = [])
             SYS_CODE_PATH => 'main/',
             REL_CODE_PATH => '/main/',
             SYS_LANG_PATH => 'lang/',
-            WEB_IMG_PATH => 'img/',
+            WEB_IMG_PATH => 'web/img/',
             WEB_CSS_PATH => 'web/css/',
             SYS_CSS_PATH => 'app/Resources/public/css/',
             SYS_PLUGIN_PATH => 'plugin/',
@@ -738,7 +738,7 @@ function api_get_path($path = '', $configuration = [])
             CONFIGURATION_PATH => 'app/config/',
             LIBRARY_PATH => 'inc/lib/',
             WEB_LIBRARY_PATH => 'inc/lib/',
-            WEB_LIBRARY_JS_PATH => 'inc/lib/javascript/',
+            WEB_LIBRARY_JS_PATH => 'web/js/',
             WEB_AJAX_PATH => 'inc/ajax/',
             SYS_TEST_PATH => 'tests/',
             WEB_TEMPLATE_PATH => 'template/',
@@ -6212,7 +6212,7 @@ function api_check_browscap() {
  */
 function api_get_js($file, $getURL = false)
 {
-    $url = Container::getAsset()->getUrl("assets/".$file);
+    $url = Container::getAsset()->getUrl($file);
 
     if ($getURL) {
         return $url;
@@ -6240,12 +6240,18 @@ function api_get_asset($file, $getURL = false)
 }
 
 /**
- * Get jsPlumb lib
+ * Returns the <link> HTML tag
+ *
+ * @param string $file
+ * @param string $media
+ *
  * @return string
  */
-function api_get_js_plumb()
+function api_get_css($file, $media = 'screen')
 {
-    return api_get_asset('jsPlumb/build/1.3.7/js/jquery.jsPlumb-1.3.7-all.js');
+    $url = Container::getAsset()->getUrl($file);
+
+    return '<link href="'.$url.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
 }
 
 /**
@@ -6263,16 +6269,27 @@ function api_get_css_asset($file, $media = 'screen')
 }
 
 /**
- * Returns the <link> HTML tag
- *
- * @param string $file
- * @param string $media
- *
+ * Get jsPlumb lib
  * @return string
  */
-function api_get_css($file, $media = 'screen')
+function api_get_js_plumb()
 {
-    return '<link href="'.$file.'" rel="stylesheet" media="'.$media.'" type="text/css" />'."\n";
+    return api_get_asset('jsPlumb/build/1.3.7/js/jquery.jsPlumb-1.3.7-all.js');
+}
+
+/**
+ * Return epiclock js and css
+ * @return string
+ */
+function api_get_js_epiclock()
+{
+    $html = api_get_css('bundles/chamilocore/js/epiclock/stylesheet/jquery.epiclock.css');
+    $html .= api_get_css('bundles/chamilocore/js/epiclock/renderers/minute/epiclock.minute.css');
+    $html .= api_get_js('bundles/chamilocore/js/epiclock/javascript/jquery.dateformat.min.js');
+    $html .= api_get_js('bundles/chamilocore/js/epiclock/javascript/jquery.epiclock.min.js');
+    $html .= api_get_js('bundles/chamilocore/js/epiclock/renderers/minute/epiclock.minute.js');
+
+    return $html;
 }
 
 /**
@@ -6363,7 +6380,6 @@ function api_get_jquery_libraries_js($libraries) {
 
     //Document multiple upload funcionality
     if (in_array('jquery-upload', $libraries)) {
-
         $js .= api_get_asset('blueimp-load-image/js/load-image.all.min.js');
         $js .= api_get_asset('blueimp-canvas-to-blob/js/canvas-to-blob.min.js');
         $js .= api_get_asset('jquery-file-upload/js/jquery.iframe-transport.js');

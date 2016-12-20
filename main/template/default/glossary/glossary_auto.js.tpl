@@ -5,7 +5,7 @@ $(document).ready(function() {
 
         var my_text = $(".glossary-content").html();
         var ajaxRequestUrl = "{{ _p.web }}main/glossary/glossary_ajax_request.php";
-        var imageSource = "{{ _p.web }}main/inc/lib/javascript/indicator.gif";
+        var imageSource = "{{ asset('img/icons/22/indicator.gif') }}";
         var indicatorImage ='<img src="' + imageSource + '" />';
 
         $.ajax({

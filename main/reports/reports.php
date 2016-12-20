@@ -46,7 +46,7 @@ if ($_REQUEST['format'] == 'link') {
 
 if ($_REQUEST['format'] == 'directlink') {
 	foreach (array('jquery.dataTables.min.js') as $js)
-		$htmlHeadXtra[] = '<script src="'.api_get_path(WEB_LIBRARY_PATH).'javascript/'.$js.'" type="text/javascript" language="javascript"></script>'."\n";
+		$htmlHeadXtra[] = '<script src="'.api_get_path(WEB_LIBRARY_JS_PATH).$js.'" type="text/javascript" language="javascript"></script>'."\n";
 
 	$htmlCSSXtra[] = 'dataTable.css';
 
