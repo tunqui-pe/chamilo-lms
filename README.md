@@ -1,4 +1,4 @@
-# Chamilo 1.11.x
+# Chamilo 2.x
 
 [![Build Status](https://travis-ci.org/chamilo/chamilo-lms.svg?branch=1.11.x)](https://travis-ci.org/chamilo/chamilo-lms)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/badges/quality-score.png?b=1.11.x)](https://scrutinizer-ci.com/g/chamilo/chamilo-lms/?branch=1.11.x)
@@ -13,7 +13,8 @@ This installation guide is for development environments only.
 
 ### Install PHP, a web server and MySQL/MariaDB
 
-To run Chamilo, you will need at least a web server (we recommend Apache2 for commodity reasons), a database server (we recommend MariaDB but will explain MySQL for commodity reasons) and a PHP interpreter (and a series of libraries for it). If you are working on a Debian-based system (Debian, Ubuntu, Mint, etc), just
+To run Chamilo, you will need at least a web server (we recommend Apache2 for commodity reasons), 
+a database server (we recommend MariaDB but will explain MySQL for commodity reasons) and a PHP interpreter (and a series of libraries for it). If you are working on a Debian-based system (Debian, Ubuntu, Mint, etc), just
 type
 ```
 sudo apt-get install libapache2-mod-php mysql-server php5-gd php5-intl php5-curl php5-json
@@ -21,32 +22,36 @@ sudo apt-get install libapache2-mod-php mysql-server php5-gd php5-intl php5-curl
 
 ### Install Git
 
-The development version 1.11.x requires you to have Git installed. If you are working on a Debian-based system (Debian, Ubuntu, Mint, etc), just type
+The development version 2.x requires you to have Git installed. 
+If you are working on a Debian-based system (Debian, Ubuntu, Mint, etc), just type
 ```
 sudo apt-get install git
 ```
 
 ### Install Composer
 
-To run the development version 1.11.x, you need Composer, a libraries dependency management system that will update all the libraries you need for Chamilo to the latest available version.
+To run the development version 2.x, you need Composer, a libraries dependency management system that will update all the 
+libraries you need for Chamilo to the latest available version.
 
-Make sure you have Composer installed. If you do, you should be able to launch "composer" on the command line and have the inline help of composer show a few subcommands. If you don't, please follow the installation guide at https://getcomposer.org/download/
+Make sure you have Composer installed. If you do, you should be able to launch "composer" on the command line and have the 
+inline help of composer show a few subcommands. 
+If you don't, please follow the installation guide at https://getcomposer.org/download/
 
 ### Download Chamilo from GitHub
 
 Clone the repository
 
 ```
-sudo mkdir chamilo-1.11
-sudo chown -R `whoami` chamilo-1.11
-git clone -b 1.11.x --single-branch https://github.com/chamilo/chamilo-lms.git chamilo-1.11
+sudo mkdir chamilo2
+sudo chown -R `whoami` chamilo2
+git clone -b master --single-branch https://github.com/chamilo/chamilo-lms.git chamilo2
 ```
 
-Checkout branch 1.11.x
+Checkout branch 2.x
 
 ```
-cd chamilo-1.11
-git checkout --track origin/1.11.x
+cd chamilo2
+git checkout --track origin/master
 git config --global push.default current
 ```
 
@@ -63,7 +68,7 @@ that your web/assets folder is completely re-generated.
 Use this set of commands to do that:
 ```
 rm composer.lock
-rm -rf web/ vendor/
+rm -rf vendor/
 composer clear-cache
 composer update
 ```
@@ -80,27 +85,27 @@ sudo chown -R www-data:www-data app main/default_course_document/images main/lan
 ### Start the installer
 
 In your browser, load the Chamilo URL. You should be automatically redirected 
-to the installer. If not, add the "main/install/index.php" suffix manually in 
+to the installer. If not, add the "web/install.php" suffix manually in 
 your browser address bar. The rest should be a matter of simple
  OK > Next > OK > Next...
 
-## Upgrade from 1.10.x
+## Upgrade from 1.11.x
 
-1.11.0 is a major version. It contains a series of new features, that
-also mean a series of new database changes in regards with versions 1.10.x. As 
+2.x is a major version. It contains a series of new features, that
+also mean a series of new database changes in regards with versions 1.x. As 
 such, it is necessary to go through an upgrade procedure when upgrading from 
 1.10.x to 1.11.x.
 
-The upgrade procedure is relatively straightforward. If you have a 1.10.x 
+The upgrade procedure is relatively straightforward. If you have a 1.11.x 
 initially installed with Git, here are the steps you should follow 
 (considering you are already inside the Chamilo folder):
 ```
 git fetch --all
-git checkout origin 1.11.x
+git checkout origin master
 ```
 
-Then load the Chamilo URL in your browser, adding "main/install/index.php" and 
-follow the upgrade instructions. Select the "Upgrade from 1.10.x" button to 
+Then load the Chamilo URL in your browser, adding "web/install.php" and 
+follow the upgrade instructions. Select the "Upgrade from 1.x" button to 
 proceed.
 
 If you have previously updated database rows manually, you might face issue with
@@ -112,16 +117,17 @@ Typically:
     DELETE FROM access_url_rel_course WHERE access_url_id NOT IN (SELECT id FROM access_url);
 </pre>
 
-### Upgrading from non-Git Chamilo 1.10 ###
+### Upgrading from non-Git Chamilo 1.11 ###
 
-In the *very unlikely* case of upgrading a "normal" Chamilo 1.10 installation (done with the downloadable zip package) to a Git-based installation, make sure you delete the contents of a few folders first. These folders are re-generated later by the ```composer update``` command. This is likely to increase the downtime of your Chamilo portal of a few additional minutes (plan for 10 minutes on a reasonnable internet connection).
+In the *very unlikely* case of upgrading a "normal" Chamilo 1.x installation (done with the downloadable zip package) to a Git-based installation, 
+make sure you delete the contents of a few folders first. 
+These folders are re-generated later by the ```composer update``` command. 
+This is likely to increase the downtime of your Chamilo portal of a few additional minutes (plan for 10 minutes on a reasonnable internet connection).
 
 ```
 rm composer.lock
-rm -rf web/*
 rm -rf vendor/*
 ```
-
 
 # For developers and testers only
 
@@ -129,12 +135,29 @@ This section is for developers only (or for people who have a good reason to use
 a development version of Chamilo), in the sense that other people will not 
 need to update their Chamilo portal as described here.
 
+## Changes from 1.x 
+
+* app/Resources/public/assets moved to web/assets
+* main/inc/lib/javascript moved to web/js
+* main/img/ moved to web/img
+* main/template/default moved to src/Chamilo/CoreBundle/Resources/views
+* Template twig file names are changed from *.tpl to *.html.twig to follow Symfony2 format
+* bin/doctrine.php changed to app/console
+* php files are now loaded using the web/app_dev.php file
+  Example:
+  In 1.x:
+      main/admin/user_list.php
+  In 2.x (dev mode)
+      web/app_dev.php/main/admin/user_list.php
+  In 2.x: (prod mode)
+      web/main/admin/user_list.php
+
 ## Updating code
 
-To update your code with the latest developments in the 1.11.x branch, go to
+To update your code with the latest developments in the master branch, go to
 your Chamilo folder and type:
 ```
-git pull origin 1.11.x
+git pull origin master
 ```
 If you have made customizations to your code before the update, you will have
 two options:
