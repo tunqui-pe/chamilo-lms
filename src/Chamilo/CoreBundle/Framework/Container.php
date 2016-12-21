@@ -48,7 +48,7 @@ class Container
     public static $twig;
     public static $roles;
     /** @var  string  */
-    public static $legacyTemplate;
+    public static $legacyTemplate = 'layout_one_col.html.twig';
 
     /**
      * @param ContainerInterface $container

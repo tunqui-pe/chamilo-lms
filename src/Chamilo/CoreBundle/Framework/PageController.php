@@ -495,7 +495,7 @@ class PageController
                     $my_exercise['title'],
                     api_get_path(
                         WEB_CODE_PATH
-                    ).'exercice/overview.php?exerciseId='.$my_exercise['id'].'&cidReq='.$my_exercise['course_code'].'&id_session='.$my_exercise['session_id']
+                    ).'exercise/overview.php?exerciseId='.$my_exercise['id'].'&cidReq='.$my_exercise['course_code'].'&id_session='.$my_exercise['session_id']
                 );
                 $tpl->assign('exercise_url', $url);
                 $tpl->assign(

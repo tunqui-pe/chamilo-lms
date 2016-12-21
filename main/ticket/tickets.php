@@ -19,7 +19,7 @@ function load_history_ticket(div_course, ticket_id) {
     $.ajax({
         contentType: "application/x-www-form-urlencoded",
         beforeSend: function(object) {
-        $("div#"+div_course).html("<img src=\''.Display::return_icon('indicator.gif', '', ICON_SIZE_SMALL, true, true).'\' />"); },
+        $("div#"+div_course).html("<img src=\''.Display::return_icon('indicator.gif', '', [], ICON_SIZE_SMALL, true, true).'\' />"); },
         type: "POST",
         url: "ticket_assign_log.php",
         data: "ticket_id="+ticket_id,

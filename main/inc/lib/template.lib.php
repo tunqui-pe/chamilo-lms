@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Framework\Container;
+
 /**
  * Class Template
  *
@@ -84,6 +86,10 @@ class Template
         $load_plugins = true,
         $sendHeaders = true
     ) {
+
+        if ($show_header == false) {
+            Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
+        }
 
         return;
         // Page title
@@ -458,8 +464,6 @@ class Template
         if ($name == 'layout/layout_2_col.tpl') {
             $name = 'layout/layout_2_col.html.twig';
         }
-
-
 
         /**
          * In Chamilo 1.x we use the tpl extension.
@@ -1345,13 +1349,9 @@ class Template
      */
     public function fetch($template = null)
     {
-        /*$template = $this->twig->loadTemplate($template);
-        return $template->render($this->params);*/
-        //
-
-        $template = \Chamilo\CoreBundle\Framework\Container::getTwig()->loadTemplate('ChamiloCoreBundle::'.$template);
+        $template = str_replace('.tpl', '.html.twig', $template);
+        $template = \Chamilo\CoreBundle\Framework\Container::getTwig()->load('ChamiloCoreBundle::'.$template);
         return $template->render($this->params);
-
     }
 
     /**

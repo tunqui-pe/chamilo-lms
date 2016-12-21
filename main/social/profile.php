@@ -157,7 +157,7 @@ $javascriptDir = api_get_path(WEB_LIBRARY_JS_PATH);
 api_block_anonymous_users();
 $locale = api_get_language_isocode();
 // Add Jquery scroll pagination plugin
-$htmlHeadXtra[] = api_get_js('jscroll/jquery.jscroll.js');
+$htmlHeadXtra[] = api_get_js('js/jscroll/jquery.jscroll.js');
 // Add Jquery Time ago plugin
 $htmlHeadXtra[] = api_get_asset('jquery-timeago/jquery.timeago.js');
 $timeAgoLocaleDir = $javascriptDir . 'jquery-timeago/locales/jquery.timeago.' . $locale . '.js';
