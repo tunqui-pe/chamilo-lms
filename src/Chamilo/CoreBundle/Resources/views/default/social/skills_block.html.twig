@@ -3,6 +3,7 @@ jQuery(document).ready(function(){
     jQuery('.scrollbar-inner').scrollbar();
 });
 </script>
+{% autoescape false %}
 <div class="panel-group" id="skill-block" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
@@ -57,3 +58,4 @@ jQuery(document).ready(function(){
         </div>
     </div>
 </div>
+{% endautoescape %}

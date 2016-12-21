@@ -1,6 +1,7 @@
 {% extends "@ChamiloCore/layout_one_col.html.twig" %}
 
 {% block content %}
+{% autoescape false %}
 <div class="row">
     <div class="col-md-3">
         <div class="sm-groups">
@@ -60,4 +61,5 @@
         </div>
     </div>
 </div>
+{% endautoescape %}
 {% endblock %}

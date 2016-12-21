@@ -1,6 +1,7 @@
 {% extends "@ChamiloCore/layout_one_col.html.twig" %}
 
 {% block content %}
+{% autoescape false %}
 <div class="row">
     <div class="col-md-3">
         {{ social_avatar_block }}
@@ -100,4 +101,5 @@
 {% if form_modals is defined %}
     {{ form_modals }}
 {% endif %}
+{% endautoescape %}
 {% endblock %}
