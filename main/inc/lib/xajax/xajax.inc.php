@@ -805,7 +805,7 @@ class xajax
 	 */
 	function getJavascriptInclude($sJsURI="", $sJsFile=NULL)
 	{
-		$html = api_get_js('bundles/chamilocore/xajax/xajax.js');
+		$html = api_get_js('js/xajax/xajax.js');
 		$html .= "\t<script>\n";
 		$html .= "window.setTimeout(function () { if (!xajaxLoaded) { alert('Error: the xajax Javascript file could not be included. Perhaps the URL is incorrect?\\nURL: {$sJsURI}{$sJsFile}'); } }, 6000);\n";
 		$html .= "\t</script>\n";
