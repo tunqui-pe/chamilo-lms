@@ -387,7 +387,7 @@ function ldap_get_users() {
         }
         $str_query.=" )";
     } else {
-        $str_query= count($ldap_query) > 0 ? $ldap_query[0] : null;
+        $str_query= count($ldap_query) > 0 ? "(".$ldap_query[0].")" : null;
     }
 
     $ds = ldap_connect($ldap_host, $ldap_port);
