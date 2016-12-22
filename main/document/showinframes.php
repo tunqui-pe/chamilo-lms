@@ -187,11 +187,11 @@ $js_glossary_in_documents =	'
   {
     load: [
         { type:"script", id:"_fr1", src:"'.api_get_jquery_web_path().'"},
-        { type:"script", id:"_fr7", src:"'.api_get_path(WEB_PATH).'web/assets/MathJax/MathJax.js?config=AM_HTMLorMML"},
-        { type:"script", id:"_fr4", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/jquery-ui.min.js"},
-        { type:"stylesheet", id:"_fr5", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/jquery-ui.min.css"},
-        { type:"stylesheet", id:"_fr6", src:"'.api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/theme.css"},
-        { type:"script", id:"_fr2", src:"'.api_get_path(WEB_LIBRARY_JS_PATH).'jquery.highlight.js"},
+        { type:"script", id:"_fr7", src:"'.api_get_asset('MathJax/MathJax.js', true).'?config=AM_HTMLorMML"},
+        { type:"script", id:"_fr4", src:"'.api_get_asset('jquery-ui/jquery-ui.min.js', true).'"},
+        { type:"stylesheet", id:"_fr5", src:"'.api_get_asset('jquery-ui/themes/smoothness/jquery-ui.min.css', true).'"},
+        { type:"stylesheet", id:"_fr6", src:"'.api_get_asset('jquery-ui/themes/smoothness/theme.css', true).'"},
+        { type:"script", id:"_fr2", src:"'.api_get_js('js/jquery.highlight.js', true).'"},
         { type:"script", id:"_fr3", src:"'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php"}
     ]
   });';
@@ -255,9 +255,8 @@ if ($jplayer_supported) {
     if ($extension == 'mp4')  {
         $extension = 'm4v';
     }
-    $js_path = api_get_path(WEB_LIBRARY_JS_PATH);
-    $htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css">';
-    $htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jplayer/jquery.jplayer.min.js"></script>';
+    $htmlHeadXtra[] = api_get_css('js/jquery-jplayer/skin/chamilo/jplayer.blue.monday.css');
+    $htmlHeadXtra[] = api_get_js('js/jquery-jplayer/jplayer/jquery.jplayer.min.js');
 
     $jquery = '
         $("#jquery_jplayer_1").jPlayer({
@@ -267,7 +266,7 @@ if ($jplayer_supported) {
                 });
             },
             cssSelectorAncestor: "#jp_container_1",
-            swfPath: "'.$js_path.'jquery-jplayer/jplayer/",
+            swfPath: "'.api_get_js('jquery-jplayer/jplayer/', true).'",
             supplied: "'.$extension.'",
             useStateClassSkin: true,
             autoBlur: false,
