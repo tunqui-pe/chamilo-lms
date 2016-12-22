@@ -1,6 +1,16 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+/*
+    user_portal.php can be found in:
+    UserPortalController :: indexAction
+    Chamilo\CoreBundle\Controller\UserPortalController
+*/
+
+// @todo change root .htaccess
+header('Location: web/app_dev.php/userportal');
+exit;
+
 use ChamiloSession as Session;
 
 /**
