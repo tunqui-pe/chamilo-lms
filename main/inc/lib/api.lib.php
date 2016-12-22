@@ -7790,6 +7790,8 @@ function api_mail_html(
 
     if (isset($additionalParameters['link'])) {
         $mailView->assign('link', $additionalParameters['link']);
+    } else {
+        $mailView->assign('link', '');
     }
 
     $layout = $mailView->get_template('mail/mail.tpl');

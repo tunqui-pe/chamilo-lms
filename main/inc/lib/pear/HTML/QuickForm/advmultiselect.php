@@ -1071,12 +1071,6 @@ class HTML_QuickForm_advmultiselect extends HTML_QuickForm_select
     function getElementJs($raw = true, $min = true)
     {
         $js = api_get_path(LIBRARY_PATH).'javascript'.DIRECTORY_SEPARATOR.'pear'.DIRECTORY_SEPARATOR;
-
-        /*if ($min) {
-            $js .= 'qfamsHandler-min.js';
-        } else {
-            $js .= 'qfamsHandler.js';
-        }*/
         $js .= 'qfamsHandler.js';
 
         if (file_exists($js)) {
@@ -1086,12 +1080,7 @@ class HTML_QuickForm_advmultiselect extends HTML_QuickForm_select
         }
 
         if ($raw !== true) {
-            $js = '<script type="text/javascript">'
-                . PHP_EOL . '//<![CDATA['
-                . PHP_EOL . $js
-                . PHP_EOL . '//]]>'
-                . PHP_EOL . '</script>'
-                . PHP_EOL;
+            $js = api_get_js('js/pear/qfamsHandler.js');
         }
 
         return $js;

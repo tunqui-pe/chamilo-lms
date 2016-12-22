@@ -8,7 +8,7 @@ api_protect_course_script(true);
 Event::event_access_tool(TOOL_CHAT);
 
 $htmlHeadXtra[] = api_get_css_asset('emojione/assets/css/emojione.min.css');
-$htmlHeadXtra[] = api_get_css_asset('jquery-emojiarea/jquery.emojiarea.css');
+$htmlHeadXtra[] = api_get_css_asset('emojionearea/dist/emojionearea.css');
 $htmlHeadXtra[] = api_get_css_asset('highlight.js.origin/src/styles/github.css');
 $htmlHeadXtra[] = api_get_css('css/chat.css');
 $htmlHeadXtra[] = api_get_css('css/markdown.css');

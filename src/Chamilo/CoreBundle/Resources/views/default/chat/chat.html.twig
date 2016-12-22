@@ -58,13 +58,13 @@
     </div>
 </div>
 <audio id="chat-alert">
-    <source src="{{ _p.web_main }}chat/sound/notification.wav" type="audio/wav"></source>
-    <source src="{{ _p.web_main }}chat/sound/notification.ogg" type="audio/ogg"></source>
-    <source src="{{ _p.web_main }}chat/sound/notification.mp3" type="audio/mpeg"></source>
+    <source src="{{ asset('js/chat/sound/notification.wav') }}" type="audio/wav"></source>
+    <source src="{{ asset('js/chat/sound/notification.ogg') }}" type="audio/ogg"></source>
+    <source src="{{ asset('js/chat/sound/notification.mp3') }}" type="audio/mpeg"></source>
 </audio>
 {% endautoescape %}
 <script>
-    $(document).on('ready', function () {
+    $(document).on('ready', function() {
         var ChChat = {
             _ajaxUrl: '{{ _p.web_ajax }}course_chat.ajax.php?{{ _p.web_cid_query }}',
             _historySize: -1,
@@ -72,24 +72,23 @@
             currentFriend: 0,
             call: false,
             track: function () {
-                return $
-                        .get(ChChat._ajaxUrl, {
-                            action: 'track',
-                            size: ChChat._historySize,
-                            users_online: ChChat.usersOnline,
-                            friend: ChChat.currentFriend
-                        })
-                        .done(function (response) {
-                            if (response.data.history) {
-                                ChChat._historySize = response.data.oldFileSize;
-                                ChChat.setHistory(response.data.history);
-                            }
+                return $.get(ChChat._ajaxUrl, {
+                    action: 'track',
+                    size: ChChat._historySize,
+                    users_online: ChChat.usersOnline,
+                    friend: ChChat.currentFriend
+                })
+                .done(function (response) {
+                    if (response.data.history) {
+                        ChChat._historySize = response.data.oldFileSize;
+                        ChChat.setHistory(response.data.history);
+                    }
 
-                            if (response.data.userList) {
-                                ChChat.usersOnline = response.data.usersOnline;
-                                ChChat.setConnectedUsers(response.data.userList);
-                            }
-                        });
+                    if (response.data.userList) {
+                        ChChat.usersOnline = response.data.usersOnline;
+                        ChChat.setConnectedUsers(response.data.userList);
+                    }
+                });
             },
             setHistory: function (messageList) {
                 var chatHistoryContainer = ChChat.currentFriend ? ('#chat-history-' + ChChat.currentFriend) : '#chat-history';
@@ -201,14 +200,14 @@
         hljs.initHighlightingOnLoad();
 
         emojione.ascii = true;
-        emojione.imagePathPNG = '{{ asset('bundles/chamicore/js/emojione/png/') }}';
-        emojione.imagePathSVG = '{{ asset('bundles/chamicore/js/emojione/svg/') }}'; // '{{ _p.web_lib }}javascript/emojione/svg/';
-        emojione.imagePathSVGSprites = '{{ asset('bundles/chamicore/js/emojione/sprites/') }}'; // '{{ _p.web_lib }}javascript/emojione/sprites/';
+        emojione.imagePathPNG = '{{ asset('emojione/assets/png/') }}';
+        emojione.imagePathSVG = '{{ asset('emojione/assets/svg/') }}'; // '{{ _p.web_lib }}javascript/emojione/svg/';
+        emojione.imagePathSVGSprites = '{{ asset('emojione/assets/sprites/') }}'; // '{{ _p.web_lib }}javascript/emojione/sprites/';
 
         {% autoescape false %}
         var emojiStrategy = {{ emoji_strategy|json_encode }};
         {% endautoescape %}
-        $.emojiarea.path = '{{ _p.web_lib }}javascript/emojione/png/';
+        $.emojiarea.path = '{{ asset('emojione/assets/png/') }}';
         {% autoescape false %}
         $.emojiarea.icons = {{ icons|json_encode }};
         {% endautoescape %}
