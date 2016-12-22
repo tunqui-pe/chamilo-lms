@@ -6307,7 +6307,7 @@ function api_get_jquery_js()
  */
 function api_get_jquery_web_path()
 {
-    return api_get_path(WEB_PATH).'web/assets/jquery/dist/jquery.min.js';
+    return api_get_asset('jquery/dist/jquery.min.js', true);
 }
 
 /**
@@ -6315,7 +6315,7 @@ function api_get_jquery_web_path()
  */
 function api_get_jquery_ui_js_web_path()
 {
-    return api_get_path(WEB_PATH).'web/assets/jquery-ui/jquery-ui.min.js';
+    return api_get_asset('jquery-ui/jquery-ui.min.js', true);
 }
 
 /**
@@ -6323,7 +6323,7 @@ function api_get_jquery_ui_js_web_path()
  */
 function api_get_jquery_ui_css_web_path()
 {
-    return api_get_path(WEB_PATH).'web/assets/jquery-ui/themes/smoothness/jquery-ui.min.css';
+    return api_get_asset('jquery-ui/themes/smoothness/jquery-ui.min.css', true);
 }
 
 /**

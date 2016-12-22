@@ -918,12 +918,8 @@ if (empty($document_data['parents'])) {
 if (isset($_GET['createdir'])) {
     $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('CreateDir'));
 }
-
-$js_path = api_get_path(WEB_LIBRARY_JS_PATH);
-
-$htmlHeadXtra[] = '<link rel="stylesheet" href="'.$js_path.'jquery-jplayer/skin/chamilo/jplayer.blue.monday.css" type="text/css">';
-$htmlHeadXtra[] = '<script type="text/javascript" src="'.$js_path.'jquery-jplayer/jplayer/jquery.jplayer.min.js"></script>';
-$mediaplayer_path = api_get_path(WEB_LIBRARY_JS_PATH).'mediaplayer/player.swf';
+$htmlHeadXtra[] = api_get_css('js/jquery-jplayer/skin/chamilo/jplayer.blue.monday.css');
+$htmlHeadXtra[] = api_get_js('js/jquery-jplayer/jplayer/jquery.jplayer.min.js');
 
 $documentAndFolders = DocumentManager::get_all_document_data(
     $courseInfo,
