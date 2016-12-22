@@ -146,7 +146,7 @@ class CourseSelectForm
 			echo get_lang('DestinationCourse').' : '.$course_infos['title'] . ' ('.$course_infos['code'].') '.$sessionTitle;
 			echo '</h3>';
 		}
-        echo '<script src="'.api_get_path(WEB_CODE_PATH).'inc/lib/javascript/upload.js" type="text/javascript"></script>';
+        echo api_get_js('js/upload.js');
 		echo '<script type="text/javascript">var myUpload = new upload(1000);</script>';
         $icon = Display::returnIconPath('myprogress_bar.gif');
         echo '<div class="tool-backups-options">';
@@ -638,7 +638,7 @@ class CourseSelectForm
 			echo '</h3>';
 		}
 
-		echo '<script src="'.api_get_path(WEB_CODE_PATH).'inc/lib/javascript/upload.js" type="text/javascript"></script>';
+		echo api_get_js('js/upload.js');
 		echo '<script type="text/javascript">var myUpload = new upload(1000);</script>';
         $icon = Display::returnIconPath('progress_bar.gif');
         echo '<div class="tool-backups-options">';

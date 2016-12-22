@@ -605,7 +605,9 @@ class SettingsManager implements SettingsManagerInterface
             'upload_extensions_list_type' => 'document',
             'upload_extensions_blacklist' => 'document',
             'upload_extensions_skip' => 'document',
-            'changeable_options' => 'profile'
+            'changeable_options' => 'profile',
+            'users_copy_files' => 'document',
+            'if_file_exists_option' => 'document',
 
         ];
 
