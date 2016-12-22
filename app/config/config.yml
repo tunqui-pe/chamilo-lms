@@ -204,23 +204,23 @@ liip_theme:
     active_theme: 'web'
     assetic_integration: true
 
-#oneup_flysystem:
-#    adapters:
-#        local.adapter:
-#            local:
-#                directory: %kernel.root_dir%/courses
-##        s3.adapter:
-##              awss3v3:
-##                  client: s3_client # add service "s3_client"
-##                  bucket: ~
-##                  prefix: ~
-#
-#    filesystems:
-#        course:
-#            adapter: local.adapter
-#            cache: ~
-#            alias: ~
-#            mount: ~
+oneup_flysystem:
+    adapters:
+        local.adapter:
+            local:
+                directory: %kernel.root_dir%/courses
+#        s3.adapter:
+#              awss3v3:
+#                  client: s3_client # add service "s3_client"
+#                  bucket: ~
+#                  prefix: ~
+
+    filesystems:
+        course:
+            adapter: local.adapter
+            cache: ~
+            alias: ~
+            mount: ~
 
 #jms_translation:
 #    configs:

@@ -34,7 +34,6 @@ class ResourceController extends BaseController
             $filePath = $adapter->getPathPrefix().$path;
 
             return new BinaryFileResponse($filePath);
-
         } catch (\InvalidArgumentException $e) {
             return $this->abort();
         }

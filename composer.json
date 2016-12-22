@@ -164,7 +164,7 @@
         "alchemy/zippy": "^0.2.1",
         "hwi/oauth-bundle": "^0.4.0",
         "genemu/form-bundle": "2.2.*",
-        "oneup/flysystem-bundle": "@stable",
+        "oneup/flysystem-bundle": "1.7.*",
         "intervention/image": "^2.3",
         "apy/datagrid-bundle": "^2.2",
         "stephpy/timeline-bundle": "~2.0",

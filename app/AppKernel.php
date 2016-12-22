@@ -115,9 +115,9 @@ class AppKernel extends Kernel
             /*
             // Chamilo course tool
             //new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
-
+            */
             // Data
-            //new Oneup\FlysystemBundle\OneupFlysystemBundle(), */
+            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
 
             // Extra
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
