@@ -468,6 +468,7 @@ class SettingsManager implements SettingsManagerInterface
             'administratorName' => 'administrator_name',
             'administratorTelephone' => 'administrator_phone',
             'registration.soap.php.decode_utf8' => 'decode_utf8',
+            'profile' => 'changeable_options'
 
         ];
 

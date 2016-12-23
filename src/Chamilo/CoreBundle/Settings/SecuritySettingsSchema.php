@@ -25,6 +25,7 @@ class SecuritySettingsSchema implements SchemaInterface
                     'allow_browser_sniffer' => 'false',
                     'admins_can_set_users_pass' => '', // ?
                     'allow_strength_pass_checker' => 'true',
+                    'allow_captcha' => 'false'
                 )
             )
             ->setAllowedTypes(
@@ -44,6 +45,9 @@ class SecuritySettingsSchema implements SchemaInterface
             ->add('filter_terms', 'textarea')
             ->add('allow_browser_sniffer', 'yes_no')
             ->add('admins_can_set_users_pass', 'yes_no')
-            ->add('allow_strength_pass_checker', 'yes_no');
+            ->add('allow_strength_pass_checker', 'yes_no')
+            ->add('allow_captcha', 'yes_no')
+
+        ;
     }
 }
