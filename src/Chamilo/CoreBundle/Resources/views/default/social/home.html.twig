@@ -4,9 +4,8 @@
 {% autoescape false %}
     <div class="row">
         <div class="col-md-3">
-            {{ social_avatar_block }}
             <div class="social-network-menu">
-            {{ social_menu_block }}
+            {% include '@ChamiloTheme/Sidebar/social-menu.html.twig' %}
             </div>
         </div>
         <div class="col-md-6">

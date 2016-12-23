@@ -269,18 +269,181 @@ class NavBuilder extends ContainerAware
         return $menu;
     }
 
-    /*public function profileMenu(FactoryInterface $factory, array $options)
+    /**
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return ItemInterface
+     */
+    public function profileMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
         $security = $this->container->get('security.context');
+        $translator = $this->container->get('translator');
+
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
 
-            $menu->addChild('Inbox', array('route' => 'logout'));
-            $menu->addChild('Compose', array('route' => 'logout'));
-            $menu->addChild('Edit', array('route' => 'logout'));
+            $menu->addChild(
+                $translator->trans('Inbox'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'messages/inbox.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('Compose'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'messages/new_message.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('PendingInvitations'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/invitations.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('MyFiles'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/myfiles.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('EditProfile'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'messages/inbox.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('Inbox'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'messages/inbox.php',
+                    ),
+                )
+            );
         }
 
         return $menu;
-    }*/
+    }
+
+    /**
+     * @todo add validations
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return ItemInterface
+     */
+    public function socialMenu(FactoryInterface $factory, array $options)
+    {
+        $menu = $factory->createItem('root');
+        $security = $this->container->get('security.context');
+        $translator = $this->container->get('translator');
+
+        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
+
+            $menu->addChild(
+                $translator->trans('Home'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/home.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('Messages'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'messages/inbox.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('Invitations'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/invitations.php',
+                    ),
+                )
+            );
+
+
+            $menu->addChild(
+                $translator->trans('ViewMySharedProfile'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/profile.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('Friends'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/friends.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('SocialGroups'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/groups.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('Search'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/search.php',
+                    ),
+                )
+            );
+
+            $menu->addChild(
+                $translator->trans('MyFiles'),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => array(
+                        'name' => 'social/myfiles.php',
+                    ),
+                )
+            );
+        }
+
+        return $menu;
+    }
 }

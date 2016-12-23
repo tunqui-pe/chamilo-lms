@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 class CourseMenuBuilder extends ContainerAware
 {
     /**
+     * Course menu
+     *
      * @param FactoryInterface $factory
      * @param array $options
      * @return \Knp\Menu\ItemInterface
@@ -89,6 +91,7 @@ class CourseMenuBuilder extends ContainerAware
     }
 
     /**
+     * Skills menu
      * @param FactoryInterface $factory
      * @param array $options
      * @return \Knp\Menu\ItemInterface

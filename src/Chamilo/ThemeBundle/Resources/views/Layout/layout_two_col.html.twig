@@ -22,16 +22,16 @@
 
         {% block chamilo_left_column %}
             <section class="left_column">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel', {'pathInfo': pathInfo })) }}
-                {#{{ render(controller('ChamiloThemeBundle:Sidebar:searchForm')) }}#}
-            {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {# User avatar #}
+                    {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel', {'pathInfo': pathInfo })) }}
 
-            {# Sidebar menu #}
-            {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request, pathInfo: pathInfo })) }}
+                    {# User profile #}
+                    {{ render(controller('ChamiloThemeBundle:Sidebar:userProfile', {'pathInfo': pathInfo })) }}
+                {% endif %}
 
-            {# Skill block see SkillBlockService.php #}
-            {#{{ sonata_block_render({'type': 'chamilo_core.block.skill'}) }}#}
+                {# Courses, Skills menu #}
+                {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request, pathInfo: pathInfo })) }}
             </section>
         {% endblock %}
         {% if plugin_menu_bottom %}

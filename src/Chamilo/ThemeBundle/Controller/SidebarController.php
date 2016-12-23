@@ -41,6 +41,46 @@ class SidebarController extends Controller
         );
     }
 
+     /**
+     * User menu section
+     * @return Response
+     */
+    public function userProfileAction()
+    {
+        if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_USER)) {
+            return new Response();
+        }
+
+        $userEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_SIDEBAR_USER, new ShowUserEvent());
+
+        return $this->render(
+            'ChamiloThemeBundle:Sidebar:user-profile.html.twig',
+            array(
+                'user' => $userEvent->getUser()
+            )
+        );
+    }
+
+      /**
+     * User menu section
+     * @return Response
+     */
+    public function socialPanelAction()
+    {
+        if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_USER)) {
+            return new Response();
+        }
+
+        $userEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_SIDEBAR_USER, new ShowUserEvent());
+
+        return $this->render(
+            'ChamiloThemeBundle:Sidebar:social-panel.html.twig',
+            array(
+                'user' => $userEvent->getUser()
+            )
+        );
+    }
+
     /**
      * Search bar
      * @return Response

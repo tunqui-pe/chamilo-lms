@@ -11,7 +11,7 @@
             </div>
             <div id="sn-avatar-one" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-sn">
                 <div class="panel-body">
-                    {{ social_avatar_block }}
+                    {% include '@ChamiloTheme/Sidebar/social-menu.html.twig' %}
                     <ul class="list-user-data">
                         <li class="item">
                             {{ user.complete_name }}

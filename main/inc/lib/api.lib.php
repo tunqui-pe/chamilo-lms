@@ -633,6 +633,9 @@ define('TOOL_STUDENT_VIEW', 'toolstudentview');
 define('TOOL_ADMIN_VISIBLE', 'tooladminvisible');
 
 define('FORUM_NEW_POST', 0);
+define('CONFVAL_ASK_FOR_OFFICIAL_CODE', true);
+define('CHECK_PASS_EASY_TO_FIND', false);
+
 
 /**
  * Inclusion of internationalization libraries
@@ -2310,7 +2313,7 @@ function api_get_setting_in_list($variable, $option)
  *
  * @author Julio Montoya
  */
-function api_get_setting($variable)
+function api_get_setting($variable, $subVariable = '')
 {
     $variable = trim($variable);
 
@@ -2347,6 +2350,17 @@ function api_get_setting($variable)
         case 'openid_authentication':
         case 'sso_authentication':
         case 'service_ppt2lp':
+        case 'add_cas_login_button_cas_button_label':
+        case 'add_cas_login_button_cas_button_comment':
+        case 'add_cas_login_button_cas_image_url':
+        case 'add_cas_logout_button_cas_logout_label':
+        case 'add_cas_logout_button_cas_logout_comment':
+        case 'add_cas_logout_button_cas_logout_image_url':
+        case 'add_facebook_login_button_facebook_button_url':
+        case 'add_shibboleth_login_button_shibboleth_button_label':
+        case 'add_shibboleth_login_button_shibboleth_button_comment':
+        case 'add_shibboleth_login_button_shibboleth_image_url':
+
             break;
         default:
             return Container::getSettingsManager()->getSetting($variable);

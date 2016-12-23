@@ -7,14 +7,19 @@
     {#'Profile' | trans,#}
     {#mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true})) }}#}
 
-    {{ macro.panel(
-    'Courses' | trans,
-    mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:courseMenu', {'automenu': 'pills', 'stacked':true})) }}
+    {{
+        macro.panel(
+            'Courses' | trans,
+            mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:courseMenu', {'automenu': 'pills', 'stacked':true})
+        )
+    }}
 
-    {{ macro.panel(
-    'Skills' | trans,
-    mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:skillsMenu', {'automenu': 'pills', 'stacked':true})) }}
-
+    {{
+        macro.panel(
+            'Skills' | trans,
+            mopa_bootstrap_menu('ChamiloCoreBundle:CourseMenuBuilder:skillsMenu', {'automenu': 'pills', 'stacked':true})
+        )
+    }}
 {% else %}
     {{ locale_switcher(null, null, 'ChamiloCoreBundle:Admin:switcher_links.html.twig') }}
     <div class="user-panel">

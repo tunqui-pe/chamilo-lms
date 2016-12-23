@@ -114,6 +114,9 @@ twig:
           plugin_header_center:
           plugin_header_right:
           plugin_header_main:
+          plugin_pre_footer:
+          administrator_name:
+          execution_stats:
           plugin_menu_bottom:
           plugin_menu_top:
           plugin_content_top:
