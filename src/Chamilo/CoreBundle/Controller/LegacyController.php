@@ -92,18 +92,32 @@ class LegacyController extends ToolBaseController
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
 
             $template = Container::$legacyTemplate;
-            $defaultLayout = 'layout_one_col.html.twig';
+            $defaultLayout = '@ChamiloTheme/Layout/layout_one_col.html.twig';
             if (!empty($template)) {
                 $defaultLayout = $template;
             }
 
+            $params = [
+                'legacy_breadcrumb' => $interbreadcrumb,
+                'js' => $js
+            ];
+
+            // This means the page comes from legacy use Display::display_header
+            if (!empty($out)) {
+                $params['content'] = $out;
+            } else {
+                // This means the page comes from legacy use of new Template()
+                $legacyParams = \Template::$params;
+                if (!empty($legacyParams)) {
+                    $params = array_merge($legacyParams, $params);
+                }
+            }
+
+            // Render using Symfony2 layouts see folder:
+            // src/Chamilo/ThemeBundle/Resources/views/Layout
             return $this->render(
-                'ChamiloCoreBundle::'.$defaultLayout,
-                array(
-                    'legacy_breadcrumb' => $interbreadcrumb,
-                    'content' => $out,
-                    'js' => $js
-                )
+                $defaultLayout,
+                $params
             );
         } else {
             // Found does not exist

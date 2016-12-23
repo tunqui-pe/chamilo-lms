@@ -699,12 +699,8 @@ $tpl->assign('session_list', $social_session_block);
 $tpl->assign('invitations', $listInvitations);
 $tpl->assign('social_right_information', $socialRightInformation);
 $tpl->assign('social_auto_extend_link', $socialAutoExtendLink);
-
-$formModalTpl =  new Template();
-$formModalTpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
-$formModals = $formModalTpl->fetch('default/social/form_modals.tpl');
-
-$tpl->assign('form_modals', $formModals);
+$tpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
+$tpl->assign('form_modals', true);
 $social_layout = $tpl->get_template('social/profile.tpl');
 $tpl->display($social_layout);
 

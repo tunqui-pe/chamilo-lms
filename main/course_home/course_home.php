@@ -1,6 +1,11 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+/**
+ * See HomeController::indexAction
+ * src/Chamilo/CourseBundle/Controller/Home/HomeController.php
+ */
+exit;
 use ChamiloSession as Session;
 
 /**

@@ -109,20 +109,20 @@ $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('MyFiles'));
 
 $tpl = new Template();
 SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'myfiles');
-$editor = new \Chamilo\CoreBundle\Component\Editor\Editor();
-$editor = $tpl->fetch('default/'.$editor->getEditorStandAloneTemplate());
 
 $tpl->assign('show_media_element', 0);
+$tpl->assign('course_id', '');
+$tpl->assign('session_id', '');
 
 if (api_get_setting('allow_social_tool') == 'true') {
     $tpl->assign('social_menu_block', $social_menu_block);
-    $tpl->assign('social_right_content', $editor);
+    $tpl->assign('social_right_content', '');
     $social_layout = $tpl->get_template('social/myfiles.tpl');
     $tpl->display($social_layout);
 } else {
     $controller = new IndexManager(get_lang('MyCourses'));
     $tpl->assign('actions', $actions);
-    $tpl->assign('content', $editor);
+    $tpl->assign('content', '');
     $tpl->assign('profile_block', $controller->return_profile_block());
     $tpl->assign('user_image_block', $controller->return_user_image_block());
     $tpl->assign('course_block', $controller->return_course_block());

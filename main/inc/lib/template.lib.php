@@ -64,7 +64,7 @@ class Template
 
     /* Loads chamilo plugins */
     public $load_plugins = false;
-    public $params = array();
+    public static $params = array();
     public $force_plugin_load = false;
 
     /**
@@ -88,7 +88,7 @@ class Template
     ) {
 
         if ($show_header == false) {
-            Container::$legacyTemplate = 'layout_one_col_no_content.html.twig';
+            Container::$legacyTemplate = '@ChamiloTheme/Layout/layout_one_col_no_content.html.twig';
         }
 
         return;
@@ -340,12 +340,22 @@ class Template
     }
 
     /**
+     * Render the template
+     * @param string $template The template path
+     * @param boolean $clearFlashMessages Clear the $_SESSION variables for flash messages
+     */
+    public function display($template, $clearFlashMessages = true)
+    {
+        Container::$legacyTemplate = $template;
+        //echo $this->twig->render($template, $this->params);
+    }
+
+    /**
      * Shortcut to display a 1 col layout (index.php)
      * */
     public function display_one_col_template()
     {
-        $tpl = $this->get_template('layout/layout_1_col.tpl');
-        $this->display($tpl);
+        Container::$legacyTemplate = '@ChamiloTheme/Layout/layout_one_col.html.twig';
     }
 
     /**
@@ -353,8 +363,7 @@ class Template
      **/
     public function display_two_col_template()
     {
-        $tpl = $this->get_template('layout/layout_2_col.tpl');
-        $this->display($tpl);
+        Container::$legacyTemplate = '@ChamiloTheme/Layout/layout_two_col.html.twig';
     }
 
     /**
@@ -362,8 +371,7 @@ class Template
      */
     public function display_blank_template()
     {
-        $tpl = $this->get_template('layout/blank.tpl');
-        $this->display($tpl);
+        Container::$legacyTemplate = '@ChamiloTheme/Layout/no_layout.html.twig';
     }
 
     /**
@@ -371,8 +379,7 @@ class Template
      */
     public function display_no_layout_template()
     {
-        $tpl = $this->get_template('layout/no_layout.tpl');
-        $this->display($tpl);
+        Container::$legacyTemplate = '@ChamiloTheme/Layout/no_layout.html.twig';
     }
 
     /**
@@ -458,11 +465,11 @@ class Template
     public function get_template($name)
     {
         if ($name == 'layout/layout_1_col.tpl') {
-            $name = 'layout/layout_1_col.html.twig';
+            $name = '@ChamiloTheme/Layout/layout_1_col.html.twig';
         }
 
         if ($name == 'layout/layout_2_col.tpl') {
-            $name = 'layout/layout_2_col.html.twig';
+            $name = '@ChamiloTheme/Layout/layout_2_col.html.twig';
         }
 
         /**
@@ -473,7 +480,8 @@ class Template
          * (src/Chamilo/CoreBundle/Resources/views/default/layout)
          */
         $name = str_replace('.tpl', '.html.twig', $name);
-        return $this->templateFolder.'/'.$name;
+
+        return '@ChamiloCore/'.$this->templateFolder.'/'.$name;
     }
 
     /**
@@ -1276,25 +1284,6 @@ class Template
     }
 
     /**
-     * Show header template.
-     */
-    public function show_header_template()
-    {
-        $tpl = $this->get_template('layout/show_header.tpl');
-
-        $this->display($tpl);
-    }
-
-    /**
-     * Show footer template.
-     */
-    public function show_footer_template()
-    {
-        $tpl = $this->get_template('layout/show_footer.tpl');
-        $this->display($tpl);
-    }
-
-    /**
      * Show footer js template.
      */
     public function show_footer_js_template()
@@ -1350,8 +1339,8 @@ class Template
     public function fetch($template = null)
     {
         $template = str_replace('.tpl', '.html.twig', $template);
-        $template = \Chamilo\CoreBundle\Framework\Container::getTwig()->load('ChamiloCoreBundle::'.$template);
-        return $template->render($this->params);
+        $template = \Chamilo\CoreBundle\Framework\Container::getTwig()->load($template);
+        return $template->render(self::$params);
     }
 
     /**
@@ -1360,25 +1349,7 @@ class Template
      */
     public function assign($variable, $value = '')
     {
-        $this->params[$variable] = $value;
-    }
-
-    /**
-     * Render the template
-     * @param string $template The template path
-     * @param boolean $clearFlashMessages Clear the $_SESSION variables for flash messages
-     */
-    public function display($template, $clearFlashMessages = true)
-    {
-        $this->assign('flash_messages', Display::getFlashToString());
-
-        if ($clearFlashMessages) {
-            Display::cleanFlashMessages();
-        }
-
-        echo \Chamilo\CoreBundle\Framework\Container::getTwig()->render('ChamiloCoreBundle::'.$template, $this->params);
-
-        //echo $this->twig->render($template, $this->params);
+        self::$params[$variable] = $value;
     }
 
     /**
@@ -1569,5 +1540,10 @@ class Template
         ];
 
         $this->assign('_admin', $_admin);
+    }
+
+    public static function getParams()
+    {
+        return self::$params;
     }
 }

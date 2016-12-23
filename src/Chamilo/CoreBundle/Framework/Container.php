@@ -48,7 +48,7 @@ class Container
     public static $twig;
     public static $roles;
     /** @var  string  */
-    public static $legacyTemplate = 'layout_one_col.html.twig';
+    public static $legacyTemplate = '@ChamiloTheme/Layout/layout_one_col.html.twig';
 
     /**
      * @param ContainerInterface $container

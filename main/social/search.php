@@ -239,12 +239,8 @@ SocialManager::setSocialUserBlock($tpl, api_get_user_id(), 'search');
 $tpl->assign('social_menu_block', $social_menu_block);
 $tpl->assign('social_search', $block_search);
 $tpl->assign('search_form', $searchForm);
-
-$formModalTpl =  new Template();
-$formModalTpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
-$formModals = $formModalTpl->fetch('default/social/form_modals.tpl');
-
-$tpl->assign('form_modals', $formModals);
+$tpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
+$tpl->assign('form_modals', true);
 
 $social_layout = $tpl->get_template('social/search.tpl');
 $tpl->display($social_layout);
