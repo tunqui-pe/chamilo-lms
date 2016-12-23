@@ -56,11 +56,11 @@ class CkEditor extends Editor
         if (trim($this->value) == '<html><head><title></title></head><body></body></html>' || $this->value == '' ) {
             $cssFile = api_get_path(SYS_CSS_PATH).'themes/'.api_get_visual_theme().'/editor.css';
             if (!is_file($cssFile)) {
-                $cssFile = api_get_path(WEB_CSS_PATH).'editor.css';
+                $cssFile = api_get_css('css/editor.css');
             } else {
-                $cssFile = api_get_path(WEB_CSS_PATH).'themes/'.api_get_visual_theme().'/editor.css';
+                $cssFile = api_get_css('css/themes/'.api_get_visual_theme().'/editor.css');
             }
-            $style = '<link href="'.$cssFile.'" rel="stylesheet" media="screen" type="text/css" />';
+            $style = $cssFile;
         }
 
         $html = '<textarea id="'.$this->getName().'" name="'.$this->getName().'" class="ckeditor">

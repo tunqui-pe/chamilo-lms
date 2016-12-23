@@ -1,4 +1,4 @@
-{% extends "@ChamiloCore/layout_one_col.html.twig" %}
+{% extends "@ChamiloTheme/Layout/layout_one_col.html.twig" %}
 
 {% block content %}
 {% autoescape false %}
@@ -99,7 +99,7 @@
 </div>
 
 {% if form_modals is defined %}
-    {{ form_modals }}
+    {% include '@ChamiloCore/default/social/form_modals.html.twig' %}#}
 {% endif %}
 {% endautoescape %}
 {% endblock %}

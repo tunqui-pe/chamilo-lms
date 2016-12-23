@@ -6,8 +6,20 @@
 %}
 
 {% block page_content %}
+    {% if plugin_main_top %}
+    <div id="plugin_main_top" class="col-md-12">
+        {{ plugin_main_top }}
+    </div>
+    {% endif %}
+
     {#  Left column #}
     <div class="col-md-3">
+        {% if plugin_menu_top %}
+        <div id="plugin_menu_top">
+            {{plugin_menu_top}}
+        </div>
+        {% endif %}
+
         {% block chamilo_left_column %}
             <section class="left_column">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -22,11 +34,22 @@
             {#{{ sonata_block_render({'type': 'chamilo_core.block.skill'}) }}#}
             </section>
         {% endblock %}
+        {% if plugin_menu_bottom %}
+            <div id="plugin_menu_bottom">
+                {{ plugin_menu_bottom }}
+            </div>
+        {% endif %}
     </div>
 
     {#  Right column #}
     <div class="col-md-9">
         {% autoescape false %}
+        {% if plugin_content_top %}
+            <div id="plugin_content_top">
+                {{ plugin_content_top }}
+            </div>
+        {% endif %}
+
         {% block chamilo_breadcrumb %}
             {% include '@ChamiloCore/breadcrumb.html.twig' %}
         {% endblock %}
@@ -43,6 +66,19 @@
             </section>
             {% endblock %}
         {% endblock %}
+
+        {% if plugin_content_bottom %}
+        <div id="plugin_content_bottom">
+            {{plugin_content_bottom}}
+        </div>
+        {% endif %}
+
         {% endautoescape %}
     </div>
+
+    {% if plugin_main_bottom %}
+    <div id="plugin_main_bottom" class="col-md-12">
+        {{ plugin_main_bottom }}
+    </div>
+    {% endif %}
 {% endblock %}

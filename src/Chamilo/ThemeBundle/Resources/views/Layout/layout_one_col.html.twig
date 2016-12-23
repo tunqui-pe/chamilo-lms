@@ -1,0 +1,76 @@
+{% extends '@ChamiloTheme/Layout/base-layout.html.twig' %}
+
+{% block page_content %}
+    {% if js is defined %}
+        {% autoescape false %}
+        {% for item in js %}
+            {{ item }}
+        {% endfor %}
+        {% endautoescape %}
+    {% endif %}
+
+    {% if plugin_main_top %}
+        <div id="plugin_main_top" class="col-md-12">
+            {{ plugin_main_top }}
+        </div>
+    {% endif %}
+    {% if plugin_content_top %}
+        <div id="plugin_content_top" class="col-md-12">
+            {{ plugin_content_top }}
+        </div>
+    {% endif %}
+
+    {% if show_course_shortcut is not null %}
+        <div class="nav-tools">
+            {{ show_course_shortcut }}
+        </div>
+    {% endif %}
+
+    <section id="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                {% autoescape false %}
+
+                {# Breadcrumb #}
+                {% block chamilo_breadcrumb %}
+                {% include '@ChamiloCore/breadcrumb.html.twig' %}
+                {% endblock %}
+
+                {% block chamilo_messages %}
+                {# Flash messages #}
+                {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+                {% endblock %}
+
+                {% if actions != '' %}
+                    <div class="actions">
+                        {{ actions }}
+                    </div>
+                {% endif %}
+
+                {# Content #}
+                {% block content %}
+                <section id="main_content">
+                    {{ content }}
+                </section>
+                {% endblock %}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+    </section>
+
+     {% if plugin_content_bottom %}
+        <div id="plugin_content_bottom" class="col-md-12">
+            {{ plugin_content_bottom }}
+        </div>
+    {% endif %}
+
+    {% if plugin_main_bottom %}
+        <div id="plugin_main_bottom" class="col-md-12">
+            {{ plugin_main_bottom }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+

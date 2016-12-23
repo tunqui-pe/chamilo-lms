@@ -1,7 +1,9 @@
+{#<footer {% block footer_open_attributes %}{% endblock footer_open_attributes %}>#}
 <footer id="footer-section" class="sticky-footer bgfooter">
+    <!-- start of #footer section -->
     <div class="container">
         <div class="pre-footer">
-            {% if plugin_pre_footer is not null %}
+            {% if plugin_pre_footer %}
             <div id="plugin_pre_footer">
                 {{ plugin_pre_footer }}
             </div>
@@ -52,11 +54,15 @@
                 </div>
             </div>
         </div>
+        {% if footer_extra_content is not null %}
         <div class="extra-footer">
             {{ footer_extra_content }}
         </div>
-    </div>
+        {% endif %}
+    </div><!-- end of #container -->
 </footer>
+
+{{ execution_stats }}
 
 <div class="modal fade" id="expand-image-modal" tabindex="-1" role="dialog" aria-labelledby="expand-image-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -85,7 +91,4 @@
         </div>
     </div>
 </div>
-
-{% include template ~ '/layout/footer.js.tpl' %}
-
-{{ execution_stats }}
+{{ footer_extra_content }}
