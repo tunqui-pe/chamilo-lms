@@ -4105,7 +4105,8 @@ function api_display_language_form($hide_if_no_choice = false)
 {
     // Retrieve a complete list of all the languages.
     $language_list = api_get_languages();
-    if (count($language_list['name']) <= 1 && $hide_if_no_choice) {
+
+    if (count($language_list) <= 1 && $hide_if_no_choice) {
         return; //don't show any form
     }
 
@@ -4117,8 +4118,8 @@ function api_display_language_form($hide_if_no_choice = false)
         $user_selected_language = api_get_setting('platformLanguage');
     }
 
-    $original_languages = $language_list['name'];
-    $folder = $language_list['folder']; // This line is probably no longer needed.
+    $original_languages = $language_list;
+    $folder = $language_list; // This line is probably no longer needed.
     $html = '<script>    
     $(document).ready(function() {
         $("#language_list").change(function() {

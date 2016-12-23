@@ -142,8 +142,8 @@ class Diagnoser
         $status = $exists ? self :: STATUS_WARNING : self :: STATUS_OK;
         $array[] = $this->build_setting($status, '[FILES]', get_lang('DirectoryExists') . ': /install', 'http://be2.php.net/file_exists', $exists, 0, 'yes_no', get_lang('DirectoryShouldBeRemoved'));
 
-        $app_version = api_get_setting('chamilo_database_version');
-        $array[] = $this->build_setting(self :: STATUS_INFORMATION, '[DB]', 'chamilo_database_version', '#', $app_version, 0, null,  'Chamilo DB version');
+        //$app_version = api_get_setting('chamilo_database_version');
+        //$array[] = $this->build_setting(self :: STATUS_INFORMATION, '[DB]', 'chamilo_database_version', '#', $app_version, 0, null,  'Chamilo DB version');
 
         $access_url_id = api_get_current_access_url_id();
 

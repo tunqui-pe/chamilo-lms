@@ -381,7 +381,7 @@ switch ($action){
     default:
         //Form of language
         api_display_language_form();
-        echo '&nbsp;&nbsp;<a href="'.api_get_self().'?action=edit_top">'.Display::display_icon('edit.gif', get_lang('Edit')).'</a> <a href="'.api_get_self().'?action=edit_top">'.get_lang('EditNotice').'</a>';
+        echo '&nbsp;&nbsp;<a href="'.api_get_self().'?action=edit_top">'.Display::display_icon('edit.png', get_lang('Edit')).'</a> <a href="'.api_get_self().'?action=edit_top">'.get_lang('EditNotice').'</a>';
 
         $open = '';
         if (file_exists($homep.$topf.'_'.$lang.$ext)) {
