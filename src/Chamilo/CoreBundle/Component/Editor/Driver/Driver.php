@@ -4,13 +4,15 @@
 namespace Chamilo\CoreBundle\Component\Editor\Driver;
 
 use Chamilo\CoreBundle\Component\Editor\Connector;
+use FM\ElFinderPHP\Driver\ElFinderVolumeLocalFileSystem;
+use FM\ElFinderPHP\ElFinder;
 
 /**
  * Class Driver
  *
  * @package Chamilo\CoreBundle\Component\Editor\Driver
  */
-class Driver extends \elFinderVolumeLocalFileSystem
+class Driver extends ElFinderVolumeLocalFileSystem
 {
     /** @var string */
     public $name;
