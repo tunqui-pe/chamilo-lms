@@ -49,15 +49,17 @@ core_admin:
     resource: '@ChamiloCoreBundle/Controller/Admin'
     type: annotation
     prefix: /admin
-#core_admin:
+
 course_url:
     path: courses
 #    resource: '@ChamiloCoreBundle/Controller/Admin'
+
 core_tool:
     resource: '@ChamiloCourseBundle/Controller'
     type: annotation
     prefix: /courses/{course}/
 #    type: annotation
+
 core_tool_document:
     pattern: /courses/{course}/document/{file}
     defaults:

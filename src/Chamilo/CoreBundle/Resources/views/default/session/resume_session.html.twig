@@ -1,7 +1,6 @@
-{% extends template ~ "/layout/layout_1_col.tpl" %}
-
+{% extends '@ChamiloTheme/Layout/layout_one_col.html.twig' %}
 {% block content %}
-
+{% autoescape false %}
 {{ session_header }}
 {{ title }}
 
@@ -86,7 +85,7 @@
 
 {{ course_list }}
 {{ user_list }}
-
 {{ requirements }}
 {{ dependencies }}
+{% endautoescape %}
 {% endblock %}

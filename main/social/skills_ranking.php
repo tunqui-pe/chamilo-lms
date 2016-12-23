@@ -96,7 +96,7 @@ $content = Display::grid_html('skill_ranking');
 
 $tpl = new Template(get_lang('Ranking'));
 $tpl->assign('jqgrid_html', $jqgrid);
-$content .= $tpl->fetch('default/skill/skill_ranking.tpl');
+$content .= $tpl->fetch($tpl->get_template('skill/skill_ranking.tpl'));
 $tpl->assign('content', $content);
 
 $tpl->display_one_col_template();
