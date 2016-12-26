@@ -85,6 +85,7 @@ class SettingsController extends SyliusSettingsController
             );
         }
 
+
         $settings = $manager->load($namespace);
 
         $form = $this->getSettingsFormFactory()->create($schemaAlias);

@@ -430,7 +430,7 @@ class SettingsManager implements SettingsManagerInterface
             'default_calendar_view' => 'agenda',
             'exercise_invisible_in_session' => 'exercise',
             'configure_exercise_visibility_in_course' => 'exercise',
-            'allow_download_documents_by_api_key' => 'Webservices'
+            'allow_download_documents_by_api_key' => 'Webservices',
         ];
 
         return $oldItems;
@@ -465,7 +465,7 @@ class SettingsManager implements SettingsManagerInterface
             'administratorName' => 'administrator_name',
             'administratorTelephone' => 'administrator_phone',
             'registration.soap.php.decode_utf8' => 'decode_utf8',
-            'profile' => 'changeable_options'
+            'profile' => 'changeable_options',
         ];
 
         return isset($list[$variable]) ? $list[$variable] : $variable;
@@ -606,7 +606,7 @@ class SettingsManager implements SettingsManagerInterface
             'if_file_exists_option' => 'document',
             'permissions_for_new_files' => 'document',
             'extended_profile' => 'profile',
-            'split_users_upload_directory' => 'profile'
+            'split_users_upload_directory' => 'profile',
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
@@ -661,6 +661,7 @@ class SettingsManager implements SettingsManagerInterface
      */
     public function load($schemaAlias, $namespace = null, $ignoreUnknown = true)
     {
+        $schemaAliasNoPrefix = $schemaAlias;
         $schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
 
         /** @var SchemaInterface $schema */
@@ -678,7 +679,8 @@ class SettingsManager implements SettingsManagerInterface
         }
 
          // We need to get a plain parameters array since we use the options resolver on it
-        $parameters = $settings->getParameters();
+        //$parameters = $settings->getParameters();
+        $parameters = $this->getParameters($schemaAliasNoPrefix);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
@@ -855,8 +857,9 @@ class SettingsManager implements SettingsManagerInterface
         //$repo = $this->parameterRepository;
         $repo = $this->manager->getRepository('ChamiloCoreBundle:SettingsCurrent');
         $parameters = [];
+        /** @var  SettingsCurrent $parameter */
         foreach ($repo->findBy(array('category' => $namespace)) as $parameter) {
-            $parameters[$parameter->getName()] = $parameter->getValue();
+            $parameters[$parameter->getTitle()] = $parameter->getSelectedValue();
         }
 
         return $parameters;

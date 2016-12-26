@@ -3,7 +3,7 @@ parameters:
     chamilo_course.controller.settings.class: Chamilo\CourseBundle\Controller\SettingsController
     chamilo_course.settings.form_factory.class: Chamilo\CourseBundle\Form\Factory\SettingsFormFactory
     chamilo_course.settings.manager.class: Chamilo\CourseBundle\Manager\SettingsManager
-    chamilo_course.settings.schema_registry.class: Sylius\Bundle\SettingsBundle\Schema\SchemaRegistry
+    chamilo_course.settings.schema_registry.class: Sylius\Component\Registry\ServiceRegistry
     chamilo_course.entity.manager.group_manager.class: Chamilo\CourseBundle\Entity\Manager\GroupManager
     chamilo_course.entity.group: Chamilo\CourseBundle\Entity\CGroupInfo
 
@@ -59,7 +59,10 @@ services:
           - [setContainer, ['@service_container']]
 
     chamilo_course.settings.schema_registry:
-        class: %chamilo_course.settings.schema_registry.class%
+        class: Sylius\Component\Registry\ServiceRegistry
+        arguments:
+            - Sylius\Bundle\SettingsBundle\Schema\SchemaInterface
+            - 'course_settings'
 
     chamilo_course.settings.form_factory:
         class: %chamilo_course.settings.form_factory.class%
@@ -79,10 +82,16 @@ services:
         factory_method: getRepository
         arguments: [ Chamilo\CoreBundle\Entity\SettingsCurrent ]
 
+    chamilo_course.registry.settings_schema:
+        class: Sylius\Component\Registry\ServiceRegistry
+        arguments:
+          - Sylius\Bundle\SettingsBundle\Schema\SchemaInterface
+          - 'Course settings'
+
     chamilo_course.settings.manager:
         class: '%chamilo_course.settings.manager.class%'
         arguments:
-            - '@sylius.registry.settings_schema'
+            - '@chamilo_course.registry.settings_schema'
             - '@sylius.registry.settings_resolver'
             - '@sylius.manager.settings'
             - '@sylius.factory.settings'
@@ -109,7 +118,7 @@ services:
     chamilo_course.settings.agenda:
         class: Chamilo\CourseBundle\Settings\AgendaCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.agenda, namespace: agenda }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.agenda, namespace: agenda }
 
     # Announcement tool
     chamilo_course.tool.announcement:
@@ -127,7 +136,7 @@ services:
     chamilo_course.settings.announcement:
         class: Chamilo\CourseBundle\Settings\AnnouncementCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.announcement, namespace: announcement }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.announcement, namespace: announcement }
 
     chamilo_course.tool.assignment:
         class: Chamilo\CourseBundle\Tool\Assignment
@@ -144,7 +153,7 @@ services:
     chamilo_course.settings.assignment:
         class: Chamilo\CourseBundle\Settings\AssignmentCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.assignment, namespace: assignment }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.assignment, namespace: assignment }
 
     chamilo_course.tool.attendance:
         class: Chamilo\CourseBundle\Tool\Attendance
@@ -161,7 +170,7 @@ services:
     chamilo_course.settings.attendance:
         class: Chamilo\CourseBundle\Settings\AttendanceCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.attendance, namespace: attendance }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.attendance, namespace: attendance }
 
     chamilo_course.tool.blog:
         class: Chamilo\CourseBundle\Tool\Blog
@@ -178,7 +187,7 @@ services:
     chamilo_course.settings.blog:
         class: Chamilo\CourseBundle\Settings\BlogCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.blog, namespace: blog }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.blog, namespace: blog }
 
     chamilo_course.tool.course_description:
         class: Chamilo\CourseBundle\Tool\CourseDescription
@@ -195,7 +204,7 @@ services:
     chamilo_course.settings.course_description:
         class: Chamilo\CourseBundle\Settings\CourseDescriptionCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.course_description, namespace: course_description }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.course_description, namespace: course_description }
 
     chamilo_course.tool.chat:
         class: Chamilo\CourseBundle\Tool\Chat
@@ -212,7 +221,7 @@ services:
     chamilo_course.settings.chat:
         class: Chamilo\CourseBundle\Settings\ChatCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.chat, namespace: chat }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.chat, namespace: chat }
 
     chamilo_course.tool.course_progress:
         class: Chamilo\CourseBundle\Tool\CourseProgress
@@ -230,7 +239,7 @@ services:
     chamilo_course.settings.course_progress:
         class: Chamilo\CourseBundle\Settings\CourseProgressCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.course_progress, namespace: course_progress }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.course_progress, namespace: course_progress }
 
     chamilo_course.tool.document:
         class: Chamilo\CourseBundle\Tool\Document
@@ -247,7 +256,7 @@ services:
     chamilo_course.settings.document:
         class: Chamilo\CourseBundle\Settings\DocumentCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.document, namespace: document }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.document, namespace: document }
 
     chamilo_course.tool.dropbox:
         class: Chamilo\CourseBundle\Tool\Dropbox
@@ -265,7 +274,7 @@ services:
     chamilo_course.settings.dropbox:
         class: Chamilo\CourseBundle\Settings\DropboxCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.dropbox, namespace: dropbox }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.dropbox, namespace: dropbox }
 
     chamilo_course.tool.exercise:
         class: Chamilo\CourseBundle\Tool\Exercise
@@ -283,7 +292,7 @@ services:
     chamilo_course.settings.exercise:
         class: Chamilo\CourseBundle\Settings\ExerciseCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.quiz, namespace: quiz }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.quiz, namespace: quiz }
 
     chamilo_course.tool.forum:
         class: Chamilo\CourseBundle\Tool\Forum
@@ -301,7 +310,7 @@ services:
     chamilo_course.settings.forum:
         class: Chamilo\CourseBundle\Settings\ForumCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.forum, namespace: forum }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.forum, namespace: forum }
 
     chamilo_course.tool.glossary:
         class: Chamilo\CourseBundle\Tool\Glossary
@@ -319,7 +328,7 @@ services:
     chamilo_course.settings.glossary:
         class: Chamilo\CourseBundle\Settings\GlossaryCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.glossary, namespace: glossary }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.glossary, namespace: glossary }
 
     chamilo_course.tool.gradebook:
         class: Chamilo\CourseBundle\Tool\Gradebook
@@ -337,7 +346,7 @@ services:
     chamilo_course.settings.gradebook:
         class: Chamilo\CourseBundle\Settings\GradebookCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.gradebook, namespace: gradebook }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.gradebook, namespace: gradebook }
 
     chamilo_course.tool.group:
         class: Chamilo\CourseBundle\Tool\Group
@@ -355,7 +364,7 @@ services:
     chamilo_course.settings.group:
         class: Chamilo\CourseBundle\Settings\GroupCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.group, namespace: group }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.group, namespace: group }
 
     chamilo_course.tool.learning_path:
         class: Chamilo\CourseBundle\Tool\LearningPath
@@ -372,7 +381,7 @@ services:
     chamilo_course.settings.learning_path:
         class: Chamilo\CourseBundle\Settings\LearningPathCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.learnpath, namespace: learnpath }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.learnpath, namespace: learnpath }
 
     chamilo_course.tool.link:
         class: Chamilo\CourseBundle\Tool\Link
@@ -390,7 +399,7 @@ services:
     chamilo_course.settings.link:
         class: Chamilo\CourseBundle\Settings\LinkCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.link, namespace: link }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.link, namespace: link }
 
     chamilo_course.tool.maintenance:
         class: Chamilo\CourseBundle\Tool\Maintenance
@@ -407,7 +416,7 @@ services:
     chamilo_course.settings.maintenance:
         class: Chamilo\CourseBundle\Settings\MaintenanceCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.maintenance, namespace: maintenance }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.maintenance, namespace: maintenance }
 
     chamilo_course.tool.settings:
         class: Chamilo\CourseBundle\Tool\Settings
@@ -425,7 +434,7 @@ services:
     chamilo_course.settings.settings:
         class: Chamilo\CourseBundle\Settings\SettingsCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.settings, namespace: settings }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.settings, namespace: settings }
 
     chamilo_course.tool.survey:
         class: Chamilo\CourseBundle\Tool\Survey
@@ -443,7 +452,7 @@ services:
     chamilo_course.settings.survey:
         class: Chamilo\CourseBundle\Settings\SurveyCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.survey, namespace: survey }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.survey, namespace: survey }
 
     chamilo_course.tool.tracking:
         class: Chamilo\CourseBundle\Tool\Tracking
@@ -461,7 +470,7 @@ services:
     chamilo_course.settings.tracking:
         class: Chamilo\CourseBundle\Settings\TrackingCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.tracking, namespace: tracking }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.tracking, namespace: tracking }
 
     chamilo_course.tool.user:
         class: Chamilo\CourseBundle\Tool\User
@@ -479,7 +488,7 @@ services:
     chamilo_course.settings.user:
         class: Chamilo\CourseBundle\Settings\UserCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.user, namespace: user }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.user, namespace: user }
 
     chamilo_course.tool.wiki:
         class: Chamilo\CourseBundle\Tool\Wiki
@@ -497,4 +506,4 @@ services:
     chamilo_course.settings.wiki:
         class: Chamilo\CourseBundle\Settings\WikiCourseSettingsSchema
         tags:
-            - { name: sylius.settings_schema, alias: chamilo_course.settings.wiki, namespace: wiki }
+            - { name: chamilo_course.settings_schema, alias: chamilo_course.settings.wiki, namespace: wiki }

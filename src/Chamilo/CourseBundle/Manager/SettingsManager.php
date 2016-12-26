@@ -54,7 +54,6 @@ class SettingsManager extends ChamiloSettingsManager
         course_maintenance //maintenance
         course_setting settings*/
 
-
         $schemaAlias = 'chamilo_course.settings.'.$schemaAlias;
 
         /** @var SchemaInterface $schema */
