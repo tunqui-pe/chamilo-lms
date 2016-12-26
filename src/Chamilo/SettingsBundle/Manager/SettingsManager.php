@@ -172,8 +172,7 @@ class SettingsManager implements SettingsManagerInterface
             'dropbox_allow_student_to_student' => 'Tools',
             'dropbox_allow_group' => 'Tools',
             'dropbox_allow_mailing' => 'Tools',
-            //'extended_profile' => 'User', // changed
-            'extended_profile' => 'profile', // changed
+            'extended_profile' => 'User',
             'student_view_enabled' => 'Platform',
             'show_navigation_menu' => 'Course',
             'enable_tool_introduction' => 'course',
@@ -198,7 +197,7 @@ class SettingsManager implements SettingsManagerInterface
             'show_empty_course_categories' => 'Platform',
             'show_back_link_on_top_of_tree' => 'Platform',
             'show_different_course_language' => 'Platform',
-            'split_users_upload_directory' => 'profile',//'split_users_upload_directory' => 'Tuning',
+            'split_users_upload_directory' => 'Tuning',
             'hide_dltt_markup' => 'Languages',
             'display_categories_on_homepage' => 'Platform',
             'permissions_for_new_directories' => 'Security',
@@ -431,8 +430,6 @@ class SettingsManager implements SettingsManagerInterface
             'default_calendar_view' => 'agenda',
             'exercise_invisible_in_session' => 'exercise',
             'configure_exercise_visibility_in_course' => 'exercise',
-            'permissions_for_new_files' => 'document',
-            'show_toolshortcuts' => 'Course',
             'allow_download_documents_by_api_key' => 'Webservices'
         ];
 
@@ -469,7 +466,6 @@ class SettingsManager implements SettingsManagerInterface
             'administratorTelephone' => 'administrator_phone',
             'registration.soap.php.decode_utf8' => 'decode_utf8',
             'profile' => 'changeable_options'
-
         ];
 
         return isset($list[$variable]) ? $list[$variable] : $variable;
@@ -561,7 +557,6 @@ class SettingsManager implements SettingsManagerInterface
             'pdf_logo_header' => 'platform',
             'show_glossary_in_documents' => 'document',
             'show_glossary_in_extra_tools' => 'glossary',
-            //'show_toolshortcuts' => '',
             'survey_email_sender_noreply'=> 'survey',
             'allow_coach_feedback_exercises' => 'exercise',
             'sessionadmin_autosubscribe' => 'registration',
@@ -609,7 +604,9 @@ class SettingsManager implements SettingsManagerInterface
             'changeable_options' => 'profile',
             'users_copy_files' => 'document',
             'if_file_exists_option' => 'document',
-
+            'permissions_for_new_files' => 'document',
+            'extended_profile' => 'profile',
+            'split_users_upload_directory' => 'profile'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
@@ -638,6 +635,7 @@ class SettingsManager implements SettingsManagerInterface
                     strtolower($items[$originalName])
                 );
                 $name = $category.'.'.$name;
+
             } else {
                 throw new \InvalidArgumentException(sprintf('Parameter must be in format "category.name", "%s" given.', $name));
             }
@@ -656,7 +654,6 @@ class SettingsManager implements SettingsManagerInterface
     public function convertNameSpaceToService($category)
     {
         return 'chamilo_core.settings.'.$category;
-        //return ''.$namespace;
     }
 
     /**
@@ -664,41 +661,6 @@ class SettingsManager implements SettingsManagerInterface
      */
     public function load($schemaAlias, $namespace = null, $ignoreUnknown = true)
     {
-        /*$schema = $this->schemaRegistry->get($schemaAlias);
-        $resolver = $this->resolverRegistry->get($schemaAlias);
-
-        // try to resolve settings for schema alias and namespace
-        $settings = $resolver->resolve($schemaAlias, $namespace);
-
-        $parameters = $this->getParameters($namespace);
-
-        $schema = $this->schemaRegistry->get($namespace);
-
-        $settingsBuilder = new SettingsBuilder();
-        $schema->buildSettings($settingsBuilder);
-
-        foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
-            if (array_key_exists($parameter, $parameters)) {
-                $parameters[$parameter] = $transformer->reverseTransform($parameters[$parameter]);
-            }
-        }
-        $parameters = $settingsBuilder->resolve($parameters);
-
-        return $this->resolvedSettings[$namespace] = new Settings($parameters);*/
-
-        /*$schema = $this->schemaRegistry->get($schemaAlias);
-        $resolver = $this->resolverRegistry->get($schemaAlias);
-
-        // try to resolve settings for schema alias and namespace
-        $settings = $resolver->resolve($schemaAlias, $namespace);
-
-        if (!$settings) {
-            $settings = $this->settingsFactory->createNew();
-            $settings->setSchemaAlias($schemaAlias);
-        }*/
-
-        //$schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
-
         $schemaAlias = 'chamilo_core.settings.'.$schemaAlias;
 
         /** @var SchemaInterface $schema */
@@ -740,7 +702,6 @@ class SettingsManager implements SettingsManagerInterface
      * {@inheritdoc}
      * @throws ValidatorException
      */
-    //public function save($namespace, $settings)
     public function save(SettingsInterface $settings)
     {
         $namespace = $settings->getSchemaAlias();

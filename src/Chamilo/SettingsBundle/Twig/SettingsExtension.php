@@ -3,7 +3,8 @@
 
 namespace Chamilo\SettingsBundle\Twig;
 
-use Sylius\Bundle\SettingsBundle\Templating\Helper\SettingsHelper;
+//use Sylius\Bundle\SettingsBundle\Templating\Helper\SettingsHelper;
+use Chamilo\SettingsBundle\Templating\Helper\SettingsHelper;
 
 /**
  * Sylius settings extension for Twig.
@@ -69,9 +70,7 @@ class SettingsExtension extends \Twig_Extension
     public function getSettingsParameter($name)
     {
         return $this->helper->getSettingsParameter($name);
-        //return $this->getSettingsParameter($name);
     }
-
 
     /**
      * {@inheritdoc}

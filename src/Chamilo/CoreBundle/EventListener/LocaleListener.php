@@ -96,6 +96,7 @@ class LocaleListener implements EventSubscriberInterface
             /** @var SettingsManager $settings */
             $settings = $this->container->get('chamilo.settings.manager');
             $platformLocale = $settings->getSetting('language.platform_language');
+
             if (!empty($platformLocale)) {
                 $locale = $platformLocale;
             }

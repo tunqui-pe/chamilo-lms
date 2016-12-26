@@ -204,6 +204,7 @@ services:
         arguments: ['@knp_menu.factory', '@chamilo_core.entity.manager.course_manager', '@router']
 #            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
 #            - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
+
     chamilo_core.block.course:
         class: Chamilo\CoreBundle\Block\CourseBlockService
         arguments: [chamilo_core.block.course, '@templating']
