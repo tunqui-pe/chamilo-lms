@@ -102,6 +102,8 @@ function api_get_interface_language(
     $check_sub_language = false,
     $setParentLanguageName = true
 ) {
+    return api_get_language_isocode();
+
     global $language_interface;
 
     if (empty($language_interface)) {
@@ -174,6 +176,8 @@ function api_purify_language_id($language) {
  */
 function api_get_language_isocode($language = null, $default_code = 'en')
 {
+    return Container::getTranslator()->getLocale();
+
     static $iso_code = array();
     if (empty($language)) {
         $language = api_get_interface_language(false, true);
