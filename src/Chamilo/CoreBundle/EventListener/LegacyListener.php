@@ -94,6 +94,12 @@ class LegacyListener
                     break; //found one match, get out of foreach
                 }
             }
+
+            // Set legacy twig globals _p, _u, _s
+            $globals = \Template::getGlobals();
+            foreach ($globals as $index => $value) {
+                $container->get('twig')->addGlobal($index, $value);
+            }
         }
 
         $session->set('access_url_id', $urlId);
@@ -110,12 +116,6 @@ class LegacyListener
         // Setting legacy properties.
         Container::$dataDir = $container->get('kernel')->getDataDir();
         Container::$courseDir = $container->get('kernel')->getDataDir();
-
-        // Set legacy twig globals _p, _u, _s
-        $globals = \Template::getGlobals();
-        foreach ($globals as $index => $value) {
-            $container->get('twig')->addGlobal($index, $value);
-        }
     }
 
     /**
