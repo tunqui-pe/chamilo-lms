@@ -92,6 +92,8 @@ function get_lang($variable)
 
 /**
  * Gets the current interface language.
+ * @deprecated use api_get_language_isocode()
+ *
  * @param bool $purified (optional)	When it is true, a purified (refined)
  * language value will be returned, for example 'french' instead of 'french_unicode'.
  * @param bool $setParentLanguageName

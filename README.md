@@ -149,8 +149,10 @@ need to update their Chamilo portal as described here.
       main/admin/user_list.php
   In 2.x (dev mode)
       web/app_dev.php/main/admin/user_list.php
-  In 2.x: (prod mode)
+   In 2.x: (prod mode)
       web/main/admin/user_list.php
+* Language list is now loaded using the iso code not the english name.  
+  Example: "es" instead of "spanish" funct
 
 ## Updating code
 

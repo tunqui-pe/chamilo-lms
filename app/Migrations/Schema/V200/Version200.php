@@ -150,6 +150,13 @@ class Version200 extends AbstractMigrationChamilo
         if (!$table->hasIndex('idx_message_user_receiver_status')) {
             $this->addSql('CREATE INDEX idx_message_user_receiver_status ON message (user_receiver_id, msg_status)');
         }
+
+         // Update iso
+        $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
+        $this->addSql($sql);
+
+        $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
+        $this->addSql($sql);
     }
 
     /**
