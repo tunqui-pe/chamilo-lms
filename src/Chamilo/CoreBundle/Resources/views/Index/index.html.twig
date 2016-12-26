@@ -2,6 +2,7 @@
 
 {% block chamilo_right_column %}
     {% autoescape false %}
+        {{ announcements_block }}
         {{ content }}
         {% if chamilo_settings_get("display.show_hot_courses")  == 'true' %}
             {# See CourseBlockService.php #}

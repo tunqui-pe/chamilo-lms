@@ -79,10 +79,16 @@ class IndexController extends BaseController
         $sessionHandler = $request->getSession();
         $sessionHandler->remove('coursesAlreadyVisited');
 
-        $announcementsBlock = $pageController->getAnnouncements();
+        $user = $this->getUser();
+        $userId = 0;
+        if ($user) {
+            $userId = $this->getUser()->getId();
+        }
+        $announcementsBlock = $pageController->getAnnouncements($userId);
+
         /** @var User $user */
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->find(1);
+        //$userManager = $this->container->get('fos_user.user_manager');
+        //$user = $userManager->find(1);
 
         //$attribute = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:ExtraField')->find(1);
 /*

@@ -336,24 +336,35 @@ class PageController
     public function getAnnouncements($user_id = null, $show_slide = true)
     {
         // Display System announcements
-        $announcement = isset($_GET['announcement']) ? intval($_GET['announcement']) : null;
+        $hideAnnouncements = api_get_setting('hide_global_announcements_when_not_connected');
+        if ($hideAnnouncements == 'true' && empty($user_id)) {
+            return null;
+        }
+
+        $announcement = isset($_GET['announcement']) ? $_GET['announcement'] : null;
+        $announcement = intval($announcement);
 
         if (!api_is_anonymous() && $user_id) {
-            $visibility = api_is_allowed_to_create_course(
-            ) ? SystemAnnouncementManager::VISIBLE_TEACHER : SystemAnnouncementManager::VISIBLE_STUDENT;
+            $visibility = api_is_allowed_to_create_course() ? SystemAnnouncementManager::VISIBLE_TEACHER : SystemAnnouncementManager::VISIBLE_STUDENT;
             if ($show_slide) {
-                $announcements = SystemAnnouncementManager::display_announcements_slider($visibility, $announcement);
+                $announcements = SystemAnnouncementManager:: display_announcements_slider(
+                    $visibility,
+                    $announcement
+                );
             } else {
-                $announcements = SystemAnnouncementManager::display_all_announcements($visibility, $announcement);
+                $announcements = SystemAnnouncementManager:: display_all_announcements(
+                    $visibility,
+                    $announcement
+                );
             }
         } else {
             if ($show_slide) {
-                $announcements = SystemAnnouncementManager::display_announcements_slider(
+                $announcements = SystemAnnouncementManager:: display_announcements_slider(
                     SystemAnnouncementManager::VISIBLE_GUEST,
                     $announcement
                 );
             } else {
-                $announcements = SystemAnnouncementManager::display_all_announcements(
+                $announcements = SystemAnnouncementManager:: display_all_announcements(
                     SystemAnnouncementManager::VISIBLE_GUEST,
                     $announcement
                 );

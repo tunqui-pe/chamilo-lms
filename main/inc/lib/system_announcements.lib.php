@@ -818,11 +818,12 @@ class SystemAnnouncementManager
             return null;
         }
 
-        $template = new Template(null, false, false);
-        $template->assign('announcements', $announcements);
-        $layout = $template->get_template('announcement/slider.tpl');
-
-        return $template->fetch($layout);
+        return \Chamilo\CoreBundle\Framework\Container::getTemplating()->render(
+            '@ChamiloCore/default/announcement/slider.html.twig',
+            [
+                'announcements' => $announcements
+            ]
+        );
     }
 
     /**
