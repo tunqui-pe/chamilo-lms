@@ -76,6 +76,7 @@ class SettingsController extends Controller
                 'ChamiloCourseBundle:Settings:update.html.twig'
             ),
             array(
+                'course' => $course,
                 'schemas' => $schemas,
                 'settings' => $settings,
                 'form' => $form->createView(),
