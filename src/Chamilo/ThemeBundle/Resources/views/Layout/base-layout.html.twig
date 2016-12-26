@@ -186,10 +186,18 @@
                         <div class="container">
                             <div class="collapse navbar-collapse">
                             {{ mopa_bootstrap_menu('ChamiloCoreBundle:NavBuilder:leftMenu', {'automenu': 'navbar', 'stacked' : false}) }}
-                            {{ mopa_bootstrap_menu('ChamiloCoreBundle:NavBuilder:rightMenu', {'automenu': 'navbar', 'pull-right' : true} ) }}
+
+                            {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav navbar-right">
+                                    {{ render(controller('ChamiloThemeBundle:Navbar:user')) }}
+                                    </ul>
+                                </div>
+                            {% endif %}
                             </div>
                         </div>
                     </nav>
+
                     {#{% include "@template_style/layout/menu.html.twig" %}#}
                 {% endblock %}
             </section>

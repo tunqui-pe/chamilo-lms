@@ -210,66 +210,6 @@ class NavBuilder extends ContainerAware
     }
 
     /**
-     * Top menu right
-     * @param FactoryInterface $factory
-     * @param array $options
-     * @return \Knp\Menu\ItemInterface
-     */
-    public function rightMenu(FactoryInterface $factory, array $options)
-    {
-        $checker = $this->container->get('security.authorization_checker');
-
-        $translator = $this->container->get('translator');
-        $menu = $factory->createItem('root');
-
-        // <nav class="navbar navbar-default">
-        if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            $token = $this->container->get('security.token_storage');
-            /** @var User $user */
-            $user = $token->getToken()->getUser();
-            $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
-            $dropdown = $menu->addChild($user->getUsername())->setAttribute('dropdown', true);
-
-            /*$dropdown->addChild(
-                $translator->trans('Profile'),
-                array('route' => 'fos_user_profile_show')
-            )->setAttribute('divider_append', true);*/
-            $dropdown->addChild(
-                $translator->trans('Inbox'),
-                array(
-                    'route' => 'main',
-                    'routeParameters' => array(
-                        'name' => 'messages/inbox.php',
-                    ),
-                )
-            )->setAttribute('divider_append', true);
-
-            // legacy logout
-            $logoutLink = $menu->addChild(
-                $translator->trans('Logout'),
-                array(
-                    'route' => 'logout',
-                    //'icon' => 'fa fa-sign-out'
-                )
-            );
-
-            $logoutLink
-                ->setLinkAttributes(array(
-                    'id' => 'logout_button',
-                    'class' => 'fa fa-power-off',
-                ))
-                ->setAttributes(array(
-                    /*'id' => 'signin',
-                    'class' => 'dropdown'*/
-                ))
-            ;
-        }
-
-        return $menu;
-    }
-
-    /**
      * @param FactoryInterface $factory
      * @param array $options
      * @return ItemInterface
