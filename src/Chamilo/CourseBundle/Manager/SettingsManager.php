@@ -54,6 +54,7 @@ class SettingsManager extends ChamiloSettingsManager
         course_maintenance //maintenance
         course_setting settings*/
 
+        $schemaAliasNoPrefix = $schemaAlias;
         $schemaAlias = 'chamilo_course.settings.'.$schemaAlias;
 
         /** @var SchemaInterface $schema */
@@ -71,7 +72,8 @@ class SettingsManager extends ChamiloSettingsManager
         }
 
          // We need to get a plain parameters array since we use the options resolver on it
-        $parameters = $settings->getParameters();
+        //$parameters = $settings->getParameters();
+        $parameters = $this->getParameters($schemaAliasNoPrefix);
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
@@ -146,7 +148,7 @@ class SettingsManager extends ChamiloSettingsManager
                 $parameter
                     ->setTitle($name)
                     ->setVariable($name)
-                    ->setCategory($namespace)
+                    ->setCategory($simpleCategoryName)
                     ->setValue($value)
                     ->setCId($this->getCourse()->getId())
                 ;
@@ -227,7 +229,19 @@ class SettingsManager extends ChamiloSettingsManager
         $repo = $this->manager->getRepository('ChamiloCourseBundle:CCourseSetting');
         $parameters = [];
         foreach ($repo->findBy(array('category' => $namespace)) as $parameter) {
-            $parameters[$parameter->getName()] = $parameter->getValue();
+            $parameters[$parameter->getTitle()] = $parameter->getValue();
         }
+
+        return $parameters;
+    }
+
+
+    /**
+     * @param string $category
+     * @return string
+     */
+    public function convertNameSpaceToService($category)
+    {
+        return 'chamilo_course.settings.'.$category;
     }
 }

@@ -58,16 +58,10 @@ services:
         calls:
           - [setContainer, ['@service_container']]
 
-    chamilo_course.settings.schema_registry:
-        class: Sylius\Component\Registry\ServiceRegistry
-        arguments:
-            - Sylius\Bundle\SettingsBundle\Schema\SchemaInterface
-            - 'course_settings'
-
     chamilo_course.settings.form_factory:
-        class: %chamilo_course.settings.form_factory.class%
+        class: Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactory
         arguments:
-            - '@chamilo_course.settings.schema_registry'
+            - '@chamilo_course.registry.settings_schema'
             - '@form.factory'
 
     chamilo_course.repository.parameter:
