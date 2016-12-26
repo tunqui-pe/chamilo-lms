@@ -56,7 +56,9 @@
 
         {% block chamilo_messages %}
             {# Flash messages #}
-            {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+            {% autoescape false %}
+                {% include '@ChamiloTheme/FlashMessage/render.html.twig' %}
+            {% endautoescape %}
         {% endblock %}
 
         {% block chamilo_right_column %}

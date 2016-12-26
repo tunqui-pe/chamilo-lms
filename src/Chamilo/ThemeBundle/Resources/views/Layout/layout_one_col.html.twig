@@ -37,16 +37,17 @@
                 {% include '@ChamiloCore/breadcrumb.html.twig' %}
                 {% endblock %}
 
-                {% block chamilo_messages %}
-                {# Flash messages #}
-                {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
-                {% endblock %}
-
                 {% if actions != '' %}
                     <div class="actions">
                         {{ actions }}
                     </div>
                 {% endif %}
+
+                {% block chamilo_messages %}
+                {% autoescape false %}
+                {% include '@ChamiloTheme/FlashMessage/render.html.twig' %}
+                {% endautoescape %}
+                {% endblock %}
 
                 {# Content #}
                 {% block content %}

@@ -2141,20 +2141,17 @@ class Display
 
     /**
      * Adds a message in the queue
+     *
      * @param string $message
+     * @param string $type
      */
-    public static function addFlash($message)
+    public static function addFlash($message, $type = 'no_layout')
     {
-        $messages = Session::read('flash_messages');
-        if (empty($messages)) {
-            $messages[] = $message;
-        } else {
-            array_push($messages, $message);
-        }
-        Session::write('flash_messages', $messages);
+        Container::getSession()->getFlashBag()->add($type, $message);
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public static function getFlashToString()
@@ -2171,6 +2168,7 @@ class Display
     }
 
     /**
+     *  @deprecated
      * Shows the message from the session
      */
     public static function showFlash()
@@ -2180,6 +2178,7 @@ class Display
 
     /**
      * Destroys the message session
+     * @deprecated
      */
     public static function cleanFlashMessages()
     {
