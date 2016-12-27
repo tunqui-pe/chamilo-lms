@@ -30,7 +30,7 @@
                     {{ render(controller('ChamiloThemeBundle:Sidebar:userProfile', {'pathInfo': pathInfo })) }}
                 {% endif %}
 
-                {# Courses, Skills menu #}
+                {# Login, Courses, Skills menu #}
                 {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request, pathInfo: pathInfo })) }}
             </section>
         {% endblock %}
