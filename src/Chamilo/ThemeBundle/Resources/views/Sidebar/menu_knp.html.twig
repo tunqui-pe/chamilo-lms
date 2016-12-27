@@ -23,7 +23,6 @@
 {% else %}
     {{ locale_switcher(null, null, 'ChamiloCoreBundle:Admin:switcher_links.html.twig') }}
     <div class="user-panel">
-
     </div>
     <form action="{{ path("fos_user_security_check") }}" method="post" role="form" class="sidebar-form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
