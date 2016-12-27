@@ -5,6 +5,8 @@ namespace Chamilo\CoreBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class SimpleMenuBuilder
@@ -13,8 +15,10 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-class SimpleMenuBuilder extends ContainerAware
+class SimpleMenuBuilder implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * Register/reset password menu
      * @param FactoryInterface $factory

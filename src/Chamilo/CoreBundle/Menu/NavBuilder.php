@@ -9,14 +9,19 @@ use Chamilo\UserBundle\Entity\User;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class NavBuilder
  * @package Chamilo\CoreBundle\Menu
  */
-class NavBuilder extends ContainerAware
+class NavBuilder implements ContainerAwareInterface
+
 {
+    use ContainerAwareTrait;
+
     /**
      * @param array  $itemOptions The options given to the created menuItem
      * @param string $currentUri  The current URI
@@ -217,7 +222,7 @@ class NavBuilder extends ContainerAware
     public function profileMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
-        $security = $this->container->get('security.context');
+        $security = $this->container->get('security.authorization_checker');
         $translator = $this->container->get('translator');
 
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -296,7 +301,7 @@ class NavBuilder extends ContainerAware
     public function socialMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
-        $security = $this->container->get('security.context');
+        $security = $this->container->get('security.authorization_checker');
         $translator = $this->container->get('translator');
 
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
