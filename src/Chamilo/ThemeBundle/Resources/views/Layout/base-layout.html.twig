@@ -104,12 +104,15 @@
     {#%}#}
     {#<script type="text/javascript" src="{{ asset_url | replace({'/app_dev.php': ''}) }}"></script>#}
     {#{% endjavascripts %}#}
+    {% endblock %}
 </head>
 
 <body>
 <noscript>{{ "NoJavascript" | trans }}</noscript>
 {#{% if show_header == true %}#}
+
 {% block chamilo_wrap %}
+    {% autoescape false %}
     <div id="page-wrap">
         <!-- page section -->
         {# Bug and help notifications #}
@@ -179,7 +182,6 @@
                     </div>
                 </div>
             </section>
-
             <section id="menu-bar">
                 {# menu #}
                 {% block menu %}
@@ -263,9 +265,9 @@
         {#</div>#}
         {#<!-- /.right-side -->#}
 
-        {% endblock %}
         </div> {# end top_main_content #}
     </div> {# End page-wrap div #}
+
 
     {% block chamilo_footer %}
         {% include '@ChamiloTheme/Layout/footer.html.twig' %}
@@ -273,6 +275,8 @@
     {% block chamilo_footer_js %}
         {% include '@ChamiloTheme/Layout/footer.js.twig' %}
     {% endblock %}
+{% endautoescape %}
 {% endblock %} {# End chamilo_wrap block #}
+
 </body>
 </html>

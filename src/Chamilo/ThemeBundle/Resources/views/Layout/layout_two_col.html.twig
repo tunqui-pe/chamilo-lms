@@ -6,6 +6,7 @@
 %}
 
 {% block page_content %}
+    {% autoescape false %}
     {% if plugin_main_top %}
     <div id="plugin_main_top" class="col-md-12">
         {{ plugin_main_top }}
@@ -43,7 +44,6 @@
 
     {#  Right column #}
     <div class="col-md-9">
-        {% autoescape false %}
         {% if plugin_content_top %}
             <div id="plugin_content_top">
                 {{ plugin_content_top }}
@@ -74,8 +74,6 @@
             {{plugin_content_bottom}}
         </div>
         {% endif %}
-
-        {% endautoescape %}
     </div>
 
     {% if plugin_main_bottom %}
@@ -83,4 +81,5 @@
         {{ plugin_main_bottom }}
     </div>
     {% endif %}
+    {% endautoescape %}
 {% endblock %}
