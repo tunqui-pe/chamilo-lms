@@ -32,7 +32,8 @@ class SimpleMenuBuilder implements ContainerAwareInterface
         $menu->addChild(
             $translator->trans('registration.submit', array(), 'FOSUserBundle'),
             array(
-                'route' => 'sonata_user_registration_register',
+                'route' => 'main',
+                'routeParameters' => ['name' => 'auth/inscription.php'],
                 array("attributes" => array("id" => 'nav'))
             )
         );
@@ -40,7 +41,9 @@ class SimpleMenuBuilder implements ContainerAwareInterface
         $menu->addChild(
             $translator->trans('resetting.request.submit', array(), 'FOSUserBundle'),
             array(
-                'route' => 'fos_user_resetting_request',
+                //'route' => 'fos_user_resetting_request',
+                'route' => 'main',
+                'routeParameters' => ['name' => 'auth/lostPassword.php'],
                 array("attributes" => array("id" => 'nav'))
             )
         );
