@@ -507,7 +507,8 @@ class Category implements GradebookItem
             $cat->set_name($data['name']);
             $cat->set_description($data['description']);
             $cat->set_user_id($data['user_id']);
-            //$cat->set_course_code($data['course_code']);
+            $courseInfo = api_get_course_info_by_id($data['c_id']);
+            $cat->set_course_code($courseInfo['code']);
             $cat->setCourseId($data['c_id']);
             $cat->set_parent_id($data['parent_id']);
             $cat->set_weight($data['weight']);
@@ -637,6 +638,7 @@ class Category implements GradebookItem
     {
         $em = Database::getManager();
 
+        /** @var  GradebookCategory $gradebookCategory */
         $gradebookCategory = $em
             ->getRepository('ChamiloCoreBundle:GradebookCategory')
             ->find($this->id);
@@ -645,10 +647,13 @@ class Category implements GradebookItem
             return false;
         }
 
+        $course = api_get_user_course_entity();
+
         $gradebookCategory->setName($this->name);
         $gradebookCategory->setDescription($this->description);
         $gradebookCategory->setUserId($this->user_id);
-        $gradebookCategory->setCourseCode($this->course_code);
+        $gradebookCategory->setCourse($course);
+        //$gradebookCategory->setCourseCode($this->course_code);
         $gradebookCategory->setParentId($this->parent);
         $gradebookCategory->setWeight($this->weight);
         $gradebookCategory->setVisible($this->visible);

@@ -445,8 +445,57 @@ class GradebookUtils
      */
     public static function get_table_type_course($type)
     {
-        global $table_evaluated;
+        $table_evaluated = self::getEvaluateList();
         return Database::get_course_table($table_evaluated[$type][0]);
+    }
+
+    public static function getEvaluateList()
+    {
+        $table_evaluated = [];
+        $table_evaluated[LINK_EXERCISE] = array(
+            TABLE_QUIZ_TEST,
+            'title',
+            'id',
+            get_lang('Exercise'),
+        );
+        $table_evaluated[LINK_DROPBOX] = array(
+            TABLE_DROPBOX_FILE,
+            'name',
+            'id',
+            get_lang('Dropbox'),
+        );
+        $table_evaluated[LINK_STUDENTPUBLICATION] = array(
+            TABLE_STUDENT_PUBLICATION,
+            'url',
+            'id',
+            get_lang('Student_publication'),
+        );
+        $table_evaluated[LINK_LEARNPATH] = array(
+            TABLE_LP_MAIN,
+            'name',
+            'id',
+            get_lang('Learnpath'),
+        );
+        $table_evaluated[LINK_FORUM_THREAD] = array(
+            TABLE_FORUM_THREAD,
+            'thread_title_qualify',
+            'thread_id',
+            get_lang('Forum'),
+        );
+        $table_evaluated[LINK_ATTENDANCE] = array(
+            TABLE_ATTENDANCE,
+            'attendance_title_qualify',
+            'id',
+            get_lang('Attendance'),
+        );
+        $table_evaluated[LINK_SURVEY] = array(
+            TABLE_SURVEY,
+            'code',
+            'survey_id',
+            get_lang('Survey'),
+        );
+
+        return $table_evaluated;
     }
 
     /**
