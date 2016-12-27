@@ -431,6 +431,9 @@ class SettingsManager implements SettingsManagerInterface
             'exercise_invisible_in_session' => 'exercise',
             'configure_exercise_visibility_in_course' => 'exercise',
             'allow_download_documents_by_api_key' => 'Webservices',
+            'ProfilingFilterAddingUsers' => 'profile',
+            'donotlistcampus' => 'platform',
+            'gradebook_show_percentage_in_reports' => 'gradebook'
         ];
 
         return $oldItems;
@@ -544,7 +547,6 @@ class SettingsManager implements SettingsManagerInterface
             'hide_logout_button' => 'display',
             'institution_address' => 'platform',
             'redirect_admin_to_courses_list' => 'admin',
-            'decode_utf8' => 'webservice',
             'use_custom_pages' => 'platform',
             'allow_group_categories' => 'group',
             'allow_user_headings' => 'display',
@@ -575,7 +577,6 @@ class SettingsManager implements SettingsManagerInterface
             'documents_default_visibility_defined_in_course' => 'document',
             'message_max_upload_filesize' => 'message',
             'course_create_active_tools' => 'course',
-            'allow_download_documents_by_api_key' => 'webservice',
             'tool_visible_by_default_at_creation' => 'document',
             'show_users_folders' => 'document',
             'show_default_folders' => 'document',
@@ -607,6 +608,13 @@ class SettingsManager implements SettingsManagerInterface
             'permissions_for_new_files' => 'document',
             'extended_profile' => 'profile',
             'split_users_upload_directory' => 'profile',
+            'show_documents_preview' => 'document',
+            'decode_utf8' => 'webservice',
+            'messaging_allow_send_push_notification' => 'webservice',
+            'messaging_gdc_project_number' => 'webservice',
+            'messaging_gdc_api_key' => 'webservice',
+            'allow_download_documents_by_api_key' => 'webservice',
+            'profiling_filter_adding_users' => 'profile'
         ];
 
         return isset($settings[$variable]) ? $settings[$variable] : $defaultCategory;
