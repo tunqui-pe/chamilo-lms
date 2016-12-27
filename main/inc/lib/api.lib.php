@@ -3147,26 +3147,24 @@ function api_is_anonymous($user_id = null, $db_check = false)
 
     if ($db_check) {
         $info = api_get_user_info($user_id);
-        if ($info['status'] == ANONYMOUS) {
+
+        if ($info['status'] == 6 || $user_id == 0 || empty($info)) {
             return true;
         }
     }
 
-    $_user = api_get_user_info();
+    $_user = Session::read('_user');
 
-    if (isset($_user['status']) && $_user['status'] == ANONYMOUS) {
-        //if ($_user['user_id'] == 0) {
+    if (!isset($_user) || (isset($_user['user_id']) && $_user['user_id'] == 0)) {
         // In some cases, api_set_anonymous doesn't seem to be triggered in local.inc.php. Make sure it is.
         // Occurs in agenda for admin links - YW
-        global $use_anonymous;
-        if (isset($use_anonymous) && $use_anonymous) {
-            api_set_anonymous();
-        }
-
+        /*global $use_anonymous;
+        if (isset($use_anonymous) && $use_anonymous) {*/
+        api_set_anonymous();
+        //}
         return true;
     }
-
-    return (isset($_user['is_anonymous']) && $_user['is_anonymous'] === true) || $_user === false;
+    return isset($_user['is_anonymous']) && $_user['is_anonymous'] === true;
 }
 
 /**
@@ -7704,6 +7702,51 @@ function api_mail_html(
     $embedded_image = false,
     $additionalParameters = array()
 ) {
+    // Default values
+    $notification = new Notification();
+    $defaultEmail = $notification->getDefaultPlatformSenderEmail();
+    $defaultName = $notification->getDefaultPlatformSenderName();
+
+    // If the parameter is set don't use the admin.
+    $senderName = !empty($senderName) ? $senderName : $defaultName;
+    $senderEmail = !empty($senderEmail) ? $senderEmail : $defaultEmail;
+
+    $link = isset($additionalParameters['link']) ? $additionalParameters['link'] : '';
+
+    $swiftMessage = \Swift_Message::newInstance()
+        ->setSubject($subject)
+        ->setFrom($senderEmail, $senderName)
+        ->setTo($recipient_email, $recipient_name)
+        ->setBody(
+            Container::getTemplating()->render(
+                'ChamiloCoreBundle:default/mail:mail.html.twig',
+                array('content' => $message, 'link' => $link)
+            ),
+            'text/html'
+        )/*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'Emails/registration.txt.twig',
+                array('name' => $name)
+            ),
+            'text/plain'
+        )
+        */
+    ;
+
+    if (!empty($additionalParameters)) {
+        $plugin = new AppPlugin();
+        $smsPlugin = $plugin->getSMSPluginLibrary();
+        if ($smsPlugin) {
+            $smsPlugin->send($additionalParameters);
+        }
+    }
+
+    Container::getMailer()->send($swiftMessage);
+
+    return 1;
+
     global $platform_email;
 
     $mail = new PHPMailer();
