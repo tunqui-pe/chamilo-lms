@@ -1,4 +1,6 @@
-## Upgrade from 1.11.x
+## Upgrade to Chamilo v2 
+
+## From 1.11.x
 
 2.x is a major version. It contains a series of new features, that
 also mean a series of new database changes in regards with versions 1.x. As 
@@ -26,7 +28,7 @@ Typically:
     DELETE FROM access_url_rel_course WHERE access_url_id NOT IN (SELECT id FROM access_url);
 </pre>
 
-### Upgrading from non-Git Chamilo 1.11 ###
+### From non-Git Chamilo 1.11 ###
 
 In the *very unlikely* case of upgrading a "normal" Chamilo 1.x installation (done with the downloadable zip package) to a Git-based installation, 
 make sure you delete the contents of a few folders first. 

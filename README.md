@@ -10,11 +10,11 @@
 ## Installation
 
 The installation instructions are located in the documentation here: 
-[Installation](app/Resources/installation.md)
+[Installation](app/Resources/docs/installation.md)
 
 ## Upgrade
 The upgrade instructions are located in the documentation here: 
- [Upgrade](https://github.com/chamilo/chamilo-lms/blob/master/app/Resources/upgrade.md)
+ [Upgrade](app/Resources/docs/upgrade.md)
 
 ## Changes from 1.x 
 
