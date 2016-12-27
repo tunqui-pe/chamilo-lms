@@ -157,6 +157,7 @@ class Version200 extends AbstractMigrationChamilo
 
         $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
         $this->addSql($sql);
+        $this->addSql('ALTER TABLE c_tool_intro CHANGE id tool VARCHAR(255) NOT NULL');
     }
 
     /**

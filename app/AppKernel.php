@@ -37,7 +37,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             // Data grid
-            //new APY\DataGridBundle\APYDataGridBundle(),
+            new APY\DataGridBundle\APYDataGridBundle(),
             new Chamilo\FaqBundle\ChamiloFaqBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),

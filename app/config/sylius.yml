@@ -65,6 +65,10 @@ sylius_settings:
 
 sylius_resource:
     resources:
+#        chamilo_course.c_tool_intro:
+#            driver: doctrine/orm
+#            classes:
+#                model: Chamilo\CourseBundle\Entity\CToolIntro
         chamilo_notebook.notebook:
             driver: doctrine/orm
             templates: ChamiloNotebookBundle:Notebook

@@ -6,7 +6,7 @@
 <h4>{{ tool }}</h4>
 
 <form method="post"
-      action="{{ path('chamilo_course_ctoolintro_create', {'course': course.code, 'tool' : tool}) }}">
+      action="{{ path('chamilo_course_ctoolintro_update', {'course': course.code, 'tool' : tool, 'iid' : iid }) }}">
 {{ form_widget(form) }}
 </form>
 {% endblock %}

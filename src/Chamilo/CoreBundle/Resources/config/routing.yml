@@ -67,30 +67,34 @@ core_tool_document:
     requirements:
         file: .+ # allow "/" in {file}
 
-#chamilo_course_tool_intro_create:
-#    path: /courses/{course}/introduction/{tool}/create/
-#    methods: [GET, POST]
-#    defaults:
-#        _controller: ChamiloCourseBundle:Introduction/Introduction:create
-#        _sylius:
-#            template: ChamiloCourseBundle:CToolIntro:create2.html.twig
-#            form: Chamilo\CourseBundle\Form\Type\CToolIntroType
-#
-#
-#    requirements:
-#        tool: "[a-zA-Z_]+"
+chamilo_course_tool_intro_create:
+    path: /courses/{course}/introduction/{tool}/create/
+    methods: [GET, POST]
+    defaults:
+        _controller: ChamiloCourseBundle:CToolIntro:create
+    requirements:
+        tool: "[a-zA-Z_]+"
 
-#chamilo_course_tool_intro_update:
-#    path: /courses/{course}/introduction/{tool}/update/
-#    methods: [GET]
-#    defaults:
-#        _controller: chamilo_course.controller.c_tool_intro:updateAction
-#
-#chamilo_course_tool_list:
-#    path: /courses/{course}/introduction
-#    methods: [GET]
-#    defaults:
-#        _controller: chamilo_course.controller.tool:indexAction
+chamilo_course_tool_intro_update:
+    path: /courses/{course}/introduction/{tool}/update/
+    methods: [GET]
+    defaults:
+        _controller: chamilo_course.controller.c_tool_intro:updateAction
+
+chamilo_course_tool_list:
+    path: /courses/{course}/introduction
+    methods: [GET]
+    defaults:
+        _controller: chamilo_course.controller.tool:indexAction
+
+
+#chamilo_course.c_tool_intro:
+#    resource: |
+#        alias: chamilo_course.c_tool_intro
+#        path: /courses/{course}/introduction/{tool}
+#        templates: :Admin/Book
+#    type: sylius.resource_api
+
 
 # Redirects /url/ to /url
 remove_trailing_slash:
