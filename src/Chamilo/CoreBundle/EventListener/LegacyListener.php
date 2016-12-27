@@ -100,6 +100,54 @@ class LegacyListener
             foreach ($globals as $index => $value) {
                 $container->get('twig')->addGlobal($index, $value);
             }
+
+            //$result = & api_get_settings('Plugins', 'list', $_configuration['access_url']);
+            $result = & api_get_settings('Plugins', 'list', 1);
+
+            $_plugins = array();
+            foreach ($result as & $row) {
+                $key = $row['variable'];
+                $_plugins[$key][] = $row['selected_value'];
+            }
+
+            // Loading Chamilo plugins
+
+            $appPlugin = new \AppPlugin();
+            $pluginRegions = $appPlugin->get_plugin_regions();
+            $force_plugin_load = true;
+            $pluginList = $appPlugin->get_installed_plugins();
+
+            foreach ($pluginRegions as $pluginRegion) {
+                $regionContent = $appPlugin->load_region(
+                    $pluginRegion,
+                    $container->get('twig'),
+                    $_plugins,
+                    $force_plugin_load
+                );
+
+                foreach ($pluginList as $plugin_name) {
+                    // The plugin_info variable is available inside the plugin index
+                    $pluginInfo = $appPlugin->getPluginInfo($plugin_name);
+                    if (isset($pluginInfo['is_course_plugin']) && $pluginInfo['is_course_plugin']) {
+                        $courseInfo = api_get_course_info();
+                        if (!empty($courseInfo)) {
+                            if (isset($pluginInfo['obj']) && $pluginInfo['obj'] instanceof \Plugin) {
+                                /** @var \Plugin $plugin */
+                                $plugin = $pluginInfo['obj'];
+                                $regionContent .= $plugin->renderRegion($pluginRegion);
+                            }
+                        }
+                    } else {
+                        continue;
+                    }
+                }
+
+                if (!empty($regionContent)) {
+                    $container->get('twig')->addGlobal('plugin_'.$pluginRegion, $regionContent);
+                } else {
+                    $container->get('twig')->addGlobal('plugin_'.$pluginRegion, '');
+                }
+            }
         }
 
         $session->set('access_url_id', $urlId);

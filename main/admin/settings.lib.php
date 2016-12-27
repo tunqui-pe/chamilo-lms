@@ -40,8 +40,12 @@ function handleRegions()
     $plugin_obj = new AppPlugin();
     $possible_plugins  = $plugin_obj->read_plugins_from_path();
     $installed_plugins = $plugin_obj->get_installed_plugins();
+    $name = isset($_GET['name']) ? $_GET['name'] : '';
 
-    echo '<form name="plugins" method="post" action="'.api_get_self().'?category='.Security::remove_XSS($_GET['category']).'">';
+    echo '<form 
+        name="plugins" 
+        method="post" 
+        action="'.api_get_self().'?category='.Security::remove_XSS($_GET['category']).'&name='.Security::remove_XSS($name).'">';
     echo '<table class="data_table">';
     echo '<tr>';
     echo '<th width="400px">';
@@ -69,7 +73,7 @@ function handleRegions()
         if (file_exists($plugin_info_file)) {
             $plugin_info = array();
             require $plugin_info_file;
-            if (isset($_GET['name']) && $_GET['name'] === $pluginName) {
+            if ($name === $pluginName) {
                 echo '<tr class="row_selected">';
             } else {
                 echo '<tr>';
@@ -124,12 +128,22 @@ function handleExtensions()
  * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University
  * @author Julio Montoya <gugli100@gmail.com> Beeznest 2012
  */
-function handlePlugins()
+function handlePlugins($installed = true)
 {
     $plugin_obj = new AppPlugin();
     $token = Security::get_token();
-    if (isset($_POST['submit_plugins'])) {
-        storePlugins();
+    if (isset($_REQUEST['action'])) {
+        $name = $_REQUEST['name'];
+        $appPlugin = new AppPlugin();
+        switch ($_REQUEST['action']) {
+            case 'install':
+                $appPlugin->install($name);
+                break;
+            case 'uninstall':
+                $appPlugin->uninstall($name);
+                break;
+        }
+
         // Add event to the system log.
         $user_id = api_get_user_id();
         $category = $_GET['category'];
@@ -150,19 +164,11 @@ function handlePlugins()
     echo Display::page_subheader(get_lang('Plugins'));
     echo '<form class="form-horizontal" name="plugins" method="post" action="'.api_get_self().'?category='.Security::remove_XSS($_GET['category']).'&sec_token=' . $token . '">';
     echo '<table class="data_table">';
-    echo '<tr>';
-    echo '<th width="20px">';
-    echo get_lang('Action');
-    echo '</th><th>';
+    /*echo '<tr>';
+    echo '<th>';
     echo get_lang('Description');
     echo '</th>';
-    echo '</tr>';
-
-    /*$plugin_list = array();
-    $my_plugin_list = $plugin_obj->get_plugin_regions();
-    foreach($my_plugin_list as $plugin_item) {
-        $plugin_list[$plugin_item] = $plugin_item;
-    }*/
+    echo '</tr>';*/
 
     foreach ($all_plugins as $pluginName) {
         $plugin_info_file = api_get_path(SYS_PLUGIN_PATH).$pluginName.'/plugin.php';
@@ -170,32 +176,36 @@ function handlePlugins()
             $plugin_info = array();
             require $plugin_info_file;
 
+            echo '<tr>';
             if (in_array($pluginName, $installed_plugins)) {
-                echo '<tr class="row_selected">';
             } else {
-                echo '<tr>';
+                if ($installed) {
+                    continue;
+                }
             }
-            echo '<td>';
-            //Checkbox
-            if (in_array($pluginName, $installed_plugins)) {
-                echo '<input type="checkbox" name="plugin_'.$pluginName.'[]" checked="checked">';
 
-            } else {
-                echo '<input type="checkbox" name="plugin_'.$pluginName.'[]">';
+            if ($installed == false) {
+                if (in_array($pluginName, $installed_plugins)) {
+                    continue;
+                }
             }
-            echo '</td><td>';
+
+            // Checkbox
+            if (in_array($pluginName, $installed_plugins)) {
+                //echo '<input type="checkbox" name="plugin_'.$pluginName.'[]" checked="checked">';
+            } else {
+                //echo '<input type="checkbox" name="plugin_'.$pluginName.'[]">';
+            }
+
+            echo '<td>';
             echo '<h4>'.$plugin_info['title'].' <small>v '.$plugin_info['version'].'</small></h4>';
             echo '<p>'.$plugin_info['comment'].'</p>';
             echo '<p>'.get_lang('Author').': '.$plugin_info['author'].'</p>';
-
             echo '<div class="btn-group">';
-            if (in_array($pluginName, $installed_plugins)) {
-                echo Display::url('<em class="fa fa-cogs"></em> '.get_lang('Configure'), 'configure_plugin.php?name='.$pluginName, array('class' => 'btn btn-default'));
-                echo Display::url('<em class="fa fa-th-large"></em> '.get_lang('Regions'), 'settings.php?category=Regions&name='.$pluginName, array('class' => 'btn btn-default'));
-            }
 
+            $readme = '';
             if (file_exists(api_get_path(SYS_PLUGIN_PATH).$pluginName.'/readme.txt')) {
-                echo Display::url(
+                $readme = Display::url(
                     "<em class='fa fa-file-text-o'></em> readme.txt",
                     api_get_path(WEB_PLUGIN_PATH) . $pluginName . "/readme.txt",
                     [
@@ -209,7 +219,7 @@ function handlePlugins()
 
             $readmeFile = api_get_path(SYS_PLUGIN_PATH).$pluginName.'/README.md';
             if (file_exists($readmeFile)) {
-                echo Display::url(
+                $readme .= Display::url(
                     "<em class='fa fa-file-text-o'></em> README.md",
                     api_get_path(WEB_AJAX_PATH).'plugin.ajax.php?a=md_to_html&plugin='.$pluginName,
                     [
@@ -221,17 +231,39 @@ function handlePlugins()
                 );
             }
 
+            if (in_array($pluginName, $installed_plugins)) {
+                echo Display::url(
+                    '<em class="fa fa-cogs"></em> '.get_lang('Configure'), 'configure_plugin.php?name='.$pluginName,
+                    array('class' => 'btn btn-default')
+                );
+                echo Display::url(
+                    '<em class="fa fa-th-large"></em> '.get_lang('Regions'), 'settings.php?category=Regions&name='.$pluginName,
+                    array('class' => 'btn btn-default')
+                );
+
+                echo $readme;
+
+                echo Display::url(
+                    '<em class="fa trash-o fa-trash-o "></em> '.get_lang('Uninstall'), 'settings.php?category=Plugins&action=uninstall&name='.$pluginName,
+                    array('class' => 'btn btn-danger')
+                );
+            } else {
+                echo Display::url(
+                    '<em class="fa fa-th-large"></em> '.get_lang('Install'), 'settings.php?category=Plugins&action=install&name='.$pluginName,
+                    array('class' => 'btn btn-success')
+                );
+                echo $readme;
+            }
             echo '</div>';
             echo '</td></tr>';
         }
-
     }
     echo '</table>';
 
-    echo '<div class="form-actions bottom_actions">';
+    /*echo '<div class="form-actions bottom_actions">';
     echo '<button class="btn btn-success" type="submit" name="submit_plugins">'.
             get_lang('EnablePlugins').'</button>';
-    echo '</div>';
+    echo '</div>';*/
     echo '</form>';
 }
 
@@ -648,6 +680,7 @@ function storePlugins()
     // Get a list of all current 'Plugins' settings
     $plugin_list = $appPlugin->read_plugins_from_path();
 
+    var_dump($plugin_list);exit;
     $installed_plugins = array();
 
     foreach ($plugin_list as $plugin) {
@@ -663,9 +696,9 @@ function storePlugins()
         $remove_plugins = $plugin_list;
     }
 
-    foreach ($remove_plugins as $plugin) {
+    /*foreach ($remove_plugins as $plugin) {
         $appPlugin->uninstall($plugin);
-    }
+    }*/
 }
 
 /**
@@ -1214,7 +1247,9 @@ function select_gradebook_default_grade_model_id()
  */
 function generateSettingsForm($settings, $settings_by_access_list)
 {
+    return;
     global $_configuration, $settings_to_avoid, $convert_byte_to_mega_list;
+    $multipleAccessUrl = api_get_configuration_value('multiple_access_urls');
     $em = Database::getManager();
     $table_settings_current = Database :: get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
 
@@ -1240,17 +1275,22 @@ function generateSettingsForm($settings, $settings_by_access_list)
     $i = 0;
     $addedSettings = [];
     foreach ($settings as $row) {
-        if (in_array($row['variable'], array_keys($settings_to_avoid))) {
+
+        if (!empty($row['variable']) &&
+            in_array($row['variable'], array_keys($settings_to_avoid))
+        ) {
             continue;
         }
 
-        if (in_array($row['variable'], $addedSettings)) {
+        if (!empty($row['variable']) &&
+            in_array($row['variable'], $addedSettings)
+        ) {
             continue;
         }
 
         $addedSettings[] = $row['variable'];
 
-        if (!empty($_configuration['multiple_access_urls'])) {
+        if (!empty($multipleAccessUrl)) {
             if (api_is_global_platform_admin()) {
                 if ($row['access_url_locked'] == 0) {
                     if ($url_id == 1) {

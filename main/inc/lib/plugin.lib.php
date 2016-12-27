@@ -260,14 +260,14 @@ class AppPlugin
     *
     * @return null|string
     */
-    public function load_region($region, $template, $forced = false)
+    public function load_region($region, $template, $_plugins, $forced = false)
     {
         if ($region == 'course_tool_plugin') {
             return '';
         }
 
         ob_start();
-        $this->get_all_plugin_contents_by_region($region, $template, $forced);
+        $this->get_all_plugin_contents_by_region($region, $template, $_plugins, $forced);
         $content = ob_get_contents();
         ob_end_clean();
 
@@ -284,7 +284,6 @@ class AppPlugin
      */
     public function load_plugin_lang_variables($plugin_name)
     {
-        global $language_interface;
         $root = api_get_path(SYS_PLUGIN_PATH);
         $strings = null;
 
@@ -300,6 +299,7 @@ class AppPlugin
         }
 
         // 2. Loading the system language
+        /*
         if ($language_interface != 'english') {
             $path = $root.$plugin_name."/lang/$language_interface.php";
 
@@ -330,7 +330,7 @@ class AppPlugin
                     }
                 }
             }
-        }
+        }*/
     }
 
     /**
@@ -342,9 +342,8 @@ class AppPlugin
      *
      * @todo improve this function
      */
-    public function get_all_plugin_contents_by_region($region, $template, $forced = false)
+    public function get_all_plugin_contents_by_region($region, $template, $_plugins, $forced = false)
     {
-        global $_plugins;
         if (isset($_plugins[$region]) && is_array($_plugins[$region])) {
             // Load the plugin information
             foreach ($_plugins[$region] as $plugin_name) {
@@ -375,7 +374,7 @@ class AppPlugin
                     }
 
                     // Setting the plugin info available in the template if exists.
-                    $template->assign($plugin_name, $_template);
+                    $template->addGlobal($plugin_name, $_template);
 
                     // Loading the Twig template plugin files if exists
                     $template_list = array();
