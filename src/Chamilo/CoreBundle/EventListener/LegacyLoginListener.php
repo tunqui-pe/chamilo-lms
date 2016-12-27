@@ -72,9 +72,6 @@ class LegacyLoginListener implements EventSubscriberInterface
                             $languages = ['german' => 'de', 'english' => 'en', 'spanish' => 'es', 'french' => 'fr'];
                             $locale = isset($languages[$user->getLanguage()]) ? $languages[$user->getLanguage()] : '';
                             if ($user && !empty($locale)) {
-
-                                error_log('legacyloginlistener');
-                                error_log($locale);
                                 $user->setLocale($locale);
 
                                 //$request->getSession()->set('_locale_user', $locale);

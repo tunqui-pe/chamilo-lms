@@ -7,15 +7,12 @@
 
 namespace Chamilo\ThemeBundle\Event;
 
-
 /**
  * Holds all events used by the theme
  *
  */
 class ThemeEvents
 {
-
-
     /**
      * Used to receive notification data
      */
@@ -52,7 +49,7 @@ class ThemeEvents
     /**
      * Used to receive the sidebar menu data
      */
-    const THEME_SIDEBAR_SETUP_MENU_KNP    = 'theme.sidebar_setup_menu_knp';
+    const THEME_SIDEBAR_SETUP_MENU_KNP = 'theme.sidebar_setup_menu_knp';
     /**
      *
      */

@@ -14,6 +14,7 @@ class ResourceController extends BaseController
 {
     /**
      * Gets a document from the courses/MATHS/document/file.jpg to the user
+     *
      * @todo check permissions
      * @param string $course
      * @param string $file
