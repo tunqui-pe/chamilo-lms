@@ -65,6 +65,11 @@ security:
                 failure_path:   null
                 default_target_path: /admin
                 success_handler: chamilo_core.listener.login_success_handler
+                remember_me: true
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
             logout:
                 path:   /logout
                 target: /
@@ -80,6 +85,7 @@ security:
                 login_path:        /login
                 failure_path:      /connect
                 use_forward:       false
+
 
                 oauth_user_provider:
                     service: chamilo_user_provider
