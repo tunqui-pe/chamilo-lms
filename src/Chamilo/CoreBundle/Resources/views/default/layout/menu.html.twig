@@ -15,7 +15,7 @@
                     <li class="{{ item.current }}"><a href="{{ item.url }}" target="{{ item.target }}" title="{{ item.title }}">{{ item.title }}</a></li>
                 {% endfor %}
             </ul>
-           {% if _u.logged == 1 %}
+           {% if is_granted('IS_AUTHENTICATED_FULLY') %}
            <ul class="nav navbar-nav navbar-right">
                {% if user_notifications is not null %}
                <li><a href="{{ message_url }}">{{ user_notifications }}</a></li>

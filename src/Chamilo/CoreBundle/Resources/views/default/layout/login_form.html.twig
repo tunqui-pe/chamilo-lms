@@ -1,4 +1,4 @@
-{% if _u.logged  == 0 %}
+{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 {% if login_form %}
     <div id="login_block" class="panel panel-default">
         <div class="panel-body">

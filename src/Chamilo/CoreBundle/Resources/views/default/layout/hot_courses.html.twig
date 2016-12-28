@@ -24,7 +24,7 @@ $(document).ready( function() {
     <div class="hot-course-head">
         <h4 class="hot-course-title">
             {{ "HottestCourses"|get_lang}}
-            {% if _u.is_admin %}
+            {% if is_granted('ROLE_ADMIN') %}
             <span class="pull-right">
                 <a title="{{ "Hide"|get_lang }}" alt="{{ "Hide"|get_lang }}" href="{{ _p.web_main }}admin/settings.php?search_field=show_hot_courses&submit_button=&_qf__search_settings=&category=search_setting">
                     <i class="fa fa-eye" aria-hidden="true"></i>

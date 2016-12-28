@@ -111,9 +111,6 @@ a.thumbnail:hover{
   margin-top: 10px;
   margin-bottom: 10px;
 }
-#formLogin label{
-    display: none;
-}
 #login_block #formLogin .form-group{
   display: none;
 }
