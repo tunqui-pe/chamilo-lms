@@ -43,16 +43,7 @@ chamilo_course_tool_list:
 #        templates: :Admin/Book
 #    type: sylius.resource_api
 
-
-# Redirects /url/ to /url
-remove_trailing_slash:
-    path: /{url}
-    defaults: { _controller: ChamiloCoreBundle:Redirecting:removeTrailingSlash }
-    requirements:
-        url: .*/$
-        _method: GET
-
-## Course settings
+# Course settings
 chamilo_course_settings:
     pattern: /courses/{course}/settings/{namespace}
     defaults:

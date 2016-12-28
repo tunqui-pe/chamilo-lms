@@ -22,8 +22,7 @@ sonata_page:
     ignore_uri_patterns:
         - ^/administration(.*) # sonata admin
         - ^/admin(.*) # chamilo admin
-        - ^/admin/settings/(.*)
-        - ^/admin/settings
+        - ^/admin/(.*) # chamilo admin
         - ^/main(.*)
         - /(.*)/(.*)administration(.*)/
         - ^/api/(.*)
