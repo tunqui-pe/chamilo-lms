@@ -109,6 +109,11 @@ class CourseVoter extends AbstractVoter
                     return true;
                 }
 
+                // Other course visibility need to have a user set
+                if (!$user instanceof UserInterface) {
+                    return false;
+                }
+
                 // User is subscribed in the course no matter if is teacher/student
                 if ($course->hasUser($user)) {
 
