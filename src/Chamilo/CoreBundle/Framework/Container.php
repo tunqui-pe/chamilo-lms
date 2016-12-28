@@ -214,6 +214,14 @@ class Container
     }
 
     /**
+     * @return object|\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage
+     */
+    public static function getTokenStorage()
+    {
+        return self::$container->get('security.token_storage');
+    }
+
+    /**
      * @return TranslatorInterface
      */
     public static function getTranslator()

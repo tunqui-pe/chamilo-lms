@@ -9,7 +9,7 @@
                     <img src="{{ 'item-sequence.png'|icon(48) }}" width="48" height="48">
                     <p class="sequence-course">{{ session.name }}</p>
 
-                    {% if _u.logged %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <span class="label {{ session.status ? 'label-success' : 'label-danger' }}">
                             {% if session.status %}
                                 <em class="fa fa-check"></em> {{ 'Complete'|get_lang }}

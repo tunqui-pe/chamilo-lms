@@ -1,4 +1,4 @@
-## Installation
+## Chamilo 2.x Installation
 
 This installation guide is for development environments only.
 

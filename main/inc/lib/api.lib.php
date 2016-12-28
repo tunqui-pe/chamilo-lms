@@ -1285,74 +1285,55 @@ function api_get_user_courses($userid, $fetch_session = true)
  *
  * @return array Standard user array
  */
-function _api_format_user($user, $add_password = false)
-{
+function _api_format_user(
+    User $user,
+    $checkIfUserOnline = false,
+    $showPassword = false,
+    $loadExtraData = false,
+    $loadOnlyVisibleExtraData = false
+) {
     $result = array();
 
-    $firstname = null;
-    $lastname = null;
-    if (isset($user['firstname']) && isset($user['lastname'])) {
-        $firstname = $user['firstname'];
-        $lastname = $user['lastname'];
-    } elseif (isset($user['firstName']) && isset($user['lastName'])) {
-        $firstname = isset($user['firstName']) ? $user['firstName'] : null;
-        $lastname = isset($user['lastName']) ? $user['lastName'] : null;
-    }
-
-    $result['complete_name'] = api_get_person_name($firstname, $lastname);
-
+    $result['username'] = $user->getUsername();
+    $result['firstname'] = $user->getFirstname();
+    $result['lastname'] = $user->getLastname();
+    $result['firstName'] = $user->getFirstname();
+    $result['lastName'] = $user->getLastname();
+    $result['complete_name'] = api_get_person_name($result['firstname'], $result['lastname']);
     $result['complete_name_with_username'] = $result['complete_name'];
-
-    if (!empty($user['username'])) {
-        $result['complete_name_with_username'] = $result['complete_name'].' ('.$user['username'].')';
+    if (!empty($result['username'])) {
+        $result['complete_name_with_username'] = $result['complete_name'].' ('.$user->getUsername().')';
     }
 
-    $result['firstname'] = $firstname;
-    $result['lastname'] = $lastname;
 
-    // Kept for historical reasons
-    $result['firstName'] = $firstname;
-    $result['lastName'] = $lastname;
+    $result['phone'] = $user->getPhone();
+    $result['address'] = $user->getAddress();
+    $result['official_code'] = $user->getOfficialCode();
+    $result['status'] = $user->getStatus();
+    $result['active'] = $user->getActive();
+    $result['auth_source'] = $user->getAuthSource();
+    $result['theme'] = $user->getTheme();
+    $result['language'] = $user->getLanguage();
+    $result['creator_id'] = $user->getCreatorId();
+    $result['registration_date'] = $user->getRegistrationDate() ? $user->getRegistrationDate()->format('Y-m-d h:i:s') : '';
+    $result['hr_dept_id'] = $user->getHrDeptId();
+    $result['expiration_date'] = $user->getExpirationDate() ? $user->getExpirationDate()->format('Y-m-d h:i:s') : '';
+    $result['picture_uri'] = $user->getPictureUri();
 
-    $attributes = array(
-        'phone',
-        'address',
-        'picture_uri',
-        'official_code',
-        'status',
-        'active',
-        'auth_source',
-        'username',
-        'theme',
-        'language',
-        'creator_id',
-        'registration_date',
-        'hr_dept_id',
-        'expiration_date',
-        'last_login'
-    );
     if (api_get_setting('extended_profile') === 'true') {
-        $attributes[] = 'competences';
-        $attributes[] = 'diplomas';
-        $attributes[] = 'teach';
-        $attributes[] = 'openarea';
+        $result['competences'] = $user->getCompetences();
+        $result['diplomas']  = $user->getDiplomas();
+        $result['teach'] = $user->getTeach();
+        $result['openarea'] = $user->getOpenarea();
     }
 
-    foreach ($attributes as $attribute) {
-        $result[$attribute] = isset($user[$attribute]) ? $user[$attribute] : null;
-    }
+    $result['mail'] = $user->getEmail();
+    $result['email'] = $user->getEmail();
 
-    if (isset($user['email'])) {
-        $result['mail'] = isset($user['email']) ? $user['email'] : null;
-        $result['email'] = isset($user['email'])? $user['email'] : null;
-    } else {
-        $result['mail'] = isset($user['mail']) ? $user['mail'] : null;
-        $result['email'] = isset($user['mail'])? $user['mail'] : null;
-    }
-    $user_id = intval($user['user_id']);
+    $user_id = $user->getId();
     // Maintain the user_id index for backwards compatibility
     $result['user_id'] = $result['id'] = $user_id;
-    $result['last_login'] = $user['last_login'];
+    $result['last_login'] = $user->getLastLogin() ? $user->getLastLogin()->format('Y-m-d h:i:s') : '';
 
     // Getting user avatar.
     $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, null, $result);
@@ -1365,25 +1346,40 @@ function _api_format_user($user, $add_password = false)
     $result['avatar_small'] = $smallFile;
     $result['avatar_medium'] = $mediumFile;
 
-    if (isset($user['user_is_online'])) {
-        $result['user_is_online'] = $user['user_is_online'] == true ? 1 : 0;
-    }
-    if (isset($user['user_is_online_in_chat'])) {
-        $result['user_is_online_in_chat'] = intval($user['user_is_online_in_chat']);
+    if ($showPassword) {
+        $result['password'] = $user->getPassword();
     }
 
-    if ($add_password) {
-        $result['password'] = $user['password'];
-    }
-
-    if (isset($result['profile_completed'])) {
-        $result['profile_completed'] = $user['profile_completed'];
-    }
-
+    $result['profile_completed'] = $user->isProfileCompleted();
     $result['profile_url'] = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$user_id;
 
-    if (isset($user['extra'])) {
-        $result['extra'] = $user['extra'];
+    if ($checkIfUserOnline) {
+        $use_status_in_platform = UserManager::user_is_online($user_id);
+
+        $result['user_is_online'] = $use_status_in_platform;
+        $user_online_in_chat = 0;
+
+        if ($use_status_in_platform) {
+            $user_status = UserManager::get_extra_user_data_by_field(
+                $user_id,
+                'user_chat_status',
+                false,
+                true
+            );
+            if (intval($user_status['user_chat_status']) == 1) {
+                $user_online_in_chat = 1;
+            }
+        }
+        $result['user_is_online_in_chat'] = $user_online_in_chat;
+    }
+
+    if ($loadExtraData) {
+        $fieldValue = new ExtraFieldValue('user');
+
+        $result['extra'] = $fieldValue->getAllValuesForAnItem(
+            $user_id,
+            $loadOnlyVisibleExtraData
+        );
     }
 
     return $result;
@@ -1410,50 +1406,32 @@ function api_get_user_info(
     $loadOnlyVisibleExtraData = false
 ) {
     if (empty($user_id)) {
-        $userFromSession = Session::read('_user');
-        if (isset($userFromSession)) {
-            return _api_format_user($userFromSession);
+        $storage = Container::getTokenStorage();
+        $token = $storage->getToken();
+        $user = $token->getUser();
+        if ($user instanceof User) {
+            return _api_format_user(
+                $token->getUser(),
+                $checkIfUserOnline,
+                $showPassword,
+                $loadExtraData,
+                $loadOnlyVisibleExtraData
+            );
         }
 
         return false;
     }
 
-    $sql = "SELECT * FROM ".Database :: get_main_table(TABLE_MAIN_USER)."
-            WHERE id='".intval($user_id)."'";
-    $result = Database::query($sql);
-    if (Database::num_rows($result) > 0) {
-        $result_array = Database::fetch_array($result);
-        if ($checkIfUserOnline) {
-            $use_status_in_platform = UserManager::user_is_online($user_id);
+    $user = UserManager::getManager()->find($user_id);
 
-            $result_array['user_is_online'] = $use_status_in_platform;
-            $user_online_in_chat = 0;
-
-            if ($use_status_in_platform) {
-                $user_status = UserManager::get_extra_user_data_by_field(
-                    $user_id,
-                    'user_chat_status',
-                    false,
-                    true
-                );
-                if (intval($user_status['user_chat_status']) == 1) {
-                    $user_online_in_chat = 1;
-                }
-            }
-            $result_array['user_is_online_in_chat'] = $user_online_in_chat;
-        }
-
-        if ($loadExtraData) {
-            $fieldValue = new ExtraFieldValue('user');
-
-            $result_array['extra'] = $fieldValue->getAllValuesForAnItem(
-                $user_id,
-                $loadOnlyVisibleExtraData
-            );
-        }
-        $user = _api_format_user($result_array, $showPassword);
-
-        return $user;
+    if ($user) {
+        return _api_format_user(
+            $user,
+            $checkIfUserOnline,
+            $showPassword,
+            $loadExtraData,
+            $loadOnlyVisibleExtraData
+        );
     }
     return false;
 }
@@ -1496,12 +1474,10 @@ function api_get_user_info_from_username($username = '')
     }
     $username = trim($username);
 
-    $sql = "SELECT * FROM ".Database :: get_main_table(TABLE_MAIN_USER)."
-            WHERE username='".Database::escape_string($username)."'";
-    $result = Database::query($sql);
-    if (Database::num_rows($result) > 0) {
-        $result_array = Database::fetch_array($result);
-        return _api_format_user($result_array);
+
+    $user = UserManager::getManager()->findUserByUsername($username);
+    if ($user) {
+        return _api_format_user($user);
     }
     return false;
 }
@@ -1511,17 +1487,15 @@ function api_get_user_info_from_username($username = '')
  * @param string $email
  * @return array|bool
  */
-function api_get_user_info_from_email($email = '')
+function api_get_user_info_from_email($email)
 {
     if (empty($email)) {
         return false;
     }
-    $sql = "SELECT * FROM ".Database :: get_main_table(TABLE_MAIN_USER)."
-            WHERE email ='".Database::escape_string($email)."' LIMIT 1";
-    $result = Database::query($sql);
-    if (Database::num_rows($result) > 0) {
-        $result_array = Database::fetch_array($result);
-        return _api_format_user($result_array);
+
+    $user = UserManager::getManager()->findUserByEmail($email);
+    if ($user) {
+        return _api_format_user($user);
     }
 
     return false;
@@ -2021,7 +1995,7 @@ function get_status_from_code($status_code)
  * @return bool     true if set user as anonymous, false if user was already logged in or anonymous id could not be found
  */
 function api_set_anonymous() {
-    global $_user;
+    $_user = Session::read('_user');
 
     if (!empty($_user['user_id'])) {
         return false;
@@ -2360,6 +2334,7 @@ function api_get_setting($variable, $subVariable = '')
         case 'add_shibboleth_login_button_shibboleth_button_label':
         case 'add_shibboleth_login_button_shibboleth_button_comment':
         case 'add_shibboleth_login_button_shibboleth_image_url':
+        case 'formLogin_hide_unhide_label':
 
             break;
         default:
@@ -2374,6 +2349,7 @@ function api_get_setting($variable, $subVariable = '')
  */
 function api_get_plugin_setting($plugin, $variable)
 {
+    return null;
     $variableName = $plugin.'_'.$variable;
     $result = api_get_setting($variableName);
     if (isset($result[$plugin])) {
@@ -2428,8 +2404,8 @@ function api_is_platform_admin($allowSessionAdmins = false, $allowDrh = false)
     $checker = Container::getAuthorizationChecker();
     if ($checker) {
         if ($checker->isGranted('ROLE_ADMIN')) {
-        return true;
-    }
+            return true;
+        }
         if ($allowSessionAdmins) {
             if ($checker->isGranted('ROLE_SESSION_MANAGER')) {
                 return true;
@@ -3141,17 +3117,25 @@ function api_is_allowed($tool, $action, $task_id = 0)
  */
 function api_is_anonymous($user_id = null, $db_check = false)
 {
-    if (!isset($user_id)) {
-        $user_id = api_get_user_id();
-    }
-
     if ($db_check) {
+         if (!isset($user_id)) {
+            $user_id = api_get_user_id();
+        }
         $info = api_get_user_info($user_id);
 
         if ($info['status'] == 6 || $user_id == 0 || empty($info)) {
             return true;
         }
     }
+
+    $checker = Container::getAuthorizationChecker();
+    if ($checker) {
+        if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return false;
+        }
+    }
+
+    return true;
 
     $_user = Session::read('_user');
 
@@ -6297,11 +6281,11 @@ function api_get_js_plumb()
  */
 function api_get_js_epiclock()
 {
-    $html = api_get_css('bundles/chamilocore/js/epiclock/stylesheet/jquery.epiclock.css');
-    $html .= api_get_css('bundles/chamilocore/js/epiclock/renderers/minute/epiclock.minute.css');
-    $html .= api_get_js('bundles/chamilocore/js/epiclock/javascript/jquery.dateformat.min.js');
-    $html .= api_get_js('bundles/chamilocore/js/epiclock/javascript/jquery.epiclock.min.js');
-    $html .= api_get_js('bundles/chamilocore/js/epiclock/renderers/minute/epiclock.minute.js');
+    $html = api_get_css('js/epiclock/stylesheet/jquery.epiclock.css');
+    $html .= api_get_css('js/epiclock/renderers/minute/epiclock.minute.css');
+    $html .= api_get_js('js/epiclock/javascript/jquery.dateformat.min.js');
+    $html .= api_get_js('js/epiclock/javascript/jquery.epiclock.min.js');
+    $html .= api_get_js('js/epiclock/renderers/minute/epiclock.minute.js');
 
     return $html;
 }

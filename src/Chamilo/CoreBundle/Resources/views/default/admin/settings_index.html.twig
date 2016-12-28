@@ -7,7 +7,7 @@ $(document).ready(function() {
         }
     });
 
-{% if _u.is_admin %}
+{% if is_granted('ROLE_ADMIN') %}
     (function(CKEDITOR) {
         CKEDITOR.replace('extra_content');
 
@@ -49,7 +49,7 @@ $(document).ready(function() {
             <div class="panel panel-default {{ block_item.class }}">
                 <div class="panel-heading">
                     {{ block_item.icon }} {{ block_item.label }}
-                    {% if block_item.editable and _u.is_admin %}
+                    {% if block_item.editable and is_granted('ROLE_ADMIN') %}
                         <a class="admin-edit-block pull-right" href="#" data-label="{{ block_item.label }}" title="{{ 'Edit' | get_lang }}" data-id="{{ block_item.class }}">
                             <img src="{{ "edit.png"|icon(22) }}" width="22" height="22" alt="{{ "Edit"|get_lang }}" title="{{ "Edit"|get_lang }}" />
                         </a>
@@ -92,7 +92,7 @@ $(document).ready(function() {
     {% endfor %}
 </section>
 
-{% if _u.is_admin %}
+{% if is_granted('ROLE_ADMIN') %}
     <div class="modal fade" id="modal-extra">
         <div class="modal-dialog">
             <div class="modal-content">

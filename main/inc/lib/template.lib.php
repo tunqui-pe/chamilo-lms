@@ -610,34 +610,12 @@ class Template
             'gamification_mode' => api_get_setting('gamification_mode')
         );
 
-        $user_info = array();
-        $user_info['logged'] = 0;
-        //$this->user_is_logged_in = false;
-        if (api_user_is_login()) {
-            $user_info = api_get_user_info(api_get_user_id(), true);
-            $user_info['logged'] = 1;
-            $user_info['is_admin'] = 0;
-            /*if (api_is_platform_admin()) {
-                $user_info['is_admin'] = 1;
-            }*/
-            //$user_info['messages_count'] = MessageManager::get_new_messages();
-
-        }
+        //$user_info = api_get_user_info();
 
         return [
             '_p' => $_p,
             '_s' => $_s,
-            '_u' => $user_info,
-            'plugin_main_top' => '',
-            'plugin_content_top' => '',
-            'plugin_content_bottom' => '',
-            'plugin_main_bottom' => '',
-            'plugin_main_top' => '',
-            'breadcrumb' => '',
-            'plugin_main_top' => '',
-            'plugin_main_top' => '',
-            'plugin_main_top' => '',
-            'plugin_main_top' => '',
+     //       '_u' => $user_info,
             'template' => 'default' // @todo setup template folder in config.yml;
         ];
     }

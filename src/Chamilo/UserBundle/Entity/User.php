@@ -322,6 +322,36 @@ class User extends BaseUser implements ThemeUser
     //protected $lastLogin;
 
     /**
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
+     */
+    protected $facebookId;
+
+    /**
+     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
+     */
+    protected $facebookAccessToken;
+
+    /**
+     * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
+     */
+    protected $googleId;
+
+    /**
+     * @ORM\Column(name="google_access_token", type="string", length=255, nullable=true)
+     */
+    protected $googleAccessToken;
+
+    /**
+     * @ORM\Column(name="github_id", type="string", length=255, nullable=true)
+     */
+    protected $githubId;
+
+    /**
+     * @ORM\Column(name="github_access_token", type="string", length=255, nullable=true)
+     */
+    protected $githubAccessToken;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime", nullable=true, unique=false)
      */
@@ -1311,7 +1341,7 @@ class User extends BaseUser implements ThemeUser
     }
 
     /**
-     * @return Media
+     * @return string
      */
     public function getAvatar()
     {
@@ -1321,12 +1351,12 @@ class User extends BaseUser implements ThemeUser
     /**
      * @return string
      */
-    public function getAvatarOrAnonymous()
+    public function getAvatarOrAnonymous($size = 22)
     {
         $avatar = $this->getAvatar();
 
         if (empty($avatar)) {
-            return 'bundles/chamilocore/img/unknown.jpg';
+            return "img/icons/$size/unknown.png";
         }
 
         return $avatar;
@@ -2486,4 +2516,103 @@ class User extends BaseUser implements ThemeUser
     {
         return $this->currentUrl;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param mixed $facebookId
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebookAccessToken;
+    }
+
+    /**
+     * @param mixed $facebookAccessToken
+     */
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebookAccessToken = $facebookAccessToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * @param mixed $googleId
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoogleAccessToken()
+    {
+        return $this->googleAccessToken;
+    }
+
+    /**
+     * @param mixed $googleAccessToken
+     */
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->googleAccessToken = $googleAccessToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGithubId()
+    {
+        return $this->githubId;
+    }
+
+    /**
+     * @param mixed $githubId
+     */
+    public function setGithubId($githubId)
+    {
+        $this->githubId = $githubId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGithubAccessToken()
+    {
+        return $this->githubAccessToken;
+    }
+
+    /**
+     * @param mixed $githubAccessToken
+     */
+    public function setGithubAccessToken($githubAccessToken)
+    {
+        $this->githubAccessToken = $githubAccessToken;
+    }
+
+
+
 }
