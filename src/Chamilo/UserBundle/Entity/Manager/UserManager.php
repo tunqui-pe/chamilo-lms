@@ -17,7 +17,7 @@ class UserManager extends BaseUserManager
      *
      * @param string $token
      *
-     * @return UserInterface
+     * @return UserManager
      */
     public function findUserByConfirmationToken($token)
     {

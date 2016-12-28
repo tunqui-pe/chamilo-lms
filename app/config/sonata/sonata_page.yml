@@ -29,6 +29,8 @@ sonata_page:
         - ^/api/(.*)
         - ^install
         - ^/install/(.*)
+        - ^/login/(.*)
+        - ^/connect/(.*)
         - ^/packages/(.*)
         - ^/package/(.*)
         - install.php
