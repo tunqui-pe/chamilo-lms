@@ -35,13 +35,14 @@ The upgrade instructions are located in the documentation here:
 * Language list is now loaded using the iso code not the english name.
   Example: "es" instead of "spanish" 
 * PHPMailer replaced with Swift Mailer
- 
-  
+   
 ## Todo
 * Template system to work with current Symfony2 structure
 * Auth (CAS, Shibboleth, Oath2) 
 * URL course changes "cidReq" to "c", "session_id" to "s"
 * Fix plugins that use api_get_setting directly in the code
+* Fix plugins render using tpl or PHP files
+* CAPTCHA
 
 
 ## Contributing
