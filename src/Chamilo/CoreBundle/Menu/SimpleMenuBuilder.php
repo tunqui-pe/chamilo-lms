@@ -21,6 +21,7 @@ class SimpleMenuBuilder implements ContainerAwareInterface
 
     /**
      * Register/reset password menu
+     * @todo
      * @param FactoryInterface $factory
      * @param array $options
      * @return \Knp\Menu\ItemInterface
@@ -29,24 +30,38 @@ class SimpleMenuBuilder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('main');
         $translator = $this->container->get('translator.default');
-        $menu->addChild(
-            $translator->trans('registration.submit', array(), 'FOSUserBundle'),
-            array(
-                'route' => 'main',
-                'routeParameters' => ['name' => 'auth/inscription.php'],
-                array("attributes" => array("id" => 'nav'))
-            )
-        );
+        $settingManager = $this->container->get('chamilo.settings.manager');
 
-        $menu->addChild(
-            $translator->trans('resetting.request.submit', array(), 'FOSUserBundle'),
-            array(
-                //'route' => 'fos_user_resetting_request',
-                'route' => 'main',
-                'routeParameters' => ['name' => 'auth/lostPassword.php'],
-                array("attributes" => array("id" => 'nav'))
-            )
-        );
+        if ($settingManager->getSetting('allow_registration') == 'true') {
+            $menu->addChild(
+                $translator->trans(
+                    'registration.submit',
+                    array(),
+                    'FOSUserBundle'
+                ),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/inscription.php'],
+                    array("attributes" => array("id" => 'nav'))
+                )
+            );
+        }
+
+        if ($settingManager->getSetting('allow_lostpassword') == 'true') {
+            $menu->addChild(
+                $translator->trans(
+                    'resetting.request.submit',
+                    array(),
+                    'FOSUserBundle'
+                ),
+                array(
+                    //'route' => 'fos_user_resetting_request',
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/lostPassword.php'],
+                    array("attributes" => array("id" => 'nav'))
+                )
+            );
+        }
 
         return $menu;
     }
