@@ -426,7 +426,7 @@ if ($form->validate()) {
             null,
             $send_mail,
             $reset_password,
-			$user['address']
+			isset($user['address']) ? $user['address'] : ''
         );
 
         if (isset($user['student_boss'])) {

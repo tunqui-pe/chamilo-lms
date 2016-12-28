@@ -937,8 +937,8 @@ class UserManager
         }
 
         // Checking the user language
-        $languages = api_get_languages();
-        if (!in_array($language, $languages['folder'])) {
+        $languages = api_get_platform_isocodes();
+        if (!in_array($language, $languages)) {
             $language = api_get_setting('platformLanguage');
         }
 
