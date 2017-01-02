@@ -1277,13 +1277,15 @@ function api_get_user_courses($userid, $fetch_session = true)
 }
 
 /**
- * Formats user information into a standard array
+ * Formats user doctrine object information into array
  * This function should be only used inside api_get_user_info()
  *
- * @param array Non-standard user array
- * @param bool $add_password
- *
- * @return array Standard user array
+ * @param User $user
+ * @param bool $checkIfUserOnline
+ * @param bool $showPassword
+ * @param bool $loadExtraData
+ * @param bool $loadOnlyVisibleExtraData
+ * @return array
  */
 function _api_format_user(
     User $user,
@@ -1295,17 +1297,13 @@ function _api_format_user(
     $result = array();
 
     $result['username'] = $user->getUsername();
-    $result['firstname'] = $user->getFirstname();
-    $result['lastname'] = $user->getLastname();
-    $result['firstName'] = $user->getFirstname();
-    $result['lastName'] = $user->getLastname();
+    $result['firstName'] = $result['firstname'] = $user->getFirstname();
+    $result['lastName'] = $result['lastname'] = $user->getLastname();
     $result['complete_name'] = api_get_person_name($result['firstname'], $result['lastname']);
     $result['complete_name_with_username'] = $result['complete_name'];
     if (!empty($result['username'])) {
-        $result['complete_name_with_username'] = $result['complete_name'].' ('.$user->getUsername().')';
+        $result['complete_name_with_username'] = $result['complete_name'].' ('.$result['username'].')';
     }
-
-
     $result['phone'] = $user->getPhone();
     $result['address'] = $user->getAddress();
     $result['official_code'] = $user->getOfficialCode();
@@ -1327,18 +1325,16 @@ function _api_format_user(
         $result['openarea'] = $user->getOpenarea();
     }
 
-    $result['mail'] = $user->getEmail();
-    $result['email'] = $user->getEmail();
-
-    $user_id = $user->getId();
+    $result['email'] = $result['mail'] = $user->getEmail();
+    $userId = $user->getId();
     // Maintain the user_id index for backwards compatibility
-    $result['user_id'] = $result['id'] = $user_id;
+    $result['user_id'] = $result['id'] = $userId;
     $result['last_login'] = $user->getLastLogin() ? $user->getLastLogin()->format('Y-m-d h:i:s') : '';
 
     // Getting user avatar.
-    $originalFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_ORIGINAL, null, $result);
-    $smallFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_SMALL, null, $result);
-    $mediumFile = UserManager::getUserPicture($user_id, USER_IMAGE_SIZE_MEDIUM, null, $result);
+    $originalFile = UserManager::getUserPicture($userId, USER_IMAGE_SIZE_ORIGINAL, null, $result);
+    $smallFile = UserManager::getUserPicture($userId, USER_IMAGE_SIZE_SMALL, null, $result);
+    $mediumFile = UserManager::getUserPicture($userId, USER_IMAGE_SIZE_MEDIUM, null, $result);
 
     $result['avatar'] = $originalFile;
     $avatarString = explode('?', $originalFile);
@@ -1351,17 +1347,17 @@ function _api_format_user(
     }
 
     $result['profile_completed'] = $user->isProfileCompleted();
-    $result['profile_url'] = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$user_id;
+    $result['profile_url'] = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$userId;
 
     if ($checkIfUserOnline) {
-        $use_status_in_platform = UserManager::user_is_online($user_id);
+        $use_status_in_platform = UserManager::user_is_online($userId);
 
         $result['user_is_online'] = $use_status_in_platform;
         $user_online_in_chat = 0;
 
         if ($use_status_in_platform) {
             $user_status = UserManager::get_extra_user_data_by_field(
-                $user_id,
+                $userId,
                 'user_chat_status',
                 false,
                 true
@@ -1377,7 +1373,7 @@ function _api_format_user(
         $fieldValue = new ExtraFieldValue('user');
 
         $result['extra'] = $fieldValue->getAllValuesForAnItem(
-            $user_id,
+            $userId,
             $loadOnlyVisibleExtraData
         );
     }
@@ -7083,13 +7079,12 @@ function api_get_user_info_from_official_code($officialCode)
     if (empty($officialCode)) {
         return false;
     }
-    $sql = "SELECT * FROM ".Database :: get_main_table(TABLE_MAIN_USER)."
-            WHERE official_code ='".Database::escape_string($officialCode)."'";
-    $result = Database::query($sql);
-    if (Database::num_rows($result) > 0) {
-        $result_array = Database::fetch_array($result);
-        return _api_format_user($result_array);
+
+    $user = UserManager::getManager()->findUserByOfficialCode($officialCode);
+    if ($user) {
+        return _api_format_user($user);
     }
+
     return false;
 }
 
