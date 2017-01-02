@@ -64,15 +64,11 @@ class CourseListener
 
         $checker = $container->get('security.authorization_checker');
         $user = $event->getRequest()->getUser();
-
         $alreadyVisited = $sessionHandler->get('course_already_visited');
-
 
         if (!empty($courseCode)) {
             /** @var Course $course */
-            $course = $em->getRepository(
-                'ChamiloCoreBundle:Course'
-            )->findOneByCode($courseCode);
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneByCode($courseCode);
             if ($course) {
                 $sessionHandler->set('courseObj', $course);
 
@@ -85,11 +81,7 @@ class CourseListener
                 if (empty($sessionId)) {
                     // Check if user is allowed to this course
                     // See CourseVoter.php
-                    if (false === $checker->isGranted(
-                            CourseVoter::VIEW,
-                            $course
-                        )
-                    ) {
+                    if (false === $checker->isGranted(CourseVoter::VIEW, $course)) {
                         throw new AccessDeniedException(
                             $translator->trans(
                                 'Unauthorised access to course!'
@@ -130,9 +122,7 @@ class CourseListener
                 }
 
                 if (!empty($groupId)) {
-                    $group = $em->getRepository(
-                        'ChamiloCourseBundle:CGroupInfo'
-                    )->find($groupId);
+                    $group = $em->getRepository('ChamiloCourseBundle:CGroupInfo')->find($groupId);
                     if ($course->hasGroup($group)) {
                         if ($group) {
                             // Check if user is allowed to this course-group
@@ -200,7 +190,6 @@ class CourseListener
      */
     public function onKernelController(FilterControllerEvent $event)
     {
-        $translator = $this->container->get('translator.default');
         $url = $event->getRequest()->getUri();
         $controllerList = $event->getController();
 

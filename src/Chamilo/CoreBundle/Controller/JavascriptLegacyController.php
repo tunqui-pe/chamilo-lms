@@ -32,8 +32,9 @@ class JavascriptLegacyController extends BaseController
     public function configEditorAction()
     {
         $moreButtonsInMaximizedMode = false;
+        $settingsManager = $this->get('chamilo.settings.manager');
 
-        if (api_get_setting('editor.more_buttons_maximized_mode') == 'true') {
+        if ($settingsManager->getSetting('editor.more_buttons_maximized_mode') == 'true') {
             $moreButtonsInMaximizedMode = true;
         }
 
