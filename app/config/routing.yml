@@ -46,13 +46,13 @@ hwi_oauth_login:
     prefix:   /connect
 
 facebook_login:
-    path: /connect/check-facebook
+    path: /connect/facebook
 
 google_login:
-    path: /connect/check-google
+    path: /connect/google
 
 github_login:
-    path: /connect/check-github
+    path: /connect/github
 
 logout:
     path: /logout

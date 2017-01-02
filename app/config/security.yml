@@ -86,7 +86,6 @@ security:
                 failure_path:      /connect
                 use_forward:       false
 
-
                 oauth_user_provider:
                     service: chamilo_user_provider
 
