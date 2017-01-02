@@ -22,7 +22,6 @@ if (!in_array($pluginName, $installedPlugins) || empty($pluginInfo)) {
     api_not_allowed(true);
 }
 
-global $_configuration;
 $content = '';
 $currentUrl = api_get_self() . "?name=$pluginName";
 
@@ -75,7 +74,7 @@ if (isset($form)) {
                 null,
                 null,
                 null,
-                $_configuration['access_url'],
+                $accessUrlId,
                 1
             );
         }
@@ -103,6 +102,11 @@ $interbreadcrumb[] = array(
 $interbreadcrumb[] = array(
     'url' => api_get_path(WEB_CODE_PATH) . 'admin/settings.php?category=Plugins',
     'name' => get_lang('Plugins')
+);
+
+$interbreadcrumb[] = array(
+    'url' => '#',
+    'name' => Security::remove_XSS($pluginName)
 );
 
 $tpl = new Template($pluginName, true, true, false, true, false);

@@ -12,6 +12,8 @@ api_block_anonymous_users();
 
 $action = $_REQUEST['a'];
 
+\Chamilo\CoreBundle\Framework\Container::$legacyTemplate = '@ChamiloTheme/Layout/no_layout.html.twig';
+
 switch ($action) {
     case 'md_to_html':
         $plugin = isset($_GET['plugin']) ? $_GET['plugin'] : '';
