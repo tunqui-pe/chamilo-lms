@@ -55,7 +55,7 @@ class PENSPlugin extends Plugin implements HookPluginInterface
      */
     public function uninstall()
     {
-        $setting = api_get_setting('plugin_pens');
+        $setting = api_get_plugin_setting('pens', 'plugin_pens');
         if (!empty($setting)) {
             $this->uninstallHook();
             // Note: Keeping area field data is intended so it will not be removed

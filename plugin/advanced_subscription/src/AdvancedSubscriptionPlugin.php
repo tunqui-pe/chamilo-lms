@@ -64,7 +64,7 @@ class AdvancedSubscriptionPlugin extends Plugin implements HookPluginInterface
      */
     public function uninstall()
     {
-        $setting = api_get_setting('advanced_subscription');
+        $setting = api_get_plugin_setting('advanced_subscription', 'status');
         if (!empty($setting)) {
             $this->uninstallHook();
             // Note: Keeping area field data is intended so it will not be removed

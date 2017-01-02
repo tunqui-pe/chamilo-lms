@@ -82,7 +82,7 @@ class bbb
             if ($this->groupSupport) {
 
                 // Platform check
-                $bbbSetting = api_get_setting('bbb_enable_conference_in_course_groups');
+                $bbbSetting = api_get_plugin_setting('bbb', 'bbb_enable_conference_in_course_groups');
                 $bbbSetting = isset($bbbSetting['bbb']) ? $bbbSetting['bbb'] === 'true' : false;
 
                 if ($bbbSetting) {

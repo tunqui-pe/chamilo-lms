@@ -2345,11 +2345,23 @@ function api_get_setting($variable, $subVariable = '')
  */
 function api_get_plugin_setting($plugin, $variable)
 {
-    return null;
-    $variableName = $plugin.'_'.$variable;
-    $result = api_get_setting($variableName);
-    if (isset($result[$plugin])) {
-        return $result[$plugin];
+    $params = [
+        'category = ? AND subkey = ? AND variable = ?' => [
+            'Plugins',
+            $plugin,
+            $variable,
+        ],
+    ];
+    $table = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
+    $result = Database::select(
+        'selected_value',
+        $table,
+        array('where' => $params),
+        'one'
+    );
+    if ($result) {
+        $result = $result['selected_value'];
+        return $result;
     }
 
     return null;
