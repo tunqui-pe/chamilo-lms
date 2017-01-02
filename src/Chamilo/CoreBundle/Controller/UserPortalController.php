@@ -392,6 +392,7 @@ class UserPortalController extends BaseController
     }
 
     /**
+     * Userportal main page
      * @Route("/{type}/{filter}", name="userportal")
      * @Method({"GET"})
      * @Security("has_role('ROLE_USER')")
@@ -492,7 +493,4 @@ class UserPortalController extends BaseController
             )
         );
     }
-
-
-
 }

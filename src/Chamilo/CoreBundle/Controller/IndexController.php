@@ -35,6 +35,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class IndexController extends BaseController
 {
     /**
+     * The Chamilo index home page
      * @Route("/", name="home")
      * @Method({"GET"})
      *
@@ -49,7 +50,6 @@ class IndexController extends BaseController
         /** @var \PageController $pageController */
         //$pageController = $this->get('page_controller');
         $pageController = new PageController();
-
 /*
         if (api_get_setting('display_categories_on_homepage') == 'true') {
             //$template->assign('course_category_block', $pageController->return_courses_in_categories());

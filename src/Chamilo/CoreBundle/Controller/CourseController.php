@@ -64,7 +64,4 @@ class CourseController extends Controller
     {
         return array('course' => $course);
     }
-
-
-
 }
