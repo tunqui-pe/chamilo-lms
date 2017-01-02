@@ -35,6 +35,9 @@ The upgrade instructions are located in the documentation here:
 * Language list is now loaded using the iso code not the english name.
   Example: "es" instead of "spanish" 
 * PHPMailer replaced with Swift Mailer
+* Plugin images, css and js libs are loaded inside the web/plugins folder (composer update copies the content inside plugin_name/public inside web/plugins/plugin_name
+* Plugins templates use asset() function instead of using "_p.web_plugin" 
+
    
 ## Todo
 * Template system to work with current Symfony2 structure
