@@ -87,10 +87,11 @@ class LegacyLoginListener implements EventSubscriberInterface
 
                             //now dispatch the login event
                             $event = new InteractiveLoginEvent($request, $token);
-                            $this->container->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-
-
-                            $this->container->get("event_dispatcher")->addListener(
+                            $this->container->get('event_dispatcher')->dispatch(
+                                'security.interactive_login',
+                                $event
+                            );
+                            $this->container->get('event_dispatcher')->addListener(
                                 KernelEvents::RESPONSE, array($this, 'redirectUser')
                             );
 
@@ -118,7 +119,6 @@ class LegacyLoginListener implements EventSubscriberInterface
     public function redirectUser(FilterResponseEvent $event)
     {
         $uri = $event->getRequest()->getUri();
-        // on effectue la redirection
         $response = new RedirectResponse($uri);
         $event->setResponse($response);
     }

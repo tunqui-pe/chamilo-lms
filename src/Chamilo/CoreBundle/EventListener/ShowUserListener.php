@@ -39,8 +39,7 @@ class ShowUserListener
      */
     public function getUser()
     {
-        /** @var  $security */
-        $security = $this->container->get('security.context');
+        $security = $this->container->get('security.token_storage');
         $token = $security->getToken();
 
         if ($token) {

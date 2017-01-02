@@ -11,7 +11,9 @@ use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class LegacyListener
- * Adds objects into the session like the old global.inc
+ * Works as old global.inc.php
+ * Setting old php requirements so pages inside main/* could work correctly.
+ *
  * @package Chamilo\CoreBundle\EventListener
  */
 class LegacyListener
@@ -33,6 +35,22 @@ class LegacyListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
+        $controller = $request->get('_controller');
+        // Only process legacy listener when loading legacy controller
+        /*if ($controller != 'Chamilo\CoreBundle\Controller\LegacyController::classicAction') {
+            return;
+        }*/
+
+        /*$skipControllers = [
+            'web_profiler.controller.profiler:toolbarAction', //
+            'fos_js_routing.controller:indexAction'//
+        ];
+
+        // Skip legacy listener
+        if (in_array($controller, $skipControllers)) {
+            return;
+        }*/
+
         $session = $request->getSession();
 
         /** @var ContainerInterface $container */
@@ -62,9 +80,7 @@ class LegacyListener
             $root_rel = substr($root_rel, 1);
             $pos = strpos($root_rel, '/');
             $root_rel = substr($root_rel, 0, $pos);
-            $protocol = ((!empty($_SERVER['HTTPS']) && strtoupper(
-                        $_SERVER['HTTPS']
-                    ) != 'OFF') ? 'https' : 'http').'://';
+            $protocol = ((!empty($_SERVER['HTTPS']) && strtoupper($_SERVER['HTTPS']) != 'OFF') ? 'https' : 'http').'://';
             //urls with subdomains (HTTP_HOST is preferred - see #6764)
             if (empty($_SERVER['HTTP_HOST'])) {
                 if (empty($_SERVER['SERVER_NAME'])) {
@@ -82,7 +98,6 @@ class LegacyListener
             // the root dir. The admin portal should be something like https://host/adm/
             // At this time, subdirs will still hold a share cookie, so not ideal yet
             // see #6510
-            $urlId = 1;
             foreach ($access_urls as $details) {
                 if ($request_url_sub == $details['url']) {
                     $urlId = $details['id'];
@@ -99,54 +114,6 @@ class LegacyListener
             $globals = \Template::getGlobals();
             foreach ($globals as $index => $value) {
                 $container->get('twig')->addGlobal($index, $value);
-            }
-
-            //$result = & api_get_settings('Plugins', 'list', $_configuration['access_url']);
-            $result = & api_get_settings('Plugins', 'list', 1);
-
-            $_plugins = array();
-            foreach ($result as & $row) {
-                $key = $row['variable'];
-                $_plugins[$key][] = $row['selected_value'];
-            }
-
-            // Loading Chamilo plugins
-
-            $appPlugin = new \AppPlugin();
-            $pluginRegions = $appPlugin->get_plugin_regions();
-            $force_plugin_load = true;
-            $pluginList = $appPlugin->get_installed_plugins();
-
-            foreach ($pluginRegions as $pluginRegion) {
-                $regionContent = $appPlugin->load_region(
-                    $pluginRegion,
-                    $container->get('twig'),
-                    $_plugins,
-                    $force_plugin_load
-                );
-
-                foreach ($pluginList as $plugin_name) {
-                    // The plugin_info variable is available inside the plugin index
-                    $pluginInfo = $appPlugin->getPluginInfo($plugin_name);
-                    if (isset($pluginInfo['is_course_plugin']) && $pluginInfo['is_course_plugin']) {
-                        $courseInfo = api_get_course_info();
-                        if (!empty($courseInfo)) {
-                            if (isset($pluginInfo['obj']) && $pluginInfo['obj'] instanceof \Plugin) {
-                                /** @var \Plugin $plugin */
-                                $plugin = $pluginInfo['obj'];
-                                $regionContent .= $plugin->renderRegion($pluginRegion);
-                            }
-                        }
-                    } else {
-                        continue;
-                    }
-                }
-
-                if (!empty($regionContent)) {
-                    $container->get('twig')->addGlobal('plugin_'.$pluginRegion, $regionContent);
-                } else {
-                    $container->get('twig')->addGlobal('plugin_'.$pluginRegion, '');
-                }
             }
         }
 
