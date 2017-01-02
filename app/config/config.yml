@@ -85,6 +85,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14
+    paths:
+        '%kernel.root_dir%/../plugin': plugin
 
     form:
         resources:
