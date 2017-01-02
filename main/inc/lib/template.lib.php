@@ -543,25 +543,6 @@ class Template
     {
         global $_configuration;
         $this->theme = api_get_visual_theme();
-        //Setting app paths/URLs
-        $_p = array(
-            'web' => api_get_path(WEB_PATH),
-            'web_relative' => api_get_path(REL_PATH),
-            'web_course' => api_get_path(WEB_COURSE_PATH),
-            'web_main' => api_get_path(WEB_CODE_PATH),
-            'web_css' => api_get_path(WEB_CSS_PATH),
-            'web_css_theme' => api_get_path(WEB_CSS_PATH) . 'themes/' . $this->theme . '/',
-            'web_ajax' => api_get_path(WEB_AJAX_PATH),
-            'web_img' => api_get_path(WEB_IMG_PATH),
-            'web_plugin' => api_get_path(WEB_PLUGIN_PATH),
-            'web_lib' => api_get_path(WEB_LIBRARY_PATH),
-            'web_upload' => api_get_path(WEB_UPLOAD_PATH),
-            'web_self' => api_get_self(),
-            'web_query_vars' => api_htmlentities($_SERVER['QUERY_STRING']),
-            'web_self_query_vars' => api_htmlentities($_SERVER['REQUEST_URI']),
-            'web_cid_query' => api_get_cidreq(),
-        );
-        $this->assign('_p', $_p);
 
         //Here we can add system parameters that can be use in any template
         $_s = array(
@@ -592,6 +573,7 @@ class Template
             'web_ajax' => api_get_path(WEB_AJAX_PATH),
             'web_img' => api_get_path(WEB_IMG_PATH),
             'web_plugin' => api_get_path(WEB_PLUGIN_PATH),
+            'web_plugin_asset' => api_get_path(WEB_PLUGIN_ASSET_PATH),
             'web_lib' => api_get_path(WEB_LIBRARY_PATH),
             'web_upload' => api_get_path(WEB_UPLOAD_PATH),
             'web_self' => api_get_self(),

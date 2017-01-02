@@ -385,8 +385,9 @@ class AppPlugin
                     if (!empty($template_list)) {
                         foreach ($template_list as $plugin_tpl) {
                             if (!empty($plugin_tpl)) {
-                                $template_plugin_file = "$plugin_name/$plugin_tpl"; // for twig
-                                $template->display($template_plugin_file, false);
+                                // See config.yml twig.paths
+                                $template_plugin_file = "@plugin/$plugin_name/$plugin_tpl";
+                                echo \Chamilo\CoreBundle\Framework\Container::getTwig()->render($template_plugin_file, $_template);
                             }
                         }
                     }
