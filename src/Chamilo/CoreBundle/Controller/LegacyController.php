@@ -22,27 +22,9 @@ class LegacyController extends ToolBaseController
 {
     public $section;
 
-    /**
-     * @param string $name
-     * @param Request $request
-     * @return Response
-     */
-    public function classicAction($name, Request $request)
+    private function setContainerValuesToLegacy()
     {
-        // get.
-        $_GET = $request->query->all();
-        // post.
-        $_POST = $request->request->all();
-
-        $rootDir = $this->get('kernel')->getRealRootDir();
-
-        //$_REQUEST = $request->request->all();
-        $mainPath = $rootDir.'main/';
-        $fileToLoad = $mainPath.$name;
-
-        // Setting legacy values inside the container
-
-        /** @var Connection $dbConnection */
+          /** @var Connection $dbConnection */
         $dbConnection = $this->container->get('database_connection');
         $em = $this->get('kernel')->getContainer()->get('doctrine.orm.entity_manager');
 
@@ -53,10 +35,27 @@ class LegacyController extends ToolBaseController
         Container::$container = $this->container;
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
-        //Container::$configDir = $this->container->get('kernel')->getConfigDir();
         $this->container->get('twig')->addGlobal('api_get_cidreq', api_get_cidreq());
+    }
 
-        //$breadcrumb = $this->container->get('chamilo_core.block.breadcrumb');
+    /**
+     * Handles all request in old legacy files inside 'main/' folder
+     * @param string $name
+     * @param Request $request
+     * @return Response
+     */
+    public function classicAction($name, Request $request, $folder = 'main')
+    {
+        // get.
+        $_GET = $request->query->all();
+        // post.
+        $_POST = $request->request->all();
+        $rootDir = $this->get('kernel')->getRealRootDir();
+        $mainPath = $rootDir.$folder.'/';
+        $fileToLoad = $mainPath.$name;
+
+        // Setting legacy values inside the container
+        $this->setContainerValuesToLegacy();
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
@@ -124,5 +123,10 @@ class LegacyController extends ToolBaseController
             // Found does not exist
             throw new NotFoundHttpException();
         }
+    }
+
+    public function pluginAction($name, Request $request)
+    {
+        return $this->classicAction($name, $request, 'plugin');
     }
 }

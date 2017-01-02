@@ -7,21 +7,21 @@ userportal:
     type:     annotation
     prefix:   /userportal
 
-front:
-    resource: '@ChamiloCoreBundle/Controller/FrontController.php'
-    type:     annotation
-    prefix:   /front
+#front:
+#    resource: '@ChamiloCoreBundle/Controller/FrontController.php'
 #    type:     annotation
-user:
-    resource: '@ChamiloCoreBundle/Controller/User/UserController.php'
-    type:     annotation
-    prefix:   /user
-#    prefix:   /userportal
+#    prefix:   /front
+
+#user:
+#    resource: '@ChamiloCoreBundle/Controller/User/UserController.php'
+#    type:     annotation
+#    prefix:   /user
+
 course:
     resource: '@ChamiloCoreBundle/Controller/CourseController.php'
     type:     annotation
     prefix:   /course
-#
+
 legacy_javascript:
     resource: '@ChamiloCoreBundle/Controller/JavascriptLegacyController.php'
     type:     annotation
@@ -34,15 +34,18 @@ main:
     requirements:
       name: .+
 
+legacy_plugin:
+    path: /plugin/{name}
+    defaults: { _controller: ChamiloCoreBundle:Legacy:plugin }
+    requirements:
+      name: .+
+
 # web url shortcuts for legacy templates
 web.ajax:
     path: main/inc/ajax/
 
 web.main:
     path: main/
-
-web.img:
-    path: bundles/chamilocore/img/
 
 # Core controllers
 core_admin:

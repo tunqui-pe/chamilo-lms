@@ -23,6 +23,7 @@ sonata_page:
         - ^/administration(.*) # sonata admin
         - ^/admin(.*) # chamilo admin
         - ^/main(.*)
+        - ^/plugin(.*)
         - /(.*)/(.*)administration(.*)/
         - ^/api/(.*)
         - ^/login/(.*)
