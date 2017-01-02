@@ -1,5 +1,6 @@
-<div class ="row">
+{% autoescape false %}
 
+<div class ="row">
 {% if bbb_status == true %}
   {% if show_join_button == true %}
     <div class ="span12" style="text-align:center">
@@ -73,9 +74,7 @@
             {% endfor %}
         </table>
     </div>
-{% else %}
-    <div class ="span12" style="text-align:center">
-        {{ 'ServerIsNotRunning' | return_message('warning') }}
-    </div>
 {% endif %}
 </div>
+
+{% endautoescape %}

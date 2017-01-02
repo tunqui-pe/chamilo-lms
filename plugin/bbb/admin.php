@@ -97,16 +97,14 @@ if (!$bbb->isServerRunning()) {
     );
 }
 
-$htmlHeadXtra[] = api_get_js_simple(
-    api_get_path(WEB_PLUGIN_PATH) . 'bbb/resources/utils.js'
-);
+$htmlHeadXtra[] = api_get_js('plugins/bbb/utils.js');
 $htmlHeadXtra[] = "<script>var _p = {web_plugin: '" . api_get_path(WEB_PLUGIN_PATH). "'}</script>";
 
 $tpl = new Template($tool_name);
 $tpl->assign('meetings', $meetings);
 $tpl->assign('search_form', $form->returnForm());
 
-$content = $tpl->fetch('bbb/admin.tpl');
+$content = $tpl->fetch('@plugin/bbb/admin.html.twig');
 $actions = [];
 
 if ($meetings) {

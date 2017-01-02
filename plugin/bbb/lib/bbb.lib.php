@@ -260,7 +260,7 @@ class bbb
         $params['moderator_pw'] = isset($params['moderator_pw']) ? $params['moderator_pw'] : $this->getModMeetingPassword();
         $moderatorPassword = $params['moderator_pw'];
 
-        $params['record'] = api_get_course_setting('big_blue_button_record_and_store', $courseCode) == 1 ? true : false;
+        $params['record'] = api_get_course_setting('big_blue_button_record_and_store', $courseCode) == 1 ? 1 : 0;
         $max = api_get_course_setting('big_blue_button_max_students_allowed', $courseCode);
         $max =  isset($max) ? $max : -1;
 
@@ -278,6 +278,7 @@ class bbb
 
         $params['created_at'] = api_get_utc_datetime();
         $params['access_url'] = $this->accessUrl;
+        $params['closed_at'] = '';
 
         $id = Database::insert($this->table, $params);
 
@@ -667,6 +668,8 @@ class bbb
             } else {
                 $meetingBBB['add_to_calendar_url'] = $this->addToCalendarUrl($meetingDB);
             }
+
+            $item['action_links'] = '';
 
             if ($meetingDB['record'] == 1) {
                 // backwards compatibility (when there was no remote ID)
