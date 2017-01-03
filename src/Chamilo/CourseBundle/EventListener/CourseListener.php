@@ -190,7 +190,6 @@ class CourseListener
      */
     public function onKernelController(FilterControllerEvent $event)
     {
-        $url = $event->getRequest()->getUri();
         $controllerList = $event->getController();
 
         if (!is_array($controllerList)) {
@@ -228,15 +227,17 @@ class CourseListener
 
         $groupId = intval($request->get('gidReq'));
         $sessionId = intval($request->get('id_session'));
+        $cidReset = $sessionHandler->get('cid_reset', false);
 
         // This controller implements ToolInterface? Then set the course/session
         if (is_array($controllerList) &&
             (
                 $controllerList[0] instanceof ToolInterface ||
                 $controllerList[0] instanceof LegacyController
-            )
+            ) && $cidReset == false
         ) {
             $controller = $controllerList[0];
+
             $session = $sessionHandler->get('sessionObj');
             $course = $sessionHandler->get('courseObj');
 
@@ -272,8 +273,7 @@ class CourseListener
             if (isset($controllerNameParts[1]) &&
                 $controllerNameParts[1] == 'controller'
             ) {
-                $toolName = $this->container->get($controllerName)->getToolName(
-                );
+                $toolName = $this->container->get($controllerName)->getToolName();
                 $action = str_replace('action', '', $controllerActionParts[1]);
                 $toolAction = $toolName.'.'.$action;
             }

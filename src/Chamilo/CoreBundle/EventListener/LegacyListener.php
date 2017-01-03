@@ -115,6 +115,20 @@ class LegacyListener
             foreach ($globals as $index => $value) {
                 $container->get('twig')->addGlobal($index, $value);
             }
+
+            $extraFooter = trim(api_get_setting('footer_extra_content'));
+            $container->get('twig')->addGlobal('footer_extra_content', $extraFooter);
+
+            $extraHeader = trim(api_get_setting('header_extra_content'));
+            $container->get('twig')->addGlobal('header_extra_content', $extraHeader);
+        }
+
+        // We set cid_reset = true if we enter inside a main/admin url
+        // CourseListener check this variable and deletes the course session
+        if (strpos($request->get('name'), 'admin/') !== false) {
+            $session->set('cid_reset', true);
+        } else {
+            $session->set('cid_reset', false);
         }
 
         $session->set('access_url_id', $urlId);
