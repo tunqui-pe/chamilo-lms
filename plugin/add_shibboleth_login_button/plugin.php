@@ -44,15 +44,15 @@ $tab_default_add_shibboleth_login_button_shibboleth_image_url =
 $defaults = array();
 $defaults['shibboleth_button_label'] = api_get_plugin_setting(
     'add_shibboleth_login_button',
-    'add_shibboleth_login_button_shibboleth_button_label'
+    'shibboleth_button_label'
 );
 $defaults['shibboleth_button_comment'] = api_get_plugin_setting(
     'add_shibboleth_login_button',
-    'add_shibboleth_login_button_shibboleth_button_comment'
+    'shibboleth_button_comment'
 );
 $defaults['shibboleth_image_url'] = api_get_plugin_setting(
     'add_shibboleth_login_button',
-    'add_shibboleth_login_button_shibboleth_image_url'
+    'shibboleth_image_url'
 );
 
 $form->setDefaults($defaults);

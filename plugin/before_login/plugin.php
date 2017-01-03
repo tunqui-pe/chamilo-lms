@@ -34,11 +34,11 @@ $form->addElement('button', 'submit_button', get_lang('Save'));
 // Get default value for form
 
 $defaults = array();
-$defaults['language'] = api_get_plugin_setting('before_login', 'before_login_language');
-$defaults['option1'] = api_get_plugin_setting('before_login', 'before_login_option1');
-$defaults['option2'] = api_get_plugin_setting('before_login', 'before_login_option2');
-$defaults['option1_url'] = api_get_plugin_setting('before_login', 'before_login_option1_url');
-$defaults['option2_url'] = api_get_plugin_setting('before_login', 'before_login_option2_url');
+$defaults['language'] = api_get_plugin_setting('before_login', 'language');
+$defaults['option1'] = api_get_plugin_setting('before_login', 'option1');
+$defaults['option2'] = api_get_plugin_setting('before_login', 'option2');
+$defaults['option1_url'] = api_get_plugin_setting('before_login', 'option1_url');
+$defaults['option2_url'] = api_get_plugin_setting('before_login', 'option2_url');
 
 $plugin_info['templates'] = array('template.tpl');
 if (file_exists(__DIR__.'/custom.template.tpl')) {

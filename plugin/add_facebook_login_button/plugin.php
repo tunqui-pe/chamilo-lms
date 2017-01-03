@@ -28,7 +28,7 @@ $form->addElement(
     ''
 );
 $form->addButtonSave(get_lang('Save'), 'submit_button');
-$defaults['facebook_button_url'] = api_get_plugin_setting('add_facebook_login_button', 'add_facebook_login_button_facebook_button_url');
+$defaults['facebook_button_url'] = api_get_plugin_setting('add_facebook_login_button', 'facebook_button_url');
 $form->setDefaults($defaults);
 //display form
 $plugin_info['settings_form'] = $form;

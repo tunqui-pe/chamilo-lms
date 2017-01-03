@@ -25,7 +25,7 @@ $form = new FormValidator('add_cas_button_form');
 $form->addElement('text', 'label', 'Text label', '');
 //get default value
 $defaults = array();
-$defaults['label'] = api_get_plugin_setting('formLogin_hide_unhide', 'formLogin_hide_unhide_label');
+$defaults['label'] = api_get_plugin_setting('formLogin_hide_unhide', 'label');
 $form->setDefaults($defaults);
 //display form
 $plugin_info['settings_form'] = $form;

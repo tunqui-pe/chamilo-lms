@@ -28,9 +28,9 @@ $form->addButtonSave(get_lang('Save'), 'submit_button');
 //get default value for form
 
 $defaults = array();
-$defaults['cas_button_label'] = api_get_plugin_setting('add_cas_login_button', 'add_cas_login_button_cas_button_label');
-$defaults['cas_button_comment'] = api_get_plugin_setting('add_cas_login_button','add_cas_login_button_cas_button_comment');
-$defaults['cas_image_url'] = api_get_plugin_setting('add_cas_login_button', 'add_cas_login_button_cas_image_url');
+$defaults['cas_button_label'] = api_get_plugin_setting('add_cas_login_button', 'cas_button_label');
+$defaults['cas_button_comment'] = api_get_plugin_setting('add_cas_login_button','cas_button_comment');
+$defaults['cas_image_url'] = api_get_plugin_setting('add_cas_login_button', 'cas_image_url');
 $form->setDefaults($defaults);
 //display form
 $plugin_info['settings_form'] = $form;

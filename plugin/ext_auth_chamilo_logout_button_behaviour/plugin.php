@@ -31,23 +31,23 @@ $form->addButtonSave(get_lang('Save'), 'submit_button');
 
 $defaults['eaclbb_form_link_url'] = api_get_plugin_setting(
     'ext_auth_chamilo_logout_button_behaviour',
-    'ext_auth_chamilo_logout_button_behaviour_eaclbb_form_link_url'
+    'eaclbb_form_link_url'
 );
 $defaults['eaclbb_form_link_infobulle'] = api_get_plugin_setting(
     'ext_auth_chamilo_logout_button_behaviour',
-    'ext_auth_chamilo_logout_button_behaviour_eaclbb_form_link_infobulle'
+    'eaclbb_form_link_infobulle'
 );
 $defaults['eaclbb_form_link_image'] = api_get_plugin_setting(
     'ext_auth_chamilo_logout_button_behaviour',
-    'ext_auth_chamilo_logout_button_behaviour_eaclbb_form_link_image'
+    'eaclbb_form_link_image'
 );
 $defaults['eaclbb_form_alert_onoff'] = api_get_plugin_setting(
     'ext_auth_chamilo_logout_button_behaviour',
-    'ext_auth_chamilo_logout_button_behaviour_eaclbb_form_alert_onoff'
+    'eaclbb_form_alert_onoff'
 );
 $defaults['eaclbb_form_alert_text'] = api_get_plugin_setting(
     'ext_auth_chamilo_logout_button_behaviour',
-    'ext_auth_chamilo_logout_button_behaviour_eaclbb_form_alert_text'
+    'eaclbb_form_alert_text'
 );
 $form->setDefaults($defaults);
 //display form

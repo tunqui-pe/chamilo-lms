@@ -25,9 +25,9 @@ $form->addElement('text', 'cas_logout_comment', 'CAS logout description', '');
 $form->addElement('text', 'cas_logout_image_url', 'Logo URL if any (image, 50px height)');
 $form->addButtonSave(get_lang('Save'), 'submit_button');
 
-$defaults['cas_logout_label'] = api_get_plugin_setting('add_cas_logout_button', 'add_cas_logout_button_cas_logout_label');
-$defaults['cas_logout_comment'] = api_get_plugin_setting('add_cas_logout_button','add_cas_logout_button_cas_logout_comment');
-$defaults['cas_logout_image_url'] = api_get_plugin_setting('add_cas_logout_button','add_cas_logout_button_cas_logout_image_url');
+$defaults['cas_logout_label'] = api_get_plugin_setting('add_cas_logout_button', 'cas_logout_label');
+$defaults['cas_logout_comment'] = api_get_plugin_setting('add_cas_logout_button', 'cas_logout_comment');
+$defaults['cas_logout_image_url'] = api_get_plugin_setting('add_cas_logout_button', 'cas_logout_image_url');
 $form->setDefaults($defaults);
 //display form
 $plugin_info['settings_form'] = $form;

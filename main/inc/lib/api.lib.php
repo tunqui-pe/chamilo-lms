@@ -307,6 +307,7 @@ define('WEB_PUBLIC_PATH', 'WEB_PUBLIC_PATH');
 define('SYS_CSS_PATH', 'SYS_CSS_PATH');
 define('SYS_PLUGIN_PATH', 'SYS_PLUGIN_PATH');
 define('WEB_PLUGIN_PATH', 'WEB_PLUGIN_PATH');
+define('WEB_PLUGIN_ASSET_PATH', 'WEB_PLUGIN_ASSET_PATH');
 define('SYS_ARCHIVE_PATH', 'SYS_ARCHIVE_PATH');
 define('WEB_ARCHIVE_PATH', 'WEB_ARCHIVE_PATH');
 define('SYS_INC_PATH', 'SYS_INC_PATH');
@@ -682,6 +683,7 @@ function api_get_path($path = '', $configuration = [])
 
     $course_folder = 'courses/';
     $root_sys = Container::getRootDir();
+    $root_rel = isset($configuration['url_append']) ? $configuration['url_append'] : '';
 
     // Resolve master hostname.
     if (!empty($configuration) && array_key_exists('root_web', $configuration)) {
@@ -729,6 +731,7 @@ function api_get_path($path = '', $configuration = [])
             SYS_CSS_PATH => 'app/Resources/public/css/',
             SYS_PLUGIN_PATH => 'plugin/',
             WEB_PLUGIN_PATH => 'plugin/',
+            WEB_PLUGIN_ASSET_PATH => 'web/plugins/',
             SYS_ARCHIVE_PATH => 'app/cache/',
             WEB_ARCHIVE_PATH => 'app/cache/',
             SYS_HOME_PATH => 'app/home/',
@@ -756,7 +759,6 @@ function api_get_path($path = '', $configuration = [])
 
     $isInitialized = [];
     $course_folder = isset($configuration['course_folder']) ? $configuration['course_folder'] : $course_folder;
-    $root_rel = isset($configuration['url_append']) ? $configuration['url_append'] : '';
 
     // Web server base and system server base.
     if (!array_key_exists($root_web, $isInitialized)) {
@@ -785,8 +787,8 @@ function api_get_path($path = '', $configuration = [])
         $paths[$root_web][WEB_DEFAULT_COURSE_DOCUMENT_PATH] = $paths[$root_web][WEB_CODE_PATH].'default_course_document/';
         $paths[$root_web][WEB_APP_PATH] = $paths[$root_web][WEB_PATH].$paths[$root_web][WEB_APP_PATH];
         $paths[$root_web][WEB_PLUGIN_PATH] = $paths[$root_web][WEB_PATH].$paths[$root_web][WEB_PLUGIN_PATH];
+        $paths[$root_web][WEB_PLUGIN_ASSET_PATH] = $paths[$root_web][WEB_PATH].$paths[$root_web][WEB_PLUGIN_ASSET_PATH];
         $paths[$root_web][WEB_ARCHIVE_PATH] = $paths[$root_web][WEB_PATH].$paths[$root_web][WEB_ARCHIVE_PATH];
-
         $paths[$root_web][WEB_CSS_PATH] = $paths[$root_web][WEB_PATH].$paths[$root_web][WEB_CSS_PATH];
         $paths[$root_web][WEB_IMG_PATH] = $paths[$root_web][WEB_CODE_PATH].$paths[$root_web][WEB_IMG_PATH];
         $paths[$root_web][WEB_LIBRARY_PATH] = $paths[$root_web][WEB_CODE_PATH].$paths[$root_web][WEB_LIBRARY_PATH];
@@ -912,6 +914,24 @@ function api_get_cdn_path($web_path)
 function api_is_cas_activated() {
     return api_get_setting('cas_activate') == "true";
 }
+
+/**
+ * Check if cas is configured
+ * @return bool
+ */
+function api_cas_configured()
+{
+    $cas_auth_server = api_get_setting('cas_server');
+    $cas_auth_port = api_get_setting('cas_port');
+    $res = false;
+    if (!empty($cas_auth_server) && !empty($cas_auth_port)) {
+        $res = true;
+    }
+
+    return $res;
+}
+
+
 
 /**
  * @return bool     Return true if LDAP authentification is activated
@@ -2345,11 +2365,12 @@ function api_get_setting($variable, $subVariable = '')
  */
 function api_get_plugin_setting($plugin, $variable)
 {
+    $variableName = $plugin.'_'.$variable;
     $params = [
         'category = ? AND subkey = ? AND variable = ?' => [
             'Plugins',
             $plugin,
-            $variable,
+            $variableName,
         ],
     ];
     $table = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
