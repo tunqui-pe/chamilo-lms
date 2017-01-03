@@ -112,21 +112,8 @@ twig:
           messages_count:
           message_link:
           is_profile_editable:
-          plugin_footer_left:
-          plugin_footer_center:
-          plugin_content_bottom:
-          plugin_header_left:
-          plugin_header_center:
-          plugin_header_right:
-          plugin_header_main:
-          plugin_pre_footer:
           administrator_name:
           execution_stats:
-          plugin_menu_bottom:
-          plugin_menu_top:
-          plugin_content_top:
-          plugin_footer_right:
-          footer_extra_content:
           course_session_block:
           show_course_shortcut:
           show_course_navigation_menu:
