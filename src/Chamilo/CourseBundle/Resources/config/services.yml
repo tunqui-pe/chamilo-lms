@@ -10,17 +10,17 @@ parameters:
 services:
     # Managers
     chamilo_course.manager.group:
-        class: %chamilo_course.entity.manager.group_manager.class%
-        arguments: [%chamilo_course.entity.group%, '@doctrine']
+        class: '%chamilo_course.entity.manager.group_manager.class%'
+        arguments: ['%chamilo_course.entity.group%', '@doctrine']
 
     # Event Listeners
     chamilo_course.listener.course:
         class: Chamilo\CourseBundle\EventListener\CourseListener
         arguments: ['@service_container']
         tags:
-          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
-          - { name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+          - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 10}
 
     # Sets the user access in a course listener
     chamilo_course.listener.course_access:

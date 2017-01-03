@@ -31,7 +31,22 @@ class PluginListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
+
+    }
+
+    /**
+     * @param FilterResponseEvent $event
+     */
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+    }
+
+    /**
+     * @param FilterControllerEvent $event
+     */
+    public function onKernelController(FilterControllerEvent $event)
+    {
+         $request = $event->getRequest();
         $controller = $request->get('_controller');
         // Only process legacy listener when loading legacy controller
         /*if ($controller != 'Chamilo\CoreBundle\Controller\LegacyController::classicAction') {
@@ -50,28 +65,22 @@ class PluginListener
 
         // Legacy way of detect current access_url
 
-    }
-
-    /**
-     * @param FilterResponseEvent $event
-     */
-    public function onKernelResponse(FilterResponseEvent $event)
-    {
-    }
-
-    /**
-     * @param FilterControllerEvent $event
-     */
-    public function onKernelController(FilterControllerEvent $event)
-    {
         $request = $event->getRequest();
+
+        if (!$request->hasPreviousSession()) {
+            return;
+        }
+
         $controller = $request->get('_controller');
+
         // Only process legacy listener when loading legacy controller
         /*if ($controller != 'Chamilo\CoreBundle\Controller\LegacyController::classicAction') {
             return;
         }*/
-
         $skipControllers = [
+            'web_profiler.controller.profiler:searchBarAction',
+            'FOS\RestBundle\Controller\ExceptionController::showAction',
+            'web_profiler.controller.profiler:panelAction',
             'web_profiler.controller.profiler:toolbarAction', // debug toolbar
             'fos_js_routing.controller:indexAction' // js/routing?callback=fos.Router.setData
         ];
@@ -81,20 +90,9 @@ class PluginListener
             return;
         }
 
-        $request = $event->getRequest();
         /** @var ContainerInterface $container */
         $container = $this->container;
-
-
-        if (!$request->hasPreviousSession()) {
-
-            return;
-        }
-
-        $controller = $request->get('_controller');
-
         $installed = $this->container->getParameter('installed');
-        $urlId = 1;
         if (!empty($installed)) {
             //$result = & api_get_settings('Plugins', 'list', $_configuration['access_url']);
             $result = & api_get_settings('Plugins', 'list', 1);
@@ -111,6 +109,7 @@ class PluginListener
 
             $force_plugin_load = true;
             $pluginList = $appPlugin->get_installed_plugins();
+            $courseId = $request->getSession()->get('_real_cid');
 
             foreach ($pluginRegions as $pluginRegion) {
                 $regionContent = $appPlugin->load_region(
@@ -120,12 +119,11 @@ class PluginListener
                     $force_plugin_load
                 );
 
-                foreach ($pluginList as $plugin_name) {
+                foreach ($pluginList as $pluginName) {
                     // The plugin_info variable is available inside the plugin index
-                    $pluginInfo = $appPlugin->getPluginInfo($plugin_name);
+                    $pluginInfo = $appPlugin->getPluginInfo($pluginName);
                     if (isset($pluginInfo['is_course_plugin']) && $pluginInfo['is_course_plugin']) {
-                        $courseInfo = api_get_course_info();
-                        if (!empty($courseInfo)) {
+                        if (!empty($courseId)) {
                             if (isset($pluginInfo['obj']) && $pluginInfo['obj'] instanceof \Plugin) {
                                 /** @var \Plugin $plugin */
                                 $plugin = $pluginInfo['obj'];
@@ -137,11 +135,7 @@ class PluginListener
                     }
                 }
 
-                if (!empty($regionContent)) {
-                    $container->get('twig')->addGlobal('plugin_'.$pluginRegion, $regionContent);
-                } else {
-                    $container->get('twig')->addGlobal('plugin_'.$pluginRegion, '');
-                }
+                $container->get('twig')->addGlobal('plugin_'.$pluginRegion, $regionContent);
             }
         }
     }

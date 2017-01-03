@@ -255,19 +255,20 @@ class AppPlugin
 
     /**
     * @param string $region
-    * @param string $template
+    * @param array $plugins
+    * @param mixed $template
     * @param bool   $forced
     *
     * @return null|string
     */
-    public function load_region($region, $template, $_plugins, $forced = false)
+    public function load_region($region, $template, $plugins, $forced = false)
     {
         if ($region == 'course_tool_plugin') {
             return '';
         }
 
         ob_start();
-        $this->get_all_plugin_contents_by_region($region, $template, $_plugins, $forced);
+        $this->get_all_plugin_contents_by_region($region, $template, $plugins, $forced);
         $content = ob_get_contents();
         ob_end_clean();
 
@@ -335,7 +336,8 @@ class AppPlugin
 
     /**
      * @param string $region
-     * @param Template $template
+     * @param mixed $template
+     * @param array $_plugins
      * @param bool $forced
      *
      * @return bool
@@ -347,7 +349,6 @@ class AppPlugin
         if (isset($_plugins[$region]) && is_array($_plugins[$region])) {
             // Load the plugin information
             foreach ($_plugins[$region] as $plugin_name) {
-
                 // The plugin_info variable is available inside the plugin index
                 $plugin_info = $this->getPluginInfo($plugin_name, $forced);
 
@@ -358,8 +359,7 @@ class AppPlugin
                 $plugin_file = api_get_path(SYS_PLUGIN_PATH)."$plugin_name/index.php";
 
                 if (file_exists($plugin_file)) {
-
-                    //Loading the lang variables of the plugin if exists
+                    // Loading the lang variables of the plugin if exists
                     self::load_plugin_lang_variables($plugin_name);
 
                     // Printing the plugin index.php file
@@ -419,7 +419,6 @@ class AppPlugin
 
             $plugin_info = array();
             if (file_exists($plugin_file)) {
-
                 require $plugin_file;
             }
 

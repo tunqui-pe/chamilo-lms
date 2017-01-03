@@ -321,16 +321,13 @@ class Plugin
         // loaded. If so, no need to load them again.
 
         if (is_null($this->strings)) {
-            global $language_interface;
             $root = api_get_path(SYS_PLUGIN_PATH);
             $plugin_name = $this->get_name();
 
-            $interfaceLanguageId = api_get_language_id($language_interface);
-            $interfaceLanguageInfo = api_get_language_info($interfaceLanguageId);
-            $languageParentId = !empty($interfaceLanguageInfo['parent_id']) ? (int) $interfaceLanguageInfo['parent_id'] : 0;
+            $language_interface = api_get_language_isocode();
 
             //1. Loading english if exists
-            $english_path = $root.$plugin_name."/lang/english.php";
+            $english_path = $root.$plugin_name."/lang/en.php";
 
             if (is_readable($english_path)) {
                 $strings = array();
@@ -345,20 +342,6 @@ class Plugin
                 if (!empty($strings)) {
                     foreach ($strings as $key => $string) {
                         $this->strings[$key] = $string;
-                    }
-                }
-            } elseif ($languageParentId > 0) {
-                $languageParentInfo = api_get_language_info($languageParentId);
-                $languageParentFolder = $languageParentInfo['dokeos_folder'];
-
-                $parentPath = "{$root}{$plugin_name}/lang/{$languageParentFolder}.php";
-                if (is_readable($parentPath)) {
-                    include $parentPath;
-
-                    if (!empty($strings)) {
-                        foreach ($strings as $key => $string) {
-                            $this->strings[$key] = $string;
-                        }
                     }
                 }
             }
