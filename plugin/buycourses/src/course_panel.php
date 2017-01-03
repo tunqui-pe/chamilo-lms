@@ -3,9 +3,6 @@
  * User Panel
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
 
 $cidReset = true;
 
@@ -47,13 +44,15 @@ $toolbar = Display::toolbarButton(
     ['title' => $plugin->get_lang('CourseListOnSale')]
 );
 
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
+
 $templateName = get_lang('TabsDashboard');
 $tpl = new Template($templateName);
 $tpl->assign('showing_courses', true);
 $tpl->assign('sessions_are_included', $includeSessions);
 $tpl->assign('sale_list', $saleList);
 
-$content = $tpl->fetch('buycourses/view/course_panel.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/course_panel.tpl');
 
 $tpl->assign('actions', $toolbar);
 $tpl->assign('header', $templateName);

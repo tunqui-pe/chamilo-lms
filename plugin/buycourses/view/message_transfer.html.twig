@@ -1,3 +1,4 @@
+{% autoescape false %}
 <div>
     <p>{{ 'DearUser'|get_lang }}</p>
     <p>{{ 'PurchaseDetailsIntro'|get_plugin_lang('BuyCoursesPlugin') }}</p>
@@ -34,3 +35,4 @@
     </table>
     <p>{{ 'PurchaseDetailsEnd'|get_plugin_lang('BuyCoursesPlugin') }}</p>
 </div>
+{% endautoescape %}

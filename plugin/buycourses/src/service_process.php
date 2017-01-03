@@ -46,7 +46,7 @@ $form = new FormValidator('confirm_sale');
 
 if ($form->validate()) {
     $formValues = $form->getSubmitValues();
-    
+
     if (!$formValues['payment_type']) {
         Display::addFlash(
             Display::return_message($plugin->get_lang('NeedToSelectPaymentType'), 'error', false)
@@ -62,7 +62,7 @@ if ($form->validate()) {
         header('Location:' . api_get_self() . '?' . $queryString);
         exit;
     }
-    
+
     $serviceSaleId = $plugin->registerServiceSale($serviceId, $formValues['payment_type'], $formValues['info_select'], $formValues['enable_trial']);
 
     if ($serviceSaleId !== false) {
@@ -132,7 +132,7 @@ $tpl->assign('user', api_get_user_info());
 $tpl->assign('form', $form->returnForm());
 
 
-$content = $tpl->fetch('buycourses/view/process.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/process.tpl');
 
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

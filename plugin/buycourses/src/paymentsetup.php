@@ -4,9 +4,7 @@
  * Configuration page for payment methods for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
+
 $cidReset = true;
 
 require_once __DIR__.'/../../../main/inc/global.inc.php';
@@ -190,6 +188,8 @@ $interbreadcrumb[] = [
 ];
 
 $templateName = $plugin->get_lang('PaymentsConfiguration');
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
+$htmlHeadXtra[] = api_get_js('plugins/buycourses/css/style.css');
 $tpl = new Template($templateName);
 $tpl->assign('header', $templateName);
 $tpl->assign('curency_form', $currencyForm->returnForm());
@@ -201,7 +201,7 @@ $tpl->assign('paypal_enable', $paypalEnable);
 $tpl->assign('commissions_enable', $commissionsEnable);
 $tpl->assign('transfer_enable', $transferEnable);
 
-$content = $tpl->fetch('buycourses/view/paymentsetup.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/paymentsetup.tpl');
 
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

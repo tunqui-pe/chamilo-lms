@@ -4,9 +4,7 @@
  * Configuration script for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
+
 $cidReset = true;
 
 require_once __DIR__.'/../../../main/inc/global.inc.php';
@@ -28,7 +26,7 @@ $interbreadcrumb[] = [
 ];
 
 $templateName = $plugin->get_lang('AvailableCourses');
-
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 $tpl = new Template($templateName);
 
 $tpl->assign('product_type_course', BuyCoursesPlugin::PRODUCT_TYPE_COURSE);
@@ -49,7 +47,7 @@ if ($includeServices) {
     $tpl->assign('services', $services);
 }
 
-$content = $tpl->fetch('buycourses/view/configuration.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/configuration.tpl');
 
 $tpl->assign('header', $templateName);
 $tpl->assign('content', $content);

@@ -70,8 +70,10 @@ $template->assign('sessions_are_included', $includeSessions);
 $template->assign('services_are_included', $includeServices);
 $template->assign('showing_sessions', true);
 $template->assign('sessions', $sessionList);
+$template->assign('showing_courses', false);
+$template->assign('showing_services', false);
 
-$content = $template->fetch('buycourses/view/catalog.tpl');
+$content = $template->fetch('@plugin/buycourses/view/catalog.tpl');
 
 $template->assign('header', $templateName);
 $template->assign('content', $content);

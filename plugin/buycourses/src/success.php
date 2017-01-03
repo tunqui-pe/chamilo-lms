@@ -209,6 +209,6 @@ $tpl->assign('currency', $sale['currency_id']);
 $tpl->assign('user', api_get_user_info($sale['user_id']));
 $tpl->assign('form', $form->returnForm());
 
-$content = $tpl->fetch('buycourses/view/success.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/success.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

@@ -1,10 +1,12 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Plugin database installation script. Can only be executed if included
  * inside another script loading global.inc.php
  * @package chamilo.plugin.buycourses
  */
+
 /**
  * Check if script can be called
  */
@@ -588,7 +590,8 @@ foreach ($currencies as $currency) {
         [
             'country_code' => $currency[0],
             'country_name' => $currency[1],
-            'iso_code' => $currency[2]
+            'iso_code' => $currency[2],
+            'status' => 0
         ]
     );
 }

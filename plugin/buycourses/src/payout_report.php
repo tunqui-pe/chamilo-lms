@@ -5,12 +5,12 @@
  * List of pending payments of the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-//Initialization
+
 $cidReset = true;
 
 require_once __DIR__.'/../../../main/inc/global.inc.php';
 
-$htmlHeadXtra[] = '<link rel="stylesheet" href="../resources/css/style.css" type="text/css">';
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 $htmlHeadXtra[] = '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>';
 
 api_protect_admin_script(true);
@@ -84,7 +84,7 @@ $template->assign('form', $form->returnForm());
 $template->assign('payout_list', $payoutList);
 $template->assign('selected_status', $selectedStatus);
 
-$content = $template->fetch('buycourses/view/payout_report.tpl');
+$content = $template->fetch('@plugin/buycourses/view/payout_report.tpl');
 
 $template->assign('header', $templateName);
 $template->assign('content', $content);
