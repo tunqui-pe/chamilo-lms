@@ -118,7 +118,7 @@
                                     {% endif %}
                                 </td>
                                 <td class="text-right" width="200">
-                                    {{ "#{item.price} #{tem.currency ?: item.currency}" }}
+                                    {{ "#{item.price} #{item.currency ?: item.currency}" }}
                                 </td>
                                 <td class="text-right">
                                     <a href="{{ url('legacy_plugin', {'name' :'buycourses/src/configure_course.php', 'i': item.session_id, 't':product_type_session } ) }}" class="btn btn-info btn-sm">
@@ -179,7 +179,7 @@
                                 {{ item.owner_name }}
                             </td>
                             <td class="text-right" width="200">
-                                {{ "#{item.price} #{tem.currency ?: item.currency}" }}
+                                {{ "#{item.price} #{item.currency ?: item.currency}" }}
                             </td>
                             <td class="text-right">
                                 <a href="{{ url('legacy_plugin', {'name' :'buycourses/src/services_edit.php', 'id': item.id } ) }}" class="btn btn-info btn-sm">
