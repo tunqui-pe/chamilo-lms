@@ -3,12 +3,8 @@
  * List of courses
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
-$cidReset = true;
 
-require_once __DIR__.'/../../../main/inc/global.inc.php';
+$cidReset = true;
 
 $plugin = BuyCoursesPlugin::create();
 $includeSessions = $plugin->get('include_sessions') === 'true';

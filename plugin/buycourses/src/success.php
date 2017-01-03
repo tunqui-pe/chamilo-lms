@@ -4,10 +4,8 @@
  * Success page for the purchase of a course in the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
-require_once '../config.php';
+
+require_once __DIR__.'/../config.php';
 
 $plugin = BuyCoursesPlugin::create();
 $paypalEnabled = $plugin->get('paypal_enable') === 'true';

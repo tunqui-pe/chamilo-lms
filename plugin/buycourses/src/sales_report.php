@@ -1,6 +1,6 @@
 <?php
-
 /* For license terms, see /license.txt */
+
 /**
  * List of pending payments of the Buy Courses plugin
  * @package chamilo.plugin.buycourses
@@ -8,7 +8,7 @@
 
 $cidReset = true;
 
-require_once '../config.php';
+require_once __DIR__.'/../config.php';
 
 api_protect_admin_script();
 
@@ -174,6 +174,8 @@ $template->assign('sale_list', $saleList);
 $template->assign('sale_status_canceled', BuyCoursesPlugin::SALE_STATUS_CANCELED);
 $template->assign('sale_status_pending', BuyCoursesPlugin::SALE_STATUS_PENDING);
 $template->assign('sale_status_completed', BuyCoursesPlugin::SALE_STATUS_COMPLETED);
+$template->assign('showing_services', false);
+
 
 $content = $template->fetch('@plugin/buycourses/view/sales_report.tpl');
 

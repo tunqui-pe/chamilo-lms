@@ -7,15 +7,15 @@
 
 $cidReset = true;
 
-require_once __DIR__.'/../../../main/inc/global.inc.php';
-
 $plugin = BuyCoursesPlugin::create();
 $includeSession = $plugin->get('include_sessions') === 'true';
 $includeServices = $plugin->get('include_services') === 'true';
 
 api_protect_admin_script(true);
 
-Display::addFlash(Display::return_message(get_lang('Info').' - '.$plugin->get_lang('CoursesInSessionsDoesntDisplayHere'), 'info'));
+Display::addFlash(
+    Display::return_message(get_lang('Info').' - '.$plugin->get_lang('CoursesInSessionsDoesntDisplayHere'), 'info')
+);
 
 $courses = $plugin->getCoursesForConfiguration();
 

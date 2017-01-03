@@ -1,15 +1,14 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Configuration script for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
+
 $cidReset = true;
 
-require_once '../config.php';
+require_once __DIR__.'/../config.php';
 
 api_protect_admin_script();
 

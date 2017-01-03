@@ -4,13 +4,10 @@
  * Process payments for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
 
 $cidReset = true;
 
-require_once '../config.php';
+require_once __DIR__.'/../config.php';
 
 if (!isset($_REQUEST['t'], $_REQUEST['i'])) {
     header('Location: ' . api_get_path(WEB_PLUGIN_PATH) . 'buycourses/src/service_catalog.php');
@@ -130,7 +127,6 @@ $tpl->assign('buying_service', true);
 $tpl->assign('service', $serviceInfo);
 $tpl->assign('user', api_get_user_info());
 $tpl->assign('form', $form->returnForm());
-
 
 $content = $tpl->fetch('@plugin/buycourses/view/process.tpl');
 

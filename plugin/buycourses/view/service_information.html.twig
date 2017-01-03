@@ -32,7 +32,7 @@
                         <p><em class="fa fa-money"></em> <b>{{ 'Price'|get_plugin_lang('BuyCoursesPlugin') }}</b> : {{ service.currency == 'BRL' ? 'R$' : service.currency }} {{ service.price }}</p>
                         <p><em class="fa fa-align-justify"></em> <b>{{ 'Details' | get_lang }}</b> : {{ service.description }}</p>
                         <div class="text-right" style="padding-bottom: 20px;">
-                            <a href="{{ _p.web_plugin ~ 'buycourses/src/service_process.php?t=4&i=' ~ service.id }}" class="btn btn-success btn-lg">
+                            <a href="{{ url('legacy_plugin', {'name' :'buycourses/src/service_process.ajax.php', 't' : 4, 'i': service.id }) }}" class="btn btn-success btn-lg">
                                 <em class="fa fa-shopping-cart"></em> {{ 'Buy'|get_plugin_lang('BuyCoursesPlugin') }}
                             </a>
                         </div>

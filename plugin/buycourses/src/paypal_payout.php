@@ -1,12 +1,11 @@
 <?php
-
 /* For license terms, see /license.txt */
+
 /**
  * List page for Paypal Payout for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
 $cidReset = true;
-require_once __DIR__.'/../../../main/inc/global.inc.php';
 
 $htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 

@@ -4,7 +4,7 @@
  * Process purchase confirmation script for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-require_once '../config.php';
+require_once __DIR__.'/../config.php';
 
 $htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 

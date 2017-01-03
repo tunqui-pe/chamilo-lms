@@ -4,10 +4,8 @@
  * Process payments for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
-require_once '../config.php';
+
+require_once __DIR__.'/../config.php';
 
 $currentUserId = api_get_user_id();
 

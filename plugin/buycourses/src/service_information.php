@@ -10,8 +10,6 @@
 
 $cidReset = true;
 
-require_once '../../../main/inc/global.inc.php';
-
 $serviceId = isset($_GET['service_id']) ? intval($_GET['service_id']) : false;
 
 $plugin = BuyCoursesPlugin::create();

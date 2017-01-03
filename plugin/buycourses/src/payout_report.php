@@ -8,8 +8,6 @@
 
 $cidReset = true;
 
-require_once __DIR__.'/../../../main/inc/global.inc.php';
-
 $htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 $htmlHeadXtra[] = '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>';
 
