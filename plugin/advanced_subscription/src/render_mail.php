@@ -1,13 +1,11 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Render an email from data
  * @package chamilo.plugin.advanced_subscription
  */
 
-/**
- * Init
- */
 require_once __DIR__ . '/../config.php';
 
 $plugin = AdvancedSubscriptionPlugin::create();

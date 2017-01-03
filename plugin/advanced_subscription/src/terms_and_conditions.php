@@ -4,10 +4,9 @@
  * Script to show sessions terms and conditions
  * @package chamilo.plugin.advanced_subscription
  */
-/**
- * Init
- */
+
 require_once __DIR__ . '/../config.php';
+
 // start plugin
 $plugin = AdvancedSubscriptionPlugin::create();
 // Session ID

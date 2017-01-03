@@ -1,12 +1,11 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Index of the Advanced subscription plugin courses list
  * @package chamilo.plugin.advanced_subscription
  */
-/**
- * Init
- */
+
 require_once __DIR__ . '/../config.php';
 // protect
 api_protect_admin_script();
