@@ -36,7 +36,7 @@ $courseId = api_get_course_int_id();
 
 function is_settings_editable()
 {
-    return isset($GLOBALS['course_info_is_editable']) && $GLOBALS['course_info_is_editable'];
+    return !api_get_configuration_value('course_info_is_not_editable') == true;
 }
 
 /* MAIN CODE */
@@ -799,7 +799,6 @@ if ($form->validate() && is_settings_editable()) {
     $appPlugin->saveCourseSettingsHook($updateValues);
     $cidReset = true;
     $cidReq = $course_code;
-    require '../inc/local.inc.php';
     $url = api_get_path(WEB_CODE_PATH).'course_info/infocours.php?'.api_get_cidreq();
     header("Location: $url");
     exit;

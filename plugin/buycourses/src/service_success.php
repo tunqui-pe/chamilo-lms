@@ -1,13 +1,12 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Success page for the purchase of a service in the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
-require_once '../config.php';
+
+require_once __DIR__.'/../config.php';
 
 $plugin = BuyCoursesPlugin::create();
 $paypalEnabled = $plugin->get('paypal_enable') === 'true';
@@ -174,6 +173,6 @@ $tpl->assign('buying_service', true);
 $tpl->assign('user', api_get_user_info($serviceSale['buyer']['id']));
 $tpl->assign('form', $form->returnForm());
 
-$content = $tpl->fetch('buycourses/view/success.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/success.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

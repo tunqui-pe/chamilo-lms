@@ -5,13 +5,17 @@ namespace Chamilo\CoreBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class CourseMenuBuilder
  * @package Chamilo\CoreBundle\Menu
  */
-class CourseMenuBuilder extends ContainerAware
+class CourseMenuBuilder implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * Course menu
      *

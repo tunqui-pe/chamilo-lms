@@ -92,6 +92,8 @@ function get_lang($variable)
 
 /**
  * Gets the current interface language.
+ * @deprecated use api_get_language_isocode()
+ *
  * @param bool $purified (optional)	When it is true, a purified (refined)
  * language value will be returned, for example 'french' instead of 'french_unicode'.
  * @param bool $setParentLanguageName
@@ -102,49 +104,7 @@ function api_get_interface_language(
     $check_sub_language = false,
     $setParentLanguageName = true
 ) {
-    global $language_interface;
-
-    if (empty($language_interface)) {
-        return 'english';
-    }
-
-    if ($check_sub_language) {
-        static $parent_language_name = null;
-
-        if (!isset($parent_language_name)) {
-            // 2. The current language is a sub language so we grab the father's
-            // setting according to the internalization_database/name_order_convetions.php file
-            $language_id = api_get_language_id($language_interface);
-            $language_info = api_get_language_info($language_id);
-
-            if (
-                !empty($language_id) &&
-                !empty($language_info)
-            ) {
-                if (!empty($language_info['parent_id'])) {
-                    $language_info = api_get_language_info($language_info['parent_id']);
-                    if ($setParentLanguageName) {
-                        $parent_language_name = $language_info['english_name'];
-                    }
-
-                    if (!empty($parent_language_name)) {
-                        return $parent_language_name;
-                    }
-                }
-
-                return $language_info['english_name'];
-            }
-
-            return 'english';
-        } else {
-            return $parent_language_name;
-        }
-    } else {
-        // 2. Normal way
-        $interface_language = $purified ? api_purify_language_id($language_interface) : $language_interface;
-    }
-
-    return $interface_language;
+    return api_get_language_isocode();
 }
 
 /**
@@ -174,32 +134,7 @@ function api_purify_language_id($language) {
  */
 function api_get_language_isocode($language = null, $default_code = 'en')
 {
-    static $iso_code = array();
-    if (empty($language)) {
-        $language = api_get_interface_language(false, true);
-    }
-    if (!isset($iso_code[$language])) {
-        if (!class_exists('Database')) {
-            // This might happen, in case of calling this function early during the global initialization.
-            return $default_code; // This might happen, in case of calling this function early during the global initialization.
-        }
-        $sql = "SELECT isocode 
-                FROM ".Database::get_main_table(TABLE_MAIN_LANGUAGE)." 
-                WHERE dokeos_folder = '$language'";
-        $sql_result = Database::query($sql);
-        if (Database::num_rows($sql_result)) {
-            $result = Database::fetch_array($sql_result);
-            $iso_code[$language] = trim($result['isocode']);
-        } else {
-            $language_purified_id = api_purify_language_id($language);
-            $iso_code[$language] = isset($iso_code[$language_purified_id]) ? $iso_code[$language_purified_id] : null;
-        }
-        if (empty($iso_code[$language])) {
-            $iso_code[$language] = $default_code;
-        }
-    }
-
-    return $iso_code[$language];
+    return Container::getTranslator()->getLocale();
 }
 
 /**
@@ -1677,7 +1612,8 @@ function api_is_valid_date($date, $format = 'Y-m-d H:i:s')
  * @param string $pluginName the Plugin name
  * @return string the variable translated
  */
-function get_plugin_lang($variable, $pluginName) {
+function get_plugin_lang($variable, $pluginName)
+{
     $plugin = $pluginName::create();
     return $plugin->get_lang($variable);
 }

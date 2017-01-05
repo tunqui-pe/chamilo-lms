@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 class SidebarController extends Controller
 {
     /**
-     * "Hello user" section
+     * Avatar user panel
      * @return Response
      */
     public function userPanelAction()
@@ -42,7 +42,7 @@ class SidebarController extends Controller
     }
 
      /**
-     * User menu section
+     * User inbox, profile links
      * @return Response
      */
     public function userProfileAction()
@@ -61,8 +61,8 @@ class SidebarController extends Controller
         );
     }
 
-      /**
-     * User menu section
+    /**
+     * User social network section
      * @return Response
      */
     public function socialPanelAction()
@@ -96,29 +96,6 @@ class SidebarController extends Controller
     protected function getDispatcher()
     {
         return $this->get('event_dispatcher');
-    }
-
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    public function menuAction(Request $request)
-    {
-        if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_SETUP_MENU)) {
-            return new Response();
-        }
-
-        $event = $this->getDispatcher()->dispatch(
-            ThemeEvents::THEME_SIDEBAR_SETUP_MENU,
-            new SidebarMenuEvent($request)
-        );
-
-        return $this->render(
-            'ChamiloThemeBundle:Sidebar:menu.html.twig',
-            array(
-                'menu' => $event->getItems()
-            )
-        );
     }
 
     /**

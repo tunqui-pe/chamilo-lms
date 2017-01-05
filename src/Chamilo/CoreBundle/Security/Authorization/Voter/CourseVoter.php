@@ -81,10 +81,11 @@ class CourseVoter extends AbstractVoter
      */
     protected function isGranted($attribute, $course, $user = null)
     {
-        // make sure there is a user object (i.e. that the user is logged in)
-        if (!$user instanceof UserInterface) {
+        // Make sure there is a user object (i.e. that the user is logged in)
+        // Anons can enter a course depending of the course visibility
+        /*if (!$user instanceof UserInterface) {
             return false;
-        }
+        }*/
 
         $authChecker = $this->container->get('security.authorization_checker');
 
@@ -106,6 +107,11 @@ class CourseVoter extends AbstractVoter
                 if ($course->isPublic()) {
 
                     return true;
+                }
+
+                // Other course visibility need to have a user set
+                if (!$user instanceof UserInterface) {
+                    return false;
                 }
 
                 // User is subscribed in the course no matter if is teacher/student

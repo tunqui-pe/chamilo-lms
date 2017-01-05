@@ -13,7 +13,7 @@
                     <img src="{{ "icon-chamilo.png"|icon(22) }}" title="{{ "siteName" | get_setting }}">
                 </a>
             </div>
-            {% if _u.logged %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div class="collapse navbar-collapse" id="toolbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="{{ _p.web }}user_portal.php"> {{ "MyCourses"|get_lang }}</a></li>
@@ -27,7 +27,7 @@
                                 <li><a href="{{ _p.web_main }}dashboard/">{{ "Dashboard"|get_lang }}</a></li>
                             </ul>
                         </li>
-                        {% if _u.is_admin == 1 %}
+                        {% if is_granted('ROLE_ADMIN') == 1 %}
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{'Administration'|get_lang }}<b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -54,7 +54,7 @@
                         {% endif %}
                     </ul>
 
-                    {% if _u.is_admin == 1 %}
+                    {% if is_granted('ROLE_ADMIN') == 1 %}
                     <form class="navbar-form navbar-left" role="search" action="{{ _p.web_main }}admin/user_list.php" method="get">
                         <input type="text" class="form-control" placeholder="{{'SearchUsers'|get_lang }}" name="keyword">
                     </form>

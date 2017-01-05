@@ -26,14 +26,7 @@ $form = new FormValidator('text_form');
 $form->addTextarea('content', get_lang('Content'));
 $form->addButtonSave(get_lang('Save'), 'submit_button');
 
-$content = '';
-$setting = api_get_setting('text_content');
-
-if (!empty($setting) && is_array($setting)) {
-    if (isset($setting['text'])) {
-        $content = $setting['text'];
-    }
-}
+$content = api_get_plugin_setting('text', 'content');
 
 $form->setDefaults(array('content' => $content));
 

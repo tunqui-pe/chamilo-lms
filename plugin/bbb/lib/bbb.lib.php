@@ -82,7 +82,7 @@ class bbb
             if ($this->groupSupport) {
 
                 // Platform check
-                $bbbSetting = api_get_setting('bbb_enable_conference_in_course_groups');
+                $bbbSetting = api_get_plugin_setting('bbb', 'enable_conference_in_course_groups');
                 $bbbSetting = isset($bbbSetting['bbb']) ? $bbbSetting['bbb'] === 'true' : false;
 
                 if ($bbbSetting) {
@@ -260,7 +260,7 @@ class bbb
         $params['moderator_pw'] = isset($params['moderator_pw']) ? $params['moderator_pw'] : $this->getModMeetingPassword();
         $moderatorPassword = $params['moderator_pw'];
 
-        $params['record'] = api_get_course_setting('big_blue_button_record_and_store', $courseCode) == 1 ? true : false;
+        $params['record'] = api_get_course_setting('big_blue_button_record_and_store', $courseCode) == 1 ? 1 : 0;
         $max = api_get_course_setting('big_blue_button_max_students_allowed', $courseCode);
         $max =  isset($max) ? $max : -1;
 
@@ -278,6 +278,7 @@ class bbb
 
         $params['created_at'] = api_get_utc_datetime();
         $params['access_url'] = $this->accessUrl;
+        $params['closed_at'] = '';
 
         $id = Database::insert($this->table, $params);
 
@@ -577,9 +578,20 @@ class bbb
 
     /**
      * Gets all the course meetings saved in the plugin_bbb_meeting table
+     * @param int $courseId
+     * @param int $sessionId
+     * @param int $groupId
+     * @param bool $isAdminReport Optional. Set to true then the report is for admins
+     * @param array $dateRange Optional
      * @return array Array of current open meeting rooms
      */
-    public function getMeetings($courseId = 0, $sessionId = 0, $groupId = 0, $isAdminReport = false)
+    public function getMeetings(
+        $courseId = 0,
+        $sessionId = 0,
+        $groupId = 0,
+        $isAdminReport = false,
+        $dateRange = []
+    )
     {
         $em = Database::getManager();
 
@@ -606,6 +618,20 @@ class bbb
                     )
                 );
             }
+        }
+
+        if (!empty($dateRange)) {
+            $dateStart = date_create($dateRange['search_meeting_start']);
+            $dateStart = date_format($dateStart, 'Y-m-d H:i:s');
+            $dateEnd = date_create($dateRange['search_meeting_end']);
+            $dateEnd = $dateEnd->add(new DateInterval('P1D'));
+            $dateEnd = date_format($dateEnd, 'Y-m-d H:i:s');
+
+            $conditions = array(
+                'where' => array(
+                    'created_at BETWEEN ? AND ? ' => array($dateStart, $dateEnd),
+                ),
+            );
         }
 
         $meetingList = Database::select(
@@ -642,6 +668,8 @@ class bbb
             } else {
                 $meetingBBB['add_to_calendar_url'] = $this->addToCalendarUrl($meetingDB);
             }
+
+            $item['action_links'] = '';
 
             if ($meetingDB['record'] == 1) {
                 // backwards compatibility (when there was no remote ID)
@@ -1207,10 +1235,16 @@ class bbb
             'plugin_bbb_room',
             array('where' => array('meeting_id = ?' => intval($meetingId)))
         );
-
+        $participantIds = [];
         $return = [];
 
         foreach ($meetingData as $participantInfo) {
+            if (in_array($participantInfo['participant_id'], $participantIds)) {
+                continue;
+            }
+
+            $participantIds[] = $participantInfo['participant_id'];
+
             $return[] = [
                 'id' => $participantInfo['id'],
                 'meeting_id' => $participantInfo['meeting_id'],

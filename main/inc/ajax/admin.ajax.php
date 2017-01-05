@@ -10,6 +10,8 @@ api_protect_admin_script();
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 
+\Chamilo\CoreBundle\Framework\Container::$legacyTemplate = '@ChamiloTheme/Layout/no_layout.html.twig';
+
 switch ($action) {
     case 'update_changeable_setting':
         $url_id = api_get_current_access_url_id();

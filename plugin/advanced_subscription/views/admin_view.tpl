@@ -123,7 +123,7 @@
         </div>
     </div>
 </div>
-<link href="{{ _p.web_plugin }}advanced_subscription/views/css/style.css" rel="stylesheet" type="text/css">
+<link href="{{ asset('plugins/advanced_subscription/css/style.css') }}" rel="stylesheet" type="text/css">
 <script>
     $(document).ready(function(){
         $("#session-select").change(function () {

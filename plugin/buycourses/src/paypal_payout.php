@@ -1,19 +1,13 @@
 <?php
-
 /* For license terms, see /license.txt */
+
 /**
  * List page for Paypal Payout for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
-
 $cidReset = true;
 
-require_once __DIR__.'/../../../main/inc/global.inc.php';
-
-$htmlHeadXtra[] = '<link rel="stylesheet" href="../resources/css/style.css" type="text/css">';
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 
 api_protect_admin_script(true);
 
@@ -22,7 +16,7 @@ $plugin = BuyCoursesPlugin::create();
 $paypalEnable = $plugin->get('paypal_enable');
 $commissionsEnable = $plugin->get('commissions_enable');
 
-if ($paypalEnable !== "true" && $commissionsEnable !== "true") {
+if ($paypalEnable !== 'true' && $commissionsEnable !== 'true') {
     api_not_allowed(true);
 }
 
@@ -48,7 +42,7 @@ $template = new Template($templateName);
 
 $template->assign('payout_list', $payoutList);
 
-$content = $template->fetch('buycourses/view/paypal_payout.tpl');
+$content = $template->fetch('@plugin/buycourses/view/paypal_payout.tpl');
 
 $template->assign('header', $templateName);
 $template->assign('content', $content);

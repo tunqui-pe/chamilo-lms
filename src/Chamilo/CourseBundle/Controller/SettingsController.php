@@ -3,6 +3,7 @@
 
 namespace Chamilo\CourseBundle\Controller;
 
+use Chamilo\CourseBundle\Manager\SettingsManager;
 use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,11 +32,12 @@ class SettingsController extends Controller
     public function updateAction(Request $request, $namespace, $course)
     {
         $manager = $this->getSettingsManager();
+        $schemaAlias = $manager->convertNameSpaceToService($namespace);
         $settings = $manager->load($namespace);
 
         $form = $this
             ->getSettingsFormFactory()
-            ->create($namespace);
+            ->create($schemaAlias);
 
         $form->setData($settings);
 
@@ -66,6 +68,7 @@ class SettingsController extends Controller
                 return $this->redirect($request->headers->get('referer'));
             }
         }
+        $schemas = $manager->getSchemas();
 
         return $this->render(
             $request->attributes->get(
@@ -73,8 +76,12 @@ class SettingsController extends Controller
                 'ChamiloCourseBundle:Settings:update.html.twig'
             ),
             array(
+                'course' => $course,
+                'schemas' => $schemas,
                 'settings' => $settings,
                 'form' => $form->createView(),
+                'keyword' => '',
+                'search_form' => '',
             )
         );
     }
@@ -82,7 +89,7 @@ class SettingsController extends Controller
     /**
      * Get settings manager.
      *
-     * @return SettingsManagerInterface
+     * @return SettingsManager
      */
     protected function getSettingsManager()
     {

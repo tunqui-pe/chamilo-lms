@@ -255,19 +255,20 @@ class AppPlugin
 
     /**
     * @param string $region
-    * @param string $template
+    * @param array $plugins
+    * @param mixed $template
     * @param bool   $forced
     *
     * @return null|string
     */
-    public function load_region($region, $template, $forced = false)
+    public function load_region($region, $template, $plugins, $forced = false)
     {
         if ($region == 'course_tool_plugin') {
             return '';
         }
 
         ob_start();
-        $this->get_all_plugin_contents_by_region($region, $template, $forced);
+        $this->get_all_plugin_contents_by_region($region, $template, $plugins, $forced);
         $content = ob_get_contents();
         ob_end_clean();
 
@@ -284,7 +285,6 @@ class AppPlugin
      */
     public function load_plugin_lang_variables($plugin_name)
     {
-        global $language_interface;
         $root = api_get_path(SYS_PLUGIN_PATH);
         $strings = null;
 
@@ -300,6 +300,7 @@ class AppPlugin
         }
 
         // 2. Loading the system language
+        /*
         if ($language_interface != 'english') {
             $path = $root.$plugin_name."/lang/$language_interface.php";
 
@@ -330,25 +331,24 @@ class AppPlugin
                     }
                 }
             }
-        }
+        }*/
     }
 
     /**
      * @param string $region
-     * @param Template $template
+     * @param mixed $template
+     * @param array $_plugins
      * @param bool $forced
      *
      * @return bool
      *
      * @todo improve this function
      */
-    public function get_all_plugin_contents_by_region($region, $template, $forced = false)
+    public function get_all_plugin_contents_by_region($region, $template, $_plugins, $forced = false)
     {
-        global $_plugins;
         if (isset($_plugins[$region]) && is_array($_plugins[$region])) {
             // Load the plugin information
             foreach ($_plugins[$region] as $plugin_name) {
-
                 // The plugin_info variable is available inside the plugin index
                 $plugin_info = $this->getPluginInfo($plugin_name, $forced);
 
@@ -359,8 +359,7 @@ class AppPlugin
                 $plugin_file = api_get_path(SYS_PLUGIN_PATH)."$plugin_name/index.php";
 
                 if (file_exists($plugin_file)) {
-
-                    //Loading the lang variables of the plugin if exists
+                    // Loading the lang variables of the plugin if exists
                     self::load_plugin_lang_variables($plugin_name);
 
                     // Printing the plugin index.php file
@@ -375,7 +374,7 @@ class AppPlugin
                     }
 
                     // Setting the plugin info available in the template if exists.
-                    $template->assign($plugin_name, $_template);
+                    $template->addGlobal($plugin_name, $_template);
 
                     // Loading the Twig template plugin files if exists
                     $template_list = array();
@@ -386,8 +385,9 @@ class AppPlugin
                     if (!empty($template_list)) {
                         foreach ($template_list as $plugin_tpl) {
                             if (!empty($plugin_tpl)) {
-                                $template_plugin_file = "$plugin_name/$plugin_tpl"; // for twig
-                                $template->display($template_plugin_file, false);
+                                // See config.yml twig.paths
+                                $template_plugin_file = "@plugin/$plugin_name/$plugin_tpl";
+                                echo \Chamilo\CoreBundle\Framework\Container::getTwig()->render($template_plugin_file, $_template);
                             }
                         }
                     }
@@ -419,7 +419,6 @@ class AppPlugin
 
             $plugin_info = array();
             if (file_exists($plugin_file)) {
-
                 require $plugin_file;
             }
 

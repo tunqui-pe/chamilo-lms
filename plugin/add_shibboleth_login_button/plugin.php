@@ -1,6 +1,7 @@
 <?php
 /**
- * This script is a configuration file for the date plugin. You can use it as a master for other platform plugins (course plugins are slightly different).
+ * This script is a configuration file for the date plugin.
+ * You can use it as a master for other platform plugins (course plugins are slightly different).
  * These settings will be used in the administration interface for plugins (Chamilo configuration settings->Plugins)
  * @package chamilo.plugin
  * @author Julio Montoya <gugli100@gmail.com>
@@ -39,23 +40,24 @@ $form->addElement(
     'Logo URL if any (image, 50px height)'
 );
 $form->addButtonSave(get_lang('Save'), 'submit_button');
-//get default value for form
-$tab_default_add_shibboleth_login_button_shibboleth_button_label = api_get_setting(
-    'add_shibboleth_login_button_shibboleth_button_label'
-);
-$tab_default_add_shibboleth_login_button_shibboleth_button_comment = api_get_setting(
-    'add_shibboleth_login_button_shibboleth_button_comment'
-);
-$tab_default_add_shibboleth_login_button_shibboleth_image_url = api_get_setting(
-    'add_shibboleth_login_button_shibboleth_image_url'
-);
+$tab_default_add_shibboleth_login_button_shibboleth_image_url =
 $defaults = array();
-$defaults['shibboleth_button_label'] = $tab_default_add_shibboleth_login_button_shibboleth_button_label['add_shibboleth_login_button'];
-$defaults['shibboleth_button_comment'] = $tab_default_add_shibboleth_login_button_shibboleth_button_comment['add_shibboleth_login_button'];
-$defaults['shibboleth_image_url'] = $tab_default_add_shibboleth_login_button_shibboleth_image_url['add_shibboleth_login_button'];
+$defaults['shibboleth_button_label'] = api_get_plugin_setting(
+    'add_shibboleth_login_button',
+    'shibboleth_button_label'
+);
+$defaults['shibboleth_button_comment'] = api_get_plugin_setting(
+    'add_shibboleth_login_button',
+    'shibboleth_button_comment'
+);
+$defaults['shibboleth_image_url'] = api_get_plugin_setting(
+    'add_shibboleth_login_button',
+    'shibboleth_image_url'
+);
+
 $form->setDefaults($defaults);
 //display form
 $plugin_info['settings_form'] = $form;
 
 //set the templates that are going to be used
-$plugin_info['templates'] = array('template.tpl');
+$plugin_info['templates'] = array('template.html.twig');

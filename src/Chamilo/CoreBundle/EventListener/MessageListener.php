@@ -38,7 +38,7 @@ class MessageListener
     protected function getMessages()
     {
         $threads = $this->container->get('fos_message.provider')->getInboxThreads();
-        $security = $this->container->get('security.context');
+        $security = $this->container->get('security.token_storage');
         $token = $security->getToken();
         $user = $token->getUser();
 

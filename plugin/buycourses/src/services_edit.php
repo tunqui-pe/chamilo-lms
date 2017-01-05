@@ -4,18 +4,13 @@
  * Create new Services for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
 
 $cidReset = true;
-
-require_once '../../../main/inc/global.inc.php';
-
 $serviceId = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
 
 if (!$serviceId) {
     header('Location: configuration.php');
+    exit;
 }
 
 $plugin = BuyCoursesPlugin::create();

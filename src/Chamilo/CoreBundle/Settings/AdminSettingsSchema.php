@@ -30,9 +30,9 @@ class AdminSettingsSchema implements SchemaInterface
             )
             ->setAllowedTypes(
                 array(
-                    'administrator_email' => array('string'),
-                    'administrator_name' => array('string'),
-                    'administrator_surname' => array('string'),
+                    //'administrator_email' => array('string'),
+                    //'administrator_name' => array('string'),
+                    //'administrator_surname' => array('string'),
                 )
             );
     }

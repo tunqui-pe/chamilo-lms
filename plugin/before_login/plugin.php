@@ -10,17 +10,17 @@
 /* Plugin config */
 
 // The plugin title.
-$plugin_info['title']       = 'Show HTML before login';
+$plugin_info['title'] = 'Show HTML before login';
 // The comments that go with the plugin.
-$plugin_info['comment']     = "Show a content before loading the login page.";
+$plugin_info['comment'] = "Show a content before loading the login page.";
 // The plugin version.
-$plugin_info['version']     = '1.0';
+$plugin_info['version'] = '1.0';
 // The plugin author.
-$plugin_info['author']      = 'Julio Montoya';
+$plugin_info['author'] = 'Julio Montoya';
 
 // The plugin configuration.
 $form = new FormValidator('form');
-$form->addElement('select', 'language', get_lang('Language'), api_get_languages_to_array());
+$form->addSelectLanguage('language', get_lang('Language'));
 
 $form->addElement('header', 'Option 1');
 $form->addElement('textarea', 'option1', get_lang('Description'), array('rows' => 10, 'class' => 'span6'));
@@ -37,13 +37,12 @@ $defaults = array();
 $defaults['language'] = api_get_plugin_setting('before_login', 'language');
 $defaults['option1'] = api_get_plugin_setting('before_login', 'option1');
 $defaults['option2'] = api_get_plugin_setting('before_login', 'option2');
-
 $defaults['option1_url'] = api_get_plugin_setting('before_login', 'option1_url');
 $defaults['option2_url'] = api_get_plugin_setting('before_login', 'option2_url');
 
-$plugin_info['templates']   = array('template.tpl');
+$plugin_info['templates'] = array('template.tpl');
 if (file_exists(__DIR__.'/custom.template.tpl')) {
-    $plugin_info['templates']   = array( 'custom.template.tpl');
+    $plugin_info['templates'] = array( 'custom.template.tpl');
 }
 $form->setDefaults($defaults);
 

@@ -152,7 +152,7 @@ if (!empty($_GET['category']) &&
     $settings_by_access_list = $settings_array['settings_by_access_list'];
     $form = generateSettingsForm($settings, $settings_by_access_list);
 
-    if ($form->validate()) {
+    if (false && $form->validate()) {
         $values = $form->exportValues();
 
         $mark_all = false;
@@ -474,9 +474,9 @@ foreach ($resultcategories as $row) {
     $action_array[] = $url;
 }
 
-echo Display::actions($action_array);
-echo '<br />';
-echo $form_search_html;
+//echo Display::actions($action_array);
+//echo '<br />';
+//echo $form_search_html;
 
 if (!empty($_GET['category'])) {
     switch ($_GET['category']) {
@@ -511,20 +511,25 @@ if (!empty($_GET['category'])) {
                 </script>';
             echo '<div id="tabs">';
             echo '<ul>';
-            echo '<li><a href="#tabs-1">'.get_lang('Plugins').'</a></li>';
-            echo '<li><a href="#tabs-2">'.get_lang('DashboardPlugins').'</a></li>';
-            echo '<li><a href="#tabs-3">'.get_lang('ConfigureExtensions').'</a></li>';
+            echo '<li><a href="#tabs-1">'.get_lang('InstalledPlugins').'</a></li>';
+            echo '<li><a href="#tabs-2">'.get_lang('Plugins').'</a></li>';
+            echo '<li><a href="#tabs-3">'.get_lang('DashboardPlugins').'</a></li>';
+            echo '<li><a href="#tabs-4">'.get_lang('ConfigureExtensions').'</a></li>';
             echo '</ul>';
 
             echo '<div id="tabs-1">';
             handlePlugins();
             echo '</div>';
 
-            echo '<div id="tabs-2">';
-            DashboardManager::handle_dashboard_plugins();
+             echo '<div id="tabs-2">';
+            handlePlugins(false);
             echo '</div>';
 
             echo '<div id="tabs-3">';
+            DashboardManager::handle_dashboard_plugins();
+            echo '</div>';
+
+            echo '<div id="tabs-4">';
             handleExtensions();
             echo '</div>';
             echo '</div>';

@@ -1,5 +1,6 @@
+{% autoescape false %}
 <h4 class="page-header">{{ "SystemAnnouncements" | get_lang }}</h4>
-   
+
  <div id="carousel-announcement" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -21,7 +22,7 @@
                     {{ announcement.content }}
                     <a href="{{ _p.web }}news_list.php?id={{ announcement.id }}">{{ "More" | get_lang }}</a>
                 </div>
-              {% else %}  
+              {% else %}
                 <div class="block-image">
                     {{ announcement.content }}
                 </div>
@@ -41,3 +42,4 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+{% endautoescape %}

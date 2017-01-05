@@ -1,6 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
-
+//@deprecated
 use ChamiloSession as Session;
 
 /**

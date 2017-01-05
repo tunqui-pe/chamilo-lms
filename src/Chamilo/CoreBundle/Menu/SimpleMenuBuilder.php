@@ -5,6 +5,8 @@ namespace Chamilo\CoreBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class SimpleMenuBuilder
@@ -13,10 +15,13 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * @author Hugo Briand <briand@ekino.com>
  */
-class SimpleMenuBuilder extends ContainerAware
+class SimpleMenuBuilder implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * Register/reset password menu
+     * @todo
      * @param FactoryInterface $factory
      * @param array $options
      * @return \Knp\Menu\ItemInterface
@@ -25,21 +30,38 @@ class SimpleMenuBuilder extends ContainerAware
     {
         $menu = $factory->createItem('main');
         $translator = $this->container->get('translator.default');
-        $menu->addChild(
-            $translator->trans('registration.submit', array(), 'FOSUserBundle'),
-            array(
-                'route' => 'sonata_user_registration_register',
-                array("attributes" => array("id" => 'nav'))
-            )
-        );
+        $settingManager = $this->container->get('chamilo.settings.manager');
 
-        $menu->addChild(
-            $translator->trans('resetting.request.submit', array(), 'FOSUserBundle'),
-            array(
-                'route' => 'fos_user_resetting_request',
-                array("attributes" => array("id" => 'nav'))
-            )
-        );
+        if ($settingManager->getSetting('allow_registration') == 'true') {
+            $menu->addChild(
+                $translator->trans(
+                    'registration.submit',
+                    array(),
+                    'FOSUserBundle'
+                ),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/inscription.php'],
+                    array("attributes" => array("id" => 'nav'))
+                )
+            );
+        }
+
+        if ($settingManager->getSetting('allow_lostpassword') == 'true') {
+            $menu->addChild(
+                $translator->trans(
+                    'resetting.request.submit',
+                    array(),
+                    'FOSUserBundle'
+                ),
+                array(
+                    //'route' => 'fos_user_resetting_request',
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/lostPassword.php'],
+                    array("attributes" => array("id" => 'nav'))
+                )
+            );
+        }
 
         return $menu;
     }

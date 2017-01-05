@@ -6,6 +6,7 @@
 %}
 
 {% block page_content %}
+    {% autoescape false %}
     {% if plugin_main_top %}
     <div id="plugin_main_top" class="col-md-12">
         {{ plugin_main_top }}
@@ -16,7 +17,7 @@
     <div class="col-md-3">
         {% if plugin_menu_top %}
         <div id="plugin_menu_top">
-            {{plugin_menu_top}}
+            {{ plugin_menu_top }}
         </div>
         {% endif %}
 
@@ -30,7 +31,7 @@
                     {{ render(controller('ChamiloThemeBundle:Sidebar:userProfile', {'pathInfo': pathInfo })) }}
                 {% endif %}
 
-                {# Courses, Skills menu #}
+                {# Login, Courses, Skills menu #}
                 {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request, pathInfo: pathInfo })) }}
             </section>
         {% endblock %}
@@ -43,7 +44,6 @@
 
     {#  Right column #}
     <div class="col-md-9">
-        {% autoescape false %}
         {% if plugin_content_top %}
             <div id="plugin_content_top">
                 {{ plugin_content_top }}
@@ -56,7 +56,9 @@
 
         {% block chamilo_messages %}
             {# Flash messages #}
-            {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+            {% autoescape false %}
+                {% include '@ChamiloTheme/FlashMessage/render.html.twig' %}
+            {% endautoescape %}
         {% endblock %}
 
         {% block chamilo_right_column %}
@@ -72,8 +74,6 @@
             {{plugin_content_bottom}}
         </div>
         {% endif %}
-
-        {% endautoescape %}
     </div>
 
     {% if plugin_main_bottom %}
@@ -81,4 +81,5 @@
         {{ plugin_main_bottom }}
     </div>
     {% endif %}
+    {% endautoescape %}
 {% endblock %}

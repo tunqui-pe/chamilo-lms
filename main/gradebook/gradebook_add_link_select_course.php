@@ -31,7 +31,9 @@ if ($form->validate()) {
     $values = $form->exportValues();
     $cat = new Category();
     $cat->set_course_code($values['select_course']);
-    $cat->set_name($values['name']);
+    if (isset($values['name'])) {
+        $cat->set_name($values['name']);
+    }
     header('location: gradebook_add_link.php?selectcat=' .$selectCat.'&course_code='.Security::remove_XSS($values['select_course']).'&'.api_get_cidreq());
     exit;
 }

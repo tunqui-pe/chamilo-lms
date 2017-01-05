@@ -33,8 +33,7 @@ class ProfileSettingsSchema implements SchemaInterface
                     'profiling_filter_adding_users' => '',
                     'enable_profile_user_address_geolocalization' => '',
                     'allow_show_skype_account' => '',
-                    'allow_show_linkedin_url' => '',
-
+                    'allow_show_linkedin_url' => ''
                 )
             )
             ->setAllowedTypes(

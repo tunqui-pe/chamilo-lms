@@ -22,13 +22,12 @@ if (api_is_anonymous()) {
     // Only available for the selected language.
     $languageToActivate = api_get_plugin_setting('before_login', 'language');
 
-    if (api_get_interface_language() != $languageToActivate) {
+    if (api_get_language_isocode() != $languageToActivate) {
         return null;
     }
 
     $option1 = api_get_plugin_setting('before_login', 'option1');
     $urlOption1 = api_get_plugin_setting('before_login', 'option1_url');
-
     $option2 = api_get_plugin_setting('before_login', 'option2');
     $urlOption2 = api_get_plugin_setting('before_login', 'option2_url');
 
@@ -62,7 +61,7 @@ if (api_is_anonymous()) {
         $form2->addElement('html', $option2);
         $form2->addElement('checkbox', 'right', null, get_lang('Yes'));
         $form2->addElement('button', 'submit', get_lang('Send'));
-        $formHtml2 = $form2->return_form();
+        $formHtml2 = $form2->returnForm();
 
         if ($form2->validate()) {
             $result = $form2->getSubmitValues();

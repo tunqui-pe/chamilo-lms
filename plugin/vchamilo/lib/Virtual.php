@@ -97,9 +97,10 @@ class Virtual
 
                 $data['SYS_ARCHIVE_PATH'] = self::addTrailingSlash($archivePath).$data['slug'];
                 $data['SYS_HOME_PATH'] = self::addTrailingSlash($homePath).$data['slug'];
+                $data['WEB_HOME_PATH'] = $_configuration['vchamilo_web_root'] . '/var/home/' . $data['slug'];
                 $data['SYS_COURSE_PATH'] = self::addTrailingSlash($coursePath).$data['slug'];
                 $data['SYS_UPLOAD_PATH'] = self::addTrailingSlash($uploadPath).$data['slug'];
-                $data['WEB_UPLOAD_PATH'] = $_configuration['vchamilo_web_root'] . 'var/upload/' . $data['slug'];
+                //$data['WEB_UPLOAD_PATH'] = $_configuration['vchamilo_web_root'] . '/var/upload/' . $data['slug'];
 
                 if (!empty($passwordEncryption)) {
                     $_configuration['password_encryption'] = $passwordEncryption;
@@ -540,6 +541,8 @@ class Virtual
     */
     public static function getVmanifest($version)
     {
+        $templatewwwroot = '';
+        // Define the $templatewwwroot content, found in manifest.php for this template
         $file = api_get_path(SYS_PATH).'/plugin/vchamilo/templates/'.$version.'/manifest.php';
         if (file_exists($file)) {
             include $file;

@@ -3,10 +3,6 @@
 {% autoescape false %}
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {#{{ macro.panel(#}
-    {#'Profile' | trans,#}
-    {#mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:mainMenu', {'automenu': 'pills', 'stacked':true})) }}#}
-
     {{
         macro.panel(
             'Courses' | trans,
@@ -21,23 +17,20 @@
         )
     }}
 {% else %}
-    {{ locale_switcher(null, null, 'ChamiloCoreBundle:Admin:switcher_links.html.twig') }}
-    <div class="user-panel">
+    {% if plugin_login_top is not null %}
+        <div id="plugin_login_top">
+            {{ plugin_login_top }}
+        </div>
+    {% endif %}
 
-    </div>
-    <form action="{{ path("fos_user_security_check") }}" method="post" role="form" class="sidebar-form">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-        <div class="form-group">
-            <label for="username">{{ 'security.login.username' | trans({}, 'FOSUserBundle') }}</label>
-            <input type="text" class="form-control" id="username" name="_username" >
+    {% include '@ChamiloTheme/Sidebar/login.html.twig' %}
+
+    {% if plugin_login_bottom is not null %}
+        <div id="plugin_login_bottom">
+            {{ plugin_login_bottom }}
         </div>
-        <div class="form-group">
-            <label for="password">{{ 'security.login.password' | trans({}, 'FOSUserBundle') }}</label>
-            <input type="password" class="form-control" id="password" name="_password">
-        </div>
-        <button type="submit" class="btn btn-default">{{ 'security.login.submit' | trans({}, 'FOSUserBundle') }}</button>
-    </form>
-    {{ mopa_bootstrap_menu('ChamiloCoreBundle:SimpleMenuBuilder:notLoginMenu', {'automenu': 'pills', 'stacked':true}) }}
+    {% endif %}
+
 {% endif %}
 
 {% endautoescape %}

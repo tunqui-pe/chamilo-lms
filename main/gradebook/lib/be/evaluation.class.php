@@ -324,7 +324,7 @@ class Evaluation implements GradebookItem
 			$tbl_grade_evaluations = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
 
 			$sql = 'INSERT INTO '.$tbl_grade_evaluations
-				.' (name, user_id, weight, max, visible';
+				.' (name, user_id, weight, max, visible, locked';
 			if (isset($this->description)) {
 				$sql .= ',description';
 			}
@@ -336,11 +336,14 @@ class Evaluation implements GradebookItem
 			}
 			$sql .= ', created_at';
 			$sql .= ',type';
-			$sql .= ") VALUES ('".Database::escape_string($this->get_name())."'"
+			$sql .= ") VALUES ('".Database::escape_string(
+			    $this->get_name())."'"
 				.','.intval($this->get_user_id())
 				.','.floatval($this->get_weight())
 				.','.intval($this->get_max())
-				.','.intval($this->is_visible());
+				.','.intval($this->is_visible())
+                .','.intval(0)
+            ;
 			if (isset($this->description)) {
 				$sql .= ",'".Database::escape_string($this->get_description())."'";
 			}

@@ -543,25 +543,6 @@ class Template
     {
         global $_configuration;
         $this->theme = api_get_visual_theme();
-        //Setting app paths/URLs
-        $_p = array(
-            'web' => api_get_path(WEB_PATH),
-            'web_relative' => api_get_path(REL_PATH),
-            'web_course' => api_get_path(WEB_COURSE_PATH),
-            'web_main' => api_get_path(WEB_CODE_PATH),
-            'web_css' => api_get_path(WEB_CSS_PATH),
-            'web_css_theme' => api_get_path(WEB_CSS_PATH) . 'themes/' . $this->theme . '/',
-            'web_ajax' => api_get_path(WEB_AJAX_PATH),
-            'web_img' => api_get_path(WEB_IMG_PATH),
-            'web_plugin' => api_get_path(WEB_PLUGIN_PATH),
-            'web_lib' => api_get_path(WEB_LIBRARY_PATH),
-            'web_upload' => api_get_path(WEB_UPLOAD_PATH),
-            'web_self' => api_get_self(),
-            'web_query_vars' => api_htmlentities($_SERVER['QUERY_STRING']),
-            'web_self_query_vars' => api_htmlentities($_SERVER['REQUEST_URI']),
-            'web_cid_query' => api_get_cidreq(),
-        );
-        $this->assign('_p', $_p);
 
         //Here we can add system parameters that can be use in any template
         $_s = array(
@@ -592,6 +573,7 @@ class Template
             'web_ajax' => api_get_path(WEB_AJAX_PATH),
             'web_img' => api_get_path(WEB_IMG_PATH),
             'web_plugin' => api_get_path(WEB_PLUGIN_PATH),
+            'web_plugin_asset' => api_get_path(WEB_PLUGIN_ASSET_PATH),
             'web_lib' => api_get_path(WEB_LIBRARY_PATH),
             'web_upload' => api_get_path(WEB_UPLOAD_PATH),
             'web_self' => api_get_self(),
@@ -610,34 +592,12 @@ class Template
             'gamification_mode' => api_get_setting('gamification_mode')
         );
 
-        $user_info = array();
-        $user_info['logged'] = 0;
-        //$this->user_is_logged_in = false;
-        if (api_user_is_login()) {
-            $user_info = api_get_user_info(api_get_user_id(), true);
-            $user_info['logged'] = 1;
-            $user_info['is_admin'] = 0;
-            /*if (api_is_platform_admin()) {
-                $user_info['is_admin'] = 1;
-            }*/
-            //$user_info['messages_count'] = MessageManager::get_new_messages();
-
-        }
+        //$user_info = api_get_user_info();
 
         return [
             '_p' => $_p,
             '_s' => $_s,
-            '_u' => $user_info,
-            'plugin_main_top' => '',
-            'plugin_content_top' => '',
-            'plugin_content_bottom' => '',
-            'plugin_main_bottom' => '',
-            'plugin_main_top' => '',
-            'breadcrumb' => '',
-            'plugin_main_top' => '',
-            'plugin_main_top' => '',
-            'plugin_main_top' => '',
-            'plugin_main_top' => '',
+     //       '_u' => $user_info,
             'template' => 'default' // @todo setup template folder in config.yml;
         ];
     }

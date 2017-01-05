@@ -1,12 +1,11 @@
 {% extends '@ChamiloTheme/Layout/base-layout.html.twig' %}
 
 {% block page_content %}
+    {% autoescape false %}
     {% if js is defined %}
-        {% autoescape false %}
         {% for item in js %}
             {{ item }}
         {% endfor %}
-        {% endautoescape %}
     {% endif %}
 
     {% if plugin_main_top %}
@@ -37,16 +36,17 @@
                 {% include '@ChamiloCore/breadcrumb.html.twig' %}
                 {% endblock %}
 
-                {% block chamilo_messages %}
-                {# Flash messages #}
-                {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
-                {% endblock %}
-
                 {% if actions != '' %}
                     <div class="actions">
                         {{ actions }}
                     </div>
                 {% endif %}
+
+                {% block chamilo_messages %}
+                {% autoescape false %}
+                {% include '@ChamiloTheme/FlashMessage/render.html.twig' %}
+                {% endautoescape %}
+                {% endblock %}
 
                 {# Content #}
                 {% block content %}
@@ -71,6 +71,7 @@
             {{ plugin_main_bottom }}
         </div>
     {% endif %}
+    {% endautoescape %}
 {% endblock %}
 
 

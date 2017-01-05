@@ -87,7 +87,6 @@ class SessionVoter extends Voter
 
         if ($course == false) {
 
-            error_log('Current course not loaded');
             return false;
         }
 

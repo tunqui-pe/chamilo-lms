@@ -1,6 +1,6 @@
 <?php
 // Show the CAS button to logout to your CAS session
-global $_user;
+$_user = api_get_user_info();
 $_template['show_message']   = false;
 
 if (!api_is_anonymous() &&

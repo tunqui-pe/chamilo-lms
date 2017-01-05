@@ -1,5 +1,5 @@
 <div id="azure-active-directory-login">
-    {% if _u.logged %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {# <a href="{{ azure_active_directory.signout_url }}" class="btn btn-primary">{{ 'Logout'|get_lang }}</a> #}
     {% else %}
         {% if not azure_active_directory.block_title is empty %}

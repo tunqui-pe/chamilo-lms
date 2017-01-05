@@ -3,12 +3,8 @@
  * List of courses
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
-$cidReset = true;
 
-require_once __DIR__.'/../../../main/inc/global.inc.php';
+$cidReset = true;
 
 $plugin = BuyCoursesPlugin::create();
 $includeSessions = $plugin->get('include_sessions') === 'true';
@@ -63,6 +59,8 @@ if (api_is_platform_admin()) {
     ];
 }
 
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
+
 $templateName = $plugin->get_lang('CourseListOnSale');
 $tpl = new Template($templateName);
 $tpl->assign('search_filter_form', $form->returnForm());
@@ -70,8 +68,10 @@ $tpl->assign('showing_courses', true);
 $tpl->assign('courses', $courseList);
 $tpl->assign('sessions_are_included', $includeSessions);
 $tpl->assign('services_are_included', $includeServices);
+$tpl->assign('showing_sessions', false);
+$tpl->assign('showing_services', false);
 
-$content = $tpl->fetch('buycourses/view/catalog.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/catalog.tpl');
 
 $tpl->assign('header', $templateName);
 $tpl->assign('content', $content);

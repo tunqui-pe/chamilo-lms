@@ -4,6 +4,7 @@
 namespace Chamilo\CoreBundle\Composer;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class DumpTheme
@@ -15,9 +16,22 @@ class ScriptHandler
      */
     public static function dumpCssFiles()
     {
+        $fs = new Filesystem();
+        $pluginPath = __DIR__.'/../../../../plugin/';
+        $finder = new Finder();
+        $files = $finder->in($pluginPath)->directories()->depth(0);
+
+        $newPluginPath = __DIR__.'/../../../../web/plugins/';
+        foreach ($files as $item) {
+            if ($item->isDir()) {
+                if ($fs->exists($item->getRealPath().'/public')) {
+                    $fs->mirror($item->getRealPath().'/public', $newPluginPath.$item->getBasename(), null, ['override' => true]);
+                }
+            }
+        }
+
         $appCss = __DIR__.'/../../../../app/Resources/public';
         $newPath = __DIR__.'/../../../../web';
-        $fs = new Filesystem();
         $fs->mirror($appCss, $newPath, null, ['override' => true]);
     }
 

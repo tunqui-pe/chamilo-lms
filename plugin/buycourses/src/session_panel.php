@@ -3,13 +3,8 @@
  * User Panel
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
 
 $cidReset = true;
-
-require_once __DIR__.'/../../../main/inc/global.inc.php';
 
 $plugin = BuyCoursesPlugin::create();
 $includeSessions = $plugin->get('include_sessions') === 'true';
@@ -48,12 +43,13 @@ $toolbar = Display::toolbarButton(
 );
 
 $templateName = get_lang('TabsDashboard');
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 $tpl = new Template($templateName);
 $tpl->assign('showing_courses', true);
 $tpl->assign('sessions_are_included', $includeSessions);
 $tpl->assign('sale_list', $saleList);
 
-$content = $tpl->fetch('buycourses/view/session_panel.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/session_panel.tpl');
 
 $tpl->assign('actions', $toolbar);
 $tpl->assign('header', $templateName);

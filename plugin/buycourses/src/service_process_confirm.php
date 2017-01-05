@@ -4,10 +4,8 @@
  * Process purchase confirmation script for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
-require_once '../config.php';
+
+require_once __DIR__.'/../config.php';
 
 $plugin = BuyCoursesPlugin::create();
 
@@ -134,7 +132,7 @@ switch ($serviceSale['payment_type']) {
                 $buyer['complete_name'],
                 $buyer['email'],
                 $plugin->get_lang('bc_subject'),
-                $messageTemplate->fetch('buycourses/view/message_transfer.tpl')
+                $messageTemplate->fetch('@plugin/buycourses/view/message_transfer.tpl')
             );
 
             Display::addFlash(
@@ -167,7 +165,7 @@ switch ($serviceSale['payment_type']) {
         $template->assign('transfer_accounts', $transferAccounts);
         $template->assign('form', $form->returnForm());
 
-        $content = $template->fetch('buycourses/view/process_confirm.tpl');
+        $content = $template->fetch('@plugin/buycourses/view/process_confirm.tpl');
 
         $template->assign('content', $content);
         $template->display_one_col_template();

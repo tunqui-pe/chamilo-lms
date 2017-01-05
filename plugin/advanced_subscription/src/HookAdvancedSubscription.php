@@ -1,5 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
+
 /**
  * Hook Observer for Advanced subscription plugin
  * @author Daniel Alejandro Barreto Alva <daniel.barreto@beeznest.com>

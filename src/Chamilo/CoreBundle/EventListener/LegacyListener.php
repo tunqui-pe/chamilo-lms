@@ -11,7 +11,9 @@ use Chamilo\CoreBundle\Framework\Container;
 
 /**
  * Class LegacyListener
- * Adds objects into the session like the old global.inc
+ * Works as old global.inc.php
+ * Setting old php requirements so pages inside main/* could work correctly.
+ *
  * @package Chamilo\CoreBundle\EventListener
  */
 class LegacyListener
@@ -33,6 +35,22 @@ class LegacyListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
+        $controller = $request->get('_controller');
+        // Only process legacy listener when loading legacy controller
+        /*if ($controller != 'Chamilo\CoreBundle\Controller\LegacyController::classicAction') {
+            return;
+        }*/
+
+        /*$skipControllers = [
+            'web_profiler.controller.profiler:toolbarAction', //
+            'fos_js_routing.controller:indexAction'//
+        ];
+
+        // Skip legacy listener
+        if (in_array($controller, $skipControllers)) {
+            return;
+        }*/
+
         $session = $request->getSession();
 
         /** @var ContainerInterface $container */
@@ -62,9 +80,7 @@ class LegacyListener
             $root_rel = substr($root_rel, 1);
             $pos = strpos($root_rel, '/');
             $root_rel = substr($root_rel, 0, $pos);
-            $protocol = ((!empty($_SERVER['HTTPS']) && strtoupper(
-                        $_SERVER['HTTPS']
-                    ) != 'OFF') ? 'https' : 'http').'://';
+            $protocol = ((!empty($_SERVER['HTTPS']) && strtoupper($_SERVER['HTTPS']) != 'OFF') ? 'https' : 'http').'://';
             //urls with subdomains (HTTP_HOST is preferred - see #6764)
             if (empty($_SERVER['HTTP_HOST'])) {
                 if (empty($_SERVER['SERVER_NAME'])) {
@@ -82,7 +98,6 @@ class LegacyListener
             // the root dir. The admin portal should be something like https://host/adm/
             // At this time, subdirs will still hold a share cookie, so not ideal yet
             // see #6510
-            $urlId = 1;
             foreach ($access_urls as $details) {
                 if ($request_url_sub == $details['url']) {
                     $urlId = $details['id'];
@@ -94,6 +109,26 @@ class LegacyListener
                     break; //found one match, get out of foreach
                 }
             }
+
+            // Set legacy twig globals _p, _u, _s
+            $globals = \Template::getGlobals();
+            foreach ($globals as $index => $value) {
+                $container->get('twig')->addGlobal($index, $value);
+            }
+
+            $extraFooter = trim(api_get_setting('footer_extra_content'));
+            $container->get('twig')->addGlobal('footer_extra_content', $extraFooter);
+
+            $extraHeader = trim(api_get_setting('header_extra_content'));
+            $container->get('twig')->addGlobal('header_extra_content', $extraHeader);
+        }
+
+        // We set cid_reset = true if we enter inside a main/admin url
+        // CourseListener check this variable and deletes the course session
+        if (strpos($request->get('name'), 'admin/') !== false) {
+            $session->set('cid_reset', true);
+        } else {
+            $session->set('cid_reset', false);
         }
 
         $session->set('access_url_id', $urlId);
@@ -110,12 +145,6 @@ class LegacyListener
         // Setting legacy properties.
         Container::$dataDir = $container->get('kernel')->getDataDir();
         Container::$courseDir = $container->get('kernel')->getDataDir();
-
-        // Set legacy twig globals _p, _u, _s
-        $globals = \Template::getGlobals();
-        foreach ($globals as $index => $value) {
-            $container->get('twig')->addGlobal($index, $value);
-        }
     }
 
     /**

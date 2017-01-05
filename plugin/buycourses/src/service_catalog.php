@@ -3,13 +3,8 @@
  * List of services
  * @package chamilo.plugin.buycourses
  */
-/**
- * Initialization
- */
 
 $cidReset = true;
-
-require_once '../../../main/inc/global.inc.php';
 
 $plugin = BuyCoursesPlugin::create();
 $includeSessions = $plugin->get('include_sessions') === 'true';
@@ -81,8 +76,10 @@ $tpl->assign('showing_services', true);
 $tpl->assign('services', $serviceList);
 $tpl->assign('sessions_are_included', $includeSessions);
 $tpl->assign('services_are_included', $includeServices);
+$tpl->assign('showing_sessions', false);
+$tpl->assign('showing_courses', false);
 
-$content = $tpl->fetch('buycourses/view/catalog.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/catalog.tpl');
 
 $tpl->assign('header', $templateName);
 $tpl->assign('content', $content);

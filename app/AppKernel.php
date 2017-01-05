@@ -37,7 +37,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             // Data grid
-            //new APY\DataGridBundle\APYDataGridBundle(),
+            new APY\DataGridBundle\APYDataGridBundle(),
             new Chamilo\FaqBundle\ChamiloFaqBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
@@ -71,7 +71,7 @@ class AppKernel extends Kernel
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             // Oauth
-            //new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             //new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),

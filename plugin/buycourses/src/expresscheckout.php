@@ -1,12 +1,11 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * PayPal Express Checkout Module
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
+
 require_once 'paypalfunctions.php';
 /**
  *
@@ -15,7 +14,7 @@ require_once 'paypalfunctions.php';
  * earlier in a session variable
  * by the shopping cart page
  */
-$paymentAmount = $_SESSION["Payment_Amount"];
+$paymentAmount = $_SESSION['Payment_Amount'];
 
 /**
  * The currencyCodeType and paymentType

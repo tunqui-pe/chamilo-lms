@@ -22,27 +22,9 @@ class LegacyController extends ToolBaseController
 {
     public $section;
 
-    /**
-     * @param string $name
-     * @param Request $request
-     * @return Response
-     */
-    public function classicAction($name, Request $request)
+    private function setContainerValuesToLegacy()
     {
-        // get.
-        $_GET = $request->query->all();
-        // post.
-        $_POST = $request->request->all();
-
-        $rootDir = $this->get('kernel')->getRealRootDir();
-
-        //$_REQUEST = $request->request->all();
-        $mainPath = $rootDir.'main/';
-        $fileToLoad = $mainPath.$name;
-
-        // Setting legacy values inside the container
-
-        /** @var Connection $dbConnection */
+          /** @var Connection $dbConnection */
         $dbConnection = $this->container->get('database_connection');
         $em = $this->get('kernel')->getContainer()->get('doctrine.orm.entity_manager');
 
@@ -53,27 +35,47 @@ class LegacyController extends ToolBaseController
         Container::$container = $this->container;
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
-        //Container::$configDir = $this->container->get('kernel')->getConfigDir();
         $this->container->get('twig')->addGlobal('api_get_cidreq', api_get_cidreq());
+    }
 
-        //$breadcrumb = $this->container->get('chamilo_core.block.breadcrumb');
+    /**
+     * Handles all request in old legacy files inside 'main/' folder
+     * @param string $name
+     * @param Request $request
+     * @return Response
+     */
+    public function classicAction($name, Request $request, $folder = 'main')
+    {
+        // get.
+        $_GET = $request->query->all();
+        // post.
+        $_POST = $request->request->all();
+        $rootDir = $this->get('kernel')->getRealRootDir();
+        $mainPath = $rootDir.$folder.'/';
+        $fileToLoad = $mainPath.$name;
+
+        // Setting legacy values inside the container
+        $this->setContainerValuesToLegacy();
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)
         ) {
-            // Files inside /main need this variables to be set
+            /**
+             * Some legacy Chamilo files still use this variables directly,
+             * instead of using a function.
+            **/
             $is_allowed_in_course = api_is_allowed_in_course();
             $is_courseAdmin = api_is_course_admin();
             $is_platformAdmin = api_is_platform_admin();
-
             $toolNameFromFile = basename(dirname($fileToLoad));
             $charset = 'UTF-8';
             // Default values
             $_course = api_get_course_info();
             $_user = api_get_user_info();
+            $_cid = api_get_course_id();
             $debug = $this->container->get('kernel')->getEnvironment() == 'dev' ? true : false;
 
-            // Loading file
+            // Loading legacy file
             ob_start();
             require_once $fileToLoad;
             $out = ob_get_contents();
@@ -86,17 +88,15 @@ class LegacyController extends ToolBaseController
                 );
             }
 
+            // Loading code to be added
             $js = isset($htmlHeadXtra) ? $htmlHeadXtra : array();
 
-            // $interbreadcrumb is loaded in the require_once file.
+            // Loading legacy breadcrumb $interbreadcrumb
             $interbreadcrumb = isset($interbreadcrumb) ? $interbreadcrumb : null;
 
+            // We change the layout based in this variable
+            // This could be changed on the fly by a legacy script.
             $template = Container::$legacyTemplate;
-            $defaultLayout = '@ChamiloTheme/Layout/layout_one_col.html.twig';
-            if (!empty($template)) {
-                $defaultLayout = $template;
-            }
-
             $params = [
                 'legacy_breadcrumb' => $interbreadcrumb,
                 'js' => $js
@@ -106,7 +106,7 @@ class LegacyController extends ToolBaseController
             if (!empty($out)) {
                 $params['content'] = $out;
             } else {
-                // This means the page comes from legacy use of new Template()
+                // This means the page comes from legacy use of $tpl = new Template();
                 $legacyParams = \Template::$params;
                 if (!empty($legacyParams)) {
                     $params = array_merge($legacyParams, $params);
@@ -116,12 +116,17 @@ class LegacyController extends ToolBaseController
             // Render using Symfony2 layouts see folder:
             // src/Chamilo/ThemeBundle/Resources/views/Layout
             return $this->render(
-                $defaultLayout,
+                $template,
                 $params
             );
         } else {
             // Found does not exist
             throw new NotFoundHttpException();
         }
+    }
+
+    public function pluginAction($name, Request $request)
+    {
+        return $this->classicAction($name, $request, 'plugin');
     }
 }

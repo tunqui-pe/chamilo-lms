@@ -4,10 +4,8 @@
  * Success page for the purchase of a course in the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
-require_once '../config.php';
+
+require_once __DIR__.'/../config.php';
 
 $plugin = BuyCoursesPlugin::create();
 $paypalEnabled = $plugin->get('paypal_enable') === 'true';
@@ -209,6 +207,6 @@ $tpl->assign('currency', $sale['currency_id']);
 $tpl->assign('user', api_get_user_info($sale['user_id']));
 $tpl->assign('form', $form->returnForm());
 
-$content = $tpl->fetch('buycourses/view/success.tpl');
+$content = $tpl->fetch('@plugin/buycourses/view/success.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

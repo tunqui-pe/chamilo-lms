@@ -109,6 +109,7 @@ $interbreadcrumb[] = array(
     'url' => Security::remove_XSS($_SESSION['gradebook_dest']).'?selectcat='.$linkcat,
     'name' => get_lang('Gradebook')
 );
+$url = api_get_path(WEB_AJAX_PATH).'gradebook.ajax.php?a=get_gradebook_weight&'.api_get_cidreq();
 
 $htmlHeadXtra[] = '<script>
 $(document).ready( function() {
@@ -116,7 +117,7 @@ $(document).ready( function() {
        $("#hide_category_id option:selected").each(function () {
            var cat_id = $(this).val();
             $.ajax({
-                url: "'.api_get_path(WEB_AJAX_PATH).'gradebook.ajax.php?a=get_gradebook_weight",
+                url: "'.$url.'",
                 data: "cat_id="+cat_id,
                 success: function(return_value) {
                     if (return_value != 0 ) {

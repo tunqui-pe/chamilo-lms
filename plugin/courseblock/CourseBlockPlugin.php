@@ -52,8 +52,6 @@ class CourseBlockPlugin extends Plugin
         );
     }
 
-    ///public function
-
     public function install()
     {
         // Installing course settings
@@ -66,7 +64,7 @@ class CourseBlockPlugin extends Plugin
         $this->uninstall_course_fields_in_all_courses();
     }
 
-        /**
+    /**
      * @param string $region
      * @return string
      */
@@ -91,6 +89,7 @@ class CourseBlockPlugin extends Plugin
                 $content = $content === -1 ? '' : $content;
                 break;
         }
+
         return $content;
     }
 }

@@ -270,8 +270,11 @@ abstract class AbstractLink implements GradebookItem
             } else {
                 $sql .= ' WHERE';
             }
-            $sql .= " course_code = '".Database::escape_string($course_code)."'";
-            $paramcount ++;
+            $courseInfo = api_get_course_info($course_code);
+            if ($courseInfo) {
+                $sql .= " c_id = '".$courseInfo['real_id']."'";
+                $paramcount++;
+            }
         }
         if (isset($category_id)) {
             if ($paramcount != 0) {
@@ -310,7 +313,7 @@ abstract class AbstractLink implements GradebookItem
             $link->set_type($data['type']);
             $link->set_ref_id($data['ref_id']);
             $link->set_user_id($data['user_id']);
-            $link->set_course_code($data['course_code']);
+            $link->set_course_code(api_get_course_id());
             $link->set_category_id($data['category_id']);
             $link->set_date($data['created_at']);
             $link->set_weight($data['weight']);

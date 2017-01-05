@@ -43,6 +43,9 @@ imports:
 
     - { resource: ivory_ckeditor.yml }
 
+# Sylius
+    - { resource: sylius.yml }
+
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
@@ -82,6 +85,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14
+    paths:
+        '%kernel.root_dir%/../plugin': plugin
 
     form:
         resources:
@@ -107,21 +112,8 @@ twig:
           messages_count:
           message_link:
           is_profile_editable:
-          plugin_footer_left:
-          plugin_footer_center:
-          plugin_content_bottom:
-          plugin_header_left:
-          plugin_header_center:
-          plugin_header_right:
-          plugin_header_main:
-          plugin_pre_footer:
           administrator_name:
           execution_stats:
-          plugin_menu_bottom:
-          plugin_menu_top:
-          plugin_content_top:
-          plugin_footer_right:
-          footer_extra_content:
           course_session_block:
           show_course_shortcut:
           show_course_navigation_menu:
@@ -278,13 +270,47 @@ fm_elfinder:
 knp_menu:
     twig: true
 #
-#hwi_oauth:
-#    firewall_names: [main]
-#    resource_owners:
-#        any_name:
-#            type:                github
-#            client_id:           <client_id>
-#            client_secret:       <client_secret>
+hwi_oauth:
+    connect:
+        account_connector: chamilo_user_provider
+    firewall_names: [secured_area]
+    resource_owners:
+        github:
+            type:                github
+            client_id:           <client_id>
+            client_secret:       <client_secret>
+        facebook:
+            type:                facebook
+            client_id:           <client_id>
+            client_secret:       <client_secret>
+        google:
+            type:                google
+            client_id:           <client_id>
+            client_secret:       <client_secret>
+            scope:               "email profile"
+        my_custom_oauth2:
+            type:                oauth2
+            client_id:           <client_id>
+            client_secret:       <client_secret>
+            access_token_url:    https://path.to/oauth/v2/token
+            authorization_url:   https://path.to/oauth/v2/authorize
+            infos_url:           https://path.to/api/user
+            scope:               "user_details"
+            user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+            paths:
+                identifier: id
+                nickname:   username
+                realname:   fullname
+    fosub:
+        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
+        username_iterations: 30
+
+        # mapping between resource owners (see below) and properties
+        properties:
+            github: githubId
+            google: googleId
+            facebook: facebookId
+            my_custom_provider: customId
 
 #gregwar_captcha:
 

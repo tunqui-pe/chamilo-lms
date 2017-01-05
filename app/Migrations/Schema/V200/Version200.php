@@ -150,6 +150,17 @@ class Version200 extends AbstractMigrationChamilo
         if (!$table->hasIndex('idx_message_user_receiver_status')) {
             $this->addSql('CREATE INDEX idx_message_user_receiver_status ON message (user_receiver_id, msg_status)');
         }
+
+         // Update iso
+        $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
+        $this->addSql($sql);
+
+        $sql = "UPDATE sys_announcement SET lang = (SELECT isocode FROM language WHERE english_name = lang);";
+        $this->addSql($sql);
+        $this->addSql('ALTER TABLE c_tool_intro CHANGE id tool VARCHAR(255) NOT NULL');
+
+        $this->addSql('ALTER TABLE user ADD facebook_id VARCHAR(255) DEFAULT NULL, ADD facebook_access_token VARCHAR(255) DEFAULT NULL, ADD google_id VARCHAR(255) DEFAULT NULL, ADD google_access_token VARCHAR(255) DEFAULT NULL, ADD github_id VARCHAR(255) DEFAULT NULL, ADD github_access_token VARCHAR(255) DEFAULT NULL;');
+        $this->addSql('ALTER TABLE c_item_property CHANGE lastedit_user_id lastedit_user_id INT DEFAULT NULL');
     }
 
     /**

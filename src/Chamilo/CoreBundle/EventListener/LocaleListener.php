@@ -81,9 +81,7 @@ class LocaleListener implements EventSubscriberInterface
 
         if (!empty($courseCode)) {
             /** @var Course $course */
-            $course = $em->getRepository(
-                'ChamiloCoreBundle:Course'
-            )->findOneByCode($courseCode);
+            $course = $em->getRepository('ChamiloCoreBundle:Course')->findOneByCode($courseCode);
         }
 
         // try to see if the locale has been set as a _locale routing parameter
@@ -96,6 +94,7 @@ class LocaleListener implements EventSubscriberInterface
             /** @var SettingsManager $settings */
             $settings = $this->container->get('chamilo.settings.manager');
             $platformLocale = $settings->getSetting('language.platform_language');
+
             if (!empty($platformLocale)) {
                 $locale = $platformLocale;
             }

@@ -1,0 +1,95 @@
+#sylius_attribute:
+#    driver: doctrine/orm
+#    resources:
+#        subject_name:
+#            subject: Chamilo\UserBundle\Entity\User # Required: The subject class implementing `AttributeSubjectInterface`.
+#            attribute:
+#                classes:
+#                    model:      Sylius\Component\Attribute\Model\Attribute
+#                    interface:  Sylius\Component\Attribute\Model\AttributeInterface
+#                    repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+#                    controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+#                    factory:    Sylius\Component\Resource\Factory\Factory
+#                    form:
+#                        default: Sylius\Bundle\AttributeBundle\Form\Type\AttributeType
+#                        choice:  Sylius\Bundle\ResourceBundle\Form\Type\ResourceChoiceType
+#                validation_groups:
+#                    default: [ sylius ]
+##                translation:
+##                    classes:
+##                        model:      Sylius\Component\Attribute\Model\AttributeTranslation
+##                        interface:  Sylius\Component\Attribute\Model\AttributeTranslationInterface
+##                        controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+##                        repository: ~ # Required: The repository class for the attribute translation.
+##                        factory:    Sylius\Component\Resource\Factory\Factory
+##                        form:
+##                            default: Sylius\Bundle\AttributeBundle\Form\Type\AttributeTranslationType
+##                    validation_groups:
+##                        default: [ sylius ]
+#            attribute_value:
+#                classes:
+#                    model:      Chamilo\CoreBundle\Entity\ExtraFieldValues # Required: The model of the attribute value
+#                    interface:  Sylius\Component\Attribute\Model\AttributeValueInterface # Required: The interface of the attribute value
+#                    controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+#                    repository: Chamilo\CoreBundle\Entity\Repository\ExtraFieldValuesRepository # Required: The repository class for the attribute value.
+#                    factory:    Sylius\Component\Resource\Factory\Factory
+#                    form:
+#                        default: Sylius\Bundle\AttributeBundle\Form\Type\AttributeValueType
+#                validation_groups:
+#                    default: [ sylius ]
+#sylius_resource:
+#    resources:
+#        chamilo_course.c_tool_intro:
+#            driver: doctrine/orm
+#            object_manager: default
+#            templates: ChamiloCourseBundle:CToolIntro
+#            classes:
+#                model: Chamilo\CourseBundle\Entity\CToolIntro
+##                interface: MyApp\Entity\EntityNameInterface
+#                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+##                repository:  Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+#                repository:  Chamilo\CourseBundle\Entity\Repository\CToolIntroRepository
+#
+#
+
+
+# Platform settings (new)
+sylius_settings:
+    driver: doctrine/orm
+#    resources:
+#        settings:
+#            classes:
+#                model: Chamilo\CoreBundle\Entity\SettingsCurrent
+#                repository: Chamilo\CoreBundle\Entity\Repository\SettingsCurrentRepository
+
+
+sylius_resource:
+    resources:
+#        chamilo_course.c_tool_intro:
+#            driver: doctrine/orm
+#            classes:
+#                model: Chamilo\CourseBundle\Entity\CToolIntro
+        chamilo_notebook.notebook:
+            driver: doctrine/orm
+            templates: ChamiloNotebookBundle:Notebook
+            classes:
+                model: Chamilo\NotebookBundle\Entity\CNotebook
+                controller: Chamilo\NotebookBundle\Controller\NotebookController
+                repository: Chamilo\NotebookBundle\Entity\NotebookRepository
+
+# Course settings
+chamilo_course:
+    driver: doctrine/orm
+    resources:
+        parameter:
+            classes:
+                model: Chamilo\CourseBundle\Entity\CCourseSetting
+                repository: Chamilo\CourseBundle\Entity\Repository\CCourseSettingRepository
+
+doctrine_cache:
+    providers:
+        sylius_settings:
+            type: file_system
+        chamilo_settings:
+            type: file_system
+

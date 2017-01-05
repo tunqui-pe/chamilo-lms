@@ -10,14 +10,14 @@
  */
 
 //the plugin title
-$plugin_info['title']      = 'Add a button to login using CAS';
+$plugin_info['title'] = 'Add a button to login using CAS';
 
 //the comments that go with the plugin
-$plugin_info['comment']     = "If CAS is activated, this plugin add a text and a button on the login page to login with CAS. Configure plugin to add title, comment and logo.";
+$plugin_info['comment'] = "If CAS is activated, this plugin add a text and a button on the login page to login with CAS. Configure plugin to add title, comment and logo.";
 //the plugin version
-$plugin_info['version']     = '1.0';
+$plugin_info['version'] = '1.0';
 //the plugin author
-$plugin_info['author']      = 'Hubert Borderiou';
+$plugin_info['author'] = 'Hubert Borderiou';
 
 //the plugin configuration
 $form = new FormValidator('add_cas_button_form');
@@ -26,16 +26,14 @@ $form->addElement('text', 'cas_button_comment', 'CAS connexion description', '')
 $form->addElement('text', 'cas_image_url', 'Logo URL if any (image, 50px height)');
 $form->addButtonSave(get_lang('Save'), 'submit_button');
 //get default value for form
-$tab_default_add_cas_login_button_cas_button_label = api_get_setting('add_cas_login_button_cas_button_label');
-$tab_default_add_cas_login_button_cas_button_comment = api_get_setting('add_cas_login_button_cas_button_comment');
-$tab_default_add_cas_login_button_cas_image_url = api_get_setting('add_cas_login_button_cas_image_url');
+
 $defaults = array();
-$defaults['cas_button_label'] = $tab_default_add_cas_login_button_cas_button_label['add_cas_login_button'];
-$defaults['cas_button_comment'] = $tab_default_add_cas_login_button_cas_button_comment['add_cas_login_button'];
-$defaults['cas_image_url'] = $tab_default_add_cas_login_button_cas_image_url['add_cas_login_button'];
+$defaults['cas_button_label'] = api_get_plugin_setting('add_cas_login_button', 'cas_button_label');
+$defaults['cas_button_comment'] = api_get_plugin_setting('add_cas_login_button','cas_button_comment');
+$defaults['cas_image_url'] = api_get_plugin_setting('add_cas_login_button', 'cas_image_url');
 $form->setDefaults($defaults);
 //display form
 $plugin_info['settings_form'] = $form;
 
 //set the templates that are going to be used
-$plugin_info['templates']   = array('template.tpl');
+$plugin_info['templates'] = array('template.html.twig');

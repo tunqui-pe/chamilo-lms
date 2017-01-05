@@ -65,6 +65,7 @@
     <link rel="stylesheet" href="{{ asset('assets/jquery-ui/themes/smoothness/jquery-ui.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap-daterangepicker/daterangepicker.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/chosen/chosen.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-language/languages.min.css') }}"/>
 
     <script src="{{ asset('assets/modernizr/modernizr.js') }}"></script>
     <script src="{{ asset('assets/moment/moment.js') }}"></script>
@@ -75,7 +76,7 @@
     {#<script src="{{ asset_url }} "></script>#}
     {#{% endjavascripts %}#}
 
-    <script src="{{ asset('assets/jquery/jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/jquery/dist/jquery.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/bootstrap/dist/js/bootstrap.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/chosen/chosen.jquery.js') }}"></script>
@@ -90,7 +91,6 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-
     {% block chamilo_header_js %}
     {% include '@ChamiloTheme/Layout/header.js.twig' %}
     {% endblock %}
@@ -103,12 +103,15 @@
     {#%}#}
     {#<script type="text/javascript" src="{{ asset_url | replace({'/app_dev.php': ''}) }}"></script>#}
     {#{% endjavascripts %}#}
+    {% endblock %}
 </head>
 
 <body>
 <noscript>{{ "NoJavascript" | trans }}</noscript>
 {#{% if show_header == true %}#}
+
 {% block chamilo_wrap %}
+    {% autoescape false %}
     <div id="page-wrap">
         <!-- page section -->
         {# Bug and help notifications #}
@@ -178,7 +181,6 @@
                     </div>
                 </div>
             </section>
-
             <section id="menu-bar">
                 {# menu #}
                 {% block menu %}
@@ -186,7 +188,14 @@
                         <div class="container">
                             <div class="collapse navbar-collapse">
                             {{ mopa_bootstrap_menu('ChamiloCoreBundle:NavBuilder:leftMenu', {'automenu': 'navbar', 'stacked' : false}) }}
-                            {{ mopa_bootstrap_menu('ChamiloCoreBundle:NavBuilder:rightMenu', {'automenu': 'navbar', 'pull-right' : true} ) }}
+
+                            {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav navbar-right">
+                                    {{ render(controller('ChamiloThemeBundle:Navbar:user')) }}
+                                    </ul>
+                                </div>
+                            {% endif %}
                             </div>
                         </div>
                     </nav>
@@ -215,10 +224,6 @@
                 {#{% endblock %}#}
             {#</header>#}
         {% endblock %}
-
-        {% autoescape false %}
-        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
-        {% endautoescape %}
 
         {% block chamilo_content %}
             {#Check sonata_block.yml settings#}
@@ -259,9 +264,9 @@
         {#</div>#}
         {#<!-- /.right-side -->#}
 
-        {% endblock %}
         </div> {# end top_main_content #}
     </div> {# End page-wrap div #}
+
 
     {% block chamilo_footer %}
         {% include '@ChamiloTheme/Layout/footer.html.twig' %}
@@ -269,6 +274,8 @@
     {% block chamilo_footer_js %}
         {% include '@ChamiloTheme/Layout/footer.js.twig' %}
     {% endblock %}
+{% endautoescape %}
 {% endblock %} {# End chamilo_wrap block #}
+
 </body>
 </html>

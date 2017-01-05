@@ -7,7 +7,7 @@
 {{ favico }}
 {{ browser_specific_head }}
 <link rel="apple-touch-icon" href="{{ _p.web }}apple-touch-icon.png" />
-<link href="{{ _p.web_plugin }}advanced_subscription/views/css/style.css" rel="stylesheet" type="text/css">
+<link href="{{ asset('plugins/advanced_subscription/css/style.css') }}" rel="stylesheet" type="text/css">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="Generator" content="{{ _s.software_name }} {{ _s.system_version|slice(0,1) }}" />
 {#  Use the latest engine in ie8/ie9 or use google chrome engine if available  #}

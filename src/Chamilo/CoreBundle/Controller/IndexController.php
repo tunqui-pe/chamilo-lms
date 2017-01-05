@@ -35,6 +35,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class IndexController extends BaseController
 {
     /**
+     * The Chamilo index home page
      * @Route("/", name="home")
      * @Method({"GET"})
      *
@@ -49,7 +50,6 @@ class IndexController extends BaseController
         /** @var \PageController $pageController */
         //$pageController = $this->get('page_controller');
         $pageController = new PageController();
-
 /*
         if (api_get_setting('display_categories_on_homepage') == 'true') {
             //$template->assign('course_category_block', $pageController->return_courses_in_categories());
@@ -79,10 +79,16 @@ class IndexController extends BaseController
         $sessionHandler = $request->getSession();
         $sessionHandler->remove('coursesAlreadyVisited');
 
-        $announcementsBlock = $pageController->getAnnouncements();
+        $user = $this->getUser();
+        $userId = 0;
+        if ($user) {
+            $userId = $this->getUser()->getId();
+        }
+        $announcementsBlock = $pageController->getAnnouncements($userId);
+
         /** @var User $user */
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->find(1);
+        //$userManager = $this->container->get('fos_user.user_manager');
+        //$user = $userManager->find(1);
 
         //$attribute = $this->container->get('doctrine')->getRepository('ChamiloCoreBundle:ExtraField')->find(1);
 /*

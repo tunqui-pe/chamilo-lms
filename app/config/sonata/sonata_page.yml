@@ -23,12 +23,15 @@ sonata_page:
         - ^/administration(.*) # sonata admin
         - ^/admin(.*) # chamilo admin
         - ^/main(.*)
+        - ^/plugin(.*)
         - /(.*)/(.*)administration(.*)/
         - ^/api/(.*)
-        - ^install
-        - ^/install/(.*)
+        - ^/login/(.*)
+        - ^/connect/(.*)
         - ^/packages/(.*)
         - ^/package/(.*)
+        - ^install
+        - ^/install/(.*)
         - install.php
         - install.php/(.*)
         - install.php/packages/(.*)

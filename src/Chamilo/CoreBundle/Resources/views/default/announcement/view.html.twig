@@ -1,3 +1,4 @@
+{% autoescape false %}
 <h2 class="page-header">{{ "SystemAnnouncements" | get_lang }}</h2>
 
 {% if not announcement is empty %}
@@ -12,3 +13,4 @@
         {{ "NoResults" | get_lang }}
     </div>
 {% endif %}
+{% endautoescape %}

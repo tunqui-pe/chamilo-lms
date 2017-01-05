@@ -10,11 +10,11 @@
  */
 
 //the plugin title
-$plugin_info['title']       = 'Show regions';
+$plugin_info['title'] = 'Show regions';
 //the comments that go with the plugin
-$plugin_info['comment']     = "This is useful when trying to find the Chamilo regions, (<strong>only the admin </strong>can view this plugin). You have to activate all the items in the Regions area";
+$plugin_info['comment'] = "This is useful when trying to find the Chamilo regions, (<strong>only the admin </strong>can view this plugin). You have to activate all the items in the Regions area";
 //the plugin version
-$plugin_info['version']     = '1.0';
+$plugin_info['version'] = '1.0';
 //the plugin author
-$plugin_info['author']      = 'Julio Montoya';
+$plugin_info['author'] = 'Julio Montoya';
 

@@ -4,13 +4,8 @@
  * Create new Services for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-/**
- * Init
- */
 
 $cidReset = true;
-
-require_once '../../../main/inc/global.inc.php';
 
 $plugin = BuyCoursesPlugin::create();
 $currency = $plugin->getSelectedCurrency();
@@ -104,13 +99,13 @@ $form->setDefaults($formDefaultValues);
 
 if ($form->validate()) {
     $values = $form->getSubmitValues();
-    
+
     $plugin->storeService($values);
 
     Display::addFlash(
         Display::return_message($plugin->get_lang('ServiceAdded'), 'success')
     );
-    
+
     header('Location: configuration.php');
     exit;
 }

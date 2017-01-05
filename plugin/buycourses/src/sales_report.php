@@ -1,14 +1,14 @@
 <?php
-
 /* For license terms, see /license.txt */
+
 /**
  * List of pending payments of the Buy Courses plugin
  * @package chamilo.plugin.buycourses
  */
-//Initialization
+
 $cidReset = true;
 
-require_once '../config.php';
+require_once __DIR__.'/../config.php';
 
 api_protect_admin_script();
 
@@ -136,7 +136,7 @@ foreach ($sales as $sale) {
 $interbreadcrumb[] = ['url' => '../index.php', 'name' => $plugin->get_lang('plugin_title')];
 
 $templateName = $plugin->get_lang('SalesReport');
-
+$htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 $template = new Template($templateName);
 
 $toolbar = '';
@@ -150,13 +150,11 @@ if ($paypalEnable == "true" && $commissionsEnable == "true") {
         'primary',
         ['title' => $plugin->get_lang('PaypalPayoutCommissions')]
     );
-    
+
     $template->assign('actions', $toolbar);
-    
 }
 
 if ($commissionsEnable == "true") {
-
     $toolbar .= Display::toolbarButton(
         $plugin->get_lang('PayoutReport'),
         api_get_path(WEB_PLUGIN_PATH) . 'buycourses/src/payout_report.php',
@@ -164,9 +162,9 @@ if ($commissionsEnable == "true") {
         'info',
         ['title' => $plugin->get_lang('PayoutReport')]
     );
-    
+
     $template->assign('actions', $toolbar);
-    
+
 }
 $template->assign('form', $form->returnForm());
 $template->assign('selected_sale', $selectedSale);
@@ -176,8 +174,10 @@ $template->assign('sale_list', $saleList);
 $template->assign('sale_status_canceled', BuyCoursesPlugin::SALE_STATUS_CANCELED);
 $template->assign('sale_status_pending', BuyCoursesPlugin::SALE_STATUS_PENDING);
 $template->assign('sale_status_completed', BuyCoursesPlugin::SALE_STATUS_COMPLETED);
+$template->assign('showing_services', false);
 
-$content = $template->fetch('buycourses/view/sales_report.tpl');
+
+$content = $template->fetch('@plugin/buycourses/view/sales_report.tpl');
 
 $template->assign('header', $templateName);
 $template->assign('content', $content);

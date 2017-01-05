@@ -8347,7 +8347,7 @@ class learnpath
             $audio_player .= '<div class="lp_mediaplayer" id="container">
                               <a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this player.
                               </div>';
-            $audio_player .= api_get_js('mediaplayer/swfobject.js');
+            $audio_player .= api_get_js('js/mediaplayer/swfobject.js');
             $audio_player .= '<script>
                 var s1 = new SWFObject("'.api_get_path(WEB_LIBRARY_JS_PATH).'mediaplayer/player.swf","ply","250","20","9","#FFFFFF");
                 s1.addParam("allowscriptaccess","always");
