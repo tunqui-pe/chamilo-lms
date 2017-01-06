@@ -11,7 +11,8 @@ use Chamilo\CoreBundle\Entity\Session;
 use Chamilo\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter as AbstractVoter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -27,6 +28,7 @@ class GroupVoter extends AbstractVoter
     private $entityManager;
     private $courseManager;
     private $groupManager;
+    private $container;
 
     /**
      * @param EntityManager $entityManager
@@ -70,30 +72,37 @@ class GroupVoter extends AbstractVoter
         return $this->groupManager;
     }
 
-    /**
-     * {@inheritdoc}
+     /**
+     * @inheritdoc
      */
-    protected function getSupportedAttributes()
+    protected function supports($attribute, $subject)
     {
-        return array(self::VIEW, self::EDIT, self::DELETE);
+        $options = [
+            self::VIEW,
+            self::EDIT,
+            self::DELETE
+        ];
+
+        // if the attribute isn't one we support, return false
+        if (!in_array($attribute, $options)) {
+            return false;
+        }
+
+        // only vote on Post objects inside this voter
+        if (!$subject instanceof CGroupInfo) {
+            return false;
+        }
+
+        return true;
     }
 
-    /**
-     * {@inheritdoc}
+     /**
+     * @inheritdoc
      */
-    protected function getSupportedClasses()
+    protected function voteOnAttribute($attribute, $group, TokenInterface $token)
     {
-        return array('Chamilo\CourseBundle\Entity\CGroupInfo');
-    }
+        $user = $token->getUser();
 
-    /**
-     * @param string $attribute
-     * @param CGroupInfo $group
-     * @param User $user
-     * @return bool
-     */
-    protected function isGranted($attribute, $group, $user = null)
-    {
         // make sure there is a user object (i.e. that the user is logged in)
         if (!$user instanceof UserInterface) {
             return false;

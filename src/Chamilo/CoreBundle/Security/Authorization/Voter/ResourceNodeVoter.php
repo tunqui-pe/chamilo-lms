@@ -13,12 +13,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
+//use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
-use Zend\Permissions\Acl\Resource\GenericResource as Resource;
+//use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
+use Symfony\Component\Security\Core\Authorization\Voter\Voter as AbstractVoter;
 //use Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder;
 
 /**
@@ -48,36 +51,38 @@ class ResourceNodeVoter extends AbstractVoter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    protected function getSupportedAttributes()
+    protected function supports($attribute, $subject)
     {
-        return array(
+        $options = [
             self::VIEW,
             self::CREATE,
             self::EDIT,
             self::DELETE,
             self::EXPORT
-        );
+        ];
+
+        // if the attribute isn't one we support, return false
+        if (!in_array($attribute, $options)) {
+            return false;
+        }
+
+        // only vote on Post objects inside this voter
+        if (!$subject instanceof ResourceNode) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    protected function getSupportedClasses()
+    protected function voteOnAttribute($attribute, $resourceNode, TokenInterface $token)
     {
-        return array('Chamilo\CoreBundle\Entity\Resource\ResourceNode');
-    }
+        $user = $token->getUser();
 
-    /**
-     * @param string $attribute
-     * @param ResourceNode $resourceNode
-     * @param null $user
-     *
-     * @return bool
-     */
-    protected function isGranted($attribute, $resourceNode, $user = null)
-    {
         // Make sure there is a user object (i.e. that the user is logged in)
         if (!$user instanceof UserInterface) {
             return false;
@@ -92,13 +97,12 @@ class ResourceNodeVoter extends AbstractVoter
         }
 
         // Check if I'm the owner
-        $creator = $resourceNode->getCreator();
-
+        /*$creator = $resourceNode->getCreator();
         if ($creator instanceof UserInterface &&
             $user->getUsername() == $creator->getUsername()) {
 
             //return true;
-        }
+        }*/
 
         // Checking possible links connected to this resource
         $request = $this->container->get('request_stack')->getCurrentRequest();
