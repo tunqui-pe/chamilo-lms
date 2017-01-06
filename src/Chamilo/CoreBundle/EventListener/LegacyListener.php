@@ -116,6 +116,15 @@ class LegacyListener
                 $container->get('twig')->addGlobal($index, $value);
             }
 
+            $_admin = [
+                'email' => api_get_setting('emailAdministrator'),
+                'surname' => api_get_setting('administratorSurname'),
+                'name' => api_get_setting('administratorName'),
+                'telephone' => api_get_setting('administratorTelephone')
+            ];
+
+            $container->get('twig')->addGlobal('_admin', $_admin);
+
             $extraFooter = trim(api_get_setting('footer_extra_content'));
             $container->get('twig')->addGlobal('footer_extra_content', $extraFooter);
 
