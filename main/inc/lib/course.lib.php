@@ -792,7 +792,7 @@ class CourseManager
      * @param  string $courseCode the course code
      * @param  int $visible (optional) The course visibility in the catalogue to the user (1=visible, 0=invisible)
      *
-     * @return boolean true if added succesfully, false otherwise.
+     * @return boolean true if added successfully, false otherwise.
      */
     public static function addUserVisibilityToCourseInCatalogue($userId, $courseCode, $visible = 1)
     {
@@ -881,34 +881,6 @@ class CourseManager
             return Database::delete($courseUserTable, $cond);
         } else {
             return true; // Register does not exist
-        }
-    }
-
-
-    /**
-     *    Checks wether a parameter exists.
-     *    If it doesn't, the function displays an error message.
-     *
-     * @return boolean if parameter is set and not empty, false otherwise
-     * @todo move function to better place, main_api ?
-     */
-    public static function check_parameter($parameter, $error_message)
-    {
-        if (empty($parameter)) {
-            Display::display_normal_message($error_message);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     *    Lets the script die when a parameter check fails.
-     * @todo move function to better place, main_api ?
-     */
-    public static function check_parameter_or_fail($parameter, $error_message)
-    {
-        if (!self::check_parameter($parameter, $error_message)) {
-            die();
         }
     }
 
@@ -3519,9 +3491,10 @@ class CourseManager
             $html .= '<div class="subtitle-session">' . $params['subtitle'] . '</div>';
         }
         if (!empty($params['teachers'])) {
+            $teachers = $params['teachers'];
             $html .= '<h5 class="course-items-session">' .
                     Display::return_icon('teacher.png', get_lang('Teacher'), array(), ICON_SIZE_TINY) .
-                $params['teachers'] . '</h5>';
+                $teachers.'</h5>';
         }
         if (!empty($params['coaches'])) {
             $coaches = '';
@@ -4151,8 +4124,7 @@ class CourseManager
             null,
             array(),
             ICON_SIZE_LARGE,
-            null,
-            true
+            null
         );
 
         // Display the "what's new" icons
@@ -4234,9 +4206,8 @@ class CourseManager
         }
 
         if (api_get_setting('display_teacher_in_courselist') === 'true') {
-            $teacher_list = CourseManager::getTeachersFromCourse(
-                $course_info['real_id'],
-                false
+            $teacher_list = CourseManager::get_teacher_list_from_course_code_to_string(
+                $course_info['code']
             );
 
             $course_coachs = self::get_coachs_from_course(
