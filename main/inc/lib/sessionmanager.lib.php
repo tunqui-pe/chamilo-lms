@@ -2962,8 +2962,8 @@ class SessionManager
                         return false;
                     }
                 } else {
-                    $sql = "INSERT INTO $tbl_session_rel_course_rel_user(session_id, c_id, user_id, status)
-                            VALUES($session_id, $courseId, $user_id, 2)";
+                    $sql = "INSERT INTO $tbl_session_rel_course_rel_user(session_id, c_id, user_id, status, visibility)
+                            VALUES($session_id, $courseId, $user_id, 2, 1)";
                     $result = Database::query($sql);
                     if (Database::affected_rows($result) > 0) {
                         return true;
