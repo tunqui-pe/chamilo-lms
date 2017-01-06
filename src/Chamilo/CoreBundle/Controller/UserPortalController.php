@@ -27,7 +27,7 @@ class UserPortalController extends BaseController
     /**
      * @Route("/add_course", name="add_course")
      * @Method({"GET|POST"})
-     * @Security("has_role('ROLE_USER')")
+     * @Security("has_role('ROLE_TEACHER')")
      *
      * @return Response
      */
