@@ -18,7 +18,6 @@ use Symfony\Component\Routing\RouterInterface;
  * @package Chamilo\CoreBundle\Menu
  */
 class NavBuilder implements ContainerAwareInterface
-
 {
     use ContainerAwareTrait;
 
@@ -71,7 +70,6 @@ class NavBuilder implements ContainerAwareInterface
         );
 
         if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
-
             $menu->addChild(
                 $translator->trans('MyCourses'),
                 array('route' => 'userportal')
@@ -108,7 +106,6 @@ class NavBuilder implements ContainerAwareInterface
             );
 
             if ($checker->isGranted('ROLE_ADMIN')) {
-
                 $menu->addChild(
                     $translator->trans('Dashboard'),
                     array(

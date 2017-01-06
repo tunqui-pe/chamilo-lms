@@ -25,12 +25,11 @@ class CourseMenuBuilder implements ContainerAwareInterface
      */
     public function courseMenu(FactoryInterface $factory, array $options)
     {
-        $security = $this->container->get('security.authorization_checker');
+        $checker = $this->container->get('security.authorization_checker');
         $menu = $factory->createItem('root');
         $translator = $this->container->get('translator');
 
-        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
-
+        if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
             $menu->addChild(
                 $translator->trans('MyCourses'),
@@ -48,18 +47,19 @@ class CourseMenuBuilder implements ContainerAwareInterface
                 ]
             );
 
-            $menu->addChild(
-                $translator->trans('CreateCourse'),
-                ['route' => 'add_course']
-            );
-
-            $menu->addChild(
-                $translator->trans('AddSession'),
-                [
-                    'route' => 'main',
-                    'routeParameters' => ['name' => 'session/session_add.php'],
-                ]
-            );
+            if ($checker->isGranted('ROLE_TEACHER')) {
+                $menu->addChild(
+                    $translator->trans('CreateCourse'),
+                    ['route' => 'add_course']
+                );
+                $menu->addChild(
+                    $translator->trans('AddSession'),
+                    [
+                        'route' => 'main',
+                        'routeParameters' => ['name' => 'session/session_add.php'],
+                    ]
+                );
+            }
 
             $link = $this->container->get('router')->generate('web.main');
 
@@ -102,11 +102,10 @@ class CourseMenuBuilder implements ContainerAwareInterface
      */
     public function skillsMenu(FactoryInterface $factory, array $options)
     {
-        $security = $this->container->get('security.authorization_checker');
+        $checker = $this->container->get('security.authorization_checker');
         $translator = $this->container->get('translator');
         $menu = $factory->createItem('root');
-        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
-
+        if ($checker->isGranted('IS_AUTHENTICATED_FULLY')) {
             $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked');
 
             $menu->addChild(
@@ -133,13 +132,15 @@ class CourseMenuBuilder implements ContainerAwareInterface
                 ]
             );
 
-            $menu->addChild(
-                $translator->trans('ManageSkills'),
-                [
-                    'route' => 'main',
-                    'routeParameters' => ['name' => 'admin/skills_wheel.php'],
-                ]
-            );
+            if ($checker->isGranted('ROLE_TEACHER')) {
+                $menu->addChild(
+                    $translator->trans('ManageSkills'),
+                    [
+                        'route' => 'main',
+                        'routeParameters' => ['name' => 'admin/skills_wheel.php'],
+                    ]
+                );
+            }
         }
 
         return $menu;
