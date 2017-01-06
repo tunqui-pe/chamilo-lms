@@ -5340,10 +5340,6 @@ class DocumentManager
                         $copy_to_myfiles = '';
                     }
                 }
-
-                if ($filetype == 'file') {
-                    $send_to = Portfolio::share('document', $document_data['id'], array('style' => 'float:right;'));
-                }
             }
 
             $pdf_icon = '';

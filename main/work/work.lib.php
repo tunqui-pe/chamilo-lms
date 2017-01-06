@@ -2044,8 +2044,6 @@ function get_work_user_list(
                         Display::return_icon('save.png', get_lang('Save'),array(), ICON_SIZE_SMALL).'</a> ';
                 }
 
-                $send_to = Portfolio::share('work', $work['id'],  array('style' => 'white-space:nowrap;'));
-
                 $feedback = null;
                 $count = getWorkCommentCount($item_id, $course_info);
                 if (!is_null($count) && !empty($count)) {
@@ -2194,7 +2192,7 @@ function get_work_user_list(
                     $qualificator_id = Display::label(get_lang('Revised'), 'success');
                 }
                 $work['qualificator_id'] = $qualificator_id;
-                $work['actions'] = '<div class="work-action">'.$send_to.$link_to_download.$action.'</div>';
+                $work['actions'] = '<div class="work-action">'.$link_to_download.$action.'</div>';
                 $work['correction'] = $correction;
 
                 $works[] = $work;
