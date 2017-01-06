@@ -50,7 +50,7 @@ class CourseLegalPlugin extends Plugin
             $link = Display::url(
                 $this->get_lang('CourseLegal'),
                 $url,
-                array('class' => 'btn')
+                array('class' => 'btn btn-default')
             );
         }
 
@@ -354,7 +354,9 @@ class CourseLegalPlugin extends Plugin
 
         $legalData = $this->getData($courseId, $sessionId);
         $coursePath = api_get_path(SYS_COURSE_PATH).$course['directory'].'/courselegal';
-        $uploadResult = $coursePath.'/'.$legalData['filename'];
+        if (!empty($legalData)) {
+            $uploadResult = $coursePath.'/'.$legalData['filename'];
+        }
 
         if (!is_dir($coursePath)) {
             mkdir($coursePath, api_get_permissions_for_new_directories());
@@ -395,8 +397,10 @@ class CourseLegalPlugin extends Plugin
         $conditions['filename'] = $fileName;
 
         if (empty($legalData)) {
+            Display::addFlash(Display::return_message(get_lang('Saved')));
             $id = Database::insert($table, $conditions);
         } else {
+            Display::addFlash(Display::return_message(get_lang('Updated')));
             $id = $legalData['id'];
 
             $updateParams = array(
