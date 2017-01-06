@@ -904,6 +904,58 @@ class Session
     }
 
     /**
+     * @return bool
+     */
+    public function isActiveForStudent()
+    {
+        $start = $this->getAccessStartDate();
+        $end = $this->getAccessEndDate();
+
+        return $this->compareDates($start, $end);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActiveForCoach()
+    {
+        $start = $this->getCoachAccessStartDate();
+        $end = $this->getCoachAccessEndDate();
+
+        return $this->compareDates($start, $end);
+    }
+
+    /**
+     * @param $start
+     * @param $end
+     * @return bool
+     */
+    private function compareDates($start, $end)
+    {
+        $now = new \Datetime('now');
+
+        if (!empty($start) && !empty($end)) {
+            if ($now >= $start && $now <= $end) {
+                return true;
+            }
+        }
+
+        if (!empty($start)) {
+            if ($now >= $start) {
+                return true;
+            }
+        }
+
+        if (!empty($end)) {
+            if ($now <= $end) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param Course $course
      */
     public function addCourse(Course $course)
@@ -982,6 +1034,7 @@ class Session
     }
 
     /**
+     * currentCourse is set in CourseListener
      * @return Course
      */
     public function getCurrentCourse()
@@ -990,15 +1043,24 @@ class Session
     }
 
     /**
+     * currentCourse is set in CourseListener
      * @param Course $course
      * @return $this
      */
     public function setCurrentCourse(Course $course)
     {
         // If the session is registered in the course session list.
-        if ($this->getCourses()->contains($course->getId())) {
+        $exists = $this->getCourses()->exists(
+            function ($key, $element) use ($course) {
+                /** @var SessionRelCourse $element */
+                return $course->getId() == $element->getCourse()->getId();
+            }
+        );
+
+        if ($exists) {
             $this->currentCourse = $course;
         }
+
         return $this;
     }
 
