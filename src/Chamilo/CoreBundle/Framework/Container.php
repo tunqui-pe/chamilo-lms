@@ -185,7 +185,7 @@ class Container
     }
 
     /**
-     * @return Request
+     * @return object|Request
      */
     public static function getRequest()
     {
@@ -321,7 +321,7 @@ class Container
     }
 
     /**
-     * @return \Symfony\Bundle\FrameworkBundle\Routing\Router
+     * @return object|\Symfony\Cmf\Component\Routing\ChainRouter
      */
     public static function getRouter()
     {
@@ -335,4 +335,5 @@ class Container
     {
         return self::$container->get('chamilo_course.tool_chain');
     }
+
 }

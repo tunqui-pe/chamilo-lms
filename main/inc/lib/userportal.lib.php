@@ -26,33 +26,9 @@ class IndexManager
         $this->user_id = api_get_user_id();
         $this->load_directories_preview = false;
 
-        // Load footer plugins systematically
-        /*$config = api_get_settings_params(array('subkey = ? ' => 'customfooter', ' AND category = ? ' => 'Plugins'));
-        if (!empty($config)) {
-            foreach ($config as $fooid => $configrecord) {
-                $canonic = preg_replace('/^customfooter_/', '', $configrecord['variable']);
-                $footerconfig->$canonic = $configrecord['selected_value'];
-            }
-            if (!empty($footerconfig->footer_left)) {
-                $this->tpl->assign('plugin_footer_left', $footerconfig->footer_left);
-            }
-            if (!empty($footerconfig->footer_right)) {
-                $this->tpl->assign('plugin_footer_right', $footerconfig->footer_right);
-            }
-        }*/
-
         if (api_get_setting('show_documents_preview') === 'true') {
             $this->load_directories_preview = true;
         }
-    }
-
-    /**
-     * @param bool $setLoginForm
-     */
-    public function set_login_form($setLoginForm = true)
-    {
-        global $loginFailed;
-        $this->tpl->setLoginForm($setLoginForm);
     }
 
     /**
@@ -93,60 +69,6 @@ class IndexManager
     }
 
     /**
-     * @param bool $show_slide
-     * @return null|string
-     */
-    public function return_announcements($show_slide = true)
-    {
-        // Display System announcements
-        $hideAnnouncements = api_get_setting('hide_global_announcements_when_not_connected');
-        $currentUserId = api_get_user_id();
-        if ($hideAnnouncements == 'true' && empty($currentUserId)) {
-            return null;
-        }
-        $announcement = isset($_GET['announcement']) ? $_GET['announcement'] : null;
-        $announcement = intval($announcement);
-
-        if (!api_is_anonymous() && $this->user_id) {
-            $visibility = api_is_allowed_to_create_course() ? SystemAnnouncementManager::VISIBLE_TEACHER : SystemAnnouncementManager::VISIBLE_STUDENT;
-            if ($show_slide) {
-                $announcements = SystemAnnouncementManager:: display_announcements_slider(
-                    $visibility,
-                    $announcement
-                );
-            } else {
-                $announcements = SystemAnnouncementManager:: display_all_announcements(
-                    $visibility,
-                    $announcement
-                );
-            }
-        } else {
-            if ($show_slide) {
-                $announcements = SystemAnnouncementManager:: display_announcements_slider(
-                    SystemAnnouncementManager::VISIBLE_GUEST,
-                    $announcement
-                );
-            } else {
-                $announcements = SystemAnnouncementManager:: display_all_announcements(
-                    SystemAnnouncementManager::VISIBLE_GUEST,
-                    $announcement
-                );
-            }
-        }
-
-        return $announcements;
-    }
-
-    /**
-     * Alias for the online_logout() function
-     * @param   bool    $redirect   Whether to ask online_logout to redirect to index.php or not
-     */
-    public function logout($redirect = true)
-    {
-        online_logout($this->user_id, true);
-    }
-
-    /**
      * This function checks if there are courses that are open to the world in the platform course categories (=faculties)
      *
      * @param string $category
@@ -172,75 +94,6 @@ class IndexManager
         }
 
         return false;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function return_teacher_link()
-    {
-        $html = '';
-        $show_menu = false;
-        if (!empty($this->user_id)) {
-            // tabs that are deactivated are added here
-
-            $show_menu = false;
-            $show_create_link = false;
-            $show_course_link = false;
-
-            if (api_is_allowed_to_create_course()) {
-                $show_menu = true;
-                $show_course_link = true;
-                $show_create_link = true;
-            } else {
-                if (api_get_setting('allow_students_to_browse_courses') === 'true') {
-                    $show_menu = true;
-                    $show_course_link = true;
-                }
-
-                if (api_is_allowed_to_create_course()) {
-                    $show_create_link = true;
-                }
-            }
-
-            if ($show_menu && ($show_create_link || $show_course_link)) {
-                $show_menu = true;
-            } else {
-                $show_menu = false;
-            }
-        }
-
-        // My Account section
-        if ($show_menu) {
-            $html .= '<ul class="nav nav-pills nav-stacked">';
-            if ($show_create_link) {
-                $html .= '<li class="add-course"><a href="' . api_get_path(WEB_CODE_PATH) . 'create_course/add_course.php">'.
-                    Display::return_icon('new-course.png',  get_lang('CourseCreate')).(api_get_setting('course_validation') == 'true' ? get_lang('CreateCourseRequest') : get_lang('CourseCreate')).'</a></li>';
-            }
-
-            if ($show_course_link) {
-                if (!api_is_drh() && !api_is_session_admin()) {
-                    $html .=  '<li class="list-course"><a href="'. api_get_path(WEB_CODE_PATH) . 'auth/courses.php">'.
-                        Display::return_icon('catalog-course.png', get_lang('CourseCatalog')) .get_lang('CourseCatalog').'</a></li>';
-                } else {
-                    $html .= '<li><a href="' . api_get_path(WEB_CODE_PATH) . 'dashboard/index.php">'.get_lang('Dashboard').'</a></li>';
-                }
-            }
-            $html .= '</ul>';
-        }
-
-        if (!empty($html)) {
-            $html = self::show_right_block(
-                get_lang('Courses'),
-                $html,
-                'teacher_block',
-                null,
-                'teachers',
-                'teachersCollapse'
-            );
-        }
-
-        return $html;
     }
 
     /**
@@ -361,94 +214,6 @@ class IndexManager
         return $html;
     }
 
-    /**
-     * @return null|string
-     */
-    public function return_skills_links()
-    {
-        $content = '<ul class="nav nav-pills nav-stacked">';
-        /**
-         * Generate the block for show a panel with links to My Certificates and Certificates Search pages
-         * @return string The HTML code for the panel
-         */
-        $certificatesItem = '';
-        if (!api_is_anonymous()) {
-            $allow = api_get_configuration_value('hide_my_certificate_link');
-            if ($allow === false) {
-                $certificatesItem = Display::tag(
-                    'li',
-                    Display::url(
-                        Display::return_icon(
-                            'graduation.png',
-                            get_lang('MyCertificates'),
-                            null,
-                            ICON_SIZE_SMALL
-                        ).
-                        get_lang('MyCertificates'),
-                        api_get_path(WEB_CODE_PATH)."gradebook/my_certificates.php"
-                    )
-                );
-            }
-        }
-
-        $searchItem = '';
-        if (api_get_setting('allow_public_certificates') == 'true') {
-            $searchItem = Display::tag(
-                'li',
-                Display::url(Display::return_icon('search_graduation.png',get_lang('Search'),null,ICON_SIZE_SMALL).
-                    get_lang('Search'),
-                    api_get_path(WEB_CODE_PATH) . "gradebook/search.php"
-                )
-            );
-        }
-
-        if (empty($certificatesItem) && empty($searchItem)) {
-            return '';
-        } else {
-            $content .= $certificatesItem;
-            $content .= $searchItem;
-        }
-
-        if (api_get_setting('allow_skills_tool') == 'true') {
-            $content .= Display::tag(
-                'li',
-                Display::url(
-                    Display::return_icon('skill-badges.png',get_lang('MySkills'),null,ICON_SIZE_SMALL).get_lang('MySkills'),
-                    api_get_path(WEB_CODE_PATH).'social/my_skills_report.php'
-                )
-            );
-            $allowSkillsManagement = api_get_setting('allow_hr_skills_management') == 'true';
-            if (($allowSkillsManagement && api_is_drh()) || api_is_platform_admin()) {
-                $content .= Display::tag('li',
-                    Display::url(Display::return_icon('edit-skill.png', get_lang('MySkills'), null,
-                            ICON_SIZE_SMALL) . get_lang('ManageSkills'),
-                        api_get_path(WEB_CODE_PATH) . 'admin/skills_wheel.php'));
-            }
-        }
-
-        $content .= '</ul>';
-        $html = self::show_right_block(
-            get_lang("Skills"),
-            $content,
-            'skill_block',
-            null,
-            'skills',
-            'skillsCollapse'
-        );
-
-        return $html;
-    }
-
-    /**
-     * Reacts on a failed login:
-     * Displays an explanation with a link to the registration form.
-     *
-     * @version 1.0.1
-     */
-    public function handle_login_failed()
-    {
-        return $this->tpl->handleLoginFailed();
-    }
 
     /**
      * Display list of courses in a category.
@@ -805,15 +570,6 @@ class IndexManager
     }
 
     /**
-     * Adds a form to let users login
-     * @version 1.1
-     */
-    public function display_login_form()
-    {
-        return $this->tpl->displayLoginForm();
-    }
-
-    /**
      * @todo use FormValidator
      * @return string
      */
@@ -861,35 +617,6 @@ class IndexManager
                 $html .= self::show_right_block(get_lang('Classes'), $classes, 'classes_block');
             }
         }
-        return $html;
-    }
-
-    /**
-     * @return string
-     */
-    public function return_user_image_block()
-    {
-        $html = '';
-        if (!api_is_anonymous()) {
-            $userPicture = UserManager::getUserPicture(api_get_user_id(), USER_IMAGE_SIZE_ORIGINAL);
-            $content = null;
-
-            if (api_get_setting('allow_social_tool') == 'true') {
-                $content .= '<a style="text-align:center" href="' . api_get_path(WEB_PATH) . 'main/social/home.php">
-                <img class="img-circle" src="' . $userPicture . '" ></a>';
-            } else {
-                $content .= '<a style="text-align:center" href="' . api_get_path(WEB_PATH) . 'main/auth/profile.php">
-                <img class="img-circle" title="' . get_lang('EditProfile') . '" src="' . $userPicture. '" ></a>';
-            }
-
-            $html = self::show_right_block(
-                null,
-                $content,
-                'user_image_block',
-                array('style' => 'text-align:center;')
-            );
-        }
-
         return $html;
     }
 
@@ -1017,82 +744,6 @@ class IndexManager
             $content .= '</ul>';
 
             $html = self::show_right_block(get_lang('MainNavigation'), $content, 'navigation_link_block');
-        }
-
-        return $html;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function return_course_block()
-    {
-        $html = '';
-        $show_create_link = false;
-        $show_course_link = false;
-
-        if (api_is_allowed_to_create_course()) {
-            $show_create_link = true;
-        }
-
-        if (api_get_setting('allow_students_to_browse_courses') === 'true') {
-            $show_course_link = true;
-        }
-
-        // My account section
-        $my_account_content = '<ul class="nav nav-pills nav-stacked">';
-
-        if ($show_create_link) {
-            $my_account_content .= '<li class="add-course"><a href="main/create_course/add_course.php">';
-            if (api_get_setting('course_validation') == 'true' && !api_is_platform_admin()) {
-                $my_account_content .= Display::return_icon('new-course.png',get_lang('CreateCourseRequest'),null,ICON_SIZE_SMALL);
-                $my_account_content .= get_lang('CreateCourseRequest');
-            } else {
-                $my_account_content .= Display::return_icon('new-course.png',get_lang('CourseCreate'),null,ICON_SIZE_SMALL);
-                $my_account_content .= get_lang('CourseCreate');
-            }
-            $my_account_content .= '</a></li>';
-
-            if (SessionManager::allowToManageSessions()) {
-                $my_account_content .= '<li class="add-course"><a href="main/session/session_add.php">';
-                $my_account_content .= Display::return_icon('session.png',get_lang('AddSession'),null,ICON_SIZE_SMALL);
-                $my_account_content .= get_lang('AddSession');
-                $my_account_content .= '</a></li>';
-            }
-        }
-
-        //Sort courses
-        $url = api_get_path(WEB_CODE_PATH).'auth/courses.php?action=sortmycourses';
-        $img_order= Display::return_icon('order-course.png',get_lang('SortMyCourses'),null,ICON_SIZE_SMALL);
-        $my_account_content .= '<li class="order-course">'.Display::url($img_order.get_lang('SortMyCourses'), $url, array('class' => 'sort course')).'</li>';
-
-        // Session history
-        if (isset($_GET['history']) && intval($_GET['history']) == 1) {
-            $my_account_content .= '<li class="history-course"><a href="user_portal.php">'.Display::return_icon('history-course.png',get_lang('DisplayTrainingList'),null,ICON_SIZE_SMALL).get_lang('DisplayTrainingList').'</a></li>';
-        } else {
-            $my_account_content .= '<li class="history-course"><a href="user_portal.php?history=1" >'.Display::return_icon('history-course.png',get_lang('HistoryTrainingSessions'),null,ICON_SIZE_SMALL).get_lang('HistoryTrainingSessions').'</a></li>';
-        }
-
-        // Course catalog
-        if ($show_course_link) {
-            if (!api_is_drh()) {
-                $my_account_content .= '<li class="list-course"><a href="main/auth/courses.php" >'.Display::return_icon('catalog-course.png',get_lang('CourseCatalog'),null,ICON_SIZE_SMALL).get_lang('CourseCatalog').'</a></li>';
-            } else {
-                $my_account_content .= '<li><a href="main/dashboard/index.php">'.get_lang('Dashboard').'</a></li>';
-            }
-        }
-
-        $my_account_content .= '</ul>';
-
-        if (!empty($my_account_content)) {
-            $html = self::show_right_block(
-                get_lang('Courses'),
-                $my_account_content,
-                'course_block',
-                null,
-                'course',
-                'courseCollapse'
-            );
         }
 
         return $html;

@@ -25,182 +25,6 @@ class PageController
 {
     public $maxPerPage = 5;
 
-    /**
-     * Returns an HTML block with the user picture (as a link in a <div>)
-     * @param int User ID (if not provided, will use the user ID from session)
-     * @return string HTML div with a link to the user's profile
-     * @uses UserManager::get_user_pictur_path_by_id() to get the image path
-     * @uses UserManager::get_picture_user() to get the details of the image in a specific format
-     * @uses PageController::show_right_block() to include the image in a larger user block
-     */
-    public function setUserImageBlock($user_id = null)
-    {
-        if (empty($user_id)) {
-            $user_id = api_get_user_id();
-        }
-
-        //Always show the user image
-        $img_array = UserManager::get_user_picture_path_by_id($user_id, 'web', true, true);
-        $no_image  = false;
-        if ($img_array['file'] == 'unknown.jpg') {
-            $no_image = true;
-        }
-        $img_array       = UserManager::get_picture_user($user_id, $img_array['file'], 100, USER_IMAGE_SIZE_ORIGINAL);
-        $profile_content = null;
-        if (api_get_setting('social.allow_social_tool') == 'true') {
-            if (!$no_image) {
-                $profile_content .= '<a style="text-align:center" href="'.api_get_path(WEB_CODE_PATH).'social/home.php">
-                                    <img src="'.$img_array['file'].'"></a>';
-            } else {
-                $profile_content .= '<a style="text-align:center"  href="'.Container::getRouter()->generate('fos_user_profile_edit').'">
-                                    <img title="'.get_lang('EditProfile').'" src="'.$img_array['file'].'"></a>';
-            }
-        }
-        if (!empty($profile_content)) {
-            $this->show_right_block(null, null, 'user_image_block', array('content' => $profile_content));
-        }
-    }
-
-    /**
-     * Return a block with course-related links. The resulting HTML block's
-     * contents are only based on the user defined by the active session.
-     *
-     * @return string HTML <div> with links
-     */
-    public function setCourseBlock($filter = null)
-    {
-        $show_course_link = false;
-        $display_add_course_link = false;
-
-        if ((api_get_setting('course.allow_users_to_create_courses') == 'true'
-            && api_is_allowed_to_create_course() ||
-            api_is_platform_admin())
-        ) {
-            $display_add_course_link = true;
-        }
-
-        if (api_is_platform_admin() || api_is_course_admin() || api_is_allowed_to_create_course()) {
-            $show_course_link = true;
-        } else {
-            if (api_get_setting('display.allow_students_to_browse_courses') ==
-                'true') {
-                $show_course_link = true;
-            }
-        }
-
-        // My account section.
-        $my_account_content = array();
-
-        if ($display_add_course_link) {
-            $my_account_content[] = array(
-                'href'  => api_get_path(WEB_CODE_PATH).'create_course/add_course.php',
-                'title' => api_get_setting('course.course_validation') ==
-                'true' ? get_lang('CreateCourseRequest') : get_lang(
-                    'CourseCreate'
-                )
-            );
-        }
-
-        // Sort courses.
-        $url = api_get_path(WEB_CODE_PATH).'auth/courses.php?action=sortmycourses';
-        $my_account_content[] = array(
-            'href'  => $url,
-            'title' => get_lang('SortMyCourses')
-        );
-
-        // Course management.
-        if ($show_course_link) {
-            if (!api_is_drh()) {
-                $my_account_content[] = array(
-                    'href'  => api_get_path(WEB_CODE_PATH).'auth/courses.php',
-                    'title' => get_lang('CourseCatalog')
-                );
-
-                if (isset($filter) && $filter == 'history') {
-                    $my_account_content[] = array(
-                        'href'  => api_get_path(WEB_PUBLIC_PATH).'userportal',
-                        'title' => get_lang('DisplayTrainingList')
-                    );
-                } else {
-                    $my_account_content[] = array(
-                        'href'  => api_get_path(WEB_PUBLIC_PATH).'userportal/history',
-                        'title' => get_lang('HistoryTrainingSessions')
-                    );
-                }
-            } else {
-                $my_account_content[] = array(
-                    'href'  => api_get_path(WEB_CODE_PATH).'dashboard/index.php',
-                    'title' => get_lang('Dashboard')
-                );
-            }
-        }
-
-        $this->show_right_block(get_lang('Courses'), $my_account_content, 'course_block');
-    }
-
-    /**
-     *
-     */
-    public function setSessionBlock()
-    {
-        $showSessionBlock = false;
-
-        if (api_is_platform_admin()) {
-            $showSessionBlock = true;
-        }
-
-        if (api_get_setting('session.allow_teachers_to_create_sessions') ==
-            'true' && api_is_allowed_to_create_course()) {
-            $showSessionBlock = true;
-        }
-
-        if ($showSessionBlock) {
-            $content = array(
-                array(
-                    'href'  => api_get_path(WEB_CODE_PATH).'session/session_add.php',
-                    'title' => get_lang('AddSession')
-                )
-            );
-            $this->show_right_block(get_lang('Sessions'), $content, 'session_block');
-        }
-    }
-
-    /**
-     * Returns the profile block, showing links to the messaging and social
-     * network tools. The user ID is taken from the active session
-     * @return string HTML <div> block
-     */
-    public function setProfileBlock()
-    {
-        if (api_get_setting('message.allow_message_tool') == 'true') {
-            if (api_get_setting('social.allow_social_tool') == 'true') {
-                $this->show_right_block(get_lang('Profile'), array(), 'profile_social_block');
-            } else {
-                $this->show_right_block(get_lang('Profile'), array(), 'profile_block');
-            }
-        }
-    }
-
-    /**
-     * Get the course - session menu
-     */
-    public function setCourseSessionMenu()
-    {
-        $courseURL             = Session::$urlGenerator->generate('userportal', array('type' => 'courses'));
-        $sessionURL            = Session::$urlGenerator->generate('userportal', array('type' => 'sessions'));
-        $courseCategoriesURL   = Session::$urlGenerator->generate('userportal', array('type' => 'mycoursecategories'));
-        $specialCoursesURL     = Session::$urlGenerator->generate('userportal', array('type' => 'specialcourses'));
-        $sessionCategoriesURL  = Session::$urlGenerator->generate('userportal', array('type' => 'sessioncategories'));
-
-        $params = array(
-            array('href' => $courseURL, 'title' => get_lang('Courses')),
-            array('href' => $specialCoursesURL, 'title' => get_lang('SpecialCourses')),
-            array('href' => $courseCategoriesURL, 'title' => get_lang('MyCourseCategories')),
-            array('href' => $sessionURL, 'title' => get_lang('Sessions')),
-            array('href' => $sessionCategoriesURL, 'title' => get_lang('SessionsCategories')),
-        );
-        $this->show_right_block(get_lang('CourseSessionBlock'), $params, 'course_session_block');
-    }
 
     /**
      * Returns an online help block read from the home/home_menu_[lang].html
@@ -421,26 +245,6 @@ class PageController
     }
 
     /**
-     * Returns the reservation block (if the reservation tool is enabled)
-     * @return string HTML block, or empty string if reservation tool is disabled
-     */
-    public function return_reservation_block()
-    {
-        $html            = '';
-        $booking_content = null;
-        if (api_get_setting('allow_reservation') == 'true' && api_is_allowed_to_create_course()) {
-            $booking_content .= '<ul class="nav nav-list">';
-            $booking_content .= '<a href="main/reservation/reservation.php">'.get_lang(
-                'ManageReservations'
-            ).'</a><br />';
-            $booking_content .= '</ul>';
-            $html .= $this->show_right_block(get_lang('Booking'), $booking_content, 'reservation_block');
-        }
-
-        return $html;
-    }
-
-    /**
      * Returns an HTML block with classes (if show_groups_to_users is true)
      * @return string A list of links to users classes tools, or an empty string if show_groups_to_users is disabled
      */
@@ -515,70 +319,6 @@ class PageController
                 );
             }
         }
-    }
-
-    /**
-     * Returns links to teachers tools (create course, etc) based on the user
-     * in the active session
-     * @return string HTML <div> block
-     */
-    public function return_teacher_link()
-    {
-        $user_id = api_get_user_id();
-
-        if (!empty($user_id)) {
-            // tabs that are deactivated are added here
-
-            $show_menu        = false;
-            $show_create_link = false;
-            $show_course_link = false;
-
-            if (api_is_platform_admin() || api_is_course_admin() || api_is_allowed_to_create_course()) {
-                $show_menu        = true;
-                $show_course_link = true;
-            } else {
-                if (api_get_setting('display.allow_students_to_browse_courses') == 'true') {
-                    $show_menu        = true;
-                    $show_course_link = true;
-                }
-            }
-
-            if ($show_menu && ($show_create_link || $show_course_link)) {
-                $show_menu = true;
-            } else {
-                $show_menu = false;
-            }
-        }
-
-        // My Account section
-        $elements = array();
-        if ($show_menu) {
-            if ($show_create_link) {
-                $elements[] = array(
-                    'href'  => api_get_path(WEB_CODE_PATH).'create_course/add_course.php',
-                    'title' => (api_get_setting(
-                        'course.course_validation'
-                    ) == 'true' ? get_lang(
-                        'CreateCourseRequest'
-                    ) : get_lang('CourseCreate'))
-                );
-            }
-
-            if ($show_course_link) {
-                if (!api_is_drh() && !api_is_session_admin()) {
-                    $elements[] = array(
-                        'href'  => api_get_path(WEB_CODE_PATH).'auth/courses.php',
-                        'title' => get_lang('CourseCatalog')
-                    );
-                } else {
-                    $elements[] = array(
-                        'href'  => api_get_path(WEB_CODE_PATH).'dashboard/index.php',
-                        'title' => get_lang('Dashboard')
-                    );
-                }
-            }
-        }
-        $this->show_right_block(get_lang('Courses'), $elements, 'teacher_block');
     }
 
     /**
@@ -1087,13 +827,15 @@ class PageController
 
                         $params['title'] = $session_link;
 
-                        $moved_status = \SessionManager::get_session_change_user_reason(
+                        $moved_status = \SessionManager::getSessionChangeUserReason(
                             $session['moved_status']
                         );
                         $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
 
                         $params['subtitle'] = isset($session['coach_info']) ? $session['coach_info']['complete_name'] : null.$moved_status;
-                        $params['dates']    = $session['date_message'];
+                        $params['dates'] = \SessionManager::parseSessionDates(
+                            $session
+                        );
 
                         if (api_is_platform_admin()) {
                             $params['right_actions'] = '<a href="'.api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.$session_id.'">'.Display::return_icon(
@@ -1375,13 +1117,17 @@ class PageController
 
                                 $params['title'] = $session_link;
 
-                                $moved_status = \SessionManager::get_session_change_user_reason(
+                                $moved_status = \SessionManager::getSessionChangeUserReason(
                                     $session['moved_status']
                                 );
                                 $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
 
                                 $params['subtitle'] = isset($session['coach_info']) ? $session['coach_info']['complete_name'] : null.$moved_status;
-                                $params['dates'] = $session['date_message'];
+                                //$params['dates'] = $session['date_message'];
+
+                                $params['dates'] = \SessionManager::parseSessionDates(
+                                    $session
+                                );
                                 $params['right_actions'] = '';
                                 if (api_is_platform_admin()) {
                                     $params['right_actions'] .=
