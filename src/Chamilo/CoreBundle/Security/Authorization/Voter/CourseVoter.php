@@ -86,6 +86,7 @@ class CourseVoter extends AbstractVoter
      */
     protected function voteOnAttribute($attribute, $course, TokenInterface $token)
     {
+        /** @var User $user */
         $user = $token->getUser();
         // Anons can enter a course depending of the course visibility
         /*if (!$user instanceof UserInterface) {
@@ -101,17 +102,19 @@ class CourseVoter extends AbstractVoter
         }
 
         // Course is active?
-        if (!$course->isActive()) {
-
-            return false;
-        }
+        /** @var Course $course */
 
         switch ($attribute) {
             case self::VIEW:
                 // "Open to the world" no need to check if user is registered
+                // Course::OPEN_WORLD
                 if ($course->isPublic()) {
-
                     return true;
+                }
+
+                // Course is hidden then is not visible for nobody expect admins
+                if ($course->getVisibility() == Course::HIDDEN) {
+                    return false;
                 }
 
                 // Other course visibility need to have a user set
@@ -119,20 +122,27 @@ class CourseVoter extends AbstractVoter
                     return false;
                 }
 
-                // User is subscribed in the course no matter if is teacher/student
-                if ($course->hasUser($user)) {
-
+                // If user is logged in and is open platform, allow access.
+                if ($course->getVisibility() == Course::OPEN_PLATFORM) {
                     $user->addRole(ResourceNodeVoter::ROLE_CURRENT_COURSE_STUDENT);
-
+                    $token->setUser($user);
                     return true;
                 }
 
+                // Course::REGISTERED
+                // User must be subscribed in the course no matter if is teacher/student
+                if ($course->hasUser($user)) {
+                    $user->addRole(ResourceNodeVoter::ROLE_CURRENT_COURSE_STUDENT);
+                    $token->setUser($user);
+                    return true;
+                }
                 break;
             case self::EDIT:
             case self::DELETE:
                 // Only teacher can edit/delete stuff
                 if ($course->hasTeacher($user)) {
                     $user->addRole(ResourceNodeVoter::ROLE_CURRENT_COURSE_TEACHER);
+                    $token->setUser($user);
 
                     return true;
                 }
