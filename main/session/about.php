@@ -41,8 +41,9 @@ $tagField = $fieldsRepo->findOneBy([
 $courseValues = new ExtraFieldValue('course');
 $userValues = new ExtraFieldValue('user');
 $sessionValues = new ExtraFieldValue('session');
-
+/** @var \Chamilo\CoreBundle\Entity\SessionRelCourse $sessionCourse */
 foreach ($sessionCourses as $sessionCourse) {
+    $sessionCourse = $sessionCourse->getCourse();
     $courseTags = [];
 
     if (!is_null($tagField)) {

@@ -155,7 +155,9 @@ if ($sessionInfo['nbr_courses'] == 0) {
     $sessionRepository = Database::getManager()->getRepository('ChamiloCoreBundle:Session');
     $courses = $sessionRepository->getCoursesOrderedByPosition($session);
 
-	foreach ($courses as $course) {
+    /** @var \Chamilo\CoreBundle\Entity\SessionRelCourse $course */
+    foreach ($courses as $course) {
+        $course = $course->getCourse();
         //select the number of users
         $sql = "SELECT count(*)
                 FROM $tbl_session_rel_user sru,

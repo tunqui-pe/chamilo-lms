@@ -497,14 +497,14 @@ class Session
     public function getUserInCourse(User $user, Course $course, $status = null)
     {
         $criteria = Criteria::create()->where(
-            Criteria::expr()->eq("course", $course)
+            Criteria::expr()->eq('course', $course)
         )->andWhere(
-            Criteria::expr()->eq("user", $user)
+            Criteria::expr()->eq('user', $user)
         );
 
         if (!is_null($status))  {
             $criteria->andWhere(
-                Criteria::expr()->eq("status", $status)
+                Criteria::expr()->eq('status', $status)
             );
         }
 

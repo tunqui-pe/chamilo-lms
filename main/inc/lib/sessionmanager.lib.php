@@ -6277,42 +6277,6 @@ class SessionManager
         ]);
     }
 
-	/**
-     * Get the count of user courses in session
-     * @param int $sessionId The session id
-     * @return array
-     */
-    public static function getTotalUserCoursesInSession($sessionId)
-    {
-        $tableUser = Database::get_main_table(TABLE_MAIN_USER);
-        $table = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
-
-        if (empty($sessionId)) {
-            return [];
-        }
-
-        $sql = "SELECT 
-                    COUNT(u.id) as count, 
-                    u.id, 
-                    scu.status status_in_session, 
-                    u.status user_status
-                FROM $table scu
-                INNER JOIN $tableUser u 
-                ON scu.user_id = u.id
-                WHERE scu.session_id = " . intval($sessionId) ."
-                GROUP BY u.id";
-
-        $result = Database::query($sql);
-
-        $list = array();
-        while ($data = Database::fetch_assoc($result)) {
-            $list[] = $data;
-        }
-
-        return $list;
-    }
-
-
     /**
      * Returns list of a few data from session (name, short description, start
      * date, end date) and the given extra fields if defined based on a
