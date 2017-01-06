@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CCourseDescription
 {
-
     const TYPE_DESCRIPTION = 1;
     const TYPE_OBJECTIVES = 2;
     const TYPE_TOPICS = 3;
@@ -80,7 +79,6 @@ class CCourseDescription
      * @ORM\Column(name="progress", type="integer", nullable=false)
      */
     private $progress;
-
 
     /**
      * Set title

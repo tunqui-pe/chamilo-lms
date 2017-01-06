@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Entity\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Chamilo\CoreBundle\Entity\Session;
@@ -22,7 +23,7 @@ class SessionRepository extends EntityRepository
      * Get session's courses ordered by position in session_rel_course
      * @param Session $session The session
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ArrayCollection
      */
     public function getCoursesOrderedByPosition(Session $session)
     {

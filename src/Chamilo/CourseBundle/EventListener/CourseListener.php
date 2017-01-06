@@ -78,6 +78,7 @@ class CourseListener
 
                 // Group
                 $groupId = intval($request->get('gidReq'));
+
                 if (empty($sessionId)) {
                     // Check if user is allowed to this course
                     // See CourseVoter.php
