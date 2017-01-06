@@ -274,6 +274,16 @@ $servicesNodeTable->addForeignKeyConstraint(
     ['onDelete' => 'CASCADE']
 );
 
+$culqiTable = $pluginSchema->createTable(BuyCoursesPlugin::TABLE_CULQI);
+$culqiTable->addColumn(
+    'id',
+    \Doctrine\DBAL\Types\Type::INTEGER,
+    ['autoincrement' => true, 'unsigned' => true]
+);
+$culqiTable->addColumn('commerce_code', \Doctrine\DBAL\Types\Type::STRING);
+$culqiTable->addColumn('api_key', \Doctrine\DBAL\Types\Type::STRING);
+$culqiTable->setPrimaryKey(['id']);
+
 $queries = $pluginSchema->toSql($platform);
 
 foreach ($queries as $query) {
@@ -287,6 +297,7 @@ $itemTable = Database::get_main_table(BuyCoursesPlugin::TABLE_ITEM);
 $saleTable = Database::get_main_table(BuyCoursesPlugin::TABLE_SALE);
 $commissionTable = Database::get_main_table(BuyCoursesPlugin::TABLE_COMMISSION);
 $extraFieldTable = Database::get_main_table(TABLE_EXTRA_FIELD);
+$culqiTable = Database::get_main_table(BuyCoursesPlugin::TABLE_CULQI);
 
 $paypalExtraField = Database::select(
     "*",
@@ -322,6 +333,14 @@ Database::insert(
         'password' => '',
         'signature' => '',
         'sandbox' => true
+    ]
+);
+
+Database::insert(
+    $culqiTable,
+    [
+        'commerce_code' => '',
+        'api_key' => ''
     ]
 );
 

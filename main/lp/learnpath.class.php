@@ -779,12 +779,13 @@ class learnpath
         if (empty($publicated_on)) {
             //by default the publication date is the same that the creation date
             //The behaviour above was changed due BT#2800
-            global $_custom;
-            if (isset($_custom['lps_hidden_when_no_start_date']) && $_custom['lps_hidden_when_no_start_date']) {
-                $publicated_on = '';
-            } else {
-                $publicated_on = api_get_utc_datetime();
-            }
+//            global $_custom;
+//            if (isset($_custom['lps_hidden_when_no_start_date']) && $_custom['lps_hidden_when_no_start_date']) {
+//                $publicated_on = null;
+//            } else {
+//                $publicated_on = null;
+//            }
+            $publicated_on = null;
         } else {
             $publicated_on = Database::escape_string(api_get_utc_datetime($publicated_on));
         }
@@ -9896,9 +9897,11 @@ class learnpath
 
                     $finder = new Finder();
                     $finder->files()->in($containerOrigin)
+                        ->notName('*_DELETED_*')
                         ->exclude('share_folder')
                         ->exclude('chat_files')
-                        ->exclude('certificates');
+                        ->exclude('certificates')
+                    ;
 
                     if (is_dir($containerOrigin) && is_dir($containerDestination)) {
                         $fs = new Filesystem();
@@ -11348,7 +11351,15 @@ EOD;
                 $link .= $main_dir_path.'user/user.php?origin='.$origin;
                 break;
             case TOOL_STUDENTPUBLICATION:
-                $link .= $main_dir_path.'work/work_list.php?'.api_get_cidreq().'&id='.$row_item['path'].'&origin=learnpath';
+                if (!empty($row_item['path'])) {
+                    $link .= $main_dir_path.'work/work_list.php?'.api_get_cidreq().'&id='.$row_item['path'].'&origin=learnpath';
+                    break;
+                }
+
+                $link .= $main_dir_path . 'work/work.php?' . api_get_cidreq() . '&' . http_build_query([
+                        'id' => $row_item['path'],
+                        'origin' => 'learnpath'
+                    ]);
                 break;
         } //end switch
 
