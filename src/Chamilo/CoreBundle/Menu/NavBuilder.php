@@ -149,7 +149,6 @@ class NavBuilder implements ContainerAwareInterface
         }
 
         // Getting site information
-
         $site = $this->container->get('sonata.page.site.selector');
         $host = $site->getRequestContext()->getHost();
         $siteManager = $this->container->get('sonata.page.manager.site');
