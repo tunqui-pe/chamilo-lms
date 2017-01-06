@@ -65,20 +65,7 @@ class UserManager
      */
     public static function getManager()
     {
-        static $userManager;
-
-        if (!isset($userManager)) {
-            $encoderFactory = self::getEncoderFactory();
-            $userManager = new Chamilo\UserBundle\Entity\Manager\UserManager(
-                $encoderFactory,
-                new \FOS\UserBundle\Util\Canonicalizer(),
-                new \FOS\UserBundle\Util\Canonicalizer(),
-                Database::getManager(),
-                'Chamilo\\UserBundle\\Entity\\User'
-            );
-        }
-
-        return $userManager;
+        return Container::getUserManager();
     }
 
     /**
@@ -301,7 +288,7 @@ class UserManager
             // We use the authSource as password.
             // The real validation will be by processed by the auth
             // source not Chamilo
-            $password = $authSource;
+            //$password = $authSource;
         }
 
         // database table definition
@@ -343,6 +330,7 @@ class UserManager
             $expirationDate = new \DateTime($expirationDate, new DateTimeZone('UTC'));
         }
 
+        $em = Database::getManager();
         $userManager = self::getManager();
 
         /** @var User $user */
@@ -372,23 +360,57 @@ class UserManager
             $user->setExpirationDate($expirationDate);
         }
 
-        $userManager->updateUser($user);
+        $url = $em->getRepository('ChamiloCoreBundle:AccessUrl')->find(api_get_current_access_url_id());
+
+        $accessRelUser = new AccessUrlRelUser();
+        $accessRelUser->setUser($user);
+        $accessRelUser->setPortal($url);
+        $user->setPortal($accessRelUser);
+
+        // Default group is student
+        $group = 'student';
+
+        switch ($status) {
+            case STUDENT:
+                $group = 'student';
+                break;
+            case COURSEMANAGER:
+                $group = 'teacher';
+                break;
+            case DRH:
+                $group = 'drh';
+                break;
+            case SESSIONADMIN:
+                $group = 'session_manager';
+                break;
+            /*case QUESTION:
+                $group = 'question_manager';
+                break;*/
+            case STUDENT_BOSS:
+                $group = 'student_boss';
+                break;
+            case INVITEE:
+                $group = 'invitee';
+                break;
+        }
+
+        if ($isAdmin) {
+            $group = 'admin';
+        }
+
+        $criteria = ['code' => $group];
+        $group = $em->getRepository('ChamiloUserBundle:Group')->findOneBy($criteria);
+        $user->setGroups(array($group));
+
+        $userManager->updateUser($user, true);
         $userId = $user->getId();
 
         if (!empty($userId)) {
-            $return = $userId;
-            $sql = "UPDATE $table_user SET user_id = $return WHERE id = $return";
+            $sql = "UPDATE $table_user SET user_id = $userId WHERE id = $userId";
             Database::query($sql);
 
             if ($isAdmin) {
                 UserManager::add_user_as_admin($user);
-            }
-
-            if (api_get_multiple_access_url()) {
-                UrlManager::add_user_to_url($userId, api_get_current_access_url_id());
-            } else {
-                //we are adding by default the access_url_user table with access_url_id = 1
-                UrlManager::add_user_to_url($userId, 1);
             }
 
             if (is_array($extra) && count($extra) > 0) {
@@ -444,9 +466,9 @@ class UserManager
                 $emailBody = $tplContent->fetch($layoutContent);
                 /* MANAGE EVENT WITH MAIL */
                 if (EventsMail::check_if_using_class('user_registration')) {
-                    $values["about_user"] = $return;
+                    $values["about_user"] = $userId;
                     $values["password"] = $original_password;
-                    $values["send_to"] = array($return);
+                    $values["send_to"] = array($userId);
                     $values["prior_lang"] = null;
                     EventsDispatcher::events('user_registration', $values);
                 } else {
@@ -454,7 +476,7 @@ class UserManager
 
                     $additionalParameters = array(
                         'smsType' => SmsPlugin::WELCOME_LOGIN_PASSWORD,
-                        'userId' => $return,
+                        'userId' => $userId,
                         'mobilePhoneNumber' => $phoneNumber,
                         'password' => $original_password
                     );
@@ -520,7 +542,7 @@ class UserManager
             return false;
         }
 
-        return $return;
+        return $userId;
     }
 
     /**
@@ -589,7 +611,12 @@ class UserManager
             return false;
         }
 
-        $table_user = Database :: get_main_table(TABLE_MAIN_USER);
+        $user = self::getManager()->find($user_id);
+
+        if (empty($user)) {
+            return false;
+        }
+
         $usergroup_rel_user = Database :: get_main_table(TABLE_USERGROUP_REL_USER);
         $table_course_user = Database :: get_main_table(TABLE_MAIN_COURSE_USER);
         $table_course = Database :: get_main_table(TABLE_MAIN_COURSE);
@@ -716,8 +743,9 @@ class UserManager
         Database::query($sql);
 
         // Delete user from database
-        $sql = "DELETE FROM $table_user WHERE id = '".$user_id."'";
-        Database::query($sql);
+        /*$sql = "DELETE FROM $table_user WHERE id = '".$user_id."'";
+        Database::query($sql);*/
+        self::getManager()->delete($user);
 
         // Add event to system log
         $user_id_manager = api_get_user_id();
