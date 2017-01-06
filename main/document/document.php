@@ -202,11 +202,6 @@ if (!empty($groupId)) {
 // Actions.
 $document_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
 $currentUrl = api_get_self().'?'.api_get_cidreq().'&id='.$document_id;
-
-if (Portfolio::controller()->accept()) {
-    Portfolio::controller()->run();
-}
-
 $curdirpath = isset($_GET['curdirpath']) ? Security::remove_XSS($_GET['curdirpath']) : null;
 
 switch ($action) {
@@ -2027,10 +2022,6 @@ if (count($documentAndFolders) > 1) {
         $form_action['set_invisible'] = get_lang('SetInvisible');
         $form_action['set_visible'] = get_lang('SetVisible');
         $form_action['delete'] = get_lang('Delete');
-        $portfolio_actions = Portfolio::actions();
-        foreach ($portfolio_actions as $action) {
-            $form_action[$action->get_name()] = $action->get_title();
-        }
         $table->set_form_actions($form_action, 'ids');
     }
 }
