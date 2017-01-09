@@ -248,7 +248,7 @@ if ($is_group_member || $group_info['visibility'] == GROUP_PERMISSION_OPEN) {
 
     // My friends
     $friend_html = SocialManager::listMyFriendsBlock(
-        $user_id,
+        api_get_user_id(),
         '',
         ''
     );
@@ -329,6 +329,17 @@ $tpl->assign('create_link', $create_thread_link);
 $tpl->assign('is_group_member', $is_group_member);
 $tpl->assign('group_info', $group_info);
 $tpl->assign('social_friend_block', $friend_html);
+$socialAjaxUrl = api_get_path(WEB_AJAX_PATH).'social.ajax.php';
+$socialAutoExtendLink = Display::url(
+    get_lang('SeeMore'),
+    $socialAjaxUrl.'?u='.api_get_user_id(
+    ).'&a=listWallMessage&start=10&length=5',
+    array(
+        'class' => 'nextPage next',
+    )
+);
+
+$tpl->assign('social_auto_extend_link', $socialAutoExtendLink);
 $tpl->assign('social_menu_block', $social_menu_block);
 $tpl->assign('social_forum', $socialForum);
 $tpl->assign('social_right_content', $social_right_content);
