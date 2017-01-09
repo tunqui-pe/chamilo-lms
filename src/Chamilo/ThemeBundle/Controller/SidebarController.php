@@ -45,7 +45,7 @@ class SidebarController extends Controller
      * User inbox, profile links
      * @return Response
      */
-    public function userProfileAction()
+    /*public function userProfileAction()
     {
         if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_USER)) {
             return new Response();
@@ -59,7 +59,7 @@ class SidebarController extends Controller
                 'user' => $userEvent->getUser()
             )
         );
-    }
+    }*/
 
     /**
      * User social network section
@@ -102,7 +102,7 @@ class SidebarController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function menuKnpAction(Request $request)
+    public function leftMenuAction(Request $request)
     {
         if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_SETUP_MENU_KNP)) {
             return new Response();
@@ -115,7 +115,7 @@ class SidebarController extends Controller
         );
 
         return $this->render(
-            'ChamiloThemeBundle:Sidebar:menu_knp.html.twig',
+            'ChamiloThemeBundle:Sidebar:left_menu.html.twig',
             array(
                 'menu' => $event->getMenu()
             )

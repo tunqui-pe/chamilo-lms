@@ -145,7 +145,7 @@ services:
         arguments: ["%kernel.default_locale%", "@service_container"]
         tags:
             - { name: kernel.event_subscriber }
-
+    # User locale listener
     chamilo_core.listener.user_locale_listener:
         class: Chamilo\CoreBundle\EventListener\UserLocaleListener
         arguments: ["@session", "@chamilo.settings.manager"]
@@ -158,6 +158,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: sylius.settings.pre_save, method: onSettingPreSave }
 
+    # Menu listener
     chamilo_core.listener.navbar_menu_listener:
         class: Chamilo\CoreBundle\EventListener\MenuListener
         arguments: ['@service_container']
@@ -172,8 +173,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
             - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
-# Menu
-#    chamilo_core.listener.navbar_menu_listener:
+    # Menu
     chamilo_core.listener.message_listener:
         class: Chamilo\CoreBundle\EventListener\MessageListener
         arguments: ['@service_container']
@@ -200,7 +200,7 @@ services:
          - { name: mopa_bootstrap.menu, alias: chamilo_core.menu.nav }
 
     chamilo_core.menu.course_menu_builder:
-        class: Chamilo\CoreBundle\Menu\CourseMenuBuilder
+        class: Chamilo\CoreBundle\Menu\LeftMenuBuilder
         arguments: ['@knp_menu.factory', '@chamilo_core.entity.manager.course_manager', '@router']
 
     chamilo_core.block.course:
