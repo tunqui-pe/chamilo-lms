@@ -1162,6 +1162,7 @@ CONTENT
      */
     public function createGlobalPage(SiteInterface $site)
     {
+        return;
         $pageManager = $this->getPageManager();
         $blockManager = $this->getBlockManager();
         $blockInteractor = $this->getBlockInteractor();

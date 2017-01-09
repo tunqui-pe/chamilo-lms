@@ -26,8 +26,8 @@ if (api_get_setting('allow_lostpassword') == 'false') {
 	api_not_allowed(true);
 }
 
-$reset = Request::get('reset');
-$userId = Request::get('id');
+$reset = !empty($_GET['reset']) ? $_GET['reset'] : '';
+$userId = !empty($_GET['v']) ? $_GET['id'] : 0;
 
 $this_section = SECTION_CAMPUS;
 
@@ -151,7 +151,6 @@ if (CustomPages::enabled() && CustomPages::exists(CustomPages::LOST_PASSWORD)) {
 }
 
 $controller = new IndexManager($tool_name);
-$controller->set_login_form();
 $controller->tpl->assign('form', $form->returnForm());
 $template = $controller->tpl->get_template('auth/lost_password.tpl');
 $controller->tpl->display($template);

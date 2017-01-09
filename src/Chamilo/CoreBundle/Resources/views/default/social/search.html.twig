@@ -4,9 +4,7 @@
 {% autoescape false %}
 <div class="row">
     <div class="col-md-3">
-        <div class="social-network-menu">
-            {% include '@ChamiloTheme/Sidebar/social-menu.html.twig' %}
-        </div>
+        {% include '@ChamiloTheme/Sidebar/social-menu.html.twig' %}
     </div>
     <div class="col-md-9">
         <div class="form-search-sm">
@@ -18,8 +16,5 @@
     </div>
 </div>
 
-{% if form_modals is defined %}
-    {{ form_modals }}
-{% endif %}
 {% endautoescape %}
 {% endblock %}

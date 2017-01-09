@@ -626,7 +626,7 @@ class SocialManager extends UserManager
             $template->assign('show_group', true);
             $template->assign('group_id', $group_id);
             $template->assign('user_group_image', $userGroupImage);
-            //$template->assign('user_group', $group_info);
+            $template->assign('user_group', $group_info);
             $template->assign(
                 'user_is_group_admin',
                 $userGroup->is_group_admin(

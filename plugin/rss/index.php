@@ -1,15 +1,12 @@
 <?php
 
 $plugin = RssPlugin::create();
-
 $rss = $plugin->get_rss();
-
 $title = $plugin->get_block_title();
 $title = $title ? "<h4>$title</h4>" : '';
 
-$css = $plugin->get_css();
-$css = $css ? "<style type=\"text/css\" scoped=\"scoped\">$css</style>" : '';
-$bullet = api_get_path(WEB_PLUGIN_PATH).'rss/resources/arrow-bullet.png';
+$bullet = api_get_asset('plugins/rss/arrow-bullet.png');
+$css = api_get_css('plugins/rss/rss.css');
 
 if (empty($rss)) {
     Display::display_warning_message(get_lang('NoRSSItem'));
@@ -25,12 +22,10 @@ echo<<<EOT
         }
     </style>
     <div class="menusection">
-
-        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <script src="http://www.google.com/jsapi"></script>
         <script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js" type="text/javascript"></script>
-        <script type="text/javascript">
+        <script>
             google.load('feeds', '1');
-
             function OnLoad() {
                 var feeds = [
                     {

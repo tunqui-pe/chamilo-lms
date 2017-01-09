@@ -240,7 +240,6 @@ $tpl->assign('social_menu_block', $social_menu_block);
 $tpl->assign('social_search', $block_search);
 $tpl->assign('search_form', $searchForm);
 $tpl->assign('invitation_form', MessageManager::generate_invitation_form('send_invitation'));
-$tpl->assign('form_modals', true);
 
 $social_layout = $tpl->get_template('social/search.tpl');
 $tpl->display($social_layout);

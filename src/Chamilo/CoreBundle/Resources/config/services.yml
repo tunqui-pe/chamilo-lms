@@ -1,4 +1,4 @@
-# Settings parameters that will be used in the "services" section
+# Settings parameters that will be used in the 'services' section
 parameters:
     chamilo_core.entity.manager.course_manager.class: Chamilo\CoreBundle\Entity\Manager\CourseManager
     chamilo_core.entity.course: Chamilo\CoreBundle\Entity\Course
@@ -12,16 +12,16 @@ parameters:
 services:
     # Entity managers
     chamilo_core.entity.manager.course_manager:
-        class: %chamilo_core.entity.manager.course_manager.class%
-        arguments: [%chamilo_core.entity.course%, '@doctrine']
+        class: '%chamilo_core.entity.manager.course_manager.class%'
+        arguments: ['%chamilo_core.entity.course%', '@doctrine']
 
     chamilo_core.entity.manager.session_manager:
-        class: %chamilo_core.entity.manager.session_manager.class%
-        arguments: [%chamilo_core.entity.session%, '@doctrine']
+        class: '%chamilo_core.entity.manager.session_manager.class%'
+        arguments: ['%chamilo_core.entity.session%', '@doctrine']
 
     chamilo_core.manager.access_url:
-        class: %chamilo_core.entity.manager.access_url_manager.class%
-        arguments: [%chamilo_core.entity.access_url%, '@doctrine']
+        class: '%chamilo_core.entity.manager.access_url_manager.class%'
+        arguments: ['%chamilo_core.entity.access_url%', '@doctrine']
 
     # Chamilo Twig extension
     twig.extension.chamilo_extension:
@@ -73,14 +73,14 @@ services:
 #    # Extra field attribute services
 #    chamilo_user.form.type.attribute_value_type:
 #        class: Chamilo\UserBundle\Form\Type\AttributeValueType
-#        arguments: [Chamilo\CoreBundle\Entity\ExtraFieldValues, ["registration"], "user", @sylius.repository.subject_name_attribute_value]
+#        arguments: [Chamilo\CoreBundle\Entity\ExtraFieldValues, ['registration'], 'user', @sylius.repository.subject_name_attribute_value]
 #        tags:
 #            - { name: form.type, alias: chamilo_user_extra_field_value }
 ##
 #
 #    chamilo_user.form.type.attribute_type:
 #        class: Chamilo\UserBundle\Form\Type\AttributeType
-#        arguments: [Chamilo\CoreBundle\Entity\ExtraField, ["registration"], "user"]
+#        arguments: [Chamilo\CoreBundle\Entity\ExtraField, ['registration'], 'user']
 ##        arguments: [%sylius.attribute.attribute_types%]
 #        tags:
 #            - { name: form.type, alias: chamilo_user_attribute_type }
@@ -100,7 +100,7 @@ services:
 
 #    chamilo.doctrine.entity_listener_resolver:
 #        class: Chamilo\CoreBundle\Doctrine\EntityListenerResolver
-#        arguments: [ "@service_container" ]
+#        arguments: [ '@service_container' ]
 
     # Check if users are online
 #    chamilo_core.listener.online:
@@ -142,13 +142,13 @@ services:
     # Locale listener
     chamilo_core.listener.locale:
         class: Chamilo\CoreBundle\EventListener\LocaleListener
-        arguments: ["%kernel.default_locale%", "@service_container"]
+        arguments: ['%kernel.default_locale%', '@service_container']
         tags:
             - { name: kernel.event_subscriber }
-
+    # User locale listener
     chamilo_core.listener.user_locale_listener:
         class: Chamilo\CoreBundle\EventListener\UserLocaleListener
-        arguments: ["@session", "@chamilo.settings.manager"]
+        arguments: ['@session', '@chamilo.settings.manager']
         tags:
             - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }
     # Settings listener
@@ -158,13 +158,13 @@ services:
         tags:
             - { name: kernel.event_listener, event: sylius.settings.pre_save, method: onSettingPreSave }
 
+    # Menu listener
     chamilo_core.listener.navbar_menu_listener:
         class: Chamilo\CoreBundle\EventListener\MenuListener
         arguments: ['@service_container']
         tags:
-            - { name: kernel.event_listener, event: theme.sidebar_setup_menu_knp, method: onSetupMenu }
+            - { name: kernel.event_listener, event: theme.sidebar_left_menu, method: onSetupMenu }
             - { name: kernel.event_listener, event: theme.breadcrumb, method: onSetupMenu }
-#            - { name: kernel.event_listener, event: sylius.settings.pre_save, method: onSettingPreSave }
 
     chamilo_core.listener.navbar_user_listener:
         class: Chamilo\CoreBundle\EventListener\ShowUserListener
@@ -172,14 +172,30 @@ services:
         tags:
             - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
             - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
-# Menu
-#    chamilo_core.listener.navbar_menu_listener:
+
+    # Menu
     chamilo_core.listener.message_listener:
         class: Chamilo\CoreBundle\EventListener\MessageListener
         arguments: ['@service_container']
         tags:
             - { name: kernel.event_listener, event: theme.messages, method: onListMessages }
 
+#    chamilo_core.menu.simple_menu:
+#        class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
+#        arguments: ['@service_container']
+
+#    chamilo_core.menu.nav_builder:
+#        class: Chamilo\CoreBundle\Menu\NavBuilder
+#        arguments: ['@knp_menu.factory', '@router']
+#        tags:
+#         - { name: mopa_bootstrap.menu, alias: chamilo_core.menu.nav }
+
+#    chamilo_core.menu.course_menu_builder:
+#        class: Chamilo\CoreBundle\Menu\LeftMenuBuilder
+#        arguments: ['@knp_menu.factory', '@chamilo_core.entity.manager.course_manager', '@router']
+
+
+    # Auth listeners
     chamilo_core.listener.login_success_handler:
         class: Chamilo\CoreBundle\EventListener\LoginSuccessHandler
         arguments:  ['@router', '@security.authorization_checker']
@@ -188,41 +204,28 @@ services:
         class: Chamilo\CoreBundle\EventListener\LogoutSuccessHandler
         arguments:  ['@router', '@security.authorization_checker', '@security.token_storage']
 
-    # Show the user information in the topbar
-    chamilo_core.menu.simple_menu:
-        class: Chamilo\CoreBundle\Menu\SimpleMenuBuilder
-        arguments: ['@service_container']
-
-    chamilo_core.menu.nav_builder:
-        class: Chamilo\CoreBundle\Menu\NavBuilder
-        arguments: ['@knp_menu.factory', '@router']
-        tags:
-         - { name: mopa_bootstrap.menu, alias: chamilo_core.menu.nav }
-
-    chamilo_core.menu.course_menu_builder:
-        class: Chamilo\CoreBundle\Menu\CourseMenuBuilder
-        arguments: ['@knp_menu.factory', '@chamilo_core.entity.manager.course_manager', '@router']
-
+    # Block services
     chamilo_core.block.course:
         class: Chamilo\CoreBundle\Block\CourseBlockService
         arguments: [chamilo_core.block.course, '@templating']
         tags:
             - { name: sonata.block }
 
-#    # Loads the message notifications in the top bar
     chamilo_core.block.skill:
         class: Chamilo\CoreBundle\Block\SkillBlockService
         arguments: [chamilo_core.block.skill, '@templating' ]
         tags:
             - { name: sonata.block }
 
+    # Breadcrumb
     chamilo_core.block.breadcrumb:
         class: Chamilo\CoreBundle\Block\BreadcrumbBlockService
-        arguments: ["chamilo_core.block.breadcrumb", "breadcrumb", '@templating', '@knp_menu.menu_provider', '@knp_menu.factory']
+        arguments: ['chamilo_core.block.breadcrumb', 'breadcrumb', '@templating', '@knp_menu.menu_provider', '@knp_menu.factory']
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }
 
+    # Platform settings
     chamilo_core.settings.admin:
         class: Chamilo\CoreBundle\Settings\AdminSettingsSchema
         tags:
@@ -381,15 +384,16 @@ services:
         tags:
             - { name: sylius.settings_schema, alias: chamilo_core.settings.webservice, namespace: webservice }
 
+    # Form types
     chamilo_user.registration.form.type:
         class: Chamilo\UserBundle\Form\Type\RegistrationFormType
-        arguments: [%fos_user.model.user.class%]
+        arguments: ['%fos_user.model.user.class%']
         tags:
             - { name: form.type, alias: chamilo_sonata_user_registration }
 
     chamilo_user.profile.form.type:
         class: Chamilo\UserBundle\Form\ProfileType
-        arguments: [%fos_user.model.user.class%]
+        arguments: ['%fos_user.model.user.class%']
         tags:
             - { name: form.type, alias: chamilo_sonata_user_profile }
 

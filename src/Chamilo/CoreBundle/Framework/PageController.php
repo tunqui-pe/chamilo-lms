@@ -828,7 +828,7 @@ class PageController
                         $params['title'] = $session_link;
 
                         $moved_status = \SessionManager::getSessionChangeUserReason(
-                            $session['moved_status']
+                            isset($session['moved_status']) ? $session['moved_status'] : ''
                         );
                         $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
 
@@ -1118,7 +1118,7 @@ class PageController
                                 $params['title'] = $session_link;
 
                                 $moved_status = \SessionManager::getSessionChangeUserReason(
-                                    $session['moved_status']
+                                    isset($session['moved_status']) ? $session['moved_status'] : ''
                                 );
                                 $moved_status = isset($moved_status) && !empty($moved_status) ? ' ('.$moved_status.')' : null;
 

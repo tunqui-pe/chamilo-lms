@@ -26,13 +26,10 @@
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {# User avatar #}
                     {{ render(controller('ChamiloThemeBundle:Sidebar:userPanel', {'pathInfo': pathInfo })) }}
-
-                    {# User profile #}
-                    {{ render(controller('ChamiloThemeBundle:Sidebar:userProfile', {'pathInfo': pathInfo })) }}
                 {% endif %}
 
                 {# Login, Courses, Skills menu #}
-                {{ render(controller('ChamiloThemeBundle:Sidebar:menuKnp', {'request' : app.request, pathInfo: pathInfo })) }}
+                {{ render(controller('ChamiloThemeBundle:Sidebar:leftMenu', {'request' : app.request, pathInfo: pathInfo })) }}
             </section>
         {% endblock %}
         {% if plugin_menu_bottom %}
