@@ -5,8 +5,7 @@ $content = $plugin->get_content();
 $title = $plugin->get_block_title();
 $title = $title ? "<h4>$title</h4>" : '';
 
-$css = $plugin->get_css();
-$css = $css ? "<style type=\"text/css\" scoped=\"scoped\">$css</style>" : '';
+$css = api_get_css('plugins/static/static.css');
 
 if (empty($content)) {
     echo '';
