@@ -387,7 +387,6 @@ class LeftMenuBuilder implements ContainerAwareInterface
 
     /**
      * Register/reset password menu
-     * @todo
      * @param FactoryInterface $factory
      * @param array $options
      * @return \Knp\Menu\ItemInterface

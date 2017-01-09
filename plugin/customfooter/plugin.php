@@ -1,6 +1,7 @@
 <?php
 /**
- * This script is a configuration file for the delivery tools plugin. You can use it as a master for other platform plugins (course plugins are slightly different).
+ * This script is a configuration file for the delivery tools plugin.
+ * You can use it as a master for other platform plugins (course plugins are slightly different).
  * These settings will be used in the administration interface for plugins (Chamilo configuration settings->Plugins)
  * @package chamilo.plugin
  * @author Julio Montoya <gugli100@gmail.com>
@@ -17,12 +18,11 @@ require_once __DIR__.'/lib/customfooter_plugin.class.php';
 //the plugin title
 $plugin_info['title'] = 'Custom Footer';
 //the comments that go with the plugin
-$plugin_info['comment'] = "Drives configuration parameters that plugs custom footer notes";
+$plugin_info['comment'] = "Add custom footer. Set the regions to footer_left and footer_right.";
 //the plugin version
 $plugin_info['version'] = '1.0';
 //the plugin author
 $plugin_info['author'] = 'Valery Fremaux, Julio Montoya';
-
 
 /* Plugin optional settings */
 
