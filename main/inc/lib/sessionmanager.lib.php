@@ -19,6 +19,11 @@ use Chamilo\CoreBundle\Entity\Session;
  */
 class SessionManager
 {
+    //See BT#4871
+    CONST SESSION_CHANGE_USER_REASON_SCHEDULE = 1;
+    CONST SESSION_CHANGE_USER_REASON_CLASSROOM = 2;
+    CONST SESSION_CHANGE_USER_REASON_LOCATION = 3;
+    CONST SESSION_CHANGE_USER_REASON_ENROLLMENT_ANNULATION = 4;
     public static $_debug = false;
 
     /**
@@ -8063,5 +8068,36 @@ class SessionManager
         $result = Database::query($sql);
 
         return Database::store_result($result, 'ASSOC');
+    }
+
+    /**
+     * @todo Add constatns in a DB table
+     */
+    static function getSessionChangeUserReasons()
+    {
+        return array(
+            self::SESSION_CHANGE_USER_REASON_SCHEDULE => get_lang(
+                'ScheduleChanged'
+            ),
+            self::SESSION_CHANGE_USER_REASON_CLASSROOM => get_lang(
+                'ClassRoomChanged'
+            ),
+            self::SESSION_CHANGE_USER_REASON_LOCATION => get_lang(
+                'LocationChanged'
+            ),
+            //self::SESSION_CHANGE_USER_REASON_ENROLLMENT_ANNULATION => get_lang('EnrollmentAnnulation'),
+        );
+    }
+
+    /**
+     * Gets the reason name
+     * @param int $id reason id
+     * @return string
+     */
+    static function getSessionChangeUserReason($id)
+    {
+        $reasons = self::getSessionChangeUserReasons();
+
+        return isset($reasons[$id]) ? $reasons[$id] : '';
     }
 }

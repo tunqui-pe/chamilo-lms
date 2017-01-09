@@ -2642,7 +2642,9 @@ class UserManager
                     sc.id AS session_category_id,
                     sc.name AS session_category_name,
                     sc.dateStart AS session_category_date_start,
-                    sc.dateEnd AS session_category_date_end,
+                    sc.dateEnd AS session_category_date_end,                    
+                    s.displayStartDate AS display_start_date,
+                    s.displayEndDate AS display_end_date,
                     s.coachAccessStartDate AS coach_access_start_date,
                     s.coachAccessEndDate AS coach_access_end_date
                 FROM ChamiloCoreBundle:Session AS s                                
@@ -2765,6 +2767,12 @@ class UserManager
                 'access_end_date' => $row['access_end_date'] ? $row['access_end_date']->format('Y-m-d H:i:s') : null,
                 'coach_access_start_date' => $row['coach_access_start_date'] ? $row['coach_access_start_date']->format('Y-m-d H:i:s') : null,
                 'coach_access_end_date' => $row['coach_access_end_date'] ? $row['coach_access_end_date']->format('Y-m-d H:i:s') : null,
+                'display_start_date' => $row['display_start_date'] ? $row['display_start_date']->format(
+                    'Y-m-d H:i:s'
+                ) : null,
+                'display_end_date' => $row['display_end_date'] ? $row['display_end_date']->format(
+                    'Y-m-d H:i:s'
+                ) : null,
                 'courses' => $courseList
             );
         }
