@@ -1,4 +1,4 @@
-<!-- sidebar menu: : style can be found in sidebar.less -->
+<!-- @todo add permissions for each menu sidebar menu: : style can be found in sidebar.less -->
 {% import "ChamiloThemeBundle:Macros:box.html.twig" as macro %}
 {% autoescape false %}
 
@@ -8,25 +8,22 @@
     mopa_bootstrap_menu('ChamiloCoreBundle:LeftMenuBuilder:profileMenu', {'automenu': 'pills', 'stacked':true})
     ) }}
 
-    {{
-        macro.panel(
-            'Courses' | trans,
+    {{ macro.panel(
+    'Courses' | trans,
     mopa_bootstrap_menu('ChamiloCoreBundle:LeftMenuBuilder:courseMenu', {'automenu': 'pills', 'stacked':true})
-        )
-    }}
+    ) }}
 
     {{ macro.panel(
     'Sessions' | trans,
     mopa_bootstrap_menu('ChamiloCoreBundle:LeftMenuBuilder:sessionMenu', {'automenu': 'pills', 'stacked':true})
     ) }}
 
-    {{
-        macro.panel(
-            'Skills' | trans,
+    {{ macro.panel(
+    'Skills' | trans,
     mopa_bootstrap_menu('ChamiloCoreBundle:LeftMenuBuilder:skillsMenu', {'automenu': 'pills', 'stacked':true})
-        )
-    }}
+    ) }}
 {% else %}
+    {# Plugin login before/after tpls #}
     {% if plugin_login_top is not null %}
         <div id="plugin_login_top">
             {{ plugin_login_top }}
@@ -40,7 +37,11 @@
             {{ plugin_login_bottom }}
         </div>
     {% endif %}
-
 {% endif %}
+
+    {{ macro.panel(
+    'Help' | trans,
+    mopa_bootstrap_menu('ChamiloCoreBundle:LeftMenuBuilder:helpMenu', {'automenu': 'pills', 'stacked':true})
+    ) }}
 
 {% endautoescape %}

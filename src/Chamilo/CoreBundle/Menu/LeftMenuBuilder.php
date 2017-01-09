@@ -146,7 +146,7 @@ class LeftMenuBuilder implements ContainerAwareInterface
     /**
      * @param FactoryInterface $factory
      * @param array $options
-     * @return ItemInterface
+     * @return \Knp\Menu\ItemInterface
      */
     public function profileMenu(FactoryInterface $factory, array $options)
     {
@@ -381,6 +381,73 @@ class LeftMenuBuilder implements ContainerAwareInterface
                 }
             }
         }
+
+        return $menu;
+    }
+
+    /**
+     * Register/reset password menu
+     * @todo
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface
+     */
+    public function loginMenu(FactoryInterface $factory, array $options)
+    {
+        $menu = $factory->createItem('main');
+        $translator = $this->container->get('translator.default');
+        $settingManager = $this->container->get('chamilo.settings.manager');
+
+        if ($settingManager->getSetting('allow_registration') == 'true') {
+            $menu->addChild(
+                $translator->trans(
+                    'registration.submit',
+                    array(),
+                    'FOSUserBundle'
+                ),
+                array(
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/inscription.php'],
+                    array("attributes" => array("id" => 'nav')),
+                )
+            );
+        }
+
+        if ($settingManager->getSetting('allow_lostpassword') == 'true') {
+            $menu->addChild(
+                $translator->trans(
+                    'resetting.request.submit',
+                    array(),
+                    'FOSUserBundle'
+                ),
+                array(
+                    //'route' => 'fos_user_resetting_request',
+                    'route' => 'main',
+                    'routeParameters' => ['name' => 'auth/lostPassword.php'],
+                    array("attributes" => array("id" => 'nav')),
+                )
+            );
+        }
+
+        return $menu;
+    }
+
+    /**
+     * @param FactoryInterface $factory
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface
+     */
+    public function helpMenu(FactoryInterface $factory, array $options)
+    {
+        $translator = $this->container->get('translator.default');
+        $menu = $factory->createItem('main');
+        $menu->addChild(
+            $translator->trans('Forum'),
+            array(
+                'uri' => 'https://chamilo.org/forum/',
+                array("attributes" => array("id" => 'nav')),
+            )
+        );
 
         return $menu;
     }

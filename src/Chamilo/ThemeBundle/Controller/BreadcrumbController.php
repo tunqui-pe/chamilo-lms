@@ -15,9 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
  * Controller to handle breadcrumb display inside the layout
  *
  */
-class BreadcrumbController extends Controller {
-
-
+class BreadcrumbController extends Controller
+{
     /**
      * Controller Reference action to be called inside the layout.
      *
@@ -64,15 +63,17 @@ class BreadcrumbController extends Controller {
             }
         }
 
-        return $this->render('ChamiloThemeBundle:Breadcrumb:breadcrumb.html.twig', array(
-            'active' => $list,
-            'title'  => $title
-        ));
+        return $this->render(
+            'ChamiloThemeBundle:Breadcrumb:breadcrumb.html.twig',
+            [
+                'active' => $list,
+                'title' => $title,
+            ]
+        );
     }
 
-
     /**
-     * @return EventDispatcher
+     * @return object|\Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher|\Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher
      */
     protected function getDispatcher()
     {

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class MenuListener
+ * This is needed to load theme events to be executed.
  * @package Chamilo\CoreBundle\EventListener
  */
 class MenuListener
@@ -29,24 +30,8 @@ class MenuListener
      */
     public function onSetupMenu(SidebarMenuKnpEvent $event)
     {
-        $request = $event->getRequest();
-        $event->setMenu($this->getMenu($request));
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    protected function getMenu(Request $request)
-    {
-        $menu = $this->container->get('chamilo_core.menu.simple_menu');
-
-        $menuItems = $menu->mainMenu(
-            $this->container->get('knp_menu.factory'),
-            array()
-        );
-
-        return $this->activateByRoute($request->get('_route'), $menuItems);
+        //$request = $event->getRequest();
+        //$event->setMenu($this->getMenu($request));
     }
 
     /**
