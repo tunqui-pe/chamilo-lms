@@ -75,8 +75,5 @@ sudo chown -R www-data:www-data app main/default_course_document/images main/lan
 
 ### Start the installer
 
-In your browser, load the Chamilo URL. You should be automatically redirected 
-to the installer. If not, add the "web/install.php" suffix manually in 
-your browser address bar. The rest should be a matter of simple
- OK > Next > OK > Next...
+In your browser, load the "web/install.php" URL and follow the installation instructions.
 
