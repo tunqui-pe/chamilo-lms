@@ -1,3 +1,7 @@
+### 4.2.0
+- adds i18next.isInitialized when isInitialized
+- triggers backend loaded event before initialized
+
 ### 4.1.3 / 4.1.4
 - smaller changes suggested to still inofficial support ie8 [#852](https://github.com/i18next/i18next/issues/852)
 
