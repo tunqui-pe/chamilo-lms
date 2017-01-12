@@ -896,7 +896,6 @@ class Session
         $now = new \Datetime('now');
 
         if ($now > $this->getAccessStartDate()) {
-
             return true;
         }
 
