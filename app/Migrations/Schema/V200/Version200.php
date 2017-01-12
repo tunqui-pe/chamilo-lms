@@ -151,6 +151,27 @@ class Version200 extends AbstractMigrationChamilo
             $this->addSql('CREATE INDEX idx_message_user_receiver_status ON message (user_receiver_id, msg_status)');
         }
 
+        if (!$table->hasIndex('idx_message_receiver_status_send_date')) {
+            $this->addSql('CREATE INDEX idx_message_receiver_status_send_date ON message (user_receiver_id, msg_status, send_date)');
+        }
+
+        $table = $schema->getTable('track_e_course_access');
+        if (!$table->hasIndex('user_course_session_date')) {
+            $this->addSql(
+                'CREATE INDEX user_course_session_date ON track_e_course_access (user_id, c_id, session_id, login_course_date)'
+            );
+        }
+
+        $table = $schema->getTable('c_quiz_answer');
+        if (!$table->hasIndex('c_id_auto')) {
+            $this->addSql('CREATE INDEX c_id_auto ON c_quiz_answer (c_id, id_auto)');
+        }
+
+        $table = $schema->getTable('c_forum_post');
+        if (!$table->hasIndex('c_id_visible_post_date')) {
+            $this->addSql('CREATE INDEX c_id_visible_post_date ON c_forum_post (c_id, visible, post_date)');
+        }
+
          // Update iso
         $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
         $this->addSql($sql);
@@ -161,6 +182,8 @@ class Version200 extends AbstractMigrationChamilo
 
         $this->addSql('ALTER TABLE user ADD facebook_id VARCHAR(255) DEFAULT NULL, ADD facebook_access_token VARCHAR(255) DEFAULT NULL, ADD google_id VARCHAR(255) DEFAULT NULL, ADD google_access_token VARCHAR(255) DEFAULT NULL, ADD github_id VARCHAR(255) DEFAULT NULL, ADD github_access_token VARCHAR(255) DEFAULT NULL;');
         $this->addSql('ALTER TABLE c_item_property CHANGE lastedit_user_id lastedit_user_id INT DEFAULT NULL');
+
+
     }
 
     /**
