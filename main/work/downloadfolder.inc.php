@@ -53,7 +53,12 @@ $files = array();
 $course_id = api_get_course_int_id();
 $sessionId = api_get_session_id();
 
-$sessionCondition = api_get_session_condition($sessionId, true, false, 'props.session_id');
+$sessionCondition = api_get_session_condition(
+    $sessionId,
+    true,
+    false,
+    'props.session_id'
+);
 
 $filenameCondition = null;
 if (array_key_exists('filename', $work_data)) {
@@ -78,15 +83,15 @@ if (api_is_allowed_to_edit() || api_is_coach()) {
                 $filenameCondition
             FROM $tbl_student_publication AS work
             INNER JOIN $prop_table AS props
+            ON (work.id = props.ref AND props.c_id = work.c_id)
             INNER JOIN $tableUser as u
             ON (
-                props.c_id = $course_id AND
-                work.c_id = $course_id AND
-                work.id = props.ref AND
-                props.tool='work' AND
                 work.user_id = u.user_id
             )
  			WHERE
+ 			    props.tool = 'work' AND
+ 			    props.c_id = $course_id AND
+                work.c_id = $course_id AND
                 work.parent_id = $work_id AND
                 work.filetype = 'file' AND
                 props.visibility <> '2' AND
@@ -94,7 +99,6 @@ if (api_is_allowed_to_edit() || api_is_coach()) {
                 work.post_group_id = $groupIid
                 $sessionCondition
             ";
-
 } else {
     $courseInfo = api_get_course_info();
     protectWork($courseInfo, $work_id);
@@ -120,10 +124,13 @@ if (api_is_allowed_to_edit() || api_is_coach()) {
                 $filenameCondition
             FROM $tbl_student_publication AS work
             INNER JOIN $prop_table AS props
-            ON (props.c_id = $course_id AND
-                work.c_id = $course_id AND
-                work.id = props.ref)
+            ON (
+                props.c_id = work.c_id AND 
+                work.id = props.ref
+            )
             WHERE
+                props.c_id = $course_id AND
+                work.c_id = $course_id AND
                 props.tool = 'work' AND
                 work.accepted = 1 AND
                 work.active = 1 AND
@@ -138,7 +145,6 @@ $query = Database::query($sql);
 
 //add tem to the zip file
 while ($not_deleted_file = Database::fetch_assoc($query)) {
-
     $user_info = api_get_user_info($not_deleted_file['insert_user_id']);
     $insert_date = api_get_local_time($not_deleted_file['insert_date']);
     $insert_date = str_replace(array(':', '-', ' '), '_', $insert_date);
@@ -199,7 +205,6 @@ if (!empty($files)) {
 }
 
 /*	Extra function (only used here) */
-
 function my_pre_add_callback($p_event, &$p_header)
 {
     global $files;
