@@ -172,6 +172,11 @@ class Version200 extends AbstractMigrationChamilo
             $this->addSql('CREATE INDEX c_id_visible_post_date ON c_forum_post (c_id, visible, post_date)');
         }
 
+        $table = $schema->getTable('track_e_access');
+        if (!$table->hasIndex('user_course_session_date')) {
+            $this->addSql('CREATE INDEX user_course_session_date ON track_e_access (access_user_id, c_id, access_session_id, access_date)');
+        }
+
          // Update iso
         $sql = "UPDATE course SET course_language = (SELECT isocode FROM language WHERE english_name = course_language);";
         $this->addSql($sql);
