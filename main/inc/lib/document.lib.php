@@ -799,11 +799,12 @@ class DocumentManager
                        INNER JOIN $TABLE_DOCUMENT  AS docs
                        ON (
                             docs.id = last.ref AND
-                            last.tool = '" . TOOL_DOCUMENT . "' AND
-                            last.c_id = {$_course['real_id']} AND
-                            docs.c_id = {$_course['real_id']}
+                            docs.c_id = last.c_id                            
                        )
                        WHERE
+                            last.tool = '" . TOOL_DOCUMENT . "' AND
+                            last.c_id = {$_course['real_id']} AND
+                            docs.c_id = {$_course['real_id']} AND
                             docs.filetype = 'folder' AND
                             $groupCondition AND
                             docs.path NOT LIKE '%shared_folder%' AND
@@ -815,12 +816,13 @@ class DocumentManager
                         FROM $TABLE_ITEMPROPERTY  AS last
                         INNER JOIN $TABLE_DOCUMENT  AS docs
                         ON (
-                            docs.id = last.ref AND
-                            last.tool = '" . TOOL_DOCUMENT . "' AND
-                            last.c_id = {$_course['real_id']} AND
-                            docs.c_id = {$_course['real_id']}
+                            docs.id = last.ref AND                            
+                            docs.c_id = last.c_id
                         )
                         WHERE
+                            last.tool = '" . TOOL_DOCUMENT . "' AND
+                            last.c_id = {$_course['real_id']} AND
+                            docs.c_id = {$_course['real_id']} AND
                             docs.filetype = 'folder' AND
                             docs.path NOT LIKE '%_DELETED_%' AND
                             $groupCondition AND
@@ -895,10 +897,17 @@ class DocumentManager
 
             // Condition for the session
             $session_id = api_get_session_id();
-            $condition_session = api_get_session_condition($session_id, true, false, 'docs.session_id');
+            $condition_session = api_get_session_condition(
+                $session_id,
+                true,
+                false,
+                'docs.session_id'
+            );
+
             //get invisible folders
             $sql = "SELECT DISTINCT docs.id, path
-                    FROM $TABLE_ITEMPROPERTY AS last INNER JOIN $TABLE_DOCUMENT AS docs
+                    FROM $TABLE_ITEMPROPERTY AS last 
+                    INNER JOIN $TABLE_DOCUMENT AS docs
                     ON (docs.id = last.ref AND last.c_id = docs.c_id)
                     WHERE                        
                         docs.filetype = 'folder' AND
@@ -909,15 +918,14 @@ class DocumentManager
                         docs.c_id = {$_course['real_id']} ";
             $result = Database::query($sql);
             $invisibleFolders = array();
+
             while ($row = Database::fetch_array($result, 'ASSOC')) {
-                //condition for the session
-                $session_id = api_get_session_id();
-                $condition_session = api_get_session_condition($session_id, true, false, 'docs.session_id');
                 //get visible folders in the invisible ones -> they are invisible too
                 $sql = "SELECT DISTINCT docs.id, path
-                        FROM $TABLE_ITEMPROPERTY AS last, $TABLE_DOCUMENT AS docs
-                        WHERE
-                            docs.id = last.ref AND
+                        FROM $TABLE_ITEMPROPERTY AS last 
+                        INNER JOIN $TABLE_DOCUMENT AS docs
+                        ON (docs.id = last.ref AND last.c_id = docs.c_id)
+                        WHERE                            
                             docs.path LIKE '" . Database::escape_string($row['path'].'/%') . "' AND
                             docs.filetype = 'folder' AND
                             last.tool = '" . TOOL_DOCUMENT . "' AND
@@ -931,7 +939,7 @@ class DocumentManager
                 }
             }
 
-            //if both results are arrays -> //calculate the difference between the 2 arrays -> only visible folders are left :)
+            // If both results are arrays -> //calculate the difference between the 2 arrays -> only visible folders are left :)
             if (is_array($visibleFolders) && is_array($invisibleFolders)) {
                 $document_folders = array_diff($visibleFolders, $invisibleFolders);
                 natsort($document_folders);
