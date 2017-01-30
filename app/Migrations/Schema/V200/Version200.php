@@ -189,6 +189,13 @@ class Version200 extends AbstractMigrationChamilo
         $this->addSql('ALTER TABLE c_item_property CHANGE lastedit_user_id lastedit_user_id INT DEFAULT NULL');
 
 
+        // Fixes missing options show_glossary_in_extra_tools
+        $this->addSql("DELETE FROM settings_options WHERE variable = 'show_glossary_in_extra_tools'");
+
+        $this->addSql("INSERT INTO settings_options (variable, value, display_text) VALUES ('show_glossary_in_extra_tools', 'none', 'None')");
+        $this->addSql("INSERT INTO settings_options (variable, value, display_text) VALUES ('show_glossary_in_extra_tools', 'exercise', 'Exercise')");
+        $this->addSql("INSERT INTO settings_options (variable, value, display_text) VALUES ('show_glossary_in_extra_tools', 'lp', 'Learning path')");
+        $this->addSql("INSERT INTO settings_options (variable, value, display_text) VALUES ('show_glossary_in_extra_tools', 'exercise_and_lp', 'ExerciseAndLearningPath')");
     }
 
     /**
