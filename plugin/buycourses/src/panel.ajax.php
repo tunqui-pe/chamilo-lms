@@ -1,5 +1,5 @@
 <?php
-/* For licensing terms, see /chamilo_license.txt */
+/* For licensing terms, see /license.txt */
 
 /**
  * Responses to AJAX calls
@@ -50,9 +50,7 @@ switch ($action) {
         $html .= '<img class="thumbnail" src="'. $productImage .'" >';
         $html .= '</div>';
         $html .= '</div>';
-
         echo $html;
-
         break;
     case 'stats':
         $stats = [];
@@ -86,7 +84,6 @@ switch ($action) {
             $stats['canceled_total_amount'] = number_format($stats['canceled_total_amount'], 2);
         }
 
-
         $html = '<div class="row">'
         . '<p>'
             . '<ul>'
@@ -107,11 +104,9 @@ switch ($action) {
         $allPays = [];
         $totalAccounts = 0;
         $totalPayout = 0;
-
         $payouts = isset($_POST['payouts']) ? $_POST['payouts'] : '';
 
         if (!$payouts) {
-
             echo Display::return_message(get_plugin_lang("SelectOptionToProceed", "BuyCoursesPlugin"), 'error', false);
 
             break;
@@ -150,14 +145,11 @@ switch ($action) {
         }
 
         $paypalParams = $plugin->getPaypalParams();
-
         $pruebas = $paypalParams['sandbox'] == 1;
         $paypalUsername = $paypalParams['username'];
         $paypalPassword = $paypalParams['password'];
         $paypalSignature = $paypalParams['signature'];
-
         require_once("paypalfunctions.php");
-
         $allPayouts = [];
         $totalAccounts = 0;
         $totalPayout = 0;
@@ -165,7 +157,6 @@ switch ($action) {
         $payouts = isset($_POST['payouts']) ? $_POST['payouts'] : '';
 
         if (!$payouts) {
-
             echo Display::return_message(get_plugin_lang("SelectOptionToProceed", "BuyCoursesPlugin"), 'error', false);
 
             break;
@@ -186,9 +177,7 @@ switch ($action) {
             foreach ($allPayouts as $payout) {
                 $plugin->setStatusPayouts($payout['id'], BuyCoursesPlugin::PAYOUT_STATUS_COMPLETED);
             }
-
             echo Display::return_message(get_plugin_lang("PayoutSuccess", "BuyCoursesPlugin"), 'success', false);
-
         } else {
             echo Display::return_message('<b>'.$result['L_SEVERITYCODE0'].' '.$result['L_ERRORCODE0'].'</b> - '.$result['L_SHORTMESSAGE0'].'<br /><ul><li>'. $result['L_LONGMESSAGE0'].'</li></ul>', 'error', false);
         }

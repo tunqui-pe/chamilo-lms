@@ -67,6 +67,15 @@ $sessionId = api_get_session_id();
 
 if (!empty($group_id)) {
     $group_properties = GroupManager:: get_group_properties($group_id);
+
+    $interbreadcrumb[] = array(
+        "url" => api_get_path(WEB_CODE_PATH)."group/group.php?".api_get_cidreq(),
+        "name" => get_lang('Groups'),
+    );
+    $interbreadcrumb[] = array(
+        "url" => api_get_path(WEB_CODE_PATH)."group/group_space.php?".api_get_cidreq(),
+        "name" => get_lang('GroupSpace').' '.$group_properties['name']
+    );
 }
 
 api_protect_course_group(GroupManager::GROUP_TOOL_ANNOUNCEMENT);
@@ -142,6 +151,12 @@ switch ($action) {
         }
         break;
     case 'view':
+        $interbreadcrumb[] = array(
+            "url" => api_get_path(WEB_CODE_PATH)."announcements/announcements.php?".api_get_cidreq(),
+            "name" => $nameTools,
+        );
+
+        $nameTools = get_lang('View');
         $content = AnnouncementManager::display_announcement($announcement_id);
         break;
     case 'list':
@@ -355,6 +370,13 @@ switch ($action) {
         } else {
             $form_name = get_lang('ModifyAnnouncement');
         }
+
+        $interbreadcrumb[] = array(
+            "url" => api_get_path(WEB_CODE_PATH)."announcements/announcements.php?".api_get_cidreq(),
+            "name" => $nameTools,
+        );
+
+        $nameTools = $form_name;
         $form->addElement('header', $form_name);
         $to = [];
         if (empty($group_id)) {
@@ -505,7 +527,9 @@ switch ($action) {
 
                     /*		MAIL FUNCTION	*/
                     if (isset($_POST['email_ann']) && empty($_POST['onlyThoseMails'])) {
-                        AnnouncementManager::send_email(
+                        AnnouncementManager::sendEmail(
+                            api_get_course_info(),
+                            api_get_session_id(),
                             $id,
                             $sendToUsersInSession,
                             isset($data['send_to_hrm_users'])
@@ -529,6 +553,8 @@ switch ($action) {
 
                     if (empty($group_id)) {
                         $insert_id = AnnouncementManager::add_announcement(
+                            api_get_course_info(),
+                            api_get_session_id(),
                             $data['title'],
                             $data['content'],
                             $data['users'],
@@ -558,7 +584,9 @@ switch ($action) {
 
                     /* MAIL FUNCTION */
                     if (isset($data['email_ann']) && $data['email_ann']) {
-                        AnnouncementManager::send_email(
+                        AnnouncementManager::sendEmail(
+                            api_get_course_info(),
+                            api_get_session_id(),
                             $insert_id,
                             $sendToUsersInSession
                         );
@@ -574,16 +602,6 @@ switch ($action) {
 
 if (!empty($_GET['remind_inactive'])) {
     $to[] = 'USER:'.intval($_GET['remind_inactive']);
-}
-if (!empty($group_id)) {
-    $interbreadcrumb[] = array(
-        "url" => api_get_path(WEB_CODE_PATH)."group/group.php?".api_get_cidreq(),
-        "name" => get_lang('Groups'),
-    );
-    $interbreadcrumb[] = array(
-        "url" => api_get_path(WEB_CODE_PATH)."group/group_space.php?".api_get_cidreq(),
-        "name" => get_lang('GroupSpace').' '.$group_properties['name']
-    );
 }
 
 if (empty($_GET['origin']) or $_GET['origin'] !== 'learnpath') {

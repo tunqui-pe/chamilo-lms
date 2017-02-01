@@ -57,6 +57,7 @@ class CourseRestorer
         'wiki',
         'works',
         'gradebook',
+        'assets',
     );
 
     /** Setting per tool */
@@ -441,7 +442,7 @@ class CourseRestorer
                                         'filetype' => self::DBUTF8($document->file_type),
                                         'size' => self::DBUTF8($document->size),
                                         'session_id' => $my_session_id,
-                                        'readonly' => 0
+                                        'readonly' => 0,
                                     ];
 
                                     $document_id = Database::insert($table, $params);
@@ -482,7 +483,7 @@ class CourseRestorer
                                         'title' => self::DBUTF8($document->title),
                                         'filetype' => self::DBUTF8($document->file_type),
                                         'size' => self::DBUTF8($document->size),
-                                        'session_id' => $my_session_id
+                                        'session_id' => $my_session_id,
                                     ];
 
                                     Database::update(
@@ -492,7 +493,7 @@ class CourseRestorer
                                             'c_id = ? AND path = ?' => [
                                                 $this->destination_course_id,
                                                 "/".self::DBUTF8escapestring(substr($document->path, 9)),
-                                            ]
+                                            ],
                                         ]
                                     );
 
@@ -549,8 +550,8 @@ class CourseRestorer
                                     [
                                         'c_id = ? AND id = ?' => [
                                             $this->destination_course_id,
-                                            $document_id
-                                        ]
+                                            $document_id,
+                                        ],
                                     ]
                                 );
                             }
@@ -869,7 +870,7 @@ class CourseRestorer
                             'filetype' => self::DBUTF8($document->file_type),
                             'size' => self::DBUTF8($document->size),
                             'session_id' => $my_session_id,
-                            'readonly' => 0
+                            'readonly' => 0,
                         ];
 
                         $document_id = Database::insert($table, $params);
@@ -1307,15 +1308,14 @@ class CourseRestorer
         if (is_object($link_cat) && !$link_cat->is_restored()) {
             $sql = "SELECT MAX(display_order) FROM  $link_cat_table
 			        WHERE c_id = ".$this->destination_course_id;
-            $result=Database::query($sql);
-            list($orderMax)=Database::fetch_array($result,'NUM');
-            $display_order=$orderMax+1;
+            $result = Database::query($sql);
+            list($orderMax) = Database::fetch_array($result, 'NUM');
+            $display_order = $orderMax + 1;
 
             $params['c_id'] = $this->destination_course_id;
             $params['category_title'] = self::DBUTF8($link_cat->title);
             $params['description'] = self::DBUTF8($link_cat->description);
             $params['display_order'] = $display_order;
-
             $new_id = Database::insert($link_cat_table, $params);
 
             if ($new_id) {
@@ -1400,7 +1400,7 @@ class CourseRestorer
                     'all_day' => $event->all_day,
                     'start_date' => $event->start_date,
                     'end_date' => $event->end_date,
-                    'session_id' => $sessionId
+                    'session_id' => $sessionId,
                 ];
 				$new_event_id = Database::insert($table, $params);
 
@@ -1445,7 +1445,7 @@ class CourseRestorer
                                 'comment' => self::DBUTF8($attachment_event->comment),
                                 'size' => isset($attachment_event->size) ? $attachment_event->size : '',
                                 'filename' => isset($attachment_event->filename) ? $attachment_event->filename : '',
-                                'agenda_id' => $new_event_id
+                                'agenda_id' => $new_event_id,
                             ];
                             $id = Database::insert($table_attachment, $params);
                             if ($id) {
@@ -1474,7 +1474,7 @@ class CourseRestorer
                                 'comment' => self::DBUTF8($event->attachment_comment),
                                 'size' => isset($event->size) ? $event->size : '',
                                 'filename' => isset($event->filename) ? $event->filename : '',
-                                'agenda_id' => $new_event_id
+                                'agenda_id' => $new_event_id,
                             ];
                             $id = Database::insert($table_attachment, $params);
 
@@ -1738,7 +1738,7 @@ class CourseRestorer
                         'start_time' => $quiz->start_time,
                         'end_time' => $quiz->end_time,
                         'save_correct_answers' => 0,
-                        'display_category_name' => 0
+                        'display_category_name' => 0,
                     );
 
                     if ($respect_base_content) {
@@ -1823,7 +1823,7 @@ class CourseRestorer
                 'type' => self::DBUTF8($question->quiz_type),
                 'picture' => self::DBUTF8($question->picture),
                 'level' => self::DBUTF8($question->level),
-                'extra' => self::DBUTF8($question->extra)
+                'extra' => self::DBUTF8($question->extra),
             ];
 
 			$new_id = Database::insert($table_que, $params);
@@ -1861,7 +1861,7 @@ class CourseRestorer
             $allAnswers = [];
             $onlyAnswers = [];
 
-           if ($question->quiz_type == DRAGGABLE || $question->quiz_type == MATCHING ) {
+           if (in_array($question->quiz_type, [DRAGGABLE, MATCHING, MATCHING_DRAGGABLE])) {
                 $allAnswers = array_column($question->answers, 'answer', 'id');
             }
 
@@ -1933,7 +1933,7 @@ class CourseRestorer
                         'hotspot_coordinates' => $answer['hotspot_coordinates'],
                         'hotspot_type' => $answer['hotspot_type'],
                         'id_auto' => 0,
-                        'destination' => ''
+                        'destination' => '',
                     ];
 
                     $answerId = Database::insert($table_ans, $params);
@@ -1997,8 +1997,8 @@ class CourseRestorer
                                     'iid = ? AND c_id = ? AND question_id = ? ' => array(
                                         $answer_item['iid'],
                                         $this->destination_course_id,
-                                        $new_id
-                                    )
+                                        $new_id,
+                                    ),
                                 ),
                                 false
                             );
@@ -2032,8 +2032,8 @@ class CourseRestorer
                                     'id = ? AND c_id = ? AND question_id = ? ' => array(
                                         $answer_id,
                                         $this->destination_course_id,
-                                        $new_id
-                                    )
+                                        $new_id,
+                                    ),
                                 ),
                                 false
                             );
@@ -2043,7 +2043,7 @@ class CourseRestorer
             }
 
             // Fix correct answers
-            if ($question->quiz_type == DRAGGABLE || $question->quiz_type == MATCHING) {
+            if (in_array($question->quiz_type, [DRAGGABLE, MATCHING, MATCHING_DRAGGABLE])) {
                 $onlyAnswersFlip = array_flip($onlyAnswers);
                 foreach ($correctAnswers as $answer_id => $correct_answer) {
                     $params = array();
@@ -2223,7 +2223,7 @@ class CourseRestorer
                     'answered' => '0',
                     'invite_mail' => self::DBUTF8($survey->invite_mail),
                     'reminder_mail' => self::DBUTF8($survey->reminder_mail),
-                    'session_id' => $sessionId
+                    'session_id' => $sessionId,
                 ];
 
 				//An existing survey exists with the same code and the same language
@@ -2519,7 +2519,7 @@ class CourseRestorer
                     'seriousgame_mode' => 0,
                     'category_id' => 0,
                     'max_attempts' => 0,
-                    'subscribe_users' => 0
+                    'subscribe_users' => 0,
                 ];
 
                 if (!empty($condition_session)) {
@@ -2977,7 +2977,7 @@ class CourseRestorer
                     'is_editing' => 0,
                     'linksto' => 0,
                     'tag' => '',
-                    'user_ip' => ''
+                    'user_ip' => '',
                 ];
 
 				$new_id = Database::insert($table_wiki, $params);
@@ -3005,7 +3005,7 @@ class CourseRestorer
                         'max_version' => 0,
                         'startdate_assig' => null,
                         'enddate_assig' => null,
-                        'delayedsubmit' => 0
+                        'delayedsubmit' => 0,
                     ];
 
                     Database::insert($table_wiki_conf, $params);
@@ -3302,6 +3302,37 @@ class CourseRestorer
             }
         }
     }
+
+    /**
+     * Restore course assets (not included in documents)
+     */
+    public function restore_assets()
+    {
+        if ($this->course->has_resources(RESOURCE_ASSET)) {
+            $resources = $this->course->resources;
+            $path = api_get_path(SYS_COURSE_PATH).$this->course->destination_path.'/';
+
+            foreach ($resources[RESOURCE_ASSET] as $id => $asset) {
+                if (is_file($this->course->backup_path.'/'.$asset->path) &&
+                    is_readable($this->course->backup_path.'/'.$asset->path) &&
+                    is_dir(dirname($path.$asset->path)) &&
+                    is_writeable(dirname($path.$asset->path))
+                ) {
+                    switch ($this->file_option) {
+                        case FILE_SKIP:
+                            continue;
+                        case FILE_OVERWRITE:
+                            copy(
+                                $this->course->backup_path.'/'.$asset->path,
+                                $path.$asset->path
+                            );
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * @param string $str

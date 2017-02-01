@@ -75,7 +75,7 @@ foreach ($sessionCourses as $sessionCourse) {
             ]
         );
 
-    $courseDescription = $courseObjectives = $courseTopics = null;
+    $courseDescription = $courseObjectives = $courseTopics = $courseMethodology = $courseMaterial = $courseResources = $courseAssesment = $courseCustom = null;
 
     foreach ($courseDescriptionTools as $descriptionTool) {
         switch ($descriptionTool->getDescriptionType()) {
@@ -88,6 +88,21 @@ foreach ($sessionCourses as $sessionCourse) {
             case CCourseDescription::TYPE_TOPICS:
                 $courseTopics = $descriptionTool;
                 break;
+            case CCourseDescription::TYPE_METHODOLOGY:
+                $courseMethodology = $descriptionTool;
+                break;
+            case CCourseDescription::TYPE_COURSE_MATERIAL:
+                $courseMaterial = $descriptionTool;
+                break;
+            case CCourseDescription::TYPE_RESOURCES:
+                $courseResources = $descriptionTool;
+                break;
+            case CCourseDescription::TYPE_ASSESMENT:
+                $courseAssesment = $descriptionTool;
+                break;
+            case CCourseDescription::TYPE_CUSTOM:
+                $courseCustom = $descriptionTool;
+                break;
         }
     }
 
@@ -97,6 +112,11 @@ foreach ($sessionCourses as $sessionCourse) {
         'tags' => $courseTags,
         'objectives' => $courseObjectives,
         'topics' => $courseTopics,
+        'methodology' => $courseMethodology,
+        'material' => $courseMaterial,
+        'resources' => $courseResources,
+        'assesment' => $courseAssesment,
+        'custom' => $courseCustom,
         'coaches' => $coachesData,
         'extra_fields' => $courseValues->getAllValuesForAnItem($sessionCourse->getId())
     ];

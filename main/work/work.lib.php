@@ -3932,9 +3932,8 @@ function updatePublicationAssignment($workId, $params, $courseInfo, $groupId)
         $agendaId = agendaExistsForWork($workId, $courseInfo);
 
         // Add/edit agenda
-        $agenda = new Agenda();
+        $agenda = new Agenda('course');
         $agenda->set_course($courseInfo);
-        $agenda->type = 'course';
 
         if (!empty($agendaId)) {
             // add_to_calendar is set but it doesnt exists then invalidate

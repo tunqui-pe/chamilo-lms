@@ -583,6 +583,7 @@ define('UTF8_CONVERT', false); //false by default
 define('DOCUMENT','file');
 define('FOLDER','folder');
 
+define('RESOURCE_ASSET', 'asset');
 define('RESOURCE_DOCUMENT', 'document');
 define('RESOURCE_GLOSSARY', 'glossary');
 define('RESOURCE_EVENT', 'calendar_event');
@@ -1820,24 +1821,41 @@ function api_format_course_array($course_data)
     $_course['department_name'] = $course_data['department_name'];
     $_course['department_url'] = $course_data['department_url'];
 
+    $courseSys = api_get_path(SYS_COURSE_PATH).$course_data['directory'];
+    $webCourseHome = api_get_path(WEB_COURSE_PATH).$course_data['directory'];
+
     // Course password
     $_course['registration_code'] = !empty($course_data['registration_code']) ? sha1($course_data['registration_code']) : null;
     $_course['disk_quota'] = $course_data['disk_quota'];
-    $_course['course_public_url'] = api_get_path(WEB_COURSE_PATH).$course_data['directory'].'/index.php';
+    $_course['course_public_url'] = $webCourseHome.'/index.php';
 
     if (array_key_exists('add_teachers_to_sessions_courses', $course_data)) {
         $_course['add_teachers_to_sessions_courses'] = $course_data['add_teachers_to_sessions_courses'];
     }
 
-    if (file_exists(api_get_path(SYS_COURSE_PATH).$course_data['directory'].'/course-pic85x85.png')) {
-        $url_image = api_get_path(WEB_COURSE_PATH).$course_data['directory'].'/course-pic85x85.png';
+    // Course image
+    $_course['course_image_source'] = '';
+    if (file_exists($courseSys.'/course-pic85x85.png')) {
+        $url_image = $webCourseHome.'/course-pic85x85.png';
+        $_course['course_image_source'] = $courseSys.'/course-pic85x85.png';
     } else {
-        $url_image = Display::return_icon('course.png', null, null, ICON_SIZE_BIG, null, true, false);
+        $url_image = Display::return_icon(
+            'course.png',
+            null,
+            null,
+            ICON_SIZE_BIG,
+            null,
+            true,
+            false
+        );
     }
     $_course['course_image'] = $url_image;
 
-    if (file_exists(api_get_path(SYS_COURSE_PATH).$course_data['directory'].'/course-pic.png')) {
-        $url_image = api_get_path(WEB_COURSE_PATH).$course_data['directory'].'/course-pic.png';
+    // Course large image
+    $_course['course_image_large_source'] = '';
+    if (file_exists($courseSys.'/course-pic.png')) {
+        $url_image = $webCourseHome.'/course-pic.png';
+        $_course['course_image_large_source'] = $courseSys.'/course-pic.png';
     } else {
         $url_image = Display::returnIconPath('session_default.png');
     }
@@ -3032,15 +3050,16 @@ function api_is_allowed_to_session_edit($tutor = false, $coach = false)
         // If I'm a teacher, I will return true in order to not affect the normal behaviour of Chamilo tools.
         return true;
     } else {
-        if (api_get_session_id() == 0) {
+        $sessionId = api_get_session_id();
+
+        if ($sessionId == 0) {
             // I'm not in a session so i will return true to not affect the normal behaviour of Chamilo tools.
             return true;
         } else {
             // I'm in a session and I'm a student
-            $session_id = api_get_session_id();
 
             // Get the session visibility
-            $session_visibility = api_get_session_visibility($session_id);
+            $session_visibility = api_get_session_visibility($sessionId);
             // if 5 the session is still available
 
             //@todo We could load the session_rel_course_rel_user permission to increase the level of detail.

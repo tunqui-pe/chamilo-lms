@@ -225,7 +225,7 @@ class Rest extends WebService
     {
         $teachers = CourseManager::get_teacher_list_from_course_code_to_string($this->course->getCode());
         $tools = CourseHome::get_tools_category(
-            'TOOL_STUDENT_VIEW',
+            TOOL_STUDENT_VIEW,
             $this->course->getId(),
             $this->session ? $this->session->getId() : 0
         );
@@ -422,8 +422,12 @@ class Rest extends WebService
     {
         $sessionId = $this->session ? $this->session->getId() : 0;
 
-        $agenda = new Agenda($this->user->getId(), $this->course->getId(), $sessionId);
-        $agenda->setType('course');
+        $agenda = new Agenda(
+            'course',
+            $this->user->getId(),
+            $this->course->getId(),
+            $sessionId
+        );
         $result = $agenda->parseAgendaFilter(null);
 
         $start = new DateTime(api_get_utc_datetime(), new DateTimeZone('UTC'));

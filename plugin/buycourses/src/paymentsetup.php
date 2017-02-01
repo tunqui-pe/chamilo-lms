@@ -1,5 +1,6 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Configuration page for payment methods for the Buy Courses plugin
  * @package chamilo.plugin.buycourses
@@ -35,6 +36,8 @@ if ($currencyForm->validate()) {
     $currencyFormValues = $currencyForm->getSubmitValues();
 
     $plugin->selectCurrency($currencyFormValues['currency']);
+    unset($currencyFormValues['currency']);
+    $plugin->saveGlobalParameters($currencyFormValues);
 
     Display::addFlash(
         Display::return_message(get_lang('Saved'), 'success')
@@ -72,7 +75,11 @@ foreach ($currencies as $currency) {
     }
 }
 
+$currencyForm->addTextarea('terms_and_conditions', [ get_lang('TermsAndConditions'), $plugin->get_lang('WriteHereTheTermsAndConditionsOfYourECommerce') ], '');
 $currencyForm->addButtonSave(get_lang('Save'));
+$currencyForm->setDefaults($plugin->getGlobalParameters());
+
+$termsAndConditionsForm = new FormValidator('termsconditions');
 
 $paypalForm = new FormValidator('paypal');
 
@@ -205,6 +212,7 @@ $culqiForm->addText(
     false,
     ['cols-size' => [3, 8, 1]]
 );
+$culqiForm->addCheckBox('integration', null, $plugin->get_lang('Sandbox'));
 $culqiForm->addButtonSave(get_lang('Save'));
 $culqiForm->setDefaults($plugin->getCulqiParams());
 
@@ -219,7 +227,7 @@ $htmlHeadXtra[] = api_get_css('plugins/buycourses/css/style.css');
 $htmlHeadXtra[] = api_get_js('plugins/buycourses/css/style.css');
 $tpl = new Template($templateName);
 $tpl->assign('header', $templateName);
-$tpl->assign('curency_form', $currencyForm->returnForm());
+$tpl->assign('global_config_form', $currencyForm->returnForm());
 $tpl->assign('paypal_form', $paypalForm->returnForm());
 $tpl->assign('commission_form', $commissionForm->returnForm());
 $tpl->assign('transfer_form', $transferForm->returnForm());

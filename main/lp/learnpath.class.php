@@ -2283,6 +2283,32 @@ class learnpath
     }
 
     /**
+     * @param int $lpId
+     * @param array $courseInfo
+     * @return bool
+     *
+     */
+    public static function isBlockedByPrerequisite($student_id, $prerequisite, $courseInfo, $sessionId)
+    {
+        $isBlocked = false;
+
+        if (!empty($prerequisite)) {
+            $progress = self::getProgress(
+                $prerequisite,
+                $student_id,
+                $courseInfo['real_id'],
+                $sessionId
+            );
+            $progress = intval($progress);
+            if ($progress < 100) {
+                $isBlocked = true;
+            }
+        }
+
+        return $isBlocked;
+    }
+
+    /**
      * Checks if the learning path is visible for student after the progress
      * of its prerequisite is completed, considering the time availability and
      * the LP visibility.
@@ -2306,12 +2332,6 @@ class learnpath
             $sessionId = api_get_session_id();
         }
 
-        $tbl_learnpath = Database::get_course_table(TABLE_LP_MAIN);
-        // Get current prerequisite
-        $sql = "SELECT id, prerequisite, subscribe_users, publicated_on, expired_on
-                FROM $tbl_learnpath
-                WHERE c_id = ".$courseInfo['real_id']." AND id = $lp_id";
-
         $itemInfo = api_get_item_property_info(
             $courseInfo['real_id'],
             TOOL_LEARNPATH,
@@ -2324,25 +2344,29 @@ class learnpath
             return false;
         }
 
+        // @todo remove this query and load the row info as a parameter
+        $tbl_learnpath = Database::get_course_table(TABLE_LP_MAIN);
+        // Get current prerequisite
+        $sql = "SELECT id, prerequisite, subscribe_users, publicated_on, expired_on
+                FROM $tbl_learnpath
+                WHERE c_id = ".$courseInfo['real_id']." AND id = $lp_id";
+
         $rs  = Database::query($sql);
         $now = time();
         if (Database::num_rows($rs) > 0) {
             $row = Database::fetch_array($rs, 'ASSOC');
-
             $prerequisite = $row['prerequisite'];
             $is_visible = true;
 
-            if (!empty($prerequisite)) {
-                $progress = self::getProgress(
-                    $prerequisite,
-                    $student_id,
-                    $courseInfo['real_id'],
-                    $sessionId
-                );
-                $progress = intval($progress);
-                if ($progress < 100) {
-                    $is_visible = false;
-                }
+            $isBlocked = self::isBlockedByPrerequisite(
+                $student_id,
+                $prerequisite,
+                $courseInfo,
+                $sessionId
+            );
+
+            if ($isBlocked) {
+                $is_visible = false;
             }
 
             // Also check the time availability of the LP
@@ -2350,7 +2374,6 @@ class learnpath
                 // Adding visibility restrictions
                 if (!empty($row['publicated_on'])) {
                     if ($now < api_strtotime($row['publicated_on'], 'UTC')) {
-                        //api_not_allowed();
                         $is_visible = false;
                     }
                 }
@@ -2361,14 +2384,12 @@ class learnpath
                     $_custom['lps_hidden_when_no_start_date']
                 ) {
                     if (empty($row['publicated_on'])) {
-                        //api_not_allowed();
                         $is_visible = false;
                     }
                 }
 
                 if (!empty($row['expired_on'])) {
                     if ($now > api_strtotime($row['expired_on'], 'UTC')) {
-                        //api_not_allowed();
                         $is_visible = false;
                     }
                 }
@@ -2396,7 +2417,6 @@ class learnpath
                     if (!empty($userGroups)) {
                         foreach ($userGroups as $groupInfo) {
                             $groupId = $groupInfo['iid'];
-
                             $userVisibility = api_get_item_visibility(
                                 $courseInfo,
                                 'learnpath',
@@ -4113,72 +4133,76 @@ class learnpath
         $tbl_lp = Database :: get_course_table(TABLE_LP_MAIN);
         $lp_id = intval($lp_id);
         $sql = "SELECT * FROM $tbl_lp
-                WHERE c_id = ".$course_id." AND id = $lp_id";
+                WHERE c_id = $course_id AND id = $lp_id";
         $result = Database::query($sql);
         if (Database::num_rows($result)) {
             $row = Database :: fetch_array($result);
             $name = domesticate($row['name']);
             if ($set_visibility == 'i') {
-                $s = $name . " " . get_lang('LearnpathNotPublished');
                 $v = 0;
             }
             if ($set_visibility == 'v') {
-                $s = $name . " " . get_lang('LearnpathPublished');
                 $v = 1;
             }
-        } else {
-            return false;
-        }
 
-        $session_id = api_get_session_id();
-        $session_condition = api_get_session_condition($session_id);
+            $session_id = api_get_session_id();
+            $session_condition = api_get_session_condition($session_id);
 
-        $tbl_tool = Database :: get_course_table(TABLE_TOOL_LIST);
-        $link = 'lp/lp_controller.php?action=view&lp_id='.$lp_id.'&id_session='.$session_id;
+            $tbl_tool = Database :: get_course_table(TABLE_TOOL_LIST);
+            $link = 'lp/lp_controller.php?action=view&lp_id='.$lp_id.'&id_session='.$session_id;
+            $oldLink = 'newscorm/lp_controller.php?action=view&lp_id='.$lp_id.'&id_session='.$session_id;
 
-        $sql = "SELECT * FROM $tbl_tool
-                WHERE
-                    c_id = ".$course_id." AND
-                    link='$link' and
-                    image='scormbuilder.gif' and
-                    link LIKE '$link%'
-                    $session_condition
-                ";
-        $result = Database::query($sql);
-        $num = Database :: num_rows($result);
-        if ($set_visibility == 'i' && $num > 0) {
-            $sql = "DELETE FROM $tbl_tool
-                    WHERE c_id = ".$course_id." AND (link='$link' and image='scormbuilder.gif' $session_condition)";
-            Database::query($sql);
-
-        } elseif ($set_visibility == 'v' && $num == 0) {
-            $sql = "INSERT INTO $tbl_tool (category, c_id, name, link, image, visibility, admin, address, added_tool, session_id) VALUES
-            	    ('authoring', $course_id, '$name', '$link', 'scormbuilder.gif', '$v', '0','pastillegris.gif', 0, $session_id)";
-            Database::query($sql);
-
-            $insertId = Database::insert_id();
-            if ($insertId) {
-                $sql = "UPDATE $tbl_tool SET id = iid WHERE iid = $insertId";
-                Database::query($sql);
-            }
-        } elseif ($set_visibility == 'v' && $num > 0) {
-            $sql = "UPDATE $tbl_tool SET
-                        c_id = $course_id,
-                        name = '$name',
-                        link = '$link',
-                        image = 'scormbuilder.gif',
-                        visibility = '$v',
-                        admin = '0',
-                        address = 'pastillegris.gif',
-                        added_tool = 0,
-                        session_id = $session_id
-            	    WHERE
-            	        c_id = ".$course_id." AND
-            	        (link='$link' and image='scormbuilder.gif' $session_condition)
+            $sql = "SELECT * FROM $tbl_tool
+                    WHERE
+                        c_id = $course_id AND
+                        (link = '$link' OR link = '$oldLink') AND
+                        image = 'scormbuilder.gif' AND
+                        (
+                            link LIKE '$link%' OR
+                            link LIKE '$oldLink%'
+                        )
+                        $session_condition
                     ";
-            Database::query($sql);
+            $result = Database::query($sql);
+            $num = Database :: num_rows($result);
+            if ($set_visibility == 'i' && $num > 0) {
+                $sql = "DELETE FROM $tbl_tool
+                        WHERE 
+                            c_id = $course_id AND 
+                            (link = '$link' OR link = '$oldLink') AND 
+                            image='scormbuilder.gif' 
+                            $session_condition";
+                Database::query($sql);
+            } elseif ($set_visibility == 'v' && $num == 0) {
+                $sql = "INSERT INTO $tbl_tool (category, c_id, name, link, image, visibility, admin, address, added_tool, session_id) VALUES
+                        ('authoring', $course_id, '$name', '$link', 'scormbuilder.gif', '$v', '0','pastillegris.gif', 0, $session_id)";
+                Database::query($sql);
+                $insertId = Database::insert_id();
+                if ($insertId) {
+                    $sql = "UPDATE $tbl_tool SET id = iid WHERE iid = $insertId";
+                    Database::query($sql);
+                }
+            } elseif ($set_visibility == 'v' && $num > 0) {
+                $sql = "UPDATE $tbl_tool SET
+                            c_id = $course_id,
+                            name = '$name',
+                            link = '$link',
+                            image = 'scormbuilder.gif',
+                            visibility = '$v',
+                            admin = '0',
+                            address = 'pastillegris.gif',
+                            added_tool = 0,
+                            session_id = $session_id
+                        WHERE
+                            c_id = ".$course_id." AND
+                            (link='$link' and image='scormbuilder.gif' $session_condition)
+                        ";
+                Database::query($sql);
+            } else {
+                // Parameter and database incompatible, do nothing, exit.
+                return false;
+            }
         } else {
-            // Parameter and database incompatible, do nothing, exit.
             return false;
         }
     }
@@ -5892,7 +5916,7 @@ class learnpath
                     ])
                 ),
             );
-            $actionsRight = Display::group_button(get_lang('PrerequisitesOptions'), $buttons);
+            $actionsRight = Display::groupButtonWithDropDown(get_lang('PrerequisitesOptions'), $buttons);
         }
 
         $toolbar = Display::toolbarAction('actions-lp-controller', array($actionsLeft, $actionsRight));

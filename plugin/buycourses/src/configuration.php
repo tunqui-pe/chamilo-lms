@@ -14,7 +14,10 @@ $includeServices = $plugin->get('include_services') === 'true';
 api_protect_admin_script(true);
 
 Display::addFlash(
-    Display::return_message(get_lang('Info').' - '.$plugin->get_lang('CoursesInSessionsDoesntDisplayHere'), 'info')
+    Display::return_message(
+        get_lang('Info').' - '.$plugin->get_lang('CoursesInSessionsDoesntDisplayHere'),
+        'info'
+    )
 );
 
 $courses = $plugin->getCoursesForConfiguration();
@@ -37,13 +40,11 @@ $tpl->assign('services_are_included', $includeServices);
 
 if ($includeSession) {
     $sessions = $plugin->getSessionsForConfiguration();
-
     $tpl->assign('sessions', $sessions);
 }
 
 if ($includeServices) {
     $services = $plugin->getServices();
-
     $tpl->assign('services', $services);
 }
 

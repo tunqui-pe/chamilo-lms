@@ -55,7 +55,6 @@ if ($editingCourse) {
 
     foreach ($teachers as $courseTeacher) {
         $teacher = $courseTeacher->getUser();
-
         $teachersOptions[] = [
             'text' => $teacher->getCompleteName(),
             'value' => $teacher->getId()
@@ -162,7 +161,6 @@ if ($editingCourse) {
 }
 
 if ($commissionsEnable === 'true') {
-
     $htmlHeadXtra[] = ''
     . '<script>'
         . '$(function(){'
@@ -186,7 +184,6 @@ if ($commissionsEnable === 'true') {
             . '});'
         . '});'
     . '</script>';
-
 }
 
 $form = new FormValidator('beneficiaries');
@@ -220,9 +217,7 @@ if ($editingCourse) {
 }
 
 if ($commissionsEnable === 'true') {
-
     $platformCommission = $plugin->getPlatformCommission();
-
     $form->addHtml( ''
             . '<div class="form-group">'
                 . '<label for="sliders" class="col-sm-2 control-label">'
@@ -240,7 +235,6 @@ if ($commissionsEnable === 'true') {
     );
 
     $form->addHidden('commissions', '');
-
 }
 
 $form->addHidden('t', null);
@@ -295,7 +289,7 @@ if ($form->validate()) {
 
 $form->setDefaults($formDefaults);
 
-//View
+// View
 $templateName = $plugin->get_lang('AvailableCourse');
 
 $interbreadcrumb[] = [
