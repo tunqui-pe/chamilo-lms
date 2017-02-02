@@ -1,13 +1,21 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\InstallerBundle\Process;
 
 use Sylius\Bundle\FlowBundle\Process\Builder\ProcessBuilderInterface;
 use Sylius\Bundle\FlowBundle\Process\Scenario\ProcessScenarioInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class UpgradeScenario extends ContainerAware implements ProcessScenarioInterface
+/**
+ * Class UpgradeScenario
+ * @package Chamilo\InstallerBundle\Process
+ */
+class UpgradeScenario implements ProcessScenarioInterface, ContainerAwareInterface
 {
+    use ContainerAwareTrait;
     /**
      * {@inheritdoc}
      */

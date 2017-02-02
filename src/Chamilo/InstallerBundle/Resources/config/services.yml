@@ -7,33 +7,33 @@ parameters:
 
 services:
     chamilo_installer.install.scenario:
-        class: %chamilo_installer.install.scenario.class%
+        class: '%chamilo_installer.install.scenario.class%'
         calls:
-          - [ setContainer, ["@service_container"] ]
+          - [ setContainer, ['@service_container'] ]
         tags:
           - { name: sylius.process.scenario, alias: chamilo_install }
 
     chamilo_installer.upgrade.scenario:
-        class: %chamilo_installer.upgrade.scenario.class%
+        class: '%chamilo_installer.upgrade.scenario.class%'
         calls:
-          - [ setContainer, ["@service_container"] ]
+          - [ setContainer, ['@service_container'] ]
         tags:
           - { name: sylius.process.scenario, alias: chamilo_upgrade }
 
     chamilo_installer.yaml_persister:
-        class: %chamilo_installer.yaml_persister.class%
+        class: '%chamilo_installer.yaml_persister.class%'
         arguments:
             - %kernel.root_dir%/config
-            - %kernel.environment%
+            - '%kernel.environment%'
 
     kernel.listener.install.event:
-        class: %chamilo_installer.listener.request.class%
+        class: '%chamilo_installer.listener.request.class%'
         arguments:
-            - "@router"
-            - %installed%
-            - %kernel.debug%
+            - '@router'
+            - '%installed%'
+            - '%kernel.debug%'
 
     chamilo_installer.script_manager:
-        class: %chamilo_installer.script_manager.class%
+        class: '%chamilo_installer.script_manager.class%'
         arguments:
-            - @kernel
+            - '@kernel'

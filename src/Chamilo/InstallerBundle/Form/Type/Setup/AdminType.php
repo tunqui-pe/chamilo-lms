@@ -16,11 +16,19 @@ class AdminType extends AbstractType
 {
     protected $dataClass;
 
+    /**
+     * AdminType constructor.
+     * @param $dataClass
+     */
     public function __construct($dataClass)
     {
         $this->dataClass = $dataClass;
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

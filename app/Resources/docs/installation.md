@@ -46,6 +46,10 @@ git checkout --track origin/master
 git config --global push.default current
 ```
 
+### Create database
+
+You should have a MariaDB/MySQL user and database created before hand.
+
 ### Update dependencies using Composer
 
 From the Chamilo folder (in which you should be now if you followed the previous steps), launch:
@@ -54,7 +58,13 @@ From the Chamilo folder (in which you should be now if you followed the previous
 composer update
 ```
 
-If you face issues related to missing JS libraries, you might need to ensure
+Composer update will ask for the database credentials in order to create a configuration file in:
+
+```
+app/config/parameters.yml.dist
+```
+
+If you face issues related to missing CSS/JS files, you might need to ensure
 that your web/assets folder is completely re-generated.
 Use this set of commands to do that:
 ```

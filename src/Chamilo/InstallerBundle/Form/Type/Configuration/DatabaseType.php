@@ -4,6 +4,10 @@
 namespace Chamilo\InstallerBundle\Form\Type\Configuration;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,7 +18,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DatabaseType extends AbstractType
 {
-     public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             /*->add(
@@ -35,7 +42,7 @@ class DatabaseType extends AbstractType
             )*/
             ->add(
                 'chamilo_installer_database_host',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'form.configuration.database.host',
                     'constraints' => array(
@@ -45,7 +52,7 @@ class DatabaseType extends AbstractType
             )
             ->add(
                 'chamilo_installer_database_port',
-                'integer',
+                IntegerType::class,
                 array(
                     'label' => 'form.configuration.database.port',
                     'required' => false,
@@ -56,7 +63,7 @@ class DatabaseType extends AbstractType
             )
             ->add(
                 'chamilo_installer_database_name',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'form.configuration.database.name',
                     'constraints' => array(
@@ -66,7 +73,7 @@ class DatabaseType extends AbstractType
             )
             ->add(
                 'chamilo_installer_database_user',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'form.configuration.database.user',
                     'constraints' => array(
@@ -76,7 +83,7 @@ class DatabaseType extends AbstractType
             )
             ->add(
                 'chamilo_installer_database_password',
-                'password',
+                PasswordType::class,
                 array(
                     'label' => 'form.configuration.database.password',
                     'required' => false,
@@ -84,7 +91,7 @@ class DatabaseType extends AbstractType
             )
             ->add(
                 'chamilo_installer_database_drop_full',
-                'checkbox',
+                CheckboxType::class,
                 array(
                     'label' => 'form.configuration.database.drop_full',
                     'required' => false,

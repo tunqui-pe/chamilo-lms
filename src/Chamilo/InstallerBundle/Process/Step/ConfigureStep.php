@@ -3,6 +3,7 @@
 
 namespace Chamilo\InstallerBundle\Process\Step;
 
+use Chamilo\InstallerBundle\Form\Type\ConfigurationType;
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
 
 /**
@@ -43,7 +44,7 @@ class ConfigureStep extends AbstractStep
      */
     public function forwardAction(ProcessContextInterface $context)
     {
-        set_time_limit(600);
+        //set_time_limit(600);
         $form = $this->createConfigurationForm();
         $request = $context->getRequest();
         $upgrade = $this->isCommonUpgrade();
@@ -88,7 +89,7 @@ class ConfigureStep extends AbstractStep
         $data['is_upgrade'] = $upgrade;
 
         return $this->createForm(
-            'chamilo_installer_configuration',
+            ConfigurationType::class,
             empty($data) ? null : $data,
             $options
         );

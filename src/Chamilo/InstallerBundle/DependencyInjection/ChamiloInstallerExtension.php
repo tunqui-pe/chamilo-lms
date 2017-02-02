@@ -1,4 +1,5 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\InstallerBundle\DependencyInjection;
 
@@ -7,6 +8,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;
 
+/**
+ * Class ChamiloInstallerExtension
+ * @package Chamilo\InstallerBundle\DependencyInjection
+ */
 class ChamiloInstallerExtension extends Extension
 {
     public function load(array $config, ContainerBuilder $container)

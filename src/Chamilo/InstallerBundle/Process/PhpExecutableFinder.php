@@ -1,9 +1,14 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\InstallerBundle\Process;
 
 use Symfony\Component\Process\PhpExecutableFinder as BasePhpExecutableFinder;
 
+/**
+ * Class PhpExecutableFinder
+ * @package Chamilo\InstallerBundle\Process
+ */
 class PhpExecutableFinder extends BasePhpExecutableFinder
 {
     /**

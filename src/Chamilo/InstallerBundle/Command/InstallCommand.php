@@ -71,7 +71,6 @@ class InstallCommand extends ContainerAwareCommand
             && $this->getContainer()->getParameter('installed');
 
         if ($isInstalled && !$forceInstall) {
-
             $output->writeln(
                 '<comment>ATTENTION</comment>: Chamilo is already installed.'
             );

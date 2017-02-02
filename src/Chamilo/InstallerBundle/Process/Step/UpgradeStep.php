@@ -28,9 +28,8 @@ class UpgradeStep extends AbstractStep
 
         switch ($action) {
             case 'upgrade':
-
                 $configurationFile = $this->container->get('kernel')->getConfigurationFile();
-                // If configuration.php exists then rename to configuratio.php.bak
+                // If configuration.php exists then rename to configuration.php.bak
                 if (file_exists($configurationFile)) {
                     $fs = new Filesystem();
                     $fs->rename($configurationFile, $configurationFile.".bak");

@@ -4,6 +4,10 @@
 namespace Chamilo\InstallerBundle\Form\Type\Setup;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,12 +18,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class PortalType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'institution',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'form.setup.portal.institution',
                     'mapped' => false,
@@ -31,7 +38,7 @@ class PortalType extends AbstractType
             )
             ->add(
                 'site_name',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'form.setup.portal.site_name',
                     'mapped' => false,
@@ -40,7 +47,7 @@ class PortalType extends AbstractType
             )
             ->add(
                 'institution_url',
-                'url',
+                UrlType::class,
                 array(
                     'label' => 'form.setup.portal.institution_url',
                     'mapped' => false,
@@ -49,7 +56,7 @@ class PortalType extends AbstractType
             )
             ->add(
                 'allow_self_registration',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'form.setup.portal.allow_self_registration',
                     'mapped' => false,
@@ -62,7 +69,7 @@ class PortalType extends AbstractType
             )
             ->add(
                 'allow_self_registration_as_trainer',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'form.setup.portal.allow_self_registration_as_trainer',
                     'mapped' => false,
@@ -75,7 +82,7 @@ class PortalType extends AbstractType
             )
             ->add(
                 'timezone',
-                'timezone',
+                TimezoneType::class,
                 array(
                     'label' => 'form.setup.portal.timezone',
                     'mapped' => false,

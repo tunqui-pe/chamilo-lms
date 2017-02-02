@@ -3,10 +3,11 @@
 
 namespace Chamilo\InstallerBundle\Form\Type;
 
+use Chamilo\InstallerBundle\Form\Type\Configuration\DatabaseType;
+use Chamilo\InstallerBundle\Form\Type\Configuration\MailerType;
+use Chamilo\InstallerBundle\Form\Type\Configuration\SystemType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
 use Chamilo\InstallerBundle\Validator\Constraints as Assert;
 
 /**
@@ -15,13 +16,16 @@ use Chamilo\InstallerBundle\Validator\Constraints as Assert;
  */
 class ConfigurationType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // See class DatabaseConnectionValidator to see the validator.
         $builder
             ->add(
                 'database',
-                'chamilo_installer_configuration_database',
+                DatabaseType::class,
                 array(
                     'label' => 'form.configuration.database.header',
                     'constraints' => array(
@@ -31,14 +35,14 @@ class ConfigurationType extends AbstractType
             )
             ->add(
                 'mailer',
-                'chamilo_installer_configuration_mailer',
+                MailerType::class,
                 array(
                     'label' => 'form.configuration.mailer.header',
                 )
             )
             ->add(
                 'system',
-                'chamilo_installer_configuration_system',
+                SystemType::class,
                 array(
                     'label' => 'form.configuration.system.header',
                 )

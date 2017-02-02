@@ -11,11 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Chamilo\InstallerBundle\CommandExecutor;
 
 /**
- * Class PlatformUpdateCommand
+ * Class UpgradeCommand
  * * Based in OroInstallBundlePlatformUpdateCommand
  * @package Chamilo\InstallerBundle\Command
  */
-class PlatformUpdateCommand extends ContainerAwareCommand
+class UpgradeCommand extends ContainerAwareCommand
 {
     /**
      * @inheritdoc

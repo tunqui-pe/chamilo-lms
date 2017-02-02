@@ -3,6 +3,8 @@
 
 namespace Chamilo\InstallerBundle\Form\Type;
 
+use Chamilo\InstallerBundle\Form\Type\Setup\AdminType;
+use Chamilo\InstallerBundle\Form\Type\Setup\PortalType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,19 +15,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SetupType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'admin',
-                'chamilo_installer_setup_admin',
+                AdminType::class,
                 array(
                     'label' => 'form.setup.admin.header',
                 )
             )
             ->add(
                 'portal',
-                'chamilo_installer_setup_portal',
+                PortalType::class,
                 array(
                     'label' => 'form.setup.portal.header',
                 )
