@@ -1404,7 +1404,7 @@ function generateSettingsForm($settings, $settings_by_access_list)
                 break;
             case 'textarea':
                 if ($row['variable'] == 'header_extra_content') {
-                    $file = api_get_path(SYS_PATH).api_get_home_path().'header_extra_content.txt';
+                    $file = api_get_home_path().'header_extra_content.txt';
                     $value = '';
                     if (file_exists($file)) {
                         $value = file_get_contents($file);
@@ -1412,7 +1412,7 @@ function generateSettingsForm($settings, $settings_by_access_list)
                     $form->addElement('textarea', $row['variable'], array(get_lang($row['title']), get_lang($row['comment'])) , array('rows'=>'10'), $hideme);
                     $default_values[$row['variable']] = $value;
                 } elseif ($row['variable'] == 'footer_extra_content') {
-                    $file = api_get_path(SYS_PATH).api_get_home_path().'footer_extra_content.txt';
+                    $file = api_get_home_path().'footer_extra_content.txt';
                     $value = '';
                     if (file_exists($file)) {
                         $value = file_get_contents($file);
@@ -1751,8 +1751,10 @@ function generateCSSDownloadLink($style)
         $zip = new PclZip($arch);
         // Remove path prefix except the style name and put file on disk
         $zip->create($dir, PCLZIP_OPT_REMOVE_PATH, substr($dir,0,-strlen($style)));
+        $url = api_get_path(WEB_CODE_PATH) . 'course_info/download.php?archive_path=&archive=' . str_replace(api_get_path(SYS_ARCHIVE_PATH), '', $arch);
+
         //@TODO: use more generic script to download.
-        $str = '<a class="btn btn-primary btn-large" href="' . api_get_path(WEB_CODE_PATH) . 'course_info/download.php?archive=' . str_replace(api_get_path(SYS_ARCHIVE_PATH), '', $arch) . '">'.get_lang('ClickHereToDownloadTheFile').'</a>';
+        $str = '<a class="btn btn-primary btn-large" href="' .$url. '">'.get_lang('ClickHereToDownloadTheFile').'</a>';
         Display::display_normal_message($str, false);
     } else {
         Display::addFlash(Display::return_message(get_lang('FileNotFound'), 'warning'));

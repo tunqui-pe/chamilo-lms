@@ -1304,7 +1304,7 @@ class CourseHome
                 $html .= Display::return_icon(
                     substr($navigation_item['image'], 0, -3).'png',
                     $navigation_item['name'],
-                    null,
+                    [],
                     ICON_SIZE_MEDIUM
                 );
                 $html .= '</a> ';

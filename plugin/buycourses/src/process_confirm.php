@@ -1,5 +1,6 @@
 <?php
 /* For license terms, see /license.txt */
+
 /**
  * Process purchase confirmation script for the Buy Courses plugin
  * @package chamilo.plugin.buycourses

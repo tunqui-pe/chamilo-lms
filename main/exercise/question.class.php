@@ -114,8 +114,7 @@ abstract class Question
 
         $course_id = $course_info['real_id'];
 
-        if (empty($course_id) || $course_id == -1 ) {
-
+        if (empty($course_id) || $course_id == -1) {
             return false;
         }
 
@@ -130,10 +129,8 @@ abstract class Question
 
         // if the question has been found
         if ($object = Database::fetch_object($result)) {
-
             $objQuestion = Question::getInstance($object->type);
             if (!empty($objQuestion)) {
-
                 $objQuestion->id = $id;
                 $objQuestion->question = $object->question;
                 $objQuestion->description = $object->description;
@@ -425,7 +422,6 @@ abstract class Question
             $this->deleteCategory();
         } else {
             // update or add category for a question
-
             $table = Database::get_course_table(TABLE_QUIZ_QUESTION_REL_CATEGORY);
             $category_id = intval($category);
             $question_id = intval($this->id);
@@ -606,10 +602,11 @@ abstract class Question
             $current_width = $current_image_size['width'];
             $current_height = $current_image_size['height'];
 
-            if ($current_width < $Max && $current_height < $Max)
+            if ($current_width < $Max && $current_height < $Max) {
                 return true;
-            elseif ($current_height == "")
+            } elseif ($current_height == '') {
                 return false;
+            }
 
             // Resize according to height.
             if ($Dimension == "height") {
@@ -810,8 +807,7 @@ abstract class Question
         $category = $this->category;
 
         // question already exists
-        if(!empty($id)) {
-
+        if (!empty($id)) {
             $params = [
                 'question' => $question,
                 'description' => $description,
@@ -1319,7 +1315,7 @@ abstract class Question
 
         $course_id = $course_info['real_id'];
 
-        //Read the source options
+        // Read the source options
         $options = self::readQuestionOption($this->id, $this->course['real_id']);
 
         // Inserting in the new course db / or the same course db
@@ -1333,24 +1329,25 @@ abstract class Question
             'level' => $level,
             'extra' => $extra
         ];
-        $new_question_id = Database::insert($TBL_QUESTIONS, $params);
+        $newQuestionId = Database::insert($TBL_QUESTIONS, $params);
 
-        if ($new_question_id) {
-
-            $sql = "UPDATE $TBL_QUESTIONS SET id = iid
-                    WHERE iid = $new_question_id";
+        if ($newQuestionId) {
+            $sql = "UPDATE $TBL_QUESTIONS 
+                    SET id = iid
+                    WHERE iid = $newQuestionId";
             Database::query($sql);
 
             if (!empty($options)) {
-                //Saving the quiz_options
+                // Saving the quiz_options
                 foreach ($options as $item) {
-                    $item['question_id'] = $new_question_id;
+                    $item['question_id'] = $newQuestionId;
                     $item['c_id'] = $course_id;
                     unset($item['id']);
                     unset($item['iid']);
                     $id = Database::insert($TBL_QUESTION_OPTIONS, $item);
                     if ($id) {
-                        $sql = "UPDATE $TBL_QUESTION_OPTIONS SET id = iid
+                        $sql = "UPDATE $TBL_QUESTION_OPTIONS 
+                                SET id = iid
                                 WHERE iid = $id";
                         Database::query($sql);
                     }
@@ -1358,10 +1355,10 @@ abstract class Question
             }
 
             // Duplicates the picture of the hotspot
-            $this->exportPicture($new_question_id, $course_info);
+            $this->exportPicture($newQuestionId, $course_info);
         }
 
-        return $new_question_id;
+        return $newQuestionId;
     }
 
     /**
@@ -1574,15 +1571,15 @@ abstract class Question
 
     /**
      * abstract function which creates the form to create / edit the answers of the question
-     * @param the FormValidator instance
+     * @param FormValidator $form
      */
-    abstract function createAnswersForm($form);
+    abstract public function createAnswersForm($form);
 
     /**
      * abstract function which process the creation of answers
-     * @param the FormValidator instance
+     * @param the FormValidator $form
      */
-    abstract function processAnswersCreation($form);
+    abstract public function processAnswersCreation($form);
 
     /**
      * Displays the menu of question types
@@ -1635,7 +1632,7 @@ abstract class Question
                     $icon = Display::return_icon($img, $explanation, null, ICON_SIZE_BIG);
                 }
             }
-            
+
             echo $icon;
             echo '</div>';
             echo '</li>';

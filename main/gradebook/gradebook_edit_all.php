@@ -37,7 +37,7 @@ $table_evaluated = GradebookUtils::getEvaluateList();
 
 $submitted = isset($_POST['submitted']) ? $_POST['submitted'] : '';
 if ($submitted == 1) {
-    Display :: display_confirmation_message(get_lang('GradebookWeightUpdated')) . '<br /><br />';
+    Display::addFlash(Display::return_message(get_lang('GradebookWeightUpdated')));
     if (isset($_POST['evaluation'])) {
         $eval_log = new Evaluation();
     }
@@ -214,7 +214,6 @@ if (!isset($_GET['exportpdf']) and !isset($_GET['export_certificate'])) {
         Display:: display_header('');
     }
 }
-
 ?>
     <div class="actions">
         <a href="<?php echo Security::remove_XSS(

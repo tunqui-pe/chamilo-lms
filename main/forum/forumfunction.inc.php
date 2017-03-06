@@ -2410,8 +2410,8 @@ function updateThread($values)
         'thread_title' => $values['thread_title'],
         'thread_sticky' => isset($values['thread_sticky']) ? $values['thread_sticky'] : null,
         'thread_title_qualify' => $values['calification_notebook_title'],
-        'thread_qualify_max' => $values['numeric_calification'],
-        'thread_weight' => $values['weight_calification'],
+        'thread_qualify_max' => api_float_val($values['numeric_calification']),
+        'thread_weight' => api_float_val($values['weight_calification']),
         'thread_peer_qualify' => $values['thread_peer_qualify'],
     ];
     $where = ['c_id = ? AND thread_id = ?' => [$courseId, $values['thread_id']]];
@@ -3794,8 +3794,8 @@ function store_edit_post($forumInfo, $values)
             'thread_title' => $values['post_title'],
             'thread_sticky' => isset($values['thread_sticky']) ? $values['thread_sticky'] : null,
             'thread_title_qualify' => $values['calification_notebook_title'],
-            'thread_qualify_max' => $values['numeric_calification'],
-            'thread_weight' => $values['weight_calification'],
+            'thread_qualify_max' => api_float_val($values['numeric_calification']),
+            'thread_weight' => api_float_val($values['weight_calification']),
             'thread_peer_qualify' => $values['thread_peer_qualify'],
         ];
         $where = ['c_id = ? AND thread_id = ?' => [$course_id, $values['thread_id']]];

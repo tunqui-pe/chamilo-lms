@@ -52,9 +52,11 @@ class CourseSelectForm
 				el = document.getElementById('div_'+item);
                 if (el.style.display == 'none') {
                     el.style.display = '';
+                    if (document.getElementById('img_'+item).length)
 					document.getElementById('img_'+item).className = 'fa fa-minus-square-o fa-lg';
 				} else {
 					el.style.display='none';
+					if (document.getElementById('img_'+item).length)
 					document.getElementById('img_'+item).className ='fa fa-plus-square-o fa-lg';
 				}
 			}
@@ -596,10 +598,12 @@ class CourseSelectForm
 				el = document.getElementById('div_'+item);
                 if (el.style.display == 'none') {
                     el.style.display = '';
+                    if (document.getElementById('img_'+item).length)
 					document.getElementById('img_'+item).className('fa fa-minus-square-o fa-lg');
 				}
 				else{
                     el.style.display = 'none';
+                    if (document.getElementById('img_'+item).length)
 					document.getElementById('img_'+item).className('fa fa-plus-square-o fa-lg');
 				}
 			}

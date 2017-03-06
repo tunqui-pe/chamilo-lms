@@ -210,7 +210,8 @@ class Connector
                 'application/pdf',
                 'application/xml',
                 'application/vnd.oasis.opendocument.text',
-                'application/x-shockwave-flash'
+                'application/x-shockwave-flash',
+                'application/vnd.adobe.flash.movie'
             ), # allow files
             //'uploadDeny' => array('text/x-php'),
             'uploadOrder' => array('allow'), // only executes allow

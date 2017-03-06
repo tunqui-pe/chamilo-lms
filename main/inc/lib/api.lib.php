@@ -580,8 +580,8 @@ define('FILE_RENAME', 2);
 define('FILE_OVERWRITE', 3);
 define('UTF8_CONVERT', false); //false by default
 
-define('DOCUMENT','file');
-define('FOLDER','folder');
+define('DOCUMENT', 'file');
+define('FOLDER', 'folder');
 
 define('RESOURCE_ASSET', 'asset');
 define('RESOURCE_DOCUMENT', 'document');
@@ -826,6 +826,17 @@ function api_get_path($path = '', $configuration = [])
             $paths[$root_web][SYS_HOME_PATH] = api_add_trailing_slash($virtualChamilo[SYS_HOME_PATH]);
             $paths[$root_web][SYS_COURSE_PATH] = api_add_trailing_slash($virtualChamilo[SYS_COURSE_PATH]);
             $paths[$root_web][SYS_UPLOAD_PATH] = api_add_trailing_slash($virtualChamilo[SYS_UPLOAD_PATH]);
+
+            $paths[$root_web][WEB_HOME_PATH] = api_add_trailing_slash($virtualChamilo[WEB_HOME_PATH]);
+            $paths[$root_web][WEB_UPLOAD_PATH] = api_add_trailing_slash($virtualChamilo[WEB_UPLOAD_PATH]);
+            $paths[$root_web][WEB_ARCHIVE_PATH] = api_add_trailing_slash($virtualChamilo[WEB_ARCHIVE_PATH]);
+            //$paths[$root_web][WEB_COURSE_PATH] = api_add_trailing_slash($virtualChamilo[WEB_COURSE_PATH]);
+
+            // WEB_UPLOAD_PATH should be handle by apache htaccess in the vhost
+
+            // RewriteEngine On
+            // RewriteRule /app/upload/(.*)$ http://localhost/other/upload/my-chamilo111-net/$1 [QSA,L]
+
             //$paths[$root_web][WEB_UPLOAD_PATH] = api_add_trailing_slash($virtualChamilo[WEB_UPLOAD_PATH]);
             //$paths[$root_web][REL_PATH] = $virtualChamilo[REL_PATH];
             //$paths[$root_web][REL_COURSE_PATH] = $virtualChamilo[REL_COURSE_PATH];
@@ -892,12 +903,12 @@ function api_get_cdn_path($web_path)
 {
     global $_configuration;
     $web_root = api_get_path(WEB_PATH);
-    $ext = substr($web_path,strrpos($web_path,'.'));
+    $ext = substr($web_path, strrpos($web_path, '.'));
     if (isset($ext[2])) { // faster version of strlen to check if len>2
         // Check for CDN definitions
         if (!empty($_configuration['cdn_enable']) && !empty($ext)) {
             foreach ($_configuration['cdn'] as $host => $exts) {
-                if (in_array($ext,$exts)) {
+                if (in_array($ext, $exts)) {
                     //Use host as defined in $_configuration['cdn'], without
                     // trailing slash
                     return str_replace($web_root,$host.'/',$web_path);
@@ -1249,13 +1260,13 @@ function api_is_self_registration_allowed()
  *
  * example: The function can be used to check if a user is logged in
  *          if (api_get_user_id())
- * @return integer the id of the current user, 0 if is empty
+ * @return int the id of the current user, 0 if is empty
  */
 function api_get_user_id()
 {
     $userInfo = Session::read('_user');
     if ($userInfo && isset($userInfo['user_id'])) {
-        return $userInfo['user_id'];
+        return (int) $userInfo['user_id'];
     }
     return 0;
 }
@@ -1410,6 +1421,7 @@ function _api_format_user(
  * @param bool $showPassword
  * @param bool $loadExtraData
  * @param bool $loadOnlyVisibleExtraData Get the user extra fields that are visible
+ * @param bool $loadAvatars turn off to improve performance and if avatars are not needed.
  * @return array $user_info user_id, lastname, firstname, username, email, etc
  * @author Patrick Cool <patrick.cool@UGent.be>
  * @author Julio Montoya
@@ -1420,7 +1432,8 @@ function api_get_user_info(
     $checkIfUserOnline = false,
     $showPassword = false,
     $loadExtraData = false,
-    $loadOnlyVisibleExtraData = false
+    $loadOnlyVisibleExtraData = false,
+    $loadAvatars = true
 ) {
     if (empty($user_id)) {
         $storage = Container::getTokenStorage();
@@ -1432,7 +1445,8 @@ function api_get_user_info(
                 $checkIfUserOnline,
                 $showPassword,
                 $loadExtraData,
-                $loadOnlyVisibleExtraData
+                $loadOnlyVisibleExtraData,
+		$loadAvatars
             );
         }
 
@@ -1447,7 +1461,8 @@ function api_get_user_info(
             $checkIfUserOnline,
             $showPassword,
             $loadExtraData,
-            $loadOnlyVisibleExtraData
+            $loadOnlyVisibleExtraData,
+            $loadAvatars
         );
     }
     return false;
@@ -2897,9 +2912,9 @@ function api_is_allowed_to_edit(
     $session_coach = false,
     $check_student_view = true
 ) {
-    $my_session_id = api_get_session_id();
+    $sessionId = api_get_session_id();
     $is_allowed_coach_to_edit = api_is_coach(null, null, $check_student_view);
-    $session_visibility = api_get_session_visibility($my_session_id);
+    $session_visibility = api_get_session_visibility($sessionId);
 
     // Admins can edit anything.
     if (api_is_platform_admin(false)) {
@@ -2937,7 +2952,7 @@ function api_is_allowed_to_edit(
 
     // Check if the student_view is enabled, and if so, if it is activated.
     if (api_get_setting('student_view_enabled') == 'true') {
-        if (!empty($my_session_id)) {
+        if (!empty($sessionId)) {
             // Check if session visibility is read only for coaches.
             if ($session_visibility == SESSION_VISIBLE_READ_ONLY) {
                 $is_allowed_coach_to_edit = false;
@@ -7936,7 +7951,8 @@ function api_mail_html(
     } else {
         $mailView->assign('link', '');
     }
-
+    $mailView->assign('mail_header_style', api_get_configuration_value('mail_header_style'));
+    $mailView->assign('mail_content_style', api_get_configuration_value('mail_content_style'));
     $layout = $mailView->get_template('mail/mail.tpl');
     $mail->Body = $mailView->fetch($layout);
 
@@ -8163,4 +8179,54 @@ function api_remove_uploaded_file($type, $file)
     }
 }
 
+/**
+ * Converts string value to float value
+ *
+ * 3.141516 => 3.141516
+ * 3,141516 => 3.141516
+ * @todo WIP
+ *
+ * @param string $number
+ * @return float
+ */
+function api_float_val($number)
+{
+    $number = (float) str_replace(',', '.', trim($number));
+    return $number;
+}
 
+/**
+ * Converts float values
+ * Example if $decimals = 2
+ *
+ * 3.141516 => 3.14
+ * 3,141516 => 3,14
+ *
+ * @todo WIP
+ *
+ * @param string $number number in iso code
+ * @param int $decimals
+ * @return bool|string
+ */
+function api_number_format($number, $decimals = 0)
+{
+    $number = api_float_val($number);
+
+    return number_format($number, $decimals);
+}
+
+/**
+ * Set location url with a exit break by default
+ *
+ * @param $url
+ * @param bool $exit
+ * @return void
+ */
+function location($url, $exit = true)
+{
+    header('Location: ' . $url);
+
+    if ($exit) {
+        exit;
+    }
+}

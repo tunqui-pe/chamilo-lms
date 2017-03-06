@@ -1208,7 +1208,7 @@ class GradebookUtils
     public static function updateLinkWeight($linkId, $name, $weight)
     {
         $linkId = intval($linkId);
-        $weight = floatval($weight);
+        $weight = api_float_val($weight);
         $course_id = api_get_course_int_id();
 
         AbstractLink::add_link_log($linkId, $name);
@@ -1230,12 +1230,14 @@ class GradebookUtils
         $rs_attendance  = Database::query($sql);
         if (Database::num_rows($rs_attendance) > 0) {
             $row_attendance = Database::fetch_array($rs_attendance);
-            $sql = 'UPDATE '.$tbl_attendance.' SET attendance_weight ='.$weight.'
+            $sql = 'UPDATE '.$tbl_attendance.' SET 
+                    attendance_weight ='.api_float_val($weight).'
                     WHERE c_id = '.$course_id.' AND  id = '.intval($row_attendance['ref_id']);
             Database::query($sql);
         }
         // Update weight into forum thread
-        $sql = 'UPDATE '.$tbl_forum_thread.' SET thread_weight='.$weight.'
+        $sql = 'UPDATE '.$tbl_forum_thread.' SET 
+                thread_weight = '.api_float_val($weight).'
                 WHERE
                     c_id = '.$course_id.' AND
                     thread_id = (

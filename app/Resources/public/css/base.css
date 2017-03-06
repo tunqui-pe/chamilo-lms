@@ -305,17 +305,21 @@ header{
     text-align:center;
     vertical-align:middle;
 }
+
 #gradebook_list .centered .badge-group {
     width: auto;
 }
+
 #breadcrumb-bar #view_as_link{
   padding-top: 7px;
   margin-right: 10px;
 }
+
 .button-load{
   background: url("../img/icons/64/file_upload.png") no-repeat center 20px;
   padding-top: 70px;
 }
+
 #results .file_upload_highlight {
     background: #F4D364;
 }
@@ -336,6 +340,7 @@ header{
     padding-top: 5px;
     background: none;
 }
+
 .file_upload_small{
     border: 1px solid #AFDDE9;
     background: #D4E6F0;
@@ -343,26 +348,36 @@ header{
     border-radius: 5px;
     padding-bottom: 5px;
 }
+
 .work_correction_file_upload {
     margin-bottom: 5px;
     margin-top: 5px;
 }
+
+.work_correction_file_upload.hover {
+    background: lawngreen;
+}
+
 .file_upload input{
     position: absolute;
 }
+
 #results .jqgrid_whitespace .date-time{
     font-size: 12px;
     color: #666666;
     text-align: center;
 }
+
 .list-work-results{
     margin-top: 20px;
 }
+
 .impress-content{
     position: relative;
     width: 100%;
     height:600px;
 }
+
 .impress-title{
     position: absolute;
     top:40%;
@@ -1906,6 +1921,10 @@ div.admin_section h4 {
 .question_row_answer .page-header h3{
   font-size: 22px;
   margin: 0;
+}
+.question_row_answer img {
+    max-width: 80%;
+    height: auto !important;
 }
 .ribbon {
     float:left;
@@ -5684,7 +5703,11 @@ a.sessionView {
 .modal-body .sectioncomment{
     color: #666;
 }
-
+.progress{
+    border: 1px solid #c5c5c5;
+    background: #E9E9E9;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+}
 .wami-container {
     height: 144px;
     position: relative;
@@ -6426,3 +6449,31 @@ input.form-control[type="color"] {
     padding: 2px;
 }
 
+.form-separator {
+    font-weight: bold;
+    border-bottom: 2px solid #CCC;
+    padding-bottom: 12px;
+    color: #666;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    div.navbar-collapse {
+        padding-left: 0;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}

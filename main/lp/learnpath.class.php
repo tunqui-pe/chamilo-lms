@@ -1962,48 +1962,51 @@ class learnpath
      * Gets the navigation bar for the learnpath display screen
      * @return	string	The HTML string to use as a navigation bar
      */
-    public function get_navigation_bar($idBar = null, $display = null) {
+    public function get_navigation_bar($idBar = null, $display = null)
+    {
         if ($this->debug > 0) {
             error_log('New LP - In learnpath::get_navigation_bar()', 0);
         }
-        if(empty($idBar)){
-            $idBar='control-top';
+        if (empty($idBar)) {
+            $idBar = 'control-top';
         }
-        /* if(empty($display)){
-            $display='display:block';
-        } */
+
         $navbar = null;
         $lp_id = $this->lp_id;
         $mycurrentitemid = $this->get_current_item_id();
 
+        $reportingText = get_lang('Reporting');
+        $previousText = get_lang('ScormPrevious');
+        $nextText = get_lang('ScormNext');
+        $fullScreenText = get_lang('ScormExitFullScreen');
+
         if ($this->mode == 'fullscreen') {
             $navbar = '
                   <span id="'.$idBar.'" class="buttons">
-                    <a class="icon-toolbar" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="stats" id="stats_link">
-                        <span class="fa fa-info"></span><span class="sr-only">' . get_lang('Reporting') . '</span>
+                    <a class="icon-toolbar" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="'.$reportingText.'" id="stats_link">
+                        <span class="fa fa-info"></span><span class="sr-only">' . $reportingText . '</span>
                     </a>
-                    <a class="icon-toolbar" id="scorm-previous" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'previous\');return false;" title="previous">
-                        <span class="fa fa-chevron-left"></span><span class="sr-only">' . get_lang('ScormPrevious') . '</span>
+                    <a class="icon-toolbar" id="scorm-previous" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'previous\');return false;" title="'.$previousText.'">
+                        <span class="fa fa-chevron-left"></span><span class="sr-only">' . $previousText . '</span>
                     </a>
-                    <a class="icon-toolbar" id="scorm-next" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'next\');return false;" title="next">
-                        <span class="fa fa-chevron-right"></span><span class="sr-only">' . get_lang('ScormNext') . '</span>
+                    <a class="icon-toolbar" id="scorm-next" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'next\');return false;" title="'.$nextText.'">
+                        <span class="fa fa-chevron-right"></span><span class="sr-only">' . $nextText. '</span>
                     </a>
-                    <a class="icon-toolbar" id="view-embedded" href="lp_controller.php?action=mode&mode=embedded" target="_top" title="embedded mode">
-                        <span class="fa fa-columns"></span><span class="sr-only">' . get_lang('ScormExitFullScreen') . '</span>
+                    <a class="icon-toolbar" id="view-embedded" href="lp_controller.php?action=mode&mode=embedded" target="_top" title="'.$fullScreenText.'">
+                        <span class="fa fa-columns"></span><span class="sr-only">' . $fullScreenText . '</span>
                     </a>
                   </span>';
-
         } else {
             $navbar = '
                 <span id="'.$idBar.'" class="buttons text-right">
-                    <a class="icon-toolbar" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="stats" id="stats_link">
-                        <span class="fa fa-info"></span><span class="sr-only">' . get_lang('Reporting') . '</span>
+                    <a class="icon-toolbar" href="lp_controller.php?action=stats&'.api_get_cidreq(true).'&lp_id='.$lp_id.'" onclick="window.parent.API.save_asset();return true;" target="content_name" title="'.$reportingText.'" id="stats_link">
+                        <span class="fa fa-info"></span><span class="sr-only">' . $reportingText. '</span>
                     </a>
-                    <a class="icon-toolbar" id="scorm-previous" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'previous\');return false;" title="previous">
-                        <span class="fa fa-chevron-left"></span><span class="sr-only">' . get_lang('ScormPrevious') . '</span>
+                    <a class="icon-toolbar" id="scorm-previous" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'previous\');return false;" title="'.$previousText.'">
+                        <span class="fa fa-chevron-left"></span><span class="sr-only">' . $previousText. '</span>
                     </a>
-                    <a class="icon-toolbar" id="scorm-next" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'next\');return false;" title="next">
-                        <span class="fa fa-chevron-right"></span><span class="sr-only">' . get_lang('ScormNext') . '</span>
+                    <a class="icon-toolbar" id="scorm-next" href="#" onclick="switch_item(' . $mycurrentitemid . ',\'next\');return false;" title="'.$nextText.'">
+                        <span class="fa fa-chevron-right"></span><span class="sr-only">' . $nextText . '</span>
                     </a>
                 </span>';
         }
@@ -2652,6 +2655,7 @@ class learnpath
             if (isset($size)) {
                 $info = pathinfo($preview_image);
                 $image_custom_size = $info['filename'].'.'.$size.'.'.$info['extension'];
+
                 if (file_exists($image_sys_path.$image_custom_size)) {
                     if ($path_type == 'web') {
                         return $image_path.$image_custom_size;
@@ -3878,13 +3882,13 @@ class learnpath
         $course_id = api_get_course_int_id();
         $lp_table = Database :: get_course_table(TABLE_LP_MAIN);
         $sql = "SELECT * FROM $lp_table
-                WHERE c_id = ".$course_id."
+                WHERE c_id = $course_id
                 ORDER BY display_order";
         $res = Database::query($sql);
         if ($res === false)
             return false;
         $lps = array ();
-        $lp_order = array ();
+        $lp_order = array();
         $num = Database :: num_rows($res);
         // First check the order is correct, globally (might be wrong because
         // of versions < 1.8.4)
@@ -3925,7 +3929,7 @@ class learnpath
         $course_id = api_get_course_int_id();
         $lp_table = Database :: get_course_table(TABLE_LP_MAIN);
         $sql = "SELECT * FROM $lp_table
-                WHERE c_id = ".$course_id."
+                WHERE c_id = $course_id
                 ORDER BY display_order";
         $res = Database::query($sql);
         if ($res === false) {
@@ -4137,7 +4141,7 @@ class learnpath
         $result = Database::query($sql);
         if (Database::num_rows($result)) {
             $row = Database :: fetch_array($result);
-            $name = domesticate($row['name']);
+            $name = Database::escape_string($row['name']);
             if ($set_visibility == 'i') {
                 $v = 0;
             }
@@ -4163,6 +4167,7 @@ class learnpath
                         )
                         $session_condition
                     ";
+
             $result = Database::query($sql);
             $num = Database :: num_rows($result);
             if ($set_visibility == 'i' && $num > 0) {
@@ -4195,7 +4200,9 @@ class learnpath
                             session_id = $session_id
                         WHERE
                             c_id = ".$course_id." AND
-                            (link='$link' and image='scormbuilder.gif' $session_condition)
+                            (link = '$link' OR link = '$oldLink') AND 
+                            image='scormbuilder.gif' 
+                            $session_condition
                         ";
                 Database::query($sql);
             } else {
@@ -5626,12 +5633,11 @@ class learnpath
                         $edit_icon .= '</a>';
 
                         if (!in_array($arrLP[$i]['item_type'], ['forum', 'thread'])) {
-                            if (
-                            $this->items[$arrLP[$i]['id']]->getForumThread(
+                            $forumThread = $this->items[$arrLP[$i]['id']]->getForumThread(
                                 $this->course_int_id,
                                 $this->lp_session_id
-                            )
-                            ) {
+                            );
+                            if ($forumThread) {
                                 $forumIconUrl = api_get_self() . '?' . api_get_cidreq() . '&' . http_build_query([
                                     'action' => 'dissociate_forum',
                                     'id' => $arrLP[$i]['id'],
@@ -5668,7 +5674,7 @@ class learnpath
 
                 $url = api_get_self() . '?'.api_get_cidreq().'&view=build&id='.$arrLP[$i]['id'] .'&lp_id='.$this->lp_id;
 
-                if ($arrLP[$i]['item_type'] == 'document') {
+                if (in_array($arrLP[$i]['item_type'], ['document', 'final_item'])) {
                     $urlPreviewLink = api_get_self().'?'.api_get_cidreq().'&action=view_item&mode=preview_document&id='.$arrLP[$i]['id'].'&lp_id='.$this->lp_id;
                     $previewIcon = Display::url(
                         Display::return_icon('preview_view.png', get_lang('Preview'), array(), ICON_SIZE_TINY),
@@ -5690,11 +5696,18 @@ class learnpath
                         Display::return_icon('accept.png', get_lang('LearnpathPrerequisites'), array(), ICON_SIZE_TINY),
                         $url.'&action=edit_item_prereq', ['class' => 'btn btn-default']
                     );
-                    $move_item_icon = Display::url(
-                        Display::return_icon('move.png', get_lang('Move'), array(), ICON_SIZE_TINY),
-                        $url.'&action=move_item',
-                        ['class' => 'btn btn-default']
-                    );
+                    if ($arrLP[$i]['item_type'] != 'final_item') {
+                        $move_item_icon = Display::url(
+                            Display::return_icon(
+                                'move.png',
+                                get_lang('Move'),
+                                array(),
+                                ICON_SIZE_TINY
+                            ),
+                            $url.'&action=move_item',
+                            ['class' => 'btn btn-default']
+                        );
+                    }
                     $audio_icon = Display::url(
                         Display::return_icon('audio.png', get_lang('UplUpload'), array(), ICON_SIZE_TINY),
                         $url.'&action=add_audio',
@@ -6210,7 +6223,7 @@ class learnpath
     public function edit_document($_course)
     {
         $course_id = api_get_course_int_id();
-        global $_configuration;
+        $urlAppend = api_get_configuration_value('url_append');
         // Please, do not modify this dirname formatting.
         $dir = isset($_GET['dir']) ? $_GET['dir'] : $_POST['dir'];
 
@@ -6243,7 +6256,7 @@ class learnpath
             $file = $filepath . $row['path'];
 
             if ($fp = @ fopen($file, 'w')) {
-                $content = str_replace(api_get_path(WEB_COURSE_PATH), $_configuration['url_append'].api_get_path(REL_COURSE_PATH), $content);
+                $content = str_replace(api_get_path(WEB_COURSE_PATH), $urlAppend.api_get_path(REL_COURSE_PATH), $content);
 
                 // Change the path of mp3 to absolute.
                 // The first regexp deals with :// urls.
@@ -6273,8 +6286,10 @@ class learnpath
         $return = '';
         if (is_numeric($item_id)) {
             $tbl_lp_item = Database :: get_course_table(TABLE_LP_ITEM);
-            $sql = "SELECT lp.* FROM " . $tbl_lp_item . " as lp
-                    WHERE c_id = ".$course_id." AND lp.id = " . intval($item_id);
+            $sql = "SELECT lp.* FROM $tbl_lp_item as lp
+                    WHERE 
+                        c_id = $course_id AND 
+                        lp.id = " . intval($item_id);
             $result = Database::query($sql);
             while ($row = Database :: fetch_array($result,'ASSOC')) {
                 $_SESSION['parent_item_id'] = $row['item_type'] == 'dir' ? $item_id : 0;
@@ -6306,6 +6321,9 @@ class learnpath
                             );
                         }
                         break;
+                    case TOOL_LP_FINAL_ITEM:
+                        $return .= $this->getSavedFinalItem();
+                        break;
                     case TOOL_DOCUMENT:
                         $tbl_doc = Database :: get_course_table(TABLE_DOCUMENT);
                         $sql_doc = "SELECT path FROM " . $tbl_doc . "
@@ -6331,7 +6349,6 @@ class learnpath
                         }
                         break;
                     case TOOL_HOTPOTATOES:
-
                         $return .= $this->display_document($row['path'], false, true);
                         break;
 
@@ -6400,12 +6417,12 @@ class learnpath
                     $return .= $this->display_link_form('edit', $item_id, $row);
                     break;
                 case TOOL_LP_FINAL_ITEM:
-                    $_SESSION['finalItem'] = true;
+                    Session::write('finalItem', true);
                     $tbl_doc = Database :: get_course_table(TABLE_DOCUMENT);
                     $sql = "SELECT lp.*, doc.path as dir
                             FROM " . $tbl_lp_item . " as lp
                             LEFT JOIN " . $tbl_doc . " as doc
-                            ON doc.id = lp.path
+                            ON (doc.id = lp.path AND lp.c_id = doc.c_id)
                             WHERE
                                 lp.c_id = $course_id AND
                                 doc.c_id = $course_id AND
@@ -8138,8 +8155,8 @@ class learnpath
         } elseif (is_numeric($extra_info)) {
             $extra_info = intval($extra_info);
             $sql = "SELECT title, description
-                    FROM " . $tbl_publication . "
-                    WHERE c_id = ".$course_id." AND id = " . $extra_info;
+                    FROM $tbl_publication
+                    WHERE c_id = $course_id AND id = " . $extra_info;
 
             $result = Database::query($sql);
             $row = Database :: fetch_array($result);
@@ -8155,8 +8172,8 @@ class learnpath
             $parent = 0;
         }
 
-        $sql = "SELECT * FROM " . $tbl_lp_item . "
-                WHERE c_id = ".$course_id." AND lp_id = " . $this->lp_id;
+        $sql = "SELECT * FROM $tbl_lp_item 
+                WHERE c_id = $course_id AND lp_id = " . $this->lp_id;
 
         $result = Database::query($sql);
         $arrLP = array();
@@ -8207,9 +8224,7 @@ class learnpath
             ]
         );
 
-        $arrHide = array(
-            $id
-        );
+        $arrHide = array($id);
 
         for ($i = 0; $i < count($arrLP); $i++) {
             if ($action != 'add') {
@@ -8405,7 +8420,7 @@ class learnpath
             $url.'&action=delete_item'
         );
 
-        if ($item_type == TOOL_HOTPOTATOES ) {
+        if ($item_type == TOOL_HOTPOTATOES) {
             $document_data = DocumentManager::get_document_data_by_id($row['path'], $course_code);
             $return .= get_lang('File').': '.$document_data['absolute_path_from_document'];
         }
@@ -8714,7 +8729,7 @@ class learnpath
         $row = Database :: fetch_array($result);
         $prerequisiteId = $row['prerequisite'];
         $session_id = api_get_session_id();
-        $session_condition = api_get_session_condition($session_id);
+        $session_condition = api_get_session_condition($session_id, true, true);
         $sql = "SELECT * FROM $tbl_lp
                 WHERE c_id = $course_id $session_condition
                 ORDER BY display_order ";
@@ -8822,7 +8837,7 @@ class learnpath
         $tbl_quiz = Database :: get_course_table(TABLE_QUIZ_TEST);
 
         $session_id = api_get_session_id();
-        $condition_session = api_get_session_condition($session_id);
+        $condition_session = api_get_session_condition($session_id, true, true);
 
         $setting = api_get_configuration_value('show_invisible_exercise_in_lp_list');
 
@@ -8868,7 +8883,7 @@ class learnpath
             $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
             $return .= '</a> ';
             $return .= Display::return_icon('quizz_small.gif', '', array(), ICON_SIZE_TINY);
-            $return .= '<a href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_QUIZ . '&file=' . $row_quiz['id'] . '&lp_id=' . $this->lp_id . '">' .
+            $return .= '<a class="moved" href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_QUIZ . '&file=' . $row_quiz['id'] . '&lp_id=' . $this->lp_id . '">' .
                 Security :: remove_XSS(cut($row_quiz['title'], 80)).
                 '</a>';
 
@@ -8894,9 +8909,15 @@ class learnpath
         $moveEverywhereIcon = Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
 
         $session_id = api_get_session_id();
-        $condition_session = api_get_session_condition($session_id, true, null, "link.session_id");
+        $condition_session = api_get_session_condition(
+            $session_id,
+            true,
+            true,
+            "link.session_id"
+        );
 
-        $sql = "SELECT link.id as link_id,
+        $sql = "SELECT 
+                    link.id as link_id,
                     link.title as link_title,
                     link.category_id as category_id,
                     link_category.category_title as category_title
@@ -8956,7 +8977,7 @@ class learnpath
                             $moveEverywhereIcon.
                         '</a>
                         '.Display::return_icon('lp_link.png').'
-                        <a href="'.$selfUrl.'?'.$courseIdReq.'&action=add_item&type='.
+                        <a class="moved" href="'.$selfUrl.'?'.$courseIdReq.'&action=add_item&type='.
                         TOOL_LINK.'&file='.$key.'&lp_id='.$this->lp_id.'">'.
                         Security::remove_XSS($title).
                         '</a>
@@ -8997,7 +9018,6 @@ class learnpath
             $works = getWorkListTeacher(0, 100, null, null, null);
             if (!empty($works)) {
                 foreach ($works as $work) {
-
                     $link = Display::url(
                         Display::return_icon('preview_view.png', get_lang('Preview')),
                         api_get_path(WEB_CODE_PATH).'work/work_list_all.php?'.api_get_cidreq().'&id='.$work['iid'],
@@ -9104,10 +9124,10 @@ class learnpath
                 $return .= Display::return_icon('move_everywhere.png', get_lang('Move'), array(), ICON_SIZE_TINY);
                 $return .= ' </a>';
                 $return .= Display::return_icon('lp_forum.png', '', array(), ICON_SIZE_TINY);
-                $return .= '<a style="cursor:hand" onclick="javascript: toggle_forum(' . $forum['forum_id'] . ')" style="vertical-align:middle">
+                $return .= '<a onclick="toggle_forum(' . $forum['forum_id'] . ');" style="cursor:hand; vertical-align:middle">
                                 <img src="' . Display::returnIconPath('add.gif').'" id="forum_' . $forum['forum_id'] . '_opener" align="absbottom" />
                             </a>
-                            <a href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_FORUM . '&forum_id=' . $forum['forum_id'] . '&lp_id=' . $this->lp_id . '" style="vertical-align:middle">' .
+                            <a class="moved" href="' . api_get_self() . '?'.api_get_cidreq().'&action=add_item&type=' . TOOL_FORUM . '&forum_id=' . $forum['forum_id'] . '&lp_id=' . $this->lp_id . '" style="vertical-align:middle">' .
                     Security :: remove_XSS($forum['forum_title']) . '</a>';
 
                 $return .= '</li>';
@@ -11008,7 +11028,7 @@ EOD;
     /**
      * Check and obtain the lp final item if exist
      *
-     * @return array lp items
+     * @return learnpathItem
      */
     private function getFinalItem()
     {
@@ -11043,9 +11063,13 @@ EOD;
     private function getSavedFinalItem()
     {
         $finalItem = $this->getFinalItem();
-        $doc = DocumentManager::get_document_data_by_id($finalItem->path, $this->cc);
 
-        return file_get_contents($doc['absolute_path']);
+        $doc = DocumentManager::get_document_data_by_id($finalItem->path, $this->cc);
+        if ($doc && file_exists($doc['absolute_path'])) {
+            return file_get_contents($doc['absolute_path']);
+        }
+
+        return '';
     }
 
     /**
@@ -11059,7 +11083,7 @@ EOD;
         $title = '';
 
         if ($finalItem) {
-            $title = $finalItem->title;
+            $title = $finalItem->get_title();
             $buttonText = get_lang('Save');
             $content = $this->getSavedFinalItem();
         } else {
@@ -11105,7 +11129,9 @@ EOD;
         $form->addHidden('action', 'add_final_item');
         $form->addHidden('path', Session::read('pathItem'));
         $form->addHidden('previous', $this->get_last());
-        $form->setDefaults(['title' => $title, 'content_lp_certificate' => $content]);
+        $form->setDefaults(
+            ['title' => $title, 'content_lp_certificate' => $content]
+        );
 
         if ($form->validate()) {
             $values = $form->exportValues();
@@ -11124,6 +11150,10 @@ EOD;
                     $documentId,
                     $values['title'],
                     ''
+                );
+
+                Display::addFlash(
+                    Display::return_message(get_lang('Added'))
                 );
             } else {
                 $this->edit_document($this->course_info);
