@@ -7,10 +7,6 @@ engines:
       - BUG
       - '@todo'
       - todo
-  phpcodesniffer:
-    enabled: true
-    config:
-    standard: "PSR1,PSR2"
   duplication:
     enabled: true
     config:
