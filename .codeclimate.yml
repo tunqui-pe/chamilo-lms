@@ -5,7 +5,7 @@ engines:
       strings:
       - FIXME
       - BUG
-      - @todo
+      - '@todo'
       - todo
   phpcodesniffer:
     enabled: true
