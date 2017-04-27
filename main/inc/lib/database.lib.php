@@ -255,6 +255,10 @@ class Database
      */
     public static function fetch_assoc(Statement $result)
     {
+        if ($result === false) {
+            return array();
+        }
+
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -281,6 +285,9 @@ class Database
      */
     public static function fetch_row(Statement $result)
     {
+        if ($result === false) {
+            return array();
+        }
         return $result->fetch(PDO::FETCH_NUM);
     }
 
@@ -312,6 +319,9 @@ class Database
      */
     public static function num_rows(Statement $result)
     {
+        if ($result === false) {
+            return 0;
+        }
         return $result->rowCount();
     }
 
@@ -353,8 +363,6 @@ class Database
             } catch (Exception $e) {
                 error_log($e->getMessage());
                 api_not_allowed(false, get_lang('GeneralError'));
-
-                exit;
             }
         }
 
@@ -451,11 +459,10 @@ class Database
             $updateSql = '';
             $count = 1;
 
-            if ($showQuery) {
-                var_dump($attributes);
-            }
-
             foreach ($attributes as $key => $value) {
+                if ($showQuery) {
+                    echo $key . ': ' . $value . PHP_EOL;
+                }
                 $updateSql .= "$key = :$key ";
                 if ($count < count($attributes)) {
                     $updateSql.= ', ';
@@ -559,11 +566,11 @@ class Database
                         if (is_array($value_array)) {
                             $clean_values = array();
                             foreach ($value_array as $item) {
-                                $item = Database::escape_string($item);
+                                $item = self::escape_string($item);
                                 $clean_values[]= $item;
                             }
                         } else {
-                            $value_array = Database::escape_string($value_array);
+                            $value_array = self::escape_string($value_array);
                             $clean_values = $value_array;
                         }
 

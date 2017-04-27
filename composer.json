@@ -176,7 +176,7 @@
         "kigkonsult/icalcreator" : "0.1.0",
         "essence/essence": "2.6.1",
         "pclzip/pclzip": "2.8.2",
-        "ramsey/array_column": "~1.1"
+        "ramsey/array_column": "~1.1"	
     },
     "require-dev": {
         "behat/behat": "@stable",

@@ -32,17 +32,19 @@ cd /tmp && wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_li
 - Social network tool must be available (allow_social_tool = true)
 - Student can register to the system (allow_registration = yes)
 - Teacher can register to the system (allow_registration_as_teacher = yes)
+- The CHECK_PASS_EASY_TO_FIND in app/config/profile.conf.php must be set to false
 
 ### Run tests
 
 To run all features:
 
 ```
+# /var/www/html/chamilo
 cd tests/behat
  ../../vendor/behat/behat/bin/behat -v
  ```
  
-Or for a specific feature:
+To run an specific feature:
 
 ```
 ../../vendor/behat/behat/bin/behat features/createCourse.feature

@@ -502,7 +502,7 @@ class Session
             Criteria::expr()->eq('user', $user)
         );
 
-        if (!is_null($status))  {
+        if (!is_null($status)) {
             $criteria->andWhere(
                 Criteria::expr()->eq('status', $status)
             );

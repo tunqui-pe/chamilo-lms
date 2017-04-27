@@ -283,7 +283,7 @@ if ($form->validate()) {
         $plugin->deleteItem($productItem['id']);
     }
 
-    header('Location: ' . api_get_path(WEB_PLUGIN_PATH) . 'buycourses/src/configuration.php');
+    header('Location: '.api_get_path(WEB_PLUGIN_PATH).'buycourses/src/configuration.php');
     exit;
 }
 

@@ -36,23 +36,21 @@ class ExerciseResult
      * @param int $user_id User ID. Optional. If no user ID is provided, we take all the results. Defauts to null
      * @param int $filter
      * @param int $exercise_id
-     * @param null $hotpotato_name
+     *
      * @return bool
      */
     public function getExercisesReporting(
         $document_path,
         $user_id = null,
         $filter = 0,
-        $exercise_id = 0,
-        $hotpotato_name = null
+        $exercise_id = 0
     ) {
         $return = array();
         $TBL_EXERCISES = Database::get_course_table(TABLE_QUIZ_TEST);
         $TBL_TABLE_LP_MAIN = Database::get_course_table(TABLE_LP_MAIN);
-
         $TBL_USER = Database::get_main_table(TABLE_MAIN_USER);
         $TBL_TRACK_EXERCISES = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-        $TBL_TRACK_ATTEMPT_RECORDING = Database:: get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT_RECORDING);
+        $TBL_TRACK_ATTEMPT_RECORDING = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT_RECORDING);
 
         $cid = api_get_course_id();
         $course_id = api_get_course_int_id();
@@ -181,7 +179,7 @@ class ExerciseResult
                             FROM $TBL_TRACK_ATTEMPT_RECORDING
                             WHERE 
                                 author != '' AND 
-                                exe_id = ".Database :: escape_string($result['exid'])."
+                                exe_id = ".Database::escape_string($result['exid'])."
                             LIMIT 1";
                 $query = Database::query($sql_exe);
 
@@ -276,32 +274,29 @@ class ExerciseResult
         return true;
     }
 
-	/**
-     * Exports the complete report as a CSV file     *
+    /**
+     * Exports the complete report as a CSV file
      * @param    string $document_path Document path inside the document tool
      * @param    integer $user_id Optional user ID
      * @param    boolean $export_user_fields Whether to include user fields or not
      * @param    int $export_filter
      * @param    int $exercise_id
-     * @param    string $hotpotato_name
      *
-	 * @return	boolean		False on error
-	 */
+     * @return  boolean False on error
+     */
     public function exportCompleteReportCSV(
         $document_path = '',
         $user_id = null,
         $export_user_fields = false,
         $export_filter = 0,
-        $exercise_id = 0,
-        $hotpotato_name = null
+        $exercise_id = 0
     ) {
         global $charset;
         $this->getExercisesReporting(
             $document_path,
             $user_id,
             $export_filter,
-            $exercise_id,
-            $hotpotato_name
+            $exercise_id
         );
         $now = api_get_local_time();
         $filename = 'exercise_results_'.$now.'.csv';
@@ -379,7 +374,7 @@ class ExerciseResult
 
             // Email
             $data .= str_replace("\r\n",'  ',api_html_entity_decode(strip_tags($row['email']), ENT_QUOTES, $charset)).';';
-            $data .= str_replace("\r\n",'  ',implode(", ", GroupManager :: get_user_group_name($row['user_id']))).';';
+            $data .= str_replace("\r\n",'  ',implode(", ", GroupManager::get_user_group_name($row['user_id']))).';';
 
             if ($export_user_fields) {
                 //show user fields data, if any, for this user
