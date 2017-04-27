@@ -2696,9 +2696,9 @@ class UserManager
                     s.coachAccessEndDate AS coach_access_end_date
                 FROM ChamiloCoreBundle:Session AS s
                 INNER JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
-                INNER JOIN ChamiloCoreBundle:AccessUrlRelSession AS url WITH url.sessionId = s.id
+                INNER JOIN ChamiloCoreBundle:AccessUrlRelSession AS url WITH url.session = s
                 LEFT JOIN ChamiloCoreBundle:SessionCategory AS sc WITH s.category = sc
-                WHERE (scu.user = :user OR s.generalCoach = :user) AND url.accessUrlId = :url
+                WHERE (scu.user = :user OR s.generalCoach = :user) AND url.url = :url
                 ORDER BY sc.name, s.name";
 
         $dql = Database::getManager()
