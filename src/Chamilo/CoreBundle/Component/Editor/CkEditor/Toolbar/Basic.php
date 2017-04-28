@@ -55,7 +55,7 @@ class Basic extends Toolbar
         'stylesheetparser',
         'tableresize',
         'templates',
-        'uicolor',
+        //'uicolor',
         'video',
         'widget',
         'wikilink',
