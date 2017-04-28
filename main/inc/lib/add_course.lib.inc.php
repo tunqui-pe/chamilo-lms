@@ -849,7 +849,7 @@ class AddCourse
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
             $toolIntro
                 ->setCId($course_id)
-                ->setId(TOOL_COURSE_HOMEPAGE)
+                ->setTool(TOOL_COURSE_HOMEPAGE)
                 ->setSessionId(0)
                 ->setIntroText($intro_text);
             $manager->persist($toolIntro);
@@ -857,7 +857,7 @@ class AddCourse
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
             $toolIntro
                 ->setCId($course_id)
-                ->setId(TOOL_STUDENTPUBLICATION)
+                ->setTool(TOOL_STUDENTPUBLICATION)
                 ->setSessionId(0)
                 ->setIntroText(get_lang('IntroductionTwo'));
             $manager->persist($toolIntro);
@@ -866,7 +866,7 @@ class AddCourse
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
             $toolIntro
                 ->setCId($course_id)
-                ->setId(TOOL_WIKI)
+                ->setTool(TOOL_WIKI)
                 ->setSessionId(0)
                 ->setIntroText(get_lang('IntroductionWiki'));
             $manager->persist($toolIntro);
