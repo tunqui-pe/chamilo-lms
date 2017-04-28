@@ -176,7 +176,7 @@
         "kigkonsult/icalcreator" : "0.1.0",
         "essence/essence": "2.6.1",
         "pclzip/pclzip": "2.8.2",
-        "ocramius/proxy-manager": "2.0.4"
+        "ocramius/proxy-manager": "2.0.*"
     },
     "require-dev": {
         "behat/behat": "@stable",

@@ -86,7 +86,7 @@ before_install:
   - sudo chown -R 775 $TRAVIS_BUILD_DIR
   - sudo chmod +x /home/travis/build
   - sudo service apache2 restart
-    - curl $VHOST_URL
+  - curl $VHOST_URL
 
 script:
   - cd tests/behat
