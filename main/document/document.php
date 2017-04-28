@@ -165,10 +165,6 @@ if (!empty($groupId)) {
     );
     $groupMemberWithEditRights = $isAllowedToEdit || $isTutorGroup;
 
-$groupMemberWithEditRights = $is_allowed_to_edit || GroupManager::is_tutor_of_group($userId, $group_properties['iid'], $courseId);
-
-// Setting group variables.
-if (!empty($groupId)) {
     // Let's assume the user cannot upload files for the group
     $group_member_with_upload_rights = false;
 
