@@ -156,17 +156,30 @@ class Database
         $entityManager = EntityManager::create($params, $config);
         $sysPath = !empty($sysPath) ? $sysPath : api_get_path(SYS_PATH);
 
-        //vendor/symfony/symfony/src/Symfony/Component/Validator/Constraint.php
-        // Registering Constraints
-        AnnotationRegistry::registerAutoloadNamespace(
-            'Symfony\Component\Validator\Constraint',
-            $sysPath."vendor/symfony/symfony/src"
-        );
-
         $uniqueEntityPath = $sysPath.'vendor/symfony/symfony/src/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntity.php';
-        // Fix in order to install using chash
+
+        // Folder symfony/symfony/src doesn't exists in chash use the component folder
         if (!file_exists($uniqueEntityPath)) {
             $uniqueEntityPath = $sysPath.'vendor/symfony/doctrine-bridge/Validator/Constraints/UniqueEntity.php';
+
+            AnnotationRegistry::registerLoader(
+                function ($class) use ($sysPath) {
+                    $file = str_replace("\\", DIRECTORY_SEPARATOR, $class).".php";
+                    $file = str_replace('Symfony/Component/Validator', '', $file);
+                    $file = $sysPath.'vendor/symfony/validator'.$file;
+                    if (file_exists($file)) {
+                        // file exists makes sure that the loader fails silently
+                        require_once $file;
+                        return true;
+                    }
+                }
+            );
+        } else {
+            // Registering Constraints
+            AnnotationRegistry::registerAutoloadNamespace(
+                'Symfony\Component\Validator\Constraint',
+                $sysPath.'vendor/symfony/symfony/src'
+            );
         }
 
         AnnotationRegistry::registerFile(
