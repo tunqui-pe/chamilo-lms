@@ -163,8 +163,14 @@ class Database
             $sysPath."vendor/symfony/symfony/src"
         );
 
+        $uniqueEntityPath = $sysPath.'vendor/symfony/symfony/src/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntity.php';
+        // Fix in order to install using chash
+        if (!file_exists($uniqueEntityPath)) {
+            $uniqueEntityPath = $sysPath.'vendor/symfony/doctrine-bridge/Validator/Constraints/UniqueEntity.php';
+        }
+
         AnnotationRegistry::registerFile(
-            $sysPath.'vendor/symfony/symfony/src/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntity.php'
+            $uniqueEntityPath
         );
 
         // Registering gedmo extensions
