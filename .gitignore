@@ -17,6 +17,8 @@ app/logs/*
 /app/config/profile.conf.php
 /app/config/configuration.php
 
+/app/bootstrap.php.cache
+
 # Courses
 app/courses/*
 
