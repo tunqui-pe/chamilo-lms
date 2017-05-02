@@ -850,7 +850,7 @@ class AddCourse
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
             $toolIntro
                 ->setCId($course_id)
-                ->setId(TOOL_COURSE_HOMEPAGE)
+                ->setTool(TOOL_COURSE_HOMEPAGE)
                 ->setSessionId(0)
                 ->setIntroText($intro_text);
             $manager->persist($toolIntro);
@@ -858,7 +858,7 @@ class AddCourse
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
             $toolIntro
                 ->setCId($course_id)
-                ->setId(TOOL_STUDENTPUBLICATION)
+                ->setTool(TOOL_STUDENTPUBLICATION)
                 ->setSessionId(0)
                 ->setIntroText(get_lang('IntroductionTwo'));
             $manager->persist($toolIntro);
@@ -867,7 +867,7 @@ class AddCourse
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
             $toolIntro
                 ->setCId($course_id)
-                ->setId(TOOL_WIKI)
+                ->setTool(TOOL_WIKI)
                 ->setSessionId(0)
                 ->setIntroText(get_lang('IntroductionWiki'));
             $manager->persist($toolIntro);
@@ -950,18 +950,18 @@ class AddCourse
             $course_code = $courseInfo['code'];
             // father gradebook
             Database::query(
-                "INSERT INTO $TABLEGRADEBOOK (name, description, user_id, course_code, parent_id, weight, visible, certif_min_score, session_id, document_id)
-                VALUES ('$course_code','',1,'$course_code',0,100,0,75,NULL,$example_cert_id)"
+                "INSERT INTO $TABLEGRADEBOOK (name, description, user_id, c_id, parent_id, weight, visible, certif_min_score, session_id, document_id)
+                VALUES ('$course_code','',1,'$course_id',0,100,0,75,NULL,$example_cert_id)"
             );
             $gbid = Database:: insert_id();
             Database::query(
-                "INSERT INTO $TABLEGRADEBOOK (name, description, user_id, course_code, parent_id, weight, visible, certif_min_score, session_id, document_id)
-                VALUES ('$course_code','',1,'$course_code',$gbid,100,1,75,NULL,$example_cert_id)"
+                "INSERT INTO $TABLEGRADEBOOK (name, description, user_id, c_id, parent_id, weight, visible, certif_min_score, session_id, document_id)
+                VALUES ('$course_code','',1,'$course_id',$gbid,100,1,75,NULL,$example_cert_id)"
             );
             $gbid = Database:: insert_id();
             Database::query(
-                "INSERT INTO $TABLEGRADEBOOKLINK (type, ref_id, user_id, course_code, category_id, created_at, weight, visible, locked)
-                VALUES (1,$exercise_id,1,'$course_code',$gbid,'$now',100,1,0)"
+                "INSERT INTO $TABLEGRADEBOOKLINK (type, ref_id, user_id, c_id, category_id, created_at, weight, visible, locked)
+                VALUES (1,$exercise_id,1,'$course_id',$gbid,'$now',100,1,0)"
             );
         }
 
