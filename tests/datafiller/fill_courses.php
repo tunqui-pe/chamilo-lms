@@ -18,18 +18,13 @@ function fill_courses()
     require_once 'data_courses.php'; // fill the $courses array
     $output = array();
     $output[] = array('title'=>'Courses Filling Report: ');
-    $languages = SubLanguageManager::getAllLanguages(true);
     $i = 1;
     foreach ($courses as $i => $course) {
         // First check that the first item doesn't exist already
     	$output[$i]['line-init'] = $course['title'];
         // The wanted code is necessary to avoid interpretation
         $course['wanted_code'] = $course['code'];
-        // Make sure the language defaults to English if others are disabled
-        if (!isset($languages[$course['course_language']])) {
-            $course['course_language'] = 'english';
-        }
-        // Effectively create the course
+        $course['course_language'] = !empty($course['course_language']) ? $course['course_language'] : 'en';
         $res = CourseManager::create_course($course);
     	$output[$i]['line-info'] = $res ? get_lang('Added') : get_lang('NotInserted');
     	$i++;
