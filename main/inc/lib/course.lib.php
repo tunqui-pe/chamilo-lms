@@ -2250,6 +2250,7 @@ class CourseManager
                 WHERE code = '" . $codeFiltered . "'";
         $res = Database::query($sql);
         $course = Database::fetch_array($res);
+
         $courseId = $course['id'];
 
         $count = 0;
@@ -2365,11 +2366,15 @@ class CourseManager
             // Skills
             $table = Database::get_main_table(TABLE_MAIN_SKILL_REL_USER);
             $argumentation = Database::escape_string(sprintf(get_lang('SkillFromCourseXDeletedSinceThen'), $course['code']));
-            error_log($argumentation);
+
             $sql = "UPDATE $table SET course_id = NULL, session_id = NULL, argumentation = '$argumentation' WHERE course_id = $courseId";
             Database::query($sql);
 
             Category::deleteCategoryFromCourse($courseId);
+
+            // Delete the course from the database
+            $sql = "DELETE FROM gradebook_link WHERE c_id = '" . $courseId . "'";
+            Database::query($sql);
 
             // Delete the course from the database
             $sql = "DELETE FROM $table_course WHERE code = '" . $codeFiltered . "'";
