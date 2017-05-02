@@ -132,6 +132,16 @@ class GradebookCategory
     private $isRequirement;
 
     /**
+     * GradebookCategory constructor.
+     */
+    public function __construct()
+    {
+        $this->locked = 0;
+        $this->generateCertificates = false;
+        $this->isRequirement = false;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
