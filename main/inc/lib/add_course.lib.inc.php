@@ -445,7 +445,8 @@ class AddCourse
                 api_get_setting_in_list('course.active_tools_on_create', $tool->getName())
             );
             $toolObject = new CTool();
-            $toolObject->setName($tool->getName())
+            $toolObject
+                ->setName($tool->getName())
                 ->setCategory($tool->getCategory())
                 ->setLink($tool->getLink())
                 ->setImage($tool->getImage())
@@ -694,8 +695,8 @@ class AddCourse
                                     }
 
                                     Database::query(
-                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size)
-                                        VALUES ($course_id,'$path_documents" . $folder_path . "','" . $title . "','folder','0')"
+                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size, readonly, session_id)
+                                        VALUES ($course_id,'$path_documents" . $folder_path . "','" . $title . "','folder','0',0, 0)"
                                     );
                                     $image_id = Database:: insert_id();
 
@@ -745,8 +746,8 @@ class AddCourse
 
                                     //Inserting file in the DB
                                     Database::query(
-                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size)
-                                        VALUES ($course_id,'$path_documents" . $value["file"] . "','" . $temp[count($temp) - 1] . "','file','$file_size')"
+                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size, readonly, session_id)
+                                        VALUES ($course_id,'$path_documents" . $value["file"] . "','" . $temp[count($temp) - 1] . "','file','$file_size', 0, 0)"
                                     );
                                     $image_id = Database:: insert_id();
                                     if ($image_id) {
