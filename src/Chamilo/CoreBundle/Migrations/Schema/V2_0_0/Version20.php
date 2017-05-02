@@ -415,6 +415,7 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         }
 
         $queries->addQuery('UPDATE settings_current SET category = LOWER(category)');
+        $queries->addQuery("ALTER TABLE c_quiz_question_category CHANGE description description LONGTEXT DEFAULT NULL;");
 
     }
 
