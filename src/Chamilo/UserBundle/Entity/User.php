@@ -47,6 +47,25 @@ use Chamilo\ThemeBundle\Model\UserInterface as ThemeUser;
  * @UniqueEntity("username")
  * @ORM\Entity(repositoryClass="Chamilo\UserBundle\Entity\Repository\UserRepository")
  *
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email",
+ *         column=@ORM\Column(
+ *             name="email",
+ *             type="string",
+ *             length=255,
+ *             unique=false
+ *         )
+ *     ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(
+ *             name="email_canonical",
+ *             type="string",
+ *             length=255,
+ *             unique=false
+ *         )
+ *     )
+ * })
+ *
  */
 class User extends BaseUser implements ThemeUser
 {
