@@ -31,6 +31,9 @@ app/upload/*
 # Logs and databases #
 *.log
 
+# Composer
+composer.lock
+
 # IDE settings
 .idea
 .idea/*
@@ -50,3 +53,6 @@ plugin/vchamilo/templates/*
 # Stuff updated through composer - Remove just before release
 vendor
 
+# Assets
+web/assetic
+web/bundles
