@@ -28,9 +28,9 @@ userportal:
 #        route: sonata_admin_dashboard
 #        permanent: true
 
-admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /{_locale}/administration
+#admin_area:
+#    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+#    prefix: /{_locale}/administration
 
 # HWIOAuthBundle routes
 hwi_oauth_redirect:
@@ -76,7 +76,7 @@ _front:
 
 _admin:
     resource: routing_admin.yml
-    prefix:   /administration
+    prefix: /administration
 
 #_api:
 #    resource: routing_api.yml
