@@ -14,6 +14,15 @@ use Doctrine\ORM\Mapping as ORM;
 class SysAnnouncement
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue()
+     */
+    private $id;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_start", type="datetime", nullable=false)
@@ -69,8 +78,6 @@ class SysAnnouncement
      */
     private $visibleBoss;
 
-
-
     /**
      * @var string
      *
@@ -100,15 +107,17 @@ class SysAnnouncement
     private $accessUrlId;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * SysAnnouncement constructor.
      */
-    private $id;
-
-
+    public function __construct()
+    {
+        $this->visibleBoss = 0;
+        $this->visibleDrh = 0;
+        $this->visibleGuest= 0;
+        $this->visibleSessionAdmin = 0;
+        $this->visibleStudent = 0;
+        $this->visibleTeacher = 0;
+    }
 
     /**
      * Set dateStart
