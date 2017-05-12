@@ -199,6 +199,11 @@ class Version200 extends AbstractMigrationChamilo
 
         $this->addSql("ALTER TABLE c_quiz_question_category CHANGE description description LONGTEXT DEFAULT NULL;");
 
+        $this->addSql("ALTER TABLE sys_announcement ADD COLUMN visible_drh INT DEFAULT 0;");
+        $this->addSql("ALTER TABLE sys_announcement ADD COLUMN visible_session_admin INT DEFAULT 0;");
+        $this->addSql("ALTER TABLE sys_announcement ADD COLUMN visible_boss INT DEFAULT 0;");
+
+
     }
 
     /**
