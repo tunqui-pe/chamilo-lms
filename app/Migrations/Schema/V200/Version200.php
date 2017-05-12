@@ -199,11 +199,24 @@ class Version200 extends AbstractMigrationChamilo
 
         $this->addSql("ALTER TABLE c_quiz_question_category CHANGE description description LONGTEXT DEFAULT NULL;");
 
-        $this->addSql("ALTER TABLE sys_announcement ADD COLUMN visible_drh INT DEFAULT 0;");
-        $this->addSql("ALTER TABLE sys_announcement ADD COLUMN visible_session_admin INT DEFAULT 0;");
-        $this->addSql("ALTER TABLE sys_announcement ADD COLUMN visible_boss INT DEFAULT 0;");
+        $table = $schema->getTable('sys_announcement');
+        if (!$table->hasColumn('visible_drh')) {
+            $this->addSql(
+                "ALTER TABLE sys_announcement ADD COLUMN visible_drh INT DEFAULT 0;"
+            );
+        }
 
+        if (!$table->hasColumn('visible_session_admin')) {
+            $this->addSql(
+                "ALTER TABLE sys_announcement ADD COLUMN visible_session_admin INT DEFAULT 0;"
+            );
+        }
 
+        if (!$table->hasColumn('visible_boss')) {
+            $this->addSql(
+                "ALTER TABLE sys_announcement ADD COLUMN visible_boss INT DEFAULT 0;"
+            );
+        }
     }
 
     /**
