@@ -106,7 +106,7 @@ class ExtraFieldValue extends Model
 
         // Parse params.
         foreach ($extraFields as $fieldDetails) {
-            if ($fieldDetails['visible_to_self'] != 1) {
+            if ($fieldDetails['visible_to_self'] != 1 && !api_is_platform_admin(true, true)) {
                 continue;
             }
 
@@ -160,6 +160,10 @@ class ExtraFieldValue extends Model
                     $tags = [];
 
                     foreach ($tagValues as $tagValue) {
+                        if (empty($tagValue)) {
+                            continue;
+                        }
+
                         $tagsResult = $em->getRepository('ChamiloCoreBundle:Tag')
                             ->findBy([
                                 'tag' => $tagValue,

@@ -188,7 +188,7 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 // The default template that will be use in the system.
 //$_configuration['default_template'] = 'default'; // (main/template/default)
 // Hide fields in the main/user/user.php page
-//$_configuration['hide_user_field_from_list'] = array('username');
+//$_configuration['hide_user_field_from_list'] = ['fields' => ['username']];
 // Aspell Settings
 //$_configuration['aspell_bin'] = '/usr/bin/hunspell';
 //$_configuration['aspell_opts'] = '-a -d en_GB -H -i utf-8';
@@ -362,8 +362,18 @@ $_configuration['agenda_legend'] = [
     '#f0f' => 'another caption'
 ];*/
 // Save some tool titles with HTML editor
-// $_configuration['save_titles_like_html'] = false;
+// $_configuration['save_titles_as_html'] = false;
 // Show the full toolbar set to all CKEditor
 //$_configuration['full_ckeditor_toolbar_set'] = false;
-// Allow change the orientation when export a single (course progress) thematic to pdf. Portrait or landscape
-//$_configuration['single_thematic_pdf_orientation'] = 'landscape';
+// Allow change the orientation when export a (course progress) thematic to pdf. Portrait or landscape
+//$_configuration['thematic_pdf_orientation'] = 'landscape';
+// Show number of users in session list
+//$_configuration['session_list_show_count_users'] = false;
+// Session admin access to all course content
+//$_configuration['session_admins_access_all_content'] = false;
+// Adds roles to the system announcements (requires DB change BT#12476)
+//$_configuration['system_announce_extra_roles'] = false;
+// Limits the features that a session admin has access to from the main admin panel (removes users import and usergroups)
+//$_configuration['limit_session_admin_role'] = false;
+// Course tools visibility edition in sessions
+//$_configuration['allow_edit_tool_visibility_in_session'] = false;

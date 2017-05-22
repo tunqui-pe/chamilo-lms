@@ -153,7 +153,6 @@ if (api_get_session_id() != 0) {
 // Get group info
 $groupIid = 0;
 $groupMemberWithEditRights = false;
-
 // Setting group variables.
 if (!empty($groupId)) {
     $group_properties = GroupManager::get_group_properties($groupId);
@@ -1122,7 +1121,7 @@ if ($isAllowedToEdit ||
                         $doc_id,
                         'FolderMoved',
                         api_get_user_id(),
-                        $groupIid,
+                        $group_properties,
                         null,
                         null,
                         null,
@@ -1136,7 +1135,7 @@ if ($isAllowedToEdit ||
                         $doc_id,
                         'DocumentMoved',
                         api_get_user_id(),
-                        $groupIid,
+                        $group_properties,
                         null,
                         null,
                         null,
@@ -1329,7 +1328,7 @@ if ($isAllowedToEdit ||
                 $courseInfo,
                 api_get_user_id(),
                 $sessionId,
-                $groupId,
+                $groupIid,
                 $to_user_id,
                 $base_work_dir,
                 $dir_name,
@@ -1395,7 +1394,8 @@ if ($isAllowedToEdit) {
             null,
             null,
             null,
-            $sessionId)
+            $sessionId
+        )
         ) {
             Display::addFlash(
                 Display::return_message(get_lang('VisibilityChanged'), 'confirmation')
@@ -2106,7 +2106,7 @@ if (count($documentAndFolders) > 1) {
     }
 }
 if (!empty($table_footer)) {
-    Display::display_warning_message($table_footer);
+    echo Display::return_message($table_footer, 'warning');
 }
 
 echo '

@@ -40,6 +40,10 @@
         {
            "type": "vcs",
             "url": "https://github.com/jmontoyaa/MigrationBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jmontoyaa/PHPWord"
         }
     ],
     "require": {
@@ -170,7 +174,7 @@
         "a2lix/translation-form-bundle": "~2.0",
         "knplabs/doctrine-behaviors": "~1.1",
         "jimmiw/php-time-ago": "^0.4.14",
-        "phpoffice/phpword": "~0.13",
+        "phpoffice/phpword": "^0.12.1|dev-master",
         "phpoffice/phpexcel": "~1.8",
         "facebook/php-sdk-v4" : "~5.0",
         "kigkonsult/icalcreator" : "0.1.0",

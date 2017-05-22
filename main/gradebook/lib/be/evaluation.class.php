@@ -493,60 +493,61 @@ class Evaluation implements GradebookItem
 		return $number[0] != 0;
 	}
 
-	/**
-	 * Are there any results for this evaluation yet ?
-	 * The 'max' property should not be changed then.
-	 */
-	public function has_results()
-	{
-		$tbl_grade_results = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_RESULT);
-		$sql = 'SELECT count(id) AS number
-				FROM '.$tbl_grade_results.'
-				WHERE evaluation_id = '.intval($this->id);
-		$result = Database::query($sql);
-		$number=Database::fetch_row($result);
+    /**
+     * Are there any results for this evaluation yet ?
+     * The 'max' property should not be changed then.
+     * @return bool
+     */
+    public function has_results()
+    {
+        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_RESULT);
+        $sql = 'SELECT count(id) AS number
+                FROM '.$table.'
+                WHERE evaluation_id = '.intval($this->id);
+        $result = Database::query($sql);
+        $number = Database::fetch_row($result);
 
-		return ($number[0] != 0);
-	}
+        return $number[0] != 0;
+    }
 
-	/**
-	 * Delete all results for this evaluation
-	 */
-	public function delete_results()
-	{
-		$tbl_grade_results = Database :: get_main_table(TABLE_MAIN_GRADEBOOK_RESULT);
-		$sql = 'DELETE FROM '.$tbl_grade_results.'
-				WHERE evaluation_id = '.intval($this->id);
-		Database::query($sql);
-	}
+    /**
+     * Delete all results for this evaluation
+     */
+    public function delete_results()
+    {
+        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_RESULT);
+        $sql = 'DELETE FROM '.$table.'
+                WHERE evaluation_id = '.intval($this->id);
+        Database::query($sql);
+    }
 
-	/**
-	 * Delete this evaluation and all underlying results.
-	 */
-	public function delete_with_results()
-	{
-		$this->delete_results();
-		$this->delete();
-	}
+    /**
+     * Delete this evaluation and all underlying results.
+     */
+    public function delete_with_results()
+    {
+        $this->delete_results();
+        $this->delete();
+    }
 
-	/**
-	 * Check if the given score is possible for this evaluation
-	 */
-	public function is_valid_score($score)
-	{
-		return is_numeric($score) && $score >= 0 && $score <= $this->eval_max;
-	}
+    /**
+     * Check if the given score is possible for this evaluation
+     */
+    public function is_valid_score($score)
+    {
+        return is_numeric($score) && $score >= 0 && $score <= $this->eval_max;
+    }
 
-	/**
-	 * Calculate the score of this evaluation
-	 * @param int $stud_id (default: all students who have results for this eval - then the average is returned)
-	 * @param string $type (best, average, ranking)
-	 * @return	array (score, max) if student is given
-	 * 			array (sum of scores, number of scores) otherwise
-	 * 			or null if no scores available
-	 */
-	public function calc_score($stud_id = null, $type = null)
-	{
+    /**
+     * Calculate the score of this evaluation
+     * @param int $stud_id (default: all students who have results for this eval - then the average is returned)
+     * @param string $type (best, average, ranking)
+     * @return	array (score, max) if student is given
+     * 			array (sum of scores, number of scores) otherwise
+     * 			or null if no scores available
+     */
+    public function calc_score($stud_id = null, $type = null)
+    {
         $useSession = true;
         if (isset($stud_id) && empty($type)) {
             $key = 'result_score_student_list_'.api_get_course_int_id().'_'.api_get_session_id().'_'.$this->id.'_'.$stud_id;

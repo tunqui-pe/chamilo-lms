@@ -15,7 +15,14 @@ $minFilter = 0;
 $maxFilter = 0;
 $appliesToFilter = '';
 
-$form = new FormValidator('search_filter_form', 'get', null, null, [], FormValidator::LAYOUT_INLINE);
+$form = new FormValidator(
+    'search_filter_form',
+    'get',
+    null,
+    null,
+    [],
+    FormValidator::LAYOUT_INLINE
+);
 
 if ($form->validate()) {
     $formValues = $form->getSubmitValues();

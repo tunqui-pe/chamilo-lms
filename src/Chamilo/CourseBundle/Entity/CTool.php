@@ -134,6 +134,26 @@ class CTool
 
     protected $originalImage;
 
+     /**
+     * @return int
+     */
+    public function getIid()
+    {
+        return $this->iid;
+    }
+
+    /**
+     * @param int $iid
+     * @return CTool
+     */
+    public function setIid($iid)
+    {
+        $this->iid = $iid;
+
+        return $this;
+    }
+
+
     /**
      * Constructor
      */

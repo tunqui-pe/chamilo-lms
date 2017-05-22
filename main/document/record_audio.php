@@ -80,7 +80,7 @@ if (!is_dir($filepath)) {
 
 //groups //TODO: clean
 if (!empty($groupId)) {
-    $interbreadcrumb[] = array ("url" => "../group/group_space.php?".api_get_cidreq(), "name" => get_lang('GroupSpace'));
+    $interbreadcrumb[] = array("url" => "../group/group_space.php?".api_get_cidreq(), "name" => get_lang('GroupSpace'));
     $noPHP_SELF = true;
     $group = GroupManager :: get_group_properties($groupId);
     $path = explode('/', $dir);
@@ -144,8 +144,8 @@ $htmlHeadXtra[] = api_get_js('js/wami-recorder/gui.js');
 $htmlHeadXtra[] = api_get_js('js/swfobject/swfobject.js');
 
 $actions = Display::toolbarButton(
-    get_lang('BackTo') . ' ' . get_lang('DocumentsOverview'),
-    'document.php?' . api_get_cidreq() . "&id=$document_id",
+    get_lang('BackTo').' '.get_lang('DocumentsOverview'),
+    'document.php?'.api_get_cidreq()."&id=$document_id",
     'arrow-left',
     'default',
     [],

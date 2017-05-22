@@ -38,7 +38,7 @@ echo '</div>';
 
 // error messages
 if (isset($error) && intval($error) == 1) {
-	Display::addFlash(Display::return_message(get_lang('FormHasErrorsPleaseComplete'), 'error', false));
+	echo Display::return_message(get_lang('FormHasErrorsPleaseComplete'), 'error', false);
 }
 
 // default header title form
@@ -56,7 +56,7 @@ $form = new FormValidator(
 );
 $form->addElement('header', $header);
 $form->addElement('hidden', 'description_type', $description_type);
-if (api_get_configuration_value('save_titles_like_html')) {
+if (api_get_configuration_value('save_titles_as_html')) {
     $form->addHtmlEditor(
         'title',
         get_lang('Title'),
@@ -85,6 +85,6 @@ $form->addButtonCreate(get_lang('Save'));
 if (isset ($question[$description_type])) {
 	$message = '<strong>'.get_lang('QuestionPlan').'</strong><br />';
 	$message .= $question[$description_type];
-	Display::addFlash(Display::return_message($message, 'normal', false));
+	echo Display::return_message($message, 'normal', false);
 }
 $form->display();

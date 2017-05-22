@@ -16,7 +16,11 @@ if (isset($_SESSION['bc_service_sale_id'])) {
 
     $plugin->cancelServiceSale(intval($serviceSaleId));
     Display::addFlash(
-        Display::return_message($plugin->get_lang('OrderCancelled'), 'error', false)
+        Display::return_message(
+            $plugin->get_lang('OrderCancelled'),
+            'error',
+            false
+        )
     );
 
     header('Location: '.api_get_path(WEB_PLUGIN_PATH).'buycourses/src/service_catalog.php');

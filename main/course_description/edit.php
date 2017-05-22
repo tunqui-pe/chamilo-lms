@@ -56,7 +56,7 @@ echo '</div>';
 
 // error messages
 if (isset($error) && intval($error) == 1) {
-	Display::addFlash(Display::return_message(get_lang('FormHasErrorsPleaseComplete'), 'error', false));
+	echo Display::return_message(get_lang('FormHasErrorsPleaseComplete'), 'error', false);
 }
 
 // default header title form
@@ -77,7 +77,7 @@ $form->addElement('hidden', 'id', $original_id);
 $form->addElement('hidden', 'description_type', $description_type);
 $form->addElement('hidden', 'sec_token', $token);
 
-if (api_get_configuration_value('save_titles_like_html')) {
+if (api_get_configuration_value('save_titles_as_html')) {
     $form->addHtmlEditor(
         'title',
         get_lang('Title'),

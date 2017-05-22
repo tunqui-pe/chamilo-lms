@@ -9,7 +9,7 @@ $bullet = api_get_asset('plugins/rss/arrow-bullet.png');
 $css = api_get_css('plugins/rss/rss.css');
 
 if (empty($rss)) {
-    Display::display_warning_message(get_lang('NoRSSItem'));
+    echo Display::return_message(get_lang('NoRSSItem'), 'warning');
     return;
 }
 

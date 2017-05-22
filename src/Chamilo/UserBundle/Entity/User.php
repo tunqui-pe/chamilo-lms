@@ -184,7 +184,7 @@ class User extends BaseUser implements ThemeUser
     private $authSource;
 
     /**
-     * @var boolean
+     * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
      */
@@ -500,7 +500,7 @@ class User extends BaseUser implements ThemeUser
         $this->status = self::STUDENT;
         parent::__construct();
         $this->salt = sha1(uniqid(null, true));
-        $this->active = 1;
+        $this->active = true;
         $this->registrationDate = new \DateTime();
         $this->authSource = 'platform';
         $this->courses = new ArrayCollection();
@@ -960,7 +960,7 @@ class User extends BaseUser implements ThemeUser
     /**
      * Get status
      *
-     * @return boolean
+     * @return int
      */
     public function getStatus()
     {

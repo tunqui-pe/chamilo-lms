@@ -53,7 +53,8 @@ abstract class Question
         DRAGGABLE => ['Draggable.php', 'Draggable'],
         MATCHING_DRAGGABLE => ['MatchingDraggable.php', 'MatchingDraggable'],
         //MEDIA_QUESTION => array('media_question.class.php' , 'MediaQuestion')
-        ANNOTATION => ['Annotation.php', 'Annotation']
+        ANNOTATION => ['Annotation.php', 'Annotation'],
+        READING_COMPREHENSION => ['ReadingComprehension.php', 'ReadingComprehension']
     );
 
     /**
@@ -191,7 +192,7 @@ abstract class Question
      */
     public function selectTitle()
     {
-        if (!api_get_configuration_value('save_titles_like_html')) {
+        if (!api_get_configuration_value('save_titles_as_html')) {
             return $this->question;
         }
 
@@ -204,7 +205,7 @@ abstract class Question
      */
     public function getTitleToDisplay($itemNumber)
     {
-        $showQuestionTitleHtml = api_get_configuration_value('save_titles_like_html');
+        $showQuestionTitleHtml = api_get_configuration_value('save_titles_as_html');
 
         $title = $showQuestionTitleHtml ? '' : '<strong>';
         $title .= $itemNumber.'. '.$this->selectTitle();
@@ -266,7 +267,7 @@ abstract class Question
      * @author Nicolas Raynaud
      * @return integer - level of the question, 0 by default.
      */
-    public function selectLevel()
+    public function getLevel()
     {
         return $this->level;
     }
@@ -491,37 +492,44 @@ abstract class Question
     /**
      * in this version, a question can only have 1 category
      * if category is 0, then question has no category then delete the category entry
-     * @param int $category
+     * @param int $categoryId
+     * @return bool
      *
      * @author Hubert Borderiou 12-10-2011
      */
-    public function saveCategory($category)
+    public function saveCategory($categoryId)
     {
-        if ($category <= 0) {
+        $courseId = api_get_course_int_id();
+        if (empty($courseId)) {
+            return false;
+        }
+        if ($categoryId <= 0) {
             $this->deleteCategory();
         } else {
             // update or add category for a question
             $table = Database::get_course_table(TABLE_QUIZ_QUESTION_REL_CATEGORY);
-            $category_id = intval($category);
+            $categoryId = intval($categoryId);
             $question_id = intval($this->id);
             $sql = "SELECT count(*) AS nb FROM $table
                     WHERE
                         question_id = $question_id AND
-                        c_id=".api_get_course_int_id();
+                        c_id = ".$courseId;
             $res = Database::query($sql);
             $row = Database::fetch_array($res);
             if ($row['nb'] > 0) {
                 $sql = "UPDATE $table
-                        SET category_id = $category_id
+                        SET category_id = $categoryId
                         WHERE
                             question_id = $question_id AND
-                            c_id = ".api_get_course_int_id();
+                            c_id = ".$courseId;
                 Database::query($sql);
             } else {
                 $sql = "INSERT INTO $table (c_id, question_id, category_id)
-                        VALUES (".api_get_course_int_id().", $question_id, $category_id)";
+                        VALUES (".$courseId.", $question_id, $categoryId)";
                 Database::query($sql);
             }
+
+            return true;
         }
     }
 
@@ -916,7 +924,7 @@ abstract class Question
         $level = $this->level;
         $extra = $this->extra;
         $c_id = $this->course['real_id'];
-        $category = $this->category;
+        $categoryId = $this->category;
 
         // question already exists
         if (!empty($id)) {
@@ -930,13 +938,12 @@ abstract class Question
                 'extra' => $extra,
                 'level' => $level,
             ];
-
             Database::update(
                 $TBL_QUESTIONS,
                 $params,
                 ['c_id = ? AND id = ?' => [$c_id, $id]]
             );
-            $this->saveCategory($category);
+            $this->saveCategory($categoryId);
 
             if (!empty($exerciseId)) {
                 api_item_property_update(
@@ -1558,7 +1565,7 @@ abstract class Question
         </script>';
 
         // question name
-        if (api_get_configuration_value('save_titles_like_html')) {
+        if (api_get_configuration_value('save_titles_as_html')) {
             $editorConfig = ['ToolbarSet' => 'Minimal'];
             $form->addHtmlEditor('questionName', get_lang('Question'), false, false, $editorConfig, true);
         } else {
@@ -1606,14 +1613,32 @@ abstract class Question
             switch ($this->type) {
                 case UNIQUE_ANSWER:
                     $buttonGroup = array();
-                    $buttonGroup[] = $form->addButton('convertAnswer', get_lang('ConvertToMultipleAnswer'), 'dot-circle-o', 'default', null, null, null, true);
                     $buttonGroup[] = $form->addButtonSave($text, 'submitQuestion', true);
+                    $buttonGroup[] = $form->addButton(
+                        'convertAnswer',
+                        get_lang('ConvertToMultipleAnswer'),
+                        'dot-circle-o',
+                        'default',
+                        null,
+                        null,
+                        null,
+                        true
+                    );
                     $form->addGroup($buttonGroup);
                     break;
                 case MULTIPLE_ANSWER:
                     $buttonGroup = array();
-                    $buttonGroup[] = $form->addButton('convertAnswer', get_lang('ConvertToUniqueAnswer'), 'check-square-o', 'default');
                     $buttonGroup[] = $form->addButtonSave($text, 'submitQuestion', true);
+                    $buttonGroup[] = $form->addButton(
+                        'convertAnswer',
+                        get_lang('ConvertToUniqueAnswer'),
+                        'check-square-o',
+                        'default',
+                        null,
+                        null,
+                        null,
+                        true
+                    );
                     $form->addGroup($buttonGroup);
                     break;
             }
@@ -1868,6 +1893,7 @@ abstract class Question
      * @param string $feedback_type
      * @param int $counter
      * @param float $score
+     * @return string HTML string with the header of the question (before the answers table)
      */
     function return_header($feedback_type = null, $counter = null, $score = null)
     {
@@ -1906,7 +1932,29 @@ abstract class Question
             "<div class=\"rib rib-$class\"><h3>$score_label</h3></div> <h4>{$score['result']}</h4>",
             array('class' => 'ribbon')
         );
-        $header .= Display::div($this->description, array('class' => 'question_description'));
+        if ($this->type != READING_COMPREHENSION) {
+            // Do not show the description (the text to read) if the question is of type READING_COMPREHENSION
+            $header .= Display::div($this->description, array('class' => 'question_description'));
+        } else {
+            if ($score['pass'] == true) {
+                $message = Display::div(
+                    sprintf(
+                        get_lang('ReadingQuestionCongratsSpeedXReachedForYWords'),
+                        ReadingComprehension::$speeds[$this->level],
+                        $this->getWordsCount()
+                    )
+                );
+            } else {
+                $message = Display::div(
+                    sprintf(
+                        get_lang('ReadingQuestionCongratsSpeedXNotReachedForYWords'),
+                        ReadingComprehension::$speeds[$this->level],
+                        $this->getWordsCount()
+                    )
+                );
+            }
+            $header .= $message.'<br />';
+        }
 
         return $header;
     }
@@ -2084,15 +2132,16 @@ abstract class Question
             4 => 4,
             5 => 5
         );
+
         return $select_level;
     }
 
     /**
-     * @return null|string
+     * @return string
      */
     public function show_media_content()
     {
-        $html = null;
+        $html = '';
         if ($this->parent_id != 0) {
             $parent_question = self::read($this->parent_id);
             $html = $parent_question->show_media_content();

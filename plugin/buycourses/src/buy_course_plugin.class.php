@@ -125,7 +125,7 @@ class BuyCoursesPlugin extends Plugin
             return false;
         }
 
-        require_once api_get_path(SYS_PLUGIN_PATH) . 'buycourses/database.php';
+        require_once api_get_path(SYS_PLUGIN_PATH).'buycourses/database.php';
     }
 
     /**
@@ -171,13 +171,13 @@ class BuyCoursesPlugin extends Plugin
         $transfer = $this->get('transfer_enable') === 'true';
 
         if ($paypal || $transfer) {
-            $item = $this->getItemByProduct(intval($productId), $productType);
+            $item = $this->getItemByProduct($productId, $productType);
             $return['html'] = '<div class="buycourses-price">';
             if ($item) {
-                $return['html'] .= '<span class="label label-primary"><b>'. $item['iso_code'] .' ' . $item['price'] . '</b></span>';
+                $return['html'] .= '<span class="label label-primary"><b>'.$item['iso_code'].' '.$item['price'].'</b></span>';
                 $return['verificator'] = true;
             } else {
-                $return['html'] .= '<span class="label label-primary"><b>'. $this->get_lang('Free'). '</b></span>';
+                $return['html'] .= '<span class="label label-primary"><b>'.$this->get_lang('Free').'</b></span>';
                 $return['verificator'] = false;
             }
             $return['html'] .= '</div>';
@@ -196,15 +196,15 @@ class BuyCoursesPlugin extends Plugin
      */
     public function returnBuyCourseButton($productId, $productType)
     {
-        $url = api_get_path(WEB_PLUGIN_PATH) .
-            'buycourses/src/process.php?i=' .
-            intval($productId) .
-            '&t=' .
+        $url = api_get_path(WEB_PLUGIN_PATH).
+            'buycourses/src/process.php?i='.
+            intval($productId).
+            '&t='.
             $productType
         ;
 
-        $html = ' <a class="btn btn-success btn-sm" title="' . $this->get_lang('Buy') . '" href="' . $url . '">' .
-            Display::returnFontAwesomeIcon('fa fa-shopping-cart') . '</a>';
+        $html = ' <a class="btn btn-success btn-sm" title="'.$this->get_lang('Buy').'" href="'.$url.'">'.
+            Display::returnFontAwesomeIcon('fa fa-shopping-cart').'</a>';
 
         return $html;
     }
@@ -341,6 +341,7 @@ class BuyCoursesPlugin extends Plugin
     {
         $entityManager = Database::getManager();
         $query = $entityManager->createQueryBuilder();
+        $urlId = api_get_current_access_url_id();
 
         $courses = $query
             ->select('c')
@@ -350,10 +351,14 @@ class BuyCoursesPlugin extends Plugin
                 'sc',
                 \Doctrine\ORM\Query\Expr\Join::WITH,
                 'c = sc.course'
+            )->innerJoin(
+                'ChamiloCoreBundle:AccessUrlRelCourse',
+                'ac',
+                \Doctrine\ORM\Query\Expr\Join::WITH,
+                'c = ac.course'
             )
-            ->where(
-                $query->expr()->isNull('sc.course')
-            )
+            ->where($query->expr()->isNull('sc.course'))
+            ->andWhere($query->expr()->eq('ac.url', $urlId))
             ->getQuery()
             ->getResult();
 
@@ -608,7 +613,6 @@ class BuyCoursesPlugin extends Plugin
         }
 
         $courseCatalog = [];
-
         foreach ($courses as $course) {
             $item = $this->getItemByProduct(
                 $course->getId(),
@@ -749,7 +753,7 @@ class BuyCoursesPlugin extends Plugin
         );
 
         if (!empty($sessionImage)) {
-            $sessionInfo['image'] = api_get_path(WEB_UPLOAD_PATH) . $sessionImage['value'];
+            $sessionInfo['image'] = api_get_path(WEB_UPLOAD_PATH).$sessionImage['value'];
         }
 
         $sessionCourses = $session->getCourses();
@@ -1139,11 +1143,13 @@ class BuyCoursesPlugin extends Plugin
 
         $itemTable = Database::get_main_table(self::TABLE_ITEM);
         $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
+        $urlTable = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
+
+        $urlId = api_get_current_access_url_id();
 
         $min = floatval($min);
         $max = floatval($max);
 
-        $innerJoin = "$itemTable i ON c.id = i.product_id";
         $whereConditions = [
             'i.product_type = ? ' => self::PRODUCT_TYPE_COURSE
         ];
@@ -1160,9 +1166,16 @@ class BuyCoursesPlugin extends Plugin
             $whereConditions['AND i.price <= ?'] = $max;
         }
 
+        $whereConditions['AND url.access_url_id = ?'] = $urlId;
+
         $courseIds = Database::select(
             'c.id',
-            "$courseTable c INNER JOIN $innerJoin",
+            "$courseTable c 
+            INNER JOIN $itemTable i 
+            ON c.id = i.product_id 
+            INNER JOIN $urlTable url 
+            ON c.id = url.c_id
+            ",
             ['where' => $whereConditions]
         );
 
@@ -1202,7 +1215,7 @@ class BuyCoursesPlugin extends Plugin
 
         $str = '';
 
-        srand((double)microtime() * 1000000);
+        srand((double) microtime() * 1000000);
 
         for ($i = 0; $i < $length; $i++) {
             $numbers = rand(0, strlen($salt) - 1);
@@ -1544,8 +1557,8 @@ class BuyCoursesPlugin extends Plugin
      */
     public function getPayouts($status = self::PAYOUT_STATUS_PENDING, $payoutId = false, $userId = false)
     {
-        $condition = ($payoutId) ? 'AND p.id = '. intval($payoutId) : '';
-        $condition2 = ($userId) ? ' AND p.user_id = ' . intval($userId) : '';
+        $condition = ($payoutId) ? 'AND p.id = '.intval($payoutId) : '';
+        $condition2 = ($userId) ? ' AND p.user_id = '.intval($userId) : '';
         $typeResult = ($condition) ? 'first' : 'all';
         $payoutsTable = Database::get_main_table(self::TABLE_PAYPAL_PAYOUTS);
         $saleTable = Database::get_main_table(self::TABLE_SALE);
@@ -1572,14 +1585,14 @@ class BuyCoursesPlugin extends Plugin
             INNER JOIN $saleTable s ON s.id = p.sale_id
             INNER JOIN $currencyTable c ON s.currency_id = c.id
             LEFT JOIN  $extraFieldValues efv ON p.user_id = efv.item_id 
-            AND field_id = " . intval($paypalExtraField['id']) . "
+            AND field_id = ".intval($paypalExtraField['id'])."
         ";
 
         $payouts = Database::select(
             "p.* , u.firstname, u.lastname, efv.value as paypal_account, s.reference as sale_reference, s.price as item_price, c.iso_code",
             "$payoutsTable p $innerJoins",
             [
-                'where' => ['p.status = ? '.$condition . ' ' .$condition2 => $status]
+                'where' => ['p.status = ? '.$condition.' '.$condition2 => $status]
             ],
             $typeResult
         );
@@ -1642,7 +1655,7 @@ class BuyCoursesPlugin extends Plugin
         $platformCommission = $this->getPlatformCommission();
 
         $sale = $this->getSale($saleId);
-        $teachersCommission = number_format((floatval($sale['price']) * intval($platformCommission['commission']))/100, 2);
+        $teachersCommission = number_format((floatval($sale['price']) * intval($platformCommission['commission'])) / 100, 2);
 
 
         $beneficiaries = $this->getBeneficiariesBySale($saleId);
@@ -1654,7 +1667,7 @@ class BuyCoursesPlugin extends Plugin
                     'payout_date' => getdate(),
                     'sale_id' => intval($saleId),
                     'user_id' => $beneficiary['user_id'],
-                    'commission' => number_format((floatval($teachersCommission) * intval($beneficiary['commissions']))/100, 2),
+                    'commission' => number_format((floatval($teachersCommission) * intval($beneficiary['commissions'])) / 100, 2),
                     'status' => self::PAYOUT_STATUS_PENDING
                 ]
             );
@@ -2252,17 +2265,17 @@ class BuyCoursesPlugin extends Plugin
      */
     public function getPath($var)
     {
-        $pluginPath = api_get_path(WEB_PLUGIN_PATH) . 'buycourses/';
+        $pluginPath = api_get_path(WEB_PLUGIN_PATH).'buycourses/';
         $paths = [
-            'SERVICE_IMAGES' => $pluginPath . 'uploads/services/images/',
-            'SRC' => $pluginPath . 'src/',
-            'VIEW' => $pluginPath . 'view/',
-            'UPLOADS' => $pluginPath . 'uploads/',
-            'LANGUAGES' => $pluginPath . 'lang/',
-            'RESOURCES' => $pluginPath . 'resources/',
-            'RESOURCES_IMG' => $pluginPath . 'resources/img/',
-            'RESOURCES_CSS' => $pluginPath . 'resources/css/',
-            'RESOURCES_JS' => $pluginPath . 'resources/js/',
+            'SERVICE_IMAGES' => $pluginPath.'uploads/services/images/',
+            'SRC' => $pluginPath.'src/',
+            'VIEW' => $pluginPath.'view/',
+            'UPLOADS' => $pluginPath.'uploads/',
+            'LANGUAGES' => $pluginPath.'lang/',
+            'RESOURCES' => $pluginPath.'resources/',
+            'RESOURCES_IMG' => $pluginPath.'resources/img/',
+            'RESOURCES_CSS' => $pluginPath.'resources/css/',
+            'RESOURCES_JS' => $pluginPath.'resources/js/',
         ];
 
         return $paths[$var];

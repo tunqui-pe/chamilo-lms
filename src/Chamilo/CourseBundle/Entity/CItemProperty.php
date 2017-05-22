@@ -283,7 +283,7 @@ class CItemProperty
     /**
      * Set visibility
      *
-     * @param boolean $visibility
+     * @param int $visibility
      *
      * @return CItemProperty
      */
@@ -297,7 +297,7 @@ class CItemProperty
     /**
      * Get visibility
      *
-     * @return boolean
+     * @return int
      */
     public function getVisibility()
     {

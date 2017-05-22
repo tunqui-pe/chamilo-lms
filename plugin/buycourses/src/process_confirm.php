@@ -84,7 +84,14 @@ switch ($sale['payment_type']) {
 
         $transferAccounts = $plugin->getTransferAccounts();
 
-        $form = new FormValidator('success', 'POST', api_get_self(), null, null, FormValidator::LAYOUT_INLINE);
+        $form = new FormValidator(
+            'success',
+            'POST',
+            api_get_self(),
+            null,
+            null,
+            FormValidator::LAYOUT_INLINE
+        );
 
         if ($form->validate()) {
             $formValues = $form->getSubmitValues();
@@ -135,7 +142,15 @@ switch ($sale['payment_type']) {
             exit;
         }
 
-        $form->addButton('confirm', $plugin->get_lang('ConfirmOrder'), 'check', 'success', 'default', null, ['id' => 'confirm']);
+        $form->addButton(
+            'confirm',
+            $plugin->get_lang('ConfirmOrder'),
+            'check',
+            'success',
+            'default',
+            null,
+            ['id' => 'confirm']
+        );
         $form->addButtonCancel($plugin->get_lang('CancelOrder'), 'cancel');
 
         $template = new Template();
@@ -148,7 +163,6 @@ switch ($sale['payment_type']) {
 
         $template->assign('buying_course', $buyingCourse);
         $template->assign('buying_session', $buyingSession);
-
         $template->assign('terms', $terms['terms_and_conditions']);
         $template->assign('title', $sale['product_name']);
         $template->assign('price', $sale['price']);
@@ -163,7 +177,6 @@ switch ($sale['payment_type']) {
         $template->assign('content', $content);
         $template->display_one_col_template();
         break;
-
     case BuyCoursesPlugin::PAYMENT_TYPE_CULQI:
         // We need to include the main online script, acording to the Culqi documentation the JS needs to be loeaded
         // directly from the main url "https://integ-pago.culqi.com" because a local copy of this JS is not supported
@@ -183,10 +196,16 @@ switch ($sale['payment_type']) {
                 break;
         }
 
-        $form = new FormValidator('success', 'POST', api_get_self(), null, null, FormValidator::LAYOUT_INLINE);
+        $form = new FormValidator(
+            'success',
+            'POST',
+            api_get_self(),
+            null,
+            null,
+            FormValidator::LAYOUT_INLINE
+        );
 
         if ($form->validate()) {
-
             $formValues = $form->getSubmitValues();
 
             if (isset($formValues['cancel'])) {
@@ -206,8 +225,24 @@ switch ($sale['payment_type']) {
                 exit;
             }
         }
-        $form->addButton('confirm', $plugin->get_lang('ConfirmOrder'), 'check', 'success', 'default', null, ['id' => 'confirm']);
-        $form->addButton('cancel', $plugin->get_lang('CancelOrder'), 'times', 'danger', 'default', null, ['id' => 'cancel']);
+        $form->addButton(
+            'confirm',
+            $plugin->get_lang('ConfirmOrder'),
+            'check',
+            'success',
+            'default',
+            null,
+            ['id' => 'confirm']
+        );
+        $form->addButton(
+            'cancel',
+            $plugin->get_lang('CancelOrder'),
+            'times',
+            'danger',
+            'default',
+            null,
+            ['id' => 'cancel']
+        );
 
         $template = new Template();
 

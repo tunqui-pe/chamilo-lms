@@ -48,8 +48,12 @@ $tbl_session_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_USER);
 $tbl_session_rel_course = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
 $tbl_course = Database::get_main_table(TABLE_MAIN_COURSE);
 
-/* FUNCTIONS */
-
+/**
+ * @param string $name
+ * @param array $sessions
+ * @param array $attr
+ * @return string
+ */
 function make_select_session_list($name, $sessions, $attr = array())
 {
     $attributes = '';
@@ -83,6 +87,9 @@ function make_select_session_list($name, $sessions, $attr = array())
     return $output;
 }
 
+/**
+ * @return string
+ */
 function display_form()
 {
     $html = '';
@@ -138,6 +145,11 @@ function display_form()
     echo $html;
 }
 
+/**
+ * @param int $id_session
+ * @param string $type
+ * @return xajaxResponse
+ */
 function search_courses($id_session, $type)
 {
     global $tbl_course, $tbl_session_rel_course, $course_list;
@@ -221,6 +233,7 @@ function search_courses($id_session, $type)
             );
         }
     }
+
     return $xajax_response;
 }
 $xajax->processRequests();
@@ -278,7 +291,7 @@ if (Security::check_token('post') && (
     // Clear token
     Security::clear_token();
     $destination_course = $origin_course = $destination_session = $origin_session = '';
-    if (isset ($_POST['action']) && $_POST['action'] == 'course_select_form') {
+    if (isset($_POST['action']) && $_POST['action'] == 'course_select_form') {
         $destination_course = $_POST['destination_course'];
         $origin_course = $_POST['origin_course'];
         $destination_session = $_POST['destination_session'];
@@ -293,7 +306,7 @@ if (Security::check_token('post') && (
         $cr = new CourseRestorer($course);
         //$cr->set_file_option($_POST['same_file_name_option']);
         $cr->restore($destination_course, $destination_session);
-        Display::addFlash(Display::return_message(get_lang('CopyFinished'), 'confirmation'));
+        echo Display::return_message(get_lang('CopyFinished'), 'confirmation');
         display_form();
     } else {
         $arr_course_origin = array();
@@ -317,7 +330,7 @@ if (Security::check_token('post') && (
         if ((is_array($arr_course_origin) && count($arr_course_origin) > 0) && !empty($destination_session)) {
             //We need only one value
             if (count($arr_course_origin) > 1 || count($arr_course_destination) > 1) {
-                Display::display_error_message(get_lang('YouMustSelectACourseFromOriginalSession'));
+                echo Display::return_message(get_lang('YouMustSelectACourseFromOriginalSession'), 'error');
             } else {
                 //first element of the array
                 $course_code = $arr_course_origin[0];
@@ -330,10 +343,10 @@ if (Security::check_token('post') && (
                 $cr->restore($course_destinatination, $destination_session);
 
             }
-            Display::display_confirmation_message(get_lang('CopyFinished'));
+            echo Display::return_message(get_lang('CopyFinished'), 'confirm');
             display_form();
         } else {
-            Display::display_error_message(get_lang('YouMustSelectACourseFromOriginalSession'));
+            echo Display::return_message(get_lang('YouMustSelectACourseFromOriginalSession'), 'error');
             display_form();
         }
     }
@@ -347,7 +360,7 @@ if (Security::check_token('post') && (
 
     // Else, if a CourseSelectForm is requested, show it
     if (api_get_setting('show_glossary_in_documents') != 'none') {
-        Display::addFlash(Display::return_message(get_lang('ToExportDocumentsWithGlossaryYouHaveToSelectGlossary'), 'normal'));
+        echo Display::return_message(get_lang('ToExportDocumentsWithGlossaryYouHaveToSelectGlossary'), 'normal');
     }
 
     $arr_course_origin = array();
@@ -369,7 +382,7 @@ if (Security::check_token('post') && (
     }
 
     if ((is_array($arr_course_origin) && count($arr_course_origin) > 0) && !empty($destination_session)) {
-        Display::addFlash(Display::return_message(get_lang('ToExportLearnpathWithQuizYouHaveToSelectQuiz'), 'normal'));
+        echo Display::return_message(get_lang('ToExportLearnpathWithQuizYouHaveToSelectQuiz'), 'normal');
         $course_origin = api_get_course_info($arr_course_origin[0]);
         $cb = new CourseBuilder('', $course_origin);
         $course = $cb->build($origin_session, $arr_course_origin[0], $with_base_content);
@@ -388,8 +401,9 @@ if (Security::check_token('post') && (
             ).
             get_lang('Back').'</a></div>';
     } else {
-        Display::display_error_message(
-            get_lang('You must select a course from original session and select a destination session')
+        echo Display::return_message(
+            get_lang('You must select a course from original session and select a destination session'),
+            'error'
         );
         display_form();
     }

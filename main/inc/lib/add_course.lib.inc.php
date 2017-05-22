@@ -51,8 +51,8 @@ class AddCourse
         $try_new_fsc_id = $try_new_fsc_db = $try_new_fsc_dir = 0;
 
         while (!$keys_are_unique) {
-            $keys_course_id = $prefix_for_all . $unique_prefix . $wanted_code . $final_suffix['CourseId'];
-            $keys_course_repository = $prefix_for_path . $unique_prefix . $wanted_code . $final_suffix['CourseDir'];
+            $keys_course_id = $prefix_for_all.$unique_prefix.$wanted_code.$final_suffix['CourseId'];
+            $keys_course_repository = $prefix_for_path.$unique_prefix.$wanted_code.$final_suffix['CourseDir'];
             $keys_are_unique = true;
 
             // Check whether they are unique.
@@ -63,12 +63,12 @@ class AddCourse
 
             if (Database::num_rows($result)) {
                 $keys_are_unique = false;
-                $try_new_fsc_id ++;
+                $try_new_fsc_id++;
                 $final_suffix['CourseId'] = substr(md5(uniqid(rand())), 0, 4);
             }
             if (file_exists(api_get_path(SYS_COURSE_PATH).$keys_course_repository)) {
                 $keys_are_unique = false;
-                $try_new_fsc_dir ++;
+                $try_new_fsc_dir++;
                 $final_suffix['CourseDir'] = substr(md5(uniqid(rand())), 0, 4);
             }
 
@@ -96,12 +96,12 @@ class AddCourse
         $perm = api_get_permissions_for_new_directories();
         $perm_file = api_get_permissions_for_new_files();
         $htmlpage = "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Not authorized</title>\n  </head>\n  <body>\n  </body>\n</html>";
-        $cp = api_get_path(SYS_COURSE_PATH) . $course_repository;
+        $cp = api_get_path(SYS_COURSE_PATH).$course_repository;
 
         //Creating document folder
         mkdir($cp, $perm);
-        mkdir($cp . '/document', $perm);
-        $cpt = $cp . '/document/index.html';
+        mkdir($cp.'/document', $perm);
+        $cpt = $cp.'/document/index.html';
         $fd = fopen($cpt, 'w');
         fwrite($fd, $htmlpage);
         fclose($fd);
@@ -123,49 +123,49 @@ class AddCourse
         @copy($cpt, $cp . '/document/video/index.html');    */
 
         //Creatind dropbox folder
-        mkdir($cp . '/dropbox', $perm);
-        $cpt = $cp . '/dropbox/index.html';
+        mkdir($cp.'/dropbox', $perm);
+        $cpt = $cp.'/dropbox/index.html';
         $fd = fopen($cpt, 'w');
         fwrite($fd, $htmlpage);
         fclose($fd);
         @chmod($cpt, $perm_file);
-        mkdir($cp . '/group', $perm);
-        @copy($cpt, $cp . '/group/index.html');
-        mkdir($cp . '/page', $perm);
-        @copy($cpt, $cp . '/page/index.html');
-        mkdir($cp . '/scorm', $perm);
-        @copy($cpt, $cp . '/scorm/index.html');
-        mkdir($cp . '/upload', $perm);
-        @copy($cpt, $cp . '/upload/index.html');
-        mkdir($cp . '/upload/forum', $perm);
-        @copy($cpt, $cp . '/upload/forum/index.html');
-        mkdir($cp . '/upload/forum/images', $perm);
-        @copy($cpt, $cp . '/upload/forum/images/index.html');
-        mkdir($cp . '/upload/test', $perm);
-        @copy($cpt, $cp . '/upload/test/index.html');
-        mkdir($cp . '/upload/blog', $perm);
-        @copy($cpt, $cp . '/upload/blog/index.html');
-        mkdir($cp . '/upload/learning_path', $perm);
-        @copy($cpt, $cp . '/upload/learning_path/index.html');
-        mkdir($cp . '/upload/learning_path/images', $perm);
-        @copy($cpt, $cp . '/upload/learning_path/images/index.html');
-        mkdir($cp . '/upload/calendar', $perm);
-        @copy($cpt, $cp . '/upload/calendar/index.html');
-        mkdir($cp . '/upload/calendar/images', $perm);
-        @copy($cpt, $cp . '/upload/calendar/images/index.html');
-        mkdir($cp . '/work', $perm);
-        @copy($cpt, $cp . '/work/index.html');
-        mkdir($cp . '/upload/announcements', $perm);
-        @copy($cpt, $cp . '/upload/announcements/index.html');
-        mkdir($cp . '/upload/announcements/images', $perm);
-        @copy($cpt, $cp . '/upload/announcements/images/index.html');
+        mkdir($cp.'/group', $perm);
+        @copy($cpt, $cp.'/group/index.html');
+        mkdir($cp.'/page', $perm);
+        @copy($cpt, $cp.'/page/index.html');
+        mkdir($cp.'/scorm', $perm);
+        @copy($cpt, $cp.'/scorm/index.html');
+        mkdir($cp.'/upload', $perm);
+        @copy($cpt, $cp.'/upload/index.html');
+        mkdir($cp.'/upload/forum', $perm);
+        @copy($cpt, $cp.'/upload/forum/index.html');
+        mkdir($cp.'/upload/forum/images', $perm);
+        @copy($cpt, $cp.'/upload/forum/images/index.html');
+        mkdir($cp.'/upload/test', $perm);
+        @copy($cpt, $cp.'/upload/test/index.html');
+        mkdir($cp.'/upload/blog', $perm);
+        @copy($cpt, $cp.'/upload/blog/index.html');
+        mkdir($cp.'/upload/learning_path', $perm);
+        @copy($cpt, $cp.'/upload/learning_path/index.html');
+        mkdir($cp.'/upload/learning_path/images', $perm);
+        @copy($cpt, $cp.'/upload/learning_path/images/index.html');
+        mkdir($cp.'/upload/calendar', $perm);
+        @copy($cpt, $cp.'/upload/calendar/index.html');
+        mkdir($cp.'/upload/calendar/images', $perm);
+        @copy($cpt, $cp.'/upload/calendar/images/index.html');
+        mkdir($cp.'/work', $perm);
+        @copy($cpt, $cp.'/work/index.html');
+        mkdir($cp.'/upload/announcements', $perm);
+        @copy($cpt, $cp.'/upload/announcements/index.html');
+        mkdir($cp.'/upload/announcements/images', $perm);
+        @copy($cpt, $cp.'/upload/announcements/images/index.html');
 
         //Oral expression question type
-        mkdir($cp . '/exercises', $perm);
-        @copy($cpt, $cp . '/exercises/index.html');
+        mkdir($cp.'/exercises', $perm);
+        @copy($cpt, $cp.'/exercises/index.html');
 
         // Create .htaccess in the dropbox directory.
-        $fp = fopen($cp . '/dropbox/.htaccess', 'w');
+        $fp = fopen($cp.'/dropbox/.htaccess', 'w');
         fwrite(
             $fp,
             "AuthName AllowLocalAccess
@@ -307,7 +307,7 @@ class AddCourse
     {
         $list = self::get_course_tables();
         foreach ($list as $table) {
-            $sql = "DROP TABLE IF EXISTS " . DB_COURSE_PREFIX . $table;
+            $sql = "DROP TABLE IF EXISTS ".DB_COURSE_PREFIX.$table;
             Database::query($sql);
         }
     }
@@ -331,47 +331,47 @@ class AddCourse
         if ($media == 'images') {
             $code_path = api_get_path(
                     SYS_CODE_PATH
-                ) . 'default_course_document/images/';
+                ).'default_course_document/images/';
         }
         if ($media == 'audio') {
             $code_path = api_get_path(
                     SYS_CODE_PATH
-                ) . 'default_course_document/audio/';
+                ).'default_course_document/audio/';
         }
         if ($media == 'flash') {
             $code_path = api_get_path(
                     SYS_CODE_PATH
-                ) . 'default_course_document/flash/';
+                ).'default_course_document/flash/';
         }
         if ($media == 'video') {
             $code_path = api_get_path(
                     SYS_CODE_PATH
-                ) . 'default_course_document/video/';
+                ).'default_course_document/video/';
         }
         if ($media == 'certificates') {
             $code_path = api_get_path(
                     SYS_CODE_PATH
-                ) . 'default_course_document/certificates/';
+                ).'default_course_document/certificates/';
         }
         if (is_dir($path)) {
             $handle = opendir($path);
             while (false !== ($file = readdir($handle))) {
-                if (is_dir($path . $file) && strpos($file, '.') !== 0) {
+                if (is_dir($path.$file) && strpos($file, '.') !== 0) {
                     $files[]['dir'] = str_replace(
                         $code_path,
                         '',
-                        $path . $file . '/'
+                        $path.$file.'/'
                     );
                     $files = self::browse_folders(
-                        $path . $file . '/',
+                        $path.$file.'/',
                         $files,
                         $media
                     );
-                } elseif (is_file($path . $file) && strpos($file, '.') !== 0) {
+                } elseif (is_file($path.$file) && strpos($file, '.') !== 0) {
                     $files[]['file'] = str_replace(
                         $code_path,
                         '',
-                        $path . $file
+                        $path.$file
                     );
                 }
             }
@@ -565,7 +565,7 @@ class AddCourse
         $perm = api_get_permissions_for_new_directories();
         $perm_file = api_get_permissions_for_new_files();
 
-        $chat_path = $sys_course_path . $course_repository . '/document/chat_files';
+        $chat_path = $sys_course_path.$course_repository.'/document/chat_files';
 
         if (!is_dir($chat_path)) {
             @mkdir($chat_path, api_get_permissions_for_new_directories());
@@ -597,11 +597,11 @@ class AddCourse
                 'certificates',
             );
 
-            $default_course_path = api_get_path(SYS_CODE_PATH) . 'default_course_document/';
+            $default_course_path = api_get_path(SYS_CODE_PATH).'default_course_document/';
 
             $default_document_array = array();
             foreach ($folders_to_copy_from_default_course as $folder) {
-                $default_course_folder_path = $default_course_path . $folder . '/';
+                $default_course_folder_path = $default_course_path.$folder.'/';
                 $files = self::browse_folders(
                     $default_course_folder_path,
                     array(),
@@ -630,30 +630,30 @@ class AddCourse
                     //hack until feature #5242 is implemented
                     if ($media_type == 'images') {
                         $media_type = 'images/gallery';
-                        $images_folder = $sys_course_path . $course_repository . "/document/images/";
+                        $images_folder = $sys_course_path.$course_repository."/document/images/";
 
                         if (!is_dir($images_folder)) {
                             //Creating index.html
                             mkdir($images_folder, $perm);
-                            $fd = fopen($images_folder . 'index.html', 'w');
+                            $fd = fopen($images_folder.'index.html', 'w');
                             fwrite($fd, $htmlpage);
-                            @chmod($images_folder . 'index.html', $perm_file);
+                            @chmod($images_folder.'index.html', $perm_file);
                         }
                     }
 
-                    $course_documents_folder = $sys_course_path . $course_repository . "/document/$media_type/";
-                    $default_course_path = api_get_path(SYS_CODE_PATH) . 'default_course_document' . $path_documents;
+                    $course_documents_folder = $sys_course_path.$course_repository."/document/$media_type/";
+                    $default_course_path = api_get_path(SYS_CODE_PATH).'default_course_document'.$path_documents;
 
                     if (!is_dir($course_documents_folder)) {
                         // Creating index.html
                         mkdir($course_documents_folder, $perm);
                         $fd = fopen(
-                            $course_documents_folder . 'index.html',
+                            $course_documents_folder.'index.html',
                             'w'
                         );
                         fwrite($fd, $htmlpage);
                         @chmod(
-                            $course_documents_folder . 'index.html',
+                            $course_documents_folder.'index.html',
                             $perm_file
                         );
                     }
@@ -661,15 +661,15 @@ class AddCourse
                     if (is_array($array_media) && count($array_media) > 0) {
                         foreach ($array_media as $key => $value) {
                             if (isset($value['dir']) && !empty($value['dir'])) {
-                                if (!is_dir($course_documents_folder . $value['dir'])) {
+                                if (!is_dir($course_documents_folder.$value['dir'])) {
                                     //Creating folder
                                     mkdir(
-                                        $course_documents_folder . $value['dir'],
+                                        $course_documents_folder.$value['dir'],
                                         $perm
                                     );
 
                                     //Creating index.html (for light protection)
-                                    $index_html = $course_documents_folder . $value['dir'] . '/index.html';
+                                    $index_html = $course_documents_folder.$value['dir'].'/index.html';
                                     $fd = fopen($index_html, 'w');
                                     fwrite($fd, $htmlpage);
                                     @chmod($index_html, $perm_file);
@@ -691,12 +691,12 @@ class AddCourse
                                     }
 
                                     if ($media_type == 'images/gallery') {
-                                        $folder_path = 'gallery/' . $folder_path;
+                                        $folder_path = 'gallery/'.$folder_path;
                                     }
 
                                     Database::query(
-                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size, readonly, session_id)
-                                        VALUES ($course_id,'$path_documents" . $folder_path . "','" . $title . "','folder','0',0, 0)"
+                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size)
+                                        VALUES ($course_id,'$path_documents".$folder_path."','".$title."','folder','0')"
                                     );
                                     $image_id = Database:: insert_id();
 
@@ -721,33 +721,33 @@ class AddCourse
 
                             if (isset($value['file']) && !empty($value['file'])) {
                                 if (!file_exists(
-                                    $course_documents_folder . $value['file']
+                                    $course_documents_folder.$value['file']
                                 )
                                 ) {
                                     //Copying file
                                     copy(
-                                        $default_course_path . $value['file'],
-                                        $course_documents_folder . $value['file']
+                                        $default_course_path.$value['file'],
+                                        $course_documents_folder.$value['file']
                                     );
                                     chmod(
-                                        $course_documents_folder . $value['file'],
+                                        $course_documents_folder.$value['file'],
                                         $perm_file
                                     );
                                     //echo $default_course_path.$value['file']; echo ' - '; echo $course_documents_folder.$value['file']; echo '<br />';
                                     $temp = explode('/', $value['file']);
                                     $file_size = filesize(
-                                        $course_documents_folder . $value['file']
+                                        $course_documents_folder.$value['file']
                                     );
 
                                     //hack until feature #5242 is implemented
                                     if ($media_type == 'images/gallery') {
-                                        $value["file"] = 'gallery/' . $value["file"];
+                                        $value["file"] = 'gallery/'.$value["file"];
                                     }
 
                                     //Inserting file in the DB
                                     Database::query(
-                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size, readonly, session_id)
-                                        VALUES ($course_id,'$path_documents" . $value["file"] . "','" . $temp[count($temp) - 1] . "','file','$file_size', 0, 0)"
+                                        "INSERT INTO $TABLETOOLDOCUMENT (c_id, path,title,filetype,size)
+                                        VALUES ($course_id,'$path_documents".$value["file"]."','".$temp[count($temp) - 1]."','file','$file_size')"
                                     );
                                     $image_id = Database:: insert_id();
                                     if ($image_id) {
@@ -755,7 +755,7 @@ class AddCourse
                                         $sql = "UPDATE $TABLETOOLDOCUMENT SET id = iid WHERE iid = $image_id";
                                         Database::query($sql);
 
-                                        if ($path_documents . $value['file'] == '/certificates/default.html') {
+                                        if ($path_documents.$value['file'] == '/certificates/default.html') {
                                             $example_cert_id = $image_id;
                                         }
                                         $docId = Database::insert(
@@ -805,7 +805,7 @@ class AddCourse
                     'c_id' => $course_id,
                     'url' => 'http://www.google.com',
                     'title' => 'Google',
-                    'description' => get_lang('Google') ,
+                    'description' => get_lang('Google'),
                     'category_id' => 0,
                     'on_homepage' => 0,
                     'target' => '_self',
@@ -815,7 +815,7 @@ class AddCourse
                     'c_id' => $course_id,
                     'url' => 'http://www.wikipedia.org',
                     'title' => 'Wikipedia',
-                    'description' => get_lang('Wikipedia') ,
+                    'description' => get_lang('Wikipedia'),
                     'category_id' => 0,
                     'on_homepage' => 0,
                     'target' => '_self',
@@ -823,7 +823,7 @@ class AddCourse
                 ]
             ];
 
-            foreach($links as $params) {
+            foreach ($links as $params) {
                 $link->save($params);
             }
 
@@ -843,8 +843,8 @@ class AddCourse
 
             /* Introduction text */
             $intro_text = '<p style="text-align: center;">
-                            <img src="' . api_get_path(REL_CODE_PATH) . 'img/mascot.png" alt="Mr. Chamilo" title="Mr. Chamilo" />
-                            <h2>' . get_lang('IntroductionText') . '</h2>
+                            <img src="' . api_get_path(REL_CODE_PATH).'img/mascot.png" alt="Mr. Chamilo" title="Mr. Chamilo" />
+                            <h2>' . get_lang('IntroductionText').'</h2>
                          </p>';
 
             $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
@@ -880,9 +880,9 @@ class AddCourse
             $html = '<table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                         <td width="220" valign="top" align="left">
-                            <img src="' . api_get_path(WEB_CODE_PATH) . 'default_course_document/images/mr_chamilo/doubts.png">
+                            <img src="' . api_get_path(WEB_CODE_PATH).'default_course_document/images/mr_chamilo/doubts.png">
                         </td>
-                        <td valign="top" align="left">' . get_lang('Antique') . '</td></tr>
+                        <td valign="top" align="left">' . get_lang('Antique').'</td></tr>
                     </table>';
             $exercise->type = 1;
             $exercise->setRandom(0);
@@ -1171,7 +1171,7 @@ class AddCourse
                 'https://'
             ) === false
         ) {
-            $department_url = 'http://' . $department_url;
+            $department_url = 'http://'.$department_url;
         }
         //just in case
         if ($department_url == 'http://') {
@@ -1217,12 +1217,12 @@ class AddCourse
                         $code
                     );
                     if (!empty($user_id)) {
-                        $sql = "INSERT INTO " . $TABLECOURSUSER . " SET
-                                c_id     = '" . $course_id . "',
-                                user_id         = '" . intval($user_id) . "',
+                        $sql = "INSERT INTO ".$TABLECOURSUSER." SET
+                                c_id     = '" . $course_id."',
+                                user_id         = '" . intval($user_id)."',
                                 status          = '1',
                                 is_tutor        = '0',
-                                sort            = '" . ($i_course_sort) . "',
+                                sort            = '" . ($i_course_sort)."',
                                 relation_type = 0,
                                 user_course_cat = '0'";
                         Database::query($sql);
@@ -1241,12 +1241,12 @@ class AddCourse
                         if (empty($key)) {
                             continue;
                         }
-                        $sql = "INSERT INTO " . $TABLECOURSUSER . " SET
-                            c_id     = '" . Database::escape_string($course_id) . "',
-                            user_id         = '" . Database::escape_string($key) . "',
+                        $sql = "INSERT INTO ".$TABLECOURSUSER." SET
+                            c_id     = '" . Database::escape_string($course_id)."',
+                            user_id         = '" . Database::escape_string($key)."',
                             status          = '1',
                             is_tutor        = '0',
-                            sort            = '" . ($sort + 1) . "',
+                            sort            = '" . ($sort + 1)."',
                             relation_type = 0,
                             user_course_cat = '0'";
                         Database::query($sql);
@@ -1290,18 +1290,18 @@ class AddCourse
                     $iname = api_get_setting('Institution');
                     $subject = get_lang(
                             'NewCourseCreatedIn'
-                        ) . ' ' . $siteName . ' - ' . $iname;
+                        ).' '.$siteName.' - '.$iname;
                     $message = get_lang(
                             'Dear'
-                        ) . ' ' . $recipient_name . ",\n\n" . get_lang(
+                        ).' '.$recipient_name.",\n\n".get_lang(
                             'MessageOfNewCourseToAdmin'
-                        ) . ' ' . $siteName . ' - ' . $iname . "\n";
-                    $message .= get_lang('CourseName') . ' ' . $title . "\n";
+                        ).' '.$siteName.' - '.$iname."\n";
+                    $message .= get_lang('CourseName').' '.$title."\n";
                     $message .= get_lang(
                             'Category'
-                        ) . ' ' . $category_code . "\n";
-                    $message .= get_lang('Tutor') . ' ' . $tutor_name . "\n";
-                    $message .= get_lang('Language') . ' ' . $course_language;
+                        ).' '.$category_code."\n";
+                    $message .= get_lang('Tutor').' '.$tutor_name."\n";
+                    $message .= get_lang('Language').' '.$course_language;
 
                     $userInfo = api_get_user_info($user_id);
 
