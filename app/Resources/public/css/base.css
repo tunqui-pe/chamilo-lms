@@ -92,7 +92,6 @@ a.thumbnail:hover{
 .page-course{
     padding: 2% 3%;
 }
-/*------------------------*/
 .cursor-pointer {
     cursor: pointer;
 }
@@ -124,7 +123,7 @@ a.thumbnail:hover{
     border-radius: 0;
     border: none;
 }
-header{
+header {
     padding-top: 20px;
 }
 .blackboard_show {
@@ -305,8 +304,16 @@ header{
     text-align:center;
     vertical-align:middle;
 }
+.radio input[type="radio"]{
+    margin-left: -25px;
+}
 input[type=checkbox], input[type=radio]{
-    margin: 8px 0 0;
+    margin: 6px 0 0;
+}
+.prerequisites input[type=radio]{
+    margin: 0 0 0 -25px;
+    vertical-align: middle;
+    height: 20px;
 }
 #gradebook_list .centered .badge-group {
     width: auto;
@@ -860,7 +867,6 @@ a.personal_agenda:hover, a.personal_agenda:hover {
 }
 
 /* Categories courses*/
-
 #course-picture {
     position:absolute;
     top:8%;
@@ -1098,7 +1104,6 @@ div.attendance-calendar-add div.row div.formw,div.attendance-calendar-edit div.r
     margin: 0px;
     padding: 0px;
 }
-
 
 #message {
     margin: 0 auto;
@@ -1396,7 +1401,6 @@ div.admin_section h4 {
 .grid_title {float:left;width:30%;text-align:center}
 .grid_nav {float:left;width:35%;text-align:right}
 
-
 /* Groups boxes */
 .toolbar-groups{
     margin-bottom: 30px;
@@ -1414,7 +1418,6 @@ div.admin_section h4 {
 .group_invitation_grid_element_0 { width:100px; float:left; text-align:center; margin-bottom:5px;}
 .group_invitation_grid_element_1 { width:100px; float:left; text-align:left;margin-bottom:5px;}
 .group_invitation_grid_element_2 { width:150px; float:left;}
-
 
 /* home group boxes */
 
@@ -1492,7 +1495,6 @@ div.admin_section h4 {
 .search_user_grid_element_3 { width:100%;  text-align:center;}
 
 /*SEARCH GROUP*/
-
 .search_group_grid_item {
     float:left;
     width:345px;
@@ -1552,7 +1554,6 @@ div.admin_section h4 {
     height:5px;
 }
 
-
 #lp_item_list .ui-state-highlight {
     height:25px;
     background: #EEEEEE;
@@ -1560,11 +1561,9 @@ div.admin_section h4 {
     border: 1px dashed #B0B0B0
 }
 #question_list .header_operations {
-    height:30px;
     margin-bottom:5px;
     clear: both;
     background: #F5F5F5;
-    font-size: 12px;
     padding: 2px;
 }
 #question_list .header_operations:hover{
@@ -1577,46 +1576,6 @@ div.admin_section h4 {
 #question_list .header_operations.ui-state-focus{
     background: #D9EDF7;
     border-color: #bce8f1;
-}
-#question_list .header_operations .table tbody tr td{
-    padding: 0;
-    border: none;
-    vertical-align: middle;
-}
-#question_list .header_operations .table .question{
-    width: 40%;
-    padding-left: 5px;
-}
-#question_list .header_operations .table .type{
-    width: 10%;
-}
-#question_list .header_operations .table .category{
-    width: 20%;
-}
-#question_list .header_operations .table .level{
-    width: 10%;
-    text-align: center;
-}
-#question_list .header_operations .table .score{
-    width: 10%;
-    text-align: center;
-}
-#question_list .header_operations .table .btn-actions{
-    width: 10%;
-}
-#question_list .edition{
-    padding-top: 3px;
-    text-align: center;
-}
-#question_list .edition .items{
-    padding:2px;
-    margin:0 3px 0 0;
-    border: 1px solid #CCC;
-    border-radius: 5px;
-    background: #FFF;
-}
-#question_list .edition .items img{
-    width: 16px;
 }
 #question_list .question-list-description-block .question_options .radio{
     min-height: 0;
@@ -1814,25 +1773,25 @@ div.admin_section h4 {
 
 .question_options input[type="text"] {
     padding: 6px 12px;
-    margin:2px 2px 2px 0px;
+    margin: 2px 2px 2px 0px;
     vertical-align: middle;
     display: inline-block;
     height: 34px;
     line-height: 1.42857;
     border: 1px solid #CCCCCC;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  color: #555555;
-  font-weight: bold;
-  background-color: #FCF8D6;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #555555;
+    font-weight: bold;
+    background-color: #FCF8D6;
 
 }
 .question_options input[type="text"]:focus{
-   border-color:#66AFE9;
-  background-color: #ffffff;
-   outline: 0px none;
-   box-shadow:0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6) ;
+    border-color: #66AFE9;
+    background-color: #ffffff;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
 }
 
 .exercise_description {
@@ -1982,6 +1941,13 @@ div.admin_section h4 {
     float: left;
 }
 
+.ribbon .rib-warning {
+    background: orange;
+    border-top: none;
+    border-bottom: none;
+    float: left;
+}
+
 .ribbon .rib-gray {
     background: #cccccc;
     background-image: -ms-linear-gradient(top, #bbbbbb, #cccccc);
@@ -2046,6 +2012,10 @@ div.admin_section h4 {
 
 .ribbon .rib-gray::before {
     border-color: #ccc transparent transparent transparent;
+}
+
+.ribbon .rib-warning::before {
+    border-color: darkorange transparent transparent transparent;
 }
 
 .ribbon .rib::before {left: 0;}
@@ -6258,6 +6228,15 @@ ul#toolnavbox-two li a.btn{
     top: -65px;
     right: 0;
     width: 100px;
+}
+.form-horizontal .radio{
+    padding-left: 5px;
+}
+.checkbox input[type="checkbox"]{
+    margin-left: -24px;
+}
+input[type=checkbox]{
+    margin: 8px 0 0;
 }
 /* CSS NEW TOP ******************************************************************************/
 /* CSS Responsive */

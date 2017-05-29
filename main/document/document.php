@@ -367,26 +367,34 @@ switch ($action) {
         }
         break;
     case 'export_to_pdf':
-        if (api_get_setting('students_export2pdf') == 'true' || $isAllowedToEdit || api_is_platform_admin()) {
-            $orientation = 'landscape';
+        if (
+            api_get_setting('students_export2pdf') == 'true'
+            || $isAllowedToEdit
+            || api_is_platform_admin()
+        ) {
+            $documentOrientation = api_get_configuration_value('document_pdf_orientation');
+            $orientation = in_array($documentOrientation, ['landscape', 'portrait'])
+                ? $documentOrientation
+                : 'landscape';
+
             $showHeaderAndFooter = true;
+
             if ($is_certificate_mode) {
-                $orientation = api_get_configuration_value('certificate_pdf_orientation');
+                $certificateOrientation = api_get_configuration_value('certificate_pdf_orientation');
+                $orientation = in_array($certificateOrientation, ['landscape', 'portrait'])
+                    ? $certificateOrientation
+                    : 'landscape';
                 $showHeaderAndFooter = !api_get_configuration_value('hide_header_footer_in_certificate');
             }
 
-            DocumentManager::export_to_pdf(
-                $document_id,
-                $course_code,
-                $orientation,
-                $showHeaderAndFooter
-            );
+            DocumentManager::export_to_pdf($document_id, $course_code, $orientation, $showHeaderAndFooter);
         }
         break;
     case 'copytomyfiles':
         // Copy a file to general my files user's
-        if (api_get_setting('allow_my_files') == 'true' &&
-            api_get_setting('users_copy_files') == 'true'
+        if (
+            api_get_setting('allow_my_files') == 'true'
+            && api_get_setting('users_copy_files') == 'true'
             && api_get_user_id() != 0
             && !api_is_anonymous()
         ) {
@@ -486,8 +494,7 @@ switch ($action) {
             true,
             $session_id
         );
-        $file = $sys_course_path.$courseInfo['directory'].
-            '/document'.$document_info['path'];
+        $file = $sys_course_path.$courseInfo['directory'].'/document'.$document_info['path'];
         $fileInfo = pathinfo($file);
         if ($fileInfo['extension'] == $formatTarget) {
             Display::addFlash(Display::return_message(
@@ -882,12 +889,21 @@ $_SESSION['image_files_only'] = '';
 $image_files_only = '';
 
 if ($is_certificate_mode) {
-    $interbreadcrumb[] = array('url' => '../gradebook/index.php', 'name' => get_lang('Gradebook'));
+    $interbreadcrumb[] = array(
+        'url' => '../gradebook/index.php',
+        'name' => get_lang('Gradebook')
+    );
 } else {
     if ((isset($_GET['id']) && $_GET['id'] != 0) || isset($_GET['curdirpath']) || isset($_GET['createdir'])) {
-        $interbreadcrumb[] = array('url' => 'document.php', 'name' => get_lang('Documents'));
+        $interbreadcrumb[] = array(
+            'url' => 'document.php',
+            'name' => get_lang('Documents')
+        );
     } else {
-        $interbreadcrumb[] = array('url' => '#', 'name' => get_lang('Documents'));
+        $interbreadcrumb[] = array(
+            'url' => '#',
+            'name' => get_lang('Documents')
+        );
     }
 }
 
@@ -899,7 +915,10 @@ if (empty($document_data['parents'])) {
             'name' => $document_data['title'],
         );
     } else {
-        $interbreadcrumb[] = array('url' => '#', 'name' => $document_data['title']);
+        $interbreadcrumb[] = array(
+            'url' => '#',
+            'name' => $document_data['title']
+        );
     }
 } else {
     $counter = 0;
@@ -974,7 +993,8 @@ if (!empty($documentAndFolders)) {
                     $extension = 'oga';
                 }
 
-                $params = array('url' => $document_data['direct_url'],
+                $params = array(
+                    'url' => $document_data['direct_url'],
                     'extension' => $extension,
                     'count' => $count
                 );
@@ -1422,27 +1442,30 @@ if ($isAllowedToEdit ||
         $document_id_for_template = intval($_GET['add_as_template']);
         // Create the form that asks for the directory name
         $templateForm .= '
-            <form name="set_document_as_new_template" class="form-horizontal" enctype="multipart/form-data" action="' . api_get_self().'?add_as_template='.$document_id_for_template.'" method="post">
+            <form name="set_document_as_new_template" class="form-horizontal" enctype="multipart/form-data"
+                action="'.api_get_self().'?add_as_template='.$document_id_for_template.'" method="post">
                 <fieldset>
-                    <legend>' . get_lang('AddAsTemplate').'</legend>
+                    <legend>'.get_lang('AddAsTemplate').'</legend>
                     <div class="form-group">
-                        <label for="template_title" class="col-sm-2 control-label">' . get_lang('TemplateName').'</label>
+                        <label for="template_title" class="col-sm-2 control-label">'.get_lang('TemplateName').'</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="template_title" name="template_title">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="template_image" class="col-sm-2 control-label">' . get_lang('TemplateImage').'</label>
+                        <label for="template_image" class="col-sm-2 control-label">'.get_lang('TemplateImage').'</label>
                         <div class="col-sm-10">
                             <input type="file" name="template_image" id="template_image">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" name="create_template" class="btn btn-primary">' . get_lang('CreateTemplate').'</button>
+                            <button type="submit" name="create_template" class="btn btn-primary">'
+                                .get_lang('CreateTemplate').'
+                            </button>
                         </div>
                     </div>
-                    <input type="hidden" name="curdirpath" value="' . $curdirpath.'" />
+                    <input type="hidden" name="curdirpath" value="'.$curdirpath.'" />
                 </fieldset>
             </form>
             <hr>
@@ -1466,10 +1489,11 @@ if ($isAllowedToEdit ||
 
             if ($upload_ok) {
                 // Try to add an extension to the file if it hasn't one
-                $new_file_name = $courseInfo['code'].'-'.add_ext_on_mime(
-                    stripslashes($_FILES['template_image']['name']),
-                    $_FILES['template_image']['type']
-                );
+                $new_file_name = $courseInfo['code'].'-'
+                    .add_ext_on_mime(
+                        stripslashes($_FILES['template_image']['name']),
+                        $_FILES['template_image']['type']
+                    );
 
                 // Upload dir
                 $upload_dir = api_get_path(SYS_COURSE_PATH).$courseInfo['directory'].'/upload/template_thumbnails/';
@@ -1623,15 +1647,22 @@ if ($isAllowedToEdit ||
                     api_get_path(WEB_CODE_PATH).'document/create_draw.php?'.api_get_cidreq().'&id='.$document_id
                 );
             } else {
-                $actionsLeft .= Display::return_icon('new_draw_na.png', get_lang('BrowserDontSupportsSVG'), '', ICON_SIZE_MEDIUM);
+                $actionsLeft .= Display::return_icon(
+                    'new_draw_na.png',
+                    get_lang('BrowserDontSupportsSVG'),
+                    '',
+                    ICON_SIZE_MEDIUM
+                );
             }
         }
 
         // Create new paint
         if (api_get_setting('enabled_support_pixlr') == 'true') {
             $actionsLeft .= Display::url(
-                Display::return_icon('new_paint.png', get_lang('PhotoRetouching'), '', ICON_SIZE_MEDIUM),
-                api_get_path(WEB_CODE_PATH).'document/create_paint.php?'.api_get_cidreq().'&id='.$document_id
+                Display::return_icon('new_paint.png',
+                    get_lang('PhotoRetouching'), '', ICON_SIZE_MEDIUM),
+                api_get_path(WEB_CODE_PATH).'document/create_paint.php?'
+                .api_get_cidreq().'&id='.$document_id
             );
         }
 
@@ -1743,7 +1774,6 @@ $userIsSubscribed = CourseManager::is_user_subscribed_in_course(
     api_get_user_id(),
     $courseInfo['code']
 );
-
 
 $getSizeURL = api_get_path(WEB_AJAX_PATH).'document.ajax.php?a=get_dir_size&'.api_get_cidreq();
 
@@ -2114,40 +2144,41 @@ echo '
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="text-align: center;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="' . get_lang('Close').'">
+                <button type="button" class="close" data-dismiss="modal" aria-label="'.get_lang('Close').'">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">' . get_lang('Convert').'</h4>
+                <h4 class="modal-title">'.get_lang('Convert').'</h4>
             </div>
             <div class="modal-body">
-              <form action="#" class="form-horizontal">
-                  <div class="form-group">
-                      <label class="col-sm-4 control-label" for="convertSelect">' . get_lang('ConvertFormats').'</label>
-                      <div class="col-sm-8">
-                          <select id="convertSelect">
-                              <option value="">' . get_lang('Select').'</option>
-                              <option value="pdf">
+                <form action="#" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="convertSelect">'.get_lang('ConvertFormats').'</label>
+                        <div class="col-sm-8">
+                            <select id="convertSelect">
+                                <option value="">'.get_lang('Select').'</option>
+                                <option value="pdf">
                                   PDF - Portable Document File
-                              </option>
-                              <option value="odt" style="display:none;" class="textFormatType">
+                                </option>
+                                <option value="odt" style="display:none;" class="textFormatType">
                                   ODT - Open Document Text
-                              </option>
-                              <option value="odp" style="display:none;" class="presentationFormatType">
+                                </option>
+                                <option value="odp" style="display:none;" class="presentationFormatType">
                                   ODP - Open Document Portable
-                              </option>
-                              <option value="ods" style="display:none;" class="spreadsheetFormatType">
+                                </option>
+                                <option value="ods" style="display:none;" class="spreadsheetFormatType">
                                   ODS - Open Document Spreadsheet
-                              </option>
-                          </select>
-                      </div>
-                  </div>
-              </form>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">' . get_lang('Close').'</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">'.get_lang('Close').'</button>
             </div>
         </div>
-    </div>';
+    </div>
+';
 
 // Footer
 Display::display_footer();

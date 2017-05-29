@@ -113,6 +113,7 @@ define('TOOL_LINK_CATEGORY', 'link_category');
 define('TOOL_COURSE_DESCRIPTION', 'course_description');
 define('TOOL_SEARCH', 'search');
 define('TOOL_LEARNPATH', 'learnpath');
+define('TOOL_LEARNPATH_CATEGORY', 'learnpath_category');
 define('TOOL_AGENDA', 'agenda');
 define('TOOL_ANNOUNCEMENT', 'announcement');
 define('TOOL_FORUM', 'forum');
@@ -936,24 +937,6 @@ function api_get_cdn_path($web_path)
 function api_is_cas_activated() {
     return api_get_setting('cas_activate') == "true";
 }
-
-/**
- * Check if cas is configured
- * @return bool
- */
-function api_cas_configured()
-{
-    $cas_auth_server = api_get_setting('cas_server');
-    $cas_auth_port = api_get_setting('cas_port');
-    $res = false;
-    if (!empty($cas_auth_server) && !empty($cas_auth_port)) {
-        $res = true;
-    }
-
-    return $res;
-}
-
-
 
 /**
  * @return bool     Return true if LDAP authentification is activated
@@ -2549,10 +2532,9 @@ function api_is_platform_admin_by_id($user_id = null, $url = null)
     $user = $em->getRepository('ChamiloUserBundle:User')->find($user_id);
     $is_admin = $user->hasRole('ROLE_ADMIN');
 
-    if (!$is_admin or !isset($url)) {
+    if (!$is_admin || !isset($url)) {
         return $is_admin;
     }
-
     // We get here only if $url is set
     $url = intval($url);
     $url_user_table = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
@@ -3025,7 +3007,6 @@ function api_is_allowed_to_edit(
 
         return $is_allowed;
     } else {
-
         return $is_courseAdmin;
     }
 }
@@ -3066,8 +3047,7 @@ function api_is_coach_of_course_in_session($sessionId)
             // Checking session visibility
             $sessionCourseVisibility = api_get_session_visibility(
                 $sessionId,
-                $course['real_id'],
-                $ignore_visibility_for_admins
+                $course['real_id']
             );
 
             $courseIsVisible = !in_array(
@@ -4620,7 +4600,6 @@ function api_get_permissions_for_new_files()
  */
 function rmdirr($dirname, $delete_only_content_in_folder = false, $strict = false) {
     $res = true;
-
     // A sanity check.
     if (!file_exists($dirname)) {
         return false;
@@ -4752,7 +4731,7 @@ function copy_folder_course_session(
 
     $course_id = $course_info['real_id'];
 
-    $folders = explode(DIRECTORY_SEPARATOR,str_replace($base_path_document.DIRECTORY_SEPARATOR,'',$pathname));
+    $folders = explode(DIRECTORY_SEPARATOR, str_replace($base_path_document.DIRECTORY_SEPARATOR, '', $pathname));
 
     $new_pathname = $base_path_document;
     $path = '';
@@ -6510,7 +6489,7 @@ function api_get_jquery_ui_css_web_path()
 function api_get_jquery_ui_js($include_jqgrid = false) {
     $libraries = array();
     if ($include_jqgrid) {
-       $libraries[]='jqgrid';
+       $libraries[] = 'jqgrid';
     }
     return api_get_jquery_libraries_js($libraries);
 }

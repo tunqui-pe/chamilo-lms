@@ -2873,6 +2873,16 @@ class DocumentManager
             $pdfOrientation = 'P';
         }
         $pdf = new PDF($pageFormat, $pdfOrientation);
+
+        if (api_get_configuration_value('use_alternative_document_pdf_footer')) {
+            $view = new Template('', false, false, false, true, false, false);
+            $template = $view->get_template('export/alt_pdf_footer.tpl');
+
+            $pdf->set_custom_footer([
+                'html' => $view->fetch($template)
+            ]);
+        }
+
         $pdf->html_to_pdf(
             $file_path,
             $document_data['title'],
@@ -5728,7 +5738,7 @@ class DocumentManager
 
             if (
                 in_array($extension, $webOdfExtensionList) &&
-                api_get_setting('enabled_support_odf') === true
+                api_get_configuration_value('enabled_support_odf') === true
             ) {
                 return Display::url($iconEn, "edit_odf.php?$courseParams&id=$document_id");
             }
@@ -5766,7 +5776,7 @@ class DocumentManager
 
         if (
             in_array($extension, $webOdfExtensionList) &&
-            api_get_setting('enabled_support_odf') === true
+            api_get_configuration_value('enabled_support_odf') === true
         ) {
             return Display::url($iconEn, "edit_odf.php?$courseParams&id=$document_id");
         }
@@ -6018,7 +6028,7 @@ class DocumentManager
                         $certificate = get_lang('NoDefaultCertificate');
                     }
                     if (isset($_GET['selectcat'])) {
-                        $modify_icons = Display::url(
+                        $modify_icons[] = Display::url(
                             Display::return_icon($visibility_icon_certificate.'.png', $certificate),
                             api_get_self()."?$courseParams&curdirpath=$curdirpath&selectcat=".intval($_GET['selectcat'])."&set_certificate=$id"
                         );

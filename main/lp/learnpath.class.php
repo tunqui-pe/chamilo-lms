@@ -9,6 +9,8 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Chamilo\CourseBundle\Entity\CLp;
+use Chamilo\CourseBundle\Entity\CTool;
+use Chamilo\UserBundle\Entity\User;
 
 /**
  * Class learnpath
@@ -4128,6 +4130,40 @@ class learnpath
     }
 
     /**
+     * Publishes a learnpath category.
+     * This basically means show or hide the learnpath category to normal users.
+     * @param int $id
+     * @param int $visibility
+     * @return bool
+     */
+    public static function toggleCategoryVisibility($id, $visibility = 1)
+    {
+        $action = 'visible';
+
+        if ($visibility != 1) {
+            $action = 'invisible';
+
+            $list = new LearnpathList(api_get_user_id(), null, null, null, false, $id);
+
+            $learPaths = $list->get_flat_list();
+
+            foreach ($learPaths as $lp) {
+                learnpath::toggle_visibility($lp['iid'], 0);
+            }
+
+            learnpath::toggleCategoryPublish($id, 0);
+        }
+
+        return api_item_property_update(
+            api_get_course_info(),
+            TOOL_LEARNPATH_CATEGORY,
+            $id,
+            $action,
+            api_get_user_id()
+        );
+    }
+
+    /**
      * Publishes a learnpath. This basically means show or hide the learnpath
      * on the course homepage
      * Can be used as abstract
@@ -4216,6 +4252,178 @@ class learnpath
         } else {
             return false;
         }
+    }
+
+    /**
+     * Generate the link for a learnpath category as course tool
+     * @param int $categoryId
+     * @return string
+     */
+    private static function getCategoryLinkForTool($categoryId)
+    {
+        $link = 'lp/lp_controller.php?'.api_get_cidreq().'&'
+            .http_build_query(
+                [
+                    'action' => 'view_category',
+                    'id' => $categoryId
+                ]
+            );
+
+        return $link;
+    }
+
+    /**
+     * Publishes a learnpath.
+     * Show or hide the learnpath category on the course homepage
+     * @param int $id
+     * @param int $setVisibility
+     * @return bool
+     */
+    public static function toggleCategoryPublish($id, $setVisibility = 1)
+    {
+        $courseId = api_get_course_int_id();
+        $sessionId = api_get_session_id();
+        $sessionCondition = api_get_session_condition($sessionId, true, false, 't.sessionId');
+        
+        $em = Database::getManager();
+
+        /** @var CLpCategory $category */
+        $category = $em->find('ChamiloCourseBundle:CLpCategory', $id);
+
+        if (!$category) {
+            return false;
+        }
+
+        $link = self::getCategoryLinkForTool($id);
+
+        /** @var CTool $tool */
+        $tool = $em
+            ->createQuery("
+                SELECT t FROM ChamiloCourseBundle:CTool t
+                WHERE
+                    t.cId = :course AND
+                    t.link = :link1 AND
+                    t.image = 'lp_category.gif' AND
+                    t.link LIKE :link2
+                    $sessionCondition
+            ")
+            ->setParameters([
+                'course' => (int) $courseId,
+                'link1' => $link,
+                'link2' => "$link%"
+            ])
+            ->getOneOrNullResult();
+
+        if ($setVisibility == 0 && $tool) {
+            $em->remove($tool);
+            $em->flush();
+
+            return true;
+        }
+
+        if ($setVisibility == 1 && !$tool) {
+            $tool = new CTool();
+            $tool
+                ->setCategory('authoring')
+                ->setCId($courseId)
+                ->setName(strip_tags($category->getName()))
+                ->setLink($link)
+                ->setImage('lp_category.gif')
+                ->setVisibility(1)
+                ->setAdmin(0)
+                ->setAddress('pastillegris.gif')
+                ->setAddedTool(0)
+                ->setSessionId($sessionId)
+                ->setTarget('_self');
+
+            $em->persist($tool);
+            $em->flush();
+
+            $tool->setId($tool->getIid());
+
+            $em->persist($tool);
+            $em->flush();
+
+            return true;
+        }
+
+        if ($setVisibility == 1 && $tool) {
+            $tool
+                ->setName(strip_tags($category->getName()))
+                ->setVisibility(1);
+
+            $em->persist($tool);
+            $em->flush();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the learnpath category is visible for a user
+     * @param CLpCategory $category
+     * @param User $user
+     * @return bool
+     */
+    public static function categoryIsVisibleForStudent(
+        CLpCategory $category,
+        User $user
+    )
+    {
+        $isAllowedToEdit = api_is_allowed_to_edit(null, true);
+
+        if ($isAllowedToEdit) {
+            return true;
+        }
+
+        $users = $category->getUsers();
+
+        if (empty($users) || !$users->count()) {
+            return true;
+        }
+
+        if ($category->hasUserAdded($user)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if a learnpath category is published as course tool
+     * @param CLpCategory $category
+     * @param int $courseId
+     * @return bool
+     */
+    public static function categoryIsPusblished(
+        CLpCategory $category,
+        $courseId
+    )
+    {
+        $link = self::getCategoryLinkForTool($category->getId());
+        $em = Database::getManager();
+
+        $tools = $em
+            ->createQuery("
+                SELECT t FROM ChamiloCourseBundle:CTool t
+                WHERE t.cId = :course AND 
+                    t.name = :name AND
+                    t.image = 'lp_category.gif' AND
+                    t.link LIKE :link
+            ")
+            ->setParameters([
+                'course' => $courseId,
+                'name' => strip_tags($category->getName()),
+                'link' => "$link%"
+            ])
+            ->getResult();
+
+        /** @var CTool $tool */
+        $tool = current($tools);
+
+        return $tool ? $tool->getVisibility() : false;
     }
 
     /**
@@ -8995,8 +9203,7 @@ class learnpath
             'POST',
             $this->getCurrentBuildingModeURL(),
             '',
-            array('enctype' => 'multipart/form-data'),
-            FormValidator::LAYOUT_INLINE
+            array('enctype' => 'multipart/form-data')
         );
 
         $folders = DocumentManager::get_all_document_folders(
@@ -9013,8 +9220,6 @@ class learnpath
             $form,
             'directory_parent_id'
         );
-
-        $form->addHtml('<hr>');
 
         $group = array(
             $form->createElement(
@@ -9040,7 +9245,6 @@ class learnpath
             )
         );
         $form->addGroup($group, null, get_lang('UplWhatIfFileExists'));
-        $form->addHtml('<br />');
         /*$form->addElement('radio', 'if_exists', get_lang('UplWhatIfFileExists'), get_lang('UplDoNothing'), 'nothing');
         $form->addElement('radio', 'if_exists', '', get_lang('UplOverwriteLong'), 'overwrite');
         $form->addElement('radio', 'if_exists', '', get_lang('UplRenameLong'), 'rename');*/
@@ -10570,7 +10774,12 @@ EOD;
         );
     }
 
-    public function verify_document_size($s)
+    /**
+     * Verify document size
+     * @param string $s
+     * @return bool
+     */
+    public static function verify_document_size($s)
     {
         $post_max = ini_get('post_max_size');
         if (substr($post_max, -1, 1) == 'M') {

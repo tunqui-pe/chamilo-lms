@@ -100,11 +100,11 @@
         "toin0u/digitalocean": "~1.4",
 
         "emojione/emojione": "1.3.0",
-        "zendframework/zend-config": "~2.4",
-        "zendframework/zend-feed": "~2.4",
-        "zendframework/zend-http": "~2.4",
-        "zendframework/zend-filter": "~2.4",
-        "zendframework/zend-permissions-acl": "~2.3",
+        "zendframework/zend-config": "2.5.1|~2.6",
+        "zendframework/zend-feed": "2.5.1|~2.6",
+        "zendframework/zend-http": "2.5.1|~2.6",
+        "zendframework/zend-filter": "2.5.1|~2.6",
+        "zendframework/zend-permissions-acl": "2.5.1|~2.6",
         "ezyang/htmlpurifier": "4.9.*",
         "szymach/c-pchart": "1.*",
         "aferrandini/phpqrcode": "1.0.1",
@@ -181,7 +181,7 @@
         "essence/essence": "2.6.1",
         "pclzip/pclzip": "2.8.2",
         "ircmaxell/random-lib": "^1.2",
-        "ocramius/proxy-manager": "2.0.*"
+        "ocramius/proxy-manager": "~1.0|2.0.*"
     },
     "require-dev": {
         "behat/behat": "@stable",

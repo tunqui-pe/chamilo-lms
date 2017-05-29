@@ -712,60 +712,56 @@ abstract class Question
      */
     private function resizePicture($Dimension, $Max)
     {
-        $picturePath = $this->getHotSpotFolderInCourse();
-
         // if the question has an ID
-        if ($this->id) {
-            // Get dimensions from current image.
-            $my_image = new Image($picturePath.'/'.$this->picture);
+        if (!$this->id) {
+            return false;
+        }
 
-            $current_image_size = $my_image->get_image_size();
-            $current_width = $current_image_size['width'];
-            $current_height = $current_image_size['height'];
+        $picturePath = $this->getHotSpotFolderInCourse().'/'.$this->getPictureFilename();
 
-            if ($current_width < $Max && $current_height < $Max) {
-                return true;
-            } elseif ($current_height == '') {
-                return false;
-            }
+        // Get dimensions from current image.
+        $my_image = new Image($picturePath);
 
-            // Resize according to height.
-            if ($Dimension == "height") {
+        $current_image_size = $my_image->get_image_size();
+        $current_width = $current_image_size['width'];
+        $current_height = $current_image_size['height'];
+
+        if ($current_width < $Max && $current_height < $Max) {
+            return true;
+        } elseif ($current_height == '') {
+            return false;
+        }
+
+        // Resize according to height.
+        if ($Dimension == "height") {
+            $resize_scale = $current_height / $Max;
+            $new_width = ceil($current_width / $resize_scale);
+        }
+
+        // Resize according to width
+        if ($Dimension == "width") {
+            $new_width = $Max;
+        }
+
+        // Resize according to height or width, both should not be larger than $Max after resizing.
+        if ($Dimension == "any") {
+            if ($current_height > $current_width || $current_height == $current_width) {
                 $resize_scale = $current_height / $Max;
-                $new_height = $Max;
                 $new_width = ceil($current_width / $resize_scale);
             }
-
-            // Resize according to width
-            if ($Dimension == "width") {
-                $resize_scale = $current_width / $Max;
+            if ($current_height < $current_width) {
                 $new_width = $Max;
-                $new_height = ceil($current_height / $resize_scale);
-            }
-
-            // Resize according to height or width, both should not be larger than $Max after resizing.
-            if ($Dimension == "any") {
-                if ($current_height > $current_width || $current_height == $current_width) {
-                    $resize_scale = $current_height / $Max;
-                    $new_height = $Max;
-                    $new_width = ceil($current_width / $resize_scale);
-                }
-                if ($current_height < $current_width) {
-                    $resize_scale = $current_width / $Max;
-                    $new_width = $Max;
-                    $new_height = ceil($current_height / $resize_scale);
-                }
-            }
-
-            $my_image->resize($new_width, $new_height);
-            $result = $my_image->send_image($picturePath.'/'.$this->picture);
-
-            if ($result) {
-                return true;
-            } else {
-                return false;
             }
         }
+
+        $my_image->resize($new_width);
+        $result = $my_image->send_image($picturePath);
+
+        if ($result) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -1892,10 +1888,10 @@ abstract class Question
      *
      * @param string $feedback_type
      * @param int $counter
-     * @param float $score
+     * @param array $score
      * @return string HTML string with the header of the question (before the answers table)
      */
-    function return_header($feedback_type = null, $counter = null, $score = null)
+    public function return_header($feedback_type = null, $counter = null, $score = [])
     {
         $counter_label = '';
         if (!empty($counter)) {
@@ -1915,10 +1911,11 @@ abstract class Question
                 $class = '';
             } else {
                 $score_label = get_lang('NotRevised');
-                $class = 'error';
+                $class = 'warning';
+                $weight = float_format($score['weight'], 1);
+                $score['result'] = " ? / ".$weight;
             }
         }
-        $question_title = $this->question;
 
         // display question category, if any
         $header = TestCategory::returnCategoryAndTitle($this->id);
@@ -1927,11 +1924,8 @@ abstract class Question
             $header .= $this->show_media_content();
         }
 
-        $header .= Display::page_subheader2($counter_label.". ".$question_title);
-        $header .= Display::div(
-            "<div class=\"rib rib-$class\"><h3>$score_label</h3></div> <h4>{$score['result']}</h4>",
-            array('class' => 'ribbon')
-        );
+        $header .= Display::page_subheader2($counter_label.". ".$this->question);
+        $header .= ExerciseLib::getQuestionRibbon($class, $score_label, $score['result']);
         if ($this->type != READING_COMPREHENSION) {
             // Do not show the description (the text to read) if the question is of type READING_COMPREHENSION
             $header .= Display::div($this->description, array('class' => 'question_description'));
@@ -2177,5 +2171,20 @@ abstract class Question
             $swappedAnswer->$key = $value;
         }
         return $swappedAnswer;
+    }
+
+
+    /**
+     * @param array $score
+     * @return bool
+     */
+    public function isQuestionWaitingReview($score)
+    {
+        $isReview = false;
+        if (!empty($score['comments']) || $score['score'] > 0) {
+            $isReview = true;
+        }
+
+        return $isReview;
     }
 }

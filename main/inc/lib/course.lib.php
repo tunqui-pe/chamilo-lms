@@ -2152,7 +2152,7 @@ class CourseManager
                 foreach ($course_coachs as $coachs) {
                     $html .= Display::tag(
                         'li',
-                        Display::return_icon('teacher.png', $coachs, null, ICON_SIZE_TINY) . ' ' . $coachs
+                        Display::return_icon('teacher.png', $coachs, null, ICON_SIZE_TINY).' '.$coachs
                     );
                 }
                 $html .= '</ul>';
@@ -2205,20 +2205,20 @@ class CourseManager
         }
 
         $group_list = array();
-        $session_id != 0 ? $session_condition = ' WHERE g.session_id IN(1,' . intval($session_id) . ')' : $session_condition = ' WHERE g.session_id = 0';
+        $session_id != 0 ? $session_condition = ' WHERE g.session_id IN(1,'.intval($session_id).')' : $session_condition = ' WHERE g.session_id = 0';
 
         if ($in_get_empty_group == 0) {
             // get only groups that are not empty
             $sql = "SELECT DISTINCT g.id, g.iid, g.name
-                    FROM " . Database::get_course_table(TABLE_GROUP) . " AS g
-                    INNER JOIN " . Database::get_course_table(TABLE_GROUP_USER) . " gu
+                    FROM " . Database::get_course_table(TABLE_GROUP)." AS g
+                    INNER JOIN " . Database::get_course_table(TABLE_GROUP_USER)." gu
                     ON (g.id = gu.group_id AND g.c_id = $course_id AND gu.c_id = $course_id)
                     $session_condition
                     ORDER BY g.name";
         } else {
             // get all groups even if they are empty
             $sql = "SELECT g.id, g.name, g.iid 
-                    FROM " . Database::get_course_table(TABLE_GROUP) . " AS g
+                    FROM " . Database::get_course_table(TABLE_GROUP)." AS g
                     $session_condition
                     AND c_id = $course_id";
         }
@@ -2401,7 +2401,6 @@ class CourseManager
             // Skills
             $table = Database::get_main_table(TABLE_MAIN_SKILL_REL_USER);
             $argumentation = Database::escape_string(sprintf(get_lang('SkillFromCourseXDeletedSinceThen'), $course['code']));
-
             $sql = "UPDATE $table SET course_id = NULL, session_id = NULL, argumentation = '$argumentation' WHERE course_id = $courseId";
             Database::query($sql);
 

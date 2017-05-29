@@ -2077,6 +2077,7 @@ function installSettings(
  * @param string $chamiloVersion
  * @param EntityManager $manager
  * @throws \Doctrine\DBAL\DBALException
+ * @return bool
  */
 function migrate($chamiloVersion, EntityManager $manager)
 {
@@ -2106,7 +2107,6 @@ function migrate($chamiloVersion, EntityManager $manager)
     $to = null; // if $to == null then schema will be migrated to latest version
 
     echo "<pre>";
-
     try {
         // Execute migration!
         $migratedSQL = $migration->migrate($to);
@@ -2747,9 +2747,9 @@ function finishInstallation(
     $sysPath = !empty($sysPath) ? $sysPath : api_get_path(SYS_PATH);
 
     $connection = $manager->getConnection();
-
+    $sql = getVersionTable();
     // Add version table
-    $connection->executeQuery('CREATE TABLE IF NOT EXISTS version (id int unsigned NOT NULL AUTO_INCREMENT, version varchar(20), PRIMARY KEY(id), UNIQUE(version))');
+    $connection->executeQuery($sql);
 
     // Add tickets defaults
     $ticketProject = new TicketProject();
@@ -2918,14 +2918,31 @@ function finishInstallation(
     $files = $finder->files()->in($path);
 
     // Needed for chash
-    $sql = 'CREATE TABLE IF NOT EXISTS version (id int unsigned NOT NULL AUTO_INCREMENT, version varchar(255), PRIMARY KEY(id), UNIQUE(version));';
-    Database::query($sql);
+    createVersionTable();
 
     foreach ($files as $version) {
         $version = str_replace(['Version', '.php'], '', $version->getFilename());
         $sql = "INSERT INTO version (version) VALUES ('$version')";
         Database::query($sql);
     }
+}
+
+/**
+ * Creates 'version' table
+ */
+function createVersionTable()
+{
+    $sql = getVersionTable();
+    Database::query($sql);
+}
+
+/**
+ * Get version creation table query
+ * @return string
+ */
+function getVersionTable()
+{
+    return 'CREATE TABLE IF NOT EXISTS version (id int unsigned NOT NULL AUTO_INCREMENT, version varchar(20), PRIMARY KEY(id), UNIQUE(version));';
 }
 
 /**
@@ -3070,26 +3087,28 @@ function migrateSwitch($fromVersion, $manager, $processFiles = true)
 
     switch ($fromVersion) {
         case '1.9.0':
-            //no break
+            // no break
         case '1.9.2':
-            //no break
+            // no break
         case '1.9.4':
-            //no break
+            // no break
         case '1.9.6':
-            //no break
+            // no break
         case '1.9.6.1':
-            //no break
+            // no break
         case '1.9.8':
-            //no break
+            // no break
         case '1.9.8.1':
-            //no break
+            // no break
         case '1.9.8.2':
-            //no break
+            // no break
         case '1.9.10':
-            //no break
+            // no break
         case '1.9.10.2':
-            //no break
+            // no break
         case '1.9.10.4':
+            // no break
+        case '1.9.10.6':
             $database = new Database();
             $database->setManager($manager);
 
@@ -3119,7 +3138,7 @@ function migrateSwitch($fromVersion, $manager, $processFiles = true)
                 $connection->executeQuery("UPDATE settings_current SET selected_value = '1.10.0' WHERE variable = 'chamilo_database_version'");
 
                 if ($processFiles) {
-
+                    $fromVersionShort = '1.9';
                     include __DIR__.'/update-files-1.9.0-1.10.0.inc.php';
                     // Only updates the configuration.inc.php with the new version
                     include __DIR__.'/update-configuration.inc.php';
@@ -3242,7 +3261,10 @@ function migrateSwitch($fromVersion, $manager, $processFiles = true)
                 $connection->executeQuery($sql);
 
                 if ($processFiles) {
+                    $fromVersionShort = '1.10';
                     include __DIR__.'/update-files-1.10.0-1.11.0.inc.php';
+                    // Only updates the configuration.inc.php with the new version
+                    include __DIR__.'/update-configuration.inc.php';
                 }
                 error_log('Upgrade 1.11.x process concluded!  ('.date('Y-m-d H:i:s').')');
             } else {
