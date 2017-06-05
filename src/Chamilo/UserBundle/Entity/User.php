@@ -1473,7 +1473,7 @@ class User extends BaseUser implements ThemeUser
      *
      * @return User
      */
-    public function setLastLogin(\DateTime $lastLogin)
+    public function setLastLogin(\DateTime $lastLogin = null)
     {
         $this->lastLogin = $lastLogin;
 
