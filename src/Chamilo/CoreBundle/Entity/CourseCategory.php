@@ -95,14 +95,6 @@ class CourseCategory
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getName();
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -304,16 +296,6 @@ class CourseCategory
     public function getAuthCatChild()
     {
         return $this->authCatChild;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
