@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class PlatformSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class PlatformSettingsSchema implements SchemaInterface
+class PlatformSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -47,22 +47,21 @@ class PlatformSettingsSchema implements SchemaInterface
 //('catalog_show_courses_sessions', '1', 'CatalogueShowOnlySessions'),
 //('catalog_show_courses_sessions', '2', 'CatalogueShowCoursesAndSessions'),
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'institution' => array('string'),
-                    'institution_url' => array('string'),
-                    'site_name' => array('string'),
+            );
+        $allowedTypes = array(
+            'institution' => array('string'),
+            'institution_url' => array('string'),
+            'site_name' => array('string'),
 //                    'administrator_email' => array('string'),
 //                    'administrator_name' => array('string'),
 //                    'administrator_surname' => array('string'),
 //                    'administrator_phone' => array('string'),
-                    'timezone' => array('string'),
-                    'gravatar_enabled' => array('string'),
-                    'gravatar_type' => array('string'),
-                    //'gamification_mode' => array('string'),
-                )
-            );
+            'timezone' => array('string'),
+            'gravatar_enabled' => array('string'),
+            'gravatar_type' => array('string'),
+            //'gamification_mode' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

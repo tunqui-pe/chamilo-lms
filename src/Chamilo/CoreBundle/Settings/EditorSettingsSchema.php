@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class EditorSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class EditorSettingsSchema implements SchemaInterface
+class EditorSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -42,10 +42,11 @@ class EditorSettingsSchema implements SchemaInterface
                     'enabled_mathjax' => ''
                 )
             )
-            ->setAllowedTypes(
+            /*->setAllowedTypes(
                 array(//'allow_personal_agenda' => array('string')
                 )
-            );
+            )*/
+        ;
     }
 
     /**

@@ -11,8 +11,9 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ChatSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class ChatSettingsSchema implements SchemaInterface
+class ChatSettingsSchema extends AbstractSettingsSchema
 {
+
     /**
      * {@inheritdoc}
      */
@@ -24,12 +25,11 @@ class ChatSettingsSchema implements SchemaInterface
                     'show_chat_folder' => 'true',
                     'allow_global_chat' => 'true',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'show_chat_folder' => array('string'),
-                )
             );
+        $allowedTypes = array(
+            'show_chat_folder' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

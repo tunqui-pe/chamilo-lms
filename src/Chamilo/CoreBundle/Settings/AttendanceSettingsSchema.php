@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class AttendanceSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class AttendanceSettingsSchema implements SchemaInterface
+class AttendanceSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -24,9 +24,10 @@ class AttendanceSettingsSchema implements SchemaInterface
                     'allow_delete_attendance' => 'true',
                 )
             )
-            ->setAllowedTypes(
-                array()
-            );
+//            ->setAllowedTypes(
+//                array()
+//            )
+        ;
     }
 
     /**

@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class DocumentSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class DocumentSettingsSchema implements SchemaInterface
+class DocumentSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -52,18 +52,18 @@ class DocumentSettingsSchema implements SchemaInterface
                     'if_file_exists_option' => 'rename'
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'default_document_quotum' => array('string'),
-                    'default_group_quotum' => array('string'),
-                    'permanently_remove_deleted_files' => array('string'),
-                )
-            )
             ->setTransformer(
                 'tool_visible_by_default_at_creation',
                 new ArrayToIdentifierTransformer()
             )
         ;
+
+        $allowedTypes = array(
+            'default_document_quotum' => array('string'),
+            'default_group_quotum' => array('string'),
+            'permanently_remove_deleted_files' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

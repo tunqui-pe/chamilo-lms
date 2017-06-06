@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class SessionSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SessionSettingsSchema implements SchemaInterface
+class SessionSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -45,12 +45,12 @@ class SessionSettingsSchema implements SchemaInterface
                     'show_session_description' => 'false'
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'add_users_by_coach' => array('string'),
-                )
-            )
         ;
+
+        $allowedTypes = array(
+            'add_users_by_coach' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

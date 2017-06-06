@@ -12,7 +12,7 @@ use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
  * Class RegistrationSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class RegistrationSettingsSchema implements SchemaInterface
+class RegistrationSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -41,16 +41,6 @@ class RegistrationSettingsSchema implements SchemaInterface
                     'platform_unsubscribe_allowed' => 'false',
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'required_profile_fields' => array('array'),
-                    'extendedprofile_registration' => array('array'),
-                    'extendedprofile_registrationrequired' => array('array'),
-                    'allow_registration' => array('string'),
-                    'allow_registration_as_teacher' => array('string'),
-                    'allow_lostpassword' => array('string'),
-                )
-            )
             ->setTransformer(
                 'required_profile_fields',
                 new ArrayToIdentifierTransformer()
@@ -64,6 +54,15 @@ class RegistrationSettingsSchema implements SchemaInterface
                 new ArrayToIdentifierTransformer()
             )
         ;
+        $allowedTypes = array(
+            'required_profile_fields' => array('array'),
+            'extendedprofile_registration' => array('array'),
+            'extendedprofile_registrationrequired' => array('array'),
+            'allow_registration' => array('string'),
+            'allow_registration_as_teacher' => array('string'),
+            'allow_lostpassword' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class DisplaySettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class DisplaySettingsSchema implements SchemaInterface
+class DisplaySettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -50,12 +50,12 @@ class DisplaySettingsSchema implements SchemaInterface
                     'hide_logout_button' => 'false',
                     'show_link_ticket_notification' => 'false'
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'time_limit_whosonline' => array('string'),
-                )
             );
+
+        $allowedTypes = array(
+            'time_limit_whosonline' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

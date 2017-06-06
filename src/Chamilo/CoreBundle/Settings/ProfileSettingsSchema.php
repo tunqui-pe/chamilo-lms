@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ProfileSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class ProfileSettingsSchema implements SchemaInterface
+class ProfileSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -36,17 +36,16 @@ class ProfileSettingsSchema implements SchemaInterface
                     'allow_show_linkedin_url' => ''
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'changeable_options' => array('array'),
-                    'account_valid_duration' => array('string'),
-                )
-            )
             ->setTransformer(
                 'changeable_options',
                 new ArrayToIdentifierTransformer()
             )
         ;
+        $allowedTypes = array(
+            'changeable_options' => array('array'),
+            'account_valid_duration' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

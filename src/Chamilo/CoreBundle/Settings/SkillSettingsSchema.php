@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class SkillSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SkillSettingsSchema implements SchemaInterface
+class SkillSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -24,12 +24,11 @@ class SkillSettingsSchema implements SchemaInterface
                     'allow_skills_tool' => 'true',
                     'allow_hr_skills_management' => 'true',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'allow_skills_tool' => array('string'),
-                )
             );
+        $allowedTypes = array(
+            'allow_skills_tool' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class SocialSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SocialSettingsSchema implements SchemaInterface
+class SocialSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -25,13 +25,12 @@ class SocialSettingsSchema implements SchemaInterface
                     'allow_students_to_create_groups_in_social' => 'false',
 
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'allow_social_tool' => array('string'),
-                    'allow_students_to_create_groups_in_social' => array('string'),
-                )
             );
+        $allowedTypes = array(
+            'allow_social_tool' => array('string'),
+            'allow_students_to_create_groups_in_social' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

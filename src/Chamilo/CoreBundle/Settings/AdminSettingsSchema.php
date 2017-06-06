@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class AdminSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class AdminSettingsSchema implements SchemaInterface
+class AdminSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -27,14 +27,14 @@ class AdminSettingsSchema implements SchemaInterface
                     'administrator_phone' => '',
                     'redirect_admin_to_courses_list' => 'false'
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    //'administrator_email' => array('string'),
-                    //'administrator_name' => array('string'),
-                    //'administrator_surname' => array('string'),
-                )
             );
+//            ->setAllowedTypes(
+//                array(
+//                    //'administrator_email' => array('string'),
+//                    //'administrator_name' => array('string'),
+//                    //'administrator_surname' => array('string'),
+//                )
+//            );
     }
 
     /**

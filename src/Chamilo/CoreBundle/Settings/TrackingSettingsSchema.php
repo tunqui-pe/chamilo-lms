@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class TrackingSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class TrackingSettingsSchema implements SchemaInterface
+class TrackingSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -30,14 +30,14 @@ class TrackingSettingsSchema implements SchemaInterface
                     'meta_twitter_creator' => ''
 
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    // commenting this line allows setting to be null
-                    //'header_extra_content' => array('string'),
-                    //'footer_extra_content' => array('string'),
-                )
             );
+//            ->setAllowedTypes(
+//                array(
+//                    // commenting this line allows setting to be null
+//                    //'header_extra_content' => array('string'),
+//                    //'footer_extra_content' => array('string'),
+//                )
+//            );
     }
 
     /**

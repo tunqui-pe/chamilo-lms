@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class AgendaSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class AgendaSettingsSchema implements SchemaInterface
+class AgendaSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -27,17 +27,16 @@ class AgendaSettingsSchema implements SchemaInterface
                     //'number_of_upcoming_events' => '0',
                     'default_calendar_view' => 'month',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'allow_personal_agenda' => array('string'),
-                    //'display_mini_month_calendar' => array('string'),
-                    'display_upcoming_events' => array('string'),
-                    //'number_of_upcoming_events' => array('string'),
-                    'default_calendar_view' => array('string'),
-                )
-            )
-        ;
+            );
+
+        $allowedTypes = array(
+            'allow_personal_agenda' => array('string'),
+            //'display_mini_month_calendar' => array('string'),
+            'display_upcoming_events' => array('string'),
+            //'number_of_upcoming_events' => array('string'),
+            'default_calendar_view' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

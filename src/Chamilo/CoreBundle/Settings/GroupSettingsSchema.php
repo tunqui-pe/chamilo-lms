@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class GroupSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class GroupSettingsSchema implements SchemaInterface
+class GroupSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -25,12 +25,11 @@ class GroupSettingsSchema implements SchemaInterface
                     'hide_course_group_if_no_tools_available' => 'false',
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'allow_group_categories' => array('string'),
-                )
-            )
         ;
+        $allowedTypes = array(
+            'allow_group_categories' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

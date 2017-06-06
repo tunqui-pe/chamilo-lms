@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class WebServiceSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class WebServiceSettingsSchema implements SchemaInterface
+class WebServiceSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -27,16 +27,15 @@ class WebServiceSettingsSchema implements SchemaInterface
                     'messaging_gdc_api_key' => '',
                     'allow_download_documents_by_api_key' => 'false'
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    // commenting this line allows setting to be null
-                    //'header_extra_content' => array('string'),
-                    //'footer_extra_content' => array('string'),
-                    'messaging_gdc_project_number' => ['string'],
-                    'messaging_gdc_api_key' => ['string']
-                )
             );
+        $allowedTypes = array(
+            // commenting this line allows setting to be null
+            //'header_extra_content' => array('string'),
+            //'footer_extra_content' => array('string'),
+            'messaging_gdc_project_number' => ['string'],
+            'messaging_gdc_api_key' => ['string']
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

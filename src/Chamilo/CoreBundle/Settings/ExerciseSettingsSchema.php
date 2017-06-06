@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ExerciseSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class ExerciseSettingsSchema implements SchemaInterface
+class ExerciseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -32,14 +32,13 @@ class ExerciseSettingsSchema implements SchemaInterface
                     'exercise_invisible_in_session' => 'false'
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'exercise_min_score' => array('string'),
-                    'exercise_max_score' => array('string'),
-                    'enable_quiz_scenario' => array('string'),
-                )
-            )
         ;
+        $allowedTypes = array(
+            'exercise_min_score' => array('string'),
+            'exercise_max_score' => array('string'),
+            'enable_quiz_scenario' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

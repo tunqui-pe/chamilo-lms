@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class LanguageSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class LanguageSettingsSchema implements SchemaInterface
+class LanguageSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -30,15 +30,15 @@ class LanguageSettingsSchema implements SchemaInterface
                     'language_priority_3' => '',
                     'language_priority_4' => '',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'platform_language' => array('string'),
-                    'allow_use_sub_language' => array('string'),
-                    'auto_detect_language_custom_pages' => array('string'),
-                    'show_different_course_language' => array('string')
-                )
             );
+
+        $allowedTypes = array(
+            'platform_language' => array('string'),
+            'allow_use_sub_language' => array('string'),
+            'auto_detect_language_custom_pages' => array('string'),
+            'show_different_course_language' => array('string')
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

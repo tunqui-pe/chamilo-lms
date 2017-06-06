@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class DropboxSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class DropboxSettingsSchema implements SchemaInterface
+class DropboxSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -28,12 +28,12 @@ class DropboxSettingsSchema implements SchemaInterface
                     'dropbox_allow_group' => 'true',
                     'dropbox_allow_mailing' => 'false'
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'dropbox_allow_overwrite' => array('string'),
-                )
             );
+
+        $allowedTypes = array(
+            'dropbox_allow_overwrite' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -18,7 +18,7 @@ use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
  * Class CasSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class CasSettingsSchema implements SchemaInterface
+class CasSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -37,10 +37,10 @@ class CasSettingsSchema implements SchemaInterface
                     'update_user_info_cas_with_ldap' => '',
                 )
             )
-            ->setAllowedTypes(
-                array(
-                )
-            )
+//            ->setAllowedTypes(
+//                array(
+//                )
+//            )
         ;
 
     }

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class SearchSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SearchSettingsSchema implements SchemaInterface
+class SearchSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -26,13 +26,12 @@ class SearchSettingsSchema implements SchemaInterface
                     'search_show_unlinked_results' => 'true',
                     'number_of_upcoming_events' => '0',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    //'allow_personal_agenda' => array('string'),
-                    'number_of_upcoming_events' => array('string'),
-                )
             );
+        $allowedTypes = array(
+            //'allow_personal_agenda' => array('string'),
+            'number_of_upcoming_events' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

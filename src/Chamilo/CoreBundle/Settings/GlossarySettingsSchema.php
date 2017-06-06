@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class GlossarySettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class GlossarySettingsSchema implements SchemaInterface
+class GlossarySettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,12 +23,12 @@ class GlossarySettingsSchema implements SchemaInterface
                 array(
                     'show_glossary_in_extra_tools' => '',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'show_glossary_in_extra_tools' => array('string'),
-                )
             );
+
+        $allowedTypes = array(
+            'show_glossary_in_extra_tools' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

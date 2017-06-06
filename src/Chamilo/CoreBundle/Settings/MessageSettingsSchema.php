@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class MessageSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class MessageSettingsSchema implements SchemaInterface
+class MessageSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -26,13 +26,12 @@ class MessageSettingsSchema implements SchemaInterface
                     'message_max_upload_filesize' => '20971520',
 
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'allow_message_tool' => array('string'),
-                    'message_max_upload_filesize' => array('string'),
-                )
             );
+        $allowedTypes = array(
+            'allow_message_tool' => array('string'),
+            'message_max_upload_filesize' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

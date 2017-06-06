@@ -18,7 +18,7 @@ use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
  * Class CourseSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class CourseSettingsSchema implements SchemaInterface
+class CourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * @var ToolChain
@@ -30,6 +30,9 @@ class CourseSettingsSchema implements SchemaInterface
      */
     protected $courseManager;
 
+    /**
+     * @param ToolChain $tools
+     */
     public function setToolChain(ToolChain $tools)
     {
         $this->toolChain = $tools;
@@ -105,17 +108,6 @@ class CourseSettingsSchema implements SchemaInterface
                     'enable_record_audio' => 'false'
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'homepage_view' => array('string'),
-                    'show_tool_shortcuts' => array('string'),
-                    'active_tools_on_create' => array('array'),
-                    'course_hide_tools' => array('array'),
-                    'display_coursecode_in_courselist' => array('string'),
-                    'display_teacher_in_courselist' => array('string'),
-                    'student_view_enabled' => array('string'),
-                )
-            )
             ->setTransformer(
                 'active_tools_on_create',
                 new ArrayToIdentifierTransformer()
@@ -130,6 +122,17 @@ class CourseSettingsSchema implements SchemaInterface
             )
         ;
 
+        $allowedTypes = array(
+            'homepage_view' => array('string'),
+            'show_tool_shortcuts' => array('string'),
+            'active_tools_on_create' => array('array'),
+            'course_hide_tools' => array('array'),
+            'display_coursecode_in_courselist' => array('string'),
+            'display_teacher_in_courselist' => array('string'),
+            'student_view_enabled' => array('string'),
+        );
+
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

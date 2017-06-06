@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class SecuritySettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SecuritySettingsSchema implements SchemaInterface
+class SecuritySettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -27,13 +27,12 @@ class SecuritySettingsSchema implements SchemaInterface
                     'allow_strength_pass_checker' => 'true',
                     'allow_captcha' => 'false'
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'allow_browser_sniffer' => array('string'),
-                    'allow_strength_pass_checker' => array('string'),
-                )
             );
+        $allowedTypes = array(
+            'allow_browser_sniffer' => array('string'),
+            'allow_strength_pass_checker' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

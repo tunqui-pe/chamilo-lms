@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class PptToLpSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class PptToLpSettingsSchema implements SchemaInterface
+class PptToLpSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -30,11 +30,12 @@ class PptToLpSettingsSchema implements SchemaInterface
                     'path_to_lzx' => '',
                 )
             )
-            ->setAllowedTypes(
-                array(
-
-                )
-            );
+//            ->setAllowedTypes(
+//                array(
+//
+//                )
+//            )
+        ;
     }
 
     /**

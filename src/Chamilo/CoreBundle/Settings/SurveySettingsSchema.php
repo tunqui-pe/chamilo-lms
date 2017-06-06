@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class SurveySettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class SurveySettingsSchema implements SchemaInterface
+class SurveySettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -25,12 +25,12 @@ class SurveySettingsSchema implements SchemaInterface
                     'extend_rights_for_coach_on_survey' => 'true',
 
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    //'survey_email_sender_noreply' => array('string'),
-                )
             );
+//            ->setAllowedTypes(
+//                array(
+//                    //'survey_email_sender_noreply' => array('string'),
+//                )
+//            );
     }
 
     /**

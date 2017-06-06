@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class MailSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class MailSettingsSchema implements SchemaInterface
+class MailSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -25,11 +25,8 @@ class MailSettingsSchema implements SchemaInterface
                     'activate_email_template' => 'false',
                 )
             )
-            ->setAllowedTypes(
-                array(
-                )
-            )
         ;
+        //$this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class AnnouncementSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class AnnouncementSettingsSchema implements SchemaInterface
+class AnnouncementSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -19,15 +19,16 @@ class AnnouncementSettingsSchema implements SchemaInterface
     public function buildSettings(SettingsBuilderInterface $builder)
     {
         $builder
-            ->setDefaults(array(
+            ->setDefaults(
+                array(
                     'hide_global_announcements_when_not_connected' => 'false',
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'hide_global_announcements_when_not_connected' => array('string'),
-                )
             );
+
+        $allowedTypes = array(
+            'hide_global_announcements_when_not_connected' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

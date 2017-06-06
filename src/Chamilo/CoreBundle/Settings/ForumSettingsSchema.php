@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ForumSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class ForumSettingsSchema implements SchemaInterface
+class ForumSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -25,12 +25,12 @@ class ForumSettingsSchema implements SchemaInterface
                     'display_groups_forum_in_general_tool' => 'true',
                 )
             )
-            ->setAllowedTypes(
-                array(
-                    'default_forum_view' => array('string'),
-                )
-            )
         ;
+
+        $allowedTypes = array(
+            'default_forum_view' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

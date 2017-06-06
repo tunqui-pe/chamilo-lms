@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class GradebookSettingsSchema
  * @package Chamilo\CoreBundle\Settings
  */
-class GradebookSettingsSchema implements SchemaInterface
+class GradebookSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -39,16 +39,15 @@ class GradebookSettingsSchema implements SchemaInterface
                     'openbadges_backpack' => 'https://backpack.openbadges.org/',
                     'hide_certificate_export_link' => 'false'
                 )
-            )
-            ->setAllowedTypes(
-                array(
-                    'gradebook_enable' => array('string'),
-                    'gradebook_number_decimals' => array('string'),
-                    'gradebook_default_weight' => array('string'),
-                    'student_publication_to_take_in_gradebook' => array('string'),
-                    'gradebook_detailed_admin_view' => array('string')
-                )
             );
+        $allowedTypes = array(
+            'gradebook_enable' => array('string'),
+            'gradebook_number_decimals' => array('string'),
+            'gradebook_default_weight' => array('string'),
+            'student_publication_to_take_in_gradebook' => array('string'),
+            'gradebook_detailed_admin_view' => array('string')
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**
