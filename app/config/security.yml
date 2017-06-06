@@ -36,7 +36,6 @@ security:
             - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT # if you are not using acl then this line must be uncommented
             - ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT
 
-
         ROLE_ANONYMOUS: [ROLE_ANONYMOUS]
 
     access_decision_manager:
@@ -46,7 +45,7 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         fos_userbundle:
-            id: fos_user.user_manager
+            id: fos_user.user_provider.username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -59,6 +58,7 @@ security:
             context: user
             form_login:
                 provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
                 login_path:     /login
                 use_forward:    false
                 check_path:     /login_check
@@ -88,6 +88,4 @@ security:
 
                 oauth_user_provider:
                     service: chamilo_user_provider
-
             switch_user: false
-

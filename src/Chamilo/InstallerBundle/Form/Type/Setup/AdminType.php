@@ -3,6 +3,7 @@
 
 namespace Chamilo\InstallerBundle\Form\Type\Setup;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -89,7 +90,7 @@ class AdminType extends AbstractType
             );*/
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

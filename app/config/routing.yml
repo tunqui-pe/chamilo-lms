@@ -105,3 +105,9 @@ fos_js_routing:
 
 faq:
     resource: "@ChamiloFaqBundle/Resources/config/routing.yml"
+
+
+#app_settings:
+#    resource: |
+#        alias: app.settings
+#    type: sylius.resource_api

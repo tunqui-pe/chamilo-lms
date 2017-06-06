@@ -84,8 +84,8 @@ sonata_page:
     cache_invalidation:
         service:  sonata.page.cache.invalidation.simple
         recorder: sonata.page.cache.recorder
-        classes:
-            "Chamilo\PageBundle\Entity\Block": getId
+#        classes:
+#            "Chamilo\PageBundle\Entity\Block": getId
 
     assets:
         stylesheets:
@@ -168,7 +168,7 @@ sonata_page:
             token:    add an unique token here # default is a random value
             version:  3                        # version 3 is the default on debian wheezy ...
             servers:
-                - %sonata_page.varnish.command% # you need to adapt this line to work with your configuration
+                - '%sonata_page.varnish.command%' # you need to adapt this line to work with your configuration
 
         ssi:
             token:    add an unique token here # default is a random value

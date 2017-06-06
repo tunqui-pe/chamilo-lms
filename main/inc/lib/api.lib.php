@@ -2058,7 +2058,7 @@ function get_status_from_code($status_code)
  * time we get on a course homepage or on a neutral page (index, admin, my space)
  * @return bool     true if set user as anonymous, false if user was already logged in or anonymous id could not be found
  */
-function api_set_anonymous() 
+function api_set_anonymous()
 {
     $_user = Session::read('_user');
 
@@ -2404,9 +2404,9 @@ function api_get_setting($variable, $subVariable = '')
         case 'add_shibboleth_login_button_shibboleth_button_comment':
         case 'add_shibboleth_login_button_shibboleth_image_url':
         case 'formLogin_hide_unhide_label':
-
             break;
         default:
+            /** @var \Doctrine\ORM\EntityManager $em */
             return Container::getSettingsManager()->getSetting($variable);
     }
 }
@@ -5008,7 +5008,7 @@ function api_get_status_langvars() {
 * The function that retrieves all the possible settings for a certain config setting
 * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University
 */
-function api_get_settings_options($var) 
+function api_get_settings_options($var)
 {
     $table_settings_options = Database::get_main_table(TABLE_MAIN_SETTINGS_OPTIONS);
     $var = Database::escape_string($var);

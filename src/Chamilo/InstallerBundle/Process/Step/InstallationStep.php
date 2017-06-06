@@ -29,7 +29,7 @@ class InstallationStep extends AbstractStep
         }
         set_time_limit(900);
 
-        $action = $this->getRequest()->query->get('action');
+        $action = $context->getRequest()->query->get('action');
         switch ($action) {
             case 'settings':
                 return new JsonResponse(array('result' => true, 'exitCode' => 0));

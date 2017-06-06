@@ -12,6 +12,9 @@ class AppKernel extends Kernel
 {
     protected $rootDir;
 
+    /**
+     * @return array
+     */
     public function registerBundles()
     {
         $bundles = array(
@@ -88,12 +91,13 @@ class AppKernel extends Kernel
 
             // Sylius
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
-            new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
+            //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
 
             new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
-            /*  new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),*/
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
+            new winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
 
             // Chamilo
             new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
@@ -151,7 +155,6 @@ class AppKernel extends Kernel
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
-
 
     /**
      * @return string

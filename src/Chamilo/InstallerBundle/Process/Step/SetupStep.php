@@ -3,6 +3,7 @@
 
 namespace Chamilo\InstallerBundle\Process\Step;
 
+use Chamilo\InstallerBundle\Form\Type\SetupType;
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
 use Chamilo\CoreBundle\Migrations\Data\ORM\LoadAdminUserData;
 //use Oro\Bundle\ConfigBundle\Config\ConfigManager;
@@ -125,7 +126,7 @@ class SetupStep extends AbstractStep
         $data = $this->get('chamilo_installer.yaml_persister')->parse();
 
         return $this->createForm(
-            'chamilo_installer_setup',
+            SetupType::class,
             empty($data) ? null : $data
         );
     }

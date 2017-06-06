@@ -171,24 +171,24 @@ class PageController
         if (!api_is_anonymous() && $user_id) {
             $visibility = api_is_allowed_to_create_course() ? SystemAnnouncementManager::VISIBLE_TEACHER : SystemAnnouncementManager::VISIBLE_STUDENT;
             if ($show_slide) {
-                $announcements = SystemAnnouncementManager:: display_announcements_slider(
+                $announcements = SystemAnnouncementManager::displayAnnouncementsSlider(
                     $visibility,
                     $announcement
                 );
             } else {
-                $announcements = SystemAnnouncementManager:: display_all_announcements(
+                $announcements = SystemAnnouncementManager::displayAllAnnouncements(
                     $visibility,
                     $announcement
                 );
             }
         } else {
             if ($show_slide) {
-                $announcements = SystemAnnouncementManager:: display_announcements_slider(
+                $announcements = SystemAnnouncementManager::displayAnnouncementsSlider(
                     SystemAnnouncementManager::VISIBLE_GUEST,
                     $announcement
                 );
             } else {
-                $announcements = SystemAnnouncementManager:: display_all_announcements(
+                $announcements = SystemAnnouncementManager::displayAllAnnouncements(
                     SystemAnnouncementManager::VISIBLE_GUEST,
                     $announcement
                 );

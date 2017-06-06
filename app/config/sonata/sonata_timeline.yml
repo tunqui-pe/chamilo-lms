@@ -1,6 +1,5 @@
 sonata_timeline:
     manager_type: orm
-
     class:
         timeline:         %spy_timeline.class.timeline%
         action:           %spy_timeline.class.action%

@@ -123,7 +123,8 @@ class User extends BaseUser implements ThemeUser
      * @var boolean
      * @ORM\Column(name="locked", type="boolean")
      */
-    //protected $locked;
+    protected $locked;
+
 
     /**
      * @var boolean
@@ -135,25 +136,25 @@ class User extends BaseUser implements ThemeUser
      * @var boolean
      * @ORM\Column(name="expired", type="boolean")
      */
-    //protected $expired;
+    protected $expired;
 
     /**
      * @var boolean
      * @ORM\Column(name="credentials_expired", type="boolean")
      */
-    //protected $credentialsExpired;
+    protected $credentialsExpired;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true, unique=false)
      */
-    //protected $credentialsExpireAt;
+    protected $credentialsExpireAt;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="expires_at", type="datetime", nullable=true, unique=false)
      */
-    //protected $expiresAt;
+    protected $expiresAt;
 
     /**
      * @var string
@@ -2439,5 +2440,15 @@ class User extends BaseUser implements ThemeUser
     }
 
 
+    public function getLocked()
+    {
+        return $this->locked;
+    }
+
+    public function setLocked($locked)
+    {
+        $this->locked = $locked;
+        return $this;
+    }
 
 }

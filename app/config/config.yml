@@ -12,7 +12,8 @@ imports:
 
     # FriendOfSymfony Bundles
     #- { resource: fos/fos_comment.yml }
-#    - { resource: fos/fos_rest.yml }
+    - { resource: fos/fos_rest.yml }
+
     - { resource: fos/fos_user.yml }
     #- { resource: fos/fos_elastica.yml }
 #    - { resource: fos/fos_message.yml }
@@ -44,7 +45,16 @@ imports:
     - { resource: ivory_ckeditor.yml }
 
 # Sylius
-    - { resource: sylius.yml }
+#    - { resource: sylius.yml }
+
+#sylius_resource:
+#    resources:
+#        app.settings:
+#            classes:
+#                model: Chamilo\CoreBundle\Entity\SettingsCurrent
+
+
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -52,6 +62,7 @@ parameters:
     locale: en
 
 framework:
+#    ide: 'phpstorm://open?url=file://%%f&line=%%l'
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
@@ -67,7 +78,6 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id: ~
@@ -88,12 +98,12 @@ twig:
     paths:
         '%kernel.root_dir%/../plugin': plugin
 
-    form:
-        resources:
-            - 'bootstrap_3_horizontal_layout.html.twig'
-            - 'SonataFormatterBundle:Form:formatter.html.twig'
-            - 'SonataMediaBundle:Form:media_widgets.html.twig'
-            - 'SonataCoreBundle:Form:datepicker.html.twig'
+#    form:
+#        resources:
+#            - 'bootstrap_3_horizontal_layout.html.twig'
+#            - 'SonataFormatterBundle:Form:formatter.html.twig'
+#            - 'SonataMediaBundle:Form:media_widgets.html.twig'
+#            - 'SonataCoreBundle:Form:datepicker.html.twig'
 
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 

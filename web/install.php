@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__.'/../app/ChamiloRequirements.php';
-require_once __DIR__.'/../app/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 // check for installed system
 $paramFile = __DIR__.'/../app/config/parameters.yml';
