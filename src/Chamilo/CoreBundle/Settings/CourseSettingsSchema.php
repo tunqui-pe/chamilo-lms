@@ -8,9 +8,9 @@ use Chamilo\CoreBundle\Entity\Manager\CourseManager;
 use Chamilo\CoreBundle\Entity\Repository\CourseRepository;
 use Chamilo\CourseBundle\Tool\BaseTool;
 use Chamilo\CourseBundle\ToolChain;
+use Sylius\Bundle\ResourceBundle\Form\DataTransformer\ResourceToIdentifierTransformer;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
-use Sylius\Bundle\SettingsBundle\Transformer\ObjectToIdentifierTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 
@@ -118,7 +118,7 @@ class CourseSettingsSchema extends AbstractSettingsSchema
             )
             ->setTransformer(
                 'course_creation_use_template',
-                new ObjectToIdentifierTransformer($em->getRepository('ChamiloCoreBundle:Course'))
+                new ResourceToIdentifierTransformer($em->getRepository('ChamiloCoreBundle:Course'))
             )
         ;
 

@@ -48,6 +48,10 @@
         {
            "type": "vcs",
             "url": "https://github.com/jmontoyaa/SyliusFlowBundle.git"
+        },
+        {
+           "type": "vcs",
+            "url": "https://github.com/chamilo/SyliusSettingsBundle.git"
         }
     ],
     "require": {

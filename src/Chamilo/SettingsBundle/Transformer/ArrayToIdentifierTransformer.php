@@ -3,14 +3,14 @@
 
 namespace Chamilo\SettingsBundle\Transformer;
 
-use Sylius\Bundle\SettingsBundle\Transformer\ParameterTransformerInterface;
+use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * Object to identifier transformer.
  *
  * @author Julio Montoya
  */
-class ArrayToIdentifierTransformer implements ParameterTransformerInterface
+class ArrayToIdentifierTransformer implements DataTransformerInterface
 {
     /**
      * {@inheritdoc}

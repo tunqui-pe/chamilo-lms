@@ -46,8 +46,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         $userInfo['is_anonymous'] = false;
 
         // Backward compatibility.
-
-        $ip = $request->getClientIp();
+        //$ip = $request->getClientIp();
 
         // Setting user info.
         $session->set('_user', $userInfo);
