@@ -337,9 +337,8 @@ class InstallCommand extends ContainerAwareCommand
     protected function setupAdmin(OutputInterface $output)
     {
         $dialog = $this->getHelperSet()->get('dialog');
-        $em = $this->getApplication()->getKernel()->getContainer()->get(
-            'doctrine'
-        )->getManager();
+        $em = $this->getApplication()->getKernel()->getContainer()->get('doctrine')->getManager();
+
         /** @var \Chamilo\UserBundle\Entity\User $user */
         $user = $em->getRepository('ChamiloUserBundle:User')->findOneById(1);
 
@@ -377,9 +376,8 @@ class InstallCommand extends ContainerAwareCommand
         $user->setEnabled(true);
         $user->addRole('ROLE_SUPER_ADMIN');
 
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $em->persist($user);
-        $em->flush();
+        $manager = $this->getContainer()->get('fos_user.user_manager.default');
+        $manager->updateUser($user, true);
     }
 
     /**

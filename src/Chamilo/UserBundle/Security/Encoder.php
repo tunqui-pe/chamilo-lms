@@ -3,9 +3,8 @@
 
 namespace Chamilo\UserBundle\Security;
 
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
@@ -13,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
  * Class Encoder
  * @package Chamilo\UserBundle\Security
  */
-class Encoder implements PasswordEncoderInterface
+class Encoder extends BasePasswordEncoder
 {
     protected $method;
 
@@ -32,6 +31,17 @@ class Encoder implements PasswordEncoderInterface
      */
     public function encodePassword($raw, $salt)
     {
+        $defaultEncoder = $this->getEncoder();
+        $encoded = $defaultEncoder->encodePassword($raw, $salt);
+
+        return $encoded;
+    }
+
+    /**
+     * @return BCryptPasswordEncoder|MessageDigestPasswordEncoder|PlaintextPasswordEncoder
+     */
+    private function getEncoder()
+    {
         switch ($this->method) {
             case 'none':
                 $defaultEncoder = new PlaintextPasswordEncoder();
@@ -44,7 +54,8 @@ class Encoder implements PasswordEncoderInterface
                 $defaultEncoder = new MessageDigestPasswordEncoder($this->method, false, 1);
                 break;
         }
-        return $defaultEncoder->encodePassword($raw, $salt);
+
+        return $defaultEncoder;
     }
 
     /**
@@ -55,6 +66,11 @@ class Encoder implements PasswordEncoderInterface
      */
     public function isPasswordValid($encoded, $raw, $salt)
     {
-        return $encoded === $this->encodePassword($raw, $salt);
+         if ($this->isPasswordTooLong($raw)) {
+            return false;
+        }
+
+        $encoder = $this->getEncoder();
+        return $encoder->isPasswordValid($encoded, $raw, $salt);
     }
 }
