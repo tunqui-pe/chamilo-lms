@@ -4,6 +4,7 @@
 namespace Chamilo\InstallerBundle\Process\Step;
 
 use Chamilo\InstallerBundle\Form\Type\SetupType;
+use Sonata\UserBundle\Entity\UserManager;
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
 use Chamilo\CoreBundle\Migrations\Data\ORM\LoadAdminUserData;
 //use Oro\Bundle\ConfigBundle\Config\ConfigManager;
@@ -60,12 +61,9 @@ class SetupStep extends AbstractStep
      */
     public function forwardAction(ProcessContextInterface $context)
     {
-        $adminUser = $this
-            ->getDoctrine()
-            ->getRepository('ChamiloUserBundle:User')
-            ->findOneBy(
-                array('username' => LoadAdminUserData::DEFAULT_ADMIN_USERNAME)
-            );
+        /** @var UserManager $userManager */
+        $userManager = $this->get('sonata.user.orm.user_manager');
+        $adminUser = $userManager->findUserByUsername(LoadAdminUserData::DEFAULT_ADMIN_USERNAME);
 
         if (!$adminUser) {
             throw new \RuntimeException(
@@ -79,7 +77,7 @@ class SetupStep extends AbstractStep
         $form->handleRequest($context->getRequest());
 
         if ($form->isValid()) {
-            $this->get('fos_user.user_manager')->updateUser($adminUser);
+            $userManager->updateUser($adminUser, true);
 
             // Setting portal parameters
             $settingsManager = $this->get('chamilo.settings.manager');
@@ -94,7 +92,7 @@ class SetupStep extends AbstractStep
                 'timezone' => $form->get('portal')->get('timezone')->getData(),
             );
             $settings->setParameters($parameters);
-            //$settingsManager->save($settings);
+            $settingsManager->save($settings);
 
             $settings = $settingsManager->load('admin');
             $parameters = array(
@@ -104,7 +102,7 @@ class SetupStep extends AbstractStep
                 'administrator_phone' => $adminUser->getPhone(),
             );
             $settings->setParameters($parameters);
-            //$settingsManager->save($settings);
+            $settingsManager->save($settings);
 
             return $this->complete();
         }
