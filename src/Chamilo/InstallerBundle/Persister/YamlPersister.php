@@ -79,7 +79,6 @@ class YamlPersister
             }
         }
 
-        var_dump($data);
         if (false === file_put_contents(
                 $this->paramFile,
                 Yaml::dump(array('parameters' => $parameters))
