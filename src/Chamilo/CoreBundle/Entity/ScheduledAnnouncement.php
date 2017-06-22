@@ -37,39 +37,38 @@ class ScheduledAnnouncement
     private $message;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
     /**
-     * @var integer
+     * @var bool
      *
      * @ORM\Column(name="sent", type="boolean")
      */
     private $sent;
 
     /**
-     * @var \DateTime
+     * @var int
      *
      * @ORM\Column(name="session_id", type="int", nullable=false)
      */
     private $sessionId;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="c_id", type="int", nullable=true)
+     */
+    private $cId;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getSubject();
     }
 
     /**
@@ -130,18 +129,18 @@ class ScheduledAnnouncement
     }
 
     /**
-     * @return int
+     * @return \DateTime
      */
-    public function getDate(): int
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
 
     /**
-     * @param int $date
+     * @param \DateTime $date
      * @return ScheduledAnnouncement
      */
-    public function setDate(int $date): ScheduledAnnouncement
+    public function setDate(\DateTime $date): ScheduledAnnouncement
     {
         $this->date = $date;
 
@@ -149,18 +148,18 @@ class ScheduledAnnouncement
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getSent(): int
+    public function isSent(): bool
     {
         return $this->sent;
     }
 
     /**
-     * @param int $sent
+     * @param bool $sent
      * @return ScheduledAnnouncement
      */
-    public function setSent(int $sent): ScheduledAnnouncement
+    public function setSent(bool $sent): ScheduledAnnouncement
     {
         $this->sent = $sent;
 
@@ -168,20 +167,39 @@ class ScheduledAnnouncement
     }
 
     /**
-     * @return \DateTime
+     * @return int
      */
-    public function getSessionId(): \DateTime
+    public function getSessionId(): int
     {
         return $this->sessionId;
     }
 
     /**
-     * @param \DateTime $sessionId
+     * @param int $sessionId
      * @return ScheduledAnnouncement
      */
-    public function setSessionId(\DateTime $sessionId): ScheduledAnnouncement
+    public function setSessionId(int $sessionId): ScheduledAnnouncement
     {
         $this->sessionId = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCId(): int
+    {
+        return $this->cId;
+    }
+
+    /**
+     * @param int $cId
+     * @return ScheduledAnnouncement
+     */
+    public function setCId(int $cId): ScheduledAnnouncement
+    {
+        $this->cId = $cId;
 
         return $this;
     }
