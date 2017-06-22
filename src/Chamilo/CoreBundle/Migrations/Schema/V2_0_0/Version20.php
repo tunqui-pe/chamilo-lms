@@ -420,6 +420,7 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
 
         $queries->addQuery('CREATE TABLE scheduled_announcements (id INT AUTO_INCREMENT NOT NULL, subject VARCHAR(255) NOT NULL, message LONGTEXT NOT NULL, date DATETIME DEFAULT NULL, sent TINYINT(1) NOT NULL, session_id INT NOT NULL, c_id INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
         $queries->addQuery('ALTER TABLE gradebook_certificate ADD downloaded_at DATETIME DEFAULT NULL;');
+        $queries->addQuery('UPDATE gradebook_certificate gc SET downloaded_at = (select value from extra_field e inner join extra_field_values v on v.field_id = e.id where variable = "downloaded_at" and extra_field_type = 11 and item_id = gc.id)');
     }
 
     /**
