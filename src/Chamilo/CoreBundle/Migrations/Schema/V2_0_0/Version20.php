@@ -417,7 +417,8 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         $queries->addQuery('UPDATE settings_current SET category = LOWER(category)');
         $queries->addQuery("ALTER TABLE c_quiz_question_category CHANGE description description LONGTEXT DEFAULT NULL;");
         $queries->addQuery("ALTER TABLE c_survey_invitation ADD answered_at DATETIME DEFAULT NULL;");
-        $queries->addQuery('CREATE TABLE IF NOT EXISTS scheduled_announcements (id int UNSIGNED NOT NULL AUTO_INCREMENT, subject VARCHAR(255) NOT NULL, message TEXT NOT NULL, date datetime DEFAULT NULL, sent INT, c_id INT, session_id INT NOT NULL, PRIMARY KEY (id))');
+
+        $queries->addQuery('CREATE TABLE scheduled_announcements (id INT AUTO_INCREMENT NOT NULL, subject VARCHAR(255) NOT NULL, message LONGTEXT NOT NULL, date DATETIME DEFAULT NULL, sent TINYINT(1) NOT NULL, session_id INT NOT NULL, c_id INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
     }
 
     /**

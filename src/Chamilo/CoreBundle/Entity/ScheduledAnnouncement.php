@@ -53,14 +53,14 @@ class ScheduledAnnouncement
     /**
      * @var int
      *
-     * @ORM\Column(name="session_id", type="int", nullable=false)
+     * @ORM\Column(name="session_id", type="integer", nullable=false)
      */
     private $sessionId;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="c_id", type="int", nullable=true)
+     * @ORM\Column(name="c_id", type="integer", nullable=true)
      */
     private $cId;
 
