@@ -217,6 +217,12 @@ class Version200 extends AbstractMigrationChamilo
                 "ALTER TABLE sys_announcement ADD COLUMN visible_boss INT DEFAULT 0;"
             );
         }
+
+        $cSurvey = $schema->getTable('c_survey');
+
+        if (!$cSurvey->hasColumn('is_mandatory')) {
+            $cSurvey->addColumn('is_mandatory', Type::BOOLEAN)->setDefault(false);
+        }
     }
 
     /**

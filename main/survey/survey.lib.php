@@ -318,7 +318,8 @@ class SurveyManager
                 'creation_date' => api_get_utc_datetime(),
                 'anonymous' => $values['anonymous'],
                 'session_id' => api_get_session_id(),
-                'visible_results' => $values['visible_results']
+                'visible_results' => $values['visible_results'],
+                'is_mandatory' => isset($values['is_mandatory'])
             ];
 
             $params = array_merge($params, $extraParams);
@@ -423,6 +424,7 @@ class SurveyManager
                 'anonymous' => $values['anonymous'],
                 'session_id' => api_get_session_id(),
                 'visible_results' => $values['visible_results'],
+                'is_mandatory' => isset($values['is_mandatory'])
             ];
 
             $params = array_merge($params, $extraParams);
@@ -1746,15 +1748,12 @@ class SurveyManager
                 ->createQuery("
                     SELECT i FROM ChamiloCourseBundle:CSurveyInvitation i
                     INNER JOIN ChamiloCourseBundle:CSurvey s WITH s.code = i.surveyCode
-                    INNER JOIN ChamiloCoreBundle:ExtraFieldValues efv WITH efv.itemId = s.iid
-                    INNER JOIN ChamiloCoreBundle:ExtraField ef WITH efv.field = ef.id
                     WHERE i.answered = 0
                         AND i.cId = :course
                         AND i.user = :user
                         AND i.sessionId = :session
                         AND :now BETWEEN s.availFrom AND s.availTill
-                        AND ef.variable = :variable
-                        AND efv.value = 1
+                        AND s.isMandatory IS TRUE
                     ORDER BY s.availTill ASC
                 ")
                 ->setMaxResults(1)
@@ -1762,8 +1761,7 @@ class SurveyManager
                     'course' => $courseId,
                     'user' => $userId,
                     'session' => $sessionId,
-                    'now' => new DateTime('UTC', new DateTimeZone('UTC')),
-                    'variable' => 'is_mandatory'
+                    'now' => new DateTime('UTC', new DateTimeZone('UTC'))
                 ])
                 ->getSingleResult();
         } catch (Exception $e) {
