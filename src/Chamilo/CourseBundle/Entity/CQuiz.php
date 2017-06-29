@@ -210,11 +210,19 @@ class CQuiz
     private $hideQuestionTitle;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="show_previous_button", type="boolean", nullable=true, options={"default":1})
+     */
+    private $showPreviousButton;
+
+    /**
      * CQuiz constructor.
      */
     public function __construct()
     {
         $this->hideQuestionTitle = false;
+        $this->showPreviousButton = true;
     }
 
     /**
