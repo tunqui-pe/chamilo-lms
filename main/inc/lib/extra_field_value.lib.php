@@ -68,7 +68,7 @@ class ExtraFieldValue extends Model
         $query->where('e.extraFieldType = :type');
         $query->setParameter('type', $this->getExtraField()->getExtraFieldType());
 
-        return $query->getQuery()->getScalarResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -111,6 +111,7 @@ class ExtraFieldValue extends Model
             }
 
             $field_variable = $fieldDetails['variable'];
+
             if (isset($params['extra_'.$field_variable])) {
                 $value = $params['extra_'.$field_variable];
             } else {
@@ -310,7 +311,6 @@ class ExtraFieldValue extends Model
                         'value' => $value,
                         'comment' => $comment
                     );
-
                     self::save($newParams, $showQuery);
             }
         }
@@ -875,13 +875,11 @@ class ExtraFieldValue extends Model
     {
         $field_id = intval($field_id);
         $item_id = intval($item_id);
-        $extraFieldType = $this->getExtraField()->getExtraFieldType();
 
         $sql = "DELETE FROM {$this->table}
                 WHERE
                     item_id = '$item_id' AND
-                    field_id = '$field_id' AND
-                    extra_field_type = $extraFieldType
+                    field_id = '$field_id'
                 ";
         Database::query($sql);
     }

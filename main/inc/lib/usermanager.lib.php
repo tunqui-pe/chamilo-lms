@@ -1414,7 +1414,6 @@ class UserManager
     public static function get_user_list_by_ids($ids = array(), $active = null, $order = null, $limit = null)
     {
         if (empty($ids)) {
-
             return array();
         }
 
@@ -2684,11 +2683,15 @@ class UserManager
         // Get the list of sessions per user
         $now = new DateTime('now', new DateTimeZone('UTC'));
 
+        // LEFT JOIN is used for session_rel_course_rel_user because an inner
+        // join would not catch session-courses where the user is general
+        // session coach but which do not have students nor coaches registered
         $dql = "SELECT DISTINCT
                     s.id,
                     s.name,
                     s.accessStartDate AS access_start_date,
                     s.accessEndDate AS access_end_date,
+                    s.duration,
                     sc.id AS session_category_id,
                     sc.name AS session_category_name,
                     sc.dateStart AS session_category_date_start,
@@ -2696,7 +2699,7 @@ class UserManager
                     s.coachAccessStartDate AS coach_access_start_date,
                     s.coachAccessEndDate AS coach_access_end_date
                 FROM ChamiloCoreBundle:Session AS s
-                INNER JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
+                LEFT JOIN ChamiloCoreBundle:SessionRelCourseRelUser AS scu WITH scu.session = s
                 INNER JOIN ChamiloCoreBundle:AccessUrlRelSession AS url WITH url.session = s
                 LEFT JOIN ChamiloCoreBundle:SessionCategory AS sc WITH s.category = sc
                 WHERE (scu.user = :user OR s.generalCoach = :user) AND url.url = :url
@@ -2723,16 +2726,23 @@ class UserManager
                 $user_id,
                 $session_id
             );
+            $daysLeft = SessionManager::getDayLeftInSession($row, $user_id);
 
             // User portal filters:
             if ($ignoreTimeLimit === false) {
                 if ($is_time_over) {
                     // History
-                    if (empty($row['access_end_date'])) {
-                        continue;
-                    } else {
-                        if ($row['access_end_date'] > $now) {
+                    if ($row['duration']) {
+                        if ($daysLeft >= 0) {
                             continue;
+                        }
+                    } else {
+                        if (empty($row['access_end_date'])) {
+                            continue;
+                        } else {
+                            if ($row['access_end_date'] > $now) {
+                                continue;
+                            }
                         }
                     }
                 } else {
@@ -2743,11 +2753,17 @@ class UserManager
                     if (api_is_platform_admin() || $isGeneralCoach || $isCoachOfCourse) {
                         // Teachers can access the session depending in the access_coach date
                     } else {
-                        if (isset($row['access_end_date']) &&
-                            !empty($row['access_end_date'])
-                        ) {
-                            if ($row['access_end_date'] <= $now) {
+                        if ($row['duration']) {
+                            if ($daysLeft <= 0) {
                                 continue;
+                            }
+                        } else {
+                            if (isset($row['access_end_date']) &&
+                                !empty($row['access_end_date'])
+                            ) {
+                                if ($row['access_end_date'] <= $now) {
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -3424,20 +3440,19 @@ class UserManager
      * @param   int     Access URL ID (optional)
      * @return    mixed    Number of users or false on error
      */
-    public static function get_number_of_users($status = 0, $access_url_id = null)
+    public static function get_number_of_users($status = 0, $access_url_id = 1)
     {
         $t_u = Database::get_main_table(TABLE_MAIN_USER);
-        $t_a = Database :: get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
-        $sql = "SELECT count(*) FROM $t_u u";
-        $sql2 = '';
+        $t_a = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
+        $sql = "SELECT count(u.id) 
+                FROM $t_u u 
+                INNER JOIN $t_a url_user
+                ON (u.id = url_user.user_id)
+                WHERE url_user.access_url_id = $access_url_id                
+        ";
         if (is_int($status) && $status > 0) {
-            $sql2 .= " WHERE u.status = $status ";
+            $sql .= " AND u.status = $status ";
         }
-        if (!empty($access_url_id) && $access_url_id == intval($access_url_id)) {
-            $sql .= ", $t_a a ";
-            $sql2 .= " AND a.access_url_id = $access_url_id AND u.id = a.user_id ";
-        }
-        $sql = $sql.$sql2;
         $res = Database::query($sql);
         if (Database::num_rows($res) === 1) {
             return (int) Database::result($res, 0, 0);

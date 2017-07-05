@@ -47,7 +47,7 @@ $dir = $document_data['path'];
 //make some vars
 $wamidir = $dir;
 if ($wamidir == "/") {
-	$wamidir = "";
+    $wamidir = '';
 }
 $wamiurlplay = api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document'.$wamidir."/";
 $groupId = api_get_group_id();
@@ -109,7 +109,7 @@ if (!($is_allowed_to_edit || $groupRights ||
 Event::event_access_tool(TOOL_DOCUMENT);
 
 $display_dir = $dir;
-if (isset ($group)) {
+if (isset($group)) {
     $display_dir = explode('/', $dir);
     unset($display_dir[0]);
     unset($display_dir[1]);

@@ -30,8 +30,8 @@ function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadPath)
         return false;
     }
 
-    if (preg_match('/.zip$/i', $_FILES['userFile']['name']) &&
-        handle_uploaded_document(
+    if (preg_match('/.zip$/i', $_FILES['userFile']['name'])) {
+        $result = handle_uploaded_document(
             $_course,
             $_FILES['userFile'],
             $baseWorkDir,
@@ -46,9 +46,8 @@ function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadPath)
             null,
             null,
             false
-        )
-    ) {
-        return true;
+        );
+        return $result;
     }
     return false;
 }
@@ -85,7 +84,6 @@ function import_exercise($file)
     $exercise_info['name'] = preg_replace('/.zip$/i', '', $file);
     $exercise_info['question'] = array();
     $element_pile = array();
-
     // create parser and array to retrieve info from manifest
     $element_pile = array(); //pile to known the depth in which we are
 
@@ -189,12 +187,14 @@ function import_exercise($file)
             }
             $question->setAnswer();
             $description = '';
+            /*
             if (strlen($question_array['title']) < 50) {
                 $question->updateTitle(formatText(strip_tags($question_array['title'])).'...');
             } else {
                 $question->updateTitle(formatText(substr(strip_tags($question_array['title']), 0, 50)));
                 $description .= $question_array['title'];
-            }
+            }*/
+            $question->updateTitle(formatText(strip_tags($question_array['title'])));
 
             if (isset($question_array['category'])) {
                 $category = formatText(strip_tags($question_array['category']));
@@ -222,7 +222,7 @@ function import_exercise($file)
                 $description .= $question_array['description'];
             }
             $question->updateDescription($description);
-            $question->save($last_exercise_id);
+            $question->save($exercise);
 
             $last_question_id = $question->selectId();
             //3. Create answer
@@ -240,6 +240,7 @@ function import_exercise($file)
                     $j++;
                     $matchAnswerIds[$key] = $j;
                 }
+
                 // Answer
                 $answer->new_answer[$i] = formatText($answers['value']);
                 // Comment
@@ -252,15 +253,19 @@ function import_exercise($file)
                 } else {
                     $answer->new_correct[$i] = 0;
                 }
+
+                $answer->new_weighting[$i] = 0;
                 if (isset($question_array['weighting'][$key])) {
                     $answer->new_weighting[$i] = $question_array['weighting'][$key];
                 }
+
                 if ($answer->new_correct[$i]) {
                     $totalCorrectWeight += $answer->new_weighting[$i];
                 }
             }
+
             $question->updateWeighting($totalCorrectWeight);
-            $question->save($last_exercise_id);
+            $question->save($exercise);
             $answer->save();
         }
 
@@ -333,7 +338,6 @@ function qti_parse_file($exercisePath, $file, $questionFile)
     );
 
     $question_format_supported = true;
-
     $xml_parser = xml_parser_create();
     xml_parser_set_option($xml_parser, XML_OPTION_SKIP_WHITE, false);
     if ($qtiMainVersion == 1) {
@@ -404,7 +408,7 @@ function startElementQti2($parser, $name, $attributes)
     if (sizeof($element_pile) >= 2) {
         $parent_element = $element_pile[sizeof($element_pile) - 2];
     } else {
-        $parent_element = "";
+        $parent_element = '';
     }
 
     if ($record_item_body) {
@@ -498,7 +502,7 @@ function startElementQti2($parser, $name, $attributes)
             }
             break;
         case 'MAPENTRY':
-            if ($parent_element == "MAPPING") {
+            if ($parent_element == 'MAPPING' || $parent_element == 'MAPENTRY') {
                 $answer_id = $attributes['MAPKEY'];
                 if (!isset($exercise_info['question'][$current_question_ident]['weighting'])) {
                     $exercise_info['question'][$current_question_ident]['weighting'] = array();
@@ -615,7 +619,6 @@ function elementDataQti2($parser, $data)
     }
 
     //treat the record of the full content of itembody tag (needed for question statment and/or FIB text:
-
     if ($record_item_body && (!in_array($current_element, $non_HTML_tag_to_avoid))) {
         $current_question_item_body .= $data;
     }
@@ -639,9 +642,10 @@ function elementDataQti2($parser, $data)
             $exercise_info['question'][$current_question_ident]['answer'][$current_match_set][$currentAssociableChoice] = trim($data);
             break;
         case 'VALUE':
-            if ($parent_element == "CORRECTRESPONSE") {
-                if ($cardinality == "single") {
-                    $exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id] = $data;
+            if ($parent_element == 'CORRECTRESPONSE') {
+                if ($cardinality == 'single') {
+                    //$exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id] = $data;
+                    $exercise_info['question'][$current_question_ident]['correct_answers'][$data] = $data;
                 } else {
                     $exercise_info['question'][$current_question_ident]['correct_answers'][] = $data;
                 }
@@ -860,7 +864,6 @@ function endElementQti1($parser, $name, $attributes)
     }
 
     //treat the record of the full content of itembody tag :
-
     if ($record_item_body && (!in_array($current_element, $non_HTML_tag_to_avoid))) {
         $current_question_item_body .= "</".$name.">";
     }
@@ -1002,7 +1005,6 @@ function elementDataQti1($parser, $data)
                 $exercise_info['question'][$current_question_ident]['weighting'][$lastLabelFieldValue] = $data;
             }
             break;
-
     }
 }
 
@@ -1016,6 +1018,9 @@ function isQtiQuestionBank($filePath)
     $data = file_get_contents($filePath);
     if (!empty($data)) {
         $match = preg_match('/ims_qtiasiv(\d)p(\d)/', $data);
+        // @todo allow other types
+        //$match2 = preg_match('/imsqti_v(\d)p(\d)/', $data);
+
         if ($match) {
             return true;
         }

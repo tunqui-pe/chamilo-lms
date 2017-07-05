@@ -51,7 +51,7 @@ class Display
         );
     }
 
-    /**
+     /**
      * Displays the page header
      *
      * @deprecated See template.lib.php class documentation
@@ -60,7 +60,7 @@ class Display
      * @param string Optional help file name
      * @param string $page_header
      */
-    public static function display_header($tool_name ='', $help = null, $page_header = null)
+    public static function display_header($tool_name = '', $help = null, $page_header = null)
     {
         return '';
         $origin = api_get_origin();
@@ -1686,7 +1686,9 @@ class Display
             ) {
                 if (isset($session_info['duration']) && !empty($session_info['duration'])) {
                     $daysLeft = SessionManager::getDayLeftInSession($session_info, api_get_user_id());
-                    $session['duration'] = sprintf(get_lang('SessionDurationXDaysLeft'), $daysLeft);
+                    $session['duration'] = $daysLeft >= 0
+                        ? sprintf(get_lang('SessionDurationXDaysLeft'), $daysLeft)
+                        : get_lang('YourSessionTimeHasExpired');
                 }
                 $active = true;
             } else {
@@ -1749,8 +1751,8 @@ class Display
         $number_of_users_who_voted = isset($point_info['users_who_voted']) ? $point_info['users_who_voted'] : null;
         $percentage = isset($point_info['point_average']) ? $point_info['point_average'] : 0;
 
-		if (!empty($percentage)) {
-            $percentage = $percentage*125/100;
+        if (!empty($percentage)) {
+            $percentage = $percentage * 125 / 100;
         }
         $accesses = isset($point_info['accesses']) ? $point_info['accesses'] : 0;
         $star_label = sprintf(get_lang('XStarsOutOf5'), $point_info['point_average_star']);
@@ -1803,7 +1805,7 @@ class Display
             }
             $title .= "<small> $second_title<small>";
         }
-        return '<div class="page-header"><'.$size.'>'.$title.'</'.$size.'></div>';
+        return '<'.$size.' class="page-header">'.$title.'</'.$size.'>';
     }
 
     public static function page_header_and_translate($title, $second_title = null)
@@ -2386,20 +2388,38 @@ class Display
      * @param string $content
      * @param string $title
      * @param string $footer
-     * @param string $style primary|success|info|warning|danger
+     * @param string $type primary|success|info|warning|danger
      * @param string $extra
+     * @param string $id
+     * @param string $customColor
      *
      * @return string
      */
-    public static function panel($content, $title = '', $footer = '', $style = '', $extra = '')
-    {
-        $title = !empty($title) ? '<div class="panel-heading"><h3 class="panel-title">'.$title.'</h3>'.$extra.'</div>' : '';
-        $footer = !empty($footer) ? '<div class="panel-footer ">'.$footer.'</div>' : '';
-        $styles = ['primary', 'success', 'info', 'warning', 'danger'];
-        $style = !in_array($style, $styles) ? 'default' : $style;
+    public static function panel(
+        $content,
+        $title = '',
+        $footer = '',
+        $type = 'default',
+        $extra = '',
+        $id = '',
+        $customColor = ''
+    ) {
+        $headerStyle = '';
+        if (!empty($customColor)) {
+            $headerStyle = 'style = "color: white; background-color: '.$customColor.'" ';
+        }
+
+        $title = !empty($title) ? '<div class="panel-heading" '.$headerStyle.' ><h3 class="panel-title">'.$title.'</h3>'.$extra.'</div>' : '';
+        $footer = !empty($footer) ? '<div class="panel-footer">'.$footer.'</div>' : '';
+        $typeList = ['primary', 'success', 'info', 'warning', 'danger'];
+        $style = !in_array($type, $typeList) ? 'default' : $type;
+
+        if (!empty($id)) {
+            $id = " id = $id ";
+        }
 
         return '
-            <div class="panel panel-'.$style.'">
+            <div '.$id.' class="panel panel-'.$style.'">
                 '.$title.'
                 '.self::contentPanel($content).'
                 '.$footer.'
@@ -2546,6 +2566,7 @@ class Display
      * @param bool|true $open
      * @param bool|false $fullClickable
      * @return null|string
+     * @todo rework function to easy use
      */
     public static function panelCollapse(
         $title,

@@ -87,7 +87,7 @@ class Driver extends ElFinderVolumeLocalFileSystem
         }
 
         $path = $this->decode($hash);
-        $dir  = $this->dirnameCE($path);
+        $dir = $this->dirnameCE($path);
         $stat = $this->stat($this->joinPathCE($dir, $name));
 
         if ($stat) {
@@ -99,7 +99,6 @@ class Driver extends ElFinderVolumeLocalFileSystem
         }
 
         $this->rmTmb($file); // remove old name tmbs, we cannot do this after dir move
-
 
         if ($path = $this->convEncOut($this->_move($this->convEncIn($path), $this->convEncIn($dir), $this->convEncIn($name)))) {
             $this->clearcache();

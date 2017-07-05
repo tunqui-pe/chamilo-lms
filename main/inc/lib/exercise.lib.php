@@ -59,7 +59,10 @@ class ExerciseLib
         $pictureName = $objQuestionTmp->getPictureFilename();
         $s = '';
 
-        if ($answerType != HOT_SPOT && $answerType != HOT_SPOT_DELINEATION && $answerType != ANNOTATION) {
+        if ($answerType != HOT_SPOT &&
+            $answerType != HOT_SPOT_DELINEATION &&
+            $answerType != ANNOTATION
+        ) {
             // Question is not a hotspot
             if (!$only_questions) {
                 $questionDescription = $objQuestionTmp->selectDescription();
@@ -312,7 +315,6 @@ class ExerciseLib
                         //no break
                     case READING_COMPREHENSION:
                         $input_id = 'choice-'.$questionId.'-'.$answerId;
-
                         if (isset($user_choice[0]['answer']) && $user_choice[0]['answer'] == $numAnswer) {
                             $attributes = array(
                                 'id' => $input_id,
@@ -1054,9 +1056,7 @@ HTML;
                             }
 
                             $s .= '</td></tr>';
-
                             $lines_count++;
-
                             if (($lines_count - 1) == $num_suggestions) {
                                 while (isset($select_items[$lines_count])) {
                                     $s .= <<<HTML
@@ -1923,7 +1923,7 @@ HOTSPOT;
                 $results[] = $rowx;
             }
 
-            $group_list = GroupManager::get_group_list(null, $courseCode);
+            $group_list = GroupManager::get_group_list(null, $courseInfo);
             $clean_group_list = array();
 
             if (!empty($group_list)) {
@@ -3630,7 +3630,7 @@ HOTSPOT;
      * @param bool $save_user_result save users results (true) or just show the results (false)
      * @param string $remainingMessage
      */
-    public static function display_question_list_by_attempt(
+    public static function displayQuestionListByAttempt(
         $objExercise,
         $exe_id,
         $save_user_result = false,
@@ -3817,7 +3817,6 @@ HOTSPOT;
 
                 // Category report
                 $category_was_added_for_this_test = false;
-
                 if (isset($objQuestionTmp->category) && !empty($objQuestionTmp->category)) {
                     if (!isset($category_list[$objQuestionTmp->category]['score'])) {
                         $category_list[$objQuestionTmp->category]['score'] = 0;
@@ -3851,7 +3850,8 @@ HOTSPOT;
                     $category_list['none']['total'] += $my_total_weight;
                 }
 
-                if ($objExercise->selectPropagateNeg() == 0 && $my_total_score < 0
+                if ($objExercise->selectPropagateNeg() == 0 &&
+                    $my_total_score < 0
                 ) {
                     $my_total_score = 0;
                 }
@@ -3859,14 +3859,23 @@ HOTSPOT;
                 $comnt = null;
                 if ($show_results) {
                     $comnt = Event::get_comments($exe_id, $questionId);
-                    if (!empty($comnt)) {
+                    $teacherAudio = ExerciseLib::getOralFeedbackAudio($exe_id, $questionId, api_get_user_id());;
+
+                    if (!empty($comnt) || $teacherAudio) {
                         echo '<b>'.get_lang('Feedback').'</b>';
+                    }
+
+                    if (!empty($comnt)) {
                         echo ExerciseLib::getFeedbackText($comnt);
+                    }
+
+                    if ($teacherAudio) {
+                        echo $teacherAudio;
                     }
                 }
 
                 if ($show_results) {
-                    $score = array(
+                    $score = [
                         'result' => self::show_score(
                             $my_total_score,
                             $my_total_weight,
@@ -3877,12 +3886,12 @@ HOTSPOT;
                         'score' => $my_total_score,
                         'weight' => $my_total_weight,
                         'comments' => $comnt,
-                    );
+                    ];
                 } else {
-                    $score = array();
+                    $score = [];
                 }
 
-                if (in_array($objQuestionTmp->type, [FREE_ANSWER, ORAL_EXPRESSION])) {
+                if (in_array($objQuestionTmp->type, [FREE_ANSWER, ORAL_EXPRESSION, ANNOTATION])) {
                     $check = $objQuestionTmp->isQuestionWaitingReview($score);
                     if ($check === false) {
                         $countPendingQuestions++;
@@ -3895,7 +3904,7 @@ HOTSPOT;
                     $question_content = '<div class="question_row_answer">';
                     // Shows question title an description
                     $question_content .= $objQuestionTmp->return_header(
-                        null,
+                        $objExercise,
                         $counter,
                         $score
                     );
@@ -3906,7 +3915,7 @@ HOTSPOT;
                     $question_content .= '</div>';
                 }
 
-                $exercise_content .= $question_content;
+                $exercise_content .= Display::panel($question_content);
             } // end foreach() block that loops over all questions
         }
 
@@ -3940,6 +3949,7 @@ HOTSPOT;
                     "ExerciseWithFeedbackWithoutCorrectionComment"
                 )."</div>";
         }
+
         // Remove audio auto play from questions on results page - refs BT#7939
         $exercise_content = preg_replace(
             ['/autoplay[\=\".+\"]+/', '/autostart[\=\".+\"]+/'],
@@ -4152,5 +4162,56 @@ HOTSPOT;
         // Old style
         //return '<div id="question_feedback">'.$message.'</div>';
         return Display::return_message($message, 'warning', false);
+    }
+
+    /**
+     * Get the recorder audio component for save a teacher audio feedback
+     * @param int $attemptId
+     * @param int $questionId
+     * @param int $userId
+     * @return string
+     */
+    public static function getOralFeedbackForm($attemptId, $questionId, $userId)
+    {
+        $view = new Template('', false, false, false, false, false, false);
+        $view->assign('user_id', $userId);
+        $view->assign('question_id', $questionId);
+        $view->assign('directory', "/../exercises/teacher_audio/$attemptId/");
+        $view->assign('file_name', "{$questionId}_{$userId}");
+        $template = $view->get_template('exercise/oral_expression.tpl');
+
+        return $view->fetch($template);
+    }
+
+    /**
+     * Get the audio componen for a teacher audio feedback
+     * @param int $attemptId
+     * @param int $questionId
+     * @param int $userId
+     * @return string
+     */
+    public static function getOralFeedbackAudio($attemptId, $questionId, $userId)
+    {
+        $courseInfo = api_get_course_info();
+        $sysCourseDir = api_get_path(SYS_COURSE_PATH).$courseInfo['path'];
+        $webCourseDir = api_get_path(WEB_COURSE_PATH).$courseInfo['path'];
+        $fileName = "{$questionId}_{$userId}";
+        $filePath = null;
+
+        if (file_exists("$sysCourseDir/exercises/teacher_audio/$attemptId/$fileName.ogg")) {
+            $filePath = "$webCourseDir/exercises/teacher_audio/$attemptId/$fileName.ogg";
+        } elseif (file_exists("$sysCourseDir/exercises/teacher_audio/$attemptId/$fileName.wav.wav")) {
+            $filePath = "$webCourseDir/exercises/teacher_audio/$attemptId/$fileName.wav.wav";
+        }
+
+        if (!$filePath) {
+            return '';
+        }
+
+        return Display::tag(
+            'audio',
+            null,
+            ['src' => $filePath]
+        );
     }
 }

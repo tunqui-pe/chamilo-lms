@@ -6,6 +6,8 @@ use \ExtraField as ExtraFieldModel;
 use Chamilo\CoreBundle\Entity\ExtraField;
 use Chamilo\CoreBundle\Entity\Session;
 use Chamilo\CoreBundle\Entity\SequenceResource;
+use Chamilo\CoreBundle\Entity\SessionRelUser;
+use Chamilo\CoreBundle\Entity\Course;
 
 /**
  * Class SessionManager
@@ -56,7 +58,7 @@ class SessionManager
             return [];
         }
 
-        return [
+        $result = [
             'id' => $session->getId(),
             'id_coach' => $session->getGeneralCoach() ? $session->getGeneralCoach()->getId() : null,
             'session_category_id' => $session->getCategory() ? $session->getCategory()->getId() : null,
@@ -90,6 +92,8 @@ class SessionManager
                 : null,
             'send_subscription_notification' => $session->getSendSubscriptionNotification(),
         ];
+
+        return $result;
     }
 
     /**
@@ -1891,26 +1895,34 @@ class SessionManager
 
             // Replace with this new function
             // insert new users into session_rel_course_rel_user and ignore if they already exist
-
             foreach ($user_list as $enreg_user) {
                 if (!in_array($enreg_user, $existingUsers)) {
-                    $enreg_user = Database::escape_string($enreg_user);
-                    $sql = "INSERT IGNORE INTO $tbl_session_rel_course_rel_user (session_id, c_id, user_id, visibility, status)
-                            VALUES($id_session, $courseId, $enreg_user, $session_visibility, 0)";
-                    $result = Database::query($sql);
-
-                    Event::addEvent(
-                        LOG_SESSION_ADD_USER_COURSE,
-                        LOG_USER_ID,
+                    $status = self::get_user_status_in_course_session(
                         $enreg_user,
                         api_get_utc_datetime(),
                         api_get_user_id(),
                         $courseId,
                         $id_session
                     );
+                    // Avoid duplicate entries.
+                    if ($status === false || ($status !== false && $status != 0)) {
+                        $enreg_user = (int) $enreg_user;
+                        $sql = "INSERT IGNORE INTO $tbl_session_rel_course_rel_user (session_id, c_id, user_id, visibility, status)
+                                VALUES($id_session, $courseId, $enreg_user, $session_visibility, 0)";
+                        $result = Database::query($sql);
+                        if (Database::affected_rows($result)) {
+                            $nbr_users++;
+                        }
 
-                    if (Database::affected_rows($result)) {
-                        $nbr_users++;
+                        Event::addEvent(
+                            LOG_SESSION_ADD_USER_COURSE,
+                            LOG_USER_ID,
+                            $enreg_user,
+                            api_get_utc_datetime(),
+                            api_get_user_id(),
+                            $courseId,
+                            $id_session
+                        );
                     }
                 }
             }
@@ -1936,13 +1948,15 @@ class SessionManager
 
         // Insert missing users into session
         $nbr_users = 0;
-
         foreach ($user_list as $enreg_user) {
-            $enreg_user = Database::escape_string($enreg_user);
-            $nbr_users++;
-            $sql = "INSERT IGNORE INTO $tbl_session_rel_user (relation_type, session_id, user_id, registered_at)
-                    VALUES (0, $id_session, $enreg_user, '".api_get_utc_datetime()."')";
-            Database::query($sql);
+            $isUserSubscribed = self::isUserSubscribedAsStudent($id_session, $enreg_user);
+            if ($isUserSubscribed === false) {
+                $enreg_user = (int)$enreg_user;
+                $nbr_users++;
+                $sql = "INSERT IGNORE INTO $tbl_session_rel_user (relation_type, session_id, user_id, registered_at)
+                        VALUES (0, $id_session, $enreg_user, '".api_get_utc_datetime()."')";
+                Database::query($sql);
+            }
         }
 
         // update number of users in the session
@@ -2624,7 +2638,7 @@ class SessionManager
      * @param   string  $default    Field's default value
      * @return int     new extra field id
      */
-    public static function create_session_extra_field($variable, $fieldType, $displayText, $default)
+    public static function create_session_extra_field($variable, $fieldType, $displayText, $default = '')
     {
         $extraField = new ExtraFieldModel('session');
         $params = [
@@ -3375,7 +3389,7 @@ class SessionManager
     /**
      * Get sessions followed by human resources manager
      * @param int $userId
-     * @param int $status Optional
+     * @param int $status DRH Optional
      * @param int $start
      * @param int $limit
      * @param bool $getCount
@@ -3404,10 +3418,9 @@ class SessionManager
         $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
         $tbl_session_rel_access_url = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_SESSION);
 
-        $userId = intval($userId);
+        $userId = (int) $userId;
 
         $select = " SELECT DISTINCT * ";
-
         if ($getCount) {
             $select = " SELECT count(DISTINCT(s.id)) as count ";
         }
@@ -3428,7 +3441,7 @@ class SessionManager
         $whereConditions = null;
         $sessionCourseConditions = null;
         $sessionConditions = null;
-        $sessionQuery = null;
+        $sessionQuery = '';
         $courseSessionQuery = null;
 
         switch ($status) {
@@ -3472,7 +3485,8 @@ class SessionManager
         $subQuery = $sessionQuery.$courseSessionQuery;
 
         $sql = " $select FROM $tbl_session s
-                INNER JOIN $tbl_session_rel_access_url a ON (s.id = a.session_id)
+                INNER JOIN $tbl_session_rel_access_url a 
+                ON (s.id = a.session_id)
                 WHERE
                     access_url_id = ".api_get_current_access_url_id()." AND
                     s.id IN (
@@ -3500,29 +3514,16 @@ class SessionManager
             $imgPath = Display::return_icon(
                 'session_default_small.png',
                 null,
-                null,
-                null,
-                null,
+                [],
+                ICON_SIZE_SMALL,
+                false,
                 true
             );
 
-            $tableExtraFields = Database::get_main_table(TABLE_EXTRA_FIELD);
-            $sql = "SELECT id FROM ".$tableExtraFields."
-                    WHERE extra_field_type = 3 AND variable='image'";
-            $resultField = Database::query($sql);
-            $imageFieldId = Database::fetch_assoc($resultField);
-
             while ($row = Database::fetch_array($result)) {
+                $imageFilename = \ExtraField::FIELD_TYPE_FILE_IMAGE.'_'.$row['id'].'.png';
 
-                $row['image'] = null;
-                $sessionImage = $sysUploadPath.$imageFieldId['id'].'_'.$row['id'].'.png';
-
-                if (is_file($sessionImage)) {
-                    $sessionImage = $webUploadPath.$imageFieldId['id'].'_'.$row['id'].'.png';
-                    $row['image'] = $sessionImage;
-                } else {
-                    $row['image'] = $imgPath;
-                }
+                $row['image'] = is_file($sysUploadPath.$imageFilename) ? $webUploadPath.$imageFilename : $imgPath;
 
                 if ($row['display_start_date'] == '0000-00-00 00:00:00' || $row['display_start_date'] == '0000-00-00') {
                     $row['display_start_date'] = null;
@@ -3829,7 +3830,10 @@ class SessionManager
         $tbl_session_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_USER);
         $table_access_url_user = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
 
-        $selectedField = 'u.user_id,lastname, firstname, username, relation_type, access_url_id';
+        $selectedField = '
+            u.user_id, u.lastname, u.firstname, u.username, su.relation_type, au.access_url_id,
+            su.moved_to, su.moved_status, su.moved_at
+        ';
 
         if ($getCount) {
             $selectedField = 'count(1) AS count';
@@ -3837,23 +3841,23 @@ class SessionManager
 
         $sql = "SELECT $selectedField
                 FROM $tbl_user u
-                INNER JOIN $tbl_session_rel_user
-                ON u.user_id = $tbl_session_rel_user.user_id AND
-                $tbl_session_rel_user.session_id = $id
-                LEFT OUTER JOIN $table_access_url_user uu
-                ON (uu.user_id = u.user_id)
+                INNER JOIN $tbl_session_rel_user su
+                ON u.user_id = su.user_id AND
+                su.session_id = $id
+                LEFT OUTER JOIN $table_access_url_user au
+                ON (au.user_id = u.user_id)
                 ";
 
         $urlId = api_get_current_access_url_id();
         if (isset($status) && $status != '') {
             $status = intval($status);
-            $sql .= " WHERE relation_type = $status AND (access_url_id = $urlId OR access_url_id is null )";
+            $sql .= " WHERE su.relation_type = $status AND (au.access_url_id = $urlId OR su.access_url_id is null )";
         } else {
-            $sql .= " WHERE (access_url_id = $urlId OR access_url_id is null )";
+            $sql .= " WHERE (au.access_url_id = $urlId OR au.access_url_id is null )";
         }
 
-        $sql .= " ORDER BY relation_type, ";
-        $sql .= api_sort_by_first_name() ? ' firstname, lastname' : '  lastname, firstname';
+        $sql .= " ORDER BY su.relation_type, ";
+        $sql .= api_sort_by_first_name() ? ' u.firstname, u.lastname' : '  u.lastname, u.firstname';
 
         $result = Database::query($sql);
         if ($getCount) {
@@ -3933,9 +3937,10 @@ class SessionManager
         $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
         $tbl_user = Database::get_main_table(TABLE_MAIN_USER);
         $sql = "SELECT session_rcru.status
-                FROM $tbl_session_rel_course_rel_user session_rcru, $tbl_user user
-                WHERE
-                    session_rcru.user_id = user.user_id AND
+                FROM $tbl_session_rel_course_rel_user session_rcru 
+                INNER JOIN $tbl_user user
+                ON (session_rcru.user_id = user.user_id)
+                WHERE                    
                     session_rcru.session_id = '".intval($session_id)."' AND
                     session_rcru.c_id ='" . intval($courseId)."' AND
                     user.user_id = " . intval($user_id);
@@ -3952,32 +3957,23 @@ class SessionManager
 
     /**
      * Gets user status within a session
-     * @param int $user_id
-     * @param int $courseId
-     * @param $session_id
-     * @return int
-     * @assert (null,null,null) === false
+     *
+     * @param int $userId
+     * @param int $sessionId
+     *
+     * @return \Chamilo\CoreBundle\Entity\SessionRelUser
      */
-    public static function get_user_status_in_session($user_id, $courseId, $session_id)
+    public static function getUserStatusInSession($userId, $sessionId)
     {
-        if (empty($user_id) or empty($courseId) or empty($session_id)) {
-            return false;
-        }
-        $tbl_session_rel_course_rel_user = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
-        $tbl_user = Database::get_main_table(TABLE_MAIN_USER);
-        $sql = "SELECT session_rcru.status
-                FROM $tbl_session_rel_course_rel_user session_rcru, $tbl_user user
-                WHERE session_rcru.user_id = user.user_id AND
-                    session_rcru.session_id = '".intval($session_id)."' AND
-                    session_rcru.c_id ='" . intval($courseId)."' AND
-                    user.user_id = " . intval($user_id);
-        $result = Database::query($sql);
-        $status = false;
-        if (Database::num_rows($result)) {
-            $status = Database::fetch_row($result);
-            $status = $status['0'];
-        }
-        return $status;
+        $em = Database::getManager();
+        $subscriptions = $em
+            ->getRepository('ChamiloCoreBundle:SessionRelUser')
+            ->findBy(['session' => $sessionId, 'user' => $userId]);
+
+        /** @var SessionRelUser $subscription */
+        $subscription = current($subscriptions);
+
+        return $subscription;
     }
 
     /**
@@ -4474,7 +4470,6 @@ class SessionManager
             $error_message = get_lang('NotCSV');
         } else {
             $tag_names = array();
-
             foreach ($content as $key => $enreg) {
                 $enreg = explode(';', trim($enreg));
                 if ($key) {
@@ -4668,7 +4663,6 @@ class SessionManager
                     }
 
                     if ($my_session_result === false) {
-
                         // Creating a session.
                         $sql = "INSERT IGNORE INTO $tbl_session SET
                                 name = '$session_name',
@@ -7268,10 +7262,10 @@ class SessionManager
                 'coach_username',
                 get_lang('CoachName'),
                 [api_get_user_id() => $userInfo['complete_name']],
-                array(
+                [
                     'id' => 'coach_username',
                     'style' => 'width:370px;',
-                )
+                ]
             );
         } else {
             $sql = "SELECT COUNT(1) FROM $tbl_user WHERE status = 1";
@@ -7318,7 +7312,11 @@ class SessionManager
                     'select',
                     'coach_username',
                     get_lang('CoachName'),
-                    $coachesOptions
+                    $coachesOptions,
+                    [
+                        'id' => 'coach_username',
+                        'style' => 'width:370px;'
+                    ]
                 );
             } else {
                 $form->addElement(
@@ -7329,6 +7327,7 @@ class SessionManager
                     [
                         'url' => api_get_path(WEB_AJAX_PATH).'session.ajax.php?a=search_general_coach',
                         'width' => '100%',
+                        'id' => 'coach_username'
                     ]
                 );
             }
@@ -7787,8 +7786,8 @@ class SessionManager
     /**
      * Gets the admin session list callback of the session/session_list.php
      * page with all user/details in the right fomat
-     * @param array
-     * @result array Array of rows results
+     * @param array $options
+     * @return array Array of rows results
      * @asset ('a') === false
      */
     public static function get_sessions_admin_complete($options = array())
@@ -7865,7 +7864,7 @@ class SessionManager
         $select = "
                 SELECT * FROM (
                     SELECT DISTINCT
-                         IF (
+                        IF (
                             (s.access_start_date <= '$today' AND '$today' < s.access_end_date) OR
                             (s.access_start_date = '0000-00-00 00:00:00' AND s.access_end_date = '0000-00-00 00:00:00' ) OR
                             (s.access_start_date IS NULL AND s.access_end_date IS NULL) OR
@@ -7914,9 +7913,11 @@ class SessionManager
             $where .= ' AND '.$options['where'];
         }
 
+        $limit = '';
         if (!empty($options['limit'])) {
-            $where .= " LIMIT ".$options['limit'];
+            $limit = " LIMIT ".$options['limit'];
         }
+
         $query = "$select FROM $tbl_session s
                     LEFT JOIN $tbl_session_field_values fv
                     ON (fv.item_id = s.id)
@@ -7931,24 +7932,34 @@ class SessionManager
                     LEFT JOIN $tbl_session_category sc
                     ON (s.session_category_id = sc.id)
                     INNER JOIN $tbl_user u
-                    ON (s.id_coach = u.user_id) ".
-            $where;
+                    ON (s.id_coach = u.user_id) 
+                    $where
+                    $limit
+        ";
 
         if (api_is_multiple_url_enabled()) {
             $table_access_url_rel_session = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_SESSION);
             $access_url_id = api_get_current_access_url_id();
             if ($access_url_id != -1) {
-                $where .= " AND ar.access_url_id = $access_url_id ";
                 $query = "$select
                     FROM $tbl_session s
-                    LEFT JOIN $tbl_session_field_values fv ON (fv.session_id = s.id)
-                    LEFT JOIN $tbl_session_field_options fvo ON (fv.field_id = fvo.field_id)
-                    LEFT JOIN $tbl_session_rel_course src ON (src.id_session = s.id)
-                    LEFT JOIN $tbl_course c ON (src.c_id = c.id)
-                    LEFT JOIN $tbl_session_category sc ON (s.session_category_id = sc.id)
-                    INNER JOIN $tbl_user u ON (s.id_coach = u.user_id)
-                    INNER JOIN $table_access_url_rel_session ar ON (ar.session_id = s.id)
-                    $where";
+                    LEFT JOIN $tbl_session_field_values fv 
+                    ON (fv.item_id = s.id)
+                    LEFT JOIN $tbl_session_field_options fvo 
+                    ON (fv.field_id = fvo.field_id)
+                    LEFT JOIN $tbl_session_rel_course src 
+                    ON (src.session_id = s.id)
+                    LEFT JOIN $tbl_course c 
+                    ON (src.c_id = c.id)
+                    LEFT JOIN $tbl_session_category sc 
+                    ON (s.session_category_id = sc.id)
+                    INNER JOIN $tbl_user u 
+                    ON (s.id_coach = u.user_id)
+                    INNER JOIN $table_access_url_rel_session ar 
+                    ON (ar.session_id = s.id AND ar.access_url_id = $access_url_id)
+                    $where
+                    $limit
+                ";
             }
         }
 
@@ -7959,8 +7970,22 @@ class SessionManager
         }
 
         $result = Database::query($query);
-        $formatted_sessions = array();
 
+        $acceptIcon = Display::return_icon(
+            'accept.png',
+            get_lang('Active'),
+            array(),
+            ICON_SIZE_SMALL
+        );
+
+        $errorIcon = Display::return_icon(
+            'error.png',
+            get_lang('Inactive'),
+            array(),
+            ICON_SIZE_SMALL
+        );
+
+        $formatted_sessions = array();
         if (Database::num_rows($result)) {
             $sessions = Database::store_result($result, 'ASSOC');
             foreach ($sessions as $session) {
@@ -7968,9 +7993,9 @@ class SessionManager
                 $session['name'] = Display::url($session['name'], "resume_session.php?id_session=".$session['id']);
                 $session['coach_name'] = Display::url($session['coach_name'], "user_information.php?user_id=".$session['user_id']);
                 if ($session['session_active'] == 1) {
-                    $session['session_active'] = Display::return_icon('accept.png', get_lang('Active'), array(), ICON_SIZE_SMALL);
+                    $session['session_active'] = $acceptIcon;
                 } else {
-                    $session['session_active'] = Display::return_icon('error.png', get_lang('Inactive'), array(), ICON_SIZE_SMALL);
+                    $session['session_active'] = $errorIcon;
                 }
 
                 $session = self::convert_dates_to_local($session);
@@ -8015,7 +8040,10 @@ class SessionManager
 
                 // Magic filter
                 if (isset($formatted_sessions[$session_id])) {
-                    $formatted_sessions[$session_id] = self::compareArraysToMerge($formatted_sessions[$session_id], $session);
+                    $formatted_sessions[$session_id] = self::compareArraysToMerge(
+                        $formatted_sessions[$session_id],
+                        $session
+                    );
                 } else {
                     $formatted_sessions[$session_id] = $session;
                 }
@@ -8510,6 +8538,35 @@ class SessionManager
                 }
             }
         }
+    }
+
+    /**
+     * @param Course $course
+     * @param Session $session
+     * @return int
+     */
+    public static function getCountUsersInCourseSession(
+        Course $course,
+        Session $session
+    ) {
+        return Database::getManager()
+            ->createQuery("
+                SELECT COUNT(scu)
+                FROM ChamiloCoreBundle:SessionRelCourseRelUser scu
+                INNER JOIN ChamiloCoreBundle:SessionRelUser su
+                    WITH scu.user = su.user
+                    AND scu.session = su.session
+                WHERE scu.course = :course
+                    AND su.relationType != :rrhh
+                    AND scu.session = :session
+            ")
+            ->setParameters([
+                'course' => $course->getId(),
+                'rrhh' => SESSION_RELATION_TYPE_RRHH,
+                'session' => $session->getId()
+            ])
+            ->getSingleScalarResult();
+
     }
 
     /**

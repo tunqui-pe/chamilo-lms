@@ -1219,7 +1219,7 @@ class Template
         // Tutor name
         if (api_get_setting('show_tutor_data') == 'true') {
             // Course manager
-            $courseId  = api_get_course_int_id();
+            $courseId = api_get_course_int_id();
             $id_session = api_get_session_id();
             if (!empty($courseId)) {
                 $tutor_data = '';
@@ -1251,7 +1251,7 @@ class Template
             $courseId = api_get_course_int_id();
             if (!empty($courseId)) {
                 $teacher_data = '';
-                $mail= CourseManager::get_emails_of_tutors_to_course($courseId);
+                $mail = CourseManager::get_emails_of_tutors_to_course($courseId);
                 if (!empty($mail)) {
                     $teachers_parsed = array();
                     foreach ($mail as $value) {
@@ -1368,7 +1368,6 @@ class Template
         global $loginFailed;
         $userId = api_get_user_id();
         if (!($userId) || api_is_anonymous($userId)) {
-
             // Only display if the user isn't logged in.
             $this->assign(
                 'login_language_form',
@@ -1527,6 +1526,61 @@ class Template
         ];
 
         $this->assign('_admin', $_admin);
+    }
+
+    /**
+     * Manage specific HTTP headers security
+     * @return void (prints headers directly)
+     */
+    private function addHTTPSecurityHeaders()
+    {
+        // Implementation of HTTP headers security, as suggested and checked
+        // by https://securityheaders.io/
+        // Enable these settings in configuration.php to use them on your site
+        // Strict-Transport-Security
+        $setting = api_get_configuration_value('security_strict_transport');
+        if (!empty($setting)) {
+            header('Strict-Transport-Security: '.$setting);
+        }
+        // Content-Security-Policy
+        $setting = api_get_configuration_value('security_content_policy');
+        if (!empty($setting)) {
+            header('Content-Security-Policy: '.$setting);
+        }
+        $setting = api_get_configuration_value('security_content_policy_report_only');
+        if (!empty($setting)) {
+            header('Content-Security-Policy-Report-Only: '.$setting);
+        }
+        // Public-Key-Pins
+        $setting = api_get_configuration_value('security_public_key_pins');
+        if (!empty($setting)) {
+            header('Public-Key-Pins: '.$setting);
+        }
+        $setting = api_get_configuration_value('security_public_key_pins_report_only');
+        if (!empty($setting)) {
+            header('Public-Key-Pins-Report-Only: '.$setting);
+        }
+        // X-Frame-Options
+        $setting = api_get_configuration_value('security_x_frame_options');
+        if (!empty($setting)) {
+            header('X-Frame-Options: '.$setting);
+        }
+        // X-XSS-Protection
+        $setting = api_get_configuration_value('security_xss_protection');
+        if (!empty($setting)) {
+            header('X-XSS-Protection: '.$setting);
+        }
+        // X-Content-Type-Options
+        $setting = api_get_configuration_value('security_x_content_type_options');
+        if (!empty($setting)) {
+            header('X-Content-Type-Options: '.$setting);
+        }
+        // Referrer-Policy
+        $setting = api_get_configuration_value('security_referrer_policy');
+        if (!empty($setting)) {
+            header('Referrer-Policy: '.$setting);
+        }
+        // end of HTTP headers security block
     }
 
     public static function getParams()

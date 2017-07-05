@@ -119,10 +119,12 @@ class IndexManager
     /**
      * Alias for the online_logout() function
      * @param bool $redirect Whether to ask online_logout to redirect to index.php or not
+     * @param array $logoutInfo Information stored by local.inc.php before new context ['uid'=> x, 'cid'=>y, 'sid'=>z]
      */
-    public function logout($redirect = true)
+    public function logout($redirect = true, $logoutInfo = [])
     {
         online_logout($this->user_id, true);
+        courseLogout($logoutInfo);
     }
 
     /**
@@ -1217,6 +1219,8 @@ class IndexManager
             $coursesListSessionStyle = 1;
         }
 
+        $portalShowDescription = api_get_setting('show_session_description') === 'true';
+
         // Declared listSession variable
         $listSession = [];
         $session_now = time();
@@ -1383,7 +1387,7 @@ class IndexManager
                             $params['image'] = isset($imageField['value']) ? $imageField['value'] : null;
                             $params['duration'] = isset($session_box['duration']) ? ' '.$session_box['duration'] : null;
                             $params['edit_actions'] = $actions;
-                            $params['show_description'] = $session_box['show_description'];
+                            $params['show_description'] = $session_box['show_description'] == 1 && $portalShowDescription;
                             $params['description'] = $session_box['description'];
                             $params['visibility'] = $session_box['visibility'];
                             $params['show_simple_session_info'] = $showSimpleSessionInfo;
@@ -1894,11 +1898,15 @@ class IndexManager
             $rightActions = '<div class="pull-right">'.$courseParams['right_actions'].'</div>';
         }
 
+        $notifications = isset($courseParams['notifications']) ? $courseParams['notifications'] : '';
+
         return "<div>
                     $button
                     <span class='$class'>$icon
-                    <a class='sessionView' href='$courseLink'>$title</a>
-                    </span>".$courseParams['notifications']." $rightActions
+                        <a class='sessionView' href='$courseLink'>$title</a>
+                    </span> 
+                    $notifications 
+                    $rightActions 
                 </div>
                 $teachers";
     }

@@ -341,9 +341,9 @@ class Category implements GradebookItem
         $session_id = intval($session_id);
 
         if (!empty($session_id)) {
-            $tbl_grade_categories = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+            $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
             $sql = 'SELECT id, course_code
-                    FROM '.$tbl_grade_categories.'
+                    FROM '.$table.'
                     WHERE session_id = '.$session_id;
             $result_session = Database::query($sql);
             if (Database::num_rows($result_session) > 0) {
@@ -536,8 +536,9 @@ class Category implements GradebookItem
      * @param GradebookCategory $gradebookCategory  The entity
      * @return \Category
      */
-    public static function createCategoryObjectFromEntity(GradebookCategory $gradebookCategory)
-    {
+    public static function createCategoryObjectFromEntity(
+        GradebookCategory $gradebookCategory
+    ) {
         $category = new Category();
         $category->set_id($gradebookCategory->getId());
         $category->set_name($gradebookCategory->getName());
@@ -1206,8 +1207,11 @@ class Category implements GradebookItem
      * @param integer $session_id
      * @return array
      */
-    public function get_root_categories_for_student($stud_id, $course_code = null, $session_id = null)
-    {
+    public function get_root_categories_for_student(
+        $stud_id,
+        $course_code = null,
+        $session_id = null
+    ) {
         $main_course_user_table = Database::get_main_table(TABLE_MAIN_COURSE_USER);
         $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
         $tbl_grade_categories = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
@@ -1292,8 +1296,11 @@ class Category implements GradebookItem
      * @param integer $session_id (optional)
      * @return array
      */
-    public function get_root_categories_for_teacher($user_id, $course_code = null, $session_id = null)
-    {
+    public function get_root_categories_for_teacher(
+        $user_id,
+        $course_code = null,
+        $session_id = null
+    ) {
         if ($user_id == null) {
             return self::load(null, null, $course_code, 0, null, $session_id);
         }
@@ -1502,6 +1509,7 @@ class Category implements GradebookItem
      * Internal function used by get_tree()
      * @param integer $level
      * @param null|integer $visible
+     * @return array
      */
     private function add_subtree($targets, $level, $catid, $visible)
     {
@@ -1754,7 +1762,6 @@ class Category implements GradebookItem
         $sessionId = 0
     ) {
         $evals = array();
-
         if (empty($course_code)) {
             $course_code = api_get_course_id();
         }
@@ -2311,8 +2318,13 @@ class Category implements GradebookItem
      *
      * @return float The score
      */
-    public static function getCurrentScore($userId, $categoryId, $courseCode, $sessionId = 0, $recalculate = false)
-    {
+    public static function getCurrentScore(
+        $userId,
+        $categoryId,
+        $courseCode,
+        $sessionId = 0,
+        $recalculate = false
+    ) {
         if ($recalculate) {
             return self::calculateCurrentScore($userId, $categoryId, $courseCode, $sessionId);
         }

@@ -1733,34 +1733,41 @@ class CourseManager
         // variable initialisation
         $session_id = intval($session_id);
         $course_code = Database::escape_string($course_code);
+        $tblUser = Database::get_main_table(TABLE_MAIN_USER);
+        $tblSessionCourseUser = Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER);
+        $tblCourseUser = Database::get_main_table(TABLE_MAIN_COURSE_USER);
+        $tblUrlUser = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER);
 
         $courseInfo = api_get_course_info($course_code);
         $courseId = $courseInfo['real_id'];
 
-        $sql = 'SELECT DISTINCT count(user.id) as count  
-                FROM ' . Database::get_main_table(TABLE_MAIN_USER).' as user ';
+        $sql = "
+            SELECT DISTINCT count(user.id) as count  
+            FROM $tblUser as user
+        ";
         $where = array();
         if (!empty($session_id)) {
-            $sql .= ' LEFT JOIN '.Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER).' as session_course_user
-                      ON
-                        user.user_id = session_course_user.user_id AND
-                        session_course_user.c_id = "' . $courseId.'" AND
-                        session_course_user.session_id  = ' . $session_id;
+            $sql .= "
+                LEFT JOIN $tblSessionCourseUser as session_course_user
+                    ON user.user_id = session_course_user.user_id
+                    AND session_course_user.c_id = $courseId
+                    AND session_course_user.session_id = $session_id
+            ";
 
             $where[] = ' session_course_user.c_id IS NOT NULL ';
         } else {
-            $sql .= ' LEFT JOIN '.Database::get_main_table(TABLE_MAIN_COURSE_USER).' as course_rel_user
-                        ON
-                            user.user_id = course_rel_user.user_id AND
-                            course_rel_user.relation_type<>' . COURSE_RELATION_TYPE_RRHH.' AND
-                            course_rel_user.c_id = ' . $courseId;
+            $sql .= "
+                LEFT JOIN $tblCourseUser as course_rel_user
+                    ON user.user_id = course_rel_user.user_id
+                    AND course_rel_user.relation_type <> ".COURSE_RELATION_TYPE_RRHH."
+                    AND course_rel_user.c_id = $courseId
+            ";
             $where[] = ' course_rel_user.c_id IS NOT NULL ';
         }
 
         $multiple_access_url = api_get_multiple_access_url();
         if ($multiple_access_url) {
-            $sql .= ' LEFT JOIN '.Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_USER).'  au
-                      ON (au.user_id = user.user_id) ';
+            $sql .= " LEFT JOIN $tblUrlUser au ON (au.user_id = user.user_id) ";
         }
 
         $sql .= ' WHERE '.implode(' OR ', $where);
@@ -2987,11 +2994,10 @@ class CourseManager
      * @param    string    Field's internal variable name
      * @param    int        Field's type
      * @param    string    Field's language var name
-     * @param integer $fieldType
      * @param string $default
      * @return boolean     new extra field id
      */
-    public static function create_course_extra_field($variable, $fieldType, $displayText, $default)
+    public static function create_course_extra_field($variable, $fieldType, $displayText, $default = '')
     {
         $extraField = new ExtraField('course');
         $params = [
@@ -5093,7 +5099,10 @@ class CourseManager
      * @param bool $hideClosed Whether to hide closed and hidden courses
      * @return string SQL conditions
      */
-    public static function getCourseVisibilitySQLCondition($courseTableAlias, $hideClosed = false) {
+    public static function getCourseVisibilitySQLCondition(
+        $courseTableAlias,
+        $hideClosed = false
+    ) {
         $visibilityCondition = '';
         $hidePrivate = api_get_setting('course_catalog_hide_private');
         if ($hidePrivate === 'true') {
@@ -5125,11 +5134,11 @@ class CourseManager
 
     /**
      * Get available le courses count
-     * @param int Access URL ID (optional)
+     * @param int $accessUrlId (optional)
      * @param integer $accessUrlId
      * @return int Number of courses
      */
-    public static function countAvailableCourses($accessUrlId = null)
+    public static function countAvailableCourses($accessUrlId = 1)
     {
         $tableCourse = Database::get_main_table(TABLE_MAIN_COURSE);
         $tableCourseRelAccessUrl = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
@@ -5142,18 +5151,23 @@ class CourseManager
 
         $visibilityCondition = self::getCourseVisibilitySQLCondition('c', true);
 
-        if (!empty($accessUrlId) && $accessUrlId == intval($accessUrlId)) {
-            $sql = "SELECT count(c.id) 
-                    FROM $tableCourse c, $tableCourseRelAccessUrl u
-                    WHERE
-                        c.id = u.c_id AND
-                        u.access_url_id = $accessUrlId AND
-                        c.visibility != 0 AND
-                        c.visibility != 4
-                        $withoutSpecialCourses
-                        $visibilityCondition
-                    ";
+        $accessUrlId = (int) $accessUrlId;
+        if (empty($accessUrlId)) {
+            $accessUrlId = 1;
         }
+
+        $sql = "SELECT count(c.id) 
+                FROM $tableCourse c 
+                INNER JOIN $tableCourseRelAccessUrl u
+                ON (c.id = u.c_id)
+                WHERE
+                    u.access_url_id = $accessUrlId AND
+                    c.visibility != 0 AND
+                    c.visibility != 4
+                    $withoutSpecialCourses
+                    $visibilityCondition
+                ";
+
         $res = Database::query($sql);
         $row = Database::fetch_row($res);
 

@@ -112,7 +112,7 @@ class SettingsCurrent
      *
      * @ORM\Column(name="access_url_locked", type="integer", nullable=false, options={"default": 0 } )
      */
-    private $accessUrlLocked;
+    private $accessUrlLocked = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="AccessUrl", inversedBy="settings", cascade={"persist"})

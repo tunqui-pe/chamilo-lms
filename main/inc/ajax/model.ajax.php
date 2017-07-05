@@ -60,7 +60,12 @@ if (!in_array(
 // Search features
 
 //@todo move this in the display_class or somewhere else
-
+/**
+ * @param string $col
+ * @param string $oper
+ * @param string $val
+ * @return string
+ */
 function getWhereClause($col, $oper, $val)
 {
     $ops = array(
@@ -142,7 +147,7 @@ if (($search || $forceSearch) && ($search !== 'false')) {
 
                 $extraCondition = '';
                 if (!empty($condition_array)) {
-                    $extraCondition = ' AND ( ';
+                    $extraCondition = ' OR ( ';
                     $extraCondition .= implode($filters->groupOp, $condition_array);
                     $extraCondition .= ' ) ';
                 }
@@ -150,7 +155,6 @@ if (($search || $forceSearch) && ($search !== 'false')) {
                 $whereCondition .= $extraCondition;
 
                 // Question field
-
                 $resultQuestion = $extraField->getExtraFieldRules($filters, 'question_');
                 $questionFields = $resultQuestion['extra_fields'];
                 $condition_array = $resultQuestion['condition_array'];
@@ -191,6 +195,10 @@ if (!$sidx) {
 //@todo rework this
 
 switch ($action) {
+    case 'get_programmed_announcements':
+        $object = new ScheduledAnnouncement();
+        $count = $object->get_count();
+        break;
     case 'get_group_reporting':
         $course_id = isset($_REQUEST['course_id']) ? $_REQUEST['course_id'] : null;
         $group_id = isset($_REQUEST['gidReq']) ? $_REQUEST['gidReq'] : null;
@@ -242,7 +250,6 @@ switch ($action) {
                 exit;
             }
         } elseif (api_is_student_boss()) {
-
             $supervisorStudents = UserManager::getUsersFollowedByUser(
                 api_get_user_id(),
                 api_is_student_boss() ? null : STUDENT,
@@ -671,6 +678,25 @@ $is_allowedToEdit = api_is_allowed_to_edit(null, true) || api_is_allowed_to_edit
 $columns = array();
 
 switch ($action) {
+    case 'get_programmed_announcements':
+        $columns = array('subject', 'date', 'sent', 'actions');
+        $sessionId = isset($_REQUEST['session_id']) ? (int) $_REQUEST['session_id'] : 0;
+
+        $result = Database::select(
+            '*',
+            $object->table,
+            array(
+                'where' => array("session_id = ? " => $sessionId),
+                'order' => "$sidx $sord",
+                'LIMIT' => "$start , $limit")
+        );
+        if ($result) {
+            foreach ($result as &$item) {
+                $item['sent'] = $item['sent'] == 1 ? get_lang('Yes') : get_lang('No');
+                $item['date'] = api_get_local_time($item['date']);
+            }
+        }
+        break;
     case 'get_group_reporting':
         $columns = array('name', 'time', 'progress', 'score', 'works', 'messages', 'actions');
 
@@ -716,7 +742,14 @@ switch ($action) {
             get_lang('CountCertificates')
         );
 
-        $extra_fields = UserManager::get_extra_fields(0, 100, null, null, true, true);
+        $extra_fields = UserManager::get_extra_fields(
+            0,
+            100,
+            null,
+            null,
+            true,
+            true
+        );
 
         if (!empty($extra_fields)) {
             foreach ($extra_fields as $extra) {
@@ -783,7 +816,14 @@ switch ($action) {
             get_lang('CourseAdvance')
         );
 
-        $extra_fields = UserManager::get_extra_fields(0, 100, null, null, true, true);
+        $extra_fields = UserManager::get_extra_fields(
+            0,
+            100,
+            null,
+            null,
+            true,
+            true
+        );
         if (!empty($extra_fields)) {
             foreach ($extra_fields as $extra) {
                 $columns[] = $extra['1'];
@@ -854,7 +894,7 @@ switch ($action) {
         }
 
         break;
-	case 'get_user_skill_ranking':
+    case 'get_user_skill_ranking':
         $columns = array('photo', 'firstname', 'lastname', 'skills_acquired', 'currently_learning', 'rank');
         $result = $skill->get_user_list_skill_ranking($start, $limit, $sidx, $sord, $whereCondition);
         $result = msort($result, 'skills_acquired', 'asc');
@@ -1112,9 +1152,19 @@ switch ($action) {
         if (!empty($sessions)) {
             foreach ($sessions as $session) {
                 if (api_drh_can_access_all_session_content()) {
-                    $count_courses_in_session = SessionManager::get_course_list_by_session_id($session['id'], '', null, true);
+                    $count_courses_in_session = SessionManager::get_course_list_by_session_id(
+                        $session['id'],
+                        '',
+                        null,
+                        true
+                    );
                 } else {
-                    $count_courses_in_session = count(Tracking::get_courses_followed_by_coach($user_id, $session['id']));
+                    $count_courses_in_session = count(
+                        Tracking::get_courses_followed_by_coach(
+                            $user_id,
+                            $session['id']
+                        )
+                    );
                 }
 
                 $count_users_in_session = SessionManager::get_users_by_session($session['id'], 0, true);
@@ -1404,12 +1454,12 @@ switch ($action) {
         );
         $sessionId = 0;
         if (!empty($_GET['course_id']) && !empty($_GET['session_id'])) {
-            $sessionId  = intval($_GET['session_id']);
-            $courseId   = intval($_GET['course_id']);
-            $studentId  = intval($_GET['student_id']);
-            $profile    = intval($_GET['profile']);
-            $date_from  = intval($_GET['date_from']);
-            $date_to    = intval($_GET['date_to']);
+            $sessionId = intval($_GET['session_id']);
+            $courseId = intval($_GET['course_id']);
+            $studentId = intval($_GET['student_id']);
+            $profile = intval($_GET['profile']);
+            $date_from = intval($_GET['date_from']);
+            $date_to = intval($_GET['date_to']);
         }
 
         $result = SessionManager::get_user_data_access_tracking_overview(
@@ -1463,7 +1513,11 @@ switch ($action) {
         if (!in_array($sidx, $columns)) {
             $sidx = 'name';
         }
-        $result = Database::select('*', $obj->table, array('order'=>"$sidx $sord", 'LIMIT'=> "$start , $limit"));
+        $result = Database::select(
+            '*',
+            $obj->table,
+            array('order' => "$sidx $sord", 'LIMIT' => "$start , $limit")
+        );
         $new_result = array();
         foreach ($result as $item) {
             if ($item['parent_id'] != 0) {
@@ -1501,7 +1555,11 @@ switch ($action) {
         if (!in_array($sidx, $columns)) {
             $sidx = 'subject';
         }
-        $result     = Database::select('*', $obj->table, array('order'=>"$sidx $sord", 'LIMIT'=> "$start , $limit"));
+        $result = Database::select(
+            '*',
+            $obj->table,
+            array('order' => "$sidx $sord", 'LIMIT' => "$start , $limit")
+        );
         $new_result = array();
         foreach ($result as $item) {
             $language_info = api_get_language_info($item['language_id']);
@@ -1517,7 +1575,11 @@ switch ($action) {
         if (!in_array($sidx, $columns)) {
             $sidx = 'name';
         }
-        $result = Database::select('*', $obj->table, array('order'=>"$sidx $sord", 'LIMIT'=> "$start , $limit"));
+        $result = Database::select(
+            '*',
+            $obj->table,
+            array('order' => "$sidx $sord", 'LIMIT' => "$start , $limit")
+        );
         $new_result = array();
         foreach ($result as $item) {
             if (!$item['status']) {
@@ -1553,7 +1615,11 @@ switch ($action) {
         if (!in_array($sidx, $columns)) {
             $sidx = 'name';
         }
-        $result = Database::select('*', "$obj->table ", array('order' => "$sidx $sord", 'LIMIT' => "$start , $limit"));
+        $result = Database::select(
+            '*',
+            "$obj->table ",
+            array('order' => "$sidx $sord", 'LIMIT' => "$start , $limit")
+        );
         $new_result = array();
         foreach ($result as $item) {
             $new_result[] = $item;
@@ -1627,7 +1693,7 @@ switch ($action) {
                     $column_names[] = get_lang('FinalScore');
                     break;
                 default:
-                    $title = "";
+                    $title = '';
                     if (!empty($exercises[$cnt - 4]['title'])) {
                         $title = ucwords(strtolower(trim($exercises[$cnt - 4]['title'])));
                     }
@@ -1785,7 +1851,8 @@ $allowed_actions = array(
     'get_user_course_report_resumed',
     'get_exercise_grade',
     'get_group_reporting',
-    'get_course_announcements'
+    'get_course_announcements',
+    'get_programmed_announcements'
 );
 
 //5. Creating an obj to return a json

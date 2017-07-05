@@ -161,42 +161,36 @@ class learnpathItem
                     $this->children[] = $row['id'];
                 }
             }
-        }
 
-        //$this->seriousgame_mode = $this->get_seriousgame_mode();
-        $this->seriousgame_mode = 0;
-
-        // Get search_did.
-        if (api_get_setting('search_enabled') == 'true') {
-            $tbl_se_ref = Database::get_main_table(
-                TABLE_MAIN_SEARCH_ENGINE_REF
-            );
-            $sql = 'SELECT *
-                FROM %s
-                WHERE course_code=\'%s\'
-                    AND tool_id=\'%s\'
-                    AND ref_id_high_level=%s
-                    AND ref_id_second_level=%d
-                LIMIT 1';
-            // TODO: Verify if it's possible to assume the actual course instead
-            // of getting it from db.
-            $sql = sprintf(
-                $sql,
-                $tbl_se_ref,
-                api_get_course_id(),
-                TOOL_LEARNPATH,
-                $this->lp_id,
-                $id
-            );
-            if (self::DEBUG > 0) {
-                error_log($sql);
-            };
-            $res = Database::query($sql);
-            if (Database::num_rows($res) > 0) {
-                $se_ref = Database::fetch_array($res);
-                $this->search_did = (int) $se_ref['search_did'];
+            // Get search_did.
+            if (api_get_setting('search_enabled') == 'true') {
+                $tbl_se_ref = Database::get_main_table(TABLE_MAIN_SEARCH_ENGINE_REF);
+                $sql = 'SELECT *
+                        FROM %s
+                        WHERE 
+                            course_code=\'%s\' AND 
+                            tool_id=\'%s\' AND 
+                            ref_id_high_level=%s AND 
+                            ref_id_second_level=%d
+                        LIMIT 1';
+                // TODO: Verify if it's possible to assume the actual course instead
+                // of getting it from db.
+                $sql = sprintf(
+                    $sql,
+                    $tbl_se_ref,
+                    api_get_course_id(),
+                    TOOL_LEARNPATH,
+                    $this->lp_id,
+                    $id
+                );
+                $res = Database::query($sql);
+                if (Database::num_rows($res) > 0) {
+                    $se_ref = Database::fetch_array($res);
+                    $this->search_did = (int) $se_ref['search_did'];
+                }
             }
         }
+        $this->seriousgame_mode = 0;
         $this->audio = $row['audio'];
         if (self::DEBUG > 0) {
             error_log(
@@ -2780,21 +2774,19 @@ class learnpathItem
         if (self::DEBUG > 0) {
             error_log('learnpathItem::restart()', 0);
         }
-        if ($this->type == 'sco') {
+        $seriousGame = $this->get_seriousgame_mode();
+        //For serious game  : We reuse same attempt_id
+        if ($seriousGame == 1 && $this->type == 'sco') {
             // If this is a sco, Chamilo can't update the time without an
             //  explicit scorm call
             $this->current_start_time = 0;
             $this->current_stop_time = 0; //Those 0 value have this effect
             $this->last_scorm_session_time = 0;
+            $this->save();
+            return true;
         }
         $this->save();
 
-        //For serious game  : We reuse same attempt_id
-        if ($this->get_seriousgame_mode() == 1 && $this->type == 'sco') {
-            $this->current_start_time = 0;
-            $this->current_stop_time = 0;
-            return true;
-        }
         $allowed = $this->is_restart_allowed();
         if ($allowed === -1) {
             // Nothing allowed, do nothing.
@@ -2820,12 +2812,9 @@ class learnpathItem
             //$this->current_score = 0;
             $this->current_start_time = 0;
             $this->current_stop_time = 0;
-            //$this->current_data = '';
+            //$this->current_data = '';scorm
             //$this->status = $this->possible_status[0];
             $this->interactions_count = $this->get_interactions_count(true);
-            if ($this->type == 'sco') {
-                $this->scorm_init_time();
-            }
         }
         return true;
     }
@@ -3420,10 +3409,11 @@ class learnpathItem
         if (self::DEBUG > 0) {
             error_log('learnpathItem::set_time('.$scorm_time.')', 0);
         }
-        if ($scorm_time == '0'
-                and ($this->type != 'sco')
-                and $this->current_start_time != 0)
-        {
+
+        if ($scorm_time == '0' &&
+            $this->type != 'sco' &&
+            $this->current_start_time != 0
+        ) {
             $my_time = time() - $this->current_start_time;
             if ($my_time > 0) {
                 $this->update_time($my_time);
@@ -3445,7 +3435,6 @@ class learnpathItem
                         $res
                     )
                     ) {
-                        $time = time();
                         $hour = $res[1];
                         $min = $res[2];
                         $sec = $res[3];
@@ -3595,16 +3584,17 @@ class learnpathItem
             error_log("total_sec: $total_sec");
         }
 
-        //Step 1 : get actual total time stored in db
+        // Step 1 : get actual total time stored in db
         $item_view_table = Database::get_course_table(TABLE_LP_ITEM_VIEW);
         $course_id = api_get_course_int_id();
 
-        $sql = 'SELECT total_time, status FROM '.$item_view_table.'
-                 WHERE 
-                    c_id = ' . $course_id.' AND 
-                    lp_item_id="' . $this->db_id.'" AND 
-                    lp_view_id="' . $this->view_id.'" AND 
-                    view_count="' . $this->get_attempt_id().'"';
+        $sql = 'SELECT total_time, status 
+                FROM '.$item_view_table.'
+                WHERE 
+                    c_id = '.$course_id.' AND 
+                    lp_item_id = "'.$this->db_id.'" AND 
+                    lp_view_id = "'.$this->view_id.'" AND 
+                    view_count = "'.$this->get_attempt_id().'"';
         $result = Database::query($sql);
         $row = Database::fetch_array($result);
 

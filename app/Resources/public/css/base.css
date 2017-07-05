@@ -141,7 +141,7 @@ header {
 .blackboard_hide {
    display: none;
 }
-.section-page .page-header h3{
+.section-page h3.page-header{
     font-size:22px;
     margin-top:5px;
 }
@@ -160,7 +160,6 @@ header {
     color: #666;
 }
 #carousel-announcement img{
-    display: block;
     max-width: 100%;
     height: auto;
 }
@@ -1841,9 +1840,6 @@ div.admin_section h4 {
     font-size:130%;
 }
 
-.question_row {
-    margin-bottom: 40px;
-}
 .question_row_score .title-score .total{
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -1855,26 +1851,17 @@ div.admin_section h4 {
 .question-result .page-header{
   margin-top: 20px;
 }
-.question-result .page-header h2{
+.question-result h2.page-header{
   font-size: 25px;
 }
 .question_row_score .title-score .total h3{
   margin: 0px;
   font-size: 22px;
 }
-.question_row_answer{
-  padding: 20px;
-  border: 1px solid #dddddd;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-}
 .question_row_answer .page-header{
-  margin: 20px 0px;
+  margin: 10px 0;
 }
-.question_row_answer .page-header h3{
+.question_row_answer h3.page-header{
   font-size: 22px;
   margin: 0;
 }
@@ -2577,8 +2564,6 @@ table#skill_holder {
 }
 
 #language_list {
-    width:80px !important;
-    min-width: 140px !important;
 }
 
 /*****************************************************
@@ -2898,20 +2883,21 @@ tr.forum_category_header a {
     border-bottom: 1px solid #aaa;
     border-top: 1px solid #aaa;
 }
+.forum-date{
+    font-size: 12px;
+}
 /* **** POST **** */
 .quote {
     background-color: #a0e5fc;
 }
-
+a.forum-goto{
+    font-size: 12px;
+}
 .structure {
     /*border-bottom: 1px solid #666666;*/
     font-weight: bold;
     background-color: #F7F7F7;
     height: 20px;
-}
-a.forum_group_link {
-    font-weight: lighter;
-    display:inline;
 }
 .forum_description {
     color: #000;
@@ -4361,9 +4347,6 @@ div#chat-remote-video video {
   width: 100%;
 }
 /* CSS Forum */
-.forum {
-  border-color: #dddddd !important;
-}
 .forum .number-post{
   background-color: #F7F7F9;
   border: 1px solid #E1E1E1 ;
@@ -4600,7 +4583,7 @@ div#chat-remote-video video {
   padding-bottom: 10px;
   margin-bottom: 30px;
 }
-#page-install .page-header h2{
+#page-install h2.page-header{
     font-weight: bold;
     font-size: 28px;
 }
@@ -4777,7 +4760,6 @@ div#chat-remote-video video {
 
 .grid-courses .items.items-courses {
     padding-bottom: 10px;
-    width: 310px;
     box-shadow: 2px 4px 15px 0 rgba(46,61,73,.1);
     transition: box-shadow .3s ease , border .3s ease;
 }
@@ -4797,17 +4779,24 @@ div#chat-remote-video video {
     box-shadow: 2px 4px 15px 0 rgba(46,61,73,.1);
     transition: box-shadow .3s ease , border .3s ease;
 }
-.grid-courses .items .block-title{
-    margin: 15px 10px 10px 10px;
+.grid-courses .items .block-title {
+    margin: 10px 10px 10px 10px;
+    min-height: 40px;
 }
-.grid-courses .items .title{
+.grid-courses .items .title {
     line-height: 1.4;
     padding: 0px;
     font-size: 14px;
     font-weight: bold;
-    min-height: 42px;
     margin: 0;
 }
+
+.grid-courses .items .toolbar {
+    text-align: right;
+    padding: 10px 0px 0px 0px;
+    min-height: 30px;
+}
+
 .grid-courses .items .image .black-shadow {
     top: 0px;
     left: 0px;
@@ -4833,10 +4822,7 @@ div#chat-remote-video video {
     height: 42px;
     margin: 0;
 }
-.grid-courses .items .toolbar{
-    text-align: right;
-    padding: 0 10px;
-}
+
 .grid-courses .items .toolbar .info{
     float: left;
     font-size: 12px;
@@ -4860,7 +4846,7 @@ div#chat-remote-video video {
 	padding: 0;
 }
 .grid-courses .items .image {
-    /* min-height: 175px; */
+    min-height: 225px;
     position: relative;
 }
 .grid-courses .items .image .pin{
@@ -4916,6 +4902,7 @@ div#chat-remote-video video {
 }
 .grid-courses .items .description{
     padding: 5px 10px;
+    min-height: 140px;
 }
 .grid-courses .items .description .text{
     font-size: 12px;
@@ -5005,14 +4992,10 @@ div#chat-remote-video video {
 /* Catalog session */
 .return-catalog{
 	margin-bottom: 35px;
-	padding-left: 15px;
-    padding-right: 15px;
 }
 .search-session, .search-courses{
     margin-bottom: 15px;
     margin-top: 25px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 .search-session .form-inline label{
     font-weight: normal;
@@ -5177,7 +5160,7 @@ div#chat-remote-video video {
     height: 100%;
     border:none;
 }
-.section-status .page-header h2{
+.section-status h2.page-header{
     font-size:22px;
     margin-top:5px;
 }
@@ -6238,6 +6221,18 @@ ul#toolnavbox-two li a.btn{
 input[type=checkbox]{
     margin: 8px 0 0;
 }
+.lp-accordion .panel-heading .panel-title{
+    width: 100%;
+    display: inline-block;
+}
+.lp-accordion .panel-heading .panel-title a{
+    width: 100%;
+    display: block;
+}
+.lp-accordion .panel-heading .tools-actions{
+    position: relative;
+    top: -30px;
+}
 /* CSS NEW TOP ******************************************************************************/
 /* CSS Responsive */
 @media (min-width: 1025px) and (max-width: 1200px) {
@@ -6334,16 +6329,16 @@ input[type=checkbox]{
     padding: 10px;
   }
   .question_row_answer .page-header{
-    margin: 10px 0px;
+    margin: 10px 0;
   }
-  .question_row_answer .page-header h3{
+  .question_row_answer h3.page-header{
     font-size: 16px;
     margin: 0;
   }
   .question-result .page-header{
     margin-top: 20px;
   }
-  .question-result .page-header h2{
+  .question-result h2.page-header{
     font-size: 20px;
   }
   .dl-horizontal dt{
@@ -6390,16 +6385,16 @@ input[type=checkbox]{
     display: block;
   }
   .question_row_answer .page-header{
-    margin: 10px 0px;
+    margin: 10px 0;
   }
-  .question_row_answer .page-header h3{
+  .question_row_answer h3.page-header{
     font-size: 16px;
     margin: 0;
   }
   .question-result .page-header{
     margin-top: 20px;
   }
-  .question-result .page-header h2{
+  .question-result h2.page-header{
     font-size: 20px;
   }
   .navbar-nav .open .dropdown-menu .user-header{
@@ -6778,6 +6773,10 @@ input.form-control[type="color"] {
     margin-top: 20px;
 }
 
+.col-xs-6.course-tool:nth-child(2n+1) {
+    clear: left;
+}
+
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 
@@ -6798,6 +6797,13 @@ input.form-control[type="color"] {
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+    .col-xs-6.course-tool:nth-child(2n+1) {
+        clear: none;
+    }
+    .col-md-3.course-tool:nth-child(4n+1) {
+        clear: left;
+    }
+
     div.navbar-collapse {
         padding-left: 0;
     }

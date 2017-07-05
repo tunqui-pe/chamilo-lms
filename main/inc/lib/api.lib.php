@@ -9,6 +9,7 @@ use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Framework\Container;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Finder\Finder;
+use Chamilo\CoreBundle\Entity\SettingsCurrent;
 
 /**
  * This is a code library for Chamilo.
@@ -541,6 +542,8 @@ define('MESSAGE_STATUS_INVITATION_DENIED', '7');
 define('MESSAGE_STATUS_WALL', '8');
 define('MESSAGE_STATUS_WALL_DELETE', '9');
 define('MESSAGE_STATUS_WALL_POST', '10');
+define('MESSAGE_STATUS_CONVERSATION', '11');
+
 // Images
 define('IMAGE_WALL_SMALL_SIZE', 200);
 define('IMAGE_WALL_MEDIUM_SIZE', 500);
@@ -1355,6 +1358,14 @@ function _api_format_user(
 
     $result['profile_completed'] = $user->isProfileCompleted();
     $result['profile_url'] = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$userId;
+
+    // Send message link
+    $sendMessage = api_get_path(WEB_AJAX_PATH).'user_manager.ajax.php?a=get_user_popup&user_id='.$user_id;
+    $result['complete_name_with_message_link'] = Display::url(
+        $result['complete_name'],
+        $sendMessage,
+        ['class' => 'ajax']
+    );
 
     if ($checkIfUserOnline) {
         $use_status_in_platform = UserManager::user_is_online($userId);
@@ -2614,6 +2625,7 @@ function api_is_course_coach()
 
 /**
  * Checks whether the current user is a course tutor
+ * Based on the presence of user in session_rel_course_rel_user.user_id with status = 2
  * @return bool     True if current user is a course tutor
  */
 function api_is_course_tutor()
@@ -3431,6 +3443,9 @@ function api_not_allowed($print_headers = false, $message = null)
             'error',
             false
         );
+        if (!empty($message)) {
+            $msg = $message;
+        }
     }
 
     $tpl->assign('content', $msg);
@@ -5329,119 +5344,75 @@ function &api_get_settings($cat = null, $ordering = 'list', $access_url = 1, $ur
 }
 
 /**
- * Sets a platform configuration setting to a given value
- * @param string    The value we want to record
- * @param string    The variable name we want to insert
- * @param string    The subkey for the variable we want to insert
- * @param string    The type for the variable we want to insert
- * @param string    The category for the variable we want to insert
- * @param string    The title
- * @param string    The comment
- * @param string    The scope
- * @param string    The subkey text
- * @param int       The access_url for which this parameter is valid
- * @param int       The changeability of this setting for non-master urls
- * @param string $val
- * @param string $var
- * @param string $sk
- * @param string $c
- * @return boolean  true on success, false on failure
+ * @param string $value The value we want to record
+ * @param string $variable The variable name we want to insert
+ * @param string $subKey The subkey for the variable we want to insert
+ * @param string $type The type for the variable we want to insert
+ * @param string $category The category for the variable we want to insert
+ * @param string $title The title
+ * @param string $comment The comment
+ * @param string $scope The scope
+ * @param string $subKeyText The subkey text
+ * @param int $accessUrlId The access_url for which this parameter is valid
+ * @param int $visibility The changeability of this setting for non-master urls
+ * @return int The setting ID
  */
 function api_add_setting(
-    $val,
-    $var,
-    $sk = null,
+    $value,
+    $variable,
+    $subKey = '',
     $type = 'textfield',
-    $c = null,
+    $category = '',
     $title = '',
-    $com = '',
-    $sc = null,
-    $skt = null,
-    $a = 1,
-    $v = 0
+    $comment = '',
+    $scope = '',
+    $subKeyText = '',
+    $accessUrlId = 1,
+    $visibility = 0
 ) {
-    if (empty($var) || !isset($val)) { return false; }
-    $t_settings = Database::get_main_table(TABLE_MAIN_SETTINGS_CURRENT);
-    $var = Database::escape_string($var);
-    $val = Database::escape_string($val);
-    $a = (int) $a;
-    if (empty($a)) { $a = 1; }
+    $em = Database::getManager();
+    $settingRepo = $em->getRepository('ChamiloCoreBundle:SettingsCurrent');
+    $accessUrlId = (int) $accessUrlId ?: 1;
+
+    $criteria = ['variable' => $variable, 'accessUrl' => $accessUrlId];
+
+    if (!empty($subKey)) {
+        $criteria['subkey'] = $subKey;
+    }
+
     // Check if this variable doesn't exist already
-    $select = "SELECT id FROM $t_settings WHERE variable = '$var' ";
-    if (!empty($sk)) {
-        $sk = Database::escape_string($sk);
-        $select .= " AND subkey = '$sk'";
-    }
-    if ($a > 1) {
-        $select .= " AND access_url = $a";
-    } else {
-        $select .= " AND access_url = 1 ";
-    }
-    $res = Database::query($select);
-    if (Database::num_rows($res) > 0) { // Found item for this access_url.
-        $row = Database::fetch_array($res);
-        Database::update(
-            $t_settings,
-            array('selected_value' => $val),
-            array('id = ?' => array($row['id']))
-        );
-        return $row['id'];
+    /** @var SettingsCurrent $setting */
+    $setting = $settingRepo->findOneBy($criteria);
+
+    if ($setting) {
+        $setting->setSelectedValue($value);
+
+        $em->persist($setting);
+        $em->flush();
+
+        return $setting->getId();
     }
 
     // Item not found for this access_url, we have to check if the whole thing is missing
     // (in which case we ignore the insert) or if there *is* a record but just for access_url = 1
-    $insert = "INSERT INTO $t_settings ".
-                "(variable,selected_value,".
-                "type,category,".
-                "subkey,title,".
-                "comment,scope,".
-                "subkeytext,access_url,access_url_changeable)".
-                " VALUES ('$var','$val',";
-    if (isset($type)) {
-        $type = Database::escape_string($type);
-        $insert .= "'$type',";
-    } else {
-        $insert .= "NULL,";
-    }
-    if (isset($c)) { // Category
-        $c = Database::escape_string($c);
-        $insert .= "'$c',";
-    } else {
-        $insert .= "NULL,";
-    }
-    if (isset($sk)) { // Subkey
-        $sk = Database::escape_string($sk);
-        $insert .= "'$sk',";
-    } else {
-        $insert .= "NULL,";
-    }
-    if (isset($title)) { // Title
-        $title = Database::escape_string($title);
-        $insert .= "'$title',";
-    } else {
-        $insert .= "NULL,";
-    }
-    if (isset($com)) { // Comment
-        $com = Database::escape_string($com);
-        $insert .= "'$com',";
-    } else {
-        $insert .= "NULL,";
-    }
-    if (isset($sc)) { // Scope
-        $sc = Database::escape_string($sc);
-        $insert .= "'$sc',";
-    } else {
-        $insert .= "NULL,";
-    }
-    if (isset($skt)) { // Subkey text
-        $skt = Database::escape_string($skt);
-        $insert .= "'$skt',";
-    } else {
-        $insert .= "NULL,";
-    }
-    $insert .= "$a,$v)";
-    $res = Database::query($insert);
-    return $res;
+    $setting = new SettingsCurrent();
+    $setting
+        ->setVariable($variable)
+        ->setSelectedValue($value)
+        ->setType($type)
+        ->setCategory($category)
+        ->setSubkey($subKey)
+        ->setTitle($title)
+        ->setComment($comment)
+        ->setScope($scope)
+        ->setSubkeytext($subKeyText)
+        ->setAccessUrl($accessUrlId)
+        ->setAccessUrlChangeable($visibility);
+
+    $em->persist($setting);
+    $em->flush();
+
+    return $setting->getId();
 }
 
 /**
@@ -7910,199 +7881,7 @@ function api_mail_html(
 
     Container::getMailer()->send($swiftMessage);
 
-    return 1;
-
-    global $platform_email;
-
-    $mail = new PHPMailer();
-    $mail->Mailer = $platform_email['SMTP_MAILER'];
-    $mail->Host = $platform_email['SMTP_HOST'];
-    $mail->Port = $platform_email['SMTP_PORT'];
-    $mail->CharSet = $platform_email['SMTP_CHARSET'];
-    // Stay far below SMTP protocol 980 chars limit.
-    $mail->WordWrap = 200;
-
-    if ($platform_email['SMTP_AUTH']) {
-        $mail->SMTPAuth = 1;
-        $mail->Username = $platform_email['SMTP_USER'];
-        $mail->Password = $platform_email['SMTP_PASS'];
-        if (isset($platform_email['SMTP_SECURE'])) {
-            $mail->SMTPSecure = $platform_email['SMTP_SECURE'];
-        }
-    }
-    $mail->SMTPDebug = isset($platform_email['SMTP_DEBUG'])?$platform_email['SMTP_DEBUG']:0;
-
-    // 5 = low, 1 = high
-    $mail->Priority = 3;
-    $mail->SMTPKeepAlive = true;
-
-    // Default values
-    $notification = new Notification();
-    $defaultEmail = $notification->getDefaultPlatformSenderEmail();
-    $defaultName = $notification->getDefaultPlatformSenderName();
-
-    // If the parameter is set don't use the admin.
-    $senderName = !empty($senderName) ? $senderName : $defaultName;
-    $senderEmail = !empty($senderEmail) ? $senderEmail : $defaultEmail;
-
-    // Reply to first
-    if (isset($extra_headers['reply_to']) && empty($platform_email['SMTP_UNIQUE_REPLY_TO'])) {
-        $mail->AddReplyTo(
-            $extra_headers['reply_to']['mail'],
-            $extra_headers['reply_to']['name']
-        );
-            // Errors to sender
-        $mail->AddCustomHeader('Errors-To: '.$extra_headers['reply_to']['mail']);
-        $mail->Sender = $extra_headers['reply_to']['mail'];
-        unset($extra_headers['reply_to']);
-    } else {
-        $mail->AddCustomHeader('Errors-To: '.$defaultEmail);
-    }
-
-    //If the SMTP configuration only accept one sender
-    if (isset($platform_email['SMTP_UNIQUE_SENDER']) && $platform_email['SMTP_UNIQUE_SENDER']) {
-        $senderName = $platform_email['SMTP_FROM_NAME'];
-        $senderEmail = $platform_email['SMTP_FROM_EMAIL'];
-    }
-    $mail->SetFrom($senderEmail, $senderName);
-    $mail->Subject = $subject;
-    $mail->AltBody = strip_tags(
-        str_replace('<br />', "\n", api_html_entity_decode($message))
-    );
-
-    // Send embedded image.
-    if ($embedded_image) {
-        // Get all images html inside content.
-        preg_match_all("/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>/i", $message, $m);
-        // Prepare new tag images.
-        $new_images_html = array();
-        $i = 1;
-        if (!empty($m[1])) {
-            foreach ($m[1] as $image_path) {
-                $real_path = realpath($image_path);
-                $filename  = basename($image_path);
-                $image_cid = $filename.'_'.$i;
-                $encoding = 'base64';
-                $image_type = mime_content_type($real_path);
-                $mail->AddEmbeddedImage(
-                    $real_path,
-                    $image_cid,
-                    $filename,
-                    $encoding,
-                    $image_type
-                );
-                $new_images_html[] = '<img src="cid:'.$image_cid.'" />';
-                $i++;
-            }
-        }
-
-        // Replace origin image for new embedded image html.
-        $x = 0;
-        if (!empty($m[0])) {
-            foreach ($m[0] as $orig_img) {
-                $message = str_replace($orig_img, $new_images_html[$x], $message);
-                $x++;
-            }
-        }
-    }
-
-    $mailView = new Template(null, false, false, false, false, false, false);
-    $mailView->assign('content', $message);
-
-    if (isset($additionalParameters['link'])) {
-        $mailView->assign('link', $additionalParameters['link']);
-    } else {
-        $mailView->assign('link', '');
-    }
-    $mailView->assign('mail_header_style', api_get_configuration_value('mail_header_style'));
-    $mailView->assign('mail_content_style', api_get_configuration_value('mail_content_style'));
-    $layout = $mailView->get_template('mail/mail.tpl');
-    $mail->Body = $mailView->fetch($layout);
-
-    // Attachment ...
-    if (!empty($data_file)) {
-        $o = 0;
-        foreach ($data_file as $file_attach) {
-            if (!empty($file_attach['path']) && !empty($file_attach['filename'])) {
-                $mail->AddAttachment($file_attach['path'], $file_attach['filename']);
-            }
-            $o++;
-        }
-    }
-
-    // Only valid addresses are accepted.
-    if (is_array($recipient_email)) {
-        foreach ($recipient_email as $dest) {
-            if (api_valid_email($dest)) {
-                $mail->AddAddress($dest, $recipient_name);
-            }
-        }
-    } else {
-        if (api_valid_email($recipient_email)) {
-            $mail->AddAddress($recipient_email, $recipient_name);
-        } else {
-            return 0;
-        }
-    }
-
-    if (is_array($extra_headers) && count($extra_headers) > 0) {
-        foreach ($extra_headers as $key => $value) {
-            switch (strtolower($key)) {
-                case 'encoding':
-                case 'content-transfer-encoding':
-                    $mail->Encoding = $value;
-                    break;
-                case 'charset':
-                    $mail->Charset = $value;
-                    break;
-                case 'contenttype':
-                case 'content-type':
-                    $mail->ContentType = $value;
-                    break;
-                default:
-                    $mail->AddCustomHeader($key.':'.$value);
-                    break;
-            }
-        }
-    } else {
-        if (!empty($extra_headers)) {
-            $mail->AddCustomHeader($extra_headers);
-        }
-    }
-
-    // WordWrap the html body (phpMailer only fixes AltBody) FS#2988
-    $mail->Body = $mail->WrapText($mail->Body, $mail->WordWrap);
-
-    // Send the mail message.
-    if (!$mail->Send()) {
-        error_log('ERROR: mail not sent to '.$recipient_name.' ('.$recipient_email.') because of '.$mail->ErrorInfo.'<br />');
-        if ($mail->SMTPDebug) {
-            error_log(
-                "Connection details :: ".
-                "Protocol: ".$mail->Mailer.' :: '.
-                "Host/Port: ".$mail->Host.':'.$mail->Port.' :: '.
-                "Authent/Open: ".($mail->SMTPAuth ? 'Authent' : 'Open').' :: '.
-                ($mail->SMTPAuth ? "  User/Pass: ".$mail->Username.':'.$mail->Password : '')
-            );
-        }
-        return 0;
-    }
-
-    if (!empty($additionalParameters)) {
-        $plugin = new AppPlugin();
-        $smsPlugin = $plugin->getSMSPluginLibrary();
-        if ($smsPlugin) {
-            $smsPlugin->send($additionalParameters);
-        }
-    }
-
-    // Clear all the addresses.
-    $mail->ClearAddresses();
-
-    // Clear all attachments
-    $mail->ClearAttachments();
-
-    return 1;
+    return 1;    
 }
 
 /**

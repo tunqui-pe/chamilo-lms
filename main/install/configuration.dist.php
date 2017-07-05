@@ -202,12 +202,18 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 // Unoconv binary file
 //$_configuration['unoconv.binaries'] = '/usr/bin/unoconv';
 // Proxy settings for access external services
-/*$_configuration['proxy_settings'] = array(
-    'http' => array(
-        'proxy' => 'tcp://example.com:8080',
-        'request_fulluri'=>true
-    )
-);*/
+/*$_configuration['proxy_settings'] = [
+    'stream_context_create' => [
+        'http' => [
+            'proxy' => 'tcp://example.com:8080',
+            'request_fulluri' => true
+        ]
+    ],
+    'curl_setopt_array' => [
+        'CURLOPT_PROXY' => 'http://example.com',
+        'CURLOPT_PROXYPORT' => '8080'
+    ]
+];*/
 
 // E-mail accounts to send notifications to when executing cronjobs - works for main/cron/import_csv.php
 //$_configuration['cron_notification_mails'] = array('email@example.com', 'email2@example.com');
@@ -260,8 +266,6 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 //$_configuration['hide_my_certificate_link'] = false;
 // Hide header and footer in certificate pdf
 //$_configuration['hide_header_footer_in_certificate'] = false;
-// Send only quiz answer notifications to course coaches and not general coach
-//$_configuration['block_quiz_mail_notification_general_coach'] = false;
 // Security: block direct access from logged in users to contents in OPEN (but not public) courses. Set to true to block
 //$_configuration['block_registered_users_access_to_open_course_contents'] = false;
 // Allows syncing the database with the current entity schema
@@ -355,12 +359,29 @@ $_configuration['tracking_columns'] = [
 */
 // Hide session link of course_block on index/userportal
 //$_configuration['remove_session_url']= false ;
+//
+//
+// ------ AGENDA CONFIGURATION SETTINGS
 // Shows a legend in the agenda tool
 /*
 $_configuration['agenda_legend'] = [
     'red' => 'red caption',
     '#f0f' => 'another caption'
 ];*/
+// Set customs colors to agenda events
+/*
+$_configuration['agenda_colors'] = [
+    'platform' => 'red',
+    'course' => '#458B00',
+    'group' => '#A0522D',
+    'session' => '#00496D',
+    'other_session' => '#999',
+    'personal' => 'steel blue',
+    'student_publication' => '#FF8C00'
+];
+*/
+// ------
+//
 // Save some tool titles with HTML editor
 // $_configuration['save_titles_as_html'] = false;
 // Show the full toolbar set to all CKEditor
@@ -383,3 +404,116 @@ $_configuration['agenda_legend'] = [
 // $_configuration['document_pdf_orientation'] = 'landscape'; // It can be 'portrait' or 'landscape'
 // Use alternative footer when exporting document to PDF
 //$_configuration['use_alternative_document_pdf_footer'] = false;
+// If the MySpace page takes too long to load, you might want to remove the
+// processing of generic statistics for the user. In this case set the following to true.
+//$_configuration['tracking_skip_generic_data'] = false;
+// Show view accordion lp_category
+//$_configuration['lp_category_accordion'] = false;
+//
+// ------ HTTP headers security
+// This section relates to options to increase the security of your Chamilo
+// portal against attacks specifically focused on HTTP headers vulnerabilities
+// These are all disabled by default, because some of these settings might
+// affect some features of Chamilo, like the inclusion of iframes or the
+// submission of forms by anonymous users. Please make sure you do the due
+// tests before enabling in production. Learn more about how to form secure
+// headers at https://securityheaders.io/
+//
+// HTTP Strict Transport Security is an excellent feature to support on your
+// site and strengthens your implementation of TLS by getting the User Agent
+// to enforce the use of HTTPS. Recommended value
+// "strict-transport-security: max-age=31536000; includeSubDomains".
+//$_configuration['security_strict_transport'] = 'strict-transport-security: max-age=31536000; includeSubDomains';
+//
+// Content Security Policy is an effective measure to protect your site from
+// XSS attacks. By whitelisting sources of approved content, you can prevent
+// the browser from loading malicious assets.
+// The provided default is an *example*, please customize.
+// This setting is particularly complicated to set with CKeditor, but if you
+// add all domains that you want to authorize for iframes inclusion in the
+// child-src statement, this example should work for you
+//$_configuration['security_content_policy'] = 'default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; child-src 'self' *.youtube.com yt.be *.vimeo.com *.slideshare.com;';
+//$_configuration['security_content_policy_report_only'] = 'default-src \'self\'; script-src *://*.google.com:*';
+//
+// HTTP Public Key Pinning protects your site from MiTM attacks using rogue
+// X.509 certificates. By whitelisting only the identities that the browser
+// should trust, your users are protected in the event a certificate
+// authority is compromised.
+//$_configuration['security_public_key_pins'] = '';
+//$_configuration['security_public_key_pins_report_only'] = '';
+//
+// X-Frame-Options tells the browser whether you want to allow your site to
+// be framed or not. By preventing a browser from framing your site you can
+// defend against attacks like clickjacking.
+// Recommended value "x-frame-options: SAMEORIGIN".
+//$_configuration['security_x_frame_options'] = 'x-frame-options: SAMEORIGIN';
+//
+// X-XSS-Protection sets the configuration for the cross-site scripting
+// filter built into most browsers.
+// Recommended value "X-XSS-Protection: 1; mode=block".
+//$_configuration['security_xss_protection'] = 'X-XSS-Protection: 1; mode=block';
+//
+// X-Content-Type-Options stops a browser from trying to MIME-sniff the
+// content type and forces it to stick with the declared content-type. The only
+// valid value for this header is "X-Content-Type-Options: nosniff".
+//$_configuration['security_x_content_type_options'] = 'X-Content-Type-Options: nosniff';
+//
+// Referrer Policy is a new header that allows a site to control how much
+// information the browser includes with navigation away from a document
+// and should be set by all sites.
+//$_configuration['security_referrer_policy'] = 'origin-when-cross-origin';
+// ------ HTTP headers security section ends here
+//
+// ------ Survey configuration settings
+// Add answered_at field in table survey_invitation
+// Requires DB change:
+// ALTER TABLE c_survey_invitation ADD answered_at DATETIME DEFAULT NULL;
+//$_configuration['survey_answered_at_field'] = false;
+// Add support to mandatory surveys. The user will not be able to enter to the course until fill the mandatory surveys
+// Requires DB change:
+/*
+INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, visible_to_self, changeable, created_at)
+VALUES (12, 13, 'is_mandatory', 'IsMandatory', 1, 1, NOW());
+*/
+//$_configuration['allow_mandatory_survey'] = false;
+// ------
+//
+// Allow career diagram, requires a DB change:
+//UPDATE extra_field_values SET created_at = NULL WHERE CAST(created_at AS CHAR(20)) = '0000-00-00 00:00:00';
+//UPDATE extra_field_values SET updated_at = NULL WHERE CAST(updated_at AS CHAR(20)) = '0000-00-00 00:00:00';
+//ALTER TABLE extra_field_values modify column value longtext null;
+//$_configuration['allow_career_diagram'] = false;
+// Allow scheduled emails to session users. See class ProgrammedAnnouncement
+//$_configuration['allow_scheduled_announcements'] = false;
+// Add the list of emails as a bcc when sending an email.
+/*
+$_configuration['send_all_emails_to'] = [
+    'emails' => [
+        'admin1@example.com',
+        'admin2@example.com',
+    ]
+];*/
+// Allow ticket projects to be access by specific chamilo roles
+/*$_configuration['ticket_project_user_roles'] = [
+    'permissions' => [
+        1 => [17] // project_id = 1, STUDENT_BOSS = 17
+    ]
+];*/
+//
+// ------ Exercises configuration settings
+// Send only quiz answer notifications to course coaches and not general coach
+//$_configuration['block_quiz_mail_notification_general_coach'] = false;
+// Show question feedback (requires DB change: "ALTER TABLE c_quiz_question ADD COLUMN feedback text;")
+//$_configuration['allow_quiz_question_feedback'] = false;
+// Add option in exercise to show or hide the "previous" button.
+//ALTER TABLE c_quiz ADD show_previous_button TINYINT(1) DEFAULT 1;
+//$_configuration['allow_quiz_show_previous_button_setting'] = false;
+// Allow to teachers review exercises question with audio notes
+//$_configuration["allow_teacher_comment_audio"] = false;
+// ------
+// Hide search form in session list
+//$_configuration['hide_search_form_in_session_list'] = false;
+// Allow exchange of messages from teachers/bosses about a user.
+//$_configuration['private_messages_about_user'] = false;
+
+

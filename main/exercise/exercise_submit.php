@@ -770,7 +770,7 @@ if (!empty ($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
     $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
     $gradebook = $_SESSION['gradebook'];
 } elseif (empty ($_GET['gradebook'])) {
-    unset ($_SESSION['gradebook']);
+    unset($_SESSION['gradebook']);
     $gradebook = '';
 }
 

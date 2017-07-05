@@ -77,17 +77,22 @@ class GroupManager
      * Get list of groups for current course.
      * @param int $categoryId The id of the category from which the groups are
      * requested
-     * @param string $course_code Default is current course
+     * @param array $course_info Default is current course
+     * @param int $status
+     * @param int $sessionId
      * @return array An array with all information about the groups.
      */
-    public static function get_group_list($categoryId = null, $course_code = null, $status = null)
-    {
-        $course_info = api_get_course_info($course_code);
+    public static function get_group_list(
+        $categoryId = null,
+        $course_info = [],
+        $status = null,
+        $sessionId = 0
+    ) {
+        $course_info = empty($course_info) ? api_get_course_info() : $course_info;
         if (empty($course_info)) {
             return [];
         }
-        $session_id = api_get_session_id();
-
+        $sessionId = empty($sessionId) ? api_get_session_id() : (int) $sessionId;
         $course_id = $course_info['real_id'];
         $table_group = Database::get_course_table(TABLE_GROUP);
 
@@ -108,12 +113,12 @@ class GroupManager
 
         if (!is_null($categoryId)) {
             $sql .= " AND g.category_id = '".intval($categoryId)."' ";
-            $session_condition = api_get_session_condition($session_id);
+            $session_condition = api_get_session_condition($sessionId);
             if (!empty($session_condition)) {
                 $sql .= $session_condition;
             }
         } else {
-            $session_condition = api_get_session_condition($session_id, true);
+            $session_condition = api_get_session_condition($sessionId, true);
         }
 
         if (!is_null($status)) {
@@ -426,9 +431,10 @@ class GroupManager
             Database::query($sql);
 
             // Delete item properties of this group.
+            // to_group_id is related to c_group_info.iid
             $itemPropertyTable = Database::get_course_table(TABLE_ITEM_PROPERTY);
             $sql = "DELETE FROM $itemPropertyTable
-                    WHERE c_id = $course_id AND to_group_id = $groupId ";
+                    WHERE c_id = $course_id AND to_group_id = $groupIid ";
             Database::query($sql);
 
             // delete the groups
@@ -2021,7 +2027,7 @@ class GroupManager
             return true;
         }
 
-        if (api_is_course_coach() && $groupInfo['session_id'] == $sessionId) {
+        if (api_is_session_general_coach() && $groupInfo['session_id'] == $sessionId) {
             return true;
         }
 
@@ -2261,7 +2267,7 @@ class GroupManager
             $url = api_get_path(WEB_CODE_PATH).'group/';
             // Edit-links
             if (api_is_allowed_to_edit(false, true) &&
-                !(api_is_course_coach() && intval($this_group['session_id']) != $session_id)
+                !(api_is_session_general_coach() && intval($this_group['session_id']) != $session_id)
             ) {
                 $edit_actions = '<a href="'.$url.'settings.php?'.api_get_cidreq(true, false).'&gidReq='.$this_group['id'].'"  title="'.get_lang('Edit').'">'.
                     Display::return_icon('edit.png', get_lang('EditGroup'), '', ICON_SIZE_SMALL).'</a>&nbsp;';

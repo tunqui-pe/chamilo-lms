@@ -1087,8 +1087,8 @@ class Session
     /**
      * Get user from course by status
      * @param \Chamilo\CoreBundle\Entity\Course $course
-     * @param string $status
-     * @return \Doctrine\Common\Collections\Collection|static
+     * @param int $status
+     * @return \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection
      */
     public function getUserCourseSubscriptionsByStatus(Course $course, $status)
     {

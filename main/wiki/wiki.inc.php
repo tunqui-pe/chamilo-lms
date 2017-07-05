@@ -101,7 +101,12 @@ class Wiki
      **/
     public function links_to($input)
     {
-        $input_array = preg_split("/(\[\[|\]\])/", $input, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $input_array = preg_split(
+            "/(\[\[|\]\])/",
+            $input,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE
+        );
         $all_links = array();
 
         foreach ($input_array as $key => $value) {
@@ -119,7 +124,9 @@ class Wiki
                 unset($input_array[$key - 1]);
                 unset($input_array[$key + 1]);
                 //replace blank spaces by _ within the links. But to remove links at the end add a blank space
-                $all_links[] = Database::escape_string(str_replace(' ', '_', $link)).' ';
+                $all_links[] = Database::escape_string(
+                        str_replace(' ', '_', $link)
+                    ).' ';
             }
         }
         $output = implode($all_links);
@@ -217,7 +224,12 @@ class Wiki
     {
         $groupId = api_get_group_id();
         //now doubles brackets
-        $input_array = preg_split("/(\[\[|\]\])/", $input, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $input_array = preg_split(
+            "/(\[\[|\]\])/",
+            $input,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE
+        );
 
         foreach ($input_array as $key => $value) {
             //now doubles brackets
@@ -309,7 +321,10 @@ class Wiki
             $_clean['task'] = $values['task'];
         }
 
-        if (!empty($values['feedback1']) || !empty($values['feedback2']) || !empty($values['feedback3'])) {
+        if (!empty($values['feedback1']) ||
+            !empty($values['feedback2']) ||
+            !empty($values['feedback3'])
+        ) {
             $_clean['feedback1'] = $values['feedback1'];
             $_clean['feedback2'] = $values['feedback2'];
             $_clean['feedback3'] = $values['feedback3'];
@@ -581,12 +596,16 @@ class Wiki
         // Unlike ordinary pages of pages of assignments.
         // Allow create a ordinary page although there is a assignment with the same name
         if ($_clean['assignment'] == 2 || $_clean['assignment'] == 1) {
-            $page = str_replace(' ', '_', $values['title']."_uass".$assig_user_id);
+            $page = str_replace(
+                ' ',
+                '_',
+                $values['title']."_uass".$assig_user_id
+            );
         } else {
             $page = str_replace(' ', '_', $values['title']);
         }
         $_clean['reflink'] = $page;
-        $_clean['title']   = trim($values['title']);
+        $_clean['title'] = trim($values['title']);
         $_clean['content'] = $values['content'];
 
         if (api_get_setting('htmlpurifier_wiki') === 'true') {
@@ -652,14 +671,20 @@ class Wiki
 
         // Filter no _uass
         if (api_strtoupper(trim($values['title'])) === 'INDEX') {
-            Display::addFlash(Display::return_message(get_lang('GoAndEditMainPage'), 'warning', false));
+            Display::addFlash(
+                Display::return_message(
+                    get_lang('GoAndEditMainPage'),
+                    'warning',
+                    false
+                )
+            );
         } else {
             $var = $_clean['reflink'];
             $group_id = intval($_GET['group_id']);
             if (!self::checktitle($var)) {
                 return get_lang('WikiPageTitleExist').
-                '<a href="index.php?action=edit&amp;title='.$var.'&group_id='.$group_id.'">'.
-                $values['title'].'</a>';
+                    '<a href="index.php?action=edit&amp;title='.$var.'&group_id='.$group_id.'">'.
+                    $values['title'].'</a>';
             } else {
                 $dtime = api_get_utc_datetime();
 
@@ -737,22 +762,49 @@ class Wiki
     public function setForm($form, $row = array())
     {
         $toolBar = api_is_allowed_to_edit(null, true)
-            ? array('ToolbarSet' => 'Wiki', 'Width' => '100%', 'Height' => '400')
-            : array('ToolbarSet' => 'WikiStudent', 'Width' => '100%', 'Height' => '400', 'UserStatus' => 'student');
+            ? array(
+                'ToolbarSet' => 'Wiki',
+                'Width' => '100%',
+                'Height' => '400'
+            )
+            : array(
+                'ToolbarSet' => 'WikiStudent',
+                'Width' => '100%',
+                'Height' => '400',
+                'UserStatus' => 'student'
+            );
 
-        $form->addHtmlEditor('content', get_lang('Content'), false, false, $toolBar);
+        $form->addHtmlEditor(
+            'content',
+            get_lang('Content'),
+            false,
+            false,
+            $toolBar
+        );
         //$content
         $form->addElement('text', 'comment', get_lang('Comments'));
         $progress = array('', 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
 
-        $form->addElement('select', 'progress', get_lang('Progress'), $progress);
+        $form->addElement(
+            'select',
+            'progress',
+            get_lang('Progress'),
+            $progress
+        );
 
         if ((api_is_allowed_to_edit(false, true) ||
-            api_is_platform_admin()) &&
+                api_is_platform_admin()) &&
             isset($row['reflink']) && $row['reflink'] != 'index'
         ) {
-            $form->addElement('advanced_settings', 'advanced_params', get_lang('AdvancedParameters'));
-            $form->addElement('html', '<div id="advanced_params_options" style="display:none">');
+            $form->addElement(
+                'advanced_settings',
+                'advanced_params',
+                get_lang('AdvancedParameters')
+            );
+            $form->addElement(
+                'html',
+                '<div id="advanced_params_options" style="display:none">'
+            );
 
             $form->addHtmlEditor(
                 'task',
@@ -768,15 +820,36 @@ class Wiki
 
             $form->addElement('label', null, get_lang('AddFeedback'));
             $form->addElement('textarea', 'feedback1', get_lang('Feedback1'));
-            $form->addElement('select', 'fprogress1', get_lang('FProgress'), $progress);
+            $form->addElement(
+                'select',
+                'fprogress1',
+                get_lang('FProgress'),
+                $progress
+            );
 
             $form->addElement('textarea', 'feedback2', get_lang('Feedback2'));
-            $form->addElement('select', 'fprogress2', get_lang('FProgress'), $progress);
+            $form->addElement(
+                'select',
+                'fprogress2',
+                get_lang('FProgress'),
+                $progress
+            );
 
             $form->addElement('textarea', 'feedback3', get_lang('Feedback3'));
-            $form->addElement('select', 'fprogress3', get_lang('FProgress'), $progress);
+            $form->addElement(
+                'select',
+                'fprogress3',
+                get_lang('FProgress'),
+                $progress
+            );
 
-            $form->addElement('checkbox', 'initstartdate', null, get_lang('StartDate'), array('id' => 'start_date_toggle'));
+            $form->addElement(
+                'checkbox',
+                'initstartdate',
+                null,
+                get_lang('StartDate'),
+                array('id' => 'start_date_toggle')
+            );
 
             $style = "display:block";
             $row['initstartdate'] = 1;
@@ -785,10 +858,19 @@ class Wiki
                 $row['initstartdate'] = null;
             }
 
-            $form->addElement('html', '<div id="start_date" style="'.$style.'">');
+            $form->addElement(
+                'html',
+                '<div id="start_date" style="'.$style.'">'
+            );
             $form->addDatePicker('startdate_assig', '');
             $form->addElement('html', '</div>');
-            $form->addElement('checkbox', 'initenddate', null, get_lang('EndDate'), array('id' => 'end_date_toggle'));
+            $form->addElement(
+                'checkbox',
+                'initenddate',
+                null,
+                get_lang('EndDate'),
+                array('id' => 'end_date_toggle')
+            );
 
             $style = "display:block";
             $row['initenddate'] = 1;
@@ -800,16 +882,25 @@ class Wiki
             $form->addElement('html', '<div id="end_date" style="'.$style.'">');
             $form->addDatePicker('enddate_assig', '');
             $form->addElement('html', '</div>');
-            $form->addElement('checkbox', 'delayedsubmit', null, get_lang('AllowLaterSends'));
+            $form->addElement(
+                'checkbox',
+                'delayedsubmit',
+                null,
+                get_lang('AllowLaterSends')
+            );
             $form->addElement('text', 'max_text', get_lang('NMaxWords'));
             $form->addElement('text', 'max_version', get_lang('NMaxVersion'));
-            $form->addElement('checkbox', 'assignment', null, get_lang('CreateAssignmentPage'));
+            $form->addElement(
+                'checkbox',
+                'assignment',
+                null,
+                get_lang('CreateAssignmentPage')
+            );
             $form->addElement('html', '</div>');
         }
 
         $form->addElement('hidden', 'page_id');
         $form->addElement('hidden', 'reflink');
-//        $form->addElement('hidden', 'assignment');
         $form->addElement('hidden', 'version');
         $form->addElement('hidden', 'wpost_id', api_get_unique_id());
     }
@@ -817,16 +908,19 @@ class Wiki
     /**
      * This function displays the form for adding a new wiki page.
      * @author Patrick Cool <patrick.cool@ugent.be>, Ghent University
-     * @return html code
+     * @return string html code
      **/
     public function display_new_wiki_form()
     {
-        $url = api_get_self().'?'.api_get_cidreq().'&action=addnew&group_id='.api_get_group_id();
+        $url = api_get_self().'?'.api_get_cidreq(
+            ).'&action=addnew&group_id='.api_get_group_id();
         $form = new FormValidator('wiki_new', 'post', $url);
         $form->addElement('text', 'title', get_lang('Title'));
         $form->addRule('title', get_lang('ThisFieldIsRequired'), 'required');
         self::setForm($form);
-        $title = isset($_GET['title']) ? Security::remove_XSS($_GET['title']) : '';
+        $title = isset($_GET['title']) ? Security::remove_XSS(
+            $_GET['title']
+        ) : '';
         $form->setDefaults(['title' => $title]);
         $form->addElement('button', 'SaveWikiNew', get_lang('Save'));
         $form->display();
@@ -835,7 +929,9 @@ class Wiki
             $values = $form->exportValues();
             if (isset($values['startdate_assig']) &&
                 isset($values['enddate_assig']) &&
-                strtotime($values['startdate_assig']) > strtotime($values['enddate_assig'])
+                strtotime($values['startdate_assig']) > strtotime(
+                    $values['enddate_assig']
+                )
             ) {
                 Display::addFlash(
                     Display::return_message(
@@ -846,7 +942,6 @@ class Wiki
                 );
             } elseif (!self::double_post($_POST['wpost_id'])) {
                 //double post
-
             } else {
                 if (isset($values['assignment']) && $values['assignment'] == 1) {
                     self::auto_add_page_users($values);
@@ -855,13 +950,26 @@ class Wiki
                 $return_message = self::save_new_wiki($values);
 
                 if ($return_message == false) {
-                    Display::addFlash(Display::return_message(get_lang('NoWikiPageTitle'), 'error', false));
+                    Display::addFlash(
+                        Display::return_message(
+                            get_lang('NoWikiPageTitle'),
+                            'error',
+                            false
+                        )
+                    );
                 } else {
-                    Display::addFlash(Display::return_message($return_message, 'confirmation', false));
+                    Display::addFlash(
+                        Display::return_message(
+                            $return_message,
+                            'confirmation',
+                            false
+                        )
+                    );
                 }
 
                 $wikiData = self::getWikiData();
-                $redirectUrl = $this->url.'&action=showpage&title='.$wikiData['reflink'].'&'.api_get_cidreq();
+                $redirectUrl = $this->url.'&action=showpage&title='.$wikiData['reflink'].'&'.api_get_cidreq(
+                    );
                 header('Location: '.$redirectUrl);
                 exit;
             }
@@ -949,11 +1057,20 @@ class Wiki
                 $default_table_for_content_Start = '<table align="center" border="0"><tr><td align="center">';
                 $default_table_for_content_End = '</td></tr></table>';
                 $content = $default_table_for_content_Start.
-                    sprintf(get_lang('DefaultContent'), api_get_path(WEB_IMG_PATH)).
+                    sprintf(
+                        get_lang('DefaultContent'),
+                        api_get_path(WEB_IMG_PATH)
+                    ).
                     $default_table_for_content_End;
                 $title = get_lang('DefaultTitle');
             } else {
-                return Display::addFlash(Display::return_message(get_lang('WikiStandBy'), 'normal', false));
+                return Display::addFlash(
+                    Display::return_message(
+                        get_lang('WikiStandBy'),
+                        'normal',
+                        false
+                    )
+                );
             }
         } else {
             $content = Security::remove_XSS($row['content']);
@@ -1038,11 +1155,21 @@ class Wiki
             //page action: visibility
             if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
                 if (self::check_visibility_page() == 1) {
-                    $visibility_page = Display::return_icon('visible.png', get_lang('ShowPageExtra'), '', ICON_SIZE_MEDIUM);
+                    $visibility_page = Display::return_icon(
+                        'visible.png',
+                        get_lang('ShowPageExtra'),
+                        '',
+                        ICON_SIZE_MEDIUM
+                    );
                     $lock_unlock_visibility = 'invisible';
 
                 } else {
-                    $visibility_page = Display::return_icon('invisible.png', get_lang('HidePageExtra'), '', ICON_SIZE_MEDIUM);
+                    $visibility_page = Display::return_icon(
+                        'invisible.png',
+                        get_lang('HidePageExtra'),
+                        '',
+                        ICON_SIZE_MEDIUM
+                    );
                     $lock_unlock_visibility = 'visible';
                 }
             }
@@ -1108,7 +1235,7 @@ class Wiki
                 ?>
                 <script>
                     function goprint() {
-                        var a = window.open('','','width=800,height=600');
+                        var a = window.open('', '', 'width=800,height=600');
                         a.document.open("text/html");
                         a.document.write(document.getElementById('wikicontent').innerHTML);
                         a.document.close();
@@ -1117,13 +1244,21 @@ class Wiki
                 </script>
                 <?php
                 $actionsRight .= Display::url(
-                    Display::return_icon('printer.png', get_lang('Print'), '', ICON_SIZE_MEDIUM),
+                    Display::return_icon(
+                        'printer.png',
+                        get_lang('Print'),
+                        '',
+                        ICON_SIZE_MEDIUM
+                    ),
                     '#',
                     array('onclick' => "javascript: goprint();")
                 );
             }
 
-            echo Display::toolbarAction('toolbar-wikistudent', [$actionsLeft, $actionsRight]);
+            echo Display::toolbarAction(
+                'toolbar-wikistudent',
+                [$actionsLeft, $actionsRight]
+            );
 
             if (empty($title)) {
                 $pageTitle = get_lang('DefaultTitle');
@@ -1173,14 +1308,24 @@ class Wiki
 
         # strip all html tags
         $wc = strip_tags($document);
-        $wc = html_entity_decode($wc, ENT_NOQUOTES, 'UTF-8'); // TODO:test also old html_entity_decode(utf8_encode($wc))
+        $wc = html_entity_decode(
+            $wc,
+            ENT_NOQUOTES,
+            'UTF-8'
+        ); // TODO:test also old html_entity_decode(utf8_encode($wc))
 
         # remove 'words' that don't consist of alphanumerical characters or punctuation. And fix accents and some letters
         $pattern = "#[^(\w|\d|\'|\"|\.|\!|\?|;|,|\\|\/|\-|:|\&|@|á|é|í|ó|ú|à|è|ì|ò|ù|ä|ë|ï|ö|ü|Á|É|Í|Ó|Ú|À|È|Ò|Ù|Ä|Ë|Ï|Ö|Ü|â|ê|î|ô|û|Â|Ê|Î|Ô|Û|ñ|Ñ|ç|Ç)]+#";
         $wc = trim(preg_replace($pattern, " ", $wc));
 
         # remove one-letter 'words' that consist only of punctuation
-        $wc = trim(preg_replace("#\s*[(\'|\"|\.|\!|\?|;|,|\\|\/|\-|:|\&|@)]\s*#", " ", $wc));
+        $wc = trim(
+            preg_replace(
+                "#\s*[(\'|\"|\.|\!|\?|;|,|\\|\/|\-|:|\&|@)]\s*#",
+                " ",
+                $wc
+            )
+        );
 
         # remove superfluous whitespace
         $wc = preg_replace("/\s\s+/", " ", $wc);
@@ -1279,7 +1424,6 @@ class Wiki
         }
 
         return $row['addlock'];
-
     }
 
     /**
@@ -1592,7 +1736,7 @@ class Wiki
         $row = Database::fetch_array($result);
         $id = $row['id'];
         $sql = 'SELECT * FROM '.$tbl_wiki_mailcue.'
-              WHERE c_id = '.$course_id.' AND id="'.$id.'" AND user_id="'.api_get_user_id().'" AND type="P"';
+                WHERE c_id = '.$course_id.' AND id="'.$id.'" AND user_id="'.api_get_user_id().'" AND type="P"';
         $result = Database::query($sql);
         $row = Database::fetch_array($result);
         $idm = $row['id'];
@@ -1742,8 +1886,12 @@ class Wiki
     /**
      * Sends pending e-mails
      */
-    public function check_emailcue($id_or_ref, $type, $lastime = '', $lastuser = '')
-    {
+    public function check_emailcue(
+        $id_or_ref,
+        $type,
+        $lastime = '',
+        $lastuser = ''
+    ) {
         $tbl_wiki_mailcue = $this->tbl_wiki_mailcue;
         $tbl_wiki = $this->tbl_wiki;
         $condition_session = $this->condition_session;
@@ -1792,7 +1940,11 @@ class Wiki
                             session_id="'.$session_id.'"';
                 //type: P=page, D=discuss, F=full.
                 $result = Database::query($sql);
-                $emailtext = get_lang('EmailWikipageModified').' <strong>'.$email_page_name.'</strong> '.get_lang('Wiki');
+                $emailtext = get_lang(
+                        'EmailWikipageModified'
+                    ).' <strong>'.$email_page_name.'</strong> '.get_lang(
+                        'Wiki'
+                    );
             }
         } elseif ($type == 'D') {
             //if added a post to discuss
@@ -1893,7 +2045,9 @@ class Wiki
         ///make and send email
         if ($allow_send_mail) {
             while ($row = Database::fetch_array($result)) {
-                $userinfo = api_get_user_info($row['user_id']); //$row['user_id'] obtained from tbl_wiki_mailcue
+                $userinfo = api_get_user_info(
+                    $row['user_id']
+                ); //$row['user_id'] obtained from tbl_wiki_mailcue
                 $name_to = $userinfo['complete_name'];
                 $email_to = $userinfo['email'];
                 $sender_name = api_get_setting('emailAdministrator');
@@ -2045,18 +2199,33 @@ class Wiki
                         false
                     )
                 );
+
                 return false;
             }
         }
 
         $data = self::getWikiDataFromDb($id);
-        $content_pdf = api_html_entity_decode($data['content'], ENT_QUOTES, api_get_system_encoding());
+        $content_pdf = api_html_entity_decode(
+            $data['content'],
+            ENT_QUOTES,
+            api_get_system_encoding()
+        );
 
         //clean wiki links
-        $content_pdf = trim(preg_replace("/\[[\[]?([^\]|]*)[|]?([^|\]]*)\][\]]?/", "$1", $content_pdf));
+        $content_pdf = trim(
+            preg_replace(
+                "/\[[\[]?([^\]|]*)[|]?([^|\]]*)\][\]]?/",
+                "$1",
+                $content_pdf
+            )
+        );
         //TODO: It should be better to display the link insted of the tile but it is hard for [[title]] links
 
-        $title_pdf = api_html_entity_decode($data['title'], ENT_QUOTES, api_get_system_encoding());
+        $title_pdf = api_html_entity_decode(
+            $data['title'],
+            ENT_QUOTES,
+            api_get_system_encoding()
+        );
         $title_pdf = api_utf8_encode($title_pdf, api_get_system_encoding());
         $content_pdf = api_utf8_encode($content_pdf, api_get_system_encoding());
 
@@ -2074,7 +2243,9 @@ class Wiki
 
         mpdf-->'.$content_pdf;
 
-        $css_file = api_get_path(SYS_CSS_PATH).'themes/'.api_get_setting('stylesheets').'/print.css';
+        $css_file = api_get_path(SYS_CSS_PATH).'themes/'.api_get_setting(
+                'stylesheets'
+            ).'/print.css';
         if (file_exists($css_file)) {
             $css = @file_get_contents($css_file);
         } else {
@@ -2121,15 +2292,26 @@ class Wiki
         if ($groupId == 0) {
             //extract course members
             if (!empty($session_id)) {
-                $a_users_to_add = CourseManager::get_user_list_from_course_code(api_get_course_id(), $session_id);
+                $a_users_to_add = CourseManager::get_user_list_from_course_code(
+                    api_get_course_id(),
+                    $session_id
+                );
             } else {
-                $a_users_to_add = CourseManager::get_user_list_from_course_code(api_get_course_id(), 0);
+                $a_users_to_add = CourseManager::get_user_list_from_course_code(
+                    api_get_course_id(),
+                    0
+                );
             }
         } else {
             //extract group members
             $subscribed_users = GroupManager::get_subscribed_users($groupInfo);
-            $subscribed_tutors = GroupManager::get_subscribed_tutors($groupInfo);
-            $a_users_to_add_with_duplicates = array_merge($subscribed_users, $subscribed_tutors);
+            $subscribed_tutors = GroupManager::get_subscribed_tutors(
+                $groupInfo
+            );
+            $a_users_to_add_with_duplicates = array_merge(
+                $subscribed_users,
+                $subscribed_tutors
+            );
             //remove duplicates
             $a_users_to_add = $a_users_to_add_with_duplicates;
             //array_walk($a_users_to_add, create_function('&$value,$key', '$value = json_encode($value);'));
@@ -2141,7 +2323,9 @@ class Wiki
         // Data about teacher
         $userId = api_get_user_id();
         $userinfo = api_get_user_info($userId);
-        $username = api_htmlentities(sprintf(get_lang('LoginX'), $userinfo['username'], ENT_QUOTES));
+        $username = api_htmlentities(
+            sprintf(get_lang('LoginX'), $userinfo['username'], ENT_QUOTES)
+        );
         $name = $userinfo['complete_name']." - ".$username;
         $photo = '<img src="'.$userinfo['avatar'].'" alt="'.$name.'"  width="40" height="50" align="top" title="'.$name.'"  />';
 
@@ -2155,7 +2339,14 @@ class Wiki
         $content_orig_A = '<div align="center" style="background-color: #F5F8FB; border:solid; border-color: #E6E6E6">
         <table border="0">
             <tr><td style="font-size:24px">'.get_lang('AssignmentDesc').'</td></tr>
-            <tr><td>'.$photo.'<br />'.Display::tag('span', api_get_person_name($userinfo['firstname'], $userinfo['lastname']), array('title'=>$username)).'</td></tr>
+            <tr><td>'.$photo.'<br />'.Display::tag(
+                'span',
+                api_get_person_name(
+                    $userinfo['firstname'],
+                    $userinfo['lastname']
+                ),
+                array('title' => $username)
+            ).'</td></tr>
         </table></div>';
 
         $content_orig_B = '<br/><div align="center" style="font-size:24px">'.
@@ -2171,12 +2362,27 @@ class Wiki
                 // identifies each page as created by the student, not by teacher
 
                 $userPicture = UserManager::getUserPicture($assig_user_id);
-                $username = api_htmlentities(sprintf(get_lang('LoginX'), $o_user_to_add['username'], ENT_QUOTES));
-                $name = api_get_person_name($o_user_to_add['firstname'], $o_user_to_add['lastname'])." . ".$username;
+                $username = api_htmlentities(
+                    sprintf(
+                        get_lang('LoginX'),
+                        $o_user_to_add['username'],
+                        ENT_QUOTES
+                    )
+                );
+                $name = api_get_person_name(
+                        $o_user_to_add['firstname'],
+                        $o_user_to_add['lastname']
+                    )." . ".$username;
                 $photo = '<img src="'.$userPicture.'" alt="'.$name.'"  width="40" height="50" align="bottom" title="'.$name.'"  />';
 
-                $is_tutor_of_group = GroupManager::is_tutor_of_group($assig_user_id, $groupInfo); //student is tutor
-                $is_tutor_and_member = GroupManager::is_tutor_of_group($assig_user_id, $groupInfo) &&
+                $is_tutor_of_group = GroupManager::is_tutor_of_group(
+                    $assig_user_id,
+                    $groupInfo
+                ); //student is tutor
+                $is_tutor_and_member = GroupManager::is_tutor_of_group(
+                        $assig_user_id,
+                        $groupInfo
+                    ) &&
                     GroupManager::is_subscribed($assig_user_id, $groupInfo);
                 // student is tutor and member
                 if ($is_tutor_and_member) {
@@ -2195,16 +2401,23 @@ class Wiki
                     <table border="0">
                     <tr><td style="font-size:24px">'.get_lang('AssignmentWork').'</td></tr>
                     <tr><td>'.$photo.'<br />'.$name.'</td></tr></table>
-                    </div>[['.$link2teacher.' | '.get_lang('AssignmentLinktoTeacherPage').']] ';
+                    </div>[['.$link2teacher.' | '.get_lang(
+                            'AssignmentLinktoTeacherPage'
+                        ).']] ';
                     //If $content_orig_B is added here, the task written by the professor was copied to the page of each student. TODO: config options
 
                     // AssignmentLinktoTeacherPage
                     $all_students_pages[] = '<li>'.
                         Display::tag(
                             'span',
-                            strtoupper($o_user_to_add['lastname']).', '.$o_user_to_add['firstname'], array('title'=>$username)
+                            strtoupper(
+                                $o_user_to_add['lastname']
+                            ).', '.$o_user_to_add['firstname'],
+                            array('title' => $username)
                         ).
-                        ' [['.Security::remove_XSS($_POST['title'])."_uass".$assig_user_id.' | '.$photo.']] '.$status_in_group.'</li>';
+                        ' [['.Security::remove_XSS(
+                            $_POST['title']
+                        )."_uass".$assig_user_id.' | '.$photo.']] '.$status_in_group.'</li>';
                     //don't change this line without guaranteeing that users will be ordered by last names in the following format (surname, name)
                     $values['assignment'] = 2;
                 }
@@ -2242,14 +2455,19 @@ class Wiki
      * @param   int     Whether to search the contents (1) or just the titles (0)
      * @param int
      */
-    public function display_wiki_search_results($search_term, $search_content = 0, $all_vers = 0)
-    {
+    public function display_wiki_search_results(
+        $search_term,
+        $search_content = 0,
+        $all_vers = 0
+    ) {
         $tbl_wiki = $this->tbl_wiki;
         $condition_session = $this->condition_session;
         $groupfilter = $this->groupfilter;
         $_course = $this->courseInfo;
         $course_id = api_get_course_int_id();
-        echo '<legend>'.get_lang('WikiSearchResults').': '.Security::remove_XSS($search_term);
+        echo '<legend>'.get_lang('WikiSearchResults').': '.Security::remove_XSS(
+                $search_term
+            );
         echo '</legend>';
 
         //only by professors when page is hidden
@@ -2371,11 +2589,23 @@ class Wiki
 
                 //get type assignment icon
                 if ($obj->assignment == 1) {
-                    $ShowAssignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDesc'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_assignment.png',
+                        get_lang('AssignmentDesc'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 2) {
-                    $ShowAssignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWork'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_work.png',
+                        get_lang('AssignmentWork'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 0) {
-                    $ShowAssignment = Display::return_icon('px_transparent.gif');
+                    $ShowAssignment = Display::return_icon(
+                        'px_transparent.gif'
+                    );
                 }
                 $row = array();
                 $row[] = $ShowAssignment;
@@ -2430,16 +2660,34 @@ class Wiki
                     'all_vers' => $all_vers,
                 )
             );
-            $table->set_header(0, get_lang('Type'), true, array('style' => 'width:30px;'));
+            $table->set_header(
+                0,
+                get_lang('Type'),
+                true,
+                array('style' => 'width:30px;')
+            );
             $table->set_header(1, get_lang('Title'), true);
             if ($all_vers == '1') {
                 $table->set_header(2, get_lang('Author'), true);
                 $table->set_header(3, get_lang('Date'), true);
                 $table->set_header(4, get_lang('Version'), true);
             } else {
-                $table->set_header(2, get_lang('Author').' ('.get_lang('LastVersion').')', true);
-                $table->set_header(3, get_lang('Date').' ('.get_lang('LastVersion').')', true);
-                $table->set_header(4, get_lang('Actions'), false, array('style' => 'width:130px;'));
+                $table->set_header(
+                    2,
+                    get_lang('Author').' ('.get_lang('LastVersion').')',
+                    true
+                );
+                $table->set_header(
+                    3,
+                    get_lang('Date').' ('.get_lang('LastVersion').')',
+                    true
+                );
+                $table->set_header(
+                    4,
+                    get_lang('Actions'),
+                    false,
+                    array('style' => 'width:130px;')
+                );
             }
             $table->display();
         } else {
@@ -2477,9 +2725,29 @@ class Wiki
         );
 
         $minute = range(10, 59);
-        array_unshift($minute, '00', '01', '02', '03', '04', '05', '06', '07', '08', '09');
-        $date_form = self::make_select($prefix.'_day', array_combine(range(1, 31), range(1, 31)), $d_day);
-        $date_form .= self::make_select($prefix.'_month', $month_list, $d_month);
+        array_unshift(
+            $minute,
+            '00',
+            '01',
+            '02',
+            '03',
+            '04',
+            '05',
+            '06',
+            '07',
+            '08',
+            '09'
+        );
+        $date_form = self::make_select(
+            $prefix.'_day',
+            array_combine(range(1, 31), range(1, 31)),
+            $d_day
+        );
+        $date_form .= self::make_select(
+            $prefix.'_month',
+            $month_list,
+            $d_month
+        );
         $date_form .= self::make_select(
                 $prefix.'_year',
                 array(
@@ -2491,7 +2759,11 @@ class Wiki
                 ),
                 $d_year
             ).'&nbsp;&nbsp;&nbsp;&nbsp;';
-        $date_form .= self::make_select($prefix.'_hour', array_combine(range(0, 23), range(0, 23)), $d_hour).' : ';
+        $date_form .= self::make_select(
+                $prefix.'_hour',
+                array_combine(range(0, 23), range(0, 23)),
+                $d_hour
+            ).' : ';
         $date_form .= self::make_select($prefix.'_minute', $minute, $d_minute);
 
         return $date_form;
@@ -2508,6 +2780,7 @@ class Wiki
             $output .= '<option value="'.$key.'" '.(($checked == $key) ? 'selected="selected"' : '').'>'.$value.'</option>';
         }
         $output .= '</select>';
+
         return $output;
     }
 
@@ -2518,10 +2791,10 @@ class Wiki
     public function get_date_from_select($prefix)
     {
         return $_POST[$prefix.'_year'].'-'.
-        self::two_digits($_POST[$prefix.'_month']).'-'.
-        self::two_digits($_POST[$prefix.'_day']).' '.
-        self::two_digits($_POST[$prefix.'_hour']).':'.
-        self::two_digits($_POST[$prefix.'_minute']).':00';
+            self::two_digits($_POST[$prefix.'_month']).'-'.
+            self::two_digits($_POST[$prefix.'_day']).' '.
+            self::two_digits($_POST[$prefix.'_hour']).':'.
+            self::two_digits($_POST[$prefix.'_minute']).':00';
     }
 
     /**
@@ -2535,7 +2808,7 @@ class Wiki
 
     /**
      * Get wiki information
-     * @param   int|bool     wiki id
+     * @param   int|bool wiki id
      * @return  array   wiki data
      */
     public function getWikiDataFromDb($id)
@@ -2553,6 +2826,7 @@ class Wiki
         while ($row = Database::fetch_array($result, 'ASSOC')) {
             $data = $row;
         }
+
         return $data;
     }
 
@@ -2617,8 +2891,12 @@ class Wiki
      * @param string
      * @return bool
      */
-    public function deletePage($title, $courseId, $groupfilter = null, $condition_session = null)
-    {
+    public function deletePage(
+        $title,
+        $courseId,
+        $groupfilter = null,
+        $condition_session = null
+    ) {
         $tbl_wiki = $this->tbl_wiki;
         $tbl_wiki_discuss = $this->tbl_wiki_discuss;
         $tbl_wiki_mailcue = $this->tbl_wiki_mailcue;
@@ -2697,7 +2975,7 @@ class Wiki
     {
         $result = self::getAllWiki();
         if (!empty($result)) {
-            foreach ($result  as $is_editing_block) {
+            foreach ($result as $is_editing_block) {
                 $max_edit_time = 1200; // 20 minutes
                 $timestamp_edit = strtotime($is_editing_block['time_edit']);
                 $time_editing = time() - $timestamp_edit;
@@ -2884,7 +3162,8 @@ class Wiki
                     visibility = 0 AND 
                     '.$groupfilter.$condition_session.'
                 GROUP BY reflink';
-        // or group by page_id. As the mark of hidden places it in all versions of the page, I can use group by to see the first
+        // or group by page_id. As the mark of hidden places it in all
+        // versions of the page, I can use group by to see the first
         $allpages = Database::query($sql);
         while ($row = Database::fetch_array($allpages)) {
             $total_hidden = $total_hidden + 1;
@@ -2896,7 +3175,6 @@ class Wiki
                 WHERE  c_id = '.$course_id.' AND editlock=1 AND '.$groupfilter.$condition_session.'
                 GROUP BY reflink';
         // or group by page_id. As the mark of protected page is the first version of the page, I can use group by
-
         $allpages = Database::query($sql);
         while ($row = Database::fetch_array($allpages)) {
             $total_protected = $total_protected + 1;
@@ -3326,7 +3604,12 @@ class Wiki
                 )
             );
             $table->set_header(0, get_lang('Author'), true);
-            $table->set_header(1, get_lang('Contributions'), true, array('style' => 'width:30px;'));
+            $table->set_header(
+                1,
+                get_lang('Contributions'),
+                true,
+                array('style' => 'width:30px;')
+            );
             $table->display();
         }
     }
@@ -3349,7 +3632,14 @@ class Wiki
         }
 
         if (!$_GET['title']) {
-            Display::addFlash(Display::return_message(get_lang("MustSelectPage"), 'error', false));
+            Display::addFlash(
+                Display::return_message(
+                    get_lang("MustSelectPage"),
+                    'error',
+                    false
+                )
+            );
+
             return;
         }
 
@@ -3712,7 +4002,12 @@ class Wiki
         // menu delete all wiki
         if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
             echo ' <a href="index.php?action=deletewiki&'.api_get_cidreq().'">'.
-                Display::return_icon('delete.png', get_lang('DeleteWiki'), '', ICON_SIZE_MEDIUM).'</a>';
+                Display::return_icon(
+                    'delete.png',
+                    get_lang('DeleteWiki'),
+                    '',
+                    ICON_SIZE_MEDIUM
+                ).'</a>';
         }
         echo '</div>';
 
@@ -3739,20 +4034,40 @@ class Wiki
             while ($obj = Database::fetch_object($allpages)) {
                 //get author
                 $userinfo = api_get_user_info($obj->user_id);
-                $username = api_htmlentities(sprintf(get_lang('LoginX'), $userinfo['username']), ENT_QUOTES);
+                $username = api_htmlentities(
+                    sprintf(get_lang('LoginX'), $userinfo['username']),
+                    ENT_QUOTES
+                );
 
                 //get type assignment icon
                 if ($obj->assignment == 1) {
-                    $ShowAssignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDesc'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_assignment.png',
+                        get_lang('AssignmentDesc'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 2) {
-                    $ShowAssignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWork'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_work.png',
+                        get_lang('AssignmentWork'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 0) {
-                    $ShowAssignment = Display::return_icon('px_transparent.gif');
+                    $ShowAssignment = Display::return_icon(
+                        'px_transparent.gif'
+                    );
                 }
 
                 //get icon task
                 if (!empty($obj->task)) {
-                    $icon_task = Display::return_icon('wiki_task.png', get_lang('StandardTask'), '', ICON_SIZE_SMALL);
+                    $icon_task = Display::return_icon(
+                        'wiki_task.png',
+                        get_lang('StandardTask'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } else {
                     $icon_task = Display::return_icon('px_transparent.gif');
                 }
@@ -3763,15 +4078,33 @@ class Wiki
                 '.api_htmlentities($obj->title).'</a>';
                 if ($userinfo !== false) {
                     $row[] = UserManager::getUserProfileLink($userinfo);
+                } else {
+                    $row[] = get_lang('Anonymous').' ('.api_htmlentities(
+                            $obj->user_ip
+                        ).')';
                 }
-                else {
-                    $row[] = get_lang('Anonymous').' ('.api_htmlentities($obj->user_ip).')';
-                }
-                $row[] = api_get_local_time($obj->dtime, null, date_default_timezone_get());
+                $row[] = api_get_local_time(
+                    $obj->dtime,
+                    null,
+                    date_default_timezone_get()
+                );
                 $showdelete = '';
-                if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
-                    $showdelete = ' <a href="'.api_get_self().'?cidReq='.$_course['code'].'&action=delete&title='.api_htmlentities(urlencode($obj->reflink)).'&session_id='.api_htmlentities($_GET['session_id']).'&group_id='.api_htmlentities($_GET['group_id']).'">'.
-                        Display::return_icon('delete.png', get_lang('Delete'), '', ICON_SIZE_SMALL);
+                if (api_is_allowed_to_edit(
+                        false,
+                        true
+                    ) || api_is_platform_admin()) {
+                    $showdelete = ' <a href="'.api_get_self(
+                        ).'?cidReq='.$_course['code'].'&action=delete&title='.api_htmlentities(
+                            urlencode($obj->reflink)
+                        ).'&session_id='.api_htmlentities(
+                            $_GET['session_id']
+                        ).'&group_id='.api_htmlentities($_GET['group_id']).'">'.
+                        Display::return_icon(
+                            'delete.png',
+                            get_lang('Delete'),
+                            '',
+                            ICON_SIZE_SMALL
+                        );
                 }
                 if (api_is_allowed_to_session_edit(false, true)) {
                     $row[] = '<a href="'.api_get_self().'?cidReq='.$_course['code'].'&action=edit&title='.api_htmlentities(urlencode($obj->reflink)).'&session_id='.api_htmlentities($_GET['session_id']).'&group_id='.api_htmlentities($_GET['group_id']).'">'.
@@ -3896,7 +4229,11 @@ class Wiki
                 }
 
                 $row = array();
-                $row[] = api_get_local_time($obj->dtime, null, date_default_timezone_get());
+                $row[] = api_get_local_time(
+                    $obj->dtime,
+                    null,
+                    date_default_timezone_get()
+                );
                 $row[] = $ShowAssignment.$icon_task;
                 $row[] = '<a href="'.api_get_self().'?'.api_get_cidreq().'&action=showpage&title='.api_htmlentities(urlencode($obj->reflink)).'&amp;view='.$obj->id.'&session_id='.api_get_session_id().'&group_id='.api_get_group_id().'">'.
                     api_htmlentities($obj->title).'</a>';
@@ -3920,16 +4257,31 @@ class Wiki
             );
             $table->set_additional_parameters(
                 array(
-                    'cidReq' =>api_get_course_id(),
-                    'action'=>Security::remove_XSS($action),
+                    'cidReq' => api_get_course_id(),
+                    'action' => Security::remove_XSS($action),
                     'session_id' => api_get_session_id(),
                     'group_id' => api_get_group_id()
                 )
             );
-            $table->set_header(0, get_lang('Date'), true, array('style' => 'width:200px;'));
-            $table->set_header(1, get_lang('Type'), true, array('style' => 'width:30px;'));
+            $table->set_header(
+                0,
+                get_lang('Date'),
+                true,
+                array('style' => 'width:200px;')
+            );
+            $table->set_header(
+                1,
+                get_lang('Type'),
+                true,
+                array('style' => 'width:30px;')
+            );
             $table->set_header(2, get_lang('Title'), true);
-            $table->set_header(3, get_lang('Actions'), true, array('style' => 'width:80px;'));
+            $table->set_header(
+                3,
+                get_lang('Actions'),
+                true,
+                array('style' => 'width:80px;')
+            );
             $table->set_header(4, get_lang('Author'), true);
             $table->display();
         }
@@ -3950,7 +4302,13 @@ class Wiki
         $action = $this->action;
 
         if (!$_GET['title']) {
-            Display::addFlash(Display::return_message(get_lang("MustSelectPage"), 'error', false));
+            Display::addFlash(
+                Display::return_message(
+                    get_lang("MustSelectPage"),
+                    'error',
+                    false
+                )
+            );
         } else {
             $sql = 'SELECT * FROM '.$tbl_wiki.'
                     WHERE
@@ -3963,9 +4321,19 @@ class Wiki
             //get type assignment icon
             $ShowAssignment = '';
             if ($row['assignment'] == 1) {
-                $ShowAssignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDesc'), '', ICON_SIZE_SMALL);
+                $ShowAssignment = Display::return_icon(
+                    'wiki_assignment.png',
+                    get_lang('AssignmentDesc'),
+                    '',
+                    ICON_SIZE_SMALL
+                );
             } elseif ($row['assignment'] == 2) {
-                $ShowAssignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWork'), '', ICON_SIZE_SMALL);
+                $ShowAssignment = Display::return_icon(
+                    'wiki_work.png',
+                    get_lang('AssignmentWork'),
+                    '',
+                    ICON_SIZE_SMALL
+                );
             } elseif ($row['assignment'] == 0) {
                 $ShowAssignment = Display::return_icon('px_transparent.gif');
             }
@@ -4021,11 +4389,23 @@ class Wiki
 
                     //get type assignment icon
                     if ($obj->assignment == 1) {
-                        $ShowAssignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDesc'), '', ICON_SIZE_SMALL);
+                        $ShowAssignment = Display::return_icon(
+                            'wiki_assignment.png',
+                            get_lang('AssignmentDesc'),
+                            '',
+                            ICON_SIZE_SMALL
+                        );
                     } elseif ($obj->assignment == 2) {
-                        $ShowAssignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWork'), '', ICON_SIZE_SMALL);
+                        $ShowAssignment = Display::return_icon(
+                            'wiki_work.png',
+                            get_lang('AssignmentWork'),
+                            '',
+                            ICON_SIZE_SMALL
+                        );
                     } elseif ($obj->assignment == 0) {
-                        $ShowAssignment = Display::return_icon('px_transparent.gif');
+                        $ShowAssignment = Display::return_icon(
+                            'px_transparent.gif'
+                        );
                     }
 
                     $row = array();
@@ -4034,8 +4414,7 @@ class Wiki
                         api_htmlentities($obj->title).'</a>';
                     if ($userinfo !== false) {
                         $row[] = UserManager::getUserProfileLink($userinfo);
-                    }
-                    else {
+                    } else {
                         $row[] = get_lang('Anonymous').' ('.$obj->user_ip.')';
                     }
                     $row[] = $year.'-'.$month.'-'.$day.' '.$hours.":".$minutes.":".$seconds;
@@ -4099,13 +4478,33 @@ class Wiki
 
             // Setting the form elements
 
-            $form->addText('search_term', get_lang('SearchTerm'), true, array('autofocus' => 'autofocus'));
-            $form->addElement('checkbox', 'search_content', null, get_lang('AlsoSearchContent'));
-            $form->addElement('checkbox', 'all_vers', null, get_lang('IncludeAllVersions'));
+            $form->addText(
+                'search_term',
+                get_lang('SearchTerm'),
+                true,
+                array('autofocus' => 'autofocus')
+            );
+            $form->addElement(
+                'checkbox',
+                'search_content',
+                null,
+                get_lang('AlsoSearchContent')
+            );
+            $form->addElement(
+                'checkbox',
+                'all_vers',
+                null,
+                get_lang('IncludeAllVersions')
+            );
             $form->addButtonSearch(get_lang('Search'), 'SubmitWikiSearch');
 
             // setting the rules
-            $form->addRule('search_term', get_lang('TooShort'), 'minlength', 3); //TODO: before fixing the pagination rules worked, not now
+            $form->addRule(
+                'search_term',
+                get_lang('TooShort'),
+                'minlength',
+                3
+            ); //TODO: before fixing the pagination rules worked, not now
 
             if ($form->validate()) {
                 $form->display();
@@ -4174,11 +4573,23 @@ class Wiki
                 //get type assignment icon
                 $ShowAssignment = '';
                 if ($obj->assignment == 1) {
-                    $ShowAssignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDescExtra'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_assignment.png',
+                        get_lang('AssignmentDescExtra'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 2) {
-                    $ShowAssignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWork'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_work.png',
+                        get_lang('AssignmentWork'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 0) {
-                    $ShowAssignment = Display::return_icon('px_transparent.gif');
+                    $ShowAssignment = Display::return_icon(
+                        'px_transparent.gif'
+                    );
                 }
 
                 $row = array();
@@ -4211,13 +4622,48 @@ class Wiki
                     'group_id' => intval($_GET['group_id']),
                 )
             );
-            $table->set_header(0, get_lang('Date'), true, array('style' => 'width:200px;'));
-            $table->set_header(1, get_lang('Type'), true, array('style' => 'width:30px;'));
-            $table->set_header(2, get_lang('Title'), true, array('style' => 'width:200px;'));
-            $table->set_header(3, get_lang('Version'), true, array('style' => 'width:30px;'));
-            $table->set_header(4, get_lang('Comment'), true, array('style' => 'width:200px;'));
-            $table->set_header(5, get_lang('Progress'), true, array('style' => 'width:30px;'));
-            $table->set_header(6, get_lang('Rating'), true, array('style' => 'width:30px;'));
+            $table->set_header(
+                0,
+                get_lang('Date'),
+                true,
+                array('style' => 'width:200px;')
+            );
+            $table->set_header(
+                1,
+                get_lang('Type'),
+                true,
+                array('style' => 'width:30px;')
+            );
+            $table->set_header(
+                2,
+                get_lang('Title'),
+                true,
+                array('style' => 'width:200px;')
+            );
+            $table->set_header(
+                3,
+                get_lang('Version'),
+                true,
+                array('style' => 'width:30px;')
+            );
+            $table->set_header(
+                4,
+                get_lang('Comment'),
+                true,
+                array('style' => 'width:200px;')
+            );
+            $table->set_header(
+                5,
+                get_lang('Progress'),
+                true,
+                array('style' => 'width:30px;')
+            );
+            $table->set_header(
+                6,
+                get_lang('Rating'),
+                true,
+                array('style' => 'width:30px;')
+            );
             $table->display();
         }
     }
@@ -4286,7 +4732,12 @@ class Wiki
                     'group_id' => intval($_GET['group_id']),
                 )
             );
-            $table->set_header(0, get_lang('Type'), true, array('style' => 'width:30px;'));
+            $table->set_header(
+                0,
+                get_lang('Type'),
+                true,
+                array('style' => 'width:30px;')
+            );
             $table->set_header(1, get_lang('Title'), true);
             $table->set_header(2, get_lang('Changes'), true);
             $table->display();
@@ -4316,13 +4767,19 @@ class Wiki
             (!api_is_allowed_to_edit(false, true) && $this->group_id == 0)
         ) {
             Display::addFlash(
-                Display::return_message(get_lang('OnlyEditPagesCourseManager'), 'normal', false)
+                Display::return_message(
+                    get_lang('OnlyEditPagesCourseManager'),
+                    'normal',
+                    false
+                )
             );
         } else {
 
             // check if is a wiki group
             if ($current_row['group_id'] != 0) {
-                $groupInfo = GroupManager::get_group_properties($this->group_id);
+                $groupInfo = GroupManager::get_group_properties(
+                    $this->group_id
+                );
                 //Only teacher, platform admin and group members can edit a wiki group
                 if (api_is_allowed_to_edit(false, true) ||
                     api_is_platform_admin() ||
@@ -4332,7 +4789,11 @@ class Wiki
                     $PassEdit = true;
                 } else {
                     Display::addFlash(
-                        Display::return_message(get_lang('OnlyEditPagesGroupMembers'), 'normal', false)
+                        Display::return_message(
+                            get_lang('OnlyEditPagesGroupMembers'),
+                            'normal',
+                            false
+                        )
                     );
                 }
             } else {
@@ -4342,13 +4803,25 @@ class Wiki
             // check if is an assignment
             //$icon_assignment = null;
             if ($current_row['assignment'] == 1) {
-                Display::addFlash(Display::return_message(get_lang('EditAssignmentWarning'), 'normal', false));
+                Display::addFlash(
+                    Display::return_message(
+                        get_lang('EditAssignmentWarning'),
+                        'normal',
+                        false
+                    )
+                );
             } elseif ($current_row['assignment'] == 2) {
                 if (($userId == $current_row['user_id']) == false) {
                     if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
                         $PassEdit = true;
                     } else {
-                        Display::addFlash(Display::return_message(get_lang('LockByTeacher'), 'normal', false));
+                        Display::addFlash(
+                            Display::return_message(
+                                get_lang('LockByTeacher'),
+                                'normal',
+                                false
+                            )
+                        );
                         $PassEdit = false;
                     }
                 } else {
@@ -4370,28 +4843,46 @@ class Wiki
                         $max_edit_time = 1200; // 20 minutes
                         $rest_time = $max_edit_time - $time_editing;
                         $userinfo = api_get_user_info($last_row['is_editing']);
-                        $is_being_edited = get_lang('ThisPageisBeginEditedBy').' <a href='.$userinfo['profile_url'].'>'.
-                            Display::tag('span', $userinfo['complete_name_with_username']).
-                            get_lang('ThisPageisBeginEditedTryLater').' '.date("i", $rest_time).' '.get_lang('MinMinutes');
-                        Display::addFlash(Display::return_message($is_being_edited, 'normal', false));
+                        $is_being_edited = get_lang(
+                                'ThisPageisBeginEditedBy'
+                            ).' <a href='.$userinfo['profile_url'].'>'.
+                            Display::tag(
+                                'span',
+                                $userinfo['complete_name_with_username']
+                            ).
+                            get_lang('ThisPageisBeginEditedTryLater').' '.date(
+                                "i",
+                                $rest_time
+                            ).' '.get_lang('MinMinutes');
+                        Display::addFlash(
+                            Display::return_message(
+                                $is_being_edited,
+                                'normal',
+                                false
+                            )
+                        );
                     } else {
-                        Display::addFlash(Display::return_message(
-                            self::restore_wikipage(
-                                $current_row['page_id'],
-                                $current_row['reflink'],
-                                $current_row['title'],
-                                $current_row['content'],
-                                $current_row['group_id'],
-                                $current_row['assignment'],
-                                $current_row['progress'],
-                                $current_row['version'],
-                                $last_row['version'],
-                                $current_row['linksto']
-                            ).': <a href="index.php?cidReq='.$_course['code'].'&action=showpage&amp;title='.api_htmlentities(urlencode($last_row['reflink'])).'&session_id='.$last_row['session_id'].'&group_id='.$last_row['group_id'].'">'.
-                            api_htmlentities($last_row['title']).'</a>',
-                            'confirmation',
-                            false
-                        ));
+                        Display::addFlash(
+                            Display::return_message(
+                                self::restore_wikipage(
+                                    $current_row['page_id'],
+                                    $current_row['reflink'],
+                                    $current_row['title'],
+                                    $current_row['content'],
+                                    $current_row['group_id'],
+                                    $current_row['assignment'],
+                                    $current_row['progress'],
+                                    $current_row['version'],
+                                    $last_row['version'],
+                                    $current_row['linksto']
+                                ).': <a href="index.php?cidReq='.$_course['code'].'&action=showpage&amp;title='.api_htmlentities(
+                                    urlencode($last_row['reflink'])
+                                ).'&session_id='.$last_row['session_id'].'&group_id='.$last_row['group_id'].'">'.
+                                api_htmlentities($last_row['title']).'</a>',
+                                'confirmation',
+                                false
+                            )
+                        );
                     }
                 }
             }
@@ -4417,6 +4908,7 @@ class Wiki
     /**
      * Check last version
      * @param int $view
+     * @return bool
      */
     public function checkLastVersion($view)
     {
@@ -4479,7 +4971,11 @@ class Wiki
         $allpages = Database::query($sql);
         while ($row = Database::fetch_array($allpages)) {
             if ($row['reflink'] == 'index') {
-                $row['reflink'] = str_replace(' ', '_', get_lang('DefaultTitle'));
+                $row['reflink'] = str_replace(
+                    ' ',
+                    '_',
+                    get_lang('DefaultTitle')
+                );
             }
             $pages[] = $row['reflink'];
         }
@@ -4499,7 +4995,11 @@ class Wiki
 
         while ($row = Database::fetch_array($allpages)) {
             //remove self reference
-            $row['linksto'] = str_replace($row["reflink"], " ", trim($row["linksto"]));
+            $row['linksto'] = str_replace(
+                $row["reflink"],
+                " ",
+                trim($row["linksto"])
+            );
             $refs = explode(" ", trim($row["linksto"]));
 
             // Find linksto into reflink. If found ->page is linked
@@ -4582,10 +5082,18 @@ class Wiki
         $allpages = Database::query($sql);
         $array_refs_linked = array();
         while ($row = Database::fetch_array($allpages)) {
-            $row['linksto'] = str_replace($row["reflink"], " ", trim($row["linksto"])); //remove self reference
+            $row['linksto'] = str_replace(
+                $row["reflink"],
+                " ",
+                trim($row["linksto"])
+            ); //remove self reference
             $refs = explode(" ", trim($row["linksto"]));
             foreach ($refs as $ref_linked) {
-                if ($ref_linked == str_replace(' ', '_', get_lang('DefaultTitle'))) {
+                if ($ref_linked == str_replace(
+                        ' ',
+                        '_',
+                        get_lang('DefaultTitle')
+                    )) {
                     $ref_linked = 'index';
                 }
                 $array_refs_linked[] = $ref_linked;
@@ -4615,15 +5123,28 @@ class Wiki
                 $orphaned_title = $row['title'];
                 $orphaned_visibility = $row['visibility'];
                 if ($row['assignment'] == 1) {
-                    $ShowAssignment = Display::return_icon('wiki_assignment.png', '', '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_assignment.png',
+                        '',
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($row['assignment'] == 2) {
-                    $ShowAssignment = Display::return_icon('wiki_work.png', '', '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_work.png',
+                        '',
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($row['assignment'] == 0) {
-                    $ShowAssignment = Display::return_icon('px_transparent.gif');
+                    $ShowAssignment = Display::return_icon(
+                        'px_transparent.gif'
+                    );
                 }
             }
 
-            if (!api_is_allowed_to_edit(false, true) || !api_is_platform_admin() && $orphaned_visibility == 0) {
+            if (!api_is_allowed_to_edit(false, true) || !api_is_platform_admin(
+                ) && $orphaned_visibility == 0) {
                 continue;
             }
 
@@ -4652,7 +5173,12 @@ class Wiki
                 'group_id' => intval($_GET['group_id']),
             )
         );
-        $table->set_header(0, get_lang('Type'), true, array('style' => 'width:30px;'));
+        $table->set_header(
+            0,
+            get_lang('Type'),
+            true,
+            array('style' => 'width:30px;')
+        );
         $table->set_header(1, get_lang('Title'), true);
         $table->display();
     }
@@ -4679,7 +5205,11 @@ class Wiki
 
         while ($row = Database::fetch_array($allpages)) {
             if ($row['reflink'] == 'index') {
-                $row['reflink'] = str_replace(' ', '_', get_lang('DefaultTitle'));
+                $row['reflink'] = str_replace(
+                    ' ',
+                    '_',
+                    get_lang('DefaultTitle')
+                );
             }
             $pages[] = $row['reflink'];
         }
@@ -4772,11 +5302,23 @@ class Wiki
                 //get type assignment icon
                 $ShowAssignment = '';
                 if ($obj->assignment == 1) {
-                    $ShowAssignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDesc'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = Display::return_icon(
+                        'wiki_assignment.png',
+                        get_lang('AssignmentDesc'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 2) {
-                    $ShowAssignment = $ShowAssignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWork'), '', ICON_SIZE_SMALL);
+                    $ShowAssignment = $ShowAssignment = Display::return_icon(
+                        'wiki_work.png',
+                        get_lang('AssignmentWork'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } elseif ($obj->assignment == 0) {
-                    $ShowAssignment = Display::return_icon('px_transparent.gif');
+                    $ShowAssignment = Display::return_icon(
+                        'px_transparent.gif'
+                    );
                 }
 
                 $row = array();
@@ -4804,7 +5346,12 @@ class Wiki
                     'group_id' => intval($_GET['group_id']),
                 )
             );
-            $table->set_header(0, get_lang('Type'), true, array('style' => 'width:30px;'));
+            $table->set_header(
+                0,
+                get_lang('Type'),
+                true,
+                array('style' => 'width:30px;')
+            );
             $table->set_header(1, get_lang('Title'), true);
             $table->set_header(2, get_lang('Visits'), true);
             $table->display();
@@ -4823,7 +5370,12 @@ class Wiki
         $page = $this->page;
         $actionsLeft = '';
         $actionsLeft .= '<a href="index.php?action=showpage&title=index&cidReq='.$_course['id'].'&session_id='.$session_id.'&group_id='.$groupId.'">'.
-            Display::return_icon('home.png', get_lang('Home'), '', ICON_SIZE_MEDIUM).'</a>';
+            Display::return_icon(
+                'home.png',
+                get_lang('Home'),
+                '',
+                ICON_SIZE_MEDIUM
+            ).'</a>';
 
         if (api_is_allowed_to_session_edit(false, true) && api_is_allowed_to_edit()) {
             // menu add page
@@ -4837,10 +5389,16 @@ class Wiki
         if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
             // page action: enable or disable the adding of new pages
             if (self::check_addnewpagelock() == 0) {
-                $protect_addnewpage = Display::return_icon('off.png', get_lang('AddOptionProtected'));
+                $protect_addnewpage = Display::return_icon(
+                    'off.png',
+                    get_lang('AddOptionProtected')
+                );
                 $lock_unlock_addnew = 'unlockaddnew';
             } else {
-                $protect_addnewpage = Display::return_icon('on.png', get_lang('AddOptionUnprotected'));
+                $protect_addnewpage = Display::return_icon(
+                    'on.png',
+                    get_lang('AddOptionUnprotected')
+                );
                 $lock_unlock_addnew = 'lockaddnew';
             }
         }
@@ -4872,14 +5430,27 @@ class Wiki
         $condition_session = $this->condition_session;
 
         if (!$_GET['title']) {
-            Display::addFlash(Display::return_message(get_lang('MustSelectPage'), 'error', false));
+            Display::addFlash(
+                Display::return_message(
+                    get_lang('MustSelectPage'),
+                    'error',
+                    false
+                )
+            );
+
             return;
         }
 
         if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
             Display::addFlash('<div id="wikititle">'.get_lang('DeletePageHistory').'</div>');
             if ($page == "index") {
-                Display::addFlash(Display::return_message(get_lang('WarningDeleteMainPage'), 'warning', false));
+                Display::addFlash(
+                    Display::return_message(
+                        get_lang('WarningDeleteMainPage'),
+                        'warning',
+                        false
+                    )
+                );
             }
             $message = get_lang('ConfirmDeletePage')."
                 <a href=\"index.php?".api_get_cidreq()."\">".get_lang("No")."</a>
@@ -4893,7 +5464,13 @@ class Wiki
             if (isset($_GET['delete']) && $_GET['delete'] == 'yes') {
                 $result = self::deletePage($page, $course_id, $groupfilter, $condition_session);
                 if ($result) {
-                    Display::addFlash(Display::return_message(get_lang('WikiPageDeleted'), 'confirmation', false));
+                    Display::addFlash(
+                        Display::return_message(
+                            get_lang('WikiPageDeleted'),
+                            'confirmation',
+                            false
+                        )
+                    );
                 }
             }
         } else {
@@ -4941,7 +5518,11 @@ class Wiki
         // we do not need a while loop since we are always displaying the last version
         if ($row['content'] == '' && $row['title'] == '' && $page == '') {
             Display::addFlash(
-                Display::return_message(get_lang('MustSelectPage'), 'error', false)
+                Display::return_message(
+                    get_lang('MustSelectPage'),
+                    'error',
+                    false
+                )
             );
             return;
         } elseif ($row['content'] == '' && $row['title'] == '' && $page == 'index') {
@@ -4999,9 +5580,19 @@ class Wiki
                     Display::return_message(get_lang('EditAssignmentWarning'))
                 );
 
-                $icon_assignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDescExtra'), '', ICON_SIZE_SMALL);
+                $icon_assignment = Display::return_icon(
+                    'wiki_assignment.png',
+                    get_lang('AssignmentDescExtra'),
+                    '',
+                    ICON_SIZE_SMALL
+                );
             } elseif ($row['assignment'] == 2) {
-                $icon_assignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWorkExtra'), '', ICON_SIZE_SMALL);
+                $icon_assignment = Display::return_icon(
+                    'wiki_work.png',
+                    get_lang('AssignmentWorkExtra'),
+                    '',
+                    ICON_SIZE_SMALL
+                );
                 if (($userId == $row['user_id']) == false) {
                     if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
                         $PassEdit = true;
@@ -5095,13 +5686,17 @@ class Wiki
                         if (!empty($row['startdate_assig'])) {
                             $message_task_startdate = get_lang('No');
                         } else {
-                            $message_task_startdate = api_get_local_time($row['startdate_assig']);
+                            $message_task_startdate = api_get_local_time(
+                                $row['startdate_assig']
+                            );
                         }
 
                         if (!empty($row['enddate_assig'])) {
                             $message_task_enddate = get_lang('No');
                         } else {
-                            $message_task_enddate = api_get_local_time($row['enddate_assig']);
+                            $message_task_enddate = api_get_local_time(
+                                $row['enddate_assig']
+                            );
                         }
 
                         if ($row['delayedsubmit'] == 0) {
@@ -5226,7 +5821,9 @@ class Wiki
                                 )
                             );
                         } else {
-                            $returnMessage = self::save_wiki($form->exportValues());
+                            $returnMessage = self::save_wiki(
+                                $form->exportValues()
+                            );
                             Display::addFlash(
                                 Display::return_message(
                                     $returnMessage,
@@ -5258,7 +5855,14 @@ class Wiki
         $userId = api_get_user_id();
 
         if (!$_GET['title']) {
-            Display::addFlash(Display::return_message(get_lang("MustSelectPage"), 'error', false));
+            Display::addFlash(
+                Display::return_message(
+                    get_lang("MustSelectPage"),
+                    'error',
+                    false
+                )
+            );
+
             return;
         }
 
@@ -5287,9 +5891,19 @@ class Wiki
         }
         $icon_assignment = null;
         if ($KeyAssignment == 1) {
-            $icon_assignment = Display::return_icon('wiki_assignment.png', get_lang('AssignmentDescExtra'), '', ICON_SIZE_SMALL);
+            $icon_assignment = Display::return_icon(
+                'wiki_assignment.png',
+                get_lang('AssignmentDescExtra'),
+                '',
+                ICON_SIZE_SMALL
+            );
         } elseif ($KeyAssignment == 2) {
-            $icon_assignment = Display::return_icon('wiki_work.png', get_lang('AssignmentWorkExtra'), '', ICON_SIZE_SMALL);
+            $icon_assignment = Display::return_icon(
+                'wiki_work.png',
+                get_lang('AssignmentWorkExtra'),
+                '',
+                ICON_SIZE_SMALL
+            );
         }
 
         // Second, show
@@ -5316,7 +5930,9 @@ class Wiki
                 $group_id = api_get_group_id();
 
                 echo '<div id="wikititle">';
-                echo $icon_assignment.'&nbsp;&nbsp;&nbsp;'.api_htmlentities($KeyTitle);
+                echo $icon_assignment.'&nbsp;&nbsp;&nbsp;'.api_htmlentities(
+                        $KeyTitle
+                    );
                 echo '</div>';
 
                 echo '<form id="differences" method="POST" action="index.php?'.api_get_cidreq().'&action=history&title='.api_htmlentities(urlencode($title)).'&session_id='.api_htmlentities($session_id).'&group_id='.api_htmlentities($group_id).'">';
@@ -5566,16 +6182,34 @@ class Wiki
                     </p>';
 
                     if (!isset($_GET['delete'])) {
-                        Display::addFlash($title.Display::return_message($message, 'warning', false));
+                        Display::addFlash(
+                            $title.Display::return_message(
+                                $message,
+                                'warning',
+                                false
+                            )
+                        );
                     }
                 } else {
-                    Display::addFlash(Display::return_message(get_lang("OnlyAdminDeleteWiki"), 'normal', false));
+                    Display::addFlash(
+                        Display::return_message(
+                            get_lang("OnlyAdminDeleteWiki"),
+                            'normal',
+                            false
+                        )
+                    );
                 }
 
                 if (api_is_allowed_to_edit(false, true) || api_is_platform_admin()) {
                     if (isset($_GET['delete']) && $_GET['delete'] == 'yes') {
                         $return_message = self::delete_wiki();
-                        Display::addFlash(Display::return_message($return_message, 'confirmation', false));
+                        Display::addFlash(
+                            Display::return_message(
+                                $return_message,
+                                'confirmation',
+                                false
+                            )
+                        );
                         $this->redirectHome();
                     }
                 }
@@ -5590,32 +6224,60 @@ class Wiki
                 if (api_get_session_id() != 0 && api_is_allowed_to_session_edit(false, true) == false) {
                     api_not_allowed();
                 }
-                $groupInfo = GroupManager::get_group_properties(api_get_group_id());
+                $groupInfo = GroupManager::get_group_properties(
+                    api_get_group_id()
+                );
                 echo '<div class="actions">'.get_lang('AddNew').'</div>';
                 echo '<br/>';
                 //first, check if page index was created. chektitle=false
                 if (self::checktitle('index')) {
                     if (api_is_allowed_to_edit(false, true) ||
                         api_is_platform_admin() ||
-                        GroupManager::is_user_in_group(api_get_user_id(), $groupInfo) ||
+                        GroupManager::is_user_in_group(
+                            api_get_user_id(),
+                            $groupInfo
+                        ) ||
                         api_is_allowed_in_course()
                     ) {
-                        Display::addFlash(Display::return_message(get_lang('GoAndEditMainPage'), 'normal', false));
+                        Display::addFlash(
+                            Display::return_message(
+                                get_lang('GoAndEditMainPage'),
+                                'normal',
+                                false
+                            )
+                        );
                     } else {
-                        Display::addFlash(Display::return_message(get_lang('WikiStandBy'), 'normal', false));
+                        Display::addFlash(
+                            Display::return_message(
+                                get_lang('WikiStandBy'),
+                                'normal',
+                                false
+                            )
+                        );
                     }
                 } elseif (self::check_addnewpagelock() == 0 && (api_is_allowed_to_edit(false, true) == false || api_is_platform_admin() == false)) {
                     Display::addFlash(Display::return_message(get_lang('AddPagesLocked'), 'error', false));
                 } else {
-                    $groupInfo = GroupManager::get_group_properties(api_get_group_id());
+                    $groupInfo = GroupManager::get_group_properties(
+                        api_get_group_id()
+                    );
                     if (api_is_allowed_to_edit(false, true) ||
                         api_is_platform_admin() ||
-                        GroupManager::is_user_in_group(api_get_user_id(), $groupInfo) ||
+                        GroupManager::is_user_in_group(
+                            api_get_user_id(),
+                            $groupInfo
+                        ) ||
                         $_GET['group_id'] == 0
                     ) {
                         self::display_new_wiki_form();
                     } else {
-                        Display::addFlash(Display::return_message(get_lang('OnlyAddPagesGroupMembers'), 'normal', false));
+                        Display::addFlash(
+                            Display::return_message(
+                                get_lang('OnlyAddPagesGroupMembers'),
+                                'normal',
+                                false
+                            )
+                        );
                     }
                 }
                 break;

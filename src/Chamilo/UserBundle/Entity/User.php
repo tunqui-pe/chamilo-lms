@@ -2314,6 +2314,15 @@ class User extends BaseUser implements ThemeUser
         return $this;
     }
 
+    /**
+    * Get sessionAsGeneralCoach
+    * @return ArrayCollection
+    */
+    public function getSessionAsGeneralCoach()
+    {
+        return $this->sessionAsGeneralCoach;
+    }
+
 
     /**
      * Sets the AccessUrl for the current user in memory

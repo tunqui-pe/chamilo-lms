@@ -318,8 +318,7 @@ class SurveyManager
                 'creation_date' => api_get_utc_datetime(),
                 'anonymous' => $values['anonymous'],
                 'session_id' => api_get_session_id(),
-                'visible_results' => $values['visible_results'],
-                'is_mandatory' => isset($values['is_mandatory'])
+                'visible_results' => $values['visible_results']
             ];
 
             $params = array_merge($params, $extraParams);
@@ -424,7 +423,6 @@ class SurveyManager
                 'anonymous' => $values['anonymous'],
                 'session_id' => api_get_session_id(),
                 'visible_results' => $values['visible_results'],
-                'is_mandatory' => isset($values['is_mandatory'])
             ];
 
             $params = array_merge($params, $extraParams);
@@ -693,7 +691,7 @@ class SurveyManager
         $sql = "SELECT * FROM $table_survey_question_group
                 WHERE c_id = $course_id AND  survey_id='".$survey_id."'";
         $res = Database::query($sql);
-        while($row = Database::fetch_array($res, 'ASSOC')) {
+        while ($row = Database::fetch_array($res, 'ASSOC')) {
             $params = array(
                 'c_id' =>  $targetCourseId,
                 'name' => $row['name'],
@@ -740,7 +738,7 @@ class SurveyManager
                 WHERE c_id = $course_id AND survey_id='".$survey_id."'";
 
         $res = Database::query($sql);
-        while ($row = Database::fetch_array($res ,'ASSOC')) {
+        while ($row = Database::fetch_array($res, 'ASSOC')) {
             $params = array(
                 'c_id' =>  $targetCourseId,
                 'question_id' => $question_id[$row['question_id']],
@@ -833,9 +831,18 @@ class SurveyManager
 		            survey_id = ".intval($survey_id);
         Database::query($sql);
 
+        $allow = api_get_configuration_value('survey_answered_at_field');
+        // Requires DB change:
+        // ALTER TABLE c_survey_invitation ADD answered_at DATETIME DEFAULT NULL;
+        $answeredAt = '';
+        if ($allow) {
+            $answeredAt = " answered_at = '".api_get_utc_datetime()."' AND";
+        }
+
         // Storing that the user has finished the survey.
         $sql = "UPDATE $table_survey_invitation SET answered='1'
                 WHERE
+                    $answeredAt
                     c_id = $course_id AND
                     session_id='".$session_id."' AND
                     user='".Database::escape_string($user)."' AND
@@ -1748,12 +1755,15 @@ class SurveyManager
                 ->createQuery("
                     SELECT i FROM ChamiloCourseBundle:CSurveyInvitation i
                     INNER JOIN ChamiloCourseBundle:CSurvey s WITH s.code = i.surveyCode
+                    INNER JOIN ChamiloCoreBundle:ExtraFieldValues efv WITH efv.itemId = s.iid
+                    INNER JOIN ChamiloCoreBundle:ExtraField ef WITH efv.field = ef.id
                     WHERE i.answered = 0
                         AND i.cId = :course
                         AND i.user = :user
                         AND i.sessionId = :session
                         AND :now BETWEEN s.availFrom AND s.availTill
-                        AND s.isMandatory IS TRUE
+                        AND ef.variable = :variable
+                        AND efv.value = 1
                     ORDER BY s.availTill ASC
                 ")
                 ->setMaxResults(1)
@@ -1761,7 +1771,8 @@ class SurveyManager
                     'course' => $courseId,
                     'user' => $userId,
                     'session' => $sessionId,
-                    'now' => new DateTime('UTC', new DateTimeZone('UTC'))
+                    'now' => new DateTime('UTC', new DateTimeZone('UTC')),
+                    'variable' => 'is_mandatory'
                 ])
                 ->getSingleResult();
         } catch (Exception $e) {

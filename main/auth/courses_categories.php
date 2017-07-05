@@ -89,8 +89,8 @@ $code = isset($code) ? $code : null;
                 <?php
                 $webAction = api_get_path(WEB_CODE_PATH).'auth/courses.php';
                 $action = (!empty($_REQUEST['action']) ? Security::remove_XSS($_REQUEST['action']) : 'display_courses');
-                $pageLength = (!empty($_REQUEST['pageLength']) ? intval($_REQUEST['pageLength']) : CoursesAndSessionsCatalog::PAGE_LENGTH);
-                $pageCurrent = (!empty($_REQUEST['pageCurrent']) ? intval($_REQUEST['pageCurrent']) : 1);
+                $pageLength = !empty($_REQUEST['pageLength']) ? intval($_REQUEST['pageLength']) : CoursesAndSessionsCatalog::PAGE_LENGTH;
+                $pageCurrent = !empty($_REQUEST['pageCurrent']) ? intval($_REQUEST['pageCurrent']) : 1;
                 $form = '<form action="'.$webAction.'" method="GET" >';
                 $form .= '<input type="hidden" name="action" value="'.$action.'">';
                 $form .= '<input type="hidden" name="pageCurrent" value="'.$pageCurrent.'">';
@@ -128,7 +128,6 @@ $code = isset($code) ? $code : null;
 </div>
 <?php  } ?>
 <div class="grid-courses">
-<div class="row">
 <?php
 if ($showCourses && $action != 'display_sessions') {
     if (!empty($message)) {
@@ -263,10 +262,11 @@ if ($showCourses && $action != 'display_sessions') {
 }
 ?>
 </div>
-</div>
 <?php
 
+echo '<div class="col-md-12">';
 echo $cataloguePagination;
+echo '</div>';
 
 /**
  * Display the course catalog image of a course
@@ -355,7 +355,7 @@ function return_title($course, $registeredUser)
 {
     $html = '';
     $linkCourse = api_get_course_url($course['code']);
-    $title = cut($course['title'], 45);
+    $title = cut($course['title'], 60);
 
     $html .= '<div class="block-title"><h4 class="title">';
 

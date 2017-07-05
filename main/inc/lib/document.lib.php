@@ -971,7 +971,6 @@ class DocumentManager
         $sessionId = null,
         $documentId = null
     ) {
-
         if (empty($sessionId)) {
             $sessionId = api_get_session_id();
         } else {
@@ -1439,7 +1438,6 @@ class DocumentManager
         $result = Database::query($sql);
         if ($result && Database::num_rows($result) == 1) {
             $row = Database::fetch_array($result, 'ASSOC');
-
             //@todo need to clarify the name of the URLs not nice right now
             $url_path = urlencode($row['path']);
             $path = str_replace('%2F', '/', $url_path);
@@ -1462,7 +1460,6 @@ class DocumentManager
 
             //Use to generate parents (needed for the breadcrumb)
             //@todo sorry but this for is here because there's not a parent_id in the document table so we parsed the path!!
-
             if ($load_parents) {
                 $dir_array = explode('/', $row['path']);
                 $dir_array = array_filter($dir_array);
@@ -1512,6 +1509,7 @@ class DocumentManager
      * @param int $document_id_for_template the document id
      * @param string $course_code
      * @param int $user_id
+     * @param string $image
      * @return bool
      */
     public static function set_document_as_template(
@@ -1543,8 +1541,11 @@ class DocumentManager
      * @param string $course_code
      * @param int $user_id
      */
-    public static function unset_document_as_template($document_id, $course_code, $user_id)
-    {
+    public static function unset_document_as_template(
+        $document_id,
+        $course_code,
+        $user_id
+    ) {
         $table_template = Database::get_main_table(TABLE_MAIN_TEMPLATES);
         $course_code = Database::escape_string($course_code);
         $user_id = intval($user_id);
@@ -1579,8 +1580,12 @@ class DocumentManager
      * @param string
      * @return bool
      */
-    public static function is_visible($doc_path, $course, $session_id = 0, $file_type = 'file')
-    {
+    public static function is_visible(
+        $doc_path,
+        $course,
+        $session_id = 0,
+        $file_type = 'file'
+    ) {
         $docTable = Database::get_course_table(TABLE_DOCUMENT);
         $propTable = Database::get_course_table(TABLE_ITEM_PROPERTY);
 
@@ -2182,7 +2187,11 @@ class DocumentManager
         }
 
         if (!$is_file) {
-            $attributes = self::parse_HTML_attributes($source_html, $wanted_attributes, $explode_attributes);
+            $attributes = self::parse_HTML_attributes(
+                $source_html,
+                $wanted_attributes,
+                $explode_attributes
+            );
         } else {
             if (is_file($source_html)) {
                 $abs_path = $source_html;
@@ -2207,7 +2216,6 @@ class DocumentManager
         }
 
         $files_list = array();
-
         switch ($type) {
             case TOOL_DOCUMENT:
             case TOOL_QUIZ:
@@ -2411,7 +2419,12 @@ class DocumentManager
                                         $dir = dirname($abs_path).'/';
                                     }
                                     $new_abs_path = realpath($dir.$source);
-                                    $in_files_list[] = self::get_resources_from_source_html($new_abs_path, true, TOOL_DOCUMENT, $recursivity + 1);
+                                    $in_files_list[] = self::get_resources_from_source_html(
+                                        $new_abs_path,
+                                        true,
+                                        TOOL_DOCUMENT,
+                                        $recursivity + 1
+                                    );
                                     if (count($in_files_list) > 0) {
                                         $files_list = array_merge($files_list, $in_files_list);
                                     }
@@ -2426,7 +2439,12 @@ class DocumentManager
                                         $dir = dirname($abs_path).'/';
                                     }
                                     $new_abs_path = realpath($dir.$source);
-                                    $in_files_list[] = self::get_resources_from_source_html($new_abs_path, true, TOOL_DOCUMENT, $recursivity + 1);
+                                    $in_files_list[] = self::get_resources_from_source_html(
+                                        $new_abs_path,
+                                        true,
+                                        TOOL_DOCUMENT,
+                                        $recursivity + 1
+                                    );
                                     if (count($in_files_list) > 0) {
                                         $files_list = array_merge($files_list, $in_files_list);
                                     }
@@ -2746,7 +2764,6 @@ class DocumentManager
         //We do not select the $original_path becayse the file was already moved
         $content_html = file_get_contents($destiny_path.'/'.$file_name);
         $destination_file = $destiny_path.'/'.$file_name;
-
         $pre_original = strstr($original_path, 'document');
         $pre_destin = strstr($destiny_path, 'document');
         $pre_original = substr($pre_original, 8, strlen($pre_original));
@@ -2818,7 +2835,6 @@ class DocumentManager
             if ($scope_url == 'local') {
                 if ($type_url == 'abs' || $type_url == 'rel') {
                     $document_file = strstr($real_orig_path, 'document');
-
                     if (strpos($real_orig_path, $document_file) !== false) {
                         echo 'continue1';
                         continue;
@@ -3762,7 +3778,6 @@ class DocumentManager
         );
 
         $directUrl = $web_code_path.'document/document.php?cidReq='.$course_info['code'].'&id_session='.$session_id.'&id='.$documentId;
-
         $link .= Display::url(
             Display::return_icon('preview_view.png', get_lang('Preview')),
             $directUrl,
@@ -5337,9 +5352,10 @@ class DocumentManager
 
         // Add class="invisible" on invisible files
         $visibility_class = $visibility == false ? ' class="muted"' : '';
-        $forcedownload_link = null;
-        $forcedownload_icon = null;
-        $prevent_multiple_click = null;
+        $forcedownload_link = '';
+        $forcedownload_icon = '';
+        $prevent_multiple_click = '';
+        $force_download_html = '';
 
         if (!$show_as_icon) {
             // Build download link (icon)

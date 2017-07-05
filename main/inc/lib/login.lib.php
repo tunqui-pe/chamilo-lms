@@ -361,7 +361,7 @@ class Login
      * @global type $_courseUser
      * @global type $is_courseAdmin
      * @global type $is_courseTutor
-     * @global type $is_courseCoach
+     * @global type $is_session_general_coach
      * @global type $is_courseMember
      * @global type $is_sessionAdmin
      * @global type $is_allowed_in_course
@@ -380,7 +380,7 @@ class Login
 
         global $is_courseAdmin; //course teacher
         global $is_courseTutor; //course teacher - some rights
-        global $is_courseCoach; //course coach
+        global $is_session_general_coach; //course coach
         global $is_courseMember; //course student
         global $is_sessionAdmin;
         global $is_allowed_in_course;
@@ -481,7 +481,7 @@ class Login
             }
         } else {
             // Continue with the previous values
-            if (empty($_SESSION['_course']) OR empty($_SESSION['_cid'])) { //no previous values...
+            if (empty($_SESSION['_course']) or empty($_SESSION['_cid'])) { //no previous values...
                 $_cid = -1; //set default values that will be caracteristic of being unset
                 $_course = -1;
             } else {
@@ -508,52 +508,14 @@ class Login
                     global $_dont_save_user_course_access;
                     if (isset($_dont_save_user_course_access) && $_dont_save_user_course_access == true) {
                         $save_course_access = false;
-                    }
-
-                    if ($save_course_access) {
-                        $course_tracking_table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
-
-                        /*
-                         * When $_configuration['session_lifetime'] is too big 100 hours (in order to let users take exercises with no problems)
-                         * the function Tracking::get_time_spent_on_the_course() returns big values (200h) due the condition:
-                         * login_course_date > now() - INTERVAL $session_lifetime SECOND
-                         *
-                         */
-                        /*
-                          if (isset($_configuration['session_lifetime'])) {
-                          $session_lifetime    = $_configuration['session_lifetime'];
-                          } else {
-                          $session_lifetime    = 3600; // 1 hour
-                          } */
-
-                        $session_lifetime = 3600; // 1 hour
-                        $time = api_get_utc_datetime();
-
-                        if (isset($_user['user_id']) && !empty($_user['user_id'])) {
-                            //We select the last record for the current course in the course tracking table
-                            //But only if the login date is < than now + max_life_time
-                            $sql = "SELECT course_access_id FROM $course_tracking_table
-                                    WHERE
-                                        user_id     = ".intval($_user ['user_id'])." AND
-                                        c_id = '".api_get_course_int_id()."' AND
-                                        session_id  = " . api_get_session_id()." AND
-                                        login_course_date > now() - INTERVAL $session_lifetime SECOND
-                                    ORDER BY login_course_date DESC LIMIT 0,1";
-                            $result = Database::query($sql);
-
-                            if (Database::num_rows($result) > 0) {
-                                $i_course_access_id = Database::result($result, 0, 0);
-                                //We update the course tracking table
-                                $sql = "UPDATE $course_tracking_table
-                                        SET logout_course_date = '$time', counter = counter+1
-                                        WHERE course_access_id = ".intval($i_course_access_id)." AND session_id = ".api_get_session_id();
-                                Database::query($sql);
-                            } else {
-                                $sql = "INSERT INTO $course_tracking_table (c_id, user_id, login_course_date, logout_course_date, counter, session_id)".
-                                        "VALUES('".api_get_course_int_id()."', '".$_user['user_id']."', '$time', '$time', '1','".api_get_session_id()."')";
-                                Database::query($sql);
-                            }
-                        }
+                    } else {
+                        courseLogout(
+                            [
+                                'uid' => intval($_user ['user_id']),
+                                'cid' => api_get_course_int_id(),
+                                'sid' => api_get_session_id()
+                            ]
+                        );
                     }
                 }
             }
@@ -635,7 +597,7 @@ class Login
                             $is_courseMember = false;
                             $is_courseTutor = false;
                             $is_courseAdmin = false;
-                            $is_courseCoach = false;
+                            $is_session_general_coach = false;
                             $is_sessionAdmin = true;
                         } else {
                             //Im a coach or a student?
@@ -656,7 +618,7 @@ class Login
                                     case '2': // coach - teacher
                                         $is_courseMember = true;
                                         $is_courseTutor = true;
-                                        $is_courseCoach = true;
+                                        $is_session_general_coach = true;
                                         $is_sessionAdmin = false;
 
                                         if (api_get_setting('extend_rights_for_coach') == 'true') {
@@ -699,7 +661,7 @@ class Login
                 $is_courseMember = false;
                 $is_courseAdmin = false;
                 $is_courseTutor = false;
-                $is_courseCoach = false;
+                $is_session_general_coach = false;
                 $is_sessionAdmin = false;
             }
 
@@ -758,14 +720,14 @@ class Login
             Session::write('is_courseAdmin', $is_courseAdmin);
             Session::write('is_courseMember', $is_courseMember);
             Session::write('is_courseTutor', $is_courseTutor);
-            Session::write('is_courseCoach', $is_courseCoach);
+            Session::write('is_session_general_coach', $is_session_general_coach);
             Session::write('is_allowed_in_course', $is_allowed_in_course);
             Session::write('is_sessionAdmin', $is_sessionAdmin);
         } else {
             // continue with the previous values
             $is_courseAdmin = Session::read('is_courseAdmin');
             $is_courseTutor = Session::read('is_courseTutor');
-            $is_courseCoach = Session::read('is_courseCoach');
+            $is_session_general_coach = Session::read('is_session_general_coach');
             $is_courseMember = Session::read('is_courseMember');
             $is_allowed_in_course = Session::read('is_allowed_in_course');
         }

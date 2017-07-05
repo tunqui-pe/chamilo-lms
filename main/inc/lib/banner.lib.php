@@ -166,7 +166,17 @@ function getCustomTabs()
     $result = Database::query($sql);
     $customTabs = array();
     while ($row = Database::fetch_assoc($result)) {
-        $customTabs[] = $row;
+        $shouldAdd = true;
+
+        if (strpos($row['subkey'], Plugin::TAB_FILTER_NO_STUDENT) !== false && api_is_student()) {
+            $shouldAdd = false;
+        } elseif (strpos($row['subkey'], Plugin::TAB_FILTER_ONLY_STUDENT) !== false && !api_is_student()) {
+            $shouldAdd = false;
+        }
+
+        if ($shouldAdd) {
+            $customTabs[] = $row;
+        }
     }
 
     return $customTabs;
@@ -634,10 +644,17 @@ function return_breadcrumb($interbreadcrumb, $language_file, $nameTools)
                         $user_id
                     );
 
-                    $additonalBlocks .= Display::return_message(
-                        sprintf(get_lang('SessionDurationXDaysLeft'), $daysLeft),
-                        'information'
-                    );
+                    if ($daysLeft >= 0) {
+                        $additonalBlocks .= Display::return_message(
+                            sprintf(get_lang('SessionDurationXDaysLeft'), $daysLeft),
+                            'information'
+                        );
+                    } else {
+                        $additonalBlocks .= Display::return_message(
+                            get_lang('YourSessionTimeHasExpired'),
+                            'warning'
+                        );
+                    }
                 }
                 break;
         }
