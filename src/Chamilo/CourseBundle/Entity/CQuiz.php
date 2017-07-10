@@ -216,6 +216,13 @@ class CQuiz
      */
     private $showPreviousButton;
 
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="notifications", type="string", length=255, nullable=true)
+     */
+    private $notifications;
+
     /**
      * CQuiz constructor.
      */
@@ -223,6 +230,7 @@ class CQuiz
     {
         $this->hideQuestionTitle = false;
         $this->showPreviousButton = true;
+        $this->notifications = '';
     }
 
     /**
@@ -811,7 +819,41 @@ class CQuiz
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isShowPreviousButton(): bool
+    {
+        return $this->showPreviousButton;
+    }
 
+    /**
+     * @param bool $showPreviousButton
+     * @return CQuiz
+     */
+    public function setShowPreviousButton(bool $showPreviousButton): CQuiz
+    {
+        $this->showPreviousButton = $showPreviousButton;
 
+        return $this;
+    }
 
+    /**
+     * @return string
+     */
+    public function getNotifications(): string
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param string $notifications
+     * @return CQuiz
+     */
+    public function setNotifications(string $notifications): CQuiz
+    {
+        $this->notifications = $notifications;
+
+        return $this;
+    }
 }

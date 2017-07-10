@@ -425,7 +425,13 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         $table = $schema->getTable('c_quiz');
         if ($table->hasColumn('show_previous_button') === false) {
             $queries->addQuery(
-                'ALTER TABLE c_quiz ADD show_previous_button TINYINT(1) DEFAULT 1;'
+                'ALTER TABLE c_quiz ADD COLUMN show_previous_button TINYINT(1) DEFAULT 1;'
+            );
+        }
+
+        if ($table->hasColumn('notifications') === false) {
+            $queries->addQuery(
+                'ALTER TABLE c_quiz ADD COLUMN notifications VARCHAR(255) NULL DEFAULT NULL;'
             );
         }
     }
