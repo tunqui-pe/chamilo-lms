@@ -2363,6 +2363,54 @@ function send_reminder_users_without_publication($task_data)
 }
 
 /**
+ * @param int $courseId The course ID
+ * @param int $workId The work ID
+ * @param int $sessionId Optional. The session ID
+ */
+function sendEmailToDrhOnHomeworkCreation($courseId, $workId, $sessionId = 0)
+{
+    $courseInfo = api_get_course_info_by_id($courseId);
+    $assignment = get_work_assignment_by_id($workId, $courseId);
+    $work = get_work_data_by_id($workId, $courseId, $sessionId);
+    $workInfo = array_merge($assignment, $work);
+
+    if (empty($session_id)) {
+        $students = CourseManager::get_student_list_from_course_code($courseInfo['code']);
+    } else {
+        $students = CourseManager::get_student_list_from_course_code($courseInfo['code'], true, $sessionId);
+    }
+
+    $bodyView = new Template(null, false, false, false, false, false);
+
+    foreach ($students as $student) {
+        $student['complete_name'] = api_get_person_name($student["firstname"], $student["lastname"]);
+        $hrms = UserManager::getDrhListFromUser($student['id']);
+
+        foreach ($hrms as $hrm) {
+            $hrmName = api_get_person_name($hrm['firstname'], $hrm['lastname'], null, PERSON_NAME_EMAIL_ADDRESS);
+
+            $bodyView->assign('hrm_name', $hrmName);
+            $bodyView->assign('student', $student);
+            $bodyView->assign('course', $courseInfo);
+            $bodyView->assign('course_link', api_get_course_url($courseInfo['code'], $sessionId));
+            $bodyView->assign('work', $workInfo);
+
+            $bodyTemplate = $bodyView->get_template('mail/new_work_alert_hrm.tpl');
+
+            MessageManager::send_message(
+                $hrm['id'],
+                sprintf(
+                    get_lang('StudentXHasBeenAssignedNewWorkInCourseY'),
+                    $student['firstname'],
+                    $courseInfo['title']
+                ),
+                $bodyView->fetch($bodyTemplate)
+            );
+        }
+    }
+}
+
+/**
  * Sends an email to the students of a course when a homework is created
  *
  * @param int $courseId course_id
@@ -2373,7 +2421,7 @@ function send_reminder_users_without_publication($task_data)
  * @author Guillaume Viguier <guillaume.viguier@beeznest.com>
  * @author Julio Montoya <gugli100@gmail.com> Adding session support - 2011
  */
-function send_email_on_homework_creation($courseId, $sessionId = 0, $workId)
+function sendEmailToStudentsOnHomeworkCreation($courseId, $sessionId = 0, $workId)
 {
     $courseInfo = api_get_course_info_by_id($courseId);
     $courseCode = $courseInfo['code'];
@@ -4109,12 +4157,23 @@ function addDir($formValues, $user_id, $courseInfo, $groupId, $session_id)
     $workFieldValue = new ExtraFieldValue('work');
     $workFieldValue->saveFieldValues($formValues);
 
-    if (api_get_course_setting('email_alert_students_on_new_homework') == 1) {
-        send_email_on_homework_creation(
-            $course_id,
-            $session ? $session->getId() : 0,
-            $workTable->getIid()
-        );
+    $sendEmailAlert = api_get_course_setting('email_alert_students_on_new_homework');
+
+    switch ($sendEmailAlert) {
+        case 1:
+            sendEmailToStudentsOnHomeworkCreation(
+                $course_id,
+                $session ? $session->getId() : 0,
+                $workTable->getIid()
+            );
+            break;
+        case 2:
+            sendEmailToDrhOnHomeworkCreation(
+                $course_id,
+                $workTable->getIid(),
+                $session ? $session->getId() : 0
+            );
+            break;
     }
 
     return $workTable->getIid();
