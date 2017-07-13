@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Chamilo\\": "src/Chamilo/",
+            "Chamilo\\": "src/",
             "Application\\": "app/"
         },
         "classmap": [
@@ -55,7 +55,10 @@
         }
     ],
     "require": {
-        "php": "~7.0",
+        "php": "~7.1",
+        "symfony/flex": "^1.0",
+        "symfony/framework-bundle": "^3.3",
+        "symfony/yaml": "^3.3",
         "ext-intl": "*",
         "ext-gd": "*",
         "ext-curl": "*",
@@ -67,13 +70,12 @@
         "twig/twig": "1.*",
         "twig/extensions": "~1.0",
 
-        "symfony/symfony": "^3.2",
         "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/monolog-bundle": "^3.0",
+        "symfony/monolog-bundle": "^3.1",
         "chamilo/settings-bundle": "dev-master",
 
         "sensio/distribution-bundle": "~5.0",
-        "sensio/framework-extra-bundle": "~3",
+        "sensio/framework-extra-bundle": "^3.0",
         "sensio/generator-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
 
@@ -92,8 +94,6 @@
 
         "michelf/php-markdown": "~1.7",
         "knplabs/knp-markdown-bundle": "~1.5",
-
-
 
         "willdurand/faker-bundle": "~1.0",
 
@@ -185,7 +185,14 @@
         "essence/essence": "2.6.1",
         "pclzip/pclzip": "2.8.2",
         "ircmaxell/random-lib": "^1.2",
-        "ocramius/proxy-manager": "~1.0|2.0.*"
+        "ocramius/proxy-manager": "~1.0|2.0.*",
+        "symfony/console": "^3.3",
+        "symfony/annotations-pack": "^1.0",
+        "symfony/web-server-bundle": "^3.3",
+        "symfony/twig-bundle": "^3.3",
+        "symfony/asset": "^3.3",
+        "symfony/finder": "^3.3",
+        "symfony/validator": "^3.3"
     },
     "require-dev": {
         "behat/behat": "@stable",
@@ -195,35 +202,27 @@
         "behat/mink-selenium2-driver": "*"
     },
     "scripts": {
+        "auto-scripts": {
+            "make cache-warmup": "script",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
         "pre-install-cmd": [
             "Chamilo\\CoreBundle\\Composer\\ScriptHandler::deleteOldFilesFrom19x"
         ],
         "pre-update-cmd": [
             "Chamilo\\CoreBundle\\Composer\\ScriptHandler::deleteOldFilesFrom19x"
-        ],
-        "post-install-cmd": [
-            "Chamilo\\CoreBundle\\Composer\\ScriptHandler::dumpCssFiles",
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ],
-        "post-update-cmd": [
-          "Chamilo\\CoreBundle\\Composer\\ScriptHandler::dumpCssFiles",
-          "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
     "extra": {
         "symfony-app-dir": "app",
         "symfony-bin-dir": "bin",
-        "symfony-web-dir": "web",
+        "symfony-web-dir": "public",
         "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
@@ -231,12 +230,9 @@
         },
         "branch-alias": {
             "dev-master": "2.0.x-dev"
-        },
-        "asset-installer-paths": {
-            "bower-asset-library": "web/assets/"
         }
     },
     "config": {
-      "component-dir": "web/assets"
+      "component-dir": "public/assets"
     }
 }

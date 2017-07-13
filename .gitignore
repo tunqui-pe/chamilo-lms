@@ -1,10 +1,13 @@
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
 # Cache directories
-
-app/cache/*
-!app/cache/.gitkeep
-
-app/logs/*
-!app/logs/.gitkeep
+!var/cache/.gitkeep
+!var/logs/.gitkeep
 
 # Chamilo configuration
 /app/config/parameters.yml
@@ -49,10 +52,3 @@ plugin/bbb/config.vm.php
 # Cron temp files
 main/cron/incoming/*
 plugin/vchamilo/templates/*
-
-# Stuff updated through composer - Remove just before release
-vendor
-
-# Assets
-web/assetic
-web/bundles

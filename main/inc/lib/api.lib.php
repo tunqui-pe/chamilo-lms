@@ -1360,7 +1360,7 @@ function _api_format_user(
     $result['profile_url'] = api_get_path(WEB_CODE_PATH).'social/profile.php?u='.$userId;
 
     // Send message link
-    $sendMessage = api_get_path(WEB_AJAX_PATH).'user_manager.ajax.php?a=get_user_popup&user_id='.$user_id;
+    $sendMessage = api_get_path(WEB_AJAX_PATH).'user_manager.ajax.php?a=get_user_popup&user_id='.$userId;
     $result['complete_name_with_message_link'] = Display::url(
         $result['complete_name'],
         $sendMessage,
@@ -1424,10 +1424,6 @@ function api_get_user_info(
     $loadAvatars = true,
     $updateCache = false
 ) {
-    $apcVar = null;
-    $user = false;
-    $cacheAvailable = api_get_configuration_value('apc');
-
     if (empty($user_id)) {
         $storage = Container::getTokenStorage();
         $token = $storage->getToken();
@@ -1439,7 +1435,7 @@ function api_get_user_info(
                 $showPassword,
                 $loadExtraData,
                 $loadOnlyVisibleExtraData,
-		$loadAvatars
+		        $loadAvatars
             );
         }
 
@@ -7881,7 +7877,7 @@ function api_mail_html(
 
     Container::getMailer()->send($swiftMessage);
 
-    return 1;    
+    return 1;
 }
 
 /**
