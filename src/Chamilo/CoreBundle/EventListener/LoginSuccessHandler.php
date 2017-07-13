@@ -24,8 +24,10 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
      * @param UrlGeneratorInterface $urlGenerator
      * @param AuthorizationChecker $checker
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator, AuthorizationChecker $checker)
-    {
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        AuthorizationChecker $checker
+    ) {
         $this->router = $urlGenerator;
         $this->checker = $checker;
     }
@@ -35,13 +37,15 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
      * @param TokenInterface $token
      * @return null|RedirectResponse|\Symfony\Component\Security\Http\Authentication\Response
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
-    {
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token
+    ) {
         /** @var User $user */
         $user = $token->getUser();
         $userId = $user->getId();
         $session = $request->getSession();
-
+    dump($user->getId());
         $userInfo = api_get_user_info($user->getId());
         $userInfo['is_anonymous'] = false;
 

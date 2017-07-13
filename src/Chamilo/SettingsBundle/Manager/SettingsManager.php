@@ -426,6 +426,7 @@ class SettingsManager implements SettingsManagerInterface
             'enable_profile_user_address_geolocalization' => 'User',
             'show_official_code_whoisonline' => 'User',
             'icons_mode_svg' => 'Tuning',
+            'user_name_order' => 'display',
             'user_name_sort_by' => 'display',
             'default_calendar_view' => 'agenda',
             'exercise_invisible_in_session' => 'exercise',
@@ -433,7 +434,8 @@ class SettingsManager implements SettingsManagerInterface
             'allow_download_documents_by_api_key' => 'Webservices',
             'ProfilingFilterAddingUsers' => 'profile',
             'donotlistcampus' => 'platform',
-            'gradebook_show_percentage_in_reports' => 'gradebook'
+            'gradebook_show_percentage_in_reports' => 'gradebook',
+
         ];
 
         return $oldItems;
