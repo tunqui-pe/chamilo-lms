@@ -62,8 +62,10 @@ class SetupStep extends AbstractStep
     public function forwardAction(ProcessContextInterface $context)
     {
         /** @var UserManager $userManager */
-        $userManager = $this->get('sonata.user.orm.user_manager');
-        $adminUser = $userManager->findUserByUsername(LoadAdminUserData::DEFAULT_ADMIN_USERNAME);
+        $userManager = $this->get('sonata.user.user_manager');
+        $adminUser = $userManager->findUserByUsername(
+            LoadAdminUserData::DEFAULT_ADMIN_USERNAME
+        );
 
         if (!$adminUser) {
             throw new \RuntimeException(
