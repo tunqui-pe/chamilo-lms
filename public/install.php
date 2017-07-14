@@ -51,7 +51,7 @@ $minorProblems = $collection->getFailedRecommendations();
 $translator->addLoader('yml', new YamlFileLoader());
 $translator->addResource(
     'yml',
-    __DIR__.'/../src/Chamilo/InstallerBundle/Resources/translations/messages.'.$locale.'.yml',
+    __DIR__.'/../src/InstallerBundle/Resources/translations/messages.'.$locale.'.yml',
     $locale
 );
 

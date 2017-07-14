@@ -89,7 +89,7 @@ class UserController extends BaseController
      * @Route("/online")
      * @Method({"GET"})
      */
-    public function onlineAction(Application $app)
+    public function onlineAction($app)
     {
         $response = $app['template']->renderLayout('layout_1_col.tpl');
 

@@ -5,7 +5,6 @@ require_once __DIR__.'/SymfonyRequirements.php';
 
 use Symfony\Component\Process\ProcessBuilder;
 use Symfony\Component\Intl\Intl;
-
 use Chamilo\InstallerBundle\Process\PhpExecutableFinder;
 
 /**
@@ -176,21 +175,21 @@ class ChamiloRequirements extends SymfonyRequirements
         );
 
         $this->addChamiloRequirement(
-            is_writable($baseDir.'/web/uploads'),
+            is_writable($baseDir.'/public/uploads'),
             'web/uploads/ directory must be writable',
-            'Change the permissions of the "<strong>web/uploads/</strong>" directory so that the web server can write into it.'
+            'Change the permissions of the "<strong>public/uploads/</strong>" directory so that the web server can write into it.'
         );
 
         $this->addChamiloRequirement(
-            is_writable($baseDir.'/web/assetic'),
+            is_writable($baseDir.'/public/assetic'),
             'web/assetic/ directory must be writable',
-            'Change the permissions of the "<strong>web/assetic/</strong>" directory so that the web server can write into it.'
+            'Change the permissions of the "<strong>public/assetic/</strong>" directory so that the web server can write into it.'
         );
 
         $this->addChamiloRequirement(
-            is_writable($baseDir.'/web/bundles'),
+            is_writable($baseDir.'/public/bundles'),
             'web/bundles/ directory must be writable',
-            'Change the permissions of the "<strong>web/bundles/</strong>" directory so that the web server can write into it.'
+            'Change the permissions of the "<strong>public/bundles/</strong>" directory so that the web server can write into it.'
         );
 
         /*$this->addChamiloRequirement(
@@ -205,27 +204,27 @@ class ChamiloRequirements extends SymfonyRequirements
             'Change the permissions of the "<strong>app/attachment/</strong>" directory so that the web server can write into it.'
         );*/
 
-        if (is_dir($baseDir.'/web/js')) {
+        if (is_dir($baseDir.'/public/js')) {
             $this->addChamiloRequirement(
-                is_writable($baseDir.'/web/js'),
+                is_writable($baseDir.'/public/js'),
                 'web/js directory must be writable',
-                'Change the permissions of the "<strong>web/js</strong>" directory so that the web server can write into it.'
+                'Change the permissions of the "<strong>public/js</strong>" directory so that the web server can write into it.'
             );
         }
 
-        if (is_dir($baseDir.'/web/css')) {
+        if (is_dir($baseDir.'/public/css')) {
             $this->addChamiloRequirement(
-                is_writable($baseDir.'/web/css'),
+                is_writable($baseDir.'/public/css'),
                 'web/css directory must be writable',
-                'Change the permissions of the "<strong>web/css</strong>" directory so that the web server can write into it.'
+                'Change the permissions of the "<strong>public/css</strong>" directory so that the web server can write into it.'
             );
         }
 
-        if (!is_dir($baseDir.'/web/css') || !is_dir($baseDir.'/web/js')) {
+        if (!is_dir($baseDir.'/public/css') || !is_dir($baseDir.'/public/js')) {
             $this->addChamiloRequirement(
                 is_writable($baseDir.'/web'),
                 'web directory must be writable',
-                'Change the permissions of the "<strong>web</strong>" directory so that the web server can write into it.'
+                'Change the permissions of the "<strong>public</strong>" directory so that the web server can write into it.'
             );
         }
 

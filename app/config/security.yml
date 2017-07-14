@@ -53,6 +53,19 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        admin:
+            pattern:            /admin(.*)
+            context:            user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /admin/login
+                use_forward:    false
+                check_path:     /admin/login_check
+                failure_path:   null
+            logout:
+                path:           /admin/logout
+                target:         /admin/login
+            anonymous:          true
         secured_area:
             pattern: .*
             context: user
@@ -63,7 +76,6 @@ security:
                 use_forward:    false
                 check_path:     /login_check
                 failure_path:   null
-                default_target_path: /admin
                 success_handler: chamilo_core.listener.login_success_handler
                 remember_me: true
             remember_me:

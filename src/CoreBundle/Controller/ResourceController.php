@@ -49,7 +49,7 @@ class ResourceController extends BaseController
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
     public function getCourseUploadFileAction(
-        Application $app,
+        $app,
         $courseCode,
         $file
     ) {
@@ -73,7 +73,7 @@ class ResourceController extends BaseController
      * @param string $file
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getScormDocumentAction(Application $app, $courseCode, $file)
+    public function getScormDocumentAction($app, $courseCode, $file)
     {
         try {
             $file = $app['chamilo.filesystem']->getCourseScormDocument(
@@ -93,7 +93,7 @@ class ResourceController extends BaseController
      * @param string $file
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getDefaultCourseDocumentAction(Application $app, $file)
+    public function getDefaultCourseDocumentAction($app, $file)
     {
         try {
             $file = $app['chamilo.filesystem']->get(
@@ -112,7 +112,7 @@ class ResourceController extends BaseController
      * @param $file
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getGroupFile(Application $app, $groupId, $file)
+    public function getGroupFile($app, $groupId, $file)
     {
         try {
             $file = $app['chamilo.filesystem']->get(
@@ -130,7 +130,7 @@ class ResourceController extends BaseController
      * @param $file
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getUserFile(Application $app, $file)
+    public function getUserFile($app, $file)
     {
         try {
             $file = $app['chamilo.filesystem']->get('upload/users/'.$file);
