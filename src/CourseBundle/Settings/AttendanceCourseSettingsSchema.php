@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class AttendanceCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class AttendanceCourseSettingsSchema implements SchemaInterface
+class AttendanceCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -22,10 +22,11 @@ class AttendanceCourseSettingsSchema implements SchemaInterface
             ->setDefaults(array(
                 'enabled' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-            ))
         ;
+        $allowedTypes = array(
+            'enabled' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ExerciseCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class ExerciseCourseSettingsSchema implements SchemaInterface
+class ExerciseCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,11 +23,12 @@ class ExerciseCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'email_alert_manager_on_new_quiz' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-                'email_alert_manager_on_new_quiz' => array('string'),
-            ))
         ;
+        $allowedTypes = [
+            'enabled' => ['string'],
+            'email_alert_manager_on_new_quiz' => ['string'],
+        ];
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

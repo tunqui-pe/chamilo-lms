@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class DocumentCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class DocumentCourseSettingsSchema implements SchemaInterface
+class DocumentCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,11 +23,12 @@ class DocumentCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'documents_default_visibility' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-                'documents_default_visibility' => array('string'),
-            ))
         ;
+        $allowedTypes = [
+            'enabled' => array('string'),
+            'documents_default_visibility' => array('string'),
+        ];
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

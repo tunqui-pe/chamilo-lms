@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class LinkCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class LinkCourseSettingsSchema implements SchemaInterface
+class LinkCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -22,10 +22,11 @@ class LinkCourseSettingsSchema implements SchemaInterface
             ->setDefaults(array(
                 'enabled' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-            ))
         ;
+        $allowedTypes = [
+            'enabled' => ['string'],
+        ];
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ChatCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class ChatCourseSettingsSchema implements SchemaInterface
+class ChatCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,10 +23,11 @@ class ChatCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'allow_open_chat_window' => ''
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-            ))
         ;
+        $allowedTypes = array(
+            'enabled' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class DropboxCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class DropboxCourseSettingsSchema implements SchemaInterface
+class DropboxCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,11 +23,13 @@ class DropboxCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'email_alert_on_new_doc_dropbox' => ''
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-                'email_alert_on_new_doc_dropbox' => array('string'),
-            ))
         ;
+
+        $allowedTypes = [
+            'enabled' => ['string'],
+            'email_alert_on_new_doc_dropbox' => ['string'],
+        ];
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

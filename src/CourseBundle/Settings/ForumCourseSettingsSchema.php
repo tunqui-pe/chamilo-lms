@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ForumCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class ForumCourseSettingsSchema implements SchemaInterface
+class ForumCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,11 +23,12 @@ class ForumCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'allow_user_image_forum' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-                'allow_user_image_forum' => array('string'),
-            ))
         ;
+        $allowedTypes = [
+            'enabled' => ['string'],
+            'allow_user_image_forum' => ['string'],
+        ];
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

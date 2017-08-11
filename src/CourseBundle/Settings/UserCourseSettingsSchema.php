@@ -3,7 +3,7 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class UserCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class UserCourseSettingsSchema implements SchemaInterface
+class UserCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,11 +23,12 @@ class UserCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'allow_user_view_user_list' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-                'allow_user_view_user_list' => array('string'),
-            ))
         ;
+        $allowedTypes = [
+            'enabled' => ['string'],
+            'allow_user_view_user_list' => ['string'],
+        ];
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**

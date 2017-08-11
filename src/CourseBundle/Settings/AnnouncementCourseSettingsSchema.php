@@ -3,15 +3,15 @@
 
 namespace Chamilo\CourseBundle\Settings;
 
-use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Chamilo\CoreBundle\Settings\AbstractSettingsSchema;
 
 /**
  * Class AnnouncementCourseSettingsSchema
  * @package Chamilo\CourseBundle\Settings
  */
-class AnnouncementCourseSettingsSchema implements SchemaInterface
+class AnnouncementCourseSettingsSchema extends AbstractSettingsSchema
 {
     /**
      * {@inheritdoc}
@@ -23,11 +23,12 @@ class AnnouncementCourseSettingsSchema implements SchemaInterface
                 'enabled' => '',
                 'allow_user_edit_announcement' => '',
             ))
-            ->setAllowedTypes(array(
-                'enabled' => array('string'),
-                'allow_user_edit_announcement' => array('string'),
-            ))
         ;
+        $allowedTypes = array(
+            'enabled' => array('string'),
+            'allow_user_edit_announcement' => array('string'),
+        );
+        $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
 
     /**
