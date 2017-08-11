@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
@@ -74,7 +75,7 @@ class DocumentSettingsSchema extends AbstractSettingsSchema
         $builder
             ->add('default_document_quotum')
             ->add('default_group_quotum')
-            ->add('permanently_remove_deleted_files', 'yes_no')
+            ->add('permanently_remove_deleted_files', YesNoType::class)
             ->add(
                 'upload_extensions_list_type',
                 'choice',
@@ -102,19 +103,19 @@ class DocumentSettingsSchema extends AbstractSettingsSchema
                     ]
                 ]
             )
-            ->add('students_download_folders', 'yes_no')
-            ->add('users_copy_files', 'yes_no')
-            ->add('pdf_export_watermark_enable', 'yes_no')
-            ->add('pdf_export_watermark_by_course', 'yes_no')
+            ->add('students_download_folders', YesNoType::class)
+            ->add('users_copy_files', YesNoType::class)
+            ->add('pdf_export_watermark_enable', YesNoType::class)
+            ->add('pdf_export_watermark_by_course', YesNoType::class)
             ->add('pdf_export_watermark_text', 'textarea')
-            ->add('students_export2pdf', 'yes_no')
-            ->add('show_users_folders', 'yes_no')
-            ->add('show_default_folders', 'yes_no')
-            ->add('enabled_text2audio', 'yes_no')
-            ->add('enable_nanogong', 'yes_no')
-            ->add('show_documents_preview', 'yes_no')
-            ->add('enable_wami_record', 'yes_no')
-            ->add('enable_webcam_clip', 'yes_no')
+            ->add('students_export2pdf', YesNoType::class)
+            ->add('show_users_folders', YesNoType::class)
+            ->add('show_default_folders', YesNoType::class)
+            ->add('enabled_text2audio', YesNoType::class)
+            ->add('enable_nanogong', YesNoType::class)
+            ->add('show_documents_preview', YesNoType::class)
+            ->add('enable_wami_record', YesNoType::class)
+            ->add('enable_webcam_clip', YesNoType::class)
             ->add(
                 'tool_visible_by_default_at_creation',
                 'choice',

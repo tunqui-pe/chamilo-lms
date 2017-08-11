@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,6 +50,6 @@ class SurveySettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('extend_rights_for_coach_on_survey', 'yes_no');
+            ->add('extend_rights_for_coach_on_survey', YesNoType::class);
     }
 }

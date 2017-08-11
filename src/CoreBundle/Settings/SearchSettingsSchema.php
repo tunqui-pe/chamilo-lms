@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,8 +41,8 @@ class SearchSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('search_enabled', 'yes_no')
-            ->add('search_prefilter_prefix', 'yes_no')
+            ->add('search_enabled', YesNoType::class)
+            ->add('search_prefilter_prefix', YesNoType::class)
             ->add(
                 'search_show_unlinked_results',
                 'choice',

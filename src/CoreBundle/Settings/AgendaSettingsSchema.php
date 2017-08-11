@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,9 +46,9 @@ class AgendaSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            //->add('allow_personal_agenda', 'yes_no')
-            //->add('display_mini_month_calendar', 'yes_no')
-            ->add('display_upcoming_events', 'yes_no')
+            //->add('allow_personal_agenda', YesNoType::class)
+            //->add('display_mini_month_calendar', YesNoType::class)
+            ->add('display_upcoming_events', YesNoType::class)
             //->add('number_of_upcoming_events')
             ->add(
                 'default_calendar_view',

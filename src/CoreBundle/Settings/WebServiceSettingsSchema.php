@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,12 +45,12 @@ class WebServiceSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('decode_utf8', 'yes_no')
-            ->add('messaging_allow_send_push_notification', 'yes_no')
+            ->add('decode_utf8', YesNoType::class)
+            ->add('messaging_allow_send_push_notification', YesNoType::class)
             ->add('messaging_gdc_project_number')
             ->add('messaging_gdc_api_key')
-            ->add('decode_utf8', 'yes_no')
-            ->add('allow_download_documents_by_api_key', 'yes_no')
+            ->add('decode_utf8', YesNoType::class)
+            ->add('allow_download_documents_by_api_key', YesNoType::class)
         ;
     }
 }

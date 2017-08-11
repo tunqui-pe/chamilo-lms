@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Entity\Manager\CourseManager;
 use Chamilo\CoreBundle\Entity\Repository\CourseRepository;
@@ -50,14 +51,14 @@ class CasSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('cas_activate', 'yes_no')
+            ->add('cas_activate', YesNoType::class)
             ->add('cas_server')
             ->add('cas_server_uri')
             ->add('cas_port')
             ->add('cas_protocol')
             ->add('cas_server')
             ->add('cas_add_user_activate')
-            ->add('update_user_info_cas_with_ldap', 'yes_no')
+            ->add('update_user_info_cas_with_ldap', YesNoType::class)
         ;
     }
 }

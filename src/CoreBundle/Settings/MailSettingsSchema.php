@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,6 +37,6 @@ class MailSettingsSchema extends AbstractSettingsSchema
     {
         $builder
             ->add('noreply_email_address', 'email')
-            ->add('activate_email_template', 'yes_no');
+            ->add('activate_email_template', YesNoType::class);
     }
 }

@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,16 +57,16 @@ class GradebookSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('gradebook_enable', 'yes_no')
-            ->add('gradebook_score_display_custom', 'yes_no')
+            ->add('gradebook_enable', YesNoType::class)
+            ->add('gradebook_score_display_custom', YesNoType::class)
             ->add('gradebook_score_display_colorsplit')
-            ->add('gradebook_score_display_upperlimit', 'yes_no')
+            ->add('gradebook_score_display_upperlimit', YesNoType::class)
             ->add('gradebook_number_decimals')
-            ->add('teachers_can_change_score_settings', 'yes_no')
-            ->add('gradebook_enable_grade_model', 'yes_no')
-            ->add('teachers_can_change_grade_model_settings', 'yes_no')
+            ->add('teachers_can_change_score_settings', YesNoType::class)
+            ->add('gradebook_enable_grade_model', YesNoType::class)
+            ->add('teachers_can_change_grade_model_settings', YesNoType::class)
             ->add('gradebook_default_weight')
-            ->add('gradebook_locking_enabled', 'yes_no')
+            ->add('gradebook_locking_enabled', YesNoType::class)
             ->add('gradebook_default_grade_model_id')
             ->add('gradebook_show_percentage_in_reports')
             ->add('my_display_coloring')
@@ -79,7 +80,7 @@ class GradebookSettingsSchema extends AbstractSettingsSchema
             )
             ->add('gradebook_detailed_admin_view')
             ->add('openbadges_backpack')
-            ->add('hide_certificate_export_link', 'yes_no')
+            ->add('hide_certificate_export_link', YesNoType::class)
 
         ;
     }

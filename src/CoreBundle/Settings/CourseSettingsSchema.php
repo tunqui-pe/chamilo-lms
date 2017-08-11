@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Entity\Manager\CourseManager;
 use Chamilo\CoreBundle\Entity\Repository\CourseRepository;
@@ -153,7 +154,7 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('show_tool_shortcuts', 'yes_no')
+            ->add('show_tool_shortcuts', YesNoType::class)
             ->add(
                 'active_tools_on_create',
                 'choice',
@@ -163,10 +164,10 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     'expanded' => true,
                 )
             )
-            ->add('display_coursecode_in_courselist', 'yes_no')
-            ->add('display_teacher_in_courselist', 'yes_no')
-            ->add('student_view_enabled', 'yes_no')
-            ->add('go_to_course_after_login', 'yes_no')
+            ->add('display_coursecode_in_courselist', YesNoType::class)
+            ->add('display_teacher_in_courselist', YesNoType::class)
+            ->add('student_view_enabled', YesNoType::class)
+            ->add('go_to_course_after_login', YesNoType::class)
             ->add(
                 'show_navigation_menu',
                 'choice',
@@ -179,7 +180,7 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('enable_tool_introduction', 'yes_no')
+            ->add('enable_tool_introduction', YesNoType::class)
             ->add(
                 'breadcrumbs_course_homepage',
                 'choice',
@@ -192,13 +193,13 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('example_material_course_creation', 'yes_no')
-            ->add('allow_course_theme', 'yes_no')
-            ->add('allow_users_to_create_courses', 'yes_no')
-            ->add('show_courses_descriptions_in_catalog', 'yes_no')
-            ->add('send_email_to_admin_when_create_course', 'yes_no')
-            ->add('allow_user_course_subscription_by_course_admin', 'yes_no')
-            ->add('course_validation', 'yes_no')
+            ->add('example_material_course_creation', YesNoType::class)
+            ->add('allow_course_theme', YesNoType::class)
+            ->add('allow_users_to_create_courses', YesNoType::class)
+            ->add('show_courses_descriptions_in_catalog', YesNoType::class)
+            ->add('send_email_to_admin_when_create_course', YesNoType::class)
+            ->add('allow_user_course_subscription_by_course_admin', YesNoType::class)
+            ->add('course_validation', YesNoType::class)
             ->add('course_validation_terms_and_conditions_url', 'url')
             ->add(
                 'course_hide_tools',
@@ -209,7 +210,7 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     'expanded' => true,
                 )
             )
-            ->add('scorm_cumulative_session_time', 'yes_no')
+            ->add('scorm_cumulative_session_time', YesNoType::class)
             ->add(
                 'courses_default_creation_visibility',
                 'choice',
@@ -222,8 +223,8 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('allow_public_certificates', 'yes_no')
-            ->add('allow_lp_return_link', 'yes_no')
+            ->add('allow_public_certificates', YesNoType::class)
+            ->add('allow_lp_return_link', YesNoType::class)
             ->add(
                 'course_creation_use_template',
                 'entity',
@@ -234,14 +235,14 @@ class CourseSettingsSchema extends AbstractSettingsSchema
                     'empty_data'  => null
                 )
             )
-            ->add('hide_scorm_export_link', 'yes_no')
-            ->add('hide_scorm_copy_link', 'yes_no')
-            ->add('hide_scorm_pdf_link', 'yes_no')
-            ->add('course_catalog_published', 'yes_no')
-            ->add('course_images_in_courses_list', 'yes_no')
-            ->add('teacher_can_select_course_template', 'yes_no')
-            ->add('show_toolshortcuts', 'yes_no')
-            ->add('enable_record_audio', 'yes_no')
+            ->add('hide_scorm_export_link', YesNoType::class)
+            ->add('hide_scorm_copy_link', YesNoType::class)
+            ->add('hide_scorm_pdf_link', YesNoType::class)
+            ->add('course_catalog_published', YesNoType::class)
+            ->add('course_images_in_courses_list', YesNoType::class)
+            ->add('teacher_can_select_course_template', YesNoType::class)
+            ->add('show_toolshortcuts', YesNoType::class)
+            ->add('enable_record_audio', YesNoType::class)
         ;
     }
 }

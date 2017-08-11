@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,7 +39,7 @@ class GroupSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_group_categories', 'yes_no')
-            ->add('hide_course_group_if_no_tools_available', 'yes_no');
+            ->add('allow_group_categories', YesNoType::class)
+            ->add('hide_course_group_if_no_tools_available', YesNoType::class);
     }
 }

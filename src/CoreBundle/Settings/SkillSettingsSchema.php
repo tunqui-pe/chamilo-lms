@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,8 +38,8 @@ class SkillSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_skills_tool', 'yes_no')
-            ->add('allow_hr_skills_management', 'yes_no')
+            ->add('allow_skills_tool', YesNoType::class)
+            ->add('allow_hr_skills_management', YesNoType::class)
         ;
     }
 }

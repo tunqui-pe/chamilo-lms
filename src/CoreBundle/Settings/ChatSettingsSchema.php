@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,8 +39,8 @@ class ChatSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('allow_global_chat', 'yes_no')
-            ->add('show_chat_folder', 'yes_no')
+            ->add('allow_global_chat', YesNoType::class)
+            ->add('show_chat_folder', YesNoType::class)
         ;
     }
 }

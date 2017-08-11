@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -48,9 +49,9 @@ class LanguageSettingsSchema extends AbstractSettingsSchema
     {
         $builder
             ->add('platform_language', 'language')
-            ->add('allow_use_sub_language', 'yes_no')
-            ->add('auto_detect_language_custom_pages', 'yes_no')
-            ->add('show_different_course_language', 'yes_no')
+            ->add('allow_use_sub_language', YesNoType::class)
+            ->add('auto_detect_language_custom_pages', YesNoType::class)
+            ->add('show_different_course_language', YesNoType::class)
             ->add('language_priority_1')
             ->add('language_priority_2')
             ->add('language_priority_3')

@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,7 +48,7 @@ class AdminSettingsSchema extends AbstractSettingsSchema
             ->add('administrator_surname')
             ->add('administrator_email', 'email')
             ->add('administrator_phone')
-            ->add('redirect_admin_to_courses_list', 'yes_no')
+            ->add('redirect_admin_to_courses_list', YesNoType::class)
 
         ;
     }

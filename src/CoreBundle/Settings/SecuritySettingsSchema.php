@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,10 +43,10 @@ class SecuritySettingsSchema extends AbstractSettingsSchema
     {
         $builder
             ->add('filter_terms', 'textarea')
-            ->add('allow_browser_sniffer', 'yes_no')
-            ->add('admins_can_set_users_pass', 'yes_no')
-            ->add('allow_strength_pass_checker', 'yes_no')
-            ->add('allow_captcha', 'yes_no')
+            ->add('allow_browser_sniffer', YesNoType::class)
+            ->add('admins_can_set_users_pass', YesNoType::class)
+            ->add('allow_strength_pass_checker', YesNoType::class)
+            ->add('allow_captcha', YesNoType::class)
 
         ;
     }

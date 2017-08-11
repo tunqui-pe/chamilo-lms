@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Chamilo\SettingsBundle\Transformer\ArrayToIdentifierTransformer;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
@@ -75,19 +76,19 @@ class ProfileSettingsSchema extends AbstractSettingsSchema
                 )
             )
             ->add('extended_profile',
-                'yes_no',
+                YesNoType::class,
                 ['label' => 'ExtendedProfileTitle', 'help_block'=> 'ExtendedProfileComment']
             )
             ->add('account_valid_duration')
-            ->add('split_users_upload_directory', 'yes_no')
-            ->add('user_selected_theme', 'yes_no')
-            ->add('use_users_timezone', 'yes_no')
-            ->add('allow_users_to_change_email_with_no_password', 'yes_no')
-            ->add('login_is_email', 'yes_no', ['label' => 'LoginIsEmailTitle'])
-            ->add('profiling_filter_adding_users', 'yes_no')
-            ->add('enable_profile_user_address_geolocalization', 'yes_no')
-            ->add('allow_show_skype_account', 'yes_no')
-            ->add('allow_show_linkedin_url', 'yes_no')
+            ->add('split_users_upload_directory', YesNoType::class)
+            ->add('user_selected_theme', YesNoType::class)
+            ->add('use_users_timezone', YesNoType::class)
+            ->add('allow_users_to_change_email_with_no_password', YesNoType::class)
+            ->add('login_is_email', YesNoType::class, ['label' => 'LoginIsEmailTitle'])
+            ->add('profiling_filter_adding_users', YesNoType::class)
+            ->add('enable_profile_user_address_geolocalization', YesNoType::class)
+            ->add('allow_show_skype_account', YesNoType::class)
+            ->add('allow_show_linkedin_url', YesNoType::class)
 
 
         ;

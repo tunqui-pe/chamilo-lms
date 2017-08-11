@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,6 +51,6 @@ class ForumSettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('display_groups_forum_in_general_tool', 'yes_no');
+            ->add('display_groups_forum_in_general_tool', YesNoType::class);
     }
 }

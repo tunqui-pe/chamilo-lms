@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -80,13 +81,13 @@ class PlatformSettingsSchema extends AbstractSettingsSchema
 //            ->add('administrator_phone')
             ->add('timezone', 'timezone')
             ->add('theme')
-            ->add('gravatar_enabled', 'yes_no')
+            ->add('gravatar_enabled', YesNoType::class)
             ->add('gravatar_type')
             ->add('gamification_mode')
-            ->add('order_user_list_by_official_code', 'yes_no')
-            ->add('cookie_warning', 'yes_no')
-            ->add('donotlistcampus', 'yes_no')
-            ->add('course_catalog_hide_private', 'yes_no')
+            ->add('order_user_list_by_official_code', YesNoType::class)
+            ->add('cookie_warning', YesNoType::class)
+            ->add('donotlistcampus', YesNoType::class)
+            ->add('course_catalog_hide_private', YesNoType::class)
             ->add(
                 'catalog_show_courses_sessions',
                 'choice',
@@ -96,9 +97,9 @@ class PlatformSettingsSchema extends AbstractSettingsSchema
                     '2' => 'CatalogueShowCoursesAndSessions',
                 ]]
             )
-            ->add('use_custom_pages', 'yes_no')
+            ->add('use_custom_pages', YesNoType::class)
             ->add('pdf_logo_header')
-            ->add('allow_my_files', 'yes_no')
+            ->add('allow_my_files', YesNoType::class)
         ;
     }
 }

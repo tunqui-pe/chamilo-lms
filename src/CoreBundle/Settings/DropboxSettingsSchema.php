@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,12 +43,12 @@ class DropboxSettingsSchema extends AbstractSettingsSchema
     public function buildForm(FormBuilderInterface $builder)
     {
         $builder
-            ->add('dropbox_allow_overwrite', 'yes_no')
+            ->add('dropbox_allow_overwrite', YesNoType::class)
             ->add('dropbox_max_filesize')
-            ->add('dropbox_allow_just_upload', 'yes_no')
-            ->add('dropbox_allow_student_to_student', 'yes_no')
-            ->add('dropbox_allow_group', 'yes_no')
-            ->add('dropbox_allow_mailing', 'yes_no')
+            ->add('dropbox_allow_just_upload', YesNoType::class)
+            ->add('dropbox_allow_student_to_student', YesNoType::class)
+            ->add('dropbox_allow_group', YesNoType::class)
+            ->add('dropbox_allow_mailing', YesNoType::class)
         ;
     }
 }

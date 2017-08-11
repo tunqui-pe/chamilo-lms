@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,13 +50,13 @@ class ExerciseSettingsSchema extends AbstractSettingsSchema
         $builder
             ->add('exercise_min_score')
             ->add('exercise_max_score')
-            ->add('enable_quiz_scenario', 'yes_no')
-            ->add('allow_coach_feedback_exercises', 'yes_no')
-            ->add('show_official_code_exercise_result_list', 'yes_no')
-            ->add('email_alert_manager_on_new_quiz', 'yes_no')
+            ->add('enable_quiz_scenario', YesNoType::class)
+            ->add('allow_coach_feedback_exercises', YesNoType::class)
+            ->add('show_official_code_exercise_result_list', YesNoType::class)
+            ->add('email_alert_manager_on_new_quiz', YesNoType::class)
             ->add('exercise_max_ckeditors_in_page')
-            ->add('configure_exercise_visibility_in_course', 'yes_no')
-            ->add('exercise_invisible_in_session', 'yes_no')
+            ->add('configure_exercise_visibility_in_course', YesNoType::class)
+            ->add('exercise_invisible_in_session', YesNoType::class)
         ;
     }
 }

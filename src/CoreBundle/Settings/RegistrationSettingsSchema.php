@@ -3,6 +3,7 @@
 
 namespace Chamilo\CoreBundle\Settings;
 
+use Chamilo\CoreBundle\Form\Type\YesNoType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -102,8 +103,8 @@ class RegistrationSettingsSchema extends AbstractSettingsSchema
                     ),
                 )
             )
-            ->add('allow_registration_as_teacher', 'yes_no')
-            ->add('allow_lostpassword', 'yes_no')
+            ->add('allow_registration_as_teacher', YesNoType::class)
+            ->add('allow_lostpassword', YesNoType::class)
             ->add(
                 'page_after_login',
                 'choice',
@@ -133,7 +134,7 @@ class RegistrationSettingsSchema extends AbstractSettingsSchema
                     'help_block' => 'ExtendedProfileRegistrationRequiredComment'
                 ]
             )
-            ->add('allow_terms_conditions', 'yes_no')
+            ->add('allow_terms_conditions', YesNoType::class)
             ->add('student_page_after_login')
             ->add('teacher_page_after_login')
             ->add('drh_page_after_login')
@@ -142,7 +143,7 @@ class RegistrationSettingsSchema extends AbstractSettingsSchema
             ->add('teacher_autosubscribe')// ?
             ->add('drh_autosubscribe')//?
             ->add('sessionadmin_autosubscribe')// ?
-            ->add('platform_unsubscribe_allowed', 'yes_no')
+            ->add('platform_unsubscribe_allowed', YesNoType::class)
         ;
     }
 }
