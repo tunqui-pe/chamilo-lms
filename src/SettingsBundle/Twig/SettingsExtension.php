@@ -47,6 +47,7 @@ class SettingsExtension extends \Twig_Extension
         return array(
              //new \Twig_SimpleFunction('chamilo_settings_all', array($this, 'getSettings')),
              new \Twig_SimpleFilter('get_setting', array($this, 'getSettingsParameter')),
+             new \Twig_SimpleFilter('api_get_setting', array($this, 'getSettingsParameter')),
              //new \Twig_SimpleFunction('chamilo_settings_has', [$this, 'hasSettingsParameter']),
         );
     }

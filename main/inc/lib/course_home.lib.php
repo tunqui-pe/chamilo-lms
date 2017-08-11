@@ -1011,91 +1011,61 @@ class CourseHome
             } // end of foreach
         }
 
-        $i = 0;
-        $html = '';
-
-        if (!empty($items)) {
-            foreach ($items as $item) {
-                switch ($theme) {
-                    case 'activity_big':
-                        $data = '';
-                        $html .= '<div class="col-xs-6 col-md-3 course-tool">';
-                        $image = (substr($item['tool']['image'], 0, strpos($item['tool']['image'], '.'))).'.png';
-                        $toolId = isset($item['tool']['id']) ? $item['tool']['id'] : null;
-
-                        if (isset($item['tool']['custom_image'])) {
-                            $original_image = Display::img(
-                                $item['tool']['custom_image'],
-                                $item['name'],
-                                array('id' => 'toolimage_'.$toolId)
-                            );
-                        } elseif (isset($item['tool']['custom_icon']) &&
-                            !empty($item['tool']['custom_icon'])
-                        ) {
-                            $customIcon = $item['tool']['custom_icon'];
-                            if ($item['tool']['visibility'] == '0') {
-                                $fileInfo = pathinfo($item['tool']['custom_icon']);
-                                $customIcon = self::getDisableIcon($item['tool']['custom_icon']);
-                            }
-                            $original_image = Display::img(
-                                self::getCustomWebIconPath().$customIcon,
-                                $item['name'],
-                                array('id' => 'toolimage_'.$toolId)
-                            );
-                        } else {
-                            $original_image = Display::return_icon(
-                                $image,
-                                $item['name'],
-                                array('id' => 'toolimage_'.$toolId),
-                                ICON_SIZE_BIG,
-                                false
-                            );
-                        }
-
-                        $data .= Display::url($original_image, $item['url_params']['href'], $item['url_params']);
-                        $html .= Display::div($data, array('class' => 'big_icon')); //box-image reflection
-                        $html .= Display::div('<h4>'.$item['visibility'].$item['extra'].$item['link'].'</h4>', array('class' => 'content'));
-                        $html .= '</div>';
-
-                        break;
-                    case 'activity':
-                        $html .= '<div class="offset2 col-md-4 course-tool">';
-                        $html .= $item['extra'];
-                        $html .= $item['visibility'];
-                        $html .= $item['icon'];
-                        $html .= $item['link'];
-                        $html .= '</div>';
-                        break;
-                    case 'vertical_activity':
-                        if ($i == 0) {
-                            $html .= '<ul>';
-                        }
-                        $image = (substr($item['tool']['image'], 0, strpos($item['tool']['image'], '.'))).'.png';
-                        $original_image = Display::return_icon(
-                                $image,
-                                $item['name'],
-                                array('id' => 'toolimage_'.$item['tool']['id']),
-                                ICON_SIZE_SMALL,
-                                false
-                            );
-                        $html .= '<li class="course-tool">';
-                        $html .= $item['extra'];
-                        $html .= $item['visibility'];
-                        $url = Display::url($original_image, $item['url_params']['href'], $item['url_params']);
-                        $html .= $url;
-                        $html .= $item['link'];
-                        $html .= '</li>';
-
-                        if ($i == count($items) - 1) {
-                            $html .= '</ul>';
-                        }
-                        break;
-                }
-                $i++;
-            }
+        if (api_get_setting('homepage_view') != 'activity_big') {
+            return $items;
         }
 
-        return $html;
+        foreach ($items as &$item) {
+            $originalImage = self::getToolIcon($item);
+            $item['tool']['image'] = Display::url(
+                $originalImage,
+                $item['url_params']['href'],
+                $item['url_params']
+            );
+        }
+
+        return $items;
+    }
+
+    /**
+     * Find the tool icon when homepage_view is activity_big
+     * @param array $item
+     * @return string
+     */
+    private static function getToolIcon(array $item)
+    {
+        $image = str_replace('.gif', '.png', $item['tool']['image']);
+        $toolIid = isset($item['tool']['iid']) ? $item['tool']['iid'] : null;
+
+        if (isset($item['tool']['custom_image'])) {
+            return Display::img(
+                $item['tool']['custom_image'],
+                $item['name'],
+                array('id' => 'toolimage_'.$toolIid)
+            );
+        }
+
+        if (isset($item['tool']['custom_icon']) && !empty($item['tool']['custom_icon'])) {
+            $customIcon = $item['tool']['custom_icon'];
+
+            if ($item['tool']['visibility'] == '0') {
+                $customIcon = self::getDisableIcon($item['tool']['custom_icon']);
+            }
+
+            return Display::img(
+                self::getCustomWebIconPath().$customIcon,
+                $item['name'],
+                array('id' => 'toolimage_'.$toolIid)
+            );
+        }
+
+        return Display::return_icon(
+            $image,
+            $item['name'],
+            array('id' => 'toolimage_'.$toolIid),
+            ICON_SIZE_BIG,
+            false
+        );
     }
 
     /**
@@ -1325,7 +1295,7 @@ class CourseHome
                 $class = 'text';
                 $marginLeft = 170;
                 $item = $navigation_item['name'];
-            } else if (api_get_setting('show_navigation_menu') == 'icons') {
+            } elseif (api_get_setting('show_navigation_menu') == 'icons') {
                 $class = 'icons';
                 $marginLeft = 25;
                 $item = Display::return_icon(
@@ -1336,7 +1306,13 @@ class CourseHome
                 );
             } else {
                 $class = 'icons-text';
-                $item = $navigation_item['name'].Display::return_icon(substr($navigation_item['image'], 0, -3)."png", $navigation_item['name'], array('class'=>'tool-img'), ICON_SIZE_SMALL);
+                $item = $navigation_item['name'].
+                    Display::return_icon(
+                        substr($navigation_item['image'], 0, -3)."png",
+                        $navigation_item['name'],
+                        array('class' => 'tool-img'),
+                        ICON_SIZE_SMALL
+                    );
             }
 
             if (stristr($url_item['path'], $url_current['path'])) {
@@ -1630,5 +1606,35 @@ class CourseHome
                 [' iid = ?' => [$id]]
             );
         }
+    }
+
+    /**
+     * @param string $text
+     * @param array $toolList
+     * @return string
+     */
+    public static function replaceTextWithToolUrls($text, $toolList)
+    {
+        if (empty($toolList)) {
+            return $text;
+        }
+
+        foreach ($toolList as $tool) {
+            if (!isset($tool['icon'])) {
+                continue;
+            }
+            $toolName = $tool['tool']['name'];
+            $search = array("{{ ".$toolName." }}", "{{".$toolName."}}", "((".$toolName."))", "(( ".$toolName." ))");
+            $text = str_replace($search, $tool['icon'], $text);
+        }
+
+        // Cleaning tags that are not used.
+        $tools = self::availableTools();
+        foreach ($tools as $toolName) {
+            $search = array("{{ ".$toolName." }}", "{{".$toolName."}}", "((".$toolName."))", "(( ".$toolName." ))");
+            $text = str_replace($search, null, $text);
+        }
+
+        return $text;
     }
 }

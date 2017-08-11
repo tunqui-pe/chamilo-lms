@@ -87,7 +87,7 @@ class HomeController extends ToolBaseController
         $homeView = api_get_setting('course.homepage_view');
 
         if ($homeView == 'activity' || $homeView == 'activity_big') {
-            $result = $this->renderActivityView();
+            $blocks = $this->renderActivityView();
         } elseif ($homeView == '2column') {
             $result = $this->render2ColumnView();
         } elseif ($homeView == '3column') {
@@ -114,6 +114,7 @@ class HomeController extends ToolBaseController
                 'course' => $course,
                 'session_info' => $sessionInfo,
                 'icons' => $result['content'],
+                'blocks' => $blocks,
                 'edit_icons' => $editIcons,
                 'introduction_text' => $introduction,
                 'exercise_warning' => null,
@@ -149,57 +150,149 @@ class HomeController extends ToolBaseController
         $urlGenerator = $this->get('router');
         $content = '';
 
+        $enabled = api_get_plugin_setting('courselegal', 'tool_enable');
+        $pluginExtra = null;
+        if ($enabled === 'true') {
+            /*require_once api_get_path(SYS_PLUGIN_PATH).'courselegal/config.php';
+            $plugin = CourseLegalPlugin::create();
+            $pluginExtra = $plugin->getTeacherLink();*/
+        }
+
         // Start of tools for CourseAdmins (teachers/tutors)
         $totalList = array();
 
-        if ($session_id == 0 &&
-            api_is_course_admin() &&
-            api_is_allowed_to_edit(null, true)
-        ) {
-            $list = CourseHome::get_tools_category(TOOL_AUTHORING);
-            $result = CourseHome::show_tools_category($urlGenerator, $list);
+        // Start of tools for CourseAdmins (teachers/tutors)
+        if ($session_id === 0 && api_is_course_admin() && api_is_allowed_to_edit(null, true)) {
+            $content .= '<div class="alert alert-success" style="border:0px; margin-top: 0px;padding:0px;">
+                <div class="normal-message" id="id_normal_message" style="display:none">';
+            $content .= '<img src="'.api_get_path(WEB_PATH).'main/inc/lib/javascript/indicator.gif"/>&nbsp;&nbsp;';
+            $content .= get_lang('PleaseStandBy');
+            $content .= '</div>
+                <div class="alert alert-success" id="id_confirmation_message" style="display:none"></div>
+            </div>';
 
-            $content .= $this->return_block(get_lang('Authoring'), $result['content']);
+            $content .= $pluginExtra;
 
-            $totalList = $result['tool_list'];
+            if (api_get_setting('show_session_data') == 'true' && $session_id > 0) {
+                $content .= '
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <span class="viewcaption">'.get_lang('SessionData').'</span>
+                        <table class="course_activity_home">'.
+                            CourseHome::show_session_data($session_id).'
+                        </table>
+                    </div>
+                </div>';
+            }
 
-            $list = CourseHome::get_tools_category(TOOL_INTERACTION);
+            $my_list = CourseHome::get_tools_category(TOOL_AUTHORING);
+
+            $blocks[] = [
+                'title' => get_lang('Authoring'),
+                'class' => 'course-tools-author',
+                'content' => CourseHome::show_tools_category($my_list)
+            ];
+
+            $list1 = CourseHome::get_tools_category(TOOL_INTERACTION);
             $list2 = CourseHome::get_tools_category(TOOL_COURSE_PLUGIN);
-            $list = array_merge($list, $list2);
-            $result =  CourseHome::show_tools_category($urlGenerator, $list);
-            $totalList = array_merge($totalList, $result['tool_list']);
+            $my_list = array_merge($list1, $list2);
 
-            $content .= $this->return_block(get_lang('Interaction'), $result['content']);
+            $blocks[] = [
+                'title' => get_lang('Interaction'),
+                'class' => 'course-tools-interaction',
+                'content' => CourseHome::show_tools_category($my_list)
+            ];
 
-            $list = CourseHome::get_tools_category(TOOL_ADMIN_PLATFORM);
-            $totalList = array_merge($totalList, $list);
-            $result = CourseHome::show_tools_category($urlGenerator, $list);
-            $totalList = array_merge($totalList, $result['tool_list']);
+            $my_list = CourseHome::get_tools_category(TOOL_ADMIN_PLATFORM);
 
-            $content .= $this->return_block(get_lang('Administration'), $result['content']);
+            $blocks[] = [
+                'title' => get_lang('Administration'),
+                'class' => 'course-tools-administration',
+                'content' => CourseHome::show_tools_category($my_list)
+            ];
 
         } elseif (api_is_coach()) {
-            $content .=  '<div class="row">';
-            $list = CourseHome::get_tools_category(TOOL_STUDENT_VIEW);
-            $result = CourseHome::show_tools_category($urlGenerator, $list);
-            $content .= $result['content'];
-            $totalList = array_merge($totalList, $result['tool_list']);
-            $content .= '</div>';
+            $content .= $pluginExtra;
+            if (api_get_setting('show_session_data') === 'true' && $session_id > 0) {
+                $content .= '<div class="row">
+                    <div class="col-xs-12 col-md-12">
+                    <span class="viewcaption">'.get_lang('SessionData').'</span>
+                    <table class="course_activity_home">';
+                $content .= CourseHome::show_session_data($session_id);
+                $content .= '</table></div></div>';
+            }
+
+            $my_list = CourseHome::get_tools_category(TOOL_STUDENT_VIEW);
+
+            $blocks[] = [
+                'content' => CourseHome::show_tools_category($my_list)
+            ];
+
+            $sessionsCopy = api_get_setting('allow_session_course_copy_for_teachers');
+            if ($sessionsCopy === 'true') {
+                // Adding only maintenance for coaches.
+                $myList = CourseHome::get_tools_category(TOOL_ADMIN_PLATFORM);
+                $onlyMaintenanceList = array();
+
+                foreach ($myList as $item) {
+                    if ($item['name'] === 'course_maintenance') {
+                        $item['link'] = 'course_info/maintenance_coach.php';
+
+                        $onlyMaintenanceList[] = $item;
+                    }
+                }
+
+                $blocks[] = [
+                    'title' => get_lang('Administration'),
+                    'content' => CourseHome::show_tools_category($onlyMaintenanceList)
+                ];
+            }
         } else {
-            $list = CourseHome::get_tools_category(TOOL_STUDENT_VIEW);
-            if (count($list) > 0) {
-                $content .= '<div class="row">';
-                $result = CourseHome::show_tools_category($urlGenerator, $list);
-                $content .= $result['content'];
-                $totalList = array_merge($totalList, $result['tool_list']);
-                $content .= '</div>';
+            $tools = CourseHome::get_tools_category(TOOL_STUDENT_VIEW);
+
+            $isDrhOfCourse = \CourseManager::isUserSubscribedInCourseAsDrh(
+                api_get_user_id(),
+                api_get_course_info()
+            );
+
+            // Force user icon for DRH
+            if ($isDrhOfCourse) {
+                $addUserTool = true;
+                foreach ($tools as $tool) {
+                    if ($tool['name'] === 'user') {
+                        $addUserTool = false;
+                        break;
+                    }
+                }
+
+                if ($addUserTool) {
+                    $tools[] = array(
+                        'c_id' => api_get_course_int_id(),
+                        'name' => 'user',
+                        'link' => 'user/user.php',
+                        'image' => 'members.gif',
+                        'visibility' => '1',
+                        'admin' => '0',
+                        'address' => 'squaregrey.gif',
+                        'added_tool' => '0',
+                        'target' => '_self',
+                        'category' => 'interaction',
+                        'session_id' => api_get_session_id()
+                    );
+                }
+            }
+
+            if (count($tools) > 0) {
+                $blocks[] = ['content' => CourseHome::show_tools_category($tools)];
+            }
+
+            if ($isDrhOfCourse) {
+                $drhTool = CourseHome::get_tools_category(TOOL_DRH);
+                $blocks[] = ['content' => CourseHome::show_tools_category($drhTool)];
             }
         }
 
-        return array(
-            'content' => $content,
-            'tool_list' => $totalList
-        );
+        return $blocks;
     }
 
     private function render2ColumnView()
