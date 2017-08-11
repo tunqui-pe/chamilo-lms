@@ -2612,6 +2612,16 @@ function api_is_course_admin()
 
 /**
  * Checks whether the current user is a course coach
+ * Based on the presence of user in session.id_coach (session general coach)
+ * @return bool True if current user is a course coach
+ */
+function api_is_session_general_coach()
+{
+    return Session::read('is_session_general_coach');
+}
+
+/**
+ * Checks whether the current user is a course coach
  * @return bool     True if current user is a course coach
  */
 function api_is_course_coach()
