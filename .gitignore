@@ -52,3 +52,6 @@ plugin/bbb/config.vm.php
 # Cron temp files
 main/cron/incoming/*
 plugin/vchamilo/templates/*
+###> symfony/web-server-bundle ###
+.web-server-pid
+###< symfony/web-server-bundle ###
