@@ -3142,35 +3142,35 @@ a.forum-goto{
     margin-bottom: 10px;
 }
 .handle{
-    background-image: url('../img/div_show.gif');
+    /*background-image: url('../img/div_show.gif');*/
     background-repeat: no-repeat;
     background-position:left center;
     padding-left: 25px;
     box-shadow:none;
 }
 .handle.collapsed{
-    background-image:  url('../img/div_show.gif');
+    /*background-image:  url('../img/div_show.gif');*/
     background-repeat: no-repeat;
     background-position:left center;
     padding-left: 25px;
     box-shadow:none;
 }
 .handle.expanded{
-    background-image:  url('../img/div_hide.gif');
+    /*background-image:  url('../img/div_hide.gif');*/
     background-repeat: no-repeat;
     background-position:left center;
     padding-left: 25px;
     box-shadow:none;
 }
 .collapsible .handle{
-    background-image: url('../img/div_hide.gif');
+    /*background-image: url('../img/div_hide.gif');*/
     background-repeat: no-repeat;
     background-position:left center;
     padding-left: 25px;
     box-shadow:none;
 }
 .collapsible .handle.collapsed{
-    background-image:  url('../img/div_show.gif');
+    /*background-image:  url('../img/div_show.gif');*/
     background-repeat: no-repeat;
     background-position:left center;
     padding-left: 25px;
@@ -3178,7 +3178,7 @@ a.forum-goto{
 }
 
 .collapsible.expanded .handle{
-    background-image:  url('../img/div_hide.gif');
+    /*background-image:  url('../img/div_hide.gif');*/
     background-repeat: no-repeat;
     background-position:left center;
     padding-left: 25px;
@@ -3304,13 +3304,13 @@ i.size-32.icon-new-note{
 
 .dataTables_wrapper .paginate_disabled_previous, .dataTables_wrapper .paginate_enabled_previous {
     padding-left: 23px;
-    background: url("../img/action_prev.png") no-repeat scroll left top;
+    /*background: url("../img/action_prev.png") no-repeat scroll left top;*/
 }
 
 .dataTables_wrapper .paginate_disabled_next, .dataTables_wrapper .paginate_enabled_next {
     margin-left: 10px;
     padding-right: 23px;
-    background: url("../img/action_next.png") no-repeat scroll left top;
+    /*background: url("../img/action_next.png") no-repeat scroll left top;*/
 }
 
 .dataTables_wrapper .paginate_disabled_previous, .dataTables_wrapper .paginate_disabled_next{

@@ -13,6 +13,5 @@ require('bootstrap-sass');
 require("../../../node_modules/jquery-ui-dist/jquery-ui.js");
 require('jquery-ui-timepicker-addon');
 require('chosen-js');
-
 require('daterangepicker');
 
