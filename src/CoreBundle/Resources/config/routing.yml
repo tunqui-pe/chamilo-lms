@@ -1,3 +1,7 @@
+core_controller:
+    resource: '@ChamiloCoreBundle/Controller/IndexController.php'
+    type:     annotation
+
 index:
     resource: '@ChamiloCoreBundle/Controller/IndexController.php'
     type:     annotation

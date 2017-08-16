@@ -64,7 +64,8 @@ class ConfigureStep extends AbstractStep
                 $form->get('database')->get('chamilo_installer_database_drop_full')->getData()
             );
 
-            $this->get('chamilo_installer.yaml_persister')->dump($data);
+            $this->get('chamilo_installer.env_persister')->dump($data);
+            //$this->get('chamilo_installer.yaml_persister')->dump($data);
 
             return $this->complete();
         }
@@ -85,7 +86,7 @@ class ConfigureStep extends AbstractStep
      */
     protected function createConfigurationForm($options = array(), $upgrade = false)
     {
-        $data = $this->get('chamilo_installer.yaml_persister')->parse();
+        $this->get('chamilo_installer.env_persister')->parse();
         $data['is_upgrade'] = $upgrade;
 
         return $this->createForm(

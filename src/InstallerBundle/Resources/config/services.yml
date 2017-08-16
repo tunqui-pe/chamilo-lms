@@ -2,6 +2,7 @@ parameters:
     chamilo_installer.install.scenario.class: Chamilo\InstallerBundle\Process\InstallScenario
     chamilo_installer.upgrade.scenario.class: Chamilo\InstallerBundle\Process\UpgradeScenario
     chamilo_installer.yaml_persister.class:   Chamilo\InstallerBundle\Persister\YamlPersister
+    chamilo_installer.env_persister.class:   Chamilo\InstallerBundle\Persister\EnvPersister
     chamilo_installer.listener.request.class: Chamilo\InstallerBundle\EventListener\RequestListener
     chamilo_installer.script_manager.class:   Chamilo\InstallerBundle\ScriptManager
 
@@ -24,6 +25,12 @@ services:
         class: '%chamilo_installer.yaml_persister.class%'
         arguments:
             - %kernel.root_dir%/config
+            - '%kernel.environment%'
+
+    chamilo_installer.env_persister:
+        class: '%chamilo_installer.env_persister.class%'
+        arguments:
+            - %kernel.root_dir%/../
             - '%kernel.environment%'
 
     kernel.listener.install.event:

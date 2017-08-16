@@ -123,7 +123,7 @@ class SetupStep extends AbstractStep
      */
     protected function createSetupForm()
     {
-        $data = $this->get('chamilo_installer.yaml_persister')->parse();
+        $data = $this->get('chamilo_installer.env_persister')->parse();
 
         return $this->createForm(
             SetupType::class,

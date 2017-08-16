@@ -1,12 +1,12 @@
 <?php
+
+namespace Chamilo\ThemeBundle\Controller;
+
 /**
  * SecurityController.php
  * avanzu-admin
  * Date: 23.02.14
  */
-
-namespace Chamilo\ThemeBundle\Controller;
-
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +14,6 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends Controller
 {
-
     /**
      * @param Request $request
      *

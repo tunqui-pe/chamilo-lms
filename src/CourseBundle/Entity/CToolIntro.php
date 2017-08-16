@@ -44,7 +44,7 @@ class CToolIntro
 
     /**
      * @var string
-     * @GRID\Column(type="text")
+     * GRID\Column(type="text")
      * @ORM\Column(name="intro_text", type="text", nullable=false)
      */
     private $introText;

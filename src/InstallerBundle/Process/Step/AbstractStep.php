@@ -162,9 +162,8 @@ abstract class AbstractStep extends AbstractControllerStep
      */
     public function isUpgrade()
     {
-        if ($this->container->hasParameter('installed') &&
-            !empty($this->container->getParameter('installed'))
-        ) {
+        $installed = getenv('APP_INSTALLED');
+        if (!empty($installed)) {
             return true;
         }
 

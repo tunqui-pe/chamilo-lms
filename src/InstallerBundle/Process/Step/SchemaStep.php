@@ -4,6 +4,7 @@
 namespace Chamilo\InstallerBundle\Process\Step;
 
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -20,7 +21,7 @@ class SchemaStep extends AbstractStep
                 // suppress warning: ini_set(): A session is active. You cannot change the session
                 // module's ini settings at this time
                 error_reporting(E_ALL ^ E_WARNING);
-
+                return new JsonResponse(array('result' => true, 'exitCode' => 0));
                 return $this->handleAjaxAction(
                     'cache:clear',
                     array('--no-optional-warmers' => true)
