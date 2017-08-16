@@ -22,9 +22,13 @@ if (getenv('APP_DEBUG')) {
 }
 
 // Request::setTrustedProxies(['0.0.0.0/0'], Request::HEADER_FORWARDED);
+require_once __DIR__.'/legacy.php';
 
 $kernel = new Kernel(getenv('APP_ENV'), getenv('APP_DEBUG'));
-$request = Request::createFromGlobals();
+//$request = Request::createFromGlobals();
+$request = Sonata\PageBundle\Request\RequestFactory::createFromGlobals(
+    'host_with_path_by_locale'
+);
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);

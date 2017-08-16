@@ -8,24 +8,25 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Dotenv\Dotenv;
 
 require_once __DIR__.'/../app/ChamiloRequirements.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
 // check for installed system
-$paramFile = __DIR__.'/../app/config/parameters.yml';
+$paramFile = __DIR__.'/../.env';
 $configFile = __DIR__.'/../app/config/configuration.php';
 
 $upgrade = false;
 if (file_exists($paramFile)) {
+    //DATABASE_URL
+    $dotEnv = new Dotenv();
+    $dotEnv->load($paramFile);
+    $installed = getenv('APP_INSTALLED');
+
     $data = Yaml::parse($paramFile);
-    if (is_array($data)
-        && isset($data['parameters'])
-        && isset($data['parameters']['installed'])
-        && false != $data['parameters']['installed']
-    ) {
-        /*require_once __DIR__.'/app_dev.php';
+    if (!empty($installed)) {
+        /*require_once __DIR__.'/index.php';
         exit;*/
     }
 }
@@ -34,9 +35,9 @@ if (file_exists($paramFile) && file_exists($configFile)) {
     $upgrade = true;
 }
 
-$url = 'app_dev.php/install/flow/chamilo_install/welcome';
+$url = 'index.php/install/flow/chamilo_install/welcome';
 if ($upgrade) {
-    $url = 'app_dev.php/install/flow/chamilo_upgrade/welcome';
+    $url = 'index.php/install/flow/chamilo_upgrade/welcome';
 }
 
 /**
@@ -115,10 +116,9 @@ function iterateRequirements(array $collection, $translator)
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?php echo $translator->trans('title'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="build/chamilo_style.css"/>
     <link rel="stylesheet" type="text/css" href="css/install.css"/>
-    <script type="text/javascript" src="assets/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="build/app.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.progress-bar li:last-child em.fix-bg').width($('.progress-bar li:last-child').width() / 2);
