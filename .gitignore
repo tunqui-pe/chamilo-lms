@@ -37,6 +37,9 @@ app/upload/*
 # Composer
 composer.lock
 
+#css
+node_modules/*
+
 # IDE settings
 .idea
 .idea/*

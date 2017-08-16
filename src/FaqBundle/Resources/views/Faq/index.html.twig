@@ -1,4 +1,4 @@
-{% extends '@ChamiloCore/layout_cms.html.twig' %}
+{% extends '@ChamiloTheme/Layout/layout_cms.html.twig' %}
 
 {% block sonata_page_container %}
  <script type="text/javascript">
@@ -41,7 +41,7 @@
             {% for question in category.questions if question.onlyAuthUsers in list %}
                 {% if question.isActive %}
                     <li>
-                        <a href="#{{ question.id }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> 
+                        <a href="#{{ question.id }}"><i class="fa fa-file-text-o" aria-hidden="true"></i>
                             {{ question.getHeadline|e }}
                         </a>
                     </li>
@@ -58,7 +58,7 @@
             {% set list = [false, true] %}
              <h2 class="title"><i class="fa fa-question-circle" aria-hidden="true"></i> {{ category.getHeadline|e }}</h2>
         {% endif %}
-       
+
         {% for question in category.questions if question.onlyAuthUsers in list %}
             {% if question.isActive %}
                 <div class="panel panel-default">

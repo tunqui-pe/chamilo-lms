@@ -17,18 +17,11 @@
     {% endblock %}
 
     <link rel="stylesheet"
-          href="{{ asset('assets/bootstrap/dist/css/bootstrap.css') }}"/>
-    <link rel="stylesheet"
-          href="{{ asset('assets/fontawesome/css/font-awesome.css') }}"/>
-    <link rel="stylesheet"
-          href="{{ asset('css/install.css') }}"/>
+          href="{{ asset('build/chamilo_style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/install.css') }}"/>
 
-    <script type="text/javascript"
-            src="{{ asset('assets/jquery/dist/jquery.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/bootstrap/dist/js/bootstrap.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/ajaxQueue/dist/jquery.ajaxQueue.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('build/chamilo.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/ajaxQueue/dist/jquery.ajaxQueue.js') }}"></script>
 
     {% block javascript %}
         <script type="text/javascript">
