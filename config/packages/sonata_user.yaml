@@ -1,12 +1,4 @@
 # if you change the class configuration, please also alter the fos_user.yml file
-doctrine:
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    FOSUserBundle: ~
-                    ChamiloUserBundle: ~
-                    SonataUserBundle: ~
 sonata_user:
     admin:
         user:

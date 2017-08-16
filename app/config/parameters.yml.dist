@@ -20,7 +20,6 @@ parameters:
     # Deny the elimination of users
     deny_delete_users: false
     installed: ~
-    sp_bower_bin: '/usr/bin/bower'
     url_append: ''
     course_info_is_not_editable: false
     sonata_media.cdn.host: /uploads/media

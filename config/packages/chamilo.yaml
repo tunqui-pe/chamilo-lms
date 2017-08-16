@@ -46,31 +46,12 @@ services:
         # but if a service is unused, it's removed anyway
         exclude: '../../src/UserBundle/{Admin,Block,Component,Composer,DependencyInjection,EventListener,Form,Framework,Menu,Migrations,Security,Settings,Twig,Controller,ChamiloUserBundle.php,Entity,Repository,Tests}'
 
-
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
 #    CoreBundle\Controller\:
 #        resource: '../../src/CoreBundle/Controller'
 #        public: true
 #        tags: ['controller.service_arguments']
-
-fos_user:
-    db_driver: orm # can be orm or odm
-    firewall_name:  secured_area
-
-    # if you change the class configuration, please also alter the sonata_user.yml file
-    user_class: Chamilo\UserBundle\Entity\User
-
-    group:
-        group_class:   Chamilo\UserBundle\Entity\Group
-        group_manager: sonata.user.orm.group_manager
-
-    service:
-        user_manager: sonata.user.orm.user_manager
-
-    from_email:
-        address: 'test@example.com'
-        sender_name: 'test@example.com'
 
 #fos_comment:
 #    db_driver: orm
@@ -81,23 +62,13 @@ fos_user:
 #    form:
 #        comment:
 #            type: sonata_comment_comment
-lunetics_locale:
-    guessing_order:
-        - session
-        - query
-        - router
-
-        #- browser
-
-    allowed_locales: '%locales%'
 
 imports:
     - { resource: ../../src/CoreBundle/Resources/config/services.yml }
     - { resource: ../../app/config/sonata/sonata_admin.yml }
-    - { resource: ../../app/config/sonata/sonata_user.yml }
-    - { resource: ../../app/config/sonata/sonata_block.yml }
     - { resource: ../../app/config/sonata/sonata_timeline.yml }
     - { resource: ../../app/config/sonata/sonata_media.yml }
     - { resource: ../../app/config/sonata/sonata_page.yml }
     - { resource: ../../app/config/sonata/sonata_formatter.yml }
     - { resource: ../../app/config/sonata/sonata_block.yml }
+    - { resource: ../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }

@@ -2,7 +2,6 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-
     twig:
         form:
             resources:
@@ -15,7 +14,6 @@ parameters:
     url_append: ''
     course_info_is_not_editable: false
     sonata_media.cdn.host: /uploads/media
-
 
 services:
     # default configuration for services in *this* file

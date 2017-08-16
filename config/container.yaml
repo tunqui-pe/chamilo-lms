@@ -1,9 +1,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    password_encryption: sha1
-    locale: 'en'
-    url_append: ''
+    password_encryption: '%env(APP_ENCRYPT_METHOD)%'
+    secret: '%env(APP_SECRET)%'
+    locale: '%env(APP_LOCALE)%'
+    url_append: '%env(APP_URL_APPEND)%'
+    installed: '%env(APP_INSTALLED)%'
     course_info_is_not_editable: false
     sonata_media.cdn.host: /uploads/media
     sonata_page.varnish.command: 'if [ ! -r "/etc/varnish/secret" ]; then echo "VALID ERROR :/"; else varnishadm -S /etc/varnish/secret -T 127.0.0.1:6082 {{ COMMAND }} "{{ EXPRESSION }}"; fi;'
@@ -13,6 +15,6 @@ parameters:
         - es
         - de
     twig.form.resources: ['bootstrap_3_layout.html.twig']
-
+    oro_migration.data_fixtures.loader.class: Oro\Bundle\MigrationBundle\Migration\Loader\DataFixturesLoader
 
 services:

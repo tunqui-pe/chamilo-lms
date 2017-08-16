@@ -188,15 +188,7 @@ doctrine_migrations:
 #apy_data_grid:
 #    theme: ChamiloCoreBundle::grid.html.twig
 #
-stof_doctrine_extensions:
-    default_locale: "%locale%"
-    translation_fallback: true
-    orm:
-        default:
-            tree: true
-            timestampable: true
-            sluggable: true
-            sortable: true
+
 
 liip_theme:
     themes: ['web', 'tablet', 'phone']
