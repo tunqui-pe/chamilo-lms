@@ -21,10 +21,14 @@ return [
     'Chamilo\FaqBundle\ChamiloFaqBundle' => ['all' => true],
     'Chamilo\ContactBundle\ChamiloContactBundle' => ['all' => true],
     'Chamilo\InstallerBundle\ChamiloInstallerBundle' => ['all' => true],
+    'Chamilo\TicketBundle\ChamiloTicketBundle' => ['all' => true],
+
     'Chamilo\SettingsBundle\ChamiloSettingsBundle' => ['all' => true],
     'Chamilo\PageBundle\ChamiloPageBundle' => ['all' => true],
     'Chamilo\UserBundle\ChamiloUserBundle' => ['all' => true],
-
+    'Chamilo\ClassificationBundle\ChamiloClassificationBundle' => ['all' => true],
+    'Chamilo\MediaBundle\ChamiloMediaBundle' => ['all' => true],
+    'Chamilo\NotificationBundle\ChamiloNotificationBundle' => ['all' => true],
 
     'FOS\UserBundle\FOSUserBundle' => ['all' => true],
     'FOS\RestBundle\FOSRestBundle' => ['all' => true],
@@ -52,6 +56,9 @@ return [
 
     'Knp\Bundle\MenuBundle\KnpMenuBundle' => ['all' => true],
     'Symfony\Bundle\AsseticBundle\AsseticBundle' => ['all' => true],
+
+    'Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle' => ['all' => true],
+
 
 
     'winzou\Bundle\StateMachineBundle\winzouStateMachineBundle' => ['all' => true],

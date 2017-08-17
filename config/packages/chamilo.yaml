@@ -65,10 +65,4 @@ services:
 
 imports:
     - { resource: ../../src/CoreBundle/Resources/config/services.yml }
-    - { resource: ../../app/config/sonata/sonata_admin.yml }
-    - { resource: ../../app/config/sonata/sonata_timeline.yml }
-    - { resource: ../../app/config/sonata/sonata_media.yml }
-    - { resource: ../../app/config/sonata/sonata_page.yml }
-    - { resource: ../../app/config/sonata/sonata_formatter.yml }
-    - { resource: ../../app/config/sonata/sonata_block.yml }
     - { resource: ../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }

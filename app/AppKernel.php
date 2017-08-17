@@ -18,54 +18,18 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             //new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
-            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-
-            new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
 
-            new Oro\Bundle\MigrationBundle\OroMigrationBundle(),
-
             // KNP HELPER BUNDLES
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
-            // Data grid
+                                    // Data grid
             new APY\DataGridBundle\APYDataGridBundle(),
-            new Chamilo\FaqBundle\ChamiloFaqBundle(),
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
-
-            // Sonata
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new Sonata\CoreBundle\SonataCoreBundle(),
-            new Sonata\IntlBundle\SonataIntlBundle(),
-            new Sonata\FormatterBundle\SonataFormatterBundle(),
-            new Sonata\CacheBundle\SonataCacheBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Sonata\SeoBundle\SonataSeoBundle(),
-            new Sonata\ClassificationBundle\SonataClassificationBundle(),
-            new Sonata\NotificationBundle\SonataNotificationBundle(),
-            new Sonata\DatagridBundle\SonataDatagridBundle(),
-            new Sonata\MediaBundle\SonataMediaBundle(),
-            new Sonata\PageBundle\SonataPageBundle(),
 
             new Spy\TimelineBundle\SpyTimelineBundle(),
             new Sonata\TimelineBundle\SonataTimelineBundle(),
 
             //new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-
-            new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
@@ -77,55 +41,32 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             //new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
-            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            new Liip\ThemeBundle\LiipThemeBundle(),
+
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
-
-            // User
-            new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Chamilo\UserBundle\ChamiloUserBundle(),
 
             // Sylius
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
 
-            new Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
 
             // Chamilo
-            new Chamilo\InstallerBundle\ChamiloInstallerBundle(),
-            new Chamilo\CoreBundle\ChamiloCoreBundle(),
-            new Chamilo\CourseBundle\ChamiloCourseBundle(),
-            new Chamilo\TicketBundle\ChamiloTicketBundle(),
-            new Chamilo\SkillBundle\ChamiloSkillBundle(),
-            new Chamilo\SettingsBundle\ChamiloSettingsBundle(),
-            new Chamilo\ThemeBundle\ChamiloThemeBundle(),
-            new Chamilo\NotificationBundle\ChamiloNotificationBundle(),
-            new Chamilo\AdminBundle\ChamiloAdminBundle(),
-            new Chamilo\TimelineBundle\ChamiloTimelineBundle(),
-            new \Chamilo\ContactBundle\ChamiloContactBundle(),
+
+            //new Chamilo\TimelineBundle\ChamiloTimelineBundle()
 
             // Based in Sonata
-            new Chamilo\ClassificationBundle\ChamiloClassificationBundle(),
-            new Chamilo\MediaBundle\ChamiloMediaBundle(),
-            new Chamilo\PageBundle\ChamiloPageBundle(),
+
             /*
             // Chamilo course tool
             //new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
             */
             // Data
-            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
-
             // Extra
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-
             /*
             //new JMS\TranslationBundle\JMSTranslationBundle(),
             //new JMS\DiExtraBundle\JMSDiExtraBundle($this),
@@ -133,18 +74,6 @@ class AppKernel extends Kernel
             /*new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
             //new Chamilo\CmsBundle\ChamiloCmsBundle(),
              */
-            new Lunetics\LocaleBundle\LuneticsLocaleBundle()
-        );
-
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            //$bundles[] = new Jjanvier\Bundle\CrowdinBundle\JjanvierCrowdinBundle();
-            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            //$bundles[] = new Sp\BowerBundle\SpBowerBundle();
-        }
-
         return $bundles;
     }
 

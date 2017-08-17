@@ -58,77 +58,9 @@ imports:
 parameters:
     locale: en
 
-framework:
-#    ide: 'phpstorm://open?url=file://%%f&line=%%l'
-    #esi:             ~
-    translator:      { fallbacks: ["%locale%"] }
-    secret:          "%secret%"
-    router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
-    form:            ~
-    csrf_protection: ~
-    validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
-    templating:
-        engines: ['twig', 'php']
-        #assets_version: SomeVersionScheme
-    default_locale:  "%locale%"
-    trusted_hosts:   ~
-    session:
-        # handler_id set to null will use default session handler from php.ini
-        handler_id: ~
-        name: ch_sid
-    fragments:       ~
-    http_method_override: true
-    assets: ~
-
 #theodo_evolution_session:
 #    bag_manager_service: theodo_evolution.session.symfony1.bag_manager
 #    bag_configuration_service: theodo_evolution.session.symfony1.bag_manager_configuration
-
-# Twig Configuration
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-    base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14
-    paths:
-        '%kernel.root_dir%/../plugin': plugin
-
-#    form:
-#        resources:
-#            - 'bootstrap_3_horizontal_layout.html.twig'
-#            - 'SonataFormatterBundle:Form:formatter.html.twig'
-#            - 'SonataMediaBundle:Form:media_widgets.html.twig'
-#            - 'SonataCoreBundle:Form:datepicker.html.twig'
-
-    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
-
-#    paths:
-#          "%kernel.root_dir%/../src/Chamilo/CoreBundle/Resources/views/default": template_style
-
-    globals:
-          show_toolbar: true
-          show_footer: true
-          software_name: Chamilo
-          version: 2
-          session_teachers:
-          teachers:
-          news_counter:
-          news_list:
-          messages_count:
-          message_link:
-          is_profile_editable:
-          administrator_name:
-          execution_stats:
-          course_session_block:
-          show_course_shortcut:
-          show_course_navigation_menu:
-          actions:
-          header:
-          message:
-          show_media_element: 1
-          plugin_header_main:
 
 # Assetic Configuration
 assetic:
@@ -143,47 +75,6 @@ assetic:
         #yui_css:
         #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
-# Doctrine Configuration
-doctrine:
-    dbal:
-        default_connection: default
-        connections:
-            default:
-                driver:   pdo_mysql
-                host:     "%database_host%"
-                port:     "%database_port%"
-                dbname:   "%database_name%"
-                user:     "%database_user%"
-                password: "%database_password%"
-                charset:  UTF8
-                server_version: 5.5
-
-        types:
-            json: Sonata\Doctrine\Types\JsonType
-
-    orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        default_entity_manager: default
-        # auto_mapping: true
-        entity_managers:
-            default:
-                auto_mapping: true
-                mappings: ~
-
-# Swiftmailer Configuration
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
-
-doctrine_migrations:
-    dir_name: %kernel.root_dir%/../app/Migrations/Schema/V111
-    namespace: Application\Migrations\Schema\V111
-    table_name: version
-    name: Chamilo Migrations
-
 # Grid default template
 #apy_data_grid:
 #    theme: ChamiloCoreBundle::grid.html.twig
@@ -195,23 +86,7 @@ liip_theme:
     active_theme: 'web'
     assetic_integration: true
 
-oneup_flysystem:
-    adapters:
-        local.adapter:
-            local:
-                directory: %kernel.root_dir%/courses
-#        s3.adapter:
-#              awss3v3:
-#                  client: s3_client # add service "s3_client"
-#                  bucket: ~
-#                  prefix: ~
 
-    filesystems:
-        course:
-            adapter: local.adapter
-            cache: ~
-            alias: ~
-            mount: ~
 
 #jms_translation:
 #    configs:
