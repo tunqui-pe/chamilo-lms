@@ -1,0 +1,4 @@
+#liip_theme:
+#    themes: ['web', 'tablet', 'phone']
+#    active_theme: 'web'
+#    assetic_integration: true

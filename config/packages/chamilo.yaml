@@ -63,6 +63,16 @@ services:
 #        comment:
 #            type: sonata_comment_comment
 
+# Doctrine audit
+sonata_doctrine_orm_admin:
+    audit:
+        force: false # Audits are set in the admin.yml files with audit:true
+
+# Grid default template
+#apy_data_grid:
+#    theme: ChamiloCoreBundle::grid.html.twig
+#
+
 imports:
     - { resource: ../../src/CoreBundle/Resources/config/services.yml }
     - { resource: ../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }

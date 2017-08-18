@@ -2,10 +2,6 @@ core_controller:
     resource: '@ChamiloCoreBundle/Controller/IndexController.php'
     type:     annotation
 
-index:
-    resource: '@ChamiloCoreBundle/Controller/IndexController.php'
-    type:     annotation
-
 userportal:
     resource: '@ChamiloCoreBundle/Controller/UserPortalController.php'
     type:     annotation
