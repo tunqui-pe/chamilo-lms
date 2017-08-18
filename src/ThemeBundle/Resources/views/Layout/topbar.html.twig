@@ -61,7 +61,7 @@
                     {% endif %}
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{  _p.web }}index.php?logout=logout&uid={{_u.user_id}}">{{ "Logout"|get_lang }}</a></li>
+                        <li><a href="{{ path('logout') }}">{{ "Logout"|get_lang }}</a></li>
                     </ul>
                 </div> <!-- /nav collapse -->
             {% endif %}
