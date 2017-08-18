@@ -58,6 +58,7 @@ return [
     'Symfony\Bundle\AsseticBundle\AsseticBundle' => ['all' => true],
 
     'Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle' => ['all' => true],
+    'HWI\Bundle\OAuthBundle\HWIOAuthBundle' => ['all' => true],
 
 
 
