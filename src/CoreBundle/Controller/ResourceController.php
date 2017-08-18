@@ -23,10 +23,11 @@ class ResourceController extends BaseController
     public function getDocumentAction($course, $file)
     {
         try {
-            $fs = $this->container->get('oneup_flysystem.course_filesystem');
+            /** @var \League\Flysystem\Filesystem $fs */
+            $fs = $this->container->get('oneup_flysystem.courses_filesystem');
             $path = $course.'/document/'.$file;
-
-            if (!$fs->has($path)) {
+            // Has folder
+            if (!$fs->has($course)) {
                 return $this->abort();
             }
 

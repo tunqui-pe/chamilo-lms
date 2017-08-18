@@ -20,9 +20,9 @@ class CourseDriver extends Driver implements DriverInterface
      */
     public function setup()
     {
-        $userId = api_get_user_id();
         $sessionId = api_get_session_id();
-        $userInfo = $this->connector->user;
+        $user = $this->connector->user;
+        $userId = $user->getId();
         $courseInfo = $this->connector->course;
 
         if (!empty($courseInfo)) {
@@ -52,7 +52,7 @@ class CourseDriver extends Driver implements DriverInterface
 
             // Creates user-course folder
             if (!file_exists($baseDir.'/shared_folder/sf_user_'.$userId)) {
-                $title = $userInfo['complete_name'];
+                $title = $user->getCompleteName();
                 $folderName = '/shared_folder/sf_user_'.$userId;
                 $visibility = 1;
                 create_unexisting_directory(

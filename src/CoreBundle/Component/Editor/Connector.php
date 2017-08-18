@@ -22,7 +22,7 @@ class Connector
     /** @var array */
     public $course;
 
-    /** @var array */
+    /** @var User */
     public $user;
 
     /** @var Translator */
@@ -43,7 +43,7 @@ class Connector
         RouterInterface $urlGenerator,
         Translator $translator,
         AuthorizationChecker $security,
-        $user,
+        User $user,
         $course = null
     ) {
         $this->paths = array(
@@ -59,7 +59,7 @@ class Connector
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->security = $security;
-        $this->user = empty($user) ? api_get_user_info() : $user;
+        $this->user = empty($user) ? api_get_user_entity(api_get_user_id()) : $user;
         $this->course = empty($course) ? api_get_course_info() : $course;
         $this->driverList = $this->getDefaultDriverList();
     }
