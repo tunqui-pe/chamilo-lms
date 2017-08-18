@@ -7855,7 +7855,8 @@ function api_mail_html(
 
     $link = isset($additionalParameters['link']) ? $additionalParameters['link'] : '';
 
-    $swiftMessage = \Swift_Message::newInstance()
+    $swiftMessage = new Swift_Message();
+    $swiftMessage
         ->setSubject($subject)
         ->setFrom($senderEmail, $senderName)
         ->setTo($recipient_email, $recipient_name)
