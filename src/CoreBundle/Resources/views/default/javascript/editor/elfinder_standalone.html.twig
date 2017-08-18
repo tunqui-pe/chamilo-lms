@@ -1,15 +1,14 @@
 {% autoescape false %}
 {% set finderFolder = asset('assets/elfinder/dist/') %}
 <!-- elFinder CSS (REQUIRED) -->
-<link rel="stylesheet" type="text/css" media="screen"
-      href="{{ asset('assets/jquery-ui/themes/smoothness/jquery-ui.min.css') }}">
-<link rel="stylesheet" type="text/css" media="screen"
-      href="{{ finderFolder }}css/elfinder.min.css">
+<link rel="stylesheet" href="{{ asset('build/chamilo_style.css') }}"/>
+<link rel="stylesheet" href="{{ asset('build/chamilo.css') }}"/>
+<link rel="stylesheet" type="text/css" media="screen" href="{{ finderFolder }}css/elfinder.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="{{ finderFolder }}css/theme.css">
 
+<script src="{{ asset('build/chamilo.js') }}"></script>
 <!-- elFinder JS (REQUIRED) -->
-<script type="text/javascript"
-        src="{{ finderFolder }}js/elfinder.min.js"></script>
+<script type="text/javascript" src="{{ finderFolder }}js/elfinder.min.js"></script>
 
 <!-- elFinder translation (OPTIONAL) -->
 {#<script type="text/javascript" src="{{ finderFolder }}js/i18n/elfinder.ru.js"></script>#}

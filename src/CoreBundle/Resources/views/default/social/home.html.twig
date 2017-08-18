@@ -35,7 +35,7 @@
             </div>
 
             <!-- Block session list -->
-            {% if sessionList != null %}
+            {% if sessionList is defined and sessionList != null %}
             <div class="panel-group" id="session-block" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
