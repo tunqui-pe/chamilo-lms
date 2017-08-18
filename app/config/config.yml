@@ -18,26 +18,6 @@ imports:
     #- { resource: fos/fos_elastica.yml }
 #    - { resource: fos/fos_message.yml }
 
-  # Sonata Core Bundles
-    - { resource: sonata/sonata_block.yml }
-    - { resource: sonata/sonata_formatter.yml }
-    - { resource: sonata/sonata_cache.yml }
-    - { resource: sonata/sonata_seo.yml }
-#    - { resource: sonata/sonata_timeline.yml }
-    - { resource: sonata/sonata_intl.yml }
-    - { resource: sonata/sonata_core.yml }
-    - { resource: sonata/sonata_user.yml }
-
-  # Sonata Feature Bundles
-    - { resource: sonata/sonata_admin.yml }
-    - { resource: sonata/sonata_page.yml }
-    - { resource: sonata/sonata_media.yml }
-    - { resource: sonata/sonata_translation.yml }
-#    - { resource: sonata/sonata_news.yml }
-#    - { resource: sonata/sonata_user.yml }
-#    - { resource: sonata/sonata_notification.yml }
-    - { resource: sonata/sonata_classification.yml }
-    - { resource: sonata/sonata_timeline.yml }
 
 #    - { resource: @CmfBlogBundle/Resources/config/cmf_routing_auto.xml }
 #    - { resource: @CmfBlogBundle/Resources/config/admin.yml }
@@ -138,50 +118,6 @@ fm_elfinder:
 #        #- browser
 #    allowed_locales: "%locales%"
 
-knp_menu:
-    twig: true
-#
-hwi_oauth:
-    connect:
-        account_connector: chamilo_user_provider
-    firewall_names: [secured_area]
-    resource_owners:
-        github:
-            type:                github
-            client_id:           <client_id>
-            client_secret:       <client_secret>
-        facebook:
-            type:                facebook
-            client_id:           <client_id>
-            client_secret:       <client_secret>
-        google:
-            type:                google
-            client_id:           <client_id>
-            client_secret:       <client_secret>
-            scope:               "email profile"
-        my_custom_oauth2:
-            type:                oauth2
-            client_id:           <client_id>
-            client_secret:       <client_secret>
-            access_token_url:    https://path.to/oauth/v2/token
-            authorization_url:   https://path.to/oauth/v2/authorize
-            infos_url:           https://path.to/api/user
-            scope:               "user_details"
-            user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
-            paths:
-                identifier: id
-                nickname:   username
-                realname:   fullname
-    fosub:
-        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
-        username_iterations: 30
-
-        # mapping between resource owners (see below) and properties
-        properties:
-            github: githubId
-            google: googleId
-            facebook: facebookId
-            my_custom_provider: customId
 
 #gregwar_captcha:
 
