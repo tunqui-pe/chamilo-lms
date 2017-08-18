@@ -89,14 +89,14 @@ security:
                 invalidate_session: false
 #                handlers: ['sonata.page.cms_manager_selector']
             anonymous: true
-#            oauth:
-#                resource_owners:
-#                    facebook:        "/login/check-facebook"
-#                    google:          "/login/check-google"
-#                    github:          "/login/check-github"
-#                login_path:        /login
-#                failure_path:      /connect
-#                use_forward:       false
-#                oauth_user_provider:
-#                    service: chamilo_user_provider
+            oauth:
+                resource_owners:
+                    facebook:        "/login/check-facebook"
+                    google:          "/login/check-google"
+                    github:          "/login/check-github"
+                login_path:        /login
+                failure_path:      /connect
+                use_forward:       false
+                oauth_user_provider:
+                    service: chamilo_user_provider
             switch_user: false
