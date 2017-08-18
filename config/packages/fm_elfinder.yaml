@@ -1,8 +1,8 @@
 fm_elfinder:
-    assets_path: /chamilo_master/web/assets
+    assets_path: /chamilo_master/public/assets
     instances:
         default:
-            locale: %locale% # defaults to current request locale
+            locale: '%locale%' # defaults to current request locale
             editor: ckeditor # other options are tinymce, tinymce4, form, custom and simple
             fullscreen: true # defaults true, applies to simple and ckeditor editors
             theme: smoothness # jquery theme
@@ -24,7 +24,7 @@ fm_elfinder:
                             type: local
                             options:
                               local:
-                                  path: %kernel.root_dir%/../web/media/
+                                  path: '%kernel.root_dir%/../public/uploads/media/'
                         upload_allow: ['all']
                         #upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
                         #upload_deny: ['all']

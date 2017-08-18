@@ -24,13 +24,13 @@ services:
     chamilo_installer.yaml_persister:
         class: '%chamilo_installer.yaml_persister.class%'
         arguments:
-            - %kernel.root_dir%/config
+            - '%kernel.root_dir%/config'
             - '%kernel.environment%'
 
     chamilo_installer.env_persister:
         class: '%chamilo_installer.env_persister.class%'
         arguments:
-            - %kernel.root_dir%/../
+            - '%kernel.root_dir%/../'
             - '%kernel.environment%'
 
     kernel.listener.install.event:

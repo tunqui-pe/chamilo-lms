@@ -1,8 +1,8 @@
 oneup_flysystem:
     adapters:
-        local.adapter:
+        courses.adapter:
             local:
-                directory: %kernel.root_dir%/courses
+                directory: '%kernel.project_dir%/app/courses'
 
 #        s3.adapter:
 #              awss3v3:
@@ -11,8 +11,8 @@ oneup_flysystem:
 #                  prefix: ~
 
     filesystems:
-        course:
-            adapter: local.adapter
+        courses:
+            adapter: courses.adapter
             cache: ~
             alias: ~
             mount: ~

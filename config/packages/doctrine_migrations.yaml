@@ -1,5 +1,5 @@
 doctrine_migrations:
-    dir_name: %kernel.project_dir%/../app/Migrations/Schema/V111
+    dir_name: '%kernel.project_dir%/../app/Migrations/Schema/V111'
     namespace: Application\Migrations\Schema\V111
     table_name: version
     name: Chamilo Migrations

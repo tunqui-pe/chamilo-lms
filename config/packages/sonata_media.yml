@@ -70,12 +70,12 @@ sonata_media:
     cdn:
         # define the public base url for the uploaded media
         server:
-            path: %url_append%%sonata_media.cdn.host%
+            path: '%url_append%%sonata_media.cdn.host%'
 
     filesystem:
         # define where the uploaded file will be stored
         local:
-            directory:  %kernel.root_dir%/../web/uploads/media
+            directory:  '%kernel.root_dir%/../public/uploads/media'
             create:     true
 
     providers:
