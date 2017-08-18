@@ -26,9 +26,6 @@ class AppKernel extends Kernel
             new APY\DataGridBundle\APYDataGridBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
-            new Spy\TimelineBundle\SpyTimelineBundle(),
-            new Sonata\TimelineBundle\SonataTimelineBundle(),
-
             //new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
 
             // CMF Integration
@@ -38,20 +35,13 @@ class AppKernel extends Kernel
             //new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
             // Oauth
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
-
             //new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new FM\ElfinderBundle\FMElfinderBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             // Sylius
             new Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             //new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
-            new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
 
-            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
 

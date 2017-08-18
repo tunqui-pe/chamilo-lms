@@ -1714,6 +1714,7 @@ class UserManager
             // going further.
 
             $rootPath = api_get_path(SYS_UPLOAD_PATH).'users/'.substr((string) $id, 0, 1);
+
             if (!is_dir($rootPath)) {
                 $perm = api_get_permissions_for_new_directories();
                 try {

@@ -30,6 +30,11 @@ define('REQUIRED_MIN_MEMORY_LIMIT', '128');
 define('REQUIRED_MIN_UPLOAD_MAX_FILESIZE', '10');
 define('REQUIRED_MIN_POST_MAX_SIZE', '10');
 
+/*
+ * Old conf located in add_course.conf.dist.php as $firstExpirationDelay
+ */
+define('COURSE_FIRST_EXPIRATION_DELAY', 31536000);
+
 // USER STATUS CONSTANTS
 /** global status of a user: student */
 define('STUDENT', 5);
@@ -741,30 +746,30 @@ function api_get_path($path = '', $configuration = [])
             SYS_CODE_PATH => 'main/',
             REL_CODE_PATH => '/main/',
             SYS_LANG_PATH => 'lang/',
-            WEB_IMG_PATH => 'web/img/',
-            WEB_CSS_PATH => 'web/css/',
+            WEB_IMG_PATH => 'public/img/',
+            WEB_CSS_PATH => 'public/css/',
             SYS_CSS_PATH => 'app/Resources/public/css/',
             SYS_PLUGIN_PATH => 'plugin/',
             WEB_PLUGIN_PATH => 'plugin/',
-            WEB_PLUGIN_ASSET_PATH => 'web/plugins/',
+            WEB_PLUGIN_ASSET_PATH => 'public/plugins/',
             SYS_ARCHIVE_PATH => 'var/cache/',
             WEB_ARCHIVE_PATH => 'var/cache/',
-            SYS_HOME_PATH => 'app/home/',
-            WEB_HOME_PATH => 'app/home/',
-            REL_HOME_PATH => 'app/home/',
+            SYS_HOME_PATH => 'app/home/', // home page should be deprecated
+            WEB_HOME_PATH => 'app/home/', // home page should be deprecated
+            REL_HOME_PATH => 'app/home/', // home page should be deprecated
             SYS_APP_PATH => 'app/',
             WEB_APP_PATH => 'app/',
-            SYS_UPLOAD_PATH => 'app/upload/',
+            SYS_UPLOAD_PATH => 'public/uploads/',
+            WEB_UPLOAD_PATH => 'public/uploads/',
             SYS_INC_PATH => 'inc/',
             CONFIGURATION_PATH => 'app/config/',
             LIBRARY_PATH => 'inc/lib/',
             WEB_LIBRARY_PATH => 'inc/lib/',
-            WEB_LIBRARY_JS_PATH => 'web/js/',
+            WEB_LIBRARY_JS_PATH => 'public/js/',
             WEB_AJAX_PATH => 'inc/ajax/',
             SYS_TEST_PATH => 'tests/',
             WEB_TEMPLATE_PATH => 'template/',
             SYS_TEMPLATE_PATH => 'template/',
-            WEB_UPLOAD_PATH => 'app/upload/',
             WEB_PUBLIC_PATH => 'public/',
             SYS_PUBLIC_PATH => 'public/',
             WEB_FONTS_PATH => 'fonts/',
