@@ -17,11 +17,10 @@ Encore
     .autoProvideVariables({
         $: 'jquery',
         jQuery: 'jquery',
-        'window.jQuery': 'jquery',
+        'window.jQuery': 'jquery'
     })
     //.enableVersioning() // hashed filenames (e.g. main.abc123.js)
 ;
 
-
-
 module.exports = Encore.getWebpackConfig();
+

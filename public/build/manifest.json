@@ -1,6 +1,11 @@
 {
+  "build/chamilo.css": "/build/chamilo.css",
   "build/chamilo.js": "/build/chamilo.js",
   "build/chamilo_style.css": "/build/chamilo_style.css",
+  "build/fonts/fontawesome-webfont.eot?v=4.7.0": "/build/fonts/fontawesome-webfont.674f50d2.eot",
+  "build/fonts/fontawesome-webfont.ttf?v=4.7.0": "/build/fonts/fontawesome-webfont.b06871f2.ttf",
+  "build/fonts/fontawesome-webfont.woff2?v=4.7.0": "/build/fonts/fontawesome-webfont.af7ae505.woff2",
+  "build/fonts/fontawesome-webfont.woff?v=4.7.0": "/build/fonts/fontawesome-webfont.fee66e71.woff",
   "build/fonts/glyphicons-halflings-regular.eot": "/build/fonts/glyphicons-halflings-regular.f4769f9b.eot",
   "build/fonts/glyphicons-halflings-regular.ttf": "/build/fonts/glyphicons-halflings-regular.e18bbf61.ttf",
   "build/fonts/glyphicons-halflings-regular.woff": "/build/fonts/glyphicons-halflings-regular.fa277232.woff",
@@ -18,6 +23,7 @@
   "build/images/dot.gif": "/build/images/dot.faca2a85.gif",
   "build/images/file_upload.png": "/build/images/file_upload.7eb54fd0.png",
   "build/images/fill_in_blanks.png": "/build/images/fill_in_blanks.5b305400.png",
+  "build/images/fontawesome-webfont.svg?v=4.7.0": "/build/images/fontawesome-webfont.912ec66d.svg",
   "build/images/glyphicons-halflings-regular.svg": "/build/images/glyphicons-halflings-regular.89889688.svg",
   "build/images/hotspot.png": "/build/images/hotspot.251149c9.png",
   "build/images/invisible.png": "/build/images/invisible.08215787.png",
@@ -42,6 +48,12 @@
   "build/images/sequence-arrow.png": "/build/images/sequence-arrow.1e429eba.png",
   "build/images/sort_asc.png": "/build/images/sort_asc.0db72d6a.png",
   "build/images/sort_desc.png": "/build/images/sort_desc.aba3db9b.png",
+  "build/images/ui-icons_444444_256x240.png": "/build/images/ui-icons_444444_256x240.a4c733ec.png",
+  "build/images/ui-icons_555555_256x240.png": "/build/images/ui-icons_555555_256x240.97136473.png",
+  "build/images/ui-icons_777620_256x240.png": "/build/images/ui-icons_777620_256x240.208a2901.png",
+  "build/images/ui-icons_777777_256x240.png": "/build/images/ui-icons_777777_256x240.73a1fd05.png",
+  "build/images/ui-icons_cc0000_256x240.png": "/build/images/ui-icons_cc0000_256x240.0de3b517.png",
+  "build/images/ui-icons_ffffff_256x240.png": "/build/images/ui-icons_ffffff_256x240.bf27228a.png",
   "build/images/visible.png": "/build/images/visible.27c0e949.png",
   "build/images/winner.png": "/build/images/winner.26653b5a.png"
 }
