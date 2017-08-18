@@ -8,10 +8,10 @@ use Chamilo\UserBundle\Entity\User;
 use Chamilo\CoreBundle\Entity\Course;
 
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Routing\Router;
 use Chamilo\CoreBundle\Component\Editor\Driver\Driver;
-use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class elFinder Connector - editor + Chamilo repository
@@ -30,14 +30,10 @@ class Connector
 
     /** @var Router */
     public $urlGenerator;
-
-    /** @var SecurityContext */
+    /** @var  AuthorizationChecker */
     public $security;
-
     public $paths;
-
     public $entityManager;
-
     public $drivers = array();
     public $driverList = array();
 
@@ -46,7 +42,7 @@ class Connector
         array $paths,
         RouterInterface $urlGenerator,
         Translator $translator,
-        SecurityContext $security,
+        AuthorizationChecker $security,
         $user,
         $course = null
     ) {

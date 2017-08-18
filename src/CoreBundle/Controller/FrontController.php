@@ -80,7 +80,7 @@ class FrontController extends Controller
             [],
             $this->container->get('router'),
             $this->container->get('translator.default'),
-            $this->container->get('security.context'),
+            $this->container->get('security.authorization_checker'),
             $this->getUser(),
             $courseInfo
         );
