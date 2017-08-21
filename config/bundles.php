@@ -29,6 +29,7 @@ return [
     'Chamilo\ClassificationBundle\ChamiloClassificationBundle' => ['all' => true],
     'Chamilo\MediaBundle\ChamiloMediaBundle' => ['all' => true],
     'Chamilo\NotificationBundle\ChamiloNotificationBundle' => ['all' => true],
+    'Chamilo\TimelineBundle\ChamiloTimelineBundle' => ['all' => true],
 
     'FOS\UserBundle\FOSUserBundle' => ['all' => true],
     'FOS\RestBundle\FOSRestBundle' => ['all' => true],
