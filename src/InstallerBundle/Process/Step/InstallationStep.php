@@ -79,6 +79,8 @@ class InstallationStep extends AbstractStep
             case 'translation':
                 //return $this->handleAjaxAction('oro:translation:dump');
             case 'finish':
+
+                return new JsonResponse(array('result' => true, 'exitCode' => 0));
                 $this->get('event_dispatcher')->dispatch(
                     InstallerEvents::FINISH
                 );

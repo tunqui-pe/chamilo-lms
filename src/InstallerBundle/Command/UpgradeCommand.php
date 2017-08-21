@@ -22,7 +22,7 @@ class UpgradeCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
-        $this->setName('chamilo:platform:update')
+        $this->setName('chamilo:upgrade')
             ->setDescription(
                 'Execute platform application update commands and init platform assets.'
             )
@@ -75,10 +75,10 @@ class UpgradeCommand extends ContainerAwareCommand
                 '<comment>ATTENTION</comment>: Database backup is highly recommended before executing this command.'
             );
             $output->writeln(
-                '           Please make sure that application cache is up-to-date before run this command.'
+                'Please make sure that application cache is up-to-date before run this command.'
             );
             $output->writeln(
-                '           Use <info>cache:clear</info> if needed.'
+                'Use <info>cache:clear</info> if needed.'
             );
             $output->writeln('');
             $output->writeln(

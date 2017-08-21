@@ -19,16 +19,25 @@ final class Kernel extends BaseKernel
 
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
+    /**
+     * @return string
+     */
     public function getCacheDir(): string
     {
         return dirname(__DIR__).'/var/cache/'.$this->environment;
     }
 
+    /**
+     * @return string
+     */
     public function getLogDir(): string
     {
         return dirname(__DIR__).'/var/logs';
     }
 
+    /**
+     * @return iterable
+     */
     public function registerBundles(): iterable
     {
         $contents = require dirname(__DIR__).'/config/bundles.php';
@@ -39,6 +48,10 @@ final class Kernel extends BaseKernel
         }
     }
 
+    /**
+     * @param ContainerBuilder $container
+     * @param LoaderInterface $loader
+     */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $confDir = dirname(__DIR__).'/config';
@@ -92,7 +105,7 @@ final class Kernel extends BaseKernel
      */
     public function getConfigDir()
     {
-        return $this->getRealRootDir().'app/config/';
+        return $this->getRealRootDir().'config/';
     }
 
     /**
@@ -100,7 +113,7 @@ final class Kernel extends BaseKernel
      */
     public function getConfigurationFile()
     {
-        return $this->getRealRootDir().'app/config/configuration.php';
+        return $this->getRealRootDir().'config/.env';
     }
 
     /**

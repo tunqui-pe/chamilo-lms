@@ -7,6 +7,7 @@ use Chamilo\CoreBundle\Migrations\AbstractMigrationChamilo;
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 use Oro\Bundle\MigrationBundle\Migration\OrderedMigrationInterface;
+use \Doctrine\DBAL\Types\Type;
 
 /**
  * Class Version20
@@ -195,8 +196,33 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         $queries->addQuery("INSERT INTO settings_options (variable, value, display_text) VALUES ('show_glossary_in_extra_tools', 'lp', 'LearningPath')");
         $queries->addQuery("INSERT INTO settings_options (variable, value, display_text) VALUES ('show_glossary_in_extra_tools', 'exercise_and_lp', 'ExerciseAndLearningPath')");
 
-        $queries->addQuery('ALTER TABLE c_student_publication ADD filesize INT DEFAULT NULL');
 
+        $table = $schema->getTable('sys_announcement');
+        if (!$table->hasColumn('visible_drh')) {
+            $queries->addQuery(
+                "ALTER TABLE sys_announcement ADD COLUMN visible_drh INT DEFAULT 0;"
+            );
+        }
+
+        if (!$table->hasColumn('visible_session_admin')) {
+            $queries->addQuery(
+                "ALTER TABLE sys_announcement ADD COLUMN visible_session_admin INT DEFAULT 0;"
+            );
+        }
+
+        if (!$table->hasColumn('visible_boss')) {
+            $queries->addQuery(
+                "ALTER TABLE sys_announcement ADD COLUMN visible_boss INT DEFAULT 0;"
+            );
+        }
+
+        $cSurvey = $schema->getTable('c_survey');
+
+        if (!$cSurvey->hasColumn('is_mandatory')) {
+            $cSurvey->addColumn('is_mandatory', Type::BOOLEAN)->setDefault(false);
+        }
+
+        $queries->addQuery('ALTER TABLE c_student_publication ADD filesize INT DEFAULT NULL');
         $queries->addQuery('CREATE TABLE c_group_info_audit (iid INT NOT NULL, rev INT NOT NULL, c_id INT DEFAULT NULL, id INT DEFAULT NULL, name VARCHAR(100) DEFAULT NULL, status TINYINT(1) DEFAULT NULL, category_id INT DEFAULT NULL, description LONGTEXT DEFAULT NULL, max_student INT DEFAULT NULL, doc_state TINYINT(1) DEFAULT NULL, calendar_state TINYINT(1) DEFAULT NULL, work_state TINYINT(1) DEFAULT NULL, announcements_state TINYINT(1) DEFAULT NULL, forum_state TINYINT(1) DEFAULT NULL, wiki_state TINYINT(1) DEFAULT NULL, chat_state TINYINT(1) DEFAULT NULL, secret_directory VARCHAR(255) DEFAULT NULL, self_registration_allowed TINYINT(1) DEFAULT NULL, self_unregistration_allowed TINYINT(1) DEFAULT NULL, session_id INT DEFAULT NULL, revtype VARCHAR(4) NOT NULL, PRIMARY KEY(iid, rev)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
 
         $table = $schema->getTable('course_rel_class');
@@ -263,7 +289,8 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         $queries->addQuery("ALTER TABLE personal_agenda DROP hotspot_course_code");*/
 
 
-  // Update settings variable name
+
+        // Update settings variable name
         $settings = [
             'Institution' => 'institution',
             'SiteName' => 'site_name',

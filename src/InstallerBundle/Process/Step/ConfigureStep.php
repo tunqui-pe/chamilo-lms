@@ -60,7 +60,8 @@ class ConfigureStep extends AbstractStep
             $data = $form->getData();
             $context->getStorage()->set(
                 'fullDatabase',
-                $form->has('database') && $form->get('database')->has('chamilo_installer_database_drop_full') &&
+                $form->has('database') &&
+                $form->get('database')->has('chamilo_installer_database_drop_full') &&
                 $form->get('database')->get('chamilo_installer_database_drop_full')->getData()
             );
 
@@ -82,12 +83,18 @@ class ConfigureStep extends AbstractStep
 
     /**
      * @param array $options
+     * @param bool $upgrade
      * @return \Symfony\Component\Form\Form
      */
     protected function createConfigurationForm($options = array(), $upgrade = false)
     {
         $this->get('chamilo_installer.env_persister')->parse();
         $data['is_upgrade'] = $upgrade;
+        $data['database']['chamilo_installer_database_host'] = getenv('DATABASE_HOST');
+        $data['database']['chamilo_installer_database_port'] = getenv('DATABASE_PORT');
+        $data['database']['chamilo_installer_database_name'] = getenv('DATABASE_NAME');
+        $data['database']['chamilo_installer_database_user'] = getenv('DATABASE_USER');
+        $data['database']['chamilo_installer_database_password'] = getenv('DATABASE_PASSWORD');
 
         return $this->createForm(
             ConfigurationType::class,

@@ -3,6 +3,7 @@
 
 namespace Chamilo\InstallerBundle\Process\Step;
 
+use Chamilo\Kernel;
 use Sylius\Bundle\FlowBundle\Process\Context\ProcessContextInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Chamilo\InstallerBundle\InstallerEvents;
@@ -29,7 +30,8 @@ class UpgradeStep extends AbstractStep
         switch ($action) {
             case 'upgrade':
                 $configurationFile = $this->container->get('kernel')->getConfigurationFile();
-                // If configuration.php exists then rename to configuration.php.bak
+
+                // If .env exists then rename to .env.bak
                 if (file_exists($configurationFile)) {
                     $fs = new Filesystem();
                     $fs->rename($configurationFile, $configurationFile.".bak");
@@ -37,7 +39,7 @@ class UpgradeStep extends AbstractStep
 
                 // Means it comes from chamilo 2.x
                 return $this->handleAjaxAction(
-                    'chamilo:platform:update',
+                    'chamilo:upgrade',
                     array('--force' => true)
                 );
 
@@ -79,6 +81,7 @@ class UpgradeStep extends AbstractStep
             case 'assetic':
                 return $this->handleAjaxAction('assetic:dump');
             case 'finish':
+                return new JsonResponse(array('result' => true, 'exitCode' => 0));
                 $this->get('event_dispatcher')->dispatch(
                     InstallerEvents::FINISH
                 );

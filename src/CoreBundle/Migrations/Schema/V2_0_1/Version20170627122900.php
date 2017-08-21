@@ -1,34 +1,48 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-namespace Application\Migrations\Schema\V200;
+namespace Chamilo\CoreBundle\Migrations\Schema\V2_0_1;
 
-use Application\Migrations\AbstractMigrationChamilo,
-    Doctrine\DBAL\Schema\Schema,
-    Chamilo\CoreBundle\Entity\ExtraField,
-    Chamilo\CourseBundle\Entity\CSurvey;
+use Chamilo\CoreBundle\Migrations\AbstractMigrationChamilo;
+use Doctrine\DBAL\Schema\Schema;
+use Oro\Bundle\MigrationBundle\Migration\QueryBag;
+use Oro\Bundle\MigrationBundle\Migration\OrderedMigrationInterface;
+use Oro\Bundle\MigrationBundle\Migration\ParametrizedMigrationQuery;
+use Chamilo\CoreBundle\Entity\ExtraField;
+use Chamilo\CourseBundle\Entity\CSurvey;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class Version20170627122900
  * @package Application\Migrations\Schema\V200
  */
-class Version20170627122900 extends AbstractMigrationChamilo
+class Version20170627122900 extends AbstractMigrationChamilo implements OrderedMigrationInterface, ContainerAwareInterface
 {
+    use ContainerAwareTrait;
 
     /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     */
-    public function up(Schema $schema)
+    * {@inheritdoc}
+    */
+    public function getOrder()
     {
-        if (!api_get_configuration_value('survey_answered_at_field')) {
-            return;
-        }
+        return 2;
+    }
 
-        $em = $this->getEntityManager();
+    /**
+     * @param Schema $schema
+     * @param QueryBag $queries
+     */
+    public function up(Schema $schema, QueryBag $queries)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+
+        /*if (!api_get_configuration_value('survey_answered_at_field')) {
+            return;
+        }*/
 
         /** @var ExtraField $extraField */
-        $extraField = $em
-            ->getRepository('ChamiloCoreBundle:ExtraField')
+        $extraField = $em->getRepository('ChamiloCoreBundle:ExtraField')
             ->findOneBy([
                 'variable' => 'is_mandatory',
                 'extraFieldType' => ExtraField::SURVEY_FIELD_TYPE
