@@ -64,6 +64,8 @@ class AppKernel extends Kernel
             /*new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
             //new Chamilo\CmsBundle\ChamiloCmsBundle(),
              */
+        );
+
         return $bundles;
     }
 
