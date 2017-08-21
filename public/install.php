@@ -118,7 +118,7 @@ function iterateRequirements(array $collection, $translator)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="build/chamilo_style.css"/>
     <link rel="stylesheet" type="text/css" href="css/install.css"/>
-    <script type="text/javascript" src="build/app.js"></script>
+    <script type="text/javascript" src="build/chamilo.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.progress-bar li:last-child em.fix-bg').width($('.progress-bar li:last-child').width() / 2);

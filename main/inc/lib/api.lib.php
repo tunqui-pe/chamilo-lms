@@ -760,7 +760,7 @@ function api_get_path($path = '', $configuration = [])
             SYS_APP_PATH => 'app/',
             WEB_APP_PATH => 'app/',
             SYS_UPLOAD_PATH => 'public/uploads/',
-            WEB_UPLOAD_PATH => 'public/uploads/',
+            WEB_UPLOAD_PATH => '/uploads/',
             SYS_INC_PATH => 'inc/',
             CONFIGURATION_PATH => 'app/config/',
             LIBRARY_PATH => 'inc/lib/',
