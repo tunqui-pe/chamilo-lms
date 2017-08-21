@@ -20,7 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Oro\Bundle\MigrationBundle\Fixture\VersionedFixtureInterface;
 
 /**
- * Class LoadPageData
+ * Class LoadUpgradeData
+ * When installing for the first time, we have to fill "migrations" table
  * @package Chamilo\CoreBundle\Migrations\Data\ORM
  */
 class LoadUpgradeData extends AbstractFixture implements
@@ -71,6 +72,13 @@ class LoadUpgradeData extends AbstractFixture implements
         $migration->setLoadedAt(new \DateTime());
         $migration->setBundle('ChamiloCoreBundle');
         $manager->persist($migration);
+
+        $migration = new DataMigration();
+        $migration->setVersion('V2_0_1');
+        $migration->setLoadedAt(new \DateTime());
+        $migration->setBundle('ChamiloCoreBundle');
+        $manager->persist($migration);
+
 
         $migration = new DataMigration();
         $migration->setVersion('V2_0_0');
