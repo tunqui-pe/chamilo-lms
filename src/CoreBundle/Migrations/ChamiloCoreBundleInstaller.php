@@ -1,12 +1,16 @@
 <?php
+/* For licensing terms, see /license.txt */
 
 namespace Chamilo\CoreBundle\Migrations\Schema;
 
 use Doctrine\DBAL\Schema\Schema;
-
 use Oro\Bundle\MigrationBundle\Migration\Installation;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 
+/**
+ * Class ChamiloCoreBundleInstaller
+ * @package Chamilo\CoreBundle\Migrations\Schema
+ */
 class ChamiloCoreBundleInstaller implements Installation
 {
     /**
@@ -14,7 +18,7 @@ class ChamiloCoreBundleInstaller implements Installation
      */
     public function getMigrationVersion()
     {
-        return 'V2_0_0';
+        return 'V2_0_1';
     }
 
     /**

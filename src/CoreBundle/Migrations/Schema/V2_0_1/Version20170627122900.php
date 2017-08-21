@@ -26,7 +26,7 @@ class Version20170627122900 extends AbstractMigrationChamilo implements OrderedM
     */
     public function getOrder()
     {
-        return 2;
+        return 1;
     }
 
     /**
