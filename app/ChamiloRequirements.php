@@ -176,19 +176,19 @@ class ChamiloRequirements extends SymfonyRequirements
 
         $this->addChamiloRequirement(
             is_writable($baseDir.'/public/uploads'),
-            'web/uploads/ directory must be writable',
+            'public/uploads/ directory must be writable',
             'Change the permissions of the "<strong>public/uploads/</strong>" directory so that the web server can write into it.'
         );
 
         $this->addChamiloRequirement(
             is_writable($baseDir.'/public/assetic'),
-            'web/assetic/ directory must be writable',
+            'public/assetic/ directory must be writable',
             'Change the permissions of the "<strong>public/assetic/</strong>" directory so that the web server can write into it.'
         );
 
         $this->addChamiloRequirement(
             is_writable($baseDir.'/public/bundles'),
-            'web/bundles/ directory must be writable',
+            'public/bundles/ directory must be writable',
             'Change the permissions of the "<strong>public/bundles/</strong>" directory so that the web server can write into it.'
         );
 
@@ -207,7 +207,7 @@ class ChamiloRequirements extends SymfonyRequirements
         if (is_dir($baseDir.'/public/js')) {
             $this->addChamiloRequirement(
                 is_writable($baseDir.'/public/js'),
-                'web/js directory must be writable',
+                'public/js directory must be writable',
                 'Change the permissions of the "<strong>public/js</strong>" directory so that the web server can write into it.'
             );
         }
@@ -215,7 +215,7 @@ class ChamiloRequirements extends SymfonyRequirements
         if (is_dir($baseDir.'/public/css')) {
             $this->addChamiloRequirement(
                 is_writable($baseDir.'/public/css'),
-                'web/css directory must be writable',
+                'public/css directory must be writable',
                 'Change the permissions of the "<strong>public/css</strong>" directory so that the web server can write into it.'
             );
         }
