@@ -13,7 +13,7 @@ use Chamilo\InstallerBundle\Process\PhpExecutableFinder;
  */
 class ChamiloRequirements extends SymfonyRequirements
 {
-    const REQUIRED_PHP_VERSION = '7.0';
+    const REQUIRED_PHP_VERSION = '7.1';
     const REQUIRED_GD_VERSION = '2.0';
     const REQUIRED_CURL_VERSION = '7.0';
     const REQUIRED_ICU_VERSION = '3.8';
