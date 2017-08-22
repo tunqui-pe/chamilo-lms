@@ -2542,7 +2542,10 @@ function api_is_platform_admin_by_id($user_id = null, $url = null)
 
     $em = Container::getEntityManager();
     $user = $em->getRepository('ChamiloUserBundle:User')->find($user_id);
-    $is_admin = $user->hasRole('ROLE_ADMIN');
+    $is_admin = false;
+    if ($user) {
+        $is_admin = $user->hasRole('ROLE_ADMIN');
+    }
 
     if (!$is_admin || !isset($url)) {
         return $is_admin;
@@ -4378,8 +4381,10 @@ function api_get_language_from_type($lang_type)
  */
 function api_get_language_info($languageId)
 {
-    $language = Database::getManager()
-        ->find('ChamiloCoreBundle:Language', intval($languageId));
+    $language = Database::getManager()->find(
+        'ChamiloCoreBundle:Language',
+        intval($languageId)
+    );
 
     if (!$language) {
         return [];
