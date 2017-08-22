@@ -1,5 +1,23 @@
 <?php
-
+// bundles to add/remove
+/*
+//new APY\DataGridBundle\APYDataGridBundle(),
+//new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+//new JMS\SerializerBundle\JMSSerializerBundle($this),
+// CMF Integration
+//new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
+//new Symfony\Cmf\Bundle\SearchBundle\CmfSearchBundle(),
+//new Symfony\Cmf\Bundle\BlogBundle\CmfBlogBundle(),
+//new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
+//new Chamilo\TimelineBundle\ChamiloTimelineBundle()
+// Chamilo course tool
+//new Chamilo\NotebookBundle\ChamiloNotebookBundle(),
+//new JMS\TranslationBundle\JMSTranslationBundle(),
+//new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+//new JMS\AopBundle\JMSAopBundle(),
+new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
+//new Chamilo\CmsBundle\ChamiloCmsBundle(),
+*/
 return [
     'Symfony\Bundle\FrameworkBundle\FrameworkBundle' => ['all' => true],
 

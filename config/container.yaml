@@ -6,6 +6,7 @@ parameters:
     locale: '%env(APP_LOCALE)%'
     url_append: '%env(APP_URL_APPEND)%'
     installed: '%env(APP_INSTALLED)%'
+    deny_delete_users: false
     course_info_is_not_editable: false
     sonata_media.cdn.host: /uploads/media
     sonata_page.varnish.command: 'if [ ! -r "/etc/varnish/secret" ]; then echo "VALID ERROR :/"; else varnishadm -S /etc/varnish/secret -T 127.0.0.1:6082 {{ COMMAND }} "{{ EXPRESSION }}"; fi;'
@@ -19,6 +20,6 @@ parameters:
 
 services:
     twig.text_extension:
-              class: Twig_Extensions_Extension_Text
-              tags:
-                  - name: twig.extension
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
