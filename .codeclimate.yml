@@ -27,12 +27,9 @@ ratings:
   - '**.css'
 
 exclude_paths:
-- cli-config.php
-- app/cache/
-- app/logs/
-- app/config/
-- app/SymfonyRequirements.php
-- app/Migrations/
+- var/cache/
+- var/logs/
+- config/
 - app/Resources/
 - main/admin/db.php
 - main/admin/ldap_synchro.php
@@ -72,4 +69,4 @@ exclude_paths:
 - plugin/sepe/src/wsse/
 - tests/
 - vendor/
-- web/
+- public/

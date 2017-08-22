@@ -127,12 +127,9 @@ coding_style:
 filter:
       excluded_paths:
         - 'cli-config.php'
-        - 'app/cache/*'
-        - 'app/logs/*'
-        - 'app/config/*'
-        - 'app/SymfonyRequirements.php'
+        - 'var/*'
+        - 'config/*'
         - 'documentation/*'
-        - 'app/Migrations/*'
         - 'app/Resources/*'
         - 'main/admin/db.php'
         - 'main/admin/ldap_synchro.php'
@@ -175,4 +172,4 @@ filter:
         - 'plugin/sepe/src/wsse/*'
         - 'tests/*'
         - 'vendor/*'
-        - 'web/*'
+        - 'public/*'
