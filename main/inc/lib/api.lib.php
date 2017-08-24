@@ -2486,7 +2486,8 @@ function api_delete_settings_params($params)
  */
 function api_get_self()
 {
-    return htmlentities($_SERVER['PHP_SELF']);
+    return Container::getRequest()->getRequestUri();
+    //return htmlentities($_SERVER['PHP_SELF']);
 }
 
 /**
