@@ -9,10 +9,10 @@
 #    type: annotation
 
 logout:
-    path: /logout
+    path: /administration/logout
 
 sonata_user_admin_security_logout:
-    path: /logout
+    path: /administration/logout
 
 _admin:
     resource: routing/sonata_admin.yaml
