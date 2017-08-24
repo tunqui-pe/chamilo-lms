@@ -15,11 +15,11 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 // check for installed system
 $paramFile = __DIR__.'/../.env';
+$paramFileDist = __DIR__.'/../.env.dist';
 $configFile = __DIR__.'/../app/config/configuration.php';
 
 $upgrade = false;
 if (file_exists($paramFile)) {
-    //DATABASE_URL
     $dotEnv = new Dotenv();
     $dotEnv->load($paramFile);
     $installed = getenv('APP_INSTALLED');
@@ -29,6 +29,8 @@ if (file_exists($paramFile)) {
         /*require_once __DIR__.'/index.php';
         exit;*/
     }
+} else {
+    copy($paramFileDist, $paramFile);
 }
 
 if (file_exists($paramFile) && file_exists($configFile)) {
