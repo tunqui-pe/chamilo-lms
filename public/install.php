@@ -26,8 +26,9 @@ if (file_exists($paramFile)) {
 
     $data = Yaml::parse($paramFile);
     if (!empty($installed)) {
-        /*require_once __DIR__.'/index.php';
-        exit;*/
+        // Redirect to upgrade process
+        header('Location: /install/flow/chamilo_install/welcome');
+        exit;
     }
 } else {
     copy($paramFileDist, $paramFile);
@@ -152,6 +153,8 @@ function iterateRequirements(array $collection, $translator)
 </head>
 <body>
 <div class="container">
+
+
     <div class="page-header">
         <h1 class="logo"><?php echo $translator->trans('title'); ?></h1>
     </div>

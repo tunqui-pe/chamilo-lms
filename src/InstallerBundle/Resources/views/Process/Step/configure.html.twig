@@ -27,10 +27,12 @@
             {% endif %}
         </div>
         <div class="row">
+            {% if is_upgrade == false %}
             <div class="col-sm-12">
                 <h3 class="sub-title">{{ form.system.vars.label|trans }}</h3>
                 {{ form_widget(form.system) }}
             </div>
+            {% endif %}
             {#{{ form_rest(form) }}#}
             {{ form_widget(form._token) }}
         </div>
@@ -40,8 +42,7 @@
                class="btn btn-lg btn-default back">
                 {{ 'process.button.back'|trans }}
             </a>
-            <button class="btn btn-lg btn-primary button next"
-                    type="submit">
+            <button class="btn btn-lg btn-primary button next" type="submit">
                 <i class="fa fa-chevron-right"></i>
                 {% if is_upgrade %}
                     {{ 'process.button.upgrade'|trans }}
