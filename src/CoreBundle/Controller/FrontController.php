@@ -82,7 +82,8 @@ class FrontController extends Controller
             $this->container->get('translator.default'),
             $this->container->get('security.authorization_checker'),
             $this->getUser(),
-            $courseInfo
+            $courseInfo,
+            $sessionId
         );
 
         $driverList = array(
