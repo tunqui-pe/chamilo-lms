@@ -689,7 +689,6 @@ class SettingsManager implements SettingsManagerInterface
         }
 
          // We need to get a plain parameters array since we use the options resolver on it
-        //$parameters = $settings->getParameters();
         $parameters = $this->getParameters($schemaAliasNoPrefix);
 
         $settingsBuilder = new SettingsBuilder();
@@ -704,6 +703,11 @@ class SettingsManager implements SettingsManagerInterface
             }
         }
 
+        foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
+            if (array_key_exists($parameter, $parameters)) {
+               $parameters[$parameter] = $transformer->reverseTransform($parameters[$parameter]);
+            }
+        }
         $parameters = $settingsBuilder->resolve($parameters);
         $settings->setParameters($parameters);
 
@@ -723,15 +727,18 @@ class SettingsManager implements SettingsManagerInterface
 
         $settingsBuilder = new SettingsBuilder();
         $schema->buildSettings($settingsBuilder);
-
         $parameters = $settingsBuilder->resolve($settings->getParameters());
-        $settings->setParameters($parameters);
-
-        /*foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
+        // Transform value. Example array to string using transformer. Example:
+        // 1. Setting "tool_visible_by_default_at_creation" it's a multiple select
+        // 2. Is defined as an array in class DocumentSettingsSchema
+        // 3. Add transformer for that variable "ArrayToIdentifierTransformer"
+        // 4. Here we recover the transformer and convert the array to string
+        foreach ($settingsBuilder->getTransformers() as $parameter => $transformer) {
             if (array_key_exists($parameter, $parameters)) {
                 $parameters[$parameter] = $transformer->transform($parameters[$parameter]);
             }
-        }*/
+        }
+        $settings->setParameters($parameters);
 
         /*if (isset($this->resolvedSettings[$namespace])) {
             $transformedParameters = $this->transformParameters($settingsBuilder, $parameters);
@@ -739,7 +746,7 @@ class SettingsManager implements SettingsManagerInterface
         }*/
 
         $repo = $this->manager->getRepository('ChamiloCoreBundle:SettingsCurrent');
-        $persistedParameters = $repo->findBy(array('category' => $settings->getSchemaAlias()));
+        $persistedParameters = $repo->findBy(['category' => $settings->getSchemaAlias()]);
         $persistedParametersMap = array();
 
         foreach ($persistedParameters as $parameter) {
@@ -763,7 +770,7 @@ class SettingsManager implements SettingsManagerInterface
                 $persistedParametersMap[$name]->setValue($value);
             } else {
                 $parameter = new SettingsCurrent();
-
+var_dump($name, $value);
                 $parameter
                     ->setVariable($name)
                     ->setCategory($simpleCategoryName)
