@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+
+use ChamiloSession as Session;
+
 /**
  * This is a plugin for the documents tool. It looks for .jpg, .jpeg, .gif, .png
  * files (since these are the files that can be viewed in a browser) and creates
@@ -65,7 +68,7 @@ if ($tablename_column == 0) {
 } else {
     $tablename_column = intval($tablename_column) - 1;
 }
-
+Session::write('document_slideshow_table_column', $tablename_column);
 $image_files_only = sort_files($array_to_search);
 $_SESSION['image_files_only'] = $image_files_only;
 
@@ -102,14 +105,16 @@ function sort_files($table)
 
 function sort_table($a, $b)
 {
-    global $tablename_column;
+    $tablename_column = Session::read('document_slideshow_table_column');
 
     return strnatcmp($a[$tablename_column], $b[$tablename_column]);
 }
 
 function rsort_table($a, $b)
 {
-    global $tablename_column;
+    $tablename_column = Session::read('document_slideshow_table_column');
 
     return strnatcmp($b[$tablename_column], $a[$tablename_column]);
 }
+
+Session::erase('document_slideshow_table_column');
