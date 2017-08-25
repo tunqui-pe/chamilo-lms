@@ -42,10 +42,7 @@ class LeftMenuBuilder implements ContainerAwareInterface
 
             if (api_is_allowed_to_create_course()) {
                 $lang = $translator->trans('CreateCourse');
-                if ($settingsManager->getSetting(
-                        'course.course_validation'
-                    ) == 'true'
-                ) {
+                if ($settingsManager->getSetting('course.course_validation') == 'true') {
                     $lang = $translator->trans('CreateCourseRequest');
                 }
                 $menu->addChild(
@@ -63,9 +60,7 @@ class LeftMenuBuilder implements ContainerAwareInterface
                 ]
             );
 
-            $browse = $settingsManager->getSetting(
-                'display.allow_students_to_browse_courses'
-            );
+            $browse = $settingsManager->getSetting('display.allow_students_to_browse_courses');
 
             if ($browse == 'true') {
                 if ($checker->isGranted('ROLE_STUDENT') && !api_is_drh(
