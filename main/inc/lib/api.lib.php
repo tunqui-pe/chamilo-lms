@@ -2417,6 +2417,14 @@ function api_get_setting($variable, $subVariable = '')
         case 'add_shibboleth_login_button_shibboleth_image_url':
         case 'formLogin_hide_unhide_label':
             break;
+        case 'tool_visible_by_default_at_creation':
+            $values = Container::getSettingsManager()->getSetting($variable);
+            $newResult = [];
+            foreach ($values as $parameter) {
+                $newResult[$parameter] = 'true';
+            }
+            return $newResult;
+            break;
         default:
             /** @var \Doctrine\ORM\EntityManager $em */
             return Container::getSettingsManager()->getSetting($variable);
@@ -6917,7 +6925,7 @@ function api_set_default_visibility(
             $tool_id = 'documents';
             break;
         case TOOL_LEARNPATH:
-            $tool_id = 'learning';
+            $tool_id = 'learning_path';
             break;
         case TOOL_ANNOUNCEMENT:
             $tool_id = 'announcements';
@@ -6932,7 +6940,6 @@ function api_set_default_visibility(
             break;
     }
     $setting = api_get_setting('tool_visible_by_default_at_creation');
-
     if (isset($setting[$tool_id])) {
         $visibility = 'invisible';
         if ($setting[$tool_id] == 'true') {
@@ -6943,6 +6950,7 @@ function api_set_default_visibility(
         if ($tool_id == 'documents') {
             $visibility = DocumentManager::getDocumentDefaultVisibility($courseCode);
         }
+        error_log($visibility);
 
         api_item_property_update(
             $courseInfo,
