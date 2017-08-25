@@ -4,7 +4,8 @@
 namespace Chamilo\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class YesNoType
@@ -13,15 +14,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class YesNoType extends AbstractType
 {
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
                 'choices' => array(
-                    'true' => 'Yes',
-                    'false' => 'No',
+                    'Yes' => 'true',
+                    'No' => 'false',
                 ),
             )
         );
@@ -32,7 +33,7 @@ class YesNoType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
     /**
