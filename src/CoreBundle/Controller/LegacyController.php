@@ -22,7 +22,7 @@ class LegacyController extends ToolBaseController
 {
     public $section;
 
-    private function setContainerValuesToLegacy()
+    private function setContainerValuesToLegacy($request)
     {
           /** @var Connection $dbConnection */
         $dbConnection = $this->container->get('database_connection');
@@ -33,6 +33,7 @@ class LegacyController extends ToolBaseController
         $database->setConnection($dbConnection);
         $database->setManager($em);
         Container::$container = $this->container;
+        Container::setRequest($request);
         Container::$dataDir = $this->container->get('kernel')->getDataDir();
         Container::$courseDir = $this->container->get('kernel')->getDataDir();
         $this->container->get('twig')->addGlobal('api_get_cidreq', api_get_cidreq());
@@ -55,7 +56,7 @@ class LegacyController extends ToolBaseController
         $fileToLoad = $mainPath.$name;
 
         // Setting legacy values inside the container
-        $this->setContainerValuesToLegacy();
+        $this->setContainerValuesToLegacy($request);
 
         if (is_file($fileToLoad) &&
             \Security::check_abs_path($fileToLoad, $mainPath)

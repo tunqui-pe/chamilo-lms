@@ -17,6 +17,13 @@ class WelcomeStep extends AbstractStep
      */
     public function displayAction(ProcessContextInterface $context)
     {
+        if ($this->isCommonUpgrade()) {
+            // Only admin can upgrade
+            $checker = $this->container->get('security.authorization_checker');
+            if (!$checker->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('home');
+            }
+        }
         return $this->render(
             'ChamiloInstallerBundle:Process/Step:welcome.html.twig',
             [

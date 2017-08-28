@@ -189,13 +189,16 @@ class Container
      */
     public static function getRequest()
     {
+        if (!empty(self::$request)) {
+            return self::$request;
+        }
         return self::$container->get('request');
     }
 
-    /*public static function setRequest($request)
+    public static function setRequest($request)
     {
         self::$request = $request;
-    }*/
+    }
 
     /**
      * @return Session

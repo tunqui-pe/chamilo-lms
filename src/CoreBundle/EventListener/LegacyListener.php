@@ -58,6 +58,7 @@ class LegacyListener
 
         // Setting container
         Container::setContainer($container);
+        Container::setRequest($request);
 
         // Setting database.
         $connection = $container->get('database_connection');

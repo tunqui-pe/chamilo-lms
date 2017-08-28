@@ -20,7 +20,6 @@ cache:
     - $HOME/.composer/cache/files
 
 php:
-  - 7.0
   - 7.1
 
 env:
@@ -71,13 +70,13 @@ before_install:
   - php -d date.timezone="Europe/Paris" chash.php chash:chamilo_install $CHAMILO_VERSION $TRAVIS_BUILD_DIR --download-package --no-interaction --only-download-package
   - cd $TRAVIS_BUILD_DIR
   - pwd
-  - cp tests/travis/parameters.yml.dist app/config/parameters.yml
+  - cp .env.dist .env
   # Install vendors
   - composer install
-  - php app/console doctrine:database:create
+  - php bin/console doctrine:database:create
   # Install chamilo
   - php -d date.timezone="Europe/Paris" $TRAVIS_BUILD_DIR/chash/chash.php chash:chamilo_install $CHAMILO_VERSION $TRAVIS_BUILD_DIR --no-interaction --sitename="Chamilo" --site_url="http://$VHOST_URL/" --institution="Chamilo" --institution_url="https://chamilo.org" --encrypt_method="sha1" --firstname="John" --lastname="Doe" --language="english" --driver="pdo_mysql" --host="localhost" --port="3306" --dbname="chamilo" --dbuser="root" --permissions_for_new_directories="0777" --permissions_for_new_files="0666" --linux-user="www-data" --linux-group="www-data" --username="admin" --password="admin" --email="admin@example.com" --phone="555-5555"
-  - sudo chmod -R 777 app/cache app/logs app/courses app/upload
+  - sudo chmod -R 777 var/cache var/logs app/courses public/uploads
   # Check chamilo status
   - php -d date.timezone="Europe/Paris" $TRAVIS_BUILD_DIR/chash/chash.php chash:chamilo_status
   - ls -la

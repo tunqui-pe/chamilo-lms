@@ -15,20 +15,23 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 // check for installed system
 $paramFile = __DIR__.'/../.env';
+$paramFileDist = __DIR__.'/../.env.dist';
 $configFile = __DIR__.'/../app/config/configuration.php';
 
 $upgrade = false;
 if (file_exists($paramFile)) {
-    //DATABASE_URL
     $dotEnv = new Dotenv();
     $dotEnv->load($paramFile);
     $installed = getenv('APP_INSTALLED');
 
     $data = Yaml::parse($paramFile);
     if (!empty($installed)) {
-        /*require_once __DIR__.'/index.php';
-        exit;*/
+        // Redirect to upgrade process
+        header('Location: /install/flow/chamilo_install/welcome');
+        exit;
     }
+} else {
+    copy($paramFileDist, $paramFile);
 }
 
 if (file_exists($paramFile) && file_exists($configFile)) {
@@ -150,6 +153,8 @@ function iterateRequirements(array $collection, $translator)
 </head>
 <body>
 <div class="container">
+
+
     <div class="page-header">
         <h1 class="logo"><?php echo $translator->trans('title'); ?></h1>
     </div>

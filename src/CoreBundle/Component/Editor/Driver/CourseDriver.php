@@ -20,7 +20,7 @@ class CourseDriver extends Driver implements DriverInterface
      */
     public function setup()
     {
-        $sessionId = api_get_session_id();
+        $sessionId = $this->connector->sessionId;
         $user = $this->connector->user;
         $userId = $user->getId();
         $courseInfo = $this->connector->course;
@@ -260,9 +260,9 @@ class CourseDriver extends Driver implements DriverInterface
                     intval($result['size']),
                     $result['name']
                 );
+                return $result;
             }
-
-            return $result;
+            return false;
         }
 
         return false;

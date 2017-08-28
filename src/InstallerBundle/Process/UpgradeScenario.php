@@ -20,6 +20,10 @@ class UpgradeScenario implements ProcessScenarioInterface
      */
     public function build(ProcessBuilderInterface $builder)
     {
+        $checker = $this->container->get('security.authorization_checker');
+        if (!$checker->isGranted('ROLE_ADMIN')) {
+            return;
+        }
         $builder
             ->add('welcome', new Step\WelcomeStep())
             ->add('configure', new Step\ConfigureStep())

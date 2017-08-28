@@ -52,51 +52,34 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         admin:
-            pattern:            /admin(.*)
+            pattern:            .*
             context:            user
             form_login:
                 provider:       fos_userbundle
-                login_path:     /admin/login
-                use_forward:    false
-                check_path:     /admin/login_check
-                failure_path:   null
-            logout:
-                path:           /admin/logout
-                target:         /admin/login
-            anonymous:          true
-        secured_area:
-            pattern: .*
-            context: user
-            form_login:
-                provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                login_path:     /login
+                login_path:     /administration/login
                 use_forward:    false
-                check_path:     /login_check
-                failure_path:   null
+                check_path:     /administration/login_check
                 success_handler: chamilo_core.listener.login_success_handler
-                remember_me: true
+                failure_path:   null
             remember_me:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
             logout:
-                path:   /logout
-                target: /
-                success_handler: chamilo_core.listener.logout_success_handler
-                invalidate_session: false
-#                handlers: ['sonata.page.cms_manager_selector']
-            anonymous: true
+                path:           /administration/logout
+                target:         /
+            anonymous:          true
+
             oauth:
-                resource_owners:
-                    facebook:        "/login/check-facebook"
-                    google:          "/login/check-google"
-                    github:          "/login/check-github"
-                login_path:        /login
-                failure_path:      /connect
-                use_forward:       false
-                oauth_user_provider:
-                    service: chamilo_user_provider
-            switch_user: false
+              resource_owners:
+                  facebook:        "/administration/login/check-facebook"
+                  google:          "/administration/login/check-google"
+                  github:          "/administration/login/check-github"
+              login_path:        /administration/login
+              check_path:     /administration/login_check
+              failure_path:      /administration/connect
+              use_forward:       false
+              oauth_user_provider:
+                  service: chamilo_user_provider

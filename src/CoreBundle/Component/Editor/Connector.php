@@ -21,6 +21,7 @@ class Connector
 {
     /** @var array */
     public $course;
+    public $sessionId;
 
     /** @var User */
     public $user;
@@ -31,6 +32,7 @@ class Connector
     /** @var Router */
     public $urlGenerator;
     /** @var  AuthorizationChecker */
+
     public $security;
     public $paths;
     public $entityManager;
@@ -44,7 +46,8 @@ class Connector
         Translator $translator,
         AuthorizationChecker $security,
         User $user,
-        $course = null
+        $course = null,
+        $sessionId = 0
     ) {
         $this->paths = array(
             'root_sys' => api_get_path(SYS_PATH),
@@ -61,6 +64,7 @@ class Connector
         $this->security = $security;
         $this->user = empty($user) ? api_get_user_entity(api_get_user_id()) : $user;
         $this->course = empty($course) ? api_get_course_info() : $course;
+        $this->sessionId = empty($sessionId) ? api_get_session_id() : $sessionId;
         $this->driverList = $this->getDefaultDriverList();
     }
 

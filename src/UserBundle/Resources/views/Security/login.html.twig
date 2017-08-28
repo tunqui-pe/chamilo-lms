@@ -9,7 +9,7 @@
         {% endblock %}
         <div class="login-box-body">
             {% block sonata_user_login_form %}
-                <form action="{{ path("fos_user_security_check") }}" method="post" role="form">
+                <form action="{{ path("sonata_user_admin_security_check") }}" method="post" role="form">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
                     <div class="form-group has-feedback">

@@ -102,7 +102,6 @@ $user_data['old_password'] = $user_data['password'];
 
 $user_data['registration_date'] = api_get_local_time($user_data['registration_date']);
 unset($user_data['password']);
-
 // Create the form
 $form = new FormValidator(
     'user_edit',

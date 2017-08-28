@@ -1,7 +1,7 @@
 hwi_oauth:
     connect:
         account_connector: chamilo_user_provider
-    firewall_names: [secured_area]
+    firewall_names: [admin]
     resource_owners:
         github:
             type:                github

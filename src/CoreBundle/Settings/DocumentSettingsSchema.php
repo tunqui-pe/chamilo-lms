@@ -47,7 +47,15 @@ class DocumentSettingsSchema extends AbstractSettingsSchema
                     'show_documents_preview' => 'false',
                     'enable_wami_record' => 'false',
                     'enable_webcam_clip' => 'false',
-                    'tool_visible_by_default_at_creation' => [],
+                    'tool_visible_by_default_at_creation' => [
+                        'documents',
+                        'learning_path',
+                        'links',
+                        'announcements',
+                        'forums',
+                        'quiz',
+                        'gradebook'
+                    ],
                     'documents_default_visibility_defined_in_course' => 'false', // ?
                     'allow_personal_user_files' => '', // ?
                     'if_file_exists_option' => 'rename'
@@ -60,9 +68,9 @@ class DocumentSettingsSchema extends AbstractSettingsSchema
         ;
 
         $allowedTypes = array(
+            'tool_visible_by_default_at_creation' => array('array'),
             'default_document_quotum' => array('string'),
-            'default_group_quotum' => array('string'),
-            'permanently_remove_deleted_files' => array('string'),
+            'default_group_quotum' => array('string')
         );
         $this->setMultipleAllowedTypes($allowedTypes, $builder);
     }
@@ -122,13 +130,13 @@ class DocumentSettingsSchema extends AbstractSettingsSchema
                 [
                     'multiple' => true,
                     'choices' => [
-                        'documents' => 'Documents',
-                        'learning_path' => 'LearningPath',
-                        'links' => 'Links',
-                        'announcements' => 'Announcements',
-                        'forums' => 'Forums',
-                        'quiz' => 'Quiz',
-                        'gradebook' => 'Gradebook'
+                        'Documents' => 'documents',
+                        'LearningPath' => 'learning_path',
+                        'Links' => 'links',
+                        'Announcements' => 'announcements',
+                        'Forums' => 'forums',
+                        'Quiz' => 'quiz',
+                        'Gradebook' => 'gradebook'
                     ]
                 ]
             )

@@ -75,7 +75,7 @@ class CourseSettingsSchema extends AbstractSettingsSchema
             ->setDefaults(
                 array(
                     'homepage_view' => 'activity_big',
-                    'show_tool_shortcuts' => '', //?
+                    'show_tool_shortcuts' => 'false', // @todo check default value?
                     'active_tools_on_create' => $tools,
                     'display_coursecode_in_courselist' => 'false',
                     'display_teacher_in_courselist' => 'true',
@@ -125,7 +125,6 @@ class CourseSettingsSchema extends AbstractSettingsSchema
 
         $allowedTypes = array(
             'homepage_view' => array('string'),
-            'show_tool_shortcuts' => array('string'),
             'active_tools_on_create' => array('array'),
             'course_hide_tools' => array('array'),
             'display_coursecode_in_courselist' => array('string'),
