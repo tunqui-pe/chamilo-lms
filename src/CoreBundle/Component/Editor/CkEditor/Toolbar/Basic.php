@@ -152,9 +152,12 @@ class Basic extends Toolbar
         $config['flash_flvPlayer'] = api_get_path(WEB_LIBRARY_JS_PATH) . 'ckeditor/plugins/flash/swf/player.swf';*/
 
         $config['customConfig'] = $this->getUrlGenerator()->generate(
-            'config_editor'
+            'config_editor',
+            [
+                'course_id' => api_get_course_int_id(),
+                'session_id' => api_get_session_id()
+            ]
         );
-
         /*filebrowserFlashBrowseUrl
         filebrowserFlashUploadUrl
         filebrowserImageBrowseLinkUrl

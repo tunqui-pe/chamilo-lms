@@ -37,13 +37,16 @@ class JavascriptLegacyController extends BaseController
         if ($settingsManager->getSetting('editor.more_buttons_maximized_mode') == 'true') {
             $moreButtonsInMaximizedMode = true;
         }
+        $request = $this->get('request_stack')->getCurrentRequest();
+        $courseId = $request->get('course_id');
+        $sessionId = $request->get('session_id');
 
         return $this->render(
             'ChamiloCoreBundle:default/javascript/editor/ckeditor:config_js.html.twig',
             array(
                 'more_buttons_in_max_mode' => $moreButtonsInMaximizedMode,
-                'course_id' => '1',
-                'session_id' => '1'
+                'course_id' => $courseId,
+                'session_id' => $sessionId
             )
         );
     }
