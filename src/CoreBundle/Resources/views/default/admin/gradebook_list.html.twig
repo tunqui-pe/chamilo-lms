@@ -1,6 +1,7 @@
 {% extends '@ChamiloTheme/Layout/layout_one_col.html.twig' %}
 
 {% block content %}
+    {% autoescape false %}
     {{ form }}
 
     {% if gradebook_list %}
@@ -35,4 +36,5 @@
 
        {{ gradebook_list }}
     {% endif %}
+    {% endautoescape %}
 {% endblock %}
