@@ -18,19 +18,22 @@ $htmlHeadXtra[] = api_get_asset('emojionearea/dist/emojionearea.js');
 $htmlHeadXtra[] = api_get_asset('emojione/lib/js/emojione.min.js');
 
 $iconList = [];
+$client = new \Emojione\Client();
 
-foreach (Emojione\Emojione::$shortcode_replace as $key => $icon) {
+//foreach (Emojione\Emojione::$shortcode_replace as $key => $icon) {
+foreach ($client->getRuleset()->getShortcodeReplace() as $key => $icon) {
     if (!in_array($key, CourseChatUtils::getEmojisToInclude())) {
         continue;
     }
 
-    $iconList[$key] = strtoupper($icon).'.png';
+    $iconList[$key] = strtoupper($icon[0]).'.png';
 }
+
 
 $view = new Template(get_lang('Chat'), false, false, false, true, false);
 $view->assign('icons', $iconList);
 $view->assign('emoji_strategy', CourseChatUtils::getEmojiStrategry());
-$view->assign('emoji_smile', \Emojione\Emojione::toImage(':smile:'));
+$view->assign('emoji_smile', $client->toImage(':smile:'));
 
 $template = $view->get_template('chat/chat.tpl');
 $content = $view->fetch($template);

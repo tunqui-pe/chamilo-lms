@@ -12,7 +12,7 @@ require('bootstrap-sass');
 require('chosen-js');
 require('webpack-jquery-ui');
 require('webpack-jquery-ui/css');
-require("font-awesome-webpack");
+require('font-awesome-webpack');
 
 /*
 
