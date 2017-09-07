@@ -161,29 +161,32 @@ if ($editingCourse) {
 }
 
 if ($commissionsEnable === 'true') {
-    $htmlHeadXtra[] = ''
-    . '<script>'
-        . '$(function(){'
-            . 'if ($("[name=\'commissions\']").val() === "") {'
-                . '$("#panelSliders").html("<button id=\"setCommissionsButton\" class=\"btn btn-warning\">' . get_plugin_lang("SetCommissions", "BuyCoursesPlugin") . '</button>");'
-            . '} else {'
-                . 'showSliders(100, "default", "' . $commissions . '");'
-            . '}'
-        . '});'
+    $htmlHeadXtra[] = "
+        <script>
+            $(function() {
+                if ($('[name=\"commissions\"]').val() === '') {
+                    $('#panelSliders').html(
+                        '<button id=\"setCommissionsButton\" class=\"btn btn-warning\">'
+                            + '".get_plugin_lang('SetCommissions', 'BuyCoursesPlugin')."'
+                    );
+                } else {
+                    showSliders(100, 'default', '".$commissions."');
+                }
+            });
 
-        . '$(document).ready(function() {'
-            . 'var maxPercentage = 100;'
-            . '$("#selectBox").on("change", function() {'
-                . ' $("#panelSliders").html("");'
-                . 'showSliders(maxPercentage, "renew");'
-            . '});'
+            $(document).ready(function () {
+                var maxPercentage = 100;
+                $('#selectBox').on('change', function() {
+                    $('#panelSliders').html('');
+                });
 
-            . '$("#setCommissionsButton").on("click", function() {'
-                . ' $("#panelSliders").html("");'
-                . 'showSliders(maxPercentage, "renew");'
-            . '});'
-        . '});'
-    . '</script>';
+                $('#setCommissionsButton').on('click', function() {
+                    $('#panelSliders').html('');
+                    showSliders(maxPercentage, 'renew');
+                });
+            });
+        </script>
+    ";
 }
 
 $form = new FormValidator('beneficiaries');
@@ -218,20 +221,20 @@ if ($editingCourse) {
 
 if ($commissionsEnable === 'true') {
     $platformCommission = $plugin->getPlatformCommission();
-    $form->addHtml(''
-            . '<div class="form-group">'
-                . '<label for="sliders" class="col-sm-2 control-label">'
-                    . get_plugin_lang('Commissions', 'BuyCoursesPlugin')
-                . '</label>'
-                . '<div class="col-sm-8">'
-                    . Display::return_message(
-                        sprintf($plugin->get_lang('TheActualPlatformCommissionIsX'), $platformCommission['commission']. '%'),
-                        'info',
-                        false
-                    )
-                    . '<div class="" id="panelSliders"></div>'
-                . '</div>'
-            . '</div>'
+    $form->addHtml('
+        <div class="form-group">
+            <label for="sliders" class="col-sm-2 control-label">
+                '.get_plugin_lang('Commissions', 'BuyCoursesPlugin').'
+            </label>
+            <div class="col-sm-8">
+                '.Display::return_message(
+                    sprintf($plugin->get_lang('TheActualPlatformCommissionIsX'), $platformCommission['commission'].'%'),
+                    'info',
+                    false
+                ).'
+                <div class="" id="panelSliders"></div>
+            </div>
+        </div>'
     );
 
     $form->addHidden('commissions', '');
@@ -269,7 +272,9 @@ if ($form->validate()) {
             if ($commissionsEnable === 'true') {
                 $usersId = $formValues['beneficiaries'];
                 $commissions = explode(",", $formValues['commissions']);
-                $commissions = (count($usersId) != count($commissions)) ? array_fill(0, count($usersId), 0) : $commissions;
+                $commissions = (count($usersId) != count($commissions))
+                    ? array_fill(0, count($usersId), 0)
+                    : $commissions;
                 $beneficiaries = array_combine($usersId, $commissions);
             } else {
                 $usersId = $formValues['beneficiaries'];

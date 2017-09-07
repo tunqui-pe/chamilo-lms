@@ -96,8 +96,6 @@ class Link extends Model
             $sql = "UPDATE ".$this->table." SET id = iid WHERE iid = $id";
             Database:: query($sql);
 
-            api_set_default_visibility($id, TOOL_LINK);
-
             api_item_property_update(
                 $course_info,
                 TOOL_LINK,
@@ -105,6 +103,8 @@ class Link extends Model
                 'LinkAdded',
                 api_get_user_id()
             );
+
+            api_set_default_visibility($id, TOOL_LINK);
         }
 
         return $id;
@@ -356,6 +356,14 @@ class Link extends Model
 
                     // add link_category visibility
                     // course ID is taken from context in api_set_default_visibility
+                    //api_set_default_visibility($linkId, TOOL_LINK_CATEGORY);
+                    api_item_property_update(
+                        $_course,
+                        TOOL_LINK_CATEGORY,
+                        $linkId,
+                        'LinkCategoryAdded',
+                        api_get_user_id()
+                    );
                     api_set_default_visibility($linkId, TOOL_LINK_CATEGORY);
                 }
 
@@ -792,6 +800,7 @@ class Link extends Model
         $tblLinkCategory = Database::get_course_table(TABLE_LINK_CATEGORY);
         $tblItemProperty = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $courseId = intval($courseId);
+        $courseInfo = api_get_course_info_by_id($courseId);
 
         // Condition for the session.
         $sessionCondition = api_get_session_condition(
@@ -834,7 +843,14 @@ class Link extends Model
 
         foreach ($categories as & $category) {
             if (!isset($categoryInItemProperty[$category['id']])) {
-                api_set_default_visibility($category['id'], TOOL_LINK_CATEGORY);
+                api_item_property_update(
+                    $courseInfo,
+                    TOOL_LINK_CATEGORY,
+                    $category['id'],
+                    'LinkCategoryAdded',
+                    api_get_user_id()
+                );
+                //api_set_default_visibility($category['id'], TOOL_LINK_CATEGORY);
             }
         }
 
@@ -1583,8 +1599,13 @@ class Link extends Model
      * @param string $show
      * @param null $token
      */
-    public static function listLinksAndCategories($course_id, $session_id, $categoryId, $show = 'none', $token = null)
-    {
+    public static function listLinksAndCategories(
+        $course_id,
+        $session_id,
+        $categoryId,
+        $show = 'none',
+        $token = null
+    ) {
         $tbl_link = Database::get_course_table(TABLE_LINK);
         $tblCIP = Database::get_course_table(TABLE_ITEM_PROPERTY);
         $categoryId = intval($categoryId);
@@ -1944,5 +1965,49 @@ class Link extends Model
     public static function moveLinkDown($id)
     {
         return self::moveLinkDisplayOrder($id, 'DESC');
+    }
+
+    /**
+     * @param string $url
+     * @return bool
+     */
+    public static function checkUrl($url)
+    {
+        // Check if curl is available.
+        if (!in_array('curl', get_loaded_extensions())) {
+            return false;
+        }
+
+        // set URL and other appropriate options
+        $defaults = array(
+            CURLOPT_URL => $url,
+            CURLOPT_FOLLOWLOCATION => true, // follow redirects accept youtube.com
+            CURLOPT_HEADER => 0,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 4
+        );
+
+        $proxySettings = api_get_configuration_value('proxy_settings');
+
+        if (!empty($proxySettings) &&
+            isset($proxySettings['curl_setopt_array'])
+        ) {
+             $defaults[CURLOPT_PROXY] = $proxySettings['curl_setopt_array']['CURLOPT_PROXY'];
+             $defaults[CURLOPT_PROXYPORT] = $proxySettings['curl_setopt_array']['CURLOPT_PROXYPORT'];
+        }
+
+        // Create a new cURL resource
+        $ch = curl_init();
+        curl_setopt_array($ch, $defaults);
+
+        // grab URL and pass it to the browser
+        ob_start();
+        $result = curl_exec($ch);
+        ob_get_clean();
+
+        // close cURL resource, and free up system resources
+        curl_close($ch);
+
+        return $result;
     }
 }

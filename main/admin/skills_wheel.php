@@ -11,10 +11,7 @@ require_once __DIR__.'/../inc/global.inc.php';
 $this_section = SECTION_PLATFORM_ADMIN;
 
 api_protect_admin_script(false, true);
-
-if (api_get_setting('allow_skills_tool') != 'true') {
-    api_not_allowed();
-}
+Skill::isAllow();
 
 //Adds the JS needed to use the jqgrid
 $htmlHeadXtra[] = api_get_asset('d3/d3.js');
@@ -60,7 +57,11 @@ $dialogForm->addLabel(
 );
 $dialogForm->addLabel(
     get_lang('Description'),
-    Display::tag('p', null, ['id' => 'description', 'class' => 'form-control-static'])
+    Display::tag(
+        'p',
+        null,
+        ['id' => 'description', 'class' => 'form-control-static']
+    )
 );
 
 $tpl->assign('dialogForm', $dialogForm->returnForm());

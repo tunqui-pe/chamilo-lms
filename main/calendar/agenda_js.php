@@ -27,6 +27,7 @@ $htmlHeadXtra[] = api_get_asset('fullcalendar/dist/locale-all.js');
 $htmlHeadXtra[] = api_get_asset('fullcalendar/dist/gcal.js');
 $htmlHeadXtra[] = api_get_css_asset('fullcalendar/dist/fullcalendar.min.css');
 $htmlHeadXtra[] = api_get_css_asset('qtip2/jquery.qtip.min.css');
+$htmlHeadXtra[] = api_get_asset('js-cookie/src/js.cookie.js');
 
 if (api_is_platform_admin() && ($type == 'admin' || $type == 'platform')) {
     $type = 'admin';
@@ -54,7 +55,10 @@ $courseId = api_get_course_int_id();
 
 if (!empty($group_id)) {
     $group_properties = GroupManager::get_group_properties($group_id);
-    $is_group_tutor = GroupManager::is_tutor_of_group(api_get_user_id(), $group_properties);
+    $is_group_tutor = GroupManager::is_tutor_of_group(
+        api_get_user_id(),
+        $group_properties
+    );
     $interbreadcrumb[] = array(
         "url" => api_get_path(WEB_CODE_PATH)."group/group.php?".api_get_cidreq(),
         "name" => get_lang('Groups')

@@ -110,7 +110,7 @@ foreach ($sessionCourses as $sessionCourse) {
             case CCourseDescription::TYPE_RESOURCES:
                 $courseResources = $descriptionTool;
                 break;
-            case CCourseDescription::TYPE_ASSESMENT:
+            case CCourseDescription::TYPE_ASSESSMENT:
                 $courseAssessment = $descriptionTool;
                 break;
             case CCourseDescription::TYPE_CUSTOM:

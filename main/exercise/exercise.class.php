@@ -77,6 +77,7 @@ class Exercise
     public $questionFeedbackEnabled = false;
     public $questionTypeWithFeedback;
     public $showPreviousButton;
+    public $notifications;
 
     /**
      * Constructor of the class
@@ -178,6 +179,11 @@ class Exercise
             $this->globalCategoryId = isset($object->global_category_id) ? $object->global_category_id : null;
             $this->questionSelectionType = isset($object->question_selection_type) ? $object->question_selection_type : null;
             $this->hideQuestionTitle = isset($object->hide_question_title) ? (int) $object->hide_question_title : 0;
+
+            $this->notifications = [];
+            if (!empty($object->notifications)) {
+                $this->notifications = explode(',', $object->notifications);
+            }
 
             if (isset($object->show_previous_button)) {
                 $this->showPreviousButton = $object->show_previous_button == 1 ? true : false;
@@ -1620,6 +1626,13 @@ class Exercise
                 if ($allow === true) {
                     $paramsExtra['show_previous_button'] = $this->showPreviousButton();
                 }
+
+                $allow = api_get_configuration_value('allow_notification_setting_per_exercise');
+                if ($allow === true) {
+                    $notifications = $this->getNotifications();
+                    $notifications = implode(',', $notifications);
+                    $paramsExtra['notifications'] = $notifications;
+                }
             }
 
             $params = array_merge($params, $paramsExtra);
@@ -1687,6 +1700,18 @@ class Exercise
                 'propagate_neg' => $propagate_neg,
                 'hide_question_title' => $this->getHideQuestionTitle()
             ];
+
+            $allow = api_get_configuration_value('allow_quiz_show_previous_button_setting');
+            if ($allow === true) {
+                $params['show_previous_button'] = $this->showPreviousButton();
+            }
+
+            $allow = api_get_configuration_value('allow_notification_setting_per_exercise');
+            if ($allow === true) {
+                $notifications = $this->getNotifications();
+                $notifications = implode(',', $notifications);
+                $params['notifications'] = $notifications;
+            }
 
             $this->id = Database::insert($TBL_EXERCISES, $params);
 
@@ -1994,11 +2019,30 @@ class Exercise
 
                 // Type of questions disposition on page
                 $radios = array();
-                $radios[] = $form->createElement('radio', 'exerciseType', null, get_lang('SimpleExercise'), '1', array('onclick' => 'check_per_page_all()', 'id'=>'option_page_all'));
-                $radios[] = $form->createElement('radio', 'exerciseType', null, get_lang('SequentialExercise'), '2', array('onclick' => 'check_per_page_one()', 'id'=>'option_page_one'));
+                $radios[] = $form->createElement(
+                    'radio',
+                    'exerciseType',
+                    null,
+                    get_lang('SimpleExercise'),
+                    '1',
+                    array(
+                        'onclick' => 'check_per_page_all()',
+                        'id' => 'option_page_all'
+                    )
+                );
+                $radios[] = $form->createElement(
+                    'radio',
+                    'exerciseType',
+                    null,
+                    get_lang('SequentialExercise'),
+                    '2',
+                    array(
+                        'onclick' => 'check_per_page_one()',
+                        'id' => 'option_page_one'
+                    )
+                );
 
                 $form->addGroup($radios, null, get_lang('QuestionsPerPage'));
-
             } else {
                 // if is Direct feedback but has not questions we can allow to modify the question type
                 if ($this->selectNbrQuestions() == 0) {
@@ -2316,7 +2360,30 @@ class Exercise
                 $editor_config
             );
 
-            $form->addCheckBox('update_title_in_lps', null, get_lang('UpdateTitleInLps'));
+            $allow = api_get_configuration_value('allow_notification_setting_per_exercise');
+
+            if ($allow === true) {
+                $settings = ExerciseLib::getNotificationSettings();
+                $group = [];
+                foreach ($settings as $itemId => $label) {
+                    $group[] = $form->createElement(
+                        'checkbox',
+                        'notifications[]',
+                        null,
+                        $label,
+                        ['value' => $itemId]
+                    );
+                }
+
+                $form->addGroup($group, '', [get_lang('EmailNotifications')]);
+
+            }
+
+            $form->addCheckBox(
+                'update_title_in_lps',
+                null,
+                get_lang('UpdateTitleInLps')
+            );
 
             $defaults = array();
             if (api_get_setting('search_enabled') === 'true') {
@@ -2409,6 +2476,7 @@ class Exercise
                 } else {
                     $defaults['enabletimercontroltotalminutes'] = 0;
                 }
+                $defaults['notifications'] = $this->getNotifications();
             } else {
                 $defaults['exerciseType'] = 2;
                 $defaults['exerciseAttempts'] = 0;
@@ -2497,6 +2565,7 @@ class Exercise
         $this->setScoreTypeModel($form->getSubmitValue('score_type_model'));
         $this->setGlobalCategoryId($form->getSubmitValue('global_category_id'));
         $this->setShowPreviousButton($form->getSubmitValue('show_previous_button'));
+        $this->setNotifications($form->getSubmitValue('notifications'));
 
         if ($form->getSubmitValue('activate_start_date_check') == 1) {
             $start_time = $form->getSubmitValue('start_time');
@@ -2983,8 +3052,12 @@ class Exercise
      * @param string $currentAnswer
      * @return string
      */
-    public function show_button($question_id, $questionNum, $questions_in_media = array(), $currentAnswer = '')
-    {
+    public function show_button(
+        $question_id,
+        $questionNum,
+        $questions_in_media = array(),
+        $currentAnswer = ''
+    ) {
         global $origin, $safe_lp_id, $safe_lp_item_id, $safe_lp_item_view_id;
         $nbrQuestions = $this->get_count_question_list();
         $all_button = [];
@@ -3033,7 +3106,8 @@ class Exercise
                     $label = get_lang('NextQuestion');
                     $class = 'btn btn-primary';
                 }
-				$class .= ' question-validate-btn'; // used to select it with jquery
+                // used to select it with jquery
+                $class .= ' question-validate-btn';
                 if ($this->type == ONE_PER_PAGE) {
                     if ($questionNum != 1) {
                         if ($this->showPreviousButton()) {
@@ -3051,7 +3125,7 @@ class Exercise
                         }
                     }
 
-                    //Next question
+                    // Next question
                     if (!empty($questions_in_media)) {
                         $all_button[] = Display::button(
                             'save_question_list',
@@ -3080,7 +3154,8 @@ class Exercise
                         $all_label = get_lang('EndTest');
                         $class = 'btn btn-warning';
                     }
-					$class .= ' question-validate-btn'; // used to select it with jquery
+                    // used to select it with jquery
+                    $class .= ' question-validate-btn';
                     $all_button[] = Display::button(
                         'validate_all',
                         $all_label,
@@ -3101,7 +3176,7 @@ class Exercise
      * @param string $time_left
      * @return string
      */
-    public function show_time_control_js($time_left)
+    public function showTimeControlJS($time_left)
     {
         $time_left = intval($time_left);
         return "<script>
@@ -5445,8 +5520,13 @@ class Exercise
     ) {
         $setting = api_get_course_setting('email_alert_manager_on_new_quiz');
 
-        if (empty($setting)) {
+        if (empty($setting) && empty($this->getNotifications())) {
             return false;
+        }
+
+        $settingFromExercise = $this->getNotifications();
+        if (!empty($settingFromExercise)) {
+            $setting = $settingFromExercise;
         }
 
         // Email configuration settings
@@ -5458,7 +5538,6 @@ class Exercise
         }
 
         $sessionId = api_get_session_id();
-
         $sendStart = false;
         $sendEnd = false;
         $sendEndOpenQuestion = false;
@@ -5785,13 +5864,22 @@ class Exercise
      * @param string $ip Optional. The user IP
      * @return string
      */
-    public function show_exercise_result_header($user_data, $start_date = null, $duration = null, $ip = null)
-    {
-        $array = array();
-
+    public function show_exercise_result_header(
+        $user_data,
+        $start_date = null,
+        $duration = null,
+        $ip = null
+    ) {
+        $array = [];
         if (!empty($user_data)) {
-            $array[] = array('title' => get_lang('Name'), 'content' => $user_data['complete_name']);
-            $array[] = array('title' => get_lang('Username'), 'content' => $user_data['username']);
+            $array[] = array(
+                'title' => get_lang('Name'),
+                'content' => $user_data['complete_name']
+            );
+            $array[] = array(
+                'title' => get_lang('Username'),
+                'content' => $user_data['username']
+            );
             if (!empty($user_data['official_code'])) {
                 $array[] = array(
                     'title' => get_lang('OfficialCode'),
@@ -5819,7 +5907,12 @@ class Exercise
             $array[] = array('title' => get_lang('IP'), 'content' => $ip);
         }
 
-        $icon = Display::return_icon('test-quiz.png', get_lang('Result'), null, ICON_SIZE_MEDIUM);
+        $icon = Display::return_icon(
+            'test-quiz.png',
+            get_lang('Result'),
+            null,
+            ICON_SIZE_MEDIUM
+        );
 
         $html = '<div class="question-result">';
 
@@ -5832,7 +5925,12 @@ class Exercise
             );
         }
 
-        $html .= Display::description($array);
+        $hide = api_get_configuration_value('hide_user_info_in_quiz_result');
+
+        if ($hide === false) {
+            $html .= Display::description($array);
+        }
+
         $html .= "</div>";
         return $html;
     }
@@ -6363,13 +6461,14 @@ class Exercise
     }
 
     /**
-     *
      * @params array question list
-     * @params bool expand or not question list (true show all questions, false show media question id instead of the question ids)
-     *
+     * @params bool expand or not question list (true show all questions,
+     * false show media question id instead of the question ids)
      **/
-    public function transformQuestionListWithMedias($question_list, $expand_media_questions = false)
-    {
+    public function transformQuestionListWithMedias(
+        $question_list,
+        $expand_media_questions = false
+    ) {
         $new_question_list = array();
         if (!empty($question_list)) {
             $media_questions = $this->getMediaList();
@@ -6564,7 +6663,12 @@ class Exercise
         return $new_array;
     }
 
-    public function edit_question_to_remind($exe_id, $question_id, $action = 'add')
+    /**
+     * @param int $exe_id
+     * @param int $question_id
+     * @param string $action
+     */
+    public function editQuestionToRemind($exe_id, $question_id, $action = 'add')
     {
         $exercise_info = self::get_stat_track_exercise_info_by_exe_id($exe_id);
         $question_id = intval($question_id);
@@ -6574,7 +6678,9 @@ class Exercise
 
             if (empty($exercise_info['questions_to_check'])) {
                 if ($action == 'add') {
-                    $sql = "UPDATE $track_exercises SET questions_to_check = '$question_id' WHERE exe_id = $exe_id ";
+                    $sql = "UPDATE $track_exercises 
+                            SET questions_to_check = '$question_id' 
+                            WHERE exe_id = $exe_id ";
                     Database::query($sql);
                 }
             } else {
@@ -6606,12 +6712,18 @@ class Exercise
                     }
                 }
                 $remind_list_string = Database::escape_string($remind_list_string);
-                $sql = "UPDATE $track_exercises SET questions_to_check = '$remind_list_string' WHERE exe_id = $exe_id ";
+                $sql = "UPDATE $track_exercises 
+                        SET questions_to_check = '$remind_list_string' 
+                        WHERE exe_id = $exe_id ";
                 Database::query($sql);
             }
         }
     }
 
+    /**
+     * @param string $answer
+     * @return mixed
+     */
     public function fill_in_blank_answer_to_array($answer)
     {
         api_preg_match_all('/\[[^]]+\]/', $answer, $teacher_answer_list);
@@ -6641,6 +6753,9 @@ class Exercise
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function return_time_left_div()
     {
         $html = '<div id="clock_warning" style="display:none">';
@@ -6658,7 +6773,7 @@ class Exercise
         return $html;
     }
 
-    function get_count_question_list()
+    public function get_count_question_list()
     {
         //Real question count
         $question_count = 0;
@@ -6977,9 +7092,11 @@ class Exercise
                 }
             }
 
-            // The $questionList contains the media id we check if this questionId is a media question type
-
-            if (isset($mediaQuestions[$questionId]) && $mediaQuestions[$questionId] != 999) {
+            // The $questionList contains the media id we check
+            // if this questionId is a media question type
+            if (isset($mediaQuestions[$questionId]) &&
+                $mediaQuestions[$questionId] != 999
+            ) {
                 // The question belongs to a media
                 $mediaQuestionList = $mediaQuestions[$questionId];
                 $objQuestionTmp = Question::read($questionId);
@@ -7050,7 +7167,7 @@ class Exercise
 
         if ($this->type == ALL_ON_ONE_PAGE) {
             $exercise_actions = $this->show_button($questionId, $currentQuestion);
-            echo Display::div($exercise_actions, array('class'=>'exercise_actions'));
+            echo Display::div($exercise_actions, ['class' => 'exercise_actions']);
         }
     }
 
@@ -7158,7 +7275,12 @@ class Exercise
             // Button save and continue
             switch ($this->type) {
                 case ONE_PER_PAGE:
-                    $exercise_actions .= $this->show_button($questionId, $current_question, null, $remindList);
+                    $exercise_actions .= $this->show_button(
+                        $questionId,
+                        $current_question,
+                        null,
+                        $remindList
+                    );
                     break;
                 case ALL_ON_ONE_PAGE:
                     $button = [
@@ -7199,7 +7321,9 @@ class Exercise
             }
 
             // Checkbox review answers
-            if ($this->review_answers && !in_array($question_obj->type, Question::question_type_no_review())) {
+            if ($this->review_answers &&
+                !in_array($question_obj->type, Question::question_type_no_review())
+            ) {
                 $remind_question_div = Display::tag(
                     'label',
                     Display::input(
@@ -7642,5 +7766,21 @@ class Exercise
         $this->showPreviousButton = $showPreviousButton;
 
         return $this;
+    }
+
+    /**
+     * @param array $notifications
+     */
+    public function setNotifications($notifications)
+    {
+        $this->notifications = $notifications;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }

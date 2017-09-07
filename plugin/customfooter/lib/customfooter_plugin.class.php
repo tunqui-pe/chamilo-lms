@@ -13,14 +13,14 @@ class CustomFooterPlugin extends Plugin
      *
      * @return CustomFooterPlugin
      */
-    static function create()
+    public static function create()
     {
         static $result = null;
 
         return $result ? $result : $result = new self();
     }
 
-    function get_name()
+    public function get_name()
     {
         return 'customfooter';
     }
@@ -30,7 +30,7 @@ class CustomFooterPlugin extends Plugin
         parent::__construct('1.1', 'Valery Fremaux');
     }
 
-    function pix_url($pixname, $size = 16)
+    public function pix_url($pixname, $size = 16)
     {
         global $_configuration;
 

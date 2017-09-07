@@ -39,7 +39,7 @@ if ($session_id == 0) {
         false
     ); //already init
 } else {
-    $cats = Category :: load_session_categories(null, $session_id);
+    $cats = Category::loadSessionCategories(null, $session_id);
 }
 
 $form = new LinkAddEditForm(
@@ -104,12 +104,12 @@ if ($form->validate()) {
             'type' => LINK_STUDENTPUBLICATION
         ]);
 
-    header('Location: '.$_SESSION['gradebook_dest'].'?linkedited=&selectcat='.$link->get_category_id().'&'.api_get_cidreq());
+    header('Location: '.Category::getUrl().'linkedited=&selectcat='.$link->get_category_id());
     exit;
 }
 
 $interbreadcrumb[] = array(
-    'url' => Security::remove_XSS($_SESSION['gradebook_dest']).'?selectcat='.$linkcat,
+    'url' => Category::getUrl().'selectcat='.$linkcat,
     'name' => get_lang('Gradebook')
 );
 $url = api_get_path(WEB_AJAX_PATH).'gradebook.ajax.php?a=get_gradebook_weight&'.api_get_cidreq();

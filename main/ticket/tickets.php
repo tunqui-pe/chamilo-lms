@@ -1,6 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * This script is the Tickets plugin main entry point
  * @package chamilo.plugin.ticket
@@ -51,7 +53,7 @@ function display_advanced_search_form () {
 </script>';
 
 $this_section = 'tickets';
-unset($_SESSION['this_section']);
+Session::erase('this_section');
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $projectId = isset($_GET['project_id']) ? (int) $_GET['project_id'] : 0;
@@ -280,7 +282,7 @@ if (!empty($projectId)) {
 
     $options = '';
     if ($isAdmin) {
-        $options .=Display::url(
+        $options .= Display::url(
             get_lang('Projects'),
             api_get_path(WEB_CODE_PATH).'ticket/projects.php'
         );

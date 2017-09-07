@@ -5,7 +5,7 @@ $cidReset = true;
 
 require_once __DIR__.'/../inc/global.inc.php';
 
-api_protect_admin_script();
+api_protect_admin_script(true);
 
 $sessionId = isset($_GET['session_id']) ? (int) $_GET['session_id'] : 0;
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -22,7 +22,7 @@ if (!$object->allowed()) {
     api_not_allowed(true);
 }
 
-$sessionUrl =  api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.$sessionId;
+$sessionUrl = api_get_path(WEB_CODE_PATH).'session/resume_session.php?id_session='.$sessionId;
 
 $htmlHeadXtra[] = api_get_jqgrid_js();
 $interbreadcrumb[] = array(

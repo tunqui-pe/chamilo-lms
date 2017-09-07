@@ -35,8 +35,7 @@ $debug = false;
 
 // Notice for unauthorized people.
 api_protect_course_script(true);
-
-$origin = isset($_REQUEST['origin']) ? Security::remove_XSS($_REQUEST['origin']) : '';
+$origin = api_get_origin();
 
 $is_allowedToEdit = api_is_allowed_to_edit(null, true);
 $glossaryExtraTools = api_get_setting('show_glossary_in_extra_tools');
@@ -160,7 +159,7 @@ $exercise_sound = $objExercise->selectSound();
 // If reminder ends we jump to the exercise_reminder
 if ($objExercise->review_answers) {
     if ($remind_question_id == -1) {
-        header('Location: exercise_reminder.php?origin='.$origin.'&exerciseId='.$exerciseId.'&'.api_get_cidreq());
+        header('Location: exercise_reminder.php?exerciseId='.$exerciseId.'&'.api_get_cidreq());
         exit;
     }
 }
@@ -178,7 +177,11 @@ if ($objExercise->expired_time != 0) {
 }
 
 // Generating the time control key for the user
-$current_expired_time_key = ExerciseLib::get_time_control_key($objExercise->id, $learnpath_id, $learnpath_item_id);
+$current_expired_time_key = ExerciseLib::get_time_control_key(
+    $objExercise->id,
+    $learnpath_id,
+    $learnpath_item_id
+);
 
 $_SESSION['duration_time'][$current_expired_time_key] = $current_timestamp;
 
@@ -454,7 +457,7 @@ if (!empty($exercise_stat_info['questions_to_check'])) {
     $my_remind_list = array_filter($my_remind_list);
 }
 
-$params = "exe_id=$exe_id&exerciseId=$exerciseId&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id&".api_get_cidreq();
+$params = "exe_id=$exe_id&exerciseId=$exerciseId&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id&".api_get_cidreq();
 if ($debug) {
     error_log("6.1 params: ->  $params");
 }
@@ -540,7 +543,7 @@ $time_left = api_strtotime($clock_expired_time, 'UTC') - time();
  * for more details of how it works see this link : http://eric.garside.name/docs.html?p=epiclock
  */
 if ($time_control) { //Sends the exercise form when the expired time is finished
-    $htmlHeadXtra[] = $objExercise->show_time_control_js($time_left);
+    $htmlHeadXtra[] = $objExercise->showTimeControlJS($time_left);
 }
 
 //in LP's is enabled the "remember question" feature?
@@ -680,16 +683,16 @@ if ($formSent && isset($_POST)) {
                         }
                     }
                 }
-                header("Location: exercise_result.php?".api_get_cidreq()."&exe_id=$exe_id&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id");
+                header("Location: exercise_result.php?".api_get_cidreq()."&exe_id=$exe_id&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id");
                 exit;
             } else {
                 if ($debug) { error_log('10. Redirecting to exercise_show.php'); }
-                header("Location: exercise_result.php?".api_get_cidreq()."&exe_id=$exe_id&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id");
+                header("Location: exercise_result.php?".api_get_cidreq()."&exe_id=$exe_id&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id");
                 exit;
             }
         } else {
             if ($debug) { error_log('10. Redirecting to exercise_submit.php'); }
-            header("Location: exercise_submit.php?".api_get_cidreq()."&exerciseId=$exerciseId&origin=$origin");
+            header("Location: exercise_submit.php?".api_get_cidreq()."&exerciseId=$exerciseId");
             exit;
         }
     }
@@ -749,7 +752,7 @@ if ($question_count != 0) {
                     header('Location: exercise_reminder.php?'.$params);
                     exit;
                 } else {
-                    header("Location: exercise_result.php?".api_get_cidreq()."&exe_id=$exe_id&origin=$origin&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id");
+                    header("Location: exercise_result.php?".api_get_cidreq()."&exe_id=$exe_id&learnpath_id=$learnpath_id&learnpath_item_id=$learnpath_item_id&learnpath_item_view_id=$learnpath_item_view_id");
                     exit;
                 }
             }
@@ -766,19 +769,17 @@ if ($question_count != 0) {
     }
 }
 
-if (!empty ($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
-    $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
-    $gradebook = $_SESSION['gradebook'];
-} elseif (empty ($_GET['gradebook'])) {
-    unset($_SESSION['gradebook']);
-    $gradebook = '';
+if (api_is_in_gradebook()) {
+    $interbreadcrumb[] = array(
+        'url' => Category::getUrl(),
+        'name' => get_lang('ToolGradebook')
+    );
 }
 
-if (!empty ($gradebook) && $gradebook == 'view') {
-    $interbreadcrumb[] = array('url' => '../gradebook/'.Security::remove_XSS($_SESSION['gradebook_dest']), 'name' => get_lang('ToolGradebook'));
-}
-
-$interbreadcrumb[] = array("url" => "exercise.php?".api_get_cidreq(), "name" => get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    "name" => get_lang('Exercises')
+);
 $interbreadcrumb[] = array("url" => "#", "name" => $objExercise->selectTitle(true));
 
 if ($origin != 'learnpath') { //so we are not in learnpath tool
@@ -848,14 +849,28 @@ if ($limit_time_exists) {
     if (!$permission_to_start || $exercise_timeover) {
         if (!api_is_allowed_to_edit(null, true)) {
             $message_warning = $permission_to_start ? get_lang('ReachedTimeLimit') : get_lang('ExerciseNoStartedYet');
-            echo Display::return_message(sprintf($message_warning, $exercise_title, $objExercise->selectAttempts()), 'warning');
+            echo Display::return_message(
+                sprintf(
+                    $message_warning,
+                    $exercise_title,
+                    $objExercise->selectAttempts()
+                ),
+                'warning'
+            );
             if ($origin != 'learnpath') {
                 Display :: display_footer();
             }
             exit;
         } else {
             $message_warning = $permission_to_start ? get_lang('ReachedTimeLimitAdmin') : get_lang('ExerciseNoStartedAdmin');
-            echo Display::return_message(sprintf($message_warning, $exercise_title, $objExercise->selectAttempts()), 'warning');
+            echo Display::return_message(
+                sprintf(
+                    $message_warning,
+                    $exercise_title,
+                    $objExercise->selectAttempts()
+                ),
+                'warning'
+            );
         }
     }
 }
@@ -1216,14 +1231,14 @@ if (!empty($error)) {
     </script>';
 
     echo '<form id="exercise_form" method="post" action="'.api_get_self().'?'.api_get_cidreq().'&autocomplete=off&&exerciseId='.$exerciseId.'" name="frm_exercise" '.$onsubmit.'>
-         <input type="hidden" name="formSent"				value="1" />
-         <input type="hidden" name="exerciseId" 			value="'.$exerciseId.'" />
-         <input type="hidden" name="num" 					value="'.$current_question.'" id="num_current_id" />
-         <input type="hidden" name="num_answer"             value="'.$currentAnswer.'" id="num_current_answer_id" />
-         <input type="hidden" name="exe_id" 				value="'.$exe_id.'" />
-         <input type="hidden" name="origin" 				value="'.$origin.'" />
-         <input type="hidden" name="learnpath_id" 			value="'.$learnpath_id.'" />
-         <input type="hidden" name="learnpath_item_id" 		value="'.$learnpath_item_id.'" />
+         <input type="hidden" name="formSent" value="1" />
+         <input type="hidden" name="exerciseId" value="'.$exerciseId.'" />
+         <input type="hidden" name="num" value="'.$current_question.'" id="num_current_id" />
+         <input type="hidden" name="num_answer" value="'.$currentAnswer.'" id="num_current_answer_id" />
+         <input type="hidden" name="exe_id" value="'.$exe_id.'" />
+         <input type="hidden" name="origin" value="'.$origin.'" />
+         <input type="hidden" name="learnpath_id" value="'.$learnpath_id.'" />
+         <input type="hidden" name="learnpath_item_id" value="'.$learnpath_item_id.'" />
          <input type="hidden" name="learnpath_item_view_id" value="'.$learnpath_item_view_id.'" />';
 
     // Show list of questions
@@ -1234,7 +1249,9 @@ if (!empty($error)) {
     }
 
     $remind_list = [];
-    if (isset($exercise_stat_info['questions_to_check']) && !empty($exercise_stat_info['questions_to_check'])) {
+    if (isset($exercise_stat_info['questions_to_check']) &&
+        !empty($exercise_stat_info['questions_to_check'])
+    ) {
         $remind_list = explode(',', $exercise_stat_info['questions_to_check']);
     }
 
@@ -1267,7 +1284,10 @@ if (!empty($error)) {
         if (isset($attempt_list[$questionId])) {
             $user_choice = $attempt_list[$questionId];
         } elseif ($objExercise->saveCorrectAnswers) {
-            $correctAnswers = $objExercise->getCorrectAnswersInAllAttempts($learnpath_id, $learnpath_item_id);
+            $correctAnswers = $objExercise->getCorrectAnswersInAllAttempts(
+                $learnpath_id,
+                $learnpath_item_id
+            );
 
             if (isset($correctAnswers[$questionId])) {
                 $user_choice = $correctAnswers[$questionId];
@@ -1277,11 +1297,13 @@ if (!empty($error)) {
         $remind_highlight = '';
 
         //Hides questions when reviewing a ALL_ON_ONE_PAGE exercise see #4542 no_remind_highlight class hide with jquery
-        if ($objExercise->type == ALL_ON_ONE_PAGE && isset($_GET['reminder']) && $_GET['reminder'] == 2) {
+        if ($objExercise->type == ALL_ON_ONE_PAGE &&
+            isset($_GET['reminder']) && $_GET['reminder'] == 2
+        ) {
             $remind_highlight = 'no_remind_highlight';
         }
 
-        $exercise_actions = '';
+        $exerciseActions = '';
         $is_remind_on = false;
 
         $attributes = array('id' =>'remind_list['.$questionId.']');
@@ -1325,7 +1347,10 @@ if (!empty($error)) {
         // Button save and continue
         switch ($objExercise->type) {
             case ONE_PER_PAGE:
-                $exercise_actions .= $objExercise->show_button($questionId, $current_question);
+                $exerciseActions .= $objExercise->show_button(
+                    $questionId,
+                    $current_question
+                );
                 break;
             case ALL_ON_ONE_PAGE :
                 $button = [
@@ -1336,7 +1361,7 @@ if (!empty($error)) {
                     ),
                     '<span id="save_for_now_'.$questionId.'"></span>&nbsp;'
                 ];
-                $exercise_actions .= Display::div(
+                $exerciseActions .= Display::div(
                     implode(PHP_EOL, $button),
                     array('class'=>'exercise_save_now_button')
                 );
@@ -1358,9 +1383,12 @@ if (!empty($error)) {
                     'for' => 'remind_list['.$questionId.']'
                 )
             );
-            $exercise_actions .= Display::div($remind_question_div, array('class'=>'exercise_save_now_button'));
+            $exerciseActions .= Display::div(
+                $remind_question_div,
+                array('class' => 'exercise_save_now_button')
+            );
         }
-        echo Display::div($exercise_actions, array('class'=>'form-actions'));
+        echo Display::div($exerciseActions, array('class'=>'form-actions'));
         echo '</div>';
 
         $i++;
@@ -1372,8 +1400,11 @@ if (!empty($error)) {
     }
     // end foreach()
     if ($objExercise->type == ALL_ON_ONE_PAGE) {
-        $exercise_actions = $objExercise->show_button($questionId, $current_question);
-        echo Display::div($exercise_actions, array('class'=>'exercise_actions'));
+        $exerciseActions = $objExercise->show_button(
+            $questionId,
+            $current_question
+        );
+        echo Display::div($exerciseActions, array('class'=>'exercise_actions'));
         echo '<br>';
     }
     echo '</form>';

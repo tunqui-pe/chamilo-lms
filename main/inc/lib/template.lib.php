@@ -46,6 +46,7 @@ class Template
      * @var string
      */
     public $theme = '';
+    private $themeDir;
 
     /**
      * @var string
@@ -68,7 +69,6 @@ class Template
     public $force_plugin_load = false;
 
     /**
-     *
      * @param string $title
      * @param bool $show_header
      * @param bool $show_footer
@@ -124,8 +124,10 @@ class Template
 
         $loader = new Twig_Loader_Filesystem($template_paths);
 
+        $isTestMode = api_get_setting('server_type') === 'test';
+
         //Setting Twig options depending on the server see http://twig.sensiolabs.org/doc/api.html#environment-options
-        if (api_get_setting('server_type') == 'test') {
+        if ($isTestMode) {
             $options = array(
                 //'cache' => api_get_path(SYS_ARCHIVE_PATH), //path to the cache folder
                 'autoescape' => false,

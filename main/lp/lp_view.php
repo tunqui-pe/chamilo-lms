@@ -2,6 +2,7 @@
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
+use Chamilo\CourseBundle\Entity\CLpCategory;
 
 /**
  * This file was originally the copy of document.php, but many modifications happened since then ;
@@ -16,8 +17,6 @@ use ChamiloSession as Session;
  */
 
 $use_anonymous = true;
-
-$_SESSION['whereami'] = 'lp/view';
 $this_section = SECTION_COURSES;
 
 if ($lp_controller_touched != 1) {
@@ -41,8 +40,7 @@ $sessionId = api_get_session_id();
 
 // Check if the learning path is visible for student - (LP requisites)
 if (!api_is_platform_admin()) {
-    if (
-        !api_is_allowed_to_edit(null, true, false, false) &&
+    if (!api_is_allowed_to_edit(null, true, false, false) &&
         !learnpath::is_lp_visible_for_student($lp_id, api_get_user_id())
     ) {
         api_not_allowed(true);
@@ -82,15 +80,29 @@ if (!$is_allowed_to_edit) {
     $categoryId = $_SESSION['oLP']->getCategoryId();
     $em = Database::getManager();
     if (!empty($categoryId)) {
-        /** @var \Chamilo\CourseBundle\Entity\CLpCategory $category */
+        /** @var CLpCategory $category */
         $category = $em->getRepository('ChamiloCourseBundle:CLpCategory')->find($categoryId);
+        $block = false;
         if ($category) {
             $users = $category->getUsers();
             if (!empty($users) && $users->count() > 0) {
                 $user = UserManager::getRepository()->find($user_id);
                 if (!$category->hasUserAdded($user)) {
-                    api_not_allowed(true);
+                    $block = true;
                 }
+            }
+
+            $isVisible = learnpath::categoryIsVisibleForStudent(
+                $category,
+                $user
+            );
+
+            if ($isVisible) {
+                $block = false;
+            }
+
+            if ($block) {
+                api_not_allowed(true);
             }
         }
     }
@@ -466,11 +478,11 @@ if ($_SESSION['oLP']->current == $_SESSION['oLP']->get_last()) {
             $gradebookLinks[0]->get_type() == LINK_LEARNPATH &&
             $gradebookLinks[0]->get_ref_id() == $_SESSION['oLP']->lp_id
         ) {
-            $gradebookMinScore = $categories[0]->get_certificate_min_score();
+            $gradebookMinScore = $categories[0]->getCertificateMinScore();
             $userScore = $gradebookLinks[0]->calc_score($user_id, 'best');
 
             if ($userScore[0] >= $gradebookMinScore) {
-                Category::register_user_certificate($categories[0]->get_id(), $user_id);
+                Category::generateUserCertificate($categories[0]->get_id(), $user_id);
             }
         }
     }
@@ -542,7 +554,6 @@ $template->assign('lp_title_scorm', $_SESSION['oLP']->name);
 $template->assign('data_list', $_SESSION['oLP']->getListArrayToc($get_toc_list));
 $template->assign('lp_id', $_SESSION['oLP']->lp_id);
 $template->assign('lp_current_item_id', $_SESSION['oLP']->get_current_item_id());
-
 $view = $template->get_template('learnpath/view.tpl');
 $content = $template->fetch($view);
 

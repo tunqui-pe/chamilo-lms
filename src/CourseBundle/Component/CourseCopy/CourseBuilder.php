@@ -945,7 +945,13 @@ class CourseBuilder
 
         $sql = 'SELECT * FROM '.$table_que.' WHERE c_id = '.$courseId.'  ';
         $db_result = Database::query($sql);
+        $is_required = 0;
         while ($obj = Database::fetch_object($db_result)) {
+            if (api_get_configuration_value('allow_required_survey_questions')) {
+                if (isset($obj->is_required)) {
+                    $is_required = $obj->is_required;
+                }
+            }
             $question = new SurveyQuestion(
                 $obj->question_id,
                 $obj->survey_id,
@@ -955,7 +961,8 @@ class CourseBuilder
                 $obj->display,
                 $obj->sort,
                 $obj->shared_question_id,
-                $obj->max_value
+                $obj->max_value,
+                $is_required
             );
             $sql = 'SELECT * FROM '.$table_opt.'
                     WHERE c_id = '.$courseId.' AND question_id = '.$obj->question_id;
@@ -1454,7 +1461,7 @@ class CourseBuilder
 
             $result = Database::query($sql);
             while ($sub_row = Database::fetch_array($result, 'ASSOC')) {
-                $thematic->add_thematic_advance($sub_row);
+                $thematic->addThematicAdvance($sub_row);
             }
 
             $items = api_get_item_property_by_tool(
@@ -1467,7 +1474,6 @@ class CourseBuilder
             if (!empty($items)) {
                 foreach ($items as $item) {
                     $thematic_plan_id_list[] = $item['ref'];
-                    //$thematic_plan_complete_list[$item['ref']] = $item;
                 }
             }
             if (count($thematic_plan_id_list) > 0) {
@@ -1482,7 +1488,7 @@ class CourseBuilder
 
                 $result = Database::query($sql);
                 while ($sub_row = Database::fetch_array($result, 'ASSOC')) {
-                    $thematic->add_thematic_plan($sub_row);
+                    $thematic->addThematicPlan($sub_row);
                 }
             }
             $this->course->add_resource($thematic);

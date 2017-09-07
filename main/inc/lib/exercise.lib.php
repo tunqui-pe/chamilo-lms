@@ -26,6 +26,7 @@ class ExerciseLib
      * @param bool $show_comment
      * @param null $exercise_feedback
      * @param bool $show_answers
+     *
      * @return bool|int
      */
     public static function showQuestion(
@@ -359,8 +360,9 @@ class ExerciseLib
                         );
 
                         $answer_input = null;
-
+                        $attributes['class'] = 'checkradios';
                         if ($answerType == UNIQUE_ANSWER_IMAGE) {
+                            $attributes['class'] = '';
                             $attributes['style'] = 'display: none;';
                             $answer = '<div class="thumbnail">'.$answer.'</div>';
                         }
@@ -417,7 +419,7 @@ class ExerciseLib
 
                         if ($answerType == MULTIPLE_ANSWER || $answerType == GLOBAL_MULTIPLE_ANSWER) {
                             $s .= '<input type="hidden" name="choice2['.$questionId.']" value="0" />';
-
+                            $attributes['class'] = 'checkradios';
                             $answer_input = '<label class="checkbox">';
                             $answer_input .= Display::input(
                                 'checkbox',
@@ -590,14 +592,16 @@ class ExerciseLib
                         $displayForStudent = true;
                         $listAnswerInfo = FillBlanks::getAnswerInfo($answer);
 
-                        list($answer) = explode('::', $answer);
                         // Correct answers
                         $correctAnswerList = $listAnswerInfo['tabwords'];
 
                         // Student's answer
                         $studentAnswerList = array();
                         if (isset($user_choice[0]['answer'])) {
-                            $arrayStudentAnswer = FillBlanks::getAnswerInfo($user_choice[0]['answer'], true);
+                            $arrayStudentAnswer = FillBlanks::getAnswerInfo(
+                                $user_choice[0]['answer'],
+                                true
+                            );
                             $studentAnswerList = $arrayStudentAnswer['studentanswer'];
                         }
 
@@ -1495,17 +1499,19 @@ HOTSPOT;
 
     /**
      * Gets count of exam results
-     * @todo this function should be moved in a library  + no global calls
+     * @param int $exerciseId
+     * @param array $conditions
+     * @return array
      */
-    public static function get_count_exam_results($exercise_id, $extra_where_conditions)
+    public static function get_count_exam_results($exerciseId, $conditions)
     {
         $count = self::get_exam_results_data(
             null,
             null,
             null,
             null,
-            $exercise_id,
-            $extra_where_conditions,
+            $exerciseId,
+            $conditions,
             true
         );
         return $count;
@@ -2139,7 +2145,7 @@ HOTSPOT;
 
                             //Admin can always delete the attempt
                             if (($locked == false || api_is_platform_admin()) && !api_is_student_boss()) {
-                                $ip = TrackingUserLog::get_ip_from_user_event(
+                                $ip = Tracking::get_ip_from_user_event(
                                     $results[$i]['exe_user_id'],
                                     api_get_utc_datetime(),
                                     false
@@ -2169,13 +2175,14 @@ HOTSPOT;
 
                                 $delete_link = '<a href="exercise_report.php?'.api_get_cidreq().'&filter_by_user='.intval($_GET['filter_by_user']).'&filter='.$filter.'&exerciseId='.$exercise_id.'&delete=delete&did='.$id.'"
                                 onclick="javascript:if(!confirm(\'' . sprintf(
-                                        get_lang('DeleteAttempt'),
-                                        $results[$i]['username'],
-                                        $dt
-                                    ).'\')) return false;">'.Display:: return_icon(
-                                        'delete.png',
-                                        get_lang('Delete')
-                                    ).'</a>';
+                                    get_lang('DeleteAttempt'),
+                                    $results[$i]['username'],
+                                    $dt
+                                ).'\')) return false;">'.
+                                    Display:: return_icon(
+                                    'delete.png',
+                                    get_lang('Delete')
+                                ).'</a>';
                                 $delete_link = utf8_encode($delete_link);
 
                                 if (api_is_drh() && !api_is_platform_admin()) {
@@ -2219,7 +2226,18 @@ HOTSPOT;
                 }
             }
         } else {
-            $hpresults = StatsUtils::getManyResultsXCol($hpsql, 6);
+            $hpresults = [];
+            $res = Database::query($hpsql);
+            if ($res !== false) {
+                $i = 0;
+                while ($resA = Database::fetch_array($res, 'NUM')) {
+                    for ($j = 0; $j < 6; $j++) {
+                        $hpresults[$i][$j] = $resA[$j];
+                    }
+                    $i++;
+                }
+            }
+
             // Print HotPotatoes test results.
             if (is_array($hpresults)) {
                 for ($i = 0; $i < sizeof($hpresults); $i++) {
@@ -2334,9 +2352,9 @@ HOTSPOT;
      */
     public static function getModelStyle($model, $percentage)
     {
-        $modelWithStyle = get_lang($model['name']);
-        $modelWithStyle .= ' - <span class="'.$model['css_class'].'">'.$model['css_class'].' </span> - ';
-        $modelWithStyle .= $percentage;
+        //$modelWithStyle = get_lang($model['name']);
+        $modelWithStyle = '<span class="'.$model['css_class'].'"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+        //$modelWithStyle .= $percentage;
 
         return $modelWithStyle;
     }
@@ -2418,6 +2436,89 @@ HOTSPOT;
             }
         }
         return false;
+    }
+
+    /**
+     * @param FormValidator $form
+     * @param string $name
+     * @param $weight
+     * @param $selected
+     * @return bool
+     */
+    public static function addScoreModelInput(
+        FormValidator & $form,
+        $name,
+        $weight,
+        $selected
+    ) {
+        $model = self::getCourseScoreModel();
+        if (empty($model)) {
+            return false;
+        }
+
+        /** @var HTML_QuickForm_select $element */
+        $element = $form->createElement(
+            'select',
+            $name,
+            get_lang('Qualification'),
+            [],
+            ['class' => 'exercise_mark_select']
+        );
+
+        foreach ($model['score_list'] as $item) {
+            $i = api_number_format($item['score_to_qualify'] / 100 * $weight, 2);
+            $label = ExerciseLib::getModelStyle($item, $i);
+            $attributes = [
+                'class' => $item['css_class']
+            ];
+            if ($selected == $i) {
+                $attributes['selected'] = 'selected';
+            }
+            $element->addOption($label, $i, $attributes);
+        }
+        $form->addElement($element);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getJsCode()
+    {
+        // Filling the scores with the right colors.
+        $models = ExerciseLib::getCourseScoreModel();
+        $cssListToString = '';
+        if (!empty($models)) {
+            $cssList = array_column($models['score_list'], 'css_class');
+            $cssListToString = implode(' ', $cssList);
+        }
+
+        if (empty($cssListToString)) {
+            return '';
+        }
+        $js = <<<EOT
+        
+        function updateSelect(element) {
+            var spanTag = element.parent().find('span.filter-option');
+            var value = element.val();
+            var selectId = element.attr('id');
+            var optionClass = $('#' + selectId + ' option[value="'+value+'"]').attr('class');
+            spanTag.removeClass('$cssListToString');
+            spanTag.addClass(optionClass);
+        }
+        
+        $(document).ready( function() {
+            // Loading values
+            $('.exercise_mark_select').on('loaded.bs.select', function() {
+                updateSelect($(this));
+            });
+            // On change
+            $('.exercise_mark_select').on('changed.bs.select', function() {
+                updateSelect($(this));
+            });
+        });
+EOT;
+
+        return $js;
     }
 
     /**
@@ -3058,8 +3159,7 @@ HOTSPOT;
         $courseId,
         $session_id,
         $user_count
-    )
-    {
+    ) {
         $user_results = Event::get_best_exercise_results_by_user(
             $exercise_id,
             $courseId,
@@ -3115,6 +3215,7 @@ HOTSPOT;
      * @param    int $exercise_id
      * @param    string $course_code
      * @param    int $session_id
+     * @return array
      *
      **/
     public static function get_student_stats_by_question(
@@ -3166,8 +3267,7 @@ HOTSPOT;
     public static function getNumberStudentsFillBlanksAnwserCount(
         $question_id,
         $exercise_id
-    )
-    {
+    ) {
         $listStudentsId = [];
         $listAllStudentInfo = CourseManager::get_student_list_from_course_code(
             api_get_course_id(),
@@ -3308,8 +3408,7 @@ HOTSPOT;
         $exercise_id,
         $course_code,
         $session_id
-    )
-    {
+    ) {
         $track_exercises = Database::get_main_table(
             TABLE_STATISTIC_TRACK_E_EXERCISES
         );
@@ -3632,7 +3731,7 @@ HOTSPOT;
 
         $sql = "SELECT DISTINCT exe_user_id
                 FROM $track_exercises e
-                INNER JOIN $track_attempt a 
+                INNER JOIN $track_attempt a
                 ON (a.exe_id = e.exe_id)
                 WHERE
                     exe_exo_id 	 = $exercise_id AND
@@ -3676,7 +3775,8 @@ HOTSPOT;
                 $res .= "<option value='-1' disabled='disabled'>".$tabCategory["title"]."</option>";
                 $currentCatId = $tabCategory["id"];
             }
-            $res .= "<option ".$tabSelected[$tabGroups[$i]["id"]]."style='margin-left:40px' value='".$tabGroups[$i]["id"]."'>".$tabGroups[$i]["name"]."</option>";
+            $res .= "<option ".$tabSelected[$tabGroups[$i]["id"]]."style='margin-left:40px' value='".$tabGroups[$i]["id"]."'>".
+                    $tabGroups[$i]["name"]."</option>";
         }
         $res .= "</select>";
         return $res;
@@ -3809,7 +3909,6 @@ HOTSPOT;
             if (isset($exercise_stat_info['exe_user_id'])) {
                 $user_info = api_get_user_info($exercise_stat_info['exe_user_id']);
                 if ($user_info) {
-
                     // Shows exercise header
                     echo $objExercise->show_exercise_result_header(
                         $user_info,
@@ -4060,7 +4159,7 @@ HOTSPOT;
                 $learnpath_item_view_id = $exercise_stat_info['orig_lp_item_view_id'];
 
                 if (api_is_allowed_to_session_edit()) {
-                    Event::update_event_exercise(
+                    Event::updateEventExercise(
                         $exercise_stat_info['exe_id'],
                         $objExercise->selectId(),
                         $total_score,
@@ -4105,7 +4204,7 @@ HOTSPOT;
         return '<div class="ribbon">
                     <div class="rib rib-'.$class.'">
                         <h3>'.$scoreLabel.'</h3>
-                    </div> 
+                    </div>
                     <h4>'.get_lang('Score').': '.$result.'</h4>
                 </div>'
         ;
@@ -4277,9 +4376,11 @@ HOTSPOT;
     public static function getOralFeedbackAudio($attemptId, $questionId, $userId)
     {
         $courseInfo = api_get_course_info();
+        $sessionId = api_get_session_id();
+        $groupId = api_get_group_id();
         $sysCourseDir = api_get_path(SYS_COURSE_PATH).$courseInfo['path'];
         $webCourseDir = api_get_path(WEB_COURSE_PATH).$courseInfo['path'];
-        $fileName = "{$questionId}_{$userId}";
+        $fileName = "{$questionId}_{$userId}".DocumentManager::getDocumentSuffix($courseInfo, $sessionId, $groupId);
         $filePath = null;
 
         if (file_exists("$sysCourseDir/exercises/teacher_audio/$attemptId/$fileName.ogg")) {
@@ -4297,5 +4398,20 @@ HOTSPOT;
             null,
             ['src' => $filePath]
         );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getNotificationSettings()
+    {
+        $emailAlerts = [
+            2 => get_lang('SendEmailToTeacherWhenStudentStartQuiz'),
+            1 => get_lang('SendEmailToTeacherWhenStudentEndQuiz'), // default
+            3 => get_lang('SendEmailToTeacherWhenStudentEndQuizOnlyIfOpenQuestion'),
+            4 => get_lang('SendEmailToTeacherWhenStudentEndQuizOnlyIfOralQuestion')
+        ];
+
+        return $emailAlerts;
     }
 }

@@ -1,9 +1,10 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-use CpChart\Chart\Cache as pCache;
-use CpChart\Chart\Data as pData;
-use CpChart\Chart\Image as pImage;
+use ChamiloSession as Session;
+use CpChart\Cache as pCache;
+use CpChart\Data as pData;
+use CpChart\Image as pImage;
 
 /**
  * Class MySpace
@@ -59,14 +60,32 @@ class MySpace
     {
         $menu_items = array();
         $menu_items[] = Display::url(
-            Display::return_icon('stats.png', get_lang('MyStats'), '', ICON_SIZE_MEDIUM),
+            Display::return_icon(
+                'stats.png',
+                get_lang('MyStats'),
+                '',
+                ICON_SIZE_MEDIUM
+            ),
             api_get_path(WEB_CODE_PATH)."auth/my_progress.php"
         );
         $menu_items[] = Display::url(
-            Display::return_icon('teacher.png', get_lang('TeacherInterface'), array(), 32),
+            Display::return_icon(
+                'teacher.png',
+                get_lang('TeacherInterface'),
+                array(),
+                32
+            ),
             api_get_path(WEB_CODE_PATH).'mySpace/?view=teacher'
         );
-        $menu_items[] = Display::url(Display::return_icon('star_na.png', get_lang('AdminInterface'), array(), 32), '#');
+        $menu_items[] = Display::url(
+            Display::return_icon(
+                'star_na.png',
+                get_lang('AdminInterface'),
+                array(),
+                32
+            ),
+            '#'
+        );
         $menu_items[] = Display::url(
             Display::return_icon('quiz.png', get_lang('ExamTracking'), array(), 32),
             api_get_path(WEB_CODE_PATH).'tracking/exams.php'
@@ -255,7 +274,7 @@ class MySpace
             if (is_numeric($avg_score)) {
                 $avg_score = round($avg_score, 2);
             } else {
-                $$avg_score = '-';
+                $avg_score = '-';
             }
 
             $return .= '    <td><div>'.$avg_score.'</div></td>';
@@ -565,12 +584,20 @@ class MySpace
 
     public static function sort_users($a, $b)
     {
-        return api_strcmp(trim(api_strtolower($a[$_SESSION['tracking_column']])), trim(api_strtolower($b[$_SESSION['tracking_column']])));
+        $tracking = Session::read('tracking_column');
+        return api_strcmp(
+            trim(api_strtolower($a[$tracking])),
+            trim(api_strtolower($b[$tracking]))
+        );
     }
 
     public static function rsort_users($a, $b)
     {
-        return api_strcmp(trim(api_strtolower($b[$_SESSION['tracking_column']])), trim(api_strtolower($a[$_SESSION['tracking_column']])));
+        $tracking = Session::read('tracking_column');
+        return api_strcmp(
+            trim(api_strtolower($b[$tracking])),
+            trim(api_strtolower($a[$tracking]))
+        );
     }
 
     /**
@@ -1033,9 +1060,13 @@ class MySpace
                 null,
                 false
             );
-            if ($last_login_date_tmp != false && $last_login_date == false) { // TODO: To be cleaned
+            if ($last_login_date_tmp != false &&
+                $last_login_date == false
+            ) { // TODO: To be cleaned
                 $last_login_date = $last_login_date_tmp;
-            } else if ($last_login_date_tmp != false && $last_login_date != false) { // TODO: Repeated previous condition. To be cleaned.
+            } elseif ($last_login_date_tmp != false &&
+                $last_login_date != false
+            ) { // TODO: Repeated previous condition. To be cleaned.
                 // Find the max and assign it to first_login_date
                 if (strtotime($last_login_date_tmp) > strtotime($last_login_date)) {
                     $last_login_date = $last_login_date_tmp;
@@ -1220,7 +1251,7 @@ class MySpace
                 );
                 if ($last_login_date_tmp != false && $last_login_date == false) { // TODO: To be cleaned.
                     $last_login_date = $last_login_date_tmp;
-                } else if ($last_login_date_tmp != false && $last_login_date == false) { // TODO: Repeated previous condition. To be cleaned.
+                } elseif ($last_login_date_tmp != false && $last_login_date == false) { // TODO: Repeated previous condition. To be cleaned.
                     // Find the max and assign it to first_login_date
                     if (strtotime($last_login_date_tmp) > strtotime($last_login_date)) {
                         $last_login_date = $last_login_date_tmp;
@@ -2689,8 +2720,12 @@ class MySpace
      * @param $orderDirection
      * @return array
      */
-    public static function getUserDataAccessTrackingOverview($from, $numberItems, $column, $orderDirection)
-    {
+    public static function getUserDataAccessTrackingOverview(
+        $from,
+        $numberItems,
+        $column,
+        $orderDirection
+    ) {
         $user = Database::get_main_table(TABLE_MAIN_USER);
         $course = Database::get_main_table(TABLE_MAIN_COURSE);
         $track_e_login = Database::get_main_table(TABLE_STATISTIC_TRACK_E_LOGIN);
@@ -2733,7 +2768,6 @@ class MySpace
         $sql .= " LIMIT $from,$numberItems";
         $result = Database::query($sql);
 
-        //$clicks = Tracking::get_total_clicks_by_session();
         $data = array();
         while ($user = Database::fetch_assoc($result)) {
             $data[] = $user;

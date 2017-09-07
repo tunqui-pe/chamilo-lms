@@ -203,7 +203,13 @@ class GradebookUtils
             $visibility_command = ($cat->is_visible() == 0) ? 'set_visible' : 'set_invisible';
 
             $modify_icons .= '<a class="view_children" data-cat-id="'.$cat->get_id().'" href="javascript:void(0);">'.
-                Display::return_icon('view_more_stats.gif', get_lang('Show'), '', ICON_SIZE_SMALL).'</a>';
+                Display::return_icon(
+                    'view_more_stats.gif',
+                    get_lang('Show'),
+                    '',
+                    ICON_SIZE_SMALL
+                ).
+                '</a>';
 
             if (!api_is_allowed_to_edit(null, true)) {
                 $modify_icons .= Display::url(
@@ -223,7 +229,10 @@ class GradebookUtils
                 );
             }
 
-            $courseParams = api_get_cidreq_params($cat->get_course_code(), $cat->get_session_id());
+            $courseParams = api_get_cidreq_params(
+                $cat->get_course_code(),
+                $cat->get_session_id()
+            );
 
             if (api_is_allowed_to_edit(null, true)) {
                 // Locking button
@@ -245,7 +254,12 @@ class GradebookUtils
 
                 if (empty($grade_model_id) || $grade_model_id == -1) {
                     if ($cat->is_locked() && !api_is_platform_admin()) {
-                        $modify_icons .= Display::return_icon('edit_na.png', get_lang('Modify'), '', ICON_SIZE_SMALL);
+                        $modify_icons .= Display::return_icon(
+                            'edit_na.png',
+                            get_lang('Modify'),
+                            '',
+                            ICON_SIZE_SMALL
+                        );
                     } else {
                         $modify_icons .= '<a href="gradebook_edit_cat.php?editcat='.$cat->get_id().'&'.$courseParams.'">'.
                             Display::return_icon(
@@ -281,10 +295,21 @@ class GradebookUtils
                     ).'</a>';
 
                 if ($cat->is_locked() && !api_is_platform_admin()) {
-                    $modify_icons .= Display::return_icon('delete_na.png', get_lang('DeleteAll'), '', ICON_SIZE_SMALL);
+                    $modify_icons .= Display::return_icon(
+                        'delete_na.png',
+                        get_lang('DeleteAll'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
                 } else {
                     $modify_icons .= '&nbsp;<a href="'.api_get_self().'?deletecat='.$cat->get_id().'&selectcat='.$selectcat.'&'.$courseParams.'" onclick="return confirmation();">'.
-                        Display::return_icon('delete.png', get_lang('DeleteAll'), '', ICON_SIZE_SMALL).'</a>';
+                        Display::return_icon(
+                            'delete.png',
+                            get_lang('DeleteAll'),
+                            '',
+                            ICON_SIZE_SMALL
+                        ).
+                        '</a>';
                 }
             }
 
@@ -318,21 +343,51 @@ class GradebookUtils
                 );
             } else {
                 $modify_icons = '<a href="gradebook_edit_eval.php?editeval='.$eval->get_id().'&'.$courseParams.'">'.
-                    Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL).'</a>';
+                    Display::return_icon(
+                        'edit.png',
+                        get_lang('Modify'),
+                        '',
+                        ICON_SIZE_SMALL
+                    ).
+                    '</a>';
             }
 
             $modify_icons .= '&nbsp;<a href="'.api_get_self().'?visibleeval='.$eval->get_id().'&'.$visibility_command.'=&selectcat='.$selectcat.'&'.$courseParams.' ">'.
-                Display::return_icon($visibility_icon.'.png', get_lang('Visible'), '', ICON_SIZE_SMALL).'</a>';
+                Display::return_icon(
+                    $visibility_icon.'.png',
+                    get_lang('Visible'),
+                    '',
+                    ICON_SIZE_SMALL
+                ).
+                '</a>';
             if (api_is_allowed_to_edit(null, true)) {
                 $modify_icons .= '&nbsp;<a href="gradebook_showlog_eval.php?visiblelog='.$eval->get_id().'&selectcat='.$selectcat.' &'.$courseParams.'">'.
-                    Display::return_icon('history.png', get_lang('GradebookQualifyLog'), '', ICON_SIZE_SMALL).'</a>';
+                    Display::return_icon(
+                        'history.png',
+                        get_lang('GradebookQualifyLog'),
+                        '',
+                        ICON_SIZE_SMALL
+                    ).
+                    '</a>';
             }
 
             if ($is_locked && !api_is_platform_admin()) {
-                $modify_icons .= '&nbsp;'.Display::return_icon('delete_na.png', get_lang('Delete'), '', ICON_SIZE_SMALL);
+                $modify_icons .= '&nbsp;'.
+                    Display::return_icon(
+                        'delete_na.png',
+                        get_lang('Delete'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
             } else {
                 $modify_icons .= '&nbsp;<a href="'.api_get_self().'?deleteeval='.$eval->get_id().'&selectcat='.$selectcat.' &'.$courseParams.'" onclick="return confirmation();">'.
-                    Display::return_icon('delete.png', get_lang('Delete'), '', ICON_SIZE_SMALL).'</a>';
+                    Display::return_icon(
+                        'delete.png',
+                        get_lang('Delete'),
+                        '',
+                        ICON_SIZE_SMALL
+                    ).
+                    '</a>';
             }
             return $modify_icons;
         }
@@ -357,7 +412,10 @@ class GradebookUtils
             return null;
         }
 
-        $courseParams = api_get_cidreq_params($link->get_course_code(), $link->get_session_id());
+        $courseParams = api_get_cidreq_params(
+            $link->get_course_code(),
+            $link->get_session_id()
+        );
 
         if ($message_link === false) {
             $visibility_icon = ($link->is_visible() == 0) ? 'invisible' : 'visible';
@@ -372,20 +430,49 @@ class GradebookUtils
                 );
             } else {
                 $modify_icons = '<a href="gradebook_edit_link.php?editlink='.$link->get_id().'&'.$courseParams.'">'.
-                    Display::return_icon('edit.png', get_lang('Modify'), '', ICON_SIZE_SMALL).'</a>';
+                    Display::return_icon(
+                        'edit.png',
+                        get_lang('Modify'),
+                        '',
+                        ICON_SIZE_SMALL
+                    ).
+                    '</a>';
             }
             $modify_icons .= '&nbsp;<a href="'.api_get_self().'?visiblelink='.$link->get_id().'&'.$visibility_command.'=&selectcat='.$selectcat.'&'.$courseParams.' ">'.
-                Display::return_icon($visibility_icon.'.png', get_lang('Visible'), '', ICON_SIZE_SMALL).'</a>';
+                Display::return_icon(
+                    $visibility_icon.'.png',
+                    get_lang('Visible'),
+                    '',
+                    ICON_SIZE_SMALL
+                ).
+                '</a>';
             $modify_icons .= '&nbsp;<a href="gradebook_showlog_link.php?visiblelink='.$link->get_id().'&selectcat='.$selectcat.'&'.$courseParams.'">'.
-                Display::return_icon('history.png', get_lang('GradebookQualifyLog'), '', ICON_SIZE_SMALL).'</a>';
+                Display::return_icon(
+                    'history.png',
+                    get_lang('GradebookQualifyLog'),
+                    '',
+                    ICON_SIZE_SMALL
+                ).
+                '</a>';
 
             //If a work is added in a gradebook you can only delete the link in the work tool
-
             if ($is_locked && !api_is_platform_admin()) {
-                $modify_icons .= '&nbsp;'.Display::return_icon('delete_na.png', get_lang('Delete'), '', ICON_SIZE_SMALL);
+                $modify_icons .= '&nbsp;'.
+                    Display::return_icon(
+                        'delete_na.png',
+                        get_lang('Delete'),
+                        '',
+                        ICON_SIZE_SMALL
+                    );
             } else {
                 $modify_icons .= '&nbsp;<a href="'.api_get_self().'?deletelink='.$link->get_id().'&selectcat='.$selectcat.' &'.$courseParams.'" onclick="return confirmation();">'.
-                    Display::return_icon('delete.png', get_lang('Delete'), '', ICON_SIZE_SMALL).'</a>';
+                    Display::return_icon(
+                        'delete.png',
+                        get_lang('Delete'),
+                        '',
+                        ICON_SIZE_SMALL
+                    ).
+                    '</a>';
             }
 
             return $modify_icons;
@@ -432,7 +519,7 @@ class GradebookUtils
         }
         // TODO find the corresponding category (the first one for this course, ordered by ID)
         $l = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINK);
-        $sql = "SELECT * FROM $l WHERE id = " . (int) $link_id;
+        $sql = "SELECT * FROM $l WHERE id = ".(int) $link_id;
         $res = Database::query($sql);
         $row = array();
         if (Database::num_rows($res) > 0) {
@@ -527,8 +614,14 @@ class GradebookUtils
      * @param null $mainCourseCategory
      * @return array
      */
-    public static function get_printable_data($cat, $users, $alleval, $alllinks, $params, $mainCourseCategory = null)
-    {
+    public static function get_printable_data(
+        $cat,
+        $users,
+        $alleval,
+        $alllinks,
+        $params,
+        $mainCourseCategory = null
+    ) {
         $datagen = new FlatViewDataGenerator(
             $users,
             $alleval,
@@ -680,8 +773,8 @@ class GradebookUtils
      */
     public static function get_certificate_by_user_id($cat_id, $user_id)
     {
-        $table_certificate = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
-        $sql = 'SELECT * FROM '.$table_certificate.'
+        $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
+        $sql = 'SELECT * FROM '.$table.'
                 WHERE cat_id="' . intval($cat_id).'" AND user_id="'.intval($user_id).'"';
 
         $result = Database::query($sql);
@@ -729,8 +822,10 @@ class GradebookUtils
      * @param int $cat_id The category id
      * @return array
      */
-    public static function get_list_gradebook_certificates_by_user_id($user_id, $cat_id = null)
-    {
+    public static function get_list_gradebook_certificates_by_user_id(
+        $user_id,
+        $cat_id = null
+    ) {
         $table_certificate = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
         $sql = 'SELECT 
                     gc.score_certificate, 
@@ -887,8 +982,20 @@ class GradebookUtils
         self::createDefaultCourseGradebook();
 
         // Cat list
-        $all_categories = Category::load(null, null, $course_code, null, null, $session_id, false);
-        $select_gradebook = $form->addElement('select', 'category_id', get_lang('SelectGradebook'));
+        $all_categories = Category::load(
+            null,
+            null,
+            $course_code,
+            null,
+            null,
+            $session_id,
+            false
+        );
+        $select_gradebook = $form->addElement(
+            'select',
+            'category_id',
+            get_lang('SelectGradebook')
+        );
 
         if (!empty($all_categories)) {
             foreach ($all_categories as $my_cat) {
@@ -1145,7 +1252,6 @@ class GradebookUtils
     public static function get_all_users($evals = array(), $links = array())
     {
         $coursecodes = array();
-
         // By default add all user in course
         $coursecodes[api_get_course_id()] = '1';
         $users = self::get_users_in_course(api_get_course_id());
@@ -1175,7 +1281,10 @@ class GradebookUtils
                 }
 
                 $result = Database::query($sql);
-                $users = array_merge($users, self::get_user_array_from_sql_result($result));
+                $users = array_merge(
+                    $users,
+                    self::get_user_array_from_sql_result($result)
+                );
             }
         }
 
@@ -1184,7 +1293,10 @@ class GradebookUtils
             $coursecode = $link->get_course_code();
             if (!array_key_exists($coursecode, $coursecodes)) {
                 $coursecodes[$coursecode] = '1';
-                $users = array_merge($users, self::get_users_in_course($coursecode));
+                $users = array_merge(
+                    $users,
+                    self::get_users_in_course($coursecode)
+                );
             }
         }
 
@@ -1202,13 +1314,12 @@ class GradebookUtils
             return null;
         }
         $mask = Database::escape_string($mask);
-
         $tbl_user = Database::get_main_table(TABLE_MAIN_USER);
         $tbl_cru = Database::get_main_table(TABLE_MAIN_COURSE_USER);
         $sql = 'SELECT DISTINCT user.user_id, user.lastname, user.firstname, user.email, user.official_code
                 FROM ' . $tbl_user.' user';
         if (!api_is_platform_admin()) {
-            $sql .= ', ' . $tbl_cru . ' cru';
+            $sql .= ', '.$tbl_cru.' cru';
         }
 
         $sql .= ' WHERE user.status = '.STUDENT;
@@ -1255,7 +1366,8 @@ class GradebookUtils
         $tbl_forum_thread = Database::get_course_table(TABLE_FORUM_THREAD);
         $tbl_attendance = Database::get_course_table(TABLE_ATTENDANCE);
 
-        $sql = 'UPDATE '.$table_link.' SET weight = '."'".Database::escape_string($weight)."'".'
+        $sql = 'UPDATE '.$table_link.' 
+                SET weight = '."'".Database::escape_string($weight)."'".'
                 WHERE id = '.$linkId;
 
         Database::query($sql);
@@ -1311,7 +1423,7 @@ class GradebookUtils
         $table_evaluation = Database::get_main_table(TABLE_MAIN_GRADEBOOK_EVALUATION);
         $id = intval($id);
         $evaluation = new Evaluation();
-        $evaluation->add_evaluation_log($id);
+        $evaluation->addEvaluationLog($id);
         $sql = 'UPDATE '.$table_evaluation.'
                SET weight = '."'".Database::escape_string($weight)."'".'
                WHERE id = '.$id;
@@ -1325,8 +1437,10 @@ class GradebookUtils
      * @param bool $includeNonPublicCertificates Whether include the non-plublic certificates
      * @return array
      */
-    public static function getUserCertificatesInCourses($userId, $includeNonPublicCertificates = true)
-    {
+    public static function getUserCertificatesInCourses(
+        $userId,
+        $includeNonPublicCertificates = true
+    ) {
         $userId = intval($userId);
         $courseList = [];
         $courses = CourseManager::get_courses_list_by_user_id($userId);
@@ -1347,7 +1461,6 @@ class GradebookUtils
             }
 
             $courseGradebookId = $courseGradebookCategory[0]->get_id();
-
             $certificateInfo = self::get_certificate_by_user_id($courseGradebookId, $userId);
 
             if (empty($certificateInfo)) {
@@ -1377,7 +1490,6 @@ class GradebookUtils
     {
         $userId = intval($userId);
         $sessionList = [];
-
         $sessions = SessionManager::get_sessions_by_user($userId, true, true);
 
         foreach ($sessions as $session) {

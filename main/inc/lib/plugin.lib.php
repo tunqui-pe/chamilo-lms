@@ -1,6 +1,8 @@
 <?php
 /* See license terms in /license.txt */
 
+use ChamiloSession as Session;
+
 /**
  * Class AppPlugin
  */

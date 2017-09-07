@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CourseBundle\Entity\CToolIntro;
 use Chamilo\CourseBundle\Entity\CTool;
 use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Entity\AccessUrlRelCourse;
@@ -573,7 +574,6 @@ class AddCourse
 
         /*    Documents   */
         if ($fill_with_exemplary_content) {
-
             $files = [
                 ['path' => '/images', 'title' => get_lang('Images'), 'filetype' => 'folder', 'size' => 0],
                 ['path' => '/images/gallery', 'title' => get_lang('DefaultCourseImages'), 'filetype' => 'folder', 'size' => 0],
@@ -847,7 +847,7 @@ class AddCourse
                             <h2>' . get_lang('IntroductionText').'</h2>
                          </p>';
 
-            $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
+            $toolIntro = new CToolIntro();
             $toolIntro
                 ->setCId($course_id)
                 ->setTool(TOOL_COURSE_HOMEPAGE)
@@ -855,7 +855,7 @@ class AddCourse
                 ->setIntroText($intro_text);
             $manager->persist($toolIntro);
 
-            $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
+            $toolIntro = new CToolIntro();
             $toolIntro
                 ->setCId($course_id)
                 ->setTool(TOOL_STUDENTPUBLICATION)
@@ -863,8 +863,7 @@ class AddCourse
                 ->setIntroText(get_lang('IntroductionTwo'));
             $manager->persist($toolIntro);
 
-
-            $toolIntro = new Chamilo\CourseBundle\Entity\CToolIntro();
+            $toolIntro = new CToolIntro();
             $toolIntro
                 ->setCId($course_id)
                 ->setTool(TOOL_WIKI)

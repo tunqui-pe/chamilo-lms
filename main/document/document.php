@@ -64,12 +64,11 @@ if (!$allowUseTool) {
 }
 
 DocumentManager::removeGeneratedAudioTempFile();
-
-if (isset($_SESSION['temp_realpath_image']) &&
-    !empty($_SESSION['temp_realpath_image']) &&
-    file_exists($_SESSION['temp_realpath_image'])
+$tempRealPath = Session::read('temp_realpath_image');
+if (!empty($tempRealPath) &&
+    file_exists($tempRealPath)
 ) {
-    unlink($_SESSION['temp_realpath_image']);
+    unlink($tempRealPath);
 }
 $_user = api_get_user_info();
 $courseInfo = api_get_course_info();
@@ -97,9 +96,9 @@ if (isset($_REQUEST['certificate']) && $_REQUEST['certificate'] == 'true') {
 }
 
 // Removing sessions
-unset($_SESSION['draw_dir']);
-unset($_SESSION['paint_dir']);
-unset($_SESSION['temp_audio_nanogong']);
+Session::erase('draw_dir');
+Session::erase('paint_dir');
+Session::erase('temp_audio_nanogong');
 
 $plugin = new AppPlugin();
 $pluginList = $plugin->get_installed_plugins();
@@ -683,8 +682,8 @@ if (isset($_GET['curdirpath']) && $_GET['curdirpath'] == '/certificates' &&
         $qr_code_web_filename = api_get_path(WEB_ARCHIVE_PATH).$filename;
 
         $certificate = new Certificate();
-        $text = $certificate->parse_certificate_variables($content_html['variables']);
-        $result = $certificate->generate_qr($text, $qr_code_filename);
+        $text = $certificate->parseCertificateVariables($content_html['variables']);
+        $result = $certificate->generateQRImage($text, $qr_code_filename);
 
         $new_content_html = $content_html['content'];
         $path_image = api_get_path(WEB_COURSE_PATH).api_get_course_path().'/document/images/gallery';
@@ -865,19 +864,17 @@ if ($sessionId == 0) {
 
 /* 	MAIN SECTION */
 
-// Slideshow inititalisation
-$_SESSION['image_files_only'] = '';
+Session::write('image_files_only', '');
 $image_files_only = '';
-
 if ($is_certificate_mode) {
     $interbreadcrumb[] = array(
-        'url' => '../gradebook/index.php',
+        'url' => '../gradebook/index.php?'.api_get_cidreq(),
         'name' => get_lang('Gradebook')
     );
 } else {
     if ((isset($_GET['id']) && $_GET['id'] != 0) || isset($_GET['curdirpath']) || isset($_GET['createdir'])) {
         $interbreadcrumb[] = array(
-            'url' => 'document.php',
+            'url' => 'document.php?'.api_get_cidreq(),
             'name' => get_lang('Documents')
         );
     } else {
@@ -1340,7 +1337,7 @@ if ($isAllowedToEdit ||
                 $courseInfo,
                 api_get_user_id(),
                 $sessionId,
-                $groupIid,
+                api_get_group_id(),
                 $to_user_id,
                 $base_work_dir,
                 $dir_name,
@@ -1664,7 +1661,7 @@ if ($isAllowedToEdit ||
         // Record an image clip from my webcam
         if (api_get_setting('enable_webcam_clip') == 'true') {
             $actionsLeft .= Display::url(
-                Display::return_icon('webcam.png', get_lang('WebCamClip'), '',  ICON_SIZE_MEDIUM),
+                Display::return_icon('webcam.png', get_lang('WebCamClip'), '', ICON_SIZE_MEDIUM),
                 api_get_path(WEB_CODE_PATH).'document/webcam_clip.php?'.api_get_cidreq().'&id='.$document_id
             );
         }
@@ -1733,9 +1730,8 @@ if ($isAllowedToEdit ||
         );
     }
 }
-
 require 'document_slideshow.inc.php';
-if ($image_present && !isset($_GET['keyword'])) {
+if (!isset($_GET['keyword'])) {
     $actionsLeft .= Display::url(
         Display::return_icon('slideshow.png', get_lang('ViewSlideshow'), '', ICON_SIZE_MEDIUM),
         api_get_path(WEB_CODE_PATH).'document/slideshow.php?'.api_get_cidreq().'&curdirpath='.$curdirpathurl

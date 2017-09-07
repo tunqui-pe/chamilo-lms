@@ -52,17 +52,9 @@ $_user = api_get_user_info();
 require_once 'forumconfig.inc.php';
 require_once 'forumfunction.inc.php';
 
-if (!empty($_GET['gradebook']) && $_GET['gradebook'] == 'view') {
-    $_SESSION['gradebook'] = Security::remove_XSS($_GET['gradebook']);
-    $gradebook = $_SESSION['gradebook'];
-} elseif (empty($_GET['gradebook'])) {
-    unset($_SESSION['gradebook']);
-    $gradebook = '';
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
+if (api_is_in_gradebook()) {
     $interbreadcrumb[] = array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'url' => Category::getUrl(),
         'name' => get_lang('ToolGradebook'),
     );
 }
@@ -519,7 +511,6 @@ if (is_array($forumCategories)) {
         $listForumCategory[] = $forumCategoryInfo;
     }
 }
-
 
 $tpl = new Template($nameTools);
 $tpl->assign('introduction_section', $introduction);

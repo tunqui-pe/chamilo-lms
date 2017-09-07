@@ -234,12 +234,6 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 //$_configuration['lp_fixed_encoding'] = 'false';
 // Fix urls changing http with https in scorm packages.
 //$_configuration['lp_replace_http_to_https'] = false;
-// Manage the links to Session Index page
-// 1 = Default. Works as it is now (default is to link to the special session page)
-// 0 = No link (not clickable)
-// 2 = Link to the course if there is only one course
-// 3 = Session link will make course list foldable
-//$_configuration['courses_list_session_title_link'] = 1;
 // Fix embedded videos inside lps, adding an optional popup
 //$_configuration['lp_fix_embed_content'] = false;
 // Manage deleted files marked with "DELETED" (by course and only by allowed by admin)
@@ -248,10 +242,6 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 //$_configuration['session_hide_tab_list'] = array();
 // Show invisible exercise in LP list
 //$_configuration['show_invisible_exercise_in_lp_list'] = false;
-// New grid view the list of courses
-//$_configuration['view_grid_courses'] = 'true';
-// Show courses grouped by categories when $_configuration['view_grid_courses'] is enabled
-//$_configuration['view_grid_courses_grouped_categories_in_sessions'] = true;
 // Chamilo is installed/downloaded. Packagers can change this
 // to reflect their packaging method. The default value is 'chamilo'. This will
 // be reflected on the https://version.chamilo.org/stats page in the future.
@@ -270,8 +260,6 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 //$_configuration['block_registered_users_access_to_open_course_contents'] = false;
 // Allows syncing the database with the current entity schema
 //$_configuration['sync_db_with_schema'] = false;
-// Load course notifications in user_portal.php using ajax
-//$_configuration['user_portal_load_notification_by_ajax'] = false;
 // When exporting a LP, all files and folders in the same path of an html will be exported too.
 //$_configuration['add_all_files_in_lp_export'] = false;
 // Send exercise student score to manager in email notification
@@ -306,10 +294,6 @@ $_configuration['system_stable'] = NEW_VERSION_STABLE;
 // $_configuration['hide_main_navigation_menu'] = false;
 // PDF image dpi value. Default value 96
 // $_configuration['pdf_img_dpi'] = 96;
-// Hide the "what's new" icon notifications in course list
-// $_configuration['hide_course_notification'] = true;
-// Show less session information in course list
-//$_configuration['show_simple_session_info'] = true;
 // Hide LP time in reports.
 // $_configuration['hide_lp_time'] = false;
 // Hide rating elements in pages ("Courses catalog" & "Most Popular courses")
@@ -476,14 +460,25 @@ INSERT INTO extra_field (extra_field_type, field_type, variable, display_text, v
 VALUES (12, 13, 'is_mandatory', 'IsMandatory', 1, 1, NOW());
 */
 //$_configuration['allow_mandatory_survey'] = false;
+// Allow required survey questions. Applies to yesno/multiplechoice question type. Requires DB change:
+/*
+ALTER TABLE c_survey_question ADD is_required TINYINT(1) DEFAULT 0 NOT NULL;
+*/
+//$_configuration['allow_required_survey_questions'] = false;
+// Hide Survey Reporting button
+//$_configuration['hide_survey_reporting_button'] = false;
+// Hide survey edition tools for all or some surveys.
+//Set an asterisk to hide for all, otherwise set an array with the survey codes in which the options will be blocked
+//$_configuration['hide_survey_edition'] = ['codes' => []];
 // ------
-//
+
 // Allow career diagram, requires a DB change:
 //UPDATE extra_field_values SET created_at = NULL WHERE CAST(created_at AS CHAR(20)) = '0000-00-00 00:00:00';
 //UPDATE extra_field_values SET updated_at = NULL WHERE CAST(updated_at AS CHAR(20)) = '0000-00-00 00:00:00';
 //ALTER TABLE extra_field_values modify column value longtext null;
 //$_configuration['allow_career_diagram'] = false;
-// Allow scheduled emails to session users. See class ProgrammedAnnouncement
+// Allow scheduled emails to session users.
+//CREATE TABLE scheduled_announcements (id INT AUTO_INCREMENT NOT NULL, subject VARCHAR(255) NOT NULL, message LONGTEXT NOT NULL, date DATETIME DEFAULT NULL, sent TINYINT(1) NOT NULL, session_id INT NOT NULL, c_id INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
 //$_configuration['allow_scheduled_announcements'] = false;
 // Add the list of emails as a bcc when sending an email.
 /*
@@ -511,11 +506,17 @@ $_configuration['send_all_emails_to'] = [
 //$_configuration['allow_quiz_show_previous_button_setting'] = false;
 // Allow to teachers review exercises question with audio notes
 //$_configuration["allow_teacher_comment_audio"] = false;
-
 // Hide search form in session list
 //$_configuration['hide_search_form_in_session_list'] = false;
 // Allow exchange of messages from teachers/bosses about a user.
 //$_configuration['private_messages_about_user'] = false;
+// Allow send email notification per exercise
+//ALTER TABLE c_quiz ADD COLUMN notifications VARCHAR(255) NULL DEFAULT NULL;
+//$_configuration['allow_notification_setting_per_exercise'] = false;
+// Hide free/oral/annotation question result see BT#12613
+//$_configuration['hide_free_question_score'] = false;
+// Hide user information in the quiz result's page
+//$_configuration['hide_user_info_in_quiz_result'] = false;
 
 // Score model
 // Allow to convert a score into a text/color label
@@ -560,3 +561,69 @@ $_configuration['score_grade_model'] = [
     ]
 ];
 */
+
+// Allow show link to request relation between HRM and user
+//$_configuration['show_link_request_hrm_user'] = false;
+// Allow CKEditor start up with ShowBlocks plugin active
+//$_configuration['ckeditor_startup_outline_blocks'] = false;
+// SETTINGS FOR USER COURSE LIST
+// Manage the links to Session Index page
+// 1 = Default. Works as it is now (default is to link to the special session page)
+// 0 = No link (not clickable)
+// 2 = Link to the course if there is only one course
+// 3 = Session link will make course list foldable
+//$_configuration['courses_list_session_title_link'] = 1;
+// New grid view the list of courses
+//$_configuration['view_grid_courses'] = 'true';
+// Show courses grouped by categories when $_configuration['view_grid_courses'] is enabled
+//$_configuration['view_grid_courses_grouped_categories_in_sessions'] = true;
+// Load course notifications in user_portal.php using ajax
+//$_configuration['user_portal_load_notification_by_ajax'] = false;
+// Hide the "what's new" icon notifications in course list
+// $_configuration['hide_course_notification'] = true;
+// Show less session information in course list
+//$_configuration['show_simple_session_info'] = true;
+// Show course category list on My Courses page before the courses. Requires a DB change
+//ALTER TABLE course_category ADD image varchar(255) NULL;
+//ALTER TABLE course_category ADD description LONGTEXT NULL;
+//$_configuration['my_courses_list_as_category'] = false;
+// ------
+
+// Skills can only visible for admins, teachers (related to a user via a course),
+// and HRM users (if related to a user).
+// $_configuration['allow_private_skills'] = false;
+// Additional gradebook dependencies BT#13099
+// ALTER TABLE gradebook_category ADD COLUMN depends TEXT DEFAULT NULL;
+// ALTER TABLE gradebook_category ADD COLUMN minimum_to_validate INT DEFAULT NULL;
+// $_configuration['gradebook_dependency'] = false;
+// Courses id list to check in the gradebook sidebar see BT#13099
+/*$_configuration['gradebook_dependency_mandatory_courses'] = [
+    'courses' => [1, 2]
+];*/
+// Gradebook id list needed to build the gradebook sidebar see BT#13099
+/*
+$_configuration['gradebook_badge_sidebar'] = [
+    'gradebooks' => [1, 2, 3]
+];*/
+
+// Show language selector in main menu an update the language in the user's
+// profile.
+//$_configuration['show_language_selector_in_menu'] = false;
+
+// When using the my-courses list filter by category, set this option to true
+// to only show courses in the user's configured language
+// $_configuration['my_courses_show_courses_in_user_language_only'] = false;
+
+// Hide base course announcements when entering a group.
+//$_configuration['hide_base_course_announcements_in_group'] = false;
+
+// Allow or block user subcriptions to a lp/lp category
+/*$_configuration['lp_subscription_settings'] = [
+    'options' => [
+        'allow_add_users_to_lp' => true,
+        'allow_add_users_to_lp_category' => true,
+    ]
+];*/
+
+// Allow public courses access with no terms and conditions validation.
+//$_configuration['allow_public_course_with_no_terms_conditions'] = false;

@@ -101,14 +101,21 @@ class CoursesController
         $data['countCoursesInCategory'] = $this->model->count_courses_in_category($category_code);
         if ($action === 'display_random_courses') {
             // Random value is used instead limit filter
-            $data['browse_courses_in_category'] = $this->model->browse_courses_in_category(null, 12);
+            $data['browse_courses_in_category'] = $this->model->browse_courses_in_category(
+                null,
+                12
+            );
             $data['countCoursesInCategory'] = count($data['browse_courses_in_category']);
         } else {
             if (!isset($category_code)) {
                 $category_code = $browse_course_categories[0][1]['code']; // by default first category
             }
             $limit = isset($limit) ? $limit : CourseCategory::getLimitArray();
-            $data['browse_courses_in_category'] = $this->model->browse_courses_in_category($category_code, null, $limit);
+            $data['browse_courses_in_category'] = $this->model->browse_courses_in_category(
+                $category_code,
+                null,
+                $limit
+            );
         }
 
         $data['browse_course_categories'] = $browse_course_categories;
@@ -170,10 +177,16 @@ class CoursesController
         $data = array();
         $limit = !empty($limit) ? $limit : CourseCategory::getLimitArray();
         $browse_course_categories = $this->model->browse_course_categories();
-        $data['countCoursesInCategory'] = $this->model->count_courses_in_category('ALL', $search_term);
-        $data['browse_courses_in_category'] = $this->model->search_courses($search_term, $limit, $justVisible);
-        $data['browse_course_categories']   = $browse_course_categories;
-
+        $data['countCoursesInCategory'] = $this->model->count_courses_in_category(
+            'ALL',
+            $search_term
+        );
+        $data['browse_courses_in_category'] = $this->model->search_courses(
+            $search_term,
+            $limit,
+            $justVisible
+        );
+        $data['browse_course_categories'] = $browse_course_categories;
         $data['search_term'] = Security::remove_XSS($search_term); //filter before showing in template
 
         // getting all the courses to which the user is subscribed to
@@ -215,7 +228,12 @@ class CoursesController
         // The course must be open in order to access the auto subscription
         if (in_array(
             $courseInfo['visibility'],
-            array(COURSE_VISIBILITY_CLOSED, COURSE_VISIBILITY_REGISTERED, COURSE_VISIBILITY_HIDDEN))
+            array(
+                COURSE_VISIBILITY_CLOSED,
+                COURSE_VISIBILITY_REGISTERED,
+                COURSE_VISIBILITY_HIDDEN
+            )
+        )
         ) {
             Display::addFlash(
                 Display::return_message(
@@ -248,15 +266,22 @@ class CoursesController
     /**
      * Create a category
      * render to listing view
-     * @param   string  Category title
+     * @param string $title
      */
-    public function add_course_category($category_title)
+    public function addCourseCategory($title)
     {
-        $result = $this->model->store_course_category($category_title);
+        $result = $this->model->store_course_category($title);
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('CourseCategoryStored')));
+            Display::addFlash(
+                Display::return_message(get_lang('CourseCategoryStored'))
+            );
         } else {
-            Display::addFlash(Display::return_message(get_lang('ACourseCategoryWithThisNameAlreadyExists'), 'error'));
+            Display::addFlash(
+                Display::return_message(
+                    get_lang('ACourseCategoryWithThisNameAlreadyExists'),
+                    'error'
+                )
+            );
         }
         $action = 'sortmycourses';
         $this->courses_list($action);
@@ -275,7 +300,9 @@ class CoursesController
 
         $result = $this->model->updateCourseCategory($courseId, $category_id);
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('EditCourseCategorySucces')));
+            Display::addFlash(
+                Display::return_message(get_lang('EditCourseCategorySucces'))
+            );
         }
         $action = 'sortmycourses';
         $this->courses_list($action);
@@ -292,7 +319,9 @@ class CoursesController
     {
         $result = $this->model->move_course($move, $course_code, $category_id);
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('CourseSortingDone')));
+            Display::addFlash(
+                Display::return_message(get_lang('CourseSortingDone'))
+            );
         }
         $action = 'sortmycourses';
         $this->courses_list($action);
@@ -308,7 +337,9 @@ class CoursesController
     {
         $result = $this->model->move_category($move, $category_id);
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('CategorySortingDone')));
+            Display::addFlash(
+                Display::return_message(get_lang('CategorySortingDone'))
+            );
         }
         $action = 'sortmycourses';
         $this->courses_list($action);
@@ -324,7 +355,9 @@ class CoursesController
     {
         $result = $this->model->store_edit_course_category($title, $category);
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('CourseCategoryEditStored')));
+            Display::addFlash(
+                Display::return_message(get_lang('CourseCategoryEditStored'))
+            );
         }
         $action = 'sortmycourses';
         $this->courses_list($action);
@@ -339,7 +372,9 @@ class CoursesController
     {
         $result = $this->model->delete_course_category($category_id);
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('CourseCategoryDeleted')));
+            Display::addFlash(
+                Display::return_message(get_lang('CourseCategoryDeleted'))
+            );
         }
         $action = 'sortmycourses';
         $this->courses_list($action);
@@ -352,21 +387,30 @@ class CoursesController
      * @param string $search_term
      * @param string $category_code
      */
-    public function unsubscribe_user_from_course($course_code, $search_term = null, $category_code = null)
-    {
+    public function unsubscribe_user_from_course(
+        $course_code,
+        $search_term = null,
+        $category_code = null
+    ) {
         $result = $this->model->remove_user_from_course($course_code);
         $message = '';
         $error = '';
 
         if ($result) {
-            Display::addFlash(Display::return_message(get_lang('YouAreNowUnsubscribed')));
+            Display::addFlash(
+                Display::return_message(get_lang('YouAreNowUnsubscribed'))
+            );
         }
-        $action = 'sortmycourses';
 
         if (!empty($search_term)) {
             $this->search_courses($search_term, $message, $error);
         } else {
-            $this->courses_categories('subcribe', $category_code, $message, $error);
+            $this->courses_categories(
+                'subcribe',
+                $category_code,
+                $message,
+                $error
+            );
         }
     }
 
@@ -377,8 +421,11 @@ class CoursesController
      * @param array $limit
      * @return string The HTML block
      */
-    public function getCoursesCategoriesBlock($code = null, $hiddenLinks = false, $limit = null)
-    {
+    public function getCoursesCategoriesBlock(
+        $code = null,
+        $hiddenLinks = false,
+        $limit = null
+    ) {
         $categories = $this->model->browse_course_categories();
         $html = '';
         if (!empty($categories)) {
@@ -390,19 +437,21 @@ class CoursesController
 
                 $html .= '<li>';
 
+                $categoryLink = CourseCategory::getCourseCategoryUrl(
+                    1,
+                    $limit['length'],
+                    $categoryCode,
+                    $hiddenLinks,
+                    $action
+                );
+
                 if ($code == $categoryCode) {
                     $html .= '<strong>';
                     $html .= "$categoryName ($categoryCourses)";
                     $html .= '</strong>';
                 } else {
                     if (!empty($categoryCourses)) {
-                        $html .= '<a href="'.CourseCategory::getCourseCategoryUrl(
-                                1,
-                                $limit['length'],
-                                $categoryCode,
-                                $hiddenLinks,
-                                $action
-                            ).'">';
+                        $html .= '<a href="'.$categoryLink.'">';
                         $html .= "$categoryName ($categoryCourses)";
                         $html .= '</a>';
                     } else {
@@ -421,13 +470,7 @@ class CoursesController
                         if ($code == $subCategory1Code) {
                             $html .= "<strong>$subCategory1Name ($subCategory1Courses)</strong>";
                         } else {
-                            $html .= '<a href="'.CourseCategory::getCourseCategoryUrl(
-                                    1,
-                                    $limit['length'],
-                                    $categoryCode,
-                                    $hiddenLinks,
-                                    $action
-                                ).'">';
+                            $html .= '<a href="'.$categoryLink.'">';
                             $html .= "$subCategory1Name ($subCategory1Courses)";
                             $html .= '</a>';
                         }
@@ -445,13 +488,7 @@ class CoursesController
                                 if ($code == $subCategory2Code) {
                                     $html .= "<strong>$subCategory2Name ($subCategory2Courses)</strong>";
                                 } else {
-                                    $html .= '<a href="'.CourseCategory::getCourseCategoryUrl(
-                                            1,
-                                            $limit['length'],
-                                            $categoryCode,
-                                            $hiddenLinks,
-                                            $action
-                                        ).'">';
+                                    $html .= '<a href="'.$categoryLink.'">';
                                     $html .= "$subCategory2Name ($subCategory2Courses)";
                                     $html .= '</a>';
                                 }
@@ -469,13 +506,7 @@ class CoursesController
                                         if ($code == $subCategory3Code) {
                                             $html .= "<strong>$subCategory3Name ($subCategory3Courses)</strong>";
                                         } else {
-                                            $html .= '<a href="'.CourseCategory::getCourseCategoryUrl(
-                                                    1,
-                                                    $limit['length'],
-                                                    $categoryCode,
-                                                    $hiddenLinks,
-                                                    $action
-                                                ).'">';
+                                            $html .= '<a href="'.$categoryLink.'">';
                                             $html .= "$subCategory3Name ($subCategory3Courses)";
                                             $html .= '</a>';
                                         }
@@ -853,8 +884,14 @@ class CoursesController
                 'coach_id' => $coachId,
                 'coach_url' => api_get_path(WEB_AJAX_PATH).'user_manager.ajax.php?a=get_user_popup&user_id='.$coachId,
                 'coach_name' => $coachName,
-                'coach_avatar' => UserManager::getUserPicture($coachId, USER_IMAGE_SIZE_SMALL),
-                'is_subscribed' => SessionManager::isUserSubscribedAsStudent($session->getId(), $userId),
+                'coach_avatar' => UserManager::getUserPicture(
+                    $coachId,
+                    USER_IMAGE_SIZE_SMALL
+                ),
+                'is_subscribed' => SessionManager::isUserSubscribedAsStudent(
+                    $session->getId(),
+                    $userId
+                ),
                 'icon' => $this->getSessionIcon($session->getName()),
                 'date' => $sessionDates['display'],
                 'price' => !empty($isThisSessionOnSale['html']) ? $isThisSessionOnSale['html'] : '',

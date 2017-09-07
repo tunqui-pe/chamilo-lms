@@ -66,6 +66,7 @@ class SocialManager extends UserManager
      * @param int user id
      * @param int user friend id
      * @param string
+     * @return int
      * @author isaac flores paz
      */
     public static function get_relation_between_contacts($user_id, $user_friend)
@@ -132,8 +133,12 @@ class SocialManager extends UserManager
      * @author Julio Montoya <gugli100@gmail.com> Cleaning code, function renamed, $load_extra_info option added
      * @author isaac flores paz
      */
-    public static function get_friends($user_id, $id_group = null, $search_name = null, $load_extra_info = true)
-    {
+    public static function get_friends(
+        $user_id,
+        $id_group = null,
+        $search_name = null,
+        $load_extra_info = true
+    ) {
         $list_ids_friends = array();
         $tbl_my_friend = Database::get_main_table(TABLE_MAIN_USER_REL_USER);
         $tbl_my_user = Database::get_main_table(TABLE_MAIN_USER);
@@ -209,8 +214,12 @@ class SocialManager extends UserManager
      * @author isaac flores paz
      * @author Julio Montoya <gugli100@gmail.com> Cleaning code
      */
-    public static function send_invitation_friend($user_id, $friend_id, $message_title, $message_content)
-    {
+    public static function send_invitation_friend(
+        $user_id,
+        $friend_id,
+        $message_title,
+        $message_content
+    ) {
         $tbl_message = Database::get_main_table(TABLE_MESSAGE);
         $user_id = intval($user_id);
         $friend_id = intval($friend_id);
@@ -696,12 +705,14 @@ class SocialManager extends UserManager
             if ($my_course['access_start_date'] == '0000-00-00') {
                 $session['dates'] = get_lang('WithoutTimeLimits');
                 if (api_get_setting('show_session_coach') === 'true') {
-                    $session['coach'] = get_lang('GeneralCoach').': '.api_get_person_name($sessioncoach['firstname'], $sessioncoach['lastname']);
+                    $session['coach'] = get_lang('GeneralCoach').': '.
+                        api_get_person_name($sessioncoach['firstname'], $sessioncoach['lastname']);
                 }
             } else {
                 $session ['dates'] = ' - '.get_lang('From').' '.$my_course['access_start_date'].' '.get_lang('To').' '.$my_course['access_end_date'];
                 if (api_get_setting('show_session_coach') === 'true') {
-                    $session['coach'] = get_lang('GeneralCoach').': '.api_get_person_name($sessioncoach['firstname'], $sessioncoach['lastname']);
+                    $session['coach'] = get_lang('GeneralCoach').': '.
+                        api_get_person_name($sessioncoach['firstname'], $sessioncoach['lastname']);
                 }
             }
         }
@@ -1371,8 +1382,13 @@ class SocialManager extends UserManager
      * @return boolean
      * @author Yannick Warnier
      */
-    public static function sendWallMessage($userId, $friendId, $messageContent, $messageId = 0, $messageStatus = '')
-    {
+    public static function sendWallMessage(
+        $userId,
+        $friendId,
+        $messageContent,
+        $messageId = 0,
+        $messageStatus = ''
+    ) {
         $tblMessage = Database::get_main_table(TABLE_MESSAGE);
         $userId = intval($userId);
         $friendId = intval($friendId);
@@ -1406,8 +1422,12 @@ class SocialManager extends UserManager
      * @param string $fileComment description attachment file
      * @return bool
      */
-    public static function sendWallMessageAttachmentFile($userId, $fileAttach, $messageId, $fileComment = '')
-    {
+    public static function sendWallMessageAttachmentFile(
+        $userId,
+        $fileAttach,
+        $messageId,
+        $fileComment = ''
+    ) {
         $tbl_message_attach = Database::get_main_table(TABLE_MESSAGE_ATTACHMENT);
 
         // create directory
@@ -1467,8 +1487,14 @@ class SocialManager extends UserManager
      * @return array
      * @author Yannick Warnier
      */
-    public static function getWallMessages($userId, $messageStatus, $parentId = '', $start = null, $limit = 10, $offset = 0)
-    {
+    public static function getWallMessages(
+        $userId,
+        $messageStatus,
+        $parentId = '',
+        $start = null,
+        $limit = 10,
+        $offset = 0
+    ) {
         if (empty($start)) {
             $start = '0000-00-00';
         }
@@ -1525,14 +1551,27 @@ class SocialManager extends UserManager
      * @param int       $offset     Wall messages offset
      * @return string  HTML formatted string to show messages
      */
-    public static function getWallMessagesHTML($userId, $friendId, $idMessage, $start = null, $limit = 10, $offset = 0)
-    {
+    public static function getWallMessagesHTML(
+        $userId,
+        $friendId,
+        $idMessage,
+        $start = null,
+        $limit = 10,
+        $offset = 0
+    ) {
         if (empty($start)) {
             $start = '0000-00-00';
         }
 
         $isOwnWall = (api_get_user_id() == $userId && $userId == $friendId);
-        $messages = self::getWallMessages($userId, MESSAGE_STATUS_WALL, $idMessage, $start, $limit, $offset);
+        $messages = self::getWallMessages(
+            $userId,
+            MESSAGE_STATUS_WALL,
+            $idMessage,
+            $start,
+            $limit,
+            $offset
+        );
         $formattedList = '<div class="sub-mediapost">';
         $users = array();
 
@@ -1602,13 +1641,25 @@ class SocialManager extends UserManager
      * @param   int     $offset     Wall messages offset
      * @return  array   $data       return user's starting wall messages along with message extra data
      */
-    public static function getWallMessagesPostHTML($userId, $friendId = 0, $start = null, $limit = 10, $offset = 0)
-    {
+    public static function getWallMessagesPostHTML(
+        $userId,
+        $friendId = 0,
+        $start = null,
+        $limit = 10,
+        $offset = 0
+    ) {
         if (empty($start)) {
             $start = '0000-00-00';
         }
-        $isOwnWall = (api_get_user_id() == $userId && $userId == $friendId);
-        $messages = self::getWallMessages($userId, MESSAGE_STATUS_WALL_POST, null, $start, $limit, $offset);
+        $isOwnWall = api_get_user_id() == $userId && $userId == $friendId;
+        $messages = self::getWallMessages(
+            $userId,
+            MESSAGE_STATUS_WALL_POST,
+            null,
+            $start,
+            $limit,
+            $offset
+        );
         $users = array();
         $data = array();
         foreach ($messages as $key => $message) {
@@ -1888,8 +1939,9 @@ class SocialManager extends UserManager
             $friendHtml .= '<ul class="nav nav-list">';
             $j = 1;
             for ($k = 0; $k < $number_friends; $k++) {
-                if ($j > $number_of_images) break;
-
+                if ($j > $number_of_images) {
+                    break;
+                }
                 if (isset($friends[$k])) {
                     $friend = $friends[$k];
                     $name_user = api_get_person_name($friend['firstName'], $friend['lastName']);
@@ -1905,7 +1957,10 @@ class SocialManager extends UserManager
                     $friendHtml .= '<div>';
 
                     // the height = 92 must be the same in the image_friend_network span style in default.css
-                    $friends_profile = UserManager::getUserPicture($friend['friend_user_id'], USER_IMAGE_SIZE_SMALL);
+                    $friends_profile = UserManager::getUserPicture(
+                        $friend['friend_user_id'],
+                        USER_IMAGE_SIZE_SMALL
+                    );
                     $friendHtml .= '<img src="'.$friends_profile.'" id="imgfriend_'.$friend['friend_user_id'].'" title="'.$name_user.'"/>';
                     $link_shared = (empty($link_shared)) ? '' : '&'.$link_shared;
                     $friendHtml .= $statusIcon.'<a href="profile.php?'.'u='.$friend['friend_user_id'].$link_shared.'">'.$name_user.'</a>';
@@ -1940,7 +1995,6 @@ class SocialManager extends UserManager
         $friendHtml = '';
 
         if ($number_friends != 0) {
-
             $friendHtml .= '<div class="list-group">';
             $j = 1;
             for ($k = 0; $k < $number_friends; $k++) {
@@ -1960,11 +2014,21 @@ class SocialManager extends UserManager
                         $status = 0;
                     }
 
-                    $friendAvatarMedium = UserManager::getUserPicture($friend['friend_user_id'], USER_IMAGE_SIZE_MEDIUM);
-                    $friendAvatarSmall = UserManager::getUserPicture($friend['friend_user_id'], USER_IMAGE_SIZE_SMALL);
+                    $friendAvatarMedium = UserManager::getUserPicture(
+                        $friend['friend_user_id'],
+                        USER_IMAGE_SIZE_MEDIUM
+                    );
+                    $friendAvatarSmall = UserManager::getUserPicture(
+                        $friend['friend_user_id'],
+                        USER_IMAGE_SIZE_SMALL
+                    );
                     $friend_avatar = '<img src="'.$friendAvatarMedium.'" id="imgfriend_'.$friend['friend_user_id'].'" title="'.$name_user.'" class="user-image"/>';
-                    $showLinkToChat = api_is_global_chat_enabled() &&
-                        $friend['friend_user_id'] != api_get_user_id();
+
+                    $relation = SocialManager::get_relation_between_contacts(
+                        $friend['friend_user_id'],
+                        api_get_user_id()
+                    );
+                    $showLinkToChat = api_is_global_chat_enabled() && $friend['friend_user_id'] != api_get_user_id() && $relation == USER_RELATION_TYPE_FRIEND;
 
                     if ($showLinkToChat) {
                         $friendHtml .= '<a onclick="javascript:chatWith(\''.$friend['friend_user_id'].'\', \''.$name_user.'\', \''.$status.'\',\''.$friendAvatarSmall.'\')" href="javascript:void(0);" class="list-group-item">';
@@ -2017,7 +2081,12 @@ class SocialManager extends UserManager
                 ]
             );
             $form->addHidden('url_content', '');
-            $form->addButtonSend(get_lang('Post'), 'wall_post_button', false, ['cols-size' => [1, 10, 1]]);
+            $form->addButtonSend(
+                get_lang('Post'),
+                'wall_post_button',
+                false,
+                ['cols-size' => [1, 10, 1]]
+            );
             $html = Display::panel($form->returnForm(), get_lang('SocialWall'));
 
             return $html;
@@ -2050,13 +2119,13 @@ class SocialManager extends UserManager
      */
     public static function getSkillBlock($userId)
     {
-        if (api_get_setting('allow_skills_tool') !== 'true') {
-            return null;
+        if (Skill::isAllow($userId, false) === false) {
+            return '';
         }
 
         $skill = new Skill();
         $ranking = $skill->get_user_skill_ranking($userId);
-        $skills = $skill->get_user_skills($userId, true);
+        $skills = $skill->getUserSkills($userId, true);
 
         $template = new Template(null, false, false, false, false, false);
         $template->assign('ranking', $ranking);

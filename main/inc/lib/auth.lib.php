@@ -521,7 +521,7 @@ class Auth
      */
     public function store_course_category($category_title)
     {
-        $tucc = Database::get_main_table(TABLE_USER_COURSE_CATEGORY);
+        $table = Database::get_main_table(TABLE_USER_COURSE_CATEGORY);
 
         // protect data
         $current_user_id = api_get_user_id();
@@ -529,22 +529,23 @@ class Auth
         $result = false;
 
         // step 1: we determine the max value of the user defined course categories
-        $sql = "SELECT sort FROM $tucc 
+        $sql = "SELECT sort FROM $table 
                 WHERE user_id='".$current_user_id."' 
                 ORDER BY sort DESC";
         $rs_sort = Database::query($sql);
         $maxsort = Database::fetch_array($rs_sort);
         $nextsort = $maxsort['sort'] + 1;
 
-        // step 2: we check if there is already a category with this name, if not we store it, else we give an error.
-        $sql = "SELECT * FROM $tucc 
+        // step 2: we check if there is already a category with this name,
+        // if not we store it, else we give an error.
+        $sql = "SELECT * FROM $table 
                 WHERE 
                     user_id='".$current_user_id."' AND 
                     title='" . $category_title."'
                 ORDER BY sort DESC";
         $rs = Database::query($sql);
         if (Database::num_rows($rs) == 0) {
-            $sql = "INSERT INTO $tucc (user_id, title,sort)
+            $sql = "INSERT INTO $table (user_id, title,sort)
                     VALUES ('".$current_user_id."', '".api_htmlentities($category_title, ENT_QUOTES, api_get_system_encoding())."', '".$nextsort."')";
             $resultQuery = Database::query($sql);
             if (Database::affected_rows($resultQuery)) {
@@ -620,7 +621,7 @@ class Auth
                         $all_course_information['real_id'],
                         $send_to_tutor_also = false
                     );
-                } else if ($send == 2) {
+                } elseif ($send == 2) {
                     CourseManager::email_to_tutor(
                         $user_id,
                         $all_course_information['real_id'],
@@ -642,9 +643,13 @@ class Auth
             $message = get_lang('CourseRequiresPassword').'<br />';
             $message .= $all_course_information['title'].' ('.$all_course_information['visual_code'].') ';
 
-            $action  = api_get_path(WEB_CODE_PATH)."auth/courses.php?action=subscribe_user_with_password&sec_token=".$_SESSION['sec_token'];
-            $form = new FormValidator('subscribe_user_with_password', 'post', $action);
-            $form->addElement('hidden', 'sec_token', $_SESSION['sec_token']);
+            $action  = api_get_path(WEB_CODE_PATH)."auth/courses.php?action=subscribe_user_with_password&sec_token=".Security::getTokenFromSession();
+            $form = new FormValidator(
+                'subscribe_user_with_password',
+                'post',
+                $action
+            );
+            $form->addElement('hidden', 'sec_token', Security::getTokenFromSession());
             $form->addElement('hidden', 'subscribe_user_with_password', $all_course_information['code']);
             $form->addElement('text', 'course_registration_code');
             $form->addButton('submit', get_lang('SubmitRegistrationCode'));

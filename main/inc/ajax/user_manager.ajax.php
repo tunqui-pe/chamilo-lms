@@ -1,5 +1,8 @@
 <?php
 /* For licensing terms, see /license.txt */
+use Doctrine\Common\Collections\Criteria,
+    Chamilo\UserBundle\Entity\User,
+    Doctrine\ORM\Query\Expr\Join;
 
 /**
  * Responses to AJAX calls
@@ -178,6 +181,92 @@ switch ($action) {
         } else {
             echo '-1';
         }
+        break;
+    case 'user_by_role':
+        api_block_anonymous_users(false);
+
+        $criteria = new Criteria();
+        $criteria
+            ->where(
+                Criteria::expr()->orX(
+                    Criteria::expr()->contains('username', $_REQUEST['q']),
+                    Criteria::expr()->contains('firstname', $_REQUEST['q']),
+                    Criteria::expr()->contains('lastname', $_REQUEST['q'])
+                )
+            )
+            ->andWhere(
+                Criteria::expr()->eq('status', DRH)
+            );
+
+        $users = UserManager::getRepository()->matching($criteria);
+
+        if (!$users->count()) {
+            echo json_encode([]);
+            break;
+        }
+
+        $items = [];
+
+        /** @var User $user */
+        foreach ($users as $user) {
+            $items[] = [
+                'id' => $user->getId(),
+                'text' => $user->getCompleteNameWithUsername()
+            ];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode(['items' => $items]);
+        break;
+    case 'teacher_to_basis_course':
+        api_block_anonymous_users(false);
+
+        $sortByFirstName = api_sort_by_first_name();
+        $urlId = api_get_current_access_url_id();
+
+        $qb = UserManager::getRepository()->createQueryBuilder('u');
+        $qb->where(
+            $qb->expr()->orX(
+                $qb->expr()->like('u.username', ':q'),
+                $qb->expr()->like('u.firstname', ':q'),
+                $qb->expr()->like('u.lastname', ':q')
+            )
+        );
+
+        if (api_is_multiple_url_enabled()) {
+            $qb
+                ->innerJoin('ChamiloCoreBundle:AccessUrlRelUser', 'uru', Join::WITH, 'u.userId = uru.userId')
+                ->andWhere('uru.accessUrlId = '.$urlId);
+        }
+
+        $qb
+            ->andWhere('u.status != '.DRH.' AND u.status != '.ANONYMOUS)
+            ->orderBy(
+                $sortByFirstName
+                    ? 'u.firstname, u.firstname'
+                    : 'u.firstname, u.lastname'
+            )
+            ->setParameter('q', '%'.$_REQUEST['q'].'%');
+
+        $users = $qb->getQuery()->getResult();
+
+        if (!$users) {
+            echo json_encode([]);
+            break;
+        }
+
+        $items = [];
+
+        /** @var User $user */
+        foreach ($users as $user) {
+            $items[] = [
+                'id' => $user->getId(),
+                'text' => $user->getCompleteNameWithUsername()
+            ];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode(['items' => $items]);
         break;
     default:
         echo '';

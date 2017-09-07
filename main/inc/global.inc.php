@@ -209,16 +209,7 @@ $charset = 'UTF-8';
 \Patchwork\Utf8\Bootup::initAll();
 
 // Start session after the internationalization library has been initialized.
-ChamiloSession::instance()->start($alreadyInstalled);
-
-// Remove quotes added by PHP  - get_magic_quotes_gpc() is deprecated in PHP 5 see #2970
-
-if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
-    array_walk_recursive_limited($_GET, 'stripslashes', true);
-    array_walk_recursive_limited($_POST, 'stripslashes', true);
-    array_walk_recursive_limited($_COOKIE, 'stripslashes', true);
-    array_walk_recursive_limited($_REQUEST, 'stripslashes', true);
-}
+ChamiloSession::start($alreadyInstalled);
 
 // access_url == 1 is the default chamilo location
 if ($_configuration['access_url'] != 1) {
@@ -337,7 +328,6 @@ foreach ($configurationFiles as $file) {
     }
 }
 
-
 /*  LOAD LANGUAGE FILES SECTION */
 
 // if we use the javascript version (without go button) we receive a get
@@ -433,7 +423,6 @@ if (isset($this_script) && $this_script == 'sub_language') {
 $valid_languages = api_get_languages();
 
 if (!empty($valid_languages)) {
-
     if (!in_array($user_language, $valid_languages['folder'])) {
         $user_language = api_get_setting('platformLanguage');
     }
@@ -485,6 +474,43 @@ if (!empty($valid_languages)) {
     // If language is set via browser ignore the priority
     if (isset($_GET['language'])) {
         $language_interface = $user_language;
+    }
+
+    $allow = api_get_configuration_value('show_language_selector_in_menu');
+    // Overwrite all lang configs and use the menu language
+    if ($allow) {
+        if (isset($_SESSION['user_language_choice'])) {
+            $userEntity = api_get_user_entity(api_get_user_id());
+            if ($userEntity) {
+                if (isset($_GET['language'])) {
+                    $language_interface = $_SESSION['user_language_choice'];
+                    $userEntity->setLanguage($language_interface);
+                    Database::getManager()->merge($userEntity);
+                    Database::getManager()->flush();
+
+                    // Update cache
+                    api_get_user_info(
+                        api_get_user_id(),
+                        true,
+                        false,
+                        true,
+                        false,
+                        true,
+                        true
+                    );
+                    if (isset($_SESSION['_user'])) {
+                        $_SESSION['_user']['language'] = $language_interface;
+                    }
+                }
+                $language_interface = $_SESSION['user_language_choice'] = $userEntity->getLanguage();
+            }
+        } else {
+            $userInfo = api_get_user_info();
+            if (!empty($userInfo['language'])) {
+                $_SESSION['user_language_choice'] = $userInfo['language'];
+                $language_interface = $userInfo['language'];
+            }
+        }
     }
 }
 
@@ -546,10 +572,8 @@ if (!$x = strpos($_SERVER['PHP_SELF'], 'whoisonline.php')) {
 
 //Update of the logout_date field in the table track_e_login
 // (needed for the calculation of the total connection time)
-
 if (!isset($_SESSION['login_as']) && isset($_user)) {
     // if $_SESSION['login_as'] is set, then the user is an admin logged as the user
-
     $tbl_track_login = Database::get_main_table(TABLE_STATISTIC_TRACK_E_LOGIN);
     $sql = "SELECT login_id, login_date
             FROM $tbl_track_login
@@ -560,6 +584,7 @@ if (!isset($_SESSION['login_as']) && isset($_user)) {
 
     $q_last_connection = Database::query($sql);
     if (Database::num_rows($q_last_connection) > 0) {
+        $now = api_get_utc_datetime();
         $i_id_last_connection = Database::result($q_last_connection, 0, 'login_id');
 
         // is the latest logout_date still relevant?
@@ -567,17 +592,17 @@ if (!isset($_SESSION['login_as']) && isset($_user)) {
                 WHERE login_id = $i_id_last_connection";
         $q_logout_date = Database::query($sql);
         $res_logout_date = convert_sql_date(Database::result($q_logout_date, 0, 'logout_date'));
+        $lifeTime = api_get_configuration_value('session_lifetime');
 
-        if ($res_logout_date < time() - $_configuration['session_lifetime']) {
+        if ($res_logout_date < time() - $lifeTime) {
             // it isn't, we should create a fresh entry
-            Event::event_login($_user['user_id']);
+            Event::eventLogin($_user['user_id']);
             // now that it's created, we can get its ID and carry on
-            $i_id_last_connection = Database::result($q_last_connection, 0, 'login_id');
+        } else {
+            $sql = "UPDATE $tbl_track_login SET logout_date = '$now'
+                    WHERE login_id = '$i_id_last_connection'";
+            Database::query($sql);
         }
-        $now = api_get_utc_datetime(time());
-        $sql = "UPDATE $tbl_track_login SET logout_date = '$now'
-                WHERE login_id='$i_id_last_connection'";
-        Database::query($sql);
 
         $tableUser = Database::get_main_table(TABLE_MAIN_USER);
         $sql = "UPDATE $tableUser SET last_login = '$now'
@@ -608,3 +633,4 @@ if (empty($default_quota)) {
 define('DEFAULT_DOCUMENT_QUOTA', $default_quota);
 // Forcing PclZip library to use a custom temporary folder.
 define('PCLZIP_TEMPORARY_DIR', api_get_path(SYS_ARCHIVE_PATH));
+

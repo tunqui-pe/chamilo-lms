@@ -31,7 +31,7 @@ use ChamiloSession as Session;
 
 // Resetting the images of the slideshow = destroying the slideshow
 if (isset($_GET['action']) && $_GET['action'] == 'exit_slideshow') {
-    $_SESSION['image_files_only'] = null;
+    Session::write('image_files_only', null);
     unset($image_files_only);
 }
 
@@ -43,7 +43,6 @@ $array_to_search = !empty($documentAndFolders) && is_array($documentAndFolders) 
 if (count($array_to_search) > 0) {
     while (list($key) = each($array_to_search)) {
         $all_files[] = basename($array_to_search[$key]['path']);
-        //echo basename($array_to_search[$key]['path']).'<br />';
     }
 }
 
@@ -70,7 +69,7 @@ if ($tablename_column == 0) {
 }
 Session::write('document_slideshow_table_column', $tablename_column);
 $image_files_only = sort_files($array_to_search);
-$_SESSION['image_files_only'] = $image_files_only;
+Session::write('image_files_only', $image_files_only);
 
 function sort_files($table)
 {

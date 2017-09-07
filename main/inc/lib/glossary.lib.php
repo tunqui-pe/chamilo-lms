@@ -396,6 +396,11 @@ class GlossaryManager
                 Display::return_icon('view_text.png', get_lang('TableView'), '', ICON_SIZE_MEDIUM).'</a>';
         }
 
+        $actionsLeft .= Display::url(
+            Display::return_icon('export_to_documents.png', get_lang('ExportToDocArea'), [], ICON_SIZE_MEDIUM),
+            api_get_self().'?'.api_get_cidreq().'&'.http_build_query(['action' => 'export_documents'])
+        );
+
         /* BUILD SEARCH FORM */
         $form = new FormValidator(
             'search',
@@ -503,8 +508,12 @@ class GlossaryManager
      *
      * @return array
      */
-    public static function get_glossary_data($from, $number_of_items, $column, $direction)
-    {
+    public static function get_glossary_data(
+        $from,
+        $number_of_items,
+        $column,
+        $direction
+    ) {
         $_user = api_get_user_info();
         $view = Session::read('glossary_view');
 
@@ -544,10 +553,12 @@ class GlossaryManager
 					glossary.description as col1,
 					$col2
 					glossary.session_id
-				FROM $t_glossary glossary, $t_item_propery ip
-				WHERE
-				    glossary.glossary_id = ip.ref AND
-					tool = '".TOOL_GLOSSARY."' $condition_session AND
+				FROM $t_glossary glossary 
+				INNER JOIN $t_item_propery ip
+				ON (glossary.glossary_id = ip.ref AND glossary.c_id = ip.c_id)
+				WHERE				    
+					tool = '".TOOL_GLOSSARY."' 
+					$condition_session AND
 					glossary.c_id = ".api_get_course_int_id()." AND
 					ip.c_id = ".api_get_course_int_id()."
 					$keywordCondition
@@ -566,6 +577,10 @@ class GlossaryManager
                 $array[1] = str_replace(array('<p>', '</p>'), array('', '<br />'), $data[1]);
             } else {
                 $array[1] = $data[1];
+            }
+
+            if (isset($_GET['action']) && $_GET['action'] == 'export') {
+                $array[1] = api_html_entity_decode($data[1]);
             }
 
             if (api_is_allowed_to_edit(null, true)) {
@@ -703,16 +718,47 @@ class GlossaryManager
             0,
             'ASC'
         );
-        $html = '<html><body>';
-        $html .= '<h2>'.get_lang('Glossary').'</h2><hr><br><br>';
-        foreach ($data as $item) {
-            $term = $item[0];
-            $description = $item[1];
-            $html .= '<h4>'.$term.'</h4><p>'.$description.'<p><hr>';
-        }
-        $html .= '</body></html>';
+        $template = new Template('', false, false, false, true, false, false);
+        $layout = $template->get_template('glossary/export_pdf.tpl');
+        $template->assign('items', $data);
+        $html = $template->fetch($layout);
         $courseCode = api_get_course_id();
         $pdf = new PDF();
         $pdf->content_to_pdf($html, '', get_lang('Glossary').'_'.$courseCode, $courseCode);
+    }
+
+    /**
+     * Generate a PDF with all glossary terms and move file to documents
+     */
+    public static function movePdfToDocuments()
+    {
+        $sessionId = api_get_session_id();
+        $courseId = api_get_course_int_id();
+        $data = self::get_glossary_data(
+            0,
+            self::get_number_glossary_terms($sessionId),
+            0,
+            'ASC'
+        );
+        $template = new Template('', false, false, false, true, false, false);
+        $layout = $template->get_template('glossary/export_pdf.tpl');
+        $template->assign('items', $data);
+        $fileName = get_lang('Glossary').'-'.api_get_local_time();
+        $signatures = ['Drh', 'Teacher', 'Date'];
+
+        $pdf = new PDF(
+            'A4-P',
+            'P',
+            [
+                'filename' => $fileName,
+                'pdf_title' => $fileName,
+                'add_signatures' => $signatures
+            ]
+        );
+        $pdf->exportFromHtmlToDocumentsArea(
+            $template->fetch($layout),
+            $fileName,
+            $courseId
+        );
     }
 }

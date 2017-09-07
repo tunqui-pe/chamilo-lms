@@ -52,6 +52,8 @@ if (api_get_setting('search_enabled') === 'true') {
 }
 $current_session = api_get_session_id();
 
+$subscriptionSettings = learnpath::getSubscriptionSettings();
+
 /* Introduction section (editable by course admins) */
 $introductionSection = Display::return_introduction_section(
     TOOL_LEARNPATH,
@@ -152,7 +154,6 @@ if (!empty($categoriesTempList)) {
 $userId = api_get_user_id();
 $userInfo = api_get_user_info();
 $lpIsShown = false;
-
 $filteredCategoryId = $action === 'view_category' && !empty($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($filteredCategoryId) {
@@ -522,8 +523,8 @@ foreach ($categories as $item) {
                                 ."&action=switch_attempt_mode&lp_id=$id"
                         );
                     }
-                    if ($details['seriousgame_mode'] == 0
-                        && $details['lp_prevent_reinit'] == 1
+                    if ($details['seriousgame_mode'] == 0 &&
+                        $details['lp_prevent_reinit'] == 1
                     ) {
                         // single mode | next = multiple
                         $dsp_reinit = Display::url(
@@ -535,8 +536,8 @@ foreach ($categories as $item) {
                                 ."&action=switch_attempt_mode&lp_id=$id"
                         );
                     }
-                    if ($details['seriousgame_mode'] == 0
-                        && $details['lp_prevent_reinit'] == 0
+                    if ($details['seriousgame_mode'] == 0 &&
+                        $details['lp_prevent_reinit'] == 0
                     ) {
                         // multiple mode | next = seriousgame
                         $dsp_reinit = Display::url(
@@ -668,22 +669,23 @@ foreach ($categories as $item) {
                 );
 
                 // Subscribe users
-                $subscribeUsers = null;
-                if ($details['subscribe_users'] == 1) {
+                $subscribeUsers = '';
+                if ($details['subscribe_users'] == 1 &&
+                    $subscriptionSettings['allow_add_users_to_lp']
+                ) {
                     $subscribeUsers = Display::url(
                         Display::return_icon(
                             'user.png',
                             get_lang('SubscribeUsersToLp')
                         ),
-                        api_get_path(WEB_CODE_PATH)
-                        ."lp/lp_subscribe_users.php?lp_id=$id&".api_get_cidreq()
+                        api_get_path(WEB_CODE_PATH)."lp/lp_subscribe_users.php?lp_id=$id&".api_get_cidreq()
                     );
                 }
 
                 /* Auto launch LP code */
                 if (api_get_course_setting('enable_lp_auto_launch') == 1) {
-                    if ($details['autolaunch'] == 1
-                        && $autolaunch_exists == false
+                    if ($details['autolaunch'] == 1 &&
+                        $autolaunch_exists == false
                     ) {
                         $autolaunch_exists = true;
                         $lp_auto_launch_icon = Display::url(
@@ -877,6 +879,7 @@ foreach ($categories as $item) {
 }
 
 $template = new Template($nameTools);
+$template->assign('subscription_settings', $subscriptionSettings);
 $template->assign('is_allowed_to_edit', $is_allowed_to_edit);
 $template->assign('is_invitee', api_is_invitee());
 $template->assign('actions', $actions);

@@ -47,7 +47,9 @@
     "wodo.texteditor" : "0.5.*",
     "emojionearea" : "3.1.*",
     "highlight.js.origin": "9.*",
-    "bootstrap-language": "*"
+    "bootstrap-language": "*",
+    "js-cookie" : "2.1.*",
+    "flag-icon-css" : "*"
   },
   "resolutions": {
     "jquery": "2.1.4"

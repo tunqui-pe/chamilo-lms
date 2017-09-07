@@ -22,10 +22,9 @@ if (api_get_setting('search_enabled') == 'true') {
 /**
  * @package chamilo.learnpath.OpenofficeDocument
  */
-class OpenofficeText extends OpenofficeDocument {
-
+class OpenofficeText extends OpenofficeDocument
+{
     public $split_steps;
-
     /**
      * Class constructor. Calls the parent class and initialises the local attribute split_steps
      * @param	boolean	Whether to split steps (true) or make one large page (false)
@@ -33,7 +32,12 @@ class OpenofficeText extends OpenofficeDocument {
      * @param	integer	Resource ID
      * @param	integer Creator user id
      */
-    public function __construct($split_steps = false, $course_code = null, $resource_id = null, $user_id = null) {
+    public function __construct(
+        $split_steps = false,
+        $course_code = null,
+        $resource_id = null,
+        $user_id = null
+    ) {
         $this -> split_steps = $split_steps;
         parent::__construct($course_code, $resource_id, $user_id);
     }
@@ -74,7 +78,9 @@ class OpenofficeText extends OpenofficeDocument {
 
         // Chamilo styles.
         $my_style = api_get_setting('stylesheets');
-        if (empty($my_style)) { $my_style = 'chamilo'; }
+        if (empty($my_style)) {
+            $my_style = 'chamilo';
+        }
         $style_to_import = "<style type=\"text/css\">\r\n";
         $style_to_import .= '@import "'.api_get_path(WEB_CODE_PATH).'css/'.$my_style.'/default.css";'."\n";
         $style_to_import .= "</style>\r\n";
@@ -112,7 +118,6 @@ class OpenofficeText extends OpenofficeDocument {
         // Empty the fake chapters.
         $new_index = 0;
         for ($i = 0; $i < count($matches_temp[0]); $i++) {
-
             if (trim($matches_temp[1][$i]) !== '') {
                 $matches[0][$new_index] = $matches_temp[0][$i];
                 $matches[1][$new_index] = $matches_temp[1][$i];
@@ -125,9 +130,9 @@ class OpenofficeText extends OpenofficeDocument {
         $items_to_create[get_lang('Introduction')] = $intro_content;
 
         for ($i = 0; $i < count($matches[0]); $i++) {
-
-            if (empty($matches[1][$i]))
+            if (empty($matches[1][$i])) {
                 continue;
+            }
 
             $content = strstr($content, $matches[0][$i]);
             if ($i + 1 !== count($matches[0])) {
@@ -166,7 +171,7 @@ class OpenofficeText extends OpenofficeDocument {
                     TOOL_DOCUMENT,
                     $document_id,
                     'DocumentAdded',
-                    $_SESSION['_uid'],
+                    api_get_user_id(),
                     0,
                     0,
                     null,
@@ -224,16 +229,14 @@ class OpenofficeText extends OpenofficeDocument {
             );
 
             $slide_name = '';
-
             if ($document_id) {
-
                 // Put the document in item_property update.
                 api_item_property_update(
                     $_course,
                     TOOL_DOCUMENT,
                     $document_id,
                     'DocumentAdded',
-                    $_SESSION['_uid'],
+                    api_get_user_id(),
                     0,
                     0,
                     null,
@@ -253,7 +256,7 @@ class OpenofficeText extends OpenofficeDocument {
                         //echo Display::return_message(print_r($_POST));
                         $di = new ChamiloIndexer();
                         isset($_POST['language']) ? $lang = Database::escape_string($_POST['language']) : $lang = 'english';
-                        $di->connectDb(NULL, NULL, $lang);
+                        $di->connectDb(null, null, $lang);
                         $ic_slide = new IndexableChunk();
                         $ic_slide->addValue('title', $slide_name);
                         $specific_fields = get_specific_field_list();
@@ -305,7 +308,8 @@ class OpenofficeText extends OpenofficeDocument {
      * Returns additional Java command parameters
      * @return	string	The additional parameters to be used in the Java call
      */
-    public function add_command_parameters() {
+    public function add_command_parameters()
+    {
         return ' -d woogie "'.$this->base_work_dir.'/'.$this->file_path.'"  "'.$this->base_work_dir.$this->created_dir.'/'.$this->file_name.'.html"';
     }
 
@@ -315,7 +319,8 @@ class OpenofficeText extends OpenofficeDocument {
      * @param	string	Page content
      * @return	string	Formatted page content
      */
-    public function format_page_content($header, $content) {
+    public function format_page_content($header, $content)
+    {
         // Limit the width of the doc.
         list($max_width, $max_height) = explode('x', api_get_setting('service_ppt2lp', 'size'));
 
@@ -340,7 +345,6 @@ class OpenofficeText extends OpenofficeDocument {
             $defined_width = preg_match("|width=([^\s]*)|i", $images[0][$key], $img_width);
             $img_width = $img_width[1];
             if (!$defined_width) {
-
                 list($img_width, $img_height, $type) = getimagesize($this->base_work_dir.$this->created_dir.'/'.$image);
 
                 $new_width = $max_width - 10;
@@ -361,7 +365,7 @@ class OpenofficeText extends OpenofficeDocument {
     /**
      * Add documents to the visioconference (to be implemented)
      */
-    public function add_docs_to_visio() {
-
+    public function add_docs_to_visio()
+    {
     }
 }

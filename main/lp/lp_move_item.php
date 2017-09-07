@@ -78,15 +78,10 @@ $therow = Database::fetch_array($result);
     Course admin section
     - all the functions not available for students - always available in this case (page only shown to admin)
 */
-/* SHOWING THE ADMIN TOOLS */
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook = $_SESSION['gradebook'];
-}
-
-if (!empty($gradebook) && $gradebook == 'view') {
+if (api_is_in_gradebook()) {
     $interbreadcrumb[] = array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'url' => Category::getUrl(),
         'name' => get_lang('ToolGradebook')
     );
 }
@@ -112,7 +107,7 @@ Display::display_header(get_lang('Move'), 'Path');
 
 $suredel = trim(get_lang('AreYouSureToDeleteJS'));
 ?>
-<script type='text/javascript'>
+<script>
 /* <![CDATA[ */
 function stripslashes(str) {
     str=str.replace(/\\'/g,'\'');
@@ -121,8 +116,7 @@ function stripslashes(str) {
     str=str.replace(/\\0/g,'\0');
     return str;
 }
-function confirmation(name)
-{
+function confirmation(name) {
     name=stripslashes(name);
     if (confirm("<?php echo $suredel; ?> " + name + " ?"))
     {

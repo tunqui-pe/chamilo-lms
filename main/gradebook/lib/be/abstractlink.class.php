@@ -28,6 +28,46 @@ abstract class AbstractLink implements GradebookItem
     public $studentList;
 
     /**
+     * @return bool
+     */
+    abstract function has_results();
+
+    /**
+     * @return string
+     */
+    abstract function get_link();
+
+    /**
+     * @return bool
+     */
+    abstract function is_valid_link();
+
+    /**
+     * @return string
+     */
+    abstract function get_type_name();
+
+    /**
+     * @return bool
+     */
+    abstract function needs_name_and_description();
+
+    /**
+     * @return bool
+     */
+    abstract function needs_max();
+
+    /**
+     * @return bool
+     */
+    abstract function needs_results();
+
+    /**
+     * @return bool
+     */
+    abstract function is_allowed_to_change_name();
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -224,6 +264,7 @@ abstract class AbstractLink implements GradebookItem
      * To keep consistency, do not call this method but LinkFactory::load instead.
      * @param integer $id
      * @param integer $type
+     * @param integer $ref_id
      * @param integer $user_id
      * @param string $course_code
      * @param integer $category_id
@@ -418,20 +459,20 @@ abstract class AbstractLink implements GradebookItem
     }
 
     /**
-     * @param int $idevaluation
+     * @param int $evaluationId
      */
-    public static function add_link_log($idevaluation, $nameLog = null)
+    public static function add_link_log($evaluationId, $nameLog = null)
     {
         $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_LINKEVAL_LOG);
-        $dateobject = self::load($idevaluation, null, null, null, null);
+        $dateobject = self::load($evaluationId, null, null, null, null);
         $current_date_server = api_get_utc_datetime();
         $arreval = get_object_vars($dateobject[0]);
         $description_log = isset($arreval['description']) ? $arreval['description'] : '';
         if (empty($nameLog)) {
             if (isset($_POST['name_link'])) {
                 $name_log = isset($_POST['name_link']) ? $_POST['name_link'] : $arreval['course_code'];
-            } elseif (isset($_POST['link_'.$idevaluation]) && $_POST['link_'.$idevaluation]) {
-                $name_log = $_POST['link_'.$idevaluation];
+            } elseif (isset($_POST['link_'.$evaluationId]) && $_POST['link_'.$evaluationId]) {
+                $name_log = $_POST['link_'.$evaluationId];
             } else {
                 $name_log = $arreval['course_code'];
             }
@@ -478,7 +519,7 @@ abstract class AbstractLink implements GradebookItem
         $crscats = Category::load(null, null, $this->get_course_code(), 0);
         foreach ($crscats as $cat) {
             $targets[] = array($cat->get_id(), $cat->get_name(), $level + 1);
-            $targets = $this->add_target_subcategories(
+            $targets = $this->addTargetSubcategories(
                 $targets,
                 $level + 1,
                 $cat->get_id()
@@ -491,13 +532,14 @@ abstract class AbstractLink implements GradebookItem
     /**
      * Internal function used by get_target_categories()
      * @param integer $level
+     * @return array
      */
-    private function add_target_subcategories($targets, $level, $catid)
+    private function addTargetSubcategories($targets, $level, $catid)
     {
         $subcats = Category::load(null, null, null, $catid);
         foreach ($subcats as $cat) {
             $targets[] = array($cat->get_id(), $cat->get_name(), $level + 1);
-            $targets = $this->add_target_subcategories(
+            $targets = $this->addTargetSubcategories(
                 $targets,
                 $level + 1,
                 $cat->get_id()
@@ -557,14 +599,6 @@ abstract class AbstractLink implements GradebookItem
         return 'link';
     }
 
-    abstract function has_results();
-    abstract function get_link();
-    abstract function is_valid_link();
-    abstract function get_type_name();
-    abstract function needs_name_and_description();
-    abstract function needs_max();
-    abstract function needs_results();
-    abstract function is_allowed_to_change_name();
 
     /* Seems to be not used anywhere */
     public function get_not_created_links()

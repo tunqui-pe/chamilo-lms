@@ -156,7 +156,6 @@ if (empty($document_data['parents'])) {
 }
 
 $this_section = SECTION_COURSES;
-$_SESSION['whereami'] = 'document/view';
 $nameTools = get_lang('Documents');
 
 /**
@@ -173,6 +172,7 @@ $frameheight = 135;
 if ($is_courseAdmin) {
     $frameheight = 165;
 }
+
 $js_glossary_in_documents = '
   $.frameReady(function(){
    //  $("<div>I am a div courses</div>").prependTo("body");

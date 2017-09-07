@@ -18,41 +18,6 @@ class ScoreDisplay
     private $custom_display_conv;
 
     /**
-     * Get the instance of this class
-     * @param int $category_id
-     */
-    public static function instance($category_id = 0)
-    {
-        static $instance;
-        if (!isset ($instance)) {
-            $instance = new ScoreDisplay($category_id);
-        }
-
-        return $instance;
-    }
-
-    /**
-     * Compare the custom display of 2 scores, can be useful in sorting
-     */
-    public static function compare_scores_by_custom_display($score1, $score2)
-    {
-        if (!isset($score1)) {
-            return (isset($score2) ? 1 : 0);
-        } elseif (!isset($score2)) {
-            return -1;
-        } else {
-            $scoredisplay = self::instance();
-            $custom1 = $scoredisplay->display_custom($score1);
-            $custom2 = $scoredisplay->display_custom($score2);
-            if ($custom1 == $custom2) {
-                return 0;
-            } else {
-                return (($score1[0] / $score1[1]) < ($score2[0] / $score2[1]) ? -1 : 1);
-            }
-        }
-    }
-
-    /**
      * Protected constructor - call instance() to instantiate
      */
     public function __construct($category_id = 0)
@@ -75,7 +40,7 @@ class ScoreDisplay
             }
         }
 
-        //Setting custom enabled
+        // Setting custom enabled
         $value = api_get_setting('gradebook_score_display_custom');
         $value = $value['my_display_custom'];
         $this->custom_enabled = $value == 'true' ? true : false;
@@ -116,6 +81,42 @@ class ScoreDisplay
 
             if ($this->coloring_enabled) {
                 $this->color_split_value = $this->get_score_color_percent();
+            }
+        }
+    }
+
+    /**
+     * Get the instance of this class
+     * @param int $category_id
+     * @return ScoreDisplay
+     */
+    public static function instance($category_id = 0)
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new ScoreDisplay($category_id);
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Compare the custom display of 2 scores, can be useful in sorting
+     */
+    public static function compare_scores_by_custom_display($score1, $score2)
+    {
+        if (!isset($score1)) {
+            return (isset($score2) ? 1 : 0);
+        } elseif (!isset($score2)) {
+            return -1;
+        } else {
+            $scoreDisplay = self::instance();
+            $custom1 = $scoreDisplay->display_custom($score1);
+            $custom2 = $scoreDisplay->display_custom($score2);
+            if ($custom1 == $custom2) {
+                return 0;
+            } else {
+                return (($score1[0] / $score1[1]) < ($score2[0] / $score2[1]) ? -1 : 1);
             }
         }
     }
@@ -197,8 +198,11 @@ class ScoreDisplay
      * @param int   score color percent (optional)
      * @param int   gradebook category id (optional)
      */
-    public function update_custom_score_display_settings($displays, $scorecolpercent = 0, $category_id = null)
-    {
+    public function update_custom_score_display_settings(
+        $displays,
+        $scorecolpercent = 0,
+        $category_id = null
+    ) {
         $this->custom_display = $displays;
         $this->custom_display_conv = $this->convert_displays($this->custom_display);
 
@@ -448,11 +452,13 @@ class ScoreDisplay
     /**
      * Depends on the teacher's configuration of thresholds. i.e. [0 50] "Bad", [50:100] "Good"
      * @param array $score
+     * @return string
      */
     private function display_custom($score)
     {
-        $my_score_denom = ($score[1] == 0) ? 1 : $score[1];
+        $my_score_denom = $score[1] == 0 ? 1 : $score[1];
         $scaledscore = $score[0] / $my_score_denom;
+
         if ($this->upperlimit_included) {
             foreach ($this->custom_display_conv as $displayitem) {
                 if ($scaledscore <= $displayitem['score']) {
@@ -564,7 +570,6 @@ class ScoreDisplay
     private function sort_display($item1, $item2)
     {
         if ($item1['score'] === $item2['score']) {
-
             return 0;
         } else {
             return ($item1['score'] < $item2['score'] ? -1 : 1);

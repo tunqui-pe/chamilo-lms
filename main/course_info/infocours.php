@@ -311,14 +311,14 @@ $form->addGroup($group, '', array(get_lang("NewUserEmailAlert")));
 
 $group = array();
 $group[] = $form->createElement('radio', 'email_alert_students_on_new_homework', get_lang('NewHomeworkEmailAlert'), get_lang('NewHomeworkEmailAlertEnable'), 1);
-$group[] = $form->createElement('radio', 'email_alert_students_on_new_homework', null, get_lang('NewHomeworkEmailAlertToDrhEnable'), 2);
+$group[] = $form->createElement('radio', 'email_alert_students_on_new_homework', null, get_lang('NewHomeworkEmailAlertToHrmEnable'), 2);
 $group[] = $form->createElement('radio', 'email_alert_students_on_new_homework', null, get_lang('NewHomeworkEmailAlertDisable'), 0);
 $form->addGroup($group, '', array(get_lang("NewHomeworkEmailAlert")));
 
 $group = array();
+$group[] = $form->createElement('radio', 'email_alert_manager_on_new_doc', get_lang('WorkEmailAlert'), get_lang('WorkEmailAlertActivate'), 1);
 $group[] = $form->createElement('radio', 'email_alert_manager_on_new_doc', null, get_lang('WorkEmailAlertActivateOnlyForTeachers'), 3);
 $group[] = $form->createElement('radio', 'email_alert_manager_on_new_doc', null, get_lang('WorkEmailAlertActivateOnlyForStudents'), 2);
-$group[] = $form->createElement('radio', 'email_alert_manager_on_new_doc', get_lang('WorkEmailAlert'), get_lang('WorkEmailAlertActivate'), 1);
 $group[] = $form->createElement('radio', 'email_alert_manager_on_new_doc', null, get_lang('WorkEmailAlertDeactivate'), 0);
 $form->addGroup($group, '', array(get_lang("WorkEmailAlert")));
 
@@ -327,18 +327,21 @@ $group[] = $form->createElement('radio', 'email_alert_on_new_doc_dropbox', get_l
 $group[] = $form->createElement('radio', 'email_alert_on_new_doc_dropbox', null, get_lang('DropboxEmailAlertDeactivate'), 0);
 $form->addGroup($group, '', array(get_lang("DropboxEmailAlert")));
 
-$group = array();
 
-$group[] = $form->createElement('checkbox', 'email_alert_manager_on_new_quiz[]', null, get_lang('SendEmailToTeacherWhenStudentStartQuiz'), ['value' => 2]);
-// Default
-$group[] = $form->createElement('checkbox', 'email_alert_manager_on_new_quiz[]', null, get_lang('SendEmailToTeacherWhenStudentEndQuiz'), ['value' => 1]);
+// Exercises notifications
+$emailAlerts = ExerciseLib::getNotificationSettings();
+$group = [];
+foreach ($emailAlerts as $itemId => $label) {
+    $group[] = $form->createElement(
+        'checkbox',
+        'email_alert_manager_on_new_quiz[]',
+        null,
+        $label,
+        ['value' => $itemId]
+    );
+}
 
-$group[] = $form->createElement('checkbox', 'email_alert_manager_on_new_quiz[]', null, get_lang('SendEmailToTeacherWhenStudentEndQuizOnlyIfOpenQuestion'), ['value' => 3]);
-$group[] = $form->createElement('checkbox', 'email_alert_manager_on_new_quiz[]', null, get_lang('SendEmailToTeacherWhenStudentEndQuizOnlyIfOralQuestion'), ['value' => 4]);
-//$group[] = $form->createElement('checkbox', 'email_alert_manager_on_new_quiz[]', null, get_lang('QuizEmailAlertDeactivate'), ['value' => 0]);
-
-//$group[] = $form->createElement('checkbox', 'email_alert_manager_on_new_quiz[]', null, get_lang('QuizEmailSendToTeacherWhenStudentEndQuiz'), ['value' => 3]);
-$form->addGroup($group, '', array(get_lang("Exercises")));
+$form->addGroup($group, '', array(get_lang('Exercises')));
 $form->addButtonSave(get_lang('SaveSettings'), 'submit_save');
 
 $form->addHtml('

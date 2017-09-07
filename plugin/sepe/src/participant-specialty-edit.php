@@ -12,7 +12,7 @@ $course_plugin = 'sepe';
 $plugin = SepePlugin::create();
 $_cid = 0;
 
-if ( !empty($_POST)) {
+if (!empty($_POST)) {
     $check = Security::check_token('post');
     if ($check) {
         $newSpecialty = intval($_POST['new_specialty']);
@@ -39,12 +39,12 @@ if ( !empty($_POST)) {
         $participantId = intval($_POST['participant_id']);
         $actionId = intval($_POST['action_id']);
         $specialtyId = intval($_POST['specialty_id']);
-        
+
         $registrationDate = $yearRegistration."-".$monthRegistration."-".$dayRegistration;
         $leavingDate = $yearLeaving."-".$monthLeaving."-".$dayLeaving;
         $startDate = $yearStart."-".$monthStart."-".$dayStart;
         $endDate = $yearEnd."-".$monthEnd."-".$dayEnd;
-        
+
         if (isset($newSpecialty) && $newSpecialty != 1) {
             $sql = "UPDATE $tableSepeParticipantsSpecialty SET 
                         specialty_origin = '".$specialtyOrigin."', 
@@ -59,7 +59,7 @@ if ( !empty($_POST)) {
                         final_result = '".$finalResult."', 
                         final_qualification = '".$finalQualification."', 
                         final_score = '".$finalScore."' 
-                    WHERE id = $specialtyId";    
+                    WHERE id = $specialtyId";
         } else {
             $sql = "INSERT INTO $tableSepeParticipantsSpecialty (
                         participant_id,
@@ -93,14 +93,13 @@ if ( !empty($_POST)) {
         }
         $res = Database::query($sql);
         if (!$res) {
-            echo Database::error();
             $_SESSION['sepe_message_error'] = $plugin->get_lang('NoSaveChange');
         } else {
             $_SESSION['sepe_message_info'] = $plugin->get_lang('SaveChange');
             if ($newSpecialty == "1") {
                 $specialtyId = Database::insert_id();
             }
-            
+
             $platformUserId = getUserPlatformFromParticipant($participantId);
             $insertLog = checkInsertNewLog($platformUserId, $actionId);
             if ($insertLog) {
@@ -120,7 +119,7 @@ if ( !empty($_POST)) {
                             '".date("Y-m-d H:i:s")."'
                             '".$leavingDateLog."'
                         );";
-                
+
             } else {
                 if ($finalResult == "1" || $finalResult == "2") {
                     $sql = "UPDATE $tableSepeLogParticipant 
@@ -215,7 +214,7 @@ if (api_is_platform_admin()) {
         }
         if ($info['end_date'] != '0000-00-00' && $info['end_date'] != NULL) {
             $tpl->assign('day_end', date("j", strtotime($info['end_date'])));
-            $tpl->assign('month_end', date("n",strtotime($info['end_date'])));
+            $tpl->assign('month_end', date("n", strtotime($info['end_date'])));
             $tpl->assign('year_end', date("Y", strtotime($info['end_date'])));
             $endYear = date("Y", strtotime($info['end_date']));
         } elseif (strpos($info['end_date'], '0000') === false) {
@@ -224,46 +223,46 @@ if (api_is_platform_admin()) {
             $endYear = date("Y");
         }
         $listSpecialtyTutorials = getListSpecialtyTutorial(intval($_GET['specialty_id']));
-        $tpl->assign('listSpecialtyTutorials', $listSpecialtyTutorials);    
+        $tpl->assign('listSpecialtyTutorials', $listSpecialtyTutorials);
     }
-    
-    
+
+
     $listYear = array();
     if ($registrationYear > $leaveYear) {
         $tmp = $registrationYear;
         $registrationYear = $leaveYear;
-        $leaveYear = $tmp;    
+        $leaveYear = $tmp;
     }
     $registrationYear -= 5;
     $leaveYear += 5;
-    $endRangeYear = (($registrationYear + 15) < $leaveYear) ? ($leaveYear+1):($registrationYear + 15);
+    $endRangeYear = (($registrationYear + 15) < $leaveYear) ? ($leaveYear + 1) : ($registrationYear + 15);
     while ($registrationYear <= $endRangeYear) {
         $listYear[] = $registrationYear;
         $registrationYear++;
     }
     $tpl->assign('list_year', $listYear);
-    
+
     $listYear = array();
     if ($startYear > $endYear) {
         $tmp = $startYear;
         $startYear = $endYear;
-        $endYear = $tmp;    
+        $endYear = $tmp;
     }
     $startYear -= 5;
     $endYear += 5;
-    $endRangeYear = (($startYear + 15) < $endYear) ? ($endYear+1):($startYear +15);
+    $endRangeYear = (($startYear + 15) < $endYear) ? ($endYear + 1) : ($startYear + 15);
     while ($startYear <= $endRangeYear) {
         $listYear[] = $startYear;
         $startYear++;
     }
     $tpl->assign('list_year_2', $listYear);
-    
+
     if (isset($_SESSION['sepe_message_info'])) {
-        $tpl->assign('message_info', $_SESSION['sepe_message_info']);    
+        $tpl->assign('message_info', $_SESSION['sepe_message_info']);
         unset($_SESSION['sepe_message_info']);
     }
     if (isset($_SESSION['sepe_message_error'])) {
-        $tpl->assign('message_error', $_SESSION['sepe_message_error']);    
+        $tpl->assign('message_error', $_SESSION['sepe_message_error']);
         unset($_SESSION['sepe_message_error']);
     }
     $tpl->assign('sec_token', $token);
@@ -272,5 +271,5 @@ if (api_is_platform_admin()) {
     $tpl->assign('content', $content);
     $tpl->display_one_col_template();
 } else {
-    header('Location:' . api_get_path(WEB_PATH));
+    header('Location:'.api_get_path(WEB_PATH));
 }

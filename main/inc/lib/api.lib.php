@@ -959,7 +959,8 @@ function api_is_ldap_activated() {
  * @return bool     Return true if Facebook authentification is activated
  *
  */
-function api_is_facebook_auth_activated() {
+function api_is_facebook_auth_activated()
+{
     global $_configuration;
     return (isset($_configuration['facebook_auth']) && $_configuration['facebook_auth'] == 1);
 }
@@ -969,8 +970,11 @@ function api_is_facebook_auth_activated() {
  * @param string $path          The input path.
  * @return string               Returns the modified path.
  */
-function api_add_trailing_slash($path) {
+function api_add_trailing_slash($path)
+{
     return substr($path, -1) == '/' ? $path : $path.'/';
+    // This code is about 20% faster than the preg_replace equivalent
+    //return preg_replace('/([^\/])$/', '$1/', $path);
 }
 
 /**
@@ -978,7 +982,8 @@ function api_add_trailing_slash($path) {
  * @param string $path          The input path.
  * @return string               Returns the modified path.
  */
-function api_remove_trailing_slash($path) {
+function api_remove_trailing_slash($path)
+{
     return substr($path, -1) == '/' ? substr($path, 0, -1) : $path;
 }
 
@@ -1776,13 +1781,13 @@ function api_get_course_info_by_id($id = null)
                     course_category.name faName
                 FROM $course_table
                 LEFT JOIN $course_cat_table
-                ON course.category_code =  course_category.code
+                ON course.category_code = course_category.code
                 WHERE course.id = $id";
         $result = Database::query($sql);
         $_course = array();
         if (Database::num_rows($result) > 0) {
-            $course_data = Database::fetch_array($result);
-            $_course = api_format_course_array($course_data);
+            $row = Database::fetch_array($result);
+            $_course = api_format_course_array($row);
         }
         return $_course;
     }
@@ -2703,9 +2708,7 @@ function api_is_coach($session_id = 0, $courseId = null, $check_student_view = t
     }
 
     // The student preview was on
-    if ($check_student_view &&
-        isset($_SESSION['studentview']) && $_SESSION['studentview'] == "studentview"
-    ) {
+    if ($check_student_view && api_is_student_view_active()) {
         return false;
     }
 
@@ -4212,9 +4215,10 @@ function api_get_languages_combo($name = 'language')
  * Displays a form (drop down menu) so the user can select his/her preferred language.
  * The form works with or without javascript
  * @param  boolean Hide form if only one language available (defaults to false = show the box anyway)
+ * @param bool $showAsButton
  * @return null|string Display the box directly
  */
-function api_display_language_form($hide_if_no_choice = false)
+function api_display_language_form($hide_if_no_choice = false, $showAsButton = false)
 {
     // Retrieve a complete list of all the languages.
     $language_list = api_get_languages();
@@ -5048,7 +5052,7 @@ function api_get_status_langvars() {
 * The function that retrieves all the possible settings for a certain config setting
 * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University
 */
-function api_get_settings_options($var)
+function api_get_settings_options($var) 
 {
     $table_settings_options = Database::get_main_table(TABLE_MAIN_SETTINGS_OPTIONS);
     $var = Database::escape_string($var);
@@ -5398,6 +5402,12 @@ function api_add_setting(
     $em = Database::getManager();
     $settingRepo = $em->getRepository('ChamiloCoreBundle:SettingsCurrent');
     $accessUrlId = (int) $accessUrlId ?: 1;
+
+    if (is_array($value)) {
+        $value = serialize($value);
+    } else {
+        $value = trim($value);
+    }
 
     $criteria = ['variable' => $variable, 'accessUrl' => $accessUrlId];
 
@@ -5804,7 +5814,8 @@ function api_is_in_group($groupIdParam = null, $courseCodeParam = null)
  * @param string $security_key - security key from Chamilo
  * @return boolean - true if secret key is valid, false otherwise
  */
-function api_is_valid_secret_key($original_key_secret, $security_key) {
+function api_is_valid_secret_key($original_key_secret, $security_key)
+{
     return $original_key_secret == sha1($security_key);
 }
 
@@ -5812,8 +5823,10 @@ function api_is_valid_secret_key($original_key_secret, $security_key) {
  * Checks whether a user is into course
  * @param int $course_id - the course id
  * @param int $user_id - the user id
+ * @return bool
  */
-function api_is_user_of_course($course_id, $user_id) {
+function api_is_user_of_course($course_id, $user_id)
+{
     $tbl_course_rel_user = Database::get_main_table(TABLE_MAIN_COURSE_USER);
     $sql = 'SELECT user_id FROM '.$tbl_course_rel_user.'
             WHERE
@@ -5828,7 +5841,8 @@ function api_is_user_of_course($course_id, $user_id) {
  * Checks whether the server's operating system is Windows (TM).
  * @return boolean - true if the operating system is Windows, false otherwise
  */
-function api_is_windows_os() {
+function api_is_windows_os()
+{
     if (function_exists('php_uname')) {
         // php_uname() exists as of PHP 4.0.2, according to the documentation.
         // We expect that this function will always work for Chamilo 1.8.x.
@@ -5852,7 +5866,8 @@ function api_is_windows_os() {
 /**
  * This function informs whether the sent request is XMLHttpRequest
  */
-function api_is_xml_http_request() {
+function api_is_xml_http_request()
+{
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 }
 
@@ -5863,7 +5878,8 @@ function api_is_xml_http_request() {
  * @link http://www.dokeos.com/forum/viewtopic.php?t=16355
  * @return integer
  */
-function api_getimagesize($path) {
+function api_getimagesize($path)
+{
     $image = new Image($path);
     return $image->get_image_size();
 }
@@ -5876,9 +5892,16 @@ function api_getimagesize($path) {
  * @param int $target_height    Targeted height
  * @return array                Calculated new width and height
  */
-function api_resize_image($image, $target_width, $target_height) {
+function api_resize_image($image, $target_width, $target_height)
+{
     $image_properties = api_getimagesize($image);
-    return api_calculate_image_size($image_properties['width'], $image_properties['height'], $target_width, $target_height);
+
+    return api_calculate_image_size(
+        $image_properties['width'],
+        $image_properties['height'],
+        $target_width,
+        $target_height
+    );
 }
 
 /**
@@ -5891,7 +5914,12 @@ function api_resize_image($image, $target_width, $target_height) {
  * @param int $target_height    Targeted height
  * @return array                Calculated new width and height
  */
-function api_calculate_image_size($image_width, $image_height, $target_width, $target_height) {
+function api_calculate_image_size(
+    $image_width,
+    $image_height,
+    $target_width,
+    $target_height
+) {
     // Only maths is here.
     $result = array('width' => $image_width, 'height' => $image_height);
     if ($image_width <= 0 || $image_height <= 0) {
@@ -5904,12 +5932,10 @@ function api_calculate_image_size($image_width, $image_height, $target_width, $t
     if ($delta_width > $delta_height) {
         $result['width'] = ceil($image_width * $resize_factor_height);
         $result['height'] = ceil($image_height * $resize_factor_height);
-    }
-    elseif ($delta_width < $delta_height) {
+    } elseif ($delta_width < $delta_height) {
         $result['width'] = ceil($image_width * $resize_factor_width);
         $result['height'] = ceil($image_height * $resize_factor_width);
-    }
-    else {
+    } else {
         $result['width'] = ceil($target_width);
         $result['height'] = ceil($target_height);
     }
@@ -5923,7 +5949,8 @@ function api_calculate_image_size($image_width, $image_height, $target_width, $t
  * @param string The tool name to filter
  * @return mixed Filtered string or array
  */
-function api_get_tools_lists($my_tool = null) {
+function api_get_tools_lists($my_tool = null)
+{
     $tools_list = array(
         TOOL_DOCUMENT,
         TOOL_THUMBNAIL,
@@ -7488,7 +7515,10 @@ function api_can_login_as($loginAsUserId, $userId = null)
     $isDrh = function() use($loginAsUserId) {
         if (api_is_drh()) {
             if (api_drh_can_access_all_session_content()) {
-                $users = SessionManager::getAllUsersFromCoursesFromAllSessionFromStatus('drh_all', api_get_user_id());
+                $users = SessionManager::getAllUsersFromCoursesFromAllSessionFromStatus(
+                    'drh_all',
+                    api_get_user_id()
+                );
                 $userList = array();
                 if (is_array($users)) {
                     foreach ($users as $user) {
@@ -7499,7 +7529,9 @@ function api_can_login_as($loginAsUserId, $userId = null)
                     return true;
                 }
             } else {
-                if (api_is_drh() && UserManager::is_user_followed_by_drh($loginAsUserId, api_get_user_id())) {
+                if (api_is_drh() &&
+                    UserManager::is_user_followed_by_drh($loginAsUserId, api_get_user_id())
+                ) {
                     return true;
                 }
             }

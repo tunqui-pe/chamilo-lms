@@ -135,26 +135,25 @@ if (!$is_allowedToEdit) {
     }
 }
 
-if (isset($_SESSION['gradebook'])) {
-    $gradebook = Security::remove_XSS($_SESSION['gradebook']);
-}
-
 $allowRecordAudio = api_get_setting('enable_record_audio') === 'true';
 $allowTeacherCommentAudio = api_get_configuration_value('allow_teacher_comment_audio') === true;
 
-if (!empty($gradebook) && $gradebook == 'view') {
+if (api_is_in_gradebook()) {
     $interbreadcrumb[] = array(
-        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'url' => Category::getUrl(),
         'name' => get_lang('ToolGradebook')
     );
 }
 
-$interbreadcrumb[] = array("url" => "exercise.php?".api_get_cidreq(), "name" => get_lang('Exercises'));
+$interbreadcrumb[] = array(
+    "url" => "exercise.php?".api_get_cidreq(),
+    'name' => get_lang('Exercises')
+);
 $interbreadcrumb[] = array(
     "url" => "overview.php?exerciseId=".$exercise_id.'&'.api_get_cidreq(),
     "name" => $objExercise->selectTitle(true)
 );
-$interbreadcrumb[] = array("url" => "#", "name" => get_lang('Result'));
+$interbreadcrumb[] = array('url' => '#', 'name' => get_lang('Result'));
 
 $this_section = SECTION_COURSES;
 
@@ -169,6 +168,8 @@ if ($allowRecordAudio && $allowTeacherCommentAudio) {
     $htmlHeadXtra[] = api_get_js('record_audio/record_audio.js');
 }
 
+$scoreJsCode = ExerciseLib::getJsCode();
+
 if ($origin != 'learnpath') {
     Display::display_header('');
 } else {
@@ -181,6 +182,8 @@ if ($origin != 'learnpath') {
 }
 ?>
     <script>
+        <?php echo $scoreJsCode; ?>
+
         var maxEditors = <?php echo intval($maxEditors); ?>;
         function showfck(sid, marksid) {
             $('#' + sid).toggleClass('hidden');
@@ -237,7 +240,11 @@ if (!empty($track_exercise_info)) {
             $show_only_total_score = true;
             if ($origin != 'learnpath') {
                 if ($currentUserId == $student_id) {
-                    echo Display::return_message(get_lang('ThankYouForPassingTheTest'), 'warning', false);
+                    echo Display::return_message(
+                        get_lang('ThankYouForPassingTheTest'),
+                        'warning',
+                        false
+                    );
                 }
             }
         } elseif ($result_disabled == RESULT_DISABLE_SHOW_SCORE_ATTEMPT_SHOW_ANSWERS_LAST_ATTEMPT) {
@@ -289,7 +296,6 @@ if ($show_results || $show_only_total_score || $showTotalScoreAndUserChoicesInLa
 }
 
 $i = $totalScore = $totalWeighting = 0;
-
 if ($debug > 0) {
     error_log("ExerciseResult: ".print_r($exerciseResult, 1));
     error_log("QuestionList: ".print_r($questionList, 1));
@@ -792,7 +798,7 @@ foreach ($questionList as $questionId) {
                 $formMark->display();*/
                 echo '<form name="marksform_'.$questionId.'" method="post" action="">';
                 echo get_lang("AssignMarks");
-                echo "&nbsp;<select class='selectpicker' name='marks' id='marks'>";
+                echo "&nbsp;<select name='marks' id='select_marks_".$questionId."' class='selectpicker exercise_mark_select'>";
                 $model = ExerciseLib::getCourseScoreModel();
                 if (empty($model)) {
                     for ($i = 0; $i <= $questionWeighting; $i++) {
@@ -800,9 +806,9 @@ foreach ($questionList as $questionId) {
                     }
                 } else {
                     foreach ($model['score_list'] as $item) {
-                        $i = api_number_format($item['score_to_qualify']/100 * $questionWeighting, 2);
+                        $i = api_number_format($item['score_to_qualify'] / 100 * $questionWeighting, 2);
                         $model = ExerciseLib::getModelStyle($item, $i);
-                        echo '<option value="'.$i.'" '.(($i == $questionScore) ? "selected='selected'" : '').'>'.$model.'</option>';
+                        echo '<option class = "'.$item['css_class'].'" value="'.$i.'" '.(($i == $questionScore) ? "selected='selected'" : '').'>'.$model.'</option>';
                     }
                 }
                 echo '</select>';
@@ -817,7 +823,7 @@ foreach ($questionList as $questionId) {
                 echo '
                     <div id="'.$marksname.'" class="hidden">
                         <form name="marksform_'.$questionId.'" method="post" action="">
-                            <select name="marks" id="marks" style="display:none;">
+                            <select name="marks" id="select_marks_'.$questionId.'" style="display:none;" class="exercise_mark_select">
                                 <option value="'.$questionScore.'" >'.$questionScore.'</option>
                             </select>
                         </form>
@@ -946,7 +952,10 @@ if (!empty($category_list) && ($show_results || $show_only_total_score || $showT
         'score' => $my_total_score_temp,
         'total' => $totalWeighting
     );
-    echo TestCategory::get_stats_table_by_attempt($objExercise->id, $category_list);
+    echo TestCategory::get_stats_table_by_attempt(
+        $objExercise->id,
+        $category_list
+    );
 }
 
 echo $total_score_text;
@@ -988,7 +997,13 @@ if ($isFeedbackAllowed && $origin != 'learnpath' && $origin != 'student_progress
             'exeid' => $id
         ]);
 
-        $emailForm = new FormValidator('myform', 'post', $formUrl, '', ['id' => 'myform']);
+        $emailForm = new FormValidator(
+            'myform',
+            'post',
+            $formUrl,
+            '',
+            ['id' => 'myform']
+        );
     }
 
     $emailForm->addCheckBox(
@@ -1052,7 +1067,7 @@ if ($origin != 'learnpath') {
     Display::display_footer();
 } else {
     if (!isset($_GET['fb_type'])) {
-        $lp_mode = $_SESSION['lp_mode'];
+        $lp_mode = Session::read('lp_mode');
         $url = '../lp/lp_controller.php?'.api_get_cidreq().'&';
         $url .= http_build_url([
             'action' => 'view',
@@ -1069,7 +1084,10 @@ if ($origin != 'learnpath') {
         echo "<script>window.parent.API.void_save_asset('$totalScore', '$totalWeighting', 0, 'completed'); </script>";
         echo '</body></html>';
     } else {
-        echo Display::return_message(get_lang('ExerciseFinished').' '.get_lang('ToContinueUseMenu'), 'normal');
+        echo Display::return_message(
+            get_lang('ExerciseFinished').' '.get_lang('ToContinueUseMenu'),
+            'normal'
+        );
         echo '<br />';
     }
 }

@@ -42,8 +42,6 @@ if (isset($_GET['lp_item_id'])) {
 }
 
 $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : 'fullpage';
-
-$_SESSION['whereami'] = 'lp/build';
 if (isset($_SESSION['oLP']) && isset($_GET['id'])) {
     $_SESSION['oLP'] -> current = intval($_GET['id']);
 }
@@ -56,8 +54,8 @@ $tbl_lp = Database::get_course_table(TABLE_LP_MAIN);
 $tbl_lp_item = Database::get_course_table(TABLE_LP_ITEM);
 $tbl_lp_view = Database::get_course_table(TABLE_LP_VIEW);
 
-$isStudentView  = (empty($_REQUEST['isStudentView']) ? 0 : (int) $_REQUEST['isStudentView']);
-$learnpath_id   = (int) $_REQUEST['lp_id'];
+$isStudentView = (empty($_REQUEST['isStudentView']) ? 0 : (int) $_REQUEST['isStudentView']);
+$learnpath_id = (int) $_REQUEST['lp_id'];
 
 if ((!$is_allowed_to_edit) || $isStudentView) {
     error_log('New LP - User not authorized in lp_view_item.php');
