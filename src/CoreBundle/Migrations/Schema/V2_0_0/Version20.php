@@ -461,6 +461,13 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
                 'ALTER TABLE c_quiz ADD COLUMN notifications VARCHAR(255) NULL DEFAULT NULL;'
             );
         }
+
+        $table = $schema->getTable('c_lp_item_view');
+        if ($table->hasIndex('idx_c_lp_item_view_cid_id_view_count') == false) {
+            $queries->addQuery(
+                'CREATE INDEX idx_c_lp_item_view_cid_id_view_count ON c_lp_item_view (c_id, id, view_count)'
+            );
+        }
     }
 
     /**
