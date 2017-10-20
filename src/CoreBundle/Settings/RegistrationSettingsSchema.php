@@ -99,6 +99,7 @@ class RegistrationSettingsSchema extends AbstractSettingsSchema
                     'choices' => array(
                         'true' => 'Yes',
                         'false' => 'No',
+                        'confirmation' => 'MailConfirmation',
                         'approval' => 'Approval',
                     ),
                 )
