@@ -162,9 +162,9 @@ $locale = api_get_language_isocode();
 $htmlHeadXtra[] = api_get_js('js/jscroll/jquery.jscroll.js');
 // Add Jquery Time ago plugin
 $htmlHeadXtra[] = api_get_asset('jquery-timeago/jquery.timeago.js');
-$timeAgoLocaleDir = $javascriptDir.'jquery-timeago/locales/jquery.timeago.'.$locale.'.js';
+$timeAgoLocaleDir = api_get_asset('jquery-timeago/locales/jquery.timeago.'.$locale.'.js');
 if (file_exists($timeAgoLocaleDir)) {
-    $htmlHeadXtra[] = api_get_js('jquery-timeago/locales/jquery.timeago.'.$locale.'.js');
+    $htmlHeadXtra[] = api_get_asset('jquery-timeago/locales/jquery.timeago.'.$locale.'.js');
 }
 
 $htmlHeadXtra[] = '<script>
