@@ -160,14 +160,14 @@ class User extends BaseUser implements ThemeUser
      *
      * @ORM\Column(name="lastname", type="string", length=60, nullable=true, unique=false)
      */
-    protected $lastname;
+    //protected $lastname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=60, nullable=true, unique=false)
      */
-    protected $firstname;
+    //protected $firstname;
 
     /**
      * @var string
@@ -202,7 +202,7 @@ class User extends BaseUser implements ThemeUser
      *
      * @ORM\Column(name="phone", type="string", length=30, nullable=true, unique=false)
      */
-    protected $phone;
+    //protected $phone;
 
     /**
      * @var string
@@ -374,13 +374,13 @@ class User extends BaseUser implements ThemeUser
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime", nullable=true, unique=false)
      */
-    protected $createdAt;
+    //protected $createdAt;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="updated_at", type="datetime", nullable=true, unique=false)
      */
-    protected $updatedAt;
+    //protected $updatedAt;
 
     /**
      * Random string sent to the user email address in order to verify it
