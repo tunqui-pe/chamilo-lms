@@ -75,7 +75,9 @@ class InstallationStep extends AbstractStep
                     )
                 );
             case 'assetic':
-                return $this->handleAjaxAction('assetic:dump');
+                // Disabled in symfony 4
+                //return $this->handleAjaxAction('assetic:dump');
+                return new JsonResponse(array('result' => true));
             case 'translation':
                 //return $this->handleAjaxAction('oro:translation:dump');
             case 'finish':
