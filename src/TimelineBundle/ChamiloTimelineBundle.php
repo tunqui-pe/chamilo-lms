@@ -27,6 +27,6 @@ class ChamiloTimelineBundle extends Bundle
      */
     public function getParent()
     {
-        return 'SonataTimelineBundle';
+        //return 'SonataTimelineBundle';
     }
 }
