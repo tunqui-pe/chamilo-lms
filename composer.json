@@ -43,19 +43,19 @@
         },
         {
            "type": "vcs",
-            "url": "git@github.com:jmontoyaa/MigrationBundle.git"
+            "url": "https://github.com/jmontoyaa/MigrationBundle.git"
         },
         {
             "type": "vcs",
-            "url": "git@github.com:jmontoyaa/PHPWord.git"
+            "url": "https://github.com/jmontoyaa/PHPWord.git"
         },
         {
            "type": "vcs",
-                "url": "git@github.com:jmontoyaa/SyliusFlowBundle.git"
+            "url": "https://github.com/jmontoyaa/SyliusFlowBundle.git"
         },
         {
            "type": "vcs",
-            "url": "git@github.com:chamilo/SyliusSettingsBundle.git"
+            "url": "https://github.com/chamilo/SyliusSettingsBundle.git"
         },
         {
             "type": "vcs",
