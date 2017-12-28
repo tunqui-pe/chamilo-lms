@@ -288,8 +288,6 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
         ");
         $queries->addQuery("ALTER TABLE personal_agenda DROP hotspot_course_code");*/
 
-
-
         // Update settings variable name
         $settings = [
             'Institution' => 'institution',
@@ -467,6 +465,11 @@ class Version20 extends AbstractMigrationChamilo implements OrderedMigrationInte
             $queries->addQuery(
                 'CREATE INDEX idx_c_lp_item_view_cid_id_view_count ON c_lp_item_view (c_id, id, view_count)'
             );
+        }
+
+        $table = $schema->getTable('session');
+        if (!$table->hasColumn('position')) {
+            $queries->addQuery('ALTER TABLE session ADD COLUMN position INT DEFAULT 0 ');
         }
     }
 

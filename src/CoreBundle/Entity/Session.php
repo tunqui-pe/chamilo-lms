@@ -160,6 +160,13 @@ class Session
     private $coachAccessEndDate;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=false)
+     */
+    private $position;
+
+    /**
      * @ORM\OneToMany(targetEntity="Chamilo\CourseBundle\Entity\CItemProperty", mappedBy="session")
      **/
     //private $items;
@@ -1221,5 +1228,23 @@ class Session
     {
         $url->setSession($this);
         $this->urls[] = $url;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return Session
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        return $this;
     }
 }
