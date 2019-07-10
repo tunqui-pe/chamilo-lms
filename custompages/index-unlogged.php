@@ -47,7 +47,7 @@ $rootWeb = api_get_path('WEB_PATH');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Acceso al aula virtual</title>
 
-
+    <link rel="icon" type="image/png" href="<?php echo $rootWeb; ?>custompages/assets/img/favicon.png" />
     <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/flag-icon-css/css/flag-icon.min.css" />
 
