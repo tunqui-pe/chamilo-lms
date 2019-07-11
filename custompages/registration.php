@@ -57,7 +57,7 @@ $rootWeb = api_get_path('WEB_PATH');
                 <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo_educacion_chile.svg" width="300px"/>
             </a>
         </div>
-        <div class="panel panel-default form-lost-password">
+        <div class="panel panel-default form-register">
             <div class="panel-body">
                 <div class="message">
                     <?php
