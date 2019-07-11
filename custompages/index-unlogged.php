@@ -67,7 +67,9 @@ $rootWeb = api_get_path('WEB_PATH');
 <body class="text-center">
     <div class="container">
         <div class="logo">
-            <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo_educacion_chile.svg" width="300px"/>
+            <a href="<?php echo $rootWeb; ?>">
+                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo_educacion_chile.svg" width="300px"/>
+            </a>
         </div>
         <div class="panel panel-default form-signin">
             <div class="panel-body">

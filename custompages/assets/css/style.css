@@ -19,9 +19,9 @@ body {
 }
 .section-title{
     font-size: 25px;
-    font-weight: 700;
+    font-weight: 900;
     line-height: 1em;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     padding: 0;
     margin: 0;
     color: #4e4957;
@@ -62,12 +62,12 @@ body {
 }
 .form-signin .form-control{
     border-radius: 0;
-    text-transform: uppercase;
-    font-size: 13px;
+    font-size: 16px;
 }
 .panel.panel-default{
     border: none;
     border-radius: 0;
+    padding: 2rem;
 }
 .btn-primary{
     background: #808de8;
@@ -95,6 +95,16 @@ body {
 }
 .last-password{
     margin-bottom: 2rem;
+}
+.form-lost-password legend{
+    display: none;
+}
+.form-lost-password #lost_password_submit{
+    display: inline-block;
+    width: 100%;
+}
+#registration .col-sm-offset-2.col-sm-10{
+    text-align: left;
 }
 /* Large desktop */
 @media (min-width: 1200px) {
