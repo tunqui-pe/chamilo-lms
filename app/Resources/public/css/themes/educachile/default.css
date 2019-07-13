@@ -227,6 +227,16 @@ a:focus {
 .grid-courses .items .cribbon{
   top: 32px;
 }
+.big_icon img{
+  padding: 10px;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+.big_icon img:hover {
+  box-shadow: none;
+  border: 1px solid #cdcdcd;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
