@@ -229,3 +229,13 @@ table.lp_overview img {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
+.navbar-nav .navigation{
+	display: inline-block;
+}
+.navbar-nav .navigation a{
+	display: inline-block;
+}
+.icon-toolbar .fa{
+	background-color: #E8BB70;
+	color: #4E4A58;
+}

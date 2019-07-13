@@ -8,14 +8,36 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ _p.web }}">
                 <img width="140px" src="{{ _p.web_css_theme }}images/educacion_chile.svg" />
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-
             {% if _u.logged == 1 and not user_in_anon_survey %}
                 <ul class="nav navbar-nav navbar-right">
+                    <li id="btn-menu-float" class="navigation">
+                        {% if show_left_column == 1 %}
+                            <a href="#" title = "{{ 'Expand'|get_lang }}" id="lp-view-expand-toggle"
+                               class="icon-toolbar expand" role="button">
+                                {% if lp_mode == 'embedframe' %}
+                                    <span class="fa fa-compress" aria-hidden="true"></span>
+                                    <span class="sr-only">{{ 'Expand'|get_lang }}</span>
+                                {% else %}
+                                    <span class="fa fa-expand" aria-hidden="true"></span>
+                                    <span class="sr-only">{{ 'Expand'|get_lang }}</span>
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                        <a id="home-course"
+                           title = "{{ 'Home'|get_lang }}"
+                           href="{{ button_home_url }}"
+                           class="icon-toolbar" target="_self"
+                           onclick="javascript: window.parent.API.save_asset();">
+                            <em class="fa fa-home"></em> <span class="hidden-xs hidden-sm"></span>
+                        </a>
+                        {{ navigation_bar }}
+
+                    </li>
                     {% if _u.status != 6 %}
                         <li class="dropdown avatar-user">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -251,31 +273,6 @@
                         </li>
                     </ul>
                 </div>
-                <nav id="btn-menu-float" class="circular-menu">
-                    <div class="circle">
-                        {% if show_left_column == 1 %}
-                            <a href="#" title = "{{ 'Expand'|get_lang }}" id="lp-view-expand-toggle"
-                               class="icon-toolbar expand" role="button">
-                                {% if lp_mode == 'embedframe' %}
-                                    <span class="fa fa-compress" aria-hidden="true"></span>
-                                    <span class="sr-only">{{ 'Expand'|get_lang }}</span>
-                                {% else %}
-                                    <span class="fa fa-expand" aria-hidden="true"></span>
-                                    <span class="sr-only">{{ 'Expand'|get_lang }}</span>
-                                {% endif %}
-                            </a>
-                        {% endif %}
-                        <a id="home-course"
-                           title = "{{ 'Home'|get_lang }}"
-                           href="{{ button_home_url }}"
-                           class="icon-toolbar" target="_self"
-                           onclick="javascript: window.parent.API.save_asset();">
-                            <em class="fa fa-home"></em> <span class="hidden-xs hidden-sm"></span>
-                        </a>
-                        {{ navigation_bar }}
-                    </div>
-                    <a class="menu-button fa fa-bars icons" href="#"></a>
-                </nav>
 
                 <div id="tab-iframe" class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="lp-view-content">
@@ -313,9 +310,9 @@
 </div>
 
 <script>
-    document.querySelector('.menu-button').onclick = function(e) {
+    /*document.querySelector('.menu-button').onclick = function(e) {
         e.preventDefault(); document.querySelector('.circle').classList.toggle('open');
-    }
+    }*/
     var LPViewUtils = {
         setHeightLPToc: function () {
             var scormInfoHeight = $('#scorm-info').outerHeight(true);
