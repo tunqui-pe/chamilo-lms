@@ -179,12 +179,15 @@ a:focus {
   margin-right: 1rem;
 }
 .page-header{
-  border-bottom: 1px solid #03A9F4;
+  border-bottom: 1px solid #808DE8;
+  padding-bottom: 0;
 }
 .page-header h4{
   color: #333273;
   text-transform: uppercase;
   font-weight: bold;
+  background: #f4ae05;
+  display: inline;
 }
 #carousel-announcement .carousel-indicators .active {
   background: #3F51B5;
@@ -217,9 +220,12 @@ a:focus {
   position: absolute;
   right: 0;
   top: 7%;
-  border: 1px solid #88bfc5;
+  border: 1px solid #808de8;
   border-radius: 20px;
-  background: #effdff;
+  background: #808de8;
+}
+.section-notifications a{
+  color: #FFF;
 }
 .grid-courses .items .category {
   top:0;
