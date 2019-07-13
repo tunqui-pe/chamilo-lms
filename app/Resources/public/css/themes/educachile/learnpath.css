@@ -208,3 +208,24 @@ table.lp_overview tr:hover {
 table.lp_overview img {
 	margin-left:3px;
 }
+
+.navbar-learn{
+	background-color: #8092ed;
+	border-color: #8092ed;
+	margin-bottom: 0;
+	border-radius: 0;
+}
+.navbar-learn .navbar-brand{
+	display: block;
+}
+.navbar-inverse.navbar-learn .navbar-nav > .open > a:hover{
+	color: #fff;
+	background-color: #636ef9;
+}
+.navbar-inverse.navbar-learn .navbar-nav > .open > a{
+	background-color: #e8bb70;
+}
+.navbar-learn .navbar-nav li a {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
