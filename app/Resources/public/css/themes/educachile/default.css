@@ -29,13 +29,17 @@ a:focus {
 }
 .navbar .navbar-brand{
   display: block;
-  padding: 0;
+  padding: .6rem 0;
 }
 .navbar-nav.navbar-right{
   margin: 0;
 }
 .navbar-nav > li{
   margin-bottom: 0;
+}
+.navbar-nav li a{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 .navbar-collapse{
   overflow: hidden !important;
@@ -113,7 +117,7 @@ a:focus {
   padding: 8px 15px;
   margin-bottom: 21px;
   list-style: outside none none;
-  background-color: #ECF0F1;
+  background-color: #DDDDF2;
 }
 .breadcrumb > .active{
   color: #95a5a6;
@@ -154,10 +158,18 @@ a:focus {
   font-weight: bold;
   color: #333273;
 }
+.sidebar .panel-default .panel-heading{
+  background: #FFF;
+}
 .panel-collapse .list-group{
   list-style: none;
 }
-.alert-user .title-alert{
+.alert-user{
+  background-color: #808de8;
+  color: #FFFFFF;
+  border-color: #808de8;
+}
+.alert-user h5{
   font-weight: bold;
   text-transform: uppercase;
   color: #673AB7;
