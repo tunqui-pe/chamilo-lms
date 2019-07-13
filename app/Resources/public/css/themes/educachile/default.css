@@ -257,4 +257,24 @@ a:focus {
     top: 2%;
     z-index: 99;
   }
+  .navbar .navbar-brand {
+    display: block;
+    padding: 0;
+  }
+  .navbar-default{
+    padding: 0 0 1rem 0;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: #6582FE;
+    background: #6582fe;
+  }
+  .section-notifications{
+    top: 4%;
+  }
+  .breadcrumb{
+    display: none;
+  }
+  #view_as_link{
+    display: none;
+  }
 }
