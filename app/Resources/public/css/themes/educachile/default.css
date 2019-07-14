@@ -243,6 +243,10 @@ a:focus {
   box-shadow: none;
   border: 1px solid #cdcdcd;
 }
+.avatar-user .dropdown-toggle {
+  padding-top: 1.7rem;
+  padding-bottom: 1.7rem;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
