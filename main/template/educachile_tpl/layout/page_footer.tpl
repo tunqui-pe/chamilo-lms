@@ -8,7 +8,14 @@
     <section class="sub-footer">
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                {% if session_teachers is not null %}
+                <strong>Soporte técnico:</strong>
+                <a href="mailto:online@educacionchile.cl" target="_blank">online@educacionchile.cl</a>
+                {#{% if administrator_name is not null %}
+                    <div class="administrator-name">
+                        {{ administrator_name }}
+                    </div>
+                {% endif %}#}
+                {#{% if session_teachers is not null %}
                 <div class="session-teachers">
                     {{ session_teachers }}
                 </div>
@@ -17,7 +24,7 @@
                 <div class="teachers">
                     {{ teachers }}
                 </div>
-                {% endif %}
+                {% endif %}#}
                 {% if plugin_footer_left is not null %}
                 <div id="plugin_footer_left">
                     {{ plugin_footer_left }}
@@ -32,18 +39,15 @@
                 {% endif %}
             </div>
             <div class="col-xs-12 col-md-4 text-right">
-                {% if administrator_name is not null %}
-                    <div class="administrator-name">
-                        {{ administrator_name }}
-                    </div>
-                {% endif %}
-                {% if _s.software_name is not empty %}
+                Aula Virtual exclusiva para:
+                <img width="100px" src="{{ _p.web_css_theme }}images/educacion_chile.svg" />
+                {#{% if _s.software_name is not empty %}
                     <div class="software-name">
                         <a href="{{_p.web}}" target="_blank">
                             {{ "PoweredByX" |get_lang | format(_s.software_name) }}
                         </a>&copy; {{ "now"|date("Y") }}
                     </div>
-                {% endif %}
+                {% endif %}#}
                 {% if plugin_footer_right is not null %}
                     <div id="plugin_footer_right">
                         {{ plugin_footer_right }}
