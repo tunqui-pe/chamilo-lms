@@ -219,10 +219,11 @@ a:focus {
 .section-notifications {
   position: absolute;
   right: 0;
-  top: 7%;
-  border: 1px solid #808de8;
+  top: 20%;
+  border: 1px solid #FF9800;
   border-radius: 20px;
-  background: #808de8;
+  background: #f4ae0e;
+  z-index: 20;
 }
 .section-notifications a{
   color: #FFF;
