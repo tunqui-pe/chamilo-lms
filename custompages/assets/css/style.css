@@ -136,12 +136,18 @@ a{
 }
 /* Large desktop */
 @media (min-width: 1200px) {
-
+    .form-register{
+        width: 735px;
+        margin: auto;
+    }
 }
  
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-
+    .form-register{
+        width: 735px;
+        margin: auto;
+    }
 }
  
 /* Landscape phone to portrait tablet */
