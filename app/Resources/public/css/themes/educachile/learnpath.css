@@ -208,7 +208,16 @@ table.lp_overview tr:hover {
 table.lp_overview img {
 	margin-left:3px;
 }
-
+.navbar-learn .btn-success{
+	background-color: #E8BB70;
+	color: #4E4A58;
+	border-color: #E8BB70;
+	border-radius: 0;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-top: 1rem;
+	margin-left: 1rem;
+}
 .navbar-learn{
 	background-color: #8092ed;
 	border-color: #8092ed;

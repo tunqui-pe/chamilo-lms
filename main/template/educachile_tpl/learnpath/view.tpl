@@ -11,6 +11,10 @@
             <a class="navbar-brand" href="{{ _p.web }}">
                 <img width="140px" src="{{ _p.web_css_theme }}images/educacion_chile.svg" />
             </a>
+
+            <a href="{{ button_home_url }}" class="btn btn-success">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'GoBack'|get_lang }}
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             {% if _u.logged == 1 and not user_in_anon_survey %}
