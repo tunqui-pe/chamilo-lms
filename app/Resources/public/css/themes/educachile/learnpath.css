@@ -218,6 +218,11 @@ table.lp_overview img {
 	margin-top: 1rem;
 	margin-left: 1rem;
 }
+.navbar-learn .btn-success:active:focus{
+	background-color: #be925f;
+	color: #4E4A58;
+	border-color: #E8BB70;
+}
 .navbar-learn{
 	background-color: #8092ed;
 	border-color: #8092ed;
