@@ -124,6 +124,16 @@ a{
 #lost_password .col-sm-offset-2.col-sm-10{
     text-align: left;
 }
+.form-register{
+    width: 735px;
+    margin: auto;
+}
+.form-register .form-control{
+    border-radius: 0;
+}
+.form-register .form-group label{
+    font-weight: normal;
+}
 /* Large desktop */
 @media (min-width: 1200px) {
 
@@ -136,7 +146,9 @@ a{
  
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-
+    .form-register{
+        width: 100%;
+    }
 }
  
 /* Landscape phones and down */
@@ -147,10 +159,17 @@ a{
     }
     .section-title-container{
         width: 100%;
-        box-shadow: none;
+        box-shadow: 0 -50px 0 0 #f2b66c inset;
     }
+    /*
     .section-title{
         border-bottom: 3px solid #f2b66c;
         padding-bottom: 1rem;
+    }*/
+    .form-register{
+        width: 100%;
+    }
+    .form-register .form-group{
+        text-align: left;
     }
 }

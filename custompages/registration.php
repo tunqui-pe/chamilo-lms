@@ -73,7 +73,7 @@ $rootWeb = api_get_path('WEB_PATH');
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title-container">
-                            <h2 class="section-title"><?php echo custompages_get_lang('Registro de nuevo usuario'); ?></h2>
+                            <h2 class="section-title">Registro de nuevo usuario</h2>
                         </div>
                         <?php
                             $content['form']->display();
