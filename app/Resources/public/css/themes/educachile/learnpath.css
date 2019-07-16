@@ -214,6 +214,7 @@ table.lp_overview img {
 	border-color: #8092ed;
 	margin-bottom: 0;
 	border-radius: 0;
+	min-height: 6vh;
 }
 .navbar-learn .navbar-brand{
 	display: block;
@@ -238,4 +239,7 @@ table.lp_overview img {
 .icon-toolbar .fa{
 	background-color: #E8BB70;
 	color: #4E4A58;
+}
+#learning_path_main{
+	height: 94vh;
 }
