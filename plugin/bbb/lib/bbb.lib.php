@@ -143,8 +143,8 @@ class bbb
     public function forceCIdReq($courseCode, $sessionId = 0, $groupId = 0)
     {
         $this->courseCode = $courseCode;
-        $this->sessionId = intval($sessionId);
-        $this->groupId = intval($groupId);
+        $this->sessionId = (int) $sessionId;
+        $this->groupId = (int) $groupId;
     }
 
     /**
@@ -265,39 +265,40 @@ class bbb
         if ($max < 0) {
             $max = 0;
         }
-        $this->maxUsersLimit = intval($max);
+        $this->maxUsersLimit = (int) $max;
     }
 
     /**
      * See this file in you BBB to set up default values
-     * @param   array $params Array of parameters that will be completed if not containing all expected variables
-
-    /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties
      *
-    More record information:
-    http://code.google.com/p/bigbluebutton/wiki/RecordPlaybackSpecification
-
-    # Default maximum number of users a meeting can have.
-    # Doesn't get enforced yet but is the default value when the create
-    # API doesn't pass a value.
-    defaultMaxUsers=20
-
-    # Default duration of the meeting in minutes.
-    # Current default is 0 (meeting doesn't end).
-    defaultMeetingDuration=0
-
-    # Remove the meeting from memory when the end API is called.
-    # This allows 3rd-party apps to recycle the meeting right-away
-    # instead of waiting for the meeting to expire (see below).
-    removeMeetingWhenEnded=false
-
-    # The number of minutes before the system removes the meeting from memory.
-    defaultMeetingExpireDuration=1
-
-    # The number of minutes the system waits when a meeting is created and when
-    # a user joins. If after this period, a user hasn't joined, the meeting is
-    # removed from memory.
-    defaultMeetingCreateJoinDuration=5
+     * @param array $params Array of parameters that will be completed if not containing all expected variables
+     *
+     * /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties
+     *
+     * More record information:
+     * http://code.google.com/p/bigbluebutton/wiki/RecordPlaybackSpecification
+     *
+     * Default maximum number of users a meeting can have.
+     * Doesn't get enforced yet but is the default value when the create
+     * API doesn't pass a value.
+     * defaultMaxUsers=20
+     *
+     * Default duration of the meeting in minutes.
+     * Current default is 0 (meeting doesn't end).
+     * defaultMeetingDuration=0
+     *
+     * Remove the meeting from memory when the end API is called.
+     * This allows 3rd-party apps to recycle the meeting right-away
+     * instead of waiting for the meeting to expire (see below).
+     * removeMeetingWhenEnded=false
+     *
+     * The number of minutes before the system removes the meeting from memory.
+     * defaultMeetingExpireDuration=1
+     *
+     * The number of minutes the system waits when a meeting is created and when
+     * a user joins. If after this period, a user hasn't joined, the meeting is
+     * removed from memory.
+     * defaultMeetingCreateJoinDuration=5
      *
      * @return mixed
      */
@@ -331,11 +332,6 @@ class bbb
         // Each simultaneous conference room needs to have a different
         // voice_bridge composed of a 5 digits number, so generating a random one
         $params['voice_bridge'] = rand(10000, 99999);
-
-        if ($this->debug) {
-            error_log("enter create_meeting ".print_r($params, 1));
-        }
-
         $params['created_at'] = api_get_utc_datetime();
         $params['access_url'] = $this->accessUrl;
 
@@ -350,14 +346,10 @@ class bbb
         $id = Database::insert($this->table, $params);
 
         if ($id) {
-            if ($this->debug) {
-                error_log("create_meeting: $id ");
-            }
-
             $meetingName = isset($params['meeting_name']) ? $params['meeting_name'] : $this->getCurrentVideoConferenceName();
             $welcomeMessage = isset($params['welcome_msg']) ? $params['welcome_msg'] : null;
             $record = isset($params['record']) && $params['record'] ? 'true' : 'false';
-            $duration = isset($params['duration']) ? intval($params['duration']) : 0;
+            //$duration = isset($params['duration']) ? intval($params['duration']) : 0;
             // This setting currently limits the maximum conference duration,
             // to avoid lingering sessions on the video-conference server #6261
             $duration = 300;
@@ -370,38 +362,31 @@ class bbb
                 'dialNumber' => '', // The main number to call into. Optional.
                 'voiceBridge' => $params['voice_bridge'], // PIN to join voice. Required.
                 'webVoice' => '', // Alphanumeric to join voice. Optional.
-                'logoutUrl' =>  $this->logoutUrl,
+                'logoutUrl' =>  $this->logoutUrl.'&action=logout&remote_id='.$params['remote_id'],
                 'maxParticipants' => $max, // Optional. -1 = unlimitted. Not supported in BBB. [number]
                 'record' => $record, // New. 'true' will tell BBB to record the meeting.
                 'duration' => $duration, // Default = 0 which means no set duration in minutes. [number]
-                //'meta_category' => '', 				// Use to pass additional info to BBB server. See API docs.
+                //'meta_category' => '',  // Use to pass additional info to BBB server. See API docs.
             );
-
-            if ($this->debug) {
-                error_log("create_meeting params: ".print_r($bbbParams, 1));
-            }
 
             $status = false;
             $meeting = null;
-
             while ($status === false) {
-                $result = $this->api->createMeetingWithXmlResponseArray(
-                    $bbbParams
-                );
+                $result = $this->api->createMeetingWithXmlResponseArray($bbbParams);
                 if (isset($result) && strval($result['returncode']) == 'SUCCESS') {
-                    if ($this->debug) {
-                        error_log(
-                            "create_meeting result: ".print_r($result, 1)
-                        );
+                    if ($this->plugin->get('allow_regenerate_recording') === 'true') {
+                        $internalId = Database::escape_string($result['internalMeetingID']);
+                        $sql = "UPDATE $this->table SET internal_meeting_id = '".$internalId."' 
+                                WHERE id = $id";
+                        Database::query($sql);
                     }
                     $meeting = $this->joinMeeting($meetingName, true);
 
                     return $meeting;
                 }
             }
-
-            return false;
         }
+
         return false;
     }
 
@@ -827,7 +812,7 @@ class bbb
                     $recordLink = Display::url(
                         $this->plugin->get_lang('ViewRecord'),
                         $record['playbackFormatUrl'],
-                        ['target' => '_blank']
+                        ['target' => '_blank', 'class' => 'btn btn-default']
                     );
                 } else {
                     $recordLink = $this->plugin->get_lang('NoRecording');
@@ -1115,12 +1100,12 @@ class bbb
     }
 
     /**
-     * @param int $id
-     * @param int $recordId
+     * @param int    $id
+     * @param string $recordId
      *
      * @return bool
      */
-    public function regenerateRecording($id, $recordId)
+    public function regenerateRecording($id, $recordId = '')
     {
         if ($this->plugin->get('allow_regenerate_recording') !== 'true') {
             return false;
@@ -1140,13 +1125,15 @@ class bbb
         // Check if there are recordings for this meeting
         $recordings = $this->api->getRecordings(['meetingId' => $meetingData['remote_id']]);
         if (!empty($recordings) && isset($recordings['messageKey']) && $recordings['messageKey'] === 'noRecordings') {
-            // we regenerate the meeting id
-            $pass = $this->getModMeetingPassword();
+            // Regenerate the meeting id
+            if (!empty($meetingData['internal_meeting_id'])) {
+                return $this->api->generateRecording(['recordId' => $meetingData['internal_meeting_id']]);
+            }
+            /*$pass = $this->getModMeetingPassword();
             $info = $this->getMeetingInfo(['meetingId' => $meetingData['remote_id'], 'password' => $pass]);
             if (!empty($info) && isset($info['internalMeetingID'])) {
-                return $this->api->generateRecording(['recordId' => $info['internalMeetingID']]);
-            }
-
+                return $this->api->generateRecording(['recordId' => $meetingData['internal_meeting_id']]);
+            }*/
             return false;
         } else {
             if (!empty($recordings['records'])) {
@@ -1535,6 +1522,25 @@ class bbb
     }
 
     /**
+     * Get the meeting info.
+     *
+     * @param int $id
+     *
+     * @return array
+     */
+    public function getMeetingByRemoteId($id)
+    {
+        $meetingData = Database::select(
+            '*',
+            'plugin_bbb_meeting',
+            array('where' => array('remote_id = ?' => $id)),
+            'first'
+        );
+
+        return $meetingData;
+    }
+
+    /**
      * @param int $meetingId
      * @return array
      */
@@ -1592,8 +1598,9 @@ class bbb
     /**
      * @param array $meetingInfo
      * @param array $recordInfo
-     * @param bool $isGlobal
-     * @param bool $isAdminReport
+     * @param bool  $isGlobal
+     * @param bool  $isAdminReport
+     *
      * @return array
      */
     private function getActionLinks(
@@ -1614,7 +1621,7 @@ class bbb
             );
 
         $links = [];
-        if ($this->plugin->get('allow_regenerate_recording') === 'true' && $meetingInfo['status'] == 1) {
+        if ($this->plugin->get('allow_regenerate_recording') === 'true' && $meetingInfo['record'] == 1) {
             if (!empty($recordInfo)) {
                 $links[] = Display::url(
                     Display::return_icon('reload.png', get_lang('RegenerateRecord')),
