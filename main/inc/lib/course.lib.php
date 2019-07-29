@@ -3750,7 +3750,7 @@ class CourseManager
             $sql .= " AND access_url_id = $current_url_id";
         }
         // Use user's classification for courses (if any).
-        $sql .= " ORDER BY course_rel_user.user_course_cat, course_rel_user.sort ASC";
+        $sql .= ' ORDER BY course_rel_user.user_course_cat, course_rel_user.sort ASC';
         $result = Database::query($sql);
 
         $showCustomIcon = api_get_setting('course_images_in_courses_list');
@@ -3759,6 +3759,9 @@ class CourseManager
         $courseList = [];
         while ($row = Database::fetch_array($result)) {
             $course_info = api_get_course_info_by_id($row['id']);
+            if (empty($course_info)) {
+                continue;
+            }
 
             if (isset($course_info['visibility']) &&
                 $course_info['visibility'] == COURSE_VISIBILITY_HIDDEN
@@ -3844,7 +3847,7 @@ class CourseManager
             }
 
             $params['status'] = $row['status'];
-            if (api_get_setting('display_coursecode_in_courselist') == 'true') {
+            if (api_get_setting('display_coursecode_in_courselist') === 'true') {
                 $params['code_course'] = '('.$course_info['visual_code'].') ';
             }
 
@@ -3866,6 +3869,7 @@ class CourseManager
             $params['category'] = $course_info['categoryName'];
             $params['category_code'] = $course_info['categoryCode'];
             $params['teachers'] = $teachers;
+            $params['real_id'] = $course_info['real_id'];
 
             if ($course_info['visibility'] != COURSE_VISIBILITY_CLOSED) {
                 $params['notifications'] = $showNotification;

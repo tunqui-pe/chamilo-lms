@@ -1,8 +1,10 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use Chamilo\CoreBundle\Entity\GradebookLink;
 use Chamilo\CoreBundle\Entity\TrackEHotspot;
 use ChamiloSession as Session;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * Class Exercise.
@@ -84,6 +86,7 @@ class Exercise
     public $export = false;
     public $autolaunch;
     public $exerciseCategoryId;
+    public $pageResultConfiguration;
 
     /**
      * Constructor of the class.
@@ -123,6 +126,7 @@ class Exercise
         $this->globalCategoryId = null;
         $this->notifications = [];
         $this->exerciseCategoryId = 0;
+        $this->pageResultConfiguration;
 
         if (!empty($courseId)) {
             $courseInfo = api_get_course_info_by_id($courseId);
@@ -199,6 +203,10 @@ class Exercise
             $this->notifications = [];
             if (!empty($object->notifications)) {
                 $this->notifications = explode(',', $object->notifications);
+            }
+
+            if (!empty($object->page_result_configuration)) {
+                $this->pageResultConfiguration = $object->page_result_configuration;
             }
 
             if (isset($object->show_previous_button)) {
@@ -416,7 +424,7 @@ class Exercise
      *
      * @return string html text : the text to display ay the end of the test
      */
-    public function selectTextWhenFinished()
+    public function getTextWhenFinished()
     {
         return $this->text_when_finished;
     }
@@ -1088,7 +1096,7 @@ class Exercise
     /**
      * @return int
      */
-    public function selectSaveCorrectAnswers()
+    public function getSaveCorrectAnswers()
     {
         return $this->saveCorrectAnswers;
     }
@@ -1257,7 +1265,7 @@ class Exercise
      */
     public function updateSaveCorrectAnswers($value)
     {
-        $this->saveCorrectAnswers = $value;
+        $this->saveCorrectAnswers = (int) $value;
     }
 
     /**
@@ -1514,7 +1522,7 @@ class Exercise
         $random_answers = $this->random_answers;
         $active = $this->active;
         $propagate_neg = (int) $this->propagate_neg;
-        $saveCorrectAnswers = isset($this->saveCorrectAnswers) && $this->saveCorrectAnswers ? 1 : 0;
+        $saveCorrectAnswers = isset($this->saveCorrectAnswers) ? (int) $this->saveCorrectAnswers : 0;
         $review_answers = isset($this->review_answers) && $this->review_answers ? 1 : 0;
         $randomByCat = (int) $this->randomByCat;
         $text_when_finished = $this->text_when_finished;
@@ -1588,6 +1596,11 @@ class Exercise
                     $notifications = implode(',', $notifications);
                     $paramsExtra['notifications'] = $notifications;
                 }
+
+                $pageConfig = api_get_configuration_value('allow_quiz_results_page_config');
+                if ($pageConfig && !empty($this->pageResultConfiguration)) {
+                    $paramsExtra['page_result_configuration'] = $this->pageResultConfiguration;
+                }
             }
 
             $params = array_merge($params, $paramsExtra);
@@ -1648,7 +1661,7 @@ class Exercise
                 'text_when_finished' => $text_when_finished,
                 'display_category_name' => $display_category_name,
                 'pass_percentage' => $pass_percentage,
-                'save_correct_answers' => (int) $saveCorrectAnswers,
+                'save_correct_answers' => $saveCorrectAnswers,
                 'propagate_neg' => $propagate_neg,
                 'hide_question_title' => $this->getHideQuestionTitle(),
             ];
@@ -1671,6 +1684,11 @@ class Exercise
                     $notifications = implode(',', $notifications);
                     $params['notifications'] = $notifications;
                 }
+            }
+
+            $pageConfig = api_get_configuration_value('allow_quiz_results_page_config');
+            if ($pageConfig && !empty($this->pageResultConfiguration)) {
+                $params['page_result_configuration'] = $this->pageResultConfiguration;
             }
 
             $this->id = $this->iId = Database::insert($TBL_EXERCISES, $params);
@@ -2085,6 +2103,31 @@ class Exercise
                 ]
             );
 
+            $pageConfig = api_get_configuration_value('allow_quiz_results_page_config');
+            if ($pageConfig) {
+                $group = [
+                    $form->createElement(
+                        'checkbox',
+                        'hide_expected_answer',
+                        null,
+                        get_lang('HideExpectedAnswer')
+                    ),
+                    $form->createElement(
+                        'checkbox',
+                        'hide_total_score',
+                        null,
+                        get_lang('HideTotalScore')
+                    ),
+                    $form->createElement(
+                        'checkbox',
+                        'hide_question_score',
+                        null,
+                        get_lang('HideQuestionScore')
+                    ),
+                ];
+                $form->addGroup($group, null, get_lang('ResultsConfigurationPage'));
+            }
+
             $displayMatrix = 'none';
             $displayRandom = 'none';
             $selectionType = $this->getQuestionSelectionType();
@@ -2132,19 +2175,19 @@ class Exercise
             $form->addElement('label', null, $cat_form);
             $form->addElement('html', '</div>');
 
-            // Category name.
-            $radio_display_cat_name = [
-                $form->createElement('radio', 'display_category_name', null, get_lang('Yes'), '1'),
-                $form->createElement('radio', 'display_category_name', null, get_lang('No'), '0'),
-            ];
-            $form->addGroup($radio_display_cat_name, null, get_lang('QuestionDisplayCategoryName'));
-
             // Random answers.
             $radios_random_answers = [
                 $form->createElement('radio', 'randomAnswers', null, get_lang('Yes'), '1'),
                 $form->createElement('radio', 'randomAnswers', null, get_lang('No'), '0'),
             ];
             $form->addGroup($radios_random_answers, null, get_lang('RandomAnswers'));
+
+            // Category name.
+            $radio_display_cat_name = [
+                $form->createElement('radio', 'display_category_name', null, get_lang('Yes'), '1'),
+                $form->createElement('radio', 'display_category_name', null, get_lang('No'), '0'),
+            ];
+            $form->addGroup($radio_display_cat_name, null, get_lang('QuestionDisplayCategoryName'));
 
             // Hide question title.
             $group = [
@@ -2229,11 +2272,26 @@ class Exercise
                 null,
                 get_lang('PropagateNegativeResults')
             );
-            $form->addCheckBox(
-                'save_correct_answers',
-                null,
-                get_lang('SaveTheCorrectAnswersForTheNextAttempt')
-            );
+
+            if (api_get_configuration_value('allow_quiz_save_correct_options')) {
+                $options = [
+                    '' => get_lang('SelectAnOption'),
+                    1 => get_lang('SaveTheCorrectAnswersForTheNextAttempt'),
+                    2 => get_lang('SaveAllAnswers'),
+                ];
+                $form->addSelect(
+                    'save_correct_answers',
+                    get_lang('SaveAnswers'),
+                    $options
+                );
+            } else {
+                $form->addCheckBox(
+                    'save_correct_answers',
+                    null,
+                    get_lang('SaveTheCorrectAnswersForTheNextAttempt')
+                );
+            }
+
             $form->addElement('html', '<div class="clear">&nbsp;</div>');
             $form->addElement('checkbox', 'review_answers', null, get_lang('ReviewAnswers'));
             $form->addElement('html', '<div id="divtimecontrol"  style="display:'.$display.';">');
@@ -2338,7 +2396,7 @@ class Exercise
 
             $skillList = Skill::addSkillsToForm($form, ITEM_TYPE_EXERCISE, $this->iId);
 
-            /*$extraField = new ExtraField('exercise');
+            $extraField = new ExtraField('exercise');
             $extraField->addElements(
                 $form,
                 $this->iId,
@@ -2348,7 +2406,7 @@ class Exercise
                 [], //show only fields
                 [], // order fields
                 [] // extra data
-            );*/
+            );
             $form->addElement('html', '</div>'); //End advanced setting
             $form->addElement('html', '</div>');
         }
@@ -2370,12 +2428,7 @@ class Exercise
             $form->addRule('end_time', get_lang('InvalidDate'), 'datetime');
 
             if ($this->id > 0) {
-                //if ($this->random > $this->selectNbrQuestions()) {
-                //    $defaults['randomQuestions'] = $this->selectNbrQuestions();
-                //} else {
                 $defaults['randomQuestions'] = $this->random;
-                //}
-
                 $defaults['randomAnswers'] = $this->getRandomAnswers();
                 $defaults['exerciseType'] = $this->selectType();
                 $defaults['exerciseTitle'] = $this->get_formated_title();
@@ -2384,10 +2437,10 @@ class Exercise
                 $defaults['exerciseFeedbackType'] = $this->getFeedbackType();
                 $defaults['results_disabled'] = $this->selectResultsDisabled();
                 $defaults['propagate_neg'] = $this->selectPropagateNeg();
-                $defaults['save_correct_answers'] = $this->selectSaveCorrectAnswers();
+                $defaults['save_correct_answers'] = $this->getSaveCorrectAnswers();
                 $defaults['review_answers'] = $this->review_answers;
                 $defaults['randomByCat'] = $this->getRandomByCategory();
-                $defaults['text_when_finished'] = $this->selectTextWhenFinished();
+                $defaults['text_when_finished'] = $this->getTextWhenFinished();
                 $defaults['display_category_name'] = $this->selectDisplayCategoryName();
                 $defaults['pass_percentage'] = $this->selectPassPercentage();
                 $defaults['question_selection_type'] = $this->getQuestionSelectionType();
@@ -2443,6 +2496,8 @@ class Exercise
         if (api_get_setting('search_enabled') === 'true') {
             $defaults['index_document'] = 'checked="checked"';
         }
+
+        $this->setPageResultConfigurationDefaults($defaults);
         $form->setDefaults($defaults);
 
         // Freeze some elements.
@@ -2572,6 +2627,7 @@ class Exercise
         $this->setShowPreviousButton($form->getSubmitValue('show_previous_button'));
         $this->setNotifications($form->getSubmitValue('notifications'));
         $this->setExerciseCategoryId($form->getSubmitValue('exercise_category_id'));
+        $this->setPageResultConfiguration($form->getSubmitValues());
 
         $this->start_time = null;
         if ($form->getSubmitValue('activate_start_date_check') == 1) {
@@ -2622,10 +2678,10 @@ class Exercise
 
         $iId = $this->save($type);
         if (!empty($iId)) {
-            /*$values = $form->getSubmitValues();
+            $values = $form->getSubmitValues();
             $values['item_id'] = $iId;
             $extraFieldValue = new ExtraFieldValue('exercise');
-            $extraFieldValue->saveFieldValues($values);*/
+            $extraFieldValue->saveFieldValues($values);
 
             Skill::saveSkills($form, ITEM_TYPE_EXERCISE, $iId);
         }
@@ -3220,16 +3276,77 @@ class Exercise
     }
 
     /**
-     * So the time control will work.
-     *
-     * @param string $time_left
+     * @param int    $timeLeft in seconds
+     * @param string $url
      *
      * @return string
      */
-    public function showTimeControlJS($time_left)
+    public function showSimpleTimeControl($timeLeft, $url = '')
     {
-        $time_left = (int) $time_left;
-        $script = "redirectExerciseToResult();";
+        $timeLeft = (int) $timeLeft;
+
+        return "<script>
+            function openClockWarning() {
+                $('#clock_warning').dialog({
+                    modal:true,
+                    height:320,
+                    width:550,
+                    closeOnEscape: false,
+                    resizable: false,
+                    buttons: {
+                        '".addslashes(get_lang('Close'))."': function() {
+                            $('#clock_warning').dialog('close');
+                        }
+                    },
+                    close: function() {
+                        window.location.href = '$url';
+                    }
+                });                
+                $('#clock_warning').dialog('open');
+                $('#counter_to_redirect').epiclock({
+                    mode: $.epiclock.modes.countdown,
+                    offset: {seconds: 5},
+                    format: 's'
+                }).bind('timer', function () {                    
+                    window.location.href = '$url';                    
+                });
+            }        
+
+            function onExpiredTimeExercise() {
+                $('#wrapper-clock').hide();
+                $('#expired-message-id').show();
+                // Fixes bug #5263
+                $('#num_current_id').attr('value', '".$this->selectNbrQuestions()."');
+                openClockWarning();
+            }
+
+			$(function() {
+				// time in seconds when using minutes there are some seconds lost
+                var time_left = parseInt(".$timeLeft.");
+                $('#exercise_clock_warning').epiclock({
+                    mode: $.epiclock.modes.countdown,
+                    offset: {seconds: time_left},
+                    format: 'x:i:s',
+                    renderer: 'minute'
+                }).bind('timer', function () {                    
+                    onExpiredTimeExercise();
+                });
+	       		$('#submit_save').click(function () {});
+	        });
+	    </script>";
+    }
+
+    /**
+     * So the time control will work.
+     *
+     * @param int $timeLeft
+     *
+     * @return string
+     */
+    public function showTimeControlJS($timeLeft)
+    {
+        $timeLeft = (int) $timeLeft;
+        $script = 'redirectExerciseToResult();';
         if ($this->type == ALL_ON_ONE_PAGE) {
             $script = "save_now_all('validate');";
         }
@@ -3238,11 +3355,12 @@ class Exercise
             function openClockWarning() {
                 $('#clock_warning').dialog({
                     modal:true,
-                    height:250,
+                    height:320,
+                    width:550,
                     closeOnEscape: false,
                     resizable: false,
                     buttons: {
-                        '".addslashes(get_lang("EndTest"))."': function() {
+                        '".addslashes(get_lang('EndTest'))."': function() {
                             $('#clock_warning').dialog('close');
                         }
                     },
@@ -3280,7 +3398,7 @@ class Exercise
 
 			$(function() {
 				// time in seconds when using minutes there are some seconds lost
-                var time_left = parseInt(".$time_left.");
+                var time_left = parseInt(".$timeLeft.");
                 $('#exercise_clock_warning').epiclock({
                     mode: $.epiclock.modes.countdown,
                     offset: {seconds: time_left},
@@ -3290,7 +3408,7 @@ class Exercise
                     onExpiredTimeExercise();
                 });
 	       		$('#submit_save').click(function () {});
-	    });
+	        });
 	    </script>";
     }
 
@@ -4351,10 +4469,12 @@ class Exercise
                                     case MATCHING:
                                     case MATCHING_DRAGGABLE:
                                         echo '<tr>';
-                                        if (!in_array($this->results_disabled, [
-                                            RESULT_DISABLE_SHOW_ONLY_IN_CORRECT_ANSWER,
-                                            //RESULT_DISABLE_SHOW_SCORE_AND_EXPECTED_ANSWERS_AND_RANKING,
-                                            ])
+                                        if (!in_array(
+                                            $this->results_disabled,
+                                            [
+                                                RESULT_DISABLE_SHOW_ONLY_IN_CORRECT_ANSWER,
+                                            ]
+                                        )
                                         ) {
                                             echo '<td>'.$s_answer_label.'</td>';
                                             echo '<td>'.$user_answer.'</td>';
@@ -4364,31 +4484,35 @@ class Exercise
                                         }
 
                                         if ($this->showExpectedChoice()) {
-                                            echo '<td>';
-                                            if (in_array($answerType, [MATCHING, MATCHING_DRAGGABLE])) {
-                                                if (isset($real_list[$i_answer_correct_answer]) &&
-                                                    $showTotalScoreAndUserChoicesInLastAttempt == true
-                                                ) {
-                                                    echo Display::span(
-                                                        $real_list[$i_answer_correct_answer]
-                                                    );
+                                            if ($this->showExpectedChoiceColumn()) {
+                                                echo '<td>';
+                                                if (in_array($answerType, [MATCHING, MATCHING_DRAGGABLE])) {
+                                                    if (isset($real_list[$i_answer_correct_answer]) &&
+                                                        $showTotalScoreAndUserChoicesInLastAttempt == true
+                                                    ) {
+                                                        echo Display::span(
+                                                            $real_list[$i_answer_correct_answer]
+                                                        );
+                                                    }
                                                 }
+                                                echo '</td>';
                                             }
-                                            echo '</td>';
                                             echo '<td>'.$status.'</td>';
                                         } else {
-                                            echo '<td>';
                                             if (in_array($answerType, [MATCHING, MATCHING_DRAGGABLE])) {
                                                 if (isset($real_list[$i_answer_correct_answer]) &&
                                                     $showTotalScoreAndUserChoicesInLastAttempt === true
                                                 ) {
-                                                    echo Display::span(
-                                                        $real_list[$i_answer_correct_answer],
-                                                        ['style' => 'color: #008000; font-weight: bold;']
-                                                    );
+                                                    if ($this->showExpectedChoiceColumn()) {
+                                                        echo '<td>';
+                                                        echo Display::span(
+                                                            $real_list[$i_answer_correct_answer],
+                                                            ['style' => 'color: #008000; font-weight: bold;']
+                                                        );
+                                                        echo '</td>';
+                                                    }
                                                 }
                                             }
-                                            echo '</td>';
                                         }
                                         echo '</tr>';
                                         break;
@@ -4696,6 +4820,7 @@ class Exercise
                             );
                         } elseif ($answerType == MULTIPLE_ANSWER_TRUE_FALSE_DEGREE_CERTAINTY) {
                             ExerciseShowFunctions::displayMultipleAnswerTrueFalseDegreeCertainty(
+                                $this,
                                 $feedback_type,
                                 $studentChoice,
                                 $studentChoiceDegree,
@@ -4722,6 +4847,7 @@ class Exercise
                             );
                         } elseif ($answerType == FILL_IN_BLANKS) {
                             ExerciseShowFunctions::display_fill_in_blanks_answer(
+                                $this,
                                 $feedback_type,
                                 $answer,
                                 0,
@@ -5092,6 +5218,7 @@ class Exercise
                         case MULTIPLE_ANSWER_TRUE_FALSE_DEGREE_CERTAINTY:
                             if ($answerId == 1) {
                                 ExerciseShowFunctions::displayMultipleAnswerTrueFalseDegreeCertainty(
+                                    $this,
                                     $feedback_type,
                                     $studentChoice,
                                     $studentChoiceDegree,
@@ -5103,6 +5230,7 @@ class Exercise
                                 );
                             } else {
                                 ExerciseShowFunctions::displayMultipleAnswerTrueFalseDegreeCertainty(
+                                    $this,
                                     $feedback_type,
                                     $studentChoice,
                                     $studentChoiceDegree,
@@ -5116,6 +5244,7 @@ class Exercise
                             break;
                         case FILL_IN_BLANKS:
                             ExerciseShowFunctions::display_fill_in_blanks_answer(
+                                $this,
                                 $feedback_type,
                                 $answer,
                                 $exeId,
@@ -6870,7 +6999,7 @@ class Exercise
     /**
      * @return string
      */
-    public function return_time_left_div()
+    public function returnTimeLeftDiv()
     {
         $html = '<div id="clock_warning" style="display:none">';
         $html .= Display::return_message(
@@ -6929,7 +7058,7 @@ class Exercise
             if (Database::num_rows($result)) {
                 $row = Database::fetch_array($result);
 
-                return $row['count_questions'];
+                return (int) $row['count_questions'];
             }
         }
 
@@ -7803,12 +7932,13 @@ class Exercise
     /**
      * Get the correct answers in all attempts.
      *
-     * @param int $learnPathId
-     * @param int $learnPathItemId
+     * @param int  $learnPathId
+     * @param int  $learnPathItemId
+     * @param bool $onlyCorrect
      *
      * @return array
      */
-    public function getCorrectAnswersInAllAttempts($learnPathId = 0, $learnPathItemId = 0)
+    public function getAnswersInAllAttempts($learnPathId = 0, $learnPathItemId = 0, $onlyCorrect = true)
     {
         $attempts = Event::getExerciseResultsByUser(
             api_get_user_id(),
@@ -7817,43 +7947,63 @@ class Exercise
             api_get_session_id(),
             $learnPathId,
             $learnPathItemId,
-            'asc'
+            'DESC'
         );
 
-        $corrects = [];
+        $list = [];
         foreach ($attempts as $attempt) {
             foreach ($attempt['question_list'] as $answers) {
                 foreach ($answers as $answer) {
                     $objAnswer = new Answer($answer['question_id']);
-
-                    switch ($objAnswer->getQuestionType()) {
-                        case FILL_IN_BLANKS:
-                            $isCorrect = FillBlanks::isCorrect($answer['answer']);
-                            break;
-                        case MATCHING:
-                        case DRAGGABLE:
-                        case MATCHING_DRAGGABLE:
-                            $isCorrect = Matching::isCorrect(
-                                $answer['position'],
-                                $answer['answer'],
-                                $answer['question_id']
-                            );
-                            break;
-                        case ORAL_EXPRESSION:
-                            $isCorrect = false;
-                            break;
-                        default:
-                            $isCorrect = $objAnswer->isCorrectByAutoId($answer['answer']);
-                    }
-
-                    if ($isCorrect) {
-                        $corrects[$answer['question_id']][] = $answer;
+                    if ($onlyCorrect) {
+                        switch ($objAnswer->getQuestionType()) {
+                            case FILL_IN_BLANKS:
+                                $isCorrect = FillBlanks::isCorrect($answer['answer']);
+                                break;
+                            case MATCHING:
+                            case DRAGGABLE:
+                            case MATCHING_DRAGGABLE:
+                                $isCorrect = Matching::isCorrect(
+                                    $answer['position'],
+                                    $answer['answer'],
+                                    $answer['question_id']
+                                );
+                                break;
+                            case ORAL_EXPRESSION:
+                                $isCorrect = false;
+                                break;
+                            default:
+                                $isCorrect = $objAnswer->isCorrectByAutoId($answer['answer']);
+                        }
+                        if ($isCorrect) {
+                            $list[$answer['question_id']][] = $answer;
+                        }
+                    } else {
+                        $list[$answer['question_id']][] = $answer;
                     }
                 }
             }
+
+            if ($onlyCorrect === false) {
+                // Only take latest attempt
+                break;
+            }
         }
 
-        return $corrects;
+        return $list;
+    }
+
+    /**
+     * Get the correct answers in all attempts.
+     *
+     * @param int $learnPathId
+     * @param int $learnPathItemId
+     *
+     * @return array
+     */
+    public function getCorrectAnswersInAllAttempts($learnPathId = 0, $learnPathItemId = 0)
+    {
+        return $this->getAnswersInAllAttempts($learnPathId, $learnPathItemId);
     }
 
     /**
@@ -7883,6 +8033,77 @@ class Exercise
     public function setExerciseCategoryId($value)
     {
         $this->exerciseCategoryId = (int) $value;
+    }
+
+    /**
+     * @param array $values
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function setPageResultConfiguration($values)
+    {
+        $pageConfig = api_get_configuration_value('allow_quiz_results_page_config');
+        if ($pageConfig) {
+            $params = [
+                'hide_expected_answer' => isset($values['hide_expected_answer']) ? $values['hide_expected_answer'] : '',
+                'hide_question_score' => isset($values['hide_question_score']) ? $values['hide_question_score'] : '',
+                'hide_total_score' => isset($values['hide_total_score']) ? $values['hide_total_score'] : '',
+            ];
+            $type = Type::getType('array');
+            $platform = Database::getManager()->getConnection()->getDatabasePlatform();
+            $this->pageResultConfiguration = $type->convertToDatabaseValue($params, $platform);
+        }
+    }
+
+    /**
+     * @param array $defaults
+     */
+    public function setPageResultConfigurationDefaults(&$defaults)
+    {
+        $configuration = $this->getPageResultConfiguration();
+        if (!empty($configuration) && !empty($defaults)) {
+            $defaults = array_merge($defaults, $configuration);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageResultConfiguration()
+    {
+        $pageConfig = api_get_configuration_value('allow_quiz_results_page_config');
+        if ($pageConfig) {
+            /*$params = [
+                'hide_expected_answer' => isset($values['hide_expected_answer']) ? $values['hide_expected_answer'] : '',
+                'hide_question_score' => isset($values['hide_question_score']) ? $values['hide_question_score'] : '',
+                'hide_total_score' => isset($values['hide_total_score']) ? $values['hide_total_score'] : ''
+            ];*/
+            $type = Type::getType('array');
+            $platform = Database::getManager()->getConnection()->getDatabasePlatform();
+            $result = $type->convertToPHPValue($this->pageResultConfiguration, $platform);
+
+            return $result;
+        }
+
+        return [];
+    }
+
+    /**
+     * @param string $attribute
+     *
+     * @return mixed|null
+     */
+    public function getPageConfigurationAttribute($attribute)
+    {
+        $result = $this->getPageResultConfiguration();
+
+        if (!empty($result)) {
+            $value = isset($result[$attribute]) ? $result[$attribute] : null;
+
+            return $value;
+        }
+
+        return null;
     }
 
     /**
@@ -7922,6 +8143,26 @@ class Exercise
     }
 
     /**
+     * @return bool
+     */
+    public function showExpectedChoiceColumn()
+    {
+        if (!in_array($this->results_disabled, [
+            RESULT_DISABLE_SHOW_ONLY_IN_CORRECT_ANSWER,
+        ])
+        ) {
+            $hide = (int) $this->getPageConfigurationAttribute('hide_expected_answer');
+            if ($hide === 1) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param string $class
      * @param string $scoreLabel
      * @param string $result
@@ -7931,6 +8172,11 @@ class Exercise
      */
     public function getQuestionRibbon($class, $scoreLabel, $result, $array)
     {
+        $hide = (int) $this->getPageConfigurationAttribute('hide_question_score');
+        if ($hide === 1) {
+            return '';
+        }
+
         if ($this->showExpectedChoice()) {
             $html = null;
             $hideLabel = api_get_configuration_value('exercise_hide_label');
@@ -8190,7 +8436,7 @@ class Exercise
 
             foreach ($links as $link) {
                 $linkId = $link['id'];
-                /** @var \Chamilo\CoreBundle\Entity\GradebookLink $exerciseLink */
+                /** @var GradebookLink $exerciseLink */
                 $exerciseLink = $repo->find($linkId);
                 if ($exerciseLink) {
                     $exerciseLink
@@ -9225,12 +9471,80 @@ class Exercise
                 }
             }
 
-            //$content .= '<div class="table-responsive">';
             $content .= $table->return_table();
-            //$content .= '</div>';
         }
 
         return $content;
+    }
+
+    /**
+     * @return int value in minutes
+     */
+    public function getResultAccess()
+    {
+        $extraFieldValue = new ExtraFieldValue('exercise');
+        $value = $extraFieldValue->get_values_by_handler_and_field_variable(
+            $this->iId,
+            'results_available_for_x_minutes'
+        );
+
+        if (!empty($value) && isset($value['value'])) {
+            return (int) $value['value'];
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param array $exerciseResultInfo
+     *
+     * @return bool
+     */
+    public function getResultAccessTimeDiff($exerciseResultInfo)
+    {
+        $value = $this->getResultAccess();
+        if (!empty($value)) {
+            $endDate = new DateTime($exerciseResultInfo['exe_date'], new DateTimeZone('UTC'));
+            $endDate->add(new DateInterval('PT'.$value.'M'));
+            $now = time();
+            if ($endDate->getTimestamp() > $now) {
+                return (int) $endDate->getTimestamp() - $now;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param array $exerciseResultInfo
+     *
+     * @return bool
+     */
+    public function hasResultsAccess($exerciseResultInfo)
+    {
+        $diff = $this->getResultAccessTimeDiff($exerciseResultInfo);
+        if ($diff === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return int
+     */
+    public function getResultsAccess()
+    {
+        $extraFieldValue = new ExtraFieldValue('exercise');
+        $value = $extraFieldValue->get_values_by_handler_and_field_variable(
+            $this->iId,
+            'results_available_for_x_minutes'
+        );
+        if (!empty($value)) {
+            return (int) $value;
+        }
+
+        return 0;
     }
 
     /**

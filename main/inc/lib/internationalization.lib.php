@@ -1,6 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
 
+use ChamiloSession as Session;
 use Patchwork\Utf8;
 
 /**
@@ -13,10 +14,6 @@ use Patchwork\Utf8;
  * @author More authors, mentioned in the correpsonding fragments of this source.
  *
  * @package chamilo.library
- */
-
-/**
- * Constants.
  */
 
 // Special tags for marking untranslated variables.
@@ -386,30 +383,33 @@ function api_get_timezones()
  */
 function api_get_timezone()
 {
-    // First, get the default timezone of the server
-    $to_timezone = date_default_timezone_get();
-    // Second, see if a timezone has been chosen for the platform
-    $timezone_value = api_get_setting('timezone_value', 'timezones');
+    $timezone = Session::read('system_timezone');
+    if (empty($timezone)) {
+        // First, get the default timezone of the server
+        $timezone = date_default_timezone_get();
+        // Second, see if a timezone has been chosen for the platform
+        $timezoneFromSettings = api_get_setting('timezone_value', 'timezones');
 
-    if ($timezone_value != null) {
-        $to_timezone = $timezone_value;
-    }
-    // If allowed by the administrator
-    $use_users_timezone = api_get_setting('use_users_timezone', 'timezones');
-
-    if ($use_users_timezone === 'true') {
-        $userId = api_get_user_id();
-        // Get the timezone based on user preference, if it exists
-        $timezone_user = UserManager::get_extra_user_data_by_field(
-            $userId,
-            'timezone'
-        );
-        if (isset($timezone_user['timezone']) && $timezone_user['timezone'] != null) {
-            $to_timezone = $timezone_user['timezone'];
+        if ($timezoneFromSettings != null) {
+            $timezone = $timezoneFromSettings;
         }
+
+        // If allowed by the administrator
+        $allowUserTimezones = api_get_setting('use_users_timezone', 'timezones');
+
+        if ($allowUserTimezones === 'true') {
+            $userId = api_get_user_id();
+            // Get the timezone based on user preference, if it exists
+            $newExtraField = new ExtraFieldValue('user');
+            $data = $newExtraField->get_values_by_handler_and_field_variable($userId, 'timezone');
+            if (!empty($data) && isset($data['timezone']) && !empty($data['timezone'])) {
+                $timezone = $data['timezone'];
+            }
+        }
+        Session::write('system_timezone', $timezone);
     }
 
-    return $to_timezone;
+    return $timezone;
 }
 
 /**

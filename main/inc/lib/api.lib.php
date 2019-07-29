@@ -150,6 +150,7 @@ define('TOOL_NOTEBOOK', 'notebook');
 define('TOOL_ATTENDANCE', 'attendance');
 define('TOOL_COURSE_PROGRESS', 'course_progress');
 define('TOOL_PORTFOLIO', 'portfolio');
+define('TOOL_PLAGIARISM', 'compilatio');
 
 // CONSTANTS defining Chamilo interface sections
 define('SECTION_CAMPUS', 'mycampus');
@@ -1058,8 +1059,6 @@ function api_is_facebook_auth_activated()
 function api_add_trailing_slash($path)
 {
     return substr($path, -1) == '/' ? $path : $path.'/';
-    // This code is about 20% faster than the preg_replace equivalent
-    //return preg_replace('/([^\/])$/', '$1/', $path);
 }
 
 /**
@@ -2260,6 +2259,7 @@ function api_format_course_array($course_data)
     $_course['registration_code'] = !empty($course_data['registration_code']) ? sha1($course_data['registration_code']) : null;
     $_course['disk_quota'] = $course_data['disk_quota'];
     $_course['course_public_url'] = $webCourseHome.'/index.php';
+    $_course['course_sys_path'] = $courseSys.'/';
 
     if (array_key_exists('add_teachers_to_sessions_courses', $course_data)) {
         $_course['add_teachers_to_sessions_courses'] = $course_data['add_teachers_to_sessions_courses'];
@@ -2700,18 +2700,19 @@ function api_get_session_visibility(
  * This function returns a (star) session icon if the session is not null and
  * the user is not a student.
  *
- * @param int $session_id
- * @param int $status_id  User status id - if 5 (student), will return empty
+ * @param int $sessionId
+ * @param int $statusId  User status id - if 5 (student), will return empty
  *
  * @return string Session icon
  */
-function api_get_session_image($session_id, $status_id)
+function api_get_session_image($sessionId, $statusId)
 {
-    $session_id = (int) $session_id;
-    $session_img = '';
-    if ((int) $status_id != 5) { //check whether is not a student
-        if ($session_id > 0) {
-            $session_img = "&nbsp;&nbsp;".Display::return_icon(
+    $sessionId = (int) $sessionId;
+    $image = '';
+    if ($statusId != STUDENT) {
+        // Check whether is not a student
+        if ($sessionId > 0) {
+            $image = '&nbsp;&nbsp;'.Display::return_icon(
                 'star.png',
                 get_lang('SessionSpecificResource'),
                 ['align' => 'absmiddle'],
@@ -2720,7 +2721,7 @@ function api_get_session_image($session_id, $status_id)
         }
     }
 
-    return $session_img;
+    return $image;
 }
 
 /**
@@ -2743,10 +2744,10 @@ function api_get_session_condition(
     $session_id = (int) $session_id;
 
     if (empty($session_field)) {
-        $session_field = "session_id";
+        $session_field = 'session_id';
     }
     // Condition to show resources by session
-    $condition_add = $and ? " AND " : " WHERE ";
+    $condition_add = $and ? ' AND ' : ' WHERE ';
 
     if ($with_base_content) {
         $condition_session = $condition_add." ( $session_field = $session_id OR $session_field = 0 OR $session_field IS NULL) ";
@@ -4760,6 +4761,8 @@ function api_display_language_form($hide_if_no_choice = false, $showAsButton = f
  */
 function languageToCountryIsoCode($languageIsoCode)
 {
+    $allow = api_get_configuration_value('language_flags_by_country');
+
     // @todo save in DB
     switch ($languageIsoCode) {
         case 'ko':
@@ -4770,9 +4773,15 @@ function languageToCountryIsoCode($languageIsoCode)
             break;
         case 'ca':
             $country = 'es';
+            if ($allow) {
+                $country = 'catalan';
+            }
             break;
-        case 'gl':
+        case 'gl': // galego
             $country = 'es';
+            if ($allow) {
+                $country = 'galician';
+            }
             break;
         case 'ka':
             $country = 'ge';
@@ -4780,8 +4789,11 @@ function languageToCountryIsoCode($languageIsoCode)
         case 'sl':
             $country = 'si';
             break;
-        case 'eu':
+        case 'eu': // Euskera
             $country = 'es';
+            if ($allow) {
+                $country = 'basque';
+            }
             break;
         case 'cs':
             $country = 'cz';
@@ -4798,8 +4810,8 @@ function languageToCountryIsoCode($languageIsoCode)
         case 'he':
             $country = 'il';
             break;
-        case 'uk':
-            $country = 'ua'; //Ukraine
+        case 'uk': // Ukraine
+            $country = 'ua';
             break;
         case 'da':
             $country = 'dk';

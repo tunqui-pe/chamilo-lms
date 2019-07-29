@@ -1171,17 +1171,11 @@ class Event
             $course_id = api_get_course_int_id();
         }
 
-        $track_e_exercises = Database::get_main_table(
-            TABLE_STATISTIC_TRACK_E_EXERCISES
-        );
-        $track_attempts = Database::get_main_table(
-            TABLE_STATISTIC_TRACK_E_ATTEMPT
-        );
-        $recording_table = Database::get_main_table(
-            TABLE_STATISTIC_TRACK_E_ATTEMPT_RECORDING
-        );
+        $track_e_exercises = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
+        $track_attempts = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
+        $recording_table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT_RECORDING);
 
-        //Make sure we have the exact lp_view_id
+        // Make sure we have the exact lp_view_id
         $sql = "SELECT id FROM $lp_view_table
                 WHERE
                     c_id = $course_id AND
@@ -1243,15 +1237,15 @@ class Event
         if (!empty($exe_list) && is_array($exe_list) && count($exe_list) > 0) {
             $exeListString = implode(',', $exe_list);
             $sql = "DELETE FROM $track_e_exercises
-                WHERE exe_id IN ($exeListString)";
+                    WHERE exe_id IN ($exeListString)";
             Database::query($sql);
 
             $sql = "DELETE FROM $track_attempts
-                WHERE exe_id IN ($exeListString)";
+                    WHERE exe_id IN ($exeListString)";
             Database::query($sql);
 
             $sql = "DELETE FROM $recording_table
-                WHERE exe_id IN ($exeListString)";
+                    WHERE exe_id IN ($exeListString)";
             Database::query($sql);
         }
 
@@ -1651,7 +1645,7 @@ class Event
             $userId = (int) $userId;
             $sql .= " AND exe_user_id = $userId ";
         }
-        $sql .= " ORDER BY exe_id";
+        $sql .= ' ORDER BY exe_id';
 
         $res = Database::query($sql);
         $list = [];
@@ -1671,8 +1665,6 @@ class Event
         foreach ($list as $student_result) {
             $user_id = $student_result['exe_user_id'];
             $current_best_score[$user_id] = $student_result['exe_result'];
-
-            //echo $current_best_score[$user_id].' - '.$best_score_return[$user_id]['exe_result'].'<br />';
             if (!isset($best_score_return[$user_id]['exe_result'])) {
                 $best_score_return[$user_id] = $student_result;
             }
@@ -1776,42 +1768,6 @@ class Event
     }
 
     /**
-     * Gets all exercise BEST results attempts (NO Exercises in LPs)
-     * from a given exercise id, course, session per user.
-     *
-     * @param   int     exercise id
-     * @param   int   course id
-     * @param   int     session id
-     *
-     * @return array with the results
-     */
-    public static function get_count_exercises_attempted_by_course(
-        $courseId,
-        $session_id = 0
-    ) {
-        $table_track_exercises = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
-        $courseId = (int) $courseId;
-        $session_id = (int) $session_id;
-
-        $sql = "SELECT DISTINCT exe_exo_id, exe_user_id
-                FROM $table_track_exercises
-                WHERE
-                    status = '' AND
-                    c_id = $courseId AND
-                    session_id = $session_id AND
-                    orig_lp_id = 0 AND
-                    orig_lp_item_id = 0
-                ORDER BY exe_id";
-        $res = Database::query($sql);
-        $count = 0;
-        if (Database::num_rows($res) > 0) {
-            $count = Database::num_rows($res);
-        }
-
-        return $count;
-    }
-
-    /**
      * Gets all exercise events from a Learning Path within a Course    nd Session.
      *
      * @param int $exercise_id
@@ -1877,12 +1833,12 @@ class Event
                 ORDER BY parent_item_id, display_order";
         $res = Database::query($sql);
 
-        $my_exercise_list = [];
+        $list = [];
         while ($row = Database::fetch_array($res, 'ASSOC')) {
-            $my_exercise_list[] = $row;
+            $list[] = $row;
         }
 
-        return $my_exercise_list;
+        return $list;
     }
 
     /**
@@ -2338,39 +2294,6 @@ class Event
     public static function event_send_mail($event_name, $params)
     {
         EventsMail::send_mail($event_name, $params);
-    }
-
-    /**
-     * Internal function checking if the mail was already sent from that user to that user.
-     *
-     * @param string $event_name
-     * @param int    $user_from
-     * @param int    $user_to
-     *
-     * @return bool
-     */
-    public static function check_if_mail_already_sent(
-        $event_name,
-        $user_from,
-        $user_to = null
-    ) {
-        if ($user_to == null) {
-            $sql = 'SELECT COUNT(*) as total 
-                    FROM '.Database::get_main_table(TABLE_EVENT_SENT).'
-                    WHERE 
-                        user_from = '.$user_from.' AND 
-                        event_type_name = "'.$event_name.'"';
-        } else {
-            $sql = 'SELECT COUNT(*) as total 
-                    FROM '.Database::get_main_table(TABLE_EVENT_SENT).'
-                    WHERE 
-                        user_from = '.$user_from.' AND 
-                        user_to = '.$user_to.' AND 
-                        event_type_name = "'.$event_name.'"';
-        }
-        $result = Database::store_result(Database::query($sql), 'ASSOC');
-
-        return $result[0]["total"];
     }
 
     /**
