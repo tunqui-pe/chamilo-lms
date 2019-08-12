@@ -312,5 +312,51 @@ switch ($sale['payment_type']) {
         $template->assign('content', $content);
         $template->display_one_col_template();
 
+    case BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY:
+    case BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG:
+
+        $buyingCourse = false;
+        $buyingSession = false;
+        $urlRedirect = null;
+
+        switch ($sale['product_type']) {
+            case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
+                $buyingCourse = true;
+                $course = $plugin->getCourseInfo($sale['product_id']);
+                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY){
+                    $urlRedirect = $course['url_webpay'];
+                }else {
+                    $urlRedirect = $course['url_servipag'];
+                }
+
+                break;
+            case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
+                $buyingSession = true;
+                $session = $plugin->getSessionInfo($sale['product_id']);
+                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY){
+                    $urlRedirect = $session['url_webpay'];
+                }else {
+                    $urlRedirect = $session['url_servipag'];
+                }
+                break;
+        }
+
+
+
+        $htmlHeadXtra[] = '<meta http-equiv="refresh" content="10; url='.$urlRedirect.'">';
+        $template = new Template();
+
+        if ($buyingCourse) {
+            $template->assign('course', $course);
+        } elseif ($buyingSession) {
+            $template->assign('session', $session);
+        }
+
+
+        $content = $template->fetch('buycourses/view/process_redirect.tpl');
+
+        $template->assign('content', $content);
+        $template->display_one_col_template();
+
         break;
 }

@@ -21,6 +21,7 @@ $paypalEnabled = $plugin->get('paypal_enable') === 'true';
 $transferEnabled = $plugin->get('transfer_enable') === 'true';
 $culqiEnabled = $plugin->get('culqi_enable') === 'true';
 
+
 if (!$paypalEnabled && !$transferEnabled && !$culqiEnabled) {
     api_not_allowed(true);
 }
@@ -112,7 +113,7 @@ if ($count === 0) {
 
 $form->addHidden('t', intval($_GET['t']));
 $form->addHidden('i', intval($_GET['i']));
-$form->addButton('submit', $plugin->get_lang('ConfirmOrder'), 'check', 'success', 'btn-lg pull-right');
+$form->addButton('submit', $plugin->get_lang('ConfirmOrder'), 'check', 'success', 'btn-block');
 
 // View
 $templateName = $plugin->get_lang('PaymentMethods');

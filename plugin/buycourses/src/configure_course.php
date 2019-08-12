@@ -156,6 +156,8 @@ if ($editingCourse) {
         'visible' => $sessionItem['visible'],
         'price' => $sessionItem['price'],
         'tax_perc' => $sessionItem['tax_perc'],
+        'url_webpay' => $sessionItem['url_webpay'],
+        'url_servipag' => $sessionItem['url_servipag'],
         'beneficiaries' => $defaultBeneficiaries,
         ($commissionsEnable == "true") ? 'commissions' : '' => ($commissionsEnable == "true") ? $commissions : '',
     ];
@@ -252,6 +254,20 @@ if ($commissionsEnable === 'true') {
     $form->addHidden('commissions', '');
 }
 
+$form->addText(
+    'url_webpay',
+    'WebPay URL',
+    false,
+    [
+        'placeholder' => 'Ingresar url de pago de webpay']
+);
+$form->addText(
+    'url_servipag',
+    'ServiPag URL',
+    false ,
+    [
+        'placeholder' => 'Ingresar url de pago servipag']
+);
 $form->addHidden('t', null);
 $form->addHidden('i', null);
 $form->addButtonSave(get_lang('Save'));
@@ -263,11 +279,15 @@ if ($form->validate()) {
 
     if (isset($formValues['visible'])) {
         $taxPerc = $formValues['tax_perc'] != '' ? (int) $formValues['tax_perc'] : null;
+        $urlWebPay = $formValues['url_webpay'];
+        $urlServiPag = $formValues['url_servipag'];
         if (!empty($productItem)) {
             $plugin->updateItem(
                 [
                     'price' => floatval($formValues['price']),
                     'tax_perc' => $taxPerc,
+                    'url_webpay' => $urlWebPay,
+                    'url_servipag' => $urlServiPag
                 ],
                 $formValues['i'],
                 $formValues['t']
@@ -279,6 +299,8 @@ if ($form->validate()) {
                 'product_id' => intval($formValues['i']),
                 'price' => floatval($_POST['price']),
                 'tax_perc' => $taxPerc,
+                'url_webpay' => $urlWebPay,
+                'url_servipag' => $urlServiPag
             ]);
             $productItem['id'] = $itemId;
         }

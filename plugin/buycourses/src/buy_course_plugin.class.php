@@ -37,6 +37,8 @@ class BuyCoursesPlugin extends Plugin
     const PAYMENT_TYPE_PAYPAL = 1;
     const PAYMENT_TYPE_TRANSFER = 2;
     const PAYMENT_TYPE_CULQI = 3;
+    const PAYMENT_TYPE_SERVIPAG = 4;
+    const PAYMENT_TYPE_WEBPAY = 5;
     const PAYOUT_STATUS_CANCELED = 2;
     const PAYOUT_STATUS_PENDING = 0;
     const PAYOUT_STATUS_COMPLETED = 1;
@@ -870,6 +872,8 @@ class BuyCoursesPlugin extends Plugin
             'image' => null,
             'nbrCourses' => $session->getNbrCourses(),
             'nbrUsers' => $session->getNbrUsers(),
+            'url_webpay' => $item['url_webpay'],
+            'url_servipag' => $item['url_servipag'],
         ];
 
         $fieldValue = new ExtraFieldValue('session');
@@ -941,7 +945,7 @@ class BuyCoursesPlugin extends Plugin
     {
         if (!in_array(
             $paymentType,
-            [self::PAYMENT_TYPE_PAYPAL, self::PAYMENT_TYPE_TRANSFER, self::PAYMENT_TYPE_CULQI]
+            [self::PAYMENT_TYPE_PAYPAL, self::PAYMENT_TYPE_TRANSFER, self::PAYMENT_TYPE_CULQI, self::PAYMENT_TYPE_SERVIPAG, self::PAYMENT_TYPE_WEBPAY]
         )
         ) {
             return false;
@@ -1232,6 +1236,8 @@ class BuyCoursesPlugin extends Plugin
             self::PAYMENT_TYPE_PAYPAL => 'PayPal',
             self::PAYMENT_TYPE_TRANSFER => $this->get_lang('BankTransfer'),
             self::PAYMENT_TYPE_CULQI => 'Culqi',
+            self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
+            self::PAYMENT_TYPE_WEBPAY => 'Webpay'
         ];
     }
 
@@ -1586,6 +1592,8 @@ class BuyCoursesPlugin extends Plugin
             'currency' => empty($defaultCurrency) ? null : $defaultCurrency['iso_code'],
             'price' => 0.00,
             'tax_perc' => null,
+            'url_webpay' => null,
+            'url_servipag' => null
         ];
 
         $displayStartDate = $session->getDisplayStartDate();
@@ -1623,6 +1631,8 @@ class BuyCoursesPlugin extends Plugin
             $sessionItem['currency'] = $item['iso_code'];
             $sessionItem['price'] = $item['price'];
             $sessionItem['tax_perc'] = $item['tax_perc'];
+            $sessionItem['url_webpay'] = $item['url_webpay'];
+            $sessionItem['url_servipag'] = $item['url_servipag'];
         }
 
         return $sessionItem;

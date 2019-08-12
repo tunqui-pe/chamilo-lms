@@ -95,6 +95,16 @@ $itemTable->addColumn(
     \Doctrine\DBAL\Types\Type::INTEGER,
     ['unsigned' => true, 'notnull' => false]
 );
+$itemTable->addColumn(
+    'url_webpay',
+    \Doctrine\DBAL\Types\Type::TEXT,
+    ['notnull' => false]
+);
+$itemTable->addColumn(
+    'url_servipag',
+    \Doctrine\DBAL\Types\Type::TEXT,
+    ['notnull' => false]
+);
 $itemTable->setPrimaryKey(['id']);
 $itemTable->addForeignKeyConstraint(
     $currencyTable,
