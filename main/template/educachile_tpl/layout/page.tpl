@@ -55,10 +55,7 @@
             {% if show_footer == true %}
                 {% include 'layout/page_footer.tpl'|get_template %}
             {% endif %}
-        <!-- Start of  Zendesk Widget script -->
-        <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=8b8fda18-b539-4152-bf76-edad50e27ea2"> </script>
-        <!-- End of  Zendesk Widget script -->
-        </main>
+     
     {% include 'layout/modals.tpl'|get_template %}
 </body>
 </html>
