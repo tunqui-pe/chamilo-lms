@@ -134,6 +134,12 @@ a{
 .form-register .form-group label{
     font-weight: normal;
 }
+#registration .form-group:last-child{
+    display: none;
+}
+.custom_required{
+    font-size: 12px;
+}
 /* Large desktop */
 @media (min-width: 1200px) {
     .form-register{

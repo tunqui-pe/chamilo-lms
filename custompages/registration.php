@@ -79,6 +79,9 @@ $rootWeb = api_get_path('WEB_PATH');
                         <?php
                             $content['form']->display();
                         ?>
+                        <div class="custom_required">
+                            * Esta información la utilizaremos para tu certificado de aprobación.
+                        </div>
                     </div>
                 </div>
 
