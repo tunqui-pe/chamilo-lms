@@ -23,6 +23,7 @@ if (isset($content['form']->_elementIndex['status'])) {
     $content['form']->removeElement('status');
     $content['form']->removeElement('status');
 }*/
+$content['form']->removeElement('official_code');
 $rootWeb = api_get_path('WEB_PATH');
 
 ?>
