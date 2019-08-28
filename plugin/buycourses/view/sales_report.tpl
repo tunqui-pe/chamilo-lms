@@ -88,9 +88,23 @@
             if (self.val() === '0') {
                 $('#report-by-user').hide();
                 $('#report-by-status').show();
-            } else {
+                $('#report-by-date').hide();
+                $('#report-by-email').hide();
+            } else if (self.val() === '1') {
                 $('#report-by-status').hide();
                 $('#report-by-user').show();
+                $('#report-by-date').hide();
+                $('#report-by-email').hide();
+            } else if (self.val() === '2') {
+                $('#report-by-status').hide();
+                $('#report-by-user').hide();
+                $('#report-by-date').show();
+                $('#report-by-email').hide();
+            } else if (self.val() === '3') {
+                $('#report-by-status').hide();
+                $('#report-by-user').hide();
+                $('#report-by-date').hide();
+                $('#report-by-email').show();
             }
         });
     });

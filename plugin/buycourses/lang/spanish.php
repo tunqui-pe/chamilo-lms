@@ -209,3 +209,5 @@ $strings['PurchaseDetailsIntro'] = "Detalles de la comprar";
 $strings['PurchaseDetailsEnd'] = "Atentamente";
 $strings['ProductName'] = "Nombre producto";
 $strings['BankAccountIntro'] = "Información cuentas bancarias";
+$strings['ByDate'] = "Por Fecha";
+$strings['ByEmail'] = "Por Email";
