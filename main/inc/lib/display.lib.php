@@ -1804,7 +1804,7 @@ class Display
             $session = [];
             $session['category_id'] = $session_info['session_category_id'];
             $session['title'] = $session_info['name'];
-            $session['id_coach'] = $session_info['id_coach'];
+            $session['coach_id'] = $session['id_coach'] = $session_info['id_coach'];
             $session['dates'] = '';
             $session['coach'] = '';
             if (api_get_setting('show_session_coach') === 'true' && isset($coachInfo['complete_name'])) {
@@ -2557,6 +2557,7 @@ class Display
      * @param string $extra
      * @param string $id
      * @param string $customColor
+     * @param string $extraClass
      *
      * @return string
      */
@@ -2567,7 +2568,8 @@ class Display
         $type = 'default',
         $extra = '',
         $id = '',
-        $customColor = ''
+        $customColor = '',
+        $extraClass = ''
     ) {
         $headerStyle = '';
         if (!empty($customColor)) {
@@ -2584,7 +2586,7 @@ class Display
         }
 
         return '
-            <div '.$id.' class="panel panel-'.$style.'">
+            <div '.$id.' class="panel panel-'.$style.' '.$extraClass.' ">
                 '.$title.'
                 '.self::contentPanel($content).'
                 '.$footer.'

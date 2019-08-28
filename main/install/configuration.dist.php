@@ -847,6 +847,7 @@ ALTER TABLE skill_rel_course ADD CONSTRAINT FK_E7CEC7FA613FECDF FOREIGN KEY (ses
     'display' => [
         'show_reporting_icon' => true,
         'hide_lp_arrow_navigation' => false,
+        'show_toolbar_by_default' => false,
     ],
 ];*/
 
@@ -1201,6 +1202,9 @@ $_configuration['required_extra_fields_in_profile'] = [
 // - launch "composer install" to rebuild the autoload.php
 //$_configuration['social_enable_messages_feedback'] = false;
 
+// Disable dislike button in the social network.
+//$_configuration['disable_dislike_option'] = false;
+
 // Block student's access to the course documents when using the ckeditor "Browse server" button
 //$_configuration['block_editor_file_manager_for_students'] = false;
 // Show a language flag next to the user picture in the social network
@@ -1276,6 +1280,21 @@ requires extension "php-soap"  sudo apt-get install php-soap
 
 // Allow user to enter a LP item if it was validated in another session.
 // $_configuration['validate_lp_prerequisite_from_other_session'] = false;
+
+// 1 = SCORE_AVERAGE (5 / 10)
+// 2 = SCORE_PERCENT (50%)
+// 3 = SCORE_DIV_PERCENT (5 / 10 (50%))
+// $_configuration['exercise_score_format'] = 0;
+
+// Hide course sidebar
+//$_configuration['hide_course_sidebar'] = true;
+
+// Allow online users by user profile
+// 1 = COURSEMANAGER (teacher)
+// 5 = STUDENT
+// 11 = PLATFORM_ADMIN
+// Example: The online users will be available only for teachers and students.
+//$_configuration['allow_online_users_by_status'] = ['status' =>  [1, 5]];
 
 // KEEP THIS AT THE END
 // -------- Custom DB changes
