@@ -27,6 +27,8 @@
             <th class="text-center">{{ 'ProductType'|get_plugin_lang('BuyCoursesPlugin') }}</th>
             <th>{{ 'Name'|get_lang }}</th>
             <th>{{ 'UserName'|get_lang }}</th>
+            <th>{{ 'Email'|get_lang }}</th>
+
             {% if invoicing_enable %}
                 <th class="text-center">{{ 'Invoice'|get_plugin_lang('BuyCoursesPlugin') }}</th>
             {% endif %}
@@ -52,6 +54,7 @@
                 <td class="text-center">{{ sale.product_type }}</td>
                 <td>{{ sale.product_name }}</td>
                 <td>{{ sale.complete_user_name }}</td>
+                <td>{{ sale.email }}</td>
                 {% if invoicing_enable %}
                     <td class="text-center">
                     {% if sale.invoice == 1 %}

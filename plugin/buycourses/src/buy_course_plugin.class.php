@@ -1337,7 +1337,7 @@ class BuyCoursesPlugin extends Plugin
         ";
 
         return Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
             "$saleTable s $innerJoins",
             [
                 'where' => ['s.status = ?' => (int) $status],
@@ -1479,7 +1479,7 @@ class BuyCoursesPlugin extends Plugin
         ";
 
         return Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
             "$saleTable s $innerJoins",
             [
                 'where' => [
@@ -1522,7 +1522,7 @@ class BuyCoursesPlugin extends Plugin
         ";
 
         return Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
             "$saleTable s $innerJoins",
             [
                 'where' => [
@@ -1558,7 +1558,7 @@ class BuyCoursesPlugin extends Plugin
         ";
 
         return Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email', 's.*'],
             "$saleTable s $innerJoins",
             [
                 'where' => [

@@ -153,6 +153,7 @@ foreach ($sales as $sale) {
         'product_name' => $sale['product_name'],
         'product_type' => $productTypes[$sale['product_type']],
         'complete_user_name' => api_get_person_name($sale['firstname'], $sale['lastname']),
+        'email' => $sale['email'],
         'payment_type' => $paymentTypes[$sale['payment_type']],
         'invoice' => $sale['invoice'],
         'num_invoice' => $plugin->getNumInvoice($sale['id'], 0),

@@ -24,6 +24,8 @@ if (isset($content['form']->_elementIndex['status'])) {
     $content['form']->removeElement('status');
 }*/
 $content['form']->removeElement('official_code');
+$content['form']->addRule('extra_rut_factura', null, 'required');
+$content['form']->addRule('extra_rol_unico_tributario', null, 'required');
 $rootWeb = api_get_path('WEB_PATH');
 
 ?>
