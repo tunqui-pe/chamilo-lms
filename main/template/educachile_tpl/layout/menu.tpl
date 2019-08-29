@@ -84,7 +84,13 @@
                                         </a>
                                     </li>
                                 {% endif %}
-
+                                {% if _u.status == 1 %}
+                                <li class="user-body">
+                                    <a id="buycourses" type="Gestión de ventas" href="{{ _p.web }}plugin/buycourses/index.php">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Gestión de ventas
+                                    </a>
+                                </li>
+                                {% endif %}
                                 <li class="user-body">
                                     <a id="logout_button" title="{{ "Logout"|get_lang }}" href="{{ logout_link }}">
                                         <em class="fa fa-sign-out"></em> {{ "Logout"|get_lang }}
