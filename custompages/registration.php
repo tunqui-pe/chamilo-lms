@@ -90,5 +90,41 @@ $rootWeb = api_get_path('WEB_PATH');
             </div>
         </div>
     </div> <!-- /container -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#extra_rol_unico_tributario').bind('keypress', function (event) {
+
+            var keyCode = event.keyCode || event.which
+            // Don't validate the input if below arrow, delete and backspace keys were pressed
+            if (keyCode == 8 || (keyCode >= 35 && keyCode <= 40)) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
+                return;
+            }
+
+            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $('#extra_rut_factura').bind('keypress', function (event) {
+
+            var keyCode = event.keyCode || event.which
+            // Don't validate the input if below arrow, delete and backspace keys were pressed
+            if (keyCode == 8 || (keyCode >= 35 && keyCode <= 40)) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
+                return;
+            }
+
+            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>
 </body>
 </html>
