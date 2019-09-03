@@ -248,6 +248,71 @@ a:focus {
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
 }
+/* PLUGIN */
+.page-header.title-plugin{
+  border-bottom: none;
+  text-transform: uppercase;
+  color: #514a59;
+}
+.page-header.title-plugin h3{
+  font-weight: bold;
+  font-size: 20px;
+}
+.panel-box-buy {
+  box-shadow: none;
+  padding: 1rem;
+  border-color: #dddddd;
+}
+.buy-info .price, .service-buy .price{
+  font-size: 20px;
+  color: #3F51B5;
+}
+.buy-summary .btn-success{
+  background: #808de8;
+  border-radius: 0;
+  text-transform: uppercase;
+  border: 1px solid #808de8;
+  font-weight: bold;
+  padding: 10px 20px;
+  box-shadow: 10px 10px 0 2px rgba(128,141,232,.15);
+  margin-bottom: 2rem;
+}
+.buy-summary .btn-success:hover{
+  color: #bdc8f2;
+  background: #808de8;
+  border: 1px solid #808de8;
+}
+.buy-summary .payment{
+  display: inline-block;
+  list-style: none;
+  width:100%;
+  padding: 0;
+}
+.buy-summary .payment li{
+  display: inline-block;
+  padding: 5px;
+}
+.buy-title-section{
+  font-size: 16px;
+  font-weight: bold;
+}
+.section-title-container {
+  box-sizing: border-box;
+  box-shadow: 0 -30px 0 0 #f2b66c inset;
+  padding: 0;
+  text-align: left;
+  width: 86%;
+  margin-bottom: 2rem;
+}
+.section-title {
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 1em;
+  letter-spacing: 1px;
+  padding: 0;
+  margin: 0;
+  color: #4e4957;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;

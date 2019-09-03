@@ -4,8 +4,8 @@
              title="{{ "Back"|get_lang }}"/>
     </a>
 </div>
-<div class="page-header">
-    <h3>{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+<div class="section-title-container">
+    <h3 class="section-title">{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -112,7 +112,23 @@
                     {% endif %}
                 </div>
                 <div class="buy-summary">
-                    <h3>{{ 'PaymentMethods'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+                    <h3 class="buy-title-section">{{ 'PaymentMethods'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+                    <div>
+                        <ul class="payment">
+                            <li>
+                                <img src="{{ _p.web }}plugin/buycourses/resources/img/paypal.png">
+                            </li>
+                            <li>
+                                <img src="{{ _p.web }}plugin/buycourses/resources/img/transferencia.png">
+                            </li>
+                            <li>
+                                <img src="{{ _p.web }}plugin/buycourses/resources/img/webpay.png">
+                            </li>
+                            <li>
+                                <img src="{{ _p.web }}plugin/buycourses/resources/img/servipag.png">
+                            </li>
+                        </ul>
+                    </div>
                     {{ form }}
                 </div>
             </div>

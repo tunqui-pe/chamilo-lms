@@ -343,7 +343,7 @@ switch ($sale['payment_type']) {
 
 
 
-        $htmlHeadXtra[] = '<meta http-equiv="refresh" content="10; url='.$urlRedirect.'">';
+        $htmlHeadXtra[] = '<meta http-equiv="refresh" content="2; url='.$urlRedirect.'">';
         $template = new Template();
 
         if ($buyingCourse) {
