@@ -1,10 +1,10 @@
+
+<h3 class="panel-title">{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+
 <div class="row">
-    <div id="message-alert"></div>
-    <div class="col-md-5">
-        <div class="panel panel-default buycourse-panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
-            </div>
+
+    <div class="col-md-4">
+        <div class="buycourse-panel-default">
             <div class="panel-body">
                 {% if buying_course %}
                     <div class="row">
@@ -40,24 +40,24 @@
                             </p>
                         </div>
                         <div class="col-sm-12 col-md-12 col-xs-12">
-                            <h3>{{ session.name }}</h3>
+                            <h4>{{ session.name }}</h4>
                             <p><em class="fa fa-calendar fa-fw"></em> {{ session.dates.display }}</p>
                             <ul class="list-unstyled">
                                 {% for course in session.courses %}
                                     <li>
                                         <em class="fa fa-book fa-fw"></em> {{ course.title }}
-                                        {% if course.coaches|length %}
+                                        {#{% if course.coaches|length %}
                                             <ul>
                                                 {% for coach in course.coaches %}
                                                     <li><em class="fa fa-user fa-fw"></em>{{ coach }}</li>
                                                 {% endfor %}
                                             </ul>
-                                        {% endif %}
+                                        {% endif %}#}
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <p id="n-price" class="lead text-right" style="color: white;">
-                                <span class="label label-primary">{{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}</span>
+                            <p id="n-price" class="text-right">
+                                <span class="">{{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}</span>
                             </p>
                             <p id="s-price" class="lead text-right"></p>
                         </div>
@@ -117,8 +117,10 @@
             </div>
         </div>
     </div>
-    {% if terms %}
-        <div class="col-md-7">
+
+        <div class="col-md-8">
+
+            {% if terms %}
             <div class="panel panel-default buycourse-panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ 'TermsAndConditions'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
@@ -137,43 +139,35 @@
                     </form>
                 </div>
             </div>
-        </div>
-    {% endif %}
-</div>
+            {% endif %}
 
-{% if is_bank_transfer %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h3 class="page-header">{{ 'BankAccountInformation'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th>{{ 'Name'|get_lang }}</th>
-                        <th class="text-center">{{ 'BankAccount'|get_plugin_lang('BuyCoursesPlugin') }}</th>
-                        <th class="text-center">{{ 'SWIFT'|get_plugin_lang('BuyCoursesPlugin') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for account in transfer_accounts %}
-                        <tr>
-                            <td>{{ account.name }}</td>
-                            <td class="text-center">{{ account.account }}</td>
-                            <td class="text-center">{{ account.swift }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            {% if is_bank_transfer %}
+
+                <h4>{{ 'BankAccountInformation'|get_plugin_lang('BuyCoursesPlugin') }}</h4>
+                <p>{{ 'BankTransferData'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+
+                <div class="bank-data">
+                    <dl class="dl-horizontal">
+                        <dt>{{ 'Name'|get_lang }}</dt>
+                        <dd>{{ transfer_accounts.1.name }}</dd>
+                        <dt>{{ 'CurrentAccount'|get_plugin_lang('BuyCoursesPlugin') }}</dt>
+                        <dd>{{ transfer_accounts.1.account }}</dd>
+                        <dt>{{ 'Rut'|get_plugin_lang('BuyCoursesPlugin') }}</dt>
+                        <dd>{{ transfer_accounts.1.swift }}</dd>
+                        <dt>{{ 'Headline'|get_plugin_lang('BuyCoursesPlugin') }}</dt>
+                        <dd>FUNDACIÓN EDUCHILE</dd>
+                        <dt>{{ 'Email'|get_lang }}</dt>
+                        <dd>karen@educacionchile.cl</dd>
+                    </dl>
+                </div>
+                <p>{{ 'PressConfirmButton'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+
+            {% endif %}
+            <div class="btn-order">
+                {{ form }}
             </div>
-            <p>{{ 'OnceItIsConfirmedYouWillReceiveAnEmailWithTheBankInformationAndAnOrderReference'|get_plugin_lang('BuyCoursesPlugin') }}</p>
-        </div>
-    </div>
-{% endif %}
 
-<div class="row">
-    <div class="col-xs-12">
-        {{ form }}
-    </div>
+        </div>
 </div>
 
 <script>
