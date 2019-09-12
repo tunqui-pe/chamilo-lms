@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <strong>Soporte técnico:</strong>
-                <a href="mailto:online@educacionchile.cl" target="_blank">online@educacionchile.cl</a>
+                <a href="mailto:online@aula-virtual.cl" target="_blank">online@aula-virtual.cl</a>
                 {#{% if administrator_name is not null %}
                     <div class="administrator-name">
                         {{ administrator_name }}
