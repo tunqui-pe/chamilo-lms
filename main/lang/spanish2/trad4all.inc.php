@@ -12,3 +12,4 @@ $userNameEmail='Nombre de usuario/email';
 $technicalSupport='Cualquier duda técnica nos puedes escribir al email';
 $regardsEducaChile="Saludos.<br> EQUIPO ONLINE<br>Educación Chile";
 $linkPlataform="Link";
+$CheckYourEmailAndFollowInstructions = "Ingresar tu nueva contraseña para el acceso a tu plataforma.";
