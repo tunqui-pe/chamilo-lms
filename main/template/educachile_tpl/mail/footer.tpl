@@ -3,7 +3,7 @@
         <tr>
             <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
                 <a style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;" href="{{_p.web}}" target="_blank">
-                    {{ "PoweredByX" |get_lang | format(_s.software_name) }}
+                    {{ "powerPlatform" |get_lang }}
                 </a>&copy; {{ "now"|date("Y") }}
             </td>
         </tr>
