@@ -1,5 +1,5 @@
 <div style="padding: 2rem;">
-    <p>{{ 'helloUser'|get_plugin_lang('BuyCoursesPlugin') }} <strong>{{ user.complete_name }}</strong> {{ 'howAreYour'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+    <p>{{ 'helloUser'|get_plugin_lang('BuyCoursesPlugin') }} <strong>{{ user.firstname }}</strong> {{ 'howAreYour'|get_plugin_lang('BuyCoursesPlugin') }}</p>
     <p>{{ 'toCompleteYourRegistration'|get_plugin_lang('BuyCoursesPlugin') }}</p>
 
     <table>
@@ -71,7 +71,7 @@
                 {{ 'UserName'|get_lang }}
             </td>
             <td>
-                {{ user.complete_name }}
+                {{ user.complete_name }} - ({{ user.email }})
             </td>
         </tr>
         <tr>
