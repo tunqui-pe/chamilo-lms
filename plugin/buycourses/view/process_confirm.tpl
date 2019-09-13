@@ -1,7 +1,9 @@
+<div class="section-title-container">
+    <h3 class="section-title">{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+</div>
 
-<h3 class="panel-title">{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
 
-<div class="row">
+<div class="row buy-summary">
 
     <div class="col-md-4">
         <div class="buycourse-panel-default">
@@ -40,26 +42,28 @@
                             </p>
                         </div>
                         <div class="col-sm-12 col-md-12 col-xs-12">
-                            <h4>{{ session.name }}</h4>
-                            <p><em class="fa fa-calendar fa-fw"></em> {{ session.dates.display }}</p>
-                            <ul class="list-unstyled">
-                                {% for course in session.courses %}
-                                    <li>
-                                        <em class="fa fa-book fa-fw"></em> {{ course.title }}
-                                        {#{% if course.coaches|length %}
-                                            <ul>
-                                                {% for coach in course.coaches %}
-                                                    <li><em class="fa fa-user fa-fw"></em>{{ coach }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% endif %}#}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                            <p id="n-price" class="text-right">
-                                <span class="">{{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}</span>
-                            </p>
-                            <p id="s-price" class="lead text-right"></p>
+                            <div class="buy-info">
+                                <h4 style="font-weight: bold;">{{ session.name }}</h4>
+                                {#<p><em class="fa fa-calendar fa-fw"></em> {{ session.dates.display }}</p>#}
+                                {#<ul class="list-unstyled">
+                                    {% for course in session.courses %}
+                                        <li>
+                                            <em class="fa fa-book fa-fw"></em> {{ course.title }}
+                                            {% if course.coaches|length %}
+                                                <ul>
+                                                    {% for coach in course.coaches %}
+                                                        <li><em class="fa fa-user fa-fw"></em>{{ coach }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>#}
+                                <div id="n-price" class="price">
+                                    <span class="">{{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}</span>
+                                </div>
+                                <p id="s-price" class="lead text-right"></p>
+                            </div>
                         </div>
                     </div>
                 {% elseif buying_service %}
@@ -143,7 +147,7 @@
 
             {% if is_bank_transfer %}
 
-                <h4>{{ 'BankAccountInformation'|get_plugin_lang('BuyCoursesPlugin') }}</h4>
+                <h4 style="font-weight: bold; text-transform: uppercase; margin-bottom: 3rem;">{{ 'BankAccountInformation'|get_plugin_lang('BuyCoursesPlugin') }}</h4>
                 <p>{{ 'BankTransferData'|get_plugin_lang('BuyCoursesPlugin') }}</p>
 
                 <div class="bank-data">

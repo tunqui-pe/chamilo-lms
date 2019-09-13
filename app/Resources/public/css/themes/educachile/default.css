@@ -282,6 +282,23 @@ a:focus {
   background: #808de8;
   border: 1px solid #808de8;
 }
+.buy-summary .btn-danger{
+  border: 1px solid #808de8;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #4E4957;
+  padding: 10px 20px;
+  background-color: #fff;
+  margin-left: 2rem;
+  box-shadow: 10px 10px 0 2px rgba(128,141,232,.15);
+}
+.buy-summary .btn-danger:hover {
+  color: #bdc8f2;
+  background-color: #fbfbff;
+  border: 1px solid #808de8;
+}
 .buy-summary .payment{
   display: inline-block;
   list-style: none;
