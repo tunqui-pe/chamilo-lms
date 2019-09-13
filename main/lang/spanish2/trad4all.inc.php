@@ -13,3 +13,5 @@ $technicalSupport='Cualquier duda técnica nos puedes escribir al email';
 $regardsEducaChile="Saludos.<br> EQUIPO ONLINE<br>Educación Chile";
 $linkPlataform="Link";
 $powerPlatform="Enviado desde Plataforma aula-virtual.cl";
+
+

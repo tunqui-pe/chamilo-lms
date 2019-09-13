@@ -225,3 +225,7 @@ $strings['registrationData'] = "Datos de inscripción";
 $strings['regardsEducaChile'] = "Saludos.<br> EQUIPO ONLINE<br>Educación Chile";
 $strings['helloUser'] = 'Hola!';
 $strings['howAreYour'] = '¿cómo estás?';
+$strings['payPal'] = "<strong>PlayPal:</strong> Tarjeta de Crédito Internacionales (Para cursos internacionales)";
+$strings['serviPag'] = "<strong>Servipag:</strong> Tarjeta de Crédito Internacionales (Para cursos internacionales)";
+$strings['webPay'] = "<strong>Webpay:</strong> Tarjetas de crédito y débito bancarias nacionales (Visa, Mastercard, Magna, American, Diners y Redcompra)";
+$strings['wireTransfer']="<strong>Transferencia Bancaria:</strong> Transferencia o depósito bancario nacional";

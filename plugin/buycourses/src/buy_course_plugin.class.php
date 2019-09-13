@@ -1233,11 +1233,11 @@ class BuyCoursesPlugin extends Plugin
     public function getPaymentTypes()
     {
         return [
-            self::PAYMENT_TYPE_PAYPAL => 'PayPal',
-            self::PAYMENT_TYPE_TRANSFER => $this->get_lang('BankTransfer'),
+            self::PAYMENT_TYPE_PAYPAL => $this->get_lang('payPal'),
+            self::PAYMENT_TYPE_TRANSFER => $this->get_lang('wireTransfer'),
             self::PAYMENT_TYPE_CULQI => 'Culqi',
-            self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
-            self::PAYMENT_TYPE_WEBPAY => 'Webpay'
+            self::PAYMENT_TYPE_SERVIPAG => $this->get_lang('serviPag'),
+            self::PAYMENT_TYPE_WEBPAY => $this->get_lang('webPay')
         ];
     }
 
