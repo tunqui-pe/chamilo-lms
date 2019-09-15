@@ -29,7 +29,7 @@
             <div class="caption">
                 <p class="text-center">
                     <a class="btn btn-default btn-sm"
-                       href="src/course_catalog.php">{{ 'BuyCourses'|get_plugin_lang('BuyCoursesPlugin') }}</a>
+                       href="src/session_catalog.php">{{ 'BuyCourses'|get_plugin_lang('BuyCoursesPlugin') }}</a>
                 </p>
             </div>
         </div>

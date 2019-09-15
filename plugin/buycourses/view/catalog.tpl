@@ -3,11 +3,11 @@
 <div id="buy-courses-tabs">
     {% if sessions_are_included %}
         <ul class="nav nav-tabs buy-courses-tabs" role="tablist">
-            <li id="buy-courses-tab" class="{{ showing_courses ? 'active' : '' }}" role="presentation">
+            {#<li id="buy-courses-tab" class="{{ showing_courses ? 'active' : '' }}" role="presentation">
                 <a href="course_catalog.php" aria-controls="buy-courses" role="tab">{{ 'Courses'|get_lang }}</a>
-            </li>
+            </li>#}
             <li id="buy-sessions-tab" class="{{ showing_sessions ? 'active' : '' }}" role="presentation">
-                <a href="session_catalog.php" aria-controls="buy-sessions" role="tab">{{ 'Sessions'|get_lang }}</a>
+                <a href="session_catalog.php" aria-controls="buy-sessions" role="tab">{{ 'sessionCourses'|get_plugin_lang('BuyCoursesPlugin') }}</a>
             </li>
             {% if services_are_included %}
                 <li id="buy-services-tab" class="{{ showing_services ? 'active' : '' }}" role="presentation">
