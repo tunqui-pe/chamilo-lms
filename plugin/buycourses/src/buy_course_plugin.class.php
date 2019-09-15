@@ -2812,8 +2812,8 @@ class BuyCoursesPlugin extends Plugin
         return Display::return_message(
             sprintf(
                 $this->get_lang('SubscriptionToCourseXSuccessful'),
-                $url,
-                $saleInfo['product_name']
+                api_get_path(WEB_PATH).'user_portal.php?nosession=true',
+                $this->get_lang('myCourses')
             ),
             'success',
             false
