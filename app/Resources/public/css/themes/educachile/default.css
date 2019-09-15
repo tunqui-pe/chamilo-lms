@@ -339,6 +339,15 @@ a:focus {
   font-size: 18px;
   font-weight: bold;
 }
+.courses a.thumbnail{
+  border: none;
+}
+.classic-courses a.thumbnail{
+  border: none;
+}
+.session .sessions-items .courses{
+  border: none;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
