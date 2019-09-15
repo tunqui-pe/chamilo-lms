@@ -85,26 +85,29 @@
                                 </div>
                             </div>
                         {% endif %}
-                        {% if navigation_links %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingFour">
-                                    <h4 class="panel-title">
-                                        <img src="{{ _p.web_css_theme }}icons/svg/globe.svg" width="24px" height="24px"/>
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                            {{ 'MainNavigation'|get_lang }}
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                    <div class="panel-body">
-                                        <ul class="list-group">
-                                            {% for item in navigation_links %}
-                                                <li class="list-group-item {{ item.class }}"><a href="{{ item.link }}">{{ item.title }}</a></li>
-                                            {% endfor %}
-                                        </ul>
+
+                        {% if _u.is_admin %}
+                            {% if navigation_links %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingFour">
+                                        <h4 class="panel-title">
+                                            <img src="{{ _p.web_css_theme }}icons/svg/globe.svg" width="24px" height="24px"/>
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                {{ 'MainNavigation'|get_lang }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                        <div class="panel-body">
+                                            <ul class="list-group">
+                                                {% for item in navigation_links %}
+                                                    <li class="list-group-item {{ item.class }}"><a href="{{ item.link }}">{{ item.title }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endif %}
 
                         {% if help_block %}

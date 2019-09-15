@@ -1868,7 +1868,14 @@ class IndexManager
         $count_courses = CourseManager::count_courses();
         $tpl = $this->tpl->get_template('layout/welcome_to_course.tpl');
 
-        $course_catalog_url = api_get_path(WEB_CODE_PATH).'auth/courses.php';
+        $plugin = \BuyCoursesPlugin::create();
+        $checker = $plugin->isEnabled();
+        if ($checker) {
+            $course_catalog_url = api_get_path(WEB_PATH).'plugin/buycourses/src/session_catalog.php';
+        } else {
+            $course_catalog_url = api_get_path(WEB_CODE_PATH).'auth/courses.php';
+        }
+
         $course_list_url = api_get_path(WEB_PATH).'user_portal.php';
 
         $this->tpl->assign('course_catalog_url', $course_catalog_url);
