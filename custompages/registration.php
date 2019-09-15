@@ -80,6 +80,9 @@ $rootWeb = api_get_path('WEB_PATH');
                         <div class="section-title-container">
                             <h2 class="section-title">Registro de nuevo usuario</h2>
                         </div>
+                        <div class="alert alert-info text-register">
+                            Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha olvidado su contraseña?</a>
+                        </div>
                         <?php
                             $content['form']->display();
                         ?>

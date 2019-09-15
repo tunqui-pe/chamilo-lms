@@ -140,6 +140,9 @@ a{
 .custom_required{
     font-size: 12px;
 }
+span.help-inline.help-block {
+    text-align: left;
+}
 /* Large desktop */
 @media (min-width: 1200px) {
     .form-register{

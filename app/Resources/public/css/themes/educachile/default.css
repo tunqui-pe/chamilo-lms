@@ -348,6 +348,7 @@ a:focus {
 .session .sessions-items .courses{
   border: none;
 }
+
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
