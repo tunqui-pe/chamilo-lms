@@ -92,9 +92,15 @@
                                             {% endif %}
                                             <p><em class="fa fa-calendar fa-fw"></em> {{ session.dates.display }}</p>
                                             <p class="text-right">
-                                                <span class="label label-primary">
-                                                    {{ session.currency }} {{ session.price }}
-                                                </span>
+                                                {% if session.is_international %}
+                                                    <span class="label label-primary">
+                                                        {{ session.currency_usd }} {{ session.price_usd }}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="label label-primary">
+                                                        {{ session.currency }} {{ session.price }}
+                                                    </span>
+                                                {% endif %}
                                             </p>
                                             <ul class="list-unstyled">
                                                 {% for course in session.courses %}

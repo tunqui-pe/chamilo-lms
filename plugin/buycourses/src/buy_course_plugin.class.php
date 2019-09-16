@@ -855,6 +855,8 @@ class BuyCoursesPlugin extends Plugin
             $price = $priceWithoutTax + $taxAmount;
         }
 
+        $isInternational = boolval($item['is_international']);
+
         $sessionInfo = [
             'id' => $session->getId(),
             'name' => $session->getName(),
@@ -874,7 +876,12 @@ class BuyCoursesPlugin extends Plugin
             'nbrUsers' => $session->getNbrUsers(),
             'url_webpay' => $item['url_webpay'],
             'url_servipag' => $item['url_servipag'],
+            'price_usd' => $item['price_usd'],
+            'is_international' => $isInternational,
         ];
+        if($isInternational){
+            $sessionInfo['currency_usd'] = 'USD';
+        }
 
         $fieldValue = new ExtraFieldValue('session');
         $sessionImage = $fieldValue->get_values_by_handler_and_field_variable(
@@ -1666,8 +1673,10 @@ class BuyCoursesPlugin extends Plugin
             'session_display_start_date' => null,
             'session_display_end_date' => null,
             'visible' => false,
+            'is_international' => false,
             'currency' => empty($defaultCurrency) ? null : $defaultCurrency['iso_code'],
             'price' => 0.00,
+            'price_usd' => 0.00,
             'tax_perc' => null,
             'url_webpay' => null,
             'url_servipag' => null
@@ -1707,9 +1716,14 @@ class BuyCoursesPlugin extends Plugin
             $sessionItem['visible'] = true;
             $sessionItem['currency'] = $item['iso_code'];
             $sessionItem['price'] = $item['price'];
+            $sessionItem['price_usd'] = $item['price_usd'];
             $sessionItem['tax_perc'] = $item['tax_perc'];
             $sessionItem['url_webpay'] = $item['url_webpay'];
             $sessionItem['url_servipag'] = $item['url_servipag'];
+            $sessionItem['is_international'] = boolval($item['is_international']);
+            if($sessionItem['is_international']){
+                $sessionItem['currency_usd'] = 'USD';
+            }
         }
 
         return $sessionItem;

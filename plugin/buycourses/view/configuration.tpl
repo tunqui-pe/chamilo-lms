@@ -107,6 +107,7 @@
                         <th class="text-center">{{ 'StartDate'|get_lang }}</th>
                         <th class="text-center">{{ 'EndDate'|get_lang }}</th>
                         <th class="text-center">{{ 'VisibleInCatalog'|get_plugin_lang('BuyCoursesPlugin') }}</th>
+                        <th class="text-center">{{ 'isInternational'|get_plugin_lang('BuyCoursesPlugin') }}</th>
                         <th class="text-right">{{ 'Price'|get_plugin_lang('BuyCoursesPlugin') }}</th>
                         {% if tax_enable and (tax_applies_to == 1 or tax_applies_to == 3) %}
                             <th class="text-center" width="100">{{ tax_name }}</th>
@@ -133,8 +134,19 @@
                                     <em class="fa fa-fw fa-square-o"></em>
                                 {% endif %}
                             </td>
+                            <td class="text-center">
+                                {% if item.is_international %}
+                                    <em class="fa fa-fw fa-check-square-o"></em>
+                                {% else %}
+                                    <em class="fa fa-fw fa-square-o"></em>
+                                {% endif %}
+                            </td>
                             <td class="text-right" width="200">
-                                {{ "#{item.price} #{tem.currency ?: item.currency}" }}
+                                {% if item.is_international %}
+                                    {{ "#{item.price_usd} #{tem.currency_usd ?: item.currency_usd}" }}
+                                {% else %}
+                                    {{ "#{item.price} #{tem.currency ?: item.currency}" }}
+                                {% endif %}
                             </td>
                             {% if tax_enable and (tax_applies_to == 1 or tax_applies_to == 3) %}
                                 <td class="text-center">

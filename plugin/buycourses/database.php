@@ -105,6 +105,16 @@ $itemTable->addColumn(
     \Doctrine\DBAL\Types\Type::TEXT,
     ['notnull' => false]
 );
+$itemTable->addColumn(
+    'price_usd',
+    \Doctrine\DBAL\Types\Type::DECIMAL,
+    ['scale' => 2]
+);
+$itemTable->addColumn(
+    'is_international',
+    \Doctrine\DBAL\Types\Type::INTEGER,
+    ['unsigned' => true]
+);
 $itemTable->setPrimaryKey(['id']);
 $itemTable->addForeignKeyConstraint(
     $currencyTable,

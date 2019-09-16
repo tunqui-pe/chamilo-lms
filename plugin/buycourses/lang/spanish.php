@@ -231,3 +231,7 @@ $strings['serviPag'] = "<strong>Servipag:</strong> Tarjeta de Crédito Internaci
 $strings['webPay'] = "<strong>Webpay:</strong> Tarjetas de crédito y débito bancarias nacionales (Visa, Mastercard, Magna, American, Diners y Redcompra)";
 $strings['wireTransfer']="<strong>Transferencia Bancaria:</strong> Transferencia o depósito bancario nacional";
 $strings['sessionCourses'] = "Cursos disponibles";
+$strings['InternationalCourse'] = "Curso internacional";
+$strings['AddPriceUSD'] = "Agregar un precio en USD";
+$strings['PriceInternational'] = "Agrega precio internacional en USD";
+$strings['isInternational'] = "Es internacional";

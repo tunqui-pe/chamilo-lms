@@ -74,10 +74,17 @@
                                 {{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.tax_amount }}
                             </div>
                             {% endif %}
-                            <div class="price">
-                                {{ 'Total'|get_plugin_lang('BuyCoursesPlugin')}} :
-                                {{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}
-                            </div>
+                            {% if session.is_international %}
+                                <div class="price">
+                                    {{ 'Total'|get_plugin_lang('BuyCoursesPlugin')}} :
+                                    {{  session.currency_usd }} {{ session.price_usd }}
+                                </div>
+                            {% else %}
+                                <div class="price">
+                                    {{ 'Total'|get_plugin_lang('BuyCoursesPlugin')}} :
+                                    {{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="col-md-9">
                             <div class="buy-item">

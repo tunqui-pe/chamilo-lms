@@ -155,9 +155,11 @@ if ($editingCourse) {
         'name' => $sessionItem['session_name'],
         'visible' => $sessionItem['visible'],
         'price' => $sessionItem['price'],
+        'price_usd' => $sessionItem['price_usd'],
         'tax_perc' => $sessionItem['tax_perc'],
         'url_webpay' => $sessionItem['url_webpay'],
         'url_servipag' => $sessionItem['url_servipag'],
+        'is_international' => $sessionItem['is_international'],
         'beneficiaries' => $defaultBeneficiaries,
         ($commissionsEnable == "true") ? 'commissions' : '' => ($commissionsEnable == "true") ? $commissions : '',
     ];
@@ -208,6 +210,19 @@ $form->addElement(
     'number',
     'price',
     [$plugin->get_lang('Price'), null, $currencyIso],
+    ['step' => 0.01]
+);
+
+$isInternationalCheckbox = $form->addCheckBox(
+    'is_international',
+    $plugin->get_lang('InternationalCourse'),
+    $plugin->get_lang('AddPriceUSD')
+);
+
+$form->addElement(
+    'number',
+    'price_usd',
+    [$plugin->get_lang('PriceInternational'), null, 'USD'],
     ['step' => 0.01]
 );
 $form->addElement(
@@ -287,7 +302,8 @@ if ($form->validate()) {
                     'price' => floatval($formValues['price']),
                     'tax_perc' => $taxPerc,
                     'url_webpay' => $urlWebPay,
-                    'url_servipag' => $urlServiPag
+                    'url_servipag' => $urlServiPag,
+                    'price_usd' => floatval($formValues['price_usd']),
                 ],
                 $formValues['i'],
                 $formValues['t']
@@ -300,7 +316,8 @@ if ($form->validate()) {
                 'price' => floatval($_POST['price']),
                 'tax_perc' => $taxPerc,
                 'url_webpay' => $urlWebPay,
-                'url_servipag' => $urlServiPag
+                'url_servipag' => $urlServiPag,
+                'price_usd' => floatval($_POST['price_usd']),
             ]);
             $productItem['id'] = $itemId;
         }
