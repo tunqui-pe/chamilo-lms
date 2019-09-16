@@ -304,6 +304,7 @@ if ($form->validate()) {
                     'url_webpay' => $urlWebPay,
                     'url_servipag' => $urlServiPag,
                     'price_usd' => floatval($formValues['price_usd']),
+                    'is_international' => $formValues['is_international']
                 ],
                 $formValues['i'],
                 $formValues['t']
@@ -318,6 +319,7 @@ if ($form->validate()) {
                 'url_webpay' => $urlWebPay,
                 'url_servipag' => $urlServiPag,
                 'price_usd' => floatval($_POST['price_usd']),
+                'is_international' => $formValues['is_international']
             ]);
             $productItem['id'] = $itemId;
         }
