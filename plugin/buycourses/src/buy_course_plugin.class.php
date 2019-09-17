@@ -966,6 +966,8 @@ class BuyCoursesPlugin extends Plugin
         $entityManager = Database::getManager();
         $item = $this->getItem($itemId);
 
+        $isInternational = boolval($item['is_international']);
+
         if (empty($item)) {
             return false;
         }
@@ -986,6 +988,11 @@ class BuyCoursesPlugin extends Plugin
             }
 
             $productName = $session->getName();
+        }
+
+        if($isInternational){
+            $item['price'] = $item['price_usd'];
+            $item['currency_id'] = 232;
         }
 
         $price = $item['price'];
