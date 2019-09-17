@@ -292,6 +292,12 @@ if ($form->validate()) {
     $formValues = $form->exportValues();
     $productItem = $plugin->getItemByProduct($formValues['i'], $formValues['t']);
 
+    $isInternationalValue = 0;
+
+    if(isset($formValues['is_international'])){
+        $isInternationalValue = 1;
+    }
+
     if (isset($formValues['visible'])) {
         $taxPerc = $formValues['tax_perc'] != '' ? (int) $formValues['tax_perc'] : null;
         $urlWebPay = $formValues['url_webpay'];
@@ -319,7 +325,7 @@ if ($form->validate()) {
                 'url_webpay' => $urlWebPay,
                 'url_servipag' => $urlServiPag,
                 'price_usd' => floatval($_POST['price_usd']),
-                'is_international' => $formValues['is_international']
+                'is_international' => $isInternationalValue
             ]);
             $productItem['id'] = $itemId;
         }

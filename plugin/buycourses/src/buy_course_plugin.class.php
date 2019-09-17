@@ -319,9 +319,14 @@ class BuyCoursesPlugin extends Plugin
 
         if ($paypal || $transfer) {
             $item = $this->getItemByProduct($productId, $productType);
+
             $html = '<div class="buycourses-price">';
             if ($item) {
-                $html .= '<span class="label label-primary label-price"><strong>'.$item['iso_code'].' '.$item['price'].'</strong></span>';
+                $price = $item['iso_code'].' '.$item['price'];
+                if(boolval($item['is_international'])){
+                    $price = 'USD '.$item['price_usd'];
+                }
+                $html .= '<span class="label label-primary label-price"><strong>'.$price.'</strong></span>';
                 $return['verificator'] = true;
             } else {
                 if ($hideFree == false) {
