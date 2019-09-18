@@ -1,7 +1,7 @@
 <div class="alert alert-info">
     {{ 'PayPalPaymentOKPleaseConfirm'|get_plugin_lang('BuyCoursesPlugin') }}
 </div>
-<div class="row">
+<div class="row buy-summary">
     <div class="col-sm-6 col-md-5">
         <h3 class="page-header">{{ 'UserInformation'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
         <dl class="dl-horizontal">
@@ -49,7 +49,11 @@
                         <img alt="{{ session.name }}" class="img-responsive"
                              src="{{ session.image ? session.image : 'session_default.png'|icon() }}">
                     </p>
-                    <p class="lead text-right">{{ session.currency }} {{ session.price }}</p>
+                    {% if session.is_international %}
+                        <p class="lead text-right">USD {{ session.price_usd }}</p>
+                    {% else %}
+                        <p class="lead text-right">{{ session.currency }} {{ session.price }}</p>
+                    {% endif %}
                 </div>
                 <div class="col-sm-12 col-md-7">
                     <p>{{ session.dates.display }}</p>
