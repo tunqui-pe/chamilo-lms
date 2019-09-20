@@ -1,9 +1,4 @@
-<div class="actions">
-    <a href="{{ _p.web }}main/auth/courses.php" title="{{ "Back"|get_lang }}">
-        <img src="{{ "back.png"|icon(32) }}" width="32" height="32" alt="{{ "Back"|get_lang }}"
-             title="{{ "Back"|get_lang }}"/>
-    </a>
-</div>
+
 <div class="section-title-container">
     <h3 class="section-title">{{ 'PurchaseData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
 </div>
@@ -52,8 +47,7 @@
                                         {{ 'Teachers'|get_plugin_lang('BuyCoursesPlugin')}} :
                                         {% for teacher in course.teachers %}
                                         <em class="fa fa-user" aria-hidden="true"></em>
-                                        <a href="{{ _p.web }}main/social/profile.php?u={{ teacher.id }}"
-                                           class="teacher-item"> {{ teacher.name }}</a>,
+                                        {{ teacher.name }},
                                         {% endfor %}
                                     </p>
                                 </div>
