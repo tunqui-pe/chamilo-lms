@@ -114,7 +114,7 @@
                 </div>
                 <div class="buy-summary">
                     <h3 class="buy-title-section">{{ 'PaymentMethods'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
-                    <div>
+                    {#<div>
                         <ul class="payment">
                             <li>
                                 <img src="{{ _p.web }}plugin/buycourses/resources/img/paypal.png">
@@ -129,8 +129,10 @@
                                 <img src="{{ _p.web }}plugin/buycourses/resources/img/servipag.png">
                             </li>
                         </ul>
+                    </div>#}
+                    <div class="list-buycourse-payment">
+                        {{ form }}
                     </div>
-                    {{ form }}
                 </div>
             </div>
         </div>

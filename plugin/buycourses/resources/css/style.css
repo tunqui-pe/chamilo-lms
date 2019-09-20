@@ -86,7 +86,17 @@
     background-color: #e8f2f8;
     border-color: #bce8f1;
 }
-
+.logo-payment{
+    float: left;
+    padding-right: 20px;
+    width: 128px;
+}
+#payment_type-group .radio{
+    margin-bottom: 1rem;
+}
+#payment_type-group .radio label{
+    font-size: 12px;
+}
 @-moz-keyframes wobblebar-loader {
     0% {
         left: 4px;

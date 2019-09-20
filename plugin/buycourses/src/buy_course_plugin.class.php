@@ -1244,6 +1244,11 @@ class BuyCoursesPlugin extends Plugin
         $this->updateSaleStatus($saleId, self::SALE_STATUS_CANCELED);
     }
 
+    public function getImageIcon($logo){
+        $imgFilesLogo = '<img class="logo-payment" src="'.api_get_path(WEB_PLUGIN_PATH).'buycourses/resources/img/'.$logo.'" />';
+        return $imgFilesLogo;
+    }
+
     /**
      * Get payment types.
      *
@@ -1251,12 +1256,14 @@ class BuyCoursesPlugin extends Plugin
      */
     public function getPaymentTypes()
     {
+
+
         return [
-            self::PAYMENT_TYPE_PAYPAL => $this->get_lang('payPal'),
-            self::PAYMENT_TYPE_TRANSFER => $this->get_lang('wireTransfer'),
             self::PAYMENT_TYPE_CULQI => 'Culqi',
-            self::PAYMENT_TYPE_SERVIPAG => $this->get_lang('serviPag'),
-            self::PAYMENT_TYPE_WEBPAY => $this->get_lang('webPay')
+            self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
+            self::PAYMENT_TYPE_WEBPAY => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
+            self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
+            self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
         ];
     }
 
