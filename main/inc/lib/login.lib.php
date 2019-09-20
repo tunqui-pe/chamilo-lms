@@ -235,7 +235,7 @@ class Login
             $mailSubject,
             $mailBody
         );
-        Display::addFlash(Display::return_message(get_lang('CheckYourEmailAndFollowInstructions')));
+        Display::addFlash(Display::return_message(get_lang('CheckEmailResetPassword')));
     }
 
     /**
