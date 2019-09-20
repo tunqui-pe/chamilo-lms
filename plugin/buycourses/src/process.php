@@ -87,6 +87,16 @@ if (!$culqiEnabled) {
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_CULQI]);
 }
 
+var_dump($sessionInfo['is_international']);
+
+if($sessionInfo['is_international']){
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSFER]);
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG]);
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY]);
+}else{
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_PAYPAL]);
+}
+
 $count = count($paymentTypesOptions);
 if ($count === 0) {
     $form->addHtml($plugin->get_lang('NoPaymentOptionAvailable'));
