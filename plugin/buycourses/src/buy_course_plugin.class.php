@@ -1260,9 +1260,9 @@ class BuyCoursesPlugin extends Plugin
 
         return [
             self::PAYMENT_TYPE_CULQI => 'Culqi',
-            self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
-            self::PAYMENT_TYPE_WEBPAY => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
             self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
+            self::PAYMENT_TYPE_WEBPAY => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
+            self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
             self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
         ];
     }
