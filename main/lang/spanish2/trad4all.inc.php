@@ -14,3 +14,4 @@ $regardsEducaChile="Saludos.<br> EQUIPO ONLINE<br>Educación Chile";
 $linkPlataform="Link";
 $powerPlatform="Enviado desde Plataforma aula-virtual.cl";
 $CheckEmailResetPassword= "Ingresa tu nueva contraseña para el acceso a tu plataforma.";
+$GoToCourseSession="Ir a mis cursos";

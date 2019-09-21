@@ -80,22 +80,33 @@
                                     {% endif %}
                                 </div>
                             {% else %}
-                                <div class="session-price">
-                                    <div class="sale-price">
-                                        {{ 'SalePrice'|get_lang }}
+                                {% if is_subscribed %}
+
+                                    <div class="alert alert-success" role="alert">
+                                        {{ 'UserIsCurrentlySubscribed'|get_lang }}
                                     </div>
-                                    <div class="price-text">
-                                        {% if is_premium.is_international %}
-                                            USD {{ is_premium.price_usd }}
-                                        {% else %}
-                                            {{ is_premium.iso_code }} {{ is_premium.price }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="buy-box">
-                                        <a href="{{ _p.web }}plugin/buycourses/src/process.php?i={{ is_premium.product_id }}&t={{ is_premium.product_type }}"
-                                           class="btn btn-lg btn-primary btn-block">{{ 'BuyNow'|get_lang }}</a>
-                                    </div>
-                                </div>
+                                    <a href="{{ _p.web }}user_portal.php?nosession=true" class="btn btn-primary btn-lg btn-block btn-course">
+                                        {{ 'GoToCourseSession'|get_lang }}
+                                    </a>
+
+                                    {% else %}
+                                        <div class="session-price">
+                                            <div class="sale-price">
+                                                {{ 'SalePrice'|get_lang }}
+                                            </div>
+                                            <div class="price-text">
+                                                {% if is_premium.is_international %}
+                                                    USD {{ is_premium.price_usd }}
+                                                {% else %}
+                                                    {{ is_premium.iso_code }} {{ is_premium.price }}
+                                                {% endif %}
+                                            </div>
+                                            <div class="buy-box">
+                                                <a href="{{ _p.web }}plugin/buycourses/src/process.php?i={{ is_premium.product_id }}&t={{ is_premium.product_type }}"
+                                                   class="btn btn-lg btn-primary btn-block">{{ 'BuyNow'|get_lang }}</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                             {% endif %}
                             {% if has_requirements %}
                                 <div class="session-requirements">

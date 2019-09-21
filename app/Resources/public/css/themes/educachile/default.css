@@ -348,7 +348,21 @@ a:focus {
 .session .sessions-items .courses{
   border: none;
 }
-
+.btn-course{
+  background: #808de8;
+  border-radius: 0;
+  text-transform: uppercase;
+  border: 1px solid #808de8;
+  font-weight: bold;
+  padding: 10px 20px;
+  box-shadow: 10px 10px 0 2px rgba(128,141,232,.15);
+  margin-bottom: 2rem;
+}
+.btn-course:hover{
+  color: #bdc8f2;
+  background: #808de8;
+  border: 1px solid #808de8;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
