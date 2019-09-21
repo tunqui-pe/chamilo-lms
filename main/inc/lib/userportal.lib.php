@@ -1088,7 +1088,7 @@ class IndexManager
                 $items[] = [
                     'class' => 'list-course',
                     'icon' => Display::return_icon('catalog-course.png', get_lang('CourseCatalog')),
-                    'link' => 'main/auth/courses.php',
+                    'link' => 'plugin/buycourses/src/session_catalog.php',
                     'title' => get_lang('CourseCatalog'),
                 ];
             } else {
