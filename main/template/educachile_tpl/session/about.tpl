@@ -1,5 +1,5 @@
 <section id="about-course">
-    {% if is_subscribed and user_session_time != -0 and user_session_time >= 1 %}
+    {#{% if is_subscribed and user_session_time != -0 and user_session_time >= 1 %}
         <div class="alert alert-info">
             {{ 'AlreadyRegisteredToSession'|get_lang }}
         </div>
@@ -7,7 +7,7 @@
         <div class="alert alert-warning">
             {{ 'YourSessionTimeIsExpired'|get_lang }}
         </div>
-    {% endif %}
+    {% endif %}#}
     <section class="session">
         <div class="panel panel-default">
             <div class="panel-body">
