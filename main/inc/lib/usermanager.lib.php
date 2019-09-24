@@ -443,6 +443,7 @@ class UserManager
                     false,
                     false
                 );
+                $tplSubject->assign('name', $firstName);
                 $layoutSubject = $tplSubject->get_template('mail/subject_registration_platform.tpl');
                 $emailSubject = $tplSubject->fetch($layoutSubject);
                 $sender_name = api_get_person_name(
