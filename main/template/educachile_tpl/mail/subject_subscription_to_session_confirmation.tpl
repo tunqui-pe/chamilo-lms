@@ -1,1 +1,1 @@
-{{ '$subjectSession'|get_lang ~ ' ' ~ _s.site_name }}
+{{ 'subjectSession'|get_lang ~ ' ' ~ _s.site_name }}
