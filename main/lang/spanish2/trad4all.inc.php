@@ -18,3 +18,4 @@ $GoToCourseSession="Ir a mis cursos";
 $hopingYouAreWell="Te queremos informar que te encuentras inscrito(a) en";
 $TheLinkAccess="El enlace para acceder es";
 $AnyTechnicalQuestions="Cualquier duda técnica nos puedes escribir al email";
+$subjectSession="ASUNTO: Bienvenido(a), tu inscripción ha sido completada.";
