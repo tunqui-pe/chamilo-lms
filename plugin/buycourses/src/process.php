@@ -8,9 +8,16 @@ use ChamiloSession as Session;
  *
  * @package chamilo.plugin.buycourses
  */
+
+// initialize session variables
+Session::write('item_id', $_REQUEST['i']);
+
+
 require_once '../config.php';
 
 $currentUserId = api_get_user_id();
+$valorItem = Session::read('item_id');
+var_dump($valorItem);
 
 $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
         WEB_PLUGIN_PATH
