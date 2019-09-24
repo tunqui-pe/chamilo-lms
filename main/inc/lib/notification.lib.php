@@ -442,7 +442,8 @@ class Notification extends Model
 
         // You have received a new message text
         if (!empty($newMessageText)) {
-            $content = $newMessageText.'<br /><hr><br />'.$content;
+            $content = '<br />'.$content;
+            //$content = $newMessageText.'<br /><hr><br />'.$content;
         }
 
         // See message with link text
@@ -451,11 +452,12 @@ class Notification extends Model
         }
 
         // You have received this message because you are subscribed text
-        $content = $content.'<br /><hr><i>'.
+        $content = $content.'<br>';
+        /*$content = $content.'<br /><hr><i>'.
             sprintf(
                 get_lang('YouHaveReceivedThisNotificationBecauseYouAreSubscribedOrInvolvedInItToChangeYourNotificationPreferencesPleaseClickHereX'),
                 Display::url($preferenceUrl, $preferenceUrl)
-            ).'</i>';
+            ).'</i>';*/
 
         if (!empty($hook)) {
             $hook->setEventData(['content' => $content]);
