@@ -100,8 +100,7 @@
                                         {% if course.coaches|length %}
                                         {% for coach in course.coaches %}
                                         <em class="fa fa-user" aria-hidden="true"></em>
-                                        <a href="{{ _p.web }}main/social/profile.php?u={{ coach.id }}"
-                                           class="teacher-item"> {{ coach.name }}</a>,
+                                         {{ coach.name }},
                                         {% endfor %}
                                         {% endif %}
                                     </p>
