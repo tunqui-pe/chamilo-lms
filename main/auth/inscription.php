@@ -83,6 +83,7 @@ if (api_get_setting('allow_terms_conditions') === 'true') {
 $sessionPremiumChecker = Session::read('SessionIsPremium');
 $sessionId = Session::read('sessionId');
 
+
 // Direct Link Session Subscription feature #12220
 $sessionRedirect = isset($_REQUEST['s']) && !empty($_REQUEST['s']) ? $_REQUEST['s'] : null;
 $onlyOneCourseSessionRedirect = isset($_REQUEST['cr']) && !empty($_REQUEST['cr']) ? $_REQUEST['cr'] : null;
@@ -1062,14 +1063,16 @@ if ($form->validate()) {
 
     if ($sessionPremiumChecker && $sessionId) {
         Session::erase('SessionIsPremium');
-        Session::erase('sessionId');
+        //Session::erase('sessionId');
         header('Location:'.api_get_path(WEB_PLUGIN_PATH).'buycourses/src/process.php?i='.$sessionId.'&t=2');
+
         exit;
     }
 
     SessionManager::redirectToSession();
 
     $redirectBuyCourse = Session::read('buy_course_redirect');
+
     if (!empty($redirectBuyCourse)) {
         $form_data['action'] = api_get_path(WEB_PATH).$redirectBuyCourse;
         Session::erase('buy_course_redirect');
