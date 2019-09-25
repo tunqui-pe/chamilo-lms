@@ -169,7 +169,7 @@ class Notification extends Model
                         null,
                         PERSON_NAME_EMAIL_ADDRESS
                     );
-                    $newTitle .= sprintf(get_lang('YouHaveANewMessageFromX'), $senderName);
+                    $newTitle .= $title;
                 }
                 break;
             case self::NOTIFICATION_TYPE_DIRECT_MESSAGE:
@@ -438,7 +438,7 @@ class Notification extends Model
                 $linkToNewMessage = Display::url(get_lang('SeeMessage'), $groupUrl);
                 break;
         }
-        $preferenceUrl = api_get_path(WEB_CODE_PATH).'auth/profile.php';
+        //$preferenceUrl = api_get_path(WEB_CODE_PATH).'auth/profile.php';
 
         // You have received a new message text
         if (!empty($newMessageText)) {
