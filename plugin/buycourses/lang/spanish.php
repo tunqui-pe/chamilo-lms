@@ -235,3 +235,4 @@ $strings['InternationalCourse'] = "Curso internacional";
 $strings['AddPriceUSD'] = "Agregar un precio en USD";
 $strings['PriceInternational'] = "Agrega precio internacional en USD";
 $strings['isInternational'] = "Es internacional";
+$strings['nameSession'] = "Nombre del curso";

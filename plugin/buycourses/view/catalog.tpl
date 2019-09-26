@@ -102,7 +102,7 @@
                                                     </span>
                                                 {% endif %}
                                             </p>
-                                            <ul class="list-unstyled">
+                                            {#<ul class="list-unstyled">
                                                 {% for course in session.courses %}
                                                     <li>
                                                         <em class="fa fa-book fa-fw"></em> {{ course.title }}
@@ -115,7 +115,7 @@
                                                         {% endif %}
                                                     </li>
                                                 {% endfor %}
-                                            </ul>
+                                            </ul>#}
                                             {% if session.enrolled == "YES" %}
                                                 <div class="alert alert-success">
                                                     <em class="fa fa-check-square-o fa-fw"></em> {{ 'TheUserIsAlreadyRegisteredInTheSession'|get_plugin_lang('BuyCoursesPlugin') }}
