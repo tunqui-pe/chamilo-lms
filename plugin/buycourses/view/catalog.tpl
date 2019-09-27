@@ -90,7 +90,7 @@
                                             {% if 'show_session_coach'|api_get_setting == 'true' %}
                                                 <p><em class="fa fa-user fa-fw"></em> {{ session.coach }}</p>
                                             {% endif %}
-                                            <p><em class="fa fa-calendar fa-fw"></em> {{ session.dates.display }}</p>
+                                            <p class="date-course"><em class="fa fa-calendar fa-fw"></em> {{ session.dates.display }}</p>
                                             <p class="text-right">
                                                 {% if session.is_international %}
                                                     <span class="label label-primary">
