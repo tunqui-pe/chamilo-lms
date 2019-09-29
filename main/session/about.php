@@ -210,6 +210,7 @@ if ($checker) {
         $sessionId,
         BuyCoursesPlugin::PRODUCT_TYPE_SESSION
     );
+
     if ($sessionIsPremium) {
         ChamiloSession::write('SessionIsPremium', true);
         ChamiloSession::write('sessionId', $sessionId);

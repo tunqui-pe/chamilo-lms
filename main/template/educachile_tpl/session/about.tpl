@@ -96,9 +96,9 @@
                                             </div>
                                             <div class="price-text">
                                                 {% if is_premium.is_international %}
-                                                    USD {{ is_premium.price_usd }}
+                                                    USD {{ is_premium.price_usd|number_format(2,'.',',') }}
                                                 {% else %}
-                                                    {{ is_premium.iso_code }} {{ is_premium.price }}
+                                                    {{ is_premium.iso_code }} {{ is_premium.price|number_format(2,'.',',') }}
                                                 {% endif %}
                                             </div>
                                             <div class="buy-box">
