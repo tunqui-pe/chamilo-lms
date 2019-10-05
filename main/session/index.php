@@ -191,7 +191,7 @@ if (api_is_coach_of_course_in_session($session_id) == false) {
 
 $entityManager = Database::getManager();
 $session = $entityManager->find('ChamiloCoreBundle:Session', $session_id);
-$sessionTitleLink = api_get_configuration_value('courses_list_session_title_link');
+/*$sessionTitleLink = api_get_configuration_value('courses_list_session_title_link');
 
 if ($sessionTitleLink == 2 && $session->getNbrCourses() === 1) {
     $sessionCourses = $session->getCourses();
@@ -203,7 +203,7 @@ if ($sessionTitleLink == 2 && $session->getNbrCourses() === 1) {
 
     header('Location: '.api_get_path(WEB_COURSE_PATH).$courseUrl);
     exit;
-}
+}*/
 
 Display::display_header(get_lang('Session'));
 
