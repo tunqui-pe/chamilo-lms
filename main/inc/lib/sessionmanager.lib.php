@@ -9093,7 +9093,7 @@ SQL;
             $dateHuman
         );
 
-        $format = $showTime ? DATE_TIME_FORMAT_LONG_24H : DATE_FORMAT_LONG_NO_DAY;
+        $format = $showTime ? DATE_TIME_FORMAT_SHORT : DATE_FORMAT_LONG_NO_DAY;
 
         $result = '';
         if (!empty($startDateToLocal) && !empty($endDateToLocal)) {
