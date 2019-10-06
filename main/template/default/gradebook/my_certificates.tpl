@@ -17,6 +17,9 @@
                         <td class="text-right">{{ row.score }}</td>
                         <td class="text-center">{{ row.date }}</td>
                         <td class="text-right">
+                            <a href="{{ row.link_pdf }}" target="_blank" class="btn btn-default">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{ 'DownloadCertificatePdf'|get_lang }}
+                            </a>
                             <a href="{{ row.link }}" target="_blank" class="btn btn-default">
                                 <em class="fa fa-external-link"></em> {{ 'Certificate'|get_lang }}
                             </a>
@@ -49,6 +52,9 @@
                         <td class="text-right">{{ row.score }}</td>
                         <td class="text-center">{{ row.date }}</td>
                         <td class="text-right">
+                            <a href="{{ row.link_pdf }}" target="_blank" class="btn btn-default">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{ 'DownloadCertificatePdf'|get_lang }}
+                            </a>
                             <a href="{{ row.link }}" target="_blank" class="btn btn-default">
                                 <em class="fa fa-external-link"></em> {{ 'Certificate'|get_lang }}
                             </a>
