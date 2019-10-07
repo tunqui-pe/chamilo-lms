@@ -83,6 +83,10 @@ class ScheduledAnnouncement extends Model
             Display::return_icon('tuning.png', get_lang('SendManuallyPendingAnnouncements'), '', ICON_SIZE_MEDIUM).
             '</a>';
 
+        $action .= '<a href="copy_scheduled_announcement.php?session_id='.$sessionId.'">'.
+            Display::return_icon('copy.png', get_lang('CopyScheduledAnnouncements'), '', ICON_SIZE_MEDIUM).
+            '</a>';
+
         $action .= '</div>';
 
         $html = $action;

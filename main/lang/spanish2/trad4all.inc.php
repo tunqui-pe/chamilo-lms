@@ -20,3 +20,6 @@ $TheLinkAccess="El enlace para acceder es";
 $AnyTechnicalQuestions="Cualquier duda técnica nos puedes escribir al email";
 $subjectSession="Bienvenido(a), tu inscripción ha sido completada.";
 $toWelcome="te damos la bienvenida!";
+$CopyScheduledAnnouncements = "Copiar anuncios programados";
+$NoScheduledAnnouncements = "La sesión no tiene anuncios programados";
+$CopyConfirmation = "Los anuncios fueron copiados correctamente en la sessión seleccionada";
