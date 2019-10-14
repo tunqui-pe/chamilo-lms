@@ -55,7 +55,7 @@ $form->addElement(
 $form->addHtml('<hr>');
 $form->addButtonFilter(get_lang('Search'));
 
-$sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter);
+$sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true);
 
 // View
 if (api_is_platform_admin()) {

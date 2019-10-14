@@ -579,12 +579,13 @@ class BuyCoursesPlugin extends Plugin
      * @param string $name Optional. The name filter
      * @param int    $min  Optional. The minimum price filter
      * @param int    $max  Optional. The maximum price filter
+     * @param boolean $orderByName
      *
      * @return array
      */
-    public function getCatalogSessionList($name = null, $min = 0, $max = 0)
+    public function getCatalogSessionList($name = null, $min = 0, $max = 0, $orderByName = false)
     {
-        $sessions = $this->filterSessionList($name, $min, $max);
+        $sessions = $this->filterSessionList($name, $min, $max, $orderByName);
 
         $sessionCatalog = [];
         // loop through all sessions
@@ -3035,15 +3036,20 @@ class BuyCoursesPlugin extends Plugin
      * Search filtered sessions by name, and range of price.
      *
      * @param string $name Optional. The name filter
-     * @param int    $min  Optional. The minimun price filter
-     * @param int    $max  Optional. The maximum price filter
+     * @param int $min Optional. The minimun price filter
+     * @param int $max Optional. The maximum price filter
+     * @param boolean $orderByName
      *
      * @return array
+     * @throws Exception
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    private function filterSessionList($name = null, $min = 0, $max = 0)
+    private function filterSessionList($name = null, $min = 0, $max = 0, $orderByName = false)
     {
         if (empty($name) && empty($min) && empty($max)) {
-            return CoursesAndSessionsCatalog::browseSessions();
+            return CoursesAndSessionsCatalog::browseSessions(null, [], $orderByName);
         }
 
         $itemTable = Database::get_main_table(self::TABLE_ITEM);

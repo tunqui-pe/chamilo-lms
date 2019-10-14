@@ -148,7 +148,7 @@
             {% if is_bank_transfer %}
 
                 <h4 style="font-weight: bold; text-transform: uppercase; margin-bottom: 3rem;">{{ 'BankAccountInformation'|get_plugin_lang('BuyCoursesPlugin') }}</h4>
-                <p>{{ 'BankTransferData'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+                <p>{{ 'TextTransferData'|get_plugin_lang('BuyCoursesPlugin') }} {{ 'BankTransferData'|get_plugin_lang('BuyCoursesPlugin') }}</p>
 
                 <div class="bank-data">
                     <dl class="dl-horizontal">

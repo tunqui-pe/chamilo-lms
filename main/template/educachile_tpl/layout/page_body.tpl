@@ -6,7 +6,12 @@
     {{ actions }}
 {% endif %}
 
-{{ flash_messages }}
+{% if flash_messages %}
+    <div class="flash-message">
+        {{ flash_messages }}
+    </div>
+{% endif %}
+
 {% if header != '' %}
     <div class="section-page">
         <div class="page-header">

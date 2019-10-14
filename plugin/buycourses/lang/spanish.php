@@ -212,6 +212,7 @@ $strings['ProductName'] = "Nombre producto";
 $strings['BankAccountIntro'] = "Información cuentas bancarias";
 $strings['ByDate'] = "Por Fecha";
 $strings['ByEmail'] = "Por Email";
+$strings['TextTransferData'] = "Una vez realizada, te solicitamos por favor re-enviarnos tu comprobante de pago al email: <strong> karen@educacionchile.cl</strong>, Una vez que validemos tu deposito, habilitaremos e informaremos vía email.";
 $strings['BankTransferData'] = "Los datos para realizar la transferencia o deposito bancario son los siguientes:";
 $strings['PressConfirmButton'] = "Por favor presionar el botón \"Confirmar inscripción\" para enviar la información a tu correo";
 $strings['CurrentAccount'] = "Nº Cuenta Corriente";

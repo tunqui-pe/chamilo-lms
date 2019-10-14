@@ -559,14 +559,16 @@ class CoursesAndSessionsCatalog
     /**
      * List the sessions.
      *
-     * @param string $date  (optional) The date of sessions
-     * @param array  $limit
+     * @param string $date (optional) The date of sessions
+     * @param array $limit
      *
-     * @throws Exception
-     *
+     * @param bool $orderByName
      * @return array The session list
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public static function browseSessions($date = null, $limit = [])
+    public static function browseSessions($date = null, $limit = [], $orderByName = false)
     {
         $em = Database::getManager();
         $urlId = api_get_current_access_url_id();
@@ -577,6 +579,10 @@ class CoursesAndSessionsCatalog
                 WHERE 
                       s.nbr_courses > 0 AND 
                       ars.access_url_id = $urlId";
+
+        if($orderByName){
+            $sql .= " order by s.name";
+        }
 
         if (!is_null($date)) {
             $date = Database::escape_string($date);
