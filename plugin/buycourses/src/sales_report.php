@@ -175,7 +175,6 @@ if(isset($_GET['export'])){
         'ProductName',
         'UserName',
         'Email',
-        'Status',
     ];
     foreach ($salesStatus as $sale){
         $salesListToExport[] = [
