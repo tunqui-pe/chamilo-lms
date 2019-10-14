@@ -82,6 +82,7 @@ if (isset($_POST['formSent'])) {
             $archiveFile = 'export_sessions_'.$session_id.'_'.api_get_local_time();
             $cvs = true;
             $sessionListToExport[] = [
+                'IDSession',
                 'SessionName',
                 'Coach',
                 'DateStart',
@@ -113,6 +114,7 @@ if (isset($_POST['formSent'])) {
         }
 
         while ($row = Database::fetch_array($result)) {
+            $row['id'] = str_replace(';', ',', $row['id']);
             $row['name'] = str_replace(';', ',', $row['name']);
             $row['username'] = str_replace(';', ',', $row['username']);
             $row['access_start_date'] = str_replace(';', ',', $row['access_start_date']);
@@ -225,6 +227,7 @@ if (isset($_POST['formSent'])) {
 
             if (in_array($file_type, ['csv', 'xls'])) {
                 $sessionListToExport[] = [
+                    $row['id'],
                     $row['name'],
                     $row['username'],
                     $row['access_start_date'],
