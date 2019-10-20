@@ -1374,6 +1374,30 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
+     * Get the list statuses for sales.
+     *
+     * @return array
+     */
+    public function getSaleListReport()
+    {
+        $saleTable = Database::get_main_table(self::TABLE_SALE);
+        $currencyTable = Database::get_main_table(self::TABLE_CURRENCY);
+        $userTable = Database::get_main_table(TABLE_MAIN_USER);
+        $innerJoins = "
+            INNER JOIN $currencyTable c ON s.currency_id = c.id
+            INNER JOIN $userTable u ON s.user_id = u.id
+        ";
+        $list = Database::select(
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
+            "$saleTable s $innerJoins",
+            [
+                'order' => 'id DESC',
+            ]
+        );
+        return $list;
+    }
+
+    /**
      * Get the statuses for sales.
      *
      * @return array
