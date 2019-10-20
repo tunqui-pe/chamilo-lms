@@ -84,7 +84,6 @@ if ($form->validate()) {
     $dateStart = $form->getSubmitValue('date_start');
     $dateEnd = $form->getSubmitValue('date_end');
     $email = $form->getSubmitValue('email');
-
     if ($selectedStatus === false) {
         $selectedStatus = BuyCoursesPlugin::SALE_STATUS_PENDING;
     }
@@ -125,6 +124,7 @@ $form->setDefaults([
     'email' => $email
 ]);
 
+
 switch ($selectedFilterType) {
     case '0':
         $sales = $plugin->getSaleListByStatus($selectedStatus);
@@ -140,12 +140,11 @@ switch ($selectedFilterType) {
         break;
 }
 
-$salesStatus = $plugin->getSaleListReport();
-
 $saleList = [];
 
 foreach ($sales as $sale) {
     $saleList[] = [
+        'id' => $sale['id'],
         'reference' => $sale['reference'],
         'status' => $sale['status'],
         'date' => api_convert_and_format_date($sale['date'], DATE_TIME_FORMAT_LONG_24H),
@@ -159,39 +158,6 @@ foreach ($sales as $sale) {
         'invoice' => $sale['invoice'],
         'num_invoice' => $plugin->getNumInvoice($sale['id'], 0),
     ];
-}
-
-if(isset($_GET['export'])){
-    $export = $_GET['export'];
-    $archiveFile = 'export_report_sales_'.api_get_local_time();
-    $salesListToExport[] = [
-        'IDOrder',
-        'OrderReference',
-        'OrderStatus',
-        'OrderDate',
-        'PaymentMethod',
-        'Price',
-        'ProductType',
-        'ProductName',
-        'UserName',
-        'Email',
-    ];
-    foreach ($salesStatus as $sale){
-        $salesListToExport[] = [
-            'id' => $sale['id'],
-            'reference' => $sale['reference'],
-            'status' => $sale['status'],
-            'date' => api_convert_and_format_date($sale['date'], DATE_TIME_FORMAT_LONG_24H),
-            'currency' => $sale['iso_code'],
-            'price' => $sale['price'],
-            'product_type' => $sale['product_type'],
-            'product_name' => $sale['product_name'],
-            'complete_user_name' => api_get_person_name($sale['firstname'], $sale['lastname']),
-            'email' => $sale['email'],
-        ];
-    }
-    Export::arrayToXls($salesListToExport, $archiveFile);
-    exit;
 }
 
 //View
@@ -232,11 +198,6 @@ if ($commissionsEnable == "true") {
         Display::toolbarAction('toolbar', [$toolbar])
     );
 }
-$toolbar = Display::url(Display::return_icon('export_excel.png',get_lang('ExportAsXLS')),'?export=true');
-$template->assign(
-    'actions',
-    Display::toolbarAction('toolbar-export', [$toolbar])
-);
 $template->assign('form', $form->returnForm());
 $template->assign('selected_sale', $selectedSale);
 $template->assign('selected_status', $selectedStatus);
