@@ -395,6 +395,9 @@ a:focus {
 .flash-message .alert{
   font-size: 16px;
 }
+.flash-message .alert strong{
+  font-size: 20px;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
