@@ -46,7 +46,6 @@
     </table>
 
     <p>{{ 'ResendProof'|get_plugin_lang('BuyCoursesPlugin') }}</p>
-    <p>{{ 'weAlreadyAppreciate'|get_plugin_lang('BuyCoursesPlugin') }}</p>
     <h3 style="text-transform: uppercase; font-size: 16px;">{{ 'registrationData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
 
     <table>
