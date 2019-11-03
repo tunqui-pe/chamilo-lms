@@ -1425,8 +1425,7 @@ class BuyCoursesPlugin extends Plugin
                 'status_filter' => $item['status'],
                 'date' => api_convert_and_format_date($item['date'], DATE_TIME_FORMAT_LONG_24H),
                 'date_filter' => $dateFilter->format('Y-m-d'),
-                'currency' => $item['iso_code'],
-                'price' => $item['price'],
+                'price' => $item['iso_code'].' '.$item['price'],
                 'product_type' => $item['product_type'],
                 'product_name' => $item['product_name'],
                 'complete_user_name' => api_get_person_name($item['firstname'], $item['lastname']),
@@ -1434,21 +1433,21 @@ class BuyCoursesPlugin extends Plugin
             ];
         }
 
+        $listExport[] = [
+            'ID',
+            $this->get_lang('OrderStatus'),
+            $this->get_lang('OrderDate'),
+            $this->get_lang('PaymentMethod'),
+            $this->get_lang('SalePrice'),
+            $this->get_lang('ProductType'),
+            $this->get_lang('ProductName'),
+            $this->get_lang('UserName'),
+            'Email'
+        ];
+
         //Validation Export
         $dateStart = strtotime($dateStart);
         $dateEnd = strtotime($dateEnd);
-
-        $listExport[] = [
-            'IDOrder',
-            'OrderStatus',
-            'OrderDate',
-            'PaymentMethod',
-            'Price',
-            'ProductType',
-            'ProductName',
-            'UserName',
-            'Email'
-        ];
 
         foreach ($listExportTemp as $item){
             $dateFilter = strtotime($item['date_filter']);
@@ -1467,7 +1466,7 @@ class BuyCoursesPlugin extends Plugin
                 ];
             }
         }
-
+        //var_dump($listExport);
         return $listExport;
     }
 

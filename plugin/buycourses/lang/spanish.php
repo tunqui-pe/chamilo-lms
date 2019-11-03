@@ -239,3 +239,6 @@ $strings['isInternational'] = "Es internacional";
 $strings['nameSession'] = "Nombre del curso";
 $strings['ExportReport'] = "Exportar reporte de ventas";
 $strings['AllSales'] = "Todas la ventas";
+$strings['OrderStatus'] = "Estado de venta";
+$strings['OrderDate'] = "Fecha";
+$strings['SelectDateRange'] = "Seleccione una fecha de inicio y fecha de fin para el reporte";
