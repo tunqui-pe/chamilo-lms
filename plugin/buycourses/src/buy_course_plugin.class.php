@@ -1376,9 +1376,11 @@ class BuyCoursesPlugin extends Plugin
     /**
      * Get the list statuses for sales.
      *
+     * @param null $dateStart
+     * @param null $dateEnd
      * @return array
      */
-    public function getSaleListReport()
+    public function getSaleListReport($dateStart = null, $dateEnd = null)
     {
         $saleTable = Database::get_main_table(self::TABLE_SALE);
         $currencyTable = Database::get_main_table(self::TABLE_CURRENCY);
@@ -1394,7 +1396,79 @@ class BuyCoursesPlugin extends Plugin
                 'order' => 'id DESC',
             ]
         );
-        return $list;
+
+        $listExportTemp = [];
+        $listExport = [];
+        $textStatus = null;
+
+        foreach($list as $item){
+
+            $statusSaleOrder = $item['status'];
+
+            switch ($statusSaleOrder){
+                case 0:
+                    $textStatus = $this->get_lang('SaleStatusPending');
+                    break;
+                case 1:
+                    $textStatus = $this->get_lang('SaleStatusCompleted');
+                    break;
+                case -1:
+                    $textStatus = $this->get_lang('SaleStatusCanceled');
+                    break;
+            }
+
+            $dateFilter = new DateTime($item['date']);
+            $listExportTemp[] = [
+                'id' => $item['id'],
+                'reference' => $item['reference'],
+                'status' => $textStatus,
+                'status_filter' => $item['status'],
+                'date' => api_convert_and_format_date($item['date'], DATE_TIME_FORMAT_LONG_24H),
+                'date_filter' => $dateFilter->format('Y-m-d'),
+                'currency' => $item['iso_code'],
+                'price' => $item['price'],
+                'product_type' => $item['product_type'],
+                'product_name' => $item['product_name'],
+                'complete_user_name' => api_get_person_name($item['firstname'], $item['lastname']),
+                'email' => $item['email'],
+            ];
+        }
+
+        //Validation Export
+        $dateStart = strtotime($dateStart);
+        $dateEnd = strtotime($dateEnd);
+
+        $listExport[] = [
+            'IDOrder',
+            'OrderStatus',
+            'OrderDate',
+            'PaymentMethod',
+            'Price',
+            'ProductType',
+            'ProductName',
+            'UserName',
+            'Email'
+        ];
+
+        foreach ($listExportTemp as $item){
+            $dateFilter = strtotime($item['date_filter']);
+            if(($dateFilter >= $dateStart) && ($dateFilter <= $dateEnd)){
+
+                $listExport[] = [
+                    'id' => $item['id'],
+                    'status' => $item['status'],
+                    'date' => $item['date'],
+                    'payment_method' => null,
+                    'price' => $item['price'],
+                    'product_type' => $item['product_type'],
+                    'product_name' => $item['product_name'],
+                    'complete_user_name' => $item['complete_user_name'],
+                    'email' => $item['email'],
+                ];
+            }
+        }
+
+        return $listExport;
     }
 
     /**
