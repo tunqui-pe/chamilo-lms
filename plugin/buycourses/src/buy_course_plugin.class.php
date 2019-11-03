@@ -1257,14 +1257,28 @@ class BuyCoursesPlugin extends Plugin
      */
     public function getPaymentTypes()
     {
-
-
         return [
             self::PAYMENT_TYPE_CULQI => 'Culqi',
             self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
             self::PAYMENT_TYPE_WEBPAY => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
             self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
             self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
+        ];
+    }
+
+    /**
+     * Get payment types.
+     *
+     * @return array
+     */
+    public function getPaymentTypesString()
+    {
+        return [
+            self::PAYMENT_TYPE_CULQI => 'Culqi',
+            self::PAYMENT_TYPE_TRANSFER => 'Transferencia Bancaria',
+            self::PAYMENT_TYPE_WEBPAY => 'Webpay',
+            self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
+            self::PAYMENT_TYPE_PAYPAL => 'PayPal'
         ];
     }
 
@@ -1400,6 +1414,7 @@ class BuyCoursesPlugin extends Plugin
         $listExportTemp = [];
         $listExport = [];
         $textStatus = null;
+        $paymentTypes = $this->getPaymentTypesString();
 
         foreach($list as $item){
 
@@ -1428,6 +1443,7 @@ class BuyCoursesPlugin extends Plugin
                 'price' => $item['iso_code'].' '.$item['price'],
                 'product_type' => $item['product_type'],
                 'product_name' => $item['product_name'],
+                'payment_type' => $paymentTypes[$item['payment_type']],
                 'complete_user_name' => api_get_person_name($item['firstname'], $item['lastname']),
                 'email' => $item['email'],
             ];
@@ -1457,7 +1473,7 @@ class BuyCoursesPlugin extends Plugin
                     'id' => $item['id'],
                     'status' => $item['status'],
                     'date' => $item['date'],
-                    'payment_method' => null,
+                    'payment_type' => $item['payment_type'],
                     'price' => $item['price'],
                     'product_type' => $item['product_type'],
                     'product_name' => $item['product_name'],
@@ -1466,7 +1482,7 @@ class BuyCoursesPlugin extends Plugin
                 ];
             }
         }
-        //var_dump($listExport);
+
         return $listExport;
     }
 
