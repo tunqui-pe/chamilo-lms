@@ -30,6 +30,7 @@ class BuyCoursesPlugin extends Plugin
     const TABLE_SERVICES = 'plugin_buycourses_services';
     const TABLE_SERVICES_SALE = 'plugin_buycourses_service_sale';
     const TABLE_CULQI = 'plugin_buycourses_culqi';
+    const TABLE_TRANSBANK = 'plugin_buycourses_transbank';
     const TABLE_GLOBAL_CONFIG = 'plugin_buycourses_global_config';
     const TABLE_INVOICE = 'plugin_buycourses_invoices';
     const PRODUCT_TYPE_COURSE = 1;
@@ -54,6 +55,8 @@ class BuyCoursesPlugin extends Plugin
     const SERVICE_TYPE_LP_FINAL_ITEM = 4;
     const CULQI_INTEGRATION_TYPE = 'INTEG';
     const CULQI_PRODUCTION_TYPE = 'PRODUC';
+    const TRANSBANK_INTEGRATION_TYPE = 'INTEG';
+    const TRANSBANK_PRODUCTION_TYPE = 'PRODUC';
     const TAX_APPLIES_TO_ALL = 1;
     const TAX_APPLIES_TO_ONLY_COURSE = 2;
     const TAX_APPLIES_TO_ONLY_SESSION = 3;
@@ -85,6 +88,7 @@ class BuyCoursesPlugin extends Plugin
                 'paypal_enable' => 'boolean',
                 'transfer_enable' => 'boolean',
                 'culqi_enable' => 'boolean',
+                'transbank_enable' => 'boolean',
                 'commissions_enable' => 'boolean',
                 'unregistered_users_enable' => 'boolean',
                 'hide_free_text' => 'boolean',
@@ -111,7 +115,7 @@ class BuyCoursesPlugin extends Plugin
      */
     public function isEnabled()
     {
-        return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable');
+        return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable') || $this->get('transbank_enable');
     }
 
     /**
@@ -123,6 +127,7 @@ class BuyCoursesPlugin extends Plugin
             self::TABLE_PAYPAL,
             self::TABLE_TRANSFER,
             self::TABLE_CULQI,
+            self::TABLE_TRANSBANK,
             self::TABLE_ITEM_BENEFICIARY,
             self::TABLE_ITEM,
             self::TABLE_SALE,
@@ -155,6 +160,7 @@ class BuyCoursesPlugin extends Plugin
             self::TABLE_PAYPAL,
             self::TABLE_TRANSFER,
             self::TABLE_CULQI,
+            self::TABLE_TRANSBANK,
             self::TABLE_ITEM_BENEFICIARY,
             self::TABLE_ITEM,
             self::TABLE_SALE,
@@ -2822,6 +2828,26 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
+     * Save Transbank configuration params.
+     *
+     * @param array $params
+     *
+     * @return int Rows affected. Otherwise return false
+     */
+    public function saveTransbankParameters($params)
+    {
+        return Database::update(
+            Database::get_main_table(self::TABLE_TRANSBANK),
+            [
+                'commerce_code' => $params['commerce_code'],
+                'api_key' => $params['api_key'],
+                'integration' => $params['integration'],
+            ],
+            ['id = ?' => 1]
+        );
+    }
+
+    /**
      * Gets the stored Culqi params.
      *
      * @return array
@@ -2831,6 +2857,21 @@ class BuyCoursesPlugin extends Plugin
         return Database::select(
             '*',
             Database::get_main_table(self::TABLE_CULQI),
+            ['id = ?' => 1],
+            'first'
+        );
+    }
+
+    /**
+     * Gets the stored Transbank params.
+     *
+     * @return array
+     */
+    public function getTransbankParams()
+    {
+        return Database::select(
+            '*',
+            Database::get_main_table(self::TABLE_TRANSBANK),
             ['id = ?' => 1],
             'first'
         );
