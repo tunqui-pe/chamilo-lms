@@ -312,7 +312,7 @@ switch ($sale['payment_type']) {
         $template->assign('content', $content);
         $template->display_one_col_template();
 
-    case BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY:
+    case BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK:
     case BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG:
 
         $buyingCourse = false;
@@ -324,10 +324,7 @@ switch ($sale['payment_type']) {
             case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
                 $buyingCourse = true;
                 $course = $plugin->getCourseInfo($sale['product_id']);
-                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY){
-                    $urlRedirect = $course['url_webpay'];
-                    $typePayment = 'webpay';
-                }else {
+                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG){
                     $urlRedirect = $course['url_servipag'];
                     $typePayment = 'servipag';
                 }
@@ -336,10 +333,7 @@ switch ($sale['payment_type']) {
             case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
                 $buyingSession = true;
                 $session = $plugin->getSessionInfo($sale['product_id']);
-                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY){
-                    $urlRedirect = $session['url_webpay'];
-                    $typePayment = 'webpay';
-                }else {
+                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG){
                     $urlRedirect = $session['url_servipag'];
                     $typePayment = 'servipag';
                 }

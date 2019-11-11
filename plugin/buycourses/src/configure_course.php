@@ -157,7 +157,6 @@ if ($editingCourse) {
         'price' => $sessionItem['price'],
         'price_usd' => $sessionItem['price_usd'],
         'tax_perc' => $sessionItem['tax_perc'],
-        'url_webpay' => $sessionItem['url_webpay'],
         'url_servipag' => $sessionItem['url_servipag'],
         'is_international' => $sessionItem['is_international'],
         'beneficiaries' => $defaultBeneficiaries,
@@ -270,13 +269,6 @@ if ($commissionsEnable === 'true') {
 }
 
 $form->addText(
-    'url_webpay',
-    'WebPay URL',
-    false,
-    [
-        'placeholder' => 'Ingresar url de pago de webpay']
-);
-$form->addText(
     'url_servipag',
     'ServiPag URL',
     false ,
@@ -300,14 +292,12 @@ if ($form->validate()) {
 
     if (isset($formValues['visible'])) {
         $taxPerc = $formValues['tax_perc'] != '' ? (int) $formValues['tax_perc'] : null;
-        $urlWebPay = $formValues['url_webpay'];
         $urlServiPag = $formValues['url_servipag'];
         if (!empty($productItem)) {
             $plugin->updateItem(
                 [
                     'price' => floatval($formValues['price']),
                     'tax_perc' => $taxPerc,
-                    'url_webpay' => $urlWebPay,
                     'url_servipag' => $urlServiPag,
                     'price_usd' => floatval($formValues['price_usd']),
                     'is_international' => $formValues['is_international']
@@ -322,7 +312,6 @@ if ($form->validate()) {
                 'product_id' => intval($formValues['i']),
                 'price' => floatval($_POST['price']),
                 'tax_perc' => $taxPerc,
-                'url_webpay' => $urlWebPay,
                 'url_servipag' => $urlServiPag,
                 'price_usd' => floatval($_POST['price_usd']),
                 'is_international' => $isInternationalValue

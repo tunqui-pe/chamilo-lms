@@ -39,7 +39,7 @@ class BuyCoursesPlugin extends Plugin
     const PAYMENT_TYPE_TRANSFER = 2;
     const PAYMENT_TYPE_CULQI = 3;
     const PAYMENT_TYPE_SERVIPAG = 4;
-    const PAYMENT_TYPE_WEBPAY = 5;
+    const PAYMENT_TYPE_TRANSBANK = 5;
     const PAYOUT_STATUS_CANCELED = 2;
     const PAYOUT_STATUS_PENDING = 0;
     const PAYOUT_STATUS_COMPLETED = 1;
@@ -886,7 +886,6 @@ class BuyCoursesPlugin extends Plugin
             'image' => null,
             'nbrCourses' => $session->getNbrCourses(),
             'nbrUsers' => $session->getNbrUsers(),
-            'url_webpay' => $item['url_webpay'],
             'url_servipag' => $item['url_servipag'],
             'price_usd' => $item['price_usd'],
             'is_international' => $isInternational,
@@ -1266,7 +1265,7 @@ class BuyCoursesPlugin extends Plugin
         return [
             self::PAYMENT_TYPE_CULQI => 'Culqi',
             self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
-            self::PAYMENT_TYPE_WEBPAY => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
+            self::PAYMENT_TYPE_TRANSBANK => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
             self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
             self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
         ];
@@ -1817,7 +1816,6 @@ class BuyCoursesPlugin extends Plugin
             'price' => 0.00,
             'price_usd' => 0.00,
             'tax_perc' => null,
-            'url_webpay' => null,
             'url_servipag' => null
         ];
 
@@ -1857,7 +1855,6 @@ class BuyCoursesPlugin extends Plugin
             $sessionItem['price'] = $item['price'];
             $sessionItem['price_usd'] = $item['price_usd'];
             $sessionItem['tax_perc'] = $item['tax_perc'];
-            $sessionItem['url_webpay'] = $item['url_webpay'];
             $sessionItem['url_servipag'] = $item['url_servipag'];
             $sessionItem['is_international'] = boolval($item['is_international']);
             if($sessionItem['is_international']){

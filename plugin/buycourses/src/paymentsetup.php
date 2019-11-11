@@ -311,7 +311,15 @@ $culqiForm->setDefaults($plugin->getCulqiParams());
 
 $transbankForm = new FormValidator('transbank_config');
 if($transbankForm->validate()){
+    $transbankFormValues = $transbankForm->getSubmitValues();
 
+    $plugin->saveTransbankParameters($transbankFormValues);
+    Display::addFlash(
+        Display::return_message(get_lang('Saved'), 'success')
+    );
+
+    header('Location:'.api_get_self());
+    exit;
 }
 
 $transbankForm->addText(
@@ -328,7 +336,7 @@ $transbankForm->addText(
 );
 $transbankForm->addCheckBox('integration', null, $plugin->get_lang('Sandbox'));
 $transbankForm->addButtonSave(get_lang('Save'));
-$transbankForm->setDefaults($plugin->getCulqiParams());
+$transbankForm->setDefaults($plugin->getTransbankParams());
 
 
 // breadcrumbs
