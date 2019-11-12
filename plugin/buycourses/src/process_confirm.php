@@ -6,7 +6,12 @@
  *
  * @package chamilo.plugin.buycourses
  */
+
 require_once '../config.php';
+
+use Transbank\Webpay\Configuration;
+use Transbank\Webpay\Webpay;
+
 
 $plugin = BuyCoursesPlugin::create();
 
@@ -313,6 +318,50 @@ switch ($sale['payment_type']) {
         $template->display_one_col_template();
 
     case BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK:
+        $transkbankParams = $plugin->getTransbankParams();
+
+        $buyingCourse = false;
+        $buyingSession = false;
+
+        switch ($sale['product_type']) {
+            case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
+                $buyingCourse = true;
+                $course = $plugin->getCourseInfo($sale['product_id']);
+                break;
+            case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
+                $buyingSession = true;
+                $session = $plugin->getSessionInfo($sale['product_id']);
+                break;
+        }
+        $configuration = new Configuration();
+        $statusConfig = $configuration->setEnvironment("PRODUCCION");
+        $returnURL = null;
+        $finalURL = null;
+
+
+        var_dump($statusConfig);
+
+        $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
+
+        $amount = floatval($sale['price']);
+        $sessionID = 'SessionID';
+        $buyOrder = null;
+
+
+        $template = new Template();
+
+        if ($buyingCourse) {
+            $template->assign('course', $course);
+        } elseif ($buyingSession) {
+            $template->assign('session', $session);
+        }
+
+        $content = $template->fetch('buycourses/view/process_transbank.tpl');
+
+        $template->assign('content', $content);
+        $template->display_one_col_template();
+
+        break;
     case BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG:
 
         $buyingCourse = false;

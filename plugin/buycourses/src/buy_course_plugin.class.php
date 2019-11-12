@@ -963,7 +963,12 @@ class BuyCoursesPlugin extends Plugin
     {
         if (!in_array(
             $paymentType,
-            [self::PAYMENT_TYPE_PAYPAL, self::PAYMENT_TYPE_TRANSFER, self::PAYMENT_TYPE_CULQI, self::PAYMENT_TYPE_SERVIPAG, self::PAYMENT_TYPE_WEBPAY]
+            [
+                self::PAYMENT_TYPE_PAYPAL,
+                self::PAYMENT_TYPE_TRANSFER,
+                self::PAYMENT_TYPE_CULQI,
+                self::PAYMENT_TYPE_SERVIPAG,
+                self::PAYMENT_TYPE_TRANSBANK]
         )
         ) {
             return false;
