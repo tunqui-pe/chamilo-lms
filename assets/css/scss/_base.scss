@@ -36,7 +36,10 @@ h6 {
     color: lighten($default-dark, 5%);
   }
 }
-h5, h6{
+h5{
+  font-size: 1rem;
+}
+h6{
   font-size: .875rem;
 }
 p {
@@ -406,7 +409,10 @@ hr {
     }
   }
 }
-
+.btn-xs{
+  padding: 0.20rem 0.4rem;
+  font-size: 0.75rem;
+}
 // ---------------------------------------------------------
 // FULL CONTAINER
 // ---------------------------------------------------------
@@ -550,18 +556,6 @@ hr {
   }
 }
 /*** GRID CATALOG ***/
-.list-course{
-  display: grid;
-  grid-gap: 1rem;
-  grid-row-gap: 16px;
-  grid-template-columns: repeat(4, 1fr);
-  @include portrait($breakpoint-sm, $breakpoint-md){
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include landscape($breakpoint-sm) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 .tool-view{
   text-align: center;
   padding-top: 2rem;
@@ -792,55 +786,6 @@ hr {
 
 /* COURSE CLASSIC */
 
-.grid-course{
-  display: grid;
-  grid-gap: 1rem;
-  grid-row-gap: 16px;
-  grid-template-columns: repeat(3, 1fr);
-  @include large($breakpoint-xl){
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include portrait($breakpoint-sm, $breakpoint-md){
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include landscape($breakpoint-sm) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .card-course-classic{
-    border: 1px solid #dee2e6;
-    display: grid;
-    grid-template-columns: auto;
-    grid-gap: 10px;
-    align-items: center;
-    &.card-special{
-      background-color: #f6fcff;
-    }
-    .category{
-      position: absolute;
-      border-radius: 10px;
-      background-color: $default-yellow;
-      color: $default-black;
-      font-weight: bold;
-      padding: 0.2rem 0.8rem;
-      top: -0.8rem;
-      left: 0.5rem;
-      font-size: 12px;
-    }
-    .card-body{
-      padding: 0;
-      .card-inside{
-        padding: 0.8rem 0.8rem 0.8rem 0;
-      }
-      @include portrait($breakpoint-sm, $breakpoint-md){
-        padding: 0.8rem;
-      }
-      .title{
-        font-size: 16px;
-      }
-    }
-  }
-}
-
 .checkbox_delete_picture{
   padding-top: 1em;
 }
@@ -953,6 +898,31 @@ hr {
     }
   }
 }
+/**** COURSE CLASSIC ****/
+.classic-courses{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  .card{
+    width: 32%;
+    .card-body{
+      padding: 1rem;
+      .card-row{
+        display: flex;
+        flex-grow: 1;
+        flex-direction: row;
+        .card-description{
+          margin-right: 10px;
+          flex-grow: 1;
+          .teachers{
+            font-size: .80rem;
+          }
+        }
+      }
+    }
+  }
+}
+
 /***** RANKING ****/
 
 .rating-stars ul {
