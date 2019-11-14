@@ -278,7 +278,7 @@ if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
         if ($cas_login && empty($_POST['login'])) {
             $login = $cas_login;
         } else {
-            $login = $_POST['login'];
+            $login = strtolower($_POST['login']);
             $password = $_POST['password'];
         }
 
