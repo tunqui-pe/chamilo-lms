@@ -676,7 +676,7 @@ if ($form->validate()) {
     }
 
     if (api_get_setting('login_is_email') === 'true') {
-        $values['username'] = $values['email'];
+        $values['username'] = strtolower($values['email']);
     }
 
     if ($user_already_registered_show_terms &&
