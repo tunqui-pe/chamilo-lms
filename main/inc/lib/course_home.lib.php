@@ -1333,9 +1333,8 @@ class CourseHome
         if ($generateId) {
             $id = 'toolimage_'.$toolIid;
         }
-
         return Display::return_icon(
-            $image,
+            'tool_'.$image,
             $item['name'],
             ['id' => $id],
             $iconSize,
