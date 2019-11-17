@@ -8,8 +8,10 @@ $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
 
 $plugin = BuyCoursesPlugin::create();
 $urlCatalog = api_get_path(WEB_PLUGIN_PATH).'plugin/buycourses/src/session_catalog.php';
+$myCourses = api_get_path(WEB_PATH).'user_portal.php';
 $template = new Template($plugin->get_lang('SuccessfulPurchase'));
 $template->assign('url_catalog', $urlCatalog);
+$template->assign('my_courses', $myCourses);
 $template->assign('title', $plugin->get_lang('Congratulations'));
 $content = $template->fetch('buycourses/view/transbank/congratulations.tpl');
 

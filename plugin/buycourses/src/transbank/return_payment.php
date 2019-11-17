@@ -5,7 +5,6 @@ require_once '../../config.php';
 use Transbank\Webpay\Configuration;
 use Transbank\Webpay\Webpay;
 
-
 $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 $tokenWS = filter_input(INPUT_POST, 'token_ws');
 $result = $transaction->getTransactionResult($tokenWS);
