@@ -318,8 +318,11 @@ switch ($sale['payment_type']) {
         $template->display_one_col_template();
 
     case BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK:
-        $transkbankParams = $plugin->getTransbankParams();
 
+        $transkbankParams = $plugin->getTransbankParams();
+        $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
+                WEB_PLUGIN_PATH
+            ).'buycourses/resources/css/style.css"/>';
         $buyingCourse = false;
         $buyingSession = false;
 
@@ -333,20 +336,29 @@ switch ($sale['payment_type']) {
                 $session = $plugin->getSessionInfo($sale['product_id']);
                 break;
         }
+
         $configuration = new Configuration();
-        $statusConfig = $configuration->setEnvironment("PRODUCCION");
-        $returnURL = null;
-        $finalURL = null;
+        $statusConfig = $configuration->setEnvironment("INTEGRACION");
 
 
-        var_dump($statusConfig);
+        $returnURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/return_payment.php';
+        $finalURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/final_payment.php';
+
+
+        //var_dump($statusConfig);
 
         $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 
         $amount = floatval($sale['price']);
-        $sessionID = 'SessionID';
-        $buyOrder = null;
+        $sessionID = $sale['reference'];
+        $buyOrder = strval(rand(100000, 999999999));
 
+        $initResult = $transaction->initTransaction(
+            $amount,$sessionID,$buyOrder, $returnURL, $finalURL
+        );
+
+        $formAction = $initResult->url;
+        $tokenWs = $initResult->token;
 
         $template = new Template();
 
@@ -355,8 +367,14 @@ switch ($sale['payment_type']) {
         } elseif ($buyingSession) {
             $template->assign('session', $session);
         }
-
-        $content = $template->fetch('buycourses/view/process_transbank.tpl');
+        $template->assign('buying_course', $buyingCourse);
+        $template->assign('buying_session', $buyingSession);
+        $template->assign('terms', $globalParameters['terms_and_conditions']);
+        $template->assign('form_action', $formAction);
+        $template->assign('amount', $amount);
+        $template->assign('buy_order', $buyOrder);
+        $template->assign('token_ws', $tokenWs);
+        $content = $template->fetch('buycourses/view/transbank/process_transbank.tpl');
 
         $template->assign('content', $content);
         $template->display_one_col_template();

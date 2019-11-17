@@ -30,7 +30,21 @@
     font-size: 18px;
     line-height: 1.42857;
 }
-
+.form-payment-transbank{
+    text-align: right;
+    padding-top: 10px;
+}
+.transbank .buy-summary{
+    border:none;
+}
+.congratulations{
+    text-align: center;
+}
+.congratulations .buy-summary{
+    border: none;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
 /* PROCESS BUY */
 .buy-info .price, .service-buy .price {
     font-size: 24px;
