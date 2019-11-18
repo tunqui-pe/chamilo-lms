@@ -337,15 +337,23 @@ switch ($sale['payment_type']) {
                 break;
         }
 
-        $configuration = new Configuration();
-        $statusConfig = $configuration->setEnvironment("INTEGRACION");
-
-
         $returnURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/return_payment.php';
         $finalURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/final_payment.php';
 
+        $configuration = new Configuration();
 
-        //var_dump($statusConfig);
+        if((int)$transkbankParams['integration'] == 1){
+            $configuration->setEnvironment('INTEGRACION');
+        } else {
+            $configuration->setEnvironment('PRODUCCION');
+            //We assign the trade code
+            $commerceCode = $transkbankParams['commerce_code'];
+            $configuration->setCommerceCode($commerceCode);
+            $configuration->setPrivateKey('');
+            $configuration->setPublicCert('');
+        }
+
+        //$statusConfig = $configuration->setEnvironment("INTEGRACION");
 
         $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 
