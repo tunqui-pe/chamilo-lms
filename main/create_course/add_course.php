@@ -84,12 +84,6 @@ $form->addText(
     true);
 $form->applyFilter('title', 'html_filter');
 
-$form->addButtonAdvancedSettings('advanced_params');
-$form->addElement(
-    'html',
-    '<div id="advanced_params_options" style="display:none">'
-);
-
 // Picture
 $form->addFile(
     'picture',
@@ -110,6 +104,12 @@ $form->addRule(
     get_lang('Only PNG, JPG or GIF images allowed').' ('.implode(',', $allowed_picture_types).')',
     'filetype',
     $allowed_picture_types
+);
+
+$form->addButtonAdvancedSettings('advanced_params');
+$form->addElement(
+    'html',
+    '<div id="advanced_params_options" style="display:none">'
 );
 
 $countCategories = $courseCategoriesRepo->countAllInAccessUrl(
