@@ -42,16 +42,23 @@
                                         <span class="code-title">{{ item.code_course }}</span>
                                     {% endif %}
                                 </h4>
-                                <ul class="avatar-row">
-                                    {% for teacher in item.teachers %}
-                                        <li class="avatar-item">
-                                            <a href="{{ teacher.url }}" class="ajax"
-                                               data-title="{{ teacher.firstname }} {{ teacher.lastname }}" title="{{ teacher.firstname }} {{ teacher.lastname }}">
-                                                <img title="{{ teacher.firstname }} {{ teacher.lastname }}" src="{{ teacher.avatar }}"/>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                                <div class="flex-item">
+                                    <ul class="avatar-row">
+                                        {% set count_img = item.teachers|length + 1  %}
+                                        {% for teacher in item.teachers %}
+                                            {% set count_img = count_img - 1 %}
+
+                                            <li class="avatar-item" style="z-index: {{ count_img }};">
+                                                <a href="{{ teacher.url }}" class="ajax"
+                                                   data-title="{{ teacher.firstname }} {{ teacher.lastname }}" title="{{ teacher.firstname }} {{ teacher.lastname }}">
+                                                <span class="avatar avatar-person" style="background-image: url('{{ teacher.avatar }}')">
+                                                    <img class="avatar-print" title="{{ teacher.firstname }} {{ teacher.lastname }}" src="{{ teacher.avatar }}"/>
+                                                </span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

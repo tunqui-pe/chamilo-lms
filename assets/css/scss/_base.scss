@@ -840,8 +840,36 @@ hr {
           }
           .avatar-row{
             list-style: none;
-            margin: 0;
+            margin: 0 0 0 14px;
             padding: 0;
+            display: inline-block;
+            .avatar-item{
+              position: relative;
+              margin-left: -14px;
+              display: inline;
+              .avatar-person{
+                width: 32px;
+                height: 32px;
+                display: inline-block;
+                position: relative;
+                text-indent: 100%;
+                white-space: nowrap;
+                background-color: #e4e9ed;
+              }
+              .avatar{
+                border: 2px solid #FFF;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-size: cover;
+                border-radius: 999px;
+                box-sizing: border-box;
+                vertical-align: middle;
+                .avatar-print {
+                  display: none;
+                  speak: none;
+                }
+              }
+            }
           }
         }
       }
