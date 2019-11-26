@@ -807,6 +807,12 @@ hr {
   flex-wrap: wrap;
   .card{
     width: 23%;
+    box-shadow: 0 0 2px 0 rgba(46,62,72,.12), 0 2px 4px 0 rgba(46,62,72,.12);
+    transition: box-shadow .25s cubic-bezier(.4,0,.2,1),transform .25s cubic-bezier(.4,0,.2,1),-webkit-transform .25s cubic-bezier(.4,0,.2,1);
+    &:hover{
+      box-shadow: 0 0 4px 0 rgba(46,62,72,.12), 0 4px 12px 0 rgba(46,62,72,.12);
+      transform: translateY(-1px);
+    }
     .card-body{
       padding: 0;
       .flex-column{
