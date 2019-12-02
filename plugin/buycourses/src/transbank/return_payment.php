@@ -40,6 +40,8 @@ if($output->responseCode == 0){
 } else {
 
     $byOrderReference = $output->buyOrder;
+    $sale = $plugin->getSaleReference($byOrderReference);
+    $plugin->cancelSale($sale['id']);
 
     $form = new FormValidator(
         'return-form',
