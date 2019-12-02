@@ -9,11 +9,11 @@ $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNor
 $tokenWS = filter_input(INPUT_POST, 'token_ws');
 $result = $transaction->getTransactionResult($tokenWS);
 $output = $result->detailOutput;
+$plugin = BuyCoursesPlugin::create();
 
 if($output->responseCode == 0){
 
     $byOrderReference = $output->buyOrder;
-    $plugin = BuyCoursesPlugin::create();
     $sale = $plugin->getSaleReference($byOrderReference);
 
     echo '<script>window.localStorage.clear();</script>';
@@ -22,13 +22,13 @@ if($output->responseCode == 0){
     echo '<script>window.localStorage.setItem("responseCode", "'.$output->responseCode.'");</script>';
 
     $plugin->completeSale($sale['id']);
-    //$plugin->storePayouts($sale['id']);
 
     $form = new FormValidator(
         'return-form',
         'post',
         $result->urlRedirection
     );
+    $form->addHidden('response',$output->responseCode);
     $form->addHidden('token_ws',$tokenWS);
     $form->display();
 
@@ -37,6 +37,26 @@ if($output->responseCode == 0){
             document.getElementById("return-form").submit();
         </script>
     ';
+} else {
+
+    $byOrderReference = $output->buyOrder;
+
+    $form = new FormValidator(
+        'return-form',
+        'post',
+        $result->urlRedirection
+    );
+
+    $form->addHidden('response',$output->responseCode);
+    $form->addHidden('token_ws',$tokenWS);
+    $form->display();
+
+    echo '
+        <script>
+            document.getElementById("return-form").submit();
+        </script>
+    ';
+
 }
 
 
