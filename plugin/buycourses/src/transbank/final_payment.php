@@ -1,6 +1,7 @@
 <?php
 
 require_once '../../config.php';
+require_once __DIR__.'/../../../../main/inc/global.inc.php';
 
 $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
         WEB_PLUGIN_PATH
@@ -15,11 +16,15 @@ if(isset($_POST['token_ws'])){
     $response = $_POST['response'];
     $token = $_POST['token_ws'];
     $template->assign('response', $response);
+    $template->assign('url_catalog', $urlCatalog);
+    $template->assign('my_courses', $myCourses);
+    if($response == 0){
+        $template->assign('title', $plugin->get_lang('Congratulations'));
+    } else {
+        $template->assign('title', $plugin->get_lang('TransactionWasRejected'));
+    }
 }
 
-$template->assign('url_catalog', $urlCatalog);
-$template->assign('my_courses', $myCourses);
-$template->assign('title', $plugin->get_lang('Congratulations'));
 $content = $template->fetch('buycourses/view/transbank/congratulations.tpl');
 
 $template->assign('content', $content);

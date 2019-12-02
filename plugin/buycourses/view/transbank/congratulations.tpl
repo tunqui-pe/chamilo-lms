@@ -15,7 +15,7 @@
 </div>
 {% else %}
     <div class="congratulations">
-        <h1>{{ 'TransactionWasRejected'|get_plugin_lang('BuyCoursesPlugin') }}</h1>
+        <h1>{{ title }}</h1>
         <img src="{{ _p.web }}plugin/buycourses/resources/img/webpay_big.png">
         <p>{{ 'TransactionDeclined'|get_plugin_lang('BuyCoursesPlugin') }}</p>
         <div class="buy-summary">
