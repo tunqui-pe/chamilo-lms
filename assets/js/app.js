@@ -38,11 +38,11 @@ var connect_lang = 'ChatConnected';
 var disconnect_lang = 'ChatDisconnected';
 
 $(function () {
-    if (document.getElementById('app_header')) {
+    if (document.getElementById('app-main')) {
         // Create Vue Application
         new Vue(
             Object.assign(VueConfig, {
-                el: '#app_header',
+                el: '#app-main',
                 components: {Example},
                 data() {
                     return {

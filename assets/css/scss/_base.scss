@@ -36,7 +36,10 @@ h6 {
     color: lighten($default-dark, 5%);
   }
 }
-h5, h6{
+h5{
+  font-size: 1rem;
+}
+h6{
   font-size: .875rem;
 }
 p {
@@ -84,7 +87,7 @@ hr {
 }
 .main{
   .container-fluid{
-    padding: 0 10px;
+    padding: 0 30px;
     @include large($breakpoint-xl){
       width: 95%;
     }
@@ -406,7 +409,10 @@ hr {
     }
   }
 }
-
+.btn-xs{
+  padding: 0.20rem 0.4rem;
+  font-size: 0.75rem;
+}
 // ---------------------------------------------------------
 // FULL CONTAINER
 // ---------------------------------------------------------
@@ -550,18 +556,6 @@ hr {
   }
 }
 /*** GRID CATALOG ***/
-.list-course{
-  display: grid;
-  grid-gap: 1rem;
-  grid-row-gap: 16px;
-  grid-template-columns: repeat(4, 1fr);
-  @include portrait($breakpoint-sm, $breakpoint-md){
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include landscape($breakpoint-sm) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 .tool-view{
   text-align: center;
   padding-top: 2rem;
@@ -792,167 +786,129 @@ hr {
 
 /* COURSE CLASSIC */
 
-.grid-course{
-  display: grid;
-  grid-gap: 1rem;
-  grid-row-gap: 16px;
-  grid-template-columns: repeat(3, 1fr);
-  @include large($breakpoint-xl){
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include portrait($breakpoint-sm, $breakpoint-md){
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include landscape($breakpoint-sm) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .card-course-classic{
-    border: 1px solid #dee2e6;
-    display: grid;
-    grid-template-columns: auto;
-    grid-gap: 10px;
-    align-items: center;
-    &.card-special{
-      background-color: #f6fcff;
-    }
-    .category{
-      position: absolute;
-      border-radius: 10px;
-      background-color: $default-yellow;
-      color: $default-black;
-      font-weight: bold;
-      padding: 0.2rem 0.8rem;
-      top: -0.8rem;
-      left: 0.5rem;
-      font-size: 12px;
-    }
-    .card-body{
-      padding: 0;
-      .card-inside{
-        padding: 0.8rem 0.8rem 0.8rem 0;
-      }
-      @include portrait($breakpoint-sm, $breakpoint-md){
-        padding: 0.8rem;
-      }
-      .title{
-        font-size: 16px;
-      }
-    }
-  }
-}
-
 .checkbox_delete_picture{
   padding-top: 1em;
 }
 
 /* COURSE GRID */
-.card-session{
-  .category{
-    position: absolute;
-    border-radius: 10px;
-    background-color: $default-yellow;
-    color: $default-black;
-    font-weight: bold;
-    padding: 0.2rem 0.8rem;
-    top: -0.8rem;
-    left: 0.5rem;
-    font-size: 12px;
-  }
-  .card-body{
-    .card-date{
-      font-size: 12px;
-      color: $grey-600;
+.text-ellipsis{
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.45!important;
+  max-height: 2.8em;
+  white-space: normal;
+}
+.card-grid{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  .card{
+    width: 23%;
+    box-shadow: 0 0 2px 0 rgba(46,62,72,.12), 0 2px 4px 0 rgba(46,62,72,.12);
+    transition: box-shadow .25s cubic-bezier(.4,0,.2,1),transform .25s cubic-bezier(.4,0,.2,1),-webkit-transform .25s cubic-bezier(.4,0,.2,1);
+    &:hover{
+      box-shadow: 0 0 4px 0 rgba(46,62,72,.12), 0 4px 12px 0 rgba(46,62,72,.12);
+      transform: translateY(-1px);
     }
-    .card-details{
-      font-size: 12px;
-      color: $grey-600;
-    }
-    .card-list{
-      .list-group{
-        .list-group-item{
-          padding: 0.75rem;
+    .card-body{
+      padding: 0;
+      .flex-column{
+        justify-content: space-between;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        .flex-item{
+          flex-basis: auto;
+          flex-grow: 0;
+          flex-shrink: 0;
+          width: auto;
+          .image{
+            position: relative;
+            .admin-actions{
+              bottom: 0;
+              right: 0;
+              position: absolute;
+            }
+          }
+          .category{
+            text-transform: uppercase;
+            padding-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #0098ab!important;
+            font-weight: bold;
+          }
+          .title{
+            font-size: 18px;
+          }
+          .avatar-row{
+            list-style: none;
+            margin: 0 0 0 14px;
+            padding: 0;
+            display: inline-block;
+            .avatar-item{
+              position: relative;
+              margin-left: -14px;
+              display: inline;
+              .avatar-person{
+                width: 32px;
+                height: 32px;
+                display: inline-block;
+                position: relative;
+                text-indent: 100%;
+                white-space: nowrap;
+                background-color: #e4e9ed;
+              }
+              .avatar{
+                border: 2px solid #FFF;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-size: cover;
+                border-radius: 999px;
+                box-sizing: border-box;
+                vertical-align: middle;
+                .avatar-print {
+                  display: none;
+                  speak: none;
+                }
+              }
+            }
+          }
         }
       }
+
     }
   }
 }
-.card-course{
-  transform: perspective(1px) translateZ(0);
-  transition-property: box-shadow;
-  transition-duration: 0.3s;
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.15);
-  background-color: $default-white;
-  &:hover,
-  &:focus{
-    box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.20);
-  }
-  &.card-category{
-    .card-subtitle{
-      font-size: 12px;
-    }
-  }
-  .card-image{
-    position: relative;
-    .card-tools{
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      .btn-sm{
-        border-radius: 0;
-      }
-    }
-  }
-  .card-ranking{
-    font-size: 12px;
-  }
-  .category{
-    position: absolute;
-    border-radius: 10px;
-    background-color: $default-yellow;
-    color: $default-black;
-    font-weight: bold;
-    padding: 0.2rem 0.8rem;
-    top: -0.8rem;
-    left: 0.5rem;
-    font-size: 12px;
-  }
-  .card-body{
-    padding: 0.5rem 0.25rem;
-    .card-title{
-      margin-bottom: 0.5rem;
-      .title{
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 22px;
-      }
-    }
-    .card-author{
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      .list-name{
-        font-size: 12px;
-        color: $grey-700;
-        cursor: pointer;
-      }
-      .name{
-        font-size: 12px;
-        white-space: nowrap;
-        color: $grey-700;
-        display: inline-block;
-        &:after{
-          content: ", ";
-        }
-        &:last-child{
-          &:after{
-            content: " ";
+
+/**** COURSE CLASSIC ****/
+.classic-courses{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  .card{
+    width: 32%;
+    .card-body{
+      padding: 1rem;
+      .card-row{
+        display: flex;
+        flex-grow: 1;
+        flex-direction: row;
+        .card-description{
+          margin-right: 10px;
+          flex-grow: 1;
+          .teachers{
+            font-size: .80rem;
           }
         }
       }
     }
   }
 }
+
 /***** RANKING ****/
 
 .rating-stars ul {
