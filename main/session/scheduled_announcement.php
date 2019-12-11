@@ -87,7 +87,6 @@ switch ($action) {
                     break;
             }
 
-            exit;
             $res = $object->save($values);
 
             if ($res) {
