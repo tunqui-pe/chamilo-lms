@@ -2861,7 +2861,8 @@ class BuyCoursesPlugin extends Plugin
             Database::get_main_table(self::TABLE_TRANSBANK),
             [
                 'commerce_code' => $params['commerce_code'],
-                'api_key' => $params['api_key'],
+                'private_key' => $params['private_key'],
+                'public_cert' => $params['public_cert'],
                 'integration' => $params['integration'],
             ],
             ['id = ?' => 1]

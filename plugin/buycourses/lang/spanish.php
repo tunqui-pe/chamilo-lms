@@ -254,3 +254,5 @@ $strings['PurchaseOrder'] = "Orden de compra";
 $strings['PaymentProcessed'] = "Pago procesado por";
 $strings['BuyOtherCourses'] = "Comprar otros cursos";
 $strings['TransactionWasCanceled'] = "La transacción fue cancelada";
+$strings['PrivateKey'] = "Private Key";
+$strings['PublicCert'] = "Certificado público";

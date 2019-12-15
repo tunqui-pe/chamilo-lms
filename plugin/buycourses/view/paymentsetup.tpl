@@ -127,14 +127,8 @@
             <h3 class="panel-title">{{ 'TransbankConfig'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-5">
-                    <p>{{ 'InfoCulqiCredentials'|get_plugin_lang('BuyCoursesPlugin') }}</p>
-                </div>
-                <div class="col-md-7">
-                    {{ transbank_form }}
-                </div>
-            </div>
+            <p>{{ 'InfoCulqiCredentials'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+            {{ transbank_form }}
         </div>
     </div>
 {% endif %}

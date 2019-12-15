@@ -325,14 +325,21 @@ if($transbankForm->validate()){
 $transbankForm->addText(
     'commerce_code',
     $plugin->get_lang('CommerceCode'),
-    false,
-    ['cols-size' => [3, 8, 1]]
+    false
 );
-$transbankForm->addText(
-    'api_key',
-    $plugin->get_lang('ApiPassword'),
-    false,
-    ['cols-size' => [3, 8, 1]]
+$transbankForm->addTextarea(
+    'private_key',
+    $plugin->get_lang('PrivateKey'),
+    [
+        'rows' => 6
+    ]
+);
+$transbankForm->addTextarea(
+    'public_cert',
+    $plugin->get_lang('PublicCert'),
+    [
+        'rows' => 6
+    ]
 );
 $transbankForm->addCheckBox('integration', null, $plugin->get_lang('Sandbox'));
 $transbankForm->addButtonSave(get_lang('Save'));

@@ -345,7 +345,8 @@ $transbankTable->addColumn(
     ['autoincrement' => true, 'unsigned' => true]
 );
 $transbankTable->addColumn('commerce_code', \Doctrine\DBAL\Types\Type::STRING);
-$transbankTable->addColumn('api_key', \Doctrine\DBAL\Types\Type::STRING);
+$transbankTable->addColumn('private_key', \Doctrine\DBAL\Types\Type::TEXT);
+$transbankTable->addColumn('public_cert', \Doctrine\DBAL\Types\Type::TEXT);
 $transbankTable->addColumn('integration', \Doctrine\DBAL\Types\Type::INTEGER);
 $transbankTable->setPrimaryKey(['id']);
 
@@ -457,7 +458,8 @@ Database::insert(
     $transbankTable,
     [
         'commerce_code' => '',
-        'api_key' => '',
+        'private_key' => '',
+        'public_cert' => '',
         'integration' => 1,
     ]
 );
