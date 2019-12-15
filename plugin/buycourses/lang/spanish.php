@@ -252,3 +252,4 @@ $strings['accessTheCourse'] = "Ya puedes acceder al curso, presionando el botón
 $strings['PurchaseOrder'] = "Orden de compra";
 $strings['PaymentProcessed'] = "Pago procesado por";
 $strings['BuyOtherCourses'] = "Comprar otros cursos";
+$strings['TransactionWasCanceled'] = "La transacción fue cancelada";

@@ -28,8 +28,9 @@ a:focus {
   outline: none;
 }
 .navbar .navbar-brand{
-  display: block;
-  padding: .6rem 0;
+  display: inline-block;
+  padding: .7rem 0;
+  height: 100%;
 }
 .navbar-nav.navbar-right{
   margin: 0;

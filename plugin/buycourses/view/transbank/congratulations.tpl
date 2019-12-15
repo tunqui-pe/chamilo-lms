@@ -1,4 +1,3 @@
-
 {% if response == 0 %}
 <div class="congratulations">
     <h1>{{ title }}</h1>
