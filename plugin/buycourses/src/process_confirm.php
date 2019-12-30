@@ -343,10 +343,10 @@ switch ($sale['payment_type']) {
         $configuration = new Configuration();
 
         if((int)$transkbankParams['integration'] == 1){
-            $configuration->setEnvironment('INTEGRACION');
+            $configuration->setEnvironment(Webpay::TEST);
             $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
         } else {
-            $configuration->setEnvironment('PRODUCCION');
+            $configuration->setEnvironment(Webpay::PRODUCCION);
             //We assign the trade code
             $commerceCode = $transkbankParams['commerce_code'];
             $privateKeyWebPay = $transkbankParams['private_key'];
@@ -355,9 +355,8 @@ switch ($sale['payment_type']) {
             $configuration->setCommerceCode($commerceCode);
             $configuration->setPrivateKey($privateKeyWebPay);
             $configuration->setPublicCert($publicCertWebPay);
-            $configuration->getWebpayCert();
 
-            $transaction = (new Webpay($configuration))->getNormalTransaction();
+            $transaction = new Webpay($configuration);
         }
 
         $amount = floatval($sale['price']);
