@@ -351,7 +351,7 @@ switch ($sale['payment_type']) {
             //$commerceCode = $transkbankParams['commerce_code'];
             //$privateKeyWebPay = $transkbankParams['private_key'];
             //$publicCertWebPay = $transkbankParams['public_cert'];
-            $commerceCode = "35029575";
+            $commerceCode = "597035029575";
             $privateKeyWebPay =  "-----BEGIN RSA PRIVATE KEY-----\n".
                 "MIIEpQIBAAKCAQEAoyOCGPMCuig5l9cEWJK0SV2Xz4QXBYAgWr8gPvXUQnuD0AxT\n".
                 "ldNZy4apMgPxE5n5obqNs5c09OSxhpOanDfK44ERySps2HVDfirNejWHL5APN/HX\n".
