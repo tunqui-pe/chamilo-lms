@@ -102,33 +102,26 @@
                                                     </span>
                                                 {% endif %}
                                             </p>
-                                            {#<ul class="list-unstyled">
-                                                {% for course in session.courses %}
-                                                    <li>
-                                                        <em class="fa fa-book fa-fw"></em> {{ course.title }}
-                                                        {% if course.coaches|length %}
-                                                            <ul>
-                                                                {% for coach in course.coaches %}
-                                                                    <li>{{ coach }}</li>
-                                                                {% endfor %}
-                                                            </ul>
-                                                        {% endif %}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>#}
+
                                             {% if session.enrolled == "YES" %}
                                                 <div class="alert alert-success">
                                                     <em class="fa fa-check-square-o fa-fw"></em> {{ 'TheUserIsAlreadyRegisteredInTheSession'|get_plugin_lang('BuyCoursesPlugin') }}
                                                 </div>
                                             {% elseif session.enrolled == "NO" %}
                                                 <div class="toolbar">
-                                                    <a class="btn btn-success btn-block btn-sm"
+                                                    <a class="btn btn-success btn-buy btn-block btn-sm"
                                                        href="{{ _p.web_plugin ~ 'buycourses/src/process.php?' ~ {'i': session.id, 't': 2}|url_encode() }}">
                                                         <em class="fa fa-shopping-cart"></em> {{ 'Buy'|get_plugin_lang('BuyCoursesPlugin') }}
                                                     </a>
                                                 </div>
                                             {% elseif session.enrolled == "TMP" %}
                                                 <div class="alert alert-info">{{ 'WaitingToReceiveThePayment'|get_plugin_lang('BuyCoursesPlugin') }}</div>
+                                                {#<div class="toolbar">
+                                                    <a href="{{ _p.web_plugin ~ 'buycourses/src/sales_pending.php'}}" class="btn btn-danger btn-buy-cancel btn-block btn-sm">
+                                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                                        {{ 'CancelPending'|get_plugin_lang('BuyCoursesPlugin') }}
+                                                    </a>
+                                                </div>#}
                                             {% endif %}
                                         </div>
                                     </article>

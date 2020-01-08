@@ -112,6 +112,36 @@
 #payment_type-group .radio label{
     font-size: 12px;
 }
+.btn-buy{
+    background: #808de8;
+    border-radius: 0;
+    text-transform: uppercase;
+    border: 1px solid #808de8;
+    font-weight: bold;
+    padding: 10px 20px;
+    box-shadow: 4px 4px 0 2px rgba(128,141,232,.15);
+    margin-bottom: 2rem;
+}
+.btn-buy:hover{
+    color: #bdc8f2;
+    background: #808de8;
+    border: 1px solid #808de8;
+}
+.btn-buy-cancel{
+    background: #e80034;
+    border-radius: 0;
+    text-transform: uppercase;
+    border: 1px solid #e80034;
+    font-weight: bold;
+    padding: 10px 20px;
+    box-shadow: 4px 4px 0 2px rgba(128,141,232,.15);
+    margin-bottom: 2rem;
+}
+.btn-buy-cancel:hover{
+    color: #f2bab0;
+    background: #bf2800;
+    border: 1px solid #bf2800;
+}
 @-moz-keyframes wobblebar-loader {
     0% {
         left: 4px;

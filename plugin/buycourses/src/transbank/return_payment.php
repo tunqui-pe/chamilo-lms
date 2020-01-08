@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *
+ * @package chamilo.plugin.buycourses
+ *
+ */
+
 require_once '../../config.php';
 use ChamiloSession as Session;
 use Transbank\Webpay\Configuration;

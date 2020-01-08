@@ -256,3 +256,5 @@ $strings['BuyOtherCourses'] = "Comprar otros cursos";
 $strings['TransactionWasCanceled'] = "La transacción fue cancelada";
 $strings['PrivateKey'] = "Private Key";
 $strings['PublicCert'] = "Certificado público";
+$strings['CancelPending'] = "Cancelar pendiente";
+$strings['UnpaidPurchases'] = "Compras pendientes de pago";

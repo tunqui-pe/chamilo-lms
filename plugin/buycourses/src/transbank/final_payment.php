@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *
+ * @package chamilo.plugin.buycourses
+ *
+ */
+
 require_once '../../config.php';
 
 $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(

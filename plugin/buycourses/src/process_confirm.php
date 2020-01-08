@@ -340,16 +340,22 @@ switch ($sale['payment_type']) {
         $returnURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/return_payment.php';
         $finalURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/final_payment.php';
 
-        $configuration = new \Transbank\Webpay\Configuration();
+        $configuration = new Configuration();
 
         if((int)$transkbankParams['integration'] == 1){
-            $configuration->setEnvironment(Webpay::TEST);
+            $configuration->setEnvironment(Webpay::INTEGRACION);
             $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
         } else {
-            $configuration->setEnvironment("PRODUCCION");
+
+            $commerceCode = $transkbankParams['commerce_code'];
+
+            $configuration->setEnvironment(Webpay::PRODUCCION);
             $configuration->setCommerceCode(597035029575);
 
-            $publicCertWebPay = "-----BEGIN CERTIFICATE-----\n" .
+            $privateKeyWebPay = $transkbankParams['private_key'];
+            $publicCertWebPay = $transkbankParams['public_cert'];
+
+            /*$publicCertWebPay = "-----BEGIN CERTIFICATE-----\n" .
             "MIIDNDCCAhwCCQCu51zD0AshITANBgkqhkiG9w0BAQsFADBcMQswCQYDVQQGEwJB\n" .
             "VTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0\n" .
             "cyBQdHkgTHRkMRUwEwYDVQQDDAw1OTcwMzUwMjk1NzUwHhcNMjAwMTA3MjExNzE4\n" .
@@ -368,25 +374,35 @@ switch ($sale['payment_type']) {
             "NWi+V1XRf9W55mUq3VO72qFXfyS8sxnZ/ih4KVOHav+HTmFg5w5TCYQAWJxTOxp6\n" .
             "mmZvRNWwJY1iDOkWmPjXcVkePqJ91wv5xmYiLea72SO9qjftC+EeooRggGjbGvGu\n" .
             "KwcA6l8WaH4=\n" .
-            "-----END CERTIFICATE-----";
+            "-----END CERTIFICATE-----\n";
 
-            $privateKeyWebPay =  "-----BEGIN CERTIFICATE REQUEST-----\n" .
-            "MIICoTCCAYkCAQAwXDELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUx\n" .
-            "ITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDEVMBMGA1UEAwwMNTk3\n" .
-            "MDM1MDI5NTc1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3kRolBqS\n" .
-            "jruexHu6M8c/93gl7EUmkSybB35ONm+AAp6CBFGfZ/LX+pEdJ/2AGAFGthlNHihk\n" .
-            "bxyWoArkynQOEqHLc0ixZU4rsvTSHiHFZH9gB9/MRZCZ2psPEMGTnXCiS8ne9mPV\n" .
-            "N84ychZKifOO+njrpBdPBh9QAoRWo9gBWp9KeWXJIFpZsXS+oF3E+5hDYA7/xN8w\n" .
-            "tNRQ5gr/C8LjDJL4QwhuHiXoNzw1FPSIHKSx9Z9El1E7xvopLGO9hnM9ajlzjWNw\n" .
-            "IAY3FJGzPZ/4xLFprNiVX/viCgcZ3ZCq+YlFQTfi6s6SsFQIawtOo/PqKncP9QcI\n" .
-            "F84riBg+HxfzwQIDAQABoAAwDQYJKoZIhvcNAQELBQADggEBAKDAu/i4/rPKGMPY\n" .
-            "2qFABharidx63BfK4eW5MN5CNWT9NdSexV84OxNsUbnZGkY2NnTFGMs7Sr2RI7uq\n" .
-            "EmSwKbdon09J5VYE0LtDP9oiHrAD1dyO4ZlpYRw6+AD59pWA4ez4mxCBW6CxBYuc\n" .
-            "qlJLmJuy7alGIEtdZKHPt+i4SBJcy7F+ksy4rlD6/yzGo+ksSH79UljHr3K+PPlK\n" .
-            "VtCo6IwsvT1CDZDhRt1v5q1gyRvNA3IfbpxR1jJ/fL9s/ZS273/cZvGLmSeUqi9m\n" .
-            "nkX8dlU/02IfRe94h4SBJeJ4kiNYJ+A++1YArSaLGk60Tt4REKjTjGYYx/xvopKR\n" .
-            "1OYR8MY=\n" .
-            "-----END CERTIFICATE REQUEST-----";
+            $privateKeyWebPay =  "-----BEGIN RSA PRIVATE KEY-----\n" .
+            "MIIEpAIBAAKCAQEA3kRolBqSjruexHu6M8c/93gl7EUmkSybB35ONm+AAp6CBFGf\n" .
+            "Z/LX+pEdJ/2AGAFGthlNHihkbxyWoArkynQOEqHLc0ixZU4rsvTSHiHFZH9gB9/M\n" .
+            "RZCZ2psPEMGTnXCiS8ne9mPVN84ychZKifOO+njrpBdPBh9QAoRWo9gBWp9KeWXJ\n" .
+            "IFpZsXS+oF3E+5hDYA7/xN8wtNRQ5gr/C8LjDJL4QwhuHiXoNzw1FPSIHKSx9Z9E\n" .
+            "l1E7xvopLGO9hnM9ajlzjWNwIAY3FJGzPZ/4xLFprNiVX/viCgcZ3ZCq+YlFQTfi\n" .
+            "6s6SsFQIawtOo/PqKncP9QcIF84riBg+HxfzwQIDAQABAoIBAQDJZIa1m5YsCkiD\n" .
+            "k/BVtjZ5jr4d5VJavGYEViecH0+IEAOS0jpzv5B/Ezmt4H5OQenGWgqMRuEp5Gd+\n" .
+            "wCAqaRnPPBbScI18U2Y5EqfIcaUfuGJVAC1g4vLlJxZxglS0lTgZH+MMscyicg03\n" .
+            "XodPlAZ7YVFyL0SFMZ4Xib3PW4tuhbFyXE4iHQrLWlGKSxU/RTNszmNMPHSvHX4X\n" .
+            "lIRYiQm4OGRzsT2/X6HLzsVhQb76ezkzapBUOkgnIIJsYos2deEg4gaqRwWSuqc6\n" .
+            "4z+w/44o/hyAZE1DQ+npkWx4/cXD2wCxO9kL8tkBEkkY6EJQckMxsaTp0JtTKrQC\n" .
+            "EengTqi5AoGBAP+HGWYq8acoJ4JyTtSXf7D+UVA14TzA0tWFsnQePnFUeORnxy1Y\n" .
+            "jk46PqBC5+ZK8JwSVzIZk0OQ4OhTFrP14bqb+pqMwTCyslj/x9UEl8nogivWdbLC\n" .
+            "NUnsI18+u2QTGciS32UouCUJ2Vx+C+vIuUAsxv5txcCd36hec/BLh8YbAoGBAN6t\n" .
+            "koaKV8BAoSaJI9Ub6NP4bBx6uO/2g5oisecjFuGuTEo+m/Fv1sv5JIOIciXvbFDw\n" .
+            "J8iNizfPj7BhiQPELQNXW8J4tQKbiF4urcQYvJZ2HU0SEuqVxPNvo5JK+1K9bN9G\n" .
+            "Mk11MiCNLR+RxP3jVxEhE/qul13Kl3mzalQ257tTAoGBALdYiLD2P05hUXgX7Ng9\n" .
+            "nDGzSUT0ZBjjgmQS+mi3CrbmlZfNnuy6jeEziZwUZbCoNNzHjCk2kKP6YGZSuAeI\n" .
+            "dd8f7EDYngYDMlUJsqj2ErOdUUmDKBCLqRDRjs/YgzzbN7TjLce33+kzl/L1vjgA\n" .
+            "XmvdtSr6ONpsbP6yRx40E8fhAoGAEHcpNIWaQ38D64OMgL+Vkcb2x4xTjHrf9E/I\n" .
+            "c9zmXj2zKnJCubGZYm/DwW4fcqqnibyYVH4S40eXymUL6plg8rRM9q5SRCUYCk7N\n" .
+            "Toi9uSp2tDI379yvOYjxwWmF9/JF0KSyJ4QY9ss5oPH4bQWYdI3Lmme6jZbjaH5Z\n" .
+            "yGxe6j0CgYBjLW1MGU3mL7e2bqNynvKKcekH/zJ8EYnfsqiMVeid4yY0HXwC1qYM\n" .
+            "I1AfrHkU6/GFNdHB745SMhBXQWl4g4c8vFVLnUANZ/uZ8g4gdZY2ko86jgvdE1gJ\n" .
+            "OimT4zU2ik4cdiGx/1h5NnuwjqVXT3c6m+pA/u4tO+nKI5odG48c6w==\n" .
+            "-----END RSA PRIVATE KEY-----";*/
 
             $webPayCert = "-----BEGIN CERTIFICATE-----\n" .
             "MIIDizCCAnOgAwIBAgIJAIXzFTyfjyBkMA0GCSqGSIb3DQEBCwUAMFwxCzAJBgNV\n" .
@@ -410,13 +426,12 @@ switch ($sale['payment_type']) {
             "KDrfvgD9uqWH12/89hfsfVN6iRH9UOE+SKoR/jHtvLMhVHpa80HVK1qdlfqUTZo=\n" .
             "-----END CERTIFICATE-----";
 
-
             $configuration->setPrivateKey($privateKeyWebPay);
             $configuration->setPublicCert($publicCertWebPay);
             $configuration->setWebpayCert($webPayCert);
 
-            //$transaction = new Webpay($configuration);
             $transaction = (new Webpay($configuration))->getNormalTransaction();
+
         }
 
         $amount = floatval($sale['price']);
