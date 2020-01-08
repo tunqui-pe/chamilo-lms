@@ -352,60 +352,73 @@ switch ($sale['payment_type']) {
             //$privateKeyWebPay = $transkbankParams['private_key'];
             //$publicCertWebPay = $transkbankParams['public_cert'];
             $commerceCode = 597035029575;
-            $privateKeyWebPay =  "-----BEGIN RSA PRIVATE KEY-----\n" .
-                "MIIEpQIBAAKCAQEArcp4JmNB7uKtZSR98AdXwaFiLN4wUBSC6HjLWZYYNhlcN81f\n" .
-                "tWfOQbsYDT5rQofEMi87F6kqp9gfYdypqW0ydkHwNqGqQZYE5QeHykXW7fAhhQr3\n" .
-                "uM4HIIcNZ6gjZwwMIUWlUJ7SVvLbE9Y2OhHHkHolTzDcRZNx0WOW123aVUWPbeLp\n" .
-                "dSOOtrHZkhDlPgBNT+Y6QI7aUsLxMpy6/mbX68/UL3k7lN1CYJvWpcPYC4NHmbro\n" .
-                "vsAc+m1lv4B245yS72YoPC/YzpOZEQJWOzWb9ysvsHJCuTTRjt9ewwC9KnPzbm3y\n" .
-                "fxTTq+86vlhzLftQd1EGMC6jp9v6lXYm/cTmuQIDAQABAoIBAFmvDmng9vlsCMcV\n" .
-                "GdhwMZ0+xwcYch4hN5z4GRhWGJBybeBuH2Hh+9J31mWfPILMxTaQoRIIvnZ3VVqP\n" .
-                "IQ7Jxyy3wlqu+sl1vXjjdfOwLsYDEYkyq7u2tn7Wstg3MG3RDcFty23bR/iOwvdt\n" .
-                "p/Y3jqDEJ9TCBinxeN7xYboyemVd8jYxgPDOrnC8xSweTI0RSFE/qQj+PgwUOS+r\n" .
-                "NLb5ArZhpTlslynGOBJIZdY0Tx3grZVl7DVh8O3dzRggIKePX/GjFmt64OIjQkfZ\n" .
-                "QTSwhUJ1V3KE2R9cPjhG/fpPXxUhva3lGkT9nCxbcGPzFngoHiMbD1bQTabFyvCR\n" .
-                "3PcK3rECgYEA3gRG5N27RlCl0BKWkJvB7RftEW4CQ6O+ehMrbN+jCu60BW5g9xQU\n" .
-                "dS6KYrKM1+sJEeuD0bYjXiWq6tdAFBqvkgy60Yv28V3cUtC2gcn+OLBj5wq8e9pC\n" .
-                "XA4+S7tOop6skJWTZPHgWEuFwRLIMgfjYNHULHZqInRWYSX47DPm788CgYEAyGR2\n" .
-                "35rFZKb/ylTZuzhgypie4jWYArpif8C68C53Tk92QDZ3+MKRYQI5uMCLKcXTp6GI\n" .
-                "UEOjVBpRVtylU540Ec2aaa74l0lxwMrxQrMmDdcAvKSl6fYhMjiO+zjEG8iZ22qm\n" .
-                "t0I83DDJqaKTLFLDn/21ZCRowk5Ksh/aJBp/mvcCgYEAhGgOk729S5EbYn1DeFi8\n" .
-                "Dhdf1i5CgW5tUcaO9m5lgUac7ERI5fH+xWgNNhGAN+E/VoWb5vz2GNbkGQxoddT4\n" .
-                "cmTPIduUWZx9opJA1iTOTaa83fSkNkUToG0KMAY0Pn3dMplR/zjVcDMSQPRfmp7j\n" .
-                "t0FMhXvVjljNj0CjNNM7XjcCgYEAtDb1WN5dislM3G82aFKpaUmcCZ9dF4b7Mhzn\n" .
-                "gTyoerqng9P4TLTd/Tn9IxO1k1mfoO96IYTSi74nTFCeNfbeqOwYY9bBJX0dWd6o\n" .
-                "3e0y2dtzhDMmKqP48qs+mttQMhRTmanuSHy/Mt6FXZMhfAjqeSW3TVoZBDVYo5xV\n" .
-                "l4ZlH70CgYEArS5eB85P3MJjtI6YsgL91Ac27/XemIqBljsVL2r7cn6E8LvYgXJ2\n" .
-                "l3U9Kuh4XimS8GmtgEWP7kZhsE/BPcbuIIs+3Kg6pL/H3taI667s6IAR13nbBGq9\n" .
-                "GX0NxWs9RFsQ168lu73cs3uC5L0x0CuDpadycY9TzZutzZ4UKnuSL9k=\n" .
-                "-----END RSA PRIVATE KEY-----";
+
 
             $publicCertWebPay = "-----BEGIN CERTIFICATE-----\n" .
-                "MIIDZTCCAk0CFF15Yxz0sHS4KrhYsTyYBAHMWACsMA0GCSqGSIb3DQEBCwUAMG8x\n" .
-                "CzAJBgNVBAYTAkNMMRMwEQYDVQQIDApTb21lLVN0YXRlMREwDwYDVQQHDAhTQU5U\n" .
-                "SUFHTzEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMRUwEwYDVQQD\n" .
-                "DAw1OTcwMzUwMjk1NzUwHhcNMTkxMjMxMDI0MDU3WhcNMjMxMjMwMDI0MDU3WjBv\n" .
-                "MQswCQYDVQQGEwJDTDETMBEGA1UECAwKU29tZS1TdGF0ZTERMA8GA1UEBwwIU0FO\n" .
-                "VElBR08xITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDEVMBMGA1UE\n" .
-                "AwwMNTk3MDM1MDI5NTc1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n" .
-                "rcp4JmNB7uKtZSR98AdXwaFiLN4wUBSC6HjLWZYYNhlcN81ftWfOQbsYDT5rQofE\n" .
-                "Mi87F6kqp9gfYdypqW0ydkHwNqGqQZYE5QeHykXW7fAhhQr3uM4HIIcNZ6gjZwwM\n" .
-                "IUWlUJ7SVvLbE9Y2OhHHkHolTzDcRZNx0WOW123aVUWPbeLpdSOOtrHZkhDlPgBN\n" .
-                "T+Y6QI7aUsLxMpy6/mbX68/UL3k7lN1CYJvWpcPYC4NHmbrovsAc+m1lv4B245yS\n" .
-                "72YoPC/YzpOZEQJWOzWb9ysvsHJCuTTRjt9ewwC9KnPzbm3yfxTTq+86vlhzLftQ\n" .
-                "d1EGMC6jp9v6lXYm/cTmuQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAtfcr2zPmT\n" .
-                "e0SINv894McDGrIEw1lyr/yPkwvh0EKfXChTYHNoNej31+jsXjfK/I762jgnfLmy\n" .
-                "1YGbaHkNGmnukF5Oaf/Sxrtp1ZfF1FdXDpU4NAmJmezCvERwMDheL9rEhBqX0fcs\n" .
-                "05bl0eB0o4jnnZA6SC+vG/4GDb8f1UMcVEOOccJktJqXRajgTtsqKYOS3ProkmuY\n" .
-                "ZNw5OYiJzrLh/VoBFGmq4M0Vw7jNFOqrBnyIM9nprfpiEGvYD1t+7f51poXsi9VK\n" .
-                "PTBIF8zePsAi4l/N5kvc2nAyeyy3+/9zv2uUg+cGIbFIKHmi2hAoZzncWTIEoofK\n" .
-                "tbYHiETFl6Qf\n".
-                "-----END CERTIFICATE-----";
+            "MIIDNDCCAhwCCQCu51zD0AshITANBgkqhkiG9w0BAQsFADBcMQswCQYDVQQGEwJB\n" .
+            "VTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0\n" .
+            "cyBQdHkgTHRkMRUwEwYDVQQDDAw1OTcwMzUwMjk1NzUwHhcNMjAwMTA3MjExNzE4\n" .
+            "WhcNMjQwMTA2MjExNzE4WjBcMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1T\n" .
+            "dGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMRUwEwYDVQQD\n" .
+            "DAw1OTcwMzUwMjk1NzUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDe\n" .
+            "RGiUGpKOu57Ee7ozxz/3eCXsRSaRLJsHfk42b4ACnoIEUZ9n8tf6kR0n/YAYAUa2\n" .
+            "GU0eKGRvHJagCuTKdA4SoctzSLFlTiuy9NIeIcVkf2AH38xFkJnamw8QwZOdcKJL\n" .
+            "yd72Y9U3zjJyFkqJ8476eOukF08GH1AChFaj2AFan0p5ZckgWlmxdL6gXcT7mENg\n" .
+            "Dv/E3zC01FDmCv8LwuMMkvhDCG4eJeg3PDUU9IgcpLH1n0SXUTvG+iksY72Gcz1q\n" .
+            "OXONY3AgBjcUkbM9n/jEsWms2JVf++IKBxndkKr5iUVBN+LqzpKwVAhrC06j8+oq\n" .
+            "dw/1BwgXziuIGD4fF/PBAgMBAAEwDQYJKoZIhvcNAQELBQADggEBADwAF3PGIRho\n" .
+            "c14gldQGC2+zITBA91vIJigTZF37No0B6Qe86diRvuHaLFQg91cDNEnEu42TR693\n" .
+            "0doprMxU+jZ5HNKQN7+arw8/mLNd1XQsvMOn0lBWDTQ/jG4I59hVZtbH7kCy8QPv\n" .
+            "0kMajf62ET3EjxowV27Q1+gThezy5A18yNmz1yc1P50JBjj5auvqWpo7+OyLe+9M\n" .
+            "NWi+V1XRf9W55mUq3VO72qFXfyS8sxnZ/ih4KVOHav+HTmFg5w5TCYQAWJxTOxp6\n" .
+            "mmZvRNWwJY1iDOkWmPjXcVkePqJ91wv5xmYiLea72SO9qjftC+EeooRggGjbGvGu\n" .
+            "KwcA6l8WaH4=\n" .
+            "-----END CERTIFICATE-----";
 
+            $privateKeyWebPay =  "-----BEGIN CERTIFICATE REQUEST-----\n" .
+            "MIICoTCCAYkCAQAwXDELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUx\n" .
+            "ITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDEVMBMGA1UEAwwMNTk3\n" .
+            "MDM1MDI5NTc1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3kRolBqS\n" .
+            "jruexHu6M8c/93gl7EUmkSybB35ONm+AAp6CBFGfZ/LX+pEdJ/2AGAFGthlNHihk\n" .
+            "bxyWoArkynQOEqHLc0ixZU4rsvTSHiHFZH9gB9/MRZCZ2psPEMGTnXCiS8ne9mPV\n" .
+            "N84ychZKifOO+njrpBdPBh9QAoRWo9gBWp9KeWXJIFpZsXS+oF3E+5hDYA7/xN8w\n" .
+            "tNRQ5gr/C8LjDJL4QwhuHiXoNzw1FPSIHKSx9Z9El1E7xvopLGO9hnM9ajlzjWNw\n" .
+            "IAY3FJGzPZ/4xLFprNiVX/viCgcZ3ZCq+YlFQTfi6s6SsFQIawtOo/PqKncP9QcI\n" .
+            "F84riBg+HxfzwQIDAQABoAAwDQYJKoZIhvcNAQELBQADggEBAKDAu/i4/rPKGMPY\n" .
+            "2qFABharidx63BfK4eW5MN5CNWT9NdSexV84OxNsUbnZGkY2NnTFGMs7Sr2RI7uq\n" .
+            "EmSwKbdon09J5VYE0LtDP9oiHrAD1dyO4ZlpYRw6+AD59pWA4ez4mxCBW6CxBYuc\n" .
+            "qlJLmJuy7alGIEtdZKHPt+i4SBJcy7F+ksy4rlD6/yzGo+ksSH79UljHr3K+PPlK\n" .
+            "VtCo6IwsvT1CDZDhRt1v5q1gyRvNA3IfbpxR1jJ/fL9s/ZS273/cZvGLmSeUqi9m\n" .
+            "nkX8dlU/02IfRe94h4SBJeJ4kiNYJ+A++1YArSaLGk60Tt4REKjTjGYYx/xvopKR\n" .
+            "1OYR8MY=\n" .
+            "-----END CERTIFICATE REQUEST-----";
+
+            $webPayCert = "-----BEGIN CERTIFICATE-----\n" .
+            "MIIDizCCAnOgAwIBAgIJAIXzFTyfjyBkMA0GCSqGSIb3DQEBCwUAMFwxCzAJBgNV\n" .
+            "BAYTAkNMMQswCQYDVQQIDAJSTTERMA8GA1UEBwwIU2FudGlhZ28xEjAQBgNVBAoM\n" .
+            "CXRyYW5zYmFuazEMMAoGA1UECwwDUFJEMQswCQYDVQQDDAIxMDAeFw0xODAzMjkx\n" .
+            "NjA4MjhaFw0yMzAzMjgxNjA4MjhaMFwxCzAJBgNVBAYTAkNMMQswCQYDVQQIDAJS\n" .
+            "TTERMA8GA1UEBwwIU2FudGlhZ28xEjAQBgNVBAoMCXRyYW5zYmFuazEMMAoGA1UE\n" .
+            "CwwDUFJEMQswCQYDVQQDDAIxMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC\n" .
+            "ggEBAKRqDk/pv8GeWnEaTVhfw55fThmqbFZOHEc/Un7oVWP+ExjD0kZ/aAwMJZ3d\n" .
+            "9hpbBExftjoyJ0AYKJXA2CyLGxRp30LapBa2lMehzdP6tC5nrCYbDFz8r8ZyN/ie\n" .
+            "4lBQ8GjfONq34cLQfM+tOxyazgDYRnZVD9tvOcqI5bFwFKqpn/yMr9Eya7gTo/OP\n" .
+            "wyz69sAF8MKr0YN941n6C1Cdrzp6cRftdj83nlI75Ue//rMYih/uQYiht4XWFjAA\n" .
+            "usoOG/IVVCCHhVQGE/Rp22dAF8JzWYZWCe+ICOKjEzEZPjDBqPoh9O+0eGTFVwn2\n" .
+            "qZf2iSLDKBOiha1wwzpTiiJV368CAwEAAaNQME4wHQYDVR0OBBYEFDfN1Tlj7wbn\n" .
+            "JIemBNO1XrUOikQpMB8GA1UdIwQYMBaAFDfN1Tlj7wbnJIemBNO1XrUOikQpMAwG\n" .
+            "A1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBACzXPSHet7aZrQvMUN03jOqq\n" .
+            "w37brCWZ+L/+pbdOugVRAQRb2W+Z6gyrJ2BuUuiZLCXpjvXACSpwcSB3JesWs9KE\n" .
+            "YO8E8ofF7a6ORvi2Mw0vpBbwJLqnci1gVlAj3X8r/VbX2rGbvRy+BJAF769xr43X\n" .
+            "dtns0JIWwKud0xC3iRPMnewo/75HIblbN3guePfouoR2VgfBmeU72UR8O+OpjwbF\n" .
+            "vpidobGqTGvZtxRV5axer69WY0rAXRhTSfkvyGTXERCJ3vdsF/v9iNKHhERUnpV6\n" .
+            "KDrfvgD9uqWH12/89hfsfVN6iRH9UOE+SKoR/jHtvLMhVHpa80HVK1qdlfqUTZo=\n" .
+            "-----END CERTIFICATE-----";
 
             $configuration->setCommerceCode($commerceCode);
             $configuration->setPrivateKey($privateKeyWebPay);
             $configuration->setPublicCert($publicCertWebPay);
+            $configuration->setWebpayCert($webPayCert);
 
             $transaction = new Webpay($configuration);
         }
