@@ -340,19 +340,14 @@ switch ($sale['payment_type']) {
         $returnURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/return_payment.php';
         $finalURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/final_payment.php';
 
-        $configuration = new Configuration();
+        $configuration = new \Transbank\Webpay\Configuration();
 
         if((int)$transkbankParams['integration'] == 1){
             $configuration->setEnvironment(Webpay::TEST);
             $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
         } else {
-            $configuration->setEnvironment(Webpay::PRODUCCION);
-            //We assign the trade code
-            //$commerceCode = $transkbankParams['commerce_code'];
-            //$privateKeyWebPay = $transkbankParams['private_key'];
-            //$publicCertWebPay = $transkbankParams['public_cert'];
-            $commerceCode = 597035029575;
-
+            $configuration->setEnvironment("PRODUCCION");
+            $configuration->setCommerceCode(597035029575);
 
             $publicCertWebPay = "-----BEGIN CERTIFICATE-----\n" .
             "MIIDNDCCAhwCCQCu51zD0AshITANBgkqhkiG9w0BAQsFADBcMQswCQYDVQQGEwJB\n" .
@@ -415,12 +410,13 @@ switch ($sale['payment_type']) {
             "KDrfvgD9uqWH12/89hfsfVN6iRH9UOE+SKoR/jHtvLMhVHpa80HVK1qdlfqUTZo=\n" .
             "-----END CERTIFICATE-----";
 
-            $configuration->setCommerceCode($commerceCode);
+
             $configuration->setPrivateKey($privateKeyWebPay);
             $configuration->setPublicCert($publicCertWebPay);
             $configuration->setWebpayCert($webPayCert);
 
-            $transaction = new Webpay($configuration);
+            //$transaction = new Webpay($configuration);
+            $transaction = (new Webpay($configuration))->getNormalTransaction();
         }
 
         $amount = floatval($sale['price']);
