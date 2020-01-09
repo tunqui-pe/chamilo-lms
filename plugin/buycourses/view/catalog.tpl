@@ -116,12 +116,12 @@
                                                 </div>
                                             {% elseif session.enrolled == "TMP" %}
                                                 <div class="alert alert-info">{{ 'WaitingToReceiveThePayment'|get_plugin_lang('BuyCoursesPlugin') }}</div>
-                                                {#<div class="toolbar">
+                                                <div class="toolbar">
                                                     <a href="{{ _p.web_plugin ~ 'buycourses/src/sales_pending.php'}}" class="btn btn-danger btn-buy-cancel btn-block btn-sm">
                                                         <i class="fa fa-ban" aria-hidden="true"></i>
                                                         {{ 'CancelPending'|get_plugin_lang('BuyCoursesPlugin') }}
                                                     </a>
-                                                </div>#}
+                                                </div>
                                             {% endif %}
                                         </div>
                                     </article>
@@ -134,9 +134,11 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="items-course">
                                         <div class="items-course-image">
-                                            <a href="{{ _p.web }}service/{{ service.id }}"><img alt="{{ service.name }}"
-                                                                                                class="img-responsive"
-                                                                                                src="{{ service.image ? service.image : 'session_default.png'|icon() }}"></a>
+                                            <a href="{{ _p.web }}service/{{ service.id }}">
+                                                <img alt="{{ service.name }}"
+                                                     class="img-responsive"
+                                                     src="{{ service.image ? service.image : 'session_default.png'|icon() }}">
+                                            </a>
                                         </div>
                                         <div class="items-course-info">
                                             <h4 class="title">

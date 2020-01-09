@@ -9,15 +9,16 @@ $cidReset = true;
 
 require_once '../config.php';
 
-api_protect_admin_script();
 $plugin = BuyCoursesPlugin::create();
+$userID = api_get_user_id();
 
 $paypalEnable = $plugin->get('paypal_enable');
-
 $templateName = $plugin->get_lang('UnpaidPurchases');
 
-$template = new Template($templateName);
+$sales = $plugin->getSaleListByStatus(0, $userID);
 
+$template = new Template($templateName);
+$template->assign('sales', $sales);
 $content = $template->fetch('buycourses/view/sales_pending.tpl');
 $template->assign('header', $templateName);
 $template->assign('content', $content);

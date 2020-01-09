@@ -1417,6 +1417,35 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
+     * Get a list of sales by the status.
+     *
+     * @param int $status The status to filter
+     *
+     * @return array The sale list. Otherwise return false
+     */
+    public function getSaleListByStatusUser($status = self::SALE_STATUS_PENDING, $userID)
+    {
+        $saleTable = Database::get_main_table(self::TABLE_SALE);
+        $currencyTable = Database::get_main_table(self::TABLE_CURRENCY);
+        $userTable = Database::get_main_table(TABLE_MAIN_USER);
+
+        $innerJoins = "
+            INNER JOIN $currencyTable c ON s.currency_id = c.id
+            INNER JOIN $userTable u ON s.user_id = u.id
+        ";
+
+        return Database::select(
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
+            "$saleTable s $innerJoins",
+            [
+                'where' => ['s.status = ?' => (int) $status],
+                'and' => ['s.user_id = ?' => (int) $userID],
+                'order' => 'id DESC',
+            ]
+        );
+    }
+
+    /**
      * Get the list statuses for sales.
      *
      * @param null $dateStart
