@@ -348,63 +348,14 @@ switch ($sale['payment_type']) {
         } else {
 
             $commerceCode = $transkbankParams['commerce_code'];
-
-            $configuration->setEnvironment(Webpay::PRODUCCION);
-            $configuration->setCommerceCode(597035029575);
-
             $privateKeyWebPay = $transkbankParams['private_key'];
             $publicCertWebPay = $transkbankParams['public_cert'];
+            $webPayCert = $configuration->getWebpayCert();
 
-            /*$publicCertWebPay = "-----BEGIN CERTIFICATE-----\n" .
-            "MIIDNDCCAhwCCQCu51zD0AshITANBgkqhkiG9w0BAQsFADBcMQswCQYDVQQGEwJB\n" .
-            "VTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0\n" .
-            "cyBQdHkgTHRkMRUwEwYDVQQDDAw1OTcwMzUwMjk1NzUwHhcNMjAwMTA3MjExNzE4\n" .
-            "WhcNMjQwMTA2MjExNzE4WjBcMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1T\n" .
-            "dGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMRUwEwYDVQQD\n" .
-            "DAw1OTcwMzUwMjk1NzUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDe\n" .
-            "RGiUGpKOu57Ee7ozxz/3eCXsRSaRLJsHfk42b4ACnoIEUZ9n8tf6kR0n/YAYAUa2\n" .
-            "GU0eKGRvHJagCuTKdA4SoctzSLFlTiuy9NIeIcVkf2AH38xFkJnamw8QwZOdcKJL\n" .
-            "yd72Y9U3zjJyFkqJ8476eOukF08GH1AChFaj2AFan0p5ZckgWlmxdL6gXcT7mENg\n" .
-            "Dv/E3zC01FDmCv8LwuMMkvhDCG4eJeg3PDUU9IgcpLH1n0SXUTvG+iksY72Gcz1q\n" .
-            "OXONY3AgBjcUkbM9n/jEsWms2JVf++IKBxndkKr5iUVBN+LqzpKwVAhrC06j8+oq\n" .
-            "dw/1BwgXziuIGD4fF/PBAgMBAAEwDQYJKoZIhvcNAQELBQADggEBADwAF3PGIRho\n" .
-            "c14gldQGC2+zITBA91vIJigTZF37No0B6Qe86diRvuHaLFQg91cDNEnEu42TR693\n" .
-            "0doprMxU+jZ5HNKQN7+arw8/mLNd1XQsvMOn0lBWDTQ/jG4I59hVZtbH7kCy8QPv\n" .
-            "0kMajf62ET3EjxowV27Q1+gThezy5A18yNmz1yc1P50JBjj5auvqWpo7+OyLe+9M\n" .
-            "NWi+V1XRf9W55mUq3VO72qFXfyS8sxnZ/ih4KVOHav+HTmFg5w5TCYQAWJxTOxp6\n" .
-            "mmZvRNWwJY1iDOkWmPjXcVkePqJ91wv5xmYiLea72SO9qjftC+EeooRggGjbGvGu\n" .
-            "KwcA6l8WaH4=\n" .
-            "-----END CERTIFICATE-----\n";
+            $configuration->setEnvironment(Webpay::PRODUCCION);
+            $configuration->setCommerceCode($commerceCode);
 
-            $privateKeyWebPay =  "-----BEGIN RSA PRIVATE KEY-----\n" .
-            "MIIEpAIBAAKCAQEA3kRolBqSjruexHu6M8c/93gl7EUmkSybB35ONm+AAp6CBFGf\n" .
-            "Z/LX+pEdJ/2AGAFGthlNHihkbxyWoArkynQOEqHLc0ixZU4rsvTSHiHFZH9gB9/M\n" .
-            "RZCZ2psPEMGTnXCiS8ne9mPVN84ychZKifOO+njrpBdPBh9QAoRWo9gBWp9KeWXJ\n" .
-            "IFpZsXS+oF3E+5hDYA7/xN8wtNRQ5gr/C8LjDJL4QwhuHiXoNzw1FPSIHKSx9Z9E\n" .
-            "l1E7xvopLGO9hnM9ajlzjWNwIAY3FJGzPZ/4xLFprNiVX/viCgcZ3ZCq+YlFQTfi\n" .
-            "6s6SsFQIawtOo/PqKncP9QcIF84riBg+HxfzwQIDAQABAoIBAQDJZIa1m5YsCkiD\n" .
-            "k/BVtjZ5jr4d5VJavGYEViecH0+IEAOS0jpzv5B/Ezmt4H5OQenGWgqMRuEp5Gd+\n" .
-            "wCAqaRnPPBbScI18U2Y5EqfIcaUfuGJVAC1g4vLlJxZxglS0lTgZH+MMscyicg03\n" .
-            "XodPlAZ7YVFyL0SFMZ4Xib3PW4tuhbFyXE4iHQrLWlGKSxU/RTNszmNMPHSvHX4X\n" .
-            "lIRYiQm4OGRzsT2/X6HLzsVhQb76ezkzapBUOkgnIIJsYos2deEg4gaqRwWSuqc6\n" .
-            "4z+w/44o/hyAZE1DQ+npkWx4/cXD2wCxO9kL8tkBEkkY6EJQckMxsaTp0JtTKrQC\n" .
-            "EengTqi5AoGBAP+HGWYq8acoJ4JyTtSXf7D+UVA14TzA0tWFsnQePnFUeORnxy1Y\n" .
-            "jk46PqBC5+ZK8JwSVzIZk0OQ4OhTFrP14bqb+pqMwTCyslj/x9UEl8nogivWdbLC\n" .
-            "NUnsI18+u2QTGciS32UouCUJ2Vx+C+vIuUAsxv5txcCd36hec/BLh8YbAoGBAN6t\n" .
-            "koaKV8BAoSaJI9Ub6NP4bBx6uO/2g5oisecjFuGuTEo+m/Fv1sv5JIOIciXvbFDw\n" .
-            "J8iNizfPj7BhiQPELQNXW8J4tQKbiF4urcQYvJZ2HU0SEuqVxPNvo5JK+1K9bN9G\n" .
-            "Mk11MiCNLR+RxP3jVxEhE/qul13Kl3mzalQ257tTAoGBALdYiLD2P05hUXgX7Ng9\n" .
-            "nDGzSUT0ZBjjgmQS+mi3CrbmlZfNnuy6jeEziZwUZbCoNNzHjCk2kKP6YGZSuAeI\n" .
-            "dd8f7EDYngYDMlUJsqj2ErOdUUmDKBCLqRDRjs/YgzzbN7TjLce33+kzl/L1vjgA\n" .
-            "XmvdtSr6ONpsbP6yRx40E8fhAoGAEHcpNIWaQ38D64OMgL+Vkcb2x4xTjHrf9E/I\n" .
-            "c9zmXj2zKnJCubGZYm/DwW4fcqqnibyYVH4S40eXymUL6plg8rRM9q5SRCUYCk7N\n" .
-            "Toi9uSp2tDI379yvOYjxwWmF9/JF0KSyJ4QY9ss5oPH4bQWYdI3Lmme6jZbjaH5Z\n" .
-            "yGxe6j0CgYBjLW1MGU3mL7e2bqNynvKKcekH/zJ8EYnfsqiMVeid4yY0HXwC1qYM\n" .
-            "I1AfrHkU6/GFNdHB745SMhBXQWl4g4c8vFVLnUANZ/uZ8g4gdZY2ko86jgvdE1gJ\n" .
-            "OimT4zU2ik4cdiGx/1h5NnuwjqVXT3c6m+pA/u4tO+nKI5odG48c6w==\n" .
-            "-----END RSA PRIVATE KEY-----";*/
-
-            $webPayCert = "-----BEGIN CERTIFICATE-----\n" .
+            /*$webPayCert = "-----BEGIN CERTIFICATE-----\n" .
             "MIIDizCCAnOgAwIBAgIJAIXzFTyfjyBkMA0GCSqGSIb3DQEBCwUAMFwxCzAJBgNV\n" .
             "BAYTAkNMMQswCQYDVQQIDAJSTTERMA8GA1UEBwwIU2FudGlhZ28xEjAQBgNVBAoM\n" .
             "CXRyYW5zYmFuazEMMAoGA1UECwwDUFJEMQswCQYDVQQDDAIxMDAeFw0xODAzMjkx\n" .
@@ -424,7 +375,7 @@ switch ($sale['payment_type']) {
             "dtns0JIWwKud0xC3iRPMnewo/75HIblbN3guePfouoR2VgfBmeU72UR8O+OpjwbF\n" .
             "vpidobGqTGvZtxRV5axer69WY0rAXRhTSfkvyGTXERCJ3vdsF/v9iNKHhERUnpV6\n" .
             "KDrfvgD9uqWH12/89hfsfVN6iRH9UOE+SKoR/jHtvLMhVHpa80HVK1qdlfqUTZo=\n" .
-            "-----END CERTIFICATE-----";
+            "-----END CERTIFICATE-----";*/
 
             $configuration->setPrivateKey($privateKeyWebPay);
             $configuration->setPublicCert($publicCertWebPay);
