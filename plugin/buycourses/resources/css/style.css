@@ -395,8 +395,23 @@
         float: left !important;
     }
 
-    .buy-summary .btn-success {
+    .buy-summary .btn-success, .buy-summary .btn-danger {
         width: 100%;
+        margin: auto;
+    }
+    .buy-summary .btn-danger{
+        margin: auto !important;
+    }
+    .congratulations .title-webpay{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .congratulations p{
+        font-size: 12px;
+    }
+    .congratulations .img-webpay{
+        width: 200px;
+        margin: auto;
     }
 }
 

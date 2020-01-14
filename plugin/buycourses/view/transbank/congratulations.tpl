@@ -2,10 +2,10 @@
     <div class="congratulations">
         <div class="row">
             <div class="col-md-6">
-                <img alt="{{ 'Congratulations'|get_plugin_lang('BuyCoursesPlugin') }}" class="img-responsive" src="{{ _p.web }}plugin/buycourses/resources/img/children.jpg">
+                <img  alt="{{ 'Congratulations'|get_plugin_lang('BuyCoursesPlugin') }}" class="img-responsive img-webpay" src="{{ _p.web }}plugin/buycourses/resources/img/children.jpg">
             </div>
             <div class="col-md-6">
-                <h1>{{ 'Congratulations'|get_plugin_lang('BuyCoursesPlugin') }}</h1>
+                <h1 class="title-webpay">{{ 'Congratulations'|get_plugin_lang('BuyCoursesPlugin') }}</h1>
                 <img src="{{ _p.web }}plugin/buycourses/resources/img/webpay_big.png">
                 <p>{{ 'accessTheCourse'|get_plugin_lang('BuyCoursesPlugin') }}</p>
                 <div class="buy-summary">
@@ -23,10 +23,10 @@
     <div class="congratulations">
         <div class="row">
             <div class="col-md-6">
-                <img alt="{{ 'TransactionWasCanceled'|get_plugin_lang('BuyCoursesPlugin') }}" class="img-responsive" src="{{ _p.web }}plugin/buycourses/resources/img/children2.jpg">
+                <img alt="{{ 'TransactionWasCanceled'|get_plugin_lang('BuyCoursesPlugin') }}" class="img-responsive img-webpay" src="{{ _p.web }}plugin/buycourses/resources/img/children2.jpg">
             </div>
             <div class="col-md-6">
-                <h1>{{ 'TransactionWasCanceled'|get_plugin_lang('BuyCoursesPlugin') }}</h1>
+                <h1 class="title-webpay">{{ 'TransactionWasCanceled'|get_plugin_lang('BuyCoursesPlugin') }}</h1>
                 <img src="{{ _p.web }}plugin/buycourses/resources/img/webpay_big.png">
                 <p>{{ 'TransactionDeclined'|get_plugin_lang('BuyCoursesPlugin') }}</p>
                 <div class="buy-summary">
