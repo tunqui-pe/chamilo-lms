@@ -36,7 +36,7 @@ if((int)$transkbankParams['integration'] == 1){
 $tokenWS = filter_input(INPUT_POST, 'token_ws');
 $result = $transaction->getTransactionResult($tokenWS);
 $output = $result->detailOutput;
-
+$statusTransaction = $output->responseCode;
 
 $form = new FormValidator(
     'return-form',
@@ -44,8 +44,8 @@ $form = new FormValidator(
     $result->urlRedirection
 );
 
-if($output->responseCode == 0){
-
+if($statusTransaction === 0){
+    $response = 1;
     $byOrderReference = $output->buyOrder;
     $sale = $plugin->getSaleReference($byOrderReference);
 
@@ -53,18 +53,19 @@ if($output->responseCode == 0){
     echo '<script>window.localStorage.setItem("authorizationCode","'.$output->authorizationCode.'");</script>';
     echo '<script>window.localStorage.setItem("amount","'.$output->amount.'");</script>';
     echo '<script>window.localStorage.setItem("responseCode", "'.$output->responseCode.'");</script>';
+    echo '<style type="text/css"> #return-form fieldset { display: none;}</style>';
 
     $plugin->completeSale($sale['id']);
-    $form->addHidden('response',$output->responseCode);
+    $form->addHidden('response',$response);
     $form->addHidden('token_ws',$tokenWS);
     $form->display();
 
 } else {
-
+    $response = 2;
     $byOrderReference = $output->buyOrder;
     $sale = $plugin->getSaleReference($byOrderReference);
     $plugin->cancelSale($sale['id']);
-    $form->addHidden('response',$output->responseCode);
+    $form->addHidden('response',$response);
     $form->addHidden('token_ws',$tokenWS);
     $form->display();
 }
