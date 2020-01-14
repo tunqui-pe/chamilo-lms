@@ -155,7 +155,7 @@ $strings['SubscriptionToServiceXSuccessful'] = "La subscripción al servicio %s 
 $strings['transbank_enable'] = "Habilitar Transbank";
 $strings['culqi_enable'] = "Habilitar Culqi";
 $strings['CulqiConfig'] = "Configuración de CULQI:";
-$strings['TransbankConfig'] = "Configuración de Transbank (Webpay / Onepay):";
+$strings['TransbankConfig'] = "Configuración de Transbank Webpay Normal:";
 $strings['InfoCulqiCredentials'] = "Para obtener las credenciales es necesario crearse una cuenta en Culqi e ingresar en modo desarrollo, copiar el código de comercio que se encuentra en su panel de control, luego ingresar al apartado de API Keys y generar la Key correspondiente para copiarla aquí";
 $strings['CommerceCode'] = "Codigo de comercio";
 $strings['IConfirmIReadAndAcceptTermsAndCondition'] = "He leído y aceptado los terminos y condiciones del servicio";
@@ -257,3 +257,5 @@ $strings['PrivateKey'] = "Private Key";
 $strings['PublicCert'] = "Certificado público";
 $strings['CancelPending'] = "Cancelar pendiente";
 $strings['UnpaidPurchases'] = "Compras pendientes de pago";
+$strings['InfoTransbankHelp'] = '<strong>Transbank</strong> realiza un <a href="https://www.transbankdevelopers.cl/documentacion/como_empezar#el-proceso-de-validacion-y-puesta-en-produccion">proceso de validación</a> en el ambiente de integración con los codigos de comercio de integración disponibles <a href="https://www.transbankdevelopers.cl/documentacion/como_empezar#ambientes">aquí</a>. Durante este proceso se solicita evidencias de la integración. Transbank realizara pruebas para eso debe de enviar una plantilla de integración a <strong>soporte@transbank.cl</strong>';
+$strings['InfoTransbankCredentials'] = 'Posterior a la pruebas y la confirmación por parte de Transbank se solicitará la <a href="https://www.transbankdevelopers.cl/documentacion/como_empezar#credenciales-en-onepay">generación de credenciales del comercio</a> (llave privada y certificado público). Que serán enviados junto al logo del comercio a <strong>soporte@transbank.cl</strong> , para ver más detalles aquí en la documentación oficial de Transbank.';
