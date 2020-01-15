@@ -245,13 +245,13 @@ $strings['OrderStatus'] = "Estado de venta";
 $strings['SelectDateRange'] = "Seleccione una fecha de inicio y fecha de fin para el reporte";
 $strings['Congratulations'] = "Felicidades tu compra fue un éxito";
 $strings['TransactionWasRejected'] = "La transacción fue rechazada";
-$strings['SuccessfulPurchase'] = "Compra exitosa";
+$strings['SuccessfulPurchase'] = "Proceso finalzado";
 $strings['TransactionDeclined'] = "Se ha rechazado o cancelado la transacción. Te solicitamos volver a nuestro catálogo de cursos a intentarlo nuevamente.\"
 Y el botón que diga \"IR AL CATÁLOGO";
 $strings['accessTheCourse'] = "Ya puedes acceder al curso, presionando el botón ACCESO AL CURSO, o puedes seguir comprando dentro de nuestro catálogo.";
 $strings['PurchaseOrder'] = "Orden de compra";
 $strings['PaymentProcessed'] = "Pago procesado por";
-$strings['BuyOtherCourses'] = "Comprar otros cursos";
+$strings['BuyOtherCourses'] = "Ir al catálogo";
 $strings['TransactionWasCanceled'] = "La transacción fue cancelada";
 $strings['PrivateKey'] = "Private Key";
 $strings['PublicCert'] = "Certificado público";
