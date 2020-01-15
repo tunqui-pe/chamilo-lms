@@ -1,6 +1,6 @@
 <div style="padding: 2rem;">
     <p>{{ 'TheNextPurchase'|get_plugin_lang('BuyCoursesPlugin') }}</p>
-    <table>
+    <table style="width: 100%;">
         <tr>
             <td style="font-weight: bold;">
                 {{ 'OrderDate'|get_plugin_lang('BuyCoursesPlugin') }}

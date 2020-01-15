@@ -2,7 +2,7 @@
     <p>{{ 'helloUser'|get_plugin_lang('BuyCoursesPlugin') }} <strong>{{ user.firstname }}</strong> {{ 'howAreYour'|get_plugin_lang('BuyCoursesPlugin') }}</p>
     <p>{{ 'toCompleteYourRegistration'|get_plugin_lang('BuyCoursesPlugin') }}</p>
 
-    <table>
+    <table style="width: 100%;">
         <tr>
             <td style="font-weight: bold;">
                 {{ 'Name'|get_lang }}
@@ -48,7 +48,7 @@
     <p>{{ 'ResendProof'|get_plugin_lang('BuyCoursesPlugin') }}</p>
     <h3 style="text-transform: uppercase; font-size: 16px;">{{ 'registrationData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
 
-    <table>
+    <table style="width: 100%;">
         <tr>
             <td style="font-weight: bold;">
                 {{ 'OrderDate'|get_plugin_lang('BuyCoursesPlugin') }}

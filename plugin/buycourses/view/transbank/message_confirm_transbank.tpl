@@ -6,7 +6,7 @@
         {{ 'Detailsofpayment'|get_plugin_lang('BuyCoursesPlugin') }}
     </h3>
 
-    <table>
+    <table style="width: 100%;">
         <tr>
             <td style="font-weight: bold;">
                 {{ 'Establishment'|get_plugin_lang('BuyCoursesPlugin') }}
@@ -81,7 +81,7 @@
         </tr>
     </table>
 
-    <table>
+    <table style="width: 100%;">
         <tr>
             <td style="text-align: left;">
                 <p>
