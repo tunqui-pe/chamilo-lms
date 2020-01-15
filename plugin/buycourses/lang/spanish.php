@@ -79,6 +79,7 @@ $strings['PaymentMethods'] = "Escoge un método de pago";
 $strings['ConfirmOrder'] = "Confirmar Inscripción";
 $strings['PurchaseData'] = "Datos de la compra";
 $strings['bc_subject'] = "Confirmación pedido de cursos";
+$strings['PaymentReceivedTransbank'] = "Pago recibido con WebPay Plus - Transbank";
 $strings['PurchaseStatusX'] = "Estado de la compra: %s";
 $strings['PendingReasonByTransfer'] = "<strong>Pendiente</strong>. Esperando la confirmación de la transferencia";
 $strings['CancelOrder'] = "Cancelar inscripción";

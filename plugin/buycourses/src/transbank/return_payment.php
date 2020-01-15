@@ -101,7 +101,7 @@ if ($statusTransaction === 0) {
         api_mail_html(
             '',
             [$globalParameters['sale_email'], $userInfo['email']],
-            $plugin->get_lang('bc_subject'),
+            $plugin->get_lang('PaymentReceivedTransbank'),
             $messageConfirmTemplate->fetch('buycourses/view/transbank/message_confirm_transbank.tpl')
         );
     }
