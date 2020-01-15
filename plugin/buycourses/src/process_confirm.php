@@ -342,7 +342,7 @@ switch ($sale['payment_type']) {
 
         $configuration = new Configuration();
 
-        if((int)$transkbankParams['integration'] == 1){
+        if ((int)$transkbankParams['integration'] == 1) {
             $configuration->setEnvironment(Webpay::INTEGRACION);
             $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
         } else {
@@ -368,7 +368,7 @@ switch ($sale['payment_type']) {
         $buyOrder = strval(rand(100000, 999999999));
 
         $initResult = $transaction->initTransaction(
-            $amount,$sessionID,$buyOrder, $returnURL, $finalURL
+            $amount, $sessionID, $buyOrder, $returnURL, $finalURL
         );
 
         $formAction = $initResult->url;
@@ -392,12 +392,11 @@ switch ($sale['payment_type']) {
 
             api_mail_html(
                 '',
-                $globalParameters['sale_email'],
+                [$globalParameters['sale_email'], $userInfo['email']],
                 $plugin->get_lang('bc_subject'),
                 $messageConfirmTemplate->fetch('buycourses/view/message_confirm.tpl')
             );
         }
-
 
 
         $template = new Template();
@@ -431,7 +430,7 @@ switch ($sale['payment_type']) {
             case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
                 $buyingCourse = true;
                 $course = $plugin->getCourseInfo($sale['product_id']);
-                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG){
+                if ($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG) {
                     $urlRedirect = $course['url_servipag'];
                     $typePayment = 'servipag';
                 }
@@ -440,7 +439,7 @@ switch ($sale['payment_type']) {
             case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
                 $buyingSession = true;
                 $session = $plugin->getSessionInfo($sale['product_id']);
-                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG){
+                if ($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG) {
                     $urlRedirect = $session['url_servipag'];
                     $typePayment = 'servipag';
                 }
@@ -448,7 +447,7 @@ switch ($sale['payment_type']) {
         }
 
 
-        if(!empty($urlRedirect)){
+        if (!empty($urlRedirect)) {
             $htmlHeadXtra[] = '<meta http-equiv="refresh" content="2; url='.$urlRedirect.'">';
         }
 
