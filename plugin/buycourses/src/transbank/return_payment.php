@@ -14,6 +14,7 @@ use Transbank\Webpay\Webpay;
 Session::read('_user');
 $plugin = BuyCoursesPlugin::create();
 $transkbankParams = $plugin->getTransbankParams();
+$globalParameters = $plugin->getGlobalParameters();
 $configuration = new Configuration();
 
 if((int)$transkbankParams['integration'] == 1){
@@ -49,7 +50,14 @@ echo '<style type="text/css"> #return-form fieldset { display: none;}</style>';
 if($statusTransaction === 0){
     $response = 1;
     $byOrderReference = $output->buyOrder;
+    $cardNumber = $result->cardDetail->cardNumber;
+    $transactionDate = $result->transactionDate;
+    $authorizationCode = $result->detailOutput->authorizationCode;
+    $paymentTypeCode = $result->detailOutput->paymentTypeCode;
+
     $sale = $plugin->getSaleReference($byOrderReference);
+    $currency = $plugin->getCurrency($sale['currency_id']);
+    $userInfo = api_get_user_info($sale['user_id']);
 
     echo '<script>window.localStorage.clear();</script>';
     echo '<script>window.localStorage.setItem("authorizationCode","'.$output->authorizationCode.'");</script>';
@@ -58,9 +66,48 @@ if($statusTransaction === 0){
 
 
     $plugin->completeSale($sale['id']);
-    $form->addHidden('status',$response);
-    $form->addHidden('token_ws',$tokenWS);
 
+    $paymentTypeTransbank = [
+        'VD' => 'Venta Débito',
+        'VN' => 'Venta Normal',
+        'VC' => 'Venta en cuotas',
+        'SI' => '3 cuotas sin interés',
+        'S2' => '2 cuotas sin interés',
+        'NC' => 'N Cuotas sin interés',
+        'VP' => 'Venta Prepago'
+    ];
+
+    //Email Confirmation.
+
+    if (!empty($globalParameters['sale_email'])) {
+        $messageConfirmTemplate = new Template();
+        $messageConfirmTemplate->assign('user', $userInfo);
+        $messageConfirmTemplate->assign(
+            'sale',
+            [
+                'date' => $sale['date'],
+                'product' => $sale['product_name'],
+                'currency' => $currency['iso_code'],
+                'price' => $sale['price'],
+                'reference' => $sale['reference'],
+                'card_number' => $cardNumber,
+                'transaction_date' => $transactionDate,
+                'code_auth' => $authorizationCode,
+                'payment_type' => $paymentTypeTransbank[$paymentTypeCode]
+            ]
+        );
+
+        api_mail_html(
+            '',
+            $globalParameters['sale_email'],
+            $plugin->get_lang('bc_subject'),
+            $messageConfirmTemplate->fetch('buycourses/view/transbank/message_confirm_transbank.tpl')
+        );
+    }
+
+
+    $form->addHidden('status',$response);
+    $form->addButtonSend('Continuar');
 } else {
     $response = 2;
     $byOrderReference = $output->buyOrder;
@@ -71,9 +118,10 @@ if($statusTransaction === 0){
 }
 
 $form->display();
-echo '
+
+/*echo '
         <script>
             document.getElementById("return-form").submit();
         </script>
-    ';
+    ';*/
 
