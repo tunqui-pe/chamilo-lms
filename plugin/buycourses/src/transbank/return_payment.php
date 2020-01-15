@@ -7,6 +7,7 @@
  */
 
 require_once '../../config.php';
+
 use ChamiloSession as Session;
 use Transbank\Webpay\Configuration;
 use Transbank\Webpay\Webpay;
@@ -17,7 +18,7 @@ $transkbankParams = $plugin->getTransbankParams();
 $globalParameters = $plugin->getGlobalParameters();
 $configuration = new Configuration();
 
-if((int)$transkbankParams['integration'] == 1){
+if ((int)$transkbankParams['integration'] == 1) {
     $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 } else {
     $commerceCode = $transkbankParams['commerce_code'];
@@ -47,7 +48,7 @@ $form = new FormValidator(
 
 echo '<style type="text/css"> #return-form fieldset { display: none;}</style>';
 
-if($statusTransaction === 0){
+if ($statusTransaction === 0) {
     $response = 1;
     $byOrderReference = $output->buyOrder;
     $cardNumber = $result->cardDetail->cardNumber;
@@ -74,7 +75,7 @@ if($statusTransaction === 0){
         'SI' => '3 cuotas sin interés',
         'S2' => '2 cuotas sin interés',
         'NC' => 'N Cuotas sin interés',
-        'VP' => 'Venta Prepago'
+        'VP' => 'Venta Prepago',
     ];
 
     //Email Confirmation.
@@ -93,7 +94,7 @@ if($statusTransaction === 0){
                 'card_number' => $cardNumber,
                 'transaction_date' => $transactionDate,
                 'code_auth' => $authorizationCode,
-                'payment_type' => $paymentTypeTransbank[$paymentTypeCode]
+                'payment_type' => $paymentTypeTransbank[$paymentTypeCode],
             ]
         );
 
@@ -104,24 +105,22 @@ if($statusTransaction === 0){
             $messageConfirmTemplate->fetch('buycourses/view/transbank/message_confirm_transbank.tpl')
         );
     }
+    $form->addHidden('status', $response);
 
-
-    $form->addHidden('status',$response);
-    $form->addButtonSend('Continuar');
 } else {
     $response = 2;
     $byOrderReference = $output->buyOrder;
     $sale = $plugin->getSaleReference($byOrderReference);
     $plugin->cancelSale($sale['id']);
-    $form->addHidden('status',$response);
-    $form->addHidden('token_ws',$tokenWS);
+    $form->addHidden('status', $response);
+    $form->addHidden('token_ws', $tokenWS);
 }
 
 $form->display();
 
-/*echo '
+echo '
         <script>
             document.getElementById("return-form").submit();
         </script>
-    ';*/
+    ';
 
