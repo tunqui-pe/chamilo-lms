@@ -20,7 +20,7 @@
                 {{ 'DateAndTime'|get_plugin_lang('BuyCoursesPlugin') }}
             </td>
             <td>
-                {{ sale.transaction_date }}
+                {{ sale.transaction_date|api_convert_and_format_date(constant('DATE_FORMAT_LONG')) }}
             </td>
         </tr>
         <tr>
