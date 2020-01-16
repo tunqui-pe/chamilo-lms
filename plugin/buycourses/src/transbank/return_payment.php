@@ -114,6 +114,7 @@ if ($statusTransaction === 0) {
     echo '<script>window.localStorage.setItem("responseCode", "'.$output->responseCode.'");</script>';
 
     $form->addHidden('status', $response);
+    $form->addHidden('token_ws', $tokenWS);
 
 } else {
     $response = 2;
