@@ -116,12 +116,12 @@
                                                 </div>
                                             {% elseif session.enrolled == "TMP" %}
                                                 <div class="alert alert-info">{{ 'WaitingToReceiveThePayment'|get_plugin_lang('BuyCoursesPlugin') }}</div>
-                                                {#<div class="toolbar">
+                                                <div class="toolbar">
                                                     <a href="{{ _p.web_plugin ~ 'buycourses/src/sales_pending.php'}}" class="btn btn-danger btn-buy-cancel btn-block btn-sm">
                                                         <i class="fa fa-ban" aria-hidden="true"></i>
                                                         {{ 'CancelPending'|get_plugin_lang('BuyCoursesPlugin') }}
                                                     </a>
-                                                </div>#}
+                                                </div>
                                             {% endif %}
                                         </div>
                                     </article>

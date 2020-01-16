@@ -60,12 +60,6 @@ if ($statusTransaction === 0) {
     $currency = $plugin->getCurrency($sale['currency_id']);
     $userInfo = api_get_user_info($sale['user_id']);
 
-    echo '<script>window.localStorage.clear();</script>';
-    echo '<script>window.localStorage.setItem("authorizationCode","'.$output->authorizationCode.'");</script>';
-    echo '<script>window.localStorage.setItem("amount","'.$output->amount.'");</script>';
-    echo '<script>window.localStorage.setItem("responseCode", "'.$output->responseCode.'");</script>';
-
-
     $plugin->completeSale($sale['id']);
 
     $paymentTypeTransbank = [
@@ -100,11 +94,25 @@ if ($statusTransaction === 0) {
 
         api_mail_html(
             '',
-            [$globalParameters['sale_email'], $userInfo['email']],
+            [$userInfo['email']],
             $plugin->get_lang('PaymentReceivedTransbank'),
-            $messageConfirmTemplate->fetch('buycourses/view/transbank/message_confirm_transbank.tpl')
+            $messageConfirmTemplate->fetch('buycourses/view/transbank/message_confirm_transbank.tpl'),
+            '',
+            '',
+            [],
+            [],
+            false,
+            [],
+            '',
+            [$globalParameters['sale_email']]
         );
     }
+
+    echo '<script>window.localStorage.clear();</script>';
+    echo '<script>window.localStorage.setItem("authorizationCode","'.$output->authorizationCode.'");</script>';
+    echo '<script>window.localStorage.setItem("amount","'.$output->amount.'");</script>';
+    echo '<script>window.localStorage.setItem("responseCode", "'.$output->responseCode.'");</script>';
+
     $form->addHidden('status', $response);
 
 } else {
