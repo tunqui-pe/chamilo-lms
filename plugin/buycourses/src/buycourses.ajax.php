@@ -271,6 +271,22 @@ switch ($action) {
         echo '';
 
         break;
+    case 'cancel_payment_reference':
+        if (api_is_anonymous()) {
+            break;
+        }
+
+        // $payoutId only gets used in setStatusPayout(), where it is filtered
+        $payoutReference = isset($_POST['reference']) ? $_POST['reference'] : '';
+        $payoutUser = isset($_POST['user']) ? $_POST['user'] : '';
+
+        $sale = $plugin->getSaleReference($payoutReference);
+        $plugin->cancelSale($sale['id']);
+
+        echo '';
+
+        break;
+
     case 'culqi_cargo':
         if (!$culqiEnable) {
             break;

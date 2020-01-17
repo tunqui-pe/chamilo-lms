@@ -220,10 +220,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".cancel_payout_catalog").click(function () {
-            var id = this.id;
+            var reference = $(this).data("reference");
+            var user = $(this).data("user");
             $.ajax({
-                data: 'id=' + id,
-                url: '{{ _p.web_plugin ~ 'buycourses/src/buycourses.ajax.php?' ~  { 'a': 'cancelPayout' }|url_encode() }}',
+                data: { 'reference' : reference, 'user': user },
+                url: '{{ _p.web_plugin ~ 'buycourses/src/buycourses.ajax.php?' ~  { 'a': 'cancel_payment_reference' }|url_encode() }}',
                 type: 'POST',
                 success: function () {
                     window.location.reload();
