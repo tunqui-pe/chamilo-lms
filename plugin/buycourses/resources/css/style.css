@@ -112,6 +112,36 @@
 #payment_type-group .radio label{
     font-size: 12px;
 }
+.items-course{
+    min-height: 360px;
+    padding: 0;
+}
+.items-course .items-course-info {
+    padding: 10px;
+}
+.items-course .items-course-info .alert-info{
+    margin-bottom: 0;
+}
+.items-course .items-course-info p.date-course {
+    font-size: 12px;
+    color: #607D8B;
+}
+.items-course-image{
+    position: relative;
+}
+.items-course-image .price{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    background-color: #f2b66c;
+    color: #4e4957;
+    font-weight: bold;
+    font-size: 16px;
+}
+.items-course .items-course-info .title{
+    font-weight: bold;
+}
 .btn-buy{
     background: #808de8;
     border-radius: 0;
@@ -119,8 +149,8 @@
     border: 1px solid #808de8;
     font-weight: bold;
     padding: 10px 20px;
-    box-shadow: 4px 4px 0 2px rgba(128,141,232,.15);
-    margin-bottom: 2rem;
+    box-shadow: 2px 2px 0 1px rgba(128,141,232,.15);
+    margin-bottom: 1rem;
 }
 .btn-buy:hover, .btn-buy:active{
     color: #bdc8f2;
@@ -128,19 +158,27 @@
     border: 1px solid #808de8;
 }
 .btn-buy-cancel{
-    background: #e80034;
+    background: #ff547a;
     border-radius: 0;
     text-transform: uppercase;
-    border: 1px solid #e80034;
+    border: 1px solid #ff547a;
     font-weight: bold;
     padding: 10px 20px;
-    box-shadow: 4px 4px 0 2px rgba(128,141,232,.15);
-    margin-bottom: 2rem;
+    box-shadow: 2px 2px 0 1px rgba(128,141,232,.15);
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    width: 100%;
+    display: inline-block;
+    font-size: 12px;
 }
 .btn-buy-cancel:hover{
-    color: #f2bab0;
-    background: #bf2800;
-    border: 1px solid #bf2800;
+    color: #ffffff;
+    background: #ea416e;
+    border: 1px solid #ea416e;
+}
+.alert-status{
+    padding: 5px;
+    font-size: 12px;
 }
 @-moz-keyframes wobblebar-loader {
     0% {

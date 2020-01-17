@@ -3119,12 +3119,14 @@ class BuyCoursesPlugin extends Plugin
      * @param int     $userId  The user ID
      * @param Session $session The session
      *
-     * @return string
+     * @return array
      */
     private function getUserStatusForSession($userId, Session $session)
     {
         if (empty($userId)) {
-            return 'NO';
+            return [
+                'checking' => 'NO'
+            ];
         }
 
         $entityManager = Database::getManager();
@@ -3134,7 +3136,13 @@ class BuyCoursesPlugin extends Plugin
 
         // Check if user bought the course
         $sale = Database::select(
-            'COUNT(1) as qty',
+            'COUNT(1) as qty,
+                    product_type,
+                    product_id,
+                    user_id,
+                    reference,
+                    payment_type,
+                    status',
             $buySaleTable,
             [
                 'where' => [
@@ -3149,8 +3157,15 @@ class BuyCoursesPlugin extends Plugin
             'first'
         );
 
+        $saleParameter = [
+            $sale
+        ];
+
         if ($sale['qty'] > 0) {
-            return "TMP";
+            return [
+                'checking' => 'TMP',
+                'sale' => $saleParameter
+            ];
         }
 
         // Check if user is already subscribe to session
@@ -3160,10 +3175,14 @@ class BuyCoursesPlugin extends Plugin
         ]);
 
         if (!empty($userSubscription)) {
-            return 'YES';
+            return [
+                'checking' => 'YES'
+            ];
         }
 
-        return 'NO';
+        return [
+            'checking' => 'NO'
+        ];
     }
 
     /**
