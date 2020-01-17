@@ -271,4 +271,4 @@ $strings['TransbankFailureMessage'] = "Pago fallido o cancelado.";
 $strings['ServipagFailureMessage'] = "Pago fallido, cancelado o la espera de recibir el pago.";
 $strings['TransferFailureMessage'] = "Se encuentra a la espera de recibir el pago.";
 $strings['TransbankButton'] = "¿Volver a intentar?";
-$strings['ServipagButton'] = "¿Volver a intentar paga?";
+$strings['ServipagButton'] = "¿Volver a intentar pagar?";
