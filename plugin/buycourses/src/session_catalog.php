@@ -52,7 +52,6 @@ $form->addElement(
     $plugin->get_lang('MaximumPrice'),
     ['step' => '0.01', 'min' => '0']
 );
-$form->addHtml('<hr>');
 $form->addButtonFilter(get_lang('Search'));
 
 $sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true);

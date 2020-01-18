@@ -21,10 +21,14 @@
     <div class="tab-content">
         <div class="tab-pane active" aria-labelledby="buy-sessions-tab" role="tabpanel">
             <div class="row">
-                <div class="col-md-3">
-                    {{ search_filter_form }}
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ search_filter_form }}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="row">
                         {% if showing_courses %}
                             {% for course in courses %}
