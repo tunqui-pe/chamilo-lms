@@ -112,8 +112,14 @@
 #payment_type-group .radio label{
     font-size: 12px;
 }
+.list-course-buy{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.list-course-buy .items-course{
+    margin: 10px;
+}
 .items-course{
-    min-height: 400px;
     padding: 0;
 }
 .items-course .items-course-info {
@@ -179,7 +185,9 @@
 .alert-status{
     padding: 5px;
     font-size: 12px;
+    margin: 0;
 }
+
 @-moz-keyframes wobblebar-loader {
     0% {
         left: 4px;
@@ -423,6 +431,21 @@
     }
 }
 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+    .list-course-buy{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .list-course-buy{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 /* Landscape phones and down */
 @media (max-width: 480px) {
     .panel-box-buy {
@@ -450,6 +473,10 @@
     .congratulations .img-webpay{
         width: 200px;
         margin: auto;
+    }
+    .list-course-buy{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 

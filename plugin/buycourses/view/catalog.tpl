@@ -30,6 +30,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row">
+                        <div class="list-course-buy">
                         {% if showing_courses %}
                             {% for course in courses %}
                                 <div class="col-md-4 col-sm-6">
@@ -81,7 +82,7 @@
 
                         {% if showing_sessions %}
                             {% for session in sessions %}
-                                <div class="col-md-4 col-sm-6">
+
                                     <article class="items-course">
                                         <div class="items-course-image">
                                             <img alt="{{ session.name }}" class="img-responsive"
@@ -145,7 +146,7 @@
                                             {% endif %}
                                         </div>
                                     </article>
-                                </div>
+
                             {% endfor %}
                         {% endif %}
 
@@ -215,6 +216,7 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

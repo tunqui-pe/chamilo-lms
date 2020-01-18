@@ -40,6 +40,7 @@ if ($form->validate()) {
 
 $form->addHeader($plugin->get_lang('SearchFilter'));
 $form->addText('name', $plugin->get_lang('nameSession'), false);
+/*
 $form->addElement(
     'number',
     'min',
@@ -51,7 +52,7 @@ $form->addElement(
     'max',
     $plugin->get_lang('MaximumPrice'),
     ['step' => '0.01', 'min' => '0']
-);
+);*/
 $form->addButtonFilter(get_lang('Search'));
 
 $sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true);
