@@ -94,7 +94,7 @@ if (!$culqiEnabled) {
 if($sessionInfo['is_international']){
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSFER]);
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG]);
-    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY]);
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK]);
 }else{
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_PAYPAL]);
 }

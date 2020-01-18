@@ -120,3 +120,16 @@
         </div>
     </div>
 {% endif %}
+
+{% if transbank_enable == "true" %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ 'TransbankConfig'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+        </div>
+        <div class="panel-body">
+            <p>{{ 'InfoTransbankHelp'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+            <p>{{ 'InfoTransbankCredentials'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+            {{ transbank_form }}
+        </div>
+    </div>
+{% endif %}

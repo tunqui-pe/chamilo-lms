@@ -28,8 +28,9 @@ a:focus {
   outline: none;
 }
 .navbar .navbar-brand{
-  display: block;
-  padding: .6rem 0;
+  display: inline-block;
+  padding: .7rem 0;
+  height: 100%;
 }
 .navbar-nav.navbar-right{
   margin: 0;
@@ -366,20 +367,7 @@ a:focus {
   background: #808de8;
   border: 1px solid #808de8;
 }
-.items-course{
-  min-height: 410px;
-  padding: 0;
-}
-.items-course .items-course-info {
-  padding: 10px;
-}
-.items-course .items-course-info .alert-info{
-  margin-bottom: 0;
-}
-.items-course .items-course-info p.date-course {
-  font-size: 12px;
-  color: #607D8B;
-}
+
 #toolbar-admin .navbar-nav li a {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;

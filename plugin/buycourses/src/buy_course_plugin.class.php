@@ -30,6 +30,7 @@ class BuyCoursesPlugin extends Plugin
     const TABLE_SERVICES = 'plugin_buycourses_services';
     const TABLE_SERVICES_SALE = 'plugin_buycourses_service_sale';
     const TABLE_CULQI = 'plugin_buycourses_culqi';
+    const TABLE_TRANSBANK = 'plugin_buycourses_transbank';
     const TABLE_GLOBAL_CONFIG = 'plugin_buycourses_global_config';
     const TABLE_INVOICE = 'plugin_buycourses_invoices';
     const PRODUCT_TYPE_COURSE = 1;
@@ -38,7 +39,7 @@ class BuyCoursesPlugin extends Plugin
     const PAYMENT_TYPE_TRANSFER = 2;
     const PAYMENT_TYPE_CULQI = 3;
     const PAYMENT_TYPE_SERVIPAG = 4;
-    const PAYMENT_TYPE_WEBPAY = 5;
+    const PAYMENT_TYPE_TRANSBANK = 5;
     const PAYOUT_STATUS_CANCELED = 2;
     const PAYOUT_STATUS_PENDING = 0;
     const PAYOUT_STATUS_COMPLETED = 1;
@@ -54,6 +55,8 @@ class BuyCoursesPlugin extends Plugin
     const SERVICE_TYPE_LP_FINAL_ITEM = 4;
     const CULQI_INTEGRATION_TYPE = 'INTEG';
     const CULQI_PRODUCTION_TYPE = 'PRODUC';
+    const TRANSBANK_INTEGRATION_TYPE = 'INTEG';
+    const TRANSBANK_PRODUCTION_TYPE = 'PRODUC';
     const TAX_APPLIES_TO_ALL = 1;
     const TAX_APPLIES_TO_ONLY_COURSE = 2;
     const TAX_APPLIES_TO_ONLY_SESSION = 3;
@@ -85,6 +88,7 @@ class BuyCoursesPlugin extends Plugin
                 'paypal_enable' => 'boolean',
                 'transfer_enable' => 'boolean',
                 'culqi_enable' => 'boolean',
+                'transbank_enable' => 'boolean',
                 'commissions_enable' => 'boolean',
                 'unregistered_users_enable' => 'boolean',
                 'hide_free_text' => 'boolean',
@@ -111,7 +115,7 @@ class BuyCoursesPlugin extends Plugin
      */
     public function isEnabled()
     {
-        return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable');
+        return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable') || $this->get('transbank_enable');
     }
 
     /**
@@ -123,6 +127,7 @@ class BuyCoursesPlugin extends Plugin
             self::TABLE_PAYPAL,
             self::TABLE_TRANSFER,
             self::TABLE_CULQI,
+            self::TABLE_TRANSBANK,
             self::TABLE_ITEM_BENEFICIARY,
             self::TABLE_ITEM,
             self::TABLE_SALE,
@@ -155,6 +160,7 @@ class BuyCoursesPlugin extends Plugin
             self::TABLE_PAYPAL,
             self::TABLE_TRANSFER,
             self::TABLE_CULQI,
+            self::TABLE_TRANSBANK,
             self::TABLE_ITEM_BENEFICIARY,
             self::TABLE_ITEM,
             self::TABLE_SALE,
@@ -880,7 +886,6 @@ class BuyCoursesPlugin extends Plugin
             'image' => null,
             'nbrCourses' => $session->getNbrCourses(),
             'nbrUsers' => $session->getNbrUsers(),
-            'url_webpay' => $item['url_webpay'],
             'url_servipag' => $item['url_servipag'],
             'price_usd' => $item['price_usd'],
             'is_international' => $isInternational,
@@ -958,7 +963,12 @@ class BuyCoursesPlugin extends Plugin
     {
         if (!in_array(
             $paymentType,
-            [self::PAYMENT_TYPE_PAYPAL, self::PAYMENT_TYPE_TRANSFER, self::PAYMENT_TYPE_CULQI, self::PAYMENT_TYPE_SERVIPAG, self::PAYMENT_TYPE_WEBPAY]
+            [
+                self::PAYMENT_TYPE_PAYPAL,
+                self::PAYMENT_TYPE_TRANSFER,
+                self::PAYMENT_TYPE_CULQI,
+                self::PAYMENT_TYPE_SERVIPAG,
+                self::PAYMENT_TYPE_TRANSBANK]
         )
         ) {
             return false;
@@ -1054,6 +1064,25 @@ class BuyCoursesPlugin extends Plugin
             Database::get_main_table(self::TABLE_SALE),
             [
                 'where' => ['id = ?' => (int) $saleId],
+            ],
+            'first'
+        );
+    }
+
+    /**
+     * Get sale data by ID.
+     *
+     * @param string $codeReference The sale ID Reference
+     *
+     * @return array
+     */
+    public function getSaleReference($codeReference)
+    {
+        return Database::select(
+            '*',
+            Database::get_main_table(self::TABLE_SALE),
+            [
+                'where' => ['reference = ?' => $codeReference],
             ],
             'first'
         );
@@ -1260,7 +1289,7 @@ class BuyCoursesPlugin extends Plugin
         return [
             self::PAYMENT_TYPE_CULQI => 'Culqi',
             self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
-            self::PAYMENT_TYPE_WEBPAY => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
+            self::PAYMENT_TYPE_TRANSBANK => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
             self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
             self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
         ];
@@ -1382,6 +1411,35 @@ class BuyCoursesPlugin extends Plugin
             "$saleTable s $innerJoins",
             [
                 'where' => ['s.status = ?' => (int) $status],
+                'order' => 'id DESC',
+            ]
+        );
+    }
+
+    /**
+     * Get a list of sales by the status.
+     *
+     * @param int $status The status to filter
+     *
+     * @return array The sale list. Otherwise return false
+     */
+    public function getSaleListByStatusUser($status = self::SALE_STATUS_PENDING, $userID)
+    {
+        $saleTable = Database::get_main_table(self::TABLE_SALE);
+        $currencyTable = Database::get_main_table(self::TABLE_CURRENCY);
+        $userTable = Database::get_main_table(TABLE_MAIN_USER);
+
+        $innerJoins = "
+            INNER JOIN $currencyTable c ON s.currency_id = c.id
+            INNER JOIN $userTable u ON s.user_id = u.id
+        ";
+
+        return Database::select(
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
+            "$saleTable s $innerJoins",
+            [
+                'where' => ['s.status = ?' => (int) $status],
+                'and' => ['s.user_id = ?' => (int) $userID],
                 'order' => 'id DESC',
             ]
         );
@@ -1811,7 +1869,6 @@ class BuyCoursesPlugin extends Plugin
             'price' => 0.00,
             'price_usd' => 0.00,
             'tax_perc' => null,
-            'url_webpay' => null,
             'url_servipag' => null
         ];
 
@@ -1851,7 +1908,6 @@ class BuyCoursesPlugin extends Plugin
             $sessionItem['price'] = $item['price'];
             $sessionItem['price_usd'] = $item['price_usd'];
             $sessionItem['tax_perc'] = $item['tax_perc'];
-            $sessionItem['url_webpay'] = $item['url_webpay'];
             $sessionItem['url_servipag'] = $item['url_servipag'];
             $sessionItem['is_international'] = boolval($item['is_international']);
             if($sessionItem['is_international']){
@@ -2822,6 +2878,27 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
+     * Save Transbank configuration params.
+     *
+     * @param array $params
+     *
+     * @return int Rows affected. Otherwise return false
+     */
+    public function saveTransbankParameters($params)
+    {
+        return Database::update(
+            Database::get_main_table(self::TABLE_TRANSBANK),
+            [
+                'commerce_code' => $params['commerce_code'],
+                'private_key' => $params['private_key'],
+                'public_cert' => $params['public_cert'],
+                'integration' => $params['integration'],
+            ],
+            ['id = ?' => 1]
+        );
+    }
+
+    /**
      * Gets the stored Culqi params.
      *
      * @return array
@@ -2831,6 +2908,21 @@ class BuyCoursesPlugin extends Plugin
         return Database::select(
             '*',
             Database::get_main_table(self::TABLE_CULQI),
+            ['id = ?' => 1],
+            'first'
+        );
+    }
+
+    /**
+     * Gets the stored Transbank params.
+     *
+     * @return array
+     */
+    public function getTransbankParams()
+    {
+        return Database::select(
+            '*',
+            Database::get_main_table(self::TABLE_TRANSBANK),
             ['id = ?' => 1],
             'first'
         );
@@ -3027,12 +3119,14 @@ class BuyCoursesPlugin extends Plugin
      * @param int     $userId  The user ID
      * @param Session $session The session
      *
-     * @return string
+     * @return array
      */
     private function getUserStatusForSession($userId, Session $session)
     {
         if (empty($userId)) {
-            return 'NO';
+            return [
+                'checking' => 'NO'
+            ];
         }
 
         $entityManager = Database::getManager();
@@ -3042,7 +3136,13 @@ class BuyCoursesPlugin extends Plugin
 
         // Check if user bought the course
         $sale = Database::select(
-            'COUNT(1) as qty',
+            'COUNT(1) as qty,
+                    product_type,
+                    product_id,
+                    user_id,
+                    reference,
+                    payment_type,
+                    status',
             $buySaleTable,
             [
                 'where' => [
@@ -3057,8 +3157,15 @@ class BuyCoursesPlugin extends Plugin
             'first'
         );
 
+        $saleParameter = [
+            $sale
+        ];
+
         if ($sale['qty'] > 0) {
-            return "TMP";
+            return [
+                'checking' => 'TMP',
+                'sale' => $saleParameter
+            ];
         }
 
         // Check if user is already subscribe to session
@@ -3068,10 +3175,14 @@ class BuyCoursesPlugin extends Plugin
         ]);
 
         if (!empty($userSubscription)) {
-            return 'YES';
+            return [
+                'checking' => 'YES'
+            ];
         }
 
-        return 'NO';
+        return [
+            'checking' => 'NO'
+        ];
     }
 
     /**

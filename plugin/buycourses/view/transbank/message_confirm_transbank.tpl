@@ -1,68 +1,58 @@
 <div style="padding: 2rem;">
     <p>{{ 'helloUser'|get_plugin_lang('BuyCoursesPlugin') }} <strong>{{ user.firstname }}</strong> {{ 'howAreYour'|get_plugin_lang('BuyCoursesPlugin') }}</p>
-    <p>{{ 'toCompleteYourRegistration'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+    <p>{{ 'confirmWebPay'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+
+    <h3 style="padding: 5px; text-transform: uppercase; font-size: 16px; background-color: #e7ecf7; display: inline-block; width: 100%;">
+        {{ 'Detailsofpayment'|get_plugin_lang('BuyCoursesPlugin') }}
+    </h3>
 
     <table style="width: 100%;">
         <tr>
             <td style="font-weight: bold;">
-                {{ 'Name'|get_lang }}
+                {{ 'Establishment'|get_plugin_lang('BuyCoursesPlugin') }}
             </td>
             <td>
-                {{ transfer_accounts.1.name }}
+                EDUCACIÓN CHILE
             </td>
         </tr>
         <tr>
             <td style="font-weight: bold;">
-                {{ 'CurrentAccount'|get_plugin_lang('BuyCoursesPlugin') }}
+                {{ 'DateAndTime'|get_plugin_lang('BuyCoursesPlugin') }}
             </td>
             <td>
-                {{ transfer_accounts.1.account }}
+                {{ sale.transaction_date|api_convert_and_format_date(constant('DATE_FORMAT_LONG')) }}
             </td>
         </tr>
         <tr>
             <td style="font-weight: bold;">
-                {{ 'Rut'|get_plugin_lang('BuyCoursesPlugin') }}
+                {{ 'AuthorizationCode'|get_plugin_lang('BuyCoursesPlugin') }}
             </td>
             <td>
-                {{ transfer_accounts.1.swift }}
+                {{ sale.code_auth }}
             </td>
         </tr>
         <tr>
             <td style="font-weight: bold;">
-                {{ 'Headline'|get_plugin_lang('BuyCoursesPlugin') }}
-            </td>
-            <td>
-                FUNDACIÓN EDUCHILE
-            </td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold;">
-                {{ 'Email'|get_lang }}
-            </td>
-            <td>
-                karen@educacionchile.cl
-            </td>
-        </tr>
-    </table>
-
-    <p>{{ 'ResendProof'|get_plugin_lang('BuyCoursesPlugin') }}</p>
-    <h3 style="text-transform: uppercase; font-size: 16px;">{{ 'registrationData'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
-
-    <table style="width: 100%;">
-        <tr>
-            <td style="font-weight: bold;">
-                {{ 'OrderDate'|get_plugin_lang('BuyCoursesPlugin') }}
-            </td>
-            <td>
-                {{ sale.date|api_convert_and_format_date(constant('DATE_TIME_FORMAT_LONG_24H')) }}
-            </td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold;">
-                {{ 'OrderReference'|get_plugin_lang('BuyCoursesPlugin') }}
+                {{ 'PurchaseOrder'|get_plugin_lang('BuyCoursesPlugin') }}
             </td>
             <td>
                 {{ sale.reference }}
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold;">
+                {{ 'PaymentType'|get_plugin_lang('BuyCoursesPlugin') }}
+            </td>
+            <td>
+                {{ sale.payment_type }}
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold;">
+                {{ 'CardNumber'|get_plugin_lang('BuyCoursesPlugin') }}
+            </td>
+            <td>
+                xxxx xxxx xxxx {{ sale.card_number }}
             </td>
         </tr>
         <tr>
@@ -91,7 +81,18 @@
         </tr>
     </table>
 
-    <p>
-        {{ 'regardsEducaChile'|get_plugin_lang('BuyCoursesPlugin') }}
-    </p>
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: left;">
+                <p>
+                    {{ 'regardsEducaChile'|get_plugin_lang('BuyCoursesPlugin') }}
+                </p>
+            </td>
+            <td style="text-align: right;">
+                <img src="{{ _p.web }}plugin/buycourses/resources/img/webpay-plus-integracion.png">
+            </td>
+        </tr>
+    </table>
+
+
 </div>

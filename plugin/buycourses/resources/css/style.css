@@ -30,7 +30,21 @@
     font-size: 18px;
     line-height: 1.42857;
 }
-
+.form-payment-transbank{
+    text-align: right;
+    padding-top: 10px;
+}
+.transbank .buy-summary{
+    border:none;
+}
+.congratulations{
+    text-align: center;
+}
+.congratulations .buy-summary{
+    border: none;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
 /* PROCESS BUY */
 .buy-info .price, .service-buy .price {
     font-size: 24px;
@@ -96,6 +110,74 @@
     margin-top: 1rem;
 }
 #payment_type-group .radio label{
+    font-size: 12px;
+}
+.items-course{
+    min-height: 360px;
+    padding: 0;
+}
+.items-course .items-course-info {
+    padding: 10px;
+}
+.items-course .items-course-info .alert-info{
+    margin-bottom: 0;
+}
+.items-course .items-course-info p.date-course {
+    font-size: 12px;
+    color: #607D8B;
+}
+.items-course-image{
+    position: relative;
+}
+.items-course-image .price{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    background-color: #f2b66c;
+    color: #4e4957;
+    font-weight: bold;
+    font-size: 16px;
+}
+.items-course .items-course-info .title{
+    font-weight: bold;
+}
+.btn-buy{
+    background: #808de8;
+    border-radius: 0;
+    text-transform: uppercase;
+    border: 1px solid #808de8;
+    font-weight: bold;
+    padding: 10px 20px;
+    box-shadow: 2px 2px 0 1px rgba(128,141,232,.15);
+    margin-bottom: 1rem;
+}
+.btn-buy:hover, .btn-buy:active{
+    color: #bdc8f2;
+    background: #808de8;
+    border: 1px solid #808de8;
+}
+.btn-buy-cancel{
+    background: #ff547a;
+    border-radius: 0;
+    text-transform: uppercase;
+    border: 1px solid #ff547a;
+    font-weight: bold;
+    padding: 10px 20px;
+    box-shadow: 2px 2px 0 1px rgba(128,141,232,.15);
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    width: 100%;
+    display: inline-block;
+    font-size: 12px;
+}
+.btn-buy-cancel:hover{
+    color: #ffffff;
+    background: #ea416e;
+    border: 1px solid #ea416e;
+}
+.alert-status{
+    padding: 5px;
     font-size: 12px;
 }
 @-moz-keyframes wobblebar-loader {
@@ -351,8 +433,23 @@
         float: left !important;
     }
 
-    .buy-summary .btn-success {
+    .buy-summary .btn-success, .buy-summary .btn-danger {
         width: 100%;
+        margin: auto;
+    }
+    .buy-summary .btn-danger{
+        margin: auto !important;
+    }
+    .congratulations .title-webpay{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .congratulations p{
+        font-size: 12px;
+    }
+    .congratulations .img-webpay{
+        width: 200px;
+        margin: auto;
     }
 }
 

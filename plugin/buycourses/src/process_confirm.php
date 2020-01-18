@@ -6,7 +6,12 @@
  *
  * @package chamilo.plugin.buycourses
  */
+
 require_once '../config.php';
+
+use Transbank\Webpay\Configuration;
+use Transbank\Webpay\Webpay;
+
 
 $plugin = BuyCoursesPlugin::create();
 
@@ -312,7 +317,108 @@ switch ($sale['payment_type']) {
         $template->assign('content', $content);
         $template->display_one_col_template();
 
-    case BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY:
+    case BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK:
+
+        $transkbankParams = $plugin->getTransbankParams();
+        $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
+                WEB_PLUGIN_PATH
+            ).'buycourses/resources/css/style.css"/>';
+        $buyingCourse = false;
+        $buyingSession = false;
+
+        switch ($sale['product_type']) {
+            case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
+                $buyingCourse = true;
+                $course = $plugin->getCourseInfo($sale['product_id']);
+                break;
+            case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
+                $buyingSession = true;
+                $session = $plugin->getSessionInfo($sale['product_id']);
+                break;
+        }
+
+        $returnURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/return_payment.php';
+        $finalURL = api_get_path(WEB_PLUGIN_PATH).'buycourses/src/transbank/final_payment.php';
+
+        $configuration = new Configuration();
+
+        if ((int)$transkbankParams['integration'] == 1) {
+            $configuration->setEnvironment(Webpay::INTEGRACION);
+            $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
+        } else {
+
+            $commerceCode = $transkbankParams['commerce_code'];
+            $privateKeyWebPay = $transkbankParams['private_key'];
+            $publicCertWebPay = $transkbankParams['public_cert'];
+            $webPayCert = $configuration->getWebpayCert();
+
+            $configuration->setEnvironment(Webpay::PRODUCCION);
+            $configuration->setCommerceCode($commerceCode);
+
+            $configuration->setPrivateKey($privateKeyWebPay);
+            $configuration->setPublicCert($publicCertWebPay);
+            $configuration->setWebpayCert($webPayCert);
+
+            $transaction = (new Webpay($configuration))->getNormalTransaction();
+
+        }
+
+        $amount = floatval($sale['price']);
+        $sessionID = $sale['reference'];
+        $buyOrder = strval(rand(100000, 999999999));
+
+        $initResult = $transaction->initTransaction(
+            $amount, $sessionID, $buyOrder, $returnURL, $finalURL
+        );
+
+        $formAction = $initResult->url;
+        $tokenWs = $initResult->token;
+
+        //Email Confirmation.
+
+        if (!empty($globalParameters['sale_email'])) {
+            $messageConfirmTemplate = new Template();
+            $messageConfirmTemplate->assign('user', $userInfo);
+            $messageConfirmTemplate->assign(
+                'sale',
+                [
+                    'date' => $sale['date'],
+                    'product' => $sale['product_name'],
+                    'currency' => $currency['iso_code'],
+                    'price' => $sale['price'],
+                    'reference' => $sale['reference'],
+                ]
+            );
+
+            api_mail_html(
+                '',
+                $globalParameters['sale_email'],
+                $plugin->get_lang('bc_subject'),
+                $messageConfirmTemplate->fetch('buycourses/view/message_confirm.tpl')
+            );
+        }
+
+
+        $template = new Template();
+
+        if ($buyingCourse) {
+            $template->assign('course', $course);
+        } elseif ($buyingSession) {
+            $template->assign('session', $session);
+        }
+        $template->assign('buying_course', $buyingCourse);
+        $template->assign('buying_session', $buyingSession);
+        $template->assign('terms', $globalParameters['terms_and_conditions']);
+        $template->assign('form_action', $formAction);
+        $template->assign('amount', $amount);
+        $template->assign('buy_order', $buyOrder);
+        $template->assign('token_ws', $tokenWs);
+        $content = $template->fetch('buycourses/view/transbank/process_transbank.tpl');
+
+        $template->assign('content', $content);
+        $template->display_one_col_template();
+
+        break;
     case BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG:
 
         $buyingCourse = false;
@@ -324,10 +430,7 @@ switch ($sale['payment_type']) {
             case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
                 $buyingCourse = true;
                 $course = $plugin->getCourseInfo($sale['product_id']);
-                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY){
-                    $urlRedirect = $course['url_webpay'];
-                    $typePayment = 'webpay';
-                }else {
+                if ($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG) {
                     $urlRedirect = $course['url_servipag'];
                     $typePayment = 'servipag';
                 }
@@ -336,10 +439,7 @@ switch ($sale['payment_type']) {
             case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
                 $buyingSession = true;
                 $session = $plugin->getSessionInfo($sale['product_id']);
-                if($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_WEBPAY){
-                    $urlRedirect = $session['url_webpay'];
-                    $typePayment = 'webpay';
-                }else {
+                if ($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG) {
                     $urlRedirect = $session['url_servipag'];
                     $typePayment = 'servipag';
                 }
@@ -347,7 +447,7 @@ switch ($sale['payment_type']) {
         }
 
 
-        if(!empty($urlRedirect)){
+        if (!empty($urlRedirect)) {
             $htmlHeadXtra[] = '<meta http-equiv="refresh" content="2; url='.$urlRedirect.'">';
         }
 

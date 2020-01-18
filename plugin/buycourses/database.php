@@ -95,11 +95,7 @@ $itemTable->addColumn(
     \Doctrine\DBAL\Types\Type::INTEGER,
     ['unsigned' => true, 'notnull' => false]
 );
-$itemTable->addColumn(
-    'url_webpay',
-    \Doctrine\DBAL\Types\Type::TEXT,
-    ['notnull' => false]
-);
+
 $itemTable->addColumn(
     'url_servipag',
     \Doctrine\DBAL\Types\Type::TEXT,
@@ -341,6 +337,19 @@ $culqiTable->addColumn('api_key', \Doctrine\DBAL\Types\Type::STRING);
 $culqiTable->addColumn('integration', \Doctrine\DBAL\Types\Type::INTEGER);
 $culqiTable->setPrimaryKey(['id']);
 
+//transbank table
+$transbankTable = $pluginSchema->createTable(BuyCoursesPlugin::TABLE_TRANSBANK);
+$transbankTable->addColumn(
+    'id',
+    \Doctrine\DBAL\Types\Type::INTEGER,
+    ['autoincrement' => true, 'unsigned' => true]
+);
+$transbankTable->addColumn('commerce_code', \Doctrine\DBAL\Types\Type::STRING);
+$transbankTable->addColumn('private_key', \Doctrine\DBAL\Types\Type::TEXT);
+$transbankTable->addColumn('public_cert', \Doctrine\DBAL\Types\Type::TEXT);
+$transbankTable->addColumn('integration', \Doctrine\DBAL\Types\Type::INTEGER);
+$transbankTable->setPrimaryKey(['id']);
+
 $globalTable = $pluginSchema->createTable(BuyCoursesPlugin::TABLE_GLOBAL_CONFIG);
 $globalTable->addColumn(
     'id',
@@ -396,6 +405,7 @@ $saleTable = Database::get_main_table(BuyCoursesPlugin::TABLE_SALE);
 $commissionTable = Database::get_main_table(BuyCoursesPlugin::TABLE_COMMISSION);
 $extraFieldTable = Database::get_main_table(TABLE_EXTRA_FIELD);
 $culqiTable = Database::get_main_table(BuyCoursesPlugin::TABLE_CULQI);
+$transbankTable = Database::get_main_table(BuyCoursesPlugin::TABLE_TRANSBANK);
 $globalTable = Database::get_main_table(BuyCoursesPlugin::TABLE_GLOBAL_CONFIG);
 
 $paypalExtraField = Database::select(
@@ -440,6 +450,16 @@ Database::insert(
     [
         'commerce_code' => '',
         'api_key' => '',
+        'integration' => 1,
+    ]
+);
+
+Database::insert(
+    $transbankTable,
+    [
+        'commerce_code' => '',
+        'private_key' => '',
+        'public_cert' => '',
         'integration' => 1,
     ]
 );

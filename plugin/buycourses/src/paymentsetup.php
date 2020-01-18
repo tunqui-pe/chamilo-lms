@@ -18,6 +18,7 @@ $paypalEnable = $plugin->get('paypal_enable');
 $transferEnable = $plugin->get('transfer_enable');
 $commissionsEnable = $plugin->get('commissions_enable');
 $culqiEnable = $plugin->get('culqi_enable');
+$transbankEnable = $plugin->get('transbank_enable');
 
 if (isset($_GET['action'], $_GET['id'])) {
     if ($_GET['action'] == 'delete_taccount') {
@@ -306,6 +307,45 @@ $culqiForm->addCheckBox('integration', null, $plugin->get_lang('Sandbox'));
 $culqiForm->addButtonSave(get_lang('Save'));
 $culqiForm->setDefaults($plugin->getCulqiParams());
 
+//Transbank main configuration
+
+$transbankForm = new FormValidator('transbank_config');
+if($transbankForm->validate()){
+    $transbankFormValues = $transbankForm->getSubmitValues();
+
+    $plugin->saveTransbankParameters($transbankFormValues);
+    Display::addFlash(
+        Display::return_message(get_lang('Saved'), 'success')
+    );
+
+    header('Location:'.api_get_self());
+    exit;
+}
+
+$transbankForm->addText(
+    'commerce_code',
+    $plugin->get_lang('CommerceCode'),
+    false
+);
+$transbankForm->addTextarea(
+    'private_key',
+    $plugin->get_lang('PrivateKey'),
+    [
+        'rows' => 6
+    ]
+);
+$transbankForm->addTextarea(
+    'public_cert',
+    $plugin->get_lang('PublicCert'),
+    [
+        'rows' => 6
+    ]
+);
+$transbankForm->addCheckBox('integration', null, $plugin->get_lang('Sandbox'));
+$transbankForm->addButtonSave(get_lang('Save'));
+$transbankForm->setDefaults($plugin->getTransbankParams());
+
+
 // breadcrumbs
 $interbreadcrumb[] = [
     'url' => api_get_path(WEB_PLUGIN_PATH).'buycourses/index.php',
@@ -320,11 +360,13 @@ $tpl->assign('paypal_form', $paypalForm->returnForm());
 $tpl->assign('commission_form', $commissionForm->returnForm());
 $tpl->assign('transfer_form', $transferForm->returnForm());
 $tpl->assign('culqi_form', $culqiForm->returnForm());
+$tpl->assign('transbank_form', $transbankForm->returnForm());
 $tpl->assign('transfer_accounts', $transferAccounts);
 $tpl->assign('paypal_enable', $paypalEnable);
 $tpl->assign('commissions_enable', $commissionsEnable);
 $tpl->assign('transfer_enable', $transferEnable);
 $tpl->assign('culqi_enable', $culqiEnable);
+$tpl->assign('transbank_enable', $transbankEnable);
 
 $content = $tpl->fetch('buycourses/view/paymentsetup.tpl');
 
