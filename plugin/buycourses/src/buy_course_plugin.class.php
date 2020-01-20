@@ -1305,7 +1305,7 @@ class BuyCoursesPlugin extends Plugin
         return [
             self::PAYMENT_TYPE_CULQI => 'Culqi',
             self::PAYMENT_TYPE_TRANSFER => 'Transferencia Bancaria',
-            self::PAYMENT_TYPE_WEBPAY => 'Webpay',
+            self::PAYMENT_TYPE_TRANSBANK => 'Webpay',
             self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
             self::PAYMENT_TYPE_PAYPAL => 'PayPal'
         ];
