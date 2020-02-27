@@ -518,6 +518,12 @@ if (api_is_platform_admin() || ($allowCareer && api_is_session_admin())) {
         'url' => 'resource_sequence.php',
         'label' => get_lang('ResourcesSequencing'),
     ];
+    if(api_get_configuration_value('user_report_in_session')){
+        $items[] = [
+            'url' => '../session/report_register_session.php',
+            'label' => get_lang('UserReportInSession'),
+        ];
+    }
 }
 
 $blocks['sessions']['items'] = $items;
