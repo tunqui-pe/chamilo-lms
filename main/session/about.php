@@ -185,7 +185,7 @@ foreach ($sessionRequirements as $sequence) {
 }
 
 $courseController = new CoursesController();
-$categorySession = $session->getCategory()->getName();
+
 /* View */
 $template = new Template($session->getName(), true, true, false, true, false);
 $template->assign('show_tutor', (api_get_setting('show_session_coach') === 'true' ? true : false));
