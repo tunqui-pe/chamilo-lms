@@ -48,6 +48,9 @@ $courseValues = new ExtraFieldValue('course');
 $userValues = new ExtraFieldValue('user');
 $sessionValues = new ExtraFieldValue('session');
 
+$countCourses = count($sessionCourses);
+$listCoach = [];
+
 /** @var Course $sessionCourse */
 foreach ($sessionCourses as $sessionCourse) {
     $courseTags = [];
@@ -58,9 +61,11 @@ foreach ($sessionCourses as $sessionCourse) {
 
     $courseCoaches = $userRepo->getCoachesForSessionCourse($session, $sessionCourse);
     $coachesData = [];
+
     /** @var User $courseCoach */
     foreach ($courseCoaches as $courseCoach) {
         $coachData = [
+            'id' => $courseCoach->getId() ,
             'complete_name' => UserManager::formatUserFullName($courseCoach),
             'image' => UserManager::getUserPicture(
                 $courseCoach->getId(),
@@ -75,8 +80,16 @@ foreach ($sessionCourses as $sessionCourse) {
             ),
         ];
 
-        $coachesData[] = $coachData;
+        if($countCourses > 1){
+            $listCoach[$courseCoach->getId()] = $coachData;
+        } else {
+            $coachesData[] = $coachData;
+        }
+
     }
+
+
+
 
     $cd = new CourseDescription();
     $cd->set_course_id($sessionCourse->getId());
@@ -142,7 +155,9 @@ foreach ($sessionCourses as $sessionCourse) {
             true
         ),
     ];
+
 }
+
 
 $sessionDates = SessionManager::parseSessionDates(
     [
@@ -170,13 +185,16 @@ foreach ($sessionRequirements as $sequence) {
 }
 
 $courseController = new CoursesController();
-
+$categorySession = $session->getCategory()->getName();
 /* View */
 $template = new Template($session->getName(), true, true, false, true, false);
 $template->assign('show_tutor', (api_get_setting('show_session_coach') === 'true' ? true : false));
 $template->assign('page_url', api_get_path(WEB_PATH)."session/{$session->getId()}/about/");
 $template->assign('session', $session);
+$template->assign('teachers', $listCoach);
+$template->assign('category', $categorySession);
 $template->assign('session_date', $sessionDates);
+$template->assign('count', $countCourses);
 $template->assign(
     'is_subscribed',
     SessionManager::isUserSubscribedAsStudent(
@@ -237,7 +255,10 @@ $template->assign(
 $template->assign('has_requirements', $hasRequirements);
 $template->assign('sequences', $sessionRequirements);
 $template->assign('is_premium', $sessionIsPremium);
+
 $layout = $template->get_template('session/about.tpl');
+
+
 $content = $template->fetch($layout);
 //$template->assign('header', $session->getName());
 $template->assign('content', $content);
