@@ -404,8 +404,11 @@ a:focus {
 .session-info .session-price .sale-price{
   text-transform: uppercase;
 }
-.panel-sidebar{
+.panel-sidebar {
   background-color: #dcdee5;
+}
+.about-sub-title{
+  font-weight: bold;
 }
 @media (max-width: 480px) {
   .left-sidebar {

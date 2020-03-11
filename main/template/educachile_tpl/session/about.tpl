@@ -23,7 +23,6 @@
             {% if session_video %}
                 <div class="embed-responsive embed-responsive-16by9">
                     {{ essence.replace(session_video) }}
-
                 </div>
             {% endif %}
 
@@ -60,9 +59,9 @@
             </div>
 
             <div class="course">
+                <h3 class="about-sub-title">{{ 'diplomaCourses'|get_lang }}</h3>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     {% for data in courses %}
-                        {% set counter = counter + 1 %}
                         {% set idCourse = data.course.getId %}
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="heading_{{ idCourse }}">
@@ -73,7 +72,7 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapse_{{ idCourse }}" class="panel-collapse collapse {{ counter > 1 ? '': 'in' }}" role="tabpanel" aria-labelledby="heading_{{ idCourse }}">
+                        <div id="collapse_{{ idCourse }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{ idCourse }}">
                             <div class="panel-body">
                                 {% if data.topics %}
                                     {% for topics in data.topics %}
@@ -97,13 +96,13 @@
                 <div class="panel-body">
                     <img src="{{ session_image }}" class="img-rounded img-responsive" width="100%">
                     <div class="session-info">
-                        <div class="date">
+                        {#<div class="date">
                             {% if session.duration %}
                                 {{ 'SessionDurationXDaysTotal'|get_lang|format(session.duration) }}
                             {% else %}
                                 {{ session_date.display }}
                             {% endif %}
-                        </div>
+                        </div>#}
                         {% if is_premium == false %}
                             <h5>{{ 'CourseSubscription'|get_lang }}</h5>
                             <div class="session-subscribe">
@@ -175,7 +174,7 @@
 
                         {% if teachers %}
                             <div class="panel-teachers">
-                                <h3 class="sub-title">{{ "Coaches"|get_lang }}</h3>
+                                <h3 class="sub-title">{{ "Professors"|get_lang }}</h3>
                                 {% for coach in teachers %}
                                     <div class="coach-information">
                                         <div class="coach-header">

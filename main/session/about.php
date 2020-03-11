@@ -192,7 +192,6 @@ $template->assign('show_tutor', (api_get_setting('show_session_coach') === 'true
 $template->assign('page_url', api_get_path(WEB_PATH)."session/{$session->getId()}/about/");
 $template->assign('session', $session);
 $template->assign('teachers', $listCoach);
-$template->assign('category', $categorySession);
 $template->assign('session_date', $sessionDates);
 $template->assign('count', $countCourses);
 $template->assign(
