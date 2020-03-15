@@ -9483,10 +9483,6 @@ ul.dropdown-menu.inner > li > a {
 }
 
 @media (min-width: 1024px) {
-    .navbar-header {
-        float: right !important;
-        margin-right: 50px;
-    }
 
     #notification-menu {
         float: right !important;
