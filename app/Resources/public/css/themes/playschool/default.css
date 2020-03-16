@@ -253,4 +253,16 @@ a:focus {
     float: left;
     height: 75px;
   }
+  .classic-courses .thumbnail{
+    border: none;
+  }
+  .classic-courses .course-items-title{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+  .sidebar .list-group-item{
+    padding: 8px 5px;
+  }
 }

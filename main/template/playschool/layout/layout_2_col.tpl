@@ -31,7 +31,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         {% for item in profile_block %}
@@ -142,7 +142,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div style="" aria-expanded="true" id="skillCollapse" class="panel-collapse collapse in" role="tabpanel">
+                            <div style="" aria-expanded="true" id="skillCollapse" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li class="list-group-item {{ item.class }}">
