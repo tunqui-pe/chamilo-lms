@@ -43,7 +43,7 @@ $rootWeb = api_get_path('WEB_PATH');
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo.svg" class="logo" width="250px"/>
+                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo.svg" class="logo" width="200px"/>
             </a>
         </div>
         <div class="panel panel-default form-lost-password">
@@ -61,12 +61,14 @@ $rootWeb = api_get_path('WEB_PATH');
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="section-title-container">
-                            <h2 class="section-title"><?php echo custompages_get_lang('LostPassword'); ?></h2>
-                        </div>
-                        <?php
+                        <div class="padding-login">
+                            <div class="section-title-container">
+                                <h2 class="section-title"><?php echo custompages_get_lang('LostPassword'); ?></h2>
+                            </div>
+                            <?php
                             echo isset($content['form']) ? $content['form'] : '';
-                        ?>
+                            ?>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <img src="<?php echo $rootWeb; ?>custompages/assets/img/password.svg"/>

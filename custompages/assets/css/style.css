@@ -8,10 +8,10 @@ a{
  color:#0081be;
 }
 .logo{
-    margin-bottom: 2rem;
-    margin-top: 2em;
+    margin-bottom: 1rem;
+    margin-top: 0em;
     display: inline-block;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 .section-title-container{
     box-sizing: border-box;
@@ -71,8 +71,31 @@ a{
 }
 .panel.panel-default{
     border: none;
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 10px;
+    padding: 0;
+}
+.panel.panel-default .panel-body{
+    padding: 0;
+}
+.image-login{
+    text-align: right;
+}
+.image-login img{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.padding-login{
+    padding: 3rem 2rem;
+}
+.support{
+    font-size: 12px;
+}
+.copyright{
+    font-size: 12px;
+    color: #fff;
+}
+.copyright a{
+    color: #ffcc33;
 }
 .btn-primary{
     background: #e03625;
@@ -107,7 +130,22 @@ a{
     margin-top: 1rem;
     padding: 2rem;
     font-size: 12px;
+    color: #FFF;
 }
+.help a{
+    color: #ffcc33;
+}
+.help ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.help .title{
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
 .last-password{
     margin-bottom: 2rem;
 }

@@ -71,7 +71,7 @@ $rootWeb = api_get_path('WEB_PATH');
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo.svg" class="logo" width="250px"/>
+                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo.svg" class="logo" width="200px"/>
             </a>
         </div>
         <div class="panel panel-default form-signin">
@@ -89,40 +89,55 @@ $rootWeb = api_get_path('WEB_PATH');
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <form id="login-form" action="<?php echo api_get_path(WEB_PATH); ?>index.php" method="post">
-                            <div class="section-title-container">
-                                <h2 class="section-title">Acceso Aula Virtual</h2>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="user" name="login" placeholder="<?php echo custompages_get_lang('Email'); ?>">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo custompages_get_lang('Password'); ?>">
-                            </div>
+                        <div class="padding-login">
+                            <form id="login-form" action="<?php echo api_get_path(WEB_PATH); ?>index.php" method="post">
+                                <div class="section-title-container">
+                                    <h2 class="section-title">Acceso Aula Virtual</h2>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user" name="login" placeholder="<?php echo custompages_get_lang('Email'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo custompages_get_lang('Password'); ?>">
+                                </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <?php echo custompages_get_lang('LoginEnter'); ?>
-                            </button>
-                            <?php if (api_get_setting('allow_registration') === 'true') { ?>
-                                <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/inscription.php?language=<?php echo api_get_interface_language(); ?>" class="btn btn-default btn-block" >
-                                    <?php echo custompages_get_lang('Registration'); ?>
-                                </a >
-                            <?php } ?>
-                            <div class="last-password">
-                                <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/lostPassword.php?language=<?php echo api_get_interface_language(); ?>">
-                                    <?php echo custompages_get_lang('LostPassword'); ?>
-                                </a>
-                            </div>
-                        </form>
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <?php echo custompages_get_lang('LoginEnter'); ?>
+                                </button>
+                                <?php if (api_get_setting('allow_registration') === 'true') { ?>
+                                    <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/inscription.php?language=<?php echo api_get_interface_language(); ?>" class="btn btn-default btn-block" >
+                                        <?php echo custompages_get_lang('Registration'); ?>
+                                    </a >
+                                <?php } ?>
+                                <div class="last-password">
+                                    <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/lostPassword.php?language=<?php echo api_get_interface_language(); ?>">
+                                        <?php echo custompages_get_lang('LostPassword'); ?>
+                                    </a>
+                                </div>
+                            </form>
+                            <p class="support">Si aún no tienes un usuario asignado comunicate con el área de soporte o llama al <strong>246-4112</strong></p>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="<?php echo $rootWeb; ?>custompages/assets/img/work.svg"/>
+                        <div class="image-login">
+                            <img src="<?php echo $rootWeb; ?>custompages/assets/img/img_login.png"/>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="help">Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador. </div>
+        <div class="help">
+            <h4 class="title">Recomendaciones</h4>
+            <ul>
+                <li>Usar un navegador actualizado: <a href="https://www.google.com/intl/es-419/chrome/" target="_blank">Google Chrome</a> / <a href="https://www.mozilla.org/es-ES/firefox/new/" target="_blank">Mozilla Firefox</a> </li>
+                <li>Instalar el plugin de <a href="https://get.adobe.com/es/flashplayer/" target="_blank">Flash Player</a> y <a href="https://www.java.com/es/download/" target="_blank">Java 8</a></li>
+                <li>Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.</li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <p>© Colegio Play School - Huaral / Todos los derechos reservados <br> Servicio desarrollador por <a href="https://tunqui.pe">Tunqui Creativo</a></p>
+        </div>
     </div> <!-- /container -->
 </body>
 </html>
