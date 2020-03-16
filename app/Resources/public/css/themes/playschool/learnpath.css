@@ -208,3 +208,39 @@ table.lp_overview tr:hover {
 table.lp_overview img {
 	margin-left:3px;
 }
+#scorm-info {
+	padding: 0;
+	background: url(images/bg_scorm.png) repeat-x #f9f9f9;
+	display: inline-block;
+	width: 100%;
+	border-bottom: 2px solid #fe3e27;
+}
+#scorm-info .panel-body {
+	padding: 10px;
+}
+#scorm-info .image-avatar {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: 0;
+	margin-right: 0;
+}
+#scorm-info .image-avatar img{
+	border-radius: 50%;
+	border: 1px solid #cdcdcd;
+}
+#scorm-info .progress-bar-success {
+	background-color: #E91E63;
+}
+.scorm-title h4 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #5a5ca3;
+	padding: 0;
+	margin: 0;
+}
+.scorm_item_normal.scorm_highlight.scorm_completed {
+	background-color: #3F51B5;
+}
+.scorm_item_normal.scorm_completed {
+	background-color: #cee5ff;
+}
