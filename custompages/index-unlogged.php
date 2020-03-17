@@ -95,7 +95,7 @@ $rootWeb = api_get_path('WEB_PATH');
                                     <h2 class="section-title">Acceso Aula Virtual</h2>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="user" name="login" placeholder="<?php echo custompages_get_lang('Email'); ?>">
+                                    <input type="text" class="form-control" id="user" name="login" placeholder="<?php echo custompages_get_lang('User'); ?>">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo custompages_get_lang('Password'); ?>">
