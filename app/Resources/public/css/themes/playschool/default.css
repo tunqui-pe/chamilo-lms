@@ -228,6 +228,71 @@ a:focus {
 .classic-courses .panel-default:hover{
   background-color: #fffef4;
 }
+body.slider{
+  background-color: #ffffff;
+}
+
+.slider .title-slider{
+  background: url('https://aulavirtual.playschool.edu.pe/web/css/themes/playschool/images/bg.png') repeat-x #f9f9f9;
+  padding: 0;
+  color: #ff3d05;
+  font-weight: bold;
+  font-size: 2.5rem;
+  border-bottom: 2px solid #ff3d05;
+}
+.slider .content{
+  padding: 1rem;
+}
+.slider h1,
+.slider h2,
+.slider h3,
+.slider h4,
+.slider h5{
+  margin-bottom: 2rem;
+}
+.slider .footer{
+  width: 100%;
+}
+.slider .footer .sub-footer{
+  background-color: #3f4194;
+  padding: 1rem;
+  color: #ffffff;
+  font-size: 1rem;
+}
+.slider .container {
+  padding: 0 15px;
+}
+
+.slider .container {
+  width: auto;
+  padding: 0 15px;
+}
+
+.slider .footer {
+  background-color: #3f4194;
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  .slider .title-slider{
+    background-size: 90%;
+  }
+}
+
+@media (max-width: 767px) {
+  .slider img{
+    width: 100px;
+  }
+  .slider .title-slider{
+    background-size: 90%;
+  }
+  .slider h1,
+  .slider h2,
+  .slider h3,
+  .slider h4,
+  .slider h5{
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
@@ -282,5 +347,15 @@ a:focus {
     font-size: 14px;
     font-weight: bold;
   }
-
+  .slider img{
+    width: 100px;
+  }
+  .slider h1,
+  .slider h2,
+  .slider h3,
+  .slider h4,
+  .slider h5{
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
 }
