@@ -222,6 +222,12 @@ a:focus {
 .grid-courses .items .cribbon{
   top: 32px;
 }
+.panel .session.panel-body{
+  background-color: #ecf4f5;
+}
+.classic-courses .panel-default:hover{
+  background-color: #fffef4;
+}
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
@@ -253,6 +259,7 @@ a:focus {
     float: left;
     height: 75px;
   }
+
   .classic-courses .thumbnail{
     border: none;
   }
@@ -265,4 +272,15 @@ a:focus {
   .sidebar .list-group-item{
     padding: 8px 5px;
   }
+  .sessions-items .courses .thumbnail{
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+    background: transparent;
+  }
+  .sessions-items .courses h4{
+    font-size: 14px;
+    font-weight: bold;
+  }
+
 }
