@@ -120,7 +120,7 @@ $rootWeb = api_get_path('WEB_PATH');
                     </div>
                     <div class="col-md-6">
                         <div class="image-login">
-                            <img src="<?php echo $rootWeb; ?>custompages/assets/img/img_login.png"/>
+                            <img class="img-responsive" src="<?php echo $rootWeb; ?>custompages/assets/img/img_login.png"/>
                         </div>
                     </div>
                 </div>

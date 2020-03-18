@@ -36,6 +36,11 @@ a{
     padding: 3rem;
     margin: 0 auto;
 }
+.form-lost-password{
+    max-width: 60%;
+    padding: 3rem;
+    margin: 0 auto;
+}
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
     margin-bottom: 10px;
@@ -66,7 +71,7 @@ a{
     border-top-right-radius: 0;
 }
 .form-signin .form-control{
-    border-radius: 0;
+    border-radius: 5px;
     font-size: 16px;
 }
 .panel.panel-default{
@@ -99,13 +104,13 @@ a{
 }
 .btn-primary{
     background: #e03625;
-    border-radius: 0;
     text-transform: uppercase;
     border: 1px solid #e03625;
     font-weight: bold;
     padding: 10px 20px;
-    box-shadow: 10px 10px 0 2px rgba(128,141,232,.15);
-    margin-bottom: 2rem;
+    border-radius: 5px;
+    /*box-shadow: 10px 10px 0 2px rgba(128,141,232,.15);*/
+    margin-bottom: 1rem;
 }
 .btn-primary:hover{
     color: #FFFFFF;
@@ -230,5 +235,10 @@ span.help-inline.help-block {
     }
     .form-register .form-group{
         text-align: left;
+    }
+    .form-lost-password{
+        max-width: 100%;
+        padding: 3rem;
+        margin: 0 auto;
     }
 }

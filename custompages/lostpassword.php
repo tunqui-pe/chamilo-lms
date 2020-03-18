@@ -60,7 +60,7 @@ $rootWeb = api_get_path('WEB_PATH');
                     ?>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="padding-login">
                             <div class="section-title-container">
                                 <h2 class="section-title"><?php echo custompages_get_lang('LostPassword'); ?></h2>
@@ -70,9 +70,9 @@ $rootWeb = api_get_path('WEB_PATH');
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <img src="<?php echo $rootWeb; ?>custompages/assets/img/password.svg"/>
-                    </div>
+                    <!--<div class="col-md-4">
+                        <img src="<?php /*echo $rootWeb; */?>custompages/assets/img/password.svg"/>
+                    </div>-->
                 </div>
 
             </div>
