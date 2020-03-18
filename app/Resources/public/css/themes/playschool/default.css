@@ -146,7 +146,17 @@ a:focus {
 .left-sidebar{
   z-index: 9999;
   width: 200px;
-  position: fixed;
+  position: absolute;
+}
+.panel-default .panel-heading {
+  color: #333;
+  background-color: #f0f8ff;
+  border-color: #f0f8ff;
+}
+.alert-info {
+  color: #31708f;
+  background-color: #ebf8ff;
+  border-color: #bce8f1;
 }
 .right-content{
   margin-left: 205px;
