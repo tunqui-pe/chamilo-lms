@@ -130,13 +130,8 @@ $rootWeb = api_get_path('WEB_PATH');
         <div class="help">
             <h4 class="title">Recomendaciones</h4>
             <ul>
-                <li>Usar un navegador actualizado: <a href="https://www.google.com/intl/es-419/chrome/" target="_blank">Google Chrome</a> / <a href="https://www.mozilla.org/es-ES/firefox/new/" target="_blank">Mozilla Firefox</a> </li>
-                <li>Instalar el plugin de <a href="https://get.adobe.com/es/flashplayer/" target="_blank">Flash Player</a> y <a href="https://www.java.com/es/download/" target="_blank">Java 8</a></li>
                 <li>Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.</li>
             </ul>
-        </div>
-        <div class="copyright">
-            <p>© Educación Chile / Todos los derechos reservados</p>
         </div>
     </div> <!-- /container -->
 </body>
