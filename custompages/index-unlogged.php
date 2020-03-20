@@ -71,7 +71,7 @@ $rootWeb = api_get_path('WEB_PATH');
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo.svg" class="logo" width="200px"/>
+                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo.svg" class="logo" width="300px"/>
             </a>
         </div>
         <div class="panel panel-default form-signin">
@@ -115,7 +115,7 @@ $rootWeb = api_get_path('WEB_PATH');
                                     </a>
                                 </div>
                             </form>
-                            <p class="support">Si aún no tienes un usuario asignado comunicate con el área de soporte o llama al <strong>246-4112</strong></p>
+                            <p class="support">Si aún no tienes un usuario asignado comunicate con el área de soporte</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -136,7 +136,7 @@ $rootWeb = api_get_path('WEB_PATH');
             </ul>
         </div>
         <div class="copyright">
-            <p>© Colegio Play School - Huaral / Todos los derechos reservados <br> Servicio desarrollador por <a href="https://tunqui.pe">Tunqui Creativo</a></p>
+            <p>© Educación Chile / Todos los derechos reservados</p>
         </div>
     </div> <!-- /container -->
 </body>
