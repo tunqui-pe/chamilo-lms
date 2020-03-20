@@ -115,7 +115,6 @@ $rootWeb = api_get_path('WEB_PATH');
                                     </a>
                                 </div>
                             </form>
-                            <p class="support">Si aún no tienes un usuario asignado comunicate con el área de soporte</p>
                         </div>
                     </div>
                     <div class="col-md-6">
