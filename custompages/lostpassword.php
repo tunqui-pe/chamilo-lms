@@ -21,13 +21,13 @@ $rootWeb = api_get_path('WEB_PATH');
     <link rel="icon" type="image/png" href="<?php echo $rootWeb; ?>custompages/assets/img/favicon.png" />
     <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/flag-icon-css/css/flag-icon.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>custompages/assets/js/vegas/vegas.css" />
-
+<!--    <link rel="stylesheet" type="text/css" href="<?php /*echo $rootWeb; */?>custompages/assets/js/vegas/vegas.css" />
+-->
     <script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="<?php echo $rootWeb; ?>custompages/assets/js/vegas/vegas.js"></script>
-    <script type="text/javascript" src="<?php echo $rootWeb; ?>custompages/assets/js/main.js"></script>
+<!--    <script type="text/javascript" src="<?php /*echo $rootWeb; */?>custompages/assets/js/vegas/vegas.js"></script>
+<!---->    <script type="text/javascript" src="<?php /*echo $rootWeb; */?>custompages/assets/js/main.js"></script>
     <link rel="stylesheet" href="<?php echo $rootWeb; ?>custompages/assets/css/style.css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i&display=swap');
