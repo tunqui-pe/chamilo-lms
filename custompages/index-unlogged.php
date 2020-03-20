@@ -128,7 +128,6 @@ $rootWeb = api_get_path('WEB_PATH');
             </div>
         </div>
         <div class="help">
-            <h4 class="title">Recomendaciones</h4>
             <ul>
                 <li>Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.</li>
             </ul>
