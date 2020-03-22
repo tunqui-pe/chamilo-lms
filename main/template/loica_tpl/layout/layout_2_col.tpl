@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        {% if course_block %}
+                        {#{% if course_block %}
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                     <h4 class="panel-title">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
+                        {% endif %}#}
 
                         {% if _u.is_admin %}
                             {% if navigation_links %}

@@ -68,7 +68,7 @@
                                     </li>
                                 {% endif %}
 
-                                {% if pending_survey_url %}
+                                {#{% if pending_survey_url %}
                                     <li class="user-body">
                                         <a href="{{ pending_survey_url }}">
                                             <em class="fa fa-pie-chart"></em> {{ 'PendingSurveys'|get_lang }}
@@ -90,7 +90,7 @@
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Gestión de ventas
                                     </a>
                                 </li>
-                                {% endif %}
+                                {% endif %}#}
                                 <li class="user-body">
                                     <a id="logout_button" title="{{ "Logout"|get_lang }}" href="{{ logout_link }}">
                                         <em class="fa fa-sign-out"></em> {{ "Logout"|get_lang }}
