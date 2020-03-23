@@ -444,4 +444,7 @@ a:focus {
   #view_as_link{
     display: none;
   }
+  body > main > .container-fluid {
+    margin-bottom: 20%;
+  }
 }
