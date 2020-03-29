@@ -8,8 +8,12 @@
     <section class="sub-footer">
         <div class="row">
             <div class="col-xs-12 col-md-4">
+
+                {% if _u.status == 1 %}
                 <strong>Soporte técnico:</strong>
-                <a href="mailto:online@aula-virtual.cl" target="_blank">online@aula-virtual.cl</a>
+                <a href="mailto:soporte@aula-virtual.cl" target="_blank">soporte@aula-virtual.cl</a>
+                {% endif %}
+
                 {#{% if administrator_name is not null %}
                     <div class="administrator-name">
                         {{ administrator_name }}
@@ -39,7 +43,7 @@
                 {% endif %}
             </div>
             <div class="col-xs-12 col-md-4 text-right">
-                Aula Virtual exclusiva para:
+                Aula Virtual proporcionada por:
                 <img width="100px" src="{{ _p.web_css_theme }}images/educacion_chile.svg" />
                 {#{% if _s.software_name is not empty %}
                     <div class="software-name">
