@@ -523,50 +523,52 @@ $token = Security::get_token();
 if ($is_allowedToEdit && $origin !== 'learnpath') {
     $actionsLeft = '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/exercise_admin.php?'.api_get_cidreq().'">'.
         Display::return_icon('new_exercice.png', get_lang('NewEx'), '', ICON_SIZE_MEDIUM).'</a>';
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/question_create.php?'.api_get_cidreq().'">'.
-        Display::return_icon('new_question.png', get_lang('AddQ'), '', ICON_SIZE_MEDIUM).'</a>';
+    if (api_get_configuration_value('basic_mode_exercises') == false) {
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/question_create.php?'.api_get_cidreq().'">'.
+            Display::return_icon('new_question.png', get_lang('AddQ'), '', ICON_SIZE_MEDIUM).'</a>';
 
-    if (api_get_configuration_value('allow_exercise_categories')) {
-        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/category.php?'.api_get_cidreq().'">';
-        $actionsLeft .= Display::return_icon('folder.png', get_lang('Category'), '', ICON_SIZE_MEDIUM);
+        if (api_get_configuration_value('allow_exercise_categories')) {
+            $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/category.php?'.api_get_cidreq().'">';
+            $actionsLeft .= Display::return_icon('folder.png', get_lang('Category'), '', ICON_SIZE_MEDIUM);
+            $actionsLeft .= '</a>';
+        }
+
+        // Question category
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/tests_category.php?'.api_get_cidreq().'">';
+        $actionsLeft .= Display::return_icon('green_open.png', get_lang('QuestionCategory'), '', ICON_SIZE_MEDIUM);
         $actionsLeft .= '</a>';
-    }
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/question_pool.php?'.api_get_cidreq().'">';
+        $actionsLeft .= Display::return_icon('database.png', get_lang('QuestionPool'), '', ICON_SIZE_MEDIUM);
+        $actionsLeft .= '</a>';
 
-    // Question category
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/tests_category.php?'.api_get_cidreq().'">';
-    $actionsLeft .= Display::return_icon('green_open.png', get_lang('QuestionCategory'), '', ICON_SIZE_MEDIUM);
-    $actionsLeft .= '</a>';
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/question_pool.php?'.api_get_cidreq().'">';
-    $actionsLeft .= Display::return_icon('database.png', get_lang('QuestionPool'), '', ICON_SIZE_MEDIUM);
-    $actionsLeft .= '</a>';
+        //echo Display::url(Display::return_icon('looknfeel.png', get_lang('Media')), 'media.php?' . api_get_cidreq());
+        // end question category
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/hotpotatoes.php?'.api_get_cidreq().'">'.
+            Display::return_icon('import_hotpotatoes.png', get_lang('ImportHotPotatoesQuiz'), '',
+                ICON_SIZE_MEDIUM).'</a>';
+        // link to import qti2 ...
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/qti2.php?'.api_get_cidreq().'">'.
+            Display::return_icon('import_qti2.png', get_lang('ImportQtiQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/aiken.php?'.api_get_cidreq().'">'.
+            Display::return_icon('import_aiken.png', get_lang('ImportAikenQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
+        $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/upload_exercise.php?'.api_get_cidreq().'">'.
+            Display::return_icon('import_excel.png', get_lang('ImportExcelQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
 
-    //echo Display::url(Display::return_icon('looknfeel.png', get_lang('Media')), 'media.php?' . api_get_cidreq());
-    // end question category
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/hotpotatoes.php?'.api_get_cidreq().'">'.
-        Display::return_icon('import_hotpotatoes.png', get_lang('ImportHotPotatoesQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
-    // link to import qti2 ...
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/qti2.php?'.api_get_cidreq().'">'.
-        Display::return_icon('import_qti2.png', get_lang('ImportQtiQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/aiken.php?'.api_get_cidreq().'">'.
-        Display::return_icon('import_aiken.png', get_lang('ImportAikenQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
-    $actionsLeft .= '<a href="'.api_get_path(WEB_CODE_PATH).'exercise/upload_exercise.php?'.api_get_cidreq().'">'.
-        Display::return_icon('import_excel.png', get_lang('ImportExcelQuiz'), '', ICON_SIZE_MEDIUM).'</a>';
-
-    $cleanAll = Display::url(
-        Display::return_icon(
-            'clean_all.png',
-            get_lang('CleanAllStudentsResultsForAllTests'),
-            '',
-            ICON_SIZE_MEDIUM
-        ),
-        '#',
-        [
-            'data-item-question' => addslashes(get_lang('AreYouSureToEmptyAllTestResults')),
-            'data-href' => api_get_path(WEB_CODE_PATH).'exercise/exercise.php?'.api_get_cidreq().'&action=clean_all_test&sec_token='.$token,
-            'data-toggle' => 'modal',
-            'data-target' => '#confirm-delete',
-        ]
-    );
+        $cleanAll = Display::url(
+            Display::return_icon(
+                'clean_all.png',
+                get_lang('CleanAllStudentsResultsForAllTests'),
+                '',
+                ICON_SIZE_MEDIUM
+            ),
+            '#',
+            [
+                'data-item-question' => addslashes(get_lang('AreYouSureToEmptyAllTestResults')),
+                'data-href' => api_get_path(WEB_CODE_PATH).'exercise/exercise.php?'.api_get_cidreq().'&action=clean_all_test&sec_token='.$token,
+                'data-toggle' => 'modal',
+                'data-target' => '#confirm-delete',
+            ]
+        );
 
     if ($limitTeacherAccess) {
         if (api_is_platform_admin()) {
@@ -574,6 +576,7 @@ if ($is_allowedToEdit && $origin !== 'learnpath') {
         }
     } else {
         $actionsLeft .= $cleanAll;
+    }
     }
 
     // Create a search-box

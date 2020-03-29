@@ -1868,21 +1868,43 @@ abstract class Question
             $type = new $type[1]();
             $img = $type->getTypePicture();
             $explanation = get_lang($type->getExplanation());
-            echo '<li>';
-            echo '<div class="icon-image">';
-            $icon = '<a href="admin.php?'.api_get_cidreq().'&newQuestion=yes&answerType='.$i.'">'.
-                Display::return_icon($img, $explanation, null, ICON_SIZE_BIG).'</a>';
 
-            if ($objExercise->force_edit_exercise_in_lp === false) {
-                if ($objExercise->exercise_was_added_in_lp == true) {
-                    $img = pathinfo($img);
-                    $img = $img['filename'].'_na.'.$img['extension'];
-                    $icon = Display::return_icon($img, $explanation, null, ICON_SIZE_BIG);
+            if(api_get_configuration_value('basic_mode_exercises') == true){
+                if($type->type == 1 || $type->type == 5){
+                    echo '<li>';
+                    echo '<div class="icon-image">';
+                    $icon = '<a href="admin.php?'.api_get_cidreq().'&newQuestion=yes&answerType='.$i.'">'.
+                        Display::return_icon($img, $explanation, null, ICON_SIZE_BIG).'</a>';
+
+                    if ($objExercise->force_edit_exercise_in_lp === false) {
+                        if ($objExercise->exercise_was_added_in_lp == true) {
+                            $img = pathinfo($img);
+                            $img = $img['filename'].'_na.'.$img['extension'];
+                            $icon = Display::return_icon($img, $explanation, null, ICON_SIZE_BIG);
+                        }
+                    }
+                    echo $icon;
+                    echo '</div>';
+                    echo '</li>';
                 }
+            } else {
+                echo '<li>';
+                echo '<div class="icon-image">';
+                $icon = '<a href="admin.php?'.api_get_cidreq().'&newQuestion=yes&answerType='.$i.'">'.
+                    Display::return_icon($img, $explanation, null, ICON_SIZE_BIG).'</a>';
+
+                if ($objExercise->force_edit_exercise_in_lp === false) {
+                    if ($objExercise->exercise_was_added_in_lp == true) {
+                        $img = pathinfo($img);
+                        $img = $img['filename'].'_na.'.$img['extension'];
+                        $icon = Display::return_icon($img, $explanation, null, ICON_SIZE_BIG);
+                    }
+                }
+                echo $icon;
+                echo '</div>';
+                echo '</li>';
             }
-            echo $icon;
-            echo '</div>';
-            echo '</li>';
+
         }
 
         echo '<li>';
