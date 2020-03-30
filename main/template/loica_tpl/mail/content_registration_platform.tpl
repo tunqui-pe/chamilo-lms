@@ -6,9 +6,7 @@
     {{ 'userNameEmail'|get_lang }} : {{ login_name }}<br>
     {{ 'Pass'|get_lang }} : {{ original_password }}
 </div>
-<p>
-    {{ 'technicalSupport'|get_lang }} {{ _admin.email }}
-</p>
+
 <p>
     {{ 'regardsEducaChile'|get_lang }}
 </p>
