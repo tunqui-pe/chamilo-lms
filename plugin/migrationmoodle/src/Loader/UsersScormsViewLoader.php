@@ -3,7 +3,6 @@
 
 namespace Chamilo\PluginBundle\MigrationMoodle\Loader;
 
-use Chamilo\CoreBundle\Entity\Session;
 use Chamilo\PluginBundle\MigrationMoodle\Interfaces\LoaderInterface;
 
 /**
@@ -21,14 +20,16 @@ class UsersScormsViewLoader implements LoaderInterface
         $tblLpView = \Database::get_course_table(TABLE_LP_VIEW);
         $tblLpItemView = \Database::get_course_table(TABLE_LP_ITEM_VIEW);
 
-        $session = $this->getUserSubscriptionInSession($incomingData['user_id'], $incomingData['c_id']);
+        $sessionId = $this->getUserSubscriptionInSession($incomingData['user_id'], $incomingData['c_id']);
 
         $lpViewId = $this->getLpView(
             $incomingData['user_id'],
             $incomingData['lp_id'],
             $incomingData['c_id'],
-            $session->getId()
+            $sessionId
         );
+
+        $lpItemViewId = $this->getLpItemView($lpViewId, $incomingData['lp_item_id']);
 
         $itemView = [
             'c_id' => $incomingData['c_id'],
@@ -36,10 +37,10 @@ class UsersScormsViewLoader implements LoaderInterface
             'lp_view_id' => $lpViewId,
             'view_count' => $incomingData['lp_item_view_count'],
             'status' => 'not attempted',
-            'start_time' => time(),
+            'start_time' => 0,
             'total_time' => 0,
             'score' => 0,
-            'max_score' => null,
+            'max_score' => 100,
         ];
 
         foreach (array_keys($itemView) as $key) {
@@ -48,8 +49,12 @@ class UsersScormsViewLoader implements LoaderInterface
             }
         }
 
-        $lpItemViewId = \Database::insert($tblLpItemView, $itemView);
-        \Database::query("UPDATE $tblLpItemView SET id = iid WHERE iid = $lpItemViewId");
+        if (empty($lpItemViewId)) {
+            $lpItemViewId = \Database::insert($tblLpItemView, $itemView);
+            \Database::query("UPDATE $tblLpItemView SET id = iid WHERE iid = $lpItemViewId");
+        } else {
+            \Database::update($tblLpItemView, $itemView, ['iid = ?' => [$lpItemViewId]]);
+        }
 
         \Database::query(
             "UPDATE $tblLpView
@@ -67,19 +72,26 @@ class UsersScormsViewLoader implements LoaderInterface
      *
      * @throws \Exception
      *
-     * @return Session
+     * @return int
      */
     private function getUserSubscriptionInSession($userId, $courseId)
     {
-        $subscription = \Database::getManager()
-            ->getRepository('ChamiloCoreBundle:SessionRelCourseRelUser')
-            ->findOneBy(['user' => $userId, 'course' => $courseId]);
+        $srcru = \Database::select(
+            'session_id',
+            \Database::get_main_table(TABLE_MAIN_SESSION_COURSE_USER),
+            [
+                'where' => [
+                    'user_id = ? AND c_id = ?' => [$userId, $courseId],
+                ],
+            ],
+            'first'
+        );
 
-        if (empty($subscription)) {
+        if (empty($srcru)) {
             throw new \Exception("Session not found for user ($userId) with course ($courseId)");
         }
 
-        return $subscription->getSession();
+        return $srcru['session_id'];
     }
 
     /**
@@ -92,21 +104,26 @@ class UsersScormsViewLoader implements LoaderInterface
      */
     private function getLpView($userId, $lpId, $cId, $sessionId)
     {
-        $lpView = \Database::getManager()
-            ->getRepository('ChamiloCourseBundle:CLpView')
-            ->findOneBy(
-                [
-                    'userId' => $userId,
-                    'lpId' => $lpId,
-                    'cId' => $cId,
-                    'sessionId' => $sessionId,
+        $tblLpView = \Database::get_course_table(TABLE_LP_VIEW);
+
+        $lpView = \Database::select(
+            'iid',
+            $tblLpView,
+            [
+                'where' => [
+                    'user_id = ? AND lp_id = ? AND c_id = ? AND session_id = ?' => [
+                        $userId,
+                        $lpId,
+                        $cId,
+                        $sessionId,
+                    ],
                 ],
-                ['viewCount' => 'DESC']
-            );
+                'order' => 'view_count DESC',
+            ],
+            'first'
+        );
 
         if (empty($lpView)) {
-            $tblLpView = \Database::get_course_table(TABLE_LP_VIEW);
-
             $lpView = [
                 'c_id' => $cId,
                 'lp_id' => $lpId,
@@ -122,6 +139,25 @@ class UsersScormsViewLoader implements LoaderInterface
             return $lpViewId;
         }
 
-        return $lpView->getId();
+        return $lpView['iid'];
+    }
+
+    /**
+     * @param int $lpViewId
+     * @param int $lpItemId
+     *
+     * @return int
+     */
+    private function getLpItemView($lpViewId, $lpItemId)
+    {
+        $lpItemView = \Database::fetch_assoc(
+            \Database::query("SELECT iid FROM c_lp_item_view WHERE lp_view_id = $lpViewId AND lp_item_id = $lpItemId")
+        );
+
+        if (empty($lpItemView)) {
+            return 0;
+        }
+
+        return $lpItemView['iid'];
     }
 }

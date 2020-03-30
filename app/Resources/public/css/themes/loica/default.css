@@ -410,6 +410,13 @@ a:focus {
 .about-sub-title{
   font-weight: bold;
 }
+@media (min-width: 1024px){
+  .navbar-header {
+    float: left !important;
+    margin-right: 50px;
+  }
+}
+
 @media (max-width: 480px) {
   .left-sidebar {
     width: 100%;
