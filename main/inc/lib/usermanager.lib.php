@@ -473,6 +473,7 @@ class UserManager
                 // variables for the default template
                 $tplContent->assign('complete_name', stripslashes(api_get_person_name($firstName, $lastName)));
                 $tplContent->assign('login_name', $loginName);
+                $tplContent->assign('name', $firstName);
                 $tplContent->assign('original_password', stripslashes($original_password));
                 $tplContent->assign('mailWebPath', $url);
                 $tplContent->assign('new_user', $user);
