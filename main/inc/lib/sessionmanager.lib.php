@@ -2009,6 +2009,7 @@ class SessionManager
                 );
                 // Variables for default template
                 $tplContent->assign('complete_name', stripslashes($user_info['complete_name']));
+                $tplContent->assign('name', $user_info['firstname']);
                 $tplContent->assign('session_name', $session->getName());
                 $tplContent->assign('session_coach', $session->getGeneralCoach()->getCompleteName());
                 $layoutContent = $tplContent->get_template(
