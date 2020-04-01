@@ -22,8 +22,6 @@ use ChamiloSession as Session;
  * but not available in standard Chamilo).
  *
  * There are probably some places left with the wrong code.
- *
- * @package chamilo.library
  */
 class CourseManager
 {
@@ -2911,7 +2909,7 @@ class CourseManager
      *
      * @return array Course codes allowed or not to see in catalogue by some user or the user
      */
-    public static function getCatalogueCourseList($allowed = true, $byUserId = -1)
+    public static function getCatalogCourseList($allowed = true, $byUserId = -1)
     {
         $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
         $tblCourseRelUserCatalogue = Database::get_main_table(TABLE_MAIN_COURSE_CATALOGUE_USER);
@@ -5257,16 +5255,16 @@ class CourseManager
 
         // Check if course have users allowed to see it in the catalogue, then show only if current user is allowed to see it
         $currentUserId = api_get_user_id();
-        $restrictedCourses = self::getCatalogueCourseList(true);
-        $allowedCoursesToCurrentUser = self::getCatalogueCourseList(true, $currentUserId);
+        $restrictedCourses = self::getCatalogCourseList(true);
+        $allowedCoursesToCurrentUser = self::getCatalogCourseList(true, $currentUserId);
         if (!empty($restrictedCourses)) {
             $visibilityCondition .= ' AND ('.$courseTableAlias.'.code NOT IN ("'.implode('","', $restrictedCourses).'")';
             $visibilityCondition .= ' OR '.$courseTableAlias.'.code IN ("'.implode('","', $allowedCoursesToCurrentUser).'"))';
         }
 
         // Check if course have users denied to see it in the catalogue, then show only if current user is not denied to see it
-        $restrictedCourses = self::getCatalogueCourseList(false);
-        $notAllowedCoursesToCurrentUser = self::getCatalogueCourseList(false, $currentUserId);
+        $restrictedCourses = self::getCatalogCourseList(false);
+        $notAllowedCoursesToCurrentUser = self::getCatalogCourseList(false, $currentUserId);
         if (!empty($restrictedCourses)) {
             $visibilityCondition .= ' AND ('.$courseTableAlias.'.code NOT IN ("'.implode('","', $restrictedCourses).'")';
             $visibilityCondition .= ' OR '.$courseTableAlias.'.code NOT IN ("'.implode('","', $notAllowedCoursesToCurrentUser).'"))';
@@ -6545,32 +6543,36 @@ class CourseManager
     /**
      * Display the description button of a course in the course catalog.
      *
-     * @param array $course
+     * @param array  $course
+     * @param string $url
      *
      * @return string HTML string
      */
-    public static function returnDescriptionButton($course)
+    public static function returnDescriptionButton($course, $url = '')
     {
         if (empty($course)) {
             return '';
         }
 
-        if (api_get_setting('show_courses_descriptions_in_catalog') == 'true') {
+        $class = '';
+        if (api_get_setting('show_courses_descriptions_in_catalog') === 'true') {
             $title = $course['title'];
-            $url = api_get_path(WEB_CODE_PATH).'inc/ajax/course_home.ajax.php?a=show_course_information&code='.$course['code'];
-            $html = Display::url(
+            if (empty($url)) {
+                $class = 'ajax';
+                $url = api_get_path(WEB_CODE_PATH).'inc/ajax/course_home.ajax.php?a=show_course_information&code='.$course['code'];
+            }
+
+            return Display::url(
                 Display::returnFontAwesomeIcon('info-circle', 'lg'),
                 $url,
                 [
-                    'class' => 'ajax btn btn-default btn-sm',
+                    'class' => "$class btn btn-default btn-sm",
                     'data-title' => $title,
                     'title' => get_lang('Description'),
                     'aria-label' => get_lang('Description'),
                     'data-size' => 'lg',
                 ]
             );
-
-            return $html;
         }
 
         return '';
@@ -6646,6 +6648,65 @@ class CourseManager
         $row = Database::fetch_array($result);
 
         return (int) $row['count'];
+    }
+
+    /**
+     * retrieves all the courses that the user has already subscribed to.
+     *
+     * @param int $user_id
+     *
+     * @return array an array containing all the information of the courses of the given user
+     */
+    public static function getCoursesByUserCourseCategory($user_id)
+    {
+        $course = Database::get_main_table(TABLE_MAIN_COURSE);
+        $courseRelUser = Database::get_main_table(TABLE_MAIN_COURSE_USER);
+        $avoidCoursesCondition = CoursesAndSessionsCatalog::getAvoidCourseCondition();
+        $visibilityCondition = self::getCourseVisibilitySQLCondition('course', true);
+
+        // Secondly we select the courses that are in a category (user_course_cat<>0) and
+        // sort these according to the sort of the category
+        $user_id = (int) $user_id;
+        $sql = "SELECT
+                    course.code k,
+                    course.visual_code vc,
+                    course.subscribe subscr,
+                    course.unsubscribe unsubscr,
+                    course.title i,
+                    course.tutor_name t,
+                    course.category_code cat,
+                    course.directory dir,
+                    course_rel_user.status status,
+                    course_rel_user.sort sort,
+                    course_rel_user.user_course_cat user_course_cat
+                FROM $course course, $courseRelUser  course_rel_user
+                WHERE
+                    course.id = course_rel_user.c_id AND
+                    course_rel_user.relation_type <> ".COURSE_RELATION_TYPE_RRHH." AND
+                    course_rel_user.user_id = '".$user_id."'
+                    $avoidCoursesCondition
+                    $visibilityCondition
+                ORDER BY course_rel_user.sort ASC";
+
+        $result = Database::query($sql);
+        $courses = [];
+        while ($row = Database::fetch_array($result, 'ASOC')) {
+            $courses[] = [
+                'code' => $row['k'],
+                'visual_code' => $row['vc'],
+                'title' => $row['i'],
+                'directory' => $row['dir'],
+                'status' => $row['status'],
+                'tutor' => $row['t'],
+                'subscribe' => $row['subscr'],
+                'category' => $row['cat'],
+                'unsubscribe' => $row['unsubscr'],
+                'sort' => $row['sort'],
+                'user_course_category' => $row['user_course_cat'],
+            ];
+        }
+
+        return $courses;
     }
 
     /**

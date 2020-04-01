@@ -267,13 +267,14 @@ function getReport($userId, $from, $to, $addTime = false)
 
     $courseSessionTable = '';
     $courseSessionTableData = [];
-    $iconCourse = Display::return_icon('course.png',null,[],ICON_SIZE_SMALL);
+    $iconCourse = Display::return_icon('course.png', null, [], ICON_SIZE_SMALL);
     foreach ($report as $sessionId => $data) {
         foreach ($data['courses'] as $courseId => $courseData) {
             if (empty($courseData)) {
                 continue;
             }
-            $courseSessionTable .= '<div class="data-title">'.Display::page_subheader3($iconCourse.$data['name'][$courseId]).'</div>';
+            $courseSessionTable .= '<div class="data-title">'.
+                Display::page_subheader3($iconCourse.$data['name'][$courseId]).'</div>';
             $table = new HTML_Table(['class' => 'data_table']);
             $headers = [
                 get_lang('StartDate'),
@@ -302,8 +303,8 @@ function getReport($userId, $from, $to, $addTime = false)
             $courseSessionTable .= $table->toHtml();
         }
     }
-    $totalCourseSessionTable = '';
 
+    $totalCourseSessionTable = '';
     if ($courseSessionTableData) {
         $table = new HTML_Table(['class' => 'data_table']);
         $headers = [
@@ -424,7 +425,13 @@ if ($formByDay->validate()) {
     $list = Tracking::get_time_spent_on_the_platform($userId, 'custom', $from, $to, true);
     $newList = [];
     foreach ($list as $item) {
+        // YYYY-MM-DD
         $key = substr($item['login_date'], 0, 10);
+        $dateLogout = substr($item['logout_date'], 0, 10);
+        if ($dateLogout > $key) {
+            $item['logout_date'] = api_get_utc_datetime($key.' 23:59:59');
+        }
+
         if (!isset($newList[$key])) {
             $newList[$key] = [
                 'login_date' => $item['login_date'],
@@ -486,8 +493,9 @@ if ($formByDay->validate()) {
         $courseSessionTable = $result['second'];
         $totalCourseSessionTable = $result['third'];
         $total = $result['total'];
-        $iconCalendar = Display::return_icon('calendar.png',null,[],ICON_SIZE_SMALL);
-        $tableList .= '<div class="date-calendar">'.Display::page_subheader2($iconCalendar.get_lang('Date').': '.$dateToCheck).'</div>';
+        $iconCalendar = Display::return_icon('calendar.png', null, [], ICON_SIZE_SMALL);
+        $tableList .= '<div class="date-calendar">'.
+            Display::page_subheader2($iconCalendar.get_lang('Date').': '.$dateToCheck).'</div>';
         $tableList .= $table->toHtml();
         if (!$reduced && !empty($total)) {
             $diff = get_lang('NotInCourse').' '.api_format_time($data['diff'] - $total, 'js');
@@ -502,7 +510,6 @@ if ($formByDay->validate()) {
     $tpl->assign('student', $userInfo['complete_name']);
     $totalTable = Display::page_subheader3(sprintf(get_lang('ExtractionFromX'), api_get_local_time()));
     $tpl->assign('table_progress', $totalTable.$tableList);
-
     $content = $tpl->fetch($tpl->get_template('my_space/pdf_export_student.tpl'));
 
     $params = [
