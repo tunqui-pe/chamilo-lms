@@ -55,7 +55,7 @@ $form->addElement(
 );*/
 $form->addButtonFilter(get_lang('Search'));
 
-$sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true, 'Diplomado');
+$sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true, 'Diplomados');
 
 // View
 if (api_is_platform_admin()) {
