@@ -586,10 +586,11 @@ class BuyCoursesPlugin extends Plugin
      * @param int    $min  Optional. The minimum price filter
      * @param int    $max  Optional. The maximum price filter
      * @param boolean $orderByName
+     * @param string $category
      *
      * @return array
      */
-    public function getCatalogSessionList($name = null, $min = 0, $max = 0, $orderByName = false)
+    public function getCatalogSessionList($name = null, $min = 0, $max = 0, $orderByName = false, $category = null)
     {
         $sessions = $this->filterSessionList($name, $min, $max, $orderByName);
 
@@ -640,7 +641,15 @@ class BuyCoursesPlugin extends Plugin
                 $sessionData['courses'][] = $sessionCourseData;
             }
 
-            $sessionCatalog[] = $sessionData;
+            if(!is_null($category)){
+                if($sessionData['category']==$category){
+                    $sessionCatalog[] = $sessionData;
+                }
+            } else {
+                if($sessionData['category']==null){
+                    $sessionCatalog[] = $sessionData;
+                }
+            }
         }
 
         return $sessionCatalog;
@@ -866,9 +875,8 @@ class BuyCoursesPlugin extends Plugin
             $taxAmount = round($priceWithoutTax * $taxPerc / 100, $precision);
             $price = $priceWithoutTax + $taxAmount;
         }
-
+        $category = $session->getCategory() ? $session->getCategory()->getName() : null;
         $isInternational = boolval($item['is_international']);
-
         $sessionInfo = [
             'id' => $session->getId(),
             'name' => $session->getName(),
@@ -884,6 +892,7 @@ class BuyCoursesPlugin extends Plugin
                 ($taxAppliesTo == self::TAX_APPLIES_TO_ALL || $taxAppliesTo == self::TAX_APPLIES_TO_ONLY_SESSION),
             'currency' => $item['iso_code'],
             'image' => null,
+            'category' => $category,
             'nbrCourses' => $session->getNbrCourses(),
             'nbrUsers' => $session->getNbrUsers(),
             'url_servipag' => $item['url_servipag'],

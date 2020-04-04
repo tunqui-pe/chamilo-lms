@@ -7,7 +7,10 @@
                 <a href="course_catalog.php" aria-controls="buy-courses" role="tab">{{ 'Courses'|get_lang }}</a>
             </li>#}
             <li id="buy-sessions-tab" class="{{ showing_sessions ? 'active' : '' }}" role="presentation">
-                <a href="session_catalog.php" aria-controls="buy-sessions" role="tab">{{ 'sessionCourses'|get_plugin_lang('BuyCoursesPlugin') }}</a>
+                <a href="session_catalog.php" aria-controls="buy-sessions" role="tab">{{ 'TheCourses'|get_plugin_lang('BuyCoursesPlugin') }}</a>
+            </li>
+            <li id="buy-sessions-tab" class="{{ showing_graduates ? 'active' : '' }}" role="presentation">
+                <a href="graduates_catalog.php" aria-controls="buy-graduates" role="tab">{{ 'TheGraduates'|get_plugin_lang('BuyCoursesPlugin') }}</a>
             </li>
             {% if services_are_included %}
                 <li id="buy-services-tab" class="{{ showing_services ? 'active' : '' }}" role="presentation">
@@ -80,9 +83,8 @@
                             {% endfor %}
                         {% endif %}
 
-                        {% if showing_sessions %}
+                        {% if showing_sessions or showing_graduates %}
                             {% for session in sessions %}
-
                                     <article class="items-course">
                                         <div class="items-course-image">
                                             <img alt="{{ session.name }}" class="img-responsive"

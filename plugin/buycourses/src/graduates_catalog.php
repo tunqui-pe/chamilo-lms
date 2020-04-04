@@ -55,7 +55,7 @@ $form->addElement(
 );*/
 $form->addButtonFilter(get_lang('Search'));
 
-$sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true, null);
+$sessionList = $plugin->getCatalogSessionList($nameFilter, $minFilter, $maxFilter, true, 'Diplomado');
 
 // View
 if (api_is_platform_admin()) {
@@ -75,7 +75,7 @@ $template = new Template($templateName);
 $template->assign('search_filter_form', $form->returnForm());
 $template->assign('sessions_are_included', $includeSessions);
 $template->assign('services_are_included', $includeServices);
-$template->assign('showing_sessions', true);
+$template->assign('showing_graduates', true);
 $template->assign('sessions', $sessionList);
 
 $content = $template->fetch('buycourses/view/catalog.tpl');
