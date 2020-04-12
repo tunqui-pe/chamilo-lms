@@ -2552,11 +2552,13 @@ JAVASCRIPT;
     /**
      * Get the extra fields and their formatted values.
      *
-     * @param int|string $itemId The item ID (It could be a session_id, course_id or user_id)
+     * @param int|string $itemId   The item ID (It could be a session_id, course_id or user_id)
+     * @param bool       $filter
+     * @param array      $onlyShow (list of extra fields variables to show)
      *
      * @return array The extra fields data
      */
-    public function getDataAndFormattedValues($itemId)
+    public function getDataAndFormattedValues($itemId, $filter = false, $onlyShow = [])
     {
         $valuesData = [];
         $fields = $this->get_all();
@@ -2569,13 +2571,21 @@ JAVASCRIPT;
                 continue;
             }
 
+            if ($filter && $field['filter'] != 1) {
+                continue;
+            }
+
+            if (!empty($onlyShow) && !in_array($field['variable'], $onlyShow)) {
+                continue;
+            }
+
+            $valueAsArray = [];
             $fieldValue = new ExtraFieldValue($this->type);
             $valueData = $fieldValue->get_values_by_handler_and_field_id(
                 $itemId,
                 $field['id'],
                 true
             );
-
             if (ExtraField::FIELD_TYPE_TAG == $field['field_type']) {
                 $tags = $repoTag->findBy(['fieldId' => $field['id'], 'itemId' => $itemId]);
                 if ($tags) {
@@ -2587,13 +2597,13 @@ JAVASCRIPT;
                         $data[] = $tag->getTag();
                     }
                     $valueData = implode(',', $data);
+                    $valueAsArray = $data;
                 }
             }
 
             if (!$valueData) {
                 continue;
             }
-
             $displayedValue = get_lang('None');
 
             switch ($field['field_type']) {
@@ -2660,8 +2670,10 @@ JAVASCRIPT;
             }
 
             $valuesData[] = [
+                'variable' => $field['variable'],
                 'text' => $field['display_text'],
                 'value' => $displayedValue,
+                'value_as_array' => $valueAsArray,
             ];
         }
 

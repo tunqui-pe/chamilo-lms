@@ -423,12 +423,13 @@ class CoursesAndSessionsCatalog
         $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
         $limitFilter = self::getLimitFilterFromArray($limit);
         $avoidCoursesCondition = self::getAvoidCourseCondition();
-        $visibilityCondition = $justVisible ? CourseManager::getCourseVisibilitySQLCondition('s', true) : '';
+        $visibilityCondition = $justVisible ? CourseManager::getCourseVisibilitySQLCondition('course', true) : '';
+
         $keyword = Database::escape_string($keyword);
         $categoryCode = Database::escape_string($categoryCode);
 
         $sqlInjectJoins = '';
-        $where = ' 1 = 1 ';
+        $where = 'AND 1 = 1 ';
         $sqlInjectWhere = '';
         $injectExtraFields = '1';
         if (!empty($conditions)) {
@@ -497,7 +498,6 @@ class CoursesAndSessionsCatalog
                        ";
             }
         }
-
         $result = Database::query($sql);
         $courses = [];
         while ($row = Database::fetch_array($result)) {
@@ -531,6 +531,7 @@ class CoursesAndSessionsCatalog
                 'creation_date' => $row['creation_date'],
                 'visibility' => $row['visibility'],
                 'count_users' => $countUsers,
+                'category_code' => $row['category_code'],
                 'count_connections' => $connectionsLastMonth,
             ];
         }
@@ -765,7 +766,6 @@ class CoursesAndSessionsCatalog
     {
         $em = Database::getManager();
         $qb = $em->createQueryBuilder();
-
         $urlId = api_get_current_access_url_id();
 
         $qb->select('s')
@@ -852,7 +852,7 @@ class CoursesAndSessionsCatalog
         $list = [];
         $row = [];
 
-        if ($code !== 'ALL' and $code !== 'NONE') {
+        if ($code !== 'ALL' && $code !== 'NONE') {
             foreach ($allCategories as $category) {
                 if ($category['code'] === $code) {
                     $list = self::buildCourseCategoryTree($allCategories, $category['code'], 0);
@@ -1514,8 +1514,14 @@ class CoursesAndSessionsCatalog
      *
      * @return string
      */
-    public static function getCatalogPagination($pageCurrent, $pageLength, $pageTotal, $categoryCode = '', $action = '', $fields = [])
-    {
+    public static function getCatalogPagination(
+        $pageCurrent,
+        $pageLength,
+        $pageTotal,
+        $categoryCode = '',
+        $action = '',
+        $fields = []
+    ) {
         // Start empty html
         $pageDiv = '';
         $html = '';

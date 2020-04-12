@@ -107,15 +107,23 @@ class bbb
             }
 
             $this->salt = $bbb_salt;
+            if (!empty($bbb_host)) {
+                if (substr($bbb_host, -1, 1) !== '/') {
+                    $bbb_host .= '/';
+                }
+                if (!preg_match('#/bigbluebutton/$#', $bbb_host)) {
+                    $bbb_host .= 'bigbluebutton/';
+                }
+            }
             $info = parse_url($bbb_host);
-            $this->url = $bbb_host.'/bigbluebutton/';
+            $this->url = $bbb_host;
 
             if (isset($info['scheme'])) {
                 $this->protocol = $info['scheme'].'://';
                 $this->url = str_replace($this->protocol, '', $this->url);
                 $urlWithProtocol = $bbb_host;
             } else {
-                // We asume it's an http, if user wants to use https host must include the protocol.
+                // We assume it's an http, if user wants to use https, the host *must* include the protocol.
                 $urlWithProtocol = 'http://'.$bbb_host;
             }
 
@@ -131,19 +139,28 @@ class bbb
     }
 
     /**
+     * @param int $courseId  Optional. Course ID.
+     * @param int $sessionId Optional. Session ID.
+     * @param int $groupId   Optional. Group ID.
+     *
      * @return string
      */
-    public function getListingUrl()
+    public function getListingUrl($courseId = 0, $sessionId = 0, $groupId = 0)
     {
-        return api_get_path(WEB_PLUGIN_PATH).'bbb/listing.php?'.$this->getUrlParams();
+        return api_get_path(WEB_PLUGIN_PATH).'bbb/listing.php?'
+            .$this->getUrlParams($courseId, $sessionId, $groupId);
     }
 
     /**
+     * @param int $courseId  Optional. Course ID.
+     * @param int $sessionId Optional. Session ID.
+     * @param int $groupId   Optional. Group ID.
+     *
      * @return string
      */
-    public function getUrlParams()
+    public function getUrlParams($courseId = 0, $sessionId = 0, $groupId = 0)
     {
-        if (empty($this->courseCode)) {
+        if (empty($this->courseCode) && !$courseId) {
             if ($this->isGlobalConferencePerUserEnabled()) {
                 return 'global=1&user_id='.$this->userId;
             }
@@ -157,9 +174,9 @@ class bbb
 
         return http_build_query(
             [
-                'cidReq' => $this->courseCode,
-                'id_session' => $this->sessionId,
-                'gidReq' => $this->groupId,
+                'cidReq' => $courseId ? api_get_course_entity($courseId)->getCode() : $this->courseCode,
+                'id_session' => $sessionId ?: $this->sessionId,
+                'gidReq' => $groupId ?: $this->groupId,
             ]
         );
     }
@@ -1117,6 +1134,16 @@ class bbb
             $pass = $meetingData['attendee_pw'];
         }
 
+        Event::addEvent(
+            'bbb_end_meeting',
+            'meeting_id',
+            (int) $id,
+            null,
+            api_get_user_id(),
+            api_get_course_int_id(),
+            api_get_session_id()
+        );
+
         $endParams = array(
             'meetingId' => $meetingData['remote_id'], // REQUIRED - We have to know which meeting to end.
             'password' => $pass, // REQUIRED - Must match moderator pass for meeting.
@@ -1226,7 +1253,7 @@ class bbb
             } else {
                 $links[] = Display::url(
                     Display::return_icon('course_home.png', get_lang('GoToCourse')),
-                    $this->getListingUrl()
+                    $this->getListingUrl($meetingInfo['c_id'], $meetingInfo['session_id'], $meetingInfo['group_id'])
                 );
 
                 return $links;
@@ -1276,7 +1303,7 @@ class bbb
         } else {
             $links[] = Display::url(
                 Display::return_icon('course_home.png', get_lang('GoToCourse')),
-                $this->getListingUrl()
+                $this->getListingUrl($meetingInfo['c_id'], $meetingInfo['session_id'], $meetingInfo['group_id'])
             );
         }
 
@@ -1517,6 +1544,16 @@ class bbb
             'first'
         );
 
+        Event::addEvent(
+            'bbb_regenerate_record',
+            'record_id',
+            (int) $recordId,
+            null,
+            api_get_user_id(),
+            api_get_course_int_id(),
+            api_get_session_id()
+        );
+
         // Check if there are recordings for this meeting
         $recordings = $this->api->getRecordings(['meetingId' => $meetingData['remote_id']]);
         if (!empty($recordings) && isset($recordings['messageKey']) && $recordings['messageKey'] === 'noRecordings') {
@@ -1572,6 +1609,16 @@ class bbb
             $this->table,
             array('where' => array('id = ?' => array($id))),
             'first'
+        );
+
+        Event::addEvent(
+            'bbb_delete_record',
+            'meeting_id',
+            $id,
+            null,
+            api_get_user_id(),
+            api_get_course_int_id(),
+            api_get_session_id()
         );
 
         $delete = false;
@@ -1670,9 +1717,26 @@ class bbb
      */
     public function isServerRunning()
     {
+        return true;
+        //return BigBlueButtonBN::isServerRunning($this->protocol.$this->url);
+    }
+
+    /**
+     * Checks if the video conference plugin is properly configured
+     * @return bool True if plugin has a host and a salt, false otherwise
+     * @assert () === false
+     */
+    public function isServerConfigured()
+    {
         $host = $this->plugin->get('host');
 
         if (empty($host)) {
+            return false;
+        }
+
+        $salt = $this->plugin->get('salt');
+
+        if (empty($salt)) {
             return false;
         }
 
