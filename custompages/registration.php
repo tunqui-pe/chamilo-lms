@@ -25,8 +25,8 @@ if (isset($content['form']->_elementIndex['status'])) {
 }*/
 $content['form']->removeElement('official_code');
 $content['form']->removeElement('phone');
-$content['form']->removeElement('extra_rol_unico_tributario');
-$content['form']->removeElement('extra_rut_factura');
+/*$content['form']->removeElement('extra_rol_unico_tributario');
+$content['form']->removeElement('extra_rut_factura');*/
 
 $theme = api_get_visual_theme();
 $rootWeb = api_get_path('WEB_PATH');
@@ -65,39 +65,40 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
         </div>
         <div class="panel panel-default form-register">
             <div class="panel-body">
-                <div class="message">
-                    <?php
-                        if (isset($content['info']) && !empty($content['info'])) {
-                            echo '<div class="alert alert-info" role="alert">'.$content['info'].'</div>';
-                        }
-
-                        if (isset($error_message)) {
-                            echo '<div id="login-form-info" class="alert alert-danger" role="alert">'.$error_message.'</div>';
-                        }
-                    ?>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-title-container">
-                            <h2 class="section-title">Registro de nuevo usuario</h2>
-                        </div>
-                        <div class="alert alert-info text-register">
-                            Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha olvidado su contraseña?</a>
-                        </div>
+                <div class="padding-login">
+                    <div class="message">
                         <?php
-                            $content['form']->display();
+                            if (isset($content['info']) && !empty($content['info'])) {
+                                echo '<div class="alert alert-info" role="alert">'.$content['info'].'</div>';
+                            }
+
+                            if (isset($error_message)) {
+                                echo '<div id="login-form-info" class="alert alert-danger" role="alert">'.$error_message.'</div>';
+                            }
                         ?>
-                        <div class="custom_required">
-                            * Esta información la utilizaremos para tu certificado de aprobación.
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section-title-container">
+                                <h2 class="section-title">Registro de nuevo usuario</h2>
+                            </div>
+                            <div class="alert alert-info text-register">
+                                Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha olvidado su contraseña?</a>
+                            </div>
+                            <?php
+                                $content['form']->display();
+                            ?>
+                            <div class="custom_required">
+                                * Esta información la utilizaremos para tu certificado de aprobación.
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div> <!-- /container -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $('#extra_rol_unico_tributario').bind('keypress', function (event) {
 
             var keyCode = event.keyCode || event.which
@@ -130,7 +131,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                 return false;
             }
         });
-    });
+    });*/
 </script>
 </body>
 </html>
