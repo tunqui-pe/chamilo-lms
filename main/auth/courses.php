@@ -255,7 +255,6 @@ switch ($action) {
                         $fields[$key] = $value;
                     }
                 }
-
                 $extraFieldsAll = $extraField->get_all(
                     ['visible_to_self = ? AND filter = ?' => [1, 1]],
                     'option_order'
@@ -291,6 +290,12 @@ switch ($action) {
                                 );
                             }
                             $defaults[$variable] = $tags;
+                        } else {
+                            if (is_array($data)) {
+                                $defaults[$variable] = array_map(['Security', 'remove_XSS'], $data);
+                            } else {
+                                $defaults[$variable] = Security::remove_XSS($data);
+                            }
                         }
                     }
                 }
@@ -415,6 +420,7 @@ switch ($action) {
 
             $form->addButtonSearch(get_lang('Search'));
             $form->setDefaults($defaults);
+
             $content .= $form->returnForm();
             $content .= '</div>';
         }
