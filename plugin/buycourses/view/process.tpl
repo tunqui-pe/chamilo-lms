@@ -63,6 +63,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {% elseif buying_session %}
                         <div class="row">
                             <div class="col-md-3">
@@ -115,11 +116,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {% endif %}
                 </div>
                 <div class="buy-summary">
-                    <h3>{{ 'PaymentMethods'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
-                    {{ form }}
+                    <h3 class="buy-title-section">{{ 'PaymentMethods'|get_plugin_lang('BuyCoursesPlugin') }}</h3>
+                    <div class="list-buycourse-payment">
+                        {{ form }}
+                    </div>
                 </div>
             </div>
         </div>

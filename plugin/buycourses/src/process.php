@@ -8,6 +8,7 @@ use ChamiloSession as Session;
  *
  * @package chamilo.plugin.buycourses
  */
+
 require_once '../config.php';
 
 $currentUserId = api_get_user_id();
@@ -21,6 +22,7 @@ $paypalEnabled = $plugin->get('paypal_enable') === 'true';
 $transferEnabled = $plugin->get('transfer_enable') === 'true';
 $culqiEnabled = $plugin->get('culqi_enable') === 'true';
 
+
 if (!$paypalEnabled && !$transferEnabled && !$culqiEnabled) {
     api_not_allowed(true);
 }
@@ -28,6 +30,7 @@ if (!$paypalEnabled && !$transferEnabled && !$culqiEnabled) {
 if (!isset($_REQUEST['t'], $_REQUEST['i'])) {
     api_not_allowed(true);
 }
+
 
 $buyingCourse = intval($_REQUEST['t']) === BuyCoursesPlugin::PRODUCT_TYPE_COURSE;
 $buyingSession = intval($_REQUEST['t']) === BuyCoursesPlugin::PRODUCT_TYPE_SESSION;
@@ -47,7 +50,10 @@ if ($buyingCourse) {
     $item = $plugin->getItemByProduct($_REQUEST['i'], BuyCoursesPlugin::PRODUCT_TYPE_SESSION);
 }
 
+$userInfo = api_get_user_info();
+
 $form = new FormValidator('confirm_sale');
+
 if ($form->validate()) {
     $formValues = $form->getSubmitValues();
 
@@ -83,12 +89,20 @@ if (!$culqiEnabled) {
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_CULQI]);
 }
 
+if($sessionInfo['is_international']){
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSFER]);
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK]);
+}else{
+    unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_PAYPAL]);
+}
+
 $count = count($paymentTypesOptions);
 if ($count === 0) {
     $form->addHtml($plugin->get_lang('NoPaymentOptionAvailable'));
     $form->addHtml('<br />');
     $form->addHtml('<br />');
 } elseif ($count === 1) {
+    $text = '';
     // get the only array item
     foreach ($paymentTypesOptions as $type => $value) {
         $form->addHtml(sprintf($plugin->get_lang('XIsOnlyPaymentMethodAvailable'), $value));

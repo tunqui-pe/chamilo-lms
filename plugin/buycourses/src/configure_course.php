@@ -20,6 +20,7 @@ if (empty($id) || empty($type)) {
 }
 
 $plugin = BuyCoursesPlugin::create();
+
 $commissionsEnable = $plugin->get('commissions_enable');
 
 if ($commissionsEnable == 'true') {
@@ -89,6 +90,7 @@ if ($editingCourse) {
         'name' => $courseItem['course_title'],
         'visible' => $courseItem['visible'],
         'price' => $courseItem['price'],
+        'price_usd' => $courseItem['price_usd'],
         'tax_perc' => $courseItem['tax_perc'],
         'beneficiaries' => $defaultBeneficiaries,
         $commissionsEnable == 'true' ? 'commissions' : '' => $commissionsEnable == 'true' ? $commissions : '',
@@ -155,7 +157,9 @@ if ($editingCourse) {
         'name' => $sessionItem['session_name'],
         'visible' => $sessionItem['visible'],
         'price' => $sessionItem['price'],
+        'price_usd' => $sessionItem['price_usd'],
         'tax_perc' => $sessionItem['tax_perc'],
+        'is_international' => $sessionItem['is_international'],
         'beneficiaries' => $defaultBeneficiaries,
         $commissionsEnable == 'true' ? 'commissions' : '' => $commissionsEnable == 'true' ? $commissions : '',
     ];
@@ -206,6 +210,19 @@ $form->addElement(
     [$plugin->get_lang('Price'), null, $currencyIso],
     ['step' => 0.01]
 );
+
+$isInternationalCheckbox = $form->addCheckBox(
+    'is_international',
+    $plugin->get_lang('InternationalCourse'),
+    $plugin->get_lang('AddPriceUSD')
+);
+
+$form->addElement(
+    'number',
+    'price_usd',
+    [$plugin->get_lang('PriceInternational'), null, 'USD'],
+    ['step' => 0.01]
+);
 $form->addElement(
     'number',
     'tax_perc',
@@ -246,6 +263,7 @@ if ($commissionsEnable === 'true') {
             </div>
         </div>'
     );
+
     $form->addHidden('commissions', '');
 }
 
@@ -265,6 +283,11 @@ if ($form->validate()) {
     $type = $formValues['type'];
 
     $productItem = $plugin->getItemByProduct($id, $type);
+
+    $isInternationalValue = 0;
+    if(isset($formValues['is_international'])){
+        $isInternationalValue = 1;
+    }
     if (isset($formValues['visible'])) {
         $taxPerc = $formValues['tax_perc'] != '' ? (int) $formValues['tax_perc'] : null;
         if (!empty($productItem)) {
@@ -272,6 +295,8 @@ if ($form->validate()) {
                 [
                     'price' => floatval($formValues['price']),
                     'tax_perc' => $taxPerc,
+                    'price_usd' => floatval($formValues['price_usd']),
+                    'is_international' => $formValues['is_international']
                 ],
                 $id,
                 $type
@@ -283,6 +308,8 @@ if ($form->validate()) {
                 'product_id' => $id,
                 'price' => floatval($_POST['price']),
                 'tax_perc' => $taxPerc,
+                'price_usd' => floatval($_POST['price_usd']),
+                'is_international' => $isInternationalValue
             ]);
             $productItem['id'] = $itemId;
         }
@@ -302,6 +329,7 @@ if ($form->validate()) {
                 $commissions = array_fill(0, count($usersId), 0);
                 $beneficiaries = array_combine($usersId, $commissions);
             }
+
             $plugin->registerItemBeneficiaries($productItem['id'], $beneficiaries);
         }
     } else {
@@ -314,6 +342,7 @@ if ($form->validate()) {
 
 $form->setDefaults($formDefaults);
 
+// View
 $templateName = $plugin->get_lang('AvailableCourse');
 
 $interbreadcrumb[] = [

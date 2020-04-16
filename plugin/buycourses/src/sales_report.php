@@ -6,6 +6,7 @@
  *
  * @package chamilo.plugin.buycourses
  */
+//Initialization
 $cidReset = true;
 
 require_once '../config.php';
@@ -123,6 +124,7 @@ $form->setDefaults([
     'date_end' => $dateEnd,
     'email' => $email,
 ]);
+
 
 switch ($selectedFilterType) {
     case '0':

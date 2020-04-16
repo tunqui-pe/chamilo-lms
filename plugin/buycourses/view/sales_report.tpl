@@ -28,6 +28,7 @@
             <th>{{ 'Name'|get_lang }}</th>
             <th>{{ 'UserName'|get_lang }}</th>
             <th>{{ 'Email'|get_lang }}</th>
+
             {% if invoicing_enable %}
                 <th>{{ 'Invoice'|get_plugin_lang('BuyCoursesPlugin') }}</th>
             {% endif %}

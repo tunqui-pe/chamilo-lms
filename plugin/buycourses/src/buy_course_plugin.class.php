@@ -30,6 +30,7 @@ class BuyCoursesPlugin extends Plugin
     const TABLE_SERVICES = 'plugin_buycourses_services';
     const TABLE_SERVICES_SALE = 'plugin_buycourses_service_sale';
     const TABLE_CULQI = 'plugin_buycourses_culqi';
+    const TABLE_TRANSBANK = 'plugin_buycourses_transbank';
     const TABLE_GLOBAL_CONFIG = 'plugin_buycourses_global_config';
     const TABLE_INVOICE = 'plugin_buycourses_invoices';
     const PRODUCT_TYPE_COURSE = 1;
@@ -37,6 +38,7 @@ class BuyCoursesPlugin extends Plugin
     const PAYMENT_TYPE_PAYPAL = 1;
     const PAYMENT_TYPE_TRANSFER = 2;
     const PAYMENT_TYPE_CULQI = 3;
+    const PAYMENT_TYPE_TRANSBANK = 4;
     const PAYOUT_STATUS_CANCELED = 2;
     const PAYOUT_STATUS_PENDING = 0;
     const PAYOUT_STATUS_COMPLETED = 1;
@@ -52,6 +54,8 @@ class BuyCoursesPlugin extends Plugin
     const SERVICE_TYPE_LP_FINAL_ITEM = 4;
     const CULQI_INTEGRATION_TYPE = 'INTEG';
     const CULQI_PRODUCTION_TYPE = 'PRODUC';
+    const TRANSBANK_INTEGRATION_TYPE = 'INTEG';
+    const TRANSBANK_PRODUCTION_TYPE = 'PRODUC';
     const TAX_APPLIES_TO_ALL = 1;
     const TAX_APPLIES_TO_ONLY_COURSE = 2;
     const TAX_APPLIES_TO_ONLY_SESSION = 3;
@@ -84,6 +88,7 @@ class BuyCoursesPlugin extends Plugin
                 'paypal_enable' => 'boolean',
                 'transfer_enable' => 'boolean',
                 'culqi_enable' => 'boolean',
+                'transbank_enable' => 'boolean',
                 'commissions_enable' => 'boolean',
                 'unregistered_users_enable' => 'boolean',
                 'hide_free_text' => 'boolean',
@@ -111,7 +116,7 @@ class BuyCoursesPlugin extends Plugin
      */
     public function isEnabled()
     {
-        return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable');
+        return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable') || $this->get('transbank_enable');
     }
 
     /**
@@ -123,6 +128,7 @@ class BuyCoursesPlugin extends Plugin
             self::TABLE_PAYPAL,
             self::TABLE_TRANSFER,
             self::TABLE_CULQI,
+            self::TABLE_TRANSBANK,
             self::TABLE_ITEM_BENEFICIARY,
             self::TABLE_ITEM,
             self::TABLE_SALE,
@@ -155,6 +161,7 @@ class BuyCoursesPlugin extends Plugin
             self::TABLE_PAYPAL,
             self::TABLE_TRANSFER,
             self::TABLE_CULQI,
+            self::TABLE_TRANSBANK,
             self::TABLE_ITEM_BENEFICIARY,
             self::TABLE_ITEM,
             self::TABLE_SALE,
@@ -322,6 +329,9 @@ class BuyCoursesPlugin extends Plugin
             $item = $this->getItemByProduct($productId, $productType);
             $html = '<div class="buycourses-price">';
             if ($item) {
+		if(boolval($item['is_international'])){
+                    $price = 'USD '.$item['price_usd'];
+                }
                 $html .= '<span class="label label-primary label-price">
                             <strong>'.$item['total_price_formatted'].'</strong>
                           </span>';
@@ -563,9 +573,52 @@ class BuyCoursesPlugin extends Plugin
      *
      * @return array
      */
+    public function getCoursesForConfiguration()
+    {
+        $courses = $this->getCourses();
+
+        if (empty($courses)) {
+            return [];
+        }
+
+        $configurationCourses = [];
+        $currency = $this->getSelectedCurrency();
+
+        foreach ($courses as $course) {
+            $configurationCourses[] = $this->getCourseForConfiguration(
+                $course,
+                $currency
+            );
+        }
+
+        return $configurationCourses;
+    }
+    /**
+     * List courses details from the configuration page.
+     *
+     * @return array
+     */
     public function getCourseList($first, $maxResults)
     {
         return $this->getCourses($first, $maxResults);
+    }
+
+
+/**
+     * List sessions details from the buy-session table and the session table.
+     *
+     * @return array The sessions. Otherwise return false
+     */
+    public function getSessionsForConfiguration()
+    {
+        $sessions = CoursesAndSessionsCatalog::browseSessions();
+        $currency = $this->getSelectedCurrency();
+        $items = [];
+        foreach ($sessions as $session) {
+            $items[] = $this->getSessionForConfiguration($session, $currency);
+        }
+
+        return $items;
     }
 
     /**
@@ -633,10 +686,12 @@ class BuyCoursesPlugin extends Plugin
                     $user = $userCourseSubscription->getUser();
                     $sessionCourseData['coaches'][] = $user->getCompleteName();
                 }
+
                 $sessionData['courses'][] = $sessionCourseData;
             }
 
             $sessionCatalog[] = $sessionData;
+
         }
 
         return $sessionCatalog;
@@ -697,6 +752,7 @@ class BuyCoursesPlugin extends Plugin
             if (file_exists($possiblePath)) {
                 $courseItem['course_img'] = api_get_path(WEB_COURSE_PATH).$course->getDirectory().'/course-pic.png';
             }
+
             $courseCatalog[] = $courseItem;
         }
 
@@ -833,6 +889,8 @@ class BuyCoursesPlugin extends Plugin
         );
 
         $globalParameters = $this->getGlobalParameters();
+        $category = $session->getCategory() ? $session->getCategory()->getName() : null;
+        $isInternational = boolval($item['is_international']);
         $sessionInfo = [
             'id' => $session->getId(),
             'name' => $session->getName(),
@@ -842,10 +900,16 @@ class BuyCoursesPlugin extends Plugin
             'tax_name' => $globalParameters['tax_name'],
             'tax_enable' => $this->checkTaxEnabledInProduct(self::TAX_APPLIES_TO_ONLY_SESSION),
             'image' => null,
+            'category' => $category,
             'nbrCourses' => $session->getNbrCourses(),
             'nbrUsers' => $session->getNbrUsers(),
             'item' => $item,
+	    'price_usd' => $item['price_usd'],
+            'is_international' => $isInternational,
         ];
+        if($isInternational){
+            $sessionInfo['currency_usd'] = 'USD';
+        }
 
         $fieldValue = new ExtraFieldValue('session');
         $sessionImage = $fieldValue->get_values_by_handler_and_field_variable(
@@ -858,8 +922,10 @@ class BuyCoursesPlugin extends Plugin
         }
 
         $sessionCourses = $session->getCourses();
+
         foreach ($sessionCourses as $sessionCourse) {
             $course = $sessionCourse->getCourse();
+
             $sessionCourseData = [
                 'title' => $course->getTitle(),
                 'coaches' => [],
@@ -883,6 +949,8 @@ class BuyCoursesPlugin extends Plugin
         return $sessionInfo;
     }
 
+
+
     /**
      * Register a sale.
      *
@@ -895,14 +963,20 @@ class BuyCoursesPlugin extends Plugin
     {
         if (!in_array(
             $paymentType,
-            [self::PAYMENT_TYPE_PAYPAL, self::PAYMENT_TYPE_TRANSFER, self::PAYMENT_TYPE_CULQI]
-        )
+            [
+                self::PAYMENT_TYPE_PAYPAL,
+                self::PAYMENT_TYPE_TRANSFER,
+                self::PAYMENT_TYPE_CULQI,
+                self::PAYMENT_TYPE_TRANSBANK
+            ])
         ) {
             return false;
         }
 
         $entityManager = Database::getManager();
         $item = $this->getItem($itemId);
+
+        $isInternational = boolval($item['is_international']);
 
         if (empty($item)) {
             return false;
@@ -927,10 +1001,16 @@ class BuyCoursesPlugin extends Plugin
             $productName = $session->getName();
         }
 
+        if($isInternational){
+            $item['price'] = $item['price_usd'];
+            $item['currency_id'] = 232;
+        }
+
         $price = $item['price'];
         $priceWithoutTax = null;
         $taxPerc = null;
         $taxAmount = 0;
+
         $taxEnable = $this->get('tax_enable') === 'true';
         $globalParameters = $this->getGlobalParameters();
         $taxAppliesTo = $globalParameters['tax_applies_to'];
@@ -993,6 +1073,25 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
+     * Get sale data by ID.
+     *
+     * @param string $codeReference The sale ID Reference
+     *
+     * @return array
+     */
+    public function getSaleReference($codeReference)
+    {
+        return Database::select(
+            '*',
+            Database::get_main_table(self::TABLE_SALE),
+            [
+                'where' => ['reference = ?' => $codeReference],
+            ],
+            'first'
+        );
+    }
+
+    /**
      * Get a list of sales by the payment type.
      *
      * @param int $paymentType The payment type to filter (default : Paypal)
@@ -1035,6 +1134,7 @@ class BuyCoursesPlugin extends Plugin
      */
     public function getDataSaleInvoice($saleId, $isService)
     {
+        $data = [];
         if ($isService) {
             $sale = $this->getServiceSale($saleId);
             $sale['reference'] = $sale['reference'];
@@ -1162,6 +1262,11 @@ class BuyCoursesPlugin extends Plugin
         $this->updateSaleStatus($saleId, self::SALE_STATUS_CANCELED);
     }
 
+    public function getImageIcon($logo){
+        $imgFilesLogo = '<img class="logo-payment" src="'.api_get_path(WEB_PLUGIN_PATH).'buycourses/resources/img/'.$logo.'" />';
+        return $imgFilesLogo;
+    }
+
     /**
      * Get payment types.
      *
@@ -1170,9 +1275,26 @@ class BuyCoursesPlugin extends Plugin
     public function getPaymentTypes()
     {
         return [
-            self::PAYMENT_TYPE_PAYPAL => 'PayPal',
-            self::PAYMENT_TYPE_TRANSFER => $this->get_lang('BankTransfer'),
             self::PAYMENT_TYPE_CULQI => 'Culqi',
+            self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
+            self::PAYMENT_TYPE_TRANSBANK => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
+            self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
+        ];
+    }
+
+    /**
+     * Get payment types.
+     *
+     * @return array
+     */
+    public function getPaymentTypesString()
+    {
+        return [
+            self::PAYMENT_TYPE_CULQI => 'Culqi',
+            self::PAYMENT_TYPE_TRANSFER => 'Transferencia Bancaria',
+            self::PAYMENT_TYPE_TRANSBANK => 'Webpay',
+            self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
+            self::PAYMENT_TYPE_PAYPAL => 'PayPal'
         ];
     }
 
@@ -1287,7 +1409,32 @@ class BuyCoursesPlugin extends Plugin
      * @param string $dateStart
      * @param string $dateEnd
      *
-     * @throws Exception
+     * @return array The sale list. Otherwise return false
+     */
+    public function getSaleListByStatusUser($status = self::SALE_STATUS_PENDING, $userID)
+    {
+        $saleTable = Database::get_main_table(self::TABLE_SALE);
+        $currencyTable = Database::get_main_table(self::TABLE_CURRENCY);
+        $userTable = Database::get_main_table(TABLE_MAIN_USER);
+
+        $innerJoins = "
+            INNER JOIN $currencyTable c ON s.currency_id = c.id
+            INNER JOIN $userTable u ON s.user_id = u.id
+        ";
+
+        return Database::select(
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
+            "$saleTable s $innerJoins",
+            [
+                'where' => ['s.status = ?' => (int) $status],
+                'and' => ['s.user_id = ?' => (int) $userID],
+                'order' => 'id DESC',
+            ]
+        );
+    }
+
+    /**
+     * Get the list statuses for sales.
      *
      * @return array
      */
@@ -1307,11 +1454,13 @@ class BuyCoursesPlugin extends Plugin
                 'order' => 'id DESC',
             ]
         );
+
         $listExportTemp = [];
         $listExport = [];
         $textStatus = null;
         $paymentTypes = $this->getPaymentTypes();
         $productTypes = $this->getProductTypes();
+        $paymentTypes = $this->getPaymentTypesString();
         foreach ($list as $item) {
             $statusSaleOrder = $item['status'];
             switch ($statusSaleOrder) {
@@ -1325,6 +1474,7 @@ class BuyCoursesPlugin extends Plugin
                     $textStatus = $this->get_lang('SaleStatusCanceled');
                     break;
             }
+
             $dateFilter = new DateTime($item['date']);
             $listExportTemp[] = [
                 'id' => $item['id'],
@@ -1341,6 +1491,7 @@ class BuyCoursesPlugin extends Plugin
                 'email' => $item['email'],
             ];
         }
+
         $listExport[] = [
             get_lang('Number'),
             $this->get_lang('OrderStatus'),
@@ -1353,6 +1504,7 @@ class BuyCoursesPlugin extends Plugin
             $this->get_lang('UserName'),
             get_lang('Email'),
         ];
+
         //Validation Export
         $dateStart = strtotime($dateStart);
         $dateEnd = strtotime($dateEnd);
@@ -1546,7 +1698,7 @@ class BuyCoursesPlugin extends Plugin
         ";
 
         return Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
             "$saleTable s $innerJoins",
             [
                 'where' => [
@@ -1609,9 +1761,11 @@ class BuyCoursesPlugin extends Plugin
         if (empty($term)) {
             return [];
         }
+
         $saleTable = Database::get_main_table(self::TABLE_SALE);
         $currencyTable = Database::get_main_table(self::TABLE_CURRENCY);
         $userTable = Database::get_main_table(TABLE_MAIN_USER);
+
         $innerJoins = "
             INNER JOIN $currencyTable c ON s.currency_id = c.id
             INNER JOIN $userTable u ON s.user_id = u.id
@@ -1649,6 +1803,7 @@ class BuyCoursesPlugin extends Plugin
             'visible' => false,
             'currency' => empty($defaultCurrency) ? null : $defaultCurrency['iso_code'],
             'price' => 0.00,
+            'price_usd' => 0.00,
             'tax_perc' => null,
         ];
 
@@ -1660,6 +1815,7 @@ class BuyCoursesPlugin extends Plugin
             $courseItem['currency'] = $item['iso_code'];
             $courseItem['price'] = $item['price'];
             $courseItem['tax_perc'] = $item['tax_perc'];
+            $courseItem['price_usd'] = $item['price_usd'];
         }
 
         return $courseItem;
@@ -1691,8 +1847,10 @@ class BuyCoursesPlugin extends Plugin
             'session_display_start_date' => null,
             'session_display_end_date' => null,
             'visible' => false,
+            'is_international' => false,
             'currency' => empty($defaultCurrency) ? null : $defaultCurrency['iso_code'],
             'price' => 0.00,
+            'price_usd' => 0.00,
             'tax_perc' => null,
         ];
 
@@ -1730,7 +1888,12 @@ class BuyCoursesPlugin extends Plugin
             $sessionItem['visible'] = true;
             $sessionItem['currency'] = $item['iso_code'];
             $sessionItem['price'] = $item['price'];
+            $sessionItem['price_usd'] = $item['price_usd'];
             $sessionItem['tax_perc'] = $item['tax_perc'];
+            $sessionItem['is_international'] = boolval($item['is_international']);
+            if($sessionItem['is_international']){
+                $sessionItem['currency_usd'] = 'USD';
+            }
         }
 
         return $sessionItem;
@@ -2658,6 +2821,27 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
+     * Save Transbank configuration params.
+     *
+     * @param array $params
+     *
+     * @return int Rows affected. Otherwise return false
+     */
+    public function saveTransbankParameters($params)
+    {
+        return Database::update(
+            Database::get_main_table(self::TABLE_TRANSBANK),
+            [
+                'commerce_code' => $params['commerce_code'],
+                'private_key' => $params['private_key'],
+                'public_cert' => $params['public_cert'],
+                'integration' => $params['integration'],
+            ],
+            ['id = ?' => 1]
+        );
+    }
+
+    /**
      * Gets the stored Culqi params.
      *
      * @return array
@@ -2667,6 +2851,21 @@ class BuyCoursesPlugin extends Plugin
         return Database::select(
             '*',
             Database::get_main_table(self::TABLE_CULQI),
+            ['id = ?' => 1],
+            'first'
+        );
+    }
+
+    /**
+     * Gets the stored Transbank params.
+     *
+     * @return array
+     */
+    public function getTransbankParams()
+    {
+        return Database::select(
+            '*',
+            Database::get_main_table(self::TABLE_TRANSBANK),
             ['id = ?' => 1],
             'first'
         );

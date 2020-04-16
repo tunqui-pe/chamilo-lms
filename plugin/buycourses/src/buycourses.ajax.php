@@ -21,6 +21,7 @@ if (api_is_anonymous()) {
 
 $plugin = BuyCoursesPlugin::create();
 $culqiEnable = $plugin->get('culqi_enable');
+
 $action = isset($_GET['a']) ? $_GET['a'] : null;
 
 $em = Database::getManager();
@@ -247,7 +248,9 @@ switch ($action) {
                 false
             );
         }
+
         break;
+
     case 'cancelPayout':
         if (api_is_anonymous()) {
             break;
@@ -263,6 +266,22 @@ switch ($action) {
         echo '';
 
         break;
+    case 'cancel_payment_reference':
+        if (api_is_anonymous()) {
+            break;
+        }
+
+        // $payoutId only gets used in setStatusPayout(), where it is filtered
+        $payoutReference = isset($_POST['reference']) ? $_POST['reference'] : '';
+        $payoutUser = isset($_POST['user']) ? $_POST['user'] : '';
+
+        $sale = $plugin->getSaleReference($payoutReference);
+        $plugin->cancelSale($sale['id']);
+
+        echo '';
+
+        break;
+
     case 'culqi_cargo':
         if (!$culqiEnable) {
             break;
@@ -274,7 +293,9 @@ switch ($action) {
         if (!$tokenId || !$saleId) {
             break;
         }
+
         $sale = $plugin->getSale($saleId);
+
         if (!$sale) {
             break;
         }
@@ -457,6 +478,7 @@ switch ($action) {
         $html .= "<br />";
         $html .= "<legend>{$plugin->get_lang('ServiceInformation')}</legend>";
         $html .= "<ul>";
+        $html .= "<li><b>{$plugin->get_lang('ServiceId')}:</b> {$serviceSale['id']}</li> ";
         $html .= "<li><b>{$plugin->get_lang('ServiceName')}:</b> {$serviceSale['service']['name']}</li> ";
         $html .= "<li><b>{$plugin->get_lang('Description')}:</b> {$serviceSale['service']['description']}</li> ";
         $nodeType = $serviceSale['node_type'];

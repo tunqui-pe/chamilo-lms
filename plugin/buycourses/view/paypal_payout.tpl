@@ -65,6 +65,7 @@
 <script>
     $(function () {
         $("#responseButton").hide();
+
         $("#checkAll").click(function () {
             $(':checkbox').prop('checked', this.checked);
         });

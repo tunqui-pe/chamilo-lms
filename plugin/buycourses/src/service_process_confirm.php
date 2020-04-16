@@ -18,6 +18,7 @@ if (empty($serviceSaleId)) {
 }
 
 $serviceSale = $plugin->getServiceSale($serviceSaleId);
+
 $userInfo = api_get_user_info($serviceSale['buyer']['id']);
 
 if (empty($serviceSale)) {
@@ -207,6 +208,7 @@ switch ($serviceSale['payment_type']) {
         );
 
         $template = new Template();
+
         $template->assign('terms', $globalParameters['terms_and_conditions']);
         $template->assign('title', $serviceSale['service']['name']);
         $template->assign('price', $serviceSale['price']);
@@ -223,6 +225,7 @@ switch ($serviceSale['payment_type']) {
         $template->assign('content', $content);
         $template->display_one_col_template();
         break;
+
     case BuyCoursesPlugin::PAYMENT_TYPE_CULQI:
         // We need to include the main online script, acording to the Culqi documentation the JS needs to be loeaded
         // directly from the main url "https://integ-pago.culqi.com" because a local copy of this JS is not supported

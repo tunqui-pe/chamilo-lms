@@ -21,14 +21,19 @@
     <div class="tab-content">
         <div class="tab-pane active" aria-labelledby="buy-sessions-tab" role="tabpanel">
             <div class="row">
-                <div class="col-md-3">
-                    {{ search_filter_form }}
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ search_filter_form }}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="row">
+                        <div class="list-course-buy">
                         {% if showing_courses %}
                             {% for course in courses %}
-                                <div class="col-md-4 col-sm-6">
+
                                     <article class="items-course">
                                         <div class="items-course-image">
                                             <img alt="{{ course.title }}" class="img-responsive"
@@ -71,17 +76,24 @@
                                             {% endif %}
                                         </div>
                                     </article>
-                                </div>
+
                             {% endfor %}
                         {% endif %}
 
                         {% if showing_sessions %}
                             {% for session in sessions %}
-                                <div class="col-md-4 col-sm-6">
+
                                     <article class="items-course">
                                         <div class="items-course-image">
                                             <img alt="{{ session.name }}" class="img-responsive"
                                                  src="{{ session.image ? session.image : 'session_default.png'|icon() }}">
+                                            <div class="price">
+                                                {% if session.is_international %}
+                                                    {{ session.currency_usd }} {{ session.price_usd }}
+                                                {% else %}
+                                                    {{ session.currency }} {{ session.price }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                         <div class="items-course-info">
                                             <h4 class="title">
@@ -121,12 +133,37 @@
                                                         <em class="fa fa-shopping-cart"></em> {{ 'Buy'|get_plugin_lang('BuyCoursesPlugin') }}
                                                     </a>
                                                 </div>
-                                            {% elseif session.enrolled == "TMP" %}
-                                                <div class="alert alert-info">{{ 'WaitingToReceiveThePayment'|get_plugin_lang('BuyCoursesPlugin') }}</div>
+                                            {% elseif session.enrolled.checking == "TMP" %}
+
+                                                {% for sale in session.enrolled.sale %}
+
+                                                    <div class="toolbar">
+                                                        {% if sale.payment_type == 4 %}
+                                                            <button id="sale-{{ sale.reference }}" data-reference="{{ sale.reference }}" data-user="{{ sale.user_id }}" data-paymenttype="{{ sale.payment_type }}" data-productid="{{ sale.product_id }}" class="cancel_payout_catalog btn btn-buy-cancel">
+                                                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                                                {{ 'ServipagButton'|get_plugin_lang('BuyCoursesPlugin') }}
+                                                            </button>
+                                                        {% elseif sale.payment_type == 5 %}
+                                                            <button id="sale-{{ sale.reference }}" data-reference="{{ sale.reference }}" data-user="{{ sale.user_id }}" data-paymenttype="{{ sale.payment_type }}" data-productid="{{ sale.product_id }}" class="cancel_payout_catalog btn btn-buy-cancel">
+                                                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                                                {{ 'TransbankButton'|get_plugin_lang('BuyCoursesPlugin') }}
+                                                            </button>
+                                                        {% endif %}
+                                                    </div>
+
+                                                    {% if sale.payment_type == 2 %}
+                                                        <div class="alert alert-success alert-status">{{ 'TransferFailureMessage'|get_plugin_lang('BuyCoursesPlugin') }}</div>
+                                                    {% elseif sale.payment_type == 4 %}
+                                                        <div class="alert alert-info alert-status">{{ 'ServipagFailureMessage'|get_plugin_lang('BuyCoursesPlugin') }}</div>
+                                                    {% elseif sale.payment_type == 5 %}
+                                                        <div class="alert alert-warning alert-status">{{ 'TransbankFailureMessage'|get_plugin_lang('BuyCoursesPlugin') }}</div>
+                                                    {% endif %}
+
+                                                {% endfor %}
                                             {% endif %}
                                         </div>
                                     </article>
-                                </div>
+
                             {% endfor %}
                         {% endif %}
 
@@ -195,6 +232,7 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
+                        </div>
                     </div>
                     {{ pagination }}
                 </div>
@@ -202,3 +240,19 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cancel_payout_catalog").click(function () {
+            var reference = $(this).data("reference");
+            var user = $(this).data("user");
+            $.ajax({
+                data: { 'reference' : reference, 'user': user },
+                url: '{{ _p.web_plugin ~ 'buycourses/src/buycourses.ajax.php?' ~  { 'a': 'cancel_payment_reference' }|url_encode() }}',
+                type: 'POST',
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
