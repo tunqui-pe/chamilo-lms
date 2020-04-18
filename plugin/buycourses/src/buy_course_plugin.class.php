@@ -1293,7 +1293,6 @@ class BuyCoursesPlugin extends Plugin
             self::PAYMENT_TYPE_CULQI => 'Culqi',
             self::PAYMENT_TYPE_TRANSFER => 'Transferencia Bancaria',
             self::PAYMENT_TYPE_TRANSBANK => 'Webpay',
-            self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
             self::PAYMENT_TYPE_PAYPAL => 'PayPal'
         ];
     }
@@ -1458,7 +1457,6 @@ class BuyCoursesPlugin extends Plugin
         $listExportTemp = [];
         $listExport = [];
         $textStatus = null;
-        $paymentTypes = $this->getPaymentTypes();
         $productTypes = $this->getProductTypes();
         $paymentTypes = $this->getPaymentTypesString();
         foreach ($list as $item) {
