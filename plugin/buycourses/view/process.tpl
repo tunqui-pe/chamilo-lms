@@ -1,5 +1,5 @@
 <div class="actions">
-    <a href="{{ _p.web }}main/auth/courses.php" title="{{ "Back"|get_lang }}">
+    <a href="{{ _p.web }}plugin/buycourses/src/course_catalog.php" title="{{ "Back"|get_lang }}">
         <img src="{{ "back.png"|icon(32) }}" width="32" height="32" alt="{{ "Back"|get_lang }}"
              title="{{ "Back"|get_lang }}"/>
     </a>

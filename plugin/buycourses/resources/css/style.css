@@ -147,40 +147,73 @@
 }
 .items-course .items-course-info .title{
     font-weight: bold;
+    font-size: 18px;
 }
 .btn-buy{
-    background: #808de8;
-    border-radius: 0;
+    background: #4caf50;
+    border-radius: 5px;
+    color: #FFFFFF;
     text-transform: uppercase;
-    border: 1px solid #808de8;
+    border: 1px solid #4caf50;
     font-weight: bold;
     padding: 10px 20px;
-    box-shadow: 2px 2px 0 1px rgba(128,141,232,.15);
+    box-shadow: 2px 2px 0 1px rgba(0,0,0,.15);
     margin-bottom: 1rem;
 }
 .btn-buy:hover, .btn-buy:active{
-    color: #bdc8f2;
-    background: #808de8;
-    border: 1px solid #808de8;
+    color: #FFFFFF;
+    background: #8bc34a;
+    border: 1px solid #8bc34a;
 }
 .btn-buy-cancel{
-    background: #ff547a;
-    border-radius: 0;
+    background: #ff0000;
+    border-radius: 5px;
     text-transform: uppercase;
-    border: 1px solid #ff547a;
+    border: 1px solid #ff0000;
     font-weight: bold;
     padding: 10px 20px;
-    box-shadow: 2px 2px 0 1px rgba(128,141,232,.15);
+    box-shadow: 2px 2px 0 1px rgba(0,0,0,.15);
     margin-bottom: 1rem;
     color: #FFFFFF;
     width: 100%;
     display: inline-block;
-    font-size: 12px;
 }
 .btn-buy-cancel:hover{
     color: #ffffff;
     background: #ea416e;
     border: 1px solid #ea416e;
+}
+.buy-summary .btn-success{
+    background: #4caf50;
+    border-radius: 0;
+    text-transform: uppercase;
+    border: 1px solid #4caf50;
+    font-weight: bold;
+    padding: 10px 20px;
+    box-shadow: 4px 4px 0 2px rgba(0,0,0,.15);
+    margin-bottom: 2rem;
+}
+.buy-summary .btn-success:hover{
+    color: #FFFFFF;
+    background: #8bc34a;
+    border: 1px solid #8bc34a;
+}
+.buy-summary .btn-info{
+    border: 1px solid #808de8;
+    text-transform: uppercase;
+    border-radius: 0;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #4E4957;
+    padding: 10px 20px;
+    background-color: #fff;
+    margin-left: 2rem;
+    box-shadow: 4px 4px 0 2px rgba(0,0,0,.15);
+}
+.buy-summary .btn-info:hover {
+    color: #bdc8f2;
+    background-color: #fbfbff;
+    border: 1px solid #808de8;
 }
 .alert-status{
     padding: 5px;

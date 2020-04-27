@@ -329,9 +329,6 @@ class BuyCoursesPlugin extends Plugin
             $item = $this->getItemByProduct($productId, $productType);
             $html = '<div class="buycourses-price">';
             if ($item) {
-		if(boolval($item['is_international'])){
-                    $price = 'USD '.$item['price_usd'];
-                }
                 $html .= '<span class="label label-primary label-price">
                             <strong>'.$item['total_price_formatted'].'</strong>
                           </span>';
@@ -2387,6 +2384,10 @@ class BuyCoursesPlugin extends Plugin
         }
 
         $product['tax_perc_show'] = $taxPerc;
+        $product['price_int_formatted'] = $this->getPriceWithCurrencyFromIsoCode(
+            number_format($product['price_usd'], $precision),
+            'USD'
+        );
         $product['price_formatted'] = $this->getPriceWithCurrencyFromIsoCode(
             number_format($product['price'], $precision),
             $product['iso_code']
@@ -3077,12 +3078,14 @@ class BuyCoursesPlugin extends Plugin
      * @param int     $userId  The user ID
      * @param Session $session The session
      *
-     * @return string
+     * @return array
      */
     private function getUserStatusForSession($userId, Session $session)
     {
         if (empty($userId)) {
-            return 'NO';
+            return [
+                'checking' => 'NO'
+            ];
         }
 
         $entityManager = Database::getManager();
@@ -3092,7 +3095,14 @@ class BuyCoursesPlugin extends Plugin
 
         // Check if user bought the course
         $sale = Database::select(
-            'COUNT(1) as qty',
+            'COUNT(1) as qty,
+                    product_type,
+                    product_id,
+                    user_id,
+                    reference,
+                    payment_type,
+                    status',
+
             $buySaleTable,
             [
                 'where' => [
@@ -3107,8 +3117,15 @@ class BuyCoursesPlugin extends Plugin
             'first'
         );
 
+        $saleParameter = [
+            $sale
+        ];
+
         if ($sale['qty'] > 0) {
-            return 'TMP';
+            return [
+                'checking' => 'TMP',
+                'sale' => $saleParameter
+            ];
         }
 
         // Check if user is already subscribe to session
@@ -3118,10 +3135,14 @@ class BuyCoursesPlugin extends Plugin
         ]);
 
         if (!empty($userSubscription)) {
-            return 'YES';
+            return [
+                'checking' => 'YES'
+            ];
         }
 
-        return 'NO';
+        return [
+            'checking' => 'NO'
+        ];
     }
 
     /**
@@ -3130,12 +3151,14 @@ class BuyCoursesPlugin extends Plugin
      * @param int    $userId The user Id
      * @param Course $course The course
      *
-     * @return string
+     * @return array
      */
     private function getUserStatusForCourse($userId, Course $course)
     {
         if (empty($userId)) {
-            return 'NO';
+            return [
+                'checking' => 'NO'
+            ];
         }
 
         $entityManager = Database::getManager();
@@ -3144,7 +3167,13 @@ class BuyCoursesPlugin extends Plugin
 
         // Check if user bought the course
         $sale = Database::select(
-            'COUNT(1) as qty',
+            'COUNT(1) as qty,
+                    product_type,
+                    product_id,
+                    user_id,
+                    reference,
+                    payment_type,
+                    status',
             $buySaleTable,
             [
                 'where' => [
@@ -3159,8 +3188,16 @@ class BuyCoursesPlugin extends Plugin
             'first'
         );
 
+        
+        $saleParameter = [
+            $sale
+        ];
+
         if ($sale['qty'] > 0) {
-            return 'TMP';
+            return [
+                'checking' => 'TMP',
+                'sale' => $saleParameter
+            ];
         }
 
         // Check if user is already subscribe to course
@@ -3170,10 +3207,14 @@ class BuyCoursesPlugin extends Plugin
         ]);
 
         if (!empty($userSubscription)) {
-            return 'YES';
+            return [
+                'checking' => 'YES'
+            ];
         }
 
-        return 'NO';
+        return [
+            'checking' => 'NO'
+        ];
     }
 
     /**

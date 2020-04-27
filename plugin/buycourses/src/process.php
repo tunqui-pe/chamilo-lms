@@ -42,12 +42,16 @@ if (empty($currentUserId)) {
     exit;
 }
 
+$isInternational = false;
+
 if ($buyingCourse) {
     $courseInfo = $plugin->getCourseInfo($_REQUEST['i']);
     $item = $plugin->getItemByProduct($_REQUEST['i'], BuyCoursesPlugin::PRODUCT_TYPE_COURSE);
+    $isInternational = $item['is_international'] ? true : false;
 } elseif ($buyingSession) {
     $sessionInfo = $plugin->getSessionInfo($_REQUEST['i']);
     $item = $plugin->getItemByProduct($_REQUEST['i'], BuyCoursesPlugin::PRODUCT_TYPE_SESSION);
+    $isInternational = $item['is_international'] ? true : false;
 }
 
 $userInfo = api_get_user_info();
@@ -89,7 +93,7 @@ if (!$culqiEnabled) {
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_CULQI]);
 }
 
-if($sessionInfo['is_international']){
+if($isInternational){
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSFER]);
     unset($paymentTypesOptions[BuyCoursesPlugin::PAYMENT_TYPE_TRANSBANK]);
 }else{
