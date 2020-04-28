@@ -354,13 +354,21 @@ if ($intro_dispDefault) {
     } else {
         if (api_is_allowed_to_edit()) {
             $introduction_section .= '<div class="help-course">';
-            $introduction_section .= $nameSection.' '.$textIntro;
+            $introduction_section .= $nameSection;
             $introduction_section .= '</div>';
         }
     }
 }
 
-$introduction_section .= $toolbar;
+if(api_get_configuration_value('disable_course_introduction')){
+    $isAdmin = api_is_platform_admin();
+    if($isAdmin){
+        $introduction_section .= $toolbar;
+    }
+}else{
+    $introduction_section .= $toolbar;
+}
+
 $introduction_section .= '</div>';
 $introduction_section .= '</div>';
 
