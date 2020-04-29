@@ -901,7 +901,7 @@ class BuyCoursesPlugin extends Plugin
             'nbrCourses' => $session->getNbrCourses(),
             'nbrUsers' => $session->getNbrUsers(),
             'item' => $item,
-	    'price_usd' => $item['price_usd'],
+	        'price_usd' => $item['price_usd'],
             'is_international' => $isInternational,
         ];
         if($isInternational){

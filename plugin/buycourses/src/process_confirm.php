@@ -212,6 +212,7 @@ switch ($sale['payment_type']) {
         $template->assign('buying_course', $buyingCourse);
         $template->assign('buying_session', $buyingSession);
         $template->assign('terms', $globalParameters['terms_and_conditions']);
+        $template->assign('email', $globalParameters['sale_email']);
         $template->assign('title', $sale['product_name']);
         $template->assign('price', $sale['price']);
         $template->assign('currency', $sale['currency_id']);

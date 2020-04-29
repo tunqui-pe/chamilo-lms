@@ -94,25 +94,6 @@
                                     <div class="date">
                                         <em class="fa fa-calendar" aria-hidden="true"></em> {{ session.dates.display }}
                                     </div>
-                                    <hr>
-                                    <div class="coaches">
-                                        {% for course in session.courses %}
-                                            <p class="course">
-                                                <em class="fa fa-book" aria-hidden="true"></em> {{ course.title }}
-                                            </p>
-                                            {% if course.coaches|length %}
-                                                <p>
-                                                    {{ 'Teachers'|get_plugin_lang('BuyCoursesPlugin') }} :
-
-                                                    {% for coach in course.coaches %}
-                                                        <em class="fa fa-user" aria-hidden="true"></em>
-                                                        <a href="{{ _p.web }}main/social/profile.php?u={{ coach.id }}"
-                                                           class="teacher-item">{{ coach.name }}</a>,
-                                                    {% endfor %}
-                                                </p>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
                                 </div>
                             </div>
                         </div>
