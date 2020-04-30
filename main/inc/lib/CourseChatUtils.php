@@ -640,11 +640,12 @@ class CourseChatUtils
 
         $remove = 0;
         $content = [];
+        $numberMessage = api_get_configuration_value('chat_history_number');
 
         if (file_exists($chat_path.$basename_chat.'.log.html')) {
             $content = file($chat_path.$basename_chat.'.log.html');
             $nbr_lines = sizeof($content);
-            $remove = $nbr_lines - 100;
+            $remove = $nbr_lines - $numberMessage;
         }
 
         if ($remove < 0) {
