@@ -160,6 +160,7 @@ class Exercise
     {
         $table = Database::get_course_table(TABLE_QUIZ_TEST);
         $tableLpItem = Database::get_course_table(TABLE_LP_ITEM);
+        $tblLp = Database::get_course_table(TABLE_LP_MAIN);
 
         $id = (int) $id;
         if (empty($this->course_id)) {
@@ -218,12 +219,13 @@ class Exercise
                 $this->showPreviousButton = $object->show_previous_button == 1 ? true : false;
             }
 
-            $sql = "SELECT lp_id, max_score
-                    FROM $tableLpItem
+            $sql = "SELECT lpi.lp_id, lpi.max_score, lp.session_id
+                    FROM $tableLpItem lpi
+                    INNER JOIN $tblLp lp ON (lpi.lp_id = lp.iid AND lpi.c_id = lp.c_id)
                     WHERE
-                        c_id = {$this->course_id} AND
-                        item_type = '".TOOL_QUIZ."' AND
-                        path = '".$id."'";
+                        lpi.c_id = {$this->course_id} AND
+                        lpi.item_type = '".TOOL_QUIZ."' AND
+                        lpi.path = '$id'";
             $result = Database::query($sql);
 
             if (Database::num_rows($result) > 0) {
@@ -3150,7 +3152,7 @@ class Exercise
         $myRemindList = []
     ) {
         global $safe_lp_id, $safe_lp_item_id, $safe_lp_item_view_id;
-        $nbrQuestions = $this->getQuestionCount();
+        $nbrQuestions = $this->countQuestionsInExercise();
         $buttonList = [];
         $html = $label = '';
         $hotspot_get = isset($_POST['hotspot']) ? Security::remove_XSS($_POST['hotspot']) : null;
@@ -8327,7 +8329,7 @@ class Exercise
             $lpId = null;
             if (!empty($this->lpList)) {
                 // Taking only the first LP
-                $lpId = current($this->lpList);
+                $lpId = $this->getLpBySession($sessionId);
                 $lpId = $lpId['lp_id'];
             }
 
@@ -8508,71 +8510,84 @@ class Exercise
                     ORDER BY title
                     LIMIT $from , $limit";
         } else {
+            // Only for students
             if (empty($sessionId)) {
-                $condition_session = ' AND ( ip.session_id = 0 OR ip.session_id IS NULL) ';
+                $condition_session = ' AND ( session_id = 0 OR session_id IS NULL) ';
+                $total_sql = "SELECT count(DISTINCT(e.iid)) as count
+                              FROM $TBL_EXERCISES e
+                              WHERE
+                                    e.c_id = $courseId AND
+                                    e.active = 1
+                                    $condition_session
+                                    $categoryCondition
+                                    $keywordCondition
+                              ";
+
+                $sql = "SELECT DISTINCT e.* FROM $TBL_EXERCISES e
+                        WHERE
+                             e.c_id = $courseId AND
+                             e.active = 1
+                             $condition_session
+                             $categoryCondition
+                             $keywordCondition
+                        ORDER BY title
+                        LIMIT $from , $limit";
             } else {
                 $invisibleSql = "SELECT e.iid
-                          FROM $TBL_EXERCISES e
-                          INNER JOIN $TBL_ITEM_PROPERTY ip
-                          ON (e.iid = ip.ref AND e.c_id = ip.c_id)
-                          WHERE
-                                ip.tool = '".TOOL_QUIZ."' AND
-                                e.c_id = $courseId AND
-                                e.active = 1 AND
-                                ip.visibility = 0 AND
-                                ip.session_id = $sessionId
-                                $categoryCondition
-                                $keywordCondition
-                          ";
+                                  FROM $TBL_EXERCISES e
+                                  INNER JOIN $TBL_ITEM_PROPERTY ip
+                                  ON (e.id = ip.ref AND e.c_id = ip.c_id)
+                                  WHERE
+                                        ip.tool = '".TOOL_QUIZ."' AND
+                                        e.c_id = $courseId AND
+                                        e.active = 1 AND
+                                        ip.visibility = 0 AND
+                                        ip.session_id = $sessionId
+                                        $categoryCondition
+                                        $keywordCondition
+                                  ";
 
                 $result = Database::query($invisibleSql);
                 $result = Database::store_result($result);
                 $hiddenFromSessionCondition = ' 1=1 ';
-
                 if (!empty($result)) {
                     $hiddenFromSession = implode("','", array_column($result, 'iid'));
                     $hiddenFromSessionCondition = " e.iid not in ('$hiddenFromSession')";
                 }
+
                 $condition_session = " AND (
-                        (ip.session_id = $sessionId OR ip.session_id = 0 OR ip.session_id IS NULL) AND
+                        (e.session_id = $sessionId OR e.session_id = 0 OR e.session_id IS NULL) AND
                         $hiddenFromSessionCondition
                 )
                 ";
+
+                // Only for students
+                $total_sql = "SELECT count(DISTINCT(e.iid)) as count
+                              FROM $TBL_EXERCISES e
+                              WHERE
+                                    e.c_id = $courseId AND
+                                    e.active = 1
+                                    $condition_session
+                                    $categoryCondition
+                                    $keywordCondition
+                              ";
+                $sql = "SELECT DISTINCT e.* FROM $TBL_EXERCISES e
+                        WHERE
+                             e.c_id = $courseId AND
+                             e.active = 1
+                             $condition_session
+                             $categoryCondition
+                             $keywordCondition
+                        ORDER BY title
+                        LIMIT $from , $limit";
             }
-
-            // Only for students
-            $total_sql = "SELECT count(DISTINCT(e.iid)) as count
-                          FROM $TBL_EXERCISES e
-                          INNER JOIN $TBL_ITEM_PROPERTY ip
-                          ON (e.iid = ip.ref AND e.c_id = ip.c_id)
-                          WHERE
-                                ip.tool = '".TOOL_QUIZ."' AND
-                                e.c_id = $courseId AND
-                                e.active = 1
-                                $condition_session
-                                $categoryCondition
-                                $keywordCondition
-                          ";
-
-            $sql = "SELECT DISTINCT e.* FROM $TBL_EXERCISES e
-                    INNER JOIN $TBL_ITEM_PROPERTY ip
-                    ON (e.iid = ip.ref AND e.c_id = ip.c_id)
-                    WHERE
-                         ip.tool = '".TOOL_QUIZ."' AND
-                         e.c_id = $courseId AND
-                         e.active = 1
-                         $condition_session
-                         $categoryCondition
-                         $keywordCondition
-                    ORDER BY title
-                    LIMIT $from , $limit";
         }
 
         $result = Database::query($sql);
         $result_total = Database::query($total_sql);
 
         $total_exercises = 0;
-        if (Database :: num_rows($result_total)) {
+        if (Database::num_rows($result_total)) {
             $result_total = Database::fetch_array($result_total);
             $total_exercises = $result_total['count'];
         }
@@ -8771,24 +8786,17 @@ class Exercise
                             $title = $cut_title;
                         }
 
-                        $count_exercise_not_validated = (int) Event::count_exercise_result_not_validated(
+                        /*$count_exercise_not_validated = (int) Event::count_exercise_result_not_validated(
                             $my_exercise_id,
                             $courseId,
                             $sessionId
-                        );
-
-                        /*$move = Display::return_icon(
-                            'all_directions.png',
-                            get_lang('Move'),
-                            ['class' => 'moved', 'style' => 'margin-bottom:-0.5em;']
                         );*/
                         $move = null;
                         $class_tip = '';
-                        if (!empty($count_exercise_not_validated)) {
+                        /*if (!empty($count_exercise_not_validated)) {
                             $results_text = $count_exercise_not_validated == 1 ? get_lang('ResultNotRevised') : get_lang('ResultsNotRevised');
                             $title .= '<span class="exercise_tooltip" style="display: none;">'.$count_exercise_not_validated.' '.$results_text.' </span>';
-                            $class_tip = 'link_tooltip';
-                        }
+                        }*/
 
                         $url = $move.'<a '.$alt_title.' class="'.$class_tip.'" id="tooltip_'.$row['id'].'" href="overview.php?'.api_get_cidreq().$mylpid.$mylpitemid.'&exerciseId='.$row['id'].'">
                              '.Display::return_icon('quiz.png', $row['title']).'
@@ -9413,7 +9421,7 @@ class Exercise
         }
 
         if (empty($tableRows) && empty($categoryId)) {
-            if ($is_allowedToEdit && $origin != 'learnpath') {
+            if ($is_allowedToEdit && $origin !== 'learnpath') {
                 $content .= '<div id="no-data-view">';
                 $content .= '<h3>'.get_lang('Quiz').'</h3>';
                 $content .= Display::return_icon('quiz.png', '', [], 64);
@@ -9718,6 +9726,54 @@ class Exercise
         Session::erase('hotspot_coord');
         Session::erase('hotspot_dest');
         Session::erase('hotspot_delineation_result');
+    }
+
+    /**
+     * Get the first LP found matching the session ID.
+     *
+     * @param int $sessionId
+     *
+     * @return array
+     */
+    public function getLpBySession($sessionId)
+    {
+        if (!empty($this->lpList)) {
+            $sessionId = (int) $sessionId;
+
+            foreach ($this->lpList as $lp) {
+                if ((int) $lp['session_id'] == $sessionId) {
+                    return $lp;
+                }
+            }
+        }
+
+        return [
+            'lp_id' => 0,
+            'max_score' => 0,
+            'session_id' => 0,
+        ];
+    }
+
+    /**
+     * Get number of questions in exercise by user attempt.
+     *
+     * @return int
+     */
+    private function countQuestionsInExercise()
+    {
+        $lpId = isset($_REQUEST['learnpath_id']) ? (int) $_REQUEST['learnpath_id'] : 0;
+        $lpItemId = isset($_REQUEST['learnpath_item_id']) ? (int) $_REQUEST['learnpath_item_id'] : 0;
+        $lpItemViewId = isset($_REQUEST['learnpath_item_view_id']) ? (int) $_REQUEST['learnpath_item_view_id'] : 0;
+
+        $trackInfo = $this->get_stat_track_exercise_info($lpId, $lpItemId, $lpItemViewId);
+
+        if (!empty($trackInfo)) {
+            $questionIds = explode(',', $trackInfo['data_tracking']);
+
+            return count($questionIds);
+        }
+
+        return $this->getQuestionCount();
     }
 
     /**

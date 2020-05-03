@@ -551,6 +551,7 @@ ALTER TABLE c_survey_question ADD is_required TINYINT(1) DEFAULT 0 NOT NULL;
 // Add "send_to_coaches" checkbox field in: main/admin/extra_fields.php?type=scheduled_announcement&action=add
 //$_configuration['allow_scheduled_announcements'] = false;
 // Add the list of emails as a bcc when sending an email.
+// Configure a cron task pointing at main/cron/scheduled_announcement.php
 /*
 $_configuration['send_all_emails_to'] = [
     'emails' => [
@@ -1030,7 +1031,7 @@ VALUES (2, 13, 'session_courses_read_only_mode', 'Lock Course In Session', 1, 1,
 // Block student publication add documents BT#14986
 //$_configuration['block_student_publication_add_documents'] = false;
 
-// Block student publication score edition BT#14987
+// Block teacher to modify a work score edition BT#14987
 // $_configuration['block_student_publication_score_edition'] = false;
 
 // Enable system to manage e-mail templates in users registration forms
@@ -1452,6 +1453,48 @@ $_configuration['course_catalog_settings'] = [
 
 // Disable sending emails.
 //$_configuration['disable_send_mail'] = false;
+
+// Page "Catalog" extra fields to be used as sorting criteria
+/*$_configuration['course_catalogue_order_by_extrafield'] = [
+    'fields' => ['duree_en_min'],
+];*/
+
+// CKEditor font names
+/*$_configuration['ck_editor_font_names'] = [
+    'names' => [
+        'Arial' => 'Arial, Helvetica, sans-serif',
+        'Comic Sans MS' => 'Comic Sans MS, cursive',
+        'Courier New' => 'Courier New, Courier, monospace',
+        'Georgia' => 'Georgia, serif',
+        'Lucida Sans Unicode' => 'Lucida Sans Unicode, Lucida Grande, sans-serif',
+        'Tahoma' => 'Tahoma, Geneva, sans-serif',
+        'Times New Roman' => 'Times New Roman, Times, serif',
+        'Trebuchet MS' => 'Trebuchet MS, Helvetica, sans-serif',
+        'Verdana' => 'Verdana, Geneva, sans-serif',
+    ]
+];*/
+
+/* Show download files button after finishing all LP. Example: ABC is the course code, and 1 and 100 are the doc id
+$_configuration['download_files_after_all_lp_finished'] = ['courses' => ['ABC' => [1, 100]]];
+*/
+
+// Show/Hide password field in user profile. Adds a customizable link depending on the user status.
+/*
+$_configuration['auth_password_links'] = [
+    'profiles' => [
+        5 => [
+            'azure' => [
+                'show_password_field' => false,
+                'extra_link' => '<h4>Change!</h4><a href="www.example.com">Wachtwoord aanpassen</span></a>'
+            ],
+            'extldap' => [
+                'show_password_field' => true,
+                'extra_link' => '<h4>Change!</h4><a href="www.example.com">Wachtwoord aanpassen</span></a>'
+            ]
+        ]
+    ]
+];
+*/
 
 // KEEP THIS AT THE END
 // -------- Custom DB changes

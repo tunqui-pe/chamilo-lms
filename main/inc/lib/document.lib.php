@@ -5248,8 +5248,8 @@ class DocumentManager
                     preg_match('/ogg$/i', urldecode($checkExtension))
                 ) {
                     return '<span style="float:left" '.$visibility_class.'>'.
-                    $title.
-                    '</span>'.$force_download_html.$send_to.$copyToMyFiles.$open_in_new_window_link.$pdf_icon;
+                        $title.
+                        '</span>'.$force_download_html.$send_to.$copyToMyFiles.$open_in_new_window_link.$pdf_icon;
                 } elseif (
                     // Show preview
                     preg_match('/swf$/i', urldecode($checkExtension)) ||
@@ -5268,17 +5268,17 @@ class DocumentManager
                     }
 
                     return Display::url(
-                        $title,
-                        $url,
-                        [
-                            'class' => $class,
-                            'title' => $tooltip_title_alt,
-                            'data-title' => $title,
-                            'style' => 'float:left;',
-                        ]
-                    )
-                    .$force_download_html.$send_to.$copyToMyFiles
-                    .$open_in_new_window_link.$pdf_icon;
+                            $title,
+                            $url,
+                            [
+                                'class' => $class,
+                                'title' => $tooltip_title_alt,
+                                'data-title' => $title,
+                                'style' => 'float:left;',
+                            ]
+                        )
+                        .$force_download_html.$send_to.$copyToMyFiles
+                        .$open_in_new_window_link.$pdf_icon;
                 } else {
                     // For a "PDF Download" of the file.
                     $pdfPreview = null;
@@ -5293,11 +5293,11 @@ class DocumentManager
                     }
                     // No plugin just the old and good showinframes.php page
                     return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" style="float:left" '.$visibility_class.' >'.$title.'</a>'.
-                    $pdfPreview.$force_download_html.$send_to.$copyToMyFiles.$open_in_new_window_link.$pdf_icon;
+                        $pdfPreview.$force_download_html.$send_to.$copyToMyFiles.$open_in_new_window_link.$pdf_icon;
                 }
             } else {
                 return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" '.$visibility_class.' style="float:left">'.$title.'</a>'.
-                $force_download_html.$send_to.$copyToMyFiles.$open_in_new_window_link.$pdf_icon;
+                    $force_download_html.$send_to.$copyToMyFiles.$open_in_new_window_link.$pdf_icon;
             }
             // end copy files to users myfiles
         } else {
@@ -5329,18 +5329,18 @@ class DocumentManager
                         return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" '.$visibility_class.' style="float:left">'.
                             self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
                             Display::return_icon('shared.png', get_lang('ResourceShared'), []).
-                        '</a>';
+                            '</a>';
                     } else {
                         return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" '.$visibility_class.' style="float:left">'.
                             self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
                             Display::return_icon('shared.png', get_lang('ResourceShared'), []).
-                        '</a>';
+                            '</a>';
                     }
                 } else {
                     return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" target="'.$target.'"'.$visibility_class.' style="float:left">'.
                         self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
                         Display::return_icon('shared.png', get_lang('ResourceShared'), []).
-                    '</a>';
+                        '</a>';
                 }
             } else {
                 if ($filetype === 'file') {
@@ -5366,16 +5366,16 @@ class DocumentManager
                         $url = $basePageUrl.'showinframes.php?'.$courseParams.'&id='.$document_data['id']; //without preview
                         return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" '.$visibility_class.' style="float:left">'.
                             self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
-                        '</a>';
+                            '</a>';
                     } else {
                         return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" '.$visibility_class.' style="float:left">'.
                             self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
-                        '</a>';
+                            '</a>';
                     }
                 } else {
                     return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" target="'.$target.'"'.$visibility_class.' style="float:left">'.
                         self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
-                    '</a>';
+                        '</a>';
                 }
             }
         }
@@ -6671,10 +6671,10 @@ class DocumentManager
 
         $directUrl = $web_code_path.'document/document.php?cidReq='.$course_info['code'].'&id_session='.$session_id.'&id='.$documentId;
         $link .= '&nbsp;'.Display::url(
-            Display::return_icon('preview_view.png', get_lang('Preview')),
-            $directUrl,
-            ['target' => '_blank']
-        );
+                Display::return_icon('preview_view.png', get_lang('Preview')),
+                $directUrl,
+                ['target' => '_blank']
+            );
 
         $visibilityClass = null;
         if ($visibility == 0) {
@@ -6813,7 +6813,7 @@ class DocumentManager
 
             if (
                 in_array($extension, ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'pxd']) &&
-                    api_get_setting('enabled_support_pixlr') == 'true'
+                api_get_setting('enabled_support_pixlr') == 'true'
             ) {
                 return Display::url($iconEn, "edit_paint.php?$courseParams&id=$document_id");
             }
@@ -6851,7 +6851,7 @@ class DocumentManager
 
         if (
             in_array($extension, ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'pxd']) &&
-                api_get_setting('enabled_support_pixlr') == 'true'
+            api_get_setting('enabled_support_pixlr') == 'true'
         ) {
             return Display::url($iconEn, "edit_paint.php?$courseParams&id=$document_id");
         }

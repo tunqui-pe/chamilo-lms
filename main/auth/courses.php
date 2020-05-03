@@ -226,6 +226,7 @@ switch ($action) {
             $select->addOption($separate.' '.$categoryName.' ('.$countCourse.')', $categoryCodeItem);
         }
 
+        $defaults['search_term'] = $searchTerm;
         $defaults['category_code'] = $categoryCode;
 
         $jqueryReadyContent = '';
@@ -234,6 +235,17 @@ switch ($action) {
             $onlyFields = [];
             $returnParams = $extraField->addElements($form, null, [], true, false, $extraFieldsInSearchForm);
             $jqueryReadyContent = $returnParams['jquery_ready_content'];
+        }
+
+        $sortKeySelect = $form->addSelect(
+            'sortKeys',
+            get_lang('SortKeys'),
+            CoursesAndSessionsCatalog::courseSortOptions(),
+            ['multiple' => true]
+        );
+        if (array_key_exists('sortKeys', $_GET)) {
+            $defaults['sortKeys'] = $_GET['sortKeys'];
+            $form->setDefaults($defaults);
         }
 
         $conditions = [];
@@ -246,75 +258,20 @@ switch ($action) {
         } else {
             $values = $_REQUEST;
             if ($allowExtraFields) {
-                // Parse params.
-                foreach ($values as $key => $value) {
-                    if (substr($key, 0, 6) !== 'extra_' && substr($key, 0, 7) !== '_extra_') {
-                        continue;
-                    }
-                    if (!empty($value)) {
-                        $fields[$key] = $value;
-                    }
-                }
-                $extraFieldsAll = $extraField->get_all(
-                    ['visible_to_self = ? AND filter = ?' => [1, 1]],
-                    'option_order'
-                );
-                $extraFieldsType = array_column($extraFieldsAll, 'field_type', 'variable');
-                $extraFields = array_column($extraFieldsAll, 'variable');
-                $filter = new stdClass();
-                foreach ($fields as $variable => $col) {
-                    $variableNoExtra = str_replace('extra_', '', $variable);
-                    if (isset($values[$variable]) && !empty($values[$variable]) &&
-                        in_array($variableNoExtra, $extraFields)
-                    ) {
-                        $rule = new stdClass();
-                        $rule->field = $variable;
-                        $rule->op = 'in';
-                        $data = $col;
-                        if (is_array($data) && array_key_exists($variable, $data)) {
-                            $data = $col;
-                        }
-                        $rule->data = $data;
-                        $filter->rules[] = $rule;
-                        $filter->groupOp = 'AND';
-
-                        if ($extraFieldsType[$variableNoExtra] == ExtraField::FIELD_TYPE_TAG) {
-                            $tagElement = $form->getElement($variable);
-                            $tags = [];
-                            foreach ($values[$variable] as $tag) {
-                                $tag = Security::remove_XSS($tag);
-                                $tags[] = $tag;
-                                $tagElement->addOption(
-                                    $tag,
-                                    $tag
-                                );
-                            }
-                            $defaults[$variable] = $tags;
-                        } else {
-                            if (is_array($data)) {
-                                $defaults[$variable] = array_map(['Security', 'remove_XSS'], $data);
-                            } else {
-                                $defaults[$variable] = Security::remove_XSS($data);
-                            }
-                        }
-                    }
-                }
-                $result = $extraField->getExtraFieldRules($filter);
-                $conditionArray = $result['condition_array'];
-
-                $whereCondition = '';
-                $extraCondition = '';
-                if (!empty($conditionArray)) {
-                    $extraCondition = ' ( ';
-                    $extraCondition .= implode(' AND ', $conditionArray);
-                    $extraCondition .= ' ) ';
-                }
-                $whereCondition .= $extraCondition;
-                $options = ['where' => $whereCondition, 'extra' => $result['extra_fields']];
-                $conditions = $extraField->parseConditions($options, 'course');
+                $extraResult = $extraField->processExtraFieldSearch($values, $form, 'course');
+                $conditions = $extraResult['condition'];
+                $fields = $extraResult['fields'];
+                $defaults = $extraResult['defaults'];
             }
 
-            $courses = CoursesAndSessionsCatalog::searchCourses($categoryCode, $searchTerm, $limit, true, $conditions);
+            $courses = CoursesAndSessionsCatalog::searchAndSortCourses(
+                $categoryCode,
+                $searchTerm,
+                $limit,
+                true,
+                $conditions,
+                $sortKeySelect->getValue()
+            );
             $countCoursesInCategory = CourseCategory::countCoursesInCategory(
                 $categoryCode,
                 $searchTerm,
@@ -367,7 +324,8 @@ switch ($action) {
                 $pageTotal,
                 $categoryCode,
                 $action,
-                $fields
+                $fields,
+                $sortKeySelect->getValue()
             );
         }
 
