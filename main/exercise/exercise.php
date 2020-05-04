@@ -611,7 +611,7 @@ if ($is_allowedToEdit && $origin !== 'learnpath') {
     );
     $form->addButtonSearch(get_lang('Search'));
     $actionsRight = $form->returnForm();
-}
+
 
 if ($is_allowedToEdit) {
     echo Display::toolbarAction(
