@@ -29,16 +29,15 @@
                                     <strong>{{ 'PurchaseOrder'|get_plugin_lang('BuyCoursesPlugin') }} :</strong> {{ buy_order }}
                                 </p>
 
-
-                                {% if session.is_international %}
+                                {% if session.item.is_international %}
                                     <p class="price">
                                         <strong>{{ 'Total'|get_plugin_lang('BuyCoursesPlugin')}} :</strong>
-                                        {{  session.currency_usd }} {{ session.price_usd }}
+                                        {{  session.item.price_int_formatted }}
                                     </p>
                                 {% else %}
                                     <p class="price">
                                         <strong>{{ 'Total'|get_plugin_lang('BuyCoursesPlugin')}} :</strong>
-                                        {{ session.currency == 'BRL' ? 'R$' : session.currency }} {{ session.price }}
+                                        {{ session.item.price_formatted }}
                                     </p>
                                 {% endif %}
 
@@ -48,6 +47,8 @@
                 </div>
 
             {% elseif buying_course %}
+
+
 
             {% endif %}
 
