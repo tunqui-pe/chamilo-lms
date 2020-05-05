@@ -12,7 +12,7 @@
                 {{ 'Establishment'|get_plugin_lang('BuyCoursesPlugin') }}
             </td>
             <td>
-                EDUCACIÓN CHILE
+                {{ _s.site_name }} - {{ _s.institution }}
             </td>
         </tr>
         <tr>
