@@ -1,4 +1,4 @@
-{{ dump(sales) }}
+
 <ul class="sales-pending">
     {% for sale in sales %}
         <li id="sale_{{ sale.id }}">

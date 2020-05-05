@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/style.css"/>
-{{ dump(_s) }}
+
 <div class="panel panel-default">
     <div class="panel-body">
 
