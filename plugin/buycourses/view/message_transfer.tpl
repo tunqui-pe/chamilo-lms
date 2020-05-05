@@ -29,18 +29,10 @@
         </tr>
         <tr>
             <td style="font-weight: bold;">
-                {{ 'Headline'|get_plugin_lang('BuyCoursesPlugin') }}
-            </td>
-            <td>
-                FUNDACIÓN EDUCHILE
-            </td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold;">
                 {{ 'Email'|get_lang }}
             </td>
             <td>
-                karen@educacionchile.cl
+                {{ sale_email }}
             </td>
         </tr>
     </table>
@@ -92,6 +84,8 @@
     </table>
 
     <p>
-        {{ 'regardsEducaChile'|get_plugin_lang('BuyCoursesPlugin') }}
+        {{ 'LastGoodbye'|get_plugin_lang('BuyCoursesPlugin') }}
+        <br>
+        {{ _s.site_name }} - {{ _s.institution }}
     </p>
 </div>

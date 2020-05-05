@@ -22,7 +22,6 @@ if (empty($saleId)) {
 }
 
 $sale = $plugin->getSale($saleId);
-
 $userInfo = api_get_user_info($sale['user_id']);
 
 if (empty($sale)) {
@@ -72,6 +71,7 @@ switch ($sale['payment_type']) {
         if (!empty($globalParameters['sale_email'])) {
             $messageConfirmTemplate = new Template();
             $messageConfirmTemplate->assign('user', $userInfo);
+            $messageConfirmTemplate->assign('sale_email', $globalParameters['sale_email']);
             $messageConfirmTemplate->assign(
                 'sale',
                 [
@@ -133,6 +133,7 @@ switch ($sale['payment_type']) {
 
             $messageTemplate = new Template();
             $messageTemplate->assign('user', $userInfo);
+            $messageTemplate->assign('sale_email', $globalParameters['sale_email']);
             $messageTemplate->assign(
                 'sale',
                 [
@@ -212,7 +213,7 @@ switch ($sale['payment_type']) {
         $template->assign('buying_course', $buyingCourse);
         $template->assign('buying_session', $buyingSession);
         $template->assign('terms', $globalParameters['terms_and_conditions']);
-        $template->assign('email', $globalParameters['sale_email']);
+        $template->assign('sale_email', $globalParameters['sale_email']);
         $template->assign('title', $sale['product_name']);
         $template->assign('price', $sale['price']);
         $template->assign('currency', $sale['currency_id']);
@@ -380,6 +381,7 @@ switch ($sale['payment_type']) {
         if (!empty($globalParameters['sale_email'])) {
             $messageConfirmTemplate = new Template();
             $messageConfirmTemplate->assign('user', $userInfo);
+            $messageConfirmTemplate->assign('sale_email', $globalParameters['sale_email']);
             $messageConfirmTemplate->assign(
                 'sale',
                 [
@@ -415,56 +417,6 @@ switch ($sale['payment_type']) {
         $template->assign('buy_order', $buyOrder);
         $template->assign('token_ws', $tokenWs);
         $content = $template->fetch('buycourses/view/transbank/process_transbank.tpl');
-
-        $template->assign('content', $content);
-        $template->display_one_col_template();
-
-        break;
-    case BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG:
-
-        $buyingCourse = false;
-        $buyingSession = false;
-        $urlRedirect = null;
-        $typePayment = null;
-
-        switch ($sale['product_type']) {
-            case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
-                $buyingCourse = true;
-                $course = $plugin->getCourseInfo($sale['product_id']);
-                if ($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG) {
-                    $urlRedirect = $course['url_servipag'];
-                    $typePayment = 'servipag';
-                }
-
-                break;
-            case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
-                $buyingSession = true;
-                $session = $plugin->getSessionInfo($sale['product_id']);
-                if ($sale['payment_type'] == BuyCoursesPlugin::PAYMENT_TYPE_SERVIPAG) {
-                    $urlRedirect = $session['url_servipag'];
-                    $typePayment = 'servipag';
-                }
-                break;
-        }
-
-
-        if (!empty($urlRedirect)) {
-            $htmlHeadXtra[] = '<meta http-equiv="refresh" content="2; url='.$urlRedirect.'">';
-        }
-
-        $template = new Template();
-
-        if ($buyingCourse) {
-            $template->assign('course', $course);
-            $template->assign('type', $typePayment);
-        } elseif ($buyingSession) {
-            $template->assign('session', $session);
-            $template->assign('type', $typePayment);
-        }
-        $template->assign('urlredirect', $urlRedirect);
-
-
-        $content = $template->fetch('buycourses/view/process_redirect.tpl');
 
         $template->assign('content', $content);
         $template->display_one_col_template();

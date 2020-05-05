@@ -85,7 +85,9 @@
         <tr>
             <td style="text-align: left;">
                 <p>
-                    {{ 'regardsEducaChile'|get_plugin_lang('BuyCoursesPlugin') }}
+                    {{ 'LastGoodbye'|get_plugin_lang('BuyCoursesPlugin') }}
+                    <br>
+                    {{ _s.site_name }} - {{ _s.institution }}
                 </p>
             </td>
             <td style="text-align: right;">

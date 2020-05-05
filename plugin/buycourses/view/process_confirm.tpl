@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/style.css"/>
-
+{{ dump(_s) }}
 <div class="panel panel-default">
     <div class="panel-body">
 
@@ -139,7 +139,7 @@
                             <dt>{{ 'Rut'|get_plugin_lang('BuyCoursesPlugin') }}</dt>
                             <dd>{{ transfer_accounts.1.swift }}</dd>
                             <dt>{{ 'Email'|get_lang }}</dt>
-                            <dd>{{ email }}</dd>
+                            <dd>{{ sale_email }}</dd>
                         </dl>
                     </div>
                     <p>{{ 'PressConfirmButton'|get_plugin_lang('BuyCoursesPlugin') }}</p>
