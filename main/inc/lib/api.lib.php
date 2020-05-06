@@ -8974,6 +8974,7 @@ function api_create_protected_dir($name, $parentDirectory)
  * @param bool   $embedded_image       True for attaching a embedded file inside content html (optional)
  * @param array  $additionalParameters
  * @param string $sendErrorTo          If there's an error while sending the email, $sendErrorTo will receive a notification
+ * @param string email of recipient bcc
  *
  * @return int true if mail was sent
  *
@@ -8990,7 +8991,8 @@ function api_mail_html(
     $data_file = [],
     $embedded_image = false,
     $additionalParameters = [],
-    $sendErrorTo = ''
+    $sendErrorTo = '',
+    $email_bcc = []
 ) {
     global $platform_email;
 
@@ -9115,6 +9117,22 @@ function api_mail_html(
     } else {
         if (api_valid_email($recipient_email)) {
             $mail->AddAddress($recipient_email, $recipient_name);
+        } else {
+            return 0;
+        }
+    }
+
+    //Email BCC
+
+    if (is_array($email_bcc)) {
+        foreach ($email_bcc as $dest) {
+            if (api_valid_email($dest)) {
+                $mail->AddBCC($dest, $recipient_name);
+            }
+        }
+    } else {
+        if (api_valid_email($email_bcc)) {
+            $mail->AddBCC($email_bcc, $recipient_name);
         } else {
             return 0;
         }
