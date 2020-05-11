@@ -161,6 +161,7 @@ $meetings = $bbb->getMeetings(
 if (!empty($meetings)) {
     $meetings = array_reverse($meetings);
 }
+
 $usersOnline = $bbb->getUsersOnlineInCurrentRoom();
 $maxUsers = $bbb->getMaxUsersLimit();
 $status = $bbb->isServerRunning();

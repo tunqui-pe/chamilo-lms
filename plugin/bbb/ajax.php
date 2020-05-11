@@ -44,4 +44,30 @@ switch ($action) {
             echo json_encode(['url' => $url, 'link' => $link]);
         }
         break;
+    case 'meetings':
+        $apiUrlMeetings = 'http://'.$bbb->api->getGetMeetingsUrl();
+        $enableRooms = api_get_configuration_value('bigbluebutton_rooms_enabled');
+        $meetingsXML = new SimpleXMLElement($apiUrlMeetings,0,true);
+        $listRooms = [];
+        //Meetings;
+        if($meetingsXML->returncode == 'SUCCESS'){
+
+            if(!$meetingsXML->messageKey == 'noMeetings'){
+                echo 'Si hay salas abiertas';
+                foreach ($meetingsXML->meetings->meeting as $route){
+                    $listRooms[]=$route;
+                }
+                $countRooms = count($listRooms);
+                var_dump($countRooms);
+            } else {
+                echo 'No hay salas abiertas';
+            }
+
+
+
+
+        }
+
+
+        break;
 }
