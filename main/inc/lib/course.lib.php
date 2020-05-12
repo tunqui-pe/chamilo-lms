@@ -9,6 +9,7 @@ use Chamilo\CoreBundle\Entity\SequenceResource;
 use Chamilo\CourseBundle\Component\CourseCopy\CourseBuilder;
 use Chamilo\CourseBundle\Component\CourseCopy\CourseRestorer;
 use ChamiloSession as Session;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Class CourseManager.
@@ -524,6 +525,40 @@ class CourseManager
                 );
             }
         }
+        if (api_get_configuration_value('catalog_course_subscription_in_user_s_session')) {
+            // Also unlink the course from the users' currently accessible sessions
+            /** @var Course $course */
+            $course = Database::getManager()->getRepository('ChamiloCoreBundle:Course')->findOneBy([
+                'code' => $course_code,
+            ]);
+            if (is_null($course)) {
+                return false;
+            }
+            /** @var Chamilo\UserBundle\Entity\User $user */
+            foreach (UserManager::getRepository()->matching(
+                Criteria::create()->where(Criteria::expr()->in('id', $userList))
+            ) as $user) {
+                foreach ($user->getCurrentlyAccessibleSessions() as $session) {
+                    $session->removeCourse($course);
+                    // unsubscribe user from course within this session
+                    SessionManager::unSubscribeUserFromCourseSession($user->getId(), $course->getId(), $session->getId());
+                }
+            }
+            try {
+                Database::getManager()->flush();
+            } catch (\Doctrine\ORM\OptimisticLockException $exception) {
+                Display::addFlash(
+                    Display::return_message(
+                        get_lang('InternalDatabaseError').': '.$exception->getMessage(),
+                        'warning'
+                    )
+                );
+
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -1992,7 +2027,7 @@ class CourseManager
         $students = [];
 
         $limitCondition = '';
-        if (!empty($start) && !empty($limit)) {
+        if (isset($start) && isset($limit) && !empty($limit)) {
             $start = (int) $start;
             $limit = (int) $limit;
             $limitCondition = " LIMIT $start, $limit";
@@ -2003,7 +2038,7 @@ class CourseManager
             $select = 'count(u.id) as count';
         }
 
-        if ($sessionId == 0) {
+        if (empty($sessionId)) {
             if (empty($groupId)) {
                 // students directly subscribed to the course
                 $sql = "SELECT $select
@@ -3898,7 +3933,7 @@ class CourseManager
             'not_category' => [],
         ];
         $collapsable = api_get_configuration_value('allow_user_course_category_collapsable');
-        $stok = Security::get_token();
+        $stok = Security::get_existing_token();
         while ($row = Database::fetch_array($result)) {
             // We simply display the title of the category.
             $courseInCategory = self::returnCoursesCategories(
@@ -4147,6 +4182,17 @@ class CourseManager
             $params['teachers'] = $teachers;
             $params['extrafields'] = CourseManager::getExtraFieldsToBePresented($course_info['real_id']);
             $params['real_id'] = $course_info['real_id'];
+
+            if (api_get_configuration_value('enable_unsubscribe_button_on_my_course_page')
+                && '1' === $course_info['unsubscribe']
+            ) {
+                $params['unregister_button'] = CoursesAndSessionsCatalog::return_unregister_button(
+                    $course_info,
+                    Security::get_existing_token(),
+                    '',
+                    ''
+                );
+            }
 
             if ($course_info['visibility'] != COURSE_VISIBILITY_CLOSED) {
                 $params['notifications'] = $showNotification;

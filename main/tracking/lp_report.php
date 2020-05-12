@@ -20,13 +20,6 @@ if (!$is_allowedToTrack) {
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
-
-$htmlHeadXtra[] = '<script>
-    $(function ()
-
-    });
-</script>';
-
 $lps = learnpath::getLpList($courseId);
 Session::write('lps', $lps);
 
@@ -320,6 +313,7 @@ function getData($from, $numberOfItems, $column, $direction)
         $userId = $student['id'];
         $user[] = $student['firstname'];
         $user[] = $student['lastname'];
+        $user[] = $student['username'];
 
         $lpTimeList = [];
         if ($useNewTable) {
@@ -403,6 +397,7 @@ $tool_name = get_lang('CourseLPsGenericStats');
 $headers = [];
 $headers[] = get_lang('FirstName');
 $headers[] = get_lang('LastName');
+$headers[] = get_lang('Username');
 foreach ($lps as $lp) {
     $lpName = $lp['name'];
     $headers[] = get_lang('Progress').': '.$lpName;
@@ -432,7 +427,10 @@ $actionsRight = Display::url(
 );
 
 // Create a sortable table with user-data
+$parameters = [];
 $parameters['sec_token'] = Security::get_token();
+$parameters['cidReq'] = api_get_course_id();
+$parameters['id_session'] = api_get_session_id();
 
 $table = new SortableTable(
     'lps',
