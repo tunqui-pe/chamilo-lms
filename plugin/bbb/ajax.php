@@ -48,7 +48,7 @@ switch ($action) {
         $apiUrlMeetings = 'http://'.$bbb->api->getGetMeetingsUrl();
         $enableRooms = api_get_configuration_value('bigbluebutton_rooms_enabled');
         $meetingsXML = new SimpleXMLElement($apiUrlMeetings,0,true);
-        $listRooms = [];
+        $listRooms = $tpmRooms = [];
         $rooms = [];
         $list = [];
         //Meetings;
@@ -60,25 +60,29 @@ switch ($action) {
                 }
 
                 foreach ($listRooms as $room){
-                    $rooms['meetingName'] = (string)$room->meetingName;
-                    $rooms['internalMeetingID'] = (string)$room->internalMeetingID;
-
+                    $courseCode = (string)$room->attendeePW;
+                    $courseInfo = api_get_course_info($courseCode);
+                    $rooms['meeting_name'] = (string)$room->meetingName;
+                    $rooms['meeting_id'] = (string)$room->internalMeetingID;
+                    $rooms['course_code'] = $courseCode;
+                    $rooms['course_name'] = $courseInfo['name'];
+                    $rooms['meeting_create'] = (string)$room->createDate;
+                    $rooms['count_participants'] = (string)$room->participantCount;
+                    $rooms['recording'] = (string)$room->recording;
+                    $tpmRooms[] = $rooms;
                 }
                 $list['message'] = $plugin->get_lang('OpenRooms');
                 $countRooms = count($listRooms);
                 $list['count'] = $countRooms;
-                $list['rooms'] = $listRooms;
+                $list['rooms'] = $tpmRooms;
 
             } else {
                 $list['message'] =  $plugin->get_lang('ThereAreNoOpenRooms');
                 $list['count'] = 0;
             }
-
             header('Content-Type: application/json');
             echo json_encode($list);
-
         }
-
 
         break;
 }

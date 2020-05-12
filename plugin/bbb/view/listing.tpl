@@ -13,7 +13,16 @@
 <div class ="row">
 {% if bbb_status == true %}
     <div class ="col-md-12" style="text-align:center">
+
+        <div id="bbb-info" class="panel panel-default">
+            <div class="panel-body">
+                <h4>Estado actual de salas</h4>
+                <p id="bbb-message"></p>
+            </div>
+        </div>
+
         {{ form }}
+
         {% if show_join_button == true %}
             {% if show_client_options %}
                 <div class="row">
