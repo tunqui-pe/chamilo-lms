@@ -11,7 +11,7 @@ require_once __DIR__.'/../../main/inc/global.inc.php';
 
 $action = isset($_REQUEST['a']) ? $_REQUEST['a'] : null;
 $meetingId = isset($_REQUEST['meeting']) ? intval($_REQUEST['meeting']) : 0;
-
+$plugin = BBBPlugin::create();
 $bbb = new bbb('', '');
 
 switch ($action) {
@@ -49,22 +49,33 @@ switch ($action) {
         $enableRooms = api_get_configuration_value('bigbluebutton_rooms_enabled');
         $meetingsXML = new SimpleXMLElement($apiUrlMeetings,0,true);
         $listRooms = [];
+        $rooms = [];
+        $list = [];
         //Meetings;
         if($meetingsXML->returncode == 'SUCCESS'){
 
             if(!$meetingsXML->messageKey == 'noMeetings'){
-                echo 'Si hay salas abiertas';
                 foreach ($meetingsXML->meetings->meeting as $route){
                     $listRooms[]=$route;
                 }
+
+                foreach ($listRooms as $room){
+                    $rooms['meetingName'] = (string)$room->meetingName;
+                    $rooms['internalMeetingID'] = (string)$room->internalMeetingID;
+
+                }
+                $list['message'] = $plugin->get_lang('OpenRooms');
                 $countRooms = count($listRooms);
-                var_dump($countRooms);
+                $list['count'] = $countRooms;
+                $list['rooms'] = $listRooms;
+
             } else {
-                echo 'No hay salas abiertas';
+                $list['message'] =  $plugin->get_lang('ThereAreNoOpenRooms');
+                $list['count'] = 0;
             }
 
-
-
+            header('Content-Type: application/json');
+            echo json_encode($list);
 
         }
 
