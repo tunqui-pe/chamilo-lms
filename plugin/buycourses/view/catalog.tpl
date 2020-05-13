@@ -142,6 +142,8 @@
                                                         <div class="alert alert-info alert-status">{{ 'ServipagFailureMessage'|get_plugin_lang('BuyCoursesPlugin') }}</div>
                                                     {% elseif sale.payment_type == 5 %}
                                                         <div class="alert alert-warning alert-status">{{ 'TransbankFailureMessage'|get_plugin_lang('BuyCoursesPlugin') }}</div>
+                                                    {% elseif sale.payment_type == 6 %}
+                                                        <div class="alert alert-warning alert-status">{{ 'WaitingBoxAndesValidation'|get_plugin_lang('BuyCoursesPlugin') }}</div>
                                                     {% endif %}
 
                                                 {% endfor %}

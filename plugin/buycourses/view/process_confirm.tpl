@@ -167,6 +167,15 @@
                 <p>{{ 'PressConfirmButton'|get_plugin_lang('BuyCoursesPlugin') }}</p>
 
             {% endif %}
+
+            {% if is_box_andes %}
+
+                <h4 style="font-weight: bold; text-transform: uppercase; margin-bottom: 3rem;">{{ 'AndesBoxBenefits'|get_plugin_lang('BuyCoursesPlugin') }}</h4>
+                <p>{{ 'AndesBoxInformation'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+                <p>{{ 'ApplyYourDiscount' |get_plugin_lang('BuyCoursesPlugin') }}</p>
+                <p>{{ 'PressConfirmButton'|get_plugin_lang('BuyCoursesPlugin') }}</p>
+
+            {% endif %}
             <div class="btn-order">
                 {{ form }}
             </div>

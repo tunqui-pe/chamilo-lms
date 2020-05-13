@@ -65,7 +65,7 @@ if (isset($_GET['order'])) {
 
 $productTypes = $plugin->getProductTypes();
 $saleStatuses = $plugin->getSaleStatuses();
-$paymentTypes = $plugin->getPaymentTypes();
+$paymentTypes = $plugin->getPaymentTypesIcon();
 
 $selectedFilterType = '0';
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : BuyCoursesPlugin::SALE_STATUS_PENDING;

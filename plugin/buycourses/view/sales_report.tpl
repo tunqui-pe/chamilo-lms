@@ -27,7 +27,7 @@
             <th class="text-center">{{ 'ProductType'|get_plugin_lang('BuyCoursesPlugin') }}</th>
             <th>{{ 'Name'|get_lang }}</th>
             <th>{{ 'UserName'|get_lang }}</th>
-            <th>{{ 'Email'|get_lang }}</th>
+
 
             {% if invoicing_enable %}
                 <th class="text-center">{{ 'Invoice'|get_plugin_lang('BuyCoursesPlugin') }}</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
         {% for sale in sale_list %}
-            <tr {{ sale.id == selected_sale ? 'class="warning"' : '' }}>
+            <tr style="font-size: 12px;" {{ sale.id == selected_sale ? 'class="warning"' : '' }}>
                 <td class="text-center">{{ sale.reference }}</td>
                 <td class="text-center">
                     {% if sale.status == sale_status_canceled %}
@@ -53,8 +53,11 @@
                 <td class="text-right">{{ sale.currency ~ ' ' ~ sale.price }}</td>
                 <td class="text-center">{{ sale.product_type }}</td>
                 <td>{{ sale.product_name }}</td>
-                <td>{{ sale.complete_user_name }}</td>
-                <td>{{ sale.email }}</td>
+                <td>
+                    <strong>{{ sale.complete_user_name }}</strong>
+                    <br>{{ sale.email }}
+                </td>
+
                 {% if invoicing_enable %}
                     <td class="text-center">
                     {% if sale.invoice == 1 %}
@@ -67,13 +70,13 @@
                 {% endif %}
                 <td class="text-center">
                     {% if sale.status == sale_status_pending %}
-                        <a href="{{ _p.web_self ~ '?' ~ {'order': sale.id, 'action': 'confirm'}|url_encode() }}"
-                           class="btn btn-success btn-sm">
-                            <em class="fa fa-user-plus fa-fw"></em> {{ 'SubscribeUser'|get_plugin_lang('BuyCoursesPlugin') }}
+                        <a title="{{ 'SubscribeUser'|get_plugin_lang('BuyCoursesPlugin') }}" href="{{ _p.web_self ~ '?' ~ {'order': sale.id, 'action': 'confirm'}|url_encode() }}"
+                           class="btn btn-default btn-sm">
+                            <img src="{{ 'user_subscribe_session.png' | icon(22) }}" width="22" height="22 alt="{{ 'SubscribeUser'|get_plugin_lang('BuyCoursesPlugin') }}">
                         </a>
-                        <a href="{{ _p.web_self ~ '?' ~ {'order': sale.id, 'action': 'cancel'}|url_encode() }}"
-                           class="btn btn-danger btn-sm">
-                            <em class="fa fa-times fa-fw"></em> {{ 'DeleteOrder'|get_plugin_lang('BuyCoursesPlugin') }}
+                        <a title="{{ 'DeleteOrder'|get_plugin_lang('BuyCoursesPlugin') }}" href="{{ _p.web_self ~ '?' ~ {'order': sale.id, 'action': 'cancel'}|url_encode() }}"
+                           class="btn btn-default btn-sm">
+                            <img src="{{ 'delete.png' | icon(22) }}" width="22" height="22 alt="{{ 'DeleteOrder'|get_plugin_lang('BuyCoursesPlugin') }}">
                         </a>
                     {% endif %}
                 </td>

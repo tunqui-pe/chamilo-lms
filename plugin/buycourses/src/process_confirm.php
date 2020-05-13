@@ -469,4 +469,135 @@ switch ($sale['payment_type']) {
         $template->display_one_col_template();
 
         break;
+
+    case BuyCoursesPlugin::PAYMENT_TYPE_CAJAANDES:
+
+        $buyingCourse = false;
+        $buyingSession = false;
+
+        switch ($sale['product_type']) {
+            case BuyCoursesPlugin::PRODUCT_TYPE_COURSE:
+                $buyingCourse = true;
+                $course = $plugin->getCourseInfo($sale['product_id']);
+                break;
+            case BuyCoursesPlugin::PRODUCT_TYPE_SESSION:
+                $buyingSession = true;
+                $session = $plugin->getSessionInfo($sale['product_id']);
+                break;
+        }
+
+        $form = new FormValidator(
+            'success',
+            'POST',
+            api_get_self(),
+            null,
+            null,
+            FormValidator::LAYOUT_INLINE
+        );
+
+        if ($form->validate()) {
+            $formValues = $form->getSubmitValues();
+
+            if (isset($formValues['cancel'])) {
+                $plugin->cancelSale($sale['id']);
+
+                unset($_SESSION['bc_sale_id']);
+
+                header('Location: '.api_get_path(WEB_PLUGIN_PATH).'buycourses/index.php');
+                exit;
+            }
+
+            $messageTemplate = new Template();
+            $messageTemplate->assign('user', $userInfo);
+            $messageTemplate->assign(
+                'sale',
+                [
+                    'date' => $sale['date'],
+                    'product' => $sale['product_name'],
+                    'currency' => $currency['iso_code'],
+                    'price' => $sale['price'],
+                    'reference' => $sale['reference'],
+                ]
+            );
+
+            api_mail_html(
+                $userInfo['complete_name'],
+                $userInfo['email'],
+                $plugin->get_lang('bc_subject'),
+                $messageTemplate->fetch('buycourses/view/boxandes/message_transfer.tpl')
+            );
+
+            if (!empty($globalParameters['sale_email'])) {
+                $messageConfirmTemplate = new Template();
+                $messageConfirmTemplate->assign('user', $userInfo);
+                $messageConfirmTemplate->assign(
+                    'sale',
+                    [
+                        'date' => $sale['date'],
+                        'product' => $sale['product_name'],
+                        'currency' => $currency['iso_code'],
+                        'price' => $sale['price'],
+                        'reference' => $sale['reference'],
+                    ]
+                );
+
+                api_mail_html(
+                    '',
+                    $globalParameters['sale_email'],
+                    $plugin->get_lang('bc_subject'),
+                    $messageConfirmTemplate->fetch('buycourses/view/boxandes/message_confirm.tpl')
+                );
+            }
+
+            Display::addFlash(
+                Display::return_message(
+                    sprintf(
+                        $plugin->get_lang('PurchaseStatusX'),
+                        $plugin->get_lang('PendingReasonByTransfer')
+                    ),
+                    'success',
+                    false
+                )
+            );
+
+            unset($_SESSION['bc_sale_id']);
+            header('Location: '.api_get_path(WEB_PLUGIN_PATH).'buycourses/src/session_catalog.php');
+            exit;
+        }
+
+        $form->addButton(
+            'confirm',
+            $plugin->get_lang('ConfirmOrder'),
+            'check',
+            'success',
+            'default',
+            null,
+            ['id' => 'confirm']
+        );
+        $form->addButtonCancel($plugin->get_lang('CancelOrder'), 'cancel');
+
+        $template = new Template();
+
+        if ($buyingCourse) {
+            $template->assign('course', $course);
+        } elseif ($buyingSession) {
+            $template->assign('session', $session);
+        }
+
+        $template->assign('buying_course', $buyingCourse);
+        $template->assign('buying_session', $buyingSession);
+        $template->assign('terms', $globalParameters['terms_and_conditions']);
+        $template->assign('title', $sale['product_name']);
+        $template->assign('price', $sale['price']);
+        $template->assign('currency', $sale['currency_id']);
+        $template->assign('user', $userInfo);
+        $template->assign('form', $form->returnForm());
+        $template->assign('is_box_andes', true);
+
+        $content = $template->fetch('buycourses/view/process_confirm.tpl');
+
+        $template->assign('content', $content);
+        $template->display_one_col_template();
+
+        break;
 }

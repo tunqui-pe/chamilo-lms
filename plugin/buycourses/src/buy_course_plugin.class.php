@@ -40,6 +40,7 @@ class BuyCoursesPlugin extends Plugin
     const PAYMENT_TYPE_CULQI = 3;
     const PAYMENT_TYPE_SERVIPAG = 4;
     const PAYMENT_TYPE_TRANSBANK = 5;
+    const PAYMENT_TYPE_CAJAANDES = 6;
     const PAYOUT_STATUS_CANCELED = 2;
     const PAYOUT_STATUS_PENDING = 0;
     const PAYOUT_STATUS_COMPLETED = 1;
@@ -977,7 +978,9 @@ class BuyCoursesPlugin extends Plugin
                 self::PAYMENT_TYPE_TRANSFER,
                 self::PAYMENT_TYPE_CULQI,
                 self::PAYMENT_TYPE_SERVIPAG,
-                self::PAYMENT_TYPE_TRANSBANK]
+                self::PAYMENT_TYPE_TRANSBANK,
+                self::PAYMENT_TYPE_CAJAANDES
+            ]
         )
         ) {
             return false;
@@ -1300,7 +1303,25 @@ class BuyCoursesPlugin extends Plugin
             self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png").$this->get_lang('wireTransfer'),
             self::PAYMENT_TYPE_TRANSBANK => $this->getImageIcon("webpay.png").$this->get_lang('webPay'),
             self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png").$this->get_lang('serviPag'),
-            self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal')
+            self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png").$this->get_lang('payPal'),
+            self::PAYMENT_TYPE_CAJAANDES => $this->getImageIcon("cajaandes.png").$this->get_lang('payCajaAndes'),
+        ];
+    }
+
+    /**
+     * Get payment types.
+     *
+     * @return array
+     */
+    public function getPaymentTypesIcon()
+    {
+        return [
+            self::PAYMENT_TYPE_CULQI => 'Culqi',
+            self::PAYMENT_TYPE_TRANSFER => $this->getImageIcon("transferencia.png"),
+            self::PAYMENT_TYPE_TRANSBANK => $this->getImageIcon("webpay.png"),
+            self::PAYMENT_TYPE_SERVIPAG => $this->getImageIcon("servipag.png"),
+            self::PAYMENT_TYPE_PAYPAL => $this->getImageIcon("paypal.png"),
+            self::PAYMENT_TYPE_CAJAANDES => $this->getImageIcon("cajaandes.png"),
         ];
     }
 
@@ -1316,7 +1337,8 @@ class BuyCoursesPlugin extends Plugin
             self::PAYMENT_TYPE_TRANSFER => 'Transferencia Bancaria',
             self::PAYMENT_TYPE_TRANSBANK => 'Webpay',
             self::PAYMENT_TYPE_SERVIPAG => 'Servipag',
-            self::PAYMENT_TYPE_PAYPAL => 'PayPal'
+            self::PAYMENT_TYPE_PAYPAL => 'PayPal',
+            self::PAYMENT_TYPE_CAJAANDES => 'Caja Andes'
         ];
     }
 
