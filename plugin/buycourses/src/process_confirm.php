@@ -553,7 +553,7 @@ switch ($sale['payment_type']) {
                 Display::return_message(
                     sprintf(
                         $plugin->get_lang('PurchaseStatusX'),
-                        $plugin->get_lang('PendingReasonByTransfer')
+                        $plugin->get_lang('PendingReasonByTransferBoxAndes')
                     ),
                     'success',
                     false
