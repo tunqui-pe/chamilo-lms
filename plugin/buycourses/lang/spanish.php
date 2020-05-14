@@ -282,3 +282,5 @@ $strings['AndesBoxInformation'] = 'Para poder obtener el beneficio de descuento 
 $strings['CompleteRegisterBoxAndes'] = 'Esperando que te encuentres bien y para poder validar tu descuento como afiliado(a) a Caja Los Andes, te solicitamos por favor nos envíes al e-mail <strong>karen@educacionchile.cl</strong>, la siguiente información:';
 $strings['ValidityInformationBoxAndes'] = 'Una vez que validemos esta información con Caja Los Andes, te enviaremos el valor con descuento y métodos de pago disponibles para tu inscripción.';
 $strings['PendingReasonByTransferBoxAndes'] = "<strong>Pendiente</strong>. Esperando la validación Caja Los Andes";
+$strings['RUTforInvoice'] = 'RUT para factura';
+$strings['UniqueRollTributary'] = 'RUT (Rol Único Tributario)';

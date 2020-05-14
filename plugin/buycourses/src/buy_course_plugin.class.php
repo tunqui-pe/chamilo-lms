@@ -1496,6 +1496,9 @@ class BuyCoursesPlugin extends Plugin
             ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
             "$saleTable s $innerJoins",
             [
+                'where' => [
+                    "s.date BETWEEN ? AND ? " => [$dateStart, $dateEnd]
+                ],
                 'order' => 'id DESC',
             ]
         );
@@ -1504,6 +1507,7 @@ class BuyCoursesPlugin extends Plugin
         $listExport = [];
         $textStatus = null;
         $paymentTypes = $this->getPaymentTypesString();
+        $listField = [];
 
         foreach($list as $item){
 
@@ -1521,6 +1525,25 @@ class BuyCoursesPlugin extends Plugin
                     break;
             }
 
+            $fieldValue = new ExtraFieldValue('user');
+            $extraFields = $fieldValue->getAllValuesForAnItem(
+                $item['user_id'],
+                true
+            );
+
+            foreach($extraFields as $field){
+                $uniqueRollTributary = $field['value']->getField()->getVariable();
+                if($uniqueRollTributary == 'rol_unico_tributario'){
+                    $valueTMP = $field['value']->getValue();
+                    $listField['rol_unico_tributario'] = ($valueTMP) ? $valueTMP : '-';
+                }
+                $invoiceRut = $field['value']->getField()->getVariable();
+                if($invoiceRut == 'rut_factura'){
+                    $valueTMP = $field['value']->getValue();
+                    $listField['rut_factura'] = ($valueTMP) ? $valueTMP : '-';
+                }
+            }
+
             $dateFilter = new DateTime($item['date']);
             $listExportTemp[] = [
                 'id' => $item['id'],
@@ -1535,7 +1558,10 @@ class BuyCoursesPlugin extends Plugin
                 'payment_type' => $paymentTypes[$item['payment_type']],
                 'complete_user_name' => api_get_person_name($item['firstname'], $item['lastname']),
                 'email' => $item['email'],
+                'rol_unico_tributario' => $listField['rol_unico_tributario'],
+                'rut_factura' => $listField['rut_factura']
             ];
+
         }
 
         $listExport[] = [
@@ -1547,29 +1573,26 @@ class BuyCoursesPlugin extends Plugin
             $this->get_lang('ProductType'),
             $this->get_lang('ProductName'),
             $this->get_lang('UserName'),
-            'Email'
+            'Email',
+            $this->get_lang('UniqueRollTributary'),
+            $this->get_lang('RUTforInvoice')
         ];
 
-        //Validation Export
-        $dateStart = strtotime($dateStart);
-        $dateEnd = strtotime($dateEnd);
-
         foreach ($listExportTemp as $item){
-            $dateFilter = strtotime($item['date_filter']);
-            if(($dateFilter >= $dateStart) && ($dateFilter <= $dateEnd)){
+            $listExport[] = [
+                'id' => $item['id'],
+                'status' => $item['status'],
+                'date' => $item['date'],
+                'payment_type' => $item['payment_type'],
+                'price' => $item['price'],
+                'product_type' => $item['product_type'],
+                'product_name' => $item['product_name'],
+                'complete_user_name' => $item['complete_user_name'],
+                'email' => $item['email'],
+                'rol_unico_tributario' => $item['rol_unico_tributario'],
+                'rut_factura' => $item['rut_factura']
 
-                $listExport[] = [
-                    'id' => $item['id'],
-                    'status' => $item['status'],
-                    'date' => $item['date'],
-                    'payment_type' => $item['payment_type'],
-                    'price' => $item['price'],
-                    'product_type' => $item['product_type'],
-                    'product_name' => $item['product_name'],
-                    'complete_user_name' => $item['complete_user_name'],
-                    'email' => $item['email'],
-                ];
-            }
+            ];
         }
 
         return $listExport;
