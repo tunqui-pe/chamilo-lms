@@ -284,3 +284,4 @@ $strings['ValidityInformationBoxAndes'] = 'Una vez que validemos esta informaci�
 $strings['PendingReasonByTransferBoxAndes'] = "<strong>Pendiente</strong>. Esperando la validación Caja Los Andes";
 $strings['RUTforInvoice'] = 'RUT para factura';
 $strings['UniqueRollTributary'] = 'RUT (Rol Único Tributario)';
+$strings['IDSession'] = 'ID de sesión';
