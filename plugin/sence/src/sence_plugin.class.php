@@ -8,10 +8,18 @@
  */
 class SencePlugin extends Plugin
 {
-    const TABLE_SENCE_SETTINGS = 'plugin_sence_settings';
     const TABLE_SENCE_COURSES = 'plugin_sence_courses';
     const TABLE_SENCE_USERS = 'plugin_sence_users';
     const TABLE_SENCE_USERS_LOGIN = 'plugin_sence_users_login';
+    const SETTING_ENABLED = 'sence_enabled';
+    const RUT_OTEC = 'rut_otec';
+    const TOKEN_OTEC = 'token_otec';
+    const COMPANY_NAME = 'company_name';
+    const ALERT_EMAIL = 'alert_email';
+    const REQUIRE_LOGOUT = 'require_logout';
+    const LOGIN_REQUIRED = 'login_required';
+    const TRAINING_LINE = 3;
+
 
 
     public $isAdminPlugin = true;
@@ -22,7 +30,15 @@ class SencePlugin extends Plugin
             '1.0',
             '
                 Alex Aragón Calixto',
-            ['sence_enable' => 'boolean']
+            [
+                self::SETTING_ENABLED => 'boolean',
+                self::RUT_OTEC => 'text',
+                self::TOKEN_OTEC => 'text',
+                self::COMPANY_NAME => 'text',
+                self::ALERT_EMAIL => 'text',
+                self::REQUIRE_LOGOUT => 'boolean',
+                self::LOGIN_REQUIRED => 'boolean'
+            ]
         );
     }
 
@@ -42,19 +58,6 @@ class SencePlugin extends Plugin
      */
     public function install()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_SETTINGS." (
-            id INT unsigned NOT NULL auto_increment PRIMARY KEY,
-            rut_otec VARCHAR(10) NULL,
-            token_otec VARCHAR(36) NULL,
-            company_name VARCHAR(250) NULL,
-            alert_email VARCHAR(250) NULL,
-            require_logout INT,
-            login_required INT,
-            message LONGTEXT,
-            activate INT
-        )";
-
-        Database::query($sql);
 
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_COURSES." (
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
@@ -99,7 +102,6 @@ class SencePlugin extends Plugin
     public function uninstall()
     {
         $tablesToBeDeleted = [
-            self::TABLE_SENCE_SETTINGS,
             self::TABLE_SENCE_COURSES,
             self::TABLE_SENCE_USERS,
             self::TABLE_SENCE_USERS_LOGIN,
