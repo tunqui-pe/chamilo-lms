@@ -11,6 +11,7 @@ class SencePlugin extends Plugin
     const TABLE_SENCE_COURSES = 'plugin_sence_courses';
     const TABLE_SENCE_USERS = 'plugin_sence_users';
     const TABLE_SENCE_USERS_LOGIN = 'plugin_sence_users_login';
+    const SETTING_TITLE = 'tool_title';
     const SETTING_ENABLED = 'sence_enabled';
     const RUT_OTEC = 'rut_otec';
     const TOKEN_OTEC = 'token_otec';
@@ -21,8 +22,7 @@ class SencePlugin extends Plugin
     const TRAINING_LINE = 3;
 
 
-
-    public $isAdminPlugin = true;
+    public $isCoursePlugin = true;
 
     protected function __construct()
     {
@@ -40,7 +40,24 @@ class SencePlugin extends Plugin
                 self::LOGIN_REQUIRED => 'boolean'
             ]
         );
+
+        $this->isAdminPlugin = true;
     }
+
+    /**
+     * @return string
+     */
+    public function getToolTitle()
+    {
+        $title = $this->get_lang('tool_title');
+
+        if (!empty($title)) {
+            return $title;
+        }
+
+        return $this->get_title();
+    }
+
 
     /**
      * @return SencePlugin
@@ -93,6 +110,21 @@ class SencePlugin extends Plugin
             glosa_error INT
         )";
 
+        $list = [
+            '/64/sence.png',
+            '/64/sence_na.png',
+            '/svg/sence.svg',
+        ];
+
+        foreach ($list as $file) {
+            $source = __DIR__.'/../resources/img/'.$file;
+            $destination = __DIR__.'/../../../main/img/icons/'.$file;
+            $res = @copy($source, $destination);
+            if (!$res) {
+                break;
+            }
+        }
+
         Database::query($sql);
     }
 
@@ -114,5 +146,32 @@ class SencePlugin extends Plugin
         }
         $this->manageTab(false);
 
+    }
+
+    /**
+     * @return SencePlugin
+     */
+    public function performActionsAfterConfigure()
+    {
+        $em = Database::getManager();
+
+        $this->deleteCourseToolLinks();
+
+        if ('true' === $this->get(self::SETTING_ENABLED)) {
+            $courses = $em->createQuery('SELECT c.id FROM ChamiloCoreBundle:Course c')->getResult();
+
+            foreach ($courses as $course) {
+                $this->createLinkToCourseTool($this->getToolTitle(), $course['id']);
+            }
+        }
+
+        return $this;
+    }
+
+    private function deleteCourseToolLinks()
+    {
+        Database::getManager()
+            ->createQuery('DELETE FROM ChamiloCourseBundle:CTool t WHERE t.category = :category AND t.link LIKE :link')
+            ->execute(['category' => 'plugin', 'link' => 'sence/start.php%']);
     }
 }

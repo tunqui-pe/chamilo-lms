@@ -1,9 +1,9 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-$strings['plugin_title'] = 'SENCE Conector para Chamilo';
+$strings['plugin_title'] = 'SENCE Conector Chamilo';
 $strings['plugin_comment'] = 'La Integración Chamilo API SENCE se realiza con el fin de monitorear el avance y ejecución de los cursos modalidad e-learning, los Organismos Técnicos de Capacitación OTEC deben informar el inicio y fin de sesión de los alumnos a través de sus respectivas plataformas LMS o Aulas Virtuales, para Chile.';
-
+$strings['tool_title'] = 'Conector Sence';
 $strings['sence_enabled'] = 'Activar Herramienta SENCE';
 $strings['sence_enabled_help'] = 'Escoga si desea activar el plugin en su plataforma Chamilo, esta acción activara una herramienta extra en las herramienta del curso.';
 $strings['rut_otec'] = 'Ingresa tu RUT OTEC';
