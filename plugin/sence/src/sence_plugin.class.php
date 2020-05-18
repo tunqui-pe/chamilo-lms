@@ -110,22 +110,16 @@ class SencePlugin extends Plugin
             glosa_error INT
         )";
 
-        $list = [
-            '/64/sence.png',
-            '/64/sence_na.png',
-            '/svg/sence.svg',
-        ];
-
-        foreach ($list as $file) {
-            $source = __DIR__.'/../resources/img/'.$file;
-            $destination = __DIR__.'/../../../main/img/icons/'.$file;
-            $res = @copy($source, $destination);
-            if (!$res) {
-                break;
-            }
-        }
-
         Database::query($sql);
+
+        $src1 = api_get_path(SYS_PLUGIN_PATH).'sence/resources/img/64/sence.png';
+        $src2 = api_get_path(SYS_PLUGIN_PATH).'sence/resources/img/64/sence_na.png';
+        $dest1 = api_get_path(SYS_CODE_PATH).'img/icons/64/sence.png';
+        $dest2 = api_get_path(SYS_CODE_PATH).'img/icons/64/sence_na.png';
+
+        copy($src1, $dest1);
+        copy($src2, $dest2);
+
     }
 
     /**
@@ -133,6 +127,8 @@ class SencePlugin extends Plugin
      */
     public function uninstall()
     {
+        $this->deleteCourseToolLinks();
+
         $tablesToBeDeleted = [
             self::TABLE_SENCE_COURSES,
             self::TABLE_SENCE_USERS,
@@ -144,6 +140,7 @@ class SencePlugin extends Plugin
             $sql = "DROP TABLE IF EXISTS $table";
             Database::query($sql);
         }
+
         $this->manageTab(false);
 
     }
@@ -155,7 +152,8 @@ class SencePlugin extends Plugin
     {
         $em = Database::getManager();
 
-        $this->deleteCourseToolLinks();
+        $delete = $this->deleteCourseToolLinks();
+        var_dump($delete);
 
         if ('true' === $this->get(self::SETTING_ENABLED)) {
             $courses = $em->createQuery('SELECT c.id FROM ChamiloCoreBundle:Course c')->getResult();

@@ -1,0 +1,8 @@
+.plugin_logo{
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.plugin_logo .img-responsive{
+    margin: auto;
+}
