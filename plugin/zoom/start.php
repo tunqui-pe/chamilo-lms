@@ -18,14 +18,21 @@ $tpl = new Template($tool_name);
 $message =  null;
 
 $courseInfo = api_get_course_info();
-
+$isTeacher = api_is_teacher();
 $isAdmin = api_is_platform_admin();
+$isStudent = api_is_student();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
 $idCourse = $courseInfo['real_id'];
+
+$urlHome = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?'.api_get_cidreq();
+$urlListRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list&'.api_get_cidreq();
+$urlChangeRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=remove&'.api_get_cidreq();
+$urlAddRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=add&'.api_get_cidreq();
+
 if ($enable) {
-    if (api_is_platform_admin()) {
+    if ($isAdmin || $isTeacher || $isStudent) {
 
         $idRoomAssociate = $plugin->getIdRoomAssociateCourse($idCourse);
 
@@ -43,11 +50,11 @@ if ($enable) {
         }
 
         //create form
-        $form = new FormValidator(get_lang('Search'));
+        $form = new FormValidator('add_room','post',$urlAddRoom);
         $form->addHeader($plugin->get_lang('ZoomVideoConferencingAccess'));
         $form->addHidden(
             'action',
-                'associate'
+                'add'
             );
         $form->addSelect(
             'id_room',
@@ -62,23 +69,45 @@ if ($enable) {
         );
         $form->addButtonSave($plugin->get_lang('AssociateRoomCourse'));
 
-        if ($form->validate()) {
-            $values = $form->exportValues();
-            $idRoom = $values['id_room'];
-            $res = $plugin->associateRoomCourse($idCourse,$idRoom);
-        }
 
-        $tpl->assign('form_zoom', $form->returnForm());
+        if ($action) {
+            switch ($action) {
+                case 'add':
+                    if ($form->validate()) {
+                        $values = $form->exportValues();
+                        $idRoom = $values['id_room'];
+                        $res = $plugin->associateRoomCourse($idCourse,$idRoom);
+                        if($res){
+                            header('Location: '.$urlHome);
+                        }
+                    }
+                    $tpl->assign('form_zoom', $form->returnForm());
+                    break;
+                case 'remove':
+
+                    if($idRoomAssociate){
+                        $res = $plugin->removeRoomZoomCourse($idCourse, $idRoomAssociate);
+                        if($res){
+                            header('Location: '.$urlAddRoom);
+                        }
+                    }
+
+                    break;
+            }
+
+        }
     }
 }
-
-$urlListRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list';
 
 
 $tpl->assign('course', $courseInfo);
 $tpl->assign('message', $message);
 $tpl->assign('is_admin', $isAdmin);
+$tpl->assign('is_student', $isStudent);
+$tpl->assign('is_teacher', $isTeacher);
 $tpl->assign('url_list_room', $urlListRoom);
+$tpl->assign('url_change_room', $urlChangeRoom);
+$tpl->assign('url_add_room', $urlAddRoom);
 $content = $tpl->fetch('zoom/view/start.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

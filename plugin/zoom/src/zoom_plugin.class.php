@@ -157,6 +157,24 @@ class ZoomPlugin extends Plugin
         return $idRoom;
     }
 
+    public function removeRoomZoomCourse($idCourse, $idRoom){
+        if (empty($idCourse) || empty($idRoom)) {
+            return false;
+        }
+        $tableZoomCourse = Database::get_main_table(self::TABLE_ZOOM_COURSES);
+        $sql = "DELETE FROM $tableZoomCourse
+                WHERE
+                    c_id = $idCourse AND
+                    id_room = '".intval($idRoom)."'";
+        $result = Database::query($sql);
+
+        if (Database::affected_rows($result) != 1) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getRoomInfo($idRoom){
         if (empty($idRoom)) {
             return false;
