@@ -268,6 +268,36 @@ class ZoomPlugin extends Plugin
         }
     }
 
+    public function updateRoom($values){
+        if (!is_array($values) || empty($values['room_name'])) {
+            return false;
+        }
+        $table = Database::get_main_table(self::TABLE_ZOOM_LIST);
+
+        $params = [
+            'room_name' => $values['room_name'],
+            'room_url' => $values['room_url'],
+            'room_id' => $values['room_id'],
+            'room_pass' => $values['room_pass'],
+            'zoom_email' => $values['zoom_email'],
+            'zoom_pass' => $values['zoom_pass'],
+            'activate' => 1,
+        ];
+
+        Database::update(
+            $table,
+            $params,
+            [
+                'id = ?' => [
+                    $values['id'],
+                ],
+            ]
+        );
+
+        return true;
+    }
+
+
     public function listZooms()
     {
         $list = [];

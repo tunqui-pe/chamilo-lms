@@ -149,7 +149,7 @@ if ($enable) {
                         Display::return_icon('back.png', get_lang('Back'), [], ICON_SIZE_MEDIUM),
                         api_get_self().'?action=list&'.api_get_cidreq()
                     );
-
+                    $idRoom = isset($_GET['id_room']) ? (int)$_GET['id_room'] : 0;
                     $dataRoom = $plugin->getRoomInfo(Security::remove_XSS($_GET['id_room']));
 
                     //create form
@@ -227,11 +227,22 @@ if ($enable) {
                             'title' => $plugin->get_lang('PasswordZoomHelp'),
                         ]
                     );
+                    $form->addHidden('id', $idRoom);
                     $form->addButtonSave($plugin->get_lang('Save'));
 
-                    var_dump($dataRoom);
-
                     $form->setDefaults($dataRoom);
+
+                    if ($form->validate()) {
+
+                        $values = $form->exportValues();
+
+                        $res = $plugin->updateRoom($values);
+
+                        if ($res) {
+                            $url = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list';
+                            header('Location: '.$url);
+                        }
+                    }
 
                     $tpl->assign('form_room', $form->returnForm());
 
@@ -258,8 +269,6 @@ if ($enable) {
 
     }
 }
-
-
 
 
 if (api_is_platform_admin()) {
