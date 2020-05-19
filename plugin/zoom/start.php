@@ -16,53 +16,65 @@ $plugin = ZoomPlugin::create();
 $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
 $message =  null;
-api_protect_admin_script();
+
 $courseInfo = api_get_course_info();
+
 $isAdmin = api_is_platform_admin();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
-
+$idCourse = $courseInfo['real_id'];
 if ($enable) {
     if (api_is_platform_admin()) {
+
+        $idRoomAssociate = $plugin->getIdRoomAssociateCourse($idCourse);
+
+        if($idRoomAssociate){
+            $roomInfo = $plugin->getRoomInfo($idRoomAssociate);
+            $tpl->assign('room', $roomInfo);
+        }
+
+        $listRooms = $plugin->listZooms();
+
+        $list = [];
+
+        foreach ($listRooms as $room){
+            $list[$room['id']] = $room['room_name'].' - '.$room['room_id'];
+        }
 
         //create form
         $form = new FormValidator(get_lang('Search'));
         $form->addHeader($plugin->get_lang('ZoomVideoConferencingAccess'));
-        $form->addText(
-            'code_course',
+        $form->addHidden(
+            'action',
+                'associate'
+            );
+        $form->addSelect(
+            'id_room',
             [
-                $plugin->get_lang('CodeCourse'),
-                $plugin->get_lang('CodeCourseHelp')
+                $plugin->get_lang('ListRoomsAccounts'),
+                $plugin->get_lang('ListRoomsAccountsHelp')
             ],
-            true,
+            $list,
             [
-                'value' => $courseInfo['official_code']
-            ]
-        )->freeze();
-        $form->addText(
-            'code_sence_course',
-            [
-                $plugin->get_lang('CodeSence'),
-                $plugin->get_lang('CodeSenceHelp')
-            ],
-            true,
-            [
-                'title'=>$plugin->get_lang('CodeSenceHelp')
+                'title'=>$plugin->get_lang('ListRoomsAccounts')
             ]
         );
-        $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
+        $form->addButtonSave($plugin->get_lang('AssociateRoomCourse'));
 
         if ($form->validate()) {
-
+            $values = $form->exportValues();
+            $idRoom = $values['id_room'];
+            $res = $plugin->associateRoomCourse($idCourse,$idRoom);
         }
 
+        $tpl->assign('form_zoom', $form->returnForm());
     }
 }
 
 $urlListRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list';
 
-$tpl->assign('form_zoom', $form->returnForm());
+
 $tpl->assign('course', $courseInfo);
 $tpl->assign('message', $message);
 $tpl->assign('is_admin', $isAdmin);

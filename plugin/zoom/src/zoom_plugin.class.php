@@ -139,6 +139,69 @@ class ZoomPlugin extends Plugin
             ->execute(['category' => 'plugin', 'link' => 'zoom/start.php%']);
     }
 
+    public function getIdRoomAssociateCourse($idCourse){
+        if (empty($idCourse)) {
+            return false;
+        }
+        $idRoom = 0;
+        $tableZoomCourse = Database::get_main_table(self::TABLE_ZOOM_COURSES);
+        $sql = "SELECT id_room FROM $tableZoomCourse
+        WHERE c_id = $idCourse";
+        $result = Database::query($sql);
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $idRoom = $row['id_room'];
+            }
+        }
+
+        return $idRoom;
+    }
+
+    public function getRoomInfo($idRoom){
+        if (empty($idRoom)) {
+            return false;
+        }
+        $room = [];
+        $tableZoomList= Database::get_main_table(self::TABLE_ZOOM_LIST);
+        $sql = "SELECT * FROM $tableZoomList
+        WHERE id = $idRoom";
+
+        $result = Database::query($sql);
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $room = [
+                    'id' => $row['id'],
+                    'room_name' => $row['room_name'],
+                    'room_url' => $row['room_url'],
+                    'room_id' => $row['room_id'],
+                    'room_pass' => $row['room_pass'],
+                    'zoom_email' => $row['zoom_email'],
+                    'zoom_pass' => $row['zoom_pass'],
+                    'activate' => $row['activate'],
+                ];
+            }
+        }
+        return $room;
+
+    }
+
+    public function associateRoomCourse($idCourse, $idRoom){
+        if (empty($idCourse) || empty($idRoom)) {
+            return false;
+        }
+        $table = Database::get_main_table(self::TABLE_ZOOM_COURSES);
+        $params = [
+            'c_id' => $idCourse,
+            'id_room' => $idRoom,
+        ];
+
+        $id = Database::insert($table, $params);
+
+        if ($id > 0) {
+            return $id;
+        }
+    }
+
     public function saveRoom($values){
 
         if (!is_array($values) || empty($values['room_name'])) {
