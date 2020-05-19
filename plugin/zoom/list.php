@@ -19,13 +19,13 @@ $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
 
 $isAdmin = api_is_platform_admin();
-$message =  null;
+$message = null;
 $courseInfo = api_get_course_info();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
 
-if($enable){
+if ($enable) {
     if (api_is_platform_admin()) {
 
         //create form
@@ -38,72 +38,80 @@ if($enable){
             'room_name',
             [
                 $plugin->get_lang('RoomNameZoom'),
-                $plugin->get_lang('RoomNameZoomHelp')
+                $plugin->get_lang('RoomNameZoomHelp'),
             ],
             true,
             [
-                'title'=>$plugin->get_lang('MeetingIDZoomHelp')
+                'title' => $plugin->get_lang('MeetingIDZoomHelp'),
             ]
         );
         $form->addText(
             'room_id',
             [
                 $plugin->get_lang('MeetingIDZoom'),
-                $plugin->get_lang('MeetingIDZoomHelp')
+                $plugin->get_lang('MeetingIDZoomHelp'),
             ],
             true,
             [
-                'title'=>$plugin->get_lang('MeetingIDZoomHelp')
+                'title' => $plugin->get_lang('MeetingIDZoomHelp'),
             ]
         );
         $form->addText(
             'room_url',
             [
                 $plugin->get_lang('InstantMeetingURL'),
-                $plugin->get_lang('InstantMeetingURLHelp')
+                $plugin->get_lang('InstantMeetingURLHelp'),
             ],
             true,
             [
-                'title'=>$plugin->get_lang('InstantMeetingURLHelp')
+                'title' => $plugin->get_lang('InstantMeetingURLHelp'),
             ]
         );
         $form->addText(
             'room_pass',
             [
                 $plugin->get_lang('HostKey'),
-                $plugin->get_lang('HostKeyHelp')
+                $plugin->get_lang('HostKeyHelp'),
             ],
             false,
             [
-                'title'=>$plugin->get_lang('HostKeyHelp')
+                'title' => $plugin->get_lang('HostKeyHelp'),
             ]
         );
         $form->addText(
             'zoom_mail',
             [
                 $plugin->get_lang('AccountEmailZoom'),
-                $plugin->get_lang('AccountEmailZoomHelp')
+                $plugin->get_lang('AccountEmailZoomHelp'),
             ],
             true,
             [
-                'title'=>$plugin->get_lang('AccountEmailZoomHelp')
+                'title' => $plugin->get_lang('AccountEmailZoomHelp'),
             ]
         );
         $form->addText(
             'zoom_pass',
             [
                 $plugin->get_lang('Password'),
-                $plugin->get_lang('PasswordZoomHelp')
+                $plugin->get_lang('PasswordZoomHelp'),
             ],
             true,
             [
-                'title'=>$plugin->get_lang('PasswordZoomHelp')
+                'title' => $plugin->get_lang('PasswordZoomHelp'),
             ]
         );
         $form->addButtonSave($plugin->get_lang('AddRoomZoom'));
 
         if ($action) {
             switch ($action) {
+                case 'delete':
+                    $idRoom = isset($_GET['id_room']) ? $_GET['id_room'] : null;
+                    $res = $plugin->deleteRoom($idRoom);
+                    if ($res) {
+                        $url = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list';
+                        header('Location: '.$url);
+                    }
+                    break;
                 case 'add':
                     $tpl->assign('form_room', $form->returnForm());
 
@@ -117,7 +125,6 @@ if($enable){
                             header('Location: '.$url);
                         }
                     }
-
                     break;
                 case 'list':
                     $zooms = $plugin->listZooms();

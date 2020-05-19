@@ -37,8 +37,7 @@
                             <td>{{ zoom.zoom_pass }}</td>
                             <td>{{ zoom.activate }}</td>
                             <td>
-                                <a href="#">Editar</a>
-                                <a href="#">Eliminar</a>
+                                {{ zoom.actions }}
                             </td>
                         </tr>
                         {% endfor %}

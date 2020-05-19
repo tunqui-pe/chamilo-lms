@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin class for the Zoom Conector plugin.
  *
@@ -55,8 +56,8 @@ class ZoomPlugin extends Plugin
     }
 
     /**
-    * This method creates the tables required to this plugin.
-    */
+     * This method creates the tables required to this plugin.
+     */
     public function install()
     {
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_ZOOM_LIST." (
@@ -98,7 +99,7 @@ class ZoomPlugin extends Plugin
 
         $tablesToBeDeleted = [
             self::TABLE_ZOOM_COURSES,
-            self::TABLE_ZOOM_LIST
+            self::TABLE_ZOOM_LIST,
         ];
 
         foreach ($tablesToBeDeleted as $tableToBeDeleted) {
@@ -139,7 +140,8 @@ class ZoomPlugin extends Plugin
             ->execute(['category' => 'plugin', 'link' => 'zoom/start.php%']);
     }
 
-    public function getIdRoomAssociateCourse($idCourse){
+    public function getIdRoomAssociateCourse($idCourse)
+    {
         if (empty($idCourse)) {
             return false;
         }
@@ -157,7 +159,8 @@ class ZoomPlugin extends Plugin
         return $idRoom;
     }
 
-    public function removeRoomZoomCourse($idCourse, $idRoom){
+    public function removeRoomZoomCourse($idCourse, $idRoom)
+    {
         if (empty($idCourse) || empty($idRoom)) {
             return false;
         }
@@ -175,12 +178,13 @@ class ZoomPlugin extends Plugin
         return true;
     }
 
-    public function getRoomInfo($idRoom){
+    public function getRoomInfo($idRoom)
+    {
         if (empty($idRoom)) {
             return false;
         }
         $room = [];
-        $tableZoomList= Database::get_main_table(self::TABLE_ZOOM_LIST);
+        $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
         $sql = "SELECT * FROM $tableZoomList
         WHERE id = $idRoom";
 
@@ -199,11 +203,13 @@ class ZoomPlugin extends Plugin
                 ];
             }
         }
+
         return $room;
 
     }
 
-    public function associateRoomCourse($idCourse, $idRoom){
+    public function associateRoomCourse($idCourse, $idRoom)
+    {
         if (empty($idCourse) || empty($idRoom)) {
             return false;
         }
@@ -220,7 +226,26 @@ class ZoomPlugin extends Plugin
         }
     }
 
-    public function saveRoom($values){
+    public function deleteRoom($idRoom)
+    {
+        if (empty($idRoom)) {
+            return false;
+        }
+
+        $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
+        $sql = "DELETE FROM $tableZoomList WHERE id = $idRoom";
+        $result = Database::query($sql);
+
+        if (Database::affected_rows($result) != 1) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public function saveRoom($values)
+    {
 
         if (!is_array($values) || empty($values['room_name'])) {
             return false;
@@ -243,13 +268,48 @@ class ZoomPlugin extends Plugin
         }
     }
 
-    public function listZooms(){
+    public function listZooms()
+    {
         $list = [];
         $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
         $sql = "SELECT * FROM $tableZoomList";
         $result = Database::query($sql);
+
+
         if (Database::num_rows($result) > 0) {
             while ($row = Database::fetch_array($result)) {
+
+                $action = Display::url(
+                    Display::return_icon(
+                        'edit.png',
+                        get_lang('Edit'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    'list.php?action=edit&id_room='.$row['id']
+                );
+
+                $action .= Display::url(
+                    Display::return_icon(
+                        'delete.png',
+                        get_lang('Delete'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    'list.php?action=delete&id_room='.$row['id'],
+                    [
+                        'onclick' => 'javascript:if(!confirm('."'".
+                            addslashes(api_htmlentities(get_lang("ConfirmYourChoice")))
+                            ."'".')) return false;',
+                    ]
+                );
+
+                $active = Display::return_icon('accept.png', null, [], ICON_SIZE_TINY);
+                if (intval($row['activate']) != 1) {
+                    $active = Display::return_icon('error.png', null, [], ICON_SIZE_TINY);
+                }
+
+
                 $list[] = [
                     'id' => $row['id'],
                     'room_name' => $row['room_name'],
@@ -258,7 +318,8 @@ class ZoomPlugin extends Plugin
                     'room_pass' => $row['room_pass'],
                     'zoom_email' => $row['zoom_email'],
                     'zoom_pass' => $row['zoom_pass'],
-                    'activate' => $row['activate'],
+                    'activate' => $active,
+                    'actions' => $action,
                 ];
             }
         }
