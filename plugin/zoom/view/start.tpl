@@ -20,10 +20,12 @@
                                 {{ 'RemoveAndChangeRoomZoom'| get_lang }}
                             </a>
                         {% else %}
+                            {% if is_add == false %}
                             <a href="{{ url_add_room }}" class="btn btn-success">
                                 <i class="fa fa-video-camera" aria-hidden="true"></i>
                                 {{ 'AssociateZoomAccount'| get_lang }}
                             </a>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </div>
@@ -68,6 +70,11 @@
                     <div class="alert alert-warning" role="alert">
                         {{ 'CourseDoesNotHaveAssociatedAccountZoom'|get_lang }}
                     </div>
+                    {% if is_student %}
+                        <div class="alert alert-info" role="alert">
+                            {{ 'MessageMeetingZoom'|get_lang }}
+                        </div>
+                    {% endif %}
                 {% endif %}
 
                 {{ form_zoom }}

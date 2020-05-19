@@ -81,6 +81,7 @@ if ($enable) {
                             header('Location: '.$urlHome);
                         }
                     }
+                    $tpl->assign('is_add', true);
                     $tpl->assign('form_zoom', $form->returnForm());
                     break;
                 case 'remove':

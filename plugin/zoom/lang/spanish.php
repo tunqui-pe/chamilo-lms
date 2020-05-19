@@ -30,3 +30,4 @@ $strings['RemoveAndChangeRoomZoom'] = 'Quitar y cambiar sala Zoom';
 $strings['ManageZoomAccounts'] = 'Gestionar cuentas zoom.';
 $strings['AssociateZoomAccount'] = 'Asociar una sala Zoom';
 $strings['JoinTheMeetingZoom'] = 'Ingresar a la reunión Zoom';
+$strings['MessageMeetingZoom'] = '<strong>Aviso Importante: </strong>El profesor del curso o administrador aún no han configurado una cuenta Zoom para iniciar una reunión en videoconferencia. Por favor contactarte con tu profesor o administrador de la plataforma.';
