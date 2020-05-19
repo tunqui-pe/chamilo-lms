@@ -24,83 +24,18 @@ $courseInfo = api_get_course_info();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
+$actionLinks = '';
+
+$iconAdd = Display::return_icon(
+    'add.png',
+    $plugin->get_lang('AddRoomZoom'),
+    [],
+    32
+);
+
 
 if ($enable) {
     if (api_is_platform_admin()) {
-
-        //create form
-        $form = new FormValidator(
-            'add_room',
-            'post',
-            api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
-        );
-        $form->addText(
-            'room_name',
-            [
-                $plugin->get_lang('RoomNameZoom'),
-                $plugin->get_lang('RoomNameZoomHelp'),
-            ],
-            true,
-            [
-                'title' => $plugin->get_lang('MeetingIDZoomHelp'),
-            ]
-        );
-        $form->addText(
-            'room_id',
-            [
-                $plugin->get_lang('MeetingIDZoom'),
-                $plugin->get_lang('MeetingIDZoomHelp'),
-            ],
-            true,
-            [
-                'title' => $plugin->get_lang('MeetingIDZoomHelp'),
-            ]
-        );
-        $form->addText(
-            'room_url',
-            [
-                $plugin->get_lang('InstantMeetingURL'),
-                $plugin->get_lang('InstantMeetingURLHelp'),
-            ],
-            true,
-            [
-                'title' => $plugin->get_lang('InstantMeetingURLHelp'),
-            ]
-        );
-        $form->addText(
-            'room_pass',
-            [
-                $plugin->get_lang('HostKey'),
-                $plugin->get_lang('HostKeyHelp'),
-            ],
-            false,
-            [
-                'title' => $plugin->get_lang('HostKeyHelp'),
-            ]
-        );
-        $form->addText(
-            'zoom_mail',
-            [
-                $plugin->get_lang('AccountEmailZoom'),
-                $plugin->get_lang('AccountEmailZoomHelp'),
-            ],
-            true,
-            [
-                'title' => $plugin->get_lang('AccountEmailZoomHelp'),
-            ]
-        );
-        $form->addText(
-            'zoom_pass',
-            [
-                $plugin->get_lang('Password'),
-                $plugin->get_lang('PasswordZoomHelp'),
-            ],
-            true,
-            [
-                'title' => $plugin->get_lang('PasswordZoomHelp'),
-            ]
-        );
-        $form->addButtonSave($plugin->get_lang('AddRoomZoom'));
 
         if ($action) {
             switch ($action) {
@@ -113,6 +48,89 @@ if ($enable) {
                     }
                     break;
                 case 'add':
+                    $actionLinks .= Display::url(
+                        Display::return_icon('back.png', get_lang('Back'), [], ICON_SIZE_MEDIUM),
+                        api_get_self().'?action=list&'.api_get_cidreq()
+                    );
+
+                    //create form
+                    $form = new FormValidator(
+                        'add_room',
+                        'post',
+                        api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
+                    );
+
+                    $form->addHeader(get_lang('AddRoomZoom'));
+
+                    $form->addText(
+                        'room_name',
+                        [
+                            $plugin->get_lang('RoomNameZoom'),
+                            $plugin->get_lang('RoomNameZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('MeetingIDZoomHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'room_id',
+                        [
+                            $plugin->get_lang('MeetingIDZoom'),
+                            $plugin->get_lang('MeetingIDZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('MeetingIDZoomHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'room_url',
+                        [
+                            $plugin->get_lang('InstantMeetingURL'),
+                            $plugin->get_lang('InstantMeetingURLHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('InstantMeetingURLHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'room_pass',
+                        [
+                            $plugin->get_lang('HostKey'),
+                            $plugin->get_lang('HostKeyHelp'),
+                        ],
+                        false,
+                        [
+                            'title' => $plugin->get_lang('HostKeyHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'zoom_email',
+                        [
+                            $plugin->get_lang('AccountEmailZoom'),
+                            $plugin->get_lang('AccountEmailZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('AccountEmailZoomHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'zoom_pass',
+                        [
+                            $plugin->get_lang('Password'),
+                            $plugin->get_lang('PasswordZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('PasswordZoomHelp'),
+                        ]
+                    );
+                    $form->addButtonSave($plugin->get_lang('Add'));
+
+
                     $tpl->assign('form_room', $form->returnForm());
 
                     if ($form->validate()) {
@@ -126,7 +144,112 @@ if ($enable) {
                         }
                     }
                     break;
+                case 'edit':
+                    $actionLinks .= Display::url(
+                        Display::return_icon('back.png', get_lang('Back'), [], ICON_SIZE_MEDIUM),
+                        api_get_self().'?action=list&'.api_get_cidreq()
+                    );
+
+                    $dataRoom = $plugin->getRoomInfo(Security::remove_XSS($_GET['id_room']));
+
+                    //create form
+                    $form = new FormValidator(
+                        'edit_room',
+                        'post',
+                        api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
+                    );
+
+                    $form->addHeader(get_lang('EditRoomZoom'));
+
+                    $form->addText(
+                        'room_name',
+                        [
+                            $plugin->get_lang('RoomNameZoom'),
+                            $plugin->get_lang('RoomNameZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('MeetingIDZoomHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'room_id',
+                        [
+                            $plugin->get_lang('MeetingIDZoom'),
+                            $plugin->get_lang('MeetingIDZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('MeetingIDZoomHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'room_url',
+                        [
+                            $plugin->get_lang('InstantMeetingURL'),
+                            $plugin->get_lang('InstantMeetingURLHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('InstantMeetingURLHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'room_pass',
+                        [
+                            $plugin->get_lang('HostKey'),
+                            $plugin->get_lang('HostKeyHelp'),
+                        ],
+                        false,
+                        [
+                            'title' => $plugin->get_lang('HostKeyHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'zoom_email',
+                        [
+                            $plugin->get_lang('AccountEmailZoom'),
+                            $plugin->get_lang('AccountEmailZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('AccountEmailZoomHelp'),
+                        ]
+                    );
+                    $form->addText(
+                        'zoom_pass',
+                        [
+                            $plugin->get_lang('Password'),
+                            $plugin->get_lang('PasswordZoomHelp'),
+                        ],
+                        true,
+                        [
+                            'title' => $plugin->get_lang('PasswordZoomHelp'),
+                        ]
+                    );
+                    $form->addButtonSave($plugin->get_lang('Save'));
+
+                    var_dump($dataRoom);
+
+                    $form->setDefaults($dataRoom);
+
+                    $tpl->assign('form_room', $form->returnForm());
+
+
+                    break;
+
                 case 'list':
+
+                    $actionLinks .= Display::url(
+                        Display::return_icon('back.png', get_lang('Back'), [], ICON_SIZE_MEDIUM),
+                        'start.php?action=list&'.api_get_cidreq()
+                    );
+
+                    $actionLinks .= Display::url(
+                        $iconAdd
+                        ,
+                        api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
+                    );
                     $zooms = $plugin->listZooms();
                     $tpl->assign('zooms', $zooms);
                     break;
@@ -136,19 +259,10 @@ if ($enable) {
     }
 }
 
-$iconAdd = Display::return_icon(
-    'add.png',
-    $plugin->get_lang('AddRoomZoom'),
-    [],
-    32
-);
-$actionLinks = '';
+
+
+
 if (api_is_platform_admin()) {
-    $actionLinks .= Display::url(
-        $iconAdd
-        ,
-        api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
-    );
 
     $tpl->assign(
         'actions',

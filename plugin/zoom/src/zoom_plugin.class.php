@@ -257,7 +257,7 @@ class ZoomPlugin extends Plugin
             'room_url' => $values['room_url'],
             'room_id' => $values['room_id'],
             'room_pass' => $values['room_pass'],
-            'zoom_email' => $values['zoom_mail'],
+            'zoom_email' => $values['zoom_email'],
             'zoom_pass' => $values['zoom_pass'],
             'activate' => 1,
         ];

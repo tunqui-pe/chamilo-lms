@@ -9,7 +9,7 @@
 
                 {% else %}
 
-                    <h3>{{ 'ListRoomsAccounts'|get_lang }}</h3>
+                    <h3 class="page-header">{{ 'ListRoomsAccounts'|get_lang }}</h3>
                     {% if zooms %}
                         {% set number = 0 %}
                     <table class="table table-striped">
@@ -32,7 +32,11 @@
                             <th scope="row">{{ number }}</th>
                             <td>{{ zoom.room_id }}</td>
                             <td>{{ zoom.room_name }}</td>
-                            <td>{{ zoom.room_url }}</td>
+                            <td>
+                                <a href="{{ zoom.room_url }}">
+                                    {{ zoom.room_url }}
+                                </a>
+                            </td>
                             <td>{{ zoom.zoom_email }}</td>
                             <td>{{ zoom.zoom_pass }}</td>
                             <td>{{ zoom.activate }}</td>
