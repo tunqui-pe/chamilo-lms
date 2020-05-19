@@ -136,10 +136,17 @@ if ($enable) {
     }
 }
 
+$iconAdd = Display::return_icon(
+    'add.png',
+    $plugin->get_lang('AddRoomZoom'),
+    [],
+    32
+);
 $actionLinks = '';
 if (api_is_platform_admin()) {
-    $actionLinks .= Display::toolbarButton(
-        $plugin->get_lang('AddRoomZoom'),
+    $actionLinks .= Display::url(
+        $iconAdd
+        ,
         api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
     );
 
