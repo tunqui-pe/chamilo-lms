@@ -23,3 +23,4 @@ $strings['CodeSence'] = 'Código SENCE del curso';
 $strings['CodeSenceHelp'] = "Ingrese el código de certificación del curso proporcionado por SENCE, debe de tener 10 caracteres.";
 $strings['CodeCourse'] = 'Codigó de curso';
 $strings['CodeCourseHelp'] = 'Es el codigó interno del curso generado en la plataforma, debe de tener mínimo de 7 a 50 caracteres.';
+$strings['NotHaveAnAssociatedSenceCourseCode'] = 'Este curso no tiene un codigo de curso SENCE asociado.';

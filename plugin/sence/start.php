@@ -25,42 +25,57 @@ $enable = $plugin->get('sence_enabled') == 'true';
 if ($enable) {
     if (api_is_platform_admin()) {
 
-        //create form
-        $form = new FormValidator(get_lang('Search'));
-        $form->addHeader($plugin->get_lang('SynchronizeYourCourse'));
-        $form->addText(
-            'code_course',
-            [
-                $plugin->get_lang('CodeCourse'),
-                $plugin->get_lang('CodeCourseHelp')
-            ],
-            true,
-            [
-                'value' => $courseInfo['official_code']
-            ]
-        )->freeze();
-        $form->addText(
-            'code_sence_course',
-            [
-                $plugin->get_lang('CodeSence'),
-                $plugin->get_lang('CodeSenceHelp')
-            ],
-            true,
-            [
-                'title'=>$plugin->get_lang('CodeSenceHelp')
-            ]
-        );
-        $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
+        switch ($action) {
+            case 'add':
 
-        if ($form->validate()) {
+                //Add Code Sence
+                $form = new FormValidator(get_lang('Search'));
+                $form->addHeader($plugin->get_lang('SynchronizeYourCourse'));
+                $form->addText(
+                    'code_course',
+                    [
+                        $plugin->get_lang('CodeCourse'),
+                        $plugin->get_lang('CodeCourseHelp')
+                    ],
+                    true,
+                    [
+                        'value' => $courseInfo['official_code']
+                    ]
+                )->freeze();
+                $form->addText(
+                    'code_sence_course',
+                    [
+                        $plugin->get_lang('CodeSence'),
+                        $plugin->get_lang('CodeSenceHelp')
+                    ],
+                    true,
+                    [
+                        'title'=>$plugin->get_lang('CodeSenceHelp')
+                    ]
+                );
+                $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
+
+                if ($form->validate()) {
+
+                }
+                $tpl->assign('form_sence', $form->returnForm());
+
+            break;
+            case 'edit':
+                break;
+            default :
+
+                break;
 
         }
 
+
+
     }
 }
-$tpl->assign('form_sence', $form->returnForm());
+
 $tpl->assign('course', $courseInfo);
 $tpl->assign('message', $message);
-$content = $tpl->fetch('sence/view/connector.tpl');
+$content = $tpl->fetch('sence/view/start.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

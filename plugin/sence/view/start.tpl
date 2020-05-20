@@ -6,6 +6,12 @@
                 <div class="plugin_logo">
                     <img alt="" class="img-responsive" src="{{ _p.web }}plugin/sence/resources/img/logo_sence.png">
                 </div>
+
+                <div class="alert alert-warning" role="alert">
+                    {{ 'NotHaveAnAssociatedSenceCourseCode' | get_lang }}
+                </div>
+
+
                 {{ form_sence }}
             </div>
         </div>
