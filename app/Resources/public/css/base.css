@@ -10246,5 +10246,7 @@ ul.dropdown-menu.inner > li > a {
         clear: left;
     }
 }
-
+a#istooldesc_ img {
+    display: none;
+}
 /*-------------------------------------------------------------------------------------*/
