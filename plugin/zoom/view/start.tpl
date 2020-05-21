@@ -10,20 +10,20 @@
                     {% if is_admin %}
                         <a href="{{ url_list_room }}" class="btn btn-primary">
                             <i class="fa fa-wrench" aria-hidden="true"></i>
-                            {{ 'ManageZoomAccounts'|get_lang }}
+                            {{ 'ManageZoomAccounts'|get_plugin_lang('ZoomPlugin') }}
                         </a>
                     {% endif %}
                     {% if is_admin or is_teacher %}
                         {% if room %}
                             <a href="{{ url_change_room }}" class="btn btn-danger">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                {{ 'RemoveAndChangeRoomZoom'| get_lang }}
+                                {{ 'RemoveAndChangeRoomZoom'| get_plugin_lang('ZoomPlugin') }}
                             </a>
                         {% else %}
                             {% if is_add == false %}
                             <a href="{{ url_add_room }}" class="btn btn-success">
                                 <i class="fa fa-video-camera" aria-hidden="true"></i>
-                                {{ 'AssociateZoomAccount'| get_lang }}
+                                {{ 'AssociateZoomAccount'| get_plugin_lang('ZoomPlugin') }}
                             </a>
                             {% endif %}
                         {% endif %}
@@ -33,26 +33,26 @@
 
                 {% if room %}
                     <div class="alert alert-info" role="alert">
-                        {{ 'CourseCurrentlyAssociatedAccountZoom'|get_lang }}
+                        {{ 'CourseCurrentlyAssociatedAccountZoom'|get_plugin_lang('ZoomPlugin') }}
                     </div>
                     <div class="info-room">
                         <div class="well">
                             <dl class="dl-horizontal">
-                                <dt>{{ 'MeetingIDZoom'|get_lang }}</dt>
+                                <dt>{{ 'MeetingIDZoom'|get_plugin_lang('ZoomPlugin') }}</dt>
                                 <dd>{{ room.room_id }}</dd>
-                                <dt>{{ 'RoomNameZoom'|get_lang }}</dt>
+                                <dt>{{ 'RoomNameZoom'|get_plugin_lang('ZoomPlugin') }}</dt>
                                 <dd>{{ room.room_name }}</dd>
-                                <dt>{{ 'InstantMeetingURL'|get_lang }}</dt>
+                                <dt>{{ 'InstantMeetingURL'|get_plugin_lang('ZoomPlugin') }}</dt>
                                 <dd>
                                     <a href="{{ room.room_url }}" target="_blank">
                                         {{ room.room_url }}
                                     </a>
                                 </dd>
-                                <dt>{{ 'HostKey'|get_lang }}</dt>
+                                <dt>{{ 'HostKey'|get_plugin_lang('ZoomPlugin') }}</dt>
                                 <dd>{{ room.room_pass }}</dd>
 
                                 {% if is_teacher %}
-                                    <dt>{{ 'AccountEmailZoom'|get_lang }}</dt>
+                                    <dt>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</dt>
                                     <dd>{{ room.zoom_email }}</dd>
                                     <dt>{{ 'Password'|get_lang }}</dt>
                                     <dd>{{ room.zoom_pass }}</dd>
@@ -61,18 +61,18 @@
                             <div class="text-center">
                                 <a href="{{ room.room_url }}" target="_blank" class="btn btn-success btn-lg">
                                     <i class="fa fa-video-camera" aria-hidden="true"></i>
-                                    {{ 'JoinTheMeetingZoom' | get_lang }}
+                                    {{ 'JoinTheMeetingZoom' | get_plugin_lang('ZoomPlugin') }}
                                 </a>
                             </div>
                         </div>
                     </div>
                 {% else %}
                     <div class="alert alert-warning" role="alert">
-                        {{ 'CourseDoesNotHaveAssociatedAccountZoom'|get_lang }}
+                        {{ 'CourseDoesNotHaveAssociatedAccountZoom'|get_plugin_lang('ZoomPlugin') }}
                     </div>
                     {% if is_student %}
                         <div class="alert alert-info" role="alert">
-                            {{ 'MessageMeetingZoom'|get_lang }}
+                            {{ 'MessageMeetingZoom'|get_plugin_lang('ZoomPlugin') }}
                         </div>
                     {% endif %}
                 {% endif %}
