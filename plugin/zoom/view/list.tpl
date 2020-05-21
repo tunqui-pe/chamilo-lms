@@ -9,17 +9,17 @@
 
                 {% else %}
 
-                    <h3 class="page-header">{{ 'ListRoomsAccounts'|get_lang }}</h3>
+                    <h3 class="page-header">{{ 'ListRoomsAccounts'|get_plugin_lang('ZoomPlugin') }}</h3>
                     {% if zooms %}
                         {% set number = 0 %}
                     <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ 'MeetingIDZoom'|get_lang }}</th>
-                            <th>{{ 'RoomNameZoom'|get_lang }}</th>
-                            <th>{{ 'InstantMeetingURL'|get_lang }}</th>
-                            <th>{{ 'AccountEmailZoom'|get_lang }}</th>
+                            <th>{{ 'MeetingIDZoom'|get_plugin_lang('ZoomPlugin') }}</th>
+                            <th>{{ 'RoomNameZoom'|get_plugin_lang('ZoomPlugin') }}</th>
+                            <th>{{ 'InstantMeetingURL'|get_plugin_lang('ZoomPlugin') }}</th>
+                            <th>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                             <th>{{ 'Password'|get_lang }}</th>
                             <th>{{ 'Status'|get_lang }}</th>
                             <th>{{ 'Actions'|get_lang }}</th>
