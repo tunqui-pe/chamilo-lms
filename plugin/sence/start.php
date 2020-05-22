@@ -15,65 +15,38 @@ $plugin = SencePlugin::create();
 
 $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
+
 $message =  null;
-api_protect_admin_script();
+
 $courseInfo = api_get_course_info();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('sence_enabled') == 'true';
+
+$isTeacher = api_is_teacher();
+$isStudent = api_is_student();
+$isAdmin = api_is_course_admin();
 
 if ($enable) {
     if (api_is_platform_admin()) {
 
         switch ($action) {
             case 'add':
+                break;
 
-                //Add Code Sence
-                $form = new FormValidator(get_lang('Search'));
-                $form->addHeader($plugin->get_lang('SynchronizeYourCourse'));
-                $form->addText(
-                    'code_course',
-                    [
-                        $plugin->get_lang('CodeCourse'),
-                        $plugin->get_lang('CodeCourseHelp')
-                    ],
-                    true,
-                    [
-                        'value' => $courseInfo['official_code']
-                    ]
-                )->freeze();
-                $form->addText(
-                    'code_sence_course',
-                    [
-                        $plugin->get_lang('CodeSence'),
-                        $plugin->get_lang('CodeSenceHelp')
-                    ],
-                    true,
-                    [
-                        'title'=>$plugin->get_lang('CodeSenceHelp')
-                    ]
-                );
-                $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
-
-                if ($form->validate()) {
-
-                }
-                $tpl->assign('form_sence', $form->returnForm());
-
-            break;
             case 'edit':
                 break;
-            default :
 
+            default :
                 break;
 
         }
-
-
-
     }
 }
 
+$urlAdd = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=add&'.api_get_cidreq();;
+
+$tpl->assign('url_add_sence', $urlAdd);
 $tpl->assign('course', $courseInfo);
 $tpl->assign('message', $message);
 $content = $tpl->fetch('sence/view/start.tpl');

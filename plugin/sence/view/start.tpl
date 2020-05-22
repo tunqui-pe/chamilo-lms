@@ -11,8 +11,14 @@
                     {{ 'NotHaveAnAssociatedSenceCourseCode' | get_lang }}
                 </div>
 
+                <div class="tools text-center">
+                    <a href="{{ url_add_sence }}" class="btn btn-primary">
+                        <i class="fa fa-codepen" aria-hidden="true"></i>
+                        {{ 'AssociateCodeSence'|get_plugin_lang('SencePlugin') }}
+                    </a>
+                </div>
 
-                {{ form_sence }}
+
             </div>
         </div>
     </div>

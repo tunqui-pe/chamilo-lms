@@ -81,7 +81,7 @@ class SencePlugin extends Plugin
             c_id INT NULL,
             code_sence VARCHAR(10) NULL,
             code_course VARCHAR(36) NULL,
-            fellows VARCHAR(60) NULL,
+            id_group INT NULL,
             training_line INT NULL,
             activate INT
         )";
@@ -171,5 +171,44 @@ class SencePlugin extends Plugin
         Database::getManager()
             ->createQuery('DELETE FROM ChamiloCourseBundle:CTool t WHERE t.category = :category AND t.link LIKE :link')
             ->execute(['category' => 'plugin', 'link' => 'sence/start.php%']);
+    }
+
+    //Get list group course;
+
+    public function getListGroupCourse(){
+
+        $list = [];
+        $listGroups = GroupManager::get_group_list();
+
+        foreach ($listGroups as $group){
+            $list[$group['id']] = $group['name'].' - '.$group['id'];
+        }
+
+        return $list;
+
+    }
+
+    //Registro codigo SENCE en un curso, para asignarlo
+
+    public function registerCodeSenceCourse($values){
+        if (!is_array($values) || empty($values['code_sence'])) {
+            return false;
+        }
+        $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
+
+        $params = [
+            'c_id' => $values['room_name'],
+            'code_sence' => $values['room_url'],
+            'code_course' => $values['room_id'],
+            'id_group' => $values['room_pass'],
+            'training_line' => 3,
+            'activate' => 1,
+        ];
+
+        $id = Database::insert($table, $params);
+
+        if ($id > 0) {
+            return $id;
+        }
     }
 }
