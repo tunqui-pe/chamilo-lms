@@ -34,7 +34,10 @@ if (isset($_GET['loginFailed'])) {
     }
 }
 
+$theme = api_get_visual_theme();
 $rootWeb = api_get_path('WEB_PATH');
+$rootWebTheme = api_get_path('WEB_CSS_PATH').'themes/'.$theme;
+$rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 
 /**
  * HTML output.
@@ -46,14 +49,12 @@ $rootWeb = api_get_path('WEB_PATH');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Acceso al aula virtual</title>
-
-    <link rel="icon" type="image/png" href="<?php echo $rootWeb; ?>custompages/assets/img/favicon.png" />
+    <link rel="icon" type="image/png" href="<?php echo $rootWebTheme; ?>/images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/flag-icon-css/css/flag-icon.min.css" />
-
     <script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<?php echo $rootWeb; ?>custompages/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $rootWebTheme; ?>/custompage.css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i&display=swap');
     </style>
@@ -68,7 +69,7 @@ $rootWeb = api_get_path('WEB_PATH');
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWeb; ?>custompages/assets/img/logo_educacion_chile.svg" width="300px"/>
+                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
             </a>
         </div>
         <div class="panel panel-default form-signin">
@@ -86,40 +87,48 @@ $rootWeb = api_get_path('WEB_PATH');
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <form id="login-form" action="<?php echo api_get_path(WEB_PATH); ?>index.php" method="post">
-                            <div class="section-title-container">
-                                <h2 class="section-title">Acceso Aula Virtual</h2>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="user" name="login" placeholder="<?php echo custompages_get_lang('Email'); ?>">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo custompages_get_lang('Password'); ?>">
-                            </div>
+                        <div class="padding-login">
+                            <form id="login-form" action="<?php echo api_get_path(WEB_PATH); ?>index.php" method="post">
+                                <div class="section-title-container">
+                                    <h2 class="section-title">Acceso Aula Virtual</h2>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user" name="login" placeholder="<?php echo custompages_get_lang('User'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo custompages_get_lang('Password'); ?>">
+                                </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <?php echo custompages_get_lang('LoginEnter'); ?>
-                            </button>
-                            <?php if (api_get_setting('allow_registration') === 'true') { ?>
-                                <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/inscription.php?language=<?php echo api_get_interface_language(); ?>" class="btn btn-default btn-block" >
-                                    <?php echo custompages_get_lang('Registration'); ?>
-                                </a >
-                            <?php } ?>
-                            <div class="last-password">
-                                <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/lostPassword.php?language=<?php echo api_get_interface_language(); ?>">
-                                    <?php echo custompages_get_lang('LostPassword'); ?>
-                                </a>
-                            </div>
-                        </form>
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <?php echo custompages_get_lang('LoginEnter'); ?>
+                                </button>
+                                <?php if (api_get_setting('allow_registration') === 'true') { ?>
+                                    <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/inscription.php?language=<?php echo api_get_interface_language(); ?>" class="btn btn-default btn-block" >
+                                        <?php echo custompages_get_lang('Registration'); ?>
+                                    </a >
+                                <?php } ?>
+                                <div class="last-password">
+                                    <a href="<?php echo api_get_path(WEB_CODE_PATH); ?>auth/lostPassword.php?language=<?php echo api_get_interface_language(); ?>">
+                                        <?php echo custompages_get_lang('LostPassword'); ?>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="<?php echo $rootWeb; ?>custompages/assets/img/work.svg"/>
+                        <div class="image-login">
+                            <img class="img-responsive" src="<?php echo $rootWebTheme; ?>/images/img_login.png"/>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="help">Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador. </div>
+        <div class="help">
+            <ul>
+                <li>Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.</li>
+            </ul>
+        </div>
     </div> <!-- /container -->
 </body>
 </html>

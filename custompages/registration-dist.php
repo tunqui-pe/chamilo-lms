@@ -12,19 +12,77 @@ require_once api_get_path(SYS_PATH).'main/inc/global.inc.php';
 require_once __DIR__.'/language.php';
 /**
  * Removes some unwanted elementend of the form object.
+ * 03-26-2020  Added check if element exist.
  */
-$content['form']->removeElement('extra_mail_notify_invitation');
-$content['form']->removeElement('extra_mail_notify_message');
-$content['form']->removeElement('extra_mail_notify_group_message');
-$content['form']->removeElement('official_code');
-$content['form']->removeElement('phone');
-$content['form']->removeElement('submit');
+if (isset($content['form']->_elementIndex['extra_mail_notify_invitation'])) {
+    $content['form']->removeElement('extra_mail_notify_invitation');
+}
+if (isset($content['form']->_elementIndex['extra_mail_notify_message'])) {
+    $content['form']->removeElement('extra_mail_notify_message');
+}
+if (isset($content['form']->_elementIndex['extra_mail_notify_group_message'])) {
+    $content['form']->removeElement('extra_mail_notify_group_message');
+}
+
 if (isset($content['form']->_elementIndex['status'])) {
     $content['form']->removeElement('status');
     $content['form']->removeElement('status');
 }
 $rootWeb = api_get_path('WEB_PATH');
 
+// Deprecated since 2015-03-26
+/**
+ * Code to change the way QuickForm render html.
+ */
+/*
+$renderer = & $content['form']->defaultRenderer();
+$form_template = <<<EOT
+
+<form {attributes}>
+{content}
+  <div class="clear">
+    &nbsp;
+  </div>
+  <p><a href="#" class="btn btn-primary" onclick="$('#registration-form').submit()"><span>S'inscrire</span></a></p>
+</form>
+
+EOT;
+$renderer->setFormTemplate($form_template);
+
+$element_template = <<<EOT
+  <div class="field decalle">
+    <label>
+      <!-- BEGIN required --><span class="form_required">*</span> <!-- END required -->{label}
+    </label>
+    <div class="formw">
+      <!-- BEGIN error --><span class="form_error">{error}</span><br /><!-- END error --> {element}
+    </div>
+  </div>
+
+EOT;
+$element_template_wimage = <<<EOT
+  <div class="field decalle display">
+    <label>
+      <!-- BEGIN required --><span class="form_required">*</span> <!-- END required -->{label}
+    </label>
+    <div class="formw">
+      <!-- BEGIN error --><span class="form_error">{error}</span><br /><!-- END error --> {element}
+      <img src="/custompages/images/perso.jpg" alt="" />
+    </div>
+  </div>
+
+EOT;
+$renderer->setElementTemplate($element_template_wimage,'pass1');
+$renderer->setElementTemplate($element_template);
+
+$header_template = <<<EOT
+  <div class="row">
+    <div class="form_header">{header}</div>
+  </div>
+
+EOT;
+
+ */
 ?>
 <html>
 <head>
