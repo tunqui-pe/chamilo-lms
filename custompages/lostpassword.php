@@ -40,7 +40,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <img src="<?php echo $rootWebTheme; ?>/images/logo.svg" class="logo" width="300px"/>
             </a>
         </div>
         <div class="panel panel-default form-lost-password">
@@ -57,7 +57,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                     ?>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <div class="padding-login">
                             <div class="section-title-container">
                                 <h2 class="section-title"><?php echo custompages_get_lang('LostPassword'); ?></h2>
@@ -67,9 +67,9 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                             ?>
                         </div>
                     </div>
-                    <!--<div class="col-md-4">
-                        <img src="<?php /*echo $rootWeb; */?>custompages/assets/img/password.svg"/>
-                    </div>-->
+                    <div class="col-md-4">
+                        <img src="<?php echo $rootWebTheme; ?>/images/password.svg"/>
+                    </div>
                 </div>
 
             </div>

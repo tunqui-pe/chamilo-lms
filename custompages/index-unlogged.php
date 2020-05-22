@@ -69,7 +69,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <img src="<?php echo $rootWebTheme; ?>/images/logo.svg" class="logo" width="300px"/>
             </a>
         </div>
         <div class="panel panel-default form-signin">
@@ -117,7 +117,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                     </div>
                     <div class="col-md-6">
                         <div class="image-login">
-                            <img class="img-responsive" src="<?php echo $rootWebTheme; ?>/images/img_login.png"/>
+                            <img class="img-responsive" src="<?php echo $rootWebTheme; ?>/images/img_login.svg"/>
                         </div>
                     </div>
                 </div>

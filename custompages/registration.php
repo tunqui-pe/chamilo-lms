@@ -25,8 +25,8 @@ if (isset($content['form']->_elementIndex['status'])) {
 }*/
 $content['form']->removeElement('official_code');
 $content['form']->removeElement('phone');
-/*$content['form']->removeElement('extra_rol_unico_tributario');
-$content['form']->removeElement('extra_rut_factura');*/
+$content['form']->removeElement('extra_rol_unico_tributario');
+$content['form']->removeElement('extra_rut_factura');
 
 $theme = api_get_visual_theme();
 $rootWeb = api_get_path('WEB_PATH');
@@ -60,7 +60,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <img src="<?php echo $rootWebTheme; ?>/images/logo.svg" class="logo" width="300px"/>
             </a>
         </div>
         <div class="panel panel-default form-register">
