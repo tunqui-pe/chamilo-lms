@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="tools text-center">
-                    {% if is_admin %}
+                    {% if is_admin or is_teacher %}
                         <a href="{{ url_list_room }}" class="btn btn-primary">
                             <i class="fa fa-wrench" aria-hidden="true"></i>
                             {{ 'ManageZoomAccounts'|get_plugin_lang('ZoomPlugin') }}

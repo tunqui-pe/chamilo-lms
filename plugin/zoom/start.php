@@ -16,6 +16,7 @@ $plugin = ZoomPlugin::create();
 $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
 $message =  null;
+$userId = api_get_user_id();
 
 $courseInfo = api_get_course_info();
 $isTeacher = api_is_teacher();
@@ -31,6 +32,11 @@ $urlListRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list&'.api_ge
 $urlChangeRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=remove&'.api_get_cidreq();
 $urlAddRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=add&'.api_get_cidreq();
 
+$typeRoom = 1;
+if(!$isAdmin){
+    $typeRoom = 2;
+}
+
 if ($enable) {
     if ($isAdmin || $isTeacher || $isStudent) {
 
@@ -41,7 +47,7 @@ if ($enable) {
             $tpl->assign('room', $roomInfo);
         }
 
-        $listRooms = $plugin->listZooms();
+        $listRooms = $plugin->listZooms($typeRoom, $userId);
 
         $list = [];
 

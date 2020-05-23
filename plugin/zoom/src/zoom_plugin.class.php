@@ -68,6 +68,8 @@ class ZoomPlugin extends Plugin
             room_pass VARCHAR(6) NULL,
             zoom_email VARCHAR(250) NULL,
             zoom_pass VARCHAR(250),
+            type_zoom INT NOT NULL,
+            user_id INT NULL NOT NULL,
             activate INT
         )";
 
@@ -199,6 +201,8 @@ class ZoomPlugin extends Plugin
                     'room_pass' => $row['room_pass'],
                     'zoom_email' => $row['zoom_email'],
                     'zoom_pass' => $row['zoom_pass'],
+                    'type_room' => $row['type_room'],
+                    'user_id' => $row['user_id'],
                     'activate' => $row['activate'],
                 ];
             }
@@ -259,6 +263,8 @@ class ZoomPlugin extends Plugin
             'room_pass' => $values['room_pass'],
             'zoom_email' => $values['zoom_email'],
             'zoom_pass' => $values['zoom_pass'],
+            'type_room' => $values['type_room'],
+            'user_id' => api_get_user_id(),
             'activate' => 1,
         ];
         $id = Database::insert($table, $params);
@@ -281,6 +287,7 @@ class ZoomPlugin extends Plugin
             'room_pass' => $values['room_pass'],
             'zoom_email' => $values['zoom_email'],
             'zoom_pass' => $values['zoom_pass'],
+            'type_room' => $values['type_room'],
             'activate' => 1,
         ];
 
@@ -298,11 +305,12 @@ class ZoomPlugin extends Plugin
     }
 
 
-    public function listZooms()
+    public function listZooms($typeRoom, $userID)
     {
         $list = [];
         $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
-        $sql = "SELECT * FROM $tableZoomList";
+        $sql = "SELECT * FROM $tableZoomList WHERE type_room = $typeRoom AND user_id = $userID";
+
         $result = Database::query($sql);
 
 
