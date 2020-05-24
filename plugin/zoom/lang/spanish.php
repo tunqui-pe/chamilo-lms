@@ -5,6 +5,8 @@ $strings['plugin_title'] = 'Zoom Meetings';
 $strings['plugin_comment'] = 'Zoom es una plataforma de video y conferencias web, este plugin es un integración sencilla para usar.';
 $strings['tool_title'] = 'Nombre de la herramienta';
 $strings['tool_title_help'] = 'Puede cambiar el nombre de la herramienta Zoom Meeting; Ejemplo: Videoconferencia';
+$strings['view_credentials'] = 'Ocultar credenciales de acceso';
+$strings['view_credentials_help'] = 'Permite ocultar las credenciales de acceso de reuniones.';
 $strings['zoom_enabled'] = 'Activar Herramienta Zoom Meetings';
 $strings['zoom_enabled_help'] = 'Escoga si desea activar el plugin en su plataforma Chamilo, esta acción activara una herramienta extra en las herramienta del curso.';
 $strings['ZoomVideoConferencingAccess'] = 'Acceso a videoconferencia Zoom';
@@ -39,3 +41,4 @@ $strings['MessageMeetingTeacher'] = '<strong>Nota: </strong> En esta sección pu
 salas generales registradas por el administrador en la plataforma.';
 $strings['MessageMeetingZoom'] = '<strong>Aviso Importante: </strong>El profesor del curso o administrador aún no han configurado una cuenta Zoom para 
 iniciar una reunión en videoconferencia. Por favor contactarte con tu profesor o administrador de la plataforma.';
+

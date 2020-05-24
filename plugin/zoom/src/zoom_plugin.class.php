@@ -13,6 +13,7 @@ class ZoomPlugin extends Plugin
     const TABLE_ZOOM_LIST = 'plugin_zoom_room';
     const SETTING_TITLE = 'tool_title';
     const SETTING_ENABLED = 'zoom_enabled';
+    const VIEW_CREDENTIALS = 'view_credentials';
 
     public $isCoursePlugin = true;
 
@@ -25,6 +26,7 @@ class ZoomPlugin extends Plugin
             [
                 self::SETTING_ENABLED => 'boolean',
                 self::SETTING_TITLE => 'text',
+                self::VIEW_CREDENTIALS => 'boolean'
             ]
         );
 
@@ -304,7 +306,7 @@ class ZoomPlugin extends Plugin
         return true;
     }
 
-    public function listZoomsAdmin($typeRoom){
+    public function listZoomsAdmin($typeRoom, $array = false){
         $list = [];
         $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
         $sql = "SELECT * FROM $tableZoomList WHERE type_room = $typeRoom AND activate = 1";
@@ -313,18 +315,65 @@ class ZoomPlugin extends Plugin
 
         if (Database::num_rows($result) > 0) {
             while ($row = Database::fetch_array($result)) {
-                $list[] = [
-                    'id' => $row['id'],
-                    'room_name' => $row['room_name'],
-                    'room_url' => $row['room_url'],
-                    'room_id' => $row['room_id'],
-                    'room_pass' => $row['room_pass'],
-                    'zoom_email' => $row['zoom_email'],
-                    'zoom_pass' => $row['zoom_pass'],
-                    'type_room' => $row['type_room'],
-                    'user_id' => $row['user_id'],
-                    'activate' => $row['activate'],
-                ];
+
+                $action = Display::url(
+                    Display::return_icon(
+                        'edit.png',
+                        get_lang('Edit'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    'list.php?action=edit&id_room='.$row['id']
+                );
+
+                $action .= Display::url(
+                    Display::return_icon(
+                        'delete.png',
+                        get_lang('Delete'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    'list.php?action=delete&id_room='.$row['id'],
+                    [
+                        'onclick' => 'javascript:if(!confirm('."'".
+                            addslashes(api_htmlentities(get_lang("ConfirmYourChoice")))
+                            ."'".')) return false;',
+                    ]
+                );
+
+                $active = Display::return_icon('accept.png', null, [], ICON_SIZE_TINY);
+                if (intval($row['activate']) != 1) {
+                    $active = Display::return_icon('error.png', null, [], ICON_SIZE_TINY);
+                }
+
+                if($array){
+                    $list[] = [
+                        'id' => $row['id'],
+                        'room_name' => $row['room_name'],
+                        'room_url' => $row['room_url'],
+                        'room_id' => $row['room_id'],
+                        'room_pass' => $row['room_pass'],
+                        'zoom_email' => $row['zoom_email'],
+                        'zoom_pass' => $row['zoom_pass'],
+                        'type_room' => $row['type_room'],
+                        'user_id' => $row['user_id'],
+                        'activate' => $row['activate'],
+                    ];
+                } else {
+                    $list[] = [
+                        'id' => $row['id'],
+                        'room_name' => $row['room_name'],
+                        'room_url' => $row['room_url'],
+                        'room_id' => $row['room_id'],
+                        'room_pass' => $row['room_pass'],
+                        'zoom_email' => $row['zoom_email'],
+                        'zoom_pass' => $row['zoom_pass'],
+                        'type_room' => $row['type_room'],
+                        'user_id' => $row['user_id'],
+                        'activate' => $active,
+                        'actions' => $action,
+                    ];
+                }
             }
             return $list;
         }

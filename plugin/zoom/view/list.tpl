@@ -29,6 +29,7 @@
                             <th>{{ 'MeetingIDZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                             <th>{{ 'RoomNameZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                             <th>{{ 'InstantMeetingURL'|get_plugin_lang('ZoomPlugin') }}</th>
+                            <th>{{ 'TypeRoom'|get_plugin_lang('ZoomPlugin') }}</th>
                             <th>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                             <th>{{ 'Password'|get_lang }}</th>
                             <th>{{ 'Status'|get_lang }}</th>
@@ -46,6 +47,13 @@
                                 <a href="{{ zoom.room_url }}">
                                     {{ zoom.room_url }}
                                 </a>
+                            </td>
+                            <td>
+                                {% if zoom.type_room ==1 %}
+                                    {{ 'GeneralRoom'|get_plugin_lang('ZoomPlugin') }}
+                                {% else %}
+                                    {{ 'PersonalRoom'|get_plugin_lang('ZoomPlugin') }}
+                                {% endif %}
                             </td>
                             <td>{{ zoom.zoom_email }}</td>
                             <td>{{ zoom.zoom_pass }}</td>

@@ -25,6 +25,7 @@ $isStudent = api_is_student();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
+$viewCredentials = $plugin->get('view_credentials');
 $idCourse = $courseInfo['real_id'];
 
 $urlHome = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?'.api_get_cidreq();
@@ -117,6 +118,7 @@ $tpl->assign('is_teacher', $isTeacher);
 $tpl->assign('url_list_room', $urlListRoom);
 $tpl->assign('url_change_room', $urlChangeRoom);
 $tpl->assign('url_add_room', $urlAddRoom);
+$tpl->assign('view_pass', $viewCredentials);
 $content = $tpl->fetch('zoom/view/start.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

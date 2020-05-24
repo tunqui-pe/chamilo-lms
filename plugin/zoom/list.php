@@ -251,7 +251,28 @@ if ($enable) {
                             'title' => $plugin->get_lang('PasswordZoomHelp'),
                         ]
                     );
-                    $form->addHidden('type_room',null);
+
+                    if(!$isAdmin){
+                        $typeRoom = 2;
+                        $form->addHidden('type_room', null);
+                    } else {
+
+                        $list = [
+                            '1' => $plugin->get_lang('GeneralRoom'),
+                            '2' => $plugin->get_lang('PersonalRoom')
+                        ];
+
+                        $form->addSelect(
+                            'type_room',
+                            $plugin->get_lang('TypeRoom'),
+                            $list,
+                            [
+                                'title'=>$plugin->get_lang('TypeRoom')
+                            ]
+                        );
+
+                    }
+
                     $form->addHidden('id', $idRoom);
                     $form->addButtonSave($plugin->get_lang('Save'));
 
@@ -287,12 +308,15 @@ if ($enable) {
                         api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
                     );
 
-                    $typeRoom = 1;
-                    if(!$isAdmin){
-                        $typeRoom = 2;
+                    if($isAdmin){
+                        $listRoomsAdmin = $plugin->listZoomsAdmin(1);
+                        $listRoomsUser = $plugin->listZooms(2, $userId, false);
+                        $zooms = array_merge($listRoomsAdmin, $listRoomsUser);
+                    } else {
+                        $zooms = $plugin->listZooms(2, $userId, false);
                     }
 
-                    $zooms = $plugin->listZooms($typeRoom, $userId);
+                    //$zooms = $plugin->listZooms($typeRoom, $userId);
                     $tpl->assign('zooms', $zooms);
                     break;
             }
