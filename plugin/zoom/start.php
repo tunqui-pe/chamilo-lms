@@ -32,11 +32,6 @@ $urlListRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list&'.api_ge
 $urlChangeRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=remove&'.api_get_cidreq();
 $urlAddRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=add&'.api_get_cidreq();
 
-$typeRoom = 1;
-if(!$isAdmin){
-    $typeRoom = 2;
-}
-
 if ($enable) {
     if ($isAdmin || $isTeacher || $isStudent) {
 
@@ -47,13 +42,20 @@ if ($enable) {
             $tpl->assign('room', $roomInfo);
         }
 
-        $listRooms = $plugin->listZooms($typeRoom, $userId);
+        $listRoomsAdmin = $plugin->listZoomsAdmin(1);
+        $listRoomsUser = $plugin->listZooms(2, $userId, true);
+
+        $listRooms = array_merge($listRoomsAdmin, $listRoomsUser);
 
         $list = [];
 
-        foreach ($listRooms as $room){
-            $list[$room['id']] = $room['room_name'].' - '.$room['room_id'];
-        }
+       foreach ($listRooms as $room){
+           $type = $plugin->get_lang('PersonalRoom');
+           if($room['type_room']==1){
+               $type = $plugin->get_lang('GeneralRoom');
+           }
+            $list[$room['id']] = $room['room_name'].' - '.$room['room_id'].' - '.$type;
+       }
 
         //create form
         $form = new FormValidator('add_room','post',$urlAddRoom);

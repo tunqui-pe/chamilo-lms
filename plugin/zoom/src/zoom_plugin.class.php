@@ -304,12 +304,37 @@ class ZoomPlugin extends Plugin
         return true;
     }
 
+    public function listZoomsAdmin($typeRoom){
+        $list = [];
+        $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
+        $sql = "SELECT * FROM $tableZoomList WHERE type_room = $typeRoom AND activate = 1";
 
-    public function listZooms($typeRoom, $userID)
+        $result = Database::query($sql);
+
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $list[] = [
+                    'id' => $row['id'],
+                    'room_name' => $row['room_name'],
+                    'room_url' => $row['room_url'],
+                    'room_id' => $row['room_id'],
+                    'room_pass' => $row['room_pass'],
+                    'zoom_email' => $row['zoom_email'],
+                    'zoom_pass' => $row['zoom_pass'],
+                    'type_room' => $row['type_room'],
+                    'user_id' => $row['user_id'],
+                    'activate' => $row['activate'],
+                ];
+            }
+            return $list;
+        }
+    }
+
+    public function listZooms($typeRoom, $userID, $array = false)
     {
         $list = [];
         $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
-        $sql = "SELECT * FROM $tableZoomList WHERE type_room = $typeRoom AND user_id = $userID";
+        $sql = "SELECT * FROM $tableZoomList WHERE type_room = $typeRoom AND user_id = $userID AND activate = 1";
 
         $result = Database::query($sql);
 
@@ -347,18 +372,35 @@ class ZoomPlugin extends Plugin
                     $active = Display::return_icon('error.png', null, [], ICON_SIZE_TINY);
                 }
 
+                if($array){
+                    $list[] = [
+                        'id' => $row['id'],
+                        'room_name' => $row['room_name'],
+                        'room_url' => $row['room_url'],
+                        'room_id' => $row['room_id'],
+                        'room_pass' => $row['room_pass'],
+                        'zoom_email' => $row['zoom_email'],
+                        'zoom_pass' => $row['zoom_pass'],
+                        'type_room' => $row['type_room'],
+                        'user_id' => $row['user_id'],
+                        'activate' => $row['activate']
+                    ];
+                } else {
+                    $list[] = [
+                        'id' => $row['id'],
+                        'room_name' => $row['room_name'],
+                        'room_url' => $row['room_url'],
+                        'room_id' => $row['room_id'],
+                        'room_pass' => $row['room_pass'],
+                        'zoom_email' => $row['zoom_email'],
+                        'zoom_pass' => $row['zoom_pass'],
+                        'type_room' => $row['type_room'],
+                        'user_id' => $row['user_id'],
+                        'activate' => $active,
+                        'actions' => $action,
+                    ];
+                }
 
-                $list[] = [
-                    'id' => $row['id'],
-                    'room_name' => $row['room_name'],
-                    'room_url' => $row['room_url'],
-                    'room_id' => $row['room_id'],
-                    'room_pass' => $row['room_pass'],
-                    'zoom_email' => $row['zoom_email'],
-                    'zoom_pass' => $row['zoom_pass'],
-                    'activate' => $active,
-                    'actions' => $action,
-                ];
             }
         }
 
