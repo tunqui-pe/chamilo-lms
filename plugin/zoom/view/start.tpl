@@ -21,10 +21,10 @@
                             </a>
                         {% else %}
                             {% if is_add == false %}
-                            <a href="{{ url_add_room }}" class="btn btn-success">
-                                <i class="fa fa-video-camera" aria-hidden="true"></i>
-                                {{ 'AssociateZoomAccount'| get_plugin_lang('ZoomPlugin') }}
-                            </a>
+                                <a href="{{ url_add_room }}" class="btn btn-success">
+                                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                    {{ 'AssociateZoomAccount'| get_plugin_lang('ZoomPlugin') }}
+                                </a>
                             {% endif %}
                         {% endif %}
                     {% endif %}

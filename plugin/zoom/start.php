@@ -15,7 +15,7 @@ $plugin = ZoomPlugin::create();
 
 $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
-$message =  null;
+$message = null;
 $userId = api_get_user_id();
 
 $courseInfo = api_get_course_info();
@@ -38,42 +38,43 @@ if ($enable) {
 
         $idRoomAssociate = $plugin->getIdRoomAssociateCourse($idCourse);
 
-        if($idRoomAssociate){
+        if ($idRoomAssociate) {
             $roomInfo = $plugin->getRoomInfo($idRoomAssociate);
             $tpl->assign('room', $roomInfo);
         }
 
+        $listRooms = $list = [];
+
         $listRoomsAdmin = $plugin->listZoomsAdmin(1);
         $listRoomsUser = $plugin->listZooms(2, $userId, true);
+        if (is_array($listRoomsAdmin) && is_array($listRoomsUser)) {
+            $listRooms = array_merge($listRoomsAdmin, $listRoomsUser);
+        }
 
-        $listRooms = array_merge($listRoomsAdmin, $listRoomsUser);
-
-        $list = [];
-
-       foreach ($listRooms as $room){
-           $type = $plugin->get_lang('PersonalRoom');
-           if($room['type_room']==1){
-               $type = $plugin->get_lang('GeneralRoom');
-           }
+        foreach ($listRooms as $room) {
+            $type = $plugin->get_lang('PersonalRoom');
+            if ($room['type_room'] == 1) {
+                $type = $plugin->get_lang('GeneralRoom');
+            }
             $list[$room['id']] = $room['room_name'].' - '.$room['room_id'].' - '.$type;
-       }
+        }
 
         //create form
-        $form = new FormValidator('add_room','post',$urlAddRoom);
+        $form = new FormValidator('add_room', 'post', $urlAddRoom);
         $form->addHeader($plugin->get_lang('ZoomVideoConferencingAccess'));
         $form->addHidden(
             'action',
-                'add'
-            );
+            'add'
+        );
         $form->addSelect(
             'id_room',
             [
                 $plugin->get_lang('ListRoomsAccounts'),
-                $plugin->get_lang('ListRoomsAccountsHelp')
+                $plugin->get_lang('ListRoomsAccountsHelp'),
             ],
             $list,
             [
-                'title'=>$plugin->get_lang('ListRoomsAccounts')
+                'title' => $plugin->get_lang('ListRoomsAccounts'),
             ]
         );
         $form->addButtonSave($plugin->get_lang('AssociateRoomCourse'));
@@ -85,8 +86,8 @@ if ($enable) {
                     if ($form->validate()) {
                         $values = $form->exportValues();
                         $idRoom = $values['id_room'];
-                        $res = $plugin->associateRoomCourse($idCourse,$idRoom);
-                        if($res){
+                        $res = $plugin->associateRoomCourse($idCourse, $idRoom);
+                        if ($res) {
                             header('Location: '.$urlHome);
                         }
                     }
@@ -95,9 +96,9 @@ if ($enable) {
                     break;
                 case 'remove':
 
-                    if($idRoomAssociate){
+                    if ($idRoomAssociate) {
                         $res = $plugin->removeRoomZoomCourse($idCourse, $idRoomAssociate);
-                        if($res){
+                        if ($res) {
                             header('Location: '.$urlAddRoom);
                         }
                     }
