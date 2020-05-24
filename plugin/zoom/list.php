@@ -129,14 +129,14 @@ if ($enable) {
                         ]
                     );
 
-                    if(!$isAdmin){
+                    if (!$isAdmin) {
                         $typeRoom = 2;
                         $form->addHidden('type_room', $typeRoom);
                     } else {
 
                         $list = [
                             '1' => $plugin->get_lang('GeneralRoom'),
-                            '2' => $plugin->get_lang('PersonalRoom')
+                            '2' => $plugin->get_lang('PersonalRoom'),
                         ];
 
                         $form->addSelect(
@@ -144,7 +144,7 @@ if ($enable) {
                             $plugin->get_lang('TypeRoom'),
                             $list,
                             [
-                                'title'=>$plugin->get_lang('TypeRoom')
+                                'title' => $plugin->get_lang('TypeRoom'),
                             ]
                         );
 
@@ -252,14 +252,14 @@ if ($enable) {
                         ]
                     );
 
-                    if(!$isAdmin){
+                    if (!$isAdmin) {
                         $typeRoom = 2;
                         $form->addHidden('type_room', null);
                     } else {
 
                         $list = [
                             '1' => $plugin->get_lang('GeneralRoom'),
-                            '2' => $plugin->get_lang('PersonalRoom')
+                            '2' => $plugin->get_lang('PersonalRoom'),
                         ];
 
                         $form->addSelect(
@@ -267,7 +267,7 @@ if ($enable) {
                             $plugin->get_lang('TypeRoom'),
                             $list,
                             [
-                                'title'=>$plugin->get_lang('TypeRoom')
+                                'title' => $plugin->get_lang('TypeRoom'),
                             ]
                         );
 
@@ -308,10 +308,14 @@ if ($enable) {
                         api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
                     );
 
-                    if($isAdmin){
+                    $zooms = [];
+
+                    if ($isAdmin) {
                         $listRoomsAdmin = $plugin->listZoomsAdmin(1);
                         $listRoomsUser = $plugin->listZooms(2, $userId, false);
-                        $zooms = array_merge($listRoomsAdmin, $listRoomsUser);
+                        if (is_array($listRoomsAdmin) && is_array($listRoomsUser)) {
+                            $zooms = array_merge($listRoomsAdmin, $listRoomsUser);
+                        }
                     } else {
                         $zooms = $plugin->listZooms(2, $userId, false);
                     }

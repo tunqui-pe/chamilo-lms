@@ -26,7 +26,7 @@ class ZoomPlugin extends Plugin
             [
                 self::SETTING_ENABLED => 'boolean',
                 self::SETTING_TITLE => 'text',
-                self::VIEW_CREDENTIALS => 'boolean'
+                self::VIEW_CREDENTIALS => 'boolean',
             ]
         );
 
@@ -70,7 +70,7 @@ class ZoomPlugin extends Plugin
             room_pass VARCHAR(6) NULL,
             zoom_email VARCHAR(250) NULL,
             zoom_pass VARCHAR(250),
-            type_zoom INT NOT NULL,
+            type_room INT NOT NULL,
             user_id INT NULL NOT NULL,
             activate INT
         )";
@@ -276,7 +276,8 @@ class ZoomPlugin extends Plugin
         }
     }
 
-    public function updateRoom($values){
+    public function updateRoom($values)
+    {
         if (!is_array($values) || empty($values['room_name'])) {
             return false;
         }
@@ -306,7 +307,8 @@ class ZoomPlugin extends Plugin
         return true;
     }
 
-    public function listZoomsAdmin($typeRoom, $array = false){
+    public function listZoomsAdmin($typeRoom, $array = false)
+    {
         $list = [];
         $tableZoomList = Database::get_main_table(self::TABLE_ZOOM_LIST);
         $sql = "SELECT * FROM $tableZoomList WHERE type_room = $typeRoom AND activate = 1";
@@ -346,7 +348,7 @@ class ZoomPlugin extends Plugin
                     $active = Display::return_icon('error.png', null, [], ICON_SIZE_TINY);
                 }
 
-                if($array){
+                if ($array) {
                     $list[] = [
                         'id' => $row['id'],
                         'room_name' => $row['room_name'],
@@ -375,6 +377,7 @@ class ZoomPlugin extends Plugin
                     ];
                 }
             }
+
             return $list;
         }
     }
@@ -421,7 +424,7 @@ class ZoomPlugin extends Plugin
                     $active = Display::return_icon('error.png', null, [], ICON_SIZE_TINY);
                 }
 
-                if($array){
+                if ($array) {
                     $list[] = [
                         'id' => $row['id'],
                         'room_name' => $row['room_name'],
@@ -432,7 +435,7 @@ class ZoomPlugin extends Plugin
                         'zoom_pass' => $row['zoom_pass'],
                         'type_room' => $row['type_room'],
                         'user_id' => $row['user_id'],
-                        'activate' => $row['activate']
+                        'activate' => $row['activate'],
                     ];
                 } else {
                     $list[] = [
