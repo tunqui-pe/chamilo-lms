@@ -16,6 +16,7 @@ $plugin = ZoomPlugin::create();
 $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
 $message =  null;
+$userId = api_get_user_id();
 
 $courseInfo = api_get_course_info();
 $isTeacher = api_is_teacher();
@@ -24,6 +25,7 @@ $isStudent = api_is_student();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
+$viewCredentials = $plugin->get('view_credentials');
 $idCourse = $courseInfo['real_id'];
 
 $urlHome = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?'.api_get_cidreq();
@@ -41,13 +43,20 @@ if ($enable) {
             $tpl->assign('room', $roomInfo);
         }
 
-        $listRooms = $plugin->listZooms();
+        $listRoomsAdmin = $plugin->listZoomsAdmin(1);
+        $listRoomsUser = $plugin->listZooms(2, $userId, true);
+
+        $listRooms = array_merge($listRoomsAdmin, $listRoomsUser);
 
         $list = [];
 
-        foreach ($listRooms as $room){
-            $list[$room['id']] = $room['room_name'].' - '.$room['room_id'];
-        }
+       foreach ($listRooms as $room){
+           $type = $plugin->get_lang('PersonalRoom');
+           if($room['type_room']==1){
+               $type = $plugin->get_lang('GeneralRoom');
+           }
+            $list[$room['id']] = $room['room_name'].' - '.$room['room_id'].' - '.$type;
+       }
 
         //create form
         $form = new FormValidator('add_room','post',$urlAddRoom);
@@ -109,6 +118,7 @@ $tpl->assign('is_teacher', $isTeacher);
 $tpl->assign('url_list_room', $urlListRoom);
 $tpl->assign('url_change_room', $urlChangeRoom);
 $tpl->assign('url_add_room', $urlAddRoom);
+$tpl->assign('view_pass', $viewCredentials);
 $content = $tpl->fetch('zoom/view/start.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

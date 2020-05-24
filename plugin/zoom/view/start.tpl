@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="tools text-center">
-                    {% if is_admin %}
+                    {% if is_admin or is_teacher %}
                         <a href="{{ url_list_room }}" class="btn btn-primary">
                             <i class="fa fa-wrench" aria-hidden="true"></i>
                             {{ 'ManageZoomAccounts'|get_plugin_lang('ZoomPlugin') }}
@@ -48,14 +48,18 @@
                                         {{ room.room_url }}
                                     </a>
                                 </dd>
-                                <dt>{{ 'HostKey'|get_plugin_lang('ZoomPlugin') }}</dt>
-                                <dd>{{ room.room_pass }}</dd>
+                                {% if room.room_pass %}
+                                    <dt>{{ 'HostKey'|get_plugin_lang('ZoomPlugin') }}</dt>
+                                    <dd>{{ room.room_pass }}</dd>
+                                {% endif %}
 
                                 {% if is_teacher %}
-                                    <dt>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</dt>
-                                    <dd>{{ room.zoom_email }}</dd>
-                                    <dt>{{ 'Password'|get_lang }}</dt>
-                                    <dd>{{ room.zoom_pass }}</dd>
+                                    {% if not view_pass %}
+                                        <dt>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</dt>
+                                        <dd>{{ room.zoom_email }}</dd>
+                                        <dt>{{ 'Password'|get_lang }}</dt>
+                                        <dd>{{ room.zoom_pass }}</dd>
+                                    {% endif %}
                                 {% endif %}
                             </dl>
                             <div class="text-center">

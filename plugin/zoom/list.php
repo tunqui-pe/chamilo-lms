@@ -6,7 +6,6 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 $course_plugin = 'zoom'; //needed in order to load the plugin lang variables
 require_once __DIR__.'/config.php';
-api_protect_admin_script();
 
 $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
         WEB_PLUGIN_PATH
@@ -19,6 +18,7 @@ $tool_name = $plugin->get_lang('tool_title');
 $tpl = new Template($tool_name);
 
 $isAdmin = api_is_platform_admin();
+$isTeacher = api_is_teacher();
 $message = null;
 $courseInfo = api_get_course_info();
 
@@ -35,7 +35,7 @@ $iconAdd = Display::return_icon(
 
 
 if ($enable) {
-    if (api_is_platform_admin()) {
+    if ($isAdmin || $isTeacher) {
 
         if ($action) {
             switch ($action) {
@@ -128,10 +128,34 @@ if ($enable) {
                             'title' => $plugin->get_lang('PasswordZoomHelp'),
                         ]
                     );
+
+                    if(!$isAdmin){
+                        $typeRoom = 2;
+                        $form->addHidden('type_room', $typeRoom);
+                    } else {
+
+                        $list = [
+                            '1' => $plugin->get_lang('GeneralRoom'),
+                            '2' => $plugin->get_lang('PersonalRoom')
+                        ];
+
+                        $form->addSelect(
+                            'type_room',
+                            $plugin->get_lang('TypeRoom'),
+                            $list,
+                            [
+                                'title'=>$plugin->get_lang('TypeRoom')
+                            ]
+                        );
+
+                    }
+
                     $form->addButtonSave($plugin->get_lang('Add'));
 
 
                     $tpl->assign('form_room', $form->returnForm());
+                    $tpl->assign('is_admin', $isAdmin);
+                    $tpl->assign('is_teacher', $isTeacher);
 
                     if ($form->validate()) {
 
@@ -227,6 +251,28 @@ if ($enable) {
                             'title' => $plugin->get_lang('PasswordZoomHelp'),
                         ]
                     );
+
+                    if(!$isAdmin){
+                        $typeRoom = 2;
+                        $form->addHidden('type_room', null);
+                    } else {
+
+                        $list = [
+                            '1' => $plugin->get_lang('GeneralRoom'),
+                            '2' => $plugin->get_lang('PersonalRoom')
+                        ];
+
+                        $form->addSelect(
+                            'type_room',
+                            $plugin->get_lang('TypeRoom'),
+                            $list,
+                            [
+                                'title'=>$plugin->get_lang('TypeRoom')
+                            ]
+                        );
+
+                    }
+
                     $form->addHidden('id', $idRoom);
                     $form->addButtonSave($plugin->get_lang('Save'));
 
@@ -261,7 +307,16 @@ if ($enable) {
                         ,
                         api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
                     );
-                    $zooms = $plugin->listZooms();
+
+                    if($isAdmin){
+                        $listRoomsAdmin = $plugin->listZoomsAdmin(1);
+                        $listRoomsUser = $plugin->listZooms(2, $userId, false);
+                        $zooms = array_merge($listRoomsAdmin, $listRoomsUser);
+                    } else {
+                        $zooms = $plugin->listZooms(2, $userId, false);
+                    }
+
+                    //$zooms = $plugin->listZooms($typeRoom, $userId);
                     $tpl->assign('zooms', $zooms);
                     break;
             }
@@ -271,7 +326,7 @@ if ($enable) {
 }
 
 
-if (api_is_platform_admin()) {
+if ($isAdmin || $isTeacher) {
 
     $tpl->assign(
         'actions',
