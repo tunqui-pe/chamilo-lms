@@ -106,28 +106,6 @@ if ($enable) {
                             'title' => $plugin->get_lang('HostKeyHelp'),
                         ]
                     );
-                    $form->addText(
-                        'zoom_email',
-                        [
-                            $plugin->get_lang('AccountEmailZoom'),
-                            $plugin->get_lang('AccountEmailZoomHelp'),
-                        ],
-                        true,
-                        [
-                            'title' => $plugin->get_lang('AccountEmailZoomHelp'),
-                        ]
-                    );
-                    $form->addText(
-                        'zoom_pass',
-                        [
-                            $plugin->get_lang('Password'),
-                            $plugin->get_lang('PasswordZoomHelp'),
-                        ],
-                        true,
-                        [
-                            'title' => $plugin->get_lang('PasswordZoomHelp'),
-                        ]
-                    );
 
                     if (!$isAdmin) {
                         $typeRoom = 2;
@@ -147,12 +125,38 @@ if ($enable) {
                                 'title' => $plugin->get_lang('TypeRoom'),
                             ]
                         );
+                    }
 
+                    $form->addText(
+                        'zoom_email',
+                        [
+                            $plugin->get_lang('AccountEmailZoom'),
+                            $plugin->get_lang('AccountEmailZoomHelp'),
+                        ],
+                        false,
+                        [
+                            'title' => $plugin->get_lang('AccountEmailZoomHelp'),
+                        ]
+                    );
+
+                    try {
+                        $form->addElement(
+                            'password',
+                            'zoom_pass',
+                            [
+                                $plugin->get_lang('Password'),
+                                $plugin->get_lang('PasswordZoomHelp'),
+                            ],
+                            [
+                                'size' => 40,
+                            ]
+                        );
+                    } catch (HTML_QuickForm_Error $e) {
+                        echo $e;
                     }
 
                     $form->addButtonSave($plugin->get_lang('Add'));
-
-
+                    
                     $tpl->assign('form_room', $form->returnForm());
                     $tpl->assign('is_admin', $isAdmin);
                     $tpl->assign('is_teacher', $isTeacher);
@@ -229,28 +233,6 @@ if ($enable) {
                             'title' => $plugin->get_lang('HostKeyHelp'),
                         ]
                     );
-                    $form->addText(
-                        'zoom_email',
-                        [
-                            $plugin->get_lang('AccountEmailZoom'),
-                            $plugin->get_lang('AccountEmailZoomHelp'),
-                        ],
-                        true,
-                        [
-                            'title' => $plugin->get_lang('AccountEmailZoomHelp'),
-                        ]
-                    );
-                    $form->addText(
-                        'zoom_pass',
-                        [
-                            $plugin->get_lang('Password'),
-                            $plugin->get_lang('PasswordZoomHelp'),
-                        ],
-                        true,
-                        [
-                            'title' => $plugin->get_lang('PasswordZoomHelp'),
-                        ]
-                    );
 
                     if (!$isAdmin) {
                         $typeRoom = 2;
@@ -270,8 +252,38 @@ if ($enable) {
                                 'title' => $plugin->get_lang('TypeRoom'),
                             ]
                         );
-
                     }
+
+                    $form->addText(
+                        'zoom_email',
+                        [
+                            $plugin->get_lang('AccountEmailZoom'),
+                            $plugin->get_lang('AccountEmailZoomHelp'),
+                        ],
+                        false,
+                        [
+                            'title' => $plugin->get_lang('AccountEmailZoomHelp'),
+                        ]
+                    );
+
+                    try {
+                        $form->addElement(
+                            'password',
+                            'zoom_pass',
+                            [
+                                $plugin->get_lang('Password'),
+                                $plugin->get_lang('PasswordZoomHelp'),
+                            ],
+                            [
+                                'size' => 40,
+                            ]
+                        );
+                    } catch (HTML_QuickForm_Error $e) {
+                        echo $e;
+                    }
+
+
+
 
                     $form->addHidden('id', $idRoom);
                     $form->addButtonSave($plugin->get_lang('Save'));
