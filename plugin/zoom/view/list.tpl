@@ -30,11 +30,12 @@
                                 <th>{{ 'RoomNameZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                                 <th>{{ 'InstantMeetingURL'|get_plugin_lang('ZoomPlugin') }}</th>
                                 <th>{{ 'TypeRoom'|get_plugin_lang('ZoomPlugin') }}</th>
-                                <th>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                                 {% if not view_pass %}
+                                    <th>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</th>
                                     <th>{{ 'Password'|get_lang }}</th>
-                                    <th>{{ 'Status'|get_lang }}</th>
+
                                 {% endif %}
+                                <th>{{ 'Status'|get_lang }}</th>
                                 <th>{{ 'Actions'|get_lang }}</th>
                             </tr>
                             </thead>
