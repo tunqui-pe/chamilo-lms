@@ -31,8 +31,10 @@
                                 <th>{{ 'InstantMeetingURL'|get_plugin_lang('ZoomPlugin') }}</th>
                                 <th>{{ 'TypeRoom'|get_plugin_lang('ZoomPlugin') }}</th>
                                 <th>{{ 'AccountEmailZoom'|get_plugin_lang('ZoomPlugin') }}</th>
-                                <th>{{ 'Password'|get_lang }}</th>
-                                <th>{{ 'Status'|get_lang }}</th>
+                                {% if not view_pass %}
+                                    <th>{{ 'Password'|get_lang }}</th>
+                                    <th>{{ 'Status'|get_lang }}</th>
+                                {% endif %}
                                 <th>{{ 'Actions'|get_lang }}</th>
                             </tr>
                             </thead>
@@ -55,8 +57,10 @@
                                             {{ 'PersonalRoom'|get_plugin_lang('ZoomPlugin') }}
                                         {% endif %}
                                     </td>
-                                    <td>{{ zoom.zoom_email }}</td>
-                                    <td>{{ zoom.zoom_pass }}</td>
+                                    {% if not view_pass %}
+                                        <td>{{ zoom.zoom_email }}</td>
+                                        <td>{{ zoom.zoom_pass }}</td>
+                                    {% endif %}
                                     <td>{{ zoom.activate }}</td>
                                     <td>
                                         {{ zoom.actions }}

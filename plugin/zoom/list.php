@@ -21,6 +21,7 @@ $isAdmin = api_is_platform_admin();
 $isTeacher = api_is_teacher();
 $message = null;
 $courseInfo = api_get_course_info();
+$viewCredentials = $plugin->get('view_credentials');
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
@@ -144,7 +145,7 @@ if ($enable) {
                             'password',
                             'zoom_pass',
                             [
-                                $plugin->get_lang('Password'),
+                                $plugin->get_lang('PasswordZoom'),
                                 $plugin->get_lang('PasswordZoomHelp'),
                             ],
                             [
@@ -271,7 +272,7 @@ if ($enable) {
                             'password',
                             'zoom_pass',
                             [
-                                $plugin->get_lang('Password'),
+                                $plugin->get_lang('PasswordZoom'),
                                 $plugin->get_lang('PasswordZoomHelp'),
                             ],
                             [
@@ -351,6 +352,7 @@ if ($isAdmin || $isTeacher) {
 }
 
 $tpl->assign('message', $message);
+$tpl->assign('view_pass', $viewCredentials);
 $content = $tpl->fetch('zoom/view/list.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
