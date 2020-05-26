@@ -25,7 +25,7 @@ $isStudent = api_is_student();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
-$viewCredentials = $plugin->get('view_credentials');
+$viewCredentials = $plugin->get('view_credentials') == 'true';
 $idCourse = $courseInfo['real_id'];
 
 $urlHome = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?'.api_get_cidreq();

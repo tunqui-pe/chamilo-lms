@@ -21,7 +21,7 @@ $isAdmin = api_is_platform_admin();
 $isTeacher = api_is_teacher();
 $message = null;
 $courseInfo = api_get_course_info();
-$viewCredentials = $plugin->get('view_credentials');
+$viewCredentials = $plugin->get('view_credentials') == 'true';
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('zoom_enabled') == 'true';
