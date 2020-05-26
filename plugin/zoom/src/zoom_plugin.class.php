@@ -261,7 +261,7 @@ class ZoomPlugin extends Plugin
         $params = [
             'room_name' => $values['room_name'],
             'room_url' => $values['room_url'],
-            'room_id' => $values['room_id'],
+            'room_id' => trim($values['room_id']),
             'room_pass' => $values['room_pass'],
             'zoom_email' => $values['zoom_email'],
             'zoom_pass' => $values['zoom_pass'],
@@ -286,7 +286,7 @@ class ZoomPlugin extends Plugin
         $params = [
             'room_name' => $values['room_name'],
             'room_url' => $values['room_url'],
-            'room_id' => $values['room_id'],
+            'room_id' => trim($values['room_id']),
             'room_pass' => $values['room_pass'],
             'zoom_email' => $values['zoom_email'],
             'zoom_pass' => $values['zoom_pass'],
