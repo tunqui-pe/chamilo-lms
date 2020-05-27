@@ -120,12 +120,21 @@ if ($enable) {
 
                         $form->addSelect(
                             'type_room',
-                            $plugin->get_lang('TypeRoom'),
+                            [
+                                $plugin->get_lang('TypeRoom'),
+                                $plugin->get_lang('TypeRoomHelp'),
+                            ],
                             $list,
                             [
                                 'title' => $plugin->get_lang('TypeRoom'),
                             ]
                         );
+                        try {
+                            $form->addRule('type_room', $plugin->get_lang('TypeRoomHelp'), 'required');
+                        } catch (Exception $e) {
+                            echo $e;
+                        }
+
                     }
 
                     $form->addText(
@@ -157,7 +166,7 @@ if ($enable) {
                     }
 
                     $form->addButtonSave($plugin->get_lang('Add'));
-                    
+
                     $tpl->assign('form_room', $form->returnForm());
                     $tpl->assign('is_admin', $isAdmin);
                     $tpl->assign('is_teacher', $isTeacher);
@@ -232,6 +241,7 @@ if ($enable) {
                         false,
                         [
                             'title' => $plugin->get_lang('HostKeyHelp'),
+
                         ]
                     );
 
