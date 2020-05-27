@@ -328,6 +328,8 @@ if ($enable) {
                         $listRoomsUser = $plugin->listZooms(2, $userId, false);
                         if (is_array($listRoomsAdmin) && is_array($listRoomsUser)) {
                             $zooms = array_merge($listRoomsAdmin, $listRoomsUser);
+                        } else {
+                            $zooms = $plugin->listZooms(2, $userId, false);
                         }
                     } else {
                         $zooms = $plugin->listZooms(2, $userId, false);

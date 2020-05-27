@@ -49,6 +49,8 @@ if ($enable) {
         $listRoomsUser = $plugin->listZooms(2, $userId, true);
         if (is_array($listRoomsAdmin) && is_array($listRoomsUser)) {
             $listRooms = array_merge($listRoomsAdmin, $listRoomsUser);
+        } else {
+            $listRooms = $plugin->listZooms(2, $userId, true);
         }
 
         foreach ($listRooms as $room) {
