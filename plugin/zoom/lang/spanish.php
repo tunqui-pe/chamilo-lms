@@ -28,6 +28,7 @@ $strings['PasswordZoomHelp'] = 'Escriba la contraseña de la cuenta Zoom a asoci
 $strings['AssociateRoomCourse'] = 'Asociar sala Zoom con el curso.';
 $strings['EditRoomZoom'] = 'Editar reunión Zoom';
 $strings['TypeRoom'] = 'Tipo de reunión';
+$strings['TypeRoomHelp'] = 'Solo el administrador puede crear Salas Compartidas y Personales.';
 $strings['PersonalRoom'] = 'Sala personal';
 $strings['GeneralRoom'] = 'Sala compartida';
 $strings['CourseCurrentlyAssociatedAccountZoom'] = 'Este curso actualmente ya tiene una cuenta asociada Zoom.';
