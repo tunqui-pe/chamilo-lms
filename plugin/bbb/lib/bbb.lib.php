@@ -102,9 +102,13 @@ class bbb
                 // If we are following a link to a global "per user" conference
                 // then generate a random guest name to join the conference
                 // because there is no part of the process where we give a name
-                $this->userCompleteName = 'Guest'.rand(1000, 9999);
+                //$this->userCompleteName = 'Guest'.rand(1000, 9999);
             } else {
                 $this->userCompleteName = $userInfo['complete_name'];
+            }
+
+            if (api_is_anonymous()) {
+                $this->userCompleteName = get_lang('Guest').'_'.rand(1000, 9999);
             }
 
             $this->salt = $bbb_salt;
@@ -173,9 +177,17 @@ class bbb
             return '';
         }
 
+        $courseCode = $this->courseCode;
+        if (!empty($courseId)) {
+            $course = api_get_course_info_by_id($courseId);
+            if ($course) {
+                $courseCode = $course['code'];
+            }
+        }
+
         return http_build_query(
             [
-                'cidReq' => $courseId ? api_get_course_entity($courseId)->getCode() : $this->courseCode,
+                'cidReq' => $courseCode,
                 'id_session' => $sessionId ?: $this->sessionId,
                 'gidReq' => $groupId ?: $this->groupId,
             ]
@@ -1064,6 +1076,12 @@ class bbb
             $item['created_at'] = api_convert_and_format_date($meetingDB['created_at']);
             // created_at
             $meetingDB['created_at'] = $item['created_at']; //avoid overwrite in array_merge() below
+
+            $item['closed_at'] = '';
+            if (!empty($meetingDB['closed_at'])) {
+                $item['closed_at'] = api_convert_and_format_date($meetingDB['closed_at']);
+                $meetingDB['closed_at'] = $item['closed_at'];
+            }
 
             $item['publish_url'] = $this->publishUrl($meetingDB);
             $item['unpublish_url'] = $this->unPublishUrl($meetingBBB);

@@ -73,5 +73,4 @@ $strings['ParticipantsWillUseSameInterface'] = 'Los participantes usarán la mis
 $strings['SetByDefault'] = 'Lanzamiento con la interfaz por defecto';
 $strings['SetByTeacher'] = 'Elegido por el profesor';
 $strings['SetByStudent'] = 'Elegido por el alumno';
-$strings['OpenRooms'] = 'Salas abiertas actualmente';
-$strings['ThereAreNoOpenRooms'] = 'No hay ninguna sala abierta actualmente';
+$strings['ThereIsNoVideoConferenceActive'] = "No hay una videoconferencia actualmente activa";

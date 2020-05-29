@@ -897,8 +897,8 @@ $use_users_timezone = api_get_setting('use_users_timezone', 'timezones');
         $score = $avg_student_score;
     }
 
-$userInfo['student_score'] = $score;
-$userInfo['student_progress'] = $avg_student_progress;
+$userInfo['student_score'] = (float) $score;
+$userInfo['student_progress'] = (float) $avg_student_progress;
 $userInfo['first_connection'] = $first_connection_date;
 $userInfo['last_connection'] = $last_connection_date;
 if ($details === 'true') {
@@ -972,6 +972,9 @@ if (!empty($courseInfo)) {
         'chat_connection' => $chat_last_connection,
         'documents' => $documents,
         'upload_documents' => $uploaded_documents,
+        'course_first_access' => Tracking::get_first_connection_date_on_the_course($student_id, $courseInfo['real_id'], $sessionId),
+        'course_last_access' => Tracking::get_last_connection_date_on_the_course($student_id, $courseInfo, $sessionId),
+        'count_access_dates' => Tracking::getNumberOfCourseAccessDates($student_id, $courseInfo['real_id'], $sessionId),
     ];
 } else {
     $details = false;
