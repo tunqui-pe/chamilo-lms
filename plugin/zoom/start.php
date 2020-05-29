@@ -13,7 +13,7 @@ $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
 
 $plugin = ZoomPlugin::create();
 
-$tool_name = $plugin->get_lang('tool_title');
+$tool_name = $plugin->get_lang('plugin_title');
 $tpl = new Template($tool_name);
 $message = null;
 $userId = api_get_user_id();
