@@ -36,6 +36,7 @@ $strings['RunStudentSence'] = 'RUN Estudiante';
 $strings['RunStudentSenceHelp'] = 'Ingresa tu RUN, para sincronizar curso con SENCE';
 $strings['UserLoginSence'] = 'Iniciar sesión en SENCE';
 $strings['ButtonLogin'] = 'Sincronizar';
+$strings['ButtonLogout'] = 'Cerrar sincronización';
 $strings['RutOtecCompany'] = 'RUT OTEC';
 $strings['NameOtecCompany'] = 'Nombre de OTEC';
 $strings['CorrectTiming'] = 'Sincronización correcta';

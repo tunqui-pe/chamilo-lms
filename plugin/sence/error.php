@@ -18,6 +18,6 @@ $tpl = new Template($tool_name);
 $courseInfo = api_get_course_info();
 
 $tpl->assign('course', $courseInfo);
-$content = $tpl->fetch('sence/view/sence_success.tpl');
+$content = $tpl->fetch('sence/view/sence_error.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

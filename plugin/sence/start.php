@@ -19,6 +19,7 @@ $tpl = new Template($tool_name);
 $message =  null;
 
 $courseInfo = api_get_course_info();
+$idCourse = $courseInfo['real_id'];
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('sence_enabled') == 'true';
@@ -50,40 +51,76 @@ if ($enable) {
         }
 
     } else {
-        //login form
+
         $urlLogin = $plugin->getURLSenceLogin($environment);
 
-        $form = new FormValidator(
-            'login_sence',
-            'post',
-            $urlLogin
-        );
+        $senceInfoUser = $plugin->getLoginUserSenceInfo($idCourse, $idStudent);
 
-        $form->addHidden('RutOtec', $plugin->get('rut_otec'));
-        $form->addHidden('Token', $plugin->get('token_otec'));
+        if($senceInfoUser){
+            //logout form
 
-        $form->addText(
-            'RunAlumno',
-            [
-                $plugin->get_lang('RunStudentSence'),
-                $plugin->get_lang('RunStudentSenceHelp'),
-            ],
-            true,
-            [
-                'title' => $plugin->get_lang('RunStudentSenceHelp')
-            ]
-        );
+            $form = new FormValidator(
+                'logout_sence',
+                'post',
+                $urlLogin['logout']
+            );
 
-        $form->addHidden('CodSence', $senceInfo['code_sence']);
-        $form->addHidden('CodigoCurso', $senceInfo['code_course']);
-        $form->addHidden('LineaCapacitacion', $senceInfo['training_line']);
-        $form->addHidden('IdSesionAlumno', $idStudent);
-        $form->addHidden('UrlRetoma', $urlPageError);
-        $form->addHidden('UrlError', $urlPageSuccess);
+            $form->addHidden('RutOtec', $plugin->get('rut_otec'));
+            $form->addHidden('Token', $plugin->get('token_otec'));
+            $form->addHidden('CodSence', $senceInfoUser['code_sence']);
+            $form->addHidden('CodigoCurso', $senceInfoUser['code_course']);
+            $form->addHidden('LineaCapacitacion', $senceInfoUser['training_line']);
+            $form->addHidden('RunAlumno', $senceInfoUser['run_student']);
+            $form->addHidden('IdSesionAlumno', $senceInfoUser['user_id']);
+            $form->addHidden('IdSesionSence', $senceInfoUser['id_session_sence']);
+            $form->addHidden('UrlRetoma', $urlPageSuccess);
+            $form->addHidden('UrlError', $urlPageError);
+            $form->addButtonCancel(
+                $plugin->get_lang('ButtonLogout')
+            );
 
-        $form->addButtonSave(
-            $plugin->get_lang('ButtonLogin')
-        );
+            $tpl->assign('check', true);
+
+        } else {
+
+            //login form
+
+            $form = new FormValidator(
+                'login_sence',
+                'post',
+                $urlLogin['login']
+            );
+
+            $form->addHidden('RutOtec', $plugin->get('rut_otec'));
+            $form->addHidden('Token', $plugin->get('token_otec'));
+
+            $form->addText(
+                'RunAlumno',
+                [
+                    $plugin->get_lang('RunStudentSence'),
+                    $plugin->get_lang('RunStudentSenceHelp'),
+                ],
+                true,
+                [
+                    'title' => $plugin->get_lang('RunStudentSenceHelp')
+                ]
+            );
+
+            $form->addHidden('CodSence', $senceInfo['code_sence']);
+            $form->addHidden('CodigoCurso', $senceInfo['code_course']);
+            $form->addHidden('LineaCapacitacion', $senceInfo['training_line']);
+            $form->addHidden('IdSesionAlumno', $idStudent);
+            $form->addHidden('UrlRetoma', $urlPageSuccess);
+            $form->addHidden('UrlError', $urlPageError);
+
+            $form->addButtonSave(
+                $plugin->get_lang('ButtonLogin')
+            );
+
+            $tpl->assign('check', false);
+
+        }
+
         $tpl->assign('form_login', $form->returnForm());
         $tpl->assign('company_name', $plugin->get('company_name'));
         $tpl->assign('rut_otec', $plugin->get('rut_otec'));

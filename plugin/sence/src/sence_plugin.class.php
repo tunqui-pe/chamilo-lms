@@ -308,11 +308,88 @@ class SencePlugin extends Plugin
 
         switch ($env){
             case 'TEST':
-                return self::URL_SENCE_LOGIN_TEST;
+                return [
+                    'login' => self::URL_SENCE_LOGIN_TEST,
+                    'logout' => self::URL_SENCE_LOGOUT_TEST
+                ];
                 break;
             case 'PRO':
-                return self::URL_SENCE_LOGIN_PRO;
+                return [
+                    'login' => self::URL_SENCE_LOGIN_PRO,
+                    'logout' => self::URL_SENCE_LOGOUT_PRO
+                ];
                 break;
         }
+    }
+
+    public function registerLoginUserSence($values){
+        if (!is_array($values) || empty($values['code_sence'])) {
+            return false;
+        }
+        $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
+
+        $id = Database::insert($tableUserLogin, $values);
+
+        if ($id > 0) {
+            return $id;
+        }
+    }
+
+    public function getLoginUserSenceInfo($idCourse, $idUser){
+        if (empty($idCourse) || empty($idUser)) {
+            return false;
+        }
+
+        $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
+
+        $UserSence = null;
+
+        $sql = "SELECT * FROM $tableUserLogin
+        WHERE c_id = $idCourse AND user_id = $idUser ";
+        $result = Database::query($sql);
+
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $UserSence = [
+                    'id' => $row['id'],
+                    'c_id' => $row['c_id'],
+                    'user_id' => $row['user_id'],
+                    'username' => $row['username'],
+                    'code_sence' => $row['code_sence'],
+                    'id_session_sence' => $row['id_session_sence'],
+                    'code_course' => $row['code_course'],
+                    'run_student' => $row['run_student'],
+                    'date_login' => $row['date_login'],
+                    'time_zone' => $row['time_zone'],
+                    'training_line' => $row['training_line'],
+                    'glosa_error' => $row['glosa_error'],
+                ];
+            }
+        }
+
+        return $UserSence;
+
+    }
+
+    public function deteteLoginUserSence($idCourse, $idUser){
+        if (empty($idCourse) || empty($idUser)) {
+            return false;
+        }
+
+        $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
+
+        $sql = "DELETE FROM $tableUserLogin
+                WHERE
+                    c_id = $idCourse AND
+                    user_id = '".intval($idUser)."'";
+
+        $result = Database::query($sql);
+
+        if (Database::affected_rows($result) != 1) {
+            return false;
+        }
+
+        return true;
+
     }
 }
