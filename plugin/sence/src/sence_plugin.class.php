@@ -20,7 +20,10 @@ class SencePlugin extends Plugin
     const REQUIRE_LOGOUT = 'require_logout';
     const LOGIN_REQUIRED = 'login_required';
     const TRAINING_LINE = 3;
-
+    const URL_SENCE_LOGIN_TEST = 'https://sistemas.sence.cl/rcetest/Registro/IniciarSesion';
+    const URL_SENCE_LOGOUT_TEST = 'https://sistemas.sence.cl/rcetest/Registro/CerrarSesion';
+    const URL_SENCE_LOGIN_PRO = 'https://sistemas.sence.cl/rce/Registro/IniciarSesion';
+    const URL_SENCE_LOGOUT_PRO = 'https://sistemas.sence.cl/rce/Registro/CerrarSesion';
 
     public $isCoursePlugin = true;
 
@@ -196,13 +199,16 @@ class SencePlugin extends Plugin
         }
         $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
 
+        $idCourse = api_get_course_int_id();
+        $codeCourse = api_get_course_id();
+
         $params = [
-            'c_id' => $values['room_name'],
-            'code_sence' => $values['room_url'],
-            'code_course' => $values['room_id'],
-            'id_group' => $values['room_pass'],
+            'c_id' => $idCourse,
+            'code_sence' => $values['code_sence'],
+            'code_course' => $codeCourse,
+            'id_group' => $values['id_group'],
             'training_line' => 3,
-            'activate' => 1,
+            'activate' => $values['activate'],
         ];
 
         $id = Database::insert($table, $params);
@@ -210,5 +216,83 @@ class SencePlugin extends Plugin
         if ($id > 0) {
             return $id;
         }
+    }
+
+    public function updateCodeSenceCourse($values){
+
+        if (!is_array($values) || empty($values['code_sence'])) {
+            return false;
+        }
+
+        $idCourse = api_get_course_int_id();
+        $codeCourse = api_get_course_id();
+        $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
+
+        $params = [
+            'c_id' => $idCourse,
+            'code_sence' => $values['code_sence'],
+            'code_course' => $codeCourse,
+            'id_group' => $values['id_group'],
+            'training_line' => 3,
+            'activate' => $values['activate'],
+        ];
+
+        Database::update(
+            $table,
+            $params,
+            [
+                'id = ?' => [
+                    $values['id'],
+                ],
+            ]
+        );
+
+        return true;
+
+    }
+
+    public function deleteSenceCourse($idSence){
+        if (empty($idSence)) {
+            return false;
+        }
+
+        $tableZoomList = Database::get_main_table(self::TABLE_SENCE_COURSES);
+        $sql = "DELETE FROM $tableZoomList WHERE id = $idSence";
+        $result = Database::query($sql);
+
+        if (Database::affected_rows($result) != 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getSenceInfo($idCourse)
+    {
+        if (empty($idCourse)) {
+            return false;
+        }
+
+        $sence = [];
+        $tableSenceCourse = Database::get_main_table(self::TABLE_SENCE_COURSES);
+        $sql = "SELECT * FROM $tableSenceCourse
+        WHERE c_id = $idCourse";
+
+        $result = Database::query($sql);
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $sence = [
+                    'id' => $row['id'],
+                    'c_id' => $row['c_id'],
+                    'code_sence' => $row['code_sence'],
+                    'code_course' => $row['code_course'],
+                    'id_group' => $row['id_group'],
+                    'training_line' => $row['training_line'],
+                    'activate' => $row['activate']
+                ];
+            }
+        }
+
+        return $sence;
     }
 }

@@ -27,8 +27,23 @@ $isTeacher = api_is_teacher();
 $isStudent = api_is_student();
 $isAdmin = api_is_course_admin();
 
+
+
 if ($enable) {
-    if (api_is_platform_admin()) {
+    if ($isAdmin) {
+
+        $urlAdd = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=add&'.api_get_cidreq();
+        $senceInfo = $plugin->getSenceInfo($courseInfo['real_id']);
+
+        if($senceInfo){
+            $urlEdit = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=edit&'.api_get_cidreq();
+            $urlDelete = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=delete&id_sence='.$senceInfo['id'].'&'.api_get_cidreq();
+            $tpl->assign('sence', $senceInfo);
+            $tpl->assign('url_edit_sence', $urlEdit);
+            $tpl->assign('url_delete_sence', $urlDelete);
+        } else {
+            $tpl->assign('url_add_sence', $urlAdd);
+        }
 
         switch ($action) {
             case 'add':
@@ -44,11 +59,11 @@ if ($enable) {
     }
 }
 
-$urlAdd = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=add&'.api_get_cidreq();;
 
-$tpl->assign('url_add_sence', $urlAdd);
+
+
 $tpl->assign('course', $courseInfo);
 $tpl->assign('message', $message);
-$content = $tpl->fetch('sence/view/start.tpl');
+$content = $tpl->fetch('sence/view/sence_start.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
