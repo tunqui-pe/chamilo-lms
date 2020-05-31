@@ -80,6 +80,7 @@ if ($enable) {
             );
 
             $tpl->assign('check', true);
+            $tpl->assign('sence_user', $senceInfoUser);
 
         } else {
 

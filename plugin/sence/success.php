@@ -21,8 +21,7 @@ $courseInfo = api_get_course_info();
 
 $userInfo = Session::read('_user');
 
-
-if(!empty($_POST['IdSesionAlumno'])) {
+if(!empty($_POST['IdSesionSence'])) {
 
     if ($userInfo['user_id'] == $_POST['IdSesionAlumno']) {
 
