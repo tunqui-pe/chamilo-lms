@@ -6,3 +6,39 @@
 .plugin_logo .img-responsive{
     margin: auto;
 }
+.sence-login .card{
+    margin-bottom: 30px;
+    background-color: #FFFFFF;
+    border: 0;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-radius: .375rem;
+    background-clip: border-box;
+}
+.sence-login .card-header:first-child {
+    border-radius: calc(.375rem - 1px) calc(.375rem - 1px) 0 0;
+}
+.sence-login .card-header {
+    margin-bottom: 0;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    background-color: #0163af;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: bold
+}
+.sence-login .card-body {
+    min-height: 1px;
+    padding: 3rem 2rem;
+    flex: 1 1 auto;
+}
+.row.justify-content-center {
+    justify-content: center!important;
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-wrap: wrap;
+}

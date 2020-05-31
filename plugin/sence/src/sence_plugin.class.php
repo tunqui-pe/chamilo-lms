@@ -19,6 +19,7 @@ class SencePlugin extends Plugin
     const ALERT_EMAIL = 'alert_email';
     const REQUIRE_LOGOUT = 'require_logout';
     const LOGIN_REQUIRED = 'login_required';
+    const ENVIRONMENT = 'environment';
     const TRAINING_LINE = 3;
     const URL_SENCE_LOGIN_TEST = 'https://sistemas.sence.cl/rcetest/Registro/IniciarSesion';
     const URL_SENCE_LOGOUT_TEST = 'https://sistemas.sence.cl/rcetest/Registro/CerrarSesion';
@@ -40,7 +41,8 @@ class SencePlugin extends Plugin
                 self::COMPANY_NAME => 'text',
                 self::ALERT_EMAIL => 'text',
                 self::REQUIRE_LOGOUT => 'boolean',
-                self::LOGIN_REQUIRED => 'boolean'
+                self::LOGIN_REQUIRED => 'boolean',
+                self::ENVIRONMENT => 'boolean'
             ]
         );
 
@@ -294,5 +296,23 @@ class SencePlugin extends Plugin
         }
 
         return $sence;
+    }
+
+    public function getURLSenceLogin($status){
+
+        $env = 'PRO';
+
+        if($status){
+            $env = 'TEST';
+        }
+
+        switch ($env){
+            case 'TEST':
+                return self::URL_SENCE_LOGIN_TEST;
+                break;
+            case 'PRO':
+                return self::URL_SENCE_LOGIN_PRO;
+                break;
+        }
     }
 }

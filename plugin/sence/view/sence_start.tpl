@@ -1,21 +1,27 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
+
                 <div class="plugin_logo">
                     <img alt="" class="img-responsive" src="{{ _p.web }}plugin/sence/resources/img/logo_sence.png">
                 </div>
                 {% if sence %}
-                    <div class="alert alert-info" role="alert">
-                        {{ 'ThisCourseHasSenceCode' | get_lang }}
-                    </div>
+                    {% if is_admin or is_teacher %}
+                        <div class="alert alert-info" role="alert">
+                            {{ 'ThisCourseHasSenceCode' | get_lang }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success" role="alert">
+                            {{ 'NotHaveAnAssociatedSenceCourseCode' | get_lang }}
+                        </div>
+                    {% endif %}
                 {% else %}
-                    <div class="alert alert-warning" role="alert">
-                        {{ 'NotHaveAnAssociatedSenceCourseCode' | get_lang }}
-                    </div>
+                        <div class="alert alert-warning" role="alert">
+                            {{ 'NotHaveAnAssociatedSenceCourseCode' | get_lang }}
+                        </div>
                 {% endif %}
 
+                {% if is_admin or is_teacher %}
                 <div class="tools text-center">
                     {% if sence %}
                         <a href="{{ url_edit_sence }}" class="btn btn-success">
@@ -34,10 +40,38 @@
 
                     {% endif %}
                 </div>
+                {% else %}
 
+                <div class="sence-login">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <div class="card bg-secondary border-0 mb-0">
+                                <div class="card-header">
+                                    {{ 'UserLoginSence'|get_plugin_lang('SencePlugin') }}
+                                </div>
+                                <div class="card-body">
 
-            </div>
-        </div>
+                                    <dl class="dl-horizontal">
+                                        <dt>{{ 'RutOtecCompany'|get_plugin_lang('SencePlugin') }}</dt>
+                                        <dd>{{ rut_otec }}</dd>
+                                        <dt>{{ 'NameOtecCompany'|get_plugin_lang('SencePlugin') }}</dt>
+                                        <dd>{{ company_name }}</dd>
+                                        <dt>{{ 'CodeSence'|get_plugin_lang('SencePlugin') }}</dt>
+                                        <dd>{{ sence.code_sence }}</dd>
+                                        <dt>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</dt>
+                                        <dd>{{ sence.code_course }}</dd>
+                                    </dl>
+
+                                    {{ form_login }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {% endif %}
     </div>
 </div>
 
