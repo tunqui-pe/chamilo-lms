@@ -53,3 +53,6 @@ $strings['YouHaveSuccessLoggedOutSence'] = 'Has cerrado sesión con Sence, corre
 $strings['SessionAlreadyRegistered'] = 'Tu sesión ya fue registrada en Sence.';
 $strings['StartCourse'] = 'Continuar con el curso';
 $strings['ListCourse'] = 'Volver a mi lista de cursos';
+$strings['ConfigurePluginSence'] = 'Antes de registrar un código de curso SENCE, debes de configurar tu plugin Sence, ingresando tu TOKEN y RUT en <strong>Administración > Plugins > Sence Conector > Configurar.</strong>';
+$strings['ObtainingToken'] = 'Para obtener un Token Sence, debe ir a <a href="https://sistemas.sence.cl/rts">https://sistemas.sence.cl/rts</a>, identificándose con su RUT Empresa, RUT representante
+legal válido con el Servicio de Impuestos Internos, y Clave SENCE (CS) de empresa.';

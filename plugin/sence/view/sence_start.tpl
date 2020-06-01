@@ -5,42 +5,57 @@
             <img alt="" class="img-responsive" src="{{ _p.web }}plugin/sence/resources/img/logo_sence.png">
         </div>
 
-            {% if is_admin or is_teacher %}
-                <div class="tools text-center">
-                    {% if sence %}
-                        <a href="{{ url_edit_sence }}" class="btn btn-success">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                            {{ 'EditCodeSence'|get_plugin_lang('SencePlugin') }}
-                        </a>
-                        <a href="{{ url_delete_sence }}" class="btn btn-danger">
-                            <i class="fa fa-codepen" aria-hidden="true"></i>
-                            {{ 'DeleteCodeSence'|get_plugin_lang('SencePlugin') }}
-                        </a>
-                    {% else %}
-                        <a href="{{ url_add_sence }}" class="btn btn-primary">
-                            <i class="fa fa-codepen" aria-hidden="true"></i>
-                            {{ 'AddCodeSence'|get_plugin_lang('SencePlugin') }}
-                        </a>
+        {% if is_admin or is_teacher %}
+            <div class="tools text-center">
+                {% if sence %}
+                    <a href="{{ url_edit_sence }}" class="btn btn-success">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        {{ 'EditCodeSence'|get_plugin_lang('SencePlugin') }}
+                    </a>
+                    <a href="{{ url_delete_sence }}" class="btn btn-danger">
+                        <i class="fa fa-codepen" aria-hidden="true"></i>
+                        {{ 'DeleteCodeSence'|get_plugin_lang('SencePlugin') }}
+                    </a>
+                {% else %}
+                    <a href="{{ url_add_sence }}" class="btn btn-primary">
+                        <i class="fa fa-codepen" aria-hidden="true"></i>
+                        {{ 'AddCodeSence'|get_plugin_lang('SencePlugin') }}
+                    </a>
+                {% endif %}
+            </div>
 
-                    {% endif %}
+            {% if not sence %}
+                <div class="alert alert-warning" role="alert">
+                    {{ 'NotHaveAnAssociatedSenceCourseCode' | get_plugin_lang('SencePlugin') }}
                 </div>
             {% else %}
+                <div class="alert alert-info" role="alert">
+                    {{ 'ThisCourseHasSenceCode' | get_plugin_lang('SencePlugin') }}
+                </div>
 
-            {% if sence %}
-                {% if is_admin or is_teacher %}
-                    <div class="alert alert-info" role="alert">
-                        {{ 'ThisCourseHasSenceCode' | get_lang }}
-                    </div>
-                {% else %}
-                    <div class="alert alert-success" role="alert">
-                        {{ 'SynchronizationEnabledCourseSence' | get_lang }}
-                    </div>
-                {% endif %}
-            {% else %}
-                <div class="alert alert-warning" role="alert">
-                    {{ 'NotHaveAnAssociatedSenceCourseCode' | get_lang }}
+                <div class="alert alert-success" role="alert">
+                    {{ 'SynchronizationEnabledCourseSence' | get_plugin_lang('SencePlugin') }}
                 </div>
             {% endif %}
+
+            <ul>
+                <li>{{ 'ConfigurePluginSence' | get_plugin_lang('SencePlugin') }}</li>
+                <li>{{ 'ObtainingToken' | get_plugin_lang('SencePlugin') }}</li>
+            </ul>
+
+
+        {% else %}
+
+            {% if not sence %}
+                <div class="alert alert-warning" role="alert">
+                    {{ 'NotHaveAnAssociatedSenceCourseCode' | get_plugin_lang('SencePlugin') }}
+                </div>
+            {% else %}
+                <div class="alert alert-success" role="alert">
+                    {{ 'SynchronizationEnabledCourseSence' | get_plugin_lang('SencePlugin') }}
+                </div>
+            {% endif %}
+
 
             {% if sence %}
                 <div class="sence">
@@ -56,6 +71,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="card-body">
+
 
                                         <dl class="dl-horizontal">
                                             <dt>{{ 'RutOtecCompany'|get_plugin_lang('SencePlugin') }}</dt>
@@ -87,7 +103,6 @@
                     </div>
                 </div>
             {% endif %}
-
         {% endif %}
 
     </div>

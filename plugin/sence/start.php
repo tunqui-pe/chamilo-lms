@@ -32,6 +32,7 @@ $idStudent = api_get_user_id();
 
 if ($enable) {
     $senceInfo = $plugin->getSenceInfo($courseInfo['real_id']);
+
     $tpl->assign('sence', $senceInfo);
     //var_dump($senceInfoUser = $plugin->getLoginUserSenceInfo($idCourse, $idStudent));
     $urlPageError = api_get_path(WEB_PLUGIN_PATH).'sence/error.php?'.api_get_cidreq();

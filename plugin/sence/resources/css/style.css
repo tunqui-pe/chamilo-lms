@@ -7,6 +7,9 @@
 .plugin_logo .img-responsive{
     margin: auto;
 }
+.tools{
+    margin-bottom: 2rem;
+}
 .sence-login .card{
     margin-bottom: 30px;
     background-color: #FFFFFF;

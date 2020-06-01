@@ -293,9 +293,16 @@ class SencePlugin extends Plugin
                     'activate' => $row['activate']
                 ];
             }
+
+            return $sence;
+
+        } else {
+
+            return false;
+
         }
 
-        return $sence;
+
     }
 
     public function getURLSenceLogin($status){
