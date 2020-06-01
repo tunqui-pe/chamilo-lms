@@ -19,6 +19,7 @@ $tpl = new Template($tool_name);
 
 $courseInfo = api_get_course_info();
 
+$message = null;
 $userInfo = Session::read('_user');
 
 if(!empty($_POST['IdSesionSence'])) {
@@ -38,14 +39,25 @@ if(!empty($_POST['IdSesionSence'])) {
             'training_line' => $_POST['LineaCapacitacion'],
             'glosa_error' => 0,
         ];
+        $senceInfoUser = $plugin->getLoginUserSenceInfo($courseInfo['real_id'], $userInfo['user_id']);
+        if(!$senceInfoUser){
+            $res = $plugin->registerLoginUserSence($values);
+        } else {
+            Display::addFlash(
+                Display::return_message($plugin->get_lang('SessionAlreadyRegistered'))
+            );
+        }
 
-        $res = $plugin->registerLoginUserSence($values);
+        $urlCourse = api_get_course_url($courseInfo['code']);
+
+        $tpl->assign('url_course', $urlCourse);
         $tpl->assign('check', true);
     }
 
 } else {
-
     $res = $plugin->deteteLoginUserSence($courseInfo['real_id'], $userInfo['user_id']);
+    $urlListCourses = api_get_path(WEB_PATH).'user_portal.php';
+    $tpl->assign('url_list_courses', $urlListCourses);
     $tpl->assign('check', false);
 }
 

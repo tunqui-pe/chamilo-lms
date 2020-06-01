@@ -49,3 +49,6 @@ $strings['TimeZoneSence'] = 'Zona horaria';
 $strings['NameCourseSence'] = 'Nombre del curso';
 $strings['SynchronizationEnabledCourseSence'] = 'Curso habilitado para sincronización sence';
 $strings['YouHaveSuccessLoggedOutSence'] = 'Has cerrado sesión con Sence, correctamente';
+$strings['SessionAlreadyRegistered'] = 'Tu sesión ya fue registrada en Sence.';
+$strings['StartCourse'] = 'Continuar con el curso';
+$strings['ListCourse'] = 'Volver a mi lista de cursos';

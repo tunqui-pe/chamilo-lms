@@ -60,7 +60,7 @@ if ($enable) {
             //logout form
 
             $form = new FormValidator(
-                'logout_sence',
+                'login_sence',
                 'post',
                 $urlLogin['logout']
             );
