@@ -60,6 +60,18 @@ if ($enable) {
                     ]
                 );
 
+                $form->addText(
+                    'code_course',
+                    [
+                        $plugin->get_lang('CodeCourse'),
+                        $plugin->get_lang('CodeCourseHelp')
+                    ],
+                    true,
+                    [
+                        'title'=>$plugin->get_lang('CodeSenceHelp')
+                    ]
+                );
+
                 $form->addSelect(
                     'id_group',
                     [
@@ -72,7 +84,7 @@ if ($enable) {
                     ]
                 );
 
-                $options = [
+                /*$options = [
                     '1' => get_lang('Activate'),
                     '2' => get_lang('Disable'),
                 ];
@@ -81,7 +93,7 @@ if ($enable) {
                     'activate',
                     $plugin->get_lang('ActivateSence'),
                     $options
-                );
+                );*/
 
 
                 $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
@@ -132,6 +144,18 @@ if ($enable) {
                     ]
                 );
 
+                $form->addText(
+                    'code_course',
+                    [
+                        $plugin->get_lang('CodeCourse'),
+                        $plugin->get_lang('CodeCourseHelp')
+                    ],
+                    true,
+                    [
+                        'title'=>$plugin->get_lang('CodeSenceHelp')
+                    ]
+                );
+
                 $form->addSelect(
                     'id_group',
                     [
@@ -144,7 +168,7 @@ if ($enable) {
                     ]
                 );
 
-                $options = [
+                /*$options = [
                     '1' => get_lang('Activate'),
                     '2' => get_lang('Disable'),
                 ];
@@ -153,7 +177,7 @@ if ($enable) {
                     'activate',
                     $plugin->get_lang('ActivateSence'),
                     $options
-                );
+                );*/
 
                 $form->addHidden('id', $dataSence['id']);
 

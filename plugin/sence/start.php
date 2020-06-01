@@ -33,7 +33,7 @@ $idStudent = api_get_user_id();
 if ($enable) {
     $senceInfo = $plugin->getSenceInfo($courseInfo['real_id']);
     $tpl->assign('sence', $senceInfo);
-
+    //var_dump($senceInfoUser = $plugin->getLoginUserSenceInfo($idCourse, $idStudent));
     $urlPageError = api_get_path(WEB_PLUGIN_PATH).'sence/error.php?'.api_get_cidreq();
     $urlPageSuccess = api_get_path(WEB_PLUGIN_PATH).'sence/success.php?'.api_get_cidreq();
 
@@ -55,6 +55,7 @@ if ($enable) {
         $urlLogin = $plugin->getURLSenceLogin($environment);
 
         $senceInfoUser = $plugin->getLoginUserSenceInfo($idCourse, $idStudent);
+
 
         if($senceInfoUser){
             //logout form
@@ -79,6 +80,7 @@ if ($enable) {
                 $plugin->get_lang('ButtonLogout')
             );
 
+            $tpl->assign('form_login', $form->returnForm());
             $tpl->assign('check', true);
             $tpl->assign('sence_user', $senceInfoUser);
 
@@ -86,43 +88,46 @@ if ($enable) {
 
             //login form
 
-            $form = new FormValidator(
-                'login_sence',
-                'post',
-                $urlLogin['login']
-            );
+            if(isset($senceInfo['code_sence'])) {
+                $form = new FormValidator(
+                    'login_sence',
+                    'post',
+                    $urlLogin['login']
+                );
 
-            $form->addHidden('RutOtec', $plugin->get('rut_otec'));
-            $form->addHidden('Token', $plugin->get('token_otec'));
+                $form->addHidden('RutOtec', $plugin->get('rut_otec'));
+                $form->addHidden('Token', $plugin->get('token_otec'));
 
-            $form->addText(
-                'RunAlumno',
-                [
-                    $plugin->get_lang('RunStudentSence'),
-                    $plugin->get_lang('RunStudentSenceHelp'),
-                ],
-                true,
-                [
-                    'title' => $plugin->get_lang('RunStudentSenceHelp')
-                ]
-            );
+                $form->addText(
+                    'RunAlumno',
+                    [
+                        $plugin->get_lang('RunStudentSence'),
+                        $plugin->get_lang('RunStudentSenceHelp'),
+                    ],
+                    true,
+                    [
+                        'title' => $plugin->get_lang('RunStudentSenceHelp')
+                    ]
+                );
 
-            $form->addHidden('CodSence', $senceInfo['code_sence']);
-            $form->addHidden('CodigoCurso', $senceInfo['code_course']);
-            $form->addHidden('LineaCapacitacion', $senceInfo['training_line']);
-            $form->addHidden('IdSesionAlumno', $idStudent);
-            $form->addHidden('UrlRetoma', $urlPageSuccess);
-            $form->addHidden('UrlError', $urlPageError);
+                $form->addHidden('CodSence', $senceInfo['code_sence']);
+                $form->addHidden('CodigoCurso', $senceInfo['code_course']);
+                $form->addHidden('LineaCapacitacion', $senceInfo['training_line']);
+                $form->addHidden('IdSesionAlumno', $idStudent);
+                $form->addHidden('UrlRetoma', $urlPageSuccess);
+                $form->addHidden('UrlError', $urlPageError);
 
-            $form->addButtonSave(
-                $plugin->get_lang('ButtonLogin')
-            );
+                $form->addButtonSave(
+                    $plugin->get_lang('ButtonLogin')
+                );
+                $tpl->assign('form_login', $form->returnForm());
+            }
 
             $tpl->assign('check', false);
 
         }
 
-        $tpl->assign('form_login', $form->returnForm());
+
         $tpl->assign('company_name', $plugin->get('company_name'));
         $tpl->assign('rut_otec', $plugin->get('rut_otec'));
     }

@@ -202,15 +202,15 @@ class SencePlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
 
         $idCourse = api_get_course_int_id();
-        $codeCourse = api_get_course_id();
+        //$codeCourse = api_get_course_id();
 
         $params = [
             'c_id' => $idCourse,
             'code_sence' => $values['code_sence'],
-            'code_course' => $codeCourse,
+            'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
             'training_line' => 3,
-            'activate' => $values['activate'],
+            'activate' => 1,
         ];
 
         $id = Database::insert($table, $params);
@@ -227,16 +227,16 @@ class SencePlugin extends Plugin
         }
 
         $idCourse = api_get_course_int_id();
-        $codeCourse = api_get_course_id();
+        //$codeCourse = api_get_course_id();
         $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
 
         $params = [
             'c_id' => $idCourse,
             'code_sence' => $values['code_sence'],
-            'code_course' => $codeCourse,
+            'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
             'training_line' => 3,
-            'activate' => $values['activate'],
+            'activate' => 1,
         ];
 
         Database::update(
@@ -365,10 +365,14 @@ class SencePlugin extends Plugin
                     'glosa_error' => $row['glosa_error'],
                 ];
             }
+
+            return $UserSence;
+
+        } else {
+
+            return false;
+
         }
-
-        return $UserSence;
-
     }
 
     public function deteteLoginUserSence($idCourse, $idUser){
@@ -391,5 +395,22 @@ class SencePlugin extends Plugin
 
         return true;
 
+    }
+
+    public function loadLoginSence(){
+
+        $enabledLoginRequired = self::get('login_required')=='true';
+
+        if($enabledLoginRequired){
+            $idCourse = api_get_course_int_id();
+            $idStudent = api_get_user_id();
+
+            $res = self::getLoginUserSenceInfo($idCourse, $idStudent);
+
+            if(!$res){
+                $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
+                header('Location: '.$urlLoginSence);
+            }
+        }
     }
 }
