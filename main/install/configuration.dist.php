@@ -589,6 +589,8 @@ $_configuration['send_all_emails_to'] = [
 //$_configuration['quiz_generate_certificate_ending'] = false;
 // Allow the teacher to rate the open, oral expression and annotation question types with a decimal score.
 //$_configuration['quiz_open_question_decimal_score'] = false;
+// Add answer-saving procedure check before starting the quiz
+//$_configuration['quiz_check_button_enable'] = false;
 
 // Hide search form in session list
 //$_configuration['hide_search_form_in_session_list'] = false;
@@ -1528,6 +1530,9 @@ $_configuration['auth_password_links'] = [
 // This requires a column to be added to the table with the following query:
 // ALTER TABLE track_e_attempt_recording ADD COLUMN answer longtext default '' AFTER question_id;
 //$_configuration['quiz_answer_extra_recording'] = false;
+
+// Disable clean results for teachers
+// $_configuration['disable_clean_exercise_results_for_teachers'] = true;
 
 // KEEP THIS AT THE END
 // -------- Custom DB changes

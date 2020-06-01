@@ -9,6 +9,7 @@ use Chamilo\CoreBundle\Entity\SkillRelUserComment;
 use Chamilo\UserBundle\Entity\User;
 use Chamilo\UserBundle\Repository\UserRepository;
 use ChamiloSession as Session;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 /**
@@ -910,14 +911,16 @@ class UserManager
             return false;
         }
 
-        $sql = "SELECT * FROM $table_course_user
-                WHERE status = 1 AND user_id = ".$user_id;
-        $res = Database::query($sql);
-        while ($course = Database::fetch_object($res)) {
-            $sql = "SELECT id FROM $table_course_user
-                    WHERE status=1 AND c_id = ".intval($course->c_id);
-            $res2 = Database::query($sql);
-            if (Database::num_rows($res2) == 1) {
+        $res = Database::query(
+            "SELECT c_id FROM $table_course_user WHERE status = 1 AND user_id = $user_id"
+        );
+        while ($course = Database::fetch_assoc($res)) {
+            $sql = Database::query(
+                "SELECT COUNT(id) number FROM $table_course_user WHERE status = 1 AND c_id = {$course['c_id']}"
+            );
+            $res2 = Database::fetch_assoc($sql);
+
+            if ($res2['number'] == 1) {
                 return false;
             }
         }
@@ -1010,17 +1013,12 @@ class UserManager
             RedirectionPlugin::deleteUserRedirection($user_id);
         }
 
-        // Delete user picture
-        /* TODO: Logic about api_get_setting('split_users_upload_directory') == 'true'
-        a user has 4 different sized photos to be deleted. */
         $user_info = api_get_user_info($user_id);
 
-        if (strlen($user_info['picture_uri']) > 0) {
-            $path = self::getUserPathById($user_id, 'system');
-            $img_path = $path.$user_info['picture_uri'];
-            if (file_exists($img_path)) {
-                unlink($img_path);
-            }
+        try {
+            self::deleteUserFiles($user_id);
+        } catch (Exception $exception) {
+            error_log('Delete user exception: '.$exception->getMessage());
         }
 
         // Delete the personal course categories
@@ -7002,6 +7000,19 @@ SQL;
         $result = Database::query($sql);
 
         return Database::num_rows($result) > 0;
+    }
+
+    /**
+     * @param int $userInfo
+     *
+     * @throws Exception
+     */
+    public static function deleteUserFiles($userId)
+    {
+        $path = self::getUserPathById($userId, 'system');
+
+        $fs = new Filesystem();
+        $fs->remove($path);
     }
 
     /**
