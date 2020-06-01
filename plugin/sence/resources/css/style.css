@@ -29,10 +29,11 @@
     margin-bottom: 0;
     padding: 2rem 3rem;
     border-bottom: 1px solid rgba(0,0,0,.05);
-    background-color: #EB1E0F;
+    background-color: #113B6A;
     color: #FFF;
     text-transform: uppercase;
-    font-weight: bold
+    font-weight: bold;
+    font-size: 16px;
 }
 .sence-login .card-body {
     min-height: 1px;
@@ -51,14 +52,14 @@
     width: 100%;
     padding: 1rem;
     text-transform: uppercase;
-    background-color: #113B6A;
-    border-color: #113B6A;
+    background-color: #e73939;
+    border-color: #e73939;
     font-weight: bold;
 }
 #login_sence .btn-primary:hover,
 #login_sence .btn-danger:hover{
-    background-color: #0163af;
-    border-color: #0163af;
+    background-color: #EB1E0F;
+    border-color: #EB1E0F;
 }
 .sence-login{
     margin-top: 2rem;

@@ -408,15 +408,22 @@ class SencePlugin extends Plugin
 
         $enabledLoginRequired = self::get('login_required')=='true';
 
-        if($enabledLoginRequired){
-            $idCourse = api_get_course_int_id();
-            $idStudent = api_get_user_id();
+        $isTeacher = api_is_teacher();
+        $isAdmin = api_is_course_admin();
 
-            $res = self::getLoginUserSenceInfo($idCourse, $idStudent);
+        if ($isAdmin || $isTeacher) {
+            return false;
+        } else {
+            if($enabledLoginRequired){
+                $idCourse = api_get_course_int_id();
+                $idStudent = api_get_user_id();
 
-            if(!$res){
-                $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
-                header('Location: '.$urlLoginSence);
+                $res = self::getLoginUserSenceInfo($idCourse, $idStudent);
+
+                if(!$res){
+                    $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
+                    header('Location: '.$urlLoginSence);
+                }
             }
         }
     }

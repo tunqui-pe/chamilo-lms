@@ -56,3 +56,7 @@ $strings['ListCourse'] = 'Volver a mi lista de cursos';
 $strings['ConfigurePluginSence'] = 'Antes de registrar un código de curso SENCE, debes de configurar tu plugin Sence, ingresando tu TOKEN y RUT en <strong>Administración > Plugins > Sence Conector > Configurar.</strong>';
 $strings['ObtainingToken'] = 'Para obtener un Token Sence, debe ir a <a href="https://sistemas.sence.cl/rts">https://sistemas.sence.cl/rts</a>, identificándose con su RUT Empresa, RUT representante
 legal válido con el Servicio de Impuestos Internos, y Clave SENCE (CS) de empresa.';
+$strings['RegisterCS'] = '<strong>Registrar:</strong> ¿No tiene una CS para iniciar sesión? <a href="https://cus.sence.cl/Account/Registrar" target="_blank">Regístrese aquí.</a>';
+$strings['RecoverCS'] = '<strong>Recuperar CS:</strong> ¿No recuerda su CS o la extravió? <a href="https://cus.sence.cl/Account/RecuperarClave" target="_blank">Recupere su CS aquí.</a>';
+$strings['ChangeCS'] = '<strong>Cambiar CS:</strong> ¿Desea cambiar su CS? <a href="https://cus.sence.cl/Account/CambiarClave" target="_blank"> Cambie su CS aquí.</a>';
+$strings['UpdateData'] = '<strong>Actualizar Datos:</strong> ¿Desea actualizar sus datos de contacto (celular o su e-mail)? <a href="https://cus.sence.cl/Account/ActualizarDatos" target="_blank">Actualice sus datos aquí.</a>';

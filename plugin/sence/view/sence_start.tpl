@@ -98,6 +98,15 @@
 
                                     </div>
                                 </div>
+
+                                <ul>
+                                    <li>{{ 'RegisterCS'|get_plugin_lang('SencePlugin') }}</li>
+                                    <li>{{ 'RecoverCS'|get_plugin_lang('SencePlugin') }}</li>
+                                    <li>{{ 'ChangeCS'|get_plugin_lang('SencePlugin') }}</li>
+                                    <li>{{ 'UpdateData'|get_plugin_lang('SencePlugin') }}</li>
+                                </ul>
+
+
                             </div>
                         </div>
                     </div>
