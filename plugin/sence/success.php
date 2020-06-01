@@ -40,13 +40,13 @@ if(!empty($_POST['IdSesionSence'])) {
         ];
 
         $res = $plugin->registerLoginUserSence($values);
-        $tpl->assign('status', true);
+        $tpl->assign('check', true);
     }
 
 } else {
 
     $res = $plugin->deteteLoginUserSence($courseInfo['real_id'], $userInfo['user_id']);
-    $tpl->assign('status', false);
+    $tpl->assign('check', false);
 }
 
 $tpl->assign('course', $courseInfo);

@@ -48,3 +48,4 @@ $strings['DateLoginSence'] = 'Fecha de login';
 $strings['TimeZoneSence'] = 'Zona horaria';
 $strings['NameCourseSence'] = 'Nombre del curso';
 $strings['SynchronizationEnabledCourseSence'] = 'Curso habilitado para sincronización sence';
+$strings['YouHaveSuccessLoggedOutSence'] = 'Has cerrado sesión con Sence, correctamente';
