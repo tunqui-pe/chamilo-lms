@@ -17,6 +17,7 @@ $strings['alert_email'] = 'Correo de alerta.';
 $strings['alert_email_help'] = 'Correo para alertas de error, este correo recibe los errores posibles que puedan registrar los usuarios, para asistencia técnica y reporte.';
 $strings['require_logout'] = 'Exigir el cierre de sesión con SENCE (Opcional)';
 $strings['login_required'] = 'Sincronizar SENCE al ingresar al curso';
+$strings['environment'] = 'Ambiente de producción';
 $strings['SynchronizeYourCourse'] = 'Sincroniza tu curso';
 $strings['SaveCodeSence'] = 'Guardar código sence del curso';
 $strings['CodeSence'] = 'Código SENCE';
