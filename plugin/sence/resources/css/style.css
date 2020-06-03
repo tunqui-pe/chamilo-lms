@@ -1,0 +1,87 @@
+.plugin_logo{
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #fff;
+}
+.plugin_logo .img-responsive{
+    margin: auto;
+}
+.tools{
+    margin-bottom: 2rem;
+}
+.sence-login .card{
+    margin-bottom: 30px;
+    background-color: #FFFFFF;
+    border: 0;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-radius: .375rem;
+    background-clip: border-box;
+}
+.sence-login .card-header:first-child {
+    border-radius: calc(.375rem - 1px) calc(.375rem - 1px) 0 0;
+}
+.sence-login .card-header {
+    margin-bottom: 0;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    background-color: #113B6A;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+}
+.sence-login .card-body {
+    min-height: 1px;
+    padding: 3rem 2rem;
+    flex: 1 1 auto;
+}
+.row.justify-content-center {
+    justify-content: center!important;
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-wrap: wrap;
+}
+#login_sence .btn-primary,
+#login_sence .btn-danger{
+    width: 100%;
+    padding: 1rem;
+    text-transform: uppercase;
+    background-color: #e73939;
+    border-color: #e73939;
+    font-weight: bold;
+}
+#login_sence .btn-primary:hover,
+#login_sence .btn-danger:hover{
+    background-color: #EB1E0F;
+    border-color: #EB1E0F;
+}
+.sence-login{
+    margin-top: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.sence-login .dl-horizontal{
+    color: #666666;
+    font-size: 12px;
+}
+.sence-login .dl-horizontal dt{
+    text-align: left;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    background-color: #e8e8e8;
+    padding: 5px;
+}
+.sence-login .dl-horizontal dd{
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding: 5px;
+}
+.sence{
+    background: url(../img/bg_sence.png) bottom right no-repeat;
+}
