@@ -58,13 +58,15 @@ if(!empty($_POST['IdSesionSence'])) {
 
 } else {
 
+    $idSession = $plugin->getIdSessionSenceUser($userInfo['user_id']);
+
     $values = [
         'c_id' => api_get_course_int_id(),
         'user_id' => $userInfo['user_id'],
         'username' => $userInfo['username'],
         'code_sence' => $_POST['CodSence'],
         'code_course' => $_POST['CodigoCurso'],
-        'id_session_sence' => null,
+        'id_session_sence' => $idSession,
         'run_student' => $_POST['RunAlumno'],
         'date_login' => $_POST['FechaHora'],
         'time_zone' => $_POST['ZonaHoraria'],

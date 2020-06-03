@@ -409,6 +409,76 @@ class SencePlugin extends Plugin
         }
     }
 
+    public function getLogsHistory($idCourse){
+
+        if (empty($idCourse)) {
+            return false;
+        }
+
+        $tableLogs = Database::get_main_table(self::TABLE_SENCE_LOGS);
+
+        $list = [];
+
+        $sql = "SELECT * FROM $tableLogs WHERE c_id = $idCourse ";
+        $result = Database::query($sql);
+
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $item = [
+                    'id' => $row['id'],
+                    'c_id' => $row['c_id'],
+                    'user_id' => $row['user_id'],
+                    'username' => $row['username'],
+                    'code_sence' => $row['code_sence'],
+                    'id_session_sence' => $row['id_session_sence'],
+                    'code_course' => $row['code_course'],
+                    'run_student' => $row['run_student'],
+                    'date_login' => $row['date_login'],
+                    'time_zone' => $row['time_zone'],
+                    'training_line' => $row['training_line'],
+                    'glosa_error' => $row['glosa_error'],
+                    'type_login' => $row['type_login'],
+                ];
+                $list[] = $item;
+            }
+
+            return $list;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+
+    public function getIdSessionSenceUser($idUser){
+        if (empty($idUser)) {
+            return false;
+        }
+
+        $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
+
+        $idSence = null;
+
+        $sql = "SELECT id_session_sence FROM $tableUserLogin
+        WHERE user_id = $idUser ";
+        $result = Database::query($sql);
+
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $idSence = $row['id_session_sence'];
+            }
+
+            return $idSence;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
     public function deteteLoginUserSence($idCourse, $idUser){
         if (empty($idCourse) || empty($idUser)) {
             return false;

@@ -8,10 +8,17 @@
         {% if is_admin or is_teacher %}
             <div class="tools text-center">
                 {% if sence %}
+                    {% if is_admin %}
+                    <a href="{{ url_list }}" class="btn btn-primary">
+                        <i class="fa fa-list-ul" aria-hidden="true"></i>
+                        {{ 'HistoryList'|get_plugin_lang('SencePlugin') }}
+                    </a>
+                    {% endif %}
                     <a href="{{ url_edit_sence }}" class="btn btn-success">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         {{ 'EditCodeSence'|get_plugin_lang('SencePlugin') }}
                     </a>
+
                     <a href="{{ url_delete_sence }}" class="btn btn-danger">
                         <i class="fa fa-codepen" aria-hidden="true"></i>
                         {{ 'DeleteCodeSence'|get_plugin_lang('SencePlugin') }}
