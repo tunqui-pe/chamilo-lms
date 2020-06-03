@@ -392,7 +392,7 @@ if ($is_allowedToEdit) {
                         }
 
                         // Clean student results
-                        if ($exercise_action_locked == false) {
+                        if (false == $exercise_action_locked) {
                             $quantity_results_deleted = $objExerciseTmp->cleanResults(true);
                             $title = $objExerciseTmp->selectTitle();
 
@@ -651,7 +651,7 @@ if (api_get_configuration_value('allow_exercise_categories') === false) {
             $down = '';
             if ($is_allowedToEdit) {
                 $up = Display::url($upIcon, $modifyUrl.'&action=up_category&category_id_edit='.$categoryIdItem);
-                if ($counter === 0) {
+                if (0 === $counter) {
                     $up = Display::url(Display::return_icon('up_na.png'), '#');
                 }
                 $down = Display::url($downIcon, $modifyUrl.'&action=down_category&category_id_edit='.$categoryIdItem);
@@ -672,7 +672,7 @@ if (api_get_configuration_value('allow_exercise_categories') === false) {
     }
 }
 
-if ($origin !== 'learnpath') {
+if ('learnpath' !== $origin) {
     // We are not in learnpath tool
     Display::display_footer();
 }

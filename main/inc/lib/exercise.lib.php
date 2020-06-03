@@ -128,10 +128,11 @@ class ExerciseLib
                     if ($answerType == DRAGGABLE) {
                         $isVertical = $objQuestionTmp->extra == 'v';
                         $s .= '
-                            <div class="col-md-12 ui-widget ui-helper-clearfix">
-                                <div class="clearfix">
-                                <ul class="exercise-draggable-answer '.($isVertical ? '' : 'list-inline').'"
-                                    id="question-'.$questionId.'" data-question="'.$questionId.'">
+                            <div class="row"><div class="col-md-12">
+                                <p class="small">'.get_lang('DraggableQuestionIntro').'</p>
+                                <ul class="exercise-draggable-answer list-unstyled '
+                            .($isVertical ? '' : 'list-inline').'" id="question-'.$questionId.'" data-question="'
+                            .$questionId.'">
                         ';
                     } else {
                         $s .= '<div id="drag'.$questionId.'_question" class="drag_question">
@@ -922,7 +923,7 @@ class ExerciseLib
                          * the text to find mustn't contains HTML tags
                          * the text to find mustn't contains char "
                          */
-                        if ($origin !== null) {
+                        if (null !== $origin) {
                             global $exe_id;
                             $exe_id = (int) $exe_id;
                             $trackAttempts = Database::get_main_table(TABLE_STATISTIC_TRACK_E_ATTEMPT);
@@ -1041,7 +1042,7 @@ class ExerciseLib
                             foreach ($correctAnswerList[0] as $item) {
                                 $size = strlen($item);
                                 $attributes['class'] = self::detectInputAppropriateClass($size);
-                                if ($exercise->getFeedbackType() == EXERCISE_FEEDBACK_TYPE_POPUP) {
+                                if (EXERCISE_FEEDBACK_TYPE_POPUP == $exercise->getFeedbackType()) {
                                     $attributes['id'] = "question_$questionId";
                                     $attributes['class'] .= ' checkCalculatedQuestionOnEnter ';
                                 }
@@ -1058,7 +1059,7 @@ class ExerciseLib
                                 );
                             }
                         }
-                        if ($origin !== null) {
+                        if (null !== $origin) {
                             $s = $answer;
                             break;
                         } else {
@@ -1354,7 +1355,7 @@ HTML;
             if ($answerType == DRAGGABLE) {
                 $isVertical = $objQuestionTmp->extra == 'v';
                 $s .= "</ul>";
-                $s .= "</div>";
+                $s .= "</div></div>"; // col-md-12
                 $counterAnswer = 1;
                 $s .= $isVertical ? '' : '<div class="row">';
                 for ($answerId = 1; $answerId <= $nbrAnswers; $answerId++) {
@@ -1366,7 +1367,8 @@ HTML;
                             <div class="'.($isVertical ? 'col-md-12' : 'col-xs-12 col-sm-4 col-md-3 col-lg-2').'">
                                 <div class="droppable-item">
                                     <span class="number">'.$counterAnswer.'.</span>
-                                    <div id="drop_'.$windowId.'" class="droppable">&nbsp;</div>
+                                    <div id="drop_'.$windowId.'" class="droppable">
+                                    </div>
                                  </div>
                             </div>
                         ';
@@ -1376,7 +1378,7 @@ HTML;
                 }
 
                 $s .= $isVertical ? '' : '</div>'; // row
-                $s .= '</div>'; // col-md-12 ui-widget ui-helper-clearfix
+                $s .= '</div>';
             }
 
             if (in_array($answerType, [MATCHING, MATCHING_DRAGGABLE])) {
@@ -1389,7 +1391,7 @@ HTML;
             unset($objAnswerTmp);
             // destruction of the Question object
             unset($objQuestionTmp);
-            if ($origin == 'export') {
+            if ('export' == $origin) {
                 return $s;
             }
             echo $s;
@@ -2883,7 +2885,6 @@ HOTSPOT;
             if ($hidePercentageSign) {
                 $percentageSign = '';
             }
-
             $html = $percentage."$percentageSign ($score / $weight)";
             if ($show_only_percentage) {
                 $html = $percentage.$percentageSign;
@@ -2901,7 +2902,6 @@ HOTSPOT;
         // Ignore other formats and use the configuration['exercise_score_format'] value
         // But also keep the round values settings.
         $format = api_get_configuration_value('exercise_score_format');
-
         if (!empty($format)) {
             $html = ScoreDisplay::instance()->display_score([$score, $weight], $format);
         }
@@ -2962,7 +2962,7 @@ HOTSPOT;
         $courseInfo = api_get_course_info();
         if (!empty($courseInfo)) {
             $scoreModelId = api_get_course_setting('score_model_id');
-            if ($scoreModelId != -1) {
+            if (-1 != $scoreModelId) {
                 $modelIdList = array_column($modelList['models'], 'id');
                 if (in_array($scoreModelId, $modelIdList)) {
                     foreach ($modelList['models'] as $item) {
@@ -2995,7 +2995,7 @@ HOTSPOT;
     public static function isSuccessExerciseResult($score, $weight, $pass_percentage)
     {
         $percentage = float_format(
-            ($score / ($weight != 0 ? $weight : 1)) * 100,
+            ($score / (0 != $weight ? $weight : 1)) * 100,
             1
         );
         if (isset($pass_percentage) && !empty($pass_percentage)) {
@@ -4691,7 +4691,7 @@ EOT;
                         'comments' => Event::get_comments($exeId, $questionId),
                     ];
                     $check = $objQuestionTmp->isQuestionWaitingReview($reviewScore);
-                    if ($check === false) {
+                    if (false === $check) {
                         $countPendingQuestions++;
                     }
                 }
@@ -4700,7 +4700,7 @@ EOT;
                 $question_content = '';
                 if ($show_results) {
                     $question_content = '<div class="question_row_answer">';
-                    if ($showQuestionScore == false) {
+                    if (false == $showQuestionScore) {
                         $score = [];
                     }
 
