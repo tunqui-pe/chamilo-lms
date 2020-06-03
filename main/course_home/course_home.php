@@ -448,6 +448,8 @@ Exercise::cleanSessionVariables();
 DocumentManager::removeGeneratedAudioTempFile();
 
 $tpl = new Template(null);
+$plugin = SencePlugin::create();
+$content.= $plugin->loadLoginSence();
 $tpl->assign('message', $show_message);
 $tpl->assign('content', $content);
 
