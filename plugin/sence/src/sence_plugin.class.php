@@ -9,7 +9,7 @@
 class SencePlugin extends Plugin
 {
     const TABLE_SENCE_COURSES = 'plugin_sence_courses';
-    const TABLE_SENCE_USERS = 'plugin_sence_users';
+    const TABLE_SENCE_LOGS = 'plugin_sence_logs';
     const TABLE_SENCE_USERS_LOGIN = 'plugin_sence_users_login';
     const SETTING_TITLE = 'tool_title';
     const SETTING_ENABLED = 'sence_enabled';
@@ -93,10 +93,20 @@ class SencePlugin extends Plugin
 
         Database::query($sql);
 
-        $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_USERS." (
+        $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_LOGS." (
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
+            c_id INT NULL,
             user_id INT NULL,
-            run_student VARCHAR(10) NULL
+            username VARCHAR(100) NULL,
+            code_sence VARCHAR(10) NULL,
+            id_session_sence VARCHAR(150) NULL,
+            code_course VARCHAR(36) NULL,
+            run_student VARCHAR(10) NULL,
+            date_login DATETIME NULL,
+            time_zone VARCHAR(100) NULL,
+            training_line INT NULL,
+            glosa_error INT NULL,
+            type_login INT NULL
         )";
 
         Database::query($sql);
@@ -107,12 +117,14 @@ class SencePlugin extends Plugin
             user_id INT NULL,
             username VARCHAR(100) NULL,
             code_sence VARCHAR(10) NULL,
+            id_session_sence VARCHAR(150) NULL,
             code_course VARCHAR(36) NULL,
             run_student VARCHAR(10) NULL,
             date_login DATETIME NULL,
             time_zone VARCHAR(100) NULL,
             training_line INT NULL,
-            glosa_error INT
+            glosa_error INT NULL,
+            type_login INT NULL
         )";
 
         Database::query($sql);
@@ -136,7 +148,7 @@ class SencePlugin extends Plugin
 
         $tablesToBeDeleted = [
             self::TABLE_SENCE_COURSES,
-            self::TABLE_SENCE_USERS,
+            self::TABLE_SENCE_LOGS,
             self::TABLE_SENCE_USERS_LOGIN,
         ];
 
@@ -158,7 +170,6 @@ class SencePlugin extends Plugin
         $em = Database::getManager();
 
         $delete = $this->deleteCourseToolLinks();
-        var_dump($delete);
 
         if ('true' === $this->get(self::SETTING_ENABLED)) {
             $courses = $em->createQuery('SELECT c.id FROM ChamiloCoreBundle:Course c')->getResult();
@@ -329,13 +340,29 @@ class SencePlugin extends Plugin
         }
     }
 
+    //Register User Login Sence for course
     public function registerLoginUserSence($values){
         if (!is_array($values) || empty($values['code_sence'])) {
             return false;
         }
-        $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
 
+        $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
         $id = Database::insert($tableUserLogin, $values);
+
+        if ($id > 0) {
+            return $id;
+        }
+    }
+
+    //Register User Logins Table Logs
+    public function registerLogs($values){
+        if (!is_array($values)) {
+            return false;
+        }
+
+        $tableLogs = Database::get_main_table(self::TABLE_SENCE_LOGS);
+
+        $id = Database::insert($tableLogs, $values);
 
         if ($id > 0) {
             return $id;
@@ -404,6 +431,7 @@ class SencePlugin extends Plugin
 
     }
 
+    //Forces the user to login with SENCE when starting the course
     public function loadLoginSence(){
 
         $enabledLoginRequired = self::get('login_required')=='true';
@@ -423,8 +451,38 @@ class SencePlugin extends Plugin
                 if(!$res){
                     $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
                     header('Location: '.$urlLoginSence);
+                } else {
+                    $logoutRequired = self::get('require_logout')=='true';
+                    if($logoutRequired){
+                        $html = self::getModalSence($res);
+                        return $html;
+                    }
                 }
+
             }
         }
+    }
+
+    public function getTrainingLines(){
+        $list = [
+            1 => self::get_lang('SocialProgramLaborScholarships'),
+            3 => self::get_lang('BoostsPeople')
+        ];
+
+        return $list;
+    }
+
+    //Login popup
+
+    public function getModalSence($info){
+        $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
+        $tpl = new Template(null,false,false,false,false,false,false);
+        $tpl->assign('sence', $info);
+        $tpl->assign('url_session', $urlLoginSence);
+        $tpl->assign('company_name', self::get('company_name'));
+        $tpl->assign('rut_otec', self::get('rut_otec'));
+        $html = $tpl->fetch('sence/view/sence_modal.tpl');
+
+        return $html;
     }
 }

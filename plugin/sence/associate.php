@@ -72,6 +72,15 @@ if ($enable) {
                     ]
                 );
 
+                $options = $plugin->getTrainingLines();
+
+                $form->addSelect(
+                    'training_line',
+                    $plugin->get_lang('TrainingLine'),
+                    $options
+                );
+
+
                 $form->addSelect(
                     'id_group',
                     [
@@ -83,18 +92,6 @@ if ($enable) {
                         'title'=>$plugin->get_lang('ScholarshipGroupOptional')
                     ]
                 );
-
-                /*$options = [
-                    '1' => get_lang('Activate'),
-                    '2' => get_lang('Disable'),
-                ];
-
-                $form->addRadio(
-                    'activate',
-                    $plugin->get_lang('ActivateSence'),
-                    $options
-                );*/
-
 
                 $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
 
@@ -156,6 +153,14 @@ if ($enable) {
                     ]
                 );
 
+                $options = $plugin->getTrainingLines();
+
+                $form->addSelect(
+                    'training_line',
+                    $plugin->get_lang('TrainingLine'),
+                    $options
+                );
+
                 $form->addSelect(
                     'id_group',
                     [
@@ -167,17 +172,6 @@ if ($enable) {
                         'title'=>$plugin->get_lang('ScholarshipGroupOptional')
                     ]
                 );
-
-                /*$options = [
-                    '1' => get_lang('Activate'),
-                    '2' => get_lang('Disable'),
-                ];
-
-                $form->addRadio(
-                    'activate',
-                    $plugin->get_lang('ActivateSence'),
-                    $options
-                );*/
 
                 $form->addHidden('id', $dataSence['id']);
 

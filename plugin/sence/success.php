@@ -38,10 +38,12 @@ if(!empty($_POST['IdSesionSence'])) {
             'time_zone' => $_POST['ZonaHoraria'],
             'training_line' => $_POST['LineaCapacitacion'],
             'glosa_error' => 0,
+            'type_login' => 1
         ];
         $senceInfoUser = $plugin->getLoginUserSenceInfo($courseInfo['real_id'], $userInfo['user_id']);
         if(!$senceInfoUser){
             $res = $plugin->registerLoginUserSence($values);
+            $resLogs = $plugin->registerLogs($values);
         } else {
             Display::addFlash(
                 Display::return_message($plugin->get_lang('SessionAlreadyRegistered'))
@@ -55,6 +57,24 @@ if(!empty($_POST['IdSesionSence'])) {
     }
 
 } else {
+
+    $values = [
+        'c_id' => api_get_course_int_id(),
+        'user_id' => $userInfo['user_id'],
+        'username' => $userInfo['username'],
+        'code_sence' => $_POST['CodSence'],
+        'code_course' => $_POST['CodigoCurso'],
+        'id_session_sence' => null,
+        'run_student' => $_POST['RunAlumno'],
+        'date_login' => $_POST['FechaHora'],
+        'time_zone' => $_POST['ZonaHoraria'],
+        'training_line' => $_POST['LineaCapacitacion'],
+        'glosa_error' => 0,
+        'type_login' => 2
+    ];
+
+    $resLogs = $plugin->registerLogs($values);
+
     $res = $plugin->deteteLoginUserSence($courseInfo['real_id'], $userInfo['user_id']);
     $urlListCourses = api_get_path(WEB_PATH).'user_portal.php';
     $tpl->assign('url_list_courses', $urlListCourses);
