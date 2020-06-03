@@ -16,7 +16,7 @@ class SencePlugin extends Plugin
     const RUT_OTEC = 'rut_otec';
     const TOKEN_OTEC = 'token_otec';
     const COMPANY_NAME = 'company_name';
-    const ALERT_EMAIL = 'alert_email';
+//    const ALERT_EMAIL = 'alert_email';
     const REQUIRE_LOGOUT = 'require_logout';
     const LOGIN_REQUIRED = 'login_required';
     const ENVIRONMENT = 'environment';
@@ -39,7 +39,7 @@ class SencePlugin extends Plugin
                 self::RUT_OTEC => 'text',
                 self::TOKEN_OTEC => 'text',
                 self::COMPANY_NAME => 'text',
-                self::ALERT_EMAIL => 'text',
+//                self::ALERT_EMAIL => 'text',
                 self::REQUIRE_LOGOUT => 'boolean',
                 self::LOGIN_REQUIRED => 'boolean',
                 self::ENVIRONMENT => 'boolean'
