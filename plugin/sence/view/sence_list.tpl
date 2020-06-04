@@ -5,7 +5,7 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>{{ 'Username'|get_plugin_lang('SencePlugin') }}</th>
+                <th>{{ 'Name'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'RunStudentSence'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'SessionSence'|get_plugin_lang('SencePlugin') }}</th>
@@ -21,7 +21,7 @@
                 <th scope="row">
                     {{ user.id }}
                 </th>
-                <td>{{ user.username }}</td>
+                <td>{{ user.people_name }}</td>
                 <td>{{ user.code_course }}</td>
                 <td>{{ user.run_student  }}</td>
                 <td>{{ user.id_session_sence  }}</td>

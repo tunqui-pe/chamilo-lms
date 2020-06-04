@@ -27,7 +27,7 @@ $environment = $plugin->get('environment') == 'true';
 
 $isTeacher = api_is_teacher();
 $isStudent = api_is_student();
-$isAdmin = api_is_course_admin();
+$isAdmin = api_is_platform_admin();
 $idStudent = api_get_user_id();
 
 if ($enable) {
@@ -109,7 +109,8 @@ if ($enable) {
                     ],
                     true,
                     [
-                        'title' => $plugin->get_lang('RunStudentSenceHelp')
+                        'title' => $plugin->get_lang('RunStudentSenceHelp'),
+                        'required' => 'required'
                     ]
                 );
 

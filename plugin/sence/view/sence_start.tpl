@@ -5,15 +5,15 @@
             <img alt="" class="img-responsive" src="{{ _p.web }}plugin/sence/resources/img/logo_sence.png">
         </div>
 
-        {% if is_admin or is_teacher %}
-            <div class="tools text-center">
-                {% if sence %}
-                    {% if is_admin %}
+        <div class="tools text-center">
+            {% if sence %}
+                {% if is_teacher %}
                     <a href="{{ url_list }}" class="btn btn-primary">
                         <i class="fa fa-list-ul" aria-hidden="true"></i>
                         {{ 'HistoryList'|get_plugin_lang('SencePlugin') }}
                     </a>
-                    {% endif %}
+                {% endif %}
+                {% if is_admin %}
                     <a href="{{ url_edit_sence }}" class="btn btn-success">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         {{ 'EditCodeSence'|get_plugin_lang('SencePlugin') }}
@@ -23,14 +23,15 @@
                         <i class="fa fa-codepen" aria-hidden="true"></i>
                         {{ 'DeleteCodeSence'|get_plugin_lang('SencePlugin') }}
                     </a>
-                {% else %}
-                    <a href="{{ url_add_sence }}" class="btn btn-primary">
-                        <i class="fa fa-codepen" aria-hidden="true"></i>
-                        {{ 'AddCodeSence'|get_plugin_lang('SencePlugin') }}
-                    </a>
                 {% endif %}
-            </div>
-
+            {% else %}
+                <a href="{{ url_add_sence }}" class="btn btn-primary">
+                    <i class="fa fa-codepen" aria-hidden="true"></i>
+                    {{ 'AddCodeSence'|get_plugin_lang('SencePlugin') }}
+                </a>
+            {% endif %}
+        </div>
+        {% if is_admin or is_teacher %}
             {% if not sence %}
                 <div class="alert alert-warning" role="alert">
                     {{ 'NotHaveAnAssociatedSenceCourseCode' | get_plugin_lang('SencePlugin') }}
@@ -45,13 +46,15 @@
                 </div>
             {% endif %}
 
+
             <ul>
                 <li>{{ 'ConfigurePluginSence' | get_plugin_lang('SencePlugin') }}</li>
                 <li>{{ 'ObtainingToken' | get_plugin_lang('SencePlugin') }}</li>
             </ul>
+        {% endif %}
 
 
-        {% else %}
+        {% if is_student %}
 
             {% if not sence %}
                 <div class="alert alert-warning" role="alert">

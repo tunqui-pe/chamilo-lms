@@ -21,14 +21,13 @@ $courseInfo = api_get_course_info();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('sence_enabled') == 'true';
-
 $isTeacher = api_is_teacher();
 $isStudent = api_is_student();
-$isAdmin = api_is_course_admin();
+$isAdmin = api_is_platform_admin();
 $actionLinks = '';
 
 if ($enable) {
-    if (api_is_platform_admin()) {
+    if ($isAdmin || $isTeacher ) {
 
         $actionLinks .= Display::url(
             Display::return_icon('back.png', get_lang('Back'), [], ICON_SIZE_MEDIUM),

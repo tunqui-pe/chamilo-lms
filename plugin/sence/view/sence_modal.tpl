@@ -1,13 +1,11 @@
 <style type="text/css">
 
     .btn.theme-switcher {
-        width: 54px;
-        height: 50px;
+        width: 56px;
+        height: 58px;
         line-height: 50px;
         display: block;
         font-size: 27px;
-        border: 1px solid;
-        border-right-width: 0;
         border-radius: 3px 0 0 3px;
         text-align: center;
         position: absolute;
@@ -133,9 +131,9 @@
 </style>
 
 
-<div id="sence-options" class="user-options active">
+<div id="sence-options" class="user-options">
     <a href="javascript:void(0);" class="btn btn-primary theme-switcher">
-        <i class="glyph-icon fa fa-cog icon-spin" aria-hidden="true"></i>
+        <img alt="" height="42px" width="42px" src="{{ _p.web }}plugin/sence/resources/img/svg/icons_sence.svg">
     </a>
     <div id="theme-switcher-wrapper">
         <h5 class="header">{{ 'InfoUserSence'|get_plugin_lang('SencePlugin') }}</h5>

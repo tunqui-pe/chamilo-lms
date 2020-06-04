@@ -82,6 +82,11 @@
     margin-top: 3px;
     padding: 5px;
 }
+.error_code{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
 .sence{
     background: url(../img/bg_sence.png) bottom right no-repeat;
 }
