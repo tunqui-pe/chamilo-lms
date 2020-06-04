@@ -98,6 +98,7 @@ class SencePlugin extends Plugin
             c_id INT NULL,
             user_id INT NULL,
             username VARCHAR(100) NULL,
+            people_name VARCHAR(250) NULL,
             code_sence VARCHAR(10) NULL,
             id_session_sence VARCHAR(150) NULL,
             code_course VARCHAR(36) NULL,
@@ -116,6 +117,7 @@ class SencePlugin extends Plugin
             c_id INT NULL,
             user_id INT NULL,
             username VARCHAR(100) NULL,
+            people_name VARCHAR(250) NULL,
             code_sence VARCHAR(10) NULL,
             id_session_sence VARCHAR(150) NULL,
             code_course VARCHAR(36) NULL,
@@ -429,6 +431,7 @@ class SencePlugin extends Plugin
                     'c_id' => $row['c_id'],
                     'user_id' => $row['user_id'],
                     'username' => $row['username'],
+                    'people_name' => $row['people_name'],
                     'code_sence' => $row['code_sence'],
                     'id_session_sence' => $row['id_session_sence'],
                     'code_course' => $row['code_course'],
@@ -554,5 +557,80 @@ class SencePlugin extends Plugin
         $html = $tpl->fetch('sence/view/sence_modal.tpl');
 
         return $html;
+    }
+
+    //get Errors Texts.
+
+    public function getErrorLoginMessage($idError){
+
+        $string = null;
+
+        switch ($idError){
+            case 100:
+                $string = self::get_lang('ErrorSence100');
+                break;
+            case 200:
+                $string = self::get_lang('ErrorSence200');
+                break;
+            case 201:
+                $string = self::get_lang('ErrorSence201');
+                break;
+            case 202:
+                $string = self::get_lang('ErrorSence202');
+                break;
+            case 203:
+                $string = self::get_lang('ErrorSence203');
+                break;
+            case 204:
+                $string = self::get_lang('ErrorSence204');
+                break;
+            case 205:
+                $string = self::get_lang('ErrorSence205');
+                break;
+            case 206:
+                $string = self::get_lang('ErrorSence206');
+                break;
+            case 207:
+                $string = self::get_lang('ErrorSence207');
+                break;
+            case 208:
+                $string = self::get_lang('ErrorSence208');
+                break;
+            case 209:
+                $string = self::get_lang('ErrorSence209');
+                break;
+            case 210:
+                $string = self::get_lang('ErrorSence210');
+                break;
+            case 211:
+                $string = self::get_lang('ErrorSence211');
+                break;
+            case 212:
+                $string = self::get_lang('ErrorSence212');
+                break;
+            case 300:
+                $string = self::get_lang('ErrorSence300');
+                break;
+            case 301:
+                $string = self::get_lang('ErrorSence301');
+                break;
+            case 302:
+                $string = self::get_lang('ErrorSence302');
+                break;
+            case 303:
+                $string = self::get_lang('ErrorSence303');
+                break;
+            case 304:
+                $string = self::get_lang('ErrorSence304');
+                break;
+            case 305:
+                $string = self::get_lang('ErrorSence305');
+                break;
+            case 306:
+                $string = self::get_lang('ErrorSence306');
+                break;
+        }
+
+        return $string;
     }
 }

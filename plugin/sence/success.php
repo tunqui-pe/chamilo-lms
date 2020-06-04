@@ -18,9 +18,9 @@ $tool_name = $plugin->get_lang('CorrectTiming');
 $tpl = new Template($tool_name);
 
 $courseInfo = api_get_course_info();
-
 $message = null;
 $userInfo = Session::read('_user');
+
 
 if(!empty($_POST['IdSesionSence'])) {
 
@@ -30,6 +30,7 @@ if(!empty($_POST['IdSesionSence'])) {
             'c_id' => api_get_course_int_id(),
             'user_id' => $userInfo['user_id'],
             'username' => $userInfo['username'],
+            'people_name' => $userInfo['complete_name'],
             'code_sence' => $_POST['CodSence'],
             'code_course' => $_POST['CodigoCurso'],
             'id_session_sence' => $_POST['IdSesionSence'],
@@ -64,6 +65,7 @@ if(!empty($_POST['IdSesionSence'])) {
         'c_id' => api_get_course_int_id(),
         'user_id' => $userInfo['user_id'],
         'username' => $userInfo['username'],
+        'people_name' => $userInfo['complete_name'],
         'code_sence' => $_POST['CodSence'],
         'code_course' => $_POST['CodigoCurso'],
         'id_session_sence' => $idSession,
