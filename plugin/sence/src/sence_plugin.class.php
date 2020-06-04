@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin class for the SENCE Conector plugin.
  *
@@ -42,7 +43,7 @@ class SencePlugin extends Plugin
 //                self::ALERT_EMAIL => 'text',
                 self::REQUIRE_LOGOUT => 'boolean',
                 self::LOGIN_REQUIRED => 'boolean',
-                self::ENVIRONMENT => 'boolean'
+                self::ENVIRONMENT => 'boolean',
             ]
         );
 
@@ -193,12 +194,13 @@ class SencePlugin extends Plugin
 
     //Get list group course;
 
-    public function getListGroupCourse(){
+    public function getListGroupCourse()
+    {
 
         $list = [];
         $listGroups = GroupManager::get_group_list();
 
-        foreach ($listGroups as $group){
+        foreach ($listGroups as $group) {
             $list[$group['id']] = $group['name'].' - '.$group['id'];
         }
 
@@ -208,7 +210,8 @@ class SencePlugin extends Plugin
 
     //Registro codigo SENCE en un curso, para asignarlo
 
-    public function registerCodeSenceCourse($values){
+    public function registerCodeSenceCourse($values)
+    {
         if (!is_array($values) || empty($values['code_sence'])) {
             return false;
         }
@@ -233,7 +236,8 @@ class SencePlugin extends Plugin
         }
     }
 
-    public function updateCodeSenceCourse($values){
+    public function updateCodeSenceCourse($values)
+    {
 
         if (!is_array($values) || empty($values['code_sence'])) {
             return false;
@@ -266,7 +270,8 @@ class SencePlugin extends Plugin
 
     }
 
-    public function deleteSenceCourse($idSence){
+    public function deleteSenceCourse($idSence)
+    {
         if (empty($idSence)) {
             return false;
         }
@@ -287,7 +292,6 @@ class SencePlugin extends Plugin
         if (empty($idCourse)) {
             return false;
         }
-
         $sence = [];
         $tableSenceCourse = Database::get_main_table(self::TABLE_SENCE_COURSES);
         $sql = "SELECT * FROM $tableSenceCourse
@@ -303,47 +307,65 @@ class SencePlugin extends Plugin
                     'code_course' => $row['code_course'],
                     'id_group' => $row['id_group'],
                     'training_line' => $row['training_line'],
-                    'activate' => $row['activate']
+                    'activate' => $row['activate'],
                 ];
             }
 
             return $sence;
-
         } else {
-
             return false;
-
         }
-
-
     }
 
-    public function getURLSenceLogin($status){
+    public function getSenceGroupUser($idCourse)
+    {
+        if (empty($idCourse)) {
+            return false;
+        }
+        $idScholar = null;
+        $tableSenceCourse = Database::get_main_table(self::TABLE_SENCE_COURSES);
+        $sql = "SELECT id_group FROM $tableSenceCourse WHERE c_id = $idCourse ";
+
+        $result = Database::query($sql);
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $idScholar = $row['id_group'];
+            }
+
+            return $idScholar;
+        } else {
+            return false;
+        }
+    }
+
+    public function getURLSenceLogin($status)
+    {
 
         $env = 'PRO';
 
-        if($status){
+        if ($status) {
             $env = 'TEST';
         }
 
-        switch ($env){
+        switch ($env) {
             case 'TEST':
                 return [
                     'login' => self::URL_SENCE_LOGIN_TEST,
-                    'logout' => self::URL_SENCE_LOGOUT_TEST
+                    'logout' => self::URL_SENCE_LOGOUT_TEST,
                 ];
                 break;
             case 'PRO':
                 return [
                     'login' => self::URL_SENCE_LOGIN_PRO,
-                    'logout' => self::URL_SENCE_LOGOUT_PRO
+                    'logout' => self::URL_SENCE_LOGOUT_PRO,
                 ];
                 break;
         }
     }
 
     //Register User Login Sence for course
-    public function registerLoginUserSence($values){
+    public function registerLoginUserSence($values)
+    {
         if (!is_array($values) || empty($values['code_sence'])) {
             return false;
         }
@@ -357,7 +379,8 @@ class SencePlugin extends Plugin
     }
 
     //Register User Logins Table Logs
-    public function registerLogs($values){
+    public function registerLogs($values)
+    {
         if (!is_array($values)) {
             return false;
         }
@@ -371,7 +394,8 @@ class SencePlugin extends Plugin
         }
     }
 
-    public function getLoginUserSenceInfo($idCourse, $idUser){
+    public function getLoginUserSenceInfo($idCourse, $idUser)
+    {
         if (empty($idCourse) || empty($idUser)) {
             return false;
         }
@@ -411,7 +435,8 @@ class SencePlugin extends Plugin
         }
     }
 
-    public function getLogsHistory($idCourse){
+    public function getLogsHistory($idCourse)
+    {
 
         if (empty($idCourse)) {
             return false;
@@ -455,7 +480,8 @@ class SencePlugin extends Plugin
     }
 
 
-    public function getIdSessionSenceUser($idUser){
+    public function getIdSessionSenceUser($idUser)
+    {
         if (empty($idUser)) {
             return false;
         }
@@ -482,7 +508,8 @@ class SencePlugin extends Plugin
         }
     }
 
-    public function deteteLoginUserSence($idCourse, $idUser){
+    public function deteteLoginUserSence($idCourse, $idUser)
+    {
         if (empty($idCourse) || empty($idUser)) {
             return false;
         }
@@ -505,9 +532,15 @@ class SencePlugin extends Plugin
     }
 
     //Forces the user to login with SENCE when starting the course
-    public function loadLoginSence(){
+    public function loadLoginSence()
+    {
 
-        $enabledLoginRequired = self::get('login_required')=='true';
+        $enabledLoginRequired = self::get('login_required') == 'true';
+        $idStudent = api_get_user_id();
+        $idCourse = api_get_course_int_id();
+
+        $idGroupUser = self::getUserInGroup($idStudent);
+        $idGroupCourse = self::getSenceGroupUser($idCourse);
 
         $isTeacher = api_is_teacher();
         $isAdmin = api_is_course_admin();
@@ -515,31 +548,32 @@ class SencePlugin extends Plugin
         if ($isAdmin || $isTeacher) {
             return false;
         } else {
-            if($enabledLoginRequired){
-                $idCourse = api_get_course_int_id();
-                $idStudent = api_get_user_id();
+            if ($idGroupUser != $idGroupCourse) {
+                if ($enabledLoginRequired) {
 
-                $res = self::getLoginUserSenceInfo($idCourse, $idStudent);
+                    $res = self::getLoginUserSenceInfo($idCourse, $idStudent);
 
-                if(!$res){
-                    $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
-                    header('Location: '.$urlLoginSence);
-                } else {
-                    $logoutRequired = self::get('require_logout')=='true';
-                    if($logoutRequired){
-                        $html = self::getModalSence($res);
-                        return $html;
+                    if (!$res) {
+                        $urlLoginSence = api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
+                        header('Location: '.$urlLoginSence);
+                    } else {
+                        $logoutRequired = self::get('require_logout') == 'true';
+                        if ($logoutRequired) {
+                            $html = self::getModalSence($res);
+
+                            return $html;
+                        }
                     }
                 }
-
             }
         }
     }
 
-    public function getTrainingLines(){
+    public function getTrainingLines()
+    {
         $list = [
             1 => self::get_lang('SocialProgramLaborScholarships'),
-            3 => self::get_lang('BoostsPeople')
+            3 => self::get_lang('BoostsPeople'),
         ];
 
         return $list;
@@ -547,9 +581,10 @@ class SencePlugin extends Plugin
 
     //Login popup
 
-    public function getModalSence($info){
-        $urlLoginSence =  api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
-        $tpl = new Template(null,false,false,false,false,false,false);
+    public function getModalSence($info)
+    {
+        $urlLoginSence = api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
+        $tpl = new Template(null, false, false, false, false, false, false);
         $tpl->assign('sence', $info);
         $tpl->assign('url_session', $urlLoginSence);
         $tpl->assign('company_name', self::get('company_name'));
@@ -561,11 +596,12 @@ class SencePlugin extends Plugin
 
     //get Errors Texts.
 
-    public function getErrorLoginMessage($idError){
+    public function getErrorLoginMessage($idError)
+    {
 
         $string = null;
 
-        switch ($idError){
+        switch ($idError) {
             case 100:
                 $string = self::get_lang('ErrorSence100');
                 break;
@@ -632,5 +668,30 @@ class SencePlugin extends Plugin
         }
 
         return $string;
+    }
+
+    //Get Group ID User
+    public function getUserInGroup($idUser)
+    {
+        if (empty($idUser)) {
+            return false;
+        }
+
+        $sql = "SELECT group_id FROM c_group_rel_user WHERE user_id = $idUser ";
+        $result = Database::query($sql);
+        $idGroup = null;
+
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $idGroup = $row['group_id'];
+            }
+
+            return $idGroup;
+
+        } else {
+
+            return 0;
+
+        }
     }
 }

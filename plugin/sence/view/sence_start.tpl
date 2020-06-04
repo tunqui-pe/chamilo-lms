@@ -66,7 +66,6 @@
                 </div>
             {% endif %}
 
-
             {% if sence %}
                 <div class="sence">
                     <div class="sence-login">
@@ -81,8 +80,6 @@
                                         {% endif %}
                                     </div>
                                     <div class="card-body">
-
-
                                         <dl class="dl-horizontal">
                                             <dt>{{ 'RutOtecCompany'|get_plugin_lang('SencePlugin') }}</dt>
                                             <dd>{{ rut_otec }}</dd>
@@ -108,15 +105,18 @@
 
                                     </div>
                                 </div>
-
-                                <ul>
-                                    <li>{{ 'RegisterCS'|get_plugin_lang('SencePlugin') }}</li>
-                                    <li>{{ 'RecoverCS'|get_plugin_lang('SencePlugin') }}</li>
-                                    <li>{{ 'ChangeCS'|get_plugin_lang('SencePlugin') }}</li>
-                                    <li>{{ 'UpdateData'|get_plugin_lang('SencePlugin') }}</li>
-                                </ul>
-
-
+                                {% if scholar %}
+                                    <div class="alert alert-info" role="alert">
+                                        {{ 'ScholarSence'|get_plugin_lang('SencePlugin') }}
+                                    </div>
+                                {% else %}
+                                    <ul>
+                                        <li>{{ 'RegisterCS'|get_plugin_lang('SencePlugin') }}</li>
+                                        <li>{{ 'RecoverCS'|get_plugin_lang('SencePlugin') }}</li>
+                                        <li>{{ 'ChangeCS'|get_plugin_lang('SencePlugin') }}</li>
+                                        <li>{{ 'UpdateData'|get_plugin_lang('SencePlugin') }}</li>
+                                    </ul>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -71,6 +71,7 @@ $strings['OpenLogin'] = 'Inicio la sesión';
 $strings['CloseLogin'] = 'Cerró la sesión';
 $strings['SessionSence'] = 'ID Sesión SENCE';
 $strings['Error'] = 'Error';
+$strings['ScholarSence'] = 'Tú eres un usuario becado, registrado por el administrador';
 $strings['ErrorSence100'] = 'Contraseña incorrecta o el usuario no tiene Clave SENCE.';
 $strings['ErrorSence200'] = 'El POST tiene uno o más parámetros mandatorios sin información. Esto también ocurre cuando un parámetro está mal escrito (por ejemplo, RutAlumno en lugar de RunAlumno), o cuando se ingresan sólo espacios en blanco en un parámetro obligatorio.';
 $strings['ErrorSence201'] = 'La URL de Retoma y/o URL de Error no tienen información. Ambos parámetros son obligatorios en todos los POST';
