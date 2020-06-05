@@ -44,7 +44,7 @@ if ($enable) {
         if ($senceInfo) {
             $urlEdit = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=edit&'.api_get_cidreq();
             $urlDelete = api_get_path(WEB_PLUGIN_PATH).'sence/associate.php?action=delete&id_sence='.$senceInfo['id'].'&'.api_get_cidreq();
-            $urlList = api_get_path(WEB_PLUGIN_PATH).'sence/list.php?'.api_get_cidreq();
+            $urlList = api_get_path(WEB_PLUGIN_PATH).'sence/list.php?action=list&'.api_get_cidreq();
 
             $tpl->assign('url_edit_sence', $urlEdit);
             $tpl->assign('url_list', $urlList);
