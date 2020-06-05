@@ -670,6 +670,21 @@ class SencePlugin extends Plugin
             case 306:
                 $string = self::get_lang('ErrorSence306');
                 break;
+            case 307:
+                $string = self::get_lang('ErrorSence307');
+                break;
+            case 308:
+                $string = self::get_lang('ErrorSence308');
+                break;
+            case 309:
+                $string = self::get_lang('ErrorSence309');
+                break;
+            case 310:
+                $string = self::get_lang('ErrorSence310');
+                break;
+            default:
+                $string = self::get_lang('ErrorSence000');
+                break;
         }
 
         return $string;
