@@ -90,3 +90,12 @@
 .sence{
     background: url(../img/bg_sence.png) bottom right no-repeat;
 }
+.tablet-logs{
+    font-size: 12px;
+}
+.tablet-logs .row-ok{
+    background-color: #d9edf7;
+}
+.tablet-logs .row-error{
+    background-color: #f2dede;
+}

@@ -25,10 +25,12 @@
                     </a>
                 {% endif %}
             {% else %}
-                <a href="{{ url_add_sence }}" class="btn btn-primary">
-                    <i class="fa fa-codepen" aria-hidden="true"></i>
-                    {{ 'AddCodeSence'|get_plugin_lang('SencePlugin') }}
-                </a>
+                {% if is_admin %}
+                    <a href="{{ url_add_sence }}" class="btn btn-primary">
+                        <i class="fa fa-codepen" aria-hidden="true"></i>
+                        {{ 'AddCodeSence'|get_plugin_lang('SencePlugin') }}
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
         {% if is_admin or is_teacher %}
@@ -45,12 +47,13 @@
                     {{ 'SynchronizationEnabledCourseSence' | get_plugin_lang('SencePlugin') }}
                 </div>
             {% endif %}
+            {% if is_admin %}
+                <ul>
+                    <li>{{ 'ConfigurePluginSence' | get_plugin_lang('SencePlugin') }}</li>
+                    <li>{{ 'ObtainingToken' | get_plugin_lang('SencePlugin') }}</li>
+                </ul>
+            {% endif %}
 
-
-            <ul>
-                <li>{{ 'ConfigurePluginSence' | get_plugin_lang('SencePlugin') }}</li>
-                <li>{{ 'ObtainingToken' | get_plugin_lang('SencePlugin') }}</li>
-            </ul>
         {% endif %}
 
 

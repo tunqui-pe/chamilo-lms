@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <h3 class="page-header">{{ 'HistoryListLogs'|get_plugin_lang('SencePlugin') }}</h3>
-        <table class="table table-hover">
+        <table class="table table-hover tablet-logs">
             <thead>
             <tr>
                 <th>#</th>
@@ -12,13 +12,18 @@
                 <th>{{ 'SessionSence'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'DateLoginSence'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'TimeZoneSence'|get_plugin_lang('SencePlugin') }}</th>
-                <th>{{ 'TrainingLine'|get_plugin_lang('SencePlugin') }}</th>
+                <th>{{ 'TrainingLineSmall'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'TypeLogin'|get_plugin_lang('SencePlugin') }}</th>
+                <th>{{ 'TypeError'|get_plugin_lang('SencePlugin') }}</th>
             </tr>
             </thead>
             <tbody>
             {% for user in lists %}
-            <tr>
+                {% set status = 'row-ok' %}
+                {% if user.glosa_error != 0 %}
+                    {% set status = 'row-error' %}
+                {% endif %}
+            <tr class="{{ status }}">
                 <th scope="row">
                     {{ user.id }}
                 </th>
@@ -46,6 +51,9 @@
                     {% else %}
                         {{ 'CloseLogin'|get_plugin_lang('SencePlugin') }}
                     {% endif %}
+                </td>
+                <td>
+                    {{ user.glosa_error }}
                 </td>
             </tr>
             {% endfor %}
