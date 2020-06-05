@@ -27,28 +27,61 @@ $isAdmin = api_is_platform_admin();
 $actionLinks = '';
 
 if ($enable) {
-    if ($isAdmin || $isTeacher ) {
+
+    if ($isAdmin || $isTeacher) {
 
         $actionLinks .= Display::url(
             Display::return_icon('back.png', get_lang('Back'), [], ICON_SIZE_MEDIUM),
             api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq()
         );
+        $actionLinks .= Display::url(
+            Display::return_icon('excel.png', get_lang('GenerateReport'), [], ICON_SIZE_MEDIUM),
+            api_get_path(WEB_PLUGIN_PATH).'sence/list.php?action=export&'.api_get_cidreq()
+        );
 
-        $lists = $plugin->getLogsHistory($courseInfo['real_id']);
+        $tpl->assign(
+            'actions',
+            Display::toolbarAction('toolbar', [$actionLinks])
+        );
 
+        switch ($action) {
+            case 'list':
+                $lists = $plugin->getLogsHistory($courseInfo['real_id']);
+                $tpl->assign('lists', $lists);
+                break;
+
+            case 'export':
+                $columns[] = [
+                    get_lang('Number'),
+                    $plugin->get_lang('IDCourse'),
+                    $plugin->get_lang('IDUser'),
+                    $plugin->get_lang('Username'),
+                    $plugin->get_lang('Firstname'),
+                    $plugin->get_lang('Lastname'),
+                    $plugin->get_lang('CodeSence'),
+                    $plugin->get_lang('SessionSence'),
+                    $plugin->get_lang('CodeCourse'),
+                    $plugin->get_lang('RunStudentSence'),
+                    $plugin->get_lang('DateLoginSence'),
+                    $plugin->get_lang('TimeZoneSence'),
+                    $plugin->get_lang('TrainingLine'),
+                    $plugin->get_lang('TypeError'),
+                    $plugin->get_lang('TypeLogin')
+                ];
+                $logs = $plugin->getLogsHistory($courseInfo['real_id']);
+
+                $lists = array_merge($columns,$logs);
+
+                if (!empty($lists)) {
+                    $archiveFile = 'export_login_'.api_get_local_time();
+                    Export::arrayToXls($lists, $archiveFile);
+                }
+                break;
+        }
     }
 }
 
 
-if ($isAdmin || $isTeacher) {
-
-    $tpl->assign(
-        'actions',
-        Display::toolbarAction('toolbar', [$actionLinks])
-    );
-}
-
-$tpl->assign('lists', $lists);
 $tpl->assign('message', $message);
 $content = $tpl->fetch('sence/view/sence_list.tpl');
 $tpl->assign('content', $content);

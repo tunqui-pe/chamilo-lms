@@ -5,7 +5,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>{{ 'Name'|get_plugin_lang('SencePlugin') }}</th>
+                <th>{{ 'Firstname'|get_plugin_lang('SencePlugin') }}</th>
+                <th>{{ 'Lastname'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'RunStudentSence'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'SessionSence'|get_plugin_lang('SencePlugin') }}</th>
@@ -21,10 +22,17 @@
                 <th scope="row">
                     {{ user.id }}
                 </th>
-                <td>{{ user.people_name }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
                 <td>{{ user.code_course }}</td>
                 <td>{{ user.run_student  }}</td>
-                <td>{{ user.id_session_sence  }}</td>
+                <td>
+                    {% if user.id_session_sence %}
+                        {{ user.id_session_sence  }}
+                    {% else %}
+                        {{ 'NotRegister'|get_plugin_lang('SencePlugin') }}
+                    {% endif %}
+                </td>
                 <td>{{ user.date_login  }}</td>
                 <td>{{ user.time_zone  }}</td>
                 <td>
@@ -33,6 +41,8 @@
                 <td>
                     {% if user.type_login == 1 %}
                         {{ 'OpenLogin'|get_plugin_lang('SencePlugin') }}
+                    {% elseif user.type_login == 3 %}
+                        {{ 'ErrorLogin'|get_plugin_lang('SencePlugin') }}
                     {% else %}
                         {{ 'CloseLogin'|get_plugin_lang('SencePlugin') }}
                     {% endif %}
