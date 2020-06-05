@@ -469,8 +469,10 @@ class SencePlugin extends Plugin
                     'date_login' => $row['date_login'],
                     'time_zone' => $row['time_zone'],
                     'training_line' => $row['training_line'],
-                    'glosa_error' => $row['glosa_error'],
                     'type_login' => $row['type_login'],
+                    'glosa_error' => $row['glosa_error'],
+                    'details_error' => self::getErrorLoginMessage($row['glosa_error'])
+
                 ];
                 $list[] = $item;
             }
@@ -607,6 +609,9 @@ class SencePlugin extends Plugin
         $string = null;
 
         switch ($idError) {
+            case 0:
+                $string = self::get_lang('NotErrorSence');
+                break;
             case 100:
                 $string = self::get_lang('ErrorSence100');
                 break;

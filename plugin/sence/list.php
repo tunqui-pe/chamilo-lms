@@ -65,8 +65,10 @@ if ($enable) {
                     $plugin->get_lang('DateLoginSence'),
                     $plugin->get_lang('TimeZoneSence'),
                     $plugin->get_lang('TrainingLine'),
+                    $plugin->get_lang('TypeLogin'),
                     $plugin->get_lang('TypeError'),
-                    $plugin->get_lang('TypeLogin')
+                    $plugin->get_lang('DetailsError'),
+
                 ];
                 $logs = $plugin->getLogsHistory($courseInfo['real_id']);
 
