@@ -326,7 +326,7 @@ if ($enable) {
                     $actionLinks .= Display::url(
                         $iconAdd
                         ,
-                        api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add'
+                        api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=add&'.api_get_cidreq()
                     );
 
                     $zooms = [];
