@@ -80,6 +80,7 @@ class ZoomPlugin extends Plugin
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_ZOOM_COURSES." (
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
             c_id INT NULL,
+            id_session INT NULL,
             id_room INT NULL
         )";
 
@@ -144,7 +145,7 @@ class ZoomPlugin extends Plugin
             ->execute(['category' => 'plugin', 'link' => 'zoom/start.php%']);
     }
 
-    public function getIdRoomAssociateCourse($idCourse)
+    public function getIdRoomAssociateCourse($idCourse, $idSession)
     {
         if (empty($idCourse)) {
             return false;
@@ -152,7 +153,7 @@ class ZoomPlugin extends Plugin
         $idRoom = 0;
         $tableZoomCourse = Database::get_main_table(self::TABLE_ZOOM_COURSES);
         $sql = "SELECT id_room FROM $tableZoomCourse
-        WHERE c_id = $idCourse";
+        WHERE c_id = $idCourse AND 	id_session = $idSession";
         $result = Database::query($sql);
         if (Database::num_rows($result) > 0) {
             while ($row = Database::fetch_array($result)) {
@@ -163,7 +164,7 @@ class ZoomPlugin extends Plugin
         return $idRoom;
     }
 
-    public function removeRoomZoomCourse($idCourse, $idRoom)
+    public function removeRoomZoomCourse($idCourse, $idRoom, $idSession)
     {
         if (empty($idCourse) || empty($idRoom)) {
             return false;
@@ -171,7 +172,7 @@ class ZoomPlugin extends Plugin
         $tableZoomCourse = Database::get_main_table(self::TABLE_ZOOM_COURSES);
         $sql = "DELETE FROM $tableZoomCourse
                 WHERE
-                    c_id = $idCourse AND
+                    c_id = $idCourse AND id_session = $idSession AND 
                     id_room = '".intval($idRoom)."'";
         $result = Database::query($sql);
 
@@ -214,7 +215,7 @@ class ZoomPlugin extends Plugin
 
     }
 
-    public function associateRoomCourse($idCourse, $idRoom)
+    public function associateRoomCourse($idCourse, $idRoom, $idSession)
     {
         if (empty($idCourse) || empty($idRoom)) {
             return false;
@@ -222,6 +223,7 @@ class ZoomPlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_ZOOM_COURSES);
         $params = [
             'c_id' => $idCourse,
+            'id_session' => $idSession,
             'id_room' => $idRoom,
         ];
 

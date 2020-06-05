@@ -32,11 +32,12 @@ $urlHome = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?'.api_get_cidreq();
 $urlListRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/list.php?action=list&'.api_get_cidreq();
 $urlChangeRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=remove&'.api_get_cidreq();
 $urlAddRoom = api_get_path(WEB_PLUGIN_PATH).'zoom/start.php?action=add&'.api_get_cidreq();
+$idSession = api_get_session_id();
 
 if ($enable) {
     if ($isAdmin || $isTeacher || $isStudent) {
 
-        $idRoomAssociate = $plugin->getIdRoomAssociateCourse($idCourse);
+        $idRoomAssociate = $plugin->getIdRoomAssociateCourse($idCourse, $idSession);
 
         if ($idRoomAssociate) {
             $roomInfo = $plugin->getRoomInfo($idRoomAssociate);
@@ -88,7 +89,7 @@ if ($enable) {
                     if ($form->validate()) {
                         $values = $form->exportValues();
                         $idRoom = $values['id_room'];
-                        $res = $plugin->associateRoomCourse($idCourse, $idRoom);
+                        $res = $plugin->associateRoomCourse($idCourse, $idRoom, $idSession);
                         if ($res) {
                             header('Location: '.$urlHome);
                         }
@@ -97,9 +98,8 @@ if ($enable) {
                     $tpl->assign('form_zoom', $form->returnForm());
                     break;
                 case 'remove':
-
                     if ($idRoomAssociate) {
-                        $res = $plugin->removeRoomZoomCourse($idCourse, $idRoomAssociate);
+                        $res = $plugin->removeRoomZoomCourse($idCourse, $idRoomAssociate, $idSession);
                         if ($res) {
                             header('Location: '.$urlAddRoom);
                         }
