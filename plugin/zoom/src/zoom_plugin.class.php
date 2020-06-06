@@ -66,7 +66,7 @@ class ZoomPlugin extends Plugin
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
             room_name VARCHAR(250) NULL,
             room_url VARCHAR(250) NULL,
-            room_id VARCHAR(10) NULL,
+            room_id VARCHAR(12) NULL,
             room_pass VARCHAR(6) NULL,
             zoom_email VARCHAR(250) NULL,
             zoom_pass VARCHAR(250),
