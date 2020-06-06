@@ -68,6 +68,7 @@ class GoogleMeetPlugin extends Plugin
             meet_color VARCHAR(7) NULL,
             type_meet INT NOT NULL,
             cd_id INT NULL NOT NULL,
+            id_session INT NULL NOT NULL,
             start_time DATETIME NULL,
             end_time DATETIME NULL,
             session_id INT,
@@ -134,13 +135,15 @@ class GoogleMeetPlugin extends Plugin
     }
 
 
-    public function saveMeet($values){
+    public function saveMeet($values)
+    {
         if (!is_array($values) || empty($values['meet_name'])) {
             return false;
         }
         $table = Database::get_main_table(self::TABLE_MEET_LIST);
 
         $idCourse = api_get_course_int_id();
+        $idSession = api_get_course_int_id();
 
         $params = [
             'meet_name' => $values['meet_name'],
@@ -149,6 +152,7 @@ class GoogleMeetPlugin extends Plugin
             'meet_description' => $values['meet_description'],
             'meet_color' => $values['meet_color'],
             'cd_id' => $idCourse,
+            'id_session' => $idSession,
             'start_time' => null,
             'end_time' => null,
             'session_id' => null,
@@ -162,19 +166,20 @@ class GoogleMeetPlugin extends Plugin
         }
     }
 
-    public function listMeets($idCourse){
+    public function listMeets($idCourse, $idSession)
+    {
 
         $list = [];
         $tableMeetList = Database::get_main_table(self::TABLE_MEET_LIST);
 
-        $sql = "SELECT * FROM $tableMeetList WHERE cd_id = $idCourse AND activate = 1";
+        $sql = "SELECT * FROM $tableMeetList WHERE cd_id = $idCourse AND id_session = $idSession AND activate = 1";
 
         $result = Database::query($sql);
 
         if (Database::num_rows($result) > 0) {
             while ($row = Database::fetch_array($result)) {
 
-               $action = Display::url(
+                $action = Display::url(
                     Display::return_icon(
                         'delete.png',
                         get_lang('Delete'),
@@ -201,6 +206,7 @@ class GoogleMeetPlugin extends Plugin
                     'meet_color' => $row['meet_color'],
                     'type_meet' => $row['type_meet'],
                     'cd_id' => $row['cd_id'],
+                    'id_session' => $row['id_session'],
                     'start_time' => $row['start_time'],
                     'end_time' => $row['end_time'],
                     'session_id' => $row['session_id'],
@@ -210,10 +216,12 @@ class GoogleMeetPlugin extends Plugin
 
             }
         }
+
         return $list;
     }
 
-    public function getMeet($idMeet){
+    public function getMeet($idMeet)
+    {
         if (empty($idMeet)) {
             return false;
         }
@@ -233,6 +241,7 @@ class GoogleMeetPlugin extends Plugin
                     'meet_color' => $row['meet_color'],
                     'type_meet' => $row['type_meet'],
                     'cd_id' => $row['cd_id'],
+                    'id_session' => $row['id_session'],
                     'start_time' => $row['start_time'],
                     'end_time' => $row['end_time'],
                     'session_id' => $row['session_id'],
@@ -240,16 +249,19 @@ class GoogleMeetPlugin extends Plugin
                 ];
             }
         }
+
         return $meet;
     }
 
-    public function updateMeet($values){
+    public function updateMeet($values)
+    {
         if (!is_array($values) || empty($values['meet_name'])) {
             return false;
         }
         $table = Database::get_main_table(self::TABLE_MEET_LIST);
 
         $idCourse = api_get_course_int_id();
+        $idSession = api_get_session_id();
 
         $params = [
             'meet_name' => $values['meet_name'],
@@ -258,6 +270,7 @@ class GoogleMeetPlugin extends Plugin
             'meet_description' => $values['meet_description'],
             'meet_color' => $values['meet_color'],
             'cd_id' => $idCourse,
+            'id_session' => $idSession,
             'start_time' => null,
             'end_time' => null,
             'session_id' => null,

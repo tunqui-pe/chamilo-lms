@@ -107,7 +107,7 @@ if ($enable) {
                                 $plugin->get_lang('MeetColorHelp'),
                             ],
                             [
-                                'value' => '#1CC88A'
+                                'value' => '#1CC88A',
                             ]
                         );
                     } catch (HTML_QuickForm_Error $e) {
@@ -197,7 +197,7 @@ if ($enable) {
                         'meet_color',
                         [
                             $plugin->get_lang('MeetColor'),
-                            $plugin->get_lang('MeetColorHelp')
+                            $plugin->get_lang('MeetColorHelp'),
                         ]
                     );
                     $form->addHtmlEditor(
@@ -232,7 +232,6 @@ if ($enable) {
                     $tpl->assign('form_room', $form->returnForm());
 
 
-
                     break;
             }
         }
@@ -248,6 +247,6 @@ if ($isAdmin || $isTeacher) {
 }
 
 $tpl->assign('message', $message);
-$content = $tpl->fetch('googlemeet/view/meets.tpl');
+$content = $tpl->fetch('googlemeet/view/meet_list.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
