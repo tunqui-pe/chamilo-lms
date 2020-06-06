@@ -22,6 +22,7 @@ $courseInfo = api_get_course_info();
 $isTeacher = api_is_teacher();
 $isAdmin = api_is_platform_admin();
 $isStudent = api_is_student();
+$idSession = api_get_session_id();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('google_meet_enabled') == 'true';
@@ -32,7 +33,7 @@ $urlAddMeet = api_get_path(WEB_PLUGIN_PATH).'googlemeet/meets.php?action=add&'.a
 if ($enable) {
     if ($isAdmin || $isTeacher || $isStudent) {
 
-        $meets = $plugin->listMeets($courseInfo['real_id']);
+        $meets = $plugin->listMeets($courseInfo['real_id'], $idSession);
 
     }
 }
@@ -42,6 +43,6 @@ $tpl->assign('meets', $meets);
 $tpl->assign('is_admin', $isAdmin);
 $tpl->assign('is_student', $isStudent);
 $tpl->assign('is_teacher', $isTeacher);
-$content = $tpl->fetch('googlemeet/view/home.tpl');
+$content = $tpl->fetch('googlemeet/view/meet_home.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
