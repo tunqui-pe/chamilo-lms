@@ -143,7 +143,7 @@ class GoogleMeetPlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_MEET_LIST);
 
         $idCourse = api_get_course_int_id();
-        $idSession = api_get_course_int_id();
+        $idSession = api_get_session_id();
 
         $params = [
             'meet_name' => $values['meet_name'],
