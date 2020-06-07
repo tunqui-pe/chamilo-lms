@@ -51,7 +51,7 @@ if ($enable) {
                         api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
                     );
 
-                    $form->addHeader(get_lang('AddMeet'));
+                    $form->addHeader($plugin->get_lang('AddMeet'));
                     $form->addText(
                         'meet_name',
                         [
@@ -167,7 +167,7 @@ if ($enable) {
                         api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
                     );
 
-                    $form->addHeader(get_lang('EditMeet'));
+                    $form->addHeader($plugin->get_lang('EditMeet'));
 
                     $form->addText(
                         'meet_name',

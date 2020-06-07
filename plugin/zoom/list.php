@@ -61,7 +61,7 @@ if ($enable) {
                         api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
                     );
 
-                    $form->addHeader(get_lang('AddRoomZoom'));
+                    $form->addHeader($plugin->get_lang('AddRoomZoom'));
 
                     $form->addText(
                         'room_name',
@@ -197,7 +197,7 @@ if ($enable) {
                         api_get_self().'?action='.Security::remove_XSS($_GET['action']).'&'.api_get_cidreq()
                     );
 
-                    $form->addHeader(get_lang('EditRoomZoom'));
+                    $form->addHeader($plugin->get_lang('EditRoomZoom'));
 
                     $form->addText(
                         'room_name',
