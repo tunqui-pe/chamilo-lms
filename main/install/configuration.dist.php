@@ -1534,6 +1534,15 @@ $_configuration['auth_password_links'] = [
 // Disable clean results for teachers
 // $_configuration['disable_clean_exercise_results_for_teachers'] = true;
 
+//Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
+//$_configuration['timepicker_increment'] = 5;
+
+//Allows teachers to edit survey questions after students have answered them
+//$_configuration['survey_allow_answered_question_edit'] = false;
+
+// Allows prevent to the user before leaving a learning path
+//$_configuration['lp_prevents_beforeunload'] = false;
+
 // KEEP THIS AT THE END
 // -------- Custom DB changes
 // Add user activation by confirmation email
@@ -1541,6 +1550,3 @@ $_configuration['auth_password_links'] = [
 // You need add a new option called "confirmation" to the registration settings
 //INSERT INTO settings_options (variable, value, display_text) VALUES ('allow_registration', 'confirmation', 'MailConfirmation');
 // ------ (End) Custom DB changes
-
-//Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
-//$_configuration['timepicker_increment'] = 5;
