@@ -27,7 +27,7 @@ if ($bbb->isGlobalConference()) {
 } else {
     api_protect_course_script(true);
 }
-
+$isAdmin = api_is_platform_admin();
 $courseInfo = api_get_course_info();
 $courseCode = isset($courseInfo['code']) ? $courseInfo['code'] : '';
 
@@ -450,6 +450,7 @@ $tpl->assign('form', $formToString);
 $tpl->assign('enter_conference_links', $urlList);
 $tpl->assign('warning_inteface_msg', $warningInterfaceMessage);
 $tpl->assign('show_client_options', $showClientOptions);
+$tpl->assign('is_admin', $isAdmin);
 
 $content = $tpl->fetch('bbb/view/listing.tpl');
 

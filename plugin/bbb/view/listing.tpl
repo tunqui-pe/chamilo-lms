@@ -126,12 +126,16 @@
         <table class="table">
             <tr>
                 <th>{{ 'CreatedAt'| get_plugin_lang('BBBPlugin') }}</th>
+                {% if is_admin %}
+                <th>{{ 'InternalMeetingId'| get_lang }}</th>
+                {% endif %}
                 <th>{{ 'Status'| get_lang }}</th>
                 <th>{{ 'Records'| get_plugin_lang('BBBPlugin') }}</th>
                 {% if allow_to_edit  %}
                     <th>{{ 'Actions'| get_lang }}</th>
                 {% endif %}
             </tr>
+
             {% for meeting in meetings %}
             <tr>
                 <!-- td>{{ meeting.id }}</td -->
@@ -140,6 +144,12 @@
                 {% else %}
                     <td>{{ meeting.created_at }}</td>
                 {% endif %}
+                {% if is_admin %}
+                    <td>
+                        {{ meeting.internal_meeting_id }}
+                    </td>
+                {% endif %}
+
                 <td>
                     {% if meeting.status == 1 %}
                         <span class="label label-success">{{ 'MeetingOpened'|get_plugin_lang('BBBPlugin') }}</span>
