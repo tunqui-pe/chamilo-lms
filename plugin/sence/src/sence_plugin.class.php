@@ -201,8 +201,10 @@ class SencePlugin extends Plugin
 
     public function getListGroupCourse()
     {
+        $list = [
+            '-1' => self::get_lang('None')
+        ];
 
-        $list = [];
         $listGroups = GroupManager::get_group_list();
 
         foreach ($listGroups as $group) {
