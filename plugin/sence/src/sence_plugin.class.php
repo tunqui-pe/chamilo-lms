@@ -231,7 +231,7 @@ class SencePlugin extends Plugin
             'code_sence' => $values['code_sence'],
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
-            'training_line' => 3,
+            'training_line' => $values['training_line'],
             'activate' => 1,
         ];
 
@@ -259,7 +259,7 @@ class SencePlugin extends Plugin
             'code_sence' => $values['code_sence'],
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
-            'training_line' => 3,
+            'training_line' => $values['training_line'],
             'activate' => 1,
         ];
 
