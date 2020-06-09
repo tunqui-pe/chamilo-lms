@@ -80,6 +80,7 @@ $strings['Firstname'] = 'Nombres';
 $strings['Lastname'] = 'Apellidos';
 $strings['IDCourse'] = 'ID Curso';
 $strings['IDUser'] = 'ID Usuario';
+$strings['None'] = 'Ninguno';
 $strings['NotRegister'] = 'No registra';
 $strings['ScholarSence'] = 'Tú eres un usuario becado, registrado por el administrador';
 $strings['ErrorSence000'] = 'Error desconocido.';
