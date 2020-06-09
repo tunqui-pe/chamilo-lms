@@ -58,7 +58,6 @@ if ($enable) {
         $urlLogin = $plugin->getURLSenceLogin($environment);
         $senceInfoUser = $plugin->getLoginUserSenceInfo($idCourse, $idStudent);
 
-
         if ($senceInfoUser) {
             //logout form
 
@@ -89,10 +88,12 @@ if ($enable) {
         } else {
 
             //login form
-            $idGroupUser = $plugin->getUserInGroup($idStudent);
-            $idGroupCourse = $plugin->getSenceGroupUser($idCourse);
+            $idGroupUser = intval($plugin->getUserInGroup($idStudent));
+            var_dump($idGroupUser);
+            $idGroupCourse = intval($plugin->getSenceGroupUser($idCourse));
+            var_dump($idGroupCourse);
 
-            if ($idGroupUser != $idGroupCourse) {
+            if (($idGroupUser != $idGroupCourse) || $idGroupUser == 0) {
                 if (isset($senceInfo['code_sence'])) {
                     $form = new FormValidator(
                         'login_sence',

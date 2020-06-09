@@ -85,6 +85,7 @@ class SencePlugin extends Plugin
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_COURSES." (
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
             c_id INT NULL,
+            id_session INT NULL,
             code_sence VARCHAR(10) NULL,
             code_course VARCHAR(36) NULL,
             id_group INT NULL,
@@ -97,6 +98,7 @@ class SencePlugin extends Plugin
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_LOGS." (
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
             c_id INT NULL,
+            id_session INT NULL,
             user_id INT NULL,
             username VARCHAR(100) NULL,
             firstname VARCHAR(250) NULL,
@@ -117,6 +119,7 @@ class SencePlugin extends Plugin
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_SENCE_USERS_LOGIN." (
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
             c_id INT NULL,
+            id_session INT NULL,
             user_id INT NULL,
             username VARCHAR(100) NULL,
             firstname VARCHAR(250) NULL,
@@ -220,10 +223,11 @@ class SencePlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
 
         $idCourse = api_get_course_int_id();
-        //$codeCourse = api_get_course_id();
+        $idSession = api_get_session_id();
 
         $params = [
             'c_id' => $idCourse,
+            'id_session' => $idSession,
             'code_sence' => $values['code_sence'],
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
@@ -246,11 +250,12 @@ class SencePlugin extends Plugin
         }
 
         $idCourse = api_get_course_int_id();
-        //$codeCourse = api_get_course_id();
+        $idSession = api_get_session_id();
         $table = Database::get_main_table(self::TABLE_SENCE_COURSES);
 
         $params = [
             'c_id' => $idCourse,
+            'id_session' => $idSession,
             'code_sence' => $values['code_sence'],
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
@@ -295,9 +300,10 @@ class SencePlugin extends Plugin
             return false;
         }
         $sence = [];
+        $idSession = api_get_session_id();
         $tableSenceCourse = Database::get_main_table(self::TABLE_SENCE_COURSES);
         $sql = "SELECT * FROM $tableSenceCourse
-        WHERE c_id = $idCourse";
+        WHERE c_id = $idCourse AND id_session = $idSession";
 
         $result = Database::query($sql);
         if (Database::num_rows($result) > 0) {
@@ -305,6 +311,7 @@ class SencePlugin extends Plugin
                 $sence = [
                     'id' => $row['id'],
                     'c_id' => $row['c_id'],
+                    'id_session' => $row['id_session'],
                     'code_sence' => $row['code_sence'],
                     'code_course' => $row['code_course'],
                     'id_group' => $row['id_group'],
@@ -325,8 +332,9 @@ class SencePlugin extends Plugin
             return false;
         }
         $idScholar = null;
+        $idSession = api_get_session_id();
         $tableSenceCourse = Database::get_main_table(self::TABLE_SENCE_COURSES);
-        $sql = "SELECT id_group FROM $tableSenceCourse WHERE c_id = $idCourse ";
+        $sql = "SELECT id_group FROM $tableSenceCourse WHERE c_id = $idCourse AND id_session = $idSession";
 
         $result = Database::query($sql);
         if (Database::num_rows($result) > 0) {
@@ -403,11 +411,11 @@ class SencePlugin extends Plugin
         }
 
         $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
-
+        $idSession = api_get_session_id();
         $UserSence = null;
 
         $sql = "SELECT * FROM $tableUserLogin
-        WHERE c_id = $idCourse AND user_id = $idUser ";
+        WHERE c_id = $idCourse AND id_session = $idSession AND user_id = $idUser ";
         $result = Database::query($sql);
 
         if (Database::num_rows($result) > 0) {
@@ -415,6 +423,7 @@ class SencePlugin extends Plugin
                 $UserSence = [
                     'id' => $row['id'],
                     'c_id' => $row['c_id'],
+                    'id_session' => $row['id_session'],
                     'user_id' => $row['user_id'],
                     'username' => $row['username'],
                     'firstname' => $row['firstname'],
@@ -447,10 +456,10 @@ class SencePlugin extends Plugin
         }
 
         $tableLogs = Database::get_main_table(self::TABLE_SENCE_LOGS);
-
+        $idSession = api_get_session_id();
         $list = [];
 
-        $sql = "SELECT * FROM $tableLogs WHERE c_id = $idCourse ";
+        $sql = "SELECT * FROM $tableLogs WHERE c_id = $idCourse AND id_session = $idSession";
         $result = Database::query($sql);
 
         if (Database::num_rows($result) > 0) {
@@ -458,7 +467,7 @@ class SencePlugin extends Plugin
                 $item = [
                     'id' => $row['id'],
                     'c_id' => $row['c_id'],
-                    'user_id' => $row['user_id'],
+                    'id_session' => $row['id_session'],
                     'username' => $row['username'],
                     'firstname' => $row['firstname'],
                     'lastname' => $row['lastname'],
@@ -521,11 +530,12 @@ class SencePlugin extends Plugin
             return false;
         }
 
+        $idSession = api_get_session_id();
         $tableUserLogin = Database::get_main_table(self::TABLE_SENCE_USERS_LOGIN);
 
         $sql = "DELETE FROM $tableUserLogin
                 WHERE
-                    c_id = $idCourse AND
+                    c_id = $idCourse AND id_session = $idSession AND 
                     user_id = '".intval($idUser)."'";
 
         $result = Database::query($sql);
@@ -702,13 +712,17 @@ class SencePlugin extends Plugin
             return false;
         }
 
-        $sql = "SELECT group_id FROM c_group_rel_user WHERE user_id = $idUser ";
+        $idCourse = api_get_course_int_id();
+        $idSession = api_get_session_id();
+
+        $sql = "SELECT cg.id FROM c_group_info cg INNER JOIN c_group_rel_user cgu ON 
+        cg.id = cgu.group_id WHERE cgu.user_id = $idUser AND cgu.c_id = $idCourse AND cg.session_id = $idSession";
         $result = Database::query($sql);
         $idGroup = null;
 
         if (Database::num_rows($result) > 0) {
             while ($row = Database::fetch_array($result)) {
-                $idGroup = $row['group_id'];
+                $idGroup = $row['id'];
             }
 
             return $idGroup;

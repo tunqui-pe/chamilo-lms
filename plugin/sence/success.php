@@ -28,9 +28,10 @@ if(!empty($_POST['IdSesionSence'])) {
 
         $values = [
             'c_id' => api_get_course_int_id(),
+            'id_session' => api_get_session_id(),
             'user_id' => $userInfo['user_id'],
             'username' => $userInfo['username'],
-            'firstname' => $row['firstname'],
+            'firstname' => $userInfo['firstname'],
             'lastname' => $userInfo['lastname'],
             'code_sence' => $_POST['CodSence'],
             'code_course' => $_POST['CodigoCurso'],
@@ -64,9 +65,10 @@ if(!empty($_POST['IdSesionSence'])) {
 
     $values = [
         'c_id' => api_get_course_int_id(),
+        'id_session' => api_get_session_id(),
         'user_id' => $userInfo['user_id'],
         'username' => $userInfo['username'],
-        'firstname' => $row['firstname'],
+        'firstname' => $userInfo['firstname'],
         'lastname' => $userInfo['lastname'],
         'code_sence' => $_POST['CodSence'],
         'code_course' => $_POST['CodigoCurso'],
