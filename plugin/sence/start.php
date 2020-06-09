@@ -89,9 +89,7 @@ if ($enable) {
 
             //login form
             $idGroupUser = intval($plugin->getUserInGroup($idStudent));
-            var_dump($idGroupUser);
             $idGroupCourse = intval($plugin->getSenceGroupUser($idCourse));
-            var_dump($idGroupCourse);
 
             if (($idGroupUser != $idGroupCourse) || $idGroupUser == 0) {
                 if (isset($senceInfo['code_sence'])) {
