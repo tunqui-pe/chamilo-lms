@@ -28,6 +28,7 @@ if(!empty($_POST['IdSesionSence'])) {
 
         $values = [
             'c_id' => api_get_course_int_id(),
+            'id_session' => api_get_session_id(),
             'user_id' => $userInfo['user_id'],
             'username' => $userInfo['username'],
             'firstname' => $userInfo['firstname'],
@@ -64,6 +65,7 @@ if(!empty($_POST['IdSesionSence'])) {
 
     $values = [
         'c_id' => api_get_course_int_id(),
+        'id_session' => api_get_session_id(),
         'user_id' => $userInfo['user_id'],
         'username' => $userInfo['username'],
         'firstname' => $userInfo['firstname'],
