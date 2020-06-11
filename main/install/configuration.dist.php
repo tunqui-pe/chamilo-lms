@@ -1343,6 +1343,14 @@ requires extension "php-soap"  sudo apt-get install php-soap
 
 // Changes the ck editor enter mode value. Default: CKEDITOR.ENTER_P
 // $_configuration['ck_editor_enter_mode_value'] = 'CKEDITOR.ENTER_BR';
+// Set CKEDITOR config for Vimeo Embed plugin
+//$_configuration['ckeditor_vimeo_embed'] = [
+//    'config' => [
+//        'client_id' => '',
+//        'client_secret' => '',
+//        'access_token' => '',
+//    ],
+//];
 
 // CREATE TABLE user_career (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, career_id INT NOT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
 // ALTER TABLE user_career ADD COLUMN extra_data LONGTEXT;
@@ -1423,7 +1431,7 @@ ALTER TABLE notification_event ADD COLUMN event_id INT NULL;
 //$_configuration['default_session_list_view'] = 'all';
 
 // Search user by extra field in the user list.
-//$_configuration['user_search_on_extra_fields'] = ['extra_fields' = > ['variable1', 'variable2']];
+//$_configuration['user_search_on_extra_fields'] = ['extra_fields' => ['variable1', 'variable2']];
 
 // user subscription to a session rather than to a base course
 // user session is created at first subscription
