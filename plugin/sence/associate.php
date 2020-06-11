@@ -95,6 +95,7 @@ if ($enable) {
 
                 $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
                 $dataSence['training_line'] = 3;
+                $dataSence['id_group'] = -1;
                 $form->setDefaults($dataSence);
 
                 if ($form->validate()) {
