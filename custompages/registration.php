@@ -36,45 +36,46 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 ?>
 <!doctype html>
 <html lang="es">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Acceso al aula virtual</title>
-    <link rel="icon" type="image/png" href="<?php echo $rootWebTheme; ?>/images/favicon.png" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/flag-icon-css/css/flag-icon.min.css" />
-    <script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<?php echo $rootWebTheme; ?>/custompage.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i&display=swap');
-    </style>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acceso al aula virtual</title>
+<link rel="icon" type="image/png" href="<?php echo $rootWebTheme; ?>/images/favicon.png"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $rootWeb; ?>web/assets/flag-icon-css/css/flag-icon.min.css"/>
+<script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $rootWeb; ?>web/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<?php echo $rootWebTheme; ?>/custompage.css">
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i&display=swap');
+</style>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 <body class="text-center">
+<div class="page">
     <div class="container">
-        <div class="logo">
-            <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+        <!--<div class="logo">
+            <a href="<?php /*echo $rootWeb; */ ?>">
+                <img src="<?php /*echo $rootWebTheme; */ ?>/images/logo.png" class="logo" width="300px"/>
             </a>
-        </div>
+        </div>-->
         <div class="panel panel-default form-register">
             <div class="panel-body">
                 <div class="padding-login">
                     <div class="message">
                         <?php
-                            if (isset($content['info']) && !empty($content['info'])) {
-                                echo '<div class="alert alert-info" role="alert">'.$content['info'].'</div>';
-                            }
+                        if (isset($content['info']) && !empty($content['info'])) {
+                            echo '<div class="alert alert-info" role="alert">'.$content['info'].'</div>';
+                        }
 
-                            if (isset($error_message)) {
-                                echo '<div id="login-form-info" class="alert alert-danger" role="alert">'.$error_message.'</div>';
-                            }
+                        if (isset($error_message)) {
+                            echo '<div id="login-form-info" class="alert alert-danger" role="alert">'.$error_message.'</div>';
+                        }
                         ?>
                     </div>
                     <div class="row">
@@ -83,10 +84,12 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                                 <h2 class="section-title">Registro de nuevo usuario</h2>
                             </div>
                             <div class="alert alert-info text-register">
-                                Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha olvidado su contraseña?</a>
+                                Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a
+                                        href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha
+                                    olvidado su contraseña?</a>
                             </div>
                             <?php
-                                $content['form']->display();
+                            $content['form']->display();
                             ?>
                             <div class="custom_required">
                                 * Esta información la utilizaremos para tu certificado de aprobación.
@@ -97,6 +100,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
             </div>
         </div>
     </div> <!-- /container -->
+</div>
 <script type="text/javascript">
     /*$(document).ready(function() {
         $('#extra_rol_unico_tributario').bind('keypress', function (event) {
