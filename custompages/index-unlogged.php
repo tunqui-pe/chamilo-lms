@@ -68,11 +68,11 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 <body class="text-center">
 <div class="page">
     <div class="container">
-        <!--<div class="logo">
-            <a href="<?php /*echo $rootWeb; */ ?>">
-                <img src="<?php /*echo $rootWebTheme; */ ?>/images/logo.png" class="logo" width="300px"/>
+        <div class="logo">
+            <a href="<?php echo $rootWeb; ?>">
+                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
             </a>
-        </div>-->
+        </div>
         <div class="panel panel-default form-signin">
             <div class="panel-body">
                 <div class="message">
