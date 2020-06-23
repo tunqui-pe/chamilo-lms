@@ -71,3 +71,7 @@ $strings['InfoFromDefaultCertificate'] = "The content of the certificate is base
 $strings['to'] = " to ";
 $strings['formatDownloadDate'] = " to %sth %s, %s";
 $strings['PrintCertificate'] = "Print certificate";
+$strings['QuestionDelete'] = "Do you want to delete the specific diploma and use the default certificate?";
+$strings['SuccessDelete'] = "Successfully deleted";
+$strings['ProblemDelete'] = "Problem deleting the certificate";
+$strings['OnlyCustomCertificates'] = "Only courses with a personalized certificate are exported";
