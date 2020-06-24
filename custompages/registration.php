@@ -33,6 +33,10 @@ $rootWeb = api_get_path('WEB_PATH');
 $rootWebTheme = api_get_path('WEB_CSS_PATH').'themes/'.$theme;
 $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 
+$dir = api_get_path(SYS_PATH).'custompages/url-images/';
+$dirWeb = api_get_path(WEB_PATH).'custompages/url-images/';
+$imgSiteLogo = 'logo_big_'.api_get_current_access_url_id().'.png';
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -61,7 +65,11 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <?php if(file_exists($dir.$imgSiteLogo)): ?>
+                    <img src="<?php echo $dirWeb.$imgSiteLogo; ?>" class="logo" width="300px" />
+                <?php else: ?>
+                    <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <?php endif; ?>
             </a>
         </div>
         <div class="panel panel-default form-register">
