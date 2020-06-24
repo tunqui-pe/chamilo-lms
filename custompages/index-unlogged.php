@@ -39,6 +39,11 @@ $rootWeb = api_get_path('WEB_PATH');
 $rootWebTheme = api_get_path('WEB_CSS_PATH').'themes/'.$theme;
 $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 
+$dir = api_get_path(SYS_PATH).'custompages/url-images/';
+$dirWeb = api_get_path(WEB_PATH).'custompages/url-images/';
+$imgSiteLogo = 'logo_big_'.api_get_current_access_url_id().'.png';
+$imgHome = 'img_home_'.api_get_current_access_url_id().'.png';
+
 /**
  * HTML output.
  */
@@ -70,7 +75,11 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <?php if(file_exists($dir.$imgSiteLogo)): ?>
+                    <img src="<?php echo $dirWeb.$imgSiteLogo; ?>" class="logo" width="300px" />
+                <?php else: ?>
+                    <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <?php endif; ?>
             </a>
         </div>
         <div class="panel panel-default form-signin">
@@ -121,7 +130,11 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                     </div>
                     <div class="col-md-6">
                         <div class="image-login">
-                            <img class="img-responsive" src="<?php echo $rootWebTheme; ?>/images/img_login.png"/>
+                            <?php if(file_exists($dir.$imgSiteLogo)): ?>
+                                <img class="img-responsive" src="<?php echo $dirWeb.$imgHome; ?>"/>
+                            <?php else: ?>
+                                <img class="img-responsive" src="<?php echo $rootWebTheme; ?>/images/img_login.png"/>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

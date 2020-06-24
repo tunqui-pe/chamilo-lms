@@ -8561,4 +8561,10 @@ $Multiplechoiceother = "Elección múltiple con opción 'Otro'";
 $SurveyOtherAnswerSpecify = "Otro/a...";
 $SurveyOtherAnswer = "Por favor especifique:";
 $UserXPostedADocumentInCourseX = "El usuario %s ha enviado un documento en la herramienta Tareas  en el curso %s";
+$LogoImageHome= "Imagen de login";
+$LogoImageHomeHelp = "Dimensiones de la imagen es de 425 x 400 pixeles";
+$LogoUrlBig= "Logo grande";
+$LogoUrlBigHelp = "Dimensiones de la imagen es de 365 x 125 pixeles";
+$LogoUrlSmall= "Logo pequeño";
+$LogoUrlSmallHelp = "Dimensiones de la imagen es de 140 x 55 pixeles";
 ?>
