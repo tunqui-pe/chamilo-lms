@@ -31,13 +31,13 @@ $from = isset($_GET['from']) ? $_GET['from'] : null;
 $origin = api_get_origin();
 
 // Starting the output buffering when we are exporting the information.
-$export_csv = isset($_GET['export']) && $_GET['export'] === 'csv' ? true : false;
+$export_csv = isset($_GET['export']) && 'csv' === $_GET['export'] ? true : false;
 
 $htmlHeadXtra[] = api_get_js('chartjs/Chart.min.js');
 $htmlHeadXtra[] = ' ';
 
 $this_section = SECTION_COURSES;
-if ($from === 'myspace') {
+if ('myspace' === $from) {
     $from_myspace = true;
     $this_section = 'session_my_space';
 }
@@ -140,7 +140,7 @@ $table_user = Database::get_main_table(TABLE_MAIN_USER);
 $TABLEQUIZ = Database::get_course_table(TABLE_QUIZ_TEST);
 
 // Breadcrumbs.
-if ($origin === 'resume_session') {
+if ('resume_session' === $origin) {
     $interbreadcrumb[] = [
         'url' => '../admin/index.php',
         'name' => get_lang('PlatformAdmin'),
@@ -306,7 +306,7 @@ if ($showReporting) {
             if (!$isAdmin) {
                 // Check session visibility
                 $visibility = api_get_session_visibility($session['id'], api_get_course_int_id());
-                if ($visibility == SESSION_INVISIBLE) {
+                if (SESSION_INVISIBLE == $visibility) {
                     continue;
                 }
 
@@ -478,13 +478,13 @@ if ($nbStudents > 0) {
                 continue;
             }
             $userId = $userInfo['user_id'];
-            if ($userTracking[5] === '100%') {
+            if ('100%' === $userTracking[5]) {
                 $numberStudentsCompletedLP++;
             }
             $averageStudentTestScore = substr($userTracking[7], 0, -1);
             $averageStudentsTestScore += $averageStudentTestScore;
 
-            if ($averageStudentTestScore === '100') {
+            if ('100' === $averageStudentTestScore) {
                 $reducedAverage = 9;
             } else {
                 $reducedAverage = floor($averageStudentTestScore / 10);
@@ -694,20 +694,22 @@ if ($nbStudents > 0) {
     $headers['first_login'] = get_lang('FirstLoginInCourse');
     $table->set_header(14, get_lang('LatestLoginInCourse'), false);
     $headers['latest_login'] = get_lang('LatestLoginInCourse');
+    $counter = 15;
+    if (api_get_setting('show_email_addresses') === 'true') {
+        $table->set_header($counter, get_lang('Email'), false);
+        $headers['email'] = get_lang('Email');
+        $counter++;
+    }
     if (isset($_GET['additional_profile_field'])) {
-        $counter = 15;
         foreach ($_GET['additional_profile_field'] as $fieldId) {
             $table->set_header($counter, $extra_info[$fieldId]['display_text'], false);
             $headers[$extra_info[$fieldId]['variable']] = $extra_info[$fieldId]['display_text'];
             $counter++;
             $parameters['additional_profile_field'] = $fieldId;
         }
-        $table->set_header($counter, get_lang('Details'), false);
-        $headers['details'] = get_lang('Details');
-    } else {
-        $table->set_header(15, get_lang('Details'), false);
-        $headers['Details'] = get_lang('Details');
     }
+    $table->set_header($counter, get_lang('Details'), false);
+    $headers['Details'] = get_lang('Details');
 
     if (!empty($fields)) {
         foreach ($fields as $key => $value) {

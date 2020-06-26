@@ -1560,8 +1560,9 @@ if (isset($_GET['curdirpath']) &&
     }
 }
 
+$disableSearch = api_get_configuration_value('disable_search_documents');
 /* GET ALL DOCUMENT DATA FOR CURDIRPATH */
-if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
+if (isset($_GET['keyword']) && !empty($_GET['keyword']) && false === $disableSearch) {
     $documentAndFolders = DocumentManager::getAllDocumentData(
         $courseInfo,
         $curdirpath,
@@ -1759,11 +1760,15 @@ if ($isAllowedToEdit ||
         );
     }
 }
+
 if (!isset($_GET['keyword']) && !$is_certificate_mode) {
-    $actionsLeft .= Display::url(
-        Display::return_icon('slideshow.png', get_lang('ViewSlideshow'), '', ICON_SIZE_MEDIUM),
-        api_get_path(WEB_CODE_PATH).'document/slideshow.php?'.api_get_cidreq().'&curdirpath='.$curdirpathurl.'&id='.$document_id
-    );
+    $disable = api_get_configuration_value('disable_slideshow_documents');
+    if (false === $disable) {
+        $actionsLeft .= Display::url(
+            Display::return_icon('slideshow.png', get_lang('ViewSlideshow'), '', ICON_SIZE_MEDIUM),
+            api_get_path(WEB_CODE_PATH).'document/slideshow.php?'.api_get_cidreq().'&curdirpath='.$curdirpathurl.'&id='.$document_id
+        );
+    }
 }
 
 if ($isAllowedToEdit && !$is_certificate_mode) {
@@ -1773,8 +1778,7 @@ if ($isAllowedToEdit && !$is_certificate_mode) {
     );
 }
 
-if (!$is_certificate_mode) {
-    /* BUILD SEARCH FORM */
+if (!$is_certificate_mode && false === $disableSearch) {
     $form = new FormValidator(
         'search_document',
         'get',
@@ -1971,7 +1975,7 @@ if (!empty($documentAndFolders)) {
                 $countedPaths[$document_data['path']] = true;
             }
 
-            if ((isset($_GET['keyword']) && DocumentManager::search_keyword($document_name, $_GET['keyword'])) ||
+            if ((isset($_GET['keyword']) && DocumentManager::searchKeyword($document_name, $_GET['keyword'])) ||
                 !isset($_GET['keyword']) ||
                 empty($_GET['keyword'])
             ) {
@@ -2133,7 +2137,6 @@ if (count($documentAndFolders) > 1) {
 
 Display::display_header('', 'Doc');
 
-/* Introduction section (editable by course admins) */
 if (!empty($groupId)) {
     Display::display_introduction_section(TOOL_DOCUMENT.$groupId);
 } else {
@@ -2152,7 +2155,11 @@ echo $selector;
 
 $table->display();
 
-if (count($documentAndFolders) > 1) {
+$disableQuotaMessage = api_get_configuration_value('disable_document_quota_message_for_students');
+if ($isAllowedToEdit) {
+    $disableQuotaMessage = false;
+}
+if (false === $disableQuotaMessage && count($documentAndFolders) > 1) {
     $ajaxURL = api_get_path(WEB_AJAX_PATH).'document.ajax.php?a=get_document_quota&'.api_get_cidreq();
     if ($isAllowedToEdit) {
         echo '<script>
@@ -2181,7 +2188,6 @@ if (count($documentAndFolders) > 1) {
         });
     });
     </script>';
-
     echo '<span id="course_quota"></span>';
 }
 

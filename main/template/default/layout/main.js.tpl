@@ -281,7 +281,7 @@ $(function() {
     // Mediaelement
     if ( {{ show_media_element }} == 1) {
         $('video:not(.skip), audio:not(.skip)').mediaelementplayer({
-            pluginPath: _p.web + 'web/assets/mediaelement/build/',
+            pluginPath: _p.web_lib + 'javascript/mediaelement/',
             //renderers: ['html5', 'flash_video', 'native_flv'],
             features: ['{{ video_features }}'],
             success: function(mediaElement, originalNode, instance) {
@@ -501,7 +501,7 @@ function setCheckbox(value, table_id) {
 }
 
 function action_click(element, table_id) {
-    d = $("#"+table_id);
+    var d = $("#"+table_id);
     if (!confirm('{{ "ConfirmYourChoice"|get_lang | escape('js')}}')) {
         return false;
     } else {
@@ -589,6 +589,7 @@ if (typeof CKEDITOR !== 'undefined') {
         'flash',
         'inserthtml',
         'qmarkersrolls',
+        'ckeditor_vimeo_embed',
         'image2_chamilo'
     ];
 

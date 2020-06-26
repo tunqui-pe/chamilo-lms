@@ -1286,19 +1286,19 @@ ALTER TABLE c_plagiarism_compilatio_docs CHANGE COLUMN id_doc document_id INT NO
 requires extension "php-soap"  sudo apt-get install php-soap
 */
 //$_configuration['allow_compilatio_tool'] = false;
-//$_configuration['compilatio_tool'] = [
-//    'settings' => [
-//        'key' => '',
-//        'soap_url' => '',
-//        'proxy_host' => '',
-//        'proxy_port' => '',
-//        'max_filesize' => '',
-//        'transport_mode' => '',
-//        'wget_uri' => '',
-//        'wget_login' => '',
-//        'wget_password' => '',
-//    ]
-//];
+/*$_configuration['compilatio_tool'] = [
+    'settings' => [
+        'key' => '',
+        'soap_url' => '',
+        'proxy_host' => '',
+        'proxy_port' => '',
+        'max_filesize' => '',
+        'transport_mode' => '',
+        'wget_uri' => '',
+        'wget_login' => '',
+        'wget_password' => '',
+    ]
+];*/
 
 // Allow user to enter a LP item if it was validated in another session.
 // $_configuration['validate_lp_prerequisite_from_other_session'] = false;
@@ -1343,6 +1343,14 @@ requires extension "php-soap"  sudo apt-get install php-soap
 
 // Changes the ck editor enter mode value. Default: CKEDITOR.ENTER_P
 // $_configuration['ck_editor_enter_mode_value'] = 'CKEDITOR.ENTER_BR';
+// Set CKEDITOR config for Vimeo Embed plugin
+//$_configuration['ckeditor_vimeo_embed'] = [
+//    'config' => [
+//        'client_id' => '',
+//        'client_secret' => '',
+//        'access_token' => '',
+//    ],
+//];
 
 // CREATE TABLE user_career (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, career_id INT NOT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
 // ALTER TABLE user_career ADD COLUMN extra_data LONGTEXT;
@@ -1423,7 +1431,7 @@ ALTER TABLE notification_event ADD COLUMN event_id INT NULL;
 //$_configuration['default_session_list_view'] = 'all';
 
 // Search user by extra field in the user list.
-//$_configuration['user_search_on_extra_fields'] = ['extra_fields' = > ['variable1', 'variable2']];
+//$_configuration['user_search_on_extra_fields'] = ['extra_fields' => ['variable1', 'variable2']];
 
 // user subscription to a session rather than to a base course
 // user session is created at first subscription
@@ -1534,6 +1542,27 @@ $_configuration['auth_password_links'] = [
 // Disable clean results for teachers
 // $_configuration['disable_clean_exercise_results_for_teachers'] = true;
 
+// Show certainty degree question result in Exercises
+// $_configuration['show_exercise_question_certainty_ribbon_result'] = false;
+
+//Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
+//$_configuration['timepicker_increment'] = 5;
+
+//Allows teachers to edit survey questions after students have answered them
+//$_configuration['survey_allow_answered_question_edit'] = false;
+
+// Allows prevent to the user before leaving a learning path
+//$_configuration['lp_prevents_beforeunload'] = false;
+
+// Disable slideshow documents
+//$_configuration['disable_slideshow_documents'] = false;
+
+// Disable search documents
+//$_configuration['disable_search_documents'] = false;
+
+// Disable available space in the document tool
+//$_configuration['disable_document_quota_message_for_students'] = false;
+
 // KEEP THIS AT THE END
 // -------- Custom DB changes
 // Add user activation by confirmation email
@@ -1541,6 +1570,3 @@ $_configuration['auth_password_links'] = [
 // You need add a new option called "confirmation" to the registration settings
 //INSERT INTO settings_options (variable, value, display_text) VALUES ('allow_registration', 'confirmation', 'MailConfirmation');
 // ------ (End) Custom DB changes
-
-//Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
-//$_configuration['timepicker_increment'] = 5;

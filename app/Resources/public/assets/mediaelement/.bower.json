@@ -31,6 +31,6 @@
     "commit": "80b658fc7e9f125659b9a7b1a6284c8fba2a244e"
   },
   "_source": "https://github.com/johndyer/mediaelement.git",
-  "_target": "4.*",
+  "_target": "^4.2.16",
   "_originalSource": "mediaelement"
 }
