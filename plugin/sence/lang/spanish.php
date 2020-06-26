@@ -14,7 +14,7 @@ legal válido con el Servicio de Impuestos Internos, y Clave SENCE (CS) de empre
 $strings['company_name'] = 'Nombre del empresa OTEC';
 $strings['company_name_help'] = 'Nombre de la empresa o institución OTEC que brinda el servicio.';
 $strings['alert_email'] = 'Correo de alerta.';
-$strings['alert_email_help'] = 'Correo para alertas de error, este correo recibe los errores posibles que puedan registrar los usuarios, para asistencia técnica y reporte.';
+$strings['alert_email_help'] = 'Activa el envio de errores de conexión sence al correo del administrador, para asistencia técnica y reporte.';
 $strings['require_logout'] = 'Mostrar cierre de sesión SENCE';
 $strings['login_required'] = 'Obligar iniciar SENCE al ingresar al curso';
 $strings['environment'] = 'Ambiente de desarrollo';
@@ -83,6 +83,8 @@ $strings['IDUser'] = 'ID Usuario';
 $strings['None'] = 'Ninguno';
 $strings['NotRegister'] = 'No registra';
 $strings['ScholarSence'] = 'Tú eres un usuario becado, registrado por el administrador';
+$strings['SenceSubject'] = "¡Sence Alerta! Error de login de usuario";
+$strings['SenceContentEmail'] = "Este es un correo de alerta de error de inicio de sesión con Sence, de un usuario de su plataforma.";
 $strings['ErrorSence000'] = 'Error desconocido.';
 $strings['ErrorSence100'] = 'Contraseña incorrecta o el usuario no tiene Clave SENCE.';
 $strings['ErrorSence200'] = 'El POST tiene uno o más parámetros mandatorios sin información. Esto también ocurre cuando un parámetro está mal escrito (por ejemplo, RutAlumno en lugar de RunAlumno), o cuando se ingresan sólo espacios en blanco en un parámetro obligatorio.';

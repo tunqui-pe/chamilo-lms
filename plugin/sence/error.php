@@ -17,6 +17,7 @@ $plugin = SencePlugin::create();
 $courseInfo = api_get_course_info();
 $message = null;
 $userInfo = Session::read('_user');
+$emailEnable = $plugin->get('alert_email') == 'true';
 
 $tool_name = $plugin->get_lang('SynchronizationFailed');
 $tpl = new Template($tool_name);
@@ -47,6 +48,19 @@ if(empty($_POST['IdSesionSence'])) {
     $tpl->assign('error_code', $_POST['GlosaError']);
     $tpl->assign('message_error', $messageError);
     $resLogs = $plugin->registerLogs($values);
+    if($emailEnable){
+        $mailAdmin = api_get_setting('emailAdministrator');
+        $nameAdmin = api_get_setting('administratorName');
+        $messageTemplate = new Template();
+        $messageTemplate->assign('user', $values);
+        $messageTemplate->assign('error_msg', $messageError);
+        api_mail_html(
+            $nameAdmin,
+            $mailAdmin,
+            $plugin->get_lang('SenceSubject')." - ".$values['run_student'],
+            $messageTemplate->fetch('sence/view/message_error.tpl')
+        );
+    }
 }
 
 $content = $tpl->fetch('sence/view/sence_error.tpl');
