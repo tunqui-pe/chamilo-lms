@@ -498,6 +498,7 @@ function showStudentWorkGrid()
     $columns = [
         get_lang('Type'),
         get_lang('Title'),
+        get_lang('Category'),
         get_lang('HandOutDateLimit'),
         get_lang('Feedback'),
         get_lang('LastUpload'),
@@ -506,6 +507,7 @@ function showStudentWorkGrid()
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '30', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left'],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '200', 'align' => 'center'],
         ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '80', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'feedback', 'index' => 'feedback', 'width' => '80', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'last_upload', 'index' => 'feedback', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
@@ -521,11 +523,23 @@ function showStudentWorkGrid()
         ];
         $columns[] = get_lang('Others');
     }
-
-    $params = [
-        'autowidth' => 'true',
-        'height' => 'auto',
-    ];
+    if(api_get_configuration_value('work_category')){
+        $iconFolder = Display::return_icon('folder.png',get_lang('Category'),[],ICON_SIZE_SMALL);
+        $params = [
+            'autowidth' => 'true',
+            'height' => 'auto',
+            'grouping' => true,
+            'groupingView' => [
+                'groupField' => ['cat_id'],
+                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>']
+            ]
+        ];
+    } else {
+        $params = [
+            'autowidth' => 'true',
+            'height' => 'auto',
+        ];
+    }
 
     $html = '<script>
         $(function() {
@@ -567,9 +581,8 @@ function showTeacherWorkGrid()
         get_lang('Actions')
     ];
 
-    $iconFolder = Display::return_icon('folder.png',get_lang('Category'),[],ICON_SIZE_SMALL);
-
     if(api_get_configuration_value('work_category')){
+        $iconFolder = Display::return_icon('folder.png',get_lang('Category'),[],ICON_SIZE_SMALL);
         $params = [
             'multiselect' => true,
             'autowidth' => 'true',
@@ -1347,6 +1360,7 @@ function getWorkListStudent(
         }
 
         $work['title'] = Display::url($work['title'], $url.'&id='.$work['id']);
+        $work['category'] = getCategory($work['cat_id'], true);
         $work['others'] = Display::url(
             Display::return_icon('group.png', get_lang('Others')),
             $urlOthers.$work['id']
