@@ -206,6 +206,13 @@ class CStudentPublication
     protected $documentId;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="cat_id", type="integer", nullable=false)
+     */
+    protected $catId;
+
+    /**
      * Set url.
      *
      * @param string $url
@@ -790,4 +797,24 @@ class CStudentPublication
     {
         return $this->iid;
     }
+
+    /**
+     * @return int
+     */
+    public function getCatId()
+    {
+        return $this->catId;
+    }
+
+    /**
+     * @param int $catId
+     * @return CStudentPublication
+     */
+    public function setCatId($catId)
+    {
+        $this->catId = $catId;
+        return $this;
+    }
+
+
 }
