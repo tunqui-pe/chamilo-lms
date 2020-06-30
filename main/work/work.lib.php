@@ -65,14 +65,16 @@ function displayWorkActionLinks($id, $action, $isTutor)
                 ICON_SIZE_MEDIUM
             ).
             '</a>';
-        $output .= '<a href="category.php?action=list&'.api_get_cidreq().'">'.
-            Display::return_icon(
-                'folder.png',
-                get_lang('Categories'),
-                '',
-                ICON_SIZE_MEDIUM
-            ).
-            '</a>';
+        if(api_get_configuration_value('work_category')) {
+            $output .= '<a href="category.php?action=list&'.api_get_cidreq().'">'.
+                Display::return_icon(
+                    'new_folder.png',
+                    get_lang('Categories'),
+                    '',
+                    ICON_SIZE_MEDIUM
+                ).
+                '</a>';
+        }
     }
 
     if ($output != '') {

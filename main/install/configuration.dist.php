@@ -364,6 +364,8 @@ $_configuration['tracking_columns'] = [
 */
 // Hide session link of course_block on index/userportal
 //$_configuration['remove_session_url']= false ;
+// Allow foldable block for session list in session category on My courses tab
+//$_configuration['user_portal_foldable_session_category'] = false;
 //
 //
 // ------ AGENDA CONFIGURATION SETTINGS
@@ -399,6 +401,11 @@ ALTER TABLE c_tool CHANGE name name LONGTEXT NOT NULL;
 -- Only with allow_portfolio_tool enabled
 ALTER TABLE portfolio CHANGE title title LONGTEXT NOT NULL;
 ALTER TABLE portfolio_category CHANGE title title LONGTEXT NOT NULL;
+
+New changes:
+
+ALTER TABLE c_lp CHANGE name name LONGTEXT NOT NULL;
+ALTER TABLE c_lp_item CHANGE title title LONGTEXT NOT NULL;
 --
 */
 // $_configuration['save_titles_as_html'] = false;
@@ -544,6 +551,7 @@ ALTER TABLE c_survey_question ADD is_required TINYINT(1) DEFAULT 0 NOT NULL;
 // Add "send_to_coaches" checkbox field in: main/admin/extra_fields.php?type=scheduled_announcement&action=add
 //$_configuration['allow_scheduled_announcements'] = false;
 // Add the list of emails as a bcc when sending an email.
+// Configure a cron task pointing at main/cron/scheduled_announcement.php
 /*
 $_configuration['send_all_emails_to'] = [
     'emails' => [
@@ -579,6 +587,10 @@ $_configuration['send_all_emails_to'] = [
 // Generate certificate when ending a quiz.
 // The quiz needs to be linked to a gradebook category and have set the pass percentage.
 //$_configuration['quiz_generate_certificate_ending'] = false;
+// Allow the teacher to rate the open, oral expression and annotation question types with a decimal score.
+//$_configuration['quiz_open_question_decimal_score'] = false;
+// Add answer-saving procedure check before starting the quiz
+//$_configuration['quiz_check_button_enable'] = false;
 
 // Hide search form in session list
 //$_configuration['hide_search_form_in_session_list'] = false;
@@ -848,6 +860,7 @@ ALTER TABLE skill_rel_course ADD CONSTRAINT FK_E7CEC7FA613FECDF FOREIGN KEY (ses
         'show_reporting_icon' => true,
         'hide_lp_arrow_navigation' => false,
         'show_toolbar_by_default' => false,
+        'navigation_in_the_middle' => false,
     ],
 ];*/
 
@@ -912,7 +925,7 @@ INSERT INTO settings_current(variable, subkey, type, category, selected_value, t
 // Disable token verification when sending a message
 // $_configuration['disable_token_in_new_message'] = false;
 
-// My courses session order. Possible field values: "start_date" or "end_date". Order values: "asc" or "desc"
+// My courses session order. Possible field values: "start_date", "end_date", "name" Order values: "asc" or "desc"
 // $_configuration['my_courses_session_order'] = ['field' => 'end_date', 'order' => 'desc'];
 
 // Allow set courses in session in read-only mode. Require DB changes:
@@ -938,12 +951,15 @@ VALUES (2, 13, 'session_courses_read_only_mode', 'Lock Course In Session', 1, 1,
 // $_configuration['show_pending_survey_in_menu'] = false;
 
 // GDPR: European's General Data Protection Rules activation option
-// Set to true to disable the new personal data page inside the social network menu
+// Set to true to disable the new personal data page inside the social network
+// menu
 // $_configuration['disable_gdpr'] = true;
 
-// GDPR requires users to be informed of the Data Protection Officer name and contact point
-// These can only be defined here for now, but will be moved to web settings in the future.
-// Name of the person or organization that is responsible for the treatment of personal info
+// GDPR requires users to be informed of the Data Protection Officer name and
+// contact point. These can only be defined here for now, but will be moved to
+// web settings in the future.
+// Name of the person or organization that is responsible for the treatment of
+// personal info
 //$_configuration['data_protection_officer_name'] = '';
 // A description of the role of the DP Officer in this context
 //$_configuration['data_protection_officer_role'] = '';
@@ -966,6 +982,10 @@ VALUES (2, 13, 'session_courses_read_only_mode', 'Lock Course In Session', 1, 1,
         ],
     ],
 ];*/
+
+// Make GDPR terms public (useful when using the platform for anonymous survey
+// invitations where users can leave personal info).
+// $_configuration['gdpr_terms_public'] = false;
 
 // Hide LP item prerequisite label in the LP view
 //$_configuration['hide_accessibility_label_on_lp_item'] = true;
@@ -1013,7 +1033,7 @@ VALUES (2, 13, 'session_courses_read_only_mode', 'Lock Course In Session', 1, 1,
 // Block student publication add documents BT#14986
 //$_configuration['block_student_publication_add_documents'] = false;
 
-// Block student publication score edition BT#14987
+// Block teacher to modify a work score edition BT#14987
 // $_configuration['block_student_publication_score_edition'] = false;
 
 // Enable system to manage e-mail templates in users registration forms
@@ -1090,7 +1110,9 @@ $_configuration['profile_fields_visibility'] = [
 // ALTER TABLE c_lp ADD accumulate_work_time INT NOT NULL;
 // CREATE TABLE track_e_access_complete (id int(11) NOT NULL AUTO_INCREMENT, user_id int(11) NOT NULL, date_reg datetime NOT NULL, tool varchar(255) NOT NULL,  tool_id int(11) NOT NULL,   tool_id_detail int(11) NOT NULL,  action varchar(255) NOT NULL,   action_details varchar(255) NOT NULL, current_id int(11) NOT NULL,  ip_user varchar(255) NOT NULL,  user_agent varchar(255) NOT NULL,   session_id int(11) NOT NULL,   c_id int(11) NOT NULL,   ch_sid varchar(255) NOT NULL,   login_as int(11) NOT NULL,   info longtext NOT NULL,   url text NOT NULL,   PRIMARY KEY (id) ) ENGINE=InnoDB AUTO_INCREMENT=13989 DEFAULT CHARSET=utf8;
 // CREATE INDEX user_course_session ON track_e_access_complete (user_id, c_id, session_id);
-// Only applied for courses with extra field "new_tracking_system" to "1"
+// Add course checkbox extra field "new_tracking_system"
+// Add session checkbox extra field "new_tracking_system"
+// Only applied for courses/sessions with extra field "new_tracking_system" to "1"
 //$_configuration['lp_minimum_time'] = false;
 
 // Track LP attempts using the new tracking system.
@@ -1296,6 +1318,239 @@ requires extension "php-soap"  sudo apt-get install php-soap
 // Example: The online users will be available only for teachers and students.
 //$_configuration['allow_online_users_by_status'] = ['status' =>  [1, 5]];
 
+// Allow add one column by each user extra field indicated to the Gradebook Flatview for each user.
+// $_configuration['gradebook_flatview_extrafields_columns'] = ['variables' => []];
+
+// Show hidden exercises that were added to a LP in the exercise list
+// $_configuration['show_hidden_exercise_added_to_lp'] = true;
+
+// Show full lp item title
+// $_configuration['show_full_lp_item_title_in_edition'] = false;
+
+// Hide course catalog welcome message
+//$_configuration['hide_course_catalog_welcome'] = true;
+
+// Survey
+// ALTER TABLE c_survey_question ADD parent_id INT(11) DEFAULT 0 NOT NULL;
+// ALTER TABLE c_survey_question ADD parent_option_id INT(11) DEFAULT 0 NOT NULL;
+//$_configuration['survey_question_dependency'] = true;
+
+// Student publication: force to download document before upload an assignment.
+// $_configuration['force_download_doc_before_upload_work' ] = true;
+
+// Allow teachers to decide which skills are assigned through their courses
+// $_configuration['skills_teachers_can_assign_skills'] = false;
+
+// Changes the ck editor enter mode value. Default: CKEDITOR.ENTER_P
+// $_configuration['ck_editor_enter_mode_value'] = 'CKEDITOR.ENTER_BR';
+// Set CKEDITOR config for Vimeo Embed plugin
+//$_configuration['ckeditor_vimeo_embed'] = [
+//    'config' => [
+//        'client_id' => '',
+//        'client_secret' => '',
+//        'access_token' => '',
+//    ],
+//];
+
+// CREATE TABLE user_career (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, career_id INT NOT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
+// ALTER TABLE user_career ADD COLUMN extra_data LONGTEXT;
+// ALTER TABLE user_career ADD COLUMN updated_at DATETIME NOT NULL;
+// $_configuration['allow_career_users'] = false;
+
+// LP view menu location. Options: "left" or "right"
+// $_configuration['lp_menu_location'] = 'left';
+
+// Show notification events
+/*CREATE TABLE IF NOT EXISTS notification_event (
+id INT unsigned NOT NULL auto_increment PRIMARY KEY,
+        title VARCHAR(255),
+        content TEXT,
+        link TEXT,
+        persistent INT,
+        day_diff INT,
+        event_type VARCHAR(255)
+    );
+ALTER TABLE notification_event ADD COLUMN event_id INT NULL;
+*/
+// create new user text extra field called 'notification_event' to save the persistent settings.
+// $_configuration['notification_event'] = false;
+
+// Add help text to put 2 names in registration form
+//$_configuration['registration_add_helptext_for_2_names'] = false;
+
+// Allow career/promotions in global announcements
+// ALTER TABLE sys_announcement ADD COLUMN career_id INT DEFAULT 0;
+// ALTER TABLE sys_announcement ADD COLUMN promotion_id INT DEFAULT 0;
+//$_configuration['allow_careers_in_global_announcements'] = false;
+
+// Hide start/end dates in "My courses" page (user_portal.php)
+//$_configuration['hide_session_dates_in_user_portal'] = false;
+
+// Catalog search settings visibility
+/*$_configuration['catalog_settings'] = [
+    'sessions' => [
+        'by_title' => true,
+        'by_date' => true,
+        'by_tag' => true,
+        'show_session_info' => true,
+        'show_session_date' => true,
+    ],
+    'courses' => [
+        'by_title' => true,
+    ],
+];*/
+
+// Enable learning paths with only one SCO item to use the score returned by
+// the SCO as an indicator of progress of the whole learning path
+// Before enabling, make sure you added an LP extra field of type int, called use_score_as_progress
+// $_configuration['lp_score_as_progress_enable'] = false;
+
+// Use this link as the "Forgot password?" link instead of the default. This setting should be transformed into a hook for plugins at a later time
+//$_configuration['pass_reminder_custom_link'] = '';
+
+// In Scorm comunication use the username instead of the user_id
+//$_configuration['scorm_api_username_as_student_id'] = false;
+
+// In Scorm comunication use a specific extra field instead of the user_id
+//$_configuration['scorm_api_extrafield_to_use_as_student_id'] = '';
+
+// Show online user only to Administrators
+//$_configuration['whoisonline_only_for_admin'] = false;
+
+// Prevent going back to previous questions
+// ALTER TABLE c_quiz ADD COLUMN prevent_backwards INT DEFAULT 0;
+//$_configuration['quiz_prevent_backwards_move'] = false;
+
+// Allow third party plugins to be uploaded through a form in the plugins section
+//$_configuration['plugin_upload_enable'] = false;
+
+// ALTER TABLE session ADD COLUMN status INT DEFAULT 0;
+// $_configuration['allow_session_status'] = false;
+
+// Set the default tab in the admin session list. Values: all, close, active, custom.
+//$_configuration['default_session_list_view'] = 'all';
+
+// Search user by extra field in the user list.
+//$_configuration['user_search_on_extra_fields'] = ['extra_fields' => ['variable1', 'variable2']];
+
+// user subscription to a session rather than to a base course
+// user session is created at first subscription
+//$_configuration['catalog_course_subscription_in_user_s_session'] = false;
+// user session duration in days - after the session end date, more subscriptions are prevented
+//$_configuration['user_s_session_duration'] = 3*365;
+// id of the admin to attach user session
+//$_configuration['session_automatic_creation_user_id'] = 1;
+
+// Skip scorm package file names clean up
+//$_configuration['skip_scorm_package_clean_up'] = false;
+
+// Course chat: Send message on button click only, if false then send on enter too.
+//$_configuration['course_chat_send_message_only_on_button'] = true;
+
+// Course catalog show extra fields (visible and filtered)
+//$_configuration['allow_course_extra_field_in_catalog'] = false;
+
+// Course catalog links behaviour.
+/*
+$_configuration['course_catalog_settings'] = [
+    'link_settings' => [
+        'info_url' => 'course_description_popup', // course description popup page
+        'title_url' => 'course_home', // Course home URL
+        'image_url' => 'course_about', // Course about URL
+    ],
+    'hide_course_title'
+    'redirect_after_subscription' => 'course_home', // or 'course_catalog' to stay in the page
+    'extra_fields_in_search_form' => ['variable1', 'variable2'],
+    'extra_fields_in_course_block' => ['variable3', 'variable4'],
+    'standard_sort_options' => [
+        //  1 means allow sorting in ascending order
+        // -1 means allow sorting in descending order
+        'title' => 1,
+        'creation_date' => -1,
+        'count_users' => -1, // subscription count
+        'point_info/point_average' => -1, // average score
+        'point_info/total_score' => -1, // score sum
+        'point_info/users' => -1, // vote count
+    ],
+    'extra_field_sort_options' => [
+        'variable5' => -1,
+        'variable6' => 1,
+    ],
+];
+*/
+
+// Page "My Courses" shows specific course extra fields (CourseManager::getExtraFieldsToBePresented)
+/*$_configuration['My_course_course_extrafields_to_be_presented'] = [
+    'fields' => ['mots_cles', 'duree_en_min', 'format'],
+];*/
+
+// Disable fields to add an attachment when creating and announcement.
+//$_configuration['disable_announcement_attachment'] = false;
+
+// Disable sending emails.
+//$_configuration['disable_send_mail'] = false;
+
+// CKEditor font names
+/*$_configuration['ck_editor_font_names'] = [
+    'names' => [
+        'Arial' => 'Arial, Helvetica, sans-serif',
+        'Comic Sans MS' => 'Comic Sans MS, cursive',
+        'Courier New' => 'Courier New, Courier, monospace',
+        'Georgia' => 'Georgia, serif',
+        'Lucida Sans Unicode' => 'Lucida Sans Unicode, Lucida Grande, sans-serif',
+        'Tahoma' => 'Tahoma, Geneva, sans-serif',
+        'Times New Roman' => 'Times New Roman, Times, serif',
+        'Trebuchet MS' => 'Trebuchet MS, Helvetica, sans-serif',
+        'Verdana' => 'Verdana, Geneva, sans-serif',
+    ]
+];*/
+
+/* Show download files button after finishing all LP. Example: ABC is the course code, and 1 and 100 are the doc id
+$_configuration['download_files_after_all_lp_finished'] = ['courses' => ['ABC' => [1, 100]]];
+*/
+
+// Show/Hide password field in user profile. Adds a customizable link depending on the user status.
+/*
+$_configuration['auth_password_links'] = [
+    'profiles' => [
+        5 => [
+            'azure' => [
+                'show_password_field' => false,
+                'extra_link' => '<h4>Change!</h4><a href="www.example.com">Wachtwoord aanpassen</span></a>'
+            ],
+            'extldap' => [
+                'show_password_field' => true,
+                'extra_link' => '<h4>Change!</h4><a href="www.example.com">Wachtwoord aanpassen</span></a>'
+            ]
+        ]
+    ]
+];
+*/
+
+// Show unsubscribe buttons on page "My courses"
+//$_configuration['enable_unsubscribe_button_on_my_course_page'] = false;
+
+// Allow LP category in sessions.
+// ALTER TABLE c_lp_category ADD COLUMN session_id INT(11) DEFAULT NULL;
+//$_configuration['allow_session_lp_category'] = false;
+
+// Enable recording of all answers (even temporary) in the track_e_attempt_recording table
+// This requires a column to be added to the table with the following query:
+// ALTER TABLE track_e_attempt_recording ADD COLUMN answer longtext default '' AFTER question_id;
+//$_configuration['quiz_answer_extra_recording'] = false;
+
+// Disable clean results for teachers
+// $_configuration['disable_clean_exercise_results_for_teachers'] = true;
+
+//Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
+//$_configuration['timepicker_increment'] = 5;
+
+//Allows teachers to edit survey questions after students have answered them
+//$_configuration['survey_allow_answered_question_edit'] = false;
+
+// Allows prevent to the user before leaving a learning path
+//$_configuration['lp_prevents_beforeunload'] = false;
+
 // KEEP THIS AT THE END
 // -------- Custom DB changes
 // Add user activation by confirmation email
@@ -1304,5 +1559,17 @@ requires extension "php-soap"  sudo apt-get install php-soap
 //INSERT INTO settings_options (variable, value, display_text) VALUES ('allow_registration', 'confirmation', 'MailConfirmation');
 // ------ (End) Custom DB changes
 
+// Adding the categories option in the tasks tool
+// $_configuration['work_category'] = true;
+/* CREATE TABLE c_student_publication_category (
+    iid INT(11)  UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    c_id INT(11) NOT NULL,
+    id_session INT(11) NOT NULL,
+    name VARCHAR(255) NOT NULL
+)
+
+ALTER TABLE `c_student_publication` ADD `cat_id` INT NULL AFTER `document_id`;
+
+*/
 //Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
 //$_configuration['timepicker_increment'] = 5;
