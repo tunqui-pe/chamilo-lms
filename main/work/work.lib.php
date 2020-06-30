@@ -65,6 +65,14 @@ function displayWorkActionLinks($id, $action, $isTutor)
                 ICON_SIZE_MEDIUM
             ).
             '</a>';
+        $output .= '<a href="category.php?action=list&'.api_get_cidreq().'">'.
+            Display::return_icon(
+                'folder.png',
+                get_lang('Categories'),
+                '',
+                ICON_SIZE_MEDIUM
+            ).
+            '</a>';
     }
 
     if ($output != '') {
@@ -540,6 +548,7 @@ function showTeacherWorkGrid()
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '35', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'title', 'index' => 'title', 'width' => '300', 'align' => 'left', 'wrap_cell' => "true"],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '200', 'align' => 'center'],
         ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '125', 'align' => 'center'],
         ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '125', 'align' => 'center'],
         ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
@@ -551,17 +560,33 @@ function showTeacherWorkGrid()
     $columns = [
         get_lang('Type'),
         get_lang('Title'),
+        get_lang('Category'),
         get_lang('SentDate'),
         get_lang('HandOutDateLimit'),
         get_lang('AmountSubmitted'),
-        get_lang('Actions'),
+        get_lang('Actions')
     ];
 
-    $params = [
-        'multiselect' => true,
-        'autowidth' => 'true',
-        'height' => 'auto',
-    ];
+    $iconFolder = Display::return_icon('folder.png',get_lang('Category'),[],ICON_SIZE_SMALL);
+
+    if(api_get_configuration_value('work_category')){
+        $params = [
+            'multiselect' => true,
+            'autowidth' => 'true',
+            'height' => 'auto',
+            'grouping' => true,
+            'groupingView' => [
+                'groupField' => ['cat_id'],
+                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>']
+            ]
+        ];
+    } else {
+        $params = [
+            'multiselect' => true,
+            'autowidth' => 'true',
+            'height' => 'auto'
+        ];
+    }
 
     $html = '<script>
     $(function() {
@@ -1386,7 +1411,7 @@ function getWorkListTeacher(
         } else {
             $select = " SELECT w.*, a.expires_on, expires_on, ends_on, enable_qualification ";
         }
-        $sql = " $select
+            $sql = " $select
                 FROM $workTable w
                 LEFT JOIN $workTableAssignment a
                 ON (a.publication_id = w.id AND a.c_id = w.c_id)
@@ -1515,10 +1540,10 @@ function getWorkListTeacher(
                 $editLink = null;
             }
             $work['actions'] = $visibilityLink.$correctionLink.$downloadLink.$editLink;
+            $work['category'] = getCategory($work['cat_id'], true);
             $works[] = $work;
         }
     }
-
     return $works;
 }
 
@@ -4155,6 +4180,10 @@ function addDir($formValues, $user_id, $courseInfo, $groupId, $sessionId = 0)
         ->setHasProperties(0)
         ->setDocumentId(0);
 
+    if(api_get_configuration_value('work_category')) {
+        $workTable->setCatId(!empty($formValues['cat_id']) ? $formValues['cat_id'] : 0);
+    }
+
     $em->persist($workTable);
     $em->flush();
 
@@ -4248,6 +4277,7 @@ function updateWork($workId, $params, $courseInfo, $sessionId = 0)
         'qualification' => $params['qualification'],
         'weight' => $params['weight'],
         'allow_text_assignment' => $params['allow_text_assignment'],
+        'cat_id' => $params['cat_id']
     ];
 
     Database::update(
@@ -4629,6 +4659,17 @@ function getFormWork($form, $defaults = [], $workId = 0)
 
     // Create the form that asks for the directory name
     $form->addText('new_dir', get_lang('AssignmentName'));
+
+    if(api_get_configuration_value('work_category')){
+        $idCourse = api_get_course_int_id();
+        $listCategory = listCategory($idCourse, $sessionId, true);
+        $form->addSelect(
+            'cat_id',
+            get_lang('Category'),
+            $listCategory
+        );
+    }
+
     $form->addHtmlEditor(
         'description',
         get_lang('Description'),
@@ -5615,4 +5656,151 @@ function workGetExtraFieldData($workId)
     }
 
     return $result;
+}
+
+function createCategory($values){
+
+    if (!is_array($values)) {
+        return false;
+    }
+
+    $table = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+
+    $params = [
+        'name' => $values['name'],
+        'c_id' => $values['c_id'],
+        'id_session' => $values['id_session']
+    ];
+    $id = Database::insert($table, $params);
+
+    if ($id > 0) {
+        return $id;
+    }
+}
+
+function updateCategory($values){
+
+    if (!is_array($values)) {
+        return false;
+    }
+
+    $table = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+
+    $params = [
+        'iid' => $values['id'],
+        'name' => $values['name'],
+        'c_id' => $values['c_id'],
+        'id_session' => $values['id_session']
+    ];
+    $id = Database::update(
+        $table,
+        $params,
+        [
+            'iid = ?' => [
+                $values['id']
+            ]
+        ]
+    );
+
+    if ($id > 0) {
+        return $id;
+    }
+}
+
+function getCategory($idCategory, $name = false){
+    if (empty($idCategory)) {
+        return false;
+    }
+    $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+    $sql = "SELECT * FROM $tableCategory WHERE iid = $idCategory";
+
+    $item = [];
+    $result = Database::query($sql);
+
+    if (Database::num_rows($result) > 0) {
+        while ($row = Database::fetch_array($result)) {
+            $item = [
+                'id' => $row['iid'],
+                'c_id' => $row['c_id'],
+                'id_session' => $row['id_session'],
+                'name' => $row['name']
+            ];
+        }
+        if($name){
+            return $item['name'];
+        } else {
+            return $item;
+        }
+    }
+}
+
+function deleteCategory($idCategory){
+    if (empty($idCategory)) {
+        return false;
+    }
+    $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+    $sql = "DELETE FROM $tableCategory WHERE iid = $idCategory";
+    $result = Database::query($sql);
+
+    if (Database::affected_rows($result) != 1) {
+        return false;
+    }
+
+    return true;
+}
+
+function listCategory($idCourse, $idSession, $type = false){
+    if (empty($idCourse)) {
+        return false;
+    }
+    $list = [];
+
+    $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+    $sql = "SELECT * FROM $tableCategory
+        WHERE c_id = $idCourse AND id_session = $idSession";
+
+    $result = Database::query($sql);
+
+    if (Database::num_rows($result) > 0) {
+        while ($row = Database::fetch_array($result)) {
+            if($type){
+                $list[-1] = get_lang('None');
+                $list[$row['iid']] = $row['name'];
+            } else {
+
+                $actions = Display::url(
+                    Display::return_icon(
+                        'edit.png',
+                        get_lang('Edit'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    api_get_self().'?action=edit&cat='.$row['iid'].'&'.api_get_cidreq()
+                );
+                $actions .= Display::url(
+                    Display::return_icon(
+                        'delete.png',
+                        get_lang('Delete'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    api_get_self().'?action=delete&cat='.$row['iid'].'&'.api_get_cidreq()
+                );
+
+                $item = [
+                    'id' => $row['iid'],
+                    'c_id' => $row['c_id'],
+                    'id_session' => $row['id_session'],
+                    'name' => $row['name'],
+                    'actions' => $actions
+                ];
+                $list[]= $item;
+            }
+
+        }
+        return $list;
+    } else {
+        return false;
+    }
+
 }

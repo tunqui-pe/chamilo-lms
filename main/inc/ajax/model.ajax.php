@@ -1184,6 +1184,7 @@ switch ($action) {
         $columns = [
             'type',
             'title',
+            'category',
             'sent_date',
             'expires_on',
             'amount',
