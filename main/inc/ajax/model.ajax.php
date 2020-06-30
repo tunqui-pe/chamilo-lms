@@ -1267,6 +1267,7 @@ switch ($action) {
         $columns = [
             'type',
             'title',
+            'category',
             'expires_on',
             'feedback',
             'last_upload',
