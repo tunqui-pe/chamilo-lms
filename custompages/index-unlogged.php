@@ -40,7 +40,7 @@ $rootWebTheme = api_get_path('WEB_CSS_PATH').'themes/'.$theme;
 $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 
 $country = false;
-if(file_exists($rootSYS.'/images/escarapela2.png')){
+if(file_exists($rootSYS.'/images/escarapela.png')){
     $country = true;
 }
 
