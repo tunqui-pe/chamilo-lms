@@ -43,6 +43,10 @@ $country = false;
 if(file_exists($rootSYS.'/images/escarapela.png')){
     $country = true;
 }
+$tunqui = false;
+if(file_exists($rootSYS.'/images/tunqui.png')){
+    $tunqui = true;
+}
 
 /**
  * HTML output.
@@ -162,6 +166,14 @@ if(file_exists($rootSYS.'/images/escarapela.png')){
         <div class="help">
             <ul>
                 <li>Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.</li>
+                <?php if($tunqui): ?>
+                <li>
+                    Aula virtual proporcionada por:
+                    <a href="https://www.tunqui.pe" target="_blank">
+                        <img width="100px" src="<?php echo $rootWebTheme; ?>/images/tunqui.png"/>
+                    </a>
+                </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div> <!-- /container -->
