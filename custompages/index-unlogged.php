@@ -66,6 +66,29 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <![endif]-->
 </head>
 <body class="text-center">
+<div class="night">
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+    <div class="shooting_star"></div>
+</div>
+<div class="place">
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
@@ -74,6 +97,9 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
         </div>
         <div class="panel panel-default form-signin">
             <div class="panel-body">
+                <div class="country">
+                    <img src="<?php echo $rootWebTheme; ?>/images/escarapela.png" class="logo" width="250px"/>
+                </div>
                 <div class="message">
                     <?php
                         if (isset($content['info']) && !empty($content['info'])) {
@@ -130,5 +156,6 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
             </ul>
         </div>
     </div> <!-- /container -->
+</div>
 </body>
 </html>
