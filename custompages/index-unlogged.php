@@ -39,6 +39,11 @@ $rootWeb = api_get_path('WEB_PATH');
 $rootWebTheme = api_get_path('WEB_CSS_PATH').'themes/'.$theme;
 $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 
+$country = false;
+if(file_exists($rootSYS.'/images/escarapela2.png')){
+    $country = true;
+}
+
 /**
  * HTML output.
  */
@@ -66,6 +71,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <![endif]-->
 </head>
 <body class="text-center">
+<?php if($country): ?>
 <div class="night">
     <div class="shooting_star"></div>
     <div class="shooting_star"></div>
@@ -88,18 +94,21 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <div class="shooting_star"></div>
     <div class="shooting_star"></div>
 </div>
+<?php endif; ?>
 <div class="place">
     <div class="container">
         <div class="logo">
             <a href="<?php echo $rootWeb; ?>">
-                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" class="logo" width="300px"/>
+                <img src="<?php echo $rootWebTheme; ?>/images/logo.png" width="300px"/>
             </a>
         </div>
         <div class="panel panel-default form-signin">
             <div class="panel-body">
+                <?php if($country): ?>
                 <div class="country">
-                    <img src="<?php echo $rootWebTheme; ?>/images/escarapela.png" class="logo" width="250px"/>
+                    <img src="<?php echo $rootWebTheme; ?>/images/escarapela.png"  width="250px"/>
                 </div>
+                <?php endif; ?>
                 <div class="message">
                     <?php
                         if (isset($content['info']) && !empty($content['info'])) {
