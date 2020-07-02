@@ -9,6 +9,7 @@ class AlertsPlugin extends Plugin
 {
         const SETTING_ENABLED = 'alerts_plugin_enabled';
         const TABLE_ALERTS_RECORDS = 'plugin_alerts_records';
+        public $isAdminPlugin = true;
 
         protected function __construct()
         {
@@ -16,6 +17,7 @@ class AlertsPlugin extends Plugin
                 '1.0',
                 'Alex Aragón Calixto',
                 [
+                    'show_main_menu_tab' => 'boolean',
                     self::SETTING_ENABLED => 'boolean'
                 ]
             );
@@ -57,4 +59,34 @@ class AlertsPlugin extends Plugin
             }
         }
 
+        public function getDiskTotalSpace(){
+            $dir = '/';
+            $totalSpace = disk_total_space($dir);
+
+            $totalSpaceGB = self::convertFromBytes($totalSpace) ;
+
+            return $totalSpaceGB;
+        }
+
+        public function getDiskTotalSpaceFree(){
+            $dir = '/';
+            $freeSpace = disk_free_space($dir);
+
+            $freeSpaceGB = self::convertFromBytes($freeSpace) ;
+
+            return $freeSpaceGB;
+        }
+
+        function convertFromBytes($bytes)
+        {
+            $bytes /= 1024;
+            if ($bytes >= 1024 * 1024) {
+                $bytes /= 1024;
+                return number_format($bytes / 1024, 1) . ' GB';
+            } elseif($bytes >= 1024 && $bytes < 1024 * 1024) {
+                return number_format($bytes / 1024, 1) . ' MB';
+            } else {
+                return number_format($bytes, 1) . ' KB';
+            }
+        }
 }
