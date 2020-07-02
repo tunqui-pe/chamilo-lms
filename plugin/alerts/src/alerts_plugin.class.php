@@ -59,15 +59,18 @@ class AlertsPlugin extends Plugin
             }
         }
 
-        public function getDiskTotalSpace(){
+        public function getDiskTotalSpace($type){
             $dir = '/';
-            $totalSpace = disk_total_space($dir);
-            $freeSpace = disk_free_space($dir);
-
-            $totalSpaceGB = self::convertFromBytes($totalSpace) ;
-            $freeSpaceGB = self::convertFromBytes($freeSpace) ;
-
-            return [$totalSpaceGB, $freeSpaceGB];
+            switch ($type){
+                case 'total' :
+                $total = disk_free_space($dir);
+                break;
+                case 'free' :
+                $total = disk_total_space($dir);
+                break;
+            }
+            $totalSpaceGB = self::convertFromBytes($total);
+            return $totalSpaceGB;
         }
 
 
