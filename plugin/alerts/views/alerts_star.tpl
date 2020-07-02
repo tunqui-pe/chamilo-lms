@@ -3,9 +3,9 @@
     <h3>Lista de registro de espacio en disco</h3>
 </div>
 
-Total Disco: {{ total_space }} <br>
+Total Disco: {{ total_space.0 }} <br>
 
-Espacio disponible: {{ free_space }}
+Espacio disponible: {{ total_space.1 }}
 
 <table class="table">
     <caption>Optional table caption.</caption>
