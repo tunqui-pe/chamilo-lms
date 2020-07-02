@@ -3442,14 +3442,15 @@ function api_is_allowed_to_edit(
     $check_student_view = true
 ) {
     $allowSessionAdminEdit = api_get_configuration_value('session_admins_edit_courses_content') === true;
+
     // Admins can edit anything.
     if (api_is_platform_admin($allowSessionAdminEdit)) {
         //The student preview was on
         if ($check_student_view && api_is_student_view_active()) {
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     $sessionId = api_get_session_id();
@@ -9055,6 +9056,44 @@ function api_mail_html(
 
     if (true === api_get_configuration_value('disable_send_mail')) {
         return true;
+    }
+
+    $allow = api_get_plugin_setting('pausetraining', 'tool_enable') === 'true';
+    $allowPauseFormation = api_get_plugin_setting('pausetraining', 'allow_users_to_edit_pause_formation') === 'true';
+
+    if ($allow && $allowPauseFormation) {
+        $userInfo = api_get_user_info_from_email($recipient_email);
+        if (!empty($userInfo)) {
+            $extraFieldValue = new ExtraFieldValue('user');
+            $allowNotifications = $extraFieldValue->get_values_by_handler_and_field_variable(
+                $userInfo['user_id'],
+                'allow_notifications'
+            );
+
+            if (!empty($allowNotifications) && isset($allowNotifications['value']) && 0 === (int) $allowNotifications['value']) {
+                $startDate = $extraFieldValue->get_values_by_handler_and_field_variable(
+                    $userInfo['user_id'],
+                    'start_pause_date'
+                );
+                $endDate = $extraFieldValue->get_values_by_handler_and_field_variable(
+                    $userInfo['user_id'],
+                    'end_pause_date'
+                );
+
+                if (
+                    !empty($startDate) && isset($startDate['value']) && !empty($startDate['value']) &&
+                    !empty($endDate) && isset($endDate['value']) && !empty($endDate['value'])
+                ) {
+                    $now = time();
+                    $start = api_strtotime($startDate['value']);
+                    $end = api_strtotime($startDate['value']);
+
+                    if ($now > $start && $now < $end) {
+                        return false;
+                    }
+                }
+            }
+        }
     }
 
     $mail = new PHPMailer();
