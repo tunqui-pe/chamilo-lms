@@ -1,0 +1,60 @@
+<?php
+/**
+ * Plugin class for Alerts Plugin Chamilo
+ * @package chamilo.plugins.alerts
+ * @author Alex Aragon Calixto <alex.aragon@tunqui.pe>
+ */
+
+class AlertsPlugin extends Plugin
+{
+        const SETTING_ENABLED = 'alerts_plugin_enabled';
+        const TABLE_ALERTS_RECORDS = 'plugin_alerts_records';
+
+        protected function __construct()
+        {
+            parent::__construct(
+                '1.0',
+                'Alex Aragón Calixto',
+                [
+                    self::SETTING_ENABLED => 'boolean'
+                ]
+            );
+        }
+
+        public static function create(){
+            static $result = null;
+            return $result ? $result : $result = new self();
+        }
+
+
+        public function install(){
+
+            //Creando las tablas
+            $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_ALERTS_RECORDS." (
+                    id INT unsigned NOT NULL auto_increment PRIMARY KEY,
+                    size_disk INT NULL,
+                    current_size_disk INT NULL,
+                    disk_space_free INT NULL,
+                    disk_space_consumed INT NULL,
+                    date_records datetime NULL
+                 );
+            ";
+
+            Database::query($sql);
+
+        }
+
+        public function uninstall(){
+
+            $tablesToBeDeleted = [
+                self::TABLE_ALERTS_RECORDS,
+            ];
+
+            foreach ($tablesToBeDeleted as $tableDeleted){
+                $table = Database::get_main_table($tableDeleted);
+                $sql = "DROP TABLE IF EXISTS $table";
+                Database::query($sql);
+            }
+        }
+
+}
