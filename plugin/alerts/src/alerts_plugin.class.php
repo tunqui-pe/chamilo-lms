@@ -47,11 +47,11 @@ class AlertsPlugin extends Plugin
         //Creando las tablas
         $sql = "CREATE TABLE IF NOT EXISTS ".self::TABLE_ALERTS_RECORDS." (
                     id INT unsigned NOT NULL auto_increment PRIMARY KEY,
-                    size_disk INT NULL,
-                    current_size_disk INT NULL,
-                    disk_space_free INT NULL,
-                    disk_space_consumed INT NULL,
-                    date_records datetime NULL
+                    date_records datetime NULL,
+                    disk_space_used VARCHAR(255) NULL,
+                    disk_space_free VARCHAR(255) NULL,
+                    percent_disk_used FLOAT NULL,
+                    percent_disk_free FLOAT NULL
                  );
             ";
 
@@ -71,6 +71,47 @@ class AlertsPlugin extends Plugin
             $sql = "DROP TABLE IF EXISTS $table";
             Database::query($sql);
         }
+    }
+
+    function saveStatusDisk(){
+        $info = self::getInfoDisk();
+        $table = Database::get_main_table(self::TABLE_ALERTS_RECORDS);
+        $date = date('Y-m-d h:i:s', time());
+        $params = [
+            'date_records' => $date,
+            'disk_space_used' => $info['used_disk'],
+            'disk_space_free' => $info['free_disk'],
+            'percent_disk_used' => $info['used_percent'],
+            'percent_disk_free' => $info['free_percent']
+        ];
+
+        $id = Database::insert($table, $params);
+
+        if ($id > 0) {
+            return $id;
+        }
+    }
+
+    public function getStatusDisk(){
+        $records = [];
+        $tableRecordsList = Database::get_main_table(self::TABLE_ALERTS_RECORDS);
+        $sql = "SELECT * FROM $tableRecordsList";
+
+        $result = Database::query($sql);
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $record = [
+                    'id' => $row['id'],
+                    'date_records' => $row['date_records'],
+                    'disk_space_used' => $row['disk_space_used'],
+                    'disk_space_free' => $row['disk_space_free'],
+                    'percent_disk_used' => $row['percent_disk_used'],
+                    'percent_disk_free' => $row['percent_disk_free']
+                ];
+                $records[] = $record;
+            }
+        }
+        return $records;
     }
 
     public function getDiskTotalSpace($type)
@@ -105,8 +146,8 @@ class AlertsPlugin extends Plugin
             'total_disk' => $totalDisk['value'].' '.$totalDisk['unit'],
             'free_disk' => $freeDisk['value'].' '.$freeDisk['unit'],
             'used_disk' => $usedDisk['value'].' '.$usedDisk['unit'],
-            'free_percent' => round(($freeDisk['value'] / $totalDisk['value']) * 100),
-            'used_percent' => round((1 - ($freeDisk['value'] / $totalDisk['value'])) * 100),
+            'free_percent' => round(($freeDisk['value'] / $totalDisk['value']) * 100, 1),
+            'used_percent' => round((1 - ($freeDisk['value'] / $totalDisk['value'])) * 100, 1),
         ];
 
         return $status;

@@ -116,27 +116,31 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>25-06-2020 01:00</td>
-            <td>29.9 GB</td>
-            <td>6.7 GB</td>
-            <td>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                        82%
+        {% if records %}
+            {% for record in records %}
+            <tr>
+                <th scope="row">{{ record.id }}</th>
+                <td>{{ record.date_records }}</td>
+                <td>{{ record.disk_space_used }}</td>
+                <td>{{ record.disk_space_free }}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ record.percent_disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ record.percent_disk_used }}%;">
+                            {{ record.percent_disk_used }}%
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td>
-                <a title="Enviar registro" href="#" class="btn btn-default btn-sm">
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                </a>
-                <a title="Eliminar registro" href="#" class="btn btn-default btn-sm">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    <a title="Enviar registro" href="#" class="btn btn-default btn-sm">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </a>
+                    <a title="Eliminar registro" href="#" class="btn btn-default btn-sm">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 </div>
