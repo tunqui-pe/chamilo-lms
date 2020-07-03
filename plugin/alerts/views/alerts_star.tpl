@@ -9,11 +9,11 @@
                 <div class="alerts-canvas text-center">
                     <canvas id="pie_total_disk"></canvas>
                     <div class="alerts-actions">
-                        <a href="#" class="btn btn-default">
+                        <a href="{{ _p.web_main }}admin/configure_plugin.php?name=alerts" class="btn btn-default">
                             <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                             Configurar plugin
                         </a>
-                        <a href="#" class="btn btn-default">
+                        <a href="{{ _p.web_main }}admin/settings.php" class="btn btn-default">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             Configurar correo de administrador
                         </a>
