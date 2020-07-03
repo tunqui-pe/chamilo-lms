@@ -11,11 +11,11 @@
                     <div class="alerts-actions">
                         <a href="{{ _p.web_main }}admin/configure_plugin.php?name=alerts" class="btn btn-default">
                             <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
-                            Configurar plugin
+                            {{ 'ConfigurePlugin'|get_plugin_lang('AlertsPlugin') }}
                         </a>
                         <a href="{{ _p.web_main }}admin/settings.php" class="btn btn-default">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                            Configurar correo de administrador
+                            {{ 'ConfigureAdministratorMail'|get_plugin_lang('AlertsPlugin') }}
                         </a>
                     </div>
                 </div>
@@ -27,27 +27,27 @@
                     </div>
                     <table class="table">
                         <tr>
-                            <td>Total espacio en disco</td>
+                            <td>{{ 'TotalDiskSpace'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="success">{{ info.total_disk }}</td>
                         </tr>
                         <tr>
-                            <td>Espacio usado</td>
+                            <td>{{ 'UsedSpace'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="success">{{ info.used_disk }}</td>
                         </tr>
                         <tr>
-                            <td>Espacio disponible</td>
+                            <td>{{ 'AvailableSpace'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="success">{{ info.free_disk }}</td>
                         </tr>
                         <tr>
-                            <td>Porcentaje disponible</td>
+                            <td>{{ 'PercentageAvailable'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="success">{{ info.free_percent }} %</td>
                         </tr>
                         <tr>
-                            <td>Porcentaje usado</td>
+                            <td>{{ 'PercentageUsed'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="success">{{ info.used_percent }} %</td>
                         </tr>
                         <tr>
-                            <td>Alerta de email</td>
+                            <td>{{ 'EmailAlert'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="info">
                                 {% if alert_email %}
                                     {{ 'ActivateEmailAlerts'|get_plugin_lang('AlertsPlugin') }}
@@ -57,7 +57,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Porcentaje de alerta</td>
+                            <td>{{ 'AlertPercentage'|get_plugin_lang('AlertsPlugin') }}</td>
                             <td class="info">{{ percent_disk }} %</td>
                         </tr>
                     </table>
@@ -74,8 +74,8 @@
             var usedPercent = {{ info.used_percent }};
             var totalDiskData = {
                 labels:[
-                    "Disponible %",
-                    "Usando %"
+                    "{{ 'Available'|get_plugin_lang('AlertsPlugin') }}",
+                    "{{ 'Used'|get_plugin_lang('AlertsPlugin') }}"
                 ],
                 datasets:[{
                     data: [freePercent,usedPercent],
@@ -92,7 +92,7 @@
                 options : {
                     title:{
                         display: true,
-                        text : 'Gráfico de uso de disco',
+                        text : '{{ 'DiskUsageGraph'|get_plugin_lang('AlertsPlugin') }}',
                         padding: 20,
                         fontSize: 18,
                         fontStyle: 'bold'
@@ -107,12 +107,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th>N° Registro</th>
-            <th>Fecha de registro</th>
-            <th>Espacio Usado</th>
-            <th>Espacio Libre</th>
-            <th>Porcentaje de uso disco</th>
-            <th>Acciones</th>
+            <th>{{ 'RecordNo'|get_plugin_lang('AlertsPlugin') }}</th>
+            <th>{{ 'RegistrationDate'|get_plugin_lang('AlertsPlugin') }}</th>
+            <th>{{ 'UsedSpace'|get_plugin_lang('AlertsPlugin') }}</th>
+            <th>{{ 'FreeSpace'|get_plugin_lang('AlertsPlugin') }}</th>
+            <th>{{ 'PercentageOfDikUsage'|get_plugin_lang('AlertsPlugin') }}</th>
+            <th>{{ 'Actions'|get_plugin_lang('AlertsPlugin') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -129,19 +129,21 @@
                             {{ record.percent_disk_used }}%
                         </div>
                     </div>
-                </td>
-                <td>
-                    <a title="Enviar registro" href="#" class="btn btn-default btn-sm">
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                    </a>
-                    <a title="Eliminar registro" href="#" class="btn btn-default btn-sm">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
+                </div>
+            </td>
+            <td>
+                <a title="{{ 'SendRecord'|get_plugin_lang('AlertsPlugin') }}" href="#" class="btn btn-default btn-sm">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </a>
+                <a title="{{ 'DeleteRecord'|get_plugin_lang('AlertsPlugin') }}" href="#" class="btn btn-default btn-sm">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+{% endfor %}
         {% endif %}
         </tbody>
+
     </table>
 </div>
 

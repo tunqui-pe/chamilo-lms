@@ -11,3 +11,25 @@ $strings['AlertPlugin'] = "Alerta de espacio en disco";
 $strings['ActivateEmailAlerts'] = "Activado";
 $strings['DisabledEmailAlerts'] = "Desactivado";
 $strings['SystemSpaceInformation'] = "Información de espacio del sistema";
+
+$strings['ConfigurePlugin'] = "Configurar plugin";
+$strings['ConfigureAdministratorMail'] = "Configurar correo de administrador";
+$strings['TotalDiskSpace'] = "Total espacio en disco";
+$strings['UsedSpace'] = "Espacio usado";
+$strings['AvailableSpace'] = "Espacio disponible";
+$strings['PercentageAvailable'] = "Porcentaje disponible";
+$strings['PercentageUsed'] = "Porcentaje usado";
+$strings['EmailAlert'] = "Alerta de email";
+$strings['AlertPercentage'] = "Porcentaje de alerta";
+$strings['Available'] = "Disponible %";
+$strings['Used'] = "Usando %";
+$strings['DiskUsageGraph'] = "Gráfico de uso de disco";
+$strings['RecordNo'] = "N° Registro";
+$strings['RegistrationDate'] = "Fecha de registro";
+$strings['FreeSpace'] = "Espacio Libre";
+$strings['PercentageOfDikUsage'] = "Porcentaje de uso disco";
+$strings['Actions'] = "Acciones";
+$strings['SendRecord'] = "Enviar registro";
+$strings['DeleteRecord'] = "Eliminar registro";
+
+

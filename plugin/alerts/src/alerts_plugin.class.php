@@ -114,6 +114,20 @@ class AlertsPlugin extends Plugin
         return $records;
     }
 
+    public function deleteStatusDisk($id){
+        if (empty($id)) {
+            return false;
+        }
+        $tableRecordsList = Database::get_main_table(self::TABLE_ALERTS_RECORDS);
+        $sql = "DELETE FROM $tableRecordsList WHERE id = $id";
+        $result = Database::query($sql);
+
+        if (Database::affected_rows($result) != 1) {
+            return false;
+        }
+        return true;
+    }
+
     public function getDiskTotalSpace($type)
     {
         $dir = '/';
