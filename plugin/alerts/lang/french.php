@@ -1,0 +1,32 @@
+<?php
+
+$strings['plugin_title'] = "Alertes Chamilo";
+$strings['plugin_comment'] = "Plugin qui permet d'envoyer des e-mails d'alerte système.";
+$strings['alerts_email_enabled'] = "Envoyer un e-mail d'alerte";
+$strings['alerts_email_enabled_help'] = "Envoyer un e-mail d'alerte à l'e-mail de l'administrateur";
+$strings['show_main_menu_tab'] = "Activer l'onglet";
+$strings['alerts_percent_disk'] = "Pourcentage d'alerte";
+$strings['alerts_percent_disk_help'] = "Définit le pourcentage d'alerte de l'espace disque utilisé.";
+$strings['AlertPlugin'] = "Alerte d'espace disque";
+$strings['ActivateEmailAlerts'] = "Activé";
+$strings['DisabledEmailAlerts'] = "Disabled";
+$strings['SystemSpaceInformation'] = "Informations sur l'espace système";
+$strings['ConfigurePlugin'] = "Configurer le plugin";
+$strings['ConfigureAdministratorMail'] = "Configurer le courrier de l'administrateur";
+$strings['TotalDiskSpace'] = "Espace disque total";
+$strings['UsedSpace'] = "Espace utilisé";
+$strings['AvailableSpace'] = "Espace disponible";
+$strings['PercentageAvailable'] = "Pourcentage disponible";
+$strings['PercentageUsed'] = "Pourcentage utilisé";
+$strings['EmailAlert'] = "Alerte email";
+$strings['AlertPercentage'] = "Pourcentage d'alerte";
+$strings['Available'] = "Disponible %";
+$strings['Used'] = "Using %";
+$strings['DiskUsageGraph'] = "Graphique d'utilisation du disque";
+$strings['RecordNo'] = "Numéro d'enregistrement";
+$strings['RegistrationDate'] = "Date d'enregistrement";
+$strings['FreeSpace'] = "Espace libre";
+$strings['PercentageOfDikUsage'] = "Pourcentage d'utilisation du disque";
+$strings['Actions'] = "Actions";
+$strings['SendRecord'] = "Envoyer l'enregistrement";
+$strings['DeleteRecord'] = "Supprimer l'enregistrement";
