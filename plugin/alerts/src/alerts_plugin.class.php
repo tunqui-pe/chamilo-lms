@@ -15,7 +15,7 @@ class AlertsPlugin extends Plugin
     {
         parent::__construct(
             '1.0',
-            'Alex Aragón Calixto',
+            'Alex Aragón Calixto <br> Mayra Vivanco (Translation)',
             [
                 self::SETTING_ENABLED => 'boolean',
                 self::ALERTS_PERCENT_DISK => [
