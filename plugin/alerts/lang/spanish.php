@@ -10,3 +10,4 @@ $strings['alerts_percent_disk_help'] = "Define el porcentaje de alerta del espac
 $strings['AlertPlugin'] = "Alerta de espacio en disco";
 $strings['ActivateEmailAlerts'] = "Activado";
 $strings['DisabledEmailAlerts'] = "Desactivado";
+$strings['SystemSpaceInformation'] = "Información de espacio del sistema";

@@ -1,7 +1,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        Información de espacio del sistema
+        {{ 'SystemSpaceInformation'|get_plugin_lang('AlertsPlugin') }}
     </div>
     <div class="panel-body">
         <div class="row">
