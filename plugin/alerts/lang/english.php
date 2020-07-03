@@ -11,7 +11,6 @@ $strings['AlertPlugin'] = "Disk space alert";
 $strings['ActivateEmailAlerts'] = "Enabled";
 $strings['DisabledEmailAlerts'] = "Disabled";
 $strings['SystemSpaceInformation'] = "System space information";
-
 $strings['ConfigurePlugin'] = "Configure plugin";
 $strings['ConfigureAdministratorMail'] = "Configure administrator mail";
 $strings['TotalDiskSpace'] = "Total disk space";

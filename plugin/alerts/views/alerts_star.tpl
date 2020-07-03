@@ -1,4 +1,3 @@
-
 <div class="panel panel-default">
     <div class="panel-heading">
         {{ 'SystemSpaceInformation'|get_plugin_lang('AlertsPlugin') }}
@@ -73,12 +72,12 @@
             var freePercent = {{ info.free_percent }};
             var usedPercent = {{ info.used_percent }};
             var totalDiskData = {
-                labels:[
+                labels: [
                     "{{ 'Available'|get_plugin_lang('AlertsPlugin') }}",
                     "{{ 'Used'|get_plugin_lang('AlertsPlugin') }}"
                 ],
-                datasets:[{
-                    data: [freePercent,usedPercent],
+                datasets: [{
+                    data: [freePercent, usedPercent],
                     backgroundColor: [
                         "#ffcc54",
                         "#4cc0bf",
@@ -89,10 +88,10 @@
                 type: 'pie',
                 data: totalDiskData,
                 responsive: true,
-                options : {
-                    title:{
+                options: {
+                    title: {
                         display: true,
-                        text : '{{ 'DiskUsageGraph'|get_plugin_lang('AlertsPlugin') }}',
+                        text: '{{ 'DiskUsageGraph'|get_plugin_lang('AlertsPlugin') }}',
                         padding: 20,
                         fontSize: 18,
                         fontStyle: 'bold'
@@ -103,47 +102,51 @@
         </script>
     </div>
 </div>
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>{{ 'RecordNo'|get_plugin_lang('AlertsPlugin') }}</th>
-            <th>{{ 'RegistrationDate'|get_plugin_lang('AlertsPlugin') }}</th>
-            <th>{{ 'UsedSpace'|get_plugin_lang('AlertsPlugin') }}</th>
-            <th>{{ 'FreeSpace'|get_plugin_lang('AlertsPlugin') }}</th>
-            <th>{{ 'PercentageOfDikUsage'|get_plugin_lang('AlertsPlugin') }}</th>
-            <th>{{ 'Actions'|get_plugin_lang('AlertsPlugin') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if records %}
-            {% for record in records %}
+{% if records %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
             <tr>
-                <th scope="row">{{ record.id }}</th>
-                <td>{{ record.date_records }}</td>
-                <td>{{ record.disk_space_used }}</td>
-                <td>{{ record.disk_space_free }}</td>
-                <td>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ record.percent_disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ record.percent_disk_used }}%;">
-                            {{ record.percent_disk_used }}%
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <a title="{{ 'SendRecord'|get_plugin_lang('AlertsPlugin') }}" href="#" class="btn btn-default btn-sm">
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                </a>
-                <a title="{{ 'DeleteRecord'|get_plugin_lang('AlertsPlugin') }}" href="#" class="btn btn-default btn-sm">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-{% endfor %}
-        {% endif %}
-        </tbody>
+                <th>{{ 'RecordNo'|get_plugin_lang('AlertsPlugin') }}</th>
+                <th>{{ 'RegistrationDate'|get_plugin_lang('AlertsPlugin') }}</th>
+                <th>{{ 'UsedSpace'|get_plugin_lang('AlertsPlugin') }}</th>
+                <th>{{ 'FreeSpace'|get_plugin_lang('AlertsPlugin') }}</th>
+                <th>{{ 'PercentageOfDikUsage'|get_plugin_lang('AlertsPlugin') }}</th>
+                <th>{{ 'Actions'|get_plugin_lang('AlertsPlugin') }}</th>
+            </tr>
+            </thead>
+            <tbody>
 
-    </table>
-</div>
+            {% for record in records %}
+                <tr>
+                    <th scope="row">{{ record.id }}</th>
+                    <td>{{ record.date_records }}</td>
+                    <td>{{ record.disk_space_used }}</td>
+                    <td>{{ record.disk_space_free }}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                 aria-valuenow="{{ record.percent_disk_used }}" aria-valuemin="0" aria-valuemax="100"
+                                 style="width: {{ record.percent_disk_used }}%;">
+                                {{ record.percent_disk_used }}%
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <a title="{{ 'SendRecord'|get_plugin_lang('AlertsPlugin') }}" href="#"
+                           class="btn btn-default btn-sm">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </a>
+                        <a title="{{ 'DeleteRecord'|get_plugin_lang('AlertsPlugin') }}" href="#"
+                           class="btn btn-default btn-sm">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
 
