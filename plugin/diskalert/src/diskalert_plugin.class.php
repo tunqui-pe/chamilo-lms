@@ -10,6 +10,7 @@ class DiskAlertPlugin extends Plugin
     const SETTING_ENABLED = 'alerts_email_enabled';
     const ALERTS_PERCENT_DISK = 'alerts_percent_disk';
     const TABLE_ALERTS_RECORDS = 'plugin_alerts_records';
+    public $isAdminPlugin = true;
 
     protected function __construct()
     {
@@ -30,7 +31,6 @@ class DiskAlertPlugin extends Plugin
                 ]
             ]
         );
-        $this->isAdminPlugin = true;
     }
 
     public static function create()
