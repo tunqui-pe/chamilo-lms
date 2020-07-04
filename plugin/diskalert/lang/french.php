@@ -1,0 +1,35 @@
+<?php
+
+$strings['plugin_title'] = "Alertes d'espace disque";
+$strings['plugin_comment'] = "Ce plugin vous permet d'activer un panneau de l'état actuel de l'espace disque pour votre campus Chamilo, il vous permet de configurer des alertes d'espace disque, idéales pour les instances VPS et AWS.";
+$strings['alerts_email_enabled'] = "Envoyer un e-mail d'alerte";
+$strings['alerts_email_enabled_help'] = "Envoyer un e-mail d'alerte à l'e-mail de l'administrateur";
+$strings['show_main_menu_tab'] = "Activer l'onglet";
+$strings['alerts_percent_disk'] = "Pourcentage d'alerte";
+$strings['alerts_percent_disk_help'] = "Définit le pourcentage d'alerte de l'espace disque utilisé.";
+$strings['DiskAlertPlugin'] = "Alerte d'espace disque";
+$strings['ActivateEmailAlerts'] = "Activé";
+$strings['DisabledEmailAlerts'] = "Disabled";
+$strings['SystemSpaceInformation'] = "Informations sur l'espace système";
+$strings['ConfigurePlugin'] = "Configurer le plugin";
+$strings['ConfigureAdministratorMail'] = "Configurer le courrier de l'administrateur";
+$strings['TotalDiskSpace'] = "Espace disque total";
+$strings['UsedSpace'] = "Espace utilisé";
+$strings['AvailableSpace'] = "Espace disponible";
+$strings['PercentageAvailable'] = "Pourcentage disponible";
+$strings['PercentageUsed'] = "Pourcentage utilisé";
+$strings['EmailAlert'] = "Alerte email";
+$strings['AlertPercentage'] = "Pourcentage d'alerte";
+$strings['Available'] = "Disponible %";
+$strings['Used'] = "Using %";
+$strings['DiskUsageGraph'] = "Graphique d'utilisation du disque";
+$strings['RecordNo'] = "Numéro d'enregistrement";
+$strings['RegistrationDate'] = "Date d'enregistrement";
+$strings['FreeSpace'] = "Espace libre";
+$strings['PercentageOfDikUsage'] = "Pourcentage d'utilisation du disque";
+$strings['Actions'] = "Actions";
+$strings['SendRecord'] = "Envoyer l'enregistrement";
+$strings['DeleteRecord'] = "Supprimer l'enregistrement";
+$strings['AlertDiskSpace'] = "Alerte! Espace disque quotidien";
+$strings['YourAvailableDiskSpace'] = "Votre espace disque disponible est";
+$strings['SystemStatisticsRecorded'] = "Statistiques système enregistrées sur";
