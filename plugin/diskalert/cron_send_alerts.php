@@ -24,14 +24,24 @@ if($enableAlertEmail){
         $messageTemplate->fetch('diskalert/views/message_alert.tpl')
     );
     if($percentAlertDisk >= intval($infoStatus['used_percent'])){
-        $messageTemplate = new Template();
-        $messageTemplate->assign('date', $date);
-        $messageTemplate->assign('info', $infoStatus);
-        api_mail_html(
-            $nameAdmin,
-            $emailAlertDisk,
-            $plugin->get_lang('UrgentAlertDiskSpace')." - " . api_get_setting('siteName'),
-            $messageTemplate->fetch('diskalert/views/urgent_alert_message.tpl')
-        );
+        if($emailAlertDisk) {
+            $messageTemplate = new Template();
+            $messageTemplate->assign('date', $date);
+            $messageTemplate->assign('info', $infoStatus);
+            api_mail_html(
+                $nameAdmin,
+                $emailAlertDisk,
+                $plugin->get_lang('UrgentAlertDiskSpace')." - ".api_get_setting('siteName'),
+                $messageTemplate->fetch('diskalert/views/urgent_alert_message.tpl'),
+                null,
+                null,
+                [],
+                [],
+                false,
+                [],
+                null,
+                [$mailAdmin]
+            );
+        }
     }
 }
