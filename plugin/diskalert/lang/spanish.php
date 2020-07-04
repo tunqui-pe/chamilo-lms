@@ -1,0 +1,35 @@
+<?php
+
+$strings['plugin_title'] = "Alertas de espacio en disco";
+$strings['plugin_comment'] = "Este plugin permite habilitar un panel del estado de espacio actual del disco para su campus Chamilo, permite configurar alertas de espacio en disco, ideal para VPS e Instancias de AWS.";
+$strings['alerts_email_enabled'] = "Enviar email de alerta";
+$strings['alerts_email_enabled_help'] = "Envia un email de alerta al correo del administrador";
+$strings['show_main_menu_tab'] = "Activar pestaña";
+$strings['alerts_percent_disk'] = "Porcentaje de alerta";
+$strings['alerts_percent_disk_help'] = "Define el porcentaje de alerta del espacio de disco usado.";
+$strings['DiskAlertPlugin'] = "Alerta de espacio en disco";
+$strings['ActivateEmailAlerts'] = "Activado";
+$strings['DisabledEmailAlerts'] = "Desactivado";
+$strings['SystemSpaceInformation'] = "Información de espacio del sistema";
+$strings['ConfigurePlugin'] = "Configurar plugin";
+$strings['ConfigureAdministratorMail'] = "Configurar correo de administrador";
+$strings['TotalDiskSpace'] = "Total espacio en disco";
+$strings['UsedSpace'] = "Espacio usado";
+$strings['AvailableSpace'] = "Espacio disponible";
+$strings['PercentageAvailable'] = "Porcentaje disponible";
+$strings['PercentageUsed'] = "Porcentaje usado";
+$strings['EmailAlert'] = "Alerta de email";
+$strings['AlertPercentage'] = "Porcentaje de alerta";
+$strings['Available'] = "Disponible %";
+$strings['Used'] = "Usando %";
+$strings['DiskUsageGraph'] = "Gráfico de uso de disco";
+$strings['RecordNo'] = "N° Registro";
+$strings['RegistrationDate'] = "Fecha de registro";
+$strings['FreeSpace'] = "Espacio Libre";
+$strings['PercentageOfDikUsage'] = "Porcentaje de uso disco";
+$strings['Actions'] = "Acciones";
+$strings['SendRecord'] = "Enviar registro";
+$strings['DeleteRecord'] = "Eliminar registro";
+$strings['AlertDiskSpace'] = "Alerta! de espacio en disco";
+$strings['YourAvailableDiskSpace'] = "Tu espacio de disco disponible es de";
+$strings['SystemStatisticsRecorded'] = "Estadísticas del sistema registrados al";

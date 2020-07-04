@@ -1286,19 +1286,19 @@ ALTER TABLE c_plagiarism_compilatio_docs CHANGE COLUMN id_doc document_id INT NO
 requires extension "php-soap"  sudo apt-get install php-soap
 */
 //$_configuration['allow_compilatio_tool'] = false;
-//$_configuration['compilatio_tool'] = [
-//    'settings' => [
-//        'key' => '',
-//        'soap_url' => '',
-//        'proxy_host' => '',
-//        'proxy_port' => '',
-//        'max_filesize' => '',
-//        'transport_mode' => '',
-//        'wget_uri' => '',
-//        'wget_login' => '',
-//        'wget_password' => '',
-//    ]
-//];
+/*$_configuration['compilatio_tool'] = [
+    'settings' => [
+        'key' => '',
+        'soap_url' => '',
+        'proxy_host' => '',
+        'proxy_port' => '',
+        'max_filesize' => '',
+        'transport_mode' => '',
+        'wget_uri' => '',
+        'wget_login' => '',
+        'wget_password' => '',
+    ]
+];*/
 
 // Allow user to enter a LP item if it was validated in another session.
 // $_configuration['validate_lp_prerequisite_from_other_session'] = false;
@@ -1542,6 +1542,9 @@ $_configuration['auth_password_links'] = [
 // Disable clean results for teachers
 // $_configuration['disable_clean_exercise_results_for_teachers'] = true;
 
+// Show certainty degree question result in Exercises
+// $_configuration['show_exercise_question_certainty_ribbon_result'] = false;
+
 //Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
 //$_configuration['timepicker_increment'] = 5;
 
@@ -1550,6 +1553,19 @@ $_configuration['auth_password_links'] = [
 
 // Allows prevent to the user before leaving a learning path
 //$_configuration['lp_prevents_beforeunload'] = false;
+
+// Disable slideshow documents
+//$_configuration['disable_slideshow_documents'] = false;
+
+// Disable search documents
+//$_configuration['disable_search_documents'] = false;
+
+// Disable available space in the document tool
+//$_configuration['disable_document_quota_message_for_students'] = false;
+
+// Show a donation suggestion message on the course creation page
+//$_configuration['course_creation_donate_message_show'] = false;
+//$_configuration['course_creation_donate_link'] = '<some donate button html>';
 
 // KEEP THIS AT THE END
 // -------- Custom DB changes

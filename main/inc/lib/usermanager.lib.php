@@ -6096,7 +6096,8 @@ class UserManager
 
         if ($userId > 0) {
             $userRelTable = Database::get_main_table(TABLE_MAIN_USER_REL_USER);
-            $result = Database::select(
+
+            return Database::select(
                 'DISTINCT friend_user_id AS boss_id',
                 $userRelTable,
                 [
@@ -6108,8 +6109,6 @@ class UserManager
                     ],
                 ]
             );
-
-            return $result;
         }
 
         return [];
