@@ -1605,6 +1605,7 @@ class DocumentManager
         $docTable = Database::get_course_table(TABLE_DOCUMENT);
         $propTable = Database::get_course_table(TABLE_ITEM_PROPERTY);
 
+        $userId = api_get_user_id();
         $course_id = $course['real_id'];
         // note the extra / at the end of doc_path to match every path in
         // the document table that is part of the document path
@@ -1633,7 +1634,7 @@ class DocumentManager
          */
 
         if (strpos($doc_path, 'HotPotatoes_files') && preg_match("/\.t\.html$/", $doc_path)) {
-            $doc_path = substr($doc_path, 0, strlen($doc_path) - 7 - strlen(api_get_user_id()));
+            $doc_path = substr($doc_path, 0, strlen($doc_path) - 7 - strlen($userId));
         }
 
         if (!in_array($file_type, ['file', 'folder'])) {
@@ -1658,7 +1659,11 @@ class DocumentManager
         if (Database::num_rows($result) > 0) {
             $row = Database::fetch_array($result, 'ASSOC');
             if ($row['visibility'] == 1) {
-                $is_visible = api_is_allowed_in_course() || api_is_platform_admin();
+                $drhAccessContent = api_drh_can_access_all_session_content()
+                    && $session_id
+                    && SessionManager::isSessionFollowedByDrh($session_id, $userId);
+
+                $is_visible = api_is_allowed_in_course() || api_is_platform_admin() || $drhAccessContent;
             }
         }
 
@@ -5363,6 +5368,7 @@ class DocumentManager
                         preg_match('/svg$/i', urldecode($checkExtension))
                     ) {
                         $url = $basePageUrl.'showinframes.php?'.$courseParams.'&id='.$document_data['id']; //without preview
+
                         return '<a href="'.$url.'" title="'.$tooltip_title_alt.'" '.$visibility_class.' style="float:left">'.
                             self::build_document_icon_tag($filetype, $path, $isAllowedToEdit).
                             '</a>';
@@ -5936,9 +5942,9 @@ class DocumentManager
      *
      * @return bool Return true when exist
      */
-    public static function search_keyword($document_name, $keyword)
+    public static function searchKeyword($name, $keyword)
     {
-        if (api_strripos($document_name, $keyword) !== false) {
+        if (api_strripos($name, $keyword) !== false) {
             return true;
         }
 

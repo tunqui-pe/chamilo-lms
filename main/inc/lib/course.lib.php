@@ -4083,9 +4083,6 @@ class CourseManager
             if (in_array($course_info['real_id'], $courseAdded)) {
                 continue;
             }
-
-            //$course_info['requirements'] = $courseController->getRequirements($course_info['real_id'], SequenceResource::COURSE_TYPE, true, true);
-
             $course_info['id_session'] = null;
             $course_info['status'] = $row['status'];
             // For each course, get if there is any notification icon to show
@@ -5707,13 +5704,23 @@ class CourseManager
             $value = implode(',', $value);
         }
 
-        if (self::hasCourseSetting($variable, $courseId)) {
+        $settingFromDatabase = self::getCourseSetting($variable, $courseId);
+
+        if (!empty($settingFromDatabase)) {
             // Update
             Database::update(
                 $courseSettingTable,
                 ['value' => $value],
                 ['variable = ? AND c_id = ?' => [$variable, $courseId]]
             );
+
+            if ($settingFromDatabase['value'] != $value) {
+                Event::addEvent(
+                    LOG_COURSE_SETTINGS_CHANGED,
+                    $variable,
+                    $settingFromDatabase['value']." -> $value"
+                );
+            }
         } else {
             // Create
             Database::insert(
@@ -5725,29 +5732,67 @@ class CourseManager
                     'variable' => $variable,
                 ]
             );
+
+            Event::addEvent(
+                LOG_COURSE_SETTINGS_CHANGED,
+                $variable,
+                $value
+            );
         }
 
         return true;
     }
 
     /**
-     * Check if course setting exists.
+     * Get course setting.
      *
      * @param string $variable
      * @param int    $courseId
      *
-     * @return bool
+     * @return array
      */
-    public static function hasCourseSetting($variable, $courseId)
+    public static function getCourseSetting($variable, $courseId)
     {
         $courseSetting = Database::get_course_table(TABLE_COURSE_SETTING);
         $courseId = (int) $courseId;
         $variable = Database::escape_string($variable);
-        $sql = "SELECT variable FROM $courseSetting
+        $sql = "SELECT variable, value FROM $courseSetting
                 WHERE c_id = $courseId AND variable = '$variable'";
         $result = Database::query($sql);
 
-        return Database::num_rows($result) > 0;
+        return Database::fetch_array($result);
+    }
+
+    public static function saveSettingChanges($courseInfo, $params)
+    {
+        if (empty($courseInfo) || empty($params)) {
+            return false;
+        }
+
+        $userId = api_get_user_id();
+        $now = api_get_utc_datetime();
+
+        foreach ($params as $name => $value) {
+            $emptyValue = ' - ';
+            if (isset($courseInfo[$name]) && $courseInfo[$name] != $value) {
+                if ('' !== $courseInfo[$name]) {
+                    $emptyValue = $courseInfo[$name];
+                }
+
+                $changedTo = $emptyValue.' -> '.$value;
+
+                Event::addEvent(
+                    LOG_COURSE_SETTINGS_CHANGED,
+                    $name,
+                    $changedTo,
+                    $now,
+                    $userId,
+                    $courseInfo['real_id']
+                );
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -6669,7 +6714,8 @@ class CourseManager
             $title = $course['title'];
             if (empty($url)) {
                 $class = 'ajax';
-                $url = api_get_path(WEB_CODE_PATH).'inc/ajax/course_home.ajax.php?a=show_course_information&code='.$course['code'];
+                $url = api_get_path(WEB_CODE_PATH).
+                    'inc/ajax/course_home.ajax.php?a=show_course_information&code='.$course['code'];
             } else {
                 if (strpos($url, 'ajax') !== false) {
                     $class = 'ajax';
@@ -6755,7 +6801,8 @@ class CourseManager
         $table = Database::get_main_table(TABLE_MAIN_COURSE);
         $tableExercise = Database::get_course_table(TABLE_QUIZ_TEST);
         $sql = "SELECT count(e.iid) count
-                FROM $table c INNER JOIN $tableExercise e
+                FROM $table c
+                INNER JOIN $tableExercise e
                 ON (c.id = e.c_id)
                 WHERE e.active <> -1 AND visibility IN (".implode(',', $visibility).")";
         $result = Database::query($sql);
@@ -6793,7 +6840,7 @@ class CourseManager
                     course_rel_user.status status,
                     course_rel_user.sort sort,
                     course_rel_user.user_course_cat user_course_cat
-                FROM $course course, $courseRelUser  course_rel_user
+                FROM $course course, $courseRelUser course_rel_user
                 WHERE
                     course.id = course_rel_user.c_id AND
                     course_rel_user.relation_type <> ".COURSE_RELATION_TYPE_RRHH." AND

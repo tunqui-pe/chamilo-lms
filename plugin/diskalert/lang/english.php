@@ -1,0 +1,35 @@
+<?php
+
+$strings['plugin_title'] = "Disk space alerts";
+$strings['plugin_comment'] = "This plugin allows you to enable a panel of the current disk space status for your Chamilo campus, it allows you to configure disk space alerts, ideal for VPS and AWS Instances.";
+$strings['alerts_email_enabled'] = "Send Alert Email";
+$strings['alerts_email_enabled_help'] = "Send an alert email to the administrator's email";
+$strings['show_main_menu_tab'] = "Activate main menu tab";
+$strings['alerts_percent_disk'] = "Alert percentage";
+$strings['alerts_percent_disk_help'] = "Defines the alert percentage of used disk space.";
+$strings['DiskAlertPlugin'] = "Disk space alert";
+$strings['ActivateEmailAlerts'] = "Enabled";
+$strings['DisabledEmailAlerts'] = "Disabled";
+$strings['SystemSpaceInformation'] = "System space information";
+$strings['ConfigurePlugin'] = "Configure plugin";
+$strings['ConfigureAdministratorMail'] = "Configure administrator mail";
+$strings['TotalDiskSpace'] = "Total disk space";
+$strings['UsedSpace'] = "Used space";
+$strings['AvailableSpace'] = "Available space";
+$strings['PercentageAvailable'] = "Percentage available";
+$strings['PercentageUsed'] = "Percentage used";
+$strings['EmailAlert'] = "Email alert";
+$strings['AlertPercentage'] = "Alert percentage";
+$strings['Available'] = "Available %";
+$strings['Used'] = "Used %";
+$strings['DiskUsageGraph'] = "Disk usage";
+$strings['RecordNo'] = "Registration no.";
+$strings['RegistrationDate'] = "Registration date";
+$strings['FreeSpace'] = "Free Space";
+$strings['PercentageOfDikUsage'] = "Percentage of disk usage";
+$strings['Actions'] = "Actions";
+$strings['SendRecord'] = "Send record";
+$strings['DeleteRecord'] = "Delete record";
+$strings['AlertDiskSpace'] = "Alert! Daily disk space";
+$strings['YourAvailableDiskSpace'] = "Your available disk space is";
+$strings['SystemStatisticsRecorded'] = "System statistics registered to";
