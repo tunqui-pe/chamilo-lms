@@ -23,7 +23,7 @@
                 <div class="alerts-canvas text-center">
                     <canvas id="pie_total_disk"></canvas>
                     <div class="alerts-actions">
-                        <a href="{{ _p.web_main }}admin/configure_plugin.php?name=alerts" class="btn btn-default">
+                        <a href="{{ _p.web_main }}admin/configure_plugin.php?name=diskalert" class="btn btn-default">
                             <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                             {{ 'ConfigurePlugin'|get_plugin_lang('DiskAlertPlugin') }}
                         </a>
