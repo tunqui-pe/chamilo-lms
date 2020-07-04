@@ -35,5 +35,5 @@ $strings['YourAvailableDiskSpace'] = "Tu espacio de disco disponible es de";
 $strings['SystemStatisticsRecorded'] = "Estadísticas del sistema registrados al";
 $strings['alerts_email_disk'] = "Email de alerta";
 $strings['alerts_email_disk_help'] = "Por defecto, la alerta de envia al correo del administrado, aquí puede añadir un segundo correo para las alertas.";
-$strings['UrgentNoticeDiskSpace'] = "<strong>¡Urgente!</strong> tu espacio de disco disponible para tu aula virtual, esta a punto de acabarse. Te sugerimos amplicar o liberar espacio.";
+$strings['UrgentNoticeDiskSpace'] = "<strong>¡Urgente!</strong> tu espacio de disco disponible para tu aula virtual esta a punto de acabarse. Te sugerimos amplicar o liberar espacio.";
 $strings['UrgentAlertDiskSpace'] = "¡Aviso urgente! Espacio de disco";
