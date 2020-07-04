@@ -5,7 +5,7 @@
  * @author Alex Aragon Calixto <alex.aragon@tunqui.pe>
  */
 
-class AlertsPlugin extends Plugin
+class DiskAlertPlugin extends Plugin
 {
     const SETTING_ENABLED = 'alerts_email_enabled';
     const ALERTS_PERCENT_DISK = 'alerts_percent_disk';

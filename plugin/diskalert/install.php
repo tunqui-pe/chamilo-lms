@@ -2,4 +2,4 @@
 
 require_once __DIR__.'/config.php';
 
-AlertsPlugin::create()->install();
+DiskAlertPlugin::create()->install();

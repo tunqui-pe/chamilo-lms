@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/config.php';
-$plugin = AlertsPlugin::create();
+$plugin = DiskAlertPlugin::create();
 $enableAlertEmail = $plugin->get('alerts_email_enabled') == 'true';
 $percentAlertDisk = $plugin->get('alerts_percent_disk');
 //get info status disk
@@ -20,6 +20,6 @@ if($enableAlertEmail){
         $nameAdmin,
         $mailAdmin,
         $plugin->get_lang('AlertDiskSpace')." - " . api_get_setting('siteName'),
-        $messageTemplate->fetch('alerts/views/message_alert.tpl')
+        $messageTemplate->fetch('diskalert/views/message_alert.tpl')
     );
 }

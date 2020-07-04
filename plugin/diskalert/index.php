@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/config.php';
 
-$plugin = AlertsPlugin::create();
+$plugin = DiskAlertPlugin::create();
 $isAdmin = api_is_platform_admin();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -10,7 +10,7 @@ $message = null;
 $htmlHeadXtra[] = api_get_js_simple(api_get_path(WEB_LIBRARY_JS_PATH).'chartjs/Chart.min.js');
 $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="'.api_get_path(
         WEB_PLUGIN_PATH
-    ).'alerts/assets/style.css"/>';
+    ).'diskalert/assets/style.css"/>';
 
 if ($isAdmin) {
 
@@ -42,7 +42,7 @@ $tpl->assign('info', $infoSpace);
 $tpl->assign('alert_email', $enableAlertEmail);
 $tpl->assign('percent_disk', $percentAlertDisk);
 $tpl->assign('records', $records);
-$content = $tpl->fetch('alerts/views/alerts_star.tpl');
+$content = $tpl->fetch('diskalert/views/alerts_star.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();
 

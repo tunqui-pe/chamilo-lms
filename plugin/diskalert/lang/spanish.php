@@ -1,7 +1,7 @@
 <?php
 
-$strings['plugin_title'] = "Chamilo Alertas";
-$strings['plugin_comment'] = "Plugin que permite enviar correos de alertas de sistema.";
+$strings['plugin_title'] = "Alertas de espacio en disco";
+$strings['plugin_comment'] = "Este plugin permite habilitar un panel del estado de espacio actual del disco para su campus Chamilo, permite configurar alertas de espacio en disco, ideal para VPS e Instancias de AWS.";
 $strings['alerts_email_enabled'] = "Enviar email de alerta";
 $strings['alerts_email_enabled_help'] = "Envia un email de alerta al correo del administrador";
 $strings['show_main_menu_tab'] = "Activar pestaña";
