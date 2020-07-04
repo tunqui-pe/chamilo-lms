@@ -150,7 +150,7 @@
                         </div>
                     </td>
                     <td>
-                        <a title="{{ 'DeleteRecord'|get_plugin_lang('DiskAlertPlugin') }}" href="index.php?action=delete&id={{ record.id }}"
+                        <a title="{{ 'DeleteRecord'|get_plugin_lang('DiskAlertPlugin') }}" href="admin.php?action=delete&id={{ record.id }}"
                            class="btn btn-default btn-sm">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>

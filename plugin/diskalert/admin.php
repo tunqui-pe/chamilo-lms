@@ -28,7 +28,7 @@ if ($isAdmin) {
                     Display::addFlash(
                         Display::return_message('El registro se a borrado correctamente.')
                     );
-                    $url = api_get_path(WEB_PLUGIN_PATH).'alerts/index.php';
+                    $url = api_get_path(WEB_PLUGIN_PATH).'diskalert/admin.php';
                     header('Location: '.$url);
                     exit;
                 }
