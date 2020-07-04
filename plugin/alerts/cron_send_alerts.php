@@ -19,7 +19,7 @@ if($enableAlertEmail){
     api_mail_html(
         $nameAdmin,
         $mailAdmin,
-        "Alerta! de espacio en disco"." - " . api_get_setting('siteName'),
+        $plugin->get_lang('AlertDiskSpace')." - " . api_get_setting('siteName'),
         $messageTemplate->fetch('alerts/views/message_alert.tpl')
     );
 }

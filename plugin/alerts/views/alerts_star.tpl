@@ -1,3 +1,18 @@
+{% if info.free_percent <= 20 %}
+    {% set color_alert = 'danger' %}
+{% elseif info.free_percent <= 50 %}
+    {% set color_alert = 'warning' %}
+{% else %}
+    {% set color_alert = 'success' %}
+{% endif %}
+{% if info.free_percent <= 20 %}
+    {% set color_text = '#f44336' %}
+{% elseif info.free_percent <= 50 %}
+    {% set color_text = '#ffc107' %}
+{% else %}
+    {% set color_text = '#009688' %}
+{% endif %}
+
 <div class="panel panel-default">
     <div class="panel-heading">
         {{ 'SystemSpaceInformation'|get_plugin_lang('AlertsPlugin') }}
@@ -22,7 +37,9 @@
             <div class="col-md-6">
                 <div class="alerts-info-disk">
                     <div class="plugin_logo">
-                        <img alt="" width="80px" src="{{ _p.web }}plugin/alerts/assets/img/ssd.svg">
+                        <img alt="" width="80px" style="margin-bottom: 1rem;" src="{{ _p.web }}plugin/alerts/assets/img/ssd.svg">
+                        <p>{{ 'YourAvailableDiskSpace'|get_plugin_lang('AlertsPlugin') }}</p>
+                        <h1 style="margin:0; color: {{ color_text }};">{{ info.free_percent }} %</h1>
                     </div>
                     <table class="table">
                         <tr>
@@ -35,11 +52,11 @@
                         </tr>
                         <tr>
                             <td>{{ 'AvailableSpace'|get_plugin_lang('AlertsPlugin') }}</td>
-                            <td class="success">{{ info.free_disk }}</td>
+                            <td class="{{ color_alert }}">{{ info.free_disk }}</td>
                         </tr>
                         <tr>
                             <td>{{ 'PercentageAvailable'|get_plugin_lang('AlertsPlugin') }}</td>
-                            <td class="success">{{ info.free_percent }} %</td>
+                            <td class="{{ color_alert }}">{{ info.free_percent }} %</td>
                         </tr>
                         <tr>
                             <td>{{ 'PercentageUsed'|get_plugin_lang('AlertsPlugin') }}</td>

@@ -30,5 +30,6 @@ $strings['PercentageOfDikUsage'] = "Porcentaje de uso disco";
 $strings['Actions'] = "Acciones";
 $strings['SendRecord'] = "Enviar registro";
 $strings['DeleteRecord'] = "Eliminar registro";
-
-
+$strings['AlertDiskSpace'] = "Alerta! de espacio en disco";
+$strings['YourAvailableDiskSpace'] = "Tu espacio de disco disponible es de";
+$strings['SystemStatisticsRecorded'] = "Estadísticas del sistema registrados al";
