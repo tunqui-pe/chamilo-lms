@@ -24,7 +24,7 @@ if($enableAlertEmail){
         $messageTemplate->fetch('diskalert/views/message_alert.tpl')
     );
     if($percentAlertDisk >= intval($infoStatus['used_percent'])){
-        if($emailAlertDisk) {
+        if(!empty($emailAlertDisk)) {
             $messageTemplate = new Template();
             $messageTemplate->assign('date', $date);
             $messageTemplate->assign('info', $infoStatus);
