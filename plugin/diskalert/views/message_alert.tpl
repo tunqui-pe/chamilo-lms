@@ -9,7 +9,7 @@
 
 <div class="alerts-disk">
     <div class="plugin_logo">
-        <img alt="" width="80px" src="{{ _p.web }}plugin/diskalert/assets/img/ssd.svg">
+        <img alt="" width="100px" src="{{ _p.web }}plugin/diskalert/assets/img/ssd.png">
     </div>
     <div id="percent">
         <p>{{ 'YourAvailableDiskSpace'|get_plugin_lang('DiskAlertPlugin') }}</p>

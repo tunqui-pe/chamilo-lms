@@ -9,6 +9,7 @@ class DiskAlertPlugin extends Plugin
 {
     const SETTING_ENABLED = 'alerts_email_enabled';
     const ALERTS_PERCENT_DISK = 'alerts_percent_disk';
+    const ALERTS_EMAIL_DISK = 'alerts_email_disk';
     const TABLE_ALERTS_RECORDS = 'plugin_alerts_records';
     public $isAdminPlugin = true;
 
@@ -31,7 +32,8 @@ class DiskAlertPlugin extends Plugin
                         80 => '80 %',
                         90 => '90 %'
                     ]
-                ]
+                ],
+                self::ALERTS_EMAIL_DISK => 'text'
             ]
         );
     }

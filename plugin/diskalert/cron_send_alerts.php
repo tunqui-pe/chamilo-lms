@@ -3,7 +3,8 @@
 require_once __DIR__.'/config.php';
 $plugin = DiskAlertPlugin::create();
 $enableAlertEmail = $plugin->get('alerts_email_enabled') == 'true';
-$percentAlertDisk = $plugin->get('alerts_percent_disk');
+$percentAlertDisk = intval($plugin->get('alerts_percent_disk'));
+$emailAlertDisk = $plugin->get('alerts_email_disk');
 //get info status disk
 $infoStatus = $plugin->getInfoDisk();
 $date = date('Y-m-d h:i:s', time());
@@ -22,4 +23,15 @@ if($enableAlertEmail){
         $plugin->get_lang('AlertDiskSpace')." - " . api_get_setting('siteName'),
         $messageTemplate->fetch('diskalert/views/message_alert.tpl')
     );
+    if($percentAlertDisk >= intval($infoStatus['used_percent'])){
+        $messageTemplate = new Template();
+        $messageTemplate->assign('date', $date);
+        $messageTemplate->assign('info', $infoStatus);
+        api_mail_html(
+            $nameAdmin,
+            $emailAlertDisk,
+            $plugin->get_lang('AlertDiskSpace')." - " . api_get_setting('siteName'),
+            $messageTemplate->fetch('diskalert/views/urgent_alert_message.tpl')
+        );
+    }
 }
