@@ -24,7 +24,7 @@ sudo crontab -e
 Agrega la siguiente línea
 
 ```html
-15 10 * * * * /usr/bin/php7.2 /rutadetuchamilo/plugin/diskalert/cron_send_alerts.php
+15 10 * * * /usr/bin/php7.2 /rutadetuchamilo/plugin/diskalert/cron_send_alerts.php
 ```
 En la línea anterior indica que estara enviando un email a las 10:15 horas, todos los días.
 
