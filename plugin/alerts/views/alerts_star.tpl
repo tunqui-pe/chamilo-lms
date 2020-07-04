@@ -133,11 +133,7 @@
                         </div>
                     </td>
                     <td>
-                        <a title="{{ 'SendRecord'|get_plugin_lang('AlertsPlugin') }}" href="#"
-                           class="btn btn-default btn-sm">
-                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                        </a>
-                        <a title="{{ 'DeleteRecord'|get_plugin_lang('AlertsPlugin') }}" href="#"
+                        <a title="{{ 'DeleteRecord'|get_plugin_lang('AlertsPlugin') }}" href="index.php?action=delete&id={{ record.id }}"
                            class="btn btn-default btn-sm">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
