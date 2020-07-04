@@ -12,6 +12,9 @@ class DiskAlertPlugin extends Plugin
     const TABLE_ALERTS_RECORDS = 'plugin_alerts_records';
     public $isAdminPlugin = true;
 
+    /**
+     * DiskAlertPlugin constructor.
+     */
     protected function __construct()
     {
         parent::__construct(
@@ -33,6 +36,10 @@ class DiskAlertPlugin extends Plugin
         );
     }
 
+    /**
+     * Create plugin
+     * @return DiskAlertPlugin
+     */
     public static function create()
     {
         static $result = null;
@@ -41,6 +48,9 @@ class DiskAlertPlugin extends Plugin
     }
 
 
+    /**
+     *Install
+     */
     public function install()
     {
 
@@ -59,6 +69,9 @@ class DiskAlertPlugin extends Plugin
 
     }
 
+    /**
+     * Unistall
+     */
     public function uninstall()
     {
 
@@ -73,6 +86,10 @@ class DiskAlertPlugin extends Plugin
         }
     }
 
+    /**
+     * Save disk status
+     * @return bool|false|int
+     */
     function saveStatusDisk(){
         $info = self::getInfoDisk();
         $table = Database::get_main_table(self::TABLE_ALERTS_RECORDS);
@@ -92,6 +109,10 @@ class DiskAlertPlugin extends Plugin
         }
     }
 
+    /**
+     * Get disk status
+     * @return array $records
+     */
     public function getStatusDisk(){
         $records = [];
         $tableRecordsList = Database::get_main_table(self::TABLE_ALERTS_RECORDS);
@@ -114,6 +135,11 @@ class DiskAlertPlugin extends Plugin
         return $records;
     }
 
+    /**
+     * Delete disk status
+     * @param  int $id
+     * @return bool
+     */
     public function deleteStatusDisk($id){
         if (empty($id)) {
             return false;
@@ -128,6 +154,11 @@ class DiskAlertPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Get the total disk space
+     * @param $type
+     * @return array
+     */
     public function getDiskTotalSpace($type)
     {
         $dir = '/';
@@ -149,6 +180,10 @@ class DiskAlertPlugin extends Plugin
         return $totalSpaceGB;
     }
 
+    /**
+     * Get disk information
+     * @return array $status
+     */
     function getInfoDisk()
     {
 
@@ -167,6 +202,11 @@ class DiskAlertPlugin extends Plugin
         return $status;
     }
 
+    /**
+     * Convert from bytes
+     * @param $bytes
+     * @return array
+     */
     function convertFromBytes($bytes)
     {
         $bytes /= 1024;
