@@ -561,8 +561,8 @@ function showTeacherWorkGrid()
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '35', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'title', 'index' => 'title', 'width' => '300', 'align' => 'left', 'wrap_cell' => "true"],
-        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '200', 'align' => 'center'],
-        ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '125', 'align' => 'center'],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '200', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '125', 'align' => 'center', 'sortable' => 'true'],
         ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '125', 'align' => 'center'],
         ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'actions', 'index' => 'actions', 'width' => '110', 'align' => 'left', 'sortable' => 'false'],
@@ -589,7 +589,9 @@ function showTeacherWorkGrid()
             'grouping' => true,
             'groupingView' => [
                 'groupField' => ['cat_id'],
-                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>']
+                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>'],
+                'groupCollapse' => true,
+                'groupOrder' => ['asc']
             ]
         ];
     } else {
@@ -1450,7 +1452,7 @@ function getWorkListTeacher(
         while ($work = Database::fetch_array($result, 'ASSOC')) {
             $workId = $work['id'];
             $work['type'] = Display::return_icon('work.png');
-            $work['expires_on'] = empty($work['expires_on']) ? null : api_get_local_time($work['expires_on']);
+            $work['expires_on'] = empty($work['expires_on']) ? '--' : api_get_local_time($work['expires_on']);
 
             $countUniqueAttempts = getUniqueStudentAttemptsTotal(
                 $workId,
@@ -1467,10 +1469,15 @@ function getWorkListTeacher(
                 true
             );
 
+            $type = 'success';
+            if(empty($countUniqueAttempts)){
+                $type = 'danger';
+            }
+
             $work['amount'] = Display::label(
                 $countUniqueAttempts.'/'.
                 $totalUsers,
-                'success'
+                $type
             );
 
             $visibility = api_get_item_visibility($courseInfo, 'work', $workId, $session_id);
@@ -5761,6 +5768,9 @@ function updateCategory($values){
 function getCategory($idCategory, $name = false){
     if (empty($idCategory)) {
         return false;
+    }
+    if($idCategory === '-1'){
+        return get_lang('NoCategory');
     }
     $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
     $sql = "SELECT * FROM $tableCategory WHERE iid = $idCategory";

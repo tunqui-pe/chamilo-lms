@@ -23,6 +23,7 @@ if (empty($savedRows)) {
 
 $sidx = $_REQUEST['sidx']; //index (field) to filter
 $sord = $_REQUEST['sord']; //asc or desc
+
 $exportFilename = isset($_REQUEST['export_filename']) ? $_REQUEST['export_filename'] : '';
 
 if (strpos(strtolower($sidx), 'asc') !== false) {
