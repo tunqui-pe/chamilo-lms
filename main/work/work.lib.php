@@ -506,9 +506,9 @@ function showStudentWorkGrid()
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '30', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left'],
-        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '200', 'align' => 'center'],
-        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '80', 'align' => 'center', 'sortable' => 'false'],
-        ['name' => 'feedback', 'index' => 'feedback', 'width' => '80', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '125', 'align' => 'center'],
+        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'feedback', 'index' => 'feedback', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'last_upload', 'index' => 'feedback', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
     ];
 
@@ -530,7 +530,9 @@ function showStudentWorkGrid()
             'grouping' => true,
             'groupingView' => [
                 'groupField' => ['cat_id'],
-                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>']
+                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>'],
+                'groupCollapse' => true,
+                'groupOrder' => ['asc']
             ]
         ];
     } else {
@@ -560,10 +562,10 @@ function showTeacherWorkGrid()
 {
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '35', 'align' => 'center', 'sortable' => 'false'],
-        ['name' => 'title', 'index' => 'title', 'width' => '300', 'align' => 'left', 'wrap_cell' => "true"],
-        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '200', 'align' => 'center', 'sortable' => 'false'],
-        ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '125', 'align' => 'center', 'sortable' => 'true'],
-        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '125', 'align' => 'center'],
+        ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left', 'wrap_cell' => "true"],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '180', 'align' => 'center', 'sortable' => 'true'],
+        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center'],
         ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'actions', 'index' => 'actions', 'width' => '110', 'align' => 'left', 'sortable' => 'false'],
     ];
