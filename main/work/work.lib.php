@@ -1328,7 +1328,7 @@ function getWorkListStudent(
         }
 
         $work['type'] = Display::return_icon('work.png');
-        $work['expires_on'] = empty($work['expires_on']) ? null : api_get_local_time($work['expires_on']);
+        $work['expires_on'] = empty($work['expires_on']) ? '--' : api_get_local_time($work['expires_on']);
 
         if (empty($work['title'])) {
             $work['title'] = basename($work['url']);
