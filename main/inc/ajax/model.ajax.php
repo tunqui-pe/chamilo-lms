@@ -26,18 +26,19 @@ $sord = $_REQUEST['sord']; //asc or desc
 
 $exportFilename = isset($_REQUEST['export_filename']) ? $_REQUEST['export_filename'] : '';
 
-if (strpos(strtolower($sidx), 'asc') !== false) {
-    $sidx = str_replace(['asc', ','], '', $sidx);
-    $sord = 'asc';
-}
+if(!api_get_configuration_value('work_category')){
+    if (strpos(strtolower($sidx), 'asc') !== false) {
+        $sidx = str_replace(['asc', ',', ''], '', $sidx);
+        $sord = 'asc';
+    }
 
-if (strpos(strtolower($sidx), 'desc') !== false) {
-    $sidx = str_replace(['desc', ','], '', $sidx);
-    $sord = 'desc';
-}
-
-if (!in_array($sord, ['asc', 'desc'])) {
-    $sord = 'desc';
+    if (strpos(strtolower($sidx), 'desc') !== false) {
+        $sidx = str_replace(['desc', ',',], '', $sidx);
+        $sord = 'desc';
+    }
+    if (!in_array($sord, ['asc', 'desc'])) {
+        $sord = 'desc';
+    }
 }
 
 // Actions allowed to other roles.
@@ -1270,6 +1271,7 @@ switch ($action) {
             'title',
             'category',
             'expires_on',
+            'amount',
             'feedback',
             'last_upload',
             'others',

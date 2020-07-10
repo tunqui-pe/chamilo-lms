@@ -499,6 +499,7 @@ function showStudentWorkGrid()
         get_lang('Title'),
         get_lang('Category'),
         get_lang('HandOutDateLimit'),
+        get_lang('AmountSubmitted'),
         get_lang('Feedback'),
         get_lang('LastUpload'),
     ];
@@ -508,6 +509,7 @@ function showStudentWorkGrid()
         ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left'],
         ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '125', 'align' => 'center'],
         ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'feedback', 'index' => 'feedback', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'last_upload', 'index' => 'feedback', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
     ];
@@ -527,11 +529,13 @@ function showStudentWorkGrid()
         $params = [
             'autowidth' => 'true',
             'height' => 'auto',
+            'sortname' => 'sent_date',
+            'sortorder' => 'desc',
             'grouping' => true,
             'groupingView' => [
                 'groupField' => ['cat_id'],
                 'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>'],
-                'groupCollapse' => true,
+                'groupCollapse' => false,
                 'groupOrder' => ['asc']
             ]
         ];
@@ -589,10 +593,12 @@ function showTeacherWorkGrid()
             'autowidth' => 'true',
             'height' => 'auto',
             'grouping' => true,
+            'sortname' => 'sent_date',
+            'sortorder' => 'desc',
             'groupingView' => [
                 'groupField' => ['cat_id'],
                 'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>'],
-                'groupCollapse' => true,
+                'groupCollapse' => false,
                 'groupOrder' => ['asc']
             ]
         ];
@@ -1316,7 +1322,7 @@ function getWorkListStudent(
         if ($isSubscribed == false) {
             continue;
         }
-
+        $workId = $work['id'];
         $visibility = api_get_item_visibility($courseInfo, 'work', $work['id'], $session_id);
 
         if ($visibility != 1) {
@@ -1339,6 +1345,32 @@ function getWorkListStudent(
             null,
             $work['id'],
             $whereCondition
+        );
+
+        $countUniqueAttempts = getUniqueStudentAttemptsTotal(
+            $workId,
+            $group_id,
+            $course_id,
+            $session_id
+        );
+
+        $totalUsers = getStudentSubscribedToWork(
+            $workId,
+            $course_id,
+            $group_id,
+            $session_id,
+            true
+        );
+
+        $type = 'success';
+        if(empty($countUniqueAttempts)){
+            $type = 'danger';
+        }
+
+        $work['amount'] = Display::label(
+            $countUniqueAttempts.'/'.
+            $totalUsers,
+            $type
         );
 
         $count = getTotalWorkComment($workList, $courseInfo);
