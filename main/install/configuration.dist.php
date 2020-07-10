@@ -1574,3 +1574,16 @@ $_configuration['auth_password_links'] = [
 // You need add a new option called "confirmation" to the registration settings
 //INSERT INTO settings_options (variable, value, display_text) VALUES ('allow_registration', 'confirmation', 'MailConfirmation');
 // ------ (End) Custom DB changes
+
+// Adding the categories option in the tasks tool
+// $_configuration['work_category'] = true;
+/* CREATE TABLE c_student_publication_category (
+    iid INT(11)  UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    c_id INT(11) NOT NULL,
+    id_session INT(11) NOT NULL,
+    name VARCHAR(255) NOT NULL
+)
+
+ALTER TABLE `c_student_publication` ADD `cat_id` INT NULL AFTER `document_id`;
+
+*/

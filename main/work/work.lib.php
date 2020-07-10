@@ -64,6 +64,16 @@ function displayWorkActionLinks($id, $action, $isTutor)
                 ICON_SIZE_MEDIUM
             ).
             '</a>';
+        if(api_get_configuration_value('work_category')) {
+            $output .= '<a href="category.php?action=list&'.api_get_cidreq().'">'.
+                Display::return_icon(
+                    'new_folder.png',
+                    get_lang('Categories'),
+                    '',
+                    ICON_SIZE_MEDIUM
+                ).
+                '</a>';
+        }
     }
 
     if ('' != $output) {
@@ -487,7 +497,9 @@ function showStudentWorkGrid()
     $columns = [
         get_lang('Type'),
         get_lang('Title'),
+        get_lang('Category'),
         get_lang('HandOutDateLimit'),
+        get_lang('AmountSubmitted'),
         get_lang('Feedback'),
         get_lang('LastUpload'),
     ];
@@ -495,8 +507,10 @@ function showStudentWorkGrid()
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '30', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left'],
-        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '80', 'align' => 'center', 'sortable' => 'false'],
-        ['name' => 'feedback', 'index' => 'feedback', 'width' => '80', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '125', 'align' => 'center'],
+        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center', 'sortable' => 'true'],
+        ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'feedback', 'index' => 'feedback', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'last_upload', 'index' => 'feedback', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
     ];
 
@@ -510,11 +524,27 @@ function showStudentWorkGrid()
         ];
         $columns[] = get_lang('Others');
     }
-
-    $params = [
-        'autowidth' => 'true',
-        'height' => 'auto',
-    ];
+    if(api_get_configuration_value('work_category')){
+        $iconFolder = Display::return_icon('folder.png',get_lang('Category'),[],ICON_SIZE_SMALL);
+        $params = [
+            'autowidth' => 'true',
+            'height' => 'auto',
+            'sortname' => 'sent_date',
+            'sortorder' => 'desc',
+            'grouping' => true,
+            'groupingView' => [
+                'groupField' => ['cat_id'],
+                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>'],
+                'groupCollapse' => false,
+                'groupOrder' => ['asc']
+            ]
+        ];
+    } else {
+        $params = [
+            'autowidth' => 'true',
+            'height' => 'auto',
+        ];
+    }
 
     $html = '<script>
         $(function() {
@@ -586,9 +616,10 @@ function showTeacherWorkGrid()
 {
     $columnModel = [
         ['name' => 'type', 'index' => 'type', 'width' => '35', 'align' => 'center', 'sortable' => 'false'],
-        ['name' => 'title', 'index' => 'title', 'width' => '300', 'align' => 'left', 'wrap_cell' => "true"],
-        ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '125', 'align' => 'center'],
-        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '125', 'align' => 'center'],
+        ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left', 'wrap_cell' => "true"],
+        ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'sent_date', 'index' => 'sent_date', 'width' => '180', 'align' => 'center', 'sortable' => 'true'],
+        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center'],
         ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'actions', 'index' => 'actions', 'width' => '110', 'align' => 'left', 'sortable' => 'false'],
     ];
@@ -598,17 +629,36 @@ function showTeacherWorkGrid()
     $columns = [
         get_lang('Type'),
         get_lang('Title'),
+        get_lang('Category'),
         get_lang('SentDate'),
         get_lang('HandOutDateLimit'),
         get_lang('AmountSubmitted'),
-        get_lang('Actions'),
+        get_lang('Actions')
     ];
 
-    $params = [
-        'multiselect' => true,
-        'autowidth' => 'true',
-        'height' => 'auto',
-    ];
+    if(api_get_configuration_value('work_category')){
+        $iconFolder = Display::return_icon('folder.png',get_lang('Category'),[],ICON_SIZE_SMALL);
+        $params = [
+            'multiselect' => true,
+            'autowidth' => 'true',
+            'height' => 'auto',
+            'grouping' => true,
+            'sortname' => 'sent_date',
+            'sortorder' => 'desc',
+            'groupingView' => [
+                'groupField' => ['cat_id'],
+                'groupText' => ['<div class="group_category">'.$iconFolder.' {0}</div>'],
+                'groupCollapse' => false,
+                'groupOrder' => ['asc']
+            ]
+        ];
+    } else {
+        $params = [
+            'multiselect' => true,
+            'autowidth' => 'true',
+            'height' => 'auto'
+        ];
+    }
 
     $html = '<script>
     $(function() {
@@ -1322,7 +1372,7 @@ function getWorkListStudent(
         if ($isSubscribed == false) {
             continue;
         }
-
+        $workId = $work['id'];
         $visibility = api_get_item_visibility($courseInfo, 'work', $work['id'], $session_id);
 
         if ($visibility != 1) {
@@ -1330,7 +1380,7 @@ function getWorkListStudent(
         }
 
         $work['type'] = Display::return_icon('work.png');
-        $work['expires_on'] = empty($work['expires_on']) ? null : api_get_local_time($work['expires_on']);
+        $work['expires_on'] = empty($work['expires_on']) ? '--' : api_get_local_time($work['expires_on']);
 
         if (empty($work['title'])) {
             $work['title'] = basename($work['url']);
@@ -1345,6 +1395,32 @@ function getWorkListStudent(
             null,
             $work['id'],
             $whereCondition
+        );
+
+        $countUniqueAttempts = getUniqueStudentAttemptsTotal(
+            $workId,
+            $group_id,
+            $course_id,
+            $session_id
+        );
+
+        $totalUsers = getStudentSubscribedToWork(
+            $workId,
+            $course_id,
+            $group_id,
+            $session_id,
+            true
+        );
+
+        $type = 'success';
+        if(empty($countUniqueAttempts)){
+            $type = 'danger';
+        }
+
+        $work['amount'] = Display::label(
+            $countUniqueAttempts.'/'.
+            $totalUsers,
+            $type
         );
 
         $count = getTotalWorkComment($workList, $courseInfo);
@@ -1368,6 +1444,7 @@ function getWorkListStudent(
         }
 
         $work['title'] = Display::url($work['title'], $url.'&id='.$work['id']);
+        $work['category'] = getCategory($work['cat_id'], true);
         $work['others'] = Display::url(
             Display::return_icon('group.png', get_lang('Others')),
             $urlOthers.$work['id']
@@ -1614,7 +1691,7 @@ function getWorkListTeacher(
         } else {
             $select = " SELECT w.*, a.expires_on, expires_on, ends_on, enable_qualification ";
         }
-        $sql = " $select
+            $sql = " $select
                 FROM $workTable w
                 LEFT JOIN $workTableAssignment a
                 ON (a.publication_id = w.id AND a.c_id = w.c_id)
@@ -1641,7 +1718,7 @@ function getWorkListTeacher(
         while ($work = Database::fetch_array($result, 'ASSOC')) {
             $workId = $work['id'];
             $work['type'] = Display::return_icon('work.png');
-            $work['expires_on'] = empty($work['expires_on']) ? null : api_get_local_time($work['expires_on']);
+            $work['expires_on'] = empty($work['expires_on']) ? '--' : api_get_local_time($work['expires_on']);
 
             $countUniqueAttempts = getUniqueStudentAttemptsTotal(
                 $workId,
@@ -1658,10 +1735,15 @@ function getWorkListTeacher(
                 true
             );
 
+            $type = 'success';
+            if(empty($countUniqueAttempts)){
+                $type = 'danger';
+            }
+
             $work['amount'] = Display::label(
                 $countUniqueAttempts.'/'.
                 $totalUsers,
-                'success'
+                $type
             );
 
             $visibility = api_get_item_visibility($courseInfo, 'work', $workId, $session_id);
@@ -1743,10 +1825,10 @@ function getWorkListTeacher(
                 $editLink = null;
             }
             $work['actions'] = $visibilityLink.$correctionLink.$downloadLink.$editLink;
+            $work['category'] = getCategory($work['cat_id'], true);
             $works[] = $work;
         }
     }
-
     return $works;
 }
 
@@ -4426,6 +4508,10 @@ function addDir($formValues, $user_id, $courseInfo, $groupId, $sessionId = 0)
         ->setHasProperties(0)
         ->setDocumentId(0);
 
+    if(api_get_configuration_value('work_category')) {
+        $workTable->setCatId(!empty($formValues['cat_id']) ? $formValues['cat_id'] : 0);
+    }
+
     $em->persist($workTable);
     $em->flush();
 
@@ -4519,6 +4605,7 @@ function updateWork($workId, $params, $courseInfo, $sessionId = 0)
         'qualification' => $params['qualification'],
         'weight' => $params['weight'],
         'allow_text_assignment' => $params['allow_text_assignment'],
+        'cat_id' => $params['cat_id']
     ];
 
     Database::update(
@@ -4900,6 +4987,17 @@ function getFormWork($form, $defaults = [], $workId = 0)
 
     // Create the form that asks for the directory name
     $form->addText('new_dir', get_lang('AssignmentName'));
+
+    if(api_get_configuration_value('work_category')){
+        $idCourse = api_get_course_int_id();
+        $listCategory = listCategory($idCourse, $sessionId, true);
+        $form->addSelect(
+            'cat_id',
+            get_lang('Category'),
+            $listCategory
+        );
+    }
+
     $form->addHtmlEditor(
         'description',
         get_lang('Description'),
@@ -5886,4 +5984,154 @@ function workGetExtraFieldData($workId)
     }
 
     return $result;
+}
+
+function createCategory($values){
+
+    if (!is_array($values)) {
+        return false;
+    }
+
+    $table = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+
+    $params = [
+        'name' => $values['name'],
+        'c_id' => $values['c_id'],
+        'id_session' => $values['id_session']
+    ];
+    $id = Database::insert($table, $params);
+
+    if ($id > 0) {
+        return $id;
+    }
+}
+
+function updateCategory($values){
+
+    if (!is_array($values)) {
+        return false;
+    }
+
+    $table = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+
+    $params = [
+        'iid' => $values['id'],
+        'name' => $values['name'],
+        'c_id' => $values['c_id'],
+        'id_session' => $values['id_session']
+    ];
+    $id = Database::update(
+        $table,
+        $params,
+        [
+            'iid = ?' => [
+                $values['id']
+            ]
+        ]
+    );
+
+    if ($id > 0) {
+        return $id;
+    }
+}
+
+function getCategory($idCategory, $name = false){
+    if (empty($idCategory)) {
+        return false;
+    }
+    if($idCategory === '-1'){
+        return get_lang('NoCategory');
+    }
+    $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+    $sql = "SELECT * FROM $tableCategory WHERE iid = $idCategory";
+
+    $item = [];
+    $result = Database::query($sql);
+
+    if (Database::num_rows($result) > 0) {
+        while ($row = Database::fetch_array($result)) {
+            $item = [
+                'id' => $row['iid'],
+                'c_id' => $row['c_id'],
+                'id_session' => $row['id_session'],
+                'name' => $row['name']
+            ];
+        }
+        if($name){
+            return $item['name'];
+        } else {
+            return $item;
+        }
+    }
+}
+
+function deleteCategory($idCategory){
+    if (empty($idCategory)) {
+        return false;
+    }
+    $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+    $sql = "DELETE FROM $tableCategory WHERE iid = $idCategory";
+    $result = Database::query($sql);
+
+    if (Database::affected_rows($result) != 1) {
+        return false;
+    }
+
+    return true;
+}
+
+function listCategory($idCourse, $idSession, $type = false){
+    if (empty($idCourse)) {
+        return false;
+    }
+    $list = [];
+
+    $tableCategory = Database::get_course_table(TABLE_STUDENT_PUBLICATION_CATEGORY);
+    $sql = "SELECT * FROM $tableCategory
+        WHERE c_id = $idCourse AND id_session = $idSession";
+
+    $result = Database::query($sql);
+
+    if (Database::num_rows($result) > 0) {
+        while ($row = Database::fetch_array($result)) {
+            if($type){
+                $list[-1] = get_lang('None');
+                $list[$row['iid']] = $row['name'];
+            } else {
+
+                $actions = Display::url(
+                    Display::return_icon(
+                        'edit.png',
+                        get_lang('Edit'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    api_get_self().'?action=edit&cat='.$row['iid'].'&'.api_get_cidreq()
+                );
+                $actions .= Display::url(
+                    Display::return_icon(
+                        'delete.png',
+                        get_lang('Delete'),
+                        [],
+                        ICON_SIZE_SMALL
+                    ),
+                    api_get_self().'?action=delete&cat='.$row['iid'].'&'.api_get_cidreq()
+                );
+
+                $item = [
+                    'id' => $row['iid'],
+                    'c_id' => $row['c_id'],
+                    'id_session' => $row['id_session'],
+                    'name' => $row['name'],
+                    'actions' => $actions
+                ];
+                $list[]= $item;
+            }
+
+        }
+        return $list;
+    } else {
+        return false;
+    }
+
 }
