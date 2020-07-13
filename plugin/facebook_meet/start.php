@@ -22,6 +22,7 @@ $courseInfo = api_get_course_info();
 $isTeacher = api_is_teacher();
 $isAdmin = api_is_platform_admin();
 $isStudent = api_is_student();
+$idSession = api_get_session_id();
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $enable = $plugin->get('facebook_meet_enabled') == 'true';
@@ -30,7 +31,7 @@ $urlAddMeet = api_get_path(WEB_PLUGIN_PATH).'facebook_meet/meets.php?action=add&
 
 if ($enable) {
     if ($isAdmin || $isTeacher || $isStudent) {
-        $meets = $plugin->listMeets($courseInfo['real_id']);
+        $meets = $plugin->listMeets($courseInfo['real_id'], $idSession);
     }
 }
 

@@ -81,7 +81,7 @@ class FacebookMeetPlugin extends Plugin
             start_time DATETIME NULL,
             end_time DATETIME NULL,
             c_id INT NULL NOT NULL,
-            session_id INT,
+            id_session INT NULL,
             activate INT
         )";
 
@@ -154,6 +154,7 @@ class FacebookMeetPlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_MEET_LIST);
 
         $idCourse = api_get_course_int_id();
+        $idSession = api_get_session_id();
         $url = self::filterUrl($values['meet_url']);
         if (!isset($values['type_meet'])) {
             $values['type_meet'] = 1;
@@ -168,7 +169,7 @@ class FacebookMeetPlugin extends Plugin
             'c_id' => $idCourse,
             'start_time' => null,
             'end_time' => null,
-            'session_id' => null,
+            'id_session' => $idSession,
             'activate' => 1,
         ];
 
@@ -179,12 +180,12 @@ class FacebookMeetPlugin extends Plugin
         }
     }
 
-    public function listMeets($idCourse)
+    public function listMeets($idCourse, $idSession)
     {
         $list = [];
         $tableMeetList = Database::get_main_table(self::TABLE_MEET_LIST);
 
-        $sql = "SELECT * FROM $tableMeetList WHERE c_id = $idCourse AND activate = 1";
+        $sql = "SELECT * FROM $tableMeetList WHERE c_id = $idCourse AND id_session = $idSession AND activate = 1";
 
         $result = Database::query($sql);
 
@@ -219,7 +220,7 @@ class FacebookMeetPlugin extends Plugin
                     'c_id' => $row['c_id'],
                     'start_time' => $row['start_time'],
                     'end_time' => $row['end_time'],
-                    'session_id' => $row['session_id'],
+                    'id_session' => $row['id_session'],
                     'activate' => $active,
                     'actions' => $action,
                 ];
@@ -252,7 +253,7 @@ class FacebookMeetPlugin extends Plugin
                     'c_id' => $row['c_id'],
                     'start_time' => $row['start_time'],
                     'end_time' => $row['end_time'],
-                    'session_id' => $row['session_id'],
+                    'id_session' => $row['id_session'],
                     'activate' => $row['activate'],
                 ];
             }
@@ -269,6 +270,7 @@ class FacebookMeetPlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_MEET_LIST);
 
         $idCourse = api_get_course_int_id();
+        $idSession = api_get_session_id();
         $url = self::filterUrl($values['meet_url']);
         if (!isset($values['type_meet'])) {
             $values['type_meet'] = 1;
@@ -283,7 +285,7 @@ class FacebookMeetPlugin extends Plugin
             'c_id' => $idCourse,
             'start_time' => null,
             'end_time' => null,
-            'session_id' => null,
+            'id_session' => $idSession,
             'activate' => 1,
         ];
 
