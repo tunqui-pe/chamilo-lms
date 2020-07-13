@@ -524,7 +524,9 @@ class ExerciseLib
                             }
                         }
 
-                        $answer = Security::remove_XSS($answer, STUDENT);
+                        if ($answerType != UNIQUE_ANSWER_IMAGE) {
+                            $answer = Security::remove_XSS($answer, STUDENT);
+                        }
                         $s .= Display::input(
                             'hidden',
                             'choice2['.$questionId.']',
@@ -2906,9 +2908,7 @@ HOTSPOT;
             $html = ScoreDisplay::instance()->display_score([$score, $weight], $format);
         }
 
-        $html = Display::span($html, ['class' => 'score_exercise']);
-
-        return $html;
+        return Display::span($html, ['class' => 'score_exercise']);
     }
 
     /**
@@ -2919,9 +2919,7 @@ HOTSPOT;
      */
     public static function getModelStyle($model, $percentage)
     {
-        $modelWithStyle = '<span class="'.$model['css_class'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-
-        return $modelWithStyle;
+        return '<span class="'.$model['css_class'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
     }
 
     /**
@@ -4523,15 +4521,18 @@ EOT;
             // Shows exercise header.
             echo $objExercise->showExerciseResultHeader(
                 $studentInfo,
-                $exercise_stat_info
+                $exercise_stat_info,
+                $save_user_result
             );
         }
 
         // Display text when test is finished #4074 and for LP #4227
         $endOfMessage = $objExercise->getTextWhenFinished();
         if (!empty($endOfMessage)) {
-            echo Display::return_message($endOfMessage, 'normal', false);
-            echo "<div class='clear'>&nbsp;</div>";
+            echo Display::div(
+                $endOfMessage,
+                ['id' => 'quiz_end_message']
+            );
         }
 
         $question_list_answers = [];

@@ -1683,13 +1683,13 @@ function Promise(executor) {
 			}
 		);
 	}
-	
+
 	if (Promise.immediate) {
 		var origThen = promise.then;
 
 		promise.then = function(onFulfilled, onRejected) {
 			var state = promise.state();
-			
+
 			if (state === 'resolved') {
 				if (typeof onFulfilled === 'function') {
 					return Promise.resolve(onFulfilled(promise._value));
@@ -6311,7 +6311,7 @@ DayGrid.mixin({
 			'<span class="fc-title">' +
 				(htmlEscape(event.title || '') || '&nbsp;') + // we always want one line of height
 			'</span>';
-		
+
 		return '<a class="' + classes.join(' ') + '"' +
 				(event.url ?
 					' href="' + htmlEscape(event.url) + '"' :
@@ -6440,7 +6440,7 @@ DayGrid.mixin({
 		// Give preference to elements with certain criteria, so they have
 		// a chance to be closer to the top.
 		this.sortEventSegs(segs);
-		
+
 		for (i = 0; i < segs.length; i++) {
 			seg = segs[i];
 
@@ -11031,7 +11031,7 @@ Calendar.mixin({
 	//   func // callback function to be called upon change
 	//   names // option names whose values should be given to func
 	// }
-	optionHandlers: null, 
+	optionHandlers: null,
 
 	// Calls handlerFunc immediately, and when the given option has changed.
 	// handlerFunc will be given the option value.
@@ -11108,13 +11108,13 @@ Calendar.defaults = {
 
 	weekNumberTitle: 'W',
 	weekNumberCalculation: 'local',
-	
+
 	//editable: false,
 
 	//nowIndicator: false,
 
 	scrollTime: '06:00:00',
-	
+
 	// event ajax
 	lazyFetching: true,
 	startParam: 'start',
@@ -11147,7 +11147,7 @@ Calendar.defaults = {
 	},
 
 	allDayText: 'all-day',
-	
+
 	// jquery-ui theming
 	theme: false,
 	themeButtonIcons: {
@@ -11161,10 +11161,10 @@ Calendar.defaults = {
 	dragOpacity: .75,
 	dragRevertDuration: 500,
 	dragScroll: true,
-	
+
 	//selectable: false,
 	unselectAuto: true,
-	
+
 	dropAccept: '*',
 
 	eventOrder: 'title',
@@ -11174,12 +11174,12 @@ Calendar.defaults = {
 	eventLimitText: 'more',
 	eventLimitClick: 'popover',
 	dayPopoverFormat: 'LL',
-	
+
 	handleWindowResize: true,
 	windowResizeDelay: 100, // milliseconds before an updateSize happens
 
 	longPressDelay: 1000
-	
+
 };
 
 

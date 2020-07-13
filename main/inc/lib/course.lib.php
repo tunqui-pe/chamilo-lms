@@ -5136,6 +5136,78 @@ class CourseManager
     }
 
     /**
+     * Returns an array with the "hand picked" popular courses.
+     * Courses only appear in this list if their extra field 'popular_courses'
+     * has been selected in the admin page of the course.
+     *
+     * @return array
+     */
+    public static function returnPopularCoursesHandPicked()
+    {
+        if (api_is_invitee()) {
+            return [];
+        }
+
+        $userId = api_get_user_id();
+
+        // Getting my courses
+        $my_course_list = self::get_courses_list_by_user_id($userId);
+
+        $codeList = [];
+        foreach ($my_course_list as $course) {
+            $codeList[$course['real_id']] = $course['real_id'];
+        }
+
+        if (api_is_drh()) {
+            $courses = self::get_courses_followed_by_drh($userId);
+            foreach ($courses as $course) {
+                $codeList[$course['real_id']] = $course['real_id'];
+            }
+        }
+
+        $courseTable = Database::get_main_table(TABLE_MAIN_COURSE);
+        $tbl_course_field = Database::get_main_table(TABLE_EXTRA_FIELD);
+        $tbl_course_field_value = Database::get_main_table(TABLE_EXTRA_FIELD_VALUES);
+
+        //we filter the courses from the URL
+        $join_access_url = $where_access_url = '';
+        if (api_get_multiple_access_url()) {
+            $access_url_id = api_get_current_access_url_id();
+            if ($access_url_id != -1) {
+                $tbl_url_course = Database::get_main_table(TABLE_MAIN_ACCESS_URL_REL_COURSE);
+                $join_access_url = "LEFT JOIN $tbl_url_course url_rel_course
+                ON url_rel_course.c_id = tcfv.item_id ";
+                $where_access_url = " AND access_url_id = $access_url_id ";
+            }
+        }
+
+        $extraFieldType = EntityExtraField::COURSE_FIELD_TYPE;
+
+        // get course list auto-register
+        $sql = "SELECT DISTINCT(c.id) AS c_id
+                FROM $tbl_course_field_value tcfv
+                INNER JOIN $tbl_course_field tcf
+                ON tcfv.field_id =  tcf.id $join_access_url
+                INNER JOIN $courseTable c
+                ON (c.id = tcfv.item_id)
+                WHERE
+                    tcf.extra_field_type = $extraFieldType AND
+                    tcf.variable = 'popular_courses' AND
+                    tcfv.value = 1 AND
+                    visibility <> ".COURSE_VISIBILITY_CLOSED." AND
+                    visibility <> ".COURSE_VISIBILITY_HIDDEN." $where_access_url";
+
+        $result = Database::query($sql);
+        $courses = [];
+        if (Database::num_rows($result)) {
+            $courses = Database::store_result($result, 'ASSOC');
+            $courses = self::processHotCourseItem($courses, $codeList);
+        }
+
+        return $courses;
+    }
+
+    /**
      * @param array $courses
      * @param array $codeList
      *
@@ -6883,13 +6955,24 @@ class CourseManager
     private static function checkCreateCourseAccessUrlParam($_configuration, $accessUrlId, $param, $msgLabel)
     {
         if (isset($_configuration[$accessUrlId][$param]) && $_configuration[$accessUrlId][$param] > 0) {
-            $num = self::count_courses($accessUrlId);
-            if ($num >= $_configuration[$accessUrlId][$param]) {
+            $num = null;
+            switch ($param) {
+                case 'hosting_limit_courses':
+                    $num = self::count_courses($accessUrlId);
+                    break;
+                case 'hosting_limit_active_courses':
+                    $num = self::countActiveCourses($accessUrlId);
+                    break;
+            }
+
+            if ($num && $num >= $_configuration[$accessUrlId][$param]) {
                 api_warn_hosting_contact($param);
 
                 Display::addFlash(
                     Display::return_message($msgLabel)
                 );
+
+                return true;
             }
         }
 

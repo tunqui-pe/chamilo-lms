@@ -757,7 +757,7 @@ $Camera = "Camera";
 $Microphone = "Microphone";
 $DeleteStream = "Delete stream";
 $Record = "Record";
-$NoFileAvailable = "No File availible";
+$NoFileAvailable = "No File available";
 $RecordingOnlyForTeachers = "Recording only for trainers";
 $UsersNow = "Users at the moment:";
 $StartConference = "Start conference";
@@ -8559,4 +8559,13 @@ $UpdateUserListXMLCSV = "Update user list";
 $DonateToTheProject = "Chamilo is an Open Source project and this portal is provided to our community free of charge by the Chamilo Association, which pursues the goal of improving the availability of a quality education around the globe.<br /><br />
 However, developing Chamilo and providing this service are expensive and having a little bit of help from you would go a long way to ensure these services improve faster over time.<br /><br />
 Creating a course on this portal is one of the most resource-intensive operation. Please consider making a contribution to the Chamilo Association before creating this course to help keep this service free for all!";
+$MyStudentPublications = "My assignments";
+$AddToEditor = "Add to editor";
+$ImageURL = "Image URL";
+$PixelWidth = "px width";
+$AddImageWithZoom = "Add image with zoom";
+$DeleteInAllLanguages = "Delete in all languages";
+$MyStudentsSchedule = "My students schedule";
+$QuizConfirmSavedAnswers = "I accept the number of saved responses in this section.";
+$QuizConfirmSavedAnswersHelp = "If you are not satisfied, do not check the acceptance box and consult the course manager or the platform administrator.";
 ?>
