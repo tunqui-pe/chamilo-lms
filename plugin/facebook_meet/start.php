@@ -39,6 +39,6 @@ $tpl->assign('meets', $meets);
 $tpl->assign('is_admin', $isAdmin);
 $tpl->assign('is_student', $isStudent);
 $tpl->assign('is_teacher', $isTeacher);
-$content = $tpl->fetch('facebook_meet/view/home.tpl');
+$content = $tpl->fetch('facebook_meet/view/fb_home.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

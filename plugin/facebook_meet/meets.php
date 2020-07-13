@@ -222,6 +222,6 @@ if ($isAdmin || $isTeacher) {
 }
 
 $tpl->assign('message', $message);
-$content = $tpl->fetch('facebook_meet/view/meets.tpl');
+$content = $tpl->fetch('facebook_meet/view/fb_meets.tpl');
 $tpl->assign('content', $content);
 $tpl->display_one_col_template();

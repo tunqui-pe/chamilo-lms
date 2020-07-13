@@ -14,7 +14,7 @@ $strings['EditMeet'] = 'Editar reunión Facebook Meet';
 $strings['MeetName'] = 'Nombre de la reunión';
 $strings['MeetNameHelp'] = 'Asigne un nombre para la reunión. Ejemplo: Sala 1';
 $strings['FacebookMeetURL'] = 'URL del Meet';
-$strings['FacebookMeetURLHelp'] = 'Es la URL para iniciar una reunión instantánea con Facebook Meet. Si no tiene una URL de reunión todavía, <a href=\"%s\" target=\"_blank\">haga clic aquí</a> para crear una, luego guarde la URL y colóquela en el campo arriba.';
+$strings['FacebookMeetURLHelp'] = 'Es la URL para iniciar una reunión instantánea con Facebook Meet. Si no tiene una URL de reunión todavía, <a href="%s" target="_blank">haga clic aquí</a> para crear una, luego guarde la URL y colóquela en el campo arriba.';
 $strings['AccessMeeting'] = 'Acceder a la reunión';
 $strings['MeetingDescription'] = 'Descripción';
 $strings['MeetingDescriptionHelp'] = '(Opcional) Añada una breve descripción sobre la reunión.';
