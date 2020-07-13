@@ -87,10 +87,10 @@ class FacebookMeetPlugin extends Plugin
 
         Database::query($sql);
 
-        $src1 = api_get_path(SYS_PLUGIN_PATH).'facebook_meet/resources/img/64/google_meet.png';
-        $src2 = api_get_path(SYS_PLUGIN_PATH).'facebook_meet/resources/img/64/google_meet_na.png';
-        $dest1 = api_get_path(SYS_CODE_PATH).'img/icons/64/google_meet.png';
-        $dest2 = api_get_path(SYS_CODE_PATH).'img/icons/64/google_meet_na.png';
+        $src1 = api_get_path(SYS_PLUGIN_PATH).'facebook_meet/resources/img/64/facebook_meet.png';
+        $src2 = api_get_path(SYS_PLUGIN_PATH).'facebook_meet/resources/img/64/facebook_meet_na.png';
+        $dest1 = api_get_path(SYS_CODE_PATH).'img/icons/64/facebook_meet.png';
+        $dest2 = api_get_path(SYS_CODE_PATH).'img/icons/64/facebook_meet_na.png';
 
         copy($src1, $dest1);
         copy($src2, $dest2);
