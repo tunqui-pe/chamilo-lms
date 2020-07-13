@@ -108,14 +108,14 @@
 }
 .btn-add-meet{
   color: #fff;
-  border-color: #1cc88a;
-  background-color: #1cc88a;
+  border-color: #3F60DA;
+  background-color: #3F60DA;
   font-weight: bold;
 }
 .btn-add-meet:hover {
   color: #fff;
-  border-color: #17a673;
-  background-color: #169b6b;
+  border-color: #12309D;
+  background-color: #12309D;
 }
 .meet-list{
   display: grid;

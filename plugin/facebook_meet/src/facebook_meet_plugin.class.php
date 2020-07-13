@@ -12,7 +12,7 @@ class FacebookMeetPlugin extends Plugin
     const TABLE_MEET_LIST = 'plugin_facebook_meet_room';
     const SETTING_TITLE = 'tool_title';
     const SETTING_ENABLED = 'facebook_meet_enabled';
-    const FACEBOOK_MEET_URL = 'https://meet.google.com/';
+    const FACEBOOK_MEET_URL = 'https://msngr.com/';
 
     public $isCoursePlugin = true;
 
