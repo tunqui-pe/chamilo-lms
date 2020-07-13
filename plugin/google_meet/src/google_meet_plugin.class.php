@@ -80,11 +80,10 @@ class GoogleMeetPlugin extends Plugin
             meet_description VARCHAR(250) NULL,
             meet_color VARCHAR(7) NULL,
             type_meet INT NOT NULL,
-            cd_id INT NULL NOT NULL,
+            c_id INT NULL NOT NULL,
             id_session INT NULL NOT NULL,
             start_time DATETIME NULL,
             end_time DATETIME NULL,
-            session_id INT,
             activate INT
         )";
 
@@ -158,6 +157,7 @@ class GoogleMeetPlugin extends Plugin
         $table = Database::get_main_table(self::TABLE_MEET_LIST);
 
         $idCourse = api_get_course_int_id();
+        $idSession = api_get_session_id();
         $url = self::filterUrl($values['meet_url']);
         if (!isset($values['type_meet'])) {
             $values['type_meet'] = 1;
@@ -170,10 +170,9 @@ class GoogleMeetPlugin extends Plugin
             'meet_description' => $values['meet_description'],
             'meet_color' => $values['meet_color'],
             'c_id' => $idCourse,
-	    'id_session' => $idSession,
+	        'id_session' => $idSession,
             'start_time' => null,
             'end_time' => null,
-            'session_id' => null,
             'activate' => 1,
         ];
 
@@ -190,7 +189,7 @@ class GoogleMeetPlugin extends Plugin
         $list = [];
         $tableMeetList = Database::get_main_table(self::TABLE_MEET_LIST);
 
-        $sql = "SELECT * FROM $tableMeetList WHERE cd_id = $idCourse AND id_session = $idSession AND activate = 1";
+        $sql = "SELECT * FROM $tableMeetList WHERE c_id = $idCourse AND id_session = $idSession AND activate = 1";
 
         $result = Database::query($sql);
 
@@ -224,10 +223,9 @@ class GoogleMeetPlugin extends Plugin
                     'meet_color' => $row['meet_color'],
                     'type_meet' => $row['type_meet'],
                     'c_id' => $row['c_id'],
-		    'id_session' => $row['id_session'],
+		            'id_session' => $row['id_session'],
                     'start_time' => $row['start_time'],
                     'end_time' => $row['end_time'],
-                    'session_id' => $row['session_id'],
                     'activate' => $active,
                     'actions' => $action,
                 ];
@@ -259,10 +257,9 @@ class GoogleMeetPlugin extends Plugin
                     'meet_color' => $row['meet_color'],
                     'type_meet' => $row['type_meet'],
                     'c_id' => $row['c_id'],
-		    'id_session' => $row['id_session'],
+		            'id_session' => $row['id_session'],
                     'start_time' => $row['start_time'],
                     'end_time' => $row['end_time'],
-                    'session_id' => $row['session_id'],
                     'activate' => $row['activate'],
                 ];
             }
@@ -280,7 +277,7 @@ class GoogleMeetPlugin extends Plugin
 
         $idCourse = api_get_course_int_id();
         $idSession = api_get_session_id();
-	$url = self::filterUrl($values['meet_url']);
+	    $url = self::filterUrl($values['meet_url']);
         if (!isset($values['type_meet'])) {
             $values['type_meet'] = 1;
         }
@@ -292,10 +289,9 @@ class GoogleMeetPlugin extends Plugin
             'meet_description' => $values['meet_description'],
             'meet_color' => $values['meet_color'],
             'c_id' => $idCourse,
-	    'id_session' => $idSession,
+	        'id_session' => $idSession,
             'start_time' => null,
             'end_time' => null,
-            'session_id' => null,
             'activate' => 1,
         ];
 

@@ -3,7 +3,7 @@
         <div class="meets">
             <div class="">
                 <div class="plugin_logo">
-                    <img alt="" class="img-responsive" src="{{ _p.web_plugin }}google_meet/resources/img/svg/meet_room.svg">
+                    <img alt="" class="img-responsive" src="{{ _p.web }}plugin/google_meet/resources/img/svg/meet_room.svg">
                 </div>
                 <div class="tools text-center">
                     {% if is_admin or is_teacher %}
@@ -15,6 +15,7 @@
                 </div>
                 {% if meets %}
                     <div class="meet-list">
+                        {{ dump(meets) }}
                         {% for meet in meets %}
                             <div class="meet-item">
                                 <div class="info-meet">
