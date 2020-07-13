@@ -15,7 +15,6 @@
                 </div>
                 {% if meets %}
                     <div class="meet-list">
-                        {{ dump(meets) }}
                         {% for meet in meets %}
                             <div class="meet-item">
                                 <div class="info-meet">
