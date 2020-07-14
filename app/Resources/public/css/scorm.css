@@ -687,6 +687,30 @@ See https://support.chamilo.org/issues/6976
 .tabs-right{
     text-align: right;
 }
+.menu-float{
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    margin: 5px;
+}
+.menu-float .btn-circle{
+    margin: 0 2px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0,15,51,.5);
+    cursor: pointer;
+    color: #FFFFFF;
+}
+.menu-float .btn-circle:hover{
+    background-color: rgba(0,15,51,.7);
+}
 /* END LP VIEW COLLAPSE */
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
