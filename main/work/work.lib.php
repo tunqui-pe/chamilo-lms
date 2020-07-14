@@ -811,7 +811,7 @@ function deleteDirWork($id)
     }
 
     $_course = api_get_course_info();
-    $id = intval($id);
+    $id = (int) $id;
     $work_data = get_work_data_by_id($id);
 
     if (empty($work_data)) {
@@ -4382,7 +4382,7 @@ function processWorkForm(
                     if (1 == count($userWorks)) {
                         // The student only uploaded one doc so far, so add the
                         // considered work time to his course connection time
-                        Event::eventAddVirtualCourseTime($courseId, $userId, $sessionId, $workingTime);
+                        Event::eventAddVirtualCourseTime($courseId, $userId, $sessionId, $workingTime, $workId);
                     }
                 }
             }
@@ -4892,7 +4892,8 @@ function deleteWorkItem($item_id, $courseInfo)
                             $course_id,
                             $row['user_id'],
                             $sessionId,
-                            $workingTime
+                            $workingTime,
+                            $item_id
                         );
                     }
                 }

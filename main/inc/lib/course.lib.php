@@ -569,21 +569,35 @@ class CourseManager
      */
     public static function autoSubscribeToCourse($courseCode, $status = STUDENT)
     {
-        $course = Database::getManager()->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $courseCode]);
-
-        if (is_null($course)) {
-            return false;
-        }
-
         if (api_is_anonymous()) {
             return false;
         }
 
-        if (in_array($course->getVisibility(), [
+        $course = Database::getManager()->getRepository('ChamiloCoreBundle:Course')->findOneBy(['code' => $courseCode]);
+
+        if (null === $course) {
+            return false;
+        }
+
+        $visibility = (int) $course->getVisibility();
+
+        if (in_array($visibility, [
                 COURSE_VISIBILITY_CLOSED,
-                COURSE_VISIBILITY_REGISTERED,
+                //COURSE_VISIBILITY_REGISTERED,
                 COURSE_VISIBILITY_HIDDEN,
         ])) {
+            Display::addFlash(
+                Display::return_message(
+                    get_lang('SubscribingNotAllowed'),
+                    'warning'
+                )
+            );
+
+            return false;
+        }
+
+        // Private course can allow auto subscription
+        if (COURSE_VISIBILITY_REGISTERED === $visibility && false === $course->getSubscribe()) {
             Display::addFlash(
                 Display::return_message(
                     get_lang('SubscribingNotAllowed'),
@@ -633,7 +647,7 @@ class CourseManager
                 $endDate->add($duration);
                 $session = new \Chamilo\CoreBundle\Entity\Session();
                 $session->setName(
-                    sprintf(get_lang("FirstnameLastnameCourses"), $user->getFirstname(), $user->getLastname())
+                    sprintf(get_lang('FirstnameLastnameCourses'), $user->getFirstname(), $user->getLastname())
                 );
                 $session->setAccessEndDate($endDate);
                 $session->setCoachAccessEndDate($endDate);
@@ -695,7 +709,7 @@ class CourseManager
             return true;
         }
 
-        return self::subscribeUser($userId, $course->getCode(), $status);
+        return self::subscribeUser($userId, $course->getCode(), $status, 0);
     }
 
     /**
@@ -747,7 +761,6 @@ class CourseManager
         $courseId = $courseInfo['real_id'];
         $courseCode = $courseInfo['code'];
         $userCourseCategoryId = (int) $userCourseCategoryId;
-
         $sessionId = empty($sessionId) ? api_get_session_id() : (int) $sessionId;
         $status = $status === STUDENT || $status === COURSEMANAGER ? $status : STUDENT;
         $courseUserTable = Database::get_main_table(TABLE_MAIN_COURSE_USER);
@@ -803,10 +816,14 @@ class CourseManager
                 }
             }
 
-            if ($status === STUDENT) {
+            if (STUDENT === $status) {
                 // Check if max students per course extra field is set
                 $extraFieldValue = new ExtraFieldValue('course');
-                $value = $extraFieldValue->get_values_by_handler_and_field_variable($courseId, 'max_subscribed_students');
+                $value = $extraFieldValue->get_values_by_handler_and_field_variable(
+                    $courseId,
+                    'max_subscribed_students'
+                );
+
                 if (!empty($value) && isset($value['value'])) {
                     $maxStudents = $value['value'];
                     if ($maxStudents !== '') {
@@ -4347,6 +4364,7 @@ class CourseManager
             true
         );
         $params['real_id'] = $course_info['real_id'];
+        $params['visibility'] = $course_info['visibility'];
 
         // Display the "what's new" icons
         $notifications = '';
@@ -4396,7 +4414,7 @@ class CourseManager
         $showCustomIcon = api_get_setting('course_images_in_courses_list');
         $iconName = basename($course_info['course_image']);
 
-        if ($showCustomIcon === 'true' && $iconName != 'course.png') {
+        if ($showCustomIcon === 'true' && $iconName !== 'course.png') {
             $thumbnails = $course_info['course_image'];
             $image = $course_info['course_image_large'];
         } else {
@@ -4701,9 +4719,9 @@ class CourseManager
      */
     public static function is_user_accepted_legal($user_id, $course_code, $session_id = 0)
     {
-        $user_id = intval($user_id);
+        $user_id = (int) $user_id;
+        $session_id = (int) $session_id;
         $course_code = Database::escape_string($course_code);
-        $session_id = intval($session_id);
 
         $courseInfo = api_get_course_info($course_code);
         $courseId = $courseInfo['real_id'];
@@ -4711,7 +4729,7 @@ class CourseManager
         // Course legal
         $enabled = api_get_plugin_setting('courselegal', 'tool_enable');
 
-        if ($enabled == 'true') {
+        if ($enabled === 'true') {
             require_once api_get_path(SYS_PLUGIN_PATH).'courselegal/config.php';
             $plugin = CourseLegalPlugin::create();
 
@@ -4754,10 +4772,15 @@ class CourseManager
      * @param   string course code
      * @param   int session id
      *
-     * @return mixed
+     * @return bool
      */
-    public static function save_user_legal($user_id, $course_code, $session_id = null)
+    public static function save_user_legal($user_id, $courseInfo, $session_id = 0)
     {
+        if (empty($courseInfo)) {
+            return false;
+        }
+        $course_code = $courseInfo['code'];
+
         // Course plugin legal
         $enabled = api_get_plugin_setting('courselegal', 'tool_enable');
         if ($enabled == 'true') {
@@ -4767,10 +4790,8 @@ class CourseManager
             return $plugin->saveUserLegal($user_id, $course_code, $session_id);
         }
 
-        $user_id = intval($user_id);
-        $course_code = Database::escape_string($course_code);
-        $session_id = intval($session_id);
-        $courseInfo = api_get_course_info($course_code);
+        $user_id = (int) $user_id;
+        $session_id = (int) $session_id;
         $courseId = $courseInfo['real_id'];
 
         if (empty($session_id)) {
@@ -4784,6 +4805,8 @@ class CourseManager
                     WHERE user_id = $user_id AND c_id = $courseId AND session_id = $session_id";
             Database::query($sql);
         }
+
+        return true;
     }
 
     /**
