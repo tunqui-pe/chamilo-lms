@@ -104,6 +104,17 @@ if (false === $sm->tablesExist(BuyCoursesPlugin::TABLE_ITEM)) {
         \Doctrine\DBAL\Types\Type::INTEGER,
         ['unsigned' => true, 'notnull' => false]
     );
+
+$itemTable->addColumn(
+    'price_usd',
+    \Doctrine\DBAL\Types\Type::DECIMAL,
+    ['scale' => 2]
+);
+$itemTable->addColumn(
+    'is_international',
+    \Doctrine\DBAL\Types\Type::INTEGER,
+    ['unsigned' => true]
+);
     $itemTable->setPrimaryKey(['id']);
     $itemTable->addForeignKeyConstraint(
         $currencyTable,

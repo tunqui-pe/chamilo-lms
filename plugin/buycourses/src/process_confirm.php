@@ -151,6 +151,13 @@ switch ($sale['payment_type']) {
                 $plugin->get_lang('bc_subject'),
                 $messageTemplate->fetch('buycourses/view/message_transfer.tpl')
             );
+	/*
+api_mail_html(
+                $userInfo['complete_name'],
+                $userInfo['email'],
+                $plugin->get_lang('bc_subject'),
+                $messageTemplate->fetch('buycourses/view/message_transfer.tpl')
+            );*/
 
             if (!empty($globalParameters['sale_email'])) {
                 $messageConfirmTemplate = new Template();
