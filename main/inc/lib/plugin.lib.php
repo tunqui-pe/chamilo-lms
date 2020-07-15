@@ -233,6 +233,7 @@ class AppPlugin
             'follow_buttons',
             'formLogin_hide_unhide',
             'google_maps',
+            'google_meet',
             'grading_electronic',
             'hello_world',
             'ims_lti',
@@ -264,6 +265,7 @@ class AppPlugin
             'surveyexporttxt',
             'test2pdf',
             'tour',
+            'userremoteservice',
             'vchamilo',
             'whispeakauth',
         ];

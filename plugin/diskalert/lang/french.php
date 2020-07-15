@@ -33,3 +33,8 @@ $strings['DeleteRecord'] = "Supprimer l'enregistrement";
 $strings['AlertDiskSpace'] = "Alerte! Espace disque quotidien";
 $strings['YourAvailableDiskSpace'] = "Votre espace disque disponible est";
 $strings['SystemStatisticsRecorded'] = "Statistiques système enregistrées sur";
+$strings['alerts_email_disk'] = "E-mail d'alerte";
+$strings['alerts_email_disk_help'] = "Par défaut, l'alerte est envoyée au courriel de l'administrateur, ici vous pouvez ajouter un deuxième courriel pour les alertes.";
+$strings['UrgentNoticeDiskSpace'] = "<strong> Urgent! </strong> votre espace disque disponible pour votre classe virtuelle est sur le point de s'épuiser. Nous vous suggérons d'amplifier ou de libérer de l'espace.";
+$strings['UrgentAlertDiskSpace'] = "Avis urgent! Espace disque";
+

@@ -353,11 +353,16 @@ class IndexManager
 
     public static function studentPublicationBlock()
     {
-        $items[] = [
-            'icon' => Display::return_icon('lp_student_publication.png', get_lang('StudentPublication')),
-            'link' => api_get_path(WEB_CODE_PATH).'work/publications.php',
-            'title' => get_lang('MyStudentPublications'),
-        ];
+        $allow = api_get_configuration_value('allow_my_student_publication_page');
+        $items = [];
+
+        if ($allow) {
+            $items[] = [
+                'icon' => Display::return_icon('lp_student_publication.png', get_lang('StudentPublication')),
+                'link' => api_get_path(WEB_CODE_PATH).'work/publications.php',
+                'title' => get_lang('MyStudentPublications'),
+            ];
+        }
 
         return $items;
     }
@@ -2168,7 +2173,6 @@ class IndexManager
                                             isset($session_box['duration']) ? $session_box['duration'] : null
                                         );
                                     }
-
                                     $this->tpl->assign('session', $sessionParams);
                                     $this->tpl->assign('show_tutor', api_get_setting('show_session_coach') === 'true');
                                     $this->tpl->assign('gamification_mode', $gameModeIsActive);
@@ -2279,6 +2283,16 @@ class IndexManager
             'session_count' => $sessionCount,
             'course_count' => $courseCount,
         ];
+    }
+
+    /**
+     * Wrapper to CourseManager::returnPopularCoursesHandPicked().
+     *
+     * @return array
+     */
+    public function returnPopularCoursesHandPicked()
+    {
+        return CourseManager::returnPopularCoursesHandPicked();
     }
 
     /**

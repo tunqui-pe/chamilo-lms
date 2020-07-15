@@ -3,6 +3,7 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Entity\GradebookLink;
+use Chamilo\CoreBundle\Entity\TrackEExerciseConfirmation;
 use Chamilo\CoreBundle\Entity\TrackEHotspot;
 use Chamilo\CourseBundle\Entity\CExerciseCategory;
 use ChamiloSession as Session;
@@ -3490,7 +3491,7 @@ class Exercise
      *                                                          'exercise_result'
      * @param array  $exerciseResultCoordinates                 the hotspot coordinates $hotspot[$question_id] =
      *                                                          coordinates
-     * @param bool   $saved_results                             save results in the DB or just show the reponse
+     * @param bool   $save_results                              save results in the DB or just show the response
      * @param bool   $from_database                             gets information from DB or from the current selection
      * @param bool   $show_result                               show results or not
      * @param int    $propagate_neg
@@ -3509,7 +3510,7 @@ class Exercise
         $choice,
         $from = 'exercise_show',
         $exerciseResultCoordinates = [],
-        $saved_results = true,
+        $save_results = true,
         $from_database = false,
         $show_result = true,
         $propagate_neg = 0,
@@ -3530,7 +3531,7 @@ class Exercise
             error_log("<------ manage_answer ------> ");
             error_log('exe_id: '.$exeId);
             error_log('$from:  '.$from);
-            error_log('$saved_results: '.intval($saved_results));
+            error_log('$save_results: '.intval($save_results));
             error_log('$from_database: '.intval($from_database));
             error_log('$show_result: '.intval($show_result));
             error_log('$propagate_neg: '.$propagate_neg);
@@ -3601,7 +3602,7 @@ class Exercise
         $nbrAnswers = $objAnswerTmp->selectNbrAnswers();
 
         if ($debug) {
-            error_log('Count of answers: '.$nbrAnswers);
+            error_log('Count of possible answers: '.$nbrAnswers);
             error_log('$answerType: '.$answerType);
         }
 
@@ -3671,7 +3672,7 @@ class Exercise
         }
 
         if ($debug) {
-            error_log('Start answer loop ');
+            error_log('-- Start answer loop --');
         }
 
         $answerDestination = null;
@@ -3686,8 +3687,8 @@ class Exercise
             $answerIid = isset($objAnswerTmp->iid[$answerId]) ? (int) $objAnswerTmp->iid[$answerId] : 0;
 
             if ($debug) {
-                error_log("answer auto id: $answerAutoId ");
-                error_log("answer correct: $answerCorrect ");
+                error_log("c_quiz_answer.id_auto: $answerAutoId ");
+                error_log("Answer marked as correct in db (0/1)?: $answerCorrect ");
             }
 
             // Delineation
@@ -3944,7 +3945,7 @@ class Exercise
                         $str = $answerFromDatabase = Database::result($result, 0, 'answer');
                     }
 
-                    // if ($saved_results == false && strpos($answerFromDatabase, 'font color') !== false) {
+                    // if ($save_results == false && strpos($answerFromDatabase, 'font color') !== false) {
                     if (false) {
                         // the question is encoded like this
                         // [A] B [C] D [E] F::10,10,10@1
@@ -5521,7 +5522,7 @@ class Exercise
         } // end for that loops over all answers of the current question
 
         if ($debug) {
-            error_log('-- end answer loop --');
+            error_log('-- End answer loop --');
         }
 
         $final_answer = true;
@@ -5739,9 +5740,9 @@ class Exercise
         // Store results directly in the database
         // For all in one page exercises, the results will be
         // stored by exercise_results.php (using the session)
-        if ($saved_results) {
+        if ($save_results) {
             if ($debug) {
-                error_log("Save question results $saved_results");
+                error_log("Save question results $save_results");
                 error_log('choice: ');
                 error_log(print_r($choice, 1));
             }
@@ -5920,7 +5921,7 @@ class Exercise
             $questionScore = 0;
         }
 
-        if ($saved_results) {
+        if ($save_results) {
             $statsTable = Database::get_main_table(TABLE_STATISTIC_TRACK_E_EXERCISES);
             $sql = "UPDATE $statsTable SET
                         exe_result = exe_result + ".floatval($questionScore)."
@@ -6150,12 +6151,14 @@ class Exercise
     /**
      * @param array $user_data         result of api_get_user_info()
      * @param array $trackExerciseInfo result of get_stat_track_exercise_info
+     * @param bool  $saveUserResult
      *
      * @return string
      */
     public function showExerciseResultHeader(
         $user_data,
-        $trackExerciseInfo
+        $trackExerciseInfo,
+        $saveUserResult
     ) {
         if (api_get_configuration_value('hide_user_info_in_quiz_result')) {
             return '';
@@ -6214,8 +6217,44 @@ class Exercise
             $data['title'] = PHP_EOL.$this->exercise.' : '.get_lang('Result');
         }
 
-        $data['number_of_answers'] = count(explode(',', $trackExerciseInfo['data_tracking']));
-        $data['number_of_answers_saved'] = $this->countUserAnswersSavedInExercise($trackExerciseInfo['exe_id']);
+        $questionsCount = count(explode(',', $trackExerciseInfo['data_tracking']));
+        $savedAnswersCount = $this->countUserAnswersSavedInExercise($trackExerciseInfo['exe_id']);
+
+        $data['number_of_answers'] = $questionsCount;
+        $data['number_of_answers_saved'] = $savedAnswersCount;
+
+        if (false !== api_get_configuration_value('quiz_confirm_saved_answers')) {
+            $em = Database::getManager();
+
+            if ($saveUserResult) {
+                $trackConfirmation = new TrackEExerciseConfirmation();
+                $trackConfirmation
+                    ->setUserId($trackExerciseInfo['exe_user_id'])
+                    ->setQuizId($trackExerciseInfo['exe_exo_id'])
+                    ->setAttemptId($trackExerciseInfo['exe_id'])
+                    ->setQuestionsCount($questionsCount)
+                    ->setSavedAnswersCount($savedAnswersCount)
+                    ->setCourseId($trackExerciseInfo['c_id'])
+                    ->setSessionId($trackExerciseInfo['session_id'])
+                    ->setCreatedAt(api_get_utc_datetime(null, false, true));
+
+                $em->persist($trackConfirmation);
+                $em->flush();
+            } else {
+                $trackConfirmation = $em
+                    ->getRepository('ChamiloCoreBundle:TrackEExerciseConfirmation')
+                    ->findOneBy(
+                        [
+                            'attemptId' => $trackExerciseInfo['exe_id'],
+                            'quizId' => $trackExerciseInfo['exe_exo_id'],
+                            'courseId' => $trackExerciseInfo['c_id'],
+                            'sessionId' => $trackExerciseInfo['session_id'],
+                        ]
+                    );
+            }
+
+            $data['track_confirmation'] = $trackConfirmation;
+        }
 
         $tpl = new Template(null, false, false, false, false, false, false);
         $tpl->assign('data', $data);
@@ -9825,6 +9864,8 @@ class Exercise
                     return $lp;
                 }
             }
+
+            return current($this->lpList);
         }
 
         return [

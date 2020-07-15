@@ -18,7 +18,7 @@ $isGlobal = isset($_GET['global']) ? true : false;
 $isGlobalPerUser = isset($_GET['user_id']) ? (int) $_GET['user_id'] : false;
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $userId = api_get_user_id();
-
+$option = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 $bbb = new bbb('', '', $isGlobal, $isGlobalPerUser);
 
 $conferenceManager = $bbb->isConferenceManager();
@@ -33,6 +33,24 @@ $courseCode = isset($courseInfo['code']) ? $courseInfo['code'] : '';
 
 $message = '';
 if ($conferenceManager) {
+    switch ($option) {
+        case 'delete':
+            if (is_array($_POST['id'])) {
+                foreach ($_POST['id'] as $index => $record_id) {
+                    $result = $bbb->deleteRecording($record_id);
+                }
+            }
+            if ($result) {
+                $message = Display::return_message(get_lang('Deleted'), 'success');
+            } else {
+                $message = Display::return_message(get_lang('Error'), 'error');
+            }
+
+            Display::addFlash($message);
+            header('Location: '.$bbb->getListingUrl());
+            exit;
+            break;
+    }
     switch ($action) {
         case 'add_to_calendar':
             if ($bbb->isGlobalConference()) {

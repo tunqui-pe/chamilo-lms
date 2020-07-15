@@ -104,7 +104,7 @@ if ($statusTransaction === 0) {
             false,
             [],
             '',
-            [$globalParameters['sale_email']]
+            [$globalParameters['sale_email'],api_get_setting('emailAdministrator')]
         );
     }
 
