@@ -3,13 +3,13 @@
         <div class="meets">
             <div class="">
                 <div class="plugin_logo">
-                    <img alt="" class="img-responsive" src="{{ _p.web }}plugin/googlemeet/resources/img/svg/meet_room.svg">
+                    <img alt="" class="img-responsive" src="{{ _p.web_plugin }}facebook_meet/resources/img/svg/meet_room.svg">
                 </div>
                 <div class="tools text-center">
                     {% if is_admin or is_teacher %}
                         <a href="{{ url_add_room }}" class="btn btn-success btn-add-meet">
                             <i class="fa fa-video-camera" aria-hidden="true"></i>
-                            {{ 'ManageMeetAccounts'|get_plugin_lang('GoogleMeetPlugin') }}
+                            {{ 'ManageMeetAccounts'|get_plugin_lang('FacebookMeetPlugin') }}
                         </a>
                     {% endif %}
                 </div>
@@ -32,7 +32,7 @@
                                                         </div>
                                                         <a class="btn btn-sm btn-block btn-meet" target="_blank" href="{{ meet.meet_url }}">
                                                             <i class="fa fa-share" aria-hidden="true"></i>
-                                                            {{ 'AccessMeeting'|get_plugin_lang('GoogleMeetPlugin') }}
+                                                            {{ 'AccessMeeting'|get_plugin_lang('FacebookMeetPlugin') }}
                                                         </a>
                                                     </div>
                                                     <div class="float-right">
@@ -61,7 +61,7 @@
 
                 {% else %}
                     <div class="alert alert-warning" role="alert">
-                        {{ 'CourseDoesNotHaveAccountGoogleMeet'|get_plugin_lang('GoogleMeetPlugin') }}
+                        {{ 'CourseDoesNotHaveAccountFacebookMeet'|get_plugin_lang('FacebookMeetPlugin') }}
                     </div>
                 {% endif %}
             </div>
