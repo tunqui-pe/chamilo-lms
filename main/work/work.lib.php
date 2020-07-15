@@ -68,7 +68,7 @@ function displayWorkActionLinks($id, $action, $isTutor)
         if(api_get_configuration_value('work_category')) {
             $output .= '<a href="category.php?action=list&'.api_get_cidreq().'">'.
                 Display::return_icon(
-                    'new_folder.png',
+                    'folder.png',
                     get_lang('Categories'),
                     '',
                     ICON_SIZE_MEDIUM
@@ -511,7 +511,7 @@ function showStudentWorkGrid()
         ['name' => 'type', 'index' => 'type', 'width' => '30', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'title', 'index' => 'title', 'width' => '250', 'align' => 'left'],
         ['name' => 'cat_id', 'index' => 'cat_id', 'width' => '125', 'align' => 'center'],
-        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
+        ['name' => 'expires_on', 'index' => 'expires_on', 'width' => '180', 'align' => 'center', 'sortable' => 'true'],
         ['name' => 'amount', 'index' => 'amount', 'width' => '110', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'feedback', 'index' => 'feedback', 'width' => '180', 'align' => 'center', 'sortable' => 'false'],
         ['name' => 'last_upload', 'index' => 'feedback', 'width' => '125', 'align' => 'center', 'sortable' => 'false'],
