@@ -1,4 +1,4 @@
-CustomCertificate plugin
+EasyCertificate plugin
 ===============
 Este plugin da la posibilidad al administrador de disponer de una herramienta de certificados alternativa
  a la que tiene por defecto la plataforma Chamilo.
@@ -23,4 +23,3 @@ Si se desea usar el certificado por defecto se deberá mostrar la segunda casill
 
 Credits
 -------
-Contributed by [Nosolored](https://www.nosolored.com/).

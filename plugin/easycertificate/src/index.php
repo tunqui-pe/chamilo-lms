@@ -8,15 +8,15 @@ if ($isDefault === 1) {
     $cidReset = true;
 }
 
-$course_plugin = 'customcertificate';
+$course_plugin = 'easycertificate';
 require_once __DIR__.'/../config.php';
 
 $_setting['student_view_enabled'] = 'false';
 
 $userId = api_get_user_id();
-$plugin = CustomCertificatePlugin::create();
+$plugin = EasyCertificatePlugin::create();
 $nameTools = $plugin->get_lang('CertificateSetting');
-$enable = $plugin->get('enable_plugin_customcertificate') == 'true';
+$enable = $plugin->get('enable_plugin_easycertificate') == 'true';
 $accessUrlId = api_get_current_access_url_id();
 $course_info = api_get_course_info();
 
@@ -33,7 +33,7 @@ if ($isDefault === 1) {
     $courseId = api_get_course_int_id();
     $courseCode = api_get_course_id();
     $sessionId = api_get_session_id();
-    $enableCourse = api_get_course_setting('customcertificate_course_enable', $course_info) == 1 ? true : false;
+    $enableCourse = api_get_course_setting('easycertificate_course_enable', $course_info) == 1 ? true : false;
     $useDefault = api_get_course_setting('use_certificate_default', $course_info) == 1 ? true : false;
     $defaultCertificate = 0;
     $urlParams = '?'.api_get_cidreq();
@@ -56,14 +56,14 @@ if (!$allow) {
     api_not_allowed(true);
 }
 
-$table = Database::get_main_table(CustomCertificatePlugin::TABLE_CUSTOMCERTIFICATE);
+$table = Database::get_main_table(EasyCertificatePlugin::TABLE_EASYCERTIFICATE);
 $htmlHeadXtra[] = api_get_js_simple(
-    api_get_path(WEB_PLUGIN_PATH).'customcertificate/resources/js/certificate.js'
+    api_get_path(WEB_PLUGIN_PATH).'easycertificate/resources/js/certificate.js'
 );
 $htmlHeadXtra[] = api_get_css_asset('cropper/dist/cropper.min.css');
 $htmlHeadXtra[] = api_get_asset('cropper/dist/cropper.min.js');
 $htmlHeadXtra[] = api_get_css(
-    api_get_path(WEB_PLUGIN_PATH).'customcertificate/resources/css/form.css'
+    api_get_path(WEB_PLUGIN_PATH).'easycertificate/resources/css/form.css'
 );
 $htmlHeadXtra[] = '<script>
     $(function () {
@@ -76,7 +76,7 @@ $htmlHeadXtra[] = '<script>
                 var sessionId = '.$sessionId.';
                 var accessUrlId = '.$accessUrlId.';
                 var plugin_path = "'.api_get_path(WEB_PLUGIN_PATH).'";
-                var ajax_path = plugin_path + "customcertificate/src/customcertificate.ajax.php?a=delete_certificate";
+                var ajax_path = plugin_path + "easycertificate/src/easycertificate.ajax.php?a=delete_certificate";
                 $.ajax({
                     data: {courseId: courseId, sessionId: sessionId, accessUrlId: accessUrlId},
                     url: ajax_path,
@@ -84,7 +84,7 @@ $htmlHeadXtra[] = '<script>
                     success: function (response) {
                         window.location.reload();
                     }
-                }); 
+                });
             }
         });
 
@@ -92,7 +92,7 @@ $htmlHeadXtra[] = '<script>
 </script>';
 
 // Get info certificate
-$infoCertificate = CustomCertificatePlugin::getInfoCertificate($courseId, $sessionId, $accessUrlId);
+$infoCertificate = EasyCertificatePlugin::getInfoCertificate($courseId, $sessionId, $accessUrlId);
 
 $form = new FormValidator(
     'formEdit',
@@ -185,7 +185,7 @@ if ($form->validate()) {
 
         // Certificate Default
         if (intval($formValues['use_default'] == 1)) {
-            $infoCertificateDefault = CustomCertificatePlugin::getInfoCertificateDefault($accessUrlId);
+            $infoCertificateDefault = EasyCertificatePlugin::getInfoCertificateDefault($accessUrlId);
             if (!empty($infoCertificateDefault)) {
                 foreach ($fieldList as $field) {
                     if (!empty($infoCertificateDefault[$field]) && !$checkLogo[$field]) {
@@ -207,7 +207,7 @@ if ($form->validate()) {
 }
 
 if (empty($infoCertificate)) {
-    $infoCertificate = CustomCertificatePlugin::getInfoCertificateDefault($accessUrlId);
+    $infoCertificate = EasyCertificatePlugin::getInfoCertificateDefault($accessUrlId);
 
     if (empty($infoCertificate)) {
         $infoCertificate = [
@@ -224,7 +224,7 @@ if (empty($infoCertificate)) {
 // Display the header
 Display::display_header($nameTools);
 $actionsLeft = Display::url(
-    Display::return_icon('certificate.png', get_lang('Certificate'), '', ICON_SIZE_MEDIUM),
+    Display::return_icon('easycertificate.png', get_lang('Certificate'), '', ICON_SIZE_MEDIUM),
     'print_certificate.php'.$urlParams
 );
 if (!empty($courseId) && !$useDefault) {
@@ -435,7 +435,7 @@ $form->addHtml('<div class="form-group" style="padding-top: 10px;">
         <div class="col-sm-10">
         <div class="radio" style="margin-top: -25px;">
             <span style="margin: 0 10px; font-style: italic;">'.get_lang('From').'</span>
-            <input 
+            <input
                 size="10"
                 class="form-control-cert text-center datepicker"
                 name="date_start"
@@ -722,7 +722,7 @@ Display::display_footer();
  */
 function checkInstanceImage($certificateId, $imagePath, $field, $type = 'certificates')
 {
-    $table = Database::get_main_table(CustomCertificatePlugin::TABLE_CUSTOMCERTIFICATE);
+    $table = Database::get_main_table(EasyCertificatePlugin::TABLE_EASYCERTIFICATE);
     $imagePath = Database::escape_string($imagePath);
     $field = Database::escape_string($field);
     $certificateId = (int) $certificateId;

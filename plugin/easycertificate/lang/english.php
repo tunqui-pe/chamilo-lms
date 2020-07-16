@@ -1,8 +1,8 @@
 <?php
-$strings['plugin_title'] = "Custom certificate";
+$strings['plugin_title'] = "Easy Custom certificate";
 $strings['plugin_comment'] = "This plugin allows you to create custom certificates for each course.";
-$strings['enable_plugin_customcertificate'] = "Enable plugin";
-$strings['customcertificate_course_enable'] = "Custom certificate enable in course";
+$strings['enable_plugin_easycertificate'] = "Enable plugin";
+$strings['easycertificate_course_enable'] = "Custom certificate enable in course";
 $strings['use_certificate_default'] = "Use default custom certificate";
 $strings['ToolDisabled'] = "The tool is disabled from the administration";
 $strings['OnlyAdminPlatform'] = "Tool only for administrators";

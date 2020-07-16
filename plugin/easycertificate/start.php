@@ -1,14 +1,14 @@
 <?php
 /**
- * This script initiates a customcertificate plugin.
+ * This script initiates a easycertificate plugin.
  *
- * @package chamilo.plugin.customcertificate
+ * @package chamilo.plugin.easycertificate
  */
-$course_plugin = 'customcertificate';
+$course_plugin = 'easycertificate';
 require_once __DIR__.'/config.php';
 
-$plugin = CustomCertificatePlugin::create();
-$enable = $plugin->get('enable_plugin_customcertificate') == 'true';
+$plugin = EasyCertificatePlugin::create();
+$enable = $plugin->get('enable_plugin_easycertificate') == 'true';
 
 if ($enable) {
     if (api_is_platform_admin() || api_is_teacher()) {

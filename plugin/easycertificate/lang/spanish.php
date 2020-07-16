@@ -1,8 +1,8 @@
 <?php
 $strings['plugin_title'] = "Certificado personalizado";
 $strings['plugin_comment'] = "Este plugin permite crear certificados personalizados por curso.";
-$strings['enable_plugin_customcertificate'] = "Activar plugin";
-$strings['customcertificate_course_enable'] = "Habilitar en el curso el certificado alternativo";
+$strings['enable_plugin_easycertificate'] = "Activar plugin";
+$strings['easycertificate_course_enable'] = "Habilitar en el curso el certificado alternativo";
 $strings['use_certificate_default'] = "Usar el certificado personalizado por defecto";
 $strings['ToolDisabled'] = "La herramienta está deshabilitada desde la administración";
 $strings['OnlyAdminPlatform'] = "Herramienta exclusiva para administradores";
@@ -50,10 +50,10 @@ $strings['OtherOptions'] = "Otras opciones";
 $strings['MarginRight'] = "Margen derecho";
 $strings['MarginLeft'] = "Margen izquierdo";
 $strings['SetDefaultTemplate'] = "Establecer plantilla por defecto";
-$strings['MessageDefaultTemplate'] = "Guardar esta personalización por defecto para cursos y 
+$strings['MessageDefaultTemplate'] = "Guardar esta personalización por defecto para cursos y
     sesiones sin certificados definidos";
 $strings['None'] = "Ninguno";
-$strings['ErrorTemplateCertificate'] = "No hay una plantilla definida para el certificado. 
+$strings['ErrorTemplateCertificate'] = "No hay una plantilla definida para el certificado.
     No existe plantilla por defecto.";
 $strings['DateStartEnd'] = "Con Fecha de inicio y Fecha fin: ";
 $strings['ExpedictionIn'] = "Expedido en";
@@ -67,7 +67,7 @@ $strings['ToolUseDefaultSettingCourse'] = "Herramienta configurada para usar el 
     O si lo desea puede desactivar la opción de usar certificado por defecto en la configuración del
      plugin en el curso";
 $strings['CertificateSettingDefault'] = "Configuración del certificado por defecto";
-$strings['InfoFromDefaultCertificate'] = "El contenido del certificado está basado en el certificado por defecto. 
+$strings['InfoFromDefaultCertificate'] = "El contenido del certificado está basado en el certificado por defecto.
     Las modificaciones que realice no afectará al certificado por defecto.";
 $strings['to'] = " a ";
 $strings['formatDownloadDate'] = " a %s de %s de %s";

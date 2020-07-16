@@ -9,12 +9,12 @@ if ($default === 1) {
     $cidReset = true;
 }
 
-$course_plugin = 'customcertificate';
+$course_plugin = 'easycertificate';
 require_once __DIR__ . '/../config.php';
 
 api_block_anonymous_users();
-$plugin = CustomCertificatePlugin::create();
-$enable = $plugin->get('enable_plugin_customcertificate') == 'true';
+$plugin = EasyCertificatePlugin::create();
+$enable = $plugin->get('enable_plugin_easycertificate') == 'true';
 $tblProperty = Database::get_course_table(TABLE_ITEM_PROPERTY);
 
 if (!$enable) {
@@ -31,7 +31,7 @@ if ($default == 1) {
     $courseId = api_get_course_int_id();
     $courseCode = api_get_course_id();
     $sessionId = api_get_session_id();
-    $enableCourse = api_get_course_setting('customcertificate_course_enable') == 1 ? true : false;
+    $enableCourse = api_get_course_setting('easycertificate_course_enable') == 1 ? true : false;
     $useDefault = api_get_course_setting('use_certificate_default') == 1 ? true : false;
 }
 
@@ -78,19 +78,19 @@ if ($sessionId > 0) {
     $sessionInfo = SessionManager::fetch($sessionId);
 }
 
-$table = Database::get_main_table(CustomCertificatePlugin::TABLE_CUSTOMCERTIFICATE);
+$table = Database::get_main_table(EasyCertificatePlugin::TABLE_EASYCERTIFICATE);
 $useDefault = false;
 $path = api_get_path(SYS_UPLOAD_PATH) . 'certificates/';
 
 // Get info certificate
-$infoCertificate = CustomCertificatePlugin::getInfoCertificate($courseId, $sessionId, $accessUrlId);
+$infoCertificate = EasyCertificatePlugin::getInfoCertificate($courseId, $sessionId, $accessUrlId);
 
 if (!is_array($infoCertificate)) {
     $infoCertificate = [];
 }
 
 if (empty($infoCertificate)) {
-    $infoCertificate = CustomCertificatePlugin::getInfoCertificateDefault($accessUrlId);
+    $infoCertificate = EasyCertificatePlugin::getInfoCertificateDefault($accessUrlId);
 
     if (empty($infoCertificate)) {
         Display::display_header($plugin->get_lang('PrintCertificate'));
@@ -114,7 +114,7 @@ foreach ($userList as $userInfo) {
     $linkCertificateCSS = '
     <link rel="stylesheet"
         type="text/css"
-        href="' . api_get_path(WEB_PLUGIN_PATH) . 'customcertificate/resources/css/certificate.css">';
+        href="' . api_get_path(WEB_PLUGIN_PATH) . 'easycertificate/resources/css/certificate.css">';
     $linkCertificateCSS .= '
     <link rel="stylesheet"
         type="text/css"
@@ -359,7 +359,7 @@ foreach ($userList as $userInfo) {
 
     }
     $template->assign('later_content', $laterContent);
-    $content = $template->fetch('customcertificate/template/certificate.tpl');
+    $content = $template->fetch('easycertificate/template/certificate.tpl');
     $htmlText .= $content;
 
     $fileName = 'certificate_' . $courseInfo['code'] . '_' . $userInfo['complete_name'] . '_' . $currentLocalTime;

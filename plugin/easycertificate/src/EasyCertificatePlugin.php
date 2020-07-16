@@ -2,21 +2,21 @@
 /* For license terms, see /license.txt */
 
 /**
- * Plugin class for the CustomCertificate plugin.
+ * Plugin class for the Easy certificate plugin.
  *
- * @package chamilo.plugin.customcertificate
+ * @package chamilo.plugin.easycertificate
  *
- * @author Jose Angel Ruiz <desarrollo@nosolored.com>
+ * @author Alex Aragon Calixto <aragcar@gmail.com>
  */
-class CustomCertificatePlugin extends Plugin
+class EasyCertificatePlugin extends Plugin
 {
-    const TABLE_CUSTOMCERTIFICATE = 'plugin_customcertificate';
+    const TABLE_EASYCERTIFICATE = 'plugin_easycertificate';
     public $isCoursePlugin = true;
 
     // When creating a new course this settings are added to the course
     public $course_settings = [
         [
-            'name' => 'customcertificate_course_enable',
+            'name' => 'easycertificate_course_enable',
             'type' => 'checkbox',
         ],
         [
@@ -32,9 +32,9 @@ class CustomCertificatePlugin extends Plugin
     {
         parent::__construct(
             '1.0',
-            'Jose Angel Ruiz - NoSoloRed (original author), Julio Montoya, Alex Aragón - BeezNest',
+            'Alex Aragón Calixto',
             [
-                'enable_plugin_customcertificate' => 'boolean',
+                'enable_plugin_easycertificate' => 'boolean',
             ]
         );
 
@@ -46,7 +46,7 @@ class CustomCertificatePlugin extends Plugin
      *
      * @staticvar null $result
      *
-     * @return CustomCertificatePlugin
+     * @return EasyCertificatePlugin
      */
     public static function create()
     {
@@ -63,7 +63,7 @@ class CustomCertificatePlugin extends Plugin
         //Installing course settings
         $this->install_course_fields_in_all_courses();
 
-        $tablesToBeCompared = [self::TABLE_CUSTOMCERTIFICATE];
+        $tablesToBeCompared = [self::TABLE_EASYCERTIFICATE];
         $em = Database::getManager();
         $cn = $em->getConnection();
         $sm = $cn->getSchemaManager();
@@ -73,7 +73,7 @@ class CustomCertificatePlugin extends Plugin
             return false;
         }
 
-        require_once api_get_path(SYS_PLUGIN_PATH).'customcertificate/database.php';
+        require_once api_get_path(SYS_PLUGIN_PATH).'easycertificate/database.php';
     }
 
     /**
@@ -84,7 +84,7 @@ class CustomCertificatePlugin extends Plugin
         // Deleting course settings.
         $this->uninstall_course_fields_in_all_courses();
 
-        $tablesToBeDeleted = [self::TABLE_CUSTOMCERTIFICATE];
+        $tablesToBeDeleted = [self::TABLE_EASYCERTIFICATE];
         foreach ($tablesToBeDeleted as $tableToBeDeleted) {
             $table = Database::get_main_table($tableToBeDeleted);
             $sql = "DROP TABLE IF EXISTS $table";
@@ -128,7 +128,7 @@ class CustomCertificatePlugin extends Plugin
                     'certificate_default' => 0,
                 ];
 
-                $certificateId = Database::insert(self::TABLE_CUSTOMCERTIFICATE, $params);
+                $certificateId = Database::insert(self::TABLE_EASYCERTIFICATE, $params);
 
                 // Image manager
                 $pathDestiny = $base.'certificates/'.$certificateId.'/';
@@ -155,7 +155,7 @@ class CustomCertificatePlugin extends Plugin
                     $params['c_id'] = 0;
                     $params['session_id'] = 0;
                     $params['certificate_default'] = 1;
-                    $certificateId = Database::insert(self::TABLE_CUSTOMCERTIFICATE, $params);
+                    $certificateId = Database::insert(self::TABLE_EASYCERTIFICATE, $params);
                     $pathOrigin = $base.'certificates/default/';
                     $pathDestiny = $base.'certificates/'.$certificateId.'/';
                     foreach ($imgList as $value) {
@@ -217,7 +217,7 @@ class CustomCertificatePlugin extends Plugin
             $courseCode = $row['course_code'];
             $sessionId = $row['session_id'];
             $userId = $row['user_id'];
-            if (api_get_course_setting('customcertificate_course_enable', api_get_course_info($courseCode)) == 1) {
+            if (api_get_course_setting('easycertificate_course_enable', api_get_course_info($courseCode)) == 1) {
                 return [
                     'course_code' => $courseCode,
                     'session_id' => $sessionId,
@@ -241,7 +241,7 @@ class CustomCertificatePlugin extends Plugin
         $certId = (int) $certId;
         $userId = !empty($userId) ? $userId : api_get_user_id();
 
-        if (api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true') {
+        if (api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true') {
             $infoCertificate = self::getCertificateData($certId, $userId);
             if (!empty($infoCertificate)) {
                 if ($certificate->user_id == api_get_user_id() && !empty($certificate->certificate_data)) {
@@ -260,7 +260,7 @@ class CustomCertificatePlugin extends Plugin
                     }
                 }
 
-                $url = api_get_path(WEB_PLUGIN_PATH).'customcertificate/src/print_certificate.php'.
+                $url = api_get_path(WEB_PLUGIN_PATH).'easycertificate/src/print_certificate.php'.
                     '?student_id='.$infoCertificate['user_id'].
                     '&course_code='.$infoCertificate['course_code'].
                     '&session_id='.$infoCertificate['session_id'];
@@ -285,10 +285,10 @@ class CustomCertificatePlugin extends Plugin
         $sessionId = (int) $sessionId;
         $accessUrlId = !empty($accessUrlId) ? (int) $accessUrlId : 1;
 
-        $table = Database::get_main_table(self::TABLE_CUSTOMCERTIFICATE);
+        $table = Database::get_main_table(self::TABLE_EASYCERTIFICATE);
         $sql = "SELECT * FROM $table
-                WHERE 
-                    c_id = $courseId AND 
+                WHERE
+                    c_id = $courseId AND
                     session_id = $sessionId AND
                     access_url_id = $accessUrlId";
         $result = Database::query($sql);
@@ -311,7 +311,7 @@ class CustomCertificatePlugin extends Plugin
     {
         $accessUrlId = !empty($accessUrlId) ? (int) $accessUrlId : 1;
 
-        $table = Database::get_main_table(self::TABLE_CUSTOMCERTIFICATE);
+        $table = Database::get_main_table(self::TABLE_EASYCERTIFICATE);
         $sql = "SELECT * FROM $table
                 WHERE certificate_default = 1 AND access_url_id = $accessUrlId";
         $result = Database::query($sql);

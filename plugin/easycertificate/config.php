@@ -4,8 +4,8 @@
 /**
  * Config the plugin.
  *
- * @package chamilo.plugin.customcertificate
+ * @package chamilo.plugin.easycertificate
  *
- * @author Jose Angel Ruiz <desarrollo@nosolored.com>
+ * @author Alex Aragon Calixto <aragcar@gmail.com>
  */
 require_once __DIR__.'/../../main/inc/global.inc.php';

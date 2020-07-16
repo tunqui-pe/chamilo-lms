@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Type;
  * Plugin database installation script. Can only be executed if included
  * inside another script loading global.inc.php.
  *
- * @package chamilo.plugin.customcertificate
+ * @package chamilo.plugin.easycertificate
  */
 /**
  * Check if script can be called.
@@ -21,12 +21,12 @@ $pluginSchema = new \Doctrine\DBAL\Schema\Schema();
 $connection = $entityManager->getConnection();
 $platform = $connection->getDatabasePlatform();
 
-if ($pluginSchema->hasTable(CustomCertificatePlugin::TABLE_CUSTOMCERTIFICATE)) {
+if ($pluginSchema->hasTable(EasyCertificatePlugin::TABLE_EASYCERTIFICATE)) {
     return;
 }
 
 //Create tables
-$certificateTable = $pluginSchema->createTable(CustomCertificatePlugin::TABLE_CUSTOMCERTIFICATE);
+$certificateTable = $pluginSchema->createTable(EasyCertificatePlugin::TABLE_EASYCERTIFICATE);
 $certificateTable->addColumn('id', Type::INTEGER, ['autoincrement' => true, 'unsigned' => true]);
 $certificateTable->addColumn('access_url_id', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->addColumn('c_id', Type::INTEGER, ['unsigned' => true]);
