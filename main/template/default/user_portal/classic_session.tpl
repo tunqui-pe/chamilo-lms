@@ -81,12 +81,36 @@
                             {% endif %}
                         </ul>
                         <div class="sessions-items">
+
                         {% for item in row.courses %}
-                            <div class="courses">
+
+                            {% set view = '' %}
+                            {% if item.visibility == false %}
+                                {% set view = 'view-hide' %}
+                            {% endif %}
+                            {% if _u.status == 1 %}
+                            <div id="course_{{ row.id }}_{{ item.real_id }}" class="courses {{ view }}">
                                 <div class="row">
                                     <div class="col-md-2">
+
+                                            {% if item.visibility == false %}
+                                                <div class="item-view">
+                                                    <a href="javascript:void(0);">
+                                                        <img id="view_{{ row.id }}_{{ item.real_id }}" data-view="show" data-session="{{ row.id }}" data-course="{{ item.real_id }}" src="{{ "invisible.png"|icon(22) }}" width="22" height="22" alt="{{ "Invisible"|get_lang }}"
+                                                             title="{{ "Invisible"|get_lang }}">
+                                                    </a>
+                                                </div>
+                                            {% else %}
+                                                <div class="item-view">
+                                                    <a href="javascript:void(0);">
+                                                        <img id="view_{{ row.id }}_{{ item.real_id }}" data-view="hide" data-session="{{ row.id }}" data-course="{{ item.real_id }}" src="{{ "visible.png"|icon(22) }}" width="22" height="22" alt="{{ "Visible"|get_lang }}"
+                                                             title="{{ "Visible"|get_lang }}">
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+
                                         <a href="{{ item.link }}" class="thumbnail">
-                                            <img class="img-responsive"
+                                            <img id="icon_{{ row.id }}_{{ item.real_id }}" class="img-responsive"
                                                  src="{{ item.thumbnails ? item.thumbnails : item.icon }}">
                                         </a>
                                     </div>
@@ -127,6 +151,55 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            {% else %}
+                                {% if item.visibility == true %}
+                                <div id="course_{{ row.id }}_{{ item.real_id }}" class="courses {{ view }}">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <a href="{{ item.link }}" class="thumbnail">
+                                                <img id="icon_{{ row.id }}_{{ item.real_id }}" class="img-responsive"
+                                                     src="{{ item.thumbnails ? item.thumbnails : item.icon }}">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h4>{{ item.title }}</h4>
+                                            <div class="list-teachers">
+                                                {% if item.coaches|length > 0 %}
+                                                    <img src="{{ 'teacher.png'|icon(16) }}" width="16" height="16">
+                                                    {% for coach in item.coaches %}
+                                                        {{ loop.index > 1 ? ' | ' }}
+                                                        <a href="{{ _p.web_ajax ~ 'user_manager.ajax.php?' ~ {'a': 'get_user_popup', 'user_id': coach.user_id, 'session_id': row.id, 'course_id': item.real_id }|url_encode() }}"
+                                                           data-title="{{ coach.full_name }}" class="ajax">
+                                                            {{ coach.firstname }}, {{ coach.lastname }}
+                                                        </a>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        {% if item.student_info %}
+                                            {% if item.student_info.progress is not null or item.student_info.score is not null or item.student_info.certificate is not null %}
+                                                <div class="course-student-info">
+                                                    <div class="student-info">
+                                                        {% if (item.student_info.progress is not null) %}
+                                                            {{ "StudentCourseProgressX" | get_lang | format(item.student_info.progress) }}
+                                                        {% endif %}
+
+                                                        {% if (item.student_info.score is not null) %}
+                                                            {{ "StudentCourseScoreX" | get_lang | format(item.student_info.score) }}
+                                                        {% endif %}
+
+                                                        {% if (item.student_info.certificate is not null) %}
+                                                            {{ "StudentCourseCertificateX" | get_lang | format(item.student_info.certificate) }}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                         </div>
                     </div>
@@ -166,3 +239,30 @@
         {% endif %}
     </div>
 {% endfor %}
+
+<script type="text/javascript">
+    $(function() {
+        $(".item-view > a > img").click(function () {
+            idSession = $(this).data("session");
+            idCourse = $(this).data("course");
+            view = $(this).data("view");
+            //console.log(idCourse);
+            //console.log(idSession);
+            $.ajax({
+                contentType: "application/x-www-form-urlencoded",
+                type: "GET",
+                url:  "{{ _p.web_main }}inc/ajax/session.ajax.php?a=set_course_session_visible",
+                data: "c_id=" + idCourse + "&session_id=" + idSession + "&view=" + view,
+                success: function(result) {
+                    $("#icon_" + idSession + "_" + idCourse).attr("src", result.icon_course);
+                    $("#view_" + idSession + "_" + idCourse).attr("src", result.icon_view);
+                    $("#view_" + idSession + "_" + idCourse).data("view", result.status);
+                    $("#course_" + idSession + "_" + idCourse).toggleClass("view-hide");
+                    console.log(result.icon_course);
+                    console.log(result.icon_view);
+
+                }
+            });
+        });
+    });
+</script>

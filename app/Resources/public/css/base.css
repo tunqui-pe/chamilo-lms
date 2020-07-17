@@ -11145,8 +11145,17 @@ ul.dropdown-menu.inner > li > a {
 }
 
 .compilation_block .progress {
-    margin:0px;
+    margin:0;
     width:120px
+}
+.courses .item-view{
+    position: absolute;
+    top: 15px;
+    left: 30px;
+}
+
+.courses.view-hide h4 a{
+    color: #888888;
 }
 
 @media (min-width: 768px) {

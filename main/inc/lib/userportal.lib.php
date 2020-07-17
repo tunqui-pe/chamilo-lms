@@ -1487,6 +1487,10 @@ class IndexManager
                                 if ($session_now >= $allowed_time && $allowedEndTime) {
                                     // Read only and accessible.
                                     $atLeastOneCourseIsVisible = true;
+
+
+                                    //var_dump($isVisibility);
+
                                     if (api_get_setting('hide_courses_in_sessions') === 'false') {
                                         $courseUserHtml = CourseManager::get_logged_user_course_html(
                                             $course,
@@ -1495,8 +1499,26 @@ class IndexManager
                                             true,
                                             $this->load_directories_preview
                                         );
+
                                         if (isset($courseUserHtml[1])) {
                                             $course_session = $courseUserHtml[1];
+                                            if(api_get_configuration_value('visibility_courses_in_session') == true) {
+                                                $isVisibility = SessionManager::getVisibilityCourseSession(
+                                                    $course['real_id'],
+                                                    $session_id);
+                                                $course_session['visibility'] = $isVisibility === '1' ? true : false;
+                                                if($course_session['visibility']==false){
+                                                    $image = Display::return_icon(
+                                                        'blackboard_blue_na.png',
+                                                        null,
+                                                        null,
+                                                        ICON_SIZE_LARGE,
+                                                        null,
+                                                        true
+                                                    );
+                                                    $course_session['thumbnails'] = $image;
+                                                }
+                                            }
                                             $course_session['skill'] = isset($courseUserHtml['skill']) ? $courseUserHtml['skill'] : '';
 
                                             // Course option (show student progress)

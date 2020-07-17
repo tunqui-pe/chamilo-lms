@@ -9254,4 +9254,77 @@ SQL;
             return -1;
         }
     }
+
+    public static function getVisibilityCourseSession($idCourse, $idSession){
+        $tbl_session_rel_course = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
+        $sql = "SELECT visibility FROM $tbl_session_rel_course WHERE c_id = $idCourse AND session_id = $idSession";
+        $result = Database::query($sql);
+
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                return $row['visibility'];
+            }
+        }
+    }
+    public static function updateVisibilityCourseSession($idCourse, $idSession, $option){
+        $tbl_session_rel_course = Database::get_main_table(TABLE_MAIN_SESSION_COURSE);
+
+        $idVisibility = 1;
+        $iconCourse = Display::return_icon(
+            'blackboard_blue.png',
+            null,
+            null,
+            ICON_SIZE_LARGE,
+            null,
+            true
+        );
+        $iconView = Display::return_icon(
+            'visible.png',
+            null,
+            null,
+            ICON_SIZE_SMALL,
+            null,
+            true
+        );
+        $status = "hide";
+        if ($option == "hide") {
+            $idVisibility = 0;
+            $status = "show";
+            $iconCourse = Display::return_icon(
+                'blackboard_blue_na.png',
+                null,
+                null,
+                ICON_SIZE_LARGE,
+                null,
+                true
+            );
+            $iconView = Display::return_icon(
+                'invisible.png',
+                null,
+                null,
+                ICON_SIZE_SMALL,
+                null,
+                true
+            );
+        }
+
+        $params = [
+            'visibility' => $idVisibility,
+        ];
+
+        Database::update(
+            $tbl_session_rel_course,
+            $params,
+            [
+                'c_id = ? AND session_id = ?' => [$idCourse, $idSession]
+            ]
+        );
+
+        return [
+            'result' => true,
+            'icon_course' => $iconCourse,
+            'icon_view' => $iconView,
+            'status' => $status
+        ];
+    }
 }

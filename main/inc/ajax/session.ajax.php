@@ -434,6 +434,17 @@ switch ($action) {
 
         echo true;
         break;
+    case 'set_course_session_visible':
+        $idCourse = isset($_GET['c_id']) ? Security::remove_XSS($_GET['c_id']) : null;
+        $idSession = isset($_GET['session_id']) ? Security::remove_XSS($_GET['session_id']) : null;
+        $viewOption = isset($_GET['view']) ? Security::remove_XSS($_GET['view']) : null;
+        if (empty($idCourse) || empty($idSession) || empty($viewOption)) {
+            break;
+        }
+        $result = SessionManager::updateVisibilityCourseSession($idCourse,$idSession,$viewOption);
+        echo json_encode($result);
+        header("Content-type:application/json");
+        break;
     default:
         echo '';
 }
