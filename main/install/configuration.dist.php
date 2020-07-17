@@ -1573,3 +1573,8 @@ ALTER TABLE `c_student_publication` ADD `cat_id` INT NULL AFTER `document_id`;
 */
 //Allows to add increment in minutes to the date range component timepicker, example: 5,10,30 minutes
 //$_configuration['timepicker_increment'] = 5;
+//Visible Course Session
+
+//$_configuration['visibility_courses_in_session'] = true;
+
+// ALTER TABLE `session_rel_course` ADD `visibility` INT NOT NULL DEFAULT '1' AFTER `position`;
