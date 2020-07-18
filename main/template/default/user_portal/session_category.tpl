@@ -1,7 +1,8 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-2">
+
+<div class="card-category">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <div class="category-icon">
                 {% if session_category.show_actions %}
                     <a href="{{ _p.web_main ~ 'session/session_category_edit.php?id=' ~ session_category.id }}"
                        class="thumbnail">
@@ -13,7 +14,7 @@
                          alt="{{ session_category.title }}" title="{{ session_category.title }}">
                 {% endif %}
             </div>
-            <div class="col-md-10">
+            <div class="category-name">
                 {% if session_category.show_actions %}
                     <div class="pull-right">
                         <a href="{{ _p.web_main ~ 'session/session_category_edit.php?id=' ~ session_category.id }}">
@@ -28,7 +29,7 @@
                 {% endif %}
             </div>
         </div>
-        {# session_category.sessions is generated with the session.tpl #}
-        {{ session_category.sessions }}
     </div>
 </div>
+{# session_category.sessions is generated with the session.tpl #}
+{{ session_category.sessions }}

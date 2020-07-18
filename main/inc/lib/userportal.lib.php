@@ -1736,8 +1736,28 @@ class IndexManager
                                                 $session_id,
                                                 'session_course_item'
                                             );
+
                                             if (isset($c[1])) {
-                                                $html_courses_session[] = $c[1];
+
+                                                $course_session = $c[1];
+                                                if(api_get_configuration_value('visibility_courses_in_session') == true) {
+                                                    $isVisibility = SessionManager::getVisibilityCourseSession(
+                                                        $course['real_id'],
+                                                        $session_id);
+                                                    $course_session['visibility'] = $isVisibility === '1' ? true : false;
+                                                    if($course_session['visibility']==false){
+                                                        $image = Display::return_icon(
+                                                            'blackboard_blue_na.png',
+                                                            null,
+                                                            null,
+                                                            ICON_SIZE_LARGE,
+                                                            null,
+                                                            true
+                                                        );
+                                                        $course_session['thumbnails'] = $image;
+                                                    }
+                                                }
+                                                $html_courses_session[] = $course_session;
                                             }
                                         }
                                         $count_courses_session++;

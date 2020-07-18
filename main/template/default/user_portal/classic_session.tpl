@@ -201,6 +201,7 @@
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
+
                                 {% for item in row.courses %}
                                     <div id="course_{{ row.id }}_{{ item.real_id }}" class="courses {{ view }}">
                                         <div class="row">

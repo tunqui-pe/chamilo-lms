@@ -121,6 +121,21 @@ switch ($action) {
 
         Display::addFlash(Display::return_message(get_lang('Updated')));
         break;
+    case 'hide':
+        $idSession = isset($_GET['id_session']) ? $_GET['id_session'] : null;
+        $idCourse = isset($_GET['course_id']) ? $_GET['course_id'] : null;
+        $result = SessionManager::updateVisibilityCourseSession($idCourse, $idSession, 'hide');
+        Display::addFlash(Display::return_message(get_lang('Updated')));
+
+        break;
+
+    case 'show':
+        $idSession = isset($_GET['id_session']) ? $_GET['id_session'] : null;
+        $idCourse = isset($_GET['course_id']) ? $_GET['course_id'] : null;
+        $result = SessionManager::updateVisibilityCourseSession($idCourse, $idSession, 'show');
+        Display::addFlash(Display::return_message(get_lang('Updated')));
+
+        break;
 }
 
 $sessionHeader = Display::page_header(
@@ -178,6 +193,7 @@ if ($session->getNbrCourses() === 0) {
             $course,
             $session
         );
+
         // Get coachs of the courses in session
         $namesOfCoaches = [];
         $coachSubscriptions = $session->getUserCourseSubscriptionsByStatus($course, Session::COACH)
@@ -216,7 +232,14 @@ if ($session->getNbrCourses() === 0) {
 
         // hide_course_breadcrumb the parameter has been added to hide the name
         // of the course, that appeared in the default $interbreadcrumb
-        $courseItem .= '<tr>
+        $style = null;
+        if(api_get_configuration_value('visibility_courses_in_session') == true) {
+            $visibility = SessionManager::getVisibilityCourseSession($course->getId(),$sessionId) === '1' ? true : false;
+            if(!$visibility){
+                $style = "style='background-color: #F3F3F3;'" ;
+            }
+        }
+        $courseItem .= '<tr ' . $style . '>
 			<td class="title">'
             .Display::url(
                 $course->getTitle().' ('.$course->getVisualCode().')',
@@ -235,6 +258,20 @@ if ($session->getNbrCourses() === 0) {
             );
         }
         $courseItem .= $orderButtons;
+
+        if(api_get_configuration_value('visibility_courses_in_session') == true) {
+            if($visibility){
+                $courseItem .= Display::url(
+                    Display::return_icon('visible.png', get_lang('Visible')),
+                    api_get_self()."?action=hide&id_session=$sessionId&course_id=".$course->getId()
+                );
+            } else {
+                $courseItem .= Display::url(
+                    Display::return_icon('invisible.png', get_lang('Visible')),
+                    api_get_self()."?action=show&id_session=$sessionId&course_id=".$course->getId()
+                );
+            }
+        }
 
         $courseItem .= Display::url(
             Display::return_icon('new_user.png', get_lang('AddUsers')),

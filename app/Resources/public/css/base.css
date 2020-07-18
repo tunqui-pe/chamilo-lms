@@ -11157,7 +11157,31 @@ ul.dropdown-menu.inner > li > a {
 .courses.view-hide h4 a{
     color: #888888;
 }
-
+.card-category{
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+.card-body{
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.5rem;
+}
+.category-name{
+    padding-left: 2rem;
+    color: #6581fd;
+}
+.category-name h4{
+    font-weight: bold;
+    margin: 0;
+}
+.d-flex{
+    display: flex !important;
+    flex-shrink: 1;
+}
+.align-items-center{
+    align-items: center !important;
+}
 @media (min-width: 768px) {
     .clear-rows-6-4-3 .col-sm-6:nth-child(2n+1) {
         clear: left;
