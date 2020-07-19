@@ -289,30 +289,3 @@
         {% endif %}
     </div>
 {% endfor %}
-
-<script type="text/javascript">
-    $(function() {
-        $(".item-view > a > img").click(function () {
-            idSession = $(this).data("session");
-            idCourse = $(this).data("course");
-            view = $(this).data("view");
-            //console.log(idCourse);
-            //console.log(idSession);
-            $.ajax({
-                contentType: "application/x-www-form-urlencoded",
-                type: "GET",
-                url:  "{{ _p.web_main }}inc/ajax/session.ajax.php?a=set_course_session_visible",
-                data: "c_id=" + idCourse + "&session_id=" + idSession + "&view=" + view,
-                success: function(result) {
-                    $("#icon_" + idSession + "_" + idCourse).attr("src", result.icon_course);
-                    $("#view_" + idSession + "_" + idCourse).attr("src", result.icon_view);
-                    $("#view_" + idSession + "_" + idCourse).data("view", result.status);
-                    $("#course_" + idSession + "_" + idCourse).toggleClass("view-hide");
-                    console.log(result.icon_course);
-                    console.log(result.icon_view);
-
-                }
-            });
-        });
-    });
-</script>
