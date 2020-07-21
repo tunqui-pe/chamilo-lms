@@ -23,7 +23,7 @@ if($enableAlertEmail){
         $plugin->get_lang('AlertDiskSpace')." - " . api_get_setting('siteName'),
         $messageTemplate->fetch('diskalert/views/message_alert.tpl')
     );
-    if($percentAlertDisk >= intval($infoStatus['used_percent'])){
+    if( intval($infoStatus['used_percent']) >= $percentAlertDisk){
         if(!empty($emailAlertDisk)) {
             $messageTemplate = new Template();
             $messageTemplate->assign('date', $date);
