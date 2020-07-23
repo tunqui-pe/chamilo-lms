@@ -25,3 +25,4 @@ $NoScheduledAnnouncements = "La sesión no tiene anuncios programados";
 $CopyConfirmation = "Los anuncios fueron copiados correctamente en la sessión seleccionada";
 $UserReportInSession = "Informe de usuarios registrados en sesión";
 $diplomaCourses= "Cursos del diplomado";
+$errorRUT = "Debe de ingresar un RUN Válido";

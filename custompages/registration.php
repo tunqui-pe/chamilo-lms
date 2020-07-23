@@ -25,7 +25,7 @@ if (isset($content['form']->_elementIndex['status'])) {
 }*/
 $content['form']->removeElement('official_code');
 $content['form']->removeElement('phone');
-$content['form']->removeElement('extra_rol_unico_tributario');
+/*$content['form']->removeElement('extra_rol_unico_tributario');*/
 $content['form']->removeElement('extra_rut_factura');
 
 $theme = api_get_visual_theme();
@@ -85,7 +85,13 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                             <div class="alert alert-info text-register">
                                 Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha olvidado su contraseña?</a>
                             </div>
+
+                            <div id="msg-error-run" style="display: none;" class="alert alert-danger">
+                               <?php echo custompages_get_lang('errorRUT'); ?>
+                            </div>
+
                             <?php
+
                                 $content['form']->display();
                             ?>
                             <div class="custom_required">
@@ -98,40 +104,24 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
         </div>
     </div> <!-- /container -->
 <script type="text/javascript">
-    /*$(document).ready(function() {
-        $('#extra_rol_unico_tributario').bind('keypress', function (event) {
 
-            var keyCode = event.keyCode || event.which
-            // Don't validate the input if below arrow, delete and backspace keys were pressed
-            if (keyCode == 8 || (keyCode >= 35 && keyCode <= 40)) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
-                return;
-            }
+    $(function() {
+        var RUT = $("#extra_rol_unico_tributario");
+        var RUTvalue = null;
 
-            var regex = new RegExp("^[a-zA-Z0-9]+$");
-            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        RUT.attr('placeholder','Ej: 11222333-K');
+        RUT.attr('pattern', '^[0-9]{8}-[A-Z]{1}$');
 
-            if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
-            }
-        });
-        $('#extra_rut_factura').bind('keypress', function (event) {
-
-            var keyCode = event.keyCode || event.which
-            // Don't validate the input if below arrow, delete and backspace keys were pressed
-            if (keyCode == 8 || (keyCode >= 35 && keyCode <= 40)) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
-                return;
-            }
-
-            var regex = new RegExp("^[a-zA-Z0-9]+$");
-            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-
-            if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
+        $("#registration").submit(function(e){
+            //console.log(RUT.val());
+            RUTvalue = RUT.val();
+            if(!(RUTvalue.match('^[0-9]{8}-[A-Z]{1}$'))){
+                $("#msg-error-run").show();
+                e.preventDefault();
             }
         });
-    });*/
+    });
+
 </script>
 </body>
 </html>
