@@ -80,10 +80,10 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="section-title-container">
-                                <h2 class="section-title">Registro de nuevo usuario</h2>
+                                <h2 class="section-title"><?php echo custompages_get_lang('newUserRegistration'); ?></h2>
                             </div>
                             <div class="alert alert-info text-register">
-                                Si ya tienes una cuenta, <a href="<?php echo $rootWeb; ?>">inicia sesión aquí</a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2">¿Ha olvidado su contraseña?</a>
+                                <?php echo custompages_get_lang('haveAccount'); ?> <a href="<?php echo $rootWeb; ?>"><?php echo custompages_get_lang('loginSession'); ?> </a> ó <a href="<?php echo $rootWeb; ?>main/auth/lostPassword.php?language=spanish2"><?php echo custompages_get_lang('forgetPassword'); ?></a>
                             </div>
 
                             <div id="msg-error-run" style="display: none;" class="alert alert-danger">
@@ -95,7 +95,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                                 $content['form']->display();
                             ?>
                             <div class="custom_required">
-                                * Esta información la utilizaremos para tu certificado de aprobación.
+                                <?php echo custompages_get_lang('certificateApproval'); ?>
                             </div>
                         </div>
                     </div>

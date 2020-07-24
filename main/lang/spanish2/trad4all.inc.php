@@ -26,3 +26,12 @@ $CopyConfirmation = "Los anuncios fueron copiados correctamente en la sessión s
 $UserReportInSession = "Informe de usuarios registrados en sesión";
 $diplomaCourses= "Cursos del diplomado";
 $errorRUT = "Debe de ingresar un RUN Válido";
+$newUserRegistration = "Registro de nuevo usuario";
+$haveAccount = "Si ya tienes una cuenta, ";
+$loginSession = "inicia sesión aquí";
+$forgetPassword = "¿Ha olvidado su contraseña?";
+$certificateApproval = "* Esta información la utilizaremos para tu certificado de aprobación.";
+$accesVirtualClass = "Acceso Aula Virtual";
+$logOffSecurity = "Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.";
+
+
