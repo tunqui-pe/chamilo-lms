@@ -116,7 +116,7 @@ class HTML_QuickForm_text extends HTML_QuickForm_input
                 break;
             case FormValidator::LAYOUT_HORIZONTAL:
                 return '
-                <div class="form-group {error_class}">
+                <div class="form-group {error_class}" id="form_'.$this->getName().'_group">
                     <label {label-for} class="col-sm-'.$size[0].' control-label" >
                         <!-- BEGIN required --><span class="form_required">*</span><!-- END required -->
                         {label}
@@ -152,7 +152,7 @@ class HTML_QuickForm_text extends HTML_QuickForm_input
                                     <em class="fa fa-search"></em>
                                 </button>
                             </div>
-                        </div>  
+                        </div>
                     ';
                 } else {
                     $template = '

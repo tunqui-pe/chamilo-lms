@@ -545,16 +545,16 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
                     <label {label-for} >
                         <!-- BEGIN required --><span class="form_required">*</span><!-- END required -->
                         {label}
-                    </label>     
+                    </label>
                 </div>
-                <div class="input-group {error_class}">                               
+                <div class="input-group {error_class}">
                     {element}
                 </div>
                 ';
                 break;
             case FormValidator::LAYOUT_HORIZONTAL:
                 return '
-                <div class="form-group {error_class}" id="'.$this->getName().'-group">
+                <div class="form-group {error_class}" id="form_'.$this->getName().'_group">
                     <label {label-for}  class="col-sm-'.$size[0].' control-label  {extra_label_class}" >
                         <!-- BEGIN required --><span class="form_required">*</span><!-- END required -->
                         {label}
