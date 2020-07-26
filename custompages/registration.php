@@ -23,9 +23,11 @@ if (isset($content['form']->_elementIndex['status'])) {
     $content['form']->removeElement('status');
     $content['form']->removeElement('status');
 }*/
+
 $content['form']->removeElement('official_code');
 $content['form']->removeElement('phone');
-/*$content['form']->removeElement('extra_rol_unico_tributario');*/
+$content['form']->addRule('extra_country', get_lang('ThisFieldIsRequired'), 'required');
+$content['form']->addRule('extra_rol_unico_tributario', get_lang('ThisFieldIsRequired'), 'required');
 $content['form']->removeElement('extra_rut_factura');
 
 $theme = api_get_visual_theme();
@@ -56,9 +58,9 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="text-center">
+<body>
     <div class="container">
-        <div class="logo">
+        <div class="text-center">
             <a href="<?php echo $rootWeb; ?>">
                 <img src="<?php echo $rootWebTheme; ?>/images/logo.svg" class="logo" width="300px"/>
             </a>
@@ -91,7 +93,6 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
                             </div>
 
                             <?php
-
                                 $content['form']->display();
                             ?>
                             <div class="custom_required">
@@ -106,18 +107,43 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 <script type="text/javascript">
 
     $(function() {
-        var RUT = $("#extra_rol_unico_tributario");
-        var RUTvalue = null;
+        let Rut = $("#extra_rol_unico_tributario");
+        let RutValue = null;
+        let checkRut = true;
 
-        RUT.attr('placeholder','Ej: 11222333-K');
-        RUT.attr('pattern', '^[0-9]{8}-[A-Z]{1}$');
+        $("input[value='Chile']").prop('checked', true);
+        Rut.attr('placeholder','Ej: 11222333-K');
+        //RUT.attr('pattern', '^[0-9]{8,9}[-|‐]{1}[0-9kK]{1}$');
+
+        $("input[type=radio]").change(function () {
+            checkRut = isCountryForRut($(this));
+            //console.log(checkRut);
+        });
+
+        function isCountryForRut(input){
+            let Country = input.val().toLowerCase();
+            let isRut = true;
+            if(Country==='otro-pais'){
+                $("#form_extra_rol_unico_tributario_group").hide();
+                Rut.val('');
+                isRut = false;
+            }else{
+                $("#form_extra_rol_unico_tributario_group").show();
+                isRut = true;
+            }
+            return isRut;
+        }
 
         $("#registration").submit(function(e){
             //console.log(RUT.val());
-            RUTvalue = RUT.val();
-            if(!(RUTvalue.match('^[0-9]{8}-[A-Z]{1}$'))){
-                $("#msg-error-run").show();
-                e.preventDefault();
+            RutValue = Rut.val();
+            //alert($("input[type=radio]:checked").val());
+            console.log(checkRut);
+            if(checkRut){
+                if(!(RutValue.match('^[0-9]{8,9}[-|‐]{1}[0-9kK]{1}$'))){
+                    $("#msg-error-run").show();
+                    e.preventDefault();
+                }
             }
         });
     });
