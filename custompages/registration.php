@@ -125,11 +125,11 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
             let Country = input.val().toLowerCase();
             let isRut = true;
             if(Country==='otro-pais'){
-                $("#form_extra_rol_unico_tributario_group").hide();
+                //$("#form_extra_rol_unico_tributario_group").hide();
                 Rut.val('');
                 isRut = false;
             }else{
-                $("#form_extra_rol_unico_tributario_group").show();
+                //$("#form_extra_rol_unico_tributario_group").show();
                 isRut = true;
             }
             return isRut;
