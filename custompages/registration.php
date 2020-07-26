@@ -113,6 +113,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
 
         $("input[value='Chile']").prop('checked', true);
         Rut.attr('placeholder','Ej: 11222333-K');
+        Rut.attr('maxlength','11');
         //RUT.attr('pattern', '^[0-9]{8,9}[-|‐]{1}[0-9kK]{1}$');
 
         $("input[type=radio]").change(function () {
