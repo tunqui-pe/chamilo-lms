@@ -480,27 +480,27 @@ class ExtraField extends Model
     /**
      * Add elements to a form.
      *
-     * @param FormValidator $form                            The form object to which to attach this element
-     * @param int           $itemId                          The item (course, user, session, etc) this extra_field is linked to
-     * @param array         $exclude                         Variables of extra field to exclude
-     * @param bool          $filter                          Whether to get only the fields with the "filter" flag set to 1 (true) or not (false)
-     * @param bool          $useTagAsSelect                  Whether to show tag fields as select drop-down or not
-     * @param array         $showOnlyTheseFields             Limit the extra fields shown to just the list given here
-     * @param array         $orderFields                     An array containing the names of the fields shown, in the right order
-     * @param array         $extraData
-     * @param bool          $orderDependingDefaults
-     * @param bool          $adminPermissions
-     * @param array         $separateExtraMultipleSelect
-     * @param array         $customLabelsExtraMultipleSelect
-     * @param bool          $addEmptyOptionSelects
-     * @param array         $introductionTextList
-     * @param array         $requiredFields
-     * @param bool          $hideGeoLocalizationDetails
+     * @param FormValidator $form The form object to which to attach this element
+     * @param int $itemId The item (course, user, session, etc) this extra_field is linked to
+     * @param array $exclude Variables of extra field to exclude
+     * @param bool $filter Whether to get only the fields with the "filter" flag set to 1 (true) or not (false)
+     * @param bool $useTagAsSelect Whether to show tag fields as select drop-down or not
+     * @param array $showOnlyTheseFields Limit the extra fields shown to just the list given here
+     * @param array $orderFields An array containing the names of the fields shown, in the right order
+     * @param array $extraData
+     * @param bool $orderDependingDefaults
+     * @param bool $adminPermissions
+     * @param array $separateExtraMultipleSelect
+     * @param array $customLabelsExtraMultipleSelect
+     * @param bool $addEmptyOptionSelects
+     * @param array $introductionTextList
+     * @param array $requiredFields
+     * @param bool $hideGeoLocalizationDetails
      *
-     * @throws Exception
-     *
+     * @param bool $help
      * @return array|bool If relevant, returns a one-element array with JS code to be added to the page HTML headers.
      *                    Returns false if the form object was not given
+     * @throws Exception
      */
     public function addElements(
         $form,
@@ -1012,19 +1012,27 @@ class ExtraField extends Model
     /**
      * Add an element that matches the given extra field to the given $form object.
      *
-     * @param FormValidator $form                The form these fields are to be attached to
-     * @param array         $extraData
-     * @param bool          $adminPermissions    Whether the display is considered without edition limits (true) or not (false)
-     * @param array         $extra
-     * @param int           $itemId              The item (course, user, session, etc) this extra_field is attached to
-     * @param array         $exclude             Extra fields to be skipped, by textual ID
-     * @param bool          $useTagAsSelect      Whether to show tag fields as select drop-down or not
-     * @param array         $showOnlyTheseFields Limit the extra fields shown to just the list given here
-     * @param array         $orderFields         An array containing the names of the fields shown, in the right order
+     * @param FormValidator $form The form these fields are to be attached to
+     * @param array $extraData
+     * @param bool $adminPermissions Whether the display is considered without edition limits (true) or not (false)
+     * @param array $extra
+     * @param int $itemId The item (course, user, session, etc) this extra_field is attached to
+     * @param array $exclude Extra fields to be skipped, by textual ID
+     * @param bool $useTagAsSelect Whether to show tag fields as select drop-down or not
+     * @param array $showOnlyTheseFields Limit the extra fields shown to just the list given here
+     * @param array $orderFields An array containing the names of the fields shown, in the right order
      *
-     * @throws Exception
-     *
+     * @param bool $orderDependingDefaults
+     * @param array $separateExtraMultipleSelect
+     * @param array $customLabelsExtraMultipleSelect
+     * @param bool $addEmptyOptionSelects
+     * @param array $introductionTextList
+     * @param bool $hideGeoLocalizationDetails
+     * @param bool $help
      * @return array If relevant, returns a one-element array with JS code to be added to the page HTML headers
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function set_extra_fields_in_form(
         $form,
@@ -1105,10 +1113,10 @@ class ExtraField extends Model
                     $freezeElement = $field_details['visible_to_self'] == 0 || $field_details['changeable'] == 0;
                 }
 
-                $translatedDisplayText = get_lang($field_details['display_text'], true);
+                $translatedDisplayText = get_lang($field_details['variable']);
                 $translatedDisplayHelpText = '';
                 if ($help) {
-                    $translatedDisplayHelpText .= get_lang($field_details['display_text'].'Help');
+                    $translatedDisplayHelpText = get_lang($field_details['variable'].'Help', true);
                 }
                 if (!empty($translatedDisplayText)) {
                     if (!empty($translatedDisplayHelpText)) {
@@ -1303,7 +1311,7 @@ class ExtraField extends Model
                                        </h4>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         ');
                         break;
                     case self::FIELD_TYPE_TAG:
@@ -1666,15 +1674,15 @@ class ExtraField extends Model
                                     $deleteId = $field_details['variable'].'_delete';
                                     $form->addHtml("
                                         <script>
-                                            $(function() {                                     
+                                            $(function() {
                                                 $('#".$deleteId."').on('click', function() {
-                                                    $.ajax({			
+                                                    $.ajax({
                                                         type: 'GET',
-                                                        url: '".$url."',			
-                                                        success: function(result) {		    
+                                                        url: '".$url."',
+                                                        success: function(result) {
                                                             if (result == 1) {
                                                                 $('#".$divItemId."').html('".get_lang('Deleted')."');
-                                                            }			    
+                                                            }
                                                         }
                                                     });
                                                 });
@@ -2141,7 +2149,7 @@ JAVASCRIPT;
             </a>
 JAVASCRIPT;
 
-        return "function action_formatter(cellvalue, options, rowObject) {        
+        return "function action_formatter(cellvalue, options, rowObject) {
             return '$editButton $deleteButton';
         }";
     }
@@ -2370,7 +2378,7 @@ JAVASCRIPT;
                             $inject_joins .= "
                                 INNER JOIN $this->table_field_rel_tag tag_rel$counter
                                 ON (
-                                    tag_rel$counter.field_id = ".$extra_info['id']." AND 
+                                    tag_rel$counter.field_id = ".$extra_info['id']." AND
                                     tag_rel$counter.item_id = s.".$this->primaryKey."
                                 )
                                 INNER JOIN $this->table_field_tag tag$counter
@@ -2724,9 +2732,9 @@ JAVASCRIPT;
         $tag = Database::escape_string($tag);
         $fieldId = (int) $fieldId;
 
-        $sql = "SELECT user_id 
-                FROM {$this->table_field_tag} f INNER JOIN $tagRelUserTable ft 
-                ON tag_id = f.id 
+        $sql = "SELECT user_id
+                FROM {$this->table_field_tag} f INNER JOIN $tagRelUserTable ft
+                ON tag_id = f.id
                 WHERE tag = '$tag' AND f.field_id = $fieldId;
         ";
 
@@ -2794,14 +2802,14 @@ JAVASCRIPT;
         $optionsTable = Database::get_main_table(TABLE_EXTRA_FIELD_OPTIONS);
 
         $sql = "SELECT DISTINCT t.*, v.value, o.display_text
-                FROM $tagRelExtraTable te 
+                FROM $tagRelExtraTable te
                 INNER JOIN $tagTable t
-                ON (t.id = te.tag_id AND te.field_id = t.field_id AND te.field_id = $tagId) 
+                ON (t.id = te.tag_id AND te.field_id = t.field_id AND te.field_id = $tagId)
                 INNER JOIN $table v
                 ON (te.item_id = v.item_id AND v.field_id = $id)
                 INNER JOIN $optionsTable o
                 ON (o.option_value = v.value)
-                WHERE v.value IN ('".implode("','", $options)."')                           
+                WHERE v.value IN ('".implode("','", $options)."')
                 ORDER BY o.option_order, t.tag
                ";
 
@@ -2825,43 +2833,43 @@ JAVASCRIPT;
                 if (typeof google === 'object') {
                     var address = '$dataValue';
                     initializeGeo{$variable}(address, false);
-    
+
                     $('#geolocalization_extra_{$variable}').on('click', function() {
                         var address = $('#{$variable}').val();
                         initializeGeo{$variable}(address, false);
                         return false;
                     });
-    
+
                     $('#myLocation_extra_{$variable}').on('click', function() {
                         myLocation{$variable}();
                         return false;
                     });
-    
+
                     // When clicking enter
-                    $('#{$variable}').keypress(function(event) {                        
-                        if (event.which == 13) {                            
+                    $('#{$variable}').keypress(function(event) {
+                        if (event.which == 13) {
                             $('#geolocalization_extra_{$variable}').click();
                             return false;
                         }
                     });
-                    
+
                     // On focus out update city
-                    $('#{$variable}').focusout(function() {                                                 
+                    $('#{$variable}').focusout(function() {
                         $('#geolocalization_extra_{$variable}').click();
-                        return false;                        
+                        return false;
                     });
-                    
+
                     return;
                 }
-    
+
                 $('#map_extra_{$variable}')
                     .html('<div class=\"alert alert-info\">"
                 .addslashes(get_lang('YouNeedToActivateTheGoogleMapsPluginInAdminPlatformToSeeTheMap'))
                 ."</div>');
             });
-    
-            function myLocation{$variable}() 
-            {                                                    
+
+            function myLocation{$variable}()
+            {
                 if (navigator.geolocation) {
                     var geoPosition = function(position) {
                         var lat = position.coords.latitude;
@@ -2869,20 +2877,20 @@ JAVASCRIPT;
                         var latLng = new google.maps.LatLng(lat, lng);
                         initializeGeo{$variable}(false, latLng);
                     };
-    
-                    var geoError = function(error) {                        
+
+                    var geoError = function(error) {
                         alert('Geocode ".get_lang('Error').": ' + error);
                     };
-    
+
                     var geoOptions = {
                         enableHighAccuracy: true
                     };
                     navigator.geolocation.getCurrentPosition(geoPosition, geoError, geoOptions);
                 }
             }
-    
+
             function initializeGeo{$variable}(address, latLng)
-            {                
+            {
                 var geocoder = new google.maps.Geocoder();
                 var latlng = new google.maps.LatLng(-34.397, 150.644);
                 var myOptions = {
@@ -2895,25 +2903,25 @@ JAVASCRIPT;
                     navigationControl: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-    
+
                 map_{$variable} = new google.maps.Map(
                     document.getElementById('map_extra_{$variable}'),
                     myOptions
                 );
-    
+
                 var parameter = address ? {'address': address} : latLng ? {'latLng': latLng} : false;
-    
+
                 if (geocoder && parameter) {
                     geocoder.geocode(parameter, function(results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
-                            if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {                                
+                            if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
                                 map_{$variable}.setCenter(results[0].geometry.location);
-                                
-                                // get city and country                                
+
+                                // get city and country
                                 var defaultAddress = results[0].formatted_address;
                                 var city = '';
                                 var country = '';
-                                
+
                                 for (var i=0; i<results[0].address_components.length; i++) {
                                     if (results[0].address_components[i].types[0] == \"locality\") {
                                         //this is the object you are looking for City
@@ -2928,20 +2936,20 @@ JAVASCRIPT;
                                         country = results[0].address_components[i];
                                     }
                                 }
-                        
+
                                 if (city && city.long_name && country && country.long_name) {
                                     defaultAddress = city.long_name + ', ' + country.long_name;
                                 }
-                                $('#{$variable}').val(defaultAddress);                                
+                                $('#{$variable}').val(defaultAddress);
                                 $('#{$variable}_coordinates').val(
                                     results[0].geometry.location.lat()+','+results[0].geometry.location.lng()
                                 );
-                                
+
                                 var infowindow = new google.maps.InfoWindow({
                                     content: '<b>' + $('#extra_{$variable}').val() + '</b>',
                                     size: new google.maps.Size(150, 50)
                                 });
-    
+
                                 var marker = new google.maps.Marker({
                                     position: results[0].geometry.location,
                                     map: map_{$variable},
@@ -2989,7 +2997,7 @@ JAVASCRIPT;
                             <em class="fa fa-crosshairs"></em> '.get_lang('MyLocation').'
                         </button>
                     </div>
-                </div>                   
+                </div>
                 <div class="form-group">
                     <label for="map_extra_'.$variable.'" class="col-sm-2 control-label">
                         '.$text.' - '.get_lang('Map').'
@@ -3185,7 +3193,7 @@ JAVASCRIPT;
 
                 if (!id) {
                     $('#$secondSelectId').empty().selectpicker('refresh');
-                    
+
                     return;
                 }
 
@@ -3359,17 +3367,17 @@ JAVASCRIPT;
                 var slctFirst = $('#$slctFirstId'),
                     slctSecond = $('#$slctSecondId'),
                     slctThird = $('#$slctThirdId');
-                    
+
                 slctFirst.on('change', function () {
                     slctSecond.empty().selectpicker('refresh');
                     slctThird.empty().selectpicker('refresh');
-    
+
                     var level = $(this).val();
-    
+
                     if (!level) {
                         return;
                     }
-    
+
                     $.getJSON(_p.web_ajax + 'extra_field.ajax.php', {
                         'a': 'get_second_select_options',
                         'type': '$this->type',
@@ -3389,19 +3397,19 @@ JAVASCRIPT;
                                     $('<option>', {value: index, text: valueParts.join(''), 'data-value': dataValue})
                                 );
                             });
-    
+
                             slctSecond.selectpicker('refresh');
                         });
                 });
                 slctSecond.on('change', function () {
                     slctThird.empty().selectpicker('refresh');
-    
+
                     var level = $(this).val();
-                    
+
                     if (!level) {
                         return;
                     }
-                    
+
                     $.getJSON(_p.web_ajax + 'extra_field.ajax.php', {
                         'a': 'get_second_select_options',
                         'type': '$this->type',
@@ -3421,7 +3429,7 @@ JAVASCRIPT;
                                     $('<option>', {value: index, text: valueParts.join(''), 'data-value': dataValue})
                                 );
                             });
-    
+
                             slctThird.selectpicker('refresh');
                         });
                 });

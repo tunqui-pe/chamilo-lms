@@ -112,7 +112,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
         let checkRut = true;
 
         $("input[value='Chile']").prop('checked', true);
-        Rut.attr('placeholder','Ingresar RUN sin puntos, con guión y con dígito verificador. Ej: 11222333-K');
+        //Rut.attr('placeholder','Ingresar RUN sin puntos, con guión y con dígito verificador. Ej: 11222333-K');
         Rut.attr('title','Ingresar RUN sin puntos, con guión y con dígito verificador. Ej: 11222333-K');
         Rut.attr('maxlength','10');
         //RUT.attr('pattern', '^[0-9]{8,9}[-|‐]{1}[0-9kK]{1}$');

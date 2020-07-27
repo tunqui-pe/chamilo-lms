@@ -358,7 +358,9 @@ if ($user_already_registered_show_terms === false &&
             [],
             [],
             false,
-            $requiredFields
+            $requiredFields,
+            false,
+            true
         );
         $extraFieldsLoaded = true;
     }

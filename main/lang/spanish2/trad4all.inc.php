@@ -33,5 +33,8 @@ $forgetPassword = "¿Ha olvidado su contraseña?";
 $certificateApproval = "* Esta información la utilizaremos para tu certificado de aprobación.";
 $accesVirtualClass = "Acceso Aula Virtual";
 $logOffSecurity = "Por razones de seguridad, no olvide cerrar la sesión, incluso antes de cerrar el navegador.";
-
+$rol_unico_tributario = "RUN (Identificador Nacional)";
+$rut_factura="RUT (Facturación)";
+$country="País";
+$rol_unico_tributarioHelp="Ingresar RUN sin puntos, con guión y con dígito verificador. Ej: 11222333-K";
 
