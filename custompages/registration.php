@@ -116,6 +116,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
         Rut.attr('title','Ingresar RUN sin puntos, con guión y con dígito verificador. Ej: 11222333-K');
         Rut.attr('maxlength','10');
         //RUT.attr('pattern', '^[0-9]{8,9}[-|‐]{1}[0-9kK]{1}$');
+        $("#form_extra_identificador_group").hide();
 
         $("input[type=radio]").change(function () {
             checkRut = isCountryForRut($(this));
@@ -126,11 +127,13 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
             let Country = input.val().toLowerCase();
             let isRut = true;
             if(Country==='otro-pais'){
-                //$("#form_extra_rol_unico_tributario_group").hide();
+                $("#form_extra_rol_unico_tributario_group").hide();
+                $("#form_extra_identificador_group").show();
                 Rut.val('');
                 isRut = false;
             }else{
-                //$("#form_extra_rol_unico_tributario_group").show();
+                $("#form_extra_rol_unico_tributario_group").show();
+                $("#form_extra_identificador_group").hide();
                 isRut = true;
             }
             return isRut;

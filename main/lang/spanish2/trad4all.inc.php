@@ -37,4 +37,4 @@ $rol_unico_tributario = "RUN (Identificador Nacional)";
 $rut_factura="RUT (Facturación)";
 $country="País";
 $rol_unico_tributarioHelp="Ingresar RUN sin puntos, con guión y con dígito verificador. Ej: 11222333-K";
-
+$identificador = "Identificador (DNI/Pasaporte)";
