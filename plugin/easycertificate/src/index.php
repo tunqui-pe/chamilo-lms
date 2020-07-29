@@ -103,25 +103,33 @@ $form = new FormValidator(
 
 if ($form->validate()) {
     $formValues = $form->getSubmitValues();
-    if (empty($formValues['contents'])) {
-        $contents = '';
+    if (empty($formValues['front_content'])) {
+        $contentsFront = '';
     } else {
-        $contents = $formValues['contents'];
+        $contentFront = $formValues['front_content'];
     }
+
+    if (empty($formValues['back_content'])) {
+        $contentBack = '';
+    } else {
+        $contentBack = $formValues['back_content'];
+    }
+
     $check = Security::check_token('post');
     if ($check) {
         $params = [
             'access_url_id' => api_get_current_access_url_id(),
             'c_id' => $formValues['c_id'],
             'session_id' => $formValues['session_id'],
-            'front_content' => $formValues['front_content'],
-            'back_content' => $formValues['back_content'],
+            'front_content' => $contentFront,
+            'back_content' => $contentBack,
             'orientation' => $formValues['orientation'],
             'margin_left' => (int) $formValues['margin_left'],
             'margin_right' => (int) $formValues['margin_right'],
             'margin_top' => (int) $formValues['margin_top'],
             'margin_bottom' => (int) $formValues['margin_bottom'],
             'certificate_default' => 0,
+            'show_back' => (int) $formValues['show_back']
         ];
 
         if (intval($formValues['default_certificate'] == 1)) {
@@ -271,7 +279,7 @@ $html = '
         <p>'.$plugin->get_lang('PostContentCertificate').'</p>
 ';
 $form->addHtml($html);
-
+$form->addCheckBox('show_back',$plugin->get_lang('ShowBack'),$plugin->get_lang('ShowBackHelp'));
 $editorConfigTwo = [
     'ToolbarSet' => $isAllowedToEdit ? 'Documents' : 'DocumentsStudent',
     'Width' => '100%',
@@ -379,7 +387,7 @@ $form->addNumeric(
     ],
     [
         'cols-size' => [3, 5, 4],
-        'value' => 5
+        'value' => 2
     ]
 );
 $form->addNumeric(
@@ -391,7 +399,7 @@ $form->addNumeric(
     ],
     [
         'cols-size' => [3, 5, 4],
-        'value' => 5
+        'value' => 2
     ]
 );
 $form->addNumeric(
@@ -403,7 +411,7 @@ $form->addNumeric(
     ],
     [
         'cols-size' => [3, 5, 4],
-        'value' => 10
+        'value' => 2
     ]
 );
 $form->addNumeric(
@@ -415,7 +423,7 @@ $form->addNumeric(
     ],
     [
         'cols-size' => [3, 5, 4],
-        'value' => 10
+        'value' => 2
     ]
 );
 
@@ -435,13 +443,9 @@ $form->addFile(
 );
 
 if (!empty($infoCertificate['background_h'])) {
-    $form->addElement('checkbox', 'remove_background', null, get_lang('DelImage'));
-    $form->addElement(
-        'html',
-        '<label class="col-sm-2">&nbsp;</label>
-        <img src="'.$path.$infoCertificate['background_h'].'" width="100"  />
-        <br>'
-    );
+    $form->addElement('checkbox', 'remove_background_h', null, get_lang('DelImage'));
+    $form->addHtml('<div class="form-group "><label class="col-sm-2">&nbsp;</label>
+        <div class="col-sm-10"><img src="'.$path.$infoCertificate['background_h'].'" width="100"  /></div></div>');
 }
 
 $form->addFile(
@@ -456,18 +460,15 @@ $form->addFile(
 );
 
 if (!empty($infoCertificate['background_v'])) {
-    $form->addElement('checkbox', 'remove_background', null, get_lang('DelImage'));
-    $form->addElement(
-        'html',
-        '<label class="col-sm-2">&nbsp;</label>
-        <img src="'.$path.$infoCertificate['background_v'].'" width="100"  />
-        <br>'
-    );
+    $form->addElement('checkbox', 'remove_background_v', null, get_lang('DelImage'));
+    $form->addHtml('<div class="form-group "><label class="col-sm-2">&nbsp;</label>
+        <div class="col-sm-10"><img src="'.$path.$infoCertificate['background_v'].'" width="100"  /></div></div>');
 }
 
 $form->addProgress();
 
 $allowedPictureTypes = api_get_supported_image_extensions(false);
+
 $form->addRule(
     'background_h',
     get_lang('OnlyImagesAllowed').' ('.implode(', ', $allowedPictureTypes).')',

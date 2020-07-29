@@ -41,7 +41,7 @@ $certificateTable->addColumn('margin_right', Type::INTEGER, ['unsigned' => true]
 $certificateTable->addColumn('margin_top', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->addColumn('margin_bottom', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->addColumn('certificate_default', Type::INTEGER, ['unsigned' => true]);
-$certificateTable->addIndex(['c_id', 'session_id']);
+$certificateTable->addColumn('show_back', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->setPrimaryKey(['id']);
 
 $queries = $pluginSchema->toSql($platform);

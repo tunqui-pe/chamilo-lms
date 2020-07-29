@@ -64,3 +64,5 @@ $strings['SuccessDelete'] = "Borrado con éxito";
 $strings['ProblemDelete'] = "Hubo un problema al borrar el certificado";
 $strings['FrontContentCertificate'] = "Coloque aquí el contenido de la parte frontal del certificado.";
 $strings['PostContentCertificate'] = "Coloque aquí el contenido de la parte posterior del certificado.";
+$strings['ShowBack'] = "Mostrar posterior";
+$strings['ShowBackHelp'] = "Esta opción permite mostrar la parte posterior si esta activada.";

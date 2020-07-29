@@ -162,16 +162,29 @@ foreach ($userList as $userInfo) {
     $templateName = $plugin->get_lang('ExportCertificate');
     $template = new Template($templateName);
     $template->assign('css_certificate', $linkCertificateCSS);
+    $template->assign('orientation', $orientation);
     $template->assign('background_h', $urlBackgroundHorizontal);
     $template->assign('background_v', $urlBackgroundVertical);
     $template->assign('margin', $margin);
     $template->assign('front_content', $myContentHtml);
-
+    $template->assign('show_back', $infoCertificate['show_back']);
 
     // Rear certificate
     $laterContent = null;
+    $laterContent .= '<table width="100%" class="contents-learnpath">';
+    $laterContent .= '<tr>';
+    $laterContent .= '<td>';
+    $myContentHtml = strip_tags(
+        $infoCertificate['back_content'],
+        '<p><b><strong><table><tr><td><th><span><i><li><ol><ul>' .
+        '<dd><dt><dl><br><hr><img><a><div><h1><h2><h3><h4><h5><h6>'
+    );
+    $laterContent .= $myContentHtml;
+    $laterContent .= '</td>';
+    $laterContent .= '</tr>';
+    $laterContent .= '</table>';
 
-    $template->assign('later_content', $laterContent);
+    $template->assign('back_content', $laterContent);
     $content = $template->fetch('easycertificate/template/certificate.tpl');
     $htmlText .= $content;
 

@@ -119,6 +119,7 @@ class EasyCertificatePlugin extends Plugin
                     'margin_top' => intval($row['margin_top']),
                     'margin_bottom' => intval($row['margin_bottom']),
                     'certificate_default' => 0,
+                    'show_back' => intval($row['show_back']),
                 ];
 
                 $certificateId = Database::insert(self::TABLE_EASYCERTIFICATE, $params);
