@@ -1,6 +1,6 @@
 <?php
-$strings['plugin_title'] = "Certificado personalizado";
-$strings['plugin_comment'] = "Este plugin permite crear certificados personalizados por curso.";
+$strings['plugin_title'] = "Easy Certificado";
+$strings['plugin_comment'] = "Este plugin permite crear certificados personalizados faciles en el curso.";
 $strings['enable_plugin_easycertificate'] = "Activar plugin";
 $strings['easycertificate_course_enable'] = "Habilitar en el curso el certificado alternativo";
 $strings['use_certificate_default'] = "Usar el certificado personalizado por defecto";
