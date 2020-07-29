@@ -2192,12 +2192,19 @@ class Category implements GradebookItem
             $fileWasGenerated = $certificate_obj->isHtmlFileGenerated();
 
             // Fix when using custom certificate BT#15937
-            if (api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true'
-                || api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true') {
+            if (api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true') {
                 $infoCertificate = CustomCertificatePlugin::getCertificateData($my_certificate['id'], $user_id);
                 if (!empty($infoCertificate)) {
                     $fileWasGenerated = true;
                 }
+            }
+            if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate')==='true'){
+                $infoCertificate = EasyCertificatePlugin::getCertificateData($my_certificate['id'], $user_id);
+
+                if (!empty($infoCertificate)) {
+                    $fileWasGenerated = true;
+                }
+
             }
 
             if (!empty($fileWasGenerated)) {
