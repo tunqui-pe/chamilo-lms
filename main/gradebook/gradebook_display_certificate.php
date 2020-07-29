@@ -74,8 +74,21 @@ if ($filter === 'true') {
 
 $content = '';
 $courseCode = api_get_course_id();
-$allowCustomCertificate = api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true' &&
-    api_get_course_setting('customcertificate_course_enable', $courseInfo) == 1;
+
+//Type customcerticate
+$settingName = null;
+$pluginPath = null;
+if(api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true'){
+    $settingName = 'customcertificate_course_enable';
+    $pluginPath = 'customcertificate';
+}
+if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true'){
+    $settingName = 'easycertificate_course_enable';
+    $pluginPath = 'easycertificate';
+}
+
+$allowCustomCertificate = api_get_course_setting($settingName, $courseInfo) == 1;
+
 
 $tags = Certificate::notificationTags();
 
@@ -131,8 +144,7 @@ switch ($action) {
                 '&session_id='.api_get_session_id().
                 '&'.api_get_cidreq().
                 '&cat_id='.$categoryId;
-            $url = api_get_path(WEB_PLUGIN_PATH).
-                'customcertificate/src/print_certificate.php?export_all_in_one=1&'.$params;
+            $url = api_get_path(WEB_PLUGIN_PATH).$pluginPath.'/src/print_certificate.php?export_all_in_one=1&'.$params;
         } else {
             if (api_is_student_boss()) {
                 $userGroup = new UserGroup();
@@ -143,7 +155,6 @@ switch ($action) {
                     $userList = UserManager::getUsersByOfficialCode($filterOfficialCodeGet);
                 }
             }
-
             Category::exportAllCertificates($categoryId, $userList);
         }
 
@@ -156,7 +167,7 @@ switch ($action) {
                 '&session_id='.api_get_session_id().
                 '&'.api_get_cidreq().
                 '&cat_id='.$categoryId;
-            $url = api_get_path(WEB_PLUGIN_PATH).'customcertificate/src/print_certificate.php?export_all=1&'.$params;
+            $url = api_get_path(WEB_PLUGIN_PATH).$pluginPath.'/src/print_certificate.php?export_all=1&'.$params;
 
             header('Location: '.$url);
         }
