@@ -14,8 +14,6 @@ use Fhaculty\Graph\Vertex;
  * Class SkillProfile.
  *
  * @todo break the file in different classes
- *
- * @package chamilo.library
  */
 class SkillProfile extends Model
 {
@@ -629,8 +627,6 @@ class SkillRelUser extends Model
     /**
      * Get the URL for the issue.
      *
-     * @param SkillRelUserEntity $skillIssue
-     *
      * @return string
      */
     public static function getIssueUrl(SkillRelUserEntity $skillIssue)
@@ -641,8 +637,6 @@ class SkillRelUser extends Model
     /**
      * Get the URL for the All issues page.
      *
-     * @param SkillRelUserEntity $skillIssue
-     *
      * @return string
      */
     public static function getIssueUrlAll(SkillRelUserEntity $skillIssue)
@@ -652,8 +646,6 @@ class SkillRelUser extends Model
 
     /**
      * Get the URL for the assertion.
-     *
-     * @param SkillRelUserEntity $skillIssue
      *
      * @return string
      */
@@ -1344,9 +1336,8 @@ class Skill extends Model
     }
 
     /**
-     * @param Vertex $vertex
-     * @param array  $skills
-     * @param int    $level
+     * @param array $skills
+     * @param int   $level
      *
      * @return string
      */
@@ -2379,8 +2370,7 @@ class Skill extends Model
     }
 
     /**
-     * @param FormValidator $form
-     * @param array         $skillInfo
+     * @param array $skillInfo
      *
      * @return array
      */
@@ -2488,9 +2478,9 @@ class Skill extends Model
     }
 
     /**
-     * @param \Chamilo\SkillBundle\Entity\SkillRelItem        $skillRelItem
-     * @param \Chamilo\SkillBundle\Entity\SkillRelItemRelUser $skillRelItemRelUser
-     * @param bool                                            $addHeader
+     * @param SkillRelItem        $skillRelItem
+     * @param SkillRelItemRelUser $skillRelItemRelUser
+     * @param bool                $addHeader
      *
      * @return string
      */
@@ -2519,10 +2509,9 @@ class Skill extends Model
     /**
      * Assign a user with a SkilRelItem object.
      *
-     * @param FormValidator $form
-     * @param int           $typeId see ITEM_TYPE_* constants
-     * @param int           $itemId
-     * @param int           $userId
+     * @param int $typeId see ITEM_TYPE_* constants
+     * @param int $itemId
+     * @param int $userId
      */
     public static function addSkillsToUserForm(FormValidator $form, $typeId, $itemId, $userId, $resultId = 0, $addHeader = false)
     {
@@ -2595,9 +2584,8 @@ class Skill extends Model
     /**
      * Add skills select ajax for an item (exercise, lp).
      *
-     * @param FormValidator $form
-     * @param int           $typeId see ITEM_TYPE_* constants
-     * @param int           $itemId
+     * @param int $typeId see ITEM_TYPE_* constants
+     * @param int $itemId
      *
      * @throws Exception
      *
@@ -2874,8 +2862,6 @@ class Skill extends Model
     /**
      * Relate skill with an item (exercise, gradebook, lp, etc).
      *
-     * @param FormValidator $form
-     *
      * @return bool
      */
     public static function saveSkillsToCourseFromForm(FormValidator $form)
@@ -2959,8 +2945,7 @@ class Skill extends Model
     /**
      * Get the icon (badge image) URL.
      *
-     * @param SkillEntity $skill
-     * @param bool        $getSmall Optional. Allow get the small image
+     * @param bool $getSmall Optional. Allow get the small image
      *
      * @return string
      */
@@ -2994,7 +2979,7 @@ class Skill extends Model
      */
     public function addSkillToUserBadge($user, $skill, $levelId, $argumentation, $authorId)
     {
-        $showLevels = api_get_configuration_value('hide_skill_levels') === false;
+        $showLevels = false === api_get_configuration_value('hide_skill_levels');
 
         $entityManager = Database::getManager();
 

@@ -8,8 +8,6 @@ use CpChart\Image as pImage;
 
 /**
  * Class MySpace.
- *
- * @package chamilo.reporting
  */
 class MySpace
 {
@@ -56,6 +54,14 @@ class MySpace
             [
                 'url' => api_get_path(WEB_CODE_PATH).'mySpace/survey_report.php',
                 'content' => get_lang('SurveysReport'),
+            ],
+            [
+                'url' => api_get_path(WEB_CODE_PATH).'mySpace/tc_report.php',
+                'content' => get_lang('TCReport'),
+            ],
+            [
+                'url' => api_get_path(WEB_CODE_PATH).'mySpace/ti_report.php',
+                'content' => get_lang('TIReport'),
             ],
         ];
 
@@ -176,7 +182,7 @@ class MySpace
                 FROM '.$table.'
                 WHERE
                     user_id = '.$userId.' AND
-                    c_id = '.$courseId.' 
+                    c_id = '.$courseId.'
                     '.$sessionCondition.'
                 ORDER BY login_course_date ASC';
         $rs = Database::query($sql);
@@ -401,7 +407,13 @@ class MySpace
             $is_western_name_order = api_is_western_name_order();
         }
         $sort_by_first_name = api_sort_by_first_name();
-        $tracking_column = isset($_GET['tracking_list_coaches_column']) ? $_GET['tracking_list_coaches_column'] : ($is_western_name_order xor $sort_by_first_name) ? 1 : 0;
+
+        if (isset($_GET['tracking_list_coaches_column'])) {
+            $tracking_column = (int) $_GET['tracking_list_coaches_column'];
+        } else {
+            $tracking_column = ($is_western_name_order xor $sort_by_first_name) ? 1 : 0;
+        }
+
         $tracking_direction = (isset($_GET['tracking_list_coaches_direction']) && in_array(strtoupper($_GET['tracking_list_coaches_direction']), ['ASC', 'DESC', 'ASCENDING', 'DESCENDING', '0', '1'])) ? $_GET['tracking_list_coaches_direction'] : 'DESC';
         // Prepare array for column order - when impossible, use some of user names.
         if ($is_western_name_order) {
@@ -881,7 +893,7 @@ class MySpace
         $message = '';
         $defaults = [];
         // include the user manager and formvalidator library
-        if (isset($_GET['export']) && $_GET['export'] == 'options') {
+        if (isset($_GET['export']) && 'options' == $_GET['export']) {
             // get all the defined extra fields
             $extrafields = UserManager::get_extra_fields(
                 0,
@@ -1844,8 +1856,8 @@ class MySpace
 
         $sql = "SELECT exe_result, exe_weighting
                 FROM $table
-                WHERE 
-                    c_id = $courseId AND 
+                WHERE
+                    c_id = $courseId AND
                     exe_user_id = $user_id";
 
         $session_id = (int) $session_id;
@@ -2119,12 +2131,22 @@ class MySpace
                              '.Display::return_icon('2rightarrow.png', get_lang('Details')).'
                              </a>
                             </center>';
+
+            $scoreInCourse = null;
+            if (null !== $avg_score_in_course) {
+                if (is_numeric($avg_score_in_course)) {
+                    $scoreInCourse = $avg_score_in_course.'%';
+                } else {
+                    $scoreInCourse = $avg_score_in_course;
+                }
+            }
+
             $csv_content[] = [
                 api_html_entity_decode($row_course[1], ENT_QUOTES, $charset),
                 $nb_students_in_course,
                 $avg_time_spent_in_course,
                 is_null($avg_progress_in_course) ? null : $avg_progress_in_course.'%',
-                is_null($avg_score_in_course) ? null : is_numeric($avg_score_in_course) ? $avg_score_in_course.'%' : $avg_score_in_course,
+                $scoreInCourse,
                 is_null($avg_score_in_exercise) ? null : $avg_score_in_exercise.'%',
                 $avg_messages_in_course,
                 $avg_assignments_in_course,
@@ -2345,7 +2367,7 @@ class MySpace
                     $user['create'] = '1';
                 } else {
                     $is_session_avail = self::user_available_in_session($user['UserName'], $course_list, $id_session);
-                    if ($is_session_avail == 0) {
+                    if (0 == $is_session_avail) {
                         $user_name = $user['UserName'];
                         $sql_select = "SELECT user_id FROM $table_user WHERE username ='$user_name' ";
                         $rs = Database::query($sql_select);
@@ -2551,12 +2573,8 @@ class MySpace
                     get_lang('Manager')." ".api_get_setting('siteName')."\nT. ".
                     api_get_setting('administratorTelephone')."\n".get_lang('Email')." : ".api_get_setting('emailAdministrator');
 
-                api_mail_html(
-                    api_get_person_name($user['FirstName'], $user['LastName'], null, PERSON_NAME_EMAIL_ADDRESS),
-                    $user['Email'],
-                    $emailsubject,
-                    $emailbody
-                );
+                MessageManager::send_message_simple($user['id'], $emailsubject, $emailbody);
+
                 $userInfo = api_get_user_info($user['id']);
 
                 if (($user['added_at_platform'] == 1 && $user['added_at_session'] == 1) || $user['added_at_session'] == 1) {
@@ -2691,11 +2709,13 @@ class MySpace
             get_lang('SearchCourse'),
             $courseList,
             [
-                'url' => api_get_path(WEB_AJAX_PATH).'course.ajax.php?'.http_build_query([
-                    'a' => 'search_course_by_session_all',
-                    'session_id' => $sessionId,
-                    'course_id' => $courseId,
-                ]),
+                'url' => api_get_path(WEB_AJAX_PATH).'course.ajax.php?'.http_build_query(
+                    [
+                        'a' => 'search_course_by_session_all',
+                        'session_id' => $sessionId,
+                        'course_id' => $courseId,
+                    ]
+                ),
             ]
         );
 
@@ -2738,7 +2758,7 @@ class MySpace
             [
                 'placeholder' => get_lang('All'),
                 'url_function' => "
-                    function () {                    
+                    function () {
                         var params = $.param({
                             a: 'search_user_by_course',
                             session_id: $('#access_overview_session_id').val(),
@@ -2750,24 +2770,25 @@ class MySpace
                 ",
             ]
         );
+
         $form->addDateRangePicker(
             'date',
             get_lang('DateRange'),
             true,
             [
                 'id' => 'date_range',
-                'format' => 'YYYY-MM-DD',
-                'timePicker' => 'false',
-                'validate_format' => 'Y-m-d',
+                'format' => 'YYYY-MM-DD HH:mm',
+                'timePicker' => 'true',
+                //'validate_format' => 'Y-m-d',
             ]
         );
+
         $form->addHidden('display', 'accessoverview');
         $form->addRule('course_id', get_lang('Required'), 'required');
         $form->addRule('profile', get_lang('Required'), 'required');
         $form->addButton('submit', get_lang('Generate'), 'gear', 'primary');
 
         $table = null;
-
         if ($form->validate()) {
             $table = new SortableTable(
                 'tracking_access_overview',
@@ -2784,9 +2805,9 @@ class MySpace
                 $table->set_header(2, get_lang('LastName'), true);
                 $table->set_header(3, get_lang('FirstName'), true);
             }
-            $table->set_header(4, get_lang('Clicks'), false);
-            $table->set_header(5, get_lang('IP'), false);
-            $table->set_header(6, get_lang('TimeLoggedIn'), false);
+            //$table->set_header(4, get_lang('Clicks'), false);
+            $table->set_header(4, get_lang('IP'), false);
+            $table->set_header(5, get_lang('TimeLoggedIn'), false);
         }
 
         $template = new Template(
@@ -2811,12 +2832,27 @@ class MySpace
      */
     public static function getNumberOfTrackAccessOverview()
     {
-        $table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
-        $sql = "SELECT COUNT(course_access_id) count FROM $table";
+        $user = Database::get_main_table(TABLE_MAIN_USER);
+        $course = Database::get_main_table(TABLE_MAIN_COURSE);
+        $trackCourseAccess = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
+
+        $sql = "SELECT COUNT(course_access_id) count
+                FROM $trackCourseAccess a
+                INNER JOIN $user u
+                ON a.user_id = u.id
+                INNER JOIN $course c
+                ON a.c_id = c.id
+                ";
+        $sql = self::getDataAccessTrackingFilters($sql);
+
         $result = Database::query($sql);
         $row = Database::fetch_assoc($result);
 
-        return $row['count'];
+        if ($row) {
+            return $row['count'];
+        }
+
+        return 0;
     }
 
     /**
@@ -2841,7 +2877,7 @@ class MySpace
         $user = Database::get_main_table(TABLE_MAIN_USER);
         $course = Database::get_main_table(TABLE_MAIN_COURSE);
         $track_e_login = Database::get_main_table(TABLE_STATISTIC_TRACK_E_LOGIN);
-        $track_e_course_access = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
+        $trackCourseAccess = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
 
         global $export_csv;
         $is_western_name_order = api_is_western_name_order();
@@ -2862,15 +2898,403 @@ class MySpace
                         u.firstname AS col3,
                 "
         )."
+                a.login_course_date,
                 a.logout_course_date,
                 c.title,
                 c.code,
-                u.user_id
-            FROM $track_e_course_access a
-            INNER JOIN $user u ON a.user_id = u.user_id
-            INNER JOIN $course c ON a.c_id = c.id
+                u.id as user_id,
+                user_ip
+            FROM $trackCourseAccess a
+            INNER JOIN $user u
+            ON a.user_id = u.id
+            INNER JOIN $course c
+            ON a.c_id = c.id
             WHERE 1=1 ";
 
+        $sql = self::getDataAccessTrackingFilters($sql);
+
+        $sql .= " ORDER BY col$column $orderDirection ";
+        $sql .= " LIMIT $from, $numberItems";
+
+        $result = Database::query($sql);
+
+        $data = [];
+        while ($user = Database::fetch_assoc($result)) {
+            $data[] = $user;
+        }
+
+        $return = [];
+        //TODO: Dont use numeric index
+        foreach ($data as $key => $info) {
+            $return[] = [
+                api_get_local_time($info['login_course_date']),
+                $info['col1'],
+                $info['col2'],
+                $info['col3'],
+                $info['user_ip'],
+                gmdate('H:i:s', strtotime($info['logout_course_date']) - strtotime($info['login_course_date'])),
+            ];
+        }
+
+        return $return;
+    }
+
+    /**
+     * Gets the connections to a course as an array of login and logout time.
+     *
+     * @param int    $user_id
+     * @param array  $course_info
+     * @param int    $sessionId
+     * @param string $start_date
+     * @param string $end_date
+     * @param bool   $addUserIp
+     *
+     * @author  Jorge Frisancho Jibaja
+     * @author  Julio Montoya <gugli100@gmail.com> fixing the function
+     *
+     * @version OCT-22- 2010
+     *
+     * @return array
+     */
+    public static function get_connections_to_course_by_date(
+        $user_id,
+        $course_info,
+        $sessionId,
+        $start_date,
+        $end_date,
+        $addUserIp = false
+    ) {
+        $table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
+        $user_id = (int) $user_id;
+        $connections = [];
+        if (!empty($course_info)) {
+            $courseId = (int) $course_info['real_id'];
+            $end_date = self::add_day_to($end_date);
+
+            $start_date = Database::escape_string($start_date);
+            $end_date = Database::escape_string($end_date);
+            $sessionCondition = api_get_session_condition($sessionId);
+            $sql = "SELECT
+                        login_course_date,
+                        logout_course_date,
+                        TIMESTAMPDIFF(SECOND, login_course_date, logout_course_date) duration,
+                        user_ip
+                    FROM $table
+                    WHERE
+                        user_id = $user_id AND
+                        c_id = $courseId AND
+                        login_course_date BETWEEN '$start_date' AND '$end_date' AND
+                        logout_course_date BETWEEN '$start_date' AND '$end_date'
+                        $sessionCondition
+                    ORDER BY login_course_date ASC";
+            $rs = Database::query($sql);
+
+            while ($row = Database::fetch_array($rs)) {
+                $item = [
+                    'login' => $row['login_course_date'],
+                    'logout' => $row['logout_course_date'],
+                    'duration' => $row['duration'],
+                ];
+                if ($addUserIp) {
+                    $item['user_ip'] = $row['user_ip'];
+                }
+                $connections[] = $item;
+            }
+        }
+
+        return $connections;
+    }
+
+    /**
+     * @param int   $user_id
+     * @param array $course_info
+     * @param int   $sessionId
+     * @param null  $start_date
+     * @param null  $end_date
+     *
+     * @return array
+     */
+    public static function getStats($user_id, $course_info, $sessionId, $start_date = null, $end_date = null)
+    {
+        $table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
+        $result = [];
+        if (!empty($course_info)) {
+            $stringStartDate = '';
+            $stringEndDate = '';
+            if ($start_date != null && $end_date != null) {
+                $end_date = self::add_day_to($end_date);
+
+                $start_date = Database::escape_string($start_date);
+                $end_date = Database::escape_string($end_date);
+
+                $stringStartDate = "AND login_course_date BETWEEN '$start_date' AND '$end_date'";
+                $stringEndDate = "AND logout_course_date BETWEEN '$start_date' AND '$end_date'";
+            }
+            $user_id = (int) $user_id;
+            $courseId = (int) $course_info['real_id'];
+            $sessionCondition = api_get_session_condition($sessionId);
+            $sql = "SELECT
+                SEC_TO_TIME(AVG(time_to_sec(timediff(logout_course_date,login_course_date)))) as avrg,
+                SEC_TO_TIME(SUM(time_to_sec(timediff(logout_course_date,login_course_date)))) as total,
+                count(user_id) as times
+                FROM $table
+                WHERE
+                    user_id = $user_id AND
+                    c_id = $courseId $stringStartDate $stringEndDate
+                    $sessionCondition
+                ORDER BY login_course_date ASC";
+
+            $rs = Database::query($sql);
+            if ($row = Database::fetch_array($rs)) {
+                $foo_avg = $row['avrg'];
+                $foo_total = $row['total'];
+                $foo_times = $row['times'];
+                $result = [
+                    'avg' => $foo_avg,
+                    'total' => $foo_total,
+                    'times' => $foo_times,
+                ];
+            }
+        }
+
+        return $result;
+    }
+
+    public static function add_day_to($end_date)
+    {
+        $foo_date = strtotime($end_date);
+        $foo_date = strtotime(' +1 day', $foo_date);
+        $foo_date = date('Y-m-d', $foo_date);
+
+        return $foo_date;
+    }
+
+    /**
+     * This function draw the graphic to be displayed on the user view as an image.
+     *
+     * @param array  $sql_result
+     * @param string $start_date
+     * @param string $end_date
+     * @param string $type
+     *
+     * @author Jorge Frisancho Jibaja
+     *
+     * @version OCT-22- 2010
+     *
+     * @return string
+     */
+    public static function grapher($sql_result, $start_date, $end_date, $type = '')
+    {
+        if (empty($start_date)) {
+            $start_date = '';
+        }
+        if (empty($end_date)) {
+            $end_date = '';
+        }
+        if ('' == $type) {
+            $type = 'day';
+        }
+        $main_year = $main_month_year = $main_day = [];
+
+        $period = new DatePeriod(
+            new DateTime($start_date),
+            new DateInterval('P1D'),
+            new DateTime($end_date)
+        );
+
+        foreach ($period as $date) {
+            $main_day[$date->format('d-m-Y')] = 0;
+        }
+
+        $period = new DatePeriod(
+            new DateTime($start_date),
+            new DateInterval('P1M'),
+            new DateTime($end_date)
+        );
+
+        foreach ($period as $date) {
+            $main_month_year[$date->format('m-Y')] = 0;
+        }
+
+        $i = 0;
+        if (is_array($sql_result) && count($sql_result) > 0) {
+            foreach ($sql_result as $key => $data) {
+                $login = api_strtotime($data['login']);
+                $logout = api_strtotime($data['logout']);
+                //creating the main array
+                if (isset($main_month_year[date('m-Y', $login)])) {
+                    $main_month_year[date('m-Y', $login)] += (float) ($logout - $login) / 60;
+                }
+                if (isset($main_day[date('d-m-Y', $login)])) {
+                    $main_day[date('d-m-Y', $login)] += (float) ($logout - $login) / 60;
+                }
+                if ($i > 500) {
+                    break;
+                }
+                $i++;
+            }
+            switch ($type) {
+                case 'day':
+                    $main_date = $main_day;
+                    break;
+                case 'month':
+                    $main_date = $main_month_year;
+                    break;
+                case 'year':
+                    $main_date = $main_year;
+                    break;
+            }
+
+            $labels = array_keys($main_date);
+            if (1 == count($main_date)) {
+                $labels = $labels[0];
+                $main_date = $main_date[$labels];
+            }
+
+            /* Create and populate the pData object */
+            $myData = new pData();
+            $myData->addPoints($main_date, 'Serie1');
+            if (count($main_date) != 1) {
+                $myData->addPoints($labels, 'Labels');
+                $myData->setSerieDescription('Labels', 'Months');
+                $myData->setAbscissa('Labels');
+            }
+            $myData->setSerieWeight('Serie1', 1);
+            $myData->setSerieDescription('Serie1', get_lang('MyResults'));
+            $myData->setAxisName(0, get_lang('Minutes'));
+            $myData->loadPalette(api_get_path(SYS_CODE_PATH).'palettes/pchart/default.color', true);
+
+            // Cache definition
+            $cachePath = api_get_path(SYS_ARCHIVE_PATH);
+            $myCache = new pCache(['CacheFolder' => substr($cachePath, 0, strlen($cachePath) - 1)]);
+            $chartHash = $myCache->getHash($myData);
+
+            if ($myCache->isInCache($chartHash)) {
+                //if we already created the img
+                $imgPath = api_get_path(SYS_ARCHIVE_PATH).$chartHash;
+                $myCache->saveFromCache($chartHash, $imgPath);
+                $imgPath = api_get_path(WEB_ARCHIVE_PATH).$chartHash;
+            } else {
+                /* Define width, height and angle */
+                $mainWidth = 760;
+                $mainHeight = 230;
+                $angle = 50;
+
+                /* Create the pChart object */
+                $myPicture = new pImage($mainWidth, $mainHeight, $myData);
+
+                /* Turn of Antialiasing */
+                $myPicture->Antialias = false;
+                /* Draw the background */
+                $settings = ["R" => 255, "G" => 255, "B" => 255];
+                $myPicture->drawFilledRectangle(0, 0, $mainWidth, $mainHeight, $settings);
+
+                /* Add a border to the picture */
+                $myPicture->drawRectangle(
+                    0,
+                    0,
+                    $mainWidth - 1,
+                    $mainHeight - 1,
+                    ["R" => 0, "G" => 0, "B" => 0]
+                );
+
+                /* Set the default font */
+                $myPicture->setFontProperties(
+                    [
+                        "FontName" => api_get_path(SYS_FONTS_PATH).'opensans/OpenSans-Regular.ttf',
+                        "FontSize" => 10, ]
+                );
+                /* Write the chart title */
+                $myPicture->drawText(
+                    $mainWidth / 2,
+                    30,
+                    get_lang('TimeSpentInTheCourse'),
+                    [
+                        "FontSize" => 12,
+                        "Align" => TEXT_ALIGN_BOTTOMMIDDLE,
+                    ]
+                );
+
+                /* Set the default font */
+                $myPicture->setFontProperties(
+                    [
+                        "FontName" => api_get_path(SYS_FONTS_PATH).'opensans/OpenSans-Regular.ttf',
+                        "FontSize" => 8,
+                    ]
+                );
+
+                /* Define the chart area */
+                $myPicture->setGraphArea(50, 40, $mainWidth - 40, $mainHeight - 80);
+
+                /* Draw the scale */
+                $scaleSettings = [
+                    'XMargin' => 10,
+                    'YMargin' => 10,
+                    'Floating' => true,
+                    'GridR' => 200,
+                    'GridG' => 200,
+                    'GridB' => 200,
+                    'DrawSubTicks' => true,
+                    'CycleBackground' => true,
+                    'LabelRotation' => $angle,
+                    'Mode' => SCALE_MODE_ADDALL_START0,
+                ];
+                $myPicture->drawScale($scaleSettings);
+
+                /* Turn on Antialiasing */
+                $myPicture->Antialias = true;
+
+                /* Enable shadow computing */
+                $myPicture->setShadow(
+                    true,
+                    [
+                        "X" => 1,
+                        "Y" => 1,
+                        "R" => 0,
+                        "G" => 0,
+                        "B" => 0,
+                        "Alpha" => 10,
+                    ]
+                );
+
+                /* Draw the line chart */
+                $myPicture->setFontProperties(
+                    [
+                        "FontName" => api_get_path(SYS_FONTS_PATH).'opensans/OpenSans-Regular.ttf',
+                        "FontSize" => 10,
+                    ]
+                );
+                $myPicture->drawSplineChart();
+                $myPicture->drawPlotChart(
+                    [
+                        "DisplayValues" => true,
+                        "PlotBorder" => true,
+                        "BorderSize" => 1,
+                        "Surrounding" => -60,
+                        "BorderAlpha" => 80,
+                    ]
+                );
+
+                /* Do NOT Write the chart legend */
+
+                /* Write and save into cache */
+                $myCache->writeToCache($chartHash, $myPicture);
+                $imgPath = api_get_path(SYS_ARCHIVE_PATH).$chartHash;
+                $myCache->saveFromCache($chartHash, $imgPath);
+                $imgPath = api_get_path(WEB_ARCHIVE_PATH).$chartHash;
+            }
+
+            return '<img src="'.$imgPath.'">';
+        } else {
+            return api_convert_encoding(
+                '<div id="messages" class="warning-message">'.get_lang('GraphicNotAvailable').'</div>',
+                'UTF-8'
+            );
+        }
+    }
+
+    private static function getDataAccessTrackingFilters($sql)
+    {
         if (isset($_GET['course_id']) && !empty($_GET['course_id'])) {
             $courseId = (int) $_GET['course_id'];
             $sql .= " AND c.id = ".$courseId;
@@ -2886,439 +3310,21 @@ class MySpace
             $sql .= " AND u.user_id = ".$userId;
         }
 
+        $sql .= " AND u.status <> ".ANONYMOUS;
+
         if (isset($_GET['date']) && !empty($_GET['date'])) {
-            $dates = DateRangePicker::parseDateRange($_GET['date']);
+            $dateRangePicker = new DateRangePicker('date', '', ['timePicker' => 'true']);
+            $dates = $dateRangePicker->parseDateRange($_GET['date']);
             if (isset($dates['start']) && !empty($dates['start'])) {
-                $dates['start'] = Database::escape_string($dates['start']);
+                $dates['start'] = Database::escape_string(api_get_utc_datetime($dates['start']));
                 $sql .= " AND login_course_date >= '".$dates['start']."'";
             }
             if (isset($dates['end']) && !empty($dates['end'])) {
-                $dates['end'] = Database::escape_string($dates['end']);
+                $dates['end'] = Database::escape_string(api_get_utc_datetime($dates['end']));
                 $sql .= " AND logout_course_date <= '".$dates['end']."'";
             }
         }
 
-        $sql .= " ORDER BY col$column $orderDirection ";
-        $sql .= " LIMIT $from,$numberItems";
-
-        $result = Database::query($sql);
-
-        $data = [];
-        while ($user = Database::fetch_assoc($result)) {
-            $data[] = $user;
-        }
-
-        $return = [];
-        //TODO: Dont use numeric index
-        foreach ($data as $key => $info) {
-            $start_date = $info['col0'];
-            $end_date = $info['logout_course_date'];
-
-            $return[$info['user_id']] = [
-                $start_date,
-                $info['col1'],
-                $info['col2'],
-                $info['col3'],
-                $info['user_id'],
-                'ip',
-                //TODO is not correct/precise, it counts the time not logged between two loggins
-                gmdate("H:i:s", strtotime($end_date) - strtotime($start_date)),
-            ];
-        }
-
-        foreach ($return as $key => $info) {
-            $ipResult = Database::select(
-                'user_ip',
-                $track_e_login,
-                ['where' => [
-                    '? BETWEEN login_date AND logout_date' => $info[0],
-                ]],
-                'first'
-            );
-
-            $return[$key][5] = $ipResult['user_ip'];
-        }
-
-        return $return;
-    }
-
-    /**
-     * Gets the connections to a course as an array of login and logout time.
-     *
-     * @param int    $user_id
-     * @param array  $course_info
-     * @param int    $sessionId
-     * @param string $start_date
-     * @param string $end_date
-     *
-     * @author  Jorge Frisancho Jibaja
-     * @author  Julio Montoya <gugli100@gmail.com> fixing the function
-     *
-     * @version OCT-22- 2010
-     *
-     * @return array
-     */
-    public static function get_connections_to_course_by_date(
-        $user_id,
-        $course_info,
-        $sessionId,
-        $start_date,
-        $end_date
-    ) {
-        $table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
-        $user_id = (int) $user_id;
-        $connections = [];
-        if (!empty($course_info)) {
-            $courseId = (int) $course_info['real_id'];
-            $end_date = add_day_to($end_date);
-
-            $start_date = Database::escape_string($start_date);
-            $end_date = Database::escape_string($end_date);
-            $sessionCondition = api_get_session_condition($sessionId);
-            $sql = "SELECT 
-                        login_course_date, 
-                        logout_course_date, 
-                        TIMESTAMPDIFF(SECOND, login_course_date, logout_course_date) duration
-                    FROM $table
-                    WHERE
-                        user_id = $user_id AND
-                        c_id = $courseId AND
-                        login_course_date BETWEEN '$start_date' AND '$end_date' AND
-                        logout_course_date BETWEEN '$start_date' AND '$end_date'
-                        $sessionCondition
-                    ORDER BY login_course_date ASC";
-            $rs = Database::query($sql);
-
-            while ($row = Database::fetch_array($rs)) {
-                $connections[] = [
-                    'login' => $row['login_course_date'],
-                    'logout' => $row['logout_course_date'],
-                    'duration' => $row['duration'],
-                ];
-            }
-        }
-
-        return $connections;
-    }
-}
-
-/**
- * @param $user_id
- * @param array $course_info
- * @param int   $sessionId
- * @param null  $start_date
- * @param null  $end_date
- *
- * @return array
- */
-function get_stats($user_id, $course_info, $sessionId, $start_date = null, $end_date = null)
-{
-    $table = Database::get_main_table(TABLE_STATISTIC_TRACK_E_COURSE_ACCESS);
-    $result = [];
-    if (!empty($course_info)) {
-        $stringStartDate = '';
-        $stringEndDate = '';
-        if ($start_date != null && $end_date != null) {
-            $end_date = add_day_to($end_date);
-
-            $start_date = Database::escape_string($start_date);
-            $end_date = Database::escape_string($end_date);
-
-            $stringStartDate = "AND login_course_date BETWEEN '$start_date' AND '$end_date'";
-            $stringEndDate = "AND logout_course_date BETWEEN '$start_date' AND '$end_date'";
-        }
-        $user_id = (int) $user_id;
-        $courseId = (int) $course_info['real_id'];
-        $sessionCondition = api_get_session_condition($sessionId);
-        $sql = "SELECT
-                SEC_TO_TIME(AVG(time_to_sec(timediff(logout_course_date,login_course_date)))) as avrg,
-                SEC_TO_TIME(SUM(time_to_sec(timediff(logout_course_date,login_course_date)))) as total,
-                count(user_id) as times
-                FROM $table
-                WHERE
-                    user_id = $user_id AND
-                    c_id = $courseId $stringStartDate $stringEndDate 
-                    $sessionCondition                    
-                ORDER BY login_course_date ASC";
-
-        $rs = Database::query($sql);
-        if ($row = Database::fetch_array($rs)) {
-            $foo_avg = $row['avrg'];
-            $foo_total = $row['total'];
-            $foo_times = $row['times'];
-            $result = [
-                'avg' => $foo_avg,
-                'total' => $foo_total,
-                'times' => $foo_times,
-            ];
-        }
-    }
-
-    return $result;
-}
-
-function add_day_to($end_date)
-{
-    $foo_date = strtotime($end_date);
-    $foo_date = strtotime(' +1 day', $foo_date);
-    $foo_date = date('Y-m-d', $foo_date);
-
-    return $foo_date;
-}
-
-/**
- * Converte an array to a table in html.
- *
- * @param array $result
- *
- * @author Jorge Frisancho Jibaja
- *
- * @version OCT-22- 2010
- *
- * @return string
- */
-function convert_to_string($result)
-{
-    $html = '<table class="table">';
-    if (!empty($result)) {
-        foreach ($result as $key => $data) {
-            $html .= '<tr><td>';
-            $html .= api_get_local_time($data['login']);
-            $html .= '</td>';
-            $html .= '<td>';
-
-            $html .= api_time_to_hms(api_strtotime($data['logout']) - api_strtotime($data['login']));
-            $html .= '</tr></td>';
-        }
-    }
-    $html .= '</table>';
-
-    return $html;
-}
-
-/**
- * This function draw the graphic to be displayed on the user view as an image.
- *
- * @param array  $sql_result
- * @param string $start_date
- * @param string $end_date
- * @param string $type
- *
- * @author Jorge Frisancho Jibaja
- *
- * @version OCT-22- 2010
- *
- * @return string
- */
-function grapher($sql_result, $start_date, $end_date, $type = '')
-{
-    if (empty($start_date)) {
-        $start_date = '';
-    }
-    if (empty($end_date)) {
-        $end_date = '';
-    }
-    if ($type == '') {
-        $type = 'day';
-    }
-    $main_year = $main_month_year = $main_day = [];
-
-    $period = new DatePeriod(
-        new DateTime($start_date),
-        new DateInterval('P1D'),
-        new DateTime($end_date)
-    );
-
-    foreach ($period as $date) {
-        $main_day[$date->format('d-m-Y')] = 0;
-    }
-
-    $period = new DatePeriod(
-        new DateTime($start_date),
-        new DateInterval('P1M'),
-        new DateTime($end_date)
-    );
-
-    foreach ($period as $date) {
-        $main_month_year[$date->format('m-Y')] = 0;
-    }
-
-    $i = 0;
-    if (is_array($sql_result) && count($sql_result) > 0) {
-        foreach ($sql_result as $key => $data) {
-            $login = api_strtotime($data['login']);
-            $logout = api_strtotime($data['logout']);
-            //creating the main array
-            if (isset($main_month_year[date('m-Y', $login)])) {
-                $main_month_year[date('m-Y', $login)] += float_format(($logout - $login) / 60, 0);
-            }
-            if (isset($main_day[date('d-m-Y', $login)])) {
-                $main_day[date('d-m-Y', $login)] += float_format(($logout - $login) / 60, 0);
-            }
-            if ($i > 500) {
-                break;
-            }
-            $i++;
-        }
-        switch ($type) {
-            case 'day':
-                $main_date = $main_day;
-                break;
-            case 'month':
-                $main_date = $main_month_year;
-                break;
-            case 'year':
-                $main_date = $main_year;
-                break;
-        }
-
-        $labels = array_keys($main_date);
-        if (count($main_date) == 1) {
-            $labels = $labels[0];
-            $main_date = $main_date[$labels];
-        }
-
-        /* Create and populate the pData object */
-        $myData = new pData();
-        $myData->addPoints($main_date, 'Serie1');
-        if (count($main_date) != 1) {
-            $myData->addPoints($labels, 'Labels');
-            $myData->setSerieDescription('Labels', 'Months');
-            $myData->setAbscissa('Labels');
-        }
-        $myData->setSerieWeight('Serie1', 1);
-        $myData->setSerieDescription('Serie1', get_lang('MyResults'));
-        $myData->setAxisName(0, get_lang('Minutes'));
-        $myData->loadPalette(api_get_path(SYS_CODE_PATH).'palettes/pchart/default.color', true);
-
-        // Cache definition
-        $cachePath = api_get_path(SYS_ARCHIVE_PATH);
-        $myCache = new pCache(['CacheFolder' => substr($cachePath, 0, strlen($cachePath) - 1)]);
-        $chartHash = $myCache->getHash($myData);
-
-        if ($myCache->isInCache($chartHash)) {
-            //if we already created the img
-            $imgPath = api_get_path(SYS_ARCHIVE_PATH).$chartHash;
-            $myCache->saveFromCache($chartHash, $imgPath);
-            $imgPath = api_get_path(WEB_ARCHIVE_PATH).$chartHash;
-        } else {
-            /* Define width, height and angle */
-            $mainWidth = 760;
-            $mainHeight = 230;
-            $angle = 50;
-
-            /* Create the pChart object */
-            $myPicture = new pImage($mainWidth, $mainHeight, $myData);
-
-            /* Turn of Antialiasing */
-            $myPicture->Antialias = false;
-            /* Draw the background */
-            $settings = ["R" => 255, "G" => 255, "B" => 255];
-            $myPicture->drawFilledRectangle(0, 0, $mainWidth, $mainHeight, $settings);
-
-            /* Add a border to the picture */
-            $myPicture->drawRectangle(
-                0,
-                0,
-                $mainWidth - 1,
-                $mainHeight - 1,
-                ["R" => 0, "G" => 0, "B" => 0]
-            );
-
-            /* Set the default font */
-            $myPicture->setFontProperties(
-                [
-                    "FontName" => api_get_path(SYS_FONTS_PATH).'opensans/OpenSans-Regular.ttf',
-                    "FontSize" => 10, ]
-            );
-            /* Write the chart title */
-            $myPicture->drawText(
-                $mainWidth / 2,
-                30,
-                get_lang('TimeSpentInTheCourse'),
-                [
-                    "FontSize" => 12,
-                    "Align" => TEXT_ALIGN_BOTTOMMIDDLE,
-                ]
-            );
-
-            /* Set the default font */
-            $myPicture->setFontProperties(
-                [
-                    "FontName" => api_get_path(SYS_FONTS_PATH).'opensans/OpenSans-Regular.ttf',
-                    "FontSize" => 8,
-                ]
-            );
-
-            /* Define the chart area */
-            $myPicture->setGraphArea(50, 40, $mainWidth - 40, $mainHeight - 80);
-
-            /* Draw the scale */
-            $scaleSettings = [
-                'XMargin' => 10,
-                'YMargin' => 10,
-                'Floating' => true,
-                'GridR' => 200,
-                'GridG' => 200,
-                'GridB' => 200,
-                'DrawSubTicks' => true,
-                'CycleBackground' => true,
-                'LabelRotation' => $angle,
-                'Mode' => SCALE_MODE_ADDALL_START0,
-            ];
-            $myPicture->drawScale($scaleSettings);
-
-            /* Turn on Antialiasing */
-            $myPicture->Antialias = true;
-
-            /* Enable shadow computing */
-            $myPicture->setShadow(
-                true,
-                [
-                    "X" => 1,
-                    "Y" => 1,
-                    "R" => 0,
-                    "G" => 0,
-                    "B" => 0,
-                    "Alpha" => 10,
-                ]
-            );
-
-            /* Draw the line chart */
-            $myPicture->setFontProperties(
-                [
-                    "FontName" => api_get_path(SYS_FONTS_PATH).'opensans/OpenSans-Regular.ttf',
-                    "FontSize" => 10,
-                ]
-            );
-            $myPicture->drawSplineChart();
-            $myPicture->drawPlotChart(
-                [
-                    "DisplayValues" => true,
-                    "PlotBorder" => true,
-                    "BorderSize" => 1,
-                    "Surrounding" => -60,
-                    "BorderAlpha" => 80,
-                ]
-            );
-
-            /* Do NOT Write the chart legend */
-
-            /* Write and save into cache */
-            $myCache->writeToCache($chartHash, $myPicture);
-            $imgPath = api_get_path(SYS_ARCHIVE_PATH).$chartHash;
-            $myCache->saveFromCache($chartHash, $imgPath);
-            $imgPath = api_get_path(WEB_ARCHIVE_PATH).$chartHash;
-        }
-        $html = '<img src="'.$imgPath.'">';
-
-        return $html;
-    } else {
-        $foo_img = api_convert_encoding(
-            '<div id="messages" class="warning-message">'.get_lang('GraphicNotAvailable').'</div>',
-            'UTF-8'
-        );
-
-        return $foo_img;
+        return $sql;
     }
 }

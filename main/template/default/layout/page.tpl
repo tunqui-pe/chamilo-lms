@@ -9,7 +9,7 @@
     {% include 'layout/head.tpl'|get_template %}
 {% endblock %}
 </head>
-<body>
+<body class="{{ 'page_origin' ? ('page_origin_' ~ page_origin) : '' }}">
     <!-- START MAIN -->
     <main id="main" dir="{{ text_direction }}" class="{{ section_name }} {{ login_class }}">
     <noscript>{{ "NoJavascript"|get_lang }}</noscript>
@@ -20,7 +20,7 @@
                     <form onSubmit="$(this).toggle('slow')" action="" method="post">
                         <input value=1 type="hidden" name="acceptCookies"/>
                         <div class="cookieUsageValidation">
-                            {{ "YouAcceptCookies" | get_lang }}
+                            {{ 'YouAcceptCookies' | get_lang }}
                             <span style="margin-left:20px;" onclick="$(this).next().toggle('slow'); $(this).toggle('slow')">
                                 ({{"More" | get_lang }})
                             </span>

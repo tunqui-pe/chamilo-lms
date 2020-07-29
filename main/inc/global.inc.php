@@ -80,6 +80,25 @@ define('USERNAME_MAX_LENGTH', $defaultUserNameLength);
 // Fix bug in IIS that doesn't fill the $_SERVER['REQUEST_URI'].
 api_request_uri();
 
+// Set web proxy environment variables
+foreach ([
+             'proxy_settings/stream_context_create/https/proxy',
+             'proxy_settings/stream_context_create/http/proxy',
+             'proxy_settings/curl_setopt_array/CURLOPT_PROXY',
+         ] as $path) {
+    $value = api_get_configuration_sub_value($path);
+    if (!empty($value) && is_string($value)) {
+        // libcurl reads environment variable https_proxy: https://curl.haxx.se/libcurl/c/libcurl-env.html
+        // \GuzzleHttp\Client::configureDefaults reads environment variable HTTPS_PROXY
+        foreach (['https_proxy', 'http_proxy', 'HTTPS_PROXY', 'HTTP_PROXY'] as $envVar) {
+            if (false === getenv($envVar)) {
+                putenv("$envVar=$value");
+            }
+        }
+        break;
+    }
+}
+
 define('_MPDF_TEMP_PATH', __DIR__.'/../../app/cache/mpdf/');
 define('_MPDF_TTFONTDATAPATH', __DIR__.'/../../app/cache/mpdf/');
 
@@ -131,6 +150,7 @@ $dbParams = [
     'path' => isset($_configuration['db_path']) ? $_configuration['db_path'] : '',
     // Only relevant for pdo_mysql, pdo_pgsql, and pdo_oci/oci8,
     'port' => isset($_configuration['db_port']) ? $_configuration['db_port'] : '',
+    'driverOptions' => isset($_configuration['db_client_flags']) && is_array($_configuration['db_client_flags']) ? $_configuration['db_client_flags'] : [],
 ];
 
 try {
@@ -546,8 +566,10 @@ $text_dir = api_get_text_direction();
 
 // check and modify the date of user in the track.e.online table
 if (!$x = strpos($_SERVER['PHP_SELF'], 'whoisonline.php')) {
-    preventMultipleLogin($_user["user_id"]);
-    LoginCheck(isset($_user['user_id']) ? $_user['user_id'] : '');
+    if (!empty($_user['user_id'])) {
+        preventMultipleLogin($_user['user_id']);
+        LoginCheck($_user['user_id']);
+    }
 }
 
 // ===== end "who is logged in?" module section =====

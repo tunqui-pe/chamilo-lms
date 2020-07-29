@@ -1,11 +1,6 @@
 <?php
-/* For licensing terms, see /license.txt */
 
-/**
- * Gradebook controller.
- *
- * @package chamilo.gradebook
- */
+/* For licensing terms, see /license.txt */
 
 // $cidReset : This is the main difference with gradebook.php, here we say,
 // basically, that we are inside a course, and many things depend from that
@@ -120,7 +115,7 @@ $(function() {
         $(this).addClass("view_children");
         $(this).find("img").attr("src", show_icon);
     });
-    
+
 	for (i=0;i<$(".actions").length;i++) {
 		if ($(".actions:eq("+i+")").html()=="<table border=\"0\"></table>" || $(".actions:eq("+i+")").html()=="" || $(".actions:eq("+i+")").html()==null || $(".actions:eq("+i+")").html().split("<TBODY></TBODY>").length==2) {
 			$(".actions:eq("+i+")").hide();
@@ -231,7 +226,7 @@ if ($selectCat > 0 && $isStudentView) {
 if (isset($_GET['createallcategories'])) {
     GradebookUtils::block_students();
     $coursecat = Category::get_not_created_course_categories($stud_id);
-    if (!count($coursecat) == 0) {
+    if (0 == !count($coursecat)) {
         foreach ($coursecat as $row) {
             $cat = new Category();
             $cat->set_name($row[1]);
@@ -764,6 +759,7 @@ if (isset($_GET['studentoverview'])) {
             $cat->set_session_id($session_id);
         } else {
             $cat->set_name($course_code);
+            $cat->setIsRequirement(1);
         }
         $cat->set_course_code($course_code);
         $cat->set_description(null);
@@ -813,7 +809,7 @@ if (!empty($selectCat)) {
     $cat = new Category();
     $course_id = CourseManager::get_course_by_category($selectCat);
     $show_message = $cat->show_message_resource_delete($course_id);
-    if ($show_message == '') {
+    if ('' == $show_message) {
         // Student
         if (!api_is_allowed_to_edit() && !api_is_excluded_user_type()) {
             $certificate = Category::generateUserCertificate(
@@ -853,7 +849,6 @@ if (!api_is_allowed_to_edit(null, true)) {
 if (isset($first_time) && $first_time == 1 && api_is_allowed_to_edit(null, true)) {
     echo '<meta http-equiv="refresh" content="0;url='.api_get_self().'?'.api_get_cidreq().'" />';
 } else {
-    // Tool introduction
     Display::display_introduction_section(
         TOOL_GRADEBOOK,
         ['ToolbarSet' => 'AssessmentsIntroduction']

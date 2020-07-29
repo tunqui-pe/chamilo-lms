@@ -1,4 +1,5 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
@@ -41,8 +42,6 @@ use ChamiloSession as Session;
  * - $cancelAnswers : ask to cancel answer modifications
  * - $buttonBack : ask to go back to the previous page in answers of type "Fill in blanks"
  *
- * @package chamilo.exercise
- *
  * @author Olivier Brouckaert
  * Modified by Hubert Borderiou 21-10-2011 Question by category
  */
@@ -63,20 +62,6 @@ if (!$is_allowedToEdit) {
 }
 
 $exerciseId = isset($_GET['exerciseId']) ? (int) $_GET['exerciseId'] : 0;
-
-/*  stripslashes POST data  */
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    foreach ($_POST as $key => $val) {
-        if (is_string($val)) {
-            $_POST[$key] = stripslashes($val);
-        } elseif (is_array($val)) {
-            foreach ($val as $key2 => $val2) {
-                $_POST[$key][$key2] = stripslashes($val2);
-            }
-        }
-        $GLOBALS[$key] = $_POST[$key];
-    }
-}
 
 $newQuestion = isset($_GET['newQuestion']) ? $_GET['newQuestion'] : 0;
 $modifyAnswers = isset($_GET['modifyAnswers']) ? $_GET['modifyAnswers'] : 0;
@@ -154,11 +139,9 @@ if (!empty($_GET['action']) && $_GET['action'] == 'exportqti2' && !empty($_GET['
 
 // Exercise object creation.
 if (!is_object($objExercise)) {
-    // construction of the Exercise object
-    $objExercise = new Exercise();
-
     // creation of a new exercise if wrong or not specified exercise ID
     if ($exerciseId) {
+        $objExercise = new Exercise();
         $parseQuestionList = $showPagination > 0 ? false : true;
         if ($editQuestion) {
             $parseQuestionList = false;
@@ -169,6 +152,12 @@ if (!is_object($objExercise)) {
     // saves the object into the session
     Session::write('objExercise', $objExercise);
 }
+
+if (empty($objExercise)) {
+    header('Location: '.api_get_path(WEB_CODE_PATH).'exercise/exercise.php?'.api_get_cidreq());
+    exit;
+}
+
 // Exercise can be edited in their course.
 if ($objExercise->sessionId != $sessionId) {
     api_not_allowed(true);

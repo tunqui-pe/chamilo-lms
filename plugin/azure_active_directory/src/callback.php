@@ -33,40 +33,68 @@ $token = $provider->getAccessToken('authorization_code', [
 $me = null;
 
 try {
-    $me = $provider->get("me", $token);
-} catch (Exception $e) {
-    exit;
-}
+    $me = $provider->get('me', $token);
 
-$userInfo = [];
+    if (empty($me)) {
+        throw new Exception('Token not found.');
+    }
 
-if (!empty($me['email'])) {
-    $userInfo = api_get_user_info_from_email($me['email']);
-}
+    if (empty($me['mail']) || empty($me['mailNickname'])) {
+        throw new Exception('Mail empty');
+    }
 
-if (empty($userInfo) && !empty($me['email'])) {
     $extraFieldValue = new ExtraFieldValue('user');
-    $itemValue = $extraFieldValue->get_item_id_from_field_variable_and_field_value(
+    $organisationValue = $extraFieldValue->get_item_id_from_field_variable_and_field_value(
         AzureActiveDirectory::EXTRA_FIELD_ORGANISATION_EMAIL,
-        $me['email']
+        $me['mail']
     );
-
-    $userInfo = api_get_user_info($itemValue['item_id']);
-}
-
-if (empty($userInfo) && !empty($me['mailNickname'])) {
-    $extraFieldValue = new ExtraFieldValue('user');
-    $itemValue = $extraFieldValue->get_item_id_from_field_variable_and_field_value(
+    $azureValue = $extraFieldValue->get_item_id_from_field_variable_and_field_value(
         AzureActiveDirectory::EXTRA_FIELD_AZURE_ID,
         $me['mailNickname']
     );
 
-    $userInfo = api_get_user_info($itemValue['item_id']);
-}
+    $userId = null;
+    // Check EXTRA_FIELD_ORGANISATION_EMAIL
+    if (!empty($organisationValue) && isset($organisationValue['item_id'])) {
+        $userId = $organisationValue['item_id'];
+    }
 
-if (empty($userInfo)) {
-    header('Location: '.api_get_path(WEB_PATH).'index.php?loginFailed=1&error=user_password_incorrect');
+    if (empty($userId)) {
+        // Check EXTRA_FIELD_AZURE_ID
+        if (!empty($azureValue) && isset($azureValue['item_id'])) {
+            $userId = $azureValue['item_id'];
+        }
+    }
 
+    /*$emptyValues = empty($organisationValue['item_id']) || empty($azureValue['item_id']);
+    $differentValues = !$emptyValues && $organisationValue['item_id'] != $azureValue['item_id'];
+
+    if ($emptyValues || $differentValues) {
+        throw new Exception('Empty values');
+    }*/
+
+    if (empty($userId)) {
+        throw new Exception('User not found when checking the extra fields.');
+    }
+
+    $userInfo = api_get_user_info($userId);
+
+    if (empty($userInfo)) {
+        throw new Exception('User not found');
+    }
+
+    if ($userInfo['active'] != '1') {
+        throw new Exception('account_inactive');
+    }
+} catch (Exception $exception) {
+    $message = Display::return_message($plugin->get_lang('InvalidId'), 'error');
+
+    if ($exception->getMessage() === 'account_inactive') {
+        $message = Display::return_message(get_lang('AccountInactive'), 'error');
+    }
+
+    Display::addFlash($message);
+    header('Location: '.api_get_path(WEB_PATH));
     exit;
 }
 
@@ -76,5 +104,4 @@ $_user['uidReset'] = true;
 ChamiloSession::write('_user', $_user);
 ChamiloSession::write('_user_auth_source', 'azure_active_directory');
 
-header('Location: '.api_get_path(WEB_PATH));
-exit;
+Redirect::session_request_uri(true, $userInfo['user_id']);

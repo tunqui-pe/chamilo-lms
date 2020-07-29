@@ -21,6 +21,8 @@ class Database
     private static $connection;
 
     /**
+     * Set the DB manager instance.
+     *
      * @param EntityManager $em
      */
     public function setManager($em)
@@ -29,7 +31,7 @@ class Database
     }
 
     /**
-     * @param Connection $connection
+     * Set the DB connection instance.
      */
     public function setConnection(Connection $connection)
     {
@@ -37,6 +39,8 @@ class Database
     }
 
     /**
+     * Get the DB connection instance.
+     *
      * @return Connection
      */
     public function getConnection()
@@ -45,6 +49,8 @@ class Database
     }
 
     /**
+     * Get the DB manager instance.
+     *
      * @return EntityManager
      */
     public static function getManager()
@@ -104,8 +110,6 @@ class Database
 
     /**
      * Returns the number of affected rows in the last database operation.
-     *
-     * @param Statement $result
      *
      * @return int
      */
@@ -230,7 +234,7 @@ class Database
     }
 
     /**
-     * Escape MySQL wildchars _ and % in LIKE search.
+     * Escape MySQL wildcards _ and % in LIKE search.
      *
      * @param string $text The string to escape
      *
@@ -265,8 +269,7 @@ class Database
     /**
      * Gets the array from a SQL result (as returned by Database::query).
      *
-     * @param Statement $result
-     * @param string    $option Optional: "ASSOC","NUM" or "BOTH"
+     * @param string $option Optional: "ASSOC","NUM" or "BOTH"
      *
      * @return array|mixed
      */
@@ -282,8 +285,6 @@ class Database
     /**
      * Gets an associative array from a SQL result (as returned by Database::query).
      *
-     * @param Statement $result
-     *
      * @return array
      */
     public static function fetch_assoc(Statement $result)
@@ -295,8 +296,6 @@ class Database
      * Gets the next row of the result of the SQL query
      * (as returned by Database::query) in an object form.
      *
-     * @param Statement $result
-     *
      * @return mixed
      */
     public static function fetch_object(Statement $result)
@@ -307,8 +306,6 @@ class Database
     /**
      * Gets the array from a SQL result (as returned by Database::query)
      * help achieving database independence.
-     *
-     * @param Statement $result
      *
      * @return mixed
      */
@@ -344,7 +341,7 @@ class Database
     }
 
     /**
-     * @param Statement $result
+     * Wrapper for rowCount().
      *
      * @return int
      */
@@ -361,9 +358,8 @@ class Database
      * Acts as the relative *_result() function of most DB drivers and fetches a
      * specific line and a field.
      *
-     * @param Statement $resource
-     * @param int       $row
-     * @param string    $field
+     * @param int    $row
+     * @param string $field
      *
      * @return mixed
      */
@@ -379,6 +375,8 @@ class Database
     }
 
     /**
+     * Wrapper for executeQuery().
+     *
      * @param string $query
      *
      * @return Statement
@@ -397,6 +395,8 @@ class Database
     }
 
     /**
+     * Deal with exceptions from the database extension.
+     *
      * @param Exception $e
      */
     public static function handleError($e)
@@ -408,13 +408,21 @@ class Database
             $handler->handle($e);
             exit;
         } else {
-            error_log($e->getMessage());
-            api_not_allowed(false, get_lang('GeneralError'));
-            exit;
+            $msg = $e->getMessage();
+            if (preg_match('/Serialization failure:/', $msg)) {
+                //do nothing except from logging
+                error_log($msg.' - Reported but otherwise ignored');
+            } else {
+                error_log($msg);
+                api_not_allowed(false, get_lang('GeneralError'));
+                exit;
+            }
         }
     }
 
     /**
+     * Transform an SQL option from Chamilo to PDO syntax.
+     *
      * @param string $option
      *
      * @return int
@@ -451,7 +459,7 @@ class Database
     }
 
     /**
-     * Database insert.
+     * Build an insert query.
      *
      * @param string $table_name
      * @param array  $attributes
@@ -488,6 +496,8 @@ class Database
     }
 
     /**
+     * Build an update query.
+     *
      * @param string $tableName       use Database::get_main_table
      * @param array  $attributes      Values to updates
      *                                Example: $params['name'] = 'Julio'; $params['lastname'] = 'Montoya';
@@ -735,6 +745,8 @@ class Database
     }
 
     /**
+     * Build a delete query.
+     *
      * @param string $table_name
      * @param array  $where_conditions
      * @param bool   $show_query
@@ -798,6 +810,8 @@ class Database
     }
 
     /**
+     * Check if a given table exists.
+     *
      * @param string $table
      *
      * @return bool
@@ -808,6 +822,8 @@ class Database
     }
 
     /**
+     * List the columns of a given table.
+     *
      * @param string $table
      *
      * @return \Doctrine\DBAL\Schema\Column[]

@@ -247,7 +247,7 @@ class Display
         if (is_array($query_vars)) {
             $table->set_additional_parameters($query_vars);
         }
-        if ($style == 'table') {
+        if ($style === 'table') {
             if (is_array($header) && count($header) > 0) {
                 foreach ($header as $index => $header_item) {
                     $table->set_header(
@@ -462,91 +462,6 @@ class Display
         }
         $table->set_form_actions($form_actions);
         $table->display();
-    }
-
-    /**
-     * Displays a normal message. It is recommended to use this public function
-     * to display any normal information messages.
-     *
-     * @param string $message
-     * @param bool   $filter      (true) or not (false)
-     * @param bool   $returnValue
-     *
-     * @deprecated Use <code>Display::addFlash(Display::return_message($message, 'normal'));</code>
-     *  Or <code>echo Display::return_message($message, 'normal')</code>
-     */
-    public static function display_normal_message(
-        $message,
-        $filter = true,
-        $returnValue = false
-    ) {
-        $message = self::return_message($message, 'normal', $filter);
-        if ($returnValue) {
-            return $message;
-        } else {
-            echo $message;
-        }
-    }
-
-    /**
-     * Displays an warning message. Use this if you want to draw attention to something
-     * This can also be used for instance with the hint in the exercises.
-     *
-     * @deprecated use Display::addFlash(Display::return_message($message, 'warning'));
-     */
-    public static function display_warning_message(
-        $message,
-        $filter = true,
-        $returnValue = false
-    ) {
-        $message = self::return_message($message, 'warning', $filter);
-        if ($returnValue) {
-            return $message;
-        } else {
-            echo $message;
-        }
-    }
-
-    /**
-     * Displays an confirmation message. Use this if something has been done successfully.
-     *
-     * @param bool    Filter (true) or not (false)
-     *
-     * @deprecated use Display::addFlash(Display::return_message($message, 'confirm'));
-     */
-    public static function display_confirmation_message(
-        $message,
-        $filter = true,
-        $returnValue = false
-    ) {
-        $message = self::return_message($message, 'confirm', $filter);
-        if ($returnValue) {
-            return $message;
-        } else {
-            echo $message;
-        }
-    }
-
-    /**
-     * Displays an error message. It is recommended to use this public function if an error occurs.
-     *
-     * @param string $message - include any additional html
-     *                        tags if you need them
-     * @param bool    Filter (true) or not (false)
-     *
-     * @deprecated use Display::addFlash(Display::return_message($message, 'error'));
-     */
-    public static function display_error_message(
-        $message,
-        $filter = true,
-        $returnValue = false
-    ) {
-        $message = self::return_message($message, 'error', $filter);
-        if ($returnValue) {
-            return $message;
-        } else {
-            echo $message;
-        }
     }
 
     /**
@@ -816,12 +731,15 @@ class Display
     }
 
     /**
-     * This public function returns the htmlcode for an icon.
+     * This public function returns the HTML code for an icon.
      *
-     * @param string   The filename of the file (in the main/img/ folder
-     * @param string   The alt text (probably a language variable)
-     * @param array    Additional attributes (for instance height, width, onclick, ...)
-     * @param int  The wanted width of the icon (to be looked for in the corresponding img/icons/ folder)
+     * @param string $image                 The filename of the file (in the main/img/ folder
+     * @param string $alt_text              The alt text (probably a language variable)
+     * @param array  $additional_attributes Additional attributes (for instance height, width, onclick, ...)
+     * @param int    $size                  The wanted width of the icon (to be looked for in the corresponding img/icons/ folder)
+     * @param bool   $show_text             Whether to show the text next (usually under) the icon
+     * @param bool   $return_only_path      Whether we only want the path to the icon or the whole HTML tag
+     * @param bool   $loadThemeIcon         Whether we want to allow an overloaded theme icon, if it exists, to replace the default icon
      *
      * @return string An HTML string of the right <img> tag
      *
@@ -892,7 +810,7 @@ class Display
         // When moving this to production, the return_icon() calls should
         // ask for the SVG version directly
         $svgIcons = api_get_setting('icons_mode_svg');
-        if ($svgIcons == 'true' && $return_only_path == false) {
+        if ($svgIcons === 'true' && $return_only_path == false) {
             $svgImage = substr($image, 0, -3).'svg';
             if (is_file($code_path.$theme.'svg/'.$svgImage)) {
                 $icon = $w_code_path.$theme.'svg/'.$svgImage;
@@ -925,7 +843,7 @@ class Display
     }
 
     /**
-     * Returns the htmlcode for an image.
+     * Returns the HTML code for an image.
      *
      * @param string $image_path            the filename of the file (in the main/img/ folder
      * @param string $alt_text              the alt text (probably a language variable)
@@ -1394,8 +1312,8 @@ class Display
             if (!empty($rowList) && isset($rowList['options'])) {
                 $rowList = $rowList['options'];
                 $rowList[] = $all_value;
+                $extra_params['rowList'] = $rowList;
             }
-            $extra_params['rowList'] = $rowList;
         }
 
         $defaultRow = api_get_configuration_value('table_default_row');
@@ -1638,7 +1556,7 @@ class Display
                     c_id = $course_id AND
                     access_user_id = '$user_id' AND
                     access_session_id ='".$sessionId."'
-                ORDER BY access_date DESC 
+                ORDER BY access_date DESC
                 LIMIT 1
                 ";
         $result = Database::query($sql);
@@ -1659,10 +1577,10 @@ class Display
 
         $hideTools = [TOOL_NOTEBOOK, TOOL_CHAT];
         // Get current tools in course
-        $sql = "SELECT name, link, image 
-                FROM $course_tool_table 
-                WHERE 
-                    c_id = $course_id AND 
+        $sql = "SELECT name, link, image
+                FROM $course_tool_table
+                WHERE
+                    c_id = $course_id AND
                     visibility = '1' AND
                     name NOT IN ('".implode("','", $hideTools)."')
                 ";
@@ -1684,7 +1602,7 @@ class Display
 
                 $toolName = addslashes($toolName);
 
-                $sql = "SELECT * FROM $tool_edit_table 
+                $sql = "SELECT * FROM $tool_edit_table
                         WHERE
                             c_id = $course_id AND
                             $toolCondition
@@ -2583,10 +2501,10 @@ class Display
      * @param string $content
      * @param string $title
      * @param string $footer
-     * @param string $type        primary|success|info|warning|danger
+     * @param string $type            primary|success|info|warning|danger
      * @param string $extra
      * @param string $id
-     * @param string $customColor
+     * @param string $backgroundColor
      * @param string $extraClass
      *
      * @return string
@@ -2598,12 +2516,12 @@ class Display
         $type = 'default',
         $extra = '',
         $id = '',
-        $customColor = '',
+        $backgroundColor = '',
         $extraClass = ''
     ) {
         $headerStyle = '';
-        if (!empty($customColor)) {
-            $headerStyle = 'style = "color: white; background-color: '.$customColor.'" ';
+        if (!empty($backgroundColor)) {
+            $headerStyle = 'style = "color: white; background-color: '.$backgroundColor.'" ';
         }
 
         $title = !empty($title) ? '<div class="panel-heading" '.$headerStyle.' ><h3 class="panel-title">'.$title.'</h3>'.$extra.'</div>' : '';
@@ -2861,9 +2779,9 @@ HTML;
             $toolbar = '<div class="btn-group pull-right">'.$toolbar.'</div>';
         }
 
-        return '<div id="user_card_'.$userInfo['id'].'" class="col-md-12">                    
+        return '<div id="user_card_'.$userInfo['id'].'" class="col-md-12">
                     <div class="row">
-                        <div class="col-md-2">                            
+                        <div class="col-md-2">
                             <img src="'.$userInfo['avatar'].'" class="img-responsive img-circle">
                         </div>
                         <div class="col-md-10">
@@ -2872,7 +2790,7 @@ HTML;
                            <div class="col-md-2">
                            '.$status.'
                            </div>
-                           <div class="col-md-10">                           
+                           <div class="col-md-10">
                            '.$toolbar.'
                            </div>
                            </div>
@@ -2925,6 +2843,7 @@ HTML;
     public static function getFrameReadyBlock($frameName)
     {
         $webPublicPath = api_get_path(WEB_PUBLIC_PATH);
+        $webJsPath = api_get_path(WEB_LIBRARY_JS_PATH);
 
         $videoFeatures = [
             'playpause',
@@ -2946,19 +2865,19 @@ HTML;
                     continue;
                 }
                 $defaultFeatures[] = $feature;
-                $videoPluginsJS[] = "mediaelement/plugins/$feature/$feature.js";
-                $videoPluginCSS[] = "mediaelement/plugins/$feature/$feature.css";
+                $videoPluginsJS[] = "mediaelement/plugins/$feature/$feature.min.js";
+                $videoPluginCSS[] = "mediaelement/plugins/$feature/$feature.min.css";
             }
         }
 
         $videoPluginFiles = '';
         foreach ($videoPluginsJS as $file) {
-            $videoPluginFiles .= '{type: "script", src: "'.$webPublicPath.'assets/'.$file.'"},';
+            $videoPluginFiles .= '{type: "script", src: "'.$webJsPath.$file.'"},';
         }
 
         $videoPluginCssFiles = '';
         foreach ($videoPluginCSS as $file) {
-            $videoPluginCssFiles .= '{type: "stylesheet", src: "'.$webPublicPath.'assets/'.$file.'"},';
+            $videoPluginCssFiles .= '{type: "stylesheet", src: "'.$webJsPath.$file.'"},';
         }
 
         $translateHtml = '';
@@ -2978,7 +2897,7 @@ HTML;
         $.frameReady(function() {
              $(function () {
                 $("video:not(.skip), audio:not(.skip)").mediaelementplayer({
-                    pluginPath: "'.$webPublicPath.'assets/mediaelement/plugins/",            
+                    pluginPath: "'.$webJsPath.'mediaelement/plugins/",
                     features: [\''.$videoFeatures.'\'],
                     success: function(mediaElement, originalNode, instance) {
                         '.ChamiloApi::getQuizMarkersRollsJS().'
@@ -2986,30 +2905,30 @@ HTML;
                     vrPath: "'.$webPublicPath.'assets/vrview/build/vrview.js"
                 });
             });
-        }, 
+        },
         "'.$frameName.'",
         [
             {type:"script", src:"'.api_get_jquery_web_path().'", deps: [
-            
-                '.$fixLink.'   
+
+                '.$fixLink.'
                 {type:"script", src:"'.api_get_path(WEB_LIBRARY_PATH).'javascript/jquery.highlight.js"},
                 {type:"script", src:"'.api_get_path(WEB_CODE_PATH).'glossary/glossary.js.php?'.api_get_cidreq().'"},
                 {type:"script", src:"'.$webPublicPath.'assets/jquery-ui/jquery-ui.min.js"},
-                {type:"script", src: "'.$webPublicPath.'assets/mediaelement/build/mediaelement-and-player.min.js", 
+                {type:"script", src: "'.$webPublicPath.'assets/mediaelement/build/mediaelement-and-player.min.js",
                     deps: [
-                    {type:"script", src: "'.$webPublicPath.'assets/mediaelement/plugins/vrview/vrview.js"},
-                    {type:"script", src: "'.$webPublicPath.'assets/mediaelement/plugins/markersrolls/markersrolls.js"},
+                    {type:"script", src: "'.$webJsPath.'mediaelement/plugins/vrview/vrview.js"},
+                    {type:"script", src: "'.$webJsPath.'mediaelement/plugins/markersrolls/markersrolls.min.js"},
                     '.$videoPluginFiles.'
-                ]},                
-                '.$translateHtml.'             
+                ]},
+                '.$translateHtml.'
             ]},
             '.$videoPluginCssFiles.'
             {type:"script", src:"'.$webPublicPath.'assets/MathJax/MathJax.js?config=AM_HTMLorMML"},
             {type:"stylesheet", src:"'.$webPublicPath.'assets/jquery-ui/themes/smoothness/jquery-ui.min.css"},
-            {type:"stylesheet", src:"'.$webPublicPath.'assets/jquery-ui/themes/smoothness/theme.css"},                
+            {type:"stylesheet", src:"'.$webPublicPath.'assets/jquery-ui/themes/smoothness/theme.css"},
             {type:"stylesheet", src:"'.$webPublicPath.'css/dialog.css"},
-            {type:"stylesheet", src: "'.$webPublicPath.'assets/mediaelement/build/mediaelementplayer.min.css"},                
-            {type:"stylesheet", src: "'.$webPublicPath.'assets/mediaelement/plugins/vrview/vrview.css"},
+            {type:"stylesheet", src: "'.$webPublicPath.'assets/mediaelement/build/mediaelementplayer.min.css"},
+            {type:"stylesheet", src: "'.$webJsPath.'mediaelement/plugins/vrview/vrview.css"},
         ]);';
 
         return $frameReady;

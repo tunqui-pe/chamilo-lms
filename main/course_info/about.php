@@ -1,9 +1,11 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
-use Chamilo\CoreBundle\Entity\Course;
 use Chamilo\CoreBundle\Entity\CourseRelUser;
 use Chamilo\CoreBundle\Entity\ExtraField;
+use Chamilo\CoreBundle\Entity\Repository\SequenceResourceRepository;
+use Chamilo\CoreBundle\Entity\SequenceResource;
 use Chamilo\CourseBundle\Entity\CCourseDescription;
 
 /**
@@ -26,11 +28,9 @@ if (empty($courseId)) {
 
 $token = Security::get_existing_token();
 $em = Database::getManager();
-//userID
-$userId = api_get_user_id();
 
-/** @var Course $course */
-$course = $em->find('ChamiloCoreBundle:Course', $courseId);
+$userId = api_get_user_id();
+$course = api_get_course_entity($courseId);
 
 if (!$course) {
     api_not_allowed(true);
@@ -146,6 +146,7 @@ if ($checker) {
 
 $courseItem = [
     'code' => $course->getCode(),
+    'visibility' => $course->getVisibility(),
     'title' => $course->getTitle(),
     'description' => $courseDescription,
     'image' => CourseManager::getPicturePath($course, true),
@@ -169,7 +170,23 @@ $metaInfo .= '<meta property="og:image" content="'.$courseItem['image'].'" />';
 $htmlHeadXtra[] = $metaInfo;
 $htmlHeadXtra[] = api_get_asset('readmore-js/readmore.js');
 
+/** @var SequenceResourceRepository $sequenceResourceRepo */
+$sequenceResourceRepo = $em->getRepository('ChamiloCoreBundle:SequenceResource');
+$requirements = $sequenceResourceRepo->getRequirements(
+    $course->getId(),
+    SequenceResource::COURSE_TYPE
+);
+
+$hasRequirements = false;
+foreach ($requirements as $sequence) {
+    if (!empty($sequence['requirements'])) {
+        $hasRequirements = true;
+        break;
+    }
+}
+
 $template = new Template($course->getTitle(), true, true, false, true, false);
+
 $template->assign('course', $courseItem);
 $essence = Essence\Essence::instance();
 $template->assign('essence', $essence);
@@ -177,6 +194,18 @@ $template->assign('is_premium', $courseIsPremium);
 $template->assign('allow_subscribe', $allowSubscribe);
 $template->assign('token', $token);
 $template->assign('url', $urlCourse);
+$template->assign(
+    'subscribe_button',
+    CoursesAndSessionsCatalog::getRequirements(
+        $course->getId(),
+        SequenceResource::COURSE_TYPE,
+        true,
+        true
+    )
+);
+$template->assign('has_requirements', $hasRequirements);
+$template->assign('sequences', $requirements);
+
 $layout = $template->get_template('course_home/about.tpl');
 $content = $template->fetch($layout);
 $template->assign('content', $content);

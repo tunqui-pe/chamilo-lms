@@ -80,7 +80,7 @@ if ($sessionId > 0) {
 
 $table = Database::get_main_table(EasyCertificatePlugin::TABLE_EASYCERTIFICATE);
 $useDefault = false;
-$path = api_get_path(SYS_UPLOAD_PATH) . 'certificates/';
+$path = api_get_path(SYS_UPLOAD_PATH) . 'certificates';
 
 // Get info certificate
 $infoCertificate = EasyCertificatePlugin::getInfoCertificate($courseId, $sessionId, $accessUrlId);
@@ -101,7 +101,7 @@ if (empty($infoCertificate)) {
         $useDefault = true;
     }
 }
-$seal = $infoCertificate['seal'];
+
 $workSpace = intval(297 - $infoCertificate['margin_left'] - $infoCertificate['margin_right']);
 $widthCell = intval($workSpace / 6);
 $htmlList = [];
@@ -121,14 +121,15 @@ foreach ($userList as $userInfo) {
         href="' . api_get_path(WEB_CSS_PATH) . 'document.css">';
 
     $studentId = $userInfo['user_id'];
-    $urlBackground = $path . $infoCertificate['background'];
+    $urlBackgroundHorizontal = $path . $infoCertificate['background_h'];
+    $urlBackgroundVertical = $path . $infoCertificate['background_v'];
     $allUserInfo = DocumentManager::get_all_info_to_certificate(
         $studentId,
         $courseCode,
         false
     );
 
-    $myContentHtml = $infoCertificate['content_course'];
+    $myContentHtml = $infoCertificate['front_content'];
     $myContentHtml = str_replace(chr(13) . chr(10) . chr(13) . chr(10), chr(13) . chr(10), $myContentHtml);
     $infoToBeReplacedInContentHtml = $allUserInfo[0];
     $infoToReplaceInContentHtml = $allUserInfo[1];
@@ -138,226 +139,38 @@ foreach ($userList as $userInfo) {
         $myContentHtml
     );
 
-    $startDate = '';
-    $endDate = '';
-    switch ($infoCertificate['date_change']) {
-        case 0:
-            if (!empty($sessionInfo['access_start_date'])) {
-                $startDate = date("d/m/Y", strtotime(api_get_local_time($sessionInfo['access_start_date'])));
-            }
-            if (!empty($sessionInfo['access_end_date'])) {
-                $endDate = date("d/m/Y", strtotime(api_get_local_time($sessionInfo['access_end_date'])));
-            }
-            break;
-        case 1:
-            $startDate = date("d/m/Y", strtotime($infoCertificate['date_start']));
-            $endDate = date("d/m/Y", strtotime($infoCertificate['date_end']));
-            break;
-    }
-
-    $myContentHtml = str_replace(
-        '((start_date))',
-        $startDate,
-        $myContentHtml
-    );
-
-    $myContentHtml = str_replace(
-        '((end_date))',
-        $endDate,
-        $myContentHtml
-    );
-
-    $dateExpediction = '';
-    if ($infoCertificate['type_date_expediction'] != 3) {
-        $dateExpediction .= $plugin->get_lang('ExpedictionIn') . ' ' . $infoCertificate['place'];
-        if ($infoCertificate['type_date_expediction'] == 1) {
-            $dateExpediction .= $plugin->get_lang('to') . api_format_date(time(), DATE_FORMAT_LONG);
-        } elseif ($infoCertificate['type_date_expediction'] == 2) {
-            $dateFormat = $plugin->get_lang('formatDownloadDate');
-            if (!empty($infoCertificate['day']) &&
-                !empty($infoCertificate['month']) &&
-                !empty($infoCertificate['year'])
-            ) {
-                $dateExpediction .= sprintf(
-                    $dateFormat,
-                    $infoCertificate['day'],
-                    $infoCertificate['month'],
-                    $infoCertificate['year']
-                );
-            } else {
-                $dateExpediction .= sprintf(
-                    $dateFormat,
-                    '......',
-                    '....................',
-                    '............'
-                );
-            }
-        } elseif ($infoCertificate['type_date_expediction'] == 4) {
-            $dateExpediction .= $plugin->get_lang('to') . $infoToReplaceInContentHtml[9]; //date_certificate_no_time
-        } else {
-            if (!empty($sessionInfo)) {
-                $dateInfo = api_get_local_time($sessionInfo['access_end_date']);
-                $dateExpediction .= $plugin->get_lang('to') . api_format_date($dateInfo, DATE_FORMAT_LONG);
-            }
-        }
-    }
-
-    $myContentHtml = str_replace(
-        '((date_expediction))',
-        $dateExpediction,
-        $myContentHtml
-    );
-
     $myContentHtml = strip_tags(
         $myContentHtml,
         '<p><b><strong><table><tr><td><th><tbody><span><i><li><ol><ul>
         <dd><dt><dl><br><hr><img><a><div><h1><h2><h3><h4><h5><h6>'
     );
 
-    $marginLeft = $infoCertificate['margin_left'];
-    $marginRight = $infoCertificate['margin_right'];
+    $orientation = $infoCertificate['orientation'];
+    $format = 'A4-L';
+    $pageOrientation = 'L';
+    if($orientation != 'h'){
+        $format = 'A4';
+        $pageOrientation = 'P';
+    }
+
+    $marginLeft = ($infoCertificate['margin_left'] > 0) ? $infoCertificate['margin_left'].'cm' : 0;
+    $marginRight = ($infoCertificate['margin_right'] > 0) ? $infoCertificate['margin_right'].'cm' : 0;
+    $marginTop = ($infoCertificate['margin_top'] > 0) ? $infoCertificate['margin_top'].'cm' : 0;
+    $marginBottom = ($infoCertificate['margin_bottom'] > 0) ? $infoCertificate['margin_bottom'].'cm' : 0;
+    $margin = $marginTop.' '.$marginRight.' '.$marginBottom.' '.$marginLeft;
 
     $templateName = $plugin->get_lang('ExportCertificate');
     $template = new Template($templateName);
     $template->assign('css_certificate', $linkCertificateCSS);
-    $template->assign('background', $urlBackground);
-    $template->assign('margin_left', $marginLeft);
-    $template->assign('margin_right', $marginRight);
+    $template->assign('background_h', $urlBackgroundHorizontal);
+    $template->assign('background_v', $urlBackgroundVertical);
+    $template->assign('margin', $margin);
     $template->assign('front_content', $myContentHtml);
-    $template->assign('seal', $seal);
+
 
     // Rear certificate
     $laterContent = null;
-    if ($infoCertificate['contents_type'] != 3) {
 
-        if ($infoCertificate['contents_type'] == 0) {
-            $courseDescription = new CourseDescription();
-            $contentDescription = $courseDescription->get_data_by_description_type(3, $courseId, 0);
-            $domd = new DOMDocument();
-            libxml_use_internal_errors(true);
-            if (isset($contentDescription['description_content'])) {
-                $domd->loadHTML($contentDescription['description_content']);
-            }
-            libxml_use_internal_errors(false);
-            $domx = new DOMXPath($domd);
-            $items = $domx->query("//li[@style]");
-            foreach ($items as $item) {
-                $item->removeAttribute("style");
-            }
-
-            $items = $domx->query("//span[@style]");
-            foreach ($items as $item) {
-                $item->removeAttribute("style");
-            }
-
-            $output = $domd->saveHTML();
-            $laterContent .= getIndexFiltered($output);
-        }
-
-        if ($infoCertificate['contents_type'] == 1) {
-            $items = [];
-            $categoriesTempList = learnpath::getCategories($courseId);
-            $categoryTest = new CLpCategory();
-            $categoryTest->setId(0);
-            $categoryTest->setName($plugin->get_lang('WithOutCategory'));
-            $categoryTest->setPosition(0);
-            $categories = [$categoryTest];
-
-            if (!empty($categoriesTempList)) {
-                $categories = array_merge($categories, $categoriesTempList);
-            }
-
-            foreach ($categories as $item) {
-                $categoryId = $item->getId();
-
-                if (!learnpath::categoryIsVisibleForStudent($item, api_get_user_entity($studentId))) {
-                    continue;
-                }
-
-                $sql = "SELECT 1
-                        FROM $tblProperty
-                        WHERE tool = 'learnpath_category'
-                        AND ref = $categoryId
-                        AND visibility = 0
-                        AND (session_id = $sessionId OR session_id IS NULL)";
-                $res = Database::query($sql);
-                if (Database::num_rows($res) > 0) {
-                    continue;
-                }
-
-                $list = new LearnpathList(
-                    $studentId,
-                    $courseCode,
-                    $sessionId,
-                    null,
-                    false,
-                    $categoryId
-                );
-
-                $flat_list = $list->get_flat_list();
-
-                if (empty($flat_list)) {
-                    continue;
-                }
-
-                if (count($categories) > 1 && count($flat_list) > 0) {
-                    if ($item->getName() != $plugin->get_lang('WithOutCategory')) {
-                        $items[] = '<h4 style="margin:0px">' . $item->getName() . '</h4>';
-                    }
-                }
-
-                foreach ($flat_list as $learnpath) {
-                    $lpId = $learnpath['lp_old_id'];
-                    $sql = "SELECT 1
-                            FROM $tblProperty
-                            WHERE tool = 'learnpath'
-                            AND ref = $lpId AND visibility = 0
-                            AND (session_id = $sessionId OR session_id IS NULL)";
-                    $res = Database::query($sql);
-                    if (Database::num_rows($res) > 0) {
-                        continue;
-                    }
-                    $lpName = $learnpath['lp_name'];
-                    $items[] = $lpName . '<br>';
-                }
-                $items[] = '<br>';
-            }
-
-            if (count($items) > 0) {
-                $laterContent .= '<table width="100%" class="contents-learnpath">';
-                $laterContent .= '<tr>';
-                $laterContent .= '<td>';
-                $i = 0;
-                foreach ($items as $value) {
-                    if ($i == 50) {
-                        $htmlText .= '</td><td>';
-                    }
-                    $htmlText .= $value;
-                    $i++;
-                }
-                $laterContent .= '</td>';
-                $laterContent .= '</tr>';
-                $laterContent .= '</table>';
-            }
-            $laterContent .= '</td></table>';
-        }
-
-        if ($infoCertificate['contents_type'] == 2) {
-            $laterContent .= '<table width="100%" class="contents-learnpath">';
-            $laterContent .= '<tr>';
-            $laterContent .= '<td>';
-            $myContentHtml = strip_tags(
-                $infoCertificate['contents'],
-                '<p><b><strong><table><tr><td><th><span><i><li><ol><ul>' .
-                '<dd><dt><dl><br><hr><img><a><div><h1><h2><h3><h4><h5><h6>'
-            );
-            $laterContent .= $myContentHtml;
-            $laterContent .= '</td>';
-            $laterContent .= '</tr>';
-            $laterContent .= '</table>';
-        }
-
-    }
     $template->assign('later_content', $laterContent);
     $content = $template->fetch('easycertificate/template/certificate.tpl');
     $htmlText .= $content;
@@ -378,8 +191,8 @@ foreach ($htmlList as $fileName => $content) {
         'filename' => $fileName,
         'pdf_title' => 'Certificate',
         'pdf_description' => '',
-        'format' => 'A4-L',
-        'orientation' => 'L',
+        'format' => $format,
+        'orientation' => $pageOrientation,
         'left' => 0,
         'top' => 0,
         'bottom' => 0,

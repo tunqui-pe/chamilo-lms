@@ -35,13 +35,18 @@ class ch_multipleresponse extends survey_question
             }
         }
 
+        if (isset($formData['answersid']) && !empty($formData['answersid'])) {
+            foreach ($formData['answersid'] as $value) {
+                $this->getForm()->addHidden('answersid[]', $value);
+            }
+        }
+
         parent::addRemoveButtons($formData);
     }
 
     /**
-     * @param FormValidator $form
-     * @param array         $questionData
-     * @param array         $answers
+     * @param array $questionData
+     * @param array $answers
      */
     public function render(
         FormValidator $form,
@@ -50,12 +55,11 @@ class ch_multipleresponse extends survey_question
     ) {
         $class = 'checkbox-inline';
         $labelClass = 'checkbox-inline';
-        if ($questionData['display'] == 'vertical') {
+        if ('vertical' == $questionData['display']) {
             $class = 'checkbox-vertical';
         }
 
         $name = 'question'.$questionData['question_id'];
-
         $form->addCheckBoxGroup(
             $name,
             null,
@@ -64,7 +68,6 @@ class ch_multipleresponse extends survey_question
         );
 
         $defaults = [];
-
         if (!empty($answers)) {
             foreach ($answers as $answer) {
                 $defaults[$name.'['.$answer.']'] = true;

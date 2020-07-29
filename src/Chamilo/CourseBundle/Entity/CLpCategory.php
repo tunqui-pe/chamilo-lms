@@ -51,9 +51,16 @@ class CLpCategory
     protected $position;
 
     /**
+     * @var CLpCategoryUser[]
+     *
      * @ORM\OneToMany(targetEntity="Chamilo\CourseBundle\Entity\CLpCategoryUser", mappedBy="category", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $users;
+
+    /**
+     * @var int
+     */
+    protected $sessionId;
 
     /**
      * CLpCategory constructor.
@@ -61,6 +68,7 @@ class CLpCategory
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->sessionId = 0;
     }
 
     /**
@@ -154,7 +162,27 @@ class CLpCategory
     }
 
     /**
-     * @return ArrayCollection
+     * @return int
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
+     * @param int $sessionId
+     *
+     * @return CLpCategory
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|CLpCategoryUser[]
      */
     public function getUsers()
     {
@@ -173,9 +201,6 @@ class CLpCategory
         }
     }
 
-    /**
-     * @param CLpCategoryUser $categoryUser
-     */
     public function addUser(CLpCategoryUser $categoryUser)
     {
         $categoryUser->setCategory($this);
@@ -186,8 +211,6 @@ class CLpCategory
     }
 
     /**
-     * @param CLpCategoryUser $categoryUser
-     *
      * @return bool
      */
     public function hasUser(CLpCategoryUser $categoryUser)
@@ -226,8 +249,6 @@ class CLpCategory
     }
 
     /**
-     * @param CLpCategoryUser $user
-     *
      * @return $this
      */
     public function removeUsers(CLpCategoryUser $user)

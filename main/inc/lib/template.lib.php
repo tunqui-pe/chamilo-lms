@@ -181,6 +181,10 @@ class Template
                 'name' => 'date_to_time_ago',
                 'callable' => 'Display::dateToStringAgoAndLongDate',
             ],
+            [
+                'name' => 'remove_xss',
+                'callable' => 'Security::remove_XSS',
+            ],
         ];
 
         foreach ($filters as $filter) {
@@ -232,6 +236,10 @@ class Template
         $allow = api_get_configuration_value('show_language_selector_in_menu');
         if ($allow) {
             $this->assign('language_form', api_display_language_form());
+        }
+
+        if (api_get_configuration_value('notification_event')) {
+            $this->assign('notification_event', '1');
         }
 
         // Chamilo plugins
@@ -548,6 +556,7 @@ class Template
             'system_version' => api_get_configuration_value('system_version'),
             'site_name' => api_get_setting('siteName'),
             'institution' => api_get_setting('Institution'),
+            'institution_url' => api_get_setting('InstitutionUrl'),
             'date' => api_format_date('now', DATE_FORMAT_LONG),
             'timezone' => api_get_timezone(),
             'gamification_mode' => api_get_setting('gamification_mode'),
@@ -566,6 +575,9 @@ class Template
         global $disable_js_and_css_files;
         $css = [];
 
+        $webPublicPath = api_get_path(WEB_PUBLIC_PATH);
+        $webJsPath = api_get_path(WEB_LIBRARY_JS_PATH);
+
         // Default CSS Bootstrap
         $bowerCSSFiles = [
             'fontawesome/css/font-awesome.min.css',
@@ -578,7 +590,6 @@ class Template
             'bootstrap-daterangepicker/daterangepicker.css',
             'bootstrap-select/dist/css/bootstrap-select.min.css',
             'select2/dist/css/select2.min.css',
-            'mediaelement/plugins/vrview/vrview.css',
         ];
 
         $hide = api_get_configuration_value('hide_flag_language_switcher');
@@ -586,6 +597,12 @@ class Template
         if ($hide === false) {
             $bowerCSSFiles[] = 'flag-icon-css/css/flag-icon.min.css';
         }
+
+        foreach ($bowerCSSFiles as $file) {
+            $css[] = api_get_cdn_path($webPublicPath.'assets/'.$file);
+        }
+
+        $css[] = $webJsPath.'mediaelement/plugins/vrview/vrview.css';
 
         $features = api_get_configuration_value('video_features');
         $defaultFeatures = [
@@ -605,19 +622,15 @@ class Template
                 if ($feature === 'vrview') {
                     continue;
                 }
-                $bowerCSSFiles[] = "mediaelement/plugins/$feature/$feature.css";
+                $css[] = $webJsPath."mediaelement/plugins/$feature/$feature.min.css";
                 $defaultFeatures[] = $feature;
             }
         }
 
-        foreach ($bowerCSSFiles as $file) {
-            $css[] = api_get_cdn_path(api_get_path(WEB_PUBLIC_PATH).'assets/'.$file);
-        }
-
-        $css[] = api_get_path(WEB_LIBRARY_PATH).'javascript/chosen/chosen.css';
+        $css[] = $webJsPath.'chosen/chosen.css';
 
         if (api_is_global_chat_enabled()) {
-            $css[] = api_get_path(WEB_LIBRARY_PATH).'javascript/chat/css/chat.css';
+            $css[] = $webJsPath.'chat/css/chat.css';
         }
         $css_file_to_string = '';
         foreach ($css as $file) {
@@ -714,6 +727,8 @@ class Template
         // JS files
         $js_files = [
             'chosen/chosen.jquery.min.js',
+            'mediaelement/plugins/vrview/vrview.js',
+            'mediaelement/plugins/markersrolls/markersrolls.min.js',
         ];
 
         if (api_get_setting('accessibility_font_resize') === 'true') {
@@ -739,9 +754,7 @@ class Template
             $selectLink,
             'select2/dist/js/select2.min.js',
             "select2/dist/js/i18n/$isoCode.js",
-            'mediaelement/plugins/vrview/vrview.js',
             'js-cookie/src/js.cookie.js',
-            'mediaelement/plugins/markersrolls/markersrolls.min.js',
         ];
 
         $viewBySession = api_get_setting('my_courses_view_by_session') === 'true';
@@ -764,7 +777,7 @@ class Template
                 if ($feature === 'vrview') {
                     continue;
                 }
-                $bowerJsFiles[] = "mediaelement/plugins/$feature/$feature.js";
+                $js_files[] = "mediaelement/plugins/$feature/$feature.min.js";
             }
         }
 
@@ -823,7 +836,7 @@ class Template
                 $courseLogoutCode = "
                 <script>
                 var logOutUrl = '".$ajax."course.ajax.php?a=course_logout&".api_get_cidreq()."';
-                function courseLogout() {                
+                function courseLogout() {
                     $.ajax({
                         async : false,
                         url: logOutUrl,
@@ -959,6 +972,7 @@ class Template
      */
     public function display($template, $clearFlashMessages = true)
     {
+        $this->assign('page_origin', api_get_origin());
         $this->assign('flash_messages', Display::getFlashToString());
 
         if ($clearFlashMessages) {
@@ -1071,13 +1085,69 @@ class Template
         return Display::return_message($message, 'error', false);
     }
 
-    /**
-     * @return string
-     */
-    public function displayLoginForm()
+    public static function displayCASLoginButton($label = null)
+    {
+        $course = api_get_course_id();
+        $form = new FormValidator(
+            'form-cas-login',
+            'POST',
+            $_SERVER['REQUEST_URI'],
+            null,
+            null,
+            FormValidator::LAYOUT_BOX_NO_LABEL
+        );
+        $form->addHidden('forceCASAuthentication', 1);
+        $form->addButton(
+            'casLoginButton',
+            is_null($label) ? sprintf(get_lang('LoginWithYourAccount'), api_get_setting("Institution")) : $label,
+            api_get_setting("casLogoURL"),
+            'primary',
+            null,
+            'btn-block'
+        );
+
+        return $form->returnForm();
+    }
+
+    public static function displayCASLogoutButton($label = null)
     {
         $form = new FormValidator(
-            'form-login',
+            'form-cas-logout',
+            'GET',
+            api_get_path(WEB_PATH),
+            null,
+            null,
+            FormValidator::LAYOUT_BOX_NO_LABEL
+        );
+        $form->addHidden('logout', 1);
+        $form->addButton(
+            'casLogoutButton',
+            is_null($label) ? sprintf(get_lang('LogoutWithYourAccount'), api_get_setting("Institution")) : $label,
+            api_get_setting("casLogoURL"),
+            'primary',
+            null,
+            'btn-block'
+        );
+
+        return $form->returnForm();
+    }
+
+    /**
+     * @throws Exception
+     *
+     * @return string
+     */
+    public static function displayLoginForm()
+    {
+        // Get the $cas array from app/config/auth.conf.php
+        global $cas;
+
+        if (is_array($cas) && array_key_exists('replace_login_form', $cas) && $cas['replace_login_form']) {
+            return self::displayCASLoginButton();
+        }
+
+        $form = new FormValidator(
+            'formLogin',
             'POST',
             null,
             null,
@@ -1140,7 +1210,7 @@ class Template
 
                 // Minimum options using all defaults (including defaults for Image_Text):
                 //$options = array('callback' => 'qfcaptcha_image.php');
-                $captcha_question = $form->addElement('CAPTCHA_Image', 'captcha_question', '', $options);
+                $captchaQuestion = $form->addElement('CAPTCHA_Image', 'captcha_question', '', $options);
                 $form->addHtml(get_lang('ClickOnTheImageForANewOne'));
 
                 $form->addElement(
@@ -1159,7 +1229,7 @@ class Template
                     'captcha',
                     get_lang('TheTextYouEnteredDoesNotMatchThePicture'),
                     'CAPTCHA',
-                    $captcha_question
+                    $captchaQuestion
                 );
             }
         }

@@ -1,9 +1,9 @@
 <?php
+
 /* For licensing terms, see /license.txt */
+
 /**
  * Index page of the admin tools.
- *
- * @package chamilo.admin
  */
 // Resetting the course id.
 $cidReset = true;
@@ -117,6 +117,10 @@ if (api_is_platform_admin()) {
         [
             'url' => 'user_update_import.php',
             'label' => get_lang('EditUserListCSV'),
+        ],
+        [
+            'url' => 'user_anonymize_import.php',
+            'label' => get_lang('BulkAnonymizeUsers'),
         ],
     ];
 
@@ -414,7 +418,22 @@ if (api_is_platform_admin()) {
     if (api_get_configuration_value('mail_template_system')) {
         $items[] = [
             'url' => api_get_path(WEB_CODE_PATH).'mail_template/list.php',
-            'label' => get_lang('MailTemplate'),
+            'label' => get_lang('MailTemplates'),
+        ];
+    }
+
+    if (api_get_configuration_value('notification_event')) {
+        $items[] = [
+            'url' => api_get_path(WEB_CODE_PATH).'notification_event/list.php',
+            'label' => get_lang('Notifications'),
+        ];
+    }
+
+    $allowJustification = api_get_plugin_setting('justification', 'tool_enable') === 'true';
+    if ($allowJustification) {
+        $items[] = [
+            'url' => api_get_path(WEB_PLUGIN_PATH).'justification/list.php',
+            'label' => get_lang('Justification'),
         ];
     }
 
@@ -585,6 +604,13 @@ if (api_is_platform_admin()) {
         ];
     }
 
+    if (api_get_configuration_value('allow_session_status')) {
+        $items[] = [
+            'url' => api_get_path(WEB_CODE_PATH).'session/cron_status.php',
+            'label' => get_lang('UpdateSessionStatus'),
+        ];
+    }
+
     $blocks['settings']['items'] = $items;
     $blocks['settings']['extra'] = null;
     $blocks['settings']['search_form'] = null;
@@ -686,7 +712,10 @@ if (api_is_platform_admin()) {
                 $pluginInfo = $plugin_obj->getPluginInfo($pluginName, true);
                 /** @var \Plugin $plugin */
                 $plugin = $pluginInfo['obj'];
-                $pluginUrl = $plugin->getAdminUrl();
+                $pluginUrl = null;
+                if ($plugin) {
+                    $pluginUrl = $plugin->getAdminUrl();
+                }
 
                 if (empty($pluginUrl)) {
                     continue;

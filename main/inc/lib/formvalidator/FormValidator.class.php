@@ -11,6 +11,7 @@ class FormValidator extends HTML_QuickForm
     const LAYOUT_INLINE = 'inline';
     const LAYOUT_BOX = 'box';
     const LAYOUT_BOX_NO_LABEL = 'box-no-label';
+    const LAYOUT_GRID = 'grid';
 
     public $with_progress_bar = false;
     private $layout;
@@ -47,13 +48,22 @@ class FormValidator extends HTML_QuickForm
 
         $this->setLayout($layout);
 
+        // Form template
+        $formTemplate = $this->getFormTemplate();
+
         switch ($layout) {
             case self::LAYOUT_HORIZONTAL:
                 $attributes['class'] = 'form-horizontal';
                 break;
             case self::LAYOUT_INLINE:
-            case self::LAYOUT_BOX:
                 $attributes['class'] = 'form-inline';
+                break;
+            case self::LAYOUT_BOX:
+                $attributes['class'] = 'form-inline-box';
+                break;
+            case self::LAYOUT_GRID:
+                $attributes['class'] = 'form-grid';
+                $formTemplate = $this->getGridFormTemplate();
                 break;
         }
 
@@ -62,8 +72,6 @@ class FormValidator extends HTML_QuickForm
         // Modify the default templates
         $renderer = &$this->defaultRenderer();
 
-        // Form template
-        $formTemplate = $this->getFormTemplate();
         $renderer->setFormTemplate($formTemplate);
 
         // Element template
@@ -83,13 +91,6 @@ class FormValidator extends HTML_QuickForm
             //Display a gray div in the buttons + makes the button available when scrolling
             $templateBottom = '<div class="form-actions bottom_actions bg-form">{label} {element}</div>';
             $renderer->setElementTemplate($templateBottom, 'submit_fixed_in_bottom');
-
-            //When you want to group buttons use something like this
-            /* $group = array();
-              $group[] = $form->createElement('button', 'mark_all', get_lang('MarkAll'));
-              $group[] = $form->createElement('button', 'unmark_all', get_lang('UnmarkAll'));
-              $form->addGroup($group, 'buttons_in_action');
-             */
             $renderer->setElementTemplate($templateSimple, 'buttons_in_action');
 
             $templateSimpleRight = '<div class="form-actions"> <div class="pull-right">{label} {element}</div></div>';
@@ -121,6 +122,31 @@ EOT;
         <fieldset>
             {content}
         </fieldset>
+        {hidden}
+        </form>';
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridFormTemplate()
+    {
+        return '
+        <style>
+            .form_list {
+                display: grid;
+                grid-template-columns:  repeat(auto-fill, minmax(300px, 1fr));;
+                grid-gap: 10px 30px;
+                gap: 10px 30px;
+            }
+            .form_list .input-group {
+                display:block;
+            }
+        </style>
+        <form{attributes}>
+            <div class="form_list">
+                {content}
+            </div>
         {hidden}
         </form>';
     }
@@ -237,7 +263,7 @@ EOT;
      * @param string $label
      * @param array  $attributes
      *
-     * @return mixed
+     * @return DatePicker
      */
     public function addDatePicker($name, $label, $attributes = [])
     {
@@ -835,8 +861,11 @@ EOT;
     public function addRadio($name, $label, $options = [], $attributes = [])
     {
         $group = [];
+        $counter = 1;
         foreach ($options as $key => $value) {
+            $attributes['data-order'] = $counter;
             $group[] = $this->createElement('radio', null, null, $value, $key, $attributes);
+            $counter++;
         }
 
         return $this->addGroup($group, $name, $label);
@@ -844,7 +873,7 @@ EOT;
 
     /**
      * @param string $name
-     * @param string $label
+     * @param mixed  $label      String, or array if form element with a comment
      * @param array  $options
      * @param array  $attributes
      *
@@ -964,7 +993,12 @@ EOT;
      */
     public function addHtml($snippet)
     {
+        if (empty($snippet)) {
+            return false;
+        }
         $this->addElement('html', $snippet);
+
+        return true;
     }
 
     /**
@@ -1165,7 +1199,8 @@ EOT;
         $returnValue = '';
 
         /** @var HTML_QuickForm_element $element */
-        foreach ($this->_elements as $element) {
+        foreach ($this->_elements as &$element) {
+            $element->setLayout($this->getLayout());
             $elementError = parent::getElementError($element->getName());
             if (!is_null($elementError)) {
                 $returnValue .= Display::return_message($elementError, 'warning').'<br />';
@@ -1177,12 +1212,8 @@ EOT;
         // Add div-element which is to hold the progress bar
         $id = $this->getAttribute('id');
         if (isset($this->with_progress_bar) && $this->with_progress_bar) {
-            // Deprecated
-            // $icon = Display::return_icon('progress_bar.gif');
-
             // @todo improve UI
             $returnValue .= '<br />
-
             <div id="loading_div_'.$id.'" class="loading_div" style="display:none;margin-left:40%; margin-top:10px; height:50px;">
                 <div class="wobblebar-loader"></div>
             </div>
@@ -1283,6 +1314,25 @@ EOT;
             'regex',
             '/^[a-zA-ZñÑ]+$/'
         );
+    }
+
+    /**
+     * @param string $name
+     * @param array $label
+     * @param array  $attributes
+     * @param bool   $required
+     *
+     * @return HTML_QuickForm_element
+     */
+    public function addNumeric($name, $label, $attributes = [], $required = false)
+    {
+        $element = $this->addElement('Number', $name, $label, $attributes);
+
+        if ($required) {
+            $this->addRule($name, get_lang('ThisFieldIsRequired'), 'required');
+        }
+
+        return $element;
     }
 
     /**
@@ -1639,32 +1689,32 @@ EOT;
             );
             $this->addHtml('</div>');
 
-            $this->addHtml("<script>            
+            $this->addHtml("<script>
             $(function() {
                 var defaultValue = '$defaultId';
                 $('#$typeNoDots').val(defaultValue);
                 $('#$typeNoDots').selectpicker('render');
                 if (defaultValue != '') {
-                    var selected = $('#$typeNoDots option:selected').val();                    
-                    $.ajax({ 
+                    var selected = $('#$typeNoDots option:selected').val();
+                    $.ajax({
                         url: '$url' + '&id=' + selected+ '&template_name=$type',
                         success: function (data) {
                             $('#$templateNoDots').html(data);
                             $('#$templateNoDotsBlock').show();
                             return;
-                        }, 
+                        },
                     });
                 }
-                                
-                $('#$typeNoDots').on('change', function(){                    
-                    var selected = $('#$typeNoDots option:selected').val();                    
-                    $.ajax({ 
+
+                $('#$typeNoDots').on('change', function(){
+                    var selected = $('#$typeNoDots option:selected').val();
+                    $.ajax({
                         url: '$url' + '&id=' + selected,
                         success: function (data) {
                             $('#$templateNoDots').html(data);
                             $('#$templateNoDotsBlock').show();
                             return;
-                        }, 
+                        },
                     });
                 });
             });
@@ -1714,8 +1764,8 @@ EOT;
                     data.submit().always(function () {
                         \$this.remove();
                     });
-                });               
-                
+                });
+
             $('#".$inputName."').fileupload({
                 url: url,
                 dataType: 'json',
@@ -1726,11 +1776,11 @@ EOT;
                 previewMaxWidth: 300,
                 previewMaxHeight: 169,
                 previewCrop: true,
-                dropzone: $('#dropzone'),                                
-            }).on('fileuploadadd', function (e, data) {                
+                dropzone: $('#dropzone'),
+            }).on('fileuploadadd', function (e, data) {
                 data.context = $('<div class=\"row\" />').appendTo('#files');
                 $.each(data.files, function (index, file) {
-                    var node = $('<div class=\"col-sm-5 file_name\">').text(file.name);                    
+                    var node = $('<div class=\"col-sm-5 file_name\">').text(file.name);
                     node.appendTo(data.context);
                 });
             }).on('fileuploadprocessalways', function (e, data) {
@@ -1780,8 +1830,8 @@ EOT;
                         $('<span class=\"message-image-success\"/>').text('".addslashes(get_lang('UplUploadSucceeded'))."')
                     );
                     $(data.context.children()[index]).parent().append(message);
-                });                
-                $('#dropzone').removeClass('hover');                
+                });
+                $('#dropzone').removeClass('hover');
                 ".$redirectCondition."
             }).on('fileuploadfail', function (e, data) {
                 $.each(data.files, function (index) {
@@ -1792,14 +1842,14 @@ EOT;
                     $(data.context.children()[index]).parent().append(error);
                 });
                 $('#dropzone').removeClass('hover');
-            }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');           
-            
+            }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+
             $('#dropzone').on('dragover', function (e) {
-                // dragleave callback implementation                
+                // dragleave callback implementation
                 $('#dropzone').addClass('hover');
             });
-            
-            $('#dropzone').on('dragleave', function (e) {                
+
+            $('#dropzone').on('dragleave', function (e) {
                 $('#dropzone').removeClass('hover');
             });
             $('.fileinput-button').hide();

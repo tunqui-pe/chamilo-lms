@@ -73,17 +73,18 @@
                                     {{ row.coach_name }}
                                 </li>
                             {% endif %}
-
-                            {% if row.date %}
-                                <li>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    {{ row.date }}
-                                </li>
-                            {% elseif row.duration %}
-                                <li>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    {{ row.duration }}
-                                </li>
+                            {% if hide_session_dates_in_user_portal == false %}
+                                {% if row.date %}
+                                    <li>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        {{ row.date }}
+                                    </li>
+                                {% elseif row.duration %}
+                                    <li>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        {{ row.duration }}
+                                    </li>
+                                {% endif %}
                             {% endif %}
                         </ul>
                         <div class="sessions-items">
@@ -91,13 +92,29 @@
                             <div class="courses">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <a href="{{ item.link }}" class="thumbnail">
-                                            {{ item.html_image }}
-                                        </a>
+                                        {% if item.requirements %}
+                                            <span class="thumbnail">
+                                                {{ item.html_image }}
+                                            </span>
+                                        {% else %}
+                                            <a href="{{ item.link }}" class="thumbnail">
+                                                {{ item.html_image }}
+                                            </a>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-10">
-                                        <h4>{{ item.title }}</h4>
-                                        <div class="list-teachers">
+                                        <div class="pull-right">
+                                            {{ item.unregister_button }}
+                                        </div>
+                                        {% if item.requirements %}
+                                            <h4>{{ item.name }}</h4>
+                                        {% else %}
+                                            <h4>{{ item.title }}</h4>
+                                        {% endif %}
+
+                                         <div class="list-teachers">
+                                            {{ item.requirements }}
+
                                             {% if item.coaches|length > 0 %}
                                                 <img src="{{ 'teacher.png'|icon(16) }}" width="16" height="16">
                                                 {% for coach in item.coaches %}
@@ -107,6 +124,18 @@
                                                         {{ coach.firstname }}, {{ coach.lastname }}
                                                     </a>
                                                 {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="category">
+                                            {{ item.category }}
+                                        </div>
+                                        <div class="course_extrafields">
+                                            {% if item.extrafields|length > 0 %}
+                                            {% for extrafield in item.extrafields %}
+                                            {% set counter = counter + 1 %}
+                                            {% if counter > 1 %} | {% endif %}
+                                            {{ extrafield.text }} : <strong>{{ extrafield.value }}</strong>
+                                            {% endfor %}
                                             {% endif %}
                                         </div>
                                     </div>

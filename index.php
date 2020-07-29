@@ -140,7 +140,13 @@ if ($useCookieValidation === 'true') {
 // When loading a chamilo page do not include the hot courses and news
 if (!isset($_REQUEST['include'])) {
     if (api_get_setting('show_hot_courses') == 'true') {
-        $hotCourses = $controller->return_hot_courses();
+        if (api_get_configuration_value('popular_courses_handpicked')) {
+            // If the option has been set correctly, use the courses manually
+            // marked as popular rather than the ones marked by users
+            $hotCourses = $controller->returnPopularCoursesHandPicked();
+        } else {
+            $hotCourses = $controller->return_hot_courses();
+        }
     }
     $announcements_block = $controller->return_announcements();
 }
@@ -150,19 +156,33 @@ if (api_get_configuration_value('show_hot_sessions') === true) {
 }
 $controller->tpl->assign('hot_courses', $hotCourses);
 $controller->tpl->assign('announcements_block', $announcements_block);
+
+$allowJustification = api_get_plugin_setting('justification', 'tool_enable') === 'true';
+
+$justification = '';
+if ($allowJustification) {
+    $plugin = Justification::create();
+    $courseId = api_get_plugin_setting('justification', 'default_course_id');
+    if (!empty($courseId)) {
+        $courseInfo = api_get_course_info_by_id($courseId);
+        $link = Display::url($plugin->get_lang('SubscribeToASession'), $courseInfo['course_public_url']);
+        $justification = Display::return_message($link, 'info', false);
+    }
+}
+
 if ($includeFile) {
     // If we are including a static page, then home_welcome is empty
-    $controller->tpl->assign('home_welcome', '');
+    $controller->tpl->assign('home_welcome', $justification);
     $controller->tpl->assign('home_include', $controller->return_home_page($includeFile));
 } else {
     // If we are including the real homepage, then home_include is empty
-    $controller->tpl->assign('home_welcome', $controller->return_home_page(false));
+    $controller->tpl->assign('home_welcome', $justification.$controller->return_home_page(false));
     $controller->tpl->assign('home_include', '');
 }
 $controller->tpl->assign('navigation_links', $controller->return_navigation_links());
 $controller->tpl->assign('notice_block', $controller->return_notice());
-//$controller->tpl->assign('main_navigation_block', $controller->return_navigation_links());
 $controller->tpl->assign('help_block', $controller->return_help());
+$controller->tpl->assign('student_publication_block', $controller->studentPublicationBlock());
 if (api_is_platform_admin() || api_is_drh()) {
     $controller->tpl->assign('skills_block', $controller->returnSkillLinks());
 }

@@ -1,9 +1,6 @@
 <?php
 /* For licensing terms, see /license.txt */
 
-/**
- *  @package chamilo.admin
- */
 $cidReset = true;
 require_once __DIR__.'/../inc/global.inc.php';
 
@@ -117,7 +114,6 @@ $(function() {
 </script>
 <?php
 $promotion = new Promotion();
-$token = Security::get_token();
 
 switch ($action) {
     case 'add':

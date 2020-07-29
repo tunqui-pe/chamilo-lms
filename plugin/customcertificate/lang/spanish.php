@@ -50,10 +50,10 @@ $strings['OtherOptions'] = "Otras opciones";
 $strings['MarginRight'] = "Margen derecho";
 $strings['MarginLeft'] = "Margen izquierdo";
 $strings['SetDefaultTemplate'] = "Establecer plantilla por defecto";
-$strings['MessageDefaultTemplate'] = "Guardar esta personalización por defecto para cursos y 
+$strings['MessageDefaultTemplate'] = "Guardar esta personalización por defecto para cursos y
     sesiones sin certificados definidos";
 $strings['None'] = "Ninguno";
-$strings['ErrorTemplateCertificate'] = "No hay una plantilla definida para el certificado. 
+$strings['ErrorTemplateCertificate'] = "No hay una plantilla definida para el certificado.
     No existe plantilla por defecto.";
 $strings['DateStartEnd'] = "Con Fecha de inicio y Fecha fin: ";
 $strings['ExpedictionIn'] = "Expedido en";
@@ -67,7 +67,7 @@ $strings['ToolUseDefaultSettingCourse'] = "Herramienta configurada para usar el 
     O si lo desea puede desactivar la opción de usar certificado por defecto en la configuración del
      plugin en el curso";
 $strings['CertificateSettingDefault'] = "Configuración del certificado por defecto";
-$strings['InfoFromDefaultCertificate'] = "El contenido del certificado está basado en el certificado por defecto. 
+$strings['InfoFromDefaultCertificate'] = "El contenido del certificado está basado en el certificado por defecto.
     Las modificaciones que realice no afectará al certificado por defecto.";
 $strings['to'] = " a ";
 $strings['formatDownloadDate'] = " a %s de %s de %s";
@@ -76,5 +76,4 @@ $strings['PrintCertificate'] = "Imprimir certificado";
 $strings['QuestionDelete'] = "¿Desea eliminar el diploma específico y volver a usar el certificado por defecto?";
 $strings['SuccessDelete'] = "Borrado con éxito";
 $strings['ProblemDelete'] = "Hubo un problema al borrar el certificado";
-$strings['FrontContentCertificate'] = "Diseño frontal del certificado";
-$strings['PostContentCertificate'] = "Diseño posterior del certificado";
+$strings['OnlyCustomCertificates'] = "Solo se exportan los diplomas de cursos con certificado personalizado";

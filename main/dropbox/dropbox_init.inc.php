@@ -1,4 +1,5 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
@@ -13,8 +14,6 @@ use ChamiloSession as Session;
  * @author René Haentjens <rene.haentjens@UGent.be>, several contributions
  * @author Roan Embrechts, virtual course support
  * @author Patrick Cool <patrick.cool@UGent.be>, Ghent University (see history version 1.3)
- *
- * @package chamilo.dropbox
  *
  * @todo complete refactoring. Currently there are about at least 3 sql queries needed for every individual dropbox document.
  *  first we find all the documents that were sent (resp. received) by the user
@@ -83,29 +82,6 @@ Version 1.1
 - index.php: add filesize info in sent/received lists
 - dropbox_submit.php: resubmit prevention only for GET action, because it gives some annoying behaviour in POST
  * situation: white screen in IE6.
-Version 1.2
------------
-- adapted entire dropbox tool so it can be used as a default tool in Dokeos 1.5
-- index.php: add event registration to log use of tool in stats tables
-- index.php: upload form checks for correct user selection and file specification before uploading the script
-- dropbox_init1.inc.php: added dropbox_cnf["allowOverwrite"] to allow or disallow overwriting of files
-- index.php: author name textbox is automatically filled in
-- mailing functionality (René Haentjens)
-- allowStudentToStudent and allowJustUpload options (id.)
-- help in separate window (id.)
-
-Version 1.3 (Patrick Cool)
---------------------------
-- sortable table
-- categories
-- fixing a security hole
-- tabs (which can be disabled: see $dropbox_cnf['sent_received_tabs'])
-- same action on multiple documents ([zip]download, move, delete)
-- consistency with the docuements tool (open/download file, icons of documents, ...)
-- zip download of complete folder
-
-Version 1.4 (Yannick Warnier)
------------------------------
 - removed all self-built database tables names
  */
 
@@ -130,8 +106,6 @@ Version 1.4 (Yannick Warnier)
  * download file / folder (download icon)
  * same action on multiple documents
  * extended feedback
- *
- * @package chamilo.dropbox
  */
 require_once __DIR__.'/../inc/global.inc.php';
 $is_allowed_in_course = api_is_allowed_in_course();
@@ -178,7 +152,7 @@ if (empty($session_id)) {
 // off all the documents that have already been sent.
 // @todo consider moving the javascripts in a function that displays the javascripts
 // only when it is needed.
-if ($action == 'add') {
+if ('add' == $action) {
     $dropbox_person = new Dropbox_Person(
         $user_id,
         $is_courseAdmin,

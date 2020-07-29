@@ -1,11 +1,7 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
-/**
- * Sessions reporting.
- *
- * @package chamilo.reporting
- */
 ob_start();
 $cidReset = true;
 require_once __DIR__.'/../inc/global.inc.php';
@@ -57,6 +53,11 @@ if (api_is_platform_admin(true, true)) {
             Display::return_icon('session_na.png', get_lang('Sessions'), [], ICON_SIZE_MEDIUM),
             '#'
         );
+    } else {
+        $menu_items[] = Display::url(
+            Display::return_icon('teacher.png', get_lang('Trainers'), [], ICON_SIZE_MEDIUM),
+            'session_admin_teachers.php'
+        );
     }
 
     $menu_items[] = Display::url(
@@ -72,6 +73,13 @@ if (api_is_platform_admin(true, true)) {
         $menu_items[] = Display::url(
             Display::return_icon('1day.png', get_lang('SessionsPlanCalendar'), [], ICON_SIZE_MEDIUM),
             api_get_path(WEB_CODE_PATH)."calendar/planification.php"
+        );
+    }
+
+    if (api_is_drh()) {
+        $menu_items[] = Display::url(
+            Display::return_icon('session.png', get_lang('SessionFilterReport'), [], ICON_SIZE_MEDIUM),
+            api_get_path(WEB_CODE_PATH).'mySpace/session_filter.php'
         );
     }
 
@@ -149,16 +157,20 @@ if ($form->validate()) {
     $extraFields = $extraField->get_all(null, 'option_order');
     $extraFields = array_column($extraFields, 'variable');
     $filter = new stdClass();
-    $filter->groupOp = 'AND';
 
     foreach ($columnModel as $col) {
         if (isset($values[$col['index']]) && !empty($values[$col['index']]) &&
             in_array(str_replace('extra_', '', $col['index']), $extraFields)
         ) {
             $rule = new stdClass();
-            $rule->field = $col['index'];
+            $index = $col['index'];
+            $rule->field = $index;
             $rule->op = 'in';
-            $rule->data = Security::remove_XSS($values[$col['index']]);
+            $data = $values[$index];
+            if (is_array($data) && array_key_exists($index, $data)) {
+                $data = $data[$index];
+            }
+            $rule->data = Security::remove_XSS($data);
             $filter->rules[] = $rule;
             $filter->groupOp = 'AND';
         }

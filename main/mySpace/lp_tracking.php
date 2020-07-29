@@ -1,4 +1,5 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Component\Utils\ChamiloApi;
@@ -6,15 +7,13 @@ use Chamilo\CourseBundle\Entity\CLpItemView;
 
 /**
  * Learning paths reporting.
- *
- * @package chamilo.reporting
  */
 require_once __DIR__.'/../inc/global.inc.php';
 
 $cidReset = true;
 $from_myspace = false;
 $from_link = '';
-if (isset($_GET['from']) && $_GET['from'] == 'myspace') {
+if (isset($_GET['from']) && 'myspace' == $_GET['from']) {
     $from_link = '&from=myspace';
     $this_section = SECTION_TRACKING;
 } else {
@@ -22,7 +21,7 @@ if (isset($_GET['from']) && $_GET['from'] == 'myspace') {
 }
 
 $session_id = isset($_REQUEST['id_session']) ? (int) $_REQUEST['id_session'] : api_get_session_id();
-$export_csv = isset($_GET['export']) && $_GET['export'] == 'csv';
+$export_csv = isset($_GET['export']) && $_GET['export'] === 'csv';
 $user_id = isset($_GET['student_id']) ? (int) $_GET['student_id'] : api_get_user_id();
 $courseCode = isset($_GET['course']) ? Security::remove_XSS($_GET['course']) : api_get_course_id();
 $origin = api_get_origin();
@@ -73,7 +72,7 @@ $interbreadcrumb[] = [
     'name' => get_lang('DetailsStudentInCourse'),
 ];
 $nameTools = get_lang('LearningPathDetails');
-$sql = 'SELECT name	FROM '.Database::get_course_table(TABLE_LP_MAIN).' 
+$sql = 'SELECT name	FROM '.Database::get_course_table(TABLE_LP_MAIN).'
         WHERE c_id = '.$courseInfo['real_id'].' AND id='.$lp_id;
 $rs = Database::query($sql);
 $lp_title = Database::result($rs, 0, 0);
@@ -239,7 +238,7 @@ switch ($action) {
 
         $table = new HTML_Table(['class' => 'table', 'style' => 'display: block; margin-bottom: 50px;']);
         $logo = ChamiloApi::getPlatformLogo(
-            $theme,
+            api_get_visual_theme(),
             [
                 'title' => '',
                 'style' => 'max-width:180px, margin-bottom: 100px;',
@@ -248,16 +247,20 @@ switch ($action) {
         );
         $table->setCellContents(0, 0, $logo);
 
-        $secondLogo = api_get_path(SYS_PATH).'custompages/url-images/'.api_get_current_access_url_id().'_url_image_2.png';
-        $logo2 = Display::img($secondLogo, null, ['style' => 'height:70px;']);
-        $table->setCellContents(0, 1, $logo2);
+        $addLogo = (isset($_GET['add_logo']) && (int) $_GET['add_logo'] === 1);
+        if ($addLogo) {
+            $secondLogo = api_get_path(SYS_PATH).'custompages/url-images/'.api_get_current_access_url_id().'_url_image_2.png';
+            $logo2 = Display::img($secondLogo, null, ['style' => 'height:70px;']);
+            $table->setCellContents(0, 1, $logo2);
+        }
+
         $table->setCellAttributes(0, 1, ['style' => 'display:block;float:right;text-align:right']);
         $pdf->set_custom_header($table->toHtml());
 
         $background = api_get_path(SYS_PATH).'custompages/url-images/'.api_get_current_access_url_id().'_pdf_background.png';
         $content = '<html><body style="background-image-resize: 5; background-position: top left; background-image: url('.$background.');">'.$content.'</body></html>';
 
-        $pdf->content_to_pdf(
+        @$pdf->content_to_pdf(
             $content,
             null,
             $courseInfo['code'].'_'.$lp->getName().'_'.api_get_local_time(),

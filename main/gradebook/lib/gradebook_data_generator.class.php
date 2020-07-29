@@ -1,4 +1,5 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
@@ -9,8 +10,6 @@ use ChamiloSession as Session;
  * used for the general gradebook view.
  *
  * @author Bert Steppé
- *
- * @package chamilo.gradebook
  */
 class GradebookDataGenerator
 {
@@ -240,13 +239,15 @@ class GradebookDataGenerator
                                 }
                                 $score = AbstractLink::getCurrentUserRanking($userId, $rankingStudentList);
                             }
-                            //$score = AbstractLink::getCurrentUserRanking($userId, $item->entity->getUserScoreList());
                         } else {
                             if (!empty($studentList)) {
                                 $session_id = api_get_session_id();
-                                //$cats = $item->get_subcategories(null);
-                                $evals = $item->get_evaluations(null);
-                                $links = $item->get_links(null);
+                                $evals = [];
+                                $links = [];
+                                if ('C' === $item->get_item_type()) {
+                                    $evals = $item->get_evaluations(null);
+                                    $links = $item->get_links(null);
+                                }
                                 foreach ($studentList as $user) {
                                     $ressum = 0;
                                     $weightsum = 0;
@@ -257,7 +258,7 @@ class GradebookDataGenerator
                                             $evalres = $eval->calc_score($user['user_id'], null);
                                             $eval->setStudentList($studentList);
 
-                                            if (isset($evalres) && $eval->get_weight() != 0) {
+                                            if (isset($evalres) && 0 != $eval->get_weight()) {
                                                 $evalweight = $eval->get_weight();
                                                 $weightsum += $evalweight;
                                                 if (!empty($evalres[1])) {
@@ -268,7 +269,7 @@ class GradebookDataGenerator
                                                     $bestResult = $ressum;
                                                 }
                                             } else {
-                                                if ($eval->get_weight() != 0) {
+                                                if (0 != $eval->get_weight()) {
                                                     $evalweight = $eval->get_weight();
                                                     $weightsum += $evalweight;
                                                 }
@@ -285,9 +286,9 @@ class GradebookDataGenerator
                                             }
 
                                             $linkres = $link->calc_score($user['user_id'], null);
-                                            if (!empty($linkres) && $link->get_weight() != 0) {
+                                            if (!empty($linkres) && 0 != $link->get_weight()) {
                                                 $linkweight = $link->get_weight();
-                                                $link_res_denom = $linkres[1] == 0 ? 1 : $linkres[1];
+                                                $link_res_denom = 0 == $linkres[1] ? 1 : $linkres[1];
 
                                                 $weightsum += $linkweight;
                                                 $ressum += $linkres[0] / $link_res_denom * $linkweight;
@@ -296,23 +297,13 @@ class GradebookDataGenerator
                                                 }
                                             } else {
                                                 // Adding if result does not exists
-                                                if ($link->get_weight() != 0) {
+                                                if (0 != $link->get_weight()) {
                                                     $linkweight = $link->get_weight();
                                                     $weightsum += $linkweight;
                                                 }
                                             }
                                         }
                                     }
-
-                                    /*$score = $this->build_result_column(
-                                        $user['user_id'],
-                                        $item,
-                                        $ignore_score_color,
-                                        true
-                                    );
-                                    if (!empty($score['score'][0])) {
-                                        $invalidateResults = false;
-                                    }*/
 
                                     if (!empty($ressum)) {
                                         $invalidateResults = false;
@@ -321,9 +312,7 @@ class GradebookDataGenerator
                                     $rankingStudentList[$user['user_id']] = $ressum;
                                 }
                             }
-                            //error_log($item->get_id());
                             $score = AbstractLink::getCurrentUserRanking($userId, $rankingStudentList);
-                            //error_log(print_r($score, 1));
                         }
 
                         $row['ranking'] = $scoreDisplay->display_score(
@@ -382,7 +371,6 @@ class GradebookDataGenerator
                         } else {
                             if (!empty($studentList)) {
                                 foreach ($studentList as $user) {
-
                                     $score = $this->build_result_column(
                                         $user['user_id'],
                                         $item,
@@ -486,7 +474,7 @@ class GradebookDataGenerator
     public function sort_by_description($item1, $item2)
     {
         $result = api_strcmp($item1->get_description(), $item2->get_description());
-        if ($result == 0) {
+        if (0 == $result) {
             return $this->sort_by_name($item1, $item2);
         }
 
@@ -543,8 +531,6 @@ class GradebookDataGenerator
     /**
      * Get best result of an item.
      *
-     * @param GradebookItem $item
-     *
      * @return array
      */
     public function buildBestResultColumn(GradebookItem $item)
@@ -556,6 +542,13 @@ class GradebookDataGenerator
             api_get_session_id()
         );
 
+        if (empty($score)) {
+            return [
+                'display' => '',
+                'score' => '',
+            ];
+        }
+
         $scoreMode = SCORE_DIV_PERCENT_WITH_CUSTOM;
         if ($this->hidePercentage) {
             $scoreMode = SCORE_DIV;
@@ -569,7 +562,7 @@ class GradebookDataGenerator
             true
         );
         $type = $item->get_item_type();
-        if ($type == 'L' && get_class($item) === 'ExerciseLink') {
+        if ('L' === $type && 'ExerciseLink' === get_class($item)) {
             $display = ExerciseLib::show_score($score[0], $score[1], false);
         }
 
@@ -580,17 +573,22 @@ class GradebookDataGenerator
     }
 
     /**
-     * @param GradebookItem $item
-     *
      * @return array
      */
     public function buildAverageResultColumn(GradebookItem $item)
     {
         $score = $item->calc_score(null, 'average');
+
+        if (empty($score)) {
+            return [
+                'display' => '',
+                'score' => '',
+            ];
+        }
+
         $scoreDisplay = ScoreDisplay::instance();
 
         $scoreMode = SCORE_DIV_PERCENT_WITH_CUSTOM;
-
         if ($this->hidePercentage) {
             $scoreMode = SCORE_DIV;
         }
@@ -603,7 +601,7 @@ class GradebookDataGenerator
         );
         $type = $item->get_item_type();
 
-        if ($type === 'L' && get_class($item) === 'ExerciseLink') {
+        if ('L' === $type && 'ExerciseLink' === get_class($item)) {
             $display = ExerciseLib::show_score($score[0], $score[1], false);
             $result = ExerciseLib::convertScoreToPlatformSetting($score[0], $score[1]);
             $score[0] = $result['score'];
@@ -617,9 +615,8 @@ class GradebookDataGenerator
     }
 
     /**
-     * @param GradebookItem $item
-     * @param int           $userId
-     * @param int           $userCount
+     * @param int $userId
+     * @param int $userCount
      *
      * @return array
      */
@@ -666,7 +663,7 @@ class GradebookDataGenerator
             switch ($item->get_item_type()) {
                 // category
                 case 'C':
-                    if ($score != null) {
+                    if (null != $score) {
                         if (empty($model)) {
                             return [
                                 'display' => $scoreDisplay->display_score(
@@ -711,7 +708,7 @@ class GradebookDataGenerator
                         );
 
                         $type = $item->get_item_type();
-                        if ($type == 'L' && get_class($item) == 'ExerciseLink') {
+                        if ('L' == $type && 'ExerciseLink' == get_class($item)) {
                             $display = ExerciseLib::show_score(
                                 $score[0],
                                 $score[1],

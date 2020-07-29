@@ -2,6 +2,8 @@
 /* For licensing terms, see /license.txt */
 
 use Chamilo\CoreBundle\Component\Utils\ChamiloApi;
+use Chamilo\CoreBundle\Entity\Repository\SequenceResourceRepository;
+use Chamilo\CoreBundle\Entity\SequenceResource;
 use ChamiloSession as Session;
 
 /**
@@ -196,6 +198,14 @@ $login = isset($_POST["login"]) ? $_POST["login"] : '';
 $logging_in = false;
 
 /*  MAIN CODE  */
+if (array_key_exists('forceCASAuthentication', $_POST)) {
+    unset($_SESSION['_user']);
+    unset($_user);
+    if (api_is_anonymous()) {
+        Session::destroy();
+    }
+}
+
 if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
     // uid is in session => login already done, continue with this value
     $_user['user_id'] = $_SESSION['_user']['user_id'];
@@ -261,23 +271,69 @@ if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
     }
 
     // IF cas is activated and user isn't logged in
-    if (api_get_setting('cas_activate') == 'true') {
-        $cas_activated = true;
-    } else {
-        $cas_activated = false;
-    }
+    if ('true' === api_get_setting('cas_activate')
+        && !isset($_user['user_id'])
+        && !isset($_POST['login'])
+        && !$logout
+    ) {
+        // load the CAS system to authenticate the user
+        require_once __DIR__.'/../auth/cas/cas_var.inc.php';
 
-    $cas_login = false;
-    if ($cas_activated && !isset($_user['user_id']) && !isset($_POST['login']) && !$logout) {
-        require_once api_get_path(SYS_PATH).'main/auth/cas/authcas.php';
-        $cas_login = cas_is_authenticated();
-    }
+        // redirect to CAS server if not authenticated yet and so configured
+        if (
+            is_array($cas) && array_key_exists('force_redirect', $cas) && $cas['force_redirect']
+            ||
+            array_key_exists('forceCASAuthentication', $_POST)
+            ||
+            array_key_exists('ticket', $_GET)
+        ) {
+            phpCAS::forceAuthentication();
+        }
 
-    if ((isset($_POST['login']) && isset($_POST['password'])) || ($cas_login)) {
-        // $login && $password are given to log in
-        if ($cas_login && empty($_POST['login'])) {
-            $login = $cas_login;
+        // check whether we are authenticated
+        if (phpCAS::isAuthenticated()) {
+            // the user was successfully authenticated by the CAS server, read its CAS user identification
+            $casUser = phpCAS::getUser();
+
+            // make sure the user exists in the database
+            $login = UserManager::casUserLoginName($casUser);
+            if (false === $login) {
+                // the CAS-authenticated user does not yet exist in internal database
+
+                // see whether we are supposed to create it
+                switch (api_get_setting("cas_add_user_activate")) {
+                    case PLATFORM_AUTH_SOURCE:
+                        // create the new user from its CAS user identifier
+                        $login = UserManager::createCASAuthenticatedUserFromScratch($casUser);
+                        break;
+
+                    case LDAP_AUTH_SOURCE:
+                        // find the new user's LDAP record from its CAS user identifier and copy information
+                        $login = UserManager::createCASAuthenticatedUserFromLDAP($casUser);
+                        break;
+
+                    default:
+                        // no automatic user creation is configured, just complain about it
+                        throw new Exception(get_lang('NoUserMatched'));
+                }
+            }
+
+            // $login is set and the user exists in the database
+
+            // update the user record from LDAP if so required by settings
+            if ('true' === api_get_setting("update_user_info_cas_with_ldap")) {
+                UserManager::updateUserFromLDAP($login);
+            }
+
+            $_user = api_get_user_info_from_username($login);
+            Session::write('_user', $_user);
+            $doNotRedirectToCourse = true; // we should already be on the right page, no need to redirect
         } else {
+            // not CAS authenticated
+        }
+    } elseif (isset($_POST['login']) && isset($_POST['password'])) {
+        // $login && $password are given to log in
+        if (empty($login) || !empty($_POST['login'])) {
             $login = $_POST['login'];
             $password = $_POST['password'];
         }
@@ -349,7 +405,7 @@ if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
             if ($uData['auth_source'] == PLATFORM_AUTH_SOURCE ||
                 $uData['auth_source'] == CAS_AUTH_SOURCE
             ) {
-                $validPassword = UserManager::isPasswordValid(
+                $validPassword = isset($password) && UserManager::isPasswordValid(
                     $uData['password'],
                     $password,
                     $uData['salt']
@@ -376,10 +432,23 @@ if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
                             $checkUserFromExternalWebservice = true;
                         }
                     }
+
+                    $checkLoginCredentialHook = CheckLoginCredentialsHook::create();
+
+                    if (!empty($checkLoginCredentialHook)) {
+                        $checkLoginCredentialHook->setEventData([
+                            'user' => $uData,
+                            'credentials' => [
+                                'username' => $login,
+                                'password' => $password,
+                            ],
+                        ]);
+                        $validPassword = $checkLoginCredentialHook->notifyLoginCredentials();
+                    }
                 }
 
                 // Check the user's password
-                if (($validPassword || $cas_login || $checkUserFromExternalWebservice) &&
+                if (($validPassword || $checkUserFromExternalWebservice) &&
                     (trim($login) == $uData['username'])
                 ) {
                     // Means that the login was loaded in a different page than index.php
@@ -442,12 +511,7 @@ if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
                                         // https://support.chamilo.org/issues/6124
                                         $location = api_get_path(WEB_PATH)
                                             .'index.php?loginFailed=1&error=access_url_inactive';
-                                        if ($cas_login) {
-                                            cas_logout(null, $location);
-                                            Event::courseLogout($logoutInfo);
-                                        } else {
-                                            header('Location: '.$location);
-                                        }
+                                        header('Location: '.$location);
                                         exit;
                                     }
                                 } else {
@@ -625,7 +689,7 @@ if (!empty($_SESSION['_user']['user_id']) && !($login || $logout)) {
              * If the login succeeds, for going further,
              * Chamilo needs the $_user['user_id'] variable to be
              * set and registered in the session. It's the
-             * responsability of the external login script
+             * responsibility of the external login script
              * to provide this $_user['user_id'].
              */
             if (isset($extAuthSource) && is_array($extAuthSource)) {
@@ -884,33 +948,24 @@ if (isset($uidReset) && $uidReset) {
         $admin_table = Database::get_main_table(TABLE_MAIN_ADMIN);
         $track_e_login = Database::get_main_table(TABLE_STATISTIC_TRACK_E_LOGIN);
 
-        $sql = "SELECT user.*, a.user_id is_admin, login.login_date
-                FROM $user_table
-                LEFT JOIN $admin_table a
-                ON user.user_id = a.user_id
-                LEFT JOIN $track_e_login login
-                ON user.user_id  = login.login_user_id
-                WHERE user.user_id = '".$_user['user_id']."'
-                ORDER BY login.login_date DESC LIMIT 1";
-
+        $sql = "SELECT * FROM $user_table WHERE id = ".$_user['user_id'];
         $result = Database::query($sql);
 
         if (Database::num_rows($result) > 0) {
             // Extracting the user data
             $uData = Database::fetch_array($result);
             $_user = _api_format_user($uData, false);
-            $is_platformAdmin = (bool) (!is_null($uData['is_admin']));
-            $is_allowedCreateCourse = (bool) (($uData['status'] == COURSEMANAGER) || (api_get_setting('drhCourseManagerRights') && $uData['status'] == DRH));
+            $is_platformAdmin = UserManager::is_admin($_user['user_id']);
+            $is_allowedCreateCourse = $uData['status'] == COURSEMANAGER || (api_get_setting('drhCourseManagerRights') && $uData['status'] == DRH);
             ConditionalLogin::check_conditions($uData);
 
             Session::write('_user', $_user);
-            UserManager::update_extra_field_value($_user['user_id'], 'already_logged_in', 'true');
+            UserManager::update_extra_field_value($_user['id'], 'already_logged_in', 'true');
             Session::write('is_platformAdmin', $is_platformAdmin);
             Session::write('is_allowedCreateCourse', $is_allowedCreateCourse);
         } else {
             header('Location:'.api_get_path(WEB_PATH));
             exit;
-            //exit("WARNING UNDEFINED UID !! ");
         }
     } else {
         if (!api_is_anonymous()) {
@@ -1111,7 +1166,7 @@ if ((isset($uidReset) && $uidReset) || $cidReset) {
         $variable = 'accept_legal_'.$my_user_id.'_'.$_course['real_id'].'_'.$session_id;
 
         $user_pass_open_course = false;
-        if (api_check_user_access_to_legal($_course['visibility']) && Session::read($variable)) {
+        if (api_check_user_access_to_legal($_course) && Session::read($variable)) {
             $user_pass_open_course = true;
         }
 
@@ -1206,9 +1261,9 @@ if ((isset($uidReset) && $uidReset) || $cidReset) {
         $course_user_table = Database::get_main_table(TABLE_MAIN_COURSE_USER);
         $sql = "SELECT * FROM $course_user_table
                 WHERE
-                    user_id  = '".$user_id."' AND
+                    user_id  = $user_id AND
                     relation_type <> ".COURSE_RELATION_TYPE_RRHH." AND
-                    c_id = '$_real_cid'";
+                    c_id = $_real_cid";
         $result = Database::query($sql);
 
         $cuData = null;
@@ -1240,8 +1295,8 @@ if ((isset($uidReset) && $uidReset) || $cidReset) {
                         FROM $tbl_session session, $tbl_session_course_user session_rcru
                         WHERE
                             session_rcru.session_id  = session.id AND
-                            session_rcru.c_id = '$_real_cid' AND
-                            session_rcru.user_id = '$user_id' AND
+                            session_rcru.c_id = $_real_cid AND
+                            session_rcru.user_id = $user_id AND
                             session_rcru.session_id = $session_id AND
                             session_rcru.status = 2
                         ";
@@ -1258,13 +1313,13 @@ if ((isset($uidReset) && $uidReset) || $cidReset) {
                     $is_sessionAdmin = true;
                 } else {
                     // Am I a session coach for this session?
-                    $sql = "SELECT session.id, session.id_coach 
+                    $sql = "SELECT session.id, session.id_coach
                             FROM $tbl_session session
                             INNER JOIN $tbl_session_course sc
                             ON sc.session_id = session.id
                             WHERE session.id = $session_id
                             AND session.id_coach = $user_id
-                            AND sc.c_id = '$_real_cid'";
+                            AND sc.c_id = $_real_cid";
                     $result = Database::query($sql);
 
                     if (Database::num_rows($result)) {
@@ -1274,12 +1329,12 @@ if ((isset($uidReset) && $uidReset) || $cidReset) {
                         $is_sessionAdmin = false;
                     } else {
                         // Am I a course coach or a student?
-                        $sql = "SELECT cu.user_id, cu.status
-                               FROM $tbl_session_course_user cu
+                        $sql = "SELECT user_id, status
+                               FROM $tbl_session_course_user
                                WHERE
-                                    c_id = '$_real_cid' AND
-                                    cu.user_id     = '".$user_id."' AND
-                                    cu.session_id  = '".$session_id."'
+                                    c_id = $_real_cid AND
+                                    user_id = $user_id AND
+                                    session_id = $session_id
                                LIMIT 1";
                         $result = Database::query($sql);
 
@@ -1301,11 +1356,27 @@ if ((isset($uidReset) && $uidReset) || $cidReset) {
                                     }
                                     break;
                                 case '0': //Student
+
                                     $is_courseMember = true;
                                     $is_courseTutor = false;
                                     $is_courseAdmin = false;
                                     $is_session_general_coach = false;
                                     $is_sessionAdmin = false;
+
+                                    // Check course dependency
+                                    $entityManager = Database::getManager();
+                                    /** @var SequenceResourceRepository $repo */
+                                    $repo = $entityManager->getRepository('ChamiloCoreBundle:SequenceResource');
+                                    $sequences = $repo->getRequirements($_real_cid, SequenceResource::COURSE_TYPE);
+
+                                    if ($sequences) {
+                                        $sequenceList = $repo->checkRequirementsForUser($sequences, SequenceResource::COURSE_TYPE, $user_id);
+                                        $completed = $repo->checkSequenceAreCompleted($sequenceList);
+
+                                        if (false === $completed) {
+                                            api_not_allowed(true);
+                                        }
+                                    }
 
                                     break;
                                 default:
@@ -1581,9 +1652,8 @@ if (isset($_cid)) {
 }
 
 // direct login to course
-if ((isset($cas_login) && $cas_login && exist_firstpage_parameter()) ||
-    ($logging_in && exist_firstpage_parameter())
-) {
+if (isset($doNotRedirectToCourse)) {
+} elseif ($logging_in && exist_firstpage_parameter()) {
     $redirectCourseDir = api_get_firstpage_parameter();
     api_delete_firstpage_parameter(); // delete the cookie
 

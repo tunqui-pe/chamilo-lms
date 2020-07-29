@@ -109,22 +109,15 @@ class EasyCertificatePlugin extends Plugin
                     'access_url_id' => api_get_current_access_url_id(),
                     'c_id' => $row['c_id'],
                     'session_id' => $row['session_id'],
-                    'content_course' => $row['content_course'],
-                    'contents_type' => intval($row['contents_type']),
-                    'contents' => $row['contents'],
-                    'date_change' => intval($row['date_change']),
-                    'date_start' => $row['date_start'],
-                    'date_end' => $row['date_end'],
-                    'place' => $row['place'],
-                    'type_date_expediction' => intval($row['type_date_expediction']),
-                    'day' => $row['day'],
-                    'month' => $row['month'],
-                    'year' => $row['year'],
-                    'logo' => $row['logo'],
-                    'seal' => $row['seal'],
-                    'background' => $row['background'],
-                    'margin_left' => intval($row['margin']),
-                    'margin_right' => 0,
+                    'front_content' => $row['front_content'],
+                    'back_content' => $row['back_content'],
+                    'background_h' => $row['background_h'],
+                    'background_v' => $row['background_v'],
+                    'orientation' => $row['orientation'],
+                    'margin_left' => intval($row['margin_left']),
+                    'margin_right' => intval($row['margin_right']),
+                    'margin_top' => intval($row['margin_top']),
+                    'margin_bottom' => intval($row['margin_bottom']),
                     'certificate_default' => 0,
                 ];
 
@@ -138,9 +131,8 @@ class EasyCertificatePlugin extends Plugin
                 }
 
                 $imgList = [
-                    'logo',
-                    'seal',
-                    'background',
+                    'background_h',
+                    'background_v',
                 ];
                 foreach ($imgList as $value) {
                     if (!empty($row[$value])) {

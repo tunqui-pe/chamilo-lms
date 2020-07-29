@@ -1,4 +1,5 @@
 <?php
+
 /* For license terms, see /license.txt */
 
 use Chamilo\CoreBundle\Entity\Course;
@@ -7,6 +8,7 @@ use Chamilo\CoreBundle\Entity\Session;
 use Chamilo\CoreBundle\Entity\SessionRelCourseRelUser;
 use Chamilo\CourseBundle\Entity\CTool;
 use Chamilo\PluginBundle\Entity\ImsLti\ImsLtiTool;
+use Chamilo\PluginBundle\Entity\ImsLti\Platform;
 use Chamilo\UserBundle\Entity\User;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
@@ -21,18 +23,22 @@ use Symfony\Component\Filesystem\Filesystem;
 class ImsLtiPlugin extends Plugin
 {
     const TABLE_TOOL = 'plugin_ims_lti_tool';
+    const TABLE_PLATFORM = 'plugin_ims_lti_platform';
 
     public $isAdminPlugin = true;
 
-    /**
-     * Class constructor
-     */
     protected function __construct()
     {
-        $version = '1.5.1';
+        $version = '1.8.0';
         $author = 'Angel Fernando Quiroz Campos';
 
-        parent::__construct($version, $author, ['enabled' => 'boolean']);
+        $message = Display::return_message($this->get_lang('GenerateKeyPairInfo'));
+        $settings = [
+            $message => 'html',
+            'enabled' => 'boolean',
+        ];
+
+        parent::__construct($version, $author, $settings);
 
         $this->setCourseSettings();
     }
@@ -82,6 +88,47 @@ class ImsLtiPlugin extends Plugin
     }
 
     /**
+     * Save configuration for plugin.
+     *
+     * Generate a new key pair for platform when enabling plugin.
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @return $this|Plugin
+     */
+    public function performActionsAfterConfigure()
+    {
+        $em = Database::getManager();
+
+        /** @var Platform $platform */
+        $platform = $em
+            ->getRepository('ChamiloPluginBundle:ImsLti\Platform')
+            ->findOneBy([]);
+
+        if ($this->get('enabled') === 'true') {
+            if (!$platform) {
+                $platform = new Platform();
+            }
+
+            $keyPair = self::generatePlatformKeys();
+
+            $platform->setKid($keyPair['kid']);
+            $platform->publicKey = $keyPair['public'];
+            $platform->setPrivateKey($keyPair['private']);
+
+            $em->persist($platform);
+        } else {
+            if ($platform) {
+                $em->remove($platform);
+            }
+        }
+
+        $em->flush();
+
+        return $this;
+    }
+
+    /**
      * Unistall plugin. Clear the database
      */
     public function uninstall()
@@ -117,30 +164,76 @@ class ImsLtiPlugin extends Plugin
         }
 
         $queries = [
-            'CREATE TABLE '.self::TABLE_TOOL.' (
-                id INT AUTO_INCREMENT NOT NULL,
-                c_id INT DEFAULT NULL,
-                gradebook_eval_id INT DEFAULT NULL,
-                parent_id INT DEFAULT NULL,
-                name VARCHAR(255) NOT NULL,
-                description LONGTEXT DEFAULT NULL,
-                launch_url VARCHAR(255) NOT NULL,
-                consumer_key VARCHAR(255) DEFAULT NULL,
-                shared_secret VARCHAR(255) DEFAULT NULL,
-                custom_params LONGTEXT DEFAULT NULL,
-                active_deep_linking TINYINT(1) DEFAULT \'0\' NOT NULL,
-                privacy LONGTEXT DEFAULT NULL,
-                INDEX IDX_C5E47F7C91D79BD3 (c_id),
-                INDEX IDX_C5E47F7C82F80D8B (gradebook_eval_id),
-                INDEX IDX_C5E47F7C727ACA70 (parent_id),
-                PRIMARY KEY(id)
-            ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB',
-            'ALTER TABLE '.self::TABLE_TOOL.' ADD CONSTRAINT FK_C5E47F7C91D79BD3
-                FOREIGN KEY (c_id) REFERENCES course (id)',
-            'ALTER TABLE '.self::TABLE_TOOL.' ADD CONSTRAINT FK_C5E47F7C82F80D8B
-                FOREIGN KEY (gradebook_eval_id) REFERENCES gradebook_evaluation (id) ON DELETE SET NULL',
-            'ALTER TABLE '.self::TABLE_TOOL.' ADD CONSTRAINT FK_C5E47F7C727ACA70
-                FOREIGN KEY (parent_id) REFERENCES '.self::TABLE_TOOL.' (id) ON DELETE CASCADE;',
+            "CREATE TABLE plugin_ims_lti_tool (
+                    id INT AUTO_INCREMENT NOT NULL,
+                    c_id INT DEFAULT NULL,
+                    gradebook_eval_id INT DEFAULT NULL,
+                    parent_id INT DEFAULT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    description LONGTEXT DEFAULT NULL,
+                    launch_url VARCHAR(255) NOT NULL,
+                    consumer_key VARCHAR(255) DEFAULT NULL,
+                    shared_secret VARCHAR(255) DEFAULT NULL,
+                    custom_params LONGTEXT DEFAULT NULL,
+                    active_deep_linking TINYINT(1) DEFAULT '0' NOT NULL,
+                    privacy LONGTEXT DEFAULT NULL,
+                    client_id VARCHAR(255) DEFAULT NULL,
+                    public_key LONGTEXT DEFAULT NULL,
+                    login_url VARCHAR(255) DEFAULT NULL,
+                    redirect_url VARCHAR(255) DEFAULT NULL,
+                    advantage_services LONGTEXT DEFAULT NULL COMMENT '(DC2Type:json)',
+                    version VARCHAR(255) DEFAULT 'lti1p1' NOT NULL,
+                    launch_presentation LONGTEXT NOT NULL COMMENT '(DC2Type:json)',
+                    replacement_params LONGTEXT NOT NULL COMMENT '(DC2Type:json)',
+                    INDEX IDX_C5E47F7C91D79BD3 (c_id),
+                    INDEX IDX_C5E47F7C82F80D8B (gradebook_eval_id),
+                    INDEX IDX_C5E47F7C727ACA70 (parent_id),
+                    PRIMARY KEY(id)
+                ) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB",
+            "CREATE TABLE plugin_ims_lti_platform (
+                    id INT AUTO_INCREMENT NOT NULL,
+                    kid VARCHAR(255) NOT NULL,
+                    public_key LONGTEXT NOT NULL,
+                    private_key LONGTEXT NOT NULL,
+                    PRIMARY KEY(id)
+                ) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB",
+            "CREATE TABLE plugin_ims_lti_token (
+                    id INT AUTO_INCREMENT NOT NULL,
+                    tool_id INT DEFAULT NULL,
+                    scope LONGTEXT NOT NULL COMMENT '(DC2Type:json)',
+                    hash VARCHAR(255) NOT NULL,
+                    created_at INT NOT NULL,
+                    expires_at INT NOT NULL,
+                    INDEX IDX_F7B5692F8F7B22CC (tool_id),
+                    PRIMARY KEY(id)
+                ) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB",
+            "ALTER TABLE plugin_ims_lti_tool
+                ADD CONSTRAINT FK_C5E47F7C91D79BD3 FOREIGN KEY (c_id) REFERENCES course (id)",
+            "ALTER TABLE plugin_ims_lti_tool
+                ADD CONSTRAINT FK_C5E47F7C82F80D8B FOREIGN KEY (gradebook_eval_id)
+                REFERENCES gradebook_evaluation (id) ON DELETE SET NULL",
+            "ALTER TABLE plugin_ims_lti_tool
+                ADD CONSTRAINT FK_C5E47F7C727ACA70 FOREIGN KEY (parent_id)
+                REFERENCES plugin_ims_lti_tool (id) ON DELETE CASCADE",
+            "ALTER TABLE plugin_ims_lti_token
+                ADD CONSTRAINT FK_F7B5692F8F7B22CC FOREIGN KEY (tool_id)
+                REFERENCES plugin_ims_lti_tool (id) ON DELETE CASCADE",
+            "CREATE TABLE plugin_ims_lti_lineitem (
+                    id INT AUTO_INCREMENT NOT NULL,
+                    tool_id INT NOT NULL,
+                    evaluation INT NOT NULL,
+                    resource_id VARCHAR(255) DEFAULT NULL,
+                    tag VARCHAR(255) DEFAULT NULL,
+                    start_date DATETIME DEFAULT NULL,
+                    end_date DATETIME DEFAULT NULL,
+                    INDEX IDX_BA81BBF08F7B22CC (tool_id),
+                    UNIQUE INDEX UNIQ_BA81BBF01323A575 (evaluation),
+                    PRIMARY KEY(id)
+                ) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB",
+            "ALTER TABLE plugin_ims_lti_lineitem ADD CONSTRAINT FK_BA81BBF08F7B22CC FOREIGN KEY (tool_id)
+                REFERENCES plugin_ims_lti_tool (id) ON DELETE CASCADE",
+            "ALTER TABLE plugin_ims_lti_lineitem ADD CONSTRAINT FK_BA81BBF01323A575 FOREIGN KEY (evaluation)
+                REFERENCES gradebook_evaluation (id) ON DELETE CASCADE "
         ];
 
         foreach ($queries as $query) {
@@ -157,23 +250,14 @@ class ImsLtiPlugin extends Plugin
      */
     private function dropPluginTables()
     {
-        $entityManager = Database::getManager();
-        $connection = $entityManager->getConnection();
-        $chamiloSchema = $connection->getSchemaManager();
-
-        if (!$chamiloSchema->tablesExist([self::TABLE_TOOL])) {
-            return false;
-        }
-
-        $sql = 'DROP TABLE IF EXISTS '.self::TABLE_TOOL;
-        Database::query($sql);
+        Database::query("DROP TABLE IF EXISTS plugin_ims_lti_lineitem");
+        Database::query("DROP TABLE IF EXISTS plugin_ims_lti_token");
+        Database::query("DROP TABLE IF EXISTS plugin_ims_lti_platform");
+        Database::query("DROP TABLE IF EXISTS plugin_ims_lti_tool");
 
         return true;
     }
 
-    /**
-     *
-     */
     private function removeTools()
     {
         $sql = "DELETE FROM c_tool WHERE link LIKE 'ims_lti/start.php%' AND category = 'plugin'";
@@ -192,6 +276,7 @@ class ImsLtiPlugin extends Plugin
             'primary'
         );
 
+        // This setting won't be saved in the database.
         $this->course_settings = [
             [
                 'name' => $this->get_lang('ImsLtiDescription').$button.'<hr>',
@@ -234,6 +319,12 @@ class ImsLtiPlugin extends Plugin
 
         $courseTool->setName($ltiTool->getName());
 
+        if ('iframe' !== $ltiTool->getDocumentTarget()) {
+            $courseTool->setTarget('_blank');
+        } else {
+            $courseTool->setTarget('_self');
+        }
+
         $em->persist($courseTool);
         $em->flush();
     }
@@ -245,23 +336,32 @@ class ImsLtiPlugin extends Plugin
      */
     private static function generateToolLink(ImsLtiTool $tool)
     {
-        return  'ims_lti/start.php?id='.$tool->getId();
+        return 'ims_lti/start.php?id='.$tool->getId();
     }
 
     /**
-     * Add the course tool
+     * Add the course tool.
      *
-     * @param Course     $course
-     * @param ImsLtiTool $tool
+     * @param Course $course
+     * @param ImsLtiTool $ltiTool
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addCourseTool(Course $course, ImsLtiTool $tool)
+    public function addCourseTool(Course $course, ImsLtiTool $ltiTool)
     {
-        $this->createLinkToCourseTool(
-            $tool->getName(),
+        $cTool = $this->createLinkToCourseTool(
+            $ltiTool->getName(),
             $course->getId(),
             null,
-            self::generateToolLink($tool)
+            self::generateToolLink($ltiTool)
         );
+        $cTool->setTarget(
+            $ltiTool->getDocumentTarget() === 'iframe' ? '_self' : '_blank'
+        );
+
+        $em = Database::getManager();
+        $em->persist($cTool);
+        $em->flush();
     }
 
     /**
@@ -289,6 +389,45 @@ class ImsLtiPlugin extends Plugin
     public static function isInstructor()
     {
         api_is_allowed_to_edit(false, true);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return array
+     */
+    public static function getRoles(User $user)
+    {
+        $roles = ['http://purl.imsglobal.org/vocab/lis/v2/system/person#User'];
+
+        if (DRH === $user->getStatus()) {
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Mentor';
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/institution/person#Mentor';
+
+            return $roles;
+        }
+
+        if (!api_is_allowed_to_edit(false, true)) {
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Learner';
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/institution/person#Student';
+
+            if ($user->getStatus() === INVITEE) {
+                $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/institution/person#Guest';
+            }
+
+            return $roles;
+        }
+
+        $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/institution/person#Instructor';
+        $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor';
+
+        if (api_is_platform_admin_by_id($user->getId())) {
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/institution/person#Administrator';
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/system/person#SysAdmin';
+            $roles[] = 'http://purl.imsglobal.org/vocab/lis/v2/system/person#Administrator';
+        }
+
+        return $roles;
     }
 
     /**
@@ -335,25 +474,78 @@ class ImsLtiPlugin extends Plugin
     }
 
     /**
-     * @param User $currentUser
+     * @param ImsLtiTool $tool
+     * @param User       $user
      *
      * @return string
      */
-    public static function getRoleScopeMentor(User $currentUser)
+    public static function getLaunchUserIdClaim(ImsLtiTool $tool, User $user)
     {
-        if (DRH !== $currentUser->getStatus()) {
-            return '';
+        if (null !== $tool->getParent()) {
+            $tool = $tool->getParent();
         }
 
-        $followedUsers = UserManager::get_users_followed_by_drh($currentUser->getId());
+        $replacement = $tool->getReplacementForUserId();
 
-        $scope = [];
+        if (empty($replacement)) {
+            if ($tool->getVersion() === ImsLti::V_1P1) {
+                return self::generateToolUserId($user->getId());
+            }
 
-        foreach ($followedUsers as $userInfo) {
-            $scope[] = self::generateToolUserId($userInfo['user_id']);
+            return (string) $user->getId();
         }
+
+        $replaced = str_replace(
+            ['$User.id', '$User.username'],
+            [$user->getId(), $user->getUsername()],
+            $replacement
+        );
+
+        return $replaced;
+    }
+
+    /**
+     * @param User $currentUser
+     * @param ImsLtiTool $tool
+     *
+     * @return string
+     */
+    public static function getRoleScopeMentor(User $currentUser, ImsLtiTool $tool)
+    {
+        $scope = self::getRoleScopeMentorAsArray($currentUser, $tool, true);
 
         return implode(',', $scope);
+    }
+
+    /**
+     * Tool User IDs which the user DRH can access as a mentor.
+     *
+     * @param User       $user
+     * @param ImsLtiTool $tool
+     * @param bool       $generateIdForTool. Optional. Set TRUE for LTI 1.x.
+     *
+     * @return array
+     */
+    public static function getRoleScopeMentorAsArray(User $user, ImsLtiTool $tool, $generateIdForTool = false)
+    {
+        if (DRH !== $user->getStatus()) {
+            return [];
+        }
+
+        $followedUsers = UserManager::get_users_followed_by_drh($user->getId(), 0, true);
+        $scope = [];
+        /** @var array $userInfo */
+        foreach ($followedUsers as $userInfo) {
+            if ($generateIdForTool) {
+                $followedUser = api_get_user_entity($userInfo['user_id']);
+
+                $scope[] = self::getLaunchUserIdClaim($tool, $followedUser);
+            } else {
+                $scope[] = (string) $userInfo['user_id'];
+            }
+        }
+
+        return $scope;
     }
 
     /**
@@ -428,9 +620,7 @@ class ImsLtiPlugin extends Plugin
             return null;
         }
 
-        $xml = new SimpleXMLElement($request);
-
-        return $xml;
+        return new SimpleXMLElement($request);
     }
 
     /**
@@ -445,9 +635,8 @@ class ImsLtiPlugin extends Plugin
         }
 
         $request = ImsLtiServiceRequestFactory::create($xml);
-        $response = $request->process();
 
-        return $response;
+        return $request->process();
     }
 
     /**
@@ -514,7 +703,6 @@ class ImsLtiPlugin extends Plugin
     {
         foreach ($params as $key => $value) {
             $newValue = preg_replace('/\s+/', ' ', $value);
-
             $params[$key] = trim($newValue);
         }
     }
@@ -552,16 +740,68 @@ class ImsLtiPlugin extends Plugin
     public function doWhenDeletingCourse($courseId)
     {
         $em = Database::getManager();
-
         $q = $em
             ->createQuery(
                 'DELETE FROM ChamiloPluginBundle:ImsLti\ImsLtiTool tool
                     WHERE tool.course = :c_id and tool.parent IS NOT NULL'
             );
-        error_log($q->getSQL());
         $q->execute(['c_id' => (int) $courseId]);
 
         $em->createQuery('DELETE FROM ChamiloPluginBundle:ImsLti\ImsLtiTool tool WHERE tool.course = :c_id')
             ->execute(['c_id' => (int) $courseId]);
+    }
+
+    /**
+     * Generate a key pair and key id for the platform.
+     *
+     * Rerturn a associative array like ['kid' => '...', 'private' => '...', 'public' => '...'].
+     *
+     * @return array
+     */
+    private static function generatePlatformKeys()
+    {
+        // Create the private and public key
+        $res = openssl_pkey_new(
+            [
+                'digest_alg' => 'sha256',
+                'private_key_bits' => 2048,
+                'private_key_type' => OPENSSL_KEYTYPE_RSA,
+            ]
+        );
+
+        // Extract the private key from $res to $privateKey
+        $privateKey = '';
+        openssl_pkey_export($res, $privateKey);
+
+        // Extract the public key from $res to $publicKey
+        $publicKey = openssl_pkey_get_details($res);
+
+        return [
+            'kid' => bin2hex(openssl_random_pseudo_bytes(10)),
+            'private' => $privateKey,
+            'public' => $publicKey["key"],
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public static function getIssuerUrl()
+    {
+        $webPath = api_get_path(WEB_PATH);
+
+        return trim($webPath, " /");
+    }
+
+    public static function getCoursesForParentTool(ImsLtiTool $tool)
+    {
+        $coursesId = [];
+        if (!$tool->getParent()) {
+            $coursesId = $tool->getChildren()->map(function (ImsLtiTool $tool) {
+                return $tool->getCourse();
+            });
+        }
+
+        return $coursesId;
     }
 }

@@ -55,11 +55,8 @@ $allow = api_is_platform_admin() || api_is_teacher();
 if (!$allow) {
     api_not_allowed(true);
 }
-
 $table = Database::get_main_table(EasyCertificatePlugin::TABLE_EASYCERTIFICATE);
-$htmlHeadXtra[] = api_get_js_simple(
-    api_get_path(WEB_PLUGIN_PATH).'easycertificate/resources/js/certificate.js'
-);
+
 $htmlHeadXtra[] = api_get_css_asset('cropper/dist/cropper.min.css');
 $htmlHeadXtra[] = api_get_asset('cropper/dist/cropper.min.js');
 $htmlHeadXtra[] = api_get_css(
@@ -67,16 +64,19 @@ $htmlHeadXtra[] = api_get_css(
 );
 $htmlHeadXtra[] = '<script>
     $(function () {
+
+        //$("input[name=orientation][value=h]").prop("checked", true);
+
         $("#delete_certificate").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
 
             if (confirm("'.$plugin->get_lang("QuestionDelete").'")) {
-                var courseId = '.$courseId.';
-                var sessionId = '.$sessionId.';
-                var accessUrlId = '.$accessUrlId.';
-                var plugin_path = "'.api_get_path(WEB_PLUGIN_PATH).'";
-                var ajax_path = plugin_path + "easycertificate/src/easycertificate.ajax.php?a=delete_certificate";
+                let courseId = '.$courseId.';
+                let sessionId = '.$sessionId.';
+                let accessUrlId = '.$accessUrlId.';
+                let plugin_path = "'.api_get_path(WEB_PLUGIN_PATH).'";
+                let ajax_path = plugin_path + "easycertificate/src/easycertificate.ajax.php?a=delete_certificate";
                 $.ajax({
                     data: {courseId: courseId, sessionId: sessionId, accessUrlId: accessUrlId},
                     url: ajax_path,
@@ -98,8 +98,7 @@ $form = new FormValidator(
     'formEdit',
     'post',
     api_get_self().$urlParams,
-    null,
-    ['class' => 'form-vertical']
+    null
 );
 
 if ($form->validate()) {
@@ -111,30 +110,17 @@ if ($form->validate()) {
     }
     $check = Security::check_token('post');
     if ($check) {
-        $date_start = $date_end = null;
-        if(isset($formValues['date_start'])){
-            $date_start = str_replace('/', '-', $formValues['date_start']);
-        }
-        if(isset($formValues['date_end'])){
-            $date_end = str_replace('/', '-', $formValues['date_end']);
-        }
         $params = [
             'access_url_id' => api_get_current_access_url_id(),
             'c_id' => $formValues['c_id'],
             'session_id' => $formValues['session_id'],
-            'content_course' => $formValues['content_course'],
-            'contents_type' => (int) $formValues['contents_type'],
-            'contents' => $contents,
-            'date_change' => intval($formValues['date_change']),
-            'date_start' => date("Y-m-d", strtotime($date_start)),
-            'date_end' => date("Y-m-d", strtotime($date_end)),
-            'place' => $formValues['place'],
-            'type_date_expediction' => (int) $formValues['type_date_expediction'],
-            'day' => $formValues['day'],
-            'month' => $formValues['month'],
-            'year' => $formValues['year'],
+            'front_content' => $formValues['front_content'],
+            'back_content' => $formValues['back_content'],
+            'orientation' => $formValues['orientation'],
             'margin_left' => (int) $formValues['margin_left'],
             'margin_right' => (int) $formValues['margin_right'],
+            'margin_top' => (int) $formValues['margin_top'],
+            'margin_bottom' => (int) $formValues['margin_bottom'],
             'certificate_default' => 0,
         ];
 
@@ -152,8 +138,8 @@ if ($form->validate()) {
 
         // Image manager
         $fieldList = [
-            'seal',
-            'background',
+            'background_h',
+            'background_v'
         ];
 
         foreach ($fieldList as $field) {
@@ -208,16 +194,6 @@ if ($form->validate()) {
 
 if (empty($infoCertificate)) {
     $infoCertificate = EasyCertificatePlugin::getInfoCertificateDefault($accessUrlId);
-
-    if (empty($infoCertificate)) {
-        $infoCertificate = [
-            'type_date_expediction' => '',
-            'year' => '',
-            'month' => '',
-            'day' => '',
-            'date_change' => '',
-        ];
-    }
     $useDefault = true;
 }
 
@@ -230,14 +206,16 @@ $actionsLeft = Display::url(
 if (!empty($courseId) && !$useDefault) {
     $actionsLeft .= Display::url(
         Display::return_icon('delete.png', $plugin->get_lang('DeleteCertificate'), '', ICON_SIZE_MEDIUM),
-        'delete_certificate.php'.$urlParams,
+        'delete_certificate.php' . $urlParams,
         ['id' => 'delete_certificate']
     );
 }
 
 echo Display::toolbarAction(
     'toolbar-document',
-    [$actionsLeft]
+    [
+        $actionsLeft
+    ]
 );
 
 if ($useDefault && $courseId > 0) {
@@ -245,15 +223,16 @@ if ($useDefault && $courseId > 0) {
 }
 
 // Student and course section
-$form->addHeader('');
-$form->addHtml('<fieldset><legend>'.$plugin->get_lang('FrontContentCertificate').'</legend>');
+$form->addHeader($plugin->get_lang('FrontContentCertificate'));
+
 $dir = '/';
 $courseInfo = api_get_course_info();
 $isAllowedToEdit = api_is_allowed_to_edit(null, true);
-$editorConfig = [
+
+$editorConfigOne = [
     'ToolbarSet' => $isAllowedToEdit ? 'Documents' : 'DocumentsStudent',
     'Width' => '100%',
-    'Height' => '500px',
+    'Height' => '300px',
     'cols-size' => [0, 12, 0],
     'FullPage' => true,
     'InDocument' => true,
@@ -262,14 +241,57 @@ $editorConfig = [
     'BaseHref' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document'.$dir,
 ];
 
+$html = '
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+        <a href="#front" aria-controls="front" role="tab" data-toggle="tab">'.$plugin->get_lang('FrontContent').'</a>
+    </li>
+    <li role="presentation">
+        <a href="#back" aria-controls="back" role="tab" data-toggle="tab">'.$plugin->get_lang('BackContent').'</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="front">
+        <div class="panel-body">
+        <p>'.$plugin->get_lang('FrontContentCertificate').'</p>';
+$form->addHtml($html);
 $form->addHtmlEditor(
-    'content_course',
+    'front_content',
     '',
     false,
     true,
-    $editorConfig,
+    $editorConfigOne,
     true
 );
+$html = '
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="back">
+        <div class="panel-body">
+        <p>'.$plugin->get_lang('PostContentCertificate').'</p>
+';
+$form->addHtml($html);
+
+$editorConfigTwo = [
+    'ToolbarSet' => $isAllowedToEdit ? 'Documents' : 'DocumentsStudent',
+    'Width' => '100%',
+    'Height' => '300px',
+    'cols-size' => [0, 12, 0],
+    'FullPage' => true,
+    'InDocument' => true,
+    'CreateDocumentDir' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document/',
+    'CreateDocumentWebDir' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document/',
+    'BaseHref' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document'.$dir,
+];
+$form->addHtmlEditor(
+    'back_content',
+    null,
+    false,
+    true,
+    $editorConfigTwo
+);
+$form->addHtml('</div></div>
+  </div>');
 
 $listTags = [
     'user_firstname',
@@ -300,298 +322,15 @@ $form->addElement(
     'html',
     Display::return_message($createCertificate.': '.$strInfo, 'normal', false)
 );
-$form->addHtml('</fieldset>');
-
-// Contents section
-$form->addHtml('<fieldset><legend>'.$plugin->get_lang('PostContentCertificate').'</legend>');
-$extra = '';
-$display = 'none';
-if (empty($infoCertificate['contents_type'])) {
-    $infoCertificate['contents_type'] = 0;
-    $extra = 'disabled';
-} else {
-    if($infoCertificate['contents_type']==2){
-        $display = 'block';
-    }
-}
-
-
-$group = [];
-$element = &$form->createElement(
-    'radio',
-    'contents_type',
-    '',
-    get_lang('ContentsCourseDescription'),
-    0,
-    ['id' => 'contents_type_0', 'onclick' => 'javascript: contentsTypeSwitchRadioButton();']
-);
-
-$group[] = $element;
-
-$element = &$form->createElement(
-    'radio',
-    'contents_type',
-    '',
-    get_lang('ContentsIndexLearnpath'),
-    1,
-    ['id' => 'contents_type_1', 'onclick' => 'javascript: contentsTypeSwitchRadioButton();']
-);
-$group[] = $element;
-
-$element = &$form->createElement(
-    'radio',
-    'contents_type',
-    '',
-    get_lang('ContentsHide'),
-    3,
-    ['id' => 'contents_type_3', 'onclick' => 'javascript: contentsTypeSwitchRadioButton();']
-);
-$group[] = $element;
-
-$element = &$form->createElement(
-    'radio',
-    'contents_type',
-    '',
-    get_lang('ContentsCustom'),
-    2,
-    ['id' => 'contents_type_2', 'onclick' => 'javascript: contentsTypeSwitchRadioButton();']
-);
-$group[] = $element;
-
-$form->addGroup(
-    $group,
-    'contents_type',
-    get_lang('ContentsToShow'),
-    null,
-    false
-);
-
-$form->addHtml('<div id="contents-section" style="display: '.$display.'">');
-$editorConfigText = [
-    'ToolbarSet' => 'Minimal',
-    'Width' => '100%',
-    'Height' => '200',
-    'cols-size' => [2, 10, 0],
-    'FullPage' => false,
-    'InDocument' => false,
-    'CreateDocumentDir' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document/',
-    'CreateDocumentWebDir' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document/',
-    'BaseHref' => api_get_path(WEB_COURSE_PATH).$courseInfo['path'].'/document'.$dir,
-    'id' => 'contents',
-    $extra,
-];
-$form->addHtmlEditor(
-    'contents',
-    get_lang('Contents'),
-    false,
-    false,
-    $editorConfigText
-);
-$form->addHtml('</div>');
-$form->addHtml('</fieldset>');
-// Dates section
-$form->addHtml('<fieldset><legend>'.get_lang("Dates").'</legend>');
-
-$group = [];
-$option1 = &$form->createElement(
-    'radio',
-    'date_change',
-    '',
-    get_lang('UseDateSessionAccess'),
-    0,
-    ['id' => 'date_change_0', 'onclick' => 'javascript: dateCertificateSwitchRadioButton0();']
-);
-$group[] = $option1;
-
-$option2 = &$form->createElement(
-    'radio',
-    'date_change',
-    '',
-    get_lang('None'),
-    2,
-    ['id' => 'date_change_2', 'onclick' => 'javascript: dateCertificateSwitchRadioButton2();']
-);
-$group[] = $option2;
-
-$option3 = &$form->createElement(
-    'radio',
-    'date_change',
-    '',
-    get_lang('Custom'),
-    1,
-    ['id' => 'date_change_1', 'onclick' => 'javascript: dateCertificateSwitchRadioButton1();']
-);
-$group[] = $option3;
-
-$form->addGroup(
-    $group,
-    'date_change',
-    get_lang('CourseDeliveryDates'),
-    null,
-    false
-);
-$form->addHtml('<div class="form-group" style="padding-top: 10px;">
-        <label for="date_certificate" class="col-sm-2 control-label">&nbsp;</label>
-        <div class="col-sm-10">
-        <div class="radio" style="margin-top: -25px;">
-            <span style="margin: 0 10px; font-style: italic;">'.get_lang('From').'</span>
-            <input
-                size="10"
-                class="form-control-cert text-center datepicker"
-                name="date_start"
-                id="date_start"
-                type="text"
-                value="'.(($infoCertificate['date_change'] == '1')
-                        ? date("d/m/Y", strtotime($infoCertificate['date_start']))
-                        : '').'"
-                '.(($infoCertificate['date_change'] == "0") ? 'disabled' : '').'
-            >
-            <span style="margin: 0 10px; font-style: italic;">'.get_lang('Until').'</span>
-            <input
-                size="10"
-                class="form-control-cert text-center datepicker"
-                name="date_end"
-                id="date_end"
-                type="text"
-                value="'.(($infoCertificate['date_change'] == '1')
-                        ? date("d/m/Y", strtotime($infoCertificate['date_end']))
-                        : '').'"
-                '.(($infoCertificate['date_change'] == "0") ? 'disabled' : '').'
-            >
-        </div>
-        </div>
-    </div>');
-
-$form->addText(
-    'place',
-    get_lang('ExpectionPlace'),
-    false,
-    ['id' => 'place', 'cols-size' => [2, 5, 5]]
-);
-
-$group = [];
-$option = &$form->createElement(
-    'radio',
-    'type_date_expediction',
-    '',
-    get_lang('UseDateEndAccessSession'),
-    0,
-    [
-        'id' => 'type_date_expediction_0',
-        'onclick' => 'javascript: dateCertificateSwitchRadioButton0();',
-        (($sessionId == 0) ? 'disabled' : ''),
-    ]
-);
-$group[] = $option;
-
-$option = &$form->createElement(
-    'radio',
-    'type_date_expediction',
-    '',
-    get_lang('UseDateDownloadCertificate'),
-    1,
-    [
-        'id' => 'type_date_expediction_1',
-        'onclick' => 'javascript: typeDateExpedictionSwitchRadioButton();',
-    ]
-);
-$group[] = $option;
-
-$option = &$form->createElement(
-    'radio',
-    'type_date_expediction',
-    '',
-    get_lang('UseDateGenerationCertificate'),
-    4,
-    [
-        'id' => 'type_date_expediction_4',
-        'onclick' => 'javascript: typeDateExpedictionSwitchRadioButton();',
-    ]
-);
-$group[] = $option;
-
-$option = &$form->createElement(
-    'radio',
-    'type_date_expediction',
-    '',
-    get_lang('None'),
-    3,
-    [
-        'id' => 'type_date_expediction_3',
-        'onclick' => 'javascript: typeDateExpedictionSwitchRadioButton();',
-    ]
-);
-$group[] = $option;
-
-$option = &$form->createElement(
-    'radio',
-    'type_date_expediction',
-    '',
-    get_lang('UseCustomDate'),
-    2,
-    [
-        'id' => 'type_date_expediction_2',
-        'onclick' => 'javascript: typeDateExpedictionSwitchRadioButton();',
-    ]
-);
-$group[] = $option;
-
-$form->addGroup(
-    $group,
-    'type_date_expediction',
-    get_lang('DateExpediction'),
-    null,
-    false
-);
-
-$form->addHtml(
-    '<div class="form-group" style="padding-top: 10px;">
-        <label for="date_certificate" class="col-sm-2 control-label">&nbsp;</label>
-        <div class="col-sm-10">
-        <div class="radio" style="margin-top: -25px;">
-            <span class="certificado-text-label">a</span>
-            <input
-                size="4"
-                class="form-control-cert text-center"
-                name="day"
-                id="day"
-                type="text"
-                value="'.$infoCertificate['day'].'"
-                '.(($infoCertificate['type_date_expediction'] != '2') ? 'disabled' : '').'
-            >
-            <span class="certificado-text-label">de</span>
-            <input
-                size="10"
-                class="form-control-cert text-center"
-                name="month"
-                id="month"
-                type="text"
-                value="'.$infoCertificate['month'].'"
-                '.(($infoCertificate['type_date_expediction'] != '2') ? 'disabled' : '').'
-            >
-            <span class="certificado-text-label">de</span>
-            <input
-                size="4"
-                class="form-control-cert text-center"
-                name="year"
-                id="year"
-                type="text"
-                value="'.$infoCertificate['year'].'"
-                '.(($infoCertificate['type_date_expediction'] != '2') ? 'disabled' : '').'
-            >
-        </div>
-        </div>
-    </div>'
-);
-$form->addHtml('</fieldset>');
 
 // Signature section
 $base = api_get_path(WEB_UPLOAD_PATH);
 $path = $base.'certificates/';
-$form->addHtml('<div class="col-sm-6">');
-$form->addHtml('<fieldset><legend>'.get_lang('BackgroundCertificate').'</legend>');
+
+$form->addHeader($plugin->get_lang('OtherOptions'));
+
 //Seal
-$form->addFile(
+/*$form->addFile(
     'seal',
     get_lang('Seal'),
     [
@@ -617,72 +356,143 @@ $form->addRule(
     get_lang('OnlyImagesAllowed').' ('.implode(', ', $allowedPictureTypes).')',
     'filetype',
     $allowedPictureTypes
+);*/
+$form->addHtml('<div class="row">
+            <div class="col-md-6">');
+//Orientation Paper
+$form->addRadio(
+    'orientation',
+    get_lang('ChooseOrientation'),
+    [
+        'h' => get_lang('Horizontal'),
+        'v' => get_lang('Vertical')
+    ]
 );
 
-// background
-$form->addFile(
-    'background',
-    get_lang('Background'),
+//Margin
+$form->addNumeric(
+    'margin_left',
     [
-        'id' => 'background',
+        get_lang('MarginLeft'),
+        null,
+        $plugin->get_lang('Centimeters')
+    ],
+    [
+        'cols-size' => [3, 5, 4],
+        'value' => 5
+    ]
+);
+$form->addNumeric(
+    'margin_right',
+    [
+        get_lang('MarginRight'),
+        null,
+        $plugin->get_lang('Centimeters')
+    ],
+    [
+        'cols-size' => [3, 5, 4],
+        'value' => 5
+    ]
+);
+$form->addNumeric(
+    'margin_top',
+    [
+        get_lang('MarginTop'),
+        null,
+        $plugin->get_lang('Centimeters')
+    ],
+    [
+        'cols-size' => [3, 5, 4],
+        'value' => 10
+    ]
+);
+$form->addNumeric(
+    'margin_bottom',
+    [
+        get_lang('MarginBottom'),
+        null,
+        $plugin->get_lang('Centimeters')
+    ],
+    [
+        'cols-size' => [3, 5, 4],
+        'value' => 10
+    ]
+);
+
+
+$form->addHtml('</div><div class="col-md-6">');
+
+// background 297/210
+$form->addFile(
+    'background_h',
+    get_lang('BackgroundHorizontal'),
+    [
+        'id' => 'background_h',
         'class' => 'picture-form',
         'crop_image' => true,
         'crop_ratio' => '297 / 210',
     ]
 );
-$form->addProgress();
-if (!empty($infoCertificate['background'])) {
+
+if (!empty($infoCertificate['background_h'])) {
     $form->addElement('checkbox', 'remove_background', null, get_lang('DelImage'));
     $form->addElement(
         'html',
         '<label class="col-sm-2">&nbsp;</label>
-        <img src="'.$path.$infoCertificate['background'].'" width="100"  />
-        <br><br>'
+        <img src="'.$path.$infoCertificate['background_h'].'" width="100"  />
+        <br>'
     );
 }
+
+$form->addFile(
+    'background_v',
+    get_lang('BackgroundVertical'),
+    [
+        'id' => 'background_v',
+        'class' => 'picture-form',
+        'crop_image' => true,
+        'crop_ratio' => '210 / 297',
+    ]
+);
+
+if (!empty($infoCertificate['background_v'])) {
+    $form->addElement('checkbox', 'remove_background', null, get_lang('DelImage'));
+    $form->addElement(
+        'html',
+        '<label class="col-sm-2">&nbsp;</label>
+        <img src="'.$path.$infoCertificate['background_v'].'" width="100"  />
+        <br>'
+    );
+}
+
+$form->addProgress();
+
 $allowedPictureTypes = api_get_supported_image_extensions(false);
 $form->addRule(
-    'background',
+    'background_h',
     get_lang('OnlyImagesAllowed').' ('.implode(', ', $allowedPictureTypes).')',
     'filetype',
     $allowedPictureTypes
 );
-$form->addHtml('</fieldset>');
-$form->addHtml('</div>');
-$form->addHtml('<div class="col-sm-6">');
-$form->addHtml('<fieldset><legend>'.get_lang('OtherOptions').'</legend>');
-$marginOptions = [];
-$i = 0;
-while ($i < 298) {
-    $marginOptions[$i] = $i.' mm';
-    $i++;
-}
-$form->addElement(
-    'select',
-    'margin_left',
-    get_lang('MarginLeft'),
-    $marginOptions,
-    ['cols-size' => [4, 8, 0]]
+$form->addRule(
+    'background_v',
+    get_lang('OnlyImagesAllowed').' ('.implode(', ', $allowedPictureTypes).')',
+    'filetype',
+    $allowedPictureTypes
 );
-$form->addElement(
-    'select',
-    'margin_right',
-    get_lang('MarginRight'),
-    $marginOptions,
-    ['cols-size' => [4, 8, 0]]
-);
-$form->addHtml('</fieldset>');
-$form->addHtml('</div>');
 
+
+$form->addHtml('</div></div>');
 $form->addButton(
     'submit',
     get_lang('SaveCertificate'),
     'check',
     'primary',
+    'large',
     null,
-    null,
-    ['cols-size' => [5, 2, 5]],
-    false
+    [
+        'cols-size' => [0, 12, 0]
+    ]
 );
 
 $form->addElement('hidden', 'formSent');

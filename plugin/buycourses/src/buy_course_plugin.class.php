@@ -107,9 +107,11 @@ class BuyCoursesPlugin extends Plugin
     /**
      * Check if plugin is enabled.
      *
+     * @param bool $checkEnabled Check if, additionnally to being installed, the plugin is enabled
+     *
      * @return bool
      */
-    public function isEnabled()
+    public function isEnabled($checkEnabled = false)
     {
         return $this->get('paypal_enable') || $this->get('transfer_enable') || $this->get('culqi_enable');
     }
@@ -571,13 +573,16 @@ class BuyCoursesPlugin extends Plugin
     /**
      * Lists current user session details, including each session course details.
      *
+     * It can return the number of rows when $typeResult is 'count'.
+     *
      * @param int    $start
      * @param int    $end
-     * @param string $name  Optional. The name filter
-     * @param int    $min   Optional. The minimum price filter
-     * @param int    $max   Optional. The maximum price filter
+     * @param string $name       Optional. The name filter.
+     * @param int    $min        Optional. The minimum price filter.
+     * @param int    $max        Optional. The maximum price filter.
+     * @param string $typeResult Optional. 'all', 'first' or 'count'.
      *
-     * @return array
+     * @return array|int
      */
     public function getCatalogSessionList($start, $end, $name = null, $min = 0, $max = 0, $typeResult = 'all')
     {
@@ -1283,8 +1288,10 @@ class BuyCoursesPlugin extends Plugin
      *
      * @param string $dateStart
      * @param string $dateEnd
-     * @return array
+     *
      * @throws Exception
+     *
+     * @return array
      */
     public function getSaleListReport($dateStart = null, $dateEnd = null)
     {
@@ -1296,7 +1303,7 @@ class BuyCoursesPlugin extends Plugin
             INNER JOIN $userTable u ON s.user_id = u.id
         ";
         $list = Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email', 's.*'],
             "$saleTable s $innerJoins",
             [
                 'order' => 'id DESC',
@@ -1346,7 +1353,7 @@ class BuyCoursesPlugin extends Plugin
             $this->get_lang('ProductType'),
             $this->get_lang('ProductName'),
             $this->get_lang('UserName'),
-            get_lang('Email')
+            get_lang('Email'),
         ];
         //Validation Export
         $dateStart = strtotime($dateStart);
@@ -1368,6 +1375,7 @@ class BuyCoursesPlugin extends Plugin
                 ];
             }
         }
+
         return $listExport;
     }
 
@@ -1576,8 +1584,9 @@ class BuyCoursesPlugin extends Plugin
             INNER JOIN $currencyTable c ON s.currency_id = c.id
             INNER JOIN $userTable u ON s.user_id = u.id
         ";
+
         return Database::select(
-            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email' , 's.*'],
+            ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email', 's.*'],
             "$saleTable s $innerJoins",
             [
                 'where' => [
@@ -1609,6 +1618,7 @@ class BuyCoursesPlugin extends Plugin
             INNER JOIN $currencyTable c ON s.currency_id = c.id
             INNER JOIN $userTable u ON s.user_id = u.id
         ";
+
         return Database::select(
             ['c.iso_code', 'u.firstname', 'u.lastname', 'u.email', 's.*'],
             "$saleTable s $innerJoins",
@@ -1624,8 +1634,7 @@ class BuyCoursesPlugin extends Plugin
     /**
      * Convert the course info to array with necessary course data for save item.
      *
-     * @param Course $course
-     * @param array  $defaultCurrency Optional. Currency data
+     * @param array $defaultCurrency Optional. Currency data
      *
      * @return array
      */
@@ -1928,7 +1937,7 @@ class BuyCoursesPlugin extends Plugin
             INNER JOIN $userTable u ON p.user_id = u.id
             INNER JOIN $saleTable s ON s.id = p.sale_id
             INNER JOIN $currencyTable c ON s.currency_id = c.id
-            LEFT JOIN  $extraFieldValues efv ON p.user_id = efv.item_id 
+            LEFT JOIN  $extraFieldValues efv ON p.user_id = efv.item_id
             AND field_id = ".((int) $paypalExtraField['id'])."
         ";
 
@@ -2766,8 +2775,6 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
-     * @param Session $session
-     *
      * @return array
      */
     public function getBuyCoursePluginPrice(Session $session)
@@ -2790,8 +2797,6 @@ class BuyCoursesPlugin extends Plugin
     }
 
     /**
-     * @param array $saleInfo
-     *
      * @return string
      */
     public function getSubscriptionSuccessMessage(array $saleInfo)
@@ -3103,10 +3108,10 @@ class BuyCoursesPlugin extends Plugin
 
         $courseIds = Database::select(
             'c.id',
-            "$courseTable c 
-            INNER JOIN $itemTable i 
-            ON c.id = i.product_id 
-            INNER JOIN $urlTable url 
+            "$courseTable c
+            INNER JOIN $itemTable i
+            ON c.id = i.product_id
+            INNER JOIN $urlTable url
             ON c.id = url.c_id
             ",
             ['where' => $whereConditions, 'limit' => "$start, $end"],

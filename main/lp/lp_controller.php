@@ -1,4 +1,5 @@
 <?php
+
 /* For licensing terms, see /license.txt */
 
 use ChamiloSession as Session;
@@ -8,8 +9,6 @@ use ChamiloSession as Session;
  * the requested action.
  *
  * @todo remove repeated if $lp_found redirect
- *
- * @package chamilo.learnpath
  *
  * @author Yannick Warnier <ywarnier@beeznest.org>
  */
@@ -55,7 +54,7 @@ $htmlHeadXtra[] = '
     /*
     Script to manipulate Learning Path items with Drag and drop
      */
-    var newOrderData = "";    
+    var newOrderData = "";
     function buildLPtree(in_elem, in_parent_id) {
         var item_tag = in_elem.get(0).tagName;
         var item_id =  in_elem.attr("id");
@@ -80,7 +79,7 @@ $htmlHeadXtra[] = '
         return in_parent_integer_id;
     }
 
-    $(function() {        
+    $(function() {
         $(".lp_resource").sortable({
             items: ".lp_resource_element ",
             handle: ".moved", //only the class "moved"
@@ -95,15 +94,15 @@ $htmlHeadXtra[] = '
                 $(ui.item).css("width", "100%");
             }
         });
-                
-        $(".li_container .order_items").click(function(e) {            
+
+        $(".li_container .order_items").click(function(e) {
             var dir = $(this).data("dir");
-            var itemId = $(this).data("id");             
-            var jItems = $("#lp_item_list li.li_container");            
-            var jItem = $("#"+ itemId);          
+            var itemId = $(this).data("id");
+            var jItems = $("#lp_item_list li.li_container");
+            var jItem = $("#"+ itemId);
             var index = jItems.index(jItem);
-            var total = jItems.length;     
-               
+            var total = jItems.length;
+
             switch (dir) {
                 case "up":
                     if (index != 0 && jItems[index - 1]) {
@@ -111,58 +110,58 @@ $htmlHeadXtra[] = '
                         if (subItems.length >= 0) {
                             index = index - 1;
                         }*/
-                        var subItems = $(jItems[index - 1]).find("li.sub_item");                        
-                        var parentClass = $(jItems[index - 1]).parent().parent().attr("class");                        
-                        var parentId = $(jItems[index]).parent().parent().attr("id");                        
+                        var subItems = $(jItems[index - 1]).find("li.sub_item");
+                        var parentClass = $(jItems[index - 1]).parent().parent().attr("class");
+                        var parentId = $(jItems[index]).parent().parent().attr("id");
                         var myParentId = $(jItems[index - 1]).parent().parent().attr("id");
                         //console.log(parentId + " - " + myParentId);
-                        
+
                         // We are brothers!
                         if (parentId == myParentId) {
                             console.log("Brothers");
                             console.log(subItems.length);
                             if (subItems.length > 0) {
-                                var lastItem = $(jItems[index - 1]).find("li.sub_item");    
-                                parentIndex = jItems.index(lastItem);                         
+                                var lastItem = $(jItems[index - 1]).find("li.sub_item");
+                                parentIndex = jItems.index(lastItem);
                                 console.log(parentIndex);
-                                jItem.detach().insertAfter(lastItem);    
+                                jItem.detach().insertAfter(lastItem);
                                 //console.log("not classic");
                             } else {
                                 //console.log("classic");
-                                jItem.detach().insertBefore(jItems[index - 1]);  
-                            }                            
+                                jItem.detach().insertBefore(jItems[index - 1]);
+                            }
                             break;
                         }
-                        
+
                         //console.log(parentClass);
                         if (parentClass == "record li_container") {
                             // previous is a chapter
-                            var lastItem = $(jItems[index - 1]).parent().parent().find("li.li_container").last();    
-                            parentIndex = jItems.index(lastItem);                         
+                            var lastItem = $(jItems[index - 1]).parent().parent().find("li.li_container").last();
+                            parentIndex = jItems.index(lastItem);
                             //console.log(parentIndex);
-                            jItem.detach().insertAfter(jItems[parentIndex]);                            
+                            jItem.detach().insertAfter(jItems[parentIndex]);
                         } else {
-                            jItem.detach().insertBefore(jItems[index - 1]);    
-                        }                       
-                    }                                        
+                            jItem.detach().insertBefore(jItems[index - 1]);
+                        }
+                    }
                     break;
                 case "down":
-                     if (index != total - 1) {   
+                     if (index != total - 1) {
                         const originIndex = index;
                         // The element is a chapter with items
-                        var subItems = jItem.find("li.li_container");  
-                        if (subItems.length > 0) { 
+                        var subItems = jItem.find("li.li_container");
+                        if (subItems.length > 0) {
                             index = subItems.length + index;
-                            //console.log("element is a chapter with items");                            
+                            //console.log("element is a chapter with items");
                             //console.log("new index = " + index);
-                        }            
-                        
+                        }
+
                         var subItems = $(jItems[index + 1]).find("li.sub_item");
                         //console.log("next subItems.length: "+subItems.length);
                         // This is an element entering in a chapter
-                        if (subItems.length > 0) {   
+                        if (subItems.length > 0) {
                             // Check if im a child
-                            var parentClass = jItem.parent().parent().attr("class");                            
+                            var parentClass = jItem.parent().parent().attr("class");
                             //console.log(parentClass);
                             if (parentClass == "record li_container") {
                                 // Parent position
@@ -171,29 +170,29 @@ $htmlHeadXtra[] = '
                                 //console.log(parentIndex);
                                 jItem.detach().insertAfter(jItems[parentIndex]);
                             } else {
-                                jItem.detach().insertAfter(subItems);    
-                            }                            
+                                jItem.detach().insertAfter(subItems);
+                            }
                             break;
-                        }     
-                                                                       
+                        }
+
                         var currentSubItems = $(jItems[index]).parent().find("li.sub_item");
                         //console.log("currentSubItems"+currentSubItems.length);
-                        
-                        var parentId = $(jItems[originIndex]).parent().parent().attr("id");                        
+
+                        var parentId = $(jItems[originIndex]).parent().parent().attr("id");
                         var myParentId = $(jItems[index + 1]).parent().parent().attr("id");
                         //console.log("parent ids: "+ parentId + " - " + myParentId);
-                        
+
                         // We are brothers!
                         if (parentId == myParentId) {
                             if ((index + 1) < total) {
                                 //console.log(index + 1);
                                 //console.log("We are brothers");
                                 jItem.detach().insertAfter(jItems[index + 1]);
-                            }                            
+                            }
                             break;
                         }
-                        
-                        if (currentSubItems.length > 0) {                     
+
+                        if (currentSubItems.length > 0) {
                             var parentIndex = jItems.index(jItem.parent().parent());
                             //console.log("has currentSubItems");
                             //console.log("id " + jItem.parent().parent().attr("id"));
@@ -202,14 +201,14 @@ $htmlHeadXtra[] = '
                                 jItem.detach().insertAfter(jItems[parentIndex]);
                                 break;
                             }
-                            //jItem.detach().insertAfter($(jItems[index]).parent().parent());                            
-                        }   
-                        
-                        //var lastItem = $(jItems[index + 1]).parent().parent().find("li.li_container").last();                                              
+                            //jItem.detach().insertAfter($(jItems[index]).parent().parent());
+                        }
+
+                        //var lastItem = $(jItems[index + 1]).parent().parent().find("li.li_container").last();
                         if (subItems.length > 0) {
                             index = originIndex;
                         }
-                        
+
                         if ((index + 1) < total) {
                             //console.log(index + 1);
                             //console.log("changed");
@@ -217,11 +216,11 @@ $htmlHeadXtra[] = '
                         }
                      }
                      break;
-            }   
-            
+            }
+
             //console.log("rebuild");
             buildLPtree($("#lp_item_list"), 0);
-            
+
             var order = "new_order="+ newOrderData + "&a=update_lp_item_order";
             $.post(
                 "'.$ajax_url.'",
@@ -231,7 +230,7 @@ $htmlHeadXtra[] = '
                     order = "";
                     newOrderData = "";
                 }
-            );            
+            );
         });
 
         $("#lp_item_list").sortable({
@@ -272,16 +271,15 @@ $htmlHeadXtra[] = '
                             "type": type,
                             "title" : title
                         };
-                        
+
                         $.ajax({
                             type: "GET",
                             url: "'.$ajax_url.'",
                             data: params,
-                            async: false,
                             success: function(data) {
                                 $("#lp_item_list").html(data);
                             }
-                        });                        
+                        });
                     }
                 }
             } // End receive
@@ -538,14 +536,11 @@ switch ($action) {
             $layoutContent = $tplContent->get_template('mail/content_ending_learnpath.tpl');
             $emailBody = $tplContent->fetch($layoutContent);
 
-            api_mail_html(
-                $recipientName,
-                $email,
+            MessageManager::send_message_simple(
+                $coachInfo['user_id'],
                 sprintf(get_lang('StudentXFinishedLp'), $studentInfo['complete_name']),
                 $emailBody,
-                $studentInfo['complete_name'],
-                $studentInfo['email'],
-                true
+                $studentInfo['user_id']
             );
         }
         Display::addFlash(Display::return_message(get_lang('MessageSent')));
@@ -677,7 +672,8 @@ switch ($action) {
 
                 // Remove audio
                 if (isset($_GET['delete_file']) && $_GET['delete_file'] == 1) {
-                    $lp_item_obj->remove_audio();
+                    $lp_item_obj->removeAudio();
+                    Display::addFlash(Display::return_message(get_lang('FileDeleted')));
 
                     $url = api_get_self().'?action=add_audio&lp_id='.intval($_SESSION['oLP']->lp_id).'&id='.$lp_item_obj->get_id().'&'.api_get_cidreq();
                     header('Location: '.$url);
@@ -688,16 +684,17 @@ switch ($action) {
                 if (isset($_FILES['file']) && !empty($_FILES['file'])) {
                     // Updating the lp.modified_on
                     $_SESSION['oLP']->set_modified_on();
-                    $lp_item_obj->add_audio();
+                    $lp_item_obj->addAudio();
+                    Display::addFlash(Display::return_message(get_lang('UplUploadSucceeded')));
                 }
 
                 //Add audio file from documents
                 if (isset($_REQUEST['document_id']) && !empty($_REQUEST['document_id'])) {
                     $_SESSION['oLP']->set_modified_on();
                     $lp_item_obj->add_audio_from_documents($_REQUEST['document_id']);
+                    Display::addFlash(Display::return_message(get_lang('Updated')));
                 }
 
-                // Display.
                 require 'lp_add_audio.php';
             } else {
                 require 'lp_add_audio.php';
@@ -796,6 +793,9 @@ switch ($action) {
                         api_get_user_id()
                     );
 
+                    $subscribeUsers = isset($_REQUEST['subscribe_users']) ? 1 : 0;
+                    $_SESSION['oLP']->setSubscribeUsers($subscribeUsers);
+
                     $accumulateScormTime = isset($_REQUEST['accumulate_scorm_time']) ? $_REQUEST['accumulate_scorm_time'] : 'true';
                     $_SESSION['oLP']->setAccumulateScormTime($accumulateScormTime);
 
@@ -885,6 +885,11 @@ switch ($action) {
                 if (isset($_POST['content_lp'])) {
                     $_SESSION['oLP']->edit_document($_course);
                 }
+                $is_success = true;
+
+                $extraFieldValues = new ExtraFieldValue('lp_item');
+                $extraFieldValues->saveFieldValues($_POST);
+
                 Display::addFlash(Display::return_message(get_lang('Updated')));
                 $url = api_get_self().'?action=add_item&type=step&lp_id='.intval($_SESSION['oLP']->lp_id).'&'.api_get_cidreq();
                 header('Location: '.$url);
@@ -1162,19 +1167,7 @@ switch ($action) {
             Session::write('refresh', 1);
             $_SESSION['oLP']->set_name($_REQUEST['lp_name']);
             $author = $_REQUEST['lp_author'];
-            // Fixing the author name (no body or html tags).
-            $auth_init = stripos($author, '<p>');
-            if ($auth_init === false) {
-                $auth_init = stripos($author, '<body>');
-                $auth_end = $auth_init + stripos(substr($author, $auth_init + 6), '</body>') + 7;
-                $len = $auth_end - $auth_init + 6;
-            } else {
-                $auth_end = strripos($author, '</p>');
-                $len = $auth_end - $auth_init + 4;
-            }
-
-            $author_fixed = substr($author, $auth_init, $len);
-            $_SESSION['oLP']->set_author($author_fixed);
+            $_SESSION['oLP']->set_author($author);
             // TODO (as of Chamilo 1.8.8): Check in the future whether this field is needed.
             $_SESSION['oLP']->set_encoding($_REQUEST['lp_encoding']);
 

@@ -30,8 +30,6 @@ class HookAdvancedSubscription extends HookObserver implements HookAdminBlockObs
     }
 
     /**
-     * @param HookAdminBlockEventInterface $hook
-     *
      * @return array
      */
     public function hookAdminBlock(HookAdminBlockEventInterface $hook)
@@ -52,8 +50,6 @@ class HookAdvancedSubscription extends HookObserver implements HookAdminBlockObs
 
     /**
      * Add Webservices to registration.soap.php.
-     *
-     * @param HookWSRegistrationEventInterface $hook
      *
      * @return mixed (int or false)
      */
@@ -626,8 +622,6 @@ class HookAdvancedSubscription extends HookObserver implements HookAdminBlockObs
     /**
      * Return notification content when the hook has been triggered.
      *
-     * @param HookNotificationContentEventInterface $hook
-     *
      * @return mixed (int or false)
      */
     public function hookNotificationContent(HookNotificationContentEventInterface $hook)
@@ -656,13 +650,12 @@ class HookAdvancedSubscription extends HookObserver implements HookAdminBlockObs
 
             return $data;
         } //Else hook type is not valid, nothing to do
+
         return false;
     }
 
     /**
      * Return the notification data title if the hook was triggered.
-     *
-     * @param HookNotificationTitleEventInterface $hook
      *
      * @return array|bool
      */
@@ -682,6 +675,7 @@ class HookAdvancedSubscription extends HookObserver implements HookAdminBlockObs
 
             return $data;
         } // Else: hook type is not valid, nothing to do
+
         return false;
     }
 }
