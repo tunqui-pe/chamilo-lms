@@ -206,7 +206,8 @@ if (empty($infoCertificate)) {
 }
 
 // Display the header
-Display::display_header($nameTools);
+$tpl = new Template($nameTools,true,true,false,false,true,false);
+
 $actionsLeft = Display::url(
     Display::return_icon('easycertificate.png', get_lang('Certificate'), '', ICON_SIZE_MEDIUM),
     'print_certificate.php'.$urlParams
@@ -219,7 +220,7 @@ if (!empty($courseId) && !$useDefault) {
     );
 }
 
-echo Display::toolbarAction(
+$actions = Display::toolbarAction(
     'toolbar-document',
     [
         $actionsLeft
@@ -227,7 +228,7 @@ echo Display::toolbarAction(
 );
 
 if ($useDefault && $courseId > 0) {
-    echo Display::return_message(get_lang('InfoFromDefaultCertificate'), 'info');
+    $message = Display::return_message(get_lang('InfoFromDefaultCertificate'), 'info');
 }
 
 // Student and course section
@@ -381,7 +382,7 @@ $form->addRadio(
 $form->addNumeric(
     'margin_left',
     [
-        get_lang('MarginLeft'),
+        $plugin->get_lang('MarginLeft'),
         null,
         $plugin->get_lang('Centimeters')
     ],
@@ -393,7 +394,7 @@ $form->addNumeric(
 $form->addNumeric(
     'margin_right',
     [
-        get_lang('MarginRight'),
+        $plugin->get_lang('MarginRight'),
         null,
         $plugin->get_lang('Centimeters')
     ],
@@ -405,7 +406,7 @@ $form->addNumeric(
 $form->addNumeric(
     'margin_top',
     [
-        get_lang('MarginTop'),
+        $plugin->get_lang('MarginTop'),
         null,
         $plugin->get_lang('Centimeters')
     ],
@@ -417,7 +418,7 @@ $form->addNumeric(
 $form->addNumeric(
     'margin_bottom',
     [
-        get_lang('MarginBottom'),
+        $plugin->get_lang('MarginBottom'),
         null,
         $plugin->get_lang('Centimeters')
     ],
@@ -433,7 +434,7 @@ $form->addHtml('</div><div class="col-md-6">');
 // background 297/210
 $form->addFile(
     'background_h',
-    get_lang('BackgroundHorizontal'),
+    $plugin->get_lang('BackgroundHorizontal'),
     [
         'id' => 'background_h',
         'class' => 'picture-form',
@@ -443,14 +444,14 @@ $form->addFile(
 );
 
 if (!empty($infoCertificate['background_h'])) {
-    $form->addElement('checkbox', 'remove_background_h', null, get_lang('DelImage'));
+    $form->addElement('checkbox', 'remove_background_h', null, $plugin->get_lang('DelImage'));
     $form->addHtml('<div class="form-group "><label class="col-sm-2">&nbsp;</label>
         <div class="col-sm-10"><img src="'.$path.$infoCertificate['background_h'].'" width="100"  /></div></div>');
 }
 
 $form->addFile(
     'background_v',
-    get_lang('BackgroundVertical'),
+    $plugin->get_lang('BackgroundVertical'),
     [
         'id' => 'background_v',
         'class' => 'picture-form',
@@ -460,7 +461,7 @@ $form->addFile(
 );
 
 if (!empty($infoCertificate['background_v'])) {
-    $form->addElement('checkbox', 'remove_background_v', null, get_lang('DelImage'));
+    $form->addElement('checkbox', 'remove_background_v', null, $plugin->get_lang('DelImage'));
     $form->addHtml('<div class="form-group "><label class="col-sm-2">&nbsp;</label>
         <div class="col-sm-10"><img src="'.$path.$infoCertificate['background_v'].'" width="100"  /></div></div>');
 }
@@ -514,14 +515,13 @@ $form->setConstants(
         'session_id' => $sessionId,
     ]
 );
-echo '<div class="page-create">';
-echo '<div class="row">';
-echo '<div id="doc_form" class="col-md-12">';
-echo $form->returnForm();
-echo '</div>';
-echo '</div>';
-echo '</div>';
-Display::display_footer();
+$tpl->assign('actions', $actions);
+$tpl->assign('message', $message);
+$tpl->assign('form', $form->returnForm());
+$content = $tpl->fetch('easycertificate/template/certificate_index.tpl');
+$tpl->assign('content', $content);
+$tpl->display_one_col_template();
+
 
 /**
  * Delete the file if there is only one instance.
