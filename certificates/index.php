@@ -39,7 +39,10 @@ if(api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate'
     CustomCertificatePlugin::redirectCheck($certificate, $certificateId, $userId);
 }
 if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true'){
-    EasyCertificatePlugin::redirectCheck($certificate, $certificateId, $userId);
+
+    $result = EasyCertificatePlugin::redirectCheck($certificate, $certificateId, $userId);
+    var_dump($result);
+    exit;
 }
 
 

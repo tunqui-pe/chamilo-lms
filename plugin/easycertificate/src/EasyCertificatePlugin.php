@@ -210,7 +210,8 @@ class EasyCertificatePlugin extends Plugin
             $courseCode = $row['course_code'];
             $sessionId = $row['session_id'];
             $userId = $row['user_id'];
-            if (api_get_course_setting('easycertificate_course_enable', api_get_course_info($courseCode)) == 1) {
+
+            if (api_get_course_setting('easycertificate_course_enable', $courseCode)) {
                 return [
                     'course_code' => $courseCode,
                     'session_id' => $sessionId,
@@ -236,7 +237,9 @@ class EasyCertificatePlugin extends Plugin
 
         if (api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true') {
             $infoCertificate = self::getCertificateData($certId, $userId);
+            var_dump($infoCertificate);
             if (!empty($infoCertificate)) {
+
                 if ($certificate->user_id == api_get_user_id() && !empty($certificate->certificate_data)) {
                     $certificateId = $certificate->certificate_data['id'];
                     $extraFieldValue = new ExtraFieldValue('user_certificate');
