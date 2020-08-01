@@ -32,6 +32,7 @@ $strings['SendRecord'] = "Send record";
 $strings['DeleteRecord'] = "Delete record";
 $strings['AlertDiskSpace'] = "Alert! Daily disk space";
 $strings['YourAvailableDiskSpace'] = "Your available disk space is";
+$strings['YourConsumedDiskSpace'] = "Your consumed disk space is";
 $strings['SystemStatisticsRecorded'] = "System statistics registered to";
 $strings['alerts_email_disk'] = "Alert email";
 $strings['alerts_email_disk_help'] = "By default, the alert is sent to the administrator's email, here you can add a second email for alerts.";

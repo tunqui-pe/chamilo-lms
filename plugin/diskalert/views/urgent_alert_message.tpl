@@ -13,7 +13,7 @@
     </div>
     <div id="percent">
         <p>{{ 'UrgentNoticeDiskSpace' |get_plugin_lang('DiskAlertPlugin') }}</p>
-        <p>{{ 'YourAvailableDiskSpace'|get_plugin_lang('DiskAlertPlugin') }}</p>
+        <p>{{ 'YourConsumedDiskSpace'|get_plugin_lang('DiskAlertPlugin') }}</p>
         <h1 style="font-size: 4rem; padding: 0; margin: 0; text-align: center; color: {{ color_alert }}">
             {{  info.used_percent }} %
         </h1>
