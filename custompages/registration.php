@@ -145,7 +145,7 @@ $rootSYS = api_get_path('SYS_CSS_PATH').'themes/'.$theme;
             //alert($("input[type=radio]:checked").val());
             console.log(checkRut);
             if(checkRut){
-                if(!(RutValue.match('^[0-9]{8,9}[-|‐]{1}[0-9kK]{1}$'))){
+                if(!(RutValue.match('^[0-9]{7,9}[-|‐]{1}[0-9kK]{1}$'))){
                     $("#msg-error-run").show();
                     e.preventDefault();
                 }
