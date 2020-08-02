@@ -48,7 +48,7 @@ if (empty($courseCode)) {
 if (empty($sessionId)) {
     $sessionId = isset($_REQUEST['session_id']) ? (int)$_REQUEST['session_id'] : 0;
 }
-
+$catId = isset($_REQUEST['cat_id']) ? (int)$_REQUEST['cat_id'] : 0;
 $accessUrlId = api_get_current_access_url_id();
 
 $userList = [];
@@ -136,6 +136,57 @@ foreach ($userList as $userInfo) {
     $myContentHtml = str_replace(
         $infoToBeReplacedInContentHtml,
         $infoToReplaceInContentHtml,
+        $myContentHtml
+    );
+    //Session Date.
+    if ($sessionId > 0) {
+        switch ($infoCertificate['date_change']) {
+            case 0:
+                if (!empty($sessionInfo['display_start_date'])) {
+                    $startDate = strtotime(api_get_local_time($sessionInfo['display_start_date']));
+                    $startDate = api_format_date($startDate, DATE_FORMAT_LONG_NO_DAY);
+                }
+                if (!empty($sessionInfo['display_end_date'])) {
+                    $endDate = strtotime(api_get_local_time($sessionInfo['display_end_date']));
+                    $endDate = api_format_date($endDate, DATE_FORMAT_LONG_NO_DAY);
+                }
+                break;
+            case 1:
+                if (!empty($sessionInfo['access_start_date'])) {
+                    $startDate = strtotime(api_get_local_time($sessionInfo['access_start_date']));
+                    $startDate = api_format_date($startDate, DATE_FORMAT_LONG_NO_DAY);
+                }
+                if (!empty($sessionInfo['access_end_date'])) {
+                    $endDate = strtotime(api_get_local_time($sessionInfo['access_end_date']));
+                    $endDate = api_format_date($endDate, DATE_FORMAT_LONG_NO_DAY);
+                }
+                break;
+        }
+        $myContentHtml = str_replace(
+            '((session_start_date))',
+            $startDate,
+            $myContentHtml
+        );
+
+        $myContentHtml = str_replace(
+            '((session_end_date))',
+            $endDate,
+            $myContentHtml
+        );
+    }
+    //Date Expedition
+    //Get Category GradeBook
+    $myCertificate = GradebookUtils::get_certificate_by_user_id(
+        $catId,
+        $studentId
+    );
+    if (!empty($myCertificate['created_at'])) {
+        $createdAt = strtotime(api_get_local_time($myCertificate['created_at']));
+        $createdAt = api_format_date($createdAt, DATE_FORMAT_LONG_NO_DAY);
+    }
+    $myContentHtml = str_replace(
+        '((expedition_date))',
+        $createdAt,
         $myContentHtml
     );
 
@@ -264,4 +315,6 @@ function getIndexFiltered($index)
 
     return $result;
 }
+
+
 

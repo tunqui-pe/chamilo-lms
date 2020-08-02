@@ -42,6 +42,7 @@ $certificateTable->addColumn('margin_top', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->addColumn('margin_bottom', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->addColumn('certificate_default', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->addColumn('show_back', Type::INTEGER, ['unsigned' => true]);
+$certificateTable->addColumn('date_change', Type::INTEGER, ['unsigned' => true]);
 $certificateTable->setPrimaryKey(['id']);
 
 $queries = $pluginSchema->toSql($platform);

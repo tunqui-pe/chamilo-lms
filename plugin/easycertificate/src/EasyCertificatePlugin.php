@@ -120,6 +120,7 @@ class EasyCertificatePlugin extends Plugin
                     'margin_bottom' => intval($row['margin_bottom']),
                     'certificate_default' => 0,
                     'show_back' => intval($row['show_back']),
+                    'date_change' => intval($row['date_change']),
                 ];
 
                 $certificateId = Database::insert(self::TABLE_EASYCERTIFICATE, $params);
@@ -198,24 +199,27 @@ class EasyCertificatePlugin extends Plugin
 
         $certificateTable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
         $categoryTable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = "SELECT cer.user_id AS user_id, cat.session_id AS session_id, cat.course_code AS course_code
+        $sql = "SELECT cer.user_id AS user_id, cat.session_id AS session_id, cat.course_code AS course_code , cer.cat_id AS cat_id
                 FROM $certificateTable cer
                 INNER JOIN $categoryTable cat
                 ON (cer.cat_id = cat.id AND cer.user_id = $userId)
                 WHERE cer.id = $id";
 
         $rs = Database::query($sql);
+
         if (Database::num_rows($rs) > 0) {
             $row = Database::fetch_assoc($rs);
             $courseCode = $row['course_code'];
             $sessionId = $row['session_id'];
             $userId = $row['user_id'];
+            $categoryId = $row['cat_id'];
 
             if (api_get_course_setting('easycertificate_course_enable', $courseCode)) {
                 return [
                     'course_code' => $courseCode,
                     'session_id' => $sessionId,
                     'user_id' => $userId,
+                    'category_id' => $categoryId
                 ];
             }
         }
@@ -237,7 +241,7 @@ class EasyCertificatePlugin extends Plugin
 
         if (api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true') {
             $infoCertificate = self::getCertificateData($certId, $userId);
-            var_dump($infoCertificate);
+            //var_dump($infoCertificate);
             if (!empty($infoCertificate)) {
 
                 if ($certificate->user_id == api_get_user_id() && !empty($certificate->certificate_data)) {
@@ -259,7 +263,8 @@ class EasyCertificatePlugin extends Plugin
                 $url = api_get_path(WEB_PLUGIN_PATH).'easycertificate/src/print_certificate.php'.
                     '?student_id='.$infoCertificate['user_id'].
                     '&course_code='.$infoCertificate['course_code'].
-                    '&session_id='.$infoCertificate['session_id'];
+                    '&session_id='.$infoCertificate['session_id'].
+                    '&cat_id='.$infoCertificate['category_id'];
                 header('Location: '.$url);
                 exit;
             }

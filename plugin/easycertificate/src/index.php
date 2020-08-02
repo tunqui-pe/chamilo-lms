@@ -38,6 +38,11 @@ if ($isDefault === 1) {
     $defaultCertificate = 0;
     $urlParams = '?'.api_get_cidreq();
 }
+/*$sessionInfo = [];
+if ($sessionId > 0) {
+    $sessionInfo = SessionManager::fetch($sessionId);
+    var_dump($sessionInfo);
+}*/
 
 if (!$enable) {
     api_not_allowed(true, $plugin->get_lang('ToolDisabled'));
@@ -129,7 +134,8 @@ if ($form->validate()) {
             'margin_top' => (int) $formValues['margin_top'],
             'margin_bottom' => (int) $formValues['margin_bottom'],
             'certificate_default' => 0,
-            'show_back' => (int) $formValues['show_back']
+            'show_back' => (int) $formValues['show_back'],
+            'date_change' => (int) $formValues['date_change']
         ];
 
         if (intval($formValues['default_certificate'] == 1)) {
@@ -316,9 +322,10 @@ $listTags = [
     'course_title',
     'gradebook_grade',
     'external_style',
-    'start_date',
-    'end_date',
-    'date_expediction'
+    'session_start_date',
+    'session_end_date',
+    'expedition_date',
+    'code_certificate'
 ];
 
 $strInfo = '<ul class="list-tags">';
@@ -378,6 +385,18 @@ $form->addRadio(
     ]
 );
 
+
+//Change date
+$form->addRadio(
+    'date_change',
+    $plugin->get_lang('DateSession'),
+    [
+        '0' => $plugin->get_lang('UseDateViewSession'),
+        '1' => $plugin->get_lang('UseDateAccessSession')
+    ]
+);
+
+
 //Margin
 $form->addNumeric(
     'margin_left',
@@ -434,7 +453,10 @@ $form->addHtml('</div><div class="col-md-6">');
 // background 297/210
 $form->addFile(
     'background_h',
-    $plugin->get_lang('BackgroundHorizontal'),
+    [
+        $plugin->get_lang('BackgroundHorizontal'),
+        $plugin->get_lang('BackgroundHorizontalHelp')
+    ],
     [
         'id' => 'background_h',
         'class' => 'picture-form',
@@ -451,7 +473,10 @@ if (!empty($infoCertificate['background_h'])) {
 
 $form->addFile(
     'background_v',
-    $plugin->get_lang('BackgroundVertical'),
+    [
+        $plugin->get_lang('BackgroundVertical'),
+        $plugin->get_lang('BackgroundVerticalHelp')
+    ],
     [
         'id' => 'background_v',
         'class' => 'picture-form',
