@@ -180,6 +180,31 @@ class EasyCertificatePlugin extends Plugin
         return false;
     }
 
+    public static function getCodeCertificate($catId, $userId){
+        $userId = (int) $userId;
+        $catId = (int) $catId;
+        $list = [];
+
+        $certificateTable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CERTIFICATE);
+        $categoryTable = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
+
+        $sql = "SELECT cer.id as id_certificate, CONCAT(cer.id,'-',cer.cat_id,'-',cer.user_id) as code_certificate
+                FROM $certificateTable cer
+                INNER JOIN $categoryTable cat
+                ON (cer.cat_id = cat.id AND cer.user_id = $userId)
+                WHERE cer.cat_id = $catId";
+
+        $rs = Database::query($sql);
+        if (Database::num_rows($rs) > 0) {
+            $row = Database::fetch_assoc($rs);
+            $list = [
+                'id_certificate' => $row['id_certificate'],
+                'code_certificate' => $row['code_certificate'],
+                'code_certificate_md5' => md5($row['code_certificate'])
+            ];
+        }
+        return $list;
+    }
     /**
      * Get certificate data.
      *

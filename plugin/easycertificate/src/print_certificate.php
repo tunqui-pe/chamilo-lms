@@ -190,6 +190,13 @@ foreach ($userList as $userInfo) {
         $myContentHtml
     );
 
+    $codeCertificate = EasyCertificatePlugin::getCodeCertificate($catId,$studentId);
+    $myContentHtml = str_replace(
+        '((code_certificate))',
+        strtoupper($codeCertificate['code_certificate_md5']),
+        $myContentHtml
+    );
+
     $myContentHtml = strip_tags(
         $myContentHtml,
         '<p><b><strong><table><tr><td><th><tbody><span><i><li><ol><ul>
