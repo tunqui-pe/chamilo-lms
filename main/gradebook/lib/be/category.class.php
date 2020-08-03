@@ -788,7 +788,7 @@ class Category implements GradebookItem
     public function show_message_resource_delete($courseCode)
     {
         $table = Database::get_main_table(TABLE_MAIN_GRADEBOOK_CATEGORY);
-        $sql = 'SELECT count(*) AS num 
+        $sql = 'SELECT count(*) AS num
                 FROM '.$table.'
                 WHERE
                     course_code = "'.Database::escape_string($courseCode).'" AND
@@ -1488,8 +1488,8 @@ class Category implements GradebookItem
 
         $sql = 'SELECT DISTINCT(code), title
                 FROM '.$tbl_main_courses.' cc, '.$tbl_main_course_user.' cu
-                WHERE 
-                    cc.id = cu.c_id AND 
+                WHERE
+                    cc.id = cu.c_id AND
                     cu.status = '.COURSEMANAGER;
 
         if (!api_is_platform_admin()) {
@@ -2176,7 +2176,12 @@ class Category implements GradebookItem
                     $fileWasGenerated = true;
                 }
             }
-
+            if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate')==='true'){
+                $infoCertificate = EasyCertificatePlugin::getCertificateData($my_certificate['id'], $user_id);
+                if (!empty($infoCertificate)) {
+                    $fileWasGenerated = true;
+                }
+            }
             if (!empty($fileWasGenerated)) {
                 $url = api_get_path(WEB_PATH).'certificates/index.php?id='.$my_certificate['id'].'&user_id='.$user_id;
                 $certificates = Display::toolbarButton(

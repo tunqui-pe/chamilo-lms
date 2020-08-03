@@ -35,7 +35,13 @@ if (!empty($category) && !empty($category->get_course_code())) {
     $language_interface_initial_value = $language_interface;
 }
 
-CustomCertificatePlugin::redirectCheck($certificate, $certificateId, $userId);
+if(api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true'){
+    CustomCertificatePlugin::redirectCheck($certificate, $certificateId, $userId);
+}
+if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true'){
+    $result = EasyCertificatePlugin::redirectCheck($certificate, $certificateId, $userId);
+}
+
 
 switch ($action) {
     case 'export':
@@ -51,14 +57,12 @@ switch ($action) {
 
         if ($certificate->isHtmlFileGenerated()) {
             $certificatePathList[] = $certificate->html_file;
-
             $pdfParams = [
                 'top' => 0,
                 'right' => 0,
                 'bottom' => 0,
                 'left' => 0,
             ];
-
             $orientation = api_get_configuration_value('certificate_pdf_orientation');
             $pdfParams['orientation'] = 'landscape';
             if (!empty($orientation)) {
