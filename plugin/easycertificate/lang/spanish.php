@@ -69,3 +69,12 @@ $strings['FrontContentCertificate'] = "Coloque aquí el contenido de la parte fr
 $strings['PostContentCertificate'] = "Coloque aquí el contenido de la parte posterior del certificado.";
 $strings['ShowBack'] = "Mostrar posterior";
 $strings['ShowBackHelp'] = "Esta opción permite mostrar la parte posterior si esta activada.";
+$strings['FrontContent'] = "Contenido Frontal";
+$strings['BackContent'] = "Contenido posterior";
+$strings['DateSession'] = "Fecha de Sesion";
+$strings['UseDateViewSession'] = "Usar fecha de vista de sesión";
+$strings['UseDateAccessSession'] = "Usar fecha de sesión de acceso";
+$strings['Centimeters'] = "Centimetros";
+$strings['MarginTop'] = "Margen superior";
+$strings['MarginBottom'] = "Margen inferior";
+
