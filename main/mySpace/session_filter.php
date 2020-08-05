@@ -11,8 +11,21 @@ if (!api_is_allowed_to_create_course()) {
     api_not_allowed(true);
 }
 
-$allowCustomCertificate = api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true';
-$plugin = CustomCertificatePlugin::create();
+//Type customcerticate
+$settingName = null;
+$pluginPath = null;
+if(api_get_plugin_setting('customcertificate', 'enable_plugin_customcertificate') === 'true'){
+    $plugin = CustomCertificatePlugin::create();
+    $settingName = 'customcertificate_course_enable';
+    $pluginPath = 'customcertificate';
+}
+if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate') === 'true'){
+    $plugin = EasyCertificatePlugin::create();
+    $settingName = 'easycertificate_course_enable';
+    $pluginPath = 'easycertificate';
+}
+
+$allowCustomCertificate = api_get_course_setting($settingName, $courseInfo) == 1;
 
 $htmlHeadXtra[] = "<script>
     $(function () {
@@ -25,13 +38,13 @@ $htmlHeadXtra[] = "<script>
             var date_end = $('#date-end').val();
 
             if (confirm('".$plugin->get_lang('OnlyCustomCertificates')."')) {
-                var url = '".api_get_path(WEB_PLUGIN_PATH)."' +
-                    'customcertificate/src/export_pdf_all_in_one.php?' +
-                    'session_id=' + session_id + '&'+ 
+                var url = '".api_get_path(WEB_PLUGIN_PATH).$pluginPath."' +
+                    '/src/export_pdf_all_in_one.php?' +
+                    'session_id=' + session_id + '&'+
                     'date_begin=' + date_begin + '&' +
                     'date_end=' + date_end + '&' +
                     'export_pdf=1';
-    
+
                 $(location).attr('href',url);
             }
         });
@@ -44,13 +57,13 @@ $htmlHeadXtra[] = "<script>
             var date_begin = $('#date-begin').val();
             var date_end = $('#date-end').val();
             if (confirm('".$plugin->get_lang('OnlyCustomCertificates')."')) {
-                var url = '".api_get_path(WEB_PLUGIN_PATH)."' +
-                    'customcertificate/src/export_pdf_all_in_one.php?' +
-                    'session_id=' + session_id + '&'+ 
+                var url = '".api_get_path(WEB_PLUGIN_PATH).$pluginPath."' +
+                    '/src/export_pdf_all_in_one.php?' +
+                    'session_id=' + session_id + '&'+
                     'date_begin=' + date_begin + '&' +
                     'date_end=' + date_end + '&' +
                     'export_zip=1';
-    
+
                 $(location).attr('href',url);
             }
         });
@@ -191,7 +204,7 @@ $actions .= Display::url(
 );
 
 if ($allowCustomCertificate) {
-    $url = api_get_path(WEB_PLUGIN_PATH).'customcertificate/src/export_pdf_all_in_one.php';
+    $url = api_get_path(WEB_PLUGIN_PATH).$pluginPath.'/src/export_pdf_all_in_one.php';
     $actions .= Display::url(
         Display::return_icon('pdf.png', get_lang('ExportAllCertificatesToPDF'), [], ICON_SIZE_MEDIUM),
         $url,

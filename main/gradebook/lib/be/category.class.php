@@ -2198,6 +2198,12 @@ class Category implements GradebookItem
                     $fileWasGenerated = true;
                 }
             }
+            if(api_get_plugin_setting('easycertificate', 'enable_plugin_easycertificate')==='true'){
+                $infoCertificate = EasyCertificatePlugin::getCertificateData($my_certificate['id'], $user_id);
+                if (!empty($infoCertificate)) {
+                    $fileWasGenerated = true;
+                }
+            }
 
             if (!empty($fileWasGenerated)) {
                 $url = api_get_path(WEB_PATH).'certificates/index.php?id='.$my_certificate['id'].'&user_id='.$user_id;
