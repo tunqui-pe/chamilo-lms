@@ -9,7 +9,7 @@ $strings['sence_enabled_help'] = 'Escoga si desea activar el plugin en su plataf
 $strings['rut_otec'] = 'Ingresa tu RUT OTEC';
 $strings['rut_otec_help'] = 'RUT OTEC sin puntos y con digito verificador, en formato xxxxxxxx-x.';
 $strings['token_otec'] = 'Token del OTEC';
-$strings['token_otec_help'] = 'Ingresa tu TOKEN generado por el servicio SENCE. Si no lo tienes genera tu TOKEN en la siguiente dirección <a href="https://sistemas.sence.cl/rts" target="_blank">https://sistemas.sence.cl/rts</a>, identificándose con su RUT Empresa, RUT representante 
+$strings['token_otec_help'] = 'Ingresa tu TOKEN generado por el servicio SENCE. Si no lo tienes genera tu TOKEN en la siguiente dirección <a href="https://sistemas.sence.cl/rts" target="_blank">https://sistemas.sence.cl/rts</a>, identificándose con su RUT Empresa, RUT representante
 legal válido con el Servicio de Impuestos Internos, y Clave SENCE (CS) de empresa';
 $strings['company_name'] = 'Nombre del empresa OTEC';
 $strings['company_name_help'] = 'Nombre de la empresa o institución OTEC que brinda el servicio.';
@@ -111,3 +111,5 @@ $strings['ErrorSence307'] = 'El Código Curso no tiene modalidad E-Learning.';
 $strings['ErrorSence308'] = 'El Código Curso no corresponde al RUT OTEC.';
 $strings['ErrorSence309'] = 'Las fechas de ejecución comunicadas para el Código Curso no corresponden a la fecha actual.';
 $strings['ErrorSence310'] = 'El Código Curso está en estado Terminado o Anulado.';
+$strings['ActionIdCheckMulti'] = 'Multiple ID de Acción';
+$strings['ActionIdCheck'] = 'Solicitar a los usuarios que ingresen su propio ID de Acción';

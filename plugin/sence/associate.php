@@ -66,10 +66,16 @@ if ($enable) {
                         $plugin->get_lang('CodeCourse'),
                         $plugin->get_lang('CodeCourseHelp')
                     ],
-                    true,
+                    false,
                     [
                         'title'=>$plugin->get_lang('CodeSenceHelp')
                     ]
+                );
+
+                $form->addCheckBox(
+                    'action_id',
+                    $plugin->get_lang('ActionIdCheckMulti'),
+                    $plugin->get_lang('ActionIdCheck')
                 );
 
                 $options = $plugin->getTrainingLines();
@@ -150,10 +156,16 @@ if ($enable) {
                         $plugin->get_lang('CodeCourse'),
                         $plugin->get_lang('CodeCourseHelp')
                     ],
-                    true,
+                    false,
                     [
                         'title'=>$plugin->get_lang('CodeSenceHelp')
                     ]
+                );
+
+                $form->addCheckBox(
+                    'action_id',
+                    $plugin->get_lang('ActionIdCheckMulti'),
+                    $plugin->get_lang('ActionIdCheck')
                 );
 
                 $options = $plugin->getTrainingLines();
