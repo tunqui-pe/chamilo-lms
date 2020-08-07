@@ -32,6 +32,7 @@ $strings['SendRecord'] = "Envoyer l'enregistrement";
 $strings['DeleteRecord'] = "Supprimer l'enregistrement";
 $strings['AlertDiskSpace'] = "Alerte! Espace disque quotidien";
 $strings['YourAvailableDiskSpace'] = "Votre espace disque disponible est";
+$strings['YourConsumedDiskSpace'] = "Votre espace disque consommé est";
 $strings['SystemStatisticsRecorded'] = "Statistiques système enregistrées sur";
 $strings['alerts_email_disk'] = "E-mail d'alerte";
 $strings['alerts_email_disk_help'] = "Par défaut, l'alerte est envoyée au courriel de l'administrateur, ici vous pouvez ajouter un deuxième courriel pour les alertes.";
