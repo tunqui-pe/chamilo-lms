@@ -189,11 +189,12 @@ if ($enable) {
                 );
 
                 $form->addHidden('id', $dataSence['id']);
-
+                //$form->addHidden('action_id', $dataSence['action_id']);
                 $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
 
                 try {
                     $form->setDefaults($dataSence);
+                    $dataSence = [];
                 } catch (Exception $e) {
                     echo $e;
                 }

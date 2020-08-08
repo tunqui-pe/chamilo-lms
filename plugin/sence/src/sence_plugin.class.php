@@ -237,6 +237,7 @@ class SencePlugin extends Plugin
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
             'training_line' => $values['training_line'],
+            'action_id' => $values['action_id'],
             'activate' => 1,
         ];
 
@@ -265,6 +266,7 @@ class SencePlugin extends Plugin
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
             'training_line' => $values['training_line'],
+            'action_id' => $values['action_id'],
             'activate' => 1,
         ];
 
@@ -321,6 +323,7 @@ class SencePlugin extends Plugin
                     'code_course' => $row['code_course'],
                     'id_group' => $row['id_group'],
                     'training_line' => $row['training_line'],
+                    'action_id' => $row['action_id'],
                     'activate' => $row['activate'],
                 ];
             }
