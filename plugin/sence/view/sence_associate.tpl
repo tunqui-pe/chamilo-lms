@@ -7,3 +7,13 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function() {
+        $('input[name=action_id]').on( 'change', function() {
+            if( !$(this).prop('checked') ) {
+                $('input[name=action_id]').removeAttr('checked');
+            }
+        });
+
+    });
+</script>

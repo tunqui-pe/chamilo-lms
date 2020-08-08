@@ -47,7 +47,7 @@ class SencePlugin extends Plugin
             ]
         );
 
-        $this->isAdminPlugin = true;
+        //$this->isAdminPlugin = true;
     }
 
     /**
@@ -86,10 +86,11 @@ class SencePlugin extends Plugin
             id INT unsigned NOT NULL auto_increment PRIMARY KEY,
             c_id INT NULL,
             id_session INT NULL,
-            code_sence VARCHAR(10) NULL,
+            code_sence VARCHAR(10) NULL, /* ID Action Sence */
             code_course VARCHAR(36) NULL,
             id_group INT NULL,
             training_line INT NULL,
+            action_id INT NULL,
             activate INT
         )";
 
@@ -106,6 +107,7 @@ class SencePlugin extends Plugin
             code_sence VARCHAR(10) NULL,
             id_session_sence VARCHAR(150) NULL,
             code_course VARCHAR(36) NULL,
+            action_id INT NULL,
             run_student VARCHAR(10) NULL,
             date_login DATETIME NULL,
             time_zone VARCHAR(100) NULL,
@@ -127,6 +129,7 @@ class SencePlugin extends Plugin
             code_sence VARCHAR(10) NULL,
             id_session_sence VARCHAR(150) NULL,
             code_course VARCHAR(36) NULL,
+            action_id INT NULL,
             run_student VARCHAR(10) NULL,
             date_login DATETIME NULL,
             time_zone VARCHAR(100) NULL,
@@ -234,6 +237,7 @@ class SencePlugin extends Plugin
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
             'training_line' => $values['training_line'],
+            'action_id' => $values['action_id'],
             'activate' => 1,
         ];
 
@@ -262,6 +266,7 @@ class SencePlugin extends Plugin
             'code_course' => $values['code_course'],
             'id_group' => $values['id_group'],
             'training_line' => $values['training_line'],
+            'action_id' => $values['action_id'],
             'activate' => 1,
         ];
 
@@ -318,6 +323,7 @@ class SencePlugin extends Plugin
                     'code_course' => $row['code_course'],
                     'id_group' => $row['id_group'],
                     'training_line' => $row['training_line'],
+                    'action_id' => $row['action_id'],
                     'activate' => $row['activate'],
                 ];
             }
@@ -537,7 +543,7 @@ class SencePlugin extends Plugin
 
         $sql = "DELETE FROM $tableUserLogin
                 WHERE
-                    c_id = $idCourse AND id_session = $idSession AND 
+                    c_id = $idCourse AND id_session = $idSession AND
                     user_id = '".intval($idUser)."'";
 
         $result = Database::query($sql);
@@ -717,7 +723,7 @@ class SencePlugin extends Plugin
         $idCourse = api_get_course_int_id();
         $idSession = api_get_session_id();
 
-        $sql = "SELECT cg.id FROM c_group_info cg INNER JOIN c_group_rel_user cgu ON 
+        $sql = "SELECT cg.id FROM c_group_info cg INNER JOIN c_group_rel_user cgu ON
         cg.id = cgu.group_id WHERE cgu.user_id = $idUser AND cgu.c_id = $idCourse AND cg.session_id = $idSession";
         $result = Database::query($sql);
         $idGroup = null;
