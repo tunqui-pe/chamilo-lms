@@ -234,7 +234,7 @@ $actions = Display::toolbarAction(
 );
 
 if ($useDefault && $courseId > 0) {
-    $message = Display::return_message(get_lang('InfoFromDefaultCertificate'), 'info');
+    $message = Display::return_message($plugin->get_lang('InfoFromDefaultCertificate'), 'info');
 }
 
 // Student and course section
