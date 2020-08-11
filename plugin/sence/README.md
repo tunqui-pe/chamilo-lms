@@ -22,7 +22,7 @@ Versión 1.5 (Update 11-08-20)
 - En esta versión se agrego la opción de Multi ID de Acción, permitiendo que en un solo curso o sesión puede haber diferentes usuarios
 con un ID de acción diferente.
 
-- Actualización de versión 1.0 a versión 1.5 si tiene el plugin ya en uso debera realizar la siguiente modificación:
+- Actualización de versión 1.0 a versión 1.5 si tiene el plugin ya en uso deberá realizar la siguiente modificación:
 ```sql
 ALTER TABLE plugin_sence_courses ADD action_id INT NULL DEFAULT NULL AFTER training_line;
 ALTER TABLE plugin_sence_logs ADD action_id INT NULL DEFAULT NULL AFTER code_course;
