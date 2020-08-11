@@ -90,8 +90,14 @@
                                             <dd>{{ company_name }}</dd>
                                             <dt>{{ 'CodeSence'|get_plugin_lang('SencePlugin') }}</dt>
                                             <dd>{{ sence.code_sence }}</dd>
-                                            <dt>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</dt>
-                                            <dd>{{ sence.code_course }}</dd>
+                                            {% if sence.action_id != 1 %}
+                                                <dt>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</dt>
+                                                <dd>{{ sence.code_course }}</dd>
+                                            {% endif %}
+                                            {% if check %}
+                                                <dt>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</dt>
+                                                <dd>{{ sence.code_course }}</dd>
+                                            {% endif %}
                                             <dt>{{ 'NameCourseSence'|get_plugin_lang('SencePlugin') }}</dt>
                                             <dd>{{ course.title }}</dd>
                                             {% if check %}

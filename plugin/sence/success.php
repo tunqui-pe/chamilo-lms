@@ -20,12 +20,10 @@ $tpl = new Template($tool_name);
 $courseInfo = api_get_course_info();
 $message = null;
 $userInfo = Session::read('_user');
-
-
+$multiAction = $plugin->getMultiIDAction(api_get_course_int_id());
 if(!empty($_POST['IdSesionSence'])) {
 
     if ($userInfo['user_id'] == $_POST['IdSesionAlumno']) {
-
         $values = [
             'c_id' => api_get_course_int_id(),
             'id_session' => api_get_session_id(),
@@ -40,10 +38,12 @@ if(!empty($_POST['IdSesionSence'])) {
             'date_login' => $_POST['FechaHora'],
             'time_zone' => $_POST['ZonaHoraria'],
             'training_line' => $_POST['LineaCapacitacion'],
+            'action_id' => $multiAction,
             'glosa_error' => 0,
             'type_login' => 1
         ];
         $senceInfoUser = $plugin->getLoginUserSenceInfo($courseInfo['real_id'], $userInfo['user_id']);
+
         if(!$senceInfoUser){
             $res = $plugin->registerLoginUserSence($values);
             $resLogs = $plugin->registerLogs($values);
@@ -77,6 +77,7 @@ if(!empty($_POST['IdSesionSence'])) {
         'date_login' => $_POST['FechaHora'],
         'time_zone' => $_POST['ZonaHoraria'],
         'training_line' => $_POST['LineaCapacitacion'],
+        'action_id' => $multiAction,
         'glosa_error' => 0,
         'type_login' => 2
     ];

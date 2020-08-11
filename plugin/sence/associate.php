@@ -162,7 +162,7 @@ if ($enable) {
                     ]
                 );
 
-                $form->addCheckBox(
+                $checkMultiAction = $form->addCheckBox(
                     'action_id',
                     $plugin->get_lang('ActionIdCheckMulti'),
                     $plugin->get_lang('ActionIdCheck')
@@ -189,23 +189,27 @@ if ($enable) {
                 );
 
                 $form->addHidden('id', $dataSence['id']);
-                //$form->addHidden('action_id', $dataSence['action_id']);
                 $form->addButtonSave($plugin->get_lang('SaveCodeSence'));
 
+                if ($form->validate()) {
+                    $values = $form->exportValues();
+                    $checkMultiAction = 0;
+                    if(isset($values['action_id'])){
+                        $checkMultiAction = 1;
+                    }
+                    $values['action_id'] = $checkMultiAction;
+                    $res = $plugin->updateCodeSenceCourse($values);
+
+                    if ($res) {
+                        $url = api_get_path(WEB_PLUGIN_PATH) . 'sence/start.php?' . api_get_cidreq();
+                        header('Location: ' . $url);
+                    }
+                }
                 try {
                     $form->setDefaults($dataSence);
                     $dataSence = [];
                 } catch (Exception $e) {
                     echo $e;
-                }
-
-                if ($form->validate()) {
-                    $values = $form->exportValues();
-                    $res = $plugin->updateCodeSenceCourse($values);
-                    if ($res) {
-                        $url = api_get_path(WEB_PLUGIN_PATH).'sence/start.php?'.api_get_cidreq();
-                        header('Location: '.$url);
-                    }
                 }
                 $tpl->assign('form_sence', $form->returnForm());
 

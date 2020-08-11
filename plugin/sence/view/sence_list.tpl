@@ -8,6 +8,7 @@
                 <th>{{ 'Firstname'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'Lastname'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'CodeCourse'|get_plugin_lang('SencePlugin') }}</th>
+                <th>{{ 'MultiAction'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'RunStudentSence'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'SessionSence'|get_plugin_lang('SencePlugin') }}</th>
                 <th>{{ 'DateLoginSence'|get_plugin_lang('SencePlugin') }}</th>
@@ -30,6 +31,7 @@
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.code_course }}</td>
+                <td>{{ user.action_id }}</td>
                 <td>{{ user.run_student  }}</td>
                 <td>
                     {% if user.id_session_sence %}

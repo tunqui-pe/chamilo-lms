@@ -59,6 +59,7 @@ if ($enable) {
                     $plugin->get_lang('Firstname'),
                     $plugin->get_lang('Lastname'),
                     $plugin->get_lang('CodeSence'),
+                    $plugin->get_lang('MultiAction'),
                     $plugin->get_lang('SessionSence'),
                     $plugin->get_lang('CodeCourse'),
                     $plugin->get_lang('RunStudentSence'),

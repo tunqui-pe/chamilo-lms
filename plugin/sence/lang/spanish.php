@@ -113,3 +113,4 @@ $strings['ErrorSence309'] = 'Las fechas de ejecución comunicadas para el Códig
 $strings['ErrorSence310'] = 'El Código Curso está en estado Terminado o Anulado.';
 $strings['ActionIdCheckMulti'] = 'Multiple ID de Acción';
 $strings['ActionIdCheck'] = 'Solicitar a los usuarios que ingresen su propio ID de Acción';
+$strings['MultiAction'] = 'Action Multiple';

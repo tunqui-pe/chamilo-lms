@@ -32,7 +32,7 @@ $idStudent = api_get_user_id();
 
 if ($enable) {
     $senceInfo = $plugin->getSenceInfo($courseInfo['real_id']);
-
+    $multiAction = $senceInfo['action_id'] == '1';
     $tpl->assign('sence', $senceInfo);
     //var_dump($senceInfoUser = $plugin->getLoginUserSenceInfo($idCourse, $idStudent));
     $urlPageError = api_get_path(WEB_PLUGIN_PATH).'sence/error.php?'.api_get_cidreq();
@@ -114,9 +114,24 @@ if ($enable) {
                             'required' => 'required',
                         ]
                     );
-
+                    if($multiAction){
+                        $form->addText(
+                            'CodigoCurso',
+                            [
+                                $plugin->get_lang('CodeCourse'),
+                                $plugin->get_lang('CodeCourseHelp'),
+                            ],
+                            true,
+                            [
+                                'title' => $plugin->get_lang('CodeSenceHelp'),
+                                'required' => 'required',
+                            ]
+                        );
+                    } else {
+                        $form->addHidden('CodigoCurso', $senceInfo['code_course']);
+                    }
+                    $form->addHidden('ActionId', $senceInfo['action_id']);
                     $form->addHidden('CodSence', $senceInfo['code_sence']);
-                    $form->addHidden('CodigoCurso', $senceInfo['code_course']);
                     $form->addHidden('LineaCapacitacion', $senceInfo['training_line']);
                     $form->addHidden('IdSesionAlumno', $idStudent);
                     $form->addHidden('UrlRetoma', $urlPageSuccess);

@@ -21,6 +21,7 @@ $emailEnable = $plugin->get('alert_email') == 'true';
 
 $tool_name = $plugin->get_lang('SynchronizationFailed');
 $tpl = new Template($tool_name);
+$multiAction = $plugin->getMultiIDAction(api_get_course_int_id());
 
 if(empty($_POST['IdSesionSence'])) {
 
@@ -39,6 +40,7 @@ if(empty($_POST['IdSesionSence'])) {
         'time_zone' => $_POST['ZonaHoraria'],
         'training_line' => $_POST['LineaCapacitacion'],
         'glosa_error' => $_POST['GlosaError'],
+        'action_id' => $multiAction,
         'type_login' => 3
     ];
 

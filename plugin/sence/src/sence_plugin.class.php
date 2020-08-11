@@ -301,6 +301,27 @@ class SencePlugin extends Plugin
         return true;
     }
 
+    public function getMultiIDAction($idCourse){
+        if (empty($idCourse)) {
+            return false;
+        }
+        $idAction = 0;
+        $idSession = api_get_session_id();
+        $tableSenceCourse = Database::get_main_table(self::TABLE_SENCE_COURSES);
+        $sql = "SELECT * FROM $tableSenceCourse
+        WHERE c_id = $idCourse AND id_session = $idSession";
+
+        $result = Database::query($sql);
+        if (Database::num_rows($result) > 0) {
+            while ($row = Database::fetch_array($result)) {
+                $idAction = $row['action_id'];
+            }
+            return $idAction;
+        } else {
+            return false;
+        }
+    }
+
     public function getSenceInfo($idCourse)
     {
         if (empty($idCourse)) {
@@ -443,6 +464,7 @@ class SencePlugin extends Plugin
                     'date_login' => $row['date_login'],
                     'time_zone' => $row['time_zone'],
                     'training_line' => $row['training_line'],
+                    'action_id' => $row['action_id'],
                     'glosa_error' => $row['glosa_error'],
                 ];
             }
@@ -488,6 +510,7 @@ class SencePlugin extends Plugin
                     'training_line' => $row['training_line'],
                     'type_login' => $row['type_login'],
                     'glosa_error' => $row['glosa_error'],
+                    'action_id' => $row['action_id'],
                     'details_error' => self::getErrorLoginMessage($row['glosa_error'])
 
                 ];
