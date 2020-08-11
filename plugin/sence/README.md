@@ -15,4 +15,13 @@ Plugin que conecta el servicio SENCE con la plataforma de e-learning Chamilo
 
 - Instalar plugin
 - En configuración del plugin: Activar Herramienta SENCE -> SI
-- Ingresa los datos necesarios para la integración y luego Guardar
+- Ingresa los datos necesarios para la integración y luego Guardar.
+
+Versión 1.5 (Update 11-08-20)
+---
+- En esta versión se agrego la opción de Multi ID de Acción, permitiendo que en un solo curso o sesión puede haber diferentes usuarios
+con un ID de acción diferente.
+
+- Actualización de versión 1.0 a versión 1.5 si tiene el plugin ya en uso debera realizar la siguiente modificación:
+
+ 

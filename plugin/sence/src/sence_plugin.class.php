@@ -32,7 +32,7 @@ class SencePlugin extends Plugin
     protected function __construct()
     {
         parent::__construct(
-            '1.0',
+            '1.5',
             '
                 Alex Aragón Calixto',
             [
@@ -140,13 +140,13 @@ class SencePlugin extends Plugin
 
         Database::query($sql);
 
-        $src1 = api_get_path(SYS_PLUGIN_PATH).'sence/resources/img/64/sence.png';
+       /* $src1 = api_get_path(SYS_PLUGIN_PATH).'sence/resources/img/64/sence.png';
         $src2 = api_get_path(SYS_PLUGIN_PATH).'sence/resources/img/64/sence_na.png';
         $dest1 = api_get_path(SYS_CODE_PATH).'img/icons/64/sence.png';
         $dest2 = api_get_path(SYS_CODE_PATH).'img/icons/64/sence_na.png';
 
         copy($src1, $dest1);
-        copy($src2, $dest2);
+        copy($src2, $dest2);*/
 
     }
 
