@@ -24,4 +24,8 @@ con un ID de acción diferente.
 
 - Actualización de versión 1.0 a versión 1.5 si tiene el plugin ya en uso debera realizar la siguiente modificación:
 
+`ALTER TABLE plugin_sence_courses ADD action_id INT NULL DEFAULT NULL AFTER training_line;
+ ALTER TABLE plugin_sence_logs ADD action_id INT NULL DEFAULT NULL AFTER code_course;
+ ALTER TABLE plugin_sence_users_login ADD action_id INT NULL DEFAULT NULL AFTER code_course;`
+ 
  
