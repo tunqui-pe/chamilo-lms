@@ -58,7 +58,9 @@ $strings['ToolUseDefaultSettingCourse'] = "Herramienta configurada para usar el 
     O si lo desea puede desactivar la opción de usar certificado por defecto en la configuración del
      plugin en el curso";
 $strings['CertificateSettingDefault'] = "Configuración del certificado por defecto";
-$strings['InfoFromDefaultCertificate'] = "El contenido del certificado está basado en el certificado por defecto. Las modificaciones que realice no afectará al certificado por defecto.";
+$strings['InfoFromDefaultCertificate'] = "El contenido del certificado está basado en el certificado por defecto.
+ Las modificaciones que realice no afectará al certificado por defecto.";
+$strings['to'] = " a ";
 $strings['formatDownloadDate'] = " a %s de %s de %s";
 $strings['MessageUpdate'] = "El proceso de actualización ha terminado";
 $strings['PrintCertificate'] = "Imprimir certificado";
@@ -72,7 +74,7 @@ $strings['ShowBackHelp'] = "Esta opción permite mostrar la parte posterior si e
 $strings['FrontContent'] = "Contenido Frontal";
 $strings['BackContent'] = "Contenido posterior";
 $strings['DateSession'] = "Fecha de Sesion";
-$strings['UseDateViewSession'] = "Usar fecha de vista de sesión";
+$strings['UseDateViewSession'] = "Usar fecha pública de la sesión";
 $strings['UseDateAccessSession'] = "Usar fecha de sesión de acceso";
 $strings['Centimeters'] = "Centimetros";
 $strings['MarginTop'] = "Margen superior";
